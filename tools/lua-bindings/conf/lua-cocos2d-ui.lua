@@ -40,7 +40,7 @@ typeconf 'cocos2d::ui::Widget::BrightStyle'
 
 local Widget = typeconf 'cocos2d::ui::Widget'
 Widget.EXCLUDE 'createInstance'
-Widget.ATTR('getVirtualRenderer', {RET = '@ref(map protectedChildren)'})
+Widget.ATTR('getVirtualRenderer', {RET = '@hold(coexist protectedChildren)'})
 Widget.VAR('onFocusChanged', '@nullable std::function<void(Widget*,Widget*)> onFocusChanged')
 Widget.VAR('onNextFocusedWidget', '@nullable std::function<Widget*(FocusDirection)> onNextFocusedWidget')
 Widget.CALLBACK {
@@ -105,25 +105,25 @@ VideoPlayer.CALLBACK {
 }
 
 local AbstractCheckButton = typeconf 'cocos2d::ui::AbstractCheckButton'
-AbstractCheckButton.ATTR('getRendererBackground', {RET = '@ref(map protectedChildren)'})
-AbstractCheckButton.ATTR('getRendererBackgroundSelected', {RET = '@ref(map protectedChildren)'})
-AbstractCheckButton.ATTR('getRendererFrontCross', {RET = '@ref(map protectedChildren)'})
-AbstractCheckButton.ATTR('getRendererBackgroundDisabled', {RET = '@ref(map protectedChildren)'})
-AbstractCheckButton.ATTR('getRendererFrontCrossDisabled', {RET = '@ref(map protectedChildren)'})
+AbstractCheckButton.ATTR('getRendererBackground', {RET = '@hold(coexist protectedChildren)'})
+AbstractCheckButton.ATTR('getRendererBackgroundSelected', {RET = '@hold(coexist protectedChildren)'})
+AbstractCheckButton.ATTR('getRendererFrontCross', {RET = '@hold(coexist protectedChildren)'})
+AbstractCheckButton.ATTR('getRendererBackgroundDisabled', {RET = '@hold(coexist protectedChildren)'})
+AbstractCheckButton.ATTR('getRendererFrontCrossDisabled', {RET = '@hold(coexist protectedChildren)'})
 
 typeconf 'cocos2d::ui::TabHeader::EventType'
 
 local TabHeader = typeconf 'cocos2d::ui::TabHeader'
-TabHeader.ATTR('getTitleRenderer', {RET = '@ref(map protectedChildren)'})
+TabHeader.ATTR('getTitleRenderer', {RET = '@hold(coexist protectedChildren)'})
 
 typeconf 'cocos2d::ui::TabControl::Dock'
 typeconf 'cocos2d::ui::TabControl::EventType'
 
 local TabControl = typeconf 'cocos2d::ui::TabControl'
-TabControl.ATTR('removeTab', {RET = '@unref(cmp protectedChildren)'})
-TabControl.ATTR('getTabHeader', {RET = '@ref(map protectedChildren)'})
-TabControl.ATTR('getTabContainer', {RET = '@ref(map protectedChildren)'})
-TabControl.ATTR('insertTab', {ARG2 = '@ref(map protectedChildren)', ARG3 = '@ref(map protectedChildren)'})
+TabControl.ATTR('removeTab', {RET = '@unhold(cmp protectedChildren)'})
+TabControl.ATTR('getTabHeader', {RET = '@hold(coexist protectedChildren)'})
+TabControl.ATTR('getTabContainer', {RET = '@hold(coexist protectedChildren)'})
+TabControl.ATTR('insertTab', {ARG2 = '@hold(coexist protectedChildren)', ARG3 = '@hold(coexist protectedChildren)'})
 TabControl.CALLBACK {
     FUNCS = {'void setTabChangedEventListener(@nullable const std::function<void(int tabIndex, EventType)>& callback)'},
     TAG_MAKER = 'tabChangedEventListener',
@@ -134,7 +134,7 @@ typeconf 'cocos2d::ui::ScrollView::Direction'
 typeconf 'cocos2d::ui::ScrollView::EventType'
 
 local ScrollView = typeconf 'cocos2d::ui::ScrollView'
-ScrollView.ATTR('getInnerContainer', {RET = '@ref(map protectedChildren)'})
+ScrollView.ATTR('getInnerContainer', {RET = '@hold(coexist protectedChildren)'})
 ScrollView.CALLBACK {
     FUNCS = {'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)'},
     TAG_MAKER = 'scrollViewCallback',
@@ -147,13 +147,13 @@ typeconf 'cocos2d::ui::ListView::EventType'
 typeconf 'cocos2d::ui::ListView::MagneticType'
 
 local ListView = typeconf 'cocos2d::ui::ListView'
-ListView.ATTR('pushBackCustomItem', {ARG1 = '@ref(map children)'})
-ListView.ATTR('insertCustomItem', {ARG1 = '@ref(map children)'})
-ListView.ATTR('removeLastItem', {RET = '@unref(cmp children)'})
-ListView.ATTR('removeItem', {RET = '@unref(cmp children)'})
-ListView.ATTR('removeAllItems', {RET = '@unref(cmp children)'})
-ListView.ATTR('getItem', {RET = '@ref(map children)'})
-ListView.ATTR('getItems', {RET = '@ref(map children)'})
+ListView.ATTR('pushBackCustomItem', {ARG1 = '@hold(coexist children)'})
+ListView.ATTR('insertCustomItem', {ARG1 = '@hold(coexist children)'})
+ListView.ATTR('removeLastItem', {RET = '@unhold(cmp children)'})
+ListView.ATTR('removeItem', {RET = '@unhold(cmp children)'})
+ListView.ATTR('removeAllItems', {RET = '@unhold(cmp children)'})
+ListView.ATTR('getItem', {RET = '@hold(coexist children)'})
+ListView.ATTR('getItems', {RET = '@hold(coexist children)'})
 ListView.CALLBACK {
     FUNCS = {'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)'},
     TAG_MAKER = 'ListViewCallback',
@@ -167,11 +167,11 @@ typeconf 'cocos2d::ui::PageView::EventType'
 typeconf 'cocos2d::ui::PageView::TouchDirection'
 
 local PageView = typeconf 'cocos2d::ui::PageView'
-PageView.ATTR('addPage', {ARG1 = '@ref(map children)'})
-PageView.ATTR('insertPage', {ARG1 = '@ref(map children)'})
-PageView.ATTR('removePage', {ARG1 = '@unref(map children)'})
-PageView.ATTR('removePageAtIndex', {RET = '@unref(cmp children)'})
-PageView.ATTR('removeAllPages', {RET = '@unref(all children)'})
+PageView.ATTR('addPage', {ARG1 = '@hold(coexist children)'})
+PageView.ATTR('insertPage', {ARG1 = '@hold(coexist children)'})
+PageView.ATTR('removePage', {ARG1 = '@unhold(coexist children)'})
+PageView.ATTR('removePageAtIndex', {RET = '@unhold(cmp children)'})
+PageView.ATTR('removeAllPages', {RET = '@unhold(all children)'})
 PageView.CALLBACK {
     FUNCS = {'void addEventListener(@nullable const std::function<void(Ref*, PageView::EventType)>& callback)'},
     TAG_MAKER = 'PageViewCallback',
@@ -202,10 +202,10 @@ typeconf 'cocos2d::ui::ScrollViewBar'
 typeconf 'cocos2d::ui::Slider::EventType'
 
 local Slider = typeconf 'cocos2d::ui::Slider'
-Slider.ATTR('getSlidBallNormalRenderer', {RET = '@ref(map protectedChildren)'})
-Slider.ATTR('getSlidBallPressedRenderer', {RET = '@ref(map protectedChildren)'})
-Slider.ATTR('getSlidBallDisabledRenderer', {RET = '@ref(map protectedChildren)'})
-Slider.ATTR('getSlidBallRenderer', {RET = '@ref(map protectedChildren)'})
+Slider.ATTR('getSlidBallNormalRenderer', {RET = '@hold(coexist protectedChildren)'})
+Slider.ATTR('getSlidBallPressedRenderer', {RET = '@hold(coexist protectedChildren)'})
+Slider.ATTR('getSlidBallDisabledRenderer', {RET = '@hold(coexist protectedChildren)'})
+Slider.ATTR('getSlidBallRenderer', {RET = '@hold(coexist protectedChildren)'})
 Slider.CALLBACK {
     FUNCS = {'void addEventListener(@nullable const std::function<void(Ref*,EventType)>& callback)'},
     TAG_MAKER = 'sliderCallback',
@@ -227,12 +227,12 @@ TextField.CALLBACK {
 }
 
 local Button = typeconf 'cocos2d::ui::Button'
-Button.ATTR('setTitleLabel', {ARG1 = '@ref(map protectedChildren)'})
-Button.ATTR('getTitleRenderer', {RET = '@ref(map protectedChildren)'})
-Button.ATTR('getTitleLabel', {RET = '@ref(map protectedChildren)'})
-Button.ATTR('getRendererNormal', {RET = '@ref(map protectedChildren)'})
-Button.ATTR('getRendererClicked', {RET = '@ref(map protectedChildren)'})
-Button.ATTR('getRendererDisabled', {RET = '@ref(map protectedChildren)'})
+Button.ATTR('setTitleLabel', {ARG1 = '@hold(coexist protectedChildren)'})
+Button.ATTR('getTitleRenderer', {RET = '@hold(coexist protectedChildren)'})
+Button.ATTR('getTitleLabel', {RET = '@hold(coexist protectedChildren)'})
+Button.ATTR('getRendererNormal', {RET = '@hold(coexist protectedChildren)'})
+Button.ATTR('getRendererClicked', {RET = '@hold(coexist protectedChildren)'})
+Button.ATTR('getRendererDisabled', {RET = '@hold(coexist protectedChildren)'})
 
 typeconf 'cocos2d::ui::CheckBox::EventType'
 
@@ -269,7 +269,7 @@ typeconf 'cocos2d::ui::EditBox::KeyboardReturnType'
 typeconf 'cocos2d::ui::EditBox::InputMode'
 typeconf 'cocos2d::ui::EditBox::InputFlag'
 typeconf 'cocos2d::ui::EditBox'
-    .ATTR('setDelegate', {ARG1 = '@ref(single delegate)'})
-    .ATTR('getDelegate', {RET = '@ref(single delegate)'})
+    .ATTR('setDelegate', {ARG1 = '@hold(exclusive delegate)'})
+    .ATTR('getDelegate', {RET = '@hold(exclusive delegate)'})
 
 return M

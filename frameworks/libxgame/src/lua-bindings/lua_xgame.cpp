@@ -62,8 +62,10 @@ void auto_olua_check_xgame_downloader_FileTask(lua_State *L, int idx, xgame::dow
     lua_pop(L, 1);
 
     olua_getfield(L, idx, "md5");
-    olua_check_std_string(L, -1, &arg3);
-    value->md5 = (std::string)arg3;
+    if (!olua_isnoneornil(L, -1)) {
+        olua_check_std_string(L, -1, &arg3);
+        value->md5 = (std::string)arg3;
+    }
     lua_pop(L, 1);
 
     olua_getfield(L, idx, "state");
@@ -76,7 +78,7 @@ void auto_olua_check_xgame_downloader_FileTask(lua_State *L, int idx, xgame::dow
 
 bool auto_olua_is_xgame_downloader_FileTask(lua_State *L, int idx)
 {
-    return olua_istable(L, idx) && olua_hasfield(L, idx, "md5") && olua_hasfield(L, idx, "path") && olua_hasfield(L, idx, "url");
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "path") && olua_hasfield(L, idx, "url");
 }
 
 void auto_olua_pack_xgame_downloader_FileTask(lua_State *L, int idx, xgame::downloader::FileTask *value)
@@ -405,6 +407,19 @@ static int _xgame_runtime_getDeviceInfo(lua_State *L)
     return num_ret;
 }
 
+static int _xgame_runtime_getIDFA(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static std::string getIDFA()
+    std::string ret = (std::string)xgame::runtime::getIDFA();
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _xgame_runtime_getLanguage(lua_State *L)
 {
     olua_startinvoke(L);
@@ -533,6 +548,19 @@ static int _xgame_runtime_getVersion(lua_State *L)
     // static const std::string getVersion()
     const std::string ret = (const std::string)xgame::runtime::getVersion();
     int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _xgame_runtime_isAdvertisingTrackingEnabled(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static bool isAdvertisingTrackingEnabled()
+    bool ret = (bool)xgame::runtime::isAdvertisingTrackingEnabled();
+    int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
 
@@ -882,6 +910,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_func(L, "getAudioSessionCatalog", _xgame_runtime_getAudioSessionCatalog);
     oluacls_func(L, "getChannel", _xgame_runtime_getChannel);
     oluacls_func(L, "getDeviceInfo", _xgame_runtime_getDeviceInfo);
+    oluacls_func(L, "getIDFA", _xgame_runtime_getIDFA);
     oluacls_func(L, "getLanguage", _xgame_runtime_getLanguage);
     oluacls_func(L, "getLogPath", _xgame_runtime_getLogPath);
     oluacls_func(L, "getManifestVersion", _xgame_runtime_getManifestVersion);
@@ -892,6 +921,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_func(L, "getPermissionStatus", _xgame_runtime_getPermissionStatus);
     oluacls_func(L, "getTime", _xgame_runtime_getTime);
     oluacls_func(L, "getVersion", _xgame_runtime_getVersion);
+    oluacls_func(L, "isAdvertisingTrackingEnabled", _xgame_runtime_isAdvertisingTrackingEnabled);
     oluacls_func(L, "isAntialias", _xgame_runtime_isAntialias);
     oluacls_func(L, "isDebug", _xgame_runtime_isDebug);
     oluacls_func(L, "isRestarting", _xgame_runtime_isRestarting);
@@ -908,6 +938,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_func(L, "setNumSamples", _xgame_runtime_setNumSamples);
     oluacls_func(L, "support", _xgame_runtime_support);
     oluacls_func(L, "testCrash", _xgame_runtime_testCrash);
+    oluacls_prop(L, "advertisingTrackingEnabled", _xgame_runtime_isAdvertisingTrackingEnabled, nullptr);
     oluacls_prop(L, "antialias", _xgame_runtime_isAntialias, _xgame_runtime_setAntialias);
     oluacls_prop(L, "appBuild", _xgame_runtime_getAppBuild, nullptr);
     oluacls_prop(L, "appVersion", _xgame_runtime_getAppVersion, nullptr);
@@ -915,6 +946,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_prop(L, "channel", _xgame_runtime_getChannel, nullptr);
     oluacls_prop(L, "debug", _xgame_runtime_isDebug, nullptr);
     oluacls_prop(L, "deviceInfo", _xgame_runtime_getDeviceInfo, nullptr);
+    oluacls_prop(L, "idfa", _xgame_runtime_getIDFA, nullptr);
     oluacls_prop(L, "language", _xgame_runtime_getLanguage, nullptr);
     oluacls_prop(L, "logPath", _xgame_runtime_getLogPath, _xgame_runtime_setLogPath);
     oluacls_prop(L, "manifestVersion", _xgame_runtime_getManifestVersion, _xgame_runtime_setManifestVersion);

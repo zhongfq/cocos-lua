@@ -431,9 +431,9 @@ void xlua_endinvoke(lua_State *L)
     _currentState = NULL;
 }
 
-void xlua_startcmpunref(lua_State *L, int idx, const char *refname)
+void xlua_startcmpunhold(lua_State *L, int idx, const char *refname)
 {
-    olua_getreftable(L, idx, refname);                      // L: t
+    olua_getholdtable(L, idx, refname);                     // L: t
     lua_pushnil(L);                                         // L: t k
     while (lua_next(L, -2)) {                               // L: t k v
         if (olua_isa(L, -2, "cc.Ref")) {
@@ -469,16 +469,11 @@ static bool should_unref_obj(lua_State *L, int idx)
         if (obj && (!obj->getTarget() || obj->isDone())) {
             return true;
         }
-    } else if (olua_isa(L, idx, "cc.Node")) {
-        auto obj = (cocos2d::Node *)olua_toobj(L, idx, "cc.Node");
-        if (obj && !obj->getParent()) {
-            return true;
-        }
     }
     return false;
 }
 
-void xlua_endcmpunref(lua_State *L, int idx, const char *refname)
+void xlua_endcmpunhold(lua_State *L, int idx, const char *refname)
 {
-     olua_mapwalkunref(L, idx, refname, should_unref_obj);
+    olua_walkunhold(L, idx, refname, should_unref_obj);
 }

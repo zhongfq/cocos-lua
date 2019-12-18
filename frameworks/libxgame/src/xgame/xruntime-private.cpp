@@ -3,7 +3,8 @@
 #include "cocos2d.h"
 
 USING_NS_CC;
-USING_NS_XGAME;
+
+NS_XGAME_BEGIN
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 const std::string __runtime_getPackageName()
@@ -138,4 +139,7 @@ bool __runtime_canOpenURL(const std::string uri)
 {
 	return false;
 }
+
 #endif
+
+NS_XGAME_END

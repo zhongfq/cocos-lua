@@ -138,6 +138,9 @@ LUALIB_API void olua_preload(lua_State *L, const char *name, lua_CFunction func)
     lua_getglobal(L, "package");
     lua_getfield(L, -1, "preload");
     func(L);
+    if (olua_isnil(L, -1)) {
+        lua_pushboolean(L, true);
+    }
     lua_setfield(L, -2, name);
     lua_settop(L, top);
 }
@@ -180,23 +183,20 @@ LUALIB_API void olua_require(lua_State *L, const char *name, lua_CFunction func)
 LUALIB_API const char *olua_typename(lua_State *L, int idx)
 {
     const char *tn = NULL;
-    if (lua_isuserdata(L, idx) && lua_getmetatable(L, idx)) {
+    if (olua_isuserdata(L, idx) && lua_getmetatable(L, idx)) {
         if (olua_rawgetf(L, -1, "classname") == LUA_TSTRING) {
             tn = olua_tostring(L, -1);
         }
         lua_pop(L, 2); // pop mt and value
     }
-    if (!tn) {
-        tn = lua_typename(L, lua_type(L, idx));
-    }
-    return tn;
+    return tn ? tn : lua_typename(L, lua_type(L, idx));
 }
 
 LUALIB_API bool olua_isa(lua_State *L, int idx, const char *cls)
 {
     bool isa = false;
     int top = lua_gettop(L);
-    if (lua_isuserdata(L, idx) && lua_getmetatable(L, idx)) {
+    if (olua_isuserdata(L, idx) && lua_getmetatable(L, idx)) {
         if (olua_rawgetf(L, -1, CLS_ISA) == LUA_TTABLE) {
             olua_rawgetf(L, -1, cls);
             isa = olua_toboolean(L, -1);
@@ -236,7 +236,7 @@ static void aux_pushlocalobj(lua_State *L, void *obj)
         olua_rawseti(L, -3, mt->poolsize);
     }
     
-    lua_remove(L, -2);
+    lua_remove(L, -2);  // rm pool table
     olua_setrawdata(L, -1, obj);
 }
 
@@ -268,17 +268,15 @@ LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
         }
         lua_pushvalue(L, -3);                       // L: mt objtable ud mt
         lua_setmetatable(L, -2);                    // L: mt objtable ud     ud.metatable = mt
-    }
-    
-    if (!strequal(cls, OLUA_VOIDCLS) && olua_testudata(L, -1, OLUA_VOIDCLS)) {
+    } else if (!strequal(cls, OLUA_VOIDCLS)
+            && olua_testudata(L, -1, OLUA_VOIDCLS)) {
         lua_pushvalue(L, -3);                       // L: mt objtable ud mt
         lua_setmetatable(L, -2);                    // L: mt objtable ud     ud.metatable = mt
         status = OLUA_NEW;
     }
     
-    lua_insert(L, -3);
-    lua_pop(L, 2);
-    olua_assert(olua_isa(L, -1, cls));
+    lua_insert(L, -3);                              // L: ud mt objtable
+    lua_pop(L, 2);                                  // L: ud
     
     return status;
 }

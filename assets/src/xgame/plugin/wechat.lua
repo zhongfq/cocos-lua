@@ -60,11 +60,11 @@ function WeChat:ctor()
     end)
 end
 
-function WeChat:init(appid, appsecret)
+function WeChat:init(appid, appsecret, universalLink)
     self._appid = assert(appid, 'no app id')
     self._appsecret = appsecret
     self._scheme = string.format("%s://", appid)
-    impl:init(appid)
+    impl:init(appid, universalLink)
 end
 
 function WeChat.Get:installed()

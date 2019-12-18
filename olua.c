@@ -433,33 +433,32 @@ LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag
     return olua_tostring(L, -1);
 }
 
-LUALIB_API void olua_getcallback(lua_State *L, void *obj, const char *tag, int mode)
+LUALIB_API int olua_getcallback(lua_State *L, void *obj, const char *tag, int mode)
 {
     if (!olua_getobj(L, obj)) {
         lua_pushnil(L);
-        return;
+        return LUA_TNIL;
     }
     
-    aux_getusertable(L, -1);
-    lua_remove(L, -2);
+    aux_getusertable(L, -1);                            // L: obj ct
     
     if (mode == OLUA_TAG_WHOLE) {
-        olua_rawgetf(L, -1, tag);                       // L: ct v
-        lua_insert(L, -2);                              // L: v ct
-        lua_pop(L, 1);                                  // L: v
+        olua_rawgetf(L, -1, tag);                       // L: obj ct func
     } else {
-        lua_pushnil(L);                                 // L: ct k
-        while (lua_next(L, -2)) {                       // L: ct k v
+        lua_pushnil(L);                                 // L: obj ct nil
+        lua_pushnil(L);                                 // L: obj ct nil k
+        while (lua_next(L, -3)) {                       // L: obj ct nil k func
             if (test_tag_mode(L, -2, tag, mode)) {
-                lua_insert(L, -3);                      // L: v ct k
-                lua_pop(L, 2);                          // L: v
-                return;
+                lua_replace(L, -3);                     // L: obj ct func k
+                lua_pop(L, 1);                          // L: obj ct func
+                break;
             }
-            lua_pop(L, 1);
-        }
-        lua_pop(L, 1);                                  // L:
-        lua_pushnil(L);                                 // L: nil
+            lua_pop(L, 1);                              // L: obj ct nil k
+        }                                               // L: obj ct nil|func
     }
+    lua_insert(L, -3);                                  // L: nil|func obj ct
+    lua_pop(L, 2);                                      // L: nil|func
+    return lua_type(L, -1);
 }
 
 LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, int mode)
@@ -489,26 +488,22 @@ LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, in
 LUALIB_API int olua_callback(lua_State *L, void *obj, const char *func, int argc)
 {
     int top = lua_gettop(L) - argc;
-    int status = OLUA_MISS;
+    int status = OLUA_CALL_MISS;
     
-    if (olua_getobj(L, obj)) {                              // L: arg...n obj
-        aux_getusertable(L, -1);                            // L: arg...n obj uv
-        if (olua_rawgetf(L, -1, func) == LUA_TFUNCTION) {   // L: arg...n obj uv callback
-            lua_insert(L, top + 1);                         // L: callback arg...n obj uv
-            lua_pop(L, 2);                                  // L: callback arg...n
-            olua_geterrorfunc(L);                           // L: callback arg...n errfunc
-            lua_insert(L, top + 1);                         // L: errfunc callback arg...n
-            if (lua_pcall(L, argc, 1, top + 1) == LUA_OK) { // L: errfunc result
-                status = OLUA_OK;
-            } else {
-                status = OLUA_ERR;
-            }
-            lua_remove(L, -2);                              // L: result
+    if (olua_getcallback(L, obj, func, OLUA_TAG_WHOLE) == LUA_TFUNCTION) {
+        lua_insert(L, top + 1);                         // L: callback arg...n
+        olua_geterrorfunc(L);                           // L: callback arg...n errfunc
+        lua_insert(L, top + 1);                         // L: errfunc callback arg...n
+        if (lua_pcall(L, argc, 1, top + 1) == LUA_OK) { // L: errfunc result
+            status = OLUA_CALL_OK;
+        } else {
+            status = OLUA_CALL_ERR;
         }
+        lua_remove(L, -2);                              // L: result
     }
-    
-    if (status != OLUA_OK) {
-        if (status == OLUA_MISS) {
+
+    if (status != OLUA_CALL_OK) {
+        if (status == OLUA_CALL_MISS) {
             olua_geterrorfunc(L);
             lua_pushfstring(L, "callback missed: %s", func);
             lua_pcall(L, 1, 0, 0);
@@ -576,13 +571,13 @@ LUALIB_API int olua_ref(lua_State *L, int idx)
     static int ref = 0;
     if (!olua_isnil(L, idx)) {
         idx = lua_absindex(L, idx);
-        aux_getreftable(L);     // L: mapping
+        aux_getreftable(L);         // L: reft
         while (olua_rawgeti(L, -1, ++ref) != LUA_TNIL) {
             lua_pop(L, 1);
             ref = ref < 0 ? 0 : ref;
-        }                           // L: mapping nil
-        lua_pushvalue(L, idx);      // L: mapping nil value
-        lua_rawseti(L, -3, ref);    // L: mapping nil       mapping[ref] = value
+        }                           // L: reft nil
+        lua_pushvalue(L, idx);      // L: reft nil value
+        lua_rawseti(L, -3, ref);    // L: reft nil       reft[ref] = value
         lua_pop(L, 2);              // L:
         return ref;
     }
@@ -597,9 +592,9 @@ LUALIB_API int olua_reffunc(lua_State *L, int idx)
 
 LUALIB_API void olua_unref(lua_State *L, int ref)
 {
-    aux_getreftable(L);         // L: mapping
-    lua_pushnil(L);                 // L: mapping nil
-    lua_rawseti(L, -2, ref);        // L: mapping       mapping[ref] = nil
+    aux_getreftable(L);             // L: reft
+    lua_pushnil(L);                 // L: reft nil
+    lua_rawseti(L, -2, ref);        // L: reft       reft[ref] = nil
     lua_pop(L, 1);                  // L:
 }
 

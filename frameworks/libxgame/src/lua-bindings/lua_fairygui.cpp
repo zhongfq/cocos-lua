@@ -2954,7 +2954,7 @@ static int luaopen_fairygui_EaseType(lua_State *L)
     oluacls_const_integer(L, "SineInOut", (lua_Integer)fairygui::EaseType::SineInOut);
     oluacls_const_integer(L, "SineOut", (lua_Integer)fairygui::EaseType::SineOut);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::EaseType>(L, "fgui.EaseType");
 
     return 1;
 }
@@ -3024,7 +3024,7 @@ static int luaopen_fairygui_TweenPropType(lua_State *L)
     oluacls_const_integer(L, "X", (lua_Integer)fairygui::TweenPropType::X);
     oluacls_const_integer(L, "Y", (lua_Integer)fairygui::TweenPropType::Y);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::TweenPropType>(L, "fgui.TweenPropType");
 
     return 1;
 }
@@ -5736,7 +5736,7 @@ static int luaopen_fairygui_PackageItemType(lua_State *L)
     oluacls_const_integer(L, "SWF", (lua_Integer)fairygui::PackageItemType::SWF);
     oluacls_const_integer(L, "UNKNOWN", (lua_Integer)fairygui::PackageItemType::UNKNOWN);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::PackageItemType>(L, "fgui.PackageItemType");
 
     return 1;
 }
@@ -5763,7 +5763,7 @@ static int luaopen_fairygui_ObjectType(lua_State *L)
     oluacls_const_integer(L, "TEXT", (lua_Integer)fairygui::ObjectType::TEXT);
     oluacls_const_integer(L, "TREE", (lua_Integer)fairygui::ObjectType::TREE);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::ObjectType>(L, "fgui.ObjectType");
 
     return 1;
 }
@@ -5775,7 +5775,7 @@ static int luaopen_fairygui_ButtonMode(lua_State *L)
     oluacls_const_integer(L, "COMMON", (lua_Integer)fairygui::ButtonMode::COMMON);
     oluacls_const_integer(L, "RADIO", (lua_Integer)fairygui::ButtonMode::RADIO);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::ButtonMode>(L, "fgui.ButtonMode");
 
     return 1;
 }
@@ -5787,7 +5787,7 @@ static int luaopen_fairygui_ChildrenRenderOrder(lua_State *L)
     oluacls_const_integer(L, "ASCENT", (lua_Integer)fairygui::ChildrenRenderOrder::ASCENT);
     oluacls_const_integer(L, "DESCENT", (lua_Integer)fairygui::ChildrenRenderOrder::DESCENT);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::ChildrenRenderOrder>(L, "fgui.ChildrenRenderOrder");
 
     return 1;
 }
@@ -5799,7 +5799,7 @@ static int luaopen_fairygui_OverflowType(lua_State *L)
     oluacls_const_integer(L, "SCROLL", (lua_Integer)fairygui::OverflowType::SCROLL);
     oluacls_const_integer(L, "VISIBLE", (lua_Integer)fairygui::OverflowType::VISIBLE);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::OverflowType>(L, "fgui.OverflowType");
 
     return 1;
 }
@@ -5811,7 +5811,7 @@ static int luaopen_fairygui_ScrollType(lua_State *L)
     oluacls_const_integer(L, "HORIZONTAL", (lua_Integer)fairygui::ScrollType::HORIZONTAL);
     oluacls_const_integer(L, "VERTICAL", (lua_Integer)fairygui::ScrollType::VERTICAL);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::ScrollType>(L, "fgui.ScrollType");
 
     return 1;
 }
@@ -5824,7 +5824,7 @@ static int luaopen_fairygui_ScrollBarDisplayType(lua_State *L)
     oluacls_const_integer(L, "HIDDEN", (lua_Integer)fairygui::ScrollBarDisplayType::HIDDEN);
     oluacls_const_integer(L, "VISIBLE", (lua_Integer)fairygui::ScrollBarDisplayType::VISIBLE);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::ScrollBarDisplayType>(L, "fgui.ScrollBarDisplayType");
 
     return 1;
 }
@@ -5839,7 +5839,7 @@ static int luaopen_fairygui_LoaderFillType(lua_State *L)
     oluacls_const_integer(L, "SCALE_MATCH_WIDTH", (lua_Integer)fairygui::LoaderFillType::SCALE_MATCH_WIDTH);
     oluacls_const_integer(L, "SCALE_NO_BORDER", (lua_Integer)fairygui::LoaderFillType::SCALE_NO_BORDER);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::LoaderFillType>(L, "fgui.LoaderFillType");
 
     return 1;
 }
@@ -5852,7 +5852,7 @@ static int luaopen_fairygui_ProgressTitleType(lua_State *L)
     oluacls_const_integer(L, "VALUE", (lua_Integer)fairygui::ProgressTitleType::VALUE);
     oluacls_const_integer(L, "VALUE_MAX", (lua_Integer)fairygui::ProgressTitleType::VALUE_MAX);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::ProgressTitleType>(L, "fgui.ProgressTitleType");
 
     return 1;
 }
@@ -5866,7 +5866,7 @@ static int luaopen_fairygui_ListLayoutType(lua_State *L)
     oluacls_const_integer(L, "SINGLE_COLUMN", (lua_Integer)fairygui::ListLayoutType::SINGLE_COLUMN);
     oluacls_const_integer(L, "SINGLE_ROW", (lua_Integer)fairygui::ListLayoutType::SINGLE_ROW);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::ListLayoutType>(L, "fgui.ListLayoutType");
 
     return 1;
 }
@@ -5879,7 +5879,7 @@ static int luaopen_fairygui_ListSelectionMode(lua_State *L)
     oluacls_const_integer(L, "NONE", (lua_Integer)fairygui::ListSelectionMode::NONE);
     oluacls_const_integer(L, "SINGLE", (lua_Integer)fairygui::ListSelectionMode::SINGLE);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::ListSelectionMode>(L, "fgui.ListSelectionMode");
 
     return 1;
 }
@@ -5891,7 +5891,7 @@ static int luaopen_fairygui_GroupLayoutType(lua_State *L)
     oluacls_const_integer(L, "NONE", (lua_Integer)fairygui::GroupLayoutType::NONE);
     oluacls_const_integer(L, "VERTICAL", (lua_Integer)fairygui::GroupLayoutType::VERTICAL);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::GroupLayoutType>(L, "fgui.GroupLayoutType");
 
     return 1;
 }
@@ -5903,7 +5903,7 @@ static int luaopen_fairygui_PopupDirection(lua_State *L)
     oluacls_const_integer(L, "DOWN", (lua_Integer)fairygui::PopupDirection::DOWN);
     oluacls_const_integer(L, "UP", (lua_Integer)fairygui::PopupDirection::UP);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::PopupDirection>(L, "fgui.PopupDirection");
 
     return 1;
 }
@@ -5916,7 +5916,7 @@ static int luaopen_fairygui_AutoSizeType(lua_State *L)
     oluacls_const_integer(L, "NONE", (lua_Integer)fairygui::AutoSizeType::NONE);
     oluacls_const_integer(L, "SHRINK", (lua_Integer)fairygui::AutoSizeType::SHRINK);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::AutoSizeType>(L, "fgui.AutoSizeType");
 
     return 1;
 }
@@ -5929,7 +5929,7 @@ static int luaopen_fairygui_FlipType(lua_State *L)
     oluacls_const_integer(L, "NONE", (lua_Integer)fairygui::FlipType::NONE);
     oluacls_const_integer(L, "VERTICAL", (lua_Integer)fairygui::FlipType::VERTICAL);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::FlipType>(L, "fgui.FlipType");
 
     return 1;
 }
@@ -5955,7 +5955,7 @@ static int luaopen_fairygui_TransitionActionType(lua_State *L)
     oluacls_const_integer(L, "Visible", (lua_Integer)fairygui::TransitionActionType::Visible);
     oluacls_const_integer(L, "XY", (lua_Integer)fairygui::TransitionActionType::XY);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::TransitionActionType>(L, "fgui.TransitionActionType");
 
     return 1;
 }
@@ -5970,7 +5970,7 @@ static int luaopen_fairygui_FillMethod(lua_State *L)
     oluacls_const_integer(L, "Radial90", (lua_Integer)fairygui::FillMethod::Radial90);
     oluacls_const_integer(L, "Vertical", (lua_Integer)fairygui::FillMethod::Vertical);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::FillMethod>(L, "fgui.FillMethod");
 
     return 1;
 }
@@ -5983,7 +5983,7 @@ static int luaopen_fairygui_FillOrigin(lua_State *L)
     oluacls_const_integer(L, "Right", (lua_Integer)fairygui::FillOrigin::Right);
     oluacls_const_integer(L, "Top", (lua_Integer)fairygui::FillOrigin::Top);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::FillOrigin>(L, "fgui.FillOrigin");
 
     return 1;
 }
@@ -6002,7 +6002,7 @@ static int luaopen_fairygui_ObjectPropID(lua_State *L)
     oluacls_const_integer(L, "Text", (lua_Integer)fairygui::ObjectPropID::Text);
     oluacls_const_integer(L, "TimeScale", (lua_Integer)fairygui::ObjectPropID::TimeScale);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::ObjectPropID>(L, "fgui.ObjectPropID");
 
     return 1;
 }
@@ -17936,7 +17936,7 @@ static int luaopen_fairygui_RelationType(lua_State *L)
     oluacls_const_integer(L, "Top_Top", (lua_Integer)fairygui::RelationType::Top_Top);
     oluacls_const_integer(L, "Width", (lua_Integer)fairygui::RelationType::Width);
 
-    oluacls_asenum(L);
+    olua_registerluatype<fairygui::RelationType>(L, "fgui.RelationType");
 
     return 1;
 }

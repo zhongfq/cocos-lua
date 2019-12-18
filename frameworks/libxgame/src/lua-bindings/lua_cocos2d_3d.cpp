@@ -105,7 +105,7 @@ static int luaopen_cocos2d_NTextureData_Usage(lua_State *L)
     oluacls_const_integer(L, "Transparency", (lua_Integer)cocos2d::NTextureData::Usage::Transparency);
     oluacls_const_integer(L, "Unknown", (lua_Integer)cocos2d::NTextureData::Usage::Unknown);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::NTextureData::Usage>(L, "cc.NTextureData.Usage");
 
     return 1;
 }
@@ -128,7 +128,7 @@ static int luaopen_cocos2d_shaderinfos_VertexKey(lua_State *L)
     oluacls_const_integer(L, "VERTEX_ATTRIB_TEX_COORD3", (lua_Integer)cocos2d::shaderinfos::VertexKey::VERTEX_ATTRIB_TEX_COORD3);
     oluacls_const_integer(L, "VERTEX_ATTRIB_TEX_COORDS", (lua_Integer)cocos2d::shaderinfos::VertexKey::VERTEX_ATTRIB_TEX_COORDS);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::shaderinfos::VertexKey>(L, "cc.VertexKey");
 
     return 1;
 }
@@ -153,7 +153,7 @@ static int luaopen_cocos2d_shaderinfos_Uniformkey(lua_State *L)
     oluacls_const_integer(L, "UNIFORM_SIN_TIME", (lua_Integer)cocos2d::shaderinfos::Uniformkey::UNIFORM_SIN_TIME);
     oluacls_const_integer(L, "UNIFORM_TIME", (lua_Integer)cocos2d::shaderinfos::Uniformkey::UNIFORM_TIME);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::shaderinfos::Uniformkey>(L, "cc.Uniformkey");
 
     return 1;
 }
@@ -1409,7 +1409,7 @@ static int luaopen_cocos2d_BillBoard_Mode(lua_State *L)
     oluacls_const_integer(L, "VIEW_PLANE_ORIENTED", (lua_Integer)cocos2d::BillBoard::Mode::VIEW_PLANE_ORIENTED);
     oluacls_const_integer(L, "VIEW_POINT_ORIENTED", (lua_Integer)cocos2d::BillBoard::Mode::VIEW_POINT_ORIENTED);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::BillBoard::Mode>(L, "cc.BillBoard.Mode");
 
     return 1;
 }
@@ -1712,7 +1712,7 @@ static int luaopen_cocos2d_Sprite3DMaterial_MaterialType(lua_State *L)
     oluacls_const_integer(L, "UNLIT_NOTEX", (lua_Integer)cocos2d::Sprite3DMaterial::MaterialType::UNLIT_NOTEX);
     oluacls_const_integer(L, "VERTEX_LIT", (lua_Integer)cocos2d::Sprite3DMaterial::MaterialType::VERTEX_LIT);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::Sprite3DMaterial::MaterialType>(L, "cc.Sprite3DMaterial.MaterialType");
 
     return 1;
 }

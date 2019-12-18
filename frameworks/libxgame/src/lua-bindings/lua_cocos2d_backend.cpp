@@ -13,7 +13,7 @@ static int luaopen_cocos2d_backend_BufferUsage(lua_State *L)
     oluacls_const_integer(L, "DYNAMIC", (lua_Integer)cocos2d::backend::BufferUsage::DYNAMIC);
     oluacls_const_integer(L, "STATIC", (lua_Integer)cocos2d::backend::BufferUsage::STATIC);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::BufferUsage>(L, "ccb.BufferUsage");
 
     return 1;
 }
@@ -24,7 +24,7 @@ static int luaopen_cocos2d_backend_BufferType(lua_State *L)
     oluacls_const_integer(L, "INDEX", (lua_Integer)cocos2d::backend::BufferType::INDEX);
     oluacls_const_integer(L, "VERTEX", (lua_Integer)cocos2d::backend::BufferType::VERTEX);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::BufferType>(L, "ccb.BufferType");
 
     return 1;
 }
@@ -36,7 +36,7 @@ static int luaopen_cocos2d_backend_ShaderStage(lua_State *L)
     oluacls_const_integer(L, "VERTEX", (lua_Integer)cocos2d::backend::ShaderStage::VERTEX);
     oluacls_const_integer(L, "VERTEX_AND_FRAGMENT", (lua_Integer)cocos2d::backend::ShaderStage::VERTEX_AND_FRAGMENT);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::ShaderStage>(L, "ccb.ShaderStage");
 
     return 1;
 }
@@ -56,7 +56,7 @@ static int luaopen_cocos2d_backend_VertexFormat(lua_State *L)
     oluacls_const_integer(L, "USHORT2", (lua_Integer)cocos2d::backend::VertexFormat::USHORT2);
     oluacls_const_integer(L, "USHORT4", (lua_Integer)cocos2d::backend::VertexFormat::USHORT4);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::VertexFormat>(L, "ccb.VertexFormat");
 
     return 1;
 }
@@ -92,7 +92,7 @@ static int luaopen_cocos2d_backend_PixelFormat(lua_State *L)
     oluacls_const_integer(L, "S3TC_DXT3", (lua_Integer)cocos2d::backend::PixelFormat::S3TC_DXT3);
     oluacls_const_integer(L, "S3TC_DXT5", (lua_Integer)cocos2d::backend::PixelFormat::S3TC_DXT5);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::PixelFormat>(L, "ccb.PixelFormat");
 
     return 1;
 }
@@ -104,7 +104,7 @@ static int luaopen_cocos2d_backend_TextureUsage(lua_State *L)
     oluacls_const_integer(L, "RENDER_TARGET", (lua_Integer)cocos2d::backend::TextureUsage::RENDER_TARGET);
     oluacls_const_integer(L, "WRITE", (lua_Integer)cocos2d::backend::TextureUsage::WRITE);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::TextureUsage>(L, "ccb.TextureUsage");
 
     return 1;
 }
@@ -115,7 +115,7 @@ static int luaopen_cocos2d_backend_IndexFormat(lua_State *L)
     oluacls_const_integer(L, "U_INT", (lua_Integer)cocos2d::backend::IndexFormat::U_INT);
     oluacls_const_integer(L, "U_SHORT", (lua_Integer)cocos2d::backend::IndexFormat::U_SHORT);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::IndexFormat>(L, "ccb.IndexFormat");
 
     return 1;
 }
@@ -126,7 +126,7 @@ static int luaopen_cocos2d_backend_VertexStepMode(lua_State *L)
     oluacls_const_integer(L, "INSTANCE", (lua_Integer)cocos2d::backend::VertexStepMode::INSTANCE);
     oluacls_const_integer(L, "VERTEX", (lua_Integer)cocos2d::backend::VertexStepMode::VERTEX);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::VertexStepMode>(L, "ccb.VertexStepMode");
 
     return 1;
 }
@@ -140,7 +140,7 @@ static int luaopen_cocos2d_backend_PrimitiveType(lua_State *L)
     oluacls_const_integer(L, "TRIANGLE", (lua_Integer)cocos2d::backend::PrimitiveType::TRIANGLE);
     oluacls_const_integer(L, "TRIANGLE_STRIP", (lua_Integer)cocos2d::backend::PrimitiveType::TRIANGLE_STRIP);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::PrimitiveType>(L, "ccb.PrimitiveType");
 
     return 1;
 }
@@ -151,7 +151,7 @@ static int luaopen_cocos2d_backend_TextureType(lua_State *L)
     oluacls_const_integer(L, "TEXTURE_2D", (lua_Integer)cocos2d::backend::TextureType::TEXTURE_2D);
     oluacls_const_integer(L, "TEXTURE_CUBE", (lua_Integer)cocos2d::backend::TextureType::TEXTURE_CUBE);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::TextureType>(L, "ccb.TextureType");
 
     return 1;
 }
@@ -164,7 +164,7 @@ static int luaopen_cocos2d_backend_SamplerAddressMode(lua_State *L)
     oluacls_const_integer(L, "MIRROR_REPEAT", (lua_Integer)cocos2d::backend::SamplerAddressMode::MIRROR_REPEAT);
     oluacls_const_integer(L, "REPEAT", (lua_Integer)cocos2d::backend::SamplerAddressMode::REPEAT);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::SamplerAddressMode>(L, "ccb.SamplerAddressMode");
 
     return 1;
 }
@@ -180,7 +180,7 @@ static int luaopen_cocos2d_backend_SamplerFilter(lua_State *L)
     oluacls_const_integer(L, "NEAREST_MIPMAP_LINEAR", (lua_Integer)cocos2d::backend::SamplerFilter::NEAREST_MIPMAP_LINEAR);
     oluacls_const_integer(L, "NEAREST_MIPMAP_NEAREST", (lua_Integer)cocos2d::backend::SamplerFilter::NEAREST_MIPMAP_NEAREST);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::SamplerFilter>(L, "ccb.SamplerFilter");
 
     return 1;
 }
@@ -195,7 +195,7 @@ static int luaopen_cocos2d_backend_StencilOperation(lua_State *L)
     oluacls_const_integer(L, "REPLACE", (lua_Integer)cocos2d::backend::StencilOperation::REPLACE);
     oluacls_const_integer(L, "ZERO", (lua_Integer)cocos2d::backend::StencilOperation::ZERO);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::StencilOperation>(L, "ccb.StencilOperation");
 
     return 1;
 }
@@ -212,7 +212,7 @@ static int luaopen_cocos2d_backend_CompareFunction(lua_State *L)
     oluacls_const_integer(L, "NEVER", (lua_Integer)cocos2d::backend::CompareFunction::NEVER);
     oluacls_const_integer(L, "NOT_EQUAL", (lua_Integer)cocos2d::backend::CompareFunction::NOT_EQUAL);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::CompareFunction>(L, "ccb.CompareFunction");
 
     return 1;
 }
@@ -224,7 +224,7 @@ static int luaopen_cocos2d_backend_BlendOperation(lua_State *L)
     oluacls_const_integer(L, "RESERVE_SUBTRACT", (lua_Integer)cocos2d::backend::BlendOperation::RESERVE_SUBTRACT);
     oluacls_const_integer(L, "SUBTRACT", (lua_Integer)cocos2d::backend::BlendOperation::SUBTRACT);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::BlendOperation>(L, "ccb.BlendOperation");
 
     return 1;
 }
@@ -247,7 +247,7 @@ static int luaopen_cocos2d_backend_BlendFactor(lua_State *L)
     oluacls_const_integer(L, "SRC_COLOR", (lua_Integer)cocos2d::backend::BlendFactor::SRC_COLOR);
     oluacls_const_integer(L, "ZERO", (lua_Integer)cocos2d::backend::BlendFactor::ZERO);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::BlendFactor>(L, "ccb.BlendFactor");
 
     return 1;
 }
@@ -262,7 +262,7 @@ static int luaopen_cocos2d_backend_ColorWriteMask(lua_State *L)
     oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::backend::ColorWriteMask::NONE);
     oluacls_const_integer(L, "RED", (lua_Integer)cocos2d::backend::ColorWriteMask::RED);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::ColorWriteMask>(L, "ccb.ColorWriteMask");
 
     return 1;
 }
@@ -274,7 +274,7 @@ static int luaopen_cocos2d_backend_CullMode(lua_State *L)
     oluacls_const_integer(L, "FRONT", (lua_Integer)cocos2d::backend::CullMode::FRONT);
     oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::backend::CullMode::NONE);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::CullMode>(L, "ccb.CullMode");
 
     return 1;
 }
@@ -285,7 +285,7 @@ static int luaopen_cocos2d_backend_Winding(lua_State *L)
     oluacls_const_integer(L, "CLOCK_WISE", (lua_Integer)cocos2d::backend::Winding::CLOCK_WISE);
     oluacls_const_integer(L, "COUNTER_CLOCK_WISE", (lua_Integer)cocos2d::backend::Winding::COUNTER_CLOCK_WISE);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::Winding>(L, "ccb.Winding");
 
     return 1;
 }
@@ -300,7 +300,7 @@ static int luaopen_cocos2d_backend_TextureCubeFace(lua_State *L)
     oluacls_const_integer(L, "POSITIVE_Y", (lua_Integer)cocos2d::backend::TextureCubeFace::POSITIVE_Y);
     oluacls_const_integer(L, "POSITIVE_Z", (lua_Integer)cocos2d::backend::TextureCubeFace::POSITIVE_Z);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::TextureCubeFace>(L, "ccb.TextureCubeFace");
 
     return 1;
 }
@@ -340,7 +340,7 @@ static int luaopen_cocos2d_backend_ProgramType(lua_State *L)
     oluacls_const_integer(L, "SKYBOX_3D", (lua_Integer)cocos2d::backend::ProgramType::SKYBOX_3D);
     oluacls_const_integer(L, "TERRAIN_3D", (lua_Integer)cocos2d::backend::ProgramType::TERRAIN_3D);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::ProgramType>(L, "ccb.ProgramType");
 
     return 1;
 }
@@ -358,7 +358,7 @@ static int luaopen_cocos2d_backend_Uniform(lua_State *L)
     oluacls_const_integer(L, "TEXT_COLOR", (lua_Integer)cocos2d::backend::Uniform::TEXT_COLOR);
     oluacls_const_integer(L, "UNIFORM_MAX", (lua_Integer)cocos2d::backend::Uniform::UNIFORM_MAX);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::Uniform>(L, "ccb.Uniform");
 
     return 1;
 }
@@ -374,7 +374,7 @@ static int luaopen_cocos2d_backend_Attribute(lua_State *L)
     oluacls_const_integer(L, "TEXCOORD2", (lua_Integer)cocos2d::backend::Attribute::TEXCOORD2);
     oluacls_const_integer(L, "TEXCOORD3", (lua_Integer)cocos2d::backend::Attribute::TEXCOORD3);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::Attribute>(L, "ccb.Attribute");
 
     return 1;
 }
@@ -394,7 +394,7 @@ static int luaopen_cocos2d_backend_FeatureType(lua_State *L)
     oluacls_const_integer(L, "S3TC", (lua_Integer)cocos2d::backend::FeatureType::S3TC);
     oluacls_const_integer(L, "VAO", (lua_Integer)cocos2d::backend::FeatureType::VAO);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::backend::FeatureType>(L, "ccb.FeatureType");
 
     return 1;
 }

@@ -2512,7 +2512,7 @@ static int luaopen_cocos2d_PhysicsContact_EventCode(lua_State *L)
     oluacls_const_integer(L, "PRESOLVE", (lua_Integer)cocos2d::PhysicsContact::EventCode::PRESOLVE);
     oluacls_const_integer(L, "SEPARATE", (lua_Integer)cocos2d::PhysicsContact::EventCode::SEPARATE);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::PhysicsContact::EventCode>(L, "cc.PhysicsContact.EventCode");
 
     return 1;
 }
@@ -4882,7 +4882,7 @@ static int luaopen_cocos2d_PhysicsShape_Type(lua_State *L)
     oluacls_const_integer(L, "POLYGON", (lua_Integer)cocos2d::PhysicsShape::Type::POLYGON);
     oluacls_const_integer(L, "UNKNOWN", (lua_Integer)cocos2d::PhysicsShape::Type::UNKNOWN);
 
-    oluacls_asenum(L);
+    olua_registerluatype<cocos2d::PhysicsShape::Type>(L, "cc.PhysicsShape.Type");
 
     return 1;
 }

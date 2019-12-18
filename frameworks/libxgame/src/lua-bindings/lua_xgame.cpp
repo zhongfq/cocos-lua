@@ -217,7 +217,7 @@ static int luaopen_xgame_Permission(lua_State *L)
     oluacls_const_integer(L, "CAMERA", (lua_Integer)xgame::Permission::CAMERA);
     oluacls_const_integer(L, "PHOTO", (lua_Integer)xgame::Permission::PHOTO);
 
-    oluacls_asenum(L);
+    olua_registerluatype<xgame::Permission>(L, "kernel.Permission");
 
     return 1;
 }
@@ -230,7 +230,7 @@ static int luaopen_xgame_PermissionStatus(lua_State *L)
     oluacls_const_integer(L, "NOT_DETERMINED", (lua_Integer)xgame::PermissionStatus::NOT_DETERMINED);
     oluacls_const_integer(L, "RESTRICTED", (lua_Integer)xgame::PermissionStatus::RESTRICTED);
 
-    oluacls_asenum(L);
+    olua_registerluatype<xgame::PermissionStatus>(L, "kernel.PermissionStatus");
 
     return 1;
 }
@@ -2168,7 +2168,7 @@ static int luaopen_xgame_downloader_FileState(lua_State *L)
     oluacls_const_integer(L, "LOADED", (lua_Integer)xgame::downloader::FileState::LOADED);
     oluacls_const_integer(L, "PENDING", (lua_Integer)xgame::downloader::FileState::PENDING);
 
-    oluacls_asenum(L);
+    olua_registerluatype<xgame::downloader::FileState>(L, "kernel.downloader.FileState");
 
     return 1;
 }

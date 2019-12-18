@@ -138,9 +138,3 @@ typedef {
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
 }
-
-typedef {
-    CPPCLS = 'olua_tag_mode',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-}

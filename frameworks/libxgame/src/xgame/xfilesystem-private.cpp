@@ -4,10 +4,11 @@
 
 #include "cocos2d.h"
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-
-USING_NS_XGAME;
 USING_NS_CC;
+
+NS_XGAME_BEGIN
+
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 
 const std::string __filesystem_getDocumentDirectory()
 {
@@ -119,3 +120,5 @@ const std::string __filesystem_getTmpDirectory()
 }
 
 #endif
+
+NS_XGAME_END

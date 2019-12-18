@@ -208,8 +208,6 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     self.unreachableBlock        = nil;
     self.reachabilityBlock       = nil;
     self.reachabilitySerialQueue = nil;
-    
-    [super dealloc];
 }
 
 #pragma mark - Notifier Methods

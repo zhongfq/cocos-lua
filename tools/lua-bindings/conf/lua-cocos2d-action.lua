@@ -42,16 +42,16 @@ typeconf 'cocos2d::Action'
 typeconf 'cocos2d::FiniteTimeAction'
 
 typeconf 'cocos2d::Speed'
-    .ATTR('create', {ARG1 = '@ref(single innerAction)'})
-    .ATTR('setInnerAction', {ARG1 = '@ref(single innerAction)'})
-    .ATTR('getInnerAction', {RET = '@ref(single innerAction)'})
+    .ATTR('create', {ARG1 = '@hold(exclusive innerAction)'})
+    .ATTR('setInnerAction', {ARG1 = '@hold(exclusive innerAction)'})
+    .ATTR('getInnerAction', {RET = '@hold(exclusive innerAction)'})
 
 typeconf 'cocos2d::Follow'
 typeconf 'cocos2d::tweenfunc'
 typeconf 'cocos2d::ActionInterval'
 
 local Sequence = typeconf 'cocos2d::Sequence'
-Sequence.ATTR('createWithTwoActions', {ARG1 = '@ref(map autoref)', ARG2 = '@ref(map autoref)'})
+Sequence.ATTR('createWithTwoActions', {ARG1 = '@hold(coexist autoref)', ARG2 = '@hold(coexist autoref)'})
 Sequence.FUNC('create', [[
 {
     cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
@@ -65,7 +65,7 @@ Sequence.FUNC('create', [[
     for (int i = 1; i <= n; i++) {
         auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
         actions.pushBack(obj);
-        olua_mapref(L, -1, ".autoref", i);
+        olua_hold(L, -1, ".autoref", i, OLUA_FLAG_COEXIST);
     }
 
     ret->init(actions);
@@ -74,17 +74,17 @@ Sequence.FUNC('create', [[
 }]])
 
 local Repeat = typeconf 'cocos2d::Repeat'
-Repeat.ATTR('create', {ARG1 = '@ref(single innerAction)'})
-Repeat.ATTR('setInnerAction', {ARG1 = '@ref(single innerAction)'})
-Repeat.ATTR('getInnerAction', {RET = '@ref(single innerAction)'})
+Repeat.ATTR('create', {ARG1 = '@hold(exclusive innerAction)'})
+Repeat.ATTR('setInnerAction', {ARG1 = '@hold(exclusive innerAction)'})
+Repeat.ATTR('getInnerAction', {RET = '@hold(exclusive innerAction)'})
 
 local RepeatForever = typeconf 'cocos2d::RepeatForever'
-RepeatForever.ATTR('create', {ARG1 = '@ref(single innerAction)'})
-RepeatForever.ATTR('setInnerAction', {ARG1 = '@ref(single innerAction)'})
-RepeatForever.ATTR('getInnerAction', {RET = '@ref(single innerAction)'})
+RepeatForever.ATTR('create', {ARG1 = '@hold(exclusive innerAction)'})
+RepeatForever.ATTR('setInnerAction', {ARG1 = '@hold(exclusive innerAction)'})
+RepeatForever.ATTR('getInnerAction', {RET = '@hold(exclusive innerAction)'})
 
 local Spawn = typeconf 'cocos2d::Spawn'
-Spawn.ATTR('createWithTwoActions', {ARG1 = '@ref(map autoref)', ARG2 = '@ref(map autoref)'})
+Spawn.ATTR('createWithTwoActions', {ARG1 = '@hold(coexist autoref)', ARG2 = '@hold(coexist autoref)'})
 Spawn.FUNC('create', [[
 {
     cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
@@ -98,7 +98,7 @@ Spawn.FUNC('create', [[
     for (int i = 1; i <= n; i++) {
         auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
         actions.pushBack(obj);
-        olua_mapref(L, -1, ".autoref", i);
+        olua_hold(L, -1, ".autoref", i, OLUA_FLAG_COEXIST);
     }
 
     ret->init(actions);
@@ -143,12 +143,12 @@ typeconf 'cocos2d::TintBy'
 typeconf 'cocos2d::DelayTime'
 
 typeconf 'cocos2d::ReverseTime'
-    .ATTR('create', {ARG1 = '@ref(map autoref)'})
+    .ATTR('create', {ARG1 = '@hold(coexist autoref)'})
 
 typeconf 'cocos2d::Animate'
 
 typeconf 'cocos2d::TargetedAction'
-    .ATTR('create', {ARG2 = '@ref(map autoref)'})
+    .ATTR('create', {ARG2 = '@hold(coexist autoref)'})
 
 typeconf 'cocos2d::ActionFloat'
     .CALLBACK {
@@ -162,11 +162,11 @@ typeconf 'cocos2d::ProgressTo'
 typeconf 'cocos2d::ProgressFromTo'
 
 typeconf 'cocos2d::ActionEase'
-    .ATTR('getInnerAction', {RET = '@ref(single innerAction)'})
+    .ATTR('getInnerAction', {RET = '@hold(exclusive innerAction)'})
 
 local function typeease(name)
     local cls = typeconf(name)
-    cls.ATTR('create', {ARG1 = '@ref(single innerAction)'})
+    cls.ATTR('create', {ARG1 = '@hold(exclusive innerAction)'})
     return cls
 end
 

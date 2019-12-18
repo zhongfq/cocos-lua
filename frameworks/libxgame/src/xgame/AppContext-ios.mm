@@ -134,17 +134,9 @@
     xgame::runtime::dispatchEvent("memoryWarning", "");
 }
 
-#if __has_feature(objc_arc)
-#else
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
-    
-    [window release];
-    [_viewController release];
-    [super dealloc];
 }
-#endif
-
 
 @end

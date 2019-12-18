@@ -54,9 +54,9 @@ extern "C" {
 #define olua_postnew(L, obj) olua_noapi(olua_postnew)
 #endif
     
-#ifndef olua_startcmpunref
-#define olua_startcmpunref(L, i, n) olua_noapi(olua_startcmpunref)
-#define olua_endcmpunref(L, i, n)   olua_noapi(olua_endcmpunref)
+#ifndef olua_startcmpunhold
+#define olua_startcmpunhold(L, i, n) olua_noapi(olua_startcmpunhold)
+#define olua_endcmpunhold(L, i, n)   olua_noapi(olua_endcmpunhold)
 #endif
     
 #ifndef olua_startinvoke
@@ -145,21 +145,18 @@ LUALIB_API const char *olua_objstring(lua_State *L, int idx);
 #define olua_disable_objpool(L) (olua_vmstatus(L)->poolenabled = false)
 #define olua_push_objpool(L)    (olua_vmstatus(L)->poolsize)
 LUALIB_API void olua_pop_objpool(lua_State *L, size_t level);
-    
-typedef enum {
-    // for olua_setcallback
-    OLUA_TAG_NEW,
-    OLUA_TAG_REPLACE,
-    // for olua_removecallback, tag format: .callback#%d$cls@%s
-    OLUA_TAG_WHOLE,         // compare whole tag string
-    OLUA_TAG_SUBEQUAL,      // compare substring after '@'
-    OLUA_TAG_SUBSTARTWITH,  // compare substring after '@'
-} olua_tag_mode;
 
 // callback functions
-LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, int func, olua_tag_mode mode);
-LUALIB_API void olua_getcallback(lua_State *L, void *obj, const char *tag, olua_tag_mode mode);
-LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, olua_tag_mode mode);
+// for olua_setcallback
+#define OLUA_TAG_NEW          0
+#define OLUA_TAG_REPLACE      1
+// for olua_removecallback, tag format: .callback#%d$cls@%s
+#define OLUA_TAG_WHOLE        2 // compare whole tag string
+#define OLUA_TAG_SUBEQUAL     3 // compare substring after '@'
+#define OLUA_TAG_SUBSTARTWITH 4 // compare substring after '@'
+LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, int func, int mode);
+LUALIB_API void olua_getcallback(lua_State *L, void *obj, const char *tag, int mode);
+LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, int mode);
 LUALIB_API int olua_callback(lua_State *L, void *obj, const char *func, int argc);
     
 // class store, store static callback or other
@@ -177,15 +174,16 @@ LUALIB_API void olua_unref(lua_State *L, int ref);
 LUALIB_API void olua_getref(lua_State *L, int ref);
     
 // for ref chain, callback store in the uservalue of userdata
+#define OLUA_FLAG_EXCLUSIVE (1 << 1) // hold & unhold
+#define OLUA_FLAG_COEXIST   (1 << 2) // hold & unhold
+#define OLUA_FLAG_ARRAY     (1 << 3) // hold & unhold
+#define OLUA_FLAG_REMOVE    (1 << 4) // internal use
 typedef bool (*olua_WalkFunction)(lua_State *L, int idx);
-LUALIB_API void olua_getreftable(lua_State *L, int idx, const char *name);
-LUALIB_API void olua_singleref(lua_State *L, int idx, const char *name, int obj);
-LUALIB_API void olua_singleunref(lua_State *L, int idx, const char *name);
-LUALIB_API void olua_mapref(lua_State *L, int idx, const char *name, int obj);
-LUALIB_API void olua_maprefarray(lua_State *L, int idx, const char *name, int obj);
-LUALIB_API void olua_mapunref(lua_State *L, int idx, const char *name, int obj);
-LUALIB_API void olua_mapwalkunref(lua_State *L, int idx, const char *name, olua_WalkFunction walk);
-LUALIB_API void olua_unrefall(lua_State *L, int idx, const char *name);
+LUALIB_API void olua_getholdtable(lua_State *L, int idx, const char *name);
+LUALIB_API void olua_hold(lua_State *L, int idx, const char *name, int obj, int flags);
+LUALIB_API void olua_unhold(lua_State *L, int idx, const char *name, int obj, int flags);
+LUALIB_API void olua_unholdall(lua_State *L, int idx, const char *name);
+LUALIB_API void olua_walkunhold(lua_State *L, int idx, const char *name, olua_WalkFunction walk);
 
 //
 // lua class model

@@ -4,7 +4,7 @@
 
 #include "cocos2d.h"
 
-USING_NS_XGAME;
+USING_NS_CC;
 
 NS_XGAME_BEGIN
 

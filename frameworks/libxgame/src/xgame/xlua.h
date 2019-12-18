@@ -1,13 +1,13 @@
 #ifndef __XLUA_H__
 #define __XLUA_H__
 
-#define olua_mainthread()           xlua_cocosthread()
-#define olua_startcmpunref(L, i, n) xlua_startcmpunref(L, i, n)
-#define olua_endcmpunref(L, i, n)   xlua_endcmpunref(L, i, n)
-#define olua_startinvoke(L)         xlua_startinvoke(L)
-#define olua_endinvoke(L)           xlua_endinvoke(L)
-#define olua_postpush(L, v, s)      xlua_postpush(L, v, s)
-#define olua_postnew(L, obj)        xlua_postnew(L, obj)
+#define olua_mainthread()               xlua_cocosthread()
+#define olua_startcmpunhold(L, i, n)    xlua_startcmpunhold(L, i, n)
+#define olua_endcmpunhold(L, i, n)      xlua_endcmpunhold(L, i, n)
+#define olua_startinvoke(L)             xlua_startinvoke(L)
+#define olua_endinvoke(L)               xlua_endinvoke(L)
+#define olua_postpush(L, v, s)          xlua_postpush(L, v, s)
+#define olua_postnew(L, obj)            xlua_postnew(L, obj)
 
 #include "xgame/xdef.h"
 #include "olua/olua.hpp"
@@ -53,7 +53,7 @@ template <typename T> void xlua_postnew(lua_State *L, T *obj)
 
 void xlua_startinvoke(lua_State *L);
 void xlua_endinvoke(lua_State *L);
-void xlua_startcmpunref(lua_State *L, int idx, const char *refname);
-void xlua_endcmpunref(lua_State *L, int idx, const char *refname);
+void xlua_startcmpunhold(lua_State *L, int idx, const char *refname);
+void xlua_endcmpunhold(lua_State *L, int idx, const char *refname);
 
 #endif

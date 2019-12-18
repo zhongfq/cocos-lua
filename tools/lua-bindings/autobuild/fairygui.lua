@@ -480,46 +480,46 @@ cls.funcs [[
 cls.inject('to', {
     AFTER = [[
         olua_getstore(L, "fgui.GTween");
-        olua_mapref(L, -1, "tweeners", -2);
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tweener);
+        olua_hold(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
+        olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
         lua_pop(L, 1);
     ]],
 })
 cls.inject('toDouble', {
     AFTER = [[
         olua_getstore(L, "fgui.GTween");
-        olua_mapref(L, -1, "tweeners", -2);
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tweener);
+        olua_hold(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
+        olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
         lua_pop(L, 1);
     ]],
 })
 cls.inject('delayedCall', {
     AFTER = [[
         olua_getstore(L, "fgui.GTween");
-        olua_mapref(L, -1, "tweeners", -2);
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tweener);
+        olua_hold(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
+        olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
         lua_pop(L, 1);
     ]],
 })
 cls.inject('shake', {
     AFTER = [[
         olua_getstore(L, "fgui.GTween");
-        olua_mapref(L, -1, "tweeners", -2);
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tweener);
+        olua_hold(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
+        olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
         lua_pop(L, 1);
     ]],
 })
 cls.inject('kill', {
     AFTER = [[
         olua_getstore(L, "fgui.GTween");
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tweener);
+        olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
         lua_pop(L, 1);
     ]],
 })
 cls.inject('clean', {
     AFTER = [[
         olua_getstore(L, "fgui.GTween");
-        olua_unrefall(L, 1, "tweeners");
+        olua_unholdall(L, 1, "tweeners");
     ]],
 })
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -888,8 +888,8 @@ cls.funcs [[
     void setTouchable(bool value)
     int getSortingOrder()
     void setSortingOrder(int value)
-    @ref(single group) fairygui::GGroup *getGroup()
-    void setGroup(@ref(single group) fairygui::GGroup *value)
+    @hold(exclusive group) fairygui::GGroup *getGroup()
+    void setGroup(@hold(exclusive group) fairygui::GGroup *value)
     const std::string &getText()
     void setText(const std::string &text)
     const std::string &getIcon()
@@ -921,7 +921,7 @@ cls.funcs [[
     void releaseDisplayLock(uint32_t token)
     fairygui::GComponent *getParent()
     fairygui::GObject *findParent()
-    @ref(single displayObject) cocos2d::Node *displayObject()
+    @hold(exclusive displayObject) cocos2d::Node *displayObject()
     fairygui::GRoot *getRoot()
     bool onStage()
     void removeFromParent()
@@ -1022,18 +1022,18 @@ cls.SUPERCLS = "fairygui::GObject"
 cls.funcs [[
     GComponent()
     static fairygui::GComponent *create()
-    fairygui::GObject *addChild(@ref(map children) fairygui::GObject *child)
-    fairygui::GObject *addChildAt(@ref(map children) fairygui::GObject *child, int index)
-    void removeChild(@unref(map children) fairygui::GObject *child)
-    @unref(cmp children) void removeChildAt(int index)
-    @unref(cmp children) void removeChildren()
-    @unref(cmp children) void removeChildren(int beginIndex, int endIndex)
-    @ref(map children) fairygui::GObject *getChildAt(int index)
-    @ref(map children) fairygui::GObject *getChild(const std::string &name)
+    fairygui::GObject *addChild(@hold(coexist children) fairygui::GObject *child)
+    fairygui::GObject *addChildAt(@hold(coexist children) fairygui::GObject *child, int index)
+    void removeChild(@unhold(coexist children) fairygui::GObject *child)
+    @unhold(cmp children) void removeChildAt(int index)
+    @unhold(cmp children) void removeChildren()
+    @unhold(cmp children) void removeChildren(int beginIndex, int endIndex)
+    @hold(coexist children) fairygui::GObject *getChildAt(int index)
+    @hold(coexist children) fairygui::GObject *getChild(const std::string &name)
     fairygui::GObject *getChildByPath(const std::string &path)
-    @ref(map children) fairygui::GObject *getChildInGroup(const fairygui::GGroup *group, const std::string &name)
-    @ref(map children) fairygui::GObject *getChildById(const std::string &id)
-    @ref(map children) const cocos2d::Vector<GObject *> &getChildren()
+    @hold(coexist children) fairygui::GObject *getChildInGroup(const fairygui::GGroup *group, const std::string &name)
+    @hold(coexist children) fairygui::GObject *getChildById(const std::string &id)
+    @hold(coexist children) const cocos2d::Vector<GObject *> &getChildren()
     int getChildIndex(const fairygui::GObject *child)
     void setChildIndex(fairygui::GObject *child, int index)
     int setChildIndexBefore(fairygui::GObject *child, int index)
@@ -1043,16 +1043,16 @@ cls.funcs [[
     bool isAncestorOf(const fairygui::GObject *obj)
     bool isChildInView(fairygui::GObject *child)
     int getFirstChildInView()
-    void addController(@ref(map controllers) fairygui::GController *c)
-    @ref(map controllers) fairygui::GController *getControllerAt(int index)
-    @ref(map controllers) fairygui::GController *getController(const std::string &name)
-    @ref(map controllers) const cocos2d::Vector<GController *> &getControllers()
-    void removeController(@unref(map controllers) fairygui::GController *c)
+    void addController(@hold(coexist controllers) fairygui::GController *c)
+    @hold(coexist controllers) fairygui::GController *getControllerAt(int index)
+    @hold(coexist controllers) fairygui::GController *getController(const std::string &name)
+    @hold(coexist controllers) const cocos2d::Vector<GController *> &getControllers()
+    void removeController(@unhold(coexist controllers) fairygui::GController *c)
     void applyController(fairygui::GController *c)
     void applyAllControllers()
-    @ref(map transitions) fairygui::Transition *getTransition(const std::string &name)
-    @ref(map transitions) fairygui::Transition *getTransitionAt(int index)
-    @ref(map transitions) const cocos2d::Vector<Transition *> &getTransitions()
+    @hold(coexist transitions) fairygui::Transition *getTransition(const std::string &name)
+    @hold(coexist transitions) fairygui::Transition *getTransitionAt(int index)
+    @hold(coexist transitions) const cocos2d::Vector<Transition *> &getTransitions()
     bool getOpaque()
     void setOpaque(bool value)
     const fairygui::Margin &getMargin()
@@ -1061,8 +1061,8 @@ cls.funcs [[
     void setChildrenRenderOrder(fairygui::ChildrenRenderOrder value)
     int getApexIndex()
     void setApexIndex(int value)
-    @ref(single mask) cocos2d::Node *getMask()
-    void setMask(@ref(single mask) cocos2d::Node *value, @optional bool inverted)
+    @hold(exclusive mask) cocos2d::Node *getMask()
+    void setMask(@hold(exclusive mask) cocos2d::Node *value, @optional bool inverted)
     fairygui::IHitTest *getHitArea()
     void setHitArea(fairygui::IHitTest *value)
     fairygui::ScrollPane *getScrollPane()
@@ -1148,28 +1148,28 @@ cls.funcs [[
     GRoot()
     static fairygui::GRoot *create(cocos2d::Scene *scene, @optional int zOrder)
     static fairygui::GRoot *getInstance()
-    @unref(cmp children) void showWindow(@ref(map children) fairygui::Window *win)
-    @unref(cmp children parent) void hideWindow(fairygui::Window *win)
-    @unref(cmp children parent) void hideWindowImmediately(fairygui::Window *win)
+    @unhold(cmp children) void showWindow(@hold(coexist children) fairygui::Window *win)
+    @unhold(cmp children parent) void hideWindow(fairygui::Window *win)
+    @unhold(cmp children parent) void hideWindowImmediately(fairygui::Window *win)
     void bringToFront(fairygui::Window *win)
     void showModalWait()
     void closeModalWait()
     void closeAllExceptModals()
     void closeAllWindows()
-    @ref(map children) fairygui::Window *getTopWindow()
-    @ref(map children) fairygui::GObject *getModalWaitingPane()
-    @ref(map children) fairygui::GGraph *getModalLayer()
+    @hold(coexist children) fairygui::Window *getTopWindow()
+    @hold(coexist children) fairygui::GObject *getModalWaitingPane()
+    @hold(coexist children) fairygui::GGraph *getModalLayer()
     bool hasModalWindow()
     bool isModalWaiting()
-    @ref(single inputProcessor) fairygui::InputProcessor *getInputProcessor()
+    @hold(exclusive inputProcessor) fairygui::InputProcessor *getInputProcessor()
     cocos2d::Vec2 getTouchPosition(int touchId)
     fairygui::GObject *getTouchTarget()
-    @unref(cmp children) void showPopup(@ref(map children) fairygui::GObject *popup)
-    @unref(cmp children) void showPopup(@ref(map children) fairygui::GObject *popup, fairygui::GObject *target, fairygui::PopupDirection dir)
-    @unref(cmp children) void togglePopup(@ref(map children) fairygui::GObject *popup)
-    @unref(cmp children) void togglePopup(@ref(map children) fairygui::GObject *popup, fairygui::GObject *target, fairygui::PopupDirection dir)
-    @unref(cmp children) void hidePopup()
-    @unref(cmp children) void hidePopup(fairygui::GObject *popup)
+    @unhold(cmp children) void showPopup(@hold(coexist children) fairygui::GObject *popup)
+    @unhold(cmp children) void showPopup(@hold(coexist children) fairygui::GObject *popup, fairygui::GObject *target, fairygui::PopupDirection dir)
+    @unhold(cmp children) void togglePopup(@hold(coexist children) fairygui::GObject *popup)
+    @unhold(cmp children) void togglePopup(@hold(coexist children) fairygui::GObject *popup, fairygui::GObject *target, fairygui::PopupDirection dir)
+    @unhold(cmp children) void hidePopup()
+    @unhold(cmp children) void hidePopup(fairygui::GObject *popup)
     bool hasAnyPopup()
     cocos2d::Vec2 getPoupPosition(fairygui::GObject *popup, fairygui::GObject *target, fairygui::PopupDirection dir)
     void showTooltips(const std::string &msg)
@@ -1189,8 +1189,8 @@ cls.prop('UIRoot', 'static GRoot* getInstance()')
 cls.inject('create', {
     AFTER = [[
         olua_push_cppobj<cocos2d::Node>(L, ret->displayObject(), "cc.Node");
-        olua_singleref(L, -1, "fgui.root", -2);
-        olua_mapref(L, 1, "children", -1);
+        olua_hold(L, -1, "fgui.root", -2, OLUA_FLAG_EXCLUSIVE);
+        olua_hold(L, 1, "children", -1, OLUA_FLAG_COEXIST);
         lua_pop(L, 1);
     ]],
 })
@@ -1306,7 +1306,7 @@ cls.funcs [[
     void setFillClockwise(bool value)
     float getFillAmount()
     void setFillAmount(float value)
-    @ref(single component) fairygui::GComponent *getComponent()
+    @hold(exclusive component) fairygui::GComponent *getComponent()
 ]]
 cls.props [[
     url
@@ -1421,11 +1421,11 @@ cls.funcs [[
     void setTitleFontSize(int value)
     bool isSelected()
     void setSelected(bool value)
-    @ref(single relatedController) fairygui::GController *getRelatedController()
-    void setRelatedController(@ref(single relatedController) fairygui::GController *c)
+    @hold(exclusive relatedController) fairygui::GController *getRelatedController()
+    void setRelatedController(@hold(exclusive relatedController) fairygui::GController *c)
     bool isChangeStateOnClick()
     void setChangeStateOnClick(bool value)
-    @ref(single textField) fairygui::GTextField *getTextField()
+    @hold(exclusive textField) fairygui::GTextField *getTextField()
 ]]
 cls.props [[
     title
@@ -1479,7 +1479,7 @@ cls.funcs [[
     void setTitleColor(const cocos2d::Color3B &value)
     int getTitleFontSize()
     void setTitleFontSize(int value)
-    @ref(single textField) fairygui::GTextField *getTextField()
+    @hold(exclusive textField) fairygui::GTextField *getTextField()
 ]]
 cls.props [[
     title
@@ -1516,13 +1516,13 @@ cls.funcs [[
     void setSelectionMode(fairygui::ListSelectionMode value)
     fairygui::GObject *getFromPool()
     fairygui::GObject *getFromPool(const std::string &url)
-    void returnToPool(@unref(map children) fairygui::GObject *obj)
-    @ref(map children) fairygui::GObject *addItemFromPool()
-    @ref(map children) fairygui::GObject *addItemFromPool(const std::string &url)
-    @unref(cmp children) void removeChildToPoolAt(int index)
-    void removeChildToPool(@unref(map children) fairygui::GObject *child)
-    @unref(cmp children) void removeChildrenToPool()
-    @unref(cmp children) void removeChildrenToPool(int beginIndex, int endIndex)
+    void returnToPool(@unhold(coexist children) fairygui::GObject *obj)
+    @hold(coexist children) fairygui::GObject *addItemFromPool()
+    @hold(coexist children) fairygui::GObject *addItemFromPool(const std::string &url)
+    @unhold(cmp children) void removeChildToPoolAt(int index)
+    void removeChildToPool(@unhold(coexist children) fairygui::GObject *child)
+    @unhold(cmp children) void removeChildrenToPool()
+    @unhold(cmp children) void removeChildrenToPool(int beginIndex, int endIndex)
     int getSelectedIndex()
     void setSelectedIndex(int value)
     void getSelection(@out std::vector<int> &result)
@@ -1535,14 +1535,14 @@ cls.funcs [[
     void resizeToFit(int itemCount)
     void resizeToFit(int itemCount, int minSize)
     void scrollToView(int index, @optional bool ani, @optional bool setFirst)
-    @ref(single selectionController) fairygui::GController *getSelectionController()
-    void setSelectionController(@ref(single selectionController) fairygui::GController *value)
-    @unref(cmp children) void setVirtual()
-    @unref(cmp children) void setVirtualAndLoop()
+    @hold(exclusive selectionController) fairygui::GController *getSelectionController()
+    void setSelectionController(@hold(exclusive selectionController) fairygui::GController *value)
+    @unhold(cmp children) void setVirtual()
+    @unhold(cmp children) void setVirtualAndLoop()
     bool isVirtual()
     void refreshVirtualList()
     int getNumItems()
-    @unref(cmp children) void setNumItems(int value)
+    @unhold(cmp children) void setNumItems(int value)
     int childIndexToItemIndex(int index)
     int itemIndexToChildIndex(int index)
 ]]
@@ -1554,7 +1554,7 @@ cls.inject('itemRenderer', {
     CALLBACK_BEFORE = [[
         if (arg2->getParent()) {
             olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)callback_store_obj);
-            olua_mapref(L, -1, "children", -2);
+            olua_hold(L, -1, "children", -2, OLUA_FLAG_COEXIST);
             lua_pop(L, 1);
         }
     ]],
@@ -1652,14 +1652,14 @@ cls.funcs [[
     void setValue(const std::string &value)
     int getSelectedIndex()
     void setSelectedIndex(int value)
-    @ref(single selectionController) fairygui::GController *getSelectionController()
-    void setSelectionController(@ref(single selectionController) fairygui::GController *value)
+    @hold(exclusive selectionController) fairygui::GController *getSelectionController()
+    void setSelectionController(@hold(exclusive selectionController) fairygui::GController *value)
     std::vector<std::string> &getItems()
     std::vector<std::string> &getIcons()
     std::vector<std::string> &getValues()
-    @ref(single dropdown) fairygui::GObject *getDropdown()
+    @hold(exclusive dropdown) fairygui::GObject *getDropdown()
     void refresh()
-    @ref(single textField) fairygui::GTextField *getTextField()
+    @hold(exclusive textField) fairygui::GTextField *getTextField()
 ]]
 cls.var('visibleItemCount', [[int visibleItemCount]])
 cls.var('popupDirection', [[fairygui::PopupDirection popupDirection]])
@@ -1743,13 +1743,13 @@ cls.funcs [[
     void setItemCheckable(const std::string &name, bool checkable)
     void setItemChecked(const std::string &name, bool check)
     bool isItemChecked(const std::string &name)
-    @unref(cmp children parent) bool removeItem(const std::string &name)
-    @unref(cmp children parent) void clearItems()
+    @unhold(cmp children parent) bool removeItem(const std::string &name)
+    @unhold(cmp children parent) void clearItems()
     int getItemCount()
-    @ref(single contentPane) fairygui::GComponent *getContentPane()
-    @ref(single list) fairygui::GList *getList()
-    @unref(cmp children parent)@ref(map children parent) void show()
-    @unref(cmp children parent)@ref(map children parent) void show(fairygui::GObject *target, fairygui::PopupDirection dir)
+    @hold(exclusive contentPane) fairygui::GComponent *getContentPane()
+    @hold(exclusive list) fairygui::GList *getList()
+    @unhold(cmp children parent)@hold(coexist children parent) void show()
+    @unhold(cmp children parent)@hold(coexist children parent) void show(fairygui::GObject *target, fairygui::PopupDirection dir)
 ]]
 cls.func('addItemAt', [[{
     fairygui::PopupMenu *self = (fairygui::PopupMenu *)olua_toobj(L, 1, "fgui.PopupMenu");
@@ -1779,7 +1779,7 @@ cls.func('addItemAt', [[{
 
     olua_push_cppobj<fairygui::GButton>(L, ret);
     olua_push_cppobj<fairygui::GComponent>(L, ret->getParent());
-    olua_mapref(L, -1, "children", -2);
+    olua_hold(L, -1, "children", -2, OLUA_FLAG_COEXIST);
     lua_pop(L, 1);
 
     return 1;
@@ -1880,8 +1880,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::RelationItem'
 cls.funcs [[
-    @ref(single target) fairygui::GObject *getTarget()
-    void setTarget(@ref(single target) fairygui::GObject *value)
+    @hold(exclusive target) fairygui::GObject *getTarget()
+    void setTarget(@hold(exclusive target) fairygui::GObject *value)
     void add(fairygui::RelationType relationType, bool usePercent)
     void internalAdd(fairygui::RelationType relationType, bool usePercent)
     void remove(fairygui::RelationType relationType)
@@ -1905,11 +1905,11 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::ScrollPane'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
-    @ref(single owner) fairygui::GComponent *getOwner()
-    @ref(single header) fairygui::GComponent *getHeader()
-    @ref(single footer) fairygui::GComponent *getFooter()
-    @ref(single vtScrollBar) fairygui::GScrollBar *getVtScrollBar()
-    @ref(single hzScrollBar) fairygui::GScrollBar *getHzScrollBar()
+    @hold(exclusive owner) fairygui::GComponent *getOwner()
+    @hold(exclusive header) fairygui::GComponent *getHeader()
+    @hold(exclusive footer) fairygui::GComponent *getFooter()
+    @hold(exclusive vtScrollBar) fairygui::GScrollBar *getVtScrollBar()
+    @hold(exclusive hzScrollBar) fairygui::GScrollBar *getHzScrollBar()
     bool isBouncebackEffect()
     void setBouncebackEffect(bool value)
     bool isTouchEffect()
@@ -1922,8 +1922,8 @@ cls.funcs [[
     void setSnapToItem(bool value)
     bool isPageMode()
     void setPageMode(bool value)
-    @ref(single pageController) fairygui::GController *getPageController()
-    void setPageController(@ref(single pageController) fairygui::GController *value)
+    @hold(exclusive pageController) fairygui::GController *getPageController()
+    void setPageController(@hold(exclusive pageController) fairygui::GController *value)
     bool isMouseWheelEnabled()
     void setMouseWheelEnabled(bool value)
     float getDecelerationRate()
@@ -1994,7 +1994,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::Transition'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
-    @ref(single owner) fairygui::GComponent *getOwner()
+    @hold(exclusive owner) fairygui::GComponent *getOwner()
     bool isPlaying()
     void changePlayTimes(int value)
     void stop()
@@ -2162,9 +2162,9 @@ cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
     Window()
     static fairygui::Window *create()
-    @unref(cmp children parent)@ref(map children parent) void show()
-    @unref(cmp children parent) void hide()
-    @unref(cmp children parent) void hideImmediately()
+    @unhold(cmp children parent)@hold(coexist children parent) void show()
+    @unhold(cmp children parent) void hide()
+    @unhold(cmp children parent) void hideImmediately()
     void toggleStatus()
     void bringToFront()
     bool isShowing()
@@ -2179,16 +2179,16 @@ cls.funcs [[
     void addUISource(fairygui::IUISource *uiSource)
     bool isBringToFrontOnClick()
     void setBringToFrontOnClick(bool value)
-    @ref(single contentPane) fairygui::GComponent *getContentPane()
-    void setContentPane(@ref(single contentPane) fairygui::GComponent *value)
-    @ref(single frame) fairygui::GComponent *getFrame()
-    @ref(single closeButton) fairygui::GObject *getCloseButton()
-    void setCloseButton(@ref(single closeButton) fairygui::GObject *value)
-    @ref(single dragArea) fairygui::GObject *getDragArea()
-    void setDragArea(@ref(single dragArea) fairygui::GObject *value)
-    @ref(single contentArea) fairygui::GObject *getContentArea()
-    void setContentArea(@ref(single contentArea) fairygui::GObject *value)
-    @ref(single modalWaitingPane) fairygui::GObject *getModalWaitingPane()
+    @hold(exclusive contentPane) fairygui::GComponent *getContentPane()
+    void setContentPane(@hold(exclusive contentPane) fairygui::GComponent *value)
+    @hold(exclusive frame) fairygui::GComponent *getFrame()
+    @hold(exclusive closeButton) fairygui::GObject *getCloseButton()
+    void setCloseButton(@hold(exclusive closeButton) fairygui::GObject *value)
+    @hold(exclusive dragArea) fairygui::GObject *getDragArea()
+    void setDragArea(@hold(exclusive dragArea) fairygui::GObject *value)
+    @hold(exclusive contentArea) fairygui::GObject *getContentArea()
+    void setContentArea(@hold(exclusive contentArea) fairygui::GObject *value)
+    @hold(exclusive modalWaitingPane) fairygui::GObject *getModalWaitingPane()
 ]]
 cls.inject('show', {
     BEFORE = [[
@@ -2291,7 +2291,7 @@ cls.funcs [[
     GTreeNode()
     fairygui::GTreeNode *getParent()
     fairygui::GTree *getTree()
-    @ref(single cell) fairygui::GComponent *getCell()
+    @hold(exclusive cell) fairygui::GComponent *getCell()
     const cocos2d::Value &getData()
     void setData(const cocos2d::Value &value)
     bool isExpanded()
@@ -2301,15 +2301,15 @@ cls.funcs [[
     void setText(const std::string &value)
     const std::string &getIcon()
     void setIcon(const std::string &value)
-    fairygui::GTreeNode *addChild(@ref(map children) fairygui::GTreeNode *child)
-    fairygui::GTreeNode *addChildAt(@ref(map children) fairygui::GTreeNode *child, int index)
-    void removeChild(@unref(map children) fairygui::GTreeNode *child)
-    @unref(cmp children) void removeChildAt(int index)
-    @unref(cmp children) void removeChildren()
-    @unref(cmp children) void removeChildren(int beginIndex, int endIndex)
-    @ref(map children) fairygui::GTreeNode *getChildAt(int index)
-    @ref(map children) fairygui::GTreeNode *getPrevSibling()
-    @ref(map children) fairygui::GTreeNode *getNextSibling()
+    fairygui::GTreeNode *addChild(@hold(coexist children) fairygui::GTreeNode *child)
+    fairygui::GTreeNode *addChildAt(@hold(coexist children) fairygui::GTreeNode *child, int index)
+    void removeChild(@unhold(coexist children) fairygui::GTreeNode *child)
+    @unhold(cmp children) void removeChildAt(int index)
+    @unhold(cmp children) void removeChildren()
+    @unhold(cmp children) void removeChildren(int beginIndex, int endIndex)
+    @hold(coexist children) fairygui::GTreeNode *getChildAt(int index)
+    @hold(coexist children) fairygui::GTreeNode *getPrevSibling()
+    @hold(coexist children) fairygui::GTreeNode *getNextSibling()
     int getChildIndex(const fairygui::GTreeNode *child)
     void setChildIndex(fairygui::GTreeNode *child, int index)
     int setChildIndexBefore(fairygui::GTreeNode *child, int index)
@@ -2341,7 +2341,7 @@ cls.funcs [[
     void setIndent(int value)
     int getClickToExpand()
     void setClickToExpand(int value)
-    @ref(single rootNode) fairygui::GTreeNode *getRootNode()
+    @hold(exclusive rootNode) fairygui::GTreeNode *getRootNode()
     fairygui::GTreeNode *getSelectedNode()
     void getSelectedNodes(@out std::vector<GTreeNode *> &result)
     void selectNode(fairygui::GTreeNode *node, @optional bool scrollItToView)

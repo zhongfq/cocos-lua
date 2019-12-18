@@ -45,12 +45,12 @@ function new()
         printUserValue(director)
 
         local rootscene = director.runningScene
-        clearRefs(director, '.ref.scenes')
+        clearRefs(director, '.hold.scenes')
         assert(not hasScene(rootscene))
         print(director.runningScene)
         assert(hasScene(rootscene))
 
-        local REF_CHILDREN = '.ref.children'
+        local REF_CHILDREN = '.hold.children'
         local node1 = Node.create()
         node1.name = 'node1'
         local node2 = Node.create()
@@ -84,7 +84,7 @@ function new()
 
     timer.delay(0.5, function ()
         collectgarbage('collect')
-        local REF_ACTIONS = '.ref.actions'
+        local REF_ACTIONS = '.hold.actions'
         local image = Sprite.create('res/HelloWorld.png')
         image.x = 100
         image.y = 100
@@ -109,7 +109,7 @@ end
 
 function hasScene(scene)
     local uservalue = debug.getuservalue(director)
-    local ref = uservalue['.ref.scenes']
+    local ref = uservalue['.hold.scenes']
     if ref then
         return ref[scene]
     end

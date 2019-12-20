@@ -10,8 +10,9 @@ extern "C" {
 
 #include "lua.h"
 
-//void luaopen_luasocket_scripts(lua_State* L);
+int luaopen_luasocket_scripts(lua_State* L);
 
+/*
 int luaopen_lua_m_ltn12(lua_State* L);
 int luaopen_lua_m_mime(lua_State* L);
 int luaopen_lua_m_socket_ftp(lua_State* L);
@@ -22,6 +23,7 @@ int luaopen_lua_m_socket_smtp(lua_State* L);
 int luaopen_lua_m_socket_tp(lua_State* L);
 int luaopen_lua_m_socket_url(lua_State* L);
 int luaopen_lua_m_socket(lua_State* L);
+*/
 
 #if __cplusplus
 }

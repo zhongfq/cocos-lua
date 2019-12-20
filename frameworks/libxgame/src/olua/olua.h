@@ -126,7 +126,6 @@ LUALIB_API bool olua_checkboolean(lua_State *L, int idx);
 LUALIB_API int olua_rawgetf(lua_State *L, int idx, const char *field);
 LUALIB_API void olua_rawsetf(lua_State *L, int idx, const char *field);
 LUALIB_API void olua_require(lua_State *L, const char *name, lua_CFunction func);
-LUALIB_API void olua_preload(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API int olua_geterrorfunc(lua_State *L);
 LUALIB_API int olua_pcall(lua_State *L, int nargs, int nresults);
 LUALIB_API int olua_pcallref(lua_State *L, int funcref, int nargs, int nresults);

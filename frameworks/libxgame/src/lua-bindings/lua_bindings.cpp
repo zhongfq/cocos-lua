@@ -44,16 +44,7 @@ int luaopen_bindings(lua_State *L)
     // luasocket
     olua_require(L, "socket.core", luaopen_socket_core);
     olua_require(L, "mime.core", luaopen_mime_core);
-    olua_preload(L, "ltn12", luaopen_lua_m_ltn12);
-    olua_preload(L, "mime", luaopen_lua_m_mime);
-    olua_preload(L, "socket.ftp", luaopen_lua_m_socket_ftp);
-    olua_preload(L, "socket.headers", luaopen_lua_m_socket_headers);
-    olua_preload(L, "socket.http", luaopen_lua_m_socket_http);
-    olua_preload(L, "socket.mbox", luaopen_lua_m_socket_mbox);
-    olua_preload(L, "socket.smtp", luaopen_lua_m_socket_smtp);
-    olua_preload(L, "socket.tp", luaopen_lua_m_socket_tp);
-    olua_preload(L, "socket.url", luaopen_lua_m_socket_url);
-    olua_preload(L, "socket", luaopen_lua_m_socket);
+    olua_require(L, "luasocket.scripts", luaopen_luasocket_scripts);
     
     olua_require(L, "olua", luaopen_olua);
     olua_require(L, "sproto.core", luaopen_sproto_core);

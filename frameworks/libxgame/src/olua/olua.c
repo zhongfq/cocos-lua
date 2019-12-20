@@ -132,17 +132,6 @@ LUALIB_API void olua_rawsetf(lua_State *L, int idx, const char *field)
     lua_rawset(L, idx);
 }
 
-LUALIB_API void olua_preload(lua_State *L, const char *name, lua_CFunction func)
-{
-    int top = lua_gettop(L);
-    lua_getglobal(L, "package");
-    lua_getfield(L, -1, "preload");
-    func(L);
-    olua_assert(!olua_isnil(L, -1));
-    lua_setfield(L, -2, name);
-    lua_settop(L, top);
-}
-
 LUALIB_API int olua_geterrorfunc(lua_State *L)
 {
     if (olua_getglobal(L, "__TRACEBACK__") != LUA_TFUNCTION) {

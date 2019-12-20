@@ -187,8 +187,8 @@ LUALIB_API void olua_walkunhold(lua_State *L, int idx, const char *name, olua_Wa
 //
 // lua class model
 //  class A = {
-//      classname = 'A'
-//      super = B
+//      __name = 'A'
+//      .agent = class A agent      -- set funcs, props and consts
 //      .isa = {
 //          copy(B['.isa'])
 //          A = true
@@ -207,8 +207,7 @@ LUALIB_API void olua_walkunhold(lua_State *L, int idx, const char *name, olua_Wa
 //          __index = B['.set']     -- cache after access
 //          name = set_name(obj, name, value)
 //      }
-//      copy(B.__metafunc)
-//      __metafunc
+//      ...__gc = cls_metamethod    -- .func[..._gc]
 //  }
 //
 LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *supercls);

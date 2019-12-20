@@ -132,19 +132,6 @@ LUALIB_API void olua_rawsetf(lua_State *L, int idx, const char *field)
     lua_rawset(L, idx);
 }
 
-LUALIB_API void olua_preload(lua_State *L, const char *name, lua_CFunction func)
-{
-    int top = lua_gettop(L);
-    lua_getglobal(L, "package");
-    lua_getfield(L, -1, "preload");
-    func(L);
-    if (olua_isnil(L, -1)) {
-        lua_pushboolean(L, true);
-    }
-    lua_setfield(L, -2, name);
-    lua_settop(L, top);
-}
-
 LUALIB_API int olua_geterrorfunc(lua_State *L)
 {
     if (olua_getglobal(L, "__TRACEBACK__") != LUA_TFUNCTION) {
@@ -916,8 +903,7 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         create_table(L, idx, CLS_SET, super, false);    // L: mt mt .isa .func .get .set
         olua_setfuncs(L, lib,  5);                      // L: mt
         
-        lua_pushvalue(L, -1);
-        oluacls_const(L, "class");                      // mt.class = mt
+        oluacls_const_value(L, "class", -1);            // mt.class = mt
         oluacls_const_string(L, "classname", cls);      // mt.classname = cls
         oluacls_const_string(L, "classtype", "native");
         
@@ -984,8 +970,6 @@ static int cls_index_const(lua_State *L)
 
 LUALIB_API void oluacls_const(lua_State *L, const char *name)
 {
-    lua_pushvalue(L, -1);                       // L: cls v v
-    olua_rawsetf(L, -3, name);                  // L: cls v
     lua_pushcclosure(L, cls_index_const, 1);    // L: cls getter
     olua_rawgetf(L, -2, CLS_GET);               // L: cls getter .get
     lua_insert(L, -2);                          // L: cls .get getter

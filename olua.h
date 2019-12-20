@@ -126,7 +126,6 @@ LUALIB_API bool olua_checkboolean(lua_State *L, int idx);
 LUALIB_API int olua_rawgetf(lua_State *L, int idx, const char *field);
 LUALIB_API void olua_rawsetf(lua_State *L, int idx, const char *field);
 LUALIB_API void olua_require(lua_State *L, const char *name, lua_CFunction func);
-LUALIB_API void olua_preload(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API int olua_geterrorfunc(lua_State *L);
 LUALIB_API int olua_pcall(lua_State *L, int nargs, int nresults);
 LUALIB_API int olua_pcallref(lua_State *L, int funcref, int nargs, int nresults);
@@ -216,22 +215,11 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *supercl
 LUALIB_API void oluacls_prop(lua_State *L, const char *name, lua_CFunction getter, lua_CFunction setter);
 LUALIB_API void oluacls_func(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API void oluacls_const(lua_State *L, const char *name);
-#define oluacls_const_bool(L, k, v) {       \
-    lua_pushboolean(L, (v));                \
-    oluacls_const(L, (k));                  \
-}
-#define oluacls_const_number(L, k, v) {     \
-    lua_pushnumber(L, (v));                 \
-    oluacls_const(L, (k));                  \
-}
-#define oluacls_const_integer(L, k, v) {    \
-    lua_pushinteger(L, (v));                \
-    oluacls_const(L, (k));                  \
-}
-#define oluacls_const_string(L, k, v) {     \
-    lua_pushstring(L, (v));                 \
-    oluacls_const(L, (k));                  \
-}
+#define oluacls_const_value(L, k, v)    (lua_pushvalue(L, (v)), oluacls_const(L, (k)))
+#define oluacls_const_bool(L, k, v)     (lua_pushboolean(L, (v)), oluacls_const(L, (k)))
+#define oluacls_const_number(L, k, v)   (lua_pushnumber(L, (v)), oluacls_const(L, (k)))
+#define oluacls_const_integer(L, k, v)  (lua_pushinteger(L, (v)), oluacls_const(L, (k)))
+#define oluacls_const_string(L, k, v)   (lua_pushstring(L, (v)), oluacls_const(L, (k)))
     
 #define olua_push_bool(L, v)        (lua_pushboolean(L, (v)), 1)
 #define olua_check_bool(L, i, v)    (*(v) = olua_checkboolean(L, (i)))

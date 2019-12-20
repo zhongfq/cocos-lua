@@ -25,11 +25,10 @@
 
 #include "olua.h"
 
-#define CLS_CLSIDX  (lua_upvalueindex(1))
-#define CLS_ISAIDX  (lua_upvalueindex(2))
-#define CLS_FUNCIDX (lua_upvalueindex(3))
-#define CLS_GETIDX  (lua_upvalueindex(4))
-#define CLS_SETIDX  (lua_upvalueindex(5))
+#define CLS_ISAIDX  (lua_upvalueindex(1))
+#define CLS_FUNCIDX (lua_upvalueindex(2))
+#define CLS_GETIDX  (lua_upvalueindex(3))
+#define CLS_SETIDX  (lua_upvalueindex(4))
 #define CLS_ISA     ".isa"
 #define CLS_FUNC    ".func"
 #define CLS_GET     ".get"
@@ -862,15 +861,13 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         int idx = lua_gettop(L);
         lua_pop(L, 1);
         luaL_newmetatable(L, cls);                      // L: mt
+        create_table(L, idx, CLS_ISA, super, true);     // L: mt .isa
+        create_table(L, idx, CLS_FUNC, super, false);   // L: mt .isa .func
+        create_table(L, idx, CLS_GET, super, false);    // L: mt .isa .func .get
+        create_table(L, idx, CLS_SET, super, false);    // L: mt .isa .func .get .set
+        olua_setfuncs(L, lib,  4);                      // L: mt
         
-        lua_pushvalue(L, -1);                           // L: mt mt
-        create_table(L, idx, CLS_ISA, super, true);     // L: mt mt .isa
-        create_table(L, idx, CLS_FUNC, super, false);   // L: mt mt .isa .func
-        create_table(L, idx, CLS_GET, super, false);    // L: mt mt .isa .func .get
-        create_table(L, idx, CLS_SET, super, false);    // L: mt mt .isa .func .get .set
-        olua_setfuncs(L, lib,  5);                      // L: mt
-        
-        // init meta method
+        // init meta method and isa
         olua_rawgetf(L, -1, CLS_FUNC);                  // L: mt .func
         for (const char **e = events; *e != NULL; e++) {
             lua_pushvalue(L, -1);                       // L: mt .func .func
@@ -879,11 +876,9 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
             lua_pushcclosure(L, cls_metamethod, 3);     // L: mt .func metamethod
             olua_rawsetf(L, -3, *e);                    // L: mt .func      mt[e] = metamethod
         }
-        lua_pop(L, 1);
-        
-        olua_rawgetf(L, idx, CLS_ISA);
-        olua_setfieldboolean(L, -1, cls, true);         // mt[.isa][cls] = true
-        lua_pop(L, 1);
+        olua_rawgetf(L, idx, CLS_ISA);                  // L: mt .func .isa
+        olua_setfieldboolean(L, -1, cls, true);         // L: mt .func .isa  mt[.isa][cls] = true
+        lua_pop(L, 2);                                  // L: mt
         
         // create class store, for sotre static function callback
         lua_newuserdata(L, sizeof(void *));             // L: mt store
@@ -906,10 +901,11 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         
         oluacls_const_value(L, "class", idx);           // mt.class = mt
         oluacls_const_string(L, "classname", cls);      // mt.classname = cls
-        oluacls_const_string(L, "classtype", "native");
-        
+        oluacls_const_string(L, "classtype", "native"); // mt.classtype = native
         if (super) {
             olua_getmetatable(L, super);
+            olua_rawgetf(L, -1, CLS_AGENT);
+            lua_replace(L, -2);
             oluacls_const(L, "super");                  // mt.super = supermt
         }
         

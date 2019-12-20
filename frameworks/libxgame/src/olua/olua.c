@@ -35,6 +35,7 @@
 #define CLS_GET     ".get"
 #define CLS_SET     ".set"
 #define CLS_STORE   ".store" // static store for cls
+#define CLS_AGENT   ".agent"
 
 #define OLUA_OBJ_TABLE  ((void *)olua_pushobj)
 #define OLUA_POOL_TABLE ((void *)aux_pushlocalobj)
@@ -171,7 +172,7 @@ LUALIB_API const char *olua_typename(lua_State *L, int idx)
 {
     const char *tn = NULL;
     if (olua_isuserdata(L, idx) && lua_getmetatable(L, idx)) {
-        if (olua_rawgetf(L, -1, "classname") == LUA_TSTRING) {
+        if (olua_rawgetf(L, -1, "__name") == LUA_TSTRING) {
             tn = olua_tostring(L, -1);
         }
         lua_pop(L, 2); // pop mt and value
@@ -673,15 +674,6 @@ LUALIB_API void olua_walkunhold(lua_State *L, int idx, const char *name, olua_Wa
     lua_pop(L, 1);
 }
 
-static bool istagmethod(lua_State *L, int idx, const char *func)
-{
-    if (!func && olua_isstring(L, idx)) {
-        func = olua_tostring(L, idx);
-    }
-    return func && strstr(func, "__") == func;
-}
-
-
 static int lookupfunc(lua_State *L, int t, int kidx)
 {
 #define NOTFOUND ((void *)lookupfunc)
@@ -709,37 +701,31 @@ static int lookupfunc(lua_State *L, int t, int kidx)
     return type;
 }
 
-static int cls_tagmethod(lua_State *L)
+static int cls_metamethod(lua_State *L)
 {
-    if (!lua_toboolean(L, lua_upvalueindex(2))) {
-        lua_pushvalue(L, lua_upvalueindex(1));
+    // 1: CLS_FUNC   2: name   3: isgc
+    bool isgc = olua_toboolean(L, lua_upvalueindex(3));
+    lua_pushvalue(L, lua_upvalueindex(2));
+    if (lookupfunc(L, lua_upvalueindex(1), lua_gettop(L)) == LUA_TFUNCTION) {
+        lua_replace(L, -2);
         lua_insert(L, 1);
-        lua_call(L, lua_gettop(L) - 1, LUA_MULTRET);
-        return lua_gettop(L);
-    } else if (olua_isuserdata(L, 1)) { // __gc and userdata
-        olua_geterrorfunc(L);
-        lua_insert(L, 1);
-        lua_pushvalue(L, lua_upvalueindex(1));
-        lua_insert(L, 2);
-        lua_pcall(L, lua_gettop(L) - 2, LUA_MULTRET, 1);
-        return lua_gettop(L) - 1;
-    } else {
-        // unnecessary call __gc on class table
-        return 0;
+        if (!isgc) {
+            lua_call(L, lua_gettop(L) - 1, LUA_MULTRET);
+            return lua_gettop(L);
+        } else if (olua_isuserdata(L, 2)) {
+            olua_geterrorfunc(L);
+            lua_insert(L, 1);
+            lua_pcall(L, lua_gettop(L) - 2, LUA_MULTRET, 1);
+            return lua_gettop(L) - 1;
+        } else {
+            // unnecessary call __gc on class agent table
+            return 0;
+        }
+    } else if (!isgc) {
+        luaL_error(L, "meta method '%s' not found for '%s'",
+            olua_checkstring(L, lua_upvalueindex(2)), olua_objstring(L, 1));
     }
-}
-
-static void aux_settagmethod(lua_State *L, int idx)
-{
-    lua_pushvalue(L, idx);                      // L: n f t
-    lua_insert(L, -3);                          // L: t n f
-    if (!olua_isnoneornil(L, -1)) {
-        luaL_checktype(L, -1, LUA_TFUNCTION);
-        lua_pushboolean(L, strequal("__gc", lua_tostring(L, -2)));
-        lua_pushcclosure(L, cls_tagmethod, 2);
-    }
-    olua_rawset(L, -3);                         // L: t
-    lua_pop(L, 1);                              // L:
+    return 0;
 }
 
 static int cls_index(lua_State *L)
@@ -789,12 +775,6 @@ static int cls_newindex(lua_State *L)
         lua_pushvalue(L, 2);                    // L: t k v k
         lua_pushvalue(L, 3);                    // L: t k v k v
         lua_rawset(L, CLS_FUNCIDX);             // L: t k v
-        
-        if (istagmethod(L, 2, NULL)) {
-            lua_pushvalue(L, 2);
-            lua_pushvalue(L, 3);
-            aux_settagmethod(L, CLS_CLSIDX);
-        }
         return 0;
     }
     
@@ -850,26 +830,6 @@ static void create_table(lua_State *L, int idx, const char *field, const char *s
     olua_rawsetf(L, idx, field);            // L: t     idx[field] = t
 }
 
-static void copytagmethod(lua_State *L, int idx, const char *supercls)
-{
-    if (!supercls) {
-        return;
-    }
-    
-    idx = lua_absindex(L, idx);             // L: mt
-    olua_getmetatable(L, supercls);         // L: mt super
-    lua_pushnil(L);                         // L: mt super k
-    while (lua_next(L, -2)) {               // L: mt super k v
-        if (istagmethod(L, -2, NULL)) {
-            lua_pushvalue(L, -2);           // L: mt super k v k
-            lua_pushvalue(L, -2);           // L: mt super k v k v
-            lua_rawset(L, idx);             // L: mt super k v
-        }
-        lua_pop(L, 1);                      // L: mt super k
-    }                                       // L: mt super
-    lua_pop(L, 1);                          // L: mt
-}
-
 LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
 {
     if (super != NULL) {
@@ -890,11 +850,18 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
             {"__tostring", cls_tostring},
             {NULL, NULL}
         };
+        static const char *events[] = {
+          "__gc", "__len", "__eq",
+          "__add", "__sub", "__mul", "__mod", "__pow",
+          "__div", "__idiv",
+          "__band", "__bor", "__bxor", "__shl", "__shr",
+          "__unm", "__bnot", "__lt", "__le",
+          "__concat", "__call", NULL
+        };
         
         int idx = lua_gettop(L);
         lua_pop(L, 1);
         luaL_newmetatable(L, cls);                      // L: mt
-        copytagmethod(L, -1, super);
         
         lua_pushvalue(L, -1);                           // L: mt mt
         create_table(L, idx, CLS_ISA, super, true);     // L: mt mt .isa
@@ -903,14 +870,16 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         create_table(L, idx, CLS_SET, super, false);    // L: mt mt .isa .func .get .set
         olua_setfuncs(L, lib,  5);                      // L: mt
         
-        oluacls_const_value(L, "class", -1);            // mt.class = mt
-        oluacls_const_string(L, "classname", cls);      // mt.classname = cls
-        oluacls_const_string(L, "classtype", "native");
-        
-        if (super) {
-            olua_getmetatable(L, super);
-            oluacls_const(L, "super");                  // mt.super = supermt
+        // init meta method
+        olua_rawgetf(L, -1, CLS_FUNC);                  // L: mt .func
+        for (const char **e = events; *e != NULL; e++) {
+            lua_pushvalue(L, -1);                       // L: mt .func .func
+            lua_pushstring(L, *e);                      // L: mt .func .func e
+            lua_pushboolean(L, strequal(*e, "__gc"));   // L: mt .func .func e isgc
+            lua_pushcclosure(L, cls_metamethod, 3);     // L: mt .func metamethod
+            olua_rawsetf(L, -3, *e);                    // L: mt .func      mt[e] = metamethod
         }
+        lua_pop(L, 1);
         
         olua_rawgetf(L, idx, CLS_ISA);
         olua_setfieldboolean(L, -1, cls, true);         // mt[.isa][cls] = true
@@ -930,19 +899,34 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         olua_rawsetp(L, -2, lua_topointer(L, -1));      // L: mt store objs           objs[store_ptr] = store
         lua_pop(L, 2);                                  // L: mt
         
-        // allow access static method or const variable from class table
-        lua_pushvalue(L, -1);
-        lua_setmetatable(L, -2);
+        // create class agent
+        lua_createtable(L, 0, 0);                       // L: mt agent
+        lua_pushvalue(L, -2);                           // L: mt agent mt
+        lua_setmetatable(L, -2);                        // L: mt agent      agent.metatable = mt
+        
+        oluacls_const_value(L, "class", idx);           // mt.class = mt
+        oluacls_const_string(L, "classname", cls);      // mt.classname = cls
+        oluacls_const_string(L, "classtype", "native");
+        
+        if (super) {
+            olua_getmetatable(L, super);
+            oluacls_const(L, "super");                  // mt.super = supermt
+        }
+        
+        olua_rawsetf(L, -2, CLS_AGENT);            // L: mt            mt[agent] = agent
     }
+    olua_rawgetf(L, -1, CLS_AGENT);
+    lua_replace(L, -2);
 }
 
 static void aux_setfunc(lua_State *L, const char *t, const char *name, lua_CFunction func)
 {
-    if (func) {
-        olua_rawgetf(L, -1, t);             // L: cls t
-        lua_pushcfunction(L, func);         // L: cls t func
-        olua_rawsetf(L, -2, name);          // L: cls t      t[name] = func
-        lua_pop(L, 1);
+    if (func) {                             // L: agent
+        lua_getmetatable(L, -1);            // L: agent cls
+        olua_rawgetf(L, -1, t);             // L: agent cls t
+        lua_pushcfunction(L, func);         // L: agent cls t func
+        olua_rawsetf(L, -2, name);          // L: agent cls t      t[name] = func
+        lua_pop(L, 2);                      // L: agent
     }
 }
 
@@ -955,11 +939,6 @@ LUALIB_API void oluacls_prop(lua_State *L, const char *name, lua_CFunction gette
 LUALIB_API void oluacls_func(lua_State *L, const char *name, lua_CFunction func)
 {
     aux_setfunc(L, CLS_FUNC, name, func);
-    if (func && istagmethod(L, 0, name)) {
-        lua_pushstring(L, name);
-        lua_pushcfunction(L, func);
-        aux_settagmethod(L, -3);
-    }
 }
 
 static int cls_index_const(lua_State *L)
@@ -970,11 +949,12 @@ static int cls_index_const(lua_State *L)
 
 LUALIB_API void oluacls_const(lua_State *L, const char *name)
 {
-    lua_pushcclosure(L, cls_index_const, 1);    // L: cls getter
-    olua_rawgetf(L, -2, CLS_GET);               // L: cls getter .get
-    lua_insert(L, -2);                          // L: cls .get getter
-    olua_rawsetf(L, -2, name);                  // L: cls .get
-    lua_pop(L, 1);                              // L: cls
+    lua_pushcclosure(L, cls_index_const, 1);    // L: agent getter
+    lua_getmetatable(L, -2);                    // L: agent getter cls
+    olua_rawgetf(L, -1, CLS_GET);               // L: agent getter cls .get
+    lua_pushvalue(L, -3);                       // L: agent getter cls .get getter
+    olua_rawsetf(L, -2, name);                  // L: agent getter cls .get
+    lua_pop(L, 3);                              // L: agent
 }
 
 static void aux_checkfield(lua_State *L, int t, const char *field, int type, bool isinteger)
@@ -1171,6 +1151,23 @@ static int l_class(lua_State *L)
     return 1;
 }
 
+static int l_setmetatable(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TUSERDATA);
+    if (olua_getmetatable(L, olua_checkstring(L, 2)) == LUA_TTABLE) {
+        lua_setmetatable(L, 1);
+    } else {
+        luaL_error(L, "metatable '%s' not found", olua_checkstring(L, 2));
+    }
+    return 0;
+}
+
+static int l_getmetatable(lua_State *L)
+{
+    olua_getmetatable(L, olua_checkstring(L, 1));
+    return 1;
+}
+
 static int l_topointer(lua_State *L)
 {
     intptr_t p = (intptr_t)lua_topointer(L, 1);
@@ -1187,6 +1184,8 @@ LUALIB_API int luaopen_olua(lua_State *L)
         {"move", l_move},
         {"debug", l_debug},
         {"class", l_class},
+        {"setmetatable", l_setmetatable},
+        {"getmetatable", l_getmetatable},
         {"topointer", l_topointer},
         {NULL, NULL}
     };

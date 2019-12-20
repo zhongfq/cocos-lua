@@ -1331,7 +1331,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\uv\prebuilt\win32\*.*" "$(OutDir)"</Com
     <ClInclude Include="..\ui\UIListView.h" />
     <ClInclude Include="..\ui\UILoadingBar.h" />
     <ClInclude Include="..\ui\UIPageView.h" />
-    <ClInclude Include="..\ui\UIPageViewIndicator.h" />
     <ClInclude Include="..\ui\UIRelativeBox.h" />
     <ClInclude Include="..\ui\UIRichText.h" />
     <ClInclude Include="..\ui\UIScale9Sprite.h" />

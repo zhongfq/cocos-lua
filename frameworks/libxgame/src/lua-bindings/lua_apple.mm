@@ -133,11 +133,14 @@ LUALIB_API int luaopen_apple(lua_State *L)
     oluacls_func(L, "canMakeAuth", l_canMakeAuth);
     oluacls_func(L, "auth", l_auth);
     
-    xgame::runtime::registerFeature("apple.ios", true);
-    
-    @autoreleasepool {
-        AppleConnector *connector = [AppleConnector new];
-        olua_push_obj(L, (void *)CFBridgingRetain(connector), CLASS_CONNECTOR);
+    if (@available(iOS 13.0, *)) {
+        xgame::runtime::registerFeature("apple.ios", true);
+        @autoreleasepool {
+            AppleConnector *connector = [AppleConnector new];
+            olua_push_obj(L, (void *)CFBridgingRetain(connector), CLASS_CONNECTOR);
+        }
+    } else {
+        lua_pushboolean(L, false);
     }
     
     return 1;

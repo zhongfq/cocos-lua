@@ -88,7 +88,7 @@
 
 
 @interface UIWebViewWrapper () <WKUIDelegate, WKNavigationDelegate>
-@property(nonatomic, retain) WKWebView *wkWebView;
+@property(nonatomic) WKWebView *wkWebView;
 
 @property(nonatomic, copy) NSString *jsScheme;
 @end
@@ -124,7 +124,7 @@
 
 - (void)setupWebView {
     if (!self.wkWebView) {
-        self.wkWebView = [[[WKWebView alloc] init] autorelease];
+        self.wkWebView = [[WKWebView alloc] init];
         self.wkWebView.UIDelegate = self;
         self.wkWebView.navigationDelegate = self;
     }
@@ -250,7 +250,7 @@
 
 #pragma mark - WKNavigationDelegate
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    NSString *url = [webView.URL absoluteString];
+    NSString *url = [[[navigationAction request] URL] absoluteString];
     if ([[webView.URL scheme] isEqualToString:self.jsScheme]) {
         self.onJsCallback([url UTF8String]);
         decisionHandler(WKNavigationActionPolicyCancel);

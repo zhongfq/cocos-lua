@@ -1092,23 +1092,19 @@ static int l_with(lua_State *L)
     if (olua_getmetatable(L, cls) == LUA_TTABLE) {
         lua_setmetatable(L, 1);
     } else {
-        lua_pop(L, 1);
         luaL_error(L, "metatable not found: %s", cls);
     }
     
-    olua_geterrorfunc(L);               // L: obj cls func mt trackback
-    lua_pushvalue(L, 3);                // L: obj cls func mt trackback func
-    lua_pushvalue(L, 1);                // L: obj cls func mt trackback func obj
-    lua_pcall(L, 1, 0, 5);              // L: obj cls func mt trackback
-    lua_pop(L, 1);                      // L: obj cls func mt
+    lua_pushvalue(L, 3);                // L: obj cls func mt func
+    lua_pushvalue(L, 1);                // L: obj cls func mt func obj
+    lua_call(L, 1, 0);                  // L: obj cls func mt
     lua_setmetatable(L, 1);             // L: obj cls func
-    
     return 0;
 }
 
 static int l_isa(lua_State *L)
 {
-    olua_isa(L, 1, olua_checkstring(L, 2));
+    lua_pushboolean(L, olua_isa(L, 1, olua_checkstring(L, 2)));
     return 1;
 }
 
@@ -1166,8 +1162,7 @@ static int l_getmetatable(lua_State *L)
 
 static int l_topointer(lua_State *L)
 {
-    intptr_t p = (intptr_t)lua_topointer(L, 1);
-    lua_pushinteger(L, (lua_Integer)p);
+    lua_pushinteger(L, (lua_Integer)(intptr_t)lua_topointer(L, 1));
     return 1;
 }
 

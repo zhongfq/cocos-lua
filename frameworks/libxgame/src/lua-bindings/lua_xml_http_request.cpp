@@ -11,8 +11,6 @@ static int luaopen_cocos2d_XMLHttpRequest_ResponseType(lua_State *L)
     oluacls_const_integer(L, "DOCUMENT", (lua_Integer)cocos2d::XMLHttpRequest::ResponseType::DOCUMENT);
     oluacls_const_integer(L, "JSON", (lua_Integer)cocos2d::XMLHttpRequest::ResponseType::JSON);
     
-    oluacls_asenum(L);
-    
     return 1;
 }
 

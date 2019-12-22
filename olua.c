@@ -744,14 +744,10 @@ static int cls_index(lua_State *L)
     // try variable
     if (olua_isuserdata(L, 1)) {
         lua_pushvalue(L, 2);
-        if (olua_getvariable(L, 1) != LUA_TNIL) {
-            return 1;
-        }
+        olua_getvariable(L, 1);
+        return 1;
     }
-    
-    lua_pushnil(L);
-    
-    return 1;
+    return 0;
 }
 
 static int cls_newindex(lua_State *L)
@@ -763,7 +759,7 @@ static int cls_newindex(lua_State *L)
             lua_pushvalue(L, 3);                // L: t k v setter t v
             lua_call(L, 2, 0);                  // L: t k v
         } else {
-            // static setter, accessed from class proxy
+            // static setter, accessed from class agent
             lua_pushvalue(L, 3);                // L: t k v setter v
             lua_call(L, 1, 0);                  // L: t k v
         }
@@ -771,9 +767,8 @@ static int cls_newindex(lua_State *L)
     }
     
     if (olua_istable(L, 1)) {
-        lua_pushvalue(L, 2);                    // L: t k v k
-        lua_pushvalue(L, 3);                    // L: t k v k v
-        lua_rawset(L, CLS_FUNCIDX);             // L: t k v
+        lua_settop(L, 3);                       // L: t k v
+        lua_rawset(L, CLS_FUNCIDX);             // L: t
         return 0;
     }
     
@@ -789,9 +784,9 @@ static int cls_newindex(lua_State *L)
         }
     }
     
+    olua_assert(olua_isuserdata(L, 1));
     lua_settop(L, 3);
     olua_setvariable(L, 1);
-    
     return 0;
 }
 
@@ -891,7 +886,7 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         olua_rawsetf(L, -3, CLS_STORE);                 // L: mt store          mt[.store] = store
         aux_getobjtable(L);                             // L: mt store objs
         lua_pushvalue(L, -2);                           // L: mt store objs store
-        olua_rawsetp(L, -2, lua_topointer(L, -1));      // L: mt store objs           objs[store_ptr] = store
+        olua_rawsetp(L, -2, lua_topointer(L, -1));      // L: mt store objs     objs[store_ptr] = store
         lua_pop(L, 2);                                  // L: mt
         
         // create class agent
@@ -906,10 +901,10 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
             olua_getmetatable(L, super);
             olua_rawgetf(L, -1, CLS_AGENT);
             lua_replace(L, -2);
-            oluacls_const(L, "super");                  // mt.super = supermt
+            oluacls_const(L, "super");                  // mt.super = super agent
         }
         
-        olua_rawsetf(L, -2, CLS_AGENT);            // L: mt            mt[agent] = agent
+        olua_rawsetf(L, -2, CLS_AGENT);                 // L: mt        mt[agent] = agent
     }
     olua_rawgetf(L, -1, CLS_AGENT);
     lua_replace(L, -2);

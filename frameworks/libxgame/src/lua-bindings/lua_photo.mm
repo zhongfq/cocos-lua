@@ -152,7 +152,6 @@ typedef enum {
 static int _gc(lua_State *L)
 {
     @autoreleasepool {
-        lua_settop(L, 1);
         PhotoConnector *connector = olua_checkconnector(L, 1);
         CFBridgingRelease((__bridge CFTypeRef)connector);
     }
@@ -164,7 +163,7 @@ static int _set_callback(lua_State *L)
     @autoreleasepool {
         lua_settop(L, 2);
         PhotoConnector *connector = olua_checkconnector(L, 1);
-        void *cb_store = (void *)connector;
+        void *cb_store = (__bridge void *)connector;
         std::string func = olua_setcallback(L, cb_store, "dispatcher", 2, OLUA_TAG_REPLACE);
         lua_State *MT = olua_mainthread();
         connector.dispatcher = [cb_store, func, MT] (const std::string &event, const std::string &data) {
@@ -334,7 +333,7 @@ int luaopen_photo(lua_State *L)
     xgame::runtime::registerFeature("photo.ios", true);
     
     @autoreleasepool {
-        PhotoConnector *connector = [[PhotoConnector alloc] init];
+        PhotoConnector *connector = [PhotoConnector new];
         olua_push_obj(L, (void *)CFBridgingRetain(connector), CLASS_CONNECTOR);
     }
     

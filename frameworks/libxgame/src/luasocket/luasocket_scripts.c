@@ -2166,7 +2166,7 @@ int luaopen_lua_m_socket(lua_State *L) {
     return 1;
 }
 
-/*
+
 static luaL_Reg luasocket_scripts_modules[] = {
     {"ltn12", luaopen_lua_m_ltn12},
     {"mime", luaopen_lua_m_mime},
@@ -2181,7 +2181,7 @@ static luaL_Reg luasocket_scripts_modules[] = {
     {NULL, NULL}
 };
 
-void luaopen_luasocket_scripts(lua_State* L)
+int luaopen_luasocket_scripts(lua_State* L)
 {
     luaL_Reg* lib = luasocket_scripts_modules;
     lua_getglobal(L, "package");
@@ -2192,5 +2192,5 @@ void luaopen_luasocket_scripts(lua_State* L)
         lua_setfield(L, -2, lib->name);
     }
     lua_pop(L, 2);
+    return 0;
 }
-*/

@@ -57,6 +57,10 @@ target_compile_definitions(xgame PRIVATE $<$<CONFIG:Debug>:OLUA_DEBUG>)
 
 target_link_libraries(xgame fairygui cocos2d)
 
+if (APPLE)
+    set_xcode_property(xgame CLANG_ENABLE_OBJC_ARC "YES")
+endif()
+
 if (IOS)
     set_xcode_property(xgame TARGETED_DEVICE_FAMILY "1,2")
     set_xcode_property(xgame IPHONEOS_DEPLOYMENT_TARGET "9.0")

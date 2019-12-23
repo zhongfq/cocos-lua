@@ -134,7 +134,7 @@ LUALIB_API int olua_pcallref(lua_State *L, int funcref, int nargs, int nresults)
 LUALIB_API const char *olua_typename(lua_State *L, int idx);
 LUALIB_API bool olua_isa(lua_State *L, int idx, const char *cls);
 LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls);
-LUALIB_API bool olua_getobj(lua_State *L, void *obj);
+LUALIB_API bool olua_getrawdata(lua_State *L, void *obj);
 LUALIB_API void *olua_checkobj(lua_State *L, int idx, const char *cls);
 LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls);
 LUALIB_API const char *olua_objstring(lua_State *L, int idx);

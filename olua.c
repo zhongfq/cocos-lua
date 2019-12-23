@@ -268,7 +268,7 @@ LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
     return status;
 }
 
-LUALIB_API bool olua_getobj(lua_State *L, void *obj)
+LUALIB_API bool olua_getrawdata(lua_State *L, void *obj)
 {
     if (!obj) {
         return false;
@@ -386,7 +386,7 @@ LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag
     func = lua_absindex(L, func);
     luaL_checktype(L, func, LUA_TFUNCTION);
     
-    if (!olua_getobj(L, obj)) {                         // L: obj
+    if (!olua_getrawdata(L, obj)) {                         // L: obj
         luaL_error(L, "obj userdata not found");
     } else {
         olua_getfield(L, -1, "classname");
@@ -422,7 +422,7 @@ LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag
 
 LUALIB_API int olua_getcallback(lua_State *L, void *obj, const char *tag, int mode)
 {
-    if (!olua_getobj(L, obj)) {
+    if (!olua_getrawdata(L, obj)) {
         lua_pushnil(L);
         return LUA_TNIL;
     }
@@ -450,7 +450,7 @@ LUALIB_API int olua_getcallback(lua_State *L, void *obj, const char *tag, int mo
 
 LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, int mode)
 {
-    if (!olua_getobj(L, obj)) {
+    if (!olua_getrawdata(L, obj)) {
         return;
     }
     

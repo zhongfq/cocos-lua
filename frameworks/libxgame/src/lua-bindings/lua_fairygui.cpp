@@ -4000,7 +4000,7 @@ static int _fairygui_GTween_clean(lua_State *L)
     fairygui::GTween::clean();
 
     // inject code after call
-    olua_getstore(L, "fgui.GTween");
+    olua_pushclassobj(L, "fgui.GTween");
     olua_unholdall(L, 1, "tweeners");
 
     olua_endinvoke(L);
@@ -4021,7 +4021,7 @@ static int _fairygui_GTween_delayedCall(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     // inject code after call
-    olua_getstore(L, "fgui.GTween");
+    olua_pushclassobj(L, "fgui.GTween");
     olua_hold(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
     olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
     lua_pop(L, 1);
@@ -4161,7 +4161,7 @@ static int _fairygui_GTween_kill1(lua_State *L)
     fairygui::GTween::kill(arg1);
 
     // inject code after call
-    olua_getstore(L, "fgui.GTween");
+    olua_pushclassobj(L, "fgui.GTween");
     olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
     lua_pop(L, 1);
 
@@ -4184,7 +4184,7 @@ static int _fairygui_GTween_kill2(lua_State *L)
     fairygui::GTween::kill(arg1, arg2);
 
     // inject code after call
-    olua_getstore(L, "fgui.GTween");
+    olua_pushclassobj(L, "fgui.GTween");
     olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
     lua_pop(L, 1);
 
@@ -4209,7 +4209,7 @@ static int _fairygui_GTween_kill3(lua_State *L)
     fairygui::GTween::kill(arg1, (fairygui::TweenPropType)arg2, arg3);
 
     // inject code after call
-    olua_getstore(L, "fgui.GTween");
+    olua_pushclassobj(L, "fgui.GTween");
     olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
     lua_pop(L, 1);
 
@@ -4265,7 +4265,7 @@ static int _fairygui_GTween_shake(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     // inject code after call
-    olua_getstore(L, "fgui.GTween");
+    olua_pushclassobj(L, "fgui.GTween");
     olua_hold(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
     olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
     lua_pop(L, 1);
@@ -4292,7 +4292,7 @@ static int _fairygui_GTween_to1(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     // inject code after call
-    olua_getstore(L, "fgui.GTween");
+    olua_pushclassobj(L, "fgui.GTween");
     olua_hold(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
     olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
     lua_pop(L, 1);
@@ -4319,7 +4319,7 @@ static int _fairygui_GTween_to2(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     // inject code after call
-    olua_getstore(L, "fgui.GTween");
+    olua_pushclassobj(L, "fgui.GTween");
     olua_hold(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
     olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
     lua_pop(L, 1);
@@ -4346,7 +4346,7 @@ static int _fairygui_GTween_to3(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     // inject code after call
-    olua_getstore(L, "fgui.GTween");
+    olua_pushclassobj(L, "fgui.GTween");
     olua_hold(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
     olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
     lua_pop(L, 1);
@@ -4373,7 +4373,7 @@ static int _fairygui_GTween_to4(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     // inject code after call
-    olua_getstore(L, "fgui.GTween");
+    olua_pushclassobj(L, "fgui.GTween");
     olua_hold(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
     olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
     lua_pop(L, 1);
@@ -4400,7 +4400,7 @@ static int _fairygui_GTween_to5(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     // inject code after call
-    olua_getstore(L, "fgui.GTween");
+    olua_pushclassobj(L, "fgui.GTween");
     olua_hold(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
     olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
     lua_pop(L, 1);
@@ -4463,7 +4463,7 @@ static int _fairygui_GTween_toDouble(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     // inject code after call
-    olua_getstore(L, "fgui.GTween");
+    olua_pushclassobj(L, "fgui.GTween");
     olua_hold(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
     olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
     lua_pop(L, 1);
@@ -22609,7 +22609,7 @@ static int _fairygui_UIObjectFactory_setLoaderExtension(lua_State *L)
 
     std::function<fairygui::GLoader *()> arg1;       /** creator */
 
-    void *callback_store_obj = (void *)olua_getstoreobj(L, "fgui.UIObjectFactory");
+    void *callback_store_obj = (void *)olua_pushclassobj(L, "fgui.UIObjectFactory");
     std::string tag = "LoaderExtension";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 1, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();
@@ -22647,7 +22647,7 @@ static int _fairygui_UIObjectFactory_setPackageItemExtension(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
 
-    void *callback_store_obj = (void *)olua_getstoreobj(L, "fgui.UIObjectFactory");
+    void *callback_store_obj = (void *)olua_pushclassobj(L, "fgui.UIObjectFactory");
     std::string tag = "PackageItemExtension";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();

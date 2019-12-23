@@ -362,7 +362,7 @@ cls.SUPERCLS = "cocos2d::Ref"
 cls.CHUNK = [[
 static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
 {
-    if (olua_getobj(L, target)) {
+    if (olua_getrawdata(L, target)) {
         olua_unholdall(L, -1, refname);
         lua_pop(L, 1);
     }
@@ -1160,7 +1160,7 @@ cls.inject('uncache', {
         std::string path = olua_checkstring(L, 1);
         std::list<int> ids = cocos2d::LuaAudioEngine::getAudioIDs(path);
         const char *cls = olua_getluatype<cocos2d::AudioEngine>(L);
-        void *callback_store_obj = (void *)olua_getstoreobj(L, cls);
+        void *callback_store_obj = (void *)olua_pushclassobj(L, cls);
         for (auto id : ids) {
             std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
             olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);

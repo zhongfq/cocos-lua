@@ -500,7 +500,7 @@ cls.funcs [[
 ]]
 cls.inject('to', {
     AFTER = [[
-        olua_getstore(L, "fgui.GTween");
+        olua_pushclassobj(L, "fgui.GTween");
         olua_hold(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
         olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
         lua_pop(L, 1);
@@ -508,7 +508,7 @@ cls.inject('to', {
 })
 cls.inject('toDouble', {
     AFTER = [[
-        olua_getstore(L, "fgui.GTween");
+        olua_pushclassobj(L, "fgui.GTween");
         olua_hold(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
         olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
         lua_pop(L, 1);
@@ -516,7 +516,7 @@ cls.inject('toDouble', {
 })
 cls.inject('delayedCall', {
     AFTER = [[
-        olua_getstore(L, "fgui.GTween");
+        olua_pushclassobj(L, "fgui.GTween");
         olua_hold(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
         olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
         lua_pop(L, 1);
@@ -524,7 +524,7 @@ cls.inject('delayedCall', {
 })
 cls.inject('shake', {
     AFTER = [[
-        olua_getstore(L, "fgui.GTween");
+        olua_pushclassobj(L, "fgui.GTween");
         olua_hold(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
         olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
         lua_pop(L, 1);
@@ -532,14 +532,14 @@ cls.inject('shake', {
 })
 cls.inject('kill', {
     AFTER = [[
-        olua_getstore(L, "fgui.GTween");
+        olua_pushclassobj(L, "fgui.GTween");
         olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
         lua_pop(L, 1);
     ]],
 })
 cls.inject('clean', {
     AFTER = [[
-        olua_getstore(L, "fgui.GTween");
+        olua_pushclassobj(L, "fgui.GTween");
         olua_unholdall(L, 1, "tweeners");
     ]],
 })

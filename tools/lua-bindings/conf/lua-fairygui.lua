@@ -141,14 +141,14 @@ static bool should_unref_tweener(lua_State *L, int idx)
 }]]
 local UNREF_TWEEN = {
     AFTER = [[
-        olua_getstore(L, "fgui.GTween");
+        olua_pushclassobj(L, "fgui.GTween");
         olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
         lua_pop(L, 1);
     ]]
 }
 local REF_TEWEENER = {
     AFTER = [[
-        olua_getstore(L, "fgui.GTween");
+        olua_pushclassobj(L, "fgui.GTween");
         olua_hold(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
         olua_walkunhold(L, -1, "tweeners", should_unref_tweener);
         lua_pop(L, 1);
@@ -161,7 +161,7 @@ GTween.INJECT('shake', REF_TEWEENER)
 GTween.INJECT('kill', UNREF_TWEEN)
 GTween.INJECT('clean', {
     AFTER = [[
-        olua_getstore(L, "fgui.GTween");
+        olua_pushclassobj(L, "fgui.GTween");
         olua_unholdall(L, 1, "tweeners");
     ]]
 })

@@ -10,7 +10,6 @@ include(src/lpeg/CMakeLists.txt)
 include(src/lua-bindings/CMakeLists.txt)
 include(src/lua/CMakeLists.txt)
 include(src/luasocket/CMakeLists.txt)
-include(src/olua/CMakeLists.txt)
 include(src/pbc/CMakeLists.txt)
 include(src/qrencode/CMakeLists.txt)
 include(src/sproto/CMakeLists.txt)
@@ -25,11 +24,11 @@ set(SRC
     ${LUA_BINDINGS_SRC}
     ${LUA_SRC}
     ${LUASOCKET_SRC}
-    ${OLUA_SRC}
     ${PBC_SRC}
     ${QRCODE_SRC}
     ${SPROTO_SRC}
     ${XGAME_SRC}
+    src/olua/olua.c
 )
 
 set(HEADER
@@ -41,11 +40,12 @@ set(HEADER
     ${LUA_BINDINGS_HEADER}
     ${LUA_HEADER}
     ${LUASOCKET_HEADER}
-    ${OLUA_HEADER}
     ${PBC_HEADER}
     ${QRCODE_HEADER}
     ${SPROTO_HEADER}
     ${XGAME_HEADER}
+    src/olua/olua.h
+    src/olua/olua.hpp
 )
 
 list(APPEND SRC ${HEADER})

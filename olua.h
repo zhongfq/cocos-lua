@@ -159,8 +159,7 @@ LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, in
 LUALIB_API int olua_callback(lua_State *L, void *obj, const char *func, int argc);
     
 // class store, store static callback or other
-LUALIB_API void olua_getstore(lua_State *L, const char *cls);
-LUALIB_API void *olua_getstoreobj(lua_State *L, const char *cls);
+LUALIB_API void *olua_pushclassobj(lua_State *L, const char *cls);
 
 // get or set variable in userdata
 LUALIB_API int olua_getvariable(lua_State *L, int idx);

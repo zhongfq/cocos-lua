@@ -502,21 +502,13 @@ LUALIB_API int olua_callback(lua_State *L, void *obj, const char *func, int argc
     return status;
 }
 
-LUALIB_API void olua_getstore(lua_State *L, const char *cls)
+LUALIB_API void *olua_pushclassobj(lua_State *L, const char *cls)
 {
     olua_getmetatable(L, cls);                  // L: cls
     olua_rawgetf(L, -1, CLS_STORE);             // L: cls store
     lua_remove(L, -2);                          // L: store
     olua_assert(olua_isuserdata(L, -1));
-}
-
-LUALIB_API void *olua_getstoreobj(lua_State *L, const char *cls)
-{
-    void *store_obj = NULL;
-    olua_getstore(L, cls);
-    store_obj = (void *)lua_topointer(L, -1);
-    lua_pop(L, 1);
-    return store_obj;
+    return lua_touserdata(L, -1);
 }
 
 LUALIB_API int olua_getvariable(lua_State *L, int idx)
@@ -886,7 +878,7 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         olua_rawsetf(L, -3, CLS_STORE);                 // L: mt store          mt[.store] = store
         aux_getobjtable(L);                             // L: mt store objs
         lua_pushvalue(L, -2);                           // L: mt store objs store
-        olua_rawsetp(L, -2, lua_topointer(L, -1));      // L: mt store objs     objs[store_ptr] = store
+        olua_rawsetp(L, -2, lua_touserdata(L, -1));     // L: mt store objs     objs[store_ptr] = store
         lua_pop(L, 2);                                  // L: mt
         
         // create class agent

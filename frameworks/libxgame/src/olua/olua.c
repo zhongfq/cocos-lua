@@ -902,26 +902,27 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
     lua_replace(L, -2);
 }
 
-static void aux_setfunc(lua_State *L, const char *t, const char *name, lua_CFunction func)
+static void aux_setfunc(lua_State *L, const char *t, const char *name, lua_CFunction func, int n)
 {
-    if (func) {                             // L: agent
-        lua_getmetatable(L, -1);            // L: agent cls
-        olua_rawgetf(L, -1, t);             // L: agent cls t
-        lua_pushcfunction(L, func);         // L: agent cls t func
-        olua_rawsetf(L, -2, name);          // L: agent cls t      t[name] = func
-        lua_pop(L, 2);                      // L: agent
+    if (func) {                         // L: agent
+        lua_pushcclosure(L, func, n);   // L: agent func
+        lua_getmetatable(L, -2);        // L: agent func cls
+        olua_rawgetf(L, -1, t);         // L: agent func cls .func
+        lua_pushvalue(L, -3);           // L: agent func cls .func func
+        olua_rawsetf(L, -2, name);      // L: agent func cls .func   .func[name] = func
+        lua_pop(L, 3);                  // L: agent
     }
 }
 
 LUALIB_API void oluacls_prop(lua_State *L, const char *name, lua_CFunction getter, lua_CFunction setter)
 {
-    aux_setfunc(L, CLS_GET, name, getter);
-    aux_setfunc(L, CLS_SET, name, setter);
+    aux_setfunc(L, CLS_GET, name, getter, 0);
+    aux_setfunc(L, CLS_SET, name, setter, 0);
 }
 
 LUALIB_API void oluacls_func(lua_State *L, const char *name, lua_CFunction func)
 {
-    aux_setfunc(L, CLS_FUNC, name, func);
+    aux_setfunc(L, CLS_FUNC, name, func, 0);
 }
 
 static int cls_index_const(lua_State *L)
@@ -932,12 +933,7 @@ static int cls_index_const(lua_State *L)
 
 LUALIB_API void oluacls_const(lua_State *L, const char *name)
 {
-    lua_pushcclosure(L, cls_index_const, 1);    // L: agent getter
-    lua_getmetatable(L, -2);                    // L: agent getter cls
-    olua_rawgetf(L, -1, CLS_GET);               // L: agent getter cls .get
-    lua_pushvalue(L, -3);                       // L: agent getter cls .get getter
-    olua_rawsetf(L, -2, name);                  // L: agent getter cls .get
-    lua_pop(L, 3);                              // L: agent
+    aux_setfunc(L, CLS_GET, name, cls_index_const, 1);
 }
 
 static void aux_checkfield(lua_State *L, int t, const char *field, int type, bool isinteger)

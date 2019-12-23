@@ -134,7 +134,7 @@ LUALIB_API int olua_pcallref(lua_State *L, int funcref, int nargs, int nresults)
 LUALIB_API const char *olua_typename(lua_State *L, int idx);
 LUALIB_API bool olua_isa(lua_State *L, int idx, const char *cls);
 LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls);
-LUALIB_API bool olua_getobj(lua_State *L, void *obj);
+LUALIB_API bool olua_getrawdata(lua_State *L, void *obj);
 LUALIB_API void *olua_checkobj(lua_State *L, int idx, const char *cls);
 LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls);
 LUALIB_API const char *olua_objstring(lua_State *L, int idx);
@@ -159,8 +159,7 @@ LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, in
 LUALIB_API int olua_callback(lua_State *L, void *obj, const char *func, int argc);
     
 // class store, store static callback or other
-LUALIB_API void olua_getstore(lua_State *L, const char *cls);
-LUALIB_API void *olua_getstoreobj(lua_State *L, const char *cls);
+LUALIB_API void *olua_pushclassobj(lua_State *L, const char *cls);
 
 // get or set variable in userdata
 LUALIB_API int olua_getvariable(lua_State *L, int idx);

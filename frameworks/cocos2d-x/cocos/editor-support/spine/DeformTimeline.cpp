@@ -31,18 +31,18 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/DeformTimeline.h"
+#include <spine/DeformTimeline.h>
 
-#include "spine/Skeleton.h"
-#include "spine/Event.h"
+#include <spine/Skeleton.h>
+#include <spine/Event.h>
 
-#include "spine/VertexAttachment.h"
+#include <spine/VertexAttachment.h>
 
-#include "spine/Animation.h"
-#include "spine/TimelineType.h"
-#include "spine/Slot.h"
-#include "spine/Bone.h"
-#include "spine/SlotData.h"
+#include <spine/Animation.h>
+#include <spine/TimelineType.h>
+#include <spine/Slot.h>
+#include <spine/Bone.h>
+#include <spine/SlotData.h>
 
 using namespace spine;
 

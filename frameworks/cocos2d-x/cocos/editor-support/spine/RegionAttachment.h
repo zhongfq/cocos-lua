@@ -30,11 +30,11 @@
 #ifndef Spine_RegionAttachment_h
 #define Spine_RegionAttachment_h
 
-#include "spine/Attachment.h"
-#include "spine/Vector.h"
-#include "spine/Color.h"
+#include <spine/Attachment.h>
+#include <spine/Vector.h>
+#include <spine/Color.h>
 
-#include "spine/HasRendererObject.h"
+#include <spine/HasRendererObject.h>
 
 #define NUM_UVS 8
 

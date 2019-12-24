@@ -30,7 +30,7 @@
 #ifndef Spine_PointAttachment_h
 #define Spine_PointAttachment_h
 
-#include "spine/Attachment.h"
+#include <spine/Attachment.h>
 
 namespace spine {
 	class Bone;

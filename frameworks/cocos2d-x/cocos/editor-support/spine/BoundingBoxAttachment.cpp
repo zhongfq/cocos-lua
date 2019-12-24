@@ -31,7 +31,7 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/BoundingBoxAttachment.h"
+#include <spine/BoundingBoxAttachment.h>
 
 using namespace spine;
 

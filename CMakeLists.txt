@@ -29,6 +29,12 @@ set(APP_NAME cocos-lua)
 
 project(${APP_NAME})
 
+if(XCODE)
+    if(NOT DEFINED CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET)
+        SET (CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET 9.0)
+    endif()
+endif()
+
 add_definitions(-DCC_FILEUTILS_APPLE_ENABLE_OBJC=0)
 add_definitions(-DCC_ENABLE_SCRIPT_BINDING=0)
 add_definitions(-DCC_CONSTRUCTOR_ACCESS=public)
@@ -157,6 +163,7 @@ target_include_directories(${APP_NAME}
 
 # suspend warnings
 target_compile_options(cocos2d PRIVATE -Wno-reorder)
+target_compile_options(cocos2d PRIVATE -Wno-deprecated-declarations)
 target_compile_options(fairygui PRIVATE -Wno-reorder)
 
 # mark app resources
@@ -165,9 +172,9 @@ if(APPLE)
     set_target_properties(${APP_NAME} PROPERTIES RESOURCE "${APP_UI_RES}")
 
     if(MACOSX)
-        set_xcode_property(${APP_NAME} INFOPLIST_FILE "${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/Info.plist")
+        set_target_properties(${APP_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST "${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/Info.plist")
     elseif(IOS)
-        set_xcode_property(${APP_NAME} INFOPLIST_FILE "${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Info.plist")
+        set_target_properties(${APP_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST "${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Info.plist")
         set_xcode_property(${APP_NAME} ASSETCATALOG_COMPILER_APPICON_NAME "AppIcon")
     endif()
 
@@ -184,8 +191,6 @@ elseif(WINDOWS)
 endif()
 
 if(LINUX OR WINDOWS)
-    set(APP_RES_DIR "$<TARGET_FILE_DIR:${APP_NAME}>/assets")
-    cocos_copy_target_res(${APP_NAME} COPY_TO ${APP_RES_DIR} FOLDERS ${GAME_RES_FOLDER})
+    cocos_get_resource_path(APP_RES_DIR ${APP_NAME})
+    cocos_copy_target_res(${APP_NAME} LINK_TO ${APP_RES_DIR} FOLDERS ${GAME_RES_FOLDER})
 endif()
-
-target_compile_options(cocos2d PRIVATE -Wno-deprecated-declarations)

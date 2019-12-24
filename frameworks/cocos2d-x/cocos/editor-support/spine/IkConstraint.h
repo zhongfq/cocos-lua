@@ -30,9 +30,9 @@
 #ifndef Spine_IkConstraint_h
 #define Spine_IkConstraint_h
 
-#include "spine/ConstraintData.h"
+#include <spine/ConstraintData.h>
 
-#include "spine/Vector.h"
+#include <spine/Vector.h>
 
 namespace spine {
 class IkConstraintData;

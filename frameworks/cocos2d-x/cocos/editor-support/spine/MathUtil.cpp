@@ -30,7 +30,7 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/MathUtil.h"
+#include <spine/MathUtil.h>
 #include <math.h>
 #include <stdlib.h>
 

@@ -30,7 +30,7 @@
 #ifndef Spine_RotateTimeline_h
 #define Spine_RotateTimeline_h
 
-#include "spine/CurveTimeline.h"
+#include <spine/CurveTimeline.h>
 
 namespace spine {
 	class SP_API RotateTimeline : public CurveTimeline {

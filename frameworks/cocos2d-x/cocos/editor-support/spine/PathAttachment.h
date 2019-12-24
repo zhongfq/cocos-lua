@@ -30,7 +30,7 @@
 #ifndef Spine_PathAttachment_h
 #define Spine_PathAttachment_h
 
-#include "spine/VertexAttachment.h"
+#include <spine/VertexAttachment.h>
 
 namespace spine {
 	class SP_API PathAttachment : public VertexAttachment {

@@ -30,15 +30,15 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/ScaleTimeline.h"
+#include <spine/ScaleTimeline.h>
 
-#include "spine/Skeleton.h"
-#include "spine/Event.h"
+#include <spine/Skeleton.h>
+#include <spine/Event.h>
 
-#include "spine/Slot.h"
-#include "spine/SlotData.h"
-#include "spine/Bone.h"
-#include "spine/BoneData.h"
+#include <spine/Slot.h>
+#include <spine/SlotData.h>
+#include <spine/Bone.h>
+#include <spine/BoneData.h>
 
 using namespace spine;
 

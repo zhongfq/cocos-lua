@@ -309,10 +309,10 @@ static int luaopen_cocos2d_backend_ProgramType(lua_State *L)
 {
     oluacls_class(L, "ccb.ProgramType", nullptr);
     oluacls_const_integer(L, "CAMERA_CLEAR", (lua_Integer)cocos2d::backend::ProgramType::CAMERA_CLEAR);
+    oluacls_const_integer(L, "CUSTOM_PROGRAM", (lua_Integer)cocos2d::backend::ProgramType::CUSTOM_PROGRAM);
     oluacls_const_integer(L, "ETC1", (lua_Integer)cocos2d::backend::ProgramType::ETC1);
     oluacls_const_integer(L, "ETC1_GRAY", (lua_Integer)cocos2d::backend::ProgramType::ETC1_GRAY);
     oluacls_const_integer(L, "GRAY_SCALE", (lua_Integer)cocos2d::backend::ProgramType::GRAY_SCALE);
-    oluacls_const_integer(L, "INVALID_PROGRAM", (lua_Integer)cocos2d::backend::ProgramType::INVALID_PROGRAM);
     oluacls_const_integer(L, "LABEL_DISTANCE_NORMAL", (lua_Integer)cocos2d::backend::ProgramType::LABEL_DISTANCE_NORMAL);
     oluacls_const_integer(L, "LABEL_NORMAL", (lua_Integer)cocos2d::backend::ProgramType::LABEL_NORMAL);
     oluacls_const_integer(L, "LABLE_DISTANCEFIELD_GLOW", (lua_Integer)cocos2d::backend::ProgramType::LABLE_DISTANCEFIELD_GLOW);
@@ -1497,6 +1497,23 @@ static int _cocos2d_backend_ShaderModule___move(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_backend_ShaderModule_getHashValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::backend::ShaderModule *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccb.ShaderModule");
+
+    // std::size_t getHashValue()
+    std::size_t ret = (std::size_t)self->getHashValue();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_backend_ShaderModule_getShaderStage(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1518,7 +1535,9 @@ static int luaopen_cocos2d_backend_ShaderModule(lua_State *L)
 {
     oluacls_class(L, "ccb.ShaderModule", "cc.Ref");
     oluacls_func(L, "__move", _cocos2d_backend_ShaderModule___move);
+    oluacls_func(L, "getHashValue", _cocos2d_backend_ShaderModule_getHashValue);
     oluacls_func(L, "getShaderStage", _cocos2d_backend_ShaderModule_getShaderStage);
+    oluacls_prop(L, "hashValue", _cocos2d_backend_ShaderModule_getHashValue, nullptr);
     oluacls_prop(L, "shaderStage", _cocos2d_backend_ShaderModule_getShaderStage, nullptr);
 
     olua_registerluatype<cocos2d::backend::ShaderModule>(L, "ccb.ShaderModule");
@@ -2297,24 +2316,6 @@ static int _cocos2d_backend_Program_getVertexShader(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Program_setProgramType(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    cocos2d::backend::Program *self = nullptr;
-    lua_Unsigned arg1 = 0;       /** type */
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Program");
-    olua_check_uint(L, 2, &arg1);
-
-    // void setProgramType(cocos2d::backend::ProgramType type)
-    self->setProgramType((cocos2d::backend::ProgramType)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 static int luaopen_cocos2d_backend_Program(lua_State *L)
 {
     oluacls_class(L, "ccb.Program", "cc.Ref");
@@ -2331,12 +2332,11 @@ static int luaopen_cocos2d_backend_Program(lua_State *L)
     oluacls_func(L, "getUniformBufferSize", _cocos2d_backend_Program_getUniformBufferSize);
     oluacls_func(L, "getUniformLocation", _cocos2d_backend_Program_getUniformLocation);
     oluacls_func(L, "getVertexShader", _cocos2d_backend_Program_getVertexShader);
-    oluacls_func(L, "setProgramType", _cocos2d_backend_Program_setProgramType);
     oluacls_prop(L, "activeAttributes", _cocos2d_backend_Program_getActiveAttributes, nullptr);
     oluacls_prop(L, "fragmentShader", _cocos2d_backend_Program_getFragmentShader, nullptr);
     oluacls_prop(L, "maxFragmentLocation", _cocos2d_backend_Program_getMaxFragmentLocation, nullptr);
     oluacls_prop(L, "maxVertexLocation", _cocos2d_backend_Program_getMaxVertexLocation, nullptr);
-    oluacls_prop(L, "programType", _cocos2d_backend_Program_getProgramType, _cocos2d_backend_Program_setProgramType);
+    oluacls_prop(L, "programType", _cocos2d_backend_Program_getProgramType, nullptr);
     oluacls_prop(L, "vertexShader", _cocos2d_backend_Program_getVertexShader, nullptr);
 
     olua_registerluatype<cocos2d::backend::Program>(L, "ccb.Program");

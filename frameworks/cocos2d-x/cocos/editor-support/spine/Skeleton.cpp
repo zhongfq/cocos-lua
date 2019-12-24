@@ -31,27 +31,27 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/Skeleton.h"
+#include <spine/Skeleton.h>
 
-#include "spine/SkeletonData.h"
-#include "spine/Bone.h"
-#include "spine/Slot.h"
-#include "spine/IkConstraint.h"
-#include "spine/PathConstraint.h"
-#include "spine/TransformConstraint.h"
-#include "spine/Skin.h"
-#include "spine/Attachment.h"
+#include <spine/SkeletonData.h>
+#include <spine/Bone.h>
+#include <spine/Slot.h>
+#include <spine/IkConstraint.h>
+#include <spine/PathConstraint.h>
+#include <spine/TransformConstraint.h>
+#include <spine/Skin.h>
+#include <spine/Attachment.h>
 
-#include "spine/BoneData.h"
-#include "spine/SlotData.h"
-#include "spine/IkConstraintData.h"
-#include "spine/TransformConstraintData.h"
-#include "spine/PathConstraintData.h"
-#include "spine/RegionAttachment.h"
-#include "spine/MeshAttachment.h"
-#include "spine/PathAttachment.h"
+#include <spine/BoneData.h>
+#include <spine/SlotData.h>
+#include <spine/IkConstraintData.h>
+#include <spine/TransformConstraintData.h>
+#include <spine/PathConstraintData.h>
+#include <spine/RegionAttachment.h>
+#include <spine/MeshAttachment.h>
+#include <spine/PathAttachment.h>
 
-#include "spine/ContainerUtil.h"
+#include <spine/ContainerUtil.h>
 
 #include <float.h>
 
@@ -303,10 +303,7 @@ int Skeleton::findSlotIndex(const String &slotName) {
 }
 
 void Skeleton::setSkin(const String &skinName) {
-	Skin *foundSkin = _data->findSkin(skinName);
-
-	assert(foundSkin != NULL);
-
+	Skin *foundSkin = skinName.isEmpty() ? NULL : _data->findSkin(skinName);
 	setSkin(foundSkin);
 }
 
@@ -340,7 +337,7 @@ Attachment *Skeleton::getAttachment(const String &slotName, const String &attach
 }
 
 Attachment *Skeleton::getAttachment(int slotIndex, const String &attachmentName) {
-	assert(attachmentName.length() > 0);
+	if (attachmentName.isEmpty()) return NULL;
 
 	if (_skin != NULL) {
 		Attachment *attachment = _skin->getAttachment(slotIndex, attachmentName);

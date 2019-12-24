@@ -31,8 +31,8 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/RTTI.h"
-#include "spine/SpineString.h"
+#include <spine/RTTI.h>
+#include <spine/SpineString.h>
 
 using namespace spine;
 

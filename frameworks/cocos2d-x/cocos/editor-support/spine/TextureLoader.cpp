@@ -31,7 +31,7 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/TextureLoader.h"
+#include <spine/TextureLoader.h>
 
 namespace spine {
 TextureLoader::TextureLoader() {

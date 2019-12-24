@@ -31,7 +31,7 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/SlotData.h"
+#include <spine/SlotData.h>
 
 #include <assert.h>
 

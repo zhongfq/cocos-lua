@@ -30,8 +30,8 @@
 #ifndef Spine_CurveTimeline_h
 #define Spine_CurveTimeline_h
 
-#include "spine/Timeline.h"
-#include "spine/Vector.h"
+#include <spine/Timeline.h>
+#include <spine/Vector.h>
 
 namespace spine {
 	/// Base class for frames that use an interpolation bezier curve.

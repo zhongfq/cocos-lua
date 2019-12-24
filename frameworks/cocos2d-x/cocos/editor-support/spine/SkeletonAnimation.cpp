@@ -27,9 +27,9 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-#include "spine/SkeletonAnimation.h"
-#include "spine/spine-cocos2dx.h"
-#include "spine/Extension.h"
+#include <spine/SkeletonAnimation.h>
+#include <spine/spine-cocos2dx.h>
+#include <spine/Extension.h>
 #include <algorithm>
 
 USING_NS_CC;

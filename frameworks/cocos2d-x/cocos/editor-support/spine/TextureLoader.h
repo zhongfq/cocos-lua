@@ -30,8 +30,8 @@
 #ifndef Spine_TextureLoader_h
 #define Spine_TextureLoader_h
 
-#include "spine/SpineObject.h"
-#include "spine/SpineString.h"
+#include <spine/SpineObject.h>
+#include <spine/SpineString.h>
 
 namespace spine {
 	class AtlasPage;

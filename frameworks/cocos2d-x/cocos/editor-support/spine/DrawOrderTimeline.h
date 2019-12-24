@@ -30,7 +30,7 @@
 #ifndef Spine_DrawOrderTimeline_h
 #define Spine_DrawOrderTimeline_h
 
-#include "spine/Timeline.h"
+#include <spine/Timeline.h>
 
 namespace spine {
 	class SP_API DrawOrderTimeline : public Timeline {

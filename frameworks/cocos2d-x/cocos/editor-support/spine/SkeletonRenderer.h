@@ -30,8 +30,8 @@
 #ifndef SPINE_SKELETONRENDERER_H_
 #define SPINE_SKELETONRENDERER_H_
 
-#include "spine/spine.h"
 #include "cocos2d.h"
+#include <spine/spine.h>
 
 namespace spine {
 
@@ -46,12 +46,11 @@ namespace spine {
 		static SkeletonRenderer* createWithFile (const std::string& skeletonDataFile, Atlas* atlas, float scale = 1);
 		static SkeletonRenderer* createWithFile (const std::string& skeletonDataFile, const std::string& atlasFile, float scale = 1);
 
-		virtual void update (float deltaTime) override;
-		virtual void draw (cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t transformFlags) override;
-		virtual void drawDebug (cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t transformFlags);
-		virtual cocos2d::Rect getBoundingBox () const override;
-		virtual void onEnter () override;
-		virtual void onExit () override;
+		void update (float deltaTime) override;
+		void draw (cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t transformFlags) override;
+		cocos2d::Rect getBoundingBox () const override;
+		void onEnter () override;
+		void onExit () override;
 
 		Skeleton* getSkeleton() const;
 
@@ -110,14 +109,11 @@ namespace spine {
 		void setSlotsRange(int startSlotIndex, int endSlotIndex);
 
 		// --- BlendProtocol
-		virtual void setBlendFunc (const cocos2d::BlendFunc& blendFunc)override;
-		virtual const cocos2d::BlendFunc& getBlendFunc () const override;
-		virtual void setOpacityModifyRGB (bool value) override;
-		virtual bool isOpacityModifyRGB () const override;
-		
-		// Frees global memory used for temporay vertex transformations.
-		static void destroyScratchBuffers();
-		
+		void setBlendFunc (const cocos2d::BlendFunc& blendFunc)override;
+		const cocos2d::BlendFunc& getBlendFunc () const override;
+		void setOpacityModifyRGB (bool value) override;
+		bool isOpacityModifyRGB () const override;
+
 	CC_CONSTRUCTOR_ACCESS:
 		SkeletonRenderer ();
 		SkeletonRenderer(Skeleton* skeleton, bool ownsSkeleton = false, bool ownsSkeletonData = false, bool ownsAtlas = false);
@@ -139,6 +135,7 @@ namespace spine {
 	protected:
 		void setSkeletonData (SkeletonData* skeletonData, bool ownsSkeletonData);
 		void setupGLProgramState(bool twoColorTintEnabled);
+		virtual void drawDebug (cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t transformFlags);
 
 		bool _ownsSkeletonData;
 		bool _ownsSkeleton;
@@ -157,9 +154,10 @@ namespace spine {
 		SkeletonClipping* _clipper;
 		VertexEffect* _effect;
 		cocos2d::Rect _boundingRect;
-        bool _twoColorTintEnabled = false;
+
 		int _startSlotIndex;
 		int _endSlotIndex;
+		bool _twoColorTint;
 	};
 
 }

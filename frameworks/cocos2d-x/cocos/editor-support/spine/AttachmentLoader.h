@@ -30,9 +30,9 @@
 #ifndef Spine_AttachmentLoader_h
 #define Spine_AttachmentLoader_h
 
-#include "spine/RTTI.h"
-#include "spine/SpineObject.h"
-#include "spine/SpineString.h"
+#include <spine/RTTI.h>
+#include <spine/SpineObject.h>
+#include <spine/SpineString.h>
 
 namespace spine {
 	class Skin;

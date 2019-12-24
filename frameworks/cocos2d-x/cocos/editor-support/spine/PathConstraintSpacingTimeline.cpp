@@ -31,17 +31,17 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/PathConstraintSpacingTimeline.h"
+#include <spine/PathConstraintSpacingTimeline.h>
 
-#include "spine/Skeleton.h"
-#include "spine/Event.h"
+#include <spine/Skeleton.h>
+#include <spine/Event.h>
 
-#include "spine/Animation.h"
-#include "spine/TimelineType.h"
-#include "spine/Slot.h"
-#include "spine/SlotData.h"
-#include "spine/PathConstraint.h"
-#include "spine/PathConstraintData.h"
+#include <spine/Animation.h>
+#include <spine/TimelineType.h>
+#include <spine/Slot.h>
+#include <spine/SlotData.h>
+#include <spine/PathConstraint.h>
+#include <spine/PathConstraintData.h>
 
 using namespace spine;
 

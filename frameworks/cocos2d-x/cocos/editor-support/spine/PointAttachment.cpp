@@ -31,11 +31,11 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/PointAttachment.h"
+#include <spine/PointAttachment.h>
 
-#include "spine/Bone.h"
+#include <spine/Bone.h>
 
-#include "spine/MathUtil.h"
+#include <spine/MathUtil.h>
 
 using namespace spine;
 

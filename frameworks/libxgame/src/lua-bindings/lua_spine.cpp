@@ -13624,40 +13624,6 @@ static int _spine_SkeletonRenderer_createWithSkeleton(lua_State *L)
     return 0;
 }
 
-static int _spine_SkeletonRenderer_destroyScratchBuffers(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    // static void destroyScratchBuffers()
-    spine::SkeletonRenderer::destroyScratchBuffers();
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_SkeletonRenderer_drawDebug(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::SkeletonRenderer *self = nullptr;
-    cocos2d::Renderer *arg1 = nullptr;       /** renderer */
-    cocos2d::Mat4 arg2;       /** transform */
-    lua_Unsigned arg3 = 0;       /** transformFlags */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
-    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Renderer");
-    manual_olua_check_cocos2d_Mat4(L, 3, &arg2);
-    olua_check_uint(L, 4, &arg3);
-
-    // void drawDebug(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t transformFlags)
-    self->drawDebug(arg1, arg2, (uint32_t)arg3);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 static int _spine_SkeletonRenderer_findBone(lua_State *L)
 {
     olua_startinvoke(L);
@@ -14361,8 +14327,6 @@ static int luaopen_spine_SkeletonRenderer(lua_State *L)
     oluacls_func(L, "createWithData", _spine_SkeletonRenderer_createWithData);
     oluacls_func(L, "createWithFile", _spine_SkeletonRenderer_createWithFile);
     oluacls_func(L, "createWithSkeleton", _spine_SkeletonRenderer_createWithSkeleton);
-    oluacls_func(L, "destroyScratchBuffers", _spine_SkeletonRenderer_destroyScratchBuffers);
-    oluacls_func(L, "drawDebug", _spine_SkeletonRenderer_drawDebug);
     oluacls_func(L, "findBone", _spine_SkeletonRenderer_findBone);
     oluacls_func(L, "findSlot", _spine_SkeletonRenderer_findSlot);
     oluacls_func(L, "getAttachment", _spine_SkeletonRenderer_getAttachment);

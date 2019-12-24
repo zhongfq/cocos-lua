@@ -30,9 +30,9 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/Triangulator.h"
+#include <spine/Triangulator.h>
 
-#include "spine/MathUtil.h"
+#include <spine/MathUtil.h>
 
 using namespace spine;
 

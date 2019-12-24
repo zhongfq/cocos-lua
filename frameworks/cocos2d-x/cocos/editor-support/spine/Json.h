@@ -30,7 +30,7 @@
 #ifndef Spine_Json_h
 #define Spine_Json_h
 
-#include "spine/SpineObject.h"
+#include <spine/SpineObject.h>
 
 #ifndef SPINE_JSON_HAVE_PREV
 /* spine doesn't use the "prev" link in the Json sibling lists. */

@@ -30,9 +30,9 @@
 #ifndef Spine_Vector_h
 #define Spine_Vector_h
 
-#include "spine/Extension.h"
-#include "spine/SpineObject.h"
-#include "spine/SpineString.h"
+#include <spine/Extension.h>
+#include <spine/SpineObject.h>
+#include <spine/SpineString.h>
 #include <assert.h>
 
 namespace spine {

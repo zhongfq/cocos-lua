@@ -31,16 +31,16 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/TwoColorTimeline.h"
+#include <spine/TwoColorTimeline.h>
 
-#include "spine/Skeleton.h"
-#include "spine/Event.h"
+#include <spine/Skeleton.h>
+#include <spine/Event.h>
 
-#include "spine/Animation.h"
-#include "spine/Bone.h"
-#include "spine/TimelineType.h"
-#include "spine/Slot.h"
-#include "spine/SlotData.h"
+#include <spine/Animation.h>
+#include <spine/Bone.h>
+#include <spine/TimelineType.h>
+#include <spine/Slot.h>
+#include <spine/SlotData.h>
 
 using namespace spine;
 

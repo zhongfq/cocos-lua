@@ -31,9 +31,9 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/CurveTimeline.h"
+#include <spine/CurveTimeline.h>
 
-#include "spine/MathUtil.h"
+#include <spine/MathUtil.h>
 
 using namespace spine;
 

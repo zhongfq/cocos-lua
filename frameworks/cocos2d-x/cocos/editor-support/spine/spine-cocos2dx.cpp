@@ -27,9 +27,9 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-#include "spine/spine-cocos2dx.h"
-#include "spine/Extension.h"
-#include "spine/AttachmentVertices.h"
+#include <spine/spine-cocos2dx.h>
+#include <spine/Extension.h>
+#include <spine/AttachmentVertices.h>
 
 USING_NS_CC;
 using namespace spine;
@@ -65,6 +65,8 @@ static void setAttachmentVertices(MeshAttachment* attachment) {
 
 Cocos2dAtlasAttachmentLoader::Cocos2dAtlasAttachmentLoader(Atlas* atlas): AtlasAttachmentLoader(atlas) {
 }
+
+Cocos2dAtlasAttachmentLoader::~Cocos2dAtlasAttachmentLoader() { }
 
 void Cocos2dAtlasAttachmentLoader::configureAttachment(Attachment* attachment) {
 	if (attachment->getRTTI().isExactly(RegionAttachment::rtti)) {
@@ -131,18 +133,22 @@ GLuint filter (TextureFilter filter) {
 }
 
 #endif
+
+Cocos2dTextureLoader::Cocos2dTextureLoader() : TextureLoader() { }
+Cocos2dTextureLoader::~Cocos2dTextureLoader() { }
+
 void Cocos2dTextureLoader::load(AtlasPage& page, const spine::String& path) {
 	Texture2D* texture = Director::getInstance()->getTextureCache()->addImage(path.buffer());
 	CCASSERT(texture != nullptr, "Invalid image");
-	if (texture)
-	{
+	if (texture) {
 		texture->retain();
 #if COCOS2D_VERSION >= 0x0040000
 		Texture2D::TexParams textureParams(filter(page.minFilter), filter(page.magFilter), wrap(page.uWrap), wrap(page.vWrap));
 #else
-		Texture2D::TexParams textureParams = { filter(page.minFilter), filter(page.magFilter), wrap(page.uWrap), wrap(page.vWrap) };
+		Texture2D::TexParams textureParams = {filter(page.minFilter), filter(page.magFilter), wrap(page.uWrap), wrap(page.vWrap)};
 #endif
 		texture->setTexParameters(textureParams);
+
 		page.setRendererObject(texture);
 		page.width = texture->getPixelsWide();
 		page.height = texture->getPixelsHigh();
@@ -150,12 +156,15 @@ void Cocos2dTextureLoader::load(AtlasPage& page, const spine::String& path) {
 }
 
 void Cocos2dTextureLoader::unload(void* texture) {
-	if (texture)
-	{
+	if (texture) {
 		((Texture2D*)texture)->release();
 	}
 }
 
+
+Cocos2dExtension::Cocos2dExtension() : DefaultSpineExtension() { }
+
+Cocos2dExtension::~Cocos2dExtension() { }
 
 char *Cocos2dExtension::_readFile(const spine::String &path, int *length) {
 	Data data = FileUtils::getInstance()->getDataFromFile(FileUtils::getInstance()->fullPathForFilename(path.buffer()));

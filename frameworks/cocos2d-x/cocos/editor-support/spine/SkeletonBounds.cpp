@@ -31,13 +31,13 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/SkeletonBounds.h"
+#include <spine/SkeletonBounds.h>
 
-#include "spine/Skeleton.h"
-#include "spine/Bone.h"
-#include "spine/BoundingBoxAttachment.h"
+#include <spine/Skeleton.h>
+#include <spine/Bone.h>
+#include <spine/BoundingBoxAttachment.h>
 
-#include "spine/Slot.h"
+#include <spine/Slot.h>
 
 #include <float.h>
 
@@ -127,7 +127,7 @@ bool SkeletonBounds::aabbIntersectsSkeleton(SkeletonBounds bounds) {
 	return _minX < bounds._maxX && _maxX > bounds._minX && _minY < bounds._maxY && _maxY > bounds._minY;
 }
 
-bool SkeletonBounds::containsPoint(Polygon *polygon, float x, float y) {
+bool SkeletonBounds::containsPoint(spine::Polygon *polygon, float x, float y) {
 	Vector<float> &vertices = polygon->_vertices;
 	int nn = polygon->_count;
 
@@ -159,7 +159,7 @@ BoundingBoxAttachment *SkeletonBounds::intersectsSegment(float x1, float y1, flo
 	return NULL;
 }
 
-bool SkeletonBounds::intersectsSegment(Polygon *polygon, float x1, float y1, float x2, float y2) {
+bool SkeletonBounds::intersectsSegment(spine::Polygon *polygon, float x1, float y1, float x2, float y2) {
 	Vector<float> &vertices = polygon->_vertices;
 	size_t nn = polygon->_count;
 

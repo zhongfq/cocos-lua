@@ -31,16 +31,16 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/PathConstraint.h"
+#include <spine/PathConstraint.h>
 
-#include "spine/PathConstraintData.h"
-#include "spine/Skeleton.h"
-#include "spine/PathAttachment.h"
-#include "spine/Bone.h"
-#include "spine/Slot.h"
+#include <spine/PathConstraintData.h>
+#include <spine/Skeleton.h>
+#include <spine/PathAttachment.h>
+#include <spine/Bone.h>
+#include <spine/Slot.h>
 
-#include "spine/SlotData.h"
-#include "spine/BoneData.h"
+#include <spine/SlotData.h>
+#include <spine/BoneData.h>
 
 using namespace spine;
 

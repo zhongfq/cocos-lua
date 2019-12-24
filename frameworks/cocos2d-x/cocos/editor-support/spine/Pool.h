@@ -30,10 +30,10 @@
 #ifndef Spine_Pool_h
 #define Spine_Pool_h
 
-#include "spine/Extension.h"
-#include "spine/Vector.h"
-#include "spine/ContainerUtil.h"
-#include "spine/SpineObject.h"
+#include <spine/Extension.h>
+#include <spine/Vector.h>
+#include <spine/ContainerUtil.h>
+#include <spine/SpineObject.h>
 
 namespace spine {
 template<typename T>

@@ -30,14 +30,14 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/Skin.h"
+#include <spine/Skin.h>
 
-#include "spine/Attachment.h"
-#include "spine/MeshAttachment.h"
-#include "spine/Skeleton.h"
+#include <spine/Attachment.h>
+#include <spine/MeshAttachment.h>
+#include <spine/Skeleton.h>
 
-#include "spine/Slot.h"
-#include "spine/ConstraintData.h"
+#include <spine/Slot.h>
+#include <spine/ConstraintData.h>
 
 #include <assert.h>
 

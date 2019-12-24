@@ -30,9 +30,9 @@
 #ifndef Spine_HashMap_h
 #define Spine_HashMap_h
 
-#include "spine/Extension.h"
-#include "spine/Vector.h"
-#include "spine/SpineObject.h"
+#include <spine/Extension.h>
+#include <spine/Vector.h>
+#include <spine/SpineObject.h>
 
  // Required for new with line number and file name in MSVC
 #ifdef _MSC_VER

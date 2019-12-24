@@ -30,9 +30,9 @@
 #ifndef Spine_Attachment_h
 #define Spine_Attachment_h
 
-#include "spine/RTTI.h"
-#include "spine/SpineObject.h"
-#include "spine/SpineString.h"
+#include <spine/RTTI.h>
+#include <spine/SpineObject.h>
+#include <spine/SpineString.h>
 
 namespace spine {
 class SP_API Attachment : public SpineObject {

@@ -30,7 +30,7 @@
 #ifndef Spine_IkConstraintTimeline_h
 #define Spine_IkConstraintTimeline_h
 
-#include "spine/CurveTimeline.h"
+#include <spine/CurveTimeline.h>
 
 namespace spine {
 

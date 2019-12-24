@@ -30,7 +30,7 @@
 #ifndef Spine_TwoColorTimeline_h
 #define Spine_TwoColorTimeline_h
 
-#include "spine/CurveTimeline.h"
+#include <spine/CurveTimeline.h>
 
 namespace spine {
 

@@ -30,7 +30,7 @@
 #ifndef Spine_ScaleTimeline_h
 #define Spine_ScaleTimeline_h
 
-#include "spine/TranslateTimeline.h"
+#include <spine/TranslateTimeline.h>
 
 namespace spine {
 	class SP_API ScaleTimeline : public TranslateTimeline {

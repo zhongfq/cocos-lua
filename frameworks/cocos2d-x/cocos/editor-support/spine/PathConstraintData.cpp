@@ -31,10 +31,10 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/PathConstraintData.h"
+#include <spine/PathConstraintData.h>
 
-#include "spine/BoneData.h"
-#include "spine/SlotData.h"
+#include <spine/BoneData.h>
+#include <spine/SlotData.h>
 
 #include <assert.h>
 

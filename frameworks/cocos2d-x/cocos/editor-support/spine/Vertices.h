@@ -30,7 +30,7 @@
 #ifndef Spine_Vertices_h
 #define Spine_Vertices_h
 
-#include "spine/Vector.h"
+#include <spine/Vector.h>
 
 namespace spine {
 class SP_API Vertices : public SpineObject {

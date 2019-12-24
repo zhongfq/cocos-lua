@@ -30,7 +30,7 @@
 #ifndef Spine_PathConstraintSpacingTimeline_h
 #define Spine_PathConstraintSpacingTimeline_h
 
-#include "spine/PathConstraintPositionTimeline.h"
+#include <spine/PathConstraintPositionTimeline.h>
 
 namespace spine {
 	class SP_API PathConstraintSpacingTimeline : public PathConstraintPositionTimeline {

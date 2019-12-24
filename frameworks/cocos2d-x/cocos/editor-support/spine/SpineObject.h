@@ -33,7 +33,7 @@
 #include <new>
 #include <stddef.h>
 
-#include "spine/dll.h"
+#include <spine/dll.h>
 
 namespace spine {
 class String;

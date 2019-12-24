@@ -31,12 +31,12 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/VertexAttachment.h"
+#include <spine/VertexAttachment.h>
 
-#include "spine/Slot.h"
+#include <spine/Slot.h>
 
-#include "spine/Bone.h"
-#include "spine/Skeleton.h"
+#include <spine/Bone.h>
+#include <spine/Skeleton.h>
 
 using namespace spine;
 

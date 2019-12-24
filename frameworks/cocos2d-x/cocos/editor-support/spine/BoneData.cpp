@@ -31,7 +31,7 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/BoneData.h"
+#include <spine/BoneData.h>
 
 #include <assert.h>
 

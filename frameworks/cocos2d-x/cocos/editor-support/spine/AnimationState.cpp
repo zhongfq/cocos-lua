@@ -31,18 +31,18 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/AnimationState.h"
-#include "spine/Animation.h"
-#include "spine/Event.h"
-#include "spine/AnimationStateData.h"
-#include "spine/Skeleton.h"
-#include "spine/RotateTimeline.h"
-#include "spine/SkeletonData.h"
-#include "spine/Bone.h"
-#include "spine/BoneData.h"
-#include "spine/AttachmentTimeline.h"
-#include "spine/DrawOrderTimeline.h"
-#include "spine/EventTimeline.h"
+#include <spine/AnimationState.h>
+#include <spine/Animation.h>
+#include <spine/Event.h>
+#include <spine/AnimationStateData.h>
+#include <spine/Skeleton.h>
+#include <spine/RotateTimeline.h>
+#include <spine/SkeletonData.h>
+#include <spine/Bone.h>
+#include <spine/BoneData.h>
+#include <spine/AttachmentTimeline.h>
+#include <spine/DrawOrderTimeline.h>
+#include <spine/EventTimeline.h>
 
 #include <float.h>
 

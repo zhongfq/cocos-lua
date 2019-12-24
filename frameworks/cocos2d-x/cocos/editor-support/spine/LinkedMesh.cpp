@@ -31,9 +31,9 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/LinkedMesh.h"
+#include <spine/LinkedMesh.h>
 
-#include "spine/MeshAttachment.h"
+#include <spine/MeshAttachment.h>
 
 using namespace spine;
 

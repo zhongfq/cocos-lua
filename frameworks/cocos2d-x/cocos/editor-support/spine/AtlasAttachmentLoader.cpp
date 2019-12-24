@@ -31,16 +31,16 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/AtlasAttachmentLoader.h"
-#include "spine/Skin.h"
-#include "spine/RegionAttachment.h"
-#include "spine/MeshAttachment.h"
-#include "spine/BoundingBoxAttachment.h"
-#include "spine/PathAttachment.h"
-#include "spine/PointAttachment.h"
-#include "spine/ClippingAttachment.h"
+#include <spine/AtlasAttachmentLoader.h>
+#include <spine/Skin.h>
+#include <spine/RegionAttachment.h>
+#include <spine/MeshAttachment.h>
+#include <spine/BoundingBoxAttachment.h>
+#include <spine/PathAttachment.h>
+#include <spine/PointAttachment.h>
+#include <spine/ClippingAttachment.h>
 
-#include "spine/Atlas.h"
+#include <spine/Atlas.h>
 
 namespace spine {
 RTTI_IMPL(AtlasAttachmentLoader, AttachmentLoader)

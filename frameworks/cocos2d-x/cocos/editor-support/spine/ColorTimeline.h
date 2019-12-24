@@ -30,7 +30,7 @@
 #ifndef Spine_ColorTimeline_h
 #define Spine_ColorTimeline_h
 
-#include "spine/CurveTimeline.h"
+#include <spine/CurveTimeline.h>
 
 namespace spine {
 class SP_API ColorTimeline : public CurveTimeline {

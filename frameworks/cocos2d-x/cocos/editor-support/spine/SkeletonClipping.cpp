@@ -31,10 +31,10 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/SkeletonClipping.h"
+#include <spine/SkeletonClipping.h>
 
-#include "spine/Slot.h"
-#include "spine/ClippingAttachment.h"
+#include <spine/Slot.h>
+#include <spine/ClippingAttachment.h>
 
 using namespace spine;
 

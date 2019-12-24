@@ -243,7 +243,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::ProgramType'
 cls.enums [[
-    INVALID_PROGRAM
     POSITION_COLOR_LENGTH_TEXTURE
     POSITION_COLOR_TEXTURE_AS_POINTSIZE
     POSITION_COLOR
@@ -274,6 +273,7 @@ cls.enums [[
     SKINPOSITION_BUMPEDNORMAL_TEXTURE_3D
     PARTICLE_TEXTURE_3D
     PARTICLE_COLOR_3D
+    CUSTOM_PROGRAM
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -439,9 +439,11 @@ cls = typecls 'cocos2d::backend::ShaderModule'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
     cocos2d::backend::ShaderStage getShaderStage()
+    std::size_t getHashValue()
 ]]
 cls.props [[
     shaderStage
+    hashValue
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -497,7 +499,6 @@ cls.funcs [[
     const std::string &getVertexShader()
     const std::string &getFragmentShader()
     cocos2d::backend::ProgramType getProgramType()
-    void setProgramType(cocos2d::backend::ProgramType type)
     std::size_t getUniformBufferSize(cocos2d::backend::ShaderStage stage)
     const cocos2d::backend::UniformInfo &getActiveUniformInfo(cocos2d::backend::ShaderStage stage, int location)
     const std::unordered_map<std::string, UniformInfo> &getAllActiveUniformInfo(cocos2d::backend::ShaderStage stage)

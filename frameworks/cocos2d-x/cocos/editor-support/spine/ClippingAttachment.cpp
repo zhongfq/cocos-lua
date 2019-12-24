@@ -31,9 +31,9 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/ClippingAttachment.h"
+#include <spine/ClippingAttachment.h>
 
-#include "spine/SlotData.h"
+#include <spine/SlotData.h>
 
 using namespace spine;
 

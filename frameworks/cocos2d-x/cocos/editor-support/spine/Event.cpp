@@ -31,9 +31,9 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/Event.h"
+#include <spine/Event.h>
 
-#include "spine/EventData.h"
+#include <spine/EventData.h>
 
 spine::Event::Event(float time, const spine::EventData &data) :
 		_data(data),

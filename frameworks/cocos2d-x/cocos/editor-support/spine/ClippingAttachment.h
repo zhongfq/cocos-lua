@@ -30,7 +30,7 @@
 #ifndef Spine_ClippingAttachment_h
 #define Spine_ClippingAttachment_h
 
-#include "spine/VertexAttachment.h"
+#include <spine/VertexAttachment.h>
 
 namespace spine {
 	class SlotData;

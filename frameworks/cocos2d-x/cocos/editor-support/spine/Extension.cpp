@@ -30,8 +30,8 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/Extension.h"
-#include "spine/SpineString.h"
+#include <spine/Extension.h>
+#include <spine/SpineString.h>
 
 #include <assert.h>
 

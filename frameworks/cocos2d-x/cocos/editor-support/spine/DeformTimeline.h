@@ -30,7 +30,7 @@
 #ifndef Spine_DeformTimeline_h
 #define Spine_DeformTimeline_h
 
-#include "spine/CurveTimeline.h"
+#include <spine/CurveTimeline.h>
 
 namespace spine {
 	class VertexAttachment;

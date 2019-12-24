@@ -15,22 +15,6 @@ local ImageView  = require "ccui.ImageView"
 
 local FUISprite = require "fgui.FUISprite"
 
-
-local TestDirector = olua.class('cc.Director')
-print('###', TestDirector, Director.class)
-
-TestDirector['.func'].test = function (self, ...)
-    print('%%', ...)
-end
-
-TestDirector['.get'].who = function (self, ...)
-    return 'hello world'
-end
-
-print('##1', TestDirector.print, Director.print)
-print('##2', Director.instance:test('1', 2, 4))
-print('##3', Director.instance.who)
-
 -- window.setFrameSize(900, 500)
 
 local DESIGN_WIDTH = 1334
@@ -51,7 +35,7 @@ function main()
     animation.x = 500
     animation.y = 100
     animation:setAnimation(0, 'walk', true)
-    -- Director.instance.runningScene:addChild(animation)
+    Director.instance.runningScene:addChild(animation)
 
     local scene = Scene.create()
     local root = GRoot.create(scene)

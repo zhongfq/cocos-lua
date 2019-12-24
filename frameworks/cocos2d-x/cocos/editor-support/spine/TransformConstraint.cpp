@@ -31,13 +31,13 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/TransformConstraint.h"
+#include <spine/TransformConstraint.h>
 
-#include "spine/TransformConstraintData.h"
-#include "spine/Skeleton.h"
-#include "spine/Bone.h"
+#include <spine/TransformConstraintData.h>
+#include <spine/Skeleton.h>
+#include <spine/Bone.h>
 
-#include "spine/BoneData.h"
+#include <spine/BoneData.h>
 
 using namespace spine;
 

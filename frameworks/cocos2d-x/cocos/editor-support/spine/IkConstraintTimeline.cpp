@@ -31,17 +31,17 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/IkConstraintTimeline.h"
+#include <spine/IkConstraintTimeline.h>
 
-#include "spine/Skeleton.h"
-#include "spine/Event.h"
+#include <spine/Skeleton.h>
+#include <spine/Event.h>
 
-#include "spine/Animation.h"
-#include "spine/TimelineType.h"
-#include "spine/Slot.h"
-#include "spine/SlotData.h"
-#include "spine/IkConstraint.h"
-#include "spine/IkConstraintData.h"
+#include <spine/Animation.h>
+#include <spine/TimelineType.h>
+#include <spine/Slot.h>
+#include <spine/SlotData.h>
+#include <spine/IkConstraint.h>
+#include <spine/IkConstraintData.h>
 
 using namespace spine;
 

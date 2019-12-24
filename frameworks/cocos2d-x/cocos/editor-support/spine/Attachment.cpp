@@ -31,7 +31,7 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/Attachment.h"
+#include <spine/Attachment.h>
 
 #include <assert.h>
 

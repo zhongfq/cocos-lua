@@ -31,7 +31,7 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/Updatable.h"
+#include <spine/Updatable.h>
 
 using namespace spine;
 

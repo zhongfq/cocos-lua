@@ -30,8 +30,8 @@
 #ifndef Spine_EventData_h
 #define Spine_EventData_h
 
-#include "spine/SpineObject.h"
-#include "spine/SpineString.h"
+#include <spine/SpineObject.h>
+#include <spine/SpineString.h>
 
 namespace spine {
 /// Stores the setup pose values for an Event.

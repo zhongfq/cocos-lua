@@ -30,7 +30,7 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/PathAttachment.h"
+#include <spine/PathAttachment.h>
 
 using namespace spine;
 

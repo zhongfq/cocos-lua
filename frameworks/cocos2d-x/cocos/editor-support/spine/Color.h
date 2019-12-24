@@ -30,7 +30,7 @@
 #ifndef SPINE_COLOR_H
 #define SPINE_COLOR_H
 
-#include "spine/MathUtil.h"
+#include <spine/MathUtil.h>
 
 namespace spine {
 class SP_API Color : public SpineObject {

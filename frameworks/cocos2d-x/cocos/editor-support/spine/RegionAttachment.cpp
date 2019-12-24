@@ -31,9 +31,9 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/RegionAttachment.h"
+#include <spine/RegionAttachment.h>
 
-#include "spine/Bone.h"
+#include <spine/Bone.h>
 
 #include <assert.h>
 

@@ -30,8 +30,8 @@
 #ifndef Spine_Event_h
 #define Spine_Event_h
 
-#include "spine/SpineObject.h"
-#include "spine/SpineString.h"
+#include <spine/SpineObject.h>
+#include <spine/SpineString.h>
 
 namespace spine {
 class EventData;

@@ -30,9 +30,9 @@
 #ifndef Spine_Slot_h
 #define Spine_Slot_h
 
-#include "spine/Vector.h"
-#include "spine/SpineObject.h"
-#include "spine/Color.h"
+#include <spine/Vector.h>
+#include <spine/SpineObject.h>
+#include <spine/Color.h>
 
 namespace spine {
 class SlotData;

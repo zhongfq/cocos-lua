@@ -31,9 +31,9 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/Atlas.h"
-#include "spine/TextureLoader.h"
-#include "spine/ContainerUtil.h"
+#include <spine/Atlas.h>
+#include <spine/TextureLoader.h>
+#include <spine/ContainerUtil.h>
 
 #include <ctype.h>
 

@@ -30,7 +30,7 @@
 #ifndef Spine_ShearTimeline_h
 #define Spine_ShearTimeline_h
 
-#include "spine/TranslateTimeline.h"
+#include <spine/TranslateTimeline.h>
 
 namespace spine {
 	class SP_API ShearTimeline : public TranslateTimeline {

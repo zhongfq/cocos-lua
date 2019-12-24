@@ -30,9 +30,9 @@
 #ifndef Spine_TransformConstraint_h
 #define Spine_TransformConstraint_h
 
-#include "spine/ConstraintData.h"
+#include <spine/ConstraintData.h>
 
-#include "spine/Vector.h"
+#include <spine/Vector.h>
 
 namespace spine {
 	class TransformConstraintData;

@@ -30,8 +30,8 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/SpineObject.h"
-#include "spine/Extension.h"
+#include <spine/SpineObject.h>
+#include <spine/Extension.h>
 
 using namespace spine;
 

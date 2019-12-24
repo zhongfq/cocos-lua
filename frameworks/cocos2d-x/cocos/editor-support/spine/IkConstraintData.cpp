@@ -31,9 +31,9 @@
 #include "SpinePluginPrivatePCH.h"
 #endif
 
-#include "spine/IkConstraintData.h"
+#include <spine/IkConstraintData.h>
 
-#include "spine/BoneData.h"
+#include <spine/BoneData.h>
 
 using namespace spine;
 

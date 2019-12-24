@@ -30,7 +30,7 @@
 #ifndef SPINE_DEBUG_H
 #define SPINE_DEBUG_H
 
-#include "spine/Extension.h"
+#include <spine/Extension.h>
 
 #include <map>
 

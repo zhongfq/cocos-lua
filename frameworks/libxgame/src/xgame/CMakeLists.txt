@@ -1,5 +1,5 @@
 set(XGAME_HEADER
-    src/xgame/BuiltinAssets.h
+    src/xgame/AssetsBundle.h
     src/xgame/xdef.h
     src/xgame/xdownloader.h
     src/xgame/xfilefinder.h
@@ -16,7 +16,7 @@ set(XGAME_HEADER
 )
 
 set(XGAME_SRC
-    src/xgame/BuiltinAssets.cpp
+    src/xgame/AssetsBundle.cpp
     src/xgame/xdownloader.cpp
     src/xgame/xfilefinder.cpp
     src/xgame/xfilesystem-private.cpp

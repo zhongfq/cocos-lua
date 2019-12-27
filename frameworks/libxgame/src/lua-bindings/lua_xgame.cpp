@@ -5,6 +5,7 @@
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "xgame/xfilesystem.h"
+#include "xgame/xfilefinder.h"
 #include "xgame/xlua.h"
 #include "xgame/xpreferences.h"
 #include "xgame/xdownloader.h"
@@ -1144,6 +1145,19 @@ static int _xgame_filesystem_fullPath(lua_State *L)
     return num_ret;
 }
 
+static int _xgame_filesystem_getBuiltinCacheDirectory(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static const std::string getBuiltinCacheDirectory()
+    const std::string ret = (const std::string)xgame::filesystem::getBuiltinCacheDirectory();
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _xgame_filesystem_getCacheDirectory(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1398,6 +1412,7 @@ static int luaopen_xgame_filesystem(lua_State *L)
     oluacls_func(L, "createDirectory", _xgame_filesystem_createDirectory);
     oluacls_func(L, "exist", _xgame_filesystem_exist);
     oluacls_func(L, "fullPath", _xgame_filesystem_fullPath);
+    oluacls_func(L, "getBuiltinCacheDirectory", _xgame_filesystem_getBuiltinCacheDirectory);
     oluacls_func(L, "getCacheDirectory", _xgame_filesystem_getCacheDirectory);
     oluacls_func(L, "getDocumentDirectory", _xgame_filesystem_getDocumentDirectory);
     oluacls_func(L, "getSDCardDirectory", _xgame_filesystem_getSDCardDirectory);
@@ -1411,6 +1426,7 @@ static int luaopen_xgame_filesystem(lua_State *L)
     oluacls_func(L, "shortPath", _xgame_filesystem_shortPath);
     oluacls_func(L, "unzip", _xgame_filesystem_unzip);
     oluacls_func(L, "write", _xgame_filesystem_write);
+    oluacls_prop(L, "builtinCacheDirectory", _xgame_filesystem_getBuiltinCacheDirectory, nullptr);
     oluacls_prop(L, "cacheDirectory", _xgame_filesystem_getCacheDirectory, nullptr);
     oluacls_prop(L, "documentDirectory", _xgame_filesystem_getDocumentDirectory, nullptr);
     oluacls_prop(L, "sdCardDirectory", _xgame_filesystem_getSDCardDirectory, nullptr);
@@ -2330,6 +2346,42 @@ static int luaopen_xgame_MaskLayout(lua_State *L)
     return 1;
 }
 
+static int _xgame_FileFinder___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (xgame::FileFinder *)olua_toobj(L, 1, "kernel.FileFinder");
+    olua_push_cppobj(L, self, "kernel.FileFinder");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _xgame_FileFinder_create(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static xgame::FileFinder *create()
+    xgame::FileFinder *ret = (xgame::FileFinder *)xgame::FileFinder::create();
+    int num_ret = olua_push_cppobj(L, ret, "kernel.FileFinder");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int luaopen_xgame_FileFinder(lua_State *L)
+{
+    oluacls_class(L, "kernel.FileFinder", "cc.FileUtils");
+    oluacls_func(L, "__move", _xgame_FileFinder___move);
+    oluacls_func(L, "create", _xgame_FileFinder_create);
+
+    olua_registerluatype<xgame::FileFinder>(L, "kernel.FileFinder");
+
+    return 1;
+}
+
 int luaopen_xgame(lua_State *L)
 {
     olua_require(L, "kernel.SceneNoCamera", luaopen_xgame_SceneNoCamera);
@@ -2343,5 +2395,6 @@ int luaopen_xgame(lua_State *L)
     olua_require(L, "kernel.downloader.FileState", luaopen_xgame_downloader_FileState);
     olua_require(L, "kernel.downloader", luaopen_xgame_downloader);
     olua_require(L, "kernel.MaskLayout", luaopen_xgame_MaskLayout);
+    olua_require(L, "kernel.FileFinder", luaopen_xgame_FileFinder);
     return 0;
 }

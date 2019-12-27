@@ -58,6 +58,7 @@ void runtime::init()
     FileFinder::setDelegate(FileFinder::create());
     filesystem::addSearchPath(filesystem::getDocumentDirectory() + "/assets", true);
     filesystem::addSearchPath(_workdir, true);
+    filesystem::remove(filesystem::getBuiltinCacheDirectory());
     Director::getInstance()->setAnimationInterval(1.0f / 60);
     Director::getInstance()->setDisplayStats(runtime::isDebug());
     
@@ -77,6 +78,7 @@ void runtime::init()
     
     // create paths
     filesystem::createDirectory(filesystem::getCacheDirectory());
+    filesystem::createDirectory(filesystem::getBuiltinCacheDirectory());
     filesystem::createDirectory(filesystem::getTmpDirectory());
     filesystem::createDirectory(filesystem::getDocumentDirectory() + "/assets");
     
@@ -235,7 +237,7 @@ void runtime::luaOpen(lua_CFunction libfunc)
 //
 const std::string runtime::getVersion()
 {
-    return "1.13.4";
+    return "1.13.5";
 }
 
 const std::string runtime::getPackageName()

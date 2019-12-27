@@ -71,13 +71,13 @@ if runtime.os == "android" then
     end
 
     function impl:auth()
-        inst.signIn(function (...)
+        inst.login(function (...)
             impl.callback("auth", ...)
         end)
     end
 
     function impl:pay(appid, cpid, cp, orderno, pid, url, catalog, ext, sign)
-        inst.productPay(appid, cpid, cp, orderno, pid, url, catalog, ext, sign, function (...)
+        inst.pay(appid, cpid, cp, orderno, pid, url, catalog, ext, sign, function (...)
             impl.callback("pay", ...)
         end)
     end

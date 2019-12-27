@@ -1,4 +1,4 @@
-#include "BuiltinAssets.h"
+#include "AssetsBundle.h"
 #include "xruntime.h"
 #include "xfilesystem.h"
 
@@ -30,12 +30,12 @@ static uint32_t readUInt(FILE *file)
     return 0;
 }
 
-BuiltinAssets::BuiltinAssets()
+AssetsBundle::AssetsBundle()
 :_data(NULL)
 {
 }
 
-void BuiltinAssets::init(const std::string &path)
+void AssetsBundle::init(const std::string &path)
 {
     auto fs = FileUtils::getInstance();
     std::string fullPath = fs->fullPathForFilename(path);
@@ -67,12 +67,12 @@ void BuiltinAssets::init(const std::string &path)
     }
 }
 
-bool BuiltinAssets::exist(const std::string &path) const
+bool AssetsBundle::exist(const std::string &path) const
 {
     return _assets.find(path) != _assets.end();
 }
 
-cocos2d::FileUtils::Status BuiltinAssets::getContents(const std::string& filename, cocos2d::ResizableBuffer* buffer) const
+cocos2d::FileUtils::Status AssetsBundle::getContents(const std::string& filename, cocos2d::ResizableBuffer* buffer) const
 {
     auto it = _assets.find(filename);
     

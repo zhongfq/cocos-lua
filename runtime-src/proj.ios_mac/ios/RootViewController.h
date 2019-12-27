@@ -24,12 +24,9 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#import <UIKit/UIKit.h>
+#import "xgame/AppRootViewController-ios.h"
 
 
-@interface RootViewController : UIViewController {
-
-}
-- (BOOL) prefersStatusBarHidden;
+@interface RootViewController : AppRootViewController
 
 @end

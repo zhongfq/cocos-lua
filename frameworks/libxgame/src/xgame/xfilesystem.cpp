@@ -60,6 +60,11 @@ const std::string filesystem::getTmpDirectory()
     return __filesystem_getTmpDirectory();
 }
 
+const std::string filesystem::getBuiltinCacheDirectory()
+{
+    return filesystem::getCacheDirectory() + "/builtin";
+}
+
 const std::string filesystem::getSDCardDirectory()
 {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID

@@ -179,6 +179,7 @@ if(APPLE)
     endif()
 
     # For code-signing, set the DEVELOPMENT_TEAM:
+    set_xcode_property(${APP_NAME} CLANG_ENABLE_OBJC_ARC "YES")
     set_xcode_property(${APP_NAME} DEVELOPMENT_TEAM "2566X92242")
     set_xcode_property(${APP_NAME} PRODUCT_BUNDLE_IDENTIFIER "com.codetypes.hellolua")
     set_xcode_property(${APP_NAME} PRODUCT_NAME "cocoslua")

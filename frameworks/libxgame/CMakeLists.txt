@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.6)
 
-include(CocosBuildSet)
-
 include(src/bugly/CMakeLists.txt)
 include(src/cjson/CMakeLists.txt)
 include(src/crypto/CMakeLists.txt)
@@ -70,6 +68,9 @@ if (IOS)
 
     find_library(PHOTOS_LIBRARY Photos)
     target_link_libraries(xgame ${PHOTOS_LIBRARY})
+
+    find_library(ADSUPPORT_LIBRARY AdSupport)
+    target_link_libraries(xgame ${ADSUPPORT_LIBRARY})
 endif()
 
 add_dependencies(xgame cocos2d)

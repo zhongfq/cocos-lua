@@ -1,5 +1,5 @@
-#ifndef __BuiltinAssets_h__
-#define __BuiltinAssets_h__
+#ifndef __AssetsBundle_h__
+#define __AssetsBundle_h__
 
 #include "xgame/xdef.h"
 #include "platform/CCFileUtils.h"
@@ -11,7 +11,7 @@
 
 NS_XGAME_BEGIN
 
-class BuiltinAssets {
+class AssetsBundle {
 public:
     class Assets {
     public:
@@ -19,7 +19,7 @@ public:
         size_t data;
     };
 public:
-    BuiltinAssets();
+    AssetsBundle();
     
     void init(const std::string &path);
     bool exist(const std::string &path) const;

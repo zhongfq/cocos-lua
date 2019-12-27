@@ -35,6 +35,7 @@ public:
     static const std::string getCacheDirectory();
     static const std::string getDocumentDirectory();
     static const std::string getTmpDirectory();
+    static const std::string getBuiltinCacheDirectory(); // for cache builtin audio
 
     // android only
     static const std::string getSDCardDirectory();

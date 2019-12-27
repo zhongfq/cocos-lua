@@ -2,7 +2,9 @@
 #define __XFILEFINDER_H__
 
 #include "xgame/xdef.h"
-#include "xgame/BuiltinAssets.h"
+#include "xgame/AssetsBundle.h"
+
+#include <unordered_map>
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 #include "platform/apple/CCFileUtils-apple.h"
@@ -22,14 +24,16 @@ public:
     static FileFinder *create();
 public:
     virtual ~FileFinder();
-    
     virtual cocos2d::FileUtils::Status getContents(const std::string& filename, cocos2d::ResizableBuffer* buffer) const override;
-    virtual std::string getFullPathForFilenameWithinDirectory(const std::string& directory, const std::string& filename) const override;
+    
+    virtual void addCacheFileType(const std::string &type);
 protected:
     FileFinder();
     virtual bool init() override;
+    virtual std::string getFullPathForFilenameWithinDirectory(const std::string& directory, const std::string& filename) const override;
 private:
-    BuiltinAssets _builtinAssets;
+    AssetsBundle _builtinAssets;
+    std::unordered_map<std::string, bool> _cacheFileTypes;
 };
 
 NS_XGAME_END

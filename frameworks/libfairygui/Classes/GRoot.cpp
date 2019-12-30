@@ -240,6 +240,21 @@ GObject* GRoot::getTouchTarget()
     return _inputProcessor->getRecentInput()->getTarget();
 }
 
+cocos2d::Vec2 GRoot::worldToRoot(const cocos2d::Vec2 &pt)
+{
+    cocos2d::Vec2 pos = _displayObject->convertToNodeSpace(pt);
+    pos.y = getHeight() - pos.y;
+    return pos;
+}
+
+cocos2d::Vec2 GRoot::rootToWorld(const cocos2d::Vec2 &pt)
+{
+    cocos2d::Vec2 pos = pt;
+    pos.y = getHeight() - pos.y;
+    pos = _displayObject->convertToWorldSpace(pos);
+    return pos;
+}
+
 void GRoot::showPopup(GObject* popup)
 {
     showPopup(popup, nullptr, PopupDirection::AUTO);
@@ -566,21 +581,6 @@ void GRoot::updateContentScaleLevel()
         contentScaleLevel = 1; //x2
     else
         contentScaleLevel = 0;
-}
-
-cocos2d::Vec2 GRoot::worldToRoot(const cocos2d::Vec2 &pt)
-{
-    cocos2d::Vec2 pos = _displayObject->convertToNodeSpace(pt);
-    pos.y = getHeight() - pos.y;
-    return pos;
-}
-
-cocos2d::Vec2 GRoot::rootToWorld(const cocos2d::Vec2 &pt)
-{
-    cocos2d::Vec2 pos = pt;
-    pos.y = getHeight() - pos.y;
-    pos = _displayObject->convertToWorldSpace(pos);
-    return pos;
 }
 
 NS_FGUI_END

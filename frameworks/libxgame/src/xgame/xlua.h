@@ -23,8 +23,6 @@ lua_State *xlua_new();
 
 lua_State *xlua_cocosthread();
 
-int xlua_pcall(lua_State *L, int n, int r);
-void xlua_call(lua_State *L, lua_CFunction func);
 int xlua_dofile(lua_State *L, const char *filename);
 
 int xlua_nonsupport(lua_State *L);

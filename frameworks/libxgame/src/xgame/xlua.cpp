@@ -269,10 +269,10 @@ lua_State *xlua_new()
 {
     lua_State *L = olua_newstate(NULL);
     luaL_openlibs(L);
-    xlua_call(L, _fixcoresume);
-    xlua_call(L, _fixprint);
-    xlua_call(L, _addsearchpath);
-    xlua_call(L, _addlualoader);
+    olua_dofunc(L, _fixcoresume);
+    olua_dofunc(L, _fixprint);
+    olua_dofunc(L, _addsearchpath);
+    olua_dofunc(L, _addlualoader);
     
     lua_pushcfunction(L, _errorfunc);
     lua_setglobal(L, "__TRACEBACK__");
@@ -290,26 +290,6 @@ lua_State *xlua_new()
 lua_State *xlua_cocosthread()
 {
     return runtime::luaVM();
-}
-
-int xlua_pcall(lua_State *L, int n, int r)
-{
-    int errfunc, status;
-    olua_geterrorfunc(L);                       // L: func arg1 ... argN errfunc
-    errfunc = lua_absindex(L, -(n + 1 + 1));    // n(args) + 1(func) + 1(errfunc)
-    lua_insert(L, errfunc);                     // L: errfunc func arg1 ... argN
-    status = lua_pcall(L, n, r, errfunc);       // L: errfunc ret1 ... retN
-    lua_remove(L, errfunc);                     // L: ret1 ... retN
-    return status;
-}
-
-void xlua_call(lua_State *L, lua_CFunction func)
-{
-    int top = lua_gettop(L);
-    olua_geterrorfunc(L);
-    lua_pushcfunction(L, func);
-    lua_pcall(L, 0, 0, top + 1);
-    lua_settop(L, top);
 }
 
 int xlua_dofile(lua_State *L, const char *filename)
@@ -373,8 +353,7 @@ int xlua_nonsupport(lua_State *L)
     lua_pushstring(L, name);
     lua_setfield(L, -2, "__name");
     
-    lua_pushvalue(L, -1);
-    lua_pushcclosure(L, _nonsupport_index, 1);
+    lua_pushcfunction(L, _nonsupport_index);
     lua_setfield(L, -2, "__index");
     
     lua_pushvalue(L, -1);

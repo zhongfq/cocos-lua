@@ -30,7 +30,7 @@ void RootScene::execute()
     
     if (xlua_dofile(L, _scriptPath.c_str()) == LUA_OK &&
         olua_getglobal(L, "main") == LUA_TFUNCTION) {
-        xlua_pcall(L, 0, 0);
+        olua_pcall(L, 0, 0);
     } else {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         runtime::clearStorage();

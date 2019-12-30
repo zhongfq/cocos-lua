@@ -31,11 +31,11 @@
 
 int luaopen_bindings(lua_State *L)
 {
-    xlua_call(L, luaopen_cocos2d);
-    xlua_call(L, luaopen_cocos2d_physics);
-    xlua_call(L, luaopen_cocos2d_ui);
-    xlua_call(L, luaopen_xgame);
-    xlua_call(L, luaopen_xml_http_request);
+    olua_dofunc(L, luaopen_cocos2d);
+    olua_dofunc(L, luaopen_cocos2d_physics);
+    olua_dofunc(L, luaopen_cocos2d_ui);
+    olua_dofunc(L, luaopen_xgame);
+    olua_dofunc(L, luaopen_xml_http_request);
     
 #ifndef _WIN32
     pdebug_init(L);

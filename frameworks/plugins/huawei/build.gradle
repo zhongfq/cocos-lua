@@ -32,11 +32,8 @@ dependencies {
     implementation project(':libcocos2dx')
     implementation project(':libxgame')
 
-    String HMSSDKVer ='2.6.3.301'
-    api 'com.huawei.android.hms:iap:'+HMSSDKVer
-    api 'com.huawei.android.hms:game:'+HMSSDKVer
-    api 'com.huawei.android.hms:sns:'+HMSSDKVer
-    api 'com.huawei.android.hms:hwid:'+HMSSDKVer
-    api 'com.huawei.android.hms:push:'+HMSSDKVer
-    api 'com.huawei.android.hms:opendevice:'+HMSSDKVer
+    implementation 'com.huawei.hms:hwid:3.0.3.300'
+    implementation 'com.huawei.hms:iap:3.0.3.300'
+    implementation 'com.huawei.hms:game:3.0.3.300'
+    implementation 'com.huawei.hms:hianalytics:2.3.0.302'
 }

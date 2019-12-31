@@ -3,5 +3,6 @@
 .gradle
 .idea
 *.iml
+app/bugly
 build
 local.properties

@@ -22,13 +22,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
-package org.cocos2dx.cpp;
+package com.codetypes.hellolua;
 
 import android.os.Bundle;
 import android.os.Build;
 import kernel.AppContext;
 
-public class AppActivity extends AppContext {
+public class AppEntry extends AppContext {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

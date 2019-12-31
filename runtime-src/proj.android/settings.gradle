@@ -2,5 +2,15 @@ include ':libcocos2dx'
 project(':libcocos2dx').projectDir = new File(settingsDir, '../../frameworks/cocos2d-x/cocos/platform/android/libcocos2dx')
 include ':libxgame'
 project(':libxgame').projectDir = new File(settingsDir, '../../frameworks/libxgame/android')
+include(':plugin-huawei')
+project(':plugin-huawei').projectDir = new File(settingsDir, '../../frameworks/plugins/huawei')
+include(':plugin-oppo')
+project(':plugin-oppo').projectDir = new File(settingsDir, '../../frameworks/plugins/oppo')
+include(':plugin-vivo')
+project(':plugin-vivo').projectDir = new File(settingsDir, '../../frameworks/plugins/vivo')
+include(':plugin-alipay')
+project(':plugin-alipay').projectDir = new File(settingsDir, '../../frameworks/plugins/alipay')
+include(':plugin-talkingdata')
+project(':plugin-talkingdata').projectDir = new File(settingsDir, '../../frameworks/plugins/talkingdata')
 include ':cocos-lua'
 project(':cocos-lua').projectDir = new File(settingsDir, 'app')

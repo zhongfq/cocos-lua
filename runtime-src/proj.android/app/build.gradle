@@ -1,6 +1,11 @@
-import org.gradle.internal.os.OperatingSystem
-
 apply plugin: 'com.android.application'
+apply plugin: 'bugly'
+//apply plugin: 'com.huawei.agconnect' @huawei
+
+bugly {
+    appId = 'c082cf3ca0'
+    appKey = 'c332369f-17b2-4f8e-9481-5810319e8c46'
+}
 
 android {
     compileSdkVersion PROP_COMPILE_SDK_VERSION.toInteger()
@@ -9,8 +14,8 @@ android {
         applicationId "com.codetypes.hellolua"
         minSdkVersion PROP_MIN_SDK_VERSION
         targetSdkVersion PROP_TARGET_SDK_VERSION
-        versionCode 1
-        versionName "1.0"
+        versionCode 100
+        versionName "1.1.0"
 
         externalNativeBuild {
             cmake {
@@ -94,4 +99,10 @@ dependencies {
     implementation project(':libxgame')
 
     implementation 'com.android.support:support-v4:28.0.0'
+
+    implementation project(':plugin-alipay')
+    // implementation project(':plugin-talkingdata')
+    // implementation project(':plugin-huawei')
+    // implementation project(':plugin-vivo')
+    // implementation project(':plugin-oppo')
 }

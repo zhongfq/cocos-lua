@@ -10,7 +10,11 @@ USING_NS_XGAME;
 
 static lua_State *_currentState = NULL;
 
-static bool inline throw_lua_error(const char *msg)
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+extern bool __declspec(dllexport) cc_assert_script_compatible(const char *msg)
+#else
+extern bool cc_assert_script_compatible(const char *msg)
+#endif
 {
 	if (_currentState) {
 		lua_State *L = _currentState;
@@ -19,28 +23,6 @@ static bool inline throw_lua_error(const char *msg)
 	}
 	return false;
 }
-
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-#include "base/CCScriptSupport.h"
-class AssertEngine : public ScriptEngineProtocol {
-public:
-	virtual int executeString(const char* codes) { return 0; }
-	virtual int executeScriptFile(const char* filename) { return 0; }
-	virtual int executeGlobalFunction(const char* functionName) { return 0; }
-	virtual int sendEvent(ScriptEvent* evt) { return 0; }
-	virtual bool parseConfig(ConfigType type, const std::string& str) { return true; }
-
-	virtual bool handleAssert(const char *msg)
-	{
-		return throw_lua_error(msg);
-	}
-};
-#else
-extern bool cc_assert_script_compatible(const char *msg)
-{
-	return throw_lua_error(msg);
-}
-#endif
 
 static int _coroutine_resume(lua_State *L)
 {
@@ -280,9 +262,6 @@ lua_State *xlua_new()
     lua_pushboolean(L, runtime::isDebug());
     lua_setglobal(L, "DEBUG");
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-	ScriptEngineManager::getInstance()->setScriptEngine(new AssertEngine());
-#endif
     
     return L;
 }

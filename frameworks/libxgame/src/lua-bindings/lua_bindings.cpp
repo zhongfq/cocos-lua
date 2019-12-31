@@ -42,7 +42,7 @@ int luaopen_bindings(lua_State *L)
     olua_dofunc(L, luaopen_xml_http_request);
     
 #ifndef _WIN32
-    pdebug_init(L);
+    //pdebug_init(L);
 #endif
     
     // luasocket

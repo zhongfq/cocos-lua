@@ -13,8 +13,6 @@ set(LUASOCKET_HEADER
     src/luasocket/tcp.h
     src/luasocket/timeout.h
     src/luasocket/udp.h
-    src/luasocket/unix.h
-    src/luasocket/usocket.h
 )
 set(LUASOCKET_SRC
     src/luasocket/auxiliar.c
@@ -27,10 +25,27 @@ set(LUASOCKET_SRC
     src/luasocket/mime.c
     src/luasocket/options.c
     src/luasocket/select.c
-    src/luasocket/serial.c
     src/luasocket/tcp.c
     src/luasocket/timeout.c
     src/luasocket/udp.c
-    src/luasocket/unix.c
-    src/luasocket/usocket.c
+    
 )
+
+if (WINDOWS)
+    list(APPEND LUASOCKET_HEADER
+        src/luasocket/wsocket.h
+    )
+    list(APPEND LUASOCKET_SRC
+        src/luasocket/wsocket.c
+    )
+else()
+    list(APPEND LUASOCKET_HEADER
+        src/luasocket/unix.h
+        src/luasocket/usocket.h
+    )
+    list(APPEND LUASOCKET_SRC
+        src/luasocket/serial.c
+        src/luasocket/unix.c
+        src/luasocket/usocket.c
+    )
+endif()

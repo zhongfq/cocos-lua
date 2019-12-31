@@ -37,7 +37,17 @@ THE SOFTWARE.
 #include "platform/CCStdC.h"
 
 #ifndef CCASSERT
+
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+#ifdef CC_ASSERT_SCRIPT_COMPATIBLE_IMPL
+extern bool __declspec(dllexport) cc_assert_script_compatible(const char *msg);
+#else
+extern bool __declspec(dllimport) cc_assert_script_compatible(const char *msg);
+#endif
+#else
 extern bool CC_DLL cc_assert_script_compatible(const char *msg);
+#endif
+
 #define CCASSERT(cond, msg) do {                            \
 if (!(cond)) {                                              \
     if (!cc_assert_script_compatible(msg) && strlen(msg))   \

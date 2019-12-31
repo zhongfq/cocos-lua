@@ -17,7 +17,6 @@ set(SRC
     ${BUGLY_SRC}
     ${CJSON_SRC}
     ${CRYPTO_SRC}
-    ${LAME_SRC}
     ${LPEG_SRC}
     ${LUA_BINDINGS_SRC}
     ${LUA_SRC}
@@ -33,7 +32,6 @@ set(HEADER
     ${BUGLY_HEADER}
     ${CJSON_HEADER}
     ${CRYPTO_HEADER}
-    ${LAME_HEADER}
     ${LPEG_HEADER}
     ${LUA_BINDINGS_HEADER}
     ${LUA_HEADER}
@@ -46,12 +44,18 @@ set(HEADER
     src/olua/olua.hpp
 )
 
+if (IOS OR ANDROID)
+    list(APPEND SRC ${LAME_SRC})
+    list(APPEND HEADER ${LAME_HEADER})
+endif()
+
 list(APPEND SRC ${HEADER})
 
 add_library(xgame ${SRC})
 
 target_compile_definitions(xgame PUBLIC STDC_HEADERS)
 target_compile_definitions(xgame PRIVATE $<$<CONFIG:Debug>:OLUA_DEBUG>)
+target_compile_definitions(xgame PRIVATE CC_ASSERT_SCRIPT_COMPATIBLE_IMPL)
 
 target_link_libraries(xgame fairygui cocos2d)
 

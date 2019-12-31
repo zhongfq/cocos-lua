@@ -1,5 +1,4 @@
 set(LUA_BINDINGS_HEADER
-    src/lua-bindings/libpdebug.h
     src/lua-bindings/lua_bindings.h
     src/lua-bindings/lua_cocos2d_3d.h
     src/lua-bindings/lua_cocos2d_action.h
@@ -25,7 +24,6 @@ set(LUA_BINDINGS_HEADER
 )
 
 set(LUA_BINDINGS_SRC
-    src/lua-bindings/libpdebug.cpp
     src/lua-bindings/lua_bindings.cpp
     src/lua-bindings/lua_cocos2d_3d.cpp
     src/lua-bindings/lua_cocos2d_action.cpp

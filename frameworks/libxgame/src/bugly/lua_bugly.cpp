@@ -4,6 +4,8 @@
 
 #include "cocos2d.h"
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+
 #ifndef CATEGORY_LUA_EXCEPTION
 #define CATEGORY_LUA_EXCEPTION 6
 #endif
@@ -100,3 +102,5 @@ int luaopen_bugly(lua_State *L)
     
     return 1;
 }
+
+#endif

@@ -162,9 +162,11 @@ target_include_directories(${APP_NAME}
 )
 
 # suspend warnings
-target_compile_options(cocos2d PRIVATE -Wno-reorder)
-target_compile_options(cocos2d PRIVATE -Wno-deprecated-declarations)
-target_compile_options(fairygui PRIVATE -Wno-reorder)
+if(MACOSX)
+    target_compile_options(cocos2d PRIVATE -Wno-reorder)
+    target_compile_options(cocos2d PRIVATE -Wno-deprecated-declarations)
+    target_compile_options(fairygui PRIVATE -Wno-reorder)
+endif()
 
 # mark app resources
 setup_cocos_app_config(${APP_NAME})

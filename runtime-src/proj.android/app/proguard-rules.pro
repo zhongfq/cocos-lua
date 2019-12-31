@@ -28,6 +28,8 @@
 -keep class org.apache.http.** { *; }
 -dontwarn org.apache.http.**
 
+-keep public class kernel.** { *; }
+
 # Proguard Android Webivew for release. uncomment if you are using a webview in cocos2d-x
 #-keep public class android.net.http.SslError
 #-keep public class android.webkit.WebViewClient

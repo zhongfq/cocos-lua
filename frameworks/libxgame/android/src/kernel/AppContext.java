@@ -124,6 +124,7 @@ public class AppContext extends Cocos2dxActivity {
     //
     @SuppressWarnings("unused")
     public static void registerFeature(String api, boolean enabled) {
+        api += ".android";
         mAPIs.put(api, enabled);
     }
 

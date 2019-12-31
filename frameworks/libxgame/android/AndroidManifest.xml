@@ -1,0 +1,13 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="kernel.android">
+    <application>
+        <!-- cameraroll -->
+        <activity
+            android:name="kernel.plugins.photo.Photo"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
+
+    </application>
+</manifest>

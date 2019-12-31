@@ -14,7 +14,7 @@ android {
 
         externalNativeBuild {
             cmake {
-                targets 'MyGame'
+                targets 'cocoslua'
                 arguments "-DCMAKE_FIND_ROOT_PATH=", "-DANDROID_STL=c++_static", "-DANDROID_TOOLCHAIN=clang", "-DANDROID_ARM_NEON=TRUE"
                 cppFlags "-frtti -fexceptions -fsigned-char"
             }
@@ -30,24 +30,22 @@ android {
         java.srcDir "src"
         res.srcDir "res"
         manifest.srcFile "AndroidManifest.xml"
-        assets.srcDir "../../Resources"
+        assets.srcDir "../../../assets"
     }
 
     externalNativeBuild {
         cmake {
-            path "../../CMakeLists.txt"
+            path "../../../CMakeLists.txt"
         }
     }
 
     signingConfigs {
 
        release {
-            if (project.hasProperty("RELEASE_STORE_FILE")) {
-                storeFile file(RELEASE_STORE_FILE)
-                storePassword RELEASE_STORE_PASSWORD
-                keyAlias RELEASE_KEY_ALIAS
-                keyPassword RELEASE_KEY_PASSWORD
-            }
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
         }
     }
 
@@ -59,15 +57,14 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            if (project.hasProperty("RELEASE_STORE_FILE")) {
-                signingConfig signingConfigs.release
-            }
+            signingConfig signingConfigs.release
         }
 
         debug {
             debuggable true
             jniDebuggable true
             renderscriptDebuggable true
+            signingConfig signingConfigs.release
         }
     }
 }
@@ -94,4 +91,7 @@ android.applicationVariants.all { variant ->
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':libcocos2dx')
+    implementation project(':libxgame')
+
+    implementation 'com.android.support:support-v4:28.0.0'
 }

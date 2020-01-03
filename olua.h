@@ -75,7 +75,7 @@ extern "C" {
     
 #define OLUA_VOIDCLS "void *"
     
-// compare the value raw type
+// compare raw type of value
 #define olua_isfunction(L,n)        (lua_type(L, (n)) == LUA_TFUNCTION)
 #define olua_istable(L,n)           (lua_type(L, (n)) == LUA_TTABLE)
 #define olua_islightuserdata(L,n)   (lua_type(L, (n)) == LUA_TLIGHTUSERDATA)
@@ -88,10 +88,7 @@ extern "C" {
 #define olua_isinteger(L,n)         (lua_isinteger(L, (n)))
 #define olua_isthread(L,n)          (lua_type(L, (n)) == LUA_TTHREAD)
     
-// check or get the raw value
-#define olua_newrawdata(L, obj, T)  (*(T *)lua_newuserdata(L, sizeof(T)) = (obj))
-#define olua_torawdata(L, i, T)     (*(T *)lua_touserdata(L, (i)))
-#define olua_setrawdata(L, i, o)    (*(void **)lua_touserdata(L, (i)) = (o))
+// check or get raw value
 #define olua_tonumber(L, i)         (lua_tonumber(L, (i)))
 #define olua_tointeger(L, i)        (lua_tointeger(L, (i)))
 #define olua_tostring(L, i)         (lua_tostring(L, (i)))
@@ -133,10 +130,13 @@ LUALIB_API int olua_pcall(lua_State *L, int nargs, int nresults);
 LUALIB_API int olua_pcallref(lua_State *L, int funcref, int nargs, int nresults);
     
 // manipulate userdata api
+#define olua_newuserdata(L, obj, T)  (*(T *)lua_newuserdata(L, sizeof(T)) = (obj))
+#define olua_touserdata(L, i, T)     (*(T *)lua_touserdata(L, (i)))
+#define olua_setuserdata(L, i, o)    (*(void **)lua_touserdata(L, (i)) = (o))
+LUALIB_API bool olua_getuserdata(lua_State *L, void *obj);
 LUALIB_API const char *olua_typename(lua_State *L, int idx);
 LUALIB_API bool olua_isa(lua_State *L, int idx, const char *cls);
 LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls);
-LUALIB_API bool olua_getrawdata(lua_State *L, void *obj);
 LUALIB_API void *olua_checkobj(lua_State *L, int idx, const char *cls);
 LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls);
 LUALIB_API const char *olua_objstring(lua_State *L, int idx);
@@ -221,6 +221,7 @@ LUALIB_API void oluacls_const(lua_State *L, const char *name);
 #define oluacls_const_integer(L, k, v)  (lua_pushinteger(L, (v)), oluacls_const(L, (k)))
 #define oluacls_const_string(L, k, v)   (lua_pushstring(L, (v)), oluacls_const(L, (k)))
     
+// object convertor for c++/c lua
 #define olua_push_bool(L, v)        (lua_pushboolean(L, (v)), 1)
 #define olua_check_bool(L, i, v)    (*(v) = olua_checkboolean(L, (i)))
 #define olua_is_bool(L, i)          (olua_isboolean(L, (i)))

@@ -119,20 +119,13 @@ template <typename T> int olua_push_cppobj(lua_State *L, const T* value)
     return olua_push_cppobj<T>(L, (T *)value, nullptr);
 }
 
-static inline void olua_to_cppobj(lua_State *L, int idx, void **value, const char *cls)
-{
-    olua_to_obj(L, idx, value, cls);
-}
+#define olua_push_std_string(L, v)      ((lua_pushstring(L, (v).c_str())), 1)
+#define olua_check_std_string(L, i, v)  (*(v) = olua_checkstring(L, (i)))
+#define olua_is_std_string(L, i)        (olua_isstring(L, (i)))
 
-static inline void olua_check_cppobj(lua_State *L, int idx, void **value, const char *cls)
-{
-    olua_check_obj(L, idx, value, cls);
-}
-
-static inline bool olua_is_cppobj(lua_State *L, int idx, const char *cls)
-{
-    return olua_is_obj(L, idx, cls);
-}
+#define olua_to_cppobj(L, i, v, c)      (olua_to_obj(L, (i), (v), (c)))
+#define olua_check_cppobj(L, i, v, c)   (olua_check_obj(L, (i), (v), (c)))
+#define olua_is_cppobj(L, i, c)         (olua_is_obj(L, (i), (c)))
 
 template <typename T> int olua_push_std_set(lua_State *L, const std::set<T*> &value, const char *cls)
 {
@@ -195,22 +188,6 @@ template <typename T> void olua_check_std_vector(lua_State *L, int idx, std::vec
 static inline bool olua_is_std_vector(lua_State *L, int idx)
 {
     return olua_istable(L, idx);
-}
-
-static inline int olua_push_std_string(lua_State *L, const std::string &value)
-{
-    lua_pushstring(L, value.c_str());
-    return 1;
-}
-
-static inline void olua_check_std_string(lua_State *L, int idx, std::string *value)
-{
-    *value = olua_checkstring(L, idx);
-}
-
-static inline bool olua_is_std_string(lua_State *L, int idx)
-{
-    return olua_isstring(L, idx);
 }
 
 template <typename T> int olua_push_std_function(lua_State *L, const std::function<T> value)

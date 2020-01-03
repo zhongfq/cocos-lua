@@ -75,6 +75,9 @@ if (IOS)
 
     find_library(ADSUPPORT_LIBRARY AdSupport)
     target_link_libraries(xgame ${ADSUPPORT_LIBRARY})
+
+    find_library(STOREKIT_LIBRARY StoreKit)
+    target_link_libraries(xgame ${STOREKIT_LIBRARY})
 endif()
 
 add_dependencies(xgame cocos2d)

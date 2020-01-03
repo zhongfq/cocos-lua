@@ -99,3 +99,11 @@ typedef {
     NUMVARS = nil,
 }
 
+typedef {
+    CPPCLS = 'xgame::FileFinder *',
+    LUACLS = 'kernel.FileFinder',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+

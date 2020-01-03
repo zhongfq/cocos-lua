@@ -438,7 +438,7 @@ static int _dragonBones_EventObject___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -1312,7 +1312,7 @@ static int _dragonBones_Point___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -1832,7 +1832,7 @@ static int _dragonBones_IKConstraintData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -2010,7 +2010,7 @@ static int _dragonBones_TimelineData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -3086,7 +3086,7 @@ static int _dragonBones_Bone___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -3661,7 +3661,7 @@ static int _dragonBones_ActionData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -4063,7 +4063,7 @@ static int _dragonBones_UserData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -4854,7 +4854,7 @@ static int _dragonBones_BoundingBoxDisplayData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -4998,7 +4998,7 @@ static int _dragonBones_CanvasData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -5711,7 +5711,7 @@ static int _dragonBones_ArmatureData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -6879,7 +6879,7 @@ static int _dragonBones_SkinData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -7064,7 +7064,7 @@ static int _dragonBones_BoneData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -7498,7 +7498,7 @@ static int _dragonBones_SlotData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -7898,7 +7898,7 @@ static int _dragonBones_AnimationState___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -8910,7 +8910,7 @@ static int _dragonBones_AnimationData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -9695,7 +9695,7 @@ static int _dragonBones_AnimationConfig___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -10788,7 +10788,7 @@ static int _dragonBones_DragonBonesData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -12311,7 +12311,7 @@ static int _dragonBones_Armature___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -13166,7 +13166,7 @@ static int _dragonBones_Animation___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -14301,7 +14301,7 @@ static int _dragonBones_CCFactory___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 

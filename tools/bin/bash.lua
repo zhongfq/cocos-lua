@@ -134,6 +134,7 @@ function M.execute(cmd)
 end
 
 function M.list(dir, pattern)
+    dir = M.format(dir)
     local f = io.popen(string.format('cd %s && find -L . -name "%s"', dir, pattern or "*.*"))
     local arr = {}
     for path in string.gmatch(f:read("*a"), '[^\n\r]+') do
@@ -168,6 +169,7 @@ function M.replace(path, pattern, repl)
     local flag = M.debug
     M.debug = false
     path = M.format(path)
+    repl = M.format(repl)
     local data = M.read(path)
     data = string.gsub(data, pattern, repl)
     M.write(path, data)

@@ -21,6 +21,7 @@ return {
         'spine/spine-cocos2dx.h',
 
         'xgame/xfilesystem.h',
+        'xgame/xfilefinder.h',
         'xgame/xruntime.h',
         'xgame/xpreferences.h',
         'xgame/xdownloader.h',

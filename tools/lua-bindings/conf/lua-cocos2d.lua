@@ -164,7 +164,7 @@ EventDispatcher.ATTR('removeAllEventListeners', {RET = '@unhold(cmp listeners)'}
 EventDispatcher.CHUNK = [[
 static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
 {
-    if (olua_getrawdata(L, target)) {
+    if (olua_getuserdata(L, target)) {
         olua_unholdall(L, -1, refname);
         lua_pop(L, 1);
     }

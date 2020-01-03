@@ -9,6 +9,7 @@ M.INCLUDES = [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "xgame/xfilesystem.h"
+#include "xgame/xfilefinder.h"
 #include "xgame/xlua.h"
 #include "xgame/xpreferences.h"
 #include "xgame/xdownloader.h"
@@ -229,5 +230,8 @@ window.FUNC('convertToCameraSpace', [[
 typeconf 'xgame::downloader::FileState'
 typeconf 'xgame::downloader'
 typeconf 'xgame::MaskLayout'
+
+local FileFinder = typeconf 'xgame::FileFinder'
+FileFinder.SUPERCLS = 'cocos2d::FileUtils'
 
 return M

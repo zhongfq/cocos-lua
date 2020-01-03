@@ -856,7 +856,7 @@ static int _fairygui_EventContext___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -1457,7 +1457,7 @@ static int _fairygui_InputEvent___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -1778,7 +1778,7 @@ static int _fairygui_TextFormat___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 
@@ -22006,7 +22006,7 @@ static int _fairygui_DragDropManager___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setrawdata(L, 1, nullptr);
+        olua_setuserdata(L, 1, nullptr);
         delete self;
     }
 

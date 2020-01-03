@@ -15,6 +15,7 @@ M.INCLUDES = [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "xgame/xfilesystem.h"
+#include "xgame/xfilefinder.h"
 #include "xgame/xlua.h"
 #include "xgame/xpreferences.h"
 #include "xgame/xdownloader.h"
@@ -185,6 +186,7 @@ cls.funcs [[
     static const std::string getCacheDirectory()
     static const std::string getDocumentDirectory()
     static const std::string getTmpDirectory()
+    static const std::string getBuiltinCacheDirectory()
     static const std::string getSDCardDirectory()
     static void addSearchPath(const std::string &path, @optional bool front)
     static const std::string shortPath(const std::string &path, @optional size_t limit)
@@ -212,6 +214,7 @@ cls.props [[
     cacheDirectory
     documentDirectory
     tmpDirectory
+    builtinCacheDirectory
     sdCardDirectory
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -392,6 +395,13 @@ cls.funcs [[
 ]]
 cls.props [[
     clippingNode
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'xgame::FileFinder'
+cls.SUPERCLS = "cocos2d::FileUtils"
+cls.funcs [[
+    static xgame::FileFinder *create()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 

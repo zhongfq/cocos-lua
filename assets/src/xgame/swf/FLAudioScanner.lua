@@ -41,7 +41,7 @@ end
 
 function FLAudioScanner:clear()
     self:_clearAudios(true)
-    self._watchedTargets = setmetatable({}, {__mode = "k"})
+    self._watchedTargets = {}
     self._playingAudios = self:_createAutoTable()
     self._playingStates = self:_createAutoTable()
 end

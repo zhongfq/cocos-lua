@@ -4,10 +4,10 @@ local Event         = require "xgame.event.Event"
 local PluginEvent   = require "xgame.event.PluginEvent"
 local timer         = require "xgame.timer"
 local runtime       = require "xgame.runtime"
-local impl          = require "kernel.plugins.apple"
 local Dispatcher    = require "xgame.event.Dispatcher"
 local cjson         = require "cjson.safe"
 
+local impl
 local trace = util.trace("[apple]")
 
 local ASAuthorizationErrorUnknown = 1000
@@ -48,6 +48,16 @@ end
 function Apple:auth()
     self.userInfo = false
     impl:auth()
+end
+
+if runtime.support('apple.ios') then
+    impl = require "kernel.plugins.apple"
+else
+    impl = setmetatable({}, {__index = function (_, func)
+        return function ()
+            trace("function 'kernel.plugins.apple.%s' not supported", func)
+        end
+    end})
 end
 
 return Apple.new()

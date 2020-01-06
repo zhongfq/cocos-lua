@@ -140,7 +140,7 @@ LUALIB_API int luaopen_apple(lua_State *L)
             olua_push_obj(L, (void *)CFBridgingRetain(connector), CLASS_CONNECTOR);
         }
     } else {
-        lua_pushboolean(L, false);
+         olua_requiref(L, lua_tostring(L, 1), xlua_nonsupport, false);
     }
     
     return 1;

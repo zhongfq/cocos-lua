@@ -26165,16 +26165,14 @@ static int _cocos2d_Label_createWithBMFont1(lua_State *L)
     std::string arg2;       /** text */
     lua_Unsigned arg3 = 0;       /** hAlignment */
     lua_Integer arg4 = 0;       /** maxLineWidth */
-    cocos2d::Vec2 arg5;       /** imageOffset */
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
     olua_check_uint(L, 3, &arg3);
     olua_check_int(L, 4, &arg4);
-    auto_olua_check_cocos2d_Vec2(L, 5, &arg5);
 
-    // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, @optional const cocos2d::TextHAlignment &hAlignment, @optional int maxLineWidth, @optional const cocos2d::Vec2 &imageOffset)
-    cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithBMFont(arg1, arg2, (cocos2d::TextHAlignment)arg3, (int)arg4, arg5);
+    // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, @optional const cocos2d::TextHAlignment &hAlignment, @optional int maxLineWidth)
+    cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithBMFont(arg1, arg2, (cocos2d::TextHAlignment)arg3, (int)arg4);
     int num_ret = olua_push_cppobj(L, ret, "cc.Label");
 
     olua_endinvoke(L);
@@ -26188,12 +26186,20 @@ static int _cocos2d_Label_createWithBMFont2(lua_State *L)
 
     std::string arg1;       /** bmfontPath */
     std::string arg2;       /** text */
+    lua_Unsigned arg3 = 0;       /** hAlignment */
+    lua_Integer arg4 = 0;       /** maxLineWidth */
+    cocos2d::Rect arg5;       /** imageRect */
+    bool arg6 = false;       /** imageRotated */
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
+    olua_check_uint(L, 3, &arg3);
+    olua_check_int(L, 4, &arg4);
+    manual_olua_check_cocos2d_Rect(L, 5, &arg5);
+    olua_check_bool(L, 6, &arg6);
 
-    // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, @optional const cocos2d::TextHAlignment &hAlignment, @optional int maxLineWidth, @optional const cocos2d::Vec2 &imageOffset)
-    cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithBMFont(arg1, arg2);
+    // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, const cocos2d::TextHAlignment &hAlignment, int maxLineWidth, const cocos2d::Rect &imageRect, bool imageRotated)
+    cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithBMFont(arg1, arg2, (cocos2d::TextHAlignment)arg3, (int)arg4, arg5, arg6);
     int num_ret = olua_push_cppobj(L, ret, "cc.Label");
 
     olua_endinvoke(L);
@@ -26208,13 +26214,17 @@ static int _cocos2d_Label_createWithBMFont3(lua_State *L)
     std::string arg1;       /** bmfontPath */
     std::string arg2;       /** text */
     lua_Unsigned arg3 = 0;       /** hAlignment */
+    lua_Integer arg4 = 0;       /** maxLineWidth */
+    std::string arg5;       /** subTextureKey */
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
     olua_check_uint(L, 3, &arg3);
+    olua_check_int(L, 4, &arg4);
+    olua_check_std_string(L, 5, &arg5);
 
-    // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, @optional const cocos2d::TextHAlignment &hAlignment, @optional int maxLineWidth, @optional const cocos2d::Vec2 &imageOffset)
-    cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithBMFont(arg1, arg2, (cocos2d::TextHAlignment)arg3);
+    // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, const cocos2d::TextHAlignment &hAlignment, int maxLineWidth, const std::string &subTextureKey)
+    cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithBMFont(arg1, arg2, (cocos2d::TextHAlignment)arg3, (int)arg4, arg5);
     int num_ret = olua_push_cppobj(L, ret, "cc.Label");
 
     olua_endinvoke(L);
@@ -26228,16 +26238,33 @@ static int _cocos2d_Label_createWithBMFont4(lua_State *L)
 
     std::string arg1;       /** bmfontPath */
     std::string arg2;       /** text */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+
+    // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, @optional const cocos2d::TextHAlignment &hAlignment, @optional int maxLineWidth)
+    cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithBMFont(arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Label");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_createWithBMFont5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::string arg1;       /** bmfontPath */
+    std::string arg2;       /** text */
     lua_Unsigned arg3 = 0;       /** hAlignment */
-    lua_Integer arg4 = 0;       /** maxLineWidth */
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
     olua_check_uint(L, 3, &arg3);
-    olua_check_int(L, 4, &arg4);
 
-    // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, @optional const cocos2d::TextHAlignment &hAlignment, @optional int maxLineWidth, @optional const cocos2d::Vec2 &imageOffset)
-    cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithBMFont(arg1, arg2, (cocos2d::TextHAlignment)arg3, (int)arg4);
+    // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, @optional const cocos2d::TextHAlignment &hAlignment, @optional int maxLineWidth)
+    cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithBMFont(arg1, arg2, (cocos2d::TextHAlignment)arg3);
     int num_ret = olua_push_cppobj(L, ret, "cc.Label");
 
     olua_endinvoke(L);
@@ -26251,29 +26278,36 @@ static int _cocos2d_Label_createWithBMFont(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
-            // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, @optional const cocos2d::TextHAlignment &hAlignment, @optional int maxLineWidth, @optional const cocos2d::Vec2 &imageOffset)
-            return _cocos2d_Label_createWithBMFont2(L);
+            // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, @optional const cocos2d::TextHAlignment &hAlignment, @optional int maxLineWidth)
+            return _cocos2d_Label_createWithBMFont4(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
-            // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, @optional const cocos2d::TextHAlignment &hAlignment, @optional int maxLineWidth, @optional const cocos2d::Vec2 &imageOffset)
-            return _cocos2d_Label_createWithBMFont3(L);
+            // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, @optional const cocos2d::TextHAlignment &hAlignment, @optional int maxLineWidth)
+            return _cocos2d_Label_createWithBMFont5(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_int(L, 4))) {
-            // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, @optional const cocos2d::TextHAlignment &hAlignment, @optional int maxLineWidth, @optional const cocos2d::Vec2 &imageOffset)
-            return _cocos2d_Label_createWithBMFont4(L);
+            // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, @optional const cocos2d::TextHAlignment &hAlignment, @optional int maxLineWidth)
+            return _cocos2d_Label_createWithBMFont1(L);
         // }
     }
 
     if (num_args == 5) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_int(L, 4)) && (auto_olua_is_cocos2d_Vec2(L, 5))) {
-            // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, @optional const cocos2d::TextHAlignment &hAlignment, @optional int maxLineWidth, @optional const cocos2d::Vec2 &imageOffset)
-            return _cocos2d_Label_createWithBMFont1(L);
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_int(L, 4)) && (olua_is_std_string(L, 5))) {
+            // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, const cocos2d::TextHAlignment &hAlignment, int maxLineWidth, const std::string &subTextureKey)
+            return _cocos2d_Label_createWithBMFont3(L);
+        // }
+    }
+
+    if (num_args == 6) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_int(L, 4)) && (manual_olua_is_cocos2d_Rect(L, 5)) && (olua_is_bool(L, 6))) {
+            // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, const cocos2d::TextHAlignment &hAlignment, int maxLineWidth, const cocos2d::Rect &imageRect, bool imageRotated)
+            return _cocos2d_Label_createWithBMFont2(L);
         // }
     }
 
@@ -27954,16 +27988,14 @@ static int _cocos2d_Label_setBMFontFilePath1(lua_State *L)
 
     cocos2d::Label *self = nullptr;
     std::string arg1;       /** bmfontFilePath */
-    cocos2d::Vec2 arg2;       /** imageOffset */
-    lua_Number arg3 = 0;       /** fontSize */
+    lua_Number arg2 = 0;       /** fontSize */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
     olua_check_std_string(L, 2, &arg1);
-    auto_olua_check_cocos2d_Vec2(L, 3, &arg2);
-    olua_check_number(L, 4, &arg3);
+    olua_check_number(L, 3, &arg2);
 
-    // bool setBMFontFilePath(const std::string &bmfontFilePath, @optional const cocos2d::Vec2 &imageOffset, @optional float fontSize)
-    bool ret = (bool)self->setBMFontFilePath(arg1, arg2, (float)arg3);
+    // bool setBMFontFilePath(const std::string &bmfontFilePath, @optional float fontSize)
+    bool ret = (bool)self->setBMFontFilePath(arg1, (float)arg2);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -27977,12 +28009,18 @@ static int _cocos2d_Label_setBMFontFilePath2(lua_State *L)
 
     cocos2d::Label *self = nullptr;
     std::string arg1;       /** bmfontFilePath */
+    cocos2d::Rect arg2;       /** imageRect */
+    bool arg3 = false;       /** imageRotated */
+    lua_Number arg4 = 0;       /** fontSize */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
     olua_check_std_string(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 3, &arg2);
+    olua_check_bool(L, 4, &arg3);
+    olua_check_number(L, 5, &arg4);
 
-    // bool setBMFontFilePath(const std::string &bmfontFilePath, @optional const cocos2d::Vec2 &imageOffset, @optional float fontSize)
-    bool ret = (bool)self->setBMFontFilePath(arg1);
+    // bool setBMFontFilePath(const std::string &bmfontFilePath, const cocos2d::Rect &imageRect, bool imageRotated, @optional float fontSize)
+    bool ret = (bool)self->setBMFontFilePath(arg1, arg2, arg3, (float)arg4);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -27996,13 +28034,78 @@ static int _cocos2d_Label_setBMFontFilePath3(lua_State *L)
 
     cocos2d::Label *self = nullptr;
     std::string arg1;       /** bmfontFilePath */
-    cocos2d::Vec2 arg2;       /** imageOffset */
+    std::string arg2;       /** subTextureKey */
+    lua_Number arg3 = 0;       /** fontSize */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
     olua_check_std_string(L, 2, &arg1);
-    auto_olua_check_cocos2d_Vec2(L, 3, &arg2);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
 
-    // bool setBMFontFilePath(const std::string &bmfontFilePath, @optional const cocos2d::Vec2 &imageOffset, @optional float fontSize)
+    // bool setBMFontFilePath(const std::string &bmfontFilePath, const std::string &subTextureKey, @optional float fontSize)
+    bool ret = (bool)self->setBMFontFilePath(arg1, arg2, (float)arg3);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_setBMFontFilePath4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Label *self = nullptr;
+    std::string arg1;       /** bmfontFilePath */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
+    olua_check_std_string(L, 2, &arg1);
+
+    // bool setBMFontFilePath(const std::string &bmfontFilePath, @optional float fontSize)
+    bool ret = (bool)self->setBMFontFilePath(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_setBMFontFilePath5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Label *self = nullptr;
+    std::string arg1;       /** bmfontFilePath */
+    cocos2d::Rect arg2;       /** imageRect */
+    bool arg3 = false;       /** imageRotated */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
+    olua_check_std_string(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 3, &arg2);
+    olua_check_bool(L, 4, &arg3);
+
+    // bool setBMFontFilePath(const std::string &bmfontFilePath, const cocos2d::Rect &imageRect, bool imageRotated, @optional float fontSize)
+    bool ret = (bool)self->setBMFontFilePath(arg1, arg2, arg3);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_setBMFontFilePath6(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Label *self = nullptr;
+    std::string arg1;       /** bmfontFilePath */
+    std::string arg2;       /** subTextureKey */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // bool setBMFontFilePath(const std::string &bmfontFilePath, const std::string &subTextureKey, @optional float fontSize)
     bool ret = (bool)self->setBMFontFilePath(arg1, arg2);
     int num_ret = olua_push_bool(L, ret);
 
@@ -28017,22 +28120,39 @@ static int _cocos2d_Label_setBMFontFilePath(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
-            // bool setBMFontFilePath(const std::string &bmfontFilePath, @optional const cocos2d::Vec2 &imageOffset, @optional float fontSize)
-            return _cocos2d_Label_setBMFontFilePath2(L);
+            // bool setBMFontFilePath(const std::string &bmfontFilePath, @optional float fontSize)
+            return _cocos2d_Label_setBMFontFilePath4(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((olua_is_std_string(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
-            // bool setBMFontFilePath(const std::string &bmfontFilePath, @optional const cocos2d::Vec2 &imageOffset, @optional float fontSize)
-            return _cocos2d_Label_setBMFontFilePath3(L);
+        if ((olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
+            // bool setBMFontFilePath(const std::string &bmfontFilePath, @optional float fontSize)
+            return _cocos2d_Label_setBMFontFilePath1(L);
+        }
+
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            // bool setBMFontFilePath(const std::string &bmfontFilePath, const std::string &subTextureKey, @optional float fontSize)
+            return _cocos2d_Label_setBMFontFilePath6(L);
         // }
     }
 
     if (num_args == 3) {
-        // if ((olua_is_std_string(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3)) && (olua_is_number(L, 4))) {
-            // bool setBMFontFilePath(const std::string &bmfontFilePath, @optional const cocos2d::Vec2 &imageOffset, @optional float fontSize)
-            return _cocos2d_Label_setBMFontFilePath1(L);
+        if ((olua_is_std_string(L, 2)) && (manual_olua_is_cocos2d_Rect(L, 3)) && (olua_is_bool(L, 4))) {
+            // bool setBMFontFilePath(const std::string &bmfontFilePath, const cocos2d::Rect &imageRect, bool imageRotated, @optional float fontSize)
+            return _cocos2d_Label_setBMFontFilePath5(L);
+        }
+
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4))) {
+            // bool setBMFontFilePath(const std::string &bmfontFilePath, const std::string &subTextureKey, @optional float fontSize)
+            return _cocos2d_Label_setBMFontFilePath3(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_std_string(L, 2)) && (manual_olua_is_cocos2d_Rect(L, 3)) && (olua_is_bool(L, 4)) && (olua_is_number(L, 5))) {
+            // bool setBMFontFilePath(const std::string &bmfontFilePath, const cocos2d::Rect &imageRect, bool imageRotated, @optional float fontSize)
+            return _cocos2d_Label_setBMFontFilePath2(L);
         // }
     }
 

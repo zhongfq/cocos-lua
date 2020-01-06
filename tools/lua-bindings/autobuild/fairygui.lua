@@ -1185,6 +1185,8 @@ cls.funcs [[
     @hold(exclusive inputProcessor) fairygui::InputProcessor *getInputProcessor()
     cocos2d::Vec2 getTouchPosition(int touchId)
     fairygui::GObject *getTouchTarget()
+    cocos2d::Vec2 worldToRoot(const cocos2d::Vec2 &pt)
+    cocos2d::Vec2 rootToWorld(const cocos2d::Vec2 &pt)
     @unhold(cmp children) void showPopup(@hold(coexist children) fairygui::GObject *popup)
     @unhold(cmp children) void showPopup(@hold(coexist children) fairygui::GObject *popup, fairygui::GObject *target, fairygui::PopupDirection dir)
     @unhold(cmp children) void togglePopup(@hold(coexist children) fairygui::GObject *popup)
@@ -1202,8 +1204,6 @@ cls.funcs [[
     float getSoundVolumeScale()
     void setSoundVolumeScale(float value)
     void setNotAsUIRoot()
-    cocos2d::Vec2 worldToRoot(const cocos2d::Vec2 &pt)
-    cocos2d::Vec2 rootToWorld(const cocos2d::Vec2 &pt)
 ]]
 cls.var('contentScaleLevel', [[static int contentScaleLevel]])
 cls.prop('UIRoot', 'static GRoot* getInstance()')

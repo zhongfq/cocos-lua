@@ -1144,6 +1144,19 @@ static int _xgame_filesystem_fullPath(lua_State *L)
     return num_ret;
 }
 
+static int _xgame_filesystem_getBuiltinCacheDirectory(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static const std::string getBuiltinCacheDirectory()
+    const std::string ret = (const std::string)xgame::filesystem::getBuiltinCacheDirectory();
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _xgame_filesystem_getCacheDirectory(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1398,6 +1411,7 @@ static int luaopen_xgame_filesystem(lua_State *L)
     oluacls_func(L, "createDirectory", _xgame_filesystem_createDirectory);
     oluacls_func(L, "exist", _xgame_filesystem_exist);
     oluacls_func(L, "fullPath", _xgame_filesystem_fullPath);
+    oluacls_func(L, "getBuiltinCacheDirectory", _xgame_filesystem_getBuiltinCacheDirectory);
     oluacls_func(L, "getCacheDirectory", _xgame_filesystem_getCacheDirectory);
     oluacls_func(L, "getDocumentDirectory", _xgame_filesystem_getDocumentDirectory);
     oluacls_func(L, "getSDCardDirectory", _xgame_filesystem_getSDCardDirectory);
@@ -1411,6 +1425,7 @@ static int luaopen_xgame_filesystem(lua_State *L)
     oluacls_func(L, "shortPath", _xgame_filesystem_shortPath);
     oluacls_func(L, "unzip", _xgame_filesystem_unzip);
     oluacls_func(L, "write", _xgame_filesystem_write);
+    oluacls_prop(L, "builtinCacheDirectory", _xgame_filesystem_getBuiltinCacheDirectory, nullptr);
     oluacls_prop(L, "cacheDirectory", _xgame_filesystem_getCacheDirectory, nullptr);
     oluacls_prop(L, "documentDirectory", _xgame_filesystem_getDocumentDirectory, nullptr);
     oluacls_prop(L, "sdCardDirectory", _xgame_filesystem_getSDCardDirectory, nullptr);

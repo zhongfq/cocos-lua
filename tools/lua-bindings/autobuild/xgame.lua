@@ -185,6 +185,7 @@ cls.funcs [[
     static const std::string getCacheDirectory()
     static const std::string getDocumentDirectory()
     static const std::string getTmpDirectory()
+    static const std::string getBuiltinCacheDirectory()
     static const std::string getSDCardDirectory()
     static void addSearchPath(const std::string &path, @optional bool front)
     static const std::string shortPath(const std::string &path, @optional size_t limit)
@@ -212,6 +213,7 @@ cls.props [[
     cacheDirectory
     documentDirectory
     tmpDirectory
+    builtinCacheDirectory
     sdCardDirectory
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls

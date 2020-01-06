@@ -12,12 +12,41 @@ cocos-lua以cocos2d-x v4的c++项目为基础，采用基于lua gc来管理c++�
 
 ## 如何使用
 
-仓库本身就是一个项目，方便以后统一升级至最新的cocos2dx源码，也可以使用脚本创建项目：
+cocos2d-x v4全部采用cmake构建，可以使用cmake生成各平台项目，生成之前，确保已经安装了cmake和python2.7。
 
-    $ cd tools/bin
-    $ ./create-project -n project-name -p package-name -d ~/
+#### 生成macOS项目
 
-runtime-src目录包括了mac、win和android平台的项目，具体使用方式可以参考cocos2d-x官方的文档，后续会在tools/bin中提供更方便的编译iOS和android脚本。
+```sh
+cd cocos-lua
+mkdir mac-build && cd mac-build
+cmake .. -GXcode
+open cocos-lua.xcodeproj
+```
+
+#### 生成iOS项目
+
+```sh
+cd cocos-lua
+mkdir ios-build && cd ios-build
+cmake .. -GXcode -DCMAKE_SYSTEM_NAME=iOS
+open cocos-lua.xcodeproj
+```
+
+#### 生成Visual Studio项目（使用cmd）
+
+```sh
+cd cocos-lua
+mkdir win32-build && cd win32-build
+cmake .. -G"Visual Studio 15 2017" -Tv141
+```
+
+#### Android编译
+```sh
+cd runtime-src/proj.android
+./gradlew assembleRelease
+```
+
+更多信息参见[v4编译说明](https://github.com/cocos2d/cocos2d-x/blob/v4/cmake/README.md)
 
 ## 热更新
 

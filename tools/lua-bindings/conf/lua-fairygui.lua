@@ -669,7 +669,10 @@ GTree.ATTR('getSelectedNodes', {ARG1 = '@out'})
 
 typeconf 'fairygui::FUIContainer'
 typeconf 'fairygui::FUIInput'
+
 typeconf 'fairygui::FUILabel'
+    .EXCLUDE 'setBMFontFilePath'
+
 typeconf 'fairygui::FUIRichText'
 typeconf 'fairygui::FUISprite'
 

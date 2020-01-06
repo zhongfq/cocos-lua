@@ -362,7 +362,7 @@ cls.SUPERCLS = "cocos2d::Ref"
 cls.CHUNK = [[
 static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
 {
-    if (olua_getrawdata(L, target)) {
+    if (olua_getuserdata(L, target)) {
         olua_unholdall(L, -1, refname);
         lua_pop(L, 1);
     }
@@ -2899,13 +2899,17 @@ cls.funcs [[
     static cocos2d::Label *createWithSystemFont(const std::string &text, const std::string &font, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
     static cocos2d::Label *createWithTTF(const std::string &text, const std::string &fontFilePath, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
     static cocos2d::Label *createWithTTF(const cocos2d::TTFConfig &ttfConfig, const std::string &text, @optional cocos2d::TextHAlignment hAlignment, @optional int maxLineWidth)
-    static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, @optional const cocos2d::TextHAlignment &hAlignment, @optional int maxLineWidth, @optional const cocos2d::Vec2 &imageOffset)
+    static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, @optional const cocos2d::TextHAlignment &hAlignment, @optional int maxLineWidth)
+    static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, const cocos2d::TextHAlignment &hAlignment, int maxLineWidth, const cocos2d::Rect &imageRect, bool imageRotated)
+    static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, const cocos2d::TextHAlignment &hAlignment, int maxLineWidth, const std::string &subTextureKey)
     static cocos2d::Label *createWithCharMap(const std::string &charMapFile, int itemWidth, int itemHeight, int startCharMap)
     static cocos2d::Label *createWithCharMap(cocos2d::Texture2D *texture, int itemWidth, int itemHeight, int startCharMap)
     static cocos2d::Label *createWithCharMap(const std::string &plistFile)
     bool setTTFConfig(const cocos2d::TTFConfig &ttfConfig)
     const cocos2d::TTFConfig &getTTFConfig()
-    bool setBMFontFilePath(const std::string &bmfontFilePath, @optional const cocos2d::Vec2 &imageOffset, @optional float fontSize)
+    bool setBMFontFilePath(const std::string &bmfontFilePath, @optional float fontSize)
+    bool setBMFontFilePath(const std::string &bmfontFilePath, const cocos2d::Rect &imageRect, bool imageRotated, @optional float fontSize)
+    bool setBMFontFilePath(const std::string &bmfontFilePath, const std::string &subTextureKey, @optional float fontSize)
     const std::string &getBMFontFilePath()
     bool setCharMap(const std::string &charMapFile, int itemWidth, int itemHeight, int startCharMap)
     bool setCharMap(cocos2d::Texture2D *texture, int itemWidth, int itemHeight, int startCharMap)

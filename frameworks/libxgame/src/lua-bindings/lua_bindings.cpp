@@ -60,16 +60,16 @@ int luaopen_bindings(lua_State *L)
     olua_require(L, "cjson", luaopen_cjson);
     olua_require(L, "cjson.safe", luaopen_cjson_safe);
     olua_require(L, "md5" , luaopen_md5);
-//    olua_require(L, "kernel.qrcode", luaopen_qrcode);
-//    olua_require(L, "kernel.QRSprite", luaopen_qrsprite);
+    olua_require(L, "kernel.qrcode", luaopen_qrcode);
+    olua_require(L, "kernel.QRSprite", luaopen_qrsprite);
     olua_require(L, "kernel.Socket", luaopen_socket);
     olua_require(L, "kernel.luaj", luaopen_javabridge);
-//    olua_require(L, "kernel.lame", luaopen_lame);
-//    olua_require(L, "kernel.keychain", luaopen_keychain);
-//    olua_require(L, "kernel.bugly", luaopen_bugly);
-//    olua_require(L, "kernel.plugins.photo", luaopen_photo);
-//    olua_require(L, "kernel.plugins.recorder", luaopen_recorder);
-//    olua_require(L, "kernel.plugins.iap", luaopen_iap);
+    olua_require(L, "kernel.lame", luaopen_lame);
+    olua_require(L, "kernel.keychain", luaopen_keychain);
+    olua_require(L, "kernel.bugly", luaopen_bugly);
+    olua_require(L, "kernel.plugins.photo", luaopen_photo);
+    olua_require(L, "kernel.plugins.recorder", luaopen_recorder);
+    olua_require(L, "kernel.plugins.iap", luaopen_iap);
 
     return 0;
 }

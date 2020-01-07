@@ -1,24 +1,7 @@
 local autoconf = require "autoconf"
 local M = autoconf.typemod 'dragonbones'
 local typeconf = M.typeconf
-local typedef = M.typedef
 local typeconv = M.typeconv
-
-M.PARSER = {
-    HEADERS = {
-        'CCDragonBonesHeaders.h',
-        'lua-bindings/LuaCocosAdapter.h'
-    },
-    FLAGS = {
-        '-I../../frameworks/cocos2d-x/cocos',
-        '-I../../frameworks/libxgame/src',
-        '-I../../frameworks/libdragonbones/src',
-        '-DCC_ENABLE_SCRIPT_BINDING=0',
-        '-DCC_CONSTRUCTOR_ACCESS=public',
-        '-DCC_DLL=',
-        '-DEXPORT_DLL=',
-    },
-}
 
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
@@ -59,7 +42,6 @@ M.EXCLUDE_TYPE 'std::vector *'
 M.EXCLUDE_PASS = function (cppcls, fn, decl)
     return string.find(fn, '^_') or string.find(decl, 'std::map')
 end
-
 
 typeconf 'dragonBones::BinaryOffset'
 typeconf 'dragonBones::ArmatureType'

@@ -150,15 +150,16 @@ endif()
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libfairygui)
 set_target_properties(fairygui PROPERTIES FOLDER "Internal")
-# add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libdragonbones)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libdragonbones)
+set_target_properties(dragonbones PROPERTIES FOLDER "Internal")
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libxgame)
 set_target_properties(xgame PROPERTIES FOLDER "Internal")
 
-target_link_libraries(${APP_NAME} cocos2d fairygui xgame)
+target_link_libraries(${APP_NAME} cocos2d fairygui dragonbones xgame)
 target_include_directories(${APP_NAME}
-        PRIVATE ${RUNTIME_SRC_ROOT}/Classes
-        PRIVATE ${COCOS2DX_ROOT_PATH}/cocos/audio/include/
+    PRIVATE ${RUNTIME_SRC_ROOT}/Classes
+    PRIVATE ${COCOS2DX_ROOT_PATH}/cocos/audio/include/
 )
 
 # suspend warnings

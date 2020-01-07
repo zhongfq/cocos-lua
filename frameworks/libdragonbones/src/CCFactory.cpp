@@ -34,27 +34,27 @@ TextureAtlasData* CCFactory::_buildTextureAtlasData(TextureAtlasData* textureAtl
                 switch (textureAtlasData->format)
                 {
                     case TextureFormat::RGBA8888:
-                        pixelFormat = cocos2d::Texture2D::PixelFormat::RGBA8888;
+                        pixelFormat = cocos2d::backend::PixelFormat::RGBA8888;
                         break;
 
                     case TextureFormat::BGRA8888:
-                        pixelFormat = cocos2d::Texture2D::PixelFormat::BGRA8888;
+                        pixelFormat = cocos2d::backend::PixelFormat::BGRA8888;
                         break;
 
                     case TextureFormat::RGBA4444:
-                        pixelFormat = cocos2d::Texture2D::PixelFormat::RGBA4444;
+                        pixelFormat = cocos2d::backend::PixelFormat::RGBA4444;
                         break;
 
                     case TextureFormat::RGB888:
-                        pixelFormat = cocos2d::Texture2D::PixelFormat::RGB888;
+                        pixelFormat = cocos2d::backend::PixelFormat::RGB888;
                         break;
 
                     case TextureFormat::RGB565:
-                        pixelFormat = cocos2d::Texture2D::PixelFormat::RGB565;
+                        pixelFormat = cocos2d::backend::PixelFormat::RGB565;
                         break;
 
                     case TextureFormat::RGBA5551:
-                        pixelFormat = cocos2d::Texture2D::PixelFormat::RGB5A1;
+                        pixelFormat = cocos2d::backend::PixelFormat::RGB5A1;
                         break;
 
                     case TextureFormat::DEFAULT:

@@ -17,7 +17,7 @@ export 'autobuild/cocos2d-backend.lua'
 export 'autobuild/cocos2d-physics.lua'
 export 'autobuild/cocos2d-ui.lua'
 export 'autobuild/fairygui.lua'
--- -- export 'autobuild/dragonbones.lua'
+export 'autobuild/dragonbones.lua'
 export 'autobuild/spine.lua'
 export 'autobuild/xgame.lua'
 

@@ -46,7 +46,7 @@ USING_NS_CC;
 
 static int _open_plugins(lua_State *L)
 {
-//    olua_dofunc(L, luaopen_dragonbones);
+    olua_dofunc(L, luaopen_dragonbones);
     olua_dofunc(L, luaopen_cocos2d_3d);
     olua_dofunc(L, luaopen_fairygui);
     olua_dofunc(L, luaopen_spine);

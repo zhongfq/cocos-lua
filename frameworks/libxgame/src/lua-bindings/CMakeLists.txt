@@ -34,7 +34,7 @@ set(LUA_BINDINGS_SRC
     src/lua-bindings/lua_conv_manual.cpp
     src/lua-bindings/lua_conv.cpp
     src/lua-bindings/lua_crypto.cpp
-    # src/lua-bindings/lua_dragonbones.cpp
+    src/lua-bindings/lua_dragonbones.cpp
     src/lua-bindings/lua_fairygui.cpp
     src/lua-bindings/lua_javabridge.cpp
     src/lua-bindings/lua_socket.cpp

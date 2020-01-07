@@ -21,6 +21,8 @@ return {
 
         'spine/spine-cocos2dx.h',
 
+        'CCDragonBonesHeaders.h',
+
         'xgame/xfilesystem.h',
         'xgame/xruntime.h',
         'xgame/xpreferences.h',
@@ -41,6 +43,7 @@ return {
         '-I../../frameworks/cocos2d-x/cocos/platform',
         '-I../../frameworks/cocos2d-x/external',
         '-I../../frameworks/libfairygui/Classes',
+        '-I../../frameworks/libdragonbones/src',
         '-I../../frameworks/libxgame/src',
     },
 }

@@ -57,7 +57,7 @@ target_compile_definitions(xgame PUBLIC STDC_HEADERS)
 target_compile_definitions(xgame PRIVATE $<$<CONFIG:Debug>:OLUA_DEBUG>)
 target_compile_definitions(xgame PRIVATE CC_ASSERT_SCRIPT_COMPATIBLE_IMPL)
 
-target_link_libraries(xgame fairygui cocos2d)
+target_link_libraries(xgame fairygui dragonbones cocos2d)
 
 if (APPLE)
     set_xcode_property(xgame CLANG_ENABLE_OBJC_ARC "YES")

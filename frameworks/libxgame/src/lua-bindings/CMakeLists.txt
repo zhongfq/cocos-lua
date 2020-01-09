@@ -17,7 +17,6 @@ set(LUA_BINDINGS_HEADER
     src/lua-bindings/lua_photo.h
     src/lua-bindings/lua_recorder.h
     src/lua-bindings/lua_socket.h
-    src/lua-bindings/lua_spine.h
     src/lua-bindings/lua_xgame.h
     src/lua-bindings/lua_xml_http_request.h
     src/lua-bindings/LuaCocosAdapter.h
@@ -38,11 +37,16 @@ set(LUA_BINDINGS_SRC
     src/lua-bindings/lua_fairygui.cpp
     src/lua-bindings/lua_javabridge.cpp
     src/lua-bindings/lua_socket.cpp
-    src/lua-bindings/lua_spine.cpp
     src/lua-bindings/lua_xgame.cpp
     src/lua-bindings/lua_xml_http_request.cpp
     src/lua-bindings/LuaCocosAdapter.cpp
 )
+
+if(BUILD_EDITOR_SPINE)
+	list(APPEND LUA_BINDINGS_HEADER src/lua-bindings/lua_spine.h)
+	list(APPEND LUA_BINDINGS_SRC src/lua-bindings/lua_spine.cpp)
+	add_definitions(-DUSE_SPINE)
+endif()
 
 if(APPLE)
     list(APPEND LUA_BINDINGS_SRC

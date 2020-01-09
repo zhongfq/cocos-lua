@@ -29,6 +29,13 @@ set(APP_NAME cocos-lua)
 
 project(${APP_NAME})
 
+option(BUILD_PBC "Build with pbc support" OFF)
+option(BUILD_SPROTO "Build with sproto support" ON)
+option(BUILD_LPEG "Build with lpeg support" OFF) # if sproto ON then lpeg auto set on end
+option(BUILD_BUGLY "Build with bugly support" ON)
+option(BUILD_CJSON "Build with cjson support" ON)
+option(BUILD_LUA_SOCKET "Build with lua_socket support" ON)
+
 if(XCODE)
     if(NOT DEFINED CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET)
         SET (CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET 9.0)

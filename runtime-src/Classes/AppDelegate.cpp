@@ -31,7 +31,9 @@
 #include "lua-bindings/lua_cocos2d_3d.h"
 #include "lua-bindings/lua_dragonbones.h"
 #include "lua-bindings/lua_fairygui.h"
-#include "lua-bindings/lua_spine.h"
+#ifdef USE_SPINE
+    #include "lua-bindings/lua_spine.h"
+#endif
 
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS

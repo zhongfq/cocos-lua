@@ -545,7 +545,10 @@ void runtime::initBugly(const char* appid)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     runtime::log("init bugly: appid=%s", appid);
+#ifdef USE_BUGLY
     CrashReport::initCrashReport(appid, false, CrashReport::CRLogLevel::Verbose);
+#endif //USE_BUGLY
+
 #ifdef COCOS2D_DEBUG
     runtime::disableReport();
 #endif

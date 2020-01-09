@@ -29,6 +29,7 @@ set(APP_NAME cocos-lua)
 
 project(${APP_NAME})
 
+option(BUILD_SPINE "Build with spine support" ON)
 option(BUILD_PBC "Build with pbc support" ON)
 option(BUILD_SPROTO "Build with sproto support" ON)
 option(BUILD_LPEG "Build with lpeg support" OFF) # if BUILD_SPROTO ON then lpeg auto set on end
@@ -55,6 +56,12 @@ if(NOT DEFINED BUILD_ENGINE_DONE) # to test cocos-lua into root project
 
     include(CocosBuildSet)
     add_subdirectory(${COCOS2DX_ROOT_PATH}/cocos ${ENGINE_BINARY_PATH}/cocos/core)
+    if(BUILD_SPINE)
+        set(BUILD_EDITOR_SPINE ON)
+        add_definitions(-DUSE_SPINE)
+    else()
+        set(BUILD_EDITOR_SPINE OFF)
+    endif()
 endif()
 
 # runtime-src

@@ -42,10 +42,9 @@ set(LUA_BINDINGS_SRC
     src/lua-bindings/LuaCocosAdapter.cpp
 )
 
-if(BUILD_EDITOR_SPINE)
-	list(APPEND LUA_BINDINGS_HEADER src/lua-bindings/lua_spine.h)
-	list(APPEND LUA_BINDINGS_SRC src/lua-bindings/lua_spine.cpp)
-	add_definitions(-DUSE_SPINE)
+if(BUILD_SPINE)
+    list(APPEND LUA_BINDINGS_HEADER src/lua-bindings/lua_spine.h)
+    list(APPEND LUA_BINDINGS_SRC src/lua-bindings/lua_spine.cpp)
 endif()
 
 if(APPLE)

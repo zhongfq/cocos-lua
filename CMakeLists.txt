@@ -29,12 +29,14 @@ set(APP_NAME cocos-lua)
 
 project(${APP_NAME})
 
-option(BUILD_PBC "Build with pbc support" OFF)
+option(BUILD_PBC "Build with pbc support" ON)
 option(BUILD_SPROTO "Build with sproto support" ON)
-option(BUILD_LPEG "Build with lpeg support" OFF) # if sproto ON then lpeg auto set on end
+option(BUILD_LPEG "Build with lpeg support" OFF) # if BUILD_SPROTO ON then lpeg auto set on end
 option(BUILD_BUGLY "Build with bugly support" ON)
 option(BUILD_CJSON "Build with cjson support" ON)
 option(BUILD_LUA_SOCKET "Build with lua_socket support" ON)
+option(BUILD_LAME "Build with lame support" ON)
+option(BUILD_QRCODE "Build with qrcode support" ON)
 
 if(XCODE)
     if(NOT DEFINED CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET)
@@ -78,7 +80,7 @@ elseif(WINDOWS)
     cocos_mark_multi_resources(common_res_files RES_TO "Resources" FOLDERS ${GAME_RES_FOLDER})
 endif()
 
-# add cross-platforms source files and header files 
+# add cross-platforms source files and header files
 list(APPEND GAME_SOURCE
      ${RUNTIME_SRC_ROOT}/Classes/AppDelegate.cpp
      )
@@ -190,7 +192,7 @@ if(APPLE)
 
     # For code-signing, set the DEVELOPMENT_TEAM:
     set_xcode_property(${APP_NAME} CLANG_ENABLE_OBJC_ARC "YES")
-    set_xcode_property(${APP_NAME} DEVELOPMENT_TEAM "2566X92242")
+    set_xcode_property(${APP_NAME} DEVELOPMENT_TEAM "HCUGC3X85U")
     set_xcode_property(${APP_NAME} PRODUCT_BUNDLE_IDENTIFIER "com.codetypes.hellolua")
     set_xcode_property(${APP_NAME} PRODUCT_NAME "cocoslua")
     set_xcode_property(${APP_NAME} CURRENT_PROJECT_VERSION "100")

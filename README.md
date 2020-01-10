@@ -62,7 +62,7 @@ cocos-lua虽然基于lua 5.3，但是绑定库[olua](https://github.com/zhongfq/
 
 ## 绑定代码生成
 
-tools/lua-bindings提供代码生成脚本，目前只支持mac平台，后续将支持linux和win，你可以参考tools/lua-clang，自己编译libclang后，再编译成lua可调用的动态库。
+tools/lua-bindings提供代码生成脚本，目前只支持mac和linux平台，后续将支持windows，你可以参考tools/lua-clang，自己编译libclang后，再编译成lua可调用的动态库。
 
 ## 核心实现
 
@@ -94,5 +94,5 @@ cocos-lua在lua层屏蔽Ref的release和retain方法，改由lua gc管理，以�
 ## 待完成
 
 + 导出工具自动检查指定类型的ref和unref情况
-+ 导出工具的linux和win平台支持
++ 导出工具的win平台支持
 + 更完善的单元测试

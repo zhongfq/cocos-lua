@@ -32,12 +32,14 @@ project(${APP_NAME})
 option(BUILD_SPINE "Build with spine support" ON)
 option(BUILD_PBC "Build with pbc support" ON)
 option(BUILD_SPROTO "Build with sproto support" ON)
-option(BUILD_LPEG "Build with lpeg support" OFF) # if BUILD_SPROTO ON then lpeg auto set on end
+option(BUILD_LPEG "Build with lpeg support" ON) # if BUILD_SPROTO ON then lpeg auto set ON end
 option(BUILD_BUGLY "Build with bugly support" ON)
 option(BUILD_CJSON "Build with cjson support" ON)
 option(BUILD_LUA_SOCKET "Build with lua_socket support" ON)
 option(BUILD_LAME "Build with lame support" ON)
 option(BUILD_QRCODE "Build with qrcode support" ON)
+option(BUILD_FAIRYGUI "Build with fairygui support" ON)
+option(BUILD_DRAGONBONES "Build with dragonbones support" ON)
 
 if(XCODE)
     if(NOT DEFINED CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET)
@@ -164,15 +166,27 @@ if(XCODE OR VS)
     cocos_mark_code_files(${APP_NAME} GROUPBASE ${RUNTIME_SRC_ROOT})
 endif()
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libfairygui)
-set_target_properties(fairygui PROPERTIES FOLDER "Internal")
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libdragonbones)
-set_target_properties(dragonbones PROPERTIES FOLDER "Internal")
+set(APP_LINK_LIBS, cocos2d)
+
+if(BUILD_FAIRYGUI)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libfairygui)
+    set_target_properties(fairygui PROPERTIES FOLDER "Internal")
+    list(APPEND APP_LINK_LIBS fairygui)
+    add_definitions(-DUSE_FAIRYGUI)
+endif()
+
+if(BUILD_DRAGONBONES)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libdragonbones)
+    set_target_properties(dragonbones PROPERTIES FOLDER "Internal")
+    list(APPEND APP_LINK_LIBS dragonbones)
+    add_definitions(-DUSE_DRAGONBONES)
+endif()
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libxgame)
 set_target_properties(xgame PROPERTIES FOLDER "Internal")
+list(APPEND APP_LINK_LIBS xgame)
 
-target_link_libraries(${APP_NAME} cocos2d fairygui dragonbones xgame)
+target_link_libraries(${APP_NAME} ${APP_LINK_LIBS})
 target_include_directories(${APP_NAME}
     PRIVATE ${RUNTIME_SRC_ROOT}/Classes
     PRIVATE ${COCOS2DX_ROOT_PATH}/cocos/audio/include/
@@ -182,7 +196,10 @@ target_include_directories(${APP_NAME}
 if(MACOSX)
     target_compile_options(cocos2d PRIVATE -Wno-reorder)
     target_compile_options(cocos2d PRIVATE -Wno-deprecated-declarations)
-    target_compile_options(fairygui PRIVATE -Wno-reorder)
+    if(BUILD_FAIRYGUI)
+        target_compile_options(fairygui PRIVATE -Wno-reorder)
+    endif()
+
 endif()
 
 # mark app resources

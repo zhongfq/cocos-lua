@@ -9,8 +9,6 @@ set(LUA_BINDINGS_HEADER
     src/lua-bindings/lua_conv_manual.h
     src/lua-bindings/lua_conv.h
     src/lua-bindings/lua_crypto.h
-    src/lua-bindings/lua_dragonbones.h
-    src/lua-bindings/lua_fairygui.h
     src/lua-bindings/lua_iap.h
     src/lua-bindings/lua_javabridge.h
     src/lua-bindings/lua_keychain.h
@@ -33,8 +31,6 @@ set(LUA_BINDINGS_SRC
     src/lua-bindings/lua_conv_manual.cpp
     src/lua-bindings/lua_conv.cpp
     src/lua-bindings/lua_crypto.cpp
-    src/lua-bindings/lua_dragonbones.cpp
-    src/lua-bindings/lua_fairygui.cpp
     src/lua-bindings/lua_javabridge.cpp
     src/lua-bindings/lua_socket.cpp
     src/lua-bindings/lua_xgame.cpp
@@ -45,6 +41,16 @@ set(LUA_BINDINGS_SRC
 if(BUILD_SPINE)
     list(APPEND LUA_BINDINGS_HEADER src/lua-bindings/lua_spine.h)
     list(APPEND LUA_BINDINGS_SRC src/lua-bindings/lua_spine.cpp)
+endif()
+
+if(BUILD_DRAGONBONES)
+    list(APPEND LUA_BINDINGS_HEADER src/lua-bindings/lua_dragonbones.h)
+    list(APPEND LUA_BINDINGS_SRC src/lua-bindings/lua_dragonbones.cpp)
+endif()
+
+if(BUILD_FAIRYGUI)
+    list(APPEND LUA_BINDINGS_HEADER src/lua-bindings/lua_fairygui.h)
+    list(APPEND LUA_BINDINGS_SRC src/lua-bindings/lua_fairygui.cpp)
 endif()
 
 if(APPLE)

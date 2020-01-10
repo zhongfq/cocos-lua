@@ -1,19 +1,17 @@
 {
 	"folders": [
 		{
-			"path": "assets/src"
-		},
-		// {
-		// 	"path": "wwwroot"
-		// },
-		{
 			"path": "."
+		},
+		{
+			"path": "assets/src"
 		},
 		{
 			"path": "/Users/O/Library/Containers/org.cocos2dx.hellolua"
 		}
 	],
 	"settings": {
+		"cmake.configureOnOpen": false,
 		"luacheck.globals": ["main", "xGame", "__TRACEBACK__", "DEBUG"],
 		"luacheck.ignore": [
 			"212", // Unused argument

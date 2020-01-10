@@ -31,7 +31,9 @@
 #include "lua-bindings/lua_cocos2d_3d.h"
 #include "lua-bindings/lua_dragonbones.h"
 #include "lua-bindings/lua_fairygui.h"
-#include "lua-bindings/lua_spine.h"
+#ifdef USE_SPINE
+    #include "lua-bindings/lua_spine.h"
+#endif
 
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
@@ -49,7 +51,9 @@ static int _open_plugins(lua_State *L)
     olua_dofunc(L, luaopen_dragonbones);
     olua_dofunc(L, luaopen_cocos2d_3d);
     olua_dofunc(L, luaopen_fairygui);
-    olua_dofunc(L, luaopen_spine);
+#ifdef USE_SPINE
+	olua_dofunc(L, luaopen_spine);
+#endif
     
 //    olua_require(L, "kernel.plugins.wechat", luaopen_wechat);
     return 0;

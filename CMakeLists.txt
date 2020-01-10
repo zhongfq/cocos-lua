@@ -29,6 +29,16 @@ set(APP_NAME cocos-lua)
 
 project(${APP_NAME})
 
+option(BUILD_SPINE "Build with spine support" ON)
+option(BUILD_PBC "Build with pbc support" ON)
+option(BUILD_SPROTO "Build with sproto support" ON)
+option(BUILD_LPEG "Build with lpeg support" OFF) # if BUILD_SPROTO ON then lpeg auto set on end
+option(BUILD_BUGLY "Build with bugly support" ON)
+option(BUILD_CJSON "Build with cjson support" ON)
+option(BUILD_LUA_SOCKET "Build with lua_socket support" ON)
+option(BUILD_LAME "Build with lame support" ON)
+option(BUILD_QRCODE "Build with qrcode support" ON)
+
 if(XCODE)
     if(NOT DEFINED CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET)
         SET (CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET 9.0)
@@ -46,6 +56,12 @@ if(NOT DEFINED BUILD_ENGINE_DONE) # to test cocos-lua into root project
 
     include(CocosBuildSet)
     add_subdirectory(${COCOS2DX_ROOT_PATH}/cocos ${ENGINE_BINARY_PATH}/cocos/core)
+    if(BUILD_SPINE)
+        set(BUILD_EDITOR_SPINE ON)
+        add_definitions(-DUSE_SPINE)
+    else()
+        set(BUILD_EDITOR_SPINE OFF)
+    endif()
 endif()
 
 # runtime-src
@@ -71,7 +87,7 @@ elseif(WINDOWS)
     cocos_mark_multi_resources(common_res_files RES_TO "Resources" FOLDERS ${GAME_RES_FOLDER})
 endif()
 
-# add cross-platforms source files and header files 
+# add cross-platforms source files and header files
 list(APPEND GAME_SOURCE
      ${RUNTIME_SRC_ROOT}/Classes/AppDelegate.cpp
      )

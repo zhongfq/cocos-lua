@@ -1,48 +1,82 @@
 cmake_minimum_required(VERSION 3.6)
 
-include(src/bugly/CMakeLists.txt)
-include(src/cjson/CMakeLists.txt)
+
 include(src/crypto/CMakeLists.txt)
-include(src/lame/CMakeLists.txt)
-include(src/lpeg/CMakeLists.txt)
 include(src/lua-bindings/CMakeLists.txt)
 include(src/lua/CMakeLists.txt)
-include(src/luasocket/CMakeLists.txt)
-include(src/pbc/CMakeLists.txt)
-include(src/qrencode/CMakeLists.txt)
-include(src/sproto/CMakeLists.txt)
 include(src/xgame/CMakeLists.txt)
 
 set(SRC
-    ${BUGLY_SRC}
-    ${CJSON_SRC}
     ${CRYPTO_SRC}
-    ${LPEG_SRC}
     ${LUA_BINDINGS_SRC}
     ${LUA_SRC}
-    ${LUASOCKET_SRC}
-    ${PBC_SRC}
-    ${QRCODE_SRC}
-    ${SPROTO_SRC}
     ${XGAME_SRC}
     src/olua/olua.c
 )
 
 set(HEADER
-    ${BUGLY_HEADER}
-    ${CJSON_HEADER}
     ${CRYPTO_HEADER}
-    ${LPEG_HEADER}
     ${LUA_BINDINGS_HEADER}
     ${LUA_HEADER}
-    ${LUASOCKET_HEADER}
-    ${PBC_HEADER}
-    ${QRCODE_HEADER}
-    ${SPROTO_HEADER}
     ${XGAME_HEADER}
     src/olua/olua.h
     src/olua/olua.hpp
 )
+
+if(BUILD_BUGLY)
+    include(src/bugly/CMakeLists.txt)
+    list(APPEND HEADER ${BUGLY_HEADER})
+    list(APPEND SRC ${BUGLY_SRC})
+    add_definitions(-DUSE_BUGLY)
+endif()
+
+if(BUILD_LUA_SOCKET)
+    include(src/luasocket/CMakeLists.txt)
+    list(APPEND HEADER ${LUASOCKET_HEADER})
+    list(APPEND SRC ${LUASOCKET_SRC})
+    add_definitions(-DUSE_LUA_SOCKET)
+endif()
+
+if(BUILD_CJSON)
+    include(src/cjson/CMakeLists.txt)
+    list(APPEND HEADER ${CJSON_HEADER})
+    list(APPEND SRC ${CJSON_SRC})
+    add_definitions(-DUSE_CJSON)
+endif()
+
+if(BUILD_PBC)
+    include(src/pbc/CMakeLists.txt)
+    list(APPEND HEADER ${PBC_HEADER})
+    list(APPEND SRC ${PBC_SRC})
+    add_definitions(-DUSE_PBC)
+endif()
+
+if(BUILD_SPROTO)
+    include(src/sproto/CMakeLists.txt)
+    list(APPEND HEADER ${SPROTO_HEADER})
+    list(APPEND SRC ${SPROTO_SRC})
+    set(BUILD_LPEG ON)
+    add_definitions(-DUSE_SPROTO)
+endif()
+
+if(BUILD_LPEG)
+    include(src/lpeg/CMakeLists.txt)
+    list(APPEND HEADER ${LPEG_HEADER})
+    list(APPEND SRC ${LPEG_SRC})
+    add_definitions(-DUSE_LPEG)
+endif()
+
+if(BUILD_LAME)
+    include(src/lame/CMakeLists.txt)
+    add_definitions(-DUSE_LAME)
+endif()
+
+if(BUILD_QRCODE)
+    include(src/qrencode/CMakeLists.txt)
+    list(APPEND HEADER ${QRCODE_HEADER})
+    list(APPEND SRC ${QRCODE_SRC})
+    add_definitions(-DUSE_QRCODE)
+endif()
 
 if (IOS OR ANDROID)
     list(APPEND SRC ${LAME_SRC})
@@ -83,7 +117,7 @@ endif()
 add_dependencies(xgame cocos2d)
 
 target_include_directories(xgame
-	PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/lua/src
 )
 

@@ -101,8 +101,10 @@ if (IOS)
     set_xcode_property(xgame TARGETED_DEVICE_FAMILY "1,2")
     set_xcode_property(xgame IPHONEOS_DEPLOYMENT_TARGET "9.0")
 
-    add_subdirectory(src/bugly/ios)
-    target_link_libraries(xgame bugly)
+    if (BUILD_BUGLY)
+        add_subdirectory(src/bugly/ios)
+        target_link_libraries(xgame bugly)
+	endif()
 
     find_library(PHOTOS_LIBRARY Photos)
     target_link_libraries(xgame ${PHOTOS_LIBRARY})

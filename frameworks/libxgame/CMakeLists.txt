@@ -2,12 +2,14 @@ cmake_minimum_required(VERSION 3.6)
 
 
 include(src/crypto/CMakeLists.txt)
+include(src/cjson/CMakeLists.txt)
 include(src/lua-bindings/CMakeLists.txt)
 include(src/lua/CMakeLists.txt)
 include(src/xgame/CMakeLists.txt)
 
 set(SRC
     ${CRYPTO_SRC}
+    ${CJSON_SRC}
     ${LUA_BINDINGS_SRC}
     ${LUA_SRC}
     ${XGAME_SRC}
@@ -16,6 +18,7 @@ set(SRC
 
 set(HEADER
     ${CRYPTO_HEADER}
+    ${CJSON_HEADER}
     ${LUA_BINDINGS_HEADER}
     ${LUA_HEADER}
     ${XGAME_HEADER}
@@ -35,13 +38,6 @@ if(CCLUA_BUILD_LUASOCKET)
     list(APPEND HEADER ${LUASOCKET_HEADER})
     list(APPEND SRC ${LUASOCKET_SRC})
     add_definitions(-DCCLUA_USE_LUASOCKET)
-endif()
-
-if(CCLUA_BUILD_CJSON)
-    include(src/cjson/CMakeLists.txt)
-    list(APPEND HEADER ${CJSON_HEADER})
-    list(APPEND SRC ${CJSON_SRC})
-    add_definitions(-DCCLUA_USE_CJSON)
 endif()
 
 if(CCLUA_BUILD_PBC)

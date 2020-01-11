@@ -12,6 +12,7 @@
 #include "lua_iap.h"
 #include "lua_recorder.h"
 #include "lua_keychain.h"
+#include "cjson/lua_cjson.h"
 #include "xgame/xruntime.h"
 #include "xgame/xlua.h"
 #include "md5/md5.h"
@@ -26,10 +27,6 @@
 #ifdef CCLUA_USE_BUGLY
 #include "bugly/lua_bugly.h"
 #endif //CCLUA_USE_BUGLY
-
-#ifdef CCLUA_USE_CJSON
-#include "cjson/lua_cjson.h"
-#endif //CCLUA_USE_CJSON
 
 #ifdef CCLUA_USE_PBC
 #include "pbc/pbc.h"
@@ -89,11 +86,8 @@ int luaopen_bindings(lua_State *L)
     olua_require(L, "protobuf.c", luaopen_protobuf_c);
 #endif // CCLUA_USE_PBC
 
-#ifdef CCLUA_USE_CJSON
     olua_require(L, "cjson", luaopen_cjson);
     olua_require(L, "cjson.safe", luaopen_cjson_safe);
-#endif //CCLUA_USE_CJSON
-
     olua_require(L, "base64", luaopen_base64);
     olua_require(L, "xxtea", luaopen_xxtea);
     olua_require(L, "openssl", luaopen_openssl);

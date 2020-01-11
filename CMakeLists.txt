@@ -34,7 +34,6 @@ option(CCLUA_BUILD_PBC "Build with pbc support" ON)
 option(CCLUA_BUILD_SPROTO "Build with sproto support" ON)
 option(CCLUA_BUILD_LPEG "Build with lpeg support" ON) # if CCLUA_BUILD_SPROTO ON then lpeg auto set ON end
 option(CCLUA_BUILD_BUGLY "Build with bugly support" ON)
-option(CCLUA_BUILD_CJSON "Build with cjson support" ON)
 option(CCLUA_BUILD_LUASOCKET "Build with lua_socket support" ON)
 option(CCLUA_BUILD_LAME "Build with lame support" ON)
 option(CCLUA_BUILD_QRCODE "Build with qrcode support" ON)

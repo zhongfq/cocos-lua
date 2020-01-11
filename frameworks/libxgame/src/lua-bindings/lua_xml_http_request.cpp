@@ -1,9 +1,6 @@
 #include "lua_xml_http_request.h"
 #include "xgame/XMLHttpRequest.h"
-
-#ifdef CCLUA_USE_CJSON
-	#include "cjson/lua_cjson.h"
-#endif
+#include "cjson/lua_cjson.h"
 
 static int luaopen_cocos2d_XMLHttpRequest_ResponseType(lua_State *L)
 {
@@ -192,15 +189,11 @@ static int _cocos2d_XMLHttpRequest_getResponse(lua_State *L)
 {
     auto self = olua_checkobj<cocos2d::XMLHttpRequest>(L, 1);
     if (self->getResponseType() == cocos2d::XMLHttpRequest::ResponseType::JSON) {
-#ifdef CCLUA_USE_CJSON
-		olua_requiref(L, "__private_cjson_safe", luaopen_cjson_safe, false);
-		lua_getfield(L, -1, "decode");
-		luaL_checktype(L, -1, LUA_TFUNCTION);
-		lua_pushlstring(L, self->getDataStr().c_str(), self->getDataSize());
-		lua_pcall(L, 1, 1, 0);
-#else
-		lua_pushlstring(L, self->getDataStr().c_str(), self->getDataSize());
-#endif // CCLUA_USE_CJSON
+        olua_requiref(L, "__private_cjson_safe", luaopen_cjson_safe, false);
+        lua_getfield(L, -1, "decode");
+        luaL_checktype(L, -1, LUA_TFUNCTION);
+        lua_pushlstring(L, self->getDataStr().c_str(), self->getDataSize());
+        lua_pcall(L, 1, 1, 0);
     } else if (self->getResponseType() == cocos2d::XMLHttpRequest::ResponseType::ARRAY_BUFFER) {
         int len = (int)self->getDataSize();
         lua_createtable(L, 0, len);

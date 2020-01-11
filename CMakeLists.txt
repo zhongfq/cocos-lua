@@ -40,6 +40,9 @@ option(CCLUA_BUILD_QRCODE "Build with qrcode support" ON)
 option(CCLUA_BUILD_FAIRYGUI "Build with fairygui support" ON)
 option(CCLUA_BUILD_DRAGONBONES "Build with dragonbones support" ON)
 
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+include(config)
+
 if(XCODE)
     if(NOT DEFINED CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET)
         SET (CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET 9.0)
@@ -122,6 +125,7 @@ elseif(APPLE)
              ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/RootViewController.h
              )
         set(APP_UI_RES
+             ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Info.plist
              ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/LaunchScreen.storyboard
              ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/LaunchScreenBackground.png
              ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Images.xcassets
@@ -164,27 +168,23 @@ if(XCODE OR VS)
     cocos_mark_code_files(${APP_NAME} GROUPBASE ${RUNTIME_SRC_ROOT})
 endif()
 
-set(APP_LINK_LIBS)
-
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libxgame)
 set_target_properties(xgame PROPERTIES FOLDER "Internal")
-list(APPEND APP_LINK_LIBS xgame)
+target_link_libraries(${APP_NAME} xgame)
 
 if(CCLUA_BUILD_FAIRYGUI)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libfairygui)
     set_target_properties(fairygui PROPERTIES FOLDER "Internal")
-    list(APPEND APP_LINK_LIBS fairygui)
+    target_link_libraries(${APP_NAME} fairygui)
 endif()
 
 if(CCLUA_BUILD_DRAGONBONES)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libdragonbones)
     set_target_properties(dragonbones PROPERTIES FOLDER "Internal")
-    list(APPEND APP_LINK_LIBS dragonbones)
+    target_link_libraries(${APP_NAME} dragonbones)
 endif()
 
-list(APPEND APP_LINK_LIBS cocos2d)
-
-target_link_libraries(${APP_NAME} ${APP_LINK_LIBS})
+target_link_libraries(${APP_NAME} cocos2d)
 target_include_directories(${APP_NAME}
     PRIVATE ${RUNTIME_SRC_ROOT}/Classes
     PRIVATE ${COCOS2DX_ROOT_PATH}/cocos/audio/include/
@@ -206,19 +206,19 @@ if(APPLE)
     set_target_properties(${APP_NAME} PROPERTIES RESOURCE "${APP_UI_RES}")
 
     if(MACOSX)
-        set_target_properties(${APP_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST "${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/Info.plist")
+        set_xcode_property(${APP_NAME} INFOPLIST_FILE "${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/Info.plist")
     elseif(IOS)
-        set_target_properties(${APP_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST "${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Info.plist")
+        set_xcode_property(${APP_NAME} INFOPLIST_FILE "${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Info.plist")
         set_xcode_property(${APP_NAME} ASSETCATALOG_COMPILER_APPICON_NAME "AppIcon")
     endif()
 
     # For code-signing, set the DEVELOPMENT_TEAM:
     set_xcode_property(${APP_NAME} CLANG_ENABLE_OBJC_ARC "YES")
-    set_xcode_property(${APP_NAME} DEVELOPMENT_TEAM "2566X92242")
-    set_xcode_property(${APP_NAME} PRODUCT_BUNDLE_IDENTIFIER "com.codetypes.hellolua")
-    set_xcode_property(${APP_NAME} PRODUCT_NAME "cocoslua")
-    set_xcode_property(${APP_NAME} CURRENT_PROJECT_VERSION "100")
-    set_xcode_property(${APP_NAME} MARKETING_VERSION "1.0.0")
+    set_xcode_property(${APP_NAME} DEVELOPMENT_TEAM "${APPLE_DEVELOPMENT_TEAM}")
+    set_xcode_property(${APP_NAME} PRODUCT_BUNDLE_IDENTIFIER "${APP_PACKAGE_NAME}")
+    set_xcode_property(${APP_NAME} PRODUCT_NAME "${APP_PRODUCT_NAME}")
+    set_xcode_property(${APP_NAME} CURRENT_PROJECT_VERSION "${APP_BUILD}")
+    set_xcode_property(${APP_NAME} MARKETING_VERSION "${APP_VERSION}")
     set_xcode_property(${APP_NAME} TARGETED_DEVICE_FAMILY "1,2")
     set_xcode_property(${APP_NAME} IPHONEOS_DEPLOYMENT_TARGET "9.0")
 elseif(WINDOWS)

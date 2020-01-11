@@ -166,7 +166,11 @@ if(XCODE OR VS)
     cocos_mark_code_files(${APP_NAME} GROUPBASE ${RUNTIME_SRC_ROOT})
 endif()
 
-set(APP_LINK_LIBS, cocos2d)
+set(APP_LINK_LIBS)
+
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libxgame)
+set_target_properties(xgame PROPERTIES FOLDER "Internal")
+list(APPEND APP_LINK_LIBS xgame)
 
 if(BUILD_FAIRYGUI)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libfairygui)
@@ -182,9 +186,7 @@ if(BUILD_DRAGONBONES)
     add_definitions(-DUSE_DRAGONBONES)
 endif()
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libxgame)
-set_target_properties(xgame PROPERTIES FOLDER "Internal")
-list(APPEND APP_LINK_LIBS xgame)
+list(APPEND APP_LINK_LIBS cocos2d)
 
 target_link_libraries(${APP_NAME} ${APP_LINK_LIBS})
 target_include_directories(${APP_NAME}

@@ -191,13 +191,16 @@ target_include_directories(${APP_NAME}
 )
 
 # suspend warnings
-if(MACOSX)
+if(APPLE)
     target_compile_options(cocos2d PRIVATE -Wno-reorder)
     target_compile_options(cocos2d PRIVATE -Wno-deprecated-declarations)
+    target_compile_options(cocos2d PRIVATE -Wno-shorten-64-to-32)
     if(CCLUA_BUILD_FAIRYGUI)
         target_compile_options(fairygui PRIVATE -Wno-reorder)
     endif()
-
+    if(CCLUA_BUILD_DRAGONBONES)
+        target_compile_options(dragonbones PRIVATE -Wno-shorten-64-to-32)
+    endif()
 endif()
 
 # mark app resources

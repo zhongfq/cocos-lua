@@ -10,11 +10,7 @@ USING_NS_XGAME;
 
 static lua_State *_currentState = NULL;
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-extern bool __declspec(dllexport) cc_assert_script_compatible(const char *msg)
-#else
-extern bool cc_assert_script_compatible(const char *msg)
-#endif
+extern bool CC_DLL cc_assert_script_compatible(const char *msg)
 {
 	if (_currentState) {
 		lua_State *L = _currentState;

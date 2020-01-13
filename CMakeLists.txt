@@ -29,17 +29,18 @@ set(APP_NAME cocos-lua)
 
 project(${APP_NAME})
 
-option(BUILD_SPINE "Build with spine support" ON)
-option(BUILD_PBC "Build with pbc support" ON)
-option(BUILD_SPROTO "Build with sproto support" ON)
-option(BUILD_LPEG "Build with lpeg support" ON) # if BUILD_SPROTO ON then lpeg auto set ON end
-option(BUILD_BUGLY "Build with bugly support" ON)
-option(BUILD_CJSON "Build with cjson support" ON)
-option(BUILD_LUA_SOCKET "Build with lua_socket support" ON)
-option(BUILD_LAME "Build with lame support" ON)
-option(BUILD_QRCODE "Build with qrcode support" ON)
-option(BUILD_FAIRYGUI "Build with fairygui support" ON)
-option(BUILD_DRAGONBONES "Build with dragonbones support" ON)
+option(CCLUA_BUILD_SPINE "Build with spine support" ON)
+option(CCLUA_BUILD_PBC "Build with pbc support" ON)
+option(CCLUA_BUILD_SPROTO "Build with sproto support" ON)
+option(CCLUA_BUILD_LPEG "Build with lpeg support" ON) # if CCLUA_BUILD_SPROTO ON then lpeg auto set ON end
+option(CCLUA_BUILD_BUGLY "Build with bugly support" ON)
+option(CCLUA_BUILD_LUASOCKET "Build with lua_socket support" ON)
+option(CCLUA_BUILD_LAME "Build with lame support" ON)
+option(CCLUA_BUILD_QRCODE "Build with qrcode support" ON)
+option(CCLUA_BUILD_FAIRYGUI "Build with fairygui support" ON)
+option(CCLUA_BUILD_DRAGONBONES "Build with dragonbones support" ON)
+
+include(config.cmake)
 
 if(XCODE)
     if(NOT DEFINED CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET)
@@ -50,7 +51,13 @@ endif()
 add_definitions(-DCC_FILEUTILS_APPLE_ENABLE_OBJC=0)
 add_definitions(-DCC_ENABLE_SCRIPT_BINDING=0)
 add_definitions(-DCC_CONSTRUCTOR_ACCESS=public)
-add_definitions(-DSPINE_USE_STD_FUNCTION)
+
+if(CCLUA_BUILD_SPINE)
+    set(BUILD_EDITOR_SPINE ON)
+    add_definitions(-DSPINE_USE_STD_FUNCTION)
+else()
+    set(BUILD_EDITOR_SPINE OFF)
+endif()
 
 if(NOT DEFINED BUILD_ENGINE_DONE) # to test cocos-lua into root project
     set(COCOS2DX_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/frameworks/cocos2d-x)
@@ -58,12 +65,6 @@ if(NOT DEFINED BUILD_ENGINE_DONE) # to test cocos-lua into root project
 
     include(CocosBuildSet)
     add_subdirectory(${COCOS2DX_ROOT_PATH}/cocos ${ENGINE_BINARY_PATH}/cocos/core)
-    if(BUILD_SPINE)
-        set(BUILD_EDITOR_SPINE ON)
-        add_definitions(-DUSE_SPINE)
-    else()
-        set(BUILD_EDITOR_SPINE OFF)
-    endif()
 endif()
 
 # runtime-src
@@ -80,9 +81,8 @@ if(APPLE)
     foreach(file ${folder_files})
         if(NOT ${file} MATCHES ".DS_Store$")
             list(APPEND common_res_files ${file})
-            set(RES_FILE ${file})
-            set_source_files_properties(${RES_FILE} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
-            source_group("Resources" FILES ${RES_FILE})
+            set_source_files_properties(${file} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+            source_group("Resources" FILES ${file})
         endif()
     endforeach()
 elseif(WINDOWS)
@@ -124,6 +124,7 @@ elseif(APPLE)
              ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/RootViewController.h
              )
         set(APP_UI_RES
+             ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Info.plist
              ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/LaunchScreen.storyboard
              ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/LaunchScreenBackground.png
              ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Images.xcassets
@@ -166,40 +167,39 @@ if(XCODE OR VS)
     cocos_mark_code_files(${APP_NAME} GROUPBASE ${RUNTIME_SRC_ROOT})
 endif()
 
-set(APP_LINK_LIBS, cocos2d)
-
-if(BUILD_FAIRYGUI)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libfairygui)
-    set_target_properties(fairygui PROPERTIES FOLDER "Internal")
-    list(APPEND APP_LINK_LIBS fairygui)
-    add_definitions(-DUSE_FAIRYGUI)
-endif()
-
-if(BUILD_DRAGONBONES)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libdragonbones)
-    set_target_properties(dragonbones PROPERTIES FOLDER "Internal")
-    list(APPEND APP_LINK_LIBS dragonbones)
-    add_definitions(-DUSE_DRAGONBONES)
-endif()
-
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libxgame)
 set_target_properties(xgame PROPERTIES FOLDER "Internal")
-list(APPEND APP_LINK_LIBS xgame)
+target_link_libraries(${APP_NAME} xgame)
 
-target_link_libraries(${APP_NAME} ${APP_LINK_LIBS})
+if(CCLUA_BUILD_FAIRYGUI)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libfairygui)
+    set_target_properties(fairygui PROPERTIES FOLDER "Internal")
+    target_link_libraries(${APP_NAME} fairygui)
+endif()
+
+if(CCLUA_BUILD_DRAGONBONES)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libdragonbones)
+    set_target_properties(dragonbones PROPERTIES FOLDER "Internal")
+    target_link_libraries(${APP_NAME} dragonbones)
+endif()
+
+target_link_libraries(${APP_NAME} cocos2d)
 target_include_directories(${APP_NAME}
     PRIVATE ${RUNTIME_SRC_ROOT}/Classes
     PRIVATE ${COCOS2DX_ROOT_PATH}/cocos/audio/include/
 )
 
 # suspend warnings
-if(MACOSX)
+if(APPLE)
     target_compile_options(cocos2d PRIVATE -Wno-reorder)
     target_compile_options(cocos2d PRIVATE -Wno-deprecated-declarations)
-    if(BUILD_FAIRYGUI)
+    target_compile_options(cocos2d PRIVATE -Wno-shorten-64-to-32)
+    if(CCLUA_BUILD_FAIRYGUI)
         target_compile_options(fairygui PRIVATE -Wno-reorder)
     endif()
-
+    if(CCLUA_BUILD_DRAGONBONES)
+        target_compile_options(dragonbones PRIVATE -Wno-shorten-64-to-32)
+    endif()
 endif()
 
 # mark app resources
@@ -208,19 +208,19 @@ if(APPLE)
     set_target_properties(${APP_NAME} PROPERTIES RESOURCE "${APP_UI_RES}")
 
     if(MACOSX)
-        set_target_properties(${APP_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST "${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/Info.plist")
+        set_xcode_property(${APP_NAME} INFOPLIST_FILE "${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/Info.plist")
     elseif(IOS)
-        set_target_properties(${APP_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST "${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Info.plist")
+        set_xcode_property(${APP_NAME} INFOPLIST_FILE "${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Info.plist")
         set_xcode_property(${APP_NAME} ASSETCATALOG_COMPILER_APPICON_NAME "AppIcon")
     endif()
 
     # For code-signing, set the DEVELOPMENT_TEAM:
     set_xcode_property(${APP_NAME} CLANG_ENABLE_OBJC_ARC "YES")
-    set_xcode_property(${APP_NAME} DEVELOPMENT_TEAM "2566X92242")
-    set_xcode_property(${APP_NAME} PRODUCT_BUNDLE_IDENTIFIER "com.codetypes.hellolua")
-    set_xcode_property(${APP_NAME} PRODUCT_NAME "cocoslua")
-    set_xcode_property(${APP_NAME} CURRENT_PROJECT_VERSION "100")
-    set_xcode_property(${APP_NAME} MARKETING_VERSION "1.0.0")
+    set_xcode_property(${APP_NAME} DEVELOPMENT_TEAM "${APPLE_DEVELOPMENT_TEAM}")
+    set_xcode_property(${APP_NAME} PRODUCT_BUNDLE_IDENTIFIER "${APP_PACKAGE_NAME}")
+    set_xcode_property(${APP_NAME} PRODUCT_NAME "${APP_PRODUCT_NAME}")
+    set_xcode_property(${APP_NAME} CURRENT_PROJECT_VERSION "${APP_BUILD}")
+    set_xcode_property(${APP_NAME} MARKETING_VERSION "${APP_VERSION}")
     set_xcode_property(${APP_NAME} TARGETED_DEVICE_FAMILY "1,2")
     set_xcode_property(${APP_NAME} IPHONEOS_DEPLOYMENT_TARGET "9.0")
 elseif(WINDOWS)

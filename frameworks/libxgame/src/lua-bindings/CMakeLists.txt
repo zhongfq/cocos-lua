@@ -38,17 +38,17 @@ set(LUA_BINDINGS_SRC
     src/lua-bindings/LuaCocosAdapter.cpp
 )
 
-if(BUILD_SPINE)
+if(CCLUA_BUILD_SPINE)
     list(APPEND LUA_BINDINGS_HEADER src/lua-bindings/lua_spine.h)
     list(APPEND LUA_BINDINGS_SRC src/lua-bindings/lua_spine.cpp)
 endif()
 
-if(BUILD_DRAGONBONES)
+if(CCLUA_BUILD_DRAGONBONES)
     list(APPEND LUA_BINDINGS_HEADER src/lua-bindings/lua_dragonbones.h)
     list(APPEND LUA_BINDINGS_SRC src/lua-bindings/lua_dragonbones.cpp)
 endif()
 
-if(BUILD_FAIRYGUI)
+if(CCLUA_BUILD_FAIRYGUI)
     list(APPEND LUA_BINDINGS_HEADER src/lua-bindings/lua_fairygui.h)
     list(APPEND LUA_BINDINGS_SRC src/lua-bindings/lua_fairygui.cpp)
 endif()

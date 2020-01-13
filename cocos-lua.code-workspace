@@ -3,9 +3,9 @@
 		{
 			"path": "."
 		},
-		{
-			"path": "assets/src"
-		},
+		// {
+		// 	"path": "assets/src"
+		// },
 		{
 			"path": "/Users/O/Library/Containers/org.cocos2dx.hellolua"
 		}

@@ -82,7 +82,7 @@ target_link_libraries(xgame cocos2d)
 
 target_compile_definitions(xgame PUBLIC STDC_HEADERS)
 target_compile_definitions(xgame PRIVATE $<$<CONFIG:Debug>:OLUA_DEBUG>)
-target_compile_definitions(xgame PRIVATE CC_ASSERT_SCRIPT_COMPATIBLE_IMPL)
+target_compile_definitions(xgame PRIVATE CCLUA_HAVE_ASSERT_SCRIPT)
 
 if(CCLUA_BUILD_SPINE)
     target_compile_definitions(xgame PUBLIC CCLUA_USE_SPINE)

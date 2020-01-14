@@ -28,6 +28,7 @@ static runtime::EventDispatcher _dispatcher = nullptr;
 static std::vector<std::pair<std::string, std::string>> _suspendedEvents;
 static std::string _openURI;
 static std::map<std::string, bool> _supportedFeatures;
+static std::unordered_map<std::string, bool> _tracebackCaches;
 
 static char _logBuf[MAX_LOG_LENGTH];
 static float _time = 0;
@@ -564,7 +565,12 @@ void runtime::reportError(const char *err, const char *traceback)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     if (_reportError) {
-        CrashReport::reportException(CATEGORY_LUA_EXCEPTION, "", err, traceback);
+        std::string errmsg;
+        errmsg.append(err).append(traceback);
+        if (_tracebackCaches.find(errmsg) == _tracebackCaches.end()) {
+            _tracebackCaches[errmsg] = true;
+            CrashReport::reportException(CATEGORY_LUA_EXCEPTION, "", err, traceback);
+        }
     }
 #endif
 }

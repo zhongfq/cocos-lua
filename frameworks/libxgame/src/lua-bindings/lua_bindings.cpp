@@ -12,13 +12,13 @@
 #include "lua_iap.h"
 #include "lua_recorder.h"
 #include "lua_keychain.h"
+#include "lua_socket.h"
 #include "cjson/lua_cjson.h"
 #include "xgame/xruntime.h"
 #include "xgame/xlua.h"
 #include "md5/md5.h"
 
 #ifdef CCLUA_USE_LUASOCKET
-#include "lua_socket.h"
 #include "luasocket/luasocket.h"
 #include "luasocket/luasocket_scripts.h"
 #include "luasocket/mime.h"

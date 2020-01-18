@@ -39,8 +39,7 @@
 #define OLUA_OBJ_TABLE  ((void *)olua_pushobj)
 #define OLUA_POOL_TABLE ((void *)aux_pushlocalobj)
 #define OLUA_REF_TABLE  ((void *)aux_getreftable)
-#define OLUA_EXTRASPACE ((void *)aux_getextraspace)
-#define OLUA_HAVE_VMST  ((void *)olua_initvmstatus)
+#define OLUA_VMSTATUS   ((void *)olua_vmstatus)
 
 #define strequal(s1, s2)        (strcmp((s1), (s2)) == 0)
 #define strstartwith(s1, s2)    (strstr((s1), (s2)) == s1)
@@ -57,64 +56,22 @@ static int errfunc(lua_State *L)
     return 0;
 }
 
-static int l_vmstatus_gc(lua_State *L)
-{
-    olua_vmstatus_t *mt = olua_touserdata(L, 1, olua_vmstatus_t *);
-    free(mt);
-    return 0;
-}
-
-static void *aux_getextraspace(lua_State *L)
-{
-#if defined(lua_getextraspace) && defined(OLUA_USE_EXTRASPACE)
-#ifdef OLUA_DEBUG
-    olua_rawgetp(L, LUA_REGISTRYINDEX, OLUA_HAVE_VMST);
-    olua_assert(olua_toboolean(L, -1));
-    lua_pop(L, 1);
-#endif
-    return lua_getextraspace(L);
-#else
-    void *p;
-    if (olua_rawgetp(L, LUA_REGISTRYINDEX, OLUA_EXTRASPACE) == LUA_TNIL) {
-        lua_pop(L, 1);
-        lua_newuserdata(L, sizeof(olua_vmstatus_t *));
-        lua_pushvalue(L, -1);
-        olua_rawsetp(L, LUA_REGISTRYINDEX, OLUA_EXTRASPACE);
-    }
-    p = lua_touserdata(L, -1);
-    lua_pop(L, 1);
-    return p;
-#endif
-}
-
-OLUA_API void olua_initvmstatus(lua_State *L, olua_vmstatus_t *vms)
-{
-#ifdef OLUA_DEBUG
-    lua_pushboolean(L, true);
-    olua_rawsetp(L, LUA_REGISTRYINDEX, OLUA_HAVE_VMST);
-#endif
-    vms = vms != NULL ? vms : ((olua_vmstatus_t *)malloc(sizeof(*vms)));
-    vms->objcount = vms->poolsize = 0;
-    vms->poolenabled = vms->debug = false;
-    *(olua_vmstatus_t **)aux_getextraspace(L) = vms;
-    olua_newuserdata(L, vms, olua_vmstatus_t *);    // L: md
-    lua_createtable(L, 0, 1);                       // L: md  mt
-    lua_pushcfunction(L, l_vmstatus_gc);            // L: md  mt  gcfunc
-    olua_rawsetf(L, -2, "__gc");                    // L: md  mt         mt.__gc = gcfunc
-    lua_setmetatable(L, -2);                        // L: md             md.metatable = mt
-    olua_rawsetp(L, LUA_REGISTRYINDEX, (void *)vms);// L:                REGISTRY[vms] = md
-}
-
-OLUA_API lua_State *olua_newstate(olua_vmstatus_t *vms)
-{
-    lua_State *L = luaL_newstate();
-    olua_initvmstatus(L, vms);
-    return L;
-}
-
 OLUA_API olua_vmstatus_t *olua_vmstatus(lua_State *L)
 {
-    return *(olua_vmstatus_t **)aux_getextraspace(L);
+    olua_vmstatus_t *vms;
+    if (olua_rawgetp(L, LUA_REGISTRYINDEX, OLUA_VMSTATUS) == LUA_TNIL) {
+        lua_pop(L, 1);
+        vms = (olua_vmstatus_t *)lua_newuserdata(L, sizeof(*vms));
+        vms->debug = false;
+        vms->poolenabled = false;
+        vms->objcount = 0;
+        vms->poolsize = 0;
+        olua_rawsetp(L, LUA_REGISTRYINDEX, OLUA_VMSTATUS);
+    } else {
+        vms = (olua_vmstatus_t *)lua_touserdata(L, -1);
+        lua_pop(L, 1);
+    }
+    return vms;
 }
 
 OLUA_API lua_Integer olua_checkinteger(lua_State *L, int idx)

@@ -112,11 +112,8 @@ typedef struct {
     bool debug;
 } olua_vmstatus_t;
 
-// must treat olua_vmstatus_t as first member
-OLUA_API lua_State *olua_newstate(olua_vmstatus_t *vms);
 OLUA_API olua_vmstatus_t *olua_vmstatus(lua_State *L);
-OLUA_API void olua_initvmstatus(lua_State *L, olua_vmstatus_t *vms);
-    
+
 #define olua_addobjcount(L)  (++olua_vmstatus(L)->objcount)
 #define olua_subobjcount(L)  (--olua_vmstatus(L)->objcount)
 #define olua_objcount(L)     (olua_vmstatus(L)->objcount)

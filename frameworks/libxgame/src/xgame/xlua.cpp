@@ -245,7 +245,7 @@ static int _errorfunc(lua_State *L)
 
 lua_State *xlua_new()
 {
-    lua_State *L = olua_newstate(NULL);
+    lua_State *L = luaL_newstate();
     luaL_openlibs(L);
     olua_dofunc(L, _fixcoresume);
     olua_dofunc(L, _fixprint);

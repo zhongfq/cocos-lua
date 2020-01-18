@@ -82,6 +82,7 @@ target_link_libraries(xgame cocos2d)
 
 target_compile_definitions(xgame PUBLIC STDC_HEADERS)
 target_compile_definitions(xgame PRIVATE $<$<CONFIG:Debug>:OLUA_DEBUG>)
+target_compile_definitions(xgame PRIVATE OLUA_USE_EXTRASPACE)
 
 if(CCLUA_BUILD_SPINE)
     target_compile_definitions(xgame PUBLIC CCLUA_USE_SPINE)

@@ -115,6 +115,7 @@ typedef struct {
 // must treat olua_vmstatus_t as first member
 OLUA_API lua_State *olua_newstate(olua_vmstatus_t *vms);
 OLUA_API olua_vmstatus_t *olua_vmstatus(lua_State *L);
+OLUA_API void olua_initvmstatus(lua_State *L, olua_vmstatus_t *vms);
     
 #define olua_addobjcount(L)  (++olua_vmstatus(L)->objcount)
 #define olua_subobjcount(L)  (--olua_vmstatus(L)->objcount)
@@ -279,7 +280,6 @@ typedef lua_Integer lua_Unsigned;
     lua_createtable(L, 0, sizeof(l)/sizeof((l)[0]) - 1);\
     olua_setfuncs(L,(l),0);                             \
 }
-OLUA_API void *lua_getextraspace(lua_State *L);
 OLUA_API void lua_setuservalue(lua_State *L, int idx);
 OLUA_API int lua_getuservalue(lua_State *L, int idx);
 OLUA_API int lua_absindex(lua_State *L, int idx);

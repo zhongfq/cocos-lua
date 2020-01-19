@@ -32,7 +32,6 @@ return {
         'lua-bindings/LuaCocosAdapter.h',
     },
     FLAGS = {
-        '-target', 'armv7-none-linux-androideabi',
         '-DCC_CONSTRUCTOR_ACCESS=public',
         '-DCC_DLL=',
         '-DCC_ENABLE_SCRIPT_BINDING=0',
@@ -47,5 +46,14 @@ return {
         '-I../../frameworks/libdragonbones/src',
         '-I../../frameworks/libxgame/src',
         '-I../../frameworks/libxgame/src/lua/src',
+
+        '-x', 'c++', '-nostdinc', '-std=c++11',
+        '-DANDROID', '-D__linux__',
+        '-target', 'armv7-none-linux-androideabi',
+        
+        '-idirafter', 'bindings-generator/include/c++',
+        '-idirafter', 'bindings-generator/include/c',
+        '-idirafter', 'bindings-generator/include/android-sysroot/x86_64-linux-android',
+        '-idirafter', 'bindings-generator/include/android-sysroot',
     },
 }

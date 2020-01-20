@@ -23,12 +23,12 @@ return {
         #include "CCDragonBonesHeaders.h"
 
         // xgame
-        #include "xgame/xfilesystem.h"
-        #include "xgame/xruntime.h"
-        #include "xgame/xpreferences.h"
-        #include "xgame/xdownloader.h"
-        #include "xgame/xrootscene.h"
-        #include "xgame/xtimer.h"
+        #include "xgame/filesystem.h"
+        #include "xgame/runtime.h"
+        #include "xgame/preferences.h"
+        #include "xgame/downloader.h"
+        #include "xgame/RootScene.h"
+        #include "xgame/timer.h"
         #include "lua-bindings/LuaCocosAdapter.h"
     ]],
     FLAGS = {

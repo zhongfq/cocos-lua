@@ -1,6 +1,6 @@
 #include "xgame/xlua.h"
-#include "xgame/xruntime.h"
-#include "xgame/xfilesystem.h"
+#include "xgame/runtime.h"
+#include "xgame/filesystem.h"
 #include "olua/olua.hpp"
 
 #include "cocos2d.h"

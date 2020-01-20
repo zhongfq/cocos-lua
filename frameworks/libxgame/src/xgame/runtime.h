@@ -1,7 +1,7 @@
-#ifndef __XRUNTIME_H__
-#define __XRUNTIME_H__
+#ifndef __XGAME_RUNTIME_H__
+#define __XGAME_RUNTIME_H__
 
-#include "xgame/xdef.h"
+#include "xgame/config.h"
 #include "xgame/xlua.h"
 
 #include "cocos2d.h"

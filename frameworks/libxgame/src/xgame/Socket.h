@@ -1,7 +1,7 @@
-#ifndef __SOCKET_H__
-#define __SOCKET_H__
+#ifndef __XGAME_SOCKET_H__
+#define __XGAME_SOCKET_H__
 
-#include "xgame/xdef.h"
+#include "xgame/config.h"
 
 #include <string>
 #include <thread>

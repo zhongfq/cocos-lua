@@ -1,5 +1,5 @@
-#ifndef __XML_HTTP_REQUEST_H__
-#define __XML_HTTP_REQUEST_H__
+#ifndef __XGAME_XML_HTTP_REQUEST_H__
+#define __XGAME_XML_HTTP_REQUEST_H__
 
 #include "cocos2d.h"
 #include "network/HttpClient.h"

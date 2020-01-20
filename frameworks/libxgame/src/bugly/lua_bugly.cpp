@@ -1,6 +1,6 @@
 #include "lua_bugly.h"
 #include "CrashReport.h"
-#include "xgame/xruntime.h"
+#include "xgame/runtime.h"
 
 #include "cocos2d.h"
 

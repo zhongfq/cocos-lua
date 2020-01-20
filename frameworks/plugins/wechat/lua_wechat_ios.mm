@@ -1,6 +1,6 @@
 #import "lua_wechat.h"
-#import "xgame/xruntime.h"
-#import "xgame/xfilesystem.h"
+#import "xgame/runtime.h"
+#import "xgame/filesystem.h"
 #import "xgame/PluginConnector.h"
 #import "cocos2d.h"
 

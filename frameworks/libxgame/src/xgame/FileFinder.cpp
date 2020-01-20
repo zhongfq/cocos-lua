@@ -1,5 +1,5 @@
-#include "xfilefinder.h"
-#include "xfilesystem.h"
+#include "FileFinder.h"
+#include "filesystem.h"
 
 NS_XGAME_BEGIN
 

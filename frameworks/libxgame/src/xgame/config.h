@@ -1,5 +1,5 @@
-#ifndef __XDEF_H__
-#define __XDEF_H__
+#ifndef __XGAME_CONFIG_H__
+#define __XGAME_CONFIG_H__
 
 #include "platform/CCPlatformConfig.h"
 

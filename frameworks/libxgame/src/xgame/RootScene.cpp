@@ -1,5 +1,5 @@
-#include "xgame/xrootscene.h"
-#include "xgame/xruntime.h"
+#include "xgame/RootScene.h"
+#include "xgame/runtime.h"
 #include "xgame/xlua.h"
 
 using namespace cocos2d;

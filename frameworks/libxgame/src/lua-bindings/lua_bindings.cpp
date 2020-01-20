@@ -14,7 +14,7 @@
 #include "lua_keychain.h"
 #include "lua_socket.h"
 #include "cjson/lua_cjson.h"
-#include "xgame/xruntime.h"
+#include "xgame/runtime.h"
 #include "xgame/xlua.h"
 #include "md5/md5.h"
 

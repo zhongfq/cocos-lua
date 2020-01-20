@@ -25,7 +25,7 @@
 #include "AppDelegate.h"
 
 #include "xgame/xlua.h"
-#include "xgame/xpreferences.h"
+#include "xgame/preferences.h"
 //#include "wechat/lua_wechat.h"
 
 #include "lua-bindings/lua_cocos2d_3d.h"

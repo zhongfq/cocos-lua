@@ -1,7 +1,7 @@
-#ifndef __XROOTSCENE_H__
-#define __XROOTSCENE_H__
+#ifndef __XGAME_ROOTSCENE_H__
+#define __XGAME_ROOTSCENE_H__
 
-#include "xgame/xdef.h"
+#include "xgame/config.h"
 
 #include "2d/CCScene.h"
 #include "ui/UILayout.h"

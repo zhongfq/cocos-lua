@@ -1,5 +1,5 @@
-#include "xgame/xpreferences.h"
-#include "xgame/xtimer.h"
+#include "xgame/preferences.h"
+#include "xgame/timer.h"
 
 #include "cocos2d.h"
 

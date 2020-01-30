@@ -26,7 +26,7 @@
 #define  _APP_DELEGATE_H_
 
 #include "cocos2d.h"
-#include "xgame/xruntime.h"
+#include "xgame/runtime.h"
 
 /**
 @brief    The cocos2d Application.

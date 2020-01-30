@@ -1,7 +1,7 @@
-#ifndef __XPREFERENCES_H__
-#define __XPREFERENCES_H__
+#ifndef __XGAME_PREFERENCES_H__
+#define __XGAME_PREFERENCES_H__
 
-#include "xgame/xdef.h"
+#include "xgame/config.h"
 
 #include <stdio.h>
 #include <string>

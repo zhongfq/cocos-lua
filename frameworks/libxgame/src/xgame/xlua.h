@@ -1,5 +1,5 @@
-#ifndef __XLUA_H__
-#define __XLUA_H__
+#ifndef __XGAME_LUA_H__
+#define __XGAME_LUA_H__
 
 #define olua_mainthread()               xlua_cocosthread()
 #define olua_startcmpunhold(L, i, n)    xlua_startcmpunhold(L, i, n)
@@ -9,7 +9,7 @@
 #define olua_postpush(L, v, s)          xlua_postpush(L, v, s)
 #define olua_postnew(L, obj)            xlua_postnew(L, obj)
 
-#include "xgame/xdef.h"
+#include "xgame/config.h"
 #include "olua/olua.hpp"
 
 #include "cocos2d.h"

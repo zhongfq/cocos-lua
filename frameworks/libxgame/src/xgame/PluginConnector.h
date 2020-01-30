@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-#import "xgame/xruntime.h"
+#import "xgame/runtime.h"
 
 @interface PluginConnector : NSObject
 

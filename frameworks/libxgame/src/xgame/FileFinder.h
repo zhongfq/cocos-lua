@@ -1,7 +1,7 @@
-#ifndef __XFILEFINDER_H__
-#define __XFILEFINDER_H__
+#ifndef __XGAME_FILEFINDER_H__
+#define __XGAME_FILEFINDER_H__
 
-#include "xgame/xdef.h"
+#include "xgame/config.h"
 #include "xgame/AssetsBundle.h"
 
 #include <unordered_map>

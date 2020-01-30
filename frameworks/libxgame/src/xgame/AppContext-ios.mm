@@ -1,6 +1,6 @@
 #import "xgame/AppContext-ios.h"
 #import "xgame/AppRootViewController-ios.h"
-#import "xgame/xruntime.h"
+#import "xgame/runtime.h"
 #import "cocos2d.h"
 
 #import <AVFoundation/AVFoundation.h>

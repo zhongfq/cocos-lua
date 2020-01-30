@@ -1,5 +1,5 @@
-#include "xgame/xruntime.h"
-#include "xgame/xruntime-private.h"
+#include "xgame/runtime.h"
+#include "xgame/runtime-private.h"
 #include "cocos2d.h"
 
 USING_NS_CC;

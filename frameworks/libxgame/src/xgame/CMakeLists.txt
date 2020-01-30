@@ -1,34 +1,34 @@
 set(XGAME_HEADER
     src/xgame/AssetsBundle.h
-    src/xgame/xdef.h
-    src/xgame/xdownloader.h
-    src/xgame/xfilefinder.h
-    src/xgame/xfilesystem-private.h
-    src/xgame/xfilesystem.h
+    src/xgame/config.h
+    src/xgame/downloader.h
+    src/xgame/FileFinder.h
+    src/xgame/filesystem-private.h
+    src/xgame/filesystem.h
+    src/xgame/preferences.h
+    src/xgame/RootScene.h
+    src/xgame/runtime-private.h
+    src/xgame/runtime.h
+    src/xgame/Socket.h
+    src/xgame/timer.h
     src/xgame/xlua.h
     src/xgame/XMLHttpRequest.h
-    src/xgame/xpreferences.h
-    src/xgame/xrootscene.h
-    src/xgame/xruntime-private.h
-    src/xgame/xruntime.h
-    src/xgame/xsocket.h
-    src/xgame/xtimer.h
 )
 
 set(XGAME_SRC
     src/xgame/AssetsBundle.cpp
-    src/xgame/xdownloader.cpp
-    src/xgame/xfilefinder.cpp
-    src/xgame/xfilesystem-private.cpp
-    src/xgame/xfilesystem.cpp
+    src/xgame/downloader.cpp
+    src/xgame/FileFinder.cpp
+    src/xgame/filesystem-private.cpp
+    src/xgame/filesystem.cpp
+    src/xgame/preferences.cpp
+    src/xgame/RootScene.cpp
+    src/xgame/runtime-private.cpp
+    src/xgame/runtime.cpp
+    src/xgame/Socket.cpp
+    src/xgame/timer.cpp
     src/xgame/xlua.cpp
     src/xgame/XMLHttpRequest.cpp
-    src/xgame/xpreferences.cpp
-    src/xgame/xrootscene.cpp
-    src/xgame/xruntime-private.cpp
-    src/xgame/xruntime.cpp
-    src/xgame/xsocket.cpp
-    src/xgame/xtimer.cpp
 )
 
 if(APPLE)
@@ -44,13 +44,13 @@ if(APPLE)
             src/xgame/AppRootViewController-ios.mm
             src/xgame/PluginConnector.mm
             src/xgame/Reachability.m
-            src/xgame/xfilesystem-private-ios-mac.mm
-            src/xgame/xruntime-private-ios-mac.mm
+            src/xgame/filesystem-private-ios-mac.mm
+            src/xgame/runtime-private-ios-mac.mm
         )
     elseif(MACOSX)
         list(APPEND XGAME_SRC
-            src/xgame/xfilesystem-private-ios-mac.mm
-            src/xgame/xruntime-private-ios-mac.mm
+            src/xgame/filesystem-private-ios-mac.mm
+            src/xgame/runtime-private-ios-mac.mm
         )
     endif()
 endif()

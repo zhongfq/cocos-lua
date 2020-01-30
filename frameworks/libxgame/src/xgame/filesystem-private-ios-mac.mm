@@ -1,6 +1,6 @@
-#import "xgame/xfilesystem.h"
-#import "xgame/xfilesystem-private.h"
-#import "xgame/xruntime.h"
+#import "xgame/filesystem.h"
+#import "xgame/filesystem-private.h"
+#import "xgame/runtime.h"
 #import "cocos2d.h"
 
 #import <AVFoundation/AVFoundation.h>

@@ -1,7 +1,7 @@
-#ifndef __AssetsBundle_h__
-#define __AssetsBundle_h__
+#ifndef __XGAME_ASSETSBUNDLE_H__
+#define __XGAME_ASSETSBUNDLE_H__
 
-#include "xgame/xdef.h"
+#include "xgame/config.h"
 #include "platform/CCFileUtils.h"
 
 #include <stdio.h>

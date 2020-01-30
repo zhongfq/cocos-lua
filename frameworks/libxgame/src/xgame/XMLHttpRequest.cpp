@@ -1,6 +1,6 @@
 #include "XMLHttpRequest.h"
-#include "xruntime.h"
-#include "xtimer.h"
+#include "runtime.h"
+#include "timer.h"
 
 USING_NS_CC;
 

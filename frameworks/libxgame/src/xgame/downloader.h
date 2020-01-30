@@ -1,7 +1,7 @@
-#ifndef __XDOWNLOADER_H__
-#define __XDOWNLOADER_H__
+#ifndef __XGAME_DOWNLOADER_H__
+#define __XGAME_DOWNLOADER_H__
 
-#include "xgame/xdef.h"
+#include "xgame/config.h"
 
 #include <string>
 #include <functional>

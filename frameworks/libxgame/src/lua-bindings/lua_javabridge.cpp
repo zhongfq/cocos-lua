@@ -3,7 +3,7 @@
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 #include "platform/android/jni/JniHelper.h"
 #include "base/ccUTF8.h"
-#include "xgame/xruntime.h"
+#include "xgame/runtime.h"
 #include "xgame/xlua.h"
 
 #include <stdlib.h>

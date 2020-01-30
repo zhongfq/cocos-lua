@@ -1,9 +1,9 @@
-#ifndef __XRUNTIME_PRIVATE_H__
-#define __XRUNTIME_PRIVATE_H__
+#ifndef __XGAME_RUNTIME_PRIVATE_H__
+#define __XGAME_RUNTIME_PRIVATE_H__
 
 #include "platform/CCPlatformConfig.h"
 
-#include "xgame/xruntime.h"
+#include "xgame/runtime.h"
 
 #include <string>
 #include <functional>

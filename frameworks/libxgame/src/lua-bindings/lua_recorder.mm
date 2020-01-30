@@ -1,5 +1,5 @@
 #import "lua_recorder.h"
-#import "xgame/xruntime.h"
+#import "xgame/runtime.h"
 #import "xgame/PluginConnector.h"
 #import "cocos2d.h"
 

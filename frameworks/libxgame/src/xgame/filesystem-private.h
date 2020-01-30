@@ -1,7 +1,7 @@
-#ifndef __XFILESYSTEM_PRIVATE_H__
-#define __XFILESYSTEM_PRIVATE_H__
+#ifndef __XGAME_FILESYSTEM_PRIVATE_H__
+#define __XGAME_FILESYSTEM_PRIVATE_H__
 
-#include "xgame/xdef.h"
+#include "xgame/config.h"
 
 #include <string>
 

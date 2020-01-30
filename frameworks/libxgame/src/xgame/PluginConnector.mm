@@ -1,7 +1,7 @@
 #import "PluginConnector.h"
 
 #include "xgame/xlua.h"
-#include "xgame/xruntime.h"
+#include "xgame/runtime.h"
 
 @implementation PluginConnector
 

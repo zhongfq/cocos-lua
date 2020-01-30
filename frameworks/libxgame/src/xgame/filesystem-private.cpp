@@ -1,6 +1,6 @@
-#include "xgame/xfilesystem-private.h"
-#include "xgame/xfilesystem.h"
-#include "xgame/xruntime.h"
+#include "xgame/filesystem-private.h"
+#include "xgame/filesystem.h"
+#include "xgame/runtime.h"
 
 #include "cocos2d.h"
 

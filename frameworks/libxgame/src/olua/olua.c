@@ -212,7 +212,7 @@ static void aux_pushlocalobj(lua_State *L, void *obj)
 
 OLUA_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
 {
-    int status = OLUA_EXIST;
+    int status = OLUA_OBJ_EXIST;
     
     if (!obj) {
         lua_pushnil(L);
@@ -229,12 +229,12 @@ OLUA_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
         lua_pop(L, 1);                              // L: mt objtable
         if (olua_vmstatus(L)->poolenabled) {
             aux_pushlocalobj(L, obj);
-            status = OLUA_EXIST;
+            status = OLUA_OBJ_EXIST;
         } else {
             olua_newuserdata(L, obj, void *);       // L: mt objtable ud
             lua_pushvalue(L, -1);                   // L: mt objtable ud ud
             olua_rawsetp(L, -3, obj);               // L: mt objtable ud     objtable[obj] = ud
-            status = OLUA_NEW;
+            status = OLUA_OBJ_NEW;
         }
         lua_pushvalue(L, -3);                       // L: mt objtable ud mt
         lua_setmetatable(L, -2);                    // L: mt objtable ud     ud.metatable = mt
@@ -242,7 +242,7 @@ OLUA_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
             && olua_testudata(L, -1, OLUA_VOIDCLS)) {
         lua_pushvalue(L, -3);                       // L: mt objtable ud mt
         lua_setmetatable(L, -2);                    // L: mt objtable ud     ud.metatable = mt
-        status = OLUA_NEW;
+        status = OLUA_OBJ_NEW;
     }
     
     lua_insert(L, -3);                              // L: ud mt objtable

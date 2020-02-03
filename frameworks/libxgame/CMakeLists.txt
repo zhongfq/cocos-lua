@@ -114,7 +114,7 @@ add_dependencies(xgame cocos2d)
 
 target_include_directories(xgame
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src
-    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/lua/src
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/lua
 )
 
 if(XCODE OR VS)

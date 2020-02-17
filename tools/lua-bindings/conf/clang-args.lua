@@ -42,7 +42,7 @@ return {
         '-I../../frameworks/libfairygui/Classes',
         '-I../../frameworks/libdragonbones/src',
         '-I../../frameworks/libxgame/src',
-        '-I../../frameworks/libxgame/src/lua/src',
+        '-I../../frameworks/libxgame/src/lua',
 
         '-x', 'c++', '-nostdinc', '-std=c++11',
         '-U__SSE__',

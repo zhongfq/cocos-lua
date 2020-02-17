@@ -567,7 +567,7 @@ OLUA_API void olua_getref(lua_State *L, int ref)
     lua_remove(L, -2);
 }
 
-OLUA_API void olua_getholdtable(lua_State *L, int idx, const char *name)
+OLUA_API void olua_getreftable(lua_State *L, int idx, const char *name)
 {
     olua_assert(olua_isuserdata(L, idx));
     aux_getusertable(L, idx);               // L: uv
@@ -577,7 +577,7 @@ OLUA_API void olua_getholdtable(lua_State *L, int idx, const char *name)
     lua_pop(L, 2);                          // L: holdtable
 }
 
-static void aux_changehold(lua_State *L, int idx, const char *name, int obj, int flags)
+static void aux_changeref(lua_State *L, int idx, const char *name, int obj, int flags)
 {
     int top = lua_gettop(L);
     idx = lua_absindex(L, idx);
@@ -598,13 +598,13 @@ static void aux_changehold(lua_State *L, int idx, const char *name, int obj, int
         lua_rawset(L, -3);                      // L: uv            uv[name] = obj|nil
     } else if (flags & OLUA_FLAG_COEXIST) {
         olua_assert(olua_isuserdata(L, obj));
-        olua_getholdtable(L, idx, name);        // L: ht
+        olua_getreftable(L, idx, name);         // L: ht
         lua_pushvalue(L, obj);                  // L: ht obj
         lua_pushvalue(L, top + 1);              // L: ht obj true|nil
         lua_rawset(L, -3);                      // L: ht          ht[obj] = true|nil
     } else if (flags & OLUA_FLAG_ARRAY) {
         olua_assert(olua_istable(L, obj));
-        olua_getholdtable(L, idx, name);        // L: ht
+        olua_getreftable(L, idx, name);         // L: ht
         for (int i = 1; i <= (int)lua_rawlen(L, obj); i++) {
             lua_rawgeti(L, obj, i);             // L: ht v
             olua_assert(olua_isuserdata(L, -1));
@@ -615,26 +615,26 @@ static void aux_changehold(lua_State *L, int idx, const char *name, int obj, int
     lua_settop(L, top);
 }
 
-OLUA_API void olua_hold(lua_State *L, int idx, const char *name, int obj, int flags)
+OLUA_API void olua_addref(lua_State *L, int idx, const char *name, int obj, int flags)
 {
-    aux_changehold(L, idx, name, obj, flags);
+    aux_changeref(L, idx, name, obj, flags);
 }
 
-OLUA_API void olua_unhold(lua_State *L, int idx, const char *name, int obj, int flags)
+OLUA_API void olua_delref(lua_State *L, int idx, const char *name, int obj, int flags)
 {
-    aux_changehold(L, idx, name, obj, flags | OLUA_FLAG_REMOVE);
+    aux_changeref(L, idx, name, obj, flags | OLUA_FLAG_REMOVE);
 }
 
-OLUA_API void olua_unholdall(lua_State *L, int idx, const char *name)
+OLUA_API void olua_delallrefs(lua_State *L, int idx, const char *name)
 {
-    aux_changehold(L, idx, name, 0, OLUA_FLAG_EXCLUSIVE | OLUA_FLAG_REMOVE);
+    aux_changeref(L, idx, name, 0, OLUA_FLAG_EXCLUSIVE | OLUA_FLAG_REMOVE);
 }
 
-OLUA_API void olua_walkunhold(lua_State *L, int idx, const char *name, olua_WalkFunction walk)
+OLUA_API void olua_visitrefs(lua_State *L, int idx, const char *name, olua_DelRefVisitor walk)
 {
     olua_assert(olua_isuserdata(L, idx));
     idx = lua_absindex(L, idx);
-    olua_getholdtable(L, idx, name);        // L: t
+    olua_getreftable(L, idx, name);         // L: t
     lua_pushnil(L);                         // L: t k
     while (lua_next(L, -2)) {               // L: t k v
         int kidx = lua_gettop(L) - 1;

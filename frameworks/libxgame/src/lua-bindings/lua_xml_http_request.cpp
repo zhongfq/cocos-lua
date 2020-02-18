@@ -68,6 +68,7 @@ static int _cocos2d_XMLHttpRequest_setResponseCallback(lua_State *L)
             olua_callback(L, cb_store, func.c_str(), 1);
             lua_settop(L, top);
             olua_unref(L, ref);
+            request->setResponseCallback(nullptr);
         }
     });
     return 0;

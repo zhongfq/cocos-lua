@@ -385,9 +385,9 @@ void xlua_endinvoke(lua_State *L)
     _currentState = NULL;
 }
 
-void xlua_startcmpunhold(lua_State *L, int idx, const char *refname)
+void xlua_startcmpdelref(lua_State *L, int idx, const char *refname)
 {
-    olua_getholdtable(L, idx, refname);                     // L: t
+    olua_getreftable(L, idx, refname);                      // L: t
     lua_pushnil(L);                                         // L: t k
     while (lua_next(L, -2)) {                               // L: t k v
         if (olua_isa(L, -2, "cc.Ref")) {
@@ -403,7 +403,7 @@ void xlua_startcmpunhold(lua_State *L, int idx, const char *refname)
     lua_pop(L, 1);
 }
 
-static bool should_unref_obj(lua_State *L, int idx)
+static bool should_delref(lua_State *L, int idx)
 {
     if (olua_isa(L, idx, "cc.Ref")) {
         auto obj = (cocos2d::Ref *)olua_toobj(L, idx, "cc.Ref");
@@ -427,7 +427,7 @@ static bool should_unref_obj(lua_State *L, int idx)
     return false;
 }
 
-void xlua_endcmpunhold(lua_State *L, int idx, const char *refname)
+void xlua_endcmpdelref(lua_State *L, int idx, const char *refname)
 {
-    olua_walkunhold(L, idx, refname, should_unref_obj);
+    olua_visitrefs(L, idx, refname, should_delref);
 }

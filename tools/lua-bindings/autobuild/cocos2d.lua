@@ -153,15 +153,15 @@ cls.funcs [[
     static cocos2d::Director *getInstance()
     Director()
     bool init()
-    @hold(coexist scenes) cocos2d::Scene *getRunningScene()
+    @addref(coexist scenes) cocos2d::Scene *getRunningScene()
     float getAnimationInterval()
     void setAnimationInterval(float interval)
     bool isDisplayStats()
     void setDisplayStats(bool displayStats)
     float getSecondsPerFrame()
-    @hold(exclusive openGLView) cocos2d::GLView *getOpenGLView()
-    void setOpenGLView(@hold(exclusive openGLView) cocos2d::GLView *openGLView)
-    @hold(exclusive textureCache) cocos2d::TextureCache *getTextureCache()
+    @addref(exclusive openGLView) cocos2d::GLView *getOpenGLView()
+    void setOpenGLView(@addref(exclusive openGLView) cocos2d::GLView *openGLView)
+    @addref(exclusive textureCache) cocos2d::TextureCache *getTextureCache()
     bool isNextDeltaTimeZero()
     void setNextDeltaTimeZero(bool nextDeltaTimeZero)
     bool isPaused()
@@ -170,8 +170,8 @@ cls.funcs [[
     void setProjection(cocos2d::Director::Projection projection)
     void setViewport()
     bool isSendCleanupToScene()
-    @hold(exclusive notificationNode) cocos2d::Node *getNotificationNode()
-    void setNotificationNode(@hold(exclusive notificationNode) cocos2d::Node *node)
+    @addref(exclusive notificationNode) cocos2d::Node *getNotificationNode()
+    void setNotificationNode(@addref(exclusive notificationNode) cocos2d::Node *node)
     const cocos2d::Size &getWinSize()
     cocos2d::Size getWinSizeInPixels()
     cocos2d::Size getVisibleSize()
@@ -180,12 +180,12 @@ cls.funcs [[
     cocos2d::Vec2 convertToGL(@pack const cocos2d::Vec2 &point)
     cocos2d::Vec2 convertToUI(@pack const cocos2d::Vec2 &point)
     float getZEye()
-    void runWithScene(@hold(coexist scenes) cocos2d::Scene *scene)
-    void pushScene(@hold(coexist scenes) cocos2d::Scene *scene)
-    @unhold(cmp scenes) void popScene()
-    @unhold(cmp scenes) void popToRootScene()
-    @unhold(cmp scenes) void popToSceneStackLevel(int level)
-    @unhold(cmp scenes) void replaceScene(@hold(coexist scenes) cocos2d::Scene *scene)
+    void runWithScene(@addref(coexist scenes) cocos2d::Scene *scene)
+    void pushScene(@addref(coexist scenes) cocos2d::Scene *scene)
+    @delref(cmp scenes) void popScene()
+    @delref(cmp scenes) void popToRootScene()
+    @delref(cmp scenes) void popToSceneStackLevel(int level)
+    @delref(cmp scenes) void replaceScene(@addref(coexist scenes) cocos2d::Scene *scene)
     void end()
     void pause()
     void resume()
@@ -201,13 +201,13 @@ cls.funcs [[
     void mainLoop(float dt)
     void setContentScaleFactor(float scaleFactor)
     float getContentScaleFactor()
-    @hold(exclusive scheduler) cocos2d::Scheduler *getScheduler()
-    void setScheduler(@hold(exclusive scheduler) cocos2d::Scheduler *scheduler)
-    @hold(exclusive actionManager) cocos2d::ActionManager *getActionManager()
-    void setActionManager(@hold(exclusive actionManager) cocos2d::ActionManager *actionManager)
-    @hold(exclusive eventDispatcher) cocos2d::EventDispatcher *getEventDispatcher()
-    void setEventDispatcher(@hold(exclusive eventDispatcher) cocos2d::EventDispatcher *dispatcher)
-    @hold(exclusive renderer) cocos2d::Renderer *getRenderer()
+    @addref(exclusive scheduler) cocos2d::Scheduler *getScheduler()
+    void setScheduler(@addref(exclusive scheduler) cocos2d::Scheduler *scheduler)
+    @addref(exclusive actionManager) cocos2d::ActionManager *getActionManager()
+    void setActionManager(@addref(exclusive actionManager) cocos2d::ActionManager *actionManager)
+    @addref(exclusive eventDispatcher) cocos2d::EventDispatcher *getEventDispatcher()
+    void setEventDispatcher(@addref(exclusive eventDispatcher) cocos2d::EventDispatcher *dispatcher)
+    @addref(exclusive renderer) cocos2d::Renderer *getRenderer()
     cocos2d::Console *getConsole()
     float getDeltaTime()
     float getFrameRate()
@@ -363,7 +363,7 @@ cls.CHUNK = [[
 static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
 {
     if (olua_getuserdata(L, target)) {
-        olua_unholdall(L, -1, refname);
+        olua_delallrefs(L, -1, refname);
         lua_pop(L, 1);
     }
     if (recursive) {
@@ -376,13 +376,13 @@ static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target,
 }
 ]]
 cls.funcs [[
-    void addEventListenerWithSceneGraphPriority(@hold(coexist listeners 3) cocos2d::EventListener *listener, cocos2d::Node *node)
-    void addEventListenerWithFixedPriority(@hold(coexist listeners) cocos2d::EventListener *listener, int fixedPriority)
-    @unhold(cmp listeners) void removeEventListener(cocos2d::EventListener *listener)
-    @unhold(cmp listeners) void removeEventListenersForType(EventListener::Type listenerType)
+    void addEventListenerWithSceneGraphPriority(@addref(coexist listeners 3) cocos2d::EventListener *listener, cocos2d::Node *node)
+    void addEventListenerWithFixedPriority(@addref(coexist listeners) cocos2d::EventListener *listener, int fixedPriority)
+    @delref(cmp listeners) void removeEventListener(cocos2d::EventListener *listener)
+    @delref(cmp listeners) void removeEventListenersForType(EventListener::Type listenerType)
     void removeEventListenersForTarget(cocos2d::Node *target, @optional bool recursive)
-    @unhold(cmp listeners) void removeCustomEventListeners(const std::string &customEventName)
-    @unhold(cmp listeners) void removeAllEventListeners()
+    @delref(cmp listeners) void removeCustomEventListeners(const std::string &customEventName)
+    @delref(cmp listeners) void removeAllEventListeners()
     void pauseEventListenersForTarget(cocos2d::Node *target, @optional bool recursive)
     void resumeEventListenersForTarget(cocos2d::Node *target, @optional bool recursive)
     void setPriority(cocos2d::EventListener *listener, int fixedPriority)
@@ -426,7 +426,7 @@ cls.func('addCustomEventListener', [[{
     self->addEventListenerWithFixedPriority(listener, 1);
     lua_pushvalue(L, 4);
 
-    olua_hold(L, 1, "listeners", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "listeners", -1, OLUA_FLAG_COEXIST);
 
     return 1;
 }]])
@@ -2082,7 +2082,7 @@ cls.func('init', [[{
     }
 
     self->init(*delegate, url, protocols.size() > 0 ? &protocols : nullptr, cafile);
-    olua_hold(L, 1, "delegate", 2, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, 1, "delegate", 2, OLUA_FLAG_EXCLUSIVE);
 
     return 0;
 }]])
@@ -2241,23 +2241,23 @@ cls.funcs [[
     float getRotationSkewY()
     void setIgnoreAnchorPointForPosition(bool ignore)
     bool isIgnoreAnchorPointForPosition()
-    void addChild(@hold(coexist children) cocos2d::Node *child)
-    void addChild(@hold(coexist children) cocos2d::Node *child, int localZOrder)
-    void addChild(@hold(coexist children) cocos2d::Node *child, int localZOrder, int tag)
-    void addChild(@hold(coexist children) cocos2d::Node *child, int localZOrder, const std::string &name)
-    @hold(coexist children) cocos2d::Node *getChildByTag(int tag)
-    @hold(coexist children) cocos2d::Node *getChildByName(const std::string &name)
-    @hold(coexist children) Vector<cocos2d::Node *> &getChildren()
+    void addChild(@addref(coexist children) cocos2d::Node *child)
+    void addChild(@addref(coexist children) cocos2d::Node *child, int localZOrder)
+    void addChild(@addref(coexist children) cocos2d::Node *child, int localZOrder, int tag)
+    void addChild(@addref(coexist children) cocos2d::Node *child, int localZOrder, const std::string &name)
+    @addref(coexist children) cocos2d::Node *getChildByTag(int tag)
+    @addref(coexist children) cocos2d::Node *getChildByName(const std::string &name)
+    @addref(coexist children) Vector<cocos2d::Node *> &getChildren()
     ssize_t getChildrenCount()
     void setParent(cocos2d::Node *parent)
     cocos2d::Node *getParent()
-    @unhold(coexist children parent) void removeFromParent()
-    @unhold(coexist children parent) void removeFromParentAndCleanup(bool cleanup)
-    void removeChild(@unhold(coexist children) cocos2d::Node *child, @optional bool cleanup)
-    @unhold(cmp children) void removeChildByTag(int tag, @optional bool cleanup)
-    @unhold(cmp children) void removeChildByName(const std::string &name, @optional bool cleanup)
-    @unhold(all children) void removeAllChildren()
-    @unhold(all children) void removeAllChildrenWithCleanup(bool cleanup)
+    @delref(coexist children parent) void removeFromParent()
+    @delref(coexist children parent) void removeFromParentAndCleanup(bool cleanup)
+    void removeChild(@delref(coexist children) cocos2d::Node *child, @optional bool cleanup)
+    @delref(cmp children) void removeChildByTag(int tag, @optional bool cleanup)
+    @delref(cmp children) void removeChildByName(const std::string &name, @optional bool cleanup)
+    @delref(all children) void removeAllChildren()
+    @delref(all children) void removeAllChildrenWithCleanup(bool cleanup)
     void reorderChild(cocos2d::Node *child, int localZOrder)
     void sortAllChildren()
     int getTag()
@@ -2280,21 +2280,21 @@ cls.funcs [[
     void visit()
     cocos2d::Scene *getScene()
     cocos2d::Rect getBoundingBox()
-    void setEventDispatcher(@hold(exclusive eventDispatcher) cocos2d::EventDispatcher *dispatcher)
-    @hold(exclusive eventDispatcher) cocos2d::EventDispatcher *getEventDispatcher()
-    void setActionManager(@hold(exclusive actionManager) cocos2d::ActionManager *actionManager)
-    @hold(exclusive actionManager) cocos2d::ActionManager *getActionManager()
-    @unhold(cmp actions) cocos2d::Action *runAction(@hold(coexist actions) cocos2d::Action *action)
-    @unhold(cmp actions) void stopAllActions()
-    @unhold(cmp actions) void stopAction(cocos2d::Action *action)
-    @unhold(cmp actions) void stopActionByTag(int tag)
-    @unhold(cmp actions) void stopAllActionsByTag(int tag)
-    @unhold(cmp actions) void stopActionsByFlags(unsigned int flags)
-    @hold(coexist actions) cocos2d::Action *getActionByTag(int tag)
+    void setEventDispatcher(@addref(exclusive eventDispatcher) cocos2d::EventDispatcher *dispatcher)
+    @addref(exclusive eventDispatcher) cocos2d::EventDispatcher *getEventDispatcher()
+    void setActionManager(@addref(exclusive actionManager) cocos2d::ActionManager *actionManager)
+    @addref(exclusive actionManager) cocos2d::ActionManager *getActionManager()
+    @delref(cmp actions) cocos2d::Action *runAction(@addref(coexist actions) cocos2d::Action *action)
+    @delref(cmp actions) void stopAllActions()
+    @delref(cmp actions) void stopAction(cocos2d::Action *action)
+    @delref(cmp actions) void stopActionByTag(int tag)
+    @delref(cmp actions) void stopAllActionsByTag(int tag)
+    @delref(cmp actions) void stopActionsByFlags(unsigned int flags)
+    @addref(coexist actions) cocos2d::Action *getActionByTag(int tag)
     ssize_t getNumberOfRunningActions()
     ssize_t getNumberOfRunningActionsByTag(int tag)
-    void setScheduler(@hold(exclusive scheduler) cocos2d::Scheduler *scheduler)
-    @hold(exclusive scheduler) cocos2d::Scheduler *getScheduler()
+    void setScheduler(@addref(exclusive scheduler) cocos2d::Scheduler *scheduler)
+    @addref(exclusive scheduler) cocos2d::Scheduler *getScheduler()
     bool isScheduled(const std::string &key)
     void scheduleUpdate()
     void scheduleUpdateWithPriority(int priority)
@@ -2322,11 +2322,11 @@ cls.funcs [[
     cocos2d::Vec2 convertTouchToNodeSpaceAR(cocos2d::Touch *touch)
     void setAdditionalTransform(const cocos2d::Mat4 &additionalTransform)
     void setAdditionalTransform(const cocos2d::AffineTransform &additionalTransform)
-    @hold(coexist components) cocos2d::Component *getComponent(const std::string &name)
-    bool addComponent(@hold(coexist components) cocos2d::Component *component)
-    @unhold(cmp components) bool removeComponent(const std::string &name)
-    @unhold(cmp components) bool removeComponent(cocos2d::Component *component)
-    @unhold(all components) void removeAllComponents()
+    @addref(coexist components) cocos2d::Component *getComponent(const std::string &name)
+    bool addComponent(@addref(coexist components) cocos2d::Component *component)
+    @delref(cmp components) bool removeComponent(const std::string &name)
+    @delref(cmp components) bool removeComponent(cocos2d::Component *component)
+    @delref(all components) void removeAllComponents()
     uint8_t getOpacity()
     uint8_t getDisplayedOpacity()
     void setOpacity(uint8_t opacity)
@@ -2347,8 +2347,8 @@ cls.funcs [[
     backend::ProgramState *getProgramState()
     Node()
     bool init()
-    void setPhysicsBody(@hold(exclusive physicsBody) cocos2d::PhysicsBody *physicsBody)
-    @hold(exclusive physicsBody) cocos2d::PhysicsBody *getPhysicsBody()
+    void setPhysicsBody(@addref(exclusive physicsBody) cocos2d::PhysicsBody *physicsBody)
+    @addref(exclusive physicsBody) cocos2d::PhysicsBody *getPhysicsBody()
 ]]
 cls.func('getBounds', [[{
     auto self = olua_checkobj<cocos2d::Node>(L, 1);
@@ -2775,14 +2775,14 @@ cls = typecls 'cocos2d::ProtectedNode'
 cls.SUPERCLS = "cocos2d::Node"
 cls.funcs [[
     static cocos2d::ProtectedNode *create()
-    void addProtectedChild(@hold(coexist protectedChildren) cocos2d::Node *child)
-    void addProtectedChild(@hold(coexist protectedChildren) cocos2d::Node *child, int localZOrder)
-    void addProtectedChild(@hold(coexist protectedChildren) cocos2d::Node *child, int localZOrder, int tag)
-    @hold(coexist protectedChildren) cocos2d::Node *getProtectedChildByTag(int tag)
-    void removeProtectedChild(@unhold(coexist protectedChildren) cocos2d::Node *child, @optional bool cleanup)
-    @unhold(cmp protectedChildren) void removeProtectedChildByTag(int tag, @optional bool cleanup)
-    @unhold(all protectedChildren) void removeAllProtectedChildren()
-    @unhold(all protectedChildren) void removeAllProtectedChildrenWithCleanup(bool cleanup)
+    void addProtectedChild(@addref(coexist protectedChildren) cocos2d::Node *child)
+    void addProtectedChild(@addref(coexist protectedChildren) cocos2d::Node *child, int localZOrder)
+    void addProtectedChild(@addref(coexist protectedChildren) cocos2d::Node *child, int localZOrder, int tag)
+    @addref(coexist protectedChildren) cocos2d::Node *getProtectedChildByTag(int tag)
+    void removeProtectedChild(@delref(coexist protectedChildren) cocos2d::Node *child, @optional bool cleanup)
+    @delref(cmp protectedChildren) void removeProtectedChildByTag(int tag, @optional bool cleanup)
+    @delref(all protectedChildren) void removeAllProtectedChildren()
+    @delref(all protectedChildren) void removeAllProtectedChildrenWithCleanup(bool cleanup)
     void reorderProtectedChild(cocos2d::Node *child, int localZOrder)
     void sortAllProtectedChildren()
     void disableCascadeColor()
@@ -3467,7 +3467,7 @@ cls.funcs [[
     bool initWithSize(const cocos2d::Size &size)
     void setCameraOrderDirty()
     void onProjectionChanged(cocos2d::EventCustom *event)
-    @hold(exclusive physicsWorld) cocos2d::PhysicsWorld *getPhysicsWorld()
+    @addref(exclusive physicsWorld) cocos2d::PhysicsWorld *getPhysicsWorld()
     void setPhysics3DDebugCamera(cocos2d::Camera *camera)
     static cocos2d::Scene *createWithPhysics()
     bool initWithPhysics()
@@ -3622,7 +3622,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionScene'
 cls.SUPERCLS = "cocos2d::Scene"
 cls.funcs [[
-    static cocos2d::TransitionScene *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionScene *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     void finish()
     void hideOutShowIn()
     cocos2d::Scene *getInScene()
@@ -3638,7 +3638,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionSceneOriented'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionSceneOriented *create(float t, @hold(coexist autoref) cocos2d::Scene *scene, cocos2d::TransitionScene::Orientation orientation)
+    static cocos2d::TransitionSceneOriented *create(float t, @addref(coexist autoref) cocos2d::Scene *scene, cocos2d::TransitionScene::Orientation orientation)
     TransitionSceneOriented()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3646,7 +3646,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionRotoZoom'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionRotoZoom *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionRotoZoom *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     TransitionRotoZoom()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3654,7 +3654,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionJumpZoom'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionJumpZoom *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionJumpZoom *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     TransitionJumpZoom()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3662,9 +3662,9 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionMoveInL'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionMoveInL *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionMoveInL *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     cocos2d::ActionInterval *action()
-    cocos2d::ActionInterval *easeActionWithAction(@hold(exclusive action) cocos2d::ActionInterval *action)
+    cocos2d::ActionInterval *easeActionWithAction(@addref(exclusive action) cocos2d::ActionInterval *action)
     TransitionMoveInL()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3672,7 +3672,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionMoveInR'
 cls.SUPERCLS = "cocos2d::TransitionMoveInL"
 cls.funcs [[
-    static cocos2d::TransitionMoveInR *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionMoveInR *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     TransitionMoveInR()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3680,7 +3680,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionMoveInT'
 cls.SUPERCLS = "cocos2d::TransitionMoveInL"
 cls.funcs [[
-    static cocos2d::TransitionMoveInT *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionMoveInT *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     TransitionMoveInT()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3688,7 +3688,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionMoveInB'
 cls.SUPERCLS = "cocos2d::TransitionMoveInL"
 cls.funcs [[
-    static cocos2d::TransitionMoveInB *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionMoveInB *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     TransitionMoveInB()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3696,8 +3696,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionSlideInL'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionSlideInL *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
-    cocos2d::ActionInterval *easeActionWithAction(@hold(exclusive action) cocos2d::ActionInterval *action)
+    static cocos2d::TransitionSlideInL *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
+    cocos2d::ActionInterval *easeActionWithAction(@addref(exclusive action) cocos2d::ActionInterval *action)
     cocos2d::ActionInterval *action()
     TransitionSlideInL()
 ]]
@@ -3706,7 +3706,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionSlideInR'
 cls.SUPERCLS = "cocos2d::TransitionSlideInL"
 cls.funcs [[
-    static cocos2d::TransitionSlideInR *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionSlideInR *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     TransitionSlideInR()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3714,7 +3714,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionSlideInB'
 cls.SUPERCLS = "cocos2d::TransitionSlideInL"
 cls.funcs [[
-    static cocos2d::TransitionSlideInB *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionSlideInB *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     TransitionSlideInB()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3722,7 +3722,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionSlideInT'
 cls.SUPERCLS = "cocos2d::TransitionSlideInL"
 cls.funcs [[
-    static cocos2d::TransitionSlideInT *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionSlideInT *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     TransitionSlideInT()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3730,8 +3730,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionShrinkGrow'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionShrinkGrow *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
-    cocos2d::ActionInterval *easeActionWithAction(@hold(exclusive action) cocos2d::ActionInterval *action)
+    static cocos2d::TransitionShrinkGrow *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
+    cocos2d::ActionInterval *easeActionWithAction(@addref(exclusive action) cocos2d::ActionInterval *action)
     TransitionShrinkGrow()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3739,8 +3739,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFlipX'
 cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
 cls.funcs [[
-    static cocos2d::TransitionFlipX *create(float t, @hold(coexist autoref) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
-    static cocos2d::TransitionFlipX *create(float t, @hold(coexist autoref) cocos2d::Scene *s)
+    static cocos2d::TransitionFlipX *create(float t, @addref(coexist autoref) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
+    static cocos2d::TransitionFlipX *create(float t, @addref(coexist autoref) cocos2d::Scene *s)
     TransitionFlipX()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3748,8 +3748,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFlipY'
 cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
 cls.funcs [[
-    static cocos2d::TransitionFlipY *create(float t, @hold(coexist autoref) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
-    static cocos2d::TransitionFlipY *create(float t, @hold(coexist autoref) cocos2d::Scene *s)
+    static cocos2d::TransitionFlipY *create(float t, @addref(coexist autoref) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
+    static cocos2d::TransitionFlipY *create(float t, @addref(coexist autoref) cocos2d::Scene *s)
     TransitionFlipY()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3757,8 +3757,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFlipAngular'
 cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
 cls.funcs [[
-    static cocos2d::TransitionFlipAngular *create(float t, @hold(coexist autoref) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
-    static cocos2d::TransitionFlipAngular *create(float t, @hold(coexist autoref) cocos2d::Scene *s)
+    static cocos2d::TransitionFlipAngular *create(float t, @addref(coexist autoref) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
+    static cocos2d::TransitionFlipAngular *create(float t, @addref(coexist autoref) cocos2d::Scene *s)
     TransitionFlipAngular()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3766,8 +3766,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionZoomFlipX'
 cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
 cls.funcs [[
-    static cocos2d::TransitionZoomFlipX *create(float t, @hold(coexist autoref) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
-    static cocos2d::TransitionZoomFlipX *create(float t, @hold(coexist autoref) cocos2d::Scene *s)
+    static cocos2d::TransitionZoomFlipX *create(float t, @addref(coexist autoref) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
+    static cocos2d::TransitionZoomFlipX *create(float t, @addref(coexist autoref) cocos2d::Scene *s)
     TransitionZoomFlipX()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3775,8 +3775,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionZoomFlipY'
 cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
 cls.funcs [[
-    static cocos2d::TransitionZoomFlipY *create(float t, @hold(coexist autoref) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
-    static cocos2d::TransitionZoomFlipY *create(float t, @hold(coexist autoref) cocos2d::Scene *s)
+    static cocos2d::TransitionZoomFlipY *create(float t, @addref(coexist autoref) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
+    static cocos2d::TransitionZoomFlipY *create(float t, @addref(coexist autoref) cocos2d::Scene *s)
     TransitionZoomFlipY()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3784,8 +3784,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionZoomFlipAngular'
 cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
 cls.funcs [[
-    static cocos2d::TransitionZoomFlipAngular *create(float t, @hold(coexist autoref) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
-    static cocos2d::TransitionZoomFlipAngular *create(float t, @hold(coexist autoref) cocos2d::Scene *s)
+    static cocos2d::TransitionZoomFlipAngular *create(float t, @addref(coexist autoref) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
+    static cocos2d::TransitionZoomFlipAngular *create(float t, @addref(coexist autoref) cocos2d::Scene *s)
     TransitionZoomFlipAngular()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3793,8 +3793,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFade'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionFade *create(float duration, @hold(coexist autoref) cocos2d::Scene *scene, const cocos2d::Color3B &color)
-    static cocos2d::TransitionFade *create(float duration, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionFade *create(float duration, @addref(coexist autoref) cocos2d::Scene *scene, const cocos2d::Color3B &color)
+    static cocos2d::TransitionFade *create(float duration, @addref(coexist autoref) cocos2d::Scene *scene)
     TransitionFade()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3802,7 +3802,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionCrossFade'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionCrossFade *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionCrossFade *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     TransitionCrossFade()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3810,8 +3810,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionTurnOffTiles'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionTurnOffTiles *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
-    cocos2d::ActionInterval *easeActionWithAction(@hold(exclusive action) cocos2d::ActionInterval *action)
+    static cocos2d::TransitionTurnOffTiles *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
+    cocos2d::ActionInterval *easeActionWithAction(@addref(exclusive action) cocos2d::ActionInterval *action)
     TransitionTurnOffTiles()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3819,9 +3819,9 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionSplitCols'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionSplitCols *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionSplitCols *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     cocos2d::ActionInterval *action()
-    cocos2d::ActionInterval *easeActionWithAction(@hold(exclusive action) cocos2d::ActionInterval *action)
+    cocos2d::ActionInterval *easeActionWithAction(@addref(exclusive action) cocos2d::ActionInterval *action)
     TransitionSplitCols()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3829,7 +3829,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionSplitRows'
 cls.SUPERCLS = "cocos2d::TransitionSplitCols"
 cls.funcs [[
-    static cocos2d::TransitionSplitRows *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionSplitRows *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     TransitionSplitRows()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3837,9 +3837,9 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFadeTR'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionFadeTR *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionFadeTR *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     cocos2d::ActionInterval *actionWithSize(const cocos2d::Size &size)
-    cocos2d::ActionInterval *easeActionWithAction(@hold(exclusive action) cocos2d::ActionInterval *action)
+    cocos2d::ActionInterval *easeActionWithAction(@addref(exclusive action) cocos2d::ActionInterval *action)
     TransitionFadeTR()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3847,7 +3847,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFadeBL'
 cls.SUPERCLS = "cocos2d::TransitionFadeTR"
 cls.funcs [[
-    static cocos2d::TransitionFadeBL *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionFadeBL *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     TransitionFadeBL()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3855,7 +3855,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFadeUp'
 cls.SUPERCLS = "cocos2d::TransitionFadeTR"
 cls.funcs [[
-    static cocos2d::TransitionFadeUp *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionFadeUp *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     TransitionFadeUp()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3863,7 +3863,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFadeDown'
 cls.SUPERCLS = "cocos2d::TransitionFadeTR"
 cls.funcs [[
-    static cocos2d::TransitionFadeDown *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionFadeDown *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     TransitionFadeDown()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3871,7 +3871,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionPageTurn'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionPageTurn *create(float t, @hold(coexist autoref) cocos2d::Scene *scene, bool backwards)
+    static cocos2d::TransitionPageTurn *create(float t, @addref(coexist autoref) cocos2d::Scene *scene, bool backwards)
     cocos2d::ActionInterval *actionWithSize(const cocos2d::Size &vector)
     TransitionPageTurn()
 ]]
@@ -3880,7 +3880,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionProgress'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionProgress *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionProgress *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     TransitionProgress()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3888,7 +3888,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionProgressRadialCCW'
 cls.SUPERCLS = "cocos2d::TransitionProgress"
 cls.funcs [[
-    static cocos2d::TransitionProgressRadialCCW *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionProgressRadialCCW *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     TransitionProgressRadialCCW()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3896,7 +3896,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionProgressRadialCW'
 cls.SUPERCLS = "cocos2d::TransitionProgress"
 cls.funcs [[
-    static cocos2d::TransitionProgressRadialCW *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionProgressRadialCW *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     TransitionProgressRadialCW()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3904,7 +3904,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionProgressHorizontal'
 cls.SUPERCLS = "cocos2d::TransitionProgress"
 cls.funcs [[
-    static cocos2d::TransitionProgressHorizontal *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionProgressHorizontal *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     TransitionProgressHorizontal()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3912,7 +3912,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionProgressVertical'
 cls.SUPERCLS = "cocos2d::TransitionProgress"
 cls.funcs [[
-    static cocos2d::TransitionProgressVertical *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionProgressVertical *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     TransitionProgressVertical()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3920,7 +3920,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionProgressInOut'
 cls.SUPERCLS = "cocos2d::TransitionProgress"
 cls.funcs [[
-    static cocos2d::TransitionProgressInOut *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionProgressInOut *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     TransitionProgressInOut()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3928,7 +3928,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionProgressOutIn'
 cls.SUPERCLS = "cocos2d::TransitionProgress"
 cls.funcs [[
-    static cocos2d::TransitionProgressOutIn *create(float t, @hold(coexist autoref) cocos2d::Scene *scene)
+    static cocos2d::TransitionProgressOutIn *create(float t, @addref(coexist autoref) cocos2d::Scene *scene)
     TransitionProgressOutIn()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls

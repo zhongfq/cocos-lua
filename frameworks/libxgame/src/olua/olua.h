@@ -58,9 +58,9 @@ extern "C" {
 #define olua_postnew(L, obj) olua_noapi(olua_postnew)
 #endif
     
-#ifndef olua_startcmpunhold
-#define olua_startcmpunhold(L, i, n) olua_noapi(olua_startcmpunhold)
-#define olua_endcmpunhold(L, i, n)   olua_noapi(olua_endcmpunhold)
+#ifndef olua_startcmpdelref
+#define olua_startcmpdelref(L, i, n) olua_noapi(olua_startcmpdelref)
+#define olua_endcmpdelref(L, i, n)   olua_noapi(olua_endcmpdelref)
 #endif
     
 #ifndef olua_startinvoke
@@ -176,16 +176,16 @@ OLUA_API void olua_unref(lua_State *L, int ref);
 OLUA_API void olua_getref(lua_State *L, int ref);
     
 // for ref chain, callback store in the uservalue of userdata
-#define OLUA_FLAG_EXCLUSIVE (1 << 1) // hold & unhold: only one per-node
-#define OLUA_FLAG_COEXIST   (1 << 2) // hold & unhold: one or more per-node
-#define OLUA_FLAG_ARRAY     (1 << 3) // hold & unhold:
+#define OLUA_FLAG_EXCLUSIVE (1 << 1) // add & remove: only ref one
+#define OLUA_FLAG_COEXIST   (1 << 2) // add & remove: can ref one or more
+#define OLUA_FLAG_ARRAY     (1 << 3) // add & remove:
 #define OLUA_FLAG_REMOVE    (1 << 4) // internal use
-typedef bool (*olua_WalkFunction)(lua_State *L, int idx);
-OLUA_API void olua_getholdtable(lua_State *L, int idx, const char *name);
-OLUA_API void olua_hold(lua_State *L, int idx, const char *name, int obj, int flags);
-OLUA_API void olua_unhold(lua_State *L, int idx, const char *name, int obj, int flags);
-OLUA_API void olua_unholdall(lua_State *L, int idx, const char *name);
-OLUA_API void olua_walkunhold(lua_State *L, int idx, const char *name, olua_WalkFunction walk);
+typedef bool (*olua_DelRefVisitor)(lua_State *L, int idx);
+OLUA_API void olua_getreftable(lua_State *L, int idx, const char *name);
+OLUA_API void olua_addref(lua_State *L, int idx, const char *name, int obj, int flags);
+OLUA_API void olua_delref(lua_State *L, int idx, const char *name, int obj, int flags);
+OLUA_API void olua_delallrefs(lua_State *L, int idx, const char *name);
+OLUA_API void olua_visitrefs(lua_State *L, int idx, const char *name, olua_DelRefVisitor walk);
 
 //
 // lua class model

@@ -42,16 +42,16 @@ typeconf 'cocos2d::Action'
 typeconf 'cocos2d::FiniteTimeAction'
 
 typeconf 'cocos2d::Speed'
-    .ATTR('create', {ARG1 = '@addref(exclusive innerAction)'})
-    .ATTR('setInnerAction', {ARG1 = '@addref(exclusive innerAction)'})
-    .ATTR('getInnerAction', {RET = '@addref(exclusive innerAction)'})
+    .ATTR('create', {ARG1 = '@addref(innerAction ^)'})
+    .ATTR('setInnerAction', {ARG1 = '@addref(innerAction ^)'})
+    .ATTR('getInnerAction', {RET = '@addref(innerAction ^)'})
 
 typeconf 'cocos2d::Follow'
 typeconf 'cocos2d::tweenfunc'
 typeconf 'cocos2d::ActionInterval'
 
 local Sequence = typeconf 'cocos2d::Sequence'
-Sequence.ATTR('createWithTwoActions', {ARG1 = '@addref(coexist autoref)', ARG2 = '@addref(coexist autoref)'})
+Sequence.ATTR('createWithTwoActions', {ARG1 = '@addref(autoref |)', ARG2 = '@addref(autoref |)'})
 Sequence.FUNC('create', [[
 {
     cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
@@ -74,17 +74,17 @@ Sequence.FUNC('create', [[
 }]])
 
 local Repeat = typeconf 'cocos2d::Repeat'
-Repeat.ATTR('create', {ARG1 = '@addref(exclusive innerAction)'})
-Repeat.ATTR('setInnerAction', {ARG1 = '@addref(exclusive innerAction)'})
-Repeat.ATTR('getInnerAction', {RET = '@addref(exclusive innerAction)'})
+Repeat.ATTR('create', {ARG1 = '@addref(innerAction ^)'})
+Repeat.ATTR('setInnerAction', {ARG1 = '@addref(innerAction ^)'})
+Repeat.ATTR('getInnerAction', {RET = '@addref(innerAction ^)'})
 
 local RepeatForever = typeconf 'cocos2d::RepeatForever'
-RepeatForever.ATTR('create', {ARG1 = '@addref(exclusive innerAction)'})
-RepeatForever.ATTR('setInnerAction', {ARG1 = '@addref(exclusive innerAction)'})
-RepeatForever.ATTR('getInnerAction', {RET = '@addref(exclusive innerAction)'})
+RepeatForever.ATTR('create', {ARG1 = '@addref(innerAction ^)'})
+RepeatForever.ATTR('setInnerAction', {ARG1 = '@addref(innerAction ^)'})
+RepeatForever.ATTR('getInnerAction', {RET = '@addref(innerAction ^)'})
 
 local Spawn = typeconf 'cocos2d::Spawn'
-Spawn.ATTR('createWithTwoActions', {ARG1 = '@addref(coexist autoref)', ARG2 = '@addref(coexist autoref)'})
+Spawn.ATTR('createWithTwoActions', {ARG1 = '@addref(autoref |)', ARG2 = '@addref(autoref |)'})
 Spawn.FUNC('create', [[
 {
     cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
@@ -143,12 +143,12 @@ typeconf 'cocos2d::TintBy'
 typeconf 'cocos2d::DelayTime'
 
 typeconf 'cocos2d::ReverseTime'
-    .ATTR('create', {ARG1 = '@addref(coexist autoref)'})
+    .ATTR('create', {ARG1 = '@addref(autoref |)'})
 
 typeconf 'cocos2d::Animate'
 
 typeconf 'cocos2d::TargetedAction'
-    .ATTR('create', {ARG2 = '@addref(coexist autoref)'})
+    .ATTR('create', {ARG2 = '@addref(autoref |)'})
 
 typeconf 'cocos2d::ActionFloat'
     .CALLBACK {
@@ -162,11 +162,11 @@ typeconf 'cocos2d::ProgressTo'
 typeconf 'cocos2d::ProgressFromTo'
 
 typeconf 'cocos2d::ActionEase'
-    .ATTR('getInnerAction', {RET = '@addref(exclusive innerAction)'})
+    .ATTR('getInnerAction', {RET = '@addref(innerAction ^)'})
 
 local function typeease(name)
     local cls = typeconf(name)
-    cls.ATTR('create', {ARG1 = '@addref(exclusive innerAction)'})
+    cls.ATTR('create', {ARG1 = '@addref(innerAction ^)'})
     return cls
 end
 

@@ -67,11 +67,11 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Speed'
 cls.SUPERCLS = "cocos2d::Action"
 cls.funcs [[
-    static cocos2d::Speed *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action, float speed)
+    static cocos2d::Speed *create(@addref(innerAction ^) cocos2d::ActionInterval *action, float speed)
     float getSpeed()
     void setSpeed(float speed)
-    void setInnerAction(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
-    @addref(exclusive innerAction) cocos2d::ActionInterval *getInnerAction()
+    void setInnerAction(@addref(innerAction ^) cocos2d::ActionInterval *action)
+    @addref(innerAction ^) cocos2d::ActionInterval *getInnerAction()
 ]]
 cls.props [[
     speed
@@ -154,7 +154,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Sequence'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
-    static cocos2d::Sequence *createWithTwoActions(@addref(coexist autoref) cocos2d::FiniteTimeAction *actionOne, @addref(coexist autoref) cocos2d::FiniteTimeAction *actionTwo)
+    static cocos2d::Sequence *createWithTwoActions(@addref(autoref |) cocos2d::FiniteTimeAction *actionOne, @addref(autoref |) cocos2d::FiniteTimeAction *actionTwo)
 ]]
 cls.func('create', [[{
     cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
@@ -180,9 +180,9 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Repeat'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
-    static cocos2d::Repeat *create(@addref(exclusive innerAction) cocos2d::FiniteTimeAction *action, unsigned int times)
-    void setInnerAction(@addref(exclusive innerAction) cocos2d::FiniteTimeAction *action)
-    @addref(exclusive innerAction) cocos2d::FiniteTimeAction *getInnerAction()
+    static cocos2d::Repeat *create(@addref(innerAction ^) cocos2d::FiniteTimeAction *action, unsigned int times)
+    void setInnerAction(@addref(innerAction ^) cocos2d::FiniteTimeAction *action)
+    @addref(innerAction ^) cocos2d::FiniteTimeAction *getInnerAction()
 ]]
 cls.props [[
     innerAction
@@ -192,9 +192,9 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::RepeatForever'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
-    static cocos2d::RepeatForever *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
-    void setInnerAction(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
-    @addref(exclusive innerAction) cocos2d::ActionInterval *getInnerAction()
+    static cocos2d::RepeatForever *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
+    void setInnerAction(@addref(innerAction ^) cocos2d::ActionInterval *action)
+    @addref(innerAction ^) cocos2d::ActionInterval *getInnerAction()
 ]]
 cls.props [[
     innerAction
@@ -204,7 +204,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Spawn'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
-    static cocos2d::Spawn *createWithTwoActions(@addref(coexist autoref) cocos2d::FiniteTimeAction *action1, @addref(coexist autoref) cocos2d::FiniteTimeAction *action2)
+    static cocos2d::Spawn *createWithTwoActions(@addref(autoref |) cocos2d::FiniteTimeAction *action1, @addref(autoref |) cocos2d::FiniteTimeAction *action2)
 ]]
 cls.func('create', [[{
     cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
@@ -388,7 +388,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ReverseTime'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
-    static cocos2d::ReverseTime *create(@addref(coexist autoref) cocos2d::FiniteTimeAction *action)
+    static cocos2d::ReverseTime *create(@addref(autoref |) cocos2d::FiniteTimeAction *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -409,7 +409,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TargetedAction'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
-    static cocos2d::TargetedAction *create(cocos2d::Node *target, @addref(coexist autoref) cocos2d::FiniteTimeAction *action)
+    static cocos2d::TargetedAction *create(cocos2d::Node *target, @addref(autoref |) cocos2d::FiniteTimeAction *action)
     void setForcedTarget(cocos2d::Node *forcedTarget)
     cocos2d::Node *getForcedTarget()
     bool initWithTarget(cocos2d::Node *target, cocos2d::FiniteTimeAction *action)
@@ -453,7 +453,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ActionEase'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
-    @addref(exclusive innerAction) cocos2d::ActionInterval *getInnerAction()
+    @addref(innerAction ^) cocos2d::ActionInterval *getInnerAction()
 ]]
 cls.props [[
     innerAction
@@ -463,7 +463,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EaseRateAction'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseRateAction *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action, float rate)
+    static cocos2d::EaseRateAction *create(@addref(innerAction ^) cocos2d::ActionInterval *action, float rate)
     void setRate(float rate)
     float getRate()
 ]]
@@ -475,210 +475,210 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EaseExponentialIn'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseExponentialIn *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseExponentialIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseExponentialOut'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseExponentialOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseExponentialOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseExponentialInOut'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseExponentialInOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseExponentialInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseSineIn'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseSineIn *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseSineIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseSineOut'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseSineOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseSineOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseSineInOut'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseSineInOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseSineInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseBounceIn'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseBounceIn *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseBounceIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseBounceOut'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseBounceOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseBounceOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseBounceInOut'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseBounceInOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseBounceInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseBackIn'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseBackIn *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseBackIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseBackOut'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseBackOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseBackOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseBackInOut'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseBackInOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseBackInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseQuadraticActionIn'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseQuadraticActionIn *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseQuadraticActionIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseQuadraticActionOut'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseQuadraticActionOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseQuadraticActionOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseQuadraticActionInOut'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseQuadraticActionInOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseQuadraticActionInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseQuarticActionIn'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseQuarticActionIn *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseQuarticActionIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseQuarticActionOut'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseQuarticActionOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseQuarticActionOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseQuarticActionInOut'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseQuarticActionInOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseQuarticActionInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseQuinticActionIn'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseQuinticActionIn *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseQuinticActionIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseQuinticActionOut'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseQuinticActionOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseQuinticActionOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseQuinticActionInOut'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseQuinticActionInOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseQuinticActionInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseCircleActionIn'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseCircleActionIn *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseCircleActionIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseCircleActionOut'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseCircleActionOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseCircleActionOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseCircleActionInOut'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseCircleActionInOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseCircleActionInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseCubicActionIn'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseCubicActionIn *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseCubicActionIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseCubicActionOut'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseCubicActionOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseCubicActionOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseCubicActionInOut'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseCubicActionInOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseCubicActionInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseIn'
 cls.SUPERCLS = "cocos2d::EaseRateAction"
 cls.funcs [[
-    static cocos2d::EaseIn *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action, float rate)
+    static cocos2d::EaseIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action, float rate)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseOut'
 cls.SUPERCLS = "cocos2d::EaseRateAction"
 cls.funcs [[
-    static cocos2d::EaseOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action, float rate)
+    static cocos2d::EaseOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action, float rate)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseInOut'
 cls.SUPERCLS = "cocos2d::EaseRateAction"
 cls.funcs [[
-    static cocos2d::EaseInOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action, float rate)
+    static cocos2d::EaseInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action, float rate)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -696,28 +696,28 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EaseElasticIn'
 cls.SUPERCLS = "cocos2d::EaseElastic"
 cls.funcs [[
-    static cocos2d::EaseElasticIn *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action, @optional float rate)
+    static cocos2d::EaseElasticIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action, @optional float rate)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseElasticOut'
 cls.SUPERCLS = "cocos2d::EaseElastic"
 cls.funcs [[
-    static cocos2d::EaseElasticOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action, @optional float rate)
+    static cocos2d::EaseElasticOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action, @optional float rate)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseElasticInOut'
 cls.SUPERCLS = "cocos2d::EaseElastic"
 cls.funcs [[
-    static cocos2d::EaseElasticInOut *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action, @optional float rate)
+    static cocos2d::EaseElasticInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action, @optional float rate)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EaseBezierAction'
 cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
-    static cocos2d::EaseBezierAction *create(@addref(exclusive innerAction) cocos2d::ActionInterval *action)
+    static cocos2d::EaseBezierAction *create(@addref(innerAction ^) cocos2d::ActionInterval *action)
     void setBezierParamer(float p0, float p1, float p2, float p3)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls

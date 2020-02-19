@@ -197,12 +197,12 @@ typeconf 'fairygui::GController'
 
 local GObject = typeconf 'fairygui::GObject'
 GObject.EXCLUDE 'constructFromResource'
-GObject.ATTR('getGroup', {RET = '@addref(exclusive group)'})
-GObject.ATTR('setGroup', {ARG1 = '@addref(exclusive group)'})
+GObject.ATTR('getGroup', {RET = '@addref(group ^)'})
+GObject.ATTR('setGroup', {ARG1 = '@addref(group ^)'})
 GObject.ATTR('globalToLocal', {ARG1 = '@pack'})
 GObject.ATTR('localToGlobal', {ARG1 = '@pack'})
 GObject.ATTR('transformRect', {ARG1 = '@pack'})
-GObject.ATTR('displayObject', {RET = '@addref(exclusive displayObject)'})
+GObject.ATTR('displayObject', {RET = '@addref(displayObject ^)'})
 GObject.PROP('relations', 'Relations* relations()')
 GObject.PROP('displayObject', 'cocos2d::Node* displayObject()')
 GObject.FUNC('getDragBounds', [[
@@ -242,26 +242,26 @@ GObject.INJECT('makeFullScreen', {
 })
 
 local GComponent = typeconf 'fairygui::GComponent'
-GComponent.ATTR('addChild', {ARG1 = '@addref(coexist children)'})
-GComponent.ATTR('addChildAt', {ARG1 = '@addref(coexist children)'})
-GComponent.ATTR('removeChild', {ARG1 = '@delref(coexist children)'})
-GComponent.ATTR('removeChildAt', {RET = '@delref(cmp children)'})
-GComponent.ATTR('removeChildren', {RET = '@delref(cmp children)'})
-GComponent.ATTR('getChildAt', {RET = '@addref(coexist children)'})
-GComponent.ATTR('getChild', {RET = '@addref(coexist children)'})
-GComponent.ATTR('getChildInGroup', {RET = '@addref(coexist children)'})
-GComponent.ATTR('getChildById', {RET = '@addref(coexist children)'})
-GComponent.ATTR('getChildren', {RET = '@addref(coexist children)'})
-GComponent.ATTR('addController', {ARG1 = '@addref(coexist controllers)'})
-GComponent.ATTR('getControllerAt', {RET = '@addref(coexist controllers)'})
-GComponent.ATTR('getController', {RET = '@addref(coexist controllers)'})
-GComponent.ATTR('getControllers', {RET = '@addref(coexist controllers)'})
-GComponent.ATTR('removeController', {ARG1 = '@delref(coexist controllers)'})
-GComponent.ATTR('getTransition', {RET = '@addref(coexist transitions)'})
-GComponent.ATTR('getTransitionAt', {RET = '@addref(coexist transitions)'})
-GComponent.ATTR('getTransitions', {RET = '@addref(coexist transitions)'})
-GComponent.ATTR('getMask', {RET = '@addref(exclusive mask)'})
-GComponent.ATTR('setMask', {ARG1 = '@addref(exclusive mask)'})
+GComponent.ATTR('addChild', {ARG1 = '@addref(children |)'})
+GComponent.ATTR('addChildAt', {ARG1 = '@addref(children |)'})
+GComponent.ATTR('removeChild', {ARG1 = '@delref(children |)'})
+GComponent.ATTR('removeChildAt', {RET = '@delref(children ~)'})
+GComponent.ATTR('removeChildren', {RET = '@delref(children ~)'})
+GComponent.ATTR('getChildAt', {RET = '@addref(children |)'})
+GComponent.ATTR('getChild', {RET = '@addref(children |)'})
+GComponent.ATTR('getChildInGroup', {RET = '@addref(children |)'})
+GComponent.ATTR('getChildById', {RET = '@addref(children |)'})
+GComponent.ATTR('getChildren', {RET = '@addref(children |)'})
+GComponent.ATTR('addController', {ARG1 = '@addref(controllers |)'})
+GComponent.ATTR('getControllerAt', {RET = '@addref(controllers |)'})
+GComponent.ATTR('getController', {RET = '@addref(controllers |)'})
+GComponent.ATTR('getControllers', {RET = '@addref(controllers |)'})
+GComponent.ATTR('removeController', {ARG1 = '@delref(controllers |)'})
+GComponent.ATTR('getTransition', {RET = '@addref(transitions |)'})
+GComponent.ATTR('getTransitionAt', {RET = '@addref(transitions |)'})
+GComponent.ATTR('getTransitions', {RET = '@addref(transitions |)'})
+GComponent.ATTR('getMask', {RET = '@addref(mask ^)'})
+GComponent.ATTR('setMask', {ARG1 = '@addref(mask ^)'})
 GComponent.PROP('numChildren', 'int numChildren()')
 GComponent.FUNC('resolve', [[
 {
@@ -313,16 +313,16 @@ GComponent.FUNC('resolve', [[
 }]])
 
 local GRoot = typeconf 'fairygui::GRoot'
-GRoot.ATTR('showWindow', {RET = '@delref(cmp children)', ARG1 = '@addref(coexist children)'})
-GRoot.ATTR('hideWindow', {RET = '@delref(cmp children parent)'})
-GRoot.ATTR('hideWindowImmediately', {RET = '@delref(cmp children parent)'})
-GRoot.ATTR('getTopWindow', {RET = '@addref(coexist children)'})
-GRoot.ATTR('getModalWaitingPane', {RET = '@addref(coexist children)'})
-GRoot.ATTR('getModalLayer', {RET = '@addref(coexist children)'})
-GRoot.ATTR('showPopup', {RET = '@delref(cmp children)', ARG1 = '@addref(coexist children)'})
-GRoot.ATTR('togglePopup', {RET = '@delref(cmp children)', ARG1 = '@addref(coexist children)'})
-GRoot.ATTR('hidePopup', {RET = '@delref(cmp children)'})
-GRoot.ATTR('getInputProcessor', {RET = '@addref(exclusive inputProcessor)'})
+GRoot.ATTR('showWindow', {RET = '@delref(children ~)', ARG1 = '@addref(children |)'})
+GRoot.ATTR('hideWindow', {RET = '@delref(children ~ parent)'})
+GRoot.ATTR('hideWindowImmediately', {RET = '@delref(children ~ parent)'})
+GRoot.ATTR('getTopWindow', {RET = '@addref(children |)'})
+GRoot.ATTR('getModalWaitingPane', {RET = '@addref(children |)'})
+GRoot.ATTR('getModalLayer', {RET = '@addref(children |)'})
+GRoot.ATTR('showPopup', {RET = '@delref(children ~)', ARG1 = '@addref(children |)'})
+GRoot.ATTR('togglePopup', {RET = '@delref(children ~)', ARG1 = '@addref(children |)'})
+GRoot.ATTR('hidePopup', {RET = '@delref(children ~)'})
+GRoot.ATTR('getInputProcessor', {RET = '@addref(inputProcessor ^)'})
 GRoot.PROP('UIRoot', 'static GRoot* getInstance()')
 GRoot.INJECT('create', {
     AFTER = [[
@@ -347,7 +347,7 @@ typeconf 'fairygui::GGroup'
 typeconf 'fairygui::GScrollBar'
 
 local GLoader = typeconf 'fairygui::GLoader'
-GLoader.ATTR('getComponent', {RET = '@addref(exclusive component)'})
+GLoader.ATTR('getComponent', {RET = '@addref(component ^)'})
 
 local GTextField = typeconf 'fairygui::GTextField'
 GTextField.FUNC('getTemplateVars', [[
@@ -371,26 +371,26 @@ typeconf 'fairygui::GBasicTextField'
 typeconf 'fairygui::GGraph'
 
 local GButton = typeconf 'fairygui::GButton'
-GButton.ATTR('getRelatedController', {RET = '@addref(exclusive relatedController)'})
-GButton.ATTR('setRelatedController', {ARG1 = '@addref(exclusive relatedController)'})
-GButton.ATTR('getTextField', {RET = '@addref(exclusive textField)'})
+GButton.ATTR('getRelatedController', {RET = '@addref(relatedController ^)'})
+GButton.ATTR('setRelatedController', {ARG1 = '@addref(relatedController ^)'})
+GButton.ATTR('getTextField', {RET = '@addref(textField ^)'})
 
 typeconf 'fairygui::GImage'
 
 local GLabel = typeconf 'fairygui::GLabel'
-GLabel.ATTR('getTextField', {RET = '@addref(exclusive textField)'})
+GLabel.ATTR('getTextField', {RET = '@addref(textField ^)'})
 
 local GList = typeconf 'fairygui::GList'
-GList.ATTR('returnToPool', {ARG1 = '@delref(coexist children)'})
-GList.ATTR('addItemFromPool', {RET = '@addref(coexist children)'})
-GList.ATTR('removeChildToPoolAt', {RET = '@delref(cmp children)'})
-GList.ATTR('removeChildToPool', {ARG1 = '@delref(coexist children)'})
-GList.ATTR('removeChildrenToPool', {RET = '@delref(cmp children)'})
-GList.ATTR('getSelectionController', {RET = '@addref(exclusive selectionController)'})
-GList.ATTR('setSelectionController', {ARG1 = '@addref(exclusive selectionController)'})
-GList.ATTR('setVirtual', {RET = '@delref(cmp children)'})
-GList.ATTR('setVirtualAndLoop', {RET = '@delref(cmp children)'})
-GList.ATTR('setNumItems', {RET = '@delref(cmp children)'})
+GList.ATTR('returnToPool', {ARG1 = '@delref(children |)'})
+GList.ATTR('addItemFromPool', {RET = '@addref(children |)'})
+GList.ATTR('removeChildToPoolAt', {RET = '@delref(children ~)'})
+GList.ATTR('removeChildToPool', {ARG1 = '@delref(children |)'})
+GList.ATTR('removeChildrenToPool', {RET = '@delref(children ~)'})
+GList.ATTR('getSelectionController', {RET = '@addref(selectionController ^)'})
+GList.ATTR('setSelectionController', {ARG1 = '@addref(selectionController ^)'})
+GList.ATTR('setVirtual', {RET = '@delref(children ~)'})
+GList.ATTR('setVirtualAndLoop', {RET = '@delref(children ~)'})
+GList.ATTR('setNumItems', {RET = '@delref(children ~)'})
 GList.VAR('itemRenderer', 'std::function<void(int, GObject*)> itemRenderer')
 GList.VAR('itemProvider', 'std::function<std::string(int)> itemProvider')
 -- std::function<void(int, GObject*)> itemRenderer;
@@ -409,21 +409,21 @@ typeconf 'fairygui::GMovieClip'
 typeconf 'fairygui::GProgressBar'
 
 local GComboBox = typeconf 'fairygui::GComboBox'
-GComboBox.ATTR('getSelectionController', {RET = '@addref(exclusive selectionController)'})
-GComboBox.ATTR('setSelectionController', {ARG1 = '@addref(exclusive selectionController)'})
-GComboBox.ATTR('getDropdown', {RET = '@addref(exclusive dropdown)'})
-GComboBox.ATTR('getTextField', {RET = '@addref(exclusive textField)'})
+GComboBox.ATTR('getSelectionController', {RET = '@addref(selectionController ^)'})
+GComboBox.ATTR('setSelectionController', {ARG1 = '@addref(selectionController ^)'})
+GComboBox.ATTR('getDropdown', {RET = '@addref(dropdown ^)'})
+GComboBox.ATTR('getTextField', {RET = '@addref(textField ^)'})
 
 typeconf 'fairygui::GRichTextField'
 typeconf 'fairygui::GSlider'
 typeconf 'fairygui::GTextInput'
 
 local PopupMenu = typeconf 'fairygui::PopupMenu'
-PopupMenu.ATTR('removeItem', {RET = '@delref(cmp children parent)'})
-PopupMenu.ATTR('clearItems', {RET = '@delref(cmp children parent)'})
-PopupMenu.ATTR('getContentPane', {RET = '@addref(exclusive contentPane)'})
-PopupMenu.ATTR('getList', {RET = '@addref(exclusive list)'})
-PopupMenu.ATTR('show', {RET = '@delref(cmp children parent)@addref(coexist children parent)'})
+PopupMenu.ATTR('removeItem', {RET = '@delref(children ~ parent)'})
+PopupMenu.ATTR('clearItems', {RET = '@delref(children ~ parent)'})
+PopupMenu.ATTR('getContentPane', {RET = '@addref(contentPane ^)'})
+PopupMenu.ATTR('getList', {RET = '@addref(list ^)'})
+PopupMenu.ATTR('show', {RET = '@delref(children ~ parent)@addref(children | parent)'})
 PopupMenu.CHUNK = [[
 static int _fairygui_PopupMenu_addItemAt(lua_State *L);
 ]]
@@ -507,8 +507,8 @@ Relations.FUNC('copyFrom', [[
 typeconf 'fairygui::RelationType'
 
 local RelationItem = typeconf 'fairygui::RelationItem'
-RelationItem.ATTR('getTarget', {RET = '@addref(exclusive target)'})
-RelationItem.ATTR('setTarget', {ARG1 = '@addref(exclusive target)'})
+RelationItem.ATTR('getTarget', {RET = '@addref(target ^)'})
+RelationItem.ATTR('setTarget', {ARG1 = '@addref(target ^)'})
 RelationItem.FUNC('copyFrom', [[
 {
     fairygui::RelationItem *self = (fairygui::RelationItem *)olua_toobj(L, 1, "fgui.RelationItem");
@@ -520,16 +520,16 @@ RelationItem.FUNC('copyFrom', [[
 }]])
 
 local ScrollPane = typeconf 'fairygui::ScrollPane'
-ScrollPane.ATTR('getOwner', {RET = '@addref(exclusive owner)'})
-ScrollPane.ATTR('getHeader', {RET = '@addref(exclusive header)'})
-ScrollPane.ATTR('getFooter', {RET = '@addref(exclusive footer)'})
-ScrollPane.ATTR('getVtScrollBar', {RET = '@addref(exclusive vtScrollBar)'})
-ScrollPane.ATTR('getHzScrollBar', {RET = '@addref(exclusive hzScrollBar)'})
-ScrollPane.ATTR('getPageController', {RET = '@addref(exclusive pageController)'})
-ScrollPane.ATTR('setPageController', {ARG1 = '@addref(exclusive pageController)'})
+ScrollPane.ATTR('getOwner', {RET = '@addref(owner ^)'})
+ScrollPane.ATTR('getHeader', {RET = '@addref(header ^)'})
+ScrollPane.ATTR('getFooter', {RET = '@addref(footer ^)'})
+ScrollPane.ATTR('getVtScrollBar', {RET = '@addref(vtScrollBar ^)'})
+ScrollPane.ATTR('getHzScrollBar', {RET = '@addref(hzScrollBar ^)'})
+ScrollPane.ATTR('getPageController', {RET = '@addref(pageController ^)'})
+ScrollPane.ATTR('setPageController', {ARG1 = '@addref(pageController ^)'})
 
 local Transition = typeconf 'fairygui::Transition'
-Transition.ATTR('getOwner', {RET = '@addref(exclusive owner)'})
+Transition.ATTR('getOwner', {RET = '@addref(owner ^)'})
 Transition.CALLBACK {
     NAME = 'play',
     TAG_MAKER = 'play',
@@ -602,19 +602,19 @@ UISource.FUNC('create', 'static UISource *create()')
 UISource.FUNC('loadComplete', 'void loadComplete()')
 
 local Window = typeconf 'fairygui::Window'
-Window.ATTR('show', {RET = '@delref(cmp children parent)@addref(coexist children parent)'})
-Window.ATTR('hide', {RET = '@delref(cmp children parent)'})
-Window.ATTR('hideImmediately', {RET = '@delref(cmp children parent)'})
-Window.ATTR('getContentPane', {RET = '@addref(exclusive contentPane)'})
-Window.ATTR('setContentPane', {ARG1 = '@addref(exclusive contentPane)'})
-Window.ATTR('getFrame', {RET = '@addref(exclusive frame)'})
-Window.ATTR('getCloseButton', {RET = '@addref(exclusive closeButton)'})
-Window.ATTR('setCloseButton', {ARG1 = '@addref(exclusive closeButton)'})
-Window.ATTR('getDragArea', {RET = '@addref(exclusive dragArea)'})
-Window.ATTR('setDragArea', {ARG1 = '@addref(exclusive dragArea)'})
-Window.ATTR('getContentArea', {RET = '@addref(exclusive contentArea)'})
-Window.ATTR('setContentArea', {ARG1 = '@addref(exclusive contentArea)'})
-Window.ATTR('getModalWaitingPane', {RET = '@addref(exclusive modalWaitingPane)'})
+Window.ATTR('show', {RET = '@delref(children ~ parent)@addref(children | parent)'})
+Window.ATTR('hide', {RET = '@delref(children ~ parent)'})
+Window.ATTR('hideImmediately', {RET = '@delref(children ~ parent)'})
+Window.ATTR('getContentPane', {RET = '@addref(contentPane ^)'})
+Window.ATTR('setContentPane', {ARG1 = '@addref(contentPane ^)'})
+Window.ATTR('getFrame', {RET = '@addref(frame ^)'})
+Window.ATTR('getCloseButton', {RET = '@addref(closeButton ^)'})
+Window.ATTR('setCloseButton', {ARG1 = '@addref(closeButton ^)'})
+Window.ATTR('getDragArea', {RET = '@addref(dragArea ^)'})
+Window.ATTR('setDragArea', {ARG1 = '@addref(dragArea ^)'})
+Window.ATTR('getContentArea', {RET = '@addref(contentArea ^)'})
+Window.ATTR('setContentArea', {ARG1 = '@addref(contentArea ^)'})
+Window.ATTR('getModalWaitingPane', {RET = '@addref(modalWaitingPane ^)'})
 Window.INJECT('show', {
     BEFORE = [[
         fairygui::GComponent *root = fairygui::UIRoot;
@@ -649,20 +649,20 @@ GearBase.EXCLUDE 'updateState'
 GearBase.EXCLUDE 'setup'
 
 local GTreeNode = typeconf 'fairygui::GTreeNode'
-GTreeNode.ATTR('getCell', {RET = '@addref(exclusive cell)'})
-GTreeNode.ATTR('addChild', {ARG1 = '@addref(coexist children)'})
-GTreeNode.ATTR('addChildAt', {ARG1 = '@addref(coexist children)'})
-GTreeNode.ATTR('removeChild', {ARG1 = '@delref(coexist children)'})
-GTreeNode.ATTR('removeChildAt', {RET ='@delref(cmp children)'})
-GTreeNode.ATTR('removeChildren', {RET ='@delref(cmp children)'})
-GTreeNode.ATTR('getChildAt', {RET = '@addref(coexist children)'})
-GTreeNode.ATTR('getPrevSibling', {RET = '@addref(coexist children)'})
-GTreeNode.ATTR('getNextSibling', {RET = '@addref(coexist children)'})
+GTreeNode.ATTR('getCell', {RET = '@addref(cell ^)'})
+GTreeNode.ATTR('addChild', {ARG1 = '@addref(children |)'})
+GTreeNode.ATTR('addChildAt', {ARG1 = '@addref(children |)'})
+GTreeNode.ATTR('removeChild', {ARG1 = '@delref(children |)'})
+GTreeNode.ATTR('removeChildAt', {RET ='@delref(children ~)'})
+GTreeNode.ATTR('removeChildren', {RET ='@delref(children ~)'})
+GTreeNode.ATTR('getChildAt', {RET = '@addref(children |)'})
+GTreeNode.ATTR('getPrevSibling', {RET = '@addref(children |)'})
+GTreeNode.ATTR('getNextSibling', {RET = '@addref(children |)'})
 GTreeNode.PROP('numChildren', 'int numChildren()')
 
 local GTree = typeconf 'fairygui::GTree'
-GTree.ATTR('getList', {RET = '@addref(exclusive list)'})
-GTree.ATTR('getRootNode', {RET = '@addref(exclusive rootNode)'})
+GTree.ATTR('getList', {RET = '@addref(list ^)'})
+GTree.ATTR('getRootNode', {RET = '@addref(rootNode ^)'})
 GTree.CALLBACK {NAME = 'treeNodeRender', LOCAL = false}
 GTree.CALLBACK {NAME = 'treeNodeWillExpand', LOCAL = false}
 GTree.ATTR('getSelectedNodes', {ARG1 = '@out'})

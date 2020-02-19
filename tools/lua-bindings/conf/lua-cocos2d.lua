@@ -59,27 +59,27 @@ typeconf 'cocos2d::Acceleration'
 
 local Director = typeconf 'cocos2d::Director'
 Director.EXCLUDE 'getCocos2dThreadId'
-Director.ATTR('getRunningScene', {RET = '@addref(coexist scenes)'})
-Director.ATTR('runWithScene', {ARG1 = '@addref(coexist scenes)'})
-Director.ATTR('pushScene', {ARG1 = '@addref(coexist scenes)'})
-Director.ATTR('replaceScene', {RET = '@delref(cmp scenes)', ARG1 = '@addref(coexist scenes)'})
-Director.ATTR('popScene', {RET = '@delref(cmp scenes)'})
-Director.ATTR('popToRootScene', {RET = '@delref(cmp scenes)'})
-Director.ATTR('popToSceneStackLevel', {RET = '@delref(cmp scenes)'})
-Director.ATTR('getOpenGLView', {RET = '@addref(exclusive openGLView)'})
-Director.ATTR('setOpenGLView', {ARG1 = '@addref(exclusive openGLView)'})
-Director.ATTR('getTextureCache', {RET = '@addref(exclusive textureCache)'})
-Director.ATTR('getNotificationNode', {RET = '@addref(exclusive notificationNode)'})
-Director.ATTR('setNotificationNode', {ARG1 = '@addref(exclusive notificationNode)'})
+Director.ATTR('getRunningScene', {RET = '@addref(scenes |)'})
+Director.ATTR('runWithScene', {ARG1 = '@addref(scenes |)'})
+Director.ATTR('pushScene', {ARG1 = '@addref(scenes |)'})
+Director.ATTR('replaceScene', {RET = '@delref(scenes ~)', ARG1 = '@addref(scenes |)'})
+Director.ATTR('popScene', {RET = '@delref(scenes ~)'})
+Director.ATTR('popToRootScene', {RET = '@delref(scenes ~)'})
+Director.ATTR('popToSceneStackLevel', {RET = '@delref(scenes ~)'})
+Director.ATTR('getOpenGLView', {RET = '@addref(openGLView ^)'})
+Director.ATTR('setOpenGLView', {ARG1 = '@addref(openGLView ^)'})
+Director.ATTR('getTextureCache', {RET = '@addref(textureCache ^)'})
+Director.ATTR('getNotificationNode', {RET = '@addref(notificationNode ^)'})
+Director.ATTR('setNotificationNode', {ARG1 = '@addref(notificationNode ^)'})
 Director.ATTR('convertToGL', {ARG1 = '@pack'})
 Director.ATTR('convertToUI', {ARG1 = '@pack'})
-Director.ATTR('getEventDispatcher', {RET = '@addref(exclusive eventDispatcher)'})
-Director.ATTR('setEventDispatcher', {ARG1 = '@addref(exclusive eventDispatcher)'})
-Director.ATTR('getScheduler', {RET = '@addref(exclusive scheduler)'})
-Director.ATTR('setScheduler', {ARG1 = '@addref(exclusive scheduler)'})
-Director.ATTR('getActionManager', {RET = '@addref(exclusive actionManager)'})
-Director.ATTR('setActionManager', {ARG1 = '@addref(exclusive actionManager)'})
-Director.ATTR('getRenderer', {RET = '@addref(exclusive renderer)'})
+Director.ATTR('getEventDispatcher', {RET = '@addref(eventDispatcher ^)'})
+Director.ATTR('setEventDispatcher', {ARG1 = '@addref(eventDispatcher ^)'})
+Director.ATTR('getScheduler', {RET = '@addref(scheduler ^)'})
+Director.ATTR('setScheduler', {ARG1 = '@addref(scheduler ^)'})
+Director.ATTR('getActionManager', {RET = '@addref(actionManager ^)'})
+Director.ATTR('setActionManager', {ARG1 = '@addref(actionManager ^)'})
+Director.ATTR('getRenderer', {RET = '@addref(renderer ^)'})
 
 local Scheduler = typeconf 'cocos2d::Scheduler'
 Scheduler.EXCLUDE 'performFunctionInCocosThread'
@@ -144,12 +144,12 @@ Scheduler.FUNC('scheduleUpdate', [[
 -- event & event listener
 --
 local EventDispatcher = typeconf 'cocos2d::EventDispatcher'
-EventDispatcher.ATTR('addEventListenerWithSceneGraphPriority', {ARG1 = '@addref(coexist listeners 3)'})
-EventDispatcher.ATTR('addEventListenerWithFixedPriority', {ARG1 = '@addref(coexist listeners)'})
-EventDispatcher.ATTR('removeCustomEventListeners', {RET = '@delref(cmp listeners)'})
-EventDispatcher.ATTR('removeEventListener', {RET = '@delref(cmp listeners)'})
-EventDispatcher.ATTR('removeEventListenersForType', {RET = '@delref(cmp listeners)'})
-EventDispatcher.ATTR('removeAllEventListeners', {RET = '@delref(cmp listeners)'})
+EventDispatcher.ATTR('addEventListenerWithSceneGraphPriority', {ARG1 = '@addref(listeners | 3)'})
+EventDispatcher.ATTR('addEventListenerWithFixedPriority', {ARG1 = '@addref(listeners |)'})
+EventDispatcher.ATTR('removeCustomEventListeners', {RET = '@delref(listeners ~)'})
+EventDispatcher.ATTR('removeEventListener', {RET = '@delref(listeners ~)'})
+EventDispatcher.ATTR('removeEventListenersForType', {RET = '@delref(listeners ~)'})
+EventDispatcher.ATTR('removeAllEventListeners', {RET = '@delref(listeners ~)'})
 EventDispatcher.CHUNK = [[
 static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
 {
@@ -488,44 +488,44 @@ end
 local Node = typeconf 'cocos2d::Node'
 Node.EXCLUDE 'scheduleUpdateWithPriorityLua'
 Node.EXCLUDE 'enumerateChildren' -- TODO
-Node.ATTR('addChild', {ARG1 = '@addref(coexist children)'})
-Node.ATTR('getChildByTag', {RET = '@addref(coexist children)'})
-Node.ATTR('getChildByName', {RET = '@addref(coexist children)'})
-Node.ATTR('getChildren', {RET = '@addref(coexist children)'})
-Node.ATTR('removeFromParent', {RET = '@delref(coexist children parent)'})
-Node.ATTR('removeFromParentAndCleanup', {RET = '@delref(coexist children parent)'})
-Node.ATTR('removeChild', {ARG1 = '@delref(coexist children)'})
-Node.ATTR('removeChildByTag', {RET = '@delref(cmp children)'})
-Node.ATTR('removeChildByName', {RET = '@delref(cmp children)'})
-Node.ATTR('removeAllChildren', {RET = '@delref(all children)'})
-Node.ATTR('removeAllChildrenWithCleanup', {RET = '@delref(all children)'})
-Node.ATTR('getGLProgram', {RET = '@addref(exclusive glProgram)'})
-Node.ATTR('setGLProgram', {ARG1 = '@addref(exclusive glProgram)'})
-Node.ATTR('getGLProgramState', {RET = '@addref(exclusive glProgramState)'})
-Node.ATTR('setGLProgramState', {ARG1 = '@addref(exclusive glProgramState)'})
-Node.ATTR('getEventDispatcher', {RET = '@addref(exclusive eventDispatcher)'})
-Node.ATTR('setEventDispatcher', {ARG1 = '@addref(exclusive eventDispatcher)'})
-Node.ATTR('getActionManager', {RET = '@addref(exclusive actionManager)'})
-Node.ATTR('setActionManager', {ARG1 = '@addref(exclusive actionManager)'})
-Node.ATTR('runAction', {RET = '@delref(cmp actions)', ARG1 = '@addref(coexist actions)'})
-Node.ATTR('stopAllActions', {RET = '@delref(cmp actions)'})
-Node.ATTR('stopAction', {RET = '@delref(cmp actions)'})
-Node.ATTR('stopActionByTag', {RET = '@delref(cmp actions)'})
-Node.ATTR('stopAllActionsByTag', {RET = '@delref(cmp actions)'})
-Node.ATTR('stopActionsByFlags', {RET = '@delref(cmp actions)'})
-Node.ATTR('getActionByTag', {RET = '@addref(coexist actions)'})
-Node.ATTR('setScheduler', {ARG1 = '@addref(exclusive scheduler)'})
-Node.ATTR('getScheduler', {RET = '@addref(exclusive scheduler)'})
+Node.ATTR('addChild', {ARG1 = '@addref(children |)'})
+Node.ATTR('getChildByTag', {RET = '@addref(children |)'})
+Node.ATTR('getChildByName', {RET = '@addref(children |)'})
+Node.ATTR('getChildren', {RET = '@addref(children |)'})
+Node.ATTR('removeFromParent', {RET = '@delref(children | parent)'})
+Node.ATTR('removeFromParentAndCleanup', {RET = '@delref(children | parent)'})
+Node.ATTR('removeChild', {ARG1 = '@delref(children |)'})
+Node.ATTR('removeChildByTag', {RET = '@delref(children ~)'})
+Node.ATTR('removeChildByName', {RET = '@delref(children ~)'})
+Node.ATTR('removeAllChildren', {RET = '@delref(children *)'})
+Node.ATTR('removeAllChildrenWithCleanup', {RET = '@delref(children *)'})
+Node.ATTR('getGLProgram', {RET = '@addref(glProgram ^)'})
+Node.ATTR('setGLProgram', {ARG1 = '@addref(glProgram ^)'})
+Node.ATTR('getGLProgramState', {RET = '@addref(glProgramState ^)'})
+Node.ATTR('setGLProgramState', {ARG1 = '@addref(glProgramState ^)'})
+Node.ATTR('getEventDispatcher', {RET = '@addref(eventDispatcher ^)'})
+Node.ATTR('setEventDispatcher', {ARG1 = '@addref(eventDispatcher ^)'})
+Node.ATTR('getActionManager', {RET = '@addref(actionManager ^)'})
+Node.ATTR('setActionManager', {ARG1 = '@addref(actionManager ^)'})
+Node.ATTR('runAction', {RET = '@delref(actions ~)', ARG1 = '@addref(actions |)'})
+Node.ATTR('stopAllActions', {RET = '@delref(actions ~)'})
+Node.ATTR('stopAction', {RET = '@delref(actions ~)'})
+Node.ATTR('stopActionByTag', {RET = '@delref(actions ~)'})
+Node.ATTR('stopAllActionsByTag', {RET = '@delref(actions ~)'})
+Node.ATTR('stopActionsByFlags', {RET = '@delref(actions ~)'})
+Node.ATTR('getActionByTag', {RET = '@addref(actions |)'})
+Node.ATTR('setScheduler', {ARG1 = '@addref(scheduler ^)'})
+Node.ATTR('getScheduler', {RET = '@addref(scheduler ^)'})
 Node.ATTR('convertToNodeSpace', {ARG1 = '@pack'})
 Node.ATTR('convertToWorldSpace', {ARG1 = '@pack'})
 Node.ATTR('convertToNodeSpaceAR', {ARG1 = '@pack'})
 Node.ATTR('convertToWorldSpaceAR', {ARG1 = '@pack'})
-Node.ATTR('getComponent', {RET = '@addref(coexist components)'})
-Node.ATTR('addComponent', {ARG1 = '@addref(coexist components)'})
-Node.ATTR('removeComponent', {RET = '@delref(cmp components)'})
-Node.ATTR('removeAllComponents', {RET = '@delref(all components)'})
-Node.ATTR('setPhysicsBody', {ARG1 = '@addref(exclusive physicsBody)'})
-Node.ATTR('getPhysicsBody', {RET = '@addref(exclusive physicsBody)'})
+Node.ATTR('getComponent', {RET = '@addref(components |)'})
+Node.ATTR('addComponent', {ARG1 = '@addref(components |)'})
+Node.ATTR('removeComponent', {RET = '@delref(components ~)'})
+Node.ATTR('removeAllComponents', {RET = '@delref(components *)'})
+Node.ATTR('setPhysicsBody', {ARG1 = '@addref(physicsBody ^)'})
+Node.ATTR('getPhysicsBody', {RET = '@addref(physicsBody ^)'})
 Node.CHUNK = [[
 static cocos2d::Node *_find_ancestor(cocos2d::Node *node1, cocos2d::Node *node2)
 {
@@ -703,12 +703,12 @@ typeconf 'cocos2d::ClippingNode'
 typeconf 'cocos2d::MotionStreak'
 
 typeconf 'cocos2d::ProtectedNode'
-    .ATTR('addProtectedChild', {ARG1 = '@addref(coexist protectedChildren)'})
-    .ATTR('getProtectedChildByTag', {RET = '@addref(coexist protectedChildren)'})
-    .ATTR('removeProtectedChild', {ARG1 = '@delref(coexist protectedChildren)'})
-    .ATTR('removeProtectedChildByTag', {RET = '@delref(cmp protectedChildren)'})
-    .ATTR('removeAllProtectedChildren', {RET= '@delref(all protectedChildren)'})
-    .ATTR('removeAllProtectedChildrenWithCleanup', {RET = '@delref(all protectedChildren)'})
+    .ATTR('addProtectedChild', {ARG1 = '@addref(protectedChildren |)'})
+    .ATTR('getProtectedChildByTag', {RET = '@addref(protectedChildren |)'})
+    .ATTR('removeProtectedChild', {ARG1 = '@delref(protectedChildren |)'})
+    .ATTR('removeProtectedChildByTag', {RET = '@delref(protectedChildren ~)'})
+    .ATTR('removeAllProtectedChildren', {RET= '@delref(protectedChildren *)'})
+    .ATTR('removeAllProtectedChildrenWithCleanup', {RET = '@delref(protectedChildren *)'})
 
 typeconf 'cocos2d::DrawNode'
 typeconf 'cocos2d::ParallaxNode'
@@ -759,8 +759,8 @@ typeconf 'cocos2d::SpriteFrameCache'
 typeconf 'cocos2d::AnimationCache'
 
 local Scene = typeconf 'cocos2d::Scene'
-Scene.ATTR('getPhysicsWorld', {RET = '@addref(exclusive physicsWorld)'})
-Scene.ATTR('getPhysics3DWorld', {RET = '@addref(exclusive physics3DWorld)'})
+Scene.ATTR('getPhysicsWorld', {RET = '@addref(physicsWorld ^)'})
+Scene.ATTR('getPhysics3DWorld', {RET = '@addref(physics3DWorld ^)'})
 
 typeconf 'cocos2d::Layer'
 typeconf 'cocos2d::LayerColor'
@@ -772,8 +772,8 @@ typeconf 'cocos2d::TransitionScene::Orientation'
 
 local function typeconfTransition(name)
     local cls = typeconf(name)
-    cls.ATTR('create', {ARG2 = '@addref(coexist autoref)'})
-    cls.ATTR('easeActionWithAction', {ARG1 = '@addref(exclusive action)'})
+    cls.ATTR('create', {ARG2 = '@addref(autoref |)'})
+    cls.ATTR('easeActionWithAction', {ARG1 = '@addref(action ^)'})
     return cls
 end
 

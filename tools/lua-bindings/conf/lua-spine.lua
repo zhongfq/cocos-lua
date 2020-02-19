@@ -349,16 +349,16 @@ typeconf 'spine::Skeleton'
     .EXCLUDE 'getBounds'
 
 typeconf 'spine::SkeletonRenderer'
-    .ATTR('createWithData', {ARG1 = '@addref(exclusive skeletonData)'})
+    .ATTR('createWithData', {ARG1 = '@addref(skeletonData ^)'})
 
 typeconf 'spine::SkeletonAnimation'
-    .ATTR('createWithData', {ARG1 = '@addref(exclusive skeletonData)'})
-    .ATTR('getState', {RET = '@addref(exclusive state)'})
-    .ATTR('setAnimation', {RET = '@addref(coexist trackEntries)'})
-    .ATTR('addAnimation', {RET = '@addref(coexist trackEntries)'})
-    .ATTR('setEmptyAnimation', {RET = '@addref(coexist trackEntries)'})
-    .ATTR('addEmptyAnimation', {RET = '@addref(coexist trackEntries)'})
-    .ATTR('getCurrent', {RET = '@addref(coexist trackEntries)'})
+    .ATTR('createWithData', {ARG1 = '@addref(skeletonData ^)'})
+    .ATTR('getState', {RET = '@addref(state ^)'})
+    .ATTR('setAnimation', {RET = '@addref(trackEntries |)'})
+    .ATTR('addAnimation', {RET = '@addref(trackEntries |)'})
+    .ATTR('setEmptyAnimation', {RET = '@addref(trackEntries |)'})
+    .ATTR('addEmptyAnimation', {RET = '@addref(trackEntries |)'})
+    .ATTR('getCurrent', {RET = '@addref(trackEntries |)'})
     .CALLBACK {NAME = 'setStartListener', LOCAL = false}
     .CALLBACK {NAME = 'setInterruptListener', LOCAL = false}
     .CALLBACK {NAME = 'setEndListener', LOCAL = false}

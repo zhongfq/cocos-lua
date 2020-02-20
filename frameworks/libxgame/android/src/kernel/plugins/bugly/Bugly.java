@@ -16,7 +16,8 @@ public class Bugly {
         CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(AppContext.getContext());
         strategy.setAppChannel(_channel);
         strategy.setAppVersion(_version);
-        CrashReport.initCrashReport(AppContext.getContext(), appid, debug, strategy);
+        strategy.setBuglyLogUpload(true);
+        CrashReport.initCrashReport(AppContext.getContext(), appid, true, strategy);
     }
 
     public static void setTag(int tag) {
@@ -48,27 +49,22 @@ public class Bugly {
     }
 
     public static void log(final int level, final String tag, final String msg) {
-        ((Activity)AppContext.getContext()).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                switch(level) {
-                    case 0:
-                        BuglyLog.v(tag, msg);
-                        break;
-                    case 1:
-                        BuglyLog.d(tag, msg);
-                        break;
-                    case 2:
-                        BuglyLog.i(tag, msg);
-                        break;
-                    case 3:
-                        BuglyLog.w(tag, msg);
-                        break;
-                    case 4:
-                        BuglyLog.e(tag, msg);
-                        break;
-                }
-            }
-        });
+        switch(level) {
+            case 0:
+                BuglyLog.v(tag, msg);
+                break;
+            case 1:
+                BuglyLog.d(tag, msg);
+                break;
+            case 2:
+                BuglyLog.i(tag, msg);
+                break;
+            case 3:
+                BuglyLog.w(tag, msg);
+                break;
+            case 4:
+                BuglyLog.e(tag, msg);
+                break;
+        }
     }
 }

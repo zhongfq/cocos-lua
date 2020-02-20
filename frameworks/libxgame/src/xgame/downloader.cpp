@@ -70,7 +70,7 @@ void downloader::init()
         
         int64_t size = _remoteFileSizes[task.requestURL];
         _remoteFileSizes.erase(task.requestURL);
-        if (FileUtils::getInstance()->getFileSize(file.path) != size) {
+        if (FileUtils::getInstance()->getFileSize(file.path) != size || size == 0) {
             file.state = FileState::IOERROR;
         }
         

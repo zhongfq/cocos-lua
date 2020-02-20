@@ -48,6 +48,7 @@ void CrashReport::initCrashReport(const char* appId, bool isDebug, CrashReport::
         BuglyConfig *config = [[BuglyConfig alloc] init];
         config.channel = NSStringMake(_channel);
         config.version = NSStringMake(_version);
+        config.reportLogLevel = BuglyLogLevelVerbose;
         [Bugly startWithAppId:NSStringMake(appId) developmentDevice:isDebug config:config];
         initialized = true;
     }

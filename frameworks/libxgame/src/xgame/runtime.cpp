@@ -17,6 +17,7 @@
 #include <time.h>
 #include <stdarg.h>
 #include <thread>
+#include <deque>
 
 USING_NS_CC;
 
@@ -38,6 +39,10 @@ static std::mutex _logMutex;
 static std::string _logPath;
 static std::string _logCache;
 static std::string _workdir;
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+static std::deque<std::string> _logBugly;
+#endif
 
 static bool _reportError = true;
 
@@ -487,6 +492,13 @@ void runtime::log(const char *fmt, ...)
     _writeLogToFile(_logBuf);
     
     va_end(args);
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    if (_logBugly.size() >= 200) {
+        _logBugly.pop_front();
+    }
+    _logBugly.push_back(_logBuf);
+#endif
 
 #ifdef COCOS2D_DEBUG
     cocos2d::log("%s", _logBuf);
@@ -565,6 +577,9 @@ void runtime::reportError(const char *err, const char *traceback)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     if (_reportError) {
+        for (auto &msg : _logBugly) {
+            CrashReport::log(CrashReport::CRLogLevel::Verbose, "bugly", msg.c_str());
+        }
         std::string errmsg;
         errmsg.append(err).append(traceback);
         if (_tracebackCaches.find(errmsg) == _tracebackCaches.end()) {

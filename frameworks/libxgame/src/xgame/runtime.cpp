@@ -580,6 +580,7 @@ void runtime::reportError(const char *err, const char *traceback)
         for (auto &msg : _logBugly) {
             CrashReport::log(CrashReport::CRLogLevel::Verbose, "bugly", msg.c_str());
         }
+        _logBugly.clear();
         std::string errmsg;
         errmsg.append(err).append(traceback);
         if (_tracebackCaches.find(errmsg) == _tracebackCaches.end()) {

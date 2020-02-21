@@ -597,6 +597,10 @@ static void aux_changeref(lua_State *L, int idx, const char *name, int obj, int 
         lua_pushvalue(L, top + 1);              // L: uv name obj|nil
         lua_rawset(L, -3);                      // L: uv            uv[name] = obj|nil
     } else if (flags & OLUA_FLAG_COEXIST) {
+        if (olua_isnil(L, obj)) {
+            lua_settop(L, top);
+            return;
+        }
         olua_assert(olua_isuserdata(L, obj));
         olua_getreftable(L, idx, name);         // L: ht
         lua_pushvalue(L, obj);                  // L: ht obj

@@ -416,7 +416,7 @@ static int _cocos2d_Speed_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.Speed");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -436,7 +436,7 @@ static int _cocos2d_Speed_getInnerAction(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.ActionInterval");
 
     // inject code after call
-    olua_addref(L, 1, "innerAction", -1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, 1, "innerAction", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -474,7 +474,7 @@ static int _cocos2d_Speed_setInnerAction(lua_State *L)
     self->setInnerAction(arg1);
 
     // inject code after call
-    olua_addref(L, 1, "innerAction", 2, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, 1, "innerAction", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -1657,7 +1657,7 @@ static int _cocos2d_Sequence_create(lua_State *L)
     for (int i = 1; i <= n; i++) {
         auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
         actions.pushBack(obj);
-        olua_addref(L, -1, ".autoref", i, OLUA_FLAG_COEXIST);
+        olua_addref(L, -1, ".autoref", i, OLUA_MODE_MULTIPLE);
     }
 
     ret->init(actions);
@@ -1682,8 +1682,8 @@ static int _cocos2d_Sequence_createWithTwoActions(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.Sequence");
 
     // inject code after call
-    olua_addref(L, -1, "autoref", 1, OLUA_FLAG_COEXIST);
-    olua_addref(L, -1, "autoref", 2, OLUA_FLAG_COEXIST);
+    olua_addref(L, -1, "autoref", 1, OLUA_MODE_MULTIPLE);
+    olua_addref(L, -1, "autoref", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -1729,7 +1729,7 @@ static int _cocos2d_Repeat_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.Repeat");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -1749,7 +1749,7 @@ static int _cocos2d_Repeat_getInnerAction(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.FiniteTimeAction");
 
     // inject code after call
-    olua_addref(L, 1, "innerAction", -1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, 1, "innerAction", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -1770,7 +1770,7 @@ static int _cocos2d_Repeat_setInnerAction(lua_State *L)
     self->setInnerAction(arg1);
 
     // inject code after call
-    olua_addref(L, 1, "innerAction", 2, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, 1, "innerAction", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -1816,7 +1816,7 @@ static int _cocos2d_RepeatForever_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.RepeatForever");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -1836,7 +1836,7 @@ static int _cocos2d_RepeatForever_getInnerAction(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.ActionInterval");
 
     // inject code after call
-    olua_addref(L, 1, "innerAction", -1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, 1, "innerAction", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -1857,7 +1857,7 @@ static int _cocos2d_RepeatForever_setInnerAction(lua_State *L)
     self->setInnerAction(arg1);
 
     // inject code after call
-    olua_addref(L, 1, "innerAction", 2, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, 1, "innerAction", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -1905,7 +1905,7 @@ static int _cocos2d_Spawn_create(lua_State *L)
     for (int i = 1; i <= n; i++) {
         auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
         actions.pushBack(obj);
-        olua_addref(L, -1, ".autoref", i, OLUA_FLAG_COEXIST);
+        olua_addref(L, -1, ".autoref", i, OLUA_MODE_MULTIPLE);
     }
 
     ret->init(actions);
@@ -1930,8 +1930,8 @@ static int _cocos2d_Spawn_createWithTwoActions(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.Spawn");
 
     // inject code after call
-    olua_addref(L, -1, "autoref", 1, OLUA_FLAG_COEXIST);
-    olua_addref(L, -1, "autoref", 2, OLUA_FLAG_COEXIST);
+    olua_addref(L, -1, "autoref", 1, OLUA_MODE_MULTIPLE);
+    olua_addref(L, -1, "autoref", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -3557,7 +3557,7 @@ static int _cocos2d_ReverseTime_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.ReverseTime");
 
     // inject code after call
-    olua_addref(L, -1, "autoref", 1, OLUA_FLAG_COEXIST);
+    olua_addref(L, -1, "autoref", 1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -3699,7 +3699,7 @@ static int _cocos2d_TargetedAction_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.TargetedAction");
 
     // inject code after call
-    olua_addref(L, -1, "autoref", 2, OLUA_FLAG_COEXIST);
+    olua_addref(L, -1, "autoref", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -3955,7 +3955,7 @@ static int _cocos2d_ActionEase_getInnerAction(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.ActionInterval");
 
     // inject code after call
-    olua_addref(L, 1, "innerAction", -1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, 1, "innerAction", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4001,7 +4001,7 @@ static int _cocos2d_EaseRateAction_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseRateAction");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4082,7 +4082,7 @@ static int _cocos2d_EaseExponentialIn_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseExponentialIn");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4125,7 +4125,7 @@ static int _cocos2d_EaseExponentialOut_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseExponentialOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4168,7 +4168,7 @@ static int _cocos2d_EaseExponentialInOut_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseExponentialInOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4211,7 +4211,7 @@ static int _cocos2d_EaseSineIn_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseSineIn");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4254,7 +4254,7 @@ static int _cocos2d_EaseSineOut_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseSineOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4297,7 +4297,7 @@ static int _cocos2d_EaseSineInOut_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseSineInOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4340,7 +4340,7 @@ static int _cocos2d_EaseBounceIn_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseBounceIn");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4383,7 +4383,7 @@ static int _cocos2d_EaseBounceOut_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseBounceOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4426,7 +4426,7 @@ static int _cocos2d_EaseBounceInOut_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseBounceInOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4469,7 +4469,7 @@ static int _cocos2d_EaseBackIn_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseBackIn");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4512,7 +4512,7 @@ static int _cocos2d_EaseBackOut_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseBackOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4555,7 +4555,7 @@ static int _cocos2d_EaseBackInOut_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseBackInOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4598,7 +4598,7 @@ static int _cocos2d_EaseQuadraticActionIn_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseQuadraticActionIn");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4641,7 +4641,7 @@ static int _cocos2d_EaseQuadraticActionOut_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseQuadraticActionOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4684,7 +4684,7 @@ static int _cocos2d_EaseQuadraticActionInOut_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseQuadraticActionInOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4727,7 +4727,7 @@ static int _cocos2d_EaseQuarticActionIn_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseQuarticActionIn");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4770,7 +4770,7 @@ static int _cocos2d_EaseQuarticActionOut_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseQuarticActionOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4813,7 +4813,7 @@ static int _cocos2d_EaseQuarticActionInOut_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseQuarticActionInOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4856,7 +4856,7 @@ static int _cocos2d_EaseQuinticActionIn_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseQuinticActionIn");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4899,7 +4899,7 @@ static int _cocos2d_EaseQuinticActionOut_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseQuinticActionOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4942,7 +4942,7 @@ static int _cocos2d_EaseQuinticActionInOut_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseQuinticActionInOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4985,7 +4985,7 @@ static int _cocos2d_EaseCircleActionIn_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseCircleActionIn");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -5028,7 +5028,7 @@ static int _cocos2d_EaseCircleActionOut_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseCircleActionOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -5071,7 +5071,7 @@ static int _cocos2d_EaseCircleActionInOut_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseCircleActionInOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -5114,7 +5114,7 @@ static int _cocos2d_EaseCubicActionIn_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseCubicActionIn");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -5157,7 +5157,7 @@ static int _cocos2d_EaseCubicActionOut_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseCubicActionOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -5200,7 +5200,7 @@ static int _cocos2d_EaseCubicActionInOut_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseCubicActionInOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -5245,7 +5245,7 @@ static int _cocos2d_EaseIn_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseIn");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -5290,7 +5290,7 @@ static int _cocos2d_EaseOut_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -5335,7 +5335,7 @@ static int _cocos2d_EaseInOut_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseInOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -5440,7 +5440,7 @@ static int _cocos2d_EaseElasticIn_create1(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseElasticIn");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -5460,7 +5460,7 @@ static int _cocos2d_EaseElasticIn_create2(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseElasticIn");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -5528,7 +5528,7 @@ static int _cocos2d_EaseElasticOut_create1(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseElasticOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -5548,7 +5548,7 @@ static int _cocos2d_EaseElasticOut_create2(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseElasticOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -5616,7 +5616,7 @@ static int _cocos2d_EaseElasticInOut_create1(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseElasticInOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -5636,7 +5636,7 @@ static int _cocos2d_EaseElasticInOut_create2(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseElasticInOut");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -5702,7 +5702,7 @@ static int _cocos2d_EaseBezierAction_create(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseBezierAction");
 
     // inject code after call
-    olua_addref(L, -1, "innerAction", 1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 

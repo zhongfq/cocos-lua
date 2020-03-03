@@ -168,7 +168,7 @@ cls.func('create', [[{
     for (int i = 1; i <= n; i++) {
         auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
         actions.pushBack(obj);
-        olua_addref(L, -1, ".autoref", i, OLUA_FLAG_COEXIST);
+        olua_addref(L, -1, ".autoref", i, OLUA_MODE_MULTIPLE);
     }
 
     ret->init(actions);
@@ -218,7 +218,7 @@ cls.func('create', [[{
     for (int i = 1; i <= n; i++) {
         auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
         actions.pushBack(obj);
-        olua_addref(L, -1, ".autoref", i, OLUA_FLAG_COEXIST);
+        olua_addref(L, -1, ".autoref", i, OLUA_MODE_MULTIPLE);
     }
 
     ret->init(actions);

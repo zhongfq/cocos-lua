@@ -15,6 +15,8 @@ local ImageView  = require "ccui.ImageView"
 
 local FUISprite = require "fgui.FUISprite"
 
+local util = require "xgame.util"
+
 -- window.setFrameSize(900, 500)
 
 local DESIGN_WIDTH = 1334
@@ -62,6 +64,8 @@ function main()
     spr.fillAmount = 0.6
     spr:setGrayed(true)
     scene:addChild(spr)
+    print(scene.children)
+    util.dumpUserValue(scene)
 
     local window = Window.create()
     window.mask = spr

@@ -501,7 +501,7 @@ cls.funcs [[
 cls.inject('to', {
     AFTER = [[
         olua_pushclassobj(L, "fgui.GTween");
-        olua_addref(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
+        olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
         olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
         lua_pop(L, 1);
     ]],
@@ -509,7 +509,7 @@ cls.inject('to', {
 cls.inject('toDouble', {
     AFTER = [[
         olua_pushclassobj(L, "fgui.GTween");
-        olua_addref(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
+        olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
         olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
         lua_pop(L, 1);
     ]],
@@ -517,7 +517,7 @@ cls.inject('toDouble', {
 cls.inject('delayedCall', {
     AFTER = [[
         olua_pushclassobj(L, "fgui.GTween");
-        olua_addref(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
+        olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
         olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
         lua_pop(L, 1);
     ]],
@@ -525,7 +525,7 @@ cls.inject('delayedCall', {
 cls.inject('shake', {
     AFTER = [[
         olua_pushclassobj(L, "fgui.GTween");
-        olua_addref(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
+        olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
         olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
         lua_pop(L, 1);
     ]],
@@ -1210,8 +1210,8 @@ cls.prop('UIRoot', 'static GRoot* getInstance()')
 cls.inject('create', {
     AFTER = [[
         olua_push_cppobj<cocos2d::Node>(L, ret->displayObject(), "cc.Node");
-        olua_addref(L, -1, "fgui.root", -2, OLUA_FLAG_EXCLUSIVE);
-        olua_addref(L, 1, "children", -1, OLUA_FLAG_COEXIST);
+        olua_addref(L, -1, "fgui.root", -2, OLUA_MODE_SINGLE);
+        olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
         lua_pop(L, 1);
     ]],
 })
@@ -1575,7 +1575,7 @@ cls.inject('itemRenderer', {
     CALLBACK_BEFORE = [[
         if (arg2->getParent()) {
             olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)callback_store_obj);
-            olua_addref(L, -1, "children", -2, OLUA_FLAG_COEXIST);
+            olua_addref(L, -1, "children", -2, OLUA_MODE_MULTIPLE);
             lua_pop(L, 1);
         }
     ]],
@@ -1800,7 +1800,7 @@ cls.func('addItemAt', [[{
 
     olua_push_cppobj<fairygui::GButton>(L, ret);
     olua_push_cppobj<fairygui::GComponent>(L, ret->getParent());
-    olua_addref(L, -1, "children", -2, OLUA_FLAG_COEXIST);
+    olua_addref(L, -1, "children", -2, OLUA_MODE_MULTIPLE);
     lua_pop(L, 1);
 
     return 1;

@@ -622,7 +622,7 @@ static int _cocos2d_ui_Widget_getVirtualRenderer(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
     // inject code after call
-    olua_addref(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -7041,7 +7041,7 @@ static int _cocos2d_ui_AbstractCheckButton_getRendererBackground(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
-    olua_addref(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -7061,7 +7061,7 @@ static int _cocos2d_ui_AbstractCheckButton_getRendererBackgroundDisabled(lua_Sta
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
-    olua_addref(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -7081,7 +7081,7 @@ static int _cocos2d_ui_AbstractCheckButton_getRendererBackgroundSelected(lua_Sta
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
-    olua_addref(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -7101,7 +7101,7 @@ static int _cocos2d_ui_AbstractCheckButton_getRendererFrontCross(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
-    olua_addref(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -7121,7 +7121,7 @@ static int _cocos2d_ui_AbstractCheckButton_getRendererFrontCrossDisabled(lua_Sta
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
-    olua_addref(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -7961,7 +7961,7 @@ static int _cocos2d_ui_TabHeader_getTitleRenderer(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.Label");
 
     // inject code after call
-    olua_addref(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -8232,7 +8232,7 @@ static int _cocos2d_ui_TabControl_getTabContainer(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "ccui.Layout");
 
     // inject code after call
-    olua_addref(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -8271,7 +8271,7 @@ static int _cocos2d_ui_TabControl_getTabHeader(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "ccui.TabHeader");
 
     // inject code after call
-    olua_addref(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -8333,8 +8333,8 @@ static int _cocos2d_ui_TabControl_insertTab(lua_State *L)
     self->insertTab((int)arg1, arg2, arg3);
 
     // inject code after call
-    olua_addref(L, 1, "protectedChildren", 3, OLUA_FLAG_COEXIST);
-    olua_addref(L, 1, "protectedChildren", 4, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", 3, OLUA_MODE_MULTIPLE);
+    olua_addref(L, 1, "protectedChildren", 4, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -8735,7 +8735,7 @@ static int _cocos2d_ui_ScrollView_getInnerContainer(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "ccui.Layout");
 
     // inject code after call
-    olua_addref(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -10165,7 +10165,7 @@ static int _cocos2d_ui_ListView_getItem(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "ccui.Widget");
 
     // inject code after call
-    olua_addref(L, 1, "children", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -10185,7 +10185,7 @@ static int _cocos2d_ui_ListView_getItems(lua_State *L)
     int num_ret = manual_olua_push_cocos2d_Vector(L, ret, "ccui.Widget");
 
     // inject code after call
-    olua_addref(L, 1, "children", -1, OLUA_FLAG_ARRAY);
+    olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE | OLUA_FLAG_ARRAY);
 
     olua_endinvoke(L);
 
@@ -10378,7 +10378,7 @@ static int _cocos2d_ui_ListView_insertCustomItem(lua_State *L)
     self->insertCustomItem(arg1, (ssize_t)arg2);
 
     // inject code after call
-    olua_addref(L, 1, "children", 2, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -10453,7 +10453,7 @@ static int _cocos2d_ui_ListView_pushBackCustomItem(lua_State *L)
     self->pushBackCustomItem(arg1);
 
     // inject code after call
-    olua_addref(L, 1, "children", 2, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -11422,7 +11422,7 @@ static int _cocos2d_ui_PageView_addPage(lua_State *L)
     self->addPage(arg1);
 
     // inject code after call
-    olua_addref(L, 1, "children", 2, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -11641,7 +11641,7 @@ static int _cocos2d_ui_PageView_insertPage(lua_State *L)
     self->insertPage(arg1, (int)arg2);
 
     // inject code after call
-    olua_addref(L, 1, "children", 2, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -11695,7 +11695,7 @@ static int _cocos2d_ui_PageView_removePage(lua_State *L)
     self->removePage(arg1);
 
     // inject code after call
-    olua_delref(L, 1, "children", 2, OLUA_FLAG_COEXIST);
+    olua_delref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -15490,7 +15490,7 @@ static int _cocos2d_ui_Slider_getSlidBallDisabledRenderer(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
-    olua_addref(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -15510,7 +15510,7 @@ static int _cocos2d_ui_Slider_getSlidBallNormalRenderer(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
-    olua_addref(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -15530,7 +15530,7 @@ static int _cocos2d_ui_Slider_getSlidBallPressedRenderer(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
-    olua_addref(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -15550,7 +15550,7 @@ static int _cocos2d_ui_Slider_getSlidBallRenderer(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
     // inject code after call
-    olua_addref(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -19490,7 +19490,7 @@ static int _cocos2d_ui_Button_getRendererClicked(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "ccui.Scale9Sprite");
 
     // inject code after call
-    olua_addref(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -19510,7 +19510,7 @@ static int _cocos2d_ui_Button_getRendererDisabled(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "ccui.Scale9Sprite");
 
     // inject code after call
-    olua_addref(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -19530,7 +19530,7 @@ static int _cocos2d_ui_Button_getRendererNormal(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "ccui.Scale9Sprite");
 
     // inject code after call
-    olua_addref(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -19601,7 +19601,7 @@ static int _cocos2d_ui_Button_getTitleLabel(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.Label");
 
     // inject code after call
-    olua_addref(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -19621,7 +19621,7 @@ static int _cocos2d_ui_Button_getTitleRenderer(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.Label");
 
     // inject code after call
-    olua_addref(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -20382,7 +20382,7 @@ static int _cocos2d_ui_Button_setTitleLabel(lua_State *L)
     self->setTitleLabel(arg1);
 
     // inject code after call
-    olua_addref(L, 1, "protectedChildren", 2, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -22575,7 +22575,7 @@ static int _cocos2d_ui_EditBox_getDelegate(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "ccui.EditBoxDelegate");
 
     // inject code after call
-    olua_addref(L, 1, "delegate", -1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, 1, "delegate", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -23456,7 +23456,7 @@ static int _cocos2d_ui_EditBox_setDelegate(lua_State *L)
     self->setDelegate(arg1);
 
     // inject code after call
-    olua_addref(L, 1, "delegate", 2, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, 1, "delegate", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 

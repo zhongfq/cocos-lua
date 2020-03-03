@@ -176,9 +176,9 @@ OLUA_API void olua_unref(lua_State *L, int ref);
 OLUA_API void olua_getref(lua_State *L, int ref);
     
 // for ref chain, callback store in the uservalue of userdata
-#define OLUA_FLAG_EXCLUSIVE (1 << 1) // add & remove: only ref one
-#define OLUA_FLAG_COEXIST   (1 << 2) // add & remove: can ref one or more
-#define OLUA_FLAG_ARRAY     (1 << 3) // add & remove:
+#define OLUA_MODE_SINGLE    (1 << 1) // add & remove: only ref one
+#define OLUA_MODE_MULTIPLE  (1 << 2) // add & remove: can ref one or more
+#define OLUA_FLAG_ARRAY     (1 << 3) // obj is table
 #define OLUA_FLAG_REMOVE    (1 << 4) // internal use
 typedef bool (*olua_DelRefVisitor)(lua_State *L, int idx);
 OLUA_API void olua_getreftable(lua_State *L, int idx, const char *name);

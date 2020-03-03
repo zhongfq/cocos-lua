@@ -149,7 +149,7 @@ local DELREF_TWEEN = {
 local REF_TEWEENER = {
     AFTER = [[
         olua_pushclassobj(L, "fgui.GTween");
-        olua_addref(L, -1, "tweeners", -2, OLUA_FLAG_COEXIST);
+        olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
         olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
         lua_pop(L, 1);
     ]]
@@ -327,8 +327,8 @@ GRoot.PROP('UIRoot', 'static GRoot* getInstance()')
 GRoot.INJECT('create', {
     AFTER = [[
         olua_push_cppobj<cocos2d::Node>(L, ret->displayObject(), "cc.Node");
-        olua_addref(L, -1, "fgui.root", -2, OLUA_FLAG_EXCLUSIVE);
-        olua_addref(L, 1, "children", -1, OLUA_FLAG_COEXIST);
+        olua_addref(L, -1, "fgui.root", -2, OLUA_MODE_SINGLE);
+        olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
         lua_pop(L, 1);
     ]]
 })
@@ -399,7 +399,7 @@ GList.INJECT('itemRenderer', {
     CALLBACK_BEFORE = [[
         if (arg2->getParent()) {
             olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)callback_store_obj);
-            olua_addref(L, -1, "children", -2, OLUA_FLAG_COEXIST);
+            olua_addref(L, -1, "children", -2, OLUA_MODE_MULTIPLE);
             lua_pop(L, 1);
         }
     ]]
@@ -456,7 +456,7 @@ PopupMenu.FUNC('addItemAt', [[
 
     olua_push_cppobj<fairygui::GButton>(L, ret);
     olua_push_cppobj<fairygui::GComponent>(L, ret->getParent());
-    olua_addref(L, -1, "children", -2, OLUA_FLAG_COEXIST);
+    olua_addref(L, -1, "children", -2, OLUA_MODE_MULTIPLE);
     lua_pop(L, 1);
 
     return 1;

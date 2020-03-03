@@ -199,7 +199,7 @@ EventDispatcher.FUNC('addCustomEventListener', [[
     self->addEventListenerWithFixedPriority(listener, 1);
     lua_pushvalue(L, 4);
 
-    olua_addref(L, 1, "listeners", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "listeners", -1, OLUA_MODE_MULTIPLE);
 
     return 1;
 }]])
@@ -466,7 +466,7 @@ WebSocket.FUNC('init', [[
     }
 
     self->init(*delegate, url, protocols.size() > 0 ? &protocols : nullptr, cafile);
-    olua_addref(L, 1, "delegate", 2, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, 1, "delegate", 2, OLUA_MODE_SINGLE);
 
     return 0;
 }]])

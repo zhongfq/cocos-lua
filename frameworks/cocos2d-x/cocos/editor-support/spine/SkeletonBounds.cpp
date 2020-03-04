@@ -66,7 +66,7 @@ void SkeletonBounds::update(Skeleton &skeleton, bool updateAabb) {
 		BoundingBoxAttachment *boundingBox = static_cast<BoundingBoxAttachment *>(attachment);
 		_boundingBoxes.add(boundingBox);
 
-		Polygon *polygonP = NULL;
+		spine::Polygon *polygonP = NULL;
 		size_t poolCount = _polygonPool.size();
 		if (poolCount > 0) {
 			polygonP = _polygonPool[poolCount - 1];
@@ -205,7 +205,7 @@ void SkeletonBounds::aabbCompute() {
 	float maxY = FLT_MAX;
 
 	for (size_t i = 0, n = _polygons.size(); i < n; ++i) {
-		Polygon *polygon = _polygons[i];
+		spine::Polygon *polygon = _polygons[i];
 		Vector<float> &vertices = polygon->_vertices;
 		for (int ii = 0, nn = polygon->_count; ii < nn; ii += 2) {
 			float x = vertices[ii];

@@ -1,21 +1,16 @@
-local GLProgramCache    = require "cc.GLProgramCache"
-local GLProgram         = require "cc.GLProgram"
+local Device        = require "ccb.Device"
 
 local mt = {}
 local M = setmetatable({}, mt)
-local names = {}
+local programs = {}
 
 mt.__index = function(t, name)
-    local program = GLProgramCache.instance:getGLProgram(name)
-    assert(program)
-    return program
+    return assert(programs[name], 'no program: ' .. name)
 end
 
 function M.load(name, vert, frag)
-    assert(not names[name])
-    names[name] = true
-    local program = GLProgram.createWithByteArrays(vert, frag)
-    GLProgramCache.instance:addGLProgram(program, name)
+    assert(not programs[name])
+    programs[name] = Device.instance:newProgram(vert, frag)
 end
 
 do

@@ -3,7 +3,7 @@ local UIView        = require "xgame.ui.UIView"
 local window        = require "xgame.window"
 local Director      = require "cc.Director"
 local RenderTexture = require "cc.RenderTexture"
-local PixelFormat   = require "cc.Texture2D.PixelFormat"
+local PixelFormat   = require "ccb.PixelFormat"
 local Node          = require "cc.Node"
 
 local director = Director.instance
@@ -12,11 +12,10 @@ local dummy = Node.create()
 local UICapture = class("UICapture", UIView)
 
 function UICapture:ctor(node)
-    local DEPTH24_STENCIL8_OES = 0x88f0
     local width, height = node.width, node.height
     local vpw, vph = window.getDesignSize()
     local renderTexture = RenderTexture.create(width, height,
-        PixelFormat.RGB565, DEPTH24_STENCIL8_OES)
+        PixelFormat.RGB565, PixelFormat.D24S8)
     local visible = node.cobj:isVisible()
     renderTexture:setKeepMatrix(true)
     renderTexture:setVirtualViewport({

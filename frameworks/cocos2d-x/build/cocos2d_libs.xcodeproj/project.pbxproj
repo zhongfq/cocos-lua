@@ -15,6 +15,7 @@
 		0E66E68222D81ABC0085EF57 /* ConstraintData.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E66E67F22D81AB70085EF57 /* ConstraintData.h */; };
 		0E66E68322D81ABC0085EF57 /* ConstraintData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E66E68022D81AB80085EF57 /* ConstraintData.cpp */; };
 		0E66E68422D81ABC0085EF57 /* ConstraintData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E66E68022D81AB80085EF57 /* ConstraintData.cpp */; };
+		0E7EC67A240FDC6400251513 /* CCInputView-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E7EC679240FDC6400251513 /* CCInputView-ios.mm */; };
 		0ED0357622CEDB71004EE5FF /* IkConstraintTimeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ED034DC22CEDB41004EE5FF /* IkConstraintTimeline.h */; };
 		0ED0357722CEDB71004EE5FF /* IkConstraintTimeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ED034DC22CEDB41004EE5FF /* IkConstraintTimeline.h */; };
 		0ED0357822CEDB71004EE5FF /* EventTimeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ED034DD22CEDB41004EE5FF /* EventTimeline.h */; };
@@ -3126,6 +3127,7 @@
 		0C261F271BE7528900707478 /* Light3DReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Light3DReader.h; sourceTree = "<group>"; };
 		0E66E67F22D81AB70085EF57 /* ConstraintData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstraintData.h; sourceTree = "<group>"; };
 		0E66E68022D81AB80085EF57 /* ConstraintData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConstraintData.cpp; sourceTree = "<group>"; };
+		0E7EC679240FDC6400251513 /* CCInputView-ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "CCInputView-ios.mm"; sourceTree = "<group>"; };
 		0ED034DC22CEDB41004EE5FF /* IkConstraintTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IkConstraintTimeline.h; sourceTree = "<group>"; };
 		0ED034DD22CEDB41004EE5FF /* EventTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventTimeline.h; sourceTree = "<group>"; };
 		0ED034DE22CEDB42004EE5FF /* AttachmentLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AttachmentLoader.cpp; sourceTree = "<group>"; };
@@ -6829,6 +6831,7 @@
 				503DD8D11926736A00CD74DD /* CCDevice-ios.mm */,
 				503DD8D21926736A00CD74DD /* CCDirectorCaller-ios.h */,
 				503DD8D31926736A00CD74DD /* CCDirectorCaller-ios.mm */,
+				0E7EC679240FDC6400251513 /* CCInputView-ios.mm */,
 				503DD8D41926736A00CD74DD /* CCEAGLView-ios.h */,
 				503DD8D51926736A00CD74DD /* CCEAGLView-ios.mm */,
 				503DD8D61926736A00CD74DD /* CCES2Renderer-ios.h */,
@@ -10762,6 +10765,7 @@
 				94A6DF071C73040D0094AEF7 /* LocalizationManager.cpp in Sources */,
 				15AE1B7619AADA9A00C27E9E /* UIPageView.cpp in Sources */,
 				1A570311180BCF190088DEC7 /* CCComponentContainer.cpp in Sources */,
+				0E7EC67A240FDC6400251513 /* CCInputView-ios.mm in Sources */,
 				468A14F01EF223B700ECA675 /* idl_gen_go.cpp in Sources */,
 				50ABBE2C1925AB6F00A911A9 /* ccCArray.cpp in Sources */,
 				15AE193219AAD35100C27E9E /* CCActionNode.cpp in Sources */,

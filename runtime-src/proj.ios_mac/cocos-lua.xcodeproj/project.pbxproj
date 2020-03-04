@@ -22,9 +22,10 @@
 		0E4C8BDD225C8BEF0095CF59 /* libfairygui iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4C8BB9225C82B50095CF59 /* libfairygui iOS.a */; };
 		0E4C8BDE225C8BF60095CF59 /* libxgame iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4C8BB2225C82AC0095CF59 /* libxgame iOS.a */; };
 		0E730C7C2272B4810067866B /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E730C752272B4810067866B /* libWeChatSDK.a */; };
-		0E730C7E2272B4810067866B /* libWXSpeech.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E730C7B2272B4810067866B /* libWXSpeech.a */; };
 		0E730C842272B4910067866B /* lua_wechat_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E730C812272B4900067866B /* lua_wechat_ios.mm */; };
 		0E730C852272B4910067866B /* lua_wechat_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E730C812272B4900067866B /* lua_wechat_ios.mm */; };
+		0E7EC676240FDBE200251513 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E7EC675240FDBE200251513 /* AdSupport.framework */; };
+		0E7EC678240FDBF500251513 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E7EC677240FDBF500251513 /* AuthenticationServices.framework */; };
 		0EB8B3E6234EF24A004354EE /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3E5234EF24A004354EE /* libiconv.tbd */; };
 		0EB8B3E8234EF250004354EE /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3E7234EF250004354EE /* libsqlite3.tbd */; };
 		0EB8B3EA234EF256004354EE /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3E9234EF256004354EE /* libz.tbd */; };
@@ -200,16 +201,13 @@
 		0E4C8BB3225C82B50095CF59 /* fairygui.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = fairygui.xcodeproj; path = ../../frameworks/libfairygui/proj.ios_mac/fairygui.xcodeproj; sourceTree = "<group>"; };
 		0E4C8BDF225C8FCA0095CF59 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
 		0E730C722272B4810067866B /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXApiObject.h; path = ../../frameworks/plugins/wechat/ios/WXApiObject.h; sourceTree = "<group>"; };
-		0E730C732272B4810067866B /* WXVoiceSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXVoiceSDK.h; path = ../../frameworks/plugins/wechat/ios/WXVoiceSDK.h; sourceTree = "<group>"; };
-		0E730C742272B4810067866B /* WXVoiceRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXVoiceRecognizer.h; path = ../../frameworks/plugins/wechat/ios/WXVoiceRecognizer.h; sourceTree = "<group>"; };
 		0E730C752272B4810067866B /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = ../../frameworks/plugins/wechat/ios/libWeChatSDK.a; sourceTree = "<group>"; };
 		0E730C762272B4810067866B /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXApi.h; path = ../../frameworks/plugins/wechat/ios/WXApi.h; sourceTree = "<group>"; };
 		0E730C772272B4810067866B /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WechatAuthSDK.h; path = ../../frameworks/plugins/wechat/ios/WechatAuthSDK.h; sourceTree = "<group>"; };
-		0E730C782272B4810067866B /* WXVoiceTTS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXVoiceTTS.h; path = ../../frameworks/plugins/wechat/ios/WXVoiceTTS.h; sourceTree = "<group>"; };
-		0E730C792272B4810067866B /* WXSpeechSynthesizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXSpeechSynthesizer.h; path = ../../frameworks/plugins/wechat/ios/WXSpeechSynthesizer.h; sourceTree = "<group>"; };
-		0E730C7B2272B4810067866B /* libWXSpeech.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWXSpeech.a; path = ../../frameworks/plugins/wechat/ios/libWXSpeech.a; sourceTree = "<group>"; };
 		0E730C802272B4900067866B /* lua_wechat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lua_wechat.h; path = ../../frameworks/plugins/wechat/lua_wechat.h; sourceTree = "<group>"; };
 		0E730C812272B4900067866B /* lua_wechat_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = lua_wechat_ios.mm; path = ../../frameworks/plugins/wechat/lua_wechat_ios.mm; sourceTree = "<group>"; };
+		0E7EC675240FDBE200251513 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
+		0E7EC677240FDBF500251513 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/System/Library/Frameworks/AuthenticationServices.framework; sourceTree = DEVELOPER_DIR; };
 		0EB6C2AF23252CB4000F4D81 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.4.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		0EB6C2B123252D2F000F4D81 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.4.sdk/System/Library/Frameworks/AVKit.framework; sourceTree = DEVELOPER_DIR; };
 		0EB8B3E5234EF24A004354EE /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.0.sdk/usr/lib/libiconv.tbd; sourceTree = DEVELOPER_DIR; };
@@ -283,6 +281,8 @@
 				0EB8B3E6234EF24A004354EE /* libiconv.tbd in Frameworks */,
 				0E335945229D13FE00F6FF15 /* libdragonbones iOS.a in Frameworks */,
 				0E4C8BDE225C8BF60095CF59 /* libxgame iOS.a in Frameworks */,
+				0E7EC676240FDBE200251513 /* AdSupport.framework in Frameworks */,
+				0E7EC678240FDBF500251513 /* AuthenticationServices.framework in Frameworks */,
 				0EB8B409234EF2DB004354EE /* UIKit.framework in Frameworks */,
 				0E4C8BDD225C8BEF0095CF59 /* libfairygui iOS.a in Frameworks */,
 				0EB8B3F7234EF2A3004354EE /* CoreText.framework in Frameworks */,
@@ -291,7 +291,6 @@
 				0EB8B40B234EF2E1004354EE /* WebKit.framework in Frameworks */,
 				1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */,
 				0E730C7C2272B4810067866B /* libWeChatSDK.a in Frameworks */,
-				0E730C7E2272B4810067866B /* libWXSpeech.a in Frameworks */,
 				0EB8B3F0234EF281004354EE /* CoreMedia.framework in Frameworks */,
 				0EB8B3FD234EF2B9004354EE /* OpenAL.framework in Frameworks */,
 				0E24B3E422701692000054C9 /* Bugly.framework in Frameworks */,
@@ -395,14 +394,9 @@
 			isa = PBXGroup;
 			children = (
 				0E730C752272B4810067866B /* libWeChatSDK.a */,
-				0E730C7B2272B4810067866B /* libWXSpeech.a */,
 				0E730C772272B4810067866B /* WechatAuthSDK.h */,
 				0E730C762272B4810067866B /* WXApi.h */,
 				0E730C722272B4810067866B /* WXApiObject.h */,
-				0E730C792272B4810067866B /* WXSpeechSynthesizer.h */,
-				0E730C742272B4810067866B /* WXVoiceRecognizer.h */,
-				0E730C732272B4810067866B /* WXVoiceSDK.h */,
-				0E730C782272B4810067866B /* WXVoiceTTS.h */,
 			);
 			name = ios;
 			sourceTree = "<group>";
@@ -461,6 +455,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0E7EC677240FDBF500251513 /* AuthenticationServices.framework */,
+				0E7EC675240FDBE200251513 /* AdSupport.framework */,
 				0EB8B40A234EF2E1004354EE /* WebKit.framework */,
 				0EB8B408234EF2DB004354EE /* UIKit.framework */,
 				0EB8B406234EF2D5004354EE /* StoreKit.framework */,

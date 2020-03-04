@@ -319,7 +319,7 @@ cls.callback {
     TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = 2,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -329,7 +329,7 @@ cls.callback {
     TAG_MAKER = 'makeScheduleCallbackTag(#1)',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = 2,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = true,
 }
 cls.callback {
@@ -339,7 +339,7 @@ cls.callback {
     TAG_MAKER = 'makeScheduleCallbackTag("")',
     TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = 1,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = true,
 }
 cls.callback {
@@ -349,7 +349,7 @@ cls.callback {
     TAG_MAKER = 'makeScheduleCallbackTag("")',
     TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = true,
 }
 cls.props [[
@@ -516,7 +516,7 @@ cls.callback {
     TAG_MAKER = 'listener',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
     CPPFUNC = 'init',
 }
@@ -546,7 +546,7 @@ cls.callback {
     TAG_MAKER = 'listener',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
     CPPFUNC = 'init',
 }
@@ -1111,7 +1111,7 @@ cls.callback {
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = true,
 }
 cls.callback {
@@ -1121,7 +1121,7 @@ cls.callback {
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
     TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = true,
 }
 cls.callback {
@@ -1131,7 +1131,7 @@ cls.callback {
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
     TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = true,
 }
 cls.callback {
@@ -1141,7 +1141,7 @@ cls.callback {
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -1152,7 +1152,7 @@ cls.callback {
     TAG_MAKER = 'preload',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.inject('uncache', {
@@ -1321,7 +1321,7 @@ cls.callback {
     TAG_MAKER = 'StringFromFile',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -1332,7 +1332,7 @@ cls.callback {
     TAG_MAKER = 'DataFromFile',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -1343,7 +1343,7 @@ cls.callback {
     TAG_MAKER = 'writeStringToFile',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -1354,7 +1354,7 @@ cls.callback {
     TAG_MAKER = 'writeDataToFile',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -1365,7 +1365,7 @@ cls.callback {
     TAG_MAKER = 'writeValueMapToFile',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -1376,7 +1376,7 @@ cls.callback {
     TAG_MAKER = 'writeValueVectorToFile',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -1387,7 +1387,7 @@ cls.callback {
     TAG_MAKER = 'isFileExist',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -1398,7 +1398,7 @@ cls.callback {
     TAG_MAKER = 'isDirectoryExist',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -1409,7 +1409,7 @@ cls.callback {
     TAG_MAKER = 'createDirectory',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -1420,7 +1420,7 @@ cls.callback {
     TAG_MAKER = 'removeDirectory',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -1431,7 +1431,7 @@ cls.callback {
     TAG_MAKER = 'removeFile',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -1444,7 +1444,7 @@ cls.callback {
     TAG_MAKER = 'renameFile',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -1455,7 +1455,7 @@ cls.callback {
     TAG_MAKER = 'FileSize',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -1465,7 +1465,7 @@ cls.callback {
     TAG_MAKER = 'listFilesAsync',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -1475,7 +1475,7 @@ cls.callback {
     TAG_MAKER = 'listFilesRecursivelyAsync',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.props [[
@@ -1886,7 +1886,7 @@ cls.callback {
     TAG_MAKER = {'makeTextureCacheCallbackTag(#1)', 'makeTextureCacheCallbackTag(#-1)'},
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -1896,7 +1896,7 @@ cls.callback {
     TAG_MAKER = 'makeTextureCacheCallbackTag(#1)',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = true,
 }
 cls.callback {
@@ -1906,7 +1906,7 @@ cls.callback {
     TAG_MAKER = 'makeTextureCacheCallbackTag("")',
     TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = true,
 }
 cls.props [[
@@ -2467,7 +2467,7 @@ cls.callback {
     TAG_MAKER = 'OnEnterCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -2477,7 +2477,7 @@ cls.callback {
     TAG_MAKER = 'OnEnterCallback',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -2487,7 +2487,7 @@ cls.callback {
     TAG_MAKER = 'OnExitCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -2497,7 +2497,7 @@ cls.callback {
     TAG_MAKER = 'OnExitCallback',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -2507,7 +2507,7 @@ cls.callback {
     TAG_MAKER = 'OnEnterTransitionDidFinishCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -2517,7 +2517,7 @@ cls.callback {
     TAG_MAKER = 'OnEnterTransitionDidFinishCallback',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -2527,7 +2527,7 @@ cls.callback {
     TAG_MAKER = 'OnExitTransitionDidStartCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -2537,7 +2537,7 @@ cls.callback {
     TAG_MAKER = 'OnExitTransitionDidStartCallback',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -2547,7 +2547,7 @@ cls.callback {
     TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -2559,7 +2559,7 @@ cls.callback {
     TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -2569,7 +2569,7 @@ cls.callback {
     TAG_MAKER = 'makeScheduleCallbackTag(#1)',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = true,
 }
 cls.callback {
@@ -2579,7 +2579,7 @@ cls.callback {
     TAG_MAKER = 'makeScheduleCallbackTag("")',
     TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = true,
 }
 cls.inject('removeFromParent', {
@@ -3117,7 +3117,7 @@ cls.callback {
     TAG_MAKER = 'saveToFile',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -3128,7 +3128,7 @@ cls.callback {
     TAG_MAKER = 'saveToFile',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -3138,7 +3138,7 @@ cls.callback {
     TAG_MAKER = 'newImage',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = true,
+    LIFECYCLE = 'once',
     REMOVE = false,
 }
 cls.alias('begin', 'beginVisit')
@@ -4877,7 +4877,7 @@ cls.callback {
     TAG_MAKER = 'move',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.props [[

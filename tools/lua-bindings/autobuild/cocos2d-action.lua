@@ -430,7 +430,7 @@ cls.callback {
     TAG_MAKER = 'ActionFloat',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
     CPPFUNC = 'initWithDuration',
 }
@@ -845,7 +845,7 @@ cls.callback {
     TAG_MAKER = 'CallFunc',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
     CPPFUNC = 'initWithFunction',
 }

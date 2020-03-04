@@ -138,7 +138,7 @@ cls.callback {
     TAG_MAKER = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 4)'},
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -149,7 +149,7 @@ cls.callback {
     TAG_MAKER = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 3)'},
     TAG_MODE = {'OLUA_TAG_SUBSTARTWITH', 'OLUA_TAG_SUBEQUAL'},
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = true,
 }
 cls.callback {
@@ -159,7 +159,7 @@ cls.callback {
     TAG_MAKER = 'makeListenerTag(L, -1, 0)',
     TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = true,
 }
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -236,7 +236,7 @@ cls.callback {
     TAG_MAKER = 'CaptureCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.props [[
@@ -423,7 +423,7 @@ cls.callback {
     TAG_MAKER = 'onUpdate',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -433,7 +433,7 @@ cls.callback {
     TAG_MAKER = 'onStart',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -443,7 +443,7 @@ cls.callback {
     TAG_MAKER = 'onComplete',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -453,7 +453,7 @@ cls.callback {
     TAG_MAKER = 'onComplete1',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.props [[
@@ -973,7 +973,7 @@ cls.callback {
     TAG_MAKER = {'makeListenerTag(L, fairygui::UIEventType::Click, 0)', 'makeListenerTag(L, fairygui::UIEventType::Click, 3)'},
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -983,7 +983,7 @@ cls.callback {
     TAG_MAKER = 'makeListenerTag(L, fairygui::UIEventType::Click, 2)',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = true,
 }
 cls.inject('center', {
@@ -1622,7 +1622,7 @@ cls.callback {
     TAG_MAKER = 'PlaySettings',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.props [[
@@ -2042,7 +2042,7 @@ cls.callback {
     TAG_MAKER = 'play',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -2053,7 +2053,7 @@ cls.callback {
     TAG_MAKER = 'playReverse',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -2063,7 +2063,7 @@ cls.callback {
     TAG_MAKER = '("hook." + #1)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -2073,7 +2073,7 @@ cls.callback {
     TAG_MAKER = '("hook.")',
     TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = true,
 }
 cls.props [[
@@ -2125,7 +2125,7 @@ cls.callback {
     TAG_MAKER = 'load',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.props [[
@@ -2283,7 +2283,7 @@ cls.callback {
     TAG_MAKER = 'PackageItemExtension',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -2293,7 +2293,7 @@ cls.callback {
     TAG_MAKER = 'LoaderExtension',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 M.CLASSES[#M.CLASSES + 1] = cls

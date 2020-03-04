@@ -1011,7 +1011,7 @@ cls.callback {
     TAG_MAKER = '(#1)',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -1021,7 +1021,7 @@ cls.callback {
     TAG_MAKER = '(#1)',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = true,
 }
 cls.props [[

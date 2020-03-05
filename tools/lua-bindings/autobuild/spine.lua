@@ -298,7 +298,7 @@ cls.callback {
     TAG_MAKER = 'Listener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.props [[
@@ -1307,7 +1307,7 @@ cls.callback {
     TAG_MAKER = 'Listener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.props [[
@@ -1633,7 +1633,7 @@ cls.callback {
     TAG_MAKER = 'StartListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -1643,7 +1643,7 @@ cls.callback {
     TAG_MAKER = 'InterruptListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -1653,7 +1653,7 @@ cls.callback {
     TAG_MAKER = 'EndListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -1663,7 +1663,7 @@ cls.callback {
     TAG_MAKER = 'DisposeListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -1673,7 +1673,7 @@ cls.callback {
     TAG_MAKER = 'CompleteListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -1683,7 +1683,7 @@ cls.callback {
     TAG_MAKER = 'EventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -1693,7 +1693,7 @@ cls.callback {
     TAG_MAKER = 'TrackStartListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -1703,7 +1703,7 @@ cls.callback {
     TAG_MAKER = 'TrackInterruptListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -1713,7 +1713,7 @@ cls.callback {
     TAG_MAKER = 'TrackEndListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -1723,7 +1723,7 @@ cls.callback {
     TAG_MAKER = 'TrackDisposeListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -1733,7 +1733,7 @@ cls.callback {
     TAG_MAKER = 'TrackCompleteListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -1743,7 +1743,7 @@ cls.callback {
     TAG_MAKER = 'TrackEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -1753,7 +1753,7 @@ cls.callback {
     TAG_MAKER = 'PreUpdateWorldTransformsListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.callback {
@@ -1763,7 +1763,7 @@ cls.callback {
     TAG_MAKER = 'PostUpdateWorldTransformsListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.props [[

@@ -75,17 +75,17 @@ runtime.FUNC("setDispatcher", [[
 runtime.CALLBACK {
     NAME = 'openURL',
     TAG_MODE = 'OLUA_TAG_NEW',
-    CALLONCE = true,
+    LIFECYCLE = 'once',
 }
 runtime.CALLBACK {
     NAME = 'requestPermission',
     TAG_MODE = 'OLUA_TAG_NEW',
-    CALLONCE = true,
+    LIFECYCLE = 'once',
 }
 runtime.CALLBACK {
     NAME = 'alert',
     TAG_MODE = 'OLUA_TAG_NEW',
-    CALLONCE = true,
+    LIFECYCLE = 'once',
 }
 
 local filesystem = typeconf 'xgame::filesystem'
@@ -111,7 +111,7 @@ timer.CALLBACK {
     NAME = 'delayWithTag',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_MAKER = 'makeTimerDelayTag(#2)',
-    CALLONCE = true,
+    LIFECYCLE = 'once',
 }
 timer.CALLBACK {
     NAME = 'killDelay',
@@ -123,7 +123,7 @@ timer.CALLBACK {
     NAME = 'delay',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_MAKER = 'delay',
-    CALLONCE = true,
+    LIFECYCLE = 'once',
 }
 timer.FUNC('schedule', [[
 {

@@ -56,7 +56,7 @@ typeconf 'cocos2d::backend::RenderPipeline'
 typeconf 'cocos2d::backend::DepthStencilState'
 
 typeconf 'cocos2d::backend::CommandBuffer'
-    .CALLBACK {NAME = 'captureScreen', CALLONCE = true, TAG_MODE = 'OLUA_TAG_NEW'}
+    .CALLBACK {NAME = 'captureScreen', LIFECYCLE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
 
 typeconf 'cocos2d::backend::Device'
 typeconf 'cocos2d::backend::DeviceInfo'
@@ -77,7 +77,7 @@ typeconf 'cocos2d::backend::TextureBackend'
     .CALLBACK {
         NAME = 'getBytes',
         TAG_MODE = 'OLUA_TAG_NEW',
-        CALLONCE = true,
+        LIFECYCLE = 'once',
     }
 
 typeconf 'cocos2d::backend::Texture2DBackend'

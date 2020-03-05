@@ -271,7 +271,7 @@ cls.callback {
     TAG_MAKER = 'createAsync',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
+    LIFECYCLE = 'default',
     REMOVE = false,
 }
 cls.props [[

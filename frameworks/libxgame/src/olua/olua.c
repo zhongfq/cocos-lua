@@ -392,8 +392,8 @@ OLUA_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, 
     }
     
     if (!olua_isstring(L, -1)) {
-        static unsigned int ref = 0;
-        lua_pushfstring(L, ".callback#%d$%s@%s", ++ref, cls, tag);
+        static lua_Integer ref = 0;
+        lua_pushfstring(L, ".callback#%I$%s@%s", ++ref, cls, tag);
     }
     
     lua_pushvalue(L, -1);                               // L: ct k k

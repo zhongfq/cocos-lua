@@ -363,7 +363,7 @@ static bool test_tag_mode(lua_State *L, int idx, const char *tag, int mode)
     return false;
 }
 
-OLUA_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, int func, int mode)
+OLUA_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, int func, int tagmode)
 {
     const char *cls = NULL;
     func = lua_absindex(L, func);
@@ -380,10 +380,10 @@ OLUA_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, 
     aux_getusertable(L, -1);                            // L: obj ct
     lua_remove(L, -2);                                  // L: ct
     
-    if (mode == OLUA_TAG_REPLACE) {
+    if (tagmode == OLUA_TAG_REPLACE) {
         lua_pushnil(L);                                 // L: ct k
         while (lua_next(L, -2)) {                       // L: ct k v
-            if (test_tag_mode(L, -2, tag, mode)) {
+            if (test_tag_mode(L, -2, tag, tagmode)) {
                 lua_pop(L, 1);                          // L: ct k
                 break;
             }
@@ -403,7 +403,7 @@ OLUA_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, 
     return olua_tostring(L, -1);
 }
 
-OLUA_API int olua_getcallback(lua_State *L, void *obj, const char *tag, int mode)
+OLUA_API int olua_getcallback(lua_State *L, void *obj, const char *tag, int tagmode)
 {
     if (!olua_getuserdata(L, obj)) {
         lua_pushnil(L);
@@ -412,13 +412,13 @@ OLUA_API int olua_getcallback(lua_State *L, void *obj, const char *tag, int mode
     
     aux_getusertable(L, -1);                            // L: obj ct
     
-    if (mode == OLUA_TAG_WHOLE) {
+    if (tagmode == OLUA_TAG_WHOLE) {
         olua_rawgetf(L, -1, tag);                       // L: obj ct func
     } else {
         lua_pushnil(L);                                 // L: obj ct nil
         lua_pushnil(L);                                 // L: obj ct nil k
         while (lua_next(L, -3)) {                       // L: obj ct nil k func
-            if (test_tag_mode(L, -2, tag, mode)) {
+            if (test_tag_mode(L, -2, tag, tagmode)) {
                 lua_replace(L, -3);                     // L: obj ct func k
                 lua_pop(L, 1);                          // L: obj ct func
                 break;
@@ -431,20 +431,20 @@ OLUA_API int olua_getcallback(lua_State *L, void *obj, const char *tag, int mode
     return lua_type(L, -1);
 }
 
-OLUA_API void olua_removecallback(lua_State *L, void *obj, const char *tag, int mode)
+OLUA_API void olua_removecallback(lua_State *L, void *obj, const char *tag, int tagmode)
 {
     if (!olua_getuserdata(L, obj)) {
         return;
     }
     
     aux_getusertable(L, -1);                            // L: obj ct
-    if (mode == OLUA_TAG_WHOLE) {
+    if (tagmode == OLUA_TAG_WHOLE) {
         lua_pushnil(L);                                 // L: obj ct nil
         olua_rawsetf(L, -2, tag);                       // L: obj ct
     } else {
         lua_pushnil(L);                                 // L: obj ct k
         while (lua_next(L, -2)) {                       // L: obj ct k v
-            if (test_tag_mode(L, -2, tag, mode)) {
+            if (test_tag_mode(L, -2, tag, tagmode)) {
                 lua_pushvalue(L, -2);                   // L: obj ct k v k
                 lua_pushnil(L);                         // L: obj ct k v k nil
                 lua_rawset(L, -5);                      // L: obj ct k v

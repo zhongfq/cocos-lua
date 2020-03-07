@@ -20432,9 +20432,12 @@ static int _cocos2d_Node_getProgramState(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
-    // backend::ProgramState *getProgramState()
+    // @addref(programState ^) backend::ProgramState *getProgramState()
     cocos2d::backend::ProgramState *ret = (cocos2d::backend::ProgramState *)self->getProgramState();
     int num_ret = olua_push_cppobj(L, ret, "ccb.ProgramState");
+
+    // inject code after call
+    olua_addref(L, 1, "programState", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -22415,8 +22418,11 @@ static int _cocos2d_Node_setProgramState(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccb.ProgramState");
 
-    // void setProgramState(backend::ProgramState *programState)
+    // void setProgramState(@addref(programState ^) backend::ProgramState *programState)
     self->setProgramState(arg1);
+
+    // inject code after call
+    olua_addref(L, 1, "programState", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 

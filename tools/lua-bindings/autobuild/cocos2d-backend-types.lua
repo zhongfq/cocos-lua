@@ -225,6 +225,14 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocos2d::backend::VertexLayout *',
+    LUACLS = 'ccb.VertexLayout',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
     CPPCLS = 'cocos2d::backend::CommandBuffer *',
     LUACLS = 'ccb.CommandBuffer',
     DECLTYPE = nil,

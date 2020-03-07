@@ -344,6 +344,24 @@ cls.funcs [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::backend::VertexLayout'
+cls.funcs [[
+    VertexLayout()
+    void setAttribute(const std::string &name, std::size_t index, cocos2d::backend::VertexFormat format, std::size_t offset, bool needToBeNormallized)
+    void setLayout(std::size_t stride)
+    std::size_t getStride()
+    cocos2d::backend::VertexStepMode getVertexStepMode()
+    const std::unordered_map<std::string, Attribute> &getAttributes()
+    bool isValid()
+]]
+cls.props [[
+    stride
+    vertexStepMode
+    attributes
+    valid
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::backend::CommandBuffer'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
@@ -478,6 +496,12 @@ cls.funcs [[
     const std::unordered_map<int, TextureInfo> &getFragmentTextureInfos()
     void setParameterAutoBinding(const std::string &uniformName, const std::string &autoBinding)
 ]]
+cls.func('getVertexLayout', [[{
+    auto self = olua_toobj<cocos2d::backend::ProgramState>(L, 1);
+    olua_push_cppobj<cocos2d::backend::VertexLayout>(L, self->getVertexLayout().get());
+    olua_addref(L, 1, "vertexLayout", -1, OLUA_MODE_SINGLE);
+    return 1;
+}]])
 cls.props [[
     program
     vertexTextureInfos

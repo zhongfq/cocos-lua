@@ -55,6 +55,8 @@ typeconf 'cocos2d::backend::Buffer'
 typeconf 'cocos2d::backend::RenderPipeline'
 typeconf 'cocos2d::backend::DepthStencilState'
 
+typeconf 'cocos2d::backend::VertexLayout'
+
 typeconf 'cocos2d::backend::CommandBuffer'
     .CALLBACK {NAME = 'captureScreen', LIFECYCLE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
 
@@ -64,12 +66,18 @@ typeconf 'cocos2d::backend::ShaderCache'
 typeconf 'cocos2d::backend::ShaderModule'
 typeconf 'cocos2d::backend::ProgramCache'
 
-typeconf 'cocos2d::backend::ProgramState'
-    .EXCLUDE 'setCallbackUniform'
-    .EXCLUDE 'getCallbackUniforms'
-    .EXCLUDE 'getVertexUniformBuffer'
-    .EXCLUDE 'getFragmentUniformBuffer'
-    .EXCLUDE 'getVertexLayout'
+local ProgramState = typeconf 'cocos2d::backend::ProgramState'
+ProgramState.EXCLUDE 'setCallbackUniform'
+ProgramState.EXCLUDE 'getCallbackUniforms'
+ProgramState.EXCLUDE 'getVertexUniformBuffer'
+ProgramState.EXCLUDE 'getFragmentUniformBuffer'
+ProgramState.FUNC('getVertexLayout', [[
+{
+    auto self = olua_toobj<cocos2d::backend::ProgramState>(L, 1);
+    olua_push_cppobj<cocos2d::backend::VertexLayout>(L, self->getVertexLayout().get());
+    olua_addref(L, 1, "vertexLayout", -1, OLUA_MODE_SINGLE);
+    return 1;
+}]])
 
 typeconf 'cocos2d::backend::Program'
 

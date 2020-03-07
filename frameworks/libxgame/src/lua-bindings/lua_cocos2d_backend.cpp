@@ -547,6 +547,189 @@ static int luaopen_cocos2d_backend_DepthStencilState(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_backend_VertexLayout___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::backend::VertexLayout *)olua_toobj(L, 1, "ccb.VertexLayout");
+    lua_pushstring(L, ".ownership");
+    olua_getvariable(L, 1);
+    if (lua_toboolean(L, -1) && self) {
+        olua_setuserdata(L, 1, nullptr);
+        delete self;
+    }
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_backend_VertexLayout___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::backend::VertexLayout *)olua_toobj(L, 1, "ccb.VertexLayout");
+    olua_push_cppobj(L, self, "ccb.VertexLayout");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_backend_VertexLayout_getAttributes(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::backend::VertexLayout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccb.VertexLayout");
+
+    // const std::unordered_map<std::string, Attribute> &getAttributes()
+    const std::unordered_map<std::string, cocos2d::backend::Attribute> &ret = (const std::unordered_map<std::string, cocos2d::backend::Attribute> &)self->getAttributes();
+    int num_ret = 1;
+    lua_createtable(L, 0, (int)ret.size());
+    for (auto &entry : ret) {
+        olua_push_std_string(L, entry.first);
+        olua_push_uint(L, (lua_Unsigned)entry.second);
+        lua_rawset(L, -3);
+    }
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_backend_VertexLayout_getStride(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::backend::VertexLayout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccb.VertexLayout");
+
+    // std::size_t getStride()
+    std::size_t ret = (std::size_t)self->getStride();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_backend_VertexLayout_getVertexStepMode(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::backend::VertexLayout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccb.VertexLayout");
+
+    // cocos2d::backend::VertexStepMode getVertexStepMode()
+    cocos2d::backend::VertexStepMode ret = (cocos2d::backend::VertexStepMode)self->getVertexStepMode();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_backend_VertexLayout_isValid(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::backend::VertexLayout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccb.VertexLayout");
+
+    // bool isValid()
+    bool ret = (bool)self->isValid();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_backend_VertexLayout_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // VertexLayout()
+    cocos2d::backend::VertexLayout *ret = (cocos2d::backend::VertexLayout *)new cocos2d::backend::VertexLayout();
+    int num_ret = olua_push_cppobj(L, ret, "ccb.VertexLayout");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_backend_VertexLayout_setAttribute(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::backend::VertexLayout *self = nullptr;
+    std::string arg1;       /** name */
+    lua_Unsigned arg2 = 0;       /** index */
+    lua_Unsigned arg3 = 0;       /** format */
+    lua_Unsigned arg4 = 0;       /** offset */
+    bool arg5 = false;       /** needToBeNormallized */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccb.VertexLayout");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_uint(L, 3, &arg2);
+    olua_check_uint(L, 4, &arg3);
+    olua_check_uint(L, 5, &arg4);
+    olua_check_bool(L, 6, &arg5);
+
+    // void setAttribute(const std::string &name, std::size_t index, cocos2d::backend::VertexFormat format, std::size_t offset, bool needToBeNormallized)
+    self->setAttribute(arg1, (std::size_t)arg2, (cocos2d::backend::VertexFormat)arg3, (std::size_t)arg4, arg5);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_backend_VertexLayout_setLayout(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::backend::VertexLayout *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** stride */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccb.VertexLayout");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setLayout(std::size_t stride)
+    self->setLayout((std::size_t)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_backend_VertexLayout(lua_State *L)
+{
+    oluacls_class(L, "ccb.VertexLayout", nullptr);
+    oluacls_func(L, "__gc", _cocos2d_backend_VertexLayout___gc);
+    oluacls_func(L, "__move", _cocos2d_backend_VertexLayout___move);
+    oluacls_func(L, "getAttributes", _cocos2d_backend_VertexLayout_getAttributes);
+    oluacls_func(L, "getStride", _cocos2d_backend_VertexLayout_getStride);
+    oluacls_func(L, "getVertexStepMode", _cocos2d_backend_VertexLayout_getVertexStepMode);
+    oluacls_func(L, "isValid", _cocos2d_backend_VertexLayout_isValid);
+    oluacls_func(L, "new", _cocos2d_backend_VertexLayout_new);
+    oluacls_func(L, "setAttribute", _cocos2d_backend_VertexLayout_setAttribute);
+    oluacls_func(L, "setLayout", _cocos2d_backend_VertexLayout_setLayout);
+    oluacls_prop(L, "attributes", _cocos2d_backend_VertexLayout_getAttributes, nullptr);
+    oluacls_prop(L, "stride", _cocos2d_backend_VertexLayout_getStride, nullptr);
+    oluacls_prop(L, "valid", _cocos2d_backend_VertexLayout_isValid, nullptr);
+    oluacls_prop(L, "vertexStepMode", _cocos2d_backend_VertexLayout_getVertexStepMode, nullptr);
+
+    olua_registerluatype<cocos2d::backend::VertexLayout>(L, "ccb.VertexLayout");
+
+    return 1;
+}
+
 static int _cocos2d_backend_CommandBuffer___move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1855,6 +2038,19 @@ static int _cocos2d_backend_ProgramState_getUniformLocation(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_backend_ProgramState_getVertexLayout(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = olua_toobj<cocos2d::backend::ProgramState>(L, 1);
+    olua_push_cppobj<cocos2d::backend::VertexLayout>(L, self->getVertexLayout().get());
+    olua_addref(L, 1, "vertexLayout", -1, OLUA_MODE_SINGLE);
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _cocos2d_backend_ProgramState_getVertexTextureInfos(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1982,6 +2178,7 @@ static int luaopen_cocos2d_backend_ProgramState(lua_State *L)
     oluacls_func(L, "getFragmentTextureInfos", _cocos2d_backend_ProgramState_getFragmentTextureInfos);
     oluacls_func(L, "getProgram", _cocos2d_backend_ProgramState_getProgram);
     oluacls_func(L, "getUniformLocation", _cocos2d_backend_ProgramState_getUniformLocation);
+    oluacls_func(L, "getVertexLayout", _cocos2d_backend_ProgramState_getVertexLayout);
     oluacls_func(L, "getVertexTextureInfos", _cocos2d_backend_ProgramState_getVertexTextureInfos);
     oluacls_func(L, "setParameterAutoBinding", _cocos2d_backend_ProgramState_setParameterAutoBinding);
     oluacls_func(L, "setTexture", _cocos2d_backend_ProgramState_setTexture);
@@ -2789,6 +2986,7 @@ int luaopen_cocos2d_backend(lua_State *L)
     olua_require(L, "ccb.Buffer", luaopen_cocos2d_backend_Buffer);
     olua_require(L, "ccb.RenderPipeline", luaopen_cocos2d_backend_RenderPipeline);
     olua_require(L, "ccb.DepthStencilState", luaopen_cocos2d_backend_DepthStencilState);
+    olua_require(L, "ccb.VertexLayout", luaopen_cocos2d_backend_VertexLayout);
     olua_require(L, "ccb.CommandBuffer", luaopen_cocos2d_backend_CommandBuffer);
     olua_require(L, "ccb.Device", luaopen_cocos2d_backend_Device);
     olua_require(L, "ccb.DeviceInfo", luaopen_cocos2d_backend_DeviceInfo);

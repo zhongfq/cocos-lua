@@ -194,13 +194,6 @@ M.CONVS = {
         ]],
     },
     typeconv {
-        CPPCLS = 'cocos2d::PipelineDescriptor',
-        DEF = [[
-            @optional backend::ProgramState *programState;
-            backend::BlendDescriptor blendDescriptor;
-        ]],
-    },
-    typeconv {
         CPPCLS = 'cocos2d::NavMeshAgentParam',
         DEF = [[
             float radius;

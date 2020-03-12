@@ -67,3 +67,8 @@ typedef {
     CPPCLS = 'cocos2d::ValueVector',
     CONV = 'manual_olua_$$_cocos2d_ValueVector',
 }
+
+typedef {
+    CPPCLS = 'cocos2d::PipelineDescriptor',
+    CONV = 'olua_$$_cppobj',
+}

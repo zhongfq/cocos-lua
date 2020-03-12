@@ -1817,6 +1817,13 @@ cls.enums [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::PipelineDescriptor'
+cls.funcs [[
+]]
+cls.var('programState', [[@optional backend::ProgramState *programState]])
+cls.var('blendDescriptor', [[backend::BlendDescriptor blendDescriptor]])
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::Technique'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
@@ -1837,18 +1844,127 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::RenderCommand'
 cls.funcs [[
+    void init(float globalZOrder, const cocos2d::Mat4 &modelViewTransform, unsigned int flags)
+    float getGlobalOrder()
+    cocos2d::RenderCommand::Type getType()
+    bool isTransparent()
+    void setTransparent(bool isTransparent)
+    bool isSkipBatching()
+    void setSkipBatching(bool value)
+    bool is3D()
+    void set3D(bool value)
+    float getDepth()
+    cocos2d::PipelineDescriptor &getPipelineDescriptor()
+    const cocos2d::Mat4 &getMV()
+]]
+cls.props [[
+    globalOrder
+    type
+    transparent
+    skipBatching
+    3D
+    depth
+    pipelineDescriptor
+    mv
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::CustomCommand'
 cls.SUPERCLS = "cocos2d::RenderCommand"
 cls.funcs [[
+    CustomCommand()
+    void init(float globalZOrder)
+    void init(float globalZOrder, const cocos2d::BlendFunc &blendFunc)
+    void createVertexBuffer(std::size_t vertexSize, std::size_t capacity, cocos2d::CustomCommand::BufferUsage usage)
+    void createIndexBuffer(cocos2d::CustomCommand::IndexFormat format, std::size_t capacity, cocos2d::CustomCommand::BufferUsage usage)
+    void updateVertexBuffer(void *data, std::size_t length)
+    void updateIndexBuffer(void *data, std::size_t length)
+    void updateVertexBuffer(void *data, std::size_t offset, std::size_t length)
+    void updateIndexBuffer(void *data, std::size_t offset, std::size_t length)
+    std::size_t getVertexCapacity()
+    std::size_t getIndexCapacity()
+    void setDrawType(cocos2d::CustomCommand::DrawType drawType)
+    cocos2d::CustomCommand::DrawType getDrawType()
+    void setPrimitiveType(cocos2d::CustomCommand::PrimitiveType primitiveType)
+    cocos2d::CustomCommand::PrimitiveType getPrimitiveType()
+    void setVertexBuffer(backend::Buffer *vertexBuffer)
+    backend::Buffer *getVertexBuffer()
+    void setIndexBuffer(backend::Buffer *indexBuffer, cocos2d::CustomCommand::IndexFormat indexFormat)
+    backend::Buffer *getIndexBuffer()
+    void setVertexDrawInfo(std::size_t start, std::size_t count)
+    std::size_t getVertexDrawStart()
+    std::size_t getVertexDrawCount()
+    void setIndexDrawInfo(std::size_t start, std::size_t count)
+    std::size_t getIndexDrawOffset()
+    std::size_t getIndexDrawCount()
+    void setLineWidth(float lineWidth)
+    float getLineWidth()
+    cocos2d::CustomCommand::IndexFormat getIndexFormat()
+]]
+cls.var('func', [[@nullable @local std::function<void ()> func]])
+cls.callback {
+    FUNCS =  {
+        'void setBeforeCallback(@local const std::function<void ()> &before)'
+    },
+    TAG_MAKER = 'BeforeCallback',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
+    LIFECYCLE = 'default',
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'void setAfterCallback(@local const std::function<void ()> &after)'
+    },
+    TAG_MAKER = 'AfterCallback',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
+    LIFECYCLE = 'default',
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        '@local const std::function<void ()> &getBeforeCallback()'
+    },
+    TAG_MAKER = 'BeforeCallback',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
+    TAG_STORE = nil,
+    LIFECYCLE = 'default',
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        '@local const std::function<void ()> &getAfterCallback()'
+    },
+    TAG_MAKER = 'AfterCallback',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
+    TAG_STORE = nil,
+    LIFECYCLE = 'default',
+    REMOVE = false,
+}
+cls.props [[
+    vertexCapacity
+    indexCapacity
+    drawType
+    primitiveType
+    vertexBuffer
+    indexBuffer
+    vertexDrawStart
+    vertexDrawCount
+    indexDrawOffset
+    indexDrawCount
+    lineWidth
+    indexFormat
+    beforeCallback
+    afterCallback
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::MeshCommand'
 cls.SUPERCLS = "cocos2d::CustomCommand"
 cls.funcs [[
+    MeshCommand()
+    void init(float globalZOrder, const cocos2d::Mat4 &transform)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 

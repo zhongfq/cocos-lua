@@ -156,14 +156,6 @@ typedef {
 }
 
 typedef {
-    CPPCLS = 'cocos2d::PipelineDescriptor',
-    LUACLS = nil,
-    DECLTYPE = nil,
-    CONV = 'auto_olua_$$_cocos2d_PipelineDescriptor',
-    NUMVARS = 2,
-}
-
-typedef {
     CPPCLS = 'cocos2d::NavMeshAgentParam',
     LUACLS = nil,
     DECLTYPE = nil,

@@ -72,6 +72,11 @@ typedef {
 }
 
 typedef {
+    CONV = 'olua_$$_cppobj',
+    CPPCLS = 'cocos2d::PipelineDescriptor',
+}
+
+typedef {
     CPPCLS = 'cocos2d::RenderTargetFlag',
     LUACLS = 'cc.RenderTargetFlag',
     DECLTYPE = "lua_Unsigned",
@@ -556,6 +561,14 @@ typedef {
     LUACLS = 'cc.CustomCommand.DrawType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::PipelineDescriptor *',
+    LUACLS = 'cc.PipelineDescriptor',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
     NUMVARS = nil,
 }
 

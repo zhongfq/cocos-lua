@@ -194,6 +194,11 @@ void Renderer::init()
     _commandBuffer->setRenderPipeline(_renderPipeline);
 }
 
+void Renderer::drawCommand(RenderCommand* command)
+{
+    processRenderCommand(command);
+}
+
 void Renderer::addCommand(RenderCommand* command)
 {
     int renderQueueID =_commandGroupStack.top();

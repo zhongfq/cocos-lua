@@ -144,6 +144,9 @@ public:
 
     //TODO: manage GLView inside Render itself
     void init();
+    
+    /** draw command now */
+    void drawCommand(RenderCommand* command);
 
     /** Adds a `RenderComamnd` into the renderer */
     void addCommand(RenderCommand* command);

@@ -1235,6 +1235,9 @@ static int _cocos2d_backend_Device_newBuffer(lua_State *L)
     cocos2d::backend::Buffer *ret = (cocos2d::backend::Buffer *)self->newBuffer((size_t)arg1, (cocos2d::backend::BufferType)arg2, (cocos2d::backend::BufferUsage)arg3);
     int num_ret = olua_push_cppobj(L, ret, "ccb.Buffer");
 
+    // inject code after call
+    ret->autorelease();
+
     olua_endinvoke(L);
 
     return num_ret;
@@ -1251,6 +1254,9 @@ static int _cocos2d_backend_Device_newCommandBuffer(lua_State *L)
     // cocos2d::backend::CommandBuffer *newCommandBuffer()
     cocos2d::backend::CommandBuffer *ret = (cocos2d::backend::CommandBuffer *)self->newCommandBuffer();
     int num_ret = olua_push_cppobj(L, ret, "ccb.CommandBuffer");
+
+    // inject code after call
+    ret->autorelease();
 
     olua_endinvoke(L);
 
@@ -1273,6 +1279,9 @@ static int _cocos2d_backend_Device_newProgram(lua_State *L)
     cocos2d::backend::Program *ret = (cocos2d::backend::Program *)self->newProgram(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "ccb.Program");
 
+    // inject code after call
+    ret->autorelease();
+
     olua_endinvoke(L);
 
     return num_ret;
@@ -1289,6 +1298,9 @@ static int _cocos2d_backend_Device_newRenderPipeline(lua_State *L)
     // cocos2d::backend::RenderPipeline *newRenderPipeline()
     cocos2d::backend::RenderPipeline *ret = (cocos2d::backend::RenderPipeline *)self->newRenderPipeline();
     int num_ret = olua_push_cppobj(L, ret, "ccb.RenderPipeline");
+
+    // inject code after call
+    ret->autorelease();
 
     olua_endinvoke(L);
 
@@ -1308,6 +1320,9 @@ static int _cocos2d_backend_Device_newTexture(lua_State *L)
     // cocos2d::backend::TextureBackend *newTexture(const cocos2d::backend::TextureDescriptor &descriptor)
     cocos2d::backend::TextureBackend *ret = (cocos2d::backend::TextureBackend *)self->newTexture(arg1);
     int num_ret = olua_push_cppobj(L, ret, "ccb.TextureBackend");
+
+    // inject code after call
+    ret->autorelease();
 
     olua_endinvoke(L);
 

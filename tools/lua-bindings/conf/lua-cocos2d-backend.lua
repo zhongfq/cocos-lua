@@ -60,7 +60,19 @@ typeconf 'cocos2d::backend::VertexLayout'
 typeconf 'cocos2d::backend::CommandBuffer'
     .CALLBACK {NAME = 'captureScreen', LIFECYCLE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
 
-typeconf 'cocos2d::backend::Device'
+local Device = typeconf 'cocos2d::backend::Device'
+Device.INJECT({
+    'newProgram',
+    'newRenderPipeline',
+    'newTexture',
+    'newBuffer',
+    'newCommandBuffer'
+}, {
+    AFTER = [[
+        ret->autorelease();
+    ]]
+})
+
 typeconf 'cocos2d::backend::DeviceInfo'
 typeconf 'cocos2d::backend::ShaderCache'
 typeconf 'cocos2d::backend::ShaderModule'

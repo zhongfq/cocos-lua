@@ -590,6 +590,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Event'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
+    Event(cocos2d::Event::Type type)
     cocos2d::Event::Type getType()
     void stopPropagation()
     bool isStopped()
@@ -605,6 +606,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventCustom'
 cls.SUPERCLS = "cocos2d::Event"
 cls.funcs [[
+    EventCustom(const std::string &eventName)
     void setUserData(void *data)
     void *getUserData()
     const std::string &getEventName()
@@ -701,6 +703,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventMouse'
 cls.SUPERCLS = "cocos2d::Event"
 cls.funcs [[
+    EventMouse(cocos2d::EventMouse::MouseEventType mouseEventCode)
     void setScrollData(float scrollX, float scrollY)
     float getScrollX()
     float getScrollY()
@@ -1715,6 +1718,7 @@ cls.const('MATERIAL_ID_DO_NOT_BATCH', 'cocos2d::Renderer::MATERIAL_ID_DO_NOT_BAT
 cls.funcs [[
     Renderer()
     void init()
+    void drawCommand(cocos2d::RenderCommand *command)
     void addCommand(cocos2d::RenderCommand *command)
     void addCommand(cocos2d::RenderCommand *command, int renderQueueID)
     void pushGroup(int renderQueueID)
@@ -2934,6 +2938,7 @@ cls.funcs [[
     float getLineWidth()
     void setIsolated(bool isolated)
     bool isIsolated()
+    DrawNode(@optional float lineWidth)
 ]]
 cls.props [[
     blendFunc
@@ -3094,6 +3099,7 @@ cls.funcs [[
     cocos2d::FontAtlas *getFontAtlas()
     const cocos2d::BlendFunc &getBlendFunc()
     void setBlendFunc(const cocos2d::BlendFunc &blendFunc)
+    Label(@optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
     bool initWithTTF(const std::string &text, const std::string &fontFilePath, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
     bool initWithTTF(const cocos2d::TTFConfig &ttfConfig, const std::string &text, @optional cocos2d::TextHAlignment hAlignment, @optional int maxLineWidth)
 ]]

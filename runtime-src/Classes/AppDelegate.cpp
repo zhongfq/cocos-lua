@@ -43,6 +43,9 @@
 #include "lua-bindings/lua_spine.h"
 #endif // CCLUA_USE_SPINE
 
+#ifdef CCLUA_USE_SWF
+#include "lua_swf.h"
+#endif // CCLUA_USE_SWF
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
 #define BUGLY_APPID "546f1cf279" // d21353e4-26c8-4f94-b646-cf88a225f039
@@ -64,10 +67,14 @@ static int _open_plugins(lua_State *L)
 
 #ifdef CCLUA_USE_FAIRYGUI
     olua_dofunc(L, luaopen_fairygui);
-#endif // CCLUA_USE_FAIRYGUI
+#endif
 
 #ifdef CCLUA_USE_SPINE
 	olua_dofunc(L, luaopen_spine);
+#endif
+    
+#ifdef CCLUA_USE_SWF
+    olua_dofunc(L, luaopen_swf);
 #endif
     
 //    olua_require(L, "kernel.plugins.wechat", luaopen_wechat);

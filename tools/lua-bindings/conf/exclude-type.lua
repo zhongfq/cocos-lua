@@ -1,8 +1,10 @@
 local autoconf = require "autoconf"
 local M = autoconf.typemod 'exclude-type'
 
+M.EXCLUDE_TYPE 'cocos2d::Acceleration'
 M.EXCLUDE_TYPE 'cocos2d::Console::Command *'
 M.EXCLUDE_TYPE 'cocos2d::Console::Command'
+M.EXCLUDE_TYPE 'cocos2d::Font'
 M.EXCLUDE_TYPE 'cocos2d::Font *'
 M.EXCLUDE_TYPE 'cocos2d::FontDefinition'
 M.EXCLUDE_TYPE 'cocos2d::FontLetterDefinition'

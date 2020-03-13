@@ -2296,6 +2296,23 @@ static int luaopen_dragonBones_IAnimatable(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_WorldClock___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (dragonBones::WorldClock *)olua_toobj(L, 1, "db.WorldClock");
+    lua_pushstring(L, ".ownership");
+    olua_getvariable(L, 1);
+    if (lua_toboolean(L, -1) && self) {
+        olua_setuserdata(L, 1, nullptr);
+        delete self;
+    }
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _dragonBones_WorldClock___move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -2372,6 +2389,59 @@ static int _dragonBones_WorldClock_getStaticClock(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _dragonBones_WorldClock_new1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** timeValue */
+
+    olua_check_number(L, 1, &arg1);
+
+    // WorldClock(@optional float timeValue)
+    dragonBones::WorldClock *ret = (dragonBones::WorldClock *)new dragonBones::WorldClock((float)arg1);
+    int num_ret = olua_push_cppobj(L, ret, "db.WorldClock");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _dragonBones_WorldClock_new2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // WorldClock(@optional float timeValue)
+    dragonBones::WorldClock *ret = (dragonBones::WorldClock *)new dragonBones::WorldClock();
+    int num_ret = olua_push_cppobj(L, ret, "db.WorldClock");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _dragonBones_WorldClock_new(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // WorldClock(@optional float timeValue)
+        return _dragonBones_WorldClock_new2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_number(L, 1))) {
+            // WorldClock(@optional float timeValue)
+            return _dragonBones_WorldClock_new1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'dragonBones::WorldClock::new' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _dragonBones_WorldClock_remove(lua_State *L)
@@ -2465,11 +2535,13 @@ static int _dragonBones_WorldClock_set_timeScale(lua_State *L)
 static int luaopen_dragonBones_WorldClock(lua_State *L)
 {
     oluacls_class(L, "db.WorldClock", "db.IAnimatable");
+    oluacls_func(L, "__gc", _dragonBones_WorldClock___gc);
     oluacls_func(L, "__move", _dragonBones_WorldClock___move);
     oluacls_func(L, "add", _dragonBones_WorldClock_add);
     oluacls_func(L, "clear", _dragonBones_WorldClock_clear);
     oluacls_func(L, "contains", _dragonBones_WorldClock_contains);
     oluacls_func(L, "getStaticClock", _dragonBones_WorldClock_getStaticClock);
+    oluacls_func(L, "new", _dragonBones_WorldClock_new);
     oluacls_func(L, "remove", _dragonBones_WorldClock_remove);
     oluacls_prop(L, "staticClock", _dragonBones_WorldClock_getStaticClock, nullptr);
     oluacls_prop(L, "time", _dragonBones_WorldClock_get_time, _dragonBones_WorldClock_set_time);

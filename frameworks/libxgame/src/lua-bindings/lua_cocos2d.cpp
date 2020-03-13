@@ -5690,6 +5690,24 @@ static int _cocos2d_Event_isStopped(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Event_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Unsigned arg1 = 0;       /** type */
+
+    olua_check_uint(L, 1, &arg1);
+
+    // Event(cocos2d::Event::Type type)
+    cocos2d::Event *ret = (cocos2d::Event *)new cocos2d::Event((cocos2d::Event::Type)arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Event");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Event_stopPropagation(lua_State *L)
 {
     olua_startinvoke(L);
@@ -5713,6 +5731,7 @@ static int luaopen_cocos2d_Event(lua_State *L)
     oluacls_func(L, "getCurrentTarget", _cocos2d_Event_getCurrentTarget);
     oluacls_func(L, "getType", _cocos2d_Event_getType);
     oluacls_func(L, "isStopped", _cocos2d_Event_isStopped);
+    oluacls_func(L, "new", _cocos2d_Event_new);
     oluacls_func(L, "stopPropagation", _cocos2d_Event_stopPropagation);
     oluacls_prop(L, "currentTarget", _cocos2d_Event_getCurrentTarget, nullptr);
     oluacls_prop(L, "stopped", _cocos2d_Event_isStopped, nullptr);
@@ -5769,6 +5788,24 @@ static int _cocos2d_EventCustom_getUserData(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_EventCustom_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::string arg1;       /** eventName */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // EventCustom(const std::string &eventName)
+    cocos2d::EventCustom *ret = (cocos2d::EventCustom *)new cocos2d::EventCustom(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventCustom");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_EventCustom_setUserData(lua_State *L)
 {
     olua_startinvoke(L);
@@ -5793,6 +5830,7 @@ static int luaopen_cocos2d_EventCustom(lua_State *L)
     oluacls_func(L, "__move", _cocos2d_EventCustom___move);
     oluacls_func(L, "getEventName", _cocos2d_EventCustom_getEventName);
     oluacls_func(L, "getUserData", _cocos2d_EventCustom_getUserData);
+    oluacls_func(L, "new", _cocos2d_EventCustom_new);
     oluacls_func(L, "setUserData", _cocos2d_EventCustom_setUserData);
     oluacls_prop(L, "eventName", _cocos2d_EventCustom_getEventName, nullptr);
     oluacls_prop(L, "userData", _cocos2d_EventCustom_getUserData, _cocos2d_EventCustom_setUserData);
@@ -6740,6 +6778,24 @@ static int _cocos2d_EventMouse_getStartLocationInView(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_EventMouse_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Unsigned arg1 = 0;       /** mouseEventCode */
+
+    olua_check_uint(L, 1, &arg1);
+
+    // EventMouse(cocos2d::EventMouse::MouseEventType mouseEventCode)
+    cocos2d::EventMouse *ret = (cocos2d::EventMouse *)new cocos2d::EventMouse((cocos2d::EventMouse::MouseEventType)arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventMouse");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_EventMouse_setCursorPosition(lua_State *L)
 {
     olua_startinvoke(L);
@@ -6814,6 +6870,7 @@ static int luaopen_cocos2d_EventMouse(lua_State *L)
     oluacls_func(L, "getScrollY", _cocos2d_EventMouse_getScrollY);
     oluacls_func(L, "getStartLocation", _cocos2d_EventMouse_getStartLocation);
     oluacls_func(L, "getStartLocationInView", _cocos2d_EventMouse_getStartLocationInView);
+    oluacls_func(L, "new", _cocos2d_EventMouse_new);
     oluacls_func(L, "setCursorPosition", _cocos2d_EventMouse_setCursorPosition);
     oluacls_func(L, "setMouseButton", _cocos2d_EventMouse_setMouseButton);
     oluacls_func(L, "setScrollData", _cocos2d_EventMouse_setScrollData);
@@ -13997,6 +14054,24 @@ static int _cocos2d_Renderer_createRenderQueue(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Renderer_drawCommand(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Renderer *self = nullptr;
+    cocos2d::RenderCommand *arg1 = nullptr;       /** command */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Renderer");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.RenderCommand");
+
+    // void drawCommand(cocos2d::RenderCommand *command)
+    self->drawCommand(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cocos2d_Renderer_getClearColor(lua_State *L)
 {
     olua_startinvoke(L);
@@ -14792,6 +14867,7 @@ static int luaopen_cocos2d_Renderer(lua_State *L)
     oluacls_func(L, "clear", _cocos2d_Renderer_clear);
     oluacls_func(L, "clearDrawStats", _cocos2d_Renderer_clearDrawStats);
     oluacls_func(L, "createRenderQueue", _cocos2d_Renderer_createRenderQueue);
+    oluacls_func(L, "drawCommand", _cocos2d_Renderer_drawCommand);
     oluacls_func(L, "getClearColor", _cocos2d_Renderer_getClearColor);
     oluacls_func(L, "getClearDepth", _cocos2d_Renderer_getClearDepth);
     oluacls_func(L, "getClearFlag", _cocos2d_Renderer_getClearFlag);
@@ -27071,6 +27147,59 @@ static int _cocos2d_DrawNode_isIsolated(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_DrawNode_new1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** lineWidth */
+
+    olua_check_number(L, 1, &arg1);
+
+    // DrawNode(@optional float lineWidth)
+    cocos2d::DrawNode *ret = (cocos2d::DrawNode *)new cocos2d::DrawNode((float)arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.DrawNode");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_DrawNode_new2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // DrawNode(@optional float lineWidth)
+    cocos2d::DrawNode *ret = (cocos2d::DrawNode *)new cocos2d::DrawNode();
+    int num_ret = olua_push_cppobj(L, ret, "cc.DrawNode");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_DrawNode_new(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // DrawNode(@optional float lineWidth)
+        return _cocos2d_DrawNode_new2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_number(L, 1))) {
+            // DrawNode(@optional float lineWidth)
+            return _cocos2d_DrawNode_new1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::DrawNode::new' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
 static int _cocos2d_DrawNode_setBlendFunc(lua_State *L)
 {
     olua_startinvoke(L);
@@ -27147,6 +27276,7 @@ static int luaopen_cocos2d_DrawNode(lua_State *L)
     oluacls_func(L, "getBlendFunc", _cocos2d_DrawNode_getBlendFunc);
     oluacls_func(L, "getLineWidth", _cocos2d_DrawNode_getLineWidth);
     oluacls_func(L, "isIsolated", _cocos2d_DrawNode_isIsolated);
+    oluacls_func(L, "new", _cocos2d_DrawNode_new);
     oluacls_func(L, "setBlendFunc", _cocos2d_DrawNode_setBlendFunc);
     oluacls_func(L, "setIsolated", _cocos2d_DrawNode_setIsolated);
     oluacls_func(L, "setLineWidth", _cocos2d_DrawNode_setLineWidth);
@@ -29071,6 +29201,86 @@ static int _cocos2d_Label_isWrapEnabled(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Label_new1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Unsigned arg1 = 0;       /** hAlignment */
+    lua_Unsigned arg2 = 0;       /** vAlignment */
+
+    olua_check_uint(L, 1, &arg1);
+    olua_check_uint(L, 2, &arg2);
+
+    // Label(@optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
+    cocos2d::Label *ret = (cocos2d::Label *)new cocos2d::Label((cocos2d::TextHAlignment)arg1, (cocos2d::TextVAlignment)arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Label");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_new2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // Label(@optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
+    cocos2d::Label *ret = (cocos2d::Label *)new cocos2d::Label();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Label");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_new3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Unsigned arg1 = 0;       /** hAlignment */
+
+    olua_check_uint(L, 1, &arg1);
+
+    // Label(@optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
+    cocos2d::Label *ret = (cocos2d::Label *)new cocos2d::Label((cocos2d::TextHAlignment)arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Label");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_new(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // Label(@optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
+        return _cocos2d_Label_new2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // Label(@optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
+            return _cocos2d_Label_new3(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_uint(L, 1)) && (olua_is_uint(L, 2))) {
+            // Label(@optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
+            return _cocos2d_Label_new1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Label::new' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
 static int _cocos2d_Label_requestSystemFontRefresh(lua_State *L)
 {
     olua_startinvoke(L);
@@ -29838,6 +30048,7 @@ static int luaopen_cocos2d_Label(lua_State *L)
     oluacls_func(L, "isClipMarginEnabled", _cocos2d_Label_isClipMarginEnabled);
     oluacls_func(L, "isShadowEnabled", _cocos2d_Label_isShadowEnabled);
     oluacls_func(L, "isWrapEnabled", _cocos2d_Label_isWrapEnabled);
+    oluacls_func(L, "new", _cocos2d_Label_new);
     oluacls_func(L, "requestSystemFontRefresh", _cocos2d_Label_requestSystemFontRefresh);
     oluacls_func(L, "setAdditionalKerning", _cocos2d_Label_setAdditionalKerning);
     oluacls_func(L, "setAlignment", _cocos2d_Label_setAlignment);

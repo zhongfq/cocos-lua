@@ -326,6 +326,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'dragonBones::WorldClock'
 cls.SUPERCLS = "dragonBones::IAnimatable"
 cls.funcs [[
+    WorldClock(@optional float timeValue)
     bool contains(const dragonBones::IAnimatable *value)
     void add(dragonBones::IAnimatable *value)
     void remove(dragonBones::IAnimatable *value)

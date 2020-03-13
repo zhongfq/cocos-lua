@@ -1535,6 +1535,23 @@ static int luaopen_fairygui_PixelHitTestData(lua_State *L)
     return 1;
 }
 
+static int _fairygui_InputProcessor___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (fairygui::InputProcessor *)olua_toobj(L, 1, "fgui.InputProcessor");
+    lua_pushstring(L, ".ownership");
+    olua_getvariable(L, 1);
+    if (lua_toboolean(L, -1) && self) {
+        olua_setuserdata(L, 1, nullptr);
+        delete self;
+    }
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _fairygui_InputProcessor___move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1644,6 +1661,24 @@ static int _fairygui_InputProcessor_isTouchOnUI(lua_State *L)
     // static bool isTouchOnUI()
     bool ret = (bool)fairygui::InputProcessor::isTouchOnUI();
     int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_InputProcessor_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GComponent *arg1 = nullptr;       /** owner */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "fgui.GComponent");
+
+    // InputProcessor(fairygui::GComponent *owner)
+    fairygui::InputProcessor *ret = (fairygui::InputProcessor *)new fairygui::InputProcessor(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "fgui.InputProcessor");
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -1834,6 +1869,7 @@ static int _fairygui_InputProcessor_touchUp(lua_State *L)
 static int luaopen_fairygui_InputProcessor(lua_State *L)
 {
     oluacls_class(L, "fgui.InputProcessor", nullptr);
+    oluacls_func(L, "__gc", _fairygui_InputProcessor___gc);
     oluacls_func(L, "__move", _fairygui_InputProcessor___move);
     oluacls_func(L, "addTouchMonitor", _fairygui_InputProcessor_addTouchMonitor);
     oluacls_func(L, "cancelClick", _fairygui_InputProcessor_cancelClick);
@@ -1841,6 +1877,7 @@ static int luaopen_fairygui_InputProcessor(lua_State *L)
     oluacls_func(L, "getRecentInput", _fairygui_InputProcessor_getRecentInput);
     oluacls_func(L, "getTouchPosition", _fairygui_InputProcessor_getTouchPosition);
     oluacls_func(L, "isTouchOnUI", _fairygui_InputProcessor_isTouchOnUI);
+    oluacls_func(L, "new", _fairygui_InputProcessor_new);
     oluacls_func(L, "removeTouchMonitor", _fairygui_InputProcessor_removeTouchMonitor);
     oluacls_func(L, "setCaptureCallback", _fairygui_InputProcessor_setCaptureCallback);
     oluacls_func(L, "simulateClick", _fairygui_InputProcessor_simulateClick);
@@ -17649,6 +17686,23 @@ static int luaopen_fairygui_PopupMenu(lua_State *L)
     return 1;
 }
 
+static int _fairygui_Relations___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (fairygui::Relations *)olua_toobj(L, 1, "fgui.Relations");
+    lua_pushstring(L, ".ownership");
+    olua_getvariable(L, 1);
+    if (lua_toboolean(L, -1) && self) {
+        olua_setuserdata(L, 1, nullptr);
+        delete self;
+    }
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _fairygui_Relations___move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -17810,6 +17864,24 @@ static int _fairygui_Relations_isEmpty(lua_State *L)
     return num_ret;
 }
 
+static int _fairygui_Relations_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GObject *arg1 = nullptr;       /** owner */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "fgui.GObject");
+
+    // Relations(fairygui::GObject *owner)
+    fairygui::Relations *ret = (fairygui::Relations *)new fairygui::Relations(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "fgui.Relations");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _fairygui_Relations_onOwnerSizeChanged(lua_State *L)
 {
     olua_startinvoke(L);
@@ -17890,6 +17962,7 @@ static int _fairygui_Relations_set_handling(lua_State *L)
 static int luaopen_fairygui_Relations(lua_State *L)
 {
     oluacls_class(L, "fgui.Relations", nullptr);
+    oluacls_func(L, "__gc", _fairygui_Relations___gc);
     oluacls_func(L, "__move", _fairygui_Relations___move);
     oluacls_func(L, "add", _fairygui_Relations_add);
     oluacls_func(L, "clearAll", _fairygui_Relations_clearAll);
@@ -17897,6 +17970,7 @@ static int luaopen_fairygui_Relations(lua_State *L)
     oluacls_func(L, "contains", _fairygui_Relations_contains);
     oluacls_func(L, "copyFrom", _fairygui_Relations_copyFrom);
     oluacls_func(L, "isEmpty", _fairygui_Relations_isEmpty);
+    oluacls_func(L, "new", _fairygui_Relations_new);
     oluacls_func(L, "onOwnerSizeChanged", _fairygui_Relations_onOwnerSizeChanged);
     oluacls_func(L, "remove", _fairygui_Relations_remove);
     oluacls_prop(L, "empty", _fairygui_Relations_isEmpty, nullptr);
@@ -17939,6 +18013,23 @@ static int luaopen_fairygui_RelationType(lua_State *L)
     olua_registerluatype<fairygui::RelationType>(L, "fgui.RelationType");
 
     return 1;
+}
+
+static int _fairygui_RelationItem___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (fairygui::RelationItem *)olua_toobj(L, 1, "fgui.RelationItem");
+    lua_pushstring(L, ".ownership");
+    olua_getvariable(L, 1);
+    if (lua_toboolean(L, -1) && self) {
+        olua_setuserdata(L, 1, nullptr);
+        delete self;
+    }
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 static int _fairygui_RelationItem___move(lua_State *L)
@@ -18066,6 +18157,24 @@ static int _fairygui_RelationItem_isEmpty(lua_State *L)
     return num_ret;
 }
 
+static int _fairygui_RelationItem_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GObject *arg1 = nullptr;       /** owner */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "fgui.GObject");
+
+    // RelationItem(fairygui::GObject *owner)
+    fairygui::RelationItem *ret = (fairygui::RelationItem *)new fairygui::RelationItem(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "fgui.RelationItem");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _fairygui_RelationItem_remove(lua_State *L)
 {
     olua_startinvoke(L);
@@ -18108,6 +18217,7 @@ static int _fairygui_RelationItem_setTarget(lua_State *L)
 static int luaopen_fairygui_RelationItem(lua_State *L)
 {
     oluacls_class(L, "fgui.RelationItem", nullptr);
+    oluacls_func(L, "__gc", _fairygui_RelationItem___gc);
     oluacls_func(L, "__move", _fairygui_RelationItem___move);
     oluacls_func(L, "add", _fairygui_RelationItem_add);
     oluacls_func(L, "applyOnSelfSizeChanged", _fairygui_RelationItem_applyOnSelfSizeChanged);
@@ -18115,6 +18225,7 @@ static int luaopen_fairygui_RelationItem(lua_State *L)
     oluacls_func(L, "getTarget", _fairygui_RelationItem_getTarget);
     oluacls_func(L, "internalAdd", _fairygui_RelationItem_internalAdd);
     oluacls_func(L, "isEmpty", _fairygui_RelationItem_isEmpty);
+    oluacls_func(L, "new", _fairygui_RelationItem_new);
     oluacls_func(L, "remove", _fairygui_RelationItem_remove);
     oluacls_func(L, "setTarget", _fairygui_RelationItem_setTarget);
     oluacls_prop(L, "empty", _fairygui_RelationItem_isEmpty, nullptr);
@@ -18679,6 +18790,24 @@ static int _fairygui_ScrollPane_lockHeader(lua_State *L)
     olua_endinvoke(L);
 
     return 0;
+}
+
+static int _fairygui_ScrollPane_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GComponent *arg1 = nullptr;       /** owner */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "fgui.GComponent");
+
+    // ScrollPane(fairygui::GComponent *owner)
+    fairygui::ScrollPane *ret = (fairygui::ScrollPane *)new fairygui::ScrollPane(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "fgui.ScrollPane");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
 }
 
 static int _fairygui_ScrollPane_scrollBottom1(lua_State *L)
@@ -19850,6 +19979,7 @@ static int luaopen_fairygui_ScrollPane(lua_State *L)
     oluacls_func(L, "isTouchEffect", _fairygui_ScrollPane_isTouchEffect);
     oluacls_func(L, "lockFooter", _fairygui_ScrollPane_lockFooter);
     oluacls_func(L, "lockHeader", _fairygui_ScrollPane_lockHeader);
+    oluacls_func(L, "new", _fairygui_ScrollPane_new);
     oluacls_func(L, "scrollBottom", _fairygui_ScrollPane_scrollBottom);
     oluacls_func(L, "scrollDown", _fairygui_ScrollPane_scrollDown);
     oluacls_func(L, "scrollLeft", _fairygui_ScrollPane_scrollLeft);
@@ -20022,6 +20152,24 @@ static int _fairygui_Transition_isPlaying(lua_State *L)
     // bool isPlaying()
     bool ret = (bool)self->isPlaying();
     int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_Transition_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GComponent *arg1 = nullptr;       /** owner */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "fgui.GComponent");
+
+    // Transition(fairygui::GComponent *owner)
+    fairygui::Transition *ret = (fairygui::Transition *)new fairygui::Transition(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "fgui.Transition");
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -20740,6 +20888,7 @@ static int luaopen_fairygui_Transition(lua_State *L)
     oluacls_func(L, "getOwner", _fairygui_Transition_getOwner);
     oluacls_func(L, "getTimeScale", _fairygui_Transition_getTimeScale);
     oluacls_func(L, "isPlaying", _fairygui_Transition_isPlaying);
+    oluacls_func(L, "new", _fairygui_Transition_new);
     oluacls_func(L, "onOwnerAddedToStage", _fairygui_Transition_onOwnerAddedToStage);
     oluacls_func(L, "onOwnerRemovedFromStage", _fairygui_Transition_onOwnerRemovedFromStage);
     oluacls_func(L, "play", _fairygui_Transition_play);
@@ -22689,6 +22838,23 @@ static int luaopen_fairygui_UIObjectFactory(lua_State *L)
     return 1;
 }
 
+static int _fairygui_GearBase___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (fairygui::GearBase *)olua_toobj(L, 1, "fgui.GearBase");
+    lua_pushstring(L, ".ownership");
+    olua_getvariable(L, 1);
+    if (lua_toboolean(L, -1) && self) {
+        olua_setuserdata(L, 1, nullptr);
+        delete self;
+    }
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _fairygui_GearBase___move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -22714,6 +22880,24 @@ static int _fairygui_GearBase_create(lua_State *L)
     // static fairygui::GearBase *create(fairygui::GObject *owner, int index)
     fairygui::GearBase *ret = (fairygui::GearBase *)fairygui::GearBase::create(arg1, (int)arg2);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GearBase");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_GearBase_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GObject *arg1 = nullptr;       /** owner */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "fgui.GObject");
+
+    // GearBase(fairygui::GObject *owner)
+    fairygui::GearBase *ret = (fairygui::GearBase *)new fairygui::GearBase(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GearBase");
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -22752,8 +22936,10 @@ static int _fairygui_GearBase_set_disableAllTweenEffect(lua_State *L)
 static int luaopen_fairygui_GearBase(lua_State *L)
 {
     oluacls_class(L, "fgui.GearBase", nullptr);
+    oluacls_func(L, "__gc", _fairygui_GearBase___gc);
     oluacls_func(L, "__move", _fairygui_GearBase___move);
     oluacls_func(L, "create", _fairygui_GearBase_create);
+    oluacls_func(L, "new", _fairygui_GearBase_new);
     oluacls_prop(L, "disableAllTweenEffect", _fairygui_GearBase_get_disableAllTweenEffect, _fairygui_GearBase_set_disableAllTweenEffect);
 
     olua_registerluatype<fairygui::GearBase>(L, "fgui.GearBase");

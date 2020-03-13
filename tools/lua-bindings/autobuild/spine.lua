@@ -345,6 +345,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'spine::ConstraintData'
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    ConstraintData(const spine::String &name)
     const spine::String &getName()
     size_t getOrder()
     void setOrder(size_t inValue)
@@ -1584,6 +1585,8 @@ cls.funcs [[
     void setBlendFunc(const cocos2d::BlendFunc &blendFunc)
     const cocos2d::BlendFunc &getBlendFunc()
     SkeletonRenderer()
+    SkeletonRenderer(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
+    SkeletonRenderer(spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
     SkeletonRenderer(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
     SkeletonRenderer(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
     void initialize()

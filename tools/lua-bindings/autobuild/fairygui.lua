@@ -219,6 +219,7 @@ cls = typecls 'fairygui::InputProcessor'
 cls.funcs [[
     fairygui::InputEvent *getRecentInput()
     static bool isTouchOnUI()
+    InputProcessor(fairygui::GComponent *owner)
     cocos2d::Vec2 getTouchPosition(int touchId)
     void addTouchMonitor(int touchId, fairygui::GObject *target)
     void removeTouchMonitor(fairygui::GObject *target)
@@ -1846,6 +1847,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::Relations'
 cls.funcs [[
+    Relations(fairygui::GObject *owner)
     void add(fairygui::GObject *target, fairygui::RelationType relationType)
     void add(fairygui::GObject *target, fairygui::RelationType relationType, bool usePercent)
     void remove(fairygui::GObject *target, fairygui::RelationType relationType)
@@ -1901,6 +1903,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::RelationItem'
 cls.funcs [[
+    RelationItem(fairygui::GObject *owner)
     @addref(target ^) fairygui::GObject *getTarget()
     void setTarget(@addref(target ^) fairygui::GObject *value)
     void add(fairygui::RelationType relationType, bool usePercent)
@@ -1926,6 +1929,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::ScrollPane'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
+    ScrollPane(fairygui::GComponent *owner)
     @addref(owner ^) fairygui::GComponent *getOwner()
     @addref(header ^) fairygui::GComponent *getHeader()
     @addref(footer ^) fairygui::GComponent *getFooter()
@@ -2015,6 +2019,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::Transition'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
+    Transition(fairygui::GComponent *owner)
     @addref(owner ^) fairygui::GComponent *getOwner()
     bool isPlaying()
     void changePlayTimes(int value)
@@ -2300,6 +2305,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GearBase'
 cls.funcs [[
+    GearBase(fairygui::GObject *owner)
     static fairygui::GearBase *create(fairygui::GObject *owner, int index)
 ]]
 cls.var('disableAllTweenEffect', [[static bool disableAllTweenEffect]])

@@ -2074,6 +2074,24 @@ static int _cocos2d_backend_ProgramState_getVertexTextureInfos(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_backend_ProgramState_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::backend::Program *arg1 = nullptr;       /** program */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "ccb.Program");
+
+    // ProgramState(cocos2d::backend::Program *program)
+    cocos2d::backend::ProgramState *ret = (cocos2d::backend::ProgramState *)new cocos2d::backend::ProgramState(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "ccb.ProgramState");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_backend_ProgramState_setParameterAutoBinding(lua_State *L)
 {
     olua_startinvoke(L);
@@ -2180,6 +2198,7 @@ static int luaopen_cocos2d_backend_ProgramState(lua_State *L)
     oluacls_func(L, "getUniformLocation", _cocos2d_backend_ProgramState_getUniformLocation);
     oluacls_func(L, "getVertexLayout", _cocos2d_backend_ProgramState_getVertexLayout);
     oluacls_func(L, "getVertexTextureInfos", _cocos2d_backend_ProgramState_getVertexTextureInfos);
+    oluacls_func(L, "new", _cocos2d_backend_ProgramState_new);
     oluacls_func(L, "setParameterAutoBinding", _cocos2d_backend_ProgramState_setParameterAutoBinding);
     oluacls_func(L, "setTexture", _cocos2d_backend_ProgramState_setTexture);
     oluacls_func(L, "setTextureArray", _cocos2d_backend_ProgramState_setTextureArray);

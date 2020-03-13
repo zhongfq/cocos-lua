@@ -240,119 +240,119 @@ function M.dumpLoadedSWF()
     trace(str)
 end
 
-shader.load("swfColorGray",
-    [[
-        attribute vec4 a_position;
-        attribute vec4 a_color;
-        attribute mat4 a_mat;
+-- shader.load("swfColorGray",
+--     [[
+--         attribute vec4 a_position;
+--         attribute vec4 a_color;
+--         attribute mat4 a_mat;
 
-        #ifdef GL_ES
-        varying lowp vec4 v_fragmentColor;
-        #else
-        varying vec4 v_fragmentColor;
-        #endif
+--         #ifdef GL_ES
+--         varying lowp vec4 v_fragmentColor;
+--         #else
+--         varying vec4 v_fragmentColor;
+--         #endif
 
-        void main()
-        {
-            gl_Position = a_mat * a_position;
-            v_fragmentColor = a_color;
-        }
-    ]],
-    [[
-        #ifdef GL_ES
-        precision lowp float;
-        #endif
+--         void main()
+--         {
+--             gl_Position = a_mat * a_position;
+--             v_fragmentColor = a_color;
+--         }
+--     ]],
+--     [[
+--         #ifdef GL_ES
+--         precision lowp float;
+--         #endif
 
-        varying vec4 v_fragmentColor;
+--         varying vec4 v_fragmentColor;
 
-        void main()
-        {
-            float alpha = v_fragmentColor.a;
-            vec3 color = v_fragmentColor.rgb;
-            float gray = dot(color, vec3(0.299,0.587,0.114));
-            gl_FragColor = vec4(gray * alpha, gray * alpha,
-                gray * alpha, alpha);
-        }
-    ]]
-)
+--         void main()
+--         {
+--             float alpha = v_fragmentColor.a;
+--             vec3 color = v_fragmentColor.rgb;
+--             float gray = dot(color, vec3(0.299,0.587,0.114));
+--             gl_FragColor = vec4(gray * alpha, gray * alpha,
+--                 gray * alpha, alpha);
+--         }
+--     ]]
+-- )
 
-shader.load("swfTextGray",
-    [[
-        attribute vec4 a_position;
-        attribute vec2 a_texCoord;
-        attribute vec4 a_color;
+-- shader.load("swfTextGray",
+--     [[
+--         attribute vec4 a_position;
+--         attribute vec2 a_texCoord;
+--         attribute vec4 a_color;
 
-        #ifdef GL_ES
-        varying lowp vec4 v_fragmentColor;
-        varying mediump vec2 v_texCoord;
-        #else
-        varying vec4 v_fragmentColor;
-        varying vec2 v_texCoord;
-        #endif
+--         #ifdef GL_ES
+--         varying lowp vec4 v_fragmentColor;
+--         varying mediump vec2 v_texCoord;
+--         #else
+--         varying vec4 v_fragmentColor;
+--         varying vec2 v_texCoord;
+--         #endif
 
-        void main()
-        {
-            gl_Position = CC_MVPMatrix * a_position;
-            v_fragmentColor = a_color;
-            v_texCoord = a_texCoord;
-        }
-    ]],
-    [[
-        #ifdef GL_ES
-        precision lowp float;
-        #endif
+--         void main()
+--         {
+--             gl_Position = CC_MVPMatrix * a_position;
+--             v_fragmentColor = a_color;
+--             v_texCoord = a_texCoord;
+--         }
+--     ]],
+--     [[
+--         #ifdef GL_ES
+--         precision lowp float;
+--         #endif
 
-        varying vec4 v_fragmentColor;
-        varying vec2 v_texCoord;
+--         varying vec4 v_fragmentColor;
+--         varying vec2 v_texCoord;
 
-        void main()
-        {
-            vec4 color = vec4(v_fragmentColor.rgb, v_fragmentColor.a
-                * texture2D(CC_Texture0, v_texCoord).a);
-            float alpha = color.a * v_fragmentColor.a;
-            float gray = dot(color.rgb, vec3(0.299,0.587,0.114));
-            gl_FragColor = vec4(gray * alpha, gray * alpha,
-                gray * alpha, alpha);
-        }
-    ]]
-)
+--         void main()
+--         {
+--             vec4 color = vec4(v_fragmentColor.rgb, v_fragmentColor.a
+--                 * texture2D(CC_Texture0, v_texCoord).a);
+--             float alpha = color.a * v_fragmentColor.a;
+--             float gray = dot(color.rgb, vec3(0.299,0.587,0.114));
+--             gl_FragColor = vec4(gray * alpha, gray * alpha,
+--                 gray * alpha, alpha);
+--         }
+--     ]]
+-- )
 
-shader.load("swfBitmapGray",
-    [[
-        attribute vec4 a_position;
-        attribute vec2 a_texCoord;
-        attribute vec4 a_color;
+-- shader.load("swfBitmapGray",
+--     [[
+--         attribute vec4 a_position;
+--         attribute vec2 a_texCoord;
+--         attribute vec4 a_color;
 
-        #ifdef GL_ES
-        varying lowp vec4 v_fragmentColor;
-        varying mediump vec2 v_texCoord;
-        #else
-        varying vec4 v_fragmentColor;
-        varying vec2 v_texCoord;
-        #endif
+--         #ifdef GL_ES
+--         varying lowp vec4 v_fragmentColor;
+--         varying mediump vec2 v_texCoord;
+--         #else
+--         varying vec4 v_fragmentColor;
+--         varying vec2 v_texCoord;
+--         #endif
 
-        void main()
-        {
-            gl_Position = CC_MVPMatrix * a_position;
-            v_fragmentColor = a_color;
-            v_texCoord = a_texCoord;
-        }
-    ]],
-    [[
-        #ifdef GL_ES
-        precision lowp float;
-        #endif
+--         void main()
+--         {
+--             gl_Position = CC_MVPMatrix * a_position;
+--             v_fragmentColor = a_color;
+--             v_texCoord = a_texCoord;
+--         }
+--     ]],
+--     [[
+--         #ifdef GL_ES
+--         precision lowp float;
+--         #endif
 
-        varying vec4 v_fragmentColor;
-        varying vec2 v_texCoord;
+--         varying vec4 v_fragmentColor;
+--         varying vec2 v_texCoord;
 
-        void main()
-        {
-            float alpha = texture2D(CC_Texture0, v_texCoord).a * v_fragmentColor.a;
-            float grey = dot(texture2D(CC_Texture0, v_texCoord).rgb, vec3(0.299,0.587,0.114));
-            gl_FragColor = vec4(grey * alpha, grey * alpha, grey * alpha, alpha);
-        }
-    ]]
-)
+--         void main()
+--         {
+--             float alpha = texture2D(CC_Texture0, v_texCoord).a * v_fragmentColor.a;
+--             float grey = dot(texture2D(CC_Texture0, v_texCoord).rgb, vec3(0.299,0.587,0.114));
+--             gl_FragColor = vec4(grey * alpha, grey * alpha, grey * alpha, alpha);
+--         }
+--     ]]
+-- )
 
 return M

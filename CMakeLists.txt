@@ -39,6 +39,7 @@ option(CCLUA_BUILD_LAME "Build with lame support" ON)
 option(CCLUA_BUILD_QRCODE "Build with qrcode support" ON)
 option(CCLUA_BUILD_FAIRYGUI "Build with fairygui support" ON)
 option(CCLUA_BUILD_DRAGONBONES "Build with dragonbones support" ON)
+option(CCLUA_BUILD_SWF "Build with swf support" OFF)
 
 include(config.cmake)
 
@@ -181,6 +182,13 @@ if(CCLUA_BUILD_DRAGONBONES)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libdragonbones)
     set_target_properties(dragonbones PROPERTIES FOLDER "Internal")
     target_link_libraries(${APP_NAME} dragonbones)
+endif()
+
+if(CCLUA_BUILD_SWF)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libswf)
+    set_target_properties(swf PROPERTIES FOLDER "Internal")
+    target_link_libraries(${APP_NAME} swf)
+    target_compile_definitions(${APP_NAME} PUBLIC CCLUA_USE_SWF)
 endif()
 
 target_link_libraries(${APP_NAME} cocos2d)

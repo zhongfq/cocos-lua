@@ -483,6 +483,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::ProgramState'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
+    ProgramState(cocos2d::backend::Program *program)
     cocos2d::backend::ProgramState *clone()
     backend::Program *getProgram()
     void setUniform(const backend::UniformLocation &uniformLocation, const void *data, std::size_t size)

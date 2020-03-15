@@ -11,11 +11,13 @@ set(LUA_HEADER
     src/lua/ldo.h
     src/lua/lfunc.h
     src/lua/lgc.h
+    src/lua/ljumptab.h
     src/lua/llex.h
     src/lua/llimits.h
     src/lua/lmem.h
     src/lua/lobject.h
     src/lua/lopcodes.h
+    src/lua/lopnames.h
     src/lua/lparser.h
     src/lua/lprefix.h
     src/lua/lstate.h
@@ -34,7 +36,6 @@ set(LUA_SRC
     src/lua/lapi.c
     src/lua/lauxlib.c
     src/lua/lbaselib.c
-    src/lua/lbitlib.c
     src/lua/lcode.c
     src/lua/lcorolib.c
     src/lua/lctype.c

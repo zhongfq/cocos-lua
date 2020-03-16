@@ -30,22 +30,22 @@
 
 #include "lua-bindings/lua_cocos2d_3d.h"
 
-#ifdef CCLUA_USE_DRAGONBONES
+#ifdef CCLUA_BUILD_DRAGONBONES
 #include "lua-bindings/lua_dragonbones.h"
-#endif // CCLUA_USE_DRAGONBONES
+#endif // CCLUA_BUILD_DRAGONBONES
 
 
-#ifdef CCLUA_USE_FAIRYGUI
+#ifdef CCLUA_BUILD_FAIRYGUI
 #include "lua-bindings/lua_fairygui.h"
-#endif // CCLUA_USE_FAIRYGUI
+#endif // CCLUA_BUILD_FAIRYGUI
 
-#ifdef CCLUA_USE_SPINE
+#ifdef CCLUA_BUILD_SPINE
 #include "lua-bindings/lua_spine.h"
-#endif // CCLUA_USE_SPINE
+#endif // CCLUA_BUILD_SPINE
 
-#ifdef CCLUA_USE_SWF
+#ifdef CCLUA_BUILD_SWF
 #include "lua_swf.h"
-#endif // CCLUA_USE_SWF
+#endif // CCLUA_BUILD_SWF
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
 #define BUGLY_APPID "546f1cf279" // d21353e4-26c8-4f94-b646-cf88a225f039
@@ -61,19 +61,19 @@ static int _open_plugins(lua_State *L)
 {
     olua_dofunc(L, luaopen_cocos2d_3d);
     
-#ifdef CCLUA_USE_DRAGONBONES
+#ifdef CCLUA_BUILD_DRAGONBONES
     olua_dofunc(L, luaopen_dragonbones);
 #endif
 
-#ifdef CCLUA_USE_FAIRYGUI
+#ifdef CCLUA_BUILD_FAIRYGUI
     olua_dofunc(L, luaopen_fairygui);
 #endif
 
-#ifdef CCLUA_USE_SPINE
+#ifdef CCLUA_BUILD_SPINE
 	olua_dofunc(L, luaopen_spine);
 #endif
     
-#ifdef CCLUA_USE_SWF
+#ifdef CCLUA_BUILD_SWF
     olua_dofunc(L, luaopen_swf);
 #endif
     

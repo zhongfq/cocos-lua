@@ -58,7 +58,7 @@ cocos-lua启动后会在c++层执行assets/src/bootstrap.lua文件，也就是�
 
 ## lua版本
 
-cocos-lua虽然基于lua 5.3，但是绑定库[olua](https://github.com/zhongfq/olua)兼容lua 5.1，也就是你自己可以更换lua 5.1或luajit。当然也可以将cocos-lua的绑定代码移植至你所熟悉的cocos2d-x lua方案中。
+cocos-lua虽然基于lua 5.4，但是绑定库[olua](https://github.com/zhongfq/olua)兼容lua 5.1和5.3，也就是你自己可以更换lua 5.1或luajit。当然也可以将cocos-lua的绑定代码移植至你所熟悉的cocos2d-x lua方案中。
 
 ## 绑定代码生成
 
@@ -89,7 +89,7 @@ cocos-lua在lua层屏蔽Ref的release和retain方法，改由lua gc管理，以�
 将lua回调函数存储在uservalue会有一个问题，如果uservalue被回收，那么回调函数就丢失了。比如CallFunc中的回调，当调用完obj:runAction(sequence)之后，在action未全部完成而中途发生lua gc，那么这些userdata对象将被回收，这就导致与使用的预期不一致问题。为了解决这个问题，cocos-lua通过导出时注入代码的方式，引入了引用链的机制。
 
 + 将cocos2d::Director作用根对象，以__cocos2d_ref_chain__为键存储在LUA_REGISTRYINDEX表中。
-+ 对能够存储回调的Node、Director、Action、Component、ActionManager、Schedule以及EventDispatcher等对象，在一些添加（addChild...）或移除（removeAllChildren...）方法中注入ref或unref代码。
++ 对能够存储回调的Node、Director、Action、Component、ActionManager、Schedule以及EventDispatcher等对象，在一些添加（addChild...）或移除（removeAllChildren...）方法中注入addref或delref代码。
 
 ## 若干说明
 1. assets/src/swf目录下的lua代码不宜使用，因为swf c++解析渲染库目前暂时无法开源。

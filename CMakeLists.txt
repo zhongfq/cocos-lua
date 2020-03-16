@@ -189,7 +189,7 @@ if(CCLUA_BUILD_SWF)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libswf)
     set_target_properties(swf PROPERTIES FOLDER "Internal")
     target_link_libraries(${APP_NAME} swf)
-    target_compile_definitions(${APP_NAME} PUBLIC CCLUA_USE_SWF)
+    target_compile_definitions(${APP_NAME} PUBLIC CCLUA_BUILD_SWF)
 endif()
 
 target_link_libraries(${APP_NAME} cocos2d)

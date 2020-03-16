@@ -133,7 +133,16 @@ namespace
                     mtlDescritpor.colorAttachments[0].loadAction = MTLLoadActionLoad;
             }
 
-            mtlDescritpor.colorAttachments[0].storeAction = MTLStoreActionStore;
+            if (DeviceMTL::getSampleCount() > 1)
+            {
+                mtlDescritpor.colorAttachments[0].texture = Utils::getDefaultColorAttachmentTexture();
+                mtlDescritpor.colorAttachments[0].resolveTexture = DeviceMTL::getCurrentDrawable().texture;
+                mtlDescritpor.colorAttachments[0].storeAction = MTLStoreActionStoreAndMultisampleResolve;
+            }
+            else
+            {
+                mtlDescritpor.colorAttachments[0].storeAction = MTLStoreActionStore;
+            }
         }
         
         if(descriptor.needDepthStencilAttachment())

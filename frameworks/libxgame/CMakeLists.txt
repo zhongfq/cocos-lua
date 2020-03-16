@@ -98,7 +98,10 @@ if (IOS)
     if (CCLUA_BUILD_BUGLY)
         add_subdirectory(src/bugly/ios)
         target_link_libraries(xgame bugly)
-	endif()
+    endif()
+    
+    find_library(METALKIT_LIBRARY MetalKit)
+    target_link_libraries(xgame ${METALKIT_LIBRARY})
 
     find_library(PHOTOS_LIBRARY Photos)
     target_link_libraries(xgame ${PHOTOS_LIBRARY})

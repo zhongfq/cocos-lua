@@ -229,6 +229,11 @@ void RenderPipelineMTL::update(const PipelineDescriptor & pipelineDescirptor,
     
     _mtlRenderPipelineDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
     
+    if (DeviceMTL::getSampleCount() > 1)
+    {
+        _mtlRenderPipelineDescriptor.sampleCount = DeviceMTL::getSampleCount();
+    }
+    
     setShaderModules(pipelineDescirptor);
     setVertexLayout(_mtlRenderPipelineDescriptor, pipelineDescirptor);
     

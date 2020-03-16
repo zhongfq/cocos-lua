@@ -42,6 +42,12 @@ class DeviceMTL : public Device
 {
 public:
     /**
+     * Enable MSAA.
+     */
+    static void setSampleCount(int value);
+    static int getSampleCount() { return DeviceMTL::_sampleCount; }
+    
+    /**
      * Set CAMetalLayer.
      * @param metalLayer A CAMetalLayer object.
      */
@@ -151,6 +157,7 @@ protected:
 private:
     static CAMetalLayer* _metalLayer;
     static id<CAMetalDrawable> _currentDrawable;
+    static int _sampleCount;
     
     id<MTLDevice> _mtlDevice = nil;
     id<MTLCommandQueue> _mtlCommandQueue = nil;

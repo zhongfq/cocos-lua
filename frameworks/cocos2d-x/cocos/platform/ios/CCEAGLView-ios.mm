@@ -134,9 +134,15 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
         originalRect_ = self.frame;
         self.keyboardShowNotification = nil;
+        self.sampleCount = nSamples > 0 ? nSamples : 1;
         if ([self respondsToSelector:@selector(setContentScaleFactor:)])
         {
             self.contentScaleFactor = [[UIScreen mainScreen] scale];
+        }
+        if (sampling)
+        {
+            self.sampleCount = nSamples;
+            cocos2d::backend::DeviceMTL::setSampleCount(nSamples);
         }
 
         id<MTLDevice> device = MTLCreateSystemDefaultDevice();

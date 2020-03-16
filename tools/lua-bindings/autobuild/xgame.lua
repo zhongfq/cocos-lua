@@ -96,10 +96,8 @@ cls.funcs [[
     static bool canOpenURL(const std::string &uri)
     static void setLogPath(const std::string &path)
     static const std::string getLogPath()
-    static void setAntialias(bool enabled)
-    static bool isAntialias()
-    static void setNumSamples(unsigned int samples)
-    static unsigned int getNumSamples()
+    static void setSampleCount(unsigned int samples)
+    static unsigned int getSampleCount()
     static bool support(const std::string &api)
     static void printSupport()
     static void disableReport()
@@ -174,8 +172,7 @@ cls.props [[
     idfa
     advertisingTrackingEnabled
     logPath
-    antialias
-    numSamples
+    sampleCount
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 

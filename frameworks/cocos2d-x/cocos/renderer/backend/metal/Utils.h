@@ -50,6 +50,7 @@ public:
      */
     static void updateDefaultColorAttachmentTexture(id<MTLTexture> texture);
     static void resizeDefaultAttachmentTexture(std::size_t width, std::size_t height);
+    static id<MTLTexture> getDefaultColorAttachmentTexture();
     
     /**
      * Get the default combined depth and stencil attachment pixel format.

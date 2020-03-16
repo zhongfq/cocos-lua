@@ -39,6 +39,12 @@ CC_BACKEND_BEGIN
 
 CAMetalLayer* DeviceMTL::_metalLayer = nil;
 id<CAMetalDrawable> DeviceMTL::_currentDrawable = nil;
+int DeviceMTL::_sampleCount = 1;
+
+void DeviceMTL::setSampleCount(int value)
+{
+    DeviceMTL::_sampleCount = value;
+}
 
 Device* Device::getInstance()
 {

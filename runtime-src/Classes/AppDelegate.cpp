@@ -83,11 +83,11 @@ static int _open_plugins(lua_State *L)
 
 void AppDelegate::initGLContextAttrs()
 {
-    if (xgame::preferences::getBoolean(CONF_ANTIALIAS_ENABLED, true) &&
-        !xgame::preferences::getBoolean(CONF_ANTIALIAS_ENABLED, false)) {
-        // enable msaa?
-        // xgame::runtime::setAntialias(true);
-    }
+#ifdef CCLUA_FEATURE_MSAA
+    xgame::runtime::setSampleCount(4);
+#else
+    xgame::runtime::setSampleCount(1);
+#endif
     RuntimeContext::initGLContextAttrs();
 }
 

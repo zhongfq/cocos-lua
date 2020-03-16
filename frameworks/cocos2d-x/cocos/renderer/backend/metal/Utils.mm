@@ -102,6 +102,25 @@ void Utils::updateDefaultColorAttachmentTexture(id<MTLTexture> texture)
     Utils::_defaultColorAttachmentTexture = texture;
 }
 
+id<MTLTexture> Utils::getDefaultColorAttachmentTexture()
+{
+    if (!_defaultColorAttachmentTexture) {
+        auto CAMetalLayer = DeviceMTL::getCAMetalLayer();
+        MTLTextureDescriptor* textureDescriptor = [[MTLTextureDescriptor alloc] init];
+        textureDescriptor.width = CAMetalLayer.drawableSize.width;
+        textureDescriptor.height = CAMetalLayer.drawableSize.height;
+        textureDescriptor.pixelFormat = getDefaultColorAttachmentPixelFormat();
+        textureDescriptor.usage |= MTLTextureUsageRenderTarget;
+        if (DeviceMTL::getSampleCount() > 1) {
+            textureDescriptor.sampleCount = DeviceMTL::getSampleCount();
+            textureDescriptor.textureType = MTLTextureType2DMultisample;
+        }
+        _defaultColorAttachmentTexture = [CAMetalLayer.device newTextureWithDescriptor:textureDescriptor];
+        [textureDescriptor release];
+    }
+    return _defaultColorAttachmentTexture;
+}
+
 MTLPixelFormat Utils::toMTLPixelFormat(PixelFormat textureFormat)
 {
     switch (textureFormat)
@@ -168,6 +187,10 @@ id<MTLTexture> Utils::createDepthStencilAttachmentTexture()
     textureDescriptor.pixelFormat = getSupportedDepthStencilFormat();
     textureDescriptor.resourceOptions = MTLResourceStorageModePrivate;
     textureDescriptor.usage = MTLTextureUsageRenderTarget;
+    if (DeviceMTL::getSampleCount() > 1) {
+        textureDescriptor.sampleCount = DeviceMTL::getSampleCount();
+        textureDescriptor.textureType = MTLTextureType2DMultisample;
+    }
     auto ret = [CAMetalLayer.device newTextureWithDescriptor:textureDescriptor];
     [textureDescriptor release];
     

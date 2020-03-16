@@ -67,6 +67,8 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 #import <OpenGLES/ES2/glext.h>
 #import <CoreFoundation/CoreFoundation.h>
 
+#import <MetalKit/MetalKit.h>
+
 //CLASS INTERFACE:
 
 /** CCEAGLView Class.
@@ -74,7 +76,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
  * The view content is basically an EAGL surface you render your OpenGL scene into.
  * Note that setting the view non-opaque will only work if the EAGL surface has an alpha channel.
  */
-@interface CCEAGLView : UIView
+@interface CCEAGLView : MTKView
 {
     BOOL                    preserveBackbuffer_;
     CGRect                  safeArea_;

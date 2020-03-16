@@ -78,10 +78,8 @@ public:
     static void log(const char *format, ...);
     
     // msaa antialias for vector graphics
-    static void setAntialias(bool enabled);
-    static bool isAntialias();
-    static void setNumSamples(unsigned int samples);
-    static unsigned int getNumSamples();
+    static void setSampleCount(unsigned int samples);
+    static unsigned int getSampleCount();
     
     // feature
     static bool support(const std::string &api);

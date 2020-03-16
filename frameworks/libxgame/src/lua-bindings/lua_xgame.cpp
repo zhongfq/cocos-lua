@@ -472,19 +472,6 @@ static int _xgame_runtime_getNetworkStatus(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_getNumSamples(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    // static unsigned int getNumSamples()
-    unsigned int ret = (unsigned int)xgame::runtime::getNumSamples();
-    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
 static int _xgame_runtime_getOS(lua_State *L)
 {
     olua_startinvoke(L);
@@ -528,6 +515,19 @@ static int _xgame_runtime_getPermissionStatus(lua_State *L)
     return num_ret;
 }
 
+static int _xgame_runtime_getSampleCount(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static unsigned int getSampleCount()
+    unsigned int ret = (unsigned int)xgame::runtime::getSampleCount();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _xgame_runtime_getTime(lua_State *L)
 {
     olua_startinvoke(L);
@@ -560,19 +560,6 @@ static int _xgame_runtime_isAdvertisingTrackingEnabled(lua_State *L)
 
     // static bool isAdvertisingTrackingEnabled()
     bool ret = (bool)xgame::runtime::isAdvertisingTrackingEnabled();
-    int num_ret = olua_push_bool(L, ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _xgame_runtime_isAntialias(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    // static bool isAntialias()
-    bool ret = (bool)xgame::runtime::isAntialias();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -763,22 +750,6 @@ static int _xgame_runtime_restart(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_setAntialias(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    bool arg1 = false;       /** enabled */
-
-    olua_check_bool(L, 1, &arg1);
-
-    // static void setAntialias(bool enabled)
-    xgame::runtime::setAntialias(arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 static int _xgame_runtime_setAudioSessionCatalog(lua_State *L)
 {
     olua_startinvoke(L);
@@ -850,7 +821,7 @@ static int _xgame_runtime_setManifestVersion(lua_State *L)
     return 0;
 }
 
-static int _xgame_runtime_setNumSamples(lua_State *L)
+static int _xgame_runtime_setSampleCount(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -858,8 +829,8 @@ static int _xgame_runtime_setNumSamples(lua_State *L)
 
     olua_check_uint(L, 1, &arg1);
 
-    // static void setNumSamples(unsigned int samples)
-    xgame::runtime::setNumSamples((unsigned int)arg1);
+    // static void setSampleCount(unsigned int samples)
+    xgame::runtime::setSampleCount((unsigned int)arg1);
 
     olua_endinvoke(L);
 
@@ -915,14 +886,13 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_func(L, "getLogPath", _xgame_runtime_getLogPath);
     oluacls_func(L, "getManifestVersion", _xgame_runtime_getManifestVersion);
     oluacls_func(L, "getNetworkStatus", _xgame_runtime_getNetworkStatus);
-    oluacls_func(L, "getNumSamples", _xgame_runtime_getNumSamples);
     oluacls_func(L, "getOS", _xgame_runtime_getOS);
     oluacls_func(L, "getPackageName", _xgame_runtime_getPackageName);
     oluacls_func(L, "getPermissionStatus", _xgame_runtime_getPermissionStatus);
+    oluacls_func(L, "getSampleCount", _xgame_runtime_getSampleCount);
     oluacls_func(L, "getTime", _xgame_runtime_getTime);
     oluacls_func(L, "getVersion", _xgame_runtime_getVersion);
     oluacls_func(L, "isAdvertisingTrackingEnabled", _xgame_runtime_isAdvertisingTrackingEnabled);
-    oluacls_func(L, "isAntialias", _xgame_runtime_isAntialias);
     oluacls_func(L, "isDebug", _xgame_runtime_isDebug);
     oluacls_func(L, "isRestarting", _xgame_runtime_isRestarting);
     oluacls_func(L, "launch", _xgame_runtime_launch);
@@ -930,16 +900,14 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_func(L, "printSupport", _xgame_runtime_printSupport);
     oluacls_func(L, "requestPermission", _xgame_runtime_requestPermission);
     oluacls_func(L, "restart", _xgame_runtime_restart);
-    oluacls_func(L, "setAntialias", _xgame_runtime_setAntialias);
     oluacls_func(L, "setAudioSessionCatalog", _xgame_runtime_setAudioSessionCatalog);
     oluacls_func(L, "setDispatcher", _xgame_runtime_setDispatcher);
     oluacls_func(L, "setLogPath", _xgame_runtime_setLogPath);
     oluacls_func(L, "setManifestVersion", _xgame_runtime_setManifestVersion);
-    oluacls_func(L, "setNumSamples", _xgame_runtime_setNumSamples);
+    oluacls_func(L, "setSampleCount", _xgame_runtime_setSampleCount);
     oluacls_func(L, "support", _xgame_runtime_support);
     oluacls_func(L, "testCrash", _xgame_runtime_testCrash);
     oluacls_prop(L, "advertisingTrackingEnabled", _xgame_runtime_isAdvertisingTrackingEnabled, nullptr);
-    oluacls_prop(L, "antialias", _xgame_runtime_isAntialias, _xgame_runtime_setAntialias);
     oluacls_prop(L, "appBuild", _xgame_runtime_getAppBuild, nullptr);
     oluacls_prop(L, "appVersion", _xgame_runtime_getAppVersion, nullptr);
     oluacls_prop(L, "audioSessionCatalog", _xgame_runtime_getAudioSessionCatalog, _xgame_runtime_setAudioSessionCatalog);
@@ -951,10 +919,10 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_prop(L, "logPath", _xgame_runtime_getLogPath, _xgame_runtime_setLogPath);
     oluacls_prop(L, "manifestVersion", _xgame_runtime_getManifestVersion, _xgame_runtime_setManifestVersion);
     oluacls_prop(L, "networkStatus", _xgame_runtime_getNetworkStatus, nullptr);
-    oluacls_prop(L, "numSamples", _xgame_runtime_getNumSamples, _xgame_runtime_setNumSamples);
     oluacls_prop(L, "os", _xgame_runtime_getOS, nullptr);
     oluacls_prop(L, "packageName", _xgame_runtime_getPackageName, nullptr);
     oluacls_prop(L, "restarting", _xgame_runtime_isRestarting, nullptr);
+    oluacls_prop(L, "sampleCount", _xgame_runtime_getSampleCount, _xgame_runtime_setSampleCount);
     oluacls_prop(L, "time", _xgame_runtime_getTime, nullptr);
     oluacls_prop(L, "version", _xgame_runtime_getVersion, nullptr);
 

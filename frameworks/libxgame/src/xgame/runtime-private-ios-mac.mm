@@ -9,7 +9,9 @@
 #import "AppContext-ios.h"
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
+#ifdef CCLUA_FEATURE_IDFA
 #import <AdSupport/AdSupport.h>
+#endif
 #endif
 
 USING_NS_CC;
@@ -195,13 +197,21 @@ void __runtime_alert(const std::string title, const std::string message, const s
 
 std::string __runtime_getIDFA()
 {
+#ifdef CCLUA_FEATURE_IDFA
     NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
     return [idfa UTF8String];
+#else
+    return "00000000-0000-0000-0000-000000000000";
+#endif
 }
 
 bool __runtime_isAdvertisingTrackingEnabled()
 {
+#ifdef CCLUA_FEATURE_IDFA
     return [[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled];
+#else
+    return false;
+#endif
 }
 #endif
 

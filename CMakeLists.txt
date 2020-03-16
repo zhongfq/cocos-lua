@@ -41,6 +41,7 @@ option(CCLUA_BUILD_FAIRYGUI "Build with fairygui support" ON)
 option(CCLUA_BUILD_DRAGONBONES "Build with dragonbones support" ON)
 option(CCLUA_BUILD_SWF "Build with swf support" OFF)
 option(CCLUA_FEATURE_MSAA "Support MASS" OFF)
+option(CCLUA_FEATURE_IDFA "Support IDFA" OFF)
 
 include(config.cmake)
 
@@ -197,11 +198,6 @@ target_include_directories(${APP_NAME}
     PRIVATE ${RUNTIME_SRC_ROOT}/Classes
     PRIVATE ${COCOS2DX_ROOT_PATH}/cocos/audio/include/
 )
-
-# feature
-if(CCLUA_FEATURE_MSAA)
-    target_compile_definitions(${APP_NAME} PUBLIC CCLUA_FEATURE_MSAA)
-endif()
 
 # suspend warnings
 if(APPLE)

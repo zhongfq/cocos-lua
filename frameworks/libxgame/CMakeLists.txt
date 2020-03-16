@@ -87,6 +87,17 @@ if(CCLUA_BUILD_SPINE)
     target_compile_definitions(xgame PUBLIC CCLUA_BUILD_SPINE)
 endif()
 
+# feature
+if(CCLUA_FEATURE_MSAA)
+    target_compile_definitions(xgame PUBLIC CCLUA_FEATURE_MSAA)
+endif()
+
+if(CCLUA_FEATURE_IDFA)
+    find_library(ADSUPPORT_LIBRARY AdSupport)
+    target_link_libraries(xgame ${ADSUPPORT_LIBRARY})
+    target_compile_definitions(xgame PUBLIC CCLUA_FEATURE_IDFA)
+endif()
+
 if (APPLE)
     set_xcode_property(xgame CLANG_ENABLE_OBJC_ARC "YES")
 endif()
@@ -105,9 +116,6 @@ if (IOS)
 
     find_library(PHOTOS_LIBRARY Photos)
     target_link_libraries(xgame ${PHOTOS_LIBRARY})
-
-    find_library(ADSUPPORT_LIBRARY AdSupport)
-    target_link_libraries(xgame ${ADSUPPORT_LIBRARY})
 
     find_library(STOREKIT_LIBRARY StoreKit)
     target_link_libraries(xgame ${STOREKIT_LIBRARY})

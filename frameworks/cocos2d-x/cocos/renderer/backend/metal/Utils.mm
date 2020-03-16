@@ -114,6 +114,7 @@ id<MTLTexture> Utils::getDefaultColorAttachmentTexture()
         if (DeviceMTL::getSampleCount() > 1) {
             textureDescriptor.sampleCount = DeviceMTL::getSampleCount();
             textureDescriptor.textureType = MTLTextureType2DMultisample;
+            textureDescriptor.storageMode = MTLStorageModePrivate;
         }
         _defaultColorAttachmentTexture = [CAMetalLayer.device newTextureWithDescriptor:textureDescriptor];
         [textureDescriptor release];

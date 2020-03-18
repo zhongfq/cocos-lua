@@ -3,11 +3,17 @@
 
 NS_XGAME_BEGIN
 
+FileFinder::FileFinderProvider FileFinder::s_provider = nullptr;
+
 FileFinder *FileFinder::create()
 {
-    auto fs = new FileFinder();
-    fs->init();
-    return fs;
+    if (s_provider) {
+        return s_provider();
+    } else {
+        auto fs = new FileFinder();
+        fs->init();
+        return fs;
+    }
 }
 
 FileFinder::FileFinder()
@@ -20,13 +26,14 @@ FileFinder::FileFinder()
 
 FileFinder::~FileFinder()
 {
+    delete _builtinAssets;
 }
 
 bool FileFinder::init()
 {
     SuperFileUtils::init();
     
-    _builtinAssets.init("builtin.assets");
+    _builtinAssets = createAssetsBundle();
     
     addCacheFileType(".html");
     addCacheFileType(".ogg");
@@ -35,6 +42,13 @@ bool FileFinder::init()
     addCacheFileType(".mp4");
     
     return true;
+}
+
+AssetsBundle *FileFinder::createAssetsBundle()
+{
+    AssetsBundle *bundle = new AssetsBundle();
+    bundle->init("builtin.assets");
+    return bundle;
 }
 
 void FileFinder::addCacheFileType(const std::string &type)
@@ -49,7 +63,7 @@ cocos2d::FileUtils::Status FileFinder::getContents(const std::string& filename, 
     if (SuperFileUtils::getContents(filename, buffer) == FileUtils::Status::OK) {
         return FileUtils::Status::OK;
     } else {
-        return _builtinAssets.getContents(filename, buffer);
+        return _builtinAssets->getContents(filename, buffer);
     }
 }
 
@@ -61,7 +75,7 @@ std::string FileFinder::getFullPathForFilenameWithinDirectory(const std::string&
     }
     
     fullPath.append(directory).append(filename);
-    if (!_builtinAssets.exist(fullPath)) {
+    if (!_builtinAssets->exist(fullPath)) {
         return "";
     }
     
@@ -71,7 +85,7 @@ std::string FileFinder::getFullPathForFilenameWithinDirectory(const std::string&
         std::string realPath = filesystem::getBuiltinCacheDirectory() + "/" + fullPath;
         if (!filesystem::exist(realPath)) {
             BufferReader *reader = filesystem::getBufferReader();
-            if (_builtinAssets.getContents(fullPath, reader) == FileUtils::Status::OK) {
+            if (_builtinAssets->getContents(fullPath, reader) == FileUtils::Status::OK) {
                 filesystem::createDirectory(realPath, true);
                 filesystem::write(realPath, (const char *)reader->buffer(), reader->size());
             }

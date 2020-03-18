@@ -30,11 +30,6 @@ static uint32_t readUInt(FILE *file)
     return 0;
 }
 
-AssetsBundle::AssetsBundle()
-:_data(NULL)
-{
-}
-
 void AssetsBundle::init(const std::string &path)
 {
     auto fs = FileUtils::getInstance();

@@ -22,7 +22,7 @@ NS_XGAME_BEGIN
 class FileFinder : public SuperFileUtils {
 public:
     static FileFinder *create();
-public:
+
     virtual ~FileFinder();
     virtual cocos2d::FileUtils::Status getContents(const std::string& filename, cocos2d::ResizableBuffer* buffer) const override;
     
@@ -30,10 +30,17 @@ public:
 protected:
     FileFinder();
     virtual bool init() override;
+    virtual AssetsBundle *createAssetsBundle();
     virtual std::string getFullPathForFilenameWithinDirectory(const std::string& directory, const std::string& filename) const override;
-private:
-    AssetsBundle _builtinAssets;
+protected:
+    AssetsBundle *_builtinAssets = nullptr;
     std::unordered_map<std::string, bool> _cacheFileTypes;
+    
+public:
+    typedef std::function<FileFinder *()> FileFinderProvider;
+    static void setProivder(const FileFinderProvider &provider) { s_provider = provider; }
+private:
+    static FileFinderProvider s_provider;
 };
 
 NS_XGAME_END

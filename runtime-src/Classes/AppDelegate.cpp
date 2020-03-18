@@ -26,6 +26,7 @@
 
 #include "xgame/xlua.h"
 #include "xgame/preferences.h"
+#include "xgame/FileFinder.h"
 //#include "wechat/lua_wechat.h"
 
 #include "lua-bindings/lua_cocos2d_3d.h"
@@ -93,6 +94,12 @@ void AppDelegate::initGLContextAttrs()
 
 bool AppDelegate::applicationDidFinishLaunching()
 {
+    /**
+     *  xgame::FileFinder::setProivder([]() {
+     *      return MyFileFinder::create();
+     *  });
+     */
+    
     initGLView("cocos-lua");
     xgame::runtime::initBugly(BUGLY_APPID);
     xgame::runtime::luaOpen(_open_plugins);

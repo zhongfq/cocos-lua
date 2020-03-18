@@ -19,14 +19,15 @@ public:
         size_t data;
     };
 public:
-    AssetsBundle();
+    AssetsBundle() {};
+    virtual ~AssetsBundle() {};
     
-    void init(const std::string &path);
-    bool exist(const std::string &path) const;
-    cocos2d::FileUtils::Status getContents(const std::string& filename, cocos2d::ResizableBuffer* buffer) const;
-private:
+    virtual void init(const std::string &path);
+    virtual bool exist(const std::string &path) const;
+    virtual cocos2d::FileUtils::Status getContents(const std::string& filename, cocos2d::ResizableBuffer* buffer) const;
+protected:
     std::unordered_map<std::string, Assets> _assets;
-    FILE *_data;
+    FILE *_data = nullptr;
 };
 
 NS_XGAME_END

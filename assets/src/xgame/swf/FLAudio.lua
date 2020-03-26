@@ -13,7 +13,7 @@ FLAudio.STATE_PAUSE = 4
 
 function FLAudio:ctor(path, loop, volume, delay, tag)
     self.nextAudio = false
-    self.path = path
+    self.path = assert(path, 'no path')
     self._loop = loop
     self._volume = volume
     self._duration = 0

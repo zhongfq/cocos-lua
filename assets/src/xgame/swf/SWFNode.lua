@@ -32,6 +32,16 @@ function SWFNode.Get:cobj()
     return cobj
 end
 
+function SWFNode:validateDisplay()
+    if self.rootswf then
+        for _, child in ipairs(self.rootswf.children) do
+            if child.validateDisplay then
+                child:validateDisplay()
+            end
+        end
+    end
+end
+
 function SWFNode.Get:rootswf()
     return self._rootswf
 end

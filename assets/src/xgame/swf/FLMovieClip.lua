@@ -39,10 +39,17 @@ function FLMovieClip:ctor(cobj)
     if relative then
         local left, right = string.match(relative, '(%w+) *, *(%w+)')
         assert(left and right, 'not a valid relative: ' .. relative)
-        self:addListener(Event.ADDED, function ()
-            self:removeListener(Event.ADDED, util.callee())
+        util.hookOnce(self, 'validateDisplay', function ()
             self:relative(left, right)
         end)
+    end
+end
+
+function FLMovieClip:validateDisplay()
+    for _, child in ipairs(self.children) do
+        if child.validateDisplay then
+            child.validateDisplay = false
+        end
     end
 end
 

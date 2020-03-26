@@ -23,6 +23,7 @@ function LoadTask:start()
 end
 
 function LoadTask:loadSuccess()
+    self.running = false
     self:dispatch(Event.COMPLETE)
 end
 

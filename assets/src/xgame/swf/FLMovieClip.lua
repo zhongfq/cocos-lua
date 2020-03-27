@@ -48,7 +48,7 @@ end
 function FLMovieClip:validateDisplay()
     for _, child in ipairs(self.children) do
         if child.validateDisplay then
-            child.validateDisplay = false
+            child:validateDisplay()
         end
     end
 end

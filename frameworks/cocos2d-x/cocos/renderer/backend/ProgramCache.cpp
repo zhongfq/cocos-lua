@@ -90,6 +90,7 @@ ProgramCache::~ProgramCache()
     {
         CC_SAFE_RELEASE(program.second);
     }
+    _cachedPrograms.clear();
     CCLOGINFO("deallocing ProgramCache: %p", this);
     ShaderCache::destroyInstance();
 }

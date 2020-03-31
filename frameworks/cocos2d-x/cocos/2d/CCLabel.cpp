@@ -1897,6 +1897,7 @@ void Label::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags)
 
             if (_batchCommands.size() != _batchNodes.size())
             {
+                _batchCommands.clear();
                 _batchCommands.resize(_batchNodes.size());
                 updateShaderProgram();
             }

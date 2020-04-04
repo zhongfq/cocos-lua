@@ -26,9 +26,13 @@ target_sources(xgame PRIVATE
 )
 
 if(CCLUA_BUILD_BUGLY)
-    include(src/bugly/CMakeLists.txt)
-    target_sources(xgame PRIVATE ${BUGLY_HEADER} ${BUGLY_SRC})
-    target_compile_definitions(xgame PUBLIC CCLUA_BUILD_BUGLY)
+    if(ANDROID OR IOS)
+        include(src/bugly/CMakeLists.txt)
+        target_sources(xgame PRIVATE ${BUGLY_HEADER} ${BUGLY_SRC})
+        target_compile_definitions(xgame PUBLIC CCLUA_BUILD_BUGLY)
+    else()
+        set(CCLUA_BUILD_BUGLY OFF)
+    endif()
 endif()
 
 if(CCLUA_BUILD_LUASOCKET)

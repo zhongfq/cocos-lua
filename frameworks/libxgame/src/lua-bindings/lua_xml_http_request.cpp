@@ -64,11 +64,11 @@ static int _cocos2d_XMLHttpRequest_setResponseCallback(lua_State *L)
         lua_State *L = olua_mainthread();
         if (MT == L) {
             int top = lua_gettop(L);
+            MT = nullptr;
             olua_push_cppobj<cocos2d::XMLHttpRequest>(L, request, nullptr);
             olua_callback(L, cb_store, func.c_str(), 1);
             lua_settop(L, top);
             olua_unref(L, ref);
-            MT = nullptr;
         }
     });
     return 0;

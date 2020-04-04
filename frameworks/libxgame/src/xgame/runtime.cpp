@@ -30,6 +30,7 @@ static std::vector<std::pair<std::string, std::string>> _suspendedEvents;
 static std::string _openURI;
 static std::map<std::string, bool> _supportedFeatures;
 static std::unordered_map<std::string, bool> _tracebackCaches;
+static int _sampleCount = 1;
 
 static char _logBuf[MAX_LOG_LENGTH];
 static float _time = 0;
@@ -40,7 +41,7 @@ static std::string _logPath;
 static std::string _logCache;
 static std::string _workdir;
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#ifdef CCLUA_BUILD_BUGLY
 static std::deque<std::string> _logBugly;
 #endif
 
@@ -464,7 +465,7 @@ void _writeLogToFile(const char *error)
         fwrite(error, sizeof(char), strlen(error), _logFile);
         fwrite("\n", 1, 1, _logFile);
         fflush(_logFile);
-    } else if (_logCache.size() < MAX_LOG_LENGTH) {
+    } else {
         _logCache.append(error);
         _logCache.append("\n");
     }
@@ -493,7 +494,7 @@ void runtime::log(const char *fmt, ...)
     
     va_end(args);
     
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#ifdef CCLUA_BUILD_BUGLY
     if (_logBugly.size() >= 200) {
         _logBugly.pop_front();
     }
@@ -511,12 +512,12 @@ void runtime::log(const char *fmt, ...)
 
 void runtime::setSampleCount(unsigned int samples)
 {
-    preferences::setInteger(CONF_ANTIALIAS_SAMPLES, samples > 0 ? samples : 1);
+    _sampleCount = samples > 0 ? samples : 1;
 }
 
 unsigned int runtime::getSampleCount()
 {
-    return (unsigned int)preferences::getInteger(CONF_ANTIALIAS_SAMPLES, 1);
+    return _sampleCount;
 }
 
 //
@@ -547,15 +548,13 @@ void runtime::registerFeature(const std::string &api, bool enabled)
 //
 void runtime::initBugly(const char* appid)
 {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    runtime::log("init bugly: appid=%s", appid);
 #ifdef CCLUA_BUILD_BUGLY
+    runtime::log("init bugly: appid=%s", appid);
     CrashReport::initCrashReport(appid, false, CrashReport::CRLogLevel::Verbose);
 #endif //CCLUA_BUILD_BUGLY
 
 #ifdef COCOS2D_DEBUG
     runtime::disableReport();
-#endif
 #endif
 }
 
@@ -566,7 +565,7 @@ void runtime::disableReport()
 
 void runtime::reportError(const char *err, const char *traceback)
 {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#if CCLUA_BUILD_BUGLY
     if (_reportError) {
         for (auto &msg : _logBugly) {
             CrashReport::log(CrashReport::CRLogLevel::Verbose, "bugly", msg.c_str());

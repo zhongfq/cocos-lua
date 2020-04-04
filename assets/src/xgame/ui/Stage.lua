@@ -88,7 +88,8 @@ function Stage:preemptTouch(target, id, x, y)
     x, y = target:globalToLocal(x, y)
     self:touchCancel({[id] = {id = id, x = x, y = y}})
     self._trackedTouches[id] = target
-    target:touchDown({[id] = {id = id, x = x, y = y}})
+    self.focus = target
+    target:touchMove({[id] = {id = id, x = x, y = y}})
 end
 
 function Stage:touchDown(points)

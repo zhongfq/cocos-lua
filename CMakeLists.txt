@@ -40,7 +40,7 @@ option(CCLUA_BUILD_QRCODE "Build with qrcode support" ON)
 option(CCLUA_BUILD_FAIRYGUI "Build with fairygui support" ON)
 option(CCLUA_BUILD_DRAGONBONES "Build with dragonbones support" ON)
 option(CCLUA_BUILD_SWF "Build with swf support" OFF)
-option(CCLUA_FEATURE_MSAA "Support MASS" OFF)
+option(CCLUA_FEATURE_MSAA "Support MSAA" OFF)
 option(CCLUA_FEATURE_IDFA "Support IDFA" OFF)
 
 include(config.cmake)

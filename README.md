@@ -18,8 +18,8 @@ cocos2d-x v4全部采用cmake构建，可以使用cmake生成各平台项目，�
 
 ```sh
 cd cocos-lua
-mkdir mac-build && cd mac-build
-cmake .. -GXcode
+mkdir -p build/mac-build && cd build/mac-build
+cmake ../.. -GXcode
 open cocos-lua.xcodeproj
 ```
 
@@ -27,8 +27,8 @@ open cocos-lua.xcodeproj
 
 ```sh
 cd cocos-lua
-mkdir ios-build && cd ios-build
-cmake .. -GXcode -DCMAKE_SYSTEM_NAME=iOS
+mkdir build/ios-build && cd build/ios-build
+cmake ../.. -GXcode -DCMAKE_SYSTEM_NAME=iOS
 open cocos-lua.xcodeproj
 ```
 
@@ -36,8 +36,8 @@ open cocos-lua.xcodeproj
 
 ```sh
 cd cocos-lua
-mkdir win32-build && cd win32-build
-cmake .. -G"Visual Studio 15 2017" -Tv141
+mkdir build\win32-build && cd build\win32-build
+cmake ../.. -G"Visual Studio 15 2017" -Tv141
 ```
 
 #### Android编译
@@ -92,10 +92,9 @@ cocos-lua在lua层屏蔽Ref的release和retain方法，改由lua gc管理，以�
 + 对能够存储回调的Node、Director、Action、Component、ActionManager、Schedule以及EventDispatcher等对象，在一些添加（addChild...）或移除（removeAllChildren...）方法中注入addref或delref代码。
 
 ## 若干说明
-1. assets/src/swf目录下的lua代码不宜使用，因为swf c++解析渲染库目前暂时无法开源。
-2. assets/src/ui目录下的布局代码不建议使用，它的存在只是用来做兼容层（为swf添加触摸支持等），推荐使用fairygui进行布局。
-3. 如果你需要使用的一些类没有导出，可以提个需求，我尽快导出。
-4. 建议使用vscode打开项目，可以使用LuaPanda插件进行调试。
+1. assets/src/ui目录下的布局代码不建议使用，它的存在只是用来做兼容层（为swf添加触摸支持等），推荐使用fairygui进行布局。
+2. 如果你需要使用的一些类没有导出，可以提个需求，我尽快导出。
+3. 建议使用vscode打开项目，可以使用luaide插件进行调试。
 
 ## 待完成
 

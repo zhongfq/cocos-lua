@@ -475,7 +475,12 @@ OLUA_API int olua_callback(lua_State *L, void *obj, const char *func, int argc)
     if (status != OLUA_CALL_OK) {
         if (status == OLUA_CALL_MISS) {
             olua_geterrorfunc(L);
-            lua_pushfstring(L, "callback missed: %s", func);
+            if (olua_getuserdata(L, obj)) {
+                lua_pop(L, 1);
+                lua_pushfstring(L, "callback missed: %s", func);
+            } else {
+                lua_pushfstring(L, "object missed: %s", func);
+            }
             lua_pcall(L, 1, 0, 0);
         }
         lua_settop(L, top);

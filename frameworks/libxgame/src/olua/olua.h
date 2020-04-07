@@ -150,6 +150,14 @@ OLUA_API const char *olua_objstring(lua_State *L, int idx);
 OLUA_API void olua_pop_objpool(lua_State *L, size_t level);
 
 // callback functions
+//  obj.uservalue {
+//      |----id----|---class---|-event-|
+//      .callback#1$olua.Object@onClick = lua_func
+//      .callback#2$olua.Object@onClick = lua_func
+//      .callback#3$olua.Object@update = lua_func
+//      .callback#4$olua.Object@onRemoved = lua_func
+//      ...
+//  }
 // for olua_setcallback
 #define OLUA_TAG_NEW          0
 #define OLUA_TAG_REPLACE      1
@@ -176,6 +184,15 @@ OLUA_API void olua_unref(lua_State *L, int ref);
 OLUA_API void olua_getref(lua_State *L, int ref);
     
 // for ref chain, callback store in the uservalue of userdata
+// ref layout:
+//  obj.uservalue {
+//      .ref.component = obj_component  -- OLUA_MODE_SINGLE
+//      .ref.children = {               -- OLUA_MODE_MULTIPLE
+//          obj_child1 = true
+//          obj_child2 = true
+//          ...
+//      }
+//  }
 #define OLUA_MODE_SINGLE    (1 << 1) // add & remove: only ref one
 #define OLUA_MODE_MULTIPLE  (1 << 2) // add & remove: can ref one or more
 #define OLUA_FLAG_ARRAY     (1 << 3) // obj is table

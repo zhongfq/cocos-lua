@@ -48,10 +48,6 @@
 #include "qrencode/lua_qrcode.h"
 #endif //CCLUA_BUILD_QRCODE
 
-#ifndef _WIN32
-#include "libpdebug.h"
-#endif
-
 int luaopen_bindings(lua_State *L)
 {
     olua_dofunc(L, luaopen_cocos2d);
@@ -61,10 +57,6 @@ int luaopen_bindings(lua_State *L)
     olua_dofunc(L, luaopen_cocos2d_ui);
     olua_dofunc(L, luaopen_xgame);
     olua_dofunc(L, luaopen_xml_http_request);
-
-#ifndef _WIN32
-    //pdebug_init(L);
-#endif
     
     olua_require(L, "olua", luaopen_olua);
 

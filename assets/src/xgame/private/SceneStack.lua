@@ -5,7 +5,7 @@ local Array         = require "xgame.Array"
 local assetloader   = require "xgame.assetloader"
 local Event         = require "xgame.event.Event"
 local UILayer       = require "xgame.ui.UILayer"
-local UICapture     = require "xgame.ui.UICapture"
+local PixelFormat   = require "ccb.PixelFormat"
 
 local trace = util.trace("[SceneStack]")
 
@@ -74,7 +74,7 @@ function SceneStack:_doStartScene(cls, ...)
     self._sceneLayer:addChild(entry.sceneWrapper)
 
     if scene.renderOption.snapshot and snapshot then
-        entry.sceneWrapper.cobj:addProtectedChild(snapshot.cobj)
+        entry.sceneWrapper.cobj:addProtectedChild(snapshot)
     end
     assetloader.loadSceneAssets(scene)
 end
@@ -104,7 +104,7 @@ function SceneStack:_doCaptureScene(entry)
         return
     end
     if not entry.snapshot then
-        entry.snapshot = UICapture.new(entry.sceneWrapper)
+        entry.snapshot = runtime.capture(entry.sceneWrapper.cobj, PixelFormat.RGB565)
     end
     return entry.snapshot
 end

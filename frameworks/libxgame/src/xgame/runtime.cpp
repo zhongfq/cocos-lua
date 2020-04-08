@@ -243,7 +243,7 @@ void runtime::luaOpen(lua_CFunction libfunc)
 //
 const std::string runtime::getVersion()
 {
-    return "1.13.3";
+    return "1.13.4";
 }
 
 const std::string runtime::getPackageName()
@@ -306,6 +306,44 @@ void runtime::setManifestVersion(const std::string &version)
 const std::string runtime::getNetworkStatus()
 {
     return __runtime_getNetworkStatus();
+}
+
+RenderTexture *runtime::capture(Node *node, backend::PixelFormat format, backend::PixelFormat depthStencilFormat)
+{
+    auto director = Director::getInstance();
+    auto size = node->getContentSize();
+    auto image = RenderTexture::create(size.width, size.height, format, depthStencilFormat);
+    image->getSprite()->setIgnoreAnchorPointForPosition(true);
+    image->retain();
+    node->retain();
+    
+    EventListenerCustom *listener = new EventListenerCustom();
+    listener->init(Director::EVENT_BEFORE_DRAW, [=](EventCustom *) {
+        director->getEventDispatcher()->removeEventListener(listener);
+        director->setNextDeltaTimeZero(true);
+
+        bool savedVisible = node->isVisible();
+        Point savedPos = node->getPosition();
+        Point anchor;
+        if (!node->isIgnoreAnchorPointForPosition()) {
+            anchor = node->getAnchorPoint();
+        }
+        node->setVisible(true);
+        node->setPosition(Point(size.width * anchor.x, size.height * anchor.y));
+        image->begin();
+        node->visit();
+        image->end();
+        node->setPosition(savedPos);
+        node->setVisible(savedVisible);
+        
+        listener->release();
+        image->release();
+        node->release();
+    });
+    
+    director->getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
+    
+    return image;
 }
 
 void runtime::setAudioSessionCatalog(const std::string &catalog)

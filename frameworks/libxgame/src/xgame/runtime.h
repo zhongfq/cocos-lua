@@ -52,6 +52,8 @@ public:
     static void setManifestVersion(const std::string &version);
     static const std::string getNetworkStatus();
     
+    static cocos2d::RenderTexture *capture(cocos2d::Node *node, cocos2d::backend::PixelFormat format = cocos2d::backend::PixelFormat::RGBA8888, cocos2d::backend::PixelFormat depthStencilFormat = cocos2d::backend::PixelFormat::D24S8);
+    
     // ios only
     static const PermissionStatus getPermissionStatus(Permission permission);
     static void requestPermission(Permission permission, const std::function<void (PermissionStatus)> callback);

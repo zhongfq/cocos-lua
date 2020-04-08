@@ -88,6 +88,7 @@ cls.funcs [[
     static const std::string getManifestVersion()
     static void setManifestVersion(const std::string &version)
     static const std::string getNetworkStatus()
+    static cocos2d::RenderTexture *capture(cocos2d::Node *node, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
     static const xgame::PermissionStatus getPermissionStatus(xgame::Permission permission)
     static void setAudioSessionCatalog(const std::string &catalog)
     static const std::string getAudioSessionCatalog()

@@ -306,6 +306,93 @@ static int _xgame_runtime_canOpenURL(lua_State *L)
     return num_ret;
 }
 
+static int _xgame_runtime_capture1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *arg1 = nullptr;       /** node */
+    lua_Unsigned arg2 = 0;       /** format */
+    lua_Unsigned arg3 = 0;       /** depthStencilFormat */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
+    olua_check_uint(L, 2, &arg2);
+    olua_check_uint(L, 3, &arg3);
+
+    // static cocos2d::RenderTexture *capture(cocos2d::Node *node, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
+    cocos2d::RenderTexture *ret = (cocos2d::RenderTexture *)xgame::runtime::capture(arg1, (cocos2d::backend::PixelFormat)arg2, (cocos2d::backend::PixelFormat)arg3);
+    int num_ret = olua_push_cppobj(L, ret, "cc.RenderTexture");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _xgame_runtime_capture2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *arg1 = nullptr;       /** node */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
+
+    // static cocos2d::RenderTexture *capture(cocos2d::Node *node, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
+    cocos2d::RenderTexture *ret = (cocos2d::RenderTexture *)xgame::runtime::capture(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.RenderTexture");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _xgame_runtime_capture3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *arg1 = nullptr;       /** node */
+    lua_Unsigned arg2 = 0;       /** format */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
+    olua_check_uint(L, 2, &arg2);
+
+    // static cocos2d::RenderTexture *capture(cocos2d::Node *node, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
+    cocos2d::RenderTexture *ret = (cocos2d::RenderTexture *)xgame::runtime::capture(arg1, (cocos2d::backend::PixelFormat)arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.RenderTexture");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _xgame_runtime_capture(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 1, "cc.Node"))) {
+            // static cocos2d::RenderTexture *capture(cocos2d::Node *node, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
+            return _xgame_runtime_capture2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 1, "cc.Node")) && (olua_is_uint(L, 2))) {
+            // static cocos2d::RenderTexture *capture(cocos2d::Node *node, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
+            return _xgame_runtime_capture3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_cppobj(L, 1, "cc.Node")) && (olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
+            // static cocos2d::RenderTexture *capture(cocos2d::Node *node, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
+            return _xgame_runtime_capture1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'xgame::runtime::capture' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
 static int _xgame_runtime_clearStorage(lua_State *L)
 {
     olua_startinvoke(L);
@@ -873,6 +960,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_func(L, "__move", _xgame_runtime___move);
     oluacls_func(L, "alert", _xgame_runtime_alert);
     oluacls_func(L, "canOpenURL", _xgame_runtime_canOpenURL);
+    oluacls_func(L, "capture", _xgame_runtime_capture);
     oluacls_func(L, "clearStorage", _xgame_runtime_clearStorage);
     oluacls_func(L, "disableReport", _xgame_runtime_disableReport);
     oluacls_func(L, "gc", _xgame_runtime_gc);

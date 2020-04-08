@@ -78,9 +78,6 @@ function ScrollImpl:press(id, x, y)
 end
 
 function ScrollImpl:release(id, x, y)
-    if self._startTouch and self._startTouch.id == id then
-        self._startTouch = false
-    end
     self:_abortFocus(id)
     self._touchCount = self._touchCount - 1
     self:_checkScrollEnd()

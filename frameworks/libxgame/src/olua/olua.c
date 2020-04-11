@@ -189,6 +189,40 @@ static void aux_getobjtable(lua_State *L)
     }
 }
 
+OLUA_API void *olua_allocstubobj(lua_State *L, const char *cls)
+{
+    void *ptr = NULL;
+    aux_getobjtable(L);                     // L: objtable
+    olua_newuserdata(L, NULL, void *);      // L: objtable ud
+    ptr = (void *)lua_topointer(L, -1);
+    lua_pushvalue(L, -1);                   // L: objtable ud ud
+    olua_rawsetp(L, -3, ptr);               // L: objtable ud     objtable[ptr] = ud
+    lua_remove(L, -2);                      // L: ud
+    luaL_setmetatable(L, cls);
+    return ptr;
+}
+
+OLUA_API int olua_pushstubobj(lua_State *L, void *obj, void *stub, const char *cls)
+{
+    int status = OLUA_OBJ_EXIST;
+    aux_getobjtable(L);                                         // L: objt
+    if (olua_rawgetp(L, -1, obj) == LUA_TUSERDATA) {            // L: objt obj
+        lua_pushvalue(L, -1);                                   // L: objt obj obj
+        olua_rawsetp(L, -3, stub);                              // L: objt obj      objt[stub] = obj
+    } else if (olua_rawgetp(L, -2, stub) == LUA_TUSERDATA) {    // L: objt nil stub
+        olua_setuserdata(L, -1, obj);                           // L: objt nil obj
+        lua_pushvalue(L, -1);                                   // L: objt nil obj obj
+        olua_rawsetp(L, -4, obj);                               // L: objt nil obj
+        lua_replace(L, -2);                                     // L: objt obj
+        luaL_setmetatable(L, cls);
+        status = OLUA_OBJ_NEW;
+    } else {
+        luaL_error(L, "stub object not found for '%s'", cls);
+    }
+    lua_remove(L, -2);                                          // L: obj
+    return status;
+}
+
 static void aux_pushlocalobj(lua_State *L, void *obj)
 {
     olua_vmstatus_t *mt = olua_vmstatus(L);
@@ -366,6 +400,7 @@ static bool test_tag_mode(lua_State *L, int idx, const char *tag, int mode)
 OLUA_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, int func, int tagmode)
 {
     const char *cls = NULL;
+    const char *fn = NULL;
     func = lua_absindex(L, func);
     luaL_checktype(L, func, LUA_TFUNCTION);
     
@@ -399,8 +434,9 @@ OLUA_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, 
     lua_pushvalue(L, -1);                               // L: ct k k
     lua_pushvalue(L, func);                             // L: ct k k v
     lua_rawset(L, -4);                                  // L: ct k
-    lua_remove(L, -2);                                  // L: k
-    return olua_tostring(L, -1);
+    fn = olua_tostring(L, -1);
+    lua_pop(L, 2);                                      // L:
+    return fn;
 }
 
 OLUA_API int olua_getcallback(lua_State *L, void *obj, const char *tag, int tagmode)

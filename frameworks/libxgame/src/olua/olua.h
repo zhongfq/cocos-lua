@@ -138,6 +138,8 @@ OLUA_API int olua_pcallref(lua_State *L, int funcref, int nargs, int nresults);
 OLUA_API bool olua_getuserdata(lua_State *L, void *obj);
 OLUA_API const char *olua_typename(lua_State *L, int idx);
 OLUA_API bool olua_isa(lua_State *L, int idx, const char *cls);
+OLUA_API void *olua_allocstubobj(lua_State *L, const char *cls);
+OLUA_API int olua_pushstubobj(lua_State *L, void *obj, void *stub, const char *cls);
 OLUA_API int olua_pushobj(lua_State *L, void *obj, const char *cls);
 OLUA_API void *olua_checkobj(lua_State *L, int idx, const char *cls);
 OLUA_API void *olua_toobj(lua_State *L, int idx, const char *cls);

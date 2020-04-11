@@ -419,55 +419,25 @@ typeconf 'fairygui::GSlider'
 typeconf 'fairygui::GTextInput'
 
 local PopupMenu = typeconf 'fairygui::PopupMenu'
+PopupMenu.ATTR('addItem', {RET = '@addref(children | parent)'})
+PopupMenu.ATTR('addItemAt', {RET = '@addref(children | parent)'})
 PopupMenu.ATTR('removeItem', {RET = '@delref(children ~ parent)'})
 PopupMenu.ATTR('clearItems', {RET = '@delref(children ~ parent)'})
 PopupMenu.ATTR('getContentPane', {RET = '@addref(contentPane ^)'})
 PopupMenu.ATTR('getList', {RET = '@addref(list ^)'})
 PopupMenu.ATTR('show', {RET = '@delref(children ~ parent)@addref(children | parent)'})
-PopupMenu.CHUNK = [[
-static int _fairygui_PopupMenu_addItemAt(lua_State *L);
-]]
-PopupMenu.FUNC('addItemAt', [[
-{
-    fairygui::PopupMenu *self = (fairygui::PopupMenu *)olua_toobj(L, 1, "fgui.PopupMenu");
-    std::string caption = olua_checkstring(L, 2);
-    int index = (int)olua_checkinteger(L, 3);
-    fairygui::GButton *ret = (fairygui::GButton *)self->addItemAt(caption, index, nullptr);
-
-    void *callback_store_obj = (void *)ret;
-    std::string tag = makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0);
-    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 4, OLUA_TAG_NEW);
-    std::function<void(fairygui::EventContext *)> callback = [callback_store_obj, func, tag](fairygui::EventContext *event) {
-        lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
-        size_t last = olua_push_objpool(L);
-        olua_enable_objpool(L);
-        olua_push_cppobj<fairygui::EventContext>(L, event);
-        olua_disable_objpool(L);
-        olua_callback(L, callback_store_obj, func.c_str(), 1);
-
-        //pop stack value
-        olua_pop_objpool(L, last);
-
-        lua_settop(L, top);
-    };
-
-    ret->addEventListener(fairygui::UIEventType::ClickMenu, callback);
-
-    olua_push_cppobj<fairygui::GButton>(L, ret);
-    olua_push_cppobj<fairygui::GComponent>(L, ret->getParent());
-    olua_addref(L, -1, "children", -2, OLUA_MODE_MULTIPLE);
-    lua_pop(L, 1);
-
-    return 1;
-}]])
-PopupMenu.FUNC('addItem', [[
-{
-    fairygui::PopupMenu *self = (fairygui::PopupMenu *)olua_toobj(L, 1, "fgui.PopupMenu");
-    lua_pushinteger(L, self->getList()->numChildren());
-    lua_insert(L, -2);
-    return _fairygui_PopupMenu_addItemAt(L);
-}]])
+PopupMenu.CALLBACK {
+    NAME = 'addItem',
+    TAG_MAKER = 'makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0)',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = 'return',
+}
+PopupMenu.CALLBACK {
+    NAME = 'addItemAt',
+    TAG_MAKER = 'makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0)',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = 'return',
+}
 -- void show()
 -- void show(GObject* target, PopupDirection dir)
 PopupMenu.INJECT('show', {
@@ -486,7 +456,9 @@ PopupMenu.INJECT('show', {
 })
 -- bool removeItem(const std::string& name)
 -- void clearItems()
-PopupMenu.INJECT({'removeItem', 'clearItems'}, {
+-- GButton* addItem(const std::string& caption, EventCallback callback);
+-- GButton* addItemAt(const std::string& caption, int index, EventCallback callback);
+PopupMenu.INJECT({'removeItem', 'clearItems', 'addItem', 'addItemAt'}, {
     BEFORE = [[
         olua_push_cppobj<fairygui::GList>(L, self->getList());
         int parent = lua_gettop(L);

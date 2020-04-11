@@ -1463,10 +1463,9 @@ cls.callback {
     },
     TAG_MAKER = 'OpenUrlHandler',
     TAG_MODE = 'OLUA_TAG_REPLACE',
-    TAG_STORE = nil,
+    TAG_STORE = "return",
     LIFECYCLE = 'default',
     REMOVE = false,
-    CPPFUNC = 'initWithXML',
 }
 cls.callback {
     FUNCS =  {

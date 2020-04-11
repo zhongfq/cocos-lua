@@ -195,7 +195,7 @@ RichText.CALLBACK {
     NAME = 'createWithXML',
     TAG_MAKER = 'OpenUrlHandler',
     TAG_MODE = 'OLUA_TAG_REPLACE',
-    CPPFUNC = 'initWithXML',
+    TAG_STORE = 'return',
 }
 
 typeconf 'cocos2d::ui::ScrollViewBar'

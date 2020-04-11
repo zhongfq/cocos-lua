@@ -13567,15 +13567,11 @@ static int _cocos2d_ui_RichText_createWithXML1(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
     manual_olua_check_cocos2d_ValueMap(L, 2, &arg2);
 
-    cocos2d::ui::RichText *self = new cocos2d::ui::RichText();
-    cocos2d::ui::RichText *ret = self;
-    olua_push_cppobj<cocos2d::ui::RichText>(L, self);
-    olua_postnew(L, ret);
-
+    void *callback_store_obj = (void *)olua_allocstubobj(L, "ccui.RichText");
+    std::string tag = "OpenUrlHandler";
+    std::string func;
     if (olua_is_std_function(L, 3)) {
-        void *callback_store_obj = (void *)self;
-        std::string tag = "OpenUrlHandler";
-        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_REPLACE);
+        func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_REPLACE);
         lua_State *MT = olua_mainthread();
         arg3 = [callback_store_obj, func, MT](const std::string &arg1) {
             lua_State *L = olua_mainthread();
@@ -13590,19 +13586,25 @@ static int _cocos2d_ui_RichText_createWithXML1(lua_State *L)
             }
         };
     } else {
-        void *callback_store_obj = (void *)self;
-        std::string tag = "OpenUrlHandler";
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg3 = nullptr;
     }
 
     // static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @local @optional const std::function<void (const std::string &)> &handleOpenUrl)
-    self->initWithXML(arg1, arg2, arg3);
-    int num_ret = olua_push_cppobj(L, ret, "ccui.RichText");
+    cocos2d::ui::RichText *ret = (cocos2d::ui::RichText *)cocos2d::ui::RichText::createWithXML(arg1, arg2, arg3);
+    const char *cls = olua_getluatype(L, ret, "ccui.RichText");
+    if (olua_pushstubobj(L, ret, callback_store_obj, cls) == OLUA_OBJ_EXIST) {
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
+        lua_pushstring(L, func.c_str());
+        lua_pushvalue(L, 3);
+        olua_setvariable(L, -3);
+    } else {
+        olua_postpush(L, ret, OLUA_OBJ_NEW);
+    };
 
     olua_endinvoke(L);
 
-    return num_ret;
+    return 1;
 }
 
 static int _cocos2d_ui_RichText_createWithXML2(lua_State *L)
@@ -13613,13 +13615,8 @@ static int _cocos2d_ui_RichText_createWithXML2(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
 
-    cocos2d::ui::RichText *self = new cocos2d::ui::RichText();
-    cocos2d::ui::RichText *ret = self;
-    olua_push_cppobj<cocos2d::ui::RichText>(L, self);
-    olua_postnew(L, ret);
-
     // static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @local @optional const std::function<void (const std::string &)> &handleOpenUrl)
-    self->initWithXML(arg1);
+    cocos2d::ui::RichText *ret = (cocos2d::ui::RichText *)cocos2d::ui::RichText::createWithXML(arg1);
     int num_ret = olua_push_cppobj(L, ret, "ccui.RichText");
 
     olua_endinvoke(L);
@@ -13637,13 +13634,8 @@ static int _cocos2d_ui_RichText_createWithXML3(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
     manual_olua_check_cocos2d_ValueMap(L, 2, &arg2);
 
-    cocos2d::ui::RichText *self = new cocos2d::ui::RichText();
-    cocos2d::ui::RichText *ret = self;
-    olua_push_cppobj<cocos2d::ui::RichText>(L, self);
-    olua_postnew(L, ret);
-
     // static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @local @optional const std::function<void (const std::string &)> &handleOpenUrl)
-    self->initWithXML(arg1, arg2);
+    cocos2d::ui::RichText *ret = (cocos2d::ui::RichText *)cocos2d::ui::RichText::createWithXML(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "ccui.RichText");
 
     olua_endinvoke(L);

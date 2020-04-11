@@ -146,10 +146,17 @@ Scheduler.FUNC('scheduleUpdate', [[
 local EventDispatcher = typeconf 'cocos2d::EventDispatcher'
 EventDispatcher.ATTR('addEventListenerWithSceneGraphPriority', {ARG1 = '@addref(listeners | 3)'})
 EventDispatcher.ATTR('addEventListenerWithFixedPriority', {ARG1 = '@addref(listeners |)'})
+EventDispatcher.ATTR('addCustomEventListener', {RET = '@addref(listeners |)'})
 EventDispatcher.ATTR('removeCustomEventListeners', {RET = '@delref(listeners ~)'})
 EventDispatcher.ATTR('removeEventListener', {RET = '@delref(listeners ~)'})
 EventDispatcher.ATTR('removeEventListenersForType', {RET = '@delref(listeners ~)'})
 EventDispatcher.ATTR('removeAllEventListeners', {RET = '@delref(listeners ~)'})
+EventDispatcher.CALLBACK {
+    NAME = 'addCustomEventListener',
+    TAG_MAKER = '(#1)',
+    TAG_STORE = 'return',
+    TAG_MODE = 'OLUA_TAG_NEW',
+}
 EventDispatcher.CHUNK = [[
 static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
 {
@@ -165,44 +172,6 @@ static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target,
         }
     }
 }]]
-EventDispatcher.FUNC('addCustomEventListener', [[
-{
-    void *callback_store_obj = nullptr;
-    auto self = olua_checkobj<cocos2d::EventDispatcher>(L, 1);
-    std::string eventName = olua_checkstring(L, 2);
-    auto listener = new cocos2d::EventListenerCustom();
-    listener->autorelease();
-    olua_push_cppobj<cocos2d::EventListenerCustom>(L, listener);
-    callback_store_obj = listener;
-    std::string func = olua_setcallback(L, callback_store_obj, eventName.c_str(), 3, OLUA_TAG_NEW);
-    listener->init(eventName, [callback_store_obj, func](cocos2d::EventCustom *event) {
-        lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
-        size_t last = olua_push_objpool(L);
-        olua_enable_objpool(L);
-        olua_push_cppobj<cocos2d::EventCustom>(L, event);
-        olua_disable_objpool(L);
-        olua_callback(L, callback_store_obj, func.c_str(), 1);
-
-        //pop stack value
-        olua_pop_objpool(L, last);
-
-        lua_settop(L, top);
-    });
-
-    // EventListenerCustom* EventDispatcher::addCustomEventListener(const std::string &eventName, const std::function<void(EventCustom*)>& callback)
-    //  {
-    //      EventListenerCustom *listener = EventListenerCustom::create(eventName, callback);
-    //      addEventListenerWithFixedPriority(listener, 1);
-    //      return listener;
-    //  }
-    self->addEventListenerWithFixedPriority(listener, 1);
-    lua_pushvalue(L, 4);
-
-    olua_addref(L, 1, "listeners", -1, OLUA_MODE_MULTIPLE);
-
-    return 1;
-}]])
 EventDispatcher.INJECT('removeEventListenersForTarget', {
     BEFORE = [[
         bool recursive = false;
@@ -228,7 +197,7 @@ typeconf 'cocos2d::EventListenerCustom'
         NAME = 'create',
         TAG_MAKER = 'listener',
         TAG_MODE = 'OLUA_TAG_NEW',
-        CPPFUNC = 'init',
+        TAG_STORE = 'return',
     }
 
 typeconf 'cocos2d::EventListenerKeyboard'
@@ -238,7 +207,7 @@ typeconf 'cocos2d::EventListenerAcceleration'
         NAME = 'create',
         TAG_MAKER = 'listener',
         TAG_MODE = 'OLUA_TAG_NEW',
-        CPPFUNC = 'init',
+        TAG_STORE = 'return',
     }
 
 typeconf 'cocos2d::EventListenerFocus'

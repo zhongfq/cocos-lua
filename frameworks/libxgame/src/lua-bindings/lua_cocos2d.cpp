@@ -3424,38 +3424,47 @@ static int _cocos2d_EventDispatcher_addCustomEventListener(lua_State *L)
 {
     olua_startinvoke(L);
 
-    void *callback_store_obj = nullptr;
-    auto self = olua_checkobj<cocos2d::EventDispatcher>(L, 1);
-    std::string eventName = olua_checkstring(L, 2);
-    auto listener = new cocos2d::EventListenerCustom();
-    listener->autorelease();
-    olua_push_cppobj<cocos2d::EventListenerCustom>(L, listener);
-    callback_store_obj = listener;
-    std::string func = olua_setcallback(L, callback_store_obj, eventName.c_str(), 3, OLUA_TAG_NEW);
-    listener->init(eventName, [callback_store_obj, func](cocos2d::EventCustom *event) {
+    cocos2d::EventDispatcher *self = nullptr;
+    std::string arg1;       /** eventName */
+    std::function<void(cocos2d::EventCustom *)> arg2;       /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventDispatcher");
+    olua_check_std_string(L, 2, &arg1);
+
+    void *callback_store_obj = (void *)olua_allocstubobj(L, "cc.EventListenerCustom");
+    std::string tag = (arg1);
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_NEW);
+    lua_State *MT = olua_mainthread();
+    arg2 = [callback_store_obj, func, MT](cocos2d::EventCustom *arg1) {
         lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
-        size_t last = olua_push_objpool(L);
-        olua_enable_objpool(L);
-        olua_push_cppobj<cocos2d::EventCustom>(L, event);
-        olua_disable_objpool(L);
-        olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-        //pop stack value
-        olua_pop_objpool(L, last);
+        if (MT == L) {
+            int top = lua_gettop(L);
+            size_t last = olua_push_objpool(L);
+            olua_enable_objpool(L);
+            olua_push_cppobj(L, arg1, "cc.EventCustom");
+            olua_disable_objpool(L);
 
-        lua_settop(L, top);
-    });
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-    // EventListenerCustom* EventDispatcher::addCustomEventListener(const std::string &eventName, const std::function<void(EventCustom*)>& callback)
-    //  {
-    //      EventListenerCustom *listener = EventListenerCustom::create(eventName, callback);
-    //      addEventListenerWithFixedPriority(listener, 1);
-    //      return listener;
-    //  }
-    self->addEventListenerWithFixedPriority(listener, 1);
-    lua_pushvalue(L, 4);
+            //pop stack value
+            olua_pop_objpool(L, last);
+            lua_settop(L, top);
+        }
+    };
 
+    // @addref(listeners |) cocos2d::EventListenerCustom *addCustomEventListener(const std::string &eventName, @local const std::function<void (EventCustom *)> &callback)
+    cocos2d::EventListenerCustom *ret = (cocos2d::EventListenerCustom *)self->addCustomEventListener(arg1, arg2);
+    const char *cls = olua_getluatype(L, ret, "cc.EventListenerCustom");
+    if (olua_pushstubobj(L, ret, callback_store_obj, cls) == OLUA_OBJ_EXIST) {
+        lua_pushstring(L, func.c_str());
+        lua_pushvalue(L, 3);
+        olua_setvariable(L, -3);
+    } else {
+        olua_postpush(L, ret, OLUA_OBJ_NEW);
+    };
+
+    // inject code after call
     olua_addref(L, 1, "listeners", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -4832,12 +4841,7 @@ static int _cocos2d_EventListenerCustom_create(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
 
-    cocos2d::EventListenerCustom *self = new cocos2d::EventListenerCustom();
-    cocos2d::EventListenerCustom *ret = self;
-    olua_push_cppobj<cocos2d::EventListenerCustom>(L, self);
-    olua_postnew(L, ret);
-
-    void *callback_store_obj = (void *)self;
+    void *callback_store_obj = (void *)olua_allocstubobj(L, "cc.EventListenerCustom");
     std::string tag = "listener";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_NEW);
     lua_State *MT = olua_mainthread();
@@ -4860,12 +4864,19 @@ static int _cocos2d_EventListenerCustom_create(lua_State *L)
     };
 
     // static cocos2d::EventListenerCustom *create(const std::string &eventName, @local const std::function<void (EventCustom *)> &callback)
-    self->init(arg1, arg2);
-    int num_ret = olua_push_cppobj(L, ret, "cc.EventListenerCustom");
+    cocos2d::EventListenerCustom *ret = (cocos2d::EventListenerCustom *)cocos2d::EventListenerCustom::create(arg1, arg2);
+    const char *cls = olua_getluatype(L, ret, "cc.EventListenerCustom");
+    if (olua_pushstubobj(L, ret, callback_store_obj, cls) == OLUA_OBJ_EXIST) {
+        lua_pushstring(L, func.c_str());
+        lua_pushvalue(L, 2);
+        olua_setvariable(L, -3);
+    } else {
+        olua_postpush(L, ret, OLUA_OBJ_NEW);
+    };
 
     olua_endinvoke(L);
 
-    return num_ret;
+    return 1;
 }
 
 static int _cocos2d_EventListenerCustom_new(lua_State *L)
@@ -5102,12 +5113,7 @@ static int _cocos2d_EventListenerAcceleration_create(lua_State *L)
 
     std::function<void(cocos2d::Acceleration *, cocos2d::Event *)> arg1;       /** callback */
 
-    cocos2d::EventListenerAcceleration *self = new cocos2d::EventListenerAcceleration();
-    cocos2d::EventListenerAcceleration *ret = self;
-    olua_push_cppobj<cocos2d::EventListenerAcceleration>(L, self);
-    olua_postnew(L, ret);
-
-    void *callback_store_obj = (void *)self;
+    void *callback_store_obj = (void *)olua_allocstubobj(L, "cc.EventListenerAcceleration");
     std::string tag = "listener";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 1, OLUA_TAG_NEW);
     lua_State *MT = olua_mainthread();
@@ -5131,12 +5137,19 @@ static int _cocos2d_EventListenerAcceleration_create(lua_State *L)
     };
 
     // static cocos2d::EventListenerAcceleration *create(@local const std::function<void (Acceleration *, Event *)> &callback)
-    self->init(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "cc.EventListenerAcceleration");
+    cocos2d::EventListenerAcceleration *ret = (cocos2d::EventListenerAcceleration *)cocos2d::EventListenerAcceleration::create(arg1);
+    const char *cls = olua_getluatype(L, ret, "cc.EventListenerAcceleration");
+    if (olua_pushstubobj(L, ret, callback_store_obj, cls) == OLUA_OBJ_EXIST) {
+        lua_pushstring(L, func.c_str());
+        lua_pushvalue(L, 1);
+        olua_setvariable(L, -3);
+    } else {
+        olua_postpush(L, ret, OLUA_OBJ_NEW);
+    };
 
     olua_endinvoke(L);
 
-    return num_ret;
+    return 1;
 }
 
 static int _cocos2d_EventListenerAcceleration_new(lua_State *L)

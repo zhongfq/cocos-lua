@@ -155,7 +155,7 @@ typeconf 'cocos2d::ActionFloat'
         NAME = 'create',
         TAG_MAKER = 'ActionFloat',
         TAG_MODE = 'OLUA_TAG_NEW',
-        CPPFUNC = 'initWithDuration',
+        TAG_STORE = 'return',
     }
 
 typeconf 'cocos2d::ProgressTo'
@@ -226,7 +226,7 @@ typeconf "cocos2d::CallFunc"
         NAME = 'create',
         TAG_MAKER = 'CallFunc',
         TAG_MODE = 'OLUA_TAG_NEW',
-        CPPFUNC = 'initWithFunction',
+        TAG_STORE = 'return',
     }
 
 typeconf 'cocos2d::ActionCamera'

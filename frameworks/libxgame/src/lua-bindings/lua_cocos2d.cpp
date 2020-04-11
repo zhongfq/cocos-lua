@@ -3431,7 +3431,7 @@ static int _cocos2d_EventDispatcher_addCustomEventListener(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventDispatcher");
     olua_check_std_string(L, 2, &arg1);
 
-    void *callback_store_obj = (void *)olua_allocstubobj(L, "cc.EventListenerCustom");
+    void *callback_store_obj = (void *)olua_allocobjstub(L, "cc.EventListenerCustom");
     std::string tag = (arg1);
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_NEW);
     lua_State *MT = olua_mainthread();
@@ -3456,7 +3456,7 @@ static int _cocos2d_EventDispatcher_addCustomEventListener(lua_State *L)
     // @addref(listeners |) cocos2d::EventListenerCustom *addCustomEventListener(const std::string &eventName, @local const std::function<void (EventCustom *)> &callback)
     cocos2d::EventListenerCustom *ret = (cocos2d::EventListenerCustom *)self->addCustomEventListener(arg1, arg2);
     const char *cls = olua_getluatype(L, ret, "cc.EventListenerCustom");
-    if (olua_pushstubobj(L, ret, callback_store_obj, cls) == OLUA_OBJ_EXIST) {
+    if (olua_pushobjstub(L, ret, callback_store_obj, cls) == OLUA_OBJ_EXIST) {
         lua_pushstring(L, func.c_str());
         lua_pushvalue(L, 3);
         olua_setvariable(L, -3);
@@ -4841,7 +4841,7 @@ static int _cocos2d_EventListenerCustom_create(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
 
-    void *callback_store_obj = (void *)olua_allocstubobj(L, "cc.EventListenerCustom");
+    void *callback_store_obj = (void *)olua_allocobjstub(L, "cc.EventListenerCustom");
     std::string tag = "listener";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_NEW);
     lua_State *MT = olua_mainthread();
@@ -4866,7 +4866,7 @@ static int _cocos2d_EventListenerCustom_create(lua_State *L)
     // static cocos2d::EventListenerCustom *create(const std::string &eventName, @local const std::function<void (EventCustom *)> &callback)
     cocos2d::EventListenerCustom *ret = (cocos2d::EventListenerCustom *)cocos2d::EventListenerCustom::create(arg1, arg2);
     const char *cls = olua_getluatype(L, ret, "cc.EventListenerCustom");
-    if (olua_pushstubobj(L, ret, callback_store_obj, cls) == OLUA_OBJ_EXIST) {
+    if (olua_pushobjstub(L, ret, callback_store_obj, cls) == OLUA_OBJ_EXIST) {
         lua_pushstring(L, func.c_str());
         lua_pushvalue(L, 2);
         olua_setvariable(L, -3);
@@ -5113,7 +5113,7 @@ static int _cocos2d_EventListenerAcceleration_create(lua_State *L)
 
     std::function<void(cocos2d::Acceleration *, cocos2d::Event *)> arg1;       /** callback */
 
-    void *callback_store_obj = (void *)olua_allocstubobj(L, "cc.EventListenerAcceleration");
+    void *callback_store_obj = (void *)olua_allocobjstub(L, "cc.EventListenerAcceleration");
     std::string tag = "listener";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 1, OLUA_TAG_NEW);
     lua_State *MT = olua_mainthread();
@@ -5139,7 +5139,7 @@ static int _cocos2d_EventListenerAcceleration_create(lua_State *L)
     // static cocos2d::EventListenerAcceleration *create(@local const std::function<void (Acceleration *, Event *)> &callback)
     cocos2d::EventListenerAcceleration *ret = (cocos2d::EventListenerAcceleration *)cocos2d::EventListenerAcceleration::create(arg1);
     const char *cls = olua_getluatype(L, ret, "cc.EventListenerAcceleration");
-    if (olua_pushstubobj(L, ret, callback_store_obj, cls) == OLUA_OBJ_EXIST) {
+    if (olua_pushobjstub(L, ret, callback_store_obj, cls) == OLUA_OBJ_EXIST) {
         lua_pushstring(L, func.c_str());
         lua_pushvalue(L, 1);
         olua_setvariable(L, -3);

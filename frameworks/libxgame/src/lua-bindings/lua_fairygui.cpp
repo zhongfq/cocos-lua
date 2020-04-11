@@ -17198,7 +17198,7 @@ static int _fairygui_PopupMenu_addItem(lua_State *L)
     olua_push_cppobj<fairygui::GList>(L, self->getList());
     int parent = lua_gettop(L);
 
-    void *callback_store_obj = (void *)olua_allocstubobj(L, "fgui.GButton");
+    void *callback_store_obj = (void *)olua_allocobjstub(L, "fgui.GButton");
     std::string tag = makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0);
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();
@@ -17223,7 +17223,7 @@ static int _fairygui_PopupMenu_addItem(lua_State *L)
     // @addref(children | parent) fairygui::GButton *addItem(const std::string &caption, @local std::function<void (EventContext *)> callback)
     fairygui::GButton *ret = (fairygui::GButton *)self->addItem(arg1, arg2);
     const char *cls = olua_getluatype(L, ret, "fgui.GButton");
-    if (olua_pushstubobj(L, ret, callback_store_obj, cls) == OLUA_OBJ_EXIST) {
+    if (olua_pushobjstub(L, ret, callback_store_obj, cls) == OLUA_OBJ_EXIST) {
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         lua_pushstring(L, func.c_str());
         lua_pushvalue(L, 3);
@@ -17257,7 +17257,7 @@ static int _fairygui_PopupMenu_addItemAt(lua_State *L)
     olua_push_cppobj<fairygui::GList>(L, self->getList());
     int parent = lua_gettop(L);
 
-    void *callback_store_obj = (void *)olua_allocstubobj(L, "fgui.GButton");
+    void *callback_store_obj = (void *)olua_allocobjstub(L, "fgui.GButton");
     std::string tag = makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0);
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 4, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();
@@ -17282,7 +17282,7 @@ static int _fairygui_PopupMenu_addItemAt(lua_State *L)
     // @addref(children | parent) fairygui::GButton *addItemAt(const std::string &caption, int index, @local std::function<void (EventContext *)> callback)
     fairygui::GButton *ret = (fairygui::GButton *)self->addItemAt(arg1, (int)arg2, arg3);
     const char *cls = olua_getluatype(L, ret, "fgui.GButton");
-    if (olua_pushstubobj(L, ret, callback_store_obj, cls) == OLUA_OBJ_EXIST) {
+    if (olua_pushobjstub(L, ret, callback_store_obj, cls) == OLUA_OBJ_EXIST) {
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         lua_pushstring(L, func.c_str());
         lua_pushvalue(L, 4);

@@ -13567,7 +13567,7 @@ static int _cocos2d_ui_RichText_createWithXML1(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
     manual_olua_check_cocos2d_ValueMap(L, 2, &arg2);
 
-    void *callback_store_obj = (void *)olua_allocstubobj(L, "ccui.RichText");
+    void *callback_store_obj = (void *)olua_allocobjstub(L, "ccui.RichText");
     std::string tag = "OpenUrlHandler";
     std::string func;
     if (olua_is_std_function(L, 3)) {
@@ -13593,7 +13593,7 @@ static int _cocos2d_ui_RichText_createWithXML1(lua_State *L)
     // static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @local @optional const std::function<void (const std::string &)> &handleOpenUrl)
     cocos2d::ui::RichText *ret = (cocos2d::ui::RichText *)cocos2d::ui::RichText::createWithXML(arg1, arg2, arg3);
     const char *cls = olua_getluatype(L, ret, "ccui.RichText");
-    if (olua_pushstubobj(L, ret, callback_store_obj, cls) == OLUA_OBJ_EXIST) {
+    if (olua_pushobjstub(L, ret, callback_store_obj, cls) == OLUA_OBJ_EXIST) {
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         lua_pushstring(L, func.c_str());
         lua_pushvalue(L, 3);

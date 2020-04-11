@@ -189,7 +189,7 @@ static void aux_getobjtable(lua_State *L)
     }
 }
 
-OLUA_API void *olua_allocstubobj(lua_State *L, const char *cls)
+OLUA_API void *olua_allocobjstub(lua_State *L, const char *cls)
 {
     void *ptr = NULL;
     aux_getobjtable(L);                     // L: objtable
@@ -202,7 +202,7 @@ OLUA_API void *olua_allocstubobj(lua_State *L, const char *cls)
     return ptr;
 }
 
-OLUA_API int olua_pushstubobj(lua_State *L, void *obj, void *stub, const char *cls)
+OLUA_API int olua_pushobjstub(lua_State *L, void *obj, void *stub, const char *cls)
 {
     int status = OLUA_OBJ_EXIST;
     aux_getobjtable(L);                                         // L: objt

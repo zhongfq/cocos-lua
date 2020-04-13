@@ -162,7 +162,7 @@ cls.callback {
     TAG_MAKER = 'touchEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.callback {
@@ -172,7 +172,7 @@ cls.callback {
     TAG_MAKER = 'clickEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.callback {
@@ -182,7 +182,7 @@ cls.callback {
     TAG_MAKER = 'ccsEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.props [[
@@ -660,7 +660,7 @@ cls.callback {
     TAG_MAKER = 'OnShouldStartLoading',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.callback {
@@ -670,7 +670,7 @@ cls.callback {
     TAG_MAKER = 'OnDidFinishLoading',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.callback {
@@ -680,7 +680,7 @@ cls.callback {
     TAG_MAKER = 'OnDidFailLoading',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.callback {
@@ -690,7 +690,7 @@ cls.callback {
     TAG_MAKER = 'OnJSCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.callback {
@@ -700,7 +700,7 @@ cls.callback {
     TAG_MAKER = 'OnShouldStartLoading',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.callback {
@@ -710,7 +710,7 @@ cls.callback {
     TAG_MAKER = 'OnDidFinishLoading',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.callback {
@@ -720,7 +720,7 @@ cls.callback {
     TAG_MAKER = 'OnDidFailLoading',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.callback {
@@ -730,7 +730,7 @@ cls.callback {
     TAG_MAKER = 'OnJSCallback',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.props [[
@@ -793,7 +793,7 @@ cls.callback {
     TAG_MAKER = 'videoPlayerCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.props [[
@@ -928,7 +928,7 @@ cls.callback {
     TAG_MAKER = 'tabChangedEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.props [[
@@ -1043,7 +1043,7 @@ cls.callback {
     TAG_MAKER = 'scrollViewCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.alias('addEventListener', 'addScrollEventListener')
@@ -1157,7 +1157,7 @@ cls.callback {
     TAG_MAKER = 'ListViewCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.alias('addEventListener', 'addListViewEventListener')
@@ -1275,7 +1275,7 @@ cls.callback {
     TAG_MAKER = 'PageViewCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.alias('addEventListener', 'addPageViewEventListener')
@@ -1464,7 +1464,7 @@ cls.callback {
     TAG_MAKER = 'OpenUrlHandler',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = "return",
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.callback {
@@ -1474,7 +1474,7 @@ cls.callback {
     TAG_MAKER = 'OpenUrlHandler',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.props [[
@@ -1581,7 +1581,7 @@ cls.callback {
     TAG_MAKER = 'sliderCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.props [[
@@ -1828,7 +1828,7 @@ cls.callback {
     TAG_MAKER = 'textFieldCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.props [[
@@ -1947,7 +1947,7 @@ cls.callback {
     TAG_MAKER = 'checkBoxCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -1975,7 +1975,7 @@ cls.callback {
     TAG_MAKER = 'radioButtonCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -2011,7 +2011,7 @@ cls.callback {
     TAG_MAKER = 'radioButtonCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.props [[

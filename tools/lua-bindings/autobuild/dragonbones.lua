@@ -1012,7 +1012,7 @@ cls.callback {
     TAG_MAKER = '(#1)',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 cls.callback {
@@ -1022,7 +1022,7 @@ cls.callback {
     TAG_MAKER = '(#1)',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = true,
 }
 cls.props [[

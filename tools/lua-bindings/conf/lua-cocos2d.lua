@@ -300,11 +300,11 @@ AudioEngine.CALLBACK {
     NAME = 'setFinishCallback',
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
     NULLABLE = true,
-    LIFECYCLE = 'once',
+    TAG_SCOPE = 'once',
 }
 AudioEngine.CALLBACK {
     NAME = 'preload',
-    LIFECYCLE = 'once',
+    TAG_SCOPE = 'once',
 }
 
 typeconf 'cocos2d::ApplicationProtocol::Platform'
@@ -324,21 +324,21 @@ typeconf 'cocos2d::FileUtils::Status'
 typeconf 'cocos2d::FileUtils'
     .ATTR('getFileDataFromZip', {RET = '@length(arg3)', ARG3 = '@out'})
     .ATTR('listFilesRecursively', {ARG2 = '@out'})
-    .CALLBACK {NAME = "getStringFromFile", LIFECYCLE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "getDataFromFile", LIFECYCLE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "writeStringToFile", LIFECYCLE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "writeDataToFile", LIFECYCLE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "writeValueMapToFile", LIFECYCLE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "writeValueVectorToFile", LIFECYCLE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "isFileExist", LIFECYCLE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "isDirectoryExist", LIFECYCLE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "createDirectory", LIFECYCLE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "removeDirectory", LIFECYCLE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "removeFile", LIFECYCLE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "renameFile", LIFECYCLE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "getFileSize", LIFECYCLE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "listFilesAsync", LIFECYCLE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "listFilesRecursivelyAsync", LIFECYCLE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+    .CALLBACK {NAME = "getStringFromFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+    .CALLBACK {NAME = "getDataFromFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+    .CALLBACK {NAME = "writeStringToFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+    .CALLBACK {NAME = "writeDataToFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+    .CALLBACK {NAME = "writeValueMapToFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+    .CALLBACK {NAME = "writeValueVectorToFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+    .CALLBACK {NAME = "isFileExist", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+    .CALLBACK {NAME = "isDirectoryExist", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+    .CALLBACK {NAME = "createDirectory", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+    .CALLBACK {NAME = "removeDirectory", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+    .CALLBACK {NAME = "removeFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+    .CALLBACK {NAME = "renameFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+    .CALLBACK {NAME = "getFileSize", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+    .CALLBACK {NAME = "listFilesAsync", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+    .CALLBACK {NAME = "listFilesRecursivelyAsync", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
 
 typeconf 'ResolutionPolicy'
 typeconf 'cocos2d::GLView'
@@ -392,7 +392,7 @@ TextureCache.CALLBACK {
     NAME = 'addImageAsync',
     TAG_MAKER = {'makeTextureCacheCallbackTag(#1)', 'makeTextureCacheCallbackTag(#-1)'},
     TAG_MODE = 'OLUA_TAG_REPLACE',
-    LIFECYCLE = 'once',
+    TAG_SCOPE = 'once',
     LOCAL = false,
 }
 TextureCache.CALLBACK {
@@ -636,7 +636,7 @@ Node.CALLBACK {
     NAME = 'scheduleOnce',
     TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
-    LIFECYCLE = 'once',
+    TAG_SCOPE = 'once',
 }
 Node.CALLBACK {
     NAME = 'schedule',
@@ -700,19 +700,19 @@ local RenderTexture = typeconf 'cocos2d::RenderTexture'
 RenderTexture.CALLBACK {
     NAME = 'saveToFile',
     LOCAL = false,
-    LIFECYCLE = 'once',
+    TAG_SCOPE = 'once',
 }
 RenderTexture.CALLBACK {
     NAME = 'saveToFileAsNonPMA',
     TAG_MAKER = 'saveToFile',
     LOCAL = false,
-    LIFECYCLE = 'once',
+    TAG_SCOPE = 'once',
 }
 RenderTexture.CALLBACK {
     NAME = 'newImage',
     TAG_MODE = 'OLUA_TAG_NEW',
     LOCAL = false,
-    LIFECYCLE = 'once',
+    TAG_SCOPE = 'once',
 }
 RenderTexture.ALIAS('begin', 'beginVisit')
 RenderTexture.ALIAS('end', 'endVisit')

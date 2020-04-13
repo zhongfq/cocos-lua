@@ -88,7 +88,6 @@ cls.funcs [[
     static const std::string getManifestVersion()
     static void setManifestVersion(const std::string &version)
     static const std::string getNetworkStatus()
-    static cocos2d::RenderTexture *capture(cocos2d::Node *node, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
     static const xgame::PermissionStatus getPermissionStatus(xgame::Permission permission)
     static void setAudioSessionCatalog(const std::string &catalog)
     static const std::string getAudioSessionCatalog()
@@ -127,12 +126,22 @@ cls.func('setDispatcher', [[{
 }]])
 cls.callback {
     FUNCS =  {
+        'static void captureScreen(@local const std::function<void (bool, const std::string &)> afterCaptured, const std::string &filename)'
+    },
+    TAG_MAKER = 'captureScreen',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    TAG_SCOPE = 'once',
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
         'static void openURL(const std::string &uri, @local @optional const std::function<void (bool)> callback)'
     },
     TAG_MAKER = 'openURL',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    LIFECYCLE = 'once',
+    TAG_SCOPE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -142,7 +151,7 @@ cls.callback {
     TAG_MAKER = 'requestPermission',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    LIFECYCLE = 'once',
+    TAG_SCOPE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -152,7 +161,7 @@ cls.callback {
     TAG_MAKER = 'alert',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    LIFECYCLE = 'once',
+    TAG_SCOPE = 'once',
     REMOVE = false,
 }
 cls.props [[
@@ -272,7 +281,7 @@ cls.callback {
     TAG_MAKER = 'makeTimerDelayTag(#2)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    LIFECYCLE = 'once',
+    TAG_SCOPE = 'once',
     REMOVE = false,
 }
 cls.callback {
@@ -282,7 +291,7 @@ cls.callback {
     TAG_MAKER = 'makeTimerDelayTag(#1)',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = true,
 }
 cls.callback {
@@ -292,7 +301,7 @@ cls.callback {
     TAG_MAKER = 'delay',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    LIFECYCLE = 'once',
+    TAG_SCOPE = 'once',
     REMOVE = false,
 }
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -379,7 +388,7 @@ cls.callback {
     TAG_MAKER = 'Dispatcher',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 M.CLASSES[#M.CLASSES + 1] = cls

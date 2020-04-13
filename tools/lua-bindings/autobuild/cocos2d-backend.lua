@@ -390,7 +390,7 @@ cls.callback {
     TAG_MAKER = 'captureScreen',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    LIFECYCLE = 'once',
+    TAG_SCOPE = 'once',
     REMOVE = false,
 }
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -581,7 +581,7 @@ cls.callback {
     TAG_MAKER = 'Bytes',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    LIFECYCLE = 'once',
+    TAG_SCOPE = 'once',
     REMOVE = false,
 }
 cls.props [[

@@ -430,7 +430,7 @@ cls.callback {
     TAG_MAKER = 'ActionFloat',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = "return",
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -844,7 +844,7 @@ cls.callback {
     TAG_MAKER = 'CallFunc',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = "return",
-    LIFECYCLE = 'default',
+    TAG_SCOPE = 'object',
     REMOVE = false,
 }
 M.CLASSES[#M.CLASSES + 1] = cls

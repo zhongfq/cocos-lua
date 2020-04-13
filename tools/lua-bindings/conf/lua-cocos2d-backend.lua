@@ -58,7 +58,7 @@ typeconf 'cocos2d::backend::DepthStencilState'
 typeconf 'cocos2d::backend::VertexLayout'
 
 typeconf 'cocos2d::backend::CommandBuffer'
-    .CALLBACK {NAME = 'captureScreen', LIFECYCLE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+    .CALLBACK {NAME = 'captureScreen', TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
 
 local Device = typeconf 'cocos2d::backend::Device'
 Device.INJECT({
@@ -97,7 +97,7 @@ typeconf 'cocos2d::backend::TextureBackend'
     .CALLBACK {
         NAME = 'getBytes',
         TAG_MODE = 'OLUA_TAG_NEW',
-        LIFECYCLE = 'once',
+        TAG_SCOPE = 'once',
     }
 
 typeconf 'cocos2d::backend::Texture2DBackend'

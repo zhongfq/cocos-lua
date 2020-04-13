@@ -50,11 +50,11 @@ template <typename T> void olua_registerluatype(lua_State *L, const char *cls)
     }
 }
 
-template <typename T> const char *olua_getluatype(lua_State *L, T *obj, const char *cls)
+template <typename T> const char *olua_getluatype(lua_State *L, const T *obj, const char *cls)
 {
     const char *preferred = nullptr;
     if (obj) {
-        lua_pushstring(L, typeid(*obj).name());
+        lua_pushstring(L, typeid(*((T *)obj)).name());
         if (olua_rawget(L, LUA_REGISTRYINDEX) == LUA_TSTRING) {
             preferred = olua_tostring(L, -1);
         }
@@ -80,7 +80,7 @@ template <typename T> const char *olua_getluatype(lua_State *L)
     return olua_getluatype<T>(L, nullptr, nullptr);
 }
 
-static inline const char *olua_getluatype(lua_State *L, void *obj, const char *cls)
+static inline const char *olua_getluatype(lua_State *L, const void *obj, const char *cls)
 {
     return cls;
 }
@@ -97,26 +97,16 @@ template <typename T> T *olua_checkobj(lua_State *L, int idx)
     return (T *)olua_checkobj(L, idx, cls);
 }
 
-template <typename T> int olua_push_cppobj(lua_State *L, T* value, const char *cls)
+template <typename T> int olua_push_cppobj(lua_State *L, const T *value, const char *cls)
 {
-    cls = olua_getluatype(L, value, cls);
-    olua_postpush(L, value, olua_pushobj(L, value, cls));
+    cls = olua_getluatype(L, (T *)value, cls);
+    olua_postpush(L, (T *)value, olua_pushobj(L, (T *)value, cls));
     return 1;
 }
 
-template <typename T> int olua_push_cppobj(lua_State *L, const T* value, const char *cls)
-{
-    return olua_push_cppobj<T>(L, (T *)value, cls);
-}
-
-template <typename T> int olua_push_cppobj(lua_State *L, T* value)
+template <typename T> int olua_push_cppobj(lua_State *L, const T *value)
 {
     return olua_push_cppobj<T>(L, value, nullptr);
-}
-
-template <typename T> int olua_push_cppobj(lua_State *L, const T* value)
-{
-    return olua_push_cppobj<T>(L, (T *)value, nullptr);
 }
 
 #define olua_push_std_string(L, v)      ((lua_pushstring(L, (v).c_str())), 1)

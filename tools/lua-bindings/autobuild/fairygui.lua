@@ -139,7 +139,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -150,7 +149,6 @@ cls.callback {
     TAG_MODE = {'OLUA_TAG_SUBSTARTWITH', 'OLUA_TAG_SUBEQUAL'},
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = true,
 }
 cls.callback {
     FUNCS =  {
@@ -160,7 +158,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = true,
 }
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -238,7 +235,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.props [[
     recentInput
@@ -425,7 +421,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -435,7 +430,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -445,7 +439,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -455,7 +448,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.props [[
     delay
@@ -975,7 +967,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -985,7 +976,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = true,
 }
 cls.inject('center', {
     BEFORE = [[
@@ -1624,7 +1614,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.props [[
     playing
@@ -1778,7 +1767,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = "return",
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -1788,7 +1776,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = "return",
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.inject('show', {
     BEFORE = [[
@@ -2038,7 +2025,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -2049,7 +2035,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -2059,7 +2044,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -2069,7 +2053,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = true,
 }
 cls.props [[
     owner
@@ -2121,7 +2104,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.props [[
     fileName
@@ -2279,7 +2261,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -2289,7 +2270,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 M.CLASSES[#M.CLASSES + 1] = cls
 

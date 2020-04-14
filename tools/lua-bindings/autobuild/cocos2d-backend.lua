@@ -391,7 +391,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
     TAG_SCOPE = 'once',
-    REMOVE = false,
 }
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -582,7 +581,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
     TAG_SCOPE = 'once',
-    REMOVE = false,
 }
 cls.props [[
     textureFormat

@@ -117,7 +117,6 @@ timer.CALLBACK {
     NAME = 'killDelay',
     TAG_MAKER = 'makeTimerDelayTag(#1)',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
-    REMOVE = true,
 }
 timer.CALLBACK {
     NAME = 'delay',

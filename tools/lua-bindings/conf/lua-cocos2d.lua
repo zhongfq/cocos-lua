@@ -109,20 +109,17 @@ Scheduler.CALLBACK {
     TAG_MAKER = 'makeScheduleCallbackTag(#1)',
     TAG_STORE = 2, -- 2th void *target
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
-    REMOVE = true,
 }
 Scheduler.CALLBACK {
     NAME = 'unscheduleAllForTarget',
     TAG_MAKER = 'makeScheduleCallbackTag("")',
     TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = 1, -- 1th void *target
-    REMOVE = true,
 }
 Scheduler.CALLBACK {
     NAME = 'unscheduleAll',
     TAG_MAKER = 'makeScheduleCallbackTag("")',
     TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
-    REMOVE = true,
 }
 Scheduler.FUNC('scheduleUpdate', [[
 {
@@ -282,19 +279,16 @@ AudioEngine.CALLBACK {
     NAME = 'stop',
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
-    REMOVE = true,
 }
 AudioEngine.CALLBACK {
     NAME = 'stopAll',
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
     TAG_MODE = "OLUA_TAG_SUBSTARTWITH",
-    REMOVE = true,
 }
 AudioEngine.CALLBACK {
     NAME = 'uncacheAll',
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
     TAG_MODE = "OLUA_TAG_SUBSTARTWITH",
-    REMOVE = true,
 }
 AudioEngine.CALLBACK {
     NAME = 'setFinishCallback',
@@ -399,13 +393,11 @@ TextureCache.CALLBACK {
     NAME = 'unbindImageAsync',
     TAG_MAKER = 'makeTextureCacheCallbackTag(#1)',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
-    REMOVE = true,
 }
 TextureCache.CALLBACK {
     NAME = 'unbindAllImageAsync',
     TAG_MAKER = 'makeTextureCacheCallbackTag("")',
     TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
-    REMOVE = true,
 }
 
 typeconf 'cocos2d::Texture2D'
@@ -647,13 +639,11 @@ Node.CALLBACK {
     NAME = 'unschedule',
     TAG_MAKER = "makeScheduleCallbackTag(#1)",
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
-    REMOVE = true,
 }
 Node.CALLBACK {
     NAME = 'unscheduleAllCallbacks',
     TAG_MAKER = 'makeScheduleCallbackTag("")',
     TAG_MODE = "OLUA_TAG_SUBSTARTWITH",
-    REMOVE = true,
 }
 Node.INJECT({'removeFromParent', 'removeFromParentAndCleanup'}, {
     BEFORE = [[

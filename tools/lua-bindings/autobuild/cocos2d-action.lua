@@ -431,7 +431,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = "return",
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -845,7 +844,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = "return",
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 M.CLASSES[#M.CLASSES + 1] = cls
 

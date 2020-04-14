@@ -132,7 +132,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
     TAG_SCOPE = 'once',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -142,7 +141,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
     TAG_SCOPE = 'once',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -152,7 +150,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
     TAG_SCOPE = 'once',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -162,7 +159,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
     TAG_SCOPE = 'once',
-    REMOVE = false,
 }
 cls.props [[
     restarting
@@ -282,7 +278,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'once',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -292,7 +287,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = true,
 }
 cls.callback {
     FUNCS =  {
@@ -302,7 +296,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
     TAG_SCOPE = 'once',
-    REMOVE = false,
 }
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -389,7 +382,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 M.CLASSES[#M.CLASSES + 1] = cls
 

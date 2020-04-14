@@ -163,7 +163,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -173,7 +172,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -183,7 +181,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.props [[
     enabled
@@ -661,7 +658,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -671,7 +667,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -681,7 +676,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -691,7 +685,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -701,7 +694,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -711,7 +703,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -721,7 +712,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -731,7 +721,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.props [[
     opacityWebView
@@ -794,7 +783,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.props [[
     fileName
@@ -929,7 +917,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.props [[
     tabCount
@@ -1044,7 +1031,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.alias('addEventListener', 'addScrollEventListener')
 cls.props [[
@@ -1158,7 +1144,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.alias('addEventListener', 'addListViewEventListener')
 cls.props [[
@@ -1276,7 +1261,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.alias('addEventListener', 'addPageViewEventListener')
 cls.props [[
@@ -1465,7 +1449,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = "return",
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
@@ -1475,7 +1458,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.props [[
     wrapMode
@@ -1582,7 +1564,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.props [[
     scale9Enabled
@@ -1829,7 +1810,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.props [[
     touchSize
@@ -1948,7 +1928,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -1976,7 +1955,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2012,7 +1990,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.props [[
     selectedButtonIndex

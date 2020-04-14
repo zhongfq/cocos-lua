@@ -272,7 +272,6 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
-    REMOVE = false,
 }
 cls.props [[
     mesh

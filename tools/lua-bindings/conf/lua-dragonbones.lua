@@ -112,7 +112,6 @@ typeconf 'dragonBones::CCArmatureDisplay'
         TAG_MAKER = '(#1)',
         TAG_MODE = 'OLUA_TAG_SUBEQUAL',
         NULLABLE = true,
-        REMOVE = true,
     }
 
 return M

@@ -185,7 +185,7 @@ OLUA_API int olua_reffunc(lua_State *L, int idx);
 OLUA_API void olua_unref(lua_State *L, int ref);
 OLUA_API void olua_getref(lua_State *L, int ref);
     
-// for ref chain, callback store in the uservalue of userdata
+// for ref chain, callback store in the uservalue
 // ref layout:
 //  obj.uservalue {
 //      .ref.component = obj_component  -- OLUA_MODE_SINGLE

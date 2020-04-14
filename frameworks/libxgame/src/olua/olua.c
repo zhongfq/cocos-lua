@@ -197,7 +197,7 @@ OLUA_API void *olua_allocobjstub(lua_State *L, const char *cls)
     ptr = (void *)lua_topointer(L, -1);
     lua_pushvalue(L, -1);                   // L: objtable ud ud
     olua_rawsetp(L, -3, ptr);               // L: objtable ud     objtable[ptr] = ud
-    lua_remove(L, -2);                      // L: ud
+    lua_replace(L, -2);                     // L: ud
     luaL_setmetatable(L, cls);
     return ptr;
 }
@@ -219,7 +219,7 @@ OLUA_API int olua_pushobjstub(lua_State *L, void *obj, void *stub, const char *c
     } else {
         luaL_error(L, "stub object not found for '%s'", cls);
     }
-    lua_remove(L, -2);                                          // L: obj
+    lua_replace(L, -2);                                         // L: obj
     return status;
 }
 
@@ -240,7 +240,7 @@ static void aux_pushlocalobj(lua_State *L, void *obj)
         olua_rawseti(L, -3, mt->poolsize);
     }
     
-    lua_remove(L, -2);  // rm pool table
+    lua_replace(L, -2);  // rm pool table
     olua_setuserdata(L, -1, obj);
 }
 
@@ -292,7 +292,7 @@ OLUA_API bool olua_getuserdata(lua_State *L, void *obj)
     }
     aux_getobjtable(L);                             // L: objt
     if (olua_rawgetp(L, -1, obj) == LUA_TUSERDATA) {// L: objt obj
-        lua_remove(L, -2);                          // L: obj
+        lua_replace(L, -2);                         // L: obj
         return true;
     } else {
         lua_pop(L, 2);
@@ -413,7 +413,7 @@ OLUA_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, 
     }
     
     aux_getusertable(L, -1);                            // L: obj ct
-    lua_remove(L, -2);                                  // L: ct
+    lua_replace(L, -2);                                 // L: ct
     
     if (tagmode == OLUA_TAG_REPLACE) {
         lua_pushnil(L);                                 // L: ct k
@@ -505,7 +505,7 @@ OLUA_API int olua_callback(lua_State *L, void *obj, const char *func, int argc)
         } else {
             status = OLUA_CALL_ERR;
         }
-        lua_remove(L, -2);                              // L: result
+        lua_replace(L, -2);                             // L: result
     }
 
     if (status != OLUA_CALL_OK) {
@@ -530,7 +530,7 @@ OLUA_API void *olua_pushclassobj(lua_State *L, const char *cls)
 {
     olua_getmetatable(L, cls);                  // L: cls
     olua_rawgetf(L, -1, CLS_STORE);             // L: cls store
-    lua_remove(L, -2);                          // L: store
+    lua_replace(L, -2);                         // L: store
     olua_assert(olua_isuserdata(L, -1));
     return lua_touserdata(L, -1);
 }
@@ -542,7 +542,7 @@ OLUA_API int olua_getvariable(lua_State *L, int idx)
     if (lua_getuservalue(L, idx) == LUA_TTABLE) {   // L: k uv
         lua_insert(L, -2);                          // L: uv k
         type = olua_rawget(L, -2);                  // L: uv v
-        lua_remove(L, -2);                          // L: v
+        lua_replace(L, -2);                         // L: v
     } else {
         lua_pop(L, 2);                              // L:
         lua_pushnil(L);                             // L: nil
@@ -605,7 +605,7 @@ OLUA_API void olua_getref(lua_State *L, int ref)
 {
     aux_getmappingtable(L);
     lua_rawgeti(L, -1, ref);
-    lua_remove(L, -2);
+    lua_replace(L, -2);
 }
 
 OLUA_API void olua_getreftable(lua_State *L, int idx, const char *name)
@@ -937,9 +937,9 @@ static void aux_setfunc(lua_State *L, const char *t, const char *name, lua_CFunc
     if (func) {                         // L: agent
         lua_pushcclosure(L, func, n);   // L: agent func
         lua_getmetatable(L, -2);        // L: agent func cls
-        olua_rawgetf(L, -1, t);         // L: agent func cls .func
-        lua_pushvalue(L, -3);           // L: agent func cls .func func
-        olua_rawsetf(L, -2, name);      // L: agent func cls .func   .func[name] = func
+        olua_rawgetf(L, -1, t);         // L: agent func cls t
+        lua_pushvalue(L, -3);           // L: agent func cls t func
+        olua_rawsetf(L, -2, name);      // L: agent func cls t   t[name] = func
         lua_pop(L, 3);                  // L: agent
     }
 }

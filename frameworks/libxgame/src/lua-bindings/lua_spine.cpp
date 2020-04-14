@@ -490,7 +490,7 @@ static int _spine_EventData___gc(lua_State *L)
     auto self = (spine::EventData *)olua_toobj(L, 1, "sp.EventData");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -873,7 +873,7 @@ static int _spine_AnimationState___gc(lua_State *L)
     auto self = (spine::AnimationState *)olua_toobj(L, 1, "sp.AnimationState");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -1360,7 +1360,7 @@ static int _spine_AnimationStateData___gc(lua_State *L)
     auto self = (spine::AnimationStateData *)olua_toobj(L, 1, "sp.AnimationStateData");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -1564,7 +1564,7 @@ static int _spine_Animation___gc(lua_State *L)
     auto self = (spine::Animation *)olua_toobj(L, 1, "sp.Animation");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -1723,7 +1723,7 @@ static int _spine_ConstraintData___gc(lua_State *L)
     auto self = (spine::ConstraintData *)olua_toobj(L, 1, "sp.ConstraintData");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -2203,7 +2203,7 @@ static int _spine_BoneData___gc(lua_State *L)
     auto self = (spine::BoneData *)olua_toobj(L, 1, "sp.BoneData");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -4238,7 +4238,7 @@ static int _spine_SkeletonBounds___gc(lua_State *L)
     auto self = (spine::SkeletonBounds *)olua_toobj(L, 1, "sp.SkeletonBounds");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -4754,7 +4754,7 @@ static int _spine_AttachmentTimeline___gc(lua_State *L)
     auto self = (spine::AttachmentTimeline *)olua_toobj(L, 1, "sp.AttachmentTimeline");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -4920,7 +4920,7 @@ static int _spine_ColorTimeline___gc(lua_State *L)
     auto self = (spine::ColorTimeline *)olua_toobj(L, 1, "sp.ColorTimeline");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -5043,7 +5043,7 @@ static int _spine_DeformTimeline___gc(lua_State *L)
     auto self = (spine::DeformTimeline *)olua_toobj(L, 1, "sp.DeformTimeline");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -5203,7 +5203,7 @@ static int _spine_DrawOrderTimeline___gc(lua_State *L)
     auto self = (spine::DrawOrderTimeline *)olua_toobj(L, 1, "sp.DrawOrderTimeline");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -5306,7 +5306,7 @@ static int _spine_EventTimeline___gc(lua_State *L)
     auto self = (spine::EventTimeline *)olua_toobj(L, 1, "sp.EventTimeline");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -5409,7 +5409,7 @@ static int _spine_IkConstraintTimeline___gc(lua_State *L)
     auto self = (spine::IkConstraintTimeline *)olua_toobj(L, 1, "sp.IkConstraintTimeline");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -5469,7 +5469,7 @@ static int _spine_PathConstraintMixTimeline___gc(lua_State *L)
     auto self = (spine::PathConstraintMixTimeline *)olua_toobj(L, 1, "sp.PathConstraintMixTimeline");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -5529,7 +5529,7 @@ static int _spine_PathConstraintPositionTimeline___gc(lua_State *L)
     auto self = (spine::PathConstraintPositionTimeline *)olua_toobj(L, 1, "sp.PathConstraintPositionTimeline");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -5630,7 +5630,7 @@ static int _spine_TranslateTimeline___gc(lua_State *L)
     auto self = (spine::TranslateTimeline *)olua_toobj(L, 1, "sp.TranslateTimeline");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -5731,7 +5731,7 @@ static int _spine_TransformConstraintTimeline___gc(lua_State *L)
     auto self = (spine::TransformConstraintTimeline *)olua_toobj(L, 1, "sp.TransformConstraintTimeline");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -5832,7 +5832,7 @@ static int _spine_RotateTimeline___gc(lua_State *L)
     auto self = (spine::RotateTimeline *)olua_toobj(L, 1, "sp.RotateTimeline");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -5955,7 +5955,7 @@ static int _spine_TwoColorTimeline___gc(lua_State *L)
     auto self = (spine::TwoColorTimeline *)olua_toobj(L, 1, "sp.TwoColorTimeline");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -6325,7 +6325,7 @@ static int _spine_JitterVertexEffect___gc(lua_State *L)
     auto self = (spine::JitterVertexEffect *)olua_toobj(L, 1, "sp.JitterVertexEffect");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -6484,7 +6484,7 @@ static int _spine_Skin___gc(lua_State *L)
     auto self = (spine::Skin *)olua_toobj(L, 1, "sp.Skin");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -8368,7 +8368,7 @@ static int _spine_ClippingAttachment___gc(lua_State *L)
     auto self = (spine::ClippingAttachment *)olua_toobj(L, 1, "sp.ClippingAttachment");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -8465,7 +8465,7 @@ static int _spine_BoundingBoxAttachment___gc(lua_State *L)
     auto self = (spine::BoundingBoxAttachment *)olua_toobj(L, 1, "sp.BoundingBoxAttachment");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -8524,7 +8524,7 @@ static int _spine_MeshAttachment___gc(lua_State *L)
     auto self = (spine::MeshAttachment *)olua_toobj(L, 1, "sp.MeshAttachment");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -9383,7 +9383,7 @@ static int _spine_PathAttachment___gc(lua_State *L)
     auto self = (spine::PathAttachment *)olua_toobj(L, 1, "sp.PathAttachment");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -9810,7 +9810,7 @@ static int _spine_PointAttachment___gc(lua_State *L)
     auto self = (spine::PointAttachment *)olua_toobj(L, 1, "sp.PointAttachment");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -9983,7 +9983,7 @@ static int _spine_RegionAttachment___gc(lua_State *L)
     auto self = (spine::RegionAttachment *)olua_toobj(L, 1, "sp.RegionAttachment");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -10687,7 +10687,7 @@ static int _spine_TrackEntry___gc(lua_State *L)
     auto self = (spine::TrackEntry *)olua_toobj(L, 1, "sp.TrackEntry");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -12441,7 +12441,7 @@ static int _spine_Skeleton___gc(lua_State *L)
     auto self = (spine::Skeleton *)olua_toobj(L, 1, "sp.Skeleton");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }

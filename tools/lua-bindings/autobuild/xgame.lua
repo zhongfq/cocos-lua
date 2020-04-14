@@ -88,6 +88,7 @@ cls.funcs [[
     static const std::string getManifestVersion()
     static void setManifestVersion(const std::string &version)
     static const std::string getNetworkStatus()
+    static cocos2d::RenderTexture *capture(cocos2d::Node *node, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
     static const xgame::PermissionStatus getPermissionStatus(xgame::Permission permission)
     static void setAudioSessionCatalog(const std::string &catalog)
     static const std::string getAudioSessionCatalog()
@@ -124,15 +125,6 @@ cls.func('setDispatcher', [[{
     });
     return 0;
 }]])
-cls.callback {
-    FUNCS =  {
-        'static void captureScreen(@local const std::function<void (bool, const std::string &)> afterCaptured, const std::string &filename)'
-    },
-    TAG_MAKER = 'captureScreen',
-    TAG_MODE = 'OLUA_TAG_NEW',
-    TAG_STORE = nil,
-    TAG_SCOPE = 'once',
-}
 cls.callback {
     FUNCS =  {
         'static void openURL(const std::string &uri, @local @optional const std::function<void (bool)> callback)'

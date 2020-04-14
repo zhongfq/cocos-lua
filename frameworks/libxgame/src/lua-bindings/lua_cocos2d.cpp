@@ -7865,7 +7865,7 @@ static int _cocos2d_AudioProfile___gc(lua_State *L)
     auto self = (cocos2d::AudioProfile *)olua_toobj(L, 1, "cc.AudioProfile");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -13852,7 +13852,7 @@ static int _cocos2d_Renderer___gc(lua_State *L)
     auto self = (cocos2d::Renderer *)olua_toobj(L, 1, "cc.Renderer");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -15410,7 +15410,7 @@ static int _cocos2d_CustomCommand___gc(lua_State *L)
     auto self = (cocos2d::CustomCommand *)olua_toobj(L, 1, "cc.CustomCommand");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -18659,7 +18659,7 @@ static int _cocos2d_network_WebSocket___gc(lua_State *L)
     auto self = (cocos2d::network::WebSocket *)olua_toobj(L, 1, "cc.WebSocket");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -18910,7 +18910,7 @@ static int _cocos2d_LuaWebSocketDelegate___gc(lua_State *L)
     auto self = (cocos2d::LuaWebSocketDelegate *)olua_toobj(L, 1, "cc.LuaWebSocketDelegate");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }

@@ -397,46 +397,40 @@ static bool test_tag_mode(lua_State *L, int idx, const char *tag, int mode)
     return false;
 }
 
-OLUA_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, int func, int tagmode)
+OLUA_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, int fidx, int tagmode)
 {
-    const char *cls = NULL;
-    const char *fn = NULL;
-    func = lua_absindex(L, func);
-    luaL_checktype(L, func, LUA_TFUNCTION);
+    const char *func = NULL;
+    fidx = lua_absindex(L, fidx);
+    luaL_checktype(L, fidx, LUA_TFUNCTION);
     
     if (!olua_getuserdata(L, obj)) {                    // L: obj
         luaL_error(L, "obj userdata not found");
-    } else {
-        olua_getfield(L, -1, "classname");
-        cls = olua_optstring(L, -1, "<NONAME>");
-        lua_pop(L, 1);
     }
     
-    aux_getusertable(L, -1);                            // L: obj ct
-    lua_replace(L, -2);                                 // L: ct
+    aux_getusertable(L, -1);                            // L: obj ut
     
     if (tagmode == OLUA_TAG_REPLACE) {
-        lua_pushnil(L);                                 // L: ct k
-        while (lua_next(L, -2)) {                       // L: ct k v
+        lua_pushnil(L);                                 // L: obj ut k
+        while (lua_next(L, -2)) {                       // L: obj ut k v
             if (test_tag_mode(L, -2, tag, tagmode)) {
-                lua_pop(L, 1);                          // L: ct k
+                func = olua_tostring(L, -2);
+                lua_pop(L, 1);                          // L: obj ut k
                 break;
             }
-            lua_pop(L, 1);                              // L: ck k
+            lua_pop(L, 1);                              // L: obj uk k
         }
     }
     
-    if (!olua_isstring(L, -1)) {
+    if (func == NULL) {
         static lua_Integer ref = 0;
-        lua_pushfstring(L, ".callback#%I$%s@%s", ++ref, cls, tag);
+        const char *cls = olua_checkfieldstring(L, -2, "classname");
+        func = lua_pushfstring(L, ".callback#%I$%s@%s", ++ref, cls, tag);
     }
     
-    lua_pushvalue(L, -1);                               // L: ct k k
-    lua_pushvalue(L, func);                             // L: ct k k v
-    lua_rawset(L, -4);                                  // L: ct k
-    fn = olua_tostring(L, -1);
+    lua_pushvalue(L, fidx);                             // L: obj ut k v
+    lua_rawset(L, -3);                                  // L: obj ut
     lua_pop(L, 2);                                      // L:
-    return fn;
+    return func;
 }
 
 OLUA_API int olua_getcallback(lua_State *L, void *obj, const char *tag, int tagmode)

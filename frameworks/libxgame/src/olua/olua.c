@@ -276,7 +276,7 @@ OLUA_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
             && olua_testudata(L, -1, OLUA_VOIDCLS)) {
         lua_pushvalue(L, -3);                       // L: mt objtable ud mt
         lua_setmetatable(L, -2);                    // L: mt objtable ud     ud.metatable = mt
-        status = OLUA_OBJ_NEW;
+        status = OLUA_OBJ_UPDATE;
     }
     
     lua_insert(L, -3);                              // L: ud mt objtable

@@ -76,6 +76,7 @@ extern "C" {
 // object status
 #define OLUA_OBJ_EXIST  0
 #define OLUA_OBJ_NEW    1
+#define OLUA_OBJ_UPDATE 2
     
 #define OLUA_VOIDCLS "void *"
     

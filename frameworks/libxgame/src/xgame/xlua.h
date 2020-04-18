@@ -31,7 +31,8 @@ int xlua_ccobjgc(lua_State *L);
 
 template <typename T> void xlua_postpush(lua_State *L, T* obj, int status)
 {
-    if (std::is_base_of<cocos2d::Ref, T>::value && status == OLUA_OBJ_NEW) {
+    if (std::is_base_of<cocos2d::Ref, T>::value &&
+            (status == OLUA_OBJ_NEW || status == OLUA_OBJ_UPDATE)) {
         ((cocos2d::Ref *)obj)->retain();
 #ifdef COCOS2D_DEBUG
         if (!olua_isa(L, -1, "cc.Ref")) {

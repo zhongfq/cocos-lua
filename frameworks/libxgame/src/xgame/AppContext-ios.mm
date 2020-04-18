@@ -24,6 +24,8 @@
     cocos2d::GLViewImpl::convertAttrs();
 
     window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
+    
+    [[UIApplication sharedApplication] setIdleTimerDisabled: YES];
 
     _viewController = [self createRootViewController];
     [window setRootViewController:_viewController];

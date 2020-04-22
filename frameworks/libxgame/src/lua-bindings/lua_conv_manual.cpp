@@ -473,7 +473,6 @@ int manual_olua_is_cocos2d_backend_UniformLocation(lua_State *L, int idx)
 
 int manual_olua_push_cocos2d_backend_UniformLocation(lua_State *L, const cocos2d::backend::UniformLocation *value)
 {
-    // TODO: test
     if (value) {
         lua_createtable(L, 0, 2);
         olua_setfieldinteger(L, -1, "shaderStage", (lua_Integer)value->shaderStage);
@@ -482,7 +481,7 @@ int manual_olua_push_cocos2d_backend_UniformLocation(lua_State *L, const cocos2d
         olua_rawseti(L, -2, 1);
         lua_pushinteger(L, value->location[1]);
         olua_rawseti(L, -2, 2);
-        olua_rawgetf(L, -2, "location");
+        olua_rawsetf(L, -2, "location");
     } else {
         lua_pushnil(L);
     }
@@ -491,7 +490,6 @@ int manual_olua_push_cocos2d_backend_UniformLocation(lua_State *L, const cocos2d
 
 void manual_olua_check_cocos2d_backend_UniformLocation(lua_State *L, int idx, cocos2d::backend::UniformLocation *value)
 {
-    // TODO: test
     if (!value) {
         luaL_error(L, "value is NULL");
     }

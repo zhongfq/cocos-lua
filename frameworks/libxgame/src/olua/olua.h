@@ -44,30 +44,6 @@ extern "C" {
 #define OLUA_API LUALIB_API
 #endif
 
-#define olua_noapi(api) static_assert(false, #api" is not defined")
-    
-#ifndef olua_mainthread
-#define olua_mainthread() olua_noapi(olua_mainthread)
-#endif
-
-#ifndef olua_postpush
-#define olua_postpush(L, obj, n) olua_noapi(olua_postpush)
-#endif
-
-#ifndef olua_postnew
-#define olua_postnew(L, obj) olua_noapi(olua_postnew)
-#endif
-    
-#ifndef olua_startcmpdelref
-#define olua_startcmpdelref(L, i, n) olua_noapi(olua_startcmpdelref)
-#define olua_endcmpdelref(L, i, n)   olua_noapi(olua_endcmpdelref)
-#endif
-    
-#ifndef olua_startinvoke
-#define olua_startinvoke(L) ((void)L)
-#define olua_endinvoke(L)   ((void)L)
-#endif
-
 // callback status
 #define OLUA_CALL_OK     0
 #define OLUA_CALL_MISS   1

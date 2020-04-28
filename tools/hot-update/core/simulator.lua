@@ -51,6 +51,7 @@ local _require = require
 function require(path)
     if not package.preload[path] and (
         string.find(path, 'cc.', 1, true) == 1 or
+        string.find(path, 'ccb.', 1, true) == 1 or
         string.find(path, 'ccui.', 1, true) == 1 or
         string.find(path, 'fgui.', 1, true) == 1 or
         string.find(path, 'swf.', 1, true) == 1 or

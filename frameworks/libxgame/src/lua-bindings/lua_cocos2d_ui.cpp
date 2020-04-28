@@ -108,11 +108,11 @@ static int _cocos2d_ui_Widget_addCCSEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "ccsEventListener";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1, int arg2) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::Ref *arg1, int arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "cc.Ref");
                 olua_push_int(L, (lua_Integer)arg2);
@@ -150,11 +150,11 @@ static int _cocos2d_ui_Widget_addClickEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "clickEventListener";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::Ref *arg1) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "cc.Ref");
 
@@ -191,11 +191,11 @@ static int _cocos2d_ui_Widget_addTouchEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "touchEventListener";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1, cocos2d::ui::Widget::TouchEventType arg2) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::Ref *arg1, cocos2d::ui::Widget::TouchEventType arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "cc.Ref");
                 olua_push_uint(L, (lua_Unsigned)arg2);
@@ -1563,11 +1563,11 @@ static int _cocos2d_ui_Widget_set_onFocusChanged(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "onFocusChanged";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::Widget *arg1, cocos2d::ui::Widget *arg2) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::ui::Widget *arg1, cocos2d::ui::Widget *arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "ccui.Widget");
                 olua_push_cppobj(L, arg2, "ccui.Widget");
@@ -1626,11 +1626,11 @@ static int _cocos2d_ui_Widget_set_onNextFocusedWidget(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "onNextFocusedWidget";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::Widget::FocusDirection arg1) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::ui::Widget::FocusDirection arg1) {
             lua_State *L = olua_mainthread();
             cocos2d::ui::Widget *ret = nullptr;       
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 olua_push_uint(L, (lua_Unsigned)arg1);
 
@@ -5317,11 +5317,11 @@ static int _cocos2d_ui_Layout_set_onPassFocusToChild(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "onPassFocusToChild";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::Widget::FocusDirection arg1, cocos2d::ui::Widget *arg2) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::ui::Widget::FocusDirection arg1, cocos2d::ui::Widget *arg2) {
             lua_State *L = olua_mainthread();
             lua_Integer ret = 0;       
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 olua_push_uint(L, (lua_Unsigned)arg1);
                 olua_push_cppobj(L, arg2, "ccui.Widget");
@@ -6213,11 +6213,11 @@ static int _cocos2d_ui_WebView_setOnDidFailLoading(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "OnDidFailLoading";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::WebView *arg1, const std::string &arg2) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::ui::WebView *arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "ccui.WebView");
                 olua_push_std_string(L, arg2);
@@ -6255,11 +6255,11 @@ static int _cocos2d_ui_WebView_setOnDidFinishLoading(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "OnDidFinishLoading";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::WebView *arg1, const std::string &arg2) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::ui::WebView *arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "ccui.WebView");
                 olua_push_std_string(L, arg2);
@@ -6297,11 +6297,11 @@ static int _cocos2d_ui_WebView_setOnJSCallback(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "OnJSCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::WebView *arg1, const std::string &arg2) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::ui::WebView *arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "ccui.WebView");
                 olua_push_std_string(L, arg2);
@@ -6339,11 +6339,11 @@ static int _cocos2d_ui_WebView_setOnShouldStartLoading(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "OnShouldStartLoading";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::WebView *arg1, const std::string &arg2) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::ui::WebView *arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread();
             bool ret = false;       
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "ccui.WebView");
                 olua_push_std_string(L, arg2);
@@ -6523,11 +6523,11 @@ static int _cocos2d_ui_VideoPlayer_addEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "videoPlayerCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1, cocos2d::ui::VideoPlayer::EventType arg2) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::Ref *arg1, cocos2d::ui::VideoPlayer::EventType arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "cc.Ref");
                 olua_push_uint(L, (lua_Unsigned)arg2);
@@ -8524,11 +8524,11 @@ static int _cocos2d_ui_TabControl_setTabChangedEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "tabChangedEventListener";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](int arg1, cocos2d::ui::TabControl::EventType arg2) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](int arg1, cocos2d::ui::TabControl::EventType arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 olua_push_int(L, (lua_Integer)arg1);
                 olua_push_uint(L, (lua_Unsigned)arg2);
@@ -8650,11 +8650,11 @@ static int _cocos2d_ui_ScrollView_addEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "scrollViewCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1, cocos2d::ui::ScrollView::EventType arg2) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::Ref *arg1, cocos2d::ui::ScrollView::EventType arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "cc.Ref");
                 olua_push_uint(L, (lua_Unsigned)arg2);
@@ -9950,11 +9950,11 @@ static int _cocos2d_ui_ListView_addEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "ListViewCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1, cocos2d::ui::ListView::EventType arg2) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::Ref *arg1, cocos2d::ui::ListView::EventType arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "cc.Ref");
                 olua_push_uint(L, (lua_Unsigned)arg2);
@@ -11379,11 +11379,11 @@ static int _cocos2d_ui_PageView_addEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "PageViewCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1, cocos2d::ui::PageView::EventType arg2) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::Ref *arg1, cocos2d::ui::PageView::EventType arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "cc.Ref");
                 olua_push_uint(L, (lua_Unsigned)arg2);
@@ -13572,11 +13572,11 @@ static int _cocos2d_ui_RichText_createWithXML1(lua_State *L)
     std::string func;
     if (olua_is_std_function(L, 3)) {
         func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg3 = [callback_store_obj, func, MT](const std::string &arg1) {
+        lua_Unsigned context = olua_context(L);
+        arg3 = [callback_store_obj, func, context](const std::string &arg1) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 olua_push_std_string(L, arg1);
 
@@ -14670,11 +14670,11 @@ static int _cocos2d_ui_RichText_setOpenUrlHandler(lua_State *L)
     void *callback_store_obj = (void *)self;
     std::string tag = "OpenUrlHandler";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-    lua_State *MT = olua_mainthread();
-    arg1 = [callback_store_obj, func, MT](const std::string &arg1) {
+    lua_Unsigned context = olua_context(L);
+    arg1 = [callback_store_obj, func, context](const std::string &arg1) {
         lua_State *L = olua_mainthread();
 
-        if (MT == L) {
+        if (olua_context(L) == context) {
             int top = lua_gettop(L);
             olua_push_std_string(L, arg1);
 
@@ -15193,11 +15193,11 @@ static int _cocos2d_ui_Slider_addEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "sliderCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1, cocos2d::ui::Slider::EventType arg2) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::Ref *arg1, cocos2d::ui::Slider::EventType arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "cc.Ref");
                 olua_push_uint(L, (lua_Unsigned)arg2);
@@ -18192,11 +18192,11 @@ static int _cocos2d_ui_TextField_addEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "textFieldCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1, cocos2d::ui::TextField::EventType arg2) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::Ref *arg1, cocos2d::ui::TextField::EventType arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "cc.Ref");
                 olua_push_uint(L, (lua_Unsigned)arg2);
@@ -20523,11 +20523,11 @@ static int _cocos2d_ui_CheckBox_addEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "checkBoxCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1, cocos2d::ui::CheckBox::EventType arg2) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::Ref *arg1, cocos2d::ui::CheckBox::EventType arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "cc.Ref");
                 olua_push_uint(L, (lua_Unsigned)arg2);
@@ -20776,11 +20776,11 @@ static int _cocos2d_ui_RadioButton_addEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "radioButtonCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::RadioButton *arg1, cocos2d::ui::RadioButton::EventType arg2) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::ui::RadioButton *arg1, cocos2d::ui::RadioButton::EventType arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "ccui.RadioButton");
                 olua_push_uint(L, (lua_Unsigned)arg2);
@@ -21028,11 +21028,11 @@ static int _cocos2d_ui_RadioButtonGroup_addEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "radioButtonCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::RadioButton *arg1, int arg2, cocos2d::ui::RadioButtonGroup::EventType arg3) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::ui::RadioButton *arg1, int arg2, cocos2d::ui::RadioButtonGroup::EventType arg3) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "ccui.RadioButton");
                 olua_push_int(L, (lua_Integer)arg2);
@@ -21964,11 +21964,11 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onEditingDidBegin(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "onEditingDidBegin";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::EditBox *arg1) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::ui::EditBox *arg1) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -22031,11 +22031,11 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onEditingDidEndWithAction(lua_Stat
         void *callback_store_obj = (void *)self;
         std::string tag = "onEditingDidEndWithAction";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::EditBox *arg1, cocos2d::ui::EditBoxDelegate::EditBoxEndAction arg2) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::ui::EditBox *arg1, cocos2d::ui::EditBoxDelegate::EditBoxEndAction arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -22099,11 +22099,11 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onReturn(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "onReturn";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::EditBox *arg1) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::ui::EditBox *arg1) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -22166,11 +22166,11 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onTextChanged(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "onTextChanged";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::EditBox *arg1, const std::string &arg2) {
+        lua_Unsigned context = olua_context(L);
+        arg1 = [callback_store_obj, func, context](cocos2d::ui::EditBox *arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_context(L) == context) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);

@@ -3805,11 +3805,11 @@ static int _cocos2d_ActionFloat_create(lua_State *L)
     void *callback_store_obj = (void *)olua_allocobjstub(L, "cc.ActionFloat");
     std::string tag = "ActionFloat";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 4, OLUA_TAG_NEW);
-    lua_State *MT = olua_mainthread();
-    arg4 = [callback_store_obj, func, MT](float arg1) {
+    lua_Unsigned context = olua_context(L);
+    arg4 = [callback_store_obj, func, context](float arg1) {
         lua_State *L = olua_mainthread();
 
-        if (MT == L) {
+        if (olua_context(L) == context) {
             int top = lua_gettop(L);
             olua_push_number(L, (lua_Number)arg1);
 
@@ -6605,11 +6605,11 @@ static int _cocos2d_CallFunc_create(lua_State *L)
     void *callback_store_obj = (void *)olua_allocobjstub(L, "cc.CallFunc");
     std::string tag = "CallFunc";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 1, OLUA_TAG_NEW);
-    lua_State *MT = olua_mainthread();
-    arg1 = [callback_store_obj, func, MT]() {
+    lua_Unsigned context = olua_context(L);
+    arg1 = [callback_store_obj, func, context]() {
         lua_State *L = olua_mainthread();
 
-        if (MT == L) {
+        if (olua_context(L) == context) {
             int top = lua_gettop(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 0);

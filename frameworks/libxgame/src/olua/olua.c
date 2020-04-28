@@ -40,6 +40,7 @@
 #define OLUA_POOL_TABLE     ((void *)aux_pushlocalobj)
 #define OLUA_MAPPING_TABLE  ((void *)aux_getmappingtable)
 #define OLUA_VMSTATUS       ((void *)olua_vmstatus)
+#define OLUA_CONTEXT        ((void *)olua_context)
 
 #define strequal(s1, s2)        (strcmp((s1), (s2)) == 0)
 #define strstartwith(s1, s2)    (strstr((s1), (s2)) == s1)
@@ -72,6 +73,22 @@ OLUA_API olua_vmstatus_t *olua_vmstatus(lua_State *L)
         lua_pop(L, 1);
     }
     return vms;
+}
+
+OLUA_API lua_Unsigned olua_context(lua_State *L)
+{
+    lua_Unsigned context = 0;
+    if (olua_rawgetp(L, LUA_REGISTRYINDEX, OLUA_CONTEXT) != LUA_TNUMBER) {
+        static lua_Unsigned s_count = 0;
+        lua_pop(L, 1);
+        context = ++s_count;
+        lua_pushinteger(L, context);
+        olua_rawsetp(L, LUA_REGISTRYINDEX, OLUA_CONTEXT);
+    } else {
+        context = (lua_Unsigned)olua_tointeger(L, -1);
+        lua_pop(L, 1);
+    }
+    return context;
 }
 
 OLUA_API lua_Integer olua_checkinteger(lua_State *L, int idx)

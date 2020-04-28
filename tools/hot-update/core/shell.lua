@@ -24,9 +24,9 @@ function M.addCSearchPath(path)
 end
 
 if M.OS == 'osx' then
-    M.addCSearchPath('../usr/osx/lib/lua')
+    M.addCSearchPath('../lualib/osx')
 elseif M.OS == 'linux' then
-    M.addCSearchPath('../usr/linux/lib/lua')
+    M.addCSearchPath('../lualib/linux')
 else
     error('TODO')
 end

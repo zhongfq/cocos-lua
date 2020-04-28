@@ -94,6 +94,13 @@ OLUA_API olua_vmstatus_t *olua_vmstatus(lua_State *L);
 #define olua_addobjcount(L)  (++olua_vmstatus(L)->objcount)
 #define olua_subobjcount(L)  (--olua_vmstatus(L)->objcount)
 #define olua_objcount(L)     (olua_vmstatus(L)->objcount)
+
+/**
+ * Sometimes when you new and close lua_State for several times, you may got
+ * same memory address for lua_State, this because the malloc reuse memory.
+ * olua_context can return different id for each lua_State.
+ */
+OLUA_API lua_Unsigned olua_context(lua_State *L);
     
 OLUA_API lua_Integer olua_checkinteger(lua_State *L, int idx);
 OLUA_API lua_Number olua_checknumber(lua_State *L, int idx);

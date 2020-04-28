@@ -2033,11 +2033,11 @@ static int _cocos2d_Sprite3D_createAsync1(lua_State *L)
     void *callback_store_obj = (void *)olua_pushclassobj(L, "cc.Sprite3D");
     std::string tag = "createAsync";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-    lua_State *MT = olua_mainthread();
-    arg2 = [callback_store_obj, func, MT](cocos2d::Sprite3D *arg1, void *arg2) {
+    lua_Unsigned context = olua_context(L);
+    arg2 = [callback_store_obj, func, context](cocos2d::Sprite3D *arg1, void *arg2) {
         lua_State *L = olua_mainthread();
 
-        if (MT == L) {
+        if (olua_context(L) == context) {
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
@@ -2077,11 +2077,11 @@ static int _cocos2d_Sprite3D_createAsync2(lua_State *L)
     void *callback_store_obj = (void *)olua_pushclassobj(L, "cc.Sprite3D");
     std::string tag = "createAsync";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_REPLACE);
-    lua_State *MT = olua_mainthread();
-    arg3 = [callback_store_obj, func, MT](cocos2d::Sprite3D *arg1, void *arg2) {
+    lua_Unsigned context = olua_context(L);
+    arg3 = [callback_store_obj, func, context](cocos2d::Sprite3D *arg1, void *arg2) {
         lua_State *L = olua_mainthread();
 
-        if (MT == L) {
+        if (olua_context(L) == context) {
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);

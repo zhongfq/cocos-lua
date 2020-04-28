@@ -2,8 +2,8 @@
 #define __XGAME_LUA_H__
 
 #define olua_mainthread()               xlua_cocosthread()
-#define olua_startcmpdelref(L, i, n)     xlua_startcmpdelref(L, i, n)
-#define olua_endcmpdelref(L, i, n)       xlua_endcmpdelref(L, i, n)
+#define olua_startcmpdelref(L, i, n)    xlua_startcmpdelref(L, i, n)
+#define olua_endcmpdelref(L, i, n)      xlua_endcmpdelref(L, i, n)
 #define olua_startinvoke(L)             xlua_startinvoke(L)
 #define olua_endinvoke(L)               xlua_endinvoke(L)
 #define olua_postpush(L, v, s)          xlua_postpush(L, v, s)

@@ -14872,11 +14872,11 @@ static int _dragonBones_CCArmatureDisplay_addDBEventListener(lua_State *L)
     void *callback_store_obj = (void *)self;
     std::string tag = (arg1);
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_NEW);
-    lua_State *MT = olua_mainthread();
-    arg2 = [callback_store_obj, func, MT](dragonBones::EventObject *arg1) {
+    lua_Unsigned context = olua_context(L);
+    arg2 = [callback_store_obj, func, context](dragonBones::EventObject *arg1) {
         lua_State *L = olua_mainthread();
 
-        if (MT == L) {
+        if (olua_context(L) == context) {
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);

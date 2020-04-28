@@ -671,7 +671,8 @@ void TextureAtlas::drawNumberOfQuads(ssize_t numberOfQuads, ssize_t start)
         // FIXME:: update is done in draw... perhaps it should be done in a timer
         if (_dirty) 
         {
-            glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(_quads[0]) * _totalQuads , &_quads[0] );
+//            glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(_quads[0]) * _totalQuads , &_quads[0] );
+            glBufferData(GL_ARRAY_BUFFER, sizeof(_quads[0]) * _capacity, &_quads[0], GL_DYNAMIC_DRAW);
             _dirty = false;
         }
 

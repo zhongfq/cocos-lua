@@ -272,7 +272,8 @@ bool Configuration::supportsDiscardFramebuffer() const
 bool Configuration::supportsShareableVAO() const
 {
 #if CC_TEXTURE_ATLAS_USE_VAO
-    return _supportsShareableVAO;
+//    return _supportsShareableVAO;
+    return false;
 #else
     return false;
 #endif
@@ -289,7 +290,8 @@ bool Configuration::supportsMapBuffer() const
 
     // XXX: Warning. On iOS this is always `true`. Avoiding the comparison.
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    return _supportsOESMapBuffer;
+//    return _supportsOESMapBuffer;
+    return false;
 #else
     return true;
 #endif

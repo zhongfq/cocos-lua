@@ -9,7 +9,7 @@
 #import "AppContext-ios.h"
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
-#import <AdSupport/AdSupport.h>
+//#import <AdSupport/AdSupport.h>
 #endif
 
 USING_NS_CC;
@@ -195,13 +195,14 @@ void __runtime_alert(const std::string title, const std::string message, const s
 
 std::string __runtime_getIDFA()
 {
-    NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-    return [idfa UTF8String];
+    // NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    // return [idfa UTF8String];
+    return "00000000-0000-0000-0000-000000000000";
 }
 
 bool __runtime_isAdvertisingTrackingEnabled()
 {
-    return [[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled];
+    return false;// [[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled];
 }
 #endif
 

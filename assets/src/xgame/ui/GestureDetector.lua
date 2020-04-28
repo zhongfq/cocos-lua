@@ -16,6 +16,7 @@ function GestureDetector:ctor(target, delegate, tapSquare, maxFlingDelay)
     self._delegate = delegate
     self._tapSquare = tapSquare or 20
     self._lastZoomTime = 0
+    self._valid = true
     self._maxFlingDelay = maxFlingDelay or 0.08
 
     target:addListener(TouchEvent.TOUCH_DOWN, self._touchDown, self)
@@ -30,7 +31,16 @@ function GestureDetector:_createTracker(id)
     return tracker
 end
 
+function GestureDetector:invalidate()
+    self._valid = false
+end
+
+function GestureDetector:getTracker(id)
+    return assert(self._trackers[id], id)
+end
+
 function GestureDetector:_touchDown(_, points)
+    self._valid = true
     for id, p in pairs(points) do
         local tracker = self:_createTracker(id)
         tracker.id = id
@@ -76,13 +86,18 @@ function GestureDetector:_touchMove(_, points)
 
     if lastDis ~= currDis then
         self._lastZoomTime = runtime.time
-        self._delegate:zoom((lastX1 + lastX2) / 2, (lastY1 + lastY2) / 2,
-            currDis - lastDis)
+        self._delegate:zoom(
+            (lastX1 + lastX2) / 2,
+            (lastY1 + lastY2) / 2,
+            currDis - lastDis
+        )
     end
 
     if not trk1.tapEnabled and not trk2.tapEnabled then
-        self._delegate:pan((trk1.deltaX + trk2.deltaX) / 2,
-            (trk1.deltaY + trk2.deltaY) / 2)
+        self._delegate:pan(
+            (trk1.deltaX + trk2.deltaX) / 2,
+            (trk1.deltaY + trk2.deltaY) / 2
+        )
     end
 end
 
@@ -107,6 +122,10 @@ function GestureDetector:_touchUp(_, points)
         end
 
         self._trackers[id] = nil
+    end
+
+    if not self._valid then
+        return
     end
 
     if not next(self._trackers) then

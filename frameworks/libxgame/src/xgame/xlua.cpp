@@ -267,7 +267,7 @@ static int _errorfunc(lua_State *L)
 
 lua_State *xlua_new()
 {
-    lua_State *L = olua_newstate(NULL);
+    lua_State *L = luaL_newstate();
     luaL_openlibs(L);
     olua_dofunc(L, _fixcoresume);
     olua_dofunc(L, _fixprint);
@@ -410,9 +410,9 @@ void xlua_endinvoke(lua_State *L)
     _currentState = NULL;
 }
 
-void xlua_startcmpunhold(lua_State *L, int idx, const char *refname)
+void xlua_startcmpdelref(lua_State *L, int idx, const char *refname)
 {
-    olua_getholdtable(L, idx, refname);                     // L: t
+    olua_getreftable(L, idx, refname);                     // L: t
     lua_pushnil(L);                                         // L: t k
     while (lua_next(L, -2)) {                               // L: t k v
         if (olua_isa(L, -2, "cc.Ref")) {
@@ -452,7 +452,7 @@ static bool should_unref_obj(lua_State *L, int idx)
     return false;
 }
 
-void xlua_endcmpunhold(lua_State *L, int idx, const char *refname)
+void xlua_endcmpdelref(lua_State *L, int idx, const char *refname)
 {
-    olua_walkunhold(L, idx, refname, should_unref_obj);
+    olua_visitrefs(L, idx, refname, should_unref_obj);
 }

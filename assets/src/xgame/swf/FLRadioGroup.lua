@@ -23,10 +23,15 @@ function FLRadioGroup:ctor()
             break
         end
     end
+    assert(#self._options > 0, 'no option')
 end
 
 function FLRadioGroup:_onChange(target)
+    local last = self.selectedItem
     self.selectedIndex = self._options:indexOf(target)
+    if last ~= self.selectedItem then
+        self:dispatch(Event.CHANGE, last, self.selectedItem)
+    end
 end
 
 function FLRadioGroup.Get:selectedItem()
@@ -42,11 +47,9 @@ function FLRadioGroup.Set:selectedIndex(value)
         self.selectedItem.selected = false
         self.selectedItem.touchable = true
     end
-    local prevSelectedItem = self.selectedItem
     self._selectedIndex = value
     self.selectedItem.selected = true
     self.selectedItem.touchable = false
-    self:dispatch(Event.CHANGE, prevSelectedItem, self.selectedItem)
 end
 
 return FLRadioGroup

@@ -83,7 +83,6 @@ function Array:slice(from, to)
     from = from or 1
     to = to or #self
 
-    assert(from < to)
     assert(from > 0)
 
     for i = from, to do

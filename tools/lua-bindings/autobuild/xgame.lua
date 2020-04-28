@@ -134,8 +134,7 @@ cls.callback {
     TAG_MAKER = 'openURL',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = true,
-    REMOVE = false,
+    TAG_SCOPE = 'once',
 }
 cls.callback {
     FUNCS =  {
@@ -144,8 +143,7 @@ cls.callback {
     TAG_MAKER = 'requestPermission',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = true,
-    REMOVE = false,
+    TAG_SCOPE = 'once',
 }
 cls.callback {
     FUNCS =  {
@@ -154,8 +152,7 @@ cls.callback {
     TAG_MAKER = 'alert',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = true,
-    REMOVE = false,
+    TAG_SCOPE = 'once',
 }
 cls.props [[
     restarting
@@ -275,8 +272,7 @@ cls.callback {
     TAG_MAKER = 'makeTimerDelayTag(#2)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = true,
-    REMOVE = false,
+    TAG_SCOPE = 'once',
 }
 cls.callback {
     FUNCS =  {
@@ -285,8 +281,7 @@ cls.callback {
     TAG_MAKER = 'makeTimerDelayTag(#1)',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = true,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -295,8 +290,7 @@ cls.callback {
     TAG_MAKER = 'delay',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = true,
-    REMOVE = false,
+    TAG_SCOPE = 'once',
 }
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -382,8 +376,7 @@ cls.callback {
     TAG_MAKER = 'Dispatcher',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -402,6 +395,7 @@ cls = typecls 'xgame::FileFinder'
 cls.SUPERCLS = "cocos2d::FileUtils"
 cls.funcs [[
     static xgame::FileFinder *create()
+    void addCacheFileType(const std::string &type)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 

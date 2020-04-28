@@ -25,10 +25,6 @@
 #include "sproto/lsproto.h"
 #include "lpeg/lptree.h"
 
-#ifndef _WIN32
-#include "libpdebug.h"
-#endif
-
 int luaopen_bindings(lua_State *L)
 {
     olua_dofunc(L, luaopen_cocos2d);
@@ -36,10 +32,6 @@ int luaopen_bindings(lua_State *L)
     olua_dofunc(L, luaopen_cocos2d_ui);
     olua_dofunc(L, luaopen_xgame);
     olua_dofunc(L, luaopen_xml_http_request);
-    
-#ifndef _WIN32
-    pdebug_init(L);
-#endif
     
     // luasocket
     olua_require(L, "socket.core", luaopen_socket_core);

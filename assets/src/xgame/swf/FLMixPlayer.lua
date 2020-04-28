@@ -11,9 +11,9 @@ local trace = util.trace('[FLMixPlayer]')
 local FLMixPlayer = class("FLMixPlayer")
 
 function FLMixPlayer:ctor(pathMaker)
-    self._pathMaker = pathMaker
     self._running = true
     self._audioPlayTimes = {}
+    self.pathMaker = pathMaker
     self.option = {sameAudioInterval = 0}
     self.animPlayer = FLAnimPlayer.new()
     self.audioPlayer = FLAudioPlayer.new()
@@ -49,10 +49,10 @@ function FLMixPlayer:resume()
 end
 
 function FLMixPlayer:makePath(option)
-    if type(self._pathMaker) == "string" then
-        return string.format(self._pathMaker, option.name)
+    if type(self.pathMaker) == "string" then
+        return string.format(self.pathMaker, option.name)
     else
-        return self._pathMaker(option)
+        return self.pathMaker(option)
     end
 end
 

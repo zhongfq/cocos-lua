@@ -73,13 +73,20 @@ local function notify(url, success)
     checkStart()
 end
 
+local tracefiles = {}
+
 downloader.setDispatcher(function (task)
-    if task.state == FileState.IOERROR or task.state == FileState.INVALID then
-        task = assert(loadingList[task.url], task.url)
+    local state = task.state
+    local fs = tracefiles[task.url]
+    task = loadingList[task.url]
+    if not task then
+        return
+    elseif state == FileState.IOERROR or state == FileState.INVALID then
         task.attempts = task.attempts + 1
         if task.attempts >= MAX_ATTEMPTS then
             print('[NO] load: ' .. task.url)
             loadingList[task.url] = nil
+            tracefiles[task.url] = false
             notify(task.url, false)
         else
             timer.delay(ATTEMPT_INTERVAL, function ()
@@ -89,6 +96,7 @@ downloader.setDispatcher(function (task)
     else
         print('[OK] load: ' .. task.url)
         loadingList[task.url] = nil
+        tracefiles[task.url] = true
         notify(task.url, true)
     end
 end)

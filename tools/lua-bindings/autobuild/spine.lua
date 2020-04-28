@@ -285,8 +285,7 @@ cls.callback {
     TAG_MAKER = 'Listener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.props [[
     data
@@ -331,6 +330,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'spine::ConstraintData'
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    ConstraintData(const spine::String &name)
     const spine::String &getName()
     size_t getOrder()
     void setOrder(size_t inValue)
@@ -1293,8 +1293,7 @@ cls.callback {
     TAG_MAKER = 'Listener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.props [[
     trackIndex
@@ -1538,7 +1537,7 @@ cls.SUPERCLS = "cocos2d::Node"
 cls.funcs [[
     static spine::SkeletonRenderer *create()
     static spine::SkeletonRenderer *createWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData)
-    static spine::SkeletonRenderer *createWithData(@hold(exclusive skeletonData) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
+    static spine::SkeletonRenderer *createWithData(@addref(skeletonData ^) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
     static spine::SkeletonRenderer *createWithFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
     static spine::SkeletonRenderer *createWithFile(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
     spine::Skeleton *getSkeleton()
@@ -1570,6 +1569,8 @@ cls.funcs [[
     void setBlendFunc(const cocos2d::BlendFunc &blendFunc)
     const cocos2d::BlendFunc &getBlendFunc()
     SkeletonRenderer()
+    SkeletonRenderer(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
+    SkeletonRenderer(spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
     SkeletonRenderer(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
     SkeletonRenderer(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
     void initialize()
@@ -1590,25 +1591,25 @@ cls = typecls 'spine::SkeletonAnimation'
 cls.SUPERCLS = "spine::SkeletonRenderer"
 cls.funcs [[
     static spine::SkeletonAnimation *create()
-    static spine::SkeletonAnimation *createWithData(@hold(exclusive skeletonData) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
+    static spine::SkeletonAnimation *createWithData(@addref(skeletonData ^) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
     static spine::SkeletonAnimation *createWithJsonFile(const std::string &skeletonJsonFile, spine::Atlas *atlas, @optional float scale)
     static spine::SkeletonAnimation *createWithJsonFile(const std::string &skeletonJsonFile, const std::string &atlasFile, @optional float scale)
     static spine::SkeletonAnimation *createWithBinaryFile(const std::string &skeletonBinaryFile, spine::Atlas *atlas, @optional float scale)
     static spine::SkeletonAnimation *createWithBinaryFile(const std::string &skeletonBinaryFile, const std::string &atlasFile, @optional float scale)
     void setAnimationStateData(spine::AnimationStateData *stateData)
     void setMix(const std::string &fromAnimation, const std::string &toAnimation, float duration)
-    @hold(coexist trackEntries) spine::TrackEntry *setAnimation(int trackIndex, const std::string &name, bool loop)
-    @hold(coexist trackEntries) spine::TrackEntry *addAnimation(int trackIndex, const std::string &name, bool loop, @optional float delay)
-    @hold(coexist trackEntries) spine::TrackEntry *setEmptyAnimation(int trackIndex, float mixDuration)
+    @addref(trackEntries |) spine::TrackEntry *setAnimation(int trackIndex, const std::string &name, bool loop)
+    @addref(trackEntries |) spine::TrackEntry *addAnimation(int trackIndex, const std::string &name, bool loop, @optional float delay)
+    @addref(trackEntries |) spine::TrackEntry *setEmptyAnimation(int trackIndex, float mixDuration)
     void setEmptyAnimations(float mixDuration)
-    @hold(coexist trackEntries) spine::TrackEntry *addEmptyAnimation(int trackIndex, float mixDuration, @optional float delay)
+    @addref(trackEntries |) spine::TrackEntry *addEmptyAnimation(int trackIndex, float mixDuration, @optional float delay)
     spine::Animation *findAnimation(const std::string &name)
-    @hold(coexist trackEntries) spine::TrackEntry *getCurrent(@optional int trackIndex)
+    @addref(trackEntries |) spine::TrackEntry *getCurrent(@optional int trackIndex)
     void clearTracks()
     void clearTrack(@optional int trackIndex)
     void onAnimationStateEvent(spine::TrackEntry *entry, spine::EventType type, spine::Event *event)
     void onTrackEntryEvent(spine::TrackEntry *entry, spine::EventType type, spine::Event *event)
-    @hold(exclusive state) spine::AnimationState *getState()
+    @addref(state ^) spine::AnimationState *getState()
     void setUpdateOnlyIfVisible(bool status)
     SkeletonAnimation()
 ]]
@@ -1619,8 +1620,7 @@ cls.callback {
     TAG_MAKER = 'StartListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -1629,8 +1629,7 @@ cls.callback {
     TAG_MAKER = 'InterruptListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -1639,8 +1638,7 @@ cls.callback {
     TAG_MAKER = 'EndListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -1649,8 +1647,7 @@ cls.callback {
     TAG_MAKER = 'DisposeListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -1659,8 +1656,7 @@ cls.callback {
     TAG_MAKER = 'CompleteListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -1669,8 +1665,7 @@ cls.callback {
     TAG_MAKER = 'EventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -1679,8 +1674,7 @@ cls.callback {
     TAG_MAKER = 'TrackStartListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -1689,8 +1683,7 @@ cls.callback {
     TAG_MAKER = 'TrackInterruptListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -1699,8 +1692,7 @@ cls.callback {
     TAG_MAKER = 'TrackEndListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -1709,8 +1701,7 @@ cls.callback {
     TAG_MAKER = 'TrackDisposeListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -1719,8 +1710,7 @@ cls.callback {
     TAG_MAKER = 'TrackCompleteListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -1729,8 +1719,7 @@ cls.callback {
     TAG_MAKER = 'TrackEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -1739,8 +1728,7 @@ cls.callback {
     TAG_MAKER = 'PreUpdateWorldTransformsListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -1749,8 +1737,7 @@ cls.callback {
     TAG_MAKER = 'PostUpdateWorldTransformsListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.props [[
     state

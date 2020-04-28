@@ -38,6 +38,16 @@ function M.hook(obj, method, callback)
     end
 end
 
+function M.hookOnce(obj, method, callback)
+    local fn = assert(obj[method], method)
+    assert(callback)
+    obj[method] = function (...)
+        fn(...)
+        callback(obj, select(2, ...))
+        obj[method] = fn
+    end
+end
+
 function M.trace(prefix)
     return function(fmt, ...)
         xpcall(function (...)

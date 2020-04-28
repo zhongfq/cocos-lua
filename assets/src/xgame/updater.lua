@@ -235,7 +235,7 @@ function M:_checkVersion()
         local url = string.format('%s?os=%s&runtime=%s&version=%s&channel=%s',
             self._url, runtime.os, runtime.appVersion, version, runtime.channel)
         local status, data = http({url = url, responseType = 'JSON'})
-        if status ~= 200 then
+        if status ~= 200 or not data then
             self:_deferTry()
             return
         end

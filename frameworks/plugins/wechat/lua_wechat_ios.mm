@@ -186,13 +186,16 @@ static int l_setDispatcher(lua_State *L)
         WeChatConnector *connector = olua_checkconnector(L, 1);
         void *cb_store = (__bridge void *)connector;
         std::string func = olua_setcallback(L, cb_store, "dispatcher", 2, OLUA_TAG_REPLACE);
-        connector.dispatcher = [cb_store, func] (const std::string &event, const std::string &data) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        connector.dispatcher = [cb_store, func, ctx_id] (const std::string &event, const std::string &data) {
             lua_State *L = olua_mainthread();
-            int top = lua_gettop(L);
-            lua_pushstring(L, event.c_str());
-            lua_pushstring(L, data.c_str());
-            olua_callback(L, cb_store, func.c_str(), 2);
-            lua_settop(L, top);
+            if (olua_getid(L) == ctx_id) {
+                int top = lua_gettop(L);
+                lua_pushstring(L, event.c_str());
+                lua_pushstring(L, data.c_str());
+                olua_callback(L, cb_store, func.c_str(), 2);
+                lua_settop(L, top);
+            }
         };
     }
     

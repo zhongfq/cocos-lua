@@ -11,9 +11,10 @@ local TAG_UPDATE = "__SCROLLIMPL_UPDATE__"
 local ScrollImpl = class("ScrollImpl")
 
 function ScrollImpl:ctor(target, container)
+    self._tapSquare = 20
     self._target = target
     self._container = container
-    self._detector = GestureDetector.new(target, self)
+    self._detector = GestureDetector.new(target, self, self._tapSquare)
     self._focuses = setmetatable({}, {__mode = "v"})
     self._scrollHEnabled = true
     self._scrollHAlign = Align.LEFT
@@ -25,7 +26,6 @@ function ScrollImpl:ctor(target, container)
     self.maxVel = 5000
     self.minVel = 400
     self.elapseTime = 1
-
     self.scaleEnabled = false
     self.maxScale = 2
     self.minScale = 1
@@ -69,18 +69,18 @@ function ScrollImpl:scaleTo(scale, x, y)
 end
 
 function ScrollImpl:press(id, x, y)
+    self:_tryFocus(id, x, y)
     self._container:unschedule(TAG_UPDATE)
-    local hit = self:_tryFocus(id, x, y)
-    if hit and hit.touchPreemptive then
-        x, y = self._target:localToGlobal(x, y)
-        self._target.stage:preemptTouch(hit, id, x, y)
-    else
-        self:_checkScrollEnd()
-        self._touchCount = self._touchCount + 1
-        if self._touchCount == 1 then
-            self._target:dispatch(TouchEvent.SCROLL_BEGIN)
-        end
+    self._touchCount = self._touchCount + 1
+    if self._touchCount == 1 then
+        self._target:dispatch(TouchEvent.SCROLL_BEGIN)
     end
+end
+
+function ScrollImpl:release(id, x, y)
+    self:_abortFocus(id)
+    self._touchCount = self._touchCount - 1
+    self:_checkScrollEnd()
 end
 
 function ScrollImpl:_checkScrollEnd()
@@ -91,17 +91,11 @@ function ScrollImpl:_checkScrollEnd()
     end
 end
 
-function ScrollImpl:release(id, x, y)
-    self:_abortFocus(id)
-    self._touchCount = self._touchCount - 1
-    self:_checkScrollEnd()
-end
-
 function ScrollImpl:_tryFocus(id, x, y)
     x, y = self._target:localToGlobal(x, y)
     local hit, capturePoints = self._target:hitChildren({
         [id] = {x = x, y = y, id = id}})
-    if hit and not hit.touchPreemptive then
+    if hit then
         self._focuses[id] = hit
         self._focuses[id]:touchDown(capturePoints)
     end
@@ -111,11 +105,13 @@ end
 function ScrollImpl:_abortFocus(id)
     local focus = self._focuses[id]
     if focus then
-        for _, p in pairs(focus.touches) do
+        local touches = {}
+        for idx, p in pairs(focus.touches) do
             p.x = math.maxinteger
             p.y = math.maxinteger
+            touches[idx] = p
         end
-        focus:touchUp(focus.touches)
+        focus:touchUp(touches)
         self._focuses[id] = nil
     end
 end
@@ -130,7 +126,11 @@ function ScrollImpl:tap(id, x, y)
     -- assert(self._focuses[id]) ?
     local focus = self._focuses[id]
     if focus then
-        focus:touchUp(focus.touches)
+        local touches = {}
+        for idx, p in pairs(focus.touches) do
+            touches[idx] = p
+        end
+        focus:touchUp(touches)
         self._focuses[id] = nil
         self._touchCount = self._touchCount - 1
         self:_checkScrollEnd()
@@ -162,6 +162,24 @@ function ScrollImpl:dispatchScrolling(lastX, lastY, x, y)
 end
 
 function ScrollImpl:pan(deltaX, deltaY)
+    local id, hit = next(self._focuses)
+    if hit and hit.touchPreemptive then
+        local tracker = self._detector:getTracker(id)
+        local dx = math.abs(tracker.x - tracker.startX)
+        local dy = math.abs(tracker.y - tracker.startY)
+        local x, y = tracker.x, tracker.y
+        if dx * hit.preemptiveImpact > dy then
+            self._focuses[id] = nil
+            self._touchCount = self._touchCount - 1
+            self:_checkScrollEnd()
+            self:_abortAllFocuses()
+            x, y = self._target:localToGlobal(x, y)
+            self._detector:invalidate()
+            self._target.stage:preemptTouch(hit, id, x, y)
+            return
+        end
+    end
+
     self:_abortAllFocuses()
 
     local target = self._target

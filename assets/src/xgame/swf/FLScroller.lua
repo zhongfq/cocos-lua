@@ -1,64 +1,20 @@
 local ScrollImpl    = require "xgame.ui.ScrollImpl"
 local Align         = require "xgame.ui.Align"
-local FLMovieClip   = require "xgame.swf.FLMovieClip"
+local FLScrollBase  = require "xgame.swf.FLScrollBase"
 local swf           = require "xgame.swf.swf"
 
-local FLScroller = swf.class("FLScroller", FLMovieClip)
+local FLScroller = swf.class("FLScroller", FLScrollBase)
 
 function FLScroller:ctor()
-    self.touchChildren = false
-    self.touchable = true
-    self._clipalbe = false
-
-    self._container = self.ns['container']
-
     local container = self._container
     local bounds = container.ns['__bounds__'] or container
-    local viewport = self.children[1]
-    viewport.visible = false
-    self:stop()
-    rawset(self, 'width', viewport.width)
-    rawset(self, 'height', viewport.height)
     rawset(container, 'width', bounds.width)
     rawset(container, 'height', bounds.height)
-
-    self._scrollImpl = ScrollImpl.new(self, container)
     self._scrollImpl.scrollHEnabled = self.metadata.scrollHEnabled
     self._scrollImpl.scrollVEnabled = self.metadata.scrollVEnabled
     self._scrollImpl.bounceEnabled = self.metadata.bounceEnabled ~= false
-
     if bounds ~= container then
         bounds.visible = false
-    end
-end
-
-function FLScroller:getBounds(target)
-    return self.cobj:getBounds(target.cobj, 0, self.width, 0, self.height)
-end
-
-function FLScroller:getScrollBounds()
-    local obj = self._container
-    local l, r, t, b = obj:getBounds(self, 0, obj.width, 0, obj.height)
-    return l, r, b, t
-end
-
-
-function FLScroller:_invalidate()
-    self._childrenBounds = false
-    self._scrollImpl:validateLater()
-end
-
-function FLScroller:validateDisplay()
-    self:_invalidate()
-end
-
-function FLScroller.Get:clipable() return self._clipalbe end
-function FLScroller.Set:clipable(value)
-    self._clipalbe = value
-    if value then
-        self.cobj.mask = self.children[1].cobj
-    else
-        self.cobj.mask = nil
     end
 end
 
@@ -116,10 +72,6 @@ function FLScroller.Get:minScale()
 end
 function FLScroller.Set:minScale(value)
     self._scrollImpl.minScale = value
-end
-
-function FLScroller:validateNow()
-    self._scrollImpl:validate()
 end
 
 function FLScroller:scrollTo(h, v)

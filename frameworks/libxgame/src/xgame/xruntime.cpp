@@ -17,6 +17,7 @@
 #include <time.h>
 #include <stdarg.h>
 #include <thread>
+#include <deque>
 
 USING_NS_CC;
 USING_NS_CC_EXP;
@@ -29,15 +30,20 @@ static runtime::EventDispatcher _dispatcher = nullptr;
 static std::vector<std::pair<std::string, std::string>> _suspendedEvents;
 static std::string _openURI;
 static std::map<std::string, bool> _supportedFeatures;
+static std::unordered_map<std::string, bool> _tracebackCaches;
 
-static char _logBuf[MAX_LOG_LENGTH];
 static float _time = 0;
 static std::string _timestamp;
+static char _logBuf[MAX_LOG_LENGTH];
 static FILE *_logFile = NULL;
 static std::mutex _logMutex;
 static std::string _logPath;
 static std::string _logCache;
 static std::string _workdir;
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+static std::deque<std::string> _logBugly;
+#endif
 
 static bool _reportError = true;
 
@@ -237,7 +243,7 @@ void runtime::luaOpen(lua_CFunction libfunc)
 //
 const std::string runtime::getVersion()
 {
-    return "1.13.5";
+    return "3.0.1";
 }
 
 const std::string runtime::getPackageName()
@@ -487,6 +493,13 @@ void runtime::log(const char *fmt, ...)
     _writeLogToFile(_logBuf);
     
     va_end(args);
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    if (_logBugly.size() >= 200) {
+        _logBugly.pop_front();
+    }
+    _logBugly.push_back(_logBuf);
+#endif
 
 #ifdef COCOS2D_DEBUG
     cocos2d::log("%s", _logBuf);
@@ -562,7 +575,16 @@ void runtime::reportError(const char *err, const char *traceback)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     if (_reportError) {
-        CrashReport::reportException(CATEGORY_LUA_EXCEPTION, "", err, traceback);
+        for (auto &msg : _logBugly) {
+            CrashReport::log(CrashReport::CRLogLevel::Verbose, "bugly", msg.c_str());
+        }
+        _logBugly.clear();
+        std::string errmsg;
+        errmsg.append(err).append(traceback);
+        if (_tracebackCaches.find(errmsg) == _tracebackCaches.end()) {
+            _tracebackCaches[errmsg] = true;
+            CrashReport::reportException(CATEGORY_LUA_EXCEPTION, "", err, traceback);
+        }
     }
 #endif
 }

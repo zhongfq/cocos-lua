@@ -13,7 +13,7 @@ FLAudio.STATE_PAUSE = 4
 
 function FLAudio:ctor(path, loop, volume, delay, tag)
     self.nextAudio = false
-    self.path = path
+    self.path = assert(path, 'no path')
     self._loop = loop
     self._volume = volume
     self._duration = 0
@@ -84,6 +84,13 @@ function FLAudio:play()
                 return
             end
             self._sound = audio.play(path, self._loop, self._volume)
+            -- TODO: removed, test error
+            if not self._sound then
+                local localCachePath = filesystem.localCachePath(self.path)
+                local exist = filesystem.exist(localCachePath)
+                local data = filesystem.read(localCachePath) or ''
+                error(string.format("%s %d: %s", tostring(exist), #data, self.path))
+            end
             self._sound:addListener(Event.COMPLETE, self._completeHandler, self)
             self._sound:addListener(Event.STOP, self._stopHandler, self)
             self.state = FLAudio.STATE_PLAYING

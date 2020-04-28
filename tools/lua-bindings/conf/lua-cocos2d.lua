@@ -63,27 +63,27 @@ typeconf 'cocos2d::Director::Projection'
 
 local Director = typeconf 'cocos2d::Director'
 Director.EXCLUDE 'getCocos2dThreadId'
-Director.ATTR('getRunningScene', {RET = '@hold(coexist scenes)'})
-Director.ATTR('runWithScene', {ARG1 = '@hold(coexist scenes)'})
-Director.ATTR('pushScene', {ARG1 = '@hold(coexist scenes)'})
-Director.ATTR('replaceScene', {RET = '@unhold(cmp scenes)', ARG1 = '@hold(coexist scenes)'})
-Director.ATTR('popScene', {RET = '@unhold(cmp scenes)'})
-Director.ATTR('popToRootScene', {RET = '@unhold(cmp scenes)'})
-Director.ATTR('popToSceneStackLevel', {RET = '@unhold(cmp scenes)'})
-Director.ATTR('getOpenGLView', {RET = '@hold(exclusive openGLView)'})
-Director.ATTR('setOpenGLView', {ARG1 = '@hold(exclusive openGLView)'})
-Director.ATTR('getTextureCache', {RET = '@hold(exclusive textureCache)'})
-Director.ATTR('getNotificationNode', {RET = '@hold(exclusive notificationNode)'})
-Director.ATTR('setNotificationNode', {ARG1 = '@hold(exclusive notificationNode)'})
+Director.ATTR('getRunningScene', {RET = '@addref(scenes |)'})
+Director.ATTR('runWithScene', {ARG1 = '@addref(scenes |)'})
+Director.ATTR('pushScene', {ARG1 = '@addref(scenes |)'})
+Director.ATTR('replaceScene', {RET = '@delref(scenes ~)', ARG1 = '@addref(scenes |)'})
+Director.ATTR('popScene', {RET = '@delref(scenes ~)'})
+Director.ATTR('popToRootScene', {RET = '@delref(scenes ~)'})
+Director.ATTR('popToSceneStackLevel', {RET = '@delref(scenes ~)'})
+Director.ATTR('getOpenGLView', {RET = '@addref(openGLView ^)'})
+Director.ATTR('setOpenGLView', {ARG1 = '@addref(openGLView ^)'})
+Director.ATTR('getTextureCache', {RET = '@addref(textureCache ^)'})
+Director.ATTR('getNotificationNode', {RET = '@addref(notificationNode ^)'})
+Director.ATTR('setNotificationNode', {ARG1 = '@addref(notificationNode ^)'})
 Director.ATTR('convertToGL', {ARG1 = '@pack'})
 Director.ATTR('convertToUI', {ARG1 = '@pack'})
-Director.ATTR('getEventDispatcher', {RET = '@hold(exclusive eventDispatcher)'})
-Director.ATTR('setEventDispatcher', {ARG1 = '@hold(exclusive eventDispatcher)'})
-Director.ATTR('getScheduler', {RET = '@hold(exclusive scheduler)'})
-Director.ATTR('setScheduler', {ARG1 = '@hold(exclusive scheduler)'})
-Director.ATTR('getActionManager', {RET = '@hold(exclusive actionManager)'})
-Director.ATTR('setActionManager', {ARG1 = '@hold(exclusive actionManager)'})
-Director.ATTR('getRenderer', {RET = '@hold(exclusive renderer)'})
+Director.ATTR('getEventDispatcher', {RET = '@addref(eventDispatcher ^)'})
+Director.ATTR('setEventDispatcher', {ARG1 = '@addref(eventDispatcher ^)'})
+Director.ATTR('getScheduler', {RET = '@addref(scheduler ^)'})
+Director.ATTR('setScheduler', {ARG1 = '@addref(scheduler ^)'})
+Director.ATTR('getActionManager', {RET = '@addref(actionManager ^)'})
+Director.ATTR('setActionManager', {ARG1 = '@addref(actionManager ^)'})
+Director.ATTR('getRenderer', {RET = '@addref(renderer ^)'})
 
 local Scheduler = typeconf 'cocos2d::Scheduler'
 Scheduler.EXCLUDE 'scheduleScriptFunc'
@@ -120,20 +120,17 @@ Scheduler.CALLBACK {
     TAG_MAKER = 'makeScheduleCallbackTag(#1)',
     TAG_STORE = 2, -- 2th void *target
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
-    REMOVE = true,
 }
 Scheduler.CALLBACK {
     FUNCS = {'void unscheduleAllForTarget(void *target)'},
     TAG_MAKER = 'makeScheduleCallbackTag("")',
     TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = 1, -- 1th void *target
-    REMOVE = true,
 }
 Scheduler.CALLBACK {
     FUNCS = {'void unscheduleAll()'},
     TAG_MAKER = 'makeScheduleCallbackTag("")',
     TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
-    REMOVE = true,
 }
 Scheduler.FUNC('scheduleUpdate', [[
 {
@@ -155,17 +152,24 @@ Scheduler.FUNC('scheduleUpdate', [[
 -- event & event listener
 --
 local EventDispatcher = typeconf 'cocos2d::EventDispatcher'
-EventDispatcher.ATTR('addEventListenerWithSceneGraphPriority', {ARG1 = '@hold(coexist listeners 3)'})
-EventDispatcher.ATTR('addEventListenerWithFixedPriority', {ARG1 = '@hold(coexist listeners)'})
-EventDispatcher.ATTR('removeCustomEventListeners', {RET = '@unhold(cmp listeners)'})
-EventDispatcher.ATTR('removeEventListener', {RET = '@unhold(cmp listeners)'})
-EventDispatcher.ATTR('removeEventListenersForType', {RET = '@unhold(cmp listeners)'})
-EventDispatcher.ATTR('removeAllEventListeners', {RET = '@unhold(cmp listeners)'})
+EventDispatcher.ATTR('addEventListenerWithSceneGraphPriority', {ARG1 = '@addref(listeners | 3)'})
+EventDispatcher.ATTR('addEventListenerWithFixedPriority', {ARG1 = '@addref(listeners |)'})
+EventDispatcher.ATTR('addCustomEventListener', {RET = '@addref(listeners |)'})
+EventDispatcher.ATTR('removeCustomEventListeners', {RET = '@delref(listeners ~)'})
+EventDispatcher.ATTR('removeEventListener', {RET = '@delref(listeners ~)'})
+EventDispatcher.ATTR('removeEventListenersForType', {RET = '@delref(listeners ~)'})
+EventDispatcher.ATTR('removeAllEventListeners', {RET = '@delref(listeners ~)'})
+EventDispatcher.CALLBACK {
+    NAME = 'addCustomEventListener',
+    TAG_MAKER = '(#1)',
+    TAG_STORE = 'return',
+    TAG_MODE = 'OLUA_TAG_NEW',
+}
 EventDispatcher.CHUNK = [[
 static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
 {
     if (olua_getuserdata(L, target)) {
-        olua_unholdall(L, -1, refname);
+        olua_delallrefs(L, -1, refname);
         lua_pop(L, 1);
     }
     if (recursive) {
@@ -176,44 +180,6 @@ static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target,
         }
     }
 }]]
-EventDispatcher.FUNC('addCustomEventListener', [[
-{
-    void *callback_store_obj = nullptr;
-    auto self = olua_checkobj<cocos2d::EventDispatcher>(L, 1);
-    std::string eventName = olua_checkstring(L, 2);
-    auto listener = new cocos2d::EventListenerCustom();
-    listener->autorelease();
-    olua_push_cppobj<cocos2d::EventListenerCustom>(L, listener);
-    callback_store_obj = listener;
-    std::string func = olua_setcallback(L, callback_store_obj, eventName.c_str(), 3, OLUA_TAG_NEW);
-    listener->init(eventName, [callback_store_obj, func](cocos2d::EventCustom *event) {
-        lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
-        size_t last = olua_push_objpool(L);
-        olua_enable_objpool(L);
-        olua_push_cppobj<cocos2d::EventCustom>(L, event);
-        olua_disable_objpool(L);
-        olua_callback(L, callback_store_obj, func.c_str(), 1);
-
-        //pop stack value
-        olua_pop_objpool(L, last);
-        
-        lua_settop(L, top);
-    });
-    
-    // EventListenerCustom* EventDispatcher::addCustomEventListener(const std::string &eventName, const std::function<void(EventCustom*)>& callback)
-    //  {
-    //      EventListenerCustom *listener = EventListenerCustom::create(eventName, callback);
-    //      addEventListenerWithFixedPriority(listener, 1);
-    //      return listener;
-    //  }
-    self->addEventListenerWithFixedPriority(listener, 1);
-    lua_pushvalue(L, 4);
-
-    olua_hold(L, 1, "listeners", -1, OLUA_FLAG_COEXIST);
-
-    return 1;
-}]])
 EventDispatcher.INJECT('removeEventListenersForTarget', {
     BEFORE = [[
         bool recursive = false;
@@ -239,7 +205,7 @@ EventListenerCustom.CALLBACK {
     FUNCS = {'static EventListenerCustom* create(const std::string& eventName, const std::function<void(@local EventCustom*)>& callback)'},
     TAG_MAKER = 'listener',
     TAG_MODE = 'OLUA_TAG_NEW',
-    CPPFUNC = 'init',
+    TAG_STORE = 'return',
 }
 
 typeconf 'cocos2d::EventListenerKeyboard'
@@ -249,7 +215,7 @@ EventListenerAcceleration.CALLBACK {
     FUNCS = {'static EventListenerAcceleration* create(const std::function<void(@local Acceleration*, @local Event*)>& callback)'},
     TAG_MAKER = 'listener',
     TAG_MODE = 'OLUA_TAG_NEW',
-    CPPFUNC = 'init',
+    TAG_STORE = 'return',
 }
 
 typeconf 'cocos2d::EventListenerFocus'
@@ -325,25 +291,22 @@ AudioEngine.CALLBACK {
     FUNCS = {'static void stop(int audioID)'},
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
-    REMOVE = true,
 }
 AudioEngine.CALLBACK {
     FUNCS = {'static void stopAll()'},
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
     TAG_MODE = "OLUA_TAG_SUBSTARTWITH",
-    REMOVE = true,
 }
 AudioEngine.CALLBACK {
     FUNCS = {'static void uncacheAll()'},
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
     TAG_MODE = "OLUA_TAG_SUBSTARTWITH",
-    REMOVE = true,
 }
 AudioEngine.CALLBACK {
     FUNCS = {'static void setFinishCallback(int audioID, @nullable const std::function<void(int,const std::string&)>& callback)'},
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
     TAG_MODE = "OLUA_TAG_REPLACE",
-    CALLONCE = true,
+    TAG_SCOPE = 'once',
 }
 AudioEngine.CALLBACK {
     FUNCS = {
@@ -352,7 +315,7 @@ AudioEngine.CALLBACK {
     },
     TAG_MAKER = 'preload',
     TAG_MODE = "OLUA_TAG_REPLACE",
-    CALLONCE = true,
+    TAG_SCOPE = 'once',
 }
 
 typeconf 'CocosDenshion::SimpleAudioEngine'
@@ -385,8 +348,8 @@ GLView.EXCLUDE 'handleTouchesCancel'
 GLView.EXCLUDE 'getNSGLContext'
 GLView.EXCLUDE 'getCocoaWindow'
 GLView.EXCLUDE 'getEAGLView'
-GLView.ATTR('setVR', {ARG1 = '@hold(exclusive vr)'})
-GLView.ATTR('getVR', {RET = '@hold(exclusive vr)'})
+GLView.ATTR('setVR', {ARG1 = '@addref(vr ^)'})
+GLView.ATTR('getVR', {RET = '@addref(vr ^)'})
 
 local GLViewImpl = typeconf 'cocos2d::GLViewImpl'
 GLViewImpl.EXCLUDE 'create'
@@ -424,10 +387,10 @@ typeconf 'cocos2d::GLProgramCache'
 local GLProgramState = typeconf 'cocos2d::GLProgramState'
 GLProgramState.EXCLUDE 'setVertexAttribCallback'
 GLProgramState.EXCLUDE 'setUniformCallback'
-GLProgramState.ATTR('setGLProgram', {ARG1 = '@hold(exclusive glProgram)'})
-GLProgramState.ATTR('getGLProgram', {RET = '@hold(exclusive glProgram)'})
-GLProgramState.ATTR('setNodeBinding', {ARG1 = '@hold(exclusive nodeBinding)'})
-GLProgramState.ATTR('getNodeBinding', {RET = '@hold(exclusive nodeBinding)'})
+GLProgramState.ATTR('setGLProgram', {ARG1 = '@addref(glProgram ^)'})
+GLProgramState.ATTR('getGLProgram', {RET = '@addref(glProgram ^)'})
+GLProgramState.ATTR('setNodeBinding', {ARG1 = '@addref(nodeBinding ^)'})
+GLProgramState.ATTR('getNodeBinding', {RET = '@addref(nodeBinding ^)'})
 
 local TextureCache = typeconf 'cocos2d::TextureCache'
 TextureCache.CHUNK = [[
@@ -442,19 +405,17 @@ TextureCache.CALLBACK {
     },
     TAG_MAKER = {'makeTextureCacheCallbackTag(#1)', 'makeTextureCacheCallbackTag(#-1)'},
     TAG_MODE = 'OLUA_TAG_REPLACE',
-    CALLONCE = true,
+    TAG_SCOPE = 'once',
 }
 TextureCache.CALLBACK {
     FUNCS = {'void unbindImageAsync(const std::string &filename)'},
     TAG_MAKER = 'makeTextureCacheCallbackTag(#1)',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
-    REMOVE = true,
 }
 TextureCache.CALLBACK {
     FUNCS = {'void unbindAllImageAsync()'},
     TAG_MAKER = 'makeTextureCacheCallbackTag("")',
     TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
-    REMOVE = true,
 }
 
 typeconf 'cocos2d::Texture2D::PixelFormat'
@@ -495,7 +456,7 @@ WebSocket.FUNC('init', [[
     
     self->init(*delegate, url, protocols.size() > 0 ? &protocols : nullptr, cafile);
 
-    olua_hold(L, 1, "delegate", 2, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, 1, "delegate", 2, OLUA_MODE_SINGLE);
 
     return 1;
 }]])
@@ -524,16 +485,16 @@ Action.EXCLUDE 'setReverseAction'
 typeconf 'cocos2d::FiniteTimeAction'
 
 local Speed = typeconf 'cocos2d::Speed'
-Speed.ATTR('create', {ARG1 = '@hold(exclusive innerAction)'})
-Speed.ATTR('setInnerAction', {ARG1 = '@hold(exclusive innerAction)'})
-Speed.ATTR('getInnerAction', {RET = '@hold(exclusive innerAction)'})
+Speed.ATTR('create', {ARG1 = '@addref(innerAction ^)'})
+Speed.ATTR('setInnerAction', {ARG1 = '@addref(innerAction ^)'})
+Speed.ATTR('getInnerAction', {RET = '@addref(innerAction ^)'})
 
 typeconf 'cocos2d::Follow'
 typeconf 'cocos2d::tweenfunc'
 typeconf 'cocos2d::ActionInterval'
 
 local Sequence = typeconf 'cocos2d::Sequence'
-Sequence.ATTR('createWithTwoActions', {ARG1 = '@hold(coexist autoref)', ARG2 = '@hold(coexist autoref)'})
+Sequence.ATTR('createWithTwoActions', {ARG1 = '@addref(autoref |)', ARG2 = '@addref(autoref |)'})
 Sequence.FUNC('create', [[
 {
     cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
@@ -547,7 +508,7 @@ Sequence.FUNC('create', [[
     for (int i = 1; i <= n; i++) {
         auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
         actions.pushBack(obj);
-        olua_hold(L, -1, ".autoref", i, OLUA_FLAG_COEXIST);
+        olua_addref(L, -1, ".autoref", i, OLUA_MODE_MULTIPLE);
     }
 
     ret->init(actions);
@@ -556,17 +517,17 @@ Sequence.FUNC('create', [[
 }]])
 
 local Repeat = typeconf 'cocos2d::Repeat'
-Repeat.ATTR('create', {ARG1 = '@hold(exclusive innerAction)'})
-Repeat.ATTR('setInnerAction', {ARG1 = '@hold(exclusive innerAction)'})
-Repeat.ATTR('getInnerAction', {RET = '@hold(exclusive innerAction)'})
+Repeat.ATTR('create', {ARG1 = '@addref(innerAction ^)'})
+Repeat.ATTR('setInnerAction', {ARG1 = '@addref(innerAction ^)'})
+Repeat.ATTR('getInnerAction', {RET = '@addref(innerAction ^)'})
 
 local RepeatForever = typeconf 'cocos2d::RepeatForever'
-RepeatForever.ATTR('create', {ARG1 = '@hold(exclusive innerAction)'})
-RepeatForever.ATTR('setInnerAction', {ARG1 = '@hold(exclusive innerAction)'})
-RepeatForever.ATTR('getInnerAction', {RET = '@hold(exclusive innerAction)'})
+RepeatForever.ATTR('create', {ARG1 = '@addref(innerAction ^)'})
+RepeatForever.ATTR('setInnerAction', {ARG1 = '@addref(innerAction ^)'})
+RepeatForever.ATTR('getInnerAction', {RET = '@addref(innerAction ^)'})
 
 local Spawn = typeconf 'cocos2d::Spawn'
-Spawn.ATTR('createWithTwoActions', {ARG1 = '@hold(coexist autoref)', ARG2 = '@hold(coexist autoref)'})
+Spawn.ATTR('createWithTwoActions', {ARG1 = '@addref(autoref |)', ARG2 = '@addref(autoref |)'})
 Spawn.FUNC('create', [[
 {
     cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
@@ -580,7 +541,7 @@ Spawn.FUNC('create', [[
     for (int i = 1; i <= n; i++) {
         auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
         actions.pushBack(obj);
-        olua_hold(L, -1, ".autoref", i, OLUA_FLAG_COEXIST);
+        olua_addref(L, -1, ".autoref", i, OLUA_MODE_MULTIPLE);
     }
     
     ret->init(actions);
@@ -625,30 +586,30 @@ typeconf 'cocos2d::TintBy'
 typeconf 'cocos2d::DelayTime'
 
 local ReverseTime = typeconf 'cocos2d::ReverseTime'
-ReverseTime.ATTR('create', {ARG1 = '@hold(coexist autoref)'})
+ReverseTime.ATTR('create', {ARG1 = '@addref(autoref |)'})
 
 typeconf 'cocos2d::Animate'
 
 local TargetedAction = typeconf 'cocos2d::TargetedAction'
-TargetedAction.ATTR('create', {ARG2 = '@hold(coexist autoref)'})
+TargetedAction.ATTR('create', {ARG2 = '@addref(autoref |)'})
 
 local ActionFloat = typeconf 'cocos2d::ActionFloat'
 ActionFloat.CALLBACK {
     FUNCS = {'static ActionFloat* create(float duration, float from, float to, std::function<void(float value)> callback)'},
     TAG_MAKER = 'ActionFloat',
     TAG_MODE = 'OLUA_TAG_NEW',
-    CPPFUNC = 'initWithDuration',
+    TAG_STORE = 'return',
 }
 
 typeconf 'cocos2d::ProgressTo'
 typeconf 'cocos2d::ProgressFromTo'
 
 local ActionEase = typeconf 'cocos2d::ActionEase'
-ActionEase.ATTR('getInnerAction', {RET = '@hold(exclusive innerAction)'})
+ActionEase.ATTR('getInnerAction', {RET = '@addref(innerAction ^)'})
 
 local function typeconfEase(name)
     local cls = typeconf(name)
-    cls.ATTR('create', {ARG1 = '@hold(exclusive innerAction)'})
+    cls.ATTR('create', {ARG1 = '@addref(innerAction ^)'})
     return cls
 end
 
@@ -711,7 +672,7 @@ CallFunc.CALLBACK {
     FUNCS = {'static CallFunc * create(const std::function<void()>& func)'},
     TAG_MAKER = 'CallFunc',
     TAG_MODE = 'OLUA_TAG_NEW',
-    CPPFUNC = 'initWithFunction',
+    TAG_STORE = 'return',
 }
 
 local Component = typeconf 'cocos2d::Component'
@@ -719,8 +680,8 @@ Component.EXCLUDE 'onEnter'
 Component.EXCLUDE 'onExit'
 Component.EXCLUDE 'onAdd'
 Component.EXCLUDE 'onRemove'
-Component.ATTR('getOwner', {RET = '@hold(exclusive owner)'})
-Component.ATTR('setOwner', {ARG1 = '@hold(exclusive owner)'})
+Component.ATTR('getOwner', {RET = '@addref(owner ^)'})
+Component.ATTR('setOwner', {ARG1 = '@addref(owner ^)'})
 
 local LuaComponent = typeconf 'cocos2d::LuaComponent'
 LuaComponent.MAKE_LUANAME = function (name)
@@ -732,44 +693,44 @@ local Node = typeconf 'cocos2d::Node'
 Node.EXCLUDE 'enumerateChildren'
 Node.EXCLUDE 'scheduleUpdateWithPriorityLua'
 Node.EXCLUDE '_setLocalZOrder'
-Node.ATTR('addChild', {ARG1 = '@hold(coexist children)'})
-Node.ATTR('getChildByTag', {RET = '@hold(coexist children)'})
-Node.ATTR('getChildByName', {RET = '@hold(coexist children)'})
-Node.ATTR('getChildren', {RET = '@hold(coexist children)'})
-Node.ATTR('removeFromParent', {RET = '@unhold(coexist children parent)'})
-Node.ATTR('removeFromParentAndCleanup', {RET = '@unhold(coexist children parent)'})
-Node.ATTR('removeChild', {ARG1 = '@unhold(coexist children)'})
-Node.ATTR('removeChildByTag', {RET = '@unhold(cmp children)'})
-Node.ATTR('removeChildByName', {RET = '@unhold(cmp children)'})
-Node.ATTR('removeAllChildren', {RET = '@unhold(all children)'})
-Node.ATTR('removeAllChildrenWithCleanup', {RET = '@unhold(all children)'})
-Node.ATTR('getGLProgram', {RET = '@hold(exclusive glProgram)'})
-Node.ATTR('setGLProgram', {ARG1 = '@hold(exclusive glProgram)'})
-Node.ATTR('getGLProgramState', {RET = '@hold(exclusive glProgramState)'})
-Node.ATTR('setGLProgramState', {ARG1 = '@hold(exclusive glProgramState)'})
-Node.ATTR('getEventDispatcher', {RET = '@hold(exclusive eventDispatcher)'})
-Node.ATTR('setEventDispatcher', {ARG1 = '@hold(exclusive eventDispatcher)'})
-Node.ATTR('getActionManager', {RET = '@hold(exclusive actionManager)'})
-Node.ATTR('setActionManager', {ARG1 = '@hold(exclusive actionManager)'})
-Node.ATTR('runAction', {RET = '@unhold(cmp actions)', ARG1 = '@hold(coexist actions)'})
-Node.ATTR('stopAllActions', {RET = '@unhold(cmp actions)'})
-Node.ATTR('stopAction', {RET = '@unhold(cmp actions)'})
-Node.ATTR('stopActionByTag', {RET = '@unhold(cmp actions)'})
-Node.ATTR('stopAllActionsByTag', {RET = '@unhold(cmp actions)'})
-Node.ATTR('stopActionsByFlags', {RET = '@unhold(cmp actions)'})
-Node.ATTR('getActionByTag', {RET = '@hold(coexist actions)'})
-Node.ATTR('setScheduler', {ARG1 = '@hold(exclusive scheduler)'})
-Node.ATTR('getScheduler', {RET = '@hold(exclusive scheduler)'})
+Node.ATTR('addChild', {ARG1 = '@addref(children |)'})
+Node.ATTR('getChildByTag', {RET = '@addref(children |)'})
+Node.ATTR('getChildByName', {RET = '@addref(children |)'})
+Node.ATTR('getChildren', {RET = '@addref(children |)'})
+Node.ATTR('removeFromParent', {RET = '@delref(children | parent)'})
+Node.ATTR('removeFromParentAndCleanup', {RET = '@delref(children | parent)'})
+Node.ATTR('removeChild', {ARG1 = '@delref(children |)'})
+Node.ATTR('removeChildByTag', {RET = '@delref(children ~)'})
+Node.ATTR('removeChildByName', {RET = '@delref(children ~)'})
+Node.ATTR('removeAllChildren', {RET = '@delref(children *)'})
+Node.ATTR('removeAllChildrenWithCleanup', {RET = '@delref(children *)'})
+Node.ATTR('getGLProgram', {RET = '@addref(glProgram ^)'})
+Node.ATTR('setGLProgram', {ARG1 = '@addref(glProgram ^)'})
+Node.ATTR('getGLProgramState', {RET = '@addref(glProgramState ^)'})
+Node.ATTR('setGLProgramState', {ARG1 = '@addref(glProgramState ^)'})
+Node.ATTR('getEventDispatcher', {RET = '@addref(eventDispatcher ^)'})
+Node.ATTR('setEventDispatcher', {ARG1 = '@addref(eventDispatcher ^)'})
+Node.ATTR('getActionManager', {RET = '@addref(actionManager ^)'})
+Node.ATTR('setActionManager', {ARG1 = '@addref(actionManager ^)'})
+Node.ATTR('runAction', {RET = '@delref(actions ~)', ARG1 = '@addref(actions |)'})
+Node.ATTR('stopAllActions', {RET = '@delref(actions ~)'})
+Node.ATTR('stopAction', {RET = '@delref(actions ~)'})
+Node.ATTR('stopActionByTag', {RET = '@delref(actions ~)'})
+Node.ATTR('stopAllActionsByTag', {RET = '@delref(actions ~)'})
+Node.ATTR('stopActionsByFlags', {RET = '@delref(actions ~)'})
+Node.ATTR('getActionByTag', {RET = '@addref(actions |)'})
+Node.ATTR('setScheduler', {ARG1 = '@addref(scheduler ^)'})
+Node.ATTR('getScheduler', {RET = '@addref(scheduler ^)'})
 Node.ATTR('convertToNodeSpace', {ARG1 = '@pack'})
 Node.ATTR('convertToWorldSpace', {ARG1 = '@pack'})
 Node.ATTR('convertToNodeSpaceAR', {ARG1 = '@pack'})
 Node.ATTR('convertToWorldSpaceAR', {ARG1 = '@pack'})
-Node.ATTR('getComponent', {RET = '@hold(coexist components)'})
-Node.ATTR('addComponent', {ARG1 = '@hold(coexist components)'})
-Node.ATTR('removeComponent', {RET = '@unhold(cmp components)'})
-Node.ATTR('removeAllComponents', {RET = '@unhold(all components)'})
-Node.ATTR('setPhysicsBody', {ARG1 = '@hold(exclusive physicsBody)'})
-Node.ATTR('getPhysicsBody', {RET = '@hold(exclusive physicsBody)'})
+Node.ATTR('getComponent', {RET = '@addref(components |)'})
+Node.ATTR('addComponent', {ARG1 = '@addref(components |)'})
+Node.ATTR('removeComponent', {RET = '@delref(components ~)'})
+Node.ATTR('removeAllComponents', {RET = '@delref(components *)'})
+Node.ATTR('setPhysicsBody', {ARG1 = '@addref(physicsBody ^)'})
+Node.ATTR('getPhysicsBody', {RET = '@addref(physicsBody ^)'})
 Node.CHUNK = [[
 static cocos2d::Node *_find_ancestor(cocos2d::Node *node1, cocos2d::Node *node2)
 {
@@ -903,7 +864,7 @@ Node.CALLBACK {
     FUNCS = {'void scheduleOnce(const std::function<void(float)>& callback, float delay, const std::string &key)'},
     TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
-    CALLONCE = true,
+    TAG_SCOPE = 'once',
 }
 Node.CALLBACK {
     FUNCS = {
@@ -918,13 +879,11 @@ Node.CALLBACK {
     FUNCS = {'void unschedule(const std::string &key)'},
     TAG_MAKER = "makeScheduleCallbackTag(#1)",
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
-    REMOVE = true,
 }
 Node.CALLBACK {
     FUNCS = {'void unscheduleAllCallbacks()'},
     TAG_MAKER = 'makeScheduleCallbackTag("")',
     TAG_MODE = "OLUA_TAG_SUBSTARTWITH",
-    REMOVE = true,
 }
 Node.CALLBACK {NAME = 'setOnEnterCallback', NULLABLE = true}
 Node.CALLBACK {NAME = 'getOnEnterCallback', NULLABLE = true}
@@ -947,12 +906,12 @@ Node.INJECT({'removeFromParent', 'removeFromParentAndCleanup'}, {
 typeconf 'cocos2d::AtlasNode'
 
 local ProtectedNode = typeconf 'cocos2d::ProtectedNode'
-ProtectedNode.ATTR('addProtectedChild', {ARG1 = '@hold(coexist protectedChildren)'})
-ProtectedNode.ATTR('getProtectedChildByTag', {RET = '@hold(coexist protectedChildren)'})
-ProtectedNode.ATTR('removeProtectedChild', {ARG1 = '@unhold(coexist protectedChildren)'})
-ProtectedNode.ATTR('removeProtectedChildByTag', {RET = '@unhold(cmp protectedChildren)'})
-ProtectedNode.ATTR('removeAllProtectedChildren', {RET= '@unhold(all protectedChildren)'})
-ProtectedNode.ATTR('removeAllProtectedChildrenWithCleanup', {RET = '@unhold(all protectedChildren)'})
+ProtectedNode.ATTR('addProtectedChild', {ARG1 = '@addref(protectedChildren |)'})
+ProtectedNode.ATTR('getProtectedChildByTag', {RET = '@addref(protectedChildren |)'})
+ProtectedNode.ATTR('removeProtectedChild', {ARG1 = '@delref(protectedChildren |)'})
+ProtectedNode.ATTR('removeProtectedChildByTag', {RET = '@delref(protectedChildren ~)'})
+ProtectedNode.ATTR('removeAllProtectedChildren', {RET= '@delref(protectedChildren *)'})
+ProtectedNode.ATTR('removeAllProtectedChildrenWithCleanup', {RET = '@delref(protectedChildren *)'})
 
 typeconf 'cocos2d::DrawNode'
 typeconf 'cocos2d::TextHAlignment'
@@ -978,7 +937,7 @@ RenderTexture.CALLBACK {
     },
     TAG_MAKER = 'saveToFile',
     TAG_MODE = "OLUA_TAG_REPLACE",
-    CALLONCE = true,
+    TAG_SCOPE = 'once',
 }
 RenderTexture.CALLBACK {
     FUNCS = {
@@ -987,7 +946,7 @@ RenderTexture.CALLBACK {
     },
     TAG_MAKER = 'saveToFile',
     TAG_MODE = "OLUA_TAG_REPLACE",
-    CALLONCE = true,
+    TAG_SCOPE = 'once',
 }
 RenderTexture.ALIAS('begin', 'beginVisit')
 RenderTexture.ALIAS('end', 'endVisit')
@@ -1004,8 +963,8 @@ typeconf 'cocos2d::SpriteFrameCache'
 typeconf 'cocos2d::AnimationCache'
 
 local Scene = typeconf 'cocos2d::Scene'
-Scene.ATTR('getPhysicsWorld', {RET = '@hold(exclusive physicsWorld)'})
-Scene.ATTR('getPhysics3DWorld', {RET = '@hold(exclusive physics3DWorld)'})
+Scene.ATTR('getPhysicsWorld', {RET = '@addref(physicsWorld ^)'})
+Scene.ATTR('getPhysics3DWorld', {RET = '@addref(physics3DWorld ^)'})
 
 typeconf 'cocos2d::Layer'
 typeconf 'cocos2d::LayerColor'
@@ -1016,8 +975,8 @@ typeconf 'cocos2d::TransitionScene::Orientation'
 
 local function typeconfTransition(name)
     local cls = typeconf(name)
-    cls.ATTR('create', {ARG2 = '@hold(coexist autoref)'})
-    cls.ATTR('easeActionWithAction', {ARG1 = '@hold(exclusive action)'})
+    cls.ATTR('create', {ARG2 = '@addref(autoref |)'})
+    cls.ATTR('easeActionWithAction', {ARG1 = '@addref(action ^)'})
     return cls
 end
 

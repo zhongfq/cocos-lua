@@ -26,6 +26,8 @@ function xGame:ctor()
     self._services = {}
     self._serviceClasses = Array.new()
     self._timer = false
+    self._maxIdleDuration = math.maxinteger
+    self._pauseTime = 0
     self:_initTimer()
     self:_initRuntimeEvents()
 
@@ -33,6 +35,10 @@ function xGame:ctor()
     director.runningScene:addChild(keepUIRootNotNull.cobj)
     director.runningScene:addChild(self.stage.cobj)
     fileloader.addModule(updater.LOCAL_MANIFEST_PATH, updater.REMOTE_MANIFEST_PATH)
+end
+
+function xGame:setMaxIdleDuration(duration)
+    self._maxIdleDuration = duration
 end
 
 function xGame:capture(node)
@@ -80,15 +86,9 @@ function xGame:restart(cls, ...)
     end)
 end
 
--- scene api
-function xGame:_loadAssets(func, cls, ...)
-    if type(cls) == 'string' then
-        cls = require(cls)
-    end
-    assert(type(cls) == 'table', 'not a class')
-    local queue = LoadQueue.new(cls:assets(...))
+function xGame:loadAssets(assets, callback)
+    local queue = LoadQueue.new(assets)
     if queue.totalCount > 0 then
-        local args = {...}
         queue:addListener(Event.IOERROR, function ()
             self:dispatch(Event.LOADER_ERROR, queue)
         end)
@@ -97,25 +97,37 @@ function xGame:_loadAssets(func, cls, ...)
         end)
         queue:addListener(Event.COMPLETE, function ()
             self:dispatch(Event.LOADER_COMPLETE, queue)
-            func(self._sceneStack, cls, table.unpack(args))
+            callback()
         end)
         self:dispatch(Event.LOADER_START)
         queue:start()
     else
-        func(self._sceneStack, cls, ...)
+        callback()
     end
 end
 
+-- scene api
+function xGame:_loadSceneAssets(func, cls, ...)
+    if type(cls) == 'string' then
+        cls = require(cls)
+    end
+    assert(type(cls) == 'table', 'not a class')
+    local args = {...}
+    self:loadAssets(cls:assets(...), function ()
+        func(self._sceneStack, cls, table.unpack(args))
+    end)
+end
+
 function xGame:show(cls, ...)
-    self:_loadAssets(self._sceneStack.show, cls, ...)
+    self:_loadSceneAssets(self._sceneStack.show, cls, ...)
 end
 
 function xGame:startScene(cls, ...)
-    self:_loadAssets(self._sceneStack.startScene, cls, ...)
+    self:_loadSceneAssets(self._sceneStack.startScene, cls, ...)
 end
 
 function xGame:replaceScene(cls, ...)
-    self:_loadAssets(self._sceneStack.replaceScene, cls, ...)
+    self:_loadSceneAssets(self._sceneStack.replaceScene, cls, ...)
 end
 
 function xGame:popScene()
@@ -195,6 +207,17 @@ function xGame:_initRuntimeEvents()
     listen('runtimeResize')
     listen('runtimePause')
     listen('runtimeResume')
+    
+    runtime.on(Event.RUNTIME_PAUSE, function ()
+        self._pauseTime = os.time()
+    end)
+
+    runtime.on(Event.RUNTIME_RESUME, function ()
+        if os.time() - self._pauseTime > self._maxIdleDuration then
+            self:popAll()
+            runtime.restart()
+        end
+    end)
 end
 
 xGame = xGame.new()

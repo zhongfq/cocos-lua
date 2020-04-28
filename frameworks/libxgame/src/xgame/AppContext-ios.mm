@@ -30,6 +30,8 @@
     [window makeKeyAndVisible];
     [window setMultipleTouchEnabled:YES];
     
+    [[UIApplication sharedApplication] setIdleTimerDisabled: YES];
+    
     cocos2d::GLView *glview = cocos2d::GLViewImpl::createWithEAGLView((__bridge void *)_viewController.view);
     cocos2d::Director::getInstance()->setOpenGLView(glview);
     

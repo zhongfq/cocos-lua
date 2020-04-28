@@ -1,6 +1,7 @@
 #include "lua_xml_http_request.h"
 #include "xgame/XMLHttpRequest.h"
 #include "cjson/lua_cjson.h"
+#include "xgame/xruntime.h"
 
 static int luaopen_cocos2d_XMLHttpRequest_ResponseType(lua_State *L)
 {
@@ -59,11 +60,12 @@ static int _cocos2d_XMLHttpRequest_setResponseCallback(lua_State *L)
     void *cb_store = self;
     std::string func = olua_setcallback(L, cb_store, "responseCallback", 2, OLUA_TAG_REPLACE);
     int ref = olua_ref(L, 1);
-    lua_State *MT = olua_mainthread();
-    self->setResponseCallback([cb_store, func, ref, MT](cocos2d::XMLHttpRequest *request) {
+    lua_Unsigned ctx_id = olua_getid(L);
+    self->setResponseCallback([cb_store, func, ref, ctx_id] (cocos2d::XMLHttpRequest *request) mutable {
         lua_State *L = olua_mainthread();
-        if (MT == L) {
+        if (olua_getid(L) == ctx_id) {
             int top = lua_gettop(L);
+            ctx_id = 0;
             olua_push_cppobj<cocos2d::XMLHttpRequest>(L, request, nullptr);
             olua_callback(L, cb_store, func.c_str(), 1);
             lua_settop(L, top);

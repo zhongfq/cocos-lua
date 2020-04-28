@@ -2,8 +2,8 @@
 #define __XLUA_H__
 
 #define olua_mainthread()               xlua_cocosthread()
-#define olua_startcmpunhold(L, i, n)    xlua_startcmpunhold(L, i, n)
-#define olua_endcmpunhold(L, i, n)      xlua_endcmpunhold(L, i, n)
+#define olua_startcmpdelref(L, i, n)    xlua_startcmpdelref(L, i, n)
+#define olua_endcmpdelref(L, i, n)      xlua_endcmpdelref(L, i, n)
 #define olua_startinvoke(L)             xlua_startinvoke(L)
 #define olua_endinvoke(L)               xlua_endinvoke(L)
 #define olua_postpush(L, v, s)          xlua_postpush(L, v, s)
@@ -26,7 +26,8 @@ int xlua_ccobjgc(lua_State *L);
 
 template <typename T> void xlua_postpush(lua_State *L, T* obj, int status)
 {
-    if (std::is_base_of<cocos2d::Ref, T>::value && status == OLUA_NEW) {
+    if (std::is_base_of<cocos2d::Ref, T>::value &&
+            (status == OLUA_OBJ_NEW || status == OLUA_OBJ_UPDATE)) {
         ((cocos2d::Ref *)obj)->retain();
 #ifdef COCOS2D_DEBUG
         if (!olua_isa(L, -1, "cc.Ref")) {
@@ -51,7 +52,7 @@ template <typename T> void xlua_postnew(lua_State *L, T *obj)
 
 void xlua_startinvoke(lua_State *L);
 void xlua_endinvoke(lua_State *L);
-void xlua_startcmpunhold(lua_State *L, int idx, const char *refname);
-void xlua_endcmpunhold(lua_State *L, int idx, const char *refname);
+void xlua_startcmpdelref(lua_State *L, int idx, const char *refname);
+void xlua_endcmpdelref(lua_State *L, int idx, const char *refname);
 
 #endif

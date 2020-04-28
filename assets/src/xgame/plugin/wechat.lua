@@ -217,7 +217,9 @@ function WeChat:_requestToken(data)
 
         url = string.format(URL_USERINFO, result.openid, result.access_token)
         status, result = http({url = url, responseType = 'JSON'})
-        if status ~= 200 then
+        -- {"errcode":40001,"errmsg":"invalid credential, access_token is invalid or
+        -- not latest, hints:[ req_id: BfnAOYFFE-K3Rv7 ]"}
+        if status ~= 200 or not result or not result.unionid then
             self:dispatch(PluginEvent.AUTH_FAILURE)
         else
             self.userInfo = {

@@ -13,7 +13,7 @@
 #endif
 
 #import <Foundation/Foundation.h>
-#import <Bugly/Bugly.h>
+//#import <Bugly/Bugly.h>
 
 #define NSStringMake(const_char_pointer) (const_char_pointer == NULL ? nil : @(const_char_pointer))
 #define NSStringMakeNonnull(const_char_pointer) (const_char_pointer == NULL ? @"" : @(const_char_pointer))
@@ -45,10 +45,11 @@ void CrashReport::initCrashReport(const char* appId, bool isDebug, CrashReport::
 {
     if (!initialized) {
         LOGI("Init the sdk with App ID: %s", appId);
-        BuglyConfig *config = [[BuglyConfig alloc] init];
-        config.channel = NSStringMake(_channel);
-        config.version = NSStringMake(_version);
-        [Bugly startWithAppId:NSStringMake(appId) developmentDevice:isDebug config:config];
+//        BuglyConfig *config = [[BuglyConfig alloc] init];
+//        config.channel = NSStringMake(_channel);
+//        config.version = NSStringMake(_version);
+//        config.reportLogLevel = BuglyLogLevelVerbose;
+//        [Bugly startWithAppId:NSStringMake(appId) developmentDevice:isDebug config:config];
         initialized = true;
     }
 }
@@ -58,14 +59,14 @@ void CrashReport::setTag(int tag)
     if (tag < 0) {
         return;
     }
-    [Bugly setTag:tag];
+//    [Bugly setTag:tag];
     LOGI("Set user scene tag id: %d", tag);
 }
 
 void CrashReport::addUserValue(const char* key, const char* value)
 {
     LOGI("Set user Key-Value: [%s, %s]", key, value);
-    [Bugly setUserValue:NSStringMakeNonnull(value) forKey:NSStringMakeNonnull(key)];
+//    [Bugly setUserValue:NSStringMakeNonnull(value) forKey:NSStringMakeNonnull(key)];
 }
 
 void CrashReport::removeUserValue(const char* key)
@@ -75,7 +76,7 @@ void CrashReport::removeUserValue(const char* key)
 
 void CrashReport::setUserId(const char* userId)
 {
-    [Bugly setUserIdentifier:NSStringMake(userId)];
+//    [Bugly setUserIdentifier:NSStringMake(userId)];
     LOGI("Set user id: %s", userId);
 }
 
@@ -86,12 +87,12 @@ void CrashReport::reportException(int category, const char* type, const char* ms
 
 void CrashReport::reportException(int category, const char* type, const char* msg, const char* traceback, bool quit)
 {
-    [Bugly reportExceptionWithCategory:category
-                                  name:NSStringMake(type)
-                                reason:NSStringMake(msg)
-                             callStack:[NSArray arrayWithObjects:NSStringMake(traceback), nil]
-                             extraInfo:@{}
-                          terminateApp:quit ? YES : NO];
+//    [Bugly reportExceptionWithCategory:category
+//                                  name:NSStringMake(type)
+//                                reason:NSStringMake(msg)
+//                             callStack:[NSArray arrayWithObjects:NSStringMake(traceback), nil]
+//                             extraInfo:@{}
+//                          terminateApp:quit ? YES : NO];
 }
 
 void CrashReport::setAppChannel(const char *channel)
@@ -123,7 +124,7 @@ void CrashReport::log(CrashReport::CRLogLevel level, const char * tag, const cha
         LOGW("The length[%d] of string is out of the buffer size[%d]", size, LOG_BUFFER_SIZE);
     }
     
-    [BuglyLog level:(BuglyLogLevel)level tag:NSStringMake(tag) log:@"%s", msg];
+//    [BuglyLog level:(BuglyLogLevel)level tag:NSStringMake(tag) log:@"%s", msg];
 }
 
 void CrashReport::setGameType()

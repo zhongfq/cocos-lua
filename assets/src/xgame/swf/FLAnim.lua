@@ -126,7 +126,7 @@ end
 function FLAnim:play()
     self.state = FLAnim.STATE_RUNNING
     self._target:gotoAndStop(self.label)
-    self._labelMovie = self._target.topMC
+    self._labelMovie = self._target.topmc
 
     if self._labelMovie then
         self._labelMovie:gotoAndStop(1)

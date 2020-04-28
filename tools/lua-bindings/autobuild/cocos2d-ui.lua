@@ -122,7 +122,7 @@ cls.funcs [[
     void ignoreContentAdaptWithSize(bool ignore)
     bool isIgnoreContentAdaptWithSize()
     cocos2d::Vec2 getWorldPosition()
-    @hold(coexist protectedChildren) cocos2d::Node *getVirtualRenderer()
+    @addref(protectedChildren |) cocos2d::Node *getVirtualRenderer()
     cocos2d::Size getVirtualRendererSize()
     cocos2d::ui::Widget *clone()
     void updateSizeAndPosition()
@@ -163,8 +163,7 @@ cls.callback {
     TAG_MAKER = 'touchEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -173,8 +172,7 @@ cls.callback {
     TAG_MAKER = 'clickEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -183,8 +181,7 @@ cls.callback {
     TAG_MAKER = 'ccsEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.props [[
     enabled
@@ -661,8 +658,7 @@ cls.callback {
     TAG_MAKER = 'OnShouldStartLoading',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -671,8 +667,7 @@ cls.callback {
     TAG_MAKER = 'OnDidFinishLoading',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -681,8 +676,7 @@ cls.callback {
     TAG_MAKER = 'OnDidFailLoading',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -691,8 +685,7 @@ cls.callback {
     TAG_MAKER = 'OnJSCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -701,8 +694,7 @@ cls.callback {
     TAG_MAKER = 'OnShouldStartLoading',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -711,8 +703,7 @@ cls.callback {
     TAG_MAKER = 'OnDidFinishLoading',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -721,8 +712,7 @@ cls.callback {
     TAG_MAKER = 'OnDidFailLoading',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -731,8 +721,7 @@ cls.callback {
     TAG_MAKER = 'OnJSCallback',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.props [[
     opacityWebView
@@ -794,8 +783,7 @@ cls.callback {
     TAG_MAKER = 'videoPlayerCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.props [[
     fileName
@@ -821,11 +809,11 @@ cls.funcs [[
     void setSelected(bool selected)
     void setZoomScale(float scale)
     float getZoomScale()
-    @hold(coexist protectedChildren) cocos2d::Sprite *getRendererBackground()
-    @hold(coexist protectedChildren) cocos2d::Sprite *getRendererBackgroundSelected()
-    @hold(coexist protectedChildren) cocos2d::Sprite *getRendererFrontCross()
-    @hold(coexist protectedChildren) cocos2d::Sprite *getRendererBackgroundDisabled()
-    @hold(coexist protectedChildren) cocos2d::Sprite *getRendererFrontCrossDisabled()
+    @addref(protectedChildren |) cocos2d::Sprite *getRendererBackground()
+    @addref(protectedChildren |) cocos2d::Sprite *getRendererBackgroundSelected()
+    @addref(protectedChildren |) cocos2d::Sprite *getRendererFrontCross()
+    @addref(protectedChildren |) cocos2d::Sprite *getRendererBackgroundDisabled()
+    @addref(protectedChildren |) cocos2d::Sprite *getRendererFrontCrossDisabled()
     cocos2d::ResourceData getBackNormalFile()
     cocos2d::ResourceData getBackPressedFile()
     cocos2d::ResourceData getBackDisabledFile()
@@ -862,7 +850,7 @@ cls.funcs [[
     static cocos2d::ui::TabHeader *create()
     static cocos2d::ui::TabHeader *create(const std::string &titleStr, const std::string &backGround, const std::string &cross, @optional cocos2d::ui::Widget::TextureResType texType)
     static cocos2d::ui::TabHeader *create(const std::string &titleStr, const std::string &backGround, const std::string &backGroundSelected, const std::string &cross, const std::string &backGroundDisabled, const std::string &frontCrossDisabled, @optional cocos2d::ui::Widget::TextureResType texType)
-    @hold(coexist protectedChildren) cocos2d::Label *getTitleRenderer()
+    @addref(protectedChildren |) cocos2d::Label *getTitleRenderer()
     void setTitleText(const std::string &text)
     std::string getTitleText()
     void setTitleColor(const cocos2d::Color4B &color)
@@ -902,12 +890,12 @@ cls = typecls 'cocos2d::ui::TabControl'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
     static cocos2d::ui::TabControl *create()
-    @unhold(cmp protectedChildren) void removeTab(int index)
+    @delref(protectedChildren ~) void removeTab(int index)
     void setSelectTab(int index)
     void setSelectTab(cocos2d::ui::TabHeader *tabHeader)
-    @hold(coexist protectedChildren) cocos2d::ui::TabHeader *getTabHeader(int index)
-    @hold(coexist protectedChildren) cocos2d::ui::Layout *getTabContainer(int index)
-    void insertTab(int index, @hold(coexist protectedChildren) cocos2d::ui::TabHeader *header, @hold(coexist protectedChildren) cocos2d::ui::Layout *container)
+    @addref(protectedChildren |) cocos2d::ui::TabHeader *getTabHeader(int index)
+    @addref(protectedChildren |) cocos2d::ui::Layout *getTabContainer(int index)
+    void insertTab(int index, @addref(protectedChildren |) cocos2d::ui::TabHeader *header, @addref(protectedChildren |) cocos2d::ui::Layout *container)
     size_t getTabCount()
     int getSelectedTabIndex()
     int indexOfTabHeader(const cocos2d::ui::TabHeader *tabCell)
@@ -929,8 +917,7 @@ cls.callback {
     TAG_MAKER = 'tabChangedEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.props [[
     tabCount
@@ -978,7 +965,7 @@ cls.funcs [[
     static cocos2d::ui::ScrollView *create()
     void setDirection(cocos2d::ui::ScrollView::Direction dir)
     cocos2d::ui::ScrollView::Direction getDirection()
-    @hold(coexist protectedChildren) cocos2d::ui::Layout *getInnerContainer()
+    @addref(protectedChildren |) cocos2d::ui::Layout *getInnerContainer()
     void stopScroll()
     void stopAutoScroll()
     void stopOverallScroll()
@@ -1044,8 +1031,7 @@ cls.callback {
     TAG_MAKER = 'scrollViewCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.alias('addEventListener', 'addScrollEventListener')
 cls.props [[
@@ -1111,13 +1097,13 @@ cls.funcs [[
     void setItemModel(cocos2d::ui::Widget *model)
     void pushBackDefaultItem()
     void insertDefaultItem(ssize_t index)
-    void pushBackCustomItem(@hold(coexist children) cocos2d::ui::Widget *item)
-    void insertCustomItem(@hold(coexist children) cocos2d::ui::Widget *item, ssize_t index)
-    @unhold(cmp children) void removeLastItem()
-    @unhold(cmp children) void removeItem(ssize_t index)
-    @unhold(cmp children) void removeAllItems()
-    @hold(coexist children) cocos2d::ui::Widget *getItem(ssize_t index)
-    @hold(coexist children) Vector<cocos2d::ui::Widget *> &getItems()
+    void pushBackCustomItem(@addref(children |) cocos2d::ui::Widget *item)
+    void insertCustomItem(@addref(children |) cocos2d::ui::Widget *item, ssize_t index)
+    @delref(children ~) void removeLastItem()
+    @delref(children ~) void removeItem(ssize_t index)
+    @delref(children ~) void removeAllItems()
+    @addref(children |) cocos2d::ui::Widget *getItem(ssize_t index)
+    @addref(children |) Vector<cocos2d::ui::Widget *> &getItems()
     ssize_t getIndex(cocos2d::ui::Widget *item)
     void setGravity(cocos2d::ui::ListView::Gravity gravity)
     void setMagneticType(cocos2d::ui::ListView::MagneticType magneticType)
@@ -1158,8 +1144,7 @@ cls.callback {
     TAG_MAKER = 'ListViewCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.alias('addEventListener', 'addListViewEventListener')
 cls.props [[
@@ -1237,11 +1222,11 @@ cls.funcs [[
     static cocos2d::Ref *createInstance()
     PageView()
     static cocos2d::ui::PageView *create()
-    void addPage(@hold(coexist children) cocos2d::ui::Widget *page)
-    void insertPage(@hold(coexist children) cocos2d::ui::Widget *page, int idx)
-    void removePage(@unhold(coexist children) cocos2d::ui::Widget *page)
-    @unhold(cmp children) void removePageAtIndex(ssize_t index)
-    @unhold(all children) void removeAllPages()
+    void addPage(@addref(children |) cocos2d::ui::Widget *page)
+    void insertPage(@addref(children |) cocos2d::ui::Widget *page, int idx)
+    void removePage(@delref(children |) cocos2d::ui::Widget *page)
+    @delref(children ~) void removePageAtIndex(ssize_t index)
+    @delref(children *) void removeAllPages()
     void scrollToPage(ssize_t idx)
     void scrollToPage(ssize_t idx, float time)
     void scrollToItem(ssize_t itemIndex)
@@ -1276,8 +1261,7 @@ cls.callback {
     TAG_MAKER = 'PageViewCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.alias('addEventListener', 'addPageViewEventListener')
 cls.props [[
@@ -1464,10 +1448,8 @@ cls.callback {
     },
     TAG_MAKER = 'OpenUrlHandler',
     TAG_MODE = 'OLUA_TAG_REPLACE',
-    TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
-    CPPFUNC = 'initWithXML',
+    TAG_STORE = "return",
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -1476,8 +1458,7 @@ cls.callback {
     TAG_MAKER = 'OpenUrlHandler',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.props [[
     wrapMode
@@ -1566,10 +1547,10 @@ cls.funcs [[
     int getMaxPercent()
     void setZoomScale(float scale)
     float getZoomScale()
-    @hold(coexist protectedChildren) cocos2d::Sprite *getSlidBallNormalRenderer()
-    @hold(coexist protectedChildren) cocos2d::Sprite *getSlidBallPressedRenderer()
-    @hold(coexist protectedChildren) cocos2d::Sprite *getSlidBallDisabledRenderer()
-    @hold(coexist protectedChildren) cocos2d::Node *getSlidBallRenderer()
+    @addref(protectedChildren |) cocos2d::Sprite *getSlidBallNormalRenderer()
+    @addref(protectedChildren |) cocos2d::Sprite *getSlidBallPressedRenderer()
+    @addref(protectedChildren |) cocos2d::Sprite *getSlidBallDisabledRenderer()
+    @addref(protectedChildren |) cocos2d::Node *getSlidBallRenderer()
     cocos2d::ResourceData getBackFile()
     cocos2d::ResourceData getProgressBarFile()
     cocos2d::ResourceData getBallNormalFile()
@@ -1583,8 +1564,7 @@ cls.callback {
     TAG_MAKER = 'sliderCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.props [[
     scale9Enabled
@@ -1830,8 +1810,7 @@ cls.callback {
     TAG_MAKER = 'textFieldCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.props [[
     touchSize
@@ -1877,7 +1856,7 @@ cls.funcs [[
     void setScale9Enabled(bool enable)
     bool isScale9Enabled()
     void setPressedActionEnabled(bool enabled)
-    @hold(coexist protectedChildren) cocos2d::Label *getTitleRenderer()
+    @addref(protectedChildren |) cocos2d::Label *getTitleRenderer()
     void setTitleText(const std::string &text)
     std::string getTitleText()
     void setTitleColor(const cocos2d::Color3B &color)
@@ -1888,13 +1867,13 @@ cls.funcs [[
     std::string getTitleFontName()
     void setTitleAlignment(cocos2d::TextHAlignment hAlignment)
     void setTitleAlignment(cocos2d::TextHAlignment hAlignment, cocos2d::TextVAlignment vAlignment)
-    void setTitleLabel(@hold(coexist protectedChildren) cocos2d::Label *label)
-    @hold(coexist protectedChildren) cocos2d::Label *getTitleLabel()
+    void setTitleLabel(@addref(protectedChildren |) cocos2d::Label *label)
+    @addref(protectedChildren |) cocos2d::Label *getTitleLabel()
     void setZoomScale(float scale)
     float getZoomScale()
-    @hold(coexist protectedChildren) cocos2d::ui::Scale9Sprite *getRendererNormal()
-    @hold(coexist protectedChildren) cocos2d::ui::Scale9Sprite *getRendererClicked()
-    @hold(coexist protectedChildren) cocos2d::ui::Scale9Sprite *getRendererDisabled()
+    @addref(protectedChildren |) cocos2d::ui::Scale9Sprite *getRendererNormal()
+    @addref(protectedChildren |) cocos2d::ui::Scale9Sprite *getRendererClicked()
+    @addref(protectedChildren |) cocos2d::ui::Scale9Sprite *getRendererDisabled()
     void resetNormalRender()
     void resetPressedRender()
     void resetDisabledRender()
@@ -1949,8 +1928,7 @@ cls.callback {
     TAG_MAKER = 'checkBoxCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -1977,8 +1955,7 @@ cls.callback {
     TAG_MAKER = 'radioButtonCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2013,8 +1990,7 @@ cls.callback {
     TAG_MAKER = 'radioButtonCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.props [[
     selectedButtonIndex
@@ -2134,8 +2110,8 @@ cls.funcs [[
     const cocos2d::Rect &getCapInsetsPressedRenderer()
     void setCapInsetsDisabledRenderer(const cocos2d::Rect &capInsets)
     const cocos2d::Rect &getCapInsetsDisabledRenderer()
-    void setDelegate(@hold(exclusive delegate) cocos2d::ui::EditBoxDelegate *delegate)
-    @hold(exclusive delegate) cocos2d::ui::EditBoxDelegate *getDelegate()
+    void setDelegate(@addref(delegate ^) cocos2d::ui::EditBoxDelegate *delegate)
+    @addref(delegate ^) cocos2d::ui::EditBoxDelegate *getDelegate()
     void setText(const char *pText)
     const char *getText()
     void setFont(const char *pFontName, int fontSize)

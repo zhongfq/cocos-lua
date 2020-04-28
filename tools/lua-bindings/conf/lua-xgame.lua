@@ -81,17 +81,17 @@ runtime.FUNC("setDispatcher", [[
 runtime.CALLBACK {
     NAME = 'openURL',
     TAG_MODE = 'OLUA_TAG_NEW',
-    CALLONCE = true,
+    TAG_SCOPE = 'once',
 }
 runtime.CALLBACK {
     NAME = 'requestPermission',
     TAG_MODE = 'OLUA_TAG_NEW',
-    CALLONCE = true,
+    TAG_SCOPE = 'once',
 }
 runtime.CALLBACK {
     NAME = 'alert',
     TAG_MODE = 'OLUA_TAG_NEW',
-    CALLONCE = true,
+    TAG_SCOPE = 'once',
 }
 
 local filesystem = typeconf 'xgame::filesystem'
@@ -117,19 +117,18 @@ timer.CALLBACK {
     FUNCS = {'static void delayWithTag(float time, const std::string &tag, std::function<void ()> callback)'},
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_MAKER = 'makeTimerDelayTag(#2)',
-    CALLONCE = true,
+    TAG_SCOPE = 'once',
 }
 timer.CALLBACK {
     FUNCS = {'static void killDelay(const std::string &tag)'},
     TAG_MAKER = 'makeTimerDelayTag(#1)',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
-    REMOVE = true,
 }
 timer.CALLBACK {
     FUNCS = {'static void delay(float time, const std::function<void ()> callback)'},
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_MAKER = 'delay',
-    CALLONCE = true,
+    TAG_SCOPE = 'once',
 }
 timer.FUNC('schedule', [[
 {

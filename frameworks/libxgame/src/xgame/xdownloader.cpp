@@ -20,6 +20,7 @@ NS_XGAME_BEGIN
 static cocos2d::network::Downloader *_loader = nullptr;
 static std::function<void(const downloader::FileTask &)> _callback = nullptr;
 static std::vector<downloader::FileTask> _tasks;
+static std::unordered_map<std::string, int64_t> _remoteFileSizes;
 static std::mutex _mutex;
 static std::thread *_verifyThread = nullptr;
 static std::condition_variable _cond;
@@ -67,9 +68,18 @@ void downloader::init()
         file.path = task.storagePath;
         file.state = FileState::PENDING;
         
+        int64_t size = _remoteFileSizes[task.requestURL];
+        _remoteFileSizes.erase(task.requestURL);
+        if (FileUtils::getInstance()->getFileSize(file.path) != size || size == 0) {
+            file.state = FileState::IOERROR;
+        }
+        
         std::lock_guard<std::mutex> lck(_mutex);
         _tasks.push_back(file);
         _cond.notify_one();
+    };
+    _loader->onTaskProgress = [](const DownloadTask& task, int64_t bytesReceived, int64_t totalBytesReceived, int64_t totalBytesExpected) {
+        _remoteFileSizes[task.requestURL] = totalBytesExpected;
     };
 }
 
@@ -98,6 +108,7 @@ void downloader::load(const FileTask &task)
     if (filesystem::exist(task.path + ".tmp")) {
         filesystem::remove(task.path + ".tmp");
     }
+    _remoteFileSizes[task.url] = 0;
     _loader->createDownloadFileTask(task.url, task.path, task.md5);
 }
 

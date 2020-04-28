@@ -109,11 +109,11 @@ static int _cocos2d_ui_Widget_addCCSEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "ccsEventListener";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1, int arg2) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::Ref *arg1, int arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "cc.Ref");
                 olua_push_int(L, (lua_Integer)arg2);
@@ -151,11 +151,11 @@ static int _cocos2d_ui_Widget_addClickEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "clickEventListener";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::Ref *arg1) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "cc.Ref");
 
@@ -192,11 +192,11 @@ static int _cocos2d_ui_Widget_addTouchEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "touchEventListener";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1, cocos2d::ui::Widget::TouchEventType arg2) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::Ref *arg1, cocos2d::ui::Widget::TouchEventType arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "cc.Ref");
                 olua_push_uint(L, (lua_Unsigned)arg2);
@@ -618,12 +618,12 @@ static int _cocos2d_ui_Widget_getVirtualRenderer(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
 
-    // @hold(coexist protectedChildren) cocos2d::Node *getVirtualRenderer()
+    // @addref(protectedChildren |) cocos2d::Node *getVirtualRenderer()
     cocos2d::Node *ret = (cocos2d::Node *)self->getVirtualRenderer();
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
     // inject code after call
-    olua_hold(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -1564,11 +1564,11 @@ static int _cocos2d_ui_Widget_set_onFocusChanged(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "onFocusChanged";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::Widget *arg1, cocos2d::ui::Widget *arg2) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::ui::Widget *arg1, cocos2d::ui::Widget *arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "ccui.Widget");
                 olua_push_cppobj(L, arg2, "ccui.Widget");
@@ -1627,11 +1627,11 @@ static int _cocos2d_ui_Widget_set_onNextFocusedWidget(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "onNextFocusedWidget";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::Widget::FocusDirection arg1) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::ui::Widget::FocusDirection arg1) {
             lua_State *L = olua_mainthread();
             cocos2d::ui::Widget *ret = nullptr;       
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 olua_push_uint(L, (lua_Unsigned)arg1);
 
@@ -5318,11 +5318,11 @@ static int _cocos2d_ui_Layout_set_onPassFocusToChild(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "onPassFocusToChild";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::Widget::FocusDirection arg1, cocos2d::ui::Widget *arg2) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::ui::Widget::FocusDirection arg1, cocos2d::ui::Widget *arg2) {
             lua_State *L = olua_mainthread();
             lua_Integer ret = 0;       
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 olua_push_uint(L, (lua_Unsigned)arg1);
                 olua_push_cppobj(L, arg2, "ccui.Widget");
@@ -6214,11 +6214,11 @@ static int _cocos2d_experimental_ui_WebView_setOnDidFailLoading(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "OnDidFailLoading";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::experimental::ui::WebView *arg1, const std::string &arg2) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::experimental::ui::WebView *arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -6261,11 +6261,11 @@ static int _cocos2d_experimental_ui_WebView_setOnDidFinishLoading(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "OnDidFinishLoading";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::experimental::ui::WebView *arg1, const std::string &arg2) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::experimental::ui::WebView *arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -6308,11 +6308,11 @@ static int _cocos2d_experimental_ui_WebView_setOnJSCallback(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "OnJSCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::experimental::ui::WebView *arg1, const std::string &arg2) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::experimental::ui::WebView *arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -6355,11 +6355,11 @@ static int _cocos2d_experimental_ui_WebView_setOnShouldStartLoading(lua_State *L
         void *callback_store_obj = (void *)self;
         std::string tag = "OnShouldStartLoading";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::experimental::ui::WebView *arg1, const std::string &arg2) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::experimental::ui::WebView *arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread();
             bool ret = false;       
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -6544,11 +6544,11 @@ static int _cocos2d_experimental_ui_VideoPlayer_addEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "videoPlayerCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1, cocos2d::experimental::ui::VideoPlayer::EventType arg2) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::Ref *arg1, cocos2d::experimental::ui::VideoPlayer::EventType arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "cc.Ref");
                 olua_push_uint(L, (lua_Unsigned)arg2);
@@ -7057,12 +7057,12 @@ static int _cocos2d_ui_AbstractCheckButton_getRendererBackground(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
 
-    // @hold(coexist protectedChildren) cocos2d::Sprite *getRendererBackground()
+    // @addref(protectedChildren |) cocos2d::Sprite *getRendererBackground()
     cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getRendererBackground();
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
-    olua_hold(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -7077,12 +7077,12 @@ static int _cocos2d_ui_AbstractCheckButton_getRendererBackgroundDisabled(lua_Sta
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
 
-    // @hold(coexist protectedChildren) cocos2d::Sprite *getRendererBackgroundDisabled()
+    // @addref(protectedChildren |) cocos2d::Sprite *getRendererBackgroundDisabled()
     cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getRendererBackgroundDisabled();
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
-    olua_hold(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -7097,12 +7097,12 @@ static int _cocos2d_ui_AbstractCheckButton_getRendererBackgroundSelected(lua_Sta
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
 
-    // @hold(coexist protectedChildren) cocos2d::Sprite *getRendererBackgroundSelected()
+    // @addref(protectedChildren |) cocos2d::Sprite *getRendererBackgroundSelected()
     cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getRendererBackgroundSelected();
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
-    olua_hold(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -7117,12 +7117,12 @@ static int _cocos2d_ui_AbstractCheckButton_getRendererFrontCross(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
 
-    // @hold(coexist protectedChildren) cocos2d::Sprite *getRendererFrontCross()
+    // @addref(protectedChildren |) cocos2d::Sprite *getRendererFrontCross()
     cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getRendererFrontCross();
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
-    olua_hold(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -7137,12 +7137,12 @@ static int _cocos2d_ui_AbstractCheckButton_getRendererFrontCrossDisabled(lua_Sta
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
 
-    // @hold(coexist protectedChildren) cocos2d::Sprite *getRendererFrontCrossDisabled()
+    // @addref(protectedChildren |) cocos2d::Sprite *getRendererFrontCrossDisabled()
     cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getRendererFrontCrossDisabled();
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
-    olua_hold(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -7977,12 +7977,12 @@ static int _cocos2d_ui_TabHeader_getTitleRenderer(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabHeader");
 
-    // @hold(coexist protectedChildren) cocos2d::Label *getTitleRenderer()
+    // @addref(protectedChildren |) cocos2d::Label *getTitleRenderer()
     cocos2d::Label *ret = (cocos2d::Label *)self->getTitleRenderer();
     int num_ret = olua_push_cppobj(L, ret, "cc.Label");
 
     // inject code after call
-    olua_hold(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -8248,12 +8248,12 @@ static int _cocos2d_ui_TabControl_getTabContainer(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
     olua_check_int(L, 2, &arg1);
 
-    // @hold(coexist protectedChildren) cocos2d::ui::Layout *getTabContainer(int index)
+    // @addref(protectedChildren |) cocos2d::ui::Layout *getTabContainer(int index)
     cocos2d::ui::Layout *ret = (cocos2d::ui::Layout *)self->getTabContainer((int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "ccui.Layout");
 
     // inject code after call
-    olua_hold(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -8287,12 +8287,12 @@ static int _cocos2d_ui_TabControl_getTabHeader(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
     olua_check_int(L, 2, &arg1);
 
-    // @hold(coexist protectedChildren) cocos2d::ui::TabHeader *getTabHeader(int index)
+    // @addref(protectedChildren |) cocos2d::ui::TabHeader *getTabHeader(int index)
     cocos2d::ui::TabHeader *ret = (cocos2d::ui::TabHeader *)self->getTabHeader((int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "ccui.TabHeader");
 
     // inject code after call
-    olua_hold(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -8350,12 +8350,12 @@ static int _cocos2d_ui_TabControl_insertTab(lua_State *L)
     olua_check_cppobj(L, 3, (void **)&arg2, "ccui.TabHeader");
     olua_check_cppobj(L, 4, (void **)&arg3, "ccui.Layout");
 
-    // void insertTab(int index, @hold(coexist protectedChildren) cocos2d::ui::TabHeader *header, @hold(coexist protectedChildren) cocos2d::ui::Layout *container)
+    // void insertTab(int index, @addref(protectedChildren |) cocos2d::ui::TabHeader *header, @addref(protectedChildren |) cocos2d::ui::Layout *container)
     self->insertTab((int)arg1, arg2, arg3);
 
     // inject code after call
-    olua_hold(L, 1, "protectedChildren", 3, OLUA_FLAG_COEXIST);
-    olua_hold(L, 1, "protectedChildren", 4, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", 3, OLUA_MODE_MULTIPLE);
+    olua_addref(L, 1, "protectedChildren", 4, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -8390,13 +8390,13 @@ static int _cocos2d_ui_TabControl_removeTab(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // inject code before call
-    olua_startcmpunhold(L, 1, "protectedChildren");
+    olua_startcmpdelref(L, 1, "protectedChildren");
 
-    // @unhold(cmp protectedChildren) void removeTab(int index)
+    // @delref(protectedChildren ~) void removeTab(int index)
     self->removeTab((int)arg1);
 
     // inject code after call
-    olua_endcmpunhold(L, 1, "protectedChildren");
+    olua_endcmpdelref(L, 1, "protectedChildren");
 
     olua_endinvoke(L);
 
@@ -8545,11 +8545,11 @@ static int _cocos2d_ui_TabControl_setTabChangedEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "tabChangedEventListener";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](int arg1, cocos2d::ui::TabControl::EventType arg2) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](int arg1, cocos2d::ui::TabControl::EventType arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 olua_push_int(L, (lua_Integer)arg1);
                 olua_push_uint(L, (lua_Unsigned)arg2);
@@ -8671,11 +8671,11 @@ static int _cocos2d_ui_ScrollView_addEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "scrollViewCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1, cocos2d::ui::ScrollView::EventType arg2) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::Ref *arg1, cocos2d::ui::ScrollView::EventType arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "cc.Ref");
                 olua_push_uint(L, (lua_Unsigned)arg2);
@@ -8751,12 +8751,12 @@ static int _cocos2d_ui_ScrollView_getInnerContainer(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
 
-    // @hold(coexist protectedChildren) cocos2d::ui::Layout *getInnerContainer()
+    // @addref(protectedChildren |) cocos2d::ui::Layout *getInnerContainer()
     cocos2d::ui::Layout *ret = (cocos2d::ui::Layout *)self->getInnerContainer();
     int num_ret = olua_push_cppobj(L, ret, "ccui.Layout");
 
     // inject code after call
-    olua_hold(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -9971,11 +9971,11 @@ static int _cocos2d_ui_ListView_addEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "ListViewCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1, cocos2d::ui::ListView::EventType arg2) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::Ref *arg1, cocos2d::ui::ListView::EventType arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "cc.Ref");
                 olua_push_uint(L, (lua_Unsigned)arg2);
@@ -10181,12 +10181,12 @@ static int _cocos2d_ui_ListView_getItem(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_int(L, 2, &arg1);
 
-    // @hold(coexist children) cocos2d::ui::Widget *getItem(ssize_t index)
+    // @addref(children |) cocos2d::ui::Widget *getItem(ssize_t index)
     cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->getItem((ssize_t)arg1);
     int num_ret = olua_push_cppobj(L, ret, "ccui.Widget");
 
     // inject code after call
-    olua_hold(L, 1, "children", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -10201,12 +10201,12 @@ static int _cocos2d_ui_ListView_getItems(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
 
-    // @hold(coexist children) Vector<cocos2d::ui::Widget *> &getItems()
+    // @addref(children |) Vector<cocos2d::ui::Widget *> &getItems()
     cocos2d::Vector<cocos2d::ui::Widget *> &ret = (cocos2d::Vector<cocos2d::ui::Widget *> &)self->getItems();
     int num_ret = manual_olua_push_cocos2d_Vector(L, ret, "ccui.Widget");
 
     // inject code after call
-    olua_hold(L, 1, "children", -1, OLUA_FLAG_ARRAY);
+    olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE | OLUA_FLAG_ARRAY);
 
     olua_endinvoke(L);
 
@@ -10395,11 +10395,11 @@ static int _cocos2d_ui_ListView_insertCustomItem(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
     olua_check_int(L, 3, &arg2);
 
-    // void insertCustomItem(@hold(coexist children) cocos2d::ui::Widget *item, ssize_t index)
+    // void insertCustomItem(@addref(children |) cocos2d::ui::Widget *item, ssize_t index)
     self->insertCustomItem(arg1, (ssize_t)arg2);
 
     // inject code after call
-    olua_hold(L, 1, "children", 2, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -10470,11 +10470,11 @@ static int _cocos2d_ui_ListView_pushBackCustomItem(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
 
-    // void pushBackCustomItem(@hold(coexist children) cocos2d::ui::Widget *item)
+    // void pushBackCustomItem(@addref(children |) cocos2d::ui::Widget *item)
     self->pushBackCustomItem(arg1);
 
     // inject code after call
-    olua_hold(L, 1, "children", 2, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -10506,13 +10506,13 @@ static int _cocos2d_ui_ListView_removeAllItems(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
 
     // inject code before call
-    olua_startcmpunhold(L, 1, "children");
+    olua_startcmpdelref(L, 1, "children");
 
-    // @unhold(cmp children) void removeAllItems()
+    // @delref(children ~) void removeAllItems()
     self->removeAllItems();
 
     // inject code after call
-    olua_endcmpunhold(L, 1, "children");
+    olua_endcmpdelref(L, 1, "children");
 
     olua_endinvoke(L);
 
@@ -10530,13 +10530,13 @@ static int _cocos2d_ui_ListView_removeItem(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // inject code before call
-    olua_startcmpunhold(L, 1, "children");
+    olua_startcmpdelref(L, 1, "children");
 
-    // @unhold(cmp children) void removeItem(ssize_t index)
+    // @delref(children ~) void removeItem(ssize_t index)
     self->removeItem((ssize_t)arg1);
 
     // inject code after call
-    olua_endcmpunhold(L, 1, "children");
+    olua_endcmpdelref(L, 1, "children");
 
     olua_endinvoke(L);
 
@@ -10552,13 +10552,13 @@ static int _cocos2d_ui_ListView_removeLastItem(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
 
     // inject code before call
-    olua_startcmpunhold(L, 1, "children");
+    olua_startcmpdelref(L, 1, "children");
 
-    // @unhold(cmp children) void removeLastItem()
+    // @delref(children ~) void removeLastItem()
     self->removeLastItem();
 
     // inject code after call
-    olua_endcmpunhold(L, 1, "children");
+    olua_endcmpdelref(L, 1, "children");
 
     olua_endinvoke(L);
 
@@ -11400,11 +11400,11 @@ static int _cocos2d_ui_PageView_addEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "PageViewCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1, cocos2d::ui::PageView::EventType arg2) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::Ref *arg1, cocos2d::ui::PageView::EventType arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "cc.Ref");
                 olua_push_uint(L, (lua_Unsigned)arg2);
@@ -11439,11 +11439,11 @@ static int _cocos2d_ui_PageView_addPage(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
 
-    // void addPage(@hold(coexist children) cocos2d::ui::Widget *page)
+    // void addPage(@addref(children |) cocos2d::ui::Widget *page)
     self->addPage(arg1);
 
     // inject code after call
-    olua_hold(L, 1, "children", 2, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -11658,11 +11658,11 @@ static int _cocos2d_ui_PageView_insertPage(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
     olua_check_int(L, 3, &arg2);
 
-    // void insertPage(@hold(coexist children) cocos2d::ui::Widget *page, int idx)
+    // void insertPage(@addref(children |) cocos2d::ui::Widget *page, int idx)
     self->insertPage(arg1, (int)arg2);
 
     // inject code after call
-    olua_hold(L, 1, "children", 2, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -11691,11 +11691,11 @@ static int _cocos2d_ui_PageView_removeAllPages(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
 
-    // @unhold(all children) void removeAllPages()
+    // @delref(children *) void removeAllPages()
     self->removeAllPages();
 
     // inject code after call
-    olua_unholdall(L, 1, "children");
+    olua_delallrefs(L, 1, "children");
 
     olua_endinvoke(L);
 
@@ -11712,11 +11712,11 @@ static int _cocos2d_ui_PageView_removePage(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
 
-    // void removePage(@unhold(coexist children) cocos2d::ui::Widget *page)
+    // void removePage(@delref(children |) cocos2d::ui::Widget *page)
     self->removePage(arg1);
 
     // inject code after call
-    olua_unhold(L, 1, "children", 2, OLUA_FLAG_COEXIST);
+    olua_delref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -11734,13 +11734,13 @@ static int _cocos2d_ui_PageView_removePageAtIndex(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // inject code before call
-    olua_startcmpunhold(L, 1, "children");
+    olua_startcmpdelref(L, 1, "children");
 
-    // @unhold(cmp children) void removePageAtIndex(ssize_t index)
+    // @delref(children ~) void removePageAtIndex(ssize_t index)
     self->removePageAtIndex((ssize_t)arg1);
 
     // inject code after call
-    olua_endcmpunhold(L, 1, "children");
+    olua_endcmpdelref(L, 1, "children");
 
     olua_endinvoke(L);
 
@@ -13588,20 +13588,16 @@ static int _cocos2d_ui_RichText_createWithXML1(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
     manual_olua_check_cocos2d_ValueMap(L, 2, &arg2);
 
-    cocos2d::ui::RichText *self = new cocos2d::ui::RichText();
-    cocos2d::ui::RichText *ret = self;
-    olua_push_cppobj<cocos2d::ui::RichText>(L, self);
-    olua_postnew(L, ret);
-
+    void *callback_store_obj = (void *)olua_allocobjstub(L, "ccui.RichText");
+    std::string tag = "OpenUrlHandler";
+    std::string func;
     if (olua_is_std_function(L, 3)) {
-        void *callback_store_obj = (void *)self;
-        std::string tag = "OpenUrlHandler";
-        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg3 = [callback_store_obj, func, MT](const std::string &arg1) {
+        func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_REPLACE);
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg3 = [callback_store_obj, func, ctx_id](const std::string &arg1) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 olua_push_std_string(L, arg1);
 
@@ -13611,19 +13607,25 @@ static int _cocos2d_ui_RichText_createWithXML1(lua_State *L)
             }
         };
     } else {
-        void *callback_store_obj = (void *)self;
-        std::string tag = "OpenUrlHandler";
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg3 = nullptr;
     }
 
     // static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @local @optional const std::function<void (const std::string &)> &handleOpenUrl)
-    self->initWithXML(arg1, arg2, arg3);
-    int num_ret = olua_push_cppobj(L, ret, "ccui.RichText");
+    cocos2d::ui::RichText *ret = (cocos2d::ui::RichText *)cocos2d::ui::RichText::createWithXML(arg1, arg2, arg3);
+    const char *cls = olua_getluatype(L, ret, "ccui.RichText");
+    if (olua_pushobjstub(L, ret, callback_store_obj, cls) == OLUA_OBJ_EXIST) {
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
+        lua_pushstring(L, func.c_str());
+        lua_pushvalue(L, 3);
+        olua_setvariable(L, -3);
+    } else {
+        olua_postpush(L, ret, OLUA_OBJ_NEW);
+    };
 
     olua_endinvoke(L);
 
-    return num_ret;
+    return 1;
 }
 
 static int _cocos2d_ui_RichText_createWithXML2(lua_State *L)
@@ -13634,13 +13636,8 @@ static int _cocos2d_ui_RichText_createWithXML2(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
 
-    cocos2d::ui::RichText *self = new cocos2d::ui::RichText();
-    cocos2d::ui::RichText *ret = self;
-    olua_push_cppobj<cocos2d::ui::RichText>(L, self);
-    olua_postnew(L, ret);
-
     // static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @local @optional const std::function<void (const std::string &)> &handleOpenUrl)
-    self->initWithXML(arg1);
+    cocos2d::ui::RichText *ret = (cocos2d::ui::RichText *)cocos2d::ui::RichText::createWithXML(arg1);
     int num_ret = olua_push_cppobj(L, ret, "ccui.RichText");
 
     olua_endinvoke(L);
@@ -13658,13 +13655,8 @@ static int _cocos2d_ui_RichText_createWithXML3(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
     manual_olua_check_cocos2d_ValueMap(L, 2, &arg2);
 
-    cocos2d::ui::RichText *self = new cocos2d::ui::RichText();
-    cocos2d::ui::RichText *ret = self;
-    olua_push_cppobj<cocos2d::ui::RichText>(L, self);
-    olua_postnew(L, ret);
-
     // static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @local @optional const std::function<void (const std::string &)> &handleOpenUrl)
-    self->initWithXML(arg1, arg2);
+    cocos2d::ui::RichText *ret = (cocos2d::ui::RichText *)cocos2d::ui::RichText::createWithXML(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "ccui.RichText");
 
     olua_endinvoke(L);
@@ -14699,11 +14691,11 @@ static int _cocos2d_ui_RichText_setOpenUrlHandler(lua_State *L)
     void *callback_store_obj = (void *)self;
     std::string tag = "OpenUrlHandler";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-    lua_State *MT = olua_mainthread();
-    arg1 = [callback_store_obj, func, MT](const std::string &arg1) {
+    lua_Unsigned ctx_id = olua_getid(L);
+    arg1 = [callback_store_obj, func, ctx_id](const std::string &arg1) {
         lua_State *L = olua_mainthread();
 
-        if (MT == L) {
+        if (olua_getid(L) == ctx_id) {
             int top = lua_gettop(L);
             olua_push_std_string(L, arg1);
 
@@ -15222,11 +15214,11 @@ static int _cocos2d_ui_Slider_addEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "sliderCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1, cocos2d::ui::Slider::EventType arg2) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::Ref *arg1, cocos2d::ui::Slider::EventType arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "cc.Ref");
                 olua_push_uint(L, (lua_Unsigned)arg2);
@@ -15506,12 +15498,12 @@ static int _cocos2d_ui_Slider_getSlidBallDisabledRenderer(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
 
-    // @hold(coexist protectedChildren) cocos2d::Sprite *getSlidBallDisabledRenderer()
+    // @addref(protectedChildren |) cocos2d::Sprite *getSlidBallDisabledRenderer()
     cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getSlidBallDisabledRenderer();
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
-    olua_hold(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -15526,12 +15518,12 @@ static int _cocos2d_ui_Slider_getSlidBallNormalRenderer(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
 
-    // @hold(coexist protectedChildren) cocos2d::Sprite *getSlidBallNormalRenderer()
+    // @addref(protectedChildren |) cocos2d::Sprite *getSlidBallNormalRenderer()
     cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getSlidBallNormalRenderer();
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
-    olua_hold(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -15546,12 +15538,12 @@ static int _cocos2d_ui_Slider_getSlidBallPressedRenderer(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
 
-    // @hold(coexist protectedChildren) cocos2d::Sprite *getSlidBallPressedRenderer()
+    // @addref(protectedChildren |) cocos2d::Sprite *getSlidBallPressedRenderer()
     cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getSlidBallPressedRenderer();
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
-    olua_hold(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -15566,12 +15558,12 @@ static int _cocos2d_ui_Slider_getSlidBallRenderer(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
 
-    // @hold(coexist protectedChildren) cocos2d::Node *getSlidBallRenderer()
+    // @addref(protectedChildren |) cocos2d::Node *getSlidBallRenderer()
     cocos2d::Node *ret = (cocos2d::Node *)self->getSlidBallRenderer();
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
     // inject code after call
-    olua_hold(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -18221,11 +18213,11 @@ static int _cocos2d_ui_TextField_addEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "textFieldCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1, cocos2d::ui::TextField::EventType arg2) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::Ref *arg1, cocos2d::ui::TextField::EventType arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "cc.Ref");
                 olua_push_uint(L, (lua_Unsigned)arg2);
@@ -19506,12 +19498,12 @@ static int _cocos2d_ui_Button_getRendererClicked(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
 
-    // @hold(coexist protectedChildren) cocos2d::ui::Scale9Sprite *getRendererClicked()
+    // @addref(protectedChildren |) cocos2d::ui::Scale9Sprite *getRendererClicked()
     cocos2d::ui::Scale9Sprite *ret = (cocos2d::ui::Scale9Sprite *)self->getRendererClicked();
     int num_ret = olua_push_cppobj(L, ret, "ccui.Scale9Sprite");
 
     // inject code after call
-    olua_hold(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -19526,12 +19518,12 @@ static int _cocos2d_ui_Button_getRendererDisabled(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
 
-    // @hold(coexist protectedChildren) cocos2d::ui::Scale9Sprite *getRendererDisabled()
+    // @addref(protectedChildren |) cocos2d::ui::Scale9Sprite *getRendererDisabled()
     cocos2d::ui::Scale9Sprite *ret = (cocos2d::ui::Scale9Sprite *)self->getRendererDisabled();
     int num_ret = olua_push_cppobj(L, ret, "ccui.Scale9Sprite");
 
     // inject code after call
-    olua_hold(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -19546,12 +19538,12 @@ static int _cocos2d_ui_Button_getRendererNormal(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
 
-    // @hold(coexist protectedChildren) cocos2d::ui::Scale9Sprite *getRendererNormal()
+    // @addref(protectedChildren |) cocos2d::ui::Scale9Sprite *getRendererNormal()
     cocos2d::ui::Scale9Sprite *ret = (cocos2d::ui::Scale9Sprite *)self->getRendererNormal();
     int num_ret = olua_push_cppobj(L, ret, "ccui.Scale9Sprite");
 
     // inject code after call
-    olua_hold(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -19617,12 +19609,12 @@ static int _cocos2d_ui_Button_getTitleLabel(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
 
-    // @hold(coexist protectedChildren) cocos2d::Label *getTitleLabel()
+    // @addref(protectedChildren |) cocos2d::Label *getTitleLabel()
     cocos2d::Label *ret = (cocos2d::Label *)self->getTitleLabel();
     int num_ret = olua_push_cppobj(L, ret, "cc.Label");
 
     // inject code after call
-    olua_hold(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -19637,12 +19629,12 @@ static int _cocos2d_ui_Button_getTitleRenderer(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
 
-    // @hold(coexist protectedChildren) cocos2d::Label *getTitleRenderer()
+    // @addref(protectedChildren |) cocos2d::Label *getTitleRenderer()
     cocos2d::Label *ret = (cocos2d::Label *)self->getTitleRenderer();
     int num_ret = olua_push_cppobj(L, ret, "cc.Label");
 
     // inject code after call
-    olua_hold(L, 1, "protectedChildren", -1, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -20399,11 +20391,11 @@ static int _cocos2d_ui_Button_setTitleLabel(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Label");
 
-    // void setTitleLabel(@hold(coexist protectedChildren) cocos2d::Label *label)
+    // void setTitleLabel(@addref(protectedChildren |) cocos2d::Label *label)
     self->setTitleLabel(arg1);
 
     // inject code after call
-    olua_hold(L, 1, "protectedChildren", 2, OLUA_FLAG_COEXIST);
+    olua_addref(L, 1, "protectedChildren", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -20552,11 +20544,11 @@ static int _cocos2d_ui_CheckBox_addEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "checkBoxCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1, cocos2d::ui::CheckBox::EventType arg2) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::Ref *arg1, cocos2d::ui::CheckBox::EventType arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "cc.Ref");
                 olua_push_uint(L, (lua_Unsigned)arg2);
@@ -20805,11 +20797,11 @@ static int _cocos2d_ui_RadioButton_addEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "radioButtonCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::RadioButton *arg1, cocos2d::ui::RadioButton::EventType arg2) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::ui::RadioButton *arg1, cocos2d::ui::RadioButton::EventType arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "ccui.RadioButton");
                 olua_push_uint(L, (lua_Unsigned)arg2);
@@ -21057,11 +21049,11 @@ static int _cocos2d_ui_RadioButtonGroup_addEventListener(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "radioButtonCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::RadioButton *arg1, int arg2, cocos2d::ui::RadioButtonGroup::EventType arg3) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::ui::RadioButton *arg1, int arg2, cocos2d::ui::RadioButtonGroup::EventType arg3) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 olua_push_cppobj(L, arg1, "ccui.RadioButton");
                 olua_push_int(L, (lua_Integer)arg2);
@@ -21923,7 +21915,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate___gc(lua_State *L)
     auto self = (cocos2d::ui::LuaEditBoxDelegate *)olua_toobj(L, 1, "ccui.LuaEditBoxDelegate");
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
+    if (lua_toboolean(L, -1)) {
         olua_setuserdata(L, 1, nullptr);
         delete self;
     }
@@ -21993,11 +21985,11 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onEditingDidBegin(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "onEditingDidBegin";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::EditBox *arg1) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::ui::EditBox *arg1) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -22060,11 +22052,11 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onEditingDidEndWithAction(lua_Stat
         void *callback_store_obj = (void *)self;
         std::string tag = "onEditingDidEndWithAction";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::EditBox *arg1, cocos2d::ui::EditBoxDelegate::EditBoxEndAction arg2) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::ui::EditBox *arg1, cocos2d::ui::EditBoxDelegate::EditBoxEndAction arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -22128,11 +22120,11 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onReturn(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "onReturn";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::EditBox *arg1) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::ui::EditBox *arg1) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -22195,11 +22187,11 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onTextChanged(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = "onTextChanged";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::ui::EditBox *arg1, const std::string &arg2) {
+        lua_Unsigned ctx_id = olua_getid(L);
+        arg1 = [callback_store_obj, func, ctx_id](cocos2d::ui::EditBox *arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread();
 
-            if (MT == L) {
+            if (olua_getid(L) == ctx_id) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -22591,12 +22583,12 @@ static int _cocos2d_ui_EditBox_getDelegate(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
 
-    // @hold(exclusive delegate) cocos2d::ui::EditBoxDelegate *getDelegate()
+    // @addref(delegate ^) cocos2d::ui::EditBoxDelegate *getDelegate()
     cocos2d::ui::EditBoxDelegate *ret = (cocos2d::ui::EditBoxDelegate *)self->getDelegate();
     int num_ret = olua_push_cppobj(L, ret, "ccui.EditBoxDelegate");
 
     // inject code after call
-    olua_hold(L, 1, "delegate", -1, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, 1, "delegate", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 
@@ -23473,11 +23465,11 @@ static int _cocos2d_ui_EditBox_setDelegate(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.EditBoxDelegate");
 
-    // void setDelegate(@hold(exclusive delegate) cocos2d::ui::EditBoxDelegate *delegate)
+    // void setDelegate(@addref(delegate ^) cocos2d::ui::EditBoxDelegate *delegate)
     self->setDelegate(arg1);
 
     // inject code after call
-    olua_hold(L, 1, "delegate", 2, OLUA_FLAG_EXCLUSIVE);
+    olua_addref(L, 1, "delegate", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
 

@@ -327,6 +327,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'dragonBones::WorldClock'
 cls.SUPERCLS = "dragonBones::IAnimatable"
 cls.funcs [[
+    WorldClock(@optional float timeValue)
     bool contains(const dragonBones::IAnimatable *value)
     void add(dragonBones::IAnimatable *value)
     void remove(dragonBones::IAnimatable *value)
@@ -1012,8 +1013,7 @@ cls.callback {
     TAG_MAKER = '(#1)',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
+    TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
@@ -1022,8 +1022,7 @@ cls.callback {
     TAG_MAKER = '(#1)',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = true,
+    TAG_SCOPE = 'object',
 }
 cls.props [[
     armature

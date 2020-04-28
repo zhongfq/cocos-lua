@@ -34,15 +34,26 @@ function FLMovieClip:ctor(cobj)
     self.ns = self:_createAccessProxy({__mode = "v"})  -- 索引有名字的字节点
     self._building = false
     self._rawChildren = setmetatable({}, {__mode = 'k'})
+end
 
+function FLMovieClip:_validateMetaLayout()
+    self._validateMetaLayout = false
     local relative = self.metadata.relative
     if relative then
         local left, right = string.match(relative, '(%w+) *, *(%w+)')
         assert(left and right, 'not a valid relative: ' .. relative)
-        self:addListener(Event.ADDED, function ()
-            self:removeListener(Event.ADDED, util.callee())
-            self:relative(left, right)
-        end)
+        self:relative(left, right)
+    end
+end
+
+function FLMovieClip:validateDisplay()
+    if self._validateMetaLayout then
+        self:_validateMetaLayout()
+    end
+    for _, child in ipairs(self.children) do
+        if child.validateDisplay then
+            child:validateDisplay()
+        end
     end
 end
 
@@ -130,26 +141,32 @@ function FLMovieClip:hit(points)
 end
 
 function FLMovieClip:relative(horizontal, vertical)
-    local l, r, t, b = window.getVisibleBounds()
-    l, t = self.rootNode.rootswf:globalToLocal(l, t)
-    r, b = self.rootNode.rootswf:globalToLocal(r, b)
-    local w, h = self.movieWidth, self.movieHeight
+    local vl, vr, vt, vb = window.getVisibleBounds()
+    vl, vt = self.parent:globalToLocal(vl, vt)
+    vr, vb = self.parent:globalToLocal(vr, vb)
+    local ml, mr, mt, mb = 0, self.movieWidth, 0, self.movieHeight
+    ml, mt = self.rootNode.rootswf:localToGlobal(ml, mt)
+    mr, mb = self.rootNode.rootswf:localToGlobal(mr, mb)
+    ml, mt = self.parent:globalToLocal(ml, mt)
+    mr, mb = self.parent:globalToLocal(mr, mb)
+
+    local w, h = math.abs(mr - ml), math.abs(mt - mb)
     if horizontal == Align.LEFT then
-        self.x = self.x + l
+        self.x = self.x + vl
     elseif horizontal == Align.CENTER then
-        self.x = self.x + (r - l - w) / 2
+        self.x = self.x + (vr - vl - w) / 2
     elseif horizontal == Align.RIGHT then
-        self.x = self.x + r - w
+        self.x = self.x + vr - w
     else
         assert(horizontal == Align.NONE, horizontal)
     end
     
     if vertical == Align.TOP then
-        self.y = self.y + t
+        self.y = self.y + vt
     elseif vertical == Align.CENTER then
-        self.y = self.y - (b - t - h)
+        self.y = self.y - (vb - vt - h)
     elseif vertical == Align.BOTTOM then
-        self.y = self.y + b - h
+        self.y = self.y + vb - h
     else
         assert(vertical == Align.NONE, vertical)
     end
@@ -326,6 +343,10 @@ function FLMovieClip:gotoAndPlay(frame)
     end
     self.cobj:gotoAndPlay(frame)
     self:_buildChildren()
+
+    if self._stage then
+        self:validateDisplay()
+    end
 end
 
 function FLMovieClip:gotoAndStop(frame)
@@ -337,6 +358,10 @@ function FLMovieClip:gotoAndStop(frame)
     end
     self.cobj:gotoAndStop(frame)
     self:_buildChildren()
+
+    if self._stage then
+        self:validateDisplay()
+    end
 end
 
 function FLMovieClip:labelAt(frame)
@@ -357,7 +382,7 @@ function FLMovieClip:prevFrame()
     self:_buildChildren()
 end
 
-function FLMovieClip.Get:topMC()
+function FLMovieClip.Get:topmc()
     for i = #self.children, 1, -1 do
         local child = self.children[i]
         if child.cobj.type == T.MOVIE_CLIP then

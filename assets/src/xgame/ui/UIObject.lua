@@ -11,6 +11,7 @@ function UIObject:ctor()
     self.touchable = false
     self.touchChildren = false
     self.touchPreemptive = false
+    self.preemptiveImpact = 1
     self.touches = {}
     self.multiTouch = false
     self.numTouches = 0

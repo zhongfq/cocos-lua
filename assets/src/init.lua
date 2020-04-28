@@ -8,21 +8,8 @@ olua.debug(DEBUG)
 
 -- enable lua debug
 if DEBUG then
-    local path = package.path
-    package.path = "src/xgame/debugger/?.lua;" .. path
-    local LuaPanda = require("LuaPanda")
-    LuaPanda.start("127.0.0.1", 8818)
-    package.path = path
-
-    if runtime.os == 'win32' then
-        local log = io.open(runtime.logPath, "r")
-        timer.schedule(0.1, function ()
-            local str = log:read('*a')
-            if str and #str > 0 then
-                LuaPanda.printToVSCode(str, 1, 0)
-            end
-        end)
-    end
+    local hanlder = require("xgame.LuaDebug")("localhost", 7003)
+    timer.schedule(0, hanlder)
 end
 
 -- set window size on mac or win

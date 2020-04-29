@@ -187,10 +187,15 @@ template <typename T> T *olua_checkobj(lua_State *L, int idx)
     return (T *)olua_checkobj(L, idx, cls);
 }
 
+template <typename T> int olua_pushobj(lua_State *L, const T *value, const char *cls)
+{
+    return olua_push_cppobj(L, value, cls);
+}
+
 template <typename T> int olua_push_cppobj(lua_State *L, const T *value, const char *cls)
 {
     cls = olua_getluatype(L, (T *)value, cls);
-    olua_postpush(L, (T *)value, olua_pushobj(L, (T *)value, cls));
+    olua_postpush(L, (T *)value, olua_pushobj(L, (void *)value, cls));
     return 1;
 }
 

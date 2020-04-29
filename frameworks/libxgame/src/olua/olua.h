@@ -83,6 +83,7 @@ extern "C" {
 #define olua_optboolean(L, i, d)    (olua_isnoneornil(L, (i)) ? (d) : olua_toboolean(L, (i)) != 0)
 
 typedef struct {
+    lua_Unsigned id;
     size_t objcount;
     size_t poolsize;
     bool poolenabled;
@@ -100,7 +101,7 @@ OLUA_API olua_vmstatus_t *olua_vmstatus(lua_State *L);
  * same memory address for lua_State, this because the malloc reuse memory.
  * olua_getid can return different id for each main lua_State.
  */
-OLUA_API lua_Unsigned olua_getid(lua_State *L);
+#define olua_getid(L)     (olua_vmstatus(L)->id)
     
 OLUA_API lua_Integer olua_checkinteger(lua_State *L, int idx);
 OLUA_API lua_Number olua_checknumber(lua_State *L, int idx);

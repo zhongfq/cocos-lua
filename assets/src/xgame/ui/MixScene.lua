@@ -56,6 +56,7 @@ end
 
 function MixScene:onDestroy()
     self.onDestroy = true
+    self._timer:stop()
     self._timer:clear()
     self._eventAgent:clear()
 end

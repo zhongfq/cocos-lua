@@ -62,7 +62,7 @@ static int errfunc(lua_State *L)
 OLUA_API olua_vmstatus_t *olua_vmstatus(lua_State *L)
 {
     olua_vmstatus_t *vms;
-    if (registry_rawgetp(L, OLUA_VMSTATUS) == LUA_TNIL) {
+    if (olua_unlikely(registry_rawgetp(L, OLUA_VMSTATUS) != LUA_TUSERDATA)) {
         static lua_Unsigned s_ctx_id = 0;
         lua_pop(L, 1);
         vms = (olua_vmstatus_t *)lua_newuserdata(L, sizeof(*vms));
@@ -122,7 +122,7 @@ OLUA_API void olua_rawsetf(lua_State *L, int idx, const char *field)
 
 OLUA_API int olua_geterrorfunc(lua_State *L)
 {
-    if (olua_getglobal(L, "__TRACEBACK__") != LUA_TFUNCTION) {
+    if (olua_unlikely(olua_getglobal(L, "__TRACEBACK__") != LUA_TFUNCTION)) {
         lua_pop(L, 1);
         lua_pushcfunction(L, errfunc);
     }
@@ -171,8 +171,8 @@ OLUA_API bool olua_isa(lua_State *L, int idx, const char *cls)
 {
     bool isa = false;
     int top = lua_gettop(L);
-    if (olua_isuserdata(L, idx) && lua_getmetatable(L, idx)) {
-        if (olua_rawgetf(L, -1, CLS_ISA) == LUA_TTABLE) {
+    if (olua_likely(olua_isuserdata(L, idx) && lua_getmetatable(L, idx))) {
+        if (olua_likely(olua_rawgetf(L, -1, CLS_ISA) == LUA_TTABLE)) {
             olua_rawgetf(L, -1, cls);
             isa = olua_toboolean(L, -1);
         }
@@ -183,7 +183,7 @@ OLUA_API bool olua_isa(lua_State *L, int idx, const char *cls)
 
 static void aux_getobjtable(lua_State *L)
 {
-    if (registry_rawgetp(L, OLUA_OBJ_TABLE) != LUA_TTABLE) {
+    if (olua_unlikely(registry_rawgetp(L, OLUA_OBJ_TABLE) != LUA_TTABLE)) {
         lua_pop(L, 1);                              // pop nil
         lua_newtable(L);
         olua_setfieldstring(L, -1, "__mode", "v");  // mt.__mode = 'v'
@@ -231,14 +231,14 @@ OLUA_API int olua_pushobjstub(lua_State *L, void *obj, void *stub, const char *c
 static void aux_pushlocalobj(lua_State *L, void *obj)
 {
     olua_vmstatus_t *mt = olua_vmstatus(L);
-    if (registry_rawgetp(L, OLUA_POOL_TABLE) != LUA_TTABLE) {
+    if (olua_unlikely(registry_rawgetp(L, OLUA_POOL_TABLE) != LUA_TTABLE)) {
         lua_pop(L, 1);
         lua_createtable(L, 16, 0);
         lua_pushvalue(L, -1);
         registry_rawsetp(L, OLUA_POOL_TABLE);
     }
     
-    if (olua_rawgeti(L, -1, ++mt->poolsize) != LUA_TUSERDATA) {
+    if (olua_unlikely(olua_rawgeti(L, -1, ++mt->poolsize) != LUA_TUSERDATA)) {
         lua_pop(L, 1);
         lua_newuserdata(L, sizeof(void *));
         lua_pushvalue(L, -1);
@@ -253,20 +253,20 @@ OLUA_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
 {
     int status = OLUA_OBJ_EXIST;
     
-    if (!obj) {
+    if (olua_unlikely(!obj)) {
         lua_pushnil(L);
         return status;
     }
     
-    if (!cls || olua_getmetatable(L, cls) != LUA_TTABLE) {
+    if (olua_unlikely(!cls || olua_getmetatable(L, cls) != LUA_TTABLE)) {
         luaL_error(L, "class '%s' not found", cls ? cls : "NULL");
     }
     
     aux_getobjtable(L);                             // L: mt objtable
     
-    if (olua_rawgetp(L, -1, obj) == LUA_TNIL) {     // L: mt objtable ud?
+    if (olua_likely(olua_rawgetp(L, -1, obj) == LUA_TNIL)) {
         lua_pop(L, 1);                              // L: mt objtable
-        if (olua_vmstatus(L)->poolenabled) {
+        if (olua_unlikely(olua_vmstatus(L)->poolenabled)) {
             aux_pushlocalobj(L, obj);
             status = OLUA_OBJ_EXIST;
         } else {
@@ -277,8 +277,8 @@ OLUA_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
         }
         lua_pushvalue(L, -3);                       // L: mt objtable ud mt
         lua_setmetatable(L, -2);                    // L: mt objtable ud     ud.metatable = mt
-    } else if (!strequal(cls, OLUA_VOIDCLS)
-            && olua_testudata(L, -1, OLUA_VOIDCLS)) {
+    } else if (olua_unlikely(!strequal(cls, OLUA_VOIDCLS)
+            && olua_testudata(L, -1, OLUA_VOIDCLS))) {
         lua_pushvalue(L, -3);                       // L: mt objtable ud mt
         lua_setmetatable(L, -2);                    // L: mt objtable ud     ud.metatable = mt
         status = OLUA_OBJ_UPDATE;
@@ -292,7 +292,7 @@ OLUA_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
 
 OLUA_API bool olua_getuserdata(lua_State *L, void *obj)
 {
-    if (!obj) {
+    if (olua_unlikely(!obj)) {
         return false;
     }
     aux_getobjtable(L);                             // L: objt
@@ -307,9 +307,10 @@ OLUA_API bool olua_getuserdata(lua_State *L, void *obj)
 
 static void *aux_toobj(lua_State *L, int idx, const char *cls, bool checked)
 {
-    if (olua_isuserdata(L, idx) && (!checked || olua_isa(L, idx, cls))) {
+    if (olua_likely(olua_isuserdata(L, idx)
+            && (!checked || olua_isa(L, idx, cls)))) {
         void *obj = olua_touserdata(L, idx, void *);
-        if (obj) {
+        if (olua_likely(obj != NULL)) {
             return obj;
         } else {
             luaL_error(L, "object '%s' survive from gc", olua_typename(L, idx));
@@ -349,7 +350,7 @@ OLUA_API const char *olua_objstring(lua_State *L, int idx)
 
 OLUA_API void olua_pop_objpool(lua_State *L, size_t level)
 {
-    if (registry_rawgetp(L, OLUA_POOL_TABLE) == LUA_TTABLE) {
+    if (olua_likely(registry_rawgetp(L, OLUA_POOL_TABLE) == LUA_TTABLE)) {
         size_t len = lua_rawlen(L, -1);
         olua_assert(level < len);
         olua_vmstatus(L)->poolsize = level;
@@ -361,7 +362,7 @@ OLUA_API void olua_pop_objpool(lua_State *L, size_t level)
             lua_pushnil(L);
             lua_setuservalue(L, -2);
             lua_pop(L, 1);
-            if (*ud != NULL) {
+            if (olua_likely(*ud != NULL)) {
                 *ud = NULL;
             } else {
                 break;
@@ -373,7 +374,7 @@ OLUA_API void olua_pop_objpool(lua_State *L, size_t level)
 
 static void aux_getusertable(lua_State *L, int idx)
 {
-    if (lua_getuservalue(L, idx) != LUA_TTABLE) {
+    if (olua_unlikely(lua_getuservalue(L, idx) != LUA_TTABLE)) {
         olua_assert(olua_isnil(L, -1));
         lua_pop(L, 1);
         idx = lua_absindex(L, idx);
@@ -701,19 +702,20 @@ static int lookupfunc(lua_State *L, int t, int kidx)
     olua_assert(t <= LUA_REGISTRYINDEX && kidx > 0);
     lua_pushvalue(L, kidx);                     // L: k
     type = olua_rawget(L, t);                   // L: v
-    if (type == LUA_TNIL) {
+    if (olua_unlikely(type == LUA_TNIL)) {
         lua_pop(L, 1);                          // L:
         lua_pushvalue(L, kidx);                 // L: k
         type = olua_gettable(L, t);             // L: v
         lua_pushvalue(L, kidx);                 // L: v k
-        if (type == LUA_TNIL) {
+        if (olua_unlikely(type == LUA_TNIL)) {
             lua_pushlightuserdata(L, NOTFOUND); // L: v k v
         } else {
             lua_pushvalue(L, -2);               // L: v k v
         }
         lua_rawset(L, t);                       // L: v
     }
-    if (type == LUA_TLIGHTUSERDATA && lua_touserdata(L, -1) == NOTFOUND) {
+    if (olua_unlikely(type == LUA_TLIGHTUSERDATA
+            && lua_touserdata(L, -1) == NOTFOUND)) {
         lua_pop(L, 1);
         lua_pushnil(L);
         type = LUA_TNIL;
@@ -751,19 +753,19 @@ static int cls_metamethod(lua_State *L)
 static int cls_index(lua_State *L)
 {
     // try getter
-    if (lookupfunc(L, CLS_GETIDX, 2) != LUA_TNIL) {
+    if (olua_likely(lookupfunc(L, CLS_GETIDX, 2) != LUA_TNIL)) {
         lua_pushvalue(L, 1);                        // L: t k getter t
         lua_call(L, 1, 1);                          // L: t k ret
         return 1;
     }
     
     // try func
-    if (lookupfunc(L, CLS_FUNCIDX, 2) != LUA_TNIL) {
+    if (olua_likely(lookupfunc(L, CLS_FUNCIDX, 2) != LUA_TNIL)) {
         return 1;
     }
     
     // try variable
-    if (olua_isuserdata(L, 1)) {
+    if (olua_likely(olua_isuserdata(L, 1))) {
         lua_pushvalue(L, 2);
         olua_getvariable(L, 1);
         return 1;
@@ -774,8 +776,8 @@ static int cls_index(lua_State *L)
 static int cls_newindex(lua_State *L)
 {
     // try setter
-    if (lookupfunc(L, CLS_SETIDX, 2) != LUA_TNIL) {
-        if (olua_isuserdata(L, 1)) {
+    if (olua_likely(lookupfunc(L, CLS_SETIDX, 2) != LUA_TNIL)) {
+        if (olua_likely(olua_isuserdata(L, 1))) {
             lua_pushvalue(L, 1);                // L: t k v setter t
             lua_pushvalue(L, 3);                // L: t k v setter t v
             lua_call(L, 2, 0);                  // L: t k v
@@ -787,20 +789,20 @@ static int cls_newindex(lua_State *L)
         return 0;
     }
     
-    if (olua_istable(L, 1)) {
+    if (olua_unlikely(olua_istable(L, 1))) {
         lua_settop(L, 3);                       // L: t k v
         lua_rawset(L, CLS_FUNCIDX);             // L: t
         return 0;
     }
     
-    if (lookupfunc(L, CLS_GETIDX, 2) != LUA_TNIL) {
+    if (olua_unlikely(lookupfunc(L, CLS_GETIDX, 2) != LUA_TNIL)) {
         luaL_error(L, "readonly property: %s", olua_tostring(L, 2));
     }
     
-    if (olua_isstring(L, 2)) {
+    if (olua_likely(olua_isstring(L, 2))) {
         size_t len;
         const char *key = olua_tolstring(L, 2, &len);
-        if (len > 0 && key[0] == '.') {
+        if (olua_unlikely(len > 0 && key[0] == '.')) {
             luaL_error(L, "variable name '%s' start with '.' char", key);
         }
     }
@@ -919,10 +921,10 @@ OLUA_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         oluacls_const_string(L, "classname", cls);      // mt.classname = cls
         oluacls_const_string(L, "classtype", "native"); // mt.classtype = native
         if (super) {
-            olua_getmetatable(L, super);
-            olua_rawgetf(L, -1, CLS_AGENT);
-            lua_replace(L, -2);
-            oluacls_const(L, "super");                  // mt.super = super agent
+            olua_getmetatable(L, super);                // L: mt agent super
+            olua_rawgetf(L, -1, CLS_AGENT);             // L: mt agent super super_agent
+            lua_replace(L, -2);                         // L: mt agent super_agent
+            oluacls_const(L, "super");                  // L: mt agent      agent.super = super_agent
         }
         
         olua_rawsetf(L, -2, CLS_AGENT);                 // L: mt        mt[agent] = agent

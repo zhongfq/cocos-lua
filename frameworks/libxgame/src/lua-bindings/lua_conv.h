@@ -118,6 +118,9 @@ bool auto_olua_ispack_cocos2d_BlendFunc(lua_State *L, int idx);
 int auto_olua_push_cocos2d_ui_Margin(lua_State *L, const cocos2d::ui::Margin *value);
 void auto_olua_check_cocos2d_ui_Margin(lua_State *L, int idx, cocos2d::ui::Margin *value);
 bool auto_olua_is_cocos2d_ui_Margin(lua_State *L, int idx);
+void auto_olua_pack_cocos2d_ui_Margin(lua_State *L, int idx, cocos2d::ui::Margin *value);
+int auto_olua_unpack_cocos2d_ui_Margin(lua_State *L, const cocos2d::ui::Margin *value);
+bool auto_olua_ispack_cocos2d_ui_Margin(lua_State *L, int idx);
 
 // cocos2d::ResourceData
 int auto_olua_push_cocos2d_ResourceData(lua_State *L, const cocos2d::ResourceData *value);

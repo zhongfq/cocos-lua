@@ -218,7 +218,7 @@ lua_State *runtime::luaVM()
         for (auto func : _luaLibs) {
             olua_dofunc(_luaVM, func);
         }
-        olua_push_cppobj<cocos2d::Director>(_luaVM, cocos2d::Director::getInstance(), "cc.Director");
+        olua_pushobj<cocos2d::Director>(_luaVM, cocos2d::Director::getInstance());
         lua_setfield(_luaVM, LUA_REGISTRYINDEX, "__cocos2d_ref_chain__");
     }
     return _luaVM;

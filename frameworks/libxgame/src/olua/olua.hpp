@@ -53,7 +53,6 @@
  *      }
  *  }
  */
-
 #ifndef olua_postpush
 #define olua_postpush(L, obj, status) ((void)L)
 #endif
@@ -142,26 +141,27 @@ template <typename T> void olua_registerluatype(lua_State *L, const char *cls)
 
 template <typename T> const char *olua_getluatype(lua_State *L, const T *obj, const char *cls)
 {
-    const char *preferred = nullptr;
-    if (obj) {
-        lua_pushstring(L, typeid(*((T *)obj)).name());
-        if (olua_rawget(L, LUA_REGISTRYINDEX) == LUA_TSTRING) {
-            preferred = olua_tostring(L, -1);
+    // try obj RTTI
+    if (olua_likely(obj)) {
+        lua_pushstring(L, typeid(*obj).name());
+        if (olua_likely(olua_rawget(L, LUA_REGISTRYINDEX) == LUA_TSTRING)) {
+            cls = olua_tostring(L, -1);
+            lua_pop(L, 1);
+            return cls;
         }
-        lua_pop(L, 1);
-    }
-    if (!preferred) {
-        lua_pushstring(L, typeid(T).name());
-        if (olua_rawget(L, LUA_REGISTRYINDEX) == LUA_TSTRING) {
-            preferred = olua_tostring(L, -1);
-        }
-        lua_pop(L, 1);
-    }
-    cls = preferred ? preferred : cls;
-    if (!cls) {
-        luaL_error(L, "object lua class not found: %s", typeid(T).name());
     }
     
+    // try class RTTI
+    lua_pushstring(L, typeid(T).name());
+    if (olua_likely(olua_rawget(L, LUA_REGISTRYINDEX) == LUA_TSTRING)) {
+        cls = olua_tostring(L, -1);
+        lua_pop(L, 1);
+        return cls;
+    }
+    
+    if (olua_unlikely(!cls)) {
+        luaL_error(L, "object lua class not found: %s", typeid(T).name());
+    }
     return cls;
 }
 
@@ -189,21 +189,17 @@ template <typename T> T *olua_checkobj(lua_State *L, int idx)
 
 template <typename T> int olua_pushobj(lua_State *L, const T *value, const char *cls)
 {
-    return olua_push_cppobj(L, value, cls);
-}
-
-template <typename T> int olua_push_cppobj(lua_State *L, const T *value, const char *cls)
-{
     cls = olua_getluatype(L, (T *)value, cls);
     olua_postpush(L, (T *)value, olua_pushobj(L, (void *)value, cls));
     return 1;
 }
 
-template <typename T> int olua_push_cppobj(lua_State *L, const T *value)
+template <typename T> int olua_pushobj(lua_State *L, const T *value)
 {
-    return olua_push_cppobj<T>(L, value, nullptr);
+    return olua_pushobj(L, value, nullptr);
 }
 
+// convertor between c++ and lua, use for code generation
 #define olua_push_std_string(L, v)      ((lua_pushstring(L, (v).c_str())), 1)
 #define olua_check_std_string(L, i, v)  (*(v) = olua_checkstring(L, (i)))
 #define olua_is_std_string(L, i)        (olua_isstring(L, (i)))
@@ -212,12 +208,22 @@ template <typename T> int olua_push_cppobj(lua_State *L, const T *value)
 #define olua_check_cppobj(L, i, v, c)   (olua_check_obj(L, (i), (v), (c)))
 #define olua_is_cppobj(L, i, c)         (olua_is_obj(L, (i), (c)))
 
+template <typename T> int olua_push_cppobj(lua_State *L, const T *value, const char *cls)
+{
+    return olua_pushobj(L, value, cls);
+}
+
+template <typename T> int olua_push_cppobj(lua_State *L, const T *value)
+{
+    return olua_pushobj(L, value, nullptr);
+}
+
 template <typename T> int olua_push_std_set(lua_State *L, const std::set<T*> &value, const char *cls)
 {
     int i = 1;
     lua_createtable(L, (int)value.size(), 0);
     for (const auto obj : value) {
-        if (obj) {
+        if (olua_likely(obj)) {
             olua_push_cppobj(L, obj, cls);
             lua_rawseti(L, -2, i++);
         }
@@ -248,7 +254,7 @@ template <typename T> int olua_push_std_vector(lua_State *L, const std::vector<T
     lua_newtable(L);
     int i = 1;
     for (const auto obj : v) {
-        if (obj) {
+        if (olua_likely(obj)) {
             olua_push_cppobj(L, obj, cls);
             lua_rawseti(L, -2, i++);
         }
@@ -275,7 +281,7 @@ static inline bool olua_is_std_vector(lua_State *L, int idx)
     return olua_istable(L, idx);
 }
 
-template <typename T> int olua_push_std_function(lua_State *L, const std::function<T> value)
+template <typename T> int olua_push_std_function(lua_State *L, const std::function<T> *value)
 {
     if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
         luaL_error(L, "execpt 'function' or 'nil'");

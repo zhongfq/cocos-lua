@@ -40,6 +40,12 @@ extern "C" {
 #include <assert.h>
 #include <math.h>
 
+#ifdef OLUA_DEBUG
+#define olua_assert(e) assert(e)
+#else
+#define olua_assert(e) ((void)0)
+#endif
+
 #ifndef OLUA_API
 #define OLUA_API LUALIB_API
 #endif
@@ -55,6 +61,14 @@ extern "C" {
 #define OLUA_OBJ_UPDATE 2
     
 #define OLUA_VOIDCLS "void *"
+
+#if defined(__GNUC__) || defined(__clang__)
+#define olua_likely(x)      (__builtin_expect(!!(x), 1))
+#define olua_unlikely(x)    (__builtin_expect(!!(x), 0))
+#else
+#define olua_likely(x)      (x)
+#define olua_unlikely(x)    (x)
+#endif
     
 // compare raw type of value
 #define olua_isfunction(L,n)        (lua_type(L, (n)) == LUA_TFUNCTION)
@@ -138,7 +152,7 @@ OLUA_API void olua_pop_objpool(lua_State *L, size_t level);
 
 // callback functions
 //  obj.uservalue {
-//      |----id----|---class---|-event-|
+//      |----id----|---class---|--tag--|
 //      .callback#1$olua.Object@onClick = lua_func
 //      .callback#2$olua.Object@onClick = lua_func
 //      .callback#3$olua.Object@update = lua_func
@@ -227,32 +241,6 @@ OLUA_API void oluacls_const(lua_State *L, const char *name);
 #define oluacls_const_integer(L, k, v)  (lua_pushinteger(L, (v)), oluacls_const(L, (k)))
 #define oluacls_const_string(L, k, v)   (lua_pushstring(L, (v)), oluacls_const(L, (k)))
     
-// object convertor for c++/c lua
-#define olua_push_bool(L, v)        (lua_pushboolean(L, (v)), 1)
-#define olua_check_bool(L, i, v)    (*(v) = olua_checkboolean(L, (i)))
-#define olua_is_bool(L, i)          (olua_isboolean(L, (i)))
-
-#define olua_push_string(L, v)      (lua_pushstring(L, (v)), 1)
-#define olua_check_string(L, i, v)  (*(v) = olua_checkstring(L, (i)))
-#define olua_is_string(L, i)        (olua_isstring(L, (i)))
-
-#define olua_push_number(L, v)      (lua_pushnumber(L, (v)), 1)
-#define olua_check_number(L, i, v)  (*(v) = olua_checknumber(L, (i)))
-#define olua_is_number(L, i)        (olua_isnumber(L, (i)))
-
-#define olua_push_int(L, v)         (lua_pushinteger(L, (v)), 1)
-#define olua_check_int(L, i, v)     (*(v) = olua_checkinteger(L, (i)))
-#define olua_is_int(L, i)           (olua_isinteger(L, (i)))
-
-#define olua_push_uint(L, v)        (lua_pushinteger(L, (lua_Integer)(v)), 1)
-#define olua_check_uint(L, i, v)    (*(v) = (lua_Unsigned)olua_checkinteger(L, (i)))
-#define olua_is_uint(L, i)          (olua_isinteger(L, (i)))
-
-#define olua_push_obj(L, o, c)      (olua_pushobj(L, (o), (c)), 1)
-#define olua_check_obj(L, i, v, c)  (*(v) = olua_checkobj(L, (i), (c)))
-#define olua_to_obj(L, i, v, c)     (*(v) = olua_toobj(L, (i), (c)))
-#define olua_is_obj(L, i, c)        (olua_isa(L, (i), (c)))
-    
 // get or set value for table
 OLUA_API const char *olua_checkfieldstring(lua_State *L, int idx, const char *field);
 OLUA_API lua_Number olua_checkfieldnumber(lua_State *L, int idx, const char *field);
@@ -325,13 +313,32 @@ OLUA_API int olua_rawgetp(lua_State *L, int idx, const void *p);
 #define olua_gettable(L, i)         (lua_gettable(L, (i)))
 #define olua_settable(L, i)         (lua_settable(L, (i)))
 #endif
-    
-// for debug
-#ifdef OLUA_DEBUG
-#define olua_assert(e) assert(e)
-#else
-#define olua_assert(e) ((void)0)
-#endif
+
+// convertor between c and lua, use for code generation
+#define olua_push_bool(L, v)        (lua_pushboolean(L, (v)), 1)
+#define olua_check_bool(L, i, v)    (*(v) = olua_checkboolean(L, (i)))
+#define olua_is_bool(L, i)          (olua_isboolean(L, (i)))
+
+#define olua_push_string(L, v)      (lua_pushstring(L, (v)), 1)
+#define olua_check_string(L, i, v)  (*(v) = olua_checkstring(L, (i)))
+#define olua_is_string(L, i)        (olua_isstring(L, (i)))
+
+#define olua_push_number(L, v)      (lua_pushnumber(L, (v)), 1)
+#define olua_check_number(L, i, v)  (*(v) = olua_checknumber(L, (i)))
+#define olua_is_number(L, i)        (olua_isnumber(L, (i)))
+
+#define olua_push_int(L, v)         (lua_pushinteger(L, (v)), 1)
+#define olua_check_int(L, i, v)     (*(v) = olua_checkinteger(L, (i)))
+#define olua_is_int(L, i)           (olua_isinteger(L, (i)))
+
+#define olua_push_uint(L, v)        (lua_pushinteger(L, (lua_Integer)(v)), 1)
+#define olua_check_uint(L, i, v)    (*(v) = (lua_Unsigned)olua_checkinteger(L, (i)))
+#define olua_is_uint(L, i)          (olua_isinteger(L, (i)))
+
+#define olua_push_obj(L, o, c)      (olua_pushobj(L, (o), (c)), 1)
+#define olua_check_obj(L, i, v, c)  (*(v) = olua_checkobj(L, (i), (c)))
+#define olua_to_obj(L, i, v, c)     (*(v) = olua_toobj(L, (i), (c)))
+#define olua_is_obj(L, i, c)        (olua_isa(L, (i), (c)))
 
 #ifdef __cplusplus
 }

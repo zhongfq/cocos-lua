@@ -17,11 +17,6 @@ M.INCLUDES = [[
 ]]
 M.CHUNK = [[]]
 
-typedef {
-    CPPCLS = 'cocos2d::ui::Margin',
-    CONV = 'auto_olua_$$_cocos2d_ui_Margin',
-}
-
 M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, '^cocos2d::ui::', 'ccui.')
     cppname = string.gsub(cppname, "::", ".")

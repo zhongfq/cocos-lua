@@ -1537,6 +1537,52 @@ bool auto_olua_is_cocos2d_ui_Margin(lua_State *L, int idx)
     return olua_istable(L, idx) && olua_hasfield(L, idx, "bottom") && olua_hasfield(L, idx, "right") && olua_hasfield(L, idx, "top") && olua_hasfield(L, idx, "left");
 }
 
+void auto_olua_pack_cocos2d_ui_Margin(lua_State *L, int idx, cocos2d::ui::Margin *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+
+    lua_Number arg1 = 0;       /** left */
+    lua_Number arg2 = 0;       /** top */
+    lua_Number arg3 = 0;       /** right */
+    lua_Number arg4 = 0;       /** bottom */
+
+    olua_check_number(L, idx + 0, &arg1);
+    value->left = (float)arg1;
+
+    olua_check_number(L, idx + 1, &arg2);
+    value->top = (float)arg2;
+
+    olua_check_number(L, idx + 2, &arg3);
+    value->right = (float)arg3;
+
+    olua_check_number(L, idx + 3, &arg4);
+    value->bottom = (float)arg4;
+}
+
+int auto_olua_unpack_cocos2d_ui_Margin(lua_State *L, const cocos2d::ui::Margin *value)
+{
+    if (value) {
+        olua_push_number(L, (lua_Number)value->left);
+        olua_push_number(L, (lua_Number)value->top);
+        olua_push_number(L, (lua_Number)value->right);
+        olua_push_number(L, (lua_Number)value->bottom);
+    } else {
+        for (int i = 0; i < 4; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 4;
+}
+
+bool auto_olua_ispack_cocos2d_ui_Margin(lua_State *L, int idx)
+{
+    return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_number(L, idx + 3);
+}
+
 int auto_olua_push_cocos2d_ResourceData(lua_State *L, const cocos2d::ResourceData *value)
 {
     if (value) {

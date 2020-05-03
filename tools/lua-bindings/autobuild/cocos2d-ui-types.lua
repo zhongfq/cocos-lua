@@ -4,11 +4,6 @@ local olua = require "olua"
 local typedef = olua.typedef
 
 typedef {
-    CONV = 'auto_olua_$$_cocos2d_ui_Margin',
-    CPPCLS = 'cocos2d::ui::Margin',
-}
-
-typedef {
     CPPCLS = 'cocos2d::ui::Widget::FocusDirection',
     LUACLS = 'ccui.Widget.FocusDirection',
     DECLTYPE = "lua_Unsigned",

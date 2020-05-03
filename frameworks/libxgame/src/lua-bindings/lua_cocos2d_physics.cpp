@@ -143,7 +143,7 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactBegin(lua_State *L)
 
     // @nullable @local std::function<bool (PhysicsContact &)> onContactBegin
     std::function<bool(cocos2d::PhysicsContact &)> ret = (std::function<bool(cocos2d::PhysicsContact &)>)self->onContactBegin;
-    int num_ret = olua_push_std_function(L, (std::function<bool(cocos2d::PhysicsContact &)>)ret);
+    int num_ret = olua_push_std_function(L, &ret);
 
     olua_endinvoke(L);
 
@@ -215,7 +215,7 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactPostSolve(lua_State
 
     // @nullable @local std::function<void (PhysicsContact &, const PhysicsContactPostSolve &)> onContactPostSolve
     std::function<void(cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)> ret = (std::function<void(cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)>)self->onContactPostSolve;
-    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)>)ret);
+    int num_ret = olua_push_std_function(L, &ret);
 
     olua_endinvoke(L);
 
@@ -283,7 +283,7 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactPreSolve(lua_State 
 
     // @nullable @local std::function<bool (PhysicsContact &, PhysicsContactPreSolve &)> onContactPreSolve
     std::function<bool(cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)> ret = (std::function<bool(cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)>)self->onContactPreSolve;
-    int num_ret = olua_push_std_function(L, (std::function<bool(cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)>)ret);
+    int num_ret = olua_push_std_function(L, &ret);
 
     olua_endinvoke(L);
 
@@ -356,7 +356,7 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactSeparate(lua_State 
 
     // @nullable @local std::function<void (PhysicsContact &)> onContactSeparate
     std::function<void(cocos2d::PhysicsContact &)> ret = (std::function<void(cocos2d::PhysicsContact &)>)self->onContactSeparate;
-    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::PhysicsContact &)>)ret);
+    int num_ret = olua_push_std_function(L, &ret);
 
     olua_endinvoke(L);
 

@@ -15246,7 +15246,7 @@ static int _fairygui_GList_get_itemProvider(lua_State *L)
 
     // std::function<std::string(int)> itemProvider
     std::function<std::string(int)> ret = (std::function<std::string(int)>)self->itemProvider;
-    int num_ret = olua_push_std_function(L, (std::function<std::string(int)>)ret);
+    int num_ret = olua_push_std_function(L, &ret);
 
     olua_endinvoke(L);
 
@@ -15306,7 +15306,7 @@ static int _fairygui_GList_get_itemRenderer(lua_State *L)
 
     // std::function<void(int, GObject*)> itemRenderer
     std::function<void(int, fairygui::GObject *)> ret = (std::function<void(int, fairygui::GObject *)>)self->itemRenderer;
-    int num_ret = olua_push_std_function(L, (std::function<void(int, fairygui::GObject *)>)ret);
+    int num_ret = olua_push_std_function(L, &ret);
 
     olua_endinvoke(L);
 
@@ -24006,7 +24006,7 @@ static int _fairygui_GTree_get_treeNodeRender(lua_State *L)
 
     // @nullable std::function<void (GTreeNode *, GComponent *)> treeNodeRender
     std::function<void(fairygui::GTreeNode *, fairygui::GComponent *)> ret = (std::function<void(fairygui::GTreeNode *, fairygui::GComponent *)>)self->treeNodeRender;
-    int num_ret = olua_push_std_function(L, (std::function<void(fairygui::GTreeNode *, fairygui::GComponent *)>)ret);
+    int num_ret = olua_push_std_function(L, &ret);
 
     olua_endinvoke(L);
 
@@ -24069,7 +24069,7 @@ static int _fairygui_GTree_get_treeNodeWillExpand(lua_State *L)
 
     // @nullable std::function<void (GTreeNode *, bool)> treeNodeWillExpand
     std::function<void(fairygui::GTreeNode *, bool)> ret = (std::function<void(fairygui::GTreeNode *, bool)>)self->treeNodeWillExpand;
-    int num_ret = olua_push_std_function(L, (std::function<void(fairygui::GTreeNode *, bool)>)ret);
+    int num_ret = olua_push_std_function(L, &ret);
 
     olua_endinvoke(L);
 

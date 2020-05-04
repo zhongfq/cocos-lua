@@ -131,10 +131,10 @@ OLUA_API int olua_pcall(lua_State *L, int nargs, int nresults);
 OLUA_API int olua_pcallref(lua_State *L, int funcref, int nargs, int nresults);
     
 // manipulate userdata api
-#define olua_newuserdata(L, obj, T)  (*(T *)lua_newuserdata(L, sizeof(T)) = (obj))
-#define olua_touserdata(L, i, T)     (*(T *)lua_touserdata(L, (i)))
-#define olua_setuserdata(L, i, o)    (*(void **)lua_touserdata(L, (i)) = (o))
-OLUA_API bool olua_getuserdata(lua_State *L, void *obj);
+#define olua_newrawobj(L, obj, t)  (*(t *)lua_newuserdata(L, sizeof(t)) = (obj))
+#define olua_torawobj(L, i, t)     (*(t *)lua_touserdata(L, (i)))
+#define olua_setrawobj(L, i, o)    (*(void **)lua_touserdata(L, (i)) = (o))
+OLUA_API bool olua_getrawobj(lua_State *L, void *obj);
 OLUA_API const char *olua_typename(lua_State *L, int idx);
 OLUA_API bool olua_isa(lua_State *L, int idx, const char *cls);
 OLUA_API void *olua_allocobjstub(lua_State *L, const char *cls);

@@ -367,7 +367,7 @@ int xlua_ccobjgc(lua_State *L)
         }
         
         obj->release();
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         lua_pushnil(L);
         lua_setuservalue(L, 1);
         olua_subobjcount(L);

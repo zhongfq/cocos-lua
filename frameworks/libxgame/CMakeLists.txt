@@ -85,7 +85,7 @@ endif()
 target_link_libraries(xgame cocos2d)
 
 target_compile_definitions(xgame PUBLIC STDC_HEADERS)
-target_compile_definitions(xgame PRIVATE $<$<CONFIG:Debug>:OLUA_DEBUG>)
+target_compile_definitions(xgame PUBLIC $<$<CONFIG:Debug>:OLUA_DEBUG>)
 
 if(CCLUA_BUILD_SPINE)
     target_compile_definitions(xgame PUBLIC CCLUA_BUILD_SPINE)

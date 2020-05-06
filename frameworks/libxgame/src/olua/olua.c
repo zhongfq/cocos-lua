@@ -696,7 +696,7 @@ OLUA_API void olua_visitrefs(lua_State *L, int idx, const char *name, olua_DelRe
     lua_pop(L, 1);
 }
 
-static int lookupfunc(lua_State *L, int t, int kidx)
+static bool lookupfunc(lua_State *L, int t, int kidx)
 {
 #define NOTFOUND ((void *)(uintptr_t)lookupfunc)
     int type;
@@ -721,7 +721,7 @@ static int lookupfunc(lua_State *L, int t, int kidx)
         lua_pushnil(L);
         type = LUA_TNIL;
     }
-    return type;
+    return type != LUA_TNIL;
 }
 
 static int cls_metamethod(lua_State *L)
@@ -729,7 +729,7 @@ static int cls_metamethod(lua_State *L)
     // 1: CLS_FUNC   2: name   3: isgc
     bool isgc = olua_toboolean(L, lua_upvalueindex(3));
     lua_pushvalue(L, lua_upvalueindex(2));
-    if (lookupfunc(L, lua_upvalueindex(1), lua_gettop(L)) == LUA_TFUNCTION) {
+    if (lookupfunc(L, lua_upvalueindex(1), lua_gettop(L))) {
         lua_replace(L, -2);
         lua_insert(L, 1);
         if (!isgc) {
@@ -754,14 +754,14 @@ static int cls_metamethod(lua_State *L)
 static int cls_index(lua_State *L)
 {
     // try getter
-    if (olua_likely(lookupfunc(L, CLS_GETIDX, 2) != LUA_TNIL)) {
+    if (olua_likely(lookupfunc(L, CLS_GETIDX, 2))) {
         lua_pushvalue(L, 1);                        // L: t k getter t
         lua_call(L, 1, 1);                          // L: t k ret
         return 1;
     }
     
     // try func
-    if (olua_likely(lookupfunc(L, CLS_FUNCIDX, 2) != LUA_TNIL)) {
+    if (olua_likely(lookupfunc(L, CLS_FUNCIDX, 2))) {
         return 1;
     }
     
@@ -777,7 +777,7 @@ static int cls_index(lua_State *L)
 static int cls_newindex(lua_State *L)
 {
     // try setter
-    if (olua_likely(lookupfunc(L, CLS_SETIDX, 2) != LUA_TNIL)) {
+    if (olua_likely(lookupfunc(L, CLS_SETIDX, 2))) {
         if (olua_likely(olua_isuserdata(L, 1))) {
             lua_pushvalue(L, 1);                // L: t k v setter t
             lua_pushvalue(L, 3);                // L: t k v setter t v
@@ -796,7 +796,7 @@ static int cls_newindex(lua_State *L)
         return 0;
     }
     
-    if (olua_unlikely(lookupfunc(L, CLS_GETIDX, 2) != LUA_TNIL)) {
+    if (olua_unlikely(lookupfunc(L, CLS_GETIDX, 2))) {
         luaL_error(L, "readonly property: %s", olua_tostring(L, 2));
     }
     

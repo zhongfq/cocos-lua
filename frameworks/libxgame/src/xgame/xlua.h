@@ -4,10 +4,10 @@
 #define olua_mainthread()               xlua_cocosthread()
 #define olua_startcmpdelref(L, i, n)    xlua_startcmpdelref(L, i, n)
 #define olua_endcmpdelref(L, i, n)      xlua_endcmpdelref(L, i, n)
-#define olua_startinvoke(L)             xlua_startinvoke(L)
-#define olua_endinvoke(L)               xlua_endinvoke(L)
 #define olua_postpush(L, v, s)          xlua_postpush(L, v, s)
 #define olua_postnew(L, obj)            xlua_postnew(L, obj)
+#define olua_startinvoke(L)             (xlua_invokingState = L)
+#define olua_endinvoke(L)               (xlua_invokingState = NULL)
 
 #include "xgame/config.h"
 #include "olua/olua.hpp"
@@ -18,6 +18,8 @@
 #define CCLUA_HAVE_WEBVIEW
 #define CCLUA_HAVE_VIDEOPLAYER
 #endif
+
+extern lua_State *xlua_invokingState;
 
 lua_State *xlua_new();
 
@@ -55,8 +57,6 @@ template <typename T> void xlua_postnew(lua_State *L, T *obj)
     }
 }
 
-void xlua_startinvoke(lua_State *L);
-void xlua_endinvoke(lua_State *L);
 void xlua_startcmpdelref(lua_State *L, int idx, const char *refname);
 void xlua_endcmpdelref(lua_State *L, int idx, const char *refname);
 

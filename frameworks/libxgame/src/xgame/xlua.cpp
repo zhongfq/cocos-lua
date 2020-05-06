@@ -8,13 +8,13 @@
 USING_NS_CC;
 USING_NS_XGAME;
 
-static lua_State *_currentState = NULL;
+lua_State *xlua_invokingState = NULL;
 
 extern bool CC_DLL cc_assert_script_compatible(const char *msg)
 {
-	if (_currentState) {
-		lua_State *L = _currentState;
-		_currentState = NULL;
+	if (xlua_invokingState) {
+		lua_State *L = xlua_invokingState;
+		xlua_invokingState = NULL;
 		luaL_error(L, msg);
 	}
 	return false;
@@ -373,16 +373,6 @@ int xlua_ccobjgc(lua_State *L)
         olua_subobjcount(L);
     }
     return 0;
-}
-
-void xlua_startinvoke(lua_State *L)
-{
-    _currentState = L;
-}
-
-void xlua_endinvoke(lua_State *L)
-{
-    _currentState = NULL;
 }
 
 void xlua_startcmpdelref(lua_State *L, int idx, const char *refname)

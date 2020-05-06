@@ -47,7 +47,7 @@ extern "C" {
 #endif
 
 #ifndef OLUA_API
-#define OLUA_API LUALIB_API
+#define OLUA_API extern
 #endif
 
 // callback status

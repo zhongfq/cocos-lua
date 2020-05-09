@@ -69,6 +69,13 @@ extern "C" {
 #define olua_likely(x)      (x)
 #define olua_unlikely(x)    (x)
 #endif
+
+#ifndef olua_mainthread
+#define olua_mainthread(L) (L ? olua_getmainthread(L) : NULL)
+#endif
+
+// main thread for this lua vm
+OLUA_API lua_State *olua_getmainthread(lua_State *L);
     
 // compare raw type of value
 #define olua_isfunction(L,n)        (lua_type(L, (n)) == LUA_TFUNCTION)

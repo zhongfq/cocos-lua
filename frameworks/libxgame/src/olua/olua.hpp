@@ -35,10 +35,6 @@
 
 #define olua_noapi(api) static_assert(false, #api" is not defined")
 
-#ifndef olua_mainthread
-#define olua_mainthread() olua_noapi(olua_mainthread)
-#endif
-
 /**
  * olua_postpush handle the status of object after push, you can do some jobs
  * according to the object status. For example, retain object in push and

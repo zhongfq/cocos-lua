@@ -3807,9 +3807,9 @@ static int _cocos2d_ActionFloat_create(lua_State *L)
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 4, OLUA_TAG_NEW);
     lua_Unsigned ctx_id = olua_getid(L);
     arg4 = [callback_store_obj, func, ctx_id](float arg1) {
-        lua_State *L = olua_mainthread();
+        lua_State *L = olua_mainthread(NULL);
 
-        if (olua_getid(L) == ctx_id) {
+        if (L != NULL && (olua_getid(L) == ctx_id)) {
             int top = lua_gettop(L);
             olua_push_number(L, (lua_Number)arg1);
 
@@ -6607,9 +6607,9 @@ static int _cocos2d_CallFunc_create(lua_State *L)
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 1, OLUA_TAG_NEW);
     lua_Unsigned ctx_id = olua_getid(L);
     arg1 = [callback_store_obj, func, ctx_id]() {
-        lua_State *L = olua_mainthread();
+        lua_State *L = olua_mainthread(NULL);
 
-        if (olua_getid(L) == ctx_id) {
+        if (L != NULL && (olua_getid(L) == ctx_id)) {
             int top = lua_gettop(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 0);

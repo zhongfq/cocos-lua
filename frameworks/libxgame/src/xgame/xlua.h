@@ -1,7 +1,7 @@
 #ifndef __XGAME_LUA_H__
 #define __XGAME_LUA_H__
 
-#define olua_mainthread()               xlua_cocosthread()
+#define olua_mainthread(L)              xlua_cocosthread(L)
 #define olua_startcmpdelref(L, i, n)    xlua_startcmpdelref(L, i, n)
 #define olua_endcmpdelref(L, i, n)      xlua_endcmpdelref(L, i, n)
 #define olua_postpush(L, v, s)          xlua_postpush(L, v, s)
@@ -23,7 +23,7 @@ extern lua_State *xlua_invokingState;
 
 lua_State *xlua_new();
 
-lua_State *xlua_cocosthread();
+lua_State *xlua_cocosthread(lua_State *L);
 
 int xlua_dofile(lua_State *L, const char *filename);
 

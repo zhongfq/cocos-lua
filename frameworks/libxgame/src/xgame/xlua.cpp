@@ -262,9 +262,9 @@ lua_State *xlua_new()
     return L;
 }
 
-lua_State *xlua_cocosthread()
+lua_State *xlua_cocosthread(lua_State *L)
 {
-    return runtime::luaVM();
+    return L ? olua_getmainthread(L) : runtime::luaVM();
 }
 
 int xlua_dofile(lua_State *L, const char *filename)

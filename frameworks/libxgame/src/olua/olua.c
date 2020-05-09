@@ -59,6 +59,16 @@ static int errfunc(lua_State *L)
     return 0;
 }
 
+OLUA_API lua_State *olua_getmainthread(lua_State *L)
+{
+    lua_State *MT = NULL;
+    olua_assert(L != NULL);
+    lua_rawgeti(L, LUA_REGISTRYINDEX, LUA_RIDX_MAINTHREAD);
+    MT = lua_tothread(L, -1);
+    lua_pop(L, 1);
+    return MT;
+}
+
 OLUA_API olua_vmstatus_t *olua_vmstatus(lua_State *L)
 {
     olua_vmstatus_t *vms;

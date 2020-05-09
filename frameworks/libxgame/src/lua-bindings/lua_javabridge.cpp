@@ -263,7 +263,7 @@ JNIEXPORT void JNICALL Java_kernel_LuaJ_call
 
     if (!xgame::runtime::isRestarting()) {
         std::string args = cocos2d::JniHelper::jstring2string(value);
-        lua_State *L = olua_mainthread();
+        lua_State *L = olua_mainthread(NULL);
         int top = lua_gettop(L);
         olua_geterrorfunc(L);
         olua_getref(L, func);
@@ -283,7 +283,7 @@ JNIEXPORT void JNICALL Java_kernel_LuaJ_unref
     CC_UNUSED_PARAM(env);
     CC_UNUSED_PARAM(cls);
 
-    lua_State *L = olua_mainthread();
+    lua_State *L = olua_mainthread(NULL);
     olua_unref(L, func);
 }
 

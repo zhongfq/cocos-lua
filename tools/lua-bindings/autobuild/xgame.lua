@@ -112,16 +112,18 @@ cls.func('testCrash', [[{
 cls.func('setDispatcher', [[{
     int handler = olua_reffunc(L, 1);
     xgame::runtime::setDispatcher([handler](const std::string &event, const std::string &args) {
-        lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
-        olua_geterrorfunc(L);
-        olua_getref(L, handler);
-        if (lua_isfunction(L, -1)) {
-            lua_pushstring(L, event.c_str());
-            lua_pushstring(L, args.c_str());
-            lua_pcall(L, 2, 0, top + 1);
+        lua_State *L = olua_mainthread(NULL);
+        if (L != NULL) {
+            int top = lua_gettop(L);
+            olua_geterrorfunc(L);
+            olua_getref(L, handler);
+            if (lua_isfunction(L, -1)) {
+                lua_pushstring(L, event.c_str());
+                lua_pushstring(L, args.c_str());
+                lua_pcall(L, 2, 0, top + 1);
+            }
+            lua_settop(L, top);
         }
-        lua_settop(L, top);
     });
     return 0;
 }]])
@@ -241,15 +243,17 @@ cls.func('schedule', [[{
     float interval = (float)olua_checknumber(L, 1);
     uint32_t callback = olua_reffunc(L, 2);
     uint32_t id = xgame::timer::schedule(interval, [callback](float dt) {
-        lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
-        olua_geterrorfunc(L);
-        olua_getref(L, callback);
-        if (lua_isfunction(L, -1)) {
-            lua_pushnumber(L, dt);
-            lua_pcall(L, 1, 0, top + 1);
+        lua_State *L = olua_mainthread(NULL);
+        if (L != NULL) {
+            int top = lua_gettop(L);
+            olua_geterrorfunc(L);
+            olua_getref(L, callback);
+            if (lua_isfunction(L, -1)) {
+                lua_pushnumber(L, dt);
+                lua_pcall(L, 1, 0, top + 1);
+            }
+            lua_settop(L, top);
         }
-        lua_settop(L, top);
     });
     lua_pushinteger(L, ((uint64_t)callback << 32) | (uint64_t)id);
     return 1;

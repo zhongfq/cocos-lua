@@ -650,8 +650,8 @@ cls.funcs [[
     AttachmentTimeline(int frameCount)
     size_t getSlotIndex()
     void setSlotIndex(size_t inValue)
-    const Vector<float> &getFrames()
-    const Vector<spine::String> &getAttachmentNames()
+    Vector<float> &getFrames()
+    Vector<spine::String> &getAttachmentNames()
     size_t getFrameCount()
 ]]
 cls.props [[
@@ -993,6 +993,8 @@ cls.funcs [[
     bool hasDarkColor()
     spine::Attachment *getAttachment()
     void setAttachment(spine::Attachment *inValue)
+    int getAttachmentState()
+    void setAttachmentState(int state)
     float getAttachmentTime()
     void setAttachmentTime(float inValue)
     Vector<float> &getDeform()
@@ -1001,6 +1003,7 @@ cls.props [[
     color
     darkColor
     attachment
+    attachmentState
     attachmentTime
     deform
 ]]

@@ -1,5 +1,5 @@
 local debugger_reLoadFile =nil
-
+local debugger_xpcall = nil
 local debugger_stackInfo = nil
 local coro_debugger = nil
 local debugger_require = require
@@ -732,7 +732,15 @@ coroutine.resume = function(co, ...)
     end
     return _resume(co, ...)
 end
-
+local oldXpcall = xpcall
+xpcall = function(runFun,errFun,...)
+    return oldXpcall(runFun,function(err)
+        if(debugger_xpcall) then
+            debugger_xpcall()
+        end
+        errFun(err)
+    end,...)
+end
 LuaDebugger.event = {
     S2C_SetBreakPoints = 1,
     C2S_SetBreakPoints = 2,
@@ -2387,7 +2395,7 @@ debug_hook = function(event, line)
         end
     end
 end
-local function debugger_xpcall()
+debugger_xpcall = function()
     --调用 coro_debugger 并传入 参数
     local data = debugger_stackInfo(4, LuaDebugger.event.C2S_HITBreakPoint)
     if(data.stack and data.stack[1]) then
@@ -2480,8 +2488,8 @@ function StartDebug(host, port,reLoad)
             debugger_reLoadFile = function() print("未实现代码重载") end
         end)
     end
-
-    return debugger_receiveDebugBreakInfo, debugger_xpcall
+    local tempFun = function() end
+    return debugger_receiveDebugBreakInfo, tempFun
 end
 
 --base64

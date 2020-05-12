@@ -15,8 +15,15 @@ function Mediator:ctor(view)
 end
 
 function Mediator:_initMonitor()
+    local monitor = self:_createMonitor()
+    assert(self.view.cobj.running)
+    monitor.onEnter()
+    self.view.cobj:addComponent(monitor)
+end
+
+function Mediator:_createMonitor(name)
     local monitor = LuaComponent.create()
-    monitor.name = '__Mediator_monitor__'
+    monitor.name = name or '__Mediator_monitor__'
     monitor.onEnter = function ()
         runtime.once('runtimeUpdate', function ()
             if self.onDestroy ~= true then
@@ -37,9 +44,7 @@ function Mediator:_initMonitor()
             end
         end)
     end
-    assert(self.view.cobj.running)
-    monitor.onEnter()
-    self.view.cobj:addComponent(monitor)
+    return monitor
 end
 
 function Mediator:__call(target, priority)

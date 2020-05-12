@@ -215,8 +215,8 @@ end
 function AssetObject:deleteTexture()
     local texture = textureCache:getTextureForKey(self._image)
     if texture and texture.name ~= 0 then
-        texture:releaseGLTexture()
-        trace("D => %s", shortPath(self._image))
+        -- texture:releaseGLTexture()
+        -- trace("D => %s", shortPath(self._image))
     end
 end
 

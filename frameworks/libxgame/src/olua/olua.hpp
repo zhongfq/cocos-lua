@@ -181,22 +181,22 @@ template <typename T> const char *olua_getluatype(lua_State *L, const T *obj, co
     return cls;
 }
 
-template <typename T> const char *olua_getluatype(lua_State *L)
+template <typename T> inline const char *olua_getluatype(lua_State *L)
 {
     return olua_getluatype<T>(L, nullptr, nullptr);
 }
 
-static inline const char *olua_getluatype(lua_State *L, const void *obj, const char *cls)
+template <> inline const char *olua_getluatype<void>(lua_State *L, const void *obj, const char *cls)
 {
-    return cls;
+    return cls == NULL ? OLUA_VOIDCLS : cls;
 }
 
-template <typename T> T *olua_toobj(lua_State *L, int idx)
+template <typename T> inline T *olua_toobj(lua_State *L, int idx)
 {
     return (T *)olua_toobj(L, idx, olua_getluatype<T>(L));
 }
 
-template <typename T> T *olua_checkobj(lua_State *L, int idx)
+template <typename T> inline T *olua_checkobj(lua_State *L, int idx)
 {
     return (T *)olua_checkobj(L, idx, olua_getluatype<T>(L));
 }
@@ -208,7 +208,7 @@ template <typename T> int olua_pushobj(lua_State *L, const T *value, const char 
     return 1;
 }
 
-template <typename T> int olua_pushobj(lua_State *L, const T *value)
+template <typename T> inline int olua_pushobj(lua_State *L, const T *value)
 {
     return olua_pushobj<T>(L, value, nullptr);
 }
@@ -222,12 +222,12 @@ template <typename T> int olua_pushobj(lua_State *L, const T *value)
 #define olua_check_cppobj(L, i, v, c)   (olua_check_obj(L, (i), (v), (c)))
 #define olua_is_cppobj(L, i, c)         (olua_is_obj(L, (i), (c)))
 
-template <typename T> int olua_push_cppobj(lua_State *L, const T *value, const char *cls)
+template <typename T> inline int olua_push_cppobj(lua_State *L, const T *value, const char *cls)
 {
     return olua_pushobj<T>(L, value, cls);
 }
 
-template <typename T> int olua_push_cppobj(lua_State *L, const T *value)
+template <typename T> inline int olua_push_cppobj(lua_State *L, const T *value)
 {
     return olua_pushobj<T>(L, value, nullptr);
 }

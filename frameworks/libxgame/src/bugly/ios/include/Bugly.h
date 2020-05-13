@@ -1,7 +1,7 @@
 //
 //  Bugly.h
 //
-//  Version: 2.5(0)
+//  Version: 2.5(4)
 //
 //  Copyright (c) 2017年 Tencent. All rights reserved.
 //
@@ -16,7 +16,7 @@ BLY_START_NONNULL
 @interface Bugly : NSObject
 
 /**
- *  初始化Bugly,使用默认BuglyConfig
+ *  初始化Bugly,使用默认BuglyConfigs
  *
  *  @param appId 注册Bugly分配的应用唯一标识
  */
@@ -130,6 +130,13 @@ BLY_START_NONNULL
  *  @return SDK版本号
  */
 + (NSString *)sdkVersion;
+
+/**
+ *  APP 版本信息
+ *
+ *  @return SDK版本号
+ */
++ (NSString *)appVersion;
 
 /**
  *  App 是否发生了连续闪退

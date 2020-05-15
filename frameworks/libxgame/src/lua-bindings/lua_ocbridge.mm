@@ -277,6 +277,8 @@ static SEL _find_selector(lua_State *L, Class cls, const char *method)
         NSString *name = NSStringFromSelector(selector);
         if ([name hasPrefix:prefix]) {
             break;
+        } else {
+            selector = (SEL)0;
         }
     }
     free(methods);
@@ -304,7 +306,7 @@ static int _invoke(lua_State *L)
         }
         if (methodSelector == (SEL)0)
         {
-            luaL_error(L, "invalid method name: %s.%s", cls, method);
+            luaL_error(L, "method not found: %s.%s", cls, method);
         }
         
         NSMethodSignature *methodSig = [targetClass methodSignatureForSelector:(SEL)methodSelector];

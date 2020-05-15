@@ -35,7 +35,7 @@ android {
         java.srcDir "src"
         res.srcDir "res"
         manifest.srcFile "AndroidManifest.xml"
-        assets.srcDir "../../../assets"
+        assets.srcDir "assets"
     }
 
     externalNativeBuild {
@@ -74,21 +74,30 @@ android {
     }
 }
 
-android.applicationVariants.all { variant ->
-    def project_root_folder = "${projectDir}/../.."
-    def dest_assets_folder = "${projectDir}/assets"
+def compileAssets(path) {
+    def cmdArgs = ["${projectDir}/../../../tools/bin/lua_wrapper.sh", "../hot-update/build-assets.lua", path]
+    println 'running command : ' + cmdArgs.join(' ')
+    exec {
+        executable "/bin/bash"
+        args cmdArgs
+    }
+}
 
-    // delete previous files first
-    delete dest_assets_folder
+android.applicationVariants.all { variant ->
+    def srcAssets = "${projectDir}/../../../assets"
+    def destAssets = "${projectDir}/assets"
+
+    delete destAssets
+
     def targetName = variant.name.capitalize()
     def copyTaskName = "copy${targetName}ResourcesToAssets"
-    
     tasks.register(copyTaskName) {
         copy {
-            from "${buildDir}/../../../Resources"
-            into "${buildDir}/intermediates/assets/${variant.dirName}"
-            exclude "**/*.gz"
+            from srcAssets
+            into destAssets
+            exclude "builtin.manifest"
         }
+        compileAssets(destAssets)
     }
     tasks.getByName("pre${targetName}Build").dependsOn copyTaskName
 }

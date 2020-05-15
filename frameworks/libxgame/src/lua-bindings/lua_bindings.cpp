@@ -1,6 +1,7 @@
 #include "lua_bindings.h"
 #include "lua_crypto.h"
 #include "lua_javabridge.h"
+#include "lua_ocbridge.h"
 #include "lua_xgame.h"
 #include "lua_cocos2d.h"
 #include "lua_cocos2d_action.h"
@@ -99,6 +100,7 @@ int luaopen_bindings(lua_State *L)
 #endif // CCLUA_BUILD_BUGLY
 
     olua_require(L, "kernel.Socket", luaopen_socket);
+    olua_require(L, "kernel.luaoc", luaopen_ocbridge);
     olua_require(L, "kernel.luaj", luaopen_javabridge);
     olua_require(L, "kernel.keychain", luaopen_keychain);
     olua_require(L, "kernel.plugins.photo", luaopen_photo);

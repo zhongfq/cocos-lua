@@ -506,6 +506,52 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::ProgramState'
 cls.SUPERCLS = "cocos2d::Ref"
+cls.CHUNK = [[
+static inline void olua_check_value(lua_State *L, int idx, cocos2d::Vec2 *value)
+{
+    auto_olua_check_cocos2d_Vec2(L, idx, value);
+}
+
+static inline void olua_check_value(lua_State *L, int idx, cocos2d::Vec3 *value)
+{
+    auto_olua_check_cocos2d_Vec3(L, idx, value);
+}
+
+static inline void olua_check_value(lua_State *L, int idx, cocos2d::Vec4 *value)
+{
+    auto_olua_check_cocos2d_Vec4(L, idx, value);
+}
+
+static inline void olua_check_value(lua_State *L, int idx, cocos2d::Mat4 *value)
+{
+    manual_olua_check_cocos2d_Mat4(L, idx, value);
+}
+
+static inline void olua_check_value(lua_State *L, int idx, int *value)
+{
+    *value = (int)olua_checkinteger(L, idx);
+}
+
+static inline void olua_check_value(lua_State *L, int idx, float *value)
+{
+    *value = (float)olua_checknumber(L, idx);
+}
+
+template <typename T> int _cocos2d_backend_ProgramState_setUniform(lua_State *L)
+{
+    cocos2d::backend::UniformLocation location;
+    T value;
+    auto self = olua_toobj<cocos2d::backend::ProgramState>(L, 1);
+    if (olua_isstring(L, 2)) {
+        location = self->getUniformLocation(olua_checkstring(L, 2));
+    } else {
+        manual_olua_check_cocos2d_backend_UniformLocation(L, 2, &location);
+    }
+    olua_check_value(L, 3, &value);
+    self->setUniform(location, &value, sizeof(T));
+    return 0;
+}
+]]
 cls.funcs [[
     ProgramState(cocos2d::backend::Program *program)
     cocos2d::backend::ProgramState *clone()
@@ -526,6 +572,30 @@ cls.func('getVertexLayout', [[{
     olua_push_cppobj<cocos2d::backend::VertexLayout>(L, self->getVertexLayout().get());
     olua_addref(L, 1, "vertexLayout", -1, OLUA_MODE_SINGLE);
     return 1;
+}]])
+cls.func('setUniformVec2', [[{
+    _cocos2d_backend_ProgramState_setUniform<cocos2d::Vec2>(L);
+    return 0;
+}]])
+cls.func('setUniformVec3', [[{
+    _cocos2d_backend_ProgramState_setUniform<cocos2d::Vec3>(L);
+    return 0;
+}]])
+cls.func('setUniformVec4', [[{
+    _cocos2d_backend_ProgramState_setUniform<cocos2d::Vec4>(L);
+    return 0;
+}]])
+cls.func('setUniformMat4', [[{
+    _cocos2d_backend_ProgramState_setUniform<cocos2d::Mat4>(L);
+    return 0;
+}]])
+cls.func('setUniformInt', [[{
+    _cocos2d_backend_ProgramState_setUniform<int>(L);
+    return 0;
+}]])
+cls.func('setUniformFloat', [[{
+    _cocos2d_backend_ProgramState_setUniform<float>(L);
+    return 0;
 }]])
 cls.props [[
     program

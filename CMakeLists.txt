@@ -171,24 +171,20 @@ if(XCODE OR VS)
 endif()
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libxgame)
-set_target_properties(xgame PROPERTIES FOLDER "Internal")
 target_link_libraries(${APP_NAME} xgame)
 
 if(CCLUA_BUILD_FAIRYGUI)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libfairygui)
-    set_target_properties(fairygui PROPERTIES FOLDER "Internal")
     target_link_libraries(${APP_NAME} fairygui)
 endif()
 
 if(CCLUA_BUILD_DRAGONBONES)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libdragonbones)
-    set_target_properties(dragonbones PROPERTIES FOLDER "Internal")
     target_link_libraries(${APP_NAME} dragonbones)
 endif()
 
 if(CCLUA_BUILD_SWF)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libswf)
-    set_target_properties(swf PROPERTIES FOLDER "Internal")
     target_link_libraries(${APP_NAME} swf)
     target_compile_definitions(${APP_NAME} PUBLIC CCLUA_BUILD_SWF)
 endif()
@@ -226,6 +222,8 @@ if(APPLE)
 
     # For code-signing, set the DEVELOPMENT_TEAM:
     set_xcode_property(${APP_NAME} CLANG_ENABLE_OBJC_ARC "YES")
+    set_xcode_property(${APP_NAME} SKIP_INSTALL "NO")
+    set_xcode_property(${APP_NAME} INSTALL_PATH "$(LOCAL_APPS_DIR)")
     set_xcode_property(${APP_NAME} DEVELOPMENT_TEAM "${APPLE_DEVELOPMENT_TEAM}")
     set_xcode_property(${APP_NAME} PRODUCT_BUNDLE_IDENTIFIER "${APP_PACKAGE_NAME}")
     set_xcode_property(${APP_NAME} PRODUCT_NAME "${APP_PRODUCT_NAME}")

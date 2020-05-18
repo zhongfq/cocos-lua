@@ -184,6 +184,12 @@ target_include_directories(fairygui
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Classes>
 )
 
+set_target_properties(fairygui PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    FOLDER "Internal"
+)
+
 if(XCODE OR VS)
     cocos_mark_code_files("fairygui" GROUPBASE "${CMAKE_CURRENT_SOURCE_DIR}/Classes")
 endif()

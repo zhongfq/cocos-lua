@@ -114,6 +114,9 @@ if (IOS)
         add_subdirectory(src/bugly/ios)
         target_link_libraries(xgame bugly)
     endif()
+
+    find_library(SC_LIBRARY SystemConfiguration)
+    target_link_libraries(xgame ${SC_LIBRARY})
     
     find_library(METALKIT_LIBRARY MetalKit)
     target_link_libraries(xgame ${METALKIT_LIBRARY})
@@ -130,6 +133,12 @@ add_dependencies(xgame cocos2d)
 target_include_directories(xgame
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/lua
+)
+
+set_target_properties(xgame PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    FOLDER "Internal"
 )
 
 if(XCODE OR VS)

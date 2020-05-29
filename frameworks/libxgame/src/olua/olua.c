@@ -59,29 +59,23 @@ static int errfunc(lua_State *L)
     return 0;
 }
 
-OLUA_API lua_State *olua_getmainthread(lua_State *L)
-{
-    lua_State *MT = NULL;
-    olua_assert(L != NULL);
-    lua_rawgeti(L, LUA_REGISTRYINDEX, LUA_RIDX_MAINTHREAD);
-    MT = lua_tothread(L, -1);
-    lua_pop(L, 1);
-    return MT;
-}
-
 OLUA_API olua_vmstatus_t *olua_vmstatus(lua_State *L)
 {
     olua_vmstatus_t *vms;
     if (olua_unlikely(registry_rawgetp(L, OLUA_VMSTATUS) != LUA_TUSERDATA)) {
-        static lua_Unsigned s_ctx_id = 0;
+        static lua_Unsigned s_id = 0;
         lua_pop(L, 1);
         vms = (olua_vmstatus_t *)lua_newuserdata(L, sizeof(*vms));
-        vms->id = ++s_ctx_id;
+        vms->id = ++s_id;
         vms->debug = false;
         vms->poolenabled = false;
         vms->objcount = 0;
         vms->poolsize = 0;
         registry_rawsetp(L, OLUA_VMSTATUS);
+        
+        olua_rawgeti(L, LUA_REGISTRYINDEX, LUA_RIDX_MAINTHREAD);
+        vms->mainthread = lua_tothread(L, -1);
+        lua_pop(L, 1);
     } else {
         vms = (olua_vmstatus_t *)lua_touserdata(L, -1);
         lua_pop(L, 1);

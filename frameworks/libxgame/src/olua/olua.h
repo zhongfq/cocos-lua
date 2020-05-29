@@ -71,11 +71,8 @@ extern "C" {
 #endif
 
 #ifndef olua_mainthread
-#define olua_mainthread(L) (L ? olua_getmainthread(L) : NULL)
+#define olua_mainthread(L) (L ? (olua_vmstatus(L)->mainthread) : NULL)
 #endif
-
-// main thread for this lua vm
-OLUA_API lua_State *olua_getmainthread(lua_State *L);
     
 // compare raw type of value
 #define olua_isfunction(L,n)        (lua_type(L, (n)) == LUA_TFUNCTION)
@@ -104,6 +101,7 @@ OLUA_API lua_State *olua_getmainthread(lua_State *L);
 #define olua_optboolean(L, i, d)    (olua_isnoneornil(L, (i)) ? (d) : olua_toboolean(L, (i)) != 0)
 
 typedef struct {
+    lua_State *mainthread;
     lua_Unsigned id;
     size_t objcount;
     size_t poolsize;

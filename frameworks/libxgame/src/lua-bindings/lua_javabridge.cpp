@@ -5,6 +5,7 @@
 #include "base/ccUTF8.h"
 #include "xgame/runtime.h"
 #include "xgame/xlua.h"
+#include "xgame/timer.h"
 
 #include <stdlib.h>
 
@@ -257,34 +258,36 @@ int luaopen_javabridge(lua_State *L)
 
 extern "C" {
 JNIEXPORT void JNICALL Java_kernel_LuaJ_call
-        (JNIEnv *env, jclass cls, jint func, jstring value) {
+        (JNIEnv *env, jclass cls, jint jfunc, jstring jargs, jboolean jonce) {
     CC_UNUSED_PARAM(env);
     CC_UNUSED_PARAM(cls);
 
     if (!xgame::runtime::isRestarting()) {
-        std::string args = cocos2d::JniHelper::jstring2string(value);
-        lua_State *L = olua_mainthread(NULL);
-        int top = lua_gettop(L);
-        olua_geterrorfunc(L);
-        olua_getref(L, func);
-        if (!lua_isnil(L, -1)) {
-            lua_pushstring(L, args.c_str());
-            lua_pcall(L, 1, 0, top + 1);
-        } else {
-            xgame::runtime::log("attemp to call nil: %d %s", (int) func, args.c_str());
-        }
-
-        lua_settop(L, top);
+        std::string args = cocos2d::JniHelper::jstring2string(jargs);
+        int func = (int)jfunc;
+        bool once = (bool)jonce;
+        auto listener = new EventListenerCustom();
+        listener->autorelease();
+        listener->init(Director::EVENT_BEFORE_UPDATE, [func, args, once, listener](EventCustom *event){
+            Director::getInstance()->getEventDispatcher()->removeEventListener(listener);
+            lua_State *L = olua_mainthread(NULL);
+            int top = lua_gettop(L);
+            olua_geterrorfunc(L);
+            olua_getref(L, func);
+            if (!lua_isnil(L, -1)) {
+                lua_pushstring(L, args.c_str());
+                lua_pcall(L, 1, 0, top + 1);
+            } else {
+                xgame::runtime::log("attempt to call nil: %d %s", func, args.c_str());
+            }
+            if (once) {
+                olua_unref(L, func);
+                xgame::runtime::log("remove func ref: %d", func);
+            }
+            lua_settop(L, top);
+        });
+        Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
     }
-}
-
-JNIEXPORT void JNICALL Java_kernel_LuaJ_unref
-        (JNIEnv *env, jclass cls, jint func) {
-    CC_UNUSED_PARAM(env);
-    CC_UNUSED_PARAM(cls);
-
-    lua_State *L = olua_mainthread(NULL);
-    olua_unref(L, func);
 }
 
 JNIEXPORT void JNICALL Java_kernel_LuaJ_registerFeature

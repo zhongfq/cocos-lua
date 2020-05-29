@@ -108,10 +108,10 @@ void runtime::init()
     
     // cocos event
     auto dispatcher = Director::getInstance()->getEventDispatcher();
-    dispatcher->addCustomEventListener("director_after_update", [](EventCustom *e) {
+    dispatcher->addCustomEventListener(Director::EVENT_AFTER_UPDATE, [](EventCustom *e) {
         runtime::dispatchEvent("runtimeUpdate", "");
     });
-    dispatcher->addCustomEventListener("director_projection_changed", [](EventCustom *e) {
+    dispatcher->addCustomEventListener(Director::EVENT_PROJECTION_CHANGED, [](EventCustom *e) {
         runtime::dispatchEvent("runtimeResize", "");
     });
 }

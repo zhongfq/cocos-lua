@@ -269,7 +269,6 @@ JNIEXPORT void JNICALL Java_kernel_LuaJ_call
         auto listener = new EventListenerCustom();
         listener->autorelease();
         listener->init(Director::EVENT_BEFORE_UPDATE, [func, args, once, listener](EventCustom *event){
-            Director::getInstance()->getEventDispatcher()->removeEventListener(listener);
             lua_State *L = olua_mainthread(NULL);
             int top = lua_gettop(L);
             olua_geterrorfunc(L);
@@ -282,9 +281,9 @@ JNIEXPORT void JNICALL Java_kernel_LuaJ_call
             }
             if (once) {
                 olua_unref(L, func);
-                xgame::runtime::log("remove func ref: %d", func);
             }
             lua_settop(L, top);
+            Director::getInstance()->getEventDispatcher()->removeEventListener(listener);
         });
         Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
     }

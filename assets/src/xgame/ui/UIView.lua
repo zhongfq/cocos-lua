@@ -13,7 +13,7 @@ function UIView:ctor()
     self.horizontalOffset = 0
     self.verticalAlign = Align.NONE
     self.verticalOffset = 0
-    self.cobjType = "cocos"
+    self.ctype = "cocos"
     self.cobj.ignoreAnchorPointForPosition = true
     self.cobj.anchorX = 0.5
     self.cobj.anchorY = 0.5

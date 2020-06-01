@@ -17,7 +17,7 @@ function UIObject:ctor()
     self.numTouches = 0
     self.clickedSound = false
     self._buttonMode = false
-    self.cobjType = "<unknown>"
+    self.ctype = "<unknown>"
 end
 
 function UIObject.Get:buttonMode()

@@ -10,6 +10,7 @@
 #include "lprefix.h"
 
 
+#include <errno.h>
 #include <locale.h>
 #include <stdlib.h>
 #include <string.h>
@@ -143,10 +144,12 @@
 
 static int os_execute (lua_State *L) {
   const char *cmd = luaL_optstring(L, 1, NULL);
+  int stat;
+  errno = 0;
 #ifdef TARGET_OS_IPHONE
-      int stat = 0; /* iOS 11 not support system */
+  stat = 0; /* iOS 11 not support system */
 #else
-      int stat = system(cmd);
+  stat = system(cmd);
 #endif
   if (cmd != NULL)
     return luaL_execresult(L, stat);

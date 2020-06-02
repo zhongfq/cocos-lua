@@ -216,6 +216,11 @@ OLUA_API int olua_pushobjstub(lua_State *L, void *obj, void *stub, const char *c
     int status = OLUA_OBJ_EXIST;
     aux_getobjtable(L);                                         // L: objt
     if (olua_rawgetp(L, -1, obj) == LUA_TUSERDATA) {            // L: objt obj
+        // ref stub in obj
+        lua_pushstring(L, ".stub");                             // L: objt obj .stub
+        olua_rawgetp(L, -3, stub);                              // L: objt obj .stub stub
+        olua_setvariable(L, -3);                                // L: objt obj   obj.uv[.stub] = stub
+        // stub point to obj
         lua_pushvalue(L, -1);                                   // L: objt obj obj
         olua_rawsetp(L, -3, stub);                              // L: objt obj      objt[stub] = obj
     } else if (olua_rawgetp(L, -2, stub) == LUA_TUSERDATA) {    // L: objt nil stub

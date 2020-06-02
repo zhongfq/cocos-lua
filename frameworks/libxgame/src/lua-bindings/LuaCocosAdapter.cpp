@@ -67,4 +67,32 @@ void LuaComponent::onRemove()
     }
 }
 
+LuaTweenNode *LuaTweenNode::create(const ccTweenCallback &callback)
+{
+    LuaTweenNode *ret = new (std::nothrow) LuaTweenNode();
+    if (ret && ret->initWithCallback(callback)) {
+        ret->autorelease();
+    } else {
+        CC_SAFE_DELETE(ret);
+    }
+    return ret;
+}
+   
+void LuaTweenNode::updateTweenAction(float value, const std::string &key)
+{
+    if (_callback) {
+        _callback(value, key);
+    }
+}
+
+bool LuaTweenNode::initWithCallback(const ccTweenCallback &callback)
+{
+    if (Node::init()) {
+        _callback = callback;
+        return true;
+    } else {
+        return false;
+    }
+}
+
 NS_CC_END

@@ -119,10 +119,10 @@ protected:
 
 public:
     Armature() :
+        _replaceTextureAtlasData(nullptr),
         _animation(nullptr),
         _proxy(nullptr),
-        _clock(nullptr),
-        _replaceTextureAtlasData(nullptr)
+        _clock(nullptr)
     {
         _onClear();
     }

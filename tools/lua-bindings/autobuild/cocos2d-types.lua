@@ -725,6 +725,14 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocos2d::LuaTweenNode *',
+    LUACLS = 'cc.LuaTweenNode',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
     CPPCLS = 'cocos2d::AtlasNode *',
     LUACLS = 'cc.AtlasNode',
     DECLTYPE = nil,

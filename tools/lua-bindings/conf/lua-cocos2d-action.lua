@@ -49,6 +49,7 @@ typeconf 'cocos2d::Speed'
 typeconf 'cocos2d::Follow'
 typeconf 'cocos2d::tweenfunc'
 typeconf 'cocos2d::ActionInterval'
+typeconf 'cocos2d::ActionTween'
 
 local Sequence = typeconf 'cocos2d::Sequence'
 Sequence.ATTR('createWithTwoActions', {ARG1 = '@addref(autoref |)', ARG2 = '@addref(autoref |)'})

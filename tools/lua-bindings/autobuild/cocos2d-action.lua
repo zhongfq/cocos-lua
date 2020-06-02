@@ -151,6 +151,13 @@ cls.props [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::ActionTween'
+cls.SUPERCLS = "cocos2d::ActionInterval"
+cls.funcs [[
+    static cocos2d::ActionTween *create(float duration, const std::string &key, float from, float to)
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::Sequence'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[

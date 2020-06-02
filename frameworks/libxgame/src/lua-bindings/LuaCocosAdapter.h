@@ -2,6 +2,7 @@
 #define __LUACOCOSADAPTER_H__
 
 #include "2d/CCComponent.h"
+#include "2d/CCActionTween.h"
 #include "ui/CocosGUI.h"
 #include "network/WebSocket.h"
 
@@ -27,6 +28,20 @@ public:
     std::function<void()> onExitCallback;
     std::function<void()> onAddCallback;
     std::function<void()> onRemoveCallback;
+};
+
+class LuaTweenNode : public Node, public ActionTweenDelegate
+{
+public:
+    typedef std::function<void(float, const std::string &)> ccTweenCallback;
+    
+    static LuaTweenNode *create(const ccTweenCallback &callback);
+    
+    virtual void updateTweenAction(float value, const std::string &key);
+private:
+    virtual bool initWithCallback(const ccTweenCallback &callback);
+    
+    ccTweenCallback _callback = nullptr;
 };
 
 class LuaWebSocketDelegate : public cocos2d::network::WebSocket::Delegate {

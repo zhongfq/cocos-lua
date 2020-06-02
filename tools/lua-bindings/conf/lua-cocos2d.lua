@@ -655,6 +655,14 @@ Node.INJECT({'removeFromParent', 'removeFromParentAndCleanup'}, {
     ]]
 })
 
+typeconf 'cocos2d::LuaTweenNode'
+    .CALLBACK {
+        NAME = 'create',
+        TAG_MAKER = 'ActionTween',
+        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_STORE = 'return',
+    }
+
 typeconf 'cocos2d::AtlasNode'
 typeconf 'cocos2d::sImageTGA'
 typeconf 'cocos2d::TileMapAtlas'

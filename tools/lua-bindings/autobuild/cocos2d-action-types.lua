@@ -52,6 +52,14 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocos2d::ActionTween *',
+    LUACLS = 'cc.ActionTween',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
     CPPCLS = 'cocos2d::Sequence *',
     LUACLS = 'cc.Sequence',
     DECLTYPE = nil,

@@ -2710,6 +2710,22 @@ cls.props [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::LuaTweenNode'
+cls.SUPERCLS = "cocos2d::Node"
+cls.funcs [[
+    void updateTweenAction(float value, const std::string &key)
+]]
+cls.callback {
+    FUNCS =  {
+        'static cocos2d::LuaTweenNode *create(@local const std::function<void (float, const std::string &)> &callback)'
+    },
+    TAG_MAKER = 'ActionTween',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = "return",
+    TAG_SCOPE = 'object',
+}
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::AtlasNode'
 cls.SUPERCLS = "cocos2d::Node"
 cls.funcs [[

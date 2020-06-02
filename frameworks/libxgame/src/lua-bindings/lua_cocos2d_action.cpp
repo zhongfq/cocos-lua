@@ -1630,6 +1630,52 @@ static int luaopen_cocos2d_ActionInterval(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_ActionTween___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::ActionTween *)olua_toobj(L, 1, "cc.ActionTween");
+    olua_push_cppobj(L, self, "cc.ActionTween");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_ActionTween_create(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** duration */
+    std::string arg2;       /** key */
+    lua_Number arg3 = 0;       /** from */
+    lua_Number arg4 = 0;       /** to */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    olua_check_number(L, 4, &arg4);
+
+    // static cocos2d::ActionTween *create(float duration, const std::string &key, float from, float to)
+    cocos2d::ActionTween *ret = (cocos2d::ActionTween *)cocos2d::ActionTween::create((float)arg1, arg2, (float)arg3, (float)arg4);
+    int num_ret = olua_push_cppobj(L, ret, "cc.ActionTween");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_ActionTween(lua_State *L)
+{
+    oluacls_class(L, "cc.ActionTween", "cc.ActionInterval");
+    oluacls_func(L, "__move", _cocos2d_ActionTween___move);
+    oluacls_func(L, "create", _cocos2d_ActionTween_create);
+
+    olua_registerluatype<cocos2d::ActionTween>(L, "cc.ActionTween");
+
+    return 1;
+}
+
 static int _cocos2d_Sequence___move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -10226,6 +10272,7 @@ int luaopen_cocos2d_action(lua_State *L)
     olua_require(L, "cc.Follow", luaopen_cocos2d_Follow);
     olua_require(L, "cc.tweenfunc", luaopen_cocos2d_tweenfunc);
     olua_require(L, "cc.ActionInterval", luaopen_cocos2d_ActionInterval);
+    olua_require(L, "cc.ActionTween", luaopen_cocos2d_ActionTween);
     olua_require(L, "cc.Sequence", luaopen_cocos2d_Sequence);
     olua_require(L, "cc.Repeat", luaopen_cocos2d_Repeat);
     olua_require(L, "cc.RepeatForever", luaopen_cocos2d_RepeatForever);

@@ -102,7 +102,7 @@ extern "C" {
 
 typedef struct {
     lua_State *mainthread;
-    lua_Unsigned id;
+    lua_Unsigned ctxid;
     size_t objcount;
     size_t poolsize;
     bool poolenabled;
@@ -118,9 +118,9 @@ OLUA_API olua_vmstatus_t *olua_vmstatus(lua_State *L);
 /**
  * Sometimes when you new and close lua_State for several times, you may got
  * same memory address for lua_State, this because the malloc reuse memory.
- * olua_getid can return different id for each main lua_State.
+ * olua_context can return different id for each main lua_State.
  */
-#define olua_getid(L)     (olua_vmstatus(L)->id)
+#define olua_context(L)     (olua_vmstatus(L)->ctxid)
     
 OLUA_API lua_Integer olua_checkinteger(lua_State *L, int idx);
 OLUA_API lua_Number olua_checknumber(lua_State *L, int idx);
@@ -142,7 +142,7 @@ OLUA_API int olua_pcallref(lua_State *L, int funcref, int nargs, int nresults);
 OLUA_API bool olua_getrawobj(lua_State *L, void *obj);
 OLUA_API const char *olua_typename(lua_State *L, int idx);
 OLUA_API bool olua_isa(lua_State *L, int idx, const char *cls);
-OLUA_API void *olua_allocobjstub(lua_State *L, const char *cls);
+OLUA_API void *olua_newobjstub(lua_State *L, const char *cls);
 OLUA_API int olua_pushobjstub(lua_State *L, void *obj, void *stub, const char *cls);
 OLUA_API int olua_pushobj(lua_State *L, void *obj, const char *cls);
 OLUA_API void *olua_checkobj(lua_State *L, int idx, const char *cls);
@@ -153,21 +153,21 @@ OLUA_API const char *olua_objstring(lua_State *L, int idx);
 #define olua_enable_objpool(L)  (olua_vmstatus(L)->poolenabled = true)
 #define olua_disable_objpool(L) (olua_vmstatus(L)->poolenabled = false)
 #define olua_push_objpool(L)    (olua_vmstatus(L)->poolsize)
-OLUA_API void olua_pop_objpool(lua_State *L, size_t level);
+OLUA_API void olua_pop_objpool(lua_State *L, size_t position);
 
 // callback functions
 //  obj.uservalue {
-//      |----id----|---class---|--tag--|
-//      .callback#1$olua.Object@onClick = lua_func
-//      .callback#2$olua.Object@onClick = lua_func
-//      .callback#3$olua.Object@update = lua_func
-//      .callback#4$olua.Object@onRemoved = lua_func
+//      |----id----|--class--|--tag--|
+//      .callback#1$classname@onClick = lua_func
+//      .callback#2$classname@onClick = lua_func
+//      .callback#3$classname@update = lua_func
+//      .callback#4$classname@onRemoved = lua_func
 //      ...
 //  }
 // for olua_setcallback
 #define OLUA_TAG_NEW          0
 #define OLUA_TAG_REPLACE      1
-// for olua_removecallback, tag format: .callback#%d$cls@%s
+// for olua_removecallback
 #define OLUA_TAG_WHOLE        2 // compare whole tag string
 #define OLUA_TAG_SUBEQUAL     3 // compare substring after '@'
 #define OLUA_TAG_SUBSTARTWITH 4 // compare substring after '@'

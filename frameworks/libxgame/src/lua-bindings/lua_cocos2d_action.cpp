@@ -3802,18 +3802,18 @@ static int _cocos2d_ActionFloat_create(lua_State *L)
     olua_check_number(L, 2, &arg2);
     olua_check_number(L, 3, &arg3);
 
-    void *callback_store_obj = (void *)olua_allocobjstub(L, "cc.ActionFloat");
+    void *self_obj = (void *)olua_newobjstub(L, "cc.ActionFloat");
     std::string tag = "ActionFloat";
-    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 4, OLUA_TAG_NEW);
-    lua_Unsigned ctx_id = olua_getid(L);
-    arg4 = [callback_store_obj, func, ctx_id](float arg1) {
+    std::string func = olua_setcallback(L, self_obj, tag.c_str(), 4, OLUA_TAG_NEW);
+    lua_Unsigned ctx = olua_context(L);
+    arg4 = [self_obj, func, ctx](float arg1) {
         lua_State *L = olua_mainthread(NULL);
 
-        if (L != NULL && (olua_getid(L) == ctx_id)) {
+        if (L != NULL && (olua_context(L) == ctx)) {
             int top = lua_gettop(L);
             olua_push_number(L, (lua_Number)arg1);
 
-            olua_callback(L, callback_store_obj, func.c_str(), 1);
+            olua_callback(L, self_obj, func.c_str(), 1);
 
             lua_settop(L, top);
         }
@@ -3822,7 +3822,7 @@ static int _cocos2d_ActionFloat_create(lua_State *L)
     // static cocos2d::ActionFloat *create(float duration, float from, float to, @local std::function<void (float)> callback)
     cocos2d::ActionFloat *ret = (cocos2d::ActionFloat *)cocos2d::ActionFloat::create((float)arg1, (float)arg2, (float)arg3, arg4);
     const char *cls = olua_getluatype(L, ret, "cc.ActionFloat");
-    if (olua_pushobjstub(L, ret, callback_store_obj, cls) == OLUA_OBJ_EXIST) {
+    if (olua_pushobjstub(L, ret, self_obj, cls) == OLUA_OBJ_EXIST) {
         lua_pushstring(L, func.c_str());
         lua_pushvalue(L, 4);
         olua_setvariable(L, -3);
@@ -6602,17 +6602,17 @@ static int _cocos2d_CallFunc_create(lua_State *L)
 
     std::function<void()> arg1;       /** func */
 
-    void *callback_store_obj = (void *)olua_allocobjstub(L, "cc.CallFunc");
+    void *self_obj = (void *)olua_newobjstub(L, "cc.CallFunc");
     std::string tag = "CallFunc";
-    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 1, OLUA_TAG_NEW);
-    lua_Unsigned ctx_id = olua_getid(L);
-    arg1 = [callback_store_obj, func, ctx_id]() {
+    std::string func = olua_setcallback(L, self_obj, tag.c_str(), 1, OLUA_TAG_NEW);
+    lua_Unsigned ctx = olua_context(L);
+    arg1 = [self_obj, func, ctx]() {
         lua_State *L = olua_mainthread(NULL);
 
-        if (L != NULL && (olua_getid(L) == ctx_id)) {
+        if (L != NULL && (olua_context(L) == ctx)) {
             int top = lua_gettop(L);
 
-            olua_callback(L, callback_store_obj, func.c_str(), 0);
+            olua_callback(L, self_obj, func.c_str(), 0);
 
             lua_settop(L, top);
         }
@@ -6621,7 +6621,7 @@ static int _cocos2d_CallFunc_create(lua_State *L)
     // static cocos2d::CallFunc *create(@local const std::function<void ()> &func)
     cocos2d::CallFunc *ret = (cocos2d::CallFunc *)cocos2d::CallFunc::create(arg1);
     const char *cls = olua_getluatype(L, ret, "cc.CallFunc");
-    if (olua_pushobjstub(L, ret, callback_store_obj, cls) == OLUA_OBJ_EXIST) {
+    if (olua_pushobjstub(L, ret, self_obj, cls) == OLUA_OBJ_EXIST) {
         lua_pushstring(L, func.c_str());
         lua_pushvalue(L, 1);
         olua_setvariable(L, -3);

@@ -767,22 +767,22 @@ static int _cocos2d_backend_CommandBuffer_captureScreen(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccb.CommandBuffer");
 
-    void *callback_store_obj = (void *)self;
+    void *self_obj = (void *)self;
     std::string tag = "captureScreen";
-    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_NEW);
-    lua_Unsigned ctx_id = olua_getid(L);
-    arg1 = [callback_store_obj, func, ctx_id](const unsigned char *arg1, int arg2, int arg3) {
+    std::string func = olua_setcallback(L, self_obj, tag.c_str(), 2, OLUA_TAG_NEW);
+    lua_Unsigned ctx = olua_context(L);
+    arg1 = [self_obj, func, ctx](const unsigned char *arg1, int arg2, int arg3) {
         lua_State *L = olua_mainthread(NULL);
 
-        if (L != NULL && (olua_getid(L) == ctx_id)) {
+        if (L != NULL && (olua_context(L) == ctx)) {
             int top = lua_gettop(L);
             olua_push_string(L, (const char *)arg1);
             olua_push_int(L, (lua_Integer)arg2);
             olua_push_int(L, (lua_Integer)arg3);
 
-            olua_callback(L, callback_store_obj, func.c_str(), 3);
+            olua_callback(L, self_obj, func.c_str(), 3);
 
-            olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_TAG_WHOLE);
+            olua_removecallback(L, self_obj, func.c_str(), OLUA_TAG_WHOLE);
 
             lua_settop(L, top);
         }
@@ -2739,22 +2739,22 @@ static int _cocos2d_backend_TextureBackend_getBytes(lua_State *L)
     olua_check_uint(L, 5, &arg4);
     olua_check_bool(L, 6, &arg5);
 
-    void *callback_store_obj = (void *)self;
+    void *self_obj = (void *)self;
     std::string tag = "Bytes";
-    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 7, OLUA_TAG_NEW);
-    lua_Unsigned ctx_id = olua_getid(L);
-    arg6 = [callback_store_obj, func, ctx_id](const unsigned char *arg1, std::size_t arg2, std::size_t arg3) {
+    std::string func = olua_setcallback(L, self_obj, tag.c_str(), 7, OLUA_TAG_NEW);
+    lua_Unsigned ctx = olua_context(L);
+    arg6 = [self_obj, func, ctx](const unsigned char *arg1, std::size_t arg2, std::size_t arg3) {
         lua_State *L = olua_mainthread(NULL);
 
-        if (L != NULL && (olua_getid(L) == ctx_id)) {
+        if (L != NULL && (olua_context(L) == ctx)) {
             int top = lua_gettop(L);
             olua_push_string(L, (const char *)arg1);
             olua_push_uint(L, (lua_Unsigned)arg2);
             olua_push_uint(L, (lua_Unsigned)arg3);
 
-            olua_callback(L, callback_store_obj, func.c_str(), 3);
+            olua_callback(L, self_obj, func.c_str(), 3);
 
-            olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_TAG_WHOLE);
+            olua_removecallback(L, self_obj, func.c_str(), OLUA_TAG_WHOLE);
 
             lua_settop(L, top);
         }

@@ -137,9 +137,9 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactBegin(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerPhysicsContact");
 
-    void *callback_store_obj = (void *)self;
+    void *self_obj = (void *)self;
     std::string tag = "onContactBegin";
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
+    olua_getcallback(L, self_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // @nullable @local std::function<bool (PhysicsContact &)> onContactBegin
     std::function<bool(cocos2d::PhysicsContact &)> ret = (std::function<bool(cocos2d::PhysicsContact &)>)self->onContactBegin;
@@ -160,21 +160,21 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactBegin(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerPhysicsContact");
 
     if (olua_is_std_function(L, 2)) {
-        void *callback_store_obj = (void *)self;
+        void *self_obj = (void *)self;
         std::string tag = "onContactBegin";
-        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_Unsigned ctx_id = olua_getid(L);
-        arg1 = [callback_store_obj, func, ctx_id](cocos2d::PhysicsContact &arg1) {
+        std::string func = olua_setcallback(L, self_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
+        lua_Unsigned ctx = olua_context(L);
+        arg1 = [self_obj, func, ctx](cocos2d::PhysicsContact &arg1) {
             lua_State *L = olua_mainthread(NULL);
             bool ret = false;       
-            if (L != NULL && (olua_getid(L) == ctx_id)) {
+            if (L != NULL && (olua_context(L) == ctx)) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
                 olua_push_cppobj(L, &arg1);
                 olua_disable_objpool(L);
 
-                olua_callback(L, callback_store_obj, func.c_str(), 1);
+                olua_callback(L, self_obj, func.c_str(), 1);
 
                 if (olua_is_bool(L, -1)) {
                     olua_check_bool(L, -1, &ret);
@@ -187,9 +187,9 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactBegin(lua_State *L)
             return ret;
         };
     } else {
-        void *callback_store_obj = (void *)self;
+        void *self_obj = (void *)self;
         std::string tag = "onContactBegin";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
+        olua_removecallback(L, self_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 
@@ -209,9 +209,9 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactPostSolve(lua_State
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerPhysicsContact");
 
-    void *callback_store_obj = (void *)self;
+    void *self_obj = (void *)self;
     std::string tag = "onContactPostSolve";
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
+    olua_getcallback(L, self_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // @nullable @local std::function<void (PhysicsContact &, const PhysicsContactPostSolve &)> onContactPostSolve
     std::function<void(cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)> ret = (std::function<void(cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)>)self->onContactPostSolve;
@@ -232,14 +232,14 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPostSolve(lua_State
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerPhysicsContact");
 
     if (olua_is_std_function(L, 2)) {
-        void *callback_store_obj = (void *)self;
+        void *self_obj = (void *)self;
         std::string tag = "onContactPostSolve";
-        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_Unsigned ctx_id = olua_getid(L);
-        arg1 = [callback_store_obj, func, ctx_id](cocos2d::PhysicsContact &arg1, const cocos2d::PhysicsContactPostSolve &arg2) {
+        std::string func = olua_setcallback(L, self_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
+        lua_Unsigned ctx = olua_context(L);
+        arg1 = [self_obj, func, ctx](cocos2d::PhysicsContact &arg1, const cocos2d::PhysicsContactPostSolve &arg2) {
             lua_State *L = olua_mainthread(NULL);
 
-            if (L != NULL && (olua_getid(L) == ctx_id)) {
+            if (L != NULL && (olua_context(L) == ctx)) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -247,7 +247,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPostSolve(lua_State
                 olua_push_cppobj(L, &arg2);
                 olua_disable_objpool(L);
 
-                olua_callback(L, callback_store_obj, func.c_str(), 2);
+                olua_callback(L, self_obj, func.c_str(), 2);
 
                 //pop stack value
                 olua_pop_objpool(L, last);
@@ -255,9 +255,9 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPostSolve(lua_State
             }
         };
     } else {
-        void *callback_store_obj = (void *)self;
+        void *self_obj = (void *)self;
         std::string tag = "onContactPostSolve";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
+        olua_removecallback(L, self_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 
@@ -277,9 +277,9 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactPreSolve(lua_State 
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerPhysicsContact");
 
-    void *callback_store_obj = (void *)self;
+    void *self_obj = (void *)self;
     std::string tag = "onContactPreSolve";
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
+    olua_getcallback(L, self_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // @nullable @local std::function<bool (PhysicsContact &, PhysicsContactPreSolve &)> onContactPreSolve
     std::function<bool(cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)> ret = (std::function<bool(cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)>)self->onContactPreSolve;
@@ -300,14 +300,14 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPreSolve(lua_State 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerPhysicsContact");
 
     if (olua_is_std_function(L, 2)) {
-        void *callback_store_obj = (void *)self;
+        void *self_obj = (void *)self;
         std::string tag = "onContactPreSolve";
-        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_Unsigned ctx_id = olua_getid(L);
-        arg1 = [callback_store_obj, func, ctx_id](cocos2d::PhysicsContact &arg1, cocos2d::PhysicsContactPreSolve &arg2) {
+        std::string func = olua_setcallback(L, self_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
+        lua_Unsigned ctx = olua_context(L);
+        arg1 = [self_obj, func, ctx](cocos2d::PhysicsContact &arg1, cocos2d::PhysicsContactPreSolve &arg2) {
             lua_State *L = olua_mainthread(NULL);
             bool ret = false;       
-            if (L != NULL && (olua_getid(L) == ctx_id)) {
+            if (L != NULL && (olua_context(L) == ctx)) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -315,7 +315,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPreSolve(lua_State 
                 olua_push_cppobj(L, &arg2);
                 olua_disable_objpool(L);
 
-                olua_callback(L, callback_store_obj, func.c_str(), 2);
+                olua_callback(L, self_obj, func.c_str(), 2);
 
                 if (olua_is_bool(L, -1)) {
                     olua_check_bool(L, -1, &ret);
@@ -328,9 +328,9 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPreSolve(lua_State 
             return ret;
         };
     } else {
-        void *callback_store_obj = (void *)self;
+        void *self_obj = (void *)self;
         std::string tag = "onContactPreSolve";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
+        olua_removecallback(L, self_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 
@@ -350,9 +350,9 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactSeparate(lua_State 
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerPhysicsContact");
 
-    void *callback_store_obj = (void *)self;
+    void *self_obj = (void *)self;
     std::string tag = "onContactSeparate";
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
+    olua_getcallback(L, self_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // @nullable @local std::function<void (PhysicsContact &)> onContactSeparate
     std::function<void(cocos2d::PhysicsContact &)> ret = (std::function<void(cocos2d::PhysicsContact &)>)self->onContactSeparate;
@@ -373,21 +373,21 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactSeparate(lua_State 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerPhysicsContact");
 
     if (olua_is_std_function(L, 2)) {
-        void *callback_store_obj = (void *)self;
+        void *self_obj = (void *)self;
         std::string tag = "onContactSeparate";
-        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_Unsigned ctx_id = olua_getid(L);
-        arg1 = [callback_store_obj, func, ctx_id](cocos2d::PhysicsContact &arg1) {
+        std::string func = olua_setcallback(L, self_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
+        lua_Unsigned ctx = olua_context(L);
+        arg1 = [self_obj, func, ctx](cocos2d::PhysicsContact &arg1) {
             lua_State *L = olua_mainthread(NULL);
 
-            if (L != NULL && (olua_getid(L) == ctx_id)) {
+            if (L != NULL && (olua_context(L) == ctx)) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
                 olua_push_cppobj(L, &arg1);
                 olua_disable_objpool(L);
 
-                olua_callback(L, callback_store_obj, func.c_str(), 1);
+                olua_callback(L, self_obj, func.c_str(), 1);
 
                 //pop stack value
                 olua_pop_objpool(L, last);
@@ -395,9 +395,9 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactSeparate(lua_State 
             }
         };
     } else {
-        void *callback_store_obj = (void *)self;
+        void *self_obj = (void *)self;
         std::string tag = "onContactSeparate";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
+        olua_removecallback(L, self_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 
@@ -6828,14 +6828,14 @@ static int _cocos2d_PhysicsWorld_queryPoint(lua_State *L)
     auto_olua_check_cocos2d_Vec2(L, 3, &arg2);
     olua_check_obj(L, 4, (void **)&arg3, "void *");
 
-    void *callback_store_obj = (void *)self;
+    void *self_obj = (void *)self;
     std::string tag = "queryPoint";
-    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-    lua_Unsigned ctx_id = olua_getid(L);
-    arg1 = [callback_store_obj, func, ctx_id](cocos2d::PhysicsWorld &arg1, cocos2d::PhysicsShape &arg2, void *arg3) {
+    std::string func = olua_setcallback(L, self_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
+    lua_Unsigned ctx = olua_context(L);
+    arg1 = [self_obj, func, ctx](cocos2d::PhysicsWorld &arg1, cocos2d::PhysicsShape &arg2, void *arg3) {
         lua_State *L = olua_mainthread(NULL);
         bool ret = false;       
-        if (L != NULL && (olua_getid(L) == ctx_id)) {
+        if (L != NULL && (olua_context(L) == ctx)) {
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
@@ -6844,7 +6844,7 @@ static int _cocos2d_PhysicsWorld_queryPoint(lua_State *L)
             olua_push_obj(L, arg3, "void *");
             olua_disable_objpool(L);
 
-            olua_callback(L, callback_store_obj, func.c_str(), 3);
+            olua_callback(L, self_obj, func.c_str(), 3);
 
             if (olua_is_bool(L, -1)) {
                 olua_check_bool(L, -1, &ret);
@@ -6878,14 +6878,14 @@ static int _cocos2d_PhysicsWorld_queryRect(lua_State *L)
     manual_olua_check_cocos2d_Rect(L, 3, &arg2);
     olua_check_obj(L, 4, (void **)&arg3, "void *");
 
-    void *callback_store_obj = (void *)self;
+    void *self_obj = (void *)self;
     std::string tag = "queryRect";
-    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-    lua_Unsigned ctx_id = olua_getid(L);
-    arg1 = [callback_store_obj, func, ctx_id](cocos2d::PhysicsWorld &arg1, cocos2d::PhysicsShape &arg2, void *arg3) {
+    std::string func = olua_setcallback(L, self_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
+    lua_Unsigned ctx = olua_context(L);
+    arg1 = [self_obj, func, ctx](cocos2d::PhysicsWorld &arg1, cocos2d::PhysicsShape &arg2, void *arg3) {
         lua_State *L = olua_mainthread(NULL);
         bool ret = false;       
-        if (L != NULL && (olua_getid(L) == ctx_id)) {
+        if (L != NULL && (olua_context(L) == ctx)) {
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
@@ -6894,7 +6894,7 @@ static int _cocos2d_PhysicsWorld_queryRect(lua_State *L)
             olua_push_obj(L, arg3, "void *");
             olua_disable_objpool(L);
 
-            olua_callback(L, callback_store_obj, func.c_str(), 3);
+            olua_callback(L, self_obj, func.c_str(), 3);
 
             if (olua_is_bool(L, -1)) {
                 olua_check_bool(L, -1, &ret);
@@ -6930,14 +6930,14 @@ static int _cocos2d_PhysicsWorld_rayCast(lua_State *L)
     auto_olua_check_cocos2d_Vec2(L, 4, &arg3);
     olua_check_obj(L, 5, (void **)&arg4, "void *");
 
-    void *callback_store_obj = (void *)self;
+    void *self_obj = (void *)self;
     std::string tag = "rayCast";
-    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-    lua_Unsigned ctx_id = olua_getid(L);
-    arg1 = [callback_store_obj, func, ctx_id](cocos2d::PhysicsWorld &arg1, const cocos2d::PhysicsRayCastInfo &arg2, void *arg3) {
+    std::string func = olua_setcallback(L, self_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
+    lua_Unsigned ctx = olua_context(L);
+    arg1 = [self_obj, func, ctx](cocos2d::PhysicsWorld &arg1, const cocos2d::PhysicsRayCastInfo &arg2, void *arg3) {
         lua_State *L = olua_mainthread(NULL);
         bool ret = false;       
-        if (L != NULL && (olua_getid(L) == ctx_id)) {
+        if (L != NULL && (olua_context(L) == ctx)) {
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
@@ -6946,7 +6946,7 @@ static int _cocos2d_PhysicsWorld_rayCast(lua_State *L)
             olua_push_obj(L, arg3, "void *");
             olua_disable_objpool(L);
 
-            olua_callback(L, callback_store_obj, func.c_str(), 3);
+            olua_callback(L, self_obj, func.c_str(), 3);
 
             if (olua_is_bool(L, -1)) {
                 olua_check_bool(L, -1, &ret);
@@ -7238,25 +7238,25 @@ static int _cocos2d_PhysicsWorld_setPostUpdateCallback(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
 
     if (olua_is_std_function(L, 2)) {
-        void *callback_store_obj = (void *)self;
+        void *self_obj = (void *)self;
         std::string tag = "PostUpdateCallback";
-        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_Unsigned ctx_id = olua_getid(L);
-        arg1 = [callback_store_obj, func, ctx_id]() {
+        std::string func = olua_setcallback(L, self_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
+        lua_Unsigned ctx = olua_context(L);
+        arg1 = [self_obj, func, ctx]() {
             lua_State *L = olua_mainthread(NULL);
 
-            if (L != NULL && (olua_getid(L) == ctx_id)) {
+            if (L != NULL && (olua_context(L) == ctx)) {
                 int top = lua_gettop(L);
 
-                olua_callback(L, callback_store_obj, func.c_str(), 0);
+                olua_callback(L, self_obj, func.c_str(), 0);
 
                 lua_settop(L, top);
             }
         };
     } else {
-        void *callback_store_obj = (void *)self;
+        void *self_obj = (void *)self;
         std::string tag = "PostUpdateCallback";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
+        olua_removecallback(L, self_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 
@@ -7278,25 +7278,25 @@ static int _cocos2d_PhysicsWorld_setPreUpdateCallback(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
 
     if (olua_is_std_function(L, 2)) {
-        void *callback_store_obj = (void *)self;
+        void *self_obj = (void *)self;
         std::string tag = "PreUpdateCallback";
-        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_Unsigned ctx_id = olua_getid(L);
-        arg1 = [callback_store_obj, func, ctx_id]() {
+        std::string func = olua_setcallback(L, self_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
+        lua_Unsigned ctx = olua_context(L);
+        arg1 = [self_obj, func, ctx]() {
             lua_State *L = olua_mainthread(NULL);
 
-            if (L != NULL && (olua_getid(L) == ctx_id)) {
+            if (L != NULL && (olua_context(L) == ctx)) {
                 int top = lua_gettop(L);
 
-                olua_callback(L, callback_store_obj, func.c_str(), 0);
+                olua_callback(L, self_obj, func.c_str(), 0);
 
                 lua_settop(L, top);
             }
         };
     } else {
-        void *callback_store_obj = (void *)self;
+        void *self_obj = (void *)self;
         std::string tag = "PreUpdateCallback";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
+        olua_removecallback(L, self_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 

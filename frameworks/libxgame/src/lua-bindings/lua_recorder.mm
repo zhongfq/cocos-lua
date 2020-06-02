@@ -105,10 +105,10 @@ static int _set_callback(lua_State *L)
         RecorderConnector *connector = olua_checkconnector(L, 1);
         void *cb_store = (__bridge void *)connector;
         std::string func = olua_setcallback(L, cb_store, "dispatcher", 2, OLUA_TAG_REPLACE);
-        lua_Unsigned ctx_id = olua_getid(L);
-        connector.dispatcher = [cb_store, func, ctx_id] (const std::string &event, const std::string &data) {
+        lua_Unsigned ctx = olua_context(L);
+        connector.dispatcher = [cb_store, func, ctx] (const std::string &event, const std::string &data) {
             lua_State *L = olua_mainthread(NULL);
-            if (L != NULL && (olua_getid(L) == ctx_id)) {
+            if (L != NULL && (olua_context(L) == ctx)) {
                 int top = lua_gettop(L);
                 lua_pushstring(L, event.c_str());
                 lua_pushstring(L, data.c_str());

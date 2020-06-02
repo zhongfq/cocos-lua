@@ -388,14 +388,13 @@ GList.ATTR('setSelectionController', {ARG1 = '@addref(selectionController ^)'})
 GList.ATTR('setVirtual', {RET = '@delref(children ~)'})
 GList.ATTR('setVirtualAndLoop', {RET = '@delref(children ~)'})
 GList.ATTR('setNumItems', {RET = '@delref(children ~)'})
-GList.VAR('itemRenderer', 'std::function<void(int, GObject*)> itemRenderer')
-GList.VAR('itemProvider', 'std::function<std::string(int)> itemProvider')
--- std::function<void(int, GObject*)> itemRenderer;
 GList.ATTR('getSelection', {ARG1 = '@out'})
+GList.CALLBACK {NAME = 'itemRenderer', LOCAL = false}
+-- std::function<void(int, GObject*)> itemRenderer;
 GList.INJECT('itemRenderer', {
     CALLBACK_BEFORE = [[
         if (arg2->getParent()) {
-            olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)callback_store_obj);
+            olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)self_obj);
             olua_addref(L, -1, "children", -2, OLUA_MODE_MULTIPLE);
             lua_pop(L, 1);
         }

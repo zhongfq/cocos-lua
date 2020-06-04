@@ -72,6 +72,9 @@ public:
     static void handleOpenURL(const std::string &uri);
     static bool canOpenURL(const std::string &uri);
     
+    // for java and objc bridge
+    static void callref(int func, const std::string &args, bool once);
+    
     // log
     static const std::string &getTimestamp();
     static void updateTimestamp();

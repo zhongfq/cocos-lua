@@ -257,53 +257,27 @@ int luaopen_javabridge(lua_State *L)
 }
 
 extern "C" {
+#define jstring2string(jstr) (cocos2d::JniHelper::jstring2string(jstr))
+
 JNIEXPORT void JNICALL Java_kernel_LuaJ_call
-        (JNIEnv *env, jclass cls, jint jfunc, jstring jargs, jboolean jonce) {
+        (JNIEnv *env, jclass cls, jint func, jstring args, jboolean once) {
     CC_UNUSED_PARAM(env);
     CC_UNUSED_PARAM(cls);
-
-    if (!xgame::runtime::isRestarting()) {
-        std::string args = cocos2d::JniHelper::jstring2string(jargs);
-        int func = (int)jfunc;
-        bool once = (bool)jonce;
-        auto listener = new EventListenerCustom();
-        listener->autorelease();
-        listener->init(Director::EVENT_BEFORE_UPDATE, [func, args, once, listener](EventCustom *event){
-            lua_State *L = olua_mainthread(NULL);
-            int top = lua_gettop(L);
-            olua_geterrorfunc(L);
-            olua_getref(L, func);
-            if (!lua_isnil(L, -1)) {
-                lua_pushstring(L, args.c_str());
-                lua_pcall(L, 1, 0, top + 1);
-            } else {
-                xgame::runtime::log("attempt to call nil: %d %s", func, args.c_str());
-            }
-            if (once) {
-                olua_unref(L, func);
-            }
-            lua_settop(L, top);
-            Director::getInstance()->getEventDispatcher()->removeEventListener(listener);
-        });
-        Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
-    }
+    xgame::runtime::callref((int)func, jstring2string(args), (bool)once);
 }
 
 JNIEXPORT void JNICALL Java_kernel_LuaJ_registerFeature
-        (JNIEnv *env, jclass cls, jstring japi, jboolean enabled) {
+        (JNIEnv *env, jclass cls, jstring api, jboolean enabled) {
     CC_UNUSED_PARAM(env);
     CC_UNUSED_PARAM(cls);
-    std::string api = cocos2d::JniHelper::jstring2string(japi);
-    xgame::runtime::registerFeature(api, (bool)enabled);
+    xgame::runtime::registerFeature(jstring2string(api), (bool)enabled);
 }
 
 JNIEXPORT void JNICALL Java_kernel_LuaJ_dispatchEvent
-        (JNIEnv *env, jclass cls, jstring jevent, jstring jargs) {
+        (JNIEnv *env, jclass cls, jstring event, jstring args) {
     CC_UNUSED_PARAM(env);
     CC_UNUSED_PARAM(cls);
-    std::string event = cocos2d::JniHelper::jstring2string(jevent);
-    std::string args = cocos2d::JniHelper::jstring2string(jargs);
-    xgame::runtime::dispatchEvent(event, args);
+    xgame::runtime::dispatchEvent(jstring2string(event), jstring2string(args));
 }
 }
 #endif

@@ -134,50 +134,46 @@
 #define olua_endinvoke(L)   ((void)L)
 #endif
 
+#ifndef oluai_registerluatype
+#define oluai_registerluatype(L, t, c) {\
+    lua_pushstring(L, (t));             \
+    lua_pushstring(L, (c));             \
+    lua_rawset(L, LUA_REGISTRYINDEX);   \
+}
+#endif
+
+#ifndef oluai_getluatype
+#define oluai_getluatype(L, t) olua_optfieldstring(L, LUA_REGISTRYINDEX, (t), nullptr)
+#endif
+
 template <typename T> void olua_registerluatype(lua_State *L, const char *cls)
 {
     const char *type = typeid(T).name();
-    lua_pushstring(L, type);                            // L: type
-    lua_pushstring(L, cls);                             // L: type cls
-#ifdef OLUA_DEBUG
-    lua_pushvalue(L, -2);                               // L: type cls type
-    if (olua_rawget(L, LUA_REGISTRYINDEX) == LUA_TNIL) {// L: type cls value
-        lua_pop(L, 1);                                  // L: type cls
-#endif
-        lua_rawset(L, LUA_REGISTRYINDEX);               // L:                 REGISTRY[type] = cls
-#ifdef OLUA_DEBUG
-    } else {                                            // L: type cls value
-        if (!lua_rawequal(L, -1, -2)) {
-            luaL_error(L, "lua type conflict: %s=%s", type, cls);
-        }
-        lua_pop(L, 3);
-    }
-#endif
+    oluai_registerluatype(L, type, cls);
 }
 
 template <typename T> const char *olua_getluatype(lua_State *L, const T *obj, const char *cls)
 {
+    const char *preferred;
+    
     // try obj RTTI
     if (olua_likely(obj)) {
-        lua_pushstring(L, typeid(*obj).name());
-        if (olua_likely(olua_rawget(L, LUA_REGISTRYINDEX) == LUA_TSTRING)) {
-            cls = olua_tostring(L, -1);
-            lua_pop(L, 1);
-            return cls;
+        preferred = oluai_getluatype(L, typeid(*obj).name());
+        if (olua_likely(preferred)) {
+            return preferred;
         }
     }
     
     // try class RTTI
-    lua_pushstring(L, typeid(T).name());
-    if (olua_likely(olua_rawget(L, LUA_REGISTRYINDEX) == LUA_TSTRING)) {
-        cls = olua_tostring(L, -1);
-        lua_pop(L, 1);
-        return cls;
+    preferred = oluai_getluatype(L, typeid(T).name());
+    if (olua_likely(preferred)) {
+        return preferred;
     }
     
     if (olua_unlikely(!cls)) {
         luaL_error(L, "object lua class not found: %s", typeid(T).name());
     }
+    
     return cls;
 }
 
@@ -189,6 +185,16 @@ template <typename T> inline const char *olua_getluatype(lua_State *L)
 template <> inline const char *olua_getluatype<void>(lua_State *L, const void *obj, const char *cls)
 {
     return cls == NULL ? OLUA_VOIDCLS : cls;
+}
+
+template <typename T> inline bool olua_isa(lua_State *L, int idx)
+{
+    return olua_isa(L, idx, olua_getluatype<T>(L));
+}
+
+template <typename T> inline void *olua_pushclassobj(lua_State *L)
+{
+    return olua_pushclassobj(L, olua_getluatype<T>(L));
 }
 
 template <typename T> inline T *olua_toobj(lua_State *L, int idx)

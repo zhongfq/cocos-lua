@@ -25,6 +25,7 @@ set(LUA_HEADER
     src/lua/ltable.h
     src/lua/ltm.h
     src/lua/lua.h
+    src/lua/lua.hpp
     src/lua/luaconf.h
     src/lua/lualib.h
     src/lua/lundump.h

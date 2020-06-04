@@ -1,35 +1,45 @@
 #ifndef __XGAME_LUA_H__
 #define __XGAME_LUA_H__
 
-#define olua_mainthread(L)              xlua_cocosthread(L)
-#define olua_startcmpdelref(L, i, n)    xlua_startcmpdelref(L, i, n)
-#define olua_endcmpdelref(L, i, n)      xlua_endcmpdelref(L, i, n)
-#define olua_postpush(L, v, s)          xlua_postpush(L, v, s)
-#define olua_postnew(L, obj)            xlua_postnew(L, obj)
-#define olua_startinvoke(L)             (xlua_invokingState = L)
-#define olua_endinvoke(L)               (xlua_invokingState = NULL)
-
 #include "xgame/config.h"
-#include "olua/olua.hpp"
-
 #include "cocos2d.h"
+#include "lua.hpp"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 #define CCLUA_HAVE_WEBVIEW
 #define CCLUA_HAVE_VIDEOPLAYER
 #endif
 
-extern lua_State *xlua_invokingState;
+#define olua_mainthread(L)              xlua_mainthread(L)
+#define olua_startcmpdelref(L, i, n)    xlua_startcmpdelref(L, i, n)
+#define olua_endcmpdelref(L, i, n)      xlua_endcmpdelref(L, i, n)
+#define olua_postpush(L, v, s)          xlua_postpush(L, v, s)
+#define olua_postnew(L, obj)            xlua_postnew(L, obj)
+#define olua_startinvoke(L)             (xlua_invokingstate = L)
+#define olua_endinvoke(L)               (xlua_invokingstate = nullptr)
+
+#define oluai_registerluatype           xlua_registerluatype
+#define oluai_getluatype                xlua_getluatype
+
+extern lua_State *xlua_invokingstate;
 
 lua_State *xlua_new();
-
-lua_State *xlua_cocosthread(lua_State *L);
-
 int xlua_dofile(lua_State *L, const char *filename);
-
 int xlua_nonsupport(lua_State *L);
-
 int xlua_ccobjgc(lua_State *L);
+
+lua_State *xlua_mainthread(lua_State *L);
+void xlua_startcmpdelref(lua_State *L, int idx, const char *refname);
+void xlua_endcmpdelref(lua_State *L, int idx, const char *refname);
+
+template <typename T> void xlua_postpush(lua_State *L, T* obj, int status);
+template <typename T> void xlua_postnew(lua_State *L, T *obj);
+
+void xlua_registerluatype(lua_State *L, const char *type, const char *cls);
+const char *xlua_getluatype(lua_State *L, const char *type);
+
+
+#include "olua/olua.hpp"
 
 template <typename T> void xlua_postpush(lua_State *L, T* obj, int status)
 {
@@ -56,8 +66,5 @@ template <typename T> void xlua_postnew(lua_State *L, T *obj)
         olua_setvariable(L, -3);
     }
 }
-
-void xlua_startcmpdelref(lua_State *L, int idx, const char *refname);
-void xlua_endcmpdelref(lua_State *L, int idx, const char *refname);
 
 #endif

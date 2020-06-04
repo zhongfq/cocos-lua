@@ -23,7 +23,7 @@ M.INCLUDES = [[
 M.CHUNK = [[
 bool manual_olua_is_fairygui_EventTag(lua_State *L, int idx)
 {
-    return olua_isinteger(L, idx) || olua_isa(L, idx, OLUA_VOIDCLS);
+    return olua_isinteger(L, idx) || olua_isa<void>(L, idx);
 }
 
 void manual_olua_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventTag *value)
@@ -34,7 +34,7 @@ void manual_olua_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventT
     if (olua_isinteger(L, idx)) {
         *value = (int)olua_tointeger(L, idx);
     } else {
-        *value = (void *)olua_checkobj(L, idx, OLUA_VOIDCLS);
+        *value = olua_checkobj<void>(L, idx);
     }
 }
 ]]
@@ -109,7 +109,7 @@ static std::string makeListenerTag(lua_State *L, lua_Integer type, int tagidx)
         if (olua_isinteger(L, tagidx)) {
             tag = (intptr_t)olua_tointeger(L, tagidx);
         } else {
-            tag = (intptr_t)olua_checkobj(L, tagidx, OLUA_VOIDCLS);
+            tag = (intptr_t)olua_checkobj<void>(L, tagidx);
         }
     }
     if (type < 0) {
@@ -306,8 +306,8 @@ cls.var('shadowOffset', [[cocos2d::Size shadowOffset]])
 cls.var('shadowBlurRadius', [[int shadowBlurRadius]])
 cls.var('glowColor', [[cocos2d::Color3B glowColor]])
 cls.func('setFormat', [[{
-    fairygui::TextFormat *self = (fairygui::TextFormat *)olua_toobj(L, 1, "fgui.TextFormat");
-    fairygui::TextFormat *fmt = (fairygui::TextFormat *)olua_checkobj(L, 2, "fgui.TextFormat");
+    fairygui::TextFormat *self = olua_toobj<fairygui::TextFormat>(L, 1);
+    fairygui::TextFormat *fmt = olua_checkobj<fairygui::TextFormat>(L, 2);
     self->setFormat(*fmt);
     return 0;
 }]])
@@ -464,8 +464,8 @@ cls = typecls 'fairygui::GTween'
 cls.CHUNK = [[
 static bool should_del_tweener_ref(lua_State *L, int idx)
 {
-    if (olua_isa(L, idx, "fgui.GTweener")) {
-        fairygui::GTweener *obj = (fairygui::GTweener *)olua_toobj(L, idx, "fgui.GTweener");
+    if (olua_isa<fairygui::GTweener>(L, idx)) {
+        fairygui::GTweener *obj = olua_toobj<fairygui::GTweener>(L, idx);
         if (obj->getReferenceCount() == 1 || obj->allCompleted()) {
             return true;
         }
@@ -493,7 +493,7 @@ cls.funcs [[
 ]]
 cls.inject('to', {
     AFTER = [[
-        olua_pushclassobj(L, "fgui.GTween");
+        olua_pushclassobj<fairygui::GTween>(L);
         olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
         olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
         lua_pop(L, 1);
@@ -501,7 +501,7 @@ cls.inject('to', {
 })
 cls.inject('toDouble', {
     AFTER = [[
-        olua_pushclassobj(L, "fgui.GTween");
+        olua_pushclassobj<fairygui::GTween>(L);
         olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
         olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
         lua_pop(L, 1);
@@ -509,7 +509,7 @@ cls.inject('toDouble', {
 })
 cls.inject('delayedCall', {
     AFTER = [[
-        olua_pushclassobj(L, "fgui.GTween");
+        olua_pushclassobj<fairygui::GTween>(L);
         olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
         olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
         lua_pop(L, 1);
@@ -517,7 +517,7 @@ cls.inject('delayedCall', {
 })
 cls.inject('shake', {
     AFTER = [[
-        olua_pushclassobj(L, "fgui.GTween");
+        olua_pushclassobj<fairygui::GTween>(L);
         olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
         olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
         lua_pop(L, 1);
@@ -525,15 +525,16 @@ cls.inject('shake', {
 })
 cls.inject('kill', {
     AFTER = [[
-        olua_pushclassobj(L, "fgui.GTween");
+        olua_pushclassobj<fairygui::GTween>(L);
         olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
         lua_pop(L, 1);
     ]],
 })
 cls.inject('clean', {
     AFTER = [[
-        olua_pushclassobj(L, "fgui.GTween");
-        olua_delallrefs(L, 1, "tweeners");
+        olua_pushclassobj<fairygui::GTween>(L);
+        olua_delallrefs(L, -1, "tweeners");
+        lua_pop(L, 1);
     ]],
 })
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -951,7 +952,7 @@ cls.var('initSize', [[cocos2d::Size initSize]])
 cls.var('minSize', [[cocos2d::Size minSize]])
 cls.var('maxSize', [[cocos2d::Size maxSize]])
 cls.func('getDragBounds', [[{
-    fairygui::GObject *self = (fairygui::GObject *)olua_toobj(L, 1, "fgui.GObject");
+    fairygui::GObject *self = olua_toobj<fairygui::GObject>(L, 1);
     cocos2d::Rect *rect = self->getDragBounds();
     manual_olua_push_cocos2d_Rect(L, rect);
     return 1;
@@ -1113,7 +1114,7 @@ cls.func('resolve', [[{
             lua_pushlstring(L, name, pos - name);
             lua_call(L, 2, 1);
 
-            if (olua_isa(L, -1, "fgui.GComponent")) {
+            if (olua_isa<fairygui::GComponent>(L, -1)) {
                 self = olua_toobj<fairygui::GComponent>(L, -1);
             } else {
                 return 0;
@@ -1200,7 +1201,7 @@ cls.var('contentScaleLevel', [[static int contentScaleLevel]])
 cls.prop('UIRoot', 'static GRoot* getInstance()')
 cls.inject('create', {
     AFTER = [[
-        olua_push_cppobj<cocos2d::Node>(L, ret->displayObject(), "cc.Node");
+        olua_push_cppobj<cocos2d::Node>(L, ret->displayObject());
         olua_addref(L, -1, "fgui.root", -2, OLUA_MODE_SINGLE);
         olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
         lua_pop(L, 1);
@@ -1210,7 +1211,7 @@ cls.inject('hideWindow', {
     BEFORE = [[
         int parent = 1;
         if (arg1->getParent()) {
-            olua_push_cppobj<fairygui::GComponent>(L, arg1->getParent(), "fgui.GComponent");
+            olua_push_cppobj<fairygui::GComponent>(L, arg1->getParent());
             parent = lua_gettop(L);
         }
     ]],
@@ -1219,7 +1220,7 @@ cls.inject('hideWindowImmediately', {
     BEFORE = [[
         int parent = 1;
         if (arg1->getParent()) {
-            olua_push_cppobj<fairygui::GComponent>(L, arg1->getParent(), "fgui.GComponent");
+            olua_push_cppobj<fairygui::GComponent>(L, arg1->getParent());
             parent = lua_gettop(L);
         }
     ]],
@@ -1361,13 +1362,13 @@ cls.funcs [[
     void flushVars()
 ]]
 cls.func('getTemplateVars', [[{
-    fairygui::GTextField *self = (fairygui::GTextField *)olua_toobj(L, 1, "fgui.GTextField");
+    fairygui::GTextField *self = olua_toobj<fairygui::GTextField>(L, 1);
     manual_olua_push_cocos2d_ValueMap(L, self->getTemplateVars());
     return 1;
 }]])
 cls.func('setTemplateVars', [[{
     cocos2d::ValueMap arg;
-    fairygui::GTextField *self = (fairygui::GTextField *)olua_toobj(L, 1, "fgui.GTextField");
+    fairygui::GTextField *self = olua_toobj<fairygui::GTextField>(L, 1);
     manual_olua_check_cocos2d_ValueMap(L, 2, &arg);
     self->setTemplateVars(&arg);
     return 1;
@@ -1781,7 +1782,7 @@ cls.inject('show', {
     BEFORE = [[
         fairygui::GRoot *root = fairygui::UIRoot;
         if (lua_gettop(L) > 1) {
-            fairygui::GObject *target = (fairygui::GObject *)olua_checkobj(L, 2, "fgui.GObject");
+            fairygui::GObject *target = olua_checkobj<fairygui::GObject>(L, 2);
             root = target->getRoot();
         }
         if (!root) {
@@ -1836,8 +1837,8 @@ cls.funcs [[
 ]]
 cls.var('handling', [[fairygui::GObject *handling]])
 cls.func('copyFrom', [[{
-    fairygui::Relations *self = (fairygui::Relations *)olua_toobj(L, 1, "fgui.Relations");
-    fairygui::Relations *source = (fairygui::Relations *)olua_checkobj(L, 2, "fgui.Relations");
+    fairygui::Relations *self = olua_toobj<fairygui::Relations>(L, 1);
+    fairygui::Relations *source = olua_checkobj<fairygui::Relations>(L, 2);
     // void copyFrom(const Relations& source)
     self->copyFrom(*source);
 
@@ -1890,8 +1891,8 @@ cls.funcs [[
     void applyOnSelfSizeChanged(float dWidth, float dHeight, bool applyPivot)
 ]]
 cls.func('copyFrom', [[{
-    fairygui::RelationItem *self = (fairygui::RelationItem *)olua_toobj(L, 1, "fgui.RelationItem");
-    fairygui::RelationItem *source = (fairygui::RelationItem *)olua_checkobj(L, 2, "fgui.RelationItem");
+    fairygui::RelationItem *self = olua_toobj<fairygui::RelationItem>(L, 1);
+    fairygui::RelationItem *source = olua_checkobj<fairygui::RelationItem>(L, 2);
     // void copyFrom(const RelationItem& source)
     self->copyFrom(*source);
 

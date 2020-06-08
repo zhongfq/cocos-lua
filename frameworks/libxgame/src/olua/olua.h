@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2019 codetypes@gmail.com
+ * Copyright (c) 2019-2020 codetypes@gmail.com
  *
  * https://github.com/zhongfq/olua
  *
@@ -136,9 +136,9 @@ OLUA_API int olua_pcall(lua_State *L, int nargs, int nresults);
 OLUA_API int olua_pcallref(lua_State *L, int funcref, int nargs, int nresults);
     
 // manipulate userdata api
-#define olua_newrawobj(L, obj, t)  (*(t *)lua_newuserdata(L, sizeof(t)) = (obj))
-#define olua_torawobj(L, i, t)     (*(t *)lua_touserdata(L, (i)))
-#define olua_setrawobj(L, i, o)    (*(void **)lua_touserdata(L, (i)) = (o))
+#define olua_newrawobj(L, o)    (*(void **)lua_newuserdata(L, sizeof(void *)) = (o))
+#define olua_torawobj(L, i)     (*(void **)lua_touserdata(L, (i)))
+#define olua_setrawobj(L, i, o) (*(void **)lua_touserdata(L, (i)) = (o))
 OLUA_API bool olua_getrawobj(lua_State *L, void *obj);
 OLUA_API const char *olua_typename(lua_State *L, int idx);
 OLUA_API bool olua_isa(lua_State *L, int idx, const char *cls);

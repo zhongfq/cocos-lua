@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2019 codetypes@gmail.com
+ * Copyright (c) 2019-2020 codetypes@gmail.com
  *
  * https://github.com/zhongfq/olua
  *
@@ -64,18 +64,16 @@ OLUA_API olua_vmstatus_t *olua_vmstatus(lua_State *L)
     olua_vmstatus_t *vms;
     if (olua_unlikely(registry_rawgetp(L, OLUA_VMSTATUS) != LUA_TUSERDATA)) {
         static lua_Unsigned s_ctxid = 0;
-        lua_pop(L, 1);
         vms = (olua_vmstatus_t *)lua_newuserdata(L, sizeof(*vms));
         vms->ctxid = ++s_ctxid;
         vms->debug = false;
         vms->poolenabled = false;
-        vms->objcount = 0;
         vms->poolsize = 0;
+        vms->objcount = 0;
         registry_rawsetp(L, OLUA_VMSTATUS);
-        
         olua_rawgeti(L, LUA_REGISTRYINDEX, LUA_RIDX_MAINTHREAD);
         vms->mainthread = lua_tothread(L, -1);
-        lua_pop(L, 1);
+        lua_pop(L, 2); // pop nil and main thread
     } else {
         vms = (olua_vmstatus_t *)lua_touserdata(L, -1);
         lua_pop(L, 1);
@@ -103,9 +101,7 @@ OLUA_API const char *olua_checklstring(lua_State *L, int idx, size_t *len)
 
 OLUA_API bool olua_checkboolean(lua_State *L, int idx)
 {
-    if (!(olua_isnoneornil(L, idx) || olua_isboolean(L, idx))) {
-        luaL_checktype(L, idx, LUA_TBOOLEAN);
-    }
+    luaL_checktype(L, idx, LUA_TBOOLEAN);
     return olua_toboolean(L, idx);
 }
 
@@ -202,7 +198,7 @@ OLUA_API void *olua_newobjstub(lua_State *L, const char *cls)
 {
     void *ptr = NULL;
     aux_getobjtable(L);                     // L: objtable
-    olua_newrawobj(L, NULL, void *);        // L: objtable ud
+    olua_newrawobj(L, NULL);                // L: objtable ud
     ptr = (void *)lua_topointer(L, -1);
     lua_pushvalue(L, -1);                   // L: objtable ud ud
     olua_rawsetp(L, -3, ptr);               // L: objtable ud     objtable[ptr] = ud
@@ -279,7 +275,7 @@ OLUA_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
             aux_pushlocalobj(L, obj);
             status = OLUA_OBJ_EXIST;
         } else {
-            olua_newrawobj(L, obj, void *);         // L: mt objtable ud
+            olua_newrawobj(L, obj);                 // L: mt objtable ud
             lua_pushvalue(L, -1);                   // L: mt objtable ud ud
             olua_rawsetp(L, -3, obj);               // L: mt objtable ud     objtable[obj] = ud
             status = OLUA_OBJ_NEW;
@@ -301,7 +297,7 @@ OLUA_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
 
 OLUA_API bool olua_getrawobj(lua_State *L, void *obj)
 {
-    if (olua_unlikely(!obj)) {
+    if (!obj) {
         return false;
     }
     aux_getobjtable(L);                             // L: objt
@@ -316,14 +312,12 @@ OLUA_API bool olua_getrawobj(lua_State *L, void *obj)
 
 static void *aux_toobj(lua_State *L, int idx, const char *cls, bool checked)
 {
-    if (olua_likely(olua_isuserdata(L, idx)
-            && (!checked || olua_isa(L, idx, cls)))) {
-        void *obj = olua_torawobj(L, idx, void *);
-        if (olua_likely(obj != NULL)) {
-            return obj;
-        } else {
+    if (olua_likely(checked ? olua_isa(L, idx, cls) : olua_isuserdata(L, idx))) {
+        void *obj = olua_torawobj(L, idx);
+        if (olua_unlikely(!obj)) {
             luaL_error(L, "object '%s' survive from gc", olua_typename(L, idx));
         }
+        return obj;
     } else {
         luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,
             cls, olua_typename(L, idx));
@@ -347,14 +341,9 @@ OLUA_API void *olua_toobj(lua_State *L, int idx, const char *cls)
 
 OLUA_API const char *olua_objstring(lua_State *L, int idx)
 {
-    uintptr_t p;
-    const char *tn = olua_typename(L, idx);
-    if (olua_isuserdata(L, idx)) {
-        p = (uintptr_t)olua_torawobj(L, idx, void *);
-    } else {
-        p = (uintptr_t)lua_topointer(L, idx);
-    }
-    return lua_pushfstring(L, "%s: %p", tn, p);
+    const void *p = olua_isuserdata(L, idx) ?
+        olua_torawobj(L, idx) : lua_topointer(L, idx);
+    return lua_pushfstring(L, "%s: %p", olua_typename(L, idx), p);
 }
 
 OLUA_API void olua_pop_objpool(lua_State *L, size_t position)
@@ -395,7 +384,6 @@ static void aux_getusertable(lua_State *L, int idx)
 
 static bool test_tag_mode(lua_State *L, int idx, const char *tag, int mode)
 {
-    static const char *const names[] = {"new", "replace", "whole", "subequal", "substartwith"};
     if (olua_isstring(L, idx)) {
         const char *field = olua_tostring(L, idx);
         if ((field = strchr(field, '@')) != NULL) {
@@ -404,8 +392,6 @@ static bool test_tag_mode(lua_State *L, int idx, const char *tag, int mode)
                 return strstartwith(field, tag);
             } else if (mode == OLUA_TAG_SUBEQUAL || mode == OLUA_TAG_REPLACE) {
                 return strequal(field, tag);
-            } else {
-                luaL_error(L, "unexpected tag mode '%s'", names[mode]);
             }
         }
     }
@@ -450,14 +436,14 @@ OLUA_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, 
 
 OLUA_API int olua_getcallback(lua_State *L, void *obj, const char *tag, int tagmode)
 {
-    if (olua_unlikely(!olua_getrawobj(L, obj))) {
+    if (!olua_getrawobj(L, obj)) {
         lua_pushnil(L);
         return LUA_TNIL;
     }
     
     aux_getusertable(L, -1);                            // L: obj ct
     
-    if (olua_likely(tagmode == OLUA_TAG_WHOLE)) {
+    if (tagmode == OLUA_TAG_WHOLE) {
         olua_rawgetf(L, -1, tag);                       // L: obj ct func
     } else {
         lua_pushnil(L);                                 // L: obj ct nil
@@ -505,12 +491,11 @@ OLUA_API int olua_callback(lua_State *L, void *obj, const char *func, int argc)
     int top = lua_gettop(L) - argc;
     int status = OLUA_CALL_MISS;
     
-    if (olua_likely(olua_getcallback(L, obj, func,
-            OLUA_TAG_WHOLE) == LUA_TFUNCTION)) {
+    if (olua_getcallback(L, obj, func, OLUA_TAG_WHOLE) == LUA_TFUNCTION) {
         lua_insert(L, top + 1);                         // L: callback arg...n
         olua_geterrorfunc(L);                           // L: callback arg...n errfunc
         lua_insert(L, top + 1);                         // L: errfunc callback arg...n
-        if (olua_likely(lua_pcall(L, argc, 1, top + 1) == LUA_OK)) {
+        if (lua_pcall(L, argc, 1, top + 1) == LUA_OK) {
             status = OLUA_CALL_OK;
         } else {
             status = OLUA_CALL_ERR;
@@ -518,7 +503,7 @@ OLUA_API int olua_callback(lua_State *L, void *obj, const char *func, int argc)
         lua_replace(L, -2);                             // L: result
     }
 
-    if (olua_unlikely(status != OLUA_CALL_OK)) {
+    if (status != OLUA_CALL_OK) {
         if (status == OLUA_CALL_MISS) {
             olua_geterrorfunc(L);
             if (olua_getrawobj(L, obj)) {
@@ -1186,7 +1171,7 @@ static int l_getmetatable(lua_State *L)
 
 static int l_topointer(lua_State *L)
 {
-    lua_pushinteger(L, (lua_Integer)(intptr_t)lua_topointer(L, 1));
+    lua_pushinteger(L, (lua_Integer)(uintptr_t)lua_topointer(L, 1));
     return 1;
 }
 

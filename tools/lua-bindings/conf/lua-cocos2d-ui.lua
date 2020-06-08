@@ -33,26 +33,13 @@ typeconf 'cocos2d::ui::Widget::TouchEventType'
 typeconf 'cocos2d::ui::Widget::TextureResType'
 typeconf 'cocos2d::ui::Widget::BrightStyle'
 
-local Widget = typeconf 'cocos2d::ui::Widget'
-Widget.EXCLUDE 'createInstance'
-Widget.ATTR('getVirtualRenderer', {RET = '@addref(protectedChildren |)'})
-Widget.VAR('onFocusChanged', '@nullable std::function<void(Widget*,Widget*)> onFocusChanged')
-Widget.VAR('onNextFocusedWidget', '@nullable std::function<Widget*(FocusDirection)> onNextFocusedWidget')
-Widget.CALLBACK {
-    FUNCS = {'void addTouchEventListener(@nullable const std::function<void(Ref*,Widget::TouchEventType)>& callback)'},
-    TAG_MAKER = 'touchEventListener',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-Widget.CALLBACK {
-    FUNCS = {'void addClickEventListener(@nullable std::function<void(Ref*)>& callback)'},
-    TAG_MAKER = 'clickEventListener',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-Widget.CALLBACK {
-    FUNCS = {'void addCCSEventListener(@nullable const std::function<void(Ref*, int)>& callback)'},
-    TAG_MAKER = 'ccsEventListener',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
+typeconf 'cocos2d::ui::Widget'
+    .EXCLUDE 'createInstance'
+    .ATTR('getVirtualRenderer', {RET = '@addref(protectedChildren |)'})
+    .CALLBACK {NAME = 'onFocusChanged', LOCAL = false}
+    .CALLBACK {NAME = 'addTouchEventListener', NULLABLE = true, LOCAL = false}
+    .CALLBACK {NAME = 'addClickEventListener', NULLABLE = true, LOCAL = false}
+    .CALLBACK {NAME = 'addCCSEventListener', NULLABLE = true, LOCAL = false}
 
 typeconf 'cocos2d::ui::Helper'
 typeconf 'cocos2d::ui::Scale9Sprite::State'
@@ -71,8 +58,8 @@ typeconf 'cocos2d::ui::Layout::Type'
 typeconf 'cocos2d::ui::Layout::ClippingType'
 typeconf 'cocos2d::ui::Layout::BackGroundColorType'
 
-local Layout = typeconf 'cocos2d::ui::Layout'
-Layout.VAR('onPassFocusToChild', '@nullable std::function<int(Widget::FocusDirection, Widget*)> onPassFocusToChild')
+typeconf 'cocos2d::ui::Layout'
+    .CALLBACK {NAME = 'onPassFocusToChild', NULLABLE = true, LOCAL = false}
 
 typeconf 'cocos2d::ui::HBox'
 typeconf 'cocos2d::ui::VBox'
@@ -94,9 +81,11 @@ StyleType.DEFIF = '#ifdef CCLUA_HAVE_VIDEOPLAYER'
 local VideoPlayer = typeconf 'cocos2d::ui::VideoPlayer'
 VideoPlayer.DEFIF = '#ifdef CCLUA_HAVE_VIDEOPLAYER'
 VideoPlayer.CALLBACK {
-    FUNCS = {'void addEventListener(@nullable const std::function<void(Ref*,VideoPlayer::EventType)>& callback)'},
+    NAME = 'addEventListener',
     TAG_MAKER = 'videoPlayerCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    NULLABLE = true,
+    LOCAL = false,
 }
 
 local AbstractCheckButton = typeconf 'cocos2d::ui::AbstractCheckButton'
@@ -202,9 +191,11 @@ Slider.ATTR('getSlidBallPressedRenderer', {RET = '@addref(protectedChildren |)'}
 Slider.ATTR('getSlidBallDisabledRenderer', {RET = '@addref(protectedChildren |)'})
 Slider.ATTR('getSlidBallRenderer', {RET = '@addref(protectedChildren |)'})
 Slider.CALLBACK {
-    FUNCS = {'void addEventListener(@nullable const std::function<void(Ref*,EventType)>& callback)'},
+    NAME = 'addEventListener',
     TAG_MAKER = 'sliderCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    NULLABLE = true,
+    LOCAL = false,
 }
 
 typeconf 'cocos2d::ui::Text::Type'
@@ -216,9 +207,11 @@ typeconf 'cocos2d::ui::TextField::EventType'
 
 local TextField = typeconf 'cocos2d::ui::TextField'
 TextField.CALLBACK {
-    FUNCS = {'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)'},
+    NAME = 'addEventListener',
     TAG_MAKER = 'textFieldCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    NULLABLE = true,
+    LOCAL = false,
 }
 
 local Button = typeconf 'cocos2d::ui::Button'
@@ -233,27 +226,33 @@ typeconf 'cocos2d::ui::CheckBox::EventType'
 
 local CheckBox = typeconf 'cocos2d::ui::CheckBox'
 CheckBox.CALLBACK {
-    FUNCS = {'void addEventListener(@nullable const std::function<void(Ref*,CheckBox::EventType)>& callback)'},
+    NAME ='addEventListener',
     TAG_MAKER = 'checkBoxCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    NULLABLE = true,
+    LOCAL = false,
 }
 
 typeconf 'cocos2d::ui::RadioButton::EventType'
 
 local RadioButton = typeconf 'cocos2d::ui::RadioButton'
 RadioButton.CALLBACK {
-    FUNCS = {'void addEventListener(@nullable const std::function<void(RadioButton* radioButton, EventType)>& callback)'},
+    NAME = 'addEventListener',
     TAG_MAKER = 'radioButtonCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    NULLABLE = true,
+    LOCAL = false,
 }
 
 typeconf 'cocos2d::ui::RadioButtonGroup::EventType'
 
 local RadioButtonGroup = typeconf 'cocos2d::ui::RadioButtonGroup'
 RadioButtonGroup.CALLBACK {
-    FUNCS = {'void addEventListener(@nullable const std::function<void(RadioButton* radioButton, int index, EventType)>& callback)'},
+    NAME = 'addEventListener',
     TAG_MAKER = 'radioButtonCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    NULLABLE = true,
+    LOCAL = false,
 }
 
 typeconf 'cocos2d::ui::ImageView'

@@ -266,8 +266,7 @@ cls.SUPERCLS = "cocos2d::Ref"
 cls.CHUNK = [[
 template <typename T> bool doScheduleUpdate(lua_State *L)
 {
-    const char *cls = olua_getluatype<T>(L);
-    if (olua_is_cppobj(L, 2, cls)) {
+    if (olua_isa<T>(L, 2)) {
         auto self = olua_checkobj<cocos2d::Scheduler>(L, 1);
         auto target = olua_checkobj<T>(L, 2);
         lua_Integer priority = olua_checkinteger(L, 3);
@@ -375,7 +374,7 @@ cls.funcs [[
     void addEventListenerWithSceneGraphPriority(@addref(listeners | 3) cocos2d::EventListener *listener, cocos2d::Node *node)
     void addEventListenerWithFixedPriority(@addref(listeners |) cocos2d::EventListener *listener, int fixedPriority)
     @delref(listeners ~) void removeEventListener(cocos2d::EventListener *listener)
-    @delref(listeners ~) void removeEventListenersForType(EventListener::Type listenerType)
+    @delref(listeners ~) void removeEventListenersForType(cocos2d::EventListener::Type listenerType)
     void removeEventListenersForTarget(cocos2d::Node *target, @optional bool recursive)
     @delref(listeners ~) void removeCustomEventListeners(const std::string &customEventName)
     @delref(listeners ~) void removeAllEventListeners()
@@ -386,7 +385,7 @@ cls.funcs [[
     bool isEnabled()
     void dispatchEvent(cocos2d::Event *event)
     void dispatchCustomEvent(const std::string &eventName, @optional void *optionalUserData)
-    bool hasEventListener(const EventListener::ListenerID &listenerID)
+    bool hasEventListener(const cocos2d::EventListener::ListenerID &listenerID)
     EventDispatcher()
 ]]
 cls.callback {
@@ -636,7 +635,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventFocus'
 cls.SUPERCLS = "cocos2d::Event"
 cls.funcs [[
-    EventFocus(ui::Widget *widgetLoseFocus, ui::Widget *widgetGetFocus)
+    EventFocus(cocos2d::ui::Widget *widgetLoseFocus, cocos2d::ui::Widget *widgetGetFocus)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -1121,8 +1120,7 @@ cls.inject('uncache', {
     BEFORE = [[
         std::string path = olua_checkstring(L, 1);
         std::list<int> ids = cocos2d::LuaAudioEngine::getAudioIDs(path);
-        const char *cls = olua_getluatype<cocos2d::AudioEngine>(L);
-        void *self_obj = (void *)olua_pushclassobj(L, cls);
+        void *self_obj = olua_pushclassobj<cocos2d::AudioEngine>(L);
         for (auto id : ids) {
             std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
             olua_removecallback(L, self_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
@@ -1555,7 +1553,7 @@ cls.funcs [[
     unsigned char *getData()
     ssize_t getDataLen()
     cocos2d::Image::Format getFileType()
-    backend::PixelFormat getPixelFormat()
+    cocos2d::backend::PixelFormat getPixelFormat()
     int getWidth()
     int getHeight()
     int getNumberOfMipmaps()
@@ -1630,9 +1628,9 @@ cls = typecls 'cocos2d::Material'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
     static cocos2d::Material *createWithFilename(const std::string &path)
-    static cocos2d::Material *createWithProgramState(backend::ProgramState *programState)
+    static cocos2d::Material *createWithProgramState(cocos2d::backend::ProgramState *programState)
     static cocos2d::Material *createWithProperties(cocos2d::Properties *materialProperties)
-    void draw(cocos2d::MeshCommand *meshCommand, float globalZOrder, backend::Buffer *vertexBuffer, backend::Buffer *indexBuffer, CustomCommand::PrimitiveType primitive, CustomCommand::IndexFormat indexFormat, unsigned int indexCount, const cocos2d::Mat4 &modelView)
+    void draw(cocos2d::MeshCommand *meshCommand, float globalZOrder, cocos2d::backend::Buffer *vertexBuffer, cocos2d::backend::Buffer *indexBuffer, cocos2d::CustomCommand::PrimitiveType primitive, cocos2d::CustomCommand::IndexFormat indexFormat, unsigned int indexCount, const cocos2d::Mat4 &modelView)
     std::string getName()
     void setName(const std::string &name)
     cocos2d::Technique *getTechniqueByName(const std::string &name)
@@ -1687,19 +1685,19 @@ cls.funcs [[
     cocos2d::RenderTargetFlag getRenderTargetFlag()
     void setDepthTest(bool value)
     void setDepthWrite(bool value)
-    void setDepthCompareFunction(backend::CompareFunction func)
+    void setDepthCompareFunction(cocos2d::backend::CompareFunction func)
     bool getDepthTest()
     bool getDepthWrite()
-    backend::CompareFunction getDepthCompareFunction()
+    cocos2d::backend::CompareFunction getDepthCompareFunction()
     void setStencilTest(bool value)
-    void setStencilCompareFunction(backend::CompareFunction func, unsigned int ref, unsigned int readMask)
-    void setStencilOperation(backend::StencilOperation stencilFailureOp, backend::StencilOperation depthFailureOp, backend::StencilOperation stencilDepthPassOp)
+    void setStencilCompareFunction(cocos2d::backend::CompareFunction func, unsigned int ref, unsigned int readMask)
+    void setStencilOperation(cocos2d::backend::StencilOperation stencilFailureOp, cocos2d::backend::StencilOperation depthFailureOp, cocos2d::backend::StencilOperation stencilDepthPassOp)
     void setStencilWriteMask(unsigned int mask)
     bool getStencilTest()
-    backend::StencilOperation getStencilFailureOperation()
-    backend::StencilOperation getStencilPassDepthFailureOperation()
-    backend::StencilOperation getStencilDepthPassOperation()
-    backend::CompareFunction getStencilCompareFunction()
+    cocos2d::backend::StencilOperation getStencilFailureOperation()
+    cocos2d::backend::StencilOperation getStencilPassDepthFailureOperation()
+    cocos2d::backend::StencilOperation getStencilDepthPassOperation()
+    cocos2d::backend::CompareFunction getStencilCompareFunction()
     unsigned int getStencilReadMask()
     unsigned int getStencilWriteMask()
     unsigned int getStencilReferenceValue()
@@ -1768,8 +1766,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PipelineDescriptor'
 cls.funcs [[
 ]]
-cls.var('programState', [[@optional backend::ProgramState *programState]])
-cls.var('blendDescriptor', [[backend::BlendDescriptor blendDescriptor]])
+cls.var('programState', [[@optional cocos2d::backend::ProgramState *programState]])
+cls.var('blendDescriptor', [[cocos2d::backend::BlendDescriptor blendDescriptor]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Technique'
@@ -1835,10 +1833,10 @@ cls.funcs [[
     cocos2d::CustomCommand::DrawType getDrawType()
     void setPrimitiveType(cocos2d::CustomCommand::PrimitiveType primitiveType)
     cocos2d::CustomCommand::PrimitiveType getPrimitiveType()
-    void setVertexBuffer(backend::Buffer *vertexBuffer)
-    backend::Buffer *getVertexBuffer()
-    void setIndexBuffer(backend::Buffer *indexBuffer, cocos2d::CustomCommand::IndexFormat indexFormat)
-    backend::Buffer *getIndexBuffer()
+    void setVertexBuffer(cocos2d::backend::Buffer *vertexBuffer)
+    cocos2d::backend::Buffer *getVertexBuffer()
+    void setIndexBuffer(cocos2d::backend::Buffer *indexBuffer, cocos2d::CustomCommand::IndexFormat indexFormat)
+    cocos2d::backend::Buffer *getIndexBuffer()
     void setVertexDrawInfo(std::size_t start, std::size_t count)
     std::size_t getVertexDrawStart()
     std::size_t getVertexDrawCount()
@@ -1976,18 +1974,18 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Texture2D'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
-    static void setDefaultAlphaPixelFormat(backend::PixelFormat format)
-    static backend::PixelFormat getDefaultAlphaPixelFormat()
+    static void setDefaultAlphaPixelFormat(cocos2d::backend::PixelFormat format)
+    static cocos2d::backend::PixelFormat getDefaultAlphaPixelFormat()
     Texture2D()
-    bool initWithData(const void *data, ssize_t dataLen, backend::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
-    bool initWithData(const void *data, ssize_t dataLen, backend::PixelFormat pixelFormat, backend::PixelFormat renderFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
+    bool initWithData(const void *data, ssize_t dataLen, cocos2d::backend::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
+    bool initWithData(const void *data, ssize_t dataLen, cocos2d::backend::PixelFormat pixelFormat, cocos2d::backend::PixelFormat renderFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
     bool updateWithData(void *data, int offsetX, int offsetY, int width, int height)
     void drawAtPoint(const cocos2d::Vec2 &point, float globalZOrder)
     void drawInRect(const cocos2d::Rect &rect, float globalZOrder)
     bool initWithImage(cocos2d::Image *image)
-    bool initWithImage(cocos2d::Image *image, backend::PixelFormat format)
+    bool initWithImage(cocos2d::Image *image, cocos2d::backend::PixelFormat format)
     bool initWithString(const char *text, const std::string &fontName, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment, @optional bool enableWrap, @optional int overflow)
-    bool initWithBackendTexture(backend::TextureBackend *texture, @optional bool preMultipliedAlpha)
+    bool initWithBackendTexture(cocos2d::backend::TextureBackend *texture, @optional bool preMultipliedAlpha)
     void setRenderTarget(bool renderTarget)
     bool isRenderTarget()
     void setTexParameters(const cocos2d::Texture2D::TexParams &params)
@@ -1996,14 +1994,14 @@ cls.funcs [[
     void setAliasTexParameters()
     const char *getStringForFormat()
     unsigned int getBitsPerPixelForFormat()
-    unsigned int getBitsPerPixelForFormat(backend::PixelFormat format)
+    unsigned int getBitsPerPixelForFormat(cocos2d::backend::PixelFormat format)
     const cocos2d::Size &getContentSizeInPixels()
     bool hasPremultipliedAlpha()
     bool hasMipmaps()
-    backend::PixelFormat getPixelFormat()
+    cocos2d::backend::PixelFormat getPixelFormat()
     int getPixelsWide()
     int getPixelsHigh()
-    backend::TextureBackend *getBackendTexture()
+    cocos2d::backend::TextureBackend *getBackendTexture()
     float getMaxS()
     void setMaxS(float maxS)
     float getMaxT()
@@ -2038,8 +2036,8 @@ cls = typecls 'cocos2d::TextureCube'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
     static cocos2d::TextureCube *create(const std::string &positive_x, const std::string &negative_x, const std::string &positive_y, const std::string &negative_y, const std::string &positive_z, const std::string &negative_z)
-    void setTexParameters(const Texture2D::TexParams &)
-    backend::TextureBackend *getBackendTexture()
+    void setTexParameters(const cocos2d::Texture2D::TexParams &)
+    cocos2d::backend::TextureBackend *getBackendTexture()
     bool reloadTexture()
     TextureCube()
 ]]
@@ -2400,8 +2398,8 @@ cls.funcs [[
     bool isOpacityModifyRGB()
     unsigned short getCameraMask()
     void setCameraMask(unsigned short mask, @optional bool applyChildren)
-    void setProgramState(@addref(programState ^) backend::ProgramState *programState)
-    @addref(programState ^) backend::ProgramState *getProgramState()
+    void setProgramState(@addref(programState ^) cocos2d::backend::ProgramState *programState)
+    @addref(programState ^) cocos2d::backend::ProgramState *getProgramState()
     Node()
     bool init()
     void setPhysicsBody(@addref(physicsBody ^) cocos2d::PhysicsBody *physicsBody)
@@ -2772,8 +2770,8 @@ cls.funcs [[
     cocos2d::Color3B getTileAt(const cocos2d::Vec2 &position)
     void setTile(const cocos2d::Color3B &tile, const cocos2d::Vec2 &position)
     void releaseMap()
-    struct sImageTGA *getTGAInfo()
-    void setTGAInfo(struct sImageTGA *TGAInfo)
+    struct cocos2d::sImageTGA *getTGAInfo()
+    void setTGAInfo(struct cocos2d::sImageTGA *TGAInfo)
 ]]
 cls.props [[
     tgaInfo
@@ -3141,8 +3139,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::RenderTexture'
 cls.SUPERCLS = "cocos2d::Node"
 cls.funcs [[
-    static cocos2d::RenderTexture *create(int w, int h, backend::PixelFormat format, backend::PixelFormat depthStencilFormat)
-    static cocos2d::RenderTexture *create(int w, int h, backend::PixelFormat format)
+    static cocos2d::RenderTexture *create(int w, int h, cocos2d::backend::PixelFormat format, cocos2d::backend::PixelFormat depthStencilFormat)
+    static cocos2d::RenderTexture *create(int w, int h, cocos2d::backend::PixelFormat format)
     static cocos2d::RenderTexture *create(int w, int h)
     void begin()
     void beginWithClear(float r, float g, float b, float a)
@@ -3169,13 +3167,13 @@ cls.funcs [[
     void setKeepMatrix(bool keepMatrix)
     void setVirtualViewport(const cocos2d::Vec2 &rtBegin, const cocos2d::Rect &fullRect, const cocos2d::Rect &fullViewport)
     RenderTexture()
-    bool initWithWidthAndHeight(int w, int h, backend::PixelFormat format)
-    bool initWithWidthAndHeight(int w, int h, backend::PixelFormat format, backend::PixelFormat depthStencilFormat)
+    bool initWithWidthAndHeight(int w, int h, cocos2d::backend::PixelFormat format)
+    bool initWithWidthAndHeight(int w, int h, cocos2d::backend::PixelFormat format, cocos2d::backend::PixelFormat depthStencilFormat)
 ]]
 cls.callback {
     FUNCS =  {
         'bool saveToFile(const std::string &filename, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)',
-        'bool saveToFile(const std::string &filename, Image::Format format, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)'
+        'bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)'
     },
     TAG_MAKER = 'saveToFile',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -3185,7 +3183,7 @@ cls.callback {
 cls.callback {
     FUNCS =  {
         'bool saveToFileAsNonPMA(const std::string &filename, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)',
-        'bool saveToFileAsNonPMA(const std::string &fileName, Image::Format format, bool isRGBA, std::function<void (RenderTexture *, const std::string &)> callback)'
+        'bool saveToFileAsNonPMA(const std::string &fileName, cocos2d::Image::Format format, bool isRGBA, std::function<void (RenderTexture *, const std::string &)> callback)'
     },
     TAG_MAKER = 'saveToFile',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -3555,8 +3553,8 @@ cls.funcs [[
     void onTouchesEnded(const std::vector<Touch *> &touches, cocos2d::Event *unused_event)
     void onTouchesCancelled(const std::vector<Touch *> &touches, cocos2d::Event *unused_event)
     void onAcceleration(cocos2d::Acceleration *acc, cocos2d::Event *unused_event)
-    void onKeyPressed(EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
-    void onKeyReleased(EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
+    void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
+    void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
     Layer()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -4185,7 +4183,7 @@ cls.funcs [[
     static const cocos2d::Viewport &getDefaultViewport()
     static void setDefaultViewport(const cocos2d::Viewport &vp)
     static cocos2d::Camera *getDefaultCamera()
-    Camera::Type getType()
+    cocos2d::Camera::Type getType()
     cocos2d::CameraFlag getCameraFlag()
     void setCameraFlag(cocos2d::CameraFlag flag)
     void lookAt(const cocos2d::Vec3 &target, @optional const cocos2d::Vec3 &up)

@@ -11,15 +11,15 @@
 #endif
 
 #define olua_mainthread(L)              xlua_mainthread(L)
-#define olua_startcmpdelref(L, i, n)    xlua_startcmpdelref(L, i, n)
-#define olua_endcmpdelref(L, i, n)      xlua_endcmpdelref(L, i, n)
-#define olua_postpush(L, v, s)          xlua_postpush(L, v, s)
-#define olua_postnew(L, obj)            xlua_postnew(L, obj)
+#define olua_startcmpdelref(L, i, n)    xlua_startcmpdelref(L, (i), (n))
+#define olua_endcmpdelref(L, i, n)      xlua_endcmpdelref(L, (i), (n))
+#define olua_postpush(L, v, s)          xlua_postpush(L, (v), (s))
+#define olua_postnew(L, obj)            xlua_postnew(L, (obj))
 #define olua_startinvoke(L)             (xlua_invokingstate = L)
 #define olua_endinvoke(L)               (xlua_invokingstate = nullptr)
 
-#define oluai_registerluatype           xlua_registerluatype
-#define oluai_getluatype                xlua_getluatype
+#define oluai_registerluatype(L, t, c)  (xlua_registerluatype(L, (t), (c)))
+#define oluai_getluatype(L, t)          (xlua_getluatype(L, (t)))
 
 extern lua_State *xlua_invokingstate;
 
@@ -47,7 +47,7 @@ template <typename T> void xlua_postpush(lua_State *L, T* obj, int status)
             (status == OLUA_OBJ_NEW || status == OLUA_OBJ_UPDATE)) {
         ((cocos2d::Ref *)obj)->retain();
 #ifdef COCOS2D_DEBUG
-        if (!olua_isa(L, -1, "cc.Ref")) {
+        if (!olua_isa<cocos2d::Ref>(L, -1)) {
             luaL_error(L, "class '%s' not inherit from 'cc.Ref'", olua_getluatype(L, obj, ""));
         }
 #endif

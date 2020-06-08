@@ -54,28 +54,28 @@ public:
        {
        }
     
-    virtual void onOpen(cocos2d::network::WebSocket* ws)
+    virtual void onOpen(network::WebSocket* ws)
     {
         if (onOpenCallback) {
             onOpenCallback(ws);
         }
     }
     
-    virtual void onMessage(cocos2d::network::WebSocket* ws, const cocos2d::network::WebSocket::Data& data)
+    virtual void onMessage(network::WebSocket* ws, const network::WebSocket::Data& data)
     {
         if (onMessageCallback) {
             onMessageCallback(ws, data);
         }
     }
     
-    virtual void onClose(cocos2d::network::WebSocket* ws)
+    virtual void onClose(network::WebSocket* ws)
     {
         if (onCloseCallback) {
             onCloseCallback(ws);
         }
     }
     
-    virtual void onError(cocos2d::network::WebSocket* ws, const cocos2d::network::WebSocket::ErrorCode& error)
+    virtual void onError(network::WebSocket* ws, const network::WebSocket::ErrorCode& error)
     {
         if (onErrorCallback) {
             onErrorCallback(ws, error);

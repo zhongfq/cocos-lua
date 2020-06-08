@@ -2888,8 +2888,7 @@ static int luaopen_cocos2d_Director(lua_State *L)
 
 template <typename T> bool doScheduleUpdate(lua_State *L)
 {
-    const char *cls = olua_getluatype<T>(L);
-    if (olua_is_cppobj(L, 2, cls)) {
+    if (olua_isa<T>(L, 2)) {
         auto self = olua_checkobj<cocos2d::Scheduler>(L, 1);
         auto target = olua_checkobj<T>(L, 2);
         lua_Integer priority = olua_checkinteger(L, 3);
@@ -3607,7 +3606,7 @@ static int _cocos2d_EventDispatcher_hasEventListener(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventDispatcher");
     olua_check_std_string(L, 2, &arg1);
 
-    // bool hasEventListener(const EventListener::ListenerID &listenerID)
+    // bool hasEventListener(const cocos2d::EventListener::ListenerID &listenerID)
     bool ret = (bool)self->hasEventListener((cocos2d::EventListener::ListenerID)arg1);
     int num_ret = olua_push_bool(L, ret);
 
@@ -3868,7 +3867,7 @@ static int _cocos2d_EventDispatcher_removeEventListenersForType(lua_State *L)
     // inject code before call
     olua_startcmpdelref(L, 1, "listeners");
 
-    // @delref(listeners ~) void removeEventListenersForType(EventListener::Type listenerType)
+    // @delref(listeners ~) void removeEventListenersForType(cocos2d::EventListener::Type listenerType)
     self->removeEventListenersForType((cocos2d::EventListener::Type)arg1);
 
     // inject code after call
@@ -6522,7 +6521,7 @@ static int _cocos2d_EventFocus_new(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "ccui.Widget");
     olua_check_cppobj(L, 2, (void **)&arg2, "ccui.Widget");
 
-    // EventFocus(ui::Widget *widgetLoseFocus, ui::Widget *widgetGetFocus)
+    // EventFocus(cocos2d::ui::Widget *widgetLoseFocus, cocos2d::ui::Widget *widgetGetFocus)
     cocos2d::EventFocus *ret = (cocos2d::EventFocus *)new cocos2d::EventFocus(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.EventFocus");
     olua_postnew(L, ret);
@@ -8717,8 +8716,7 @@ static int _cocos2d_AudioEngine_uncache(lua_State *L)
     // inject code before call
     std::string path = olua_checkstring(L, 1);
     std::list<int> ids = cocos2d::LuaAudioEngine::getAudioIDs(path);
-    const char *cls = olua_getluatype<cocos2d::AudioEngine>(L);
-    void *self_obj = (void *)olua_pushclassobj(L, cls);
+    void *self_obj = olua_pushclassobj<cocos2d::AudioEngine>(L);
     for (auto id : ids) {
         std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
         olua_removecallback(L, self_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
@@ -12347,7 +12345,7 @@ static int _cocos2d_Image_getPixelFormat(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Image");
 
-    // backend::PixelFormat getPixelFormat()
+    // cocos2d::backend::PixelFormat getPixelFormat()
     cocos2d::backend::PixelFormat ret = (cocos2d::backend::PixelFormat)self->getPixelFormat();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
@@ -13598,7 +13596,7 @@ static int _cocos2d_Material_createWithProgramState(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "ccb.ProgramState");
 
-    // static cocos2d::Material *createWithProgramState(backend::ProgramState *programState)
+    // static cocos2d::Material *createWithProgramState(cocos2d::backend::ProgramState *programState)
     cocos2d::Material *ret = (cocos2d::Material *)cocos2d::Material::createWithProgramState(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.Material");
 
@@ -13648,7 +13646,7 @@ static int _cocos2d_Material_draw(lua_State *L)
     olua_check_uint(L, 8, &arg7);
     manual_olua_check_cocos2d_Mat4(L, 9, &arg8);
 
-    // void draw(cocos2d::MeshCommand *meshCommand, float globalZOrder, backend::Buffer *vertexBuffer, backend::Buffer *indexBuffer, CustomCommand::PrimitiveType primitive, CustomCommand::IndexFormat indexFormat, unsigned int indexCount, const cocos2d::Mat4 &modelView)
+    // void draw(cocos2d::MeshCommand *meshCommand, float globalZOrder, cocos2d::backend::Buffer *vertexBuffer, cocos2d::backend::Buffer *indexBuffer, cocos2d::CustomCommand::PrimitiveType primitive, cocos2d::CustomCommand::IndexFormat indexFormat, unsigned int indexCount, const cocos2d::Mat4 &modelView)
     self->draw(arg1, (float)arg2, arg3, arg4, (cocos2d::CustomCommand::PrimitiveType)arg5, (cocos2d::CustomCommand::IndexFormat)arg6, (unsigned int)arg7, arg8);
 
     olua_endinvoke(L);
@@ -14212,7 +14210,7 @@ static int _cocos2d_Renderer_getDepthCompareFunction(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Renderer");
 
-    // backend::CompareFunction getDepthCompareFunction()
+    // cocos2d::backend::CompareFunction getDepthCompareFunction()
     cocos2d::backend::CompareFunction ret = (cocos2d::backend::CompareFunction)self->getDepthCompareFunction();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
@@ -14365,7 +14363,7 @@ static int _cocos2d_Renderer_getStencilCompareFunction(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Renderer");
 
-    // backend::CompareFunction getStencilCompareFunction()
+    // cocos2d::backend::CompareFunction getStencilCompareFunction()
     cocos2d::backend::CompareFunction ret = (cocos2d::backend::CompareFunction)self->getStencilCompareFunction();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
@@ -14382,7 +14380,7 @@ static int _cocos2d_Renderer_getStencilDepthPassOperation(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Renderer");
 
-    // backend::StencilOperation getStencilDepthPassOperation()
+    // cocos2d::backend::StencilOperation getStencilDepthPassOperation()
     cocos2d::backend::StencilOperation ret = (cocos2d::backend::StencilOperation)self->getStencilDepthPassOperation();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
@@ -14399,7 +14397,7 @@ static int _cocos2d_Renderer_getStencilFailureOperation(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Renderer");
 
-    // backend::StencilOperation getStencilFailureOperation()
+    // cocos2d::backend::StencilOperation getStencilFailureOperation()
     cocos2d::backend::StencilOperation ret = (cocos2d::backend::StencilOperation)self->getStencilFailureOperation();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
@@ -14416,7 +14414,7 @@ static int _cocos2d_Renderer_getStencilPassDepthFailureOperation(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Renderer");
 
-    // backend::StencilOperation getStencilPassDepthFailureOperation()
+    // cocos2d::backend::StencilOperation getStencilPassDepthFailureOperation()
     cocos2d::backend::StencilOperation ret = (cocos2d::backend::StencilOperation)self->getStencilPassDepthFailureOperation();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
@@ -14635,7 +14633,7 @@ static int _cocos2d_Renderer_setDepthCompareFunction(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Renderer");
     olua_check_uint(L, 2, &arg1);
 
-    // void setDepthCompareFunction(backend::CompareFunction func)
+    // void setDepthCompareFunction(cocos2d::backend::CompareFunction func)
     self->setDepthCompareFunction((cocos2d::backend::CompareFunction)arg1);
 
     olua_endinvoke(L);
@@ -14759,7 +14757,7 @@ static int _cocos2d_Renderer_setStencilCompareFunction(lua_State *L)
     olua_check_uint(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
 
-    // void setStencilCompareFunction(backend::CompareFunction func, unsigned int ref, unsigned int readMask)
+    // void setStencilCompareFunction(cocos2d::backend::CompareFunction func, unsigned int ref, unsigned int readMask)
     self->setStencilCompareFunction((cocos2d::backend::CompareFunction)arg1, (unsigned int)arg2, (unsigned int)arg3);
 
     olua_endinvoke(L);
@@ -14781,7 +14779,7 @@ static int _cocos2d_Renderer_setStencilOperation(lua_State *L)
     olua_check_uint(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
 
-    // void setStencilOperation(backend::StencilOperation stencilFailureOp, backend::StencilOperation depthFailureOp, backend::StencilOperation stencilDepthPassOp)
+    // void setStencilOperation(cocos2d::backend::StencilOperation stencilFailureOp, cocos2d::backend::StencilOperation depthFailureOp, cocos2d::backend::StencilOperation stencilDepthPassOp)
     self->setStencilOperation((cocos2d::backend::StencilOperation)arg1, (cocos2d::backend::StencilOperation)arg2, (cocos2d::backend::StencilOperation)arg3);
 
     olua_endinvoke(L);
@@ -15009,7 +15007,7 @@ static int _cocos2d_PipelineDescriptor_get_blendDescriptor(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PipelineDescriptor");
 
-    // backend::BlendDescriptor blendDescriptor
+    // cocos2d::backend::BlendDescriptor blendDescriptor
     cocos2d::backend::BlendDescriptor ret = (cocos2d::backend::BlendDescriptor)self->blendDescriptor;
     int num_ret = auto_olua_push_cocos2d_backend_BlendDescriptor(L, &ret);
 
@@ -15028,7 +15026,7 @@ static int _cocos2d_PipelineDescriptor_set_blendDescriptor(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.PipelineDescriptor");
     auto_olua_check_cocos2d_backend_BlendDescriptor(L, 2, &arg1);
 
-    // backend::BlendDescriptor blendDescriptor
+    // cocos2d::backend::BlendDescriptor blendDescriptor
     self->blendDescriptor = arg1;
 
     olua_endinvoke(L);
@@ -15044,7 +15042,7 @@ static int _cocos2d_PipelineDescriptor_get_programState(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PipelineDescriptor");
 
-    // @optional backend::ProgramState *programState
+    // @optional cocos2d::backend::ProgramState *programState
     cocos2d::backend::ProgramState *ret = (cocos2d::backend::ProgramState *)self->programState;
     int num_ret = olua_push_cppobj(L, ret, "ccb.ProgramState");
 
@@ -15063,7 +15061,7 @@ static int _cocos2d_PipelineDescriptor_set_programState(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.PipelineDescriptor");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccb.ProgramState");
 
-    // @optional backend::ProgramState *programState
+    // @optional cocos2d::backend::ProgramState *programState
     self->programState = arg1;
 
     olua_endinvoke(L);
@@ -15543,7 +15541,7 @@ static int _cocos2d_CustomCommand_getIndexBuffer(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.CustomCommand");
 
-    // backend::Buffer *getIndexBuffer()
+    // cocos2d::backend::Buffer *getIndexBuffer()
     cocos2d::backend::Buffer *ret = (cocos2d::backend::Buffer *)self->getIndexBuffer();
     int num_ret = olua_push_cppobj(L, ret, "ccb.Buffer");
 
@@ -15662,7 +15660,7 @@ static int _cocos2d_CustomCommand_getVertexBuffer(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.CustomCommand");
 
-    // backend::Buffer *getVertexBuffer()
+    // cocos2d::backend::Buffer *getVertexBuffer()
     cocos2d::backend::Buffer *ret = (cocos2d::backend::Buffer *)self->getVertexBuffer();
     int num_ret = olua_push_cppobj(L, ret, "ccb.Buffer");
 
@@ -15893,7 +15891,7 @@ static int _cocos2d_CustomCommand_setIndexBuffer(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "ccb.Buffer");
     olua_check_uint(L, 3, &arg2);
 
-    // void setIndexBuffer(backend::Buffer *indexBuffer, cocos2d::CustomCommand::IndexFormat indexFormat)
+    // void setIndexBuffer(cocos2d::backend::Buffer *indexBuffer, cocos2d::CustomCommand::IndexFormat indexFormat)
     self->setIndexBuffer(arg1, (cocos2d::CustomCommand::IndexFormat)arg2);
 
     olua_endinvoke(L);
@@ -15967,7 +15965,7 @@ static int _cocos2d_CustomCommand_setVertexBuffer(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.CustomCommand");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccb.Buffer");
 
-    // void setVertexBuffer(backend::Buffer *vertexBuffer)
+    // void setVertexBuffer(cocos2d::backend::Buffer *vertexBuffer)
     self->setVertexBuffer(arg1);
 
     olua_endinvoke(L);
@@ -16901,7 +16899,7 @@ static int _cocos2d_Texture2D_getBackendTexture(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Texture2D");
 
-    // backend::TextureBackend *getBackendTexture()
+    // cocos2d::backend::TextureBackend *getBackendTexture()
     cocos2d::backend::TextureBackend *ret = (cocos2d::backend::TextureBackend *)self->getBackendTexture();
     int num_ret = olua_push_cppobj(L, ret, "ccb.TextureBackend");
 
@@ -16937,7 +16935,7 @@ static int _cocos2d_Texture2D_getBitsPerPixelForFormat2(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Texture2D");
     olua_check_uint(L, 2, &arg1);
 
-    // unsigned int getBitsPerPixelForFormat(backend::PixelFormat format)
+    // unsigned int getBitsPerPixelForFormat(cocos2d::backend::PixelFormat format)
     unsigned int ret = (unsigned int)self->getBitsPerPixelForFormat((cocos2d::backend::PixelFormat)arg1);
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
@@ -16957,7 +16955,7 @@ static int _cocos2d_Texture2D_getBitsPerPixelForFormat(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
-            // unsigned int getBitsPerPixelForFormat(backend::PixelFormat format)
+            // unsigned int getBitsPerPixelForFormat(cocos2d::backend::PixelFormat format)
             return _cocos2d_Texture2D_getBitsPerPixelForFormat2(L);
         // }
     }
@@ -17005,7 +17003,7 @@ static int _cocos2d_Texture2D_getDefaultAlphaPixelFormat(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // static backend::PixelFormat getDefaultAlphaPixelFormat()
+    // static cocos2d::backend::PixelFormat getDefaultAlphaPixelFormat()
     cocos2d::backend::PixelFormat ret = (cocos2d::backend::PixelFormat)cocos2d::Texture2D::getDefaultAlphaPixelFormat();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
@@ -17073,7 +17071,7 @@ static int _cocos2d_Texture2D_getPixelFormat(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Texture2D");
 
-    // backend::PixelFormat getPixelFormat()
+    // cocos2d::backend::PixelFormat getPixelFormat()
     cocos2d::backend::PixelFormat ret = (cocos2d::backend::PixelFormat)self->getPixelFormat();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
@@ -17198,7 +17196,7 @@ static int _cocos2d_Texture2D_initWithBackendTexture1(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "ccb.TextureBackend");
     olua_check_bool(L, 3, &arg2);
 
-    // bool initWithBackendTexture(backend::TextureBackend *texture, @optional bool preMultipliedAlpha)
+    // bool initWithBackendTexture(cocos2d::backend::TextureBackend *texture, @optional bool preMultipliedAlpha)
     bool ret = (bool)self->initWithBackendTexture(arg1, arg2);
     int num_ret = olua_push_bool(L, ret);
 
@@ -17217,7 +17215,7 @@ static int _cocos2d_Texture2D_initWithBackendTexture2(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Texture2D");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccb.TextureBackend");
 
-    // bool initWithBackendTexture(backend::TextureBackend *texture, @optional bool preMultipliedAlpha)
+    // bool initWithBackendTexture(cocos2d::backend::TextureBackend *texture, @optional bool preMultipliedAlpha)
     bool ret = (bool)self->initWithBackendTexture(arg1);
     int num_ret = olua_push_bool(L, ret);
 
@@ -17232,14 +17230,14 @@ static int _cocos2d_Texture2D_initWithBackendTexture(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "ccb.TextureBackend"))) {
-            // bool initWithBackendTexture(backend::TextureBackend *texture, @optional bool preMultipliedAlpha)
+            // bool initWithBackendTexture(cocos2d::backend::TextureBackend *texture, @optional bool preMultipliedAlpha)
             return _cocos2d_Texture2D_initWithBackendTexture2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "ccb.TextureBackend")) && (olua_is_bool(L, 3))) {
-            // bool initWithBackendTexture(backend::TextureBackend *texture, @optional bool preMultipliedAlpha)
+            // bool initWithBackendTexture(cocos2d::backend::TextureBackend *texture, @optional bool preMultipliedAlpha)
             return _cocos2d_Texture2D_initWithBackendTexture1(L);
         // }
     }
@@ -17271,7 +17269,7 @@ static int _cocos2d_Texture2D_initWithData1(lua_State *L)
     auto_olua_check_cocos2d_Size(L, 7, &arg6);
     olua_check_bool(L, 8, &arg7);
 
-    // bool initWithData(const void *data, ssize_t dataLen, backend::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
+    // bool initWithData(const void *data, ssize_t dataLen, cocos2d::backend::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
     bool ret = (bool)self->initWithData(arg1, (ssize_t)arg2, (cocos2d::backend::PixelFormat)arg3, (int)arg4, (int)arg5, arg6, arg7);
     int num_ret = olua_push_bool(L, ret);
 
@@ -17304,7 +17302,7 @@ static int _cocos2d_Texture2D_initWithData2(lua_State *L)
     auto_olua_check_cocos2d_Size(L, 8, &arg7);
     olua_check_bool(L, 9, &arg8);
 
-    // bool initWithData(const void *data, ssize_t dataLen, backend::PixelFormat pixelFormat, backend::PixelFormat renderFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
+    // bool initWithData(const void *data, ssize_t dataLen, cocos2d::backend::PixelFormat pixelFormat, cocos2d::backend::PixelFormat renderFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
     bool ret = (bool)self->initWithData(arg1, (ssize_t)arg2, (cocos2d::backend::PixelFormat)arg3, (cocos2d::backend::PixelFormat)arg4, (int)arg5, (int)arg6, arg7, arg8);
     int num_ret = olua_push_bool(L, ret);
 
@@ -17333,7 +17331,7 @@ static int _cocos2d_Texture2D_initWithData3(lua_State *L)
     olua_check_int(L, 6, &arg5);
     auto_olua_check_cocos2d_Size(L, 7, &arg6);
 
-    // bool initWithData(const void *data, ssize_t dataLen, backend::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
+    // bool initWithData(const void *data, ssize_t dataLen, cocos2d::backend::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
     bool ret = (bool)self->initWithData(arg1, (ssize_t)arg2, (cocos2d::backend::PixelFormat)arg3, (int)arg4, (int)arg5, arg6);
     int num_ret = olua_push_bool(L, ret);
 
@@ -17364,7 +17362,7 @@ static int _cocos2d_Texture2D_initWithData4(lua_State *L)
     olua_check_int(L, 7, &arg6);
     auto_olua_check_cocos2d_Size(L, 8, &arg7);
 
-    // bool initWithData(const void *data, ssize_t dataLen, backend::PixelFormat pixelFormat, backend::PixelFormat renderFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
+    // bool initWithData(const void *data, ssize_t dataLen, cocos2d::backend::PixelFormat pixelFormat, cocos2d::backend::PixelFormat renderFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
     bool ret = (bool)self->initWithData(arg1, (ssize_t)arg2, (cocos2d::backend::PixelFormat)arg3, (cocos2d::backend::PixelFormat)arg4, (int)arg5, (int)arg6, arg7);
     int num_ret = olua_push_bool(L, ret);
 
@@ -17379,26 +17377,26 @@ static int _cocos2d_Texture2D_initWithData(lua_State *L)
 
     if (num_args == 6) {
         // if ((olua_is_obj(L, 2, "void *")) && (olua_is_int(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_int(L, 5)) && (olua_is_int(L, 6)) && (auto_olua_is_cocos2d_Size(L, 7))) {
-            // bool initWithData(const void *data, ssize_t dataLen, backend::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
+            // bool initWithData(const void *data, ssize_t dataLen, cocos2d::backend::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
             return _cocos2d_Texture2D_initWithData3(L);
         // }
     }
 
     if (num_args == 7) {
         if ((olua_is_obj(L, 2, "void *")) && (olua_is_int(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_int(L, 5)) && (olua_is_int(L, 6)) && (auto_olua_is_cocos2d_Size(L, 7)) && (olua_is_bool(L, 8))) {
-            // bool initWithData(const void *data, ssize_t dataLen, backend::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
+            // bool initWithData(const void *data, ssize_t dataLen, cocos2d::backend::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
             return _cocos2d_Texture2D_initWithData1(L);
         }
 
         // if ((olua_is_obj(L, 2, "void *")) && (olua_is_int(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5)) && (olua_is_int(L, 6)) && (olua_is_int(L, 7)) && (auto_olua_is_cocos2d_Size(L, 8))) {
-            // bool initWithData(const void *data, ssize_t dataLen, backend::PixelFormat pixelFormat, backend::PixelFormat renderFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
+            // bool initWithData(const void *data, ssize_t dataLen, cocos2d::backend::PixelFormat pixelFormat, cocos2d::backend::PixelFormat renderFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
             return _cocos2d_Texture2D_initWithData4(L);
         // }
     }
 
     if (num_args == 8) {
         // if ((olua_is_obj(L, 2, "void *")) && (olua_is_int(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5)) && (olua_is_int(L, 6)) && (olua_is_int(L, 7)) && (auto_olua_is_cocos2d_Size(L, 8)) && (olua_is_bool(L, 9))) {
-            // bool initWithData(const void *data, ssize_t dataLen, backend::PixelFormat pixelFormat, backend::PixelFormat renderFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
+            // bool initWithData(const void *data, ssize_t dataLen, cocos2d::backend::PixelFormat pixelFormat, cocos2d::backend::PixelFormat renderFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
             return _cocos2d_Texture2D_initWithData2(L);
         // }
     }
@@ -17439,7 +17437,7 @@ static int _cocos2d_Texture2D_initWithImage2(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Image");
     olua_check_uint(L, 3, &arg2);
 
-    // bool initWithImage(cocos2d::Image *image, backend::PixelFormat format)
+    // bool initWithImage(cocos2d::Image *image, cocos2d::backend::PixelFormat format)
     bool ret = (bool)self->initWithImage(arg1, (cocos2d::backend::PixelFormat)arg2);
     int num_ret = olua_push_bool(L, ret);
 
@@ -17461,7 +17459,7 @@ static int _cocos2d_Texture2D_initWithImage(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "cc.Image")) && (olua_is_uint(L, 3))) {
-            // bool initWithImage(cocos2d::Image *image, backend::PixelFormat format)
+            // bool initWithImage(cocos2d::Image *image, cocos2d::backend::PixelFormat format)
             return _cocos2d_Texture2D_initWithImage2(L);
         // }
     }
@@ -17779,7 +17777,7 @@ static int _cocos2d_Texture2D_setDefaultAlphaPixelFormat(lua_State *L)
 
     olua_check_uint(L, 1, &arg1);
 
-    // static void setDefaultAlphaPixelFormat(backend::PixelFormat format)
+    // static void setDefaultAlphaPixelFormat(cocos2d::backend::PixelFormat format)
     cocos2d::Texture2D::setDefaultAlphaPixelFormat((cocos2d::backend::PixelFormat)arg1);
 
     olua_endinvoke(L);
@@ -17993,7 +17991,7 @@ static int _cocos2d_TextureCube_getBackendTexture(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.TextureCube");
 
-    // backend::TextureBackend *getBackendTexture()
+    // cocos2d::backend::TextureBackend *getBackendTexture()
     cocos2d::backend::TextureBackend *ret = (cocos2d::backend::TextureBackend *)self->getBackendTexture();
     int num_ret = olua_push_cppobj(L, ret, "ccb.TextureBackend");
 
@@ -18043,7 +18041,7 @@ static int _cocos2d_TextureCube_setTexParameters(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.TextureCube");
     auto_olua_check_cocos2d_backend_SamplerDescriptor(L, 2, &arg1);
 
-    // void setTexParameters(const Texture2D::TexParams &)
+    // void setTexParameters(const cocos2d::Texture2D::TexParams &)
     self->setTexParameters(arg1);
 
     olua_endinvoke(L);
@@ -21699,7 +21697,7 @@ static int _cocos2d_Node_getProgramState(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
-    // @addref(programState ^) backend::ProgramState *getProgramState()
+    // @addref(programState ^) cocos2d::backend::ProgramState *getProgramState()
     cocos2d::backend::ProgramState *ret = (cocos2d::backend::ProgramState *)self->getProgramState();
     int num_ret = olua_push_cppobj(L, ret, "ccb.ProgramState");
 
@@ -23685,7 +23683,7 @@ static int _cocos2d_Node_setProgramState(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccb.ProgramState");
 
-    // void setProgramState(@addref(programState ^) backend::ProgramState *programState)
+    // void setProgramState(@addref(programState ^) cocos2d::backend::ProgramState *programState)
     self->setProgramState(arg1);
 
     // inject code after call
@@ -25423,7 +25421,7 @@ static int _cocos2d_TileMapAtlas_getTGAInfo(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.TileMapAtlas");
 
-    // struct sImageTGA *getTGAInfo()
+    // struct cocos2d::sImageTGA *getTGAInfo()
     cocos2d::sImageTGA *ret = (cocos2d::sImageTGA *)self->getTGAInfo();
     int num_ret = olua_push_cppobj(L, ret, "cc.sImageTGA");
 
@@ -25516,7 +25514,7 @@ static int _cocos2d_TileMapAtlas_setTGAInfo(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.TileMapAtlas");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.sImageTGA");
 
-    // void setTGAInfo(struct sImageTGA *TGAInfo)
+    // void setTGAInfo(struct cocos2d::sImageTGA *TGAInfo)
     self->setTGAInfo(arg1);
 
     olua_endinvoke(L);
@@ -31086,7 +31084,7 @@ static int _cocos2d_RenderTexture_create1(lua_State *L)
     olua_check_uint(L, 3, &arg3);
     olua_check_uint(L, 4, &arg4);
 
-    // static cocos2d::RenderTexture *create(int w, int h, backend::PixelFormat format, backend::PixelFormat depthStencilFormat)
+    // static cocos2d::RenderTexture *create(int w, int h, cocos2d::backend::PixelFormat format, cocos2d::backend::PixelFormat depthStencilFormat)
     cocos2d::RenderTexture *ret = (cocos2d::RenderTexture *)cocos2d::RenderTexture::create((int)arg1, (int)arg2, (cocos2d::backend::PixelFormat)arg3, (cocos2d::backend::PixelFormat)arg4);
     int num_ret = olua_push_cppobj(L, ret, "cc.RenderTexture");
 
@@ -31107,7 +31105,7 @@ static int _cocos2d_RenderTexture_create2(lua_State *L)
     olua_check_int(L, 2, &arg2);
     olua_check_uint(L, 3, &arg3);
 
-    // static cocos2d::RenderTexture *create(int w, int h, backend::PixelFormat format)
+    // static cocos2d::RenderTexture *create(int w, int h, cocos2d::backend::PixelFormat format)
     cocos2d::RenderTexture *ret = (cocos2d::RenderTexture *)cocos2d::RenderTexture::create((int)arg1, (int)arg2, (cocos2d::backend::PixelFormat)arg3);
     int num_ret = olua_push_cppobj(L, ret, "cc.RenderTexture");
 
@@ -31148,14 +31146,14 @@ static int _cocos2d_RenderTexture_create(lua_State *L)
 
     if (num_args == 3) {
         // if ((olua_is_int(L, 1)) && (olua_is_int(L, 2)) && (olua_is_uint(L, 3))) {
-            // static cocos2d::RenderTexture *create(int w, int h, backend::PixelFormat format)
+            // static cocos2d::RenderTexture *create(int w, int h, cocos2d::backend::PixelFormat format)
             return _cocos2d_RenderTexture_create2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_int(L, 1)) && (olua_is_int(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
-            // static cocos2d::RenderTexture *create(int w, int h, backend::PixelFormat format, backend::PixelFormat depthStencilFormat)
+            // static cocos2d::RenderTexture *create(int w, int h, cocos2d::backend::PixelFormat format, cocos2d::backend::PixelFormat depthStencilFormat)
             return _cocos2d_RenderTexture_create1(L);
         // }
     }
@@ -31280,7 +31278,7 @@ static int _cocos2d_RenderTexture_initWithWidthAndHeight1(lua_State *L)
     olua_check_int(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
 
-    // bool initWithWidthAndHeight(int w, int h, backend::PixelFormat format)
+    // bool initWithWidthAndHeight(int w, int h, cocos2d::backend::PixelFormat format)
     bool ret = (bool)self->initWithWidthAndHeight((int)arg1, (int)arg2, (cocos2d::backend::PixelFormat)arg3);
     int num_ret = olua_push_bool(L, ret);
 
@@ -31305,7 +31303,7 @@ static int _cocos2d_RenderTexture_initWithWidthAndHeight2(lua_State *L)
     olua_check_uint(L, 4, &arg3);
     olua_check_uint(L, 5, &arg4);
 
-    // bool initWithWidthAndHeight(int w, int h, backend::PixelFormat format, backend::PixelFormat depthStencilFormat)
+    // bool initWithWidthAndHeight(int w, int h, cocos2d::backend::PixelFormat format, cocos2d::backend::PixelFormat depthStencilFormat)
     bool ret = (bool)self->initWithWidthAndHeight((int)arg1, (int)arg2, (cocos2d::backend::PixelFormat)arg3, (cocos2d::backend::PixelFormat)arg4);
     int num_ret = olua_push_bool(L, ret);
 
@@ -31320,14 +31318,14 @@ static int _cocos2d_RenderTexture_initWithWidthAndHeight(lua_State *L)
 
     if (num_args == 3) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_uint(L, 4))) {
-            // bool initWithWidthAndHeight(int w, int h, backend::PixelFormat format)
+            // bool initWithWidthAndHeight(int w, int h, cocos2d::backend::PixelFormat format)
             return _cocos2d_RenderTexture_initWithWidthAndHeight1(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
-            // bool initWithWidthAndHeight(int w, int h, backend::PixelFormat format, backend::PixelFormat depthStencilFormat)
+            // bool initWithWidthAndHeight(int w, int h, cocos2d::backend::PixelFormat format, cocos2d::backend::PixelFormat depthStencilFormat)
             return _cocos2d_RenderTexture_initWithWidthAndHeight2(L);
         // }
     }
@@ -31592,7 +31590,7 @@ static int _cocos2d_RenderTexture_saveToFile2(lua_State *L)
         arg4 = nullptr;
     }
 
-    // bool saveToFile(const std::string &filename, Image::Format format, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)
+    // bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)
     bool ret = (bool)self->saveToFile(arg1, (cocos2d::Image::Format)arg2, arg3, arg4);
     int num_ret = olua_push_bool(L, ret);
 
@@ -31653,7 +31651,7 @@ static int _cocos2d_RenderTexture_saveToFile5(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
     olua_check_uint(L, 3, &arg2);
 
-    // bool saveToFile(const std::string &filename, Image::Format format, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)
+    // bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)
     bool ret = (bool)self->saveToFile(arg1, (cocos2d::Image::Format)arg2);
     int num_ret = olua_push_bool(L, ret);
 
@@ -31676,7 +31674,7 @@ static int _cocos2d_RenderTexture_saveToFile6(lua_State *L)
     olua_check_uint(L, 3, &arg2);
     olua_check_bool(L, 4, &arg3);
 
-    // bool saveToFile(const std::string &filename, Image::Format format, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)
+    // bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)
     bool ret = (bool)self->saveToFile(arg1, (cocos2d::Image::Format)arg2, arg3);
     int num_ret = olua_push_bool(L, ret);
 
@@ -31703,7 +31701,7 @@ static int _cocos2d_RenderTexture_saveToFile(lua_State *L)
         }
 
         // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
-            // bool saveToFile(const std::string &filename, Image::Format format, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)
+            // bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)
             return _cocos2d_RenderTexture_saveToFile5(L);
         // }
     }
@@ -31715,14 +31713,14 @@ static int _cocos2d_RenderTexture_saveToFile(lua_State *L)
         }
 
         // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_bool(L, 4))) {
-            // bool saveToFile(const std::string &filename, Image::Format format, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)
+            // bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)
             return _cocos2d_RenderTexture_saveToFile6(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_bool(L, 4)) && (olua_is_std_function(L, 5))) {
-            // bool saveToFile(const std::string &filename, Image::Format format, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)
+            // bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)
             return _cocos2d_RenderTexture_saveToFile2(L);
         // }
     }
@@ -31816,7 +31814,7 @@ static int _cocos2d_RenderTexture_saveToFileAsNonPMA2(lua_State *L)
         }
     };
 
-    // bool saveToFileAsNonPMA(const std::string &fileName, Image::Format format, bool isRGBA, std::function<void (RenderTexture *, const std::string &)> callback)
+    // bool saveToFileAsNonPMA(const std::string &fileName, cocos2d::Image::Format format, bool isRGBA, std::function<void (RenderTexture *, const std::string &)> callback)
     bool ret = (bool)self->saveToFileAsNonPMA(arg1, (cocos2d::Image::Format)arg2, arg3, arg4);
     int num_ret = olua_push_bool(L, ret);
 
@@ -31892,7 +31890,7 @@ static int _cocos2d_RenderTexture_saveToFileAsNonPMA(lua_State *L)
 
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_bool(L, 4)) && (olua_is_std_function(L, 5))) {
-            // bool saveToFileAsNonPMA(const std::string &fileName, Image::Format format, bool isRGBA, std::function<void (RenderTexture *, const std::string &)> callback)
+            // bool saveToFileAsNonPMA(const std::string &fileName, cocos2d::Image::Format format, bool isRGBA, std::function<void (RenderTexture *, const std::string &)> callback)
             return _cocos2d_RenderTexture_saveToFileAsNonPMA2(L);
         // }
     }
@@ -36808,7 +36806,7 @@ static int _cocos2d_Layer_onKeyPressed(lua_State *L)
     olua_check_uint(L, 2, &arg1);
     olua_check_cppobj(L, 3, (void **)&arg2, "cc.Event");
 
-    // void onKeyPressed(EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
+    // void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
     self->onKeyPressed((cocos2d::EventKeyboard::KeyCode)arg1, arg2);
 
     olua_endinvoke(L);
@@ -36828,7 +36826,7 @@ static int _cocos2d_Layer_onKeyReleased(lua_State *L)
     olua_check_uint(L, 2, &arg1);
     olua_check_cppobj(L, 3, (void **)&arg2, "cc.Event");
 
-    // void onKeyReleased(EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
+    // void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
     self->onKeyReleased((cocos2d::EventKeyboard::KeyCode)arg1, arg2);
 
     olua_endinvoke(L);
@@ -43028,7 +43026,7 @@ static int _cocos2d_Camera_getType(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
 
-    // Camera::Type getType()
+    // cocos2d::Camera::Type getType()
     cocos2d::Camera::Type ret = (cocos2d::Camera::Type)self->getType();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 

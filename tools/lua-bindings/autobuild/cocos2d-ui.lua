@@ -153,31 +153,31 @@ cls.funcs [[
     void onFocusChange(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui::Widget *widgetGetFocus)
     void dispatchFocusEvent(cocos2d::ui::Widget *widgetLoseFocus, cocos2d::ui::Widget *widgetGetFocus)
 ]]
-cls.var('onFocusChanged', [[@nullable std::function<void(Widget*,Widget*)> onFocusChanged]])
-cls.var('onNextFocusedWidget', [[@nullable std::function<Widget*(FocusDirection)> onNextFocusedWidget]])
+cls.var('onFocusChanged', [[@nullable std::function<void (Widget *, Widget *)> onFocusChanged]])
+cls.var('onNextFocusedWidget', [[@nullable @local std::function<Widget *(FocusDirection)> onNextFocusedWidget]])
 cls.callback {
     FUNCS =  {
-        'void addTouchEventListener(@nullable const std::function<void(Ref*,Widget::TouchEventType)>& callback)'
+        'void addTouchEventListener(@nullable const std::function<void (Ref *, Widget::TouchEventType)> &callback)'
     },
-    TAG_MAKER = 'touchEventListener',
+    TAG_MAKER = 'addTouchEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
-        'void addClickEventListener(@nullable std::function<void(Ref*)>& callback)'
+        'void addClickEventListener(@nullable const std::function<void (Ref *)> &callback)'
     },
-    TAG_MAKER = 'clickEventListener',
+    TAG_MAKER = 'addClickEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
 cls.callback {
     FUNCS =  {
-        'void addCCSEventListener(@nullable const std::function<void(Ref*, int)>& callback)'
+        'void addCCSEventListener(@nullable const std::function<void (Ref *, int)> &callback)'
     },
-    TAG_MAKER = 'ccsEventListener',
+    TAG_MAKER = 'addCCSEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
@@ -573,7 +573,7 @@ cls.funcs [[
     bool isPassFocusToChild()
     cocos2d::ResourceData getRenderFile()
 ]]
-cls.var('onPassFocusToChild', [[@nullable std::function<int(Widget::FocusDirection, Widget*)> onPassFocusToChild]])
+cls.var('onPassFocusToChild', [[@nullable std::function<int (FocusDirection, Widget *)> onPassFocusToChild]])
 cls.props [[
     backGroundImageCapInsets
     backGroundColorType
@@ -777,7 +777,7 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'void addEventListener(@nullable const std::function<void(Ref*,VideoPlayer::EventType)>& callback)'
+        'void addEventListener(@nullable const std::function<void (Ref *, VideoPlayer::EventType)> &callback)'
     },
     TAG_MAKER = 'videoPlayerCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -906,8 +906,8 @@ cls.funcs [[
     bool isIgnoreHeadersTextureSize()
     void setHeaderSelectedZoom(float zoom)
     float getHeaderSelectedZoom()
-    void setHeaderDockPlace(TabControl::Dock dockPlace)
-    TabControl::Dock getHeaderDockPlace()
+    void setHeaderDockPlace(cocos2d::ui::TabControl::Dock dockPlace)
+    cocos2d::ui::TabControl::Dock getHeaderDockPlace()
 ]]
 cls.callback {
     FUNCS =  {
@@ -1249,7 +1249,7 @@ cls.funcs [[
     void setIndicatorIndexNodesOpacity(uint8_t opacity)
     uint8_t getIndicatorIndexNodesOpacity()
     void setIndicatorIndexNodesScale(float indexNodesScale)
-    void setIndicatorIndexNodesTexture(const std::string &texName, @optional Widget::TextureResType texType)
+    void setIndicatorIndexNodesTexture(const std::string &texName, @optional cocos2d::ui::Widget::TextureResType texType)
     float getIndicatorIndexNodesScale()
     void setAutoScrollStopEpsilon(float epsilon)
 ]]
@@ -1309,8 +1309,8 @@ cls = typecls 'cocos2d::ui::RichElementImage'
 cls.SUPERCLS = "cocos2d::ui::RichElement"
 cls.funcs [[
     RichElementImage()
-    bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
-    static cocos2d::ui::RichElementImage *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
+    bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional cocos2d::ui::Widget::TextureResType texType)
+    static cocos2d::ui::RichElementImage *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional cocos2d::ui::Widget::TextureResType texType)
     void setWidth(int width)
     void setHeight(int height)
     void setUrl(const std::string &url)
@@ -1488,8 +1488,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::ScrollViewBar'
 cls.SUPERCLS = "cocos2d::ProtectedNode"
 cls.funcs [[
-    ScrollViewBar(cocos2d::ui::ScrollView *parent, ScrollView::Direction direction)
-    static cocos2d::ui::ScrollViewBar *create(cocos2d::ui::ScrollView *parent, ScrollView::Direction direction)
+    ScrollViewBar(cocos2d::ui::ScrollView *parent, cocos2d::ui::ScrollView::Direction direction)
+    static cocos2d::ui::ScrollViewBar *create(cocos2d::ui::ScrollView *parent, cocos2d::ui::ScrollView::Direction direction)
     void setPositionFromCorner(const cocos2d::Vec2 &positionFromCorner)
     cocos2d::Vec2 getPositionFromCorner()
     void setWidth(float width)
@@ -1558,7 +1558,7 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'void addEventListener(@nullable const std::function<void(Ref*,EventType)>& callback)'
+        'void addEventListener(@nullable const std::function<void (Ref *, EventType)> &callback)'
     },
     TAG_MAKER = 'sliderCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1804,7 +1804,7 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)'
+        'void addEventListener(@nullable const std::function<void (Ref *, EventType)> &callback)'
     },
     TAG_MAKER = 'textFieldCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1922,7 +1922,7 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'void addEventListener(@nullable const std::function<void(Ref*,CheckBox::EventType)>& callback)'
+        'void addEventListener(@nullable const std::function<void (Ref *, CheckBox::EventType)> &callback)'
     },
     TAG_MAKER = 'checkBoxCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1949,7 +1949,7 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'void addEventListener(@nullable const std::function<void(RadioButton* radioButton, EventType)>& callback)'
+        'void addEventListener(@nullable const std::function<void (RadioButton *, EventType)> &callback)'
     },
     TAG_MAKER = 'radioButtonCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1984,7 +1984,7 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'void addEventListener(@nullable const std::function<void(RadioButton* radioButton, int index, EventType)>& callback)'
+        'void addEventListener(@nullable const std::function<void (RadioButton *, int, EventType)> &callback)'
     },
     TAG_MAKER = 'radioButtonCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',

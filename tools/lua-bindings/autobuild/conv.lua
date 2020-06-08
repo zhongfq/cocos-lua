@@ -137,8 +137,8 @@ M.CONVS = {
     typeconv {
         CPPCLS = 'cocos2d::BlendFunc',
         DEF = [[
-            backend::BlendFactor src;
-            backend::BlendFactor dst;
+            cocos2d::backend::BlendFactor src;
+            cocos2d::backend::BlendFactor dst;
         ]],
     },
     typeconv {

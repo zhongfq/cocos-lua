@@ -343,33 +343,31 @@ static int report_gc_error(lua_State *L)
 
 int xlua_ccobjgc(lua_State *L)
 {
-    auto obj = (cocos2d::Ref *)olua_toobj(L, 1, "cc.Ref");
-    if (obj) {
+    auto obj = olua_toobj<cocos2d::Ref>(L, 1);
 #ifdef COCOS2D_DEBUG
-        if (obj->getReferenceCount() > 0xFFFF) {
-            int errfuc = olua_geterrorfunc(L);
-            lua_pushcfunction(L, report_gc_error);
-            lua_pushvalue(L, 1);
-            lua_pcall(L, 1, 0, errfuc);
-        }
-#endif
-        if (olua_vmstatus(L)->debug) {
-            int top = lua_gettop(L);
-            lua_getfield(L, 1, "name");
-            const char *name = lua_tostring(L, -1);
-            const char *str = olua_objstring(L, 1);
-            xgame::runtime::log("lua gc: %s(NAME=%s, RC=%d, TC=%d)", str,
-                name && strlen(name) > 0 ? name : "''",
-                obj->getReferenceCount() - 1, olua_objcount(L) - 1);
-            lua_settop(L, top);
-        }
-        
-        obj->release();
-        olua_setrawobj(L, 1, nullptr);
-        lua_pushnil(L);
-        lua_setuservalue(L, 1);
-        olua_subobjcount(L);
+    if (obj->getReferenceCount() > 0xFFFF) {
+        int errfuc = olua_geterrorfunc(L);
+        lua_pushcfunction(L, report_gc_error);
+        lua_pushvalue(L, 1);
+        lua_pcall(L, 1, 0, errfuc);
     }
+#endif
+    if (olua_vmstatus(L)->debug) {
+        int top = lua_gettop(L);
+        lua_getfield(L, 1, "name");
+        const char *name = lua_tostring(L, -1);
+        const char *str = olua_objstring(L, 1);
+        xgame::runtime::log("lua gc: %s(NAME=%s, RC=%d, TC=%d)", str,
+            name && strlen(name) > 0 ? name : "''",
+            obj->getReferenceCount() - 1, olua_objcount(L) - 1);
+        lua_settop(L, top);
+    }
+    
+    obj->release();
+    olua_setrawobj(L, 1, nullptr);
+    lua_pushnil(L);
+    lua_setuservalue(L, 1);
+    olua_subobjcount(L);
     return 0;
 }
 
@@ -383,8 +381,8 @@ void xlua_startcmpdelref(lua_State *L, int idx, const char *refname)
     olua_getreftable(L, idx, refname);                      // L: t
     lua_pushnil(L);                                         // L: t k
     while (lua_next(L, -2)) {                               // L: t k v
-        if (olua_isa(L, -2, "cc.Ref")) {
-            auto obj = (cocos2d::Ref *)olua_toobj(L, -2, "cc.Ref");
+        if (olua_isa<cocos2d::Ref>(L, -2)) {
+            auto obj = olua_toobj<cocos2d::Ref>(L, -2);
             if (obj) {
                 lua_pushvalue(L, -2);                        // L: t k v k
                 lua_pushinteger(L, obj->getReferenceCount());// L: t k v k refcount
@@ -398,8 +396,8 @@ void xlua_startcmpdelref(lua_State *L, int idx, const char *refname)
 
 static bool should_delref(lua_State *L, int idx)
 {
-    if (olua_isa(L, idx, "cc.Ref")) {
-        auto obj = (cocos2d::Ref *)olua_toobj(L, idx, "cc.Ref");
+    if (olua_isa<cocos2d::Ref>(L, idx)) {
+        auto obj = olua_toobj<cocos2d::Ref>(L, idx);
         if (obj && olua_isinteger(L, -1)) {
             unsigned int last = (unsigned int)olua_tointeger(L, -1);
             unsigned int curr = obj->getReferenceCount();
@@ -411,8 +409,8 @@ static bool should_delref(lua_State *L, int idx)
         return false;
     }
     
-    if (olua_isa(L, idx, "cc.Action")) {
-        auto obj = (cocos2d::Action *)olua_toobj(L, idx, "cc.Action");
+    if (olua_isa<cocos2d::Action>(L, idx)) {
+        auto obj = olua_toobj<cocos2d::Action>(L, idx);
         if (obj && (!obj->getTarget() || obj->isDone())) {
             return true;
         }

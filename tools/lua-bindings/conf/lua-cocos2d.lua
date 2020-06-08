@@ -86,8 +86,7 @@ Scheduler.EXCLUDE 'performFunctionInCocosThread'
 Scheduler.CHUNK = [[
 template <typename T> bool doScheduleUpdate(lua_State *L)
 {
-    const char *cls = olua_getluatype<T>(L);
-    if (olua_is_cppobj(L, 2, cls)) {
+    if (olua_isa<T>(L, 2)) {
         auto self = olua_checkobj<cocos2d::Scheduler>(L, 1);
         auto target = olua_checkobj<T>(L, 2);
         lua_Integer priority = olua_checkinteger(L, 3);
@@ -267,8 +266,7 @@ AudioEngine.INJECT('uncache', {
     BEFORE = [[
         std::string path = olua_checkstring(L, 1);
         std::list<int> ids = cocos2d::LuaAudioEngine::getAudioIDs(path);
-        const char *cls = olua_getluatype<cocos2d::AudioEngine>(L);
-        void *self_obj = (void *)olua_pushclassobj(L, cls);
+        void *self_obj = olua_pushclassobj<cocos2d::AudioEngine>(L);
         for (auto id : ids) {
             std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
             olua_removecallback(L, self_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);

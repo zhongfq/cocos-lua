@@ -26,8 +26,8 @@ M.CONVS = {
     typeconv {
         CPPCLS = 'cocos2d::MeshVertexAttrib',
         DEF = [[
-            backend::VertexFormat type;
-            shaderinfos::VertexKey vertexAttrib;
+            cocos2d::backend::VertexFormat type;
+            cocos2d::shaderinfos::VertexKey vertexAttrib;
         ]],
     },
 }
@@ -96,8 +96,8 @@ cls.funcs [[
 cls.var('id', [[std::string id]])
 cls.var('filename', [[std::string filename]])
 cls.var('type', [[cocos2d::NTextureData::Usage type]])
-cls.var('wrapS', [[backend::SamplerAddressMode wrapS]])
-cls.var('wrapT', [[backend::SamplerAddressMode wrapT]])
+cls.var('wrapS', [[cocos2d::backend::SamplerAddressMode wrapS]])
+cls.var('wrapT', [[cocos2d::backend::SamplerAddressMode wrapT]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Mesh'
@@ -105,29 +105,29 @@ cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
     static cocos2d::Mesh *create(const std::vector<float> &positions, const std::vector<float> &normals, const std::vector<float> &texs, const std::vector<unsigned short> &indices)
     static cocos2d::Mesh *create(const std::vector<float> &vertices, int perVertexSizeInFloat, const std::vector<unsigned short> &indices, const std::vector<MeshVertexAttrib> &attribs)
-    backend::Buffer *getVertexBuffer()
-    bool hasVertexAttrib(shaderinfos::VertexKey attrib)
+    cocos2d::backend::Buffer *getVertexBuffer()
+    bool hasVertexAttrib(cocos2d::shaderinfos::VertexKey attrib)
     ssize_t getMeshVertexAttribCount()
     const cocos2d::MeshVertexAttrib &getMeshVertexAttribute(int idx)
     int getVertexSizeInBytes()
     void setTexture(const std::string &texPath)
     void setTexture(cocos2d::Texture2D *tex)
-    void setTexture(cocos2d::Texture2D *tex, NTextureData::Usage usage, @optional bool cacheFileName)
-    void setTexture(const std::string &texPath, NTextureData::Usage usage)
+    void setTexture(cocos2d::Texture2D *tex, cocos2d::NTextureData::Usage usage, @optional bool cacheFileName)
+    void setTexture(const std::string &texPath, cocos2d::NTextureData::Usage usage)
     cocos2d::Texture2D *getTexture()
-    cocos2d::Texture2D *getTexture(NTextureData::Usage usage)
+    cocos2d::Texture2D *getTexture(cocos2d::NTextureData::Usage usage)
     void setVisible(bool visible)
     bool isVisible()
     cocos2d::MeshSkin *getSkin()
-    backend::ProgramState *getProgramState()
+    cocos2d::backend::ProgramState *getProgramState()
     const std::string &getName()
     void setBlendFunc(const cocos2d::BlendFunc &blendFunc)
     const cocos2d::BlendFunc &getBlendFunc()
-    CustomCommand::PrimitiveType getPrimitiveType()
+    cocos2d::CustomCommand::PrimitiveType getPrimitiveType()
     ssize_t getIndexCount()
-    CustomCommand::IndexFormat getIndexFormat()
-    backend::Buffer *getIndexBuffer()
-    void setProgramState(backend::ProgramState *programState)
+    cocos2d::CustomCommand::IndexFormat getIndexFormat()
+    cocos2d::backend::Buffer *getIndexBuffer()
+    void setProgramState(cocos2d::backend::ProgramState *programState)
     void draw(cocos2d::Renderer *renderer, float globalZ, const cocos2d::Mat4 &transform, uint32_t flags, unsigned int lightMask, const cocos2d::Vec4 &color, bool forceDepthWrite)
     void setSkin(cocos2d::MeshSkin *skin)
     void setName(const std::string &name)
@@ -217,8 +217,8 @@ cls.funcs [[
     cocos2d::Sprite3DMaterial::MaterialType getMaterialType()
     static cocos2d::Sprite3DMaterial *createBuiltInMaterial(cocos2d::Sprite3DMaterial::MaterialType type, bool skinned)
     static cocos2d::Sprite3DMaterial *createWithFilename(const std::string &path)
-    static cocos2d::Sprite3DMaterial *createWithProgramState(backend::ProgramState *programState)
-    void setTexture(cocos2d::Texture2D *tex, NTextureData::Usage usage)
+    static cocos2d::Sprite3DMaterial *createWithProgramState(cocos2d::backend::ProgramState *programState)
+    void setTexture(cocos2d::Texture2D *tex, cocos2d::NTextureData::Usage usage)
     static void createBuiltInMaterial()
     static void releaseBuiltInMaterial()
     static void releaseCachedMaterial()

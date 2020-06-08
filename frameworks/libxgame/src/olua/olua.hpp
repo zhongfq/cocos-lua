@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2019 codetypes@gmail.com
+ * Copyright (c) 2019-2020 codetypes@gmail.com
  *
  * https://github.com/zhongfq/olua
  *
@@ -148,8 +148,7 @@
 
 template <typename T> void olua_registerluatype(lua_State *L, const char *cls)
 {
-    const char *type = typeid(T).name();
-    oluai_registerluatype(L, type, cls);
+    oluai_registerluatype(L, typeid(T).name(), cls);
 }
 
 template <typename T> const char *olua_getluatype(lua_State *L, const T *obj, const char *cls)
@@ -168,10 +167,6 @@ template <typename T> const char *olua_getluatype(lua_State *L, const T *obj, co
     preferred = oluai_getluatype(L, typeid(T).name());
     if (olua_likely(preferred)) {
         return preferred;
-    }
-    
-    if (olua_unlikely(!cls)) {
-        luaL_error(L, "object lua class not found: %s", typeid(T).name());
     }
     
     return cls;

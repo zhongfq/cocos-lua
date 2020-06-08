@@ -15,8 +15,8 @@ bool DragonBones::debugDraw = false;
 bool DragonBones::webAssembly = false;
 
 DragonBones::DragonBones(IEventDispatcher* eventManager) :
-    _events(),
     _objects(),
+    _events(),
     _clock(nullptr),
     _eventManager(eventManager)
 {

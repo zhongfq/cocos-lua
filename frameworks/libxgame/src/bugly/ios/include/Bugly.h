@@ -1,7 +1,7 @@
 //
 //  Bugly.h
 //
-//  Version: 2.5(4)
+//  Version: 2.5(5)
 //
 //  Copyright (c) 2017年 Tencent. All rights reserved.
 //

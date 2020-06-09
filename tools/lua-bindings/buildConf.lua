@@ -1,4 +1,4 @@
-require "bindings-generator.src.olua"
+require "olua.tools.olua"
 
 local autoconf = require "autoconf"
 

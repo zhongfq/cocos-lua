@@ -1,4 +1,4 @@
-local olua = require "bindings-generator.src.olua"
+local olua = require "olua.tools.olua"
 local export = olua.export
 
 require 'autobuild.alias-types'

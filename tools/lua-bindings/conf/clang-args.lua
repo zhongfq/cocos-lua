@@ -48,9 +48,9 @@ return {
         '-U__SSE__',
         '-DANDROID', '-target', 'armv7-none-linux-androideabi',
 
-        '-idirafter', 'bindings-generator/include/c++',
-        '-idirafter', 'bindings-generator/include/c',
-        '-idirafter', 'bindings-generator/include/android-sysroot/x86_64-linux-android',
-        '-idirafter', 'bindings-generator/include/android-sysroot',
+        '-idirafter', '${HOMEDIR}/include/c++',
+        '-idirafter', '${HOMEDIR}/include/c',
+        '-idirafter', '${HOMEDIR}/include/android-sysroot/x86_64-linux-android',
+        '-idirafter', '${HOMEDIR}/include/android-sysroot',
     },
 }

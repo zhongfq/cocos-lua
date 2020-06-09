@@ -5,10 +5,8 @@ local FLDisplayObject   = require "xgame.swf.FLDisplayObject"
 
 local FLGraphics = class("FLGraphics", FLDisplayObject)
 
-local _new = FLGraphics.new
-
-function FLGraphics.new(cobj)
-    return _new(cobj or swf.Graphics.new())
+function FLGraphics.new()
+    return swf.wrapper(FLGraphics, swf.Graphics.new())
 end
 
 function FLGraphics:ctor(cobj)

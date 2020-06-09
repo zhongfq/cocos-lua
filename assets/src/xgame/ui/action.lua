@@ -1,5 +1,6 @@
 local Animate = require "cc.Animate"
 local MoveTo = require "cc.MoveTo"
+local ActionFloat = require "cc.ActionFloat"
 local MoveBy = require "cc.MoveBy"
 local CallFunc = require "cc.CallFunc"
 local Sequence = require "cc.Sequence"
@@ -49,6 +50,10 @@ local M = {}
 
 function M.Animate(...)
     return Animate.create(...)
+end
+
+function M.ActionFloat(...)
+    return ActionFloat.create(...)
 end
 
 function M.MoveTo(duration, x, y)

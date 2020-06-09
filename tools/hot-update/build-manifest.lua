@@ -19,6 +19,7 @@ return function (conf)
 
     local latestManifest = assert(conf.LATEST_MANIFEST)
     local currentManifest = {assets = {}}
+    local newPaths = {}
     local hasUpdate = false
 
     for _, path in ipairs(shell.list(ASSETS_PATH)) do
@@ -48,6 +49,8 @@ return function (conf)
             }
         end
 
+        newPaths[path] = true
+
         currentManifest.assets[#currentManifest.assets + 1] = curr
         curr.builtin = IS_BUILTIN(path) and true or false
         if last and last.md5 == curr.md5 and last.builtin == curr.builtin then
@@ -58,6 +61,13 @@ return function (conf)
         end
 
         ::continue::
+    end
+
+    for path in pairs(latestManifest.assets) do
+        if not newPaths[path] then
+            hasUpdate = true
+            break
+        end
     end
 
     if not hasUpdate then

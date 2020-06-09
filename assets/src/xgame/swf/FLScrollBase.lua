@@ -1,10 +1,11 @@
+local class         = require "xgame.class"
 local window        = require "xgame.window"
 local ScrollImpl    = require "xgame.ui.ScrollImpl"
 local Align         = require "xgame.ui.Align"
 local FLMovieClip   = require "xgame.swf.FLMovieClip"
 local swf           = require "xgame.swf.swf"
 
-local FLScrollBase = swf.class("FLScrollBase", FLMovieClip)
+local FLScrollBase = class("FLScrollBase", FLMovieClip)
 
 function FLScrollBase:ctor()
     self:stop()

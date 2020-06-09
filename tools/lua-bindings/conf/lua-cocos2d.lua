@@ -168,7 +168,7 @@ EventDispatcher.CALLBACK {
 EventDispatcher.CHUNK = [[
 static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
 {
-    if (olua_getuserdata(L, target)) {
+    if (olua_getrawobj(L, target)) {
         olua_delallrefs(L, -1, refname);
         lua_pop(L, 1);
     }

@@ -512,7 +512,8 @@ cls.inject('kill', {
 cls.inject('clean', {
     AFTER = [[
         olua_pushclassobj(L, "fgui.GTween");
-        olua_delallrefs(L, 1, "tweeners");
+        olua_delallrefs(L, -1, "tweeners");
+        lua_pop(L, 1);
     ]],
 })
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -1537,14 +1538,14 @@ cls.funcs [[
     int childIndexToItemIndex(int index)
     int itemIndexToChildIndex(int index)
 ]]
+cls.var('itemRenderer', [[@nullable std::function<void (int, GObject *)> itemRenderer]])
+cls.var('itemProvider', [[@nullable @local std::function<std::string (int)> itemProvider]])
 cls.var('scrollItemToViewOnClick', [[bool scrollItemToViewOnClick]])
 cls.var('foldInvisibleItems', [[bool foldInvisibleItems]])
-cls.var('itemRenderer', [[std::function<void(int, GObject*)> itemRenderer]])
-cls.var('itemProvider', [[std::function<std::string(int)> itemProvider]])
 cls.inject('itemRenderer', {
     CALLBACK_BEFORE = [[
         if (arg2->getParent()) {
-            olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)callback_store_obj);
+            olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)self_obj);
             olua_addref(L, -1, "children", -2, OLUA_MODE_MULTIPLE);
             lua_pop(L, 1);
         }

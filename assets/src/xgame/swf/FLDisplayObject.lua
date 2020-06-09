@@ -6,16 +6,15 @@ local GLProgramState    = require "cc.GLProgramState"
 
 local FLDisplayObject = class("FLDisplayObject", UIObject)
 
-function FLDisplayObject:ctor(cobj)
+function FLDisplayObject:ctor()
     self._stage = false
     self._rootNode = false
-    self.name = cobj.name or ""
+    self.name = self.cobj.name or ""
     self.horizontalAlign = Align.NONE
     self.horizontalOffset = 0
     self.verticalAlign = Align.NONE
     self.verticalOffset = 0
     self.cobjType = "swf"
-    self.cobj = cobj
 end
 
 function FLDisplayObject.Get:initialized()
@@ -188,6 +187,7 @@ function FLDisplayObject:_setStage(value)
         end
         self:dispatch(Event.REMOVED)
         stage:dispatch(Event.REMOVED, self)
+        self._rootNode = false
     end
 
     self._stage = value

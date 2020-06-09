@@ -39,6 +39,16 @@ BLY_START_NONNULL
  */
 - (NSString * BLY_NULLABLE)attachmentForException:(NSException * BLY_NULLABLE)exception;
 
+
+/**
+ *  策略激活时回调
+ *
+ *  @param tacticInfo
+ *
+ *  @return app是否弹框展示
+ */
+- (BOOL) h5AlertForTactic:(NSDictionary *)tacticInfo;
+
 @end
 
 @interface BuglyConfig : NSObject

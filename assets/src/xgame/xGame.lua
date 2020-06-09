@@ -27,7 +27,6 @@ function xGame:ctor()
     self._serviceClasses = Array.new()
     self._timer = false
     self._maxIdleDuration = math.maxinteger
-    self._pauseTime = 0
     self:_initTimer()
     self:_initRuntimeEvents()
 
@@ -207,15 +206,19 @@ function xGame:_initRuntimeEvents()
     listen('runtimeResize')
     listen('runtimePause')
     listen('runtimeResume')
+
+    local pauseTime = nil
     
     runtime.on(Event.RUNTIME_PAUSE, function ()
-        self._pauseTime = os.time()
+        pauseTime = os.time()
     end)
 
     runtime.on(Event.RUNTIME_RESUME, function ()
-        if os.time() - self._pauseTime > self._maxIdleDuration then
+        if pauseTime and os.time() - pauseTime > self._maxIdleDuration then
             self:popAll()
             runtime.restart()
+        else
+            pauseTime = nil
         end
     end)
 end

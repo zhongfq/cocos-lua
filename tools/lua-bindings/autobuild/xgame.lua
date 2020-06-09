@@ -114,7 +114,7 @@ cls.func('testCrash', [[{
 cls.func('setDispatcher', [[{
     int handler = olua_reffunc(L, 1);
     xgame::runtime::setDispatcher([handler](const std::string &event, const std::string &args) {
-        lua_State *L = olua_mainthread();
+        lua_State *L = olua_mainthread(NULL);
         int top = lua_gettop(L);
         olua_geterrorfunc(L);
         olua_getref(L, handler);
@@ -244,7 +244,7 @@ cls.func('schedule', [[{
     float interval = (float)olua_checknumber(L, 1);
     uint32_t callback = olua_reffunc(L, 2);
     uint32_t id = xgame::timer::schedule(interval, [callback](float dt) {
-        lua_State *L = olua_mainthread();
+        lua_State *L = olua_mainthread(NULL);
         int top = lua_gettop(L);
         olua_geterrorfunc(L);
         olua_getref(L, callback);

@@ -6,13 +6,11 @@ local qrcode        = require "kernel.qrcode"
 
 local FLQRCode = class("FLQRCode", FLGraphics)
 
-local _new = FLQRCode.new
-
-function FLQRCode.new(cobj)
-    return _new(cobj or swf.Graphics.new())
+function FLQRCode.new()
+    return swf.wrapper(FLQRCode, swf.Graphics.new())
 end
 
-function FLQRCode:ctor(cobj)
+function FLQRCode:ctor()
     self._text = ''
 end
 

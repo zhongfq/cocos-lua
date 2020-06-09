@@ -3,7 +3,7 @@ local simulator = require "core.simulator"
 
 -- local assetsPath = '../../assets'
 -- do
-return function (assetsPath)
+return function (assetsPath, packageName)
     shell.addSearchPath(assetsPath .. '')
     shell.addSearchPath(assetsPath .. '/src')
 

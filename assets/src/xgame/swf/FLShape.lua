@@ -4,7 +4,7 @@ local FLBitmapData      = require "xgame.swf.FLBitmapData"
 
 local FLShape = class("FLShape", FLDisplayObject)
 
-function FLShape:ctor(cobj)
+function FLShape:ctor()
     self._bitmapData = false
 end
 

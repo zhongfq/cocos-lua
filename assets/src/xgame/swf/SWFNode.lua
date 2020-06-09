@@ -45,6 +45,7 @@ end
 function SWFNode.Set:rootswf(value)
     if self.rootswf then
         self.rootswf:_setStage(false)
+        self.rootswf._rootNode = false
     end
 
     self._rootswf = value

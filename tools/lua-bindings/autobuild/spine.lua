@@ -1372,21 +1372,21 @@ cls.func('__gc', [[{
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1) && self) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
 
         lua_pushstring(L, ".skel.atlas");
         olua_getvariable(L, 1);
-        auto atlas = olua_touserdata(L, -1, spine::Atlas *);
+        auto atlas = olua_torawobj(L, -1, spine::Atlas *);
         delete atlas;
 
         lua_pushstring(L, ".skel.attachment_loader");
         olua_getvariable(L, 1);
-        auto attachment_loader = olua_touserdata(L, -1, spine::Cocos2dAtlasAttachmentLoader *);
+        auto attachment_loader = olua_torawobj(L, -1, spine::Cocos2dAtlasAttachmentLoader *);
         delete attachment_loader;
 
         lua_pushstring(L, ".skel.texture_loader");
         olua_getvariable(L, 1);
-        auto texture_loader = olua_touserdata(L, -1, spine::Cocos2dTextureLoader *);
+        auto texture_loader = olua_torawobj(L, -1, spine::Cocos2dTextureLoader *);
         delete texture_loader;
 
         delete self;
@@ -1429,15 +1429,15 @@ cls.func('new', [[{
     olua_setvariable(L, -3);
 
     lua_pushstring(L, ".skel.texture_loader");
-    olua_newuserdata(L, texture_loader, spine::Cocos2dTextureLoader *);
+    olua_newrawobj(L, texture_loader, spine::Cocos2dTextureLoader *);
     olua_setvariable(L, -3);
 
     lua_pushstring(L, ".skel.attachment_loader");
-    olua_newuserdata(L, attachment_loader, spine::Cocos2dAtlasAttachmentLoader *);
+    olua_newrawobj(L, attachment_loader, spine::Cocos2dAtlasAttachmentLoader *);
     olua_setvariable(L, -3);
 
     lua_pushstring(L, ".skel.atlas");
-    olua_newuserdata(L, atlas, spine::Atlas *);
+    olua_newrawobj(L, atlas, spine::Atlas *);
     olua_setvariable(L, -3);
 
     return 1;

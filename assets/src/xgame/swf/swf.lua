@@ -51,14 +51,37 @@ local function toGlobalID(cobj)
     end
 end
 
+local defaultClasses = {}
+
 local function lazyRequire()
     require "xgame.swf.FLTextInput"
     require "xgame.swf.FLScroller"
     require "xgame.swf.FLSlider"
     require "xgame.swf.FLList"
+    require "xgame.swf.FLLoader"
     require "xgame.swf.FLRadioButton"
     require "xgame.swf.FLRadioGroup"
     require "xgame.swf.FLTab"
+
+    defaultClasses[T.SHAPE] = require('xgame.swf.FLShape')
+    defaultClasses[T.IMAGE] = require('xgame.swf.FLImage')
+    defaultClasses[T.TEXTFIELD] = require('xgame.swf.FLTextField')
+    defaultClasses[T.GRAPHICS] = require('xgame.swf.FLGraphics')
+    defaultClasses[T.MOVIE_CLIP] = require('xgame.swf.FLMovieClip')
+end
+
+local function construct(cls, cobj, ...)
+    local obj = setmetatable({cobj = assert(cobj)}, cls)
+    local function create(cls, ...)
+        if cls.super then
+            create(cls.super, ...)
+        end
+        if cls.ctor then
+            cls.ctor(obj, ...)
+        end
+    end
+    create(cls, ...)
+    return obj
 end
 
 -- test only
@@ -89,7 +112,7 @@ function M.class(classname, super)
     return cls
 end
 
-function M.new(filePath, autowatch, cls) -- autowatch default true
+function M.new(filePath, autowatch, cls, ...) -- autowatch default true
     if lazyRequire then
         lazyRequire()
         lazyRequire = false
@@ -97,7 +120,11 @@ function M.new(filePath, autowatch, cls) -- autowatch default true
     assert(string.match(filePath, "%.swf$"), filePath)
     local movie = M.loader.load(filePath)
     if movie then
-        local target = cls and cls.new(movie) or M.wrapper(movie)
+        if type(movie.type) == 'table' then
+            -- in 'build-builtin-manifest'
+            return movie
+        end
+        local target = M.wrapper(cls, movie, ...)
         if autowatch ~= false then
             return M.watch(target)
         else
@@ -129,31 +156,22 @@ function M.watch(target)
     return target
 end
 
-function M.wrapper(cobj)
-    local function doWrapper(classname, obj)
-        return require(classname).new(obj)
-    end
-    assert(cobj)
-    if cobj.type == T.SHAPE then
-        return doWrapper('xgame.swf.FLShape', cobj)
-    elseif cobj.type == T.IMAGE then
-        return doWrapper('xgame.swf.FLImage', cobj)
-    elseif cobj.type == T.TEXTFIELD then
-        return doWrapper('xgame.swf.FLTextField', cobj)
-    elseif cobj.type == T.GRAPHICS then
-        return doWrapper('xgame.swf.FLGraphics', cobj)
-    elseif cobj.type == T.MOVIE_CLIP then
-        local def = M.metadata(cobj)
-        local classname = def.classname
-        if classname then
-            assert(userClasses[classname], classname)
-            return userClasses[classname].new(cobj)
-        else
-            return doWrapper('xgame.swf.FLMovieClip', cobj)
+function M.wrapper(cls, cobj, ...)
+    if not cls then
+        if cobj.type == T.MOVIE_CLIP then
+            local classname = M.metadata(cobj).classname
+            if classname then
+                cls = assert(userClasses[classname], classname)
+            end
         end
-    else
-        error(string.format("unknown type %s", cobj.type))
+        if not cls then
+            cls = defaultClasses[cobj.type]
+        end
+        if not cls then
+            error(string.format("unknown type %s", cobj.type))
+        end
     end
+    return construct(cls, cobj, ...)
 end
 
 function M.checkLabels(target, ...)

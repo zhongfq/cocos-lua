@@ -438,7 +438,7 @@ static int _dragonBones_EventObject___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1)) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         delete self;
     }
 
@@ -1312,7 +1312,7 @@ static int _dragonBones_Point___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1)) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         delete self;
     }
 
@@ -1832,7 +1832,7 @@ static int _dragonBones_IKConstraintData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1)) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         delete self;
     }
 
@@ -2010,7 +2010,7 @@ static int _dragonBones_TimelineData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1)) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         delete self;
     }
 
@@ -2305,7 +2305,7 @@ static int _dragonBones_WorldClock___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1)) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         delete self;
     }
 
@@ -3158,7 +3158,7 @@ static int _dragonBones_Bone___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1)) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         delete self;
     }
 
@@ -3733,7 +3733,7 @@ static int _dragonBones_ActionData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1)) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         delete self;
     }
 
@@ -4135,7 +4135,7 @@ static int _dragonBones_UserData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1)) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         delete self;
     }
 
@@ -4926,7 +4926,7 @@ static int _dragonBones_BoundingBoxDisplayData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1)) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         delete self;
     }
 
@@ -5070,7 +5070,7 @@ static int _dragonBones_CanvasData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1)) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         delete self;
     }
 
@@ -5783,7 +5783,7 @@ static int _dragonBones_ArmatureData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1)) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         delete self;
     }
 
@@ -6951,7 +6951,7 @@ static int _dragonBones_SkinData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1)) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         delete self;
     }
 
@@ -7136,7 +7136,7 @@ static int _dragonBones_BoneData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1)) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         delete self;
     }
 
@@ -7570,7 +7570,7 @@ static int _dragonBones_SlotData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1)) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         delete self;
     }
 
@@ -7970,7 +7970,7 @@ static int _dragonBones_AnimationState___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1)) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         delete self;
     }
 
@@ -8982,7 +8982,7 @@ static int _dragonBones_AnimationData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1)) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         delete self;
     }
 
@@ -9767,7 +9767,7 @@ static int _dragonBones_AnimationConfig___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1)) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         delete self;
     }
 
@@ -10860,7 +10860,7 @@ static int _dragonBones_DragonBonesData___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1)) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         delete self;
     }
 
@@ -12383,7 +12383,7 @@ static int _dragonBones_Armature___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1)) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         delete self;
     }
 
@@ -13238,7 +13238,7 @@ static int _dragonBones_Animation___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1)) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         delete self;
     }
 
@@ -14373,7 +14373,7 @@ static int _dragonBones_CCFactory___gc(lua_State *L)
     lua_pushstring(L, ".ownership");
     olua_getvariable(L, 1);
     if (lua_toboolean(L, -1)) {
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         delete self;
     }
 
@@ -14870,21 +14870,21 @@ static int _dragonBones_CCArmatureDisplay_addDBEventListener(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureDisplay");
     olua_check_std_string(L, 2, &arg1);
 
-    void *callback_store_obj = (void *)self;
+    void *self_obj = (void *)self;
     std::string tag = (arg1);
-    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_NEW);
-    lua_Unsigned ctx_id = olua_getid(L);
-    arg2 = [callback_store_obj, func, ctx_id](dragonBones::EventObject *arg1) {
-        lua_State *L = olua_mainthread();
+    std::string func = olua_setcallback(L, self_obj, tag.c_str(), 3, OLUA_TAG_NEW);
+    lua_Unsigned ctx = olua_context(L);
+    arg2 = [self_obj, func, ctx](dragonBones::EventObject *arg1) {
+        lua_State *L = olua_mainthread(NULL);
 
-        if (olua_getid(L) == ctx_id) {
+        if (L != NULL && (olua_context(L) == ctx)) {
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
             olua_push_cppobj(L, arg1, "db.EventObject");
             olua_disable_objpool(L);
 
-            olua_callback(L, callback_store_obj, func.c_str(), 1);
+            olua_callback(L, self_obj, func.c_str(), 1);
 
             //pop stack value
             olua_pop_objpool(L, last);
@@ -15117,8 +15117,8 @@ static int _dragonBones_CCArmatureDisplay_removeDBEventListener(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     std::string tag = (arg1);
-    void *callback_store_obj = (void *)self;
-    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
+    void *self_obj = (void *)self;
+    olua_removecallback(L, self_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // void removeDBEventListener(const std::string &type, @nullable @local const std::function<void (EventObject *)> &listener)
     self->removeDBEventListener(arg1, arg2);

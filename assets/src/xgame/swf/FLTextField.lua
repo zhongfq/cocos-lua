@@ -3,7 +3,7 @@ local FLDisplayObject   = require "xgame.swf.FLDisplayObject"
 
 local FLTextField = class("FLTextField", FLDisplayObject)
 
-function FLTextField:ctor(cobj)
+function FLTextField:ctor()
 end
 
 function FLTextField.Get:plainText()

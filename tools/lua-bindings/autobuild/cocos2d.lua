@@ -334,7 +334,7 @@ cls.SUPERCLS = "cocos2d::Ref"
 cls.CHUNK = [[
 static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
 {
-    if (olua_getuserdata(L, target)) {
+    if (olua_getrawobj(L, target)) {
         olua_delallrefs(L, -1, refname);
         lua_pop(L, 1);
     }
@@ -351,7 +351,7 @@ cls.funcs [[
     void addEventListenerWithSceneGraphPriority(@addref(listeners | 3) cocos2d::EventListener *listener, cocos2d::Node *node)
     void addEventListenerWithFixedPriority(@addref(listeners |) cocos2d::EventListener *listener, int fixedPriority)
     @delref(listeners ~) void removeEventListener(cocos2d::EventListener *listener)
-    @delref(listeners ~) void removeEventListenersForType(EventListener::Type listenerType)
+    @delref(listeners ~) void removeEventListenersForType(cocos2d::EventListener::Type listenerType)
     void removeEventListenersForTarget(cocos2d::Node *target, @optional bool recursive)
     @delref(listeners ~) void removeCustomEventListeners(const std::string &customEventName)
     @delref(listeners ~) void removeAllEventListeners()
@@ -362,7 +362,7 @@ cls.funcs [[
     bool isEnabled()
     void dispatchEvent(cocos2d::Event *event)
     void dispatchCustomEvent(const std::string &eventName, @optional void *optionalUserData)
-    bool hasEventListener(const EventListener::ListenerID &listenerID)
+    bool hasEventListener(const cocos2d::EventListener::ListenerID &listenerID)
     EventDispatcher()
 ]]
 cls.callback {
@@ -612,7 +612,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventFocus'
 cls.SUPERCLS = "cocos2d::Event"
 cls.funcs [[
-    EventFocus(ui::Widget *widgetLoseFocus, ui::Widget *widgetGetFocus)
+    EventFocus(cocos2d::ui::Widget *widgetLoseFocus, cocos2d::ui::Widget *widgetGetFocus)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -1441,7 +1441,7 @@ cls.funcs [[
     unsigned char *getData()
     ssize_t getDataLen()
     cocos2d::Image::Format getFileType()
-    Texture2D::PixelFormat getRenderFormat()
+    cocos2d::Texture2D::PixelFormat getRenderFormat()
     int getWidth()
     int getHeight()
     int getNumberOfMipmaps()
@@ -1788,12 +1788,12 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Texture2D'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
-    static void setDefaultAlphaPixelFormat(Texture2D::PixelFormat format)
-    static Texture2D::PixelFormat getDefaultAlphaPixelFormat()
+    static void setDefaultAlphaPixelFormat(cocos2d::Texture2D::PixelFormat format)
+    static cocos2d::Texture2D::PixelFormat getDefaultAlphaPixelFormat()
     Texture2D()
     std::string getDescription()
     void releaseGLTexture()
-    bool initWithData(const void *data, ssize_t dataLen, Texture2D::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
+    bool initWithData(const void *data, ssize_t dataLen, cocos2d::Texture2D::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
     bool updateWithData(const void *data, int offsetX, int offsetY, int width, int height)
     void drawAtPoint(const cocos2d::Vec2 &point)
     void drawInRect(const cocos2d::Rect &rect)
@@ -1806,11 +1806,11 @@ cls.funcs [[
     void generateMipmap()
     const char *getStringForFormat()
     unsigned int getBitsPerPixelForFormat()
-    unsigned int getBitsPerPixelForFormat(Texture2D::PixelFormat format)
+    unsigned int getBitsPerPixelForFormat(cocos2d::Texture2D::PixelFormat format)
     const cocos2d::Size &getContentSizeInPixels()
     bool hasPremultipliedAlpha()
     bool hasMipmaps()
-    Texture2D::PixelFormat getPixelFormat()
+    cocos2d::Texture2D::PixelFormat getPixelFormat()
     int getPixelsWide()
     int getPixelsHigh()
     GLuint getName()
@@ -3792,8 +3792,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::RenderTexture'
 cls.SUPERCLS = "cocos2d::Node"
 cls.funcs [[
-    static cocos2d::RenderTexture *create(int w, int h, Texture2D::PixelFormat format, GLuint depthStencilFormat)
-    static cocos2d::RenderTexture *create(int w, int h, Texture2D::PixelFormat format)
+    static cocos2d::RenderTexture *create(int w, int h, cocos2d::Texture2D::PixelFormat format, GLuint depthStencilFormat)
+    static cocos2d::RenderTexture *create(int w, int h, cocos2d::Texture2D::PixelFormat format)
     static cocos2d::RenderTexture *create(int w, int h)
     void begin()
     void beginWithClear(float r, float g, float b, float a)
@@ -3821,8 +3821,8 @@ cls.funcs [[
     void setKeepMatrix(bool keepMatrix)
     void setVirtualViewport(const cocos2d::Vec2 &rtBegin, const cocos2d::Rect &fullRect, const cocos2d::Rect &fullViewport)
     RenderTexture()
-    bool initWithWidthAndHeight(int w, int h, Texture2D::PixelFormat format)
-    bool initWithWidthAndHeight(int w, int h, Texture2D::PixelFormat format, GLuint depthStencilFormat)
+    bool initWithWidthAndHeight(int w, int h, cocos2d::Texture2D::PixelFormat format)
+    bool initWithWidthAndHeight(int w, int h, cocos2d::Texture2D::PixelFormat format, GLuint depthStencilFormat)
 ]]
 cls.callback {
     FUNCS =  {
@@ -4196,8 +4196,8 @@ cls.funcs [[
     void onTouchesEnded(const std::vector<Touch *> &touches, cocos2d::Event *unused_event)
     void onTouchesCancelled(const std::vector<Touch *> &touches, cocos2d::Event *unused_event)
     void onAcceleration(cocos2d::Acceleration *acc, cocos2d::Event *unused_event)
-    void onKeyPressed(EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
-    void onKeyReleased(EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
+    void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
+    void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
     Layer()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -4808,10 +4808,10 @@ cls.funcs [[
     static cocos2d::Camera *createOrthographic(float zoomX, float zoomY, float nearPlane, float farPlane)
     static cocos2d::Camera *create()
     static const cocos2d::Camera *getVisitingCamera()
-    static const experimental::Viewport &getDefaultViewport()
-    static void setDefaultViewport(const experimental::Viewport &vp)
+    static const cocos2d::experimental::Viewport &getDefaultViewport()
+    static void setDefaultViewport(const cocos2d::experimental::Viewport &vp)
     static cocos2d::Camera *getDefaultCamera()
-    Camera::Type getType()
+    cocos2d::Camera::Type getType()
     cocos2d::CameraFlag getCameraFlag()
     void setCameraFlag(cocos2d::CameraFlag flag)
     void lookAt(const cocos2d::Vec3 &target, @optional const cocos2d::Vec3 &up)
@@ -4831,7 +4831,7 @@ cls.funcs [[
     void clearBackground()
     void apply()
     void restore()
-    void setViewport(const experimental::Viewport &vp)
+    void setViewport(const cocos2d::experimental::Viewport &vp)
     bool isViewProjectionUpdated()
     void setBackgroundBrush(cocos2d::CameraBackgroundBrush *clearBrush)
     cocos2d::CameraBackgroundBrush *getBackgroundBrush()

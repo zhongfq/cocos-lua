@@ -4,7 +4,7 @@ local builtinAssets = require "builtin-assets"
 local buildManifest = require "build-manifest"
 local compileScript = require "compile-script"
 
-local BUILD_PATH = ...
+local BUILD_PATH, PACKAGE_NAME = ...
 
 local conf = {
     NAME = 'APP-BUILTIN',
@@ -19,7 +19,7 @@ local conf = {
     URL = "builtin://",
 }
 
-builtinAssets = builtinAssets(conf.ASSETS_PATH)
+builtinAssets = builtinAssets(conf.ASSETS_PATH, PACKAGE_NAME)
 conf.IS_BUILTIN = function (path)
     return builtinAssets[path]
 end

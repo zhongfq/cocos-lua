@@ -24,6 +24,8 @@ REG 'cjson'
 REG 'md5'
 REG 'openssl'
 
+REG 'xgame.xGame'
+
 REG('kernel.runtime', function ()
     return setmetatable({
         on = false,

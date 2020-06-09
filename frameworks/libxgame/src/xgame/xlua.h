@@ -1,28 +1,39 @@
 #ifndef __XLUA_H__
 #define __XLUA_H__
 
-#define olua_mainthread()               xlua_cocosthread()
+#include "xgame/xdef.h"
+#include "cocos2d.h"
+#include "lua.hpp"
+#define olua_mainthread(L)              xlua_mainthread(L)
 #define olua_startcmpdelref(L, i, n)    xlua_startcmpdelref(L, i, n)
 #define olua_endcmpdelref(L, i, n)      xlua_endcmpdelref(L, i, n)
-#define olua_startinvoke(L)             xlua_startinvoke(L)
-#define olua_endinvoke(L)               xlua_endinvoke(L)
 #define olua_postpush(L, v, s)          xlua_postpush(L, v, s)
 #define olua_postnew(L, obj)            xlua_postnew(L, obj)
+#define olua_startinvoke(L)             (xlua_invokingstate = L)
+#define olua_endinvoke(L)               (xlua_invokingstate = nullptr)
 
-#include "xgame/xdef.h"
-#include "olua/olua.hpp"
+#define oluai_registerluatype           xlua_registerluatype
+#define oluai_getluatype                xlua_getluatype
 
-#include "cocos2d.h"
+extern lua_State *xlua_invokingstate;
 
 lua_State *xlua_new();
-
-lua_State *xlua_cocosthread();
-
 int xlua_dofile(lua_State *L, const char *filename);
-
 int xlua_nonsupport(lua_State *L);
-
 int xlua_ccobjgc(lua_State *L);
+
+lua_State *xlua_mainthread(lua_State *L);
+void xlua_startcmpdelref(lua_State *L, int idx, const char *refname);
+void xlua_endcmpdelref(lua_State *L, int idx, const char *refname);
+
+template <typename T> void xlua_postpush(lua_State *L, T* obj, int status);
+template <typename T> void xlua_postnew(lua_State *L, T *obj);
+
+void xlua_registerluatype(lua_State *L, const char *type, const char *cls);
+const char *xlua_getluatype(lua_State *L, const char *type);
+
+
+#include "olua/olua.hpp"
 
 template <typename T> void xlua_postpush(lua_State *L, T* obj, int status)
 {
@@ -49,10 +60,5 @@ template <typename T> void xlua_postnew(lua_State *L, T *obj)
         olua_setvariable(L, -3);
     }
 }
-
-void xlua_startinvoke(lua_State *L);
-void xlua_endinvoke(lua_State *L);
-void xlua_startcmpdelref(lua_State *L, int idx, const char *refname);
-void xlua_endcmpdelref(lua_State *L, int idx, const char *refname);
 
 #endif

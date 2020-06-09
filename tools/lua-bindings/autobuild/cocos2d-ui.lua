@@ -907,8 +907,8 @@ cls.funcs [[
     bool isIgnoreHeadersTextureSize()
     void setHeaderSelectedZoom(float zoom)
     float getHeaderSelectedZoom()
-    void setHeaderDockPlace(TabControl::Dock dockPlace)
-    TabControl::Dock getHeaderDockPlace()
+    void setHeaderDockPlace(cocos2d::ui::TabControl::Dock dockPlace)
+    cocos2d::ui::TabControl::Dock getHeaderDockPlace()
 ]]
 cls.callback {
     FUNCS =  {
@@ -1250,7 +1250,7 @@ cls.funcs [[
     void setIndicatorIndexNodesOpacity(GLubyte opacity)
     GLubyte getIndicatorIndexNodesOpacity()
     void setIndicatorIndexNodesScale(float indexNodesScale)
-    void setIndicatorIndexNodesTexture(const std::string &texName, @optional Widget::TextureResType texType)
+    void setIndicatorIndexNodesTexture(const std::string &texName, @optional cocos2d::ui::Widget::TextureResType texType)
     float getIndicatorIndexNodesScale()
     void setAutoScrollStopEpsilon(float epsilon)
 ]]
@@ -1310,8 +1310,8 @@ cls = typecls 'cocos2d::ui::RichElementImage'
 cls.SUPERCLS = "cocos2d::ui::RichElement"
 cls.funcs [[
     RichElementImage()
-    bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
-    static cocos2d::ui::RichElementImage *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
+    bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &filePath, @optional const std::string &url, @optional cocos2d::ui::Widget::TextureResType texType)
+    static cocos2d::ui::RichElementImage *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &filePath, @optional const std::string &url, @optional cocos2d::ui::Widget::TextureResType texType)
     void setWidth(int width)
     void setHeight(int height)
     void setUrl(const std::string &url)
@@ -1489,8 +1489,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::ScrollViewBar'
 cls.SUPERCLS = "cocos2d::ProtectedNode"
 cls.funcs [[
-    ScrollViewBar(cocos2d::ui::ScrollView *parent, ScrollView::Direction direction)
-    static cocos2d::ui::ScrollViewBar *create(cocos2d::ui::ScrollView *parent, ScrollView::Direction direction)
+    ScrollViewBar(cocos2d::ui::ScrollView *parent, cocos2d::ui::ScrollView::Direction direction)
+    static cocos2d::ui::ScrollViewBar *create(cocos2d::ui::ScrollView *parent, cocos2d::ui::ScrollView::Direction direction)
     void setPositionFromCorner(const cocos2d::Vec2 &positionFromCorner)
     cocos2d::Vec2 getPositionFromCorner()
     void setWidth(float width)

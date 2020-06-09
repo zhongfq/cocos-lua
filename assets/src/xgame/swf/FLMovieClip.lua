@@ -17,8 +17,8 @@ local setmetatable = setmetatable
 
 local FLMovieClip = class("FLMovieClip", FLDisplayObject)
 
-function FLMovieClip:ctor(cobj)
-    self.metadata = swf.metadata(cobj)
+function FLMovieClip:ctor()
+    self.metadata = swf.metadata(self.cobj)
 
     if self:hasLabel('iPhone') and self:hasLabel('iPad') then
         if runtime.isPad() then
@@ -71,7 +71,7 @@ function FLMovieClip:_buildChildren()
         for i = 1, self.cobj.numChildren do
             local rawChild = self.cobj:getChildAt(i - 1)
             if not self._rawChildren[rawChild] then
-                self:_internalAddChild(swf.wrapper(rawChild), i)
+                self:_internalAddChild(swf.wrapper(nil, rawChild), i)
             end
         end
 
@@ -188,7 +188,7 @@ end
 
 -- 只能复制swf导出时的对象
 function FLMovieClip:clone(name)
-    local obj = swf.wrapper(self.cobj:clone(name))
+    local obj = swf.wrapper(nil, self.cobj:clone(name))
     if self.parent then
         self.parent:addChild(obj)
     end
@@ -196,7 +196,7 @@ function FLMovieClip:clone(name)
 end
 
 function FLMovieClip:createMovieclip()
-    return swf.wrapper(self.cobj:createMovieclip())
+    return swf.wrapper(nil, self.cobj:createMovieclip())
 end
 
 function FLMovieClip:stop()
@@ -409,7 +409,7 @@ function FLMovieClip.Get:mask()
 end
 
 function FLMovieClip.Set:mask(value)
-    self.cobj.mask = value.cobj
+    self.cobj.mask = value and value.cobj or nil
 end
 
 function FLMovieClip.Get:movieWidth()

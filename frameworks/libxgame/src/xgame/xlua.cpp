@@ -5,16 +5,19 @@
 
 #include "cocos2d.h"
 
+#include <unordered_map>
+
 USING_NS_CC;
 USING_NS_XGAME;
 
-static lua_State *_currentState = NULL;
+lua_State *xlua_invokingstate = NULL;
+static std::unordered_map<std::string, std::string> xlua_typemap;
 
 static bool inline throw_lua_error(const char *msg)
 {
-	if (_currentState) {
-		lua_State *L = _currentState;
-		_currentState = NULL;
+	if (xlua_invokingstate) {
+		lua_State *L = xlua_invokingstate;
+		xlua_invokingstate = NULL;
 		luaL_error(L, msg);
 	}
 	return false;
@@ -287,11 +290,6 @@ lua_State *xlua_new()
     return L;
 }
 
-lua_State *xlua_cocosthread()
-{
-    return runtime::luaVM();
-}
-
 int xlua_dofile(lua_State *L, const char *filename)
 {
     int errfunc, status;
@@ -392,7 +390,7 @@ int xlua_ccobjgc(lua_State *L)
         }
         
         obj->release();
-        olua_setuserdata(L, 1, nullptr);
+        olua_setrawobj(L, 1, nullptr);
         lua_pushnil(L);
         lua_setuservalue(L, 1);
         olua_subobjcount(L);
@@ -400,19 +398,14 @@ int xlua_ccobjgc(lua_State *L)
     return 0;
 }
 
-void xlua_startinvoke(lua_State *L)
+lua_State *xlua_mainthread(lua_State *L)
 {
-    _currentState = L;
-}
-
-void xlua_endinvoke(lua_State *L)
-{
-    _currentState = NULL;
+    return L ? olua_vmstatus(L)->mainthread : runtime::luaVM();
 }
 
 void xlua_startcmpdelref(lua_State *L, int idx, const char *refname)
 {
-    olua_getreftable(L, idx, refname);                     // L: t
+    olua_getreftable(L, idx, refname);                      // L: t
     lua_pushnil(L);                                         // L: t k
     while (lua_next(L, -2)) {                               // L: t k v
         if (olua_isa(L, -2, "cc.Ref")) {
@@ -428,7 +421,7 @@ void xlua_startcmpdelref(lua_State *L, int idx, const char *refname)
     lua_pop(L, 1);
 }
 
-static bool should_unref_obj(lua_State *L, int idx)
+static bool should_delref(lua_State *L, int idx)
 {
     if (olua_isa(L, idx, "cc.Ref")) {
         auto obj = (cocos2d::Ref *)olua_toobj(L, idx, "cc.Ref");
@@ -454,5 +447,16 @@ static bool should_unref_obj(lua_State *L, int idx)
 
 void xlua_endcmpdelref(lua_State *L, int idx, const char *refname)
 {
-    olua_visitrefs(L, idx, refname, should_unref_obj);
+    olua_visitrefs(L, idx, refname, should_delref);
+}
+
+void xlua_registerluatype(lua_State *L, const char *type, const char *cls)
+{
+    xlua_typemap[type] = cls;
+}
+
+const char *xlua_getluatype(lua_State *L, const char *type)
+{
+    auto cls = xlua_typemap.find(type);
+    return cls != xlua_typemap.end() ? cls->second.c_str() : nullptr;
 }

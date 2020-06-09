@@ -71,6 +71,7 @@ function MixSWF:onDestroy()
     self.onDestroy = true
     self._eventAgent:clear()
     self._mixPlayer:clear()
+    self._timer:stop()
     self._timer:clear()
     self:removeChildren()
 end

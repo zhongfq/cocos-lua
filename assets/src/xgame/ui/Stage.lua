@@ -116,13 +116,12 @@ function Stage:touchMove(points)
         local target
         for id, p in pairs(points) do
             local obj = self._trackedTouches[id]
-            if obj and (not target or target == obj) then
+            if not obj or not obj.stage then
+                points[id] = nil
+            elseif not target or target == obj then
                 target = obj
                 p.x, p.y = obj:globalToLocal(p.x, p.y)
                 capturePoints[id] = p
-                points[id] = nil
-            end
-            if not obj then
                 points[id] = nil
             end
         end
@@ -145,16 +144,14 @@ function Stage:touchUp(points)
         local target
         for id, p in pairs(points) do
             local obj = self._trackedTouches[id]
-            if obj and (not target or target == obj) then
+            if not obj or not obj.stage then
+                points[id] = nil
+            elseif not target or target == obj then
                 target = obj
                 p.x, p.y = obj:globalToLocal(p.x, p.y)
                 capturePoints[id] = p
                 points[id] = nil
                 self._trackedTouches[id] = nil
-            end
-
-            if not obj then
-                points[id] = nil
             end
         end
 

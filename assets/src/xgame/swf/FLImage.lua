@@ -8,13 +8,11 @@ local FLDisplayObject   = require "xgame.swf.FLDisplayObject"
 
 local FLImage = class("FLImage", FLDisplayObject)
 
-local _new = FLImage.new
-
-function FLImage.new(cobj)
-    return _new(cobj or swf.Image.new())
+function FLImage.new()
+    return swf.wrapper(FLImage, swf.Image.new())
 end
 
-function FLImage:ctor(cobj)
+function FLImage:ctor()
     self._preferredWidth = 0
     self._preferredHeight = 0
 end

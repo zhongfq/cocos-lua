@@ -25,7 +25,7 @@ void RootScene::onEnter()
 
 void RootScene::execute()
 {
-    lua_State *L = xlua_cocosthread();
+    lua_State *L = xlua_mainthread(NULL);
     int top = lua_gettop(L);
     
     if (xlua_dofile(L, _scriptPath.c_str()) == LUA_OK &&

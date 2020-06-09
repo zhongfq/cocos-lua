@@ -109,9 +109,10 @@ TabControl.ATTR('getTabHeader', {RET = '@addref(protectedChildren |)'})
 TabControl.ATTR('getTabContainer', {RET = '@addref(protectedChildren |)'})
 TabControl.ATTR('insertTab', {ARG2 = '@addref(protectedChildren |)', ARG3 = '@addref(protectedChildren |)'})
 TabControl.CALLBACK {
-    FUNCS = {'void setTabChangedEventListener(@nullable const std::function<void(int tabIndex, EventType)>& callback)'},
+    NAME = 'setTabChangedEventListener',
     TAG_MAKER = 'tabChangedEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    NULLABLE = true,
 }
 
 typeconf 'cocos2d::ui::ScrollView::Direction'
@@ -120,11 +121,12 @@ typeconf 'cocos2d::ui::ScrollView::EventType'
 local ScrollView = typeconf 'cocos2d::ui::ScrollView'
 ScrollView.ATTR('getInnerContainer', {RET = '@addref(protectedChildren |)'})
 ScrollView.CALLBACK {
-    FUNCS = {'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)'},
+    NAME = 'addEventListener',
     TAG_MAKER = 'scrollViewCallback',
-    TAG_MODE = 'OLUA_TAG_REPLACE'
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    NULLABLE = true,
+    LOCAL = false,
 }
-ScrollView.ALIAS('addEventListener', 'addScrollEventListener')
 
 typeconf 'cocos2d::ui::ListView::Gravity'
 typeconf 'cocos2d::ui::ListView::EventType'
@@ -143,7 +145,6 @@ ListView.CALLBACK {
     TAG_MAKER = 'ListViewCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
 }
-ListView.ALIAS('addEventListener', 'addListViewEventListener')
 
 typeconf 'cocos2d::ui::LoadingBar::Direction'
 typeconf 'cocos2d::ui::LoadingBar'
@@ -161,7 +162,6 @@ PageView.CALLBACK {
     TAG_MAKER = 'PageViewCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
 }
-PageView.ALIAS('addEventListener', 'addPageViewEventListener')
 
 typeconf 'cocos2d::ui::RichElement::Type'
 typeconf 'cocos2d::ui::RichElement'

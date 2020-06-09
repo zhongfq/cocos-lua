@@ -80,12 +80,6 @@ typedef {
 }
 
 typedef {
-    CPPCLS = 'cocos2d::TMXTileFlags_',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-}
-
-typedef {
     CPPCLS = 'cocos2d::Texture2D::TexParams',
     DECLTYPE = 'cocos2d::Texture2D::TexParams',
     CONV = 'auto_olua_$$_cocos2d_backend_SamplerDescriptor',

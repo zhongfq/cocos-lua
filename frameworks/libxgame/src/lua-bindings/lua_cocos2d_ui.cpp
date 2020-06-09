@@ -8545,7 +8545,7 @@ static int _cocos2d_ui_TabControl_setTabChangedEventListener(lua_State *L)
         arg1 = nullptr;
     }
 
-    // void setTabChangedEventListener(@nullable const std::function<void(int tabIndex, EventType)>& callback)
+    // void setTabChangedEventListener(@nullable @local const std::function<void (int, EventType)> &callback)
     self->setTabChangedEventListener(arg1);
 
     olua_endinvoke(L);
@@ -8671,7 +8671,7 @@ static int _cocos2d_ui_ScrollView_addEventListener(lua_State *L)
         arg1 = nullptr;
     }
 
-    // void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)
+    // void addEventListener(@nullable const std::function<void (Ref *, EventType)> &callback)
     self->addEventListener(arg1);
 
     olua_endinvoke(L);
@@ -9793,7 +9793,6 @@ static int luaopen_cocos2d_ui_ScrollView(lua_State *L)
     oluacls_class(L, "ccui.ScrollView", "ccui.Layout");
     oluacls_func(L, "__move", _cocos2d_ui_ScrollView___move);
     oluacls_func(L, "addEventListener", _cocos2d_ui_ScrollView_addEventListener);
-    oluacls_func(L, "addScrollEventListener", _cocos2d_ui_ScrollView_addEventListener);
     oluacls_func(L, "create", _cocos2d_ui_ScrollView_create);
     oluacls_func(L, "createInstance", _cocos2d_ui_ScrollView_createInstance);
     oluacls_func(L, "getDirection", _cocos2d_ui_ScrollView_getDirection);
@@ -10840,7 +10839,6 @@ static int luaopen_cocos2d_ui_ListView(lua_State *L)
     oluacls_class(L, "ccui.ListView", "ccui.ScrollView");
     oluacls_func(L, "__move", _cocos2d_ui_ListView___move);
     oluacls_func(L, "addEventListener", _cocos2d_ui_ListView_addEventListener);
-    oluacls_func(L, "addListViewEventListener", _cocos2d_ui_ListView_addEventListener);
     oluacls_func(L, "create", _cocos2d_ui_ListView_create);
     oluacls_func(L, "createInstance", _cocos2d_ui_ListView_createInstance);
     oluacls_func(L, "doLayout", _cocos2d_ui_ListView_doLayout);
@@ -12113,7 +12111,6 @@ static int luaopen_cocos2d_ui_PageView(lua_State *L)
     oluacls_func(L, "__move", _cocos2d_ui_PageView___move);
     oluacls_func(L, "addEventListener", _cocos2d_ui_PageView_addEventListener);
     oluacls_func(L, "addPage", _cocos2d_ui_PageView_addPage);
-    oluacls_func(L, "addPageViewEventListener", _cocos2d_ui_PageView_addEventListener);
     oluacls_func(L, "create", _cocos2d_ui_PageView_create);
     oluacls_func(L, "createInstance", _cocos2d_ui_PageView_createInstance);
     oluacls_func(L, "getCurrentPageIndex", _cocos2d_ui_PageView_getCurrentPageIndex);

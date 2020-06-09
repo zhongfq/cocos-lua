@@ -911,7 +911,7 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'void setTabChangedEventListener(@nullable const std::function<void(int tabIndex, EventType)>& callback)'
+        'void setTabChangedEventListener(@nullable @local const std::function<void (int, EventType)> &callback)'
     },
     TAG_MAKER = 'tabChangedEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1025,14 +1025,13 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)'
+        'void addEventListener(@nullable const std::function<void (Ref *, EventType)> &callback)'
     },
     TAG_MAKER = 'scrollViewCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.alias('addEventListener', 'addScrollEventListener')
 cls.props [[
     direction
     innerContainer
@@ -1145,7 +1144,6 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.alias('addEventListener', 'addListViewEventListener')
 cls.props [[
     items
     magneticType
@@ -1262,7 +1260,6 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.alias('addEventListener', 'addPageViewEventListener')
 cls.props [[
     currentPageIndex
     indicatorEnabled

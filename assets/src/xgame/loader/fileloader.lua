@@ -91,7 +91,7 @@ function M.addModule(localManifestPath, remoteManifestPath)
 
     for path, asset in pairs(m.remoteManifest.assets) do
         if not remoteAssets[path] then
-            assert(asset.url, path)
+            asset.url = m.remoteManifest.packageURL .. '/' .. path
             remoteAssets[path] = asset
         else
             print(string.format('ingore remote path: %s', path))

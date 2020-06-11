@@ -105,8 +105,10 @@ function M:_mergeManifests(versionData)
     for _, info in pairs(versionData.assets) do
         data.version = self:_maxVersion(data.version, info.version)
         local m = self:_loadManifest(self:_resolveManifestPath(info.name))
+        if data.version == info.version then
+            data.package_url = assert(m.data.package_url, 'no package url')
+        end
         for path, asset in pairs(m.assets) do
-            asset.url = m.packageURL .. '/' .. path
             data.assets[path] = asset
         end
     end
@@ -124,6 +126,7 @@ end
 function M:_downloadAssets(localManifest, assets)
     local total = 0
     local current = 0
+    local remote = self:_loadManifest(REMOTE_MANIFEST_PATH)
     for path, asset in pairs(assets) do
         total = total + 1
         local function callback(success)
@@ -142,7 +145,7 @@ function M:_downloadAssets(localManifest, assets)
             end
         end
         downloader.load({
-            url = asset.url,
+            url = remote.packageURL .. '/' .. path,
             md5 = asset.md5,
             path = self:_resolveAssetPath(path),
             callback = callback,

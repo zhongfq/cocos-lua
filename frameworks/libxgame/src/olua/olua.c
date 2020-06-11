@@ -814,6 +814,11 @@ static int cls_tostring(lua_State *L)
     return 1;
 }
 
+static int cls_eq(lua_State *L)
+{
+    return 0;
+}
+
 static void create_table(lua_State *L, int idx, const char *field, const char *supercls, bool copy)
 {
     idx = lua_absindex(L, idx);
@@ -851,6 +856,8 @@ OLUA_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         lua_pop(L, 1);
     } else if (!strequal(cls, OLUA_VOIDCLS)) {
         oluacls_class(L, OLUA_VOIDCLS, NULL);
+        oluacls_func(L, "__eq", cls_eq);
+        oluacls_func(L, "__tostring", cls_tostring);
         lua_pop(L, 1);
         super = OLUA_VOIDCLS;
     }
@@ -863,7 +870,7 @@ OLUA_API void oluacls_class(lua_State *L, const char *cls, const char *super)
             {NULL, NULL}
         };
         static const char *events[] = {
-          "__gc", "__len", "__eq",
+          "__gc", "__len", "__eq", "__tostring",
           "__add", "__sub", "__mul", "__mod", "__pow",
           "__div", "__idiv",
           "__band", "__bor", "__bxor", "__shl", "__shr",

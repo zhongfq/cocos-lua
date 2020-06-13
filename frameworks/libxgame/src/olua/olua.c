@@ -866,7 +866,6 @@ OLUA_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         static const luaL_Reg lib[] = {
             {"__index", cls_index},
             {"__newindex", cls_newindex},
-            {"__tostring", cls_tostring},
             {NULL, NULL}
         };
         static const char *events[] = {
@@ -900,7 +899,7 @@ OLUA_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         olua_setfieldboolean(L, -1, cls, true);         // L: mt .func .isa  mt[.isa][cls] = true
         lua_pop(L, 2);                                  // L: mt
         
-        // create class store, for store static function callback
+        // create class object, store static function callback
         lua_newuserdata(L, sizeof(void *));             // L: mt store
         lua_createtable(L, 0, 1);                       // L: mt store t
         lua_pushvalue(L, -1);                           // L: mt store t t

@@ -83,11 +83,11 @@ function Array:slice(from, to)
     from = from or 1
     to = to or #self
 
-    assert(from > 0)
+    assert(from > 0, 'start index must > 0')
 
     for i = from, to do
         local item = self[i]
-        if item then
+        if item ~= nil then
             arr[#arr + 1] = item
         else
             break
@@ -111,7 +111,7 @@ local function checkRange(self, index, min, max)
 end
 
 function Array:addAt(item, index)
-    assert(item, 'item is nil')
+    assert(item ~= nil, 'item is nil')
     checkRange(self, index, 1, #self + 1)
     table.insert(self, index, item)
     self:dispatch(Event.CHANGE, "ADD", index, item)

@@ -116,7 +116,11 @@ public class AppContext extends Cocos2dxActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        mPermissionsResultCallback.onRequestPermissionsResult(permissions[0], grantResults[0]);
+        if (grantResults.length > 0 && permissions.length > 0) {
+            mPermissionsResultCallback.onRequestPermissionsResult(permissions[0], grantResults[0]);
+        } else {
+            mPermissionsResultCallback.onRequestPermissionsResult(null, -2);
+        }
     }
 
     //
@@ -436,16 +440,19 @@ public class AppContext extends Cocos2dxActivity {
         } else {
             context.mPermissionsResultCallback = new PermissionsResultCallback() {
                 @Override
-                public void onRequestPermissionsResult(String permission, int result) {
+                public void onRequestPermissionsResult(String p, int result) {
+                    PermissionStatus status;
                     if (result == PackageManager.PERMISSION_GRANTED) {
-                        editor.putString(permission, PermissionStatus.AUTHORIZED.name());
-                        editor.apply();
-                        LuaJ.invokeOnce(callback, PermissionStatus.AUTHORIZED.name());
+                        status = PermissionStatus.AUTHORIZED;
+                    } else if (result == PackageManager.PERMISSION_DENIED) {
+                        status = PermissionStatus.DENIED;
                     } else {
-                        editor.putString(permission, PermissionStatus.DENIED.name());
-                        editor.apply();
-                        LuaJ.invokeOnce(callback, PermissionStatus.DENIED.name());
+                        // interrupted by other action
+                        status = PermissionStatus.NOT_DETERMINED;
                     }
+                    editor.putString(permission, status.name());
+                    editor.apply();
+                    LuaJ.invokeOnce(callback, status.name());
                 }
             };
             ActivityCompat.requestPermissions(context, new String[]{permission}, 0);

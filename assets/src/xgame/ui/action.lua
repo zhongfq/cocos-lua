@@ -1,5 +1,6 @@
 local Animate = require "cc.Animate"
 local MoveTo = require "cc.MoveTo"
+local ActionFloat = require "cc.ActionFloat"
 local MoveBy = require "cc.MoveBy"
 local CallFunc = require "cc.CallFunc"
 local Sequence = require "cc.Sequence"
@@ -16,6 +17,8 @@ local Hide = require "cc.Hide"
 local Show = require "cc.Show"
 local Spawn = require "cc.Spawn"
 local RotateTo = require "cc.RotateTo"
+local CatmullRomTo = require "cc.CatmullRomTo"
+local CatmullRomBy = require "cc.CatmullRomBy"
 local EaseRateAction = require "cc.EaseRateAction"
 local EaseIn = require "cc.EaseIn"
 local EaseOut = require "cc.EaseOut"
@@ -44,11 +47,16 @@ local EaseQuarticActionInOut = require "cc.EaseQuarticActionInOut"
 local EaseQuinticActionIn = require "cc.EaseQuinticActionIn"
 local EaseQuinticActionOut = require "cc.EaseQuinticActionOut"
 local EaseQuinticActionInOut = require "cc.EaseQuinticActionInOut"
+local PointArray = require "cc.PointArray"
 
 local M = {}
 
 function M.Animate(...)
     return Animate.create(...)
+end
+
+function M.ActionFloat(...)
+    return ActionFloat.create(...)
 end
 
 function M.MoveTo(duration, x, y)
@@ -134,6 +142,22 @@ function M.RotateTo(...)
     return RotateTo.create(...)
 end
 
+function M.CatmullRomTo(t, points)
+    local arr = PointArray.create(#points)
+    for _, v in ipairs(points) do
+        arr:addControlPoint(v)
+    end
+    return CatmullRomTo.create(t, arr)
+end
+
+function M.CatmullRomBy(t, points)
+    local arr = PointArray.create(#points)
+    for _, v in ipairs(points) do
+        arr:addControlPoint(v)
+    end
+    return CatmullRomBy.create(t, arr)
+end
+
 function M.EaseRate(...)
     return EaseRateAction.create(...)
 end
@@ -174,16 +198,16 @@ function M.EaseSineInOut(...)
     return EaseSineInOut.create(...)
 end
 
-function M.EaseElasticIn(action, period)
-    return EaseElasticIn.create(action, period or  0.3)
+function M.EaseElasticIn(...)
+    return EaseElasticIn.create(...)
 end
 
-function M.EaseElasticOut(action, period)
-    return EaseElasticOut.create(action, period or  0.3)
+function M.EaseElasticOut(...)
+    return EaseElasticOut.create(...)
 end
 
-function M.EaseElasticInOut(action, period)
-    return EaseElasticInOut.create(action, period or  0.3)
+function M.EaseElasticInOut(...)
+    return EaseElasticInOut.create(...)
 end
 
 function M.EaseBounceIn(...)

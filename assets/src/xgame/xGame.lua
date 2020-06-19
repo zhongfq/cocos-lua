@@ -7,7 +7,7 @@ local MediatorMap   = require "xgame.MediatorMap"
 local updater       = require "xgame.updater"
 local Stage         = require "xgame.ui.Stage"
 local FGUINode      = require "xgame.ui.FGUINode"
-local SceneStack    = require "xgame.private.SceneStack"
+local SceneStack    = require "xgame.SceneStack"
 local Event         = require "xgame.event.Event"
 local Dispatcher    = require "xgame.event.Dispatcher"
 local fileloader    = require "xgame.loader.fileloader"
@@ -103,6 +103,10 @@ function xGame:loadAssets(assets, callback)
     else
         callback()
     end
+end
+
+function xGame:playMusic(path, volume)
+    self._sceneStack:playMusic(path, volume)
 end
 
 -- scene api
@@ -206,7 +210,7 @@ function xGame:_initRuntimeEvents()
     listen('runtimeResize')
     listen('runtimePause')
     listen('runtimeResume')
-    
+
     local pauseTime = nil
     
     runtime.on(Event.RUNTIME_PAUSE, function ()

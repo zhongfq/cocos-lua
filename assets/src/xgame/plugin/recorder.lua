@@ -51,8 +51,6 @@ function Recorder:_didResponse(event, message)
                 self._mp3Encoder = false
             end
             self:dispatch(PluginEvent.STOP_RECORD)
-        else
-            error('unknow state: ' .. message)
         end
     end
 end

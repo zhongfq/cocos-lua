@@ -668,6 +668,12 @@ void AudioEngineImpl::update(float dt)
             _unusedSourcesPool.push_back(alSource);
         }
         else if (player->_ready && sourceState == AL_STOPPED) {
+            auto offset = getDuration(audioID) - getCurrentTime(audioID);
+            if (offset > QUEUEBUFFER_TIME_STEP * QUEUEBUFFER_NUM) {
+                 ++it;
+                AudioEngine::_audioEngineImpl->resume(audioID);
+                continue;
+            }
 
             std::string filePath;
             if (player->_finishCallbak) {

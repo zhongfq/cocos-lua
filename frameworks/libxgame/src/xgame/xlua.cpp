@@ -383,11 +383,9 @@ void xlua_startcmpdelref(lua_State *L, int idx, const char *refname)
     while (lua_next(L, -2)) {                               // L: t k v
         if (olua_isa<cocos2d::Ref>(L, -2)) {
             auto obj = olua_toobj<cocos2d::Ref>(L, -2);
-            if (obj) {
-                lua_pushvalue(L, -2);                        // L: t k v k
-                lua_pushinteger(L, obj->getReferenceCount());// L: t k v k refcount
-                lua_rawset(L, -5);                           // L: t k v
-            }
+            lua_pushvalue(L, -2);                           // L: t k v k
+            lua_pushinteger(L, obj->getReferenceCount());   // L: t k v k refcount
+            lua_rawset(L, -5);                              // L: t k v
         }
         lua_pop(L, 1);                                      // L: t k
     }                                                       // L: t
@@ -398,21 +396,19 @@ static bool should_delref(lua_State *L, int idx)
 {
     if (olua_isa<cocos2d::Ref>(L, idx)) {
         auto obj = olua_toobj<cocos2d::Ref>(L, idx);
-        if (obj && olua_isinteger(L, -1)) {
+        if (olua_isinteger(L, -1)) {
             unsigned int last = (unsigned int)olua_tointeger(L, -1);
             unsigned int curr = obj->getReferenceCount();
             if (curr < last || curr == 1) {
                 return true;
             }
         }
-    } else {
-        return false;
-    }
-    
-    if (olua_isa<cocos2d::Action>(L, idx)) {
-        auto obj = olua_toobj<cocos2d::Action>(L, idx);
-        if (obj && (!obj->getTarget() || obj->isDone())) {
-            return true;
+        
+        if (olua_isa<cocos2d::Action>(L, idx)) {
+            auto action = olua_toobj<cocos2d::Action>(L, idx);
+            if (!action->getTarget() || action->isDone()) {
+                return true;
+            }
         }
     }
     return false;

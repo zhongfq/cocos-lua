@@ -498,6 +498,8 @@ cls.funcs [[
     void removeProgram(cocos2d::backend::Program *program)
     void removeUnusedProgram()
     void removeAllPrograms()
+    void addCustomProgram(const std::string &key, cocos2d::backend::Program *program)
+    cocos2d::backend::Program *getCustomProgram(const std::string &key)
 ]]
 cls.props [[
     instance

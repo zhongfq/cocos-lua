@@ -1755,6 +1755,26 @@ static int _cocos2d_backend_ProgramCache___move(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_backend_ProgramCache_addCustomProgram(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::backend::ProgramCache *self = nullptr;
+    std::string arg1;       /** key */
+    cocos2d::backend::Program *arg2 = nullptr;       /** program */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramCache");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "ccb.Program");
+
+    // void addCustomProgram(const std::string &key, cocos2d::backend::Program *program)
+    self->addCustomProgram(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cocos2d_backend_ProgramCache_destroyInstance(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1779,6 +1799,25 @@ static int _cocos2d_backend_ProgramCache_getBuiltinProgram(lua_State *L)
 
     // cocos2d::backend::Program *getBuiltinProgram(cocos2d::backend::ProgramType type)
     cocos2d::backend::Program *ret = (cocos2d::backend::Program *)self->getBuiltinProgram((cocos2d::backend::ProgramType)arg1);
+    int num_ret = olua_push_cppobj(L, ret, "ccb.Program");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_backend_ProgramCache_getCustomProgram(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::backend::ProgramCache *self = nullptr;
+    std::string arg1;       /** key */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramCache");
+    olua_check_std_string(L, 2, &arg1);
+
+    // cocos2d::backend::Program *getCustomProgram(const std::string &key)
+    cocos2d::backend::Program *ret = (cocos2d::backend::Program *)self->getCustomProgram(arg1);
     int num_ret = olua_push_cppobj(L, ret, "ccb.Program");
 
     olua_endinvoke(L);
@@ -1853,8 +1892,10 @@ static int luaopen_cocos2d_backend_ProgramCache(lua_State *L)
 {
     oluacls_class(L, "ccb.ProgramCache", "cc.Ref");
     oluacls_func(L, "__move", _cocos2d_backend_ProgramCache___move);
+    oluacls_func(L, "addCustomProgram", _cocos2d_backend_ProgramCache_addCustomProgram);
     oluacls_func(L, "destroyInstance", _cocos2d_backend_ProgramCache_destroyInstance);
     oluacls_func(L, "getBuiltinProgram", _cocos2d_backend_ProgramCache_getBuiltinProgram);
+    oluacls_func(L, "getCustomProgram", _cocos2d_backend_ProgramCache_getCustomProgram);
     oluacls_func(L, "getInstance", _cocos2d_backend_ProgramCache_getInstance);
     oluacls_func(L, "removeAllPrograms", _cocos2d_backend_ProgramCache_removeAllPrograms);
     oluacls_func(L, "removeProgram", _cocos2d_backend_ProgramCache_removeProgram);

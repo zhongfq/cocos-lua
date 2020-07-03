@@ -6,130 +6,49 @@
 #include <android/log.h>
 #include <string.h>
 
-#define LOG_TAG "CrashReport"
-#define LOG_BUFFER_SIZE 1024
-
-#ifndef GAME_TYPE_COCOS
-#define GAME_TYPE_COCOS 1
-#endif
-
-#define LOGD(fmt, args...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, fmt, ##args)
-#define LOGI(fmt, args...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, fmt, ##args)
-#define LOGW(fmt, args...) __android_log_print(ANDROID_LOG_WARN, LOG_TAG, fmt, ##args)
-#define LOGE(fmt, args...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, fmt, ##args)
-
 #define BUGLY_CLASS "kernel/plugins/bugly/Bugly"
 
-CrashReport::CrashReport(){
-    LOGD("%s", __FUNCTION__);
-}
+static bool s_initialized = false;
 
-void CrashReport::initCrashReport(const char* appId) {
-    CrashReport::initCrashReport(appId, false);
-}
-
-void CrashReport::initCrashReport(const char* appId, bool isDebug) {
-    CrashReport::initCrashReport(appId, isDebug, CrashReport::CRLogLevel::Off);
-}
-
-bool CrashReport::initialized = false;
-bool CrashReport::hasSetGameType = false;
-int CrashReport::crashReporterType = 0;
-
-void CrashReport::initCrashReport(const char* appId, bool isDebug, CrashReport::CRLogLevel level)
+void CrashReport::init(const char *appid)
 {
-	if (!initialized) {
-        // call init
-        LOGI("[cocos2d-x] init Bugly by game agent.");
-        cocos2d::JniHelper::callStaticVoidMethod(BUGLY_CLASS, "initCrashReport", appId, isDebug);
-        initialized = true;
+	if (!s_initialized) {
+        cocos2d::JniHelper::callStaticVoidMethod(BUGLY_CLASS, "init", appid, false);
+        s_initialized = true;
     }
 }
 
 void CrashReport::setTag(int tag)
 {
-	LOGI("[cocos2d-x] set user scene tag: %d", tag);
     cocos2d::JniHelper::callStaticVoidMethod(BUGLY_CLASS, "setTag", tag);
 }
 
-void CrashReport::addUserValue(const char* key, const char* value)
+void CrashReport::setUserValue(const char *key, const char *value)
 {
-    setGameType();
-	LOGI("[cocos2d-x] put user data: %s:%s", key, value);
-    cocos2d::JniHelper::callStaticVoidMethod(BUGLY_CLASS, "addUserValue", key, value);
+    cocos2d::JniHelper::callStaticVoidMethod(BUGLY_CLASS, "setUserValue", key, value);
 }
 
-void CrashReport::removeUserValue(const char* key)
+void CrashReport::setUid(const char* userId)
 {
-    setGameType();
-	LOGI("[cocos2d-x] remove user data: %s", key);
-    cocos2d::JniHelper::callStaticVoidMethod(BUGLY_CLASS, "removeUserValue", key);
+    cocos2d::JniHelper::callStaticVoidMethod(BUGLY_CLASS, "setUid", userId);
 }
 
-void CrashReport::setUserId(const char* userId)
+void CrashReport::reportException(const char *msg, const char *traceback) {
+    cocos2d::JniHelper::callStaticVoidMethod(BUGLY_CLASS, "reportException", 6, "", msg, traceback, false);
+}
+
+void CrashReport::setChannel(const char *channel)
 {
-    setGameType();
-    LOGI("[cocos2d-x] set user ID: %s", userId);
-    cocos2d::JniHelper::callStaticVoidMethod(BUGLY_CLASS, "setUserId", userId);
+    cocos2d::JniHelper::callStaticVoidMethod(BUGLY_CLASS, "setChannel", channel);
 }
 
-void CrashReport::reportException(int category, const char* type, const char* msg, const char* traceback) {
-    reportException(category, type, msg, traceback, false);
-}
-
-void CrashReport::reportException(int category, const char* type, const char* msg, const char* traceback, bool quit) {
-    LOGI("[cocos2d-x] post a exception.");
-    cocos2d::JniHelper::callStaticVoidMethod(BUGLY_CLASS, "reportException", category, type, msg, traceback, quit);
-}
-
-void CrashReport::setAppChannel(const char * channel)
+void CrashReport::setVersion(const char *version)
 {
-    setGameType();
-    LOGI("[cocos2d-x] set App channel: %s", channel);
-    cocos2d::JniHelper::callStaticVoidMethod(BUGLY_CLASS, "setAppChannel", channel);
+    cocos2d::JniHelper::callStaticVoidMethod(BUGLY_CLASS, "setVersion", version);
 }
 
-void CrashReport::setAppVersion(const char * version)
-{
-    setGameType();
-    cocos2d::JniHelper::callStaticVoidMethod(BUGLY_CLASS, "setAppVersion", version);
-}
-
-void CrashReport::log(CrashReport::CRLogLevel level, const char * tag, const char * fmts, ...) {
-    static char msg[LOG_BUFFER_SIZE];
-    va_list args;
-    va_start(args, fmts);
-    int size = vsnprintf(msg, LOG_BUFFER_SIZE, fmts, args);
-    va_end(args);
-    if (size > LOG_BUFFER_SIZE) {
-        LOGW("The length[%d] of string is out of the buffer size[%d]", size, LOG_BUFFER_SIZE);
-    }
-
-    int logLevel = -1;
-    if (CrashReport::CRLogLevel::Verbose == level) {
-       logLevel = 0;
-    } else if (CrashReport::CRLogLevel::Debug == level) {
-        logLevel = 1;
-    } else if (CrashReport::CRLogLevel::Info == level) {
-        logLevel = 2;
-    } else if (CrashReport::CRLogLevel::Warning == level) {
-        logLevel = 3;
-    } else if (CrashReport::CRLogLevel::Error == level) {
-        logLevel = 4;
-    }
-
-    if (tag == NULL || strlen(tag) == 0) {
-        tag = "Bugly";
-    }
-
-    cocos2d::JniHelper::callStaticVoidMethod(BUGLY_CLASS, "log", logLevel, tag, (const char *)msg);
-}
-
-void CrashReport::setGameType() {
-}
-
-void CrashReport::setCrashReporterType(int type) {
-    crashReporterType = type;
+void CrashReport::log(LogLevel level, const char *msg) {
+    cocos2d::JniHelper::callStaticVoidMethod(BUGLY_CLASS, "log", (int)level, "bugly", (const char *)msg);
 }
 
 #endif

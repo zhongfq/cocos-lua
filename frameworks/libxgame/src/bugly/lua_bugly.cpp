@@ -4,95 +4,45 @@
 
 #include "cocos2d.h"
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-
-#ifndef CATEGORY_LUA_EXCEPTION
-#define CATEGORY_LUA_EXCEPTION 6
-#endif
-
-static int _reportLuaException(lua_State *L) {
-    const char* type = "";
-    const char* msg = lua_tostring(L, 1);
-    const char* traceback = lua_tostring(L, 2);
-    bool quit = lua_toboolean(L, 3);
-    
-    CrashReport::reportException(CATEGORY_LUA_EXCEPTION, type, msg, traceback, quit);
-    
+static int l_reportException(lua_State *L) {
+    const char *msg = olua_checkstring(L, 1);
+    const char *traceback = olua_checkstring(L, 2);
+    CrashReport::reportException(msg, traceback);
     return 0;
 }
 
-static int _setUserId(lua_State *L) {
-    const char* userId = lua_tostring(L, 1);
-    
-    CrashReport::setUserId(userId);
-    
+static int l_setUid(lua_State *L) {
+    CrashReport::setUid(olua_checkstring(L, 1));
     return 0;
 }
 
-static int _setTag(lua_State *L) {
-    int tag = lua_tonumber(L, 1);
-    CrashReport::setTag(tag);
-    
+static int l_setTag(lua_State *L) {
+    CrashReport::setTag((int)olua_checkinteger(L, 1));
     return 0;
 }
 
-static int _addUserValue(lua_State *L) {
-    const char* key = lua_tostring(L, 1);
-    const char* value = lua_tostring(L, 2);
-    
-    CrashReport::addUserValue(key, value);
-    
+static int l_setUserValue(lua_State *L) {
+    const char *key = olua_checkstring(L, 1);
+    const char *value = olua_checkstring(L, 2);
+    CrashReport::setUserValue(key, value);
     return 0;
 }
 
-static int _removeUserValue(lua_State *L) {
-    const char* key = lua_tostring(L, 1);
-    
-    CrashReport::removeUserValue(key);
-    return 0;
-}
-
-static int _printLog(lua_State *L) {
-    int level = lua_tonumber(L, 1);
-    const char* tag = lua_tostring(L, 2);
-    const char* log = lua_tostring(L, 3);
-    
-    CrashReport::CRLogLevel crLevel = CrashReport::CRLogLevel::Off;
-    switch (level) {
-        case -1:
-            crLevel = CrashReport::CRLogLevel::Off;
-            break;
-        case 0:
-            crLevel = CrashReport::CRLogLevel::Verbose;
-            break;
-        case 1:
-            crLevel = CrashReport::CRLogLevel::Debug;
-            break;
-        case 2:
-            crLevel = CrashReport::CRLogLevel::Info;
-            break;
-        case 3:
-            crLevel = CrashReport::CRLogLevel::Warning;
-            break;
-        case 4:
-            crLevel = CrashReport::CRLogLevel::Error;
-            break;
-    }
-    
-    CrashReport::log(crLevel, tag, log);
-    
+static int l_log(lua_State *L) {
+    int level = (int)olua_checkinteger(L, 1);
+    const char *msg = olua_checkstring(L, 2);
+    CrashReport::log((CrashReport::LogLevel)level, msg);
     return 0;
 }
 
 int luaopen_bugly(lua_State *L)
 {
     static luaL_Reg lib[] = {
-        {"reportLuaException", _reportLuaException},
-        {"setUserId", _setUserId},
-        {"setTag", _setTag},
-        {"addUserValue", _addUserValue},
-        {"removeUserValue", _removeUserValue},
-        {"log", _printLog},
+        {"reportException", l_reportException},
+        {"setUid", l_setUid},
+        {"setTag", l_setTag},
+        {"setUserValue", l_setUserValue},
+        {"log", l_log},
         {NULL, NULL}
     };
     
@@ -102,5 +52,3 @@ int luaopen_bugly(lua_State *L)
     
     return 1;
 }
-
-#endif

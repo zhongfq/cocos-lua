@@ -1,5 +1,7 @@
 package kernel.plugins.wechat;
 
+import android.app.Activity;
+import android.app.Application;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -10,8 +12,7 @@ import com.tencent.mm.opensdk.diffdev.IDiffDevOAuth;
 import com.tencent.mm.opensdk.diffdev.OAuthErrCode;
 import com.tencent.mm.opensdk.diffdev.OAuthListener;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
-import com.tencent.mm.opensdk.modelbiz.JumpToBizProfile;
-import com.tencent.mm.opensdk.modelbiz.JumpToBizWebview;
+import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXImageObject;
@@ -36,10 +37,27 @@ import java.util.Date;
 
 import kernel.AppContext;
 import kernel.LuaJ;
+import kernel.PluginManager;
 
 @SuppressWarnings("unused")
 public class WeChat {
     private static final String TAG = WeChat.class.getName();
+
+    static {
+        PluginManager.registerPlugin(new PluginManager.Handler() {
+            @Override
+            public void onInit(Application app) {
+                Log.i(TAG, "init wechat sdk");
+                AppContext.registerFeature("wechat", true);
+            }
+
+            @Override
+            public void onStart(Activity context) {
+
+            }
+        });
+    }
+
     static String APP_ID = "";
     static WeChatCallback notifyRespose;
 
@@ -324,20 +342,35 @@ public class WeChat {
         }
     }
 
-    public static void jumpToProfile(String username, String extMsg, int profileType) {
-        JumpToBizProfile.Req req = new JumpToBizProfile.Req();
-        req.toUserName = username;
-        req.extMsg = extMsg;
-        req.profileType = profileType;
+    public static void open(String id, String path, int type, final int callback)
+    {
         AppContext context = (AppContext)Cocos2dxActivity.getContext();
         IWXAPI api = WXAPIFactory.createWXAPI(context, WeChat.APP_ID);
+
+        WeChat.notifyRespose = new WeChatCallback() {
+            @Override
+            public void onResponse(BaseResp baseResp) {
+                WeChat.notifyRespose = NULL_CALLBACK;
+                try {
+                    WXLaunchMiniProgram.Resp resp = (WXLaunchMiniProgram.Resp) baseResp;
+                    JSONObject data = new JSONObject();
+                    data.put("errcode", baseResp.errCode);
+                    data.put("extraData", resp.extMsg);
+                    LuaJ.invokeOnce(callback, data.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    LuaJ.invokeOnce(callback, "{\"errcode\":-1}");
+                }
+            }
+
+        };
+
+
+        WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
+        req.userName = id;
+        req.path = path;
+        req.miniprogramType = type;
         api.sendReq(req);
     }
 
-    public static void jumpToWebview(String username, String extMsg, int webType) {
-        JumpToBizWebview.Req req = new JumpToBizWebview.Req();
-        req.toUserName = username;
-        req.extMsg = extMsg;
-        req.webType = webType;
-    }
 }

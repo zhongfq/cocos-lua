@@ -20,7 +20,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -31,8 +31,8 @@ dependencies {
     implementation project(':libcocos2dx')
     implementation project(':libxgame')
 
-    implementation 'com.huawei.hms:hwid:3.0.3.300'
-    implementation 'com.huawei.hms:iap:3.0.3.300'
-    implementation 'com.huawei.hms:game:3.0.3.300'
-    implementation 'com.huawei.hms:hianalytics:2.3.0.302'
+    api 'com.huawei.hms:hwid:3.0.3.300'
+    api 'com.huawei.hms:iap:3.0.3.300'
+    api 'com.huawei.hms:game:3.0.3.300'
+    api 'com.huawei.hms:hianalytics:2.3.0.302'
 }

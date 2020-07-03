@@ -12,6 +12,7 @@ public class Application extends android.app.Application {
     public void onCreate() {
         super.onCreate();
 
+        loadPlugin("kernel.plugins.wechat.WeChat");
         loadPlugin("kernel.plugins.huawei.Huawei");
         loadPlugin("kernel.plugins.vivo.Vivo");
         loadPlugin("kernel.plugins.oppo.Oppo");

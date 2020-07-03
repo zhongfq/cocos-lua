@@ -302,6 +302,19 @@ static int l_share(lua_State *L)
     return 0;
 }
 
+static int l_open(lua_State *L)
+{
+    @autoreleasepool {
+        WXLaunchMiniProgramReq *req = [[WXLaunchMiniProgramReq alloc] init];
+        req.userName = [NSString stringWithUTF8String:luaL_checkstring(L, 2)];
+        req.path = [NSString stringWithUTF8String:luaL_checkstring(L, 3)];
+        req.miniProgramType = (WXMiniProgramType)luaL_checkinteger(L, 4);
+        [WXApi sendReq:req completion:nil];
+
+    }
+    return 0;
+}
+
 int luaopen_wechat(lua_State *L)
 {
     oluacls_class(L, CLASS_CONNECTOR, nullptr);
@@ -313,6 +326,7 @@ int luaopen_wechat(lua_State *L)
     oluacls_func(L, "auth", l_auth);
     oluacls_func(L, "authQRCode", l_authQRCode);
     oluacls_func(L, "share", l_share);
+    oluacls_func(L, "open", l_open);
     
     xgame::runtime::registerFeature("wechat.ios", true);
     

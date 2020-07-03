@@ -4,5 +4,6 @@
 .idea/
 *.iml
 app/bugly/
+app/assets/
 build/
 local.properties

@@ -110,6 +110,10 @@ function WeChat:auth(ticket)
     end
 end
 
+function WeChat:open(id, path, type)
+    impl:open(assert(id), path or '', type or 0)
+end
+
 function WeChat:_requestTicket()
     local URL_ACCESS_TOKEN = "https://api.weixin.qq.com/cgi-bin/token" ..
         "?grant_type=client_credential&appid=%s&secret=%s"
@@ -279,6 +283,12 @@ elseif runtime.os == "android" then
     function impl:share(message)
         inst.share(cjson.encode(message), function (...)
             impl.callback("share", ...)
+        end)
+    end
+
+    function impl:open(id, path, type)
+        inst.open(id, path, type, function (...)
+            impl.callback("open", ...)
         end)
     end
 end

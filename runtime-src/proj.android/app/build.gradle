@@ -108,6 +108,7 @@ dependencies {
     implementation project(':libxgame')
 
     implementation 'com.android.support:support-v4:28.0.0'
+    implementation project(':plugin-wechat')
 
     // implementation project(':plugin-alipay')
     // implementation project(':plugin-talkingdata')

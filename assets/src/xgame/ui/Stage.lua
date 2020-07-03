@@ -94,10 +94,11 @@ end
 
 function Stage:touchDown(points)
     local __TRACEBACK__ = __TRACEBACK__
-    while true and next(points) do
+    while next(points) do
         local target, capturePoints = self:hit(points)
         if target then
             for id in pairs(capturePoints) do
+                points[id] = nil
                 self._trackedTouches[id] = target
             end
             self.focus = target
@@ -111,7 +112,7 @@ end
 
 function Stage:touchMove(points)
     local __TRACEBACK__ = __TRACEBACK__
-    while true and next(points) do
+    while next(points) do
         local capturePoints = {}
         local target
         for id, p in pairs(points) do
@@ -120,18 +121,14 @@ function Stage:touchMove(points)
                 points[id] = nil
             elseif not target or target == obj then
                 target = obj
-                p.x, p.y = obj:globalToLocal(p.x, p.y)
                 capturePoints[id] = p
                 points[id] = nil
+                p.x, p.y = obj:globalToLocal(p.x, p.y)
             end
         end
 
         if target then
             xpcall(target.touchMove, __TRACEBACK__, target, capturePoints)
-        end
-
-        if not next(points) then
-            break
         end
     end
     return true
@@ -139,7 +136,7 @@ end
 
 function Stage:touchUp(points)
     local __TRACEBACK__ = __TRACEBACK__
-    while true and next(points) do
+    while next(points) do
         local capturePoints = {}
         local target
         for id, p in pairs(points) do
@@ -147,20 +144,16 @@ function Stage:touchUp(points)
             if not obj or not obj.stage then
                 points[id] = nil
             elseif not target or target == obj then
+                self._trackedTouches[id] = nil
                 target = obj
-                p.x, p.y = obj:globalToLocal(p.x, p.y)
                 capturePoints[id] = p
                 points[id] = nil
-                self._trackedTouches[id] = nil
+                p.x, p.y = obj:globalToLocal(p.x, p.y)
             end
         end
 
         if target then
             xpcall(target.touchUp, __TRACEBACK__, target, capturePoints)
-        end
-
-        if not next(points) then
-            break
         end
     end
     return true

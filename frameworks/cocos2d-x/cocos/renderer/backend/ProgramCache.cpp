@@ -312,6 +312,14 @@ void ProgramCache::removeAllPrograms()
 
 void ProgramCache::addCustomProgram(const std::string &key, backend::Program *program)
 {
+    const auto& iter = _cachedCustomPrograms.find(key);
+    CCASSERT(program, "program is nullptr");
+    program->retain();
+    if (_cachedCustomPrograms.end() != iter)
+    {
+        iter->second->release();
+        _cachedCustomPrograms.erase(iter);
+    }
     _cachedCustomPrograms.emplace(key, program);
 }
 

@@ -369,6 +369,14 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'fairygui::GLoader3D *',
+    LUACLS = 'fgui.GLoader3D',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
     CPPCLS = 'fairygui::GTextField *',
     LUACLS = 'fgui.GTextField',
     DECLTYPE = nil,

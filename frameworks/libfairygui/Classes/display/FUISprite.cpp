@@ -350,6 +350,7 @@ void FUISprite::updateRadial(void)
     {
         triangleCount = _vertexDataCount - 2;
     }
+    
     updateColor();
 
     if (!sameIndexCount)

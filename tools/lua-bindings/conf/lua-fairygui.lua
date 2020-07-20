@@ -12,6 +12,7 @@ M.INCLUDES = [[
 #include "lua-bindings/lua_conv_manual.h"
 #include "xgame/xlua.h"
 #include "FairyGUI.h"
+#include "GLoader3D.h"
 #include "tween/EaseManager.h"
 #include "tween/GPath.h"
 #include "display/FUISprite.h"
@@ -344,8 +345,12 @@ GRoot.INJECT({'hideWindow', 'hideWindowImmediately'}, {
 typeconf 'fairygui::GGroup'
 typeconf 'fairygui::GScrollBar'
 
-local GLoader = typeconf 'fairygui::GLoader'
-GLoader.ATTR('getComponent', {RET = '@addref(component ^)'})
+typeconf 'fairygui::GLoader'
+    .ATTR('getComponent', {RET = '@addref(component ^)'})
+
+typeconf 'fairygui::GLoader3D'
+    .ATTR('getContent', {RET = '@addref(content ^)'})
+    .ATTR('setContent', {ARG1 = '@addref(content ^)'})
 
 local GTextField = typeconf 'fairygui::GTextField'
 GTextField.FUNC('getTemplateVars', [[

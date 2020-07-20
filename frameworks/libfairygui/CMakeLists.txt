@@ -46,6 +46,7 @@ set(FAIRYGUI_SRC
     Classes/GLabel.cpp
     Classes/GList.cpp
     Classes/GLoader.cpp
+    Classes/GLoader3D.cpp
     Classes/GMovieClip.cpp
     Classes/GObject.cpp
     Classes/GObjectPool.cpp
@@ -127,6 +128,7 @@ set(FAIRYGUI_HEADER
     Classes/GLabel.h
     Classes/GList.h
     Classes/GLoader.h
+    Classes/GLoader3D.h
     Classes/GMovieClip.h
     Classes/GObject.h
     Classes/GObjectPool.h

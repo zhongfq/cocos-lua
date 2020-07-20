@@ -16,6 +16,7 @@ M.INCLUDES = [[
 #include "lua-bindings/lua_conv_manual.h"
 #include "xgame/xlua.h"
 #include "FairyGUI.h"
+#include "GLoader3D.h"
 #include "tween/EaseManager.h"
 #include "tween/GPath.h"
 #include "display/FUISprite.h"
@@ -617,6 +618,8 @@ cls.enums [[
     SWF
     MISC
     UNKNOWN
+    SPINE
+    DRAGONBONES
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -640,6 +643,7 @@ cls.enums [[
     SLIDER
     SCROLLBAR
     TREE
+    LOADER3D
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -1337,6 +1341,55 @@ cls.props [[
     fillClockwise
     fillAmount
     component
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'fairygui::GLoader3D'
+cls.SUPERCLS = "fairygui::GObject"
+cls.funcs [[
+    GLoader3D()
+    static fairygui::GLoader3D *create()
+    const std::string &getURL()
+    void setURL(const std::string &value)
+    cocos2d::TextHAlignment getAlign()
+    void setAlign(cocos2d::TextHAlignment value)
+    cocos2d::TextVAlignment getVerticalAlign()
+    void setVerticalAlign(cocos2d::TextVAlignment value)
+    bool getAutoSize()
+    void setAutoSize(bool value)
+    fairygui::LoaderFillType getFill()
+    void setFill(fairygui::LoaderFillType value)
+    bool isShrinkOnly()
+    void setShrinkOnly(bool value)
+    @addref(content ^) const cocos2d::Node *getContent()
+    void setContent(@addref(content ^) cocos2d::Node *value)
+    cocos2d::Color3B getColor()
+    void setColor(const cocos2d::Color3B &value)
+    bool isPlaying()
+    void setPlaying(bool value)
+    int getFrame()
+    void setFrame(int value)
+    const std::string &getAnimationName()
+    void setAnimationName(const std::string &value)
+    const std::string &getSkinName()
+    void setSkinName(const std::string &value)
+    bool getLoop()
+    void setLoop(bool value)
+]]
+cls.props [[
+    url
+    align
+    verticalAlign
+    autoSize
+    fill
+    shrinkOnly
+    content
+    color
+    playing
+    frame
+    animationName
+    skinName
+    loop
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 

@@ -241,7 +241,7 @@ void GLoader3D::onChangeSpine()
     {
         spine::TrackEntry* entry = state->getCurrent(0);
         if (entry == nullptr || strcmp(entry->getAnimation()->getName().buffer(), _animationName.c_str()) != 0
-            || entry->isComplete() && !entry->getLoop())
+            || (entry->isComplete() && !entry->getLoop()))
             entry = state->setAnimation(0, aniToUse, _loop);
         else
             entry->setLoop(_loop);

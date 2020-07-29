@@ -241,6 +241,13 @@ GObject.INJECT('makeFullScreen', {
 })
 
 local GComponent = typeconf 'fairygui::GComponent'
+GComponent.CHUNK = [[
+static int _fairygui_GComponent_getController(lua_State *L);
+static int _fairygui_GComponent_getTransition(lua_State *L);
+static int _fairygui_GComponent_getChild(lua_State *L);
+]]
+GComponent.EXCLUDE 'getChildByPath'
+GComponent.ALIAS('resolve', 'getChildByPath')
 GComponent.ATTR('addChild', {ARG1 = '@addref(children |)'})
 GComponent.ATTR('addChildAt', {ARG1 = '@addref(children |)'})
 GComponent.ATTR('removeChild', {ARG1 = '@delref(children |)'})
@@ -268,44 +275,33 @@ GComponent.FUNC('resolve', [[
     const char *name = olua_checkstring(L, 2);
     char type = '.';
     while (true) {
-        const char *pos = strchr(name, '.');
-        if (!pos) {
-            pos = strchr(name, '#');
-            type = pos ? '#' : type;
-        }
-        if (!pos) {
-            pos = strchr(name, '~');
-            type = pos ? '~' : type;
-        }
-        if (pos == name) {
-            pos = nullptr;
+        const char *sep = strpbrk(name, ".~#");
+        if (sep == name) {
+            type = *sep;
             ++name;
+            continue;
         }
-        if (pos) {
-            lua_pushcfunction(L, _fairygui_GComponent_getChild);
-            olua_push_cppobj<fairygui::GComponent>(L, self);
-            lua_pushlstring(L, name, pos - name);
-            lua_call(L, 2, 1);
-
-            if (olua_isa<fairygui::GComponent>(L, -1)) {
-                self = olua_toobj<fairygui::GComponent>(L, -1);
-            } else {
-                return 0;
-            }
-            name = pos + 1;
+        if (!sep) {
+            sep = name + strlen(name);
+        }
+        if (type == '#') {
+            lua_pushcfunction(L, _fairygui_GComponent_getController);
+        } else if (type == '~') {
+            lua_pushcfunction(L, _fairygui_GComponent_getTransition);
         } else {
-            if (type == '#') {
-                lua_pushcfunction(L, _fairygui_GComponent_getController);
-            } else if (type == '~') {
-                lua_pushcfunction(L, _fairygui_GComponent_getTransition);
-            } else {
-                lua_pushcfunction(L, _fairygui_GComponent_getChild);
-            }
-
-            olua_push_cppobj<fairygui::GComponent>(L, self);
-            lua_pushstring(L, name);
-            lua_call(L, 2, 1);
+            lua_pushcfunction(L, _fairygui_GComponent_getChild);
+        }
+        olua_push_cppobj<fairygui::GComponent>(L, self);
+        lua_pushlstring(L, name, sep - name);
+        lua_call(L, 2, 1);
+        
+        if (type != '.' || *sep == '\0') {
             return 1;
+        } else if (olua_isa<fairygui::GComponent>(L, -1)) {
+            self = olua_toobj<fairygui::GComponent>(L, -1);
+            name = sep;
+        } else {
+            return 0;
         }
     }
     return 0;

@@ -9164,6 +9164,10 @@ static int luaopen_fairygui_GObject(lua_State *L)
     return 1;
 }
 
+static int _fairygui_GComponent_getController(lua_State *L);
+static int _fairygui_GComponent_getTransition(lua_State *L);
+static int _fairygui_GComponent_getChild(lua_State *L);
+
 static int _fairygui_GComponent___move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -9449,23 +9453,51 @@ static int _fairygui_GComponent_getChildById(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_GComponent_getChildByPath(lua_State *L)
+static int _fairygui_GComponent_resolve(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::GComponent *self = nullptr;
-    std::string arg1;       /** path */
+    auto self = olua_toobj<fairygui::GComponent>(L, 1);
+    const char *name = olua_checkstring(L, 2);
+    char type = '.';
+    while (true) {
+        const char *sep = strpbrk(name, ".~#");
+        if (sep == name) {
+            type = *sep;
+            ++name;
+            continue;
+        }
+        if (!sep) {
+            sep = name + strlen(name);
+        }
+        if (type == '#') {
+            lua_pushcfunction(L, _fairygui_GComponent_getController);
+        } else if (type == '~') {
+            lua_pushcfunction(L, _fairygui_GComponent_getTransition);
+        } else {
+            lua_pushcfunction(L, _fairygui_GComponent_getChild);
+        }
+        olua_push_cppobj<fairygui::GComponent>(L, self);
+        lua_pushlstring(L, name, sep - name);
+        lua_call(L, 2, 1);
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
-    olua_check_std_string(L, 2, &arg1);
+        if (type != '.' || *sep == '\0') {
+            olua_endinvoke(L);
 
-    // fairygui::GObject *getChildByPath(const std::string &path)
-    fairygui::GObject *ret = (fairygui::GObject *)self->getChildByPath(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
+            return 1;
+        } else if (olua_isa<fairygui::GComponent>(L, -1)) {
+            self = olua_toobj<fairygui::GComponent>(L, -1);
+            name = sep;
+        } else {
+            olua_endinvoke(L);
+
+            return 0;
+        }
+    }
 
     olua_endinvoke(L);
 
-    return num_ret;
+    return 0;
 }
 
 static int _fairygui_GComponent_getChildInGroup(lua_State *L)
@@ -10038,65 +10070,6 @@ static int _fairygui_GComponent_removeController(lua_State *L)
     return 0;
 }
 
-static int _fairygui_GComponent_resolve(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    auto self = olua_toobj<fairygui::GComponent>(L, 1);
-    const char *name = olua_checkstring(L, 2);
-    char type = '.';
-    while (true) {
-        const char *pos = strchr(name, '.');
-        if (!pos) {
-            pos = strchr(name, '#');
-            type = pos ? '#' : type;
-        }
-        if (!pos) {
-            pos = strchr(name, '~');
-            type = pos ? '~' : type;
-        }
-        if (pos == name) {
-            pos = nullptr;
-            ++name;
-        }
-        if (pos) {
-            lua_pushcfunction(L, _fairygui_GComponent_getChild);
-            olua_push_cppobj<fairygui::GComponent>(L, self);
-            lua_pushlstring(L, name, pos - name);
-            lua_call(L, 2, 1);
-
-            if (olua_isa<fairygui::GComponent>(L, -1)) {
-                self = olua_toobj<fairygui::GComponent>(L, -1);
-            } else {
-                olua_endinvoke(L);
-
-                return 0;
-            }
-            name = pos + 1;
-        } else {
-            if (type == '#') {
-                lua_pushcfunction(L, _fairygui_GComponent_getController);
-            } else if (type == '~') {
-                lua_pushcfunction(L, _fairygui_GComponent_getTransition);
-            } else {
-                lua_pushcfunction(L, _fairygui_GComponent_getChild);
-            }
-
-            olua_push_cppobj<fairygui::GComponent>(L, self);
-            lua_pushstring(L, name);
-            lua_call(L, 2, 1);
-
-            olua_endinvoke(L);
-
-            return 1;
-        }
-    }
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 static int _fairygui_GComponent_setApexIndex(lua_State *L)
 {
     olua_startinvoke(L);
@@ -10405,7 +10378,7 @@ static int luaopen_fairygui_GComponent(lua_State *L)
     oluacls_func(L, "getChild", _fairygui_GComponent_getChild);
     oluacls_func(L, "getChildAt", _fairygui_GComponent_getChildAt);
     oluacls_func(L, "getChildById", _fairygui_GComponent_getChildById);
-    oluacls_func(L, "getChildByPath", _fairygui_GComponent_getChildByPath);
+    oluacls_func(L, "getChildByPath", _fairygui_GComponent_resolve);
     oluacls_func(L, "getChildInGroup", _fairygui_GComponent_getChildInGroup);
     oluacls_func(L, "getChildIndex", _fairygui_GComponent_getChildIndex);
     oluacls_func(L, "getChildren", _fairygui_GComponent_getChildren);

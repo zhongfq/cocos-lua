@@ -126,6 +126,7 @@ void GTextInput::editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std::st
 {
     _text.clear();
     _text.append(_input->getText());
+    dispatchEvent(UIEventType::Changed);
 }
 
 NS_FGUI_END

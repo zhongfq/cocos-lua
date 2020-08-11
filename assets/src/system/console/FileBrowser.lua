@@ -12,7 +12,7 @@ function FileBrowser:ctor(context, url)
     self.dirs = Array.new({})
     self.url = url
 
-    self.list = context.view:resolve('panel.fileList')
+    self.list = context.view.fgui:resolve('panel.fileList')
     self.list:addEventListener(UIEventType.ClickItem, function (context)
         local data = context.data.customData
         if data.name == '../' then

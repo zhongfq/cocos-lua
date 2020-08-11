@@ -34,7 +34,7 @@ function M:fromLayout(symbol)
 end
 
 function M:fromFGUI(path)
-    path = string.gsub(path, "/", ".")
+    path = path:gsub('/', '.'):gsub('.fui$', '')
     local data = require(path)
     for _, v in ipairs(data.files) do
         self.assets[v] = true

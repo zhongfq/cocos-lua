@@ -211,7 +211,7 @@ void FUIContainer::setInverted(bool inverted)
 
 void FUIContainer::onEnter()
 {
-#if CC_ENABLE_SCRIPT_BINDING
+#if CC_ENABLE_SCRIPT_BINDING && COCOS2D_VERSION < 0x00040000
     if (_scriptType == kScriptTypeJavascript)
     {
         if (ScriptEngineManager::sendNodeEventToJSExtended(this, kNodeOnEnter))
@@ -230,7 +230,7 @@ void FUIContainer::onEnter()
 
 void FUIContainer::onEnterTransitionDidFinish()
 {
-#if CC_ENABLE_SCRIPT_BINDING
+#if CC_ENABLE_SCRIPT_BINDING && COCOS2D_VERSION < 0x00040000
     if (_scriptType == kScriptTypeJavascript)
     {
         if (ScriptEngineManager::sendNodeEventToJSExtended(this, kNodeOnEnterTransitionDidFinish))
@@ -248,7 +248,7 @@ void FUIContainer::onEnterTransitionDidFinish()
 
 void FUIContainer::onExitTransitionDidStart()
 {
-#if CC_ENABLE_SCRIPT_BINDING
+#if CC_ENABLE_SCRIPT_BINDING && COCOS2D_VERSION < 0x00040000
     if (_scriptType == kScriptTypeJavascript)
     {
         if (ScriptEngineManager::sendNodeEventToJSExtended(this, kNodeOnExitTransitionDidStart))
@@ -263,7 +263,7 @@ void FUIContainer::onExitTransitionDidStart()
 
 void FUIContainer::onExit()
 {
-#if CC_ENABLE_SCRIPT_BINDING
+#if CC_ENABLE_SCRIPT_BINDING && COCOS2D_VERSION < 0x00040000
     if (_scriptType == kScriptTypeJavascript)
     {
         if (ScriptEngineManager::sendNodeEventToJSExtended(this, kNodeOnExit))
@@ -283,14 +283,6 @@ void FUIContainer::setCameraMask(unsigned short mask, bool applyChildren)
 
     if (_stencilClippingSupport != nullptr && _stencilClippingSupport->_stencil != nullptr)
         _stencilClippingSupport->_stencil->setCameraMask(mask, applyChildren);
-}
-
-void FUIContainer::setContentSize(const Size & contentSize)
-{
-    Node::setContentSize(contentSize);
-
-    if (_rectClippingSupport)
-        _rectClippingSupport->_clippingRectDirty = true;
 }
 
 #if COCOS2D_VERSION >= 0x00040000
@@ -478,7 +470,7 @@ void FUIContainer::visit(cocos2d::Renderer * renderer, const cocos2d::Mat4 & par
     }
     else if (_rectClippingSupport != nullptr && _rectClippingSupport->_clippingEnabled)
     {
-        if (parentFlags & FLAGS_DIRTY_MASK)
+        if (_transformUpdated || _contentSizeDirty || (parentFlags & FLAGS_DIRTY_MASK))
         {
             _rectClippingSupport->_clippingRectDirty = true;
         }

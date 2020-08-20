@@ -8,12 +8,11 @@ local UIPackage = require "fgui.UIPackage"
 local FGUI = class('FGUI', UILayer)
 
 function FGUI:ctor()
-    self.fguiAssets = {}
     self.fguiNode = self:addChild(FGUINode.new())
 end
 
 function FGUI:loadAssets(path)
-    self.fguiAssets[path] = assets.load(path)
+    self.fguiAsset = assets.load(path)
 end
 
 function FGUI:createUI(pkg, name)
@@ -22,35 +21,35 @@ function FGUI:createUI(pkg, name)
     self.fguiNode.root:addChild(self.fgui)
 end
 
--- extend GObject
-local GObject = require "fgui.GObject"
+-- extend UIEventDispatcher
+local UIEventDispatcher = require "fgui.UIEventDispatcher"
 local UIEventType = require "fgui.UIEventType"
 
-function GObject:onClick(callback)
+function UIEventDispatcher:onClick(callback)
     return self:addEventListener(UIEventType.Click, callback)
 end
 
-function GObject:onChanged(callback)
+function UIEventDispatcher:onChanged(callback)
     return self:addEventListener(UIEventType.Changed, callback)
 end
 
-function GObject:onClickItem(callback)
+function UIEventDispatcher:onClickItem(callback)
     return self:addEventListener(UIEventType.ClickItem, callback)
 end
 
-function GObject:onSubmit(callback)
+function UIEventDispatcher:onSubmit(callback)
     return self:addEventListener(UIEventType.Submit, callback)
 end
 
-function GObject:onTouchDown(callback)
+function UIEventDispatcher:onTouchDown(callback)
     return self:addEventListener(UIEventType.TouchBegin, callback)
 end
 
-function GObject:onTouchMove(callback)
+function UIEventDispatcher:onTouchMove(callback)
     return self:addEventListener(UIEventType.TouchMove, callback)
 end
 
-function GObject:onTouchUp(callback)
+function UIEventDispatcher:onTouchUp(callback)
     return self:addEventListener(UIEventType.TouchEnd, callback)
 end
 

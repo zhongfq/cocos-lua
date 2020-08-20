@@ -214,7 +214,7 @@ OLUA_API void olua_visitrefs(lua_State *L, int idx, const char *name, olua_DelRe
 // lua class model
 //  class A = {
 //      __name = 'A'
-//      .agent = class A agent      -- set funcs, props and consts
+//      .classagent = class A agent      -- set funcs, props and consts
 //      .isa = {
 //          copy(B['.isa'])
 //          A = true

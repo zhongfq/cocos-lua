@@ -69,10 +69,6 @@ extern "C" {
 #define olua_likely(x)      (x)
 #define olua_unlikely(x)    (x)
 #endif
-
-#ifndef olua_mainthread
-#define olua_mainthread(L) (L ? (olua_vmstatus(L)->mainthread) : NULL)
-#endif
     
 // compare raw type of value
 #define olua_isfunction(L,n)        (lua_type(L, (n)) == LUA_TFUNCTION)
@@ -100,27 +96,23 @@ extern "C" {
 #define olua_optnumber(L, i, d)     (luaL_opt(L, olua_checknumber, (i), (d)))
 #define olua_optboolean(L, i, d)    (olua_isnoneornil(L, (i)) ? (d) : olua_toboolean(L, (i)) != 0)
 
-typedef struct {
-    lua_State *mainthread;
-    lua_Unsigned ctxid;
-    size_t objcount;
-    size_t poolsize;
-    bool poolenabled;
-    bool debug;
-} olua_vmstatus_t;
+// stat api
+OLUA_API size_t olua_modifyobjcount(lua_State *L, size_t n);
+#define olua_addobjcount(L) (olua_modifyobjcount(L, 1))
+#define olua_subobjcount(L) (olua_modifyobjcount(L, -1))
+#define olua_objcount(L) (olua_modifyobjcount(L, 0))
+OLUA_API bool olua_isdebug(lua_State *L);
 
-OLUA_API olua_vmstatus_t *olua_vmstatus(lua_State *L);
-
-#define olua_addobjcount(L)  (++olua_vmstatus(L)->objcount)
-#define olua_subobjcount(L)  (--olua_vmstatus(L)->objcount)
-#define olua_objcount(L)     (olua_vmstatus(L)->objcount)
+#ifndef olua_mainthread
+OLUA_API lua_State *olua_mainthread(lua_State *L);
+#endif
 
 /**
  * Sometimes when you new and close lua_State for several times, you may got
  * same memory address for lua_State, this because the malloc reuse memory.
  * olua_context can return different id for each main lua_State.
  */
-#define olua_context(L)     (olua_vmstatus(L)->ctxid)
+OLUA_API lua_Unsigned olua_context(lua_State *L);
     
 OLUA_API lua_Integer olua_checkinteger(lua_State *L, int idx);
 OLUA_API lua_Number olua_checknumber(lua_State *L, int idx);
@@ -150,9 +142,9 @@ OLUA_API void *olua_toobj(lua_State *L, int idx, const char *cls);
 OLUA_API const char *olua_objstring(lua_State *L, int idx);
     
 // optimize temporary userdata
-#define olua_enable_objpool(L)  (olua_vmstatus(L)->poolenabled = true)
-#define olua_disable_objpool(L) (olua_vmstatus(L)->poolenabled = false)
-#define olua_push_objpool(L)    (olua_vmstatus(L)->poolsize)
+OLUA_API void olua_enable_objpool(lua_State *L);
+OLUA_API void olua_disable_objpool(lua_State *L);
+OLUA_API size_t olua_push_objpool(lua_State *L);
 OLUA_API void olua_pop_objpool(lua_State *L, size_t position);
 
 // callback functions

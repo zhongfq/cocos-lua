@@ -40,7 +40,7 @@
 #define OLUA_OBJTABLE       ((void *)(uintptr_t)aux_pushobjtable)
 #define OLUA_POOLTABLE      ((void *)(uintptr_t)aux_pushlocalobj)
 #define OLUA_MAPPINGTABLE   ((void *)(uintptr_t)aux_pushmappingtable)
-#define OLUA_VMSTATUS       ((void *)(uintptr_t)olua_vmstatus)
+#define OLUA_VMSTATUS       ((void *)(uintptr_t)aux_getvmstatus)
 
 #define registry_rawgetp(L, p)  olua_rawgetp(L, LUA_REGISTRYINDEX, (p))
 #define registry_rawsetp(L, p)  olua_rawsetp(L, LUA_REGISTRYINDEX, (p))
@@ -48,6 +48,15 @@
 #define strequal(s1, s2)        (strcmp((s1), (s2)) == 0)
 #define strstartwith(s1, s2)    (strstr((s1), (s2)) == s1)
 #define aux_pushrefkey(L, n)    (lua_pushfstring(L, ".ref.%s", (n)))
+
+typedef struct {
+    lua_State *mainthread;
+    lua_Unsigned ctxid;
+    size_t objcount;
+    size_t poolsize;
+    bool poolenabled;
+    bool debug;
+} olua_vmstatus_t;
 
 static int errfunc(lua_State *L)
 {
@@ -60,7 +69,7 @@ static int errfunc(lua_State *L)
     return 0;
 }
 
-OLUA_API olua_vmstatus_t *olua_vmstatus(lua_State *L)
+static olua_vmstatus_t *aux_getvmstatus(lua_State *L)
 {
     olua_vmstatus_t *vms;
     if (olua_unlikely(registry_rawgetp(L, OLUA_VMSTATUS) != LUA_TUSERDATA)) {
@@ -80,6 +89,28 @@ OLUA_API olua_vmstatus_t *olua_vmstatus(lua_State *L)
         lua_pop(L, 1);
     }
     return vms;
+}
+
+OLUA_API size_t olua_modifyobjcount(lua_State *L, size_t n)
+{
+    return aux_getvmstatus(L)->objcount += n;
+}
+
+OLUA_API bool olua_isdebug(lua_State *L)
+{
+    return aux_getvmstatus(L)->debug;
+}
+
+#ifndef olua_mainthread
+OLUA_API lua_State *olua_mainthread(lua_State *L)
+{
+    return L ? aux_getvmstatus(L)->mainthread : NULL;
+}
+#endif
+
+OLUA_API lua_Unsigned olua_context(lua_State *L)
+{
+    return aux_getvmstatus(L)->ctxid;
 }
 
 OLUA_API lua_Integer olua_checkinteger(lua_State *L, int idx)
@@ -236,7 +267,7 @@ OLUA_API int olua_pushobjstub(lua_State *L, void *obj, void *stub, const char *c
 
 static void aux_pushlocalobj(lua_State *L, void *obj)
 {
-    olua_vmstatus_t *mt = olua_vmstatus(L);
+    olua_vmstatus_t *mt = aux_getvmstatus(L);
     if (olua_unlikely(registry_rawgetp(L, OLUA_POOLTABLE) != LUA_TTABLE)) {
         lua_pop(L, 1);
         lua_createtable(L, 16, 0);
@@ -272,7 +303,7 @@ OLUA_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
     
     if (olua_likely(olua_rawgetp(L, -1, obj) == LUA_TNIL)) {
         lua_pop(L, 1);                              // L: mt objtable
-        if (olua_unlikely(olua_vmstatus(L)->poolenabled)) {
+        if (olua_unlikely(aux_getvmstatus(L)->poolenabled)) {
             aux_pushlocalobj(L, obj);
             status = OLUA_OBJ_EXIST;
         } else {
@@ -347,12 +378,27 @@ OLUA_API const char *olua_objstring(lua_State *L, int idx)
     return lua_pushfstring(L, "%s: %p", olua_typename(L, idx), p);
 }
 
+OLUA_API void olua_enable_objpool(lua_State *L)
+{
+    aux_getvmstatus(L)->poolenabled = true;
+}
+
+OLUA_API void olua_disable_objpool(lua_State *L)
+{
+    aux_getvmstatus(L)->poolenabled = false;
+}
+
+OLUA_API size_t olua_push_objpool(lua_State *L)
+{
+    return aux_getvmstatus(L)->poolsize;
+}
+
 OLUA_API void olua_pop_objpool(lua_State *L, size_t position)
 {
     if (olua_likely(registry_rawgetp(L, OLUA_POOLTABLE) == LUA_TTABLE)) {
         size_t len = lua_rawlen(L, -1);
         olua_assert(position < len);
-        olua_vmstatus(L)->poolsize = position;
+        aux_getvmstatus(L)->poolsize = position;
         for (size_t i = position + 1; i <= len; i++) {
             olua_rawgeti(L, -1, (lua_Integer)i);
             void **ud = (void **)lua_touserdata(L, -1);
@@ -1147,8 +1193,13 @@ static int l_move(lua_State *L)
 
 static int l_debug(lua_State *L)
 {
-    olua_vmstatus(L)->debug = olua_checkboolean(L, 1);
-    return 0;
+    if (olua_isnil(L, 1)) {
+        lua_pushboolean(L, aux_getvmstatus(L)->debug);
+        return 1;
+    } else {
+        aux_getvmstatus(L)->debug = olua_checkboolean(L, 1);
+        return 0;
+    }
 }
 
 static int l_class(lua_State *L)

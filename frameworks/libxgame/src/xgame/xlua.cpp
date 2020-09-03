@@ -352,7 +352,7 @@ int xlua_ccobjgc(lua_State *L)
         lua_pcall(L, 1, 0, errfuc);
     }
 #endif
-    if (olua_vmstatus(L)->debug) {
+    if (olua_isdebug(L)) {
         int top = lua_gettop(L);
         lua_getfield(L, 1, "name");
         const char *name = lua_tostring(L, -1);
@@ -373,7 +373,7 @@ int xlua_ccobjgc(lua_State *L)
 
 lua_State *xlua_mainthread(lua_State *L)
 {
-    return L ? olua_vmstatus(L)->mainthread : runtime::luaVM();
+    return runtime::luaVM();
 }
 
 void xlua_startcmpdelref(lua_State *L, int idx, const char *refname)

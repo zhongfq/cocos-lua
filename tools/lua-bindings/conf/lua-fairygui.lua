@@ -16,6 +16,9 @@ M.INCLUDES = [[
 #include "tween/EaseManager.h"
 #include "tween/GPath.h"
 #include "display/FUISprite.h"
+#include "utils/html/HtmlElement.h"
+#include "utils/html/HtmlObject.h"
+#include "utils/html/HtmlParser.h"
 ]]
 
 M.CHUNK = [[
@@ -39,6 +42,8 @@ void manual_olua_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventT
 M.EXCLUDE_TYPE = require "conf.exclude-type"
 M.EXCLUDE_TYPE 'fairygui::ByteBuffer *'
 M.EXCLUDE_TYPE 'fairygui::GObjectPool *'
+M.EXCLUDE_TYPE 'fairygui::GObjectPool'
+M.EXCLUDE_TYPE 'fairygui::TextFormat'
 M.EXCLUDE_TYPE 'std::vector *'
 
 M.MAKE_LUACLS = function (cppname)
@@ -52,6 +57,7 @@ typedef {
 }
 
 typeconv 'fairygui::Margin'
+typeconv 'fairygui::HtmlParseOptions'
 
 typeconv 'fairygui::TweenValue'
     .ATTR('*', {OPTIONAL = true})
@@ -644,5 +650,8 @@ typeconf 'fairygui::FUILabel'
 
 typeconf 'fairygui::FUIRichText'
 typeconf 'fairygui::FUISprite'
+typeconf 'fairygui::HtmlObject'
+typeconf 'fairygui::HtmlElement::Type'
+typeconf 'fairygui::HtmlElement'
 
 return M

@@ -17,6 +17,14 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'fairygui::HtmlParseOptions',
+    LUACLS = nil,
+    DECLTYPE = nil,
+    CONV = 'auto_olua_$$_fairygui_HtmlParseOptions',
+    NUMVARS = 4,
+}
+
+typedef {
     CPPCLS = 'fairygui::TweenValue',
     LUACLS = nil,
     DECLTYPE = nil,
@@ -635,6 +643,30 @@ typedef {
 typedef {
     CPPCLS = 'fairygui::FUISprite *',
     LUACLS = 'fgui.FUISprite',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'fairygui::HtmlObject *',
+    LUACLS = 'fgui.HtmlObject',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'fairygui::HtmlElement::Type',
+    LUACLS = 'fgui.HtmlElement::Type',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'fairygui::HtmlElement *',
+    LUACLS = 'fgui.HtmlElement',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
     NUMVARS = nil,

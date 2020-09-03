@@ -20,6 +20,9 @@ M.INCLUDES = [[
 #include "tween/EaseManager.h"
 #include "tween/GPath.h"
 #include "display/FUISprite.h"
+#include "utils/html/HtmlElement.h"
+#include "utils/html/HtmlObject.h"
+#include "utils/html/HtmlParser.h"
 ]]
 M.CHUNK = [[
 bool manual_olua_is_fairygui_EventTag(lua_State *L, int idx)
@@ -48,6 +51,15 @@ M.CONVS = {
             float top;
             float right;
             float bottom;
+        ]],
+    },
+    typeconv {
+        CPPCLS = 'fairygui::HtmlParseOptions',
+        DEF = [[
+            static bool defaultLinkUnderline;
+            static cocos2d::Color3B defaultLinkColor;
+            bool linkUnderline;
+            cocos2d::Color3B linkColor;
         ]],
     },
     typeconv {
@@ -1742,6 +1754,7 @@ cls.SUPERCLS = "fairygui::GTextField"
 cls.funcs [[
     GRichTextField()
     static fairygui::GRichTextField *create()
+    fairygui::HtmlObject *getControl(const std::string &name)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2461,6 +2474,7 @@ cls.funcs [[
     void setText(const std::string &value)
     fairygui::TextFormat *getTextFormat()
     void applyTextFormat()
+    void setUnderlineColor(const cocos2d::Color3B &value)
     void setGrayed(bool value)
 ]]
 cls.props [[
@@ -2485,14 +2499,27 @@ cls.funcs [[
     void setAnchorTextUnderline(bool enable)
     const cocos2d::Color3B &getAnchorFontColor()
     void setAnchorFontColor(const cocos2d::Color3B &color)
+    fairygui::HtmlParseOptions &parseOptions()
+    const std::vector<HtmlObject *> &getControls()
+    fairygui::HtmlObject *getControl(const std::string &name)
     const char *hitTestLink(const cocos2d::Vec2 &worldPoint)
 ]]
+cls.callback {
+    FUNCS =  {
+        'void setObjectFactory(@local const std::function<HtmlObject *(HtmlElement *)> &value)'
+    },
+    TAG_MAKER = 'ObjectFactory',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
+    TAG_SCOPE = 'object',
+}
 cls.props [[
     dimensions
     textFormat
     overflow
     anchorTextUnderline
     anchorFontColor
+    controls
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2521,6 +2548,53 @@ cls.props [[
     fillAmount
     scaleByTile
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'fairygui::HtmlObject'
+cls.funcs [[
+    HtmlObject()
+    fairygui::HtmlElement *getElement()
+    fairygui::GObject *getUI()
+    bool isHidden()
+    void create(fairygui::FUIRichText *owner, fairygui::HtmlElement *element)
+    void destroy()
+]]
+cls.var('buttonResource', [[static std::string buttonResource]])
+cls.var('inputResource', [[static std::string inputResource]])
+cls.var('selectResource', [[static std::string selectResource]])
+cls.var('usePool', [[static bool usePool]])
+cls.var('loaderPool', [[static cocos2d::Vector<GObject *> loaderPool]])
+cls.props [[
+    element
+    ui
+    hidden
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'fairygui::HtmlElement::Type'
+cls.enums [[
+    TEXT
+    IMAGE
+    LINK
+    INPUT
+    SELECT
+    OBJECT
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'fairygui::HtmlElement'
+cls.funcs [[
+    HtmlElement(fairygui::HtmlElement::Type type)
+    int getInt(const std::string &attrName, @optional int defValue)
+    std::string getString(const std::string &attrName, @optional const std::string &defValue)
+    cocos2d::ValueVector &getArray(const std::string &attrName)
+]]
+cls.var('type', [[fairygui::HtmlElement::Type type]])
+cls.var('text', [[std::string text]])
+cls.var('link', [[fairygui::HtmlElement *link]])
+cls.var('obj', [[fairygui::HtmlObject *obj]])
+cls.var('space', [[int space]])
+cls.var('attrs', [[cocos2d::ValueMap attrs]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 return M

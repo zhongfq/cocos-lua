@@ -10,6 +10,9 @@
 #include "tween/EaseManager.h"
 #include "tween/GPath.h"
 #include "display/FUISprite.h"
+#include "utils/html/HtmlElement.h"
+#include "utils/html/HtmlObject.h"
+#include "utils/html/HtmlParser.h"
 
 bool manual_olua_is_fairygui_EventTag(lua_State *L, int idx)
 {
@@ -134,6 +137,114 @@ int auto_olua_unpack_fairygui_Margin(lua_State *L, const fairygui::Margin *value
 bool auto_olua_ispack_fairygui_Margin(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_number(L, idx + 3);
+}
+
+int auto_olua_push_fairygui_HtmlParseOptions(lua_State *L, const fairygui::HtmlParseOptions *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 4);
+
+        olua_push_bool(L, value->defaultLinkUnderline);
+        olua_setfield(L, -2, "defaultLinkUnderline");
+
+        manual_olua_push_cocos2d_Color3B(L, &value->defaultLinkColor);
+        olua_setfield(L, -2, "defaultLinkColor");
+
+        olua_push_bool(L, value->linkUnderline);
+        olua_setfield(L, -2, "linkUnderline");
+
+        manual_olua_push_cocos2d_Color3B(L, &value->linkColor);
+        olua_setfield(L, -2, "linkColor");
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_olua_check_fairygui_HtmlParseOptions(lua_State *L, int idx, fairygui::HtmlParseOptions *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    luaL_checktype(L, idx, LUA_TTABLE);
+
+    bool arg1 = false;       /** defaultLinkUnderline */
+    cocos2d::Color3B arg2;       /** defaultLinkColor */
+    bool arg3 = false;       /** linkUnderline */
+    cocos2d::Color3B arg4;       /** linkColor */
+
+    olua_getfield(L, idx, "defaultLinkUnderline");
+    olua_check_bool(L, -1, &arg1);
+    value->defaultLinkUnderline = (bool)arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "defaultLinkColor");
+    manual_olua_check_cocos2d_Color3B(L, -1, &arg2);
+    value->defaultLinkColor = (cocos2d::Color3B)arg2;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "linkUnderline");
+    olua_check_bool(L, -1, &arg3);
+    value->linkUnderline = (bool)arg3;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "linkColor");
+    manual_olua_check_cocos2d_Color3B(L, -1, &arg4);
+    value->linkColor = (cocos2d::Color3B)arg4;
+    lua_pop(L, 1);
+}
+
+bool auto_olua_is_fairygui_HtmlParseOptions(lua_State *L, int idx)
+{
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "linkColor") && olua_hasfield(L, idx, "linkUnderline") && olua_hasfield(L, idx, "defaultLinkColor") && olua_hasfield(L, idx, "defaultLinkUnderline");
+}
+
+void auto_olua_pack_fairygui_HtmlParseOptions(lua_State *L, int idx, fairygui::HtmlParseOptions *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+
+    bool arg1 = false;       /** defaultLinkUnderline */
+    cocos2d::Color3B arg2;       /** defaultLinkColor */
+    bool arg3 = false;       /** linkUnderline */
+    cocos2d::Color3B arg4;       /** linkColor */
+
+    olua_check_bool(L, idx + 0, &arg1);
+    value->defaultLinkUnderline = (bool)arg1;
+
+    manual_olua_check_cocos2d_Color3B(L, idx + 1, &arg2);
+    value->defaultLinkColor = (cocos2d::Color3B)arg2;
+
+    olua_check_bool(L, idx + 2, &arg3);
+    value->linkUnderline = (bool)arg3;
+
+    manual_olua_check_cocos2d_Color3B(L, idx + 3, &arg4);
+    value->linkColor = (cocos2d::Color3B)arg4;
+}
+
+int auto_olua_unpack_fairygui_HtmlParseOptions(lua_State *L, const fairygui::HtmlParseOptions *value)
+{
+    if (value) {
+        olua_push_bool(L, value->defaultLinkUnderline);
+        manual_olua_push_cocos2d_Color3B(L, &value->defaultLinkColor);
+        olua_push_bool(L, value->linkUnderline);
+        manual_olua_push_cocos2d_Color3B(L, &value->linkColor);
+    } else {
+        for (int i = 0; i < 4; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 4;
+}
+
+bool auto_olua_ispack_fairygui_HtmlParseOptions(lua_State *L, int idx)
+{
+    return olua_is_bool(L, idx + 0) && manual_olua_is_cocos2d_Color3B(L, idx + 1) && olua_is_bool(L, idx + 2) && manual_olua_is_cocos2d_Color3B(L, idx + 3);
 }
 
 int auto_olua_push_fairygui_TweenValue(lua_State *L, const fairygui::TweenValue *value)
@@ -17229,6 +17340,25 @@ static int _fairygui_GRichTextField_create(lua_State *L)
     return num_ret;
 }
 
+static int _fairygui_GRichTextField_getControl(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GRichTextField *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GRichTextField");
+    olua_check_std_string(L, 2, &arg1);
+
+    // fairygui::HtmlObject *getControl(const std::string &name)
+    fairygui::HtmlObject *ret = (fairygui::HtmlObject *)self->getControl(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "fgui.HtmlObject");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _fairygui_GRichTextField_new(lua_State *L)
 {
     olua_startinvoke(L);
@@ -17248,6 +17378,7 @@ static int luaopen_fairygui_GRichTextField(lua_State *L)
     oluacls_class(L, "fgui.GRichTextField", "fgui.GTextField");
     oluacls_func(L, "__move", _fairygui_GRichTextField___move);
     oluacls_func(L, "create", _fairygui_GRichTextField_create);
+    oluacls_func(L, "getControl", _fairygui_GRichTextField_getControl);
     oluacls_func(L, "new", _fairygui_GRichTextField_new);
 
     olua_registerluatype<fairygui::GRichTextField>(L, "fgui.GRichTextField");
@@ -25311,6 +25442,24 @@ static int _fairygui_FUILabel_setText(lua_State *L)
     return 0;
 }
 
+static int _fairygui_FUILabel_setUnderlineColor(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::FUILabel *self = nullptr;
+    cocos2d::Color3B arg1;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.FUILabel");
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
+
+    // void setUnderlineColor(const cocos2d::Color3B &value)
+    self->setUnderlineColor(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_fairygui_FUILabel(lua_State *L)
 {
     oluacls_class(L, "fgui.FUILabel", "cc.Label");
@@ -25322,6 +25471,7 @@ static int luaopen_fairygui_FUILabel(lua_State *L)
     oluacls_func(L, "new", _fairygui_FUILabel_new);
     oluacls_func(L, "setGrayed", _fairygui_FUILabel_setGrayed);
     oluacls_func(L, "setText", _fairygui_FUILabel_setText);
+    oluacls_func(L, "setUnderlineColor", _fairygui_FUILabel_setUnderlineColor);
     oluacls_prop(L, "text", _fairygui_FUILabel_getText, _fairygui_FUILabel_setText);
     oluacls_prop(L, "textFormat", _fairygui_FUILabel_getTextFormat, nullptr);
 
@@ -25382,6 +25532,42 @@ static int _fairygui_FUIRichText_getAnchorFontColor(lua_State *L)
     // const cocos2d::Color3B &getAnchorFontColor()
     const cocos2d::Color3B &ret = (const cocos2d::Color3B &)self->getAnchorFontColor();
     int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_FUIRichText_getControl(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::FUIRichText *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIRichText");
+    olua_check_std_string(L, 2, &arg1);
+
+    // fairygui::HtmlObject *getControl(const std::string &name)
+    fairygui::HtmlObject *ret = (fairygui::HtmlObject *)self->getControl(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "fgui.HtmlObject");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_FUIRichText_getControls(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::FUIRichText *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIRichText");
+
+    // const std::vector<HtmlObject *> &getControls()
+    const std::vector<fairygui::HtmlObject *> &ret = (const std::vector<fairygui::HtmlObject *> &)self->getControls();
+    int num_ret = olua_push_std_vector(L, ret, "fgui.HtmlObject");
 
     olua_endinvoke(L);
 
@@ -25489,6 +25675,23 @@ static int _fairygui_FUIRichText_new(lua_State *L)
     return num_ret;
 }
 
+static int _fairygui_FUIRichText_parseOptions(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::FUIRichText *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIRichText");
+
+    // fairygui::HtmlParseOptions &parseOptions()
+    fairygui::HtmlParseOptions &ret = (fairygui::HtmlParseOptions &)self->parseOptions();
+    int num_ret = auto_olua_push_fairygui_HtmlParseOptions(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _fairygui_FUIRichText_setAnchorFontColor(lua_State *L)
 {
     olua_startinvoke(L);
@@ -25545,6 +25748,50 @@ static int _fairygui_FUIRichText_setDimensions(lua_State *L)
     return 0;
 }
 
+static int _fairygui_FUIRichText_setObjectFactory(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::FUIRichText *self = nullptr;
+    std::function<fairygui::HtmlObject *(fairygui::HtmlElement *)> arg1;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIRichText");
+
+    void *self_obj = (void *)self;
+    std::string tag = "ObjectFactory";
+    std::string func = olua_setcallback(L, self_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
+    lua_Unsigned ctx = olua_context(L);
+    arg1 = [self_obj, func, ctx](fairygui::HtmlElement *arg1) {
+        lua_State *L = olua_mainthread(NULL);
+        fairygui::HtmlObject *ret = nullptr;       
+        if (L != NULL && (olua_context(L) == ctx)) {
+            int top = lua_gettop(L);
+            size_t last = olua_push_objpool(L);
+            olua_enable_objpool(L);
+            olua_push_cppobj(L, arg1, "fgui.HtmlElement");
+            olua_disable_objpool(L);
+
+            olua_callback(L, self_obj, func.c_str(), 1);
+
+            if (olua_is_cppobj(L, -1, "fgui.HtmlObject")) {
+                olua_check_cppobj(L, -1, (void **)&ret, "fgui.HtmlObject");
+            }
+
+            //pop stack value
+            olua_pop_objpool(L, last);
+            lua_settop(L, top);
+        }
+        return ret;
+    };
+
+    // void setObjectFactory(@local const std::function<HtmlObject *(HtmlElement *)> &value)
+    self->setObjectFactory(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _fairygui_FUIRichText_setOverflow(lua_State *L)
 {
     olua_startinvoke(L);
@@ -25588,19 +25835,24 @@ static int luaopen_fairygui_FUIRichText(lua_State *L)
     oluacls_func(L, "applyTextFormat", _fairygui_FUIRichText_applyTextFormat);
     oluacls_func(L, "create", _fairygui_FUIRichText_create);
     oluacls_func(L, "getAnchorFontColor", _fairygui_FUIRichText_getAnchorFontColor);
+    oluacls_func(L, "getControl", _fairygui_FUIRichText_getControl);
+    oluacls_func(L, "getControls", _fairygui_FUIRichText_getControls);
     oluacls_func(L, "getDimensions", _fairygui_FUIRichText_getDimensions);
     oluacls_func(L, "getOverflow", _fairygui_FUIRichText_getOverflow);
     oluacls_func(L, "getTextFormat", _fairygui_FUIRichText_getTextFormat);
     oluacls_func(L, "hitTestLink", _fairygui_FUIRichText_hitTestLink);
     oluacls_func(L, "isAnchorTextUnderline", _fairygui_FUIRichText_isAnchorTextUnderline);
     oluacls_func(L, "new", _fairygui_FUIRichText_new);
+    oluacls_func(L, "parseOptions", _fairygui_FUIRichText_parseOptions);
     oluacls_func(L, "setAnchorFontColor", _fairygui_FUIRichText_setAnchorFontColor);
     oluacls_func(L, "setAnchorTextUnderline", _fairygui_FUIRichText_setAnchorTextUnderline);
     oluacls_func(L, "setDimensions", _fairygui_FUIRichText_setDimensions);
+    oluacls_func(L, "setObjectFactory", _fairygui_FUIRichText_setObjectFactory);
     oluacls_func(L, "setOverflow", _fairygui_FUIRichText_setOverflow);
     oluacls_func(L, "setText", _fairygui_FUIRichText_setText);
     oluacls_prop(L, "anchorFontColor", _fairygui_FUIRichText_getAnchorFontColor, _fairygui_FUIRichText_setAnchorFontColor);
     oluacls_prop(L, "anchorTextUnderline", _fairygui_FUIRichText_isAnchorTextUnderline, _fairygui_FUIRichText_setAnchorTextUnderline);
+    oluacls_prop(L, "controls", _fairygui_FUIRichText_getControls, nullptr);
     oluacls_prop(L, "dimensions", _fairygui_FUIRichText_getDimensions, _fairygui_FUIRichText_setDimensions);
     oluacls_prop(L, "overflow", _fairygui_FUIRichText_getOverflow, _fairygui_FUIRichText_setOverflow);
     oluacls_prop(L, "textFormat", _fairygui_FUIRichText_getTextFormat, nullptr);
@@ -25887,6 +26139,744 @@ static int luaopen_fairygui_FUISprite(lua_State *L)
     return 1;
 }
 
+static int _fairygui_HtmlObject___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (fairygui::HtmlObject *)olua_toobj(L, 1, "fgui.HtmlObject");
+    lua_pushstring(L, ".ownership");
+    olua_getvariable(L, 1);
+    if (lua_toboolean(L, -1)) {
+        olua_setrawobj(L, 1, nullptr);
+        delete self;
+    }
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_HtmlObject___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (fairygui::HtmlObject *)olua_toobj(L, 1, "fgui.HtmlObject");
+    olua_push_cppobj(L, self, "fgui.HtmlObject");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _fairygui_HtmlObject_create(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlObject *self = nullptr;
+    fairygui::FUIRichText *arg1 = nullptr;       /** owner */
+    fairygui::HtmlElement *arg2 = nullptr;       /** element */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlObject");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.FUIRichText");
+    olua_check_cppobj(L, 3, (void **)&arg2, "fgui.HtmlElement");
+
+    // void create(fairygui::FUIRichText *owner, fairygui::HtmlElement *element)
+    self->create(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_HtmlObject_destroy(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlObject");
+
+    // void destroy()
+    self->destroy();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_HtmlObject_getElement(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlObject");
+
+    // fairygui::HtmlElement *getElement()
+    fairygui::HtmlElement *ret = (fairygui::HtmlElement *)self->getElement();
+    int num_ret = olua_push_cppobj(L, ret, "fgui.HtmlElement");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlObject_getUI(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlObject");
+
+    // fairygui::GObject *getUI()
+    fairygui::GObject *ret = (fairygui::GObject *)self->getUI();
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlObject_isHidden(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlObject");
+
+    // bool isHidden()
+    bool ret = (bool)self->isHidden();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlObject_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // HtmlObject()
+    fairygui::HtmlObject *ret = (fairygui::HtmlObject *)new fairygui::HtmlObject();
+    int num_ret = olua_push_cppobj(L, ret, "fgui.HtmlObject");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlObject_get_buttonResource(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static std::string buttonResource
+    std::string ret = (std::string)fairygui::HtmlObject::buttonResource;
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlObject_set_buttonResource(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::string arg1;       /** buttonResource */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static std::string buttonResource
+    fairygui::HtmlObject::buttonResource = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_HtmlObject_get_inputResource(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static std::string inputResource
+    std::string ret = (std::string)fairygui::HtmlObject::inputResource;
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlObject_set_inputResource(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::string arg1;       /** inputResource */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static std::string inputResource
+    fairygui::HtmlObject::inputResource = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_HtmlObject_get_loaderPool(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static cocos2d::Vector<GObject *> loaderPool
+    cocos2d::Vector<fairygui::GObject *> ret = (cocos2d::Vector<fairygui::GObject *>)fairygui::HtmlObject::loaderPool;
+    int num_ret = manual_olua_push_cocos2d_Vector(L, ret, "fgui.GObject");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlObject_set_loaderPool(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Vector<fairygui::GObject *> arg1;       /** loaderPool */
+
+    manual_olua_check_cocos2d_Vector(L, 1, arg1, "fgui.GObject");
+
+    // static cocos2d::Vector<GObject *> loaderPool
+    fairygui::HtmlObject::loaderPool = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_HtmlObject_get_selectResource(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static std::string selectResource
+    std::string ret = (std::string)fairygui::HtmlObject::selectResource;
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlObject_set_selectResource(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::string arg1;       /** selectResource */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static std::string selectResource
+    fairygui::HtmlObject::selectResource = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_HtmlObject_get_usePool(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static bool usePool
+    bool ret = (bool)fairygui::HtmlObject::usePool;
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlObject_set_usePool(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    bool arg1 = false;       /** usePool */
+
+    olua_check_bool(L, 1, &arg1);
+
+    // static bool usePool
+    fairygui::HtmlObject::usePool = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int luaopen_fairygui_HtmlObject(lua_State *L)
+{
+    oluacls_class(L, "fgui.HtmlObject", nullptr);
+    oluacls_func(L, "__gc", _fairygui_HtmlObject___gc);
+    oluacls_func(L, "__move", _fairygui_HtmlObject___move);
+    oluacls_func(L, "create", _fairygui_HtmlObject_create);
+    oluacls_func(L, "destroy", _fairygui_HtmlObject_destroy);
+    oluacls_func(L, "getElement", _fairygui_HtmlObject_getElement);
+    oluacls_func(L, "getUI", _fairygui_HtmlObject_getUI);
+    oluacls_func(L, "isHidden", _fairygui_HtmlObject_isHidden);
+    oluacls_func(L, "new", _fairygui_HtmlObject_new);
+    oluacls_prop(L, "element", _fairygui_HtmlObject_getElement, nullptr);
+    oluacls_prop(L, "hidden", _fairygui_HtmlObject_isHidden, nullptr);
+    oluacls_prop(L, "ui", _fairygui_HtmlObject_getUI, nullptr);
+    oluacls_prop(L, "buttonResource", _fairygui_HtmlObject_get_buttonResource, _fairygui_HtmlObject_set_buttonResource);
+    oluacls_prop(L, "inputResource", _fairygui_HtmlObject_get_inputResource, _fairygui_HtmlObject_set_inputResource);
+    oluacls_prop(L, "loaderPool", _fairygui_HtmlObject_get_loaderPool, _fairygui_HtmlObject_set_loaderPool);
+    oluacls_prop(L, "selectResource", _fairygui_HtmlObject_get_selectResource, _fairygui_HtmlObject_set_selectResource);
+    oluacls_prop(L, "usePool", _fairygui_HtmlObject_get_usePool, _fairygui_HtmlObject_set_usePool);
+
+    olua_registerluatype<fairygui::HtmlObject>(L, "fgui.HtmlObject");
+
+    return 1;
+}
+
+static int luaopen_fairygui_HtmlElement_Type(lua_State *L)
+{
+    oluacls_class(L, "fgui.HtmlElement::Type", nullptr);
+    oluacls_const_integer(L, "IMAGE", (lua_Integer)fairygui::HtmlElement::Type::IMAGE);
+    oluacls_const_integer(L, "INPUT", (lua_Integer)fairygui::HtmlElement::Type::INPUT);
+    oluacls_const_integer(L, "LINK", (lua_Integer)fairygui::HtmlElement::Type::LINK);
+    oluacls_const_integer(L, "OBJECT", (lua_Integer)fairygui::HtmlElement::Type::OBJECT);
+    oluacls_const_integer(L, "SELECT", (lua_Integer)fairygui::HtmlElement::Type::SELECT);
+    oluacls_const_integer(L, "TEXT", (lua_Integer)fairygui::HtmlElement::Type::TEXT);
+
+    olua_registerluatype<fairygui::HtmlElement::Type>(L, "fgui.HtmlElement::Type");
+
+    return 1;
+}
+
+static int _fairygui_HtmlElement___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (fairygui::HtmlElement *)olua_toobj(L, 1, "fgui.HtmlElement");
+    lua_pushstring(L, ".ownership");
+    olua_getvariable(L, 1);
+    if (lua_toboolean(L, -1)) {
+        olua_setrawobj(L, 1, nullptr);
+        delete self;
+    }
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_HtmlElement___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (fairygui::HtmlElement *)olua_toobj(L, 1, "fgui.HtmlElement");
+    olua_push_cppobj(L, self, "fgui.HtmlElement");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _fairygui_HtmlElement_getArray(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlElement *self = nullptr;
+    std::string arg1;       /** attrName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
+    olua_check_std_string(L, 2, &arg1);
+
+    // cocos2d::ValueVector &getArray(const std::string &attrName)
+    cocos2d::ValueVector &ret = (cocos2d::ValueVector &)self->getArray(arg1);
+    int num_ret = manual_olua_push_cocos2d_ValueVector(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlElement_getInt1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlElement *self = nullptr;
+    std::string arg1;       /** attrName */
+    lua_Integer arg2 = 0;       /** defValue */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_int(L, 3, &arg2);
+
+    // int getInt(const std::string &attrName, @optional int defValue)
+    int ret = (int)self->getInt(arg1, (int)arg2);
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlElement_getInt2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlElement *self = nullptr;
+    std::string arg1;       /** attrName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
+    olua_check_std_string(L, 2, &arg1);
+
+    // int getInt(const std::string &attrName, @optional int defValue)
+    int ret = (int)self->getInt(arg1);
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlElement_getInt(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            // int getInt(const std::string &attrName, @optional int defValue)
+            return _fairygui_HtmlElement_getInt2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_int(L, 3))) {
+            // int getInt(const std::string &attrName, @optional int defValue)
+            return _fairygui_HtmlElement_getInt1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::HtmlElement::getInt' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_HtmlElement_getString1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlElement *self = nullptr;
+    std::string arg1;       /** attrName */
+    std::string arg2;       /** defValue */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // std::string getString(const std::string &attrName, @optional const std::string &defValue)
+    std::string ret = (std::string)self->getString(arg1, arg2);
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlElement_getString2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlElement *self = nullptr;
+    std::string arg1;       /** attrName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
+    olua_check_std_string(L, 2, &arg1);
+
+    // std::string getString(const std::string &attrName, @optional const std::string &defValue)
+    std::string ret = (std::string)self->getString(arg1);
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlElement_getString(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            // std::string getString(const std::string &attrName, @optional const std::string &defValue)
+            return _fairygui_HtmlElement_getString2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            // std::string getString(const std::string &attrName, @optional const std::string &defValue)
+            return _fairygui_HtmlElement_getString1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::HtmlElement::getString' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_HtmlElement_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Unsigned arg1 = 0;       /** type */
+
+    olua_check_uint(L, 1, &arg1);
+
+    // HtmlElement(fairygui::HtmlElement::Type type)
+    fairygui::HtmlElement *ret = (fairygui::HtmlElement *)new fairygui::HtmlElement((fairygui::HtmlElement::Type)arg1);
+    int num_ret = olua_push_cppobj(L, ret, "fgui.HtmlElement");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlElement_get_attrs(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlElement *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
+
+    // cocos2d::ValueMap attrs
+    cocos2d::ValueMap ret = (cocos2d::ValueMap)self->attrs;
+    int num_ret = manual_olua_push_cocos2d_ValueMap(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlElement_set_attrs(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlElement *self = nullptr;
+    cocos2d::ValueMap arg1;       /** attrs */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
+    manual_olua_check_cocos2d_ValueMap(L, 2, &arg1);
+
+    // cocos2d::ValueMap attrs
+    self->attrs = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_HtmlElement_get_link(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlElement *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
+
+    // fairygui::HtmlElement *link
+    fairygui::HtmlElement *ret = (fairygui::HtmlElement *)self->link;
+    int num_ret = olua_push_cppobj(L, ret, "fgui.HtmlElement");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlElement_set_link(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlElement *self = nullptr;
+    fairygui::HtmlElement *arg1 = nullptr;       /** link */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.HtmlElement");
+
+    // fairygui::HtmlElement *link
+    self->link = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_HtmlElement_get_obj(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlElement *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
+
+    // fairygui::HtmlObject *obj
+    fairygui::HtmlObject *ret = (fairygui::HtmlObject *)self->obj;
+    int num_ret = olua_push_cppobj(L, ret, "fgui.HtmlObject");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlElement_set_obj(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlElement *self = nullptr;
+    fairygui::HtmlObject *arg1 = nullptr;       /** obj */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.HtmlObject");
+
+    // fairygui::HtmlObject *obj
+    self->obj = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_HtmlElement_get_space(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlElement *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
+
+    // int space
+    int ret = (int)self->space;
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlElement_set_space(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlElement *self = nullptr;
+    lua_Integer arg1 = 0;       /** space */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
+    olua_check_int(L, 2, &arg1);
+
+    // int space
+    self->space = (int)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_HtmlElement_get_text(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlElement *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
+
+    // std::string text
+    std::string ret = (std::string)self->text;
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlElement_set_text(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlElement *self = nullptr;
+    std::string arg1;       /** text */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
+    olua_check_std_string(L, 2, &arg1);
+
+    // std::string text
+    self->text = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_HtmlElement_get_type(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlElement *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
+
+    // fairygui::HtmlElement::Type type
+    fairygui::HtmlElement::Type ret = (fairygui::HtmlElement::Type)self->type;
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlElement_set_type(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlElement *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** type */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
+    olua_check_uint(L, 2, &arg1);
+
+    // fairygui::HtmlElement::Type type
+    self->type = (fairygui::HtmlElement::Type)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int luaopen_fairygui_HtmlElement(lua_State *L)
+{
+    oluacls_class(L, "fgui.HtmlElement", nullptr);
+    oluacls_func(L, "__gc", _fairygui_HtmlElement___gc);
+    oluacls_func(L, "__move", _fairygui_HtmlElement___move);
+    oluacls_func(L, "getArray", _fairygui_HtmlElement_getArray);
+    oluacls_func(L, "getInt", _fairygui_HtmlElement_getInt);
+    oluacls_func(L, "getString", _fairygui_HtmlElement_getString);
+    oluacls_func(L, "new", _fairygui_HtmlElement_new);
+    oluacls_prop(L, "attrs", _fairygui_HtmlElement_get_attrs, _fairygui_HtmlElement_set_attrs);
+    oluacls_prop(L, "link", _fairygui_HtmlElement_get_link, _fairygui_HtmlElement_set_link);
+    oluacls_prop(L, "obj", _fairygui_HtmlElement_get_obj, _fairygui_HtmlElement_set_obj);
+    oluacls_prop(L, "space", _fairygui_HtmlElement_get_space, _fairygui_HtmlElement_set_space);
+    oluacls_prop(L, "text", _fairygui_HtmlElement_get_text, _fairygui_HtmlElement_set_text);
+    oluacls_prop(L, "type", _fairygui_HtmlElement_get_type, _fairygui_HtmlElement_set_type);
+
+    olua_registerluatype<fairygui::HtmlElement>(L, "fgui.HtmlElement");
+
+    return 1;
+}
+
 int luaopen_fairygui(lua_State *L)
 {
     olua_require(L, "fgui.UIEventType", luaopen_fairygui_UIEventType);
@@ -25966,5 +26956,8 @@ int luaopen_fairygui(lua_State *L)
     olua_require(L, "fgui.FUILabel", luaopen_fairygui_FUILabel);
     olua_require(L, "fgui.FUIRichText", luaopen_fairygui_FUIRichText);
     olua_require(L, "fgui.FUISprite", luaopen_fairygui_FUISprite);
+    olua_require(L, "fgui.HtmlObject", luaopen_fairygui_HtmlObject);
+    olua_require(L, "fgui.HtmlElement::Type", luaopen_fairygui_HtmlElement_Type);
+    olua_require(L, "fgui.HtmlElement", luaopen_fairygui_HtmlElement);
     return 0;
 }

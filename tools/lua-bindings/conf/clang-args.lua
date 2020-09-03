@@ -16,6 +16,9 @@ return {
         #include "tween/EaseManager.h"
         #include "tween/GPath.h"
         #include "display/FUISprite.h"
+        #include "utils/html/HtmlElement.h"
+        #include "utils/html/HtmlObject.h"
+        #include "utils/html/HtmlParser.h"
 
         // spine
         #include "spine/spine-cocos2dx.h"

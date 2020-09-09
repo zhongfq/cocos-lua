@@ -43,7 +43,6 @@ M.EXCLUDE_TYPE = require "conf.exclude-type"
 M.EXCLUDE_TYPE 'fairygui::ByteBuffer *'
 M.EXCLUDE_TYPE 'fairygui::GObjectPool *'
 M.EXCLUDE_TYPE 'fairygui::GObjectPool'
-M.EXCLUDE_TYPE 'fairygui::TextFormat'
 M.EXCLUDE_TYPE 'std::vector *'
 
 M.MAKE_LUACLS = function (cppname)

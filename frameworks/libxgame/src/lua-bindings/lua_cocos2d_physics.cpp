@@ -171,7 +171,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactBegin(lua_State *L)
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
-                olua_push_cppobj(L, &arg1);
+                olua_push_cppobj(L, &arg1, "cc.PhysicsContact");
                 olua_disable_objpool(L);
 
                 olua_callback(L, self_obj, func.c_str(), 1);
@@ -243,8 +243,8 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPostSolve(lua_State
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
-                olua_push_cppobj(L, &arg1);
-                olua_push_cppobj(L, &arg2);
+                olua_push_cppobj(L, &arg1, "cc.PhysicsContact");
+                olua_push_cppobj(L, &arg2, "cc.PhysicsContactPostSolve");
                 olua_disable_objpool(L);
 
                 olua_callback(L, self_obj, func.c_str(), 2);
@@ -311,8 +311,8 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPreSolve(lua_State 
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
-                olua_push_cppobj(L, &arg1);
-                olua_push_cppobj(L, &arg2);
+                olua_push_cppobj(L, &arg1, "cc.PhysicsContact");
+                olua_push_cppobj(L, &arg2, "cc.PhysicsContactPreSolve");
                 olua_disable_objpool(L);
 
                 olua_callback(L, self_obj, func.c_str(), 2);
@@ -384,7 +384,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactSeparate(lua_State 
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
-                olua_push_cppobj(L, &arg1);
+                olua_push_cppobj(L, &arg1, "cc.PhysicsContact");
                 olua_disable_objpool(L);
 
                 olua_callback(L, self_obj, func.c_str(), 1);
@@ -6700,13 +6700,17 @@ static int _cocos2d_PhysicsWorld_getScene(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = olua_toobj<cocos2d::PhysicsWorld>(L, 1);
-    cocos2d::Scene &scene = self->getScene();
-    olua_push_cppobj<cocos2d::Scene>(L, &scene);
+    cocos2d::PhysicsWorld *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
+
+    // cocos2d::Scene &getScene()
+    cocos2d::Scene &ret = (cocos2d::Scene &)self->getScene();
+    int num_ret = olua_push_cppobj(L, &ret, "cc.Scene");
 
     olua_endinvoke(L);
 
-    return 1;
+    return num_ret;
 }
 
 static int _cocos2d_PhysicsWorld_getShape(lua_State *L)
@@ -6839,8 +6843,8 @@ static int _cocos2d_PhysicsWorld_queryPoint(lua_State *L)
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cppobj(L, &arg1);
-            olua_push_cppobj(L, &arg2);
+            olua_push_cppobj(L, &arg1, "cc.PhysicsWorld");
+            olua_push_cppobj(L, &arg2, "cc.PhysicsShape");
             olua_push_obj(L, arg3, "void *");
             olua_disable_objpool(L);
 
@@ -6889,8 +6893,8 @@ static int _cocos2d_PhysicsWorld_queryRect(lua_State *L)
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cppobj(L, &arg1);
-            olua_push_cppobj(L, &arg2);
+            olua_push_cppobj(L, &arg1, "cc.PhysicsWorld");
+            olua_push_cppobj(L, &arg2, "cc.PhysicsShape");
             olua_push_obj(L, arg3, "void *");
             olua_disable_objpool(L);
 
@@ -6941,8 +6945,8 @@ static int _cocos2d_PhysicsWorld_rayCast(lua_State *L)
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cppobj(L, &arg1);
-            olua_push_cppobj(L, &arg2);
+            olua_push_cppobj(L, &arg1, "cc.PhysicsWorld");
+            olua_push_cppobj(L, &arg2, "cc.PhysicsRayCastInfo");
             olua_push_obj(L, arg3, "void *");
             olua_disable_objpool(L);
 

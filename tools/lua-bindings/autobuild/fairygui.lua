@@ -2591,6 +2591,7 @@ cls.funcs [[
 ]]
 cls.var('type', [[fairygui::HtmlElement::Type type]])
 cls.var('text', [[std::string text]])
+cls.var('format', [[fairygui::TextFormat format]])
 cls.var('link', [[fairygui::HtmlElement *link]])
 cls.var('obj', [[fairygui::HtmlObject *obj]])
 cls.var('space', [[int space]])

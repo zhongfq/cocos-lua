@@ -612,6 +612,7 @@ cls.funcs [[
     cocos2d::PhysicsShape *getShape(const cocos2d::Vec2 &point)
     const Vector<cocos2d::PhysicsBody *> &getAllBodies()
     cocos2d::PhysicsBody *getBody(int tag)
+    cocos2d::Scene &getScene()
     cocos2d::Vec2 getGravity()
     void setGravity(const cocos2d::Vec2 &gravity)
     void setSpeed(float speed)
@@ -628,13 +629,6 @@ cls.funcs [[
     bool isAutoStep()
     void step(float delta)
 ]]
-cls.func('getScene', [[{
-    auto self = olua_toobj<cocos2d::PhysicsWorld>(L, 1);
-    cocos2d::Scene &scene = self->getScene();
-    olua_push_cppobj<cocos2d::Scene>(L, &scene);
-    return 1;
-}]])
-cls.prop('scene')
 cls.callback {
     FUNCS =  {
         'void setPreUpdateCallback(@nullable @local const std::function<void ()> &callback)'
@@ -682,6 +676,7 @@ cls.callback {
 }
 cls.props [[
     allBodies
+    scene
     gravity
     speed
     updateRate

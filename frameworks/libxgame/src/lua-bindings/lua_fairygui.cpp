@@ -26681,6 +26681,41 @@ static int _fairygui_HtmlElement_set_attrs(lua_State *L)
     return 0;
 }
 
+static int _fairygui_HtmlElement_get_format(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlElement *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
+
+    // fairygui::TextFormat format
+    fairygui::TextFormat &ret = (fairygui::TextFormat &)self->format;
+    int num_ret = olua_push_cppobj(L, &ret, "fgui.TextFormat");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_HtmlElement_set_format(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlElement *self = nullptr;
+    fairygui::TextFormat *arg1 = nullptr;       /** format */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TextFormat");
+
+    // fairygui::TextFormat format
+    self->format = *arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _fairygui_HtmlElement_get_link(lua_State *L)
 {
     olua_startinvoke(L);
@@ -26866,6 +26901,7 @@ static int luaopen_fairygui_HtmlElement(lua_State *L)
     oluacls_func(L, "getString", _fairygui_HtmlElement_getString);
     oluacls_func(L, "new", _fairygui_HtmlElement_new);
     oluacls_prop(L, "attrs", _fairygui_HtmlElement_get_attrs, _fairygui_HtmlElement_set_attrs);
+    oluacls_prop(L, "format", _fairygui_HtmlElement_get_format, _fairygui_HtmlElement_set_format);
     oluacls_prop(L, "link", _fairygui_HtmlElement_get_link, _fairygui_HtmlElement_set_link);
     oluacls_prop(L, "obj", _fairygui_HtmlElement_get_obj, _fairygui_HtmlElement_set_obj);
     oluacls_prop(L, "space", _fairygui_HtmlElement_get_space, _fairygui_HtmlElement_set_space);

@@ -18,12 +18,19 @@ end
 function FGUI:createUI(pkg, name)
     self.fgui = UIPackage.createObject(pkg, name)
     self.fgui.width, self.fgui.height = window.getVisibleSize()
+    self.width = self.fgui.width
+    self.height = self.fgui.height
     self.fguiNode.root:addChild(self.fgui)
 end
 
 -- extend UIEventDispatcher
+local GButton = require "fgui.GButton"
 local UIEventDispatcher = require "fgui.UIEventDispatcher"
 local UIEventType = require "fgui.UIEventType"
+
+function GButton:playSound()
+    self:dispatchEvent(UIEventType.Click)
+end
 
 function UIEventDispatcher:onClick(callback)
     return self:addEventListener(UIEventType.Click, callback)

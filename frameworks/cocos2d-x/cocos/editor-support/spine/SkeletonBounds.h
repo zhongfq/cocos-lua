@@ -65,7 +65,7 @@ namespace spine {
 		bool aabbIntersectsSkeleton(SkeletonBounds bounds);
 
 		/// Returns true if the polygon contains the point.
-		bool containsPoint(spine::Polygon* polygon, float x, float y);
+		bool containsPoint(Polygon* polygon, float x, float y);
 
 		/// Returns the first bounding box attachment that contains the point, or NULL. When doing many checks, it is usually more
 		/// efficient to only call this method if {@link #aabbcontainsPoint(float, float)} returns true.
@@ -76,7 +76,7 @@ namespace spine {
 		BoundingBoxAttachment* intersectsSegment(float x1, float y1, float x2, float y2);
 
 		/// Returns true if the polygon contains the line segment.
-		bool intersectsSegment(spine::Polygon* polygon, float x1, float y1, float x2, float y2);
+		bool intersectsSegment(Polygon* polygon, float x1, float y1, float x2, float y2);
 
 		Polygon* getPolygon(BoundingBoxAttachment* attachment);
 

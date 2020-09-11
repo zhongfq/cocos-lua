@@ -9858,7 +9858,7 @@ static int _cocos2d_FileUtils_getOriginalSearchPaths(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_std_string(L, ((std::vector<std::string>)ret)[i]);
+        olua_push_std_string(L, ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -9881,7 +9881,7 @@ static int _cocos2d_FileUtils_getSearchPaths(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_std_string(L, ((std::vector<std::string>)ret)[i]);
+        olua_push_std_string(L, ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -9904,7 +9904,7 @@ static int _cocos2d_FileUtils_getSearchResolutionsOrder(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_std_string(L, ((std::vector<std::string>)ret)[i]);
+        olua_push_std_string(L, ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -10300,7 +10300,7 @@ static int _cocos2d_FileUtils_listFiles(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_std_string(L, ((std::vector<std::string>)ret)[i]);
+        olua_push_std_string(L, ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -10334,7 +10334,7 @@ static int _cocos2d_FileUtils_listFilesAsync(lua_State *L)
             int arg1_size = (int)arg1.size();
             lua_createtable(L, arg1_size, 0);
             for (int i = 0; i < arg1_size; i++) {
-                olua_push_std_string(L, ((std::vector<std::string>)arg1)[i]);
+                olua_push_std_string(L, arg1[i]);
                 lua_rawseti(L, -2, i + 1);
             }
             olua_disable_objpool(L);
@@ -10375,7 +10375,7 @@ static int _cocos2d_FileUtils_listFilesRecursively(lua_State *L)
     int arg2_size = (int)arg2.size();
     lua_createtable(L, arg2_size, 0);
     for (int i = 0; i < arg2_size; i++) {
-        olua_push_std_string(L, ((std::vector<std::string>)arg2)[i]);
+        olua_push_std_string(L, arg2[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -10409,7 +10409,7 @@ static int _cocos2d_FileUtils_listFilesRecursivelyAsync(lua_State *L)
             int arg1_size = (int)arg1.size();
             lua_createtable(L, arg1_size, 0);
             for (int i = 0; i < arg1_size; i++) {
-                olua_push_std_string(L, ((std::vector<std::string>)arg1)[i]);
+                olua_push_std_string(L, arg1[i]);
                 lua_rawseti(L, -2, i + 1);
             }
             olua_disable_objpool(L);
@@ -10872,7 +10872,7 @@ static int _cocos2d_FileUtils_setSearchPaths(lua_State *L)
         std::string obj;
         lua_rawgeti(L, 2, i);
         olua_check_std_string(L, -1, &obj);
-        arg1.push_back(obj);
+        arg1.push_back((std::string)obj);
         lua_pop(L, 1);
     }
 
@@ -10899,7 +10899,7 @@ static int _cocos2d_FileUtils_setSearchResolutionsOrder(lua_State *L)
         std::string obj;
         lua_rawgeti(L, 2, i);
         olua_check_std_string(L, -1, &obj);
-        arg1.push_back(obj);
+        arg1.push_back((std::string)obj);
         lua_pop(L, 1);
     }
 
@@ -11948,7 +11948,7 @@ static int _cocos2d_GLView_setIcon2(lua_State *L)
         std::string obj;
         lua_rawgeti(L, 2, i);
         olua_check_std_string(L, -1, &obj);
-        arg1.push_back(obj);
+        arg1.push_back((std::string)obj);
         lua_pop(L, 1);
     }
 
@@ -51603,7 +51603,7 @@ static int _cocos2d_NavMesh_findPath(lua_State *L)
         cocos2d::Vec3 obj;
         lua_rawgeti(L, 4, i);
         auto_olua_check_cocos2d_Vec3(L, -1, &obj);
-        arg3.push_back(obj);
+        arg3.push_back((cocos2d::Vec3)obj);
         lua_pop(L, 1);
     }
 

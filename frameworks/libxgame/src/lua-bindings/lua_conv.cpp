@@ -2671,7 +2671,7 @@ int auto_olua_push_cocos2d_backend_TextureInfo(lua_State *L, const cocos2d::back
         int value_slot_size = (int)value->slot.size();
         lua_createtable(L, value_slot_size, 0);
         for (int i = 0; i < value_slot_size; i++) {
-            olua_push_uint(L, (lua_Unsigned)((std::vector<uint32_t>)value->slot)[i]);
+            olua_push_uint(L, (lua_Unsigned)value->slot[i]);
             lua_rawseti(L, -2, i + 1);
         }
         olua_setfield(L, -2, "slot");
@@ -2753,7 +2753,7 @@ int auto_olua_unpack_cocos2d_backend_TextureInfo(lua_State *L, const cocos2d::ba
         int value_slot_size = (int)value->slot.size();
         lua_createtable(L, value_slot_size, 0);
         for (int i = 0; i < value_slot_size; i++) {
-            olua_push_uint(L, (lua_Unsigned)((std::vector<uint32_t>)value->slot)[i]);
+            olua_push_uint(L, (lua_Unsigned)value->slot[i]);
             lua_rawseti(L, -2, i + 1);
         }
         olua_push_std_vector(L, value->textures, "ccb.TextureBackend");

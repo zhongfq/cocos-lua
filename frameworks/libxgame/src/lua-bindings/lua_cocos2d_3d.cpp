@@ -484,7 +484,7 @@ static int _cocos2d_Mesh_create2(lua_State *L)
         cocos2d::MeshVertexAttrib obj;
         lua_rawgeti(L, 4, i);
         auto_olua_check_cocos2d_MeshVertexAttrib(L, -1, &obj);
-        arg4.push_back(obj);
+        arg4.push_back((cocos2d::MeshVertexAttrib)obj);
         lua_pop(L, 1);
     }
 

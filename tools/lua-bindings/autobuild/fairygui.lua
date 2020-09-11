@@ -297,6 +297,7 @@ cls.const('SHADOW', 'fairygui::TextFormat::SHADOW', 'const int')
 cls.const('GLOW', 'fairygui::TextFormat::GLOW', 'const int')
 cls.funcs [[
     TextFormat()
+    void setFormat(const fairygui::TextFormat &format)
     void enableEffect(int effectFlag)
     void disableEffect(int effectFlag)
     bool hasEffect(int effectFlag)
@@ -318,12 +319,6 @@ cls.var('shadowColor', [[cocos2d::Color3B shadowColor]])
 cls.var('shadowOffset', [[cocos2d::Size shadowOffset]])
 cls.var('shadowBlurRadius', [[int shadowBlurRadius]])
 cls.var('glowColor', [[cocos2d::Color3B glowColor]])
-cls.func('setFormat', [[{
-    fairygui::TextFormat *self = olua_toobj<fairygui::TextFormat>(L, 1);
-    fairygui::TextFormat *fmt = olua_checkobj<fairygui::TextFormat>(L, 2);
-    self->setFormat(*fmt);
-    return 0;
-}]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::EaseType'
@@ -1947,17 +1942,10 @@ cls.funcs [[
     void add(fairygui::RelationType relationType, bool usePercent)
     void internalAdd(fairygui::RelationType relationType, bool usePercent)
     void remove(fairygui::RelationType relationType)
+    void copyFrom(const fairygui::RelationItem &source)
     bool isEmpty()
     void applyOnSelfSizeChanged(float dWidth, float dHeight, bool applyPivot)
 ]]
-cls.func('copyFrom', [[{
-    fairygui::RelationItem *self = olua_toobj<fairygui::RelationItem>(L, 1);
-    fairygui::RelationItem *source = olua_checkobj<fairygui::RelationItem>(L, 2);
-    // void copyFrom(const RelationItem& source)
-    self->copyFrom(*source);
-
-    return 0;
-}]])
 cls.props [[
     target
     empty

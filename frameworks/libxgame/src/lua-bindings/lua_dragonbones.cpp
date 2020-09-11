@@ -4242,7 +4242,7 @@ static int _dragonBones_UserData_getFloats(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_number(L, (lua_Number)((std::vector<float> &)ret)[i]);
+        olua_push_number(L, (lua_Number)ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -4284,7 +4284,7 @@ static int _dragonBones_UserData_getInts(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_int(L, (lua_Integer)((std::vector<int> &)ret)[i]);
+        olua_push_int(L, (lua_Integer)ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -4326,7 +4326,7 @@ static int _dragonBones_UserData_getStrings(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_std_string(L, ((std::vector<std::string> &)ret)[i]);
+        olua_push_std_string(L, ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -4376,7 +4376,7 @@ static int _dragonBones_UserData_get_floats(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_number(L, (lua_Number)((std::vector<float>)ret)[i]);
+        olua_push_number(L, (lua_Number)ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -4426,7 +4426,7 @@ static int _dragonBones_UserData_get_ints(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_int(L, (lua_Integer)((std::vector<int>)ret)[i]);
+        olua_push_int(L, (lua_Integer)ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -4476,7 +4476,7 @@ static int _dragonBones_UserData_get_strings(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_std_string(L, ((std::vector<std::string>)ret)[i]);
+        olua_push_std_string(L, ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -4500,7 +4500,7 @@ static int _dragonBones_UserData_set_strings(lua_State *L)
         std::string obj;
         lua_rawgeti(L, 2, i);
         olua_check_std_string(L, -1, &obj);
-        arg1.push_back(obj);
+        arg1.push_back((std::string)obj);
         lua_pop(L, 1);
     }
 
@@ -5981,7 +5981,7 @@ static int _dragonBones_ArmatureData_getAnimationNames(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_std_string(L, ((std::vector<std::string> &)ret)[i]);
+        olua_push_std_string(L, ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -6419,7 +6419,7 @@ static int _dragonBones_ArmatureData_get_animationNames(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_std_string(L, ((std::vector<std::string>)ret)[i]);
+        olua_push_std_string(L, ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -6443,7 +6443,7 @@ static int _dragonBones_ArmatureData_set_animationNames(lua_State *L)
         std::string obj;
         lua_rawgeti(L, 2, i);
         olua_check_std_string(L, -1, &obj);
-        arg1.push_back(obj);
+        arg1.push_back((std::string)obj);
         lua_pop(L, 1);
     }
 
@@ -9296,7 +9296,7 @@ static int _dragonBones_AnimationData_get_cachedFrames(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_bool(L, ((std::vector<bool>)ret)[i]);
+        olua_push_bool(L, ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -9320,7 +9320,7 @@ static int _dragonBones_AnimationData_set_cachedFrames(lua_State *L)
         bool obj;
         lua_rawgeti(L, 2, i);
         olua_check_bool(L, -1, &obj);
-        arg1.push_back(obj);
+        arg1.push_back((bool)obj);
         lua_pop(L, 1);
     }
 
@@ -10170,7 +10170,7 @@ static int _dragonBones_AnimationConfig_get_boneMask(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_std_string(L, ((std::vector<std::string>)ret)[i]);
+        olua_push_std_string(L, ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -10194,7 +10194,7 @@ static int _dragonBones_AnimationConfig_set_boneMask(lua_State *L)
         std::string obj;
         lua_rawgeti(L, 2, i);
         olua_check_std_string(L, -1, &obj);
-        arg1.push_back(obj);
+        arg1.push_back((std::string)obj);
         lua_pop(L, 1);
     }
 
@@ -10931,7 +10931,7 @@ static int _dragonBones_DragonBonesData_getArmatureNames(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_std_string(L, ((std::vector<std::string> &)ret)[i]);
+        olua_push_std_string(L, ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -11016,7 +11016,7 @@ static int _dragonBones_DragonBonesData_get_armatureNames(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_std_string(L, ((std::vector<std::string>)ret)[i]);
+        olua_push_std_string(L, ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -11040,7 +11040,7 @@ static int _dragonBones_DragonBonesData_set_armatureNames(lua_State *L)
         std::string obj;
         lua_rawgeti(L, 2, i);
         olua_check_std_string(L, -1, &obj);
-        arg1.push_back(obj);
+        arg1.push_back((std::string)obj);
         lua_pop(L, 1);
     }
 
@@ -11136,7 +11136,7 @@ static int _dragonBones_DragonBonesData_get_cachedFrames(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_number(L, (lua_Number)((std::vector<float>)ret)[i]);
+        olua_push_number(L, (lua_Number)ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -11186,7 +11186,7 @@ static int _dragonBones_DragonBonesData_get_frameIndices(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_uint(L, (lua_Unsigned)((std::vector<unsigned int>)ret)[i]);
+        olua_push_uint(L, (lua_Unsigned)ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -13502,7 +13502,7 @@ static int _dragonBones_Animation_getAnimationNames(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_std_string(L, ((std::vector<std::string> &)ret)[i]);
+        olua_push_std_string(L, ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 

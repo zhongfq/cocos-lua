@@ -5907,7 +5907,7 @@ static int _cocos2d_PointArray_getControlPoints(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        auto_olua_push_cocos2d_Vec2(L, &((std::vector<cocos2d::Vec2> &)ret)[i]);
+        auto_olua_push_cocos2d_Vec2(L, &ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -6041,7 +6041,7 @@ static int _cocos2d_PointArray_setControlPoints(lua_State *L)
         cocos2d::Vec2 obj;
         lua_rawgeti(L, 2, i);
         auto_olua_check_cocos2d_Vec2(L, -1, &obj);
-        arg1.push_back(obj);
+        arg1.push_back((cocos2d::Vec2)obj);
         lua_pop(L, 1);
     }
 

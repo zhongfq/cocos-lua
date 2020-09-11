@@ -22,10 +22,10 @@ typedef {
     CONV = 'manual_olua_$$_spine_Vector',
     CPPCLS = 'spine::Vector',
     PUSH_VALUE = [[
-        int ${ARG_NAME}_size = (int)${ARG_NAME}.size();
-        lua_createtable(L, ${ARG_NAME}_size, 0);
-        for (int i = 0; i < ${ARG_NAME}_size; i++) {
-            ${SUBTYPE_PUSH_FUNC}(L, ${SUBTYPE_CAST}((${TYPE_CAST})${ARG_NAME})[i]);
+        int ${ARGNAME}_size = (int)${ARGNAME}.size();
+        lua_createtable(L, ${ARGNAME}_size, 0);
+        for (int i = 0; i < ${ARGNAME}_size; i++) {
+            ${SUBTYPE_PUSH_FUNC}(L, ${SUBTYPE_CAST}${ARGNAME}[i]);
             lua_rawseti(L, -2, i + 1);
         }
     ]],

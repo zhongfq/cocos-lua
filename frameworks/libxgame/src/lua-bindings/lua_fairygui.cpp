@@ -2427,9 +2427,14 @@ static int _fairygui_TextFormat_setFormat(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TextFormat *self = olua_toobj<fairygui::TextFormat>(L, 1);
-    fairygui::TextFormat *fmt = olua_checkobj<fairygui::TextFormat>(L, 2);
-    self->setFormat(*fmt);
+    fairygui::TextFormat *self = nullptr;
+    fairygui::TextFormat *arg1 = nullptr;       /** format */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TextFormat");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TextFormat");
+
+    // void setFormat(const fairygui::TextFormat &format)
+    self->setFormat(*arg1);
 
     olua_endinvoke(L);
 
@@ -15067,7 +15072,7 @@ static int _fairygui_GList_getSelection(lua_State *L)
     int arg1_size = (int)arg1.size();
     lua_createtable(L, arg1_size, 0);
     for (int i = 0; i < arg1_size; i++) {
-        olua_push_int(L, (lua_Integer)((std::vector<int>)arg1)[i]);
+        olua_push_int(L, (lua_Integer)arg1[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -16881,7 +16886,7 @@ static int _fairygui_GComboBox_getIcons(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_std_string(L, ((std::vector<std::string> &)ret)[i]);
+        olua_push_std_string(L, ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -16904,7 +16909,7 @@ static int _fairygui_GComboBox_getItems(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_std_string(L, ((std::vector<std::string> &)ret)[i]);
+        olua_push_std_string(L, ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -17052,7 +17057,7 @@ static int _fairygui_GComboBox_getValues(lua_State *L)
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
     for (int i = 0; i < ret_size; i++) {
-        olua_push_std_string(L, ((std::vector<std::string> &)ret)[i]);
+        olua_push_std_string(L, ret[i]);
         lua_rawseti(L, -2, i + 1);
     }
 
@@ -18826,10 +18831,14 @@ static int _fairygui_RelationItem_copyFrom(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::RelationItem *self = olua_toobj<fairygui::RelationItem>(L, 1);
-    fairygui::RelationItem *source = olua_checkobj<fairygui::RelationItem>(L, 2);
-    // void copyFrom(const RelationItem& source)
-    self->copyFrom(*source);
+    fairygui::RelationItem *self = nullptr;
+    fairygui::RelationItem *arg1 = nullptr;       /** source */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.RelationItem");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.RelationItem");
+
+    // void copyFrom(const fairygui::RelationItem &source)
+    self->copyFrom(*arg1);
 
     olua_endinvoke(L);
 

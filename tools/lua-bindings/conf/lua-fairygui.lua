@@ -110,16 +110,7 @@ typeconf 'fairygui::InputProcessor'
     .CALLBACK {NAME = 'setCaptureCallback', NULLABLE = true}
 
 typeconf 'fairygui::InputEvent'
-
-local TextFormat = typeconf 'fairygui::TextFormat'
-TextFormat.FUNC('setFormat', [[
-{
-    fairygui::TextFormat *self = olua_toobj<fairygui::TextFormat>(L, 1);
-    fairygui::TextFormat *fmt = olua_checkobj<fairygui::TextFormat>(L, 2);
-    self->setFormat(*fmt);
-    return 0;
-}]])
-
+typeconf 'fairygui::TextFormat'
 typeconf 'fairygui::EaseType'
 typeconf 'fairygui::EaseManager'
 typeconf 'fairygui::TweenPropType'
@@ -371,18 +362,17 @@ GTextField.FUNC('setTemplateVars', [[
 GTextField.PROP('templateVars')
 
 typeconf 'fairygui::GBasicTextField'
-
 typeconf 'fairygui::GGraph'
 
-local GButton = typeconf 'fairygui::GButton'
-GButton.ATTR('getRelatedController', {RET = '@addref(relatedController ^)'})
-GButton.ATTR('setRelatedController', {ARG1 = '@addref(relatedController ^)'})
-GButton.ATTR('getTextField', {RET = '@addref(textField ^)'})
+typeconf 'fairygui::GButton'
+    .ATTR('getRelatedController', {RET = '@addref(relatedController ^)'})
+    .ATTR('setRelatedController', {ARG1 = '@addref(relatedController ^)'})
+    .ATTR('getTextField', {RET = '@addref(textField ^)'})
 
 typeconf 'fairygui::GImage'
 
-local GLabel = typeconf 'fairygui::GLabel'
-GLabel.ATTR('getTextField', {RET = '@addref(textField ^)'})
+typeconf 'fairygui::GLabel'
+    .ATTR('getTextField', {RET = '@addref(textField ^)'})
 
 local GList = typeconf 'fairygui::GList'
 GList.ATTR('returnToPool', {ARG1 = '@delref(children |)'})
@@ -411,11 +401,11 @@ GList.INJECT('itemRenderer', {
 typeconf 'fairygui::GMovieClip'
 typeconf 'fairygui::GProgressBar'
 
-local GComboBox = typeconf 'fairygui::GComboBox'
-GComboBox.ATTR('getSelectionController', {RET = '@addref(selectionController ^)'})
-GComboBox.ATTR('setSelectionController', {ARG1 = '@addref(selectionController ^)'})
-GComboBox.ATTR('getDropdown', {RET = '@addref(dropdown ^)'})
-GComboBox.ATTR('getTextField', {RET = '@addref(textField ^)'})
+typeconf 'fairygui::GComboBox'
+    .ATTR('getSelectionController', {RET = '@addref(selectionController ^)'})
+    .ATTR('setSelectionController', {ARG1 = '@addref(selectionController ^)'})
+    .ATTR('getDropdown', {RET = '@addref(dropdown ^)'})
+    .ATTR('getTextField', {RET = '@addref(textField ^)'})
 
 typeconf 'fairygui::GRichTextField'
 typeconf 'fairygui::GSlider'
@@ -481,27 +471,18 @@ Relations.FUNC('copyFrom', [[
 
 typeconf 'fairygui::RelationType'
 
-local RelationItem = typeconf 'fairygui::RelationItem'
-RelationItem.ATTR('getTarget', {RET = '@addref(target ^)'})
-RelationItem.ATTR('setTarget', {ARG1 = '@addref(target ^)'})
-RelationItem.FUNC('copyFrom', [[
-{
-    fairygui::RelationItem *self = olua_toobj<fairygui::RelationItem>(L, 1);
-    fairygui::RelationItem *source = olua_checkobj<fairygui::RelationItem>(L, 2);
-    // void copyFrom(const RelationItem& source)
-    self->copyFrom(*source);
+typeconf 'fairygui::RelationItem'
+    .ATTR('getTarget', {RET = '@addref(target ^)'})
+    .ATTR('setTarget', {ARG1 = '@addref(target ^)'})
 
-    return 0;
-}]])
-
-local ScrollPane = typeconf 'fairygui::ScrollPane'
-ScrollPane.ATTR('getOwner', {RET = '@addref(owner ^)'})
-ScrollPane.ATTR('getHeader', {RET = '@addref(header ^)'})
-ScrollPane.ATTR('getFooter', {RET = '@addref(footer ^)'})
-ScrollPane.ATTR('getVtScrollBar', {RET = '@addref(vtScrollBar ^)'})
-ScrollPane.ATTR('getHzScrollBar', {RET = '@addref(hzScrollBar ^)'})
-ScrollPane.ATTR('getPageController', {RET = '@addref(pageController ^)'})
-ScrollPane.ATTR('setPageController', {ARG1 = '@addref(pageController ^)'})
+typeconf 'fairygui::ScrollPane'
+    .ATTR('getOwner', {RET = '@addref(owner ^)'})
+    .ATTR('getHeader', {RET = '@addref(header ^)'})
+    .ATTR('getFooter', {RET = '@addref(footer ^)'})
+    .ATTR('getVtScrollBar', {RET = '@addref(vtScrollBar ^)'})
+    .ATTR('getHzScrollBar', {RET = '@addref(hzScrollBar ^)'})
+    .ATTR('getPageController', {RET = '@addref(pageController ^)'})
+    .ATTR('setPageController', {ARG1 = '@addref(pageController ^)'})
 
 local Transition = typeconf 'fairygui::Transition'
 Transition.ATTR('getOwner', {RET = '@addref(owner ^)'})
@@ -622,17 +603,17 @@ GearBase.EXCLUDE 'apply'
 GearBase.EXCLUDE 'updateState'
 GearBase.EXCLUDE 'setup'
 
-local GTreeNode = typeconf 'fairygui::GTreeNode'
-GTreeNode.ATTR('getCell', {RET = '@addref(cell ^)'})
-GTreeNode.ATTR('addChild', {ARG1 = '@addref(children |)'})
-GTreeNode.ATTR('addChildAt', {ARG1 = '@addref(children |)'})
-GTreeNode.ATTR('removeChild', {ARG1 = '@delref(children |)'})
-GTreeNode.ATTR('removeChildAt', {RET ='@delref(children ~)'})
-GTreeNode.ATTR('removeChildren', {RET ='@delref(children ~)'})
-GTreeNode.ATTR('getChildAt', {RET = '@addref(children |)'})
-GTreeNode.ATTR('getPrevSibling', {RET = '@addref(children |)'})
-GTreeNode.ATTR('getNextSibling', {RET = '@addref(children |)'})
-GTreeNode.PROP('numChildren', 'int numChildren()')
+typeconf 'fairygui::GTreeNode'
+    .ATTR('getCell', {RET = '@addref(cell ^)'})
+    .ATTR('addChild', {ARG1 = '@addref(children |)'})
+    .ATTR('addChildAt', {ARG1 = '@addref(children |)'})
+    .ATTR('removeChild', {ARG1 = '@delref(children |)'})
+    .ATTR('removeChildAt', {RET ='@delref(children ~)'})
+    .ATTR('removeChildren', {RET ='@delref(children ~)'})
+    .ATTR('getChildAt', {RET = '@addref(children |)'})
+    .ATTR('getPrevSibling', {RET = '@addref(children |)'})
+    .ATTR('getNextSibling', {RET = '@addref(children |)'})
+    .PROP('numChildren', 'int numChildren()')
 
 local GTree = typeconf 'fairygui::GTree'
 GTree.ATTR('getList', {RET = '@addref(list ^)'})

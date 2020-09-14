@@ -4250,7 +4250,7 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchBegan(lua_State *L)
                 olua_pop_objpool(L, last);
                 lua_settop(L, top);
             }
-            return ret;
+            return (bool)ret;
         };
     } else {
         void *self_obj = (void *)self;

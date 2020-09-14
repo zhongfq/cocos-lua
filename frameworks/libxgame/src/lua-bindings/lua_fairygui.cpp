@@ -15927,7 +15927,7 @@ static int _fairygui_GList_set_itemProvider(lua_State *L)
 
                 lua_settop(L, top);
             }
-            return ret;
+            return (std::string)ret;
         };
     } else {
         void *self_obj = (void *)self;
@@ -23521,7 +23521,7 @@ static int _fairygui_UIObjectFactory_setLoaderExtension(lua_State *L)
 
             lua_settop(L, top);
         }
-        return ret;
+        return (fairygui::GLoader *)ret;
     };
 
     // static void setLoaderExtension(@local std::function<GLoader *()> creator)
@@ -23559,7 +23559,7 @@ static int _fairygui_UIObjectFactory_setPackageItemExtension(lua_State *L)
 
             lua_settop(L, top);
         }
-        return ret;
+        return (fairygui::GComponent *)ret;
     };
 
     // static void setPackageItemExtension(const std::string &url, @local std::function<GComponent *()> creator)
@@ -25790,7 +25790,7 @@ static int _fairygui_FUIRichText_setObjectFactory(lua_State *L)
             olua_pop_objpool(L, last);
             lua_settop(L, top);
         }
-        return ret;
+        return (fairygui::HtmlObject *)ret;
     };
 
     // void setObjectFactory(@local const std::function<HtmlObject *(HtmlElement *)> &value)

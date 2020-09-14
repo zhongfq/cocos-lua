@@ -1642,7 +1642,7 @@ static int _cocos2d_ui_Widget_set_onNextFocusedWidget(lua_State *L)
 
                 lua_settop(L, top);
             }
-            return ret;
+            return (cocos2d::ui::Widget *)ret;
         };
     } else {
         void *self_obj = (void *)self;
@@ -6356,7 +6356,7 @@ static int _cocos2d_ui_WebView_setOnShouldStartLoading(lua_State *L)
 
                 lua_settop(L, top);
             }
-            return ret;
+            return (bool)ret;
         };
     } else {
         void *self_obj = (void *)self;

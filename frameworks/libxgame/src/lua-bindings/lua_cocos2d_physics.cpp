@@ -184,7 +184,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactBegin(lua_State *L)
                 olua_pop_objpool(L, last);
                 lua_settop(L, top);
             }
-            return ret;
+            return (bool)ret;
         };
     } else {
         void *self_obj = (void *)self;
@@ -325,7 +325,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPreSolve(lua_State 
                 olua_pop_objpool(L, last);
                 lua_settop(L, top);
             }
-            return ret;
+            return (bool)ret;
         };
     } else {
         void *self_obj = (void *)self;
@@ -6858,7 +6858,7 @@ static int _cocos2d_PhysicsWorld_queryPoint(lua_State *L)
             olua_pop_objpool(L, last);
             lua_settop(L, top);
         }
-        return ret;
+        return (bool)ret;
     };
 
     // void queryPoint(@local std::function<bool (PhysicsWorld &, PhysicsShape &, void *)> func, const cocos2d::Vec2 &point, void *data)
@@ -6908,7 +6908,7 @@ static int _cocos2d_PhysicsWorld_queryRect(lua_State *L)
             olua_pop_objpool(L, last);
             lua_settop(L, top);
         }
-        return ret;
+        return (bool)ret;
     };
 
     // void queryRect(@local std::function<bool (PhysicsWorld &, PhysicsShape &, void *)> func, const cocos2d::Rect &rect, void *data)
@@ -6960,7 +6960,7 @@ static int _cocos2d_PhysicsWorld_rayCast(lua_State *L)
             olua_pop_objpool(L, last);
             lua_settop(L, top);
         }
-        return ret;
+        return (bool)ret;
     };
 
     // void rayCast(@local std::function<bool (PhysicsWorld &, const PhysicsRayCastInfo &, void *)> func, const cocos2d::Vec2 &start, const cocos2d::Vec2 &end, void *data)

@@ -2030,14 +2030,14 @@ static int _cocos2d_Sprite3D_createAsync1(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
     olua_check_obj(L, 3, (void **)&arg3, "void *");
 
-    void *self_obj = (void *)olua_pushclassobj(L, "cc.Sprite3D");
-    std::string tag = "createAsync";
-    std::string func = olua_setcallback(L, self_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-    lua_Unsigned ctx = olua_context(L);
-    arg2 = [self_obj, func, ctx](cocos2d::Sprite3D *arg1, void *arg2) {
+    void *cb_store = (void *)olua_pushclassobj(L, "cc.Sprite3D");
+    std::string cb_tag = "createAsync";
+    std::string cb_name = olua_setcallback(L, cb_store, cb_tag.c_str(), 2, OLUA_TAG_REPLACE);
+    lua_Unsigned cb_ctx = olua_context(L);
+    arg2 = [cb_store, cb_name, cb_ctx](cocos2d::Sprite3D *arg1, void *arg2) {
         lua_State *L = olua_mainthread(NULL);
 
-        if (L != NULL && (olua_context(L) == ctx)) {
+        if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
@@ -2045,7 +2045,7 @@ static int _cocos2d_Sprite3D_createAsync1(lua_State *L)
             olua_push_obj(L, arg2, "void *");
             olua_disable_objpool(L);
 
-            olua_callback(L, self_obj, func.c_str(), 2);
+            olua_callback(L, cb_store, cb_name.c_str(), 2);
 
             //pop stack value
             olua_pop_objpool(L, last);
@@ -2074,14 +2074,14 @@ static int _cocos2d_Sprite3D_createAsync2(lua_State *L)
     olua_check_std_string(L, 2, &arg2);
     olua_check_obj(L, 4, (void **)&arg4, "void *");
 
-    void *self_obj = (void *)olua_pushclassobj(L, "cc.Sprite3D");
-    std::string tag = "createAsync";
-    std::string func = olua_setcallback(L, self_obj, tag.c_str(), 3, OLUA_TAG_REPLACE);
-    lua_Unsigned ctx = olua_context(L);
-    arg3 = [self_obj, func, ctx](cocos2d::Sprite3D *arg1, void *arg2) {
+    void *cb_store = (void *)olua_pushclassobj(L, "cc.Sprite3D");
+    std::string cb_tag = "createAsync";
+    std::string cb_name = olua_setcallback(L, cb_store, cb_tag.c_str(), 3, OLUA_TAG_REPLACE);
+    lua_Unsigned cb_ctx = olua_context(L);
+    arg3 = [cb_store, cb_name, cb_ctx](cocos2d::Sprite3D *arg1, void *arg2) {
         lua_State *L = olua_mainthread(NULL);
 
-        if (L != NULL && (olua_context(L) == ctx)) {
+        if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
@@ -2089,7 +2089,7 @@ static int _cocos2d_Sprite3D_createAsync2(lua_State *L)
             olua_push_obj(L, arg2, "void *");
             olua_disable_objpool(L);
 
-            olua_callback(L, self_obj, func.c_str(), 2);
+            olua_callback(L, cb_store, cb_name.c_str(), 2);
 
             //pop stack value
             olua_pop_objpool(L, last);

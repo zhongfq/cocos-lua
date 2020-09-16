@@ -1120,10 +1120,10 @@ cls.inject('uncache', {
     BEFORE = [[
         std::string path = olua_checkstring(L, 1);
         std::list<int> ids = cocos2d::LuaAudioEngine::getAudioIDs(path);
-        void *self_obj = olua_pushclassobj<cocos2d::AudioEngine>(L);
+        void *cb_store = olua_pushclassobj<cocos2d::AudioEngine>(L);
         for (auto id : ids) {
             std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
-            olua_removecallback(L, self_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
+            olua_removecallback(L, cb_store, tag.c_str(), OLUA_TAG_SUBEQUAL);
         }
     ]],
 })

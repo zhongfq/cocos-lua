@@ -14869,21 +14869,21 @@ static int _dragonBones_CCArmatureDisplay_addDBEventListener(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureDisplay");
     olua_check_std_string(L, 2, &arg1);
 
-    void *self_obj = (void *)self;
-    std::string tag = (arg1);
-    std::string func = olua_setcallback(L, self_obj, tag.c_str(), 3, OLUA_TAG_NEW);
-    lua_Unsigned ctx = olua_context(L);
-    arg2 = [self_obj, func, ctx](dragonBones::EventObject *arg1) {
+    void *cb_store = (void *)self;
+    std::string cb_tag = (arg1);
+    std::string cb_name = olua_setcallback(L, cb_store, cb_tag.c_str(), 3, OLUA_TAG_NEW);
+    lua_Unsigned cb_ctx = olua_context(L);
+    arg2 = [cb_store, cb_name, cb_ctx](dragonBones::EventObject *arg1) {
         lua_State *L = olua_mainthread(NULL);
 
-        if (L != NULL && (olua_context(L) == ctx)) {
+        if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
             olua_push_cppobj(L, arg1, "db.EventObject");
             olua_disable_objpool(L);
 
-            olua_callback(L, self_obj, func.c_str(), 1);
+            olua_callback(L, cb_store, cb_name.c_str(), 1);
 
             //pop stack value
             olua_pop_objpool(L, last);
@@ -15115,9 +15115,9 @@ static int _dragonBones_CCArmatureDisplay_removeDBEventListener(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureDisplay");
     olua_check_std_string(L, 2, &arg1);
 
-    std::string tag = (arg1);
-    void *self_obj = (void *)self;
-    olua_removecallback(L, self_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
+    std::string cb_tag = (arg1);
+    void *cb_store = (void *)self;
+    olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // void removeDBEventListener(const std::string &type, @nullable @local const std::function<void (EventObject *)> &listener)
     self->removeDBEventListener(arg1, arg2);

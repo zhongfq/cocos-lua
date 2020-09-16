@@ -1620,7 +1620,7 @@ cls.var('foldInvisibleItems', [[bool foldInvisibleItems]])
 cls.inject('itemRenderer', {
     CALLBACK_BEFORE = [[
         if (arg2->getParent()) {
-            olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)self_obj);
+            olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
             olua_addref(L, -1, "children", -2, OLUA_MODE_MULTIPLE);
             lua_pop(L, 1);
         }

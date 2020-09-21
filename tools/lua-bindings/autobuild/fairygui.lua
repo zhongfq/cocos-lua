@@ -322,40 +322,38 @@ cls.var('glowColor', [[cocos2d::Color3B glowColor]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::EaseType'
-cls.enums [[
-    Linear
-    SineIn
-    SineOut
-    SineInOut
-    QuadIn
-    QuadOut
-    QuadInOut
-    CubicIn
-    CubicOut
-    CubicInOut
-    QuartIn
-    QuartOut
-    QuartInOut
-    QuintIn
-    QuintOut
-    QuintInOut
-    ExpoIn
-    ExpoOut
-    ExpoInOut
-    CircIn
-    CircOut
-    CircInOut
-    ElasticIn
-    ElasticOut
-    ElasticInOut
-    BackIn
-    BackOut
-    BackInOut
-    BounceIn
-    BounceOut
-    BounceInOut
-    Custom
-]]
+cls.enum('Linear', 'fairygui::EaseType::Linear')
+cls.enum('SineIn', 'fairygui::EaseType::SineIn')
+cls.enum('SineOut', 'fairygui::EaseType::SineOut')
+cls.enum('SineInOut', 'fairygui::EaseType::SineInOut')
+cls.enum('QuadIn', 'fairygui::EaseType::QuadIn')
+cls.enum('QuadOut', 'fairygui::EaseType::QuadOut')
+cls.enum('QuadInOut', 'fairygui::EaseType::QuadInOut')
+cls.enum('CubicIn', 'fairygui::EaseType::CubicIn')
+cls.enum('CubicOut', 'fairygui::EaseType::CubicOut')
+cls.enum('CubicInOut', 'fairygui::EaseType::CubicInOut')
+cls.enum('QuartIn', 'fairygui::EaseType::QuartIn')
+cls.enum('QuartOut', 'fairygui::EaseType::QuartOut')
+cls.enum('QuartInOut', 'fairygui::EaseType::QuartInOut')
+cls.enum('QuintIn', 'fairygui::EaseType::QuintIn')
+cls.enum('QuintOut', 'fairygui::EaseType::QuintOut')
+cls.enum('QuintInOut', 'fairygui::EaseType::QuintInOut')
+cls.enum('ExpoIn', 'fairygui::EaseType::ExpoIn')
+cls.enum('ExpoOut', 'fairygui::EaseType::ExpoOut')
+cls.enum('ExpoInOut', 'fairygui::EaseType::ExpoInOut')
+cls.enum('CircIn', 'fairygui::EaseType::CircIn')
+cls.enum('CircOut', 'fairygui::EaseType::CircOut')
+cls.enum('CircInOut', 'fairygui::EaseType::CircInOut')
+cls.enum('ElasticIn', 'fairygui::EaseType::ElasticIn')
+cls.enum('ElasticOut', 'fairygui::EaseType::ElasticOut')
+cls.enum('ElasticInOut', 'fairygui::EaseType::ElasticInOut')
+cls.enum('BackIn', 'fairygui::EaseType::BackIn')
+cls.enum('BackOut', 'fairygui::EaseType::BackOut')
+cls.enum('BackInOut', 'fairygui::EaseType::BackInOut')
+cls.enum('BounceIn', 'fairygui::EaseType::BounceIn')
+cls.enum('BounceOut', 'fairygui::EaseType::BounceOut')
+cls.enum('BounceInOut', 'fairygui::EaseType::BounceInOut')
+cls.enum('Custom', 'fairygui::EaseType::Custom')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::EaseManager'
@@ -365,21 +363,19 @@ cls.funcs [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::TweenPropType'
-cls.enums [[
-    None
-    X
-    Y
-    Position
-    Width
-    Height
-    Size
-    ScaleX
-    ScaleY
-    Scale
-    Rotation
-    Alpha
-    Progress
-]]
+cls.enum('None', 'fairygui::TweenPropType::None')
+cls.enum('X', 'fairygui::TweenPropType::X')
+cls.enum('Y', 'fairygui::TweenPropType::Y')
+cls.enum('Position', 'fairygui::TweenPropType::Position')
+cls.enum('Width', 'fairygui::TweenPropType::Width')
+cls.enum('Height', 'fairygui::TweenPropType::Height')
+cls.enum('Size', 'fairygui::TweenPropType::Size')
+cls.enum('ScaleX', 'fairygui::TweenPropType::ScaleX')
+cls.enum('ScaleY', 'fairygui::TweenPropType::ScaleY')
+cls.enum('Scale', 'fairygui::TweenPropType::Scale')
+cls.enum('Rotation', 'fairygui::TweenPropType::Rotation')
+cls.enum('Alpha', 'fairygui::TweenPropType::Alpha')
+cls.enum('Progress', 'fairygui::TweenPropType::Progress')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GPath'
@@ -615,214 +611,176 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::PackageItemType'
-cls.enums [[
-    IMAGE
-    MOVIECLIP
-    SOUND
-    COMPONENT
-    ATLAS
-    FONT
-    SWF
-    MISC
-    UNKNOWN
-    SPINE
-    DRAGONBONES
-]]
+cls.enum('IMAGE', 'fairygui::PackageItemType::IMAGE')
+cls.enum('MOVIECLIP', 'fairygui::PackageItemType::MOVIECLIP')
+cls.enum('SOUND', 'fairygui::PackageItemType::SOUND')
+cls.enum('COMPONENT', 'fairygui::PackageItemType::COMPONENT')
+cls.enum('ATLAS', 'fairygui::PackageItemType::ATLAS')
+cls.enum('FONT', 'fairygui::PackageItemType::FONT')
+cls.enum('SWF', 'fairygui::PackageItemType::SWF')
+cls.enum('MISC', 'fairygui::PackageItemType::MISC')
+cls.enum('UNKNOWN', 'fairygui::PackageItemType::UNKNOWN')
+cls.enum('SPINE', 'fairygui::PackageItemType::SPINE')
+cls.enum('DRAGONBONES', 'fairygui::PackageItemType::DRAGONBONES')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::ObjectType'
-cls.enums [[
-    IMAGE
-    MOVIECLIP
-    SWF
-    GRAPH
-    LOADER
-    GROUP
-    TEXT
-    RICHTEXT
-    INPUTTEXT
-    COMPONENT
-    LIST
-    LABEL
-    BUTTON
-    COMBOBOX
-    PROGRESSBAR
-    SLIDER
-    SCROLLBAR
-    TREE
-    LOADER3D
-]]
+cls.enum('IMAGE', 'fairygui::ObjectType::IMAGE')
+cls.enum('MOVIECLIP', 'fairygui::ObjectType::MOVIECLIP')
+cls.enum('SWF', 'fairygui::ObjectType::SWF')
+cls.enum('GRAPH', 'fairygui::ObjectType::GRAPH')
+cls.enum('LOADER', 'fairygui::ObjectType::LOADER')
+cls.enum('GROUP', 'fairygui::ObjectType::GROUP')
+cls.enum('TEXT', 'fairygui::ObjectType::TEXT')
+cls.enum('RICHTEXT', 'fairygui::ObjectType::RICHTEXT')
+cls.enum('INPUTTEXT', 'fairygui::ObjectType::INPUTTEXT')
+cls.enum('COMPONENT', 'fairygui::ObjectType::COMPONENT')
+cls.enum('LIST', 'fairygui::ObjectType::LIST')
+cls.enum('LABEL', 'fairygui::ObjectType::LABEL')
+cls.enum('BUTTON', 'fairygui::ObjectType::BUTTON')
+cls.enum('COMBOBOX', 'fairygui::ObjectType::COMBOBOX')
+cls.enum('PROGRESSBAR', 'fairygui::ObjectType::PROGRESSBAR')
+cls.enum('SLIDER', 'fairygui::ObjectType::SLIDER')
+cls.enum('SCROLLBAR', 'fairygui::ObjectType::SCROLLBAR')
+cls.enum('TREE', 'fairygui::ObjectType::TREE')
+cls.enum('LOADER3D', 'fairygui::ObjectType::LOADER3D')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::ButtonMode'
-cls.enums [[
-    COMMON
-    CHECK
-    RADIO
-]]
+cls.enum('COMMON', 'fairygui::ButtonMode::COMMON')
+cls.enum('CHECK', 'fairygui::ButtonMode::CHECK')
+cls.enum('RADIO', 'fairygui::ButtonMode::RADIO')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::ChildrenRenderOrder'
-cls.enums [[
-    ASCENT
-    DESCENT
-    ARCH
-]]
+cls.enum('ASCENT', 'fairygui::ChildrenRenderOrder::ASCENT')
+cls.enum('DESCENT', 'fairygui::ChildrenRenderOrder::DESCENT')
+cls.enum('ARCH', 'fairygui::ChildrenRenderOrder::ARCH')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::OverflowType'
-cls.enums [[
-    VISIBLE
-    HIDDEN
-    SCROLL
-]]
+cls.enum('VISIBLE', 'fairygui::OverflowType::VISIBLE')
+cls.enum('HIDDEN', 'fairygui::OverflowType::HIDDEN')
+cls.enum('SCROLL', 'fairygui::OverflowType::SCROLL')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::ScrollType'
-cls.enums [[
-    HORIZONTAL
-    VERTICAL
-    BOTH
-]]
+cls.enum('HORIZONTAL', 'fairygui::ScrollType::HORIZONTAL')
+cls.enum('VERTICAL', 'fairygui::ScrollType::VERTICAL')
+cls.enum('BOTH', 'fairygui::ScrollType::BOTH')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::ScrollBarDisplayType'
-cls.enums [[
-    DEFAULT
-    VISIBLE
-    AUTO
-    HIDDEN
-]]
+cls.enum('DEFAULT', 'fairygui::ScrollBarDisplayType::DEFAULT')
+cls.enum('VISIBLE', 'fairygui::ScrollBarDisplayType::VISIBLE')
+cls.enum('AUTO', 'fairygui::ScrollBarDisplayType::AUTO')
+cls.enum('HIDDEN', 'fairygui::ScrollBarDisplayType::HIDDEN')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::LoaderFillType'
-cls.enums [[
-    NONE
-    SCALE
-    SCALE_MATCH_HEIGHT
-    SCALE_MATCH_WIDTH
-    SCALE_FREE
-    SCALE_NO_BORDER
-]]
+cls.enum('NONE', 'fairygui::LoaderFillType::NONE')
+cls.enum('SCALE', 'fairygui::LoaderFillType::SCALE')
+cls.enum('SCALE_MATCH_HEIGHT', 'fairygui::LoaderFillType::SCALE_MATCH_HEIGHT')
+cls.enum('SCALE_MATCH_WIDTH', 'fairygui::LoaderFillType::SCALE_MATCH_WIDTH')
+cls.enum('SCALE_FREE', 'fairygui::LoaderFillType::SCALE_FREE')
+cls.enum('SCALE_NO_BORDER', 'fairygui::LoaderFillType::SCALE_NO_BORDER')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::ProgressTitleType'
-cls.enums [[
-    PERCENT
-    VALUE_MAX
-    VALUE
-    MAX
-]]
+cls.enum('PERCENT', 'fairygui::ProgressTitleType::PERCENT')
+cls.enum('VALUE_MAX', 'fairygui::ProgressTitleType::VALUE_MAX')
+cls.enum('VALUE', 'fairygui::ProgressTitleType::VALUE')
+cls.enum('MAX', 'fairygui::ProgressTitleType::MAX')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::ListLayoutType'
-cls.enums [[
-    SINGLE_COLUMN
-    SINGLE_ROW
-    FLOW_HORIZONTAL
-    FLOW_VERTICAL
-    PAGINATION
-]]
+cls.enum('SINGLE_COLUMN', 'fairygui::ListLayoutType::SINGLE_COLUMN')
+cls.enum('SINGLE_ROW', 'fairygui::ListLayoutType::SINGLE_ROW')
+cls.enum('FLOW_HORIZONTAL', 'fairygui::ListLayoutType::FLOW_HORIZONTAL')
+cls.enum('FLOW_VERTICAL', 'fairygui::ListLayoutType::FLOW_VERTICAL')
+cls.enum('PAGINATION', 'fairygui::ListLayoutType::PAGINATION')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::ListSelectionMode'
-cls.enums [[
-    SINGLE
-    MULTIPLE
-    MULTIPLE_SINGLECLICK
-    NONE
-]]
+cls.enum('SINGLE', 'fairygui::ListSelectionMode::SINGLE')
+cls.enum('MULTIPLE', 'fairygui::ListSelectionMode::MULTIPLE')
+cls.enum('MULTIPLE_SINGLECLICK', 'fairygui::ListSelectionMode::MULTIPLE_SINGLECLICK')
+cls.enum('NONE', 'fairygui::ListSelectionMode::NONE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GroupLayoutType'
-cls.enums [[
-    NONE
-    HORIZONTAL
-    VERTICAL
-]]
+cls.enum('NONE', 'fairygui::GroupLayoutType::NONE')
+cls.enum('HORIZONTAL', 'fairygui::GroupLayoutType::HORIZONTAL')
+cls.enum('VERTICAL', 'fairygui::GroupLayoutType::VERTICAL')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::PopupDirection'
-cls.enums [[
-    AUTO
-    UP
-    DOWN
-]]
+cls.enum('AUTO', 'fairygui::PopupDirection::AUTO')
+cls.enum('UP', 'fairygui::PopupDirection::UP')
+cls.enum('DOWN', 'fairygui::PopupDirection::DOWN')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::AutoSizeType'
-cls.enums [[
-    NONE
-    BOTH
-    HEIGHT
-    SHRINK
-]]
+cls.enum('NONE', 'fairygui::AutoSizeType::NONE')
+cls.enum('BOTH', 'fairygui::AutoSizeType::BOTH')
+cls.enum('HEIGHT', 'fairygui::AutoSizeType::HEIGHT')
+cls.enum('SHRINK', 'fairygui::AutoSizeType::SHRINK')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::FlipType'
-cls.enums [[
-    NONE
-    HORIZONTAL
-    VERTICAL
-    BOTH
-]]
+cls.enum('NONE', 'fairygui::FlipType::NONE')
+cls.enum('HORIZONTAL', 'fairygui::FlipType::HORIZONTAL')
+cls.enum('VERTICAL', 'fairygui::FlipType::VERTICAL')
+cls.enum('BOTH', 'fairygui::FlipType::BOTH')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::TransitionActionType'
-cls.enums [[
-    XY
-    Size
-    Scale
-    Pivot
-    Alpha
-    Rotation
-    Color
-    Animation
-    Visible
-    Sound
-    Transition
-    Shake
-    ColorFilter
-    Skew
-    Text
-    Icon
-    Unknown
-]]
+cls.enum('XY', 'fairygui::TransitionActionType::XY')
+cls.enum('Size', 'fairygui::TransitionActionType::Size')
+cls.enum('Scale', 'fairygui::TransitionActionType::Scale')
+cls.enum('Pivot', 'fairygui::TransitionActionType::Pivot')
+cls.enum('Alpha', 'fairygui::TransitionActionType::Alpha')
+cls.enum('Rotation', 'fairygui::TransitionActionType::Rotation')
+cls.enum('Color', 'fairygui::TransitionActionType::Color')
+cls.enum('Animation', 'fairygui::TransitionActionType::Animation')
+cls.enum('Visible', 'fairygui::TransitionActionType::Visible')
+cls.enum('Sound', 'fairygui::TransitionActionType::Sound')
+cls.enum('Transition', 'fairygui::TransitionActionType::Transition')
+cls.enum('Shake', 'fairygui::TransitionActionType::Shake')
+cls.enum('ColorFilter', 'fairygui::TransitionActionType::ColorFilter')
+cls.enum('Skew', 'fairygui::TransitionActionType::Skew')
+cls.enum('Text', 'fairygui::TransitionActionType::Text')
+cls.enum('Icon', 'fairygui::TransitionActionType::Icon')
+cls.enum('Unknown', 'fairygui::TransitionActionType::Unknown')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::FillMethod'
-cls.enums [[
-    None
-    Horizontal
-    Vertical
-    Radial90
-    Radial180
-    Radial360
-]]
+cls.enum('None', 'fairygui::FillMethod::None')
+cls.enum('Horizontal', 'fairygui::FillMethod::Horizontal')
+cls.enum('Vertical', 'fairygui::FillMethod::Vertical')
+cls.enum('Radial90', 'fairygui::FillMethod::Radial90')
+cls.enum('Radial180', 'fairygui::FillMethod::Radial180')
+cls.enum('Radial360', 'fairygui::FillMethod::Radial360')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::FillOrigin'
-cls.enums [[
-    Top
-    Bottom
-    Left
-    Right
-]]
+cls.enum('Top', 'fairygui::FillOrigin::Top')
+cls.enum('Bottom', 'fairygui::FillOrigin::Bottom')
+cls.enum('Left', 'fairygui::FillOrigin::Left')
+cls.enum('Right', 'fairygui::FillOrigin::Right')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::ObjectPropID'
-cls.enums [[
-    Text
-    Icon
-    Color
-    OutlineColor
-    Playing
-    Frame
-    DeltaTime
-    TimeScale
-    FontSize
-    Selected
-]]
+cls.enum('Text', 'fairygui::ObjectPropID::Text')
+cls.enum('Icon', 'fairygui::ObjectPropID::Icon')
+cls.enum('Color', 'fairygui::ObjectPropID::Color')
+cls.enum('OutlineColor', 'fairygui::ObjectPropID::OutlineColor')
+cls.enum('Playing', 'fairygui::ObjectPropID::Playing')
+cls.enum('Frame', 'fairygui::ObjectPropID::Frame')
+cls.enum('DeltaTime', 'fairygui::ObjectPropID::DeltaTime')
+cls.enum('TimeScale', 'fairygui::ObjectPropID::TimeScale')
+cls.enum('FontSize', 'fairygui::ObjectPropID::FontSize')
+cls.enum('Selected', 'fairygui::ObjectPropID::Selected')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GController'
@@ -1905,33 +1863,31 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::RelationType'
-cls.enums [[
-    Left_Left
-    Left_Center
-    Left_Right
-    Center_Center
-    Right_Left
-    Right_Center
-    Right_Right
-    Top_Top
-    Top_Middle
-    Top_Bottom
-    Middle_Middle
-    Bottom_Top
-    Bottom_Middle
-    Bottom_Bottom
-    Width
-    Height
-    LeftExt_Left
-    LeftExt_Right
-    RightExt_Left
-    RightExt_Right
-    TopExt_Top
-    TopExt_Bottom
-    BottomExt_Top
-    BottomExt_Bottom
-    Size
-]]
+cls.enum('Left_Left', 'fairygui::RelationType::Left_Left')
+cls.enum('Left_Center', 'fairygui::RelationType::Left_Center')
+cls.enum('Left_Right', 'fairygui::RelationType::Left_Right')
+cls.enum('Center_Center', 'fairygui::RelationType::Center_Center')
+cls.enum('Right_Left', 'fairygui::RelationType::Right_Left')
+cls.enum('Right_Center', 'fairygui::RelationType::Right_Center')
+cls.enum('Right_Right', 'fairygui::RelationType::Right_Right')
+cls.enum('Top_Top', 'fairygui::RelationType::Top_Top')
+cls.enum('Top_Middle', 'fairygui::RelationType::Top_Middle')
+cls.enum('Top_Bottom', 'fairygui::RelationType::Top_Bottom')
+cls.enum('Middle_Middle', 'fairygui::RelationType::Middle_Middle')
+cls.enum('Bottom_Top', 'fairygui::RelationType::Bottom_Top')
+cls.enum('Bottom_Middle', 'fairygui::RelationType::Bottom_Middle')
+cls.enum('Bottom_Bottom', 'fairygui::RelationType::Bottom_Bottom')
+cls.enum('Width', 'fairygui::RelationType::Width')
+cls.enum('Height', 'fairygui::RelationType::Height')
+cls.enum('LeftExt_Left', 'fairygui::RelationType::LeftExt_Left')
+cls.enum('LeftExt_Right', 'fairygui::RelationType::LeftExt_Right')
+cls.enum('RightExt_Left', 'fairygui::RelationType::RightExt_Left')
+cls.enum('RightExt_Right', 'fairygui::RelationType::RightExt_Right')
+cls.enum('TopExt_Top', 'fairygui::RelationType::TopExt_Top')
+cls.enum('TopExt_Bottom', 'fairygui::RelationType::TopExt_Bottom')
+cls.enum('BottomExt_Top', 'fairygui::RelationType::BottomExt_Top')
+cls.enum('BottomExt_Bottom', 'fairygui::RelationType::BottomExt_Bottom')
+cls.enum('Size', 'fairygui::RelationType::Size')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::RelationItem'
@@ -2560,14 +2516,12 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::HtmlElement::Type'
-cls.enums [[
-    TEXT
-    IMAGE
-    LINK
-    INPUT
-    SELECT
-    OBJECT
-]]
+cls.enum('TEXT', 'fairygui::HtmlElement::Type::TEXT')
+cls.enum('IMAGE', 'fairygui::HtmlElement::Type::IMAGE')
+cls.enum('LINK', 'fairygui::HtmlElement::Type::LINK')
+cls.enum('INPUT', 'fairygui::HtmlElement::Type::INPUT')
+cls.enum('SELECT', 'fairygui::HtmlElement::Type::SELECT')
+cls.enum('OBJECT', 'fairygui::HtmlElement::Type::OBJECT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::HtmlElement'

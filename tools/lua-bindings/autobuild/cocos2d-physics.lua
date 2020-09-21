@@ -174,13 +174,11 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::PhysicsContact::EventCode'
-cls.enums [[
-    NONE
-    BEGIN
-    PRESOLVE
-    POSTSOLVE
-    SEPARATE
-]]
+cls.enum('NONE', 'cocos2d::PhysicsContact::EventCode::NONE')
+cls.enum('BEGIN', 'cocos2d::PhysicsContact::EventCode::BEGIN')
+cls.enum('PRESOLVE', 'cocos2d::PhysicsContact::EventCode::PRESOLVE')
+cls.enum('POSTSOLVE', 'cocos2d::PhysicsContact::EventCode::POSTSOLVE')
+cls.enum('SEPARATE', 'cocos2d::PhysicsContact::EventCode::SEPARATE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::PhysicsContact'
@@ -438,18 +436,16 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::PhysicsShape::Type'
-cls.enums [[
-    UNKNOWN
-    CIRCLE
-    BOX
-    POLYGON
-    EDGESEGMENT
-    EDGEBOX
-    EDGEPOLYGON
-    EDGECHAIN
-    POLYGEN
-    EDGEPOLYGEN
-]]
+cls.enum('UNKNOWN', 'cocos2d::PhysicsShape::Type::UNKNOWN')
+cls.enum('CIRCLE', 'cocos2d::PhysicsShape::Type::CIRCLE')
+cls.enum('BOX', 'cocos2d::PhysicsShape::Type::BOX')
+cls.enum('POLYGON', 'cocos2d::PhysicsShape::Type::POLYGON')
+cls.enum('EDGESEGMENT', 'cocos2d::PhysicsShape::Type::EDGESEGMENT')
+cls.enum('EDGEBOX', 'cocos2d::PhysicsShape::Type::EDGEBOX')
+cls.enum('EDGEPOLYGON', 'cocos2d::PhysicsShape::Type::EDGEPOLYGON')
+cls.enum('EDGECHAIN', 'cocos2d::PhysicsShape::Type::EDGECHAIN')
+cls.enum('POLYGEN', 'cocos2d::PhysicsShape::Type::POLYGEN')
+cls.enum('EDGEPOLYGEN', 'cocos2d::PhysicsShape::Type::EDGEPOLYGEN')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::PhysicsShape'

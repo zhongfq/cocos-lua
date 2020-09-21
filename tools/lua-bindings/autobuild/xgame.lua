@@ -52,20 +52,16 @@ cls.funcs [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::Permission'
-cls.enums [[
-    AUDIO
-    CAMERA
-    PHOTO
-]]
+cls.enum('AUDIO', 'xgame::Permission::AUDIO')
+cls.enum('CAMERA', 'xgame::Permission::CAMERA')
+cls.enum('PHOTO', 'xgame::Permission::PHOTO')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::PermissionStatus'
-cls.enums [[
-    NOT_DETERMINED
-    RESTRICTED
-    DENIED
-    AUTHORIZED
-]]
+cls.enum('NOT_DETERMINED', 'xgame::PermissionStatus::NOT_DETERMINED')
+cls.enum('RESTRICTED', 'xgame::PermissionStatus::RESTRICTED')
+cls.enum('DENIED', 'xgame::PermissionStatus::DENIED')
+cls.enum('AUTHORIZED', 'xgame::PermissionStatus::AUTHORIZED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::runtime'
@@ -356,12 +352,10 @@ cls.func('convertToCameraSpace', [[{
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::downloader::FileState'
-cls.enums [[
-    IOERROR
-    LOADED
-    PENDING
-    INVALID
-]]
+cls.enum('IOERROR', 'xgame::downloader::FileState::IOERROR')
+cls.enum('LOADED', 'xgame::downloader::FileState::LOADED')
+cls.enum('PENDING', 'xgame::downloader::FileState::PENDING')
+cls.enum('INVALID', 'xgame::downloader::FileState::INVALID')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::downloader'

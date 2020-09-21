@@ -24,299 +24,251 @@ M.CONVS = {
 M.CLASSES = {}
 
 cls = typecls 'cocos2d::backend::BufferUsage'
-cls.enums [[
-    STATIC
-    DYNAMIC
-]]
+cls.enum('STATIC', 'cocos2d::backend::BufferUsage::STATIC')
+cls.enum('DYNAMIC', 'cocos2d::backend::BufferUsage::DYNAMIC')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::BufferType'
-cls.enums [[
-    VERTEX
-    INDEX
-]]
+cls.enum('VERTEX', 'cocos2d::backend::BufferType::VERTEX')
+cls.enum('INDEX', 'cocos2d::backend::BufferType::INDEX')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::ShaderStage'
-cls.enums [[
-    VERTEX
-    FRAGMENT
-    VERTEX_AND_FRAGMENT
-]]
+cls.enum('VERTEX', 'cocos2d::backend::ShaderStage::VERTEX')
+cls.enum('FRAGMENT', 'cocos2d::backend::ShaderStage::FRAGMENT')
+cls.enum('VERTEX_AND_FRAGMENT', 'cocos2d::backend::ShaderStage::VERTEX_AND_FRAGMENT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::VertexFormat'
-cls.enums [[
-    FLOAT4
-    FLOAT3
-    FLOAT2
-    FLOAT
-    INT4
-    INT3
-    INT2
-    INT
-    USHORT4
-    USHORT2
-    UBYTE4
-]]
+cls.enum('FLOAT4', 'cocos2d::backend::VertexFormat::FLOAT4')
+cls.enum('FLOAT3', 'cocos2d::backend::VertexFormat::FLOAT3')
+cls.enum('FLOAT2', 'cocos2d::backend::VertexFormat::FLOAT2')
+cls.enum('FLOAT', 'cocos2d::backend::VertexFormat::FLOAT')
+cls.enum('INT4', 'cocos2d::backend::VertexFormat::INT4')
+cls.enum('INT3', 'cocos2d::backend::VertexFormat::INT3')
+cls.enum('INT2', 'cocos2d::backend::VertexFormat::INT2')
+cls.enum('INT', 'cocos2d::backend::VertexFormat::INT')
+cls.enum('USHORT4', 'cocos2d::backend::VertexFormat::USHORT4')
+cls.enum('USHORT2', 'cocos2d::backend::VertexFormat::USHORT2')
+cls.enum('UBYTE4', 'cocos2d::backend::VertexFormat::UBYTE4')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::PixelFormat'
-cls.enums [[
-    AUTO
-    BGRA8888
-    RGBA8888
-    RGB888
-    RGB565
-    A8
-    I8
-    AI88
-    RGBA4444
-    RGB5A1
-    PVRTC4
-    PVRTC4A
-    PVRTC2
-    PVRTC2A
-    ETC
-    S3TC_DXT1
-    S3TC_DXT3
-    S3TC_DXT5
-    ATC_RGB
-    ATC_EXPLICIT_ALPHA
-    ATC_INTERPOLATED_ALPHA
-    MTL_B5G6R5
-    MTL_BGR5A1
-    MTL_ABGR4
-    D24S8
-    DEFAULT
-    NONE
-]]
+cls.enum('AUTO', 'cocos2d::backend::PixelFormat::AUTO')
+cls.enum('BGRA8888', 'cocos2d::backend::PixelFormat::BGRA8888')
+cls.enum('RGBA8888', 'cocos2d::backend::PixelFormat::RGBA8888')
+cls.enum('RGB888', 'cocos2d::backend::PixelFormat::RGB888')
+cls.enum('RGB565', 'cocos2d::backend::PixelFormat::RGB565')
+cls.enum('A8', 'cocos2d::backend::PixelFormat::A8')
+cls.enum('I8', 'cocos2d::backend::PixelFormat::I8')
+cls.enum('AI88', 'cocos2d::backend::PixelFormat::AI88')
+cls.enum('RGBA4444', 'cocos2d::backend::PixelFormat::RGBA4444')
+cls.enum('RGB5A1', 'cocos2d::backend::PixelFormat::RGB5A1')
+cls.enum('PVRTC4', 'cocos2d::backend::PixelFormat::PVRTC4')
+cls.enum('PVRTC4A', 'cocos2d::backend::PixelFormat::PVRTC4A')
+cls.enum('PVRTC2', 'cocos2d::backend::PixelFormat::PVRTC2')
+cls.enum('PVRTC2A', 'cocos2d::backend::PixelFormat::PVRTC2A')
+cls.enum('ETC', 'cocos2d::backend::PixelFormat::ETC')
+cls.enum('S3TC_DXT1', 'cocos2d::backend::PixelFormat::S3TC_DXT1')
+cls.enum('S3TC_DXT3', 'cocos2d::backend::PixelFormat::S3TC_DXT3')
+cls.enum('S3TC_DXT5', 'cocos2d::backend::PixelFormat::S3TC_DXT5')
+cls.enum('ATC_RGB', 'cocos2d::backend::PixelFormat::ATC_RGB')
+cls.enum('ATC_EXPLICIT_ALPHA', 'cocos2d::backend::PixelFormat::ATC_EXPLICIT_ALPHA')
+cls.enum('ATC_INTERPOLATED_ALPHA', 'cocos2d::backend::PixelFormat::ATC_INTERPOLATED_ALPHA')
+cls.enum('MTL_B5G6R5', 'cocos2d::backend::PixelFormat::MTL_B5G6R5')
+cls.enum('MTL_BGR5A1', 'cocos2d::backend::PixelFormat::MTL_BGR5A1')
+cls.enum('MTL_ABGR4', 'cocos2d::backend::PixelFormat::MTL_ABGR4')
+cls.enum('D24S8', 'cocos2d::backend::PixelFormat::D24S8')
+cls.enum('DEFAULT', 'cocos2d::backend::PixelFormat::DEFAULT')
+cls.enum('NONE', 'cocos2d::backend::PixelFormat::NONE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::TextureUsage'
-cls.enums [[
-    READ
-    WRITE
-    RENDER_TARGET
-]]
+cls.enum('READ', 'cocos2d::backend::TextureUsage::READ')
+cls.enum('WRITE', 'cocos2d::backend::TextureUsage::WRITE')
+cls.enum('RENDER_TARGET', 'cocos2d::backend::TextureUsage::RENDER_TARGET')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::IndexFormat'
-cls.enums [[
-    U_SHORT
-    U_INT
-]]
+cls.enum('U_SHORT', 'cocos2d::backend::IndexFormat::U_SHORT')
+cls.enum('U_INT', 'cocos2d::backend::IndexFormat::U_INT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::VertexStepMode'
-cls.enums [[
-    VERTEX
-    INSTANCE
-]]
+cls.enum('VERTEX', 'cocos2d::backend::VertexStepMode::VERTEX')
+cls.enum('INSTANCE', 'cocos2d::backend::VertexStepMode::INSTANCE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::PrimitiveType'
-cls.enums [[
-    POINT
-    LINE
-    LINE_STRIP
-    TRIANGLE
-    TRIANGLE_STRIP
-]]
+cls.enum('POINT', 'cocos2d::backend::PrimitiveType::POINT')
+cls.enum('LINE', 'cocos2d::backend::PrimitiveType::LINE')
+cls.enum('LINE_STRIP', 'cocos2d::backend::PrimitiveType::LINE_STRIP')
+cls.enum('TRIANGLE', 'cocos2d::backend::PrimitiveType::TRIANGLE')
+cls.enum('TRIANGLE_STRIP', 'cocos2d::backend::PrimitiveType::TRIANGLE_STRIP')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::TextureType'
-cls.enums [[
-    TEXTURE_2D
-    TEXTURE_CUBE
-]]
+cls.enum('TEXTURE_2D', 'cocos2d::backend::TextureType::TEXTURE_2D')
+cls.enum('TEXTURE_CUBE', 'cocos2d::backend::TextureType::TEXTURE_CUBE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::SamplerAddressMode'
-cls.enums [[
-    REPEAT
-    MIRROR_REPEAT
-    CLAMP_TO_EDGE
-    DONT_CARE
-]]
+cls.enum('REPEAT', 'cocos2d::backend::SamplerAddressMode::REPEAT')
+cls.enum('MIRROR_REPEAT', 'cocos2d::backend::SamplerAddressMode::MIRROR_REPEAT')
+cls.enum('CLAMP_TO_EDGE', 'cocos2d::backend::SamplerAddressMode::CLAMP_TO_EDGE')
+cls.enum('DONT_CARE', 'cocos2d::backend::SamplerAddressMode::DONT_CARE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::SamplerFilter'
-cls.enums [[
-    NEAREST
-    NEAREST_MIPMAP_NEAREST
-    NEAREST_MIPMAP_LINEAR
-    LINEAR
-    LINEAR_MIPMAP_LINEAR
-    LINEAR_MIPMAP_NEAREST
-    DONT_CARE
-]]
+cls.enum('NEAREST', 'cocos2d::backend::SamplerFilter::NEAREST')
+cls.enum('NEAREST_MIPMAP_NEAREST', 'cocos2d::backend::SamplerFilter::NEAREST_MIPMAP_NEAREST')
+cls.enum('NEAREST_MIPMAP_LINEAR', 'cocos2d::backend::SamplerFilter::NEAREST_MIPMAP_LINEAR')
+cls.enum('LINEAR', 'cocos2d::backend::SamplerFilter::LINEAR')
+cls.enum('LINEAR_MIPMAP_LINEAR', 'cocos2d::backend::SamplerFilter::LINEAR_MIPMAP_LINEAR')
+cls.enum('LINEAR_MIPMAP_NEAREST', 'cocos2d::backend::SamplerFilter::LINEAR_MIPMAP_NEAREST')
+cls.enum('DONT_CARE', 'cocos2d::backend::SamplerFilter::DONT_CARE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::StencilOperation'
-cls.enums [[
-    KEEP
-    ZERO
-    REPLACE
-    INVERT
-    INCREMENT_WRAP
-    DECREMENT_WRAP
-]]
+cls.enum('KEEP', 'cocos2d::backend::StencilOperation::KEEP')
+cls.enum('ZERO', 'cocos2d::backend::StencilOperation::ZERO')
+cls.enum('REPLACE', 'cocos2d::backend::StencilOperation::REPLACE')
+cls.enum('INVERT', 'cocos2d::backend::StencilOperation::INVERT')
+cls.enum('INCREMENT_WRAP', 'cocos2d::backend::StencilOperation::INCREMENT_WRAP')
+cls.enum('DECREMENT_WRAP', 'cocos2d::backend::StencilOperation::DECREMENT_WRAP')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::CompareFunction'
-cls.enums [[
-    NEVER
-    LESS
-    LESS_EQUAL
-    GREATER
-    GREATER_EQUAL
-    EQUAL
-    NOT_EQUAL
-    ALWAYS
-]]
+cls.enum('NEVER', 'cocos2d::backend::CompareFunction::NEVER')
+cls.enum('LESS', 'cocos2d::backend::CompareFunction::LESS')
+cls.enum('LESS_EQUAL', 'cocos2d::backend::CompareFunction::LESS_EQUAL')
+cls.enum('GREATER', 'cocos2d::backend::CompareFunction::GREATER')
+cls.enum('GREATER_EQUAL', 'cocos2d::backend::CompareFunction::GREATER_EQUAL')
+cls.enum('EQUAL', 'cocos2d::backend::CompareFunction::EQUAL')
+cls.enum('NOT_EQUAL', 'cocos2d::backend::CompareFunction::NOT_EQUAL')
+cls.enum('ALWAYS', 'cocos2d::backend::CompareFunction::ALWAYS')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::BlendOperation'
-cls.enums [[
-    ADD
-    SUBTRACT
-    RESERVE_SUBTRACT
-]]
+cls.enum('ADD', 'cocos2d::backend::BlendOperation::ADD')
+cls.enum('SUBTRACT', 'cocos2d::backend::BlendOperation::SUBTRACT')
+cls.enum('RESERVE_SUBTRACT', 'cocos2d::backend::BlendOperation::RESERVE_SUBTRACT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::BlendFactor'
-cls.enums [[
-    ZERO
-    ONE
-    SRC_COLOR
-    ONE_MINUS_SRC_COLOR
-    SRC_ALPHA
-    ONE_MINUS_SRC_ALPHA
-    DST_COLOR
-    ONE_MINUS_DST_COLOR
-    DST_ALPHA
-    ONE_MINUS_DST_ALPHA
-    CONSTANT_ALPHA
-    SRC_ALPHA_SATURATE
-    ONE_MINUS_CONSTANT_ALPHA
-    BLEND_CLOLOR
-]]
+cls.enum('ZERO', 'cocos2d::backend::BlendFactor::ZERO')
+cls.enum('ONE', 'cocos2d::backend::BlendFactor::ONE')
+cls.enum('SRC_COLOR', 'cocos2d::backend::BlendFactor::SRC_COLOR')
+cls.enum('ONE_MINUS_SRC_COLOR', 'cocos2d::backend::BlendFactor::ONE_MINUS_SRC_COLOR')
+cls.enum('SRC_ALPHA', 'cocos2d::backend::BlendFactor::SRC_ALPHA')
+cls.enum('ONE_MINUS_SRC_ALPHA', 'cocos2d::backend::BlendFactor::ONE_MINUS_SRC_ALPHA')
+cls.enum('DST_COLOR', 'cocos2d::backend::BlendFactor::DST_COLOR')
+cls.enum('ONE_MINUS_DST_COLOR', 'cocos2d::backend::BlendFactor::ONE_MINUS_DST_COLOR')
+cls.enum('DST_ALPHA', 'cocos2d::backend::BlendFactor::DST_ALPHA')
+cls.enum('ONE_MINUS_DST_ALPHA', 'cocos2d::backend::BlendFactor::ONE_MINUS_DST_ALPHA')
+cls.enum('CONSTANT_ALPHA', 'cocos2d::backend::BlendFactor::CONSTANT_ALPHA')
+cls.enum('SRC_ALPHA_SATURATE', 'cocos2d::backend::BlendFactor::SRC_ALPHA_SATURATE')
+cls.enum('ONE_MINUS_CONSTANT_ALPHA', 'cocos2d::backend::BlendFactor::ONE_MINUS_CONSTANT_ALPHA')
+cls.enum('BLEND_CLOLOR', 'cocos2d::backend::BlendFactor::BLEND_CLOLOR')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::ColorWriteMask'
-cls.enums [[
-    NONE
-    RED
-    GREEN
-    BLUE
-    ALPHA
-    ALL
-]]
+cls.enum('NONE', 'cocos2d::backend::ColorWriteMask::NONE')
+cls.enum('RED', 'cocos2d::backend::ColorWriteMask::RED')
+cls.enum('GREEN', 'cocos2d::backend::ColorWriteMask::GREEN')
+cls.enum('BLUE', 'cocos2d::backend::ColorWriteMask::BLUE')
+cls.enum('ALPHA', 'cocos2d::backend::ColorWriteMask::ALPHA')
+cls.enum('ALL', 'cocos2d::backend::ColorWriteMask::ALL')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::CullMode'
-cls.enums [[
-    NONE
-    BACK
-    FRONT
-]]
+cls.enum('NONE', 'cocos2d::backend::CullMode::NONE')
+cls.enum('BACK', 'cocos2d::backend::CullMode::BACK')
+cls.enum('FRONT', 'cocos2d::backend::CullMode::FRONT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::Winding'
-cls.enums [[
-    CLOCK_WISE
-    COUNTER_CLOCK_WISE
-]]
+cls.enum('CLOCK_WISE', 'cocos2d::backend::Winding::CLOCK_WISE')
+cls.enum('COUNTER_CLOCK_WISE', 'cocos2d::backend::Winding::COUNTER_CLOCK_WISE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::TextureCubeFace'
-cls.enums [[
-    POSITIVE_X
-    NEGATIVE_X
-    POSITIVE_Y
-    NEGATIVE_Y
-    POSITIVE_Z
-    NEGATIVE_Z
-]]
+cls.enum('POSITIVE_X', 'cocos2d::backend::TextureCubeFace::POSITIVE_X')
+cls.enum('NEGATIVE_X', 'cocos2d::backend::TextureCubeFace::NEGATIVE_X')
+cls.enum('POSITIVE_Y', 'cocos2d::backend::TextureCubeFace::POSITIVE_Y')
+cls.enum('NEGATIVE_Y', 'cocos2d::backend::TextureCubeFace::NEGATIVE_Y')
+cls.enum('POSITIVE_Z', 'cocos2d::backend::TextureCubeFace::POSITIVE_Z')
+cls.enum('NEGATIVE_Z', 'cocos2d::backend::TextureCubeFace::NEGATIVE_Z')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::ProgramType'
-cls.enums [[
-    POSITION_COLOR_LENGTH_TEXTURE
-    POSITION_COLOR_TEXTURE_AS_POINTSIZE
-    POSITION_COLOR
-    POSITION
-    POSITION_UCOLOR
-    POSITION_TEXTURE
-    POSITION_TEXTURE_COLOR
-    POSITION_TEXTURE_COLOR_ALPHA_TEST
-    LABEL_NORMAL
-    LABLE_OUTLINE
-    LABLE_DISTANCEFIELD_GLOW
-    LABEL_DISTANCE_NORMAL
-    LAYER_RADIA_GRADIENT
-    ETC1
-    ETC1_GRAY
-    GRAY_SCALE
-    CAMERA_CLEAR
-    TERRAIN_3D
-    LINE_COLOR_3D
-    SKYBOX_3D
-    SKINPOSITION_TEXTURE_3D
-    SKINPOSITION_NORMAL_TEXTURE_3D
-    POSITION_NORMAL_TEXTURE_3D
-    POSITION_NORMAL_3D
-    POSITION_TEXTURE_3D
-    POSITION_3D
-    POSITION_BUMPEDNORMAL_TEXTURE_3D
-    SKINPOSITION_BUMPEDNORMAL_TEXTURE_3D
-    PARTICLE_TEXTURE_3D
-    PARTICLE_COLOR_3D
-    CUSTOM_PROGRAM
-]]
+cls.enum('POSITION_COLOR_LENGTH_TEXTURE', 'cocos2d::backend::ProgramType::POSITION_COLOR_LENGTH_TEXTURE')
+cls.enum('POSITION_COLOR_TEXTURE_AS_POINTSIZE', 'cocos2d::backend::ProgramType::POSITION_COLOR_TEXTURE_AS_POINTSIZE')
+cls.enum('POSITION_COLOR', 'cocos2d::backend::ProgramType::POSITION_COLOR')
+cls.enum('POSITION', 'cocos2d::backend::ProgramType::POSITION')
+cls.enum('POSITION_UCOLOR', 'cocos2d::backend::ProgramType::POSITION_UCOLOR')
+cls.enum('POSITION_TEXTURE', 'cocos2d::backend::ProgramType::POSITION_TEXTURE')
+cls.enum('POSITION_TEXTURE_COLOR', 'cocos2d::backend::ProgramType::POSITION_TEXTURE_COLOR')
+cls.enum('POSITION_TEXTURE_COLOR_ALPHA_TEST', 'cocos2d::backend::ProgramType::POSITION_TEXTURE_COLOR_ALPHA_TEST')
+cls.enum('LABEL_NORMAL', 'cocos2d::backend::ProgramType::LABEL_NORMAL')
+cls.enum('LABLE_OUTLINE', 'cocos2d::backend::ProgramType::LABLE_OUTLINE')
+cls.enum('LABLE_DISTANCEFIELD_GLOW', 'cocos2d::backend::ProgramType::LABLE_DISTANCEFIELD_GLOW')
+cls.enum('LABEL_DISTANCE_NORMAL', 'cocos2d::backend::ProgramType::LABEL_DISTANCE_NORMAL')
+cls.enum('LAYER_RADIA_GRADIENT', 'cocos2d::backend::ProgramType::LAYER_RADIA_GRADIENT')
+cls.enum('ETC1', 'cocos2d::backend::ProgramType::ETC1')
+cls.enum('ETC1_GRAY', 'cocos2d::backend::ProgramType::ETC1_GRAY')
+cls.enum('GRAY_SCALE', 'cocos2d::backend::ProgramType::GRAY_SCALE')
+cls.enum('CAMERA_CLEAR', 'cocos2d::backend::ProgramType::CAMERA_CLEAR')
+cls.enum('TERRAIN_3D', 'cocos2d::backend::ProgramType::TERRAIN_3D')
+cls.enum('LINE_COLOR_3D', 'cocos2d::backend::ProgramType::LINE_COLOR_3D')
+cls.enum('SKYBOX_3D', 'cocos2d::backend::ProgramType::SKYBOX_3D')
+cls.enum('SKINPOSITION_TEXTURE_3D', 'cocos2d::backend::ProgramType::SKINPOSITION_TEXTURE_3D')
+cls.enum('SKINPOSITION_NORMAL_TEXTURE_3D', 'cocos2d::backend::ProgramType::SKINPOSITION_NORMAL_TEXTURE_3D')
+cls.enum('POSITION_NORMAL_TEXTURE_3D', 'cocos2d::backend::ProgramType::POSITION_NORMAL_TEXTURE_3D')
+cls.enum('POSITION_NORMAL_3D', 'cocos2d::backend::ProgramType::POSITION_NORMAL_3D')
+cls.enum('POSITION_TEXTURE_3D', 'cocos2d::backend::ProgramType::POSITION_TEXTURE_3D')
+cls.enum('POSITION_3D', 'cocos2d::backend::ProgramType::POSITION_3D')
+cls.enum('POSITION_BUMPEDNORMAL_TEXTURE_3D', 'cocos2d::backend::ProgramType::POSITION_BUMPEDNORMAL_TEXTURE_3D')
+cls.enum('SKINPOSITION_BUMPEDNORMAL_TEXTURE_3D', 'cocos2d::backend::ProgramType::SKINPOSITION_BUMPEDNORMAL_TEXTURE_3D')
+cls.enum('PARTICLE_TEXTURE_3D', 'cocos2d::backend::ProgramType::PARTICLE_TEXTURE_3D')
+cls.enum('PARTICLE_COLOR_3D', 'cocos2d::backend::ProgramType::PARTICLE_COLOR_3D')
+cls.enum('CUSTOM_PROGRAM', 'cocos2d::backend::ProgramType::CUSTOM_PROGRAM')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::Uniform'
-cls.enums [[
-    MVP_MATRIX
-    TEXTURE
-    TEXTURE1
-    TEXTURE2
-    TEXTURE3
-    TEXT_COLOR
-    EFFECT_TYPE
-    EFFECT_COLOR
-    UNIFORM_MAX
-]]
+cls.enum('MVP_MATRIX', 'cocos2d::backend::Uniform::MVP_MATRIX')
+cls.enum('TEXTURE', 'cocos2d::backend::Uniform::TEXTURE')
+cls.enum('TEXTURE1', 'cocos2d::backend::Uniform::TEXTURE1')
+cls.enum('TEXTURE2', 'cocos2d::backend::Uniform::TEXTURE2')
+cls.enum('TEXTURE3', 'cocos2d::backend::Uniform::TEXTURE3')
+cls.enum('TEXT_COLOR', 'cocos2d::backend::Uniform::TEXT_COLOR')
+cls.enum('EFFECT_TYPE', 'cocos2d::backend::Uniform::EFFECT_TYPE')
+cls.enum('EFFECT_COLOR', 'cocos2d::backend::Uniform::EFFECT_COLOR')
+cls.enum('UNIFORM_MAX', 'cocos2d::backend::Uniform::UNIFORM_MAX')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::Attribute'
-cls.enums [[
-    POSITION
-    COLOR
-    TEXCOORD
-    TEXCOORD1
-    TEXCOORD2
-    TEXCOORD3
-    ATTRIBUTE_MAX
-]]
+cls.enum('POSITION', 'cocos2d::backend::Attribute::POSITION')
+cls.enum('COLOR', 'cocos2d::backend::Attribute::COLOR')
+cls.enum('TEXCOORD', 'cocos2d::backend::Attribute::TEXCOORD')
+cls.enum('TEXCOORD1', 'cocos2d::backend::Attribute::TEXCOORD1')
+cls.enum('TEXCOORD2', 'cocos2d::backend::Attribute::TEXCOORD2')
+cls.enum('TEXCOORD3', 'cocos2d::backend::Attribute::TEXCOORD3')
+cls.enum('ATTRIBUTE_MAX', 'cocos2d::backend::Attribute::ATTRIBUTE_MAX')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::FeatureType'
-cls.enums [[
-    ETC1
-    S3TC
-    AMD_COMPRESSED_ATC
-    PVRTC
-    IMG_FORMAT_BGRA8888
-    DISCARD_FRAMEBUFFER
-    PACKED_DEPTH_STENCIL
-    VAO
-    MAPBUFFER
-    DEPTH24
-    ASTC
-]]
+cls.enum('ETC1', 'cocos2d::backend::FeatureType::ETC1')
+cls.enum('S3TC', 'cocos2d::backend::FeatureType::S3TC')
+cls.enum('AMD_COMPRESSED_ATC', 'cocos2d::backend::FeatureType::AMD_COMPRESSED_ATC')
+cls.enum('PVRTC', 'cocos2d::backend::FeatureType::PVRTC')
+cls.enum('IMG_FORMAT_BGRA8888', 'cocos2d::backend::FeatureType::IMG_FORMAT_BGRA8888')
+cls.enum('DISCARD_FRAMEBUFFER', 'cocos2d::backend::FeatureType::DISCARD_FRAMEBUFFER')
+cls.enum('PACKED_DEPTH_STENCIL', 'cocos2d::backend::FeatureType::PACKED_DEPTH_STENCIL')
+cls.enum('VAO', 'cocos2d::backend::FeatureType::VAO')
+cls.enum('MAPBUFFER', 'cocos2d::backend::FeatureType::MAPBUFFER')
+cls.enum('DEPTH24', 'cocos2d::backend::FeatureType::DEPTH24')
+cls.enum('ASTC', 'cocos2d::backend::FeatureType::ASTC')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::Buffer'

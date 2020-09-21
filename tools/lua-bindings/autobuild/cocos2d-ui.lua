@@ -30,50 +30,38 @@ M.CONVS = {
 M.CLASSES = {}
 
 cls = typecls 'cocos2d::ui::Widget::FocusDirection'
-cls.enums [[
-    LEFT
-    RIGHT
-    UP
-    DOWN
-]]
+cls.enum('LEFT', 'cocos2d::ui::Widget::FocusDirection::LEFT')
+cls.enum('RIGHT', 'cocos2d::ui::Widget::FocusDirection::RIGHT')
+cls.enum('UP', 'cocos2d::ui::Widget::FocusDirection::UP')
+cls.enum('DOWN', 'cocos2d::ui::Widget::FocusDirection::DOWN')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Widget::PositionType'
-cls.enums [[
-    ABSOLUTE
-    PERCENT
-]]
+cls.enum('ABSOLUTE', 'cocos2d::ui::Widget::PositionType::ABSOLUTE')
+cls.enum('PERCENT', 'cocos2d::ui::Widget::PositionType::PERCENT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Widget::SizeType'
-cls.enums [[
-    ABSOLUTE
-    PERCENT
-]]
+cls.enum('ABSOLUTE', 'cocos2d::ui::Widget::SizeType::ABSOLUTE')
+cls.enum('PERCENT', 'cocos2d::ui::Widget::SizeType::PERCENT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Widget::TouchEventType'
-cls.enums [[
-    BEGAN
-    MOVED
-    ENDED
-    CANCELED
-]]
+cls.enum('BEGAN', 'cocos2d::ui::Widget::TouchEventType::BEGAN')
+cls.enum('MOVED', 'cocos2d::ui::Widget::TouchEventType::MOVED')
+cls.enum('ENDED', 'cocos2d::ui::Widget::TouchEventType::ENDED')
+cls.enum('CANCELED', 'cocos2d::ui::Widget::TouchEventType::CANCELED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Widget::TextureResType'
-cls.enums [[
-    LOCAL
-    PLIST
-]]
+cls.enum('LOCAL', 'cocos2d::ui::Widget::TextureResType::LOCAL')
+cls.enum('PLIST', 'cocos2d::ui::Widget::TextureResType::PLIST')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Widget::BrightStyle'
-cls.enums [[
-    NONE
-    NORMAL
-    HIGHLIGHT
-]]
+cls.enum('NONE', 'cocos2d::ui::Widget::BrightStyle::NONE')
+cls.enum('NORMAL', 'cocos2d::ui::Widget::BrightStyle::NORMAL')
+cls.enum('HIGHLIGHT', 'cocos2d::ui::Widget::BrightStyle::HIGHLIGHT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Widget'
@@ -234,17 +222,13 @@ cls.funcs [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Scale9Sprite::State'
-cls.enums [[
-    NORMAL
-    GRAY
-]]
+cls.enum('NORMAL', 'cocos2d::ui::Scale9Sprite::State::NORMAL')
+cls.enum('GRAY', 'cocos2d::ui::Scale9Sprite::State::GRAY')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Scale9Sprite::RenderingType'
-cls.enums [[
-    SIMPLE
-    SLICE
-]]
+cls.enum('SIMPLE', 'cocos2d::ui::Scale9Sprite::RenderingType::SIMPLE')
+cls.enum('SLICE', 'cocos2d::ui::Scale9Sprite::RenderingType::SLICE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Scale9Sprite'
@@ -310,21 +294,17 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::LayoutComponent::HorizontalEdge'
-cls.enums [[
-    None
-    Left
-    Right
-    Center
-]]
+cls.enum('None', 'cocos2d::ui::LayoutComponent::HorizontalEdge::None')
+cls.enum('Left', 'cocos2d::ui::LayoutComponent::HorizontalEdge::Left')
+cls.enum('Right', 'cocos2d::ui::LayoutComponent::HorizontalEdge::Right')
+cls.enum('Center', 'cocos2d::ui::LayoutComponent::HorizontalEdge::Center')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::LayoutComponent::VerticalEdge'
-cls.enums [[
-    None
-    Bottom
-    Top
-    Center
-]]
+cls.enum('None', 'cocos2d::ui::LayoutComponent::VerticalEdge::None')
+cls.enum('Bottom', 'cocos2d::ui::LayoutComponent::VerticalEdge::Bottom')
+cls.enum('Top', 'cocos2d::ui::LayoutComponent::VerticalEdge::Top')
+cls.enum('Center', 'cocos2d::ui::LayoutComponent::VerticalEdge::Center')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::LayoutComponent'
@@ -411,11 +391,9 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::LayoutParameter::Type'
-cls.enums [[
-    NONE
-    LINEAR
-    RELATIVE
-]]
+cls.enum('NONE', 'cocos2d::ui::LayoutParameter::Type::NONE')
+cls.enum('LINEAR', 'cocos2d::ui::LayoutParameter::Type::LINEAR')
+cls.enum('RELATIVE', 'cocos2d::ui::LayoutParameter::Type::RELATIVE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::LayoutParameter'
@@ -437,15 +415,13 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::LinearLayoutParameter::LinearGravity'
-cls.enums [[
-    NONE
-    LEFT
-    TOP
-    RIGHT
-    BOTTOM
-    CENTER_VERTICAL
-    CENTER_HORIZONTAL
-]]
+cls.enum('NONE', 'cocos2d::ui::LinearLayoutParameter::LinearGravity::NONE')
+cls.enum('LEFT', 'cocos2d::ui::LinearLayoutParameter::LinearGravity::LEFT')
+cls.enum('TOP', 'cocos2d::ui::LinearLayoutParameter::LinearGravity::TOP')
+cls.enum('RIGHT', 'cocos2d::ui::LinearLayoutParameter::LinearGravity::RIGHT')
+cls.enum('BOTTOM', 'cocos2d::ui::LinearLayoutParameter::LinearGravity::BOTTOM')
+cls.enum('CENTER_VERTICAL', 'cocos2d::ui::LinearLayoutParameter::LinearGravity::CENTER_VERTICAL')
+cls.enum('CENTER_HORIZONTAL', 'cocos2d::ui::LinearLayoutParameter::LinearGravity::CENTER_HORIZONTAL')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::LinearLayoutParameter'
@@ -462,30 +438,28 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign'
-cls.enums [[
-    NONE
-    PARENT_TOP_LEFT
-    PARENT_TOP_CENTER_HORIZONTAL
-    PARENT_TOP_RIGHT
-    PARENT_LEFT_CENTER_VERTICAL
-    CENTER_IN_PARENT
-    PARENT_RIGHT_CENTER_VERTICAL
-    PARENT_LEFT_BOTTOM
-    PARENT_BOTTOM_CENTER_HORIZONTAL
-    PARENT_RIGHT_BOTTOM
-    LOCATION_ABOVE_LEFTALIGN
-    LOCATION_ABOVE_CENTER
-    LOCATION_ABOVE_RIGHTALIGN
-    LOCATION_LEFT_OF_TOPALIGN
-    LOCATION_LEFT_OF_CENTER
-    LOCATION_LEFT_OF_BOTTOMALIGN
-    LOCATION_RIGHT_OF_TOPALIGN
-    LOCATION_RIGHT_OF_CENTER
-    LOCATION_RIGHT_OF_BOTTOMALIGN
-    LOCATION_BELOW_LEFTALIGN
-    LOCATION_BELOW_CENTER
-    LOCATION_BELOW_RIGHTALIGN
-]]
+cls.enum('NONE', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::NONE')
+cls.enum('PARENT_TOP_LEFT', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_TOP_LEFT')
+cls.enum('PARENT_TOP_CENTER_HORIZONTAL', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_TOP_CENTER_HORIZONTAL')
+cls.enum('PARENT_TOP_RIGHT', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_TOP_RIGHT')
+cls.enum('PARENT_LEFT_CENTER_VERTICAL', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_LEFT_CENTER_VERTICAL')
+cls.enum('CENTER_IN_PARENT', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::CENTER_IN_PARENT')
+cls.enum('PARENT_RIGHT_CENTER_VERTICAL', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_RIGHT_CENTER_VERTICAL')
+cls.enum('PARENT_LEFT_BOTTOM', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_LEFT_BOTTOM')
+cls.enum('PARENT_BOTTOM_CENTER_HORIZONTAL', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_BOTTOM_CENTER_HORIZONTAL')
+cls.enum('PARENT_RIGHT_BOTTOM', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_RIGHT_BOTTOM')
+cls.enum('LOCATION_ABOVE_LEFTALIGN', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_ABOVE_LEFTALIGN')
+cls.enum('LOCATION_ABOVE_CENTER', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_ABOVE_CENTER')
+cls.enum('LOCATION_ABOVE_RIGHTALIGN', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_ABOVE_RIGHTALIGN')
+cls.enum('LOCATION_LEFT_OF_TOPALIGN', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_LEFT_OF_TOPALIGN')
+cls.enum('LOCATION_LEFT_OF_CENTER', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_LEFT_OF_CENTER')
+cls.enum('LOCATION_LEFT_OF_BOTTOMALIGN', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_LEFT_OF_BOTTOMALIGN')
+cls.enum('LOCATION_RIGHT_OF_TOPALIGN', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_RIGHT_OF_TOPALIGN')
+cls.enum('LOCATION_RIGHT_OF_CENTER', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_RIGHT_OF_CENTER')
+cls.enum('LOCATION_RIGHT_OF_BOTTOMALIGN', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_RIGHT_OF_BOTTOMALIGN')
+cls.enum('LOCATION_BELOW_LEFTALIGN', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_BELOW_LEFTALIGN')
+cls.enum('LOCATION_BELOW_CENTER', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_BELOW_CENTER')
+cls.enum('LOCATION_BELOW_RIGHTALIGN', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_BELOW_RIGHTALIGN')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RelativeLayoutParameter'
@@ -508,27 +482,21 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Layout::Type'
-cls.enums [[
-    ABSOLUTE
-    VERTICAL
-    HORIZONTAL
-    RELATIVE
-]]
+cls.enum('ABSOLUTE', 'cocos2d::ui::Layout::Type::ABSOLUTE')
+cls.enum('VERTICAL', 'cocos2d::ui::Layout::Type::VERTICAL')
+cls.enum('HORIZONTAL', 'cocos2d::ui::Layout::Type::HORIZONTAL')
+cls.enum('RELATIVE', 'cocos2d::ui::Layout::Type::RELATIVE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Layout::ClippingType'
-cls.enums [[
-    STENCIL
-    SCISSOR
-]]
+cls.enum('STENCIL', 'cocos2d::ui::Layout::ClippingType::STENCIL')
+cls.enum('SCISSOR', 'cocos2d::ui::Layout::ClippingType::SCISSOR')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Layout::BackGroundColorType'
-cls.enums [[
-    NONE
-    SOLID
-    GRADIENT
-]]
+cls.enum('NONE', 'cocos2d::ui::Layout::BackGroundColorType::NONE')
+cls.enum('SOLID', 'cocos2d::ui::Layout::BackGroundColorType::SOLID')
+cls.enum('GRADIENT', 'cocos2d::ui::Layout::BackGroundColorType::GRADIENT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Layout'
@@ -733,21 +701,17 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::VideoPlayer::EventType'
 cls.DEFIF = "#ifdef CCLUA_HAVE_VIDEOPLAYER"
-cls.enums [[
-    PLAYING
-    PAUSED
-    STOPPED
-    COMPLETED
-    ERROR
-]]
+cls.enum('PLAYING', 'cocos2d::ui::VideoPlayer::EventType::PLAYING')
+cls.enum('PAUSED', 'cocos2d::ui::VideoPlayer::EventType::PAUSED')
+cls.enum('STOPPED', 'cocos2d::ui::VideoPlayer::EventType::STOPPED')
+cls.enum('COMPLETED', 'cocos2d::ui::VideoPlayer::EventType::COMPLETED')
+cls.enum('ERROR', 'cocos2d::ui::VideoPlayer::EventType::ERROR')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::VideoPlayer::StyleType'
 cls.DEFIF = "#ifdef CCLUA_HAVE_VIDEOPLAYER"
-cls.enums [[
-    DEFAULT
-    NONE
-]]
+cls.enum('DEFAULT', 'cocos2d::ui::VideoPlayer::StyleType::DEFAULT')
+cls.enum('NONE', 'cocos2d::ui::VideoPlayer::StyleType::NONE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::VideoPlayer'
@@ -837,10 +801,8 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::TabHeader::EventType'
-cls.enums [[
-    SELECTED
-    UNSELECTED
-]]
+cls.enum('SELECTED', 'cocos2d::ui::TabHeader::EventType::SELECTED')
+cls.enum('UNSELECTED', 'cocos2d::ui::TabHeader::EventType::UNSELECTED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::TabHeader'
@@ -871,18 +833,14 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::TabControl::Dock'
-cls.enums [[
-    TOP
-    LEFT
-    BOTTOM
-    RIGHT
-]]
+cls.enum('TOP', 'cocos2d::ui::TabControl::Dock::TOP')
+cls.enum('LEFT', 'cocos2d::ui::TabControl::Dock::LEFT')
+cls.enum('BOTTOM', 'cocos2d::ui::TabControl::Dock::BOTTOM')
+cls.enum('RIGHT', 'cocos2d::ui::TabControl::Dock::RIGHT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::TabControl::EventType'
-cls.enums [[
-    SELECT_CHANGED
-]]
+cls.enum('SELECT_CHANGED', 'cocos2d::ui::TabControl::EventType::SELECT_CHANGED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::TabControl'
@@ -930,30 +888,26 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::ScrollView::Direction'
-cls.enums [[
-    NONE
-    VERTICAL
-    HORIZONTAL
-    BOTH
-]]
+cls.enum('NONE', 'cocos2d::ui::ScrollView::Direction::NONE')
+cls.enum('VERTICAL', 'cocos2d::ui::ScrollView::Direction::VERTICAL')
+cls.enum('HORIZONTAL', 'cocos2d::ui::ScrollView::Direction::HORIZONTAL')
+cls.enum('BOTH', 'cocos2d::ui::ScrollView::Direction::BOTH')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::ScrollView::EventType'
-cls.enums [[
-    SCROLL_TO_TOP
-    SCROLL_TO_BOTTOM
-    SCROLL_TO_LEFT
-    SCROLL_TO_RIGHT
-    SCROLLING
-    BOUNCE_TOP
-    BOUNCE_BOTTOM
-    BOUNCE_LEFT
-    BOUNCE_RIGHT
-    CONTAINER_MOVED
-    SCROLLING_BEGAN
-    SCROLLING_ENDED
-    AUTOSCROLL_ENDED
-]]
+cls.enum('SCROLL_TO_TOP', 'cocos2d::ui::ScrollView::EventType::SCROLL_TO_TOP')
+cls.enum('SCROLL_TO_BOTTOM', 'cocos2d::ui::ScrollView::EventType::SCROLL_TO_BOTTOM')
+cls.enum('SCROLL_TO_LEFT', 'cocos2d::ui::ScrollView::EventType::SCROLL_TO_LEFT')
+cls.enum('SCROLL_TO_RIGHT', 'cocos2d::ui::ScrollView::EventType::SCROLL_TO_RIGHT')
+cls.enum('SCROLLING', 'cocos2d::ui::ScrollView::EventType::SCROLLING')
+cls.enum('BOUNCE_TOP', 'cocos2d::ui::ScrollView::EventType::BOUNCE_TOP')
+cls.enum('BOUNCE_BOTTOM', 'cocos2d::ui::ScrollView::EventType::BOUNCE_BOTTOM')
+cls.enum('BOUNCE_LEFT', 'cocos2d::ui::ScrollView::EventType::BOUNCE_LEFT')
+cls.enum('BOUNCE_RIGHT', 'cocos2d::ui::ScrollView::EventType::BOUNCE_RIGHT')
+cls.enum('CONTAINER_MOVED', 'cocos2d::ui::ScrollView::EventType::CONTAINER_MOVED')
+cls.enum('SCROLLING_BEGAN', 'cocos2d::ui::ScrollView::EventType::SCROLLING_BEGAN')
+cls.enum('SCROLLING_ENDED', 'cocos2d::ui::ScrollView::EventType::SCROLLING_ENDED')
+cls.enum('AUTOSCROLL_ENDED', 'cocos2d::ui::ScrollView::EventType::AUTOSCROLL_ENDED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::ScrollView'
@@ -1057,33 +1011,27 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::ListView::Gravity'
-cls.enums [[
-    LEFT
-    RIGHT
-    CENTER_HORIZONTAL
-    TOP
-    BOTTOM
-    CENTER_VERTICAL
-]]
+cls.enum('LEFT', 'cocos2d::ui::ListView::Gravity::LEFT')
+cls.enum('RIGHT', 'cocos2d::ui::ListView::Gravity::RIGHT')
+cls.enum('CENTER_HORIZONTAL', 'cocos2d::ui::ListView::Gravity::CENTER_HORIZONTAL')
+cls.enum('TOP', 'cocos2d::ui::ListView::Gravity::TOP')
+cls.enum('BOTTOM', 'cocos2d::ui::ListView::Gravity::BOTTOM')
+cls.enum('CENTER_VERTICAL', 'cocos2d::ui::ListView::Gravity::CENTER_VERTICAL')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::ListView::EventType'
-cls.enums [[
-    ON_SELECTED_ITEM_START
-    ON_SELECTED_ITEM_END
-]]
+cls.enum('ON_SELECTED_ITEM_START', 'cocos2d::ui::ListView::EventType::ON_SELECTED_ITEM_START')
+cls.enum('ON_SELECTED_ITEM_END', 'cocos2d::ui::ListView::EventType::ON_SELECTED_ITEM_END')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::ListView::MagneticType'
-cls.enums [[
-    NONE
-    CENTER
-    BOTH_END
-    LEFT
-    RIGHT
-    TOP
-    BOTTOM
-]]
+cls.enum('NONE', 'cocos2d::ui::ListView::MagneticType::NONE')
+cls.enum('CENTER', 'cocos2d::ui::ListView::MagneticType::CENTER')
+cls.enum('BOTH_END', 'cocos2d::ui::ListView::MagneticType::BOTH_END')
+cls.enum('LEFT', 'cocos2d::ui::ListView::MagneticType::LEFT')
+cls.enum('RIGHT', 'cocos2d::ui::ListView::MagneticType::RIGHT')
+cls.enum('TOP', 'cocos2d::ui::ListView::MagneticType::TOP')
+cls.enum('BOTTOM', 'cocos2d::ui::ListView::MagneticType::BOTTOM')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::ListView'
@@ -1164,10 +1112,8 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::LoadingBar::Direction'
-cls.enums [[
-    LEFT
-    RIGHT
-]]
+cls.enum('LEFT', 'cocos2d::ui::LoadingBar::Direction::LEFT')
+cls.enum('RIGHT', 'cocos2d::ui::LoadingBar::Direction::RIGHT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::LoadingBar'
@@ -1199,18 +1145,14 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::PageView::EventType'
-cls.enums [[
-    TURNING
-]]
+cls.enum('TURNING', 'cocos2d::ui::PageView::EventType::TURNING')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::PageView::TouchDirection'
-cls.enums [[
-    LEFT
-    RIGHT
-    UP
-    DOWN
-]]
+cls.enum('LEFT', 'cocos2d::ui::PageView::TouchDirection::LEFT')
+cls.enum('RIGHT', 'cocos2d::ui::PageView::TouchDirection::RIGHT')
+cls.enum('UP', 'cocos2d::ui::PageView::TouchDirection::UP')
+cls.enum('DOWN', 'cocos2d::ui::PageView::TouchDirection::DOWN')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::PageView'
@@ -1275,12 +1217,10 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RichElement::Type'
-cls.enums [[
-    TEXT
-    IMAGE
-    CUSTOM
-    NEWLINE
-]]
+cls.enum('TEXT', 'cocos2d::ui::RichElement::Type::TEXT')
+cls.enum('IMAGE', 'cocos2d::ui::RichElement::Type::IMAGE')
+cls.enum('CUSTOM', 'cocos2d::ui::RichElement::Type::CUSTOM')
+cls.enum('NEWLINE', 'cocos2d::ui::RichElement::Type::NEWLINE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RichElement'
@@ -1332,18 +1272,14 @@ cls.funcs [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RichText::WrapMode'
-cls.enums [[
-    WRAP_PER_WORD
-    WRAP_PER_CHAR
-]]
+cls.enum('WRAP_PER_WORD', 'cocos2d::ui::RichText::WrapMode::WRAP_PER_WORD')
+cls.enum('WRAP_PER_CHAR', 'cocos2d::ui::RichText::WrapMode::WRAP_PER_CHAR')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RichText::HorizontalAlignment'
-cls.enums [[
-    LEFT
-    CENTER
-    RIGHT
-]]
+cls.enum('LEFT', 'cocos2d::ui::RichText::HorizontalAlignment::LEFT')
+cls.enum('CENTER', 'cocos2d::ui::RichText::HorizontalAlignment::CENTER')
+cls.enum('RIGHT', 'cocos2d::ui::RichText::HorizontalAlignment::RIGHT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RichText'
@@ -1508,12 +1444,10 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Slider::EventType'
-cls.enums [[
-    ON_PERCENTAGE_CHANGED
-    ON_SLIDEBALL_DOWN
-    ON_SLIDEBALL_UP
-    ON_SLIDEBALL_CANCEL
-]]
+cls.enum('ON_PERCENTAGE_CHANGED', 'cocos2d::ui::Slider::EventType::ON_PERCENTAGE_CHANGED')
+cls.enum('ON_SLIDEBALL_DOWN', 'cocos2d::ui::Slider::EventType::ON_SLIDEBALL_DOWN')
+cls.enum('ON_SLIDEBALL_UP', 'cocos2d::ui::Slider::EventType::ON_SLIDEBALL_UP')
+cls.enum('ON_SLIDEBALL_CANCEL', 'cocos2d::ui::Slider::EventType::ON_SLIDEBALL_CANCEL')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Slider'
@@ -1582,10 +1516,8 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Text::Type'
-cls.enums [[
-    SYSTEM
-    TTF
-]]
+cls.enum('SYSTEM', 'cocos2d::ui::Text::Type::SYSTEM')
+cls.enum('TTF', 'cocos2d::ui::Text::Type::TTF')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Text'
@@ -1738,12 +1670,10 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::TextField::EventType'
-cls.enums [[
-    ATTACH_WITH_IME
-    DETACH_WITH_IME
-    INSERT_TEXT
-    DELETE_BACKWARD
-]]
+cls.enum('ATTACH_WITH_IME', 'cocos2d::ui::TextField::EventType::ATTACH_WITH_IME')
+cls.enum('DETACH_WITH_IME', 'cocos2d::ui::TextField::EventType::DETACH_WITH_IME')
+cls.enum('INSERT_TEXT', 'cocos2d::ui::TextField::EventType::INSERT_TEXT')
+cls.enum('DELETE_BACKWARD', 'cocos2d::ui::TextField::EventType::DELETE_BACKWARD')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::TextField'
@@ -1902,10 +1832,8 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::CheckBox::EventType'
-cls.enums [[
-    SELECTED
-    UNSELECTED
-]]
+cls.enum('SELECTED', 'cocos2d::ui::CheckBox::EventType::SELECTED')
+cls.enum('UNSELECTED', 'cocos2d::ui::CheckBox::EventType::UNSELECTED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::CheckBox'
@@ -1929,10 +1857,8 @@ cls.callback {
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RadioButton::EventType'
-cls.enums [[
-    SELECTED
-    UNSELECTED
-]]
+cls.enum('SELECTED', 'cocos2d::ui::RadioButton::EventType::SELECTED')
+cls.enum('UNSELECTED', 'cocos2d::ui::RadioButton::EventType::UNSELECTED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RadioButton'
@@ -1956,9 +1882,7 @@ cls.callback {
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RadioButtonGroup::EventType'
-cls.enums [[
-    SELECT_CHANGED
-]]
+cls.enum('SELECT_CHANGED', 'cocos2d::ui::RadioButtonGroup::EventType::SELECT_CHANGED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RadioButtonGroup'
@@ -2022,12 +1946,10 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::EditBoxDelegate::EditBoxEndAction'
-cls.enums [[
-    UNKNOWN
-    TAB_TO_NEXT
-    TAB_TO_PREVIOUS
-    RETURN
-]]
+cls.enum('UNKNOWN', 'cocos2d::ui::EditBoxDelegate::EditBoxEndAction::UNKNOWN')
+cls.enum('TAB_TO_NEXT', 'cocos2d::ui::EditBoxDelegate::EditBoxEndAction::TAB_TO_NEXT')
+cls.enum('TAB_TO_PREVIOUS', 'cocos2d::ui::EditBoxDelegate::EditBoxEndAction::TAB_TO_PREVIOUS')
+cls.enum('RETURN', 'cocos2d::ui::EditBoxDelegate::EditBoxEndAction::RETURN')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::EditBoxDelegate'
@@ -2051,37 +1973,31 @@ cls.var('onEditingDidEndWithAction', [[@nullable @local std::function<void (Edit
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::EditBox::KeyboardReturnType'
-cls.enums [[
-    DEFAULT
-    DONE
-    SEND
-    SEARCH
-    GO
-    NEXT
-]]
+cls.enum('DEFAULT', 'cocos2d::ui::EditBox::KeyboardReturnType::DEFAULT')
+cls.enum('DONE', 'cocos2d::ui::EditBox::KeyboardReturnType::DONE')
+cls.enum('SEND', 'cocos2d::ui::EditBox::KeyboardReturnType::SEND')
+cls.enum('SEARCH', 'cocos2d::ui::EditBox::KeyboardReturnType::SEARCH')
+cls.enum('GO', 'cocos2d::ui::EditBox::KeyboardReturnType::GO')
+cls.enum('NEXT', 'cocos2d::ui::EditBox::KeyboardReturnType::NEXT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::EditBox::InputMode'
-cls.enums [[
-    ANY
-    EMAIL_ADDRESS
-    NUMERIC
-    PHONE_NUMBER
-    URL
-    DECIMAL
-    SINGLE_LINE
-]]
+cls.enum('ANY', 'cocos2d::ui::EditBox::InputMode::ANY')
+cls.enum('EMAIL_ADDRESS', 'cocos2d::ui::EditBox::InputMode::EMAIL_ADDRESS')
+cls.enum('NUMERIC', 'cocos2d::ui::EditBox::InputMode::NUMERIC')
+cls.enum('PHONE_NUMBER', 'cocos2d::ui::EditBox::InputMode::PHONE_NUMBER')
+cls.enum('URL', 'cocos2d::ui::EditBox::InputMode::URL')
+cls.enum('DECIMAL', 'cocos2d::ui::EditBox::InputMode::DECIMAL')
+cls.enum('SINGLE_LINE', 'cocos2d::ui::EditBox::InputMode::SINGLE_LINE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::EditBox::InputFlag'
-cls.enums [[
-    PASSWORD
-    SENSITIVE
-    INITIAL_CAPS_WORD
-    INITIAL_CAPS_SENTENCE
-    INITIAL_CAPS_ALL_CHARACTERS
-    LOWERCASE_ALL_CHARACTERS
-]]
+cls.enum('PASSWORD', 'cocos2d::ui::EditBox::InputFlag::PASSWORD')
+cls.enum('SENSITIVE', 'cocos2d::ui::EditBox::InputFlag::SENSITIVE')
+cls.enum('INITIAL_CAPS_WORD', 'cocos2d::ui::EditBox::InputFlag::INITIAL_CAPS_WORD')
+cls.enum('INITIAL_CAPS_SENTENCE', 'cocos2d::ui::EditBox::InputFlag::INITIAL_CAPS_SENTENCE')
+cls.enum('INITIAL_CAPS_ALL_CHARACTERS', 'cocos2d::ui::EditBox::InputFlag::INITIAL_CAPS_ALL_CHARACTERS')
+cls.enum('LOWERCASE_ALL_CHARACTERS', 'cocos2d::ui::EditBox::InputFlag::LOWERCASE_ALL_CHARACTERS')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::EditBox'

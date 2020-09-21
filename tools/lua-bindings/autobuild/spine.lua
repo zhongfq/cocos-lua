@@ -123,77 +123,61 @@ M.CONVS = {
 M.CLASSES = {}
 
 cls = typecls 'spine::EventType'
-cls.enums [[
-    EventType_Start
-    EventType_Interrupt
-    EventType_End
-    EventType_Complete
-    EventType_Dispose
-    EventType_Event
-]]
+cls.enum('Start', 'spine::EventType::EventType_Start')
+cls.enum('Interrupt', 'spine::EventType::EventType_Interrupt')
+cls.enum('End', 'spine::EventType::EventType_End')
+cls.enum('Complete', 'spine::EventType::EventType_Complete')
+cls.enum('Dispose', 'spine::EventType::EventType_Dispose')
+cls.enum('Event', 'spine::EventType::EventType_Event')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::AttachmentType'
-cls.enums [[
-    AttachmentType_Region
-    AttachmentType_Boundingbox
-    AttachmentType_Mesh
-    AttachmentType_Linkedmesh
-    AttachmentType_Path
-    AttachmentType_Point
-    AttachmentType_Clipping
-]]
+cls.enum('Region', 'spine::AttachmentType::AttachmentType_Region')
+cls.enum('Boundingbox', 'spine::AttachmentType::AttachmentType_Boundingbox')
+cls.enum('Mesh', 'spine::AttachmentType::AttachmentType_Mesh')
+cls.enum('Linkedmesh', 'spine::AttachmentType::AttachmentType_Linkedmesh')
+cls.enum('Path', 'spine::AttachmentType::AttachmentType_Path')
+cls.enum('Point', 'spine::AttachmentType::AttachmentType_Point')
+cls.enum('Clipping', 'spine::AttachmentType::AttachmentType_Clipping')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::TransformMode'
-cls.enums [[
-    TransformMode_Normal
-    TransformMode_OnlyTranslation
-    TransformMode_NoRotationOrReflection
-    TransformMode_NoScale
-    TransformMode_NoScaleOrReflection
-]]
+cls.enum('Normal', 'spine::TransformMode::TransformMode_Normal')
+cls.enum('OnlyTranslation', 'spine::TransformMode::TransformMode_OnlyTranslation')
+cls.enum('NoRotationOrReflection', 'spine::TransformMode::TransformMode_NoRotationOrReflection')
+cls.enum('NoScale', 'spine::TransformMode::TransformMode_NoScale')
+cls.enum('NoScaleOrReflection', 'spine::TransformMode::TransformMode_NoScaleOrReflection')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::BlendMode'
-cls.enums [[
-    BlendMode_Normal
-    BlendMode_Additive
-    BlendMode_Multiply
-    BlendMode_Screen
-]]
+cls.enum('Normal', 'spine::BlendMode::BlendMode_Normal')
+cls.enum('Additive', 'spine::BlendMode::BlendMode_Additive')
+cls.enum('Multiply', 'spine::BlendMode::BlendMode_Multiply')
+cls.enum('Screen', 'spine::BlendMode::BlendMode_Screen')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::PositionMode'
-cls.enums [[
-    PositionMode_Fixed
-    PositionMode_Percent
-]]
+cls.enum('Fixed', 'spine::PositionMode::PositionMode_Fixed')
+cls.enum('Percent', 'spine::PositionMode::PositionMode_Percent')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::SpacingMode'
-cls.enums [[
-    SpacingMode_Length
-    SpacingMode_Fixed
-    SpacingMode_Percent
-]]
+cls.enum('Length', 'spine::SpacingMode::SpacingMode_Length')
+cls.enum('Fixed', 'spine::SpacingMode::SpacingMode_Fixed')
+cls.enum('Percent', 'spine::SpacingMode::SpacingMode_Percent')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::RotateMode'
-cls.enums [[
-    RotateMode_Tangent
-    RotateMode_Chain
-    RotateMode_ChainScale
-]]
+cls.enum('Tangent', 'spine::RotateMode::RotateMode_Tangent')
+cls.enum('Chain', 'spine::RotateMode::RotateMode_Chain')
+cls.enum('ChainScale', 'spine::RotateMode::RotateMode_ChainScale')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::MixBlend'
-cls.enums [[
-    MixBlend_Setup
-    MixBlend_First
-    MixBlend_Replace
-    MixBlend_Add
-]]
+cls.enum('Setup', 'spine::MixBlend::MixBlend_Setup')
+cls.enum('First', 'spine::MixBlend::MixBlend_First')
+cls.enum('Replace', 'spine::MixBlend::MixBlend_Replace')
+cls.enum('Add', 'spine::MixBlend::MixBlend_Add')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::SpineObject'

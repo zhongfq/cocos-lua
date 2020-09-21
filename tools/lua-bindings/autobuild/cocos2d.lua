@@ -35,39 +35,31 @@ M.CONVS = {
 M.CLASSES = {}
 
 cls = typecls 'cocos2d::RenderTargetFlag'
-cls.enums [[
-    COLOR
-    DEPTH
-    STENCIL
-    ALL
-]]
+cls.enum('COLOR', 'cocos2d::RenderTargetFlag::COLOR')
+cls.enum('DEPTH', 'cocos2d::RenderTargetFlag::DEPTH')
+cls.enum('STENCIL', 'cocos2d::RenderTargetFlag::STENCIL')
+cls.enum('ALL', 'cocos2d::RenderTargetFlag::ALL')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ClearFlag'
-cls.enums [[
-    NONE
-    COLOR
-    DEPTH
-    STENCIL
-    ALL
-]]
+cls.enum('NONE', 'cocos2d::ClearFlag::NONE')
+cls.enum('COLOR', 'cocos2d::ClearFlag::COLOR')
+cls.enum('DEPTH', 'cocos2d::ClearFlag::DEPTH')
+cls.enum('STENCIL', 'cocos2d::ClearFlag::STENCIL')
+cls.enum('ALL', 'cocos2d::ClearFlag::ALL')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::MATRIX_STACK_TYPE'
-cls.enums [[
-    MATRIX_STACK_MODELVIEW
-    MATRIX_STACK_PROJECTION
-    MATRIX_STACK_TEXTURE
-]]
+cls.enum('MATRIX_STACK_MODELVIEW', 'cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW')
+cls.enum('MATRIX_STACK_PROJECTION', 'cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION')
+cls.enum('MATRIX_STACK_TEXTURE', 'cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_TEXTURE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Director::Projection'
-cls.enums [[
-    _2D
-    _3D
-    CUSTOM
-    DEFAULT
-]]
+cls.enum('_2D', 'cocos2d::Director::Projection::_2D')
+cls.enum('_3D', 'cocos2d::Director::Projection::_3D')
+cls.enum('CUSTOM', 'cocos2d::Director::Projection::CUSTOM')
+cls.enum('DEFAULT', 'cocos2d::Director::Projection::DEFAULT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::UserDefault'
@@ -413,17 +405,15 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListener::Type'
-cls.enums [[
-    UNKNOWN
-    TOUCH_ONE_BY_ONE
-    TOUCH_ALL_AT_ONCE
-    KEYBOARD
-    MOUSE
-    ACCELERATION
-    FOCUS
-    GAME_CONTROLLER
-    CUSTOM
-]]
+cls.enum('UNKNOWN', 'cocos2d::EventListener::Type::UNKNOWN')
+cls.enum('TOUCH_ONE_BY_ONE', 'cocos2d::EventListener::Type::TOUCH_ONE_BY_ONE')
+cls.enum('TOUCH_ALL_AT_ONCE', 'cocos2d::EventListener::Type::TOUCH_ALL_AT_ONCE')
+cls.enum('KEYBOARD', 'cocos2d::EventListener::Type::KEYBOARD')
+cls.enum('MOUSE', 'cocos2d::EventListener::Type::MOUSE')
+cls.enum('ACCELERATION', 'cocos2d::EventListener::Type::ACCELERATION')
+cls.enum('FOCUS', 'cocos2d::EventListener::Type::FOCUS')
+cls.enum('GAME_CONTROLLER', 'cocos2d::EventListener::Type::GAME_CONTROLLER')
+cls.enum('CUSTOM', 'cocos2d::EventListener::Type::CUSTOM')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListener'
@@ -539,15 +529,13 @@ cls.var('onMouseScroll', [[@nullable @local std::function<void (EventMouse *)> o
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Event::Type'
-cls.enums [[
-    TOUCH
-    KEYBOARD
-    ACCELERATION
-    MOUSE
-    FOCUS
-    GAME_CONTROLLER
-    CUSTOM
-]]
+cls.enum('TOUCH', 'cocos2d::Event::Type::TOUCH')
+cls.enum('KEYBOARD', 'cocos2d::Event::Type::KEYBOARD')
+cls.enum('ACCELERATION', 'cocos2d::Event::Type::ACCELERATION')
+cls.enum('MOUSE', 'cocos2d::Event::Type::MOUSE')
+cls.enum('FOCUS', 'cocos2d::Event::Type::FOCUS')
+cls.enum('GAME_CONTROLLER', 'cocos2d::Event::Type::GAME_CONTROLLER')
+cls.enum('CUSTOM', 'cocos2d::Event::Type::CUSTOM')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Event'
@@ -595,12 +583,10 @@ cls.var('onAxisEvent', [[@nullable @local std::function<void (Controller *, int,
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventTouch::EventCode'
-cls.enums [[
-    BEGAN
-    MOVED
-    ENDED
-    CANCELLED
-]]
+cls.enum('BEGAN', 'cocos2d::EventTouch::EventCode::BEGAN')
+cls.enum('MOVED', 'cocos2d::EventTouch::EventCode::MOVED')
+cls.enum('ENDED', 'cocos2d::EventTouch::EventCode::ENDED')
+cls.enum('CANCELLED', 'cocos2d::EventTouch::EventCode::CANCELLED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventTouch'
@@ -640,27 +626,23 @@ cls.funcs [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventMouse::MouseEventType'
-cls.enums [[
-    MOUSE_NONE
-    MOUSE_DOWN
-    MOUSE_UP
-    MOUSE_MOVE
-    MOUSE_SCROLL
-]]
+cls.enum('MOUSE_NONE', 'cocos2d::EventMouse::MouseEventType::MOUSE_NONE')
+cls.enum('MOUSE_DOWN', 'cocos2d::EventMouse::MouseEventType::MOUSE_DOWN')
+cls.enum('MOUSE_UP', 'cocos2d::EventMouse::MouseEventType::MOUSE_UP')
+cls.enum('MOUSE_MOVE', 'cocos2d::EventMouse::MouseEventType::MOUSE_MOVE')
+cls.enum('MOUSE_SCROLL', 'cocos2d::EventMouse::MouseEventType::MOUSE_SCROLL')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventMouse::MouseButton'
-cls.enums [[
-    BUTTON_UNSET
-    BUTTON_LEFT
-    BUTTON_RIGHT
-    BUTTON_MIDDLE
-    BUTTON_4
-    BUTTON_5
-    BUTTON_6
-    BUTTON_7
-    BUTTON_8
-]]
+cls.enum('BUTTON_UNSET', 'cocos2d::EventMouse::MouseButton::BUTTON_UNSET')
+cls.enum('BUTTON_LEFT', 'cocos2d::EventMouse::MouseButton::BUTTON_LEFT')
+cls.enum('BUTTON_RIGHT', 'cocos2d::EventMouse::MouseButton::BUTTON_RIGHT')
+cls.enum('BUTTON_MIDDLE', 'cocos2d::EventMouse::MouseButton::BUTTON_MIDDLE')
+cls.enum('BUTTON_4', 'cocos2d::EventMouse::MouseButton::BUTTON_4')
+cls.enum('BUTTON_5', 'cocos2d::EventMouse::MouseButton::BUTTON_5')
+cls.enum('BUTTON_6', 'cocos2d::EventMouse::MouseButton::BUTTON_6')
+cls.enum('BUTTON_7', 'cocos2d::EventMouse::MouseButton::BUTTON_7')
+cls.enum('BUTTON_8', 'cocos2d::EventMouse::MouseButton::BUTTON_8')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventMouse'
@@ -700,193 +682,187 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventKeyboard::KeyCode'
-cls.enums [[
-    KEY_NONE
-    KEY_PAUSE
-    KEY_SCROLL_LOCK
-    KEY_PRINT
-    KEY_SYSREQ
-    KEY_BREAK
-    KEY_ESCAPE
-    KEY_BACK
-    KEY_BACKSPACE
-    KEY_TAB
-    KEY_BACK_TAB
-    KEY_RETURN
-    KEY_CAPS_LOCK
-    KEY_SHIFT
-    KEY_LEFT_SHIFT
-    KEY_RIGHT_SHIFT
-    KEY_CTRL
-    KEY_LEFT_CTRL
-    KEY_RIGHT_CTRL
-    KEY_ALT
-    KEY_LEFT_ALT
-    KEY_RIGHT_ALT
-    KEY_MENU
-    KEY_HYPER
-    KEY_INSERT
-    KEY_HOME
-    KEY_PG_UP
-    KEY_DELETE
-    KEY_END
-    KEY_PG_DOWN
-    KEY_LEFT_ARROW
-    KEY_RIGHT_ARROW
-    KEY_UP_ARROW
-    KEY_DOWN_ARROW
-    KEY_NUM_LOCK
-    KEY_KP_PLUS
-    KEY_KP_MINUS
-    KEY_KP_MULTIPLY
-    KEY_KP_DIVIDE
-    KEY_KP_ENTER
-    KEY_KP_HOME
-    KEY_KP_UP
-    KEY_KP_PG_UP
-    KEY_KP_LEFT
-    KEY_KP_FIVE
-    KEY_KP_RIGHT
-    KEY_KP_END
-    KEY_KP_DOWN
-    KEY_KP_PG_DOWN
-    KEY_KP_INSERT
-    KEY_KP_DELETE
-    KEY_F1
-    KEY_F2
-    KEY_F3
-    KEY_F4
-    KEY_F5
-    KEY_F6
-    KEY_F7
-    KEY_F8
-    KEY_F9
-    KEY_F10
-    KEY_F11
-    KEY_F12
-    KEY_SPACE
-    KEY_EXCLAM
-    KEY_QUOTE
-    KEY_NUMBER
-    KEY_DOLLAR
-    KEY_PERCENT
-    KEY_CIRCUMFLEX
-    KEY_AMPERSAND
-    KEY_APOSTROPHE
-    KEY_LEFT_PARENTHESIS
-    KEY_RIGHT_PARENTHESIS
-    KEY_ASTERISK
-    KEY_PLUS
-    KEY_COMMA
-    KEY_MINUS
-    KEY_PERIOD
-    KEY_SLASH
-    KEY_0
-    KEY_1
-    KEY_2
-    KEY_3
-    KEY_4
-    KEY_5
-    KEY_6
-    KEY_7
-    KEY_8
-    KEY_9
-    KEY_COLON
-    KEY_SEMICOLON
-    KEY_LESS_THAN
-    KEY_EQUAL
-    KEY_GREATER_THAN
-    KEY_QUESTION
-    KEY_AT
-    KEY_CAPITAL_A
-    KEY_CAPITAL_B
-    KEY_CAPITAL_C
-    KEY_CAPITAL_D
-    KEY_CAPITAL_E
-    KEY_CAPITAL_F
-    KEY_CAPITAL_G
-    KEY_CAPITAL_H
-    KEY_CAPITAL_I
-    KEY_CAPITAL_J
-    KEY_CAPITAL_K
-    KEY_CAPITAL_L
-    KEY_CAPITAL_M
-    KEY_CAPITAL_N
-    KEY_CAPITAL_O
-    KEY_CAPITAL_P
-    KEY_CAPITAL_Q
-    KEY_CAPITAL_R
-    KEY_CAPITAL_S
-    KEY_CAPITAL_T
-    KEY_CAPITAL_U
-    KEY_CAPITAL_V
-    KEY_CAPITAL_W
-    KEY_CAPITAL_X
-    KEY_CAPITAL_Y
-    KEY_CAPITAL_Z
-    KEY_LEFT_BRACKET
-    KEY_BACK_SLASH
-    KEY_RIGHT_BRACKET
-    KEY_UNDERSCORE
-    KEY_GRAVE
-    KEY_A
-    KEY_B
-    KEY_C
-    KEY_D
-    KEY_E
-    KEY_F
-    KEY_G
-    KEY_H
-    KEY_I
-    KEY_J
-    KEY_K
-    KEY_L
-    KEY_M
-    KEY_N
-    KEY_O
-    KEY_P
-    KEY_Q
-    KEY_R
-    KEY_S
-    KEY_T
-    KEY_U
-    KEY_V
-    KEY_W
-    KEY_X
-    KEY_Y
-    KEY_Z
-    KEY_LEFT_BRACE
-    KEY_BAR
-    KEY_RIGHT_BRACE
-    KEY_TILDE
-    KEY_EURO
-    KEY_POUND
-    KEY_YEN
-    KEY_MIDDLE_DOT
-    KEY_SEARCH
-    KEY_DPAD_LEFT
-    KEY_DPAD_RIGHT
-    KEY_DPAD_UP
-    KEY_DPAD_DOWN
-    KEY_DPAD_CENTER
-    KEY_ENTER
-    KEY_PLAY
-]]
+cls.enum('KEY_NONE', 'cocos2d::EventKeyboard::KeyCode::KEY_NONE')
+cls.enum('KEY_PAUSE', 'cocos2d::EventKeyboard::KeyCode::KEY_PAUSE')
+cls.enum('KEY_SCROLL_LOCK', 'cocos2d::EventKeyboard::KeyCode::KEY_SCROLL_LOCK')
+cls.enum('KEY_PRINT', 'cocos2d::EventKeyboard::KeyCode::KEY_PRINT')
+cls.enum('KEY_SYSREQ', 'cocos2d::EventKeyboard::KeyCode::KEY_SYSREQ')
+cls.enum('KEY_BREAK', 'cocos2d::EventKeyboard::KeyCode::KEY_BREAK')
+cls.enum('KEY_ESCAPE', 'cocos2d::EventKeyboard::KeyCode::KEY_ESCAPE')
+cls.enum('KEY_BACK', 'cocos2d::EventKeyboard::KeyCode::KEY_BACK')
+cls.enum('KEY_BACKSPACE', 'cocos2d::EventKeyboard::KeyCode::KEY_BACKSPACE')
+cls.enum('KEY_TAB', 'cocos2d::EventKeyboard::KeyCode::KEY_TAB')
+cls.enum('KEY_BACK_TAB', 'cocos2d::EventKeyboard::KeyCode::KEY_BACK_TAB')
+cls.enum('KEY_RETURN', 'cocos2d::EventKeyboard::KeyCode::KEY_RETURN')
+cls.enum('KEY_CAPS_LOCK', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPS_LOCK')
+cls.enum('KEY_SHIFT', 'cocos2d::EventKeyboard::KeyCode::KEY_SHIFT')
+cls.enum('KEY_LEFT_SHIFT', 'cocos2d::EventKeyboard::KeyCode::KEY_LEFT_SHIFT')
+cls.enum('KEY_RIGHT_SHIFT', 'cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_SHIFT')
+cls.enum('KEY_CTRL', 'cocos2d::EventKeyboard::KeyCode::KEY_CTRL')
+cls.enum('KEY_LEFT_CTRL', 'cocos2d::EventKeyboard::KeyCode::KEY_LEFT_CTRL')
+cls.enum('KEY_RIGHT_CTRL', 'cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_CTRL')
+cls.enum('KEY_ALT', 'cocos2d::EventKeyboard::KeyCode::KEY_ALT')
+cls.enum('KEY_LEFT_ALT', 'cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ALT')
+cls.enum('KEY_RIGHT_ALT', 'cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ALT')
+cls.enum('KEY_MENU', 'cocos2d::EventKeyboard::KeyCode::KEY_MENU')
+cls.enum('KEY_HYPER', 'cocos2d::EventKeyboard::KeyCode::KEY_HYPER')
+cls.enum('KEY_INSERT', 'cocos2d::EventKeyboard::KeyCode::KEY_INSERT')
+cls.enum('KEY_HOME', 'cocos2d::EventKeyboard::KeyCode::KEY_HOME')
+cls.enum('KEY_PG_UP', 'cocos2d::EventKeyboard::KeyCode::KEY_PG_UP')
+cls.enum('KEY_DELETE', 'cocos2d::EventKeyboard::KeyCode::KEY_DELETE')
+cls.enum('KEY_END', 'cocos2d::EventKeyboard::KeyCode::KEY_END')
+cls.enum('KEY_PG_DOWN', 'cocos2d::EventKeyboard::KeyCode::KEY_PG_DOWN')
+cls.enum('KEY_LEFT_ARROW', 'cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW')
+cls.enum('KEY_RIGHT_ARROW', 'cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW')
+cls.enum('KEY_UP_ARROW', 'cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW')
+cls.enum('KEY_DOWN_ARROW', 'cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW')
+cls.enum('KEY_NUM_LOCK', 'cocos2d::EventKeyboard::KeyCode::KEY_NUM_LOCK')
+cls.enum('KEY_KP_PLUS', 'cocos2d::EventKeyboard::KeyCode::KEY_KP_PLUS')
+cls.enum('KEY_KP_MINUS', 'cocos2d::EventKeyboard::KeyCode::KEY_KP_MINUS')
+cls.enum('KEY_KP_MULTIPLY', 'cocos2d::EventKeyboard::KeyCode::KEY_KP_MULTIPLY')
+cls.enum('KEY_KP_DIVIDE', 'cocos2d::EventKeyboard::KeyCode::KEY_KP_DIVIDE')
+cls.enum('KEY_KP_ENTER', 'cocos2d::EventKeyboard::KeyCode::KEY_KP_ENTER')
+cls.enum('KEY_KP_HOME', 'cocos2d::EventKeyboard::KeyCode::KEY_KP_HOME')
+cls.enum('KEY_KP_UP', 'cocos2d::EventKeyboard::KeyCode::KEY_KP_UP')
+cls.enum('KEY_KP_PG_UP', 'cocos2d::EventKeyboard::KeyCode::KEY_KP_PG_UP')
+cls.enum('KEY_KP_LEFT', 'cocos2d::EventKeyboard::KeyCode::KEY_KP_LEFT')
+cls.enum('KEY_KP_FIVE', 'cocos2d::EventKeyboard::KeyCode::KEY_KP_FIVE')
+cls.enum('KEY_KP_RIGHT', 'cocos2d::EventKeyboard::KeyCode::KEY_KP_RIGHT')
+cls.enum('KEY_KP_END', 'cocos2d::EventKeyboard::KeyCode::KEY_KP_END')
+cls.enum('KEY_KP_DOWN', 'cocos2d::EventKeyboard::KeyCode::KEY_KP_DOWN')
+cls.enum('KEY_KP_PG_DOWN', 'cocos2d::EventKeyboard::KeyCode::KEY_KP_PG_DOWN')
+cls.enum('KEY_KP_INSERT', 'cocos2d::EventKeyboard::KeyCode::KEY_KP_INSERT')
+cls.enum('KEY_KP_DELETE', 'cocos2d::EventKeyboard::KeyCode::KEY_KP_DELETE')
+cls.enum('KEY_F1', 'cocos2d::EventKeyboard::KeyCode::KEY_F1')
+cls.enum('KEY_F2', 'cocos2d::EventKeyboard::KeyCode::KEY_F2')
+cls.enum('KEY_F3', 'cocos2d::EventKeyboard::KeyCode::KEY_F3')
+cls.enum('KEY_F4', 'cocos2d::EventKeyboard::KeyCode::KEY_F4')
+cls.enum('KEY_F5', 'cocos2d::EventKeyboard::KeyCode::KEY_F5')
+cls.enum('KEY_F6', 'cocos2d::EventKeyboard::KeyCode::KEY_F6')
+cls.enum('KEY_F7', 'cocos2d::EventKeyboard::KeyCode::KEY_F7')
+cls.enum('KEY_F8', 'cocos2d::EventKeyboard::KeyCode::KEY_F8')
+cls.enum('KEY_F9', 'cocos2d::EventKeyboard::KeyCode::KEY_F9')
+cls.enum('KEY_F10', 'cocos2d::EventKeyboard::KeyCode::KEY_F10')
+cls.enum('KEY_F11', 'cocos2d::EventKeyboard::KeyCode::KEY_F11')
+cls.enum('KEY_F12', 'cocos2d::EventKeyboard::KeyCode::KEY_F12')
+cls.enum('KEY_SPACE', 'cocos2d::EventKeyboard::KeyCode::KEY_SPACE')
+cls.enum('KEY_EXCLAM', 'cocos2d::EventKeyboard::KeyCode::KEY_EXCLAM')
+cls.enum('KEY_QUOTE', 'cocos2d::EventKeyboard::KeyCode::KEY_QUOTE')
+cls.enum('KEY_NUMBER', 'cocos2d::EventKeyboard::KeyCode::KEY_NUMBER')
+cls.enum('KEY_DOLLAR', 'cocos2d::EventKeyboard::KeyCode::KEY_DOLLAR')
+cls.enum('KEY_PERCENT', 'cocos2d::EventKeyboard::KeyCode::KEY_PERCENT')
+cls.enum('KEY_CIRCUMFLEX', 'cocos2d::EventKeyboard::KeyCode::KEY_CIRCUMFLEX')
+cls.enum('KEY_AMPERSAND', 'cocos2d::EventKeyboard::KeyCode::KEY_AMPERSAND')
+cls.enum('KEY_APOSTROPHE', 'cocos2d::EventKeyboard::KeyCode::KEY_APOSTROPHE')
+cls.enum('KEY_LEFT_PARENTHESIS', 'cocos2d::EventKeyboard::KeyCode::KEY_LEFT_PARENTHESIS')
+cls.enum('KEY_RIGHT_PARENTHESIS', 'cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_PARENTHESIS')
+cls.enum('KEY_ASTERISK', 'cocos2d::EventKeyboard::KeyCode::KEY_ASTERISK')
+cls.enum('KEY_PLUS', 'cocos2d::EventKeyboard::KeyCode::KEY_PLUS')
+cls.enum('KEY_COMMA', 'cocos2d::EventKeyboard::KeyCode::KEY_COMMA')
+cls.enum('KEY_MINUS', 'cocos2d::EventKeyboard::KeyCode::KEY_MINUS')
+cls.enum('KEY_PERIOD', 'cocos2d::EventKeyboard::KeyCode::KEY_PERIOD')
+cls.enum('KEY_SLASH', 'cocos2d::EventKeyboard::KeyCode::KEY_SLASH')
+cls.enum('KEY_0', 'cocos2d::EventKeyboard::KeyCode::KEY_0')
+cls.enum('KEY_1', 'cocos2d::EventKeyboard::KeyCode::KEY_1')
+cls.enum('KEY_2', 'cocos2d::EventKeyboard::KeyCode::KEY_2')
+cls.enum('KEY_3', 'cocos2d::EventKeyboard::KeyCode::KEY_3')
+cls.enum('KEY_4', 'cocos2d::EventKeyboard::KeyCode::KEY_4')
+cls.enum('KEY_5', 'cocos2d::EventKeyboard::KeyCode::KEY_5')
+cls.enum('KEY_6', 'cocos2d::EventKeyboard::KeyCode::KEY_6')
+cls.enum('KEY_7', 'cocos2d::EventKeyboard::KeyCode::KEY_7')
+cls.enum('KEY_8', 'cocos2d::EventKeyboard::KeyCode::KEY_8')
+cls.enum('KEY_9', 'cocos2d::EventKeyboard::KeyCode::KEY_9')
+cls.enum('KEY_COLON', 'cocos2d::EventKeyboard::KeyCode::KEY_COLON')
+cls.enum('KEY_SEMICOLON', 'cocos2d::EventKeyboard::KeyCode::KEY_SEMICOLON')
+cls.enum('KEY_LESS_THAN', 'cocos2d::EventKeyboard::KeyCode::KEY_LESS_THAN')
+cls.enum('KEY_EQUAL', 'cocos2d::EventKeyboard::KeyCode::KEY_EQUAL')
+cls.enum('KEY_GREATER_THAN', 'cocos2d::EventKeyboard::KeyCode::KEY_GREATER_THAN')
+cls.enum('KEY_QUESTION', 'cocos2d::EventKeyboard::KeyCode::KEY_QUESTION')
+cls.enum('KEY_AT', 'cocos2d::EventKeyboard::KeyCode::KEY_AT')
+cls.enum('KEY_CAPITAL_A', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_A')
+cls.enum('KEY_CAPITAL_B', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_B')
+cls.enum('KEY_CAPITAL_C', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_C')
+cls.enum('KEY_CAPITAL_D', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_D')
+cls.enum('KEY_CAPITAL_E', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_E')
+cls.enum('KEY_CAPITAL_F', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_F')
+cls.enum('KEY_CAPITAL_G', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_G')
+cls.enum('KEY_CAPITAL_H', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_H')
+cls.enum('KEY_CAPITAL_I', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_I')
+cls.enum('KEY_CAPITAL_J', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_J')
+cls.enum('KEY_CAPITAL_K', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_K')
+cls.enum('KEY_CAPITAL_L', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_L')
+cls.enum('KEY_CAPITAL_M', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_M')
+cls.enum('KEY_CAPITAL_N', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_N')
+cls.enum('KEY_CAPITAL_O', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_O')
+cls.enum('KEY_CAPITAL_P', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_P')
+cls.enum('KEY_CAPITAL_Q', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_Q')
+cls.enum('KEY_CAPITAL_R', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_R')
+cls.enum('KEY_CAPITAL_S', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_S')
+cls.enum('KEY_CAPITAL_T', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_T')
+cls.enum('KEY_CAPITAL_U', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_U')
+cls.enum('KEY_CAPITAL_V', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_V')
+cls.enum('KEY_CAPITAL_W', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_W')
+cls.enum('KEY_CAPITAL_X', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_X')
+cls.enum('KEY_CAPITAL_Y', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_Y')
+cls.enum('KEY_CAPITAL_Z', 'cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_Z')
+cls.enum('KEY_LEFT_BRACKET', 'cocos2d::EventKeyboard::KeyCode::KEY_LEFT_BRACKET')
+cls.enum('KEY_BACK_SLASH', 'cocos2d::EventKeyboard::KeyCode::KEY_BACK_SLASH')
+cls.enum('KEY_RIGHT_BRACKET', 'cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_BRACKET')
+cls.enum('KEY_UNDERSCORE', 'cocos2d::EventKeyboard::KeyCode::KEY_UNDERSCORE')
+cls.enum('KEY_GRAVE', 'cocos2d::EventKeyboard::KeyCode::KEY_GRAVE')
+cls.enum('KEY_A', 'cocos2d::EventKeyboard::KeyCode::KEY_A')
+cls.enum('KEY_B', 'cocos2d::EventKeyboard::KeyCode::KEY_B')
+cls.enum('KEY_C', 'cocos2d::EventKeyboard::KeyCode::KEY_C')
+cls.enum('KEY_D', 'cocos2d::EventKeyboard::KeyCode::KEY_D')
+cls.enum('KEY_E', 'cocos2d::EventKeyboard::KeyCode::KEY_E')
+cls.enum('KEY_F', 'cocos2d::EventKeyboard::KeyCode::KEY_F')
+cls.enum('KEY_G', 'cocos2d::EventKeyboard::KeyCode::KEY_G')
+cls.enum('KEY_H', 'cocos2d::EventKeyboard::KeyCode::KEY_H')
+cls.enum('KEY_I', 'cocos2d::EventKeyboard::KeyCode::KEY_I')
+cls.enum('KEY_J', 'cocos2d::EventKeyboard::KeyCode::KEY_J')
+cls.enum('KEY_K', 'cocos2d::EventKeyboard::KeyCode::KEY_K')
+cls.enum('KEY_L', 'cocos2d::EventKeyboard::KeyCode::KEY_L')
+cls.enum('KEY_M', 'cocos2d::EventKeyboard::KeyCode::KEY_M')
+cls.enum('KEY_N', 'cocos2d::EventKeyboard::KeyCode::KEY_N')
+cls.enum('KEY_O', 'cocos2d::EventKeyboard::KeyCode::KEY_O')
+cls.enum('KEY_P', 'cocos2d::EventKeyboard::KeyCode::KEY_P')
+cls.enum('KEY_Q', 'cocos2d::EventKeyboard::KeyCode::KEY_Q')
+cls.enum('KEY_R', 'cocos2d::EventKeyboard::KeyCode::KEY_R')
+cls.enum('KEY_S', 'cocos2d::EventKeyboard::KeyCode::KEY_S')
+cls.enum('KEY_T', 'cocos2d::EventKeyboard::KeyCode::KEY_T')
+cls.enum('KEY_U', 'cocos2d::EventKeyboard::KeyCode::KEY_U')
+cls.enum('KEY_V', 'cocos2d::EventKeyboard::KeyCode::KEY_V')
+cls.enum('KEY_W', 'cocos2d::EventKeyboard::KeyCode::KEY_W')
+cls.enum('KEY_X', 'cocos2d::EventKeyboard::KeyCode::KEY_X')
+cls.enum('KEY_Y', 'cocos2d::EventKeyboard::KeyCode::KEY_Y')
+cls.enum('KEY_Z', 'cocos2d::EventKeyboard::KeyCode::KEY_Z')
+cls.enum('KEY_LEFT_BRACE', 'cocos2d::EventKeyboard::KeyCode::KEY_LEFT_BRACE')
+cls.enum('KEY_BAR', 'cocos2d::EventKeyboard::KeyCode::KEY_BAR')
+cls.enum('KEY_RIGHT_BRACE', 'cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_BRACE')
+cls.enum('KEY_TILDE', 'cocos2d::EventKeyboard::KeyCode::KEY_TILDE')
+cls.enum('KEY_EURO', 'cocos2d::EventKeyboard::KeyCode::KEY_EURO')
+cls.enum('KEY_POUND', 'cocos2d::EventKeyboard::KeyCode::KEY_POUND')
+cls.enum('KEY_YEN', 'cocos2d::EventKeyboard::KeyCode::KEY_YEN')
+cls.enum('KEY_MIDDLE_DOT', 'cocos2d::EventKeyboard::KeyCode::KEY_MIDDLE_DOT')
+cls.enum('KEY_SEARCH', 'cocos2d::EventKeyboard::KeyCode::KEY_SEARCH')
+cls.enum('KEY_DPAD_LEFT', 'cocos2d::EventKeyboard::KeyCode::KEY_DPAD_LEFT')
+cls.enum('KEY_DPAD_RIGHT', 'cocos2d::EventKeyboard::KeyCode::KEY_DPAD_RIGHT')
+cls.enum('KEY_DPAD_UP', 'cocos2d::EventKeyboard::KeyCode::KEY_DPAD_UP')
+cls.enum('KEY_DPAD_DOWN', 'cocos2d::EventKeyboard::KeyCode::KEY_DPAD_DOWN')
+cls.enum('KEY_DPAD_CENTER', 'cocos2d::EventKeyboard::KeyCode::KEY_DPAD_CENTER')
+cls.enum('KEY_ENTER', 'cocos2d::EventKeyboard::KeyCode::KEY_ENTER')
+cls.enum('KEY_PLAY', 'cocos2d::EventKeyboard::KeyCode::KEY_PLAY')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Touch::DispatchMode'
-cls.enums [[
-    ALL_AT_ONCE
-    ONE_BY_ONE
-]]
+cls.enum('ALL_AT_ONCE', 'cocos2d::Touch::DispatchMode::ALL_AT_ONCE')
+cls.enum('ONE_BY_ONE', 'cocos2d::Touch::DispatchMode::ONE_BY_ONE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventController::ControllerEventType'
-cls.enums [[
-    CONNECTION
-    BUTTON_STATUS_CHANGED
-    AXIS_STATUS_CHANGED
-]]
+cls.enum('CONNECTION', 'cocos2d::EventController::ControllerEventType::CONNECTION')
+cls.enum('BUTTON_STATUS_CHANGED', 'cocos2d::EventController::ControllerEventType::BUTTON_STATUS_CHANGED')
+cls.enum('AXIS_STATUS_CHANGED', 'cocos2d::EventController::ControllerEventType::AXIS_STATUS_CHANGED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventController'
@@ -941,34 +917,32 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Controller::Key'
-cls.enums [[
-    KEY_NONE
-    JOYSTICK_LEFT_X
-    JOYSTICK_LEFT_Y
-    JOYSTICK_RIGHT_X
-    JOYSTICK_RIGHT_Y
-    BUTTON_A
-    BUTTON_B
-    BUTTON_C
-    BUTTON_X
-    BUTTON_Y
-    BUTTON_Z
-    BUTTON_DPAD_UP
-    BUTTON_DPAD_DOWN
-    BUTTON_DPAD_LEFT
-    BUTTON_DPAD_RIGHT
-    BUTTON_DPAD_CENTER
-    BUTTON_LEFT_SHOULDER
-    BUTTON_RIGHT_SHOULDER
-    AXIS_LEFT_TRIGGER
-    AXIS_RIGHT_TRIGGER
-    BUTTON_LEFT_THUMBSTICK
-    BUTTON_RIGHT_THUMBSTICK
-    BUTTON_START
-    BUTTON_SELECT
-    BUTTON_PAUSE
-    KEY_MAX
-]]
+cls.enum('KEY_NONE', 'cocos2d::Controller::Key::KEY_NONE')
+cls.enum('JOYSTICK_LEFT_X', 'cocos2d::Controller::Key::JOYSTICK_LEFT_X')
+cls.enum('JOYSTICK_LEFT_Y', 'cocos2d::Controller::Key::JOYSTICK_LEFT_Y')
+cls.enum('JOYSTICK_RIGHT_X', 'cocos2d::Controller::Key::JOYSTICK_RIGHT_X')
+cls.enum('JOYSTICK_RIGHT_Y', 'cocos2d::Controller::Key::JOYSTICK_RIGHT_Y')
+cls.enum('BUTTON_A', 'cocos2d::Controller::Key::BUTTON_A')
+cls.enum('BUTTON_B', 'cocos2d::Controller::Key::BUTTON_B')
+cls.enum('BUTTON_C', 'cocos2d::Controller::Key::BUTTON_C')
+cls.enum('BUTTON_X', 'cocos2d::Controller::Key::BUTTON_X')
+cls.enum('BUTTON_Y', 'cocos2d::Controller::Key::BUTTON_Y')
+cls.enum('BUTTON_Z', 'cocos2d::Controller::Key::BUTTON_Z')
+cls.enum('BUTTON_DPAD_UP', 'cocos2d::Controller::Key::BUTTON_DPAD_UP')
+cls.enum('BUTTON_DPAD_DOWN', 'cocos2d::Controller::Key::BUTTON_DPAD_DOWN')
+cls.enum('BUTTON_DPAD_LEFT', 'cocos2d::Controller::Key::BUTTON_DPAD_LEFT')
+cls.enum('BUTTON_DPAD_RIGHT', 'cocos2d::Controller::Key::BUTTON_DPAD_RIGHT')
+cls.enum('BUTTON_DPAD_CENTER', 'cocos2d::Controller::Key::BUTTON_DPAD_CENTER')
+cls.enum('BUTTON_LEFT_SHOULDER', 'cocos2d::Controller::Key::BUTTON_LEFT_SHOULDER')
+cls.enum('BUTTON_RIGHT_SHOULDER', 'cocos2d::Controller::Key::BUTTON_RIGHT_SHOULDER')
+cls.enum('AXIS_LEFT_TRIGGER', 'cocos2d::Controller::Key::AXIS_LEFT_TRIGGER')
+cls.enum('AXIS_RIGHT_TRIGGER', 'cocos2d::Controller::Key::AXIS_RIGHT_TRIGGER')
+cls.enum('BUTTON_LEFT_THUMBSTICK', 'cocos2d::Controller::Key::BUTTON_LEFT_THUMBSTICK')
+cls.enum('BUTTON_RIGHT_THUMBSTICK', 'cocos2d::Controller::Key::BUTTON_RIGHT_THUMBSTICK')
+cls.enum('BUTTON_START', 'cocos2d::Controller::Key::BUTTON_START')
+cls.enum('BUTTON_SELECT', 'cocos2d::Controller::Key::BUTTON_SELECT')
+cls.enum('BUTTON_PAUSE', 'cocos2d::Controller::Key::BUTTON_PAUSE')
+cls.enum('KEY_MAX', 'cocos2d::Controller::Key::KEY_MAX')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Controller'
@@ -1005,12 +979,10 @@ cls.var('minDelay', [[double minDelay]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::AudioEngine::AudioState'
-cls.enums [[
-    ERROR
-    INITIALIZING
-    PLAYING
-    PAUSED
-]]
+cls.enum('ERROR', 'cocos2d::AudioEngine::AudioState::ERROR')
+cls.enum('INITIALIZING', 'cocos2d::AudioEngine::AudioState::INITIALIZING')
+cls.enum('PLAYING', 'cocos2d::AudioEngine::AudioState::PLAYING')
+cls.enum('PAUSED', 'cocos2d::AudioEngine::AudioState::PAUSED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::AudioEngine'
@@ -1136,39 +1108,35 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ApplicationProtocol::Platform'
-cls.enums [[
-    OS_WINDOWS
-    OS_LINUX
-    OS_MAC
-    OS_ANDROID
-    OS_IPHONE
-    OS_IPAD
-]]
+cls.enum('OS_WINDOWS', 'cocos2d::ApplicationProtocol::Platform::OS_WINDOWS')
+cls.enum('OS_LINUX', 'cocos2d::ApplicationProtocol::Platform::OS_LINUX')
+cls.enum('OS_MAC', 'cocos2d::ApplicationProtocol::Platform::OS_MAC')
+cls.enum('OS_ANDROID', 'cocos2d::ApplicationProtocol::Platform::OS_ANDROID')
+cls.enum('OS_IPHONE', 'cocos2d::ApplicationProtocol::Platform::OS_IPHONE')
+cls.enum('OS_IPAD', 'cocos2d::ApplicationProtocol::Platform::OS_IPAD')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::LanguageType'
-cls.enums [[
-    ENGLISH
-    CHINESE
-    FRENCH
-    ITALIAN
-    GERMAN
-    SPANISH
-    DUTCH
-    RUSSIAN
-    KOREAN
-    JAPANESE
-    HUNGARIAN
-    PORTUGUESE
-    ARABIC
-    NORWEGIAN
-    POLISH
-    TURKISH
-    UKRAINIAN
-    ROMANIAN
-    BULGARIAN
-    BELARUSIAN
-]]
+cls.enum('ENGLISH', 'cocos2d::LanguageType::ENGLISH')
+cls.enum('CHINESE', 'cocos2d::LanguageType::CHINESE')
+cls.enum('FRENCH', 'cocos2d::LanguageType::FRENCH')
+cls.enum('ITALIAN', 'cocos2d::LanguageType::ITALIAN')
+cls.enum('GERMAN', 'cocos2d::LanguageType::GERMAN')
+cls.enum('SPANISH', 'cocos2d::LanguageType::SPANISH')
+cls.enum('DUTCH', 'cocos2d::LanguageType::DUTCH')
+cls.enum('RUSSIAN', 'cocos2d::LanguageType::RUSSIAN')
+cls.enum('KOREAN', 'cocos2d::LanguageType::KOREAN')
+cls.enum('JAPANESE', 'cocos2d::LanguageType::JAPANESE')
+cls.enum('HUNGARIAN', 'cocos2d::LanguageType::HUNGARIAN')
+cls.enum('PORTUGUESE', 'cocos2d::LanguageType::PORTUGUESE')
+cls.enum('ARABIC', 'cocos2d::LanguageType::ARABIC')
+cls.enum('NORWEGIAN', 'cocos2d::LanguageType::NORWEGIAN')
+cls.enum('POLISH', 'cocos2d::LanguageType::POLISH')
+cls.enum('TURKISH', 'cocos2d::LanguageType::TURKISH')
+cls.enum('UKRAINIAN', 'cocos2d::LanguageType::UKRAINIAN')
+cls.enum('ROMANIAN', 'cocos2d::LanguageType::ROMANIAN')
+cls.enum('BULGARIAN', 'cocos2d::LanguageType::BULGARIAN')
+cls.enum('BELARUSIAN', 'cocos2d::LanguageType::BELARUSIAN')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ApplicationProtocol'
@@ -1224,16 +1192,14 @@ cls.funcs [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::FileUtils::Status'
-cls.enums [[
-    OK
-    NotExists
-    OpenFailed
-    ReadFailed
-    NotInitialized
-    TooLarge
-    ObtainSizeFailed
-    NotRegularFileType
-]]
+cls.enum('OK', 'cocos2d::FileUtils::Status::OK')
+cls.enum('NotExists', 'cocos2d::FileUtils::Status::NotExists')
+cls.enum('OpenFailed', 'cocos2d::FileUtils::Status::OpenFailed')
+cls.enum('ReadFailed', 'cocos2d::FileUtils::Status::ReadFailed')
+cls.enum('NotInitialized', 'cocos2d::FileUtils::Status::NotInitialized')
+cls.enum('TooLarge', 'cocos2d::FileUtils::Status::TooLarge')
+cls.enum('ObtainSizeFailed', 'cocos2d::FileUtils::Status::ObtainSizeFailed')
+cls.enum('NotRegularFileType', 'cocos2d::FileUtils::Status::NotRegularFileType')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::FileUtils'
@@ -1436,14 +1402,12 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'ResolutionPolicy'
-cls.enums [[
-    EXACT_FIT
-    NO_BORDER
-    SHOW_ALL
-    FIXED_HEIGHT
-    FIXED_WIDTH
-    UNKNOWN
-]]
+cls.enum('EXACT_FIT', 'ResolutionPolicy::EXACT_FIT')
+cls.enum('NO_BORDER', 'ResolutionPolicy::NO_BORDER')
+cls.enum('SHOW_ALL', 'ResolutionPolicy::SHOW_ALL')
+cls.enum('FIXED_HEIGHT', 'ResolutionPolicy::FIXED_HEIGHT')
+cls.enum('FIXED_WIDTH', 'ResolutionPolicy::FIXED_WIDTH')
+cls.enum('UNKNOWN', 'ResolutionPolicy::UNKNOWN')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::GLView'
@@ -1519,18 +1483,16 @@ cls.funcs [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Image::Format'
-cls.enums [[
-    JPG
-    PNG
-    WEBP
-    PVR
-    ETC
-    S3TC
-    ATITC
-    TGA
-    RAW_DATA
-    UNKNOWN
-]]
+cls.enum('JPG', 'cocos2d::Image::Format::JPG')
+cls.enum('PNG', 'cocos2d::Image::Format::PNG')
+cls.enum('WEBP', 'cocos2d::Image::Format::WEBP')
+cls.enum('PVR', 'cocos2d::Image::Format::PVR')
+cls.enum('ETC', 'cocos2d::Image::Format::ETC')
+cls.enum('S3TC', 'cocos2d::Image::Format::S3TC')
+cls.enum('ATITC', 'cocos2d::Image::Format::ATITC')
+cls.enum('TGA', 'cocos2d::Image::Format::TGA')
+cls.enum('RAW_DATA', 'cocos2d::Image::Format::RAW_DATA')
+cls.enum('UNKNOWN', 'cocos2d::Image::Format::UNKNOWN')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Image'
@@ -1585,15 +1547,13 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Properties::Type'
-cls.enums [[
-    NONE
-    STRING
-    NUMBER
-    VECTOR2
-    VECTOR3
-    VECTOR4
-    MATRIX
-]]
+cls.enum('NONE', 'cocos2d::Properties::Type::NONE')
+cls.enum('STRING', 'cocos2d::Properties::Type::STRING')
+cls.enum('NUMBER', 'cocos2d::Properties::Type::NUMBER')
+cls.enum('VECTOR2', 'cocos2d::Properties::Type::VECTOR2')
+cls.enum('VECTOR3', 'cocos2d::Properties::Type::VECTOR3')
+cls.enum('VECTOR4', 'cocos2d::Properties::Type::VECTOR4')
+cls.enum('MATRIX', 'cocos2d::Properties::Type::MATRIX')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Properties'
@@ -1744,23 +1704,19 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::RenderCommand::Type'
-cls.enums [[
-    UNKNOWN_COMMAND
-    QUAD_COMMAND
-    CUSTOM_COMMAND
-    GROUP_COMMAND
-    MESH_COMMAND
-    TRIANGLES_COMMAND
-    CALLBACK_COMMAND
-    CAPTURE_SCREEN_COMMAND
-]]
+cls.enum('UNKNOWN_COMMAND', 'cocos2d::RenderCommand::Type::UNKNOWN_COMMAND')
+cls.enum('QUAD_COMMAND', 'cocos2d::RenderCommand::Type::QUAD_COMMAND')
+cls.enum('CUSTOM_COMMAND', 'cocos2d::RenderCommand::Type::CUSTOM_COMMAND')
+cls.enum('GROUP_COMMAND', 'cocos2d::RenderCommand::Type::GROUP_COMMAND')
+cls.enum('MESH_COMMAND', 'cocos2d::RenderCommand::Type::MESH_COMMAND')
+cls.enum('TRIANGLES_COMMAND', 'cocos2d::RenderCommand::Type::TRIANGLES_COMMAND')
+cls.enum('CALLBACK_COMMAND', 'cocos2d::RenderCommand::Type::CALLBACK_COMMAND')
+cls.enum('CAPTURE_SCREEN_COMMAND', 'cocos2d::RenderCommand::Type::CAPTURE_SCREEN_COMMAND')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::CustomCommand::DrawType'
-cls.enums [[
-    ARRAY
-    ELEMENT
-]]
+cls.enum('ARRAY', 'cocos2d::CustomCommand::DrawType::ARRAY')
+cls.enum('ELEMENT', 'cocos2d::CustomCommand::DrawType::ELEMENT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::PipelineDescriptor'
@@ -2081,20 +2037,16 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::network::WebSocket::ErrorCode'
-cls.enums [[
-    TIME_OUT
-    CONNECTION_FAILURE
-    UNKNOWN
-]]
+cls.enum('TIME_OUT', 'cocos2d::network::WebSocket::ErrorCode::TIME_OUT')
+cls.enum('CONNECTION_FAILURE', 'cocos2d::network::WebSocket::ErrorCode::CONNECTION_FAILURE')
+cls.enum('UNKNOWN', 'cocos2d::network::WebSocket::ErrorCode::UNKNOWN')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::network::WebSocket::State'
-cls.enums [[
-    CONNECTING
-    OPEN
-    CLOSING
-    CLOSED
-]]
+cls.enum('CONNECTING', 'cocos2d::network::WebSocket::State::CONNECTING')
+cls.enum('OPEN', 'cocos2d::network::WebSocket::State::OPEN')
+cls.enum('CLOSING', 'cocos2d::network::WebSocket::State::CLOSING')
+cls.enum('CLOSED', 'cocos2d::network::WebSocket::State::CLOSED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::network::WebSocket::Delegate'
@@ -2896,60 +2848,48 @@ cls.funcs [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TextHAlignment'
-cls.enums [[
-    LEFT
-    CENTER
-    RIGHT
-]]
+cls.enum('LEFT', 'cocos2d::TextHAlignment::LEFT')
+cls.enum('CENTER', 'cocos2d::TextHAlignment::CENTER')
+cls.enum('RIGHT', 'cocos2d::TextHAlignment::RIGHT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TextVAlignment'
-cls.enums [[
-    TOP
-    CENTER
-    BOTTOM
-]]
+cls.enum('TOP', 'cocos2d::TextVAlignment::TOP')
+cls.enum('CENTER', 'cocos2d::TextVAlignment::CENTER')
+cls.enum('BOTTOM', 'cocos2d::TextVAlignment::BOTTOM')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::GlyphCollection'
-cls.enums [[
-    DYNAMIC
-    NEHE
-    ASCII
-    CUSTOM
-]]
+cls.enum('DYNAMIC', 'cocos2d::GlyphCollection::DYNAMIC')
+cls.enum('NEHE', 'cocos2d::GlyphCollection::NEHE')
+cls.enum('ASCII', 'cocos2d::GlyphCollection::ASCII')
+cls.enum('CUSTOM', 'cocos2d::GlyphCollection::CUSTOM')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::LabelEffect'
-cls.enums [[
-    NORMAL
-    OUTLINE
-    SHADOW
-    GLOW
-    ITALICS
-    BOLD
-    UNDERLINE
-    STRIKETHROUGH
-    ALL
-]]
+cls.enum('NORMAL', 'cocos2d::LabelEffect::NORMAL')
+cls.enum('OUTLINE', 'cocos2d::LabelEffect::OUTLINE')
+cls.enum('SHADOW', 'cocos2d::LabelEffect::SHADOW')
+cls.enum('GLOW', 'cocos2d::LabelEffect::GLOW')
+cls.enum('ITALICS', 'cocos2d::LabelEffect::ITALICS')
+cls.enum('BOLD', 'cocos2d::LabelEffect::BOLD')
+cls.enum('UNDERLINE', 'cocos2d::LabelEffect::UNDERLINE')
+cls.enum('STRIKETHROUGH', 'cocos2d::LabelEffect::STRIKETHROUGH')
+cls.enum('ALL', 'cocos2d::LabelEffect::ALL')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Label::LabelType'
-cls.enums [[
-    TTF
-    BMFONT
-    CHARMAP
-    STRING_TEXTURE
-]]
+cls.enum('TTF', 'cocos2d::Label::LabelType::TTF')
+cls.enum('BMFONT', 'cocos2d::Label::LabelType::BMFONT')
+cls.enum('CHARMAP', 'cocos2d::Label::LabelType::CHARMAP')
+cls.enum('STRING_TEXTURE', 'cocos2d::Label::LabelType::STRING_TEXTURE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Label::Overflow'
-cls.enums [[
-    NONE
-    CLAMP
-    SHRINK
-    RESIZE_HEIGHT
-]]
+cls.enum('NONE', 'cocos2d::Label::Overflow::NONE')
+cls.enum('CLAMP', 'cocos2d::Label::Overflow::CLAMP')
+cls.enum('SHRINK', 'cocos2d::Label::Overflow::SHRINK')
+cls.enum('RESIZE_HEIGHT', 'cocos2d::Label::Overflow::RESIZE_HEIGHT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Label'
@@ -3212,10 +3152,8 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ProgressTimer::Type'
-cls.enums [[
-    RADIAL
-    BAR
-]]
+cls.enum('RADIAL', 'cocos2d::ProgressTimer::Type::RADIAL')
+cls.enum('BAR', 'cocos2d::ProgressTimer::Type::BAR')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ProgressTimer'
@@ -3669,12 +3607,10 @@ cls.funcs [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionScene::Orientation'
-cls.enums [[
-    LEFT_OVER
-    RIGHT_OVER
-    UP_OVER
-    DOWN_OVER
-]]
+cls.enum('LEFT_OVER', 'cocos2d::TransitionScene::Orientation::LEFT_OVER')
+cls.enum('RIGHT_OVER', 'cocos2d::TransitionScene::Orientation::RIGHT_OVER')
+cls.enum('UP_OVER', 'cocos2d::TransitionScene::Orientation::UP_OVER')
+cls.enum('DOWN_OVER', 'cocos2d::TransitionScene::Orientation::DOWN_OVER')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionScene'
@@ -4040,33 +3976,29 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::LightType'
-cls.enums [[
-    DIRECTIONAL
-    POINT
-    SPOT
-    AMBIENT
-]]
+cls.enum('DIRECTIONAL', 'cocos2d::LightType::DIRECTIONAL')
+cls.enum('POINT', 'cocos2d::LightType::POINT')
+cls.enum('SPOT', 'cocos2d::LightType::SPOT')
+cls.enum('AMBIENT', 'cocos2d::LightType::AMBIENT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::LightFlag'
-cls.enums [[
-    LIGHT0
-    LIGHT1
-    LIGHT2
-    LIGHT3
-    LIGHT4
-    LIGHT5
-    LIGHT6
-    LIGHT7
-    LIGHT8
-    LIGHT9
-    LIGHT10
-    LIGHT11
-    LIGHT12
-    LIGHT13
-    LIGHT14
-    LIGHT15
-]]
+cls.enum('LIGHT0', 'cocos2d::LightFlag::LIGHT0')
+cls.enum('LIGHT1', 'cocos2d::LightFlag::LIGHT1')
+cls.enum('LIGHT2', 'cocos2d::LightFlag::LIGHT2')
+cls.enum('LIGHT3', 'cocos2d::LightFlag::LIGHT3')
+cls.enum('LIGHT4', 'cocos2d::LightFlag::LIGHT4')
+cls.enum('LIGHT5', 'cocos2d::LightFlag::LIGHT5')
+cls.enum('LIGHT6', 'cocos2d::LightFlag::LIGHT6')
+cls.enum('LIGHT7', 'cocos2d::LightFlag::LIGHT7')
+cls.enum('LIGHT8', 'cocos2d::LightFlag::LIGHT8')
+cls.enum('LIGHT9', 'cocos2d::LightFlag::LIGHT9')
+cls.enum('LIGHT10', 'cocos2d::LightFlag::LIGHT10')
+cls.enum('LIGHT11', 'cocos2d::LightFlag::LIGHT11')
+cls.enum('LIGHT12', 'cocos2d::LightFlag::LIGHT12')
+cls.enum('LIGHT13', 'cocos2d::LightFlag::LIGHT13')
+cls.enum('LIGHT14', 'cocos2d::LightFlag::LIGHT14')
+cls.enum('LIGHT15', 'cocos2d::LightFlag::LIGHT15')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::BaseLight'
@@ -4153,24 +4085,20 @@ cls.funcs [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::CameraFlag'
-cls.enums [[
-    DEFAULT
-    USER1
-    USER2
-    USER3
-    USER4
-    USER5
-    USER6
-    USER7
-    USER8
-]]
+cls.enum('DEFAULT', 'cocos2d::CameraFlag::DEFAULT')
+cls.enum('USER1', 'cocos2d::CameraFlag::USER1')
+cls.enum('USER2', 'cocos2d::CameraFlag::USER2')
+cls.enum('USER3', 'cocos2d::CameraFlag::USER3')
+cls.enum('USER4', 'cocos2d::CameraFlag::USER4')
+cls.enum('USER5', 'cocos2d::CameraFlag::USER5')
+cls.enum('USER6', 'cocos2d::CameraFlag::USER6')
+cls.enum('USER7', 'cocos2d::CameraFlag::USER7')
+cls.enum('USER8', 'cocos2d::CameraFlag::USER8')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Camera::Type'
-cls.enums [[
-    PERSPECTIVE
-    ORTHOGRAPHIC
-]]
+cls.enum('PERSPECTIVE', 'cocos2d::Camera::Type::PERSPECTIVE')
+cls.enum('ORTHOGRAPHIC', 'cocos2d::Camera::Type::ORTHOGRAPHIC')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Camera'
@@ -4234,12 +4162,10 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::CameraBackgroundBrush::BrushType'
-cls.enums [[
-    NONE
-    DEPTH
-    COLOR
-    SKYBOX
-]]
+cls.enum('NONE', 'cocos2d::CameraBackgroundBrush::BrushType::NONE')
+cls.enum('DEPTH', 'cocos2d::CameraBackgroundBrush::BrushType::DEPTH')
+cls.enum('COLOR', 'cocos2d::CameraBackgroundBrush::BrushType::COLOR')
+cls.enum('SKYBOX', 'cocos2d::CameraBackgroundBrush::BrushType::SKYBOX')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::CameraBackgroundBrush'
@@ -4321,18 +4247,14 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ParticleSystem::Mode'
-cls.enums [[
-    GRAVITY
-    RADIUS
-]]
+cls.enum('GRAVITY', 'cocos2d::ParticleSystem::Mode::GRAVITY')
+cls.enum('RADIUS', 'cocos2d::ParticleSystem::Mode::RADIUS')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ParticleSystem::PositionType'
-cls.enums [[
-    FREE
-    RELATIVE
-    GROUPED
-]]
+cls.enum('FREE', 'cocos2d::ParticleSystem::PositionType::FREE')
+cls.enum('RELATIVE', 'cocos2d::ParticleSystem::PositionType::RELATIVE')
+cls.enum('GROUPED', 'cocos2d::ParticleSystem::PositionType::GROUPED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ParticleSystem'
@@ -4618,13 +4540,11 @@ cls.funcs [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TMXTileFlags'
-cls.enums [[
-    kTMXTileHorizontalFlag
-    kTMXTileVerticalFlag
-    kTMXTileDiagonalFlag
-    kTMXFlipedAll
-    kTMXFlippedMask
-]]
+cls.enum('kTMXTileHorizontalFlag', 'cocos2d::TMXTileFlags::kTMXTileHorizontalFlag')
+cls.enum('kTMXTileVerticalFlag', 'cocos2d::TMXTileFlags::kTMXTileVerticalFlag')
+cls.enum('kTMXTileDiagonalFlag', 'cocos2d::TMXTileFlags::kTMXTileDiagonalFlag')
+cls.enum('kTMXFlipedAll', 'cocos2d::TMXTileFlags::kTMXFlipedAll')
+cls.enum('kTMXFlippedMask', 'cocos2d::TMXTileFlags::kTMXFlippedMask')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TMXObjectGroup'
@@ -4884,12 +4804,10 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::NavMeshAgent::NavMeshAgentSyncFlag'
-cls.enums [[
-    NONE
-    NODE_TO_AGENT
-    AGENT_TO_NODE
-    NODE_AND_NODE
-]]
+cls.enum('NONE', 'cocos2d::NavMeshAgent::NavMeshAgentSyncFlag::NONE')
+cls.enum('NODE_TO_AGENT', 'cocos2d::NavMeshAgent::NavMeshAgentSyncFlag::NODE_TO_AGENT')
+cls.enum('AGENT_TO_NODE', 'cocos2d::NavMeshAgent::NavMeshAgentSyncFlag::AGENT_TO_NODE')
+cls.enum('NODE_AND_NODE', 'cocos2d::NavMeshAgent::NavMeshAgentSyncFlag::NODE_AND_NODE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::NavMeshAgent'
@@ -4955,12 +4873,10 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag'
-cls.enums [[
-    NONE
-    NODE_TO_OBSTACLE
-    OBSTACLE_TO_NODE
-    NODE_AND_NODE
-]]
+cls.enum('NONE', 'cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag::NONE')
+cls.enum('NODE_TO_OBSTACLE', 'cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag::NODE_TO_OBSTACLE')
+cls.enum('OBSTACLE_TO_NODE', 'cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag::OBSTACLE_TO_NODE')
+cls.enum('NODE_AND_NODE', 'cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag::NODE_AND_NODE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::NavMeshObstacle'

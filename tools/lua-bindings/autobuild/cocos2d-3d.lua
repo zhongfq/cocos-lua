@@ -35,59 +35,53 @@ M.CONVS = {
 M.CLASSES = {}
 
 cls = typecls 'cocos2d::NTextureData::Usage'
-cls.enums [[
-    Unknown
-    None
-    Diffuse
-    Emissive
-    Ambient
-    Specular
-    Shininess
-    Normal
-    Bump
-    Transparency
-    Reflection
-]]
+cls.enum('Unknown', 'cocos2d::NTextureData::Usage::Unknown')
+cls.enum('None', 'cocos2d::NTextureData::Usage::None')
+cls.enum('Diffuse', 'cocos2d::NTextureData::Usage::Diffuse')
+cls.enum('Emissive', 'cocos2d::NTextureData::Usage::Emissive')
+cls.enum('Ambient', 'cocos2d::NTextureData::Usage::Ambient')
+cls.enum('Specular', 'cocos2d::NTextureData::Usage::Specular')
+cls.enum('Shininess', 'cocos2d::NTextureData::Usage::Shininess')
+cls.enum('Normal', 'cocos2d::NTextureData::Usage::Normal')
+cls.enum('Bump', 'cocos2d::NTextureData::Usage::Bump')
+cls.enum('Transparency', 'cocos2d::NTextureData::Usage::Transparency')
+cls.enum('Reflection', 'cocos2d::NTextureData::Usage::Reflection')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::shaderinfos::VertexKey'
-cls.enums [[
-    VERTEX_ATTRIB_POSITION
-    VERTEX_ATTRIB_COLOR
-    VERTEX_ATTRIB_TEX_COORD
-    VERTEX_ATTRIB_TEX_COORD1
-    VERTEX_ATTRIB_TEX_COORD2
-    VERTEX_ATTRIB_TEX_COORD3
-    VERTEX_ATTRIB_NORMAL
-    VERTEX_ATTRIB_BLEND_WEIGHT
-    VERTEX_ATTRIB_BLEND_INDEX
-    VERTEX_ATTRIB_TANGENT
-    VERTEX_ATTRIB_BINORMAL
-    VERTEX_ATTRIB_MAX
-    VERTEX_ATTRIB_TEX_COORDS
-    VERTEX_ATTRIB_ERROR
-]]
+cls.enum('VERTEX_ATTRIB_POSITION', 'cocos2d::shaderinfos::VertexKey::VERTEX_ATTRIB_POSITION')
+cls.enum('VERTEX_ATTRIB_COLOR', 'cocos2d::shaderinfos::VertexKey::VERTEX_ATTRIB_COLOR')
+cls.enum('VERTEX_ATTRIB_TEX_COORD', 'cocos2d::shaderinfos::VertexKey::VERTEX_ATTRIB_TEX_COORD')
+cls.enum('VERTEX_ATTRIB_TEX_COORD1', 'cocos2d::shaderinfos::VertexKey::VERTEX_ATTRIB_TEX_COORD1')
+cls.enum('VERTEX_ATTRIB_TEX_COORD2', 'cocos2d::shaderinfos::VertexKey::VERTEX_ATTRIB_TEX_COORD2')
+cls.enum('VERTEX_ATTRIB_TEX_COORD3', 'cocos2d::shaderinfos::VertexKey::VERTEX_ATTRIB_TEX_COORD3')
+cls.enum('VERTEX_ATTRIB_NORMAL', 'cocos2d::shaderinfos::VertexKey::VERTEX_ATTRIB_NORMAL')
+cls.enum('VERTEX_ATTRIB_BLEND_WEIGHT', 'cocos2d::shaderinfos::VertexKey::VERTEX_ATTRIB_BLEND_WEIGHT')
+cls.enum('VERTEX_ATTRIB_BLEND_INDEX', 'cocos2d::shaderinfos::VertexKey::VERTEX_ATTRIB_BLEND_INDEX')
+cls.enum('VERTEX_ATTRIB_TANGENT', 'cocos2d::shaderinfos::VertexKey::VERTEX_ATTRIB_TANGENT')
+cls.enum('VERTEX_ATTRIB_BINORMAL', 'cocos2d::shaderinfos::VertexKey::VERTEX_ATTRIB_BINORMAL')
+cls.enum('VERTEX_ATTRIB_MAX', 'cocos2d::shaderinfos::VertexKey::VERTEX_ATTRIB_MAX')
+cls.enum('VERTEX_ATTRIB_TEX_COORDS', 'cocos2d::shaderinfos::VertexKey::VERTEX_ATTRIB_TEX_COORDS')
+cls.enum('VERTEX_ATTRIB_ERROR', 'cocos2d::shaderinfos::VertexKey::VERTEX_ATTRIB_ERROR')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::shaderinfos::Uniformkey'
-cls.enums [[
-    UNIFORM_AMBIENT_COLOR
-    UNIFORM_P_MATRIX
-    UNIFORM_MULTIVIEW_P_MATRIX
-    UNIFORM_MV_MATRIX
-    UNIFORM_MVP_MATRIX
-    UNIFORM_MULTIVIEW_MVP_MATRIX
-    UNIFORM_NORMAL_MATRIX
-    UNIFORM_TIME
-    UNIFORM_SIN_TIME
-    UNIFORM_COS_TIME
-    UNIFORM_RANDOM01
-    UNIFORM_SAMPLER0
-    UNIFORM_SAMPLER1
-    UNIFORM_SAMPLER2
-    UNIFORM_SAMPLER3
-    UNIFORM_MAX
-]]
+cls.enum('UNIFORM_AMBIENT_COLOR', 'cocos2d::shaderinfos::Uniformkey::UNIFORM_AMBIENT_COLOR')
+cls.enum('UNIFORM_P_MATRIX', 'cocos2d::shaderinfos::Uniformkey::UNIFORM_P_MATRIX')
+cls.enum('UNIFORM_MULTIVIEW_P_MATRIX', 'cocos2d::shaderinfos::Uniformkey::UNIFORM_MULTIVIEW_P_MATRIX')
+cls.enum('UNIFORM_MV_MATRIX', 'cocos2d::shaderinfos::Uniformkey::UNIFORM_MV_MATRIX')
+cls.enum('UNIFORM_MVP_MATRIX', 'cocos2d::shaderinfos::Uniformkey::UNIFORM_MVP_MATRIX')
+cls.enum('UNIFORM_MULTIVIEW_MVP_MATRIX', 'cocos2d::shaderinfos::Uniformkey::UNIFORM_MULTIVIEW_MVP_MATRIX')
+cls.enum('UNIFORM_NORMAL_MATRIX', 'cocos2d::shaderinfos::Uniformkey::UNIFORM_NORMAL_MATRIX')
+cls.enum('UNIFORM_TIME', 'cocos2d::shaderinfos::Uniformkey::UNIFORM_TIME')
+cls.enum('UNIFORM_SIN_TIME', 'cocos2d::shaderinfos::Uniformkey::UNIFORM_SIN_TIME')
+cls.enum('UNIFORM_COS_TIME', 'cocos2d::shaderinfos::Uniformkey::UNIFORM_COS_TIME')
+cls.enum('UNIFORM_RANDOM01', 'cocos2d::shaderinfos::Uniformkey::UNIFORM_RANDOM01')
+cls.enum('UNIFORM_SAMPLER0', 'cocos2d::shaderinfos::Uniformkey::UNIFORM_SAMPLER0')
+cls.enum('UNIFORM_SAMPLER1', 'cocos2d::shaderinfos::Uniformkey::UNIFORM_SAMPLER1')
+cls.enum('UNIFORM_SAMPLER2', 'cocos2d::shaderinfos::Uniformkey::UNIFORM_SAMPLER2')
+cls.enum('UNIFORM_SAMPLER3', 'cocos2d::shaderinfos::Uniformkey::UNIFORM_SAMPLER3')
+cls.enum('UNIFORM_MAX', 'cocos2d::shaderinfos::Uniformkey::UNIFORM_MAX')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::NTextureData'
@@ -177,10 +171,8 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::BillBoard::Mode'
-cls.enums [[
-    VIEW_POINT_ORIENTED
-    VIEW_PLANE_ORIENTED
-]]
+cls.enum('VIEW_POINT_ORIENTED', 'cocos2d::BillBoard::Mode::VIEW_POINT_ORIENTED')
+cls.enum('VIEW_PLANE_ORIENTED', 'cocos2d::BillBoard::Mode::VIEW_PLANE_ORIENTED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::BillBoard'
@@ -200,15 +192,13 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Sprite3DMaterial::MaterialType'
-cls.enums [[
-    UNLIT
-    UNLIT_NOTEX
-    VERTEX_LIT
-    DIFFUSE
-    DIFFUSE_NOTEX
-    BUMPED_DIFFUSE
-    CUSTOM
-]]
+cls.enum('UNLIT', 'cocos2d::Sprite3DMaterial::MaterialType::UNLIT')
+cls.enum('UNLIT_NOTEX', 'cocos2d::Sprite3DMaterial::MaterialType::UNLIT_NOTEX')
+cls.enum('VERTEX_LIT', 'cocos2d::Sprite3DMaterial::MaterialType::VERTEX_LIT')
+cls.enum('DIFFUSE', 'cocos2d::Sprite3DMaterial::MaterialType::DIFFUSE')
+cls.enum('DIFFUSE_NOTEX', 'cocos2d::Sprite3DMaterial::MaterialType::DIFFUSE_NOTEX')
+cls.enum('BUMPED_DIFFUSE', 'cocos2d::Sprite3DMaterial::MaterialType::BUMPED_DIFFUSE')
+cls.enum('CUSTOM', 'cocos2d::Sprite3DMaterial::MaterialType::CUSTOM')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Sprite3DMaterial'

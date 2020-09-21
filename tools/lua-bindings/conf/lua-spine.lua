@@ -166,14 +166,23 @@ M.EXCLUDE_PASS = function (cppcls, fn, decl)
         -- or string.find(decl, 'Vector *<')
 end
 
-typeconf 'spine::EventType'
-typeconf 'spine::AttachmentType'
-typeconf 'spine::TransformMode'
-typeconf 'spine::BlendMode'
-typeconf 'spine::PositionMode'
-typeconf 'spine::SpacingMode'
-typeconf 'spine::RotateMode'
-typeconf 'spine::MixBlend'
+local function typeenum(classname)
+    local cls = typeconf(classname)
+    local cppname = string.match(classname, '[^:]+$')
+    cls.MAKE_LUANAME = function (value)
+        return value:gsub('^' .. cppname .. '_', '')
+    end
+    return cls
+end
+
+typeenum 'spine::EventType'
+typeenum 'spine::AttachmentType'
+typeenum 'spine::TransformMode'
+typeenum 'spine::BlendMode'
+typeenum 'spine::PositionMode'
+typeenum 'spine::SpacingMode'
+typeenum 'spine::RotateMode'
+typeenum 'spine::MixBlend'
 
 typeconf 'spine::SpineObject'
 

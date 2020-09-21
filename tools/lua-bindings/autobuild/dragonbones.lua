@@ -37,143 +37,121 @@ M.CONVS = {
 M.CLASSES = {}
 
 cls = typecls 'dragonBones::BinaryOffset'
-cls.enums [[
-    WeigthBoneCount
-    WeigthFloatOffset
-    WeigthBoneIndices
-    MeshVertexCount
-    MeshTriangleCount
-    MeshFloatOffset
-    MeshWeightOffset
-    MeshVertexIndices
-    TimelineScale
-    TimelineOffset
-    TimelineKeyFrameCount
-    TimelineFrameValueCount
-    TimelineFrameValueOffset
-    TimelineFrameOffset
-    FramePosition
-    FrameTweenType
-    FrameTweenEasingOrCurveSampleCount
-    FrameCurveSamples
-    DeformVertexOffset
-    DeformCount
-    DeformValueCount
-    DeformValueOffset
-    DeformFloatOffset
-]]
+cls.enum('WeigthBoneCount', 'dragonBones::BinaryOffset::WeigthBoneCount')
+cls.enum('WeigthFloatOffset', 'dragonBones::BinaryOffset::WeigthFloatOffset')
+cls.enum('WeigthBoneIndices', 'dragonBones::BinaryOffset::WeigthBoneIndices')
+cls.enum('MeshVertexCount', 'dragonBones::BinaryOffset::MeshVertexCount')
+cls.enum('MeshTriangleCount', 'dragonBones::BinaryOffset::MeshTriangleCount')
+cls.enum('MeshFloatOffset', 'dragonBones::BinaryOffset::MeshFloatOffset')
+cls.enum('MeshWeightOffset', 'dragonBones::BinaryOffset::MeshWeightOffset')
+cls.enum('MeshVertexIndices', 'dragonBones::BinaryOffset::MeshVertexIndices')
+cls.enum('TimelineScale', 'dragonBones::BinaryOffset::TimelineScale')
+cls.enum('TimelineOffset', 'dragonBones::BinaryOffset::TimelineOffset')
+cls.enum('TimelineKeyFrameCount', 'dragonBones::BinaryOffset::TimelineKeyFrameCount')
+cls.enum('TimelineFrameValueCount', 'dragonBones::BinaryOffset::TimelineFrameValueCount')
+cls.enum('TimelineFrameValueOffset', 'dragonBones::BinaryOffset::TimelineFrameValueOffset')
+cls.enum('TimelineFrameOffset', 'dragonBones::BinaryOffset::TimelineFrameOffset')
+cls.enum('FramePosition', 'dragonBones::BinaryOffset::FramePosition')
+cls.enum('FrameTweenType', 'dragonBones::BinaryOffset::FrameTweenType')
+cls.enum('FrameTweenEasingOrCurveSampleCount', 'dragonBones::BinaryOffset::FrameTweenEasingOrCurveSampleCount')
+cls.enum('FrameCurveSamples', 'dragonBones::BinaryOffset::FrameCurveSamples')
+cls.enum('DeformVertexOffset', 'dragonBones::BinaryOffset::DeformVertexOffset')
+cls.enum('DeformCount', 'dragonBones::BinaryOffset::DeformCount')
+cls.enum('DeformValueCount', 'dragonBones::BinaryOffset::DeformValueCount')
+cls.enum('DeformValueOffset', 'dragonBones::BinaryOffset::DeformValueOffset')
+cls.enum('DeformFloatOffset', 'dragonBones::BinaryOffset::DeformFloatOffset')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::ArmatureType'
-cls.enums [[
-    Armature
-    MovieClip
-    Stage
-]]
+cls.enum('Armature', 'dragonBones::ArmatureType::Armature')
+cls.enum('MovieClip', 'dragonBones::ArmatureType::MovieClip')
+cls.enum('Stage', 'dragonBones::ArmatureType::Stage')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::OffsetMode'
-cls.enums [[
-    None
-    Additive
-    Override
-]]
+cls.enum('None', 'dragonBones::OffsetMode::None')
+cls.enum('Additive', 'dragonBones::OffsetMode::Additive')
+cls.enum('Override', 'dragonBones::OffsetMode::Override')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::DisplayType'
-cls.enums [[
-    Image
-    Armature
-    Mesh
-    BoundingBox
-    Path
-]]
+cls.enum('Image', 'dragonBones::DisplayType::Image')
+cls.enum('Armature', 'dragonBones::DisplayType::Armature')
+cls.enum('Mesh', 'dragonBones::DisplayType::Mesh')
+cls.enum('BoundingBox', 'dragonBones::DisplayType::BoundingBox')
+cls.enum('Path', 'dragonBones::DisplayType::Path')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::BoundingBoxType'
-cls.enums [[
-    Rectangle
-    Ellipse
-    Polygon
-]]
+cls.enum('Rectangle', 'dragonBones::BoundingBoxType::Rectangle')
+cls.enum('Ellipse', 'dragonBones::BoundingBoxType::Ellipse')
+cls.enum('Polygon', 'dragonBones::BoundingBoxType::Polygon')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::ActionType'
-cls.enums [[
-    Play
-    Frame
-    Sound
-]]
+cls.enum('Play', 'dragonBones::ActionType::Play')
+cls.enum('Frame', 'dragonBones::ActionType::Frame')
+cls.enum('Sound', 'dragonBones::ActionType::Sound')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::BlendMode'
-cls.enums [[
-    Normal
-    Add
-    Alpha
-    Darken
-    Difference
-    Erase
-    HardLight
-    Invert
-    Layer
-    Lighten
-    Multiply
-    Overlay
-    Screen
-    Subtract
-]]
+cls.enum('Normal', 'dragonBones::BlendMode::Normal')
+cls.enum('Add', 'dragonBones::BlendMode::Add')
+cls.enum('Alpha', 'dragonBones::BlendMode::Alpha')
+cls.enum('Darken', 'dragonBones::BlendMode::Darken')
+cls.enum('Difference', 'dragonBones::BlendMode::Difference')
+cls.enum('Erase', 'dragonBones::BlendMode::Erase')
+cls.enum('HardLight', 'dragonBones::BlendMode::HardLight')
+cls.enum('Invert', 'dragonBones::BlendMode::Invert')
+cls.enum('Layer', 'dragonBones::BlendMode::Layer')
+cls.enum('Lighten', 'dragonBones::BlendMode::Lighten')
+cls.enum('Multiply', 'dragonBones::BlendMode::Multiply')
+cls.enum('Overlay', 'dragonBones::BlendMode::Overlay')
+cls.enum('Screen', 'dragonBones::BlendMode::Screen')
+cls.enum('Subtract', 'dragonBones::BlendMode::Subtract')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::TweenType'
-cls.enums [[
-    None
-    Line
-    Curve
-    QuadIn
-    QuadOut
-    QuadInOut
-]]
+cls.enum('None', 'dragonBones::TweenType::None')
+cls.enum('Line', 'dragonBones::TweenType::Line')
+cls.enum('Curve', 'dragonBones::TweenType::Curve')
+cls.enum('QuadIn', 'dragonBones::TweenType::QuadIn')
+cls.enum('QuadOut', 'dragonBones::TweenType::QuadOut')
+cls.enum('QuadInOut', 'dragonBones::TweenType::QuadInOut')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::TimelineType'
-cls.enums [[
-    Action
-    ZOrder
-    BoneAll
-    BoneTranslate
-    BoneRotate
-    BoneScale
-    SlotDisplay
-    SlotColor
-    SlotDeform
-    IKConstraint
-    AnimationTime
-    AnimationWeight
-]]
+cls.enum('Action', 'dragonBones::TimelineType::Action')
+cls.enum('ZOrder', 'dragonBones::TimelineType::ZOrder')
+cls.enum('BoneAll', 'dragonBones::TimelineType::BoneAll')
+cls.enum('BoneTranslate', 'dragonBones::TimelineType::BoneTranslate')
+cls.enum('BoneRotate', 'dragonBones::TimelineType::BoneRotate')
+cls.enum('BoneScale', 'dragonBones::TimelineType::BoneScale')
+cls.enum('SlotDisplay', 'dragonBones::TimelineType::SlotDisplay')
+cls.enum('SlotColor', 'dragonBones::TimelineType::SlotColor')
+cls.enum('SlotDeform', 'dragonBones::TimelineType::SlotDeform')
+cls.enum('IKConstraint', 'dragonBones::TimelineType::IKConstraint')
+cls.enum('AnimationTime', 'dragonBones::TimelineType::AnimationTime')
+cls.enum('AnimationWeight', 'dragonBones::TimelineType::AnimationWeight')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::AnimationFadeOutMode'
-cls.enums [[
-    None
-    SameLayer
-    SameGroup
-    SameLayerAndGroup
-    All
-    Single
-]]
+cls.enum('None', 'dragonBones::AnimationFadeOutMode::None')
+cls.enum('SameLayer', 'dragonBones::AnimationFadeOutMode::SameLayer')
+cls.enum('SameGroup', 'dragonBones::AnimationFadeOutMode::SameGroup')
+cls.enum('SameLayerAndGroup', 'dragonBones::AnimationFadeOutMode::SameLayerAndGroup')
+cls.enum('All', 'dragonBones::AnimationFadeOutMode::All')
+cls.enum('Single', 'dragonBones::AnimationFadeOutMode::Single')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::TextureFormat'
-cls.enums [[
-    DEFAULT
-    RGBA8888
-    BGRA8888
-    RGBA4444
-    RGB888
-    RGB565
-    RGBA5551
-]]
+cls.enum('DEFAULT', 'dragonBones::TextureFormat::DEFAULT')
+cls.enum('RGBA8888', 'dragonBones::TextureFormat::RGBA8888')
+cls.enum('BGRA8888', 'dragonBones::TextureFormat::BGRA8888')
+cls.enum('RGBA4444', 'dragonBones::TextureFormat::RGBA4444')
+cls.enum('RGB888', 'dragonBones::TextureFormat::RGB888')
+cls.enum('RGB565', 'dragonBones::TextureFormat::RGB565')
+cls.enum('RGBA5551', 'dragonBones::TextureFormat::RGBA5551')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::BaseObject'

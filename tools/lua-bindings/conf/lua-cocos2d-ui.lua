@@ -88,17 +88,17 @@ VideoPlayer.CALLBACK {
     LOCAL = false,
 }
 
-local AbstractCheckButton = typeconf 'cocos2d::ui::AbstractCheckButton'
-AbstractCheckButton.ATTR('getRendererBackground', {RET = '@addref(protectedChildren |)'})
-AbstractCheckButton.ATTR('getRendererBackgroundSelected', {RET = '@addref(protectedChildren |)'})
-AbstractCheckButton.ATTR('getRendererFrontCross', {RET = '@addref(protectedChildren |)'})
-AbstractCheckButton.ATTR('getRendererBackgroundDisabled', {RET = '@addref(protectedChildren |)'})
-AbstractCheckButton.ATTR('getRendererFrontCrossDisabled', {RET = '@addref(protectedChildren |)'})
+typeconf 'cocos2d::ui::AbstractCheckButton'
+    .ATTR('getRendererBackground', {RET = '@addref(protectedChildren |)'})
+    .ATTR('getRendererBackgroundSelected', {RET = '@addref(protectedChildren |)'})
+    .ATTR('getRendererFrontCross', {RET = '@addref(protectedChildren |)'})
+    .ATTR('getRendererBackgroundDisabled', {RET = '@addref(protectedChildren |)'})
+    .ATTR('getRendererFrontCrossDisabled', {RET = '@addref(protectedChildren |)'})
 
 typeconf 'cocos2d::ui::TabHeader::EventType'
 
-local TabHeader = typeconf 'cocos2d::ui::TabHeader'
-TabHeader.ATTR('getTitleRenderer', {RET = '@addref(protectedChildren |)'})
+typeconf 'cocos2d::ui::TabHeader'
+    .ATTR('getTitleRenderer', {RET = '@addref(protectedChildren |)'})
 
 typeconf 'cocos2d::ui::TabControl::Dock'
 typeconf 'cocos2d::ui::TabControl::EventType'
@@ -214,13 +214,13 @@ TextField.CALLBACK {
     LOCAL = false,
 }
 
-local Button = typeconf 'cocos2d::ui::Button'
-Button.ATTR('setTitleLabel', {ARG1 = '@addref(protectedChildren |)'})
-Button.ATTR('getTitleRenderer', {RET = '@addref(protectedChildren |)'})
-Button.ATTR('getTitleLabel', {RET = '@addref(protectedChildren |)'})
-Button.ATTR('getRendererNormal', {RET = '@addref(protectedChildren |)'})
-Button.ATTR('getRendererClicked', {RET = '@addref(protectedChildren |)'})
-Button.ATTR('getRendererDisabled', {RET = '@addref(protectedChildren |)'})
+typeconf 'cocos2d::ui::Button'
+    .ATTR('setTitleLabel', {ARG1 = '@addref(protectedChildren |)'})
+    .ATTR('getTitleRenderer', {RET = '@addref(protectedChildren |)'})
+    .ATTR('getTitleLabel', {RET = '@addref(protectedChildren |)'})
+    .ATTR('getRendererNormal', {RET = '@addref(protectedChildren |)'})
+    .ATTR('getRendererClicked', {RET = '@addref(protectedChildren |)'})
+    .ATTR('getRendererDisabled', {RET = '@addref(protectedChildren |)'})
 
 typeconf 'cocos2d::ui::CheckBox::EventType'
 

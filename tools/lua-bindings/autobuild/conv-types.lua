@@ -92,6 +92,14 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocos2d::ccBezierConfig',
+    LUACLS = nil,
+    DECLTYPE = nil,
+    CONV = 'auto_olua_$$_cocos2d_ccBezierConfig',
+    NUMVARS = 3,
+}
+
+typedef {
     CPPCLS = 'cocos2d::TTFConfig',
     LUACLS = nil,
     DECLTYPE = nil,

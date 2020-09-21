@@ -12,12 +12,6 @@ typedef {
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ccBezierConfig',
-    CONV =  'manual_olua_$$_cocos2d_ccBezierConfig',
-    NUMVARS = 3,
-}
-
-typedef {
     CPPCLS = 'cocos2d::Mat4',
     CONV = 'manual_olua_$$_cocos2d_Mat4',
 }
@@ -66,9 +60,4 @@ typedef {
 typedef {
     CPPCLS = 'cocos2d::ValueVector',
     CONV = 'manual_olua_$$_cocos2d_ValueVector',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::PipelineDescriptor',
-    CONV = 'olua_$$_cppobj',
 }

@@ -415,7 +415,7 @@ static int _cocos2d_Speed_create(lua_State *L)
     cocos2d::Speed *ret = (cocos2d::Speed *)cocos2d::Speed::create(arg1, (float)arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.Speed");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -435,7 +435,7 @@ static int _cocos2d_Speed_getInnerAction(lua_State *L)
     cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->getInnerAction();
     int num_ret = olua_push_cppobj(L, ret, "cc.ActionInterval");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "innerAction", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -473,7 +473,7 @@ static int _cocos2d_Speed_setInnerAction(lua_State *L)
     // void setInnerAction(@addref(innerAction ^) cocos2d::ActionInterval *action)
     self->setInnerAction(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "innerAction", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -1688,29 +1688,73 @@ static int _cocos2d_Sequence___move(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_Sequence_create(lua_State *L)
+static int _cocos2d_Sequence_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
-    int n = lua_gettop(L);
-    actions.reserve(n);
+    cocos2d::Vector<cocos2d::FiniteTimeAction *> arg1;       /** arrayOfActions */
 
-    auto ret = new cocos2d::Sequence();
-    ret->autorelease();
-    olua_push_cppobj<cocos2d::Sequence>(L, ret);
+    manual_olua_check_cocos2d_Vector(L, 1, arg1, "cc.FiniteTimeAction");
 
-    for (int i = 1; i <= n; i++) {
-        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
-        actions.pushBack(obj);
-        olua_addref(L, -1, ".autoref", i, OLUA_MODE_MULTIPLE);
-    }
+    // static cocos2d::Sequence *create(@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+    cocos2d::Sequence *ret = (cocos2d::Sequence *)cocos2d::Sequence::create(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Sequence");
 
-    ret->init(actions);
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_MODE_MULTIPLE | OLUA_FLAG_ARRAY);
 
     olua_endinvoke(L);
 
-    return 1;
+    return num_ret;
+}
+
+static int _cocos2d_Sequence_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Vector<cocos2d::FiniteTimeAction *> arg1;       /** arrayOfActions */
+
+    manual_olua_pack_cocos2d_Vector(L, 1, arg1, "cc.FiniteTimeAction");
+
+    // static cocos2d::Sequence *create(@pack@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+    cocos2d::Sequence *ret = (cocos2d::Sequence *)cocos2d::Sequence::create(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Sequence");
+
+    // insert code after call
+    int ref_store = lua_absindex(L, -1);
+    manual_olua_push_cocos2d_Vector(L, arg1, "cc.FiniteTimeAction");
+    olua_addref(L, ref_store, "actions", -1, OLUA_MODE_MULTIPLE | OLUA_FLAG_ARRAY);
+    lua_pop(L, 1);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sequence_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        if ((manual_olua_is_cocos2d_Vector(L, 1))) {
+            // static cocos2d::Sequence *create(@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+            return _cocos2d_Sequence_create1(L);
+        }
+
+        // if ((manual_olua_ispack_cocos2d_Vector(L, 1))) {
+            // static cocos2d::Sequence *create(@pack@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+            return _cocos2d_Sequence_create2(L);
+        // }
+    }
+
+    if (num_args > 0) {
+        // static cocos2d::Sequence *create(@pack@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+        return _cocos2d_Sequence_create2(L);
+    }
+
+    luaL_error(L, "method 'cocos2d::Sequence::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_Sequence_createWithTwoActions(lua_State *L)
@@ -1723,13 +1767,13 @@ static int _cocos2d_Sequence_createWithTwoActions(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.FiniteTimeAction");
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.FiniteTimeAction");
 
-    // static cocos2d::Sequence *createWithTwoActions(@addref(autoref |) cocos2d::FiniteTimeAction *actionOne, @addref(autoref |) cocos2d::FiniteTimeAction *actionTwo)
+    // static cocos2d::Sequence *createWithTwoActions(@addref(actions |) cocos2d::FiniteTimeAction *actionOne, @addref(actions |) cocos2d::FiniteTimeAction *actionTwo)
     cocos2d::Sequence *ret = (cocos2d::Sequence *)cocos2d::Sequence::createWithTwoActions(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.Sequence");
 
-    // inject code after call
-    olua_addref(L, -1, "autoref", 1, OLUA_MODE_MULTIPLE);
-    olua_addref(L, -1, "autoref", 2, OLUA_MODE_MULTIPLE);
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_MODE_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -1774,7 +1818,7 @@ static int _cocos2d_Repeat_create(lua_State *L)
     cocos2d::Repeat *ret = (cocos2d::Repeat *)cocos2d::Repeat::create(arg1, (unsigned int)arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.Repeat");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -1794,7 +1838,7 @@ static int _cocos2d_Repeat_getInnerAction(lua_State *L)
     cocos2d::FiniteTimeAction *ret = (cocos2d::FiniteTimeAction *)self->getInnerAction();
     int num_ret = olua_push_cppobj(L, ret, "cc.FiniteTimeAction");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "innerAction", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -1815,7 +1859,7 @@ static int _cocos2d_Repeat_setInnerAction(lua_State *L)
     // void setInnerAction(@addref(innerAction ^) cocos2d::FiniteTimeAction *action)
     self->setInnerAction(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "innerAction", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -1861,7 +1905,7 @@ static int _cocos2d_RepeatForever_create(lua_State *L)
     cocos2d::RepeatForever *ret = (cocos2d::RepeatForever *)cocos2d::RepeatForever::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.RepeatForever");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -1881,7 +1925,7 @@ static int _cocos2d_RepeatForever_getInnerAction(lua_State *L)
     cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->getInnerAction();
     int num_ret = olua_push_cppobj(L, ret, "cc.ActionInterval");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "innerAction", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -1902,7 +1946,7 @@ static int _cocos2d_RepeatForever_setInnerAction(lua_State *L)
     // void setInnerAction(@addref(innerAction ^) cocos2d::ActionInterval *action)
     self->setInnerAction(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "innerAction", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -1936,29 +1980,73 @@ static int _cocos2d_Spawn___move(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_Spawn_create(lua_State *L)
+static int _cocos2d_Spawn_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
-    int n = lua_gettop(L);
-    actions.reserve(n);
+    cocos2d::Vector<cocos2d::FiniteTimeAction *> arg1;       /** arrayOfActions */
 
-    auto ret = new cocos2d::Spawn();
-    ret->autorelease();
-    olua_push_cppobj<cocos2d::Spawn>(L, ret);
+    manual_olua_check_cocos2d_Vector(L, 1, arg1, "cc.FiniteTimeAction");
 
-    for (int i = 1; i <= n; i++) {
-        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
-        actions.pushBack(obj);
-        olua_addref(L, -1, ".autoref", i, OLUA_MODE_MULTIPLE);
-    }
+    // static cocos2d::Spawn *create(@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+    cocos2d::Spawn *ret = (cocos2d::Spawn *)cocos2d::Spawn::create(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Spawn");
 
-    ret->init(actions);
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_MODE_MULTIPLE | OLUA_FLAG_ARRAY);
 
     olua_endinvoke(L);
 
-    return 1;
+    return num_ret;
+}
+
+static int _cocos2d_Spawn_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Vector<cocos2d::FiniteTimeAction *> arg1;       /** arrayOfActions */
+
+    manual_olua_pack_cocos2d_Vector(L, 1, arg1, "cc.FiniteTimeAction");
+
+    // static cocos2d::Spawn *create(@pack@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+    cocos2d::Spawn *ret = (cocos2d::Spawn *)cocos2d::Spawn::create(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Spawn");
+
+    // insert code after call
+    int ref_store = lua_absindex(L, -1);
+    manual_olua_push_cocos2d_Vector(L, arg1, "cc.FiniteTimeAction");
+    olua_addref(L, ref_store, "actions", -1, OLUA_MODE_MULTIPLE | OLUA_FLAG_ARRAY);
+    lua_pop(L, 1);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Spawn_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        if ((manual_olua_is_cocos2d_Vector(L, 1))) {
+            // static cocos2d::Spawn *create(@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+            return _cocos2d_Spawn_create1(L);
+        }
+
+        // if ((manual_olua_ispack_cocos2d_Vector(L, 1))) {
+            // static cocos2d::Spawn *create(@pack@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+            return _cocos2d_Spawn_create2(L);
+        // }
+    }
+
+    if (num_args > 0) {
+        // static cocos2d::Spawn *create(@pack@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+        return _cocos2d_Spawn_create2(L);
+    }
+
+    luaL_error(L, "method 'cocos2d::Spawn::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_Spawn_createWithTwoActions(lua_State *L)
@@ -1971,13 +2059,13 @@ static int _cocos2d_Spawn_createWithTwoActions(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.FiniteTimeAction");
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.FiniteTimeAction");
 
-    // static cocos2d::Spawn *createWithTwoActions(@addref(autoref |) cocos2d::FiniteTimeAction *action1, @addref(autoref |) cocos2d::FiniteTimeAction *action2)
+    // static cocos2d::Spawn *createWithTwoActions(@addref(actions |) cocos2d::FiniteTimeAction *action1, @addref(actions |) cocos2d::FiniteTimeAction *action2)
     cocos2d::Spawn *ret = (cocos2d::Spawn *)cocos2d::Spawn::createWithTwoActions(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.Spawn");
 
-    // inject code after call
-    olua_addref(L, -1, "autoref", 1, OLUA_MODE_MULTIPLE);
-    olua_addref(L, -1, "autoref", 2, OLUA_MODE_MULTIPLE);
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_MODE_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -2676,7 +2764,7 @@ static int _cocos2d_BezierBy_create1(lua_State *L)
     cocos2d::ccBezierConfig arg2;       /** c */
 
     olua_check_number(L, 1, &arg1);
-    manual_olua_check_cocos2d_ccBezierConfig(L, 2, &arg2);
+    auto_olua_check_cocos2d_ccBezierConfig(L, 2, &arg2);
 
     // static cocos2d::BezierBy *create(float t, const cocos2d::ccBezierConfig &c)
     cocos2d::BezierBy *ret = (cocos2d::BezierBy *)cocos2d::BezierBy::create((float)arg1, arg2);
@@ -2695,7 +2783,7 @@ static int _cocos2d_BezierBy_create2(lua_State *L)
     cocos2d::ccBezierConfig arg2;       /** c */
 
     olua_check_number(L, 1, &arg1);
-    manual_olua_pack_cocos2d_ccBezierConfig(L, 2, &arg2);
+    auto_olua_pack_cocos2d_ccBezierConfig(L, 2, &arg2);
 
     // static cocos2d::BezierBy *create(float t, @pack const cocos2d::ccBezierConfig &c)
     cocos2d::BezierBy *ret = (cocos2d::BezierBy *)cocos2d::BezierBy::create((float)arg1, arg2);
@@ -2711,14 +2799,14 @@ static int _cocos2d_BezierBy_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if ((olua_is_number(L, 1)) && (manual_olua_is_cocos2d_ccBezierConfig(L, 2))) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_ccBezierConfig(L, 2))) {
             // static cocos2d::BezierBy *create(float t, const cocos2d::ccBezierConfig &c)
             return _cocos2d_BezierBy_create1(L);
         // }
     }
 
     if (num_args == 4) {
-        // if ((olua_is_number(L, 1)) && (manual_olua_ispack_cocos2d_ccBezierConfig(L, 2))) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_ispack_cocos2d_ccBezierConfig(L, 2))) {
             // static cocos2d::BezierBy *create(float t, @pack const cocos2d::ccBezierConfig &c)
             return _cocos2d_BezierBy_create2(L);
         // }
@@ -2760,7 +2848,7 @@ static int _cocos2d_BezierTo_create1(lua_State *L)
     cocos2d::ccBezierConfig arg2;       /** c */
 
     olua_check_number(L, 1, &arg1);
-    manual_olua_check_cocos2d_ccBezierConfig(L, 2, &arg2);
+    auto_olua_check_cocos2d_ccBezierConfig(L, 2, &arg2);
 
     // static cocos2d::BezierTo *create(float t, const cocos2d::ccBezierConfig &c)
     cocos2d::BezierTo *ret = (cocos2d::BezierTo *)cocos2d::BezierTo::create((float)arg1, arg2);
@@ -2779,7 +2867,7 @@ static int _cocos2d_BezierTo_create2(lua_State *L)
     cocos2d::ccBezierConfig arg2;       /** c */
 
     olua_check_number(L, 1, &arg1);
-    manual_olua_pack_cocos2d_ccBezierConfig(L, 2, &arg2);
+    auto_olua_pack_cocos2d_ccBezierConfig(L, 2, &arg2);
 
     // static cocos2d::BezierTo *create(float t, @pack const cocos2d::ccBezierConfig &c)
     cocos2d::BezierTo *ret = (cocos2d::BezierTo *)cocos2d::BezierTo::create((float)arg1, arg2);
@@ -2795,14 +2883,14 @@ static int _cocos2d_BezierTo_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if ((olua_is_number(L, 1)) && (manual_olua_is_cocos2d_ccBezierConfig(L, 2))) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_ccBezierConfig(L, 2))) {
             // static cocos2d::BezierTo *create(float t, const cocos2d::ccBezierConfig &c)
             return _cocos2d_BezierTo_create1(L);
         // }
     }
 
     if (num_args == 4) {
-        // if ((olua_is_number(L, 1)) && (manual_olua_ispack_cocos2d_ccBezierConfig(L, 2))) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_ispack_cocos2d_ccBezierConfig(L, 2))) {
             // static cocos2d::BezierTo *create(float t, @pack const cocos2d::ccBezierConfig &c)
             return _cocos2d_BezierTo_create2(L);
         // }
@@ -3598,12 +3686,12 @@ static int _cocos2d_ReverseTime_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.FiniteTimeAction");
 
-    // static cocos2d::ReverseTime *create(@addref(autoref |) cocos2d::FiniteTimeAction *action)
+    // static cocos2d::ReverseTime *create(@addref(actions |) cocos2d::FiniteTimeAction *action)
     cocos2d::ReverseTime *ret = (cocos2d::ReverseTime *)cocos2d::ReverseTime::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.ReverseTime");
 
-    // inject code after call
-    olua_addref(L, -1, "autoref", 1, OLUA_MODE_MULTIPLE);
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -3740,12 +3828,12 @@ static int _cocos2d_TargetedAction_create(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.FiniteTimeAction");
 
-    // static cocos2d::TargetedAction *create(cocos2d::Node *target, @addref(autoref |) cocos2d::FiniteTimeAction *action)
+    // static cocos2d::TargetedAction *create(cocos2d::Node *target, @addref(actions |) cocos2d::FiniteTimeAction *action)
     cocos2d::TargetedAction *ret = (cocos2d::TargetedAction *)cocos2d::TargetedAction::create(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.TargetedAction");
 
-    // inject code after call
-    olua_addref(L, -1, "autoref", 2, OLUA_MODE_MULTIPLE);
+    // insert code after call
+    olua_addref(L, -1, "actions", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -4002,7 +4090,7 @@ static int _cocos2d_ActionEase_getInnerAction(lua_State *L)
     cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->getInnerAction();
     int num_ret = olua_push_cppobj(L, ret, "cc.ActionInterval");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "innerAction", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4048,7 +4136,7 @@ static int _cocos2d_EaseRateAction_create(lua_State *L)
     cocos2d::EaseRateAction *ret = (cocos2d::EaseRateAction *)cocos2d::EaseRateAction::create(arg1, (float)arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseRateAction");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4129,7 +4217,7 @@ static int _cocos2d_EaseExponentialIn_create(lua_State *L)
     cocos2d::EaseExponentialIn *ret = (cocos2d::EaseExponentialIn *)cocos2d::EaseExponentialIn::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseExponentialIn");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4172,7 +4260,7 @@ static int _cocos2d_EaseExponentialOut_create(lua_State *L)
     cocos2d::EaseExponentialOut *ret = (cocos2d::EaseExponentialOut *)cocos2d::EaseExponentialOut::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseExponentialOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4215,7 +4303,7 @@ static int _cocos2d_EaseExponentialInOut_create(lua_State *L)
     cocos2d::EaseExponentialInOut *ret = (cocos2d::EaseExponentialInOut *)cocos2d::EaseExponentialInOut::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseExponentialInOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4258,7 +4346,7 @@ static int _cocos2d_EaseSineIn_create(lua_State *L)
     cocos2d::EaseSineIn *ret = (cocos2d::EaseSineIn *)cocos2d::EaseSineIn::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseSineIn");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4301,7 +4389,7 @@ static int _cocos2d_EaseSineOut_create(lua_State *L)
     cocos2d::EaseSineOut *ret = (cocos2d::EaseSineOut *)cocos2d::EaseSineOut::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseSineOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4344,7 +4432,7 @@ static int _cocos2d_EaseSineInOut_create(lua_State *L)
     cocos2d::EaseSineInOut *ret = (cocos2d::EaseSineInOut *)cocos2d::EaseSineInOut::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseSineInOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4387,7 +4475,7 @@ static int _cocos2d_EaseBounceIn_create(lua_State *L)
     cocos2d::EaseBounceIn *ret = (cocos2d::EaseBounceIn *)cocos2d::EaseBounceIn::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseBounceIn");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4430,7 +4518,7 @@ static int _cocos2d_EaseBounceOut_create(lua_State *L)
     cocos2d::EaseBounceOut *ret = (cocos2d::EaseBounceOut *)cocos2d::EaseBounceOut::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseBounceOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4473,7 +4561,7 @@ static int _cocos2d_EaseBounceInOut_create(lua_State *L)
     cocos2d::EaseBounceInOut *ret = (cocos2d::EaseBounceInOut *)cocos2d::EaseBounceInOut::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseBounceInOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4516,7 +4604,7 @@ static int _cocos2d_EaseBackIn_create(lua_State *L)
     cocos2d::EaseBackIn *ret = (cocos2d::EaseBackIn *)cocos2d::EaseBackIn::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseBackIn");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4559,7 +4647,7 @@ static int _cocos2d_EaseBackOut_create(lua_State *L)
     cocos2d::EaseBackOut *ret = (cocos2d::EaseBackOut *)cocos2d::EaseBackOut::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseBackOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4602,7 +4690,7 @@ static int _cocos2d_EaseBackInOut_create(lua_State *L)
     cocos2d::EaseBackInOut *ret = (cocos2d::EaseBackInOut *)cocos2d::EaseBackInOut::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseBackInOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4645,7 +4733,7 @@ static int _cocos2d_EaseQuadraticActionIn_create(lua_State *L)
     cocos2d::EaseQuadraticActionIn *ret = (cocos2d::EaseQuadraticActionIn *)cocos2d::EaseQuadraticActionIn::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseQuadraticActionIn");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4688,7 +4776,7 @@ static int _cocos2d_EaseQuadraticActionOut_create(lua_State *L)
     cocos2d::EaseQuadraticActionOut *ret = (cocos2d::EaseQuadraticActionOut *)cocos2d::EaseQuadraticActionOut::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseQuadraticActionOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4731,7 +4819,7 @@ static int _cocos2d_EaseQuadraticActionInOut_create(lua_State *L)
     cocos2d::EaseQuadraticActionInOut *ret = (cocos2d::EaseQuadraticActionInOut *)cocos2d::EaseQuadraticActionInOut::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseQuadraticActionInOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4774,7 +4862,7 @@ static int _cocos2d_EaseQuarticActionIn_create(lua_State *L)
     cocos2d::EaseQuarticActionIn *ret = (cocos2d::EaseQuarticActionIn *)cocos2d::EaseQuarticActionIn::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseQuarticActionIn");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4817,7 +4905,7 @@ static int _cocos2d_EaseQuarticActionOut_create(lua_State *L)
     cocos2d::EaseQuarticActionOut *ret = (cocos2d::EaseQuarticActionOut *)cocos2d::EaseQuarticActionOut::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseQuarticActionOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4860,7 +4948,7 @@ static int _cocos2d_EaseQuarticActionInOut_create(lua_State *L)
     cocos2d::EaseQuarticActionInOut *ret = (cocos2d::EaseQuarticActionInOut *)cocos2d::EaseQuarticActionInOut::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseQuarticActionInOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4903,7 +4991,7 @@ static int _cocos2d_EaseQuinticActionIn_create(lua_State *L)
     cocos2d::EaseQuinticActionIn *ret = (cocos2d::EaseQuinticActionIn *)cocos2d::EaseQuinticActionIn::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseQuinticActionIn");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4946,7 +5034,7 @@ static int _cocos2d_EaseQuinticActionOut_create(lua_State *L)
     cocos2d::EaseQuinticActionOut *ret = (cocos2d::EaseQuinticActionOut *)cocos2d::EaseQuinticActionOut::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseQuinticActionOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -4989,7 +5077,7 @@ static int _cocos2d_EaseQuinticActionInOut_create(lua_State *L)
     cocos2d::EaseQuinticActionInOut *ret = (cocos2d::EaseQuinticActionInOut *)cocos2d::EaseQuinticActionInOut::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseQuinticActionInOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -5032,7 +5120,7 @@ static int _cocos2d_EaseCircleActionIn_create(lua_State *L)
     cocos2d::EaseCircleActionIn *ret = (cocos2d::EaseCircleActionIn *)cocos2d::EaseCircleActionIn::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseCircleActionIn");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -5075,7 +5163,7 @@ static int _cocos2d_EaseCircleActionOut_create(lua_State *L)
     cocos2d::EaseCircleActionOut *ret = (cocos2d::EaseCircleActionOut *)cocos2d::EaseCircleActionOut::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseCircleActionOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -5118,7 +5206,7 @@ static int _cocos2d_EaseCircleActionInOut_create(lua_State *L)
     cocos2d::EaseCircleActionInOut *ret = (cocos2d::EaseCircleActionInOut *)cocos2d::EaseCircleActionInOut::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseCircleActionInOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -5161,7 +5249,7 @@ static int _cocos2d_EaseCubicActionIn_create(lua_State *L)
     cocos2d::EaseCubicActionIn *ret = (cocos2d::EaseCubicActionIn *)cocos2d::EaseCubicActionIn::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseCubicActionIn");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -5204,7 +5292,7 @@ static int _cocos2d_EaseCubicActionOut_create(lua_State *L)
     cocos2d::EaseCubicActionOut *ret = (cocos2d::EaseCubicActionOut *)cocos2d::EaseCubicActionOut::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseCubicActionOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -5247,7 +5335,7 @@ static int _cocos2d_EaseCubicActionInOut_create(lua_State *L)
     cocos2d::EaseCubicActionInOut *ret = (cocos2d::EaseCubicActionInOut *)cocos2d::EaseCubicActionInOut::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseCubicActionInOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -5292,7 +5380,7 @@ static int _cocos2d_EaseIn_create(lua_State *L)
     cocos2d::EaseIn *ret = (cocos2d::EaseIn *)cocos2d::EaseIn::create(arg1, (float)arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseIn");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -5337,7 +5425,7 @@ static int _cocos2d_EaseOut_create(lua_State *L)
     cocos2d::EaseOut *ret = (cocos2d::EaseOut *)cocos2d::EaseOut::create(arg1, (float)arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -5382,7 +5470,7 @@ static int _cocos2d_EaseInOut_create(lua_State *L)
     cocos2d::EaseInOut *ret = (cocos2d::EaseInOut *)cocos2d::EaseInOut::create(arg1, (float)arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseInOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -5487,7 +5575,7 @@ static int _cocos2d_EaseElasticIn_create1(lua_State *L)
     cocos2d::EaseElasticIn *ret = (cocos2d::EaseElasticIn *)cocos2d::EaseElasticIn::create(arg1, (float)arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseElasticIn");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -5507,7 +5595,7 @@ static int _cocos2d_EaseElasticIn_create2(lua_State *L)
     cocos2d::EaseElasticIn *ret = (cocos2d::EaseElasticIn *)cocos2d::EaseElasticIn::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseElasticIn");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -5575,7 +5663,7 @@ static int _cocos2d_EaseElasticOut_create1(lua_State *L)
     cocos2d::EaseElasticOut *ret = (cocos2d::EaseElasticOut *)cocos2d::EaseElasticOut::create(arg1, (float)arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseElasticOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -5595,7 +5683,7 @@ static int _cocos2d_EaseElasticOut_create2(lua_State *L)
     cocos2d::EaseElasticOut *ret = (cocos2d::EaseElasticOut *)cocos2d::EaseElasticOut::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseElasticOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -5663,7 +5751,7 @@ static int _cocos2d_EaseElasticInOut_create1(lua_State *L)
     cocos2d::EaseElasticInOut *ret = (cocos2d::EaseElasticInOut *)cocos2d::EaseElasticInOut::create(arg1, (float)arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseElasticInOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -5683,7 +5771,7 @@ static int _cocos2d_EaseElasticInOut_create2(lua_State *L)
     cocos2d::EaseElasticInOut *ret = (cocos2d::EaseElasticInOut *)cocos2d::EaseElasticInOut::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseElasticInOut");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -5749,7 +5837,7 @@ static int _cocos2d_EaseBezierAction_create(lua_State *L)
     cocos2d::EaseBezierAction *ret = (cocos2d::EaseBezierAction *)cocos2d::EaseBezierAction::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.EaseBezierAction");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "innerAction", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);

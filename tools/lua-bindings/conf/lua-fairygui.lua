@@ -149,12 +149,12 @@ local REF_TEWEENER = {
         lua_pop(L, 1);
     ]]
 }
-GTween.INJECT('to', REF_TEWEENER)
-GTween.INJECT('toDouble', REF_TEWEENER)
-GTween.INJECT('delayedCall', REF_TEWEENER)
-GTween.INJECT('shake', REF_TEWEENER)
-GTween.INJECT('kill', DELREF_TWEEN)
-GTween.INJECT('clean', {
+GTween.INSERT('to', REF_TEWEENER)
+GTween.INSERT('toDouble', REF_TEWEENER)
+GTween.INSERT('delayedCall', REF_TEWEENER)
+GTween.INSERT('shake', REF_TEWEENER)
+GTween.INSERT('kill', DELREF_TWEEN)
+GTween.INSERT('clean', {
     AFTER = [[
         olua_pushclassobj<fairygui::GTween>(L);
         olua_delallrefs(L, -1, "tweeners");
@@ -221,14 +221,14 @@ GObject.CALLBACK {
     TAG_MAKER = 'makeListenerTag(L, fairygui::UIEventType::Click, 2)',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
 }
-GObject.INJECT('center', {
+GObject.INSERT('center', {
     BEFORE = [[
         if (!self->getParent() && !fairygui::UIRoot) {
             luaL_error(L, "UIRoot and parent are both nullptr");
         }
     ]]
 })
-GObject.INJECT('makeFullScreen', {
+GObject.INSERT('makeFullScreen', {
     BEFORE = [[
         if (!fairygui::UIRoot) {
             luaL_error(L, "UIRoot is nullptr");
@@ -315,7 +315,7 @@ GRoot.ATTR('togglePopup', {RET = '@delref(children ~)', ARG1 = '@addref(children
 GRoot.ATTR('hidePopup', {RET = '@delref(children ~)'})
 GRoot.ATTR('getInputProcessor', {RET = '@addref(inputProcessor ^)'})
 GRoot.PROP('UIRoot', 'static GRoot* getInstance()')
-GRoot.INJECT('create', {
+GRoot.INSERT('create', {
     AFTER = [[
         olua_push_cppobj<cocos2d::Node>(L, ret->displayObject());
         olua_addref(L, -1, "fgui.root", -2, OLUA_MODE_SINGLE);
@@ -324,7 +324,7 @@ GRoot.INJECT('create', {
     ]]
 })
 
-GRoot.INJECT({'hideWindow', 'hideWindowImmediately'}, {
+GRoot.INSERT({'hideWindow', 'hideWindowImmediately'}, {
     BEFORE = [[
         int parent = 1;
         if (arg1->getParent()) {
@@ -388,7 +388,7 @@ GList.ATTR('setNumItems', {RET = '@delref(children ~)'})
 GList.ATTR('getSelection', {ARG1 = '@out'})
 GList.CALLBACK {NAME = 'itemRenderer', LOCAL = false}
 -- std::function<void(int, GObject*)> itemRenderer;
-GList.INJECT('itemRenderer', {
+GList.INSERT('itemRenderer', {
     CALLBACK_BEFORE = [[
         if (arg2->getParent()) {
             olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
@@ -433,7 +433,7 @@ PopupMenu.CALLBACK {
 }
 -- void show()
 -- void show(GObject* target, PopupDirection dir)
-PopupMenu.INJECT('show', {
+PopupMenu.INSERT('show', {
     BEFORE = [[
         fairygui::GRoot *root = fairygui::UIRoot;
         if (lua_gettop(L) > 1) {
@@ -451,7 +451,7 @@ PopupMenu.INJECT('show', {
 -- void clearItems()
 -- GButton* addItem(const std::string& caption, EventCallback callback);
 -- GButton* addItemAt(const std::string& caption, int index, EventCallback callback);
-PopupMenu.INJECT({'removeItem', 'clearItems', 'addItem', 'addItemAt'}, {
+PopupMenu.INSERT({'removeItem', 'clearItems', 'addItem', 'addItemAt'}, {
     BEFORE = [[
         olua_push_cppobj<fairygui::GList>(L, self->getList());
         int parent = lua_gettop(L);
@@ -570,7 +570,7 @@ Window.ATTR('setDragArea', {ARG1 = '@addref(dragArea ^)'})
 Window.ATTR('getContentArea', {RET = '@addref(contentArea ^)'})
 Window.ATTR('setContentArea', {ARG1 = '@addref(contentArea ^)'})
 Window.ATTR('getModalWaitingPane', {RET = '@addref(modalWaitingPane ^)'})
-Window.INJECT('show', {
+Window.INSERT('show', {
     BEFORE = [[
         fairygui::GComponent *root = fairygui::UIRoot;
         if (!root) {
@@ -580,7 +580,7 @@ Window.INJECT('show', {
         int parent = lua_gettop(L);
     ]]
 })
-Window.INJECT({'hide', 'hideImmediately'}, {
+Window.INSERT({'hide', 'hideImmediately'}, {
     BEFORE = [[
         fairygui::GComponent *root = self->getParent() ? self->getParent() : fairygui::UIRoot;
         if (!root) {
@@ -618,9 +618,9 @@ typeconf 'fairygui::GTreeNode'
 local GTree = typeconf 'fairygui::GTree'
 GTree.ATTR('getList', {RET = '@addref(list ^)'})
 GTree.ATTR('getRootNode', {RET = '@addref(rootNode ^)'})
+GTree.ATTR('getSelectedNodes', {ARG1 = '@out'})
 GTree.CALLBACK {NAME = 'treeNodeRender', LOCAL = false}
 GTree.CALLBACK {NAME = 'treeNodeWillExpand', LOCAL = false}
-GTree.ATTR('getSelectedNodes', {ARG1 = '@out'})
 
 typeconf 'fairygui::FUIContainer'
 typeconf 'fairygui::FUIInput'

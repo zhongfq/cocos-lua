@@ -28,6 +28,7 @@ void manual_olua_check_cocos2d_Color4F(lua_State *L, int idx, cocos2d::Color4F *
 bool manual_olua_is_cocos2d_Color4F(lua_State *L, int idx);
 
 // Vector
+bool manual_olua_is_cocos2d_Vector(lua_State *L, int idx);
 template <typename T> int manual_olua_push_cocos2d_Vector(lua_State *L, const cocos2d::Vector<T*> &v, const char *cls)
 {
     lua_newtable(L);
@@ -57,13 +58,22 @@ template <typename T> void manual_olua_check_cocos2d_Vector(lua_State *L, int id
     }
 }
 
+template <typename T> void manual_olua_pack_cocos2d_Vector(lua_State *L, int idx, cocos2d::Vector<T*> &v, const char *cls)
+{
+    size_t total = lua_gettop(L) - (idx - 1);
+    v.reserve(total);
+    for (int i = 0; i < total; i++) {
+        T* obj;
+        olua_check_cppobj(L, idx + i, (void **)&obj, cls);
+        v.pushBack(obj);
+    }
+}
+
 int manual_olua_push_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value);
 void manual_olua_check_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value);
 void manual_olua_pack_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value);
 int manual_olua_unpack_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value);
 bool manual_olua_is_cocos2d_Rect(lua_State *L, int idx);
-void manual_olua_pack_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::ccBezierConfig *value);
-void manual_olua_check_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::ccBezierConfig *value);
 bool manual_olua_is_cocos2d_Value(lua_State *L, int idx);
 void manual_olua_check_cocos2d_Value(lua_State *L, int idx, cocos2d::Value *value);
 int manual_olua_push_cocos2d_Value(lua_State *L, const cocos2d::Value *value);

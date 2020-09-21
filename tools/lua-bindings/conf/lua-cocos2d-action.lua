@@ -51,28 +51,9 @@ typeconf 'cocos2d::tweenfunc'
 typeconf 'cocos2d::ActionInterval'
 typeconf 'cocos2d::ActionTween'
 
-local Sequence = typeconf 'cocos2d::Sequence'
-Sequence.ATTR('createWithTwoActions', {ARG1 = '@addref(autoref |)', ARG2 = '@addref(autoref |)'})
-Sequence.FUNC('create', [[
-{
-    cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
-    int n = lua_gettop(L);
-    actions.reserve(n);
-
-    auto ret = new cocos2d::Sequence();
-    ret->autorelease();
-    olua_push_cppobj<cocos2d::Sequence>(L, ret);
-
-    for (int i = 1; i <= n; i++) {
-        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
-        actions.pushBack(obj);
-        olua_addref(L, -1, ".autoref", i, OLUA_MODE_MULTIPLE);
-    }
-
-    ret->init(actions);
-
-    return 1;
-}]])
+typeconf 'cocos2d::Sequence'
+    .ATTR('createWithTwoActions', {ARG1 = '@addref(actions |)', ARG2 = '@addref(actions |)'})
+    .ATTR('create', {ARG1 = '@pack@addref(actions |)'})
 
 typeconf 'cocos2d::Repeat'
     .ATTR('create', {ARG1 = '@addref(innerAction ^)'})
@@ -84,28 +65,9 @@ typeconf 'cocos2d::RepeatForever'
     .ATTR('setInnerAction', {ARG1 = '@addref(innerAction ^)'})
     .ATTR('getInnerAction', {RET = '@addref(innerAction ^)'})
 
-local Spawn = typeconf 'cocos2d::Spawn'
-Spawn.ATTR('createWithTwoActions', {ARG1 = '@addref(autoref |)', ARG2 = '@addref(autoref |)'})
-Spawn.FUNC('create', [[
-{
-    cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
-    int n = lua_gettop(L);
-    actions.reserve(n);
-
-    auto ret = new cocos2d::Spawn();
-    ret->autorelease();
-    olua_push_cppobj<cocos2d::Spawn>(L, ret);
-
-    for (int i = 1; i <= n; i++) {
-        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
-        actions.pushBack(obj);
-        olua_addref(L, -1, ".autoref", i, OLUA_MODE_MULTIPLE);
-    }
-
-    ret->init(actions);
-
-    return 1;
-}]])
+typeconf 'cocos2d::Spawn'
+    .ATTR('createWithTwoActions', {ARG1 = '@addref(actions |)', ARG2 = '@addref(actions |)'})
+    .ATTR('create', {ARG1 = '@pack@addref(actions |)'})
 
 typeconf 'cocos2d::RotateTo'
 typeconf 'cocos2d::RotateBy'
@@ -144,12 +106,12 @@ typeconf 'cocos2d::TintBy'
 typeconf 'cocos2d::DelayTime'
 
 typeconf 'cocos2d::ReverseTime'
-    .ATTR('create', {ARG1 = '@addref(autoref |)'})
+    .ATTR('create', {ARG1 = '@addref(actions |)'})
 
 typeconf 'cocos2d::Animate'
 
 typeconf 'cocos2d::TargetedAction'
-    .ATTR('create', {ARG2 = '@addref(autoref |)'})
+    .ATTR('create', {ARG2 = '@addref(actions |)'})
 
 typeconf 'cocos2d::ActionFloat'
     .CALLBACK {

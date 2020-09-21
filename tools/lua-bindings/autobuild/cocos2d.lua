@@ -397,7 +397,7 @@ cls.callback {
     TAG_STORE = "return",
     TAG_SCOPE = 'object',
 }
-cls.inject('removeEventListenersForTarget', {
+cls.insert('removeEventListenersForTarget', {
     BEFORE = [[
         bool recursive = false;
         auto node = olua_checkobj<cocos2d::Node>(L, 2);
@@ -1116,7 +1116,7 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'once',
 }
-cls.inject('uncache', {
+cls.insert('uncache', {
     BEFORE = [[
         std::string path = olua_checkstring(L, 1);
         std::list<int> ids = cocos2d::LuaAudioEngine::getAudioIDs(path);
@@ -2625,7 +2625,7 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.inject('removeFromParent', {
+cls.insert('removeFromParent', {
     BEFORE = [[
         if (!self->getParent()) {
             return 0;
@@ -2634,7 +2634,7 @@ cls.inject('removeFromParent', {
         int parent = lua_gettop(L);
     ]],
 })
-cls.inject('removeFromParentAndCleanup', {
+cls.insert('removeFromParentAndCleanup', {
     BEFORE = [[
         if (!self->getParent()) {
             return 0;
@@ -3680,7 +3680,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionScene'
 cls.SUPERCLS = "cocos2d::Scene"
 cls.funcs [[
-    static cocos2d::TransitionScene *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionScene *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     void finish()
     void hideOutShowIn()
     cocos2d::Scene *getInScene()
@@ -3696,7 +3696,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionSceneOriented'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionSceneOriented *create(float t, @addref(autoref |) cocos2d::Scene *scene, cocos2d::TransitionScene::Orientation orientation)
+    static cocos2d::TransitionSceneOriented *create(float t, @addref(scenes |) cocos2d::Scene *scene, cocos2d::TransitionScene::Orientation orientation)
     TransitionSceneOriented()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3704,7 +3704,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionRotoZoom'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionRotoZoom *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionRotoZoom *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     TransitionRotoZoom()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3712,7 +3712,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionJumpZoom'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionJumpZoom *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionJumpZoom *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     TransitionJumpZoom()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3720,7 +3720,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionMoveInL'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionMoveInL *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionMoveInL *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     cocos2d::ActionInterval *action()
     cocos2d::ActionInterval *easeActionWithAction(@addref(action ^) cocos2d::ActionInterval *action)
     TransitionMoveInL()
@@ -3730,7 +3730,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionMoveInR'
 cls.SUPERCLS = "cocos2d::TransitionMoveInL"
 cls.funcs [[
-    static cocos2d::TransitionMoveInR *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionMoveInR *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     TransitionMoveInR()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3738,7 +3738,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionMoveInT'
 cls.SUPERCLS = "cocos2d::TransitionMoveInL"
 cls.funcs [[
-    static cocos2d::TransitionMoveInT *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionMoveInT *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     TransitionMoveInT()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3746,7 +3746,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionMoveInB'
 cls.SUPERCLS = "cocos2d::TransitionMoveInL"
 cls.funcs [[
-    static cocos2d::TransitionMoveInB *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionMoveInB *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     TransitionMoveInB()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3754,7 +3754,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionSlideInL'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionSlideInL *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionSlideInL *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     cocos2d::ActionInterval *easeActionWithAction(@addref(action ^) cocos2d::ActionInterval *action)
     cocos2d::ActionInterval *action()
     TransitionSlideInL()
@@ -3764,7 +3764,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionSlideInR'
 cls.SUPERCLS = "cocos2d::TransitionSlideInL"
 cls.funcs [[
-    static cocos2d::TransitionSlideInR *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionSlideInR *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     TransitionSlideInR()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3772,7 +3772,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionSlideInB'
 cls.SUPERCLS = "cocos2d::TransitionSlideInL"
 cls.funcs [[
-    static cocos2d::TransitionSlideInB *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionSlideInB *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     TransitionSlideInB()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3780,7 +3780,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionSlideInT'
 cls.SUPERCLS = "cocos2d::TransitionSlideInL"
 cls.funcs [[
-    static cocos2d::TransitionSlideInT *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionSlideInT *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     TransitionSlideInT()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3788,7 +3788,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionShrinkGrow'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionShrinkGrow *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionShrinkGrow *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     cocos2d::ActionInterval *easeActionWithAction(@addref(action ^) cocos2d::ActionInterval *action)
     TransitionShrinkGrow()
 ]]
@@ -3797,8 +3797,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFlipX'
 cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
 cls.funcs [[
-    static cocos2d::TransitionFlipX *create(float t, @addref(autoref |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
-    static cocos2d::TransitionFlipX *create(float t, @addref(autoref |) cocos2d::Scene *s)
+    static cocos2d::TransitionFlipX *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
+    static cocos2d::TransitionFlipX *create(float t, @addref(scenes |) cocos2d::Scene *s)
     TransitionFlipX()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3806,8 +3806,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFlipY'
 cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
 cls.funcs [[
-    static cocos2d::TransitionFlipY *create(float t, @addref(autoref |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
-    static cocos2d::TransitionFlipY *create(float t, @addref(autoref |) cocos2d::Scene *s)
+    static cocos2d::TransitionFlipY *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
+    static cocos2d::TransitionFlipY *create(float t, @addref(scenes |) cocos2d::Scene *s)
     TransitionFlipY()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3815,8 +3815,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFlipAngular'
 cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
 cls.funcs [[
-    static cocos2d::TransitionFlipAngular *create(float t, @addref(autoref |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
-    static cocos2d::TransitionFlipAngular *create(float t, @addref(autoref |) cocos2d::Scene *s)
+    static cocos2d::TransitionFlipAngular *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
+    static cocos2d::TransitionFlipAngular *create(float t, @addref(scenes |) cocos2d::Scene *s)
     TransitionFlipAngular()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3824,8 +3824,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionZoomFlipX'
 cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
 cls.funcs [[
-    static cocos2d::TransitionZoomFlipX *create(float t, @addref(autoref |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
-    static cocos2d::TransitionZoomFlipX *create(float t, @addref(autoref |) cocos2d::Scene *s)
+    static cocos2d::TransitionZoomFlipX *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
+    static cocos2d::TransitionZoomFlipX *create(float t, @addref(scenes |) cocos2d::Scene *s)
     TransitionZoomFlipX()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3833,8 +3833,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionZoomFlipY'
 cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
 cls.funcs [[
-    static cocos2d::TransitionZoomFlipY *create(float t, @addref(autoref |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
-    static cocos2d::TransitionZoomFlipY *create(float t, @addref(autoref |) cocos2d::Scene *s)
+    static cocos2d::TransitionZoomFlipY *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
+    static cocos2d::TransitionZoomFlipY *create(float t, @addref(scenes |) cocos2d::Scene *s)
     TransitionZoomFlipY()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3842,8 +3842,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionZoomFlipAngular'
 cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
 cls.funcs [[
-    static cocos2d::TransitionZoomFlipAngular *create(float t, @addref(autoref |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
-    static cocos2d::TransitionZoomFlipAngular *create(float t, @addref(autoref |) cocos2d::Scene *s)
+    static cocos2d::TransitionZoomFlipAngular *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
+    static cocos2d::TransitionZoomFlipAngular *create(float t, @addref(scenes |) cocos2d::Scene *s)
     TransitionZoomFlipAngular()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3851,8 +3851,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFade'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionFade *create(float duration, @addref(autoref |) cocos2d::Scene *scene, const cocos2d::Color3B &color)
-    static cocos2d::TransitionFade *create(float duration, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionFade *create(float duration, @addref(scenes |) cocos2d::Scene *scene, const cocos2d::Color3B &color)
+    static cocos2d::TransitionFade *create(float duration, @addref(scenes |) cocos2d::Scene *scene)
     TransitionFade()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3860,7 +3860,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionCrossFade'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionCrossFade *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionCrossFade *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     TransitionCrossFade()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3868,7 +3868,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionTurnOffTiles'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionTurnOffTiles *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionTurnOffTiles *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     cocos2d::ActionInterval *easeActionWithAction(@addref(action ^) cocos2d::ActionInterval *action)
     TransitionTurnOffTiles()
 ]]
@@ -3877,7 +3877,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionSplitCols'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionSplitCols *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionSplitCols *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     cocos2d::ActionInterval *action()
     cocos2d::ActionInterval *easeActionWithAction(@addref(action ^) cocos2d::ActionInterval *action)
     TransitionSplitCols()
@@ -3887,7 +3887,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionSplitRows'
 cls.SUPERCLS = "cocos2d::TransitionSplitCols"
 cls.funcs [[
-    static cocos2d::TransitionSplitRows *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionSplitRows *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     TransitionSplitRows()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3895,7 +3895,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFadeTR'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionFadeTR *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionFadeTR *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     cocos2d::ActionInterval *actionWithSize(const cocos2d::Size &size)
     cocos2d::ActionInterval *easeActionWithAction(@addref(action ^) cocos2d::ActionInterval *action)
     TransitionFadeTR()
@@ -3905,7 +3905,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFadeBL'
 cls.SUPERCLS = "cocos2d::TransitionFadeTR"
 cls.funcs [[
-    static cocos2d::TransitionFadeBL *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionFadeBL *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     TransitionFadeBL()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3913,7 +3913,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFadeUp'
 cls.SUPERCLS = "cocos2d::TransitionFadeTR"
 cls.funcs [[
-    static cocos2d::TransitionFadeUp *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionFadeUp *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     TransitionFadeUp()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3921,7 +3921,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFadeDown'
 cls.SUPERCLS = "cocos2d::TransitionFadeTR"
 cls.funcs [[
-    static cocos2d::TransitionFadeDown *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionFadeDown *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     TransitionFadeDown()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3929,7 +3929,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionPageTurn'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionPageTurn *create(float t, @addref(autoref |) cocos2d::Scene *scene, bool backwards)
+    static cocos2d::TransitionPageTurn *create(float t, @addref(scenes |) cocos2d::Scene *scene, bool backwards)
     cocos2d::ActionInterval *actionWithSize(const cocos2d::Size &vector)
     TransitionPageTurn()
 ]]
@@ -3938,7 +3938,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionProgress'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
-    static cocos2d::TransitionProgress *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionProgress *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     TransitionProgress()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3946,7 +3946,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionProgressRadialCCW'
 cls.SUPERCLS = "cocos2d::TransitionProgress"
 cls.funcs [[
-    static cocos2d::TransitionProgressRadialCCW *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionProgressRadialCCW *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     TransitionProgressRadialCCW()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3954,7 +3954,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionProgressRadialCW'
 cls.SUPERCLS = "cocos2d::TransitionProgress"
 cls.funcs [[
-    static cocos2d::TransitionProgressRadialCW *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionProgressRadialCW *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     TransitionProgressRadialCW()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3962,7 +3962,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionProgressHorizontal'
 cls.SUPERCLS = "cocos2d::TransitionProgress"
 cls.funcs [[
-    static cocos2d::TransitionProgressHorizontal *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionProgressHorizontal *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     TransitionProgressHorizontal()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3970,7 +3970,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionProgressVertical'
 cls.SUPERCLS = "cocos2d::TransitionProgress"
 cls.funcs [[
-    static cocos2d::TransitionProgressVertical *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionProgressVertical *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     TransitionProgressVertical()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3978,7 +3978,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionProgressInOut'
 cls.SUPERCLS = "cocos2d::TransitionProgress"
 cls.funcs [[
-    static cocos2d::TransitionProgressInOut *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionProgressInOut *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     TransitionProgressInOut()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -3986,7 +3986,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionProgressOutIn'
 cls.SUPERCLS = "cocos2d::TransitionProgress"
 cls.funcs [[
-    static cocos2d::TransitionProgressOutIn *create(float t, @addref(autoref |) cocos2d::Scene *scene)
+    static cocos2d::TransitionProgressOutIn *create(float t, @addref(scenes |) cocos2d::Scene *scene)
     TransitionProgressOutIn()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls

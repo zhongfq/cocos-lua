@@ -32,6 +32,7 @@ typeconv 'cocos2d::AffineTransform'
 typeconv 'GLContextAttrs'
 typeconv 'cocos2d::Tex2F'
 typeconv 'cocos2d::T2F_Quad'
+typeconv 'cocos2d::ccBezierConfig'
 
 typeconv 'cocos2d::TTFConfig'
     .ATTR('*', {OPTIONAL = true})

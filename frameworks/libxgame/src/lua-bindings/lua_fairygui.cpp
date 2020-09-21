@@ -4152,7 +4152,7 @@ static int _fairygui_GTween_clean(lua_State *L)
     // static void clean()
     fairygui::GTween::clean();
 
-    // inject code after call
+    // insert code after call
     olua_pushclassobj<fairygui::GTween>(L);
     olua_delallrefs(L, -1, "tweeners");
     lua_pop(L, 1);
@@ -4174,7 +4174,7 @@ static int _fairygui_GTween_delayedCall(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::delayedCall((float)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
-    // inject code after call
+    // insert code after call
     olua_pushclassobj<fairygui::GTween>(L);
     olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
     olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
@@ -4314,7 +4314,7 @@ static int _fairygui_GTween_kill1(lua_State *L)
     // static void kill(cocos2d::Ref *target)
     fairygui::GTween::kill(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_pushclassobj<fairygui::GTween>(L);
     olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
     lua_pop(L, 1);
@@ -4337,7 +4337,7 @@ static int _fairygui_GTween_kill2(lua_State *L)
     // static void kill(cocos2d::Ref *target, bool complete)
     fairygui::GTween::kill(arg1, arg2);
 
-    // inject code after call
+    // insert code after call
     olua_pushclassobj<fairygui::GTween>(L);
     olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
     lua_pop(L, 1);
@@ -4362,7 +4362,7 @@ static int _fairygui_GTween_kill3(lua_State *L)
     // static void kill(cocos2d::Ref *target, fairygui::TweenPropType propType, bool complete)
     fairygui::GTween::kill(arg1, (fairygui::TweenPropType)arg2, arg3);
 
-    // inject code after call
+    // insert code after call
     olua_pushclassobj<fairygui::GTween>(L);
     olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
     lua_pop(L, 1);
@@ -4418,7 +4418,7 @@ static int _fairygui_GTween_shake(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::shake(arg1, (float)arg2, (float)arg3);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
-    // inject code after call
+    // insert code after call
     olua_pushclassobj<fairygui::GTween>(L);
     olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
     olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
@@ -4445,7 +4445,7 @@ static int _fairygui_GTween_to1(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to((float)arg1, (float)arg2, (float)arg3);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
-    // inject code after call
+    // insert code after call
     olua_pushclassobj<fairygui::GTween>(L);
     olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
     olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
@@ -4472,7 +4472,7 @@ static int _fairygui_GTween_to2(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
-    // inject code after call
+    // insert code after call
     olua_pushclassobj<fairygui::GTween>(L);
     olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
     olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
@@ -4499,7 +4499,7 @@ static int _fairygui_GTween_to3(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
-    // inject code after call
+    // insert code after call
     olua_pushclassobj<fairygui::GTween>(L);
     olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
     olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
@@ -4526,7 +4526,7 @@ static int _fairygui_GTween_to4(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
-    // inject code after call
+    // insert code after call
     olua_pushclassobj<fairygui::GTween>(L);
     olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
     olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
@@ -4553,7 +4553,7 @@ static int _fairygui_GTween_to5(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
-    // inject code after call
+    // insert code after call
     olua_pushclassobj<fairygui::GTween>(L);
     olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
     olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
@@ -4616,7 +4616,7 @@ static int _fairygui_GTween_toDouble(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::toDouble((double)arg1, (double)arg2, (float)arg3);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
-    // inject code after call
+    // insert code after call
     olua_pushclassobj<fairygui::GTween>(L);
     olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
     olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
@@ -6989,7 +6989,7 @@ static int _fairygui_GObject_center1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
     olua_check_bool(L, 2, &arg1);
 
-    // inject code before call
+    // insert code before call
     if (!self->getParent() && !fairygui::UIRoot) {
         luaL_error(L, "UIRoot and parent are both nullptr");
     }
@@ -7010,7 +7010,7 @@ static int _fairygui_GObject_center2(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
-    // inject code before call
+    // insert code before call
     if (!self->getParent() && !fairygui::UIRoot) {
         luaL_error(L, "UIRoot and parent are both nullptr");
     }
@@ -7090,7 +7090,7 @@ static int _fairygui_GObject_displayObject(lua_State *L)
     cocos2d::Node *ret = (cocos2d::Node *)self->displayObject();
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "displayObject", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -7223,7 +7223,7 @@ static int _fairygui_GObject_getGroup(lua_State *L)
     fairygui::GGroup *ret = (fairygui::GGroup *)self->getGroup();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GGroup");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "group", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -7994,7 +7994,7 @@ static int _fairygui_GObject_makeFullScreen(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
-    // inject code before call
+    // insert code before call
     if (!fairygui::UIRoot) {
         luaL_error(L, "UIRoot is nullptr");
     }
@@ -8252,7 +8252,7 @@ static int _fairygui_GObject_setGroup(lua_State *L)
     // void setGroup(@addref(group ^) fairygui::GGroup *value)
     self->setGroup(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "group", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -9309,7 +9309,7 @@ static int _fairygui_GComponent_addChild(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->addChild(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -9333,7 +9333,7 @@ static int _fairygui_GComponent_addChildAt(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->addChildAt(arg1, (int)arg2);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -9354,7 +9354,7 @@ static int _fairygui_GComponent_addController(lua_State *L)
     // void addController(@addref(controllers |) fairygui::GController *c)
     self->addController(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "controllers", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -9516,7 +9516,7 @@ static int _fairygui_GComponent_getChild(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getChild(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -9538,7 +9538,7 @@ static int _fairygui_GComponent_getChildAt(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getChildAt((int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -9560,7 +9560,7 @@ static int _fairygui_GComponent_getChildById(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getChildById(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -9631,7 +9631,7 @@ static int _fairygui_GComponent_getChildInGroup(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getChildInGroup(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -9670,7 +9670,7 @@ static int _fairygui_GComponent_getChildren(lua_State *L)
     const cocos2d::Vector<fairygui::GObject *> &ret = (const cocos2d::Vector<fairygui::GObject *> &)self->getChildren();
     int num_ret = manual_olua_push_cocos2d_Vector(L, ret, "fgui.GObject");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE | OLUA_FLAG_ARRAY);
 
     olua_endinvoke(L);
@@ -9709,7 +9709,7 @@ static int _fairygui_GComponent_getController(lua_State *L)
     fairygui::GController *ret = (fairygui::GController *)self->getController(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GController");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "controllers", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -9731,7 +9731,7 @@ static int _fairygui_GComponent_getControllerAt(lua_State *L)
     fairygui::GController *ret = (fairygui::GController *)self->getControllerAt((int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GController");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "controllers", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -9751,7 +9751,7 @@ static int _fairygui_GComponent_getControllers(lua_State *L)
     const cocos2d::Vector<fairygui::GController *> &ret = (const cocos2d::Vector<fairygui::GController *> &)self->getControllers();
     int num_ret = manual_olua_push_cocos2d_Vector(L, ret, "fgui.GController");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "controllers", -1, OLUA_MODE_MULTIPLE | OLUA_FLAG_ARRAY);
 
     olua_endinvoke(L);
@@ -9822,7 +9822,7 @@ static int _fairygui_GComponent_getMask(lua_State *L)
     cocos2d::Node *ret = (cocos2d::Node *)self->getMask();
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "mask", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -9897,7 +9897,7 @@ static int _fairygui_GComponent_getTransition(lua_State *L)
     fairygui::Transition *ret = (fairygui::Transition *)self->getTransition(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.Transition");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "transitions", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -9919,7 +9919,7 @@ static int _fairygui_GComponent_getTransitionAt(lua_State *L)
     fairygui::Transition *ret = (fairygui::Transition *)self->getTransitionAt((int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.Transition");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "transitions", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -9939,7 +9939,7 @@ static int _fairygui_GComponent_getTransitions(lua_State *L)
     const cocos2d::Vector<fairygui::Transition *> &ret = (const cocos2d::Vector<fairygui::Transition *> &)self->getTransitions();
     int num_ret = manual_olua_push_cocos2d_Vector(L, ret, "fgui.Transition");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "transitions", -1, OLUA_MODE_MULTIPLE | OLUA_FLAG_ARRAY);
 
     olua_endinvoke(L);
@@ -10063,7 +10063,7 @@ static int _fairygui_GComponent_removeChild(lua_State *L)
     // void removeChild(@delref(children |) fairygui::GObject *child)
     self->removeChild(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_delref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -10081,13 +10081,13 @@ static int _fairygui_GComponent_removeChildAt(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
     olua_check_int(L, 2, &arg1);
 
-    // inject code before call
+    // insert code before call
     olua_startcmpdelref(L, 1, "children");
 
     // @delref(children ~) void removeChildAt(int index)
     self->removeChildAt((int)arg1);
 
-    // inject code after call
+    // insert code after call
     olua_endcmpdelref(L, 1, "children");
 
     olua_endinvoke(L);
@@ -10103,13 +10103,13 @@ static int _fairygui_GComponent_removeChildren1(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
 
-    // inject code before call
+    // insert code before call
     olua_startcmpdelref(L, 1, "children");
 
     // @delref(children ~) void removeChildren()
     self->removeChildren();
 
-    // inject code after call
+    // insert code after call
     olua_endcmpdelref(L, 1, "children");
 
     olua_endinvoke(L);
@@ -10129,13 +10129,13 @@ static int _fairygui_GComponent_removeChildren2(lua_State *L)
     olua_check_int(L, 2, &arg1);
     olua_check_int(L, 3, &arg2);
 
-    // inject code before call
+    // insert code before call
     olua_startcmpdelref(L, 1, "children");
 
     // @delref(children ~) void removeChildren(int beginIndex, int endIndex)
     self->removeChildren((int)arg1, (int)arg2);
 
-    // inject code after call
+    // insert code after call
     olua_endcmpdelref(L, 1, "children");
 
     olua_endinvoke(L);
@@ -10177,7 +10177,7 @@ static int _fairygui_GComponent_removeController(lua_State *L)
     // void removeController(@delref(controllers |) fairygui::GController *c)
     self->removeController(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_delref(L, 1, "controllers", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -10329,7 +10329,7 @@ static int _fairygui_GComponent_setMask1(lua_State *L)
     // void setMask(@addref(mask ^) cocos2d::Node *value, @optional bool inverted)
     self->setMask(arg1, arg2);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "mask", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -10350,7 +10350,7 @@ static int _fairygui_GComponent_setMask2(lua_State *L)
     // void setMask(@addref(mask ^) cocos2d::Node *value, @optional bool inverted)
     self->setMask(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "mask", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -10647,7 +10647,7 @@ static int _fairygui_GRoot_create1(lua_State *L)
     fairygui::GRoot *ret = (fairygui::GRoot *)fairygui::GRoot::create(arg1, (int)arg2);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GRoot");
 
-    // inject code after call
+    // insert code after call
     olua_push_cppobj<cocos2d::Node>(L, ret->displayObject());
     olua_addref(L, -1, "fgui.root", -2, OLUA_MODE_SINGLE);
     olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
@@ -10670,7 +10670,7 @@ static int _fairygui_GRoot_create2(lua_State *L)
     fairygui::GRoot *ret = (fairygui::GRoot *)fairygui::GRoot::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GRoot");
 
-    // inject code after call
+    // insert code after call
     olua_push_cppobj<cocos2d::Node>(L, ret->displayObject());
     olua_addref(L, -1, "fgui.root", -2, OLUA_MODE_SINGLE);
     olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
@@ -10716,7 +10716,7 @@ static int _fairygui_GRoot_getInputProcessor(lua_State *L)
     fairygui::InputProcessor *ret = (fairygui::InputProcessor *)self->getInputProcessor();
     int num_ret = olua_push_cppobj(L, ret, "fgui.InputProcessor");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "inputProcessor", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -10749,7 +10749,7 @@ static int _fairygui_GRoot_getModalLayer(lua_State *L)
     fairygui::GGraph *ret = (fairygui::GGraph *)self->getModalLayer();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GGraph");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -10769,7 +10769,7 @@ static int _fairygui_GRoot_getModalWaitingPane(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getModalWaitingPane();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -10829,7 +10829,7 @@ static int _fairygui_GRoot_getTopWindow(lua_State *L)
     fairygui::Window *ret = (fairygui::Window *)self->getTopWindow();
     int num_ret = olua_push_cppobj(L, ret, "fgui.Window");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -10915,13 +10915,13 @@ static int _fairygui_GRoot_hidePopup1(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
 
-    // inject code before call
+    // insert code before call
     olua_startcmpdelref(L, 1, "children");
 
     // @delref(children ~) void hidePopup()
     self->hidePopup();
 
-    // inject code after call
+    // insert code after call
     olua_endcmpdelref(L, 1, "children");
 
     olua_endinvoke(L);
@@ -10939,13 +10939,13 @@ static int _fairygui_GRoot_hidePopup2(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
 
-    // inject code before call
+    // insert code before call
     olua_startcmpdelref(L, 1, "children");
 
     // @delref(children ~) void hidePopup(fairygui::GObject *popup)
     self->hidePopup(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_endcmpdelref(L, 1, "children");
 
     olua_endinvoke(L);
@@ -11000,7 +11000,7 @@ static int _fairygui_GRoot_hideWindow(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.Window");
 
-    // inject code before call
+    // insert code before call
     int parent = 1;
     if (arg1->getParent()) {
         olua_push_cppobj<fairygui::GComponent>(L, arg1->getParent());
@@ -11011,7 +11011,7 @@ static int _fairygui_GRoot_hideWindow(lua_State *L)
     // @delref(children ~ parent) void hideWindow(fairygui::Window *win)
     self->hideWindow(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_endcmpdelref(L, parent, "children");
 
     olua_endinvoke(L);
@@ -11029,7 +11029,7 @@ static int _fairygui_GRoot_hideWindowImmediately(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.Window");
 
-    // inject code before call
+    // insert code before call
     int parent = 1;
     if (arg1->getParent()) {
         olua_push_cppobj<fairygui::GComponent>(L, arg1->getParent());
@@ -11040,7 +11040,7 @@ static int _fairygui_GRoot_hideWindowImmediately(lua_State *L)
     // @delref(children ~ parent) void hideWindowImmediately(fairygui::Window *win)
     self->hideWindowImmediately(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_endcmpdelref(L, parent, "children");
 
     olua_endinvoke(L);
@@ -11254,13 +11254,13 @@ static int _fairygui_GRoot_showPopup1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
 
-    // inject code before call
+    // insert code before call
     olua_startcmpdelref(L, 1, "children");
 
     // @delref(children ~) void showPopup(@addref(children |) fairygui::GObject *popup)
     self->showPopup(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
     olua_endcmpdelref(L, 1, "children");
 
@@ -11283,13 +11283,13 @@ static int _fairygui_GRoot_showPopup2(lua_State *L)
     olua_check_cppobj(L, 3, (void **)&arg2, "fgui.GObject");
     olua_check_uint(L, 4, &arg3);
 
-    // inject code before call
+    // insert code before call
     olua_startcmpdelref(L, 1, "children");
 
     // @delref(children ~) void showPopup(@addref(children |) fairygui::GObject *popup, fairygui::GObject *target, fairygui::PopupDirection dir)
     self->showPopup(arg1, arg2, (fairygui::PopupDirection)arg3);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
     olua_endcmpdelref(L, 1, "children");
 
@@ -11367,13 +11367,13 @@ static int _fairygui_GRoot_showWindow(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.Window");
 
-    // inject code before call
+    // insert code before call
     olua_startcmpdelref(L, 1, "children");
 
     // @delref(children ~) void showWindow(@addref(children |) fairygui::Window *win)
     self->showWindow(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
     olua_endcmpdelref(L, 1, "children");
 
@@ -11392,13 +11392,13 @@ static int _fairygui_GRoot_togglePopup1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
 
-    // inject code before call
+    // insert code before call
     olua_startcmpdelref(L, 1, "children");
 
     // @delref(children ~) void togglePopup(@addref(children |) fairygui::GObject *popup)
     self->togglePopup(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
     olua_endcmpdelref(L, 1, "children");
 
@@ -11421,13 +11421,13 @@ static int _fairygui_GRoot_togglePopup2(lua_State *L)
     olua_check_cppobj(L, 3, (void **)&arg2, "fgui.GObject");
     olua_check_uint(L, 4, &arg3);
 
-    // inject code before call
+    // insert code before call
     olua_startcmpdelref(L, 1, "children");
 
     // @delref(children ~) void togglePopup(@addref(children |) fairygui::GObject *popup, fairygui::GObject *target, fairygui::PopupDirection dir)
     self->togglePopup(arg1, arg2, (fairygui::PopupDirection)arg3);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
     olua_endcmpdelref(L, 1, "children");
 
@@ -12195,7 +12195,7 @@ static int _fairygui_GLoader_getComponent(lua_State *L)
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getComponent();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "component", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -12798,7 +12798,7 @@ static int _fairygui_GLoader3D_getContent(lua_State *L)
     const cocos2d::Node *ret = (const cocos2d::Node *)self->getContent();
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "content", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -13041,7 +13041,7 @@ static int _fairygui_GLoader3D_setContent(lua_State *L)
     // void setContent(@addref(content ^) cocos2d::Node *value)
     self->setContent(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "content", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -13867,7 +13867,7 @@ static int _fairygui_GButton_getRelatedController(lua_State *L)
     fairygui::GController *ret = (fairygui::GController *)self->getRelatedController();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GController");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "relatedController", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -13921,7 +13921,7 @@ static int _fairygui_GButton_getTextField(lua_State *L)
     fairygui::GTextField *ret = (fairygui::GTextField *)self->getTextField();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTextField");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "textField", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -14059,7 +14059,7 @@ static int _fairygui_GButton_setRelatedController(lua_State *L)
     // void setRelatedController(@addref(relatedController ^) fairygui::GController *c)
     self->setRelatedController(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "relatedController", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -14535,7 +14535,7 @@ static int _fairygui_GLabel_getTextField(lua_State *L)
     fairygui::GTextField *ret = (fairygui::GTextField *)self->getTextField();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTextField");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "textField", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -14709,7 +14709,7 @@ static int _fairygui_GList_addItemFromPool1(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->addItemFromPool();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -14731,7 +14731,7 @@ static int _fairygui_GList_addItemFromPool2(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->addItemFromPool(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -15092,7 +15092,7 @@ static int _fairygui_GList_getSelectionController(lua_State *L)
     fairygui::GController *ret = (fairygui::GController *)self->getSelectionController();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GController");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "selectionController", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -15231,7 +15231,7 @@ static int _fairygui_GList_removeChildToPool(lua_State *L)
     // void removeChildToPool(@delref(children |) fairygui::GObject *child)
     self->removeChildToPool(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_delref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -15249,13 +15249,13 @@ static int _fairygui_GList_removeChildToPoolAt(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
     olua_check_int(L, 2, &arg1);
 
-    // inject code before call
+    // insert code before call
     olua_startcmpdelref(L, 1, "children");
 
     // @delref(children ~) void removeChildToPoolAt(int index)
     self->removeChildToPoolAt((int)arg1);
 
-    // inject code after call
+    // insert code after call
     olua_endcmpdelref(L, 1, "children");
 
     olua_endinvoke(L);
@@ -15271,13 +15271,13 @@ static int _fairygui_GList_removeChildrenToPool1(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
 
-    // inject code before call
+    // insert code before call
     olua_startcmpdelref(L, 1, "children");
 
     // @delref(children ~) void removeChildrenToPool()
     self->removeChildrenToPool();
 
-    // inject code after call
+    // insert code after call
     olua_endcmpdelref(L, 1, "children");
 
     olua_endinvoke(L);
@@ -15297,13 +15297,13 @@ static int _fairygui_GList_removeChildrenToPool2(lua_State *L)
     olua_check_int(L, 2, &arg1);
     olua_check_int(L, 3, &arg2);
 
-    // inject code before call
+    // insert code before call
     olua_startcmpdelref(L, 1, "children");
 
     // @delref(children ~) void removeChildrenToPool(int beginIndex, int endIndex)
     self->removeChildrenToPool((int)arg1, (int)arg2);
 
-    // inject code after call
+    // insert code after call
     olua_endcmpdelref(L, 1, "children");
 
     olua_endinvoke(L);
@@ -15424,7 +15424,7 @@ static int _fairygui_GList_returnToPool(lua_State *L)
     // void returnToPool(@delref(children |) fairygui::GObject *obj)
     self->returnToPool(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_delref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -15708,13 +15708,13 @@ static int _fairygui_GList_setNumItems(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
     olua_check_int(L, 2, &arg1);
 
-    // inject code before call
+    // insert code before call
     olua_startcmpdelref(L, 1, "children");
 
     // @delref(children ~) void setNumItems(int value)
     self->setNumItems((int)arg1);
 
-    // inject code after call
+    // insert code after call
     olua_endcmpdelref(L, 1, "children");
 
     olua_endinvoke(L);
@@ -15753,7 +15753,7 @@ static int _fairygui_GList_setSelectionController(lua_State *L)
     // void setSelectionController(@addref(selectionController ^) fairygui::GController *value)
     self->setSelectionController(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "selectionController", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -15805,13 +15805,13 @@ static int _fairygui_GList_setVirtual(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
 
-    // inject code before call
+    // insert code before call
     olua_startcmpdelref(L, 1, "children");
 
     // @delref(children ~) void setVirtual()
     self->setVirtual();
 
-    // inject code after call
+    // insert code after call
     olua_endcmpdelref(L, 1, "children");
 
     olua_endinvoke(L);
@@ -15827,13 +15827,13 @@ static int _fairygui_GList_setVirtualAndLoop(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
 
-    // inject code before call
+    // insert code before call
     olua_startcmpdelref(L, 1, "children");
 
     // @delref(children ~) void setVirtualAndLoop()
     self->setVirtualAndLoop();
 
-    // inject code after call
+    // insert code after call
     olua_endcmpdelref(L, 1, "children");
 
     olua_endinvoke(L);
@@ -15986,7 +15986,7 @@ static int _fairygui_GList_set_itemRenderer(lua_State *L)
                 olua_push_int(L, (lua_Integer)arg1);
                 olua_push_cppobj(L, arg2, "fgui.GObject");
 
-                // inject code before call
+                // insert code before call
                 if (arg2->getParent()) {
                     olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
                     olua_addref(L, -1, "children", -2, OLUA_MODE_MULTIPLE);
@@ -16860,7 +16860,7 @@ static int _fairygui_GComboBox_getDropdown(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getDropdown();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "dropdown", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -16943,7 +16943,7 @@ static int _fairygui_GComboBox_getSelectionController(lua_State *L)
     fairygui::GController *ret = (fairygui::GController *)self->getSelectionController();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GController");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "selectionController", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -16963,7 +16963,7 @@ static int _fairygui_GComboBox_getTextField(lua_State *L)
     fairygui::GTextField *ret = (fairygui::GTextField *)self->getTextField();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTextField");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "textField", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -17123,7 +17123,7 @@ static int _fairygui_GComboBox_setSelectionController(lua_State *L)
     // void setSelectionController(@addref(selectionController ^) fairygui::GController *value)
     self->setSelectionController(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "selectionController", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -17869,7 +17869,7 @@ static int _fairygui_PopupMenu_addItem(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PopupMenu");
     olua_check_std_string(L, 2, &arg1);
 
-    // inject code before call
+    // insert code before call
     olua_push_cppobj<fairygui::GList>(L, self->getList());
     int parent = lua_gettop(L);
 
@@ -17907,7 +17907,7 @@ static int _fairygui_PopupMenu_addItem(lua_State *L)
         olua_postpush(L, ret, OLUA_OBJ_NEW);
     };
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, parent, "children", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -17928,7 +17928,7 @@ static int _fairygui_PopupMenu_addItemAt(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
     olua_check_int(L, 3, &arg2);
 
-    // inject code before call
+    // insert code before call
     olua_push_cppobj<fairygui::GList>(L, self->getList());
     int parent = lua_gettop(L);
 
@@ -17966,7 +17966,7 @@ static int _fairygui_PopupMenu_addItemAt(lua_State *L)
         olua_postpush(L, ret, OLUA_OBJ_NEW);
     };
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, parent, "children", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -17998,7 +17998,7 @@ static int _fairygui_PopupMenu_clearItems(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PopupMenu");
 
-    // inject code before call
+    // insert code before call
     olua_push_cppobj<fairygui::GList>(L, self->getList());
     int parent = lua_gettop(L);
     olua_startcmpdelref(L, parent, "children");
@@ -18006,7 +18006,7 @@ static int _fairygui_PopupMenu_clearItems(lua_State *L)
     // @delref(children ~ parent) void clearItems()
     self->clearItems();
 
-    // inject code after call
+    // insert code after call
     olua_endcmpdelref(L, parent, "children");
 
     olua_endinvoke(L);
@@ -18077,7 +18077,7 @@ static int _fairygui_PopupMenu_getContentPane(lua_State *L)
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getContentPane();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "contentPane", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -18133,7 +18133,7 @@ static int _fairygui_PopupMenu_getList(lua_State *L)
     fairygui::GList *ret = (fairygui::GList *)self->getList();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GList");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "list", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -18184,7 +18184,7 @@ static int _fairygui_PopupMenu_removeItem(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PopupMenu");
     olua_check_std_string(L, 2, &arg1);
 
-    // inject code before call
+    // insert code before call
     olua_push_cppobj<fairygui::GList>(L, self->getList());
     int parent = lua_gettop(L);
     olua_startcmpdelref(L, parent, "children");
@@ -18193,7 +18193,7 @@ static int _fairygui_PopupMenu_removeItem(lua_State *L)
     bool ret = (bool)self->removeItem(arg1);
     int num_ret = olua_push_bool(L, ret);
 
-    // inject code after call
+    // insert code after call
     olua_endcmpdelref(L, parent, "children");
 
     olua_endinvoke(L);
@@ -18309,7 +18309,7 @@ static int _fairygui_PopupMenu_show1(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PopupMenu");
 
-    // inject code before call
+    // insert code before call
     fairygui::GRoot *root = fairygui::UIRoot;
     if (lua_gettop(L) > 1) {
         fairygui::GObject *target = olua_checkobj<fairygui::GObject>(L, 2);
@@ -18325,7 +18325,7 @@ static int _fairygui_PopupMenu_show1(lua_State *L)
     // @delref(children ~ parent)@addref(children | parent) void show()
     self->show();
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, parent, "children", 1, OLUA_MODE_MULTIPLE);
     olua_endcmpdelref(L, parent, "children");
 
@@ -18346,7 +18346,7 @@ static int _fairygui_PopupMenu_show2(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
     olua_check_uint(L, 3, &arg2);
 
-    // inject code before call
+    // insert code before call
     fairygui::GRoot *root = fairygui::UIRoot;
     if (lua_gettop(L) > 1) {
         fairygui::GObject *target = olua_checkobj<fairygui::GObject>(L, 2);
@@ -18362,7 +18362,7 @@ static int _fairygui_PopupMenu_show2(lua_State *L)
     // @delref(children ~ parent)@addref(children | parent) void show(fairygui::GObject *target, fairygui::PopupDirection dir)
     self->show(arg1, (fairygui::PopupDirection)arg2);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, parent, "children", 1, OLUA_MODE_MULTIPLE);
     olua_endcmpdelref(L, parent, "children");
 
@@ -18853,7 +18853,7 @@ static int _fairygui_RelationItem_getTarget(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getTarget();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "target", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -18947,7 +18947,7 @@ static int _fairygui_RelationItem_setTarget(lua_State *L)
     // void setTarget(@addref(target ^) fairygui::GObject *value)
     self->setTarget(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "target", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -19064,7 +19064,7 @@ static int _fairygui_ScrollPane_getFooter(lua_State *L)
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getFooter();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "footer", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -19084,7 +19084,7 @@ static int _fairygui_ScrollPane_getHeader(lua_State *L)
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getHeader();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "header", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -19104,7 +19104,7 @@ static int _fairygui_ScrollPane_getHzScrollBar(lua_State *L)
     fairygui::GScrollBar *ret = (fairygui::GScrollBar *)self->getHzScrollBar();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GScrollBar");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "hzScrollBar", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -19124,7 +19124,7 @@ static int _fairygui_ScrollPane_getOwner(lua_State *L)
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getOwner();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "owner", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -19144,7 +19144,7 @@ static int _fairygui_ScrollPane_getPageController(lua_State *L)
     fairygui::GController *ret = (fairygui::GController *)self->getPageController();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GController");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "pageController", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -19334,7 +19334,7 @@ static int _fairygui_ScrollPane_getVtScrollBar(lua_State *L)
     fairygui::GScrollBar *ret = (fairygui::GScrollBar *)self->getVtScrollBar();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GScrollBar");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "vtScrollBar", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -20239,7 +20239,7 @@ static int _fairygui_ScrollPane_setPageController(lua_State *L)
     // void setPageController(@addref(pageController ^) fairygui::GController *value)
     self->setPageController(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "pageController", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -20857,7 +20857,7 @@ static int _fairygui_Transition_getOwner(lua_State *L)
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getOwner();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "owner", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -22674,7 +22674,7 @@ static int _fairygui_Window_getCloseButton(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getCloseButton();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "closeButton", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -22694,7 +22694,7 @@ static int _fairygui_Window_getContentArea(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getContentArea();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "contentArea", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -22714,7 +22714,7 @@ static int _fairygui_Window_getContentPane(lua_State *L)
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getContentPane();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "contentPane", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -22734,7 +22734,7 @@ static int _fairygui_Window_getDragArea(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getDragArea();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "dragArea", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -22754,7 +22754,7 @@ static int _fairygui_Window_getFrame(lua_State *L)
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getFrame();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "frame", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -22774,7 +22774,7 @@ static int _fairygui_Window_getModalWaitingPane(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getModalWaitingPane();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "modalWaitingPane", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -22790,7 +22790,7 @@ static int _fairygui_Window_hide(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.Window");
 
-    // inject code before call
+    // insert code before call
     fairygui::GComponent *root = self->getParent() ? self->getParent() : fairygui::UIRoot;
     if (!root) {
         return 0;
@@ -22802,7 +22802,7 @@ static int _fairygui_Window_hide(lua_State *L)
     // @delref(children ~ parent) void hide()
     self->hide();
 
-    // inject code after call
+    // insert code after call
     olua_endcmpdelref(L, parent, "children");
 
     olua_endinvoke(L);
@@ -22818,7 +22818,7 @@ static int _fairygui_Window_hideImmediately(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.Window");
 
-    // inject code before call
+    // insert code before call
     fairygui::GComponent *root = self->getParent() ? self->getParent() : fairygui::UIRoot;
     if (!root) {
         return 0;
@@ -22830,7 +22830,7 @@ static int _fairygui_Window_hideImmediately(lua_State *L)
     // @delref(children ~ parent) void hideImmediately()
     self->hideImmediately();
 
-    // inject code after call
+    // insert code after call
     olua_endcmpdelref(L, parent, "children");
 
     olua_endinvoke(L);
@@ -22967,7 +22967,7 @@ static int _fairygui_Window_setCloseButton(lua_State *L)
     // void setCloseButton(@addref(closeButton ^) fairygui::GObject *value)
     self->setCloseButton(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "closeButton", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -22988,7 +22988,7 @@ static int _fairygui_Window_setContentArea(lua_State *L)
     // void setContentArea(@addref(contentArea ^) fairygui::GObject *value)
     self->setContentArea(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "contentArea", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -23009,7 +23009,7 @@ static int _fairygui_Window_setContentPane(lua_State *L)
     // void setContentPane(@addref(contentPane ^) fairygui::GComponent *value)
     self->setContentPane(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "contentPane", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -23030,7 +23030,7 @@ static int _fairygui_Window_setDragArea(lua_State *L)
     // void setDragArea(@addref(dragArea ^) fairygui::GObject *value)
     self->setDragArea(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "dragArea", 2, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -23064,7 +23064,7 @@ static int _fairygui_Window_show(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.Window");
 
-    // inject code before call
+    // insert code before call
     fairygui::GComponent *root = fairygui::UIRoot;
     if (!root) {
         luaL_error(L, "no root to add 'Window'");
@@ -23076,7 +23076,7 @@ static int _fairygui_Window_show(lua_State *L)
     // @delref(children ~ parent)@addref(children | parent) void show()
     self->show();
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, parent, "children", 1, OLUA_MODE_MULTIPLE);
     olua_endcmpdelref(L, parent, "children");
 
@@ -23707,7 +23707,7 @@ static int _fairygui_GTreeNode_addChild(lua_State *L)
     fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->addChild(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -23731,7 +23731,7 @@ static int _fairygui_GTreeNode_addChildAt(lua_State *L)
     fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->addChildAt(arg1, (int)arg2);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -23828,7 +23828,7 @@ static int _fairygui_GTreeNode_getCell(lua_State *L)
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getCell();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "cell", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -23850,7 +23850,7 @@ static int _fairygui_GTreeNode_getChildAt(lua_State *L)
     fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->getChildAt((int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -23923,7 +23923,7 @@ static int _fairygui_GTreeNode_getNextSibling(lua_State *L)
     fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->getNextSibling();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -23960,7 +23960,7 @@ static int _fairygui_GTreeNode_getPrevSibling(lua_State *L)
     fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->getPrevSibling();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -24080,7 +24080,7 @@ static int _fairygui_GTreeNode_removeChild(lua_State *L)
     // void removeChild(@delref(children |) fairygui::GTreeNode *child)
     self->removeChild(arg1);
 
-    // inject code after call
+    // insert code after call
     olua_delref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -24098,13 +24098,13 @@ static int _fairygui_GTreeNode_removeChildAt(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
     olua_check_int(L, 2, &arg1);
 
-    // inject code before call
+    // insert code before call
     olua_startcmpdelref(L, 1, "children");
 
     // @delref(children ~) void removeChildAt(int index)
     self->removeChildAt((int)arg1);
 
-    // inject code after call
+    // insert code after call
     olua_endcmpdelref(L, 1, "children");
 
     olua_endinvoke(L);
@@ -24120,13 +24120,13 @@ static int _fairygui_GTreeNode_removeChildren1(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
-    // inject code before call
+    // insert code before call
     olua_startcmpdelref(L, 1, "children");
 
     // @delref(children ~) void removeChildren()
     self->removeChildren();
 
-    // inject code after call
+    // insert code after call
     olua_endcmpdelref(L, 1, "children");
 
     olua_endinvoke(L);
@@ -24146,13 +24146,13 @@ static int _fairygui_GTreeNode_removeChildren2(lua_State *L)
     olua_check_int(L, 2, &arg1);
     olua_check_int(L, 3, &arg2);
 
-    // inject code before call
+    // insert code before call
     olua_startcmpdelref(L, 1, "children");
 
     // @delref(children ~) void removeChildren(int beginIndex, int endIndex)
     self->removeChildren((int)arg1, (int)arg2);
 
-    // inject code after call
+    // insert code after call
     olua_endcmpdelref(L, 1, "children");
 
     olua_endinvoke(L);
@@ -24490,7 +24490,7 @@ static int _fairygui_GTree_getRootNode(lua_State *L)
     fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->getRootNode();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "rootNode", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);

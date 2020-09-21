@@ -98,6 +98,14 @@ void auto_olua_pack_cocos2d_T2F_Quad(lua_State *L, int idx, cocos2d::T2F_Quad *v
 int auto_olua_unpack_cocos2d_T2F_Quad(lua_State *L, const cocos2d::T2F_Quad *value);
 bool auto_olua_ispack_cocos2d_T2F_Quad(lua_State *L, int idx);
 
+// cocos2d::ccBezierConfig
+int auto_olua_push_cocos2d_ccBezierConfig(lua_State *L, const cocos2d::ccBezierConfig *value);
+void auto_olua_check_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::ccBezierConfig *value);
+bool auto_olua_is_cocos2d_ccBezierConfig(lua_State *L, int idx);
+void auto_olua_pack_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::ccBezierConfig *value);
+int auto_olua_unpack_cocos2d_ccBezierConfig(lua_State *L, const cocos2d::ccBezierConfig *value);
+bool auto_olua_ispack_cocos2d_ccBezierConfig(lua_State *L, int idx);
+
 // cocos2d::TTFConfig
 int auto_olua_push_cocos2d_TTFConfig(lua_State *L, const cocos2d::TTFConfig *value);
 void auto_olua_check_cocos2d_TTFConfig(lua_State *L, int idx, cocos2d::TTFConfig *value);

@@ -168,7 +168,7 @@ static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target,
         }
     }
 }]]
-EventDispatcher.INJECT('removeEventListenersForTarget', {
+EventDispatcher.INSERT('removeEventListenersForTarget', {
     BEFORE = [[
         bool recursive = false;
         auto node = olua_checkobj<cocos2d::Node>(L, 2);
@@ -262,7 +262,7 @@ static const std::string makeAudioEngineFinishCallbackTag(lua_Integer id)
         return std::string(buf);
     }
 }]]
-AudioEngine.INJECT('uncache', {
+AudioEngine.INSERT('uncache', {
     BEFORE = [[
         std::string path = olua_checkstring(L, 1);
         std::list<int> ids = cocos2d::LuaAudioEngine::getAudioIDs(path);
@@ -643,7 +643,7 @@ Node.CALLBACK {
     TAG_MAKER = 'makeScheduleCallbackTag("")',
     TAG_MODE = "OLUA_TAG_SUBSTARTWITH",
 }
-Node.INJECT({'removeFromParent', 'removeFromParentAndCleanup'}, {
+Node.INSERT({'removeFromParent', 'removeFromParentAndCleanup'}, {
     BEFORE = [[
         if (!self->getParent()) {
             return 0;
@@ -737,7 +737,7 @@ typeconf 'cocos2d::TransitionScene::Orientation'
 
 local function typeconfTransition(name)
     local cls = typeconf(name)
-    cls.ATTR('create', {ARG2 = '@addref(autoref |)'})
+    cls.ATTR('create', {ARG2 = '@addref(scenes |)'})
     cls.ATTR('easeActionWithAction', {ARG1 = '@addref(action ^)'})
     return cls
 end

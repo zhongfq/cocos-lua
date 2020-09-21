@@ -61,7 +61,7 @@ typeconf 'cocos2d::backend::CommandBuffer'
     .CALLBACK {NAME = 'captureScreen', TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
 
 local Device = typeconf 'cocos2d::backend::Device'
-Device.INJECT({
+Device.INSERT({
     'newProgram',
     'newRenderPipeline',
     'newTexture',

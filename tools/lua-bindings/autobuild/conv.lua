@@ -120,6 +120,14 @@ M.CONVS = {
         ]],
     },
     typeconv {
+        CPPCLS = 'cocos2d::ccBezierConfig',
+        DEF = [[
+            cocos2d::Vec2 endPosition;
+            cocos2d::Vec2 controlPoint_1;
+            cocos2d::Vec2 controlPoint_2;
+        ]],
+    },
+    typeconv {
         CPPCLS = 'cocos2d::TTFConfig',
         DEF = [[
             @optional std::string fontFilePath;

@@ -499,7 +499,7 @@ cls.funcs [[
     static fairygui::GTweener *getTween(cocos2d::Ref *target, fairygui::TweenPropType propType)
     static void clean()
 ]]
-cls.inject('to', {
+cls.insert('to', {
     AFTER = [[
         olua_pushclassobj<fairygui::GTween>(L);
         olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
@@ -507,7 +507,7 @@ cls.inject('to', {
         lua_pop(L, 1);
     ]],
 })
-cls.inject('toDouble', {
+cls.insert('toDouble', {
     AFTER = [[
         olua_pushclassobj<fairygui::GTween>(L);
         olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
@@ -515,7 +515,7 @@ cls.inject('toDouble', {
         lua_pop(L, 1);
     ]],
 })
-cls.inject('delayedCall', {
+cls.insert('delayedCall', {
     AFTER = [[
         olua_pushclassobj<fairygui::GTween>(L);
         olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
@@ -523,7 +523,7 @@ cls.inject('delayedCall', {
         lua_pop(L, 1);
     ]],
 })
-cls.inject('shake', {
+cls.insert('shake', {
     AFTER = [[
         olua_pushclassobj<fairygui::GTween>(L);
         olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
@@ -531,14 +531,14 @@ cls.inject('shake', {
         lua_pop(L, 1);
     ]],
 })
-cls.inject('kill', {
+cls.insert('kill', {
     AFTER = [[
         olua_pushclassobj<fairygui::GTween>(L);
         olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
         lua_pop(L, 1);
     ]],
 })
-cls.inject('clean', {
+cls.insert('clean', {
     AFTER = [[
         olua_pushclassobj<fairygui::GTween>(L);
         olua_delallrefs(L, -1, "tweeners");
@@ -989,14 +989,14 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.inject('center', {
+cls.insert('center', {
     BEFORE = [[
         if (!self->getParent() && !fairygui::UIRoot) {
             luaL_error(L, "UIRoot and parent are both nullptr");
         }
     ]],
 })
-cls.inject('makeFullScreen', {
+cls.insert('makeFullScreen', {
     BEFORE = [[
         if (!fairygui::UIRoot) {
             luaL_error(L, "UIRoot is nullptr");
@@ -1204,7 +1204,7 @@ cls.funcs [[
 ]]
 cls.var('contentScaleLevel', [[static int contentScaleLevel]])
 cls.prop('UIRoot', 'static GRoot* getInstance()')
-cls.inject('create', {
+cls.insert('create', {
     AFTER = [[
         olua_push_cppobj<cocos2d::Node>(L, ret->displayObject());
         olua_addref(L, -1, "fgui.root", -2, OLUA_MODE_SINGLE);
@@ -1212,7 +1212,7 @@ cls.inject('create', {
         lua_pop(L, 1);
     ]],
 })
-cls.inject('hideWindow', {
+cls.insert('hideWindow', {
     BEFORE = [[
         int parent = 1;
         if (arg1->getParent()) {
@@ -1221,7 +1221,7 @@ cls.inject('hideWindow', {
         }
     ]],
 })
-cls.inject('hideWindowImmediately', {
+cls.insert('hideWindowImmediately', {
     BEFORE = [[
         int parent = 1;
         if (arg1->getParent()) {
@@ -1617,7 +1617,7 @@ cls.var('itemRenderer', [[@nullable std::function<void (int, GObject *)> itemRen
 cls.var('itemProvider', [[@nullable @local std::function<std::string (int)> itemProvider]])
 cls.var('scrollItemToViewOnClick', [[bool scrollItemToViewOnClick]])
 cls.var('foldInvisibleItems', [[bool foldInvisibleItems]])
-cls.inject('itemRenderer', {
+cls.insert('itemRenderer', {
     CALLBACK_BEFORE = [[
         if (arg2->getParent()) {
             olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
@@ -1833,7 +1833,7 @@ cls.callback {
     TAG_STORE = "return",
     TAG_SCOPE = 'object',
 }
-cls.inject('show', {
+cls.insert('show', {
     BEFORE = [[
         fairygui::GRoot *root = fairygui::UIRoot;
         if (lua_gettop(L) > 1) {
@@ -1847,25 +1847,25 @@ cls.inject('show', {
         int parent = lua_gettop(L);
     ]],
 })
-cls.inject('removeItem', {
+cls.insert('removeItem', {
     BEFORE = [[
         olua_push_cppobj<fairygui::GList>(L, self->getList());
         int parent = lua_gettop(L);
     ]],
 })
-cls.inject('clearItems', {
+cls.insert('clearItems', {
     BEFORE = [[
         olua_push_cppobj<fairygui::GList>(L, self->getList());
         int parent = lua_gettop(L);
     ]],
 })
-cls.inject('addItem', {
+cls.insert('addItem', {
     BEFORE = [[
         olua_push_cppobj<fairygui::GList>(L, self->getList());
         int parent = lua_gettop(L);
     ]],
 })
-cls.inject('addItemAt', {
+cls.insert('addItemAt', {
     BEFORE = [[
         olua_push_cppobj<fairygui::GList>(L, self->getList());
         int parent = lua_gettop(L);
@@ -2237,7 +2237,7 @@ cls.funcs [[
     void setContentArea(@addref(contentArea ^) fairygui::GObject *value)
     @addref(modalWaitingPane ^) fairygui::GObject *getModalWaitingPane()
 ]]
-cls.inject('show', {
+cls.insert('show', {
     BEFORE = [[
         fairygui::GComponent *root = fairygui::UIRoot;
         if (!root) {
@@ -2247,7 +2247,7 @@ cls.inject('show', {
         int parent = lua_gettop(L);
     ]],
 })
-cls.inject('hide', {
+cls.insert('hide', {
     BEFORE = [[
         fairygui::GComponent *root = self->getParent() ? self->getParent() : fairygui::UIRoot;
         if (!root) {
@@ -2257,7 +2257,7 @@ cls.inject('hide', {
         int parent = lua_gettop(L);
     ]],
 })
-cls.inject('hideImmediately', {
+cls.insert('hideImmediately', {
     BEFORE = [[
         fairygui::GComponent *root = self->getParent() ? self->getParent() : fairygui::UIRoot;
         if (!root) {

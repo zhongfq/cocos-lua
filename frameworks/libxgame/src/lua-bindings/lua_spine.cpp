@@ -13394,7 +13394,7 @@ static int _spine_SkeletonRenderer_createWithData1(lua_State *L)
     spine::SkeletonRenderer *ret = (spine::SkeletonRenderer *)spine::SkeletonRenderer::createWithData(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "skeletonData", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -13414,7 +13414,7 @@ static int _spine_SkeletonRenderer_createWithData2(lua_State *L)
     spine::SkeletonRenderer *ret = (spine::SkeletonRenderer *)spine::SkeletonRenderer::createWithData(arg1);
     int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "skeletonData", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -14578,7 +14578,7 @@ static int _spine_SkeletonAnimation_addAnimation1(lua_State *L)
     spine::TrackEntry *ret = (spine::TrackEntry *)self->addAnimation((int)arg1, arg2, arg3, (float)arg4);
     int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "trackEntries", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -14604,7 +14604,7 @@ static int _spine_SkeletonAnimation_addAnimation2(lua_State *L)
     spine::TrackEntry *ret = (spine::TrackEntry *)self->addAnimation((int)arg1, arg2, arg3);
     int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "trackEntries", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -14653,7 +14653,7 @@ static int _spine_SkeletonAnimation_addEmptyAnimation1(lua_State *L)
     spine::TrackEntry *ret = (spine::TrackEntry *)self->addEmptyAnimation((int)arg1, (float)arg2, (float)arg3);
     int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "trackEntries", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -14677,7 +14677,7 @@ static int _spine_SkeletonAnimation_addEmptyAnimation2(lua_State *L)
     spine::TrackEntry *ret = (spine::TrackEntry *)self->addEmptyAnimation((int)arg1, (float)arg2);
     int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "trackEntries", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -14919,7 +14919,7 @@ static int _spine_SkeletonAnimation_createWithData1(lua_State *L)
     spine::SkeletonAnimation *ret = (spine::SkeletonAnimation *)spine::SkeletonAnimation::createWithData(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonAnimation");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "skeletonData", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -14939,7 +14939,7 @@ static int _spine_SkeletonAnimation_createWithData2(lua_State *L)
     spine::SkeletonAnimation *ret = (spine::SkeletonAnimation *)spine::SkeletonAnimation::createWithData(arg1);
     int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonAnimation");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, -1, "skeletonData", 1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -15116,7 +15116,7 @@ static int _spine_SkeletonAnimation_getCurrent1(lua_State *L)
     spine::TrackEntry *ret = (spine::TrackEntry *)self->getCurrent((int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "trackEntries", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -15136,7 +15136,7 @@ static int _spine_SkeletonAnimation_getCurrent2(lua_State *L)
     spine::TrackEntry *ret = (spine::TrackEntry *)self->getCurrent();
     int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "trackEntries", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -15177,7 +15177,7 @@ static int _spine_SkeletonAnimation_getState(lua_State *L)
     spine::AnimationState *ret = (spine::AnimationState *)self->getState();
     int num_ret = olua_push_cppobj(L, ret, "sp.AnimationState");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "state", -1, OLUA_MODE_SINGLE);
 
     olua_endinvoke(L);
@@ -15261,7 +15261,7 @@ static int _spine_SkeletonAnimation_setAnimation(lua_State *L)
     spine::TrackEntry *ret = (spine::TrackEntry *)self->setAnimation((int)arg1, arg2, arg3);
     int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "trackEntries", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);
@@ -15371,7 +15371,7 @@ static int _spine_SkeletonAnimation_setEmptyAnimation(lua_State *L)
     spine::TrackEntry *ret = (spine::TrackEntry *)self->setEmptyAnimation((int)arg1, (float)arg2);
     int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
 
-    // inject code after call
+    // insert code after call
     olua_addref(L, 1, "trackEntries", -1, OLUA_MODE_MULTIPLE);
 
     olua_endinvoke(L);

@@ -161,27 +161,9 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Sequence'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
-    static cocos2d::Sequence *createWithTwoActions(@addref(autoref |) cocos2d::FiniteTimeAction *actionOne, @addref(autoref |) cocos2d::FiniteTimeAction *actionTwo)
+    static cocos2d::Sequence *create(@pack@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+    static cocos2d::Sequence *createWithTwoActions(@addref(actions |) cocos2d::FiniteTimeAction *actionOne, @addref(actions |) cocos2d::FiniteTimeAction *actionTwo)
 ]]
-cls.func('create', [[{
-    cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
-    int n = lua_gettop(L);
-    actions.reserve(n);
-
-    auto ret = new cocos2d::Sequence();
-    ret->autorelease();
-    olua_push_cppobj<cocos2d::Sequence>(L, ret);
-
-    for (int i = 1; i <= n; i++) {
-        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
-        actions.pushBack(obj);
-        olua_addref(L, -1, ".autoref", i, OLUA_MODE_MULTIPLE);
-    }
-
-    ret->init(actions);
-
-    return 1;
-}]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Repeat'
@@ -211,27 +193,9 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Spawn'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
-    static cocos2d::Spawn *createWithTwoActions(@addref(autoref |) cocos2d::FiniteTimeAction *action1, @addref(autoref |) cocos2d::FiniteTimeAction *action2)
+    static cocos2d::Spawn *create(@pack@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+    static cocos2d::Spawn *createWithTwoActions(@addref(actions |) cocos2d::FiniteTimeAction *action1, @addref(actions |) cocos2d::FiniteTimeAction *action2)
 ]]
-cls.func('create', [[{
-    cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
-    int n = lua_gettop(L);
-    actions.reserve(n);
-
-    auto ret = new cocos2d::Spawn();
-    ret->autorelease();
-    olua_push_cppobj<cocos2d::Spawn>(L, ret);
-
-    for (int i = 1; i <= n; i++) {
-        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
-        actions.pushBack(obj);
-        olua_addref(L, -1, ".autoref", i, OLUA_MODE_MULTIPLE);
-    }
-
-    ret->init(actions);
-
-    return 1;
-}]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::RotateTo'
@@ -395,7 +359,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ReverseTime'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
-    static cocos2d::ReverseTime *create(@addref(autoref |) cocos2d::FiniteTimeAction *action)
+    static cocos2d::ReverseTime *create(@addref(actions |) cocos2d::FiniteTimeAction *action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -416,7 +380,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TargetedAction'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
-    static cocos2d::TargetedAction *create(cocos2d::Node *target, @addref(autoref |) cocos2d::FiniteTimeAction *action)
+    static cocos2d::TargetedAction *create(cocos2d::Node *target, @addref(actions |) cocos2d::FiniteTimeAction *action)
     void setForcedTarget(cocos2d::Node *forcedTarget)
     cocos2d::Node *getForcedTarget()
     bool initWithTarget(cocos2d::Node *target, cocos2d::FiniteTimeAction *action)

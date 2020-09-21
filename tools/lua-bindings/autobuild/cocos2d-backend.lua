@@ -407,27 +407,27 @@ cls.funcs [[
     cocos2d::backend::Program *newProgram(const std::string &vertexShader, const std::string &fragmentShader)
     cocos2d::backend::DeviceInfo *getDeviceInfo()
 ]]
-cls.inject('newProgram', {
+cls.insert('newProgram', {
     AFTER = [[
         ret->autorelease();
     ]],
 })
-cls.inject('newRenderPipeline', {
+cls.insert('newRenderPipeline', {
     AFTER = [[
         ret->autorelease();
     ]],
 })
-cls.inject('newTexture', {
+cls.insert('newTexture', {
     AFTER = [[
         ret->autorelease();
     ]],
 })
-cls.inject('newBuffer', {
+cls.insert('newBuffer', {
     AFTER = [[
         ret->autorelease();
     ]],
 })
-cls.inject('newCommandBuffer', {
+cls.insert('newCommandBuffer', {
     AFTER = [[
         ret->autorelease();
     ]],

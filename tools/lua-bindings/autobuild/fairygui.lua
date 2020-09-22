@@ -107,8 +107,6 @@ cls.const('DragMove', 'fairygui::UIEventType::DragMove', 'const int')
 cls.const('DragEnd', 'fairygui::UIEventType::DragEnd', 'const int')
 cls.const('Drop', 'fairygui::UIEventType::Drop', 'const int')
 cls.const('GearStop', 'fairygui::UIEventType::GearStop', 'const int')
-cls.funcs [[
-]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::UIEventDispatcher'
@@ -135,14 +133,11 @@ static std::string makeListenerTag(lua_State *L, lua_Integer type, int tagidx)
     return std::string(buf);
 }
 ]]
-cls.funcs [[
-    UIEventDispatcher()
-    bool hasEventListener(int eventType)
-    bool hasEventListener(int eventType, const fairygui::EventTag &tag)
-    bool dispatchEvent(int eventType, @optional void *data, @optional const cocos2d::Value &dataValue)
-    bool bubbleEvent(int eventType, @optional void *data, @optional const cocos2d::Value &dataValue)
-    bool isDispatchingEvent(int eventType)
-]]
+cls.func(nil, 'UIEventDispatcher()')
+cls.func(nil, 'bool hasEventListener(int eventType)', 'bool hasEventListener(int eventType, const fairygui::EventTag &tag)')
+cls.func(nil, 'bool dispatchEvent(int eventType, @optional void *data, @optional const cocos2d::Value &dataValue)')
+cls.func(nil, 'bool bubbleEvent(int eventType, @optional void *data, @optional const cocos2d::Value &dataValue)')
+cls.func(nil, 'bool isDispatchingEvent(int eventType)')
 cls.callback {
     FUNCS =  {
         'void addEventListener(int eventType, @local const std::function<void (EventContext *)> &callback)',
@@ -175,40 +170,32 @@ cls.callback {
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::EventContext'
-cls.funcs [[
-    EventContext()
-    int getType()
-    cocos2d::Ref *getSender()
-    fairygui::InputEvent *getInput()
-    void stopPropagation()
-    void preventDefault()
-    bool isDefaultPrevented()
-    void captureTouch()
-    void uncaptureTouch()
-    const cocos2d::Value &getDataValue()
-    void *getData()
-]]
-cls.props [[
-    type
-    sender
-    input
-    defaultPrevented
-    dataValue
-    data
-]]
+cls.func(nil, 'EventContext()')
+cls.func(nil, 'int getType()')
+cls.func(nil, 'cocos2d::Ref *getSender()')
+cls.func(nil, 'fairygui::InputEvent *getInput()')
+cls.func(nil, 'void stopPropagation()')
+cls.func(nil, 'void preventDefault()')
+cls.func(nil, 'bool isDefaultPrevented()')
+cls.func(nil, 'void captureTouch()')
+cls.func(nil, 'void uncaptureTouch()')
+cls.func(nil, 'const cocos2d::Value &getDataValue()')
+cls.func(nil, 'void *getData()')
+cls.prop('type')
+cls.prop('sender')
+cls.prop('input')
+cls.prop('defaultPrevented')
+cls.prop('dataValue')
+cls.prop('data')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::IHitTest'
-cls.funcs [[
-    bool hitTest(fairygui::GComponent *obj, const cocos2d::Vec2 &localPoint)
-]]
+cls.func(nil, 'bool hitTest(fairygui::GComponent *obj, const cocos2d::Vec2 &localPoint)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::PixelHitTest'
 cls.SUPERCLS = "fairygui::IHitTest"
-cls.funcs [[
-    PixelHitTest(fairygui::PixelHitTestData *data, int offsetX, int offsetY)
-]]
+cls.func(nil, 'PixelHitTest(fairygui::PixelHitTestData *data, int offsetX, int offsetY)')
 cls.var('offsetX', [[int offsetX]])
 cls.var('offsetY', [[int offsetY]])
 cls.var('scaleX', [[float scaleX]])
@@ -216,9 +203,7 @@ cls.var('scaleY', [[float scaleY]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::PixelHitTestData'
-cls.funcs [[
-    PixelHitTestData()
-]]
+cls.func(nil, 'PixelHitTestData()')
 cls.var('pixelWidth', [[int pixelWidth]])
 cls.var('scale', [[float scale]])
 cls.var('pixels', [[unsigned char *pixels]])
@@ -226,20 +211,18 @@ cls.var('pixelsLength', [[size_t pixelsLength]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::InputProcessor'
-cls.funcs [[
-    fairygui::InputEvent *getRecentInput()
-    static bool isTouchOnUI()
-    InputProcessor(fairygui::GComponent *owner)
-    cocos2d::Vec2 getTouchPosition(int touchId)
-    void addTouchMonitor(int touchId, fairygui::GObject *target)
-    void removeTouchMonitor(fairygui::GObject *target)
-    void cancelClick(int touchId)
-    void simulateClick(fairygui::GObject *target, @optional int touchId)
-    void disableDefaultTouchEvent()
-    bool touchDown(cocos2d::Touch *touch, cocos2d::Event *event)
-    void touchMove(cocos2d::Touch *touch, cocos2d::Event *event)
-    void touchUp(cocos2d::Touch *touch, cocos2d::Event *event)
-]]
+cls.func(nil, 'fairygui::InputEvent *getRecentInput()')
+cls.func(nil, 'static bool isTouchOnUI()')
+cls.func(nil, 'InputProcessor(fairygui::GComponent *owner)')
+cls.func(nil, 'cocos2d::Vec2 getTouchPosition(int touchId)')
+cls.func(nil, 'void addTouchMonitor(int touchId, fairygui::GObject *target)')
+cls.func(nil, 'void removeTouchMonitor(fairygui::GObject *target)')
+cls.func(nil, 'void cancelClick(int touchId)')
+cls.func(nil, 'void simulateClick(fairygui::GObject *target, @optional int touchId)')
+cls.func(nil, 'void disableDefaultTouchEvent()')
+cls.func(nil, 'bool touchDown(cocos2d::Touch *touch, cocos2d::Event *event)')
+cls.func(nil, 'void touchMove(cocos2d::Touch *touch, cocos2d::Event *event)')
+cls.func(nil, 'void touchUp(cocos2d::Touch *touch, cocos2d::Event *event)')
 cls.callback {
     FUNCS =  {
         'void setCaptureCallback(@nullable @local std::function<void (int)> value)'
@@ -249,59 +232,51 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    recentInput
-    touchOnUI
-]]
+cls.prop('recentInput')
+cls.prop('touchOnUI')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::InputEvent'
-cls.funcs [[
-    InputEvent()
-    fairygui::GObject *getTarget()
-    const int getX()
-    const int getY()
-    const cocos2d::Vec2 &getPosition()
-    cocos2d::Touch *getTouch()
-    int getTouchId()
-    int isDoubleClick()
-    cocos2d::EventMouse::MouseButton getButton()
-    cocos2d::EventKeyboard::KeyCode getKeyCode()
-    bool isCtrlDown()
-    bool isAltDown()
-    bool isShiftDown()
-    int getMouseWheelDelta()
-    fairygui::InputProcessor *getProcessor()
-]]
-cls.props [[
-    target
-    x
-    y
-    position
-    touch
-    touchId
-    doubleClick
-    button
-    keyCode
-    ctrlDown
-    altDown
-    shiftDown
-    mouseWheelDelta
-    processor
-]]
+cls.func(nil, 'InputEvent()')
+cls.func(nil, 'fairygui::GObject *getTarget()')
+cls.func(nil, 'const int getX()')
+cls.func(nil, 'const int getY()')
+cls.func(nil, 'const cocos2d::Vec2 &getPosition()')
+cls.func(nil, 'cocos2d::Touch *getTouch()')
+cls.func(nil, 'int getTouchId()')
+cls.func(nil, 'int isDoubleClick()')
+cls.func(nil, 'cocos2d::EventMouse::MouseButton getButton()')
+cls.func(nil, 'cocos2d::EventKeyboard::KeyCode getKeyCode()')
+cls.func(nil, 'bool isCtrlDown()')
+cls.func(nil, 'bool isAltDown()')
+cls.func(nil, 'bool isShiftDown()')
+cls.func(nil, 'int getMouseWheelDelta()')
+cls.func(nil, 'fairygui::InputProcessor *getProcessor()')
+cls.prop('target')
+cls.prop('x')
+cls.prop('y')
+cls.prop('position')
+cls.prop('touch')
+cls.prop('touchId')
+cls.prop('doubleClick')
+cls.prop('button')
+cls.prop('keyCode')
+cls.prop('ctrlDown')
+cls.prop('altDown')
+cls.prop('shiftDown')
+cls.prop('mouseWheelDelta')
+cls.prop('processor')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::TextFormat'
 cls.const('OUTLINE', 'fairygui::TextFormat::OUTLINE', 'const int')
 cls.const('SHADOW', 'fairygui::TextFormat::SHADOW', 'const int')
 cls.const('GLOW', 'fairygui::TextFormat::GLOW', 'const int')
-cls.funcs [[
-    TextFormat()
-    void setFormat(const fairygui::TextFormat &format)
-    void enableEffect(int effectFlag)
-    void disableEffect(int effectFlag)
-    bool hasEffect(int effectFlag)
-]]
+cls.func(nil, 'TextFormat()')
+cls.func(nil, 'void setFormat(const fairygui::TextFormat &format)')
+cls.func(nil, 'void enableEffect(int effectFlag)')
+cls.func(nil, 'void disableEffect(int effectFlag)')
+cls.func(nil, 'bool hasEffect(int effectFlag)')
 cls.var('face', [[std::string face]])
 cls.var('fontSize', [[float fontSize]])
 cls.var('color', [[cocos2d::Color3B color]])
@@ -357,9 +332,7 @@ cls.enum('Custom', 'fairygui::EaseType::Custom')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::EaseManager'
-cls.funcs [[
-    static float evaluate(fairygui::EaseType easeType, float time, float duration, float overshootOrAmplitude, float period)
-]]
+cls.func(nil, 'static float evaluate(fairygui::EaseType easeType, float time, float duration, float overshootOrAmplitude, float period)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::TweenPropType'
@@ -379,40 +352,35 @@ cls.enum('Progress', 'fairygui::TweenPropType::Progress')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GPath'
-cls.funcs [[
-]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GTweener'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    GTweener()
-    fairygui::GTweener *setDelay(float value)
-    float getDelay()
-    fairygui::GTweener *setDuration(float value)
-    float getDuration()
-    fairygui::GTweener *setBreakpoint(float value)
-    fairygui::GTweener *setEase(fairygui::EaseType value)
-    fairygui::GTweener *setEasePeriod(float value)
-    fairygui::GTweener *setEaseOvershootOrAmplitude(float value)
-    fairygui::GTweener *setRepeat(int repeat, @optional bool yoyo)
-    int getRepeat()
-    fairygui::GTweener *setTimeScale(float value)
-    fairygui::GTweener *setSnapping(bool value)
-    fairygui::GTweener *setTargetAny(void *value)
-    fairygui::GTweener *setTarget(cocos2d::Ref *target)
-    fairygui::GTweener *setTarget(cocos2d::Ref *target, fairygui::TweenPropType propType)
-    void *getTarget()
-    fairygui::GTweener *setUserData(const cocos2d::Value &value)
-    fairygui::GTweener *setPath(fairygui::GPath *path)
-    const cocos2d::Value &getUserData()
-    float getNormalizedTime()
-    bool isCompleted()
-    bool allCompleted()
-    fairygui::GTweener *setPaused(bool paused)
-    void seek(float time)
-    void kill(@optional bool complete)
-]]
+cls.func(nil, 'GTweener()')
+cls.func(nil, 'fairygui::GTweener *setDelay(float value)')
+cls.func(nil, 'float getDelay()')
+cls.func(nil, 'fairygui::GTweener *setDuration(float value)')
+cls.func(nil, 'float getDuration()')
+cls.func(nil, 'fairygui::GTweener *setBreakpoint(float value)')
+cls.func(nil, 'fairygui::GTweener *setEase(fairygui::EaseType value)')
+cls.func(nil, 'fairygui::GTweener *setEasePeriod(float value)')
+cls.func(nil, 'fairygui::GTweener *setEaseOvershootOrAmplitude(float value)')
+cls.func(nil, 'fairygui::GTweener *setRepeat(int repeat, @optional bool yoyo)')
+cls.func(nil, 'int getRepeat()')
+cls.func(nil, 'fairygui::GTweener *setTimeScale(float value)')
+cls.func(nil, 'fairygui::GTweener *setSnapping(bool value)')
+cls.func(nil, 'fairygui::GTweener *setTargetAny(void *value)')
+cls.func(nil, 'fairygui::GTweener *setTarget(cocos2d::Ref *target)', 'fairygui::GTweener *setTarget(cocos2d::Ref *target, fairygui::TweenPropType propType)')
+cls.func(nil, 'void *getTarget()')
+cls.func(nil, 'fairygui::GTweener *setUserData(const cocos2d::Value &value)')
+cls.func(nil, 'fairygui::GTweener *setPath(fairygui::GPath *path)')
+cls.func(nil, 'const cocos2d::Value &getUserData()')
+cls.func(nil, 'float getNormalizedTime()')
+cls.func(nil, 'bool isCompleted()')
+cls.func(nil, 'bool allCompleted()')
+cls.func(nil, 'fairygui::GTweener *setPaused(bool paused)')
+cls.func(nil, 'void seek(float time)')
+cls.func(nil, 'void kill(@optional bool complete)')
 cls.var('startValue', [[fairygui::TweenValue startValue]])
 cls.var('endValue', [[fairygui::TweenValue endValue]])
 cls.var('value', [[fairygui::TweenValue value]])
@@ -453,15 +421,13 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    delay
-    duration
-    repeat
-    target
-    userData
-    normalizedTime
-    completed
-]]
+cls.prop('delay')
+cls.prop('duration')
+cls.prop('repeat')
+cls.prop('target')
+cls.prop('userData')
+cls.prop('normalizedTime')
+cls.prop('completed')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GTween'
@@ -477,24 +443,14 @@ static bool should_del_tweener_ref(lua_State *L, int idx)
     return false;
 }
 ]]
-cls.funcs [[
-    static fairygui::GTweener *to(float startValue, float endValue, float duration)
-    static fairygui::GTweener *to(const cocos2d::Vec2 &startValue, const cocos2d::Vec2 &endValue, float duration)
-    static fairygui::GTweener *to(const cocos2d::Vec3 &startValue, const cocos2d::Vec3 &endValue, float duration)
-    static fairygui::GTweener *to(const cocos2d::Vec4 &startValue, const cocos2d::Vec4 &endValue, float duration)
-    static fairygui::GTweener *to(const cocos2d::Color4B &startValue, const cocos2d::Color4B &endValue, float duration)
-    static fairygui::GTweener *toDouble(double startValue, double endValue, float duration)
-    static fairygui::GTweener *delayedCall(float delay)
-    static fairygui::GTweener *shake(const cocos2d::Vec2 &startValue, float amplitude, float duration)
-    static bool isTweening(cocos2d::Ref *target)
-    static bool isTweening(cocos2d::Ref *target, fairygui::TweenPropType propType)
-    static void kill(cocos2d::Ref *target)
-    static void kill(cocos2d::Ref *target, bool complete)
-    static void kill(cocos2d::Ref *target, fairygui::TweenPropType propType, bool complete)
-    static fairygui::GTweener *getTween(cocos2d::Ref *target)
-    static fairygui::GTweener *getTween(cocos2d::Ref *target, fairygui::TweenPropType propType)
-    static void clean()
-]]
+cls.func(nil, 'static fairygui::GTweener *to(float startValue, float endValue, float duration)', 'static fairygui::GTweener *to(const cocos2d::Vec2 &startValue, const cocos2d::Vec2 &endValue, float duration)', 'static fairygui::GTweener *to(const cocos2d::Vec3 &startValue, const cocos2d::Vec3 &endValue, float duration)', 'static fairygui::GTweener *to(const cocos2d::Vec4 &startValue, const cocos2d::Vec4 &endValue, float duration)', 'static fairygui::GTweener *to(const cocos2d::Color4B &startValue, const cocos2d::Color4B &endValue, float duration)')
+cls.func(nil, 'static fairygui::GTweener *toDouble(double startValue, double endValue, float duration)')
+cls.func(nil, 'static fairygui::GTweener *delayedCall(float delay)')
+cls.func(nil, 'static fairygui::GTweener *shake(const cocos2d::Vec2 &startValue, float amplitude, float duration)')
+cls.func(nil, 'static bool isTweening(cocos2d::Ref *target)', 'static bool isTweening(cocos2d::Ref *target, fairygui::TweenPropType propType)')
+cls.func(nil, 'static void kill(cocos2d::Ref *target)', 'static void kill(cocos2d::Ref *target, bool complete)', 'static void kill(cocos2d::Ref *target, fairygui::TweenPropType propType, bool complete)')
+cls.func(nil, 'static fairygui::GTweener *getTween(cocos2d::Ref *target)', 'static fairygui::GTweener *getTween(cocos2d::Ref *target, fairygui::TweenPropType propType)')
+cls.func(nil, 'static void clean()')
 cls.insert('to', {
     AFTER = [[
         olua_pushclassobj<fairygui::GTween>(L);
@@ -546,47 +502,40 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::UIPackage'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.const('URL_PREFIX', 'fairygui::UIPackage::URL_PREFIX', 'const std::string')
-cls.funcs [[
-    UIPackage()
-    static fairygui::UIPackage *getById(const std::string &id)
-    static fairygui::UIPackage *getByName(const std::string &name)
-    static fairygui::UIPackage *addPackage(const std::string &descFilePath)
-    static void removePackage(const std::string &packageIdOrName)
-    static void removeAllPackages()
-    static fairygui::GObject *createObject(const std::string &pkgName, const std::string &resName)
-    static fairygui::GObject *createObjectFromURL(const std::string &url)
-    static std::string getItemURL(const std::string &pkgName, const std::string &resName)
-    static fairygui::PackageItem *getItemByURL(const std::string &url)
-    static std::string normalizeURL(const std::string &url)
-    static void *getItemAsset(const std::string &pkgName, const std::string &resName, @optional fairygui::PackageItemType type)
-    static void *getItemAssetByURL(const std::string &url, @optional fairygui::PackageItemType type)
-    static cocos2d::Texture2D *getEmptyTexture()
-    const std::string &getId()
-    const std::string &getName()
-    fairygui::PackageItem *getItem(const std::string &itemId)
-    fairygui::PackageItem *getItemByName(const std::string &itemName)
-    void *getItemAsset(fairygui::PackageItem *item)
-    static const std::string &getBranch()
-    static void setBranch(const std::string &value)
-    static const std::string &getVar(const std::string &key)
-    static void setVar(const std::string &key, const std::string &value)
-]]
-cls.props [[
-    emptyTexture
-    id
-    name
-    branch
-]]
+cls.func(nil, 'UIPackage()')
+cls.func(nil, 'static fairygui::UIPackage *getById(const std::string &id)')
+cls.func(nil, 'static fairygui::UIPackage *getByName(const std::string &name)')
+cls.func(nil, 'static fairygui::UIPackage *addPackage(const std::string &descFilePath)')
+cls.func(nil, 'static void removePackage(const std::string &packageIdOrName)')
+cls.func(nil, 'static void removeAllPackages()')
+cls.func(nil, 'static fairygui::GObject *createObject(const std::string &pkgName, const std::string &resName)')
+cls.func(nil, 'static fairygui::GObject *createObjectFromURL(const std::string &url)')
+cls.func(nil, 'static std::string getItemURL(const std::string &pkgName, const std::string &resName)')
+cls.func(nil, 'static fairygui::PackageItem *getItemByURL(const std::string &url)')
+cls.func(nil, 'static std::string normalizeURL(const std::string &url)')
+cls.func(nil, 'static void *getItemAsset(const std::string &pkgName, const std::string &resName, @optional fairygui::PackageItemType type)', 'void *getItemAsset(fairygui::PackageItem *item)')
+cls.func(nil, 'static void *getItemAssetByURL(const std::string &url, @optional fairygui::PackageItemType type)')
+cls.func(nil, 'static cocos2d::Texture2D *getEmptyTexture()')
+cls.func(nil, 'const std::string &getId()')
+cls.func(nil, 'const std::string &getName()')
+cls.func(nil, 'fairygui::PackageItem *getItem(const std::string &itemId)')
+cls.func(nil, 'fairygui::PackageItem *getItemByName(const std::string &itemName)')
+cls.func(nil, 'static const std::string &getBranch()')
+cls.func(nil, 'static void setBranch(const std::string &value)')
+cls.func(nil, 'static const std::string &getVar(const std::string &key)')
+cls.func(nil, 'static void setVar(const std::string &key, const std::string &value)')
+cls.prop('emptyTexture')
+cls.prop('id')
+cls.prop('name')
+cls.prop('branch')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::PackageItem'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    PackageItem()
-    void load()
-    fairygui::PackageItem *getBranch()
-    fairygui::PackageItem *getHighResolution()
-]]
+cls.func(nil, 'PackageItem()')
+cls.func(nil, 'void load()')
+cls.func(nil, 'fairygui::PackageItem *getBranch()')
+cls.func(nil, 'fairygui::PackageItem *getHighResolution()')
 cls.var('owner', [[fairygui::UIPackage *owner]])
 cls.var('type', [[fairygui::PackageItemType type]])
 cls.var('objectType', [[fairygui::ObjectType objectType]])
@@ -604,10 +553,8 @@ cls.var('delayPerUnit', [[float delayPerUnit]])
 cls.var('repeatDelay', [[float repeatDelay]])
 cls.var('swing', [[bool swing]])
 cls.var('translated', [[bool translated]])
-cls.props [[
-    branch
-    highResolution
-]]
+cls.prop('branch')
+cls.prop('highResolution')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::PackageItemType'
@@ -785,149 +732,139 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GController'
 cls.SUPERCLS = "fairygui::UIEventDispatcher"
-cls.funcs [[
-    GController()
-    fairygui::GComponent *getParent()
-    void setParent(fairygui::GComponent *value)
-    int getSelectedIndex()
-    void setSelectedIndex(int value, @optional bool triggerEvent)
-    const std::string &getSelectedPage()
-    void setSelectedPage(const std::string &value, @optional bool triggerEvent)
-    const std::string &getSelectedPageId()
-    void setSelectedPageId(const std::string &value, @optional bool triggerEvent)
-    int getPrevisousIndex()
-    const std::string &getPreviousPage()
-    const std::string &getPreviousPageId()
-    int getPageCount()
-    bool hasPage(const std::string &aName)
-    int getPageIndexById(const std::string &value)
-    const std::string &getPageNameById(const std::string &value)
-    const std::string &getPageId(int index)
-    void setOppositePageId(const std::string &value)
-    void runActions()
-]]
+cls.func(nil, 'GController()')
+cls.func(nil, 'fairygui::GComponent *getParent()')
+cls.func(nil, 'void setParent(fairygui::GComponent *value)')
+cls.func(nil, 'int getSelectedIndex()')
+cls.func(nil, 'void setSelectedIndex(int value, @optional bool triggerEvent)')
+cls.func(nil, 'const std::string &getSelectedPage()')
+cls.func(nil, 'void setSelectedPage(const std::string &value, @optional bool triggerEvent)')
+cls.func(nil, 'const std::string &getSelectedPageId()')
+cls.func(nil, 'void setSelectedPageId(const std::string &value, @optional bool triggerEvent)')
+cls.func(nil, 'int getPrevisousIndex()')
+cls.func(nil, 'const std::string &getPreviousPage()')
+cls.func(nil, 'const std::string &getPreviousPageId()')
+cls.func(nil, 'int getPageCount()')
+cls.func(nil, 'bool hasPage(const std::string &aName)')
+cls.func(nil, 'int getPageIndexById(const std::string &value)')
+cls.func(nil, 'const std::string &getPageNameById(const std::string &value)')
+cls.func(nil, 'const std::string &getPageId(int index)')
+cls.func(nil, 'void setOppositePageId(const std::string &value)')
+cls.func(nil, 'void runActions()')
 cls.var('name', [[std::string name]])
 cls.var('changing', [[bool changing]])
 cls.var('autoRadioGroupDepth', [[bool autoRadioGroupDepth]])
-cls.props [[
-    parent
-    selectedIndex
-    selectedPage
-    selectedPageId
-    previsousIndex
-    previousPage
-    previousPageId
-    pageCount
-]]
+cls.prop('parent')
+cls.prop('selectedIndex')
+cls.prop('selectedPage')
+cls.prop('selectedPageId')
+cls.prop('previsousIndex')
+cls.prop('previousPage')
+cls.prop('previousPageId')
+cls.prop('pageCount')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GObject'
 cls.SUPERCLS = "fairygui::UIEventDispatcher"
-cls.funcs [[
-    static fairygui::GObject *getDraggingObject()
-    GObject()
-    static fairygui::GObject *create()
-    float getX()
-    void setX(float value)
-    float getY()
-    void setY(float value)
-    const cocos2d::Vec2 &getPosition()
-    void setPosition(float xv, float yv)
-    float getXMin()
-    void setXMin(float value)
-    float getYMin()
-    void setYMin(float value)
-    bool isPixelSnapping()
-    void setPixelSnapping(bool value)
-    float getWidth()
-    void setWidth(float value)
-    float getHeight()
-    void setHeight(float value)
-    const cocos2d::Size &getSize()
-    void setSize(float wv, float hv, @optional bool ignorePivot)
-    void center(@optional bool restraint)
-    void makeFullScreen()
-    const cocos2d::Vec2 &getPivot()
-    void setPivot(float xv, float yv, @optional bool asAnchor)
-    bool isPivotAsAnchor()
-    float getScaleX()
-    void setScaleX(float value)
-    float getScaleY()
-    void setScaleY(float value)
-    const cocos2d::Vec2 &getScale()
-    void setScale(float xv, float yv)
-    float getSkewX()
-    void setSkewX(float value)
-    float getSkewY()
-    void setSkewY(float value)
-    float getRotation()
-    void setRotation(float value)
-    float getAlpha()
-    void setAlpha(float value)
-    bool isGrayed()
-    void setGrayed(bool value)
-    bool isVisible()
-    void setVisible(bool value)
-    bool isTouchable()
-    void setTouchable(bool value)
-    int getSortingOrder()
-    void setSortingOrder(int value)
-    @addref(group ^) fairygui::GGroup *getGroup()
-    void setGroup(@addref(group ^) fairygui::GGroup *value)
-    const std::string &getText()
-    void setText(const std::string &text)
-    const std::string &getIcon()
-    void setIcon(const std::string &text)
-    const std::string &getTooltips()
-    void setTooltips(const std::string &value)
-    void *getData()
-    void setData(void *value)
-    const cocos2d::Value &getCustomData()
-    void setCustomData(const cocos2d::Value &value)
-    bool isDraggable()
-    void setDraggable(bool value)
-    void setDragBounds(const cocos2d::Rect &value)
-    void startDrag(@optional int touchId)
-    void stopDrag()
-    std::string getResourceURL()
-    fairygui::PackageItem *getPackageItem()
-    cocos2d::Vec2 globalToLocal(@pack const cocos2d::Vec2 &pt)
-    cocos2d::Rect globalToLocal(@pack const cocos2d::Rect &rect)
-    cocos2d::Vec2 localToGlobal(@pack const cocos2d::Vec2 &pt)
-    cocos2d::Rect localToGlobal(@pack const cocos2d::Rect &rect)
-    cocos2d::Rect transformRect(@pack const cocos2d::Rect &rect, fairygui::GObject *targetSpace)
-    fairygui::Relations *relations()
-    void addRelation(fairygui::GObject *target, fairygui::RelationType relationType, @optional bool usePercent)
-    void removeRelation(fairygui::GObject *target, fairygui::RelationType relationType)
-    fairygui::GearBase *getGear(int index)
-    bool checkGearController(int index, fairygui::GController *c)
-    uint32_t addDisplayLock()
-    void releaseDisplayLock(uint32_t token)
-    fairygui::GComponent *getParent()
-    fairygui::GObject *findParent()
-    @addref(displayObject ^) cocos2d::Node *displayObject()
-    fairygui::GRoot *getRoot()
-    bool onStage()
-    void removeFromParent()
-    cocos2d::Value getProp(fairygui::ObjectPropID propId)
-    void setProp(fairygui::ObjectPropID propId, const cocos2d::Value &value)
-    fairygui::GObject *hitTest(const cocos2d::Vec2 &worldPoint, const cocos2d::Camera *camera)
-    fairygui::GTreeNode *treeNode()
-]]
-cls.var('id', [[std::string id]])
-cls.var('name', [[std::string name]])
-cls.var('sourceSize', [[cocos2d::Size sourceSize]])
-cls.var('initSize', [[cocos2d::Size initSize]])
-cls.var('minSize', [[cocos2d::Size minSize]])
-cls.var('maxSize', [[cocos2d::Size maxSize]])
+cls.func(nil, 'static fairygui::GObject *getDraggingObject()')
+cls.func(nil, 'GObject()')
+cls.func(nil, 'static fairygui::GObject *create()')
+cls.func(nil, 'float getX()')
+cls.func(nil, 'void setX(float value)')
+cls.func(nil, 'float getY()')
+cls.func(nil, 'void setY(float value)')
+cls.func(nil, 'const cocos2d::Vec2 &getPosition()')
+cls.func(nil, 'void setPosition(float xv, float yv)')
+cls.func(nil, 'float getXMin()')
+cls.func(nil, 'void setXMin(float value)')
+cls.func(nil, 'float getYMin()')
+cls.func(nil, 'void setYMin(float value)')
+cls.func(nil, 'bool isPixelSnapping()')
+cls.func(nil, 'void setPixelSnapping(bool value)')
+cls.func(nil, 'float getWidth()')
+cls.func(nil, 'void setWidth(float value)')
+cls.func(nil, 'float getHeight()')
+cls.func(nil, 'void setHeight(float value)')
+cls.func(nil, 'const cocos2d::Size &getSize()')
+cls.func(nil, 'void setSize(float wv, float hv, @optional bool ignorePivot)')
+cls.func(nil, 'void center(@optional bool restraint)')
+cls.func(nil, 'void makeFullScreen()')
+cls.func(nil, 'const cocos2d::Vec2 &getPivot()')
+cls.func(nil, 'void setPivot(float xv, float yv, @optional bool asAnchor)')
+cls.func(nil, 'bool isPivotAsAnchor()')
+cls.func(nil, 'float getScaleX()')
+cls.func(nil, 'void setScaleX(float value)')
+cls.func(nil, 'float getScaleY()')
+cls.func(nil, 'void setScaleY(float value)')
+cls.func(nil, 'const cocos2d::Vec2 &getScale()')
+cls.func(nil, 'void setScale(float xv, float yv)')
+cls.func(nil, 'float getSkewX()')
+cls.func(nil, 'void setSkewX(float value)')
+cls.func(nil, 'float getSkewY()')
+cls.func(nil, 'void setSkewY(float value)')
+cls.func(nil, 'float getRotation()')
+cls.func(nil, 'void setRotation(float value)')
+cls.func(nil, 'float getAlpha()')
+cls.func(nil, 'void setAlpha(float value)')
+cls.func(nil, 'bool isGrayed()')
+cls.func(nil, 'void setGrayed(bool value)')
+cls.func(nil, 'bool isVisible()')
+cls.func(nil, 'void setVisible(bool value)')
+cls.func(nil, 'bool isTouchable()')
+cls.func(nil, 'void setTouchable(bool value)')
+cls.func(nil, 'int getSortingOrder()')
+cls.func(nil, 'void setSortingOrder(int value)')
+cls.func(nil, '@addref(group ^) fairygui::GGroup *getGroup()')
+cls.func(nil, 'void setGroup(@addref(group ^) fairygui::GGroup *value)')
+cls.func(nil, 'const std::string &getText()')
+cls.func(nil, 'void setText(const std::string &text)')
+cls.func(nil, 'const std::string &getIcon()')
+cls.func(nil, 'void setIcon(const std::string &text)')
+cls.func(nil, 'const std::string &getTooltips()')
+cls.func(nil, 'void setTooltips(const std::string &value)')
+cls.func(nil, 'void *getData()')
+cls.func(nil, 'void setData(void *value)')
+cls.func(nil, 'const cocos2d::Value &getCustomData()')
+cls.func(nil, 'void setCustomData(const cocos2d::Value &value)')
+cls.func(nil, 'bool isDraggable()')
+cls.func(nil, 'void setDraggable(bool value)')
+cls.func(nil, 'void setDragBounds(const cocos2d::Rect &value)')
+cls.func(nil, 'void startDrag(@optional int touchId)')
+cls.func(nil, 'void stopDrag()')
+cls.func(nil, 'std::string getResourceURL()')
+cls.func(nil, 'fairygui::PackageItem *getPackageItem()')
+cls.func(nil, 'cocos2d::Vec2 globalToLocal(@pack const cocos2d::Vec2 &pt)', 'cocos2d::Rect globalToLocal(@pack const cocos2d::Rect &rect)')
+cls.func(nil, 'cocos2d::Vec2 localToGlobal(@pack const cocos2d::Vec2 &pt)', 'cocos2d::Rect localToGlobal(@pack const cocos2d::Rect &rect)')
+cls.func(nil, 'cocos2d::Rect transformRect(@pack const cocos2d::Rect &rect, fairygui::GObject *targetSpace)')
+cls.func(nil, 'fairygui::Relations *relations()')
+cls.func(nil, 'void addRelation(fairygui::GObject *target, fairygui::RelationType relationType, @optional bool usePercent)')
+cls.func(nil, 'void removeRelation(fairygui::GObject *target, fairygui::RelationType relationType)')
+cls.func(nil, 'fairygui::GearBase *getGear(int index)')
+cls.func(nil, 'bool checkGearController(int index, fairygui::GController *c)')
+cls.func(nil, 'uint32_t addDisplayLock()')
+cls.func(nil, 'void releaseDisplayLock(uint32_t token)')
+cls.func(nil, 'fairygui::GComponent *getParent()')
+cls.func(nil, 'fairygui::GObject *findParent()')
+cls.func(nil, '@addref(displayObject ^) cocos2d::Node *displayObject()')
+cls.func(nil, 'fairygui::GRoot *getRoot()')
+cls.func(nil, 'bool onStage()')
+cls.func(nil, 'void removeFromParent()')
+cls.func(nil, 'cocos2d::Value getProp(fairygui::ObjectPropID propId)')
+cls.func(nil, 'void setProp(fairygui::ObjectPropID propId, const cocos2d::Value &value)')
+cls.func(nil, 'fairygui::GObject *hitTest(const cocos2d::Vec2 &worldPoint, const cocos2d::Camera *camera)')
+cls.func(nil, 'fairygui::GTreeNode *treeNode()')
 cls.func('getDragBounds', [[{
     fairygui::GObject *self = olua_toobj<fairygui::GObject>(L, 1);
     cocos2d::Rect *rect = self->getDragBounds();
     manual_olua_push_cocos2d_Rect(L, rect);
     return 1;
 }]])
-cls.prop('relations', 'Relations* relations()')
-cls.prop('displayObject', 'cocos2d::Node* displayObject()')
+cls.var('id', [[std::string id]])
+cls.var('name', [[std::string name]])
+cls.var('sourceSize', [[cocos2d::Size sourceSize]])
+cls.var('initSize', [[cocos2d::Size initSize]])
+cls.var('minSize', [[cocos2d::Size minSize]])
+cls.var('maxSize', [[cocos2d::Size maxSize]])
 cls.callback {
     FUNCS =  {
         'void addClickListener(@local const std::function<void (EventContext *)> &callback)',
@@ -947,6 +884,42 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
+cls.prop('relations', 'Relations* relations()')
+cls.prop('displayObject', 'cocos2d::Node* displayObject()')
+cls.prop('draggingObject')
+cls.prop('x')
+cls.prop('y')
+cls.prop('position')
+cls.prop('xMin')
+cls.prop('yMin')
+cls.prop('pixelSnapping')
+cls.prop('width')
+cls.prop('height')
+cls.prop('size')
+cls.prop('pivot')
+cls.prop('pivotAsAnchor')
+cls.prop('scaleX')
+cls.prop('scaleY')
+cls.prop('scale')
+cls.prop('skewX')
+cls.prop('skewY')
+cls.prop('rotation')
+cls.prop('alpha')
+cls.prop('grayed')
+cls.prop('visible')
+cls.prop('touchable')
+cls.prop('sortingOrder')
+cls.prop('group')
+cls.prop('text')
+cls.prop('icon')
+cls.prop('tooltips')
+cls.prop('data')
+cls.prop('customData')
+cls.prop('draggable')
+cls.prop('resourceURL')
+cls.prop('packageItem')
+cls.prop('parent')
+cls.prop('root')
 cls.insert('center', {
     BEFORE = [[
         if (!self->getParent() && !fairygui::UIRoot) {
@@ -961,42 +934,6 @@ cls.insert('makeFullScreen', {
         }
     ]],
 })
-cls.props [[
-    draggingObject
-    x
-    y
-    position
-    xMin
-    yMin
-    pixelSnapping
-    width
-    height
-    size
-    pivot
-    pivotAsAnchor
-    scaleX
-    scaleY
-    scale
-    skewX
-    skewY
-    rotation
-    alpha
-    grayed
-    visible
-    touchable
-    sortingOrder
-    group
-    text
-    icon
-    tooltips
-    data
-    customData
-    draggable
-    resourceURL
-    packageItem
-    parent
-    root
-]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GComponent'
@@ -1006,63 +943,60 @@ static int _fairygui_GComponent_getController(lua_State *L);
 static int _fairygui_GComponent_getTransition(lua_State *L);
 static int _fairygui_GComponent_getChild(lua_State *L);
 ]]
-cls.funcs [[
-    GComponent()
-    static fairygui::GComponent *create()
-    fairygui::GObject *addChild(@addref(children |) fairygui::GObject *child)
-    fairygui::GObject *addChildAt(@addref(children |) fairygui::GObject *child, int index)
-    void removeChild(@delref(children |) fairygui::GObject *child)
-    @delref(children ~) void removeChildAt(int index)
-    @delref(children ~) void removeChildren()
-    @delref(children ~) void removeChildren(int beginIndex, int endIndex)
-    @addref(children |) fairygui::GObject *getChildAt(int index)
-    @addref(children |) fairygui::GObject *getChild(const std::string &name)
-    @addref(children |) fairygui::GObject *getChildInGroup(const fairygui::GGroup *group, const std::string &name)
-    @addref(children |) fairygui::GObject *getChildById(const std::string &id)
-    @addref(children |) const cocos2d::Vector<GObject *> &getChildren()
-    int getChildIndex(const fairygui::GObject *child)
-    void setChildIndex(fairygui::GObject *child, int index)
-    int setChildIndexBefore(fairygui::GObject *child, int index)
-    void swapChildren(fairygui::GObject *child1, fairygui::GObject *child2)
-    void swapChildrenAt(int index1, int index2)
-    int numChildren()
-    bool isAncestorOf(const fairygui::GObject *obj)
-    bool isChildInView(fairygui::GObject *child)
-    int getFirstChildInView()
-    void addController(@addref(controllers |) fairygui::GController *c)
-    @addref(controllers |) fairygui::GController *getControllerAt(int index)
-    @addref(controllers |) fairygui::GController *getController(const std::string &name)
-    @addref(controllers |) const cocos2d::Vector<GController *> &getControllers()
-    void removeController(@delref(controllers |) fairygui::GController *c)
-    void applyController(fairygui::GController *c)
-    void applyAllControllers()
-    @addref(transitions |) fairygui::Transition *getTransition(const std::string &name)
-    @addref(transitions |) fairygui::Transition *getTransitionAt(int index)
-    @addref(transitions |) const cocos2d::Vector<Transition *> &getTransitions()
-    bool getOpaque()
-    void setOpaque(bool value)
-    const fairygui::Margin &getMargin()
-    void setMargin(const fairygui::Margin &value)
-    fairygui::ChildrenRenderOrder getChildrenRenderOrder()
-    void setChildrenRenderOrder(fairygui::ChildrenRenderOrder value)
-    int getApexIndex()
-    void setApexIndex(int value)
-    @addref(mask ^) cocos2d::Node *getMask()
-    void setMask(@addref(mask ^) cocos2d::Node *value, @optional bool inverted)
-    fairygui::IHitTest *getHitArea()
-    void setHitArea(fairygui::IHitTest *value)
-    fairygui::ScrollPane *getScrollPane()
-    float getViewWidth()
-    void setViewWidth(float value)
-    float getViewHeight()
-    void setViewHeight(float value)
-    void setBoundsChangedFlag()
-    void ensureBoundsCorrect()
-    cocos2d::Vec2 getSnappingPosition(const cocos2d::Vec2 &pt)
-    void childSortingOrderChanged(fairygui::GObject *child, int oldValue, int newValue)
-    void childStateChanged(fairygui::GObject *child)
-    void adjustRadioGroupDepth(fairygui::GObject *obj, fairygui::GController *c)
-]]
+cls.func(nil, 'GComponent()')
+cls.func(nil, 'static fairygui::GComponent *create()')
+cls.func(nil, 'fairygui::GObject *addChild(@addref(children |) fairygui::GObject *child)')
+cls.func(nil, 'fairygui::GObject *addChildAt(@addref(children |) fairygui::GObject *child, int index)')
+cls.func(nil, 'void removeChild(@delref(children |) fairygui::GObject *child)')
+cls.func(nil, '@delref(children ~) void removeChildAt(int index)')
+cls.func(nil, '@delref(children ~) void removeChildren()', '@delref(children ~) void removeChildren(int beginIndex, int endIndex)')
+cls.func(nil, '@addref(children |) fairygui::GObject *getChildAt(int index)')
+cls.func(nil, '@addref(children |) fairygui::GObject *getChild(const std::string &name)')
+cls.func(nil, '@addref(children |) fairygui::GObject *getChildInGroup(const fairygui::GGroup *group, const std::string &name)')
+cls.func(nil, '@addref(children |) fairygui::GObject *getChildById(const std::string &id)')
+cls.func(nil, '@addref(children |) const cocos2d::Vector<GObject *> &getChildren()')
+cls.func(nil, 'int getChildIndex(const fairygui::GObject *child)')
+cls.func(nil, 'void setChildIndex(fairygui::GObject *child, int index)')
+cls.func(nil, 'int setChildIndexBefore(fairygui::GObject *child, int index)')
+cls.func(nil, 'void swapChildren(fairygui::GObject *child1, fairygui::GObject *child2)')
+cls.func(nil, 'void swapChildrenAt(int index1, int index2)')
+cls.func(nil, 'int numChildren()')
+cls.func(nil, 'bool isAncestorOf(const fairygui::GObject *obj)')
+cls.func(nil, 'bool isChildInView(fairygui::GObject *child)')
+cls.func(nil, 'int getFirstChildInView()')
+cls.func(nil, 'void addController(@addref(controllers |) fairygui::GController *c)')
+cls.func(nil, '@addref(controllers |) fairygui::GController *getControllerAt(int index)')
+cls.func(nil, '@addref(controllers |) fairygui::GController *getController(const std::string &name)')
+cls.func(nil, '@addref(controllers |) const cocos2d::Vector<GController *> &getControllers()')
+cls.func(nil, 'void removeController(@delref(controllers |) fairygui::GController *c)')
+cls.func(nil, 'void applyController(fairygui::GController *c)')
+cls.func(nil, 'void applyAllControllers()')
+cls.func(nil, '@addref(transitions |) fairygui::Transition *getTransition(const std::string &name)')
+cls.func(nil, '@addref(transitions |) fairygui::Transition *getTransitionAt(int index)')
+cls.func(nil, '@addref(transitions |) const cocos2d::Vector<Transition *> &getTransitions()')
+cls.func(nil, 'bool getOpaque()')
+cls.func(nil, 'void setOpaque(bool value)')
+cls.func(nil, 'const fairygui::Margin &getMargin()')
+cls.func(nil, 'void setMargin(const fairygui::Margin &value)')
+cls.func(nil, 'fairygui::ChildrenRenderOrder getChildrenRenderOrder()')
+cls.func(nil, 'void setChildrenRenderOrder(fairygui::ChildrenRenderOrder value)')
+cls.func(nil, 'int getApexIndex()')
+cls.func(nil, 'void setApexIndex(int value)')
+cls.func(nil, '@addref(mask ^) cocos2d::Node *getMask()')
+cls.func(nil, 'void setMask(@addref(mask ^) cocos2d::Node *value, @optional bool inverted)')
+cls.func(nil, 'fairygui::IHitTest *getHitArea()')
+cls.func(nil, 'void setHitArea(fairygui::IHitTest *value)')
+cls.func(nil, 'fairygui::ScrollPane *getScrollPane()')
+cls.func(nil, 'float getViewWidth()')
+cls.func(nil, 'void setViewWidth(float value)')
+cls.func(nil, 'float getViewHeight()')
+cls.func(nil, 'void setViewHeight(float value)')
+cls.func(nil, 'void setBoundsChangedFlag()')
+cls.func(nil, 'void ensureBoundsCorrect()')
+cls.func(nil, 'cocos2d::Vec2 getSnappingPosition(const cocos2d::Vec2 &pt)')
+cls.func(nil, 'void childSortingOrderChanged(fairygui::GObject *child, int oldValue, int newValue)')
+cls.func(nil, 'void childStateChanged(fairygui::GObject *child)')
+cls.func(nil, 'void adjustRadioGroupDepth(fairygui::GObject *obj, fairygui::GController *c)')
 cls.func('resolve', [[{
     auto self = olua_toobj<fairygui::GComponent>(L, 1);
     const char *name = olua_checkstring(L, 2);
@@ -1100,68 +1034,70 @@ cls.func('resolve', [[{
     return 0;
 }]])
 cls.prop('numChildren', 'int numChildren()')
+cls.prop('children')
+cls.prop('firstChildInView')
+cls.prop('controllers')
+cls.prop('transitions')
+cls.prop('opaque')
+cls.prop('margin')
+cls.prop('childrenRenderOrder')
+cls.prop('apexIndex')
+cls.prop('mask')
+cls.prop('hitArea')
+cls.prop('scrollPane')
+cls.prop('viewWidth')
+cls.prop('viewHeight')
 cls.alias('resolve', 'getChildByPath')
-cls.props [[
-    children
-    firstChildInView
-    controllers
-    transitions
-    opaque
-    margin
-    childrenRenderOrder
-    apexIndex
-    mask
-    hitArea
-    scrollPane
-    viewWidth
-    viewHeight
-]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GRoot'
 cls.SUPERCLS = "fairygui::GComponent"
-cls.funcs [[
-    GRoot()
-    static fairygui::GRoot *create(cocos2d::Scene *scene, @optional int zOrder)
-    static fairygui::GRoot *getInstance()
-    @delref(children ~) void showWindow(@addref(children |) fairygui::Window *win)
-    @delref(children ~ parent) void hideWindow(fairygui::Window *win)
-    @delref(children ~ parent) void hideWindowImmediately(fairygui::Window *win)
-    void bringToFront(fairygui::Window *win)
-    void showModalWait()
-    void closeModalWait()
-    void closeAllExceptModals()
-    void closeAllWindows()
-    @addref(children |) fairygui::Window *getTopWindow()
-    @addref(children |) fairygui::GObject *getModalWaitingPane()
-    @addref(children |) fairygui::GGraph *getModalLayer()
-    bool hasModalWindow()
-    bool isModalWaiting()
-    @addref(inputProcessor ^) fairygui::InputProcessor *getInputProcessor()
-    cocos2d::Vec2 getTouchPosition(int touchId)
-    fairygui::GObject *getTouchTarget()
-    cocos2d::Vec2 worldToRoot(const cocos2d::Vec2 &pt)
-    cocos2d::Vec2 rootToWorld(const cocos2d::Vec2 &pt)
-    @delref(children ~) void showPopup(@addref(children |) fairygui::GObject *popup)
-    @delref(children ~) void showPopup(@addref(children |) fairygui::GObject *popup, fairygui::GObject *target, fairygui::PopupDirection dir)
-    @delref(children ~) void togglePopup(@addref(children |) fairygui::GObject *popup)
-    @delref(children ~) void togglePopup(@addref(children |) fairygui::GObject *popup, fairygui::GObject *target, fairygui::PopupDirection dir)
-    @delref(children ~) void hidePopup()
-    @delref(children ~) void hidePopup(fairygui::GObject *popup)
-    bool hasAnyPopup()
-    cocos2d::Vec2 getPoupPosition(fairygui::GObject *popup, fairygui::GObject *target, fairygui::PopupDirection dir)
-    void showTooltips(const std::string &msg)
-    void showTooltipsWin(fairygui::GObject *tooltipWin)
-    void hideTooltips()
-    void playSound(const std::string &url, @optional float volumeScale)
-    bool isSoundEnabled()
-    void setSoundEnabled(bool value)
-    float getSoundVolumeScale()
-    void setSoundVolumeScale(float value)
-    void setNotAsUIRoot()
-]]
+cls.func(nil, 'GRoot()')
+cls.func(nil, 'static fairygui::GRoot *create(cocos2d::Scene *scene, @optional int zOrder)')
+cls.func(nil, 'static fairygui::GRoot *getInstance()')
+cls.func(nil, '@delref(children ~) void showWindow(@addref(children |) fairygui::Window *win)')
+cls.func(nil, '@delref(children ~ parent) void hideWindow(fairygui::Window *win)')
+cls.func(nil, '@delref(children ~ parent) void hideWindowImmediately(fairygui::Window *win)')
+cls.func(nil, 'void bringToFront(fairygui::Window *win)')
+cls.func(nil, 'void showModalWait()')
+cls.func(nil, 'void closeModalWait()')
+cls.func(nil, 'void closeAllExceptModals()')
+cls.func(nil, 'void closeAllWindows()')
+cls.func(nil, '@addref(children |) fairygui::Window *getTopWindow()')
+cls.func(nil, '@addref(children |) fairygui::GObject *getModalWaitingPane()')
+cls.func(nil, '@addref(children |) fairygui::GGraph *getModalLayer()')
+cls.func(nil, 'bool hasModalWindow()')
+cls.func(nil, 'bool isModalWaiting()')
+cls.func(nil, '@addref(inputProcessor ^) fairygui::InputProcessor *getInputProcessor()')
+cls.func(nil, 'cocos2d::Vec2 getTouchPosition(int touchId)')
+cls.func(nil, 'fairygui::GObject *getTouchTarget()')
+cls.func(nil, 'cocos2d::Vec2 worldToRoot(const cocos2d::Vec2 &pt)')
+cls.func(nil, 'cocos2d::Vec2 rootToWorld(const cocos2d::Vec2 &pt)')
+cls.func(nil, '@delref(children ~) void showPopup(@addref(children |) fairygui::GObject *popup)', '@delref(children ~) void showPopup(@addref(children |) fairygui::GObject *popup, fairygui::GObject *target, fairygui::PopupDirection dir)')
+cls.func(nil, '@delref(children ~) void togglePopup(@addref(children |) fairygui::GObject *popup)', '@delref(children ~) void togglePopup(@addref(children |) fairygui::GObject *popup, fairygui::GObject *target, fairygui::PopupDirection dir)')
+cls.func(nil, '@delref(children ~) void hidePopup()', '@delref(children ~) void hidePopup(fairygui::GObject *popup)')
+cls.func(nil, 'bool hasAnyPopup()')
+cls.func(nil, 'cocos2d::Vec2 getPoupPosition(fairygui::GObject *popup, fairygui::GObject *target, fairygui::PopupDirection dir)')
+cls.func(nil, 'void showTooltips(const std::string &msg)')
+cls.func(nil, 'void showTooltipsWin(fairygui::GObject *tooltipWin)')
+cls.func(nil, 'void hideTooltips()')
+cls.func(nil, 'void playSound(const std::string &url, @optional float volumeScale)')
+cls.func(nil, 'bool isSoundEnabled()')
+cls.func(nil, 'void setSoundEnabled(bool value)')
+cls.func(nil, 'float getSoundVolumeScale()')
+cls.func(nil, 'void setSoundVolumeScale(float value)')
+cls.func(nil, 'void setNotAsUIRoot()')
 cls.var('contentScaleLevel', [[static int contentScaleLevel]])
 cls.prop('UIRoot', 'static GRoot* getInstance()')
+cls.prop('instance')
+cls.prop('topWindow')
+cls.prop('modalWaitingPane')
+cls.prop('modalLayer')
+cls.prop('modalWaiting')
+cls.prop('inputProcessor')
+cls.prop('touchTarget')
+cls.prop('soundEnabled')
+cls.prop('soundVolumeScale')
 cls.insert('create', {
     AFTER = [[
         olua_push_cppobj<cocos2d::Node>(L, ret->displayObject());
@@ -1188,191 +1124,162 @@ cls.insert('hideWindowImmediately', {
         }
     ]],
 })
-cls.props [[
-    instance
-    topWindow
-    modalWaitingPane
-    modalLayer
-    modalWaiting
-    inputProcessor
-    touchTarget
-    soundEnabled
-    soundVolumeScale
-]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GGroup'
 cls.SUPERCLS = "fairygui::GObject"
-cls.funcs [[
-    GGroup()
-    static fairygui::GGroup *create()
-    fairygui::GroupLayoutType getLayout()
-    void setLayout(fairygui::GroupLayoutType value)
-    int getColumnGap()
-    void setColumnGap(int value)
-    int getLineGap()
-    void setLineGap(int value)
-    bool isExcludeInvisibles()
-    void setExcludeInvisibles(bool value)
-    bool isAutoSizeDisabled()
-    void setAutoSizeDisabled(bool value)
-    int getMainGridIndex()
-    void setMainGridIndex(int value)
-    int getMainGridMinSize()
-    void setMainGridMinSize(int value)
-    void setBoundsChangedFlag(@optional bool positionChangedOnly)
-    void moveChildren(float dx, float dy)
-    void resizeChildren(float dw, float dh)
-]]
-cls.props [[
-    layout
-    columnGap
-    lineGap
-    excludeInvisibles
-    autoSizeDisabled
-    mainGridIndex
-    mainGridMinSize
-]]
+cls.func(nil, 'GGroup()')
+cls.func(nil, 'static fairygui::GGroup *create()')
+cls.func(nil, 'fairygui::GroupLayoutType getLayout()')
+cls.func(nil, 'void setLayout(fairygui::GroupLayoutType value)')
+cls.func(nil, 'int getColumnGap()')
+cls.func(nil, 'void setColumnGap(int value)')
+cls.func(nil, 'int getLineGap()')
+cls.func(nil, 'void setLineGap(int value)')
+cls.func(nil, 'bool isExcludeInvisibles()')
+cls.func(nil, 'void setExcludeInvisibles(bool value)')
+cls.func(nil, 'bool isAutoSizeDisabled()')
+cls.func(nil, 'void setAutoSizeDisabled(bool value)')
+cls.func(nil, 'int getMainGridIndex()')
+cls.func(nil, 'void setMainGridIndex(int value)')
+cls.func(nil, 'int getMainGridMinSize()')
+cls.func(nil, 'void setMainGridMinSize(int value)')
+cls.func(nil, 'void setBoundsChangedFlag(@optional bool positionChangedOnly)')
+cls.func(nil, 'void moveChildren(float dx, float dy)')
+cls.func(nil, 'void resizeChildren(float dw, float dh)')
+cls.prop('layout')
+cls.prop('columnGap')
+cls.prop('lineGap')
+cls.prop('excludeInvisibles')
+cls.prop('autoSizeDisabled')
+cls.prop('mainGridIndex')
+cls.prop('mainGridMinSize')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GScrollBar'
 cls.SUPERCLS = "fairygui::GComponent"
-cls.funcs [[
-    GScrollBar()
-    static fairygui::GScrollBar *create()
-    void setScrollPane(fairygui::ScrollPane *target, bool vertical)
-    void setDisplayPerc(float value)
-    void setScrollPerc(float value)
-    float getMinSize()
-]]
-cls.props [[
-    minSize
-]]
+cls.func(nil, 'GScrollBar()')
+cls.func(nil, 'static fairygui::GScrollBar *create()')
+cls.func(nil, 'void setScrollPane(fairygui::ScrollPane *target, bool vertical)')
+cls.func(nil, 'void setDisplayPerc(float value)')
+cls.func(nil, 'void setScrollPerc(float value)')
+cls.func(nil, 'float getMinSize()')
+cls.prop('minSize')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GLoader'
 cls.SUPERCLS = "fairygui::GObject"
-cls.funcs [[
-    GLoader()
-    static fairygui::GLoader *create()
-    const std::string &getURL()
-    void setURL(const std::string &value)
-    cocos2d::TextHAlignment getAlign()
-    void setAlign(cocos2d::TextHAlignment value)
-    cocos2d::TextVAlignment getVerticalAlign()
-    void setVerticalAlign(cocos2d::TextVAlignment value)
-    bool getAutoSize()
-    void setAutoSize(bool value)
-    fairygui::LoaderFillType getFill()
-    void setFill(fairygui::LoaderFillType value)
-    bool isShrinkOnly()
-    void setShrinkOnly(bool value)
-    const cocos2d::Size &getContentSize()
-    cocos2d::Color3B getColor()
-    void setColor(const cocos2d::Color3B &value)
-    bool isPlaying()
-    void setPlaying(bool value)
-    int getFrame()
-    void setFrame(int value)
-    fairygui::FillMethod getFillMethod()
-    void setFillMethod(fairygui::FillMethod value)
-    fairygui::FillOrigin getFillOrigin()
-    void setFillOrigin(fairygui::FillOrigin value)
-    bool isFillClockwise()
-    void setFillClockwise(bool value)
-    float getFillAmount()
-    void setFillAmount(float value)
-    @addref(component ^) fairygui::GComponent *getComponent()
-]]
-cls.props [[
-    url
-    align
-    verticalAlign
-    autoSize
-    fill
-    shrinkOnly
-    contentSize
-    color
-    playing
-    frame
-    fillMethod
-    fillOrigin
-    fillClockwise
-    fillAmount
-    component
-]]
+cls.func(nil, 'GLoader()')
+cls.func(nil, 'static fairygui::GLoader *create()')
+cls.func(nil, 'const std::string &getURL()')
+cls.func(nil, 'void setURL(const std::string &value)')
+cls.func(nil, 'cocos2d::TextHAlignment getAlign()')
+cls.func(nil, 'void setAlign(cocos2d::TextHAlignment value)')
+cls.func(nil, 'cocos2d::TextVAlignment getVerticalAlign()')
+cls.func(nil, 'void setVerticalAlign(cocos2d::TextVAlignment value)')
+cls.func(nil, 'bool getAutoSize()')
+cls.func(nil, 'void setAutoSize(bool value)')
+cls.func(nil, 'fairygui::LoaderFillType getFill()')
+cls.func(nil, 'void setFill(fairygui::LoaderFillType value)')
+cls.func(nil, 'bool isShrinkOnly()')
+cls.func(nil, 'void setShrinkOnly(bool value)')
+cls.func(nil, 'const cocos2d::Size &getContentSize()')
+cls.func(nil, 'cocos2d::Color3B getColor()')
+cls.func(nil, 'void setColor(const cocos2d::Color3B &value)')
+cls.func(nil, 'bool isPlaying()')
+cls.func(nil, 'void setPlaying(bool value)')
+cls.func(nil, 'int getFrame()')
+cls.func(nil, 'void setFrame(int value)')
+cls.func(nil, 'fairygui::FillMethod getFillMethod()')
+cls.func(nil, 'void setFillMethod(fairygui::FillMethod value)')
+cls.func(nil, 'fairygui::FillOrigin getFillOrigin()')
+cls.func(nil, 'void setFillOrigin(fairygui::FillOrigin value)')
+cls.func(nil, 'bool isFillClockwise()')
+cls.func(nil, 'void setFillClockwise(bool value)')
+cls.func(nil, 'float getFillAmount()')
+cls.func(nil, 'void setFillAmount(float value)')
+cls.func(nil, '@addref(component ^) fairygui::GComponent *getComponent()')
+cls.prop('url')
+cls.prop('align')
+cls.prop('verticalAlign')
+cls.prop('autoSize')
+cls.prop('fill')
+cls.prop('shrinkOnly')
+cls.prop('contentSize')
+cls.prop('color')
+cls.prop('playing')
+cls.prop('frame')
+cls.prop('fillMethod')
+cls.prop('fillOrigin')
+cls.prop('fillClockwise')
+cls.prop('fillAmount')
+cls.prop('component')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GLoader3D'
 cls.SUPERCLS = "fairygui::GObject"
-cls.funcs [[
-    GLoader3D()
-    static fairygui::GLoader3D *create()
-    const std::string &getURL()
-    void setURL(const std::string &value)
-    cocos2d::TextHAlignment getAlign()
-    void setAlign(cocos2d::TextHAlignment value)
-    cocos2d::TextVAlignment getVerticalAlign()
-    void setVerticalAlign(cocos2d::TextVAlignment value)
-    bool getAutoSize()
-    void setAutoSize(bool value)
-    fairygui::LoaderFillType getFill()
-    void setFill(fairygui::LoaderFillType value)
-    bool isShrinkOnly()
-    void setShrinkOnly(bool value)
-    @addref(content ^) const cocos2d::Node *getContent()
-    void setContent(@addref(content ^) cocos2d::Node *value)
-    cocos2d::Color3B getColor()
-    void setColor(const cocos2d::Color3B &value)
-    bool isPlaying()
-    void setPlaying(bool value)
-    int getFrame()
-    void setFrame(int value)
-    const std::string &getAnimationName()
-    void setAnimationName(const std::string &value)
-    const std::string &getSkinName()
-    void setSkinName(const std::string &value)
-    bool getLoop()
-    void setLoop(bool value)
-]]
-cls.props [[
-    url
-    align
-    verticalAlign
-    autoSize
-    fill
-    shrinkOnly
-    content
-    color
-    playing
-    frame
-    animationName
-    skinName
-    loop
-]]
+cls.func(nil, 'GLoader3D()')
+cls.func(nil, 'static fairygui::GLoader3D *create()')
+cls.func(nil, 'const std::string &getURL()')
+cls.func(nil, 'void setURL(const std::string &value)')
+cls.func(nil, 'cocos2d::TextHAlignment getAlign()')
+cls.func(nil, 'void setAlign(cocos2d::TextHAlignment value)')
+cls.func(nil, 'cocos2d::TextVAlignment getVerticalAlign()')
+cls.func(nil, 'void setVerticalAlign(cocos2d::TextVAlignment value)')
+cls.func(nil, 'bool getAutoSize()')
+cls.func(nil, 'void setAutoSize(bool value)')
+cls.func(nil, 'fairygui::LoaderFillType getFill()')
+cls.func(nil, 'void setFill(fairygui::LoaderFillType value)')
+cls.func(nil, 'bool isShrinkOnly()')
+cls.func(nil, 'void setShrinkOnly(bool value)')
+cls.func(nil, '@addref(content ^) const cocos2d::Node *getContent()')
+cls.func(nil, 'void setContent(@addref(content ^) cocos2d::Node *value)')
+cls.func(nil, 'cocos2d::Color3B getColor()')
+cls.func(nil, 'void setColor(const cocos2d::Color3B &value)')
+cls.func(nil, 'bool isPlaying()')
+cls.func(nil, 'void setPlaying(bool value)')
+cls.func(nil, 'int getFrame()')
+cls.func(nil, 'void setFrame(int value)')
+cls.func(nil, 'const std::string &getAnimationName()')
+cls.func(nil, 'void setAnimationName(const std::string &value)')
+cls.func(nil, 'const std::string &getSkinName()')
+cls.func(nil, 'void setSkinName(const std::string &value)')
+cls.func(nil, 'bool getLoop()')
+cls.func(nil, 'void setLoop(bool value)')
+cls.prop('url')
+cls.prop('align')
+cls.prop('verticalAlign')
+cls.prop('autoSize')
+cls.prop('fill')
+cls.prop('shrinkOnly')
+cls.prop('content')
+cls.prop('color')
+cls.prop('playing')
+cls.prop('frame')
+cls.prop('animationName')
+cls.prop('skinName')
+cls.prop('loop')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GTextField'
 cls.SUPERCLS = "fairygui::GObject"
-cls.funcs [[
-    bool isUBBEnabled()
-    void setUBBEnabled(bool value)
-    fairygui::AutoSizeType getAutoSize()
-    void setAutoSize(fairygui::AutoSizeType value)
-    bool isSingleLine()
-    void setSingleLine(bool value)
-    fairygui::TextFormat *getTextFormat()
-    void applyTextFormat()
-    const cocos2d::Size &getTextSize()
-    cocos2d::Color3B getColor()
-    void setColor(const cocos2d::Color3B &value)
-    float getFontSize()
-    void setFontSize(float value)
-    cocos2d::Color3B getOutlineColor()
-    void setOutlineColor(const cocos2d::Color3B &value)
-    fairygui::GTextField *setVar(const std::string &name, const cocos2d::Value &value)
-    void flushVars()
-]]
+cls.func(nil, 'bool isUBBEnabled()')
+cls.func(nil, 'void setUBBEnabled(bool value)')
+cls.func(nil, 'fairygui::AutoSizeType getAutoSize()')
+cls.func(nil, 'void setAutoSize(fairygui::AutoSizeType value)')
+cls.func(nil, 'bool isSingleLine()')
+cls.func(nil, 'void setSingleLine(bool value)')
+cls.func(nil, 'fairygui::TextFormat *getTextFormat()')
+cls.func(nil, 'void applyTextFormat()')
+cls.func(nil, 'const cocos2d::Size &getTextSize()')
+cls.func(nil, 'cocos2d::Color3B getColor()')
+cls.func(nil, 'void setColor(const cocos2d::Color3B &value)')
+cls.func(nil, 'float getFontSize()')
+cls.func(nil, 'void setFontSize(float value)')
+cls.func(nil, 'cocos2d::Color3B getOutlineColor()')
+cls.func(nil, 'void setOutlineColor(const cocos2d::Color3B &value)')
+cls.func(nil, 'fairygui::GTextField *setVar(const std::string &name, const cocos2d::Value &value)')
+cls.func(nil, 'void flushVars()')
 cls.func('getTemplateVars', [[{
     fairygui::GTextField *self = olua_toobj<fairygui::GTextField>(L, 1);
     manual_olua_push_cocos2d_ValueMap(L, self->getTemplateVars());
@@ -1386,41 +1293,33 @@ cls.func('setTemplateVars', [[{
     return 1;
 }]])
 cls.prop('templateVars')
-cls.props [[
-    ubbEnabled
-    autoSize
-    singleLine
-    textFormat
-    textSize
-    color
-    fontSize
-    outlineColor
-]]
+cls.prop('ubbEnabled')
+cls.prop('autoSize')
+cls.prop('singleLine')
+cls.prop('textFormat')
+cls.prop('textSize')
+cls.prop('color')
+cls.prop('fontSize')
+cls.prop('outlineColor')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GBasicTextField'
 cls.SUPERCLS = "fairygui::GTextField"
-cls.funcs [[
-    GBasicTextField()
-    static fairygui::GBasicTextField *create()
-]]
+cls.func(nil, 'GBasicTextField()')
+cls.func(nil, 'static fairygui::GBasicTextField *create()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GGraph'
 cls.SUPERCLS = "fairygui::GObject"
-cls.funcs [[
-    GGraph()
-    static fairygui::GGraph *create()
-    void drawRect(float aWidth, float aHeight, int lineSize, const cocos2d::Color4F &lineColor, const cocos2d::Color4F &fillColor)
-    void drawEllipse(float aWidth, float aHeight, int lineSize, const cocos2d::Color4F &lineColor, const cocos2d::Color4F &fillColor)
-    bool isEmpty()
-    cocos2d::Color3B getColor()
-    void setColor(const cocos2d::Color3B &value)
-]]
-cls.props [[
-    empty
-    color
-]]
+cls.func(nil, 'GGraph()')
+cls.func(nil, 'static fairygui::GGraph *create()')
+cls.func(nil, 'void drawRect(float aWidth, float aHeight, int lineSize, const cocos2d::Color4F &lineColor, const cocos2d::Color4F &fillColor)')
+cls.func(nil, 'void drawEllipse(float aWidth, float aHeight, int lineSize, const cocos2d::Color4F &lineColor, const cocos2d::Color4F &fillColor)')
+cls.func(nil, 'bool isEmpty()')
+cls.func(nil, 'cocos2d::Color3B getColor()')
+cls.func(nil, 'void setColor(const cocos2d::Color3B &value)')
+cls.prop('empty')
+cls.prop('color')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GButton'
@@ -1431,150 +1330,146 @@ cls.const('OVER', 'fairygui::GButton::OVER', 'const std::string')
 cls.const('SELECTED_OVER', 'fairygui::GButton::SELECTED_OVER', 'const std::string')
 cls.const('DISABLED', 'fairygui::GButton::DISABLED', 'const std::string')
 cls.const('SELECTED_DISABLED', 'fairygui::GButton::SELECTED_DISABLED', 'const std::string')
-cls.funcs [[
-    GButton()
-    static fairygui::GButton *create()
-    const std::string &getTitle()
-    void setTitle(const std::string &value)
-    const std::string &getSelectedTitle()
-    void setSelectedTitle(const std::string &value)
-    const std::string &getSelectedIcon()
-    void setSelectedIcon(const std::string &value)
-    cocos2d::Color3B getTitleColor()
-    void setTitleColor(const cocos2d::Color3B &value)
-    int getTitleFontSize()
-    void setTitleFontSize(int value)
-    bool isSelected()
-    void setSelected(bool value)
-    @addref(relatedController ^) fairygui::GController *getRelatedController()
-    void setRelatedController(@addref(relatedController ^) fairygui::GController *c)
-    bool isChangeStateOnClick()
-    void setChangeStateOnClick(bool value)
-    @addref(textField ^) fairygui::GTextField *getTextField()
-]]
-cls.props [[
-    title
-    selectedTitle
-    selectedIcon
-    titleColor
-    titleFontSize
-    selected
-    relatedController
-    changeStateOnClick
-    textField
-]]
+cls.func(nil, 'GButton()')
+cls.func(nil, 'static fairygui::GButton *create()')
+cls.func(nil, 'const std::string &getTitle()')
+cls.func(nil, 'void setTitle(const std::string &value)')
+cls.func(nil, 'const std::string &getSelectedTitle()')
+cls.func(nil, 'void setSelectedTitle(const std::string &value)')
+cls.func(nil, 'const std::string &getSelectedIcon()')
+cls.func(nil, 'void setSelectedIcon(const std::string &value)')
+cls.func(nil, 'cocos2d::Color3B getTitleColor()')
+cls.func(nil, 'void setTitleColor(const cocos2d::Color3B &value)')
+cls.func(nil, 'int getTitleFontSize()')
+cls.func(nil, 'void setTitleFontSize(int value)')
+cls.func(nil, 'bool isSelected()')
+cls.func(nil, 'void setSelected(bool value)')
+cls.func(nil, '@addref(relatedController ^) fairygui::GController *getRelatedController()')
+cls.func(nil, 'void setRelatedController(@addref(relatedController ^) fairygui::GController *c)')
+cls.func(nil, 'bool isChangeStateOnClick()')
+cls.func(nil, 'void setChangeStateOnClick(bool value)')
+cls.func(nil, '@addref(textField ^) fairygui::GTextField *getTextField()')
+cls.prop('title')
+cls.prop('selectedTitle')
+cls.prop('selectedIcon')
+cls.prop('titleColor')
+cls.prop('titleFontSize')
+cls.prop('selected')
+cls.prop('relatedController')
+cls.prop('changeStateOnClick')
+cls.prop('textField')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GImage'
 cls.SUPERCLS = "fairygui::GObject"
-cls.funcs [[
-    GImage()
-    static fairygui::GImage *create()
-    fairygui::FlipType getFlip()
-    void setFlip(fairygui::FlipType value)
-    cocos2d::Color3B getColor()
-    void setColor(const cocos2d::Color3B &value)
-    fairygui::FillMethod getFillMethod()
-    void setFillMethod(fairygui::FillMethod value)
-    fairygui::FillOrigin getFillOrigin()
-    void setFillOrigin(fairygui::FillOrigin value)
-    bool isFillClockwise()
-    void setFillClockwise(bool value)
-    float getFillAmount()
-    void setFillAmount(float value)
-]]
-cls.props [[
-    flip
-    color
-    fillMethod
-    fillOrigin
-    fillClockwise
-    fillAmount
-]]
+cls.func(nil, 'GImage()')
+cls.func(nil, 'static fairygui::GImage *create()')
+cls.func(nil, 'fairygui::FlipType getFlip()')
+cls.func(nil, 'void setFlip(fairygui::FlipType value)')
+cls.func(nil, 'cocos2d::Color3B getColor()')
+cls.func(nil, 'void setColor(const cocos2d::Color3B &value)')
+cls.func(nil, 'fairygui::FillMethod getFillMethod()')
+cls.func(nil, 'void setFillMethod(fairygui::FillMethod value)')
+cls.func(nil, 'fairygui::FillOrigin getFillOrigin()')
+cls.func(nil, 'void setFillOrigin(fairygui::FillOrigin value)')
+cls.func(nil, 'bool isFillClockwise()')
+cls.func(nil, 'void setFillClockwise(bool value)')
+cls.func(nil, 'float getFillAmount()')
+cls.func(nil, 'void setFillAmount(float value)')
+cls.prop('flip')
+cls.prop('color')
+cls.prop('fillMethod')
+cls.prop('fillOrigin')
+cls.prop('fillClockwise')
+cls.prop('fillAmount')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GLabel'
 cls.SUPERCLS = "fairygui::GComponent"
-cls.funcs [[
-    GLabel()
-    static fairygui::GLabel *create()
-    const std::string &getTitle()
-    void setTitle(const std::string &value)
-    cocos2d::Color3B getTitleColor()
-    void setTitleColor(const cocos2d::Color3B &value)
-    int getTitleFontSize()
-    void setTitleFontSize(int value)
-    @addref(textField ^) fairygui::GTextField *getTextField()
-]]
-cls.props [[
-    title
-    titleColor
-    titleFontSize
-    textField
-]]
+cls.func(nil, 'GLabel()')
+cls.func(nil, 'static fairygui::GLabel *create()')
+cls.func(nil, 'const std::string &getTitle()')
+cls.func(nil, 'void setTitle(const std::string &value)')
+cls.func(nil, 'cocos2d::Color3B getTitleColor()')
+cls.func(nil, 'void setTitleColor(const cocos2d::Color3B &value)')
+cls.func(nil, 'int getTitleFontSize()')
+cls.func(nil, 'void setTitleFontSize(int value)')
+cls.func(nil, '@addref(textField ^) fairygui::GTextField *getTextField()')
+cls.prop('title')
+cls.prop('titleColor')
+cls.prop('titleFontSize')
+cls.prop('textField')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GList'
 cls.SUPERCLS = "fairygui::GComponent"
-cls.funcs [[
-    GList()
-    static fairygui::GList *create()
-    const std::string &getDefaultItem()
-    void setDefaultItem(const std::string &value)
-    fairygui::ListLayoutType getLayout()
-    void setLayout(fairygui::ListLayoutType value)
-    int getLineCount()
-    void setLineCount(int value)
-    int getColumnCount()
-    void setColumnCount(int value)
-    int getColumnGap()
-    void setColumnGap(int value)
-    int getLineGap()
-    void setLineGap(int value)
-    cocos2d::TextHAlignment getAlign()
-    void setAlign(cocos2d::TextHAlignment value)
-    cocos2d::TextVAlignment getVerticalAlign()
-    void setVerticalAlign(cocos2d::TextVAlignment value)
-    bool getAutoResizeItem()
-    void setAutoResizeItem(bool value)
-    fairygui::ListSelectionMode getSelectionMode()
-    void setSelectionMode(fairygui::ListSelectionMode value)
-    fairygui::GObject *getFromPool()
-    fairygui::GObject *getFromPool(const std::string &url)
-    void returnToPool(@delref(children |) fairygui::GObject *obj)
-    @addref(children |) fairygui::GObject *addItemFromPool()
-    @addref(children |) fairygui::GObject *addItemFromPool(const std::string &url)
-    @delref(children ~) void removeChildToPoolAt(int index)
-    void removeChildToPool(@delref(children |) fairygui::GObject *child)
-    @delref(children ~) void removeChildrenToPool()
-    @delref(children ~) void removeChildrenToPool(int beginIndex, int endIndex)
-    int getSelectedIndex()
-    void setSelectedIndex(int value)
-    void getSelection(@out std::vector<int> &result)
-    void addSelection(int index, bool scrollItToView)
-    void removeSelection(int index)
-    void clearSelection()
-    void selectAll()
-    void selectReverse()
-    void handleArrowKey(int dir)
-    void resizeToFit(int itemCount)
-    void resizeToFit(int itemCount, int minSize)
-    void scrollToView(int index, @optional bool ani, @optional bool setFirst)
-    @addref(selectionController ^) fairygui::GController *getSelectionController()
-    void setSelectionController(@addref(selectionController ^) fairygui::GController *value)
-    @delref(children ~) void setVirtual()
-    @delref(children ~) void setVirtualAndLoop()
-    bool isVirtual()
-    void refreshVirtualList()
-    int getNumItems()
-    @delref(children ~) void setNumItems(int value)
-    int childIndexToItemIndex(int index)
-    int itemIndexToChildIndex(int index)
-]]
+cls.func(nil, 'GList()')
+cls.func(nil, 'static fairygui::GList *create()')
+cls.func(nil, 'const std::string &getDefaultItem()')
+cls.func(nil, 'void setDefaultItem(const std::string &value)')
+cls.func(nil, 'fairygui::ListLayoutType getLayout()')
+cls.func(nil, 'void setLayout(fairygui::ListLayoutType value)')
+cls.func(nil, 'int getLineCount()')
+cls.func(nil, 'void setLineCount(int value)')
+cls.func(nil, 'int getColumnCount()')
+cls.func(nil, 'void setColumnCount(int value)')
+cls.func(nil, 'int getColumnGap()')
+cls.func(nil, 'void setColumnGap(int value)')
+cls.func(nil, 'int getLineGap()')
+cls.func(nil, 'void setLineGap(int value)')
+cls.func(nil, 'cocos2d::TextHAlignment getAlign()')
+cls.func(nil, 'void setAlign(cocos2d::TextHAlignment value)')
+cls.func(nil, 'cocos2d::TextVAlignment getVerticalAlign()')
+cls.func(nil, 'void setVerticalAlign(cocos2d::TextVAlignment value)')
+cls.func(nil, 'bool getAutoResizeItem()')
+cls.func(nil, 'void setAutoResizeItem(bool value)')
+cls.func(nil, 'fairygui::ListSelectionMode getSelectionMode()')
+cls.func(nil, 'void setSelectionMode(fairygui::ListSelectionMode value)')
+cls.func(nil, 'fairygui::GObject *getFromPool()', 'fairygui::GObject *getFromPool(const std::string &url)')
+cls.func(nil, 'void returnToPool(@delref(children |) fairygui::GObject *obj)')
+cls.func(nil, '@addref(children |) fairygui::GObject *addItemFromPool()', '@addref(children |) fairygui::GObject *addItemFromPool(const std::string &url)')
+cls.func(nil, '@delref(children ~) void removeChildToPoolAt(int index)')
+cls.func(nil, 'void removeChildToPool(@delref(children |) fairygui::GObject *child)')
+cls.func(nil, '@delref(children ~) void removeChildrenToPool()', '@delref(children ~) void removeChildrenToPool(int beginIndex, int endIndex)')
+cls.func(nil, 'int getSelectedIndex()')
+cls.func(nil, 'void setSelectedIndex(int value)')
+cls.func(nil, 'void getSelection(@out std::vector<int> &result)')
+cls.func(nil, 'void addSelection(int index, bool scrollItToView)')
+cls.func(nil, 'void removeSelection(int index)')
+cls.func(nil, 'void clearSelection()')
+cls.func(nil, 'void selectAll()')
+cls.func(nil, 'void selectReverse()')
+cls.func(nil, 'void handleArrowKey(int dir)')
+cls.func(nil, 'void resizeToFit(int itemCount)', 'void resizeToFit(int itemCount, int minSize)')
+cls.func(nil, 'void scrollToView(int index, @optional bool ani, @optional bool setFirst)')
+cls.func(nil, '@addref(selectionController ^) fairygui::GController *getSelectionController()')
+cls.func(nil, 'void setSelectionController(@addref(selectionController ^) fairygui::GController *value)')
+cls.func(nil, '@delref(children ~) void setVirtual()')
+cls.func(nil, '@delref(children ~) void setVirtualAndLoop()')
+cls.func(nil, 'bool isVirtual()')
+cls.func(nil, 'void refreshVirtualList()')
+cls.func(nil, 'int getNumItems()')
+cls.func(nil, '@delref(children ~) void setNumItems(int value)')
+cls.func(nil, 'int childIndexToItemIndex(int index)')
+cls.func(nil, 'int itemIndexToChildIndex(int index)')
 cls.var('itemRenderer', [[@nullable std::function<void (int, GObject *)> itemRenderer]])
 cls.var('itemProvider', [[@nullable @local std::function<std::string (int)> itemProvider]])
 cls.var('scrollItemToViewOnClick', [[bool scrollItemToViewOnClick]])
 cls.var('foldInvisibleItems', [[bool foldInvisibleItems]])
+cls.prop('defaultItem')
+cls.prop('layout')
+cls.prop('lineCount')
+cls.prop('columnCount')
+cls.prop('columnGap')
+cls.prop('lineGap')
+cls.prop('align')
+cls.prop('verticalAlign')
+cls.prop('autoResizeItem')
+cls.prop('selectionMode')
+cls.prop('selectedIndex')
+cls.prop('selectionController')
+cls.prop('virtual')
+cls.prop('numItems')
 cls.insert('itemRenderer', {
     CALLBACK_BEFORE = [[
         if (arg2->getParent()) {
@@ -1584,41 +1479,23 @@ cls.insert('itemRenderer', {
         }
     ]],
 })
-cls.props [[
-    defaultItem
-    layout
-    lineCount
-    columnCount
-    columnGap
-    lineGap
-    align
-    verticalAlign
-    autoResizeItem
-    selectionMode
-    selectedIndex
-    selectionController
-    virtual
-    numItems
-]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GMovieClip'
 cls.SUPERCLS = "fairygui::GObject"
-cls.funcs [[
-    GMovieClip()
-    static fairygui::GMovieClip *create()
-    bool isPlaying()
-    void setPlaying(bool value)
-    int getFrame()
-    void setFrame(int value)
-    float getTimeScale()
-    void setTimeScale(float value)
-    void advance(float time)
-    fairygui::FlipType getFlip()
-    void setFlip(fairygui::FlipType value)
-    cocos2d::Color3B getColor()
-    void setColor(const cocos2d::Color3B &value)
-]]
+cls.func(nil, 'GMovieClip()')
+cls.func(nil, 'static fairygui::GMovieClip *create()')
+cls.func(nil, 'bool isPlaying()')
+cls.func(nil, 'void setPlaying(bool value)')
+cls.func(nil, 'int getFrame()')
+cls.func(nil, 'void setFrame(int value)')
+cls.func(nil, 'float getTimeScale()')
+cls.func(nil, 'void setTimeScale(float value)')
+cls.func(nil, 'void advance(float time)')
+cls.func(nil, 'fairygui::FlipType getFlip()')
+cls.func(nil, 'void setFlip(fairygui::FlipType value)')
+cls.func(nil, 'cocos2d::Color3B getColor()')
+cls.func(nil, 'void setColor(const cocos2d::Color3B &value)')
 cls.callback {
     FUNCS =  {
         'void setPlaySettings(@optional int start, @optional int end, @optional int times, @optional int endAt, @local @optional std::function<void ()> completeCallback)'
@@ -1628,151 +1505,129 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    playing
-    frame
-    timeScale
-    flip
-    color
-]]
+cls.prop('playing')
+cls.prop('frame')
+cls.prop('timeScale')
+cls.prop('flip')
+cls.prop('color')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GProgressBar'
 cls.SUPERCLS = "fairygui::GComponent"
-cls.funcs [[
-    GProgressBar()
-    static fairygui::GProgressBar *create()
-    fairygui::ProgressTitleType getTitleType()
-    void setTitleType(fairygui::ProgressTitleType value)
-    double getMin()
-    void setMin(double value)
-    double getMax()
-    void setMax(double value)
-    double getValue()
-    void setValue(double value)
-    void tweenValue(double value, float duration)
-    void update(double newValue)
-]]
-cls.props [[
-    titleType
-    min
-    max
-    value
-]]
+cls.func(nil, 'GProgressBar()')
+cls.func(nil, 'static fairygui::GProgressBar *create()')
+cls.func(nil, 'fairygui::ProgressTitleType getTitleType()')
+cls.func(nil, 'void setTitleType(fairygui::ProgressTitleType value)')
+cls.func(nil, 'double getMin()')
+cls.func(nil, 'void setMin(double value)')
+cls.func(nil, 'double getMax()')
+cls.func(nil, 'void setMax(double value)')
+cls.func(nil, 'double getValue()')
+cls.func(nil, 'void setValue(double value)')
+cls.func(nil, 'void tweenValue(double value, float duration)')
+cls.func(nil, 'void update(double newValue)')
+cls.prop('titleType')
+cls.prop('min')
+cls.prop('max')
+cls.prop('value')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GComboBox'
 cls.SUPERCLS = "fairygui::GComponent"
-cls.funcs [[
-    GComboBox()
-    static fairygui::GComboBox *create()
-    const std::string &getTitle()
-    void setTitle(const std::string &value)
-    const cocos2d::Color3B getTitleColor()
-    void setTitleColor(const cocos2d::Color3B &value)
-    int getTitleFontSize()
-    void setTitleFontSize(int value)
-    const std::string &getValue()
-    void setValue(const std::string &value)
-    int getSelectedIndex()
-    void setSelectedIndex(int value)
-    @addref(selectionController ^) fairygui::GController *getSelectionController()
-    void setSelectionController(@addref(selectionController ^) fairygui::GController *value)
-    std::vector<std::string> &getItems()
-    std::vector<std::string> &getIcons()
-    std::vector<std::string> &getValues()
-    @addref(dropdown ^) fairygui::GObject *getDropdown()
-    void refresh()
-    @addref(textField ^) fairygui::GTextField *getTextField()
-]]
+cls.func(nil, 'GComboBox()')
+cls.func(nil, 'static fairygui::GComboBox *create()')
+cls.func(nil, 'const std::string &getTitle()')
+cls.func(nil, 'void setTitle(const std::string &value)')
+cls.func(nil, 'const cocos2d::Color3B getTitleColor()')
+cls.func(nil, 'void setTitleColor(const cocos2d::Color3B &value)')
+cls.func(nil, 'int getTitleFontSize()')
+cls.func(nil, 'void setTitleFontSize(int value)')
+cls.func(nil, 'const std::string &getValue()')
+cls.func(nil, 'void setValue(const std::string &value)')
+cls.func(nil, 'int getSelectedIndex()')
+cls.func(nil, 'void setSelectedIndex(int value)')
+cls.func(nil, '@addref(selectionController ^) fairygui::GController *getSelectionController()')
+cls.func(nil, 'void setSelectionController(@addref(selectionController ^) fairygui::GController *value)')
+cls.func(nil, 'std::vector<std::string> &getItems()')
+cls.func(nil, 'std::vector<std::string> &getIcons()')
+cls.func(nil, 'std::vector<std::string> &getValues()')
+cls.func(nil, '@addref(dropdown ^) fairygui::GObject *getDropdown()')
+cls.func(nil, 'void refresh()')
+cls.func(nil, '@addref(textField ^) fairygui::GTextField *getTextField()')
 cls.var('visibleItemCount', [[int visibleItemCount]])
 cls.var('popupDirection', [[fairygui::PopupDirection popupDirection]])
-cls.props [[
-    title
-    titleColor
-    titleFontSize
-    value
-    selectedIndex
-    selectionController
-    items
-    icons
-    values
-    dropdown
-    textField
-]]
+cls.prop('title')
+cls.prop('titleColor')
+cls.prop('titleFontSize')
+cls.prop('value')
+cls.prop('selectedIndex')
+cls.prop('selectionController')
+cls.prop('items')
+cls.prop('icons')
+cls.prop('values')
+cls.prop('dropdown')
+cls.prop('textField')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GRichTextField'
 cls.SUPERCLS = "fairygui::GTextField"
-cls.funcs [[
-    GRichTextField()
-    static fairygui::GRichTextField *create()
-    fairygui::HtmlObject *getControl(const std::string &name)
-]]
+cls.func(nil, 'GRichTextField()')
+cls.func(nil, 'static fairygui::GRichTextField *create()')
+cls.func(nil, 'fairygui::HtmlObject *getControl(const std::string &name)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GSlider'
 cls.SUPERCLS = "fairygui::GComponent"
-cls.funcs [[
-    GSlider()
-    static fairygui::GSlider *create()
-    fairygui::ProgressTitleType getTitleType()
-    void setTitleType(fairygui::ProgressTitleType value)
-    double getMin()
-    void setMin(double value)
-    double getMax()
-    void setMax(double value)
-    double getValue()
-    void setValue(double value)
-    bool getWholeNumbers()
-    void setWholeNumbers(bool value)
-]]
+cls.func(nil, 'GSlider()')
+cls.func(nil, 'static fairygui::GSlider *create()')
+cls.func(nil, 'fairygui::ProgressTitleType getTitleType()')
+cls.func(nil, 'void setTitleType(fairygui::ProgressTitleType value)')
+cls.func(nil, 'double getMin()')
+cls.func(nil, 'void setMin(double value)')
+cls.func(nil, 'double getMax()')
+cls.func(nil, 'void setMax(double value)')
+cls.func(nil, 'double getValue()')
+cls.func(nil, 'void setValue(double value)')
+cls.func(nil, 'bool getWholeNumbers()')
+cls.func(nil, 'void setWholeNumbers(bool value)')
 cls.var('changeOnClick', [[bool changeOnClick]])
 cls.var('canDrag', [[bool canDrag]])
-cls.props [[
-    titleType
-    min
-    max
-    value
-    wholeNumbers
-]]
+cls.prop('titleType')
+cls.prop('min')
+cls.prop('max')
+cls.prop('value')
+cls.prop('wholeNumbers')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GTextInput'
 cls.SUPERCLS = "fairygui::GTextField"
-cls.funcs [[
-    GTextInput()
-    static fairygui::GTextInput *create()
-    void setPrompt(const std::string &value)
-    void setPassword(bool value)
-    void setKeyboardType(int value)
-    void setMaxLength(int value)
-    void setRestrict(const std::string &value)
-]]
+cls.func(nil, 'GTextInput()')
+cls.func(nil, 'static fairygui::GTextInput *create()')
+cls.func(nil, 'void setPrompt(const std::string &value)')
+cls.func(nil, 'void setPassword(bool value)')
+cls.func(nil, 'void setKeyboardType(int value)')
+cls.func(nil, 'void setMaxLength(int value)')
+cls.func(nil, 'void setRestrict(const std::string &value)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::PopupMenu'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    static fairygui::PopupMenu *create(const std::string &resourceURL)
-    static fairygui::PopupMenu *create()
-    PopupMenu()
-    void addSeperator()
-    const std::string &getItemName(int index)
-    void setItemText(const std::string &name, const std::string &caption)
-    void setItemVisible(const std::string &name, bool visible)
-    void setItemGrayed(const std::string &name, bool grayed)
-    void setItemCheckable(const std::string &name, bool checkable)
-    void setItemChecked(const std::string &name, bool check)
-    bool isItemChecked(const std::string &name)
-    @delref(children ~ parent) bool removeItem(const std::string &name)
-    @delref(children ~ parent) void clearItems()
-    int getItemCount()
-    @addref(contentPane ^) fairygui::GComponent *getContentPane()
-    @addref(list ^) fairygui::GList *getList()
-    @delref(children ~ parent)@addref(children | parent) void show()
-    @delref(children ~ parent)@addref(children | parent) void show(fairygui::GObject *target, fairygui::PopupDirection dir)
-]]
+cls.func(nil, 'static fairygui::PopupMenu *create(const std::string &resourceURL)', 'static fairygui::PopupMenu *create()')
+cls.func(nil, 'PopupMenu()')
+cls.func(nil, 'void addSeperator()')
+cls.func(nil, 'const std::string &getItemName(int index)')
+cls.func(nil, 'void setItemText(const std::string &name, const std::string &caption)')
+cls.func(nil, 'void setItemVisible(const std::string &name, bool visible)')
+cls.func(nil, 'void setItemGrayed(const std::string &name, bool grayed)')
+cls.func(nil, 'void setItemCheckable(const std::string &name, bool checkable)')
+cls.func(nil, 'void setItemChecked(const std::string &name, bool check)')
+cls.func(nil, 'bool isItemChecked(const std::string &name)')
+cls.func(nil, '@delref(children ~ parent) bool removeItem(const std::string &name)')
+cls.func(nil, '@delref(children ~ parent) void clearItems()')
+cls.func(nil, 'int getItemCount()')
+cls.func(nil, '@addref(contentPane ^) fairygui::GComponent *getContentPane()')
+cls.func(nil, '@addref(list ^) fairygui::GList *getList()')
+cls.func(nil, '@delref(children ~ parent)@addref(children | parent) void show()', '@delref(children ~ parent)@addref(children | parent) void show(fairygui::GObject *target, fairygui::PopupDirection dir)')
 cls.callback {
     FUNCS =  {
         '@addref(children | parent) fairygui::GButton *addItem(const std::string &caption, @local std::function<void (EventContext *)> callback)'
@@ -1791,6 +1646,9 @@ cls.callback {
     TAG_STORE = "return",
     TAG_SCOPE = 'object',
 }
+cls.prop('itemCount')
+cls.prop('contentPane')
+cls.prop('list')
 cls.insert('show', {
     BEFORE = [[
         fairygui::GRoot *root = fairygui::UIRoot;
@@ -1829,26 +1687,17 @@ cls.insert('addItemAt', {
         int parent = lua_gettop(L);
     ]],
 })
-cls.props [[
-    itemCount
-    contentPane
-    list
-]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::Relations'
-cls.funcs [[
-    Relations(fairygui::GObject *owner)
-    void add(fairygui::GObject *target, fairygui::RelationType relationType)
-    void add(fairygui::GObject *target, fairygui::RelationType relationType, bool usePercent)
-    void remove(fairygui::GObject *target, fairygui::RelationType relationType)
-    bool contains(fairygui::GObject *target)
-    void clearFor(fairygui::GObject *target)
-    void clearAll()
-    void onOwnerSizeChanged(float dWidth, float dHeight, bool applyPivot)
-    bool isEmpty()
-]]
-cls.var('handling', [[fairygui::GObject *handling]])
+cls.func(nil, 'Relations(fairygui::GObject *owner)')
+cls.func(nil, 'void add(fairygui::GObject *target, fairygui::RelationType relationType)', 'void add(fairygui::GObject *target, fairygui::RelationType relationType, bool usePercent)')
+cls.func(nil, 'void remove(fairygui::GObject *target, fairygui::RelationType relationType)')
+cls.func(nil, 'bool contains(fairygui::GObject *target)')
+cls.func(nil, 'void clearFor(fairygui::GObject *target)')
+cls.func(nil, 'void clearAll()')
+cls.func(nil, 'void onOwnerSizeChanged(float dWidth, float dHeight, bool applyPivot)')
+cls.func(nil, 'bool isEmpty()')
 cls.func('copyFrom', [[{
     fairygui::Relations *self = olua_toobj<fairygui::Relations>(L, 1);
     fairygui::Relations *source = olua_checkobj<fairygui::Relations>(L, 2);
@@ -1857,9 +1706,8 @@ cls.func('copyFrom', [[{
 
     return 0;
 }]])
-cls.props [[
-    empty
-]]
+cls.var('handling', [[fairygui::GObject *handling]])
+cls.prop('empty')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::RelationType'
@@ -1891,134 +1739,122 @@ cls.enum('Size', 'fairygui::RelationType::Size')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::RelationItem'
-cls.funcs [[
-    RelationItem(fairygui::GObject *owner)
-    @addref(target ^) fairygui::GObject *getTarget()
-    void setTarget(@addref(target ^) fairygui::GObject *value)
-    void add(fairygui::RelationType relationType, bool usePercent)
-    void internalAdd(fairygui::RelationType relationType, bool usePercent)
-    void remove(fairygui::RelationType relationType)
-    void copyFrom(const fairygui::RelationItem &source)
-    bool isEmpty()
-    void applyOnSelfSizeChanged(float dWidth, float dHeight, bool applyPivot)
-]]
-cls.props [[
-    target
-    empty
-]]
+cls.func(nil, 'RelationItem(fairygui::GObject *owner)')
+cls.func(nil, '@addref(target ^) fairygui::GObject *getTarget()')
+cls.func(nil, 'void setTarget(@addref(target ^) fairygui::GObject *value)')
+cls.func(nil, 'void add(fairygui::RelationType relationType, bool usePercent)')
+cls.func(nil, 'void internalAdd(fairygui::RelationType relationType, bool usePercent)')
+cls.func(nil, 'void remove(fairygui::RelationType relationType)')
+cls.func(nil, 'void copyFrom(const fairygui::RelationItem &source)')
+cls.func(nil, 'bool isEmpty()')
+cls.func(nil, 'void applyOnSelfSizeChanged(float dWidth, float dHeight, bool applyPivot)')
+cls.prop('target')
+cls.prop('empty')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::ScrollPane'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    ScrollPane(fairygui::GComponent *owner)
-    @addref(owner ^) fairygui::GComponent *getOwner()
-    @addref(header ^) fairygui::GComponent *getHeader()
-    @addref(footer ^) fairygui::GComponent *getFooter()
-    @addref(vtScrollBar ^) fairygui::GScrollBar *getVtScrollBar()
-    @addref(hzScrollBar ^) fairygui::GScrollBar *getHzScrollBar()
-    bool isBouncebackEffect()
-    void setBouncebackEffect(bool value)
-    bool isTouchEffect()
-    void setTouchEffect(bool value)
-    bool isInertiaDisabled()
-    void setInertiaDisabled(bool value)
-    float getScrollStep()
-    void setScrollStep(float value)
-    bool isSnapToItem()
-    void setSnapToItem(bool value)
-    bool isPageMode()
-    void setPageMode(bool value)
-    @addref(pageController ^) fairygui::GController *getPageController()
-    void setPageController(@addref(pageController ^) fairygui::GController *value)
-    bool isMouseWheelEnabled()
-    void setMouseWheelEnabled(bool value)
-    float getDecelerationRate()
-    void setDecelerationRate(float value)
-    float getPosX()
-    void setPosX(float value, @optional bool ani)
-    float getPosY()
-    void setPosY(float value, @optional bool ani)
-    float getPercX()
-    void setPercX(float value, @optional bool ani)
-    float getPercY()
-    void setPercY(float value, @optional bool ani)
-    bool isBottomMost()
-    bool isRightMost()
-    void scrollLeft(@optional float ratio, @optional bool ani)
-    void scrollRight(@optional float ratio, @optional bool ani)
-    void scrollUp(@optional float ratio, @optional bool ani)
-    void scrollDown(@optional float ratio, @optional bool ani)
-    void scrollTop(@optional bool ani)
-    void scrollBottom(@optional bool ani)
-    void scrollToView(fairygui::GObject *obj, @optional bool ani, @optional bool setFirst)
-    void scrollToView(const cocos2d::Rect &rect, @optional bool ani, @optional bool setFirst)
-    bool isChildInView(fairygui::GObject *obj)
-    int getPageX()
-    void setPageX(int value, @optional bool ani)
-    int getPageY()
-    void setPageY(int value, @optional bool ani)
-    float getScrollingPosX()
-    float getScrollingPosY()
-    const cocos2d::Size &getContentSize()
-    const cocos2d::Size &getViewSize()
-    void lockHeader(int size)
-    void lockFooter(int size)
-    void cancelDragging()
-    static fairygui::ScrollPane *getDraggingPane()
-]]
-cls.props [[
-    owner
-    header
-    footer
-    vtScrollBar
-    hzScrollBar
-    bouncebackEffect
-    touchEffect
-    inertiaDisabled
-    scrollStep
-    snapToItem
-    pageMode
-    pageController
-    mouseWheelEnabled
-    decelerationRate
-    posX
-    posY
-    percX
-    percY
-    bottomMost
-    rightMost
-    pageX
-    pageY
-    scrollingPosX
-    scrollingPosY
-    contentSize
-    viewSize
-    draggingPane
-]]
+cls.func(nil, 'ScrollPane(fairygui::GComponent *owner)')
+cls.func(nil, '@addref(owner ^) fairygui::GComponent *getOwner()')
+cls.func(nil, '@addref(header ^) fairygui::GComponent *getHeader()')
+cls.func(nil, '@addref(footer ^) fairygui::GComponent *getFooter()')
+cls.func(nil, '@addref(vtScrollBar ^) fairygui::GScrollBar *getVtScrollBar()')
+cls.func(nil, '@addref(hzScrollBar ^) fairygui::GScrollBar *getHzScrollBar()')
+cls.func(nil, 'bool isBouncebackEffect()')
+cls.func(nil, 'void setBouncebackEffect(bool value)')
+cls.func(nil, 'bool isTouchEffect()')
+cls.func(nil, 'void setTouchEffect(bool value)')
+cls.func(nil, 'bool isInertiaDisabled()')
+cls.func(nil, 'void setInertiaDisabled(bool value)')
+cls.func(nil, 'float getScrollStep()')
+cls.func(nil, 'void setScrollStep(float value)')
+cls.func(nil, 'bool isSnapToItem()')
+cls.func(nil, 'void setSnapToItem(bool value)')
+cls.func(nil, 'bool isPageMode()')
+cls.func(nil, 'void setPageMode(bool value)')
+cls.func(nil, '@addref(pageController ^) fairygui::GController *getPageController()')
+cls.func(nil, 'void setPageController(@addref(pageController ^) fairygui::GController *value)')
+cls.func(nil, 'bool isMouseWheelEnabled()')
+cls.func(nil, 'void setMouseWheelEnabled(bool value)')
+cls.func(nil, 'float getDecelerationRate()')
+cls.func(nil, 'void setDecelerationRate(float value)')
+cls.func(nil, 'float getPosX()')
+cls.func(nil, 'void setPosX(float value, @optional bool ani)')
+cls.func(nil, 'float getPosY()')
+cls.func(nil, 'void setPosY(float value, @optional bool ani)')
+cls.func(nil, 'float getPercX()')
+cls.func(nil, 'void setPercX(float value, @optional bool ani)')
+cls.func(nil, 'float getPercY()')
+cls.func(nil, 'void setPercY(float value, @optional bool ani)')
+cls.func(nil, 'bool isBottomMost()')
+cls.func(nil, 'bool isRightMost()')
+cls.func(nil, 'void scrollLeft(@optional float ratio, @optional bool ani)')
+cls.func(nil, 'void scrollRight(@optional float ratio, @optional bool ani)')
+cls.func(nil, 'void scrollUp(@optional float ratio, @optional bool ani)')
+cls.func(nil, 'void scrollDown(@optional float ratio, @optional bool ani)')
+cls.func(nil, 'void scrollTop(@optional bool ani)')
+cls.func(nil, 'void scrollBottom(@optional bool ani)')
+cls.func(nil, 'void scrollToView(fairygui::GObject *obj, @optional bool ani, @optional bool setFirst)', 'void scrollToView(const cocos2d::Rect &rect, @optional bool ani, @optional bool setFirst)')
+cls.func(nil, 'bool isChildInView(fairygui::GObject *obj)')
+cls.func(nil, 'int getPageX()')
+cls.func(nil, 'void setPageX(int value, @optional bool ani)')
+cls.func(nil, 'int getPageY()')
+cls.func(nil, 'void setPageY(int value, @optional bool ani)')
+cls.func(nil, 'float getScrollingPosX()')
+cls.func(nil, 'float getScrollingPosY()')
+cls.func(nil, 'const cocos2d::Size &getContentSize()')
+cls.func(nil, 'const cocos2d::Size &getViewSize()')
+cls.func(nil, 'void lockHeader(int size)')
+cls.func(nil, 'void lockFooter(int size)')
+cls.func(nil, 'void cancelDragging()')
+cls.func(nil, 'static fairygui::ScrollPane *getDraggingPane()')
+cls.prop('owner')
+cls.prop('header')
+cls.prop('footer')
+cls.prop('vtScrollBar')
+cls.prop('hzScrollBar')
+cls.prop('bouncebackEffect')
+cls.prop('touchEffect')
+cls.prop('inertiaDisabled')
+cls.prop('scrollStep')
+cls.prop('snapToItem')
+cls.prop('pageMode')
+cls.prop('pageController')
+cls.prop('mouseWheelEnabled')
+cls.prop('decelerationRate')
+cls.prop('posX')
+cls.prop('posY')
+cls.prop('percX')
+cls.prop('percY')
+cls.prop('bottomMost')
+cls.prop('rightMost')
+cls.prop('pageX')
+cls.prop('pageY')
+cls.prop('scrollingPosX')
+cls.prop('scrollingPosY')
+cls.prop('contentSize')
+cls.prop('viewSize')
+cls.prop('draggingPane')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::Transition'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    Transition(fairygui::GComponent *owner)
-    @addref(owner ^) fairygui::GComponent *getOwner()
-    bool isPlaying()
-    void changePlayTimes(int value)
-    void stop()
-    void stop(bool setToComplete, bool processCallback)
-    void setAutoPlay(bool autoPlay, int times, float delay)
-    void setPaused(bool paused)
-    void setValue(const std::string &label, const cocos2d::ValueVector &values)
-    void setTarget(const std::string &label, fairygui::GObject *newTarget)
-    void setDuration(const std::string &label, float value)
-    float getLabelTime(const std::string &label)
-    float getTimeScale()
-    void setTimeScale(float value)
-    void updateFromRelations(const std::string &targetId, float dx, float dy)
-    void onOwnerAddedToStage()
-    void onOwnerRemovedFromStage()
-]]
+cls.func(nil, 'Transition(fairygui::GComponent *owner)')
+cls.func(nil, '@addref(owner ^) fairygui::GComponent *getOwner()')
+cls.func(nil, 'bool isPlaying()')
+cls.func(nil, 'void changePlayTimes(int value)')
+cls.func(nil, 'void stop()', 'void stop(bool setToComplete, bool processCallback)')
+cls.func(nil, 'void setAutoPlay(bool autoPlay, int times, float delay)')
+cls.func(nil, 'void setPaused(bool paused)')
+cls.func(nil, 'void setValue(const std::string &label, const cocos2d::ValueVector &values)')
+cls.func(nil, 'void setTarget(const std::string &label, fairygui::GObject *newTarget)')
+cls.func(nil, 'void setDuration(const std::string &label, float value)')
+cls.func(nil, 'float getLabelTime(const std::string &label)')
+cls.func(nil, 'float getTimeScale()')
+cls.func(nil, 'void setTimeScale(float value)')
+cls.func(nil, 'void updateFromRelations(const std::string &targetId, float dx, float dy)')
+cls.func(nil, 'void onOwnerAddedToStage()')
+cls.func(nil, 'void onOwnerRemovedFromStage()')
 cls.var('name', [[std::string name]])
 cls.callback {
     FUNCS =  {
@@ -2059,18 +1895,14 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    owner
-    playing
-    timeScale
-]]
+cls.prop('owner')
+cls.prop('playing')
+cls.prop('timeScale')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::UIConfig'
-cls.funcs [[
-    static void registerFont(const std::string &aliasName, const std::string &realName)
-    static const std::string &getRealFontName(const std::string &aliasName, @out bool *isTTF)
-]]
+cls.func(nil, 'static void registerFont(const std::string &aliasName, const std::string &realName)')
+cls.func(nil, 'static const std::string &getRealFontName(const std::string &aliasName, @out bool *isTTF)')
 cls.var('defaultFont', [[static std::string defaultFont]])
 cls.var('buttonSound', [[static std::string buttonSound]])
 cls.var('buttonSoundVolumeScale', [[static float buttonSoundVolumeScale]])
@@ -2096,11 +1928,9 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::IUISource'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    const std::string &getFileName()
-    void setFileName(const std::string &value)
-    bool isLoaded()
-]]
+cls.func(nil, 'const std::string &getFileName()')
+cls.func(nil, 'void setFileName(const std::string &value)')
+cls.func(nil, 'bool isLoaded()')
 cls.callback {
     FUNCS =  {
         'void load(@nullable @local std::function<void ()> callback)'
@@ -2110,10 +1940,8 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    fileName
-    loaded
-]]
+cls.prop('fileName')
+cls.prop('loaded')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::UISource'
@@ -2154,45 +1982,49 @@ private:
 };
 NS_FGUI_END
 ]]
-cls.funcs [[
-]]
 cls.func('create', [[static UISource *create()]])
 cls.func('loadComplete', [[void loadComplete()]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::Window'
 cls.SUPERCLS = "fairygui::GComponent"
-cls.funcs [[
-    Window()
-    static fairygui::Window *create()
-    @delref(children ~ parent)@addref(children | parent) void show()
-    @delref(children ~ parent) void hide()
-    @delref(children ~ parent) void hideImmediately()
-    void toggleStatus()
-    void bringToFront()
-    bool isShowing()
-    bool isTop()
-    bool isModal()
-    void setModal(bool value)
-    void showModalWait()
-    void showModalWait(int requestingCmd)
-    bool closeModalWait()
-    bool closeModalWait(int requestingCmd)
-    void initWindow()
-    void addUISource(fairygui::IUISource *uiSource)
-    bool isBringToFrontOnClick()
-    void setBringToFrontOnClick(bool value)
-    @addref(contentPane ^) fairygui::GComponent *getContentPane()
-    void setContentPane(@addref(contentPane ^) fairygui::GComponent *value)
-    @addref(frame ^) fairygui::GComponent *getFrame()
-    @addref(closeButton ^) fairygui::GObject *getCloseButton()
-    void setCloseButton(@addref(closeButton ^) fairygui::GObject *value)
-    @addref(dragArea ^) fairygui::GObject *getDragArea()
-    void setDragArea(@addref(dragArea ^) fairygui::GObject *value)
-    @addref(contentArea ^) fairygui::GObject *getContentArea()
-    void setContentArea(@addref(contentArea ^) fairygui::GObject *value)
-    @addref(modalWaitingPane ^) fairygui::GObject *getModalWaitingPane()
-]]
+cls.func(nil, 'Window()')
+cls.func(nil, 'static fairygui::Window *create()')
+cls.func(nil, '@delref(children ~ parent)@addref(children | parent) void show()')
+cls.func(nil, '@delref(children ~ parent) void hide()')
+cls.func(nil, '@delref(children ~ parent) void hideImmediately()')
+cls.func(nil, 'void toggleStatus()')
+cls.func(nil, 'void bringToFront()')
+cls.func(nil, 'bool isShowing()')
+cls.func(nil, 'bool isTop()')
+cls.func(nil, 'bool isModal()')
+cls.func(nil, 'void setModal(bool value)')
+cls.func(nil, 'void showModalWait()', 'void showModalWait(int requestingCmd)')
+cls.func(nil, 'bool closeModalWait()', 'bool closeModalWait(int requestingCmd)')
+cls.func(nil, 'void initWindow()')
+cls.func(nil, 'void addUISource(fairygui::IUISource *uiSource)')
+cls.func(nil, 'bool isBringToFrontOnClick()')
+cls.func(nil, 'void setBringToFrontOnClick(bool value)')
+cls.func(nil, '@addref(contentPane ^) fairygui::GComponent *getContentPane()')
+cls.func(nil, 'void setContentPane(@addref(contentPane ^) fairygui::GComponent *value)')
+cls.func(nil, '@addref(frame ^) fairygui::GComponent *getFrame()')
+cls.func(nil, '@addref(closeButton ^) fairygui::GObject *getCloseButton()')
+cls.func(nil, 'void setCloseButton(@addref(closeButton ^) fairygui::GObject *value)')
+cls.func(nil, '@addref(dragArea ^) fairygui::GObject *getDragArea()')
+cls.func(nil, 'void setDragArea(@addref(dragArea ^) fairygui::GObject *value)')
+cls.func(nil, '@addref(contentArea ^) fairygui::GObject *getContentArea()')
+cls.func(nil, 'void setContentArea(@addref(contentArea ^) fairygui::GObject *value)')
+cls.func(nil, '@addref(modalWaitingPane ^) fairygui::GObject *getModalWaitingPane()')
+cls.prop('showing')
+cls.prop('top')
+cls.prop('modal')
+cls.prop('bringToFrontOnClick')
+cls.prop('contentPane')
+cls.prop('frame')
+cls.prop('closeButton')
+cls.prop('dragArea')
+cls.prop('contentArea')
+cls.prop('modalWaitingPane')
 cls.insert('show', {
     BEFORE = [[
         fairygui::GComponent *root = fairygui::UIRoot;
@@ -2223,41 +2055,22 @@ cls.insert('hideImmediately', {
         int parent = lua_gettop(L);
     ]],
 })
-cls.props [[
-    showing
-    top
-    modal
-    bringToFrontOnClick
-    contentPane
-    frame
-    closeButton
-    dragArea
-    contentArea
-    modalWaitingPane
-]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::DragDropManager'
-cls.funcs [[
-    DragDropManager()
-    static fairygui::DragDropManager *getInstance()
-    fairygui::GLoader *getAgent()
-    bool isDragging()
-    void startDrag(const std::string &icon, @optional const cocos2d::Value &sourceData, @optional int touchPointID)
-    void cancel()
-]]
-cls.props [[
-    instance
-    agent
-    dragging
-]]
+cls.func(nil, 'DragDropManager()')
+cls.func(nil, 'static fairygui::DragDropManager *getInstance()')
+cls.func(nil, 'fairygui::GLoader *getAgent()')
+cls.func(nil, 'bool isDragging()')
+cls.func(nil, 'void startDrag(const std::string &icon, @optional const cocos2d::Value &sourceData, @optional int touchPointID)')
+cls.func(nil, 'void cancel()')
+cls.prop('instance')
+cls.prop('agent')
+cls.prop('dragging')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::UIObjectFactory'
-cls.funcs [[
-    static fairygui::GObject *newObject(fairygui::PackageItem *pi)
-    static fairygui::GObject *newObject(fairygui::ObjectType type)
-]]
+cls.func(nil, 'static fairygui::GObject *newObject(fairygui::PackageItem *pi)', 'static fairygui::GObject *newObject(fairygui::ObjectType type)')
 cls.callback {
     FUNCS =  {
         'static void setPackageItemExtension(const std::string &url, @local std::function<GComponent *()> creator)'
@@ -2279,175 +2092,150 @@ cls.callback {
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GearBase'
-cls.funcs [[
-    GearBase(fairygui::GObject *owner)
-    static fairygui::GearBase *create(fairygui::GObject *owner, int index)
-]]
+cls.func(nil, 'GearBase(fairygui::GObject *owner)')
+cls.func(nil, 'static fairygui::GearBase *create(fairygui::GObject *owner, int index)')
 cls.var('disableAllTweenEffect', [[static bool disableAllTweenEffect]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GTreeNode'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    static fairygui::GTreeNode *create(@optional bool isFolder, @optional const std::string &resURL)
-    GTreeNode()
-    fairygui::GTreeNode *getParent()
-    fairygui::GTree *getTree()
-    @addref(cell ^) fairygui::GComponent *getCell()
-    const cocos2d::Value &getData()
-    void setData(const cocos2d::Value &value)
-    bool isExpanded()
-    void setExpaned(bool value)
-    bool isFolder()
-    const std::string &getText()
-    void setText(const std::string &value)
-    const std::string &getIcon()
-    void setIcon(const std::string &value)
-    fairygui::GTreeNode *addChild(@addref(children |) fairygui::GTreeNode *child)
-    fairygui::GTreeNode *addChildAt(@addref(children |) fairygui::GTreeNode *child, int index)
-    void removeChild(@delref(children |) fairygui::GTreeNode *child)
-    @delref(children ~) void removeChildAt(int index)
-    @delref(children ~) void removeChildren()
-    @delref(children ~) void removeChildren(int beginIndex, int endIndex)
-    @addref(children |) fairygui::GTreeNode *getChildAt(int index)
-    @addref(children |) fairygui::GTreeNode *getPrevSibling()
-    @addref(children |) fairygui::GTreeNode *getNextSibling()
-    int getChildIndex(const fairygui::GTreeNode *child)
-    void setChildIndex(fairygui::GTreeNode *child, int index)
-    int setChildIndexBefore(fairygui::GTreeNode *child, int index)
-    void swapChildren(fairygui::GTreeNode *child1, fairygui::GTreeNode *child2)
-    void swapChildrenAt(int index1, int index2)
-    int numChildren()
-]]
+cls.func(nil, 'static fairygui::GTreeNode *create(@optional bool isFolder, @optional const std::string &resURL)')
+cls.func(nil, 'GTreeNode()')
+cls.func(nil, 'fairygui::GTreeNode *getParent()')
+cls.func(nil, 'fairygui::GTree *getTree()')
+cls.func(nil, '@addref(cell ^) fairygui::GComponent *getCell()')
+cls.func(nil, 'const cocos2d::Value &getData()')
+cls.func(nil, 'void setData(const cocos2d::Value &value)')
+cls.func(nil, 'bool isExpanded()')
+cls.func(nil, 'void setExpaned(bool value)')
+cls.func(nil, 'bool isFolder()')
+cls.func(nil, 'const std::string &getText()')
+cls.func(nil, 'void setText(const std::string &value)')
+cls.func(nil, 'const std::string &getIcon()')
+cls.func(nil, 'void setIcon(const std::string &value)')
+cls.func(nil, 'fairygui::GTreeNode *addChild(@addref(children |) fairygui::GTreeNode *child)')
+cls.func(nil, 'fairygui::GTreeNode *addChildAt(@addref(children |) fairygui::GTreeNode *child, int index)')
+cls.func(nil, 'void removeChild(@delref(children |) fairygui::GTreeNode *child)')
+cls.func(nil, '@delref(children ~) void removeChildAt(int index)')
+cls.func(nil, '@delref(children ~) void removeChildren()', '@delref(children ~) void removeChildren(int beginIndex, int endIndex)')
+cls.func(nil, '@addref(children |) fairygui::GTreeNode *getChildAt(int index)')
+cls.func(nil, '@addref(children |) fairygui::GTreeNode *getPrevSibling()')
+cls.func(nil, '@addref(children |) fairygui::GTreeNode *getNextSibling()')
+cls.func(nil, 'int getChildIndex(const fairygui::GTreeNode *child)')
+cls.func(nil, 'void setChildIndex(fairygui::GTreeNode *child, int index)')
+cls.func(nil, 'int setChildIndexBefore(fairygui::GTreeNode *child, int index)')
+cls.func(nil, 'void swapChildren(fairygui::GTreeNode *child1, fairygui::GTreeNode *child2)')
+cls.func(nil, 'void swapChildrenAt(int index1, int index2)')
+cls.func(nil, 'int numChildren()')
 cls.prop('numChildren', 'int numChildren()')
-cls.props [[
-    parent
-    tree
-    cell
-    data
-    expanded
-    folder
-    text
-    icon
-    prevSibling
-    nextSibling
-]]
+cls.prop('parent')
+cls.prop('tree')
+cls.prop('cell')
+cls.prop('data')
+cls.prop('expanded')
+cls.prop('folder')
+cls.prop('text')
+cls.prop('icon')
+cls.prop('prevSibling')
+cls.prop('nextSibling')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GTree'
 cls.SUPERCLS = "fairygui::GList"
-cls.funcs [[
-    GTree()
-    static fairygui::GTree *create()
-    int getIndent()
-    void setIndent(int value)
-    int getClickToExpand()
-    void setClickToExpand(int value)
-    @addref(rootNode ^) fairygui::GTreeNode *getRootNode()
-    fairygui::GTreeNode *getSelectedNode()
-    void getSelectedNodes(@out std::vector<GTreeNode *> &result)
-    void selectNode(fairygui::GTreeNode *node, @optional bool scrollItToView)
-    void unselectNode(fairygui::GTreeNode *node)
-    void expandAll(fairygui::GTreeNode *folderNode)
-    void collapseAll(fairygui::GTreeNode *folderNode)
-]]
+cls.func(nil, 'GTree()')
+cls.func(nil, 'static fairygui::GTree *create()')
+cls.func(nil, 'int getIndent()')
+cls.func(nil, 'void setIndent(int value)')
+cls.func(nil, 'int getClickToExpand()')
+cls.func(nil, 'void setClickToExpand(int value)')
+cls.func(nil, '@addref(rootNode ^) fairygui::GTreeNode *getRootNode()')
+cls.func(nil, 'fairygui::GTreeNode *getSelectedNode()')
+cls.func(nil, 'void getSelectedNodes(@out std::vector<GTreeNode *> &result)')
+cls.func(nil, 'void selectNode(fairygui::GTreeNode *node, @optional bool scrollItToView)')
+cls.func(nil, 'void unselectNode(fairygui::GTreeNode *node)')
+cls.func(nil, 'void expandAll(fairygui::GTreeNode *folderNode)')
+cls.func(nil, 'void collapseAll(fairygui::GTreeNode *folderNode)')
 cls.var('treeNodeRender', [[@nullable std::function<void (GTreeNode *, GComponent *)> treeNodeRender]])
 cls.var('treeNodeWillExpand', [[@nullable std::function<void (GTreeNode *, bool)> treeNodeWillExpand]])
-cls.props [[
-    indent
-    clickToExpand
-    rootNode
-    selectedNode
-]]
+cls.prop('indent')
+cls.prop('clickToExpand')
+cls.prop('rootNode')
+cls.prop('selectedNode')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::FUIContainer'
 cls.SUPERCLS = "cocos2d::Node"
-cls.funcs [[
-    FUIContainer()
-    static fairygui::FUIContainer *create()
-    bool isClippingEnabled()
-    void setClippingEnabled(bool value)
-    const cocos2d::Rect &getClippingRegion()
-    void setClippingRegion(const cocos2d::Rect &clippingRegion)
-    cocos2d::Node *getStencil()
-    void setStencil(cocos2d::Node *stencil)
-    float getAlphaThreshold()
-    void setAlphaThreshold(float alphaThreshold)
-    bool isInverted()
-    void setInverted(bool inverted)
-]]
+cls.func(nil, 'FUIContainer()')
+cls.func(nil, 'static fairygui::FUIContainer *create()')
+cls.func(nil, 'bool isClippingEnabled()')
+cls.func(nil, 'void setClippingEnabled(bool value)')
+cls.func(nil, 'const cocos2d::Rect &getClippingRegion()')
+cls.func(nil, 'void setClippingRegion(const cocos2d::Rect &clippingRegion)')
+cls.func(nil, 'cocos2d::Node *getStencil()')
+cls.func(nil, 'void setStencil(cocos2d::Node *stencil)')
+cls.func(nil, 'float getAlphaThreshold()')
+cls.func(nil, 'void setAlphaThreshold(float alphaThreshold)')
+cls.func(nil, 'bool isInverted()')
+cls.func(nil, 'void setInverted(bool inverted)')
 cls.var('gOwner', [[fairygui::GObject *gOwner]])
-cls.props [[
-    clippingEnabled
-    clippingRegion
-    stencil
-    alphaThreshold
-    inverted
-]]
+cls.prop('clippingEnabled')
+cls.prop('clippingRegion')
+cls.prop('stencil')
+cls.prop('alphaThreshold')
+cls.prop('inverted')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::FUIInput'
 cls.SUPERCLS = "cocos2d::ui::EditBox"
-cls.funcs [[
-    static fairygui::FUIInput *create()
-    FUIInput()
-    void setText(const std::string &value)
-    fairygui::TextFormat *getTextFormat()
-    void applyTextFormat()
-    bool isSingleLine()
-    void setSingleLine(bool value)
-    bool isPassword()
-    void setPassword(bool value)
-    int keyboardType()
-    void setKeyboardType(int value)
-]]
-cls.props [[
-    textFormat
-    singleLine
-    password
-]]
+cls.func(nil, 'static fairygui::FUIInput *create()')
+cls.func(nil, 'FUIInput()')
+cls.func(nil, 'void setText(const std::string &value)')
+cls.func(nil, 'fairygui::TextFormat *getTextFormat()')
+cls.func(nil, 'void applyTextFormat()')
+cls.func(nil, 'bool isSingleLine()')
+cls.func(nil, 'void setSingleLine(bool value)')
+cls.func(nil, 'bool isPassword()')
+cls.func(nil, 'void setPassword(bool value)')
+cls.func(nil, 'int keyboardType()')
+cls.func(nil, 'void setKeyboardType(int value)')
+cls.prop('textFormat')
+cls.prop('singleLine')
+cls.prop('password')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::FUILabel'
 cls.SUPERCLS = "cocos2d::Label"
-cls.funcs [[
-    FUILabel()
-    static fairygui::FUILabel *create()
-    const std::string &getText()
-    void setText(const std::string &value)
-    fairygui::TextFormat *getTextFormat()
-    void applyTextFormat()
-    void setUnderlineColor(const cocos2d::Color3B &value)
-    void setGrayed(bool value)
-]]
-cls.props [[
-    text
-    textFormat
-]]
+cls.func(nil, 'FUILabel()')
+cls.func(nil, 'static fairygui::FUILabel *create()')
+cls.func(nil, 'const std::string &getText()')
+cls.func(nil, 'void setText(const std::string &value)')
+cls.func(nil, 'fairygui::TextFormat *getTextFormat()')
+cls.func(nil, 'void applyTextFormat()')
+cls.func(nil, 'void setUnderlineColor(const cocos2d::Color3B &value)')
+cls.func(nil, 'void setGrayed(bool value)')
+cls.prop('text')
+cls.prop('textFormat')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::FUIRichText'
 cls.SUPERCLS = "cocos2d::Node"
-cls.funcs [[
-    FUIRichText()
-    static fairygui::FUIRichText *create()
-    const cocos2d::Size &getDimensions()
-    void setDimensions(float width, float height)
-    void setText(const std::string &value)
-    fairygui::TextFormat *getTextFormat()
-    void applyTextFormat()
-    cocos2d::Label::Overflow getOverflow()
-    void setOverflow(cocos2d::Label::Overflow overflow)
-    bool isAnchorTextUnderline()
-    void setAnchorTextUnderline(bool enable)
-    const cocos2d::Color3B &getAnchorFontColor()
-    void setAnchorFontColor(const cocos2d::Color3B &color)
-    fairygui::HtmlParseOptions &parseOptions()
-    const std::vector<HtmlObject *> &getControls()
-    fairygui::HtmlObject *getControl(const std::string &name)
-    const char *hitTestLink(const cocos2d::Vec2 &worldPoint)
-]]
+cls.func(nil, 'FUIRichText()')
+cls.func(nil, 'static fairygui::FUIRichText *create()')
+cls.func(nil, 'const cocos2d::Size &getDimensions()')
+cls.func(nil, 'void setDimensions(float width, float height)')
+cls.func(nil, 'void setText(const std::string &value)')
+cls.func(nil, 'fairygui::TextFormat *getTextFormat()')
+cls.func(nil, 'void applyTextFormat()')
+cls.func(nil, 'cocos2d::Label::Overflow getOverflow()')
+cls.func(nil, 'void setOverflow(cocos2d::Label::Overflow overflow)')
+cls.func(nil, 'bool isAnchorTextUnderline()')
+cls.func(nil, 'void setAnchorTextUnderline(bool enable)')
+cls.func(nil, 'const cocos2d::Color3B &getAnchorFontColor()')
+cls.func(nil, 'void setAnchorFontColor(const cocos2d::Color3B &color)')
+cls.func(nil, 'fairygui::HtmlParseOptions &parseOptions()')
+cls.func(nil, 'const std::vector<HtmlObject *> &getControls()')
+cls.func(nil, 'fairygui::HtmlObject *getControl(const std::string &name)')
+cls.func(nil, 'const char *hitTestLink(const cocos2d::Vec2 &worldPoint)')
 cls.callback {
     FUNCS =  {
         'void setObjectFactory(@local const std::function<HtmlObject *(HtmlElement *)> &value)'
@@ -2457,62 +2245,52 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    dimensions
-    textFormat
-    overflow
-    anchorTextUnderline
-    anchorFontColor
-    controls
-]]
+cls.prop('dimensions')
+cls.prop('textFormat')
+cls.prop('overflow')
+cls.prop('anchorTextUnderline')
+cls.prop('anchorFontColor')
+cls.prop('controls')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::FUISprite'
 cls.SUPERCLS = "cocos2d::Sprite"
-cls.funcs [[
-    FUISprite()
-    static fairygui::FUISprite *create()
-    void clearContent()
-    void setGrayed(bool value)
-    fairygui::FillMethod getFillMethod()
-    void setFillMethod(fairygui::FillMethod value)
-    fairygui::FillOrigin getFillOrigin()
-    void setFillOrigin(fairygui::FillOrigin value)
-    bool isFillClockwise()
-    void setFillClockwise(bool value)
-    float getFillAmount()
-    void setFillAmount(float value)
-    bool isScaleByTile()
-    void setScaleByTile(bool value)
-]]
-cls.props [[
-    fillMethod
-    fillOrigin
-    fillClockwise
-    fillAmount
-    scaleByTile
-]]
+cls.func(nil, 'FUISprite()')
+cls.func(nil, 'static fairygui::FUISprite *create()')
+cls.func(nil, 'void clearContent()')
+cls.func(nil, 'void setGrayed(bool value)')
+cls.func(nil, 'fairygui::FillMethod getFillMethod()')
+cls.func(nil, 'void setFillMethod(fairygui::FillMethod value)')
+cls.func(nil, 'fairygui::FillOrigin getFillOrigin()')
+cls.func(nil, 'void setFillOrigin(fairygui::FillOrigin value)')
+cls.func(nil, 'bool isFillClockwise()')
+cls.func(nil, 'void setFillClockwise(bool value)')
+cls.func(nil, 'float getFillAmount()')
+cls.func(nil, 'void setFillAmount(float value)')
+cls.func(nil, 'bool isScaleByTile()')
+cls.func(nil, 'void setScaleByTile(bool value)')
+cls.prop('fillMethod')
+cls.prop('fillOrigin')
+cls.prop('fillClockwise')
+cls.prop('fillAmount')
+cls.prop('scaleByTile')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::HtmlObject'
-cls.funcs [[
-    HtmlObject()
-    fairygui::HtmlElement *getElement()
-    fairygui::GObject *getUI()
-    bool isHidden()
-    void create(fairygui::FUIRichText *owner, fairygui::HtmlElement *element)
-    void destroy()
-]]
+cls.func(nil, 'HtmlObject()')
+cls.func(nil, 'fairygui::HtmlElement *getElement()')
+cls.func(nil, 'fairygui::GObject *getUI()')
+cls.func(nil, 'bool isHidden()')
+cls.func(nil, 'void create(fairygui::FUIRichText *owner, fairygui::HtmlElement *element)')
+cls.func(nil, 'void destroy()')
 cls.var('buttonResource', [[static std::string buttonResource]])
 cls.var('inputResource', [[static std::string inputResource]])
 cls.var('selectResource', [[static std::string selectResource]])
 cls.var('usePool', [[static bool usePool]])
 cls.var('loaderPool', [[static cocos2d::Vector<GObject *> loaderPool]])
-cls.props [[
-    element
-    ui
-    hidden
-]]
+cls.prop('element')
+cls.prop('ui')
+cls.prop('hidden')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::HtmlElement::Type'
@@ -2525,12 +2303,10 @@ cls.enum('OBJECT', 'fairygui::HtmlElement::Type::OBJECT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::HtmlElement'
-cls.funcs [[
-    HtmlElement(fairygui::HtmlElement::Type type)
-    int getInt(const std::string &attrName, @optional int defValue)
-    std::string getString(const std::string &attrName, @optional const std::string &defValue)
-    cocos2d::ValueVector &getArray(const std::string &attrName)
-]]
+cls.func(nil, 'HtmlElement(fairygui::HtmlElement::Type type)')
+cls.func(nil, 'int getInt(const std::string &attrName, @optional int defValue)')
+cls.func(nil, 'std::string getString(const std::string &attrName, @optional const std::string &defValue)')
+cls.func(nil, 'cocos2d::ValueVector &getArray(const std::string &attrName)')
 cls.var('type', [[fairygui::HtmlElement::Type type]])
 cls.var('text', [[std::string text]])
 cls.var('format', [[fairygui::TextFormat format]])

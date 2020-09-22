@@ -273,68 +273,53 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::Buffer'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    void updateData(void *data, std::size_t size)
-    void updateSubData(void *data, std::size_t offset, std::size_t size)
-    void usingDefaultStoredData(bool needDefaultStoredData)
-    std::size_t getSize()
-]]
-cls.props [[
-    size
-]]
+cls.func(nil, 'void updateData(void *data, std::size_t size)')
+cls.func(nil, 'void updateSubData(void *data, std::size_t offset, std::size_t size)')
+cls.func(nil, 'void usingDefaultStoredData(bool needDefaultStoredData)')
+cls.func(nil, 'std::size_t getSize()')
+cls.prop('size')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::RenderPipeline'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::DepthStencilState'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::VertexLayout'
-cls.funcs [[
-    VertexLayout()
-    void setAttribute(const std::string &name, std::size_t index, cocos2d::backend::VertexFormat format, std::size_t offset, bool needToBeNormallized)
-    void setLayout(std::size_t stride)
-    std::size_t getStride()
-    cocos2d::backend::VertexStepMode getVertexStepMode()
-    const std::unordered_map<std::string, Attribute> &getAttributes()
-    bool isValid()
-]]
-cls.props [[
-    stride
-    vertexStepMode
-    attributes
-    valid
-]]
+cls.func(nil, 'VertexLayout()')
+cls.func(nil, 'void setAttribute(const std::string &name, std::size_t index, cocos2d::backend::VertexFormat format, std::size_t offset, bool needToBeNormallized)')
+cls.func(nil, 'void setLayout(std::size_t stride)')
+cls.func(nil, 'std::size_t getStride()')
+cls.func(nil, 'cocos2d::backend::VertexStepMode getVertexStepMode()')
+cls.func(nil, 'const std::unordered_map<std::string, Attribute> &getAttributes()')
+cls.func(nil, 'bool isValid()')
+cls.prop('stride')
+cls.prop('vertexStepMode')
+cls.prop('attributes')
+cls.prop('valid')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::CommandBuffer'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    void beginFrame()
-    void setRenderPipeline(cocos2d::backend::RenderPipeline *renderPipeline)
-    void setViewport(int x, int y, unsigned int w, unsigned int h)
-    void setCullMode(cocos2d::backend::CullMode mode)
-    void setWinding(cocos2d::backend::Winding winding)
-    void setVertexBuffer(cocos2d::backend::Buffer *buffer)
-    void setProgramState(cocos2d::backend::ProgramState *programState)
-    void setIndexBuffer(cocos2d::backend::Buffer *buffer)
-    void drawArrays(cocos2d::backend::PrimitiveType primitiveType, std::size_t start, std::size_t count)
-    void drawElements(cocos2d::backend::PrimitiveType primitiveType, cocos2d::backend::IndexFormat indexType, std::size_t count, std::size_t offset)
-    void endRenderPass()
-    void endFrame()
-    void setLineWidth(float lineWidth)
-    void setScissorRect(bool isEnabled, float x, float y, float width, float height)
-    void setDepthStencilState(cocos2d::backend::DepthStencilState *depthStencilState)
-    void setStencilReferenceValue(unsigned int value)
-    void setStencilReferenceValue(unsigned int frontRef, unsigned int backRef)
-]]
+cls.func(nil, 'void beginFrame()')
+cls.func(nil, 'void setRenderPipeline(cocos2d::backend::RenderPipeline *renderPipeline)')
+cls.func(nil, 'void setViewport(int x, int y, unsigned int w, unsigned int h)')
+cls.func(nil, 'void setCullMode(cocos2d::backend::CullMode mode)')
+cls.func(nil, 'void setWinding(cocos2d::backend::Winding winding)')
+cls.func(nil, 'void setVertexBuffer(cocos2d::backend::Buffer *buffer)')
+cls.func(nil, 'void setProgramState(cocos2d::backend::ProgramState *programState)')
+cls.func(nil, 'void setIndexBuffer(cocos2d::backend::Buffer *buffer)')
+cls.func(nil, 'void drawArrays(cocos2d::backend::PrimitiveType primitiveType, std::size_t start, std::size_t count)')
+cls.func(nil, 'void drawElements(cocos2d::backend::PrimitiveType primitiveType, cocos2d::backend::IndexFormat indexType, std::size_t count, std::size_t offset)')
+cls.func(nil, 'void endRenderPass()')
+cls.func(nil, 'void endFrame()')
+cls.func(nil, 'void setLineWidth(float lineWidth)')
+cls.func(nil, 'void setScissorRect(bool isEnabled, float x, float y, float width, float height)')
+cls.func(nil, 'void setDepthStencilState(cocos2d::backend::DepthStencilState *depthStencilState)')
+cls.func(nil, 'void setStencilReferenceValue(unsigned int value)', 'void setStencilReferenceValue(unsigned int frontRef, unsigned int backRef)')
 cls.callback {
     FUNCS =  {
         'void captureScreen(@local std::function<void (const unsigned char *, int, int)> callback)'
@@ -348,17 +333,17 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::Device'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    static cocos2d::backend::Device *getInstance()
-    cocos2d::backend::CommandBuffer *newCommandBuffer()
-    cocos2d::backend::Buffer *newBuffer(size_t size, cocos2d::backend::BufferType type, cocos2d::backend::BufferUsage usage)
-    cocos2d::backend::TextureBackend *newTexture(const cocos2d::backend::TextureDescriptor &descriptor)
-    cocos2d::backend::DepthStencilState *createDepthStencilState(const cocos2d::backend::DepthStencilDescriptor &descriptor)
-    cocos2d::backend::RenderPipeline *newRenderPipeline()
-    void setFrameBufferOnly(bool frameBufferOnly)
-    cocos2d::backend::Program *newProgram(const std::string &vertexShader, const std::string &fragmentShader)
-    cocos2d::backend::DeviceInfo *getDeviceInfo()
-]]
+cls.func(nil, 'static cocos2d::backend::Device *getInstance()')
+cls.func(nil, 'cocos2d::backend::CommandBuffer *newCommandBuffer()')
+cls.func(nil, 'cocos2d::backend::Buffer *newBuffer(size_t size, cocos2d::backend::BufferType type, cocos2d::backend::BufferUsage usage)')
+cls.func(nil, 'cocos2d::backend::TextureBackend *newTexture(const cocos2d::backend::TextureDescriptor &descriptor)')
+cls.func(nil, 'cocos2d::backend::DepthStencilState *createDepthStencilState(const cocos2d::backend::DepthStencilDescriptor &descriptor)')
+cls.func(nil, 'cocos2d::backend::RenderPipeline *newRenderPipeline()')
+cls.func(nil, 'void setFrameBufferOnly(bool frameBufferOnly)')
+cls.func(nil, 'cocos2d::backend::Program *newProgram(const std::string &vertexShader, const std::string &fragmentShader)')
+cls.func(nil, 'cocos2d::backend::DeviceInfo *getDeviceInfo()')
+cls.prop('instance')
+cls.prop('deviceInfo')
 cls.insert('newProgram', {
     AFTER = [[
         ret->autorelease();
@@ -384,78 +369,58 @@ cls.insert('newCommandBuffer', {
         ret->autorelease();
     ]],
 })
-cls.props [[
-    instance
-    deviceInfo
-]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::DeviceInfo'
-cls.funcs [[
-    bool init()
-    const char *getVendor()
-    const char *getRenderer()
-    const char *getVersion()
-    const char *getExtension()
-    bool checkForFeatureSupported(cocos2d::backend::FeatureType feature)
-    int getMaxTextureSize()
-    int getMaxAttributes()
-    int getMaxTextureUnits()
-    int getMaxSamplesAllowed()
-]]
-cls.props [[
-    vendor
-    renderer
-    version
-    extension
-    maxTextureSize
-    maxAttributes
-    maxTextureUnits
-    maxSamplesAllowed
-]]
+cls.func(nil, 'bool init()')
+cls.func(nil, 'const char *getVendor()')
+cls.func(nil, 'const char *getRenderer()')
+cls.func(nil, 'const char *getVersion()')
+cls.func(nil, 'const char *getExtension()')
+cls.func(nil, 'bool checkForFeatureSupported(cocos2d::backend::FeatureType feature)')
+cls.func(nil, 'int getMaxTextureSize()')
+cls.func(nil, 'int getMaxAttributes()')
+cls.func(nil, 'int getMaxTextureUnits()')
+cls.func(nil, 'int getMaxSamplesAllowed()')
+cls.prop('vendor')
+cls.prop('renderer')
+cls.prop('version')
+cls.prop('extension')
+cls.prop('maxTextureSize')
+cls.prop('maxAttributes')
+cls.prop('maxTextureUnits')
+cls.prop('maxSamplesAllowed')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::ShaderCache'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    static cocos2d::backend::ShaderCache *getInstance()
-    static void destroyInstance()
-    static cocos2d::backend::ShaderModule *newVertexShaderModule(const std::string &shaderSource)
-    static cocos2d::backend::ShaderModule *newFragmentShaderModule(const std::string &shaderSource)
-    void removeUnusedShader()
-]]
-cls.props [[
-    instance
-]]
+cls.func(nil, 'static cocos2d::backend::ShaderCache *getInstance()')
+cls.func(nil, 'static void destroyInstance()')
+cls.func(nil, 'static cocos2d::backend::ShaderModule *newVertexShaderModule(const std::string &shaderSource)')
+cls.func(nil, 'static cocos2d::backend::ShaderModule *newFragmentShaderModule(const std::string &shaderSource)')
+cls.func(nil, 'void removeUnusedShader()')
+cls.prop('instance')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::ShaderModule'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    cocos2d::backend::ShaderStage getShaderStage()
-    std::size_t getHashValue()
-]]
-cls.props [[
-    shaderStage
-    hashValue
-]]
+cls.func(nil, 'cocos2d::backend::ShaderStage getShaderStage()')
+cls.func(nil, 'std::size_t getHashValue()')
+cls.prop('shaderStage')
+cls.prop('hashValue')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::ProgramCache'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    static cocos2d::backend::ProgramCache *getInstance()
-    static void destroyInstance()
-    cocos2d::backend::Program *getBuiltinProgram(cocos2d::backend::ProgramType type)
-    void removeProgram(cocos2d::backend::Program *program)
-    void removeUnusedProgram()
-    void removeAllPrograms()
-    void addCustomProgram(const std::string &key, cocos2d::backend::Program *program)
-    cocos2d::backend::Program *getCustomProgram(const std::string &key)
-]]
-cls.props [[
-    instance
-]]
+cls.func(nil, 'static cocos2d::backend::ProgramCache *getInstance()')
+cls.func(nil, 'static void destroyInstance()')
+cls.func(nil, 'cocos2d::backend::Program *getBuiltinProgram(cocos2d::backend::ProgramType type)')
+cls.func(nil, 'void removeProgram(cocos2d::backend::Program *program)')
+cls.func(nil, 'void removeUnusedProgram()')
+cls.func(nil, 'void removeAllPrograms()')
+cls.func(nil, 'void addCustomProgram(const std::string &key, cocos2d::backend::Program *program)')
+cls.func(nil, 'cocos2d::backend::Program *getCustomProgram(const std::string &key)')
+cls.prop('instance')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::ProgramState'
@@ -506,21 +471,17 @@ template <typename T> int _cocos2d_backend_ProgramState_setUniform(lua_State *L)
     return 0;
 }
 ]]
-cls.funcs [[
-    ProgramState(cocos2d::backend::Program *program)
-    cocos2d::backend::ProgramState *clone()
-    cocos2d::backend::Program *getProgram()
-    void setUniform(const cocos2d::backend::UniformLocation &uniformLocation, const void *data, std::size_t size)
-    cocos2d::backend::UniformLocation getUniformLocation(const std::string &uniform)
-    cocos2d::backend::UniformLocation getUniformLocation(cocos2d::backend::Uniform name)
-    int getAttributeLocation(const std::string &name)
-    int getAttributeLocation(cocos2d::backend::Attribute name)
-    void setTexture(const cocos2d::backend::UniformLocation &uniformLocation, uint32_t slot, cocos2d::backend::TextureBackend *texture)
-    void setTextureArray(const cocos2d::backend::UniformLocation &uniformLocation, const std::vector<uint32_t> &slots, const std::vector<backend::TextureBackend *> textures)
-    const std::unordered_map<int, TextureInfo> &getVertexTextureInfos()
-    const std::unordered_map<int, TextureInfo> &getFragmentTextureInfos()
-    void setParameterAutoBinding(const std::string &uniformName, const std::string &autoBinding)
-]]
+cls.func(nil, 'ProgramState(cocos2d::backend::Program *program)')
+cls.func(nil, 'cocos2d::backend::ProgramState *clone()')
+cls.func(nil, 'cocos2d::backend::Program *getProgram()')
+cls.func(nil, 'void setUniform(const cocos2d::backend::UniformLocation &uniformLocation, const void *data, std::size_t size)')
+cls.func(nil, 'cocos2d::backend::UniformLocation getUniformLocation(const std::string &uniform)', 'cocos2d::backend::UniformLocation getUniformLocation(cocos2d::backend::Uniform name)')
+cls.func(nil, 'int getAttributeLocation(const std::string &name)', 'int getAttributeLocation(cocos2d::backend::Attribute name)')
+cls.func(nil, 'void setTexture(const cocos2d::backend::UniformLocation &uniformLocation, uint32_t slot, cocos2d::backend::TextureBackend *texture)')
+cls.func(nil, 'void setTextureArray(const cocos2d::backend::UniformLocation &uniformLocation, const std::vector<uint32_t> &slots, const std::vector<backend::TextureBackend *> textures)')
+cls.func(nil, 'const std::unordered_map<int, TextureInfo> &getVertexTextureInfos()')
+cls.func(nil, 'const std::unordered_map<int, TextureInfo> &getFragmentTextureInfos()')
+cls.func(nil, 'void setParameterAutoBinding(const std::string &uniformName, const std::string &autoBinding)')
 cls.func('getVertexLayout', [[{
     auto self = olua_toobj<cocos2d::backend::ProgramState>(L, 1);
     olua_push_cppobj<cocos2d::backend::VertexLayout>(L, self->getVertexLayout().get());
@@ -551,52 +512,42 @@ cls.func('setUniformFloat', [[{
     _cocos2d_backend_ProgramState_setUniform<float>(L);
     return 0;
 }]])
-cls.props [[
-    program
-    vertexTextureInfos
-    fragmentTextureInfos
-]]
+cls.prop('program')
+cls.prop('vertexTextureInfos')
+cls.prop('fragmentTextureInfos')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::Program'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    static cocos2d::backend::Program *getBuiltinProgram(cocos2d::backend::ProgramType type)
-    cocos2d::backend::UniformLocation getUniformLocation(const std::string &uniform)
-    cocos2d::backend::UniformLocation getUniformLocation(cocos2d::backend::Uniform name)
-    int getAttributeLocation(const std::string &name)
-    int getAttributeLocation(cocos2d::backend::Attribute name)
-    int getMaxVertexLocation()
-    int getMaxFragmentLocation()
-    const std::unordered_map<std::string, AttributeBindInfo> getActiveAttributes()
-    const std::string &getVertexShader()
-    const std::string &getFragmentShader()
-    cocos2d::backend::ProgramType getProgramType()
-    std::size_t getUniformBufferSize(cocos2d::backend::ShaderStage stage)
-    const cocos2d::backend::UniformInfo &getActiveUniformInfo(cocos2d::backend::ShaderStage stage, int location)
-    const std::unordered_map<std::string, UniformInfo> &getAllActiveUniformInfo(cocos2d::backend::ShaderStage stage)
-]]
-cls.props [[
-    maxVertexLocation
-    maxFragmentLocation
-    activeAttributes
-    vertexShader
-    fragmentShader
-    programType
-]]
+cls.func(nil, 'static cocos2d::backend::Program *getBuiltinProgram(cocos2d::backend::ProgramType type)')
+cls.func(nil, 'cocos2d::backend::UniformLocation getUniformLocation(const std::string &uniform)', 'cocos2d::backend::UniformLocation getUniformLocation(cocos2d::backend::Uniform name)')
+cls.func(nil, 'int getAttributeLocation(const std::string &name)', 'int getAttributeLocation(cocos2d::backend::Attribute name)')
+cls.func(nil, 'int getMaxVertexLocation()')
+cls.func(nil, 'int getMaxFragmentLocation()')
+cls.func(nil, 'const std::unordered_map<std::string, AttributeBindInfo> getActiveAttributes()')
+cls.func(nil, 'const std::string &getVertexShader()')
+cls.func(nil, 'const std::string &getFragmentShader()')
+cls.func(nil, 'cocos2d::backend::ProgramType getProgramType()')
+cls.func(nil, 'std::size_t getUniformBufferSize(cocos2d::backend::ShaderStage stage)')
+cls.func(nil, 'const cocos2d::backend::UniformInfo &getActiveUniformInfo(cocos2d::backend::ShaderStage stage, int location)')
+cls.func(nil, 'const std::unordered_map<std::string, UniformInfo> &getAllActiveUniformInfo(cocos2d::backend::ShaderStage stage)')
+cls.prop('maxVertexLocation')
+cls.prop('maxFragmentLocation')
+cls.prop('activeAttributes')
+cls.prop('vertexShader')
+cls.prop('fragmentShader')
+cls.prop('programType')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::TextureBackend'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    void updateSamplerDescriptor(const cocos2d::backend::SamplerDescriptor &sampler)
-    void generateMipmaps()
-    void updateTextureDescriptor(const cocos2d::backend::TextureDescriptor &descriptor)
-    cocos2d::backend::PixelFormat getTextureFormat()
-    cocos2d::backend::TextureUsage getTextureUsage()
-    cocos2d::backend::TextureType getTextureType()
-    bool hasMipmaps()
-]]
+cls.func(nil, 'void updateSamplerDescriptor(const cocos2d::backend::SamplerDescriptor &sampler)')
+cls.func(nil, 'void generateMipmaps()')
+cls.func(nil, 'void updateTextureDescriptor(const cocos2d::backend::TextureDescriptor &descriptor)')
+cls.func(nil, 'cocos2d::backend::PixelFormat getTextureFormat()')
+cls.func(nil, 'cocos2d::backend::TextureUsage getTextureUsage()')
+cls.func(nil, 'cocos2d::backend::TextureType getTextureType()')
+cls.func(nil, 'bool hasMipmaps()')
 cls.callback {
     FUNCS =  {
         'void getBytes(std::size_t x, std::size_t y, std::size_t width, std::size_t height, bool flipImage, @local std::function<void (const unsigned char *, std::size_t, std::size_t)> callback)'
@@ -606,34 +557,26 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'once',
 }
-cls.props [[
-    textureFormat
-    textureUsage
-    textureType
-]]
+cls.prop('textureFormat')
+cls.prop('textureUsage')
+cls.prop('textureType')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::Texture2DBackend'
 cls.SUPERCLS = "cocos2d::backend::TextureBackend"
-cls.funcs [[
-    void updateData(uint8_t *data, std::size_t width, std::size_t height, std::size_t level)
-    void updateCompressedData(uint8_t *data, std::size_t width, std::size_t height, std::size_t dataLen, std::size_t level)
-    void updateSubData(std::size_t xoffset, std::size_t yoffset, std::size_t width, std::size_t height, std::size_t level, uint8_t *data)
-    void updateCompressedSubData(std::size_t xoffset, std::size_t yoffset, std::size_t width, std::size_t height, std::size_t dataLen, std::size_t level, uint8_t *data)
-    std::size_t getWidth()
-    std::size_t getHeight()
-]]
-cls.props [[
-    width
-    height
-]]
+cls.func(nil, 'void updateData(uint8_t *data, std::size_t width, std::size_t height, std::size_t level)')
+cls.func(nil, 'void updateCompressedData(uint8_t *data, std::size_t width, std::size_t height, std::size_t dataLen, std::size_t level)')
+cls.func(nil, 'void updateSubData(std::size_t xoffset, std::size_t yoffset, std::size_t width, std::size_t height, std::size_t level, uint8_t *data)')
+cls.func(nil, 'void updateCompressedSubData(std::size_t xoffset, std::size_t yoffset, std::size_t width, std::size_t height, std::size_t dataLen, std::size_t level, uint8_t *data)')
+cls.func(nil, 'std::size_t getWidth()')
+cls.func(nil, 'std::size_t getHeight()')
+cls.prop('width')
+cls.prop('height')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::backend::TextureCubemapBackend'
 cls.SUPERCLS = "cocos2d::backend::TextureBackend"
-cls.funcs [[
-    void updateFaceData(cocos2d::backend::TextureCubeFace side, void *data)
-]]
+cls.func(nil, 'void updateFaceData(cocos2d::backend::TextureCubeFace side, void *data)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 return M

@@ -43,12 +43,10 @@ M.CLASSES = {}
 
 cls = typecls 'xgame::SceneNoCamera'
 cls.SUPERCLS = "cocos2d::Scene"
-cls.funcs [[
-    static xgame::SceneNoCamera *create()
-    static xgame::SceneNoCamera *createWithSize(const cocos2d::Size &size)
-    static xgame::SceneNoCamera *createWithPhysics()
-    SceneNoCamera()
-]]
+cls.func(nil, 'static xgame::SceneNoCamera *create()')
+cls.func(nil, 'static xgame::SceneNoCamera *createWithSize(const cocos2d::Size &size)')
+cls.func(nil, 'static xgame::SceneNoCamera *createWithPhysics()')
+cls.func(nil, 'SceneNoCamera()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::Permission'
@@ -65,40 +63,38 @@ cls.enum('AUTHORIZED', 'xgame::PermissionStatus::AUTHORIZED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::runtime'
-cls.funcs [[
-    static void clearStorage()
-    static bool launch(const std::string &scriptPath)
-    static bool restart()
-    static bool isRestarting()
-    static bool isDebug()
-    static float getTime()
-    static void gc()
-    static const std::string getVersion()
-    static const std::string getPackageName()
-    static const std::string getAppVersion()
-    static const std::string getAppBuild()
-    static const std::string getChannel()
-    static const std::string getOS()
-    static const std::string getDeviceInfo()
-    static const std::string getLanguage()
-    static const std::string getManifestVersion()
-    static void setManifestVersion(const std::string &version)
-    static const std::string getNetworkStatus()
-    static cocos2d::RenderTexture *capture(cocos2d::Node *node, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
-    static const xgame::PermissionStatus getPermissionStatus(xgame::Permission permission)
-    static void setAudioSessionCatalog(const std::string &catalog)
-    static const std::string getAudioSessionCatalog()
-    static std::string getIDFA()
-    static bool isAdvertisingTrackingEnabled()
-    static bool canOpenURL(const std::string &uri)
-    static void setLogPath(const std::string &path)
-    static const std::string getLogPath()
-    static void setSampleCount(unsigned int samples)
-    static unsigned int getSampleCount()
-    static bool support(const std::string &api)
-    static void printSupport()
-    static void disableReport()
-]]
+cls.func(nil, 'static void clearStorage()')
+cls.func(nil, 'static bool launch(const std::string &scriptPath)')
+cls.func(nil, 'static bool restart()')
+cls.func(nil, 'static bool isRestarting()')
+cls.func(nil, 'static bool isDebug()')
+cls.func(nil, 'static float getTime()')
+cls.func(nil, 'static void gc()')
+cls.func(nil, 'static const std::string getVersion()')
+cls.func(nil, 'static const std::string getPackageName()')
+cls.func(nil, 'static const std::string getAppVersion()')
+cls.func(nil, 'static const std::string getAppBuild()')
+cls.func(nil, 'static const std::string getChannel()')
+cls.func(nil, 'static const std::string getOS()')
+cls.func(nil, 'static const std::string getDeviceInfo()')
+cls.func(nil, 'static const std::string getLanguage()')
+cls.func(nil, 'static const std::string getManifestVersion()')
+cls.func(nil, 'static void setManifestVersion(const std::string &version)')
+cls.func(nil, 'static const std::string getNetworkStatus()')
+cls.func(nil, 'static cocos2d::RenderTexture *capture(cocos2d::Node *node, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)')
+cls.func(nil, 'static const xgame::PermissionStatus getPermissionStatus(xgame::Permission permission)')
+cls.func(nil, 'static void setAudioSessionCatalog(const std::string &catalog)')
+cls.func(nil, 'static const std::string getAudioSessionCatalog()')
+cls.func(nil, 'static std::string getIDFA()')
+cls.func(nil, 'static bool isAdvertisingTrackingEnabled()')
+cls.func(nil, 'static bool canOpenURL(const std::string &uri)')
+cls.func(nil, 'static void setLogPath(const std::string &path)')
+cls.func(nil, 'static const std::string getLogPath()')
+cls.func(nil, 'static void setSampleCount(unsigned int samples)')
+cls.func(nil, 'static unsigned int getSampleCount()')
+cls.func(nil, 'static bool support(const std::string &api)')
+cls.func(nil, 'static void printSupport()')
+cls.func(nil, 'static void disableReport()')
 cls.func('testCrash', [[{
     xgame::runtime::log("test native crash!!!!");
     char *prt = NULL;
@@ -150,49 +146,45 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'once',
 }
-cls.props [[
-    restarting
-    debug
-    time
-    version
-    packageName
-    appVersion
-    appBuild
-    channel
-    os
-    deviceInfo
-    language
-    manifestVersion
-    networkStatus
-    audioSessionCatalog
-    idfa
-    advertisingTrackingEnabled
-    logPath
-    sampleCount
-]]
+cls.prop('restarting')
+cls.prop('debug')
+cls.prop('time')
+cls.prop('version')
+cls.prop('packageName')
+cls.prop('appVersion')
+cls.prop('appBuild')
+cls.prop('channel')
+cls.prop('os')
+cls.prop('deviceInfo')
+cls.prop('language')
+cls.prop('manifestVersion')
+cls.prop('networkStatus')
+cls.prop('audioSessionCatalog')
+cls.prop('idfa')
+cls.prop('advertisingTrackingEnabled')
+cls.prop('logPath')
+cls.prop('sampleCount')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::filesystem'
-cls.funcs [[
-    static const std::string getWritablePath()
-    static const std::string getCacheDirectory()
-    static const std::string getDocumentDirectory()
-    static const std::string getTmpDirectory()
-    static const std::string getBuiltinCacheDirectory()
-    static const std::string getSDCardDirectory()
-    static void addSearchPath(const std::string &path, @optional bool front)
-    static const std::string shortPath(const std::string &path, @optional size_t limit)
-    static const std::string fullPath(const std::string &path)
-    static bool createDirectory(const std::string &path, @optional bool isFilePath)
-    static bool remove(const std::string &path)
-    static bool exist(const std::string &path)
-    static bool isFile(const std::string &path)
-    static bool isDirectory(const std::string &path)
-    static bool rename(const std::string &oldPath, const std::string &newPath)
-    static bool copy(const std::string &srcPath, const std::string &destPath)
-    static cocos2d::Data read(const std::string &path)
-    static bool unzip(const std::string &path, const std::string &dest)
-]]
+cls.func(nil, 'static const std::string getWritablePath()')
+cls.func(nil, 'static const std::string getCacheDirectory()')
+cls.func(nil, 'static const std::string getDocumentDirectory()')
+cls.func(nil, 'static const std::string getTmpDirectory()')
+cls.func(nil, 'static const std::string getBuiltinCacheDirectory()')
+cls.func(nil, 'static const std::string getSDCardDirectory()')
+cls.func(nil, 'static void addSearchPath(const std::string &path, @optional bool front)')
+cls.func(nil, 'static const std::string shortPath(const std::string &path, @optional size_t limit)')
+cls.func(nil, 'static const std::string fullPath(const std::string &path)')
+cls.func(nil, 'static bool createDirectory(const std::string &path, @optional bool isFilePath)')
+cls.func(nil, 'static bool remove(const std::string &path)')
+cls.func(nil, 'static bool exist(const std::string &path)')
+cls.func(nil, 'static bool isFile(const std::string &path)')
+cls.func(nil, 'static bool isDirectory(const std::string &path)')
+cls.func(nil, 'static bool rename(const std::string &oldPath, const std::string &newPath)')
+cls.func(nil, 'static bool copy(const std::string &srcPath, const std::string &destPath)')
+cls.func(nil, 'static cocos2d::Data read(const std::string &path)')
+cls.func(nil, 'static bool unzip(const std::string &path, const std::string &dest)')
 cls.func('write', [[{
     size_t len;
     std::string path = olua_tostring(L, 1);
@@ -201,40 +193,34 @@ cls.func('write', [[{
     olua_push_bool(L, ret);
     return 1;
 }]])
-cls.props [[
-    writablePath
-    cacheDirectory
-    documentDirectory
-    tmpDirectory
-    builtinCacheDirectory
-    sdCardDirectory
-]]
+cls.prop('writablePath')
+cls.prop('cacheDirectory')
+cls.prop('documentDirectory')
+cls.prop('tmpDirectory')
+cls.prop('builtinCacheDirectory')
+cls.prop('sdCardDirectory')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::preferences'
-cls.funcs [[
-    static bool getBoolean(const char *key, @optional bool defaultValue)
-    static void setBoolean(const char *key, bool value)
-    static float getFloat(const char *key, @optional float defaultValue)
-    static void setFloat(const char *key, float value)
-    static double getDouble(const char *key, @optional double defaultValue)
-    static void setDouble(const char *key, double value)
-    static int getInteger(const char *key, @optional int defaultValue)
-    static void setInteger(const char *key, int value)
-    static std::string getString(const char *key, @optional const char *defaultValue)
-    static void setString(const char *key, const char *value)
-    static void deleteKey(const char *key)
-    static void flush()
-]]
+cls.func(nil, 'static bool getBoolean(const char *key, @optional bool defaultValue)')
+cls.func(nil, 'static void setBoolean(const char *key, bool value)')
+cls.func(nil, 'static float getFloat(const char *key, @optional float defaultValue)')
+cls.func(nil, 'static void setFloat(const char *key, float value)')
+cls.func(nil, 'static double getDouble(const char *key, @optional double defaultValue)')
+cls.func(nil, 'static void setDouble(const char *key, double value)')
+cls.func(nil, 'static int getInteger(const char *key, @optional int defaultValue)')
+cls.func(nil, 'static void setInteger(const char *key, int value)')
+cls.func(nil, 'static std::string getString(const char *key, @optional const char *defaultValue)')
+cls.func(nil, 'static void setString(const char *key, const char *value)')
+cls.func(nil, 'static void deleteKey(const char *key)')
+cls.func(nil, 'static void flush()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::timer'
 cls.CHUNK = [[
 #define makeTimerDelayTag(tag) ("delayTag." + tag)
 ]]
-cls.funcs [[
-    static std::string createTag()
-]]
+cls.func(nil, 'static std::string createTag()')
 cls.func('schedule', [[{
     float interval = (float)olua_checknumber(L, 1);
     uint32_t callback = olua_reffunc(L, 2);
@@ -293,8 +279,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::window'
 cls.REG_LUATYPE = false
-cls.funcs [[
-]]
 cls.func('getVisibleBounds', [[{
     auto rect = cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();
     lua_pushinteger(L, rect.getMinX());
@@ -359,11 +343,9 @@ cls.enum('INVALID', 'xgame::downloader::FileState::INVALID')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::downloader'
-cls.funcs [[
-    static void load(const xgame::downloader::FileTask &task)
-    static void init()
-    static void end()
-]]
+cls.func(nil, 'static void load(const xgame::downloader::FileTask &task)')
+cls.func(nil, 'static void init()')
+cls.func(nil, 'static void end()')
 cls.callback {
     FUNCS =  {
         'static void setDispatcher(@local const std::function<void (const FileTask &)> callback)'
@@ -377,13 +359,9 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::MaskLayout'
 cls.SUPERCLS = "cocos2d::ui::Layout"
-cls.funcs [[
-    static xgame::MaskLayout *create()
-    cocos2d::DrawNode *getClippingNode()
-]]
-cls.props [[
-    clippingNode
-]]
+cls.func(nil, 'static xgame::MaskLayout *create()')
+cls.func(nil, 'cocos2d::DrawNode *getClippingNode()')
+cls.prop('clippingNode')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 return M

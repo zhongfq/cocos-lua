@@ -85,8 +85,6 @@ cls.enum('UNIFORM_MAX', 'cocos2d::shaderinfos::Uniformkey::UNIFORM_MAX')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::NTextureData'
-cls.funcs [[
-]]
 cls.var('id', [[std::string id]])
 cls.var('filename', [[std::string filename]])
 cls.var('type', [[cocos2d::NTextureData::Usage type]])
@@ -96,78 +94,65 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Mesh'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    static cocos2d::Mesh *create(const std::vector<float> &positions, const std::vector<float> &normals, const std::vector<float> &texs, const std::vector<unsigned short> &indices)
-    static cocos2d::Mesh *create(const std::vector<float> &vertices, int perVertexSizeInFloat, const std::vector<unsigned short> &indices, const std::vector<MeshVertexAttrib> &attribs)
-    cocos2d::backend::Buffer *getVertexBuffer()
-    bool hasVertexAttrib(cocos2d::shaderinfos::VertexKey attrib)
-    ssize_t getMeshVertexAttribCount()
-    const cocos2d::MeshVertexAttrib &getMeshVertexAttribute(int idx)
-    int getVertexSizeInBytes()
-    void setTexture(const std::string &texPath)
-    void setTexture(cocos2d::Texture2D *tex)
-    void setTexture(cocos2d::Texture2D *tex, cocos2d::NTextureData::Usage usage, @optional bool cacheFileName)
-    void setTexture(const std::string &texPath, cocos2d::NTextureData::Usage usage)
-    cocos2d::Texture2D *getTexture()
-    cocos2d::Texture2D *getTexture(cocos2d::NTextureData::Usage usage)
-    void setVisible(bool visible)
-    bool isVisible()
-    cocos2d::MeshSkin *getSkin()
-    cocos2d::backend::ProgramState *getProgramState()
-    const std::string &getName()
-    void setBlendFunc(const cocos2d::BlendFunc &blendFunc)
-    const cocos2d::BlendFunc &getBlendFunc()
-    cocos2d::CustomCommand::PrimitiveType getPrimitiveType()
-    ssize_t getIndexCount()
-    cocos2d::CustomCommand::IndexFormat getIndexFormat()
-    cocos2d::backend::Buffer *getIndexBuffer()
-    void setProgramState(cocos2d::backend::ProgramState *programState)
-    void draw(cocos2d::Renderer *renderer, float globalZ, const cocos2d::Mat4 &transform, uint32_t flags, unsigned int lightMask, const cocos2d::Vec4 &color, bool forceDepthWrite)
-    void setSkin(cocos2d::MeshSkin *skin)
-    void setName(const std::string &name)
-    void calculateAABB()
-    void setForce2DQueue(bool force2D)
-    std::string getTextureFileName()
-    Mesh()
-]]
-cls.props [[
-    vertexBuffer
-    meshVertexAttribCount
-    vertexSizeInBytes
-    visible
-    skin
-    programState
-    name
-    blendFunc
-    primitiveType
-    indexCount
-    indexFormat
-    indexBuffer
-    textureFileName
-]]
+cls.func(nil, 'static cocos2d::Mesh *create(const std::vector<float> &positions, const std::vector<float> &normals, const std::vector<float> &texs, const std::vector<unsigned short> &indices)', 'static cocos2d::Mesh *create(const std::vector<float> &vertices, int perVertexSizeInFloat, const std::vector<unsigned short> &indices, const std::vector<MeshVertexAttrib> &attribs)')
+cls.func(nil, 'cocos2d::backend::Buffer *getVertexBuffer()')
+cls.func(nil, 'bool hasVertexAttrib(cocos2d::shaderinfos::VertexKey attrib)')
+cls.func(nil, 'ssize_t getMeshVertexAttribCount()')
+cls.func(nil, 'const cocos2d::MeshVertexAttrib &getMeshVertexAttribute(int idx)')
+cls.func(nil, 'int getVertexSizeInBytes()')
+cls.func(nil, 'void setTexture(const std::string &texPath)', 'void setTexture(cocos2d::Texture2D *tex)', 'void setTexture(cocos2d::Texture2D *tex, cocos2d::NTextureData::Usage usage, @optional bool cacheFileName)', 'void setTexture(const std::string &texPath, cocos2d::NTextureData::Usage usage)')
+cls.func(nil, 'cocos2d::Texture2D *getTexture()', 'cocos2d::Texture2D *getTexture(cocos2d::NTextureData::Usage usage)')
+cls.func(nil, 'void setVisible(bool visible)')
+cls.func(nil, 'bool isVisible()')
+cls.func(nil, 'cocos2d::MeshSkin *getSkin()')
+cls.func(nil, 'cocos2d::backend::ProgramState *getProgramState()')
+cls.func(nil, 'const std::string &getName()')
+cls.func(nil, 'void setBlendFunc(const cocos2d::BlendFunc &blendFunc)')
+cls.func(nil, 'const cocos2d::BlendFunc &getBlendFunc()')
+cls.func(nil, 'cocos2d::CustomCommand::PrimitiveType getPrimitiveType()')
+cls.func(nil, 'ssize_t getIndexCount()')
+cls.func(nil, 'cocos2d::CustomCommand::IndexFormat getIndexFormat()')
+cls.func(nil, 'cocos2d::backend::Buffer *getIndexBuffer()')
+cls.func(nil, 'void setProgramState(cocos2d::backend::ProgramState *programState)')
+cls.func(nil, 'void draw(cocos2d::Renderer *renderer, float globalZ, const cocos2d::Mat4 &transform, uint32_t flags, unsigned int lightMask, const cocos2d::Vec4 &color, bool forceDepthWrite)')
+cls.func(nil, 'void setSkin(cocos2d::MeshSkin *skin)')
+cls.func(nil, 'void setName(const std::string &name)')
+cls.func(nil, 'void calculateAABB()')
+cls.func(nil, 'void setForce2DQueue(bool force2D)')
+cls.func(nil, 'std::string getTextureFileName()')
+cls.func(nil, 'Mesh()')
+cls.prop('vertexBuffer')
+cls.prop('meshVertexAttribCount')
+cls.prop('vertexSizeInBytes')
+cls.prop('visible')
+cls.prop('skin')
+cls.prop('programState')
+cls.prop('name')
+cls.prop('blendFunc')
+cls.prop('primitiveType')
+cls.prop('indexCount')
+cls.prop('indexFormat')
+cls.prop('indexBuffer')
+cls.prop('textureFileName')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::MeshSkin'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    ssize_t getBoneCount()
-    cocos2d::Bone3D *getBoneByIndex(unsigned int index)
-    cocos2d::Bone3D *getBoneByName(const std::string &id)
-    int getBoneIndex(cocos2d::Bone3D *bone)
-    ssize_t getMatrixPaletteSize()
-    ssize_t getMatrixPaletteSizeInBytes()
-    cocos2d::Bone3D *getRootBone()
-    MeshSkin()
-    void removeAllBones()
-    void addSkinBone(cocos2d::Bone3D *bone)
-    const cocos2d::Mat4 &getInvBindPose(const cocos2d::Bone3D *bone)
-]]
-cls.props [[
-    boneCount
-    matrixPaletteSize
-    matrixPaletteSizeInBytes
-    rootBone
-]]
+cls.func(nil, 'ssize_t getBoneCount()')
+cls.func(nil, 'cocos2d::Bone3D *getBoneByIndex(unsigned int index)')
+cls.func(nil, 'cocos2d::Bone3D *getBoneByName(const std::string &id)')
+cls.func(nil, 'int getBoneIndex(cocos2d::Bone3D *bone)')
+cls.func(nil, 'ssize_t getMatrixPaletteSize()')
+cls.func(nil, 'ssize_t getMatrixPaletteSizeInBytes()')
+cls.func(nil, 'cocos2d::Bone3D *getRootBone()')
+cls.func(nil, 'MeshSkin()')
+cls.func(nil, 'void removeAllBones()')
+cls.func(nil, 'void addSkinBone(cocos2d::Bone3D *bone)')
+cls.func(nil, 'const cocos2d::Mat4 &getInvBindPose(const cocos2d::Bone3D *bone)')
+cls.prop('boneCount')
+cls.prop('matrixPaletteSize')
+cls.prop('matrixPaletteSizeInBytes')
+cls.prop('rootBone')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::BillBoard::Mode'
@@ -177,18 +162,12 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::BillBoard'
 cls.SUPERCLS = "cocos2d::Sprite"
-cls.funcs [[
-    static cocos2d::BillBoard *create(@optional cocos2d::BillBoard::Mode mode)
-    static cocos2d::BillBoard *create(const std::string &filename, @optional cocos2d::BillBoard::Mode mode)
-    static cocos2d::BillBoard *create(const std::string &filename, const cocos2d::Rect &rect, @optional cocos2d::BillBoard::Mode mode)
-    static cocos2d::BillBoard *createWithTexture(cocos2d::Texture2D *texture, @optional cocos2d::BillBoard::Mode mode)
-    void setMode(cocos2d::BillBoard::Mode mode)
-    cocos2d::BillBoard::Mode getMode()
-    BillBoard()
-]]
-cls.props [[
-    mode
-]]
+cls.func(nil, 'static cocos2d::BillBoard *create(@optional cocos2d::BillBoard::Mode mode)', 'static cocos2d::BillBoard *create(const std::string &filename, @optional cocos2d::BillBoard::Mode mode)', 'static cocos2d::BillBoard *create(const std::string &filename, const cocos2d::Rect &rect, @optional cocos2d::BillBoard::Mode mode)')
+cls.func(nil, 'static cocos2d::BillBoard *createWithTexture(cocos2d::Texture2D *texture, @optional cocos2d::BillBoard::Mode mode)')
+cls.func(nil, 'void setMode(cocos2d::BillBoard::Mode mode)')
+cls.func(nil, 'cocos2d::BillBoard::Mode getMode()')
+cls.func(nil, 'BillBoard()')
+cls.prop('mode')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Sprite3DMaterial::MaterialType'
@@ -203,56 +182,46 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Sprite3DMaterial'
 cls.SUPERCLS = "cocos2d::Material"
-cls.funcs [[
-    cocos2d::Sprite3DMaterial::MaterialType getMaterialType()
-    static cocos2d::Sprite3DMaterial *createBuiltInMaterial(cocos2d::Sprite3DMaterial::MaterialType type, bool skinned)
-    static cocos2d::Sprite3DMaterial *createWithFilename(const std::string &path)
-    static cocos2d::Sprite3DMaterial *createWithProgramState(cocos2d::backend::ProgramState *programState)
-    void setTexture(cocos2d::Texture2D *tex, cocos2d::NTextureData::Usage usage)
-    static void createBuiltInMaterial()
-    static void releaseBuiltInMaterial()
-    static void releaseCachedMaterial()
-]]
-cls.props [[
-    materialType
-]]
+cls.func(nil, 'cocos2d::Sprite3DMaterial::MaterialType getMaterialType()')
+cls.func(nil, 'static cocos2d::Sprite3DMaterial *createBuiltInMaterial(cocos2d::Sprite3DMaterial::MaterialType type, bool skinned)', 'static void createBuiltInMaterial()')
+cls.func(nil, 'static cocos2d::Sprite3DMaterial *createWithFilename(const std::string &path)')
+cls.func(nil, 'static cocos2d::Sprite3DMaterial *createWithProgramState(cocos2d::backend::ProgramState *programState)')
+cls.func(nil, 'void setTexture(cocos2d::Texture2D *tex, cocos2d::NTextureData::Usage usage)')
+cls.func(nil, 'static void releaseBuiltInMaterial()')
+cls.func(nil, 'static void releaseCachedMaterial()')
+cls.prop('materialType')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Sprite3D'
 cls.SUPERCLS = "cocos2d::Node"
-cls.funcs [[
-    static cocos2d::Sprite3D *create()
-    static cocos2d::Sprite3D *create(const std::string &modelPath)
-    static cocos2d::Sprite3D *create(const std::string &modelPath, const std::string &texturePath)
-    void setTexture(const std::string &texFile)
-    void setTexture(cocos2d::Texture2D *texture)
-    cocos2d::Mesh *getMeshByIndex(int index)
-    cocos2d::Mesh *getMeshByName(const std::string &name)
-    std::vector<Mesh *> getMeshArrayByName(const std::string &name)
-    cocos2d::Mesh *getMesh()
-    ssize_t getMeshCount()
-    cocos2d::Skeleton3D *getSkeleton()
-    cocos2d::AttachNode *getAttachNode(const std::string &boneName)
-    void removeAttachNode(const std::string &boneName)
-    void removeAllAttachNode()
-    void setBlendFunc(const cocos2d::BlendFunc &blendFunc)
-    const cocos2d::BlendFunc &getBlendFunc()
-    void setForceDepthWrite(bool value)
-    bool isForceDepthWrite()
-    void setCullFace(cocos2d::CullFaceSide side)
-    void setCullFaceEnabled(bool enable)
-    void setLightMask(unsigned int mask)
-    unsigned int getLightMask()
-    void setForce2DQueue(bool force2D)
-    const Vector<cocos2d::Mesh *> &getMeshes()
-    Sprite3D()
-    bool initWithFile(const std::string &path)
-    bool loadFromCache(const std::string &path)
-    void genMaterial(@optional bool useLight)
-    void addMesh(cocos2d::Mesh *mesh)
-    void onAABBDirty()
-    void afterAsyncLoad(void *param)
-]]
+cls.func(nil, 'static cocos2d::Sprite3D *create()', 'static cocos2d::Sprite3D *create(const std::string &modelPath)', 'static cocos2d::Sprite3D *create(const std::string &modelPath, const std::string &texturePath)')
+cls.func(nil, 'void setTexture(const std::string &texFile)', 'void setTexture(cocos2d::Texture2D *texture)')
+cls.func(nil, 'cocos2d::Mesh *getMeshByIndex(int index)')
+cls.func(nil, 'cocos2d::Mesh *getMeshByName(const std::string &name)')
+cls.func(nil, 'std::vector<Mesh *> getMeshArrayByName(const std::string &name)')
+cls.func(nil, 'cocos2d::Mesh *getMesh()')
+cls.func(nil, 'ssize_t getMeshCount()')
+cls.func(nil, 'cocos2d::Skeleton3D *getSkeleton()')
+cls.func(nil, 'cocos2d::AttachNode *getAttachNode(const std::string &boneName)')
+cls.func(nil, 'void removeAttachNode(const std::string &boneName)')
+cls.func(nil, 'void removeAllAttachNode()')
+cls.func(nil, 'void setBlendFunc(const cocos2d::BlendFunc &blendFunc)')
+cls.func(nil, 'const cocos2d::BlendFunc &getBlendFunc()')
+cls.func(nil, 'void setForceDepthWrite(bool value)')
+cls.func(nil, 'bool isForceDepthWrite()')
+cls.func(nil, 'void setCullFace(cocos2d::CullFaceSide side)')
+cls.func(nil, 'void setCullFaceEnabled(bool enable)')
+cls.func(nil, 'void setLightMask(unsigned int mask)')
+cls.func(nil, 'unsigned int getLightMask()')
+cls.func(nil, 'void setForce2DQueue(bool force2D)')
+cls.func(nil, 'const Vector<cocos2d::Mesh *> &getMeshes()')
+cls.func(nil, 'Sprite3D()')
+cls.func(nil, 'bool initWithFile(const std::string &path)')
+cls.func(nil, 'bool loadFromCache(const std::string &path)')
+cls.func(nil, 'void genMaterial(@optional bool useLight)')
+cls.func(nil, 'void addMesh(cocos2d::Mesh *mesh)')
+cls.func(nil, 'void onAABBDirty()')
+cls.func(nil, 'void afterAsyncLoad(void *param)')
 cls.callback {
     FUNCS =  {
         'static void createAsync(const std::string &modelPath, @local const std::function<void (Sprite3D *, void *)> &callback, void *callbackparam)',
@@ -263,72 +232,60 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    mesh
-    meshCount
-    skeleton
-    blendFunc
-    forceDepthWrite
-    lightMask
-    meshes
-]]
+cls.prop('mesh')
+cls.prop('meshCount')
+cls.prop('skeleton')
+cls.prop('blendFunc')
+cls.prop('forceDepthWrite')
+cls.prop('lightMask')
+cls.prop('meshes')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::AttachNode'
 cls.SUPERCLS = "cocos2d::Node"
-cls.funcs [[
-    static cocos2d::AttachNode *create(cocos2d::Bone3D *attachBone)
-    AttachNode()
-]]
+cls.func(nil, 'static cocos2d::AttachNode *create(cocos2d::Bone3D *attachBone)')
+cls.func(nil, 'AttachNode()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Bone3D'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    const cocos2d::Mat4 &getInverseBindPose()
-    void updateWorldMat()
-    const cocos2d::Mat4 &getWorldMat()
-    const std::string &getName()
-    void clearBoneBlendState()
-    static cocos2d::Bone3D *create(const std::string &id)
-    void setInverseBindPose(const cocos2d::Mat4 &m)
-    void setOriPose(const cocos2d::Mat4 &m)
-    void resetPose()
-    cocos2d::Bone3D *getParentBone()
-    ssize_t getChildBoneCount()
-    cocos2d::Bone3D *getChildBoneByIndex(int index)
-    void addChildBone(cocos2d::Bone3D *bone)
-    void removeChildBoneByIndex(int index)
-    void removeChildBone(cocos2d::Bone3D *bone)
-    void removeAllChildBone()
-]]
-cls.props [[
-    inverseBindPose
-    worldMat
-    name
-    parentBone
-    childBoneCount
-]]
+cls.func(nil, 'const cocos2d::Mat4 &getInverseBindPose()')
+cls.func(nil, 'void updateWorldMat()')
+cls.func(nil, 'const cocos2d::Mat4 &getWorldMat()')
+cls.func(nil, 'const std::string &getName()')
+cls.func(nil, 'void clearBoneBlendState()')
+cls.func(nil, 'static cocos2d::Bone3D *create(const std::string &id)')
+cls.func(nil, 'void setInverseBindPose(const cocos2d::Mat4 &m)')
+cls.func(nil, 'void setOriPose(const cocos2d::Mat4 &m)')
+cls.func(nil, 'void resetPose()')
+cls.func(nil, 'cocos2d::Bone3D *getParentBone()')
+cls.func(nil, 'ssize_t getChildBoneCount()')
+cls.func(nil, 'cocos2d::Bone3D *getChildBoneByIndex(int index)')
+cls.func(nil, 'void addChildBone(cocos2d::Bone3D *bone)')
+cls.func(nil, 'void removeChildBoneByIndex(int index)')
+cls.func(nil, 'void removeChildBone(cocos2d::Bone3D *bone)')
+cls.func(nil, 'void removeAllChildBone()')
+cls.prop('inverseBindPose')
+cls.prop('worldMat')
+cls.prop('name')
+cls.prop('parentBone')
+cls.prop('childBoneCount')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Skeleton3D'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    ssize_t getBoneCount()
-    cocos2d::Bone3D *getBoneByIndex(unsigned int index)
-    cocos2d::Bone3D *getBoneByName(const std::string &id)
-    ssize_t getRootCount()
-    cocos2d::Bone3D *getRootBone(int index)
-    int getBoneIndex(cocos2d::Bone3D *bone)
-    void updateBoneMatrix()
-    Skeleton3D()
-    void removeAllBones()
-    void addBone(cocos2d::Bone3D *bone)
-]]
-cls.props [[
-    boneCount
-    rootCount
-]]
+cls.func(nil, 'ssize_t getBoneCount()')
+cls.func(nil, 'cocos2d::Bone3D *getBoneByIndex(unsigned int index)')
+cls.func(nil, 'cocos2d::Bone3D *getBoneByName(const std::string &id)')
+cls.func(nil, 'ssize_t getRootCount()')
+cls.func(nil, 'cocos2d::Bone3D *getRootBone(int index)')
+cls.func(nil, 'int getBoneIndex(cocos2d::Bone3D *bone)')
+cls.func(nil, 'void updateBoneMatrix()')
+cls.func(nil, 'Skeleton3D()')
+cls.func(nil, 'void removeAllBones()')
+cls.func(nil, 'void addBone(cocos2d::Bone3D *bone)')
+cls.prop('boneCount')
+cls.prop('rootCount')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 return M

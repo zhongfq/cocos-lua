@@ -181,100 +181,82 @@ cls.enum('Add', 'spine::MixBlend::MixBlend_Add')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::SpineObject'
-cls.funcs [[
-]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::Event'
 cls.SUPERCLS = "spine::SpineObject"
-cls.funcs [[
-    const spine::EventData &getData()
-    float getTime()
-    int getIntValue()
-    void setIntValue(int inValue)
-    float getFloatValue()
-    void setFloatValue(float inValue)
-    const spine::String &getStringValue()
-    void setStringValue(const spine::String &inValue)
-    float getVolume()
-    void setVolume(float inValue)
-    float getBalance()
-    void setBalance(float inValue)
-]]
-cls.props [[
-    data
-    time
-    intValue
-    floatValue
-    stringValue
-    volume
-    balance
-]]
+cls.func(nil, 'const spine::EventData &getData()')
+cls.func(nil, 'float getTime()')
+cls.func(nil, 'int getIntValue()')
+cls.func(nil, 'void setIntValue(int inValue)')
+cls.func(nil, 'float getFloatValue()')
+cls.func(nil, 'void setFloatValue(float inValue)')
+cls.func(nil, 'const spine::String &getStringValue()')
+cls.func(nil, 'void setStringValue(const spine::String &inValue)')
+cls.func(nil, 'float getVolume()')
+cls.func(nil, 'void setVolume(float inValue)')
+cls.func(nil, 'float getBalance()')
+cls.func(nil, 'void setBalance(float inValue)')
+cls.prop('data')
+cls.prop('time')
+cls.prop('intValue')
+cls.prop('floatValue')
+cls.prop('stringValue')
+cls.prop('volume')
+cls.prop('balance')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::EventData'
 cls.SUPERCLS = "spine::SpineObject"
-cls.funcs [[
-    EventData(const spine::String &name)
-    const spine::String &getName()
-    int getIntValue()
-    void setIntValue(int inValue)
-    float getFloatValue()
-    void setFloatValue(float inValue)
-    const spine::String &getStringValue()
-    void setStringValue(const spine::String &inValue)
-    const spine::String &getAudioPath()
-    void setAudioPath(const spine::String &inValue)
-    float getVolume()
-    void setVolume(float inValue)
-    float getBalance()
-    void setBalance(float inValue)
-]]
-cls.props [[
-    name
-    intValue
-    floatValue
-    stringValue
-    audioPath
-    volume
-    balance
-]]
+cls.func(nil, 'EventData(const spine::String &name)')
+cls.func(nil, 'const spine::String &getName()')
+cls.func(nil, 'int getIntValue()')
+cls.func(nil, 'void setIntValue(int inValue)')
+cls.func(nil, 'float getFloatValue()')
+cls.func(nil, 'void setFloatValue(float inValue)')
+cls.func(nil, 'const spine::String &getStringValue()')
+cls.func(nil, 'void setStringValue(const spine::String &inValue)')
+cls.func(nil, 'const spine::String &getAudioPath()')
+cls.func(nil, 'void setAudioPath(const spine::String &inValue)')
+cls.func(nil, 'float getVolume()')
+cls.func(nil, 'void setVolume(float inValue)')
+cls.func(nil, 'float getBalance()')
+cls.func(nil, 'void setBalance(float inValue)')
+cls.prop('name')
+cls.prop('intValue')
+cls.prop('floatValue')
+cls.prop('stringValue')
+cls.prop('audioPath')
+cls.prop('volume')
+cls.prop('balance')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::Updatable'
 cls.SUPERCLS = "spine::SpineObject"
-cls.funcs [[
-    void update()
-    bool isActive()
-    void setActive(bool inValue)
-]]
-cls.props [[
-    active
-]]
+cls.func(nil, 'void update()')
+cls.func(nil, 'bool isActive()')
+cls.func(nil, 'void setActive(bool inValue)')
+cls.prop('active')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::AnimationState'
 cls.SUPERCLS = "spine::SpineObject"
-cls.funcs [[
-    AnimationState(spine::AnimationStateData *data)
-    void update(float delta)
-    void clearTracks()
-    void clearTrack(size_t trackIndex)
-    spine::TrackEntry *setAnimation(size_t trackIndex, const spine::String &animationName, bool loop)
-    spine::TrackEntry *setAnimation(size_t trackIndex, spine::Animation *animation, bool loop)
-    spine::TrackEntry *addAnimation(size_t trackIndex, const spine::String &animationName, bool loop, float delay)
-    spine::TrackEntry *addAnimation(size_t trackIndex, spine::Animation *animation, bool loop, float delay)
-    spine::TrackEntry *setEmptyAnimation(size_t trackIndex, float mixDuration)
-    spine::TrackEntry *addEmptyAnimation(size_t trackIndex, float mixDuration, float delay)
-    void setEmptyAnimations(float mixDuration)
-    spine::TrackEntry *getCurrent(size_t trackIndex)
-    spine::AnimationStateData *getData()
-    Vector<spine::TrackEntry *> &getTracks()
-    float getTimeScale()
-    void setTimeScale(float inValue)
-    void disableQueue()
-    void enableQueue()
-]]
+cls.func(nil, 'AnimationState(spine::AnimationStateData *data)')
+cls.func(nil, 'void update(float delta)')
+cls.func(nil, 'void clearTracks()')
+cls.func(nil, 'void clearTrack(size_t trackIndex)')
+cls.func(nil, 'spine::TrackEntry *setAnimation(size_t trackIndex, const spine::String &animationName, bool loop)', 'spine::TrackEntry *setAnimation(size_t trackIndex, spine::Animation *animation, bool loop)')
+cls.func(nil, 'spine::TrackEntry *addAnimation(size_t trackIndex, const spine::String &animationName, bool loop, float delay)', 'spine::TrackEntry *addAnimation(size_t trackIndex, spine::Animation *animation, bool loop, float delay)')
+cls.func(nil, 'spine::TrackEntry *setEmptyAnimation(size_t trackIndex, float mixDuration)')
+cls.func(nil, 'spine::TrackEntry *addEmptyAnimation(size_t trackIndex, float mixDuration, float delay)')
+cls.func(nil, 'void setEmptyAnimations(float mixDuration)')
+cls.func(nil, 'spine::TrackEntry *getCurrent(size_t trackIndex)')
+cls.func(nil, 'spine::AnimationStateData *getData()')
+cls.func(nil, 'Vector<spine::TrackEntry *> &getTracks()')
+cls.func(nil, 'float getTimeScale()')
+cls.func(nil, 'void setTimeScale(float inValue)')
+cls.func(nil, 'void disableQueue()')
+cls.func(nil, 'void enableQueue()')
 cls.callback {
     FUNCS =  {
         'void setListener(std::function<void (AnimationState *, EventType, TrackEntry *, Event *)> listener)'
@@ -284,1009 +266,843 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    data
-    tracks
-    timeScale
-]]
+cls.prop('data')
+cls.prop('tracks')
+cls.prop('timeScale')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::AnimationStateData'
 cls.SUPERCLS = "spine::SpineObject"
-cls.funcs [[
-    AnimationStateData(spine::SkeletonData *skeletonData)
-    spine::SkeletonData *getSkeletonData()
-    float getDefaultMix()
-    void setDefaultMix(float inValue)
-    void setMix(const spine::String &fromName, const spine::String &toName, float duration)
-    void setMix(spine::Animation *from, spine::Animation *to, float duration)
-    float getMix(spine::Animation *from, spine::Animation *to)
-]]
-cls.props [[
-    skeletonData
-    defaultMix
-]]
+cls.func(nil, 'AnimationStateData(spine::SkeletonData *skeletonData)')
+cls.func(nil, 'spine::SkeletonData *getSkeletonData()')
+cls.func(nil, 'float getDefaultMix()')
+cls.func(nil, 'void setDefaultMix(float inValue)')
+cls.func(nil, 'void setMix(const spine::String &fromName, const spine::String &toName, float duration)', 'void setMix(spine::Animation *from, spine::Animation *to, float duration)')
+cls.func(nil, 'float getMix(spine::Animation *from, spine::Animation *to)')
+cls.prop('skeletonData')
+cls.prop('defaultMix')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::Animation'
 cls.SUPERCLS = "spine::SpineObject"
-cls.funcs [[
-    Animation(const spine::String &name, Vector<spine::Timeline *> &timelines, float duration)
-    const spine::String &getName()
-    Vector<spine::Timeline *> &getTimelines()
-    bool hasTimeline(int id)
-    float getDuration()
-    void setDuration(float inValue)
-]]
-cls.props [[
-    name
-    timelines
-    duration
-]]
+cls.func(nil, 'Animation(const spine::String &name, Vector<spine::Timeline *> &timelines, float duration)')
+cls.func(nil, 'const spine::String &getName()')
+cls.func(nil, 'Vector<spine::Timeline *> &getTimelines()')
+cls.func(nil, 'bool hasTimeline(int id)')
+cls.func(nil, 'float getDuration()')
+cls.func(nil, 'void setDuration(float inValue)')
+cls.prop('name')
+cls.prop('timelines')
+cls.prop('duration')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::ConstraintData'
 cls.SUPERCLS = "spine::SpineObject"
-cls.funcs [[
-    ConstraintData(const spine::String &name)
-    const spine::String &getName()
-    size_t getOrder()
-    void setOrder(size_t inValue)
-    bool isSkinRequired()
-    void setSkinRequired(bool inValue)
-]]
-cls.props [[
-    name
-    order
-    skinRequired
-]]
+cls.func(nil, 'ConstraintData(const spine::String &name)')
+cls.func(nil, 'const spine::String &getName()')
+cls.func(nil, 'size_t getOrder()')
+cls.func(nil, 'void setOrder(size_t inValue)')
+cls.func(nil, 'bool isSkinRequired()')
+cls.func(nil, 'void setSkinRequired(bool inValue)')
+cls.prop('name')
+cls.prop('order')
+cls.prop('skinRequired')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::IkConstraintData'
 cls.SUPERCLS = "spine::ConstraintData"
-cls.funcs [[
-    IkConstraintData(const spine::String &name)
-    Vector<spine::BoneData *> &getBones()
-    spine::BoneData *getTarget()
-    void setTarget(spine::BoneData *inValue)
-    int getBendDirection()
-    void setBendDirection(int inValue)
-    bool getCompress()
-    void setCompress(bool inValue)
-    bool getStretch()
-    void setStretch(bool inValue)
-    bool getUniform()
-    void setUniform(bool inValue)
-    float getMix()
-    void setMix(float inValue)
-    float getSoftness()
-    void setSoftness(float inValue)
-]]
-cls.props [[
-    bones
-    target
-    bendDirection
-    compress
-    stretch
-    uniform
-    mix
-    softness
-]]
+cls.func(nil, 'IkConstraintData(const spine::String &name)')
+cls.func(nil, 'Vector<spine::BoneData *> &getBones()')
+cls.func(nil, 'spine::BoneData *getTarget()')
+cls.func(nil, 'void setTarget(spine::BoneData *inValue)')
+cls.func(nil, 'int getBendDirection()')
+cls.func(nil, 'void setBendDirection(int inValue)')
+cls.func(nil, 'bool getCompress()')
+cls.func(nil, 'void setCompress(bool inValue)')
+cls.func(nil, 'bool getStretch()')
+cls.func(nil, 'void setStretch(bool inValue)')
+cls.func(nil, 'bool getUniform()')
+cls.func(nil, 'void setUniform(bool inValue)')
+cls.func(nil, 'float getMix()')
+cls.func(nil, 'void setMix(float inValue)')
+cls.func(nil, 'float getSoftness()')
+cls.func(nil, 'void setSoftness(float inValue)')
+cls.prop('bones')
+cls.prop('target')
+cls.prop('bendDirection')
+cls.prop('compress')
+cls.prop('stretch')
+cls.prop('uniform')
+cls.prop('mix')
+cls.prop('softness')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::BoneData'
 cls.SUPERCLS = "spine::SpineObject"
-cls.funcs [[
-    BoneData(int index, const spine::String &name, @optional spine::BoneData *parent)
-    int getIndex()
-    const spine::String &getName()
-    spine::BoneData *getParent()
-    float getLength()
-    void setLength(float inValue)
-    float getX()
-    void setX(float inValue)
-    float getY()
-    void setY(float inValue)
-    float getRotation()
-    void setRotation(float inValue)
-    float getScaleX()
-    void setScaleX(float inValue)
-    float getScaleY()
-    void setScaleY(float inValue)
-    float getShearX()
-    void setShearX(float inValue)
-    float getShearY()
-    void setShearY(float inValue)
-    spine::TransformMode getTransformMode()
-    void setTransformMode(spine::TransformMode inValue)
-    bool isSkinRequired()
-    void setSkinRequired(bool inValue)
-]]
-cls.props [[
-    index
-    name
-    parent
-    length
-    x
-    y
-    rotation
-    scaleX
-    scaleY
-    shearX
-    shearY
-    transformMode
-    skinRequired
-]]
+cls.func(nil, 'BoneData(int index, const spine::String &name, @optional spine::BoneData *parent)')
+cls.func(nil, 'int getIndex()')
+cls.func(nil, 'const spine::String &getName()')
+cls.func(nil, 'spine::BoneData *getParent()')
+cls.func(nil, 'float getLength()')
+cls.func(nil, 'void setLength(float inValue)')
+cls.func(nil, 'float getX()')
+cls.func(nil, 'void setX(float inValue)')
+cls.func(nil, 'float getY()')
+cls.func(nil, 'void setY(float inValue)')
+cls.func(nil, 'float getRotation()')
+cls.func(nil, 'void setRotation(float inValue)')
+cls.func(nil, 'float getScaleX()')
+cls.func(nil, 'void setScaleX(float inValue)')
+cls.func(nil, 'float getScaleY()')
+cls.func(nil, 'void setScaleY(float inValue)')
+cls.func(nil, 'float getShearX()')
+cls.func(nil, 'void setShearX(float inValue)')
+cls.func(nil, 'float getShearY()')
+cls.func(nil, 'void setShearY(float inValue)')
+cls.func(nil, 'spine::TransformMode getTransformMode()')
+cls.func(nil, 'void setTransformMode(spine::TransformMode inValue)')
+cls.func(nil, 'bool isSkinRequired()')
+cls.func(nil, 'void setSkinRequired(bool inValue)')
+cls.prop('index')
+cls.prop('name')
+cls.prop('parent')
+cls.prop('length')
+cls.prop('x')
+cls.prop('y')
+cls.prop('rotation')
+cls.prop('scaleX')
+cls.prop('scaleY')
+cls.prop('shearX')
+cls.prop('shearY')
+cls.prop('transformMode')
+cls.prop('skinRequired')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::SlotData'
 cls.SUPERCLS = "spine::SpineObject"
-cls.funcs [[
-    int getIndex()
-    const spine::String &getName()
-    spine::Color &getColor()
-    spine::Color &getDarkColor()
-    bool hasDarkColor()
-    void setHasDarkColor(bool inValue)
-    const spine::String &getAttachmentName()
-    void setAttachmentName(const spine::String &inValue)
-    spine::BlendMode getBlendMode()
-    void setBlendMode(spine::BlendMode inValue)
-]]
-cls.props [[
-    index
-    name
-    color
-    darkColor
-    attachmentName
-    blendMode
-]]
+cls.func(nil, 'int getIndex()')
+cls.func(nil, 'const spine::String &getName()')
+cls.func(nil, 'spine::Color &getColor()')
+cls.func(nil, 'spine::Color &getDarkColor()')
+cls.func(nil, 'bool hasDarkColor()')
+cls.func(nil, 'void setHasDarkColor(bool inValue)')
+cls.func(nil, 'const spine::String &getAttachmentName()')
+cls.func(nil, 'void setAttachmentName(const spine::String &inValue)')
+cls.func(nil, 'spine::BlendMode getBlendMode()')
+cls.func(nil, 'void setBlendMode(spine::BlendMode inValue)')
+cls.prop('index')
+cls.prop('name')
+cls.prop('color')
+cls.prop('darkColor')
+cls.prop('attachmentName')
+cls.prop('blendMode')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::IkConstraint'
 cls.SUPERCLS = "spine::Updatable"
-cls.funcs [[
-    void apply()
-    int getOrder()
-    Vector<spine::Bone *> &getBones()
-    spine::Bone *getTarget()
-    void setTarget(spine::Bone *inValue)
-    int getBendDirection()
-    void setBendDirection(int inValue)
-    bool getCompress()
-    void setCompress(bool inValue)
-    bool getStretch()
-    void setStretch(bool inValue)
-    float getMix()
-    void setMix(float inValue)
-    float getSoftness()
-    void setSoftness(float inValue)
-]]
-cls.props [[
-    order
-    bones
-    target
-    bendDirection
-    compress
-    stretch
-    mix
-    softness
-]]
+cls.func(nil, 'void apply()')
+cls.func(nil, 'int getOrder()')
+cls.func(nil, 'Vector<spine::Bone *> &getBones()')
+cls.func(nil, 'spine::Bone *getTarget()')
+cls.func(nil, 'void setTarget(spine::Bone *inValue)')
+cls.func(nil, 'int getBendDirection()')
+cls.func(nil, 'void setBendDirection(int inValue)')
+cls.func(nil, 'bool getCompress()')
+cls.func(nil, 'void setCompress(bool inValue)')
+cls.func(nil, 'bool getStretch()')
+cls.func(nil, 'void setStretch(bool inValue)')
+cls.func(nil, 'float getMix()')
+cls.func(nil, 'void setMix(float inValue)')
+cls.func(nil, 'float getSoftness()')
+cls.func(nil, 'void setSoftness(float inValue)')
+cls.prop('order')
+cls.prop('bones')
+cls.prop('target')
+cls.prop('bendDirection')
+cls.prop('compress')
+cls.prop('stretch')
+cls.prop('mix')
+cls.prop('softness')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::TransformConstraint'
 cls.SUPERCLS = "spine::Updatable"
-cls.funcs [[
-    void apply()
-    int getOrder()
-    Vector<spine::Bone *> &getBones()
-    spine::Bone *getTarget()
-    void setTarget(spine::Bone *inValue)
-    float getRotateMix()
-    void setRotateMix(float inValue)
-    float getTranslateMix()
-    void setTranslateMix(float inValue)
-    float getScaleMix()
-    void setScaleMix(float inValue)
-    float getShearMix()
-    void setShearMix(float inValue)
-]]
-cls.props [[
-    order
-    bones
-    target
-    rotateMix
-    translateMix
-    scaleMix
-    shearMix
-]]
+cls.func(nil, 'void apply()')
+cls.func(nil, 'int getOrder()')
+cls.func(nil, 'Vector<spine::Bone *> &getBones()')
+cls.func(nil, 'spine::Bone *getTarget()')
+cls.func(nil, 'void setTarget(spine::Bone *inValue)')
+cls.func(nil, 'float getRotateMix()')
+cls.func(nil, 'void setRotateMix(float inValue)')
+cls.func(nil, 'float getTranslateMix()')
+cls.func(nil, 'void setTranslateMix(float inValue)')
+cls.func(nil, 'float getScaleMix()')
+cls.func(nil, 'void setScaleMix(float inValue)')
+cls.func(nil, 'float getShearMix()')
+cls.func(nil, 'void setShearMix(float inValue)')
+cls.prop('order')
+cls.prop('bones')
+cls.prop('target')
+cls.prop('rotateMix')
+cls.prop('translateMix')
+cls.prop('scaleMix')
+cls.prop('shearMix')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::TransformConstraintData'
 cls.SUPERCLS = "spine::ConstraintData"
-cls.funcs [[
-    TransformConstraintData(const spine::String &name)
-    Vector<spine::BoneData *> &getBones()
-    spine::BoneData *getTarget()
-    float getRotateMix()
-    float getTranslateMix()
-    float getScaleMix()
-    float getShearMix()
-    float getOffsetRotation()
-    float getOffsetX()
-    float getOffsetY()
-    float getOffsetScaleX()
-    float getOffsetScaleY()
-    float getOffsetShearY()
-    bool isRelative()
-    bool isLocal()
-]]
-cls.props [[
-    bones
-    target
-    rotateMix
-    translateMix
-    scaleMix
-    shearMix
-    offsetRotation
-    offsetX
-    offsetY
-    offsetScaleX
-    offsetScaleY
-    offsetShearY
-    relative
-    local
-]]
+cls.func(nil, 'TransformConstraintData(const spine::String &name)')
+cls.func(nil, 'Vector<spine::BoneData *> &getBones()')
+cls.func(nil, 'spine::BoneData *getTarget()')
+cls.func(nil, 'float getRotateMix()')
+cls.func(nil, 'float getTranslateMix()')
+cls.func(nil, 'float getScaleMix()')
+cls.func(nil, 'float getShearMix()')
+cls.func(nil, 'float getOffsetRotation()')
+cls.func(nil, 'float getOffsetX()')
+cls.func(nil, 'float getOffsetY()')
+cls.func(nil, 'float getOffsetScaleX()')
+cls.func(nil, 'float getOffsetScaleY()')
+cls.func(nil, 'float getOffsetShearY()')
+cls.func(nil, 'bool isRelative()')
+cls.func(nil, 'bool isLocal()')
+cls.prop('bones')
+cls.prop('target')
+cls.prop('rotateMix')
+cls.prop('translateMix')
+cls.prop('scaleMix')
+cls.prop('shearMix')
+cls.prop('offsetRotation')
+cls.prop('offsetX')
+cls.prop('offsetY')
+cls.prop('offsetScaleX')
+cls.prop('offsetScaleY')
+cls.prop('offsetShearY')
+cls.prop('relative')
+cls.prop('local')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::PathConstraintData'
 cls.SUPERCLS = "spine::ConstraintData"
-cls.funcs [[
-    PathConstraintData(const spine::String &name)
-    Vector<spine::BoneData *> &getBones()
-    spine::SlotData *getTarget()
-    void setTarget(spine::SlotData *inValue)
-    spine::PositionMode getPositionMode()
-    void setPositionMode(spine::PositionMode inValue)
-    spine::SpacingMode getSpacingMode()
-    void setSpacingMode(spine::SpacingMode inValue)
-    spine::RotateMode getRotateMode()
-    void setRotateMode(spine::RotateMode inValue)
-    float getOffsetRotation()
-    void setOffsetRotation(float inValue)
-    float getPosition()
-    void setPosition(float inValue)
-    float getSpacing()
-    void setSpacing(float inValue)
-    float getRotateMix()
-    void setRotateMix(float inValue)
-    float getTranslateMix()
-    void setTranslateMix(float inValue)
-]]
-cls.props [[
-    bones
-    target
-    positionMode
-    spacingMode
-    rotateMode
-    offsetRotation
-    position
-    spacing
-    rotateMix
-    translateMix
-]]
+cls.func(nil, 'PathConstraintData(const spine::String &name)')
+cls.func(nil, 'Vector<spine::BoneData *> &getBones()')
+cls.func(nil, 'spine::SlotData *getTarget()')
+cls.func(nil, 'void setTarget(spine::SlotData *inValue)')
+cls.func(nil, 'spine::PositionMode getPositionMode()')
+cls.func(nil, 'void setPositionMode(spine::PositionMode inValue)')
+cls.func(nil, 'spine::SpacingMode getSpacingMode()')
+cls.func(nil, 'void setSpacingMode(spine::SpacingMode inValue)')
+cls.func(nil, 'spine::RotateMode getRotateMode()')
+cls.func(nil, 'void setRotateMode(spine::RotateMode inValue)')
+cls.func(nil, 'float getOffsetRotation()')
+cls.func(nil, 'void setOffsetRotation(float inValue)')
+cls.func(nil, 'float getPosition()')
+cls.func(nil, 'void setPosition(float inValue)')
+cls.func(nil, 'float getSpacing()')
+cls.func(nil, 'void setSpacing(float inValue)')
+cls.func(nil, 'float getRotateMix()')
+cls.func(nil, 'void setRotateMix(float inValue)')
+cls.func(nil, 'float getTranslateMix()')
+cls.func(nil, 'void setTranslateMix(float inValue)')
+cls.prop('bones')
+cls.prop('target')
+cls.prop('positionMode')
+cls.prop('spacingMode')
+cls.prop('rotateMode')
+cls.prop('offsetRotation')
+cls.prop('position')
+cls.prop('spacing')
+cls.prop('rotateMix')
+cls.prop('translateMix')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::SkeletonBounds'
 cls.SUPERCLS = "spine::SpineObject"
-cls.funcs [[
-    SkeletonBounds()
-    bool aabbcontainsPoint(float x, float y)
-    bool aabbintersectsSegment(float x1, float y1, float x2, float y2)
-    bool containsPoint(spine::Polygon *polygon, float x, float y)
-    spine::BoundingBoxAttachment *containsPoint(float x, float y)
-    spine::BoundingBoxAttachment *intersectsSegment(float x1, float y1, float x2, float y2)
-    bool intersectsSegment(spine::Polygon *polygon, float x1, float y1, float x2, float y2)
-    spine::Polygon *getPolygon(spine::BoundingBoxAttachment *attachment)
-    float getWidth()
-    float getHeight()
-]]
-cls.props [[
-    width
-    height
-]]
+cls.func(nil, 'SkeletonBounds()')
+cls.func(nil, 'bool aabbcontainsPoint(float x, float y)')
+cls.func(nil, 'bool aabbintersectsSegment(float x1, float y1, float x2, float y2)')
+cls.func(nil, 'bool containsPoint(spine::Polygon *polygon, float x, float y)', 'spine::BoundingBoxAttachment *containsPoint(float x, float y)')
+cls.func(nil, 'spine::BoundingBoxAttachment *intersectsSegment(float x1, float y1, float x2, float y2)', 'bool intersectsSegment(spine::Polygon *polygon, float x1, float y1, float x2, float y2)')
+cls.func(nil, 'spine::Polygon *getPolygon(spine::BoundingBoxAttachment *attachment)')
+cls.func(nil, 'float getWidth()')
+cls.func(nil, 'float getHeight()')
+cls.prop('width')
+cls.prop('height')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::SkeletonClipping'
 cls.SUPERCLS = "spine::SpineObject"
-cls.funcs [[
-]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::Timeline'
 cls.SUPERCLS = "spine::SpineObject"
-cls.funcs [[
-    int getPropertyId()
-]]
-cls.props [[
-    propertyId
-]]
+cls.func(nil, 'int getPropertyId()')
+cls.prop('propertyId')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::CurveTimeline'
 cls.SUPERCLS = "spine::Timeline"
-cls.funcs [[
-    size_t getFrameCount()
-    void setLinear(size_t frameIndex)
-    void setStepped(size_t frameIndex)
-    void setCurve(size_t frameIndex, float cx1, float cy1, float cx2, float cy2)
-    float getCurvePercent(size_t frameIndex, float percent)
-    float getCurveType(size_t frameIndex)
-]]
-cls.props [[
-    frameCount
-]]
+cls.func(nil, 'size_t getFrameCount()')
+cls.func(nil, 'void setLinear(size_t frameIndex)')
+cls.func(nil, 'void setStepped(size_t frameIndex)')
+cls.func(nil, 'void setCurve(size_t frameIndex, float cx1, float cy1, float cx2, float cy2)')
+cls.func(nil, 'float getCurvePercent(size_t frameIndex, float percent)')
+cls.func(nil, 'float getCurveType(size_t frameIndex)')
+cls.prop('frameCount')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::AttachmentTimeline'
 cls.SUPERCLS = "spine::Timeline"
-cls.funcs [[
-    AttachmentTimeline(int frameCount)
-    size_t getSlotIndex()
-    void setSlotIndex(size_t inValue)
-    Vector<float> &getFrames()
-    Vector<spine::String> &getAttachmentNames()
-    size_t getFrameCount()
-]]
-cls.props [[
-    slotIndex
-    frames
-    attachmentNames
-    frameCount
-]]
+cls.func(nil, 'AttachmentTimeline(int frameCount)')
+cls.func(nil, 'size_t getSlotIndex()')
+cls.func(nil, 'void setSlotIndex(size_t inValue)')
+cls.func(nil, 'Vector<float> &getFrames()')
+cls.func(nil, 'Vector<spine::String> &getAttachmentNames()')
+cls.func(nil, 'size_t getFrameCount()')
+cls.prop('slotIndex')
+cls.prop('frames')
+cls.prop('attachmentNames')
+cls.prop('frameCount')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::ColorTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.const('ENTRIES', 'spine::ColorTimeline::ENTRIES', 'const int')
-cls.funcs [[
-    ColorTimeline(int frameCount)
-    int getSlotIndex()
-    void setSlotIndex(int inValue)
-    Vector<float> &getFrames()
-]]
-cls.props [[
-    slotIndex
-    frames
-]]
+cls.func(nil, 'ColorTimeline(int frameCount)')
+cls.func(nil, 'int getSlotIndex()')
+cls.func(nil, 'void setSlotIndex(int inValue)')
+cls.func(nil, 'Vector<float> &getFrames()')
+cls.prop('slotIndex')
+cls.prop('frames')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::DeformTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
-cls.funcs [[
-    DeformTimeline(int frameCount)
-    int getSlotIndex()
-    void setSlotIndex(int inValue)
-    Vector<float> &getFrames()
-    spine::VertexAttachment *getAttachment()
-    void setAttachment(spine::VertexAttachment *inValue)
-]]
-cls.props [[
-    slotIndex
-    frames
-    attachment
-]]
+cls.func(nil, 'DeformTimeline(int frameCount)')
+cls.func(nil, 'int getSlotIndex()')
+cls.func(nil, 'void setSlotIndex(int inValue)')
+cls.func(nil, 'Vector<float> &getFrames()')
+cls.func(nil, 'spine::VertexAttachment *getAttachment()')
+cls.func(nil, 'void setAttachment(spine::VertexAttachment *inValue)')
+cls.prop('slotIndex')
+cls.prop('frames')
+cls.prop('attachment')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::DrawOrderTimeline'
 cls.SUPERCLS = "spine::Timeline"
-cls.funcs [[
-    DrawOrderTimeline(int frameCount)
-    Vector<float> &getFrames()
-    size_t getFrameCount()
-]]
-cls.props [[
-    frames
-    frameCount
-]]
+cls.func(nil, 'DrawOrderTimeline(int frameCount)')
+cls.func(nil, 'Vector<float> &getFrames()')
+cls.func(nil, 'size_t getFrameCount()')
+cls.prop('frames')
+cls.prop('frameCount')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::EventTimeline'
 cls.SUPERCLS = "spine::Timeline"
-cls.funcs [[
-    EventTimeline(int frameCount)
-    Vector<float> getFrames()
-    size_t getFrameCount()
-]]
-cls.props [[
-    frames
-    frameCount
-]]
+cls.func(nil, 'EventTimeline(int frameCount)')
+cls.func(nil, 'Vector<float> getFrames()')
+cls.func(nil, 'size_t getFrameCount()')
+cls.prop('frames')
+cls.prop('frameCount')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::IkConstraintTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.const('ENTRIES', 'spine::IkConstraintTimeline::ENTRIES', 'const int')
-cls.funcs [[
-    IkConstraintTimeline(int frameCount)
-]]
+cls.func(nil, 'IkConstraintTimeline(int frameCount)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::PathConstraintMixTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.const('ENTRIES', 'spine::PathConstraintMixTimeline::ENTRIES', 'const int')
-cls.funcs [[
-    PathConstraintMixTimeline(int frameCount)
-]]
+cls.func(nil, 'PathConstraintMixTimeline(int frameCount)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::PathConstraintPositionTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.const('ENTRIES', 'spine::PathConstraintPositionTimeline::ENTRIES', 'const int')
-cls.funcs [[
-    PathConstraintPositionTimeline(int frameCount)
-]]
+cls.func(nil, 'PathConstraintPositionTimeline(int frameCount)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::PathConstraintSpacingTimeline'
 cls.SUPERCLS = "spine::PathConstraintPositionTimeline"
-cls.funcs [[
-    PathConstraintSpacingTimeline(int frameCount)
-]]
+cls.func(nil, 'PathConstraintSpacingTimeline(int frameCount)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::TranslateTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.const('ENTRIES', 'spine::TranslateTimeline::ENTRIES', 'const int')
-cls.funcs [[
-    TranslateTimeline(int frameCount)
-]]
+cls.func(nil, 'TranslateTimeline(int frameCount)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::ShearTimeline'
 cls.SUPERCLS = "spine::TranslateTimeline"
-cls.funcs [[
-    ShearTimeline(int frameCount)
-]]
+cls.func(nil, 'ShearTimeline(int frameCount)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::TransformConstraintTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.const('ENTRIES', 'spine::TransformConstraintTimeline::ENTRIES', 'const int')
-cls.funcs [[
-    TransformConstraintTimeline(int frameCount)
-]]
+cls.func(nil, 'TransformConstraintTimeline(int frameCount)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::ScaleTimeline'
 cls.SUPERCLS = "spine::TranslateTimeline"
-cls.funcs [[
-    ScaleTimeline(int frameCount)
-]]
+cls.func(nil, 'ScaleTimeline(int frameCount)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::RotateTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.const('ENTRIES', 'spine::RotateTimeline::ENTRIES', 'const int')
-cls.funcs [[
-    RotateTimeline(int frameCount)
-    int getBoneIndex()
-    void setBoneIndex(int inValue)
-    Vector<float> &getFrames()
-]]
-cls.props [[
-    boneIndex
-    frames
-]]
+cls.func(nil, 'RotateTimeline(int frameCount)')
+cls.func(nil, 'int getBoneIndex()')
+cls.func(nil, 'void setBoneIndex(int inValue)')
+cls.func(nil, 'Vector<float> &getFrames()')
+cls.prop('boneIndex')
+cls.prop('frames')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::TwoColorTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.const('ENTRIES', 'spine::TwoColorTimeline::ENTRIES', 'const int')
-cls.funcs [[
-    TwoColorTimeline(int frameCount)
-    int getSlotIndex()
-    void setSlotIndex(int inValue)
-]]
-cls.props [[
-    slotIndex
-]]
+cls.func(nil, 'TwoColorTimeline(int frameCount)')
+cls.func(nil, 'int getSlotIndex()')
+cls.func(nil, 'void setSlotIndex(int inValue)')
+cls.prop('slotIndex')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::VertexEffect'
 cls.SUPERCLS = "spine::SpineObject"
-cls.funcs [[
-]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::SwirlVertexEffect'
 cls.SUPERCLS = "spine::VertexEffect"
-cls.funcs [[
-    void setCenterX(float centerX)
-    float getCenterX()
-    void setCenterY(float centerY)
-    float getCenterY()
-    void setRadius(float radius)
-    float getRadius()
-    void setAngle(float angle)
-    float getAngle()
-    void setWorldX(float worldX)
-    float getWorldX()
-    void setWorldY(float worldY)
-    float getWorldY()
-]]
-cls.props [[
-    centerX
-    centerY
-    radius
-    angle
-    worldX
-    worldY
-]]
+cls.func(nil, 'void setCenterX(float centerX)')
+cls.func(nil, 'float getCenterX()')
+cls.func(nil, 'void setCenterY(float centerY)')
+cls.func(nil, 'float getCenterY()')
+cls.func(nil, 'void setRadius(float radius)')
+cls.func(nil, 'float getRadius()')
+cls.func(nil, 'void setAngle(float angle)')
+cls.func(nil, 'float getAngle()')
+cls.func(nil, 'void setWorldX(float worldX)')
+cls.func(nil, 'float getWorldX()')
+cls.func(nil, 'void setWorldY(float worldY)')
+cls.func(nil, 'float getWorldY()')
+cls.prop('centerX')
+cls.prop('centerY')
+cls.prop('radius')
+cls.prop('angle')
+cls.prop('worldX')
+cls.prop('worldY')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::JitterVertexEffect'
 cls.SUPERCLS = "spine::VertexEffect"
-cls.funcs [[
-    JitterVertexEffect(float jitterX, float jitterY)
-    void setJitterX(float jitterX)
-    float getJitterX()
-    void setJitterY(float jitterY)
-    float getJitterY()
-]]
-cls.props [[
-    jitterX
-    jitterY
-]]
+cls.func(nil, 'JitterVertexEffect(float jitterX, float jitterY)')
+cls.func(nil, 'void setJitterX(float jitterX)')
+cls.func(nil, 'float getJitterX()')
+cls.func(nil, 'void setJitterY(float jitterY)')
+cls.func(nil, 'float getJitterY()')
+cls.prop('jitterX')
+cls.prop('jitterY')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::Polygon'
 cls.SUPERCLS = "spine::SpineObject"
-cls.funcs [[
-]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::Skin'
 cls.SUPERCLS = "spine::SpineObject"
-cls.funcs [[
-    Skin(const spine::String &name)
-    void setAttachment(size_t slotIndex, const spine::String &name, spine::Attachment *attachment)
-    spine::Attachment *getAttachment(size_t slotIndex, const spine::String &name)
-    void removeAttachment(size_t slotIndex, const spine::String &name)
-    const spine::String &getName()
-    void addSkin(spine::Skin *other)
-    void copySkin(spine::Skin *other)
-    Vector<spine::BoneData *> &getBones()
-    Vector<spine::ConstraintData *> &getConstraints()
-]]
-cls.props [[
-    name
-    bones
-    constraints
-]]
+cls.func(nil, 'Skin(const spine::String &name)')
+cls.func(nil, 'void setAttachment(size_t slotIndex, const spine::String &name, spine::Attachment *attachment)')
+cls.func(nil, 'spine::Attachment *getAttachment(size_t slotIndex, const spine::String &name)')
+cls.func(nil, 'void removeAttachment(size_t slotIndex, const spine::String &name)')
+cls.func(nil, 'const spine::String &getName()')
+cls.func(nil, 'void addSkin(spine::Skin *other)')
+cls.func(nil, 'void copySkin(spine::Skin *other)')
+cls.func(nil, 'Vector<spine::BoneData *> &getBones()')
+cls.func(nil, 'Vector<spine::ConstraintData *> &getConstraints()')
+cls.prop('name')
+cls.prop('bones')
+cls.prop('constraints')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::Atlas'
 cls.SUPERCLS = "spine::SpineObject"
-cls.funcs [[
-]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::Bone'
 cls.SUPERCLS = "spine::Updatable"
-cls.funcs [[
-    static void setYDown(bool inValue)
-    static bool isYDown()
-    void updateWorldTransform()
-    void updateWorldTransform(float x, float y, float rotation, float scaleX, float scaleY, float shearX, float shearY)
-    void setToSetupPose()
-    float worldToLocalRotation(float worldRotation)
-    float localToWorldRotation(float localRotation)
-    void rotateWorld(float degrees)
-    float getWorldToLocalRotationX()
-    float getWorldToLocalRotationY()
-    spine::Bone *getParent()
-    Vector<spine::Bone *> &getChildren()
-    float getX()
-    void setX(float inValue)
-    float getY()
-    void setY(float inValue)
-    float getRotation()
-    void setRotation(float inValue)
-    float getScaleX()
-    void setScaleX(float inValue)
-    float getScaleY()
-    void setScaleY(float inValue)
-    float getShearX()
-    void setShearX(float inValue)
-    float getShearY()
-    void setShearY(float inValue)
-    float getAppliedRotation()
-    void setAppliedRotation(float inValue)
-    float getAX()
-    void setAX(float inValue)
-    float getAY()
-    void setAY(float inValue)
-    float getAScaleX()
-    void setAScaleX(float inValue)
-    float getAScaleY()
-    void setAScaleY(float inValue)
-    float getAShearX()
-    void setAShearX(float inValue)
-    float getAShearY()
-    void setAShearY(float inValue)
-    float getA()
-    void setA(float inValue)
-    float getB()
-    void setB(float inValue)
-    float getC()
-    void setC(float inValue)
-    float getD()
-    void setD(float inValue)
-    float getWorldX()
-    void setWorldX(float inValue)
-    float getWorldY()
-    void setWorldY(float inValue)
-    float getWorldRotationX()
-    float getWorldRotationY()
-    float getWorldScaleX()
-    float getWorldScaleY()
-    bool isAppliedValid()
-    void setAppliedValid(bool valid)
-]]
-cls.props [[
-    yDown
-    worldToLocalRotationX
-    worldToLocalRotationY
-    parent
-    children
-    x
-    y
-    rotation
-    scaleX
-    scaleY
-    shearX
-    shearY
-    appliedRotation
-    ax
-    ay
-    aScaleX
-    aScaleY
-    aShearX
-    aShearY
-    a
-    b
-    c
-    d
-    worldX
-    worldY
-    worldRotationX
-    worldRotationY
-    worldScaleX
-    worldScaleY
-    appliedValid
-]]
+cls.func(nil, 'static void setYDown(bool inValue)')
+cls.func(nil, 'static bool isYDown()')
+cls.func(nil, 'void updateWorldTransform()', 'void updateWorldTransform(float x, float y, float rotation, float scaleX, float scaleY, float shearX, float shearY)')
+cls.func(nil, 'void setToSetupPose()')
+cls.func(nil, 'float worldToLocalRotation(float worldRotation)')
+cls.func(nil, 'float localToWorldRotation(float localRotation)')
+cls.func(nil, 'void rotateWorld(float degrees)')
+cls.func(nil, 'float getWorldToLocalRotationX()')
+cls.func(nil, 'float getWorldToLocalRotationY()')
+cls.func(nil, 'spine::Bone *getParent()')
+cls.func(nil, 'Vector<spine::Bone *> &getChildren()')
+cls.func(nil, 'float getX()')
+cls.func(nil, 'void setX(float inValue)')
+cls.func(nil, 'float getY()')
+cls.func(nil, 'void setY(float inValue)')
+cls.func(nil, 'float getRotation()')
+cls.func(nil, 'void setRotation(float inValue)')
+cls.func(nil, 'float getScaleX()')
+cls.func(nil, 'void setScaleX(float inValue)')
+cls.func(nil, 'float getScaleY()')
+cls.func(nil, 'void setScaleY(float inValue)')
+cls.func(nil, 'float getShearX()')
+cls.func(nil, 'void setShearX(float inValue)')
+cls.func(nil, 'float getShearY()')
+cls.func(nil, 'void setShearY(float inValue)')
+cls.func(nil, 'float getAppliedRotation()')
+cls.func(nil, 'void setAppliedRotation(float inValue)')
+cls.func(nil, 'float getAX()')
+cls.func(nil, 'void setAX(float inValue)')
+cls.func(nil, 'float getAY()')
+cls.func(nil, 'void setAY(float inValue)')
+cls.func(nil, 'float getAScaleX()')
+cls.func(nil, 'void setAScaleX(float inValue)')
+cls.func(nil, 'float getAScaleY()')
+cls.func(nil, 'void setAScaleY(float inValue)')
+cls.func(nil, 'float getAShearX()')
+cls.func(nil, 'void setAShearX(float inValue)')
+cls.func(nil, 'float getAShearY()')
+cls.func(nil, 'void setAShearY(float inValue)')
+cls.func(nil, 'float getA()')
+cls.func(nil, 'void setA(float inValue)')
+cls.func(nil, 'float getB()')
+cls.func(nil, 'void setB(float inValue)')
+cls.func(nil, 'float getC()')
+cls.func(nil, 'void setC(float inValue)')
+cls.func(nil, 'float getD()')
+cls.func(nil, 'void setD(float inValue)')
+cls.func(nil, 'float getWorldX()')
+cls.func(nil, 'void setWorldX(float inValue)')
+cls.func(nil, 'float getWorldY()')
+cls.func(nil, 'void setWorldY(float inValue)')
+cls.func(nil, 'float getWorldRotationX()')
+cls.func(nil, 'float getWorldRotationY()')
+cls.func(nil, 'float getWorldScaleX()')
+cls.func(nil, 'float getWorldScaleY()')
+cls.func(nil, 'bool isAppliedValid()')
+cls.func(nil, 'void setAppliedValid(bool valid)')
+cls.prop('yDown')
+cls.prop('worldToLocalRotationX')
+cls.prop('worldToLocalRotationY')
+cls.prop('parent')
+cls.prop('children')
+cls.prop('x')
+cls.prop('y')
+cls.prop('rotation')
+cls.prop('scaleX')
+cls.prop('scaleY')
+cls.prop('shearX')
+cls.prop('shearY')
+cls.prop('appliedRotation')
+cls.prop('ax')
+cls.prop('ay')
+cls.prop('aScaleX')
+cls.prop('aScaleY')
+cls.prop('aShearX')
+cls.prop('aShearY')
+cls.prop('a')
+cls.prop('b')
+cls.prop('c')
+cls.prop('d')
+cls.prop('worldX')
+cls.prop('worldY')
+cls.prop('worldRotationX')
+cls.prop('worldRotationY')
+cls.prop('worldScaleX')
+cls.prop('worldScaleY')
+cls.prop('appliedValid')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::Slot'
 cls.SUPERCLS = "spine::SpineObject"
-cls.funcs [[
-    void setToSetupPose()
-    spine::Color &getColor()
-    spine::Color &getDarkColor()
-    bool hasDarkColor()
-    spine::Attachment *getAttachment()
-    void setAttachment(spine::Attachment *inValue)
-    int getAttachmentState()
-    void setAttachmentState(int state)
-    float getAttachmentTime()
-    void setAttachmentTime(float inValue)
-    Vector<float> &getDeform()
-]]
-cls.props [[
-    color
-    darkColor
-    attachment
-    attachmentState
-    attachmentTime
-    deform
-]]
+cls.func(nil, 'void setToSetupPose()')
+cls.func(nil, 'spine::Color &getColor()')
+cls.func(nil, 'spine::Color &getDarkColor()')
+cls.func(nil, 'bool hasDarkColor()')
+cls.func(nil, 'spine::Attachment *getAttachment()')
+cls.func(nil, 'void setAttachment(spine::Attachment *inValue)')
+cls.func(nil, 'int getAttachmentState()')
+cls.func(nil, 'void setAttachmentState(int state)')
+cls.func(nil, 'float getAttachmentTime()')
+cls.func(nil, 'void setAttachmentTime(float inValue)')
+cls.func(nil, 'Vector<float> &getDeform()')
+cls.prop('color')
+cls.prop('darkColor')
+cls.prop('attachment')
+cls.prop('attachmentState')
+cls.prop('attachmentTime')
+cls.prop('deform')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::Attachment'
 cls.SUPERCLS = "spine::SpineObject"
-cls.funcs [[
-    const spine::String &getName()
-    spine::Attachment *copy()
-    int getRefCount()
-    void reference()
-    void dereference()
-]]
-cls.props [[
-    name
-    refCount
-]]
+cls.func(nil, 'const spine::String &getName()')
+cls.func(nil, 'spine::Attachment *copy()')
+cls.func(nil, 'int getRefCount()')
+cls.func(nil, 'void reference()')
+cls.func(nil, 'void dereference()')
+cls.prop('name')
+cls.prop('refCount')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::VertexAttachment'
 cls.SUPERCLS = "spine::Attachment"
-cls.funcs [[
-    int getId()
-    Vector<size_t> &getBones()
-    Vector<float> &getVertices()
-    size_t getWorldVerticesLength()
-    void setWorldVerticesLength(size_t inValue)
-    spine::VertexAttachment *getDeformAttachment()
-    void setDeformAttachment(spine::VertexAttachment *attachment)
-    void copyTo(spine::VertexAttachment *other)
-]]
-cls.props [[
-    id
-    bones
-    vertices
-    worldVerticesLength
-    deformAttachment
-]]
+cls.func(nil, 'int getId()')
+cls.func(nil, 'Vector<size_t> &getBones()')
+cls.func(nil, 'Vector<float> &getVertices()')
+cls.func(nil, 'size_t getWorldVerticesLength()')
+cls.func(nil, 'void setWorldVerticesLength(size_t inValue)')
+cls.func(nil, 'spine::VertexAttachment *getDeformAttachment()')
+cls.func(nil, 'void setDeformAttachment(spine::VertexAttachment *attachment)')
+cls.func(nil, 'void copyTo(spine::VertexAttachment *other)')
+cls.prop('id')
+cls.prop('bones')
+cls.prop('vertices')
+cls.prop('worldVerticesLength')
+cls.prop('deformAttachment')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::ClippingAttachment'
 cls.SUPERCLS = "spine::VertexAttachment"
-cls.funcs [[
-    ClippingAttachment(const spine::String &name)
-    spine::SlotData *getEndSlot()
-    void setEndSlot(spine::SlotData *inValue)
-]]
-cls.props [[
-    endSlot
-]]
+cls.func(nil, 'ClippingAttachment(const spine::String &name)')
+cls.func(nil, 'spine::SlotData *getEndSlot()')
+cls.func(nil, 'void setEndSlot(spine::SlotData *inValue)')
+cls.prop('endSlot')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::BoundingBoxAttachment'
 cls.SUPERCLS = "spine::VertexAttachment"
-cls.funcs [[
-    BoundingBoxAttachment(const spine::String &name)
-]]
+cls.func(nil, 'BoundingBoxAttachment(const spine::String &name)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::MeshAttachment'
 cls.SUPERCLS = "spine::VertexAttachment"
-cls.funcs [[
-    MeshAttachment(const spine::String &name)
-    void updateUVs()
-    int getHullLength()
-    void setHullLength(int inValue)
-    Vector<float> &getRegionUVs()
-    Vector<float> &getUVs()
-    Vector<unsigned short> &getTriangles()
-    spine::Color &getColor()
-    const spine::String &getPath()
-    void setPath(const spine::String &inValue)
-    float getRegionU()
-    void setRegionU(float inValue)
-    float getRegionV()
-    void setRegionV(float inValue)
-    float getRegionU2()
-    void setRegionU2(float inValue)
-    float getRegionV2()
-    void setRegionV2(float inValue)
-    bool getRegionRotate()
-    void setRegionRotate(bool inValue)
-    int getRegionDegrees()
-    void setRegionDegrees(int inValue)
-    float getRegionOffsetX()
-    void setRegionOffsetX(float inValue)
-    float getRegionOffsetY()
-    void setRegionOffsetY(float inValue)
-    float getRegionWidth()
-    void setRegionWidth(float inValue)
-    float getRegionHeight()
-    void setRegionHeight(float inValue)
-    float getRegionOriginalWidth()
-    void setRegionOriginalWidth(float inValue)
-    float getRegionOriginalHeight()
-    void setRegionOriginalHeight(float inValue)
-    spine::MeshAttachment *getParentMesh()
-    void setParentMesh(spine::MeshAttachment *inValue)
-    Vector<unsigned short> &getEdges()
-    float getWidth()
-    void setWidth(float inValue)
-    float getHeight()
-    void setHeight(float inValue)
-    spine::MeshAttachment *newLinkedMesh()
-]]
-cls.props [[
-    hullLength
-    regionUVs
-    uvs
-    triangles
-    color
-    path
-    regionU
-    regionV
-    regionU2
-    regionV2
-    regionRotate
-    regionDegrees
-    regionOffsetX
-    regionOffsetY
-    regionWidth
-    regionHeight
-    regionOriginalWidth
-    regionOriginalHeight
-    parentMesh
-    edges
-    width
-    height
-]]
+cls.func(nil, 'MeshAttachment(const spine::String &name)')
+cls.func(nil, 'void updateUVs()')
+cls.func(nil, 'int getHullLength()')
+cls.func(nil, 'void setHullLength(int inValue)')
+cls.func(nil, 'Vector<float> &getRegionUVs()')
+cls.func(nil, 'Vector<float> &getUVs()')
+cls.func(nil, 'Vector<unsigned short> &getTriangles()')
+cls.func(nil, 'spine::Color &getColor()')
+cls.func(nil, 'const spine::String &getPath()')
+cls.func(nil, 'void setPath(const spine::String &inValue)')
+cls.func(nil, 'float getRegionU()')
+cls.func(nil, 'void setRegionU(float inValue)')
+cls.func(nil, 'float getRegionV()')
+cls.func(nil, 'void setRegionV(float inValue)')
+cls.func(nil, 'float getRegionU2()')
+cls.func(nil, 'void setRegionU2(float inValue)')
+cls.func(nil, 'float getRegionV2()')
+cls.func(nil, 'void setRegionV2(float inValue)')
+cls.func(nil, 'bool getRegionRotate()')
+cls.func(nil, 'void setRegionRotate(bool inValue)')
+cls.func(nil, 'int getRegionDegrees()')
+cls.func(nil, 'void setRegionDegrees(int inValue)')
+cls.func(nil, 'float getRegionOffsetX()')
+cls.func(nil, 'void setRegionOffsetX(float inValue)')
+cls.func(nil, 'float getRegionOffsetY()')
+cls.func(nil, 'void setRegionOffsetY(float inValue)')
+cls.func(nil, 'float getRegionWidth()')
+cls.func(nil, 'void setRegionWidth(float inValue)')
+cls.func(nil, 'float getRegionHeight()')
+cls.func(nil, 'void setRegionHeight(float inValue)')
+cls.func(nil, 'float getRegionOriginalWidth()')
+cls.func(nil, 'void setRegionOriginalWidth(float inValue)')
+cls.func(nil, 'float getRegionOriginalHeight()')
+cls.func(nil, 'void setRegionOriginalHeight(float inValue)')
+cls.func(nil, 'spine::MeshAttachment *getParentMesh()')
+cls.func(nil, 'void setParentMesh(spine::MeshAttachment *inValue)')
+cls.func(nil, 'Vector<unsigned short> &getEdges()')
+cls.func(nil, 'float getWidth()')
+cls.func(nil, 'void setWidth(float inValue)')
+cls.func(nil, 'float getHeight()')
+cls.func(nil, 'void setHeight(float inValue)')
+cls.func(nil, 'spine::MeshAttachment *newLinkedMesh()')
+cls.prop('hullLength')
+cls.prop('regionUVs')
+cls.prop('uvs')
+cls.prop('triangles')
+cls.prop('color')
+cls.prop('path')
+cls.prop('regionU')
+cls.prop('regionV')
+cls.prop('regionU2')
+cls.prop('regionV2')
+cls.prop('regionRotate')
+cls.prop('regionDegrees')
+cls.prop('regionOffsetX')
+cls.prop('regionOffsetY')
+cls.prop('regionWidth')
+cls.prop('regionHeight')
+cls.prop('regionOriginalWidth')
+cls.prop('regionOriginalHeight')
+cls.prop('parentMesh')
+cls.prop('edges')
+cls.prop('width')
+cls.prop('height')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::PathAttachment'
 cls.SUPERCLS = "spine::VertexAttachment"
-cls.funcs [[
-    PathAttachment(const spine::String &name)
-    Vector<float> &getLengths()
-    bool isClosed()
-    void setClosed(bool inValue)
-    bool isConstantSpeed()
-    void setConstantSpeed(bool inValue)
-]]
-cls.props [[
-    lengths
-    closed
-    constantSpeed
-]]
+cls.func(nil, 'PathAttachment(const spine::String &name)')
+cls.func(nil, 'Vector<float> &getLengths()')
+cls.func(nil, 'bool isClosed()')
+cls.func(nil, 'void setClosed(bool inValue)')
+cls.func(nil, 'bool isConstantSpeed()')
+cls.func(nil, 'void setConstantSpeed(bool inValue)')
+cls.prop('lengths')
+cls.prop('closed')
+cls.prop('constantSpeed')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::PathConstraint'
 cls.SUPERCLS = "spine::Updatable"
-cls.funcs [[
-    void apply()
-    int getOrder()
-    float getPosition()
-    void setPosition(float inValue)
-    float getSpacing()
-    void setSpacing(float inValue)
-    float getRotateMix()
-    void setRotateMix(float inValue)
-    float getTranslateMix()
-    void setTranslateMix(float inValue)
-    Vector<spine::Bone *> &getBones()
-    spine::Slot *getTarget()
-    void setTarget(spine::Slot *inValue)
-]]
-cls.props [[
-    order
-    position
-    spacing
-    rotateMix
-    translateMix
-    bones
-    target
-]]
+cls.func(nil, 'void apply()')
+cls.func(nil, 'int getOrder()')
+cls.func(nil, 'float getPosition()')
+cls.func(nil, 'void setPosition(float inValue)')
+cls.func(nil, 'float getSpacing()')
+cls.func(nil, 'void setSpacing(float inValue)')
+cls.func(nil, 'float getRotateMix()')
+cls.func(nil, 'void setRotateMix(float inValue)')
+cls.func(nil, 'float getTranslateMix()')
+cls.func(nil, 'void setTranslateMix(float inValue)')
+cls.func(nil, 'Vector<spine::Bone *> &getBones()')
+cls.func(nil, 'spine::Slot *getTarget()')
+cls.func(nil, 'void setTarget(spine::Slot *inValue)')
+cls.prop('order')
+cls.prop('position')
+cls.prop('spacing')
+cls.prop('rotateMix')
+cls.prop('translateMix')
+cls.prop('bones')
+cls.prop('target')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::PointAttachment'
 cls.SUPERCLS = "spine::Attachment"
-cls.funcs [[
-    PointAttachment(const spine::String &name)
-    float getX()
-    void setX(float inValue)
-    float getY()
-    void setY(float inValue)
-    float getRotation()
-    void setRotation(float inValue)
-]]
-cls.props [[
-    x
-    y
-    rotation
-]]
+cls.func(nil, 'PointAttachment(const spine::String &name)')
+cls.func(nil, 'float getX()')
+cls.func(nil, 'void setX(float inValue)')
+cls.func(nil, 'float getY()')
+cls.func(nil, 'void setY(float inValue)')
+cls.func(nil, 'float getRotation()')
+cls.func(nil, 'void setRotation(float inValue)')
+cls.prop('x')
+cls.prop('y')
+cls.prop('rotation')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::RegionAttachment'
 cls.SUPERCLS = "spine::Attachment"
-cls.funcs [[
-    RegionAttachment(const spine::String &name)
-    void updateOffset()
-    void setUVs(float u, float v, float u2, float v2, bool rotate)
-    float getX()
-    void setX(float inValue)
-    float getY()
-    void setY(float inValue)
-    float getRotation()
-    void setRotation(float inValue)
-    float getScaleX()
-    void setScaleX(float inValue)
-    float getScaleY()
-    void setScaleY(float inValue)
-    float getWidth()
-    void setWidth(float inValue)
-    float getHeight()
-    void setHeight(float inValue)
-    spine::Color &getColor()
-    const spine::String &getPath()
-    void setPath(const spine::String &inValue)
-    float getRegionOffsetX()
-    void setRegionOffsetX(float inValue)
-    float getRegionOffsetY()
-    void setRegionOffsetY(float inValue)
-    float getRegionWidth()
-    void setRegionWidth(float inValue)
-    float getRegionHeight()
-    void setRegionHeight(float inValue)
-    float getRegionOriginalWidth()
-    void setRegionOriginalWidth(float inValue)
-    float getRegionOriginalHeight()
-    void setRegionOriginalHeight(float inValue)
-    Vector<float> &getOffset()
-    Vector<float> &getUVs()
-]]
-cls.props [[
-    x
-    y
-    rotation
-    scaleX
-    scaleY
-    width
-    height
-    color
-    path
-    regionOffsetX
-    regionOffsetY
-    regionWidth
-    regionHeight
-    regionOriginalWidth
-    regionOriginalHeight
-    offset
-    uvs
-]]
+cls.func(nil, 'RegionAttachment(const spine::String &name)')
+cls.func(nil, 'void updateOffset()')
+cls.func(nil, 'void setUVs(float u, float v, float u2, float v2, bool rotate)')
+cls.func(nil, 'float getX()')
+cls.func(nil, 'void setX(float inValue)')
+cls.func(nil, 'float getY()')
+cls.func(nil, 'void setY(float inValue)')
+cls.func(nil, 'float getRotation()')
+cls.func(nil, 'void setRotation(float inValue)')
+cls.func(nil, 'float getScaleX()')
+cls.func(nil, 'void setScaleX(float inValue)')
+cls.func(nil, 'float getScaleY()')
+cls.func(nil, 'void setScaleY(float inValue)')
+cls.func(nil, 'float getWidth()')
+cls.func(nil, 'void setWidth(float inValue)')
+cls.func(nil, 'float getHeight()')
+cls.func(nil, 'void setHeight(float inValue)')
+cls.func(nil, 'spine::Color &getColor()')
+cls.func(nil, 'const spine::String &getPath()')
+cls.func(nil, 'void setPath(const spine::String &inValue)')
+cls.func(nil, 'float getRegionOffsetX()')
+cls.func(nil, 'void setRegionOffsetX(float inValue)')
+cls.func(nil, 'float getRegionOffsetY()')
+cls.func(nil, 'void setRegionOffsetY(float inValue)')
+cls.func(nil, 'float getRegionWidth()')
+cls.func(nil, 'void setRegionWidth(float inValue)')
+cls.func(nil, 'float getRegionHeight()')
+cls.func(nil, 'void setRegionHeight(float inValue)')
+cls.func(nil, 'float getRegionOriginalWidth()')
+cls.func(nil, 'void setRegionOriginalWidth(float inValue)')
+cls.func(nil, 'float getRegionOriginalHeight()')
+cls.func(nil, 'void setRegionOriginalHeight(float inValue)')
+cls.func(nil, 'Vector<float> &getOffset()')
+cls.func(nil, 'Vector<float> &getUVs()')
+cls.prop('x')
+cls.prop('y')
+cls.prop('rotation')
+cls.prop('scaleX')
+cls.prop('scaleY')
+cls.prop('width')
+cls.prop('height')
+cls.prop('color')
+cls.prop('path')
+cls.prop('regionOffsetX')
+cls.prop('regionOffsetY')
+cls.prop('regionWidth')
+cls.prop('regionHeight')
+cls.prop('regionOriginalWidth')
+cls.prop('regionOriginalHeight')
+cls.prop('offset')
+cls.prop('uvs')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::TrackEntry'
 cls.SUPERCLS = "spine::SpineObject"
-cls.funcs [[
-    TrackEntry()
-    int getTrackIndex()
-    spine::Animation *getAnimation()
-    bool getLoop()
-    void setLoop(bool inValue)
-    bool getHoldPrevious()
-    void setHoldPrevious(bool inValue)
-    float getDelay()
-    void setDelay(float inValue)
-    float getTrackTime()
-    void setTrackTime(float inValue)
-    float getTrackEnd()
-    void setTrackEnd(float inValue)
-    float getAnimationStart()
-    void setAnimationStart(float inValue)
-    float getAnimationEnd()
-    void setAnimationEnd(float inValue)
-    float getAnimationLast()
-    void setAnimationLast(float inValue)
-    float getAnimationTime()
-    float getTimeScale()
-    void setTimeScale(float inValue)
-    float getAlpha()
-    void setAlpha(float inValue)
-    float getEventThreshold()
-    void setEventThreshold(float inValue)
-    float getAttachmentThreshold()
-    void setAttachmentThreshold(float inValue)
-    float getDrawOrderThreshold()
-    void setDrawOrderThreshold(float inValue)
-    spine::TrackEntry *getNext()
-    bool isComplete()
-    float getMixTime()
-    void setMixTime(float inValue)
-    float getMixDuration()
-    void setMixDuration(float inValue)
-    spine::MixBlend getMixBlend()
-    void setMixBlend(spine::MixBlend blend)
-    spine::TrackEntry *getMixingFrom()
-    spine::TrackEntry *getMixingTo()
-    void resetRotationDirections()
-]]
+cls.func(nil, 'TrackEntry()')
+cls.func(nil, 'int getTrackIndex()')
+cls.func(nil, 'spine::Animation *getAnimation()')
+cls.func(nil, 'bool getLoop()')
+cls.func(nil, 'void setLoop(bool inValue)')
+cls.func(nil, 'bool getHoldPrevious()')
+cls.func(nil, 'void setHoldPrevious(bool inValue)')
+cls.func(nil, 'float getDelay()')
+cls.func(nil, 'void setDelay(float inValue)')
+cls.func(nil, 'float getTrackTime()')
+cls.func(nil, 'void setTrackTime(float inValue)')
+cls.func(nil, 'float getTrackEnd()')
+cls.func(nil, 'void setTrackEnd(float inValue)')
+cls.func(nil, 'float getAnimationStart()')
+cls.func(nil, 'void setAnimationStart(float inValue)')
+cls.func(nil, 'float getAnimationEnd()')
+cls.func(nil, 'void setAnimationEnd(float inValue)')
+cls.func(nil, 'float getAnimationLast()')
+cls.func(nil, 'void setAnimationLast(float inValue)')
+cls.func(nil, 'float getAnimationTime()')
+cls.func(nil, 'float getTimeScale()')
+cls.func(nil, 'void setTimeScale(float inValue)')
+cls.func(nil, 'float getAlpha()')
+cls.func(nil, 'void setAlpha(float inValue)')
+cls.func(nil, 'float getEventThreshold()')
+cls.func(nil, 'void setEventThreshold(float inValue)')
+cls.func(nil, 'float getAttachmentThreshold()')
+cls.func(nil, 'void setAttachmentThreshold(float inValue)')
+cls.func(nil, 'float getDrawOrderThreshold()')
+cls.func(nil, 'void setDrawOrderThreshold(float inValue)')
+cls.func(nil, 'spine::TrackEntry *getNext()')
+cls.func(nil, 'bool isComplete()')
+cls.func(nil, 'float getMixTime()')
+cls.func(nil, 'void setMixTime(float inValue)')
+cls.func(nil, 'float getMixDuration()')
+cls.func(nil, 'void setMixDuration(float inValue)')
+cls.func(nil, 'spine::MixBlend getMixBlend()')
+cls.func(nil, 'void setMixBlend(spine::MixBlend blend)')
+cls.func(nil, 'spine::TrackEntry *getMixingFrom()')
+cls.func(nil, 'spine::TrackEntry *getMixingTo()')
+cls.func(nil, 'void resetRotationDirections()')
 cls.callback {
     FUNCS =  {
         'void setListener(std::function<void (AnimationState *, EventType, TrackEntry *, Event *)> listener)'
@@ -1296,78 +1112,74 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    trackIndex
-    animation
-    loop
-    holdPrevious
-    delay
-    trackTime
-    trackEnd
-    animationStart
-    animationEnd
-    animationLast
-    animationTime
-    timeScale
-    alpha
-    eventThreshold
-    attachmentThreshold
-    drawOrderThreshold
-    next
-    complete
-    mixTime
-    mixDuration
-    mixBlend
-    mixingFrom
-    mixingTo
-]]
+cls.prop('trackIndex')
+cls.prop('animation')
+cls.prop('loop')
+cls.prop('holdPrevious')
+cls.prop('delay')
+cls.prop('trackTime')
+cls.prop('trackEnd')
+cls.prop('animationStart')
+cls.prop('animationEnd')
+cls.prop('animationLast')
+cls.prop('animationTime')
+cls.prop('timeScale')
+cls.prop('alpha')
+cls.prop('eventThreshold')
+cls.prop('attachmentThreshold')
+cls.prop('drawOrderThreshold')
+cls.prop('next')
+cls.prop('complete')
+cls.prop('mixTime')
+cls.prop('mixDuration')
+cls.prop('mixBlend')
+cls.prop('mixingFrom')
+cls.prop('mixingTo')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::SkeletonData'
 cls.SUPERCLS = "spine::SpineObject"
-cls.funcs [[
-    spine::BoneData *findBone(const spine::String &boneName)
-    int findBoneIndex(const spine::String &boneName)
-    spine::SlotData *findSlot(const spine::String &slotName)
-    int findSlotIndex(const spine::String &slotName)
-    spine::Skin *findSkin(const spine::String &skinName)
-    spine::EventData *findEvent(const spine::String &eventDataName)
-    spine::Animation *findAnimation(const spine::String &animationName)
-    spine::IkConstraintData *findIkConstraint(const spine::String &constraintName)
-    spine::TransformConstraintData *findTransformConstraint(const spine::String &constraintName)
-    spine::PathConstraintData *findPathConstraint(const spine::String &constraintName)
-    int findPathConstraintIndex(const spine::String &pathConstraintName)
-    const spine::String &getName()
-    void setName(const spine::String &inValue)
-    Vector<spine::BoneData *> &getBones()
-    Vector<spine::SlotData *> &getSlots()
-    Vector<spine::Skin *> &getSkins()
-    spine::Skin *getDefaultSkin()
-    void setDefaultSkin(spine::Skin *inValue)
-    Vector<spine::EventData *> &getEvents()
-    Vector<spine::Animation *> &getAnimations()
-    Vector<spine::IkConstraintData *> &getIkConstraints()
-    Vector<spine::TransformConstraintData *> &getTransformConstraints()
-    Vector<spine::PathConstraintData *> &getPathConstraints()
-    float getX()
-    void setX(float inValue)
-    float getY()
-    void setY(float inValue)
-    float getWidth()
-    void setWidth(float inValue)
-    float getHeight()
-    void setHeight(float inValue)
-    const spine::String &getVersion()
-    void setVersion(const spine::String &inValue)
-    const spine::String &getHash()
-    void setHash(const spine::String &inValue)
-    const spine::String &getImagesPath()
-    void setImagesPath(const spine::String &inValue)
-    const spine::String &getAudioPath()
-    void setAudioPath(const spine::String &inValue)
-    float getFps()
-    void setFps(float inValue)
-]]
+cls.func(nil, 'spine::BoneData *findBone(const spine::String &boneName)')
+cls.func(nil, 'int findBoneIndex(const spine::String &boneName)')
+cls.func(nil, 'spine::SlotData *findSlot(const spine::String &slotName)')
+cls.func(nil, 'int findSlotIndex(const spine::String &slotName)')
+cls.func(nil, 'spine::Skin *findSkin(const spine::String &skinName)')
+cls.func(nil, 'spine::EventData *findEvent(const spine::String &eventDataName)')
+cls.func(nil, 'spine::Animation *findAnimation(const spine::String &animationName)')
+cls.func(nil, 'spine::IkConstraintData *findIkConstraint(const spine::String &constraintName)')
+cls.func(nil, 'spine::TransformConstraintData *findTransformConstraint(const spine::String &constraintName)')
+cls.func(nil, 'spine::PathConstraintData *findPathConstraint(const spine::String &constraintName)')
+cls.func(nil, 'int findPathConstraintIndex(const spine::String &pathConstraintName)')
+cls.func(nil, 'const spine::String &getName()')
+cls.func(nil, 'void setName(const spine::String &inValue)')
+cls.func(nil, 'Vector<spine::BoneData *> &getBones()')
+cls.func(nil, 'Vector<spine::SlotData *> &getSlots()')
+cls.func(nil, 'Vector<spine::Skin *> &getSkins()')
+cls.func(nil, 'spine::Skin *getDefaultSkin()')
+cls.func(nil, 'void setDefaultSkin(spine::Skin *inValue)')
+cls.func(nil, 'Vector<spine::EventData *> &getEvents()')
+cls.func(nil, 'Vector<spine::Animation *> &getAnimations()')
+cls.func(nil, 'Vector<spine::IkConstraintData *> &getIkConstraints()')
+cls.func(nil, 'Vector<spine::TransformConstraintData *> &getTransformConstraints()')
+cls.func(nil, 'Vector<spine::PathConstraintData *> &getPathConstraints()')
+cls.func(nil, 'float getX()')
+cls.func(nil, 'void setX(float inValue)')
+cls.func(nil, 'float getY()')
+cls.func(nil, 'void setY(float inValue)')
+cls.func(nil, 'float getWidth()')
+cls.func(nil, 'void setWidth(float inValue)')
+cls.func(nil, 'float getHeight()')
+cls.func(nil, 'void setHeight(float inValue)')
+cls.func(nil, 'const spine::String &getVersion()')
+cls.func(nil, 'void setVersion(const spine::String &inValue)')
+cls.func(nil, 'const spine::String &getHash()')
+cls.func(nil, 'void setHash(const spine::String &inValue)')
+cls.func(nil, 'const spine::String &getImagesPath()')
+cls.func(nil, 'void setImagesPath(const spine::String &inValue)')
+cls.func(nil, 'const spine::String &getAudioPath()')
+cls.func(nil, 'void setAudioPath(const spine::String &inValue)')
+cls.func(nil, 'float getFps()')
+cls.func(nil, 'void setFps(float inValue)')
 cls.func('__gc', [[{
     auto self = olua_toobj<spine::SkeletonData>(L, 1);
     lua_pushstring(L, ".ownership");
@@ -1443,177 +1255,154 @@ cls.func('new', [[{
 
     return 1;
 }]])
+cls.prop('name')
+cls.prop('bones')
+cls.prop('slots')
+cls.prop('skins')
+cls.prop('defaultSkin')
+cls.prop('events')
+cls.prop('animations')
+cls.prop('ikConstraints')
+cls.prop('transformConstraints')
+cls.prop('pathConstraints')
+cls.prop('x')
+cls.prop('y')
+cls.prop('width')
+cls.prop('height')
+cls.prop('version')
+cls.prop('hash')
+cls.prop('imagesPath')
+cls.prop('audioPath')
+cls.prop('fps')
 cls.alias('__gc', 'dispose')
-cls.props [[
-    name
-    bones
-    slots
-    skins
-    defaultSkin
-    events
-    animations
-    ikConstraints
-    transformConstraints
-    pathConstraints
-    x
-    y
-    width
-    height
-    version
-    hash
-    imagesPath
-    audioPath
-    fps
-]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::Skeleton'
 cls.SUPERCLS = "spine::SpineObject"
-cls.funcs [[
-    Skeleton(spine::SkeletonData *skeletonData)
-    void updateCache()
-    void printUpdateCache()
-    void updateWorldTransform()
-    void setToSetupPose()
-    void setBonesToSetupPose()
-    void setSlotsToSetupPose()
-    spine::Bone *findBone(const spine::String &boneName)
-    int findBoneIndex(const spine::String &boneName)
-    spine::Slot *findSlot(const spine::String &slotName)
-    int findSlotIndex(const spine::String &slotName)
-    void setSkin(const spine::String &skinName)
-    void setSkin(spine::Skin *newSkin)
-    spine::Attachment *getAttachment(const spine::String &slotName, const spine::String &attachmentName)
-    spine::Attachment *getAttachment(int slotIndex, const spine::String &attachmentName)
-    void setAttachment(const spine::String &slotName, const spine::String &attachmentName)
-    spine::IkConstraint *findIkConstraint(const spine::String &constraintName)
-    spine::TransformConstraint *findTransformConstraint(const spine::String &constraintName)
-    spine::PathConstraint *findPathConstraint(const spine::String &constraintName)
-    void update(float delta)
-    spine::Bone *getRootBone()
-    spine::SkeletonData *getData()
-    Vector<spine::Bone *> &getBones()
-    Vector<spine::Updatable *> &getUpdateCacheList()
-    Vector<spine::Slot *> &getSlots()
-    Vector<spine::Slot *> &getDrawOrder()
-    Vector<spine::IkConstraint *> &getIkConstraints()
-    Vector<spine::PathConstraint *> &getPathConstraints()
-    Vector<spine::TransformConstraint *> &getTransformConstraints()
-    spine::Skin *getSkin()
-    spine::Color &getColor()
-    float getTime()
-    void setTime(float inValue)
-    void setPosition(float x, float y)
-    float getX()
-    void setX(float inValue)
-    float getY()
-    void setY(float inValue)
-    float getScaleX()
-    void setScaleX(float inValue)
-    float getScaleY()
-    void setScaleY(float inValue)
-]]
-cls.props [[
-    rootBone
-    data
-    bones
-    updateCacheList
-    slots
-    drawOrder
-    ikConstraints
-    pathConstraints
-    transformConstraints
-    skin
-    color
-    time
-    x
-    y
-    scaleX
-    scaleY
-]]
+cls.func(nil, 'Skeleton(spine::SkeletonData *skeletonData)')
+cls.func(nil, 'void updateCache()')
+cls.func(nil, 'void printUpdateCache()')
+cls.func(nil, 'void updateWorldTransform()')
+cls.func(nil, 'void setToSetupPose()')
+cls.func(nil, 'void setBonesToSetupPose()')
+cls.func(nil, 'void setSlotsToSetupPose()')
+cls.func(nil, 'spine::Bone *findBone(const spine::String &boneName)')
+cls.func(nil, 'int findBoneIndex(const spine::String &boneName)')
+cls.func(nil, 'spine::Slot *findSlot(const spine::String &slotName)')
+cls.func(nil, 'int findSlotIndex(const spine::String &slotName)')
+cls.func(nil, 'void setSkin(const spine::String &skinName)', 'void setSkin(spine::Skin *newSkin)')
+cls.func(nil, 'spine::Attachment *getAttachment(const spine::String &slotName, const spine::String &attachmentName)', 'spine::Attachment *getAttachment(int slotIndex, const spine::String &attachmentName)')
+cls.func(nil, 'void setAttachment(const spine::String &slotName, const spine::String &attachmentName)')
+cls.func(nil, 'spine::IkConstraint *findIkConstraint(const spine::String &constraintName)')
+cls.func(nil, 'spine::TransformConstraint *findTransformConstraint(const spine::String &constraintName)')
+cls.func(nil, 'spine::PathConstraint *findPathConstraint(const spine::String &constraintName)')
+cls.func(nil, 'void update(float delta)')
+cls.func(nil, 'spine::Bone *getRootBone()')
+cls.func(nil, 'spine::SkeletonData *getData()')
+cls.func(nil, 'Vector<spine::Bone *> &getBones()')
+cls.func(nil, 'Vector<spine::Updatable *> &getUpdateCacheList()')
+cls.func(nil, 'Vector<spine::Slot *> &getSlots()')
+cls.func(nil, 'Vector<spine::Slot *> &getDrawOrder()')
+cls.func(nil, 'Vector<spine::IkConstraint *> &getIkConstraints()')
+cls.func(nil, 'Vector<spine::PathConstraint *> &getPathConstraints()')
+cls.func(nil, 'Vector<spine::TransformConstraint *> &getTransformConstraints()')
+cls.func(nil, 'spine::Skin *getSkin()')
+cls.func(nil, 'spine::Color &getColor()')
+cls.func(nil, 'float getTime()')
+cls.func(nil, 'void setTime(float inValue)')
+cls.func(nil, 'void setPosition(float x, float y)')
+cls.func(nil, 'float getX()')
+cls.func(nil, 'void setX(float inValue)')
+cls.func(nil, 'float getY()')
+cls.func(nil, 'void setY(float inValue)')
+cls.func(nil, 'float getScaleX()')
+cls.func(nil, 'void setScaleX(float inValue)')
+cls.func(nil, 'float getScaleY()')
+cls.func(nil, 'void setScaleY(float inValue)')
+cls.prop('rootBone')
+cls.prop('data')
+cls.prop('bones')
+cls.prop('updateCacheList')
+cls.prop('slots')
+cls.prop('drawOrder')
+cls.prop('ikConstraints')
+cls.prop('pathConstraints')
+cls.prop('transformConstraints')
+cls.prop('skin')
+cls.prop('color')
+cls.prop('time')
+cls.prop('x')
+cls.prop('y')
+cls.prop('scaleX')
+cls.prop('scaleY')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::SkeletonRenderer'
 cls.SUPERCLS = "cocos2d::Node"
-cls.funcs [[
-    static spine::SkeletonRenderer *create()
-    static spine::SkeletonRenderer *createWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData)
-    static spine::SkeletonRenderer *createWithData(@addref(skeletonData ^) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
-    static spine::SkeletonRenderer *createWithFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
-    static spine::SkeletonRenderer *createWithFile(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
-    spine::Skeleton *getSkeleton()
-    void setTimeScale(float scale)
-    float getTimeScale()
-    void setDebugSlotsEnabled(bool enabled)
-    bool getDebugSlotsEnabled()
-    void setDebugBonesEnabled(bool enabled)
-    bool getDebugBonesEnabled()
-    void setDebugMeshesEnabled(bool enabled)
-    bool getDebugMeshesEnabled()
-    void setDebugBoundingRectEnabled(bool enabled)
-    bool getDebugBoundingRectEnabled()
-    void updateWorldTransform()
-    void setToSetupPose()
-    void setBonesToSetupPose()
-    void setSlotsToSetupPose()
-    spine::Bone *findBone(const std::string &boneName)
-    spine::Slot *findSlot(const std::string &slotName)
-    void setSkin(const std::string &skinName)
-    void setSkin(const char *skinName)
-    spine::Attachment *getAttachment(const std::string &slotName, const std::string &attachmentName)
-    bool setAttachment(const std::string &slotName, const std::string &attachmentName)
-    bool setAttachment(const std::string &slotName, const char *attachmentName)
-    void setTwoColorTint(bool enabled)
-    bool isTwoColorTint()
-    void setVertexEffect(spine::VertexEffect *effect)
-    void setSlotsRange(int startSlotIndex, int endSlotIndex)
-    void setBlendFunc(const cocos2d::BlendFunc &blendFunc)
-    const cocos2d::BlendFunc &getBlendFunc()
-    SkeletonRenderer()
-    SkeletonRenderer(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
-    SkeletonRenderer(spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
-    SkeletonRenderer(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
-    SkeletonRenderer(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
-    void initialize()
-]]
-cls.props [[
-    skeleton
-    timeScale
-    debugSlotsEnabled
-    debugBonesEnabled
-    debugMeshesEnabled
-    debugBoundingRectEnabled
-    twoColorTint
-    blendFunc
-]]
+cls.func(nil, 'static spine::SkeletonRenderer *create()')
+cls.func(nil, 'static spine::SkeletonRenderer *createWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData)')
+cls.func(nil, 'static spine::SkeletonRenderer *createWithData(@addref(skeletonData ^) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)')
+cls.func(nil, 'static spine::SkeletonRenderer *createWithFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)', 'static spine::SkeletonRenderer *createWithFile(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)')
+cls.func(nil, 'spine::Skeleton *getSkeleton()')
+cls.func(nil, 'void setTimeScale(float scale)')
+cls.func(nil, 'float getTimeScale()')
+cls.func(nil, 'void setDebugSlotsEnabled(bool enabled)')
+cls.func(nil, 'bool getDebugSlotsEnabled()')
+cls.func(nil, 'void setDebugBonesEnabled(bool enabled)')
+cls.func(nil, 'bool getDebugBonesEnabled()')
+cls.func(nil, 'void setDebugMeshesEnabled(bool enabled)')
+cls.func(nil, 'bool getDebugMeshesEnabled()')
+cls.func(nil, 'void setDebugBoundingRectEnabled(bool enabled)')
+cls.func(nil, 'bool getDebugBoundingRectEnabled()')
+cls.func(nil, 'void updateWorldTransform()')
+cls.func(nil, 'void setToSetupPose()')
+cls.func(nil, 'void setBonesToSetupPose()')
+cls.func(nil, 'void setSlotsToSetupPose()')
+cls.func(nil, 'spine::Bone *findBone(const std::string &boneName)')
+cls.func(nil, 'spine::Slot *findSlot(const std::string &slotName)')
+cls.func(nil, 'void setSkin(const std::string &skinName)', 'void setSkin(const char *skinName)')
+cls.func(nil, 'spine::Attachment *getAttachment(const std::string &slotName, const std::string &attachmentName)')
+cls.func(nil, 'bool setAttachment(const std::string &slotName, const std::string &attachmentName)', 'bool setAttachment(const std::string &slotName, const char *attachmentName)')
+cls.func(nil, 'void setTwoColorTint(bool enabled)')
+cls.func(nil, 'bool isTwoColorTint()')
+cls.func(nil, 'void setVertexEffect(spine::VertexEffect *effect)')
+cls.func(nil, 'void setSlotsRange(int startSlotIndex, int endSlotIndex)')
+cls.func(nil, 'void setBlendFunc(const cocos2d::BlendFunc &blendFunc)')
+cls.func(nil, 'const cocos2d::BlendFunc &getBlendFunc()')
+cls.func(nil, 'SkeletonRenderer()', 'SkeletonRenderer(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)', 'SkeletonRenderer(spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)', 'SkeletonRenderer(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)', 'SkeletonRenderer(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)')
+cls.func(nil, 'void initialize()')
+cls.prop('skeleton')
+cls.prop('timeScale')
+cls.prop('debugSlotsEnabled')
+cls.prop('debugBonesEnabled')
+cls.prop('debugMeshesEnabled')
+cls.prop('debugBoundingRectEnabled')
+cls.prop('twoColorTint')
+cls.prop('blendFunc')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::SkeletonAnimation'
 cls.SUPERCLS = "spine::SkeletonRenderer"
-cls.funcs [[
-    static spine::SkeletonAnimation *create()
-    static spine::SkeletonAnimation *createWithData(@addref(skeletonData ^) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
-    static spine::SkeletonAnimation *createWithJsonFile(const std::string &skeletonJsonFile, spine::Atlas *atlas, @optional float scale)
-    static spine::SkeletonAnimation *createWithJsonFile(const std::string &skeletonJsonFile, const std::string &atlasFile, @optional float scale)
-    static spine::SkeletonAnimation *createWithBinaryFile(const std::string &skeletonBinaryFile, spine::Atlas *atlas, @optional float scale)
-    static spine::SkeletonAnimation *createWithBinaryFile(const std::string &skeletonBinaryFile, const std::string &atlasFile, @optional float scale)
-    void setAnimationStateData(spine::AnimationStateData *stateData)
-    void setMix(const std::string &fromAnimation, const std::string &toAnimation, float duration)
-    @addref(trackEntries |) spine::TrackEntry *setAnimation(int trackIndex, const std::string &name, bool loop)
-    @addref(trackEntries |) spine::TrackEntry *addAnimation(int trackIndex, const std::string &name, bool loop, @optional float delay)
-    @addref(trackEntries |) spine::TrackEntry *setEmptyAnimation(int trackIndex, float mixDuration)
-    void setEmptyAnimations(float mixDuration)
-    @addref(trackEntries |) spine::TrackEntry *addEmptyAnimation(int trackIndex, float mixDuration, @optional float delay)
-    spine::Animation *findAnimation(const std::string &name)
-    @addref(trackEntries |) spine::TrackEntry *getCurrent(@optional int trackIndex)
-    void clearTracks()
-    void clearTrack(@optional int trackIndex)
-    void onAnimationStateEvent(spine::TrackEntry *entry, spine::EventType type, spine::Event *event)
-    void onTrackEntryEvent(spine::TrackEntry *entry, spine::EventType type, spine::Event *event)
-    @addref(state ^) spine::AnimationState *getState()
-    void setUpdateOnlyIfVisible(bool status)
-    SkeletonAnimation()
-]]
+cls.func(nil, 'static spine::SkeletonAnimation *create()')
+cls.func(nil, 'static spine::SkeletonAnimation *createWithData(@addref(skeletonData ^) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)')
+cls.func(nil, 'static spine::SkeletonAnimation *createWithJsonFile(const std::string &skeletonJsonFile, spine::Atlas *atlas, @optional float scale)', 'static spine::SkeletonAnimation *createWithJsonFile(const std::string &skeletonJsonFile, const std::string &atlasFile, @optional float scale)')
+cls.func(nil, 'static spine::SkeletonAnimation *createWithBinaryFile(const std::string &skeletonBinaryFile, spine::Atlas *atlas, @optional float scale)', 'static spine::SkeletonAnimation *createWithBinaryFile(const std::string &skeletonBinaryFile, const std::string &atlasFile, @optional float scale)')
+cls.func(nil, 'void setAnimationStateData(spine::AnimationStateData *stateData)')
+cls.func(nil, 'void setMix(const std::string &fromAnimation, const std::string &toAnimation, float duration)')
+cls.func(nil, '@addref(trackEntries |) spine::TrackEntry *setAnimation(int trackIndex, const std::string &name, bool loop)')
+cls.func(nil, '@addref(trackEntries |) spine::TrackEntry *addAnimation(int trackIndex, const std::string &name, bool loop, @optional float delay)')
+cls.func(nil, '@addref(trackEntries |) spine::TrackEntry *setEmptyAnimation(int trackIndex, float mixDuration)')
+cls.func(nil, 'void setEmptyAnimations(float mixDuration)')
+cls.func(nil, '@addref(trackEntries |) spine::TrackEntry *addEmptyAnimation(int trackIndex, float mixDuration, @optional float delay)')
+cls.func(nil, 'spine::Animation *findAnimation(const std::string &name)')
+cls.func(nil, '@addref(trackEntries |) spine::TrackEntry *getCurrent(@optional int trackIndex)')
+cls.func(nil, 'void clearTracks()')
+cls.func(nil, 'void clearTrack(@optional int trackIndex)')
+cls.func(nil, 'void onAnimationStateEvent(spine::TrackEntry *entry, spine::EventType type, spine::Event *event)')
+cls.func(nil, 'void onTrackEntryEvent(spine::TrackEntry *entry, spine::EventType type, spine::Event *event)')
+cls.func(nil, '@addref(state ^) spine::AnimationState *getState()')
+cls.func(nil, 'void setUpdateOnlyIfVisible(bool status)')
+cls.func(nil, 'SkeletonAnimation()')
 cls.callback {
     FUNCS =  {
         'void setStartListener(const std::function<void (TrackEntry *)> &listener)'
@@ -1740,9 +1529,7 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    state
-]]
+cls.prop('state')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 return M

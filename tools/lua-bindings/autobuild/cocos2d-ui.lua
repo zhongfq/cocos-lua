@@ -66,81 +66,78 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Widget'
 cls.SUPERCLS = "cocos2d::ProtectedNode"
-cls.funcs [[
-    Widget()
-    static cocos2d::ui::Widget *create()
-    void setEnabled(bool enabled)
-    bool isEnabled()
-    void setBright(bool bright)
-    bool isBright()
-    void setTouchEnabled(bool enabled)
-    void setBrightStyle(cocos2d::ui::Widget::BrightStyle style)
-    bool isTouchEnabled()
-    bool isHighlighted()
-    void setHighlighted(bool highlight)
-    float getLeftBoundary()
-    float getBottomBoundary()
-    float getRightBoundary()
-    float getTopBoundary()
-    void setPositionPercent(const cocos2d::Vec2 &percent)
-    const cocos2d::Vec2 &getPositionPercent()
-    void setPositionType(cocos2d::ui::Widget::PositionType type)
-    cocos2d::ui::Widget::PositionType getPositionType()
-    void setFlippedX(bool flippedX)
-    bool isFlippedX()
-    void setFlippedY(bool flippedY)
-    bool isFlippedY()
-    bool isClippingParentContainsPoint(const cocos2d::Vec2 &pt)
-    const cocos2d::Vec2 &getTouchBeganPosition()
-    const cocos2d::Vec2 &getTouchMovePosition()
-    const cocos2d::Vec2 &getTouchEndPosition()
-    void setSizePercent(const cocos2d::Vec2 &percent)
-    void setSizeType(cocos2d::ui::Widget::SizeType type)
-    cocos2d::ui::Widget::SizeType getSizeType()
-    const cocos2d::Size &getCustomSize()
-    const cocos2d::Size &getLayoutSize()
-    const cocos2d::Vec2 &getSizePercent()
-    bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unusedEvent)
-    void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unusedEvent)
-    void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unusedEvent)
-    void onTouchCancelled(cocos2d::Touch *touch, cocos2d::Event *unusedEvent)
-    void setLayoutParameter(cocos2d::ui::LayoutParameter *parameter)
-    cocos2d::ui::LayoutParameter *getLayoutParameter()
-    void ignoreContentAdaptWithSize(bool ignore)
-    bool isIgnoreContentAdaptWithSize()
-    cocos2d::Vec2 getWorldPosition()
-    @addref(protectedChildren |) cocos2d::Node *getVirtualRenderer()
-    cocos2d::Size getVirtualRendererSize()
-    cocos2d::ui::Widget *clone()
-    void updateSizeAndPosition()
-    void updateSizeAndPosition(const cocos2d::Size &parentSize)
-    void setActionTag(int tag)
-    int getActionTag()
-    void setPropagateTouchEvents(bool isPropagate)
-    bool isPropagateTouchEvents()
-    void setSwallowTouches(bool swallow)
-    bool isSwallowTouches()
-    bool isFocused()
-    void setFocused(bool focus)
-    bool isFocusEnabled()
-    void setFocusEnabled(bool enable)
-    cocos2d::ui::Widget *findNextFocusedWidget(cocos2d::ui::Widget::FocusDirection direction, cocos2d::ui::Widget *current)
-    void requestFocus()
-    static cocos2d::ui::Widget *getCurrentFocusedWidget()
-    static void enableDpadNavigation(bool enable)
-    void setUnifySizeEnabled(bool enable)
-    bool isUnifySizeEnabled()
-    void setCallbackName(const std::string &callbackName)
-    const std::string &getCallbackName()
-    void setCallbackType(const std::string &callbackType)
-    const std::string &getCallbackType()
-    void setLayoutComponentEnabled(bool enable)
-    bool isLayoutComponentEnabled()
-    void interceptTouchEvent(cocos2d::ui::Widget::TouchEventType event, cocos2d::ui::Widget *sender, cocos2d::Touch *touch)
-    void propagateTouchEvent(cocos2d::ui::Widget::TouchEventType event, cocos2d::ui::Widget *sender, cocos2d::Touch *touch)
-    void onFocusChange(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui::Widget *widgetGetFocus)
-    void dispatchFocusEvent(cocos2d::ui::Widget *widgetLoseFocus, cocos2d::ui::Widget *widgetGetFocus)
-]]
+cls.func(nil, 'Widget()')
+cls.func(nil, 'static cocos2d::ui::Widget *create()')
+cls.func(nil, 'void setEnabled(bool enabled)')
+cls.func(nil, 'bool isEnabled()')
+cls.func(nil, 'void setBright(bool bright)')
+cls.func(nil, 'bool isBright()')
+cls.func(nil, 'void setTouchEnabled(bool enabled)')
+cls.func(nil, 'void setBrightStyle(cocos2d::ui::Widget::BrightStyle style)')
+cls.func(nil, 'bool isTouchEnabled()')
+cls.func(nil, 'bool isHighlighted()')
+cls.func(nil, 'void setHighlighted(bool highlight)')
+cls.func(nil, 'float getLeftBoundary()')
+cls.func(nil, 'float getBottomBoundary()')
+cls.func(nil, 'float getRightBoundary()')
+cls.func(nil, 'float getTopBoundary()')
+cls.func(nil, 'void setPositionPercent(const cocos2d::Vec2 &percent)')
+cls.func(nil, 'const cocos2d::Vec2 &getPositionPercent()')
+cls.func(nil, 'void setPositionType(cocos2d::ui::Widget::PositionType type)')
+cls.func(nil, 'cocos2d::ui::Widget::PositionType getPositionType()')
+cls.func(nil, 'void setFlippedX(bool flippedX)')
+cls.func(nil, 'bool isFlippedX()')
+cls.func(nil, 'void setFlippedY(bool flippedY)')
+cls.func(nil, 'bool isFlippedY()')
+cls.func(nil, 'bool isClippingParentContainsPoint(const cocos2d::Vec2 &pt)')
+cls.func(nil, 'const cocos2d::Vec2 &getTouchBeganPosition()')
+cls.func(nil, 'const cocos2d::Vec2 &getTouchMovePosition()')
+cls.func(nil, 'const cocos2d::Vec2 &getTouchEndPosition()')
+cls.func(nil, 'void setSizePercent(const cocos2d::Vec2 &percent)')
+cls.func(nil, 'void setSizeType(cocos2d::ui::Widget::SizeType type)')
+cls.func(nil, 'cocos2d::ui::Widget::SizeType getSizeType()')
+cls.func(nil, 'const cocos2d::Size &getCustomSize()')
+cls.func(nil, 'const cocos2d::Size &getLayoutSize()')
+cls.func(nil, 'const cocos2d::Vec2 &getSizePercent()')
+cls.func(nil, 'bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unusedEvent)')
+cls.func(nil, 'void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unusedEvent)')
+cls.func(nil, 'void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unusedEvent)')
+cls.func(nil, 'void onTouchCancelled(cocos2d::Touch *touch, cocos2d::Event *unusedEvent)')
+cls.func(nil, 'void setLayoutParameter(cocos2d::ui::LayoutParameter *parameter)')
+cls.func(nil, 'cocos2d::ui::LayoutParameter *getLayoutParameter()')
+cls.func(nil, 'void ignoreContentAdaptWithSize(bool ignore)')
+cls.func(nil, 'bool isIgnoreContentAdaptWithSize()')
+cls.func(nil, 'cocos2d::Vec2 getWorldPosition()')
+cls.func(nil, '@addref(protectedChildren |) cocos2d::Node *getVirtualRenderer()')
+cls.func(nil, 'cocos2d::Size getVirtualRendererSize()')
+cls.func(nil, 'cocos2d::ui::Widget *clone()')
+cls.func(nil, 'void updateSizeAndPosition()', 'void updateSizeAndPosition(const cocos2d::Size &parentSize)')
+cls.func(nil, 'void setActionTag(int tag)')
+cls.func(nil, 'int getActionTag()')
+cls.func(nil, 'void setPropagateTouchEvents(bool isPropagate)')
+cls.func(nil, 'bool isPropagateTouchEvents()')
+cls.func(nil, 'void setSwallowTouches(bool swallow)')
+cls.func(nil, 'bool isSwallowTouches()')
+cls.func(nil, 'bool isFocused()')
+cls.func(nil, 'void setFocused(bool focus)')
+cls.func(nil, 'bool isFocusEnabled()')
+cls.func(nil, 'void setFocusEnabled(bool enable)')
+cls.func(nil, 'cocos2d::ui::Widget *findNextFocusedWidget(cocos2d::ui::Widget::FocusDirection direction, cocos2d::ui::Widget *current)')
+cls.func(nil, 'void requestFocus()')
+cls.func(nil, 'static cocos2d::ui::Widget *getCurrentFocusedWidget()')
+cls.func(nil, 'static void enableDpadNavigation(bool enable)')
+cls.func(nil, 'void setUnifySizeEnabled(bool enable)')
+cls.func(nil, 'bool isUnifySizeEnabled()')
+cls.func(nil, 'void setCallbackName(const std::string &callbackName)')
+cls.func(nil, 'const std::string &getCallbackName()')
+cls.func(nil, 'void setCallbackType(const std::string &callbackType)')
+cls.func(nil, 'const std::string &getCallbackType()')
+cls.func(nil, 'void setLayoutComponentEnabled(bool enable)')
+cls.func(nil, 'bool isLayoutComponentEnabled()')
+cls.func(nil, 'void interceptTouchEvent(cocos2d::ui::Widget::TouchEventType event, cocos2d::ui::Widget *sender, cocos2d::Touch *touch)')
+cls.func(nil, 'void propagateTouchEvent(cocos2d::ui::Widget::TouchEventType event, cocos2d::ui::Widget *sender, cocos2d::Touch *touch)')
+cls.func(nil, 'void onFocusChange(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui::Widget *widgetGetFocus)')
+cls.func(nil, 'void dispatchFocusEvent(cocos2d::ui::Widget *widgetLoseFocus, cocos2d::ui::Widget *widgetGetFocus)')
 cls.var('onFocusChanged', [[@nullable std::function<void (Widget *, Widget *)> onFocusChanged]])
 cls.var('onNextFocusedWidget', [[@nullable @local std::function<Widget *(FocusDirection)> onNextFocusedWidget]])
 cls.callback {
@@ -170,55 +167,51 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    enabled
-    bright
-    touchEnabled
-    highlighted
-    leftBoundary
-    bottomBoundary
-    rightBoundary
-    topBoundary
-    positionPercent
-    positionType
-    flippedX
-    flippedY
-    touchBeganPosition
-    touchMovePosition
-    touchEndPosition
-    sizeType
-    customSize
-    layoutSize
-    sizePercent
-    layoutParameter
-    ignoreContentAdaptWithSize
-    worldPosition
-    virtualRenderer
-    virtualRendererSize
-    actionTag
-    propagateTouchEvents
-    swallowTouches
-    focused
-    focusEnabled
-    currentFocusedWidget
-    unifySizeEnabled
-    callbackName
-    callbackType
-    layoutComponentEnabled
-]]
+cls.prop('enabled')
+cls.prop('bright')
+cls.prop('touchEnabled')
+cls.prop('highlighted')
+cls.prop('leftBoundary')
+cls.prop('bottomBoundary')
+cls.prop('rightBoundary')
+cls.prop('topBoundary')
+cls.prop('positionPercent')
+cls.prop('positionType')
+cls.prop('flippedX')
+cls.prop('flippedY')
+cls.prop('touchBeganPosition')
+cls.prop('touchMovePosition')
+cls.prop('touchEndPosition')
+cls.prop('sizeType')
+cls.prop('customSize')
+cls.prop('layoutSize')
+cls.prop('sizePercent')
+cls.prop('layoutParameter')
+cls.prop('ignoreContentAdaptWithSize')
+cls.prop('worldPosition')
+cls.prop('virtualRenderer')
+cls.prop('virtualRendererSize')
+cls.prop('actionTag')
+cls.prop('propagateTouchEvents')
+cls.prop('swallowTouches')
+cls.prop('focused')
+cls.prop('focusEnabled')
+cls.prop('currentFocusedWidget')
+cls.prop('unifySizeEnabled')
+cls.prop('callbackName')
+cls.prop('callbackType')
+cls.prop('layoutComponentEnabled')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Helper'
-cls.funcs [[
-    static cocos2d::ui::Widget *seekWidgetByTag(cocos2d::ui::Widget *root, int tag)
-    static cocos2d::ui::Widget *seekWidgetByName(cocos2d::ui::Widget *root, const std::string &name)
-    static cocos2d::ui::Widget *seekActionWidgetByActionTag(cocos2d::ui::Widget *root, int tag)
-    static std::string getSubStringOfUTF8String(const std::string &str, std::string::size_type start, std::string::size_type length)
-    static void doLayout(cocos2d::Node *rootNode)
-    static void changeLayoutSystemActiveState(bool active)
-    static cocos2d::Rect restrictCapInsetRect(const cocos2d::Rect &capInsets, const cocos2d::Size &textureSize)
-    static cocos2d::Rect convertBoundingBoxToScreen(cocos2d::Node *node)
-]]
+cls.func(nil, 'static cocos2d::ui::Widget *seekWidgetByTag(cocos2d::ui::Widget *root, int tag)')
+cls.func(nil, 'static cocos2d::ui::Widget *seekWidgetByName(cocos2d::ui::Widget *root, const std::string &name)')
+cls.func(nil, 'static cocos2d::ui::Widget *seekActionWidgetByActionTag(cocos2d::ui::Widget *root, int tag)')
+cls.func(nil, 'static std::string getSubStringOfUTF8String(const std::string &str, std::string::size_type start, std::string::size_type length)')
+cls.func(nil, 'static void doLayout(cocos2d::Node *rootNode)')
+cls.func(nil, 'static void changeLayoutSystemActiveState(bool active)')
+cls.func(nil, 'static cocos2d::Rect restrictCapInsetRect(const cocos2d::Rect &capInsets, const cocos2d::Size &textureSize)')
+cls.func(nil, 'static cocos2d::Rect convertBoundingBoxToScreen(cocos2d::Node *node)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Scale9Sprite::State'
@@ -233,64 +226,50 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Scale9Sprite'
 cls.SUPERCLS = "cocos2d::Sprite"
-cls.funcs [[
-    Scale9Sprite()
-    static cocos2d::ui::Scale9Sprite *create()
-    static cocos2d::ui::Scale9Sprite *create(const std::string &file, const cocos2d::Rect &rect, const cocos2d::Rect &capInsets)
-    static cocos2d::ui::Scale9Sprite *create(const cocos2d::Rect &capInsets, const std::string &file)
-    static cocos2d::ui::Scale9Sprite *create(const std::string &file, const cocos2d::Rect &rect)
-    static cocos2d::ui::Scale9Sprite *create(const std::string &file)
-    static cocos2d::ui::Scale9Sprite *createWithSpriteFrame(cocos2d::SpriteFrame *spriteFrame)
-    static cocos2d::ui::Scale9Sprite *createWithSpriteFrame(cocos2d::SpriteFrame *spriteFrame, const cocos2d::Rect &capInsets)
-    static cocos2d::ui::Scale9Sprite *createWithSpriteFrameName(const std::string &spriteFrameName)
-    static cocos2d::ui::Scale9Sprite *createWithSpriteFrameName(const std::string &spriteFrameName, const cocos2d::Rect &capInsets)
-    bool initWithFile(const std::string &file, const cocos2d::Rect &rect, const cocos2d::Rect &capInsets)
-    bool initWithFile(const cocos2d::Rect &capInsets, const std::string &file)
-    bool initWithSpriteFrame(cocos2d::SpriteFrame *spriteFrame, const cocos2d::Rect &capInsets)
-    bool initWithSpriteFrameName(const std::string &spriteFrameName, const cocos2d::Rect &capInsets)
-    bool init(cocos2d::Sprite *sprite, const cocos2d::Rect &rect, bool rotated, const cocos2d::Rect &capInsets)
-    bool init(cocos2d::Sprite *sprite, const cocos2d::Rect &rect, const cocos2d::Rect &capInsets)
-    bool init(cocos2d::Sprite *sprite, const cocos2d::Rect &rect, bool rotated, const cocos2d::Vec2 &offset, const cocos2d::Size &originalSize, const cocos2d::Rect &capInsets)
-    cocos2d::ui::Scale9Sprite *resizableSpriteWithCapInsets(const cocos2d::Rect &capInsets)
-    bool updateWithSprite(cocos2d::Sprite *sprite, const cocos2d::Rect &rect, bool rotated, const cocos2d::Rect &capInsets)
-    bool updateWithSprite(cocos2d::Sprite *sprite, const cocos2d::Rect &rect, bool rotated, const cocos2d::Vec2 &offset, const cocos2d::Size &originalSize, const cocos2d::Rect &capInsets)
-    void setSpriteFrame(cocos2d::SpriteFrame *spriteFrame, const cocos2d::Rect &capInsets)
-    void setState(cocos2d::ui::Scale9Sprite::State state)
-    cocos2d::ui::Scale9Sprite::State getState()
-    cocos2d::Size getOriginalSize()
-    void setPreferredSize(const cocos2d::Size &size)
-    cocos2d::Size getPreferredSize()
-    void setInsetLeft(float leftInset)
-    float getInsetLeft()
-    void setInsetTop(float topInset)
-    float getInsetTop()
-    void setInsetRight(float rightInset)
-    float getInsetRight()
-    void setInsetBottom(float bottomInset)
-    float getInsetBottom()
-    void setScale9Enabled(bool enabled)
-    bool isScale9Enabled()
-    cocos2d::Sprite *getSprite()
-    void copyTo(cocos2d::ui::Scale9Sprite *copy)
-    void setRenderingType(cocos2d::ui::Scale9Sprite::RenderingType type)
-    cocos2d::ui::Scale9Sprite::RenderingType getRenderingType()
-    void setCapInsets(const cocos2d::Rect &insets)
-    cocos2d::Rect getCapInsets()
-    void resetRender()
-]]
-cls.props [[
-    state
-    originalSize
-    preferredSize
-    insetLeft
-    insetTop
-    insetRight
-    insetBottom
-    scale9Enabled
-    sprite
-    renderingType
-    capInsets
-]]
+cls.func(nil, 'Scale9Sprite()')
+cls.func(nil, 'static cocos2d::ui::Scale9Sprite *create()', 'static cocos2d::ui::Scale9Sprite *create(const std::string &file, const cocos2d::Rect &rect, const cocos2d::Rect &capInsets)', 'static cocos2d::ui::Scale9Sprite *create(const cocos2d::Rect &capInsets, const std::string &file)', 'static cocos2d::ui::Scale9Sprite *create(const std::string &file, const cocos2d::Rect &rect)', 'static cocos2d::ui::Scale9Sprite *create(const std::string &file)')
+cls.func(nil, 'static cocos2d::ui::Scale9Sprite *createWithSpriteFrame(cocos2d::SpriteFrame *spriteFrame)', 'static cocos2d::ui::Scale9Sprite *createWithSpriteFrame(cocos2d::SpriteFrame *spriteFrame, const cocos2d::Rect &capInsets)')
+cls.func(nil, 'static cocos2d::ui::Scale9Sprite *createWithSpriteFrameName(const std::string &spriteFrameName)', 'static cocos2d::ui::Scale9Sprite *createWithSpriteFrameName(const std::string &spriteFrameName, const cocos2d::Rect &capInsets)')
+cls.func(nil, 'bool initWithFile(const std::string &file, const cocos2d::Rect &rect, const cocos2d::Rect &capInsets)', 'bool initWithFile(const cocos2d::Rect &capInsets, const std::string &file)')
+cls.func(nil, 'bool initWithSpriteFrame(cocos2d::SpriteFrame *spriteFrame, const cocos2d::Rect &capInsets)')
+cls.func(nil, 'bool initWithSpriteFrameName(const std::string &spriteFrameName, const cocos2d::Rect &capInsets)')
+cls.func(nil, 'bool init(cocos2d::Sprite *sprite, const cocos2d::Rect &rect, bool rotated, const cocos2d::Rect &capInsets)', 'bool init(cocos2d::Sprite *sprite, const cocos2d::Rect &rect, const cocos2d::Rect &capInsets)', 'bool init(cocos2d::Sprite *sprite, const cocos2d::Rect &rect, bool rotated, const cocos2d::Vec2 &offset, const cocos2d::Size &originalSize, const cocos2d::Rect &capInsets)')
+cls.func(nil, 'cocos2d::ui::Scale9Sprite *resizableSpriteWithCapInsets(const cocos2d::Rect &capInsets)')
+cls.func(nil, 'bool updateWithSprite(cocos2d::Sprite *sprite, const cocos2d::Rect &rect, bool rotated, const cocos2d::Rect &capInsets)', 'bool updateWithSprite(cocos2d::Sprite *sprite, const cocos2d::Rect &rect, bool rotated, const cocos2d::Vec2 &offset, const cocos2d::Size &originalSize, const cocos2d::Rect &capInsets)')
+cls.func(nil, 'void setSpriteFrame(cocos2d::SpriteFrame *spriteFrame, const cocos2d::Rect &capInsets)')
+cls.func(nil, 'void setState(cocos2d::ui::Scale9Sprite::State state)')
+cls.func(nil, 'cocos2d::ui::Scale9Sprite::State getState()')
+cls.func(nil, 'cocos2d::Size getOriginalSize()')
+cls.func(nil, 'void setPreferredSize(const cocos2d::Size &size)')
+cls.func(nil, 'cocos2d::Size getPreferredSize()')
+cls.func(nil, 'void setInsetLeft(float leftInset)')
+cls.func(nil, 'float getInsetLeft()')
+cls.func(nil, 'void setInsetTop(float topInset)')
+cls.func(nil, 'float getInsetTop()')
+cls.func(nil, 'void setInsetRight(float rightInset)')
+cls.func(nil, 'float getInsetRight()')
+cls.func(nil, 'void setInsetBottom(float bottomInset)')
+cls.func(nil, 'float getInsetBottom()')
+cls.func(nil, 'void setScale9Enabled(bool enabled)')
+cls.func(nil, 'bool isScale9Enabled()')
+cls.func(nil, 'cocos2d::Sprite *getSprite()')
+cls.func(nil, 'void copyTo(cocos2d::ui::Scale9Sprite *copy)')
+cls.func(nil, 'void setRenderingType(cocos2d::ui::Scale9Sprite::RenderingType type)')
+cls.func(nil, 'cocos2d::ui::Scale9Sprite::RenderingType getRenderingType()')
+cls.func(nil, 'void setCapInsets(const cocos2d::Rect &insets)')
+cls.func(nil, 'cocos2d::Rect getCapInsets()')
+cls.func(nil, 'void resetRender()')
+cls.prop('state')
+cls.prop('originalSize')
+cls.prop('preferredSize')
+cls.prop('insetLeft')
+cls.prop('insetTop')
+cls.prop('insetRight')
+cls.prop('insetBottom')
+cls.prop('scale9Enabled')
+cls.prop('sprite')
+cls.prop('renderingType')
+cls.prop('capInsets')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::LayoutComponent::HorizontalEdge'
@@ -309,85 +288,81 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::LayoutComponent'
 cls.SUPERCLS = "cocos2d::Component"
-cls.funcs [[
-    LayoutComponent()
-    static cocos2d::ui::LayoutComponent *create()
-    static cocos2d::ui::LayoutComponent *bindLayoutComponent(cocos2d::Node *node)
-    void setUsingPercentContentSize(bool isUsed)
-    bool getUsingPercentContentSize()
-    void setPercentContentSize(const cocos2d::Vec2 &percent)
-    cocos2d::Vec2 getPercentContentSize()
-    const cocos2d::Point &getAnchorPosition()
-    void setAnchorPosition(const cocos2d::Point &point)
-    const cocos2d::Point &getPosition()
-    void setPosition(const cocos2d::Point &position)
-    bool isPositionPercentXEnabled()
-    void setPositionPercentXEnabled(bool isUsed)
-    float getPositionPercentX()
-    void setPositionPercentX(float percentMargin)
-    bool isPositionPercentYEnabled()
-    void setPositionPercentYEnabled(bool isUsed)
-    float getPositionPercentY()
-    void setPositionPercentY(float percentMargin)
-    cocos2d::ui::LayoutComponent::HorizontalEdge getHorizontalEdge()
-    void setHorizontalEdge(cocos2d::ui::LayoutComponent::HorizontalEdge hEage)
-    cocos2d::ui::LayoutComponent::VerticalEdge getVerticalEdge()
-    void setVerticalEdge(cocos2d::ui::LayoutComponent::VerticalEdge vEage)
-    float getLeftMargin()
-    void setLeftMargin(float margin)
-    float getRightMargin()
-    void setRightMargin(float margin)
-    float getTopMargin()
-    void setTopMargin(float margin)
-    float getBottomMargin()
-    void setBottomMargin(float margin)
-    const cocos2d::Size &getSize()
-    void setSize(const cocos2d::Size &size)
-    bool isPercentWidthEnabled()
-    void setPercentWidthEnabled(bool isUsed)
-    float getSizeWidth()
-    void setSizeWidth(float width)
-    float getPercentWidth()
-    void setPercentWidth(float percentWidth)
-    bool isPercentHeightEnabled()
-    void setPercentHeightEnabled(bool isUsed)
-    float getSizeHeight()
-    void setSizeHeight(float height)
-    float getPercentHeight()
-    void setPercentHeight(float percentHeight)
-    bool isStretchWidthEnabled()
-    void setStretchWidthEnabled(bool isUsed)
-    bool isStretchHeightEnabled()
-    void setStretchHeightEnabled(bool isUsed)
-    void setPercentOnlyEnabled(bool enable)
-    void setActiveEnabled(bool enable)
-    void refreshLayout()
-]]
-cls.props [[
-    usingPercentContentSize
-    percentContentSize
-    anchorPosition
-    position
-    positionPercentXEnabled
-    positionPercentX
-    positionPercentYEnabled
-    positionPercentY
-    horizontalEdge
-    verticalEdge
-    leftMargin
-    rightMargin
-    topMargin
-    bottomMargin
-    size
-    percentWidthEnabled
-    sizeWidth
-    percentWidth
-    percentHeightEnabled
-    sizeHeight
-    percentHeight
-    stretchWidthEnabled
-    stretchHeightEnabled
-]]
+cls.func(nil, 'LayoutComponent()')
+cls.func(nil, 'static cocos2d::ui::LayoutComponent *create()')
+cls.func(nil, 'static cocos2d::ui::LayoutComponent *bindLayoutComponent(cocos2d::Node *node)')
+cls.func(nil, 'void setUsingPercentContentSize(bool isUsed)')
+cls.func(nil, 'bool getUsingPercentContentSize()')
+cls.func(nil, 'void setPercentContentSize(const cocos2d::Vec2 &percent)')
+cls.func(nil, 'cocos2d::Vec2 getPercentContentSize()')
+cls.func(nil, 'const cocos2d::Point &getAnchorPosition()')
+cls.func(nil, 'void setAnchorPosition(const cocos2d::Point &point)')
+cls.func(nil, 'const cocos2d::Point &getPosition()')
+cls.func(nil, 'void setPosition(const cocos2d::Point &position)')
+cls.func(nil, 'bool isPositionPercentXEnabled()')
+cls.func(nil, 'void setPositionPercentXEnabled(bool isUsed)')
+cls.func(nil, 'float getPositionPercentX()')
+cls.func(nil, 'void setPositionPercentX(float percentMargin)')
+cls.func(nil, 'bool isPositionPercentYEnabled()')
+cls.func(nil, 'void setPositionPercentYEnabled(bool isUsed)')
+cls.func(nil, 'float getPositionPercentY()')
+cls.func(nil, 'void setPositionPercentY(float percentMargin)')
+cls.func(nil, 'cocos2d::ui::LayoutComponent::HorizontalEdge getHorizontalEdge()')
+cls.func(nil, 'void setHorizontalEdge(cocos2d::ui::LayoutComponent::HorizontalEdge hEage)')
+cls.func(nil, 'cocos2d::ui::LayoutComponent::VerticalEdge getVerticalEdge()')
+cls.func(nil, 'void setVerticalEdge(cocos2d::ui::LayoutComponent::VerticalEdge vEage)')
+cls.func(nil, 'float getLeftMargin()')
+cls.func(nil, 'void setLeftMargin(float margin)')
+cls.func(nil, 'float getRightMargin()')
+cls.func(nil, 'void setRightMargin(float margin)')
+cls.func(nil, 'float getTopMargin()')
+cls.func(nil, 'void setTopMargin(float margin)')
+cls.func(nil, 'float getBottomMargin()')
+cls.func(nil, 'void setBottomMargin(float margin)')
+cls.func(nil, 'const cocos2d::Size &getSize()')
+cls.func(nil, 'void setSize(const cocos2d::Size &size)')
+cls.func(nil, 'bool isPercentWidthEnabled()')
+cls.func(nil, 'void setPercentWidthEnabled(bool isUsed)')
+cls.func(nil, 'float getSizeWidth()')
+cls.func(nil, 'void setSizeWidth(float width)')
+cls.func(nil, 'float getPercentWidth()')
+cls.func(nil, 'void setPercentWidth(float percentWidth)')
+cls.func(nil, 'bool isPercentHeightEnabled()')
+cls.func(nil, 'void setPercentHeightEnabled(bool isUsed)')
+cls.func(nil, 'float getSizeHeight()')
+cls.func(nil, 'void setSizeHeight(float height)')
+cls.func(nil, 'float getPercentHeight()')
+cls.func(nil, 'void setPercentHeight(float percentHeight)')
+cls.func(nil, 'bool isStretchWidthEnabled()')
+cls.func(nil, 'void setStretchWidthEnabled(bool isUsed)')
+cls.func(nil, 'bool isStretchHeightEnabled()')
+cls.func(nil, 'void setStretchHeightEnabled(bool isUsed)')
+cls.func(nil, 'void setPercentOnlyEnabled(bool enable)')
+cls.func(nil, 'void setActiveEnabled(bool enable)')
+cls.func(nil, 'void refreshLayout()')
+cls.prop('usingPercentContentSize')
+cls.prop('percentContentSize')
+cls.prop('anchorPosition')
+cls.prop('position')
+cls.prop('positionPercentXEnabled')
+cls.prop('positionPercentX')
+cls.prop('positionPercentYEnabled')
+cls.prop('positionPercentY')
+cls.prop('horizontalEdge')
+cls.prop('verticalEdge')
+cls.prop('leftMargin')
+cls.prop('rightMargin')
+cls.prop('topMargin')
+cls.prop('bottomMargin')
+cls.prop('size')
+cls.prop('percentWidthEnabled')
+cls.prop('sizeWidth')
+cls.prop('percentWidth')
+cls.prop('percentHeightEnabled')
+cls.prop('sizeHeight')
+cls.prop('percentHeight')
+cls.prop('stretchWidthEnabled')
+cls.prop('stretchHeightEnabled')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::LayoutParameter::Type'
@@ -398,20 +373,16 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::LayoutParameter'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    LayoutParameter()
-    static cocos2d::ui::LayoutParameter *create()
-    void setMargin(const cocos2d::ui::Margin &margin)
-    const cocos2d::ui::Margin &getMargin()
-    cocos2d::ui::LayoutParameter::Type getLayoutType()
-    cocos2d::ui::LayoutParameter *clone()
-    cocos2d::ui::LayoutParameter *createCloneInstance()
-    void copyProperties(cocos2d::ui::LayoutParameter *model)
-]]
-cls.props [[
-    margin
-    layoutType
-]]
+cls.func(nil, 'LayoutParameter()')
+cls.func(nil, 'static cocos2d::ui::LayoutParameter *create()')
+cls.func(nil, 'void setMargin(const cocos2d::ui::Margin &margin)')
+cls.func(nil, 'const cocos2d::ui::Margin &getMargin()')
+cls.func(nil, 'cocos2d::ui::LayoutParameter::Type getLayoutType()')
+cls.func(nil, 'cocos2d::ui::LayoutParameter *clone()')
+cls.func(nil, 'cocos2d::ui::LayoutParameter *createCloneInstance()')
+cls.func(nil, 'void copyProperties(cocos2d::ui::LayoutParameter *model)')
+cls.prop('margin')
+cls.prop('layoutType')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::LinearLayoutParameter::LinearGravity'
@@ -426,15 +397,11 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::LinearLayoutParameter'
 cls.SUPERCLS = "cocos2d::ui::LayoutParameter"
-cls.funcs [[
-    LinearLayoutParameter()
-    static cocos2d::ui::LinearLayoutParameter *create()
-    void setGravity(cocos2d::ui::LinearLayoutParameter::LinearGravity gravity)
-    cocos2d::ui::LinearLayoutParameter::LinearGravity getGravity()
-]]
-cls.props [[
-    gravity
-]]
+cls.func(nil, 'LinearLayoutParameter()')
+cls.func(nil, 'static cocos2d::ui::LinearLayoutParameter *create()')
+cls.func(nil, 'void setGravity(cocos2d::ui::LinearLayoutParameter::LinearGravity gravity)')
+cls.func(nil, 'cocos2d::ui::LinearLayoutParameter::LinearGravity getGravity()')
+cls.prop('gravity')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign'
@@ -464,21 +431,17 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RelativeLayoutParameter'
 cls.SUPERCLS = "cocos2d::ui::LayoutParameter"
-cls.funcs [[
-    RelativeLayoutParameter()
-    static cocos2d::ui::RelativeLayoutParameter *create()
-    void setAlign(cocos2d::ui::RelativeLayoutParameter::RelativeAlign align)
-    cocos2d::ui::RelativeLayoutParameter::RelativeAlign getAlign()
-    void setRelativeToWidgetName(const std::string &name)
-    const std::string &getRelativeToWidgetName()
-    void setRelativeName(const std::string &name)
-    const std::string &getRelativeName()
-]]
-cls.props [[
-    align
-    relativeToWidgetName
-    relativeName
-]]
+cls.func(nil, 'RelativeLayoutParameter()')
+cls.func(nil, 'static cocos2d::ui::RelativeLayoutParameter *create()')
+cls.func(nil, 'void setAlign(cocos2d::ui::RelativeLayoutParameter::RelativeAlign align)')
+cls.func(nil, 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign getAlign()')
+cls.func(nil, 'void setRelativeToWidgetName(const std::string &name)')
+cls.func(nil, 'const std::string &getRelativeToWidgetName()')
+cls.func(nil, 'void setRelativeName(const std::string &name)')
+cls.func(nil, 'const std::string &getRelativeName()')
+cls.prop('align')
+cls.prop('relativeToWidgetName')
+cls.prop('relativeName')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Layout::Type'
@@ -501,123 +464,106 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Layout'
 cls.SUPERCLS = "cocos2d::ui::Widget"
-cls.funcs [[
-    static cocos2d::Ref *createInstance()
-    Layout()
-    static cocos2d::ui::Layout *create()
-    void setBackGroundImage(const std::string &fileName, @optional cocos2d::ui::Widget::TextureResType texType)
-    void setBackGroundImageCapInsets(const cocos2d::Rect &capInsets)
-    const cocos2d::Rect &getBackGroundImageCapInsets()
-    void setBackGroundColorType(cocos2d::ui::Layout::BackGroundColorType type)
-    cocos2d::ui::Layout::BackGroundColorType getBackGroundColorType()
-    void setBackGroundImageScale9Enabled(bool enabled)
-    bool isBackGroundImageScale9Enabled()
-    void setBackGroundColor(const cocos2d::Color3B &color)
-    const cocos2d::Color3B &getBackGroundColor()
-    void setBackGroundColor(const cocos2d::Color3B &startColor, const cocos2d::Color3B &endColor)
-    const cocos2d::Color3B &getBackGroundStartColor()
-    const cocos2d::Color3B &getBackGroundEndColor()
-    void setBackGroundColorOpacity(uint8_t opacity)
-    uint8_t getBackGroundColorOpacity()
-    void setBackGroundColorVector(const cocos2d::Vec2 &vector)
-    const cocos2d::Vec2 &getBackGroundColorVector()
-    void setBackGroundImageColor(const cocos2d::Color3B &color)
-    void setBackGroundImageOpacity(uint8_t opacity)
-    const cocos2d::Color3B &getBackGroundImageColor()
-    uint8_t getBackGroundImageOpacity()
-    void removeBackGroundImage()
-    const cocos2d::Size &getBackGroundImageTextureSize()
-    void setClippingEnabled(bool enabled)
-    void setClippingType(cocos2d::ui::Layout::ClippingType type)
-    cocos2d::ui::Layout::ClippingType getClippingType()
-    bool isClippingEnabled()
-    void setLayoutType(cocos2d::ui::Layout::Type type)
-    cocos2d::ui::Layout::Type getLayoutType()
-    void forceDoLayout()
-    void requestDoLayout()
-    void setLoopFocus(bool loop)
-    bool isLoopFocus()
-    void setPassFocusToChild(bool pass)
-    bool isPassFocusToChild()
-    cocos2d::ResourceData getRenderFile()
-]]
+cls.func(nil, 'static cocos2d::Ref *createInstance()')
+cls.func(nil, 'Layout()')
+cls.func(nil, 'static cocos2d::ui::Layout *create()')
+cls.func(nil, 'void setBackGroundImage(const std::string &fileName, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'void setBackGroundImageCapInsets(const cocos2d::Rect &capInsets)')
+cls.func(nil, 'const cocos2d::Rect &getBackGroundImageCapInsets()')
+cls.func(nil, 'void setBackGroundColorType(cocos2d::ui::Layout::BackGroundColorType type)')
+cls.func(nil, 'cocos2d::ui::Layout::BackGroundColorType getBackGroundColorType()')
+cls.func(nil, 'void setBackGroundImageScale9Enabled(bool enabled)')
+cls.func(nil, 'bool isBackGroundImageScale9Enabled()')
+cls.func(nil, 'void setBackGroundColor(const cocos2d::Color3B &color)', 'void setBackGroundColor(const cocos2d::Color3B &startColor, const cocos2d::Color3B &endColor)')
+cls.func(nil, 'const cocos2d::Color3B &getBackGroundColor()')
+cls.func(nil, 'const cocos2d::Color3B &getBackGroundStartColor()')
+cls.func(nil, 'const cocos2d::Color3B &getBackGroundEndColor()')
+cls.func(nil, 'void setBackGroundColorOpacity(uint8_t opacity)')
+cls.func(nil, 'uint8_t getBackGroundColorOpacity()')
+cls.func(nil, 'void setBackGroundColorVector(const cocos2d::Vec2 &vector)')
+cls.func(nil, 'const cocos2d::Vec2 &getBackGroundColorVector()')
+cls.func(nil, 'void setBackGroundImageColor(const cocos2d::Color3B &color)')
+cls.func(nil, 'void setBackGroundImageOpacity(uint8_t opacity)')
+cls.func(nil, 'const cocos2d::Color3B &getBackGroundImageColor()')
+cls.func(nil, 'uint8_t getBackGroundImageOpacity()')
+cls.func(nil, 'void removeBackGroundImage()')
+cls.func(nil, 'const cocos2d::Size &getBackGroundImageTextureSize()')
+cls.func(nil, 'void setClippingEnabled(bool enabled)')
+cls.func(nil, 'void setClippingType(cocos2d::ui::Layout::ClippingType type)')
+cls.func(nil, 'cocos2d::ui::Layout::ClippingType getClippingType()')
+cls.func(nil, 'bool isClippingEnabled()')
+cls.func(nil, 'void setLayoutType(cocos2d::ui::Layout::Type type)')
+cls.func(nil, 'cocos2d::ui::Layout::Type getLayoutType()')
+cls.func(nil, 'void forceDoLayout()')
+cls.func(nil, 'void requestDoLayout()')
+cls.func(nil, 'void setLoopFocus(bool loop)')
+cls.func(nil, 'bool isLoopFocus()')
+cls.func(nil, 'void setPassFocusToChild(bool pass)')
+cls.func(nil, 'bool isPassFocusToChild()')
+cls.func(nil, 'cocos2d::ResourceData getRenderFile()')
 cls.var('onPassFocusToChild', [[@nullable std::function<int (FocusDirection, Widget *)> onPassFocusToChild]])
-cls.props [[
-    backGroundImageCapInsets
-    backGroundColorType
-    backGroundImageScale9Enabled
-    backGroundColor
-    backGroundStartColor
-    backGroundEndColor
-    backGroundColorOpacity
-    backGroundColorVector
-    backGroundImageColor
-    backGroundImageOpacity
-    backGroundImageTextureSize
-    clippingType
-    clippingEnabled
-    layoutType
-    loopFocus
-    passFocusToChild
-    renderFile
-]]
+cls.prop('backGroundImageCapInsets')
+cls.prop('backGroundColorType')
+cls.prop('backGroundImageScale9Enabled')
+cls.prop('backGroundColor')
+cls.prop('backGroundStartColor')
+cls.prop('backGroundEndColor')
+cls.prop('backGroundColorOpacity')
+cls.prop('backGroundColorVector')
+cls.prop('backGroundImageColor')
+cls.prop('backGroundImageOpacity')
+cls.prop('backGroundImageTextureSize')
+cls.prop('clippingType')
+cls.prop('clippingEnabled')
+cls.prop('layoutType')
+cls.prop('loopFocus')
+cls.prop('passFocusToChild')
+cls.prop('renderFile')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::HBox'
 cls.SUPERCLS = "cocos2d::ui::Layout"
-cls.funcs [[
-    HBox()
-    static cocos2d::ui::HBox *create()
-    static cocos2d::ui::HBox *create(const cocos2d::Size &size)
-    bool initWithSize(const cocos2d::Size &size)
-]]
+cls.func(nil, 'HBox()')
+cls.func(nil, 'static cocos2d::ui::HBox *create()', 'static cocos2d::ui::HBox *create(const cocos2d::Size &size)')
+cls.func(nil, 'bool initWithSize(const cocos2d::Size &size)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::VBox'
 cls.SUPERCLS = "cocos2d::ui::Layout"
-cls.funcs [[
-    VBox()
-    static cocos2d::ui::VBox *create()
-    static cocos2d::ui::VBox *create(const cocos2d::Size &size)
-    bool initWithSize(const cocos2d::Size &size)
-]]
+cls.func(nil, 'VBox()')
+cls.func(nil, 'static cocos2d::ui::VBox *create()', 'static cocos2d::ui::VBox *create(const cocos2d::Size &size)')
+cls.func(nil, 'bool initWithSize(const cocos2d::Size &size)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RelativeBox'
 cls.SUPERCLS = "cocos2d::ui::Layout"
-cls.funcs [[
-    RelativeBox()
-    static cocos2d::ui::RelativeBox *create()
-    static cocos2d::ui::RelativeBox *create(const cocos2d::Size &size)
-    bool initWithSize(const cocos2d::Size &size)
-]]
+cls.func(nil, 'RelativeBox()')
+cls.func(nil, 'static cocos2d::ui::RelativeBox *create()', 'static cocos2d::ui::RelativeBox *create(const cocos2d::Size &size)')
+cls.func(nil, 'bool initWithSize(const cocos2d::Size &size)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::WebView'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.DEFIF = "#ifdef CCLUA_HAVE_WEBVIEW"
-cls.funcs [[
-    static cocos2d::ui::WebView *create()
-    void setJavascriptInterfaceScheme(const std::string &scheme)
-    void loadData(const cocos2d::Data &data, const std::string &MIMEType, const std::string &encoding, const std::string &baseURL)
-    void loadHTMLString(const std::string &string, @optional const std::string &baseURL)
-    void loadURL(const std::string &url)
-    void loadURL(const std::string &url, bool cleanCachedData)
-    void loadFile(const std::string &fileName)
-    void stopLoading()
-    void reload()
-    bool canGoBack()
-    bool canGoForward()
-    void goBack()
-    void goForward()
-    void evaluateJS(const std::string &js)
-    void setScalesPageToFit(const bool scalesPageToFit)
-    void setBounces(bool bounce)
-    void setOpacityWebView(float opacity)
-    float getOpacityWebView()
-    void setBackgroundTransparent()
-    WebView()
-]]
+cls.func(nil, 'static cocos2d::ui::WebView *create()')
+cls.func(nil, 'void setJavascriptInterfaceScheme(const std::string &scheme)')
+cls.func(nil, 'void loadData(const cocos2d::Data &data, const std::string &MIMEType, const std::string &encoding, const std::string &baseURL)')
+cls.func(nil, 'void loadHTMLString(const std::string &string, @optional const std::string &baseURL)')
+cls.func(nil, 'void loadURL(const std::string &url)', 'void loadURL(const std::string &url, bool cleanCachedData)')
+cls.func(nil, 'void loadFile(const std::string &fileName)')
+cls.func(nil, 'void stopLoading()')
+cls.func(nil, 'void reload()')
+cls.func(nil, 'bool canGoBack()')
+cls.func(nil, 'bool canGoForward()')
+cls.func(nil, 'void goBack()')
+cls.func(nil, 'void goForward()')
+cls.func(nil, 'void evaluateJS(const std::string &js)')
+cls.func(nil, 'void setScalesPageToFit(const bool scalesPageToFit)')
+cls.func(nil, 'void setBounces(bool bounce)')
+cls.func(nil, 'void setOpacityWebView(float opacity)')
+cls.func(nil, 'float getOpacityWebView()')
+cls.func(nil, 'void setBackgroundTransparent()')
+cls.func(nil, 'WebView()')
 cls.callback {
     FUNCS =  {
         'void setOnShouldStartLoading(@nullable const std::function<bool (WebView *, const std::string &)> &callback)'
@@ -690,13 +636,11 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    opacityWebView
-    onShouldStartLoading
-    onDidFinishLoading
-    onDidFailLoading
-    onJSCallback
-]]
+cls.prop('onShouldStartLoading')
+cls.prop('onDidFinishLoading')
+cls.prop('onDidFailLoading')
+cls.prop('onJSCallback')
+cls.prop('opacityWebView')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::VideoPlayer::EventType'
@@ -717,28 +661,26 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::VideoPlayer'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.DEFIF = "#ifdef CCLUA_HAVE_VIDEOPLAYER"
-cls.funcs [[
-    static cocos2d::ui::VideoPlayer *create()
-    void setFileName(const std::string &videoPath)
-    const std::string &getFileName()
-    void setURL(const std::string &_videoURL)
-    const std::string &getURL()
-    void setLooping(bool looping)
-    void setUserInputEnabled(bool enableInput)
-    void setStyle(cocos2d::ui::VideoPlayer::StyleType style)
-    void play()
-    void stop()
-    void seekTo(float sec)
-    bool isPlaying()
-    bool isLooping()
-    bool isUserInputEnabled()
-    void setKeepAspectRatioEnabled(bool enable)
-    bool isKeepAspectRatioEnabled()
-    void setFullScreenEnabled(bool fullscreen)
-    bool isFullScreenEnabled()
-    void onPlayEvent(int event)
-    VideoPlayer()
-]]
+cls.func(nil, 'static cocos2d::ui::VideoPlayer *create()')
+cls.func(nil, 'void setFileName(const std::string &videoPath)')
+cls.func(nil, 'const std::string &getFileName()')
+cls.func(nil, 'void setURL(const std::string &_videoURL)')
+cls.func(nil, 'const std::string &getURL()')
+cls.func(nil, 'void setLooping(bool looping)')
+cls.func(nil, 'void setUserInputEnabled(bool enableInput)')
+cls.func(nil, 'void setStyle(cocos2d::ui::VideoPlayer::StyleType style)')
+cls.func(nil, 'void play()')
+cls.func(nil, 'void stop()')
+cls.func(nil, 'void seekTo(float sec)')
+cls.func(nil, 'bool isPlaying()')
+cls.func(nil, 'bool isLooping()')
+cls.func(nil, 'bool isUserInputEnabled()')
+cls.func(nil, 'void setKeepAspectRatioEnabled(bool enable)')
+cls.func(nil, 'bool isKeepAspectRatioEnabled()')
+cls.func(nil, 'void setFullScreenEnabled(bool fullscreen)')
+cls.func(nil, 'bool isFullScreenEnabled()')
+cls.func(nil, 'void onPlayEvent(int event)')
+cls.func(nil, 'VideoPlayer()')
 cls.callback {
     FUNCS =  {
         'void addEventListener(@nullable const std::function<void (Ref *, VideoPlayer::EventType)> &callback)'
@@ -748,56 +690,50 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    fileName
-    url
-    playing
-    looping
-    userInputEnabled
-    keepAspectRatioEnabled
-    fullScreenEnabled
-]]
+cls.prop('fileName')
+cls.prop('url')
+cls.prop('playing')
+cls.prop('looping')
+cls.prop('userInputEnabled')
+cls.prop('keepAspectRatioEnabled')
+cls.prop('fullScreenEnabled')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::AbstractCheckButton'
 cls.SUPERCLS = "cocos2d::ui::Widget"
-cls.funcs [[
-    void loadTextures(const std::string &background, const std::string &backgroundSelected, const std::string &cross, const std::string &backgroundDisabled, const std::string &frontCrossDisabled, @optional cocos2d::ui::Widget::TextureResType texType)
-    void loadTextureBackGround(const std::string &backGround, @optional cocos2d::ui::Widget::TextureResType type)
-    void loadTextureBackGroundSelected(const std::string &backGroundSelected, @optional cocos2d::ui::Widget::TextureResType texType)
-    void loadTextureFrontCross(const std::string &crossTextureName, @optional cocos2d::ui::Widget::TextureResType texType)
-    void loadTextureBackGroundDisabled(const std::string &backGroundDisabled, @optional cocos2d::ui::Widget::TextureResType texType)
-    void loadTextureFrontCrossDisabled(const std::string &frontCrossDisabled, @optional cocos2d::ui::Widget::TextureResType texType)
-    bool isSelected()
-    void setSelected(bool selected)
-    void setZoomScale(float scale)
-    float getZoomScale()
-    @addref(protectedChildren |) cocos2d::Sprite *getRendererBackground()
-    @addref(protectedChildren |) cocos2d::Sprite *getRendererBackgroundSelected()
-    @addref(protectedChildren |) cocos2d::Sprite *getRendererFrontCross()
-    @addref(protectedChildren |) cocos2d::Sprite *getRendererBackgroundDisabled()
-    @addref(protectedChildren |) cocos2d::Sprite *getRendererFrontCrossDisabled()
-    cocos2d::ResourceData getBackNormalFile()
-    cocos2d::ResourceData getBackPressedFile()
-    cocos2d::ResourceData getBackDisabledFile()
-    cocos2d::ResourceData getCrossNormalFile()
-    cocos2d::ResourceData getCrossDisabledFile()
-    bool init(const std::string &backGround, const std::string &backGroundSelected, const std::string &cross, const std::string &backGroundDisabled, const std::string &frontCrossDisabled, @optional cocos2d::ui::Widget::TextureResType texType)
-]]
-cls.props [[
-    selected
-    zoomScale
-    rendererBackground
-    rendererBackgroundSelected
-    rendererFrontCross
-    rendererBackgroundDisabled
-    rendererFrontCrossDisabled
-    backNormalFile
-    backPressedFile
-    backDisabledFile
-    crossNormalFile
-    crossDisabledFile
-]]
+cls.func(nil, 'void loadTextures(const std::string &background, const std::string &backgroundSelected, const std::string &cross, const std::string &backgroundDisabled, const std::string &frontCrossDisabled, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'void loadTextureBackGround(const std::string &backGround, @optional cocos2d::ui::Widget::TextureResType type)')
+cls.func(nil, 'void loadTextureBackGroundSelected(const std::string &backGroundSelected, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'void loadTextureFrontCross(const std::string &crossTextureName, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'void loadTextureBackGroundDisabled(const std::string &backGroundDisabled, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'void loadTextureFrontCrossDisabled(const std::string &frontCrossDisabled, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'bool isSelected()')
+cls.func(nil, 'void setSelected(bool selected)')
+cls.func(nil, 'void setZoomScale(float scale)')
+cls.func(nil, 'float getZoomScale()')
+cls.func(nil, '@addref(protectedChildren |) cocos2d::Sprite *getRendererBackground()')
+cls.func(nil, '@addref(protectedChildren |) cocos2d::Sprite *getRendererBackgroundSelected()')
+cls.func(nil, '@addref(protectedChildren |) cocos2d::Sprite *getRendererFrontCross()')
+cls.func(nil, '@addref(protectedChildren |) cocos2d::Sprite *getRendererBackgroundDisabled()')
+cls.func(nil, '@addref(protectedChildren |) cocos2d::Sprite *getRendererFrontCrossDisabled()')
+cls.func(nil, 'cocos2d::ResourceData getBackNormalFile()')
+cls.func(nil, 'cocos2d::ResourceData getBackPressedFile()')
+cls.func(nil, 'cocos2d::ResourceData getBackDisabledFile()')
+cls.func(nil, 'cocos2d::ResourceData getCrossNormalFile()')
+cls.func(nil, 'cocos2d::ResourceData getCrossDisabledFile()')
+cls.func(nil, 'bool init(const std::string &backGround, const std::string &backGroundSelected, const std::string &cross, const std::string &backGroundDisabled, const std::string &frontCrossDisabled, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.prop('selected')
+cls.prop('zoomScale')
+cls.prop('rendererBackground')
+cls.prop('rendererBackgroundSelected')
+cls.prop('rendererFrontCross')
+cls.prop('rendererBackgroundDisabled')
+cls.prop('rendererFrontCrossDisabled')
+cls.prop('backNormalFile')
+cls.prop('backPressedFile')
+cls.prop('backDisabledFile')
+cls.prop('crossNormalFile')
+cls.prop('crossDisabledFile')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::TabHeader::EventType'
@@ -807,29 +743,23 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::TabHeader'
 cls.SUPERCLS = "cocos2d::ui::AbstractCheckButton"
-cls.funcs [[
-    static cocos2d::ui::TabHeader *create()
-    static cocos2d::ui::TabHeader *create(const std::string &titleStr, const std::string &backGround, const std::string &cross, @optional cocos2d::ui::Widget::TextureResType texType)
-    static cocos2d::ui::TabHeader *create(const std::string &titleStr, const std::string &backGround, const std::string &backGroundSelected, const std::string &cross, const std::string &backGroundDisabled, const std::string &frontCrossDisabled, @optional cocos2d::ui::Widget::TextureResType texType)
-    @addref(protectedChildren |) cocos2d::Label *getTitleRenderer()
-    void setTitleText(const std::string &text)
-    std::string getTitleText()
-    void setTitleColor(const cocos2d::Color4B &color)
-    const cocos2d::Color4B &getTitleColor()
-    void setTitleFontSize(float size)
-    float getTitleFontSize()
-    void setTitleFontName(const std::string &fontName)
-    std::string getTitleFontName()
-    int getIndexInTabControl()
-]]
-cls.props [[
-    titleRenderer
-    titleText
-    titleColor
-    titleFontSize
-    titleFontName
-    indexInTabControl
-]]
+cls.func(nil, 'static cocos2d::ui::TabHeader *create()', 'static cocos2d::ui::TabHeader *create(const std::string &titleStr, const std::string &backGround, const std::string &cross, @optional cocos2d::ui::Widget::TextureResType texType)', 'static cocos2d::ui::TabHeader *create(const std::string &titleStr, const std::string &backGround, const std::string &backGroundSelected, const std::string &cross, const std::string &backGroundDisabled, const std::string &frontCrossDisabled, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, '@addref(protectedChildren |) cocos2d::Label *getTitleRenderer()')
+cls.func(nil, 'void setTitleText(const std::string &text)')
+cls.func(nil, 'std::string getTitleText()')
+cls.func(nil, 'void setTitleColor(const cocos2d::Color4B &color)')
+cls.func(nil, 'const cocos2d::Color4B &getTitleColor()')
+cls.func(nil, 'void setTitleFontSize(float size)')
+cls.func(nil, 'float getTitleFontSize()')
+cls.func(nil, 'void setTitleFontName(const std::string &fontName)')
+cls.func(nil, 'std::string getTitleFontName()')
+cls.func(nil, 'int getIndexInTabControl()')
+cls.prop('titleRenderer')
+cls.prop('titleText')
+cls.prop('titleColor')
+cls.prop('titleFontSize')
+cls.prop('titleFontName')
+cls.prop('indexInTabControl')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::TabControl::Dock'
@@ -845,28 +775,25 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::TabControl'
 cls.SUPERCLS = "cocos2d::ui::Widget"
-cls.funcs [[
-    static cocos2d::ui::TabControl *create()
-    @delref(protectedChildren ~) void removeTab(int index)
-    void setSelectTab(int index)
-    void setSelectTab(cocos2d::ui::TabHeader *tabHeader)
-    @addref(protectedChildren |) cocos2d::ui::TabHeader *getTabHeader(int index)
-    @addref(protectedChildren |) cocos2d::ui::Layout *getTabContainer(int index)
-    void insertTab(int index, @addref(protectedChildren |) cocos2d::ui::TabHeader *header, @addref(protectedChildren |) cocos2d::ui::Layout *container)
-    size_t getTabCount()
-    int getSelectedTabIndex()
-    int indexOfTabHeader(const cocos2d::ui::TabHeader *tabCell)
-    void setHeaderWidth(float headerWidth)
-    float getHeaderWidth()
-    void setHeaderHeight(float headerHeight)
-    int getHeaderHeight()
-    void ignoreHeadersTextureSize(bool ignore)
-    bool isIgnoreHeadersTextureSize()
-    void setHeaderSelectedZoom(float zoom)
-    float getHeaderSelectedZoom()
-    void setHeaderDockPlace(cocos2d::ui::TabControl::Dock dockPlace)
-    cocos2d::ui::TabControl::Dock getHeaderDockPlace()
-]]
+cls.func(nil, 'static cocos2d::ui::TabControl *create()')
+cls.func(nil, '@delref(protectedChildren ~) void removeTab(int index)')
+cls.func(nil, 'void setSelectTab(int index)', 'void setSelectTab(cocos2d::ui::TabHeader *tabHeader)')
+cls.func(nil, '@addref(protectedChildren |) cocos2d::ui::TabHeader *getTabHeader(int index)')
+cls.func(nil, '@addref(protectedChildren |) cocos2d::ui::Layout *getTabContainer(int index)')
+cls.func(nil, 'void insertTab(int index, @addref(protectedChildren |) cocos2d::ui::TabHeader *header, @addref(protectedChildren |) cocos2d::ui::Layout *container)')
+cls.func(nil, 'size_t getTabCount()')
+cls.func(nil, 'int getSelectedTabIndex()')
+cls.func(nil, 'int indexOfTabHeader(const cocos2d::ui::TabHeader *tabCell)')
+cls.func(nil, 'void setHeaderWidth(float headerWidth)')
+cls.func(nil, 'float getHeaderWidth()')
+cls.func(nil, 'void setHeaderHeight(float headerHeight)')
+cls.func(nil, 'int getHeaderHeight()')
+cls.func(nil, 'void ignoreHeadersTextureSize(bool ignore)')
+cls.func(nil, 'bool isIgnoreHeadersTextureSize()')
+cls.func(nil, 'void setHeaderSelectedZoom(float zoom)')
+cls.func(nil, 'float getHeaderSelectedZoom()')
+cls.func(nil, 'void setHeaderDockPlace(cocos2d::ui::TabControl::Dock dockPlace)')
+cls.func(nil, 'cocos2d::ui::TabControl::Dock getHeaderDockPlace()')
 cls.callback {
     FUNCS =  {
         'void setTabChangedEventListener(@nullable @local const std::function<void (int, EventType)> &callback)'
@@ -876,15 +803,13 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    tabCount
-    selectedTabIndex
-    headerWidth
-    headerHeight
-    ignoreHeadersTextureSize
-    headerSelectedZoom
-    headerDockPlace
-]]
+cls.prop('tabCount')
+cls.prop('selectedTabIndex')
+cls.prop('headerWidth')
+cls.prop('headerHeight')
+cls.prop('ignoreHeadersTextureSize')
+cls.prop('headerSelectedZoom')
+cls.prop('headerDockPlace')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::ScrollView::Direction'
@@ -912,71 +837,69 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::ScrollView'
 cls.SUPERCLS = "cocos2d::ui::Layout"
-cls.funcs [[
-    static cocos2d::Ref *createInstance()
-    ScrollView()
-    static cocos2d::ui::ScrollView *create()
-    void setDirection(cocos2d::ui::ScrollView::Direction dir)
-    cocos2d::ui::ScrollView::Direction getDirection()
-    @addref(protectedChildren |) cocos2d::ui::Layout *getInnerContainer()
-    void stopScroll()
-    void stopAutoScroll()
-    void stopOverallScroll()
-    void scrollToBottom(float timeInSec, bool attenuated)
-    void scrollToTop(float timeInSec, bool attenuated)
-    void scrollToLeft(float timeInSec, bool attenuated)
-    void scrollToRight(float timeInSec, bool attenuated)
-    void scrollToTopLeft(float timeInSec, bool attenuated)
-    void scrollToTopRight(float timeInSec, bool attenuated)
-    void scrollToBottomLeft(float timeInSec, bool attenuated)
-    void scrollToBottomRight(float timeInSec, bool attenuated)
-    void scrollToPercentVertical(float percent, float timeInSec, bool attenuated)
-    void scrollToPercentHorizontal(float percent, float timeInSec, bool attenuated)
-    void scrollToPercentBothDirection(const cocos2d::Vec2 &percent, float timeInSec, bool attenuated)
-    float getScrolledPercentVertical()
-    float getScrolledPercentHorizontal()
-    cocos2d::Vec2 getScrolledPercentBothDirection()
-    void jumpToBottom()
-    void jumpToTop()
-    void jumpToLeft()
-    void jumpToRight()
-    void jumpToTopLeft()
-    void jumpToTopRight()
-    void jumpToBottomLeft()
-    void jumpToBottomRight()
-    void jumpToPercentVertical(float percent)
-    void jumpToPercentHorizontal(float percent)
-    void jumpToPercentBothDirection(const cocos2d::Vec2 &percent)
-    void setInnerContainerSize(const cocos2d::Size &size)
-    const cocos2d::Size &getInnerContainerSize()
-    void setInnerContainerPosition(const cocos2d::Vec2 &pos)
-    const cocos2d::Vec2 &getInnerContainerPosition()
-    void setBounceEnabled(bool enabled)
-    bool isBounceEnabled()
-    void setInertiaScrollEnabled(bool enabled)
-    bool isInertiaScrollEnabled()
-    void setScrollBarEnabled(bool enabled)
-    bool isScrollBarEnabled()
-    void setScrollBarPositionFromCorner(const cocos2d::Vec2 &positionFromCorner)
-    void setScrollBarPositionFromCornerForVertical(const cocos2d::Vec2 &positionFromCorner)
-    cocos2d::Vec2 getScrollBarPositionFromCornerForVertical()
-    void setScrollBarPositionFromCornerForHorizontal(const cocos2d::Vec2 &positionFromCorner)
-    cocos2d::Vec2 getScrollBarPositionFromCornerForHorizontal()
-    void setScrollBarWidth(float width)
-    float getScrollBarWidth()
-    void setScrollBarColor(const cocos2d::Color3B &color)
-    const cocos2d::Color3B &getScrollBarColor()
-    void setScrollBarOpacity(uint8_t opacity)
-    uint8_t getScrollBarOpacity()
-    void setScrollBarAutoHideEnabled(bool autoHideEnabled)
-    bool isScrollBarAutoHideEnabled()
-    void setScrollBarAutoHideTime(float autoHideTime)
-    float getScrollBarAutoHideTime()
-    void setTouchTotalTimeThreshold(float touchTotalTimeThreshold)
-    float getTouchTotalTimeThreshold()
-    bool isScrolling()
-    bool isAutoScrolling()
-]]
+cls.func(nil, 'static cocos2d::Ref *createInstance()')
+cls.func(nil, 'ScrollView()')
+cls.func(nil, 'static cocos2d::ui::ScrollView *create()')
+cls.func(nil, 'void setDirection(cocos2d::ui::ScrollView::Direction dir)')
+cls.func(nil, 'cocos2d::ui::ScrollView::Direction getDirection()')
+cls.func(nil, '@addref(protectedChildren |) cocos2d::ui::Layout *getInnerContainer()')
+cls.func(nil, 'void stopScroll()')
+cls.func(nil, 'void stopAutoScroll()')
+cls.func(nil, 'void stopOverallScroll()')
+cls.func(nil, 'void scrollToBottom(float timeInSec, bool attenuated)')
+cls.func(nil, 'void scrollToTop(float timeInSec, bool attenuated)')
+cls.func(nil, 'void scrollToLeft(float timeInSec, bool attenuated)')
+cls.func(nil, 'void scrollToRight(float timeInSec, bool attenuated)')
+cls.func(nil, 'void scrollToTopLeft(float timeInSec, bool attenuated)')
+cls.func(nil, 'void scrollToTopRight(float timeInSec, bool attenuated)')
+cls.func(nil, 'void scrollToBottomLeft(float timeInSec, bool attenuated)')
+cls.func(nil, 'void scrollToBottomRight(float timeInSec, bool attenuated)')
+cls.func(nil, 'void scrollToPercentVertical(float percent, float timeInSec, bool attenuated)')
+cls.func(nil, 'void scrollToPercentHorizontal(float percent, float timeInSec, bool attenuated)')
+cls.func(nil, 'void scrollToPercentBothDirection(const cocos2d::Vec2 &percent, float timeInSec, bool attenuated)')
+cls.func(nil, 'float getScrolledPercentVertical()')
+cls.func(nil, 'float getScrolledPercentHorizontal()')
+cls.func(nil, 'cocos2d::Vec2 getScrolledPercentBothDirection()')
+cls.func(nil, 'void jumpToBottom()')
+cls.func(nil, 'void jumpToTop()')
+cls.func(nil, 'void jumpToLeft()')
+cls.func(nil, 'void jumpToRight()')
+cls.func(nil, 'void jumpToTopLeft()')
+cls.func(nil, 'void jumpToTopRight()')
+cls.func(nil, 'void jumpToBottomLeft()')
+cls.func(nil, 'void jumpToBottomRight()')
+cls.func(nil, 'void jumpToPercentVertical(float percent)')
+cls.func(nil, 'void jumpToPercentHorizontal(float percent)')
+cls.func(nil, 'void jumpToPercentBothDirection(const cocos2d::Vec2 &percent)')
+cls.func(nil, 'void setInnerContainerSize(const cocos2d::Size &size)')
+cls.func(nil, 'const cocos2d::Size &getInnerContainerSize()')
+cls.func(nil, 'void setInnerContainerPosition(const cocos2d::Vec2 &pos)')
+cls.func(nil, 'const cocos2d::Vec2 &getInnerContainerPosition()')
+cls.func(nil, 'void setBounceEnabled(bool enabled)')
+cls.func(nil, 'bool isBounceEnabled()')
+cls.func(nil, 'void setInertiaScrollEnabled(bool enabled)')
+cls.func(nil, 'bool isInertiaScrollEnabled()')
+cls.func(nil, 'void setScrollBarEnabled(bool enabled)')
+cls.func(nil, 'bool isScrollBarEnabled()')
+cls.func(nil, 'void setScrollBarPositionFromCorner(const cocos2d::Vec2 &positionFromCorner)')
+cls.func(nil, 'void setScrollBarPositionFromCornerForVertical(const cocos2d::Vec2 &positionFromCorner)')
+cls.func(nil, 'cocos2d::Vec2 getScrollBarPositionFromCornerForVertical()')
+cls.func(nil, 'void setScrollBarPositionFromCornerForHorizontal(const cocos2d::Vec2 &positionFromCorner)')
+cls.func(nil, 'cocos2d::Vec2 getScrollBarPositionFromCornerForHorizontal()')
+cls.func(nil, 'void setScrollBarWidth(float width)')
+cls.func(nil, 'float getScrollBarWidth()')
+cls.func(nil, 'void setScrollBarColor(const cocos2d::Color3B &color)')
+cls.func(nil, 'const cocos2d::Color3B &getScrollBarColor()')
+cls.func(nil, 'void setScrollBarOpacity(uint8_t opacity)')
+cls.func(nil, 'uint8_t getScrollBarOpacity()')
+cls.func(nil, 'void setScrollBarAutoHideEnabled(bool autoHideEnabled)')
+cls.func(nil, 'bool isScrollBarAutoHideEnabled()')
+cls.func(nil, 'void setScrollBarAutoHideTime(float autoHideTime)')
+cls.func(nil, 'float getScrollBarAutoHideTime()')
+cls.func(nil, 'void setTouchTotalTimeThreshold(float touchTotalTimeThreshold)')
+cls.func(nil, 'float getTouchTotalTimeThreshold()')
+cls.func(nil, 'bool isScrolling()')
+cls.func(nil, 'bool isAutoScrolling()')
 cls.callback {
     FUNCS =  {
         'void addEventListener(@nullable const std::function<void (Ref *, EventType)> &callback)'
@@ -986,28 +909,26 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    direction
-    innerContainer
-    scrolledPercentVertical
-    scrolledPercentHorizontal
-    scrolledPercentBothDirection
-    innerContainerSize
-    innerContainerPosition
-    bounceEnabled
-    inertiaScrollEnabled
-    scrollBarEnabled
-    scrollBarPositionFromCornerForVertical
-    scrollBarPositionFromCornerForHorizontal
-    scrollBarWidth
-    scrollBarColor
-    scrollBarOpacity
-    scrollBarAutoHideEnabled
-    scrollBarAutoHideTime
-    touchTotalTimeThreshold
-    scrolling
-    autoScrolling
-]]
+cls.prop('direction')
+cls.prop('innerContainer')
+cls.prop('scrolledPercentVertical')
+cls.prop('scrolledPercentHorizontal')
+cls.prop('scrolledPercentBothDirection')
+cls.prop('innerContainerSize')
+cls.prop('innerContainerPosition')
+cls.prop('bounceEnabled')
+cls.prop('inertiaScrollEnabled')
+cls.prop('scrollBarEnabled')
+cls.prop('scrollBarPositionFromCornerForVertical')
+cls.prop('scrollBarPositionFromCornerForHorizontal')
+cls.prop('scrollBarWidth')
+cls.prop('scrollBarColor')
+cls.prop('scrollBarOpacity')
+cls.prop('scrollBarAutoHideEnabled')
+cls.prop('scrollBarAutoHideTime')
+cls.prop('touchTotalTimeThreshold')
+cls.prop('scrolling')
+cls.prop('autoScrolling')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::ListView::Gravity'
@@ -1036,53 +957,50 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::ListView'
 cls.SUPERCLS = "cocos2d::ui::ScrollView"
-cls.funcs [[
-    static cocos2d::Ref *createInstance()
-    ListView()
-    static cocos2d::ui::ListView *create()
-    void setItemModel(cocos2d::ui::Widget *model)
-    void pushBackDefaultItem()
-    void insertDefaultItem(ssize_t index)
-    void pushBackCustomItem(@addref(children |) cocos2d::ui::Widget *item)
-    void insertCustomItem(@addref(children |) cocos2d::ui::Widget *item, ssize_t index)
-    @delref(children ~) void removeLastItem()
-    @delref(children ~) void removeItem(ssize_t index)
-    @delref(children ~) void removeAllItems()
-    @addref(children |) cocos2d::ui::Widget *getItem(ssize_t index)
-    @addref(children |) Vector<cocos2d::ui::Widget *> &getItems()
-    ssize_t getIndex(cocos2d::ui::Widget *item)
-    void setGravity(cocos2d::ui::ListView::Gravity gravity)
-    void setMagneticType(cocos2d::ui::ListView::MagneticType magneticType)
-    cocos2d::ui::ListView::MagneticType getMagneticType()
-    void setMagneticAllowedOutOfBoundary(bool magneticAllowedOutOfBoundary)
-    bool getMagneticAllowedOutOfBoundary()
-    void setItemsMargin(float margin)
-    float getItemsMargin()
-    void setPadding(float l, float t, float r, float b)
-    void setLeftPadding(float l)
-    void setTopPadding(float t)
-    void setRightPadding(float r)
-    void setBottomPadding(float b)
-    float getLeftPadding()
-    float getTopPadding()
-    float getRightPadding()
-    float getBottomPadding()
-    void setScrollDuration(float time)
-    float getScrollDuration()
-    void doLayout()
-    cocos2d::ui::Widget *getClosestItemToPosition(const cocos2d::Vec2 &targetPosition, const cocos2d::Vec2 &itemAnchorPoint)
-    cocos2d::ui::Widget *getClosestItemToPositionInCurrentView(const cocos2d::Vec2 &positionRatioInView, const cocos2d::Vec2 &itemAnchorPoint)
-    cocos2d::ui::Widget *getCenterItemInCurrentView()
-    cocos2d::ui::Widget *getLeftmostItemInCurrentView()
-    cocos2d::ui::Widget *getRightmostItemInCurrentView()
-    cocos2d::ui::Widget *getTopmostItemInCurrentView()
-    cocos2d::ui::Widget *getBottommostItemInCurrentView()
-    void jumpToItem(ssize_t itemIndex, const cocos2d::Vec2 &positionRatioInView, const cocos2d::Vec2 &itemAnchorPoint)
-    void scrollToItem(ssize_t itemIndex, const cocos2d::Vec2 &positionRatioInView, const cocos2d::Vec2 &itemAnchorPoint)
-    void scrollToItem(ssize_t itemIndex, const cocos2d::Vec2 &positionRatioInView, const cocos2d::Vec2 &itemAnchorPoint, float timeInSec)
-    ssize_t getCurSelectedIndex()
-    void setCurSelectedIndex(int itemIndex)
-]]
+cls.func(nil, 'static cocos2d::Ref *createInstance()')
+cls.func(nil, 'ListView()')
+cls.func(nil, 'static cocos2d::ui::ListView *create()')
+cls.func(nil, 'void setItemModel(cocos2d::ui::Widget *model)')
+cls.func(nil, 'void pushBackDefaultItem()')
+cls.func(nil, 'void insertDefaultItem(ssize_t index)')
+cls.func(nil, 'void pushBackCustomItem(@addref(children |) cocos2d::ui::Widget *item)')
+cls.func(nil, 'void insertCustomItem(@addref(children |) cocos2d::ui::Widget *item, ssize_t index)')
+cls.func(nil, '@delref(children ~) void removeLastItem()')
+cls.func(nil, '@delref(children ~) void removeItem(ssize_t index)')
+cls.func(nil, '@delref(children ~) void removeAllItems()')
+cls.func(nil, '@addref(children |) cocos2d::ui::Widget *getItem(ssize_t index)')
+cls.func(nil, '@addref(children |) Vector<cocos2d::ui::Widget *> &getItems()')
+cls.func(nil, 'ssize_t getIndex(cocos2d::ui::Widget *item)')
+cls.func(nil, 'void setGravity(cocos2d::ui::ListView::Gravity gravity)')
+cls.func(nil, 'void setMagneticType(cocos2d::ui::ListView::MagneticType magneticType)')
+cls.func(nil, 'cocos2d::ui::ListView::MagneticType getMagneticType()')
+cls.func(nil, 'void setMagneticAllowedOutOfBoundary(bool magneticAllowedOutOfBoundary)')
+cls.func(nil, 'bool getMagneticAllowedOutOfBoundary()')
+cls.func(nil, 'void setItemsMargin(float margin)')
+cls.func(nil, 'float getItemsMargin()')
+cls.func(nil, 'void setPadding(float l, float t, float r, float b)')
+cls.func(nil, 'void setLeftPadding(float l)')
+cls.func(nil, 'void setTopPadding(float t)')
+cls.func(nil, 'void setRightPadding(float r)')
+cls.func(nil, 'void setBottomPadding(float b)')
+cls.func(nil, 'float getLeftPadding()')
+cls.func(nil, 'float getTopPadding()')
+cls.func(nil, 'float getRightPadding()')
+cls.func(nil, 'float getBottomPadding()')
+cls.func(nil, 'void setScrollDuration(float time)')
+cls.func(nil, 'float getScrollDuration()')
+cls.func(nil, 'void doLayout()')
+cls.func(nil, 'cocos2d::ui::Widget *getClosestItemToPosition(const cocos2d::Vec2 &targetPosition, const cocos2d::Vec2 &itemAnchorPoint)')
+cls.func(nil, 'cocos2d::ui::Widget *getClosestItemToPositionInCurrentView(const cocos2d::Vec2 &positionRatioInView, const cocos2d::Vec2 &itemAnchorPoint)')
+cls.func(nil, 'cocos2d::ui::Widget *getCenterItemInCurrentView()')
+cls.func(nil, 'cocos2d::ui::Widget *getLeftmostItemInCurrentView()')
+cls.func(nil, 'cocos2d::ui::Widget *getRightmostItemInCurrentView()')
+cls.func(nil, 'cocos2d::ui::Widget *getTopmostItemInCurrentView()')
+cls.func(nil, 'cocos2d::ui::Widget *getBottommostItemInCurrentView()')
+cls.func(nil, 'void jumpToItem(ssize_t itemIndex, const cocos2d::Vec2 &positionRatioInView, const cocos2d::Vec2 &itemAnchorPoint)')
+cls.func(nil, 'void scrollToItem(ssize_t itemIndex, const cocos2d::Vec2 &positionRatioInView, const cocos2d::Vec2 &itemAnchorPoint)', 'void scrollToItem(ssize_t itemIndex, const cocos2d::Vec2 &positionRatioInView, const cocos2d::Vec2 &itemAnchorPoint, float timeInSec)')
+cls.func(nil, 'ssize_t getCurSelectedIndex()')
+cls.func(nil, 'void setCurSelectedIndex(int itemIndex)')
 cls.callback {
     FUNCS =  {
         'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)'
@@ -1092,23 +1010,21 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    items
-    magneticType
-    magneticAllowedOutOfBoundary
-    itemsMargin
-    leftPadding
-    topPadding
-    rightPadding
-    bottomPadding
-    scrollDuration
-    centerItemInCurrentView
-    leftmostItemInCurrentView
-    rightmostItemInCurrentView
-    topmostItemInCurrentView
-    bottommostItemInCurrentView
-    curSelectedIndex
-]]
+cls.prop('items')
+cls.prop('magneticType')
+cls.prop('magneticAllowedOutOfBoundary')
+cls.prop('itemsMargin')
+cls.prop('leftPadding')
+cls.prop('topPadding')
+cls.prop('rightPadding')
+cls.prop('bottomPadding')
+cls.prop('scrollDuration')
+cls.prop('centerItemInCurrentView')
+cls.prop('leftmostItemInCurrentView')
+cls.prop('rightmostItemInCurrentView')
+cls.prop('topmostItemInCurrentView')
+cls.prop('bottommostItemInCurrentView')
+cls.prop('curSelectedIndex')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::LoadingBar::Direction'
@@ -1118,30 +1034,24 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::LoadingBar'
 cls.SUPERCLS = "cocos2d::ui::Widget"
-cls.funcs [[
-    static cocos2d::Ref *createInstance()
-    LoadingBar()
-    static cocos2d::ui::LoadingBar *create()
-    static cocos2d::ui::LoadingBar *create(const std::string &textureName, @optional float percentage)
-    static cocos2d::ui::LoadingBar *create(const std::string &textureName, cocos2d::ui::Widget::TextureResType texType, @optional float percentage)
-    void setDirection(cocos2d::ui::LoadingBar::Direction direction)
-    cocos2d::ui::LoadingBar::Direction getDirection()
-    void loadTexture(const std::string &texture, @optional cocos2d::ui::Widget::TextureResType texType)
-    void setPercent(float percent)
-    float getPercent()
-    void setScale9Enabled(bool enabled)
-    bool isScale9Enabled()
-    void setCapInsets(const cocos2d::Rect &capInsets)
-    const cocos2d::Rect &getCapInsets()
-    cocos2d::ResourceData getRenderFile()
-]]
-cls.props [[
-    direction
-    percent
-    scale9Enabled
-    capInsets
-    renderFile
-]]
+cls.func(nil, 'static cocos2d::Ref *createInstance()')
+cls.func(nil, 'LoadingBar()')
+cls.func(nil, 'static cocos2d::ui::LoadingBar *create()', 'static cocos2d::ui::LoadingBar *create(const std::string &textureName, @optional float percentage)', 'static cocos2d::ui::LoadingBar *create(const std::string &textureName, cocos2d::ui::Widget::TextureResType texType, @optional float percentage)')
+cls.func(nil, 'void setDirection(cocos2d::ui::LoadingBar::Direction direction)')
+cls.func(nil, 'cocos2d::ui::LoadingBar::Direction getDirection()')
+cls.func(nil, 'void loadTexture(const std::string &texture, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'void setPercent(float percent)')
+cls.func(nil, 'float getPercent()')
+cls.func(nil, 'void setScale9Enabled(bool enabled)')
+cls.func(nil, 'bool isScale9Enabled()')
+cls.func(nil, 'void setCapInsets(const cocos2d::Rect &capInsets)')
+cls.func(nil, 'const cocos2d::Rect &getCapInsets()')
+cls.func(nil, 'cocos2d::ResourceData getRenderFile()')
+cls.prop('direction')
+cls.prop('percent')
+cls.prop('scale9Enabled')
+cls.prop('capInsets')
+cls.prop('renderFile')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::PageView::EventType'
@@ -1157,42 +1067,38 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::PageView'
 cls.SUPERCLS = "cocos2d::ui::ListView"
-cls.funcs [[
-    static cocos2d::Ref *createInstance()
-    PageView()
-    static cocos2d::ui::PageView *create()
-    void addPage(@addref(children |) cocos2d::ui::Widget *page)
-    void insertPage(@addref(children |) cocos2d::ui::Widget *page, int idx)
-    void removePage(@delref(children |) cocos2d::ui::Widget *page)
-    @delref(children ~) void removePageAtIndex(ssize_t index)
-    @delref(children *) void removeAllPages()
-    void scrollToPage(ssize_t idx)
-    void scrollToPage(ssize_t idx, float time)
-    void scrollToItem(ssize_t itemIndex)
-    void scrollToItem(ssize_t idx, float time)
-    ssize_t getCurrentPageIndex()
-    void setCurrentPageIndex(ssize_t index)
-    void setIndicatorEnabled(bool enabled)
-    bool getIndicatorEnabled()
-    void setIndicatorPositionAsAnchorPoint(const cocos2d::Vec2 &positionAsAnchorPoint)
-    const cocos2d::Vec2 &getIndicatorPositionAsAnchorPoint()
-    void setIndicatorPosition(const cocos2d::Vec2 &position)
-    const cocos2d::Vec2 &getIndicatorPosition()
-    void setIndicatorSpaceBetweenIndexNodes(float spaceBetweenIndexNodes)
-    float getIndicatorSpaceBetweenIndexNodes()
-    void setIndicatorSelectedIndexColor(const cocos2d::Color3B &color)
-    const cocos2d::Color3B &getIndicatorSelectedIndexColor()
-    void setIndicatorIndexNodesColor(const cocos2d::Color3B &color)
-    const cocos2d::Color3B &getIndicatorIndexNodesColor()
-    void setIndicatorSelectedIndexOpacity(uint8_t opacity)
-    uint8_t getIndicatorSelectedIndexOpacity()
-    void setIndicatorIndexNodesOpacity(uint8_t opacity)
-    uint8_t getIndicatorIndexNodesOpacity()
-    void setIndicatorIndexNodesScale(float indexNodesScale)
-    void setIndicatorIndexNodesTexture(const std::string &texName, @optional cocos2d::ui::Widget::TextureResType texType)
-    float getIndicatorIndexNodesScale()
-    void setAutoScrollStopEpsilon(float epsilon)
-]]
+cls.func(nil, 'static cocos2d::Ref *createInstance()')
+cls.func(nil, 'PageView()')
+cls.func(nil, 'static cocos2d::ui::PageView *create()')
+cls.func(nil, 'void addPage(@addref(children |) cocos2d::ui::Widget *page)')
+cls.func(nil, 'void insertPage(@addref(children |) cocos2d::ui::Widget *page, int idx)')
+cls.func(nil, 'void removePage(@delref(children |) cocos2d::ui::Widget *page)')
+cls.func(nil, '@delref(children ~) void removePageAtIndex(ssize_t index)')
+cls.func(nil, '@delref(children *) void removeAllPages()')
+cls.func(nil, 'void scrollToPage(ssize_t idx)', 'void scrollToPage(ssize_t idx, float time)')
+cls.func(nil, 'void scrollToItem(ssize_t itemIndex)', 'void scrollToItem(ssize_t idx, float time)')
+cls.func(nil, 'ssize_t getCurrentPageIndex()')
+cls.func(nil, 'void setCurrentPageIndex(ssize_t index)')
+cls.func(nil, 'void setIndicatorEnabled(bool enabled)')
+cls.func(nil, 'bool getIndicatorEnabled()')
+cls.func(nil, 'void setIndicatorPositionAsAnchorPoint(const cocos2d::Vec2 &positionAsAnchorPoint)')
+cls.func(nil, 'const cocos2d::Vec2 &getIndicatorPositionAsAnchorPoint()')
+cls.func(nil, 'void setIndicatorPosition(const cocos2d::Vec2 &position)')
+cls.func(nil, 'const cocos2d::Vec2 &getIndicatorPosition()')
+cls.func(nil, 'void setIndicatorSpaceBetweenIndexNodes(float spaceBetweenIndexNodes)')
+cls.func(nil, 'float getIndicatorSpaceBetweenIndexNodes()')
+cls.func(nil, 'void setIndicatorSelectedIndexColor(const cocos2d::Color3B &color)')
+cls.func(nil, 'const cocos2d::Color3B &getIndicatorSelectedIndexColor()')
+cls.func(nil, 'void setIndicatorIndexNodesColor(const cocos2d::Color3B &color)')
+cls.func(nil, 'const cocos2d::Color3B &getIndicatorIndexNodesColor()')
+cls.func(nil, 'void setIndicatorSelectedIndexOpacity(uint8_t opacity)')
+cls.func(nil, 'uint8_t getIndicatorSelectedIndexOpacity()')
+cls.func(nil, 'void setIndicatorIndexNodesOpacity(uint8_t opacity)')
+cls.func(nil, 'uint8_t getIndicatorIndexNodesOpacity()')
+cls.func(nil, 'void setIndicatorIndexNodesScale(float indexNodesScale)')
+cls.func(nil, 'void setIndicatorIndexNodesTexture(const std::string &texName, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'float getIndicatorIndexNodesScale()')
+cls.func(nil, 'void setAutoScrollStopEpsilon(float epsilon)')
 cls.callback {
     FUNCS =  {
         'void addEventListener(@nullable const std::function<void(Ref*, PageView::EventType)>& callback)'
@@ -1202,18 +1108,16 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    currentPageIndex
-    indicatorEnabled
-    indicatorPositionAsAnchorPoint
-    indicatorPosition
-    indicatorSpaceBetweenIndexNodes
-    indicatorSelectedIndexColor
-    indicatorIndexNodesColor
-    indicatorSelectedIndexOpacity
-    indicatorIndexNodesOpacity
-    indicatorIndexNodesScale
-]]
+cls.prop('currentPageIndex')
+cls.prop('indicatorEnabled')
+cls.prop('indicatorPositionAsAnchorPoint')
+cls.prop('indicatorPosition')
+cls.prop('indicatorSpaceBetweenIndexNodes')
+cls.prop('indicatorSelectedIndexColor')
+cls.prop('indicatorIndexNodesColor')
+cls.prop('indicatorSelectedIndexOpacity')
+cls.prop('indicatorIndexNodesOpacity')
+cls.prop('indicatorIndexNodesScale')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RichElement::Type'
@@ -1225,50 +1129,40 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RichElement'
 cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    RichElement()
-    bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity)
-    bool equalType(cocos2d::ui::RichElement::Type type)
-    void setColor(const cocos2d::Color3B &color)
-]]
+cls.func(nil, 'RichElement()')
+cls.func(nil, 'bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity)')
+cls.func(nil, 'bool equalType(cocos2d::ui::RichElement::Type type)')
+cls.func(nil, 'void setColor(const cocos2d::Color3B &color)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RichElementText'
 cls.SUPERCLS = "cocos2d::ui::RichElement"
-cls.funcs [[
-    RichElementText()
-    bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
-    static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
-]]
+cls.func(nil, 'RichElementText()')
+cls.func(nil, 'bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)')
+cls.func(nil, 'static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RichElementImage'
 cls.SUPERCLS = "cocos2d::ui::RichElement"
-cls.funcs [[
-    RichElementImage()
-    bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional cocos2d::ui::Widget::TextureResType texType)
-    static cocos2d::ui::RichElementImage *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional cocos2d::ui::Widget::TextureResType texType)
-    void setWidth(int width)
-    void setHeight(int height)
-    void setUrl(const std::string &url)
-]]
+cls.func(nil, 'RichElementImage()')
+cls.func(nil, 'bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'static cocos2d::ui::RichElementImage *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'void setWidth(int width)')
+cls.func(nil, 'void setHeight(int height)')
+cls.func(nil, 'void setUrl(const std::string &url)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RichElementCustomNode'
 cls.SUPERCLS = "cocos2d::ui::RichElement"
-cls.funcs [[
-    RichElementCustomNode()
-    bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, cocos2d::Node *customNode)
-    static cocos2d::ui::RichElementCustomNode *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, cocos2d::Node *customNode)
-]]
+cls.func(nil, 'RichElementCustomNode()')
+cls.func(nil, 'bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, cocos2d::Node *customNode)')
+cls.func(nil, 'static cocos2d::ui::RichElementCustomNode *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, cocos2d::Node *customNode)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RichElementNewLine'
 cls.SUPERCLS = "cocos2d::ui::RichElement"
-cls.funcs [[
-    RichElementNewLine()
-    static cocos2d::ui::RichElementNewLine *create(int tag, const cocos2d::Color3B &color, uint8_t opacity)
-]]
+cls.func(nil, 'RichElementNewLine()')
+cls.func(nil, 'static cocos2d::ui::RichElementNewLine *create(int tag, const cocos2d::Color3B &color, uint8_t opacity)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RichText::WrapMode'
@@ -1323,57 +1217,54 @@ cls.const('KEY_ANCHOR_TEXT_SHADOW_OFFSET_WIDTH', 'cocos2d::ui::RichText::KEY_ANC
 cls.const('KEY_ANCHOR_TEXT_SHADOW_OFFSET_HEIGHT', 'cocos2d::ui::RichText::KEY_ANCHOR_TEXT_SHADOW_OFFSET_HEIGHT', 'const std::string')
 cls.const('KEY_ANCHOR_TEXT_SHADOW_BLUR_RADIUS', 'cocos2d::ui::RichText::KEY_ANCHOR_TEXT_SHADOW_BLUR_RADIUS', 'const std::string')
 cls.const('KEY_ANCHOR_TEXT_GLOW_COLOR', 'cocos2d::ui::RichText::KEY_ANCHOR_TEXT_GLOW_COLOR', 'const std::string')
-cls.funcs [[
-    RichText()
-    static cocos2d::ui::RichText *create()
-    void insertElement(cocos2d::ui::RichElement *element, int index)
-    void pushBackElement(cocos2d::ui::RichElement *element)
-    void removeElement(int index)
-    void removeElement(cocos2d::ui::RichElement *element)
-    void setVerticalSpace(float space)
-    void formatText()
-    void setWrapMode(cocos2d::ui::RichText::WrapMode wrapMode)
-    cocos2d::ui::RichText::WrapMode getWrapMode()
-    void setHorizontalAlignment(cocos2d::ui::RichText::HorizontalAlignment a)
-    cocos2d::ui::RichText::HorizontalAlignment getHorizontalAlignment()
-    void setFontColor(const std::string &color)
-    std::string getFontColor()
-    cocos2d::Color3B getFontColor3B()
-    void setFontSize(float size)
-    float getFontSize()
-    void setFontFace(const std::string &face)
-    std::string getFontFace()
-    void setAnchorFontColor(const std::string &color)
-    std::string getAnchorFontColor()
-    cocos2d::Color3B getAnchorFontColor3B()
-    void setAnchorTextBold(bool enable)
-    bool isAnchorTextBoldEnabled()
-    void setAnchorTextItalic(bool enable)
-    bool isAnchorTextItalicEnabled()
-    void setAnchorTextDel(bool enable)
-    bool isAnchorTextDelEnabled()
-    void setAnchorTextUnderline(bool enable)
-    bool isAnchorTextUnderlineEnabled()
-    void setAnchorTextOutline(bool enable, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize)
-    bool isAnchorTextOutlineEnabled()
-    cocos2d::Color3B getAnchorTextOutlineColor3B()
-    int getAnchorTextOutlineSize()
-    void setAnchorTextShadow(bool enable, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &offset, @optional int blurRadius)
-    bool isAnchorTextShadowEnabled()
-    cocos2d::Color3B getAnchorTextShadowColor3B()
-    cocos2d::Size getAnchorTextShadowOffset()
-    int getAnchorTextShadowBlurRadius()
-    void setAnchorTextGlow(bool enable, @optional const cocos2d::Color3B &glowColor)
-    bool isAnchorTextGlowEnabled()
-    cocos2d::Color3B getAnchorTextGlowColor3B()
-    void setDefaults(const cocos2d::ValueMap &defaults)
-    cocos2d::ValueMap getDefaults()
-    cocos2d::Color3B color3BWithString(const std::string &color)
-    std::string stringWithColor3B(const cocos2d::Color3B &color3b)
-    std::string stringWithColor4B(const cocos2d::Color4B &color4b)
-    static void removeTagDescription(const std::string &tag)
-    void openUrl(const std::string &url)
-]]
+cls.func(nil, 'RichText()')
+cls.func(nil, 'static cocos2d::ui::RichText *create()')
+cls.func(nil, 'void insertElement(cocos2d::ui::RichElement *element, int index)')
+cls.func(nil, 'void pushBackElement(cocos2d::ui::RichElement *element)')
+cls.func(nil, 'void removeElement(int index)', 'void removeElement(cocos2d::ui::RichElement *element)')
+cls.func(nil, 'void setVerticalSpace(float space)')
+cls.func(nil, 'void formatText()')
+cls.func(nil, 'void setWrapMode(cocos2d::ui::RichText::WrapMode wrapMode)')
+cls.func(nil, 'cocos2d::ui::RichText::WrapMode getWrapMode()')
+cls.func(nil, 'void setHorizontalAlignment(cocos2d::ui::RichText::HorizontalAlignment a)')
+cls.func(nil, 'cocos2d::ui::RichText::HorizontalAlignment getHorizontalAlignment()')
+cls.func(nil, 'void setFontColor(const std::string &color)')
+cls.func(nil, 'std::string getFontColor()')
+cls.func(nil, 'cocos2d::Color3B getFontColor3B()')
+cls.func(nil, 'void setFontSize(float size)')
+cls.func(nil, 'float getFontSize()')
+cls.func(nil, 'void setFontFace(const std::string &face)')
+cls.func(nil, 'std::string getFontFace()')
+cls.func(nil, 'void setAnchorFontColor(const std::string &color)')
+cls.func(nil, 'std::string getAnchorFontColor()')
+cls.func(nil, 'cocos2d::Color3B getAnchorFontColor3B()')
+cls.func(nil, 'void setAnchorTextBold(bool enable)')
+cls.func(nil, 'bool isAnchorTextBoldEnabled()')
+cls.func(nil, 'void setAnchorTextItalic(bool enable)')
+cls.func(nil, 'bool isAnchorTextItalicEnabled()')
+cls.func(nil, 'void setAnchorTextDel(bool enable)')
+cls.func(nil, 'bool isAnchorTextDelEnabled()')
+cls.func(nil, 'void setAnchorTextUnderline(bool enable)')
+cls.func(nil, 'bool isAnchorTextUnderlineEnabled()')
+cls.func(nil, 'void setAnchorTextOutline(bool enable, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize)')
+cls.func(nil, 'bool isAnchorTextOutlineEnabled()')
+cls.func(nil, 'cocos2d::Color3B getAnchorTextOutlineColor3B()')
+cls.func(nil, 'int getAnchorTextOutlineSize()')
+cls.func(nil, 'void setAnchorTextShadow(bool enable, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &offset, @optional int blurRadius)')
+cls.func(nil, 'bool isAnchorTextShadowEnabled()')
+cls.func(nil, 'cocos2d::Color3B getAnchorTextShadowColor3B()')
+cls.func(nil, 'cocos2d::Size getAnchorTextShadowOffset()')
+cls.func(nil, 'int getAnchorTextShadowBlurRadius()')
+cls.func(nil, 'void setAnchorTextGlow(bool enable, @optional const cocos2d::Color3B &glowColor)')
+cls.func(nil, 'bool isAnchorTextGlowEnabled()')
+cls.func(nil, 'cocos2d::Color3B getAnchorTextGlowColor3B()')
+cls.func(nil, 'void setDefaults(const cocos2d::ValueMap &defaults)')
+cls.func(nil, 'cocos2d::ValueMap getDefaults()')
+cls.func(nil, 'cocos2d::Color3B color3BWithString(const std::string &color)')
+cls.func(nil, 'std::string stringWithColor3B(const cocos2d::Color3B &color3b)')
+cls.func(nil, 'std::string stringWithColor4B(const cocos2d::Color4B &color4b)')
+cls.func(nil, 'static void removeTagDescription(const std::string &tag)')
+cls.func(nil, 'void openUrl(const std::string &url)')
 cls.callback {
     FUNCS =  {
         'static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @local @optional const std::function<void (const std::string &)> &handleOpenUrl)'
@@ -1392,55 +1283,49 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    wrapMode
-    horizontalAlignment
-    fontColor
-    fontColor3B
-    fontSize
-    fontFace
-    anchorFontColor
-    anchorFontColor3B
-    anchorTextBoldEnabled
-    anchorTextItalicEnabled
-    anchorTextDelEnabled
-    anchorTextUnderlineEnabled
-    anchorTextOutlineEnabled
-    anchorTextOutlineColor3B
-    anchorTextOutlineSize
-    anchorTextShadowEnabled
-    anchorTextShadowColor3B
-    anchorTextShadowOffset
-    anchorTextShadowBlurRadius
-    anchorTextGlowEnabled
-    anchorTextGlowColor3B
-    defaults
-]]
+cls.prop('wrapMode')
+cls.prop('horizontalAlignment')
+cls.prop('fontColor')
+cls.prop('fontColor3B')
+cls.prop('fontSize')
+cls.prop('fontFace')
+cls.prop('anchorFontColor')
+cls.prop('anchorFontColor3B')
+cls.prop('anchorTextBoldEnabled')
+cls.prop('anchorTextItalicEnabled')
+cls.prop('anchorTextDelEnabled')
+cls.prop('anchorTextUnderlineEnabled')
+cls.prop('anchorTextOutlineEnabled')
+cls.prop('anchorTextOutlineColor3B')
+cls.prop('anchorTextOutlineSize')
+cls.prop('anchorTextShadowEnabled')
+cls.prop('anchorTextShadowColor3B')
+cls.prop('anchorTextShadowOffset')
+cls.prop('anchorTextShadowBlurRadius')
+cls.prop('anchorTextGlowEnabled')
+cls.prop('anchorTextGlowColor3B')
+cls.prop('defaults')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::ScrollViewBar'
 cls.SUPERCLS = "cocos2d::ProtectedNode"
-cls.funcs [[
-    ScrollViewBar(cocos2d::ui::ScrollView *parent, cocos2d::ui::ScrollView::Direction direction)
-    static cocos2d::ui::ScrollViewBar *create(cocos2d::ui::ScrollView *parent, cocos2d::ui::ScrollView::Direction direction)
-    void setPositionFromCorner(const cocos2d::Vec2 &positionFromCorner)
-    cocos2d::Vec2 getPositionFromCorner()
-    void setWidth(float width)
-    float getWidth()
-    void setAutoHideEnabled(bool autoHideEnabled)
-    bool isAutoHideEnabled()
-    void setAutoHideTime(float autoHideTime)
-    float getAutoHideTime()
-    void onScrolled(const cocos2d::Vec2 &outOfBoundary)
-    void onTouchBegan()
-    void onTouchEnded()
-]]
-cls.props [[
-    positionFromCorner
-    width
-    autoHideEnabled
-    autoHideTime
-]]
+cls.func(nil, 'ScrollViewBar(cocos2d::ui::ScrollView *parent, cocos2d::ui::ScrollView::Direction direction)')
+cls.func(nil, 'static cocos2d::ui::ScrollViewBar *create(cocos2d::ui::ScrollView *parent, cocos2d::ui::ScrollView::Direction direction)')
+cls.func(nil, 'void setPositionFromCorner(const cocos2d::Vec2 &positionFromCorner)')
+cls.func(nil, 'cocos2d::Vec2 getPositionFromCorner()')
+cls.func(nil, 'void setWidth(float width)')
+cls.func(nil, 'float getWidth()')
+cls.func(nil, 'void setAutoHideEnabled(bool autoHideEnabled)')
+cls.func(nil, 'bool isAutoHideEnabled()')
+cls.func(nil, 'void setAutoHideTime(float autoHideTime)')
+cls.func(nil, 'float getAutoHideTime()')
+cls.func(nil, 'void onScrolled(const cocos2d::Vec2 &outOfBoundary)')
+cls.func(nil, 'void onTouchBegan()')
+cls.func(nil, 'void onTouchEnded()')
+cls.prop('positionFromCorner')
+cls.prop('width')
+cls.prop('autoHideEnabled')
+cls.prop('autoHideTime')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Slider::EventType'
@@ -1452,41 +1337,38 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Slider'
 cls.SUPERCLS = "cocos2d::ui::Widget"
-cls.funcs [[
-    static cocos2d::Ref *createInstance()
-    Slider()
-    static cocos2d::ui::Slider *create()
-    static cocos2d::ui::Slider *create(const std::string &barTextureName, const std::string &normalBallTextureName, @optional cocos2d::ui::Widget::TextureResType resType)
-    void loadBarTexture(const std::string &fileName, @optional cocos2d::ui::Widget::TextureResType resType)
-    void setScale9Enabled(bool able)
-    bool isScale9Enabled()
-    void setCapInsets(const cocos2d::Rect &capInsets)
-    void setCapInsetsBarRenderer(const cocos2d::Rect &capInsets)
-    const cocos2d::Rect &getCapInsetsBarRenderer()
-    void setCapInsetProgressBarRenderer(const cocos2d::Rect &capInsets)
-    const cocos2d::Rect &getCapInsetsProgressBarRenderer()
-    void loadSlidBallTextures(const std::string &normal, @optional const std::string &pressed, @optional const std::string &disabled, @optional cocos2d::ui::Widget::TextureResType texType)
-    void loadSlidBallTextureNormal(const std::string &normal, @optional cocos2d::ui::Widget::TextureResType resType)
-    void loadSlidBallTexturePressed(const std::string &pressed, @optional cocos2d::ui::Widget::TextureResType resType)
-    void loadSlidBallTextureDisabled(const std::string &disabled, @optional cocos2d::ui::Widget::TextureResType resType)
-    void loadProgressBarTexture(const std::string &fileName, @optional cocos2d::ui::Widget::TextureResType resType)
-    void setPercent(int percent)
-    void updateVisualSlider()
-    int getPercent()
-    void setMaxPercent(int percent)
-    int getMaxPercent()
-    void setZoomScale(float scale)
-    float getZoomScale()
-    @addref(protectedChildren |) cocos2d::Sprite *getSlidBallNormalRenderer()
-    @addref(protectedChildren |) cocos2d::Sprite *getSlidBallPressedRenderer()
-    @addref(protectedChildren |) cocos2d::Sprite *getSlidBallDisabledRenderer()
-    @addref(protectedChildren |) cocos2d::Node *getSlidBallRenderer()
-    cocos2d::ResourceData getBackFile()
-    cocos2d::ResourceData getProgressBarFile()
-    cocos2d::ResourceData getBallNormalFile()
-    cocos2d::ResourceData getBallPressedFile()
-    cocos2d::ResourceData getBallDisabledFile()
-]]
+cls.func(nil, 'static cocos2d::Ref *createInstance()')
+cls.func(nil, 'Slider()')
+cls.func(nil, 'static cocos2d::ui::Slider *create()', 'static cocos2d::ui::Slider *create(const std::string &barTextureName, const std::string &normalBallTextureName, @optional cocos2d::ui::Widget::TextureResType resType)')
+cls.func(nil, 'void loadBarTexture(const std::string &fileName, @optional cocos2d::ui::Widget::TextureResType resType)')
+cls.func(nil, 'void setScale9Enabled(bool able)')
+cls.func(nil, 'bool isScale9Enabled()')
+cls.func(nil, 'void setCapInsets(const cocos2d::Rect &capInsets)')
+cls.func(nil, 'void setCapInsetsBarRenderer(const cocos2d::Rect &capInsets)')
+cls.func(nil, 'const cocos2d::Rect &getCapInsetsBarRenderer()')
+cls.func(nil, 'void setCapInsetProgressBarRenderer(const cocos2d::Rect &capInsets)')
+cls.func(nil, 'const cocos2d::Rect &getCapInsetsProgressBarRenderer()')
+cls.func(nil, 'void loadSlidBallTextures(const std::string &normal, @optional const std::string &pressed, @optional const std::string &disabled, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'void loadSlidBallTextureNormal(const std::string &normal, @optional cocos2d::ui::Widget::TextureResType resType)')
+cls.func(nil, 'void loadSlidBallTexturePressed(const std::string &pressed, @optional cocos2d::ui::Widget::TextureResType resType)')
+cls.func(nil, 'void loadSlidBallTextureDisabled(const std::string &disabled, @optional cocos2d::ui::Widget::TextureResType resType)')
+cls.func(nil, 'void loadProgressBarTexture(const std::string &fileName, @optional cocos2d::ui::Widget::TextureResType resType)')
+cls.func(nil, 'void setPercent(int percent)')
+cls.func(nil, 'void updateVisualSlider()')
+cls.func(nil, 'int getPercent()')
+cls.func(nil, 'void setMaxPercent(int percent)')
+cls.func(nil, 'int getMaxPercent()')
+cls.func(nil, 'void setZoomScale(float scale)')
+cls.func(nil, 'float getZoomScale()')
+cls.func(nil, '@addref(protectedChildren |) cocos2d::Sprite *getSlidBallNormalRenderer()')
+cls.func(nil, '@addref(protectedChildren |) cocos2d::Sprite *getSlidBallPressedRenderer()')
+cls.func(nil, '@addref(protectedChildren |) cocos2d::Sprite *getSlidBallDisabledRenderer()')
+cls.func(nil, '@addref(protectedChildren |) cocos2d::Node *getSlidBallRenderer()')
+cls.func(nil, 'cocos2d::ResourceData getBackFile()')
+cls.func(nil, 'cocos2d::ResourceData getProgressBarFile()')
+cls.func(nil, 'cocos2d::ResourceData getBallNormalFile()')
+cls.func(nil, 'cocos2d::ResourceData getBallPressedFile()')
+cls.func(nil, 'cocos2d::ResourceData getBallDisabledFile()')
 cls.callback {
     FUNCS =  {
         'void addEventListener(@nullable const std::function<void (Ref *, EventType)> &callback)'
@@ -1496,23 +1378,21 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    scale9Enabled
-    capInsetsBarRenderer
-    capInsetsProgressBarRenderer
-    percent
-    maxPercent
-    zoomScale
-    slidBallNormalRenderer
-    slidBallPressedRenderer
-    slidBallDisabledRenderer
-    slidBallRenderer
-    backFile
-    progressBarFile
-    ballNormalFile
-    ballPressedFile
-    ballDisabledFile
-]]
+cls.prop('scale9Enabled')
+cls.prop('capInsetsBarRenderer')
+cls.prop('capInsetsProgressBarRenderer')
+cls.prop('percent')
+cls.prop('maxPercent')
+cls.prop('zoomScale')
+cls.prop('slidBallNormalRenderer')
+cls.prop('slidBallPressedRenderer')
+cls.prop('slidBallDisabledRenderer')
+cls.prop('slidBallRenderer')
+cls.prop('backFile')
+cls.prop('progressBarFile')
+cls.prop('ballNormalFile')
+cls.prop('ballPressedFile')
+cls.prop('ballDisabledFile')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Text::Type'
@@ -1522,151 +1402,130 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Text'
 cls.SUPERCLS = "cocos2d::ui::Widget"
-cls.funcs [[
-    static cocos2d::Ref *createInstance()
-    Text()
-    static cocos2d::ui::Text *create()
-    static cocos2d::ui::Text *create(const std::string &textContent, const std::string &fontName, float fontSize)
-    void setString(const std::string &text)
-    const std::string &getString()
-    ssize_t getStringLength()
-    void setFontSize(float size)
-    float getFontSize()
-    void setFontName(const std::string &name)
-    const std::string &getFontName()
-    cocos2d::ui::Text::Type getType()
-    void setTouchScaleChangeEnabled(bool enabled)
-    bool isTouchScaleChangeEnabled()
-    cocos2d::Size getAutoRenderSize()
-    void setTextAreaSize(const cocos2d::Size &size)
-    const cocos2d::Size &getTextAreaSize()
-    void setTextHorizontalAlignment(cocos2d::TextHAlignment alignment)
-    cocos2d::TextHAlignment getTextHorizontalAlignment()
-    void setTextVerticalAlignment(cocos2d::TextVAlignment alignment)
-    cocos2d::TextVAlignment getTextVerticalAlignment()
-    void setTextColor(const cocos2d::Color4B color)
-    const cocos2d::Color4B &getTextColor()
-    void enableShadow(@optional const cocos2d::Color4B &shadowColor, @optional const cocos2d::Size &offset, @optional int blurRadius)
-    void enableOutline(const cocos2d::Color4B &outlineColor, @optional int outlineSize)
-    void enableGlow(const cocos2d::Color4B &glowColor)
-    void disableEffect()
-    void disableEffect(cocos2d::LabelEffect effect)
-    bool isShadowEnabled()
-    cocos2d::Size getShadowOffset()
-    float getShadowBlurRadius()
-    cocos2d::Color4B getShadowColor()
-    int getOutlineSize()
-    cocos2d::LabelEffect getLabelEffectType()
-    cocos2d::Color4B getEffectColor()
-    cocos2d::Sprite *getLetter(int lettetIndex)
-    void setBlendFunc(const cocos2d::BlendFunc &blendFunc)
-    const cocos2d::BlendFunc &getBlendFunc()
-    bool init(const std::string &textContent, const std::string &fontName, float fontSize)
-]]
-cls.props [[
-    string
-    stringLength
-    fontSize
-    fontName
-    type
-    touchScaleChangeEnabled
-    autoRenderSize
-    textAreaSize
-    textHorizontalAlignment
-    textVerticalAlignment
-    textColor
-    shadowEnabled
-    shadowOffset
-    shadowBlurRadius
-    shadowColor
-    outlineSize
-    labelEffectType
-    effectColor
-    blendFunc
-]]
+cls.func(nil, 'static cocos2d::Ref *createInstance()')
+cls.func(nil, 'Text()')
+cls.func(nil, 'static cocos2d::ui::Text *create()', 'static cocos2d::ui::Text *create(const std::string &textContent, const std::string &fontName, float fontSize)')
+cls.func(nil, 'void setString(const std::string &text)')
+cls.func(nil, 'const std::string &getString()')
+cls.func(nil, 'ssize_t getStringLength()')
+cls.func(nil, 'void setFontSize(float size)')
+cls.func(nil, 'float getFontSize()')
+cls.func(nil, 'void setFontName(const std::string &name)')
+cls.func(nil, 'const std::string &getFontName()')
+cls.func(nil, 'cocos2d::ui::Text::Type getType()')
+cls.func(nil, 'void setTouchScaleChangeEnabled(bool enabled)')
+cls.func(nil, 'bool isTouchScaleChangeEnabled()')
+cls.func(nil, 'cocos2d::Size getAutoRenderSize()')
+cls.func(nil, 'void setTextAreaSize(const cocos2d::Size &size)')
+cls.func(nil, 'const cocos2d::Size &getTextAreaSize()')
+cls.func(nil, 'void setTextHorizontalAlignment(cocos2d::TextHAlignment alignment)')
+cls.func(nil, 'cocos2d::TextHAlignment getTextHorizontalAlignment()')
+cls.func(nil, 'void setTextVerticalAlignment(cocos2d::TextVAlignment alignment)')
+cls.func(nil, 'cocos2d::TextVAlignment getTextVerticalAlignment()')
+cls.func(nil, 'void setTextColor(const cocos2d::Color4B color)')
+cls.func(nil, 'const cocos2d::Color4B &getTextColor()')
+cls.func(nil, 'void enableShadow(@optional const cocos2d::Color4B &shadowColor, @optional const cocos2d::Size &offset, @optional int blurRadius)')
+cls.func(nil, 'void enableOutline(const cocos2d::Color4B &outlineColor, @optional int outlineSize)')
+cls.func(nil, 'void enableGlow(const cocos2d::Color4B &glowColor)')
+cls.func(nil, 'void disableEffect()', 'void disableEffect(cocos2d::LabelEffect effect)')
+cls.func(nil, 'bool isShadowEnabled()')
+cls.func(nil, 'cocos2d::Size getShadowOffset()')
+cls.func(nil, 'float getShadowBlurRadius()')
+cls.func(nil, 'cocos2d::Color4B getShadowColor()')
+cls.func(nil, 'int getOutlineSize()')
+cls.func(nil, 'cocos2d::LabelEffect getLabelEffectType()')
+cls.func(nil, 'cocos2d::Color4B getEffectColor()')
+cls.func(nil, 'cocos2d::Sprite *getLetter(int lettetIndex)')
+cls.func(nil, 'void setBlendFunc(const cocos2d::BlendFunc &blendFunc)')
+cls.func(nil, 'const cocos2d::BlendFunc &getBlendFunc()')
+cls.func(nil, 'bool init(const std::string &textContent, const std::string &fontName, float fontSize)')
+cls.prop('string')
+cls.prop('stringLength')
+cls.prop('fontSize')
+cls.prop('fontName')
+cls.prop('type')
+cls.prop('touchScaleChangeEnabled')
+cls.prop('autoRenderSize')
+cls.prop('textAreaSize')
+cls.prop('textHorizontalAlignment')
+cls.prop('textVerticalAlignment')
+cls.prop('textColor')
+cls.prop('shadowEnabled')
+cls.prop('shadowOffset')
+cls.prop('shadowBlurRadius')
+cls.prop('shadowColor')
+cls.prop('outlineSize')
+cls.prop('labelEffectType')
+cls.prop('effectColor')
+cls.prop('blendFunc')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::TextAtlas'
 cls.SUPERCLS = "cocos2d::ui::Widget"
-cls.funcs [[
-    static cocos2d::Ref *createInstance()
-    TextAtlas()
-    static cocos2d::ui::TextAtlas *create()
-    static cocos2d::ui::TextAtlas *create(const std::string &stringValue, const std::string &charMapFile, int itemWidth, int itemHeight, const std::string &startCharMap)
-    void setProperty(const std::string &stringValue, const std::string &charMapFile, int itemWidth, int itemHeight, const std::string &startCharMap)
-    void setString(const std::string &value)
-    const std::string &getString()
-    ssize_t getStringLength()
-    void adaptRenderers()
-    cocos2d::ResourceData getRenderFile()
-]]
-cls.props [[
-    string
-    stringLength
-    renderFile
-]]
+cls.func(nil, 'static cocos2d::Ref *createInstance()')
+cls.func(nil, 'TextAtlas()')
+cls.func(nil, 'static cocos2d::ui::TextAtlas *create()', 'static cocos2d::ui::TextAtlas *create(const std::string &stringValue, const std::string &charMapFile, int itemWidth, int itemHeight, const std::string &startCharMap)')
+cls.func(nil, 'void setProperty(const std::string &stringValue, const std::string &charMapFile, int itemWidth, int itemHeight, const std::string &startCharMap)')
+cls.func(nil, 'void setString(const std::string &value)')
+cls.func(nil, 'const std::string &getString()')
+cls.func(nil, 'ssize_t getStringLength()')
+cls.func(nil, 'void adaptRenderers()')
+cls.func(nil, 'cocos2d::ResourceData getRenderFile()')
+cls.prop('string')
+cls.prop('stringLength')
+cls.prop('renderFile')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::TextBMFont'
 cls.SUPERCLS = "cocos2d::ui::Widget"
-cls.funcs [[
-    static cocos2d::Ref *createInstance()
-    TextBMFont()
-    static cocos2d::ui::TextBMFont *create()
-    static cocos2d::ui::TextBMFont *create(const std::string &text, const std::string &filename)
-    void setFntFile(const std::string &fileName)
-    void setString(const std::string &value)
-    const std::string &getString()
-    ssize_t getStringLength()
-    cocos2d::ResourceData getRenderFile()
-    void resetRender()
-]]
-cls.props [[
-    string
-    stringLength
-    renderFile
-]]
+cls.func(nil, 'static cocos2d::Ref *createInstance()')
+cls.func(nil, 'TextBMFont()')
+cls.func(nil, 'static cocos2d::ui::TextBMFont *create()', 'static cocos2d::ui::TextBMFont *create(const std::string &text, const std::string &filename)')
+cls.func(nil, 'void setFntFile(const std::string &fileName)')
+cls.func(nil, 'void setString(const std::string &value)')
+cls.func(nil, 'const std::string &getString()')
+cls.func(nil, 'ssize_t getStringLength()')
+cls.func(nil, 'cocos2d::ResourceData getRenderFile()')
+cls.func(nil, 'void resetRender()')
+cls.prop('string')
+cls.prop('stringLength')
+cls.prop('renderFile')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::UICCTextField'
 cls.SUPERCLS = "cocos2d::TextFieldTTF"
-cls.funcs [[
-    static cocos2d::ui::UICCTextField *create()
-    UICCTextField()
-    static cocos2d::ui::UICCTextField *create(const std::string &placeholder, const std::string &fontName, float fontSize)
-    bool onTextFieldAttachWithIME(cocos2d::TextFieldTTF *pSender)
-    bool onTextFieldDetachWithIME(cocos2d::TextFieldTTF *pSender)
-    bool onTextFieldInsertText(cocos2d::TextFieldTTF *pSender, const char *text, size_t nLen)
-    bool onTextFieldDeleteBackward(cocos2d::TextFieldTTF *pSender, const char *delText, size_t nLen)
-    void insertText(const char *text, size_t len)
-    void openIME()
-    void closeIME()
-    void setMaxLengthEnabled(bool enable)
-    bool isMaxLengthEnabled()
-    void setMaxLength(int length)
-    int getMaxLength()
-    void setPasswordEnabled(bool enable)
-    bool isPasswordEnabled()
-    void setPasswordStyleText(const std::string &styleText)
-    void setPasswordText(const std::string &text)
-    void setAttachWithIME(bool attach)
-    bool getAttachWithIME()
-    void setDetachWithIME(bool detach)
-    bool getDetachWithIME()
-    void setInsertText(bool insert)
-    bool getInsertText()
-    void setDeleteBackward(bool deleteBackward)
-    bool getDeleteBackward()
-]]
-cls.props [[
-    maxLengthEnabled
-    maxLength
-    passwordEnabled
-    attachWithIME
-    detachWithIME
-    insertText
-    deleteBackward
-]]
+cls.func(nil, 'static cocos2d::ui::UICCTextField *create()', 'static cocos2d::ui::UICCTextField *create(const std::string &placeholder, const std::string &fontName, float fontSize)')
+cls.func(nil, 'UICCTextField()')
+cls.func(nil, 'bool onTextFieldAttachWithIME(cocos2d::TextFieldTTF *pSender)')
+cls.func(nil, 'bool onTextFieldDetachWithIME(cocos2d::TextFieldTTF *pSender)')
+cls.func(nil, 'bool onTextFieldInsertText(cocos2d::TextFieldTTF *pSender, const char *text, size_t nLen)')
+cls.func(nil, 'bool onTextFieldDeleteBackward(cocos2d::TextFieldTTF *pSender, const char *delText, size_t nLen)')
+cls.func(nil, 'void insertText(const char *text, size_t len)')
+cls.func(nil, 'void openIME()')
+cls.func(nil, 'void closeIME()')
+cls.func(nil, 'void setMaxLengthEnabled(bool enable)')
+cls.func(nil, 'bool isMaxLengthEnabled()')
+cls.func(nil, 'void setMaxLength(int length)')
+cls.func(nil, 'int getMaxLength()')
+cls.func(nil, 'void setPasswordEnabled(bool enable)')
+cls.func(nil, 'bool isPasswordEnabled()')
+cls.func(nil, 'void setPasswordStyleText(const std::string &styleText)')
+cls.func(nil, 'void setPasswordText(const std::string &text)')
+cls.func(nil, 'void setAttachWithIME(bool attach)')
+cls.func(nil, 'bool getAttachWithIME()')
+cls.func(nil, 'void setDetachWithIME(bool detach)')
+cls.func(nil, 'bool getDetachWithIME()')
+cls.func(nil, 'void setInsertText(bool insert)')
+cls.func(nil, 'bool getInsertText()')
+cls.func(nil, 'void setDeleteBackward(bool deleteBackward)')
+cls.func(nil, 'bool getDeleteBackward()')
+cls.prop('maxLengthEnabled')
+cls.prop('maxLength')
+cls.prop('passwordEnabled')
+cls.prop('attachWithIME')
+cls.prop('detachWithIME')
+cls.prop('insertText')
+cls.prop('deleteBackward')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::TextField::EventType'
@@ -1678,57 +1537,53 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::TextField'
 cls.SUPERCLS = "cocos2d::ui::Widget"
-cls.funcs [[
-    static cocos2d::Ref *createInstance()
-    TextField()
-    static cocos2d::ui::TextField *create()
-    static cocos2d::ui::TextField *create(const std::string &placeholder, const std::string &fontName, int fontSize)
-    void setTouchSize(const cocos2d::Size &size)
-    cocos2d::Size getTouchSize()
-    void setTouchAreaEnabled(bool enable)
-    void setPlaceHolder(const std::string &value)
-    const std::string &getPlaceHolder()
-    const cocos2d::Color4B &getPlaceHolderColor()
-    void setPlaceHolderColor(const cocos2d::Color3B &color)
-    void setPlaceHolderColor(const cocos2d::Color4B &color)
-    const cocos2d::Color4B &getTextColor()
-    void setTextColor(const cocos2d::Color4B &textColor)
-    void setFontSize(int size)
-    int getFontSize()
-    void setFontName(const std::string &name)
-    const std::string &getFontName()
-    void didNotSelectSelf()
-    void setString(const std::string &text)
-    const std::string &getString()
-    void setMaxLengthEnabled(bool enable)
-    bool isMaxLengthEnabled()
-    void setMaxLength(int length)
-    int getMaxLength()
-    int getStringLength()
-    void setPasswordEnabled(bool enable)
-    bool isPasswordEnabled()
-    void setPasswordStyleText(const char *styleText)
-    const char *getPasswordStyleText()
-    bool getAttachWithIME()
-    void setAttachWithIME(bool attach)
-    bool getDetachWithIME()
-    void setDetachWithIME(bool detach)
-    bool getInsertText()
-    void setInsertText(bool insertText)
-    bool getDeleteBackward()
-    void setDeleteBackward(bool deleteBackward)
-    cocos2d::Size getAutoRenderSize()
-    void attachWithIME()
-    void setTextAreaSize(const cocos2d::Size &size)
-    void setTextHorizontalAlignment(cocos2d::TextHAlignment alignment)
-    cocos2d::TextHAlignment getTextHorizontalAlignment()
-    void setTextVerticalAlignment(cocos2d::TextVAlignment alignment)
-    cocos2d::TextVAlignment getTextVerticalAlignment()
-    void setCursorEnabled(bool enabled)
-    void setCursorChar(char cursor)
-    void setCursorPosition(std::size_t cursorPosition)
-    void setCursorFromPoint(const cocos2d::Vec2 &point, const cocos2d::Camera *camera)
-]]
+cls.func(nil, 'static cocos2d::Ref *createInstance()')
+cls.func(nil, 'TextField()')
+cls.func(nil, 'static cocos2d::ui::TextField *create()', 'static cocos2d::ui::TextField *create(const std::string &placeholder, const std::string &fontName, int fontSize)')
+cls.func(nil, 'void setTouchSize(const cocos2d::Size &size)')
+cls.func(nil, 'cocos2d::Size getTouchSize()')
+cls.func(nil, 'void setTouchAreaEnabled(bool enable)')
+cls.func(nil, 'void setPlaceHolder(const std::string &value)')
+cls.func(nil, 'const std::string &getPlaceHolder()')
+cls.func(nil, 'const cocos2d::Color4B &getPlaceHolderColor()')
+cls.func(nil, 'void setPlaceHolderColor(const cocos2d::Color3B &color)', 'void setPlaceHolderColor(const cocos2d::Color4B &color)')
+cls.func(nil, 'const cocos2d::Color4B &getTextColor()')
+cls.func(nil, 'void setTextColor(const cocos2d::Color4B &textColor)')
+cls.func(nil, 'void setFontSize(int size)')
+cls.func(nil, 'int getFontSize()')
+cls.func(nil, 'void setFontName(const std::string &name)')
+cls.func(nil, 'const std::string &getFontName()')
+cls.func(nil, 'void didNotSelectSelf()')
+cls.func(nil, 'void setString(const std::string &text)')
+cls.func(nil, 'const std::string &getString()')
+cls.func(nil, 'void setMaxLengthEnabled(bool enable)')
+cls.func(nil, 'bool isMaxLengthEnabled()')
+cls.func(nil, 'void setMaxLength(int length)')
+cls.func(nil, 'int getMaxLength()')
+cls.func(nil, 'int getStringLength()')
+cls.func(nil, 'void setPasswordEnabled(bool enable)')
+cls.func(nil, 'bool isPasswordEnabled()')
+cls.func(nil, 'void setPasswordStyleText(const char *styleText)')
+cls.func(nil, 'const char *getPasswordStyleText()')
+cls.func(nil, 'bool getAttachWithIME()')
+cls.func(nil, 'void setAttachWithIME(bool attach)')
+cls.func(nil, 'bool getDetachWithIME()')
+cls.func(nil, 'void setDetachWithIME(bool detach)')
+cls.func(nil, 'bool getInsertText()')
+cls.func(nil, 'void setInsertText(bool insertText)')
+cls.func(nil, 'bool getDeleteBackward()')
+cls.func(nil, 'void setDeleteBackward(bool deleteBackward)')
+cls.func(nil, 'cocos2d::Size getAutoRenderSize()')
+cls.func(nil, 'void attachWithIME()')
+cls.func(nil, 'void setTextAreaSize(const cocos2d::Size &size)')
+cls.func(nil, 'void setTextHorizontalAlignment(cocos2d::TextHAlignment alignment)')
+cls.func(nil, 'cocos2d::TextHAlignment getTextHorizontalAlignment()')
+cls.func(nil, 'void setTextVerticalAlignment(cocos2d::TextVAlignment alignment)')
+cls.func(nil, 'cocos2d::TextVAlignment getTextVerticalAlignment()')
+cls.func(nil, 'void setCursorEnabled(bool enabled)')
+cls.func(nil, 'void setCursorChar(char cursor)')
+cls.func(nil, 'void setCursorPosition(std::size_t cursorPosition)')
+cls.func(nil, 'void setCursorFromPoint(const cocos2d::Vec2 &point, const cocos2d::Camera *camera)')
 cls.callback {
     FUNCS =  {
         'void addEventListener(@nullable const std::function<void (Ref *, EventType)> &callback)'
@@ -1738,97 +1593,89 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    touchSize
-    placeHolder
-    placeHolderColor
-    textColor
-    fontSize
-    fontName
-    string
-    maxLengthEnabled
-    maxLength
-    stringLength
-    passwordEnabled
-    passwordStyleText
-    attachWithIME
-    detachWithIME
-    insertText
-    deleteBackward
-    autoRenderSize
-    textHorizontalAlignment
-    textVerticalAlignment
-]]
+cls.prop('touchSize')
+cls.prop('placeHolder')
+cls.prop('placeHolderColor')
+cls.prop('textColor')
+cls.prop('fontSize')
+cls.prop('fontName')
+cls.prop('string')
+cls.prop('maxLengthEnabled')
+cls.prop('maxLength')
+cls.prop('stringLength')
+cls.prop('passwordEnabled')
+cls.prop('passwordStyleText')
+cls.prop('attachWithIME')
+cls.prop('detachWithIME')
+cls.prop('insertText')
+cls.prop('deleteBackward')
+cls.prop('autoRenderSize')
+cls.prop('textHorizontalAlignment')
+cls.prop('textVerticalAlignment')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::Button'
 cls.SUPERCLS = "cocos2d::ui::Widget"
-cls.funcs [[
-    static cocos2d::Ref *createInstance()
-    Button()
-    static cocos2d::ui::Button *create()
-    static cocos2d::ui::Button *create(const std::string &normalImage, @optional const std::string &selectedImage, @optional const std::string &disableImage, @optional cocos2d::ui::Widget::TextureResType texType)
-    void loadTextures(const std::string &normal, const std::string &selected, @optional const std::string &disabled, @optional cocos2d::ui::Widget::TextureResType texType)
-    void loadTextureNormal(const std::string &normal, @optional cocos2d::ui::Widget::TextureResType texType)
-    void loadTexturePressed(const std::string &selected, @optional cocos2d::ui::Widget::TextureResType texType)
-    void loadTextureDisabled(const std::string &disabled, @optional cocos2d::ui::Widget::TextureResType texType)
-    void setCapInsets(const cocos2d::Rect &capInsets)
-    void setCapInsetsNormalRenderer(const cocos2d::Rect &capInsets)
-    const cocos2d::Rect &getCapInsetsNormalRenderer()
-    void setCapInsetsPressedRenderer(const cocos2d::Rect &capInsets)
-    const cocos2d::Rect &getCapInsetsPressedRenderer()
-    void setCapInsetsDisabledRenderer(const cocos2d::Rect &capInsets)
-    const cocos2d::Rect &getCapInsetsDisabledRenderer()
-    void setScale9Enabled(bool enable)
-    bool isScale9Enabled()
-    void setPressedActionEnabled(bool enabled)
-    @addref(protectedChildren |) cocos2d::Label *getTitleRenderer()
-    void setTitleText(const std::string &text)
-    std::string getTitleText()
-    void setTitleColor(const cocos2d::Color3B &color)
-    cocos2d::Color3B getTitleColor()
-    void setTitleFontSize(float size)
-    float getTitleFontSize()
-    void setTitleFontName(const std::string &fontName)
-    std::string getTitleFontName()
-    void setTitleAlignment(cocos2d::TextHAlignment hAlignment)
-    void setTitleAlignment(cocos2d::TextHAlignment hAlignment, cocos2d::TextVAlignment vAlignment)
-    void setTitleLabel(@addref(protectedChildren |) cocos2d::Label *label)
-    @addref(protectedChildren |) cocos2d::Label *getTitleLabel()
-    void setZoomScale(float scale)
-    float getZoomScale()
-    @addref(protectedChildren |) cocos2d::ui::Scale9Sprite *getRendererNormal()
-    @addref(protectedChildren |) cocos2d::ui::Scale9Sprite *getRendererClicked()
-    @addref(protectedChildren |) cocos2d::ui::Scale9Sprite *getRendererDisabled()
-    void resetNormalRender()
-    void resetPressedRender()
-    void resetDisabledRender()
-    cocos2d::ResourceData getNormalFile()
-    cocos2d::ResourceData getPressedFile()
-    cocos2d::ResourceData getDisabledFile()
-    bool init(const std::string &normalImage, @optional const std::string &selectedImage, @optional const std::string &disableImage, @optional cocos2d::ui::Widget::TextureResType texType)
-    cocos2d::Size getNormalTextureSize()
-]]
-cls.props [[
-    capInsetsNormalRenderer
-    capInsetsPressedRenderer
-    capInsetsDisabledRenderer
-    scale9Enabled
-    titleRenderer
-    titleText
-    titleColor
-    titleFontSize
-    titleFontName
-    titleLabel
-    zoomScale
-    rendererNormal
-    rendererClicked
-    rendererDisabled
-    normalFile
-    pressedFile
-    disabledFile
-    normalTextureSize
-]]
+cls.func(nil, 'static cocos2d::Ref *createInstance()')
+cls.func(nil, 'Button()')
+cls.func(nil, 'static cocos2d::ui::Button *create()', 'static cocos2d::ui::Button *create(const std::string &normalImage, @optional const std::string &selectedImage, @optional const std::string &disableImage, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'void loadTextures(const std::string &normal, const std::string &selected, @optional const std::string &disabled, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'void loadTextureNormal(const std::string &normal, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'void loadTexturePressed(const std::string &selected, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'void loadTextureDisabled(const std::string &disabled, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'void setCapInsets(const cocos2d::Rect &capInsets)')
+cls.func(nil, 'void setCapInsetsNormalRenderer(const cocos2d::Rect &capInsets)')
+cls.func(nil, 'const cocos2d::Rect &getCapInsetsNormalRenderer()')
+cls.func(nil, 'void setCapInsetsPressedRenderer(const cocos2d::Rect &capInsets)')
+cls.func(nil, 'const cocos2d::Rect &getCapInsetsPressedRenderer()')
+cls.func(nil, 'void setCapInsetsDisabledRenderer(const cocos2d::Rect &capInsets)')
+cls.func(nil, 'const cocos2d::Rect &getCapInsetsDisabledRenderer()')
+cls.func(nil, 'void setScale9Enabled(bool enable)')
+cls.func(nil, 'bool isScale9Enabled()')
+cls.func(nil, 'void setPressedActionEnabled(bool enabled)')
+cls.func(nil, '@addref(protectedChildren |) cocos2d::Label *getTitleRenderer()')
+cls.func(nil, 'void setTitleText(const std::string &text)')
+cls.func(nil, 'std::string getTitleText()')
+cls.func(nil, 'void setTitleColor(const cocos2d::Color3B &color)')
+cls.func(nil, 'cocos2d::Color3B getTitleColor()')
+cls.func(nil, 'void setTitleFontSize(float size)')
+cls.func(nil, 'float getTitleFontSize()')
+cls.func(nil, 'void setTitleFontName(const std::string &fontName)')
+cls.func(nil, 'std::string getTitleFontName()')
+cls.func(nil, 'void setTitleAlignment(cocos2d::TextHAlignment hAlignment)', 'void setTitleAlignment(cocos2d::TextHAlignment hAlignment, cocos2d::TextVAlignment vAlignment)')
+cls.func(nil, 'void setTitleLabel(@addref(protectedChildren |) cocos2d::Label *label)')
+cls.func(nil, '@addref(protectedChildren |) cocos2d::Label *getTitleLabel()')
+cls.func(nil, 'void setZoomScale(float scale)')
+cls.func(nil, 'float getZoomScale()')
+cls.func(nil, '@addref(protectedChildren |) cocos2d::ui::Scale9Sprite *getRendererNormal()')
+cls.func(nil, '@addref(protectedChildren |) cocos2d::ui::Scale9Sprite *getRendererClicked()')
+cls.func(nil, '@addref(protectedChildren |) cocos2d::ui::Scale9Sprite *getRendererDisabled()')
+cls.func(nil, 'void resetNormalRender()')
+cls.func(nil, 'void resetPressedRender()')
+cls.func(nil, 'void resetDisabledRender()')
+cls.func(nil, 'cocos2d::ResourceData getNormalFile()')
+cls.func(nil, 'cocos2d::ResourceData getPressedFile()')
+cls.func(nil, 'cocos2d::ResourceData getDisabledFile()')
+cls.func(nil, 'bool init(const std::string &normalImage, @optional const std::string &selectedImage, @optional const std::string &disableImage, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'cocos2d::Size getNormalTextureSize()')
+cls.prop('capInsetsNormalRenderer')
+cls.prop('capInsetsPressedRenderer')
+cls.prop('capInsetsDisabledRenderer')
+cls.prop('scale9Enabled')
+cls.prop('titleRenderer')
+cls.prop('titleText')
+cls.prop('titleColor')
+cls.prop('titleFontSize')
+cls.prop('titleFontName')
+cls.prop('titleLabel')
+cls.prop('zoomScale')
+cls.prop('rendererNormal')
+cls.prop('rendererClicked')
+cls.prop('rendererDisabled')
+cls.prop('normalFile')
+cls.prop('pressedFile')
+cls.prop('disabledFile')
+cls.prop('normalTextureSize')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::CheckBox::EventType'
@@ -1838,13 +1685,9 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::CheckBox'
 cls.SUPERCLS = "cocos2d::ui::AbstractCheckButton"
-cls.funcs [[
-    static cocos2d::Ref *createInstance()
-    CheckBox()
-    static cocos2d::ui::CheckBox *create()
-    static cocos2d::ui::CheckBox *create(const std::string &backGround, const std::string &backGroundSelected, const std::string &cross, const std::string &backGroundDisabled, const std::string &frontCrossDisabled, @optional cocos2d::ui::Widget::TextureResType texType)
-    static cocos2d::ui::CheckBox *create(const std::string &backGround, const std::string &cross, @optional cocos2d::ui::Widget::TextureResType texType)
-]]
+cls.func(nil, 'static cocos2d::Ref *createInstance()')
+cls.func(nil, 'CheckBox()')
+cls.func(nil, 'static cocos2d::ui::CheckBox *create()', 'static cocos2d::ui::CheckBox *create(const std::string &backGround, const std::string &backGroundSelected, const std::string &cross, const std::string &backGroundDisabled, const std::string &frontCrossDisabled, @optional cocos2d::ui::Widget::TextureResType texType)', 'static cocos2d::ui::CheckBox *create(const std::string &backGround, const std::string &cross, @optional cocos2d::ui::Widget::TextureResType texType)')
 cls.callback {
     FUNCS =  {
         'void addEventListener(@nullable const std::function<void (Ref *, CheckBox::EventType)> &callback)'
@@ -1863,13 +1706,9 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RadioButton'
 cls.SUPERCLS = "cocos2d::ui::AbstractCheckButton"
-cls.funcs [[
-    static cocos2d::Ref *createInstance()
-    RadioButton()
-    static cocos2d::ui::RadioButton *create()
-    static cocos2d::ui::RadioButton *create(const std::string &backGround, const std::string &backGroundSelected, const std::string &cross, const std::string &backGroundDisabled, const std::string &frontCrossDisabled, @optional cocos2d::ui::Widget::TextureResType texType)
-    static cocos2d::ui::RadioButton *create(const std::string &backGround, const std::string &cross, @optional cocos2d::ui::Widget::TextureResType texType)
-]]
+cls.func(nil, 'static cocos2d::Ref *createInstance()')
+cls.func(nil, 'RadioButton()')
+cls.func(nil, 'static cocos2d::ui::RadioButton *create()', 'static cocos2d::ui::RadioButton *create(const std::string &backGround, const std::string &backGroundSelected, const std::string &cross, const std::string &backGroundDisabled, const std::string &frontCrossDisabled, @optional cocos2d::ui::Widget::TextureResType texType)', 'static cocos2d::ui::RadioButton *create(const std::string &backGround, const std::string &cross, @optional cocos2d::ui::Widget::TextureResType texType)')
 cls.callback {
     FUNCS =  {
         'void addEventListener(@nullable const std::function<void (RadioButton *, EventType)> &callback)'
@@ -1887,22 +1726,18 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RadioButtonGroup'
 cls.SUPERCLS = "cocos2d::ui::Widget"
-cls.funcs [[
-    RadioButtonGroup()
-    static cocos2d::ui::RadioButtonGroup *create()
-    int getSelectedButtonIndex()
-    void setSelectedButton(int index)
-    void setSelectedButton(cocos2d::ui::RadioButton *radioButton)
-    void setSelectedButtonWithoutEvent(int index)
-    void setSelectedButtonWithoutEvent(cocos2d::ui::RadioButton *radioButton)
-    void addRadioButton(cocos2d::ui::RadioButton *radioButton)
-    void removeRadioButton(cocos2d::ui::RadioButton *radioButton)
-    void removeAllRadioButtons()
-    ssize_t getNumberOfRadioButtons()
-    cocos2d::ui::RadioButton *getRadioButtonByIndex(int index)
-    void setAllowedNoSelection(bool allowedNoSelection)
-    bool isAllowedNoSelection()
-]]
+cls.func(nil, 'RadioButtonGroup()')
+cls.func(nil, 'static cocos2d::ui::RadioButtonGroup *create()')
+cls.func(nil, 'int getSelectedButtonIndex()')
+cls.func(nil, 'void setSelectedButton(int index)', 'void setSelectedButton(cocos2d::ui::RadioButton *radioButton)')
+cls.func(nil, 'void setSelectedButtonWithoutEvent(int index)', 'void setSelectedButtonWithoutEvent(cocos2d::ui::RadioButton *radioButton)')
+cls.func(nil, 'void addRadioButton(cocos2d::ui::RadioButton *radioButton)')
+cls.func(nil, 'void removeRadioButton(cocos2d::ui::RadioButton *radioButton)')
+cls.func(nil, 'void removeAllRadioButtons()')
+cls.func(nil, 'ssize_t getNumberOfRadioButtons()')
+cls.func(nil, 'cocos2d::ui::RadioButton *getRadioButtonByIndex(int index)')
+cls.func(nil, 'void setAllowedNoSelection(bool allowedNoSelection)')
+cls.func(nil, 'bool isAllowedNoSelection()')
 cls.callback {
     FUNCS =  {
         'void addEventListener(@nullable const std::function<void (RadioButton *, int, EventType)> &callback)'
@@ -1912,37 +1747,30 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    selectedButtonIndex
-    numberOfRadioButtons
-    allowedNoSelection
-]]
+cls.prop('selectedButtonIndex')
+cls.prop('numberOfRadioButtons')
+cls.prop('allowedNoSelection')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::ImageView'
 cls.SUPERCLS = "cocos2d::ui::Widget"
-cls.funcs [[
-    static cocos2d::Ref *createInstance()
-    ImageView()
-    static cocos2d::ui::ImageView *create()
-    static cocos2d::ui::ImageView *create(const std::string &imageFileName, @optional cocos2d::ui::Widget::TextureResType texType)
-    void loadTexture(const std::string &fileName, @optional cocos2d::ui::Widget::TextureResType texType)
-    void setTextureRect(const cocos2d::Rect &rect)
-    void setScale9Enabled(bool enabled)
-    bool isScale9Enabled()
-    void setCapInsets(const cocos2d::Rect &capInsets)
-    const cocos2d::Rect &getCapInsets()
-    void setBlendFunc(const cocos2d::BlendFunc &blendFunc)
-    const cocos2d::BlendFunc &getBlendFunc()
-    cocos2d::ResourceData getRenderFile()
-    bool init(const std::string &imageFileName, @optional cocos2d::ui::Widget::TextureResType texType)
-]]
-cls.props [[
-    scale9Enabled
-    capInsets
-    blendFunc
-    renderFile
-]]
+cls.func(nil, 'static cocos2d::Ref *createInstance()')
+cls.func(nil, 'ImageView()')
+cls.func(nil, 'static cocos2d::ui::ImageView *create()', 'static cocos2d::ui::ImageView *create(const std::string &imageFileName, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'void loadTexture(const std::string &fileName, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'void setTextureRect(const cocos2d::Rect &rect)')
+cls.func(nil, 'void setScale9Enabled(bool enabled)')
+cls.func(nil, 'bool isScale9Enabled()')
+cls.func(nil, 'void setCapInsets(const cocos2d::Rect &capInsets)')
+cls.func(nil, 'const cocos2d::Rect &getCapInsets()')
+cls.func(nil, 'void setBlendFunc(const cocos2d::BlendFunc &blendFunc)')
+cls.func(nil, 'const cocos2d::BlendFunc &getBlendFunc()')
+cls.func(nil, 'cocos2d::ResourceData getRenderFile()')
+cls.func(nil, 'bool init(const std::string &imageFileName, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.prop('scale9Enabled')
+cls.prop('capInsets')
+cls.prop('blendFunc')
+cls.prop('renderFile')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::EditBoxDelegate::EditBoxEndAction'
@@ -1953,19 +1781,15 @@ cls.enum('RETURN', 'cocos2d::ui::EditBoxDelegate::EditBoxEndAction::RETURN')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::EditBoxDelegate'
-cls.funcs [[
-    void editBoxEditingDidBegin(cocos2d::ui::EditBox *)
-    void editBoxTextChanged(cocos2d::ui::EditBox *, const std::string &)
-    void editBoxReturn(cocos2d::ui::EditBox *editBox)
-    void editBoxEditingDidEndWithAction(cocos2d::ui::EditBox *, cocos2d::ui::EditBoxDelegate::EditBoxEndAction )
-]]
+cls.func(nil, 'void editBoxEditingDidBegin(cocos2d::ui::EditBox *)')
+cls.func(nil, 'void editBoxTextChanged(cocos2d::ui::EditBox *, const std::string &)')
+cls.func(nil, 'void editBoxReturn(cocos2d::ui::EditBox *editBox)')
+cls.func(nil, 'void editBoxEditingDidEndWithAction(cocos2d::ui::EditBox *, cocos2d::ui::EditBoxDelegate::EditBoxEndAction )')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::LuaEditBoxDelegate'
 cls.SUPERCLS = "cocos2d::ui::EditBoxDelegate"
-cls.funcs [[
-    LuaEditBoxDelegate()
-]]
+cls.func(nil, 'LuaEditBoxDelegate()')
 cls.var('onEditingDidBegin', [[@nullable @local std::function<void (EditBox *)> onEditingDidBegin]])
 cls.var('onTextChanged', [[@nullable @local std::function<void (EditBox *, const std::string &)> onTextChanged]])
 cls.var('onReturn', [[@nullable @local std::function<void (EditBox *)> onReturn]])
@@ -2002,79 +1826,69 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::EditBox'
 cls.SUPERCLS = "cocos2d::ui::Widget"
-cls.funcs [[
-    static cocos2d::ui::EditBox *create(const cocos2d::Size &size, cocos2d::ui::Scale9Sprite *normalSprite, @optional cocos2d::ui::Scale9Sprite *pressedSprite, @optional cocos2d::ui::Scale9Sprite *disabledSprite)
-    static cocos2d::ui::EditBox *create(const cocos2d::Size &size, const std::string &normalImage, cocos2d::ui::Widget::TextureResType texType)
-    static cocos2d::ui::EditBox *create(const cocos2d::Size &size, const std::string &normalImage, @optional const std::string &pressedImage, @optional const std::string &disabledImage, @optional cocos2d::ui::Widget::TextureResType texType)
-    EditBox()
-    bool initWithSizeAndBackgroundSprite(const cocos2d::Size &size, const std::string &normal9SpriteBg, @optional cocos2d::ui::Widget::TextureResType texType)
-    bool initWithSizeAndBackgroundSprite(const cocos2d::Size &size, cocos2d::ui::Scale9Sprite *normal9SpriteBg)
-    bool initWithSizeAndBackgroundSprite(const cocos2d::Size &size, cocos2d::ui::Scale9Sprite *normalSprite, cocos2d::ui::Scale9Sprite *pressedSprite, cocos2d::ui::Scale9Sprite *disabledSprite)
-    bool initWithSizeAndTexture(const cocos2d::Size &size, const std::string &normalImage, @optional const std::string &pressedImage, @optional const std::string &disabledImage, @optional cocos2d::ui::Widget::TextureResType texType)
-    void loadTextures(const std::string &normal, const std::string &pressed, @optional const std::string &disabled, @optional cocos2d::ui::Widget::TextureResType texType)
-    void loadTextureNormal(const std::string &normal, @optional cocos2d::ui::Widget::TextureResType texType)
-    void loadTexturePressed(const std::string &pressed, @optional cocos2d::ui::Widget::TextureResType texType)
-    void loadTextureDisabled(const std::string &disabled, @optional cocos2d::ui::Widget::TextureResType texType)
-    void setCapInsets(const cocos2d::Rect &capInsets)
-    void setCapInsetsNormalRenderer(const cocos2d::Rect &capInsets)
-    const cocos2d::Rect &getCapInsetsNormalRenderer()
-    void setCapInsetsPressedRenderer(const cocos2d::Rect &capInsets)
-    const cocos2d::Rect &getCapInsetsPressedRenderer()
-    void setCapInsetsDisabledRenderer(const cocos2d::Rect &capInsets)
-    const cocos2d::Rect &getCapInsetsDisabledRenderer()
-    void setDelegate(@addref(delegate ^) cocos2d::ui::EditBoxDelegate *delegate)
-    @addref(delegate ^) cocos2d::ui::EditBoxDelegate *getDelegate()
-    void setText(const char *pText)
-    const char *getText()
-    void setFont(const char *pFontName, int fontSize)
-    void setFontName(const char *pFontName)
-    const char *getFontName()
-    void setFontSize(int fontSize)
-    int getFontSize()
-    void setFontColor(const cocos2d::Color3B &color)
-    void setFontColor(const cocos2d::Color4B &color)
-    const cocos2d::Color4B &getFontColor()
-    void setPlaceholderFont(const char *pFontName, int fontSize)
-    void setPlaceholderFontName(const char *pFontName)
-    const char *getPlaceholderFontName()
-    void setPlaceholderFontSize(int fontSize)
-    int getPlaceholderFontSize()
-    void setPlaceholderFontColor(const cocos2d::Color3B &color)
-    void setPlaceholderFontColor(const cocos2d::Color4B &color)
-    const cocos2d::Color4B &getPlaceholderFontColor()
-    void setPlaceHolder(const char *pText)
-    const char *getPlaceHolder()
-    void setInputMode(cocos2d::ui::EditBox::InputMode inputMode)
-    cocos2d::ui::EditBox::InputMode getInputMode()
-    void setMaxLength(int maxLength)
-    int getMaxLength()
-    void setInputFlag(cocos2d::ui::EditBox::InputFlag inputFlag)
-    cocos2d::ui::EditBox::InputFlag getInputFlag()
-    void setReturnType(cocos2d::ui::EditBox::KeyboardReturnType returnType)
-    cocos2d::ui::EditBox::KeyboardReturnType getReturnType()
-    void setTextHorizontalAlignment(cocos2d::TextHAlignment alignment)
-    cocos2d::TextHAlignment getTextHorizontalAlignment()
-    void openKeyboard()
-]]
-cls.props [[
-    capInsetsNormalRenderer
-    capInsetsPressedRenderer
-    capInsetsDisabledRenderer
-    delegate
-    text
-    fontName
-    fontSize
-    fontColor
-    placeholderFontName
-    placeholderFontSize
-    placeholderFontColor
-    placeHolder
-    inputMode
-    maxLength
-    inputFlag
-    returnType
-    textHorizontalAlignment
-]]
+cls.func(nil, 'static cocos2d::ui::EditBox *create(const cocos2d::Size &size, cocos2d::ui::Scale9Sprite *normalSprite, @optional cocos2d::ui::Scale9Sprite *pressedSprite, @optional cocos2d::ui::Scale9Sprite *disabledSprite)', 'static cocos2d::ui::EditBox *create(const cocos2d::Size &size, const std::string &normalImage, cocos2d::ui::Widget::TextureResType texType)', 'static cocos2d::ui::EditBox *create(const cocos2d::Size &size, const std::string &normalImage, @optional const std::string &pressedImage, @optional const std::string &disabledImage, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'EditBox()')
+cls.func(nil, 'bool initWithSizeAndBackgroundSprite(const cocos2d::Size &size, const std::string &normal9SpriteBg, @optional cocos2d::ui::Widget::TextureResType texType)', 'bool initWithSizeAndBackgroundSprite(const cocos2d::Size &size, cocos2d::ui::Scale9Sprite *normal9SpriteBg)', 'bool initWithSizeAndBackgroundSprite(const cocos2d::Size &size, cocos2d::ui::Scale9Sprite *normalSprite, cocos2d::ui::Scale9Sprite *pressedSprite, cocos2d::ui::Scale9Sprite *disabledSprite)')
+cls.func(nil, 'bool initWithSizeAndTexture(const cocos2d::Size &size, const std::string &normalImage, @optional const std::string &pressedImage, @optional const std::string &disabledImage, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'void loadTextures(const std::string &normal, const std::string &pressed, @optional const std::string &disabled, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'void loadTextureNormal(const std::string &normal, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'void loadTexturePressed(const std::string &pressed, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'void loadTextureDisabled(const std::string &disabled, @optional cocos2d::ui::Widget::TextureResType texType)')
+cls.func(nil, 'void setCapInsets(const cocos2d::Rect &capInsets)')
+cls.func(nil, 'void setCapInsetsNormalRenderer(const cocos2d::Rect &capInsets)')
+cls.func(nil, 'const cocos2d::Rect &getCapInsetsNormalRenderer()')
+cls.func(nil, 'void setCapInsetsPressedRenderer(const cocos2d::Rect &capInsets)')
+cls.func(nil, 'const cocos2d::Rect &getCapInsetsPressedRenderer()')
+cls.func(nil, 'void setCapInsetsDisabledRenderer(const cocos2d::Rect &capInsets)')
+cls.func(nil, 'const cocos2d::Rect &getCapInsetsDisabledRenderer()')
+cls.func(nil, 'void setDelegate(@addref(delegate ^) cocos2d::ui::EditBoxDelegate *delegate)')
+cls.func(nil, '@addref(delegate ^) cocos2d::ui::EditBoxDelegate *getDelegate()')
+cls.func(nil, 'void setText(const char *pText)')
+cls.func(nil, 'const char *getText()')
+cls.func(nil, 'void setFont(const char *pFontName, int fontSize)')
+cls.func(nil, 'void setFontName(const char *pFontName)')
+cls.func(nil, 'const char *getFontName()')
+cls.func(nil, 'void setFontSize(int fontSize)')
+cls.func(nil, 'int getFontSize()')
+cls.func(nil, 'void setFontColor(const cocos2d::Color3B &color)', 'void setFontColor(const cocos2d::Color4B &color)')
+cls.func(nil, 'const cocos2d::Color4B &getFontColor()')
+cls.func(nil, 'void setPlaceholderFont(const char *pFontName, int fontSize)')
+cls.func(nil, 'void setPlaceholderFontName(const char *pFontName)')
+cls.func(nil, 'const char *getPlaceholderFontName()')
+cls.func(nil, 'void setPlaceholderFontSize(int fontSize)')
+cls.func(nil, 'int getPlaceholderFontSize()')
+cls.func(nil, 'void setPlaceholderFontColor(const cocos2d::Color3B &color)', 'void setPlaceholderFontColor(const cocos2d::Color4B &color)')
+cls.func(nil, 'const cocos2d::Color4B &getPlaceholderFontColor()')
+cls.func(nil, 'void setPlaceHolder(const char *pText)')
+cls.func(nil, 'const char *getPlaceHolder()')
+cls.func(nil, 'void setInputMode(cocos2d::ui::EditBox::InputMode inputMode)')
+cls.func(nil, 'cocos2d::ui::EditBox::InputMode getInputMode()')
+cls.func(nil, 'void setMaxLength(int maxLength)')
+cls.func(nil, 'int getMaxLength()')
+cls.func(nil, 'void setInputFlag(cocos2d::ui::EditBox::InputFlag inputFlag)')
+cls.func(nil, 'cocos2d::ui::EditBox::InputFlag getInputFlag()')
+cls.func(nil, 'void setReturnType(cocos2d::ui::EditBox::KeyboardReturnType returnType)')
+cls.func(nil, 'cocos2d::ui::EditBox::KeyboardReturnType getReturnType()')
+cls.func(nil, 'void setTextHorizontalAlignment(cocos2d::TextHAlignment alignment)')
+cls.func(nil, 'cocos2d::TextHAlignment getTextHorizontalAlignment()')
+cls.func(nil, 'void openKeyboard()')
+cls.prop('capInsetsNormalRenderer')
+cls.prop('capInsetsPressedRenderer')
+cls.prop('capInsetsDisabledRenderer')
+cls.prop('delegate')
+cls.prop('text')
+cls.prop('fontName')
+cls.prop('fontSize')
+cls.prop('fontColor')
+cls.prop('placeholderFontName')
+cls.prop('placeholderFontSize')
+cls.prop('placeholderFontColor')
+cls.prop('placeHolder')
+cls.prop('inputMode')
+cls.prop('maxLength')
+cls.prop('inputFlag')
+cls.prop('returnType')
+cls.prop('textHorizontalAlignment')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 return M

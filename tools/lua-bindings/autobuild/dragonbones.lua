@@ -155,29 +155,23 @@ cls.enum('RGBA5551', 'dragonBones::TextureFormat::RGBA5551')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::BaseObject'
-cls.funcs [[
-    static void setMaxCount(std::size_t classTypeIndex, unsigned int maxCount)
-    static void clearPool(@optional std::size_t classTypeIndex)
-    std::size_t getClassTypeIndex()
-    void returnToPool()
-]]
-cls.props [[
-    classTypeIndex
-]]
+cls.func(nil, 'static void setMaxCount(std::size_t classTypeIndex, unsigned int maxCount)')
+cls.func(nil, 'static void clearPool(@optional std::size_t classTypeIndex)')
+cls.func(nil, 'std::size_t getClassTypeIndex()')
+cls.func(nil, 'void returnToPool()')
+cls.prop('classTypeIndex')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::EventObject'
 cls.SUPERCLS = "dragonBones::BaseObject"
-cls.funcs [[
-    static std::size_t getTypeIndex()
-    EventObject()
-    static void actionDataToInstance(const dragonBones::ActionData *data, dragonBones::EventObject *instance, dragonBones::Armature *armature)
-    dragonBones::Armature *getArmature()
-    dragonBones::Bone *getBone()
-    dragonBones::Slot *getSlot()
-    dragonBones::AnimationState *getAnimationState()
-    dragonBones::UserData *getData()
-]]
+cls.func(nil, 'static std::size_t getTypeIndex()')
+cls.func(nil, 'EventObject()')
+cls.func(nil, 'static void actionDataToInstance(const dragonBones::ActionData *data, dragonBones::EventObject *instance, dragonBones::Armature *armature)')
+cls.func(nil, 'dragonBones::Armature *getArmature()')
+cls.func(nil, 'dragonBones::Bone *getBone()')
+cls.func(nil, 'dragonBones::Slot *getSlot()')
+cls.func(nil, 'dragonBones::AnimationState *getAnimationState()')
+cls.func(nil, 'dragonBones::UserData *getData()')
 cls.var('START', [[static const char *START]])
 cls.var('LOOP_COMPLETE', [[static const char *LOOP_COMPLETE]])
 cls.var('COMPLETE', [[static const char *COMPLETE]])
@@ -196,322 +190,258 @@ cls.var('slot', [[dragonBones::Slot *slot]])
 cls.var('animationState', [[dragonBones::AnimationState *animationState]])
 cls.var('actionData', [[const dragonBones::ActionData *actionData]])
 cls.var('data', [[dragonBones::UserData *data]])
-cls.props [[
-    typeIndex
-    armature
-    bone
-    slot
-    animationState
-    data
-]]
+cls.prop('typeIndex')
+cls.prop('armature')
+cls.prop('bone')
+cls.prop('slot')
+cls.prop('animationState')
+cls.prop('data')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::TransformObject'
 cls.SUPERCLS = "dragonBones::BaseObject"
-cls.funcs [[
-    void updateGlobalTransform()
-    dragonBones::Armature *getArmature()
-]]
+cls.func(nil, 'void updateGlobalTransform()')
+cls.func(nil, 'dragonBones::Armature *getArmature()')
 cls.var('userData', [[void *userData]])
-cls.props [[
-    armature
-]]
+cls.prop('armature')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::Point'
-cls.funcs [[
-    Point()
-    void clear()
-    static dragonBones::Point *getHelpPointA()
-    static dragonBones::Point *getHelpPointB()
-    static dragonBones::Point *getHelpPointC()
-    static dragonBones::Point *getHelpPointD()
-]]
+cls.func(nil, 'Point()')
+cls.func(nil, 'void clear()')
+cls.func(nil, 'static dragonBones::Point *getHelpPointA()')
+cls.func(nil, 'static dragonBones::Point *getHelpPointB()')
+cls.func(nil, 'static dragonBones::Point *getHelpPointC()')
+cls.func(nil, 'static dragonBones::Point *getHelpPointD()')
 cls.var('x', [[float x]])
 cls.var('y', [[float y]])
-cls.props [[
-    helpPointA
-    helpPointB
-    helpPointC
-    helpPointD
-]]
+cls.prop('helpPointA')
+cls.prop('helpPointB')
+cls.prop('helpPointC')
+cls.prop('helpPointD')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::ConstraintData'
 cls.SUPERCLS = "dragonBones::BaseObject"
-cls.funcs [[
-    const dragonBones::BoneData *getTarget()
-    void setTarget(const dragonBones::BoneData *value)
-    const dragonBones::BoneData *getBone()
-    void setBone(const dragonBones::BoneData *value)
-    const dragonBones::BoneData *getRoot()
-    void setRoot(const dragonBones::BoneData *value)
-]]
+cls.func(nil, 'const dragonBones::BoneData *getTarget()')
+cls.func(nil, 'void setTarget(const dragonBones::BoneData *value)')
+cls.func(nil, 'const dragonBones::BoneData *getBone()')
+cls.func(nil, 'void setBone(const dragonBones::BoneData *value)')
+cls.func(nil, 'const dragonBones::BoneData *getRoot()')
+cls.func(nil, 'void setRoot(const dragonBones::BoneData *value)')
 cls.var('order', [[int order]])
 cls.var('name', [[std::string name]])
 cls.var('target', [[const dragonBones::BoneData *target]])
 cls.var('root', [[const dragonBones::BoneData *root]])
 cls.var('bone', [[const dragonBones::BoneData *bone]])
-cls.props [[
-    target
-    bone
-    root
-]]
+cls.prop('target')
+cls.prop('bone')
+cls.prop('root')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::IKConstraintData'
 cls.SUPERCLS = "dragonBones::ConstraintData"
-cls.funcs [[
-    static std::size_t getTypeIndex()
-    IKConstraintData()
-]]
+cls.func(nil, 'static std::size_t getTypeIndex()')
+cls.func(nil, 'IKConstraintData()')
 cls.var('scaleEnabled', [[bool scaleEnabled]])
 cls.var('bendPositive', [[bool bendPositive]])
 cls.var('weight', [[float weight]])
-cls.props [[
-    typeIndex
-]]
+cls.prop('typeIndex')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::TimelineData'
 cls.SUPERCLS = "dragonBones::BaseObject"
-cls.funcs [[
-    static std::size_t getTypeIndex()
-    TimelineData()
-    int getType()
-    void setType(int value)
-]]
+cls.func(nil, 'static std::size_t getTypeIndex()')
+cls.func(nil, 'TimelineData()')
+cls.func(nil, 'int getType()')
+cls.func(nil, 'void setType(int value)')
 cls.var('type', [[dragonBones::TimelineType type]])
 cls.var('offset', [[unsigned int offset]])
 cls.var('frameIndicesOffset', [[int frameIndicesOffset]])
-cls.props [[
-    typeIndex
-    type
-]]
+cls.prop('typeIndex')
+cls.prop('type')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::IAnimatable'
-cls.funcs [[
-    void advanceTime(float passedTime)
-    dragonBones::WorldClock *getClock()
-    void setClock(dragonBones::WorldClock *value)
-]]
-cls.props [[
-    clock
-]]
+cls.func(nil, 'void advanceTime(float passedTime)')
+cls.func(nil, 'dragonBones::WorldClock *getClock()')
+cls.func(nil, 'void setClock(dragonBones::WorldClock *value)')
+cls.prop('clock')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::WorldClock'
 cls.SUPERCLS = "dragonBones::IAnimatable"
-cls.funcs [[
-    WorldClock(@optional float timeValue)
-    bool contains(const dragonBones::IAnimatable *value)
-    void add(dragonBones::IAnimatable *value)
-    void remove(dragonBones::IAnimatable *value)
-    void clear()
-    static dragonBones::WorldClock *getStaticClock()
-]]
+cls.func(nil, 'WorldClock(@optional float timeValue)')
+cls.func(nil, 'bool contains(const dragonBones::IAnimatable *value)')
+cls.func(nil, 'void add(dragonBones::IAnimatable *value)')
+cls.func(nil, 'void remove(dragonBones::IAnimatable *value)')
+cls.func(nil, 'void clear()')
+cls.func(nil, 'static dragonBones::WorldClock *getStaticClock()')
 cls.var('time', [[float time]])
 cls.var('timeScale', [[float timeScale]])
-cls.props [[
-    staticClock
-]]
+cls.prop('staticClock')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::Slot'
 cls.SUPERCLS = "dragonBones::TransformObject"
-cls.funcs [[
-    void init(const dragonBones::SlotData *slotData, dragonBones::Armature *armatureValue, void *rawDisplay, void *meshDisplay)
-    void update(int cacheFrameIndex)
-    void updateTransformAndMatrix()
-    void replaceDisplayData(dragonBones::DisplayData *displayData, int displayIndex)
-    bool containsPoint(float x, float y)
-    int intersectsSegment(float xA, float yA, float xB, float yB, @optional dragonBones::Point *intersectionPointA, @optional dragonBones::Point *intersectionPointB, @optional dragonBones::Point *normalRadians)
-    void invalidUpdate()
-    bool getVisible()
-    void setVisible(bool value)
-    int getDisplayIndex()
-    void setDisplayIndex(int value)
-    const std::string &getName()
-    const dragonBones::SlotData *getSlotData()
-    dragonBones::BoundingBoxData *getBoundingBoxData()
-    void *getRawDisplay()
-    void *getMeshDisplay()
-    void *getDisplay()
-    void setDisplay(void *value, dragonBones::DisplayType displayType)
-    dragonBones::Armature *getChildArmature()
-    void setChildArmature(dragonBones::Armature *value)
-    dragonBones::Bone *getParent()
-]]
+cls.func(nil, 'void init(const dragonBones::SlotData *slotData, dragonBones::Armature *armatureValue, void *rawDisplay, void *meshDisplay)')
+cls.func(nil, 'void update(int cacheFrameIndex)')
+cls.func(nil, 'void updateTransformAndMatrix()')
+cls.func(nil, 'void replaceDisplayData(dragonBones::DisplayData *displayData, int displayIndex)')
+cls.func(nil, 'bool containsPoint(float x, float y)')
+cls.func(nil, 'int intersectsSegment(float xA, float yA, float xB, float yB, @optional dragonBones::Point *intersectionPointA, @optional dragonBones::Point *intersectionPointB, @optional dragonBones::Point *normalRadians)')
+cls.func(nil, 'void invalidUpdate()')
+cls.func(nil, 'bool getVisible()')
+cls.func(nil, 'void setVisible(bool value)')
+cls.func(nil, 'int getDisplayIndex()')
+cls.func(nil, 'void setDisplayIndex(int value)')
+cls.func(nil, 'const std::string &getName()')
+cls.func(nil, 'const dragonBones::SlotData *getSlotData()')
+cls.func(nil, 'dragonBones::BoundingBoxData *getBoundingBoxData()')
+cls.func(nil, 'void *getRawDisplay()')
+cls.func(nil, 'void *getMeshDisplay()')
+cls.func(nil, 'void *getDisplay()')
+cls.func(nil, 'void setDisplay(void *value, dragonBones::DisplayType displayType)')
+cls.func(nil, 'dragonBones::Armature *getChildArmature()')
+cls.func(nil, 'void setChildArmature(dragonBones::Armature *value)')
+cls.func(nil, 'dragonBones::Bone *getParent()')
 cls.var('displayController', [[std::string displayController]])
-cls.props [[
-    visible
-    displayIndex
-    name
-    slotData
-    boundingBoxData
-    rawDisplay
-    meshDisplay
-    display
-    childArmature
-    parent
-]]
+cls.prop('visible')
+cls.prop('displayIndex')
+cls.prop('name')
+cls.prop('slotData')
+cls.prop('boundingBoxData')
+cls.prop('rawDisplay')
+cls.prop('meshDisplay')
+cls.prop('display')
+cls.prop('childArmature')
+cls.prop('parent')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::Bone'
 cls.SUPERCLS = "dragonBones::TransformObject"
-cls.funcs [[
-    static std::size_t getTypeIndex()
-    Bone()
-    void init(const dragonBones::BoneData *boneData, dragonBones::Armature *armatureValue)
-    void update(int cacheFrameIndex)
-    void updateByConstraint()
-    void invalidUpdate()
-    bool contains(const dragonBones::Bone *value)
-    const dragonBones::BoneData *getBoneData()
-    bool getVisible()
-    void setVisible(bool value)
-    const std::string &getName()
-    dragonBones::Bone *getParent()
-    int getOffsetMode()
-    void setOffsetMode(int value)
-]]
+cls.func(nil, 'static std::size_t getTypeIndex()')
+cls.func(nil, 'Bone()')
+cls.func(nil, 'void init(const dragonBones::BoneData *boneData, dragonBones::Armature *armatureValue)')
+cls.func(nil, 'void update(int cacheFrameIndex)')
+cls.func(nil, 'void updateByConstraint()')
+cls.func(nil, 'void invalidUpdate()')
+cls.func(nil, 'bool contains(const dragonBones::Bone *value)')
+cls.func(nil, 'const dragonBones::BoneData *getBoneData()')
+cls.func(nil, 'bool getVisible()')
+cls.func(nil, 'void setVisible(bool value)')
+cls.func(nil, 'const std::string &getName()')
+cls.func(nil, 'dragonBones::Bone *getParent()')
+cls.func(nil, 'int getOffsetMode()')
+cls.func(nil, 'void setOffsetMode(int value)')
 cls.var('offsetMode', [[dragonBones::OffsetMode offsetMode]])
-cls.props [[
-    typeIndex
-    boneData
-    visible
-    name
-    parent
-    offsetMode
-]]
+cls.prop('typeIndex')
+cls.prop('boneData')
+cls.prop('visible')
+cls.prop('name')
+cls.prop('parent')
+cls.prop('offsetMode')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::DisplayData'
 cls.SUPERCLS = "dragonBones::BaseObject"
-cls.funcs [[
-    int getType()
-    void setType(int value)
-    dragonBones::SkinData *getParent()
-    void setParent(dragonBones::SkinData *value)
-]]
+cls.func(nil, 'int getType()')
+cls.func(nil, 'void setType(int value)')
+cls.func(nil, 'dragonBones::SkinData *getParent()')
+cls.func(nil, 'void setParent(dragonBones::SkinData *value)')
 cls.var('type', [[dragonBones::DisplayType type]])
 cls.var('name', [[std::string name]])
 cls.var('path', [[std::string path]])
 cls.var('parent', [[dragonBones::SkinData *parent]])
-cls.props [[
-    type
-    parent
-]]
+cls.prop('type')
+cls.prop('parent')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::ActionData'
 cls.SUPERCLS = "dragonBones::BaseObject"
-cls.funcs [[
-    static std::size_t getTypeIndex()
-    ActionData()
-    int getType()
-    void setType(int value)
-    const dragonBones::BoneData *getBone()
-    void setBone(const dragonBones::BoneData *value)
-    const dragonBones::SlotData *getSlot()
-    void setSlot(const dragonBones::SlotData *value)
-    const dragonBones::UserData *getData()
-    void setData(dragonBones::UserData *value)
-]]
+cls.func(nil, 'static std::size_t getTypeIndex()')
+cls.func(nil, 'ActionData()')
+cls.func(nil, 'int getType()')
+cls.func(nil, 'void setType(int value)')
+cls.func(nil, 'const dragonBones::BoneData *getBone()')
+cls.func(nil, 'void setBone(const dragonBones::BoneData *value)')
+cls.func(nil, 'const dragonBones::SlotData *getSlot()')
+cls.func(nil, 'void setSlot(const dragonBones::SlotData *value)')
+cls.func(nil, 'const dragonBones::UserData *getData()')
+cls.func(nil, 'void setData(dragonBones::UserData *value)')
 cls.var('type', [[dragonBones::ActionType type]])
 cls.var('name', [[std::string name]])
 cls.var('bone', [[const dragonBones::BoneData *bone]])
 cls.var('slot', [[const dragonBones::SlotData *slot]])
 cls.var('data', [[dragonBones::UserData *data]])
-cls.props [[
-    typeIndex
-    type
-    bone
-    slot
-    data
-]]
+cls.prop('typeIndex')
+cls.prop('type')
+cls.prop('bone')
+cls.prop('slot')
+cls.prop('data')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::UserData'
 cls.SUPERCLS = "dragonBones::BaseObject"
-cls.funcs [[
-    static std::size_t getTypeIndex()
-    UserData()
-    void addInt(int value)
-    void addFloat(float value)
-    void addString(std::string value)
-    int getInt(unsigned int index)
-    float getFloat(unsigned int index)
-    std::string getString(unsigned int index)
-    const std::vector<int> &getInts()
-    const std::vector<float> &getFloats()
-    const std::vector<std::string> &getStrings()
-]]
+cls.func(nil, 'static std::size_t getTypeIndex()')
+cls.func(nil, 'UserData()')
+cls.func(nil, 'void addInt(int value)')
+cls.func(nil, 'void addFloat(float value)')
+cls.func(nil, 'void addString(std::string value)')
+cls.func(nil, 'int getInt(unsigned int index)')
+cls.func(nil, 'float getFloat(unsigned int index)')
+cls.func(nil, 'std::string getString(unsigned int index)')
+cls.func(nil, 'const std::vector<int> &getInts()')
+cls.func(nil, 'const std::vector<float> &getFloats()')
+cls.func(nil, 'const std::vector<std::string> &getStrings()')
 cls.var('ints', [[std::vector<int> ints]])
 cls.var('floats', [[std::vector<float> floats]])
 cls.var('strings', [[std::vector<std::string> strings]])
-cls.props [[
-    typeIndex
-    ints
-    floats
-    strings
-]]
+cls.prop('typeIndex')
+cls.prop('ints')
+cls.prop('floats')
+cls.prop('strings')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::BoundingBoxData'
 cls.SUPERCLS = "dragonBones::BaseObject"
-cls.funcs [[
-    bool containsPoint(float pX, float pY)
-    int intersectsSegment(float xA, float yA, float xB, float yB, @optional dragonBones::Point *intersectionPointA, @optional dragonBones::Point *intersectionPointB, @optional dragonBones::Point *normalRadians)
-    int getType()
-    void setType(int value)
-]]
+cls.func(nil, 'bool containsPoint(float pX, float pY)')
+cls.func(nil, 'int intersectsSegment(float xA, float yA, float xB, float yB, @optional dragonBones::Point *intersectionPointA, @optional dragonBones::Point *intersectionPointB, @optional dragonBones::Point *normalRadians)')
+cls.func(nil, 'int getType()')
+cls.func(nil, 'void setType(int value)')
 cls.var('type', [[dragonBones::BoundingBoxType type]])
 cls.var('color', [[unsigned int color]])
 cls.var('width', [[float width]])
 cls.var('height', [[float height]])
-cls.props [[
-    type
-]]
+cls.prop('type')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::BoundingBoxDisplayData'
 cls.SUPERCLS = "dragonBones::DisplayData"
-cls.funcs [[
-    static std::size_t getTypeIndex()
-    BoundingBoxDisplayData()
-    const dragonBones::BoundingBoxData *getBoundingBox()
-    void setBoundingBox(dragonBones::BoundingBoxData *value)
-]]
+cls.func(nil, 'static std::size_t getTypeIndex()')
+cls.func(nil, 'BoundingBoxDisplayData()')
+cls.func(nil, 'const dragonBones::BoundingBoxData *getBoundingBox()')
+cls.func(nil, 'void setBoundingBox(dragonBones::BoundingBoxData *value)')
 cls.var('boundingBox', [[dragonBones::BoundingBoxData *boundingBox]])
-cls.props [[
-    typeIndex
-    boundingBox
-]]
+cls.prop('typeIndex')
+cls.prop('boundingBox')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::CanvasData'
 cls.SUPERCLS = "dragonBones::BaseObject"
-cls.funcs [[
-    static std::size_t getTypeIndex()
-    CanvasData()
-]]
+cls.func(nil, 'static std::size_t getTypeIndex()')
+cls.func(nil, 'CanvasData()')
 cls.var('hasBackground', [[bool hasBackground]])
 cls.var('color', [[unsigned int color]])
 cls.var('aabb', [[dragonBones::Rectangle aabb]])
-cls.props [[
-    typeIndex
-]]
+cls.prop('typeIndex')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::TextureAtlasData'
 cls.SUPERCLS = "dragonBones::BaseObject"
-cls.funcs [[
-    dragonBones::TextureData *createTexture()
-    void addTexture(dragonBones::TextureData *value)
-    dragonBones::TextureData *getTexture(const std::string &textureName)
-]]
+cls.func(nil, 'dragonBones::TextureData *createTexture()')
+cls.func(nil, 'void addTexture(dragonBones::TextureData *value)')
+cls.func(nil, 'dragonBones::TextureData *getTexture(const std::string &textureName)')
 cls.var('autoSearch', [[bool autoSearch]])
 cls.var('format', [[dragonBones::TextureFormat format]])
 cls.var('width', [[unsigned int width]])
@@ -523,53 +453,47 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::TextureData'
 cls.SUPERCLS = "dragonBones::BaseObject"
-cls.funcs [[
-    const dragonBones::TextureAtlasData *getParent()
-    void setParent(dragonBones::TextureAtlasData *value)
-]]
+cls.func(nil, 'const dragonBones::TextureAtlasData *getParent()')
+cls.func(nil, 'void setParent(dragonBones::TextureAtlasData *value)')
 cls.var('rotated', [[bool rotated]])
 cls.var('name', [[std::string name]])
 cls.var('region', [[dragonBones::Rectangle region]])
 cls.var('parent', [[dragonBones::TextureAtlasData *parent]])
-cls.props [[
-    parent
-]]
+cls.prop('parent')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::ArmatureData'
 cls.SUPERCLS = "dragonBones::BaseObject"
-cls.funcs [[
-    static std::size_t getTypeIndex()
-    ArmatureData()
-    void sortBones()
-    void cacheFrames(unsigned int frameRate)
-    void addBone(dragonBones::BoneData *value)
-    void addSlot(dragonBones::SlotData *value)
-    void addConstraint(dragonBones::ConstraintData *value)
-    void addSkin(dragonBones::SkinData *value)
-    void addAnimation(dragonBones::AnimationData *value)
-    void addAction(dragonBones::ActionData *value, bool isDefault)
-    dragonBones::BoneData *getBone(const std::string &boneName)
-    dragonBones::SlotData *getSlot(const std::string &slotName)
-    dragonBones::ConstraintData *getConstraint(const std::string &constraintName)
-    dragonBones::SkinData *getSkin(const std::string &skinName)
-    dragonBones::AnimationData *getAnimation(const std::string &animationName)
-    int getType()
-    void setType(int value)
-    const std::vector<std::string> &getAnimationNames()
-    const std::vector<BoneData *> &getSortedBones()
-    const std::vector<SlotData *> &getSortedSlots()
-    const std::vector<ActionData *> &getDefaultActions()
-    const std::vector<ActionData *> &getActions()
-    dragonBones::SkinData *getDefaultSkin()
-    void setDefaultSkin(dragonBones::SkinData *value)
-    dragonBones::AnimationData *getDefaultAnimation()
-    void setDefaultAnimation(dragonBones::AnimationData *value)
-    const dragonBones::UserData *getUserData()
-    void setUserData(dragonBones::UserData *value)
-    const dragonBones::DragonBonesData *getParent()
-    void setParent(dragonBones::DragonBonesData *value)
-]]
+cls.func(nil, 'static std::size_t getTypeIndex()')
+cls.func(nil, 'ArmatureData()')
+cls.func(nil, 'void sortBones()')
+cls.func(nil, 'void cacheFrames(unsigned int frameRate)')
+cls.func(nil, 'void addBone(dragonBones::BoneData *value)')
+cls.func(nil, 'void addSlot(dragonBones::SlotData *value)')
+cls.func(nil, 'void addConstraint(dragonBones::ConstraintData *value)')
+cls.func(nil, 'void addSkin(dragonBones::SkinData *value)')
+cls.func(nil, 'void addAnimation(dragonBones::AnimationData *value)')
+cls.func(nil, 'void addAction(dragonBones::ActionData *value, bool isDefault)')
+cls.func(nil, 'dragonBones::BoneData *getBone(const std::string &boneName)')
+cls.func(nil, 'dragonBones::SlotData *getSlot(const std::string &slotName)')
+cls.func(nil, 'dragonBones::ConstraintData *getConstraint(const std::string &constraintName)')
+cls.func(nil, 'dragonBones::SkinData *getSkin(const std::string &skinName)')
+cls.func(nil, 'dragonBones::AnimationData *getAnimation(const std::string &animationName)')
+cls.func(nil, 'int getType()')
+cls.func(nil, 'void setType(int value)')
+cls.func(nil, 'const std::vector<std::string> &getAnimationNames()')
+cls.func(nil, 'const std::vector<BoneData *> &getSortedBones()')
+cls.func(nil, 'const std::vector<SlotData *> &getSortedSlots()')
+cls.func(nil, 'const std::vector<ActionData *> &getDefaultActions()')
+cls.func(nil, 'const std::vector<ActionData *> &getActions()')
+cls.func(nil, 'dragonBones::SkinData *getDefaultSkin()')
+cls.func(nil, 'void setDefaultSkin(dragonBones::SkinData *value)')
+cls.func(nil, 'dragonBones::AnimationData *getDefaultAnimation()')
+cls.func(nil, 'void setDefaultAnimation(dragonBones::AnimationData *value)')
+cls.func(nil, 'const dragonBones::UserData *getUserData()')
+cls.func(nil, 'void setUserData(dragonBones::UserData *value)')
+cls.func(nil, 'const dragonBones::DragonBonesData *getParent()')
+cls.func(nil, 'void setParent(dragonBones::DragonBonesData *value)')
 cls.var('type', [[dragonBones::ArmatureType type]])
 cls.var('frameRate', [[unsigned int frameRate]])
 cls.var('cacheFrameRate', [[unsigned int cacheFrameRate]])
@@ -585,46 +509,38 @@ cls.var('defaultSkin', [[dragonBones::SkinData *defaultSkin]])
 cls.var('defaultAnimation', [[dragonBones::AnimationData *defaultAnimation]])
 cls.var('userData', [[dragonBones::UserData *userData]])
 cls.var('parent', [[dragonBones::DragonBonesData *parent]])
-cls.props [[
-    typeIndex
-    type
-    animationNames
-    sortedBones
-    sortedSlots
-    defaultActions
-    actions
-    defaultSkin
-    defaultAnimation
-    userData
-    parent
-]]
+cls.prop('typeIndex')
+cls.prop('type')
+cls.prop('animationNames')
+cls.prop('sortedBones')
+cls.prop('sortedSlots')
+cls.prop('defaultActions')
+cls.prop('actions')
+cls.prop('defaultSkin')
+cls.prop('defaultAnimation')
+cls.prop('userData')
+cls.prop('parent')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::SkinData'
 cls.SUPERCLS = "dragonBones::BaseObject"
-cls.funcs [[
-    static std::size_t getTypeIndex()
-    SkinData()
-    void addDisplay(const std::string &slotName, dragonBones::DisplayData *value)
-    dragonBones::DisplayData *getDisplay(const std::string &slotName, const std::string &displayName)
-]]
+cls.func(nil, 'static std::size_t getTypeIndex()')
+cls.func(nil, 'SkinData()')
+cls.func(nil, 'void addDisplay(const std::string &slotName, dragonBones::DisplayData *value)')
+cls.func(nil, 'dragonBones::DisplayData *getDisplay(const std::string &slotName, const std::string &displayName)')
 cls.var('name', [[std::string name]])
 cls.var('parent', [[dragonBones::ArmatureData *parent]])
-cls.props [[
-    typeIndex
-]]
+cls.prop('typeIndex')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::BoneData'
 cls.SUPERCLS = "dragonBones::BaseObject"
-cls.funcs [[
-    static std::size_t getTypeIndex()
-    BoneData()
-    const dragonBones::UserData *getUserData()
-    void setUserData(dragonBones::UserData *value)
-    const dragonBones::BoneData *getParent()
-    void setParent(dragonBones::BoneData *value)
-]]
+cls.func(nil, 'static std::size_t getTypeIndex()')
+cls.func(nil, 'BoneData()')
+cls.func(nil, 'const dragonBones::UserData *getUserData()')
+cls.func(nil, 'void setUserData(dragonBones::UserData *value)')
+cls.func(nil, 'const dragonBones::BoneData *getParent()')
+cls.func(nil, 'void setParent(dragonBones::BoneData *value)')
 cls.var('inheritTranslation', [[bool inheritTranslation]])
 cls.var('inheritRotation', [[bool inheritRotation]])
 cls.var('inheritScale', [[bool inheritScale]])
@@ -633,65 +549,57 @@ cls.var('length', [[float length]])
 cls.var('name', [[std::string name]])
 cls.var('userData', [[dragonBones::UserData *userData]])
 cls.var('parent', [[dragonBones::BoneData *parent]])
-cls.props [[
-    typeIndex
-    userData
-    parent
-]]
+cls.prop('typeIndex')
+cls.prop('userData')
+cls.prop('parent')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::SlotData'
 cls.SUPERCLS = "dragonBones::BaseObject"
-cls.funcs [[
-    static std::size_t getTypeIndex()
-    SlotData()
-    int getBlendMode()
-    void setBlendMode(int value)
-    const dragonBones::BoneData *getParent()
-    void setParent(dragonBones::BoneData *value)
-    const dragonBones::UserData *getUserData()
-    void setUserData(dragonBones::UserData *value)
-]]
+cls.func(nil, 'static std::size_t getTypeIndex()')
+cls.func(nil, 'SlotData()')
+cls.func(nil, 'int getBlendMode()')
+cls.func(nil, 'void setBlendMode(int value)')
+cls.func(nil, 'const dragonBones::BoneData *getParent()')
+cls.func(nil, 'void setParent(dragonBones::BoneData *value)')
+cls.func(nil, 'const dragonBones::UserData *getUserData()')
+cls.func(nil, 'void setUserData(dragonBones::UserData *value)')
 cls.var('blendMode', [[dragonBones::BlendMode blendMode]])
 cls.var('displayIndex', [[int displayIndex]])
 cls.var('zOrder', [[int zOrder]])
 cls.var('name', [[std::string name]])
 cls.var('userData', [[dragonBones::UserData *userData]])
 cls.var('parent', [[dragonBones::BoneData *parent]])
-cls.props [[
-    typeIndex
-    blendMode
-    parent
-    userData
-]]
+cls.prop('typeIndex')
+cls.prop('blendMode')
+cls.prop('parent')
+cls.prop('userData')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::AnimationState'
 cls.SUPERCLS = "dragonBones::BaseObject"
-cls.funcs [[
-    static std::size_t getTypeIndex()
-    AnimationState()
-    void init(dragonBones::Armature *armature, dragonBones::AnimationData *animationData, dragonBones::AnimationConfig *animationConfig)
-    void advanceTime(float passedTime, float cacheFrameRate)
-    void play()
-    void stop()
-    void fadeOut(float fadeOutTime, @optional bool pausePlayhead)
-    bool containsBoneMask(const std::string &boneName)
-    void addBoneMask(const std::string &boneName, @optional bool recursive)
-    void removeBoneMask(const std::string &boneName, @optional bool recursive)
-    void removeAllBoneMask()
-    bool isFadeIn()
-    bool isFadeOut()
-    bool isFadeComplete()
-    bool isPlaying()
-    bool isCompleted()
-    unsigned int getCurrentPlayTimes()
-    float getTotalTime()
-    float getCurrentTime()
-    void setCurrentTime(float value)
-    const std::string &getName()
-    const dragonBones::AnimationData *getAnimationData()
-]]
+cls.func(nil, 'static std::size_t getTypeIndex()')
+cls.func(nil, 'AnimationState()')
+cls.func(nil, 'void init(dragonBones::Armature *armature, dragonBones::AnimationData *animationData, dragonBones::AnimationConfig *animationConfig)')
+cls.func(nil, 'void advanceTime(float passedTime, float cacheFrameRate)')
+cls.func(nil, 'void play()')
+cls.func(nil, 'void stop()')
+cls.func(nil, 'void fadeOut(float fadeOutTime, @optional bool pausePlayhead)')
+cls.func(nil, 'bool containsBoneMask(const std::string &boneName)')
+cls.func(nil, 'void addBoneMask(const std::string &boneName, @optional bool recursive)')
+cls.func(nil, 'void removeBoneMask(const std::string &boneName, @optional bool recursive)')
+cls.func(nil, 'void removeAllBoneMask()')
+cls.func(nil, 'bool isFadeIn()')
+cls.func(nil, 'bool isFadeOut()')
+cls.func(nil, 'bool isFadeComplete()')
+cls.func(nil, 'bool isPlaying()')
+cls.func(nil, 'bool isCompleted()')
+cls.func(nil, 'unsigned int getCurrentPlayTimes()')
+cls.func(nil, 'float getTotalTime()')
+cls.func(nil, 'float getCurrentTime()')
+cls.func(nil, 'void setCurrentTime(float value)')
+cls.func(nil, 'const std::string &getName()')
+cls.func(nil, 'const dragonBones::AnimationData *getAnimationData()')
 cls.var('actionEnabled', [[bool actionEnabled]])
 cls.var('additiveBlending', [[bool additiveBlending]])
 cls.var('displayControl', [[bool displayControl]])
@@ -704,37 +612,33 @@ cls.var('autoFadeOutTime', [[float autoFadeOutTime]])
 cls.var('fadeTotalTime', [[float fadeTotalTime]])
 cls.var('name', [[std::string name]])
 cls.var('group', [[std::string group]])
-cls.props [[
-    typeIndex
-    fadeIn
-    fadeOut
-    fadeComplete
-    playing
-    completed
-    currentPlayTimes
-    totalTime
-    currentTime
-    name
-    animationData
-]]
+cls.prop('typeIndex')
+cls.prop('fadeIn')
+cls.prop('fadeOut')
+cls.prop('fadeComplete')
+cls.prop('playing')
+cls.prop('completed')
+cls.prop('currentPlayTimes')
+cls.prop('totalTime')
+cls.prop('currentTime')
+cls.prop('name')
+cls.prop('animationData')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::AnimationData'
 cls.SUPERCLS = "dragonBones::BaseObject"
-cls.funcs [[
-    static std::size_t getTypeIndex()
-    AnimationData()
-    void cacheFrames(unsigned int frameRate)
-    void addBoneTimeline(dragonBones::BoneData *bone, dragonBones::TimelineData *value)
-    void addSlotTimeline(dragonBones::SlotData *slot, dragonBones::TimelineData *value)
-    void addConstraintTimeline(dragonBones::ConstraintData *constraint, dragonBones::TimelineData *value)
-    dragonBones::TimelineData *getActionTimeline()
-    void setActionTimeline(dragonBones::TimelineData *pactionTimeline)
-    dragonBones::TimelineData *getZOrderTimeline()
-    void setZOrderTimeline(dragonBones::TimelineData *value)
-    dragonBones::ArmatureData *getParent()
-    void setParent(dragonBones::ArmatureData *value)
-]]
+cls.func(nil, 'static std::size_t getTypeIndex()')
+cls.func(nil, 'AnimationData()')
+cls.func(nil, 'void cacheFrames(unsigned int frameRate)')
+cls.func(nil, 'void addBoneTimeline(dragonBones::BoneData *bone, dragonBones::TimelineData *value)')
+cls.func(nil, 'void addSlotTimeline(dragonBones::SlotData *slot, dragonBones::TimelineData *value)')
+cls.func(nil, 'void addConstraintTimeline(dragonBones::ConstraintData *constraint, dragonBones::TimelineData *value)')
+cls.func(nil, 'dragonBones::TimelineData *getActionTimeline()')
+cls.func(nil, 'void setActionTimeline(dragonBones::TimelineData *pactionTimeline)')
+cls.func(nil, 'dragonBones::TimelineData *getZOrderTimeline()')
+cls.func(nil, 'void setZOrderTimeline(dragonBones::TimelineData *value)')
+cls.func(nil, 'dragonBones::ArmatureData *getParent()')
+cls.func(nil, 'void setParent(dragonBones::ArmatureData *value)')
 cls.var('frameIntOffset', [[unsigned int frameIntOffset]])
 cls.var('frameFloatOffset', [[unsigned int frameFloatOffset]])
 cls.var('frameOffset', [[unsigned int frameOffset]])
@@ -749,31 +653,27 @@ cls.var('cachedFrames', [[std::vector<bool> cachedFrames]])
 cls.var('actionTimeline', [[dragonBones::TimelineData *actionTimeline]])
 cls.var('zOrderTimeline', [[dragonBones::TimelineData *zOrderTimeline]])
 cls.var('parent', [[dragonBones::ArmatureData *parent]])
-cls.props [[
-    typeIndex
-    actionTimeline
-    zOrderTimeline
-    parent
-]]
+cls.prop('typeIndex')
+cls.prop('actionTimeline')
+cls.prop('zOrderTimeline')
+cls.prop('parent')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::AnimationConfig'
 cls.SUPERCLS = "dragonBones::BaseObject"
-cls.funcs [[
-    static std::size_t getTypeIndex()
-    AnimationConfig()
-    void clear()
-    void copyFrom(dragonBones::AnimationConfig *value)
-    bool containsBoneMask(const std::string &boneName)
-    void addBoneMask(dragonBones::Armature *armature, const std::string &boneName, bool recursive)
-    void removeBoneMask(dragonBones::Armature *armature, const std::string &boneName, bool recursive)
-    int getFadeOutMode()
-    void setFadeOutMode(int value)
-    int getFadeOutTweenType()
-    void setFadeOutTweenType(int value)
-    int getFadeInTweenType()
-    void setFadeInTweenType(int value)
-]]
+cls.func(nil, 'static std::size_t getTypeIndex()')
+cls.func(nil, 'AnimationConfig()')
+cls.func(nil, 'void clear()')
+cls.func(nil, 'void copyFrom(dragonBones::AnimationConfig *value)')
+cls.func(nil, 'bool containsBoneMask(const std::string &boneName)')
+cls.func(nil, 'void addBoneMask(dragonBones::Armature *armature, const std::string &boneName, bool recursive)')
+cls.func(nil, 'void removeBoneMask(dragonBones::Armature *armature, const std::string &boneName, bool recursive)')
+cls.func(nil, 'int getFadeOutMode()')
+cls.func(nil, 'void setFadeOutMode(int value)')
+cls.func(nil, 'int getFadeOutTweenType()')
+cls.func(nil, 'void setFadeOutTweenType(int value)')
+cls.func(nil, 'int getFadeInTweenType()')
+cls.func(nil, 'void setFadeInTweenType(int value)')
 cls.var('pauseFadeOut', [[bool pauseFadeOut]])
 cls.var('fadeOutMode', [[dragonBones::AnimationFadeOutMode fadeOutMode]])
 cls.var('fadeOutTweenType', [[dragonBones::TweenType fadeOutTweenType]])
@@ -796,25 +696,21 @@ cls.var('name', [[std::string name]])
 cls.var('animation', [[std::string animation]])
 cls.var('group', [[std::string group]])
 cls.var('boneMask', [[std::vector<std::string> boneMask]])
-cls.props [[
-    typeIndex
-    fadeOutMode
-    fadeOutTweenType
-    fadeInTweenType
-]]
+cls.prop('typeIndex')
+cls.prop('fadeOutMode')
+cls.prop('fadeOutTweenType')
+cls.prop('fadeInTweenType')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::DragonBonesData'
 cls.SUPERCLS = "dragonBones::BaseObject"
-cls.funcs [[
-    static std::size_t getTypeIndex()
-    DragonBonesData()
-    void addArmature(dragonBones::ArmatureData *value)
-    dragonBones::ArmatureData *getArmature(const std::string &armatureName)
-    const std::vector<std::string> &getArmatureNames()
-    const dragonBones::UserData *getUserData()
-    void setUserData(dragonBones::UserData *value)
-]]
+cls.func(nil, 'static std::size_t getTypeIndex()')
+cls.func(nil, 'DragonBonesData()')
+cls.func(nil, 'void addArmature(dragonBones::ArmatureData *value)')
+cls.func(nil, 'dragonBones::ArmatureData *getArmature(const std::string &armatureName)')
+cls.func(nil, 'const std::vector<std::string> &getArmatureNames()')
+cls.func(nil, 'const dragonBones::UserData *getUserData()')
+cls.func(nil, 'void setUserData(dragonBones::UserData *value)')
 cls.var('autoSearch', [[bool autoSearch]])
 cls.var('frameRate', [[unsigned int frameRate]])
 cls.var('version', [[std::string version]])
@@ -824,164 +720,144 @@ cls.var('cachedFrames', [[std::vector<float> cachedFrames]])
 cls.var('armatureNames', [[std::vector<std::string> armatureNames]])
 cls.var('binary', [[const char *binary]])
 cls.var('userData', [[dragonBones::UserData *userData]])
-cls.props [[
-    typeIndex
-    armatureNames
-    userData
-]]
+cls.prop('typeIndex')
+cls.prop('armatureNames')
+cls.prop('userData')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::BaseFactory'
-cls.funcs [[
-    dragonBones::DragonBonesData *parseDragonBonesData(const char *rawData, @optional const std::string &name, @optional float scale)
-    dragonBones::TextureAtlasData *parseTextureAtlasData(const char *rawData, void *textureAtlas, @optional const std::string &name, @optional float scale)
-    dragonBones::DragonBonesData *getDragonBonesData(const std::string &name)
-    void addDragonBonesData(dragonBones::DragonBonesData *data, @optional const std::string &name)
-    void removeDragonBonesData(const std::string &name, @optional bool disposeData)
-    void addTextureAtlasData(dragonBones::TextureAtlasData *data, @optional const std::string &name)
-    void removeTextureAtlasData(const std::string &name, @optional bool disposeData)
-    dragonBones::ArmatureData *getArmatureData(const std::string &name, @optional const std::string &dragonBonesName)
-    void clear(@optional bool disposeData)
-    dragonBones::Armature *buildArmature(const std::string &armatureName, @optional const std::string &dragonBonesName, @optional const std::string &skinName, @optional const std::string &textureAtlasName)
-    void replaceDisplay(dragonBones::Slot *slot, dragonBones::DisplayData *displayData, int displayIndex)
-    bool replaceSlotDisplay(const std::string &dragonBonesName, const std::string &armatureName, const std::string &slotName, const std::string &displayName, dragonBones::Slot *slot, @optional int displayIndex)
-    bool replaceSlotDisplayList(const std::string &dragonBonesName, const std::string &armatureName, const std::string &slotName, dragonBones::Slot *slot)
-    bool replaceAnimation(dragonBones::Armature *armature, dragonBones::ArmatureData *armatureData, @optional bool isReplaceAll)
-    dragonBones::WorldClock *getClock()
-]]
+cls.func(nil, 'dragonBones::DragonBonesData *parseDragonBonesData(const char *rawData, @optional const std::string &name, @optional float scale)')
+cls.func(nil, 'dragonBones::TextureAtlasData *parseTextureAtlasData(const char *rawData, void *textureAtlas, @optional const std::string &name, @optional float scale)')
+cls.func(nil, 'dragonBones::DragonBonesData *getDragonBonesData(const std::string &name)')
+cls.func(nil, 'void addDragonBonesData(dragonBones::DragonBonesData *data, @optional const std::string &name)')
+cls.func(nil, 'void removeDragonBonesData(const std::string &name, @optional bool disposeData)')
+cls.func(nil, 'void addTextureAtlasData(dragonBones::TextureAtlasData *data, @optional const std::string &name)')
+cls.func(nil, 'void removeTextureAtlasData(const std::string &name, @optional bool disposeData)')
+cls.func(nil, 'dragonBones::ArmatureData *getArmatureData(const std::string &name, @optional const std::string &dragonBonesName)')
+cls.func(nil, 'void clear(@optional bool disposeData)')
+cls.func(nil, 'dragonBones::Armature *buildArmature(const std::string &armatureName, @optional const std::string &dragonBonesName, @optional const std::string &skinName, @optional const std::string &textureAtlasName)')
+cls.func(nil, 'void replaceDisplay(dragonBones::Slot *slot, dragonBones::DisplayData *displayData, int displayIndex)')
+cls.func(nil, 'bool replaceSlotDisplay(const std::string &dragonBonesName, const std::string &armatureName, const std::string &slotName, const std::string &displayName, dragonBones::Slot *slot, @optional int displayIndex)')
+cls.func(nil, 'bool replaceSlotDisplayList(const std::string &dragonBonesName, const std::string &armatureName, const std::string &slotName, dragonBones::Slot *slot)')
+cls.func(nil, 'bool replaceAnimation(dragonBones::Armature *armature, dragonBones::ArmatureData *armatureData, @optional bool isReplaceAll)')
+cls.func(nil, 'dragonBones::WorldClock *getClock()')
 cls.var('autoSearch', [[bool autoSearch]])
-cls.props [[
-    clock
-]]
+cls.prop('clock')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::Armature'
 cls.SUPERCLS = "dragonBones::BaseObject"
-cls.funcs [[
-    static std::size_t getTypeIndex()
-    Armature()
-    void dispose()
-    void advanceTime(float passedTime)
-    void invalidUpdate(@optional const std::string &boneName, @optional bool updateSlot)
-    dragonBones::Slot *containsPoint(float x, float y)
-    dragonBones::Slot *intersectsSegment(float xA, float yA, float xB, float yB, @optional dragonBones::Point *intersectionPointA, @optional dragonBones::Point *intersectionPointB, @optional dragonBones::Point *normalRadians)
-    dragonBones::Bone *getBone(const std::string &name)
-    dragonBones::Bone *getBoneByDisplay(void *display)
-    dragonBones::Slot *getSlot(const std::string &name)
-    dragonBones::Slot *getSlotByDisplay(void *display)
-    const std::vector<Bone *> &getBones()
-    const std::vector<Slot *> &getSlots()
-    bool getFlipX()
-    void setFlipX(bool value)
-    bool getFlipY()
-    void setFlipY(bool value)
-    unsigned int getCacheFrameRate()
-    void setCacheFrameRate(unsigned int value)
-    const std::string &getName()
-    const dragonBones::ArmatureData *getArmatureData()
-    dragonBones::Animation *getAnimation()
-    void *getDisplay()
-    void *getReplacedTexture()
-    void setReplacedTexture(void *value)
-    dragonBones::WorldClock *getClock()
-    void setClock(dragonBones::WorldClock *value)
-    dragonBones::Slot *getParent()
-    dragonBones::IAnimatable *getAnimatable()
-]]
+cls.func(nil, 'static std::size_t getTypeIndex()')
+cls.func(nil, 'Armature()')
+cls.func(nil, 'void dispose()')
+cls.func(nil, 'void advanceTime(float passedTime)')
+cls.func(nil, 'void invalidUpdate(@optional const std::string &boneName, @optional bool updateSlot)')
+cls.func(nil, 'dragonBones::Slot *containsPoint(float x, float y)')
+cls.func(nil, 'dragonBones::Slot *intersectsSegment(float xA, float yA, float xB, float yB, @optional dragonBones::Point *intersectionPointA, @optional dragonBones::Point *intersectionPointB, @optional dragonBones::Point *normalRadians)')
+cls.func(nil, 'dragonBones::Bone *getBone(const std::string &name)')
+cls.func(nil, 'dragonBones::Bone *getBoneByDisplay(void *display)')
+cls.func(nil, 'dragonBones::Slot *getSlot(const std::string &name)')
+cls.func(nil, 'dragonBones::Slot *getSlotByDisplay(void *display)')
+cls.func(nil, 'const std::vector<Bone *> &getBones()')
+cls.func(nil, 'const std::vector<Slot *> &getSlots()')
+cls.func(nil, 'bool getFlipX()')
+cls.func(nil, 'void setFlipX(bool value)')
+cls.func(nil, 'bool getFlipY()')
+cls.func(nil, 'void setFlipY(bool value)')
+cls.func(nil, 'unsigned int getCacheFrameRate()')
+cls.func(nil, 'void setCacheFrameRate(unsigned int value)')
+cls.func(nil, 'const std::string &getName()')
+cls.func(nil, 'const dragonBones::ArmatureData *getArmatureData()')
+cls.func(nil, 'dragonBones::Animation *getAnimation()')
+cls.func(nil, 'void *getDisplay()')
+cls.func(nil, 'void *getReplacedTexture()')
+cls.func(nil, 'void setReplacedTexture(void *value)')
+cls.func(nil, 'dragonBones::WorldClock *getClock()')
+cls.func(nil, 'void setClock(dragonBones::WorldClock *value)')
+cls.func(nil, 'dragonBones::Slot *getParent()')
+cls.func(nil, 'dragonBones::IAnimatable *getAnimatable()')
 cls.var('inheritAnimation', [[bool inheritAnimation]])
 cls.var('userData', [[void *userData]])
-cls.props [[
-    typeIndex
-    bones
-    slots
-    flipX
-    flipY
-    cacheFrameRate
-    name
-    armatureData
-    animation
-    display
-    replacedTexture
-    clock
-    parent
-    animatable
-]]
+cls.prop('typeIndex')
+cls.prop('bones')
+cls.prop('slots')
+cls.prop('flipX')
+cls.prop('flipY')
+cls.prop('cacheFrameRate')
+cls.prop('name')
+cls.prop('armatureData')
+cls.prop('animation')
+cls.prop('display')
+cls.prop('replacedTexture')
+cls.prop('clock')
+cls.prop('parent')
+cls.prop('animatable')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::Animation'
 cls.SUPERCLS = "dragonBones::BaseObject"
-cls.funcs [[
-    static std::size_t getTypeIndex()
-    Animation()
-    void init(dragonBones::Armature *armature)
-    void advanceTime(float passedTime)
-    void reset()
-    void stop(const std::string &animationName)
-    dragonBones::AnimationState *playConfig(dragonBones::AnimationConfig *animationConfig)
-    dragonBones::AnimationState *play(@optional const std::string &animationName, @optional int playTimes)
-    dragonBones::AnimationState *fadeIn(const std::string &animationName, @optional float fadeInTime, @optional int playTimes, @optional int layer, @optional const std::string &group, @optional dragonBones::AnimationFadeOutMode fadeOutMode)
-    dragonBones::AnimationState *gotoAndPlayByTime(const std::string &animationName, @optional float time, @optional int playTimes)
-    dragonBones::AnimationState *gotoAndPlayByFrame(const std::string &animationName, @optional unsigned int frame, @optional int playTimes)
-    dragonBones::AnimationState *gotoAndPlayByProgress(const std::string &animationName, @optional float progress, @optional int playTimes)
-    dragonBones::AnimationState *gotoAndStopByTime(const std::string &animationName, @optional float time)
-    dragonBones::AnimationState *gotoAndStopByFrame(const std::string &animationName, @optional unsigned int frame)
-    dragonBones::AnimationState *gotoAndStopByProgress(const std::string &animationName, @optional float progress)
-    dragonBones::AnimationState *getState(const std::string &animationName)
-    bool hasAnimation(const std::string &animationName)
-    const std::vector<AnimationState *> &getStates()
-    bool isPlaying()
-    bool isCompleted()
-    const std::string &getLastAnimationName()
-    const std::vector<std::string> &getAnimationNames()
-    dragonBones::AnimationConfig *getAnimationConfig()
-    dragonBones::AnimationState *getLastAnimationState()
-]]
+cls.func(nil, 'static std::size_t getTypeIndex()')
+cls.func(nil, 'Animation()')
+cls.func(nil, 'void init(dragonBones::Armature *armature)')
+cls.func(nil, 'void advanceTime(float passedTime)')
+cls.func(nil, 'void reset()')
+cls.func(nil, 'void stop(const std::string &animationName)')
+cls.func(nil, 'dragonBones::AnimationState *playConfig(dragonBones::AnimationConfig *animationConfig)')
+cls.func(nil, 'dragonBones::AnimationState *play(@optional const std::string &animationName, @optional int playTimes)')
+cls.func(nil, 'dragonBones::AnimationState *fadeIn(const std::string &animationName, @optional float fadeInTime, @optional int playTimes, @optional int layer, @optional const std::string &group, @optional dragonBones::AnimationFadeOutMode fadeOutMode)')
+cls.func(nil, 'dragonBones::AnimationState *gotoAndPlayByTime(const std::string &animationName, @optional float time, @optional int playTimes)')
+cls.func(nil, 'dragonBones::AnimationState *gotoAndPlayByFrame(const std::string &animationName, @optional unsigned int frame, @optional int playTimes)')
+cls.func(nil, 'dragonBones::AnimationState *gotoAndPlayByProgress(const std::string &animationName, @optional float progress, @optional int playTimes)')
+cls.func(nil, 'dragonBones::AnimationState *gotoAndStopByTime(const std::string &animationName, @optional float time)')
+cls.func(nil, 'dragonBones::AnimationState *gotoAndStopByFrame(const std::string &animationName, @optional unsigned int frame)')
+cls.func(nil, 'dragonBones::AnimationState *gotoAndStopByProgress(const std::string &animationName, @optional float progress)')
+cls.func(nil, 'dragonBones::AnimationState *getState(const std::string &animationName)')
+cls.func(nil, 'bool hasAnimation(const std::string &animationName)')
+cls.func(nil, 'const std::vector<AnimationState *> &getStates()')
+cls.func(nil, 'bool isPlaying()')
+cls.func(nil, 'bool isCompleted()')
+cls.func(nil, 'const std::string &getLastAnimationName()')
+cls.func(nil, 'const std::vector<std::string> &getAnimationNames()')
+cls.func(nil, 'dragonBones::AnimationConfig *getAnimationConfig()')
+cls.func(nil, 'dragonBones::AnimationState *getLastAnimationState()')
 cls.var('timeScale', [[float timeScale]])
-cls.props [[
-    typeIndex
-    states
-    playing
-    completed
-    lastAnimationName
-    animationNames
-    animationConfig
-    lastAnimationState
-]]
+cls.prop('typeIndex')
+cls.prop('states')
+cls.prop('playing')
+cls.prop('completed')
+cls.prop('lastAnimationName')
+cls.prop('animationNames')
+cls.prop('animationConfig')
+cls.prop('lastAnimationState')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::CCFactory'
 cls.SUPERCLS = "dragonBones::BaseFactory"
-cls.funcs [[
-    static dragonBones::CCFactory *getFactory()
-    CCFactory()
-    dragonBones::DragonBonesData *loadDragonBonesData(const std::string &filePath, @optional const std::string &name, @optional float scale)
-    dragonBones::TextureAtlasData *loadTextureAtlasData(const std::string &filePath, @optional const std::string &name, @optional float scale)
-    dragonBones::CCArmatureDisplay *buildArmatureDisplay(const std::string &armatureName, @optional const std::string &dragonBonesName, @optional const std::string &skinName, @optional const std::string &textureAtlasName)
-    cocos2d::Sprite *getTextureDisplay(const std::string &textureName, @optional const std::string &dragonBonesName)
-    dragonBones::CCArmatureDisplay *getSoundEventManager()
-    static dragonBones::WorldClock *getClock()
-]]
-cls.props [[
-    factory
-    soundEventManager
-    clock
-]]
+cls.func(nil, 'static dragonBones::CCFactory *getFactory()')
+cls.func(nil, 'CCFactory()')
+cls.func(nil, 'dragonBones::DragonBonesData *loadDragonBonesData(const std::string &filePath, @optional const std::string &name, @optional float scale)')
+cls.func(nil, 'dragonBones::TextureAtlasData *loadTextureAtlasData(const std::string &filePath, @optional const std::string &name, @optional float scale)')
+cls.func(nil, 'dragonBones::CCArmatureDisplay *buildArmatureDisplay(const std::string &armatureName, @optional const std::string &dragonBonesName, @optional const std::string &skinName, @optional const std::string &textureAtlasName)')
+cls.func(nil, 'cocos2d::Sprite *getTextureDisplay(const std::string &textureName, @optional const std::string &dragonBonesName)')
+cls.func(nil, 'dragonBones::CCArmatureDisplay *getSoundEventManager()')
+cls.func(nil, 'static dragonBones::WorldClock *getClock()')
+cls.prop('factory')
+cls.prop('soundEventManager')
+cls.prop('clock')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::CCArmatureDisplay'
 cls.SUPERCLS = "cocos2d::Node"
-cls.funcs [[
-    static dragonBones::CCArmatureDisplay *create()
-    CCArmatureDisplay()
-    void dbInit(dragonBones::Armature *armature)
-    void dbClear()
-    void dbUpdate()
-    void dispose(@optional bool disposeProxy)
-    bool hasDBEventListener(const std::string &type)
-    void dispatchDBEvent(const std::string &type, dragonBones::EventObject *value)
-    dragonBones::Armature *getArmature()
-    dragonBones::Animation *getAnimation()
-]]
+cls.func(nil, 'static dragonBones::CCArmatureDisplay *create()')
+cls.func(nil, 'CCArmatureDisplay()')
+cls.func(nil, 'void dbInit(dragonBones::Armature *armature)')
+cls.func(nil, 'void dbClear()')
+cls.func(nil, 'void dbUpdate()')
+cls.func(nil, 'void dispose(@optional bool disposeProxy)')
+cls.func(nil, 'bool hasDBEventListener(const std::string &type)')
+cls.func(nil, 'void dispatchDBEvent(const std::string &type, dragonBones::EventObject *value)')
+cls.func(nil, 'dragonBones::Armature *getArmature()')
+cls.func(nil, 'dragonBones::Animation *getAnimation()')
 cls.var('debugDraw', [[bool debugDraw]])
 cls.callback {
     FUNCS =  {
@@ -1001,10 +877,8 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.props [[
-    armature
-    animation
-]]
+cls.prop('armature')
+cls.prop('animation')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 return M

@@ -1,6 +1,6 @@
 -- AUTO BUILD, DON'T MODIFY!
 
-require "autobuild.cocos2d-action-types"
+dofile "autobuild/cocos2d-action-types.lua"
 
 local olua = require "olua"
 local typeconv = olua.typeconv

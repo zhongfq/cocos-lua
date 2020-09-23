@@ -187,7 +187,7 @@ typeenum 'spine::MixBlend'
 typeconf 'spine::SpineObject'
 
 typeconf 'spine::Event'
-    .EXCLUDE 'Event'
+    .EXCLUDE_FUNC 'Event'
 
 typeconf 'spine::EventData'
 typeconf 'spine::Updatable'
@@ -211,11 +211,11 @@ typeconf 'spine::SkeletonBounds'
 typeonly 'spine::SkeletonClipping'
 
 typeconf 'spine::Timeline'
-    .EXCLUDE 'apply'
-    .EXCLUDE 'setFrame'
-    .EXCLUDE 'getVertices'
-    .EXCLUDE 'getDrawOrders'
-    .EXCLUDE 'getEvents'
+    .EXCLUDE_FUNC 'apply'
+    .EXCLUDE_FUNC 'setFrame'
+    .EXCLUDE_FUNC 'getVertices'
+    .EXCLUDE_FUNC 'getDrawOrders'
+    .EXCLUDE_FUNC 'getEvents'
 
 typeconf 'spine::CurveTimeline'
 typeconf 'spine::AttachmentTimeline'
@@ -235,9 +235,9 @@ typeconf 'spine::RotateTimeline'
 typeconf 'spine::TwoColorTimeline'
 
 typeconf 'spine::VertexEffect'
-    .EXCLUDE 'begin'
-    .EXCLUDE 'end'
-    .EXCLUDE 'transform'
+    .EXCLUDE_FUNC 'begin'
+    .EXCLUDE_FUNC 'end'
+    .EXCLUDE_FUNC 'transform'
 
 typeconf 'spine::SwirlVertexEffect'
 typeconf 'spine::JitterVertexEffect'
@@ -245,15 +245,15 @@ typeconf 'spine::JitterVertexEffect'
 typeonly 'spine::Polygon'
 
 typeconf 'spine::Skin'
-    .EXCLUDE 'getAttachments'
-    .EXCLUDE 'findNamesForSlot'
-    .EXCLUDE 'findAttachmentsForSlot'
+    .EXCLUDE_FUNC 'getAttachments'
+    .EXCLUDE_FUNC 'findNamesForSlot'
+    .EXCLUDE_FUNC 'findAttachmentsForSlot'
 
 typeonly 'spine::Atlas'
 
 typeconf 'spine::Bone'
-    .EXCLUDE 'localToWorld'
-    .EXCLUDE 'worldToLocal'
+    .EXCLUDE_FUNC 'localToWorld'
+    .EXCLUDE_FUNC 'worldToLocal'
 
 typeconf 'spine::Slot'
 typeconf 'spine::Attachment'
@@ -350,7 +350,7 @@ SkeletonData.FUNC("new", [[
 }]])
 
 typeconf 'spine::Skeleton'
-    .EXCLUDE 'getBounds'
+    .EXCLUDE_FUNC 'getBounds'
 
 typeconf 'spine::SkeletonRenderer'
     .ATTR('createWithData', {ARG1 = '@addref(skeletonData ^)'})

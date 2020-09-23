@@ -50,7 +50,7 @@ typeconv 'cocos2d::backend::BlendDescriptor'
 typeconv 'cocos2d::backend::SamplerDescriptor'
 
 typeconv 'cocos2d::backend::TextureInfo'
-    .EXCLUDE 'location'
+    .EXCLUDE_FUNC 'location'
 
 typeconv 'cocos2d::backend::AttributeBindInfo'
 typeconv 'cocos2d::backend::UniformInfo'

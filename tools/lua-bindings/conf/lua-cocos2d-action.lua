@@ -21,23 +21,23 @@ M.EXCLUDE_TYPE = require "conf.exclude-type"
 
 local function typeconf(cppcls)
     local cls = M.typeconf(cppcls)
-    cls.EXCLUDE 'new'
+    cls.EXCLUDE_FUNC 'new'
     return cls
 end
 
 typeconf 'cocos2d::Action'
-    .EXCLUDE 'calculateAngles'
-    .EXCLUDE 'createWithVariableList'
-    .EXCLUDE 'init'
-    .EXCLUDE 'initWithAction'
-    .EXCLUDE 'initWithAnimation'
-    .EXCLUDE 'initWithDuration'
-    .EXCLUDE 'initWithFlipX'
-    .EXCLUDE 'initWithFlipY'
-    .EXCLUDE 'initWithFunction'
-    .EXCLUDE 'initWithPosition'
-    .EXCLUDE 'initWithTwoActions'
-    .EXCLUDE 'setReverseAction'
+    .EXCLUDE_FUNC 'calculateAngles'
+    .EXCLUDE_FUNC 'createWithVariableList'
+    .EXCLUDE_FUNC 'init'
+    .EXCLUDE_FUNC 'initWithAction'
+    .EXCLUDE_FUNC 'initWithAnimation'
+    .EXCLUDE_FUNC 'initWithDuration'
+    .EXCLUDE_FUNC 'initWithFlipX'
+    .EXCLUDE_FUNC 'initWithFlipY'
+    .EXCLUDE_FUNC 'initWithFunction'
+    .EXCLUDE_FUNC 'initWithPosition'
+    .EXCLUDE_FUNC 'initWithTwoActions'
+    .EXCLUDE_FUNC 'setReverseAction'
 
 typeconf 'cocos2d::FiniteTimeAction'
 

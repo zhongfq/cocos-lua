@@ -1,6 +1,6 @@
 -- AUTO BUILD, DON'T MODIFY!
 
-require "autobuild.dragonbones-types"
+dofile "autobuild/dragonbones-types.lua"
 
 local olua = require "olua"
 local typeconv = olua.typeconv

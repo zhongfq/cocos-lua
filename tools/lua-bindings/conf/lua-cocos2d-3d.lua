@@ -43,7 +43,7 @@ typeconf 'cocos2d::NTextureData'
 typeconf 'cocos2d::Mesh'
 
 typeconf 'cocos2d::MeshSkin'
-    .EXCLUDE 'create'
+    .EXCLUDE_FUNC 'create'
 
 -- typeconf 'cocos2d::MeshIndexData'
 -- typeconf 'cocos2d::MeshVertexData'
@@ -58,6 +58,6 @@ typeconf 'cocos2d::Sprite3D'
 typeconf 'cocos2d::AttachNode'
 typeconf 'cocos2d::Bone3D'
 typeconf 'cocos2d::Skeleton3D'
-    .EXCLUDE 'create'
+    .EXCLUDE_FUNC 'create'
 
 return M

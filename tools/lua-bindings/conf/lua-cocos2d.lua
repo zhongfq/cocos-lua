@@ -45,20 +45,20 @@ typeconf 'cocos2d::MATRIX_STACK_TYPE'
 typeconf 'cocos2d::Director::Projection'
 
 typeconf 'cocos2d::UserDefault'
-    .EXCLUDE 'setDelegate'
+    .EXCLUDE_FUNC 'setDelegate'
 
     
 typeconf 'cocos2d::Ref'
-    .EXCLUDE 'retain'
-    .EXCLUDE 'release'
-    .EXCLUDE 'autorelease'
+    .EXCLUDE_FUNC 'retain'
+    .EXCLUDE_FUNC 'release'
+    .EXCLUDE_FUNC 'autorelease'
     .FUNC('__gc', '{\n    return xlua_ccobjgc(L);\n}')
     
 typeconf 'cocos2d::Console'
 typeconf 'cocos2d::Acceleration'
 
 local Director = typeconf 'cocos2d::Director'
-Director.EXCLUDE 'getCocos2dThreadId'
+Director.EXCLUDE_FUNC 'getCocos2dThreadId'
 Director.ATTR('getRunningScene', {RET = '@addref(scenes |)'})
 Director.ATTR('runWithScene', {ARG1 = '@addref(scenes |)'})
 Director.ATTR('pushScene', {ARG1 = '@addref(scenes |)'})
@@ -82,7 +82,7 @@ Director.ATTR('setActionManager', {ARG1 = '@addref(actionManager ^)'})
 Director.ATTR('getRenderer', {RET = '@addref(renderer ^)'})
 
 local Scheduler = typeconf 'cocos2d::Scheduler'
-Scheduler.EXCLUDE 'performFunctionInCocosThread'
+Scheduler.EXCLUDE_FUNC 'performFunctionInCocosThread'
 Scheduler.CHUNK = [[
 template <typename T> bool doScheduleUpdate(lua_State *L)
 {
@@ -182,7 +182,7 @@ EventDispatcher.INSERT('removeEventListenersForTarget', {
 typeconf 'cocos2d::EventListener::Type'
 
 typeconf 'cocos2d::EventListener'
-    .EXCLUDE 'init'
+    .EXCLUDE_FUNC 'init'
     .PROP('available', 'bool checkAvailable()')
 
 typeconf 'cocos2d::EventListenerTouchOneByOne'
@@ -229,7 +229,7 @@ typeconf 'cocos2d::Touch'
 typeconf 'cocos2d::Controller::Key'
 
 typeconf 'cocos2d::Controller'
-    .EXCLUDE 'receiveExternalKeyEvent'
+    .EXCLUDE_FUNC 'receiveExternalKeyEvent'
 
 typeconf 'cocos2d::AudioProfile'
 typeconf 'cocos2d::AudioEngine::AudioState'
@@ -304,11 +304,11 @@ typeconf 'cocos2d::LanguageType'
 typeconf 'cocos2d::ApplicationProtocol'
 
 typeconf 'cocos2d::Application'
-    .EXCLUDE 'setStartupScriptFilename'
-    .EXCLUDE 'applicationScreenSizeChanged'
+    .EXCLUDE_FUNC 'setStartupScriptFilename'
+    .EXCLUDE_FUNC 'applicationScreenSizeChanged'
 
 typeconf 'cocos2d::Device'
-    .EXCLUDE 'getTextureDataForText'
+    .EXCLUDE_FUNC 'getTextureDataForText'
 
 typeconf 'cocos2d::ResizableBuffer'
 typeconf 'cocos2d::FileUtils::Status'
@@ -336,9 +336,9 @@ typeconf 'ResolutionPolicy'
 typeconf 'cocos2d::GLView'
 
 typeconf 'cocos2d::GLViewImpl'
-    .EXCLUDE 'create'
-    .EXCLUDE 'createWithRect'
-    .EXCLUDE 'createWithFullScreen'
+    .EXCLUDE_FUNC 'create'
+    .EXCLUDE_FUNC 'createWithRect'
+    .EXCLUDE_FUNC 'createWithFullScreen'
 
 typeconf 'cocos2d::Image::Format'
 
@@ -372,7 +372,7 @@ typeonly 'cocos2d::RenderState'
 typeconf 'cocos2d::RenderCommand'
 typeconf 'cocos2d::CustomCommand'
 typeconf 'cocos2d::MeshCommand'
-    .EXCLUDE 'listenRendererRecreated'
+    .EXCLUDE_FUNC 'listenRendererRecreated'
 
 local TextureCache = typeconf 'cocos2d::TextureCache'
 TextureCache.CHUNK = [[
@@ -447,8 +447,8 @@ end
 
 -- node
 local Node = typeconf 'cocos2d::Node'
-Node.EXCLUDE 'scheduleUpdateWithPriorityLua'
-Node.EXCLUDE 'enumerateChildren' -- TODO
+Node.EXCLUDE_FUNC 'scheduleUpdateWithPriorityLua'
+Node.EXCLUDE_FUNC 'enumerateChildren' -- TODO
 Node.ATTR('addChild', {ARG1 = '@addref(children |)'})
 Node.ATTR('getChildByTag', {RET = '@addref(children |)'})
 Node.ATTR('getChildByName', {RET = '@addref(children |)'})
@@ -687,8 +687,8 @@ typeconf 'cocos2d::Label'
 typeconf 'cocos2d::LabelAtlas'
 
 typeconf 'cocos2d::FontAtlas'
-    .EXCLUDE 'getTextures'
-    .EXCLUDE 'prepareLetterDefinitions'
+    .EXCLUDE_FUNC 'getTextures'
+    .EXCLUDE_FUNC 'prepareLetterDefinitions'
 
 typeconf 'cocos2d::ClippingRectangleNode'
 
@@ -743,7 +743,7 @@ local function typeconfTransition(name)
 end
 
 local TransitionScene = typeconfTransition 'cocos2d::TransitionScene'
-TransitionScene.EXCLUDE 'initWithDuration'
+TransitionScene.EXCLUDE_FUNC 'initWithDuration'
 
 typeconfTransition 'cocos2d::TransitionSceneOriented'
 typeconfTransition 'cocos2d::TransitionRotoZoom'
@@ -795,8 +795,8 @@ typeconf 'cocos2d::CameraFlag'
 typeconf 'cocos2d::Camera::Type'
 
 typeconf 'cocos2d::Camera'
-    .EXCLUDE 'isVisibleInFrustum'
-    .EXCLUDE 'setFrameBufferObject'
+    .EXCLUDE_FUNC 'isVisibleInFrustum'
+    .EXCLUDE_FUNC 'setFrameBufferObject'
 
 typeconf 'cocos2d::CameraBackgroundBrush::BrushType'
 typeconf 'cocos2d::CameraBackgroundBrush'

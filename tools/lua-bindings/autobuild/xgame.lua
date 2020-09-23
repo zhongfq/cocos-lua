@@ -1,6 +1,6 @@
 -- AUTO BUILD, DON'T MODIFY!
 
-require "autobuild.xgame-types"
+dofile "autobuild/xgame-types.lua"
 
 local olua = require "olua"
 local typeconv = olua.typeconv
@@ -63,6 +63,30 @@ cls.enum('AUTHORIZED', 'xgame::PermissionStatus::AUTHORIZED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::runtime'
+cls.func('testCrash', [[{
+    xgame::runtime::log("test native crash!!!!");
+    char *prt = NULL;
+    *prt = 0;
+    return 0;
+}]])
+cls.func('setDispatcher', [[{
+    int handler = olua_reffunc(L, 1);
+    xgame::runtime::setDispatcher([handler](const std::string &event, const std::string &args) {
+        lua_State *L = olua_mainthread(NULL);
+        if (L != NULL) {
+            int top = lua_gettop(L);
+            olua_geterrorfunc(L);
+            olua_getref(L, handler);
+            if (lua_isfunction(L, -1)) {
+                lua_pushstring(L, event.c_str());
+                lua_pushstring(L, args.c_str());
+                lua_pcall(L, 2, 0, top + 1);
+            }
+            lua_settop(L, top);
+        }
+    });
+    return 0;
+}]])
 cls.func(nil, 'static void clearStorage()')
 cls.func(nil, 'static bool launch(const std::string &scriptPath)')
 cls.func(nil, 'static bool restart()')
@@ -95,30 +119,6 @@ cls.func(nil, 'static unsigned int getSampleCount()')
 cls.func(nil, 'static bool support(const std::string &api)')
 cls.func(nil, 'static void printSupport()')
 cls.func(nil, 'static void disableReport()')
-cls.func('testCrash', [[{
-    xgame::runtime::log("test native crash!!!!");
-    char *prt = NULL;
-    *prt = 0;
-    return 0;
-}]])
-cls.func('setDispatcher', [[{
-    int handler = olua_reffunc(L, 1);
-    xgame::runtime::setDispatcher([handler](const std::string &event, const std::string &args) {
-        lua_State *L = olua_mainthread(NULL);
-        if (L != NULL) {
-            int top = lua_gettop(L);
-            olua_geterrorfunc(L);
-            olua_getref(L, handler);
-            if (lua_isfunction(L, -1)) {
-                lua_pushstring(L, event.c_str());
-                lua_pushstring(L, args.c_str());
-                lua_pcall(L, 2, 0, top + 1);
-            }
-            lua_settop(L, top);
-        }
-    });
-    return 0;
-}]])
 cls.callback {
     FUNCS =  {
         'static void openURL(const std::string &uri, @local @optional const std::function<void (bool)> callback)'
@@ -167,6 +167,14 @@ cls.prop('sampleCount')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::filesystem'
+cls.func('write', [[{
+    size_t len;
+    std::string path = olua_tostring(L, 1);
+    const char *data = olua_checklstring(L, 2, &len);
+    bool ret = (bool)xgame::filesystem::write(path, data, len);
+    olua_push_bool(L, ret);
+    return 1;
+}]])
 cls.func(nil, 'static const std::string getWritablePath()')
 cls.func(nil, 'static const std::string getCacheDirectory()')
 cls.func(nil, 'static const std::string getDocumentDirectory()')
@@ -185,14 +193,6 @@ cls.func(nil, 'static bool rename(const std::string &oldPath, const std::string 
 cls.func(nil, 'static bool copy(const std::string &srcPath, const std::string &destPath)')
 cls.func(nil, 'static cocos2d::Data read(const std::string &path)')
 cls.func(nil, 'static bool unzip(const std::string &path, const std::string &dest)')
-cls.func('write', [[{
-    size_t len;
-    std::string path = olua_tostring(L, 1);
-    const char *data = olua_checklstring(L, 2, &len);
-    bool ret = (bool)xgame::filesystem::write(path, data, len);
-    olua_push_bool(L, ret);
-    return 1;
-}]])
 cls.prop('writablePath')
 cls.prop('cacheDirectory')
 cls.prop('documentDirectory')
@@ -220,7 +220,6 @@ cls = typecls 'xgame::timer'
 cls.CHUNK = [[
 #define makeTimerDelayTag(tag) ("delayTag." + tag)
 ]]
-cls.func(nil, 'static std::string createTag()')
 cls.func('schedule', [[{
     float interval = (float)olua_checknumber(L, 1);
     uint32_t callback = olua_reffunc(L, 2);
@@ -248,6 +247,7 @@ cls.func('unschedule', [[{
     xgame::timer::unschedule(id);
     return 0;
 }]])
+cls.func(nil, 'static std::string createTag()')
 cls.callback {
     FUNCS =  {
         'static void delayWithTag(float time, const std::string &tag, @local std::function<void ()> callback)'

@@ -125,10 +125,10 @@ template <typename T> int _cocos2d_backend_ProgramState_setUniform(lua_State *L)
     return 0;
 }
 ]]
-ProgramState.EXCLUDE 'setCallbackUniform'
-ProgramState.EXCLUDE 'getCallbackUniforms'
-ProgramState.EXCLUDE 'getVertexUniformBuffer'
-ProgramState.EXCLUDE 'getFragmentUniformBuffer'
+ProgramState.EXCLUDE_FUNC 'setCallbackUniform'
+ProgramState.EXCLUDE_FUNC 'getCallbackUniforms'
+ProgramState.EXCLUDE_FUNC 'getVertexUniformBuffer'
+ProgramState.EXCLUDE_FUNC 'getFragmentUniformBuffer'
 ProgramState.FUNC('getVertexLayout', [[
 {
     auto self = olua_toobj<cocos2d::backend::ProgramState>(L, 1);

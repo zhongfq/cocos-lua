@@ -1,6 +1,6 @@
 -- AUTO BUILD, DON'T MODIFY!
 
-require "autobuild.cocos2d-types"
+dofile "autobuild/cocos2d-types.lua"
 
 local olua = require "olua"
 local typeconv = olua.typeconv
@@ -87,10 +87,10 @@ cls.prop('xmlFileExist')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Ref'
-cls.func(nil, 'unsigned int getReferenceCount()')
 cls.func('__gc', [[{
     return xlua_ccobjgc(L);
 }]])
+cls.func(nil, 'unsigned int getReferenceCount()')
 cls.prop('referenceCount')
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -247,20 +247,6 @@ template <typename T> bool doScheduleUpdate(lua_State *L)
 ]]
 cls.const('PRIORITY_SYSTEM', 'cocos2d::Scheduler::PRIORITY_SYSTEM', 'const int')
 cls.const('PRIORITY_NON_SYSTEM_MIN', 'cocos2d::Scheduler::PRIORITY_NON_SYSTEM_MIN', 'const int')
-cls.func(nil, 'Scheduler()')
-cls.func(nil, 'float getTimeScale()')
-cls.func(nil, 'void setTimeScale(float timeScale)')
-cls.func(nil, 'void update(float dt)')
-cls.func(nil, 'void unscheduleUpdate(void *target)')
-cls.func(nil, 'void unscheduleAllWithMinPriority(int minPriority)')
-cls.func(nil, 'bool isScheduled(const std::string &key, const void *target)')
-cls.func(nil, 'void pauseTarget(void *target)')
-cls.func(nil, 'void resumeTarget(void *target)')
-cls.func(nil, 'bool isTargetPaused(void *target)')
-cls.func(nil, 'std::set<void *> pauseAllTargets()')
-cls.func(nil, 'std::set<void *> pauseAllTargetsWithMinPriority(int minPriority)')
-cls.func(nil, 'void resumeTargets(const std::set<void *> &targetsToResume)')
-cls.func(nil, 'void removeAllFunctionsToBePerformedInCocosThread()')
 cls.func('scheduleUpdate', [[{
     if (doScheduleUpdate<cocos2d::Scheduler>(L) ||
         doScheduleUpdate<cocos2d::ActionManager>(L) ||
@@ -275,6 +261,20 @@ cls.func('scheduleUpdate', [[{
 
     return 0;
 }]])
+cls.func(nil, 'Scheduler()')
+cls.func(nil, 'float getTimeScale()')
+cls.func(nil, 'void setTimeScale(float timeScale)')
+cls.func(nil, 'void update(float dt)')
+cls.func(nil, 'void unscheduleUpdate(void *target)')
+cls.func(nil, 'void unscheduleAllWithMinPriority(int minPriority)')
+cls.func(nil, 'bool isScheduled(const std::string &key, const void *target)')
+cls.func(nil, 'void pauseTarget(void *target)')
+cls.func(nil, 'void resumeTarget(void *target)')
+cls.func(nil, 'bool isTargetPaused(void *target)')
+cls.func(nil, 'std::set<void *> pauseAllTargets()')
+cls.func(nil, 'std::set<void *> pauseAllTargetsWithMinPriority(int minPriority)')
+cls.func(nil, 'void resumeTargets(const std::set<void *> &targetsToResume)')
+cls.func(nil, 'void removeAllFunctionsToBePerformedInCocosThread()')
 cls.callback {
     FUNCS =  {
         'void schedule(@local const std::function<void (float)> &callback, void *target, float interval, unsigned int repeat, float delay, bool paused, const std::string &key)',
@@ -1382,6 +1382,10 @@ public:
 };
 NS_CC_END
 ]]
+cls.func('getPNGPremultipliedAlphaEnabled', [[{
+    lua_pushboolean(L, cocos2d::LuaImage::getPNGPremultipliedAlphaEnabled());
+    return 1;
+}]])
 cls.func(nil, 'Image()')
 cls.func(nil, 'static void setPNGPremultipliedAlphaEnabled(bool enabled)')
 cls.func(nil, 'static void setPVRImagesHavePremultipliedAlpha(bool haveAlphaPremultiplied)')
@@ -1403,10 +1407,6 @@ cls.func(nil, 'bool isCompressed()')
 cls.func(nil, 'bool saveToFile(const std::string &filename, @optional bool isToRGB)')
 cls.func(nil, 'void premultiplyAlpha()')
 cls.func(nil, 'void reversePremultipliedAlpha()')
-cls.func('getPNGPremultipliedAlphaEnabled', [[{
-    lua_pushboolean(L, cocos2d::LuaImage::getPNGPremultipliedAlphaEnabled());
-    return 1;
-}]])
 cls.prop('data')
 cls.prop('dataLen')
 cls.prop('fileType')
@@ -1874,14 +1874,6 @@ cls.func(nil, 'void onError(cocos2d::network::WebSocket *ws, const cocos2d::netw
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::network::WebSocket'
-cls.func(nil, 'static void closeAllConnections()')
-cls.func(nil, 'WebSocket()')
-cls.func(nil, 'void send(const std::string &message)', 'void send(const unsigned char *binaryMsg, unsigned int len)')
-cls.func(nil, 'void close()')
-cls.func(nil, 'void closeAsync()')
-cls.func(nil, 'cocos2d::network::WebSocket::State getReadyState()')
-cls.func(nil, 'const std::string &getUrl()')
-cls.func(nil, 'const std::string &getProtocol()')
 cls.func('init', [[{
     std::vector<std::string> protocols;
     auto self =  olua_toobj<cocos2d::network::WebSocket>(L, 1);
@@ -1905,6 +1897,14 @@ cls.func('init', [[{
 
     return 0;
 }]])
+cls.func(nil, 'static void closeAllConnections()')
+cls.func(nil, 'WebSocket()')
+cls.func(nil, 'void send(const std::string &message)', 'void send(const unsigned char *binaryMsg, unsigned int len)')
+cls.func(nil, 'void close()')
+cls.func(nil, 'void closeAsync()')
+cls.func(nil, 'cocos2d::network::WebSocket::State getReadyState()')
+cls.func(nil, 'const std::string &getUrl()')
+cls.func(nil, 'const std::string &getProtocol()')
 cls.prop('readyState')
 cls.prop('url')
 cls.prop('protocol')
@@ -1990,6 +1990,50 @@ static cocos2d::Node *_find_ancestor(cocos2d::Node *node1, cocos2d::Node *node2)
 }
 ]]
 cls.const('INVALID_TAG', 'cocos2d::Node::INVALID_TAG', 'const int')
+cls.func('getBounds', [[{
+    auto self = olua_checkobj<cocos2d::Node>(L, 1);
+    auto target = olua_checkobj<cocos2d::Node>(L, 2);
+
+    float left = luaL_checknumber(L, 3);
+    float right = luaL_checknumber(L, 4);
+    float top = luaL_checknumber(L, 5);
+    float bottom = luaL_checknumber(L, 6);
+
+    cocos2d::Vec3 p1(left, bottom, 0);
+    cocos2d::Vec3 p2(right, top, 0);
+
+    auto m = cocos2d::Mat4::IDENTITY;
+
+    if (target == self->getParent()) {
+        m = self->getNodeToParentTransform();
+    } else if (target != self) {
+        auto ancestor = _find_ancestor(target, self);
+        if (!ancestor) {
+            m = target->getWorldToNodeTransform() * self->getNodeToWorldTransform();
+        } else if (target == ancestor) {
+            m = self->getNodeToParentTransform(target);
+        } else if (self == ancestor) {
+            m = target->getNodeToParentTransform(self).getInversed();
+        } else {
+            m = target->getNodeToParentTransform(ancestor).getInversed() * self->getNodeToParentTransform(ancestor);
+        }
+    }
+
+    m.transformPoint(&p1);
+    m.transformPoint(&p2);
+
+    left = MIN(p1.x, p2.x);
+    right = MAX(p1.x, p2.x);
+    top = MAX(p1.y, p2.y);
+    bottom = MIN(p1.y, p2.y);
+
+    lua_pushnumber(L, left);
+    lua_pushnumber(L, right);
+    lua_pushnumber(L, top);
+    lua_pushnumber(L, bottom);
+
+    return 4;
+}]])
 cls.func(nil, 'static cocos2d::Node *create()')
 cls.func(nil, 'static int getAttachedNodeCount()')
 cls.func(nil, 'std::string getDescription()')
@@ -2142,50 +2186,6 @@ cls.func(nil, 'Node()')
 cls.func(nil, 'bool init()')
 cls.func(nil, 'void setPhysicsBody(@addref(physicsBody ^) cocos2d::PhysicsBody *physicsBody)')
 cls.func(nil, '@addref(physicsBody ^) cocos2d::PhysicsBody *getPhysicsBody()')
-cls.func('getBounds', [[{
-    auto self = olua_checkobj<cocos2d::Node>(L, 1);
-    auto target = olua_checkobj<cocos2d::Node>(L, 2);
-
-    float left = luaL_checknumber(L, 3);
-    float right = luaL_checknumber(L, 4);
-    float top = luaL_checknumber(L, 5);
-    float bottom = luaL_checknumber(L, 6);
-
-    cocos2d::Vec3 p1(left, bottom, 0);
-    cocos2d::Vec3 p2(right, top, 0);
-
-    auto m = cocos2d::Mat4::IDENTITY;
-
-    if (target == self->getParent()) {
-        m = self->getNodeToParentTransform();
-    } else if (target != self) {
-        auto ancestor = _find_ancestor(target, self);
-        if (!ancestor) {
-            m = target->getWorldToNodeTransform() * self->getNodeToWorldTransform();
-        } else if (target == ancestor) {
-            m = self->getNodeToParentTransform(target);
-        } else if (self == ancestor) {
-            m = target->getNodeToParentTransform(self).getInversed();
-        } else {
-            m = target->getNodeToParentTransform(ancestor).getInversed() * self->getNodeToParentTransform(ancestor);
-        }
-    }
-
-    m.transformPoint(&p1);
-    m.transformPoint(&p2);
-
-    left = MIN(p1.x, p2.x);
-    right = MAX(p1.x, p2.x);
-    top = MAX(p1.y, p2.y);
-    bottom = MIN(p1.y, p2.y);
-
-    lua_pushnumber(L, left);
-    lua_pushnumber(L, right);
-    lua_pushnumber(L, top);
-    lua_pushnumber(L, bottom);
-
-    return 4;
-}]])
 cls.callback {
     FUNCS =  {
         'void setOnEnterCallback(@nullable @local const std::function<void ()> &callback)'

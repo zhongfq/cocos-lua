@@ -14,15 +14,6 @@ M.INCLUDES = [[
 ]]
 M.CHUNK = [[]]
 
-typeconv 'dragonBones::Rectangle'
-
-M.MAKE_LUACLS = function (cppname)
-    cppname = string.gsub(cppname, "^dragonBones::CC", "db.")
-    cppname = string.gsub(cppname, "^dragonBones::", "db.")
-    cppname = string.gsub(cppname, "::", ".")
-    return cppname
-end
-
 M.EXCLUDE_TYPE = require "conf.exclude-type"
 M.EXCLUDE_TYPE 'dragonBones::Matrix *'
 M.EXCLUDE_TYPE 'dragonBones::Matrix'
@@ -42,6 +33,15 @@ M.EXCLUDE_TYPE 'std::vector *'
 M.EXCLUDE_PASS = function (cppcls, fn, decl)
     return string.find(fn, '^_') or string.find(decl, 'std::map')
 end
+
+M.MAKE_LUACLS = function (cppname)
+    cppname = string.gsub(cppname, "^dragonBones::CC", "db.")
+    cppname = string.gsub(cppname, "^dragonBones::", "db.")
+    cppname = string.gsub(cppname, "::", ".")
+    return cppname
+end
+
+typeconv 'dragonBones::Rectangle'
 
 typeconf 'dragonBones::BinaryOffset'
 typeconf 'dragonBones::ArmatureType'
@@ -67,8 +67,8 @@ typeconf 'dragonBones::IAnimatable'
 typeconf 'dragonBones::WorldClock'
 
 typeconf 'dragonBones::Slot'
-    .EXCLUDE 'getDisplayList'
-    .EXCLUDE 'setDisplayList'
+    .EXCLUDE_FUNC 'getDisplayList'
+    .EXCLUDE_FUNC 'setDisplayList'
 
 typeconf 'dragonBones::Bone'
 typeconf 'dragonBones::DisplayData'
@@ -79,10 +79,10 @@ typeconf 'dragonBones::BoundingBoxDisplayData'
 typeconf 'dragonBones::CanvasData'
 
 typeconf 'dragonBones::TextureAtlasData'
-    .EXCLUDE 'copyFrom'
+    .EXCLUDE_FUNC 'copyFrom'
 
 typeconf 'dragonBones::TextureData'
-    .EXCLUDE 'copyFrom'
+    .EXCLUDE_FUNC 'copyFrom'
 
 typeconf 'dragonBones::ArmatureData'
 typeconf 'dragonBones::SkinData'

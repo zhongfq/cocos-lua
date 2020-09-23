@@ -34,7 +34,7 @@ typeconf 'cocos2d::ui::Widget::TextureResType'
 typeconf 'cocos2d::ui::Widget::BrightStyle'
 
 typeconf 'cocos2d::ui::Widget'
-    .EXCLUDE 'createInstance'
+    .EXCLUDE_FUNC 'createInstance'
     .ATTR('getVirtualRenderer', {RET = '@addref(protectedChildren |)'})
     .CALLBACK {NAME = 'onFocusChanged', LOCAL = false}
     .CALLBACK {NAME = 'addTouchEventListener', NULLABLE = true, LOCAL = false}
@@ -173,8 +173,8 @@ typeconf 'cocos2d::ui::RichText::WrapMode'
 typeconf 'cocos2d::ui::RichText::HorizontalAlignment'
 
 local RichText = typeconf 'cocos2d::ui::RichText'
-RichText.EXCLUDE 'setTagDescription'
-RichText.EXCLUDE 'initWithXML'
+RichText.EXCLUDE_FUNC 'setTagDescription'
+RichText.EXCLUDE_FUNC 'initWithXML'
 RichText.CALLBACK {
     NAME = 'createWithXML',
     TAG_MAKER = 'OpenUrlHandler',

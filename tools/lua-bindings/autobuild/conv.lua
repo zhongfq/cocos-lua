@@ -1,6 +1,6 @@
 -- AUTO BUILD, DON'T MODIFY!
 
-require "autobuild.conv-types"
+dofile "autobuild/conv-types.lua"
 
 local olua = require "olua"
 local typeconv = olua.typeconv

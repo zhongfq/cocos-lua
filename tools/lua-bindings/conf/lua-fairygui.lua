@@ -164,11 +164,11 @@ GTween.INSERT('clean', {
 
 typeconf 'fairygui::UIPackage'
 local PackageItem = typeconf 'fairygui::PackageItem'
-PackageItem.EXCLUDE 'rawData'
-PackageItem.EXCLUDE 'pixelHitTestData'
-PackageItem.EXCLUDE 'extensionCreator'
-PackageItem.EXCLUDE 'bitmapFont'
-PackageItem.EXCLUDE 'scale9Grid'
+PackageItem.EXCLUDE_FUNC 'rawData'
+PackageItem.EXCLUDE_FUNC 'pixelHitTestData'
+PackageItem.EXCLUDE_FUNC 'extensionCreator'
+PackageItem.EXCLUDE_FUNC 'bitmapFont'
+PackageItem.EXCLUDE_FUNC 'scale9Grid'
 
 typeconf 'fairygui::PackageItemType'
 typeconf 'fairygui::ObjectType'
@@ -192,7 +192,7 @@ typeconf 'fairygui::ObjectPropID'
 typeconf 'fairygui::GController'
 
 local GObject = typeconf 'fairygui::GObject'
-GObject.EXCLUDE 'constructFromResource'
+GObject.EXCLUDE_FUNC 'constructFromResource'
 GObject.ATTR('getGroup', {RET = '@addref(group ^)'})
 GObject.ATTR('setGroup', {ARG1 = '@addref(group ^)'})
 GObject.ATTR('globalToLocal', {ARG1 = '@pack'})
@@ -242,7 +242,7 @@ static int _fairygui_GComponent_getController(lua_State *L);
 static int _fairygui_GComponent_getTransition(lua_State *L);
 static int _fairygui_GComponent_getChild(lua_State *L);
 ]]
-GComponent.EXCLUDE 'getChildByPath'
+GComponent.EXCLUDE_FUNC 'getChildByPath'
 GComponent.ALIAS('resolve', 'getChildByPath')
 GComponent.ATTR('addChild', {ARG1 = '@addref(children |)'})
 GComponent.ATTR('addChildAt', {ARG1 = '@addref(children |)'})
@@ -595,13 +595,13 @@ typeconf 'fairygui::DragDropManager'
 typeconf 'fairygui::UIObjectFactory'
 
 local GearBase = typeconf 'fairygui::GearBase'
-GearBase.EXCLUDE 'getController'
-GearBase.EXCLUDE 'setController'
-GearBase.EXCLUDE 'getTweenConfig'
-GearBase.EXCLUDE 'updateFromRelations'
-GearBase.EXCLUDE 'apply'
-GearBase.EXCLUDE 'updateState'
-GearBase.EXCLUDE 'setup'
+GearBase.EXCLUDE_FUNC 'getController'
+GearBase.EXCLUDE_FUNC 'setController'
+GearBase.EXCLUDE_FUNC 'getTweenConfig'
+GearBase.EXCLUDE_FUNC 'updateFromRelations'
+GearBase.EXCLUDE_FUNC 'apply'
+GearBase.EXCLUDE_FUNC 'updateState'
+GearBase.EXCLUDE_FUNC 'setup'
 
 typeconf 'fairygui::GTreeNode'
     .ATTR('getCell', {RET = '@addref(cell ^)'})
@@ -626,7 +626,7 @@ typeconf 'fairygui::FUIContainer'
 typeconf 'fairygui::FUIInput'
 
 typeconf 'fairygui::FUILabel'
-    .EXCLUDE 'setBMFontFilePath'
+    .EXCLUDE_FUNC 'setBMFontFilePath'
 
 typeconf 'fairygui::FUIRichText'
 typeconf 'fairygui::FUISprite'

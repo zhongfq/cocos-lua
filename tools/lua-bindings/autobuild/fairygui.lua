@@ -1,6 +1,6 @@
 -- AUTO BUILD, DON'T MODIFY!
 
-require "autobuild.fairygui-types"
+dofile "autobuild/fairygui-types.lua"
 
 local olua = require "olua"
 local typeconv = olua.typeconv
@@ -766,6 +766,12 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GObject'
 cls.SUPERCLS = "fairygui::UIEventDispatcher"
+cls.func('getDragBounds', [[{
+    fairygui::GObject *self = olua_toobj<fairygui::GObject>(L, 1);
+    cocos2d::Rect *rect = self->getDragBounds();
+    manual_olua_push_cocos2d_Rect(L, rect);
+    return 1;
+}]])
 cls.func(nil, 'static fairygui::GObject *getDraggingObject()')
 cls.func(nil, 'GObject()')
 cls.func(nil, 'static fairygui::GObject *create()')
@@ -853,12 +859,6 @@ cls.func(nil, 'cocos2d::Value getProp(fairygui::ObjectPropID propId)')
 cls.func(nil, 'void setProp(fairygui::ObjectPropID propId, const cocos2d::Value &value)')
 cls.func(nil, 'fairygui::GObject *hitTest(const cocos2d::Vec2 &worldPoint, const cocos2d::Camera *camera)')
 cls.func(nil, 'fairygui::GTreeNode *treeNode()')
-cls.func('getDragBounds', [[{
-    fairygui::GObject *self = olua_toobj<fairygui::GObject>(L, 1);
-    cocos2d::Rect *rect = self->getDragBounds();
-    manual_olua_push_cocos2d_Rect(L, rect);
-    return 1;
-}]])
 cls.var('id', [[std::string id]])
 cls.var('name', [[std::string name]])
 cls.var('sourceSize', [[cocos2d::Size sourceSize]])
@@ -943,6 +943,42 @@ static int _fairygui_GComponent_getController(lua_State *L);
 static int _fairygui_GComponent_getTransition(lua_State *L);
 static int _fairygui_GComponent_getChild(lua_State *L);
 ]]
+cls.func('resolve', [[{
+    auto self = olua_toobj<fairygui::GComponent>(L, 1);
+    const char *name = olua_checkstring(L, 2);
+    char type = '.';
+    while (true) {
+        const char *sep = strpbrk(name, ".~#");
+        if (sep == name) {
+            type = *sep;
+            ++name;
+            continue;
+        }
+        if (!sep) {
+            sep = name + strlen(name);
+        }
+        if (type == '#') {
+            lua_pushcfunction(L, _fairygui_GComponent_getController);
+        } else if (type == '~') {
+            lua_pushcfunction(L, _fairygui_GComponent_getTransition);
+        } else {
+            lua_pushcfunction(L, _fairygui_GComponent_getChild);
+        }
+        olua_push_cppobj<fairygui::GComponent>(L, self);
+        lua_pushlstring(L, name, sep - name);
+        lua_call(L, 2, 1);
+
+        if (type != '.' || *sep == '\0') {
+            return 1;
+        } else if (olua_isa<fairygui::GComponent>(L, -1)) {
+            self = olua_toobj<fairygui::GComponent>(L, -1);
+            name = sep;
+        } else {
+            return 0;
+        }
+    }
+    return 0;
+}]])
 cls.func(nil, 'GComponent()')
 cls.func(nil, 'static fairygui::GComponent *create()')
 cls.func(nil, 'fairygui::GObject *addChild(@addref(children |) fairygui::GObject *child)')
@@ -997,42 +1033,6 @@ cls.func(nil, 'cocos2d::Vec2 getSnappingPosition(const cocos2d::Vec2 &pt)')
 cls.func(nil, 'void childSortingOrderChanged(fairygui::GObject *child, int oldValue, int newValue)')
 cls.func(nil, 'void childStateChanged(fairygui::GObject *child)')
 cls.func(nil, 'void adjustRadioGroupDepth(fairygui::GObject *obj, fairygui::GController *c)')
-cls.func('resolve', [[{
-    auto self = olua_toobj<fairygui::GComponent>(L, 1);
-    const char *name = olua_checkstring(L, 2);
-    char type = '.';
-    while (true) {
-        const char *sep = strpbrk(name, ".~#");
-        if (sep == name) {
-            type = *sep;
-            ++name;
-            continue;
-        }
-        if (!sep) {
-            sep = name + strlen(name);
-        }
-        if (type == '#') {
-            lua_pushcfunction(L, _fairygui_GComponent_getController);
-        } else if (type == '~') {
-            lua_pushcfunction(L, _fairygui_GComponent_getTransition);
-        } else {
-            lua_pushcfunction(L, _fairygui_GComponent_getChild);
-        }
-        olua_push_cppobj<fairygui::GComponent>(L, self);
-        lua_pushlstring(L, name, sep - name);
-        lua_call(L, 2, 1);
-
-        if (type != '.' || *sep == '\0') {
-            return 1;
-        } else if (olua_isa<fairygui::GComponent>(L, -1)) {
-            self = olua_toobj<fairygui::GComponent>(L, -1);
-            name = sep;
-        } else {
-            return 0;
-        }
-    }
-    return 0;
-}]])
 cls.prop('numChildren', 'int numChildren()')
 cls.prop('children')
 cls.prop('firstChildInView')
@@ -1263,6 +1263,18 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GTextField'
 cls.SUPERCLS = "fairygui::GObject"
+cls.func('getTemplateVars', [[{
+    fairygui::GTextField *self = olua_toobj<fairygui::GTextField>(L, 1);
+    manual_olua_push_cocos2d_ValueMap(L, self->getTemplateVars());
+    return 1;
+}]])
+cls.func('setTemplateVars', [[{
+    cocos2d::ValueMap arg;
+    fairygui::GTextField *self = olua_toobj<fairygui::GTextField>(L, 1);
+    manual_olua_check_cocos2d_ValueMap(L, 2, &arg);
+    self->setTemplateVars(&arg);
+    return 1;
+}]])
 cls.func(nil, 'bool isUBBEnabled()')
 cls.func(nil, 'void setUBBEnabled(bool value)')
 cls.func(nil, 'fairygui::AutoSizeType getAutoSize()')
@@ -1280,18 +1292,6 @@ cls.func(nil, 'cocos2d::Color3B getOutlineColor()')
 cls.func(nil, 'void setOutlineColor(const cocos2d::Color3B &value)')
 cls.func(nil, 'fairygui::GTextField *setVar(const std::string &name, const cocos2d::Value &value)')
 cls.func(nil, 'void flushVars()')
-cls.func('getTemplateVars', [[{
-    fairygui::GTextField *self = olua_toobj<fairygui::GTextField>(L, 1);
-    manual_olua_push_cocos2d_ValueMap(L, self->getTemplateVars());
-    return 1;
-}]])
-cls.func('setTemplateVars', [[{
-    cocos2d::ValueMap arg;
-    fairygui::GTextField *self = olua_toobj<fairygui::GTextField>(L, 1);
-    manual_olua_check_cocos2d_ValueMap(L, 2, &arg);
-    self->setTemplateVars(&arg);
-    return 1;
-}]])
 cls.prop('templateVars')
 cls.prop('ubbEnabled')
 cls.prop('autoSize')
@@ -1690,14 +1690,6 @@ cls.insert('addItemAt', {
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::Relations'
-cls.func(nil, 'Relations(fairygui::GObject *owner)')
-cls.func(nil, 'void add(fairygui::GObject *target, fairygui::RelationType relationType)', 'void add(fairygui::GObject *target, fairygui::RelationType relationType, bool usePercent)')
-cls.func(nil, 'void remove(fairygui::GObject *target, fairygui::RelationType relationType)')
-cls.func(nil, 'bool contains(fairygui::GObject *target)')
-cls.func(nil, 'void clearFor(fairygui::GObject *target)')
-cls.func(nil, 'void clearAll()')
-cls.func(nil, 'void onOwnerSizeChanged(float dWidth, float dHeight, bool applyPivot)')
-cls.func(nil, 'bool isEmpty()')
 cls.func('copyFrom', [[{
     fairygui::Relations *self = olua_toobj<fairygui::Relations>(L, 1);
     fairygui::Relations *source = olua_checkobj<fairygui::Relations>(L, 2);
@@ -1706,6 +1698,14 @@ cls.func('copyFrom', [[{
 
     return 0;
 }]])
+cls.func(nil, 'Relations(fairygui::GObject *owner)')
+cls.func(nil, 'void add(fairygui::GObject *target, fairygui::RelationType relationType)', 'void add(fairygui::GObject *target, fairygui::RelationType relationType, bool usePercent)')
+cls.func(nil, 'void remove(fairygui::GObject *target, fairygui::RelationType relationType)')
+cls.func(nil, 'bool contains(fairygui::GObject *target)')
+cls.func(nil, 'void clearFor(fairygui::GObject *target)')
+cls.func(nil, 'void clearAll()')
+cls.func(nil, 'void onOwnerSizeChanged(float dWidth, float dHeight, bool applyPivot)')
+cls.func(nil, 'bool isEmpty()')
 cls.var('handling', [[fairygui::GObject *handling]])
 cls.prop('empty')
 M.CLASSES[#M.CLASSES + 1] = cls

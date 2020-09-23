@@ -1,6 +1,6 @@
 -- AUTO BUILD, DON'T MODIFY!
 
-require "autobuild.cocos2d-backend-types"
+dofile "autobuild/cocos2d-backend-types.lua"
 
 local olua = require "olua"
 local typeconv = olua.typeconv
@@ -471,17 +471,6 @@ template <typename T> int _cocos2d_backend_ProgramState_setUniform(lua_State *L)
     return 0;
 }
 ]]
-cls.func(nil, 'ProgramState(cocos2d::backend::Program *program)')
-cls.func(nil, 'cocos2d::backend::ProgramState *clone()')
-cls.func(nil, 'cocos2d::backend::Program *getProgram()')
-cls.func(nil, 'void setUniform(const cocos2d::backend::UniformLocation &uniformLocation, const void *data, std::size_t size)')
-cls.func(nil, 'cocos2d::backend::UniformLocation getUniformLocation(const std::string &uniform)', 'cocos2d::backend::UniformLocation getUniformLocation(cocos2d::backend::Uniform name)')
-cls.func(nil, 'int getAttributeLocation(const std::string &name)', 'int getAttributeLocation(cocos2d::backend::Attribute name)')
-cls.func(nil, 'void setTexture(const cocos2d::backend::UniformLocation &uniformLocation, uint32_t slot, cocos2d::backend::TextureBackend *texture)')
-cls.func(nil, 'void setTextureArray(const cocos2d::backend::UniformLocation &uniformLocation, const std::vector<uint32_t> &slots, const std::vector<backend::TextureBackend *> textures)')
-cls.func(nil, 'const std::unordered_map<int, TextureInfo> &getVertexTextureInfos()')
-cls.func(nil, 'const std::unordered_map<int, TextureInfo> &getFragmentTextureInfos()')
-cls.func(nil, 'void setParameterAutoBinding(const std::string &uniformName, const std::string &autoBinding)')
 cls.func('getVertexLayout', [[{
     auto self = olua_toobj<cocos2d::backend::ProgramState>(L, 1);
     olua_push_cppobj<cocos2d::backend::VertexLayout>(L, self->getVertexLayout().get());
@@ -512,6 +501,17 @@ cls.func('setUniformFloat', [[{
     _cocos2d_backend_ProgramState_setUniform<float>(L);
     return 0;
 }]])
+cls.func(nil, 'ProgramState(cocos2d::backend::Program *program)')
+cls.func(nil, 'cocos2d::backend::ProgramState *clone()')
+cls.func(nil, 'cocos2d::backend::Program *getProgram()')
+cls.func(nil, 'void setUniform(const cocos2d::backend::UniformLocation &uniformLocation, const void *data, std::size_t size)')
+cls.func(nil, 'cocos2d::backend::UniformLocation getUniformLocation(const std::string &uniform)', 'cocos2d::backend::UniformLocation getUniformLocation(cocos2d::backend::Uniform name)')
+cls.func(nil, 'int getAttributeLocation(const std::string &name)', 'int getAttributeLocation(cocos2d::backend::Attribute name)')
+cls.func(nil, 'void setTexture(const cocos2d::backend::UniformLocation &uniformLocation, uint32_t slot, cocos2d::backend::TextureBackend *texture)')
+cls.func(nil, 'void setTextureArray(const cocos2d::backend::UniformLocation &uniformLocation, const std::vector<uint32_t> &slots, const std::vector<backend::TextureBackend *> textures)')
+cls.func(nil, 'const std::unordered_map<int, TextureInfo> &getVertexTextureInfos()')
+cls.func(nil, 'const std::unordered_map<int, TextureInfo> &getFragmentTextureInfos()')
+cls.func(nil, 'void setParameterAutoBinding(const std::string &uniformName, const std::string &autoBinding)')
 cls.prop('program')
 cls.prop('vertexTextureInfos')
 cls.prop('fragmentTextureInfos')

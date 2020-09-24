@@ -20750,6 +20750,54 @@ static int _cocos2d_Node_draw(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_Node_enumerateChildren(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *self = nullptr;
+    std::string arg1;       /** name */
+    std::function<bool(cocos2d::Node *)> arg2;       /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+    olua_check_std_string(L, 2, &arg1);
+
+    void *cb_store = (void *)self;
+    std::string cb_tag = "enumerateChildren";
+    std::string cb_name = olua_setcallback(L, cb_store, cb_tag.c_str(), 3, OLUA_TAG_NEW);
+    lua_Unsigned cb_ctx = olua_context(L);
+    arg2 = [cb_store, cb_name, cb_ctx](cocos2d::Node *arg1) {
+        lua_State *L = olua_mainthread(NULL);
+        bool ret = false;       
+        if (L != NULL && olua_context(L) == cb_ctx) {
+            int top = lua_gettop(L);
+            size_t last = olua_push_objpool(L);
+            olua_enable_objpool(L);
+            olua_push_cppobj(L, arg1, "cc.Node");
+            olua_disable_objpool(L);
+
+            olua_callback(L, cb_store, cb_name.c_str(), 1);
+
+            if (olua_is_bool(L, -1)) {
+                olua_check_bool(L, -1, &ret);
+            }
+
+            //pop stack value
+            olua_pop_objpool(L, last);
+            lua_settop(L, top);
+        }
+        return (bool)ret;
+    };
+
+    // void enumerateChildren(const std::string &name, @local std::function<bool (Node *)> callback)
+    self->enumerateChildren(arg1, arg2);
+
+    olua_removecallback(L, cb_store, cb_name.c_str(), OLUA_TAG_WHOLE);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cocos2d_Node_getActionByTag(lua_State *L)
 {
     olua_startinvoke(L);
@@ -24472,6 +24520,7 @@ static int luaopen_cocos2d_Node(lua_State *L)
     oluacls_func(L, "convertTouchToNodeSpaceAR", _cocos2d_Node_convertTouchToNodeSpaceAR);
     oluacls_func(L, "create", _cocos2d_Node_create);
     oluacls_func(L, "draw", _cocos2d_Node_draw);
+    oluacls_func(L, "enumerateChildren", _cocos2d_Node_enumerateChildren);
     oluacls_func(L, "getActionByTag", _cocos2d_Node_getActionByTag);
     oluacls_func(L, "getActionManager", _cocos2d_Node_getActionManager);
     oluacls_func(L, "getAnchorPoint", _cocos2d_Node_getAnchorPoint);

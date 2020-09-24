@@ -448,7 +448,6 @@ end
 -- node
 local Node = typeconf 'cocos2d::Node'
 Node.EXCLUDE_FUNC 'scheduleUpdateWithPriorityLua'
-Node.EXCLUDE_FUNC 'enumerateChildren' -- TODO
 Node.ATTR('addChild', {ARG1 = '@addref(children |)'})
 Node.ATTR('getChildByTag', {RET = '@addref(children |)'})
 Node.ATTR('getChildByName', {RET = '@addref(children |)'})
@@ -643,6 +642,11 @@ Node.CALLBACK {
     TAG_MAKER = 'makeScheduleCallbackTag("")',
     TAG_MODE = "OLUA_TAG_SUBSTARTWITH",
 }
+Node.CALLBACK {
+    NAME = 'enumerateChildren',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_SCOPE = 'function',
+}
 Node.INSERT({'removeFromParent', 'removeFromParentAndCleanup'}, {
     BEFORE = [[
         if (!self->getParent()) {
@@ -723,9 +727,9 @@ typeconf 'cocos2d::SpriteBatchNode'
 typeconf 'cocos2d::SpriteFrameCache'
 typeconf 'cocos2d::AnimationCache'
 
-local Scene = typeconf 'cocos2d::Scene'
-Scene.ATTR('getPhysicsWorld', {RET = '@addref(physicsWorld ^)'})
-Scene.ATTR('getPhysics3DWorld', {RET = '@addref(physics3DWorld ^)'})
+typeconf 'cocos2d::Scene'
+    .ATTR('getPhysicsWorld', {RET = '@addref(physicsWorld ^)'})
+    .ATTR('getPhysics3DWorld', {RET = '@addref(physics3DWorld ^)'})
 
 typeconf 'cocos2d::Layer'
 typeconf 'cocos2d::LayerColor'
@@ -742,8 +746,8 @@ local function typeconfTransition(name)
     return cls
 end
 
-local TransitionScene = typeconfTransition 'cocos2d::TransitionScene'
-TransitionScene.EXCLUDE_FUNC 'initWithDuration'
+typeconfTransition 'cocos2d::TransitionScene'
+    .EXCLUDE_FUNC 'initWithDuration'
 
 typeconfTransition 'cocos2d::TransitionSceneOriented'
 typeconfTransition 'cocos2d::TransitionRotoZoom'

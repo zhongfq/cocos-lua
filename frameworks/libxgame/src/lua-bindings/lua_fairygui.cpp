@@ -18574,10 +18574,14 @@ static int _fairygui_Relations_copyFrom(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::Relations *self = olua_toobj<fairygui::Relations>(L, 1);
-    fairygui::Relations *source = olua_checkobj<fairygui::Relations>(L, 2);
-    // void copyFrom(const Relations& source)
-    self->copyFrom(*source);
+    fairygui::Relations *self = nullptr;
+    fairygui::Relations *arg1 = nullptr;       /** source */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Relations");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.Relations");
+
+    // void copyFrom(const fairygui::Relations &source)
+    self->copyFrom(*arg1);
 
     olua_endinvoke(L);
 

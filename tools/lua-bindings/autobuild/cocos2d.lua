@@ -2296,6 +2296,15 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
+cls.callback {
+    FUNCS =  {
+        'void enumerateChildren(const std::string &name, @local std::function<bool (Node *)> callback)'
+    },
+    TAG_MAKER = 'enumerateChildren',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    TAG_SCOPE = 'function',
+}
 cls.prop('x', 'float getPositionX()', 'void setPositionX(float x)')
 cls.prop('y', 'float getPositionY()', 'void setPositionY(float y)')
 cls.prop('z', 'float getPositionZ()', 'void setPositionZ(float z)')

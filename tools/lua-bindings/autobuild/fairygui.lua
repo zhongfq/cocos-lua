@@ -1690,20 +1690,13 @@ cls.insert('addItemAt', {
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::Relations'
-cls.func('copyFrom', [[{
-    fairygui::Relations *self = olua_toobj<fairygui::Relations>(L, 1);
-    fairygui::Relations *source = olua_checkobj<fairygui::Relations>(L, 2);
-    // void copyFrom(const Relations& source)
-    self->copyFrom(*source);
-
-    return 0;
-}]])
 cls.func(nil, 'Relations(fairygui::GObject *owner)')
 cls.func(nil, 'void add(fairygui::GObject *target, fairygui::RelationType relationType)', 'void add(fairygui::GObject *target, fairygui::RelationType relationType, bool usePercent)')
 cls.func(nil, 'void remove(fairygui::GObject *target, fairygui::RelationType relationType)')
 cls.func(nil, 'bool contains(fairygui::GObject *target)')
 cls.func(nil, 'void clearFor(fairygui::GObject *target)')
 cls.func(nil, 'void clearAll()')
+cls.func(nil, 'void copyFrom(const fairygui::Relations &source)')
 cls.func(nil, 'void onOwnerSizeChanged(float dWidth, float dHeight, bool applyPivot)')
 cls.func(nil, 'bool isEmpty()')
 cls.var('handling', [[fairygui::GObject *handling]])

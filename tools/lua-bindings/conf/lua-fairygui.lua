@@ -163,12 +163,13 @@ GTween.INSERT('clean', {
 })
 
 typeconf 'fairygui::UIPackage'
-local PackageItem = typeconf 'fairygui::PackageItem'
-PackageItem.EXCLUDE_FUNC 'rawData'
-PackageItem.EXCLUDE_FUNC 'pixelHitTestData'
-PackageItem.EXCLUDE_FUNC 'extensionCreator'
-PackageItem.EXCLUDE_FUNC 'bitmapFont'
-PackageItem.EXCLUDE_FUNC 'scale9Grid'
+
+typeconf 'fairygui::PackageItem'
+    .EXCLUDE_FUNC 'rawData'
+    .EXCLUDE_FUNC 'pixelHitTestData'
+    .EXCLUDE_FUNC 'extensionCreator'
+    .EXCLUDE_FUNC 'bitmapFont'
+    .EXCLUDE_FUNC 'scale9Grid'
 
 typeconf 'fairygui::PackageItemType'
 typeconf 'fairygui::ObjectType'
@@ -458,17 +459,7 @@ PopupMenu.INSERT({'removeItem', 'clearItems', 'addItem', 'addItemAt'}, {
     ]]
 })
 
-local Relations = typeconf 'fairygui::Relations'
-Relations.FUNC('copyFrom', [[
-{
-    fairygui::Relations *self = olua_toobj<fairygui::Relations>(L, 1);
-    fairygui::Relations *source = olua_checkobj<fairygui::Relations>(L, 2);
-    // void copyFrom(const Relations& source)
-    self->copyFrom(*source);
-
-    return 0;
-}]])
-
+typeconf 'fairygui::Relations'
 typeconf 'fairygui::RelationType'
 
 typeconf 'fairygui::RelationItem'
@@ -594,14 +585,14 @@ Window.INSERT({'hide', 'hideImmediately'}, {
 typeconf 'fairygui::DragDropManager'
 typeconf 'fairygui::UIObjectFactory'
 
-local GearBase = typeconf 'fairygui::GearBase'
-GearBase.EXCLUDE_FUNC 'getController'
-GearBase.EXCLUDE_FUNC 'setController'
-GearBase.EXCLUDE_FUNC 'getTweenConfig'
-GearBase.EXCLUDE_FUNC 'updateFromRelations'
-GearBase.EXCLUDE_FUNC 'apply'
-GearBase.EXCLUDE_FUNC 'updateState'
-GearBase.EXCLUDE_FUNC 'setup'
+typeconf 'fairygui::GearBase'
+    .EXCLUDE_FUNC 'getController'
+    .EXCLUDE_FUNC 'setController'
+    .EXCLUDE_FUNC 'getTweenConfig'
+    .EXCLUDE_FUNC 'updateFromRelations'
+    .EXCLUDE_FUNC 'apply'
+    .EXCLUDE_FUNC 'updateState'
+    .EXCLUDE_FUNC 'setup'
 
 typeconf 'fairygui::GTreeNode'
     .ATTR('getCell', {RET = '@addref(cell ^)'})

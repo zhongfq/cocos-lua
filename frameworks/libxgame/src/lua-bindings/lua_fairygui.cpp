@@ -7170,13 +7170,17 @@ static int _fairygui_GObject_getDragBounds(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::GObject *self = olua_toobj<fairygui::GObject>(L, 1);
-    cocos2d::Rect *rect = self->getDragBounds();
-    manual_olua_push_cocos2d_Rect(L, rect);
+    fairygui::GObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+
+    // cocos2d::Rect *getDragBounds()
+    cocos2d::Rect *ret = (cocos2d::Rect *)self->getDragBounds();
+    int num_ret = manual_olua_push_cocos2d_Rect(L, ret);
 
     olua_endinvoke(L);
 
-    return 1;
+    return num_ret;
 }
 
 static int _fairygui_GObject_getDraggingObject(lua_State *L)
@@ -9235,6 +9239,7 @@ static int luaopen_fairygui_GObject(lua_State *L)
     oluacls_prop(L, "customData", _fairygui_GObject_getCustomData, _fairygui_GObject_setCustomData);
     oluacls_prop(L, "data", _fairygui_GObject_getData, _fairygui_GObject_setData);
     oluacls_prop(L, "displayObject", _fairygui_GObject_displayObject, nullptr);
+    oluacls_prop(L, "dragBounds", _fairygui_GObject_getDragBounds, _fairygui_GObject_setDragBounds);
     oluacls_prop(L, "draggable", _fairygui_GObject_isDraggable, _fairygui_GObject_setDraggable);
     oluacls_prop(L, "draggingObject", _fairygui_GObject_getDraggingObject, nullptr);
     oluacls_prop(L, "grayed", _fairygui_GObject_isGrayed, _fairygui_GObject_setGrayed);
@@ -13360,12 +13365,17 @@ static int _fairygui_GTextField_getTemplateVars(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::GTextField *self = olua_toobj<fairygui::GTextField>(L, 1);
-    manual_olua_push_cocos2d_ValueMap(L, self->getTemplateVars());
+    fairygui::GTextField *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTextField");
+
+    // cocos2d::ValueMap *getTemplateVars()
+    cocos2d::ValueMap *ret = (cocos2d::ValueMap *)self->getTemplateVars();
+    int num_ret = manual_olua_push_cocos2d_ValueMap(L, ret);
 
     olua_endinvoke(L);
 
-    return 1;
+    return num_ret;
 }
 
 static int _fairygui_GTextField_getTextFormat(lua_State *L)
@@ -13530,14 +13540,18 @@ static int _fairygui_GTextField_setTemplateVars(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::ValueMap arg;
-    fairygui::GTextField *self = olua_toobj<fairygui::GTextField>(L, 1);
-    manual_olua_check_cocos2d_ValueMap(L, 2, &arg);
-    self->setTemplateVars(&arg);
+    fairygui::GTextField *self = nullptr;
+    cocos2d::ValueMap arg1;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTextField");
+    manual_olua_check_cocos2d_ValueMap(L, 2, &arg1);
+
+    // void setTemplateVars(cocos2d::ValueMap *value)
+    self->setTemplateVars(&arg1);
 
     olua_endinvoke(L);
 
-    return 1;
+    return 0;
 }
 
 static int _fairygui_GTextField_setUBBEnabled(lua_State *L)
@@ -26092,6 +26106,24 @@ static int _fairygui_FUISprite_setGrayed(lua_State *L)
     return 0;
 }
 
+static int _fairygui_FUISprite_setScale9Grid(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::FUISprite *self = nullptr;
+    cocos2d::Rect arg1;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.FUISprite");
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
+
+    // void setScale9Grid(cocos2d::Rect *value)
+    self->setScale9Grid(&arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _fairygui_FUISprite_setScaleByTile(lua_State *L)
 {
     olua_startinvoke(L);
@@ -26127,6 +26159,7 @@ static int luaopen_fairygui_FUISprite(lua_State *L)
     oluacls_func(L, "setFillMethod", _fairygui_FUISprite_setFillMethod);
     oluacls_func(L, "setFillOrigin", _fairygui_FUISprite_setFillOrigin);
     oluacls_func(L, "setGrayed", _fairygui_FUISprite_setGrayed);
+    oluacls_func(L, "setScale9Grid", _fairygui_FUISprite_setScale9Grid);
     oluacls_func(L, "setScaleByTile", _fairygui_FUISprite_setScaleByTile);
     oluacls_prop(L, "fillAmount", _fairygui_FUISprite_getFillAmount, _fairygui_FUISprite_setFillAmount);
     oluacls_prop(L, "fillClockwise", _fairygui_FUISprite_isFillClockwise, _fairygui_FUISprite_setFillClockwise);

@@ -17,7 +17,6 @@ M.EXCLUDE_TYPE 'cocos2d::NavMesh *'         -- TDDO
 M.EXCLUDE_TYPE 'cocos2d::Physics3DWorld *'  -- TDDO
 M.EXCLUDE_TYPE 'cocos2d::PolygonInfo'
 M.EXCLUDE_TYPE 'cocos2d::Quaternion *'
-M.EXCLUDE_TYPE 'cocos2d::Rect *'
 M.EXCLUDE_TYPE 'cocos2d::RenderState::StateBlock'
 M.EXCLUDE_TYPE 'cocos2d::SEL_SCHEDULE'
 M.EXCLUDE_TYPE 'cocos2d::Tile *'

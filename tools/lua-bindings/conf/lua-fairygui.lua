@@ -202,13 +202,6 @@ GObject.ATTR('transformRect', {ARG1 = '@pack'})
 GObject.ATTR('displayObject', {RET = '@addref(displayObject ^)'})
 GObject.PROP('relations', 'Relations* relations()')
 GObject.PROP('displayObject', 'cocos2d::Node* displayObject()')
-GObject.FUNC('getDragBounds', [[
-{
-    fairygui::GObject *self = olua_toobj<fairygui::GObject>(L, 1);
-    cocos2d::Rect *rect = self->getDragBounds();
-    manual_olua_push_cocos2d_Rect(L, rect);
-    return 1;
-}]])
 GObject.CALLBACK {
     NAME = 'addClickListener',
     TAG_MAKER = {
@@ -345,23 +338,7 @@ typeconf 'fairygui::GLoader3D'
     .ATTR('getContent', {RET = '@addref(content ^)'})
     .ATTR('setContent', {ARG1 = '@addref(content ^)'})
 
-local GTextField = typeconf 'fairygui::GTextField'
-GTextField.FUNC('getTemplateVars', [[
-{
-    fairygui::GTextField *self = olua_toobj<fairygui::GTextField>(L, 1);
-    manual_olua_push_cocos2d_ValueMap(L, self->getTemplateVars());
-    return 1;
-}]])
-GTextField.FUNC('setTemplateVars', [[
-{
-    cocos2d::ValueMap arg;
-    fairygui::GTextField *self = olua_toobj<fairygui::GTextField>(L, 1);
-    manual_olua_check_cocos2d_ValueMap(L, 2, &arg);
-    self->setTemplateVars(&arg);
-    return 1;
-}]])
-GTextField.PROP('templateVars')
-
+typeconf 'fairygui::GTextField'
 typeconf 'fairygui::GBasicTextField'
 typeconf 'fairygui::GGraph'
 

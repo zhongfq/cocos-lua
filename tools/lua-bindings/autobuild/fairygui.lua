@@ -766,12 +766,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GObject'
 cls.SUPERCLS = "fairygui::UIEventDispatcher"
-cls.func('getDragBounds', [[{
-    fairygui::GObject *self = olua_toobj<fairygui::GObject>(L, 1);
-    cocos2d::Rect *rect = self->getDragBounds();
-    manual_olua_push_cocos2d_Rect(L, rect);
-    return 1;
-}]])
 cls.func(nil, 'static fairygui::GObject *getDraggingObject()')
 cls.func(nil, 'GObject()')
 cls.func(nil, 'static fairygui::GObject *create()')
@@ -834,6 +828,7 @@ cls.func(nil, 'const cocos2d::Value &getCustomData()')
 cls.func(nil, 'void setCustomData(const cocos2d::Value &value)')
 cls.func(nil, 'bool isDraggable()')
 cls.func(nil, 'void setDraggable(bool value)')
+cls.func(nil, 'cocos2d::Rect *getDragBounds()')
 cls.func(nil, 'void setDragBounds(const cocos2d::Rect &value)')
 cls.func(nil, 'void startDrag(@optional int touchId)')
 cls.func(nil, 'void stopDrag()')
@@ -916,6 +911,7 @@ cls.prop('tooltips')
 cls.prop('data')
 cls.prop('customData')
 cls.prop('draggable')
+cls.prop('dragBounds')
 cls.prop('resourceURL')
 cls.prop('packageItem')
 cls.prop('parent')
@@ -1263,18 +1259,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GTextField'
 cls.SUPERCLS = "fairygui::GObject"
-cls.func('getTemplateVars', [[{
-    fairygui::GTextField *self = olua_toobj<fairygui::GTextField>(L, 1);
-    manual_olua_push_cocos2d_ValueMap(L, self->getTemplateVars());
-    return 1;
-}]])
-cls.func('setTemplateVars', [[{
-    cocos2d::ValueMap arg;
-    fairygui::GTextField *self = olua_toobj<fairygui::GTextField>(L, 1);
-    manual_olua_check_cocos2d_ValueMap(L, 2, &arg);
-    self->setTemplateVars(&arg);
-    return 1;
-}]])
 cls.func(nil, 'bool isUBBEnabled()')
 cls.func(nil, 'void setUBBEnabled(bool value)')
 cls.func(nil, 'fairygui::AutoSizeType getAutoSize()')
@@ -1290,9 +1274,10 @@ cls.func(nil, 'float getFontSize()')
 cls.func(nil, 'void setFontSize(float value)')
 cls.func(nil, 'cocos2d::Color3B getOutlineColor()')
 cls.func(nil, 'void setOutlineColor(const cocos2d::Color3B &value)')
+cls.func(nil, 'cocos2d::ValueMap *getTemplateVars()')
+cls.func(nil, 'void setTemplateVars(cocos2d::ValueMap *value)')
 cls.func(nil, 'fairygui::GTextField *setVar(const std::string &name, const cocos2d::Value &value)')
 cls.func(nil, 'void flushVars()')
-cls.prop('templateVars')
 cls.prop('ubbEnabled')
 cls.prop('autoSize')
 cls.prop('singleLine')
@@ -1301,6 +1286,7 @@ cls.prop('textSize')
 cls.prop('color')
 cls.prop('fontSize')
 cls.prop('outlineColor')
+cls.prop('templateVars')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GBasicTextField'
@@ -2251,6 +2237,7 @@ cls.SUPERCLS = "cocos2d::Sprite"
 cls.func(nil, 'FUISprite()')
 cls.func(nil, 'static fairygui::FUISprite *create()')
 cls.func(nil, 'void clearContent()')
+cls.func(nil, 'void setScale9Grid(cocos2d::Rect *value)')
 cls.func(nil, 'void setGrayed(bool value)')
 cls.func(nil, 'fairygui::FillMethod getFillMethod()')
 cls.func(nil, 'void setFillMethod(fairygui::FillMethod value)')

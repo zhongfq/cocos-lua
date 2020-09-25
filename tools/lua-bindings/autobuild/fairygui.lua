@@ -10,37 +10,38 @@ local M = {}
 
 M.NAME = "fairygui"
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
+M.HEADER_INCLUDES = nil
 M.INCLUDES = [[
-#include "lua-bindings/lua_fairygui.h"
-#include "lua-bindings/lua_conv.h"
-#include "lua-bindings/lua_conv_manual.h"
-#include "xgame/xlua.h"
-#include "FairyGUI.h"
-#include "GLoader3D.h"
-#include "tween/EaseManager.h"
-#include "tween/GPath.h"
-#include "display/FUISprite.h"
-#include "utils/html/HtmlElement.h"
-#include "utils/html/HtmlObject.h"
-#include "utils/html/HtmlParser.h"
+    #include "lua-bindings/lua_fairygui.h"
+    #include "lua-bindings/lua_conv.h"
+    #include "lua-bindings/lua_conv_manual.h"
+    #include "xgame/xlua.h"
+    #include "FairyGUI.h"
+    #include "GLoader3D.h"
+    #include "tween/EaseManager.h"
+    #include "tween/GPath.h"
+    #include "display/FUISprite.h"
+    #include "utils/html/HtmlElement.h"
+    #include "utils/html/HtmlObject.h"
+    #include "utils/html/HtmlParser.h"
 ]]
 M.CHUNK = [[
-bool manual_olua_is_fairygui_EventTag(lua_State *L, int idx)
-{
-    return olua_isinteger(L, idx) || olua_isa<void>(L, idx);
-}
+    bool manual_olua_is_fairygui_EventTag(lua_State *L, int idx)
+    {
+        return olua_isinteger(L, idx) || olua_isa<void>(L, idx);
+    }
 
-void manual_olua_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventTag *value)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
+    void manual_olua_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventTag *value)
+    {
+        if (!value) {
+            luaL_error(L, "value is NULL");
+        }
+        if (olua_isinteger(L, idx)) {
+            *value = (int)olua_tointeger(L, idx);
+        } else {
+            *value = olua_checkobj<void>(L, idx);
+        }
     }
-    if (olua_isinteger(L, idx)) {
-        *value = (int)olua_tointeger(L, idx);
-    } else {
-        *value = olua_checkobj<void>(L, idx);
-    }
-}
 ]]
 
 M.CONVS = {
@@ -77,6 +78,10 @@ M.CONVS = {
 M.CLASSES = {}
 
 cls = typecls 'fairygui::UIEventType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.const('Enter', 'fairygui::UIEventType::Enter', 'const int')
 cls.const('Exit', 'fairygui::UIEventType::Exit', 'const int')
 cls.const('Changed', 'fairygui::UIEventType::Changed', 'const int')
@@ -110,28 +115,30 @@ cls.const('GearStop', 'fairygui::UIEventType::GearStop', 'const int')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::UIEventDispatcher'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
 cls.CHUNK = [[
-static std::string makeListenerTag(lua_State *L, lua_Integer type, int tagidx)
-{
-    char buf[64];
-    intptr_t tag = 0;
-    if (tagidx > 0) {
-        if (olua_isinteger(L, tagidx)) {
-            tag = (intptr_t)olua_tointeger(L, tagidx);
-        } else {
-            tag = (intptr_t)olua_checkobj<void>(L, tagidx);
+    static std::string makeListenerTag(lua_State *L, lua_Integer type, int tagidx)
+    {
+        char buf[64];
+        intptr_t tag = 0;
+        if (tagidx > 0) {
+            if (olua_isinteger(L, tagidx)) {
+                tag = (intptr_t)olua_tointeger(L, tagidx);
+            } else {
+                tag = (intptr_t)olua_checkobj<void>(L, tagidx);
+            }
         }
+        if (type < 0) {
+            sprintf(buf, "listeners.");
+        } else if (tag > 0) {
+            sprintf(buf, "listeners.%d.%p", (int)type, (void *)tag);
+        } else {
+            sprintf(buf, "listeners.%d.", (int)type);
+        }
+        return std::string(buf);
     }
-    if (type < 0) {
-        sprintf(buf, "listeners.");
-    } else if (tag > 0) {
-        sprintf(buf, "listeners.%d.%p", (int)type, (void *)tag);
-    } else {
-        sprintf(buf, "listeners.%d.", (int)type);
-    }
-    return std::string(buf);
-}
 ]]
 cls.func(nil, 'UIEventDispatcher()')
 cls.func(nil, 'bool hasEventListener(int eventType)', 'bool hasEventListener(int eventType, const fairygui::EventTag &tag)')
@@ -170,6 +177,10 @@ cls.callback {
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::EventContext'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'EventContext()')
 cls.func(nil, 'int getType()')
 cls.func(nil, 'cocos2d::Ref *getSender()')
@@ -181,20 +192,27 @@ cls.func(nil, 'void captureTouch()')
 cls.func(nil, 'void uncaptureTouch()')
 cls.func(nil, 'const cocos2d::Value &getDataValue()')
 cls.func(nil, 'void *getData()')
-cls.prop('type')
-cls.prop('sender')
-cls.prop('input')
-cls.prop('defaultPrevented')
-cls.prop('dataValue')
-cls.prop('data')
+cls.prop('type', nil, nil)
+cls.prop('sender', nil, nil)
+cls.prop('input', nil, nil)
+cls.prop('defaultPrevented', nil, nil)
+cls.prop('dataValue', nil, nil)
+cls.prop('data', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::IHitTest'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'bool hitTest(fairygui::GComponent *obj, const cocos2d::Vec2 &localPoint)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::PixelHitTest'
-cls.SUPERCLS = "fairygui::IHitTest"
+cls.SUPERCLS = 'fairygui::IHitTest'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'PixelHitTest(fairygui::PixelHitTestData *data, int offsetX, int offsetY)')
 cls.var('offsetX', [[int offsetX]])
 cls.var('offsetY', [[int offsetY]])
@@ -203,6 +221,10 @@ cls.var('scaleY', [[float scaleY]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::PixelHitTestData'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'PixelHitTestData()')
 cls.var('pixelWidth', [[int pixelWidth]])
 cls.var('scale', [[float scale]])
@@ -211,6 +233,10 @@ cls.var('pixelsLength', [[size_t pixelsLength]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::InputProcessor'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'fairygui::InputEvent *getRecentInput()')
 cls.func(nil, 'static bool isTouchOnUI()')
 cls.func(nil, 'InputProcessor(fairygui::GComponent *owner)')
@@ -232,11 +258,15 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.prop('recentInput')
-cls.prop('touchOnUI')
+cls.prop('recentInput', nil, nil)
+cls.prop('touchOnUI', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::InputEvent'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'InputEvent()')
 cls.func(nil, 'fairygui::GObject *getTarget()')
 cls.func(nil, 'const int getX()')
@@ -252,23 +282,27 @@ cls.func(nil, 'bool isAltDown()')
 cls.func(nil, 'bool isShiftDown()')
 cls.func(nil, 'int getMouseWheelDelta()')
 cls.func(nil, 'fairygui::InputProcessor *getProcessor()')
-cls.prop('target')
-cls.prop('x')
-cls.prop('y')
-cls.prop('position')
-cls.prop('touch')
-cls.prop('touchId')
-cls.prop('doubleClick')
-cls.prop('button')
-cls.prop('keyCode')
-cls.prop('ctrlDown')
-cls.prop('altDown')
-cls.prop('shiftDown')
-cls.prop('mouseWheelDelta')
-cls.prop('processor')
+cls.prop('target', nil, nil)
+cls.prop('x', nil, nil)
+cls.prop('y', nil, nil)
+cls.prop('position', nil, nil)
+cls.prop('touch', nil, nil)
+cls.prop('touchId', nil, nil)
+cls.prop('doubleClick', nil, nil)
+cls.prop('button', nil, nil)
+cls.prop('keyCode', nil, nil)
+cls.prop('ctrlDown', nil, nil)
+cls.prop('altDown', nil, nil)
+cls.prop('shiftDown', nil, nil)
+cls.prop('mouseWheelDelta', nil, nil)
+cls.prop('processor', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::TextFormat'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.const('OUTLINE', 'fairygui::TextFormat::OUTLINE', 'const int')
 cls.const('SHADOW', 'fairygui::TextFormat::SHADOW', 'const int')
 cls.const('GLOW', 'fairygui::TextFormat::GLOW', 'const int')
@@ -297,6 +331,10 @@ cls.var('glowColor', [[cocos2d::Color3B glowColor]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::EaseType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('Linear', 'fairygui::EaseType::Linear')
 cls.enum('SineIn', 'fairygui::EaseType::SineIn')
 cls.enum('SineOut', 'fairygui::EaseType::SineOut')
@@ -332,10 +370,18 @@ cls.enum('Custom', 'fairygui::EaseType::Custom')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::EaseManager'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static float evaluate(fairygui::EaseType easeType, float time, float duration, float overshootOrAmplitude, float period)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::TweenPropType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('None', 'fairygui::TweenPropType::None')
 cls.enum('X', 'fairygui::TweenPropType::X')
 cls.enum('Y', 'fairygui::TweenPropType::Y')
@@ -352,10 +398,17 @@ cls.enum('Progress', 'fairygui::TweenPropType::Progress')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GPath'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GTweener'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'GTweener()')
 cls.func(nil, 'fairygui::GTweener *setDelay(float value)')
 cls.func(nil, 'float getDelay()')
@@ -421,27 +474,30 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.prop('delay')
-cls.prop('duration')
-cls.prop('repeat')
-cls.prop('target')
-cls.prop('userData')
-cls.prop('normalizedTime')
-cls.prop('completed')
+cls.prop('delay', nil, nil)
+cls.prop('duration', nil, nil)
+cls.prop('repeat', nil, nil)
+cls.prop('target', nil, nil)
+cls.prop('userData', nil, nil)
+cls.prop('normalizedTime', nil, nil)
+cls.prop('completed', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GTween'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
 cls.CHUNK = [[
-static bool should_del_tweener_ref(lua_State *L, int idx)
-{
-    if (olua_isa<fairygui::GTweener>(L, idx)) {
-        fairygui::GTweener *obj = olua_toobj<fairygui::GTweener>(L, idx);
-        if (obj->getReferenceCount() == 1 || obj->allCompleted()) {
-            return true;
+    static bool should_del_tweener_ref(lua_State *L, int idx)
+    {
+        if (olua_isa<fairygui::GTweener>(L, idx)) {
+            fairygui::GTweener *obj = olua_toobj<fairygui::GTweener>(L, idx);
+            if (obj->getReferenceCount() == 1 || obj->allCompleted()) {
+                return true;
+            }
         }
+        return false;
     }
-    return false;
-}
 ]]
 cls.func(nil, 'static fairygui::GTweener *to(float startValue, float endValue, float duration)', 'static fairygui::GTweener *to(const cocos2d::Vec2 &startValue, const cocos2d::Vec2 &endValue, float duration)', 'static fairygui::GTweener *to(const cocos2d::Vec3 &startValue, const cocos2d::Vec3 &endValue, float duration)', 'static fairygui::GTweener *to(const cocos2d::Vec4 &startValue, const cocos2d::Vec4 &endValue, float duration)', 'static fairygui::GTweener *to(const cocos2d::Color4B &startValue, const cocos2d::Color4B &endValue, float duration)')
 cls.func(nil, 'static fairygui::GTweener *toDouble(double startValue, double endValue, float duration)')
@@ -452,55 +508,76 @@ cls.func(nil, 'static void kill(cocos2d::Ref *target)', 'static void kill(cocos2
 cls.func(nil, 'static fairygui::GTweener *getTween(cocos2d::Ref *target)', 'static fairygui::GTweener *getTween(cocos2d::Ref *target, fairygui::TweenPropType propType)')
 cls.func(nil, 'static void clean()')
 cls.insert('to', {
+    BEFORE = nil,
     AFTER = [[
         olua_pushclassobj<fairygui::GTween>(L);
         olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
         olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
         lua_pop(L, 1);
     ]],
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 cls.insert('toDouble', {
+    BEFORE = nil,
     AFTER = [[
         olua_pushclassobj<fairygui::GTween>(L);
         olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
         olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
         lua_pop(L, 1);
     ]],
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 cls.insert('delayedCall', {
+    BEFORE = nil,
     AFTER = [[
         olua_pushclassobj<fairygui::GTween>(L);
         olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
         olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
         lua_pop(L, 1);
     ]],
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 cls.insert('shake', {
+    BEFORE = nil,
     AFTER = [[
         olua_pushclassobj<fairygui::GTween>(L);
         olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
         olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
         lua_pop(L, 1);
     ]],
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 cls.insert('kill', {
+    BEFORE = nil,
     AFTER = [[
         olua_pushclassobj<fairygui::GTween>(L);
         olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
         lua_pop(L, 1);
     ]],
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 cls.insert('clean', {
+    BEFORE = nil,
     AFTER = [[
         olua_pushclassobj<fairygui::GTween>(L);
         olua_delallrefs(L, -1, "tweeners");
         lua_pop(L, 1);
     ]],
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::UIPackage'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.const('URL_PREFIX', 'fairygui::UIPackage::URL_PREFIX', 'const std::string')
 cls.func(nil, 'UIPackage()')
 cls.func(nil, 'static fairygui::UIPackage *getById(const std::string &id)')
@@ -524,14 +601,17 @@ cls.func(nil, 'static const std::string &getBranch()')
 cls.func(nil, 'static void setBranch(const std::string &value)')
 cls.func(nil, 'static const std::string &getVar(const std::string &key)')
 cls.func(nil, 'static void setVar(const std::string &key, const std::string &value)')
-cls.prop('emptyTexture')
-cls.prop('id')
-cls.prop('name')
-cls.prop('branch')
+cls.prop('emptyTexture', nil, nil)
+cls.prop('id', nil, nil)
+cls.prop('name', nil, nil)
+cls.prop('branch', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::PackageItem'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'PackageItem()')
 cls.func(nil, 'void load()')
 cls.func(nil, 'fairygui::PackageItem *getBranch()')
@@ -553,11 +633,15 @@ cls.var('delayPerUnit', [[float delayPerUnit]])
 cls.var('repeatDelay', [[float repeatDelay]])
 cls.var('swing', [[bool swing]])
 cls.var('translated', [[bool translated]])
-cls.prop('branch')
-cls.prop('highResolution')
+cls.prop('branch', nil, nil)
+cls.prop('highResolution', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::PackageItemType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('IMAGE', 'fairygui::PackageItemType::IMAGE')
 cls.enum('MOVIECLIP', 'fairygui::PackageItemType::MOVIECLIP')
 cls.enum('SOUND', 'fairygui::PackageItemType::SOUND')
@@ -572,6 +656,10 @@ cls.enum('DRAGONBONES', 'fairygui::PackageItemType::DRAGONBONES')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::ObjectType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('IMAGE', 'fairygui::ObjectType::IMAGE')
 cls.enum('MOVIECLIP', 'fairygui::ObjectType::MOVIECLIP')
 cls.enum('SWF', 'fairygui::ObjectType::SWF')
@@ -594,30 +682,50 @@ cls.enum('LOADER3D', 'fairygui::ObjectType::LOADER3D')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::ButtonMode'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('COMMON', 'fairygui::ButtonMode::COMMON')
 cls.enum('CHECK', 'fairygui::ButtonMode::CHECK')
 cls.enum('RADIO', 'fairygui::ButtonMode::RADIO')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::ChildrenRenderOrder'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('ASCENT', 'fairygui::ChildrenRenderOrder::ASCENT')
 cls.enum('DESCENT', 'fairygui::ChildrenRenderOrder::DESCENT')
 cls.enum('ARCH', 'fairygui::ChildrenRenderOrder::ARCH')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::OverflowType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('VISIBLE', 'fairygui::OverflowType::VISIBLE')
 cls.enum('HIDDEN', 'fairygui::OverflowType::HIDDEN')
 cls.enum('SCROLL', 'fairygui::OverflowType::SCROLL')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::ScrollType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('HORIZONTAL', 'fairygui::ScrollType::HORIZONTAL')
 cls.enum('VERTICAL', 'fairygui::ScrollType::VERTICAL')
 cls.enum('BOTH', 'fairygui::ScrollType::BOTH')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::ScrollBarDisplayType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('DEFAULT', 'fairygui::ScrollBarDisplayType::DEFAULT')
 cls.enum('VISIBLE', 'fairygui::ScrollBarDisplayType::VISIBLE')
 cls.enum('AUTO', 'fairygui::ScrollBarDisplayType::AUTO')
@@ -625,6 +733,10 @@ cls.enum('HIDDEN', 'fairygui::ScrollBarDisplayType::HIDDEN')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::LoaderFillType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('NONE', 'fairygui::LoaderFillType::NONE')
 cls.enum('SCALE', 'fairygui::LoaderFillType::SCALE')
 cls.enum('SCALE_MATCH_HEIGHT', 'fairygui::LoaderFillType::SCALE_MATCH_HEIGHT')
@@ -634,6 +746,10 @@ cls.enum('SCALE_NO_BORDER', 'fairygui::LoaderFillType::SCALE_NO_BORDER')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::ProgressTitleType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('PERCENT', 'fairygui::ProgressTitleType::PERCENT')
 cls.enum('VALUE_MAX', 'fairygui::ProgressTitleType::VALUE_MAX')
 cls.enum('VALUE', 'fairygui::ProgressTitleType::VALUE')
@@ -641,6 +757,10 @@ cls.enum('MAX', 'fairygui::ProgressTitleType::MAX')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::ListLayoutType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('SINGLE_COLUMN', 'fairygui::ListLayoutType::SINGLE_COLUMN')
 cls.enum('SINGLE_ROW', 'fairygui::ListLayoutType::SINGLE_ROW')
 cls.enum('FLOW_HORIZONTAL', 'fairygui::ListLayoutType::FLOW_HORIZONTAL')
@@ -649,6 +769,10 @@ cls.enum('PAGINATION', 'fairygui::ListLayoutType::PAGINATION')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::ListSelectionMode'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('SINGLE', 'fairygui::ListSelectionMode::SINGLE')
 cls.enum('MULTIPLE', 'fairygui::ListSelectionMode::MULTIPLE')
 cls.enum('MULTIPLE_SINGLECLICK', 'fairygui::ListSelectionMode::MULTIPLE_SINGLECLICK')
@@ -656,18 +780,30 @@ cls.enum('NONE', 'fairygui::ListSelectionMode::NONE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GroupLayoutType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('NONE', 'fairygui::GroupLayoutType::NONE')
 cls.enum('HORIZONTAL', 'fairygui::GroupLayoutType::HORIZONTAL')
 cls.enum('VERTICAL', 'fairygui::GroupLayoutType::VERTICAL')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::PopupDirection'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('AUTO', 'fairygui::PopupDirection::AUTO')
 cls.enum('UP', 'fairygui::PopupDirection::UP')
 cls.enum('DOWN', 'fairygui::PopupDirection::DOWN')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::AutoSizeType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('NONE', 'fairygui::AutoSizeType::NONE')
 cls.enum('BOTH', 'fairygui::AutoSizeType::BOTH')
 cls.enum('HEIGHT', 'fairygui::AutoSizeType::HEIGHT')
@@ -675,6 +811,10 @@ cls.enum('SHRINK', 'fairygui::AutoSizeType::SHRINK')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::FlipType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('NONE', 'fairygui::FlipType::NONE')
 cls.enum('HORIZONTAL', 'fairygui::FlipType::HORIZONTAL')
 cls.enum('VERTICAL', 'fairygui::FlipType::VERTICAL')
@@ -682,6 +822,10 @@ cls.enum('BOTH', 'fairygui::FlipType::BOTH')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::TransitionActionType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('XY', 'fairygui::TransitionActionType::XY')
 cls.enum('Size', 'fairygui::TransitionActionType::Size')
 cls.enum('Scale', 'fairygui::TransitionActionType::Scale')
@@ -702,6 +846,10 @@ cls.enum('Unknown', 'fairygui::TransitionActionType::Unknown')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::FillMethod'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('None', 'fairygui::FillMethod::None')
 cls.enum('Horizontal', 'fairygui::FillMethod::Horizontal')
 cls.enum('Vertical', 'fairygui::FillMethod::Vertical')
@@ -711,6 +859,10 @@ cls.enum('Radial360', 'fairygui::FillMethod::Radial360')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::FillOrigin'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('Top', 'fairygui::FillOrigin::Top')
 cls.enum('Bottom', 'fairygui::FillOrigin::Bottom')
 cls.enum('Left', 'fairygui::FillOrigin::Left')
@@ -718,6 +870,10 @@ cls.enum('Right', 'fairygui::FillOrigin::Right')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::ObjectPropID'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('Text', 'fairygui::ObjectPropID::Text')
 cls.enum('Icon', 'fairygui::ObjectPropID::Icon')
 cls.enum('Color', 'fairygui::ObjectPropID::Color')
@@ -731,7 +887,10 @@ cls.enum('Selected', 'fairygui::ObjectPropID::Selected')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GController'
-cls.SUPERCLS = "fairygui::UIEventDispatcher"
+cls.SUPERCLS = 'fairygui::UIEventDispatcher'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'GController()')
 cls.func(nil, 'fairygui::GComponent *getParent()')
 cls.func(nil, 'void setParent(fairygui::GComponent *value)')
@@ -754,18 +913,21 @@ cls.func(nil, 'void runActions()')
 cls.var('name', [[std::string name]])
 cls.var('changing', [[bool changing]])
 cls.var('autoRadioGroupDepth', [[bool autoRadioGroupDepth]])
-cls.prop('parent')
-cls.prop('selectedIndex')
-cls.prop('selectedPage')
-cls.prop('selectedPageId')
-cls.prop('previsousIndex')
-cls.prop('previousPage')
-cls.prop('previousPageId')
-cls.prop('pageCount')
+cls.prop('parent', nil, nil)
+cls.prop('selectedIndex', nil, nil)
+cls.prop('selectedPage', nil, nil)
+cls.prop('selectedPageId', nil, nil)
+cls.prop('previsousIndex', nil, nil)
+cls.prop('previousPage', nil, nil)
+cls.prop('previousPageId', nil, nil)
+cls.prop('pageCount', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GObject'
-cls.SUPERCLS = "fairygui::UIEventDispatcher"
+cls.SUPERCLS = 'fairygui::UIEventDispatcher'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static fairygui::GObject *getDraggingObject()')
 cls.func(nil, 'GObject()')
 cls.func(nil, 'static fairygui::GObject *create()')
@@ -879,49 +1041,52 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.prop('relations', 'Relations* relations()')
-cls.prop('displayObject', 'cocos2d::Node* displayObject()')
-cls.prop('draggingObject')
-cls.prop('x')
-cls.prop('y')
-cls.prop('position')
-cls.prop('xMin')
-cls.prop('yMin')
-cls.prop('pixelSnapping')
-cls.prop('width')
-cls.prop('height')
-cls.prop('size')
-cls.prop('pivot')
-cls.prop('pivotAsAnchor')
-cls.prop('scaleX')
-cls.prop('scaleY')
-cls.prop('scale')
-cls.prop('skewX')
-cls.prop('skewY')
-cls.prop('rotation')
-cls.prop('alpha')
-cls.prop('grayed')
-cls.prop('visible')
-cls.prop('touchable')
-cls.prop('sortingOrder')
-cls.prop('group')
-cls.prop('text')
-cls.prop('icon')
-cls.prop('tooltips')
-cls.prop('data')
-cls.prop('customData')
-cls.prop('draggable')
-cls.prop('dragBounds')
-cls.prop('resourceURL')
-cls.prop('packageItem')
-cls.prop('parent')
-cls.prop('root')
+cls.prop('relations', 'Relations* relations()', nil)
+cls.prop('displayObject', 'cocos2d::Node* displayObject()', nil)
+cls.prop('draggingObject', nil, nil)
+cls.prop('x', nil, nil)
+cls.prop('y', nil, nil)
+cls.prop('position', nil, nil)
+cls.prop('xMin', nil, nil)
+cls.prop('yMin', nil, nil)
+cls.prop('pixelSnapping', nil, nil)
+cls.prop('width', nil, nil)
+cls.prop('height', nil, nil)
+cls.prop('size', nil, nil)
+cls.prop('pivot', nil, nil)
+cls.prop('pivotAsAnchor', nil, nil)
+cls.prop('scaleX', nil, nil)
+cls.prop('scaleY', nil, nil)
+cls.prop('scale', nil, nil)
+cls.prop('skewX', nil, nil)
+cls.prop('skewY', nil, nil)
+cls.prop('rotation', nil, nil)
+cls.prop('alpha', nil, nil)
+cls.prop('grayed', nil, nil)
+cls.prop('visible', nil, nil)
+cls.prop('touchable', nil, nil)
+cls.prop('sortingOrder', nil, nil)
+cls.prop('group', nil, nil)
+cls.prop('text', nil, nil)
+cls.prop('icon', nil, nil)
+cls.prop('tooltips', nil, nil)
+cls.prop('data', nil, nil)
+cls.prop('customData', nil, nil)
+cls.prop('draggable', nil, nil)
+cls.prop('dragBounds', nil, nil)
+cls.prop('resourceURL', nil, nil)
+cls.prop('packageItem', nil, nil)
+cls.prop('parent', nil, nil)
+cls.prop('root', nil, nil)
 cls.insert('center', {
     BEFORE = [[
         if (!self->getParent() && !fairygui::UIRoot) {
             luaL_error(L, "UIRoot and parent are both nullptr");
         }
     ]],
+    AFTER = nil,
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 cls.insert('makeFullScreen', {
     BEFORE = [[
@@ -929,15 +1094,20 @@ cls.insert('makeFullScreen', {
             luaL_error(L, "UIRoot is nullptr");
         }
     ]],
+    AFTER = nil,
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GComponent'
-cls.SUPERCLS = "fairygui::GObject"
+cls.SUPERCLS = 'fairygui::GObject'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
 cls.CHUNK = [[
-static int _fairygui_GComponent_getController(lua_State *L);
-static int _fairygui_GComponent_getTransition(lua_State *L);
-static int _fairygui_GComponent_getChild(lua_State *L);
+    static int _fairygui_GComponent_getController(lua_State *L);
+    static int _fairygui_GComponent_getTransition(lua_State *L);
+    static int _fairygui_GComponent_getChild(lua_State *L);
 ]]
 cls.func('resolve', [[{
     auto self = olua_toobj<fairygui::GComponent>(L, 1);
@@ -1029,25 +1199,28 @@ cls.func(nil, 'cocos2d::Vec2 getSnappingPosition(const cocos2d::Vec2 &pt)')
 cls.func(nil, 'void childSortingOrderChanged(fairygui::GObject *child, int oldValue, int newValue)')
 cls.func(nil, 'void childStateChanged(fairygui::GObject *child)')
 cls.func(nil, 'void adjustRadioGroupDepth(fairygui::GObject *obj, fairygui::GController *c)')
-cls.prop('numChildren', 'int numChildren()')
-cls.prop('children')
-cls.prop('firstChildInView')
-cls.prop('controllers')
-cls.prop('transitions')
-cls.prop('opaque')
-cls.prop('margin')
-cls.prop('childrenRenderOrder')
-cls.prop('apexIndex')
-cls.prop('mask')
-cls.prop('hitArea')
-cls.prop('scrollPane')
-cls.prop('viewWidth')
-cls.prop('viewHeight')
+cls.prop('numChildren', 'int numChildren()', nil)
+cls.prop('children', nil, nil)
+cls.prop('firstChildInView', nil, nil)
+cls.prop('controllers', nil, nil)
+cls.prop('transitions', nil, nil)
+cls.prop('opaque', nil, nil)
+cls.prop('margin', nil, nil)
+cls.prop('childrenRenderOrder', nil, nil)
+cls.prop('apexIndex', nil, nil)
+cls.prop('mask', nil, nil)
+cls.prop('hitArea', nil, nil)
+cls.prop('scrollPane', nil, nil)
+cls.prop('viewWidth', nil, nil)
+cls.prop('viewHeight', nil, nil)
 cls.alias('resolve', 'getChildByPath')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GRoot'
-cls.SUPERCLS = "fairygui::GComponent"
+cls.SUPERCLS = 'fairygui::GComponent'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'GRoot()')
 cls.func(nil, 'static fairygui::GRoot *create(cocos2d::Scene *scene, @optional int zOrder)')
 cls.func(nil, 'static fairygui::GRoot *getInstance()')
@@ -1084,23 +1257,26 @@ cls.func(nil, 'float getSoundVolumeScale()')
 cls.func(nil, 'void setSoundVolumeScale(float value)')
 cls.func(nil, 'void setNotAsUIRoot()')
 cls.var('contentScaleLevel', [[static int contentScaleLevel]])
-cls.prop('UIRoot', 'static GRoot* getInstance()')
-cls.prop('instance')
-cls.prop('topWindow')
-cls.prop('modalWaitingPane')
-cls.prop('modalLayer')
-cls.prop('modalWaiting')
-cls.prop('inputProcessor')
-cls.prop('touchTarget')
-cls.prop('soundEnabled')
-cls.prop('soundVolumeScale')
+cls.prop('UIRoot', 'static GRoot* getInstance()', nil)
+cls.prop('instance', nil, nil)
+cls.prop('topWindow', nil, nil)
+cls.prop('modalWaitingPane', nil, nil)
+cls.prop('modalLayer', nil, nil)
+cls.prop('modalWaiting', nil, nil)
+cls.prop('inputProcessor', nil, nil)
+cls.prop('touchTarget', nil, nil)
+cls.prop('soundEnabled', nil, nil)
+cls.prop('soundVolumeScale', nil, nil)
 cls.insert('create', {
+    BEFORE = nil,
     AFTER = [[
         olua_push_cppobj<cocos2d::Node>(L, ret->displayObject());
         olua_addref(L, -1, "fgui.root", -2, OLUA_MODE_SINGLE);
         olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
         lua_pop(L, 1);
     ]],
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 cls.insert('hideWindow', {
     BEFORE = [[
@@ -1110,6 +1286,9 @@ cls.insert('hideWindow', {
             parent = lua_gettop(L);
         }
     ]],
+    AFTER = nil,
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 cls.insert('hideWindowImmediately', {
     BEFORE = [[
@@ -1119,11 +1298,17 @@ cls.insert('hideWindowImmediately', {
             parent = lua_gettop(L);
         }
     ]],
+    AFTER = nil,
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GGroup'
-cls.SUPERCLS = "fairygui::GObject"
+cls.SUPERCLS = 'fairygui::GObject'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'GGroup()')
 cls.func(nil, 'static fairygui::GGroup *create()')
 cls.func(nil, 'fairygui::GroupLayoutType getLayout()')
@@ -1143,28 +1328,34 @@ cls.func(nil, 'void setMainGridMinSize(int value)')
 cls.func(nil, 'void setBoundsChangedFlag(@optional bool positionChangedOnly)')
 cls.func(nil, 'void moveChildren(float dx, float dy)')
 cls.func(nil, 'void resizeChildren(float dw, float dh)')
-cls.prop('layout')
-cls.prop('columnGap')
-cls.prop('lineGap')
-cls.prop('excludeInvisibles')
-cls.prop('autoSizeDisabled')
-cls.prop('mainGridIndex')
-cls.prop('mainGridMinSize')
+cls.prop('layout', nil, nil)
+cls.prop('columnGap', nil, nil)
+cls.prop('lineGap', nil, nil)
+cls.prop('excludeInvisibles', nil, nil)
+cls.prop('autoSizeDisabled', nil, nil)
+cls.prop('mainGridIndex', nil, nil)
+cls.prop('mainGridMinSize', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GScrollBar'
-cls.SUPERCLS = "fairygui::GComponent"
+cls.SUPERCLS = 'fairygui::GComponent'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'GScrollBar()')
 cls.func(nil, 'static fairygui::GScrollBar *create()')
 cls.func(nil, 'void setScrollPane(fairygui::ScrollPane *target, bool vertical)')
 cls.func(nil, 'void setDisplayPerc(float value)')
 cls.func(nil, 'void setScrollPerc(float value)')
 cls.func(nil, 'float getMinSize()')
-cls.prop('minSize')
+cls.prop('minSize', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GLoader'
-cls.SUPERCLS = "fairygui::GObject"
+cls.SUPERCLS = 'fairygui::GObject'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'GLoader()')
 cls.func(nil, 'static fairygui::GLoader *create()')
 cls.func(nil, 'const std::string &getURL()')
@@ -1195,25 +1386,28 @@ cls.func(nil, 'void setFillClockwise(bool value)')
 cls.func(nil, 'float getFillAmount()')
 cls.func(nil, 'void setFillAmount(float value)')
 cls.func(nil, '@addref(component ^) fairygui::GComponent *getComponent()')
-cls.prop('url')
-cls.prop('align')
-cls.prop('verticalAlign')
-cls.prop('autoSize')
-cls.prop('fill')
-cls.prop('shrinkOnly')
-cls.prop('contentSize')
-cls.prop('color')
-cls.prop('playing')
-cls.prop('frame')
-cls.prop('fillMethod')
-cls.prop('fillOrigin')
-cls.prop('fillClockwise')
-cls.prop('fillAmount')
-cls.prop('component')
+cls.prop('url', nil, nil)
+cls.prop('align', nil, nil)
+cls.prop('verticalAlign', nil, nil)
+cls.prop('autoSize', nil, nil)
+cls.prop('fill', nil, nil)
+cls.prop('shrinkOnly', nil, nil)
+cls.prop('contentSize', nil, nil)
+cls.prop('color', nil, nil)
+cls.prop('playing', nil, nil)
+cls.prop('frame', nil, nil)
+cls.prop('fillMethod', nil, nil)
+cls.prop('fillOrigin', nil, nil)
+cls.prop('fillClockwise', nil, nil)
+cls.prop('fillAmount', nil, nil)
+cls.prop('component', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GLoader3D'
-cls.SUPERCLS = "fairygui::GObject"
+cls.SUPERCLS = 'fairygui::GObject'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'GLoader3D()')
 cls.func(nil, 'static fairygui::GLoader3D *create()')
 cls.func(nil, 'const std::string &getURL()')
@@ -1242,23 +1436,26 @@ cls.func(nil, 'const std::string &getSkinName()')
 cls.func(nil, 'void setSkinName(const std::string &value)')
 cls.func(nil, 'bool getLoop()')
 cls.func(nil, 'void setLoop(bool value)')
-cls.prop('url')
-cls.prop('align')
-cls.prop('verticalAlign')
-cls.prop('autoSize')
-cls.prop('fill')
-cls.prop('shrinkOnly')
-cls.prop('content')
-cls.prop('color')
-cls.prop('playing')
-cls.prop('frame')
-cls.prop('animationName')
-cls.prop('skinName')
-cls.prop('loop')
+cls.prop('url', nil, nil)
+cls.prop('align', nil, nil)
+cls.prop('verticalAlign', nil, nil)
+cls.prop('autoSize', nil, nil)
+cls.prop('fill', nil, nil)
+cls.prop('shrinkOnly', nil, nil)
+cls.prop('content', nil, nil)
+cls.prop('color', nil, nil)
+cls.prop('playing', nil, nil)
+cls.prop('frame', nil, nil)
+cls.prop('animationName', nil, nil)
+cls.prop('skinName', nil, nil)
+cls.prop('loop', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GTextField'
-cls.SUPERCLS = "fairygui::GObject"
+cls.SUPERCLS = 'fairygui::GObject'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'bool isUBBEnabled()')
 cls.func(nil, 'void setUBBEnabled(bool value)')
 cls.func(nil, 'fairygui::AutoSizeType getAutoSize()')
@@ -1278,25 +1475,31 @@ cls.func(nil, 'cocos2d::ValueMap *getTemplateVars()')
 cls.func(nil, 'void setTemplateVars(cocos2d::ValueMap *value)')
 cls.func(nil, 'fairygui::GTextField *setVar(const std::string &name, const cocos2d::Value &value)')
 cls.func(nil, 'void flushVars()')
-cls.prop('ubbEnabled')
-cls.prop('autoSize')
-cls.prop('singleLine')
-cls.prop('textFormat')
-cls.prop('textSize')
-cls.prop('color')
-cls.prop('fontSize')
-cls.prop('outlineColor')
-cls.prop('templateVars')
+cls.prop('ubbEnabled', nil, nil)
+cls.prop('autoSize', nil, nil)
+cls.prop('singleLine', nil, nil)
+cls.prop('textFormat', nil, nil)
+cls.prop('textSize', nil, nil)
+cls.prop('color', nil, nil)
+cls.prop('fontSize', nil, nil)
+cls.prop('outlineColor', nil, nil)
+cls.prop('templateVars', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GBasicTextField'
-cls.SUPERCLS = "fairygui::GTextField"
+cls.SUPERCLS = 'fairygui::GTextField'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'GBasicTextField()')
 cls.func(nil, 'static fairygui::GBasicTextField *create()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GGraph'
-cls.SUPERCLS = "fairygui::GObject"
+cls.SUPERCLS = 'fairygui::GObject'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'GGraph()')
 cls.func(nil, 'static fairygui::GGraph *create()')
 cls.func(nil, 'void drawRect(float aWidth, float aHeight, int lineSize, const cocos2d::Color4F &lineColor, const cocos2d::Color4F &fillColor)')
@@ -1304,12 +1507,15 @@ cls.func(nil, 'void drawEllipse(float aWidth, float aHeight, int lineSize, const
 cls.func(nil, 'bool isEmpty()')
 cls.func(nil, 'cocos2d::Color3B getColor()')
 cls.func(nil, 'void setColor(const cocos2d::Color3B &value)')
-cls.prop('empty')
-cls.prop('color')
+cls.prop('empty', nil, nil)
+cls.prop('color', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GButton'
-cls.SUPERCLS = "fairygui::GComponent"
+cls.SUPERCLS = 'fairygui::GComponent'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.const('UP', 'fairygui::GButton::UP', 'const std::string')
 cls.const('DOWN', 'fairygui::GButton::DOWN', 'const std::string')
 cls.const('OVER', 'fairygui::GButton::OVER', 'const std::string')
@@ -1335,19 +1541,22 @@ cls.func(nil, 'void setRelatedController(@addref(relatedController ^) fairygui::
 cls.func(nil, 'bool isChangeStateOnClick()')
 cls.func(nil, 'void setChangeStateOnClick(bool value)')
 cls.func(nil, '@addref(textField ^) fairygui::GTextField *getTextField()')
-cls.prop('title')
-cls.prop('selectedTitle')
-cls.prop('selectedIcon')
-cls.prop('titleColor')
-cls.prop('titleFontSize')
-cls.prop('selected')
-cls.prop('relatedController')
-cls.prop('changeStateOnClick')
-cls.prop('textField')
+cls.prop('title', nil, nil)
+cls.prop('selectedTitle', nil, nil)
+cls.prop('selectedIcon', nil, nil)
+cls.prop('titleColor', nil, nil)
+cls.prop('titleFontSize', nil, nil)
+cls.prop('selected', nil, nil)
+cls.prop('relatedController', nil, nil)
+cls.prop('changeStateOnClick', nil, nil)
+cls.prop('textField', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GImage'
-cls.SUPERCLS = "fairygui::GObject"
+cls.SUPERCLS = 'fairygui::GObject'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'GImage()')
 cls.func(nil, 'static fairygui::GImage *create()')
 cls.func(nil, 'fairygui::FlipType getFlip()')
@@ -1362,16 +1571,19 @@ cls.func(nil, 'bool isFillClockwise()')
 cls.func(nil, 'void setFillClockwise(bool value)')
 cls.func(nil, 'float getFillAmount()')
 cls.func(nil, 'void setFillAmount(float value)')
-cls.prop('flip')
-cls.prop('color')
-cls.prop('fillMethod')
-cls.prop('fillOrigin')
-cls.prop('fillClockwise')
-cls.prop('fillAmount')
+cls.prop('flip', nil, nil)
+cls.prop('color', nil, nil)
+cls.prop('fillMethod', nil, nil)
+cls.prop('fillOrigin', nil, nil)
+cls.prop('fillClockwise', nil, nil)
+cls.prop('fillAmount', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GLabel'
-cls.SUPERCLS = "fairygui::GComponent"
+cls.SUPERCLS = 'fairygui::GComponent'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'GLabel()')
 cls.func(nil, 'static fairygui::GLabel *create()')
 cls.func(nil, 'const std::string &getTitle()')
@@ -1381,14 +1593,17 @@ cls.func(nil, 'void setTitleColor(const cocos2d::Color3B &value)')
 cls.func(nil, 'int getTitleFontSize()')
 cls.func(nil, 'void setTitleFontSize(int value)')
 cls.func(nil, '@addref(textField ^) fairygui::GTextField *getTextField()')
-cls.prop('title')
-cls.prop('titleColor')
-cls.prop('titleFontSize')
-cls.prop('textField')
+cls.prop('title', nil, nil)
+cls.prop('titleColor', nil, nil)
+cls.prop('titleFontSize', nil, nil)
+cls.prop('textField', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GList'
-cls.SUPERCLS = "fairygui::GComponent"
+cls.SUPERCLS = 'fairygui::GComponent'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'GList()')
 cls.func(nil, 'static fairygui::GList *create()')
 cls.func(nil, 'const std::string &getDefaultItem()')
@@ -1442,21 +1657,23 @@ cls.var('itemRenderer', [[@nullable std::function<void (int, GObject *)> itemRen
 cls.var('itemProvider', [[@nullable @local std::function<std::string (int)> itemProvider]])
 cls.var('scrollItemToViewOnClick', [[bool scrollItemToViewOnClick]])
 cls.var('foldInvisibleItems', [[bool foldInvisibleItems]])
-cls.prop('defaultItem')
-cls.prop('layout')
-cls.prop('lineCount')
-cls.prop('columnCount')
-cls.prop('columnGap')
-cls.prop('lineGap')
-cls.prop('align')
-cls.prop('verticalAlign')
-cls.prop('autoResizeItem')
-cls.prop('selectionMode')
-cls.prop('selectedIndex')
-cls.prop('selectionController')
-cls.prop('virtual')
-cls.prop('numItems')
+cls.prop('defaultItem', nil, nil)
+cls.prop('layout', nil, nil)
+cls.prop('lineCount', nil, nil)
+cls.prop('columnCount', nil, nil)
+cls.prop('columnGap', nil, nil)
+cls.prop('lineGap', nil, nil)
+cls.prop('align', nil, nil)
+cls.prop('verticalAlign', nil, nil)
+cls.prop('autoResizeItem', nil, nil)
+cls.prop('selectionMode', nil, nil)
+cls.prop('selectedIndex', nil, nil)
+cls.prop('selectionController', nil, nil)
+cls.prop('virtual', nil, nil)
+cls.prop('numItems', nil, nil)
 cls.insert('itemRenderer', {
+    BEFORE = nil,
+    AFTER = nil,
     CALLBACK_BEFORE = [[
         if (arg2->getParent()) {
             olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
@@ -1464,11 +1681,15 @@ cls.insert('itemRenderer', {
             lua_pop(L, 1);
         }
     ]],
+    CALLBACK_AFTER = nil,
 })
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GMovieClip'
-cls.SUPERCLS = "fairygui::GObject"
+cls.SUPERCLS = 'fairygui::GObject'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'GMovieClip()')
 cls.func(nil, 'static fairygui::GMovieClip *create()')
 cls.func(nil, 'bool isPlaying()')
@@ -1491,15 +1712,18 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.prop('playing')
-cls.prop('frame')
-cls.prop('timeScale')
-cls.prop('flip')
-cls.prop('color')
+cls.prop('playing', nil, nil)
+cls.prop('frame', nil, nil)
+cls.prop('timeScale', nil, nil)
+cls.prop('flip', nil, nil)
+cls.prop('color', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GProgressBar'
-cls.SUPERCLS = "fairygui::GComponent"
+cls.SUPERCLS = 'fairygui::GComponent'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'GProgressBar()')
 cls.func(nil, 'static fairygui::GProgressBar *create()')
 cls.func(nil, 'fairygui::ProgressTitleType getTitleType()')
@@ -1512,14 +1736,17 @@ cls.func(nil, 'double getValue()')
 cls.func(nil, 'void setValue(double value)')
 cls.func(nil, 'void tweenValue(double value, float duration)')
 cls.func(nil, 'void update(double newValue)')
-cls.prop('titleType')
-cls.prop('min')
-cls.prop('max')
-cls.prop('value')
+cls.prop('titleType', nil, nil)
+cls.prop('min', nil, nil)
+cls.prop('max', nil, nil)
+cls.prop('value', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GComboBox'
-cls.SUPERCLS = "fairygui::GComponent"
+cls.SUPERCLS = 'fairygui::GComponent'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'GComboBox()')
 cls.func(nil, 'static fairygui::GComboBox *create()')
 cls.func(nil, 'const std::string &getTitle()')
@@ -1542,28 +1769,34 @@ cls.func(nil, 'void refresh()')
 cls.func(nil, '@addref(textField ^) fairygui::GTextField *getTextField()')
 cls.var('visibleItemCount', [[int visibleItemCount]])
 cls.var('popupDirection', [[fairygui::PopupDirection popupDirection]])
-cls.prop('title')
-cls.prop('titleColor')
-cls.prop('titleFontSize')
-cls.prop('value')
-cls.prop('selectedIndex')
-cls.prop('selectionController')
-cls.prop('items')
-cls.prop('icons')
-cls.prop('values')
-cls.prop('dropdown')
-cls.prop('textField')
+cls.prop('title', nil, nil)
+cls.prop('titleColor', nil, nil)
+cls.prop('titleFontSize', nil, nil)
+cls.prop('value', nil, nil)
+cls.prop('selectedIndex', nil, nil)
+cls.prop('selectionController', nil, nil)
+cls.prop('items', nil, nil)
+cls.prop('icons', nil, nil)
+cls.prop('values', nil, nil)
+cls.prop('dropdown', nil, nil)
+cls.prop('textField', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GRichTextField'
-cls.SUPERCLS = "fairygui::GTextField"
+cls.SUPERCLS = 'fairygui::GTextField'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'GRichTextField()')
 cls.func(nil, 'static fairygui::GRichTextField *create()')
 cls.func(nil, 'fairygui::HtmlObject *getControl(const std::string &name)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GSlider'
-cls.SUPERCLS = "fairygui::GComponent"
+cls.SUPERCLS = 'fairygui::GComponent'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'GSlider()')
 cls.func(nil, 'static fairygui::GSlider *create()')
 cls.func(nil, 'fairygui::ProgressTitleType getTitleType()')
@@ -1578,15 +1811,18 @@ cls.func(nil, 'bool getWholeNumbers()')
 cls.func(nil, 'void setWholeNumbers(bool value)')
 cls.var('changeOnClick', [[bool changeOnClick]])
 cls.var('canDrag', [[bool canDrag]])
-cls.prop('titleType')
-cls.prop('min')
-cls.prop('max')
-cls.prop('value')
-cls.prop('wholeNumbers')
+cls.prop('titleType', nil, nil)
+cls.prop('min', nil, nil)
+cls.prop('max', nil, nil)
+cls.prop('value', nil, nil)
+cls.prop('wholeNumbers', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GTextInput'
-cls.SUPERCLS = "fairygui::GTextField"
+cls.SUPERCLS = 'fairygui::GTextField'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'GTextInput()')
 cls.func(nil, 'static fairygui::GTextInput *create()')
 cls.func(nil, 'void setPrompt(const std::string &value)')
@@ -1597,7 +1833,10 @@ cls.func(nil, 'void setRestrict(const std::string &value)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::PopupMenu'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static fairygui::PopupMenu *create(const std::string &resourceURL)', 'static fairygui::PopupMenu *create()')
 cls.func(nil, 'PopupMenu()')
 cls.func(nil, 'void addSeperator()')
@@ -1632,9 +1871,9 @@ cls.callback {
     TAG_STORE = "return",
     TAG_SCOPE = 'object',
 }
-cls.prop('itemCount')
-cls.prop('contentPane')
-cls.prop('list')
+cls.prop('itemCount', nil, nil)
+cls.prop('contentPane', nil, nil)
+cls.prop('list', nil, nil)
 cls.insert('show', {
     BEFORE = [[
         fairygui::GRoot *root = fairygui::UIRoot;
@@ -1648,34 +1887,53 @@ cls.insert('show', {
         olua_push_cppobj<fairygui::GRoot>(L, root);
         int parent = lua_gettop(L);
     ]],
+    AFTER = nil,
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 cls.insert('removeItem', {
     BEFORE = [[
         olua_push_cppobj<fairygui::GList>(L, self->getList());
         int parent = lua_gettop(L);
     ]],
+    AFTER = nil,
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 cls.insert('clearItems', {
     BEFORE = [[
         olua_push_cppobj<fairygui::GList>(L, self->getList());
         int parent = lua_gettop(L);
     ]],
+    AFTER = nil,
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 cls.insert('addItem', {
     BEFORE = [[
         olua_push_cppobj<fairygui::GList>(L, self->getList());
         int parent = lua_gettop(L);
     ]],
+    AFTER = nil,
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 cls.insert('addItemAt', {
     BEFORE = [[
         olua_push_cppobj<fairygui::GList>(L, self->getList());
         int parent = lua_gettop(L);
     ]],
+    AFTER = nil,
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::Relations'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'Relations(fairygui::GObject *owner)')
 cls.func(nil, 'void add(fairygui::GObject *target, fairygui::RelationType relationType)', 'void add(fairygui::GObject *target, fairygui::RelationType relationType, bool usePercent)')
 cls.func(nil, 'void remove(fairygui::GObject *target, fairygui::RelationType relationType)')
@@ -1686,10 +1944,14 @@ cls.func(nil, 'void copyFrom(const fairygui::Relations &source)')
 cls.func(nil, 'void onOwnerSizeChanged(float dWidth, float dHeight, bool applyPivot)')
 cls.func(nil, 'bool isEmpty()')
 cls.var('handling', [[fairygui::GObject *handling]])
-cls.prop('empty')
+cls.prop('empty', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::RelationType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('Left_Left', 'fairygui::RelationType::Left_Left')
 cls.enum('Left_Center', 'fairygui::RelationType::Left_Center')
 cls.enum('Left_Right', 'fairygui::RelationType::Left_Right')
@@ -1718,6 +1980,10 @@ cls.enum('Size', 'fairygui::RelationType::Size')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::RelationItem'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'RelationItem(fairygui::GObject *owner)')
 cls.func(nil, '@addref(target ^) fairygui::GObject *getTarget()')
 cls.func(nil, 'void setTarget(@addref(target ^) fairygui::GObject *value)')
@@ -1727,12 +1993,15 @@ cls.func(nil, 'void remove(fairygui::RelationType relationType)')
 cls.func(nil, 'void copyFrom(const fairygui::RelationItem &source)')
 cls.func(nil, 'bool isEmpty()')
 cls.func(nil, 'void applyOnSelfSizeChanged(float dWidth, float dHeight, bool applyPivot)')
-cls.prop('target')
-cls.prop('empty')
+cls.prop('target', nil, nil)
+cls.prop('empty', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::ScrollPane'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'ScrollPane(fairygui::GComponent *owner)')
 cls.func(nil, '@addref(owner ^) fairygui::GComponent *getOwner()')
 cls.func(nil, '@addref(header ^) fairygui::GComponent *getHeader()')
@@ -1787,37 +2056,40 @@ cls.func(nil, 'void lockHeader(int size)')
 cls.func(nil, 'void lockFooter(int size)')
 cls.func(nil, 'void cancelDragging()')
 cls.func(nil, 'static fairygui::ScrollPane *getDraggingPane()')
-cls.prop('owner')
-cls.prop('header')
-cls.prop('footer')
-cls.prop('vtScrollBar')
-cls.prop('hzScrollBar')
-cls.prop('bouncebackEffect')
-cls.prop('touchEffect')
-cls.prop('inertiaDisabled')
-cls.prop('scrollStep')
-cls.prop('snapToItem')
-cls.prop('pageMode')
-cls.prop('pageController')
-cls.prop('mouseWheelEnabled')
-cls.prop('decelerationRate')
-cls.prop('posX')
-cls.prop('posY')
-cls.prop('percX')
-cls.prop('percY')
-cls.prop('bottomMost')
-cls.prop('rightMost')
-cls.prop('pageX')
-cls.prop('pageY')
-cls.prop('scrollingPosX')
-cls.prop('scrollingPosY')
-cls.prop('contentSize')
-cls.prop('viewSize')
-cls.prop('draggingPane')
+cls.prop('owner', nil, nil)
+cls.prop('header', nil, nil)
+cls.prop('footer', nil, nil)
+cls.prop('vtScrollBar', nil, nil)
+cls.prop('hzScrollBar', nil, nil)
+cls.prop('bouncebackEffect', nil, nil)
+cls.prop('touchEffect', nil, nil)
+cls.prop('inertiaDisabled', nil, nil)
+cls.prop('scrollStep', nil, nil)
+cls.prop('snapToItem', nil, nil)
+cls.prop('pageMode', nil, nil)
+cls.prop('pageController', nil, nil)
+cls.prop('mouseWheelEnabled', nil, nil)
+cls.prop('decelerationRate', nil, nil)
+cls.prop('posX', nil, nil)
+cls.prop('posY', nil, nil)
+cls.prop('percX', nil, nil)
+cls.prop('percY', nil, nil)
+cls.prop('bottomMost', nil, nil)
+cls.prop('rightMost', nil, nil)
+cls.prop('pageX', nil, nil)
+cls.prop('pageY', nil, nil)
+cls.prop('scrollingPosX', nil, nil)
+cls.prop('scrollingPosY', nil, nil)
+cls.prop('contentSize', nil, nil)
+cls.prop('viewSize', nil, nil)
+cls.prop('draggingPane', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::Transition'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'Transition(fairygui::GComponent *owner)')
 cls.func(nil, '@addref(owner ^) fairygui::GComponent *getOwner()')
 cls.func(nil, 'bool isPlaying()')
@@ -1874,12 +2146,16 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.prop('owner')
-cls.prop('playing')
-cls.prop('timeScale')
+cls.prop('owner', nil, nil)
+cls.prop('playing', nil, nil)
+cls.prop('timeScale', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::UIConfig'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static void registerFont(const std::string &aliasName, const std::string &realName)')
 cls.func(nil, 'static const std::string &getRealFontName(const std::string &aliasName, @out bool *isTTF)')
 cls.var('defaultFont', [[static std::string defaultFont]])
@@ -1906,7 +2182,10 @@ cls.var('popupMenu_seperator', [[static std::string popupMenu_seperator]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::IUISource'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'const std::string &getFileName()')
 cls.func(nil, 'void setFileName(const std::string &value)')
 cls.func(nil, 'bool isLoaded()')
@@ -1919,54 +2198,59 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.prop('fileName')
-cls.prop('loaded')
+cls.prop('fileName', nil, nil)
+cls.prop('loaded', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::UISource'
-cls.SUPERCLS = "fairygui::IUISource"
+cls.SUPERCLS = 'fairygui::IUISource'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
 cls.CHUNK = [[
-NS_FGUI_BEGIN
-class UISource : public IUISource {
-public:
-    CREATE_FUNC(UISource);
+    NS_FGUI_BEGIN
+    class UISource : public IUISource {
+    public:
+        CREATE_FUNC(UISource);
 
-    virtual const std::string& getFileName() { return _name; }
-    virtual void setFileName(const std::string& value) { _name = value; }
-    virtual bool isLoaded() { return _loaded; }
-    virtual void load(std::function<void()> callback) { _complete = callback; }
+        virtual const std::string& getFileName() { return _name; }
+        virtual void setFileName(const std::string& value) { _name = value; }
+        virtual bool isLoaded() { return _loaded; }
+        virtual void load(std::function<void()> callback) { _complete = callback; }
 
-    void loadComplete()
-    {
-        _loaded = true;
-        if (_complete) {
-            _complete();
+        void loadComplete()
+        {
+            _loaded = true;
+            if (_complete) {
+                _complete();
+            }
         }
-    }
-private:
-    UISource()
-        :_loaded(false)
-        ,_complete(nullptr)
-    {
-    }
+    private:
+        UISource()
+            :_loaded(false)
+            ,_complete(nullptr)
+        {
+        }
 
-    bool init()
-    {
-        return true;
-    }
+        bool init()
+        {
+            return true;
+        }
 
-    bool _loaded;
-    std::function<void()> _complete;
-    std::string _name;
-};
-NS_FGUI_END
+        bool _loaded;
+        std::function<void()> _complete;
+        std::string _name;
+    };
+    NS_FGUI_END
 ]]
 cls.func('create', [[static UISource *create()]])
 cls.func('loadComplete', [[void loadComplete()]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::Window'
-cls.SUPERCLS = "fairygui::GComponent"
+cls.SUPERCLS = 'fairygui::GComponent'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'Window()')
 cls.func(nil, 'static fairygui::Window *create()')
 cls.func(nil, '@delref(children ~ parent)@addref(children | parent) void show()')
@@ -1994,16 +2278,16 @@ cls.func(nil, 'void setDragArea(@addref(dragArea ^) fairygui::GObject *value)')
 cls.func(nil, '@addref(contentArea ^) fairygui::GObject *getContentArea()')
 cls.func(nil, 'void setContentArea(@addref(contentArea ^) fairygui::GObject *value)')
 cls.func(nil, '@addref(modalWaitingPane ^) fairygui::GObject *getModalWaitingPane()')
-cls.prop('showing')
-cls.prop('top')
-cls.prop('modal')
-cls.prop('bringToFrontOnClick')
-cls.prop('contentPane')
-cls.prop('frame')
-cls.prop('closeButton')
-cls.prop('dragArea')
-cls.prop('contentArea')
-cls.prop('modalWaitingPane')
+cls.prop('showing', nil, nil)
+cls.prop('top', nil, nil)
+cls.prop('modal', nil, nil)
+cls.prop('bringToFrontOnClick', nil, nil)
+cls.prop('contentPane', nil, nil)
+cls.prop('frame', nil, nil)
+cls.prop('closeButton', nil, nil)
+cls.prop('dragArea', nil, nil)
+cls.prop('contentArea', nil, nil)
+cls.prop('modalWaitingPane', nil, nil)
 cls.insert('show', {
     BEFORE = [[
         fairygui::GComponent *root = fairygui::UIRoot;
@@ -2013,6 +2297,9 @@ cls.insert('show', {
         olua_push_cppobj<fairygui::GComponent>(L, root);
         int parent = lua_gettop(L);
     ]],
+    AFTER = nil,
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 cls.insert('hide', {
     BEFORE = [[
@@ -2023,6 +2310,9 @@ cls.insert('hide', {
         olua_push_cppobj<fairygui::GComponent>(L, root);
         int parent = lua_gettop(L);
     ]],
+    AFTER = nil,
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 cls.insert('hideImmediately', {
     BEFORE = [[
@@ -2033,22 +2323,33 @@ cls.insert('hideImmediately', {
         olua_push_cppobj<fairygui::GComponent>(L, root);
         int parent = lua_gettop(L);
     ]],
+    AFTER = nil,
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::DragDropManager'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'DragDropManager()')
 cls.func(nil, 'static fairygui::DragDropManager *getInstance()')
 cls.func(nil, 'fairygui::GLoader *getAgent()')
 cls.func(nil, 'bool isDragging()')
 cls.func(nil, 'void startDrag(const std::string &icon, @optional const cocos2d::Value &sourceData, @optional int touchPointID)')
 cls.func(nil, 'void cancel()')
-cls.prop('instance')
-cls.prop('agent')
-cls.prop('dragging')
+cls.prop('instance', nil, nil)
+cls.prop('agent', nil, nil)
+cls.prop('dragging', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::UIObjectFactory'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static fairygui::GObject *newObject(fairygui::PackageItem *pi)', 'static fairygui::GObject *newObject(fairygui::ObjectType type)')
 cls.callback {
     FUNCS =  {
@@ -2071,13 +2372,20 @@ cls.callback {
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GearBase'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'GearBase(fairygui::GObject *owner)')
 cls.func(nil, 'static fairygui::GearBase *create(fairygui::GObject *owner, int index)')
 cls.var('disableAllTweenEffect', [[static bool disableAllTweenEffect]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GTreeNode'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static fairygui::GTreeNode *create(@optional bool isFolder, @optional const std::string &resURL)')
 cls.func(nil, 'GTreeNode()')
 cls.func(nil, 'fairygui::GTreeNode *getParent()')
@@ -2106,21 +2414,24 @@ cls.func(nil, 'int setChildIndexBefore(fairygui::GTreeNode *child, int index)')
 cls.func(nil, 'void swapChildren(fairygui::GTreeNode *child1, fairygui::GTreeNode *child2)')
 cls.func(nil, 'void swapChildrenAt(int index1, int index2)')
 cls.func(nil, 'int numChildren()')
-cls.prop('numChildren', 'int numChildren()')
-cls.prop('parent')
-cls.prop('tree')
-cls.prop('cell')
-cls.prop('data')
-cls.prop('expanded')
-cls.prop('folder')
-cls.prop('text')
-cls.prop('icon')
-cls.prop('prevSibling')
-cls.prop('nextSibling')
+cls.prop('numChildren', 'int numChildren()', nil)
+cls.prop('parent', nil, nil)
+cls.prop('tree', nil, nil)
+cls.prop('cell', nil, nil)
+cls.prop('data', nil, nil)
+cls.prop('expanded', nil, nil)
+cls.prop('folder', nil, nil)
+cls.prop('text', nil, nil)
+cls.prop('icon', nil, nil)
+cls.prop('prevSibling', nil, nil)
+cls.prop('nextSibling', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GTree'
-cls.SUPERCLS = "fairygui::GList"
+cls.SUPERCLS = 'fairygui::GList'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'GTree()')
 cls.func(nil, 'static fairygui::GTree *create()')
 cls.func(nil, 'int getIndent()')
@@ -2136,14 +2447,17 @@ cls.func(nil, 'void expandAll(fairygui::GTreeNode *folderNode)')
 cls.func(nil, 'void collapseAll(fairygui::GTreeNode *folderNode)')
 cls.var('treeNodeRender', [[@nullable std::function<void (GTreeNode *, GComponent *)> treeNodeRender]])
 cls.var('treeNodeWillExpand', [[@nullable std::function<void (GTreeNode *, bool)> treeNodeWillExpand]])
-cls.prop('indent')
-cls.prop('clickToExpand')
-cls.prop('rootNode')
-cls.prop('selectedNode')
+cls.prop('indent', nil, nil)
+cls.prop('clickToExpand', nil, nil)
+cls.prop('rootNode', nil, nil)
+cls.prop('selectedNode', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::FUIContainer'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'FUIContainer()')
 cls.func(nil, 'static fairygui::FUIContainer *create()')
 cls.func(nil, 'bool isClippingEnabled()')
@@ -2157,15 +2471,18 @@ cls.func(nil, 'void setAlphaThreshold(float alphaThreshold)')
 cls.func(nil, 'bool isInverted()')
 cls.func(nil, 'void setInverted(bool inverted)')
 cls.var('gOwner', [[fairygui::GObject *gOwner]])
-cls.prop('clippingEnabled')
-cls.prop('clippingRegion')
-cls.prop('stencil')
-cls.prop('alphaThreshold')
-cls.prop('inverted')
+cls.prop('clippingEnabled', nil, nil)
+cls.prop('clippingRegion', nil, nil)
+cls.prop('stencil', nil, nil)
+cls.prop('alphaThreshold', nil, nil)
+cls.prop('inverted', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::FUIInput'
-cls.SUPERCLS = "cocos2d::ui::EditBox"
+cls.SUPERCLS = 'cocos2d::ui::EditBox'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static fairygui::FUIInput *create()')
 cls.func(nil, 'FUIInput()')
 cls.func(nil, 'void setText(const std::string &value)')
@@ -2177,13 +2494,16 @@ cls.func(nil, 'bool isPassword()')
 cls.func(nil, 'void setPassword(bool value)')
 cls.func(nil, 'int keyboardType()')
 cls.func(nil, 'void setKeyboardType(int value)')
-cls.prop('textFormat')
-cls.prop('singleLine')
-cls.prop('password')
+cls.prop('textFormat', nil, nil)
+cls.prop('singleLine', nil, nil)
+cls.prop('password', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::FUILabel'
-cls.SUPERCLS = "cocos2d::Label"
+cls.SUPERCLS = 'cocos2d::Label'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'FUILabel()')
 cls.func(nil, 'static fairygui::FUILabel *create()')
 cls.func(nil, 'const std::string &getText()')
@@ -2192,12 +2512,15 @@ cls.func(nil, 'fairygui::TextFormat *getTextFormat()')
 cls.func(nil, 'void applyTextFormat()')
 cls.func(nil, 'void setUnderlineColor(const cocos2d::Color3B &value)')
 cls.func(nil, 'void setGrayed(bool value)')
-cls.prop('text')
-cls.prop('textFormat')
+cls.prop('text', nil, nil)
+cls.prop('textFormat', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::FUIRichText'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'FUIRichText()')
 cls.func(nil, 'static fairygui::FUIRichText *create()')
 cls.func(nil, 'const cocos2d::Size &getDimensions()')
@@ -2224,16 +2547,19 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.prop('dimensions')
-cls.prop('textFormat')
-cls.prop('overflow')
-cls.prop('anchorTextUnderline')
-cls.prop('anchorFontColor')
-cls.prop('controls')
+cls.prop('dimensions', nil, nil)
+cls.prop('textFormat', nil, nil)
+cls.prop('overflow', nil, nil)
+cls.prop('anchorTextUnderline', nil, nil)
+cls.prop('anchorFontColor', nil, nil)
+cls.prop('controls', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::FUISprite'
-cls.SUPERCLS = "cocos2d::Sprite"
+cls.SUPERCLS = 'cocos2d::Sprite'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'FUISprite()')
 cls.func(nil, 'static fairygui::FUISprite *create()')
 cls.func(nil, 'void clearContent()')
@@ -2249,14 +2575,18 @@ cls.func(nil, 'float getFillAmount()')
 cls.func(nil, 'void setFillAmount(float value)')
 cls.func(nil, 'bool isScaleByTile()')
 cls.func(nil, 'void setScaleByTile(bool value)')
-cls.prop('fillMethod')
-cls.prop('fillOrigin')
-cls.prop('fillClockwise')
-cls.prop('fillAmount')
-cls.prop('scaleByTile')
+cls.prop('fillMethod', nil, nil)
+cls.prop('fillOrigin', nil, nil)
+cls.prop('fillClockwise', nil, nil)
+cls.prop('fillAmount', nil, nil)
+cls.prop('scaleByTile', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::HtmlObject'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'HtmlObject()')
 cls.func(nil, 'fairygui::HtmlElement *getElement()')
 cls.func(nil, 'fairygui::GObject *getUI()')
@@ -2268,12 +2598,16 @@ cls.var('inputResource', [[static std::string inputResource]])
 cls.var('selectResource', [[static std::string selectResource]])
 cls.var('usePool', [[static bool usePool]])
 cls.var('loaderPool', [[static cocos2d::Vector<GObject *> loaderPool]])
-cls.prop('element')
-cls.prop('ui')
-cls.prop('hidden')
+cls.prop('element', nil, nil)
+cls.prop('ui', nil, nil)
+cls.prop('hidden', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::HtmlElement::Type'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('TEXT', 'fairygui::HtmlElement::Type::TEXT')
 cls.enum('IMAGE', 'fairygui::HtmlElement::Type::IMAGE')
 cls.enum('LINK', 'fairygui::HtmlElement::Type::LINK')
@@ -2283,6 +2617,10 @@ cls.enum('OBJECT', 'fairygui::HtmlElement::Type::OBJECT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::HtmlElement'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'HtmlElement(fairygui::HtmlElement::Type type)')
 cls.func(nil, 'int getInt(const std::string &attrName, @optional int defValue)')
 cls.func(nil, 'std::string getString(const std::string &attrName, @optional const std::string &defValue)')

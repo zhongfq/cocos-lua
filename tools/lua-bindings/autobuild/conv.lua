@@ -11,15 +11,14 @@ local M = {}
 M.NAME = "conv"
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.HEADER_INCLUDES = [[
-#include "xgame/xlua.h"
-#include "cocos2d.h"
-#include "ui/CocosGUI.h"
-#include "network/WebSocket.h"
-#include "navmesh/CCNavMesh.h"
+    #include "xgame/xlua.h"
+    #include "cocos2d.h"
+    #include "ui/CocosGUI.h"
+    #include "network/WebSocket.h"
+    #include "navmesh/CCNavMesh.h"
 ]]
-M.INCLUDES = [[
-#include "lua-bindings/lua_conv.h"
-]]
+M.INCLUDES = [[#include "lua-bindings/lua_conv.h"]]
+M.CHUNK = nil
 
 M.CONVS = {
     typeconv {

@@ -10,23 +10,24 @@ local M = {}
 
 M.NAME = "cocos2d"
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
+M.HEADER_INCLUDES = nil
 M.INCLUDES = [[
-#include "lua-bindings/lua_cocos2d.h"
-#include "lua-bindings/lua_conv.h"
-#include "lua-bindings/lua_conv_manual.h"
-#include "lua-bindings/LuaCocosAdapter.h"
-#include "audio/include/AudioEngine.h"
-#include "cocos2d.h"
-#include "base/TGAlib.h"
-#include "ui/CocosGUI.h"
-#include "navmesh/CCNavMesh.h"
-#include "xgame/xlua.h"
+    #include "lua-bindings/lua_cocos2d.h"
+    #include "lua-bindings/lua_conv.h"
+    #include "lua-bindings/lua_conv_manual.h"
+    #include "lua-bindings/LuaCocosAdapter.h"
+    #include "audio/include/AudioEngine.h"
+    #include "cocos2d.h"
+    #include "base/TGAlib.h"
+    #include "ui/CocosGUI.h"
+    #include "navmesh/CCNavMesh.h"
+    #include "xgame/xlua.h"
 ]]
 M.CHUNK = [[
-static const std::string makeScheduleCallbackTag(const std::string &key)
-{
-    return "schedule." + key;
-}
+    static const std::string makeScheduleCallbackTag(const std::string &key)
+    {
+        return "schedule." + key;
+    }
 ]]
 
 M.CONVS = {
@@ -35,6 +36,10 @@ M.CONVS = {
 M.CLASSES = {}
 
 cls = typecls 'cocos2d::RenderTargetFlag'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('COLOR', 'cocos2d::RenderTargetFlag::COLOR')
 cls.enum('DEPTH', 'cocos2d::RenderTargetFlag::DEPTH')
 cls.enum('STENCIL', 'cocos2d::RenderTargetFlag::STENCIL')
@@ -42,6 +47,10 @@ cls.enum('ALL', 'cocos2d::RenderTargetFlag::ALL')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ClearFlag'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('NONE', 'cocos2d::ClearFlag::NONE')
 cls.enum('COLOR', 'cocos2d::ClearFlag::COLOR')
 cls.enum('DEPTH', 'cocos2d::ClearFlag::DEPTH')
@@ -50,12 +59,20 @@ cls.enum('ALL', 'cocos2d::ClearFlag::ALL')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::MATRIX_STACK_TYPE'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('MATRIX_STACK_MODELVIEW', 'cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW')
 cls.enum('MATRIX_STACK_PROJECTION', 'cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION')
 cls.enum('MATRIX_STACK_TEXTURE', 'cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_TEXTURE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Director::Projection'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('_2D', 'cocos2d::Director::Projection::_2D')
 cls.enum('_3D', 'cocos2d::Director::Projection::_3D')
 cls.enum('CUSTOM', 'cocos2d::Director::Projection::CUSTOM')
@@ -63,6 +80,10 @@ cls.enum('DEFAULT', 'cocos2d::Director::Projection::DEFAULT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::UserDefault'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'bool getBoolForKey(const char *key)', 'bool getBoolForKey(const char *key, bool defaultValue)')
 cls.func(nil, 'int getIntegerForKey(const char *key)', 'int getIntegerForKey(const char *key, int defaultValue)')
 cls.func(nil, 'float getFloatForKey(const char *key)', 'float getFloatForKey(const char *key, float defaultValue)')
@@ -81,21 +102,28 @@ cls.func(nil, 'static cocos2d::UserDefault *getInstance()')
 cls.func(nil, 'static void destroyInstance()')
 cls.func(nil, 'static const std::string &getXMLFilePath()')
 cls.func(nil, 'static bool isXMLFileExist()')
-cls.prop('instance')
-cls.prop('xmlFilePath')
-cls.prop('xmlFileExist')
+cls.prop('instance', nil, nil)
+cls.prop('xmlFilePath', nil, nil)
+cls.prop('xmlFileExist', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Ref'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func('__gc', [[{
     return xlua_ccobjgc(L);
 }]])
 cls.func(nil, 'unsigned int getReferenceCount()')
-cls.prop('referenceCount')
+cls.prop('referenceCount', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Console'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'Console()')
 cls.func(nil, 'bool listenOnTCP(int port)')
 cls.func(nil, 'bool listenOnFileDescriptor(int fd)')
@@ -107,12 +135,15 @@ cls.func(nil, 'void setBindAddress(const std::string &address)')
 cls.func(nil, 'bool isIpv6Server()')
 cls.func(nil, 'char getCommandSeparator()')
 cls.func(nil, 'void setCommandSeparator(char var)')
-cls.prop('ipv6Server')
-cls.prop('commandSeparator')
+cls.prop('ipv6Server', nil, nil)
+cls.prop('commandSeparator', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Acceleration'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.var('x', [[@optional double x]])
 cls.var('y', [[@optional double y]])
 cls.var('z', [[@optional double z]])
@@ -120,7 +151,10 @@ cls.var('timestamp', [[@optional double timestamp]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Director'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::Director *getInstance()')
 cls.func(nil, 'Director()')
 cls.func(nil, 'bool init()')
@@ -198,52 +232,54 @@ cls.var('EVENT_RESET', [[static const char *EVENT_RESET]])
 cls.var('EVENT_AFTER_VISIT', [[static const char *EVENT_AFTER_VISIT]])
 cls.var('EVENT_AFTER_DRAW', [[static const char *EVENT_AFTER_DRAW]])
 cls.var('EVENT_BEFORE_DRAW', [[static const char *EVENT_BEFORE_DRAW]])
-cls.prop('instance')
-cls.prop('runningScene')
-cls.prop('animationInterval')
-cls.prop('displayStats')
-cls.prop('secondsPerFrame')
-cls.prop('openGLView')
-cls.prop('textureCache')
-cls.prop('nextDeltaTimeZero')
-cls.prop('paused')
-cls.prop('totalFrames')
-cls.prop('projection')
-cls.prop('sendCleanupToScene')
-cls.prop('notificationNode')
-cls.prop('winSize')
-cls.prop('winSizeInPixels')
-cls.prop('visibleSize')
-cls.prop('visibleOrigin')
-cls.prop('safeAreaRect')
-cls.prop('zEye')
-cls.prop('contentScaleFactor')
-cls.prop('scheduler')
-cls.prop('actionManager')
-cls.prop('eventDispatcher')
-cls.prop('renderer')
-cls.prop('console')
-cls.prop('deltaTime')
-cls.prop('frameRate')
-cls.prop('valid')
+cls.prop('instance', nil, nil)
+cls.prop('runningScene', nil, nil)
+cls.prop('animationInterval', nil, nil)
+cls.prop('displayStats', nil, nil)
+cls.prop('secondsPerFrame', nil, nil)
+cls.prop('openGLView', nil, nil)
+cls.prop('textureCache', nil, nil)
+cls.prop('nextDeltaTimeZero', nil, nil)
+cls.prop('paused', nil, nil)
+cls.prop('totalFrames', nil, nil)
+cls.prop('projection', nil, nil)
+cls.prop('sendCleanupToScene', nil, nil)
+cls.prop('notificationNode', nil, nil)
+cls.prop('winSize', nil, nil)
+cls.prop('winSizeInPixels', nil, nil)
+cls.prop('visibleSize', nil, nil)
+cls.prop('visibleOrigin', nil, nil)
+cls.prop('safeAreaRect', nil, nil)
+cls.prop('zEye', nil, nil)
+cls.prop('contentScaleFactor', nil, nil)
+cls.prop('scheduler', nil, nil)
+cls.prop('actionManager', nil, nil)
+cls.prop('eventDispatcher', nil, nil)
+cls.prop('renderer', nil, nil)
+cls.prop('console', nil, nil)
+cls.prop('deltaTime', nil, nil)
+cls.prop('frameRate', nil, nil)
+cls.prop('valid', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Scheduler'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
 cls.CHUNK = [[
-template <typename T> bool doScheduleUpdate(lua_State *L)
-{
-    if (olua_isa<T>(L, 2)) {
-        auto self = olua_checkobj<cocos2d::Scheduler>(L, 1);
-        auto target = olua_checkobj<T>(L, 2);
-        lua_Integer priority = olua_checkinteger(L, 3);
-        bool paused = olua_checkboolean(L, 4);
-        self->scheduleUpdate(target, (int)priority, paused);
-        return true;
-    }
+    template <typename T> bool doScheduleUpdate(lua_State *L)
+    {
+        if (olua_isa<T>(L, 2)) {
+            auto self = olua_checkobj<cocos2d::Scheduler>(L, 1);
+            auto target = olua_checkobj<T>(L, 2);
+            lua_Integer priority = olua_checkinteger(L, 3);
+            bool paused = olua_checkboolean(L, 4);
+            self->scheduleUpdate(target, (int)priority, paused);
+            return true;
+        }
 
-    return false;
-}
+        return false;
+    }
 ]]
 cls.const('PRIORITY_SYSTEM', 'cocos2d::Scheduler::PRIORITY_SYSTEM', 'const int')
 cls.const('PRIORITY_NON_SYSTEM_MIN', 'cocos2d::Scheduler::PRIORITY_NON_SYSTEM_MIN', 'const int')
@@ -312,26 +348,28 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.prop('timeScale')
+cls.prop('timeScale', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventDispatcher'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
 cls.CHUNK = [[
-static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
-{
-    if (olua_getrawobj(L, target)) {
-        olua_delallrefs(L, -1, refname);
-        lua_pop(L, 1);
-    }
-    if (recursive) {
-        const auto &children = target->getChildren();
-        for (const auto& child : children)
-        {
-            doRemoveEventListenersForTarget(L, child, recursive, refname);
+    static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
+    {
+        if (olua_getrawobj(L, target)) {
+            olua_delallrefs(L, -1, refname);
+            lua_pop(L, 1);
+        }
+        if (recursive) {
+            const auto &children = target->getChildren();
+            for (const auto& child : children)
+            {
+                doRemoveEventListenersForTarget(L, child, recursive, refname);
+            }
         }
     }
-}
 ]]
 cls.func(nil, 'void addEventListenerWithSceneGraphPriority(@addref(listeners | 3) cocos2d::EventListener *listener, cocos2d::Node *node)')
 cls.func(nil, 'void addEventListenerWithFixedPriority(@addref(listeners |) cocos2d::EventListener *listener, int fixedPriority)')
@@ -358,7 +396,7 @@ cls.callback {
     TAG_STORE = "return",
     TAG_SCOPE = 'object',
 }
-cls.prop('enabled')
+cls.prop('enabled', nil, nil)
 cls.insert('removeEventListenersForTarget', {
     BEFORE = [[
         bool recursive = false;
@@ -368,10 +406,17 @@ cls.insert('removeEventListenersForTarget', {
         }
         doRemoveEventListenersForTarget(L, node, recursive, "listeners");
     ]],
+    AFTER = nil,
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListener::Type'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('UNKNOWN', 'cocos2d::EventListener::Type::UNKNOWN')
 cls.enum('TOUCH_ONE_BY_ONE', 'cocos2d::EventListener::Type::TOUCH_ONE_BY_ONE')
 cls.enum('TOUCH_ALL_AT_ONCE', 'cocos2d::EventListener::Type::TOUCH_ALL_AT_ONCE')
@@ -384,17 +429,23 @@ cls.enum('CUSTOM', 'cocos2d::EventListener::Type::CUSTOM')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListener'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'bool checkAvailable()')
 cls.func(nil, 'cocos2d::EventListener *clone()')
 cls.func(nil, 'void setEnabled(bool enabled)')
 cls.func(nil, 'bool isEnabled()')
-cls.prop('available', 'bool checkAvailable()')
-cls.prop('enabled')
+cls.prop('available', 'bool checkAvailable()', nil)
+cls.prop('enabled', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerTouchOneByOne'
-cls.SUPERCLS = "cocos2d::EventListener"
+cls.SUPERCLS = 'cocos2d::EventListener'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerTouchOneByOne::LISTENER_ID', 'const std::string')
 cls.func(nil, 'static cocos2d::EventListenerTouchOneByOne *create()')
 cls.func(nil, 'void setSwallowTouches(bool needSwallow)')
@@ -404,11 +455,14 @@ cls.var('onTouchBegan', [[@nullable @local std::function<bool (Touch *, Event *)
 cls.var('onTouchMoved', [[@nullable @local std::function<void (Touch *, Event *)> onTouchMoved]])
 cls.var('onTouchEnded', [[@nullable @local std::function<void (Touch *, Event *)> onTouchEnded]])
 cls.var('onTouchCancelled', [[@nullable @local std::function<void (Touch *, Event *)> onTouchCancelled]])
-cls.prop('swallowTouches')
+cls.prop('swallowTouches', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerTouchAllAtOnce'
-cls.SUPERCLS = "cocos2d::EventListener"
+cls.SUPERCLS = 'cocos2d::EventListener'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerTouchAllAtOnce::LISTENER_ID', 'const std::string')
 cls.func(nil, 'static cocos2d::EventListenerTouchAllAtOnce *create()')
 cls.func(nil, 'EventListenerTouchAllAtOnce()')
@@ -419,7 +473,10 @@ cls.var('onTouchesCancelled', [[@nullable @local std::function<void (const std::
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerCustom'
-cls.SUPERCLS = "cocos2d::EventListener"
+cls.SUPERCLS = 'cocos2d::EventListener'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'EventListenerCustom()')
 cls.callback {
     FUNCS =  {
@@ -433,7 +490,10 @@ cls.callback {
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerKeyboard'
-cls.SUPERCLS = "cocos2d::EventListener"
+cls.SUPERCLS = 'cocos2d::EventListener'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerKeyboard::LISTENER_ID', 'const std::string')
 cls.func(nil, 'static cocos2d::EventListenerKeyboard *create()')
 cls.func(nil, 'EventListenerKeyboard()')
@@ -442,7 +502,10 @@ cls.var('onKeyReleased', [[@nullable @local std::function<void (EventKeyboard::K
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerAcceleration'
-cls.SUPERCLS = "cocos2d::EventListener"
+cls.SUPERCLS = 'cocos2d::EventListener'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerAcceleration::LISTENER_ID', 'const std::string')
 cls.func(nil, 'EventListenerAcceleration()')
 cls.callback {
@@ -457,7 +520,10 @@ cls.callback {
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerFocus'
-cls.SUPERCLS = "cocos2d::EventListener"
+cls.SUPERCLS = 'cocos2d::EventListener'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerFocus::LISTENER_ID', 'const std::string')
 cls.func(nil, 'static cocos2d::EventListenerFocus *create()')
 cls.func(nil, 'EventListenerFocus()')
@@ -465,7 +531,10 @@ cls.var('onFocusChanged', [[@nullable @local std::function<void (ui::Widget *, u
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerMouse'
-cls.SUPERCLS = "cocos2d::EventListener"
+cls.SUPERCLS = 'cocos2d::EventListener'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerMouse::LISTENER_ID', 'const std::string')
 cls.func(nil, 'static cocos2d::EventListenerMouse *create()')
 cls.func(nil, 'EventListenerMouse()')
@@ -476,6 +545,10 @@ cls.var('onMouseScroll', [[@nullable @local std::function<void (EventMouse *)> o
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Event::Type'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('TOUCH', 'cocos2d::Event::Type::TOUCH')
 cls.enum('KEYBOARD', 'cocos2d::Event::Type::KEYBOARD')
 cls.enum('ACCELERATION', 'cocos2d::Event::Type::ACCELERATION')
@@ -486,29 +559,38 @@ cls.enum('CUSTOM', 'cocos2d::Event::Type::CUSTOM')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Event'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'Event(cocos2d::Event::Type type)')
 cls.func(nil, 'cocos2d::Event::Type getType()')
 cls.func(nil, 'void stopPropagation()')
 cls.func(nil, 'bool isStopped()')
 cls.func(nil, 'cocos2d::Node *getCurrentTarget()')
-cls.prop('type')
-cls.prop('stopped')
-cls.prop('currentTarget')
+cls.prop('type', nil, nil)
+cls.prop('stopped', nil, nil)
+cls.prop('currentTarget', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventCustom'
-cls.SUPERCLS = "cocos2d::Event"
+cls.SUPERCLS = 'cocos2d::Event'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'EventCustom(const std::string &eventName)')
 cls.func(nil, 'void setUserData(void *data)')
 cls.func(nil, 'void *getUserData()')
 cls.func(nil, 'const std::string &getEventName()')
-cls.prop('userData')
-cls.prop('eventName')
+cls.prop('userData', nil, nil)
+cls.prop('eventName', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerController'
-cls.SUPERCLS = "cocos2d::EventListener"
+cls.SUPERCLS = 'cocos2d::EventListener'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerController::LISTENER_ID', 'const std::string')
 cls.func(nil, 'static cocos2d::EventListenerController *create()')
 cls.var('onConnected', [[@nullable @local std::function<void (Controller *, Event *)> onConnected]])
@@ -520,6 +602,10 @@ cls.var('onAxisEvent', [[@nullable @local std::function<void (Controller *, int,
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventTouch::EventCode'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('BEGAN', 'cocos2d::EventTouch::EventCode::BEGAN')
 cls.enum('MOVED', 'cocos2d::EventTouch::EventCode::MOVED')
 cls.enum('ENDED', 'cocos2d::EventTouch::EventCode::ENDED')
@@ -527,32 +613,48 @@ cls.enum('CANCELLED', 'cocos2d::EventTouch::EventCode::CANCELLED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventTouch'
-cls.SUPERCLS = "cocos2d::Event"
+cls.SUPERCLS = 'cocos2d::Event'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.const('MAX_TOUCHES', 'cocos2d::EventTouch::MAX_TOUCHES', 'const int')
 cls.func(nil, 'EventTouch()')
 cls.func(nil, 'cocos2d::EventTouch::EventCode getEventCode()')
 cls.func(nil, 'const std::vector<Touch *> &getTouches()')
 cls.func(nil, 'void setEventCode(cocos2d::EventTouch::EventCode eventCode)')
 cls.func(nil, 'void setTouches(const std::vector<Touch *> &touches)')
-cls.prop('eventCode')
-cls.prop('touches')
+cls.prop('eventCode', nil, nil)
+cls.prop('touches', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventKeyboard'
-cls.SUPERCLS = "cocos2d::Event"
+cls.SUPERCLS = 'cocos2d::Event'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'EventKeyboard(cocos2d::EventKeyboard::KeyCode keyCode, bool isPressed)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventAcceleration'
-cls.SUPERCLS = "cocos2d::Event"
+cls.SUPERCLS = 'cocos2d::Event'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventFocus'
-cls.SUPERCLS = "cocos2d::Event"
+cls.SUPERCLS = 'cocos2d::Event'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'EventFocus(cocos2d::ui::Widget *widgetLoseFocus, cocos2d::ui::Widget *widgetGetFocus)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventMouse::MouseEventType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('MOUSE_NONE', 'cocos2d::EventMouse::MouseEventType::MOUSE_NONE')
 cls.enum('MOUSE_DOWN', 'cocos2d::EventMouse::MouseEventType::MOUSE_DOWN')
 cls.enum('MOUSE_UP', 'cocos2d::EventMouse::MouseEventType::MOUSE_UP')
@@ -561,6 +663,10 @@ cls.enum('MOUSE_SCROLL', 'cocos2d::EventMouse::MouseEventType::MOUSE_SCROLL')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventMouse::MouseButton'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('BUTTON_UNSET', 'cocos2d::EventMouse::MouseButton::BUTTON_UNSET')
 cls.enum('BUTTON_LEFT', 'cocos2d::EventMouse::MouseButton::BUTTON_LEFT')
 cls.enum('BUTTON_RIGHT', 'cocos2d::EventMouse::MouseButton::BUTTON_RIGHT')
@@ -573,7 +679,10 @@ cls.enum('BUTTON_8', 'cocos2d::EventMouse::MouseButton::BUTTON_8')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventMouse'
-cls.SUPERCLS = "cocos2d::Event"
+cls.SUPERCLS = 'cocos2d::Event'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'EventMouse(cocos2d::EventMouse::MouseEventType mouseEventCode)')
 cls.func(nil, 'void setScrollData(float scrollX, float scrollY)')
 cls.func(nil, 'float getScrollX()')
@@ -590,21 +699,25 @@ cls.func(nil, 'cocos2d::Vec2 getDelta()')
 cls.func(nil, 'cocos2d::Vec2 getLocationInView()')
 cls.func(nil, 'cocos2d::Vec2 getPreviousLocationInView()')
 cls.func(nil, 'cocos2d::Vec2 getStartLocationInView()')
-cls.prop('scrollX')
-cls.prop('scrollY')
-cls.prop('mouseButton')
-cls.prop('cursorX')
-cls.prop('cursorY')
-cls.prop('location')
-cls.prop('previousLocation')
-cls.prop('startLocation')
-cls.prop('delta')
-cls.prop('locationInView')
-cls.prop('previousLocationInView')
-cls.prop('startLocationInView')
+cls.prop('scrollX', nil, nil)
+cls.prop('scrollY', nil, nil)
+cls.prop('mouseButton', nil, nil)
+cls.prop('cursorX', nil, nil)
+cls.prop('cursorY', nil, nil)
+cls.prop('location', nil, nil)
+cls.prop('previousLocation', nil, nil)
+cls.prop('startLocation', nil, nil)
+cls.prop('delta', nil, nil)
+cls.prop('locationInView', nil, nil)
+cls.prop('previousLocationInView', nil, nil)
+cls.prop('startLocationInView', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventKeyboard::KeyCode'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('KEY_NONE', 'cocos2d::EventKeyboard::KeyCode::KEY_NONE')
 cls.enum('KEY_PAUSE', 'cocos2d::EventKeyboard::KeyCode::KEY_PAUSE')
 cls.enum('KEY_SCROLL_LOCK', 'cocos2d::EventKeyboard::KeyCode::KEY_SCROLL_LOCK')
@@ -778,18 +891,29 @@ cls.enum('KEY_PLAY', 'cocos2d::EventKeyboard::KeyCode::KEY_PLAY')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Touch::DispatchMode'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('ALL_AT_ONCE', 'cocos2d::Touch::DispatchMode::ALL_AT_ONCE')
 cls.enum('ONE_BY_ONE', 'cocos2d::Touch::DispatchMode::ONE_BY_ONE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventController::ControllerEventType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('CONNECTION', 'cocos2d::EventController::ControllerEventType::CONNECTION')
 cls.enum('BUTTON_STATUS_CHANGED', 'cocos2d::EventController::ControllerEventType::BUTTON_STATUS_CHANGED')
 cls.enum('AXIS_STATUS_CHANGED', 'cocos2d::EventController::ControllerEventType::AXIS_STATUS_CHANGED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventController'
-cls.SUPERCLS = "cocos2d::Event"
+cls.SUPERCLS = 'cocos2d::Event'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'EventController(cocos2d::EventController::ControllerEventType type, cocos2d::Controller *controller, int keyCode)', 'EventController(cocos2d::EventController::ControllerEventType type, cocos2d::Controller *controller, bool isConnected)')
 cls.func(nil, 'cocos2d::EventController::ControllerEventType getControllerEventType()')
 cls.func(nil, 'cocos2d::Controller *getController()')
@@ -797,14 +921,17 @@ cls.func(nil, 'int getKeyCode()')
 cls.func(nil, 'void setKeyCode(int keyCode)')
 cls.func(nil, 'void setConnectStatus(bool isConnected)')
 cls.func(nil, 'bool isConnected()')
-cls.prop('controllerEventType')
-cls.prop('controller')
-cls.prop('keyCode')
-cls.prop('connected')
+cls.prop('controllerEventType', nil, nil)
+cls.prop('controller', nil, nil)
+cls.prop('keyCode', nil, nil)
+cls.prop('connected', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Touch'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'Touch()')
 cls.func(nil, 'cocos2d::Vec2 getLocation()')
 cls.func(nil, 'cocos2d::Vec2 getPreviousLocation()')
@@ -817,19 +944,23 @@ cls.func(nil, 'void setTouchInfo(int id, float x, float y)', 'void setTouchInfo(
 cls.func(nil, 'int getID()')
 cls.func(nil, 'float getCurrentForce()')
 cls.func(nil, 'float getMaxForce()')
-cls.prop('location')
-cls.prop('previousLocation')
-cls.prop('startLocation')
-cls.prop('delta')
-cls.prop('locationInView')
-cls.prop('previousLocationInView')
-cls.prop('startLocationInView')
-cls.prop('id')
-cls.prop('currentForce')
-cls.prop('maxForce')
+cls.prop('location', nil, nil)
+cls.prop('previousLocation', nil, nil)
+cls.prop('startLocation', nil, nil)
+cls.prop('delta', nil, nil)
+cls.prop('locationInView', nil, nil)
+cls.prop('previousLocationInView', nil, nil)
+cls.prop('startLocationInView', nil, nil)
+cls.prop('id', nil, nil)
+cls.prop('currentForce', nil, nil)
+cls.prop('maxForce', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Controller::Key'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('KEY_NONE', 'cocos2d::Controller::Key::KEY_NONE')
 cls.enum('JOYSTICK_LEFT_X', 'cocos2d::Controller::Key::JOYSTICK_LEFT_X')
 cls.enum('JOYSTICK_LEFT_Y', 'cocos2d::Controller::Key::JOYSTICK_LEFT_Y')
@@ -859,6 +990,10 @@ cls.enum('KEY_MAX', 'cocos2d::Controller::Key::KEY_MAX')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Controller'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.const('TAG_UNSET', 'cocos2d::Controller::TAG_UNSET', 'const int')
 cls.func(nil, 'static const std::vector<Controller *> &getAllController()')
 cls.func(nil, 'static cocos2d::Controller *getControllerByTag(int tag)')
@@ -871,14 +1006,18 @@ cls.func(nil, 'bool isConnected()')
 cls.func(nil, 'const cocos2d::Controller::KeyStatus &getKeyStatus(int keyCode)')
 cls.func(nil, 'void setTag(int tag)')
 cls.func(nil, 'int getTag()')
-cls.prop('allController')
-cls.prop('deviceName')
-cls.prop('deviceId')
-cls.prop('connected')
-cls.prop('tag')
+cls.prop('allController', nil, nil)
+cls.prop('deviceName', nil, nil)
+cls.prop('deviceId', nil, nil)
+cls.prop('connected', nil, nil)
+cls.prop('tag', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::AudioProfile'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'AudioProfile()')
 cls.var('name', [[std::string name]])
 cls.var('maxInstances', [[unsigned int maxInstances]])
@@ -886,6 +1025,10 @@ cls.var('minDelay', [[double minDelay]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::AudioEngine::AudioState'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('ERROR', 'cocos2d::AudioEngine::AudioState::ERROR')
 cls.enum('INITIALIZING', 'cocos2d::AudioEngine::AudioState::INITIALIZING')
 cls.enum('PLAYING', 'cocos2d::AudioEngine::AudioState::PLAYING')
@@ -893,33 +1036,36 @@ cls.enum('PAUSED', 'cocos2d::AudioEngine::AudioState::PAUSED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::AudioEngine'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
 cls.CHUNK = [[
-NS_CC_BEGIN
-class LuaAudioEngine : public cocos2d::AudioEngine
-{
-public:
-    static std::list<int> getAudioIDs(const std::string &path)
+    NS_CC_BEGIN
+    class LuaAudioEngine : public cocos2d::AudioEngine
     {
-        std::list<int> list;
-        auto it = _audioPathIDMap.find(path);
-        if (it != _audioPathIDMap.end()) {
-            list = it->second;
+    public:
+        static std::list<int> getAudioIDs(const std::string &path)
+        {
+            std::list<int> list;
+            auto it = _audioPathIDMap.find(path);
+            if (it != _audioPathIDMap.end()) {
+                list = it->second;
+            }
+            return list;
         }
-        return list;
-    }
-};
-NS_CC_END
+    };
+    NS_CC_END
 
-static const std::string makeAudioEngineFinishCallbackTag(lua_Integer id)
-{
-    if (id < 0) {
-        return "finishCallback.";
-    } else {
-        char buf[64];
-        sprintf(buf, "finishCallback.%d", (int)id);
-        return std::string(buf);
+    static const std::string makeAudioEngineFinishCallbackTag(lua_Integer id)
+    {
+        if (id < 0) {
+            return "finishCallback.";
+        } else {
+            char buf[64];
+            sprintf(buf, "finishCallback.%d", (int)id);
+            return std::string(buf);
+        }
     }
-}
 ]]
 cls.const('INVALID_AUDIO_ID', 'cocos2d::AudioEngine::INVALID_AUDIO_ID', 'const int')
 cls.const('TIME_UNKNOWN', 'cocos2d::AudioEngine::TIME_UNKNOWN', 'const float')
@@ -992,10 +1138,10 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'once',
 }
-cls.prop('defaultProfile')
-cls.prop('maxAudioInstance')
-cls.prop('playingAudioCount')
-cls.prop('enabled')
+cls.prop('defaultProfile', nil, nil)
+cls.prop('maxAudioInstance', nil, nil)
+cls.prop('playingAudioCount', nil, nil)
+cls.prop('enabled', nil, nil)
 cls.insert('uncache', {
     BEFORE = [[
         std::string path = olua_checkstring(L, 1);
@@ -1006,10 +1152,17 @@ cls.insert('uncache', {
             olua_removecallback(L, cb_store, tag.c_str(), OLUA_TAG_SUBEQUAL);
         }
     ]],
+    AFTER = nil,
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ApplicationProtocol::Platform'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('OS_WINDOWS', 'cocos2d::ApplicationProtocol::Platform::OS_WINDOWS')
 cls.enum('OS_LINUX', 'cocos2d::ApplicationProtocol::Platform::OS_LINUX')
 cls.enum('OS_MAC', 'cocos2d::ApplicationProtocol::Platform::OS_MAC')
@@ -1019,6 +1172,10 @@ cls.enum('OS_IPAD', 'cocos2d::ApplicationProtocol::Platform::OS_IPAD')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::LanguageType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('ENGLISH', 'cocos2d::LanguageType::ENGLISH')
 cls.enum('CHINESE', 'cocos2d::LanguageType::CHINESE')
 cls.enum('FRENCH', 'cocos2d::LanguageType::FRENCH')
@@ -1042,6 +1199,10 @@ cls.enum('BELARUSIAN', 'cocos2d::LanguageType::BELARUSIAN')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ApplicationProtocol'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'bool applicationDidFinishLaunching()')
 cls.func(nil, 'void applicationDidEnterBackground()')
 cls.func(nil, 'void applicationWillEnterForeground()')
@@ -1052,34 +1213,49 @@ cls.func(nil, 'const char *getCurrentLanguageCode()')
 cls.func(nil, 'cocos2d::ApplicationProtocol::Platform getTargetPlatform()')
 cls.func(nil, 'std::string getVersion()')
 cls.func(nil, 'bool openURL(const std::string &url)')
-cls.prop('currentLanguage')
-cls.prop('currentLanguageCode')
-cls.prop('targetPlatform')
-cls.prop('version')
+cls.prop('currentLanguage', nil, nil)
+cls.prop('currentLanguageCode', nil, nil)
+cls.prop('targetPlatform', nil, nil)
+cls.prop('version', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Application'
-cls.SUPERCLS = "cocos2d::ApplicationProtocol"
+cls.SUPERCLS = 'cocos2d::ApplicationProtocol'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'int run()')
 cls.func(nil, 'static cocos2d::Application *getInstance()')
-cls.prop('instance')
+cls.prop('instance', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Device'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static int getDPI()')
 cls.func(nil, 'static void setAccelerometerEnabled(bool isEnabled)')
 cls.func(nil, 'static void setAccelerometerInterval(float interval)')
 cls.func(nil, 'static void setKeepScreenOn(bool keepScreenOn)')
 cls.func(nil, 'static void vibrate(float duration)')
-cls.prop('dpi')
+cls.prop('dpi', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ResizableBuffer'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'void resize(size_t size)')
 cls.func(nil, 'void *buffer()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::FileUtils::Status'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('OK', 'cocos2d::FileUtils::Status::OK')
 cls.enum('NotExists', 'cocos2d::FileUtils::Status::NotExists')
 cls.enum('OpenFailed', 'cocos2d::FileUtils::Status::OpenFailed')
@@ -1091,6 +1267,10 @@ cls.enum('NotRegularFileType', 'cocos2d::FileUtils::Status::NotRegularFileType')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::FileUtils'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::FileUtils *getInstance()')
 cls.func(nil, 'static void destroyInstance()')
 cls.func(nil, 'static void setDelegate(cocos2d::FileUtils *delegate)')
@@ -1275,17 +1455,21 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'once',
 }
-cls.prop('instance')
-cls.prop('searchResolutionsOrder')
-cls.prop('defaultResourceRootPath')
-cls.prop('searchPaths')
-cls.prop('originalSearchPaths')
-cls.prop('writablePath')
-cls.prop('popupNotify')
-cls.prop('fullPathCache')
+cls.prop('instance', nil, nil)
+cls.prop('searchResolutionsOrder', nil, nil)
+cls.prop('defaultResourceRootPath', nil, nil)
+cls.prop('searchPaths', nil, nil)
+cls.prop('originalSearchPaths', nil, nil)
+cls.prop('writablePath', nil, nil)
+cls.prop('popupNotify', nil, nil)
+cls.prop('fullPathCache', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'ResolutionPolicy'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('EXACT_FIT', 'ResolutionPolicy::EXACT_FIT')
 cls.enum('NO_BORDER', 'ResolutionPolicy::NO_BORDER')
 cls.enum('SHOW_ALL', 'ResolutionPolicy::SHOW_ALL')
@@ -1295,7 +1479,10 @@ cls.enum('UNKNOWN', 'ResolutionPolicy::UNKNOWN')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::GLView'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'void end()')
 cls.func(nil, 'bool isOpenGLReady()')
 cls.func(nil, 'void swapBuffers()')
@@ -1333,33 +1520,40 @@ cls.func(nil, 'float getScaleX()')
 cls.func(nil, 'float getScaleY()')
 cls.func(nil, 'ResolutionPolicy getResolutionPolicy()')
 cls.func(nil, 'void renderScene(cocos2d::Scene *scene, cocos2d::Renderer *renderer)')
-cls.prop('openGLReady')
-cls.prop('glContextAttrs')
-cls.prop('frameSize')
-cls.prop('frameZoomFactor')
-cls.prop('retinaFactor')
-cls.prop('contentScaleFactor')
-cls.prop('retinaDisplay')
-cls.prop('visibleSize')
-cls.prop('visibleOrigin')
-cls.prop('visibleRect')
-cls.prop('safeAreaRect')
-cls.prop('designResolutionSize')
-cls.prop('scissorEnabled')
-cls.prop('scissorRect')
-cls.prop('viewName')
-cls.prop('viewPortRect')
-cls.prop('allTouches')
-cls.prop('scaleX')
-cls.prop('scaleY')
-cls.prop('resolutionPolicy')
+cls.prop('openGLReady', nil, nil)
+cls.prop('glContextAttrs', nil, nil)
+cls.prop('frameSize', nil, nil)
+cls.prop('frameZoomFactor', nil, nil)
+cls.prop('retinaFactor', nil, nil)
+cls.prop('contentScaleFactor', nil, nil)
+cls.prop('retinaDisplay', nil, nil)
+cls.prop('visibleSize', nil, nil)
+cls.prop('visibleOrigin', nil, nil)
+cls.prop('visibleRect', nil, nil)
+cls.prop('safeAreaRect', nil, nil)
+cls.prop('designResolutionSize', nil, nil)
+cls.prop('scissorEnabled', nil, nil)
+cls.prop('scissorRect', nil, nil)
+cls.prop('viewName', nil, nil)
+cls.prop('viewPortRect', nil, nil)
+cls.prop('allTouches', nil, nil)
+cls.prop('scaleX', nil, nil)
+cls.prop('scaleY', nil, nil)
+cls.prop('resolutionPolicy', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::GLViewImpl'
-cls.SUPERCLS = "cocos2d::GLView"
+cls.SUPERCLS = 'cocos2d::GLView'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Image::Format'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('JPG', 'cocos2d::Image::Format::JPG')
 cls.enum('PNG', 'cocos2d::Image::Format::PNG')
 cls.enum('WEBP', 'cocos2d::Image::Format::WEBP')
@@ -1373,14 +1567,16 @@ cls.enum('UNKNOWN', 'cocos2d::Image::Format::UNKNOWN')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Image'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
 cls.CHUNK = [[
-NS_CC_BEGIN
-class LuaImage : public cocos2d::Image {
-public:
-    static bool getPNGPremultipliedAlphaEnabled() { return PNG_PREMULTIPLIED_ALPHA_ENABLED; };
-};
-NS_CC_END
+    NS_CC_BEGIN
+    class LuaImage : public cocos2d::Image {
+    public:
+        static bool getPNGPremultipliedAlphaEnabled() { return PNG_PREMULTIPLIED_ALPHA_ENABLED; };
+    };
+    NS_CC_END
 ]]
 cls.func('getPNGPremultipliedAlphaEnabled', [[{
     lua_pushboolean(L, cocos2d::LuaImage::getPNGPremultipliedAlphaEnabled());
@@ -1407,19 +1603,23 @@ cls.func(nil, 'bool isCompressed()')
 cls.func(nil, 'bool saveToFile(const std::string &filename, @optional bool isToRGB)')
 cls.func(nil, 'void premultiplyAlpha()')
 cls.func(nil, 'void reversePremultipliedAlpha()')
-cls.prop('data')
-cls.prop('dataLen')
-cls.prop('fileType')
-cls.prop('pixelFormat')
-cls.prop('width')
-cls.prop('height')
-cls.prop('numberOfMipmaps')
-cls.prop('filePath')
-cls.prop('bitPerPixel')
-cls.prop('compressed')
+cls.prop('data', nil, nil)
+cls.prop('dataLen', nil, nil)
+cls.prop('fileType', nil, nil)
+cls.prop('pixelFormat', nil, nil)
+cls.prop('width', nil, nil)
+cls.prop('height', nil, nil)
+cls.prop('numberOfMipmaps', nil, nil)
+cls.prop('filePath', nil, nil)
+cls.prop('bitPerPixel', nil, nil)
+cls.prop('compressed', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Properties::Type'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('NONE', 'cocos2d::Properties::Type::NONE')
 cls.enum('STRING', 'cocos2d::Properties::Type::STRING')
 cls.enum('NUMBER', 'cocos2d::Properties::Type::NUMBER')
@@ -1430,6 +1630,10 @@ cls.enum('MATRIX', 'cocos2d::Properties::Type::MATRIX')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Properties'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::Properties *createNonRefCounted(const std::string &url)')
 cls.func(nil, 'const char *getNextProperty()')
 cls.func(nil, 'cocos2d::Properties *getNextNamespace()')
@@ -1447,13 +1651,16 @@ cls.func(nil, 'long getLong(@optional const char *name)')
 cls.func(nil, 'bool getPath(const char *name, @out std::string *path)')
 cls.func(nil, 'const char *getVariable(const char *name, @optional const char *defaultValue)')
 cls.func(nil, 'void setVariable(const char *name, const char *value)')
-cls.prop('nextProperty')
-cls.prop('nextNamespace')
-cls.prop('id')
+cls.prop('nextProperty', nil, nil)
+cls.prop('nextNamespace', nil, nil)
+cls.prop('id', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Material'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::Material *createWithFilename(const std::string &path)')
 cls.func(nil, 'static cocos2d::Material *createWithProgramState(cocos2d::backend::ProgramState *programState)')
 cls.func(nil, 'static cocos2d::Material *createWithProperties(cocos2d::Properties *materialProperties)')
@@ -1469,14 +1676,18 @@ cls.func(nil, 'void addTechnique(cocos2d::Technique *technique)')
 cls.func(nil, 'void setTechnique(const std::string &techniqueName)')
 cls.func(nil, 'cocos2d::Material *clone()')
 cls.func(nil, 'cocos2d::RenderState *getRenderState()')
-cls.prop('name')
-cls.prop('technique')
-cls.prop('techniques')
-cls.prop('techniqueCount')
-cls.prop('renderState')
+cls.prop('name', nil, nil)
+cls.prop('technique', nil, nil)
+cls.prop('techniques', nil, nil)
+cls.prop('techniqueCount', nil, nil)
+cls.prop('renderState', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Renderer'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.const('VBO_SIZE', 'cocos2d::Renderer::VBO_SIZE', 'const int')
 cls.const('INDEX_VBO_SIZE', 'cocos2d::Renderer::INDEX_VBO_SIZE', 'const int')
 cls.const('BATCH_TRIAGCOMMAND_RESERVED_SIZE', 'cocos2d::Renderer::BATCH_TRIAGCOMMAND_RESERVED_SIZE', 'const int')
@@ -1534,35 +1745,39 @@ cls.func(nil, 'void setScissorRect(float x, float y, float width, float height)'
 cls.func(nil, 'bool getScissorTest()')
 cls.func(nil, 'const cocos2d::ScissorRect &getScissorRect()')
 cls.func(nil, 'bool checkVisibility(const cocos2d::Mat4 &transform, const cocos2d::Size &size)')
-cls.prop('drawnBatches')
-cls.prop('drawnVertices')
-cls.prop('colorAttachment')
-cls.prop('depthAttachment')
-cls.prop('stencilAttachment')
-cls.prop('clearColor')
-cls.prop('clearDepth')
-cls.prop('clearStencil')
-cls.prop('clearFlag')
-cls.prop('renderTargetFlag')
-cls.prop('depthTest')
-cls.prop('depthWrite')
-cls.prop('depthCompareFunction')
-cls.prop('stencilTest')
-cls.prop('stencilFailureOperation')
-cls.prop('stencilPassDepthFailureOperation')
-cls.prop('stencilDepthPassOperation')
-cls.prop('stencilCompareFunction')
-cls.prop('stencilReadMask')
-cls.prop('stencilWriteMask')
-cls.prop('stencilReferenceValue')
-cls.prop('cullMode')
-cls.prop('winding')
-cls.prop('viewport')
-cls.prop('scissorTest')
-cls.prop('scissorRect')
+cls.prop('drawnBatches', nil, nil)
+cls.prop('drawnVertices', nil, nil)
+cls.prop('colorAttachment', nil, nil)
+cls.prop('depthAttachment', nil, nil)
+cls.prop('stencilAttachment', nil, nil)
+cls.prop('clearColor', nil, nil)
+cls.prop('clearDepth', nil, nil)
+cls.prop('clearStencil', nil, nil)
+cls.prop('clearFlag', nil, nil)
+cls.prop('renderTargetFlag', nil, nil)
+cls.prop('depthTest', nil, nil)
+cls.prop('depthWrite', nil, nil)
+cls.prop('depthCompareFunction', nil, nil)
+cls.prop('stencilTest', nil, nil)
+cls.prop('stencilFailureOperation', nil, nil)
+cls.prop('stencilPassDepthFailureOperation', nil, nil)
+cls.prop('stencilDepthPassOperation', nil, nil)
+cls.prop('stencilCompareFunction', nil, nil)
+cls.prop('stencilReadMask', nil, nil)
+cls.prop('stencilWriteMask', nil, nil)
+cls.prop('stencilReferenceValue', nil, nil)
+cls.prop('cullMode', nil, nil)
+cls.prop('winding', nil, nil)
+cls.prop('viewport', nil, nil)
+cls.prop('scissorTest', nil, nil)
+cls.prop('scissorRect', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::RenderCommand::Type'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('UNKNOWN_COMMAND', 'cocos2d::RenderCommand::Type::UNKNOWN_COMMAND')
 cls.enum('QUAD_COMMAND', 'cocos2d::RenderCommand::Type::QUAD_COMMAND')
 cls.enum('CUSTOM_COMMAND', 'cocos2d::RenderCommand::Type::CUSTOM_COMMAND')
@@ -1574,28 +1789,49 @@ cls.enum('CAPTURE_SCREEN_COMMAND', 'cocos2d::RenderCommand::Type::CAPTURE_SCREEN
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::CustomCommand::DrawType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('ARRAY', 'cocos2d::CustomCommand::DrawType::ARRAY')
 cls.enum('ELEMENT', 'cocos2d::CustomCommand::DrawType::ELEMENT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::PipelineDescriptor'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.var('programState', [[@optional cocos2d::backend::ProgramState *programState]])
 cls.var('blendDescriptor', [[cocos2d::backend::BlendDescriptor blendDescriptor]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Technique'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Pass'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::RenderState'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::RenderCommand'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'void init(float globalZOrder, const cocos2d::Mat4 &modelViewTransform, unsigned int flags)')
 cls.func(nil, 'float getGlobalOrder()')
 cls.func(nil, 'cocos2d::RenderCommand::Type getType()')
@@ -1608,18 +1844,21 @@ cls.func(nil, 'void set3D(bool value)')
 cls.func(nil, 'float getDepth()')
 cls.func(nil, 'cocos2d::PipelineDescriptor &getPipelineDescriptor()')
 cls.func(nil, 'const cocos2d::Mat4 &getMV()')
-cls.prop('globalOrder')
-cls.prop('type')
-cls.prop('transparent')
-cls.prop('skipBatching')
-cls.prop('3D')
-cls.prop('depth')
-cls.prop('pipelineDescriptor')
-cls.prop('mv')
+cls.prop('globalOrder', nil, nil)
+cls.prop('type', nil, nil)
+cls.prop('transparent', nil, nil)
+cls.prop('skipBatching', nil, nil)
+cls.prop('3D', nil, nil)
+cls.prop('depth', nil, nil)
+cls.prop('pipelineDescriptor', nil, nil)
+cls.prop('mv', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::CustomCommand'
-cls.SUPERCLS = "cocos2d::RenderCommand"
+cls.SUPERCLS = 'cocos2d::RenderCommand'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'CustomCommand()')
 cls.func(nil, 'void init(float globalZOrder)', 'void init(float globalZOrder, const cocos2d::BlendFunc &blendFunc)')
 cls.func(nil, 'void createVertexBuffer(std::size_t vertexSize, std::size_t capacity, cocos2d::CustomCommand::BufferUsage usage)')
@@ -1682,35 +1921,40 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.prop('vertexCapacity')
-cls.prop('indexCapacity')
-cls.prop('drawType')
-cls.prop('primitiveType')
-cls.prop('vertexBuffer')
-cls.prop('indexBuffer')
-cls.prop('vertexDrawStart')
-cls.prop('vertexDrawCount')
-cls.prop('indexDrawOffset')
-cls.prop('indexDrawCount')
-cls.prop('lineWidth')
-cls.prop('indexFormat')
-cls.prop('beforeCallback')
-cls.prop('afterCallback')
+cls.prop('vertexCapacity', nil, nil)
+cls.prop('indexCapacity', nil, nil)
+cls.prop('drawType', nil, nil)
+cls.prop('primitiveType', nil, nil)
+cls.prop('vertexBuffer', nil, nil)
+cls.prop('indexBuffer', nil, nil)
+cls.prop('vertexDrawStart', nil, nil)
+cls.prop('vertexDrawCount', nil, nil)
+cls.prop('indexDrawOffset', nil, nil)
+cls.prop('indexDrawCount', nil, nil)
+cls.prop('lineWidth', nil, nil)
+cls.prop('indexFormat', nil, nil)
+cls.prop('beforeCallback', nil, nil)
+cls.prop('afterCallback', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::MeshCommand'
-cls.SUPERCLS = "cocos2d::CustomCommand"
+cls.SUPERCLS = 'cocos2d::CustomCommand'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'MeshCommand()')
 cls.func(nil, 'void init(float globalZOrder, const cocos2d::Mat4 &transform)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TextureCache'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
 cls.CHUNK = [[
-static const std::string makeTextureCacheCallbackTag(const std::string &key)
-{
-    return "addImageAsync." + key;
-}
+    static const std::string makeTextureCacheCallbackTag(const std::string &key)
+    {
+        return "addImageAsync." + key;
+    }
 ]]
 cls.func(nil, 'static void setETC1AlphaFileSuffix(const std::string &suffix)')
 cls.func(nil, 'static std::string getETC1AlphaFileSuffix()')
@@ -1755,13 +1999,16 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.prop('etC1AlphaFileSuffix')
-cls.prop('description')
-cls.prop('cachedTextureInfo')
+cls.prop('etC1AlphaFileSuffix', nil, nil)
+cls.prop('description', nil, nil)
+cls.prop('cachedTextureInfo', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Texture2D'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static void setDefaultAlphaPixelFormat(cocos2d::backend::PixelFormat format)')
 cls.func(nil, 'static cocos2d::backend::PixelFormat getDefaultAlphaPixelFormat()')
 cls.func(nil, 'Texture2D()')
@@ -1797,35 +2044,41 @@ cls.func(nil, 'void setAlphaTexture(cocos2d::Texture2D *alphaTexture)')
 cls.func(nil, 'cocos2d::Texture2D *getAlphaTexture()')
 cls.func(nil, 'bool getAlphaTextureName()')
 cls.func(nil, 'static const std::map<backend::PixelFormat, const PixelFormatInfo> &getPixelFormatInfoMap()')
-cls.prop('defaultAlphaPixelFormat')
-cls.prop('renderTarget')
-cls.prop('stringForFormat')
-cls.prop('contentSizeInPixels')
-cls.prop('pixelFormat')
-cls.prop('pixelsWide')
-cls.prop('pixelsHigh')
-cls.prop('backendTexture')
-cls.prop('maxS')
-cls.prop('maxT')
-cls.prop('contentSize')
-cls.prop('path')
-cls.prop('alphaTexture')
-cls.prop('alphaTextureName')
-cls.prop('pixelFormatInfoMap')
+cls.prop('defaultAlphaPixelFormat', nil, nil)
+cls.prop('renderTarget', nil, nil)
+cls.prop('stringForFormat', nil, nil)
+cls.prop('contentSizeInPixels', nil, nil)
+cls.prop('pixelFormat', nil, nil)
+cls.prop('pixelsWide', nil, nil)
+cls.prop('pixelsHigh', nil, nil)
+cls.prop('backendTexture', nil, nil)
+cls.prop('maxS', nil, nil)
+cls.prop('maxT', nil, nil)
+cls.prop('contentSize', nil, nil)
+cls.prop('path', nil, nil)
+cls.prop('alphaTexture', nil, nil)
+cls.prop('alphaTextureName', nil, nil)
+cls.prop('pixelFormatInfoMap', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TextureCube'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TextureCube *create(const std::string &positive_x, const std::string &negative_x, const std::string &positive_y, const std::string &negative_y, const std::string &positive_z, const std::string &negative_z)')
 cls.func(nil, 'void setTexParameters(const cocos2d::Texture2D::TexParams &)')
 cls.func(nil, 'cocos2d::backend::TextureBackend *getBackendTexture()')
 cls.func(nil, 'bool reloadTexture()')
 cls.func(nil, 'TextureCube()')
-cls.prop('backendTexture')
+cls.prop('backendTexture', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TextureAtlas'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TextureAtlas *create(const std::string &file, ssize_t capacity)')
 cls.func(nil, 'static cocos2d::TextureAtlas *createWithTexture(cocos2d::Texture2D *texture, ssize_t capacity)')
 cls.func(nil, 'TextureAtlas()')
@@ -1846,20 +2099,28 @@ cls.func(nil, 'size_t getTotalQuads()')
 cls.func(nil, 'size_t getCapacity()')
 cls.func(nil, 'cocos2d::Texture2D *getTexture()')
 cls.func(nil, 'void setTexture(cocos2d::Texture2D *texture)')
-cls.prop('dirty')
-cls.prop('description')
-cls.prop('totalQuads')
-cls.prop('capacity')
-cls.prop('texture')
+cls.prop('dirty', nil, nil)
+cls.prop('description', nil, nil)
+cls.prop('totalQuads', nil, nil)
+cls.prop('capacity', nil, nil)
+cls.prop('texture', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::network::WebSocket::ErrorCode'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('TIME_OUT', 'cocos2d::network::WebSocket::ErrorCode::TIME_OUT')
 cls.enum('CONNECTION_FAILURE', 'cocos2d::network::WebSocket::ErrorCode::CONNECTION_FAILURE')
 cls.enum('UNKNOWN', 'cocos2d::network::WebSocket::ErrorCode::UNKNOWN')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::network::WebSocket::State'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('CONNECTING', 'cocos2d::network::WebSocket::State::CONNECTING')
 cls.enum('OPEN', 'cocos2d::network::WebSocket::State::OPEN')
 cls.enum('CLOSING', 'cocos2d::network::WebSocket::State::CLOSING')
@@ -1867,6 +2128,10 @@ cls.enum('CLOSED', 'cocos2d::network::WebSocket::State::CLOSED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::network::WebSocket::Delegate'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'void onOpen(cocos2d::network::WebSocket *ws)')
 cls.func(nil, 'void onMessage(cocos2d::network::WebSocket *ws, const cocos2d::network::WebSocket::Data &data)')
 cls.func(nil, 'void onClose(cocos2d::network::WebSocket *ws)')
@@ -1874,6 +2139,10 @@ cls.func(nil, 'void onError(cocos2d::network::WebSocket *ws, const cocos2d::netw
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::network::WebSocket'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func('init', [[{
     std::vector<std::string> protocols;
     auto self =  olua_toobj<cocos2d::network::WebSocket>(L, 1);
@@ -1905,13 +2174,16 @@ cls.func(nil, 'void closeAsync()')
 cls.func(nil, 'cocos2d::network::WebSocket::State getReadyState()')
 cls.func(nil, 'const std::string &getUrl()')
 cls.func(nil, 'const std::string &getProtocol()')
-cls.prop('readyState')
-cls.prop('url')
-cls.prop('protocol')
+cls.prop('readyState', nil, nil)
+cls.prop('url', nil, nil)
+cls.prop('protocol', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::LuaWebSocketDelegate'
-cls.SUPERCLS = "cocos2d::network::WebSocket::Delegate"
+cls.SUPERCLS = 'cocos2d::network::WebSocket::Delegate'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'LuaWebSocketDelegate()')
 cls.var('onOpen', [[@nullable @local std::function<void (network::WebSocket *)> onOpenCallback]])
 cls.var('onMessage', [[@nullable @local std::function<void (network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback]])
@@ -1920,7 +2192,10 @@ cls.var('onError', [[@nullable @local std::function<void (network::WebSocket *, 
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ActionManager'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'ActionManager()')
 cls.func(nil, 'void addAction(cocos2d::Action *action, cocos2d::Node *target, bool paused)')
 cls.func(nil, 'void removeAllActions()')
@@ -1938,11 +2213,14 @@ cls.func(nil, 'void resumeTarget(cocos2d::Node *target)')
 cls.func(nil, 'Vector<cocos2d::Node *> pauseAllRunningActions()')
 cls.func(nil, 'void resumeTargets(const Vector<cocos2d::Node *> &targetsToResume)')
 cls.func(nil, 'void update(float dt)')
-cls.prop('numberOfRunningActions')
+cls.prop('numberOfRunningActions', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Component'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::Component *create()')
 cls.func(nil, 'bool init()')
 cls.func(nil, 'bool isEnabled()')
@@ -1958,13 +2236,16 @@ cls.func(nil, 'void onExit()')
 cls.func(nil, 'void onAdd()')
 cls.func(nil, 'void onRemove()')
 cls.func(nil, 'Component()')
-cls.prop('enabled')
-cls.prop('name')
-cls.prop('owner')
+cls.prop('enabled', nil, nil)
+cls.prop('name', nil, nil)
+cls.prop('owner', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::LuaComponent'
-cls.SUPERCLS = "cocos2d::Component"
+cls.SUPERCLS = 'cocos2d::Component'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::LuaComponent *create()')
 cls.func(nil, 'LuaComponent()')
 cls.var('onUpdate', [[@nullable @local std::function<void (float)> onUpdateCallback]])
@@ -1975,19 +2256,21 @@ cls.var('onRemove', [[@nullable @local std::function<void ()> onRemoveCallback]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Node'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
 cls.CHUNK = [[
-static cocos2d::Node *_find_ancestor(cocos2d::Node *node1, cocos2d::Node *node2)
-{
-    for (auto *p1 = node1; p1 != nullptr; p1 = p1->getParent()) {
-        for (auto *p2 = node2; p2 != nullptr; p2 = p2->getParent()) {
-            if (p1 == p2) {
-                return p1;
+    static cocos2d::Node *_find_ancestor(cocos2d::Node *node1, cocos2d::Node *node2)
+    {
+        for (auto *p1 = node1; p1 != nullptr; p1 = p1->getParent()) {
+            for (auto *p2 = node2; p2 != nullptr; p2 = p2->getParent()) {
+                if (p1 == p2) {
+                    return p1;
+                }
             }
         }
+        return NULL;
     }
-    return NULL;
-}
 ]]
 cls.const('INVALID_TAG', 'cocos2d::Node::INVALID_TAG', 'const int')
 cls.func('getBounds', [[{
@@ -2309,129 +2592,139 @@ cls.prop('x', 'float getPositionX()', 'void setPositionX(float x)')
 cls.prop('y', 'float getPositionY()', 'void setPositionY(float y)')
 cls.prop('z', 'float getPositionZ()', 'void setPositionZ(float z)')
 cls.prop('anchorX', [[
-{
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    lua_pushnumber(L, self->getAnchorPoint().x);
-    return 1;
-}]], [[
-{
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    cocos2d::Vec2 anchor = self->getAnchorPoint();
-    anchor.x = olua_checknumber(L, 2);
-    self->setAnchorPoint(anchor);
-    return 0;
-}]])
+    {
+        auto self = olua_toobj<cocos2d::Node>(L, 1);
+        lua_pushnumber(L, self->getAnchorPoint().x);
+        return 1;
+    }
+]], [[
+    {
+        auto self = olua_toobj<cocos2d::Node>(L, 1);
+        cocos2d::Vec2 anchor = self->getAnchorPoint();
+        anchor.x = olua_checknumber(L, 2);
+        self->setAnchorPoint(anchor);
+        return 0;
+    }
+]])
 cls.prop('anchorY', [[
-{
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    lua_pushnumber(L, self->getAnchorPoint().y);
-    return 1;
-}]], [[
-{
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    cocos2d::Vec2 anchor = self->getAnchorPoint();
-    anchor.y = olua_checknumber(L, 2);
-    self->setAnchorPoint(anchor);
-    return 0;
-}]])
+    {
+        auto self = olua_toobj<cocos2d::Node>(L, 1);
+        lua_pushnumber(L, self->getAnchorPoint().y);
+        return 1;
+    }
+]], [[
+    {
+        auto self = olua_toobj<cocos2d::Node>(L, 1);
+        cocos2d::Vec2 anchor = self->getAnchorPoint();
+        anchor.y = olua_checknumber(L, 2);
+        self->setAnchorPoint(anchor);
+        return 0;
+    }
+]])
 cls.prop('width', [[
-{
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    lua_pushnumber(L, self->getContentSize().width);
-    return 1;
-}]], [[
-{
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    cocos2d::Size size = self->getContentSize();
-    size.width = olua_checknumber(L, 2);
-    self->setContentSize(size);
-    return 0;
-}]])
+    {
+        auto self = olua_toobj<cocos2d::Node>(L, 1);
+        lua_pushnumber(L, self->getContentSize().width);
+        return 1;
+    }
+]], [[
+    {
+        auto self = olua_toobj<cocos2d::Node>(L, 1);
+        cocos2d::Size size = self->getContentSize();
+        size.width = olua_checknumber(L, 2);
+        self->setContentSize(size);
+        return 0;
+    }
+]])
 cls.prop('height', [[
-{
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    lua_pushnumber(L, self->getContentSize().height);
-    return 1;
-}]], [[
-{
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    cocos2d::Size size = self->getContentSize();
-    size.height = olua_checknumber(L, 2);
-    self->setContentSize(size);
-    return 0;
-}]])
+    {
+        auto self = olua_toobj<cocos2d::Node>(L, 1);
+        lua_pushnumber(L, self->getContentSize().height);
+        return 1;
+    }
+]], [[
+    {
+        auto self = olua_toobj<cocos2d::Node>(L, 1);
+        cocos2d::Size size = self->getContentSize();
+        size.height = olua_checknumber(L, 2);
+        self->setContentSize(size);
+        return 0;
+    }
+]])
 cls.prop('alpha', [[
-{
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    lua_pushnumber(L, self->getOpacity() / 255.0f);
-    return 1;
-}]], [[
-{
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    self->setOpacity(olua_checknumber(L, 2) * 255.0f);
-    return 0;
-}]])
-cls.prop('attachedNodeCount')
-cls.prop('description')
-cls.prop('localZOrder')
-cls.prop('globalZOrder')
-cls.prop('scaleX')
-cls.prop('scaleY')
-cls.prop('scaleZ')
-cls.prop('scale')
-cls.prop('position')
-cls.prop('positionNormalized')
-cls.prop('normalizedPosition')
-cls.prop('positionX')
-cls.prop('positionY')
-cls.prop('position3D')
-cls.prop('positionZ')
-cls.prop('skewX')
-cls.prop('skewY')
-cls.prop('anchorPoint')
-cls.prop('anchorPointInPoints')
-cls.prop('contentSize')
-cls.prop('visible')
-cls.prop('rotation')
-cls.prop('rotation3D')
-cls.prop('rotationQuat')
-cls.prop('rotationSkewX')
-cls.prop('rotationSkewY')
-cls.prop('ignoreAnchorPointForPosition')
-cls.prop('children')
-cls.prop('childrenCount')
-cls.prop('parent')
-cls.prop('tag')
-cls.prop('name')
-cls.prop('userData')
-cls.prop('userObject')
-cls.prop('running')
-cls.prop('scene')
-cls.prop('boundingBox')
-cls.prop('eventDispatcher')
-cls.prop('actionManager')
-cls.prop('numberOfRunningActions')
-cls.prop('scheduler')
-cls.prop('parentToNodeTransform')
-cls.prop('parentToNodeAffineTransform')
-cls.prop('nodeToWorldTransform')
-cls.prop('nodeToWorldAffineTransform')
-cls.prop('worldToNodeTransform')
-cls.prop('worldToNodeAffineTransform')
-cls.prop('opacity')
-cls.prop('displayedOpacity')
-cls.prop('cascadeOpacityEnabled')
-cls.prop('color')
-cls.prop('displayedColor')
-cls.prop('cascadeColorEnabled')
-cls.prop('opacityModifyRGB')
-cls.prop('onEnterCallback')
-cls.prop('onExitCallback')
-cls.prop('onEnterTransitionDidFinishCallback')
-cls.prop('onExitTransitionDidStartCallback')
-cls.prop('cameraMask')
-cls.prop('programState')
-cls.prop('physicsBody')
+    {
+        auto self = olua_toobj<cocos2d::Node>(L, 1);
+        lua_pushnumber(L, self->getOpacity() / 255.0f);
+        return 1;
+    }
+]], [[
+    {
+        auto self = olua_toobj<cocos2d::Node>(L, 1);
+        self->setOpacity(olua_checknumber(L, 2) * 255.0f);
+        return 0;
+    }
+]])
+cls.prop('attachedNodeCount', nil, nil)
+cls.prop('description', nil, nil)
+cls.prop('localZOrder', nil, nil)
+cls.prop('globalZOrder', nil, nil)
+cls.prop('scaleX', nil, nil)
+cls.prop('scaleY', nil, nil)
+cls.prop('scaleZ', nil, nil)
+cls.prop('scale', nil, nil)
+cls.prop('position', nil, nil)
+cls.prop('positionNormalized', nil, nil)
+cls.prop('normalizedPosition', nil, nil)
+cls.prop('positionX', nil, nil)
+cls.prop('positionY', nil, nil)
+cls.prop('position3D', nil, nil)
+cls.prop('positionZ', nil, nil)
+cls.prop('skewX', nil, nil)
+cls.prop('skewY', nil, nil)
+cls.prop('anchorPoint', nil, nil)
+cls.prop('anchorPointInPoints', nil, nil)
+cls.prop('contentSize', nil, nil)
+cls.prop('visible', nil, nil)
+cls.prop('rotation', nil, nil)
+cls.prop('rotation3D', nil, nil)
+cls.prop('rotationQuat', nil, nil)
+cls.prop('rotationSkewX', nil, nil)
+cls.prop('rotationSkewY', nil, nil)
+cls.prop('ignoreAnchorPointForPosition', nil, nil)
+cls.prop('children', nil, nil)
+cls.prop('childrenCount', nil, nil)
+cls.prop('parent', nil, nil)
+cls.prop('tag', nil, nil)
+cls.prop('name', nil, nil)
+cls.prop('userData', nil, nil)
+cls.prop('userObject', nil, nil)
+cls.prop('running', nil, nil)
+cls.prop('scene', nil, nil)
+cls.prop('boundingBox', nil, nil)
+cls.prop('eventDispatcher', nil, nil)
+cls.prop('actionManager', nil, nil)
+cls.prop('numberOfRunningActions', nil, nil)
+cls.prop('scheduler', nil, nil)
+cls.prop('parentToNodeTransform', nil, nil)
+cls.prop('parentToNodeAffineTransform', nil, nil)
+cls.prop('nodeToWorldTransform', nil, nil)
+cls.prop('nodeToWorldAffineTransform', nil, nil)
+cls.prop('worldToNodeTransform', nil, nil)
+cls.prop('worldToNodeAffineTransform', nil, nil)
+cls.prop('opacity', nil, nil)
+cls.prop('displayedOpacity', nil, nil)
+cls.prop('cascadeOpacityEnabled', nil, nil)
+cls.prop('color', nil, nil)
+cls.prop('displayedColor', nil, nil)
+cls.prop('cascadeColorEnabled', nil, nil)
+cls.prop('opacityModifyRGB', nil, nil)
+cls.prop('onEnterCallback', nil, nil)
+cls.prop('onExitCallback', nil, nil)
+cls.prop('onEnterTransitionDidFinishCallback', nil, nil)
+cls.prop('onExitTransitionDidStartCallback', nil, nil)
+cls.prop('cameraMask', nil, nil)
+cls.prop('programState', nil, nil)
+cls.prop('physicsBody', nil, nil)
 cls.insert('removeFromParent', {
     BEFORE = [[
         if (!self->getParent()) {
@@ -2440,6 +2733,9 @@ cls.insert('removeFromParent', {
         olua_push_cppobj<cocos2d::Node>(L, self->getParent());
         int parent = lua_gettop(L);
     ]],
+    AFTER = nil,
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 cls.insert('removeFromParentAndCleanup', {
     BEFORE = [[
@@ -2449,11 +2745,17 @@ cls.insert('removeFromParentAndCleanup', {
         olua_push_cppobj<cocos2d::Node>(L, self->getParent());
         int parent = lua_gettop(L);
     ]],
+    AFTER = nil,
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
 })
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::LuaTweenNode'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'void updateTweenAction(float value, const std::string &key)')
 cls.callback {
     FUNCS =  {
@@ -2467,7 +2769,10 @@ cls.callback {
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::AtlasNode'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::AtlasNode *create(const std::string &filename, int tileWidth, int tileHeight, int itemsToRender)')
 cls.func(nil, 'void updateAtlasValues()')
 cls.func(nil, 'cocos2d::Texture2D *getTexture()')
@@ -2481,13 +2786,17 @@ cls.func(nil, 'size_t getQuadsToDraw()')
 cls.func(nil, 'AtlasNode()')
 cls.func(nil, 'bool initWithTileFile(const std::string &tile, int tileWidth, int tileHeight, int itemsToRender)')
 cls.func(nil, 'bool initWithTexture(cocos2d::Texture2D *texture, int tileWidth, int tileHeight, int itemsToRender)')
-cls.prop('texture')
-cls.prop('blendFunc')
-cls.prop('textureAtlas')
-cls.prop('quadsToDraw')
+cls.prop('texture', nil, nil)
+cls.prop('blendFunc', nil, nil)
+cls.prop('textureAtlas', nil, nil)
+cls.prop('quadsToDraw', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::sImageTGA'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.var('status', [[int status]])
 cls.var('type', [[unsigned char type]])
 cls.var('pixelDepth', [[unsigned char pixelDepth]])
@@ -2498,7 +2807,10 @@ cls.var('flipped', [[int flipped]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TileMapAtlas'
-cls.SUPERCLS = "cocos2d::AtlasNode"
+cls.SUPERCLS = 'cocos2d::AtlasNode'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TileMapAtlas *create(const std::string &tile, const std::string &mapFile, int tileWidth, int tileHeight)')
 cls.func(nil, 'TileMapAtlas()')
 cls.func(nil, 'bool initWithTileFile(const std::string &tile, const std::string &mapFile, int tileWidth, int tileHeight)')
@@ -2507,11 +2819,14 @@ cls.func(nil, 'void setTile(const cocos2d::Color3B &tile, const cocos2d::Vec2 &p
 cls.func(nil, 'void releaseMap()')
 cls.func(nil, 'struct cocos2d::sImageTGA *getTGAInfo()')
 cls.func(nil, 'void setTGAInfo(struct cocos2d::sImageTGA *TGAInfo)')
-cls.prop('tgaInfo')
+cls.prop('tgaInfo', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ClippingNode'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::ClippingNode *create()', 'static cocos2d::ClippingNode *create(cocos2d::Node *stencil)')
 cls.func(nil, 'cocos2d::Node *getStencil()')
 cls.func(nil, 'void setStencil(cocos2d::Node *stencil)')
@@ -2522,13 +2837,16 @@ cls.func(nil, 'bool isInverted()')
 cls.func(nil, 'void setInverted(bool inverted)')
 cls.func(nil, 'ClippingNode()')
 cls.func(nil, 'bool init(cocos2d::Node *stencil)')
-cls.prop('stencil')
-cls.prop('alphaThreshold')
-cls.prop('inverted')
+cls.prop('stencil', nil, nil)
+cls.prop('alphaThreshold', nil, nil)
+cls.prop('inverted', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::MotionStreak'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::MotionStreak *create(float timeToFade, float minSeg, float strokeWidth, const cocos2d::Color3B &strokeColor, const std::string &imagePath)', 'static cocos2d::MotionStreak *create(float timeToFade, float minSeg, float strokeWidth, const cocos2d::Color3B &strokeColor, cocos2d::Texture2D *texture)')
 cls.func(nil, 'cocos2d::Texture2D *getTexture()')
 cls.func(nil, 'void setTexture(cocos2d::Texture2D *texture)')
@@ -2544,15 +2862,18 @@ cls.func(nil, 'bool isStartingPositionInitialized()')
 cls.func(nil, 'void setStartingPositionInitialized(bool bStartingPositionInitialized)')
 cls.func(nil, 'MotionStreak()')
 cls.func(nil, 'bool initWithFade(float fade, float minSeg, float stroke, const cocos2d::Color3B &color, const std::string &path)', 'bool initWithFade(float fade, float minSeg, float stroke, const cocos2d::Color3B &color, cocos2d::Texture2D *texture)')
-cls.prop('texture')
-cls.prop('blendFunc')
-cls.prop('fastMode')
-cls.prop('stroke')
-cls.prop('startingPositionInitialized')
+cls.prop('texture', nil, nil)
+cls.prop('blendFunc', nil, nil)
+cls.prop('fastMode', nil, nil)
+cls.prop('stroke', nil, nil)
+cls.prop('startingPositionInitialized', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ProtectedNode'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::ProtectedNode *create()')
 cls.func(nil, 'void addProtectedChild(@addref(protectedChildren |) cocos2d::Node *child)', 'void addProtectedChild(@addref(protectedChildren |) cocos2d::Node *child, int localZOrder)', 'void addProtectedChild(@addref(protectedChildren |) cocos2d::Node *child, int localZOrder, int tag)')
 cls.func(nil, '@addref(protectedChildren |) cocos2d::Node *getProtectedChildByTag(int tag)')
@@ -2568,7 +2889,10 @@ cls.func(nil, 'ProtectedNode()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::DrawNode'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::DrawNode *create(@optional float defaultLineWidth)')
 cls.func(nil, 'void drawPoint(const cocos2d::Vec2 &point, const float pointSize, const cocos2d::Color4F &color)')
 cls.func(nil, 'void drawLine(const cocos2d::Vec2 &origin, const cocos2d::Vec2 &destination, const cocos2d::Color4F &color)')
@@ -2591,31 +2915,46 @@ cls.func(nil, 'float getLineWidth()')
 cls.func(nil, 'void setIsolated(bool isolated)')
 cls.func(nil, 'bool isIsolated()')
 cls.func(nil, 'DrawNode(@optional float lineWidth)')
-cls.prop('blendFunc')
-cls.prop('lineWidth')
-cls.prop('isolated')
+cls.prop('blendFunc', nil, nil)
+cls.prop('lineWidth', nil, nil)
+cls.prop('isolated', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ParallaxNode'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::ParallaxNode *create()')
 cls.func(nil, 'void addChild(cocos2d::Node *child, int z, const cocos2d::Vec2 &parallaxRatio, const cocos2d::Vec2 &positionOffset)')
 cls.func(nil, 'ParallaxNode()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TextHAlignment'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('LEFT', 'cocos2d::TextHAlignment::LEFT')
 cls.enum('CENTER', 'cocos2d::TextHAlignment::CENTER')
 cls.enum('RIGHT', 'cocos2d::TextHAlignment::RIGHT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TextVAlignment'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('TOP', 'cocos2d::TextVAlignment::TOP')
 cls.enum('CENTER', 'cocos2d::TextVAlignment::CENTER')
 cls.enum('BOTTOM', 'cocos2d::TextVAlignment::BOTTOM')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::GlyphCollection'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('DYNAMIC', 'cocos2d::GlyphCollection::DYNAMIC')
 cls.enum('NEHE', 'cocos2d::GlyphCollection::NEHE')
 cls.enum('ASCII', 'cocos2d::GlyphCollection::ASCII')
@@ -2623,6 +2962,10 @@ cls.enum('CUSTOM', 'cocos2d::GlyphCollection::CUSTOM')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::LabelEffect'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('NORMAL', 'cocos2d::LabelEffect::NORMAL')
 cls.enum('OUTLINE', 'cocos2d::LabelEffect::OUTLINE')
 cls.enum('SHADOW', 'cocos2d::LabelEffect::SHADOW')
@@ -2635,6 +2978,10 @@ cls.enum('ALL', 'cocos2d::LabelEffect::ALL')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Label::LabelType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('TTF', 'cocos2d::Label::LabelType::TTF')
 cls.enum('BMFONT', 'cocos2d::Label::LabelType::BMFONT')
 cls.enum('CHARMAP', 'cocos2d::Label::LabelType::CHARMAP')
@@ -2642,6 +2989,10 @@ cls.enum('STRING_TEXTURE', 'cocos2d::Label::LabelType::STRING_TEXTURE')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Label::Overflow'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('NONE', 'cocos2d::Label::Overflow::NONE')
 cls.enum('CLAMP', 'cocos2d::Label::Overflow::CLAMP')
 cls.enum('SHRINK', 'cocos2d::Label::Overflow::SHRINK')
@@ -2649,7 +3000,10 @@ cls.enum('RESIZE_HEIGHT', 'cocos2d::Label::Overflow::RESIZE_HEIGHT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Label'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::Label *create()')
 cls.func(nil, 'static cocos2d::Label *createWithSystemFont(const std::string &text, const std::string &font, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)')
 cls.func(nil, 'static cocos2d::Label *createWithTTF(const std::string &text, const std::string &fontFilePath, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)', 'static cocos2d::Label *createWithTTF(const cocos2d::TTFConfig &ttfConfig, const std::string &text, @optional cocos2d::TextHAlignment hAlignment, @optional int maxLineWidth)')
@@ -2724,53 +3078,59 @@ cls.func(nil, 'const cocos2d::BlendFunc &getBlendFunc()')
 cls.func(nil, 'void setBlendFunc(const cocos2d::BlendFunc &blendFunc)')
 cls.func(nil, 'Label(@optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)')
 cls.func(nil, 'bool initWithTTF(const std::string &text, const std::string &fontFilePath, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)', 'bool initWithTTF(const cocos2d::TTFConfig &ttfConfig, const std::string &text, @optional cocos2d::TextHAlignment hAlignment, @optional int maxLineWidth)')
-cls.prop('ttfConfig')
-cls.prop('bmFontFilePath')
-cls.prop('systemFontName')
-cls.prop('systemFontSize')
-cls.prop('string')
-cls.prop('stringNumLines')
-cls.prop('stringLength')
-cls.prop('textColor')
-cls.prop('shadowEnabled')
-cls.prop('shadowOffset')
-cls.prop('shadowBlurRadius')
-cls.prop('shadowColor')
-cls.prop('outlineSize')
-cls.prop('labelEffectType')
-cls.prop('effectColor')
-cls.prop('textAlignment')
-cls.prop('horizontalAlignment')
-cls.prop('verticalAlignment')
-cls.prop('maxLineWidth')
-cls.prop('bmFontSize')
-cls.prop('wrapEnabled')
-cls.prop('overflow')
-cls.prop('width')
-cls.prop('height')
-cls.prop('dimensions')
-cls.prop('clipMarginEnabled')
-cls.prop('lineHeight')
-cls.prop('lineSpacing')
-cls.prop('labelType')
-cls.prop('renderingFontSize')
-cls.prop('additionalKerning')
-cls.prop('fontAtlas')
-cls.prop('blendFunc')
+cls.prop('ttfConfig', nil, nil)
+cls.prop('bmFontFilePath', nil, nil)
+cls.prop('systemFontName', nil, nil)
+cls.prop('systemFontSize', nil, nil)
+cls.prop('string', nil, nil)
+cls.prop('stringNumLines', nil, nil)
+cls.prop('stringLength', nil, nil)
+cls.prop('textColor', nil, nil)
+cls.prop('shadowEnabled', nil, nil)
+cls.prop('shadowOffset', nil, nil)
+cls.prop('shadowBlurRadius', nil, nil)
+cls.prop('shadowColor', nil, nil)
+cls.prop('outlineSize', nil, nil)
+cls.prop('labelEffectType', nil, nil)
+cls.prop('effectColor', nil, nil)
+cls.prop('textAlignment', nil, nil)
+cls.prop('horizontalAlignment', nil, nil)
+cls.prop('verticalAlignment', nil, nil)
+cls.prop('maxLineWidth', nil, nil)
+cls.prop('bmFontSize', nil, nil)
+cls.prop('wrapEnabled', nil, nil)
+cls.prop('overflow', nil, nil)
+cls.prop('width', nil, nil)
+cls.prop('height', nil, nil)
+cls.prop('dimensions', nil, nil)
+cls.prop('clipMarginEnabled', nil, nil)
+cls.prop('lineHeight', nil, nil)
+cls.prop('lineSpacing', nil, nil)
+cls.prop('labelType', nil, nil)
+cls.prop('renderingFontSize', nil, nil)
+cls.prop('additionalKerning', nil, nil)
+cls.prop('fontAtlas', nil, nil)
+cls.prop('blendFunc', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::LabelAtlas'
-cls.SUPERCLS = "cocos2d::AtlasNode"
+cls.SUPERCLS = 'cocos2d::AtlasNode'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::LabelAtlas *create()', 'static cocos2d::LabelAtlas *create(const std::string &string, const std::string &charMapFile, int itemWidth, int itemHeight, int startCharMap)', 'static cocos2d::LabelAtlas *create(const std::string &string, const std::string &fntFile)')
 cls.func(nil, 'bool initWithString(const std::string &string, const std::string &charMapFile, int itemWidth, int itemHeight, int startCharMap)', 'bool initWithString(const std::string &string, const std::string &fntFile)', 'bool initWithString(const std::string &string, cocos2d::Texture2D *texture, int itemWidth, int itemHeight, int startCharMap)')
 cls.func(nil, 'void setString(const std::string &label)')
 cls.func(nil, 'const std::string &getString()')
 cls.func(nil, 'LabelAtlas()')
-cls.prop('string')
+cls.prop('string', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::FontAtlas'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.const('CacheTextureWidth', 'cocos2d::FontAtlas::CacheTextureWidth', 'const int')
 cls.const('CacheTextureHeight', 'cocos2d::FontAtlas::CacheTextureHeight', 'const int')
 cls.func(nil, 'void addTexture(cocos2d::Texture2D *texture, int slot)')
@@ -2784,23 +3144,29 @@ cls.func(nil, 'void setAntiAliasTexParameters()')
 cls.func(nil, 'void setAliasTexParameters()')
 cls.var('CMD_PURGE_FONTATLAS', [[static const char *CMD_PURGE_FONTATLAS]])
 cls.var('CMD_RESET_FONTATLAS', [[static const char *CMD_RESET_FONTATLAS]])
-cls.prop('lineHeight')
-cls.prop('fontName')
+cls.prop('lineHeight', nil, nil)
+cls.prop('fontName', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ClippingRectangleNode'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::ClippingRectangleNode *create(const cocos2d::Rect &clippingRegion)', 'static cocos2d::ClippingRectangleNode *create()')
 cls.func(nil, 'const cocos2d::Rect &getClippingRegion()')
 cls.func(nil, 'void setClippingRegion(const cocos2d::Rect &clippingRegion)')
 cls.func(nil, 'bool isClippingEnabled()')
 cls.func(nil, 'void setClippingEnabled(bool enabled)')
-cls.prop('clippingRegion')
-cls.prop('clippingEnabled')
+cls.prop('clippingRegion', nil, nil)
+cls.prop('clippingEnabled', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::RenderTexture'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::RenderTexture *create(int w, int h, cocos2d::backend::PixelFormat format, cocos2d::backend::PixelFormat depthStencilFormat)', 'static cocos2d::RenderTexture *create(int w, int h, cocos2d::backend::PixelFormat format)', 'static cocos2d::RenderTexture *create(int w, int h)')
 cls.func(nil, 'void begin()')
 cls.func(nil, 'void beginWithClear(float r, float g, float b, float a)', 'void beginWithClear(float r, float g, float b, float a, float depthValue)', 'void beginWithClear(float r, float g, float b, float a, float depthValue, int stencilValue)')
@@ -2855,23 +3221,30 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'once',
 }
-cls.prop('clearFlags')
-cls.prop('clearColor')
-cls.prop('clearDepth')
-cls.prop('clearStencil')
-cls.prop('autoDraw')
-cls.prop('sprite')
+cls.prop('clearFlags', nil, nil)
+cls.prop('clearColor', nil, nil)
+cls.prop('clearDepth', nil, nil)
+cls.prop('clearStencil', nil, nil)
+cls.prop('autoDraw', nil, nil)
+cls.prop('sprite', nil, nil)
 cls.alias('begin', 'beginVisit')
 cls.alias('end', 'endVisit')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ProgressTimer::Type'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('RADIAL', 'cocos2d::ProgressTimer::Type::RADIAL')
 cls.enum('BAR', 'cocos2d::ProgressTimer::Type::BAR')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ProgressTimer'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::ProgressTimer *create(cocos2d::Sprite *sp)')
 cls.func(nil, 'cocos2d::ProgressTimer::Type getType()')
 cls.func(nil, 'float getPercentage()')
@@ -2887,16 +3260,19 @@ cls.func(nil, 'void setBarChangeRate(const cocos2d::Vec2 &barChangeRate)')
 cls.func(nil, 'cocos2d::Vec2 getBarChangeRate()')
 cls.func(nil, 'ProgressTimer()')
 cls.func(nil, 'bool initWithSprite(cocos2d::Sprite *sp)')
-cls.prop('type')
-cls.prop('percentage')
-cls.prop('sprite')
-cls.prop('reverseDirection')
-cls.prop('midpoint')
-cls.prop('barChangeRate')
+cls.prop('type', nil, nil)
+cls.prop('percentage', nil, nil)
+cls.prop('sprite', nil, nil)
+cls.prop('reverseDirection', nil, nil)
+cls.prop('midpoint', nil, nil)
+cls.prop('barChangeRate', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::AnimationFrame'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::AnimationFrame *create(cocos2d::SpriteFrame *spriteFrame, float delayUnits, const cocos2d::ValueMap &userInfo)')
 cls.func(nil, 'cocos2d::SpriteFrame *getSpriteFrame()')
 cls.func(nil, 'void setSpriteFrame(cocos2d::SpriteFrame *frame)')
@@ -2907,13 +3283,16 @@ cls.func(nil, 'void setUserInfo(const cocos2d::ValueMap &userInfo)')
 cls.func(nil, 'cocos2d::AnimationFrame *clone()')
 cls.func(nil, 'AnimationFrame()')
 cls.func(nil, 'bool initWithSpriteFrame(cocos2d::SpriteFrame *spriteFrame, float delayUnits, const cocos2d::ValueMap &userInfo)')
-cls.prop('spriteFrame')
-cls.prop('delayUnits')
-cls.prop('userInfo')
+cls.prop('spriteFrame', nil, nil)
+cls.prop('delayUnits', nil, nil)
+cls.prop('userInfo', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Animation'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::Animation *create()', 'static cocos2d::Animation *create(const Vector<cocos2d::AnimationFrame *> &arrayOfAnimationFrameNames, float delayPerUnit, @optional unsigned int loops)')
 cls.func(nil, 'static cocos2d::Animation *createWithSpriteFrames(const Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)')
 cls.func(nil, 'void addSpriteFrame(cocos2d::SpriteFrame *frame)')
@@ -2934,16 +3313,19 @@ cls.func(nil, 'Animation()')
 cls.func(nil, 'bool init()')
 cls.func(nil, 'bool initWithSpriteFrames(const Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)')
 cls.func(nil, 'bool initWithAnimationFrames(const Vector<cocos2d::AnimationFrame *> &arrayOfAnimationFrameNames, float delayPerUnit, unsigned int loops)')
-cls.prop('totalDelayUnits')
-cls.prop('delayPerUnit')
-cls.prop('duration')
-cls.prop('frames')
-cls.prop('restoreOriginalFrame')
-cls.prop('loops')
+cls.prop('totalDelayUnits', nil, nil)
+cls.prop('delayPerUnit', nil, nil)
+cls.prop('duration', nil, nil)
+cls.prop('frames', nil, nil)
+cls.prop('restoreOriginalFrame', nil, nil)
+cls.prop('loops', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::SpriteFrame'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::SpriteFrame *create(const std::string &filename, const cocos2d::Rect &rect)', 'static cocos2d::SpriteFrame *create(const std::string &filename, const cocos2d::Rect &rect, bool rotated, const cocos2d::Vec2 &offset, const cocos2d::Size &originalSize)')
 cls.func(nil, 'static cocos2d::SpriteFrame *createWithTexture(cocos2d::Texture2D *pobTexture, const cocos2d::Rect &rect)', 'static cocos2d::SpriteFrame *createWithTexture(cocos2d::Texture2D *pobTexture, const cocos2d::Rect &rect, bool rotated, const cocos2d::Vec2 &offset, const cocos2d::Size &originalSize)')
 cls.func(nil, 'const cocos2d::Rect &getRectInPixels()')
@@ -2973,20 +3355,23 @@ cls.func(nil, 'bool hasPolygonInfo()')
 cls.func(nil, 'SpriteFrame()')
 cls.func(nil, 'bool initWithTexture(cocos2d::Texture2D *pobTexture, const cocos2d::Rect &rect)', 'bool initWithTexture(cocos2d::Texture2D *pobTexture, const cocos2d::Rect &rect, bool rotated, const cocos2d::Vec2 &offset, const cocos2d::Size &originalSize)')
 cls.func(nil, 'bool initWithTextureFilename(const std::string &filename, const cocos2d::Rect &rect)', 'bool initWithTextureFilename(const std::string &filename, const cocos2d::Rect &rect, bool rotated, const cocos2d::Vec2 &offset, const cocos2d::Size &originalSize)')
-cls.prop('rectInPixels')
-cls.prop('rotated')
-cls.prop('rect')
-cls.prop('centerRect')
-cls.prop('offsetInPixels')
-cls.prop('originalSizeInPixels')
-cls.prop('originalSize')
-cls.prop('texture')
-cls.prop('offset')
-cls.prop('anchorPoint')
+cls.prop('rectInPixels', nil, nil)
+cls.prop('rotated', nil, nil)
+cls.prop('rect', nil, nil)
+cls.prop('centerRect', nil, nil)
+cls.prop('offsetInPixels', nil, nil)
+cls.prop('originalSizeInPixels', nil, nil)
+cls.prop('originalSize', nil, nil)
+cls.prop('texture', nil, nil)
+cls.prop('offset', nil, nil)
+cls.prop('anchorPoint', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Sprite'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.const('INDEX_NOT_INITIALIZED', 'cocos2d::Sprite::INDEX_NOT_INITIALIZED', 'const int')
 cls.func(nil, 'static cocos2d::Sprite *create()', 'static cocos2d::Sprite *create(const std::string &filename)', 'static cocos2d::Sprite *create(const std::string &filename, const cocos2d::Rect &rect)')
 cls.func(nil, 'static cocos2d::Sprite *createWithTexture(cocos2d::Texture2D *texture)', 'static cocos2d::Sprite *createWithTexture(cocos2d::Texture2D *texture, const cocos2d::Rect &rect, @optional bool rotated)')
@@ -3032,27 +3417,30 @@ cls.func(nil, 'bool initWithSpriteFrameName(const std::string &spriteFrameName)'
 cls.func(nil, 'bool initWithFile(const std::string &filename)', 'bool initWithFile(const std::string &filename, const cocos2d::Rect &rect)')
 cls.func(nil, 'void setVertexLayout()')
 cls.func(nil, 'void updateShaders(const char *vert, const char *frag)')
-cls.prop('batchNode')
-cls.prop('texture')
-cls.prop('centerRectNormalized')
-cls.prop('centerRect')
-cls.prop('spriteFrame')
-cls.prop('dirty')
-cls.prop('textureRectRotated')
-cls.prop('atlasIndex')
-cls.prop('textureRect')
-cls.prop('textureAtlas')
-cls.prop('offsetPosition')
-cls.prop('flippedX')
-cls.prop('flippedY')
-cls.prop('stretchEnabled')
-cls.prop('blendFunc')
-cls.prop('resourceType')
-cls.prop('resourceName')
+cls.prop('batchNode', nil, nil)
+cls.prop('texture', nil, nil)
+cls.prop('centerRectNormalized', nil, nil)
+cls.prop('centerRect', nil, nil)
+cls.prop('spriteFrame', nil, nil)
+cls.prop('dirty', nil, nil)
+cls.prop('textureRectRotated', nil, nil)
+cls.prop('atlasIndex', nil, nil)
+cls.prop('textureRect', nil, nil)
+cls.prop('textureAtlas', nil, nil)
+cls.prop('offsetPosition', nil, nil)
+cls.prop('flippedX', nil, nil)
+cls.prop('flippedY', nil, nil)
+cls.prop('stretchEnabled', nil, nil)
+cls.prop('blendFunc', nil, nil)
+cls.prop('resourceType', nil, nil)
+cls.prop('resourceName', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::SpriteBatchNode'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::SpriteBatchNode *createWithTexture(cocos2d::Texture2D *tex, @optional ssize_t capacity)')
 cls.func(nil, 'static cocos2d::SpriteBatchNode *create(const std::string &fileImage, @optional ssize_t capacity)')
 cls.func(nil, 'cocos2d::TextureAtlas *getTextureAtlas()')
@@ -3077,14 +3465,17 @@ cls.func(nil, 'void reserveCapacity(ssize_t newCapacity)')
 cls.func(nil, 'SpriteBatchNode()')
 cls.func(nil, 'bool initWithTexture(cocos2d::Texture2D *tex, @optional ssize_t capacity)')
 cls.func(nil, 'bool initWithFile(const std::string &fileImage, @optional ssize_t capacity)')
-cls.prop('textureAtlas')
-cls.prop('descendants')
-cls.prop('texture')
-cls.prop('blendFunc')
+cls.prop('textureAtlas', nil, nil)
+cls.prop('descendants', nil, nil)
+cls.prop('texture', nil, nil)
+cls.prop('blendFunc', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::SpriteFrameCache'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::SpriteFrameCache *getInstance()')
 cls.func(nil, 'static void destroyInstance()')
 cls.func(nil, 'bool init()')
@@ -3100,11 +3491,14 @@ cls.func(nil, 'void removeSpriteFramesFromFileContent(const std::string &plist_c
 cls.func(nil, 'void removeSpriteFramesFromTexture(cocos2d::Texture2D *texture)')
 cls.func(nil, 'cocos2d::SpriteFrame *getSpriteFrameByName(const std::string &name)')
 cls.func(nil, 'bool reloadTexture(const std::string &plist)')
-cls.prop('instance')
+cls.prop('instance', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::AnimationCache'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'AnimationCache()')
 cls.func(nil, 'static cocos2d::AnimationCache *getInstance()')
 cls.func(nil, 'static void destroyInstance()')
@@ -3114,11 +3508,14 @@ cls.func(nil, 'void removeAnimation(const std::string &name)')
 cls.func(nil, 'cocos2d::Animation *getAnimation(const std::string &name)')
 cls.func(nil, 'void addAnimationsWithDictionary(const cocos2d::ValueMap &dictionary, const std::string &plist)')
 cls.func(nil, 'void addAnimationsWithFile(const std::string &plist)')
-cls.prop('instance')
+cls.prop('instance', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Scene'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::Scene *create()')
 cls.func(nil, 'static cocos2d::Scene *createWithSize(const cocos2d::Size &size)')
 cls.func(nil, 'const std::vector<Camera *> &getCameras()')
@@ -3134,14 +3531,17 @@ cls.func(nil, 'static cocos2d::Scene *createWithPhysics()')
 cls.func(nil, 'bool initWithPhysics()')
 cls.func(nil, 'void setNavMeshDebugCamera(cocos2d::Camera *camera)')
 cls.func(nil, 'void stepPhysicsAndNavigation(float deltaTime)')
-cls.prop('cameras')
-cls.prop('defaultCamera')
-cls.prop('lights')
-cls.prop('physicsWorld')
+cls.prop('cameras', nil, nil)
+cls.prop('defaultCamera', nil, nil)
+cls.prop('lights', nil, nil)
+cls.prop('physicsWorld', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Layer'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::Layer *create()')
 cls.func(nil, 'bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)')
 cls.func(nil, 'void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event)')
@@ -3158,7 +3558,10 @@ cls.func(nil, 'Layer()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::LayerColor'
-cls.SUPERCLS = "cocos2d::Layer"
+cls.SUPERCLS = 'cocos2d::Layer'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::LayerColor *create()', 'static cocos2d::LayerColor *create(const cocos2d::Color4B &color, float width, float height)', 'static cocos2d::LayerColor *create(const cocos2d::Color4B &color)')
 cls.func(nil, 'void changeWidth(float w)')
 cls.func(nil, 'void changeHeight(float h)')
@@ -3167,11 +3570,14 @@ cls.func(nil, 'const cocos2d::BlendFunc &getBlendFunc()')
 cls.func(nil, 'void setBlendFunc(const cocos2d::BlendFunc &blendFunc)')
 cls.func(nil, 'LayerColor()')
 cls.func(nil, 'bool initWithColor(const cocos2d::Color4B &color, float width, float height)', 'bool initWithColor(const cocos2d::Color4B &color)')
-cls.prop('blendFunc')
+cls.prop('blendFunc', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::LayerGradient'
-cls.SUPERCLS = "cocos2d::LayerColor"
+cls.SUPERCLS = 'cocos2d::LayerColor'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::LayerGradient *create()', 'static cocos2d::LayerGradient *create(const cocos2d::Color4B &start, const cocos2d::Color4B &end)', 'static cocos2d::LayerGradient *create(const cocos2d::Color4B &start, const cocos2d::Color4B &end, const cocos2d::Vec2 &v)')
 cls.func(nil, 'void setCompressedInterpolation(bool compressedInterpolation)')
 cls.func(nil, 'bool isCompressedInterpolation()')
@@ -3187,16 +3593,19 @@ cls.func(nil, 'void setVector(const cocos2d::Vec2 &alongVector)')
 cls.func(nil, 'const cocos2d::Vec2 &getVector()')
 cls.func(nil, 'LayerGradient()')
 cls.func(nil, 'bool initWithColor(const cocos2d::Color4B &start, const cocos2d::Color4B &end)', 'bool initWithColor(const cocos2d::Color4B &start, const cocos2d::Color4B &end, const cocos2d::Vec2 &v)')
-cls.prop('compressedInterpolation')
-cls.prop('startColor')
-cls.prop('endColor')
-cls.prop('startOpacity')
-cls.prop('endOpacity')
-cls.prop('vector')
+cls.prop('compressedInterpolation', nil, nil)
+cls.prop('startColor', nil, nil)
+cls.prop('endColor', nil, nil)
+cls.prop('startOpacity', nil, nil)
+cls.prop('endOpacity', nil, nil)
+cls.prop('vector', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::LayerRadialGradient'
-cls.SUPERCLS = "cocos2d::Layer"
+cls.SUPERCLS = 'cocos2d::Layer'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::LayerRadialGradient *create(const cocos2d::Color4B &startColor, const cocos2d::Color4B &endColor, float radius, const cocos2d::Vec2 &center, float expand)', 'static cocos2d::LayerRadialGradient *create()')
 cls.func(nil, 'void setStartOpacity(uint8_t opacity)')
 cls.func(nil, 'uint8_t getStartOpacity()')
@@ -3218,20 +3627,23 @@ cls.func(nil, 'void setBlendFunc(const cocos2d::BlendFunc &blendFunc)')
 cls.func(nil, 'cocos2d::BlendFunc getBlendFunc()')
 cls.func(nil, 'LayerRadialGradient()')
 cls.func(nil, 'bool initWithColor(const cocos2d::Color4B &startColor, const cocos2d::Color4B &endColor, float radius, const cocos2d::Vec2 &center, float expand)')
-cls.prop('startOpacity')
-cls.prop('endOpacity')
-cls.prop('radius')
-cls.prop('center')
-cls.prop('expand')
-cls.prop('startColor')
-cls.prop('startColor3B')
-cls.prop('endColor')
-cls.prop('endColor3B')
-cls.prop('blendFunc')
+cls.prop('startOpacity', nil, nil)
+cls.prop('endOpacity', nil, nil)
+cls.prop('radius', nil, nil)
+cls.prop('center', nil, nil)
+cls.prop('expand', nil, nil)
+cls.prop('startColor', nil, nil)
+cls.prop('startColor3B', nil, nil)
+cls.prop('endColor', nil, nil)
+cls.prop('endColor3B', nil, nil)
+cls.prop('blendFunc', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::LayerMultiplex'
-cls.SUPERCLS = "cocos2d::Layer"
+cls.SUPERCLS = 'cocos2d::Layer'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::LayerMultiplex *create()')
 cls.func(nil, 'static cocos2d::LayerMultiplex *createWithArray(const Vector<cocos2d::Layer *> &arrayOfLayers)')
 cls.func(nil, 'static cocos2d::LayerMultiplex *createWithLayer(cocos2d::Layer *layer)')
@@ -3243,6 +3655,10 @@ cls.func(nil, 'bool initWithArray(const Vector<cocos2d::Layer *> &arrayOfLayers)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionScene::Orientation'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('LEFT_OVER', 'cocos2d::TransitionScene::Orientation::LEFT_OVER')
 cls.enum('RIGHT_OVER', 'cocos2d::TransitionScene::Orientation::RIGHT_OVER')
 cls.enum('UP_OVER', 'cocos2d::TransitionScene::Orientation::UP_OVER')
@@ -3250,37 +3666,52 @@ cls.enum('DOWN_OVER', 'cocos2d::TransitionScene::Orientation::DOWN_OVER')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionScene'
-cls.SUPERCLS = "cocos2d::Scene"
+cls.SUPERCLS = 'cocos2d::Scene'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionScene *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'void finish()')
 cls.func(nil, 'void hideOutShowIn()')
 cls.func(nil, 'cocos2d::Scene *getInScene()')
 cls.func(nil, 'float getDuration()')
 cls.func(nil, 'TransitionScene()')
-cls.prop('inScene')
-cls.prop('duration')
+cls.prop('inScene', nil, nil)
+cls.prop('duration', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionSceneOriented'
-cls.SUPERCLS = "cocos2d::TransitionScene"
+cls.SUPERCLS = 'cocos2d::TransitionScene'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionSceneOriented *create(float t, @addref(scenes |) cocos2d::Scene *scene, cocos2d::TransitionScene::Orientation orientation)')
 cls.func(nil, 'TransitionSceneOriented()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionRotoZoom'
-cls.SUPERCLS = "cocos2d::TransitionScene"
+cls.SUPERCLS = 'cocos2d::TransitionScene'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionRotoZoom *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'TransitionRotoZoom()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionJumpZoom'
-cls.SUPERCLS = "cocos2d::TransitionScene"
+cls.SUPERCLS = 'cocos2d::TransitionScene'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionJumpZoom *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'TransitionJumpZoom()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionMoveInL'
-cls.SUPERCLS = "cocos2d::TransitionScene"
+cls.SUPERCLS = 'cocos2d::TransitionScene'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionMoveInL *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'cocos2d::ActionInterval *action()')
 cls.func(nil, 'cocos2d::ActionInterval *easeActionWithAction(@addref(action ^) cocos2d::ActionInterval *action)')
@@ -3288,25 +3719,37 @@ cls.func(nil, 'TransitionMoveInL()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionMoveInR'
-cls.SUPERCLS = "cocos2d::TransitionMoveInL"
+cls.SUPERCLS = 'cocos2d::TransitionMoveInL'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionMoveInR *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'TransitionMoveInR()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionMoveInT'
-cls.SUPERCLS = "cocos2d::TransitionMoveInL"
+cls.SUPERCLS = 'cocos2d::TransitionMoveInL'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionMoveInT *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'TransitionMoveInT()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionMoveInB'
-cls.SUPERCLS = "cocos2d::TransitionMoveInL"
+cls.SUPERCLS = 'cocos2d::TransitionMoveInL'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionMoveInB *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'TransitionMoveInB()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionSlideInL'
-cls.SUPERCLS = "cocos2d::TransitionScene"
+cls.SUPERCLS = 'cocos2d::TransitionScene'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionSlideInL *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'cocos2d::ActionInterval *easeActionWithAction(@addref(action ^) cocos2d::ActionInterval *action)')
 cls.func(nil, 'cocos2d::ActionInterval *action()')
@@ -3314,87 +3757,129 @@ cls.func(nil, 'TransitionSlideInL()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionSlideInR'
-cls.SUPERCLS = "cocos2d::TransitionSlideInL"
+cls.SUPERCLS = 'cocos2d::TransitionSlideInL'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionSlideInR *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'TransitionSlideInR()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionSlideInB'
-cls.SUPERCLS = "cocos2d::TransitionSlideInL"
+cls.SUPERCLS = 'cocos2d::TransitionSlideInL'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionSlideInB *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'TransitionSlideInB()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionSlideInT'
-cls.SUPERCLS = "cocos2d::TransitionSlideInL"
+cls.SUPERCLS = 'cocos2d::TransitionSlideInL'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionSlideInT *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'TransitionSlideInT()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionShrinkGrow'
-cls.SUPERCLS = "cocos2d::TransitionScene"
+cls.SUPERCLS = 'cocos2d::TransitionScene'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionShrinkGrow *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'cocos2d::ActionInterval *easeActionWithAction(@addref(action ^) cocos2d::ActionInterval *action)')
 cls.func(nil, 'TransitionShrinkGrow()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionFlipX'
-cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
+cls.SUPERCLS = 'cocos2d::TransitionSceneOriented'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionFlipX *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)', 'static cocos2d::TransitionFlipX *create(float t, @addref(scenes |) cocos2d::Scene *s)')
 cls.func(nil, 'TransitionFlipX()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionFlipY'
-cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
+cls.SUPERCLS = 'cocos2d::TransitionSceneOriented'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionFlipY *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)', 'static cocos2d::TransitionFlipY *create(float t, @addref(scenes |) cocos2d::Scene *s)')
 cls.func(nil, 'TransitionFlipY()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionFlipAngular'
-cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
+cls.SUPERCLS = 'cocos2d::TransitionSceneOriented'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionFlipAngular *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)', 'static cocos2d::TransitionFlipAngular *create(float t, @addref(scenes |) cocos2d::Scene *s)')
 cls.func(nil, 'TransitionFlipAngular()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionZoomFlipX'
-cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
+cls.SUPERCLS = 'cocos2d::TransitionSceneOriented'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionZoomFlipX *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)', 'static cocos2d::TransitionZoomFlipX *create(float t, @addref(scenes |) cocos2d::Scene *s)')
 cls.func(nil, 'TransitionZoomFlipX()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionZoomFlipY'
-cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
+cls.SUPERCLS = 'cocos2d::TransitionSceneOriented'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionZoomFlipY *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)', 'static cocos2d::TransitionZoomFlipY *create(float t, @addref(scenes |) cocos2d::Scene *s)')
 cls.func(nil, 'TransitionZoomFlipY()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionZoomFlipAngular'
-cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
+cls.SUPERCLS = 'cocos2d::TransitionSceneOriented'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionZoomFlipAngular *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)', 'static cocos2d::TransitionZoomFlipAngular *create(float t, @addref(scenes |) cocos2d::Scene *s)')
 cls.func(nil, 'TransitionZoomFlipAngular()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionFade'
-cls.SUPERCLS = "cocos2d::TransitionScene"
+cls.SUPERCLS = 'cocos2d::TransitionScene'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionFade *create(float duration, @addref(scenes |) cocos2d::Scene *scene, const cocos2d::Color3B &color)', 'static cocos2d::TransitionFade *create(float duration, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'TransitionFade()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionCrossFade'
-cls.SUPERCLS = "cocos2d::TransitionScene"
+cls.SUPERCLS = 'cocos2d::TransitionScene'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionCrossFade *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'TransitionCrossFade()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionTurnOffTiles'
-cls.SUPERCLS = "cocos2d::TransitionScene"
+cls.SUPERCLS = 'cocos2d::TransitionScene'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionTurnOffTiles *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'cocos2d::ActionInterval *easeActionWithAction(@addref(action ^) cocos2d::ActionInterval *action)')
 cls.func(nil, 'TransitionTurnOffTiles()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionSplitCols'
-cls.SUPERCLS = "cocos2d::TransitionScene"
+cls.SUPERCLS = 'cocos2d::TransitionScene'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionSplitCols *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'cocos2d::ActionInterval *action()')
 cls.func(nil, 'cocos2d::ActionInterval *easeActionWithAction(@addref(action ^) cocos2d::ActionInterval *action)')
@@ -3402,13 +3887,19 @@ cls.func(nil, 'TransitionSplitCols()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionSplitRows'
-cls.SUPERCLS = "cocos2d::TransitionSplitCols"
+cls.SUPERCLS = 'cocos2d::TransitionSplitCols'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionSplitRows *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'TransitionSplitRows()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionFadeTR'
-cls.SUPERCLS = "cocos2d::TransitionScene"
+cls.SUPERCLS = 'cocos2d::TransitionScene'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionFadeTR *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'cocos2d::ActionInterval *actionWithSize(const cocos2d::Size &size)')
 cls.func(nil, 'cocos2d::ActionInterval *easeActionWithAction(@addref(action ^) cocos2d::ActionInterval *action)')
@@ -3416,73 +3907,110 @@ cls.func(nil, 'TransitionFadeTR()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionFadeBL'
-cls.SUPERCLS = "cocos2d::TransitionFadeTR"
+cls.SUPERCLS = 'cocos2d::TransitionFadeTR'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionFadeBL *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'TransitionFadeBL()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionFadeUp'
-cls.SUPERCLS = "cocos2d::TransitionFadeTR"
+cls.SUPERCLS = 'cocos2d::TransitionFadeTR'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionFadeUp *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'TransitionFadeUp()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionFadeDown'
-cls.SUPERCLS = "cocos2d::TransitionFadeTR"
+cls.SUPERCLS = 'cocos2d::TransitionFadeTR'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionFadeDown *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'TransitionFadeDown()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionPageTurn'
-cls.SUPERCLS = "cocos2d::TransitionScene"
+cls.SUPERCLS = 'cocos2d::TransitionScene'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionPageTurn *create(float t, @addref(scenes |) cocos2d::Scene *scene, bool backwards)')
 cls.func(nil, 'cocos2d::ActionInterval *actionWithSize(const cocos2d::Size &vector)')
 cls.func(nil, 'TransitionPageTurn()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionProgress'
-cls.SUPERCLS = "cocos2d::TransitionScene"
+cls.SUPERCLS = 'cocos2d::TransitionScene'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionProgress *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'TransitionProgress()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionProgressRadialCCW'
-cls.SUPERCLS = "cocos2d::TransitionProgress"
+cls.SUPERCLS = 'cocos2d::TransitionProgress'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionProgressRadialCCW *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'TransitionProgressRadialCCW()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionProgressRadialCW'
-cls.SUPERCLS = "cocos2d::TransitionProgress"
+cls.SUPERCLS = 'cocos2d::TransitionProgress'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionProgressRadialCW *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'TransitionProgressRadialCW()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionProgressHorizontal'
-cls.SUPERCLS = "cocos2d::TransitionProgress"
+cls.SUPERCLS = 'cocos2d::TransitionProgress'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionProgressHorizontal *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'TransitionProgressHorizontal()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionProgressVertical'
-cls.SUPERCLS = "cocos2d::TransitionProgress"
+cls.SUPERCLS = 'cocos2d::TransitionProgress'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionProgressVertical *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'TransitionProgressVertical()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionProgressInOut'
-cls.SUPERCLS = "cocos2d::TransitionProgress"
+cls.SUPERCLS = 'cocos2d::TransitionProgress'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionProgressInOut *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'TransitionProgressInOut()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TransitionProgressOutIn'
-cls.SUPERCLS = "cocos2d::TransitionProgress"
+cls.SUPERCLS = 'cocos2d::TransitionProgress'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TransitionProgressOutIn *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
 cls.func(nil, 'TransitionProgressOutIn()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TextFieldDelegate'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'bool onTextFieldAttachWithIME(cocos2d::TextFieldTTF *sender)')
 cls.func(nil, 'bool onTextFieldDetachWithIME(cocos2d::TextFieldTTF *sender)')
 cls.func(nil, 'bool onTextFieldInsertText(cocos2d::TextFieldTTF *sender, const char *text, size_t nLen)')
@@ -3491,7 +4019,10 @@ cls.func(nil, 'bool onVisit(cocos2d::TextFieldTTF *sender, cocos2d::Renderer *re
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TextFieldTTF'
-cls.SUPERCLS = "cocos2d::Label"
+cls.SUPERCLS = 'cocos2d::Label'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'TextFieldTTF()')
 cls.func(nil, 'static cocos2d::TextFieldTTF *textFieldWithPlaceHolder(const std::string &placeholder, const cocos2d::Size &dimensions, cocos2d::TextHAlignment alignment, const std::string &fontName, float fontSize)', 'static cocos2d::TextFieldTTF *textFieldWithPlaceHolder(const std::string &placeholder, const std::string &fontName, float fontSize)')
 cls.func(nil, 'bool initWithPlaceHolder(const std::string &placeholder, const cocos2d::Size &dimensions, cocos2d::TextHAlignment alignment, const std::string &fontName, float fontSize)', 'bool initWithPlaceHolder(const std::string &placeholder, const std::string &fontName, float fontSize)')
@@ -3513,15 +4044,19 @@ cls.func(nil, 'void setCursorEnabled(bool enabled)')
 cls.func(nil, 'void setCursorChar(char cursor)')
 cls.func(nil, 'void setCursorPosition(std::size_t cursorPosition)')
 cls.func(nil, 'void setCursorFromPoint(const cocos2d::Vec2 &point, const cocos2d::Camera *camera)')
-cls.prop('delegate')
-cls.prop('charCount')
-cls.prop('colorSpaceHolder')
-cls.prop('placeHolder')
-cls.prop('passwordTextStyle')
-cls.prop('secureTextEntry')
+cls.prop('delegate', nil, nil)
+cls.prop('charCount', nil, nil)
+cls.prop('colorSpaceHolder', nil, nil)
+cls.prop('placeHolder', nil, nil)
+cls.prop('passwordTextStyle', nil, nil)
+cls.prop('secureTextEntry', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::LightType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('DIRECTIONAL', 'cocos2d::LightType::DIRECTIONAL')
 cls.enum('POINT', 'cocos2d::LightType::POINT')
 cls.enum('SPOT', 'cocos2d::LightType::SPOT')
@@ -3529,6 +4064,10 @@ cls.enum('AMBIENT', 'cocos2d::LightType::AMBIENT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::LightFlag'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('LIGHT0', 'cocos2d::LightFlag::LIGHT0')
 cls.enum('LIGHT1', 'cocos2d::LightFlag::LIGHT1')
 cls.enum('LIGHT2', 'cocos2d::LightFlag::LIGHT2')
@@ -3548,7 +4087,10 @@ cls.enum('LIGHT15', 'cocos2d::LightFlag::LIGHT15')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::BaseLight'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'cocos2d::LightType getLightType()')
 cls.func(nil, 'float getIntensity()')
 cls.func(nil, 'void setIntensity(float intensity)')
@@ -3556,34 +4098,43 @@ cls.func(nil, 'cocos2d::LightFlag getLightFlag()')
 cls.func(nil, 'void setLightFlag(cocos2d::LightFlag flag)')
 cls.func(nil, 'void setEnabled(bool enabled)')
 cls.func(nil, 'bool isEnabled()')
-cls.prop('lightType')
-cls.prop('intensity')
-cls.prop('lightFlag')
-cls.prop('enabled')
+cls.prop('lightType', nil, nil)
+cls.prop('intensity', nil, nil)
+cls.prop('lightFlag', nil, nil)
+cls.prop('enabled', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::DirectionLight'
-cls.SUPERCLS = "cocos2d::BaseLight"
+cls.SUPERCLS = 'cocos2d::BaseLight'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::DirectionLight *create(const cocos2d::Vec3 &direction, const cocos2d::Color3B &color)')
 cls.func(nil, 'void setDirection(const cocos2d::Vec3 &dir)')
 cls.func(nil, 'cocos2d::Vec3 getDirection()')
 cls.func(nil, 'cocos2d::Vec3 getDirectionInWorld()')
 cls.func(nil, 'DirectionLight()')
-cls.prop('direction')
-cls.prop('directionInWorld')
+cls.prop('direction', nil, nil)
+cls.prop('directionInWorld', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::PointLight'
-cls.SUPERCLS = "cocos2d::BaseLight"
+cls.SUPERCLS = 'cocos2d::BaseLight'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::PointLight *create(const cocos2d::Vec3 &position, const cocos2d::Color3B &color, float range)')
 cls.func(nil, 'float getRange()')
 cls.func(nil, 'void setRange(float range)')
 cls.func(nil, 'PointLight()')
-cls.prop('range')
+cls.prop('range', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::SpotLight'
-cls.SUPERCLS = "cocos2d::BaseLight"
+cls.SUPERCLS = 'cocos2d::BaseLight'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::SpotLight *create(const cocos2d::Vec3 &direction, const cocos2d::Vec3 &position, const cocos2d::Color3B &color, float innerAngle, float outerAngle, float range)')
 cls.func(nil, 'void setDirection(const cocos2d::Vec3 &dir)')
 cls.func(nil, 'cocos2d::Vec3 getDirection()')
@@ -3597,22 +4148,29 @@ cls.func(nil, 'void setOuterAngle(float outerAngle)')
 cls.func(nil, 'float getOuterAngle()')
 cls.func(nil, 'float getCosOuterAngle()')
 cls.func(nil, 'SpotLight()')
-cls.prop('direction')
-cls.prop('directionInWorld')
-cls.prop('range')
-cls.prop('innerAngle')
-cls.prop('cosInnerAngle')
-cls.prop('outerAngle')
-cls.prop('cosOuterAngle')
+cls.prop('direction', nil, nil)
+cls.prop('directionInWorld', nil, nil)
+cls.prop('range', nil, nil)
+cls.prop('innerAngle', nil, nil)
+cls.prop('cosInnerAngle', nil, nil)
+cls.prop('outerAngle', nil, nil)
+cls.prop('cosOuterAngle', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::AmbientLight'
-cls.SUPERCLS = "cocos2d::BaseLight"
+cls.SUPERCLS = 'cocos2d::BaseLight'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::AmbientLight *create(const cocos2d::Color3B &color)')
 cls.func(nil, 'AmbientLight()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::CameraFlag'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('DEFAULT', 'cocos2d::CameraFlag::DEFAULT')
 cls.enum('USER1', 'cocos2d::CameraFlag::USER1')
 cls.enum('USER2', 'cocos2d::CameraFlag::USER2')
@@ -3625,12 +4183,19 @@ cls.enum('USER8', 'cocos2d::CameraFlag::USER8')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Camera::Type'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('PERSPECTIVE', 'cocos2d::Camera::Type::PERSPECTIVE')
 cls.enum('ORTHOGRAPHIC', 'cocos2d::Camera::Type::ORTHOGRAPHIC')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Camera'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::Camera *createPerspective(float fieldOfView, float aspectRatio, float nearPlane, float farPlane)')
 cls.func(nil, 'static cocos2d::Camera *createOrthographic(float zoomX, float zoomY, float nearPlane, float farPlane)')
 cls.func(nil, 'static cocos2d::Camera *create()')
@@ -3668,24 +4233,28 @@ cls.func(nil, 'bool initDefault()')
 cls.func(nil, 'bool initPerspective(float fieldOfView, float aspectRatio, float nearPlane, float farPlane)')
 cls.func(nil, 'bool initOrthographic(float zoomX, float zoomY, float nearPlane, float farPlane)')
 cls.func(nil, 'void applyViewport()')
-cls.prop('visitingCamera')
-cls.prop('defaultViewport')
-cls.prop('defaultCamera')
-cls.prop('type')
-cls.prop('cameraFlag')
-cls.prop('projectionMatrix')
-cls.prop('viewMatrix')
-cls.prop('viewProjectionMatrix')
-cls.prop('depth')
-cls.prop('renderOrder')
-cls.prop('farPlane')
-cls.prop('nearPlane')
-cls.prop('viewProjectionUpdated')
-cls.prop('backgroundBrush')
-cls.prop('brushValid')
+cls.prop('visitingCamera', nil, nil)
+cls.prop('defaultViewport', nil, nil)
+cls.prop('defaultCamera', nil, nil)
+cls.prop('type', nil, nil)
+cls.prop('cameraFlag', nil, nil)
+cls.prop('projectionMatrix', nil, nil)
+cls.prop('viewMatrix', nil, nil)
+cls.prop('viewProjectionMatrix', nil, nil)
+cls.prop('depth', nil, nil)
+cls.prop('renderOrder', nil, nil)
+cls.prop('farPlane', nil, nil)
+cls.prop('nearPlane', nil, nil)
+cls.prop('viewProjectionUpdated', nil, nil)
+cls.prop('backgroundBrush', nil, nil)
+cls.prop('brushValid', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::CameraBackgroundBrush::BrushType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('NONE', 'cocos2d::CameraBackgroundBrush::BrushType::NONE')
 cls.enum('DEPTH', 'cocos2d::CameraBackgroundBrush::BrushType::DEPTH')
 cls.enum('COLOR', 'cocos2d::CameraBackgroundBrush::BrushType::COLOR')
@@ -3693,7 +4262,10 @@ cls.enum('SKYBOX', 'cocos2d::CameraBackgroundBrush::BrushType::SKYBOX')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::CameraBackgroundBrush'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'cocos2d::CameraBackgroundBrush::BrushType getBrushType()')
 cls.func(nil, 'static cocos2d::CameraBackgroundBrush *createNoneBrush()')
 cls.func(nil, 'static cocos2d::CameraBackgroundDepthBrush *createDepthBrush(@optional float depth)')
@@ -3703,37 +4275,49 @@ cls.func(nil, 'void drawBackground(cocos2d::Camera *)')
 cls.func(nil, 'bool isValid()')
 cls.func(nil, 'CameraBackgroundBrush()')
 cls.func(nil, 'bool init()')
-cls.prop('brushType')
-cls.prop('valid')
+cls.prop('brushType', nil, nil)
+cls.prop('valid', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::CameraBackgroundDepthBrush'
-cls.SUPERCLS = "cocos2d::CameraBackgroundBrush"
+cls.SUPERCLS = 'cocos2d::CameraBackgroundBrush'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::CameraBackgroundDepthBrush *create(float depth)')
 cls.func(nil, 'void setDepth(float depth)')
 cls.func(nil, 'CameraBackgroundDepthBrush()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::CameraBackgroundColorBrush'
-cls.SUPERCLS = "cocos2d::CameraBackgroundDepthBrush"
+cls.SUPERCLS = 'cocos2d::CameraBackgroundDepthBrush'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::CameraBackgroundColorBrush *create(const cocos2d::Color4F &color, float depth)')
 cls.func(nil, 'void setColor(const cocos2d::Color4F &color)')
 cls.func(nil, 'CameraBackgroundColorBrush()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::CameraBackgroundSkyBoxBrush'
-cls.SUPERCLS = "cocos2d::CameraBackgroundBrush"
+cls.SUPERCLS = 'cocos2d::CameraBackgroundBrush'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::CameraBackgroundSkyBoxBrush *create(const std::string &positive_x, const std::string &negative_x, const std::string &positive_y, const std::string &negative_y, const std::string &positive_z, const std::string &negative_z)', 'static cocos2d::CameraBackgroundSkyBoxBrush *create()')
 cls.func(nil, 'void setTexture(cocos2d::TextureCube *texture)')
 cls.func(nil, 'bool isActived()')
 cls.func(nil, 'void setActived(bool actived)')
 cls.func(nil, 'void setTextureValid(bool valid)')
 cls.func(nil, 'CameraBackgroundSkyBoxBrush()')
-cls.prop('actived')
+cls.prop('actived', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ParticleBatchNode'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::ParticleBatchNode *createWithTexture(cocos2d::Texture2D *tex, @optional int capacity)')
 cls.func(nil, 'static cocos2d::ParticleBatchNode *create(const std::string &fileImage, @optional int capacity)')
 cls.func(nil, 'void insertChild(cocos2d::ParticleSystem *system, int index)')
@@ -3748,24 +4332,35 @@ cls.func(nil, 'const cocos2d::BlendFunc &getBlendFunc()')
 cls.func(nil, 'ParticleBatchNode()')
 cls.func(nil, 'bool initWithTexture(cocos2d::Texture2D *tex, int capacity)')
 cls.func(nil, 'bool initWithFile(const std::string &fileImage, int capacity)')
-cls.prop('textureAtlas')
-cls.prop('texture')
-cls.prop('blendFunc')
+cls.prop('textureAtlas', nil, nil)
+cls.prop('texture', nil, nil)
+cls.prop('blendFunc', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ParticleSystem::Mode'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('GRAVITY', 'cocos2d::ParticleSystem::Mode::GRAVITY')
 cls.enum('RADIUS', 'cocos2d::ParticleSystem::Mode::RADIUS')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ParticleSystem::PositionType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('FREE', 'cocos2d::ParticleSystem::PositionType::FREE')
 cls.enum('RELATIVE', 'cocos2d::ParticleSystem::PositionType::RELATIVE')
 cls.enum('GROUPED', 'cocos2d::ParticleSystem::PositionType::GROUPED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ParticleSystem'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::ParticleSystem *create(const std::string &plistFile)')
 cls.func(nil, 'static cocos2d::ParticleSystem *createWithTotalParticles(int numberOfParticles)')
 cls.func(nil, 'static Vector<cocos2d::ParticleSystem *> &getAllParticleSystems()')
@@ -3876,60 +4471,63 @@ cls.func(nil, 'bool initWithTotalParticles(int numberOfParticles)')
 cls.func(nil, 'bool isPaused()')
 cls.func(nil, 'void pauseEmissions()')
 cls.func(nil, 'void resumeEmissions()')
-cls.prop('allParticleSystems')
-cls.prop('full')
-cls.prop('autoRemoveOnFinish')
-cls.prop('gravity')
-cls.prop('speed')
-cls.prop('speedVar')
-cls.prop('tangentialAccel')
-cls.prop('tangentialAccelVar')
-cls.prop('radialAccel')
-cls.prop('radialAccelVar')
-cls.prop('rotationIsDir')
-cls.prop('startRadius')
-cls.prop('startRadiusVar')
-cls.prop('endRadius')
-cls.prop('endRadiusVar')
-cls.prop('rotatePerSecond')
-cls.prop('rotatePerSecondVar')
-cls.prop('active')
-cls.prop('blendAdditive')
-cls.prop('batchNode')
-cls.prop('atlasIndex')
-cls.prop('particleCount')
-cls.prop('duration')
-cls.prop('sourcePosition')
-cls.prop('posVar')
-cls.prop('life')
-cls.prop('lifeVar')
-cls.prop('angle')
-cls.prop('angleVar')
-cls.prop('emitterMode')
-cls.prop('startSize')
-cls.prop('startSizeVar')
-cls.prop('endSize')
-cls.prop('endSizeVar')
-cls.prop('startColor')
-cls.prop('startColorVar')
-cls.prop('endColor')
-cls.prop('endColorVar')
-cls.prop('startSpin')
-cls.prop('startSpinVar')
-cls.prop('endSpin')
-cls.prop('endSpinVar')
-cls.prop('emissionRate')
-cls.prop('totalParticles')
-cls.prop('positionType')
-cls.prop('texture')
-cls.prop('blendFunc')
-cls.prop('resourceFile')
-cls.prop('sourcePositionCompatible')
-cls.prop('paused')
+cls.prop('allParticleSystems', nil, nil)
+cls.prop('full', nil, nil)
+cls.prop('autoRemoveOnFinish', nil, nil)
+cls.prop('gravity', nil, nil)
+cls.prop('speed', nil, nil)
+cls.prop('speedVar', nil, nil)
+cls.prop('tangentialAccel', nil, nil)
+cls.prop('tangentialAccelVar', nil, nil)
+cls.prop('radialAccel', nil, nil)
+cls.prop('radialAccelVar', nil, nil)
+cls.prop('rotationIsDir', nil, nil)
+cls.prop('startRadius', nil, nil)
+cls.prop('startRadiusVar', nil, nil)
+cls.prop('endRadius', nil, nil)
+cls.prop('endRadiusVar', nil, nil)
+cls.prop('rotatePerSecond', nil, nil)
+cls.prop('rotatePerSecondVar', nil, nil)
+cls.prop('active', nil, nil)
+cls.prop('blendAdditive', nil, nil)
+cls.prop('batchNode', nil, nil)
+cls.prop('atlasIndex', nil, nil)
+cls.prop('particleCount', nil, nil)
+cls.prop('duration', nil, nil)
+cls.prop('sourcePosition', nil, nil)
+cls.prop('posVar', nil, nil)
+cls.prop('life', nil, nil)
+cls.prop('lifeVar', nil, nil)
+cls.prop('angle', nil, nil)
+cls.prop('angleVar', nil, nil)
+cls.prop('emitterMode', nil, nil)
+cls.prop('startSize', nil, nil)
+cls.prop('startSizeVar', nil, nil)
+cls.prop('endSize', nil, nil)
+cls.prop('endSizeVar', nil, nil)
+cls.prop('startColor', nil, nil)
+cls.prop('startColorVar', nil, nil)
+cls.prop('endColor', nil, nil)
+cls.prop('endColorVar', nil, nil)
+cls.prop('startSpin', nil, nil)
+cls.prop('startSpinVar', nil, nil)
+cls.prop('endSpin', nil, nil)
+cls.prop('endSpinVar', nil, nil)
+cls.prop('emissionRate', nil, nil)
+cls.prop('totalParticles', nil, nil)
+cls.prop('positionType', nil, nil)
+cls.prop('texture', nil, nil)
+cls.prop('blendFunc', nil, nil)
+cls.prop('resourceFile', nil, nil)
+cls.prop('sourcePositionCompatible', nil, nil)
+cls.prop('paused', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ParticleSystemQuad'
-cls.SUPERCLS = "cocos2d::ParticleSystem"
+cls.SUPERCLS = 'cocos2d::ParticleSystem'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::ParticleSystemQuad *create()', 'static cocos2d::ParticleSystemQuad *create(const std::string &filename)', 'static cocos2d::ParticleSystemQuad *create(cocos2d::ValueMap &dictionary)')
 cls.func(nil, 'static cocos2d::ParticleSystemQuad *createWithTotalParticles(int numberOfParticles)')
 cls.func(nil, 'void setDisplayFrame(cocos2d::SpriteFrame *spriteFrame)')
@@ -3939,83 +4537,120 @@ cls.func(nil, 'ParticleSystemQuad()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ParticleExplosion'
-cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::ParticleExplosion *create()')
 cls.func(nil, 'static cocos2d::ParticleExplosion *createWithTotalParticles(int numberOfParticles)')
 cls.func(nil, 'ParticleExplosion()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ParticleFire'
-cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::ParticleFire *create()')
 cls.func(nil, 'static cocos2d::ParticleFire *createWithTotalParticles(int numberOfParticles)')
 cls.func(nil, 'ParticleFire()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ParticleFireworks'
-cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::ParticleFireworks *create()')
 cls.func(nil, 'static cocos2d::ParticleFireworks *createWithTotalParticles(int numberOfParticles)')
 cls.func(nil, 'ParticleFireworks()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ParticleFlower'
-cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::ParticleFlower *create()')
 cls.func(nil, 'static cocos2d::ParticleFlower *createWithTotalParticles(int numberOfParticles)')
 cls.func(nil, 'ParticleFlower()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ParticleGalaxy'
-cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::ParticleGalaxy *create()')
 cls.func(nil, 'static cocos2d::ParticleGalaxy *createWithTotalParticles(int numberOfParticles)')
 cls.func(nil, 'ParticleGalaxy()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ParticleMeteor'
-cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::ParticleMeteor *create()')
 cls.func(nil, 'static cocos2d::ParticleMeteor *createWithTotalParticles(int numberOfParticles)')
 cls.func(nil, 'ParticleMeteor()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ParticleRain'
-cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::ParticleRain *create()')
 cls.func(nil, 'static cocos2d::ParticleRain *createWithTotalParticles(int numberOfParticles)')
 cls.func(nil, 'ParticleRain()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ParticleSmoke'
-cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::ParticleSmoke *create()')
 cls.func(nil, 'static cocos2d::ParticleSmoke *createWithTotalParticles(int numberOfParticles)')
 cls.func(nil, 'ParticleSmoke()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ParticleSnow'
-cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::ParticleSnow *create()')
 cls.func(nil, 'static cocos2d::ParticleSnow *createWithTotalParticles(int numberOfParticles)')
 cls.func(nil, 'ParticleSnow()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ParticleSpiral'
-cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::ParticleSpiral *create()')
 cls.func(nil, 'static cocos2d::ParticleSpiral *createWithTotalParticles(int numberOfParticles)')
 cls.func(nil, 'ParticleSpiral()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ParticleSun'
-cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::ParticleSun *create()')
 cls.func(nil, 'static cocos2d::ParticleSun *createWithTotalParticles(int numberOfParticles)')
 cls.func(nil, 'ParticleSun()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TMXTileFlags'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('kTMXTileHorizontalFlag', 'cocos2d::TMXTileFlags::kTMXTileHorizontalFlag')
 cls.enum('kTMXTileVerticalFlag', 'cocos2d::TMXTileFlags::kTMXTileVerticalFlag')
 cls.enum('kTMXTileDiagonalFlag', 'cocos2d::TMXTileFlags::kTMXTileDiagonalFlag')
@@ -4024,7 +4659,10 @@ cls.enum('kTMXFlippedMask', 'cocos2d::TMXTileFlags::kTMXFlippedMask')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TMXObjectGroup'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'TMXObjectGroup()')
 cls.func(nil, 'const std::string &getGroupName()')
 cls.func(nil, 'void setGroupName(const std::string &groupName)')
@@ -4036,14 +4674,17 @@ cls.func(nil, 'const cocos2d::ValueMap &getProperties()')
 cls.func(nil, 'void setProperties(const cocos2d::ValueMap &properties)')
 cls.func(nil, 'const cocos2d::ValueVector &getObjects()')
 cls.func(nil, 'void setObjects(const cocos2d::ValueVector &objects)')
-cls.prop('groupName')
-cls.prop('positionOffset')
-cls.prop('properties')
-cls.prop('objects')
+cls.prop('groupName', nil, nil)
+cls.prop('positionOffset', nil, nil)
+cls.prop('properties', nil, nil)
+cls.prop('objects', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TMXLayer'
-cls.SUPERCLS = "cocos2d::SpriteBatchNode"
+cls.SUPERCLS = 'cocos2d::SpriteBatchNode'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TMXLayer *create(cocos2d::TMXTilesetInfo *tilesetInfo, cocos2d::TMXLayerInfo *layerInfo, cocos2d::TMXMapInfo *mapInfo)')
 cls.func(nil, 'TMXLayer()')
 cls.func(nil, 'bool initWithTilesetInfo(cocos2d::TMXTilesetInfo *tilesetInfo, cocos2d::TMXLayerInfo *layerInfo, cocos2d::TMXMapInfo *mapInfo)')
@@ -4067,24 +4708,30 @@ cls.func(nil, 'int getLayerOrientation()')
 cls.func(nil, 'void setLayerOrientation(int orientation)')
 cls.func(nil, 'const cocos2d::ValueMap &getProperties()')
 cls.func(nil, 'void setProperties(const cocos2d::ValueMap &properties)')
-cls.prop('layerName')
-cls.prop('layerSize')
-cls.prop('mapTileSize')
-cls.prop('tileSet')
-cls.prop('layerOrientation')
-cls.prop('properties')
+cls.prop('layerName', nil, nil)
+cls.prop('layerSize', nil, nil)
+cls.prop('mapTileSize', nil, nil)
+cls.prop('tileSet', nil, nil)
+cls.prop('layerOrientation', nil, nil)
+cls.prop('properties', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TMXLayerInfo'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'TMXLayerInfo()')
 cls.func(nil, 'void setProperties(cocos2d::ValueMap properties)')
 cls.func(nil, 'cocos2d::ValueMap &getProperties()')
-cls.prop('properties')
+cls.prop('properties', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TMXMapInfo'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TMXMapInfo *create(const std::string &tmxFile)')
 cls.func(nil, 'static cocos2d::TMXMapInfo *createWithXML(const std::string &tmxString, const std::string &resourcePath)')
 cls.func(nil, 'TMXMapInfo()')
@@ -4129,34 +4776,40 @@ cls.func(nil, 'void setCurrentString(const std::string &currentString)')
 cls.func(nil, 'const std::string &getTMXFileName()')
 cls.func(nil, 'void setTMXFileName(const std::string &fileName)')
 cls.func(nil, 'const std::string &getExternalTilesetFileName()')
-cls.prop('tileProperties')
-cls.prop('orientation')
-cls.prop('staggerAxis')
-cls.prop('staggerIndex')
-cls.prop('hexSideLength')
-cls.prop('mapSize')
-cls.prop('tileSize')
-cls.prop('layers')
-cls.prop('tilesets')
-cls.prop('objectGroups')
-cls.prop('parentElement')
-cls.prop('parentGID')
-cls.prop('layerAttribs')
-cls.prop('storingCharacters')
-cls.prop('properties')
-cls.prop('currentString')
-cls.prop('tmxFileName')
-cls.prop('externalTilesetFileName')
+cls.prop('tileProperties', nil, nil)
+cls.prop('orientation', nil, nil)
+cls.prop('staggerAxis', nil, nil)
+cls.prop('staggerIndex', nil, nil)
+cls.prop('hexSideLength', nil, nil)
+cls.prop('mapSize', nil, nil)
+cls.prop('tileSize', nil, nil)
+cls.prop('layers', nil, nil)
+cls.prop('tilesets', nil, nil)
+cls.prop('objectGroups', nil, nil)
+cls.prop('parentElement', nil, nil)
+cls.prop('parentGID', nil, nil)
+cls.prop('layerAttribs', nil, nil)
+cls.prop('storingCharacters', nil, nil)
+cls.prop('properties', nil, nil)
+cls.prop('currentString', nil, nil)
+cls.prop('tmxFileName', nil, nil)
+cls.prop('externalTilesetFileName', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TMXTilesetInfo'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'TMXTilesetInfo()')
 cls.func(nil, 'cocos2d::Rect getRectForGID(uint32_t gid)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TMXTiledMap'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::TMXTiledMap *create(const std::string &tmxFile)')
 cls.func(nil, 'static cocos2d::TMXTiledMap *createWithXML(const std::string &tmxString, const std::string &resourcePath)')
 cls.func(nil, 'cocos2d::TMXLayer *getLayer(const std::string &layerName)')
@@ -4178,17 +4831,20 @@ cls.func(nil, 'const std::string &getResourceFile()')
 cls.func(nil, 'TMXTiledMap()')
 cls.func(nil, 'bool initWithTMXFile(const std::string &tmxFile)')
 cls.func(nil, 'bool initWithXML(const std::string &tmxString, const std::string &resourcePath)')
-cls.prop('mapSize')
-cls.prop('tileSize')
-cls.prop('mapOrientation')
-cls.prop('objectGroups')
-cls.prop('properties')
-cls.prop('layerNum')
-cls.prop('resourceFile')
+cls.prop('mapSize', nil, nil)
+cls.prop('tileSize', nil, nil)
+cls.prop('mapOrientation', nil, nil)
+cls.prop('objectGroups', nil, nil)
+cls.prop('properties', nil, nil)
+cls.prop('layerNum', nil, nil)
+cls.prop('resourceFile', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::FastTMXTiledMap'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::FastTMXTiledMap *create(const std::string &tmxFile)')
 cls.func(nil, 'static cocos2d::FastTMXTiledMap *createWithXML(const std::string &tmxString, const std::string &resourcePath)')
 cls.func(nil, 'cocos2d::FastTMXLayer *getLayer(const std::string &layerName)')
@@ -4205,15 +4861,18 @@ cls.func(nil, 'const Vector<cocos2d::TMXObjectGroup *> &getObjectGroups()')
 cls.func(nil, 'void setObjectGroups(const Vector<cocos2d::TMXObjectGroup *> &groups)')
 cls.func(nil, 'const cocos2d::ValueMap &getProperties()')
 cls.func(nil, 'void setProperties(const cocos2d::ValueMap &properties)')
-cls.prop('mapSize')
-cls.prop('tileSize')
-cls.prop('mapOrientation')
-cls.prop('objectGroups')
-cls.prop('properties')
+cls.prop('mapSize', nil, nil)
+cls.prop('tileSize', nil, nil)
+cls.prop('mapOrientation', nil, nil)
+cls.prop('objectGroups', nil, nil)
+cls.prop('properties', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::FastTMXLayer'
-cls.SUPERCLS = "cocos2d::Node"
+cls.SUPERCLS = 'cocos2d::Node'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.const('FAST_TMX_ORIENTATION_ORTHO', 'cocos2d::FastTMXLayer::FAST_TMX_ORIENTATION_ORTHO', 'const int')
 cls.const('FAST_TMX_ORIENTATION_HEX', 'cocos2d::FastTMXLayer::FAST_TMX_ORIENTATION_HEX', 'const int')
 cls.const('FAST_TMX_ORIENTATION_ISO', 'cocos2d::FastTMXLayer::FAST_TMX_ORIENTATION_ISO', 'const int')
@@ -4239,15 +4898,19 @@ cls.func(nil, 'const cocos2d::ValueMap &getProperties()')
 cls.func(nil, 'void setProperties(const cocos2d::ValueMap &properties)')
 cls.func(nil, 'cocos2d::Sprite *getTileAt(const cocos2d::Vec2 &tileCoordinate)')
 cls.func(nil, 'void setupTileSprite(cocos2d::Sprite *sprite, const cocos2d::Vec2 &pos, uint32_t gid)')
-cls.prop('layerName')
-cls.prop('layerSize')
-cls.prop('mapTileSize')
-cls.prop('tileSet')
-cls.prop('layerOrientation')
-cls.prop('properties')
+cls.prop('layerName', nil, nil)
+cls.prop('layerSize', nil, nil)
+cls.prop('mapTileSize', nil, nil)
+cls.prop('tileSet', nil, nil)
+cls.prop('layerOrientation', nil, nil)
+cls.prop('properties', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::NavMeshAgent::NavMeshAgentSyncFlag'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('NONE', 'cocos2d::NavMeshAgent::NavMeshAgentSyncFlag::NONE')
 cls.enum('NODE_TO_AGENT', 'cocos2d::NavMeshAgent::NavMeshAgentSyncFlag::NODE_TO_AGENT')
 cls.enum('AGENT_TO_NODE', 'cocos2d::NavMeshAgent::NavMeshAgentSyncFlag::AGENT_TO_NODE')
@@ -4255,7 +4918,10 @@ cls.enum('NODE_AND_NODE', 'cocos2d::NavMeshAgent::NavMeshAgentSyncFlag::NODE_AND
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::NavMeshAgent'
-cls.SUPERCLS = "cocos2d::Component"
+cls.SUPERCLS = 'cocos2d::Component'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::NavMeshAgent *create(const cocos2d::NavMeshAgentParam &param)')
 cls.func(nil, 'static const std::string &getNavMeshAgentComponentName()')
 cls.func(nil, 'void setRadius(float radius)')
@@ -4297,22 +4963,26 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'object',
 }
-cls.prop('navMeshAgentComponentName')
-cls.prop('radius')
-cls.prop('height')
-cls.prop('maxAcceleration')
-cls.prop('maxSpeed')
-cls.prop('separationWeight')
-cls.prop('obstacleAvoidanceType')
-cls.prop('currentVelocity')
-cls.prop('onOffMeshLink')
-cls.prop('currentOffMeshLinkData')
-cls.prop('userData')
-cls.prop('syncFlag')
-cls.prop('velocity')
+cls.prop('navMeshAgentComponentName', nil, nil)
+cls.prop('radius', nil, nil)
+cls.prop('height', nil, nil)
+cls.prop('maxAcceleration', nil, nil)
+cls.prop('maxSpeed', nil, nil)
+cls.prop('separationWeight', nil, nil)
+cls.prop('obstacleAvoidanceType', nil, nil)
+cls.prop('currentVelocity', nil, nil)
+cls.prop('onOffMeshLink', nil, nil)
+cls.prop('currentOffMeshLinkData', nil, nil)
+cls.prop('userData', nil, nil)
+cls.prop('syncFlag', nil, nil)
+cls.prop('velocity', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('NONE', 'cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag::NONE')
 cls.enum('NODE_TO_OBSTACLE', 'cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag::NODE_TO_OBSTACLE')
 cls.enum('OBSTACLE_TO_NODE', 'cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag::OBSTACLE_TO_NODE')
@@ -4320,7 +4990,10 @@ cls.enum('NODE_AND_NODE', 'cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag::NO
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::NavMeshObstacle'
-cls.SUPERCLS = "cocos2d::Component"
+cls.SUPERCLS = 'cocos2d::Component'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::NavMeshObstacle *create(float radius, float height)')
 cls.func(nil, 'static const std::string &getNavMeshObstacleComponentName()')
 cls.func(nil, 'void setRadius(float radius)')
@@ -4333,14 +5006,17 @@ cls.func(nil, 'void syncToObstacle()')
 cls.func(nil, 'void syncToNode()')
 cls.func(nil, 'NavMeshObstacle()')
 cls.func(nil, 'bool initWith(float radius, float height)')
-cls.prop('navMeshObstacleComponentName')
-cls.prop('radius')
-cls.prop('height')
-cls.prop('syncFlag')
+cls.prop('navMeshObstacleComponentName', nil, nil)
+cls.prop('radius', nil, nil)
+cls.prop('height', nil, nil)
+cls.prop('syncFlag', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::NavMesh'
-cls.SUPERCLS = "cocos2d::Ref"
+cls.SUPERCLS = 'cocos2d::Ref'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'void update(float dt)')
 cls.func(nil, 'void debugDraw(cocos2d::Renderer *renderer)')
 cls.func(nil, 'void setDebugDrawEnable(bool enable)')
@@ -4351,7 +5027,7 @@ cls.func(nil, 'void addNavMeshObstacle(cocos2d::NavMeshObstacle *obstacle)')
 cls.func(nil, 'void removeNavMeshObstacle(cocos2d::NavMeshObstacle *obstacle)')
 cls.func(nil, 'void findPath(const cocos2d::Vec3 &start, const cocos2d::Vec3 &end, std::vector<Vec3> &pathPoints)')
 cls.func(nil, 'NavMesh()')
-cls.prop('debugDrawEnabled')
+cls.prop('debugDrawEnabled', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 return M

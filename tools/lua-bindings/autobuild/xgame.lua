@@ -10,22 +10,21 @@ local M = {}
 
 M.NAME = "xgame"
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
+M.HEADER_INCLUDES = nil
 M.INCLUDES = [[
-#include "lua-bindings/lua_xgame.h"
-#include "lua-bindings/lua_conv.h"
-#include "lua-bindings/lua_conv_manual.h"
-#include "xgame/filesystem.h"
-#include "xgame/xlua.h"
-#include "xgame/preferences.h"
-#include "xgame/downloader.h"
-#include "xgame/runtime.h"
-#include "xgame/RootScene.h"
-#include "xgame/timer.h"
-#include "olua/olua.hpp"
+    #include "lua-bindings/lua_xgame.h"
+    #include "lua-bindings/lua_conv.h"
+    #include "lua-bindings/lua_conv_manual.h"
+    #include "xgame/filesystem.h"
+    #include "xgame/xlua.h"
+    #include "xgame/preferences.h"
+    #include "xgame/downloader.h"
+    #include "xgame/runtime.h"
+    #include "xgame/RootScene.h"
+    #include "xgame/timer.h"
+    #include "olua/olua.hpp"
 ]]
-M.CHUNK = [[
-
-]]
+M.CHUNK = ''
 
 M.CONVS = {
     typeconv {
@@ -42,7 +41,10 @@ M.CONVS = {
 M.CLASSES = {}
 
 cls = typecls 'xgame::SceneNoCamera'
-cls.SUPERCLS = "cocos2d::Scene"
+cls.SUPERCLS = 'cocos2d::Scene'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static xgame::SceneNoCamera *create()')
 cls.func(nil, 'static xgame::SceneNoCamera *createWithSize(const cocos2d::Size &size)')
 cls.func(nil, 'static xgame::SceneNoCamera *createWithPhysics()')
@@ -50,12 +52,20 @@ cls.func(nil, 'SceneNoCamera()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::Permission'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('AUDIO', 'xgame::Permission::AUDIO')
 cls.enum('CAMERA', 'xgame::Permission::CAMERA')
 cls.enum('PHOTO', 'xgame::Permission::PHOTO')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::PermissionStatus'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('NOT_DETERMINED', 'xgame::PermissionStatus::NOT_DETERMINED')
 cls.enum('RESTRICTED', 'xgame::PermissionStatus::RESTRICTED')
 cls.enum('DENIED', 'xgame::PermissionStatus::DENIED')
@@ -63,6 +73,10 @@ cls.enum('AUTHORIZED', 'xgame::PermissionStatus::AUTHORIZED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::runtime'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func('testCrash', [[{
     xgame::runtime::log("test native crash!!!!");
     char *prt = NULL;
@@ -146,27 +160,31 @@ cls.callback {
     TAG_STORE = nil,
     TAG_SCOPE = 'once',
 }
-cls.prop('restarting')
-cls.prop('debug')
-cls.prop('time')
-cls.prop('version')
-cls.prop('packageName')
-cls.prop('appVersion')
-cls.prop('appBuild')
-cls.prop('channel')
-cls.prop('os')
-cls.prop('deviceInfo')
-cls.prop('language')
-cls.prop('manifestVersion')
-cls.prop('networkStatus')
-cls.prop('audioSessionCatalog')
-cls.prop('idfa')
-cls.prop('advertisingTrackingEnabled')
-cls.prop('logPath')
-cls.prop('sampleCount')
+cls.prop('restarting', nil, nil)
+cls.prop('debug', nil, nil)
+cls.prop('time', nil, nil)
+cls.prop('version', nil, nil)
+cls.prop('packageName', nil, nil)
+cls.prop('appVersion', nil, nil)
+cls.prop('appBuild', nil, nil)
+cls.prop('channel', nil, nil)
+cls.prop('os', nil, nil)
+cls.prop('deviceInfo', nil, nil)
+cls.prop('language', nil, nil)
+cls.prop('manifestVersion', nil, nil)
+cls.prop('networkStatus', nil, nil)
+cls.prop('audioSessionCatalog', nil, nil)
+cls.prop('idfa', nil, nil)
+cls.prop('advertisingTrackingEnabled', nil, nil)
+cls.prop('logPath', nil, nil)
+cls.prop('sampleCount', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::filesystem'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func('write', [[{
     size_t len;
     std::string path = olua_tostring(L, 1);
@@ -193,15 +211,19 @@ cls.func(nil, 'static bool rename(const std::string &oldPath, const std::string 
 cls.func(nil, 'static bool copy(const std::string &srcPath, const std::string &destPath)')
 cls.func(nil, 'static cocos2d::Data read(const std::string &path)')
 cls.func(nil, 'static bool unzip(const std::string &path, const std::string &dest)')
-cls.prop('writablePath')
-cls.prop('cacheDirectory')
-cls.prop('documentDirectory')
-cls.prop('tmpDirectory')
-cls.prop('builtinCacheDirectory')
-cls.prop('sdCardDirectory')
+cls.prop('writablePath', nil, nil)
+cls.prop('cacheDirectory', nil, nil)
+cls.prop('documentDirectory', nil, nil)
+cls.prop('tmpDirectory', nil, nil)
+cls.prop('builtinCacheDirectory', nil, nil)
+cls.prop('sdCardDirectory', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::preferences'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static bool getBoolean(const char *key, @optional bool defaultValue)')
 cls.func(nil, 'static void setBoolean(const char *key, bool value)')
 cls.func(nil, 'static float getFloat(const char *key, @optional float defaultValue)')
@@ -217,9 +239,10 @@ cls.func(nil, 'static void flush()')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::timer'
-cls.CHUNK = [[
-#define makeTimerDelayTag(tag) ("delayTag." + tag)
-]]
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = [[#define makeTimerDelayTag(tag) ("delayTag." + tag)]]
 cls.func('schedule', [[{
     float interval = (float)olua_checknumber(L, 1);
     uint32_t callback = olua_reffunc(L, 2);
@@ -278,7 +301,10 @@ cls.callback {
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::window'
+cls.SUPERCLS = nil
 cls.REG_LUATYPE = false
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func('getVisibleBounds', [[{
     auto rect = cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();
     lua_pushinteger(L, rect.getMinX());
@@ -336,6 +362,10 @@ cls.func('convertToCameraSpace', [[{
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::downloader::FileState'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.enum('IOERROR', 'xgame::downloader::FileState::IOERROR')
 cls.enum('LOADED', 'xgame::downloader::FileState::LOADED')
 cls.enum('PENDING', 'xgame::downloader::FileState::PENDING')
@@ -343,6 +373,10 @@ cls.enum('INVALID', 'xgame::downloader::FileState::INVALID')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::downloader'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static void load(const xgame::downloader::FileTask &task)')
 cls.func(nil, 'static void init()')
 cls.func(nil, 'static void end()')
@@ -358,10 +392,13 @@ cls.callback {
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::MaskLayout'
-cls.SUPERCLS = "cocos2d::ui::Layout"
+cls.SUPERCLS = 'cocos2d::ui::Layout'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
 cls.func(nil, 'static xgame::MaskLayout *create()')
 cls.func(nil, 'cocos2d::DrawNode *getClippingNode()')
-cls.prop('clippingNode')
+cls.prop('clippingNode', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 return M

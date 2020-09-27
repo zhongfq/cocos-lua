@@ -158,8 +158,6 @@ timer.FUNC('unschedule', [[
 }]])
 
 local window = typeconf 'xgame::window'
-window.NOTCONF = true
-window.REG_LUATYPE = false
 window.FUNC("getVisibleBounds", [[
 {
     auto rect = cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();

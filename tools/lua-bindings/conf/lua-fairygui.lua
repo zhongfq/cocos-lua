@@ -483,7 +483,6 @@ typeconf 'fairygui::IUISource'
     .CALLBACK {NAME = 'load', NULLABLE = true}
 
 local UISource = typeconf 'fairygui::UISource'
-UISource.NOTCONF = true
 UISource.SUPERCLS = 'fairygui::IUISource'
 UISource.CHUNK = [[
 NS_FGUI_BEGIN

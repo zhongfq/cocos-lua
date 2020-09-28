@@ -77,30 +77,34 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
-cls.func('testCrash', [[{
-    xgame::runtime::log("test native crash!!!!");
-    char *prt = NULL;
-    *prt = 0;
-    return 0;
-}]])
-cls.func('setDispatcher', [[{
-    int handler = olua_reffunc(L, 1);
-    xgame::runtime::setDispatcher([handler](const std::string &event, const std::string &args) {
-        lua_State *L = olua_mainthread(NULL);
-        if (L != NULL) {
-            int top = lua_gettop(L);
-            olua_geterrorfunc(L);
-            olua_getref(L, handler);
-            if (lua_isfunction(L, -1)) {
-                lua_pushstring(L, event.c_str());
-                lua_pushstring(L, args.c_str());
-                lua_pcall(L, 2, 0, top + 1);
+cls.func('testCrash', [[
+    {
+        xgame::runtime::log("test native crash!!!!");
+        char *prt = NULL;
+        *prt = 0;
+        return 0;
+    }
+]])
+cls.func('setDispatcher', [[
+    {
+        int handler = olua_reffunc(L, 1);
+        xgame::runtime::setDispatcher([handler](const std::string &event, const std::string &args) {
+            lua_State *L = olua_mainthread(NULL);
+            if (L != NULL) {
+                int top = lua_gettop(L);
+                olua_geterrorfunc(L);
+                olua_getref(L, handler);
+                if (lua_isfunction(L, -1)) {
+                    lua_pushstring(L, event.c_str());
+                    lua_pushstring(L, args.c_str());
+                    lua_pcall(L, 2, 0, top + 1);
+                }
+                lua_settop(L, top);
             }
-            lua_settop(L, top);
-        }
-    });
-    return 0;
-}]])
+        });
+        return 0;
+    }
+]])
 cls.func(nil, 'static void clearStorage()')
 cls.func(nil, 'static bool launch(const std::string &scriptPath)')
 cls.func(nil, 'static bool restart()')
@@ -185,14 +189,16 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
-cls.func('write', [[{
-    size_t len;
-    std::string path = olua_tostring(L, 1);
-    const char *data = olua_checklstring(L, 2, &len);
-    bool ret = (bool)xgame::filesystem::write(path, data, len);
-    olua_push_bool(L, ret);
-    return 1;
-}]])
+cls.func('write', [[
+    {
+        size_t len;
+        std::string path = olua_tostring(L, 1);
+        const char *data = olua_checklstring(L, 2, &len);
+        bool ret = (bool)xgame::filesystem::write(path, data, len);
+        olua_push_bool(L, ret);
+        return 1;
+    }
+]])
 cls.func(nil, 'static const std::string getWritablePath()')
 cls.func(nil, 'static const std::string getCacheDirectory()')
 cls.func(nil, 'static const std::string getDocumentDirectory()')
@@ -243,33 +249,37 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = [[#define makeTimerDelayTag(tag) ("delayTag." + tag)]]
-cls.func('schedule', [[{
-    float interval = (float)olua_checknumber(L, 1);
-    uint32_t callback = olua_reffunc(L, 2);
-    uint32_t id = xgame::timer::schedule(interval, [callback](float dt) {
-        lua_State *L = olua_mainthread(NULL);
-        if (L != NULL) {
-            int top = lua_gettop(L);
-            olua_geterrorfunc(L);
-            olua_getref(L, callback);
-            if (lua_isfunction(L, -1)) {
-                lua_pushnumber(L, dt);
-                lua_pcall(L, 1, 0, top + 1);
+cls.func('schedule', [[
+    {
+        float interval = (float)olua_checknumber(L, 1);
+        uint32_t callback = olua_reffunc(L, 2);
+        uint32_t id = xgame::timer::schedule(interval, [callback](float dt) {
+            lua_State *L = olua_mainthread(NULL);
+            if (L != NULL) {
+                int top = lua_gettop(L);
+                olua_geterrorfunc(L);
+                olua_getref(L, callback);
+                if (lua_isfunction(L, -1)) {
+                    lua_pushnumber(L, dt);
+                    lua_pcall(L, 1, 0, top + 1);
+                }
+                lua_settop(L, top);
             }
-            lua_settop(L, top);
-        }
-    });
-    lua_pushinteger(L, ((uint64_t)callback << 32) | (uint64_t)id);
-    return 1;
-}]])
-cls.func('unschedule', [[{
-    uint64_t value = olua_checkinteger(L, 1);
-    uint32_t callback = value >> 32;
-    uint32_t id = value & 0xFFFFFFFF;
-    olua_unref(L, callback);
-    xgame::timer::unschedule(id);
-    return 0;
-}]])
+        });
+        lua_pushinteger(L, ((uint64_t)callback << 32) | (uint64_t)id);
+        return 1;
+    }
+]])
+cls.func('unschedule', [[
+    {
+        uint64_t value = olua_checkinteger(L, 1);
+        uint32_t callback = value >> 32;
+        uint32_t id = value & 0xFFFFFFFF;
+        olua_unref(L, callback);
+        xgame::timer::unschedule(id);
+        return 0;
+    }
+]])
 cls.func(nil, 'static std::string createTag()')
 cls.callback {
     FUNCS =  {
@@ -305,60 +315,74 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = false
 cls.DEFIF = nil
 cls.CHUNK = nil
-cls.func('getVisibleBounds', [[{
-    auto rect = cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();
-    lua_pushinteger(L, rect.getMinX());
-    lua_pushinteger(L, rect.getMaxX());
-    lua_pushinteger(L, rect.getMaxY());
-    lua_pushinteger(L, rect.getMinY());
-    return 4;
-}]])
-cls.func('getVisibleSize', [[{
-    auto rect = cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();
-    lua_pushinteger(L, rect.size.width);
-    lua_pushinteger(L, rect.size.height);
-    return 2;
-}]])
-cls.func('getFrameSize', [[{
-    auto size = cocos2d::Director::getInstance()->getOpenGLView()->getFrameSize();
-    lua_pushnumber(L, size.width);
-    lua_pushnumber(L, size.height);
-    return 2;
-}]])
-cls.func('setFrameSize', [[{
-    auto glView = cocos2d::Director::getInstance()->getOpenGLView();
-    float width = (float)olua_checknumber(L, 1);
-    float height = (float)olua_checknumber(L, 2);
-    xgame::preferences::setFloat(CONF_WINDOW_WIDTH, width);
-    xgame::preferences::setFloat(CONF_WINDOW_HEIGHT, height);
-    glView->setFrameSize(width, height);
-    return 0;
-}]])
-cls.func('getDesignSize', [[{
-    auto size = cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize();
-    lua_pushnumber(L, size.width);
-    lua_pushnumber(L, size.height);
-    return 2;
-}]])
-cls.func('setDesignSize', [[{
-    cocos2d::Director::getInstance()->getOpenGLView()->setDesignResolutionSize(
-        (float)olua_checknumber(L, 1), (float)olua_checknumber(L, 2),
-        (ResolutionPolicy)olua_checkinteger(L, 3));
-    return 0;
-}]])
-cls.func('convertToCameraSpace', [[{
-    cocos2d::Rect rect;
-    cocos2d::Vec3 out;
-    auto director = cocos2d::Director::getInstance();
-    auto pt = cocos2d::Vec2(olua_checknumber(L, 1), olua_checknumber(L, 2));
-    auto runningScene = director->getRunningScene();
-    auto w2l = runningScene->getWorldToNodeTransform();
-    rect.size = director->getOpenGLView()->getDesignResolutionSize();
-    cocos2d::isScreenPointInRect(pt, runningScene->getDefaultCamera(), w2l, rect, &out);
-    lua_pushnumber(L, out.x);
-    lua_pushnumber(L, out.y);
-    return 2;
-}]])
+cls.func('getVisibleBounds', [[
+    {
+        auto rect = cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();
+        lua_pushinteger(L, rect.getMinX());
+        lua_pushinteger(L, rect.getMaxX());
+        lua_pushinteger(L, rect.getMaxY());
+        lua_pushinteger(L, rect.getMinY());
+        return 4;
+    }
+]])
+cls.func('getVisibleSize', [[
+    {
+        auto rect = cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();
+        lua_pushinteger(L, rect.size.width);
+        lua_pushinteger(L, rect.size.height);
+        return 2;
+    }
+]])
+cls.func('getFrameSize', [[
+    {
+        auto size = cocos2d::Director::getInstance()->getOpenGLView()->getFrameSize();
+        lua_pushnumber(L, size.width);
+        lua_pushnumber(L, size.height);
+        return 2;
+    }
+]])
+cls.func('setFrameSize', [[
+    {
+        auto glView = cocos2d::Director::getInstance()->getOpenGLView();
+        float width = (float)olua_checknumber(L, 1);
+        float height = (float)olua_checknumber(L, 2);
+        xgame::preferences::setFloat(CONF_WINDOW_WIDTH, width);
+        xgame::preferences::setFloat(CONF_WINDOW_HEIGHT, height);
+        glView->setFrameSize(width, height);
+        return 0;
+    }
+]])
+cls.func('getDesignSize', [[
+    {
+        auto size = cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize();
+        lua_pushnumber(L, size.width);
+        lua_pushnumber(L, size.height);
+        return 2;
+    }
+]])
+cls.func('setDesignSize', [[
+    {
+        cocos2d::Director::getInstance()->getOpenGLView()->setDesignResolutionSize(
+            (float)olua_checknumber(L, 1), (float)olua_checknumber(L, 2),
+            (ResolutionPolicy)olua_checkinteger(L, 3));
+        return 0;
+    }
+]])
+cls.func('convertToCameraSpace', [[
+    {
+        cocos2d::Rect rect;
+        cocos2d::Vec3 out;
+        auto director = cocos2d::Director::getInstance();
+        auto pt = cocos2d::Vec2(olua_checknumber(L, 1), olua_checknumber(L, 2));
+        auto runningScene = director->getRunningScene();
+        auto w2l = runningScene->getWorldToNodeTransform();
+        rect.size = director->getOpenGLView()->getDesignResolutionSize();
+        cocos2d::isScreenPointInRect(pt, runningScene->getDefaultCamera(), w2l, rect, &out);
+        lua_pushnumber(L, out.x);
+        lua_pushnumber(L, out.y);
+        return 2;
+    }
+]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::downloader::FileState'

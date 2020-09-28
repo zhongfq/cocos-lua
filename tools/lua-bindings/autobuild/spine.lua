@@ -1332,81 +1332,85 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
-cls.func('__gc', [[{
-    auto self = olua_toobj<spine::SkeletonData>(L, 1);
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
-        olua_setrawobj(L, 1, nullptr);
-
-        lua_pushstring(L, ".skel.atlas");
+cls.func('__gc', [[
+    {
+        auto self = olua_toobj<spine::SkeletonData>(L, 1);
+        lua_pushstring(L, ".ownership");
         olua_getvariable(L, 1);
-        auto atlas = (spine::Atlas *)olua_torawobj(L, -1);
-        delete atlas;
+        if (lua_toboolean(L, -1) && self) {
+            olua_setrawobj(L, 1, nullptr);
 
-        lua_pushstring(L, ".skel.attachment_loader");
-        olua_getvariable(L, 1);
-        auto attachment_loader = (spine::Cocos2dAtlasAttachmentLoader *)olua_torawobj(L, -1);
-        delete attachment_loader;
+            lua_pushstring(L, ".skel.atlas");
+            olua_getvariable(L, 1);
+            auto atlas = (spine::Atlas *)olua_torawobj(L, -1);
+            delete atlas;
+
+            lua_pushstring(L, ".skel.attachment_loader");
+            olua_getvariable(L, 1);
+            auto attachment_loader = (spine::Cocos2dAtlasAttachmentLoader *)olua_torawobj(L, -1);
+            delete attachment_loader;
+
+            lua_pushstring(L, ".skel.texture_loader");
+            olua_getvariable(L, 1);
+            auto texture_loader = (spine::Cocos2dTextureLoader *)olua_torawobj(L, -1);
+            delete texture_loader;
+
+            delete self;
+        }
+        return 0;
+    }
+]])
+cls.func('new', [[
+    {
+        const char *skel_path = olua_checkstring(L, 1);
+        const char *atlas_path = olua_checkstring(L, 2);
+        float scale = olua_optnumber(L, 3, 1);
+
+        auto texture_loader = new spine::Cocos2dTextureLoader();
+        auto atlas = new spine::Atlas(atlas_path, texture_loader);
+        spine::SkeletonData *skel_data = nullptr;
+        auto attachment_loader = new spine::Cocos2dAtlasAttachmentLoader(atlas);
+
+        if (strendwith(skel_path, ".skel")) {
+            auto reader = new spine::SkeletonBinary(attachment_loader);
+            reader->setScale(scale);
+            skel_data = reader->readSkeletonDataFile(skel_path);
+            delete reader;
+        } else {
+            auto reader = new spine::SkeletonJson(attachment_loader);
+            reader->setScale(scale);
+            skel_data = reader->readSkeletonDataFile(skel_path);
+            delete reader;
+        }
+
+        if (!skel_data) {
+            delete texture_loader;
+            delete attachment_loader;
+            delete atlas;
+            luaL_error(L, "error reading skeleton file: %s", skel_path);
+        }
+
+        olua_pushobj<spine::SkeletonData>(L, skel_data);
+
+        lua_pushstring(L, ".ownership");
+        lua_pushboolean(L, true);
+        olua_setvariable(L, -3);
 
         lua_pushstring(L, ".skel.texture_loader");
-        olua_getvariable(L, 1);
-        auto texture_loader = (spine::Cocos2dTextureLoader *)olua_torawobj(L, -1);
-        delete texture_loader;
+        olua_newrawobj(L, texture_loader);
+        olua_setvariable(L, -3);
 
-        delete self;
+        lua_pushstring(L, ".skel.attachment_loader");
+        olua_newrawobj(L, attachment_loader);
+        olua_setvariable(L, -3);
+
+        lua_pushstring(L, ".skel.atlas");
+        olua_newrawobj(L, atlas);
+        olua_setvariable(L, -3);
+
+        return 1;
     }
-    return 0;
-}]])
-cls.func('new', [[{
-    const char *skel_path = olua_checkstring(L, 1);
-    const char *atlas_path = olua_checkstring(L, 2);
-    float scale = olua_optnumber(L, 3, 1);
-
-    auto texture_loader = new spine::Cocos2dTextureLoader();
-    auto atlas = new spine::Atlas(atlas_path, texture_loader);
-    spine::SkeletonData *skel_data = nullptr;
-    auto attachment_loader = new spine::Cocos2dAtlasAttachmentLoader(atlas);
-
-    if (strendwith(skel_path, ".skel")) {
-        auto reader = new spine::SkeletonBinary(attachment_loader);
-        reader->setScale(scale);
-        skel_data = reader->readSkeletonDataFile(skel_path);
-        delete reader;
-    } else {
-        auto reader = new spine::SkeletonJson(attachment_loader);
-        reader->setScale(scale);
-        skel_data = reader->readSkeletonDataFile(skel_path);
-        delete reader;
-    }
-
-    if (!skel_data) {
-        delete texture_loader;
-        delete attachment_loader;
-        delete atlas;
-        luaL_error(L, "error reading skeleton file: %s", skel_path);
-    }
-
-    olua_pushobj<spine::SkeletonData>(L, skel_data);
-
-    lua_pushstring(L, ".ownership");
-    lua_pushboolean(L, true);
-    olua_setvariable(L, -3);
-
-    lua_pushstring(L, ".skel.texture_loader");
-    olua_newrawobj(L, texture_loader);
-    olua_setvariable(L, -3);
-
-    lua_pushstring(L, ".skel.attachment_loader");
-    olua_newrawobj(L, attachment_loader);
-    olua_setvariable(L, -3);
-
-    lua_pushstring(L, ".skel.atlas");
-    olua_newrawobj(L, atlas);
-    olua_setvariable(L, -3);
-
-    return 1;
-}]])
+]])
 cls.func(nil, 'spine::BoneData *findBone(const spine::String &boneName)')
 cls.func(nil, 'int findBoneIndex(const spine::String &boneName)')
 cls.func(nil, 'spine::SlotData *findSlot(const spine::String &slotName)')

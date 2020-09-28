@@ -150,6 +150,7 @@ local REF_TEWEENER = {
     ]]
 }
 GTween.INSERT('to', REF_TEWEENER)
+GTween.INSERT('toColor', REF_TEWEENER)
 GTween.INSERT('toDouble', REF_TEWEENER)
 GTween.INSERT('delayedCall', REF_TEWEENER)
 GTween.INSERT('shake', REF_TEWEENER)

@@ -8,7 +8,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_MeshVertexAttrib',
-    NUMVARS = 2,
+    NUM_VARS = 2,
 }
 
 typedef {
@@ -16,7 +16,7 @@ typedef {
     LUACLS = 'cc.NTextureData.Usage',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -24,7 +24,7 @@ typedef {
     LUACLS = 'cc.VertexKey',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -32,7 +32,7 @@ typedef {
     LUACLS = 'cc.Uniformkey',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -40,7 +40,7 @@ typedef {
     LUACLS = 'cc.NTextureData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -48,7 +48,7 @@ typedef {
     LUACLS = 'cc.Mesh',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -56,7 +56,7 @@ typedef {
     LUACLS = 'cc.MeshSkin',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -64,7 +64,7 @@ typedef {
     LUACLS = 'cc.BillBoard.Mode',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -72,7 +72,7 @@ typedef {
     LUACLS = 'cc.BillBoard',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -80,7 +80,7 @@ typedef {
     LUACLS = 'cc.Sprite3DMaterial.MaterialType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -88,7 +88,7 @@ typedef {
     LUACLS = 'cc.Sprite3DMaterial',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -96,7 +96,7 @@ typedef {
     LUACLS = 'cc.Sprite3D',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -104,7 +104,7 @@ typedef {
     LUACLS = 'cc.AttachNode',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -112,7 +112,7 @@ typedef {
     LUACLS = 'cc.Bone3D',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -120,6 +120,6 @@ typedef {
     LUACLS = 'cc.Skeleton3D',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 

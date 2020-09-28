@@ -13,7 +13,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_fairygui_Margin',
-    NUMVARS = 4,
+    NUM_VARS = 4,
 }
 
 typedef {
@@ -21,7 +21,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_fairygui_HtmlParseOptions',
-    NUMVARS = 4,
+    NUM_VARS = 4,
 }
 
 typedef {
@@ -29,7 +29,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_fairygui_TweenValue',
-    NUMVARS = 5,
+    NUM_VARS = 5,
 }
 
 typedef {
@@ -37,7 +37,7 @@ typedef {
     LUACLS = 'fgui.UIEventType',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -45,7 +45,7 @@ typedef {
     LUACLS = 'fgui.UIEventDispatcher',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -53,7 +53,7 @@ typedef {
     LUACLS = 'fgui.EventContext',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -61,7 +61,7 @@ typedef {
     LUACLS = 'fgui.IHitTest',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -69,7 +69,7 @@ typedef {
     LUACLS = 'fgui.PixelHitTest',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -77,7 +77,7 @@ typedef {
     LUACLS = 'fgui.PixelHitTestData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -85,7 +85,7 @@ typedef {
     LUACLS = 'fgui.InputProcessor',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -93,7 +93,7 @@ typedef {
     LUACLS = 'fgui.InputEvent',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -101,7 +101,7 @@ typedef {
     LUACLS = 'fgui.TextFormat',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -109,7 +109,7 @@ typedef {
     LUACLS = 'fgui.EaseType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -117,7 +117,7 @@ typedef {
     LUACLS = 'fgui.EaseManager',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -125,7 +125,7 @@ typedef {
     LUACLS = 'fgui.TweenPropType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -133,7 +133,7 @@ typedef {
     LUACLS = 'fgui.GPath',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -141,7 +141,7 @@ typedef {
     LUACLS = 'fgui.GTweener',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -149,7 +149,7 @@ typedef {
     LUACLS = 'fgui.GTween',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -157,7 +157,7 @@ typedef {
     LUACLS = 'fgui.UIPackage',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -165,7 +165,7 @@ typedef {
     LUACLS = 'fgui.PackageItem',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -173,7 +173,7 @@ typedef {
     LUACLS = 'fgui.PackageItemType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -181,7 +181,7 @@ typedef {
     LUACLS = 'fgui.ObjectType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -189,7 +189,7 @@ typedef {
     LUACLS = 'fgui.ButtonMode',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -197,7 +197,7 @@ typedef {
     LUACLS = 'fgui.ChildrenRenderOrder',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -205,7 +205,7 @@ typedef {
     LUACLS = 'fgui.OverflowType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -213,7 +213,7 @@ typedef {
     LUACLS = 'fgui.ScrollType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -221,7 +221,7 @@ typedef {
     LUACLS = 'fgui.ScrollBarDisplayType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -229,7 +229,7 @@ typedef {
     LUACLS = 'fgui.LoaderFillType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -237,7 +237,7 @@ typedef {
     LUACLS = 'fgui.ProgressTitleType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -245,7 +245,7 @@ typedef {
     LUACLS = 'fgui.ListLayoutType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -253,7 +253,7 @@ typedef {
     LUACLS = 'fgui.ListSelectionMode',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -261,7 +261,7 @@ typedef {
     LUACLS = 'fgui.GroupLayoutType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -269,7 +269,7 @@ typedef {
     LUACLS = 'fgui.PopupDirection',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -277,7 +277,7 @@ typedef {
     LUACLS = 'fgui.AutoSizeType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -285,7 +285,7 @@ typedef {
     LUACLS = 'fgui.FlipType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -293,7 +293,7 @@ typedef {
     LUACLS = 'fgui.TransitionActionType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -301,7 +301,7 @@ typedef {
     LUACLS = 'fgui.FillMethod',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -309,7 +309,7 @@ typedef {
     LUACLS = 'fgui.FillOrigin',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -317,7 +317,7 @@ typedef {
     LUACLS = 'fgui.ObjectPropID',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -325,7 +325,7 @@ typedef {
     LUACLS = 'fgui.GController',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -333,7 +333,7 @@ typedef {
     LUACLS = 'fgui.GObject',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -341,7 +341,7 @@ typedef {
     LUACLS = 'fgui.GComponent',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -349,7 +349,7 @@ typedef {
     LUACLS = 'fgui.GRoot',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -357,7 +357,7 @@ typedef {
     LUACLS = 'fgui.GGroup',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -365,7 +365,7 @@ typedef {
     LUACLS = 'fgui.GScrollBar',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -373,7 +373,7 @@ typedef {
     LUACLS = 'fgui.GLoader',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -381,7 +381,7 @@ typedef {
     LUACLS = 'fgui.GLoader3D',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -389,7 +389,7 @@ typedef {
     LUACLS = 'fgui.GTextField',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -397,7 +397,7 @@ typedef {
     LUACLS = 'fgui.GBasicTextField',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -405,7 +405,7 @@ typedef {
     LUACLS = 'fgui.GGraph',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -413,7 +413,7 @@ typedef {
     LUACLS = 'fgui.GButton',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -421,7 +421,7 @@ typedef {
     LUACLS = 'fgui.GImage',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -429,7 +429,7 @@ typedef {
     LUACLS = 'fgui.GLabel',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -437,7 +437,7 @@ typedef {
     LUACLS = 'fgui.GList',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -445,7 +445,7 @@ typedef {
     LUACLS = 'fgui.GMovieClip',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -453,7 +453,7 @@ typedef {
     LUACLS = 'fgui.GProgressBar',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -461,7 +461,7 @@ typedef {
     LUACLS = 'fgui.GComboBox',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -469,7 +469,7 @@ typedef {
     LUACLS = 'fgui.GRichTextField',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -477,7 +477,7 @@ typedef {
     LUACLS = 'fgui.GSlider',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -485,7 +485,7 @@ typedef {
     LUACLS = 'fgui.GTextInput',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -493,7 +493,7 @@ typedef {
     LUACLS = 'fgui.PopupMenu',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -501,7 +501,7 @@ typedef {
     LUACLS = 'fgui.Relations',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -509,7 +509,7 @@ typedef {
     LUACLS = 'fgui.RelationType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -517,7 +517,7 @@ typedef {
     LUACLS = 'fgui.RelationItem',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -525,7 +525,7 @@ typedef {
     LUACLS = 'fgui.ScrollPane',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -533,7 +533,7 @@ typedef {
     LUACLS = 'fgui.Transition',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -541,7 +541,7 @@ typedef {
     LUACLS = 'fgui.UIConfig',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -549,7 +549,7 @@ typedef {
     LUACLS = 'fgui.IUISource',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -557,7 +557,7 @@ typedef {
     LUACLS = 'fgui.UISource',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -565,7 +565,7 @@ typedef {
     LUACLS = 'fgui.Window',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -573,7 +573,7 @@ typedef {
     LUACLS = 'fgui.DragDropManager',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -581,7 +581,7 @@ typedef {
     LUACLS = 'fgui.UIObjectFactory',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -589,7 +589,7 @@ typedef {
     LUACLS = 'fgui.GearBase',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -597,7 +597,7 @@ typedef {
     LUACLS = 'fgui.GTreeNode',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -605,7 +605,7 @@ typedef {
     LUACLS = 'fgui.GTree',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -613,7 +613,7 @@ typedef {
     LUACLS = 'fgui.FUIContainer',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -621,7 +621,7 @@ typedef {
     LUACLS = 'fgui.FUIInput',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -629,7 +629,7 @@ typedef {
     LUACLS = 'fgui.FUILabel',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -637,7 +637,7 @@ typedef {
     LUACLS = 'fgui.FUIRichText',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -645,7 +645,7 @@ typedef {
     LUACLS = 'fgui.FUISprite',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -653,7 +653,7 @@ typedef {
     LUACLS = 'fgui.HtmlObject',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -661,7 +661,7 @@ typedef {
     LUACLS = 'fgui.HtmlElement::Type',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -669,6 +669,6 @@ typedef {
     LUACLS = 'fgui.HtmlElement',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 

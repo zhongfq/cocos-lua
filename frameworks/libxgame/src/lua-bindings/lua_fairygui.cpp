@@ -4600,6 +4600,33 @@ static int _fairygui_GTween_to(lua_State *L)
     return 0;
 }
 
+static int _fairygui_GTween_toColor(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Color4B arg1;       /** startValue */
+    cocos2d::Color4B arg2;       /** endValue */
+    lua_Number arg3 = 0;       /** duration */
+
+    manual_olua_check_cocos2d_Color4B(L, 1, &arg1);
+    manual_olua_check_cocos2d_Color4B(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+
+    // static fairygui::GTweener *toColor(const cocos2d::Color4B &startValue, const cocos2d::Color4B &endValue, float duration)
+    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::toColor(arg1, arg2, (float)arg3);
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
+
+    // insert code after call
+    olua_pushclassobj<fairygui::GTween>(L);
+    olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
+    olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
+    lua_pop(L, 1);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _fairygui_GTween_toDouble(lua_State *L)
 {
     olua_startinvoke(L);
@@ -4638,6 +4665,7 @@ static int luaopen_fairygui_GTween(lua_State *L)
     oluacls_func(L, "kill", _fairygui_GTween_kill);
     oluacls_func(L, "shake", _fairygui_GTween_shake);
     oluacls_func(L, "to", _fairygui_GTween_to);
+    oluacls_func(L, "toColor", _fairygui_GTween_toColor);
     oluacls_func(L, "toDouble", _fairygui_GTween_toDouble);
 
     olua_registerluatype<fairygui::GTween>(L, "fgui.GTween");

@@ -40,10 +40,10 @@ cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::EventListenerPhysicsContact *create()')
-cls.var('onContactBegin', [[@nullable @local std::function<bool (PhysicsContact &)> onContactBegin]])
-cls.var('onContactPreSolve', [[@nullable @local std::function<bool (PhysicsContact &, PhysicsContactPreSolve &)> onContactPreSolve]])
-cls.var('onContactPostSolve', [[@nullable @local std::function<void (PhysicsContact &, const PhysicsContactPostSolve &)> onContactPostSolve]])
-cls.var('onContactSeparate', [[@nullable @local std::function<void (PhysicsContact &)> onContactSeparate]])
+cls.var('onContactBegin', '@nullable @local std::function<bool (PhysicsContact &)> onContactBegin')
+cls.var('onContactPreSolve', '@nullable @local std::function<bool (PhysicsContact &, PhysicsContactPreSolve &)> onContactPreSolve')
+cls.var('onContactPostSolve', '@nullable @local std::function<void (PhysicsContact &, const PhysicsContactPostSolve &)> onContactPostSolve')
+cls.var('onContactSeparate', '@nullable @local std::function<void (PhysicsContact &)> onContactSeparate')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerPhysicsContactWithGroup'
@@ -574,13 +574,13 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
-cls.var('shape', [[cocos2d::PhysicsShape *shape]])
-cls.var('start', [[cocos2d::Vec2 start]])
-cls.var('end', [[cocos2d::Vec2 end]])
-cls.var('contact', [[cocos2d::Vec2 contact]])
-cls.var('normal', [[cocos2d::Vec2 normal]])
-cls.var('fraction', [[float fraction]])
-cls.var('data', [[void *data]])
+cls.var('shape', 'cocos2d::PhysicsShape *shape')
+cls.var('start', 'cocos2d::Vec2 start')
+cls.var('end', 'cocos2d::Vec2 end')
+cls.var('contact', 'cocos2d::Vec2 contact')
+cls.var('normal', 'cocos2d::Vec2 normal')
+cls.var('fraction', 'float fraction')
+cls.var('data', 'void *data')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::PhysicsWorld'

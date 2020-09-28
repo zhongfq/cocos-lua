@@ -11,7 +11,7 @@ typedef {
 typedef {
     CONV = 'manual_olua_$$_cocos2d_Rect',
     CPPCLS = 'cocos2d::Rect',
-    NUMVARS = 4,
+    NUM_VARS = 4,
 }
 
 typedef {
@@ -70,7 +70,7 @@ typedef {
     LUACLS = 'cc.RenderTargetFlag',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -78,7 +78,7 @@ typedef {
     LUACLS = 'cc.ClearFlag',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -86,7 +86,7 @@ typedef {
     LUACLS = 'cc.MATRIX_STACK_TYPE',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -94,7 +94,7 @@ typedef {
     LUACLS = 'cc.Director.Projection',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -102,7 +102,7 @@ typedef {
     LUACLS = 'cc.UserDefault',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -110,7 +110,7 @@ typedef {
     LUACLS = 'cc.Ref',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -118,7 +118,7 @@ typedef {
     LUACLS = 'cc.Console',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -126,7 +126,7 @@ typedef {
     LUACLS = 'cc.Acceleration',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -134,7 +134,7 @@ typedef {
     LUACLS = 'cc.Director',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -142,7 +142,7 @@ typedef {
     LUACLS = 'cc.Scheduler',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -150,7 +150,7 @@ typedef {
     LUACLS = 'cc.EventDispatcher',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -158,7 +158,7 @@ typedef {
     LUACLS = 'cc.EventListener.Type',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -166,7 +166,7 @@ typedef {
     LUACLS = 'cc.EventListener',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -174,7 +174,7 @@ typedef {
     LUACLS = 'cc.EventListenerTouchOneByOne',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -182,7 +182,7 @@ typedef {
     LUACLS = 'cc.EventListenerTouchAllAtOnce',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -190,7 +190,7 @@ typedef {
     LUACLS = 'cc.EventListenerCustom',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -198,7 +198,7 @@ typedef {
     LUACLS = 'cc.EventListenerKeyboard',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -206,7 +206,7 @@ typedef {
     LUACLS = 'cc.EventListenerAcceleration',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -214,7 +214,7 @@ typedef {
     LUACLS = 'cc.EventListenerFocus',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -222,7 +222,7 @@ typedef {
     LUACLS = 'cc.EventListenerMouse',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -230,7 +230,7 @@ typedef {
     LUACLS = 'cc.Event.Type',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -238,7 +238,7 @@ typedef {
     LUACLS = 'cc.Event',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -246,7 +246,7 @@ typedef {
     LUACLS = 'cc.EventCustom',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -254,7 +254,7 @@ typedef {
     LUACLS = 'cc.EventListenerController',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -262,7 +262,7 @@ typedef {
     LUACLS = 'cc.EventTouch.EventCode',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -270,7 +270,7 @@ typedef {
     LUACLS = 'cc.EventTouch',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -278,7 +278,7 @@ typedef {
     LUACLS = 'cc.EventKeyboard',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -286,7 +286,7 @@ typedef {
     LUACLS = 'cc.EventAcceleration',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -294,7 +294,7 @@ typedef {
     LUACLS = 'cc.EventFocus',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -302,7 +302,7 @@ typedef {
     LUACLS = 'cc.EventMouse.MouseEventType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -310,7 +310,7 @@ typedef {
     LUACLS = 'cc.EventMouse.MouseButton',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -318,7 +318,7 @@ typedef {
     LUACLS = 'cc.EventMouse',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -326,7 +326,7 @@ typedef {
     LUACLS = 'cc.EventKeyboard.KeyCode',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -334,7 +334,7 @@ typedef {
     LUACLS = 'cc.Touch.DispatchMode',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -342,7 +342,7 @@ typedef {
     LUACLS = 'cc.EventController.ControllerEventType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -350,7 +350,7 @@ typedef {
     LUACLS = 'cc.EventController',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -358,7 +358,7 @@ typedef {
     LUACLS = 'cc.Touch',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -366,7 +366,7 @@ typedef {
     LUACLS = 'cc.Controller.Key',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -374,7 +374,7 @@ typedef {
     LUACLS = 'cc.Controller',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -382,7 +382,7 @@ typedef {
     LUACLS = 'cc.AudioProfile',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -390,7 +390,7 @@ typedef {
     LUACLS = 'cc.AudioEngine.AudioState',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -398,7 +398,7 @@ typedef {
     LUACLS = 'cc.AudioEngine',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -406,7 +406,7 @@ typedef {
     LUACLS = 'cc.ApplicationProtocol.Platform',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -414,7 +414,7 @@ typedef {
     LUACLS = 'cc.LanguageType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -422,7 +422,7 @@ typedef {
     LUACLS = 'cc.ApplicationProtocol',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -430,7 +430,7 @@ typedef {
     LUACLS = 'cc.Application',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -438,7 +438,7 @@ typedef {
     LUACLS = 'cc.Device',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -446,7 +446,7 @@ typedef {
     LUACLS = 'cc.ResizableBuffer',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -454,7 +454,7 @@ typedef {
     LUACLS = 'cc.FileUtils.Status',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -462,7 +462,7 @@ typedef {
     LUACLS = 'cc.FileUtils',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -470,7 +470,7 @@ typedef {
     LUACLS = 'cc.ResolutionPolicy',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -478,7 +478,7 @@ typedef {
     LUACLS = 'cc.GLView',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -486,7 +486,7 @@ typedef {
     LUACLS = 'cc.GLViewImpl',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -494,7 +494,7 @@ typedef {
     LUACLS = 'cc.Image.Format',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -502,7 +502,7 @@ typedef {
     LUACLS = 'cc.Image',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -510,7 +510,7 @@ typedef {
     LUACLS = 'cc.Properties.Type',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -518,7 +518,7 @@ typedef {
     LUACLS = 'cc.Properties',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -526,7 +526,7 @@ typedef {
     LUACLS = 'cc.Material',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -534,7 +534,7 @@ typedef {
     LUACLS = 'cc.Renderer',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -542,7 +542,7 @@ typedef {
     LUACLS = 'cc.RenderCommand.Type',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -550,7 +550,7 @@ typedef {
     LUACLS = 'cc.CustomCommand.DrawType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -558,7 +558,7 @@ typedef {
     LUACLS = 'cc.PipelineDescriptor',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -566,7 +566,7 @@ typedef {
     LUACLS = 'cc.Technique',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -574,7 +574,7 @@ typedef {
     LUACLS = 'cc.Pass',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -582,7 +582,7 @@ typedef {
     LUACLS = 'cc.RenderState',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -590,7 +590,7 @@ typedef {
     LUACLS = 'cc.RenderCommand',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -598,7 +598,7 @@ typedef {
     LUACLS = 'cc.CustomCommand',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -606,7 +606,7 @@ typedef {
     LUACLS = 'cc.MeshCommand',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -614,7 +614,7 @@ typedef {
     LUACLS = 'cc.TextureCache',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -622,7 +622,7 @@ typedef {
     LUACLS = 'cc.Texture2D',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -630,7 +630,7 @@ typedef {
     LUACLS = 'cc.TextureCube',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -638,7 +638,7 @@ typedef {
     LUACLS = 'cc.TextureAtlas',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -646,7 +646,7 @@ typedef {
     LUACLS = 'cc.WebSocket.ErrorCode',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -654,7 +654,7 @@ typedef {
     LUACLS = 'cc.WebSocket.State',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -662,7 +662,7 @@ typedef {
     LUACLS = 'cc.WebSocket.Delegate',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -670,7 +670,7 @@ typedef {
     LUACLS = 'cc.WebSocket',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -678,7 +678,7 @@ typedef {
     LUACLS = 'cc.LuaWebSocketDelegate',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -686,7 +686,7 @@ typedef {
     LUACLS = 'cc.ActionManager',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -694,7 +694,7 @@ typedef {
     LUACLS = 'cc.Component',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -702,7 +702,7 @@ typedef {
     LUACLS = 'cc.LuaComponent',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -710,7 +710,7 @@ typedef {
     LUACLS = 'cc.Node',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -718,7 +718,7 @@ typedef {
     LUACLS = 'cc.LuaTweenNode',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -726,7 +726,7 @@ typedef {
     LUACLS = 'cc.AtlasNode',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -734,7 +734,7 @@ typedef {
     LUACLS = 'cc.sImageTGA',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -742,7 +742,7 @@ typedef {
     LUACLS = 'cc.TileMapAtlas',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -750,7 +750,7 @@ typedef {
     LUACLS = 'cc.ClippingNode',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -758,7 +758,7 @@ typedef {
     LUACLS = 'cc.MotionStreak',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -766,7 +766,7 @@ typedef {
     LUACLS = 'cc.ProtectedNode',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -774,7 +774,7 @@ typedef {
     LUACLS = 'cc.DrawNode',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -782,7 +782,7 @@ typedef {
     LUACLS = 'cc.ParallaxNode',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -790,7 +790,7 @@ typedef {
     LUACLS = 'cc.TextHAlignment',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -798,7 +798,7 @@ typedef {
     LUACLS = 'cc.TextVAlignment',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -806,7 +806,7 @@ typedef {
     LUACLS = 'cc.GlyphCollection',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -814,7 +814,7 @@ typedef {
     LUACLS = 'cc.LabelEffect',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -822,7 +822,7 @@ typedef {
     LUACLS = 'cc.Label.LabelType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -830,7 +830,7 @@ typedef {
     LUACLS = 'cc.Label.Overflow',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -838,7 +838,7 @@ typedef {
     LUACLS = 'cc.Label',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -846,7 +846,7 @@ typedef {
     LUACLS = 'cc.LabelAtlas',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -854,7 +854,7 @@ typedef {
     LUACLS = 'cc.FontAtlas',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -862,7 +862,7 @@ typedef {
     LUACLS = 'cc.ClippingRectangleNode',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -870,7 +870,7 @@ typedef {
     LUACLS = 'cc.RenderTexture',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -878,7 +878,7 @@ typedef {
     LUACLS = 'cc.ProgressTimer.Type',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -886,7 +886,7 @@ typedef {
     LUACLS = 'cc.ProgressTimer',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -894,7 +894,7 @@ typedef {
     LUACLS = 'cc.AnimationFrame',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -902,7 +902,7 @@ typedef {
     LUACLS = 'cc.Animation',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -910,7 +910,7 @@ typedef {
     LUACLS = 'cc.SpriteFrame',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -918,7 +918,7 @@ typedef {
     LUACLS = 'cc.Sprite',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -926,7 +926,7 @@ typedef {
     LUACLS = 'cc.SpriteBatchNode',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -934,7 +934,7 @@ typedef {
     LUACLS = 'cc.SpriteFrameCache',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -942,7 +942,7 @@ typedef {
     LUACLS = 'cc.AnimationCache',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -950,7 +950,7 @@ typedef {
     LUACLS = 'cc.Scene',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -958,7 +958,7 @@ typedef {
     LUACLS = 'cc.Layer',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -966,7 +966,7 @@ typedef {
     LUACLS = 'cc.LayerColor',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -974,7 +974,7 @@ typedef {
     LUACLS = 'cc.LayerGradient',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -982,7 +982,7 @@ typedef {
     LUACLS = 'cc.LayerRadialGradient',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -990,7 +990,7 @@ typedef {
     LUACLS = 'cc.LayerMultiplex',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -998,7 +998,7 @@ typedef {
     LUACLS = 'cc.TransitionScene.Orientation',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1006,7 +1006,7 @@ typedef {
     LUACLS = 'cc.TransitionScene',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1014,7 +1014,7 @@ typedef {
     LUACLS = 'cc.TransitionSceneOriented',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1022,7 +1022,7 @@ typedef {
     LUACLS = 'cc.TransitionRotoZoom',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1030,7 +1030,7 @@ typedef {
     LUACLS = 'cc.TransitionJumpZoom',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1038,7 +1038,7 @@ typedef {
     LUACLS = 'cc.TransitionMoveInL',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1046,7 +1046,7 @@ typedef {
     LUACLS = 'cc.TransitionMoveInR',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1054,7 +1054,7 @@ typedef {
     LUACLS = 'cc.TransitionMoveInT',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1062,7 +1062,7 @@ typedef {
     LUACLS = 'cc.TransitionMoveInB',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1070,7 +1070,7 @@ typedef {
     LUACLS = 'cc.TransitionSlideInL',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1078,7 +1078,7 @@ typedef {
     LUACLS = 'cc.TransitionSlideInR',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1086,7 +1086,7 @@ typedef {
     LUACLS = 'cc.TransitionSlideInB',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1094,7 +1094,7 @@ typedef {
     LUACLS = 'cc.TransitionSlideInT',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1102,7 +1102,7 @@ typedef {
     LUACLS = 'cc.TransitionShrinkGrow',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1110,7 +1110,7 @@ typedef {
     LUACLS = 'cc.TransitionFlipX',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1118,7 +1118,7 @@ typedef {
     LUACLS = 'cc.TransitionFlipY',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1126,7 +1126,7 @@ typedef {
     LUACLS = 'cc.TransitionFlipAngular',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1134,7 +1134,7 @@ typedef {
     LUACLS = 'cc.TransitionZoomFlipX',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1142,7 +1142,7 @@ typedef {
     LUACLS = 'cc.TransitionZoomFlipY',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1150,7 +1150,7 @@ typedef {
     LUACLS = 'cc.TransitionZoomFlipAngular',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1158,7 +1158,7 @@ typedef {
     LUACLS = 'cc.TransitionFade',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1166,7 +1166,7 @@ typedef {
     LUACLS = 'cc.TransitionCrossFade',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1174,7 +1174,7 @@ typedef {
     LUACLS = 'cc.TransitionTurnOffTiles',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1182,7 +1182,7 @@ typedef {
     LUACLS = 'cc.TransitionSplitCols',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1190,7 +1190,7 @@ typedef {
     LUACLS = 'cc.TransitionSplitRows',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1198,7 +1198,7 @@ typedef {
     LUACLS = 'cc.TransitionFadeTR',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1206,7 +1206,7 @@ typedef {
     LUACLS = 'cc.TransitionFadeBL',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1214,7 +1214,7 @@ typedef {
     LUACLS = 'cc.TransitionFadeUp',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1222,7 +1222,7 @@ typedef {
     LUACLS = 'cc.TransitionFadeDown',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1230,7 +1230,7 @@ typedef {
     LUACLS = 'cc.TransitionPageTurn',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1238,7 +1238,7 @@ typedef {
     LUACLS = 'cc.TransitionProgress',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1246,7 +1246,7 @@ typedef {
     LUACLS = 'cc.TransitionProgressRadialCCW',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1254,7 +1254,7 @@ typedef {
     LUACLS = 'cc.TransitionProgressRadialCW',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1262,7 +1262,7 @@ typedef {
     LUACLS = 'cc.TransitionProgressHorizontal',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1270,7 +1270,7 @@ typedef {
     LUACLS = 'cc.TransitionProgressVertical',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1278,7 +1278,7 @@ typedef {
     LUACLS = 'cc.TransitionProgressInOut',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1286,7 +1286,7 @@ typedef {
     LUACLS = 'cc.TransitionProgressOutIn',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1294,7 +1294,7 @@ typedef {
     LUACLS = 'cc.TextFieldDelegate',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1302,7 +1302,7 @@ typedef {
     LUACLS = 'cc.TextFieldTTF',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1310,7 +1310,7 @@ typedef {
     LUACLS = 'cc.LightType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1318,7 +1318,7 @@ typedef {
     LUACLS = 'cc.LightFlag',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1326,7 +1326,7 @@ typedef {
     LUACLS = 'cc.BaseLight',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1334,7 +1334,7 @@ typedef {
     LUACLS = 'cc.DirectionLight',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1342,7 +1342,7 @@ typedef {
     LUACLS = 'cc.PointLight',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1350,7 +1350,7 @@ typedef {
     LUACLS = 'cc.SpotLight',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1358,7 +1358,7 @@ typedef {
     LUACLS = 'cc.AmbientLight',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1366,7 +1366,7 @@ typedef {
     LUACLS = 'cc.CameraFlag',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1374,7 +1374,7 @@ typedef {
     LUACLS = 'cc.Camera.Type',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1382,7 +1382,7 @@ typedef {
     LUACLS = 'cc.Camera',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1390,7 +1390,7 @@ typedef {
     LUACLS = 'cc.CameraBackgroundBrush.BrushType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1398,7 +1398,7 @@ typedef {
     LUACLS = 'cc.CameraBackgroundBrush',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1406,7 +1406,7 @@ typedef {
     LUACLS = 'cc.CameraBackgroundDepthBrush',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1414,7 +1414,7 @@ typedef {
     LUACLS = 'cc.CameraBackgroundColorBrush',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1422,7 +1422,7 @@ typedef {
     LUACLS = 'cc.CameraBackgroundSkyBoxBrush',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1430,7 +1430,7 @@ typedef {
     LUACLS = 'cc.ParticleBatchNode',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1438,7 +1438,7 @@ typedef {
     LUACLS = 'cc.ParticleSystem.Mode',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1446,7 +1446,7 @@ typedef {
     LUACLS = 'cc.ParticleSystem.PositionType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1454,7 +1454,7 @@ typedef {
     LUACLS = 'cc.ParticleSystem',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1462,7 +1462,7 @@ typedef {
     LUACLS = 'cc.ParticleSystemQuad',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1470,7 +1470,7 @@ typedef {
     LUACLS = 'cc.ParticleExplosion',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1478,7 +1478,7 @@ typedef {
     LUACLS = 'cc.ParticleFire',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1486,7 +1486,7 @@ typedef {
     LUACLS = 'cc.ParticleFireworks',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1494,7 +1494,7 @@ typedef {
     LUACLS = 'cc.ParticleFlower',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1502,7 +1502,7 @@ typedef {
     LUACLS = 'cc.ParticleGalaxy',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1510,7 +1510,7 @@ typedef {
     LUACLS = 'cc.ParticleMeteor',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1518,7 +1518,7 @@ typedef {
     LUACLS = 'cc.ParticleRain',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1526,7 +1526,7 @@ typedef {
     LUACLS = 'cc.ParticleSmoke',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1534,7 +1534,7 @@ typedef {
     LUACLS = 'cc.ParticleSnow',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1542,7 +1542,7 @@ typedef {
     LUACLS = 'cc.ParticleSpiral',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1550,7 +1550,7 @@ typedef {
     LUACLS = 'cc.ParticleSun',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1558,7 +1558,7 @@ typedef {
     LUACLS = 'cc.TMXTileFlags',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1566,7 +1566,7 @@ typedef {
     LUACLS = 'cc.TMXObjectGroup',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1574,7 +1574,7 @@ typedef {
     LUACLS = 'cc.TMXLayer',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1582,7 +1582,7 @@ typedef {
     LUACLS = 'cc.TMXLayerInfo',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1590,7 +1590,7 @@ typedef {
     LUACLS = 'cc.TMXMapInfo',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1598,7 +1598,7 @@ typedef {
     LUACLS = 'cc.TMXTilesetInfo',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1606,7 +1606,7 @@ typedef {
     LUACLS = 'cc.TMXTiledMap',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1614,7 +1614,7 @@ typedef {
     LUACLS = 'cc.FastTMXTiledMap',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1622,7 +1622,7 @@ typedef {
     LUACLS = 'cc.FastTMXLayer',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1630,7 +1630,7 @@ typedef {
     LUACLS = 'cc.NavMeshAgent.NavMeshAgentSyncFlag',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1638,7 +1638,7 @@ typedef {
     LUACLS = 'cc.NavMeshAgent',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1646,7 +1646,7 @@ typedef {
     LUACLS = 'cc.NavMeshObstacle.NavMeshObstacleSyncFlag',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1654,7 +1654,7 @@ typedef {
     LUACLS = 'cc.NavMeshObstacle',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -1662,6 +1662,6 @@ typedef {
     LUACLS = 'cc.NavMesh',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 

@@ -29,6 +29,11 @@ GTweener* GTween::to(const cocos2d::Color4B& startValue, const cocos2d::Color4B 
     return TweenManager::createTween()->_to(startValue, endValue, duration);
 }
 
+GTweener* GTween::toColor(const cocos2d::Color4B& startValue, const cocos2d::Color4B& endValue, float duration)
+{
+    return TweenManager::createTween()->_to(startValue, endValue, duration);
+}
+
 GTweener* GTween::toDouble(double startValue, double endValue, float duration)
 {
     return TweenManager::createTween()->_to(startValue, endValue, duration);

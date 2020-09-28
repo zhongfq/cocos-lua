@@ -18,6 +18,7 @@ public:
     static GTweener* to(const cocos2d::Vec3& startValue, const cocos2d::Vec3& endValue, float duration);
     static GTweener* to(const cocos2d::Vec4& startValue, const cocos2d::Vec4& endValue, float duration);
     static GTweener* to(const cocos2d::Color4B& startValue, const cocos2d::Color4B& endValue, float duration);
+    static GTweener* toColor(const cocos2d::Color4B& startValue, const cocos2d::Color4B& endValue, float duration);
     static GTweener* toDouble(double startValue, double endValue, float duration);
     static GTweener* delayedCall(float delay);
     static GTweener* shake(const cocos2d::Vec2& startValue, float amplitude, float duration);

@@ -8,7 +8,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_dragonBones_Rectangle',
-    NUMVARS = 4,
+    NUM_VARS = 4,
 }
 
 typedef {
@@ -16,7 +16,7 @@ typedef {
     LUACLS = 'db.BinaryOffset',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -24,7 +24,7 @@ typedef {
     LUACLS = 'db.ArmatureType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -32,7 +32,7 @@ typedef {
     LUACLS = 'db.OffsetMode',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -40,7 +40,7 @@ typedef {
     LUACLS = 'db.DisplayType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -48,7 +48,7 @@ typedef {
     LUACLS = 'db.BoundingBoxType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -56,7 +56,7 @@ typedef {
     LUACLS = 'db.ActionType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -64,7 +64,7 @@ typedef {
     LUACLS = 'db.BlendMode',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -72,7 +72,7 @@ typedef {
     LUACLS = 'db.TweenType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -80,7 +80,7 @@ typedef {
     LUACLS = 'db.TimelineType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -88,7 +88,7 @@ typedef {
     LUACLS = 'db.AnimationFadeOutMode',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -96,7 +96,7 @@ typedef {
     LUACLS = 'db.TextureFormat',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -104,7 +104,7 @@ typedef {
     LUACLS = 'db.BaseObject',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -112,7 +112,7 @@ typedef {
     LUACLS = 'db.EventObject',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -120,7 +120,7 @@ typedef {
     LUACLS = 'db.TransformObject',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -128,7 +128,7 @@ typedef {
     LUACLS = 'db.Point',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -136,7 +136,7 @@ typedef {
     LUACLS = 'db.ConstraintData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -144,7 +144,7 @@ typedef {
     LUACLS = 'db.IKConstraintData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -152,7 +152,7 @@ typedef {
     LUACLS = 'db.TimelineData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -160,7 +160,7 @@ typedef {
     LUACLS = 'db.IAnimatable',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -168,7 +168,7 @@ typedef {
     LUACLS = 'db.WorldClock',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -176,7 +176,7 @@ typedef {
     LUACLS = 'db.Slot',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -184,7 +184,7 @@ typedef {
     LUACLS = 'db.Bone',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -192,7 +192,7 @@ typedef {
     LUACLS = 'db.DisplayData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -200,7 +200,7 @@ typedef {
     LUACLS = 'db.ActionData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -208,7 +208,7 @@ typedef {
     LUACLS = 'db.UserData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -216,7 +216,7 @@ typedef {
     LUACLS = 'db.BoundingBoxData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -224,7 +224,7 @@ typedef {
     LUACLS = 'db.BoundingBoxDisplayData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -232,7 +232,7 @@ typedef {
     LUACLS = 'db.CanvasData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -240,7 +240,7 @@ typedef {
     LUACLS = 'db.TextureAtlasData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -248,7 +248,7 @@ typedef {
     LUACLS = 'db.TextureData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -256,7 +256,7 @@ typedef {
     LUACLS = 'db.ArmatureData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -264,7 +264,7 @@ typedef {
     LUACLS = 'db.SkinData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -272,7 +272,7 @@ typedef {
     LUACLS = 'db.BoneData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -280,7 +280,7 @@ typedef {
     LUACLS = 'db.SlotData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -288,7 +288,7 @@ typedef {
     LUACLS = 'db.AnimationState',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -296,7 +296,7 @@ typedef {
     LUACLS = 'db.AnimationData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -304,7 +304,7 @@ typedef {
     LUACLS = 'db.AnimationConfig',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -312,7 +312,7 @@ typedef {
     LUACLS = 'db.DragonBonesData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -320,7 +320,7 @@ typedef {
     LUACLS = 'db.BaseFactory',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -328,7 +328,7 @@ typedef {
     LUACLS = 'db.Armature',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -336,7 +336,7 @@ typedef {
     LUACLS = 'db.Animation',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -344,7 +344,7 @@ typedef {
     LUACLS = 'db.Factory',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -352,6 +352,6 @@ typedef {
     LUACLS = 'db.ArmatureDisplay',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 

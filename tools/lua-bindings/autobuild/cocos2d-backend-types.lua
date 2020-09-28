@@ -13,7 +13,7 @@ typedef {
     LUACLS = 'ccb.BufferUsage',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -21,7 +21,7 @@ typedef {
     LUACLS = 'ccb.BufferType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -29,7 +29,7 @@ typedef {
     LUACLS = 'ccb.ShaderStage',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -37,7 +37,7 @@ typedef {
     LUACLS = 'ccb.VertexFormat',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -45,7 +45,7 @@ typedef {
     LUACLS = 'ccb.PixelFormat',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -53,7 +53,7 @@ typedef {
     LUACLS = 'ccb.TextureUsage',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -61,7 +61,7 @@ typedef {
     LUACLS = 'ccb.IndexFormat',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -69,7 +69,7 @@ typedef {
     LUACLS = 'ccb.VertexStepMode',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -77,7 +77,7 @@ typedef {
     LUACLS = 'ccb.PrimitiveType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -85,7 +85,7 @@ typedef {
     LUACLS = 'ccb.TextureType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -93,7 +93,7 @@ typedef {
     LUACLS = 'ccb.SamplerAddressMode',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -101,7 +101,7 @@ typedef {
     LUACLS = 'ccb.SamplerFilter',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -109,7 +109,7 @@ typedef {
     LUACLS = 'ccb.StencilOperation',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -117,7 +117,7 @@ typedef {
     LUACLS = 'ccb.CompareFunction',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -125,7 +125,7 @@ typedef {
     LUACLS = 'ccb.BlendOperation',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -133,7 +133,7 @@ typedef {
     LUACLS = 'ccb.BlendFactor',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -141,7 +141,7 @@ typedef {
     LUACLS = 'ccb.ColorWriteMask',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -149,7 +149,7 @@ typedef {
     LUACLS = 'ccb.CullMode',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -157,7 +157,7 @@ typedef {
     LUACLS = 'ccb.Winding',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -165,7 +165,7 @@ typedef {
     LUACLS = 'ccb.TextureCubeFace',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -173,7 +173,7 @@ typedef {
     LUACLS = 'ccb.ProgramType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -181,7 +181,7 @@ typedef {
     LUACLS = 'ccb.Uniform',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -189,7 +189,7 @@ typedef {
     LUACLS = 'ccb.Attribute',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -197,7 +197,7 @@ typedef {
     LUACLS = 'ccb.FeatureType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -205,7 +205,7 @@ typedef {
     LUACLS = 'ccb.Buffer',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -213,7 +213,7 @@ typedef {
     LUACLS = 'ccb.RenderPipeline',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -221,7 +221,7 @@ typedef {
     LUACLS = 'ccb.DepthStencilState',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -229,7 +229,7 @@ typedef {
     LUACLS = 'ccb.VertexLayout',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -237,7 +237,7 @@ typedef {
     LUACLS = 'ccb.CommandBuffer',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -245,7 +245,7 @@ typedef {
     LUACLS = 'ccb.Device',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -253,7 +253,7 @@ typedef {
     LUACLS = 'ccb.DeviceInfo',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -261,7 +261,7 @@ typedef {
     LUACLS = 'ccb.ShaderCache',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -269,7 +269,7 @@ typedef {
     LUACLS = 'ccb.ShaderModule',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -277,7 +277,7 @@ typedef {
     LUACLS = 'ccb.ProgramCache',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -285,7 +285,7 @@ typedef {
     LUACLS = 'ccb.ProgramState',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -293,7 +293,7 @@ typedef {
     LUACLS = 'ccb.Program',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -301,7 +301,7 @@ typedef {
     LUACLS = 'ccb.TextureBackend',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -309,7 +309,7 @@ typedef {
     LUACLS = 'ccb.Texture2DBackend',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -317,6 +317,6 @@ typedef {
     LUACLS = 'ccb.TextureCubemapBackend',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 

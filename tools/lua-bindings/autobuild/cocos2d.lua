@@ -112,9 +112,11 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
-cls.func('__gc', [[{
-    return xlua_ccobjgc(L);
-}]])
+cls.func('__gc', [[
+    {
+        return xlua_ccobjgc(L);
+    }
+]])
 cls.func(nil, 'unsigned int getReferenceCount()')
 cls.prop('referenceCount', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -144,10 +146,10 @@ cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
-cls.var('x', [[@optional double x]])
-cls.var('y', [[@optional double y]])
-cls.var('z', [[@optional double z]])
-cls.var('timestamp', [[@optional double timestamp]])
+cls.var('x', '@optional double x')
+cls.var('y', '@optional double y')
+cls.var('z', '@optional double z')
+cls.var('timestamp', '@optional double timestamp')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Director'
@@ -223,15 +225,15 @@ cls.func(nil, 'void multiplyMatrix(cocos2d::MATRIX_STACK_TYPE type, const cocos2
 cls.func(nil, 'const cocos2d::Mat4 &getMatrix(cocos2d::MATRIX_STACK_TYPE type)')
 cls.func(nil, 'void resetMatrixStack()')
 cls.func(nil, 'bool isValid()')
-cls.var('EVENT_BEFORE_SET_NEXT_SCENE', [[static const char *EVENT_BEFORE_SET_NEXT_SCENE]])
-cls.var('EVENT_AFTER_SET_NEXT_SCENE', [[static const char *EVENT_AFTER_SET_NEXT_SCENE]])
-cls.var('EVENT_PROJECTION_CHANGED', [[static const char *EVENT_PROJECTION_CHANGED]])
-cls.var('EVENT_BEFORE_UPDATE', [[static const char *EVENT_BEFORE_UPDATE]])
-cls.var('EVENT_AFTER_UPDATE', [[static const char *EVENT_AFTER_UPDATE]])
-cls.var('EVENT_RESET', [[static const char *EVENT_RESET]])
-cls.var('EVENT_AFTER_VISIT', [[static const char *EVENT_AFTER_VISIT]])
-cls.var('EVENT_AFTER_DRAW', [[static const char *EVENT_AFTER_DRAW]])
-cls.var('EVENT_BEFORE_DRAW', [[static const char *EVENT_BEFORE_DRAW]])
+cls.var('EVENT_BEFORE_SET_NEXT_SCENE', 'static const char *EVENT_BEFORE_SET_NEXT_SCENE')
+cls.var('EVENT_AFTER_SET_NEXT_SCENE', 'static const char *EVENT_AFTER_SET_NEXT_SCENE')
+cls.var('EVENT_PROJECTION_CHANGED', 'static const char *EVENT_PROJECTION_CHANGED')
+cls.var('EVENT_BEFORE_UPDATE', 'static const char *EVENT_BEFORE_UPDATE')
+cls.var('EVENT_AFTER_UPDATE', 'static const char *EVENT_AFTER_UPDATE')
+cls.var('EVENT_RESET', 'static const char *EVENT_RESET')
+cls.var('EVENT_AFTER_VISIT', 'static const char *EVENT_AFTER_VISIT')
+cls.var('EVENT_AFTER_DRAW', 'static const char *EVENT_AFTER_DRAW')
+cls.var('EVENT_BEFORE_DRAW', 'static const char *EVENT_BEFORE_DRAW')
 cls.prop('instance', nil, nil)
 cls.prop('runningScene', nil, nil)
 cls.prop('animationInterval', nil, nil)
@@ -283,20 +285,22 @@ cls.CHUNK = [[
 ]]
 cls.const('PRIORITY_SYSTEM', 'cocos2d::Scheduler::PRIORITY_SYSTEM', 'const int')
 cls.const('PRIORITY_NON_SYSTEM_MIN', 'cocos2d::Scheduler::PRIORITY_NON_SYSTEM_MIN', 'const int')
-cls.func('scheduleUpdate', [[{
-    if (doScheduleUpdate<cocos2d::Scheduler>(L) ||
-        doScheduleUpdate<cocos2d::ActionManager>(L) ||
-        doScheduleUpdate<cocos2d::Node>(L) ||
-        doScheduleUpdate<cocos2d::Action>(L) ||
-        doScheduleUpdate<cocos2d::Component>(L) ||
-        doScheduleUpdate<cocos2d::ActionManager>(L)) {
+cls.func('scheduleUpdate', [[
+    {
+        if (doScheduleUpdate<cocos2d::Scheduler>(L) ||
+            doScheduleUpdate<cocos2d::ActionManager>(L) ||
+            doScheduleUpdate<cocos2d::Node>(L) ||
+            doScheduleUpdate<cocos2d::Action>(L) ||
+            doScheduleUpdate<cocos2d::Component>(L) ||
+            doScheduleUpdate<cocos2d::ActionManager>(L)) {
+            return 0;
+        }
+
+        luaL_error(L, "unsupport type: %s", olua_typename(L, 2));
+
         return 0;
     }
-
-    luaL_error(L, "unsupport type: %s", olua_typename(L, 2));
-
-    return 0;
-}]])
+]])
 cls.func(nil, 'Scheduler()')
 cls.func(nil, 'float getTimeScale()')
 cls.func(nil, 'void setTimeScale(float timeScale)')
@@ -451,10 +455,10 @@ cls.func(nil, 'static cocos2d::EventListenerTouchOneByOne *create()')
 cls.func(nil, 'void setSwallowTouches(bool needSwallow)')
 cls.func(nil, 'bool isSwallowTouches()')
 cls.func(nil, 'EventListenerTouchOneByOne()')
-cls.var('onTouchBegan', [[@nullable @local std::function<bool (Touch *, Event *)> onTouchBegan]])
-cls.var('onTouchMoved', [[@nullable @local std::function<void (Touch *, Event *)> onTouchMoved]])
-cls.var('onTouchEnded', [[@nullable @local std::function<void (Touch *, Event *)> onTouchEnded]])
-cls.var('onTouchCancelled', [[@nullable @local std::function<void (Touch *, Event *)> onTouchCancelled]])
+cls.var('onTouchBegan', '@nullable @local std::function<bool (Touch *, Event *)> onTouchBegan')
+cls.var('onTouchMoved', '@nullable @local std::function<void (Touch *, Event *)> onTouchMoved')
+cls.var('onTouchEnded', '@nullable @local std::function<void (Touch *, Event *)> onTouchEnded')
+cls.var('onTouchCancelled', '@nullable @local std::function<void (Touch *, Event *)> onTouchCancelled')
 cls.prop('swallowTouches', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -466,10 +470,10 @@ cls.CHUNK = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerTouchAllAtOnce::LISTENER_ID', 'const std::string')
 cls.func(nil, 'static cocos2d::EventListenerTouchAllAtOnce *create()')
 cls.func(nil, 'EventListenerTouchAllAtOnce()')
-cls.var('onTouchesBegan', [[@nullable @local std::function<void (const std::vector<Touch *> &, Event *)> onTouchesBegan]])
-cls.var('onTouchesMoved', [[@nullable @local std::function<void (const std::vector<Touch *> &, Event *)> onTouchesMoved]])
-cls.var('onTouchesEnded', [[@nullable @local std::function<void (const std::vector<Touch *> &, Event *)> onTouchesEnded]])
-cls.var('onTouchesCancelled', [[@nullable @local std::function<void (const std::vector<Touch *> &, Event *)> onTouchesCancelled]])
+cls.var('onTouchesBegan', '@nullable @local std::function<void (const std::vector<Touch *> &, Event *)> onTouchesBegan')
+cls.var('onTouchesMoved', '@nullable @local std::function<void (const std::vector<Touch *> &, Event *)> onTouchesMoved')
+cls.var('onTouchesEnded', '@nullable @local std::function<void (const std::vector<Touch *> &, Event *)> onTouchesEnded')
+cls.var('onTouchesCancelled', '@nullable @local std::function<void (const std::vector<Touch *> &, Event *)> onTouchesCancelled')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerCustom'
@@ -497,8 +501,8 @@ cls.CHUNK = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerKeyboard::LISTENER_ID', 'const std::string')
 cls.func(nil, 'static cocos2d::EventListenerKeyboard *create()')
 cls.func(nil, 'EventListenerKeyboard()')
-cls.var('onKeyPressed', [[@nullable @local std::function<void (EventKeyboard::KeyCode, Event *)> onKeyPressed]])
-cls.var('onKeyReleased', [[@nullable @local std::function<void (EventKeyboard::KeyCode, Event *)> onKeyReleased]])
+cls.var('onKeyPressed', '@nullable @local std::function<void (EventKeyboard::KeyCode, Event *)> onKeyPressed')
+cls.var('onKeyReleased', '@nullable @local std::function<void (EventKeyboard::KeyCode, Event *)> onKeyReleased')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerAcceleration'
@@ -527,7 +531,7 @@ cls.CHUNK = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerFocus::LISTENER_ID', 'const std::string')
 cls.func(nil, 'static cocos2d::EventListenerFocus *create()')
 cls.func(nil, 'EventListenerFocus()')
-cls.var('onFocusChanged', [[@nullable @local std::function<void (ui::Widget *, ui::Widget *)> onFocusChanged]])
+cls.var('onFocusChanged', '@nullable @local std::function<void (ui::Widget *, ui::Widget *)> onFocusChanged')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerMouse'
@@ -538,10 +542,10 @@ cls.CHUNK = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerMouse::LISTENER_ID', 'const std::string')
 cls.func(nil, 'static cocos2d::EventListenerMouse *create()')
 cls.func(nil, 'EventListenerMouse()')
-cls.var('onMouseDown', [[@nullable @local std::function<void (EventMouse *)> onMouseDown]])
-cls.var('onMouseUp', [[@nullable @local std::function<void (EventMouse *)> onMouseUp]])
-cls.var('onMouseMove', [[@nullable @local std::function<void (EventMouse *)> onMouseMove]])
-cls.var('onMouseScroll', [[@nullable @local std::function<void (EventMouse *)> onMouseScroll]])
+cls.var('onMouseDown', '@nullable @local std::function<void (EventMouse *)> onMouseDown')
+cls.var('onMouseUp', '@nullable @local std::function<void (EventMouse *)> onMouseUp')
+cls.var('onMouseMove', '@nullable @local std::function<void (EventMouse *)> onMouseMove')
+cls.var('onMouseScroll', '@nullable @local std::function<void (EventMouse *)> onMouseScroll')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Event::Type'
@@ -593,12 +597,12 @@ cls.DEFIF = nil
 cls.CHUNK = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerController::LISTENER_ID', 'const std::string')
 cls.func(nil, 'static cocos2d::EventListenerController *create()')
-cls.var('onConnected', [[@nullable @local std::function<void (Controller *, Event *)> onConnected]])
-cls.var('onDisconnected', [[@nullable @local std::function<void (Controller *, Event *)> onDisconnected]])
-cls.var('onKeyDown', [[@nullable @local std::function<void (Controller *, int, Event *)> onKeyDown]])
-cls.var('onKeyUp', [[@nullable @local std::function<void (Controller *, int, Event *)> onKeyUp]])
-cls.var('onKeyRepeat', [[@nullable @local std::function<void (Controller *, int, Event *)> onKeyRepeat]])
-cls.var('onAxisEvent', [[@nullable @local std::function<void (Controller *, int, Event *)> onAxisEvent]])
+cls.var('onConnected', '@nullable @local std::function<void (Controller *, Event *)> onConnected')
+cls.var('onDisconnected', '@nullable @local std::function<void (Controller *, Event *)> onDisconnected')
+cls.var('onKeyDown', '@nullable @local std::function<void (Controller *, int, Event *)> onKeyDown')
+cls.var('onKeyUp', '@nullable @local std::function<void (Controller *, int, Event *)> onKeyUp')
+cls.var('onKeyRepeat', '@nullable @local std::function<void (Controller *, int, Event *)> onKeyRepeat')
+cls.var('onAxisEvent', '@nullable @local std::function<void (Controller *, int, Event *)> onAxisEvent')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventTouch::EventCode'
@@ -1019,9 +1023,9 @@ cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
 cls.func(nil, 'AudioProfile()')
-cls.var('name', [[std::string name]])
-cls.var('maxInstances', [[unsigned int maxInstances]])
-cls.var('minDelay', [[double minDelay]])
+cls.var('name', 'std::string name')
+cls.var('maxInstances', 'unsigned int maxInstances')
+cls.var('minDelay', 'double minDelay')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::AudioEngine::AudioState'
@@ -1578,10 +1582,12 @@ cls.CHUNK = [[
     };
     NS_CC_END
 ]]
-cls.func('getPNGPremultipliedAlphaEnabled', [[{
-    lua_pushboolean(L, cocos2d::LuaImage::getPNGPremultipliedAlphaEnabled());
-    return 1;
-}]])
+cls.func('getPNGPremultipliedAlphaEnabled', [[
+    {
+        lua_pushboolean(L, cocos2d::LuaImage::getPNGPremultipliedAlphaEnabled());
+        return 1;
+    }
+]])
 cls.func(nil, 'Image()')
 cls.func(nil, 'static void setPNGPremultipliedAlphaEnabled(bool enabled)')
 cls.func(nil, 'static void setPVRImagesHavePremultipliedAlpha(bool haveAlphaPremultiplied)')
@@ -1802,8 +1808,8 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
-cls.var('programState', [[@optional cocos2d::backend::ProgramState *programState]])
-cls.var('blendDescriptor', [[cocos2d::backend::BlendDescriptor blendDescriptor]])
+cls.var('programState', '@optional cocos2d::backend::ProgramState *programState')
+cls.var('blendDescriptor', 'cocos2d::backend::BlendDescriptor blendDescriptor')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Technique'
@@ -1884,7 +1890,7 @@ cls.func(nil, 'std::size_t getIndexDrawCount()')
 cls.func(nil, 'void setLineWidth(float lineWidth)')
 cls.func(nil, 'float getLineWidth()')
 cls.func(nil, 'cocos2d::CustomCommand::IndexFormat getIndexFormat()')
-cls.var('func', [[@nullable @local std::function<void ()> func]])
+cls.var('func', '@nullable @local std::function<void ()> func')
 cls.callback {
     FUNCS =  {
         'void setBeforeCallback(@local const std::function<void ()> &before)'
@@ -2143,29 +2149,31 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
-cls.func('init', [[{
-    std::vector<std::string> protocols;
-    auto self =  olua_toobj<cocos2d::network::WebSocket>(L, 1);
-    auto delegate = olua_checkobj<cocos2d::network::WebSocket::Delegate>(L, 2);
-    std::string url = olua_tostring(L, 3);
-    std::string cafile = olua_optstring(L, 5, "");
+cls.func('init', [[
+    {
+        std::vector<std::string> protocols;
+        auto self =  olua_toobj<cocos2d::network::WebSocket>(L, 1);
+        auto delegate = olua_checkobj<cocos2d::network::WebSocket::Delegate>(L, 2);
+        std::string url = olua_tostring(L, 3);
+        std::string cafile = olua_optstring(L, 5, "");
 
-    if (!lua_isnil(L, 4)) {
-        luaL_checktype(L, 4, LUA_TTABLE);
-        int len = (int)lua_rawlen(L, 4);
-        protocols.reserve(len);
-        for (int i = 1; i <= len; i++) {
-            lua_rawgeti(L, 4, i);
-            protocols.push_back(olua_checkstring(L, -1));
-            lua_pop(L, 1);
+        if (!lua_isnil(L, 4)) {
+            luaL_checktype(L, 4, LUA_TTABLE);
+            int len = (int)lua_rawlen(L, 4);
+            protocols.reserve(len);
+            for (int i = 1; i <= len; i++) {
+                lua_rawgeti(L, 4, i);
+                protocols.push_back(olua_checkstring(L, -1));
+                lua_pop(L, 1);
+            }
         }
+
+        self->init(*delegate, url, protocols.size() > 0 ? &protocols : nullptr, cafile);
+        olua_addref(L, 1, "delegate", 2, OLUA_MODE_SINGLE);
+
+        return 0;
     }
-
-    self->init(*delegate, url, protocols.size() > 0 ? &protocols : nullptr, cafile);
-    olua_addref(L, 1, "delegate", 2, OLUA_MODE_SINGLE);
-
-    return 0;
-}]])
+]])
 cls.func(nil, 'static void closeAllConnections()')
 cls.func(nil, 'WebSocket()')
 cls.func(nil, 'void send(const std::string &message)', 'void send(const unsigned char *binaryMsg, unsigned int len)')
@@ -2185,10 +2193,10 @@ cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
 cls.func(nil, 'LuaWebSocketDelegate()')
-cls.var('onOpen', [[@nullable @local std::function<void (network::WebSocket *)> onOpenCallback]])
-cls.var('onMessage', [[@nullable @local std::function<void (network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback]])
-cls.var('onClose', [[@nullable @local std::function<void (network::WebSocket *)> onCloseCallback]])
-cls.var('onError', [[@nullable @local std::function<void (network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback]])
+cls.var('onOpen', '@nullable @local std::function<void (network::WebSocket *)> onOpenCallback')
+cls.var('onMessage', '@nullable @local std::function<void (network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback')
+cls.var('onClose', '@nullable @local std::function<void (network::WebSocket *)> onCloseCallback')
+cls.var('onError', '@nullable @local std::function<void (network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ActionManager'
@@ -2248,11 +2256,11 @@ cls.DEFIF = nil
 cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::LuaComponent *create()')
 cls.func(nil, 'LuaComponent()')
-cls.var('onUpdate', [[@nullable @local std::function<void (float)> onUpdateCallback]])
-cls.var('onEnter', [[@nullable @local std::function<void ()> onEnterCallback]])
-cls.var('onExit', [[@nullable @local std::function<void ()> onExitCallback]])
-cls.var('onAdd', [[@nullable @local std::function<void ()> onAddCallback]])
-cls.var('onRemove', [[@nullable @local std::function<void ()> onRemoveCallback]])
+cls.var('onUpdate', '@nullable @local std::function<void (float)> onUpdateCallback')
+cls.var('onEnter', '@nullable @local std::function<void ()> onEnterCallback')
+cls.var('onExit', '@nullable @local std::function<void ()> onExitCallback')
+cls.var('onAdd', '@nullable @local std::function<void ()> onAddCallback')
+cls.var('onRemove', '@nullable @local std::function<void ()> onRemoveCallback')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Node'
@@ -2273,50 +2281,52 @@ cls.CHUNK = [[
     }
 ]]
 cls.const('INVALID_TAG', 'cocos2d::Node::INVALID_TAG', 'const int')
-cls.func('getBounds', [[{
-    auto self = olua_checkobj<cocos2d::Node>(L, 1);
-    auto target = olua_checkobj<cocos2d::Node>(L, 2);
+cls.func('getBounds', [[
+    {
+        auto self = olua_checkobj<cocos2d::Node>(L, 1);
+        auto target = olua_checkobj<cocos2d::Node>(L, 2);
 
-    float left = luaL_checknumber(L, 3);
-    float right = luaL_checknumber(L, 4);
-    float top = luaL_checknumber(L, 5);
-    float bottom = luaL_checknumber(L, 6);
+        float left = luaL_checknumber(L, 3);
+        float right = luaL_checknumber(L, 4);
+        float top = luaL_checknumber(L, 5);
+        float bottom = luaL_checknumber(L, 6);
 
-    cocos2d::Vec3 p1(left, bottom, 0);
-    cocos2d::Vec3 p2(right, top, 0);
+        cocos2d::Vec3 p1(left, bottom, 0);
+        cocos2d::Vec3 p2(right, top, 0);
 
-    auto m = cocos2d::Mat4::IDENTITY;
+        auto m = cocos2d::Mat4::IDENTITY;
 
-    if (target == self->getParent()) {
-        m = self->getNodeToParentTransform();
-    } else if (target != self) {
-        auto ancestor = _find_ancestor(target, self);
-        if (!ancestor) {
-            m = target->getWorldToNodeTransform() * self->getNodeToWorldTransform();
-        } else if (target == ancestor) {
-            m = self->getNodeToParentTransform(target);
-        } else if (self == ancestor) {
-            m = target->getNodeToParentTransform(self).getInversed();
-        } else {
-            m = target->getNodeToParentTransform(ancestor).getInversed() * self->getNodeToParentTransform(ancestor);
+        if (target == self->getParent()) {
+            m = self->getNodeToParentTransform();
+        } else if (target != self) {
+            auto ancestor = _find_ancestor(target, self);
+            if (!ancestor) {
+                m = target->getWorldToNodeTransform() * self->getNodeToWorldTransform();
+            } else if (target == ancestor) {
+                m = self->getNodeToParentTransform(target);
+            } else if (self == ancestor) {
+                m = target->getNodeToParentTransform(self).getInversed();
+            } else {
+                m = target->getNodeToParentTransform(ancestor).getInversed() * self->getNodeToParentTransform(ancestor);
+            }
         }
+
+        m.transformPoint(&p1);
+        m.transformPoint(&p2);
+
+        left = MIN(p1.x, p2.x);
+        right = MAX(p1.x, p2.x);
+        top = MAX(p1.y, p2.y);
+        bottom = MIN(p1.y, p2.y);
+
+        lua_pushnumber(L, left);
+        lua_pushnumber(L, right);
+        lua_pushnumber(L, top);
+        lua_pushnumber(L, bottom);
+
+        return 4;
     }
-
-    m.transformPoint(&p1);
-    m.transformPoint(&p2);
-
-    left = MIN(p1.x, p2.x);
-    right = MAX(p1.x, p2.x);
-    top = MAX(p1.y, p2.y);
-    bottom = MIN(p1.y, p2.y);
-
-    lua_pushnumber(L, left);
-    lua_pushnumber(L, right);
-    lua_pushnumber(L, top);
-    lua_pushnumber(L, bottom);
-
-    return 4;
-}]])
+]])
 cls.func(nil, 'static cocos2d::Node *create()')
 cls.func(nil, 'static int getAttachedNodeCount()')
 cls.func(nil, 'std::string getDescription()')
@@ -2797,13 +2807,13 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
-cls.var('status', [[int status]])
-cls.var('type', [[unsigned char type]])
-cls.var('pixelDepth', [[unsigned char pixelDepth]])
-cls.var('width', [[short width]])
-cls.var('height', [[short height]])
-cls.var('imageData', [[unsigned char *imageData]])
-cls.var('flipped', [[int flipped]])
+cls.var('status', 'int status')
+cls.var('type', 'unsigned char type')
+cls.var('pixelDepth', 'unsigned char pixelDepth')
+cls.var('width', 'short width')
+cls.var('height', 'short height')
+cls.var('imageData', 'unsigned char *imageData')
+cls.var('flipped', 'int flipped')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TileMapAtlas'
@@ -3142,8 +3152,8 @@ cls.func(nil, 'void listenRendererRecreated(cocos2d::EventCustom *event)')
 cls.func(nil, 'void purgeTexturesAtlas()')
 cls.func(nil, 'void setAntiAliasTexParameters()')
 cls.func(nil, 'void setAliasTexParameters()')
-cls.var('CMD_PURGE_FONTATLAS', [[static const char *CMD_PURGE_FONTATLAS]])
-cls.var('CMD_RESET_FONTATLAS', [[static const char *CMD_RESET_FONTATLAS]])
+cls.var('CMD_PURGE_FONTATLAS', 'static const char *CMD_PURGE_FONTATLAS')
+cls.var('CMD_RESET_FONTATLAS', 'static const char *CMD_RESET_FONTATLAS')
 cls.prop('lineHeight', nil, nil)
 cls.prop('fontName', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls

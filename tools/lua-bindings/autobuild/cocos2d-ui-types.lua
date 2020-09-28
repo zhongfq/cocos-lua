@@ -8,7 +8,7 @@ typedef {
     LUACLS = 'ccui.Widget.FocusDirection',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -16,7 +16,7 @@ typedef {
     LUACLS = 'ccui.Widget.PositionType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -24,7 +24,7 @@ typedef {
     LUACLS = 'ccui.Widget.SizeType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -32,7 +32,7 @@ typedef {
     LUACLS = 'ccui.Widget.TouchEventType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -40,7 +40,7 @@ typedef {
     LUACLS = 'ccui.Widget.TextureResType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -48,7 +48,7 @@ typedef {
     LUACLS = 'ccui.Widget.BrightStyle',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -56,7 +56,7 @@ typedef {
     LUACLS = 'ccui.Widget',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -64,7 +64,7 @@ typedef {
     LUACLS = 'ccui.Helper',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -72,7 +72,7 @@ typedef {
     LUACLS = 'ccui.Scale9Sprite.State',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -80,7 +80,7 @@ typedef {
     LUACLS = 'ccui.Scale9Sprite.RenderingType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -88,7 +88,7 @@ typedef {
     LUACLS = 'ccui.Scale9Sprite',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -96,7 +96,7 @@ typedef {
     LUACLS = 'ccui.LayoutComponent.HorizontalEdge',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -104,7 +104,7 @@ typedef {
     LUACLS = 'ccui.LayoutComponent.VerticalEdge',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -112,7 +112,7 @@ typedef {
     LUACLS = 'ccui.LayoutComponent',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -120,7 +120,7 @@ typedef {
     LUACLS = 'ccui.LayoutParameter.Type',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -128,7 +128,7 @@ typedef {
     LUACLS = 'ccui.LayoutParameter',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -136,7 +136,7 @@ typedef {
     LUACLS = 'ccui.LinearLayoutParameter.LinearGravity',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -144,7 +144,7 @@ typedef {
     LUACLS = 'ccui.LinearLayoutParameter',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -152,7 +152,7 @@ typedef {
     LUACLS = 'ccui.RelativeLayoutParameter.RelativeAlign',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -160,7 +160,7 @@ typedef {
     LUACLS = 'ccui.RelativeLayoutParameter',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -168,7 +168,7 @@ typedef {
     LUACLS = 'ccui.Layout.Type',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -176,7 +176,7 @@ typedef {
     LUACLS = 'ccui.Layout.ClippingType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -184,7 +184,7 @@ typedef {
     LUACLS = 'ccui.Layout.BackGroundColorType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -192,7 +192,7 @@ typedef {
     LUACLS = 'ccui.Layout',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -200,7 +200,7 @@ typedef {
     LUACLS = 'ccui.HBox',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -208,7 +208,7 @@ typedef {
     LUACLS = 'ccui.VBox',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -216,7 +216,7 @@ typedef {
     LUACLS = 'ccui.RelativeBox',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -224,7 +224,7 @@ typedef {
     LUACLS = 'ccui.WebView',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -232,7 +232,7 @@ typedef {
     LUACLS = 'ccui.VideoPlayer.EventType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -240,7 +240,7 @@ typedef {
     LUACLS = 'ccui.VideoPlayer.StyleType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -248,7 +248,7 @@ typedef {
     LUACLS = 'ccui.VideoPlayer',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -256,7 +256,7 @@ typedef {
     LUACLS = 'ccui.AbstractCheckButton',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -264,7 +264,7 @@ typedef {
     LUACLS = 'ccui.TabHeader.EventType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -272,7 +272,7 @@ typedef {
     LUACLS = 'ccui.TabHeader',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -280,7 +280,7 @@ typedef {
     LUACLS = 'ccui.TabControl.Dock',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -288,7 +288,7 @@ typedef {
     LUACLS = 'ccui.TabControl.EventType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -296,7 +296,7 @@ typedef {
     LUACLS = 'ccui.TabControl',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -304,7 +304,7 @@ typedef {
     LUACLS = 'ccui.ScrollView.Direction',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -312,7 +312,7 @@ typedef {
     LUACLS = 'ccui.ScrollView.EventType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -320,7 +320,7 @@ typedef {
     LUACLS = 'ccui.ScrollView',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -328,7 +328,7 @@ typedef {
     LUACLS = 'ccui.ListView.Gravity',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -336,7 +336,7 @@ typedef {
     LUACLS = 'ccui.ListView.EventType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -344,7 +344,7 @@ typedef {
     LUACLS = 'ccui.ListView.MagneticType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -352,7 +352,7 @@ typedef {
     LUACLS = 'ccui.ListView',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -360,7 +360,7 @@ typedef {
     LUACLS = 'ccui.LoadingBar.Direction',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -368,7 +368,7 @@ typedef {
     LUACLS = 'ccui.LoadingBar',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -376,7 +376,7 @@ typedef {
     LUACLS = 'ccui.PageView.EventType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -384,7 +384,7 @@ typedef {
     LUACLS = 'ccui.PageView.TouchDirection',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -392,7 +392,7 @@ typedef {
     LUACLS = 'ccui.PageView',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -400,7 +400,7 @@ typedef {
     LUACLS = 'ccui.RichElement.Type',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -408,7 +408,7 @@ typedef {
     LUACLS = 'ccui.RichElement',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -416,7 +416,7 @@ typedef {
     LUACLS = 'ccui.RichElementText',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -424,7 +424,7 @@ typedef {
     LUACLS = 'ccui.RichElementImage',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -432,7 +432,7 @@ typedef {
     LUACLS = 'ccui.RichElementCustomNode',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -440,7 +440,7 @@ typedef {
     LUACLS = 'ccui.RichElementNewLine',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -448,7 +448,7 @@ typedef {
     LUACLS = 'ccui.RichText.WrapMode',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -456,7 +456,7 @@ typedef {
     LUACLS = 'ccui.RichText.HorizontalAlignment',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -464,7 +464,7 @@ typedef {
     LUACLS = 'ccui.RichText',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -472,7 +472,7 @@ typedef {
     LUACLS = 'ccui.ScrollViewBar',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -480,7 +480,7 @@ typedef {
     LUACLS = 'ccui.Slider.EventType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -488,7 +488,7 @@ typedef {
     LUACLS = 'ccui.Slider',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -496,7 +496,7 @@ typedef {
     LUACLS = 'ccui.Text.Type',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -504,7 +504,7 @@ typedef {
     LUACLS = 'ccui.Text',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -512,7 +512,7 @@ typedef {
     LUACLS = 'ccui.TextAtlas',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -520,7 +520,7 @@ typedef {
     LUACLS = 'ccui.TextBMFont',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -528,7 +528,7 @@ typedef {
     LUACLS = 'ccui.UICCTextField',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -536,7 +536,7 @@ typedef {
     LUACLS = 'ccui.TextField.EventType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -544,7 +544,7 @@ typedef {
     LUACLS = 'ccui.TextField',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -552,7 +552,7 @@ typedef {
     LUACLS = 'ccui.Button',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -560,7 +560,7 @@ typedef {
     LUACLS = 'ccui.CheckBox.EventType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -568,7 +568,7 @@ typedef {
     LUACLS = 'ccui.CheckBox',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -576,7 +576,7 @@ typedef {
     LUACLS = 'ccui.RadioButton.EventType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -584,7 +584,7 @@ typedef {
     LUACLS = 'ccui.RadioButton',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -592,7 +592,7 @@ typedef {
     LUACLS = 'ccui.RadioButtonGroup.EventType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -600,7 +600,7 @@ typedef {
     LUACLS = 'ccui.RadioButtonGroup',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -608,7 +608,7 @@ typedef {
     LUACLS = 'ccui.ImageView',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -616,7 +616,7 @@ typedef {
     LUACLS = 'ccui.EditBoxDelegate.EditBoxEndAction',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -624,7 +624,7 @@ typedef {
     LUACLS = 'ccui.EditBoxDelegate',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -632,7 +632,7 @@ typedef {
     LUACLS = 'ccui.LuaEditBoxDelegate',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -640,7 +640,7 @@ typedef {
     LUACLS = 'ccui.EditBox.KeyboardReturnType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -648,7 +648,7 @@ typedef {
     LUACLS = 'ccui.EditBox.InputMode',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -656,7 +656,7 @@ typedef {
     LUACLS = 'ccui.EditBox.InputFlag',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -664,6 +664,6 @@ typedef {
     LUACLS = 'ccui.EditBox',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 

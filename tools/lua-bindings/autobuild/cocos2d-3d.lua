@@ -100,11 +100,11 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
-cls.var('id', [[std::string id]])
-cls.var('filename', [[std::string filename]])
-cls.var('type', [[cocos2d::NTextureData::Usage type]])
-cls.var('wrapS', [[cocos2d::backend::SamplerAddressMode wrapS]])
-cls.var('wrapT', [[cocos2d::backend::SamplerAddressMode wrapT]])
+cls.var('id', 'std::string id')
+cls.var('filename', 'std::string filename')
+cls.var('type', 'cocos2d::NTextureData::Usage type')
+cls.var('wrapS', 'cocos2d::backend::SamplerAddressMode wrapS')
+cls.var('wrapT', 'cocos2d::backend::SamplerAddressMode wrapT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Mesh'

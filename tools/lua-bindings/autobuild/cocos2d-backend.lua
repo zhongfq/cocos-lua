@@ -608,36 +608,50 @@ cls.CHUNK = [[
         return 0;
     }
 ]]
-cls.func('getVertexLayout', [[{
-    auto self = olua_toobj<cocos2d::backend::ProgramState>(L, 1);
-    olua_push_cppobj<cocos2d::backend::VertexLayout>(L, self->getVertexLayout().get());
-    olua_addref(L, 1, "vertexLayout", -1, OLUA_MODE_SINGLE);
-    return 1;
-}]])
-cls.func('setUniformVec2', [[{
-    _cocos2d_backend_ProgramState_setUniform<cocos2d::Vec2>(L);
-    return 0;
-}]])
-cls.func('setUniformVec3', [[{
-    _cocos2d_backend_ProgramState_setUniform<cocos2d::Vec3>(L);
-    return 0;
-}]])
-cls.func('setUniformVec4', [[{
-    _cocos2d_backend_ProgramState_setUniform<cocos2d::Vec4>(L);
-    return 0;
-}]])
-cls.func('setUniformMat4', [[{
-    _cocos2d_backend_ProgramState_setUniform<cocos2d::Mat4>(L);
-    return 0;
-}]])
-cls.func('setUniformInt', [[{
-    _cocos2d_backend_ProgramState_setUniform<int>(L);
-    return 0;
-}]])
-cls.func('setUniformFloat', [[{
-    _cocos2d_backend_ProgramState_setUniform<float>(L);
-    return 0;
-}]])
+cls.func('getVertexLayout', [[
+    {
+        auto self = olua_toobj<cocos2d::backend::ProgramState>(L, 1);
+        olua_push_cppobj<cocos2d::backend::VertexLayout>(L, self->getVertexLayout().get());
+        olua_addref(L, 1, "vertexLayout", -1, OLUA_MODE_SINGLE);
+        return 1;
+    }
+]])
+cls.func('setUniformVec2', [[
+    {
+        _cocos2d_backend_ProgramState_setUniform<cocos2d::Vec2>(L);
+        return 0;
+    }
+]])
+cls.func('setUniformVec3', [[
+    {
+        _cocos2d_backend_ProgramState_setUniform<cocos2d::Vec3>(L);
+        return 0;
+    }
+]])
+cls.func('setUniformVec4', [[
+    {
+        _cocos2d_backend_ProgramState_setUniform<cocos2d::Vec4>(L);
+        return 0;
+    }
+]])
+cls.func('setUniformMat4', [[
+    {
+        _cocos2d_backend_ProgramState_setUniform<cocos2d::Mat4>(L);
+        return 0;
+    }
+]])
+cls.func('setUniformInt', [[
+    {
+        _cocos2d_backend_ProgramState_setUniform<int>(L);
+        return 0;
+    }
+]])
+cls.func('setUniformFloat', [[
+    {
+        _cocos2d_backend_ProgramState_setUniform<float>(L);
+        return 0;
+    }
+]])
 cls.func(nil, 'ProgramState(cocos2d::backend::Program *program)')
 cls.func(nil, 'cocos2d::backend::ProgramState *clone()')
 cls.func(nil, 'cocos2d::backend::Program *getProgram()')

@@ -8,7 +8,7 @@ typedef {
 typedef {
     CPPCLS = 'cocos2d::Rect',
     CONV = 'manual_olua_$$_cocos2d_Rect',
-    NUMVARS = 4,
+    NUM_VARS = 4,
 }
 
 typedef {

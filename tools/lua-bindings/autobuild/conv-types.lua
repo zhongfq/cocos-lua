@@ -8,7 +8,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_Vec2',
-    NUMVARS = 2,
+    NUM_VARS = 2,
 }
 
 typedef {
@@ -16,7 +16,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_Vec3',
-    NUMVARS = 3,
+    NUM_VARS = 3,
 }
 
 typedef {
@@ -24,7 +24,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_Vec4',
-    NUMVARS = 4,
+    NUM_VARS = 4,
 }
 
 typedef {
@@ -32,7 +32,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_Size',
-    NUMVARS = 2,
+    NUM_VARS = 2,
 }
 
 typedef {
@@ -40,7 +40,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_Viewport',
-    NUMVARS = 4,
+    NUM_VARS = 4,
 }
 
 typedef {
@@ -48,7 +48,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_ScissorRect',
-    NUMVARS = 4,
+    NUM_VARS = 4,
 }
 
 typedef {
@@ -56,7 +56,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_Quaternion',
-    NUMVARS = 4,
+    NUM_VARS = 4,
 }
 
 typedef {
@@ -64,7 +64,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_AffineTransform',
-    NUMVARS = 6,
+    NUM_VARS = 6,
 }
 
 typedef {
@@ -72,7 +72,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_GLContextAttrs',
-    NUMVARS = 7,
+    NUM_VARS = 7,
 }
 
 typedef {
@@ -80,7 +80,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_Tex2F',
-    NUMVARS = 2,
+    NUM_VARS = 2,
 }
 
 typedef {
@@ -88,7 +88,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_T2F_Quad',
-    NUMVARS = 4,
+    NUM_VARS = 4,
 }
 
 typedef {
@@ -96,7 +96,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_ccBezierConfig',
-    NUMVARS = 3,
+    NUM_VARS = 3,
 }
 
 typedef {
@@ -104,7 +104,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_TTFConfig',
-    NUMVARS = 10,
+    NUM_VARS = 10,
 }
 
 typedef {
@@ -112,7 +112,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_BlendFunc',
-    NUMVARS = 2,
+    NUM_VARS = 2,
 }
 
 typedef {
@@ -120,7 +120,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_ui_Margin',
-    NUMVARS = 4,
+    NUM_VARS = 4,
 }
 
 typedef {
@@ -128,7 +128,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_ResourceData',
-    NUMVARS = 3,
+    NUM_VARS = 3,
 }
 
 typedef {
@@ -136,7 +136,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_Quad3',
-    NUMVARS = 4,
+    NUM_VARS = 4,
 }
 
 typedef {
@@ -144,7 +144,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_Texture2D_PixelFormatInfo',
-    NUMVARS = 3,
+    NUM_VARS = 3,
 }
 
 typedef {
@@ -152,7 +152,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_Controller_KeyStatus',
-    NUMVARS = 3,
+    NUM_VARS = 3,
 }
 
 typedef {
@@ -160,7 +160,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_network_WebSocket_Data',
-    NUMVARS = 5,
+    NUM_VARS = 5,
 }
 
 typedef {
@@ -168,7 +168,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_NavMeshAgentParam',
-    NUMVARS = 10,
+    NUM_VARS = 10,
 }
 
 typedef {
@@ -176,7 +176,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_OffMeshLinkData',
-    NUMVARS = 2,
+    NUM_VARS = 2,
 }
 
 typedef {
@@ -184,7 +184,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_backend_BlendDescriptor',
-    NUMVARS = 8,
+    NUM_VARS = 8,
 }
 
 typedef {
@@ -192,7 +192,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_backend_SamplerDescriptor',
-    NUMVARS = 4,
+    NUM_VARS = 4,
 }
 
 typedef {
@@ -200,7 +200,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_backend_TextureInfo',
-    NUMVARS = 2,
+    NUM_VARS = 2,
 }
 
 typedef {
@@ -208,7 +208,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_backend_AttributeBindInfo',
-    NUMVARS = 4,
+    NUM_VARS = 4,
 }
 
 typedef {
@@ -216,7 +216,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_backend_UniformInfo',
-    NUMVARS = 8,
+    NUM_VARS = 8,
 }
 
 typedef {
@@ -224,7 +224,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_backend_TextureDescriptor',
-    NUMVARS = 7,
+    NUM_VARS = 7,
 }
 
 typedef {
@@ -232,7 +232,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_backend_StencilDescriptor',
-    NUMVARS = 6,
+    NUM_VARS = 6,
 }
 
 typedef {
@@ -240,6 +240,6 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_backend_DepthStencilDescriptor',
-    NUMVARS = 6,
+    NUM_VARS = 6,
 }
 

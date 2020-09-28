@@ -164,8 +164,8 @@ cls.func(nil, 'void interceptTouchEvent(cocos2d::ui::Widget::TouchEventType even
 cls.func(nil, 'void propagateTouchEvent(cocos2d::ui::Widget::TouchEventType event, cocos2d::ui::Widget *sender, cocos2d::Touch *touch)')
 cls.func(nil, 'void onFocusChange(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui::Widget *widgetGetFocus)')
 cls.func(nil, 'void dispatchFocusEvent(cocos2d::ui::Widget *widgetLoseFocus, cocos2d::ui::Widget *widgetGetFocus)')
-cls.var('onFocusChanged', [[@nullable std::function<void (Widget *, Widget *)> onFocusChanged]])
-cls.var('onNextFocusedWidget', [[@nullable @local std::function<Widget *(FocusDirection)> onNextFocusedWidget]])
+cls.var('onFocusChanged', '@nullable std::function<void (Widget *, Widget *)> onFocusChanged')
+cls.var('onNextFocusedWidget', '@nullable @local std::function<Widget *(FocusDirection)> onNextFocusedWidget')
 cls.callback {
     FUNCS =  {
         'void addTouchEventListener(@nullable const std::function<void (Ref *, Widget::TouchEventType)> &callback)'
@@ -589,7 +589,7 @@ cls.func(nil, 'bool isLoopFocus()')
 cls.func(nil, 'void setPassFocusToChild(bool pass)')
 cls.func(nil, 'bool isPassFocusToChild()')
 cls.func(nil, 'cocos2d::ResourceData getRenderFile()')
-cls.var('onPassFocusToChild', [[@nullable std::function<int (FocusDirection, Widget *)> onPassFocusToChild]])
+cls.var('onPassFocusToChild', '@nullable std::function<int (FocusDirection, Widget *)> onPassFocusToChild')
 cls.prop('backGroundImageCapInsets', nil, nil)
 cls.prop('backGroundColorType', nil, nil)
 cls.prop('backGroundImageScale9Enabled', nil, nil)
@@ -2063,10 +2063,10 @@ cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
 cls.func(nil, 'LuaEditBoxDelegate()')
-cls.var('onEditingDidBegin', [[@nullable @local std::function<void (EditBox *)> onEditingDidBegin]])
-cls.var('onTextChanged', [[@nullable @local std::function<void (EditBox *, const std::string &)> onTextChanged]])
-cls.var('onReturn', [[@nullable @local std::function<void (EditBox *)> onReturn]])
-cls.var('onEditingDidEndWithAction', [[@nullable @local std::function<void (EditBox *, EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction]])
+cls.var('onEditingDidBegin', '@nullable @local std::function<void (EditBox *)> onEditingDidBegin')
+cls.var('onTextChanged', '@nullable @local std::function<void (EditBox *, const std::string &)> onTextChanged')
+cls.var('onReturn', '@nullable @local std::function<void (EditBox *)> onReturn')
+cls.var('onEditingDidEndWithAction', '@nullable @local std::function<void (EditBox *, EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::EditBox::KeyboardReturnType'

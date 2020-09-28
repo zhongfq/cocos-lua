@@ -22,10 +22,10 @@ typedef {
     CONV = 'manual_olua_$$_spine_Vector',
     CPPCLS = 'spine::Vector',
     PUSH_VALUE = [[
-        int ${ARGNAME}_size = (int)${ARGNAME}.size();
-        lua_createtable(L, ${ARGNAME}_size, 0);
-        for (int i = 0; i < ${ARGNAME}_size; i++) {
-            ${SUBTYPE_PUSH_FUNC}(L, ${SUBTYPE_CAST}${ARGNAME}[i]);
+        int ${ARG_NAME}_size = (int)${ARG_NAME}.size();
+        lua_createtable(L, ${ARG_NAME}_size, 0);
+        for (int i = 0; i < ${ARG_NAME}_size; i++) {
+            ${SUBTYPE_PUSH_FUNC}(L, ${SUBTYPE_CAST}${ARG_NAME}[i]);
             lua_rawseti(L, -2, i + 1);
         }
     ]],
@@ -36,7 +36,7 @@ typedef {
     LUACLS = 'sp.EventType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -44,7 +44,7 @@ typedef {
     LUACLS = 'sp.AttachmentType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -52,7 +52,7 @@ typedef {
     LUACLS = 'sp.TransformMode',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -60,7 +60,7 @@ typedef {
     LUACLS = 'sp.BlendMode',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -68,7 +68,7 @@ typedef {
     LUACLS = 'sp.PositionMode',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -76,7 +76,7 @@ typedef {
     LUACLS = 'sp.SpacingMode',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -84,7 +84,7 @@ typedef {
     LUACLS = 'sp.RotateMode',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -92,7 +92,7 @@ typedef {
     LUACLS = 'sp.MixBlend',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -100,7 +100,7 @@ typedef {
     LUACLS = 'sp.SpineObject',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -108,7 +108,7 @@ typedef {
     LUACLS = 'sp.Event',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -116,7 +116,7 @@ typedef {
     LUACLS = 'sp.EventData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -124,7 +124,7 @@ typedef {
     LUACLS = 'sp.Updatable',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -132,7 +132,7 @@ typedef {
     LUACLS = 'sp.AnimationState',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -140,7 +140,7 @@ typedef {
     LUACLS = 'sp.AnimationStateData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -148,7 +148,7 @@ typedef {
     LUACLS = 'sp.Animation',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -156,7 +156,7 @@ typedef {
     LUACLS = 'sp.ConstraintData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -164,7 +164,7 @@ typedef {
     LUACLS = 'sp.IkConstraintData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -172,7 +172,7 @@ typedef {
     LUACLS = 'sp.BoneData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -180,7 +180,7 @@ typedef {
     LUACLS = 'sp.SlotData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -188,7 +188,7 @@ typedef {
     LUACLS = 'sp.IkConstraint',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -196,7 +196,7 @@ typedef {
     LUACLS = 'sp.TransformConstraint',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -204,7 +204,7 @@ typedef {
     LUACLS = 'sp.TransformConstraintData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -212,7 +212,7 @@ typedef {
     LUACLS = 'sp.PathConstraintData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -220,7 +220,7 @@ typedef {
     LUACLS = 'sp.SkeletonBounds',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -228,7 +228,7 @@ typedef {
     LUACLS = 'sp.SkeletonClipping',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -236,7 +236,7 @@ typedef {
     LUACLS = 'sp.Timeline',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -244,7 +244,7 @@ typedef {
     LUACLS = 'sp.CurveTimeline',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -252,7 +252,7 @@ typedef {
     LUACLS = 'sp.AttachmentTimeline',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -260,7 +260,7 @@ typedef {
     LUACLS = 'sp.ColorTimeline',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -268,7 +268,7 @@ typedef {
     LUACLS = 'sp.DeformTimeline',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -276,7 +276,7 @@ typedef {
     LUACLS = 'sp.DrawOrderTimeline',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -284,7 +284,7 @@ typedef {
     LUACLS = 'sp.EventTimeline',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -292,7 +292,7 @@ typedef {
     LUACLS = 'sp.IkConstraintTimeline',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -300,7 +300,7 @@ typedef {
     LUACLS = 'sp.PathConstraintMixTimeline',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -308,7 +308,7 @@ typedef {
     LUACLS = 'sp.PathConstraintPositionTimeline',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -316,7 +316,7 @@ typedef {
     LUACLS = 'sp.PathConstraintSpacingTimeline',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -324,7 +324,7 @@ typedef {
     LUACLS = 'sp.TranslateTimeline',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -332,7 +332,7 @@ typedef {
     LUACLS = 'sp.ShearTimeline',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -340,7 +340,7 @@ typedef {
     LUACLS = 'sp.TransformConstraintTimeline',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -348,7 +348,7 @@ typedef {
     LUACLS = 'sp.ScaleTimeline',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -356,7 +356,7 @@ typedef {
     LUACLS = 'sp.RotateTimeline',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -364,7 +364,7 @@ typedef {
     LUACLS = 'sp.TwoColorTimeline',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -372,7 +372,7 @@ typedef {
     LUACLS = 'sp.VertexEffect',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -380,7 +380,7 @@ typedef {
     LUACLS = 'sp.SwirlVertexEffect',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -388,7 +388,7 @@ typedef {
     LUACLS = 'sp.JitterVertexEffect',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -396,7 +396,7 @@ typedef {
     LUACLS = 'sp.Polygon',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -404,7 +404,7 @@ typedef {
     LUACLS = 'sp.Skin',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -412,7 +412,7 @@ typedef {
     LUACLS = 'sp.Atlas',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -420,7 +420,7 @@ typedef {
     LUACLS = 'sp.Bone',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -428,7 +428,7 @@ typedef {
     LUACLS = 'sp.Slot',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -436,7 +436,7 @@ typedef {
     LUACLS = 'sp.Attachment',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -444,7 +444,7 @@ typedef {
     LUACLS = 'sp.VertexAttachment',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -452,7 +452,7 @@ typedef {
     LUACLS = 'sp.ClippingAttachment',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -460,7 +460,7 @@ typedef {
     LUACLS = 'sp.BoundingBoxAttachment',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -468,7 +468,7 @@ typedef {
     LUACLS = 'sp.MeshAttachment',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -476,7 +476,7 @@ typedef {
     LUACLS = 'sp.PathAttachment',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -484,7 +484,7 @@ typedef {
     LUACLS = 'sp.PathConstraint',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -492,7 +492,7 @@ typedef {
     LUACLS = 'sp.PointAttachment',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -500,7 +500,7 @@ typedef {
     LUACLS = 'sp.RegionAttachment',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -508,7 +508,7 @@ typedef {
     LUACLS = 'sp.TrackEntry',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -516,7 +516,7 @@ typedef {
     LUACLS = 'sp.SkeletonData',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -524,7 +524,7 @@ typedef {
     LUACLS = 'sp.Skeleton',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -532,7 +532,7 @@ typedef {
     LUACLS = 'sp.SkeletonRenderer',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 
 typedef {
@@ -540,6 +540,6 @@ typedef {
     LUACLS = 'sp.SkeletonAnimation',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    NUM_VARS = nil,
 }
 

@@ -1,7 +1,12 @@
 //
 // AUTO BUILD, DON'T MODIFY!
 //
-#include "lua-bindings/lua_conv.h"
+#include "lua_conv.h"
+#include "xgame/xlua.h"
+#include "cocos2d.h"
+#include "ui/CocosGUI.h"
+#include "network/WebSocket.h"
+#include "navmesh/CCNavMesh.h"
 
 int auto_olua_push_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value)
 {

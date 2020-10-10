@@ -5,7 +5,6 @@ local typeconv = M.typeconv
 
 M.PATH = '../../frameworks/libxgame/src/lua-bindings'
 M.INCLUDES = [[
-#include "lua-bindings/lua_xgame.h"
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "xgame/filesystem.h"

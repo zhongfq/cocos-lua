@@ -10,9 +10,7 @@ local M = {}
 
 M.NAME = "cocos2d_3d"
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
-M.HEADER_INCLUDES = nil
 M.INCLUDES = [[
-    #include "lua-bindings/lua_cocos2d_3d.h"
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
     #include "xgame/xlua.h"

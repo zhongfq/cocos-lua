@@ -1,7 +1,7 @@
 //
 // AUTO BUILD, DON'T MODIFY!
 //
-#include "lua-bindings/lua_cocos2d.h"
+#include "lua_cocos2d_action.h"
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cocos2d.h"

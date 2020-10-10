@@ -6,6 +6,6 @@
 
 #include "xgame/xlua.h"
 
-LUALIB_API int luaopen_xgame(lua_State *L);
+int luaopen_xgame(lua_State *L);
 
 #endif

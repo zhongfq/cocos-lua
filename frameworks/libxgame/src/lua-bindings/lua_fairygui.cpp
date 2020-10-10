@@ -1,7 +1,7 @@
 //
 // AUTO BUILD, DON'T MODIFY!
 //
-#include "lua-bindings/lua_fairygui.h"
+#include "lua_fairygui.h"
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "xgame/xlua.h"

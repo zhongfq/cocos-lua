@@ -4,7 +4,6 @@ local M = autoconf.typemod 'cocos2d_action'
 
 M.PATH = '../../frameworks/libxgame/src/lua-bindings'
 M.INCLUDES = [[
-#include "lua-bindings/lua_cocos2d.h"
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cocos2d.h"

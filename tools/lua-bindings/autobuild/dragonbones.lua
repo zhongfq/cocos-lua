@@ -10,9 +10,7 @@ local M = {}
 
 M.NAME = "dragonbones"
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
-M.HEADER_INCLUDES = nil
 M.INCLUDES = [[
-    #include "lua-bindings/lua_dragonbones.h"
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
     #include "xgame/xlua.h"

@@ -6,7 +6,6 @@ local typeconv = M.typeconv
 
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
-#include "lua-bindings/lua_cocos2d_physics.h"
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "lua-bindings/LuaCocosAdapter.h"

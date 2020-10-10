@@ -7,7 +7,6 @@ local typeonly = M.typeonly
 
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
-#include "lua-bindings/lua_fairygui.h"
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "xgame/xlua.h"

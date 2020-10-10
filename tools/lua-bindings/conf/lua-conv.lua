@@ -3,16 +3,12 @@ local M = autoconf.typemod 'conv'
 local typeconv = M.typeconv
 
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
-M.HEADER_INCLUDES = [[
+M.INCLUDES = [[
 #include "xgame/xlua.h"
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "network/WebSocket.h"
 #include "navmesh/CCNavMesh.h"
-]]
-
-M.INCLUDES = [[
-#include "lua-bindings/lua_conv.h"
 ]]
 
 M.MAKE_LUACLS = function ()

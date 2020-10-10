@@ -6,6 +6,6 @@
 
 #include "xgame/xlua.h"
 
-LUALIB_API int luaopen_cocos2d_ui(lua_State *L);
+int luaopen_cocos2d_ui(lua_State *L);
 
 #endif

@@ -56,7 +56,7 @@ function require(path)
         string.find(path, 'fgui.', 1, true) == 1 or
         string.find(path, 'swf.', 1, true) == 1 or
         string.find(path, 'kernel.', 1, true) == 1) then
-        return M.PROXY
+        return setmetatable({}, getmetatable(M.PROXY))
     else
         return _require(path)
     end

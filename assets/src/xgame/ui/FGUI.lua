@@ -1,9 +1,15 @@
-local class     = require "xgame.class"
-local assets    = require "xgame.assets"
-local window    = require "xgame.window"
-local UILayer   = require "xgame.ui.UILayer"
-local FGUINode  = require "xgame.ui.FGUINode"
-local UIPackage = require "fgui.UIPackage"
+local class             = require "xgame.class"
+local assets            = require "xgame.assets"
+local window            = require "xgame.window"
+local Event             = require "xgame.event.Event"
+local LoadTask          = require "xgame.loader.LoadTask"
+local UILayer           = require "xgame.ui.UILayer"
+local FGUINode          = require "xgame.ui.FGUINode"
+local UIPackage         = require "fgui.UIPackage"
+local GButton           = require "fgui.GButton"
+local GLoader           = require "fgui.GLoader"
+local UIEventDispatcher = require "fgui.UIEventDispatcher"
+local UIEventType       = require "fgui.UIEventType"
 
 local FGUI = class('FGUI', UILayer)
 
@@ -23,13 +29,21 @@ function FGUI:createUI(pkg, name)
     self.fguiNode.root:addChild(self.fgui)
 end
 
--- extend UIEventDispatcher
-local GButton = require "fgui.GButton"
-local UIEventDispatcher = require "fgui.UIEventDispatcher"
-local UIEventType = require "fgui.UIEventType"
+-- extend fairygui
 
 function GButton:playSound()
     self:dispatchEvent(UIEventType.Click)
+end
+
+function GLoader:load(url)
+    local loader = LoadTask.new(url)
+    self._loadingURL = url
+    loader:addListener(Event.COMPLETE, function ()
+        if url == self._loadingURL then
+            self.url = loader.path
+        end
+    end)
+    loader:start()
 end
 
 function UIEventDispatcher:onClick(callback)

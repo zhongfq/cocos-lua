@@ -60,22 +60,22 @@ USING_NS_CC;
 
 static int _open_plugins(lua_State *L)
 {
-    olua_dofunc(L, luaopen_cocos2d_3d);
+    olua_callfunc(L, luaopen_cocos2d_3d);
     
 #ifdef CCLUA_BUILD_DRAGONBONES
-    olua_dofunc(L, luaopen_dragonbones);
+    olua_callfunc(L, luaopen_dragonbones);
 #endif
 
 #ifdef CCLUA_BUILD_FAIRYGUI
-    olua_dofunc(L, luaopen_fairygui);
+    olua_callfunc(L, luaopen_fairygui);
 #endif
 
 #ifdef CCLUA_BUILD_SPINE
-	olua_dofunc(L, luaopen_spine);
+	olua_callfunc(L, luaopen_spine);
 #endif
     
 #ifdef CCLUA_BUILD_SWF
-    olua_dofunc(L, luaopen_swf);
+    olua_callfunc(L, luaopen_swf);
 #endif
     
 //    olua_require(L, "kernel.plugins.wechat", luaopen_wechat);

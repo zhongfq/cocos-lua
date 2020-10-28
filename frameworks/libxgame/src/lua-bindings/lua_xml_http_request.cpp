@@ -190,7 +190,7 @@ static int _cocos2d_XMLHttpRequest_getResponse(lua_State *L)
 {
     auto self = olua_checkobj<cocos2d::XMLHttpRequest>(L, 1);
     if (self->getResponseType() == cocos2d::XMLHttpRequest::ResponseType::JSON) {
-        olua_requiref(L, "__private_cjson_safe", luaopen_cjson_safe, false);
+        luaL_requiref(L, "__private_cjson_safe", luaopen_cjson_safe, false);
         lua_getfield(L, -1, "decode");
         luaL_checktype(L, -1, LUA_TFUNCTION);
         lua_pushlstring(L, self->getDataStr().c_str(), self->getDataSize());

@@ -108,7 +108,7 @@ int luaopen_md5(lua_State *L)
         {NULL, NULL}
     };
 
-    olua_newlib(L, lib);
+    luaL_newlib(L, lib);
     return 1;
 }
 
@@ -120,7 +120,7 @@ int luaopen_base64(lua_State *L)
         {NULL, NULL}
     };
     
-    olua_newlib(L, lib);
+    luaL_newlib(L, lib);
     return 1;
 }
 
@@ -132,7 +132,7 @@ int luaopen_xxtea(lua_State *L)
         {NULL, NULL}
     };
 
-    olua_newlib(L, lib);
+    luaL_newlib(L, lib);
     return 1;
 }
 
@@ -310,6 +310,6 @@ int luaopen_openssl(lua_State *L)
         {NULL, NULL}
     };
     
-    olua_newlib(L, lib);
+    luaL_newlib(L, lib);
     return 1;
 }

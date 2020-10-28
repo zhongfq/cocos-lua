@@ -185,7 +185,7 @@ static void did_request_permission(int handler, bool granted)
     xgame::runtime::runOnCocosThread([handler, granted]() {
         lua_State *L = olua_mainthread(NULL);
         int top = lua_gettop(L);
-        lua_pushcfunction(L, olua_geterrorfunc);
+        olua_pusherrorfunc(L);
         olua_getref(L, handler);
         if (lua_isfunction(L, -1)) {
             lua_pushboolean(L, granted);
@@ -198,7 +198,7 @@ static void did_request_permission(int handler, bool granted)
 
 static void request_photolibray_permission(lua_State *L)
 {
-    int handler = olua_reffunc(L, 3);
+    int handler = olua_funcref(L, 3);
     PHAuthorizationStatus current_status = [PHPhotoLibrary authorizationStatus];
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
         if (current_status == PHAuthorizationStatusDenied || status == PHAuthorizationStatusRestricted)
@@ -234,7 +234,7 @@ static void request_photolibray_permission(lua_State *L)
 
 static void request_camera_permission(lua_State *L)
 {
-    int handler = olua_reffunc(L, 3);
+    int handler = olua_funcref(L, 3);
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
         if (granted || status != AVAuthorizationStatusDenied)

@@ -210,7 +210,7 @@ lua_State *runtime::luaVM()
         _luaVM = xlua_new();
         luaopen_bindings(_luaVM);
         for (auto func : _luaLibs) {
-            olua_dofunc(_luaVM, func);
+            olua_callfunc(_luaVM, func);
         }
         olua_pushobj<cocos2d::Director>(_luaVM, cocos2d::Director::getInstance());
         lua_setfield(_luaVM, LUA_REGISTRYINDEX, "__cocos2d_ref_chain__");
@@ -458,7 +458,7 @@ void runtime::callref(int func, const std::string &args, bool once)
         runtime::runOnCocosThread([func, args, once]() {
             lua_State *L = olua_mainthread(NULL);
             int top = lua_gettop(L);
-            olua_geterrorfunc(L);
+            olua_pusherrorfunc(L);
             olua_getref(L, func);
             if (!lua_isnil(L, -1)) {
                 lua_pushstring(L, args.c_str());

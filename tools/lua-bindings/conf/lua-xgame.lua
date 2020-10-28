@@ -57,12 +57,12 @@ runtime.FUNC("testCrash", [[
 }]])
 runtime.FUNC("setDispatcher", [[
 {
-    int handler = olua_reffunc(L, 1);
+    int handler = olua_funcref(L, 1);
     xgame::runtime::setDispatcher([handler](const std::string &event, const std::string &args) {
         lua_State *L = olua_mainthread(NULL);
         if (L != NULL) {
             int top = lua_gettop(L);
-            olua_geterrorfunc(L);
+            olua_pusherrorfunc(L);
             olua_getref(L, handler);
             if (lua_isfunction(L, -1)) {
                 lua_pushstring(L, event.c_str());
@@ -129,12 +129,12 @@ timer.CALLBACK {
 timer.FUNC('schedule', [[
 {
     float interval = (float)olua_checknumber(L, 1);
-    uint32_t callback = olua_reffunc(L, 2);
+    uint32_t callback = olua_funcref(L, 2);
     uint32_t id = xgame::timer::schedule(interval, [callback](float dt) {
         lua_State *L = olua_mainthread(NULL);
         if (L != NULL) {
             int top = lua_gettop(L);
-            olua_geterrorfunc(L);
+            olua_pusherrorfunc(L);
             olua_getref(L, callback);
             if (lua_isfunction(L, -1)) {
                 lua_pushnumber(L, dt);

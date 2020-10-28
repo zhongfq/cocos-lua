@@ -130,7 +130,7 @@ static int luaj_invoke(lua_State *L)
                 }
                 case TYPE_INT: {
                     if (lua_isfunction(L, 4 + i)) {
-                        args[i].i = (jint)olua_reffunc(L, 4 + i);
+                        args[i].i = (jint)olua_funcref(L, 4 + i);
                     } else {
                         args[i].i = (jint)luaL_checkinteger(L, 4 + i);
                     }

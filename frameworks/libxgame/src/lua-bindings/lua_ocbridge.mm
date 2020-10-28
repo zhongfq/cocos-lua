@@ -193,7 +193,7 @@ static void _set_argument(lua_State *L, NSMethodSignature *methodSig, NSInvocati
     {
         int value;
         if (olua_isfunction(L, idx)) {
-            value = olua_reffunc(L, idx);
+            value = olua_funcref(L, idx);
         } else {
             value = (int)olua_checkinteger(L, idx);
         }

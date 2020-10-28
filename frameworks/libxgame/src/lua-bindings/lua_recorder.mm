@@ -126,7 +126,7 @@ static void did_request_permission(int handler, bool granted)
     xgame::runtime::runOnCocosThread([handler, granted]() {
         lua_State *L = olua_mainthread(NULL);
         int top = lua_gettop(L);
-        lua_pushcfunction(L, olua_geterrorfunc);
+        olua_pusherrorfunc(L);
         olua_getref(L, handler);
         if (lua_isfunction(L, -1)) {
             lua_pushboolean(L, granted);
@@ -141,7 +141,7 @@ static int _request_permission(lua_State *L)
 {
     @autoreleasepool {
         lua_settop(L, 2);
-        int handler = olua_reffunc(L, 2);
+        int handler = olua_funcref(L, 2);
         AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
             if (granted || status != AVAuthorizationStatusDenied)

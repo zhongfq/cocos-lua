@@ -51,13 +51,13 @@
 
 int luaopen_bindings(lua_State *L)
 {
-    olua_dofunc(L, luaopen_cocos2d);
-    olua_dofunc(L, luaopen_cocos2d_action);
-    olua_dofunc(L, luaopen_cocos2d_backend);
-    olua_dofunc(L, luaopen_cocos2d_physics);
-    olua_dofunc(L, luaopen_cocos2d_ui);
-    olua_dofunc(L, luaopen_xgame);
-    olua_dofunc(L, luaopen_xml_http_request);
+    olua_callfunc(L, luaopen_cocos2d);
+    olua_callfunc(L, luaopen_cocos2d_action);
+    olua_callfunc(L, luaopen_cocos2d_backend);
+    olua_callfunc(L, luaopen_cocos2d_physics);
+    olua_callfunc(L, luaopen_cocos2d_ui);
+    olua_callfunc(L, luaopen_xgame);
+    olua_callfunc(L, luaopen_xml_http_request);
     
     olua_require(L, "olua", luaopen_olua);
 

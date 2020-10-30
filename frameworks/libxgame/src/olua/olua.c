@@ -54,9 +54,17 @@ typedef struct {
     lua_Unsigned ctxid;
     size_t objcount;
     size_t poolsize;
+    int ref;
     bool poolenabled;
     bool debug;
 } olua_vmstatus_t;
+
+static inline void aux_checkref(olua_vmstatus_t *vms)
+{
+    if (vms->ref + 1 < 0) {
+        vms->ref = 0;
+    }
+}
 
 static int errfunc(lua_State *L)
 {
@@ -80,6 +88,7 @@ static olua_vmstatus_t *aux_getvmstatus(lua_State *L)
         vms->poolenabled = false;
         vms->poolsize = 0;
         vms->objcount = 0;
+        vms->ref = 0;
         registry_rawsetp(L, OLUA_VMSTATUS);
         olua_rawgeti(L, LUA_REGISTRYINDEX, LUA_RIDX_MAINTHREAD);
         vms->mainthread = lua_tothread(L, -1);
@@ -464,14 +473,26 @@ OLUA_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, 
                 lua_pop(L, 1);                          // L: obj ut k
                 break;
             }
-            lua_pop(L, 1);                              // L: obj uk k
+            lua_pop(L, 1);                              // L: obj ut k
         }
     }
     
     if (func == NULL) {
-        static lua_Integer ref = 0;
         const char *cls = olua_checkfieldstring(L, -2, "classname");
-        func = lua_pushfstring(L, ".callback#%I$%s@%s", ++ref, cls, tag);
+        olua_vmstatus_t *vms = aux_getvmstatus(L);
+        aux_checkref(vms);
+        while (true) {
+            lua_Integer ref = ++vms->ref;
+            func = lua_pushfstring(L, ".callback#%I$%s@%s", ref, cls, tag);
+            lua_pushvalue(L, -1);                       // L: obj ut k k
+            if (olua_rawget(L, -3) == LUA_TNIL) {
+                lua_pop(L, 1);                          // L: obj ut k
+                break;
+            } else {
+                aux_checkref(vms);
+                lua_pop(L, 2);                          // L: obj ut
+            }
+        }
     }
     
     lua_pushvalue(L, fidx);                             // L: obj ut k v
@@ -534,36 +555,28 @@ OLUA_API void olua_removecallback(lua_State *L, void *obj, const char *tag, int 
 
 OLUA_API int olua_callback(lua_State *L, void *obj, const char *func, int argc)
 {
-    int top = lua_gettop(L) - argc;
-    int status = OLUA_CALL_MISS;
-    
+    int top = lua_gettop(L) - argc + 1;
+    int status = LUA_ERRRUN;
+    olua_pusherrorfunc(L);                  // L: argc errfunc
     if (olua_getcallback(L, obj, func, OLUA_TAG_WHOLE) == LUA_TFUNCTION) {
-        lua_insert(L, top + 1);                         // L: callback arg...n
-        olua_pusherrorfunc(L);                          // L: callback arg...n errfunc
-        lua_insert(L, top + 1);                         // L: errfunc callback arg...n
-        if (lua_pcall(L, argc, 1, top + 1) == LUA_OK) {
-            status = OLUA_CALL_OK;
-        } else {
-            status = OLUA_CALL_ERR;
-        }                                               // L: errfunc result
-        lua_replace(L, -2);                             // L: result
-    }
-
-    if (status != OLUA_CALL_OK) {
-        if (status == OLUA_CALL_MISS) {
-            olua_pusherrorfunc(L);
-            if (olua_getrawobj(L, obj)) {
-                lua_pop(L, 1);
-                lua_pushfstring(L, "callback missed: %s", func);
-            } else {
-                lua_pushfstring(L, "object missed: %s", func);
-            }
-            lua_pcall(L, 1, 0, 0);
+        for (int i = 0; i < argc; i++) {
+            lua_pushvalue(L, -(2 + argc));  // L: argc errfunc func argc
         }
-        lua_settop(L, top);
+        status = lua_pcall(L, argc, 1, -(2 + argc));
+    } else {
+        if (olua_getrawobj(L, obj)) {
+            lua_pop(L, 1);
+            lua_pushfstring(L, "callback missed: %s", func);
+        } else {
+            lua_pushfstring(L, "object missed: %s", func);
+        }
+        lua_pcall(L, 1, 0, 0);
+    }
+    if (status != LUA_OK) {
         lua_pushnil(L);
     }
-    
+    lua_replace(L, top);
+    lua_settop(L, top);
     return status;
 }
 
@@ -612,18 +625,19 @@ static void aux_pushmappingtable(lua_State *L)
 
 OLUA_API int olua_ref(lua_State *L, int idx)
 {
-    static int ref = 0;
     if (!olua_isnil(L, idx)) {
+        olua_vmstatus_t *vms = aux_getvmstatus(L);
         idx = lua_absindex(L, idx);
-        aux_pushmappingtable(L);    // L: reft
-        while (olua_rawgeti(L, -1, ++ref) != LUA_TNIL) {
+        aux_pushmappingtable(L);        // L: reft
+        aux_checkref(vms);
+        while (olua_rawgeti(L, -1, ++vms->ref) != LUA_TNIL) {
             lua_pop(L, 1);
-            ref = ref < 0 ? 0 : ref;
-        }                           // L: reft nil
-        lua_pushvalue(L, idx);      // L: reft nil value
-        lua_rawseti(L, -3, ref);    // L: reft nil       reft[ref] = value
-        lua_pop(L, 2);              // L:
-        return ref;
+            aux_checkref(vms);
+        }                               // L: reft nil
+        lua_pushvalue(L, idx);          // L: reft nil value
+        lua_rawseti(L, -3, vms->ref);   // L: reft nil       reft[ref] = value
+        lua_pop(L, 2);                  // L:
+        return vms->ref;
     }
     return LUA_REFNIL;
 }

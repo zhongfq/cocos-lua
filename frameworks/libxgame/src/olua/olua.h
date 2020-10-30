@@ -49,11 +49,6 @@ extern "C" {
 #ifndef OLUA_API
 #define OLUA_API extern
 #endif
-
-// callback status
-#define OLUA_CALL_OK     0
-#define OLUA_CALL_MISS   1
-#define OLUA_CALL_ERR    2
     
 // object status
 #define OLUA_OBJ_EXIST  0
@@ -164,7 +159,7 @@ OLUA_API void olua_pop_objpool(lua_State *L, size_t position);
 //  }
 // for olua_setcallback
 #define OLUA_TAG_NEW          0
-#define OLUA_TAG_REPLACE      1
+#define OLUA_TAG_REPLACE      1 // compare substring after '@'
 // for olua_removecallback
 #define OLUA_TAG_WHOLE        2 // compare whole tag string
 #define OLUA_TAG_SUBEQUAL     3 // compare substring after '@'

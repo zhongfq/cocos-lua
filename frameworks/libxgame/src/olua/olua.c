@@ -844,10 +844,7 @@ static int cls_newindex(lua_State *L)
         return 0;
     }
     
-    if (olua_unlikely(lookupfunc(L, CLS_GETIDX, 2))) {
-        luaL_error(L, "readonly property: %s", olua_tostring(L, 2));
-    }
-    
+#ifdef OLUA_DEBUG
     if (olua_likely(olua_isstring(L, 2))) {
         size_t len;
         const char *key = olua_tolstring(L, 2, &len);
@@ -855,6 +852,7 @@ static int cls_newindex(lua_State *L)
             luaL_error(L, "variable name '%s' start with '.' char", key);
         }
     }
+#endif
     
     olua_assert(olua_isuserdata(L, 1));
     lua_settop(L, 3);
@@ -1000,10 +998,22 @@ static void aux_setfunc(lua_State *L, const char *t, const char *name, lua_CFunc
     }
 }
 
+static int cls_prop_readonly(lua_State *L)
+{
+    lua_pushvalue(L, lua_upvalueindex(1));
+    luaL_error(L, "readonly property: %s", olua_tostring(L, -1));
+    return 0;
+}
+
 OLUA_API void oluacls_prop(lua_State *L, const char *name, lua_CFunction getter, lua_CFunction setter)
 {
     aux_setfunc(L, CLS_GET, name, getter, 0);
-    aux_setfunc(L, CLS_SET, name, setter, 0);
+    
+    if (!setter) {
+        setter = cls_prop_readonly;
+        lua_pushstring(L, name);
+    }
+    aux_setfunc(L, CLS_SET, name, setter, setter == cls_prop_readonly ? 1 : 0);
 }
 
 OLUA_API void oluacls_func(lua_State *L, const char *name, lua_CFunction func)

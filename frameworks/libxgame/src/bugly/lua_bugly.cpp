@@ -48,7 +48,7 @@ int luaopen_bugly(lua_State *L)
     
     xgame::runtime::support("kernel.plugins.bugly");
     
-    olua_newlib(L, lib);
+    luaL_newlib(L, lib);
     
     return 1;
 }

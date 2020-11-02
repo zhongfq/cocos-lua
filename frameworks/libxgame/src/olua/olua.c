@@ -763,10 +763,8 @@ static bool lookupfunc(lua_State *L, int t, int kidx)
         }
         lua_rawset(L, t);                       // L: v
     }
-    if (olua_unlikely(type == LUA_TLIGHTUSERDATA
-            && lua_touserdata(L, -1) == NILOBJ)) {
+    if (type == LUA_TLIGHTUSERDATA && lua_touserdata(L, -1) == NILOBJ) {
         lua_pop(L, 1);
-        lua_pushnil(L);
         type = LUA_TNIL;
     }
     return type != LUA_TNIL;
@@ -838,6 +836,7 @@ static int cls_newindex(lua_State *L)
         return 0;
     }
     
+    // store value in class table
     if (olua_unlikely(olua_istable(L, 1))) {
         lua_settop(L, 3);                       // L: t k v
         lua_rawset(L, CLS_FUNCIDX);             // L: t
@@ -869,6 +868,19 @@ static int cls_tostring(lua_State *L)
 static int cls_eq(lua_State *L)
 {
     return 0;
+}
+
+static int cls_readonly(lua_State *L)
+{
+    lua_pushvalue(L, lua_upvalueindex(1));
+    luaL_error(L, "readonly property: %s", olua_tostring(L, -1));
+    return 0;
+}
+
+static int cls_const(lua_State *L)
+{
+    lua_pushvalue(L, lua_upvalueindex(1));
+    return 1;
 }
 
 static void create_table(lua_State *L, int idx, const char *field, const char *supercls, bool copy)
@@ -998,22 +1010,15 @@ static void aux_setfunc(lua_State *L, const char *t, const char *name, lua_CFunc
     }
 }
 
-static int cls_prop_readonly(lua_State *L)
-{
-    lua_pushvalue(L, lua_upvalueindex(1));
-    luaL_error(L, "readonly property: %s", olua_tostring(L, -1));
-    return 0;
-}
-
 OLUA_API void oluacls_prop(lua_State *L, const char *name, lua_CFunction getter, lua_CFunction setter)
 {
     aux_setfunc(L, CLS_GET, name, getter, 0);
-    
-    if (!setter) {
-        setter = cls_prop_readonly;
+    if (setter) {
+        aux_setfunc(L, CLS_SET, name, setter, 0);
+    } else {
         lua_pushstring(L, name);
+        aux_setfunc(L, CLS_SET, name, cls_readonly, 1);
     }
-    aux_setfunc(L, CLS_SET, name, setter, setter == cls_prop_readonly ? 1 : 0);
 }
 
 OLUA_API void oluacls_func(lua_State *L, const char *name, lua_CFunction func)
@@ -1021,15 +1026,9 @@ OLUA_API void oluacls_func(lua_State *L, const char *name, lua_CFunction func)
     aux_setfunc(L, CLS_FUNC, name, func, 0);
 }
 
-static int cls_index_const(lua_State *L)
-{
-    lua_pushvalue(L, lua_upvalueindex(1));
-    return 1;
-}
-
 OLUA_API void oluacls_const(lua_State *L, const char *name)
 {
-    aux_setfunc(L, CLS_GET, name, cls_index_const, 1);
+    aux_setfunc(L, CLS_GET, name, cls_const, 1);
 }
 
 static void aux_checkfield(lua_State *L, int t, const char *field, int type, bool isinteger)
@@ -1051,7 +1050,7 @@ static void aux_checkfield(lua_State *L, int t, const char *field, int type, boo
         } else {
             typearg = luaL_typename(L, idx);
         }
-        msg = lua_pushfstring(L, "olua check '%s': %s expected, got %s", field, tname, typearg);
+        msg = lua_pushfstring(L, "check '%s': %s expected, got %s", field, tname, typearg);
         luaL_argerror(L, idx, msg);
     }
 }

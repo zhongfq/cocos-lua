@@ -9,7 +9,7 @@ buildscript {
 
     dependencies {
         classpath 'com.tencent.bugly:symtabfileuploader:latest.release'
-        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.android.tools.build:gradle:4.1.0'
         classpath 'com.huawei.agconnect:agcp:1.1.1.300'
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -19,6 +19,9 @@ buildscript {
 
 allprojects {
     repositories {
+        flatDir {
+            dirs 'libs'
+        }
         google()
         jcenter()
         maven {url 'http://developer.huawei.com/repo/'}

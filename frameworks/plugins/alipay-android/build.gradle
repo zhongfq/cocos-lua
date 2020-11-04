@@ -27,7 +27,8 @@ android {
 }
 
 dependencies {
-    api fileTree(include: ['*.aar'], dir: 'libs')
     implementation project(':libcocos2dx')
     implementation project(':libxgame')
+
+    api(name:'alipaySdk-15.7.9-20200727142846', ext:'aar')
 }

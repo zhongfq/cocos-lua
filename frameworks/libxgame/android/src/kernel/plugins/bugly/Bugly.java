@@ -1,6 +1,8 @@
 package kernel.plugins.bugly;
 
 import android.app.Activity;
+import android.util.Log;
+
 import com.tencent.bugly.crashreport.BuglyLog;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.bugly.crashreport.inner.InnerApi;
@@ -24,15 +26,11 @@ public class Bugly {
         CrashReport.setUserSceneTag(AppContext.getContext(), tag);
     }
 
-    public static void addUserValue(String key, String value) {
+    public static void setUserValue(String key, String value) {
         CrashReport.putUserData(AppContext.getContext(), key, value);
     }
 
-    public static void removeUserValue(String key) {
-        CrashReport.removeUserData(AppContext.getContext(), key);
-    }
-
-    public static void setUserId(String uid) {
+    public static void setUid(String uid) {
         CrashReport.setUserId(AppContext.getContext(), uid);
     }
 
@@ -40,30 +38,31 @@ public class Bugly {
         InnerApi.postCocos2dxCrashAsync(category, "CustomException", msg, traceback);
     }
 
-    public static void setAppChannel(String channel) {
+    public static void setChannel(String channel) {
         _channel = channel;
     }
 
-    public static void setAppVersion(String version) {
+    public static void setVersion(String version) {
         _version = version;
     }
 
     public static void log(final int level, final String tag, final String msg) {
+        // {Off = 0, Error = 1, Warning = 2, Info = 3, Debug = 4, Verbose = 5}
         switch(level) {
-            case 0:
-                BuglyLog.v(tag, msg);
-                break;
             case 1:
-                BuglyLog.d(tag, msg);
+                BuglyLog.e(tag, msg);
                 break;
             case 2:
-                BuglyLog.i(tag, msg);
-                break;
-            case 3:
                 BuglyLog.w(tag, msg);
                 break;
+            case 3:
+                BuglyLog.i(tag, msg);
+                break;
             case 4:
-                BuglyLog.e(tag, msg);
+                BuglyLog.d(tag, msg);
+                break;
+            case 5:
+                BuglyLog.v(tag, msg);
                 break;
         }
     }

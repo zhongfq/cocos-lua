@@ -33,7 +33,7 @@ dependencies {
     //noinspection GradleDependency
     implementation 'com.android.support:support-v4:28.0.0'
 
-    api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:1.4.0'
+    api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:6.6.5'
 
     //noinspection GradleDependency
     api 'com.tencent.bugly:crashreport:latest.release'

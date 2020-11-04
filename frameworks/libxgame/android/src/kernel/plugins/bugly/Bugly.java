@@ -12,7 +12,7 @@ public class Bugly {
     private static String _channel;
     private static String _version;
 
-    public static void initCrashReport(String appid, boolean debug) {
+    public static void init(String appid, boolean debug) {
         CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(AppContext.getContext());
         strategy.setAppChannel(_channel);
         strategy.setAppVersion(_version);

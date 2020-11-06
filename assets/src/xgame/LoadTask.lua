@@ -1,8 +1,8 @@
 local class         = require "xgame.class"
 local filesystem    = require "xgame.filesystem"
+local downloader    = require "xgame.downloader"
 local Event         = require "xgame.event.Event"
 local Dispatcher    = require "xgame.event.Dispatcher"
-local fileloader    = require "xgame.loader.fileloader"
 
 local LoadTask = class("LoadTask", Dispatcher)
 
@@ -18,7 +18,7 @@ end
 function LoadTask:start()
     if not self.running then
         self.running = true
-        fileloader.load(self)
+        downloader.load(self)
     end
 end
 

@@ -2,7 +2,7 @@ local class             = require "xgame.class"
 local assetloader       = require "xgame.assetloader"
 local filesystem        = require "xgame.filesystem"
 local Event             = require "xgame.event.Event"
-local LoadTask          = require "xgame.loader.LoadTask"
+local LoadTask          = require "xgame.LoadTask"
 local UIView            = require "xgame.ui.UIView"
 local ImageView         = require "ccui.ImageView"
 local TextureResType    = require "ccui.Widget.TextureResType"
@@ -48,14 +48,16 @@ function UIImage:loadTexture(path)
 end
 
 function UIImage:_doLoad(url, callback)
-    local loader = LoadTask.new(url)
-    self.filePath = loader.path
-    loader:addListener(Event.COMPLETE, function ()
-        if self.filePath == loader.path then
-            callback(filesystem.localCachePath(url))
-        end
-    end)
-    loader:start()
+    if url and #url > 0 then
+        local loader = LoadTask.new(url)
+        self.filePath = loader.path
+        loader:addListener(Event.COMPLETE, function ()
+            if self.filePath == loader.path then
+                callback(filesystem.localCachePath(url))
+            end
+        end)
+        loader:start()
+    end
 end
 
 function UIImage:load(filepath)

@@ -1,19 +1,20 @@
 local class         = require "xgame.class"
 local downloader    = require "xgame.downloader"
+local LoadTask      = require "xgame.LoadTask"
 local http          = require "xgame.http"
 local filesystem    = require "xgame.filesystem"
-local fileloader    = require "xgame.loader.fileloader"
-local Manifest      = require "xgame.loader.Manifest"
+local Manifest      = require "xgame.Manifest"
 local runtime       = require "xgame.runtime"
 local timer         = require "xgame.timer"
+local Event         = require "xgame.event.Event"
 local cjson         = require "cjson.safe"
 
 local MAX_ATTEMPT_TIMES = 3
 local ATTEMPT_INTERVAL = 0.3
 
-local builtinManifest = fileloader.builtinManifest
-local localManifest = fileloader.localManifest
-local remoteManifest = fileloader.remoteManifest
+local builtinManifest = downloader.builtinManifest
+local localManifest = downloader.localManifest
+local remoteManifest = downloader.remoteManifest
 
 local M = class('updater')
 
@@ -111,27 +112,22 @@ function M:_downloadAssets(localManifest, assets)
     local current = 0
     for path, asset in pairs(assets) do
         total = total + 1
-        local function callback(success)
-            if success then
-                assets[path] = nil
-                localManifest:update(path, asset)
-                current = current + 1
-                self:_didUpdate('donwloadAssets', current, total)
-                if not next(assets) then
-                    localManifest:flush()
-                    runtime.manifestVersion = remoteManifest.version
-                    self:_didComplete(self._shouldRestart)
-                end
-            else
-                self:_didError('asset', asset)
+
+        local task = LoadTask.new(path)
+        task:addListener(Event.COMPLETE, function ()
+            assets[path] = nil
+            current = current + 1
+            self:_didUpdate('donwloadAssets', current, total)
+            if not next(assets) then
+                localManifest:flush()
+                runtime.manifestVersion = remoteManifest.version
+                self:_didComplete(self._shouldRestart)
             end
-        end
-        downloader.load({
-            url = remoteManifest.packageURL .. '/' .. path,
-            md5 = asset.md5,
-            path = self:_resolveAssetPath(path),
-            callback = callback,
-        })
+        end)
+        task:addListener(Event.IOERROR, function ()
+            self:_didError('asset', asset)
+        end)
+        downloader.load(task)
     end
     self:_didUpdate('donwloadAssets', current, total)
 end

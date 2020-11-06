@@ -1,8 +1,8 @@
 local class         = require "xgame.class"
 local Event         = require "xgame.event.Event"
+local downloader    = require "xgame.downloader"
 local Dispatcher    = require "xgame.event.Dispatcher"
-local LoadTask      = require "xgame.loader.LoadTask"
-local fileloader    = require "xgame.loader.fileloader"
+local LoadTask      = require "xgame.LoadTask"
 
 local LoadQueue = class("LoadQueue", Dispatcher)
 
@@ -14,7 +14,7 @@ function LoadQueue:ctor(assets)
     for path in pairs(assets) do
         assert(type(path) == "string", "not a path")
         local task = LoadTask.new(path)
-        if fileloader.shouldDownload(task) then
+        if downloader.shouldDownload(task) then
             task:addListener(Event.COMPLETE, self._complete, self)
             task:addListener(Event.IOERROR, self._ioerror, self)
             self._loadTasks[task.url] = task

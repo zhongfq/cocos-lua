@@ -1,5 +1,5 @@
 local filesystem    = require "xgame.filesystem"
-local LoadTask      = require "xgame.loader.LoadTask"
+local LoadTask      = require "xgame.LoadTask"
 local Event         = require "xgame.event.Event"
 local UIPackage     = require "fgui.UIPackage"
 

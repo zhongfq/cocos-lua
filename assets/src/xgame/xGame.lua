@@ -9,7 +9,7 @@ local FGUINode      = require "xgame.ui.FGUINode"
 local SceneStack    = require "xgame.SceneStack"
 local Event         = require "xgame.event.Event"
 local Dispatcher    = require "xgame.event.Dispatcher"
-local LoadQueue     = require "xgame.loader.LoadQueue"
+local LoadQueue     = require "xgame.LoadQueue"
 local Director      = require "cc.Director"
 
 local director = Director.instance

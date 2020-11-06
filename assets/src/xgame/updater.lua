@@ -2,21 +2,20 @@ local class         = require "xgame.class"
 local downloader    = require "xgame.downloader"
 local http          = require "xgame.http"
 local filesystem    = require "xgame.filesystem"
+local fileloader    = require "xgame.loader.fileloader"
 local Manifest      = require "xgame.loader.Manifest"
 local runtime       = require "xgame.runtime"
 local timer         = require "xgame.timer"
 local cjson         = require "cjson.safe"
 
-local REMOTE_MANIFEST_PATH = filesystem.dir.assets .. '/remote.manifest'
-local LOCAL_MANIFEST_PATH = filesystem.dir.assets .. '/local.manifest'
-local BUILTIN_MANIFEST_PATH = "builtin.manifest"
 local MAX_ATTEMPT_TIMES = 3
 local ATTEMPT_INTERVAL = 0.3
 
-local M = class('updater')
+local builtinManifest = fileloader.builtinManifest
+local localManifest = fileloader.localManifest
+local remoteManifest = fileloader.remoteManifest
 
-M.REMOTE_MANIFEST_PATH = REMOTE_MANIFEST_PATH
-M.LOCAL_MANIFEST_PATH = LOCAL_MANIFEST_PATH
+local M = class('updater')
 
 function M:ctor(url)
     self.filter = function () return true end
@@ -24,7 +23,6 @@ function M:ctor(url)
     self._url = url
     self._attemptTimes = 0
     self._manifests = {}
-    self:_removeFileIfExist(self:_resolveAssetPath(BUILTIN_MANIFEST_PATH))
 end
 
 function M:_deferTry()
@@ -49,11 +47,8 @@ function M:_resolveAssetPath(path)
     return filesystem.dir.assets .. '/' .. path
 end
 
-function M:_resolveManifestPath(name)
-    return string.format('%s/%s.manifest', filesystem.dir.assets, name)
-end
-
-function M:_loadManifest(path)
+function M:_loadManifest(name)
+    local path = string.format('%s/%s.manifest', filesystem.dir.assets, name)
     local m = self._manifests[path]
     if not m then
         m = Manifest.new(path)
@@ -78,20 +73,14 @@ function M:_maxVersion(v1, v2)
     return self:_cmpVersion(v1, v2) < 0 and v2 or v1
 end
 
-function M:_readManifestVersion(path)
-    local m = self:_loadManifest(path)
-    return m.version or '0.0.0'
-end
-
 function M:_checkAndDownloadManifest(name, info)
-    local path = self:_resolveManifestPath(name)
-    local m = self:_loadManifest(path)
+    local m = self:_loadManifest(name)
     if m.version ~= info.version then
         local status, data = http({url = info.url})
         if status ~= 200 then
             return false
         else
-            filesystem.write(path, data)
+            filesystem.write(m.path, data)
             m.data = cjson.decode(data)
         end
     else
@@ -104,7 +93,7 @@ function M:_mergeManifests(versionData)
     local data = {assets = {}, version = "0.0.0"}
     for _, info in pairs(versionData.assets) do
         data.version = self:_maxVersion(data.version, info.version)
-        local m = self:_loadManifest(self:_resolveManifestPath(info.name))
+        local m = self:_loadManifest(info.name)
         if data.version == info.version then
             data.package_url = assert(m.data.package_url, 'no package url')
         end
@@ -113,20 +102,13 @@ function M:_mergeManifests(versionData)
         end
     end
 
-    local remote = self:_loadManifest(REMOTE_MANIFEST_PATH)
-    remote.data = data
-    remote:flush()
-end
-
-function M:_saveRemoteManifestVersion()
-    local m = self:_loadManifest(REMOTE_MANIFEST_PATH)
-    runtime.manifestVersion = m.version
+    remoteManifest.data = data
+    remoteManifest:flush()
 end
 
 function M:_downloadAssets(localManifest, assets)
     local total = 0
     local current = 0
-    local remote = self:_loadManifest(REMOTE_MANIFEST_PATH)
     for path, asset in pairs(assets) do
         total = total + 1
         local function callback(success)
@@ -137,7 +119,7 @@ function M:_downloadAssets(localManifest, assets)
                 self:_didUpdate('donwloadAssets', current, total)
                 if not next(assets) then
                     localManifest:flush()
-                    self:_saveRemoteManifestVersion()
+                    runtime.manifestVersion = remoteManifest.version
                     self:_didComplete(self._shouldRestart)
                 end
             else
@@ -145,7 +127,7 @@ function M:_downloadAssets(localManifest, assets)
             end
         end
         downloader.load({
-            url = remote.packageURL .. '/' .. path,
+            url = remoteManifest.packageURL .. '/' .. path,
             md5 = asset.md5,
             path = self:_resolveAssetPath(path),
             callback = callback,
@@ -157,13 +139,9 @@ end
 function M:_verifyAssets()
     self:_didUpdate('verifyAssets')
     
-    if not filesystem.exist(LOCAL_MANIFEST_PATH) then
-        filesystem.copy(BUILTIN_MANIFEST_PATH, LOCAL_MANIFEST_PATH)
+    if not filesystem.exist(localManifest.path) then
+        filesystem.copy(builtinManifest.path, localManifest.path)
     end
-
-    local builtinManifest = self:_loadManifest(BUILTIN_MANIFEST_PATH)
-    local localManifest = self:_loadManifest(LOCAL_MANIFEST_PATH)
-    local remoteManifest = self:_loadManifest(REMOTE_MANIFEST_PATH)
 
     -- compare builtin.manifest and local.manifest
     -- remove file when the date of builtin asset is newer
@@ -226,7 +204,7 @@ function M:_verifyAssets()
         self:_downloadAssets(localManifest, assets)
     else
         print("all assets is up-to-date")
-        self:_saveRemoteManifestVersion()
+        runtime.manifestVersion = remoteManifest.version
         self:_didComplete(self._shouldRestart)
     end
 end
@@ -234,7 +212,7 @@ end
 function M:_checkVersion()
     self:_didUpdate('checkUpdate')
     http.block(function ()
-        local version = self:_readManifestVersion(REMOTE_MANIFEST_PATH)
+        local version = remoteManifest.version
         local url = string.format('%s?os=%s&runtime=%s&version=%s&channel=%s',
             self._url, runtime.os, runtime.appVersion, version, runtime.channel)
         local status, data = http({url = url, responseType = 'JSON'})

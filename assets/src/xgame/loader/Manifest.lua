@@ -13,8 +13,12 @@ function Manifest:ctor(path)
         self.data = assert(cjson.decode(filesystem.read(path)), path)
         assert(self.data.assets, "bad manifest format")
     else
-        self.data = {assets = {}}
+        self.data = {assets = {}, version = '0.0.0'}
     end
+end
+
+function Manifest.Get:path()
+    return self._path
 end
 
 function Manifest.Get:version()

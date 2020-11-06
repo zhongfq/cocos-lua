@@ -38,6 +38,7 @@ REG('kernel.filesystem', function ()
     return setmetatable({
         dir = false,
         localCachePath = false,
+        exist = function () end,
         sdCardDirectory = M.DUMMY_STR,
         documentDirectory = M.DUMMY_STR,
         cacheDirectory = M.DUMMY_STR,

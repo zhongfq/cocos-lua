@@ -1,7 +1,6 @@
 local downloader    = require "kernel.downloader"
 local FileState     = require "kernel.downloader.FileState"
 local timer         = require "xgame.timer"
-local assetloader   = require "xgame.assetloader"
 local filesystem    = require "xgame.filesystem"
 local Manifest      = require "xgame.Manifest"
 
@@ -127,10 +126,8 @@ function M.load(task)
         local remoteFile = M.remoteManifest.assets[task.url]
         local function callback(success)
             if success then
-                assetloader.reload({
-                    [task.path] = true,
-                    [task.url] = true
-                })
+                local loader = require "xgame.loader"
+                loader.reload(task.url)
                 if remoteFile then
                     local asset = {
                         date = remoteFile.date,

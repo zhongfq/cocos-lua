@@ -4,7 +4,6 @@ local runtime       = require "xgame.runtime"
 local audio         = require "xgame.audio"
 local filesystem    = require "xgame.filesystem"
 local Array         = require "xgame.Array"
-local assetloader   = require "xgame.assetloader"
 local Event         = require "xgame.event.Event"
 local UILayer       = require "xgame.ui.UILayer"
 local Sprite        = require "cc.Sprite"
@@ -110,7 +109,6 @@ function SceneStack:_doStartScene(cls, ...)
             entry.sceneWrapper.cobj:addProtectedChild(snapshot)
         end
         self._sceneLayer:addChild(entry.sceneWrapper)
-        assetloader.loadSceneAssets(scene)
     end)
 end
 
@@ -128,7 +126,6 @@ function SceneStack:_doPopScene(onlypop)
         entry = self._sceneStack[numScenes - 1]
         entry.scene.visible = true
         entry.snapshot = false
-        assetloader.loadSceneAssets(entry.scene)
         entry.sceneWrapper.visible = true
         entry.sceneWrapper.cobj:onEnter()
     end

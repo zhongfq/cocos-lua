@@ -1,7 +1,7 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
+local loader        = require "xgame.loader"
 local Event         = require "xgame.event.Event"
-local assetloader   = require "xgame.assetloader"
 local TouchEvent    = require "xgame.event.TouchEvent"
 local dataloader    = require "xgame.ui.dataloader"
 
@@ -195,10 +195,13 @@ function ui.new(symbol, parent, fillParent)
     lastNew = symbol
     newStatck[#newStatck + 1] = symbol
 
-    assetloader.load(nil, data.assets)
+    local assets = {}
+    for path in pairs(data.assets) do
+        assets[path] = loader.load(path)
+    end
     local view = ui.inflate(data, parent, fillParent)
     viewSymbols[view] = symbol
-    assetloader.load(view, data.assets) -- bind assets to view
+    view.assetObjects = assets
 
     newStatck[#newStatck] = nil
 

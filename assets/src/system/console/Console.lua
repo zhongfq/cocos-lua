@@ -1,5 +1,4 @@
 local class         = require "xgame.class"
-local assets        = require "xgame.assets"
 local R             = require "xgame.R"
 local Mediator      = require "xgame.Mediator"
 local Event         = require "xgame.event.Event"

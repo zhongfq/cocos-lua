@@ -1,5 +1,5 @@
 local class             = require "xgame.class"
-local assets            = require "xgame.assets"
+local loader            = require "xgame.loader"
 local window            = require "xgame.window"
 local Event             = require "xgame.event.Event"
 local LoadTask          = require "xgame.LoadTask"
@@ -18,7 +18,7 @@ function FGUI:ctor()
 end
 
 function FGUI:loadAssets(path)
-    self.fguiAsset = assets.load(path)
+    self._assetObject = loader.load(path)
 end
 
 function FGUI:createUI(pkg, name)

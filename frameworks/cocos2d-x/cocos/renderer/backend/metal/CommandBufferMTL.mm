@@ -31,6 +31,9 @@
 #include "../Macros.h"
 #include "BufferManager.h"
 #include "DepthStencilStateMTL.h"
+#include "platform/CCGLView.h"
+#include "base/CCDirector.h"
+#include "renderer/CCRenderer.h"
 
 CC_BACKEND_BEGIN
 
@@ -93,6 +96,25 @@ namespace
     MTLRenderPassDescriptor* toMTLRenderPassDescriptor(const RenderPassDescriptor& descriptor)
     {
         MTLRenderPassDescriptor* mtlDescritpor = [MTLRenderPassDescriptor renderPassDescriptor];
+        if(descriptor.needResolveTexture){
+            /// When msaa rendering command is executed, all rendering is performed on the multisample texture as usual.
+            /// Now, the contents of the multisample texture are resolved and written into the resolve texture
+            if(descriptor.resolveTexture){
+                TextureMTL* texture = static_cast<TextureMTL*>(descriptor.colorAttachmentsTexture[0]);
+                TextureMTL* resolveTexture = static_cast<TextureMTL*>(descriptor.resolveTexture);
+
+                mtlDescritpor.colorAttachments[0].texture = texture->getMTLTexture();
+                mtlDescritpor.colorAttachments[0].resolveTexture = resolveTexture->getMTLTexture();
+            }
+            else
+            {
+                mtlDescritpor.colorAttachments[0].texture = Utils::getDefaultColorAttachmentTexture(descriptor);
+                mtlDescritpor.colorAttachments[0].resolveTexture = DeviceMTL::getCurrentDrawable().texture;
+            }
+            mtlDescritpor.colorAttachments[0].storeAction = MTLStoreActionMultisampleResolve;
+            mtlDescritpor.colorAttachments[0].loadAction = MTLLoadActionLoad;
+            return mtlDescritpor;
+        }
         
         // Set color attachments.
         if (descriptor.needColorAttachment)
@@ -120,7 +142,10 @@ namespace
             
             if (!hasCustomColorAttachment)
             {
-                mtlDescritpor.colorAttachments[0].texture = DeviceMTL::getCurrentDrawable().texture;
+                if(descriptor.sampleCount > 1)
+                    mtlDescritpor.colorAttachments[0].texture = Utils::getDefaultColorAttachmentTexture(descriptor);
+                else
+                    mtlDescritpor.colorAttachments[0].texture = DeviceMTL::getCurrentDrawable().texture;
                 if (descriptor.needClearColor)
                 {
                     mtlDescritpor.colorAttachments[0].loadAction = MTLLoadActionClear;
@@ -133,16 +158,7 @@ namespace
                     mtlDescritpor.colorAttachments[0].loadAction = MTLLoadActionLoad;
             }
 
-            if (DeviceMTL::getSampleCount() > 1)
-            {
-                mtlDescritpor.colorAttachments[0].texture = Utils::getDefaultColorAttachmentTexture();
-                mtlDescritpor.colorAttachments[0].resolveTexture = DeviceMTL::getCurrentDrawable().texture;
-                mtlDescritpor.colorAttachments[0].storeAction = MTLStoreActionStoreAndMultisampleResolve;
-            }
-            else
-            {
-                mtlDescritpor.colorAttachments[0].storeAction = MTLStoreActionStore;
-            }
+            mtlDescritpor.colorAttachments[0].storeAction = MTLStoreActionStore;
         }
         
         if(descriptor.needDepthStencilAttachment())
@@ -152,7 +168,7 @@ namespace
                 if (descriptor.depthAttachmentTexture)
                     mtlDescritpor.depthAttachment.texture = static_cast<TextureMTL*>(descriptor.depthAttachmentTexture)->getMTLTexture();
                 else
-                    mtlDescritpor.depthAttachment.texture = Utils::getDefaultDepthStencilTexture();
+                    mtlDescritpor.depthAttachment.texture = Utils::getDefaultDepthStencilTexture(descriptor);
                 
                 if (descriptor.needClearDepth)
                 {
@@ -170,7 +186,7 @@ namespace
                 if (descriptor.stencilAttachmentTexture)
                     mtlDescritpor.stencilAttachment.texture = static_cast<TextureMTL*>(descriptor.stencilAttachmentTexture)->getMTLTexture();
                 else
-                    mtlDescritpor.stencilAttachment.texture = Utils::getDefaultDepthStencilTexture();
+                    mtlDescritpor.stencilAttachment.texture = Utils::getDefaultDepthStencilTexture(descriptor);
                 
                 if (descriptor.needClearStencil)
                 {

@@ -282,6 +282,7 @@ M.CONVS = {
             @optional uint32_t height;
             @optional uint32_t depth;
             cocos2d::backend::SamplerDescriptor samplerDescriptor;
+            @optional int sampleCount;
         ]],
     },
     typeconv {

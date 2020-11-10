@@ -224,7 +224,7 @@ typedef {
     LUACLS = nil,
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_backend_TextureDescriptor',
-    NUM_VARS = 7,
+    NUM_VARS = 8,
 }
 
 typedef {

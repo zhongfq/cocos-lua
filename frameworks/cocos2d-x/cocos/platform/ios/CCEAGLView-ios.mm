@@ -139,11 +139,6 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
         {
             self.contentScaleFactor = [[UIScreen mainScreen] scale];
         }
-        if (sampling)
-        {
-            self.sampleCount = nSamples;
-            cocos2d::backend::DeviceMTL::setSampleCount(nSamples);
-        }
 
         id<MTLDevice> device = MTLCreateSystemDefaultDevice();
         if (!device)

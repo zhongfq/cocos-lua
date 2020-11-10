@@ -56,6 +56,9 @@ struct RenderPassDescriptor
     bool needClearColor = false;
     bool needClearDepth = false;
     bool needClearStencil = false;
+    int sampleCount = 1;
+    bool needResolveTexture = false;
+    TextureBackend* resolveTexture = nullptr;
     TextureBackend* depthAttachmentTexture = nullptr;
     TextureBackend* stencilAttachmentTexture = nullptr;
     TextureBackend* colorAttachmentsTexture[MAX_COLOR_ATTCHMENT] = { nullptr };

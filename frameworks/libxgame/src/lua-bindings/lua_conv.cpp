@@ -3167,7 +3167,7 @@ bool auto_olua_ispack_cocos2d_backend_UniformInfo(lua_State *L, int idx)
 int auto_olua_push_cocos2d_backend_TextureDescriptor(lua_State *L, const cocos2d::backend::TextureDescriptor *value)
 {
     if (value) {
-        lua_createtable(L, 0, 7);
+        lua_createtable(L, 0, 8);
 
         olua_push_uint(L, (lua_Unsigned)value->textureType);
         olua_setfield(L, -2, "textureType");
@@ -3189,6 +3189,9 @@ int auto_olua_push_cocos2d_backend_TextureDescriptor(lua_State *L, const cocos2d
 
         auto_olua_push_cocos2d_backend_SamplerDescriptor(L, &value->samplerDescriptor);
         olua_setfield(L, -2, "samplerDescriptor");
+
+        olua_push_int(L, (lua_Integer)value->sampleCount);
+        olua_setfield(L, -2, "sampleCount");
     } else {
         lua_pushnil(L);
     }
@@ -3211,6 +3214,7 @@ void auto_olua_check_cocos2d_backend_TextureDescriptor(lua_State *L, int idx, co
     lua_Unsigned arg5 = 0;       /** height */
     lua_Unsigned arg6 = 0;       /** depth */
     cocos2d::backend::SamplerDescriptor arg7;       /** samplerDescriptor */
+    lua_Integer arg8 = 0;       /** sampleCount */
 
     olua_getfield(L, idx, "textureType");
     if (!olua_isnoneornil(L, -1)) {
@@ -3258,6 +3262,13 @@ void auto_olua_check_cocos2d_backend_TextureDescriptor(lua_State *L, int idx, co
     auto_olua_check_cocos2d_backend_SamplerDescriptor(L, -1, &arg7);
     value->samplerDescriptor = (cocos2d::backend::SamplerDescriptor)arg7;
     lua_pop(L, 1);
+
+    olua_getfield(L, idx, "sampleCount");
+    if (!olua_isnoneornil(L, -1)) {
+        olua_check_int(L, -1, &arg8);
+        value->sampleCount = (int)arg8;
+    }
+    lua_pop(L, 1);
 }
 
 bool auto_olua_is_cocos2d_backend_TextureDescriptor(lua_State *L, int idx)
@@ -3279,6 +3290,7 @@ void auto_olua_pack_cocos2d_backend_TextureDescriptor(lua_State *L, int idx, coc
     lua_Unsigned arg5 = 0;       /** height */
     lua_Unsigned arg6 = 0;       /** depth */
     cocos2d::backend::SamplerDescriptor arg7;       /** samplerDescriptor */
+    lua_Integer arg8 = 0;       /** sampleCount */
 
     olua_check_uint(L, idx + 0, &arg1);
     value->textureType = (cocos2d::backend::TextureType)arg1;
@@ -3300,6 +3312,9 @@ void auto_olua_pack_cocos2d_backend_TextureDescriptor(lua_State *L, int idx, coc
 
     auto_olua_check_cocos2d_backend_SamplerDescriptor(L, idx + 6, &arg7);
     value->samplerDescriptor = (cocos2d::backend::SamplerDescriptor)arg7;
+
+    olua_check_int(L, idx + 7, &arg8);
+    value->sampleCount = (int)arg8;
 }
 
 int auto_olua_unpack_cocos2d_backend_TextureDescriptor(lua_State *L, const cocos2d::backend::TextureDescriptor *value)
@@ -3312,18 +3327,19 @@ int auto_olua_unpack_cocos2d_backend_TextureDescriptor(lua_State *L, const cocos
         olua_push_uint(L, (lua_Unsigned)value->height);
         olua_push_uint(L, (lua_Unsigned)value->depth);
         auto_olua_push_cocos2d_backend_SamplerDescriptor(L, &value->samplerDescriptor);
+        olua_push_int(L, (lua_Integer)value->sampleCount);
     } else {
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 8; i++) {
             lua_pushnil(L);
         }
     }
 
-    return 7;
+    return 8;
 }
 
 bool auto_olua_ispack_cocos2d_backend_TextureDescriptor(lua_State *L, int idx)
 {
-    return olua_is_uint(L, idx + 0) && olua_is_uint(L, idx + 1) && olua_is_uint(L, idx + 2) && olua_is_uint(L, idx + 3) && olua_is_uint(L, idx + 4) && olua_is_uint(L, idx + 5) && auto_olua_is_cocos2d_backend_SamplerDescriptor(L, idx + 6);
+    return olua_is_uint(L, idx + 0) && olua_is_uint(L, idx + 1) && olua_is_uint(L, idx + 2) && olua_is_uint(L, idx + 3) && olua_is_uint(L, idx + 4) && olua_is_uint(L, idx + 5) && auto_olua_is_cocos2d_backend_SamplerDescriptor(L, idx + 6) && olua_is_int(L, idx + 7);
 }
 
 int auto_olua_push_cocos2d_backend_StencilDescriptor(lua_State *L, const cocos2d::backend::StencilDescriptor *value)

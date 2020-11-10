@@ -24,11 +24,13 @@
  
 #include "RenderPipelineMTL.h"
 #include "DeviceMTL.h"
+#include "TextureMTL.h"
 #include "ShaderModuleMTL.h"
 #include "DepthStencilStateMTL.h"
 #include "Utils.h"
 #include "ProgramMTL.h"
 #include "xxhash.h"
+#include "platform/CCGLView.h"
 
 CC_BACKEND_BEGIN
 
@@ -181,6 +183,7 @@ void RenderPipelineMTL::update(const PipelineDescriptor & pipelineDescirptor,
         unsigned int destinationRGBBlendFactor;
         unsigned int sourceAlphaBlendFactor;
         unsigned int destinationAlphaBlendFactor;
+        int sampleCount;
     }hashMe;
     
     memset(&hashMe, 0, sizeof(hashMe));
@@ -200,6 +203,7 @@ void RenderPipelineMTL::update(const PipelineDescriptor & pipelineDescirptor,
     hashMe.destinationRGBBlendFactor = (unsigned int)blendDescriptor.destinationRGBBlendFactor;
     hashMe.sourceAlphaBlendFactor = (unsigned int)blendDescriptor.sourceAlphaBlendFactor;
     hashMe.destinationAlphaBlendFactor = (unsigned int)blendDescriptor.destinationAlphaBlendFactor;
+    hashMe.sampleCount = renderPassDescriptor.sampleCount;
     int index = 0;
     auto vertexLayout = pipelineDescirptor.programState->getVertexLayout();
     const auto& attributes = vertexLayout->getAttributes();
@@ -229,10 +233,10 @@ void RenderPipelineMTL::update(const PipelineDescriptor & pipelineDescirptor,
     
     _mtlRenderPipelineDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
     
-    if (DeviceMTL::getSampleCount() > 1)
-    {
-        _mtlRenderPipelineDescriptor.sampleCount = DeviceMTL::getSampleCount();
-    }
+    if(renderPassDescriptor.sampleCount > 1) {
+        // the sampleCount value of all the render target textures must match this sampleCount value
+        [_mtlRenderPipelineDescriptor setSampleCount: GLView::getGLContextAttrs().multisamplingCount];
+     }
     
     setShaderModules(pipelineDescirptor);
     setVertexLayout(_mtlRenderPipelineDescriptor, pipelineDescirptor);

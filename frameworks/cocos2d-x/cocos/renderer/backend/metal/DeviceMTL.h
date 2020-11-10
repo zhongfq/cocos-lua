@@ -25,10 +25,13 @@
 #pragma once
 
 #include "../Device.h"
+#include "base/CCMap.h"
 #import <Metal/Metal.h>
 #import <QuartzCore/CAMetalLayer.h>
 
 CC_BACKEND_BEGIN
+
+class DepthStencilStateMTL;
 
 /**
  * @addtogroup _metal
@@ -41,12 +44,6 @@ CC_BACKEND_BEGIN
 class DeviceMTL : public Device
 {
 public:
-    /**
-     * Enable MSAA.
-     */
-    static void setSampleCount(int value);
-    static int getSampleCount() { return DeviceMTL::_sampleCount; }
-    
     /**
      * Set CAMetalLayer.
      * @param metalLayer A CAMetalLayer object.
@@ -157,10 +154,10 @@ protected:
 private:
     static CAMetalLayer* _metalLayer;
     static id<CAMetalDrawable> _currentDrawable;
-    static int _sampleCount;
     
     id<MTLDevice> _mtlDevice = nil;
     id<MTLCommandQueue> _mtlCommandQueue = nil;
+    Map<unsigned int, DepthStencilStateMTL*>  _depthStencilStateCache;
 };
 
 // end of _metal group

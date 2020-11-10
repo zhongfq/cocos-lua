@@ -40,7 +40,9 @@ RenderPassDescriptor& RenderPassDescriptor::operator=(const RenderPassDescriptor
     depthAttachmentTexture = descriptor.depthAttachmentTexture;
     stencilAttachmentTexture = descriptor.stencilAttachmentTexture;
     colorAttachmentsTexture[0] = descriptor.colorAttachmentsTexture[0];
-    
+    sampleCount = descriptor.sampleCount;
+    resolveTexture = descriptor.resolveTexture;
+    needResolveTexture = descriptor.needResolveTexture;
     return *this;
 }
 
@@ -57,7 +59,10 @@ bool RenderPassDescriptor::operator==(const RenderPassDescriptor& descriptor) co
         needClearStencil == descriptor.needClearStencil &&
         depthAttachmentTexture == descriptor.depthAttachmentTexture &&
         stencilAttachmentTexture == descriptor.stencilAttachmentTexture &&
-        colorAttachmentsTexture[0] == descriptor.colorAttachmentsTexture[0])
+        colorAttachmentsTexture[0] == descriptor.colorAttachmentsTexture[0] &&
+        sampleCount == descriptor.sampleCount &&
+        needResolveTexture == descriptor.needResolveTexture &&
+        resolveTexture == descriptor.resolveTexture)
     {
         return true;
     }

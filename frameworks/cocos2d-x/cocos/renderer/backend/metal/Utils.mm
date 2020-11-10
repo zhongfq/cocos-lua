@@ -25,6 +25,7 @@
 #include "Utils.h"
 #include "DeviceMTL.h"
 #include "base/CCConfiguration.h"
+#include "platform/CCGLView.h"
 
 #define COLOR_ATTAHCMENT_PIXEL_FORMAT MTLPixelFormatBGRA8Unorm
 
@@ -32,6 +33,9 @@ CC_BACKEND_BEGIN
 
 id<MTLTexture> Utils::_defaultColorAttachmentTexture = nil;
 id<MTLTexture> Utils::_defaultDepthStencilAttachmentTexture = nil;
+
+id<MTLTexture> Utils::_defaultMsaaColorAttachmentTexture = nil;
+id<MTLTexture> Utils::_defaultMsaaDepthStencilAttachmentTexture = nil;
 
 namespace {
 #define byte(n) ((n) * 8)
@@ -89,37 +93,43 @@ MTLPixelFormat Utils::getDefaultColorAttachmentPixelFormat()
     return COLOR_ATTAHCMENT_PIXEL_FORMAT;
 }
 
-id<MTLTexture> Utils::getDefaultDepthStencilTexture()
+id<MTLTexture> Utils::getDefaultDepthStencilTexture(const RenderPassDescriptor& descriptor)
 {
-    if (! _defaultDepthStencilAttachmentTexture)
-        _defaultDepthStencilAttachmentTexture = Utils::createDepthStencilAttachmentTexture();
-    
-    return _defaultDepthStencilAttachmentTexture;
+    if (descriptor.sampleCount > 1) {
+        if (!_defaultMsaaDepthStencilAttachmentTexture)
+            _defaultMsaaDepthStencilAttachmentTexture = Utils::createDepthStencilAttachmentTexture(descriptor);
+        
+        return _defaultMsaaDepthStencilAttachmentTexture;
+    }
+    else
+    {
+        if (!_defaultDepthStencilAttachmentTexture)
+            _defaultDepthStencilAttachmentTexture = Utils::createDepthStencilAttachmentTexture(descriptor);
+        
+        return _defaultDepthStencilAttachmentTexture;
+    }
+}
+
+id<MTLTexture> Utils::getDefaultColorAttachmentTexture(const RenderPassDescriptor& descriptor)
+{
+    if (descriptor.sampleCount > 1) {
+        if (!_defaultMsaaColorAttachmentTexture)
+            _defaultMsaaColorAttachmentTexture = Utils::createDefaultColorAttachmentTexture(descriptor);
+        
+        return _defaultMsaaColorAttachmentTexture;
+    }
+    else
+    {
+        if (!_defaultColorAttachmentTexture)
+            _defaultColorAttachmentTexture = Utils::createDefaultColorAttachmentTexture(descriptor);
+        
+        return _defaultColorAttachmentTexture;
+    }
 }
 
 void Utils::updateDefaultColorAttachmentTexture(id<MTLTexture> texture)
 {
     Utils::_defaultColorAttachmentTexture = texture;
-}
-
-id<MTLTexture> Utils::getDefaultColorAttachmentTexture()
-{
-    if (!_defaultColorAttachmentTexture) {
-        auto CAMetalLayer = DeviceMTL::getCAMetalLayer();
-        MTLTextureDescriptor* textureDescriptor = [[MTLTextureDescriptor alloc] init];
-        textureDescriptor.width = CAMetalLayer.drawableSize.width;
-        textureDescriptor.height = CAMetalLayer.drawableSize.height;
-        textureDescriptor.pixelFormat = getDefaultColorAttachmentPixelFormat();
-        textureDescriptor.usage |= MTLTextureUsageRenderTarget;
-        if (DeviceMTL::getSampleCount() > 1) {
-            textureDescriptor.sampleCount = DeviceMTL::getSampleCount();
-            textureDescriptor.textureType = MTLTextureType2DMultisample;
-            textureDescriptor.storageMode = MTLStorageModePrivate;
-        }
-        _defaultColorAttachmentTexture = [CAMetalLayer.device newTextureWithDescriptor:textureDescriptor];
-        [textureDescriptor release];
-    }
-    return _defaultColorAttachmentTexture;
 }
 
 MTLPixelFormat Utils::toMTLPixelFormat(PixelFormat textureFormat)
@@ -175,11 +185,17 @@ MTLPixelFormat Utils::toMTLPixelFormat(PixelFormat textureFormat)
 void Utils::resizeDefaultAttachmentTexture(std::size_t width, std::size_t height)
 {
     [backend::DeviceMTL::getCAMetalLayer() setDrawableSize:CGSizeMake(width, height)];
-    [_defaultDepthStencilAttachmentTexture release];
-    _defaultDepthStencilAttachmentTexture = Utils::createDepthStencilAttachmentTexture();
+    if (_defaultDepthStencilAttachmentTexture) {
+        [_defaultDepthStencilAttachmentTexture release];
+        _defaultDepthStencilAttachmentTexture = nil;
+    }
+    if (_defaultMsaaDepthStencilAttachmentTexture) {
+        [_defaultMsaaDepthStencilAttachmentTexture release];
+        _defaultMsaaDepthStencilAttachmentTexture = nil;
+    }
 }
 
-id<MTLTexture> Utils::createDepthStencilAttachmentTexture()
+id<MTLTexture> Utils::createDepthStencilAttachmentTexture(const RenderPassDescriptor& descriptor)
 {
     auto CAMetalLayer = DeviceMTL::getCAMetalLayer();
     MTLTextureDescriptor* textureDescriptor = [[MTLTextureDescriptor alloc] init];
@@ -188,13 +204,33 @@ id<MTLTexture> Utils::createDepthStencilAttachmentTexture()
     textureDescriptor.pixelFormat = getSupportedDepthStencilFormat();
     textureDescriptor.resourceOptions = MTLResourceStorageModePrivate;
     textureDescriptor.usage = MTLTextureUsageRenderTarget;
-    if (DeviceMTL::getSampleCount() > 1) {
-        textureDescriptor.sampleCount = DeviceMTL::getSampleCount();
+    if (descriptor.sampleCount > 1) {
         textureDescriptor.textureType = MTLTextureType2DMultisample;
+        textureDescriptor.sampleCount = descriptor.sampleCount;
     }
     auto ret = [CAMetalLayer.device newTextureWithDescriptor:textureDescriptor];
     [textureDescriptor release];
     
+    return ret;
+}
+
+id<MTLTexture> Utils::createDefaultColorAttachmentTexture(const RenderPassDescriptor& descriptor)
+{
+    auto CAMetalLayer = DeviceMTL::getCAMetalLayer();
+    MTLTextureDescriptor* textureDescriptor = [[MTLTextureDescriptor alloc] init];
+    textureDescriptor.width = CAMetalLayer.drawableSize.width;
+    textureDescriptor.height = CAMetalLayer.drawableSize.height;
+    textureDescriptor.pixelFormat = getDefaultColorAttachmentPixelFormat();
+    textureDescriptor.usage = MTLTextureUsageRenderTarget;
+    if (descriptor.sampleCount > 1) {
+        textureDescriptor.mipmapLevelCount = 1;
+        textureDescriptor.resourceOptions = MTLResourceStorageModePrivate;
+        textureDescriptor.usage |= MTLTextureUsageShaderRead;
+        textureDescriptor.textureType = MTLTextureType2DMultisample;
+        textureDescriptor.sampleCount = descriptor.sampleCount;
+    }
+    auto ret = [CAMetalLayer.device newTextureWithDescriptor:textureDescriptor];
+    [textureDescriptor release];
     return ret;
 }
 

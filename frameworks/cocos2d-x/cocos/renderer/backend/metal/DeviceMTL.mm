@@ -32,6 +32,7 @@
 #include "Utils.h"
 #include "ProgramMTL.h"
 #include "DeviceInfoMTL.h"
+#include "xxhash.h"
 
 #include "base/ccMacros.h"
 
@@ -39,12 +40,6 @@ CC_BACKEND_BEGIN
 
 CAMetalLayer* DeviceMTL::_metalLayer = nil;
 id<CAMetalDrawable> DeviceMTL::_currentDrawable = nil;
-int DeviceMTL::_sampleCount = 1;
-
-void DeviceMTL::setSampleCount(int value)
-{
-    DeviceMTL::_sampleCount = value;
-}
 
 Device* Device::getInstance()
 {
@@ -87,6 +82,7 @@ DeviceMTL::DeviceMTL()
 DeviceMTL::~DeviceMTL()
 {
     ProgramCache::destroyInstance();
+    _depthStencilStateCache.clear();
     delete _deviceInfo;
     _deviceInfo = nullptr;
 }
@@ -122,10 +118,18 @@ ShaderModule* DeviceMTL::newShaderModule(ShaderStage stage, const std::string& s
 
 DepthStencilState* DeviceMTL::createDepthStencilState(const DepthStencilDescriptor& descriptor)
 {
+    unsigned int hash = XXH32((const void*)&descriptor, sizeof(descriptor), 0);
+
+    auto it = _depthStencilStateCache.find(hash);
+    if (it != _depthStencilStateCache.end())
+        return it->second;
+
     auto ret = new (std::nothrow) DepthStencilStateMTL(_mtlDevice, descriptor);
     if (ret)
         ret->autorelease();
-    
+
+    _depthStencilStateCache.insert(hash, ret);
+
     return ret;
 }
 

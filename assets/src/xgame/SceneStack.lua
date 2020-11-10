@@ -68,32 +68,14 @@ function SceneStack:_doCaptureScene(entry)
         return
     end
     if not entry.snapshot then
-        entry.snapshot = runtime.capture(entry.sceneWrapper.cobj, PixelFormat.RGB565)
+        local node = entry.sceneWrapper.cobj
+        entry.snapshot = runtime.capture(node, node.width, node.height, PixelFormat.RGB565)
     end
     return entry.snapshot
 end
 
-function SceneStack:_doCaptureScene(entry, newEntry, callback)
-    if not entry or entry.snapshot or not newEntry.scene.renderOption.snapshot then
-        callback(nil)
-    else
-        local snapshotPath = string.format('%s/scene_snapshot_%d.jpg',
-            filesystem.dir.cache, #self._sceneStack)
-        entry.sceneWrapper.visible = true
-        runtime.captureScreen(function (success, path)
-            entry.sceneWrapper.visible = false
-            if success then
-                local snapshot = Sprite.create(path)
-                snapshot.ignoreAnchorPointForPosition = true
-                callback(snapshot)
-            else
-                callback(nil)
-            end
-        end, snapshotPath)
-    end
-end
-
 function SceneStack:_doStartScene(cls, ...)
+    local snapshot = self:_doCaptureScene(self:_getSceneEntry(-1))
     local entry = self._sceneStack:pushBack({
         scene = false,
         sceneWrapper = false,
@@ -103,13 +85,11 @@ function SceneStack:_doStartScene(cls, ...)
     local scene = cls.new(...)
     entry.scene = scene
     entry.sceneWrapper = self:_createSceneWrapper(scene)
+    if scene.renderOption.snapshot and snapshot then
+        entry.sceneWrapper.cobj:addProtectedChild(snapshot)
+    end
+    self._sceneLayer:addChild(entry.sceneWrapper)
     self:_updateMusic()
-    self:_doCaptureScene(self:_getSceneEntry(-2), entry, function (snapshot)
-        if scene.renderOption.snapshot and snapshot then
-            entry.sceneWrapper.cobj:addProtectedChild(snapshot)
-        end
-        self._sceneLayer:addChild(entry.sceneWrapper)
-    end)
 end
 
 function SceneStack:_doPopScene(onlypop)

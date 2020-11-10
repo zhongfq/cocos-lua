@@ -160,25 +160,25 @@ local window = typeconf 'xgame::window'
 window.FUNC("getVisibleBounds", [[
 {
     auto rect = cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();
-    lua_pushinteger(L, rect.getMinX());
-    lua_pushinteger(L, rect.getMaxX());
-    lua_pushinteger(L, rect.getMaxY());
-    lua_pushinteger(L, rect.getMinY());
+    lua_pushinteger(L, (int)rect.getMinX());
+    lua_pushinteger(L, (int)rect.getMaxX());
+    lua_pushinteger(L, (int)rect.getMaxY());
+    lua_pushinteger(L, (int)rect.getMinY());
     return 4;
 }
 ]])
 window.FUNC('getVisibleSize', [[
 {
     auto rect = cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();
-    lua_pushinteger(L, rect.size.width);
-    lua_pushinteger(L, rect.size.height);
+    lua_pushinteger(L, (int)rect.size.width);
+    lua_pushinteger(L, (int)rect.size.height);
     return 2;
 }]])
 window.FUNC('getFrameSize', [[
 {
     auto size = cocos2d::Director::getInstance()->getOpenGLView()->getFrameSize();
-    lua_pushnumber(L, size.width);
-    lua_pushnumber(L, size.height);
+    lua_pushinteger(L, (int)size.width);
+    lua_pushinteger(L, (int)size.height);
     return 2;
 }
 ]])
@@ -196,8 +196,8 @@ window.FUNC('setFrameSize', [[
 window.FUNC('getDesignSize', [[
 {
     auto size = cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize();
-    lua_pushnumber(L, size.width);
-    lua_pushnumber(L, size.height);
+    lua_pushinteger(L, (int)size.width);
+    lua_pushinteger(L, (int)size.height);
     return 2;
 }]])
 window.FUNC('setDesignSize', [[

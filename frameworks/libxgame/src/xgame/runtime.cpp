@@ -237,7 +237,7 @@ void runtime::luaOpen(lua_CFunction libfunc)
 //
 const std::string runtime::getVersion()
 {
-    return "1.13.4";
+    return "1.14.0";
 }
 
 const std::string runtime::getPackageName()
@@ -302,11 +302,10 @@ const std::string runtime::getNetworkStatus()
     return __runtime_getNetworkStatus();
 }
 
-RenderTexture *runtime::capture(Node *node, backend::PixelFormat format, backend::PixelFormat depthStencilFormat)
+RenderTexture *runtime::capture(Node *node, float width, float height, backend::PixelFormat format, backend::PixelFormat depthStencilFormat)
 {
     auto director = Director::getInstance();
-    auto size = node->getContentSize();
-    auto image = RenderTexture::create(size.width, size.height, format, depthStencilFormat);
+    auto image = RenderTexture::create((int)width, (int)height, format, depthStencilFormat);
     image->getSprite()->setIgnoreAnchorPointForPosition(true);
     image->retain();
     node->retain();
@@ -323,7 +322,7 @@ RenderTexture *runtime::capture(Node *node, backend::PixelFormat format, backend
             anchor = node->getAnchorPoint();
         }
         node->setVisible(true);
-        node->setPosition(Point(size.width * anchor.x, size.height * anchor.y));
+        node->setPosition(Point(width * anchor.x, height * anchor.y));
         image->begin();
         node->visit();
         image->end();

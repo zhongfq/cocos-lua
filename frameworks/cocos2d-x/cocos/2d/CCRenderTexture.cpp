@@ -61,6 +61,9 @@ RenderTexture::~RenderTexture()
     CC_SAFE_RELEASE(_texture2DCopy);
     CC_SAFE_RELEASE(_depthStencilTexture);
     CC_SAFE_RELEASE(_UITextureImage);
+#ifdef CC_USE_METAL
+    CC_SAFE_RELEASE(_textureMsaaTarget);
+#endif
 }
 
 void RenderTexture::listenToBackground(EventCustom* /*event*/)
@@ -110,6 +113,14 @@ void RenderTexture::listenToForeground(EventCustom* /*event*/)
     {
         _texture2DCopy->setAntiAliasTexParameters();
     }
+    
+#ifdef CC_USE_METAL
+    if(_textureMsaaTarget)
+    {
+        _textureMsaaTarget->setAntiAliasTexParameters();
+    }
+#endif
+    
 #endif
 }
 
@@ -190,7 +201,7 @@ bool RenderTexture::initWithWidthAndHeight(int w, int h, backend::PixelFormat fo
         descriptor.textureUsage = TextureUsage::RENDER_TARGET;
         descriptor.textureFormat = PixelFormat::RGBA8888;
         auto texture = backend::Device::getInstance()->newTexture(descriptor);
-        if (! texture)
+        if (!texture)
             break;
 
         _texture2D = new (std::nothrow) Texture2D();
@@ -207,12 +218,32 @@ bool RenderTexture::initWithWidthAndHeight(int w, int h, backend::PixelFormat fo
         }
 
         _renderTargetFlags = RenderTargetFlag::COLOR;
+        
+#ifdef CC_USE_METAL
+        if (GLView::getGLContextAttrs().multisamplingCount > 1) {
+            descriptor.sampleCount = GLView::getGLContextAttrs().multisamplingCount;
+            texture = backend::Device::getInstance()->newTexture(descriptor);
+             if (!texture)
+                 break;
+
+             _textureMsaaTarget = new (std::nothrow) Texture2D;
+             if (!_textureMsaaTarget)
+             {
+                 texture->release();
+                 break;
+             }
+             _textureMsaaTarget->initWithBackendTexture(texture);
+             _textureMsaaTarget->setRenderTarget(true);
+             texture->release();
+        }
+#endif
 
         clearColorAttachment();
 
         if (PixelFormat::D24S8 == depthStencilFormat)
         {
-            _renderTargetFlags = RenderTargetFlag::ALL;
+            _renderTargetFlags |= RenderTargetFlag::DEPTH;
+            _renderTargetFlags |= RenderTargetFlag::STENCIL;
             descriptor.textureFormat = depthStencilFormat;
             texture = backend::Device::getInstance()->newTexture(descriptor);
             if (! texture)
@@ -234,6 +265,13 @@ bool RenderTexture::initWithWidthAndHeight(int w, int h, backend::PixelFormat fo
         {
             _texture2DCopy->setAntiAliasTexParameters();
         }
+        
+#ifdef CC_USE_METAL
+        if (_textureMsaaTarget)
+        {
+            _textureMsaaTarget->setAntiAliasTexParameters();
+        }
+#endif
 
         // retained
         setSprite(Sprite::createWithTexture(_texture2D));
@@ -571,16 +609,27 @@ void RenderTexture::onBegin()
     _oldStencilAttachment = renderer->getStencilAttachment();
     _oldRenderTargetFlag = renderer->getRenderTargetFlag();
 
+#ifdef CC_USE_METAL
+    renderer->setRenderTarget(_renderTargetFlags, _textureMsaaTarget ? _textureMsaaTarget : _texture2D, _depthStencilTexture, _depthStencilTexture);
+#else
     renderer->setRenderTarget(_renderTargetFlags, _texture2D, _depthStencilTexture, _depthStencilTexture);
+#endif
 }
 
 void RenderTexture::onEnd()
 {
     Director *director = Director::getInstance();
+    Renderer *renderer =  Director::getInstance()->getRenderer();
+    
+#ifdef CC_USE_METAL
+    if (_textureMsaaTarget) {
+        renderer->resolveTexture(_texture2D);
+    }
+#endif
+    
     director->loadMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION, _oldProjMatrix);
     director->loadMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW, _oldTransMatrix);
     
-    Renderer *renderer =  Director::getInstance()->getRenderer();
     renderer->setViewPort(_oldViewport.x, _oldViewport.y, _oldViewport.w, _oldViewport.h);
     renderer->setRenderTarget(_oldRenderTargetFlag, _oldColorAttachment, _oldDepthAttachment, _oldStencilAttachment);
 }

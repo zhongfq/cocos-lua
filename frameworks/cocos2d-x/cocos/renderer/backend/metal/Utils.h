@@ -26,6 +26,7 @@
 
 #include "../Macros.h"
 #include "../Types.h"
+#include "../RenderPassDescriptor.h"
 #import <Metal/Metal.h>
 #include <functional>
 
@@ -50,7 +51,6 @@ public:
      */
     static void updateDefaultColorAttachmentTexture(id<MTLTexture> texture);
     static void resizeDefaultAttachmentTexture(std::size_t width, std::size_t height);
-    static id<MTLTexture> getDefaultColorAttachmentTexture();
     
     /**
      * Get the default combined depth and stencil attachment pixel format.
@@ -68,7 +68,13 @@ public:
      * Get the default combined depth and stencil texture.
      * @return The default combined depth and stencil texture.
      */
-    static id<MTLTexture> getDefaultDepthStencilTexture();
+    static id<MTLTexture> getDefaultDepthStencilTexture(const RenderPassDescriptor& descriptor);
+    
+    /**
+     * Get the default color attachment texture.
+     * @return The ddefault color attachment texture.
+     */
+    static id<MTLTexture> getDefaultColorAttachmentTexture(const RenderPassDescriptor& descriptor);
 
     /**
      * Convert backend::PixelFormat to MTLPixelFormat.
@@ -100,13 +106,15 @@ public:
      * @param format Specifies the format of the image.
      */
     static void swizzleImage(unsigned char* image, std::size_t width, std::size_t height, MTLPixelFormat format);
-    
 private:
-    static id<MTLTexture> createDepthStencilAttachmentTexture();
+    static id<MTLTexture> createDepthStencilAttachmentTexture(const RenderPassDescriptor& descriptor);
+    static id<MTLTexture> createDefaultColorAttachmentTexture(const RenderPassDescriptor& descriptor);
 
-    
     static id<MTLTexture> _defaultColorAttachmentTexture;
     static id<MTLTexture> _defaultDepthStencilAttachmentTexture;
+
+    static id<MTLTexture> _defaultMsaaColorAttachmentTexture;
+    static id<MTLTexture> _defaultMsaaDepthStencilAttachmentTexture;
 };
 
 // end of _metal group

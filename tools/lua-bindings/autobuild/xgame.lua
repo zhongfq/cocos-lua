@@ -121,7 +121,7 @@ cls.func(nil, 'static const std::string getLanguage()')
 cls.func(nil, 'static const std::string getManifestVersion()')
 cls.func(nil, 'static void setManifestVersion(const std::string &version)')
 cls.func(nil, 'static const std::string getNetworkStatus()')
-cls.func(nil, 'static cocos2d::RenderTexture *capture(cocos2d::Node *node, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)')
+cls.func(nil, 'static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)')
 cls.func(nil, 'static const xgame::PermissionStatus getPermissionStatus(xgame::Permission permission)')
 cls.func(nil, 'static void setAudioSessionCatalog(const std::string &catalog)')
 cls.func(nil, 'static const std::string getAudioSessionCatalog()')
@@ -316,26 +316,26 @@ cls.CHUNK = nil
 cls.func('getVisibleBounds', [[
     {
         auto rect = cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();
-        lua_pushinteger(L, rect.getMinX());
-        lua_pushinteger(L, rect.getMaxX());
-        lua_pushinteger(L, rect.getMaxY());
-        lua_pushinteger(L, rect.getMinY());
+        lua_pushinteger(L, (int)rect.getMinX());
+        lua_pushinteger(L, (int)rect.getMaxX());
+        lua_pushinteger(L, (int)rect.getMaxY());
+        lua_pushinteger(L, (int)rect.getMinY());
         return 4;
     }
 ]])
 cls.func('getVisibleSize', [[
     {
         auto rect = cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();
-        lua_pushinteger(L, rect.size.width);
-        lua_pushinteger(L, rect.size.height);
+        lua_pushinteger(L, (int)rect.size.width);
+        lua_pushinteger(L, (int)rect.size.height);
         return 2;
     }
 ]])
 cls.func('getFrameSize', [[
     {
         auto size = cocos2d::Director::getInstance()->getOpenGLView()->getFrameSize();
-        lua_pushnumber(L, size.width);
-        lua_pushnumber(L, size.height);
+        lua_pushinteger(L, (int)size.width);
+        lua_pushinteger(L, (int)size.height);
         return 2;
     }
 ]])
@@ -353,8 +353,8 @@ cls.func('setFrameSize', [[
 cls.func('getDesignSize', [[
     {
         auto size = cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize();
-        lua_pushnumber(L, size.width);
-        lua_pushnumber(L, size.height);
+        lua_pushinteger(L, (int)size.width);
+        lua_pushinteger(L, (int)size.height);
         return 2;
     }
 ]])

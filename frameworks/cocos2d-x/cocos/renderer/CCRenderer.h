@@ -407,6 +407,10 @@ public:
 
     /** returns whether or not a rectangle is visible or not */
     bool checkVisibility(const Mat4& transform, const Size& size);
+
+#ifdef CC_USE_METAL
+    void resolveTexture(Texture2D* texture);
+#endif
     
 protected:
     friend class Director;

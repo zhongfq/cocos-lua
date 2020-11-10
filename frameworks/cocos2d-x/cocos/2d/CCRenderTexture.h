@@ -356,6 +356,9 @@ protected:
     Viewport     _oldViewport;
     
     Texture2D* _texture2D = nullptr;
+#ifdef CC_USE_METAL
+    Texture2D* _textureMsaaTarget = nullptr;
+#endif
     Texture2D* _depthStencilTexture = nullptr;
     Texture2D* _texture2DCopy = nullptr;    // a copy of _texture
     Texture2D* _oldColorAttachment = nullptr;

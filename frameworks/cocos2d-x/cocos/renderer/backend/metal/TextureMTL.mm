@@ -25,6 +25,7 @@
 #include "TextureMTL.h"
 #include "Utils.h"
 #include "base/ccMacros.h"
+#include "platform/CCGLView.h"
 
 CC_BACKEND_BEGIN
 
@@ -280,6 +281,13 @@ void TextureMTL::createTexture(id<MTLDevice> mtlDevice, const TextureDescriptor&
         if(PixelFormat::D24S8 == descriptor.textureFormat)
             textureDescriptor.resourceOptions = MTLResourceStorageModePrivate;
         textureDescriptor.usage = MTLTextureUsageRenderTarget | MTLTextureUsageShaderRead;
+        
+        if (descriptor.sampleCount > 1) {
+            textureDescriptor.resourceOptions = MTLResourceStorageModePrivate;
+            textureDescriptor.textureType = MTLTextureType2DMultisample;
+            textureDescriptor.sampleCount = descriptor.sampleCount;
+            textureDescriptor.mipmapLevelCount = 1;
+        }
     }
     
     if(_mtlTexture)

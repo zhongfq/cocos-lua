@@ -106,7 +106,7 @@ pool_alloc(struct pool *p, size_t sz) {
 	} else {
 		void * ret = pool_newchunk(p, CHUNK_SIZE);
 		p->current = p->header;
-		p->current_used = sz;
+		p->current_used = (int)sz;
 		return ret;
 	}
 }
@@ -906,7 +906,7 @@ encode_array(sproto_callback cb, struct sproto_arg *args, uint8_t *data, int siz
 		}
 		break;
 	}
-	sz = buffer - (data + SIZEOF_LENGTH);
+	sz = (int)(buffer - (data + SIZEOF_LENGTH));
 	return fill_size(data, sz);
 }
 
@@ -1010,7 +1010,7 @@ sproto_encode(const struct sproto_type *st, void * buffer, int size, sproto_call
 	header[0] = index & 0xff;
 	header[1] = (index >> 8) & 0xff;
 
-	datasz = data - (header + header_sz);
+	datasz = (int)(data - (header + header_sz));
 	data = header + header_sz;
 	if (index != st->maxn) {
 		memmove(header + SIZEOF_HEADER + index * SIZEOF_FIELD, data, datasz);
@@ -1326,7 +1326,7 @@ sproto_pack(const void * srcv, int srcsz, void * bufferv, int bufsz) {
 		if(ff_n == 1)
 			write_ff(ff_srcstart, ff_desstart, 8);
 		else if (ff_n > 1)
-			write_ff(ff_srcstart, ff_desstart, srcsz - (intptr_t)(ff_srcstart - (const uint8_t*)srcv));
+			write_ff(ff_srcstart, ff_desstart, (int)(srcsz - (intptr_t)(ff_srcstart - (const uint8_t*)srcv)));
 	}
 	return size;
 }

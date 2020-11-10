@@ -55,14 +55,14 @@ static void fixonecall (lua_State *L, int postable, TTree *g, TTree *t) {
   int n;
   lua_rawgeti(L, -1, t->key);  /* get rule's name */
   lua_gettable(L, postable);  /* query name in position table */
-  n = lua_tonumber(L, -1);  /* get (absolute) position */
+  n = (int)lua_tonumber(L, -1);  /* get (absolute) position */
   lua_pop(L, 1);  /* remove position */
   if (n == 0) {  /* no position? */
     lua_rawgeti(L, -1, t->key);  /* get rule's name again */
     luaL_error(L, "rule '%s' undefined in given grammar", val2str(L, -1));
   }
   t->tag = TCall;
-  t->u.ps = n - (t - g);  /* position relative to node */
+  t->u.ps = n - (int)(t - g);  /* position relative to node */
   assert(sib2(t)->tag == TRule);
   sib2(t)->key = t->key;  /* fix rule's key */
 }
@@ -162,7 +162,7 @@ static int addtoktable (lua_State *L, int idx) {
   else {
     int n;
     lua_getuservalue(L, -1);  /* get ktable from pattern */
-    n = lua_rawlen(L, -1);
+    n = (int)lua_rawlen(L, -1);
     if (n >= USHRT_MAX)
       luaL_error(L, "too many Lua values in pattern");
     lua_pushvalue(L, idx);  /* element to be added */
@@ -181,7 +181,7 @@ static int addtoktable (lua_State *L, int idx) {
 */
 static int ktablelen (lua_State *L, int idx) {
   if (!lua_istable(L, idx)) return 0;
-  else return lua_rawlen(L, idx);
+  else return (int)lua_rawlen(L, idx);
 }
 
 
@@ -338,7 +338,7 @@ static Pattern *getpattern (lua_State *L, int idx) {
 
 
 static int getsize (lua_State *L, int idx) {
-  return (lua_rawlen(L, idx) - sizeof(Pattern)) / sizeof(TTree) + 1;
+  return (int)((lua_rawlen(L, idx) - sizeof(Pattern)) / sizeof(TTree) + 1);
 }
 
 
@@ -447,13 +447,13 @@ static TTree *getpatt (lua_State *L, int idx, int *len) {
       if (slen == 0)  /* empty? */
         tree = newleaf(L, TTrue);  /* always match */
       else {
-        tree = newtree(L, 2 * (slen - 1) + 1);
-        fillseq(tree, TChar, slen, s);  /* sequence of 'slen' chars */
+        tree = newtree(L, (int)(2 * (slen - 1) + 1));
+        fillseq(tree, TChar, (int)slen, s);  /* sequence of 'slen' chars */
       }
       break;
     }
     case LUA_TNUMBER: {
-      int n = lua_tointeger(L, idx);
+      int n = (int)lua_tointeger(L, idx);
       tree = numtree(L, n);
       break;
     }
@@ -756,7 +756,7 @@ static int lp_divcapture (lua_State *L) {
     case LUA_TTABLE: return capture_aux(L, Cquery, 2);
     case LUA_TSTRING: return capture_aux(L, Cstring, 2);
     case LUA_TNUMBER: {
-      int n = lua_tointeger(L, 2);
+      int n = (int)lua_tointeger(L, 2);
       TTree *tree = newroot1sib(L, TCapture);
       luaL_argcheck(L, 0 <= n && n <= SHRT_MAX, 1, "invalid number");
       tree->cap = Cnum;

@@ -51,7 +51,7 @@ const spine::String &spine::EventData::getName() const {
 	return _name;
 }
 
-int spine::EventData::getIntValue() const {
+int spine::EventData::getIntValue() {
 	return _intValue;
 }
 
@@ -59,7 +59,7 @@ void spine::EventData::setIntValue(int inValue) {
 	_intValue = inValue;
 }
 
-float spine::EventData::getFloatValue() const {
+float spine::EventData::getFloatValue() {
 	return _floatValue;
 }
 
@@ -67,7 +67,7 @@ void spine::EventData::setFloatValue(float inValue) {
 	_floatValue = inValue;
 }
 
-const spine::String &spine::EventData::getStringValue() const {
+const spine::String &spine::EventData::getStringValue() {
 	return _stringValue;
 }
 
@@ -75,7 +75,7 @@ void spine::EventData::setStringValue(const spine::String &inValue) {
 	this->_stringValue = inValue;
 }
 
-const spine::String &spine::EventData::getAudioPath() const {
+const spine::String &spine::EventData::getAudioPath() {
 	return _audioPath;
 }
 
@@ -84,7 +84,7 @@ void spine::EventData::setAudioPath(const spine::String &inValue) {
 }
 
 
-float spine::EventData::getVolume() const {
+float spine::EventData::getVolume() {
 	return _volume;
 }
 
@@ -92,7 +92,7 @@ void spine::EventData::setVolume(float inValue) {
 	_volume = inValue;
 }
 
-float spine::EventData::getBalance() const {
+float spine::EventData::getBalance() {
 	return _balance;
 }
 

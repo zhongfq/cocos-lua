@@ -123,6 +123,30 @@ template <typename T> int _cocos2d_backend_ProgramState_setUniform(lua_State *L)
     self->setUniform(location, &value, sizeof(T));
     return 0;
 }
+
+template <typename T> int _cocos2d_backend_ProgramState_setUniformv(lua_State *L)
+{
+    cocos2d::backend::UniformLocation location;
+    auto self = olua_toobj<cocos2d::backend::ProgramState>(L, 1);
+    if (olua_isstring(L, 2)) {
+        location = self->getUniformLocation(olua_checkstring(L, 2));
+    } else {
+        manual_olua_check_cocos2d_backend_UniformLocation(L, 2, &location);
+    }
+    luaL_checktype(L, 3, LUA_TTABLE);
+    int len = (int)lua_rawlen(L, 3);
+    T *value = new T[len]();
+    for (int i = 0; i < len; i++) {
+        lua_rawgeti(L, 3, i + 1);
+        T v;
+        olua_check_value(L, -1, &v);
+        lua_pop(L, 1);
+        value[i] = v;
+    }
+    self->setUniform(location, value, sizeof(T) * len);
+    delete []value;
+    return 0;
+}
 ]]
 ProgramState.EXCLUDE_FUNC 'setCallbackUniform'
 ProgramState.EXCLUDE_FUNC 'getCallbackUniforms'
@@ -163,6 +187,37 @@ ProgramState.FUNC('setUniformInt', [[
 ProgramState.FUNC('setUniformFloat', [[
 {
     _cocos2d_backend_ProgramState_setUniform<float>(L);
+    return 0;
+}]])
+
+ProgramState.FUNC('setUniformVec2v', [[
+{
+    _cocos2d_backend_ProgramState_setUniformv<cocos2d::Vec2>(L);
+    return 0;
+}]])
+ProgramState.FUNC('setUniformVec3v', [[
+{
+    _cocos2d_backend_ProgramState_setUniformv<cocos2d::Vec3>(L);
+    return 0;
+}]])
+ProgramState.FUNC('setUniformVec4v', [[
+{
+    _cocos2d_backend_ProgramState_setUniformv<cocos2d::Vec4>(L);
+    return 0;
+}]])
+ProgramState.FUNC('setUniformMat4v', [[
+{
+    _cocos2d_backend_ProgramState_setUniformv<cocos2d::Mat4>(L);
+    return 0;
+}]])
+ProgramState.FUNC('setUniformIntv', [[
+{
+    _cocos2d_backend_ProgramState_setUniformv<int>(L);
+    return 0;
+}]])
+ProgramState.FUNC('setUniformFloatv', [[
+{
+    _cocos2d_backend_ProgramState_setUniformv<float>(L);
     return 0;
 }]])
 

@@ -1070,7 +1070,7 @@ static void verifygrammar (lua_State *L, TTree *grammar) {
 */
 static void initialrulename (lua_State *L, TTree *grammar, int frule) {
   if (sib1(grammar)->key == 0) {  /* initial rule is not referenced? */
-    int n = lua_rawlen(L, -1) + 1;  /* index for name */
+    int n = (int)lua_rawlen(L, -1) + 1;  /* index for name */
     lua_pushvalue(L, frule);  /* rule's name */
     lua_rawseti(L, -2, n);  /* ktable was on the top of the stack */
     sib1(grammar)->key = n;

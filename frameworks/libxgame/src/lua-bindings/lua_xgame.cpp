@@ -311,19 +311,19 @@ static int _xgame_runtime_capture1(lua_State *L)
     olua_startinvoke(L);
 
     cocos2d::Node *arg1 = nullptr;       /** node */
-    lua_Integer arg2 = 0;       /** width */
-    lua_Integer arg3 = 0;       /** height */
+    lua_Number arg2 = 0;       /** width */
+    lua_Number arg3 = 0;       /** height */
     lua_Unsigned arg4 = 0;       /** format */
     lua_Unsigned arg5 = 0;       /** depthStencilFormat */
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
-    olua_check_int(L, 2, &arg2);
-    olua_check_int(L, 3, &arg3);
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
     olua_check_uint(L, 4, &arg4);
     olua_check_uint(L, 5, &arg5);
 
-    // static cocos2d::RenderTexture *capture(cocos2d::Node *node, int width, int height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
-    cocos2d::RenderTexture *ret = (cocos2d::RenderTexture *)xgame::runtime::capture(arg1, (int)arg2, (int)arg3, (cocos2d::backend::PixelFormat)arg4, (cocos2d::backend::PixelFormat)arg5);
+    // static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
+    cocos2d::RenderTexture *ret = (cocos2d::RenderTexture *)xgame::runtime::capture(arg1, (float)arg2, (float)arg3, (cocos2d::backend::PixelFormat)arg4, (cocos2d::backend::PixelFormat)arg5);
     int num_ret = olua_push_cppobj(L, ret, "cc.RenderTexture");
 
     olua_endinvoke(L);
@@ -336,15 +336,15 @@ static int _xgame_runtime_capture2(lua_State *L)
     olua_startinvoke(L);
 
     cocos2d::Node *arg1 = nullptr;       /** node */
-    lua_Integer arg2 = 0;       /** width */
-    lua_Integer arg3 = 0;       /** height */
+    lua_Number arg2 = 0;       /** width */
+    lua_Number arg3 = 0;       /** height */
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
-    olua_check_int(L, 2, &arg2);
-    olua_check_int(L, 3, &arg3);
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
 
-    // static cocos2d::RenderTexture *capture(cocos2d::Node *node, int width, int height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
-    cocos2d::RenderTexture *ret = (cocos2d::RenderTexture *)xgame::runtime::capture(arg1, (int)arg2, (int)arg3);
+    // static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
+    cocos2d::RenderTexture *ret = (cocos2d::RenderTexture *)xgame::runtime::capture(arg1, (float)arg2, (float)arg3);
     int num_ret = olua_push_cppobj(L, ret, "cc.RenderTexture");
 
     olua_endinvoke(L);
@@ -357,17 +357,17 @@ static int _xgame_runtime_capture3(lua_State *L)
     olua_startinvoke(L);
 
     cocos2d::Node *arg1 = nullptr;       /** node */
-    lua_Integer arg2 = 0;       /** width */
-    lua_Integer arg3 = 0;       /** height */
+    lua_Number arg2 = 0;       /** width */
+    lua_Number arg3 = 0;       /** height */
     lua_Unsigned arg4 = 0;       /** format */
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
-    olua_check_int(L, 2, &arg2);
-    olua_check_int(L, 3, &arg3);
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
     olua_check_uint(L, 4, &arg4);
 
-    // static cocos2d::RenderTexture *capture(cocos2d::Node *node, int width, int height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
-    cocos2d::RenderTexture *ret = (cocos2d::RenderTexture *)xgame::runtime::capture(arg1, (int)arg2, (int)arg3, (cocos2d::backend::PixelFormat)arg4);
+    // static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
+    cocos2d::RenderTexture *ret = (cocos2d::RenderTexture *)xgame::runtime::capture(arg1, (float)arg2, (float)arg3, (cocos2d::backend::PixelFormat)arg4);
     int num_ret = olua_push_cppobj(L, ret, "cc.RenderTexture");
 
     olua_endinvoke(L);
@@ -380,22 +380,22 @@ static int _xgame_runtime_capture(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 3) {
-        // if ((olua_is_cppobj(L, 1, "cc.Node")) && (olua_is_int(L, 2)) && (olua_is_int(L, 3))) {
-            // static cocos2d::RenderTexture *capture(cocos2d::Node *node, int width, int height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
+        // if ((olua_is_cppobj(L, 1, "cc.Node")) && (olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
+            // static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
             return _xgame_runtime_capture2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if ((olua_is_cppobj(L, 1, "cc.Node")) && (olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_uint(L, 4))) {
-            // static cocos2d::RenderTexture *capture(cocos2d::Node *node, int width, int height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
+        // if ((olua_is_cppobj(L, 1, "cc.Node")) && (olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_uint(L, 4))) {
+            // static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
             return _xgame_runtime_capture3(L);
         // }
     }
 
     if (num_args == 5) {
-        // if ((olua_is_cppobj(L, 1, "cc.Node")) && (olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
-            // static cocos2d::RenderTexture *capture(cocos2d::Node *node, int width, int height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
+        // if ((olua_is_cppobj(L, 1, "cc.Node")) && (olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
+            // static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
             return _xgame_runtime_capture1(L);
         // }
     }

@@ -100,7 +100,7 @@ function M.RepeatForever(...)
 end
 
 function M.FadeTo(duration, alpha)
-    return FadeTo.create(duration, alpha * 255)
+    return FadeTo.create(duration, alpha * 255 // 1)
 end
 
 function M.FadeIn(...)

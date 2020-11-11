@@ -37,9 +37,6 @@ function xGame:setMaxIdleDuration(duration)
     self._maxIdleDuration = duration
 end
 
-function xGame:capture(node)
-end
-
 function xGame:gc()
     runtime.gc()
 end

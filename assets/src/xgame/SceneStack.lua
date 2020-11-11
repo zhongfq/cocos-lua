@@ -2,11 +2,9 @@ local class         = require "xgame.class"
 local util          = require "xgame.util"
 local runtime       = require "xgame.runtime"
 local audio         = require "xgame.audio"
-local filesystem    = require "xgame.filesystem"
 local Array         = require "xgame.Array"
 local Event         = require "xgame.event.Event"
 local UILayer       = require "xgame.ui.UILayer"
-local Sprite        = require "cc.Sprite"
 local PixelFormat   = require "ccb.PixelFormat"
 
 local trace = util.trace("[SceneStack]")
@@ -33,8 +31,8 @@ end
 function SceneStack:startScene(cls, ...)
     local entry = self:_getSceneEntry(-1)
     if entry then
-        entry.sceneWrapper.visible = false
-        entry.sceneWrapper.cobj:onExit()
+        entry.scene.visible = false
+        entry.scene.cobj:onExit()
     end
     self:_doStartScene(cls, ...)
 end
@@ -68,7 +66,7 @@ function SceneStack:_doCaptureScene(entry)
         return
     end
     if not entry.snapshot then
-        local node = entry.sceneWrapper.cobj
+        local node = entry.scene.cobj
         entry.snapshot = runtime.capture(node, node.width, node.height, PixelFormat.RGB565)
     end
     return entry.snapshot
@@ -78,17 +76,15 @@ function SceneStack:_doStartScene(cls, ...)
     local snapshot = self:_doCaptureScene(self:_getSceneEntry(-1))
     local entry = self._sceneStack:pushBack({
         scene = false,
-        sceneWrapper = false,
         snapshot = false,
     })
     trace("create scene: %s", cls.classname)
     local scene = cls.new(...)
     entry.scene = scene
-    entry.sceneWrapper = self:_createSceneWrapper(scene)
     if scene.renderOption.snapshot and snapshot then
-        entry.sceneWrapper.cobj:addProtectedChild(snapshot)
+        entry.scene.cobj:addProtectedChild(snapshot)
     end
-    self._sceneLayer:addChild(entry.sceneWrapper)
+    self._sceneLayer:addChild(entry.scene)
     self:_updateMusic()
 end
 
@@ -99,24 +95,15 @@ function SceneStack:_doPopScene(onlypop)
     if entry then
         trace("destory scene: %s", entry.scene.classname)
         self._sceneStack[numScenes] = nil
-        self._sceneLayer:removeChild(entry.sceneWrapper)
+        self._sceneLayer:removeChild(entry.scene)
     end
 
     if not onlypop and numScenes > 1 then
         entry = self._sceneStack[numScenes - 1]
-        entry.scene.visible = true
         entry.snapshot = false
-        entry.sceneWrapper.visible = true
-        entry.sceneWrapper.cobj:onEnter()
+        entry.scene.visible = true
+        entry.scene.cobj:onEnter()
     end
-end
-
-function SceneStack:_createSceneWrapper(scene)
-    local wrapper = UILayer.new()
-    wrapper.percentWidth = 100
-    wrapper.percentHeight = 100
-    wrapper:addChild(scene)
-    return wrapper
 end
 
 function SceneStack:_getSceneEntry(index)

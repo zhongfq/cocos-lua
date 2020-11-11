@@ -218,7 +218,7 @@ function M:_checkVersion()
         end
 
         if self:_cmpVersion(runtime.version, data.runtime) < 0 then
-            print(string.format("runtime require '%s', got '%s'", data.runtime, runtime.vers))
+            print(string.format("runtime require '%s', got '%s'", data.runtime, runtime.version))
             self:_didAppUpdate()
             return
         end

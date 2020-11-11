@@ -13,40 +13,56 @@ local director = Director.instance
 local GaussBlur = class('GaussBlur', UILayer)
 
 function GaussBlur:ctor(node)
-    self.renderNode = node
-    self.renderNodeVisible = node.visible
-    self.renderWidth = node.width
-    self.renderHeight = node.height
-    self.renderTexture = RenderTexture.create(self.renderWidth, self.renderHeight,
-        PixelFormat.RGB565, PixelFormat.D24S8)
-    self.renderTexture.sprite.ignoreAnchorPointForPosition = true
-    self.renderTexture.sprite.anchorX = 0
-    self.renderTexture.sprite.anchorY = 0
-    self.renderTexture.sprite.programState = self:createBlurShader(0, 1)
-    self.renderImage = Sprite.createWithTexture(self.renderTexture.sprite.texture)
-    self.renderImage.ignoreAnchorPointForPosition = true
-    self.renderImage.flippedY = true
-    self.renderImage.programState = self:createBlurShader(1, 0)
-    self.renderListener = EventListenerCustom.create(Director.EVENT_BEFORE_DRAW, function ()
-        director.eventDispatcher:removeEventListener(self.renderListener, 1)
-        director.nextDeltaTimeZero = true
-        self.renderNode.visible = true
-        self.renderTexture:beginVisit()
-        self.renderNode.cobj:visit()
-        self.renderTexture:endVisit()
-        self.renderNode.visible = self.renderNodeVisible
+    local width = node.width
+    local height = node.height
+    local visible = node.visible
+    local renderListener
+    local renderTexture = self:createRenderTexture(width, height)
 
-        self.renderTexture:beginVisit()
-        self.renderImage:visit()
-        self.renderTexture:endVisit()
+    renderListener = EventListenerCustom.create(Director.EVENT_BEFORE_DRAW, function ()
+        director.eventDispatcher:removeEventListener(renderListener, 1)
+        director.nextDeltaTimeZero = true
+
+        node.visible = true
+        renderTexture:beginVisit()
+        node.cobj:visit()
+        renderTexture:endVisit()
+        node.visible = visible
+        
+        local snapshot = self:createRenderTexture(width, height)
+        local blurX = self:createBlurSprite(renderTexture.sprite.texture, 1, 0, width, height)
+        snapshot:beginVisit()
+        blurX:visit()
+        snapshot:endVisit()
+
+        local blurY = self:createBlurSprite(snapshot.sprite.texture, 0, 1, width, height)
+        renderTexture:beginVisit()
+        blurY:visit()
+        renderTexture:endVisit()
     end)
-    self.cobj:addChild(self.renderTexture)
-    director.eventDispatcher:addEventListenerWithFixedPriority(self.renderListener, 1)
+    self.cobj:addChild(renderTexture)
+    director.eventDispatcher:addEventListenerWithFixedPriority(renderListener, 1)
 end
 
-function GaussBlur:createBlurShader(x, y)
+function GaussBlur:createBlurSprite(texture, x, y, width, height)
+    local sprite = Sprite.createWithTexture(texture)
+    sprite.ignoreAnchorPointForPosition = true
+    sprite.flippedY = true
+    sprite.programState = self:createBlurShader(x, y, width, height)
+    return sprite
+end
+
+function GaussBlur:createRenderTexture(width, height)
+    local node = RenderTexture.create(width, height, PixelFormat.RGB565, PixelFormat.D24S8)
+    node.sprite.ignoreAnchorPointForPosition = true
+    node.sprite.anchorX = 0
+    node.sprite.anchorY = 0
+    return node
+end
+
+function GaussBlur:createBlurShader(x, y, width, height)
     local state = ProgramState.new(shader.gaussBlur)
-    state:setUniformVec2('resolution', {x = self.renderWidth, y = self.renderHeight})
+    state:setUniformVec2('resolution', {x = width, y = height})
     state:setUniformVec2('direction', {x = x, y = y})
     state:setUniformFloat('radius', 3)
     return state

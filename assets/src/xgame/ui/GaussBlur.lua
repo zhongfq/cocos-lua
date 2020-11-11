@@ -16,6 +16,10 @@ function GaussBlur:ctor(node)
     local width = node.width
     local height = node.height
     local visible = node.visible
+    local x = node.x
+    local y = node.y
+    local scaleX = node.scaleX
+    local scaleY = node.scaleY
     local renderListener
     local renderTexture = self:createRenderTexture(width, height)
 
@@ -24,10 +28,18 @@ function GaussBlur:ctor(node)
         director.nextDeltaTimeZero = true
 
         node.visible = true
+        node.x = 0
+        node.y = 0
+        node.scaleX = 1
+        node.scaleY = 1
         renderTexture:beginVisit()
         node.cobj:visit()
         renderTexture:endVisit()
         node.visible = visible
+        node.x = x
+        node.y = y
+        node.scaleX = scaleX
+        node.scaleY = scaleY
         
         local snapshot = self:createRenderTexture(width, height)
         local blurX = self:createBlurSprite(renderTexture.sprite.texture, 1, 0, width, height)

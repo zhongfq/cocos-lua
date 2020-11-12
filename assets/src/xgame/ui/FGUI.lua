@@ -1,8 +1,7 @@
 local class             = require "xgame.class"
 local loader            = require "xgame.loader"
 local window            = require "xgame.window"
-local Event             = require "xgame.event.Event"
-local LoadTask          = require "xgame.LoadTask"
+local filesystem        = require "xgame.filesystem"
 local UILayer           = require "xgame.ui.UILayer"
 local FGUINode          = require "xgame.ui.FGUINode"
 local UIPackage         = require "fgui.UIPackage"
@@ -18,7 +17,7 @@ function FGUI:ctor()
 end
 
 function FGUI:loadAssets(path)
-    self._assetObject = loader.load(path)
+    self.assetRef = loader.load(path)
 end
 
 function FGUI:createUI(pkg, name)
@@ -36,14 +35,12 @@ function GButton:playSound()
 end
 
 function GLoader:load(url)
-    local loader = LoadTask.new(url)
     self._loadingURL = url
-    loader:addListener(Event.COMPLETE, function ()
-        if url == self._loadingURL then
-            self.url = loader.path
+    self.assetRef = loader.load(url, function (success)
+        if self._loadingURL == url and success then
+            self.url = filesystem.localCachePath(url)
         end
     end)
-    loader:start()
 end
 
 function UIEventDispatcher:onClick(callback)

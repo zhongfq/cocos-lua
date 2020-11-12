@@ -48,7 +48,7 @@ end
 function UIImage:_doLoad(url, callback)
     if url and #url > 0 then
         self._url = url
-        self._assetObject = loader.load(url, function (success)
+        self.assetRef = loader.load(url, function (success)
             if self._url == url and success then
                 callback()
             end

@@ -16,36 +16,47 @@ local spriteFrameCache = require("cc.SpriteFrameCache").instance
 local trace = util.trace('[loader]')
 local cache = setmetatable({}, {__mode = 'v'})
 
-local AssetObject = class('AssetObject', Dispatcher)
+local AssetLoader = class('AssetLoader', Dispatcher)
 
-function AssetObject:ctor(path)
+function AssetLoader:ctor(path)
     self.path = path
     self.status = 'unknown'
     self.type = string.lower(string.match(path, '%.%w+$'))
     self.loader = M.loaders[self.type] or M.loader['*']
 end
 
-function AssetObject:startLoad()
+function AssetLoader:startLoad()
     local task = LoadTask.new(self.path)
     self.status = 'loading'
     task:addListener(Event.COMPLETE, function ()
-        self.status = 'loadOk'
-        self.loader.load(self)
+        if self.status == 'loading' then
+            self.status = 'loadOk'
+            self.loader.load(self)
+        end
         self:dispatch(EVENT_RESULT)
     end)
     task:addListener(Event.IOERROR, function ()
-        self.status = 'loadNo'
+        if self.status == 'loading' then
+            self.status = 'loadNo'
+        end
         self:dispatch(EVENT_RESULT)
     end)
     task:start()
 end
 
-function AssetObject:reload()
+function AssetLoader:reload()
     self.loader.reload(self)
 end
 
-function AssetObject:__gc()
-    self.loader.unload(self)
+function AssetLoader:unload()
+    if self.status ~= 'unload' then
+        self.status = 'unload'
+        self.loader.unload(self)
+    end
+end
+
+function AssetLoader:__gc()
+    self:unload()
 end
 
 function M.register(suffix)
@@ -60,33 +71,41 @@ function M.register(suffix)
     return loader
 end
 
-function M.reload(url)
-    local asset = cache[url]
-    if asset then
-        asset:reload()
-    end
-end
-
 function M.load(url, callback)
-    local asset = cache[url]
-    if not asset then
-        asset = AssetObject.new(url)
-        cache[url] = asset
+    local assetRef = cache[url]
+    if not assetRef then
+        assetRef = AssetLoader.new(url)
+        cache[url] = assetRef
     end
-    if asset.status == 'loading' or asset.status == 'unknown' then
-        asset:addListener(EVENT_RESULT, function ()
-            asset:removeListener(EVENT_RESULT, util.callee())
+    if assetRef.status == 'loading' or assetRef.status == 'unknown' then
+        assetRef:addListener(EVENT_RESULT, function ()
+            assetRef:removeListener(EVENT_RESULT, util.callee())
             if callback then
-                callback(asset.status == 'loadOk')
+                callback(assetRef.status == 'loadOk')
             end
         end)
     elseif callback then
-        callback(asset.status == 'loadOk')
+        callback(assetRef.status == 'loadOk')
     end
-    if asset.status == 'unknown' then
-        asset:startLoad()
+    if assetRef.status == 'unknown' then
+        assetRef:startLoad()
     end
-    return asset
+    return assetRef
+end
+
+function M.unload(url)
+    local assetRef = cache[url]
+    if assetRef then
+        assetRef:unload()
+        cache[url] = nil
+    end
+end
+
+function M.reload(url)
+    local assetRef = cache[url]
+    if assetRef then
+        assetRef:reload()
+    end
 end
 
 local function shortPath(path)

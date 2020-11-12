@@ -237,7 +237,7 @@ void runtime::luaOpen(lua_CFunction libfunc)
 //
 const std::string runtime::getVersion()
 {
-    return "1.15.0";
+    return "1.15.1";
 }
 
 const std::string runtime::getPackageName()

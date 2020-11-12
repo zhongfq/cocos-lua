@@ -260,6 +260,7 @@ cls.prop('console', nil, nil)
 cls.prop('deltaTime', nil, nil)
 cls.prop('frameRate', nil, nil)
 cls.prop('valid', nil, nil)
+cls.alias('end', 'exit')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Scheduler'
@@ -375,7 +376,7 @@ cls.CHUNK = [[
 ]]
 cls.func(nil, 'void addEventListenerWithSceneGraphPriority(@addref(listeners | 3) cocos2d::EventListener *listener, cocos2d::Node *node)')
 cls.func(nil, 'void addEventListenerWithFixedPriority(@addref(listeners |) cocos2d::EventListener *listener, int fixedPriority)')
-cls.func(nil, '@delref(listeners ~) void removeEventListener(cocos2d::EventListener *listener)')
+cls.func(nil, '@delref(listeners ~) void removeEventListener(@delref(listeners |) cocos2d::EventListener *listener)')
 cls.func(nil, '@delref(listeners ~) void removeEventListenersForType(cocos2d::EventListener::Type listenerType)')
 cls.func(nil, 'void removeEventListenersForTarget(cocos2d::Node *target, @optional bool recursive)')
 cls.func(nil, '@delref(listeners ~) void removeCustomEventListeners(const std::string &customEventName)')

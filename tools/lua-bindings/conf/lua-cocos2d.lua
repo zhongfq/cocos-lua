@@ -58,6 +58,7 @@ typeconf 'cocos2d::Acceleration'
 
 local Director = typeconf 'cocos2d::Director'
 Director.EXCLUDE_FUNC 'getCocos2dThreadId'
+Director.ALIAS('end', 'exit')
 Director.ATTR('getRunningScene', {RET = '@addref(scenes |)'})
 Director.ATTR('runWithScene', {ARG1 = '@addref(scenes |)'})
 Director.ATTR('pushScene', {ARG1 = '@addref(scenes |)'})
@@ -143,7 +144,7 @@ EventDispatcher.ATTR('addEventListenerWithSceneGraphPriority', {ARG1 = '@addref(
 EventDispatcher.ATTR('addEventListenerWithFixedPriority', {ARG1 = '@addref(listeners |)'})
 EventDispatcher.ATTR('addCustomEventListener', {RET = '@addref(listeners |)'})
 EventDispatcher.ATTR('removeCustomEventListeners', {RET = '@delref(listeners ~)'})
-EventDispatcher.ATTR('removeEventListener', {RET = '@delref(listeners ~)'})
+EventDispatcher.ATTR('removeEventListener', {RET = '@delref(listeners ~)', ARG1 = '@delref(listeners |)'})
 EventDispatcher.ATTR('removeEventListenersForType', {RET = '@delref(listeners ~)'})
 EventDispatcher.ATTR('removeAllEventListeners', {RET = '@delref(listeners ~)'})
 EventDispatcher.CALLBACK {

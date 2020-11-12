@@ -2779,6 +2779,7 @@ static int luaopen_cocos2d_Director(lua_State *L)
     oluacls_func(L, "convertToUI", _cocos2d_Director_convertToUI);
     oluacls_func(L, "drawScene", _cocos2d_Director_drawScene);
     oluacls_func(L, "end", _cocos2d_Director_end);
+    oluacls_func(L, "exit", _cocos2d_Director_end);
     oluacls_func(L, "getActionManager", _cocos2d_Director_getActionManager);
     oluacls_func(L, "getAnimationInterval", _cocos2d_Director_getAnimationInterval);
     oluacls_func(L, "getConsole", _cocos2d_Director_getConsole);
@@ -3766,10 +3767,11 @@ static int _cocos2d_EventDispatcher_removeEventListener(lua_State *L)
     // insert code before call
     olua_startcmpdelref(L, 1, "listeners");
 
-    // @delref(listeners ~) void removeEventListener(cocos2d::EventListener *listener)
+    // @delref(listeners ~) void removeEventListener(@delref(listeners |) cocos2d::EventListener *listener)
     self->removeEventListener(arg1);
 
     // insert code after call
+    olua_delref(L, 1, "listeners", 2, OLUA_MODE_MULTIPLE);
     olua_endcmpdelref(L, 1, "listeners");
 
     olua_endinvoke(L);

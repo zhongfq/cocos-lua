@@ -8,12 +8,8 @@ local Dispatcher    = require "xgame.event.Dispatcher"
 local UIPackage     = require "fgui.UIPackage"
 
 local EVENT_RESULT = "result"
-local TYPE_FGUI = '.fui'
-local TYPE_JPEG = '.jpg'
-local TYPE_PNG = '.png'
-local TYPE_PLIST = '.plist'
 
-local M = {}
+local M = {loaders = {}}
 
 local textureCache = require("cc.Director").instance.textureCache
 local spriteFrameCache = require("cc.SpriteFrameCache").instance
@@ -26,6 +22,7 @@ function AssetObject:ctor(path)
     self.path = path
     self.status = 'unknown'
     self.type = string.lower(string.match(path, '%.%w+$'))
+    self.loader = M.loaders[self.type] or M.loader['*']
 end
 
 function AssetObject:startLoad()
@@ -33,103 +30,34 @@ function AssetObject:startLoad()
     self.status = 'loading'
     task:addListener(Event.COMPLETE, function ()
         self.status = 'loadOk'
-        self:didLoad()
+        self.loader.load(self)
+        self:dispatch(EVENT_RESULT)
     end)
     task:addListener(Event.IOERROR, function ()
         self.status = 'loadNo'
-        self:didLoad()
+        self:dispatch(EVENT_RESULT)
     end)
     task:start()
 end
 
-function AssetObject:loadFGUI()
-    local rawpath = string.gsub(self.path, '.fui$', '')
-    local pkg = UIPackage.addPackage(rawpath)
-    if not pkg then
-        error("can't load '" .. self.path .. "'")
-    end
-    trace('load fgui: %s', self.path)
-end
-
-function AssetObject:unloadFGUI()
-    local rawpath = string.gsub(self.path, '.fui$', '')
-    UIPackage.removePackage(rawpath)
-    trace('unload fgui: %s', self.path)
-end
-
-function AssetObject:loadImage()
-end
-
-function AssetObject:reloadImage()
-    local path = filesystem.localCachePath(self.path)
-    if textureCache:getTextureForKey(path) then
-        textureCache:reloadTexture(path)
-        trace('reload image: %s', self.path)
-    end
-end
-
-function AssetObject:unloadImage()
-    local path = filesystem.localCachePath(self.path)
-    textureCache:removeTextureForKey(path)
-    trace('unload image: %s', self.path)
-end
-
-local function shortPath(path)
-    return filesystem.shortPath(path, 60)
-end
-
-function AssetObject:loadPlist()
-    if not spriteFrameCache:isSpriteFramesWithFileLoaded(self.path) then
-        local data = plist.parse(filesystem.read(self.path))
-        self.imagePath = string.gsub(self.path, "[^/]+$", data.metadata.textureFileName)
-        self.spriteFrames = data.frames
-
-        spriteFrameCache:addSpriteFramesWithFile(self.path)
-        trace("load plist: %s", shortPath(self.path))
-        for name in pairs(self.spriteFrames) do
-            self.spriteFrames[name] = spriteFrameCache:getSpriteFrameByName(name)
-        end
-    end
-end
-
-function AssetObject:unloadPlist()
-    spriteFrameCache:removeSpriteFramesFromFile(self.path)
-    textureCache:removeTextureForKey(self.imagePath)
-    trace("unload plist: %s", shortPath(self.path))
-end
-
-function AssetObject:didLoad()
-    if self.status == 'loadOk' then
-        if self.type == TYPE_FGUI then
-            self:loadFGUI()
-        elseif self.type == TYPE_JPEG or self.type == TYPE_PNG then
-            self:loadImage()
-        elseif type == TYPE_PLIST then
-            self:loadPlist()
-        end
-    end
-    self:dispatch(EVENT_RESULT)
-end
-
-
 function AssetObject:reload()
-    if self.status == 'loadOk' then
-        if self.type == TYPE_FGUI then
-        elseif self.type == TYPE_JPEG or self.type == TYPE_PNG then
-            self:reloadImage()
-        elseif type == TYPE_PLIST then
-        end
-    end
+    self.loader.reload(self)
 end
 
 function AssetObject:__gc()
-    if self.type == TYPE_FGUI then
-        self:unloadFGUI()
-    elseif self.type == TYPE_JPEG or self.type == TYPE_PNG then
-        self:unloadImage()
-    elseif type == TYPE_PLIST then
-        self:unloadPlist()
+    self.loader.unload(self)
+end
+
+function M.register(suffix)
+    local loader = {
+        load = function () end,
+        reload = function () end,
+        unload = function () end,
+    }
+    for name in string.gmatch(suffix, '[^; ]+') do
+        M.loaders[name] = loader
     end
+    return loader
 end
 
 function M.reload(url)
@@ -159,6 +87,71 @@ function M.load(url, callback)
         asset:startLoad()
     end
     return asset
+end
+
+local function shortPath(path)
+    return filesystem.shortPath(path, 60)
+end
+
+-- default
+M.register('*')
+
+-- jpg & png
+local ImageLoader = M.register('.jpg;.png')
+
+function ImageLoader:reload()
+    local path = filesystem.localCachePath(self.path)
+    if textureCache:getTextureForKey(path) then
+        textureCache:reloadTexture(path)
+        trace('reload image: %s', self.path)
+    end
+end
+
+function ImageLoader:unload()
+    local path = filesystem.localCachePath(self.path)
+    textureCache:removeTextureForKey(path)
+    trace('unload image: %s', self.path)
+end
+
+-- .plist
+local PlistLoader = M.register('.plist')
+
+function PlistLoader:load()
+    if not spriteFrameCache:isSpriteFramesWithFileLoaded(self.path) then
+        local data = plist.parse(filesystem.read(self.path))
+        self.imagePath = string.gsub(self.path, "[^/]+$", data.metadata.textureFileName)
+        self.spriteFrames = data.frames
+
+        spriteFrameCache:addSpriteFramesWithFile(self.path)
+        trace("load plist: %s", shortPath(self.path))
+        for name in pairs(self.spriteFrames) do
+            self.spriteFrames[name] = spriteFrameCache:getSpriteFrameByName(name)
+        end
+    end
+end
+
+function PlistLoader:unload()
+    spriteFrameCache:removeSpriteFramesFromFile(self.path)
+    textureCache:removeTextureForKey(self.imagePath)
+    trace("unload plist: %s", shortPath(self.path))
+end
+
+-- fgui
+local FUILoader = M.register('.fui')
+
+function FUILoader:load()
+    local rawpath = string.gsub(self.path, '.fui$', '')
+    local pkg = UIPackage.addPackage(rawpath)
+    if not pkg then
+        error("can't load '" .. self.path .. "'")
+    end
+    trace('load fgui: %s', self.path)
+end
+
+function FUILoader:unload()
+    local rawpath = string.gsub(self.path, '.fui$', '')
+    UIPackage.removePackage(rawpath)
+    trace('unload fgui: %s', self.path)
 end
 
 return M

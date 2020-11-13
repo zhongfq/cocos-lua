@@ -100,6 +100,14 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocos2d::RotateFrom *',
+    LUACLS = 'cc.RotateFrom',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUM_VARS = nil,
+}
+
+typedef {
     CPPCLS = 'cocos2d::RotateBy *',
     LUACLS = 'cc.RotateBy',
     DECLTYPE = nil,
@@ -118,6 +126,14 @@ typedef {
 typedef {
     CPPCLS = 'cocos2d::MoveTo *',
     LUACLS = 'cc.MoveTo',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUM_VARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::MoveFrom *',
+    LUACLS = 'cc.MoveFrom',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
     NUM_VARS = nil,
@@ -204,6 +220,14 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocos2d::ScaleFrom *',
+    LUACLS = 'cc.ScaleFrom',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUM_VARS = nil,
+}
+
+typedef {
     CPPCLS = 'cocos2d::Blink *',
     LUACLS = 'cc.Blink',
     DECLTYPE = nil,
@@ -214,6 +238,14 @@ typedef {
 typedef {
     CPPCLS = 'cocos2d::FadeTo *',
     LUACLS = 'cc.FadeTo',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUM_VARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::FadeFrom *',
+    LUACLS = 'cc.FadeFrom',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
     NUM_VARS = nil,

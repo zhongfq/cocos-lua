@@ -6,6 +6,7 @@ M.PATH = '../../frameworks/libxgame/src/lua-bindings'
 M.INCLUDES = [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
+#include "lua-bindings/LuaCocosAdapter.h"
 #include "cocos2d.h"
 #include "xgame/xlua.h"
 ]]
@@ -69,12 +70,16 @@ typeconf 'cocos2d::Spawn'
     .ATTR('create', {ARG1 = '@pack@addref(actions |)'})
 
 typeconf 'cocos2d::RotateTo'
+typeconf 'cocos2d::RotateFrom'
 typeconf 'cocos2d::RotateBy'
 
 typeconf 'cocos2d::MoveBy'
     .ATTR('create', {ARG2 = '@pack'})
 
 typeconf 'cocos2d::MoveTo'
+    .ATTR('create', {ARG2 = '@pack'})
+
+typeconf 'cocos2d::MoveFrom'
     .ATTR('create', {ARG2 = '@pack'})
 
 typeconf 'cocos2d::SkewTo'
@@ -96,8 +101,10 @@ typeconf 'cocos2d::JumpTo'
 
 typeconf 'cocos2d::ScaleTo'
 typeconf 'cocos2d::ScaleBy'
+typeconf 'cocos2d::ScaleFrom'
 typeconf 'cocos2d::Blink'
 typeconf 'cocos2d::FadeTo'
+typeconf 'cocos2d::FadeFrom'
 typeconf 'cocos2d::FadeIn'
 typeconf 'cocos2d::FadeOut'
 typeconf 'cocos2d::TintTo'

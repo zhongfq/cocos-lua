@@ -130,6 +130,7 @@ bool Application::openURL(const std::string &url)
     if ([application respondsToSelector:@selector(openURL:options:completionHandler:)] )
     {
         [application openURL:nsUrl options:@{} completionHandler:nil];
+        return true;
     }
     else
     {

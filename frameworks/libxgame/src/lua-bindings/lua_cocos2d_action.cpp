@@ -4,6 +4,7 @@
 #include "lua_cocos2d_action.h"
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
+#include "lua-bindings/LuaCocosAdapter.h"
 #include "cocos2d.h"
 #include "xgame/xlua.h"
 
@@ -2194,6 +2195,116 @@ static int luaopen_cocos2d_RotateTo(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_RotateFrom___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::RotateFrom *)olua_toobj(L, 1, "cc.RotateFrom");
+    olua_push_cppobj(L, self, "cc.RotateFrom");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_RotateFrom_create1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** duration */
+    lua_Number arg2 = 0;       /** fromAngleX */
+    lua_Number arg3 = 0;       /** fromAngleY */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+
+    // static cocos2d::RotateFrom *create(float duration, float fromAngleX, float fromAngleY)
+    cocos2d::RotateFrom *ret = (cocos2d::RotateFrom *)cocos2d::RotateFrom::create((float)arg1, (float)arg2, (float)arg3);
+    int num_ret = olua_push_cppobj(L, ret, "cc.RotateFrom");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_RotateFrom_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** duration */
+    lua_Number arg2 = 0;       /** fromAngle */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+
+    // static cocos2d::RotateFrom *create(float duration, float fromAngle)
+    cocos2d::RotateFrom *ret = (cocos2d::RotateFrom *)cocos2d::RotateFrom::create((float)arg1, (float)arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.RotateFrom");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_RotateFrom_create3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** duration */
+    cocos2d::Vec3 arg2;       /** fromAngle3D */
+
+    olua_check_number(L, 1, &arg1);
+    auto_olua_check_cocos2d_Vec3(L, 2, &arg2);
+
+    // static cocos2d::RotateFrom *create(float duration, const cocos2d::Vec3 &fromAngle3D)
+    cocos2d::RotateFrom *ret = (cocos2d::RotateFrom *)cocos2d::RotateFrom::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.RotateFrom");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_RotateFrom_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Vec3(L, 2))) {
+            // static cocos2d::RotateFrom *create(float duration, const cocos2d::Vec3 &fromAngle3D)
+            return _cocos2d_RotateFrom_create3(L);
+        }
+
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2))) {
+            // static cocos2d::RotateFrom *create(float duration, float fromAngle)
+            return _cocos2d_RotateFrom_create2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
+            // static cocos2d::RotateFrom *create(float duration, float fromAngleX, float fromAngleY)
+            return _cocos2d_RotateFrom_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::RotateFrom::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_RotateFrom(lua_State *L)
+{
+    oluacls_class(L, "cc.RotateFrom", "cc.RotateTo");
+    oluacls_func(L, "__move", _cocos2d_RotateFrom___move);
+    oluacls_func(L, "create", _cocos2d_RotateFrom_create);
+
+    olua_registerluatype<cocos2d::RotateFrom>(L, "cc.RotateFrom");
+
+    return 1;
+}
+
 static int _cocos2d_RotateBy___move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -2568,6 +2679,140 @@ static int luaopen_cocos2d_MoveTo(lua_State *L)
     oluacls_func(L, "create", _cocos2d_MoveTo_create);
 
     olua_registerluatype<cocos2d::MoveTo>(L, "cc.MoveTo");
+
+    return 1;
+}
+
+static int _cocos2d_MoveFrom___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::MoveFrom *)olua_toobj(L, 1, "cc.MoveFrom");
+    olua_push_cppobj(L, self, "cc.MoveFrom");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_MoveFrom_create1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** duration */
+    cocos2d::Vec2 arg2;       /** position */
+
+    olua_check_number(L, 1, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg2);
+
+    // static cocos2d::MoveFrom *create(float duration, const cocos2d::Vec2 &position)
+    cocos2d::MoveFrom *ret = (cocos2d::MoveFrom *)cocos2d::MoveFrom::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.MoveFrom");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_MoveFrom_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** duration */
+    cocos2d::Vec2 arg2;       /** position */
+
+    olua_check_number(L, 1, &arg1);
+    auto_olua_pack_cocos2d_Vec2(L, 2, &arg2);
+
+    // static cocos2d::MoveFrom *create(float duration, @pack const cocos2d::Vec2 &position)
+    cocos2d::MoveFrom *ret = (cocos2d::MoveFrom *)cocos2d::MoveFrom::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.MoveFrom");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_MoveFrom_create3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** duration */
+    cocos2d::Vec3 arg2;       /** position */
+
+    olua_check_number(L, 1, &arg1);
+    auto_olua_check_cocos2d_Vec3(L, 2, &arg2);
+
+    // static cocos2d::MoveFrom *create(float duration, const cocos2d::Vec3 &position)
+    cocos2d::MoveFrom *ret = (cocos2d::MoveFrom *)cocos2d::MoveFrom::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.MoveFrom");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_MoveFrom_create4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** duration */
+    cocos2d::Vec3 arg2;       /** position */
+
+    olua_check_number(L, 1, &arg1);
+    auto_olua_pack_cocos2d_Vec3(L, 2, &arg2);
+
+    // static cocos2d::MoveFrom *create(float duration, @pack const cocos2d::Vec3 &position)
+    cocos2d::MoveFrom *ret = (cocos2d::MoveFrom *)cocos2d::MoveFrom::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.MoveFrom");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_MoveFrom_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Vec3(L, 2))) {
+            // static cocos2d::MoveFrom *create(float duration, const cocos2d::Vec3 &position)
+            return _cocos2d_MoveFrom_create3(L);
+        }
+
+        // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // static cocos2d::MoveFrom *create(float duration, const cocos2d::Vec2 &position)
+            return _cocos2d_MoveFrom_create1(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_ispack_cocos2d_Vec2(L, 2))) {
+            // static cocos2d::MoveFrom *create(float duration, @pack const cocos2d::Vec2 &position)
+            return _cocos2d_MoveFrom_create2(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_ispack_cocos2d_Vec3(L, 2))) {
+            // static cocos2d::MoveFrom *create(float duration, @pack const cocos2d::Vec3 &position)
+            return _cocos2d_MoveFrom_create4(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::MoveFrom::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_MoveFrom(lua_State *L)
+{
+    oluacls_class(L, "cc.MoveFrom", "cc.MoveBy");
+    oluacls_func(L, "__move", _cocos2d_MoveFrom___move);
+    oluacls_func(L, "create", _cocos2d_MoveFrom_create);
+
+    olua_registerluatype<cocos2d::MoveFrom>(L, "cc.MoveFrom");
 
     return 1;
 }
@@ -3328,6 +3573,122 @@ static int luaopen_cocos2d_ScaleBy(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_ScaleFrom___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::ScaleFrom *)olua_toobj(L, 1, "cc.ScaleFrom");
+    olua_push_cppobj(L, self, "cc.ScaleFrom");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_ScaleFrom_create1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** duration */
+    lua_Number arg2 = 0;       /** s */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+
+    // static cocos2d::ScaleFrom *create(float duration, float s)
+    cocos2d::ScaleFrom *ret = (cocos2d::ScaleFrom *)cocos2d::ScaleFrom::create((float)arg1, (float)arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.ScaleFrom");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ScaleFrom_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** duration */
+    lua_Number arg2 = 0;       /** sx */
+    lua_Number arg3 = 0;       /** sy */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+
+    // static cocos2d::ScaleFrom *create(float duration, float sx, float sy)
+    cocos2d::ScaleFrom *ret = (cocos2d::ScaleFrom *)cocos2d::ScaleFrom::create((float)arg1, (float)arg2, (float)arg3);
+    int num_ret = olua_push_cppobj(L, ret, "cc.ScaleFrom");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ScaleFrom_create3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** duration */
+    lua_Number arg2 = 0;       /** sx */
+    lua_Number arg3 = 0;       /** sy */
+    lua_Number arg4 = 0;       /** sz */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    olua_check_number(L, 4, &arg4);
+
+    // static cocos2d::ScaleFrom *create(float duration, float sx, float sy, float sz)
+    cocos2d::ScaleFrom *ret = (cocos2d::ScaleFrom *)cocos2d::ScaleFrom::create((float)arg1, (float)arg2, (float)arg3, (float)arg4);
+    int num_ret = olua_push_cppobj(L, ret, "cc.ScaleFrom");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ScaleFrom_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2))) {
+            // static cocos2d::ScaleFrom *create(float duration, float s)
+            return _cocos2d_ScaleFrom_create1(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
+            // static cocos2d::ScaleFrom *create(float duration, float sx, float sy)
+            return _cocos2d_ScaleFrom_create2(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
+            // static cocos2d::ScaleFrom *create(float duration, float sx, float sy, float sz)
+            return _cocos2d_ScaleFrom_create3(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ScaleFrom::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_ScaleFrom(lua_State *L)
+{
+    oluacls_class(L, "cc.ScaleFrom", "cc.ScaleTo");
+    oluacls_func(L, "__move", _cocos2d_ScaleFrom___move);
+    oluacls_func(L, "create", _cocos2d_ScaleFrom_create);
+
+    olua_registerluatype<cocos2d::ScaleFrom>(L, "cc.ScaleFrom");
+
+    return 1;
+}
+
 static int _cocos2d_Blink___move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -3408,6 +3769,48 @@ static int luaopen_cocos2d_FadeTo(lua_State *L)
     oluacls_func(L, "create", _cocos2d_FadeTo_create);
 
     olua_registerluatype<cocos2d::FadeTo>(L, "cc.FadeTo");
+
+    return 1;
+}
+
+static int _cocos2d_FadeFrom___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::FadeFrom *)olua_toobj(L, 1, "cc.FadeFrom");
+    olua_push_cppobj(L, self, "cc.FadeFrom");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_FadeFrom_create(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** d */
+    lua_Unsigned arg2 = 0;       /** opacity */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_uint(L, 2, &arg2);
+
+    // static cocos2d::FadeFrom *create(float d, uint8_t opacity)
+    cocos2d::FadeFrom *ret = (cocos2d::FadeFrom *)cocos2d::FadeFrom::create((float)arg1, (uint8_t)arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.FadeFrom");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_FadeFrom(lua_State *L)
+{
+    oluacls_class(L, "cc.FadeFrom", "cc.FadeTo");
+    oluacls_func(L, "__move", _cocos2d_FadeFrom___move);
+    oluacls_func(L, "create", _cocos2d_FadeFrom_create);
+
+    olua_registerluatype<cocos2d::FadeFrom>(L, "cc.FadeFrom");
 
     return 1;
 }
@@ -10366,9 +10769,11 @@ int luaopen_cocos2d_action(lua_State *L)
     olua_require(L, "cc.RepeatForever", luaopen_cocos2d_RepeatForever);
     olua_require(L, "cc.Spawn", luaopen_cocos2d_Spawn);
     olua_require(L, "cc.RotateTo", luaopen_cocos2d_RotateTo);
+    olua_require(L, "cc.RotateFrom", luaopen_cocos2d_RotateFrom);
     olua_require(L, "cc.RotateBy", luaopen_cocos2d_RotateBy);
     olua_require(L, "cc.MoveBy", luaopen_cocos2d_MoveBy);
     olua_require(L, "cc.MoveTo", luaopen_cocos2d_MoveTo);
+    olua_require(L, "cc.MoveFrom", luaopen_cocos2d_MoveFrom);
     olua_require(L, "cc.SkewTo", luaopen_cocos2d_SkewTo);
     olua_require(L, "cc.SkewBy", luaopen_cocos2d_SkewBy);
     olua_require(L, "cc.ResizeTo", luaopen_cocos2d_ResizeTo);
@@ -10379,8 +10784,10 @@ int luaopen_cocos2d_action(lua_State *L)
     olua_require(L, "cc.JumpTo", luaopen_cocos2d_JumpTo);
     olua_require(L, "cc.ScaleTo", luaopen_cocos2d_ScaleTo);
     olua_require(L, "cc.ScaleBy", luaopen_cocos2d_ScaleBy);
+    olua_require(L, "cc.ScaleFrom", luaopen_cocos2d_ScaleFrom);
     olua_require(L, "cc.Blink", luaopen_cocos2d_Blink);
     olua_require(L, "cc.FadeTo", luaopen_cocos2d_FadeTo);
+    olua_require(L, "cc.FadeFrom", luaopen_cocos2d_FadeFrom);
     olua_require(L, "cc.FadeIn", luaopen_cocos2d_FadeIn);
     olua_require(L, "cc.FadeOut", luaopen_cocos2d_FadeOut);
     olua_require(L, "cc.TintTo", luaopen_cocos2d_TintTo);

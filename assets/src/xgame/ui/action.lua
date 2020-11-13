@@ -1,22 +1,27 @@
 local Animate = require "cc.Animate"
-local MoveTo = require "cc.MoveTo"
 local ActionFloat = require "cc.ActionFloat"
+local MoveTo = require "cc.MoveTo"
 local MoveBy = require "cc.MoveBy"
+local MoveFrom = require "cc.MoveFrom"
 local CallFunc = require "cc.CallFunc"
 local Sequence = require "cc.Sequence"
 local DelayTime = require "cc.DelayTime"
 local ScaleTo = require "cc.ScaleTo"
+local ScaleBy = require "cc.ScaleFrom"
+local ScaleFrom = require "cc.ScaleFrom"
 local Speed = require "cc.Speed"
 local Repeat = require "cc.Repeat"
 local RepeatForever = require "cc.RepeatForever"
 local FadeTo = require "cc.FadeTo"
+local FadeFrom = require "cc.FadeFrom"
 local FadeIn = require "cc.FadeIn"
 local FadeOut = require "cc.FadeOut"
+local RotateTo = require "cc.RotateTo"
+local RotateFrom = require "cc.RotateFrom"
 local RotateBy = require "cc.RotateBy"
 local Hide = require "cc.Hide"
 local Show = require "cc.Show"
 local Spawn = require "cc.Spawn"
-local RotateTo = require "cc.RotateTo"
 local CatmullRomTo = require "cc.CatmullRomTo"
 local CatmullRomBy = require "cc.CatmullRomBy"
 local EaseRateAction = require "cc.EaseRateAction"
@@ -59,12 +64,16 @@ function M.ActionFloat(...)
     return ActionFloat.create(...)
 end
 
-function M.MoveTo(duration, x, y)
-    return MoveTo.create(duration, x, y)
+function M.MoveTo(...)
+    return MoveTo.create(...)
 end
 
-function M.MoveBy(duration, x, y)
-    return MoveBy.create(duration, x, y)
+function M.MoveBy(...)
+    return MoveBy.create(...)
+end
+
+function M.MoveFrom(...)
+    return MoveFrom.create(...)
 end
 
 function M.CallFunc(func)
@@ -87,6 +96,14 @@ function M.ScaleTo(...)
     return ScaleTo.create(...)
 end
 
+function M.ScaleBy(...)
+    return ScaleBy.create(...)
+end
+
+function M.ScaleFrom(...)
+    return ScaleFrom.create(...)
+end
+
 function M.Speed(...)
     return Speed.create(...)
 end
@@ -101,6 +118,10 @@ end
 
 function M.FadeTo(duration, alpha)
     return FadeTo.create(duration, alpha * 255 // 1)
+end
+
+function M.FadeFrom(duration, alpha)
+    return FadeFrom.create(duration, alpha * 255 // 1)
 end
 
 function M.FadeIn(...)
@@ -140,6 +161,10 @@ end
 
 function M.RotateTo(...)
     return RotateTo.create(...)
+end
+
+function M.RotateFrom(...)
+    return RotateFrom.create(...)
 end
 
 function M.CatmullRomTo(t, points)

@@ -13,6 +13,7 @@ M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
+    #include "lua-bindings/LuaCocosAdapter.h"
     #include "cocos2d.h"
     #include "xgame/xlua.h"
 ]]
@@ -203,6 +204,14 @@ cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::RotateTo *create(float duration, float dstAngleX, float dstAngleY)', 'static cocos2d::RotateTo *create(float duration, float dstAngle)', 'static cocos2d::RotateTo *create(float duration, const cocos2d::Vec3 &dstAngle3D)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::RotateFrom'
+cls.SUPERCLS = 'cocos2d::RotateTo'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
+cls.func(nil, 'static cocos2d::RotateFrom *create(float duration, float fromAngleX, float fromAngleY)', 'static cocos2d::RotateFrom *create(float duration, float fromAngle)', 'static cocos2d::RotateFrom *create(float duration, const cocos2d::Vec3 &fromAngle3D)')
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::RotateBy'
 cls.SUPERCLS = 'cocos2d::ActionInterval'
 cls.REG_LUATYPE = true
@@ -225,6 +234,14 @@ cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::MoveTo *create(float duration, @pack const cocos2d::Vec2 &position)', 'static cocos2d::MoveTo *create(float duration, @pack const cocos2d::Vec3 &position)')
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::MoveFrom'
+cls.SUPERCLS = 'cocos2d::MoveBy'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
+cls.func(nil, 'static cocos2d::MoveFrom *create(float duration, @pack const cocos2d::Vec2 &position)', 'static cocos2d::MoveFrom *create(float duration, @pack const cocos2d::Vec3 &position)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::SkewTo'
@@ -307,6 +324,14 @@ cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::ScaleBy *create(float duration, float s)', 'static cocos2d::ScaleBy *create(float duration, float sx, float sy)', 'static cocos2d::ScaleBy *create(float duration, float sx, float sy, float sz)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::ScaleFrom'
+cls.SUPERCLS = 'cocos2d::ScaleTo'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
+cls.func(nil, 'static cocos2d::ScaleFrom *create(float duration, float s)', 'static cocos2d::ScaleFrom *create(float duration, float sx, float sy)', 'static cocos2d::ScaleFrom *create(float duration, float sx, float sy, float sz)')
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::Blink'
 cls.SUPERCLS = 'cocos2d::ActionInterval'
 cls.REG_LUATYPE = true
@@ -321,6 +346,14 @@ cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
 cls.func(nil, 'static cocos2d::FadeTo *create(float duration, uint8_t opacity)')
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::FadeFrom'
+cls.SUPERCLS = 'cocos2d::FadeTo'
+cls.REG_LUATYPE = true
+cls.DEFIF = nil
+cls.CHUNK = nil
+cls.func(nil, 'static cocos2d::FadeFrom *create(float d, uint8_t opacity)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::FadeIn'

@@ -136,6 +136,75 @@ namespace ui {
     };
 }
 
+class ScaleFrom : public ScaleTo
+{
+public:
+    static ScaleFrom *create(float duration, float s);
+    static ScaleFrom *create(float duration, float sx, float sy);
+    static ScaleFrom *create(float duration, float sx, float sy, float sz);
+    virtual void startWithTarget(Node *target) override;
+    virtual ScaleFrom *clone() const override;
+    virtual ScaleFrom *reverse() const override;
+    
+private:
+    ScaleFrom() {}
+    virtual ~ScaleFrom() {}
+    CC_DISALLOW_COPY_AND_ASSIGN(ScaleFrom);
+};
+
+class MoveFrom : public MoveBy
+{
+public:
+    static MoveFrom *create(float duration, const Vec2 &position);
+    static MoveFrom *create(float duration, const Vec3 &position);
+    virtual MoveFrom *clone() const override;
+    virtual MoveFrom *reverse() const  override;
+    virtual void startWithTarget(Node *target) override;
+    
+private:
+    MoveFrom() {}
+    virtual ~MoveFrom() {}
+    bool initWithDuration(float duration, const Vec2 &position);
+    bool initWithDuration(float duration, const Vec3 &position);
+protected:
+    Vec3 _endPosition;
+
+private:
+    CC_DISALLOW_COPY_AND_ASSIGN(MoveFrom);
+};
+
+class FadeFrom : public FadeTo
+{
+public:
+    static FadeFrom *create(float d, uint8_t opacity);
+
+    virtual void startWithTarget(Node *target) override;
+    virtual FadeFrom *clone() const  override;
+    virtual FadeFrom *reverse() const override;
+    virtual void update(float time) override;
+private:
+    FadeFrom():_deltaOpacity(0) {}
+    virtual ~FadeFrom() {}
+    CC_DISALLOW_COPY_AND_ASSIGN(FadeFrom);
+    uint8_t _deltaOpacity;
+};
+
+class RotateFrom : public RotateTo
+{
+public:
+    static RotateFrom *create(float duration, float fromAngleX, float fromAngleY);
+    static RotateFrom *create(float duration, float fromAngle);
+    static RotateFrom *create(float duration, const Vec3 &fromAngle3D);
+
+    virtual RotateFrom *clone() const override;
+    virtual RotateFrom *reverse() const override;
+    virtual void startWithTarget(Node *target) override;
+private:
+    RotateFrom() {};
+    virtual ~RotateFrom() {};
+    CC_DISALLOW_COPY_AND_ASSIGN(RotateFrom);
+};
+
 NS_CC_END
 
 #endif

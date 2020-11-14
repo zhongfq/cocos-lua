@@ -3633,3 +3633,133 @@ bool auto_olua_ispack_cocos2d_backend_DepthStencilDescriptor(lua_State *L, int i
 {
     return olua_is_uint(L, idx + 0) && olua_is_bool(L, idx + 1) && olua_is_bool(L, idx + 2) && olua_is_bool(L, idx + 3) && auto_olua_is_cocos2d_backend_StencilDescriptor(L, idx + 4) && auto_olua_is_cocos2d_backend_StencilDescriptor(L, idx + 5);
 }
+
+int auto_olua_push_cocos2d_backend_VertexLayout_Attribute(lua_State *L, const cocos2d::backend::VertexLayout::Attribute *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 5);
+
+        olua_push_std_string(L, value->name);
+        olua_setfield(L, -2, "name");
+
+        olua_push_uint(L, (lua_Unsigned)value->format);
+        olua_setfield(L, -2, "format");
+
+        olua_push_uint(L, (lua_Unsigned)value->offset);
+        olua_setfield(L, -2, "offset");
+
+        olua_push_uint(L, (lua_Unsigned)value->index);
+        olua_setfield(L, -2, "index");
+
+        olua_push_bool(L, value->needToBeNormallized);
+        olua_setfield(L, -2, "needToBeNormallized");
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_olua_check_cocos2d_backend_VertexLayout_Attribute(lua_State *L, int idx, cocos2d::backend::VertexLayout::Attribute *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    luaL_checktype(L, idx, LUA_TTABLE);
+
+    std::string arg1;       /** name */
+    lua_Unsigned arg2 = 0;       /** format */
+    lua_Unsigned arg3 = 0;       /** offset */
+    lua_Unsigned arg4 = 0;       /** index */
+    bool arg5 = false;       /** needToBeNormallized */
+
+    olua_getfield(L, idx, "name");
+    olua_check_std_string(L, -1, &arg1);
+    value->name = (std::string)arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "format");
+    if (!olua_isnoneornil(L, -1)) {
+        olua_check_uint(L, -1, &arg2);
+        value->format = (cocos2d::backend::VertexFormat)arg2;
+    }
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "offset");
+    if (!olua_isnoneornil(L, -1)) {
+        olua_check_uint(L, -1, &arg3);
+        value->offset = (std::size_t)arg3;
+    }
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "index");
+    if (!olua_isnoneornil(L, -1)) {
+        olua_check_uint(L, -1, &arg4);
+        value->index = (std::size_t)arg4;
+    }
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "needToBeNormallized");
+    if (!olua_isnoneornil(L, -1)) {
+        olua_check_bool(L, -1, &arg5);
+        value->needToBeNormallized = (bool)arg5;
+    }
+    lua_pop(L, 1);
+}
+
+bool auto_olua_is_cocos2d_backend_VertexLayout_Attribute(lua_State *L, int idx)
+{
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "name");
+}
+
+void auto_olua_pack_cocos2d_backend_VertexLayout_Attribute(lua_State *L, int idx, cocos2d::backend::VertexLayout::Attribute *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+
+    std::string arg1;       /** name */
+    lua_Unsigned arg2 = 0;       /** format */
+    lua_Unsigned arg3 = 0;       /** offset */
+    lua_Unsigned arg4 = 0;       /** index */
+    bool arg5 = false;       /** needToBeNormallized */
+
+    olua_check_std_string(L, idx + 0, &arg1);
+    value->name = (std::string)arg1;
+
+    olua_check_uint(L, idx + 1, &arg2);
+    value->format = (cocos2d::backend::VertexFormat)arg2;
+
+    olua_check_uint(L, idx + 2, &arg3);
+    value->offset = (std::size_t)arg3;
+
+    olua_check_uint(L, idx + 3, &arg4);
+    value->index = (std::size_t)arg4;
+
+    olua_check_bool(L, idx + 4, &arg5);
+    value->needToBeNormallized = (bool)arg5;
+}
+
+int auto_olua_unpack_cocos2d_backend_VertexLayout_Attribute(lua_State *L, const cocos2d::backend::VertexLayout::Attribute *value)
+{
+    if (value) {
+        olua_push_std_string(L, value->name);
+        olua_push_uint(L, (lua_Unsigned)value->format);
+        olua_push_uint(L, (lua_Unsigned)value->offset);
+        olua_push_uint(L, (lua_Unsigned)value->index);
+        olua_push_bool(L, value->needToBeNormallized);
+    } else {
+        for (int i = 0; i < 5; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 5;
+}
+
+bool auto_olua_ispack_cocos2d_backend_VertexLayout_Attribute(lua_State *L, int idx)
+{
+    return olua_is_std_string(L, idx + 0) && olua_is_uint(L, idx + 1) && olua_is_uint(L, idx + 2) && olua_is_uint(L, idx + 3) && olua_is_bool(L, idx + 4);
+}

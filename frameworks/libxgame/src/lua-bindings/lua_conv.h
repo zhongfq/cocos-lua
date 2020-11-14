@@ -250,4 +250,12 @@ void auto_olua_pack_cocos2d_backend_DepthStencilDescriptor(lua_State *L, int idx
 int auto_olua_unpack_cocos2d_backend_DepthStencilDescriptor(lua_State *L, const cocos2d::backend::DepthStencilDescriptor *value);
 bool auto_olua_ispack_cocos2d_backend_DepthStencilDescriptor(lua_State *L, int idx);
 
+// cocos2d::backend::VertexLayout::Attribute
+int auto_olua_push_cocos2d_backend_VertexLayout_Attribute(lua_State *L, const cocos2d::backend::VertexLayout::Attribute *value);
+void auto_olua_check_cocos2d_backend_VertexLayout_Attribute(lua_State *L, int idx, cocos2d::backend::VertexLayout::Attribute *value);
+bool auto_olua_is_cocos2d_backend_VertexLayout_Attribute(lua_State *L, int idx);
+void auto_olua_pack_cocos2d_backend_VertexLayout_Attribute(lua_State *L, int idx, cocos2d::backend::VertexLayout::Attribute *value);
+int auto_olua_unpack_cocos2d_backend_VertexLayout_Attribute(lua_State *L, const cocos2d::backend::VertexLayout::Attribute *value);
+bool auto_olua_ispack_cocos2d_backend_VertexLayout_Attribute(lua_State *L, int idx);
+
 #endif

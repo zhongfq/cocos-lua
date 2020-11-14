@@ -179,7 +179,7 @@ static int _cocos2d_NTextureData_get_filename(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.NTextureData");
 
     // std::string filename
-    std::string ret = (std::string)self->filename;
+    std::string ret = self->filename;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -214,7 +214,7 @@ static int _cocos2d_NTextureData_get_id(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.NTextureData");
 
     // std::string id
-    std::string ret = (std::string)self->id;
+    std::string ret = self->id;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -249,7 +249,7 @@ static int _cocos2d_NTextureData_get_type(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.NTextureData");
 
     // cocos2d::NTextureData::Usage type
-    cocos2d::NTextureData::Usage ret = (cocos2d::NTextureData::Usage)self->type;
+    cocos2d::NTextureData::Usage ret = self->type;
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -284,7 +284,7 @@ static int _cocos2d_NTextureData_get_wrapS(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.NTextureData");
 
     // cocos2d::backend::SamplerAddressMode wrapS
-    cocos2d::backend::SamplerAddressMode ret = (cocos2d::backend::SamplerAddressMode)self->wrapS;
+    cocos2d::backend::SamplerAddressMode ret = self->wrapS;
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -319,7 +319,7 @@ static int _cocos2d_NTextureData_get_wrapT(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.NTextureData");
 
     // cocos2d::backend::SamplerAddressMode wrapT
-    cocos2d::backend::SamplerAddressMode ret = (cocos2d::backend::SamplerAddressMode)self->wrapT;
+    cocos2d::backend::SamplerAddressMode ret = self->wrapT;
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -439,7 +439,7 @@ static int _cocos2d_Mesh_create1(lua_State *L)
     }
 
     // static cocos2d::Mesh *create(const std::vector<float> &positions, const std::vector<float> &normals, const std::vector<float> &texs, const std::vector<unsigned short> &indices)
-    cocos2d::Mesh *ret = (cocos2d::Mesh *)cocos2d::Mesh::create(arg1, arg2, arg3, arg4);
+    cocos2d::Mesh *ret = cocos2d::Mesh::create(arg1, arg2, arg3, arg4);
     int num_ret = olua_push_cppobj(L, ret, "cc.Mesh");
 
     olua_endinvoke(L);
@@ -489,7 +489,7 @@ static int _cocos2d_Mesh_create2(lua_State *L)
     }
 
     // static cocos2d::Mesh *create(const std::vector<float> &vertices, int perVertexSizeInFloat, const std::vector<unsigned short> &indices, const std::vector<MeshVertexAttrib> &attribs)
-    cocos2d::Mesh *ret = (cocos2d::Mesh *)cocos2d::Mesh::create(arg1, (int)arg2, arg3, arg4);
+    cocos2d::Mesh *ret = cocos2d::Mesh::create(arg1, (int)arg2, arg3, arg4);
     int num_ret = olua_push_cppobj(L, ret, "cc.Mesh");
 
     olua_endinvoke(L);
@@ -557,7 +557,7 @@ static int _cocos2d_Mesh_getBlendFunc(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Mesh");
 
     // const cocos2d::BlendFunc &getBlendFunc()
-    const cocos2d::BlendFunc &ret = (const cocos2d::BlendFunc &)self->getBlendFunc();
+    const cocos2d::BlendFunc &ret = self->getBlendFunc();
     int num_ret = auto_olua_push_cocos2d_BlendFunc(L, &ret);
 
     olua_endinvoke(L);
@@ -574,7 +574,7 @@ static int _cocos2d_Mesh_getIndexBuffer(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Mesh");
 
     // cocos2d::backend::Buffer *getIndexBuffer()
-    cocos2d::backend::Buffer *ret = (cocos2d::backend::Buffer *)self->getIndexBuffer();
+    cocos2d::backend::Buffer *ret = self->getIndexBuffer();
     int num_ret = olua_push_cppobj(L, ret, "ccb.Buffer");
 
     olua_endinvoke(L);
@@ -591,7 +591,7 @@ static int _cocos2d_Mesh_getIndexCount(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Mesh");
 
     // ssize_t getIndexCount()
-    ssize_t ret = (ssize_t)self->getIndexCount();
+    ssize_t ret = self->getIndexCount();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -608,7 +608,7 @@ static int _cocos2d_Mesh_getIndexFormat(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Mesh");
 
     // cocos2d::CustomCommand::IndexFormat getIndexFormat()
-    cocos2d::CustomCommand::IndexFormat ret = (cocos2d::CustomCommand::IndexFormat)self->getIndexFormat();
+    cocos2d::CustomCommand::IndexFormat ret = self->getIndexFormat();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -625,7 +625,7 @@ static int _cocos2d_Mesh_getMeshVertexAttribCount(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Mesh");
 
     // ssize_t getMeshVertexAttribCount()
-    ssize_t ret = (ssize_t)self->getMeshVertexAttribCount();
+    ssize_t ret = self->getMeshVertexAttribCount();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -644,7 +644,7 @@ static int _cocos2d_Mesh_getMeshVertexAttribute(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // const cocos2d::MeshVertexAttrib &getMeshVertexAttribute(int idx)
-    const cocos2d::MeshVertexAttrib &ret = (const cocos2d::MeshVertexAttrib &)self->getMeshVertexAttribute((int)arg1);
+    const cocos2d::MeshVertexAttrib &ret = self->getMeshVertexAttribute((int)arg1);
     int num_ret = auto_olua_push_cocos2d_MeshVertexAttrib(L, &ret);
 
     olua_endinvoke(L);
@@ -661,7 +661,7 @@ static int _cocos2d_Mesh_getName(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Mesh");
 
     // const std::string &getName()
-    const std::string &ret = (const std::string &)self->getName();
+    const std::string &ret = self->getName();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -678,7 +678,7 @@ static int _cocos2d_Mesh_getPrimitiveType(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Mesh");
 
     // cocos2d::CustomCommand::PrimitiveType getPrimitiveType()
-    cocos2d::CustomCommand::PrimitiveType ret = (cocos2d::CustomCommand::PrimitiveType)self->getPrimitiveType();
+    cocos2d::CustomCommand::PrimitiveType ret = self->getPrimitiveType();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -695,7 +695,7 @@ static int _cocos2d_Mesh_getProgramState(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Mesh");
 
     // cocos2d::backend::ProgramState *getProgramState()
-    cocos2d::backend::ProgramState *ret = (cocos2d::backend::ProgramState *)self->getProgramState();
+    cocos2d::backend::ProgramState *ret = self->getProgramState();
     int num_ret = olua_push_cppobj(L, ret, "ccb.ProgramState");
 
     olua_endinvoke(L);
@@ -712,7 +712,7 @@ static int _cocos2d_Mesh_getSkin(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Mesh");
 
     // cocos2d::MeshSkin *getSkin()
-    cocos2d::MeshSkin *ret = (cocos2d::MeshSkin *)self->getSkin();
+    cocos2d::MeshSkin *ret = self->getSkin();
     int num_ret = olua_push_cppobj(L, ret, "cc.MeshSkin");
 
     olua_endinvoke(L);
@@ -729,7 +729,7 @@ static int _cocos2d_Mesh_getTexture1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Mesh");
 
     // cocos2d::Texture2D *getTexture()
-    cocos2d::Texture2D *ret = (cocos2d::Texture2D *)self->getTexture();
+    cocos2d::Texture2D *ret = self->getTexture();
     int num_ret = olua_push_cppobj(L, ret, "cc.Texture2D");
 
     olua_endinvoke(L);
@@ -748,7 +748,7 @@ static int _cocos2d_Mesh_getTexture2(lua_State *L)
     olua_check_uint(L, 2, &arg1);
 
     // cocos2d::Texture2D *getTexture(cocos2d::NTextureData::Usage usage)
-    cocos2d::Texture2D *ret = (cocos2d::Texture2D *)self->getTexture((cocos2d::NTextureData::Usage)arg1);
+    cocos2d::Texture2D *ret = self->getTexture((cocos2d::NTextureData::Usage)arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.Texture2D");
 
     olua_endinvoke(L);
@@ -786,7 +786,7 @@ static int _cocos2d_Mesh_getTextureFileName(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Mesh");
 
     // std::string getTextureFileName()
-    std::string ret = (std::string)self->getTextureFileName();
+    std::string ret = self->getTextureFileName();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -803,7 +803,7 @@ static int _cocos2d_Mesh_getVertexBuffer(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Mesh");
 
     // cocos2d::backend::Buffer *getVertexBuffer()
-    cocos2d::backend::Buffer *ret = (cocos2d::backend::Buffer *)self->getVertexBuffer();
+    cocos2d::backend::Buffer *ret = self->getVertexBuffer();
     int num_ret = olua_push_cppobj(L, ret, "ccb.Buffer");
 
     olua_endinvoke(L);
@@ -820,7 +820,7 @@ static int _cocos2d_Mesh_getVertexSizeInBytes(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Mesh");
 
     // int getVertexSizeInBytes()
-    int ret = (int)self->getVertexSizeInBytes();
+    int ret = self->getVertexSizeInBytes();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -839,7 +839,7 @@ static int _cocos2d_Mesh_hasVertexAttrib(lua_State *L)
     olua_check_uint(L, 2, &arg1);
 
     // bool hasVertexAttrib(cocos2d::shaderinfos::VertexKey attrib)
-    bool ret = (bool)self->hasVertexAttrib((cocos2d::shaderinfos::VertexKey)arg1);
+    bool ret = self->hasVertexAttrib((cocos2d::shaderinfos::VertexKey)arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -856,7 +856,7 @@ static int _cocos2d_Mesh_isVisible(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Mesh");
 
     // bool isVisible()
-    bool ret = (bool)self->isVisible();
+    bool ret = self->isVisible();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -869,7 +869,7 @@ static int _cocos2d_Mesh_new(lua_State *L)
     olua_startinvoke(L);
 
     // Mesh()
-    cocos2d::Mesh *ret = (cocos2d::Mesh *)new cocos2d::Mesh();
+    cocos2d::Mesh *ret = new cocos2d::Mesh();
     int num_ret = olua_push_cppobj(L, ret, "cc.Mesh");
     olua_postnew(L, ret);
 
@@ -1215,7 +1215,7 @@ static int _cocos2d_MeshSkin_getBoneByIndex(lua_State *L)
     olua_check_uint(L, 2, &arg1);
 
     // cocos2d::Bone3D *getBoneByIndex(unsigned int index)
-    cocos2d::Bone3D *ret = (cocos2d::Bone3D *)self->getBoneByIndex((unsigned int)arg1);
+    cocos2d::Bone3D *ret = self->getBoneByIndex((unsigned int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.Bone3D");
 
     olua_endinvoke(L);
@@ -1234,7 +1234,7 @@ static int _cocos2d_MeshSkin_getBoneByName(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // cocos2d::Bone3D *getBoneByName(const std::string &id)
-    cocos2d::Bone3D *ret = (cocos2d::Bone3D *)self->getBoneByName(arg1);
+    cocos2d::Bone3D *ret = self->getBoneByName(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.Bone3D");
 
     olua_endinvoke(L);
@@ -1251,7 +1251,7 @@ static int _cocos2d_MeshSkin_getBoneCount(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.MeshSkin");
 
     // ssize_t getBoneCount()
-    ssize_t ret = (ssize_t)self->getBoneCount();
+    ssize_t ret = self->getBoneCount();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -1270,7 +1270,7 @@ static int _cocos2d_MeshSkin_getBoneIndex(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Bone3D");
 
     // int getBoneIndex(cocos2d::Bone3D *bone)
-    int ret = (int)self->getBoneIndex(arg1);
+    int ret = self->getBoneIndex(arg1);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -1289,7 +1289,7 @@ static int _cocos2d_MeshSkin_getInvBindPose(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Bone3D");
 
     // const cocos2d::Mat4 &getInvBindPose(const cocos2d::Bone3D *bone)
-    const cocos2d::Mat4 &ret = (const cocos2d::Mat4 &)self->getInvBindPose(arg1);
+    const cocos2d::Mat4 &ret = self->getInvBindPose(arg1);
     int num_ret = manual_olua_push_cocos2d_Mat4(L, &ret);
 
     olua_endinvoke(L);
@@ -1306,7 +1306,7 @@ static int _cocos2d_MeshSkin_getMatrixPaletteSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.MeshSkin");
 
     // ssize_t getMatrixPaletteSize()
-    ssize_t ret = (ssize_t)self->getMatrixPaletteSize();
+    ssize_t ret = self->getMatrixPaletteSize();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -1323,7 +1323,7 @@ static int _cocos2d_MeshSkin_getMatrixPaletteSizeInBytes(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.MeshSkin");
 
     // ssize_t getMatrixPaletteSizeInBytes()
-    ssize_t ret = (ssize_t)self->getMatrixPaletteSizeInBytes();
+    ssize_t ret = self->getMatrixPaletteSizeInBytes();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -1340,7 +1340,7 @@ static int _cocos2d_MeshSkin_getRootBone(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.MeshSkin");
 
     // cocos2d::Bone3D *getRootBone()
-    cocos2d::Bone3D *ret = (cocos2d::Bone3D *)self->getRootBone();
+    cocos2d::Bone3D *ret = self->getRootBone();
     int num_ret = olua_push_cppobj(L, ret, "cc.Bone3D");
 
     olua_endinvoke(L);
@@ -1353,7 +1353,7 @@ static int _cocos2d_MeshSkin_new(lua_State *L)
     olua_startinvoke(L);
 
     // MeshSkin()
-    cocos2d::MeshSkin *ret = (cocos2d::MeshSkin *)new cocos2d::MeshSkin();
+    cocos2d::MeshSkin *ret = new cocos2d::MeshSkin();
     int num_ret = olua_push_cppobj(L, ret, "cc.MeshSkin");
     olua_postnew(L, ret);
 
@@ -1435,7 +1435,7 @@ static int _cocos2d_BillBoard_create1(lua_State *L)
     olua_check_uint(L, 1, &arg1);
 
     // static cocos2d::BillBoard *create(@optional cocos2d::BillBoard::Mode mode)
-    cocos2d::BillBoard *ret = (cocos2d::BillBoard *)cocos2d::BillBoard::create((cocos2d::BillBoard::Mode)arg1);
+    cocos2d::BillBoard *ret = cocos2d::BillBoard::create((cocos2d::BillBoard::Mode)arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.BillBoard");
 
     olua_endinvoke(L);
@@ -1454,7 +1454,7 @@ static int _cocos2d_BillBoard_create2(lua_State *L)
     olua_check_uint(L, 2, &arg2);
 
     // static cocos2d::BillBoard *create(const std::string &filename, @optional cocos2d::BillBoard::Mode mode)
-    cocos2d::BillBoard *ret = (cocos2d::BillBoard *)cocos2d::BillBoard::create(arg1, (cocos2d::BillBoard::Mode)arg2);
+    cocos2d::BillBoard *ret = cocos2d::BillBoard::create(arg1, (cocos2d::BillBoard::Mode)arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.BillBoard");
 
     olua_endinvoke(L);
@@ -1475,7 +1475,7 @@ static int _cocos2d_BillBoard_create3(lua_State *L)
     olua_check_uint(L, 3, &arg3);
 
     // static cocos2d::BillBoard *create(const std::string &filename, const cocos2d::Rect &rect, @optional cocos2d::BillBoard::Mode mode)
-    cocos2d::BillBoard *ret = (cocos2d::BillBoard *)cocos2d::BillBoard::create(arg1, arg2, (cocos2d::BillBoard::Mode)arg3);
+    cocos2d::BillBoard *ret = cocos2d::BillBoard::create(arg1, arg2, (cocos2d::BillBoard::Mode)arg3);
     int num_ret = olua_push_cppobj(L, ret, "cc.BillBoard");
 
     olua_endinvoke(L);
@@ -1488,7 +1488,7 @@ static int _cocos2d_BillBoard_create4(lua_State *L)
     olua_startinvoke(L);
 
     // static cocos2d::BillBoard *create(@optional cocos2d::BillBoard::Mode mode)
-    cocos2d::BillBoard *ret = (cocos2d::BillBoard *)cocos2d::BillBoard::create();
+    cocos2d::BillBoard *ret = cocos2d::BillBoard::create();
     int num_ret = olua_push_cppobj(L, ret, "cc.BillBoard");
 
     olua_endinvoke(L);
@@ -1505,7 +1505,7 @@ static int _cocos2d_BillBoard_create5(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static cocos2d::BillBoard *create(const std::string &filename, @optional cocos2d::BillBoard::Mode mode)
-    cocos2d::BillBoard *ret = (cocos2d::BillBoard *)cocos2d::BillBoard::create(arg1);
+    cocos2d::BillBoard *ret = cocos2d::BillBoard::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.BillBoard");
 
     olua_endinvoke(L);
@@ -1524,7 +1524,7 @@ static int _cocos2d_BillBoard_create6(lua_State *L)
     manual_olua_check_cocos2d_Rect(L, 2, &arg2);
 
     // static cocos2d::BillBoard *create(const std::string &filename, const cocos2d::Rect &rect, @optional cocos2d::BillBoard::Mode mode)
-    cocos2d::BillBoard *ret = (cocos2d::BillBoard *)cocos2d::BillBoard::create(arg1, arg2);
+    cocos2d::BillBoard *ret = cocos2d::BillBoard::create(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.BillBoard");
 
     olua_endinvoke(L);
@@ -1588,7 +1588,7 @@ static int _cocos2d_BillBoard_createWithTexture1(lua_State *L)
     olua_check_uint(L, 2, &arg2);
 
     // static cocos2d::BillBoard *createWithTexture(cocos2d::Texture2D *texture, @optional cocos2d::BillBoard::Mode mode)
-    cocos2d::BillBoard *ret = (cocos2d::BillBoard *)cocos2d::BillBoard::createWithTexture(arg1, (cocos2d::BillBoard::Mode)arg2);
+    cocos2d::BillBoard *ret = cocos2d::BillBoard::createWithTexture(arg1, (cocos2d::BillBoard::Mode)arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.BillBoard");
 
     olua_endinvoke(L);
@@ -1605,7 +1605,7 @@ static int _cocos2d_BillBoard_createWithTexture2(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Texture2D");
 
     // static cocos2d::BillBoard *createWithTexture(cocos2d::Texture2D *texture, @optional cocos2d::BillBoard::Mode mode)
-    cocos2d::BillBoard *ret = (cocos2d::BillBoard *)cocos2d::BillBoard::createWithTexture(arg1);
+    cocos2d::BillBoard *ret = cocos2d::BillBoard::createWithTexture(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.BillBoard");
 
     olua_endinvoke(L);
@@ -1645,7 +1645,7 @@ static int _cocos2d_BillBoard_getMode(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.BillBoard");
 
     // cocos2d::BillBoard::Mode getMode()
-    cocos2d::BillBoard::Mode ret = (cocos2d::BillBoard::Mode)self->getMode();
+    cocos2d::BillBoard::Mode ret = self->getMode();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -1658,7 +1658,7 @@ static int _cocos2d_BillBoard_new(lua_State *L)
     olua_startinvoke(L);
 
     // BillBoard()
-    cocos2d::BillBoard *ret = (cocos2d::BillBoard *)new cocos2d::BillBoard();
+    cocos2d::BillBoard *ret = new cocos2d::BillBoard();
     int num_ret = olua_push_cppobj(L, ret, "cc.BillBoard");
     olua_postnew(L, ret);
 
@@ -1740,7 +1740,7 @@ static int _cocos2d_Sprite3DMaterial_createBuiltInMaterial1(lua_State *L)
     olua_check_bool(L, 2, &arg2);
 
     // static cocos2d::Sprite3DMaterial *createBuiltInMaterial(cocos2d::Sprite3DMaterial::MaterialType type, bool skinned)
-    cocos2d::Sprite3DMaterial *ret = (cocos2d::Sprite3DMaterial *)cocos2d::Sprite3DMaterial::createBuiltInMaterial((cocos2d::Sprite3DMaterial::MaterialType)arg1, arg2);
+    cocos2d::Sprite3DMaterial *ret = cocos2d::Sprite3DMaterial::createBuiltInMaterial((cocos2d::Sprite3DMaterial::MaterialType)arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite3DMaterial");
 
     olua_endinvoke(L);
@@ -1790,7 +1790,7 @@ static int _cocos2d_Sprite3DMaterial_createWithFilename(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static cocos2d::Sprite3DMaterial *createWithFilename(const std::string &path)
-    cocos2d::Sprite3DMaterial *ret = (cocos2d::Sprite3DMaterial *)cocos2d::Sprite3DMaterial::createWithFilename(arg1);
+    cocos2d::Sprite3DMaterial *ret = cocos2d::Sprite3DMaterial::createWithFilename(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite3DMaterial");
 
     olua_endinvoke(L);
@@ -1807,7 +1807,7 @@ static int _cocos2d_Sprite3DMaterial_createWithProgramState(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "ccb.ProgramState");
 
     // static cocos2d::Sprite3DMaterial *createWithProgramState(cocos2d::backend::ProgramState *programState)
-    cocos2d::Sprite3DMaterial *ret = (cocos2d::Sprite3DMaterial *)cocos2d::Sprite3DMaterial::createWithProgramState(arg1);
+    cocos2d::Sprite3DMaterial *ret = cocos2d::Sprite3DMaterial::createWithProgramState(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite3DMaterial");
 
     olua_endinvoke(L);
@@ -1824,7 +1824,7 @@ static int _cocos2d_Sprite3DMaterial_getMaterialType(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite3DMaterial");
 
     // cocos2d::Sprite3DMaterial::MaterialType getMaterialType()
-    cocos2d::Sprite3DMaterial::MaterialType ret = (cocos2d::Sprite3DMaterial::MaterialType)self->getMaterialType();
+    cocos2d::Sprite3DMaterial::MaterialType ret = self->getMaterialType();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -1947,7 +1947,7 @@ static int _cocos2d_Sprite3D_create1(lua_State *L)
     olua_startinvoke(L);
 
     // static cocos2d::Sprite3D *create()
-    cocos2d::Sprite3D *ret = (cocos2d::Sprite3D *)cocos2d::Sprite3D::create();
+    cocos2d::Sprite3D *ret = cocos2d::Sprite3D::create();
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite3D");
 
     olua_endinvoke(L);
@@ -1964,7 +1964,7 @@ static int _cocos2d_Sprite3D_create2(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static cocos2d::Sprite3D *create(const std::string &modelPath)
-    cocos2d::Sprite3D *ret = (cocos2d::Sprite3D *)cocos2d::Sprite3D::create(arg1);
+    cocos2d::Sprite3D *ret = cocos2d::Sprite3D::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite3D");
 
     olua_endinvoke(L);
@@ -1983,7 +1983,7 @@ static int _cocos2d_Sprite3D_create3(lua_State *L)
     olua_check_std_string(L, 2, &arg2);
 
     // static cocos2d::Sprite3D *create(const std::string &modelPath, const std::string &texturePath)
-    cocos2d::Sprite3D *ret = (cocos2d::Sprite3D *)cocos2d::Sprite3D::create(arg1, arg2);
+    cocos2d::Sprite3D *ret = cocos2d::Sprite3D::create(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite3D");
 
     olua_endinvoke(L);
@@ -2194,7 +2194,7 @@ static int _cocos2d_Sprite3D_getAttachNode(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // cocos2d::AttachNode *getAttachNode(const std::string &boneName)
-    cocos2d::AttachNode *ret = (cocos2d::AttachNode *)self->getAttachNode(arg1);
+    cocos2d::AttachNode *ret = self->getAttachNode(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.AttachNode");
 
     olua_endinvoke(L);
@@ -2211,7 +2211,7 @@ static int _cocos2d_Sprite3D_getBlendFunc(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite3D");
 
     // const cocos2d::BlendFunc &getBlendFunc()
-    const cocos2d::BlendFunc &ret = (const cocos2d::BlendFunc &)self->getBlendFunc();
+    const cocos2d::BlendFunc &ret = self->getBlendFunc();
     int num_ret = auto_olua_push_cocos2d_BlendFunc(L, &ret);
 
     olua_endinvoke(L);
@@ -2228,7 +2228,7 @@ static int _cocos2d_Sprite3D_getLightMask(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite3D");
 
     // unsigned int getLightMask()
-    unsigned int ret = (unsigned int)self->getLightMask();
+    unsigned int ret = self->getLightMask();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -2245,7 +2245,7 @@ static int _cocos2d_Sprite3D_getMesh(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite3D");
 
     // cocos2d::Mesh *getMesh()
-    cocos2d::Mesh *ret = (cocos2d::Mesh *)self->getMesh();
+    cocos2d::Mesh *ret = self->getMesh();
     int num_ret = olua_push_cppobj(L, ret, "cc.Mesh");
 
     olua_endinvoke(L);
@@ -2264,7 +2264,7 @@ static int _cocos2d_Sprite3D_getMeshArrayByName(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // std::vector<Mesh *> getMeshArrayByName(const std::string &name)
-    std::vector<cocos2d::Mesh *> ret = (std::vector<cocos2d::Mesh *>)self->getMeshArrayByName(arg1);
+    std::vector<cocos2d::Mesh *> ret = self->getMeshArrayByName(arg1);
     int num_ret = olua_push_std_vector(L, ret, "cc.Mesh");
 
     olua_endinvoke(L);
@@ -2283,7 +2283,7 @@ static int _cocos2d_Sprite3D_getMeshByIndex(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // cocos2d::Mesh *getMeshByIndex(int index)
-    cocos2d::Mesh *ret = (cocos2d::Mesh *)self->getMeshByIndex((int)arg1);
+    cocos2d::Mesh *ret = self->getMeshByIndex((int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.Mesh");
 
     olua_endinvoke(L);
@@ -2302,7 +2302,7 @@ static int _cocos2d_Sprite3D_getMeshByName(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // cocos2d::Mesh *getMeshByName(const std::string &name)
-    cocos2d::Mesh *ret = (cocos2d::Mesh *)self->getMeshByName(arg1);
+    cocos2d::Mesh *ret = self->getMeshByName(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.Mesh");
 
     olua_endinvoke(L);
@@ -2319,7 +2319,7 @@ static int _cocos2d_Sprite3D_getMeshCount(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite3D");
 
     // ssize_t getMeshCount()
-    ssize_t ret = (ssize_t)self->getMeshCount();
+    ssize_t ret = self->getMeshCount();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -2336,7 +2336,7 @@ static int _cocos2d_Sprite3D_getMeshes(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite3D");
 
     // const Vector<cocos2d::Mesh *> &getMeshes()
-    const cocos2d::Vector<cocos2d::Mesh *> &ret = (const cocos2d::Vector<cocos2d::Mesh *> &)self->getMeshes();
+    const cocos2d::Vector<cocos2d::Mesh *> &ret = self->getMeshes();
     int num_ret = manual_olua_push_cocos2d_Vector(L, ret, "cc.Mesh");
 
     olua_endinvoke(L);
@@ -2353,7 +2353,7 @@ static int _cocos2d_Sprite3D_getSkeleton(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite3D");
 
     // cocos2d::Skeleton3D *getSkeleton()
-    cocos2d::Skeleton3D *ret = (cocos2d::Skeleton3D *)self->getSkeleton();
+    cocos2d::Skeleton3D *ret = self->getSkeleton();
     int num_ret = olua_push_cppobj(L, ret, "cc.Skeleton3D");
 
     olua_endinvoke(L);
@@ -2372,7 +2372,7 @@ static int _cocos2d_Sprite3D_initWithFile(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // bool initWithFile(const std::string &path)
-    bool ret = (bool)self->initWithFile(arg1);
+    bool ret = self->initWithFile(arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -2389,7 +2389,7 @@ static int _cocos2d_Sprite3D_isForceDepthWrite(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite3D");
 
     // bool isForceDepthWrite()
-    bool ret = (bool)self->isForceDepthWrite();
+    bool ret = self->isForceDepthWrite();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -2408,7 +2408,7 @@ static int _cocos2d_Sprite3D_loadFromCache(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // bool loadFromCache(const std::string &path)
-    bool ret = (bool)self->loadFromCache(arg1);
+    bool ret = self->loadFromCache(arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -2421,7 +2421,7 @@ static int _cocos2d_Sprite3D_new(lua_State *L)
     olua_startinvoke(L);
 
     // Sprite3D()
-    cocos2d::Sprite3D *ret = (cocos2d::Sprite3D *)new cocos2d::Sprite3D();
+    cocos2d::Sprite3D *ret = new cocos2d::Sprite3D();
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite3D");
     olua_postnew(L, ret);
 
@@ -2712,7 +2712,7 @@ static int _cocos2d_AttachNode_create(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Bone3D");
 
     // static cocos2d::AttachNode *create(cocos2d::Bone3D *attachBone)
-    cocos2d::AttachNode *ret = (cocos2d::AttachNode *)cocos2d::AttachNode::create(arg1);
+    cocos2d::AttachNode *ret = cocos2d::AttachNode::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.AttachNode");
 
     olua_endinvoke(L);
@@ -2725,7 +2725,7 @@ static int _cocos2d_AttachNode_new(lua_State *L)
     olua_startinvoke(L);
 
     // AttachNode()
-    cocos2d::AttachNode *ret = (cocos2d::AttachNode *)new cocos2d::AttachNode();
+    cocos2d::AttachNode *ret = new cocos2d::AttachNode();
     int num_ret = olua_push_cppobj(L, ret, "cc.AttachNode");
     olua_postnew(L, ret);
 
@@ -2801,7 +2801,7 @@ static int _cocos2d_Bone3D_create(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static cocos2d::Bone3D *create(const std::string &id)
-    cocos2d::Bone3D *ret = (cocos2d::Bone3D *)cocos2d::Bone3D::create(arg1);
+    cocos2d::Bone3D *ret = cocos2d::Bone3D::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.Bone3D");
 
     olua_endinvoke(L);
@@ -2820,7 +2820,7 @@ static int _cocos2d_Bone3D_getChildBoneByIndex(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // cocos2d::Bone3D *getChildBoneByIndex(int index)
-    cocos2d::Bone3D *ret = (cocos2d::Bone3D *)self->getChildBoneByIndex((int)arg1);
+    cocos2d::Bone3D *ret = self->getChildBoneByIndex((int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.Bone3D");
 
     olua_endinvoke(L);
@@ -2837,7 +2837,7 @@ static int _cocos2d_Bone3D_getChildBoneCount(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Bone3D");
 
     // ssize_t getChildBoneCount()
-    ssize_t ret = (ssize_t)self->getChildBoneCount();
+    ssize_t ret = self->getChildBoneCount();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -2854,7 +2854,7 @@ static int _cocos2d_Bone3D_getInverseBindPose(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Bone3D");
 
     // const cocos2d::Mat4 &getInverseBindPose()
-    const cocos2d::Mat4 &ret = (const cocos2d::Mat4 &)self->getInverseBindPose();
+    const cocos2d::Mat4 &ret = self->getInverseBindPose();
     int num_ret = manual_olua_push_cocos2d_Mat4(L, &ret);
 
     olua_endinvoke(L);
@@ -2871,7 +2871,7 @@ static int _cocos2d_Bone3D_getName(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Bone3D");
 
     // const std::string &getName()
-    const std::string &ret = (const std::string &)self->getName();
+    const std::string &ret = self->getName();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -2888,7 +2888,7 @@ static int _cocos2d_Bone3D_getParentBone(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Bone3D");
 
     // cocos2d::Bone3D *getParentBone()
-    cocos2d::Bone3D *ret = (cocos2d::Bone3D *)self->getParentBone();
+    cocos2d::Bone3D *ret = self->getParentBone();
     int num_ret = olua_push_cppobj(L, ret, "cc.Bone3D");
 
     olua_endinvoke(L);
@@ -2905,7 +2905,7 @@ static int _cocos2d_Bone3D_getWorldMat(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Bone3D");
 
     // const cocos2d::Mat4 &getWorldMat()
-    const cocos2d::Mat4 &ret = (const cocos2d::Mat4 &)self->getWorldMat();
+    const cocos2d::Mat4 &ret = self->getWorldMat();
     int num_ret = manual_olua_push_cocos2d_Mat4(L, &ret);
 
     olua_endinvoke(L);
@@ -3105,7 +3105,7 @@ static int _cocos2d_Skeleton3D_getBoneByIndex(lua_State *L)
     olua_check_uint(L, 2, &arg1);
 
     // cocos2d::Bone3D *getBoneByIndex(unsigned int index)
-    cocos2d::Bone3D *ret = (cocos2d::Bone3D *)self->getBoneByIndex((unsigned int)arg1);
+    cocos2d::Bone3D *ret = self->getBoneByIndex((unsigned int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.Bone3D");
 
     olua_endinvoke(L);
@@ -3124,7 +3124,7 @@ static int _cocos2d_Skeleton3D_getBoneByName(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // cocos2d::Bone3D *getBoneByName(const std::string &id)
-    cocos2d::Bone3D *ret = (cocos2d::Bone3D *)self->getBoneByName(arg1);
+    cocos2d::Bone3D *ret = self->getBoneByName(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.Bone3D");
 
     olua_endinvoke(L);
@@ -3141,7 +3141,7 @@ static int _cocos2d_Skeleton3D_getBoneCount(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Skeleton3D");
 
     // ssize_t getBoneCount()
-    ssize_t ret = (ssize_t)self->getBoneCount();
+    ssize_t ret = self->getBoneCount();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -3160,7 +3160,7 @@ static int _cocos2d_Skeleton3D_getBoneIndex(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Bone3D");
 
     // int getBoneIndex(cocos2d::Bone3D *bone)
-    int ret = (int)self->getBoneIndex(arg1);
+    int ret = self->getBoneIndex(arg1);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -3179,7 +3179,7 @@ static int _cocos2d_Skeleton3D_getRootBone(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // cocos2d::Bone3D *getRootBone(int index)
-    cocos2d::Bone3D *ret = (cocos2d::Bone3D *)self->getRootBone((int)arg1);
+    cocos2d::Bone3D *ret = self->getRootBone((int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.Bone3D");
 
     olua_endinvoke(L);
@@ -3196,7 +3196,7 @@ static int _cocos2d_Skeleton3D_getRootCount(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Skeleton3D");
 
     // ssize_t getRootCount()
-    ssize_t ret = (ssize_t)self->getRootCount();
+    ssize_t ret = self->getRootCount();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -3209,7 +3209,7 @@ static int _cocos2d_Skeleton3D_new(lua_State *L)
     olua_startinvoke(L);
 
     // Skeleton3D()
-    cocos2d::Skeleton3D *ret = (cocos2d::Skeleton3D *)new cocos2d::Skeleton3D();
+    cocos2d::Skeleton3D *ret = new cocos2d::Skeleton3D();
     int num_ret = olua_push_cppobj(L, ret, "cc.Skeleton3D");
     olua_postnew(L, ret);
 

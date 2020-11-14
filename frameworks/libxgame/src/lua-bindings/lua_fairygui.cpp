@@ -586,7 +586,7 @@ static int _fairygui_UIEventDispatcher_bubbleEvent1(lua_State *L)
     manual_olua_check_cocos2d_Value(L, 4, &arg3);
 
     // bool bubbleEvent(int eventType, @optional void *data, @optional const cocos2d::Value &dataValue)
-    bool ret = (bool)self->bubbleEvent((int)arg1, arg2, arg3);
+    bool ret = self->bubbleEvent((int)arg1, arg2, arg3);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -605,7 +605,7 @@ static int _fairygui_UIEventDispatcher_bubbleEvent2(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // bool bubbleEvent(int eventType, @optional void *data, @optional const cocos2d::Value &dataValue)
-    bool ret = (bool)self->bubbleEvent((int)arg1);
+    bool ret = self->bubbleEvent((int)arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -626,7 +626,7 @@ static int _fairygui_UIEventDispatcher_bubbleEvent3(lua_State *L)
     olua_check_obj(L, 3, (void **)&arg2, "void *");
 
     // bool bubbleEvent(int eventType, @optional void *data, @optional const cocos2d::Value &dataValue)
-    bool ret = (bool)self->bubbleEvent((int)arg1, arg2);
+    bool ret = self->bubbleEvent((int)arg1, arg2);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -679,7 +679,7 @@ static int _fairygui_UIEventDispatcher_dispatchEvent1(lua_State *L)
     manual_olua_check_cocos2d_Value(L, 4, &arg3);
 
     // bool dispatchEvent(int eventType, @optional void *data, @optional const cocos2d::Value &dataValue)
-    bool ret = (bool)self->dispatchEvent((int)arg1, arg2, arg3);
+    bool ret = self->dispatchEvent((int)arg1, arg2, arg3);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -698,7 +698,7 @@ static int _fairygui_UIEventDispatcher_dispatchEvent2(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // bool dispatchEvent(int eventType, @optional void *data, @optional const cocos2d::Value &dataValue)
-    bool ret = (bool)self->dispatchEvent((int)arg1);
+    bool ret = self->dispatchEvent((int)arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -719,7 +719,7 @@ static int _fairygui_UIEventDispatcher_dispatchEvent3(lua_State *L)
     olua_check_obj(L, 3, (void **)&arg2, "void *");
 
     // bool dispatchEvent(int eventType, @optional void *data, @optional const cocos2d::Value &dataValue)
-    bool ret = (bool)self->dispatchEvent((int)arg1, arg2);
+    bool ret = self->dispatchEvent((int)arg1, arg2);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -768,7 +768,7 @@ static int _fairygui_UIEventDispatcher_hasEventListener1(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // bool hasEventListener(int eventType)
-    bool ret = (bool)self->hasEventListener((int)arg1);
+    bool ret = self->hasEventListener((int)arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -789,7 +789,7 @@ static int _fairygui_UIEventDispatcher_hasEventListener2(lua_State *L)
     manual_olua_check_fairygui_EventTag(L, 3, &arg2);
 
     // bool hasEventListener(int eventType, const fairygui::EventTag &tag)
-    bool ret = (bool)self->hasEventListener((int)arg1, arg2);
+    bool ret = self->hasEventListener((int)arg1, arg2);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -831,7 +831,7 @@ static int _fairygui_UIEventDispatcher_isDispatchingEvent(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // bool isDispatchingEvent(int eventType)
-    bool ret = (bool)self->isDispatchingEvent((int)arg1);
+    bool ret = self->isDispatchingEvent((int)arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -844,7 +844,7 @@ static int _fairygui_UIEventDispatcher_new(lua_State *L)
     olua_startinvoke(L);
 
     // UIEventDispatcher()
-    fairygui::UIEventDispatcher *ret = (fairygui::UIEventDispatcher *)new fairygui::UIEventDispatcher();
+    fairygui::UIEventDispatcher *ret = new fairygui::UIEventDispatcher();
     int num_ret = olua_push_cppobj(L, ret, "fgui.UIEventDispatcher");
     olua_postnew(L, ret);
 
@@ -1014,7 +1014,7 @@ static int _fairygui_EventContext_getData(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.EventContext");
 
     // void *getData()
-    void *ret = (void *)self->getData();
+    void *ret = self->getData();
     int num_ret = olua_push_obj(L, ret, "void *");
 
     olua_endinvoke(L);
@@ -1031,7 +1031,7 @@ static int _fairygui_EventContext_getDataValue(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.EventContext");
 
     // const cocos2d::Value &getDataValue()
-    const cocos2d::Value &ret = (const cocos2d::Value &)self->getDataValue();
+    const cocos2d::Value &ret = self->getDataValue();
     int num_ret = manual_olua_push_cocos2d_Value(L, &ret);
 
     olua_endinvoke(L);
@@ -1048,7 +1048,7 @@ static int _fairygui_EventContext_getInput(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.EventContext");
 
     // fairygui::InputEvent *getInput()
-    fairygui::InputEvent *ret = (fairygui::InputEvent *)self->getInput();
+    fairygui::InputEvent *ret = self->getInput();
     int num_ret = olua_push_cppobj(L, ret, "fgui.InputEvent");
 
     olua_endinvoke(L);
@@ -1065,7 +1065,7 @@ static int _fairygui_EventContext_getSender(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.EventContext");
 
     // cocos2d::Ref *getSender()
-    cocos2d::Ref *ret = (cocos2d::Ref *)self->getSender();
+    cocos2d::Ref *ret = self->getSender();
     int num_ret = olua_push_cppobj(L, ret, "cc.Ref");
 
     olua_endinvoke(L);
@@ -1082,7 +1082,7 @@ static int _fairygui_EventContext_getType(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.EventContext");
 
     // int getType()
-    int ret = (int)self->getType();
+    int ret = self->getType();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -1099,7 +1099,7 @@ static int _fairygui_EventContext_isDefaultPrevented(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.EventContext");
 
     // bool isDefaultPrevented()
-    bool ret = (bool)self->isDefaultPrevented();
+    bool ret = self->isDefaultPrevented();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -1112,7 +1112,7 @@ static int _fairygui_EventContext_new(lua_State *L)
     olua_startinvoke(L);
 
     // EventContext()
-    fairygui::EventContext *ret = (fairygui::EventContext *)new fairygui::EventContext();
+    fairygui::EventContext *ret = new fairygui::EventContext();
     int num_ret = olua_push_cppobj(L, ret, "fgui.EventContext");
     olua_postnew(L, ret);
 
@@ -1222,7 +1222,7 @@ static int _fairygui_IHitTest_hitTest(lua_State *L)
     auto_olua_check_cocos2d_Vec2(L, 3, &arg2);
 
     // bool hitTest(fairygui::GComponent *obj, const cocos2d::Vec2 &localPoint)
-    bool ret = (bool)self->hitTest(arg1, arg2);
+    bool ret = self->hitTest(arg1, arg2);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -1283,7 +1283,7 @@ static int _fairygui_PixelHitTest_new(lua_State *L)
     olua_check_int(L, 3, &arg3);
 
     // PixelHitTest(fairygui::PixelHitTestData *data, int offsetX, int offsetY)
-    fairygui::PixelHitTest *ret = (fairygui::PixelHitTest *)new fairygui::PixelHitTest(arg1, (int)arg2, (int)arg3);
+    fairygui::PixelHitTest *ret = new fairygui::PixelHitTest(arg1, (int)arg2, (int)arg3);
     int num_ret = olua_push_cppobj(L, ret, "fgui.PixelHitTest");
     olua_postnew(L, ret);
 
@@ -1301,7 +1301,7 @@ static int _fairygui_PixelHitTest_get_offsetX(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTest");
 
     // int offsetX
-    int ret = (int)self->offsetX;
+    int ret = self->offsetX;
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -1336,7 +1336,7 @@ static int _fairygui_PixelHitTest_get_offsetY(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTest");
 
     // int offsetY
-    int ret = (int)self->offsetY;
+    int ret = self->offsetY;
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -1371,7 +1371,7 @@ static int _fairygui_PixelHitTest_get_scaleX(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTest");
 
     // float scaleX
-    float ret = (float)self->scaleX;
+    float ret = self->scaleX;
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -1406,7 +1406,7 @@ static int _fairygui_PixelHitTest_get_scaleY(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTest");
 
     // float scaleY
-    float ret = (float)self->scaleY;
+    float ret = self->scaleY;
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -1482,7 +1482,7 @@ static int _fairygui_PixelHitTestData_new(lua_State *L)
     olua_startinvoke(L);
 
     // PixelHitTestData()
-    fairygui::PixelHitTestData *ret = (fairygui::PixelHitTestData *)new fairygui::PixelHitTestData();
+    fairygui::PixelHitTestData *ret = new fairygui::PixelHitTestData();
     int num_ret = olua_push_cppobj(L, ret, "fgui.PixelHitTestData");
     olua_postnew(L, ret);
 
@@ -1500,7 +1500,7 @@ static int _fairygui_PixelHitTestData_get_pixelWidth(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTestData");
 
     // int pixelWidth
-    int ret = (int)self->pixelWidth;
+    int ret = self->pixelWidth;
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -1535,7 +1535,7 @@ static int _fairygui_PixelHitTestData_get_pixels(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTestData");
 
     // unsigned char *pixels
-    unsigned char *ret = (unsigned char *)self->pixels;
+    unsigned char *ret = self->pixels;
     int num_ret = olua_push_string(L, (const char *)ret);
 
     olua_endinvoke(L);
@@ -1570,7 +1570,7 @@ static int _fairygui_PixelHitTestData_get_pixelsLength(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTestData");
 
     // size_t pixelsLength
-    size_t ret = (size_t)self->pixelsLength;
+    size_t ret = self->pixelsLength;
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -1605,7 +1605,7 @@ static int _fairygui_PixelHitTestData_get_scale(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTestData");
 
     // float scale
-    float ret = (float)self->scale;
+    float ret = self->scale;
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -1739,7 +1739,7 @@ static int _fairygui_InputProcessor_getRecentInput(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.InputProcessor");
 
     // fairygui::InputEvent *getRecentInput()
-    fairygui::InputEvent *ret = (fairygui::InputEvent *)self->getRecentInput();
+    fairygui::InputEvent *ret = self->getRecentInput();
     int num_ret = olua_push_cppobj(L, ret, "fgui.InputEvent");
 
     olua_endinvoke(L);
@@ -1758,7 +1758,7 @@ static int _fairygui_InputProcessor_getTouchPosition(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // cocos2d::Vec2 getTouchPosition(int touchId)
-    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getTouchPosition((int)arg1);
+    cocos2d::Vec2 ret = self->getTouchPosition((int)arg1);
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     olua_endinvoke(L);
@@ -1771,7 +1771,7 @@ static int _fairygui_InputProcessor_isTouchOnUI(lua_State *L)
     olua_startinvoke(L);
 
     // static bool isTouchOnUI()
-    bool ret = (bool)fairygui::InputProcessor::isTouchOnUI();
+    bool ret = fairygui::InputProcessor::isTouchOnUI();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -1788,7 +1788,7 @@ static int _fairygui_InputProcessor_new(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "fgui.GComponent");
 
     // InputProcessor(fairygui::GComponent *owner)
-    fairygui::InputProcessor *ret = (fairygui::InputProcessor *)new fairygui::InputProcessor(arg1);
+    fairygui::InputProcessor *ret = new fairygui::InputProcessor(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.InputProcessor");
     olua_postnew(L, ret);
 
@@ -1929,7 +1929,7 @@ static int _fairygui_InputProcessor_touchDown(lua_State *L)
     olua_check_cppobj(L, 3, (void **)&arg2, "cc.Event");
 
     // bool touchDown(cocos2d::Touch *touch, cocos2d::Event *event)
-    bool ret = (bool)self->touchDown(arg1, arg2);
+    bool ret = self->touchDown(arg1, arg2);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -2041,7 +2041,7 @@ static int _fairygui_InputEvent_getButton(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.InputEvent");
 
     // cocos2d::EventMouse::MouseButton getButton()
-    cocos2d::EventMouse::MouseButton ret = (cocos2d::EventMouse::MouseButton)self->getButton();
+    cocos2d::EventMouse::MouseButton ret = self->getButton();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -2058,7 +2058,7 @@ static int _fairygui_InputEvent_getKeyCode(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.InputEvent");
 
     // cocos2d::EventKeyboard::KeyCode getKeyCode()
-    cocos2d::EventKeyboard::KeyCode ret = (cocos2d::EventKeyboard::KeyCode)self->getKeyCode();
+    cocos2d::EventKeyboard::KeyCode ret = self->getKeyCode();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -2075,7 +2075,7 @@ static int _fairygui_InputEvent_getMouseWheelDelta(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.InputEvent");
 
     // int getMouseWheelDelta()
-    int ret = (int)self->getMouseWheelDelta();
+    int ret = self->getMouseWheelDelta();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -2092,7 +2092,7 @@ static int _fairygui_InputEvent_getPosition(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.InputEvent");
 
     // const cocos2d::Vec2 &getPosition()
-    const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getPosition();
+    const cocos2d::Vec2 &ret = self->getPosition();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     olua_endinvoke(L);
@@ -2109,7 +2109,7 @@ static int _fairygui_InputEvent_getProcessor(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.InputEvent");
 
     // fairygui::InputProcessor *getProcessor()
-    fairygui::InputProcessor *ret = (fairygui::InputProcessor *)self->getProcessor();
+    fairygui::InputProcessor *ret = self->getProcessor();
     int num_ret = olua_push_cppobj(L, ret, "fgui.InputProcessor");
 
     olua_endinvoke(L);
@@ -2126,7 +2126,7 @@ static int _fairygui_InputEvent_getTarget(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.InputEvent");
 
     // fairygui::GObject *getTarget()
-    fairygui::GObject *ret = (fairygui::GObject *)self->getTarget();
+    fairygui::GObject *ret = self->getTarget();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     olua_endinvoke(L);
@@ -2143,7 +2143,7 @@ static int _fairygui_InputEvent_getTouch(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.InputEvent");
 
     // cocos2d::Touch *getTouch()
-    cocos2d::Touch *ret = (cocos2d::Touch *)self->getTouch();
+    cocos2d::Touch *ret = self->getTouch();
     int num_ret = olua_push_cppobj(L, ret, "cc.Touch");
 
     olua_endinvoke(L);
@@ -2160,7 +2160,7 @@ static int _fairygui_InputEvent_getTouchId(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.InputEvent");
 
     // int getTouchId()
-    int ret = (int)self->getTouchId();
+    int ret = self->getTouchId();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -2177,7 +2177,7 @@ static int _fairygui_InputEvent_getX(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.InputEvent");
 
     // const int getX()
-    const int ret = (const int)self->getX();
+    const int ret = self->getX();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -2194,7 +2194,7 @@ static int _fairygui_InputEvent_getY(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.InputEvent");
 
     // const int getY()
-    const int ret = (const int)self->getY();
+    const int ret = self->getY();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -2211,7 +2211,7 @@ static int _fairygui_InputEvent_isAltDown(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.InputEvent");
 
     // bool isAltDown()
-    bool ret = (bool)self->isAltDown();
+    bool ret = self->isAltDown();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -2228,7 +2228,7 @@ static int _fairygui_InputEvent_isCtrlDown(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.InputEvent");
 
     // bool isCtrlDown()
-    bool ret = (bool)self->isCtrlDown();
+    bool ret = self->isCtrlDown();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -2245,7 +2245,7 @@ static int _fairygui_InputEvent_isDoubleClick(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.InputEvent");
 
     // int isDoubleClick()
-    int ret = (int)self->isDoubleClick();
+    int ret = self->isDoubleClick();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -2262,7 +2262,7 @@ static int _fairygui_InputEvent_isShiftDown(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.InputEvent");
 
     // bool isShiftDown()
-    bool ret = (bool)self->isShiftDown();
+    bool ret = self->isShiftDown();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -2275,7 +2275,7 @@ static int _fairygui_InputEvent_new(lua_State *L)
     olua_startinvoke(L);
 
     // InputEvent()
-    fairygui::InputEvent *ret = (fairygui::InputEvent *)new fairygui::InputEvent();
+    fairygui::InputEvent *ret = new fairygui::InputEvent();
     int num_ret = olua_push_cppobj(L, ret, "fgui.InputEvent");
     olua_postnew(L, ret);
 
@@ -2400,7 +2400,7 @@ static int _fairygui_TextFormat_hasEffect(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // bool hasEffect(int effectFlag)
-    bool ret = (bool)self->hasEffect((int)arg1);
+    bool ret = self->hasEffect((int)arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -2413,7 +2413,7 @@ static int _fairygui_TextFormat_new(lua_State *L)
     olua_startinvoke(L);
 
     // TextFormat()
-    fairygui::TextFormat *ret = (fairygui::TextFormat *)new fairygui::TextFormat();
+    fairygui::TextFormat *ret = new fairygui::TextFormat();
     int num_ret = olua_push_cppobj(L, ret, "fgui.TextFormat");
     olua_postnew(L, ret);
 
@@ -2449,7 +2449,7 @@ static int _fairygui_TextFormat_get_align(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.TextFormat");
 
     // cocos2d::TextHAlignment align
-    cocos2d::TextHAlignment ret = (cocos2d::TextHAlignment)self->align;
+    cocos2d::TextHAlignment ret = self->align;
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -2484,7 +2484,7 @@ static int _fairygui_TextFormat_get_bold(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.TextFormat");
 
     // bool bold
-    bool ret = (bool)self->bold;
+    bool ret = self->bold;
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -2519,7 +2519,7 @@ static int _fairygui_TextFormat_get_color(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.TextFormat");
 
     // cocos2d::Color3B color
-    cocos2d::Color3B ret = (cocos2d::Color3B)self->color;
+    cocos2d::Color3B ret = self->color;
     int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     olua_endinvoke(L);
@@ -2554,7 +2554,7 @@ static int _fairygui_TextFormat_get_effect(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.TextFormat");
 
     // int effect
-    int ret = (int)self->effect;
+    int ret = self->effect;
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -2589,7 +2589,7 @@ static int _fairygui_TextFormat_get_face(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.TextFormat");
 
     // std::string face
-    std::string ret = (std::string)self->face;
+    std::string ret = self->face;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -2624,7 +2624,7 @@ static int _fairygui_TextFormat_get_fontSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.TextFormat");
 
     // float fontSize
-    float ret = (float)self->fontSize;
+    float ret = self->fontSize;
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -2659,7 +2659,7 @@ static int _fairygui_TextFormat_get_glowColor(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.TextFormat");
 
     // cocos2d::Color3B glowColor
-    cocos2d::Color3B ret = (cocos2d::Color3B)self->glowColor;
+    cocos2d::Color3B ret = self->glowColor;
     int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     olua_endinvoke(L);
@@ -2694,7 +2694,7 @@ static int _fairygui_TextFormat_get_italics(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.TextFormat");
 
     // bool italics
-    bool ret = (bool)self->italics;
+    bool ret = self->italics;
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -2729,7 +2729,7 @@ static int _fairygui_TextFormat_get_letterSpacing(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.TextFormat");
 
     // int letterSpacing
-    int ret = (int)self->letterSpacing;
+    int ret = self->letterSpacing;
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -2764,7 +2764,7 @@ static int _fairygui_TextFormat_get_lineSpacing(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.TextFormat");
 
     // int lineSpacing
-    int ret = (int)self->lineSpacing;
+    int ret = self->lineSpacing;
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -2799,7 +2799,7 @@ static int _fairygui_TextFormat_get_outlineColor(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.TextFormat");
 
     // cocos2d::Color3B outlineColor
-    cocos2d::Color3B ret = (cocos2d::Color3B)self->outlineColor;
+    cocos2d::Color3B ret = self->outlineColor;
     int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     olua_endinvoke(L);
@@ -2834,7 +2834,7 @@ static int _fairygui_TextFormat_get_outlineSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.TextFormat");
 
     // int outlineSize
-    int ret = (int)self->outlineSize;
+    int ret = self->outlineSize;
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -2869,7 +2869,7 @@ static int _fairygui_TextFormat_get_shadowBlurRadius(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.TextFormat");
 
     // int shadowBlurRadius
-    int ret = (int)self->shadowBlurRadius;
+    int ret = self->shadowBlurRadius;
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -2904,7 +2904,7 @@ static int _fairygui_TextFormat_get_shadowColor(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.TextFormat");
 
     // cocos2d::Color3B shadowColor
-    cocos2d::Color3B ret = (cocos2d::Color3B)self->shadowColor;
+    cocos2d::Color3B ret = self->shadowColor;
     int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     olua_endinvoke(L);
@@ -2939,7 +2939,7 @@ static int _fairygui_TextFormat_get_shadowOffset(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.TextFormat");
 
     // cocos2d::Size shadowOffset
-    cocos2d::Size ret = (cocos2d::Size)self->shadowOffset;
+    cocos2d::Size ret = self->shadowOffset;
     int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     olua_endinvoke(L);
@@ -2974,7 +2974,7 @@ static int _fairygui_TextFormat_get_underline(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.TextFormat");
 
     // bool underline
-    bool ret = (bool)self->underline;
+    bool ret = self->underline;
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -3009,7 +3009,7 @@ static int _fairygui_TextFormat_get_verticalAlign(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.TextFormat");
 
     // cocos2d::TextVAlignment verticalAlign
-    cocos2d::TextVAlignment ret = (cocos2d::TextVAlignment)self->verticalAlign;
+    cocos2d::TextVAlignment ret = self->verticalAlign;
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -3141,7 +3141,7 @@ static int _fairygui_EaseManager_evaluate(lua_State *L)
     olua_check_number(L, 5, &arg5);
 
     // static float evaluate(fairygui::EaseType easeType, float time, float duration, float overshootOrAmplitude, float period)
-    float ret = (float)fairygui::EaseManager::evaluate((fairygui::EaseType)arg1, (float)arg2, (float)arg3, (float)arg4, (float)arg5);
+    float ret = fairygui::EaseManager::evaluate((fairygui::EaseType)arg1, (float)arg2, (float)arg3, (float)arg4, (float)arg5);
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -3225,7 +3225,7 @@ static int _fairygui_GTweener_allCompleted(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
 
     // bool allCompleted()
-    bool ret = (bool)self->allCompleted();
+    bool ret = self->allCompleted();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -3242,7 +3242,7 @@ static int _fairygui_GTweener_getDelay(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
 
     // float getDelay()
-    float ret = (float)self->getDelay();
+    float ret = self->getDelay();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -3259,7 +3259,7 @@ static int _fairygui_GTweener_getDuration(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
 
     // float getDuration()
-    float ret = (float)self->getDuration();
+    float ret = self->getDuration();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -3276,7 +3276,7 @@ static int _fairygui_GTweener_getNormalizedTime(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
 
     // float getNormalizedTime()
-    float ret = (float)self->getNormalizedTime();
+    float ret = self->getNormalizedTime();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -3293,7 +3293,7 @@ static int _fairygui_GTweener_getRepeat(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
 
     // int getRepeat()
-    int ret = (int)self->getRepeat();
+    int ret = self->getRepeat();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -3310,7 +3310,7 @@ static int _fairygui_GTweener_getTarget(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
 
     // void *getTarget()
-    void *ret = (void *)self->getTarget();
+    void *ret = self->getTarget();
     int num_ret = olua_push_obj(L, ret, "void *");
 
     olua_endinvoke(L);
@@ -3327,7 +3327,7 @@ static int _fairygui_GTweener_getUserData(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
 
     // const cocos2d::Value &getUserData()
-    const cocos2d::Value &ret = (const cocos2d::Value &)self->getUserData();
+    const cocos2d::Value &ret = self->getUserData();
     int num_ret = manual_olua_push_cocos2d_Value(L, &ret);
 
     olua_endinvoke(L);
@@ -3344,7 +3344,7 @@ static int _fairygui_GTweener_isCompleted(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
 
     // bool isCompleted()
-    bool ret = (bool)self->isCompleted();
+    bool ret = self->isCompleted();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -3412,7 +3412,7 @@ static int _fairygui_GTweener_new(lua_State *L)
     olua_startinvoke(L);
 
     // GTweener()
-    fairygui::GTweener *ret = (fairygui::GTweener *)new fairygui::GTweener();
+    fairygui::GTweener *ret = new fairygui::GTweener();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
     olua_postnew(L, ret);
 
@@ -3447,7 +3447,7 @@ static int _fairygui_GTweener_onComplete(lua_State *L)
     };
 
     // fairygui::GTweener *onComplete(std::function<void ()> callback)
-    fairygui::GTweener *ret = (fairygui::GTweener *)self->onComplete(arg1);
+    fairygui::GTweener *ret = self->onComplete(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -3482,7 +3482,7 @@ static int _fairygui_GTweener_onComplete1(lua_State *L)
     };
 
     // fairygui::GTweener *onComplete1(std::function<void (GTweener *)> callback)
-    fairygui::GTweener *ret = (fairygui::GTweener *)self->onComplete1(arg1);
+    fairygui::GTweener *ret = self->onComplete1(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -3517,7 +3517,7 @@ static int _fairygui_GTweener_onStart(lua_State *L)
     };
 
     // fairygui::GTweener *onStart(std::function<void (GTweener *)> callback)
-    fairygui::GTweener *ret = (fairygui::GTweener *)self->onStart(arg1);
+    fairygui::GTweener *ret = self->onStart(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -3552,7 +3552,7 @@ static int _fairygui_GTweener_onUpdate(lua_State *L)
     };
 
     // fairygui::GTweener *onUpdate(std::function<void (GTweener *)> callback)
-    fairygui::GTweener *ret = (fairygui::GTweener *)self->onUpdate(arg1);
+    fairygui::GTweener *ret = self->onUpdate(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -3589,7 +3589,7 @@ static int _fairygui_GTweener_setBreakpoint(lua_State *L)
     olua_check_number(L, 2, &arg1);
 
     // fairygui::GTweener *setBreakpoint(float value)
-    fairygui::GTweener *ret = (fairygui::GTweener *)self->setBreakpoint((float)arg1);
+    fairygui::GTweener *ret = self->setBreakpoint((float)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -3608,7 +3608,7 @@ static int _fairygui_GTweener_setDelay(lua_State *L)
     olua_check_number(L, 2, &arg1);
 
     // fairygui::GTweener *setDelay(float value)
-    fairygui::GTweener *ret = (fairygui::GTweener *)self->setDelay((float)arg1);
+    fairygui::GTweener *ret = self->setDelay((float)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -3627,7 +3627,7 @@ static int _fairygui_GTweener_setDuration(lua_State *L)
     olua_check_number(L, 2, &arg1);
 
     // fairygui::GTweener *setDuration(float value)
-    fairygui::GTweener *ret = (fairygui::GTweener *)self->setDuration((float)arg1);
+    fairygui::GTweener *ret = self->setDuration((float)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -3646,7 +3646,7 @@ static int _fairygui_GTweener_setEase(lua_State *L)
     olua_check_uint(L, 2, &arg1);
 
     // fairygui::GTweener *setEase(fairygui::EaseType value)
-    fairygui::GTweener *ret = (fairygui::GTweener *)self->setEase((fairygui::EaseType)arg1);
+    fairygui::GTweener *ret = self->setEase((fairygui::EaseType)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -3665,7 +3665,7 @@ static int _fairygui_GTweener_setEaseOvershootOrAmplitude(lua_State *L)
     olua_check_number(L, 2, &arg1);
 
     // fairygui::GTweener *setEaseOvershootOrAmplitude(float value)
-    fairygui::GTweener *ret = (fairygui::GTweener *)self->setEaseOvershootOrAmplitude((float)arg1);
+    fairygui::GTweener *ret = self->setEaseOvershootOrAmplitude((float)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -3684,7 +3684,7 @@ static int _fairygui_GTweener_setEasePeriod(lua_State *L)
     olua_check_number(L, 2, &arg1);
 
     // fairygui::GTweener *setEasePeriod(float value)
-    fairygui::GTweener *ret = (fairygui::GTweener *)self->setEasePeriod((float)arg1);
+    fairygui::GTweener *ret = self->setEasePeriod((float)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -3703,7 +3703,7 @@ static int _fairygui_GTweener_setPath(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GPath");
 
     // fairygui::GTweener *setPath(fairygui::GPath *path)
-    fairygui::GTweener *ret = (fairygui::GTweener *)self->setPath(arg1);
+    fairygui::GTweener *ret = self->setPath(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -3722,7 +3722,7 @@ static int _fairygui_GTweener_setPaused(lua_State *L)
     olua_check_bool(L, 2, &arg1);
 
     // fairygui::GTweener *setPaused(bool paused)
-    fairygui::GTweener *ret = (fairygui::GTweener *)self->setPaused(arg1);
+    fairygui::GTweener *ret = self->setPaused(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -3743,7 +3743,7 @@ static int _fairygui_GTweener_setRepeat1(lua_State *L)
     olua_check_bool(L, 3, &arg2);
 
     // fairygui::GTweener *setRepeat(int repeat, @optional bool yoyo)
-    fairygui::GTweener *ret = (fairygui::GTweener *)self->setRepeat((int)arg1, arg2);
+    fairygui::GTweener *ret = self->setRepeat((int)arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -3762,7 +3762,7 @@ static int _fairygui_GTweener_setRepeat2(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // fairygui::GTweener *setRepeat(int repeat, @optional bool yoyo)
-    fairygui::GTweener *ret = (fairygui::GTweener *)self->setRepeat((int)arg1);
+    fairygui::GTweener *ret = self->setRepeat((int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -3804,7 +3804,7 @@ static int _fairygui_GTweener_setSnapping(lua_State *L)
     olua_check_bool(L, 2, &arg1);
 
     // fairygui::GTweener *setSnapping(bool value)
-    fairygui::GTweener *ret = (fairygui::GTweener *)self->setSnapping(arg1);
+    fairygui::GTweener *ret = self->setSnapping(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -3823,7 +3823,7 @@ static int _fairygui_GTweener_setTarget1(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Ref");
 
     // fairygui::GTweener *setTarget(cocos2d::Ref *target)
-    fairygui::GTweener *ret = (fairygui::GTweener *)self->setTarget(arg1);
+    fairygui::GTweener *ret = self->setTarget(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -3844,7 +3844,7 @@ static int _fairygui_GTweener_setTarget2(lua_State *L)
     olua_check_uint(L, 3, &arg2);
 
     // fairygui::GTweener *setTarget(cocos2d::Ref *target, fairygui::TweenPropType propType)
-    fairygui::GTweener *ret = (fairygui::GTweener *)self->setTarget(arg1, (fairygui::TweenPropType)arg2);
+    fairygui::GTweener *ret = self->setTarget(arg1, (fairygui::TweenPropType)arg2);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -3886,7 +3886,7 @@ static int _fairygui_GTweener_setTargetAny(lua_State *L)
     olua_check_obj(L, 2, (void **)&arg1, "void *");
 
     // fairygui::GTweener *setTargetAny(void *value)
-    fairygui::GTweener *ret = (fairygui::GTweener *)self->setTargetAny(arg1);
+    fairygui::GTweener *ret = self->setTargetAny(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -3905,7 +3905,7 @@ static int _fairygui_GTweener_setTimeScale(lua_State *L)
     olua_check_number(L, 2, &arg1);
 
     // fairygui::GTweener *setTimeScale(float value)
-    fairygui::GTweener *ret = (fairygui::GTweener *)self->setTimeScale((float)arg1);
+    fairygui::GTweener *ret = self->setTimeScale((float)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -3924,7 +3924,7 @@ static int _fairygui_GTweener_setUserData(lua_State *L)
     manual_olua_check_cocos2d_Value(L, 2, &arg1);
 
     // fairygui::GTweener *setUserData(const cocos2d::Value &value)
-    fairygui::GTweener *ret = (fairygui::GTweener *)self->setUserData(arg1);
+    fairygui::GTweener *ret = self->setUserData(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -3941,7 +3941,7 @@ static int _fairygui_GTweener_get_deltaValue(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
 
     // fairygui::TweenValue deltaValue
-    fairygui::TweenValue ret = (fairygui::TweenValue)self->deltaValue;
+    fairygui::TweenValue ret = self->deltaValue;
     int num_ret = auto_olua_push_fairygui_TweenValue(L, &ret);
 
     olua_endinvoke(L);
@@ -3976,7 +3976,7 @@ static int _fairygui_GTweener_get_endValue(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
 
     // fairygui::TweenValue endValue
-    fairygui::TweenValue ret = (fairygui::TweenValue)self->endValue;
+    fairygui::TweenValue ret = self->endValue;
     int num_ret = auto_olua_push_fairygui_TweenValue(L, &ret);
 
     olua_endinvoke(L);
@@ -4011,7 +4011,7 @@ static int _fairygui_GTweener_get_startValue(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
 
     // fairygui::TweenValue startValue
-    fairygui::TweenValue ret = (fairygui::TweenValue)self->startValue;
+    fairygui::TweenValue ret = self->startValue;
     int num_ret = auto_olua_push_fairygui_TweenValue(L, &ret);
 
     olua_endinvoke(L);
@@ -4046,7 +4046,7 @@ static int _fairygui_GTweener_get_value(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
 
     // fairygui::TweenValue value
-    fairygui::TweenValue ret = (fairygui::TweenValue)self->value;
+    fairygui::TweenValue ret = self->value;
     int num_ret = auto_olua_push_fairygui_TweenValue(L, &ret);
 
     olua_endinvoke(L);
@@ -4171,7 +4171,7 @@ static int _fairygui_GTween_delayedCall(lua_State *L)
     olua_check_number(L, 1, &arg1);
 
     // static fairygui::GTweener *delayedCall(float delay)
-    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::delayedCall((float)arg1);
+    fairygui::GTweener *ret = fairygui::GTween::delayedCall((float)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     // insert code after call
@@ -4194,7 +4194,7 @@ static int _fairygui_GTween_getTween1(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Ref");
 
     // static fairygui::GTweener *getTween(cocos2d::Ref *target)
-    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::getTween(arg1);
+    fairygui::GTweener *ret = fairygui::GTween::getTween(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -4213,7 +4213,7 @@ static int _fairygui_GTween_getTween2(lua_State *L)
     olua_check_uint(L, 2, &arg2);
 
     // static fairygui::GTweener *getTween(cocos2d::Ref *target, fairygui::TweenPropType propType)
-    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::getTween(arg1, (fairygui::TweenPropType)arg2);
+    fairygui::GTweener *ret = fairygui::GTween::getTween(arg1, (fairygui::TweenPropType)arg2);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     olua_endinvoke(L);
@@ -4253,7 +4253,7 @@ static int _fairygui_GTween_isTweening1(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Ref");
 
     // static bool isTweening(cocos2d::Ref *target)
-    bool ret = (bool)fairygui::GTween::isTweening(arg1);
+    bool ret = fairygui::GTween::isTweening(arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -4272,7 +4272,7 @@ static int _fairygui_GTween_isTweening2(lua_State *L)
     olua_check_uint(L, 2, &arg2);
 
     // static bool isTweening(cocos2d::Ref *target, fairygui::TweenPropType propType)
-    bool ret = (bool)fairygui::GTween::isTweening(arg1, (fairygui::TweenPropType)arg2);
+    bool ret = fairygui::GTween::isTweening(arg1, (fairygui::TweenPropType)arg2);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -4415,7 +4415,7 @@ static int _fairygui_GTween_shake(lua_State *L)
     olua_check_number(L, 3, &arg3);
 
     // static fairygui::GTweener *shake(const cocos2d::Vec2 &startValue, float amplitude, float duration)
-    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::shake(arg1, (float)arg2, (float)arg3);
+    fairygui::GTweener *ret = fairygui::GTween::shake(arg1, (float)arg2, (float)arg3);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     // insert code after call
@@ -4442,7 +4442,7 @@ static int _fairygui_GTween_to1(lua_State *L)
     olua_check_number(L, 3, &arg3);
 
     // static fairygui::GTweener *to(float startValue, float endValue, float duration)
-    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to((float)arg1, (float)arg2, (float)arg3);
+    fairygui::GTweener *ret = fairygui::GTween::to((float)arg1, (float)arg2, (float)arg3);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     // insert code after call
@@ -4469,7 +4469,7 @@ static int _fairygui_GTween_to2(lua_State *L)
     olua_check_number(L, 3, &arg3);
 
     // static fairygui::GTweener *to(const cocos2d::Vec2 &startValue, const cocos2d::Vec2 &endValue, float duration)
-    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
+    fairygui::GTweener *ret = fairygui::GTween::to(arg1, arg2, (float)arg3);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     // insert code after call
@@ -4496,7 +4496,7 @@ static int _fairygui_GTween_to3(lua_State *L)
     olua_check_number(L, 3, &arg3);
 
     // static fairygui::GTweener *to(const cocos2d::Vec3 &startValue, const cocos2d::Vec3 &endValue, float duration)
-    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
+    fairygui::GTweener *ret = fairygui::GTween::to(arg1, arg2, (float)arg3);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     // insert code after call
@@ -4523,7 +4523,7 @@ static int _fairygui_GTween_to4(lua_State *L)
     olua_check_number(L, 3, &arg3);
 
     // static fairygui::GTweener *to(const cocos2d::Vec4 &startValue, const cocos2d::Vec4 &endValue, float duration)
-    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
+    fairygui::GTweener *ret = fairygui::GTween::to(arg1, arg2, (float)arg3);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     // insert code after call
@@ -4550,7 +4550,7 @@ static int _fairygui_GTween_to5(lua_State *L)
     olua_check_number(L, 3, &arg3);
 
     // static fairygui::GTweener *to(const cocos2d::Color4B &startValue, const cocos2d::Color4B &endValue, float duration)
-    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
+    fairygui::GTweener *ret = fairygui::GTween::to(arg1, arg2, (float)arg3);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     // insert code after call
@@ -4613,7 +4613,7 @@ static int _fairygui_GTween_toColor(lua_State *L)
     olua_check_number(L, 3, &arg3);
 
     // static fairygui::GTweener *toColor(const cocos2d::Color4B &startValue, const cocos2d::Color4B &endValue, float duration)
-    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::toColor(arg1, arg2, (float)arg3);
+    fairygui::GTweener *ret = fairygui::GTween::toColor(arg1, arg2, (float)arg3);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     // insert code after call
@@ -4640,7 +4640,7 @@ static int _fairygui_GTween_toDouble(lua_State *L)
     olua_check_number(L, 3, &arg3);
 
     // static fairygui::GTweener *toDouble(double startValue, double endValue, float duration)
-    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::toDouble((double)arg1, (double)arg2, (float)arg3);
+    fairygui::GTweener *ret = fairygui::GTween::toDouble((double)arg1, (double)arg2, (float)arg3);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
 
     // insert code after call
@@ -4694,7 +4694,7 @@ static int _fairygui_UIPackage_addPackage(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static fairygui::UIPackage *addPackage(const std::string &descFilePath)
-    fairygui::UIPackage *ret = (fairygui::UIPackage *)fairygui::UIPackage::addPackage(arg1);
+    fairygui::UIPackage *ret = fairygui::UIPackage::addPackage(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.UIPackage");
 
     olua_endinvoke(L);
@@ -4713,7 +4713,7 @@ static int _fairygui_UIPackage_createObject(lua_State *L)
     olua_check_std_string(L, 2, &arg2);
 
     // static fairygui::GObject *createObject(const std::string &pkgName, const std::string &resName)
-    fairygui::GObject *ret = (fairygui::GObject *)fairygui::UIPackage::createObject(arg1, arg2);
+    fairygui::GObject *ret = fairygui::UIPackage::createObject(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     olua_endinvoke(L);
@@ -4730,7 +4730,7 @@ static int _fairygui_UIPackage_createObjectFromURL(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static fairygui::GObject *createObjectFromURL(const std::string &url)
-    fairygui::GObject *ret = (fairygui::GObject *)fairygui::UIPackage::createObjectFromURL(arg1);
+    fairygui::GObject *ret = fairygui::UIPackage::createObjectFromURL(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     olua_endinvoke(L);
@@ -4743,7 +4743,7 @@ static int _fairygui_UIPackage_getBranch(lua_State *L)
     olua_startinvoke(L);
 
     // static const std::string &getBranch()
-    const std::string &ret = (const std::string &)fairygui::UIPackage::getBranch();
+    const std::string &ret = fairygui::UIPackage::getBranch();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -4760,7 +4760,7 @@ static int _fairygui_UIPackage_getById(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static fairygui::UIPackage *getById(const std::string &id)
-    fairygui::UIPackage *ret = (fairygui::UIPackage *)fairygui::UIPackage::getById(arg1);
+    fairygui::UIPackage *ret = fairygui::UIPackage::getById(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.UIPackage");
 
     olua_endinvoke(L);
@@ -4777,7 +4777,7 @@ static int _fairygui_UIPackage_getByName(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static fairygui::UIPackage *getByName(const std::string &name)
-    fairygui::UIPackage *ret = (fairygui::UIPackage *)fairygui::UIPackage::getByName(arg1);
+    fairygui::UIPackage *ret = fairygui::UIPackage::getByName(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.UIPackage");
 
     olua_endinvoke(L);
@@ -4790,7 +4790,7 @@ static int _fairygui_UIPackage_getEmptyTexture(lua_State *L)
     olua_startinvoke(L);
 
     // static cocos2d::Texture2D *getEmptyTexture()
-    cocos2d::Texture2D *ret = (cocos2d::Texture2D *)fairygui::UIPackage::getEmptyTexture();
+    cocos2d::Texture2D *ret = fairygui::UIPackage::getEmptyTexture();
     int num_ret = olua_push_cppobj(L, ret, "cc.Texture2D");
 
     olua_endinvoke(L);
@@ -4807,7 +4807,7 @@ static int _fairygui_UIPackage_getId(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.UIPackage");
 
     // const std::string &getId()
-    const std::string &ret = (const std::string &)self->getId();
+    const std::string &ret = self->getId();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -4826,7 +4826,7 @@ static int _fairygui_UIPackage_getItem(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // fairygui::PackageItem *getItem(const std::string &itemId)
-    fairygui::PackageItem *ret = (fairygui::PackageItem *)self->getItem(arg1);
+    fairygui::PackageItem *ret = self->getItem(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.PackageItem");
 
     olua_endinvoke(L);
@@ -4847,7 +4847,7 @@ static int _fairygui_UIPackage_getItemAsset1(lua_State *L)
     olua_check_uint(L, 3, &arg3);
 
     // static void *getItemAsset(const std::string &pkgName, const std::string &resName, @optional fairygui::PackageItemType type)
-    void *ret = (void *)fairygui::UIPackage::getItemAsset(arg1, arg2, (fairygui::PackageItemType)arg3);
+    void *ret = fairygui::UIPackage::getItemAsset(arg1, arg2, (fairygui::PackageItemType)arg3);
     int num_ret = olua_push_obj(L, ret, "void *");
 
     olua_endinvoke(L);
@@ -4866,7 +4866,7 @@ static int _fairygui_UIPackage_getItemAsset2(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.PackageItem");
 
     // void *getItemAsset(fairygui::PackageItem *item)
-    void *ret = (void *)self->getItemAsset(arg1);
+    void *ret = self->getItemAsset(arg1);
     int num_ret = olua_push_obj(L, ret, "void *");
 
     olua_endinvoke(L);
@@ -4885,7 +4885,7 @@ static int _fairygui_UIPackage_getItemAsset3(lua_State *L)
     olua_check_std_string(L, 2, &arg2);
 
     // static void *getItemAsset(const std::string &pkgName, const std::string &resName, @optional fairygui::PackageItemType type)
-    void *ret = (void *)fairygui::UIPackage::getItemAsset(arg1, arg2);
+    void *ret = fairygui::UIPackage::getItemAsset(arg1, arg2);
     int num_ret = olua_push_obj(L, ret, "void *");
 
     olua_endinvoke(L);
@@ -4934,7 +4934,7 @@ static int _fairygui_UIPackage_getItemAssetByURL1(lua_State *L)
     olua_check_uint(L, 2, &arg2);
 
     // static void *getItemAssetByURL(const std::string &url, @optional fairygui::PackageItemType type)
-    void *ret = (void *)fairygui::UIPackage::getItemAssetByURL(arg1, (fairygui::PackageItemType)arg2);
+    void *ret = fairygui::UIPackage::getItemAssetByURL(arg1, (fairygui::PackageItemType)arg2);
     int num_ret = olua_push_obj(L, ret, "void *");
 
     olua_endinvoke(L);
@@ -4951,7 +4951,7 @@ static int _fairygui_UIPackage_getItemAssetByURL2(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static void *getItemAssetByURL(const std::string &url, @optional fairygui::PackageItemType type)
-    void *ret = (void *)fairygui::UIPackage::getItemAssetByURL(arg1);
+    void *ret = fairygui::UIPackage::getItemAssetByURL(arg1);
     int num_ret = olua_push_obj(L, ret, "void *");
 
     olua_endinvoke(L);
@@ -4993,7 +4993,7 @@ static int _fairygui_UIPackage_getItemByName(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // fairygui::PackageItem *getItemByName(const std::string &itemName)
-    fairygui::PackageItem *ret = (fairygui::PackageItem *)self->getItemByName(arg1);
+    fairygui::PackageItem *ret = self->getItemByName(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.PackageItem");
 
     olua_endinvoke(L);
@@ -5010,7 +5010,7 @@ static int _fairygui_UIPackage_getItemByURL(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static fairygui::PackageItem *getItemByURL(const std::string &url)
-    fairygui::PackageItem *ret = (fairygui::PackageItem *)fairygui::UIPackage::getItemByURL(arg1);
+    fairygui::PackageItem *ret = fairygui::UIPackage::getItemByURL(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.PackageItem");
 
     olua_endinvoke(L);
@@ -5029,7 +5029,7 @@ static int _fairygui_UIPackage_getItemURL(lua_State *L)
     olua_check_std_string(L, 2, &arg2);
 
     // static std::string getItemURL(const std::string &pkgName, const std::string &resName)
-    std::string ret = (std::string)fairygui::UIPackage::getItemURL(arg1, arg2);
+    std::string ret = fairygui::UIPackage::getItemURL(arg1, arg2);
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -5046,7 +5046,7 @@ static int _fairygui_UIPackage_getName(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.UIPackage");
 
     // const std::string &getName()
-    const std::string &ret = (const std::string &)self->getName();
+    const std::string &ret = self->getName();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -5063,7 +5063,7 @@ static int _fairygui_UIPackage_getVar(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static const std::string &getVar(const std::string &key)
-    const std::string &ret = (const std::string &)fairygui::UIPackage::getVar(arg1);
+    const std::string &ret = fairygui::UIPackage::getVar(arg1);
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -5076,7 +5076,7 @@ static int _fairygui_UIPackage_new(lua_State *L)
     olua_startinvoke(L);
 
     // UIPackage()
-    fairygui::UIPackage *ret = (fairygui::UIPackage *)new fairygui::UIPackage();
+    fairygui::UIPackage *ret = new fairygui::UIPackage();
     int num_ret = olua_push_cppobj(L, ret, "fgui.UIPackage");
     olua_postnew(L, ret);
 
@@ -5094,7 +5094,7 @@ static int _fairygui_UIPackage_normalizeURL(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static std::string normalizeURL(const std::string &url)
-    std::string ret = (std::string)fairygui::UIPackage::normalizeURL(arg1);
+    std::string ret = fairygui::UIPackage::normalizeURL(arg1);
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -5222,7 +5222,7 @@ static int _fairygui_PackageItem_getBranch(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
 
     // fairygui::PackageItem *getBranch()
-    fairygui::PackageItem *ret = (fairygui::PackageItem *)self->getBranch();
+    fairygui::PackageItem *ret = self->getBranch();
     int num_ret = olua_push_cppobj(L, ret, "fgui.PackageItem");
 
     olua_endinvoke(L);
@@ -5239,7 +5239,7 @@ static int _fairygui_PackageItem_getHighResolution(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
 
     // fairygui::PackageItem *getHighResolution()
-    fairygui::PackageItem *ret = (fairygui::PackageItem *)self->getHighResolution();
+    fairygui::PackageItem *ret = self->getHighResolution();
     int num_ret = olua_push_cppobj(L, ret, "fgui.PackageItem");
 
     olua_endinvoke(L);
@@ -5268,7 +5268,7 @@ static int _fairygui_PackageItem_new(lua_State *L)
     olua_startinvoke(L);
 
     // PackageItem()
-    fairygui::PackageItem *ret = (fairygui::PackageItem *)new fairygui::PackageItem();
+    fairygui::PackageItem *ret = new fairygui::PackageItem();
     int num_ret = olua_push_cppobj(L, ret, "fgui.PackageItem");
     olua_postnew(L, ret);
 
@@ -5286,7 +5286,7 @@ static int _fairygui_PackageItem_get_animation(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
 
     // cocos2d::Animation *animation
-    cocos2d::Animation *ret = (cocos2d::Animation *)self->animation;
+    cocos2d::Animation *ret = self->animation;
     int num_ret = olua_push_cppobj(L, ret, "cc.Animation");
 
     olua_endinvoke(L);
@@ -5321,7 +5321,7 @@ static int _fairygui_PackageItem_get_delayPerUnit(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
 
     // float delayPerUnit
-    float ret = (float)self->delayPerUnit;
+    float ret = self->delayPerUnit;
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -5356,7 +5356,7 @@ static int _fairygui_PackageItem_get_file(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
 
     // std::string file
-    std::string ret = (std::string)self->file;
+    std::string ret = self->file;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -5391,7 +5391,7 @@ static int _fairygui_PackageItem_get_height(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
 
     // int height
-    int ret = (int)self->height;
+    int ret = self->height;
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -5426,7 +5426,7 @@ static int _fairygui_PackageItem_get_id(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
 
     // std::string id
-    std::string ret = (std::string)self->id;
+    std::string ret = self->id;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -5461,7 +5461,7 @@ static int _fairygui_PackageItem_get_name(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
 
     // std::string name
-    std::string ret = (std::string)self->name;
+    std::string ret = self->name;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -5496,7 +5496,7 @@ static int _fairygui_PackageItem_get_objectType(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
 
     // fairygui::ObjectType objectType
-    fairygui::ObjectType ret = (fairygui::ObjectType)self->objectType;
+    fairygui::ObjectType ret = self->objectType;
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -5531,7 +5531,7 @@ static int _fairygui_PackageItem_get_owner(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
 
     // fairygui::UIPackage *owner
-    fairygui::UIPackage *ret = (fairygui::UIPackage *)self->owner;
+    fairygui::UIPackage *ret = self->owner;
     int num_ret = olua_push_cppobj(L, ret, "fgui.UIPackage");
 
     olua_endinvoke(L);
@@ -5566,7 +5566,7 @@ static int _fairygui_PackageItem_get_repeatDelay(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
 
     // float repeatDelay
-    float ret = (float)self->repeatDelay;
+    float ret = self->repeatDelay;
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -5601,7 +5601,7 @@ static int _fairygui_PackageItem_get_scaleByTile(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
 
     // bool scaleByTile
-    bool ret = (bool)self->scaleByTile;
+    bool ret = self->scaleByTile;
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -5636,7 +5636,7 @@ static int _fairygui_PackageItem_get_spriteFrame(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
 
     // cocos2d::SpriteFrame *spriteFrame
-    cocos2d::SpriteFrame *ret = (cocos2d::SpriteFrame *)self->spriteFrame;
+    cocos2d::SpriteFrame *ret = self->spriteFrame;
     int num_ret = olua_push_cppobj(L, ret, "cc.SpriteFrame");
 
     olua_endinvoke(L);
@@ -5671,7 +5671,7 @@ static int _fairygui_PackageItem_get_swing(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
 
     // bool swing
-    bool ret = (bool)self->swing;
+    bool ret = self->swing;
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -5706,7 +5706,7 @@ static int _fairygui_PackageItem_get_texture(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
 
     // cocos2d::Texture2D *texture
-    cocos2d::Texture2D *ret = (cocos2d::Texture2D *)self->texture;
+    cocos2d::Texture2D *ret = self->texture;
     int num_ret = olua_push_cppobj(L, ret, "cc.Texture2D");
 
     olua_endinvoke(L);
@@ -5741,7 +5741,7 @@ static int _fairygui_PackageItem_get_tileGridIndice(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
 
     // int tileGridIndice
-    int ret = (int)self->tileGridIndice;
+    int ret = self->tileGridIndice;
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -5776,7 +5776,7 @@ static int _fairygui_PackageItem_get_translated(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
 
     // bool translated
-    bool ret = (bool)self->translated;
+    bool ret = self->translated;
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -5811,7 +5811,7 @@ static int _fairygui_PackageItem_get_type(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
 
     // fairygui::PackageItemType type
-    fairygui::PackageItemType ret = (fairygui::PackageItemType)self->type;
+    fairygui::PackageItemType ret = self->type;
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -5846,7 +5846,7 @@ static int _fairygui_PackageItem_get_width(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
 
     // int width
-    int ret = (int)self->width;
+    int ret = self->width;
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -6213,7 +6213,7 @@ static int _fairygui_GController_getPageCount(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GController");
 
     // int getPageCount()
-    int ret = (int)self->getPageCount();
+    int ret = self->getPageCount();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -6232,7 +6232,7 @@ static int _fairygui_GController_getPageId(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // const std::string &getPageId(int index)
-    const std::string &ret = (const std::string &)self->getPageId((int)arg1);
+    const std::string &ret = self->getPageId((int)arg1);
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -6251,7 +6251,7 @@ static int _fairygui_GController_getPageIndexById(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // int getPageIndexById(const std::string &value)
-    int ret = (int)self->getPageIndexById(arg1);
+    int ret = self->getPageIndexById(arg1);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -6270,7 +6270,7 @@ static int _fairygui_GController_getPageNameById(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // const std::string &getPageNameById(const std::string &value)
-    const std::string &ret = (const std::string &)self->getPageNameById(arg1);
+    const std::string &ret = self->getPageNameById(arg1);
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -6287,7 +6287,7 @@ static int _fairygui_GController_getParent(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GController");
 
     // fairygui::GComponent *getParent()
-    fairygui::GComponent *ret = (fairygui::GComponent *)self->getParent();
+    fairygui::GComponent *ret = self->getParent();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
 
     olua_endinvoke(L);
@@ -6304,7 +6304,7 @@ static int _fairygui_GController_getPreviousPage(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GController");
 
     // const std::string &getPreviousPage()
-    const std::string &ret = (const std::string &)self->getPreviousPage();
+    const std::string &ret = self->getPreviousPage();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -6321,7 +6321,7 @@ static int _fairygui_GController_getPreviousPageId(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GController");
 
     // const std::string &getPreviousPageId()
-    const std::string &ret = (const std::string &)self->getPreviousPageId();
+    const std::string &ret = self->getPreviousPageId();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -6338,7 +6338,7 @@ static int _fairygui_GController_getPrevisousIndex(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GController");
 
     // int getPrevisousIndex()
-    int ret = (int)self->getPrevisousIndex();
+    int ret = self->getPrevisousIndex();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -6355,7 +6355,7 @@ static int _fairygui_GController_getSelectedIndex(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GController");
 
     // int getSelectedIndex()
-    int ret = (int)self->getSelectedIndex();
+    int ret = self->getSelectedIndex();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -6372,7 +6372,7 @@ static int _fairygui_GController_getSelectedPage(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GController");
 
     // const std::string &getSelectedPage()
-    const std::string &ret = (const std::string &)self->getSelectedPage();
+    const std::string &ret = self->getSelectedPage();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -6389,7 +6389,7 @@ static int _fairygui_GController_getSelectedPageId(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GController");
 
     // const std::string &getSelectedPageId()
-    const std::string &ret = (const std::string &)self->getSelectedPageId();
+    const std::string &ret = self->getSelectedPageId();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -6408,7 +6408,7 @@ static int _fairygui_GController_hasPage(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // bool hasPage(const std::string &aName)
-    bool ret = (bool)self->hasPage(arg1);
+    bool ret = self->hasPage(arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -6421,7 +6421,7 @@ static int _fairygui_GController_new(lua_State *L)
     olua_startinvoke(L);
 
     // GController()
-    fairygui::GController *ret = (fairygui::GController *)new fairygui::GController();
+    fairygui::GController *ret = new fairygui::GController();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GController");
     olua_postnew(L, ret);
 
@@ -6674,7 +6674,7 @@ static int _fairygui_GController_get_autoRadioGroupDepth(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GController");
 
     // bool autoRadioGroupDepth
-    bool ret = (bool)self->autoRadioGroupDepth;
+    bool ret = self->autoRadioGroupDepth;
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -6709,7 +6709,7 @@ static int _fairygui_GController_get_changing(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GController");
 
     // bool changing
-    bool ret = (bool)self->changing;
+    bool ret = self->changing;
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -6744,7 +6744,7 @@ static int _fairygui_GController_get_name(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GController");
 
     // std::string name
-    std::string ret = (std::string)self->name;
+    std::string ret = self->name;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -6934,7 +6934,7 @@ static int _fairygui_GObject_addDisplayLock(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // uint32_t addDisplayLock()
-    uint32_t ret = (uint32_t)self->addDisplayLock();
+    uint32_t ret = self->addDisplayLock();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -7085,7 +7085,7 @@ static int _fairygui_GObject_checkGearController(lua_State *L)
     olua_check_cppobj(L, 3, (void **)&arg2, "fgui.GController");
 
     // bool checkGearController(int index, fairygui::GController *c)
-    bool ret = (bool)self->checkGearController((int)arg1, arg2);
+    bool ret = self->checkGearController((int)arg1, arg2);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -7098,7 +7098,7 @@ static int _fairygui_GObject_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GObject *create()
-    fairygui::GObject *ret = (fairygui::GObject *)fairygui::GObject::create();
+    fairygui::GObject *ret = fairygui::GObject::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     olua_endinvoke(L);
@@ -7115,7 +7115,7 @@ static int _fairygui_GObject_displayObject(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // @addref(displayObject ^) cocos2d::Node *displayObject()
-    cocos2d::Node *ret = (cocos2d::Node *)self->displayObject();
+    cocos2d::Node *ret = self->displayObject();
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
     // insert code after call
@@ -7135,7 +7135,7 @@ static int _fairygui_GObject_findParent(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // fairygui::GObject *findParent()
-    fairygui::GObject *ret = (fairygui::GObject *)self->findParent();
+    fairygui::GObject *ret = self->findParent();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     olua_endinvoke(L);
@@ -7152,7 +7152,7 @@ static int _fairygui_GObject_getAlpha(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // float getAlpha()
-    float ret = (float)self->getAlpha();
+    float ret = self->getAlpha();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -7169,7 +7169,7 @@ static int _fairygui_GObject_getCustomData(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // const cocos2d::Value &getCustomData()
-    const cocos2d::Value &ret = (const cocos2d::Value &)self->getCustomData();
+    const cocos2d::Value &ret = self->getCustomData();
     int num_ret = manual_olua_push_cocos2d_Value(L, &ret);
 
     olua_endinvoke(L);
@@ -7186,7 +7186,7 @@ static int _fairygui_GObject_getData(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // void *getData()
-    void *ret = (void *)self->getData();
+    void *ret = self->getData();
     int num_ret = olua_push_obj(L, ret, "void *");
 
     olua_endinvoke(L);
@@ -7203,7 +7203,7 @@ static int _fairygui_GObject_getDragBounds(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // cocos2d::Rect *getDragBounds()
-    cocos2d::Rect *ret = (cocos2d::Rect *)self->getDragBounds();
+    cocos2d::Rect *ret = self->getDragBounds();
     int num_ret = manual_olua_push_cocos2d_Rect(L, ret);
 
     olua_endinvoke(L);
@@ -7216,7 +7216,7 @@ static int _fairygui_GObject_getDraggingObject(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GObject *getDraggingObject()
-    fairygui::GObject *ret = (fairygui::GObject *)fairygui::GObject::getDraggingObject();
+    fairygui::GObject *ret = fairygui::GObject::getDraggingObject();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     olua_endinvoke(L);
@@ -7235,7 +7235,7 @@ static int _fairygui_GObject_getGear(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // fairygui::GearBase *getGear(int index)
-    fairygui::GearBase *ret = (fairygui::GearBase *)self->getGear((int)arg1);
+    fairygui::GearBase *ret = self->getGear((int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GearBase");
 
     olua_endinvoke(L);
@@ -7252,7 +7252,7 @@ static int _fairygui_GObject_getGroup(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // @addref(group ^) fairygui::GGroup *getGroup()
-    fairygui::GGroup *ret = (fairygui::GGroup *)self->getGroup();
+    fairygui::GGroup *ret = self->getGroup();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GGroup");
 
     // insert code after call
@@ -7272,7 +7272,7 @@ static int _fairygui_GObject_getHeight(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // float getHeight()
-    float ret = (float)self->getHeight();
+    float ret = self->getHeight();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -7289,7 +7289,7 @@ static int _fairygui_GObject_getIcon(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // const std::string &getIcon()
-    const std::string &ret = (const std::string &)self->getIcon();
+    const std::string &ret = self->getIcon();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -7306,7 +7306,7 @@ static int _fairygui_GObject_getPackageItem(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // fairygui::PackageItem *getPackageItem()
-    fairygui::PackageItem *ret = (fairygui::PackageItem *)self->getPackageItem();
+    fairygui::PackageItem *ret = self->getPackageItem();
     int num_ret = olua_push_cppobj(L, ret, "fgui.PackageItem");
 
     olua_endinvoke(L);
@@ -7323,7 +7323,7 @@ static int _fairygui_GObject_getParent(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // fairygui::GComponent *getParent()
-    fairygui::GComponent *ret = (fairygui::GComponent *)self->getParent();
+    fairygui::GComponent *ret = self->getParent();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
 
     olua_endinvoke(L);
@@ -7340,7 +7340,7 @@ static int _fairygui_GObject_getPivot(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // const cocos2d::Vec2 &getPivot()
-    const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getPivot();
+    const cocos2d::Vec2 &ret = self->getPivot();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     olua_endinvoke(L);
@@ -7357,7 +7357,7 @@ static int _fairygui_GObject_getPosition(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // const cocos2d::Vec2 &getPosition()
-    const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getPosition();
+    const cocos2d::Vec2 &ret = self->getPosition();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     olua_endinvoke(L);
@@ -7376,7 +7376,7 @@ static int _fairygui_GObject_getProp(lua_State *L)
     olua_check_uint(L, 2, &arg1);
 
     // cocos2d::Value getProp(fairygui::ObjectPropID propId)
-    cocos2d::Value ret = (cocos2d::Value)self->getProp((fairygui::ObjectPropID)arg1);
+    cocos2d::Value ret = self->getProp((fairygui::ObjectPropID)arg1);
     int num_ret = manual_olua_push_cocos2d_Value(L, &ret);
 
     olua_endinvoke(L);
@@ -7393,7 +7393,7 @@ static int _fairygui_GObject_getResourceURL(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // std::string getResourceURL()
-    std::string ret = (std::string)self->getResourceURL();
+    std::string ret = self->getResourceURL();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -7410,7 +7410,7 @@ static int _fairygui_GObject_getRoot(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // fairygui::GRoot *getRoot()
-    fairygui::GRoot *ret = (fairygui::GRoot *)self->getRoot();
+    fairygui::GRoot *ret = self->getRoot();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GRoot");
 
     olua_endinvoke(L);
@@ -7427,7 +7427,7 @@ static int _fairygui_GObject_getRotation(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // float getRotation()
-    float ret = (float)self->getRotation();
+    float ret = self->getRotation();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -7444,7 +7444,7 @@ static int _fairygui_GObject_getScale(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // const cocos2d::Vec2 &getScale()
-    const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getScale();
+    const cocos2d::Vec2 &ret = self->getScale();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     olua_endinvoke(L);
@@ -7461,7 +7461,7 @@ static int _fairygui_GObject_getScaleX(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // float getScaleX()
-    float ret = (float)self->getScaleX();
+    float ret = self->getScaleX();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -7478,7 +7478,7 @@ static int _fairygui_GObject_getScaleY(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // float getScaleY()
-    float ret = (float)self->getScaleY();
+    float ret = self->getScaleY();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -7495,7 +7495,7 @@ static int _fairygui_GObject_getSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // const cocos2d::Size &getSize()
-    const cocos2d::Size &ret = (const cocos2d::Size &)self->getSize();
+    const cocos2d::Size &ret = self->getSize();
     int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     olua_endinvoke(L);
@@ -7512,7 +7512,7 @@ static int _fairygui_GObject_getSkewX(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // float getSkewX()
-    float ret = (float)self->getSkewX();
+    float ret = self->getSkewX();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -7529,7 +7529,7 @@ static int _fairygui_GObject_getSkewY(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // float getSkewY()
-    float ret = (float)self->getSkewY();
+    float ret = self->getSkewY();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -7546,7 +7546,7 @@ static int _fairygui_GObject_getSortingOrder(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // int getSortingOrder()
-    int ret = (int)self->getSortingOrder();
+    int ret = self->getSortingOrder();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -7563,7 +7563,7 @@ static int _fairygui_GObject_getText(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // const std::string &getText()
-    const std::string &ret = (const std::string &)self->getText();
+    const std::string &ret = self->getText();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -7580,7 +7580,7 @@ static int _fairygui_GObject_getTooltips(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // const std::string &getTooltips()
-    const std::string &ret = (const std::string &)self->getTooltips();
+    const std::string &ret = self->getTooltips();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -7597,7 +7597,7 @@ static int _fairygui_GObject_getWidth(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // float getWidth()
-    float ret = (float)self->getWidth();
+    float ret = self->getWidth();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -7614,7 +7614,7 @@ static int _fairygui_GObject_getX(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // float getX()
-    float ret = (float)self->getX();
+    float ret = self->getX();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -7631,7 +7631,7 @@ static int _fairygui_GObject_getXMin(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // float getXMin()
-    float ret = (float)self->getXMin();
+    float ret = self->getXMin();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -7648,7 +7648,7 @@ static int _fairygui_GObject_getY(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // float getY()
-    float ret = (float)self->getY();
+    float ret = self->getY();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -7665,7 +7665,7 @@ static int _fairygui_GObject_getYMin(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // float getYMin()
-    float ret = (float)self->getYMin();
+    float ret = self->getYMin();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -7684,7 +7684,7 @@ static int _fairygui_GObject_globalToLocal1(lua_State *L)
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // cocos2d::Vec2 globalToLocal(const cocos2d::Vec2 &pt)
-    cocos2d::Vec2 ret = (cocos2d::Vec2)self->globalToLocal(arg1);
+    cocos2d::Vec2 ret = self->globalToLocal(arg1);
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     olua_endinvoke(L);
@@ -7703,7 +7703,7 @@ static int _fairygui_GObject_globalToLocal2(lua_State *L)
     auto_olua_pack_cocos2d_Vec2(L, 2, &arg1);
 
     // cocos2d::Vec2 globalToLocal(@pack const cocos2d::Vec2 &pt)
-    cocos2d::Vec2 ret = (cocos2d::Vec2)self->globalToLocal(arg1);
+    cocos2d::Vec2 ret = self->globalToLocal(arg1);
     int num_ret = auto_olua_unpack_cocos2d_Vec2(L, &ret);
 
     olua_endinvoke(L);
@@ -7722,7 +7722,7 @@ static int _fairygui_GObject_globalToLocal3(lua_State *L)
     manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // cocos2d::Rect globalToLocal(const cocos2d::Rect &rect)
-    cocos2d::Rect ret = (cocos2d::Rect)self->globalToLocal(arg1);
+    cocos2d::Rect ret = self->globalToLocal(arg1);
     int num_ret = manual_olua_push_cocos2d_Rect(L, &ret);
 
     olua_endinvoke(L);
@@ -7741,7 +7741,7 @@ static int _fairygui_GObject_globalToLocal4(lua_State *L)
     manual_olua_pack_cocos2d_Rect(L, 2, &arg1);
 
     // cocos2d::Rect globalToLocal(@pack const cocos2d::Rect &rect)
-    cocos2d::Rect ret = (cocos2d::Rect)self->globalToLocal(arg1);
+    cocos2d::Rect ret = self->globalToLocal(arg1);
     int num_ret = manual_olua_unpack_cocos2d_Rect(L, &ret);
 
     olua_endinvoke(L);
@@ -7797,7 +7797,7 @@ static int _fairygui_GObject_hitTest(lua_State *L)
     olua_check_cppobj(L, 3, (void **)&arg2, "cc.Camera");
 
     // fairygui::GObject *hitTest(const cocos2d::Vec2 &worldPoint, const cocos2d::Camera *camera)
-    fairygui::GObject *ret = (fairygui::GObject *)self->hitTest(arg1, arg2);
+    fairygui::GObject *ret = self->hitTest(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     olua_endinvoke(L);
@@ -7814,7 +7814,7 @@ static int _fairygui_GObject_isDraggable(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // bool isDraggable()
-    bool ret = (bool)self->isDraggable();
+    bool ret = self->isDraggable();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -7831,7 +7831,7 @@ static int _fairygui_GObject_isGrayed(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // bool isGrayed()
-    bool ret = (bool)self->isGrayed();
+    bool ret = self->isGrayed();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -7848,7 +7848,7 @@ static int _fairygui_GObject_isPivotAsAnchor(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // bool isPivotAsAnchor()
-    bool ret = (bool)self->isPivotAsAnchor();
+    bool ret = self->isPivotAsAnchor();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -7865,7 +7865,7 @@ static int _fairygui_GObject_isPixelSnapping(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // bool isPixelSnapping()
-    bool ret = (bool)self->isPixelSnapping();
+    bool ret = self->isPixelSnapping();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -7882,7 +7882,7 @@ static int _fairygui_GObject_isTouchable(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // bool isTouchable()
-    bool ret = (bool)self->isTouchable();
+    bool ret = self->isTouchable();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -7899,7 +7899,7 @@ static int _fairygui_GObject_isVisible(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // bool isVisible()
-    bool ret = (bool)self->isVisible();
+    bool ret = self->isVisible();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -7918,7 +7918,7 @@ static int _fairygui_GObject_localToGlobal1(lua_State *L)
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // cocos2d::Vec2 localToGlobal(const cocos2d::Vec2 &pt)
-    cocos2d::Vec2 ret = (cocos2d::Vec2)self->localToGlobal(arg1);
+    cocos2d::Vec2 ret = self->localToGlobal(arg1);
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     olua_endinvoke(L);
@@ -7937,7 +7937,7 @@ static int _fairygui_GObject_localToGlobal2(lua_State *L)
     auto_olua_pack_cocos2d_Vec2(L, 2, &arg1);
 
     // cocos2d::Vec2 localToGlobal(@pack const cocos2d::Vec2 &pt)
-    cocos2d::Vec2 ret = (cocos2d::Vec2)self->localToGlobal(arg1);
+    cocos2d::Vec2 ret = self->localToGlobal(arg1);
     int num_ret = auto_olua_unpack_cocos2d_Vec2(L, &ret);
 
     olua_endinvoke(L);
@@ -7956,7 +7956,7 @@ static int _fairygui_GObject_localToGlobal3(lua_State *L)
     manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // cocos2d::Rect localToGlobal(const cocos2d::Rect &rect)
-    cocos2d::Rect ret = (cocos2d::Rect)self->localToGlobal(arg1);
+    cocos2d::Rect ret = self->localToGlobal(arg1);
     int num_ret = manual_olua_push_cocos2d_Rect(L, &ret);
 
     olua_endinvoke(L);
@@ -7975,7 +7975,7 @@ static int _fairygui_GObject_localToGlobal4(lua_State *L)
     manual_olua_pack_cocos2d_Rect(L, 2, &arg1);
 
     // cocos2d::Rect localToGlobal(@pack const cocos2d::Rect &rect)
-    cocos2d::Rect ret = (cocos2d::Rect)self->localToGlobal(arg1);
+    cocos2d::Rect ret = self->localToGlobal(arg1);
     int num_ret = manual_olua_unpack_cocos2d_Rect(L, &ret);
 
     olua_endinvoke(L);
@@ -8044,7 +8044,7 @@ static int _fairygui_GObject_new(lua_State *L)
     olua_startinvoke(L);
 
     // GObject()
-    fairygui::GObject *ret = (fairygui::GObject *)new fairygui::GObject();
+    fairygui::GObject *ret = new fairygui::GObject();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
     olua_postnew(L, ret);
 
@@ -8062,7 +8062,7 @@ static int _fairygui_GObject_onStage(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // bool onStage()
-    bool ret = (bool)self->onStage();
+    bool ret = self->onStage();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -8079,7 +8079,7 @@ static int _fairygui_GObject_relations(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // fairygui::Relations *relations()
-    fairygui::Relations *ret = (fairygui::Relations *)self->relations();
+    fairygui::Relations *ret = self->relations();
     int num_ret = olua_push_cppobj(L, ret, "fgui.Relations");
 
     olua_endinvoke(L);
@@ -8890,7 +8890,7 @@ static int _fairygui_GObject_transformRect1(lua_State *L)
     olua_check_cppobj(L, 3, (void **)&arg2, "fgui.GObject");
 
     // cocos2d::Rect transformRect(const cocos2d::Rect &rect, fairygui::GObject *targetSpace)
-    cocos2d::Rect ret = (cocos2d::Rect)self->transformRect(arg1, arg2);
+    cocos2d::Rect ret = self->transformRect(arg1, arg2);
     int num_ret = manual_olua_push_cocos2d_Rect(L, &ret);
 
     olua_endinvoke(L);
@@ -8911,7 +8911,7 @@ static int _fairygui_GObject_transformRect2(lua_State *L)
     olua_check_cppobj(L, 6, (void **)&arg2, "fgui.GObject");
 
     // cocos2d::Rect transformRect(@pack const cocos2d::Rect &rect, fairygui::GObject *targetSpace)
-    cocos2d::Rect ret = (cocos2d::Rect)self->transformRect(arg1, arg2);
+    cocos2d::Rect ret = self->transformRect(arg1, arg2);
     int num_ret = manual_olua_unpack_cocos2d_Rect(L, &ret);
 
     olua_endinvoke(L);
@@ -8951,7 +8951,7 @@ static int _fairygui_GObject_treeNode(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // fairygui::GTreeNode *treeNode()
-    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->treeNode();
+    fairygui::GTreeNode *ret = self->treeNode();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
     olua_endinvoke(L);
@@ -8968,7 +8968,7 @@ static int _fairygui_GObject_get_id(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // std::string id
-    std::string ret = (std::string)self->id;
+    std::string ret = self->id;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -9003,7 +9003,7 @@ static int _fairygui_GObject_get_initSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // cocos2d::Size initSize
-    cocos2d::Size ret = (cocos2d::Size)self->initSize;
+    cocos2d::Size ret = self->initSize;
     int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     olua_endinvoke(L);
@@ -9038,7 +9038,7 @@ static int _fairygui_GObject_get_maxSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // cocos2d::Size maxSize
-    cocos2d::Size ret = (cocos2d::Size)self->maxSize;
+    cocos2d::Size ret = self->maxSize;
     int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     olua_endinvoke(L);
@@ -9073,7 +9073,7 @@ static int _fairygui_GObject_get_minSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // cocos2d::Size minSize
-    cocos2d::Size ret = (cocos2d::Size)self->minSize;
+    cocos2d::Size ret = self->minSize;
     int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     olua_endinvoke(L);
@@ -9108,7 +9108,7 @@ static int _fairygui_GObject_get_name(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // std::string name
-    std::string ret = (std::string)self->name;
+    std::string ret = self->name;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -9143,7 +9143,7 @@ static int _fairygui_GObject_get_sourceSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
     // cocos2d::Size sourceSize
-    cocos2d::Size ret = (cocos2d::Size)self->sourceSize;
+    cocos2d::Size ret = self->sourceSize;
     int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     olua_endinvoke(L);
@@ -9339,7 +9339,7 @@ static int _fairygui_GComponent_addChild(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
 
     // fairygui::GObject *addChild(@addref(children |) fairygui::GObject *child)
-    fairygui::GObject *ret = (fairygui::GObject *)self->addChild(arg1);
+    fairygui::GObject *ret = self->addChild(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     // insert code after call
@@ -9363,7 +9363,7 @@ static int _fairygui_GComponent_addChildAt(lua_State *L)
     olua_check_int(L, 3, &arg2);
 
     // fairygui::GObject *addChildAt(@addref(children |) fairygui::GObject *child, int index)
-    fairygui::GObject *ret = (fairygui::GObject *)self->addChildAt(arg1, (int)arg2);
+    fairygui::GObject *ret = self->addChildAt(arg1, (int)arg2);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     // insert code after call
@@ -9494,7 +9494,7 @@ static int _fairygui_GComponent_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GComponent *create()
-    fairygui::GComponent *ret = (fairygui::GComponent *)fairygui::GComponent::create();
+    fairygui::GComponent *ret = fairygui::GComponent::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
 
     olua_endinvoke(L);
@@ -9527,7 +9527,7 @@ static int _fairygui_GComponent_getApexIndex(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
 
     // int getApexIndex()
-    int ret = (int)self->getApexIndex();
+    int ret = self->getApexIndex();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -9546,7 +9546,7 @@ static int _fairygui_GComponent_getChild(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // @addref(children |) fairygui::GObject *getChild(const std::string &name)
-    fairygui::GObject *ret = (fairygui::GObject *)self->getChild(arg1);
+    fairygui::GObject *ret = self->getChild(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     // insert code after call
@@ -9568,7 +9568,7 @@ static int _fairygui_GComponent_getChildAt(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // @addref(children |) fairygui::GObject *getChildAt(int index)
-    fairygui::GObject *ret = (fairygui::GObject *)self->getChildAt((int)arg1);
+    fairygui::GObject *ret = self->getChildAt((int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     // insert code after call
@@ -9590,7 +9590,7 @@ static int _fairygui_GComponent_getChildById(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // @addref(children |) fairygui::GObject *getChildById(const std::string &id)
-    fairygui::GObject *ret = (fairygui::GObject *)self->getChildById(arg1);
+    fairygui::GObject *ret = self->getChildById(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     // insert code after call
@@ -9661,7 +9661,7 @@ static int _fairygui_GComponent_getChildInGroup(lua_State *L)
     olua_check_std_string(L, 3, &arg2);
 
     // @addref(children |) fairygui::GObject *getChildInGroup(const fairygui::GGroup *group, const std::string &name)
-    fairygui::GObject *ret = (fairygui::GObject *)self->getChildInGroup(arg1, arg2);
+    fairygui::GObject *ret = self->getChildInGroup(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     // insert code after call
@@ -9683,7 +9683,7 @@ static int _fairygui_GComponent_getChildIndex(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
 
     // int getChildIndex(const fairygui::GObject *child)
-    int ret = (int)self->getChildIndex(arg1);
+    int ret = self->getChildIndex(arg1);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -9700,7 +9700,7 @@ static int _fairygui_GComponent_getChildren(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
 
     // @addref(children |) const cocos2d::Vector<GObject *> &getChildren()
-    const cocos2d::Vector<fairygui::GObject *> &ret = (const cocos2d::Vector<fairygui::GObject *> &)self->getChildren();
+    const cocos2d::Vector<fairygui::GObject *> &ret = self->getChildren();
     int num_ret = manual_olua_push_cocos2d_Vector(L, ret, "fgui.GObject");
 
     // insert code after call
@@ -9720,7 +9720,7 @@ static int _fairygui_GComponent_getChildrenRenderOrder(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
 
     // fairygui::ChildrenRenderOrder getChildrenRenderOrder()
-    fairygui::ChildrenRenderOrder ret = (fairygui::ChildrenRenderOrder)self->getChildrenRenderOrder();
+    fairygui::ChildrenRenderOrder ret = self->getChildrenRenderOrder();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -9739,7 +9739,7 @@ static int _fairygui_GComponent_getController(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // @addref(controllers |) fairygui::GController *getController(const std::string &name)
-    fairygui::GController *ret = (fairygui::GController *)self->getController(arg1);
+    fairygui::GController *ret = self->getController(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GController");
 
     // insert code after call
@@ -9761,7 +9761,7 @@ static int _fairygui_GComponent_getControllerAt(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // @addref(controllers |) fairygui::GController *getControllerAt(int index)
-    fairygui::GController *ret = (fairygui::GController *)self->getControllerAt((int)arg1);
+    fairygui::GController *ret = self->getControllerAt((int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GController");
 
     // insert code after call
@@ -9781,7 +9781,7 @@ static int _fairygui_GComponent_getControllers(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
 
     // @addref(controllers |) const cocos2d::Vector<GController *> &getControllers()
-    const cocos2d::Vector<fairygui::GController *> &ret = (const cocos2d::Vector<fairygui::GController *> &)self->getControllers();
+    const cocos2d::Vector<fairygui::GController *> &ret = self->getControllers();
     int num_ret = manual_olua_push_cocos2d_Vector(L, ret, "fgui.GController");
 
     // insert code after call
@@ -9801,7 +9801,7 @@ static int _fairygui_GComponent_getFirstChildInView(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
 
     // int getFirstChildInView()
-    int ret = (int)self->getFirstChildInView();
+    int ret = self->getFirstChildInView();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -9818,7 +9818,7 @@ static int _fairygui_GComponent_getHitArea(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
 
     // fairygui::IHitTest *getHitArea()
-    fairygui::IHitTest *ret = (fairygui::IHitTest *)self->getHitArea();
+    fairygui::IHitTest *ret = self->getHitArea();
     int num_ret = olua_push_cppobj(L, ret, "fgui.IHitTest");
 
     olua_endinvoke(L);
@@ -9835,7 +9835,7 @@ static int _fairygui_GComponent_getMargin(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
 
     // const fairygui::Margin &getMargin()
-    const fairygui::Margin &ret = (const fairygui::Margin &)self->getMargin();
+    const fairygui::Margin &ret = self->getMargin();
     int num_ret = auto_olua_push_fairygui_Margin(L, &ret);
 
     olua_endinvoke(L);
@@ -9852,7 +9852,7 @@ static int _fairygui_GComponent_getMask(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
 
     // @addref(mask ^) cocos2d::Node *getMask()
-    cocos2d::Node *ret = (cocos2d::Node *)self->getMask();
+    cocos2d::Node *ret = self->getMask();
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
     // insert code after call
@@ -9872,7 +9872,7 @@ static int _fairygui_GComponent_getOpaque(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
 
     // bool getOpaque()
-    bool ret = (bool)self->getOpaque();
+    bool ret = self->getOpaque();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -9889,7 +9889,7 @@ static int _fairygui_GComponent_getScrollPane(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
 
     // fairygui::ScrollPane *getScrollPane()
-    fairygui::ScrollPane *ret = (fairygui::ScrollPane *)self->getScrollPane();
+    fairygui::ScrollPane *ret = self->getScrollPane();
     int num_ret = olua_push_cppobj(L, ret, "fgui.ScrollPane");
 
     olua_endinvoke(L);
@@ -9908,7 +9908,7 @@ static int _fairygui_GComponent_getSnappingPosition(lua_State *L)
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // cocos2d::Vec2 getSnappingPosition(const cocos2d::Vec2 &pt)
-    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getSnappingPosition(arg1);
+    cocos2d::Vec2 ret = self->getSnappingPosition(arg1);
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     olua_endinvoke(L);
@@ -9927,7 +9927,7 @@ static int _fairygui_GComponent_getTransition(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // @addref(transitions |) fairygui::Transition *getTransition(const std::string &name)
-    fairygui::Transition *ret = (fairygui::Transition *)self->getTransition(arg1);
+    fairygui::Transition *ret = self->getTransition(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.Transition");
 
     // insert code after call
@@ -9949,7 +9949,7 @@ static int _fairygui_GComponent_getTransitionAt(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // @addref(transitions |) fairygui::Transition *getTransitionAt(int index)
-    fairygui::Transition *ret = (fairygui::Transition *)self->getTransitionAt((int)arg1);
+    fairygui::Transition *ret = self->getTransitionAt((int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.Transition");
 
     // insert code after call
@@ -9969,7 +9969,7 @@ static int _fairygui_GComponent_getTransitions(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
 
     // @addref(transitions |) const cocos2d::Vector<Transition *> &getTransitions()
-    const cocos2d::Vector<fairygui::Transition *> &ret = (const cocos2d::Vector<fairygui::Transition *> &)self->getTransitions();
+    const cocos2d::Vector<fairygui::Transition *> &ret = self->getTransitions();
     int num_ret = manual_olua_push_cocos2d_Vector(L, ret, "fgui.Transition");
 
     // insert code after call
@@ -9989,7 +9989,7 @@ static int _fairygui_GComponent_getViewHeight(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
 
     // float getViewHeight()
-    float ret = (float)self->getViewHeight();
+    float ret = self->getViewHeight();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -10006,7 +10006,7 @@ static int _fairygui_GComponent_getViewWidth(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
 
     // float getViewWidth()
-    float ret = (float)self->getViewWidth();
+    float ret = self->getViewWidth();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -10025,7 +10025,7 @@ static int _fairygui_GComponent_isAncestorOf(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
 
     // bool isAncestorOf(const fairygui::GObject *obj)
-    bool ret = (bool)self->isAncestorOf(arg1);
+    bool ret = self->isAncestorOf(arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -10044,7 +10044,7 @@ static int _fairygui_GComponent_isChildInView(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
 
     // bool isChildInView(fairygui::GObject *child)
-    bool ret = (bool)self->isChildInView(arg1);
+    bool ret = self->isChildInView(arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -10057,7 +10057,7 @@ static int _fairygui_GComponent_new(lua_State *L)
     olua_startinvoke(L);
 
     // GComponent()
-    fairygui::GComponent *ret = (fairygui::GComponent *)new fairygui::GComponent();
+    fairygui::GComponent *ret = new fairygui::GComponent();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
     olua_postnew(L, ret);
 
@@ -10075,7 +10075,7 @@ static int _fairygui_GComponent_numChildren(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
 
     // int numChildren()
-    int ret = (int)self->numChildren();
+    int ret = self->numChildren();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -10285,7 +10285,7 @@ static int _fairygui_GComponent_setChildIndexBefore(lua_State *L)
     olua_check_int(L, 3, &arg2);
 
     // int setChildIndexBefore(fairygui::GObject *child, int index)
-    int ret = (int)self->setChildIndexBefore(arg1, (int)arg2);
+    int ret = self->setChildIndexBefore(arg1, (int)arg2);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -10677,7 +10677,7 @@ static int _fairygui_GRoot_create1(lua_State *L)
     olua_check_int(L, 2, &arg2);
 
     // static fairygui::GRoot *create(cocos2d::Scene *scene, @optional int zOrder)
-    fairygui::GRoot *ret = (fairygui::GRoot *)fairygui::GRoot::create(arg1, (int)arg2);
+    fairygui::GRoot *ret = fairygui::GRoot::create(arg1, (int)arg2);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GRoot");
 
     // insert code after call
@@ -10700,7 +10700,7 @@ static int _fairygui_GRoot_create2(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Scene");
 
     // static fairygui::GRoot *create(cocos2d::Scene *scene, @optional int zOrder)
-    fairygui::GRoot *ret = (fairygui::GRoot *)fairygui::GRoot::create(arg1);
+    fairygui::GRoot *ret = fairygui::GRoot::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GRoot");
 
     // insert code after call
@@ -10746,7 +10746,7 @@ static int _fairygui_GRoot_getInputProcessor(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
 
     // @addref(inputProcessor ^) fairygui::InputProcessor *getInputProcessor()
-    fairygui::InputProcessor *ret = (fairygui::InputProcessor *)self->getInputProcessor();
+    fairygui::InputProcessor *ret = self->getInputProcessor();
     int num_ret = olua_push_cppobj(L, ret, "fgui.InputProcessor");
 
     // insert code after call
@@ -10762,7 +10762,7 @@ static int _fairygui_GRoot_getInstance(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GRoot *getInstance()
-    fairygui::GRoot *ret = (fairygui::GRoot *)fairygui::GRoot::getInstance();
+    fairygui::GRoot *ret = fairygui::GRoot::getInstance();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GRoot");
 
     olua_endinvoke(L);
@@ -10779,7 +10779,7 @@ static int _fairygui_GRoot_getModalLayer(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
 
     // @addref(children |) fairygui::GGraph *getModalLayer()
-    fairygui::GGraph *ret = (fairygui::GGraph *)self->getModalLayer();
+    fairygui::GGraph *ret = self->getModalLayer();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GGraph");
 
     // insert code after call
@@ -10799,7 +10799,7 @@ static int _fairygui_GRoot_getModalWaitingPane(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
 
     // @addref(children |) fairygui::GObject *getModalWaitingPane()
-    fairygui::GObject *ret = (fairygui::GObject *)self->getModalWaitingPane();
+    fairygui::GObject *ret = self->getModalWaitingPane();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     // insert code after call
@@ -10825,7 +10825,7 @@ static int _fairygui_GRoot_getPoupPosition(lua_State *L)
     olua_check_uint(L, 4, &arg3);
 
     // cocos2d::Vec2 getPoupPosition(fairygui::GObject *popup, fairygui::GObject *target, fairygui::PopupDirection dir)
-    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getPoupPosition(arg1, arg2, (fairygui::PopupDirection)arg3);
+    cocos2d::Vec2 ret = self->getPoupPosition(arg1, arg2, (fairygui::PopupDirection)arg3);
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     olua_endinvoke(L);
@@ -10842,7 +10842,7 @@ static int _fairygui_GRoot_getSoundVolumeScale(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
 
     // float getSoundVolumeScale()
-    float ret = (float)self->getSoundVolumeScale();
+    float ret = self->getSoundVolumeScale();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -10859,7 +10859,7 @@ static int _fairygui_GRoot_getTopWindow(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
 
     // @addref(children |) fairygui::Window *getTopWindow()
-    fairygui::Window *ret = (fairygui::Window *)self->getTopWindow();
+    fairygui::Window *ret = self->getTopWindow();
     int num_ret = olua_push_cppobj(L, ret, "fgui.Window");
 
     // insert code after call
@@ -10881,7 +10881,7 @@ static int _fairygui_GRoot_getTouchPosition(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // cocos2d::Vec2 getTouchPosition(int touchId)
-    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getTouchPosition((int)arg1);
+    cocos2d::Vec2 ret = self->getTouchPosition((int)arg1);
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     olua_endinvoke(L);
@@ -10898,7 +10898,7 @@ static int _fairygui_GRoot_getTouchTarget(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
 
     // fairygui::GObject *getTouchTarget()
-    fairygui::GObject *ret = (fairygui::GObject *)self->getTouchTarget();
+    fairygui::GObject *ret = self->getTouchTarget();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     olua_endinvoke(L);
@@ -10915,7 +10915,7 @@ static int _fairygui_GRoot_hasAnyPopup(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
 
     // bool hasAnyPopup()
-    bool ret = (bool)self->hasAnyPopup();
+    bool ret = self->hasAnyPopup();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -10932,7 +10932,7 @@ static int _fairygui_GRoot_hasModalWindow(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
 
     // bool hasModalWindow()
-    bool ret = (bool)self->hasModalWindow();
+    bool ret = self->hasModalWindow();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -11090,7 +11090,7 @@ static int _fairygui_GRoot_isModalWaiting(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
 
     // bool isModalWaiting()
-    bool ret = (bool)self->isModalWaiting();
+    bool ret = self->isModalWaiting();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -11107,7 +11107,7 @@ static int _fairygui_GRoot_isSoundEnabled(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
 
     // bool isSoundEnabled()
-    bool ret = (bool)self->isSoundEnabled();
+    bool ret = self->isSoundEnabled();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -11120,7 +11120,7 @@ static int _fairygui_GRoot_new(lua_State *L)
     olua_startinvoke(L);
 
     // GRoot()
-    fairygui::GRoot *ret = (fairygui::GRoot *)new fairygui::GRoot();
+    fairygui::GRoot *ret = new fairygui::GRoot();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GRoot");
     olua_postnew(L, ret);
 
@@ -11201,7 +11201,7 @@ static int _fairygui_GRoot_rootToWorld(lua_State *L)
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // cocos2d::Vec2 rootToWorld(const cocos2d::Vec2 &pt)
-    cocos2d::Vec2 ret = (cocos2d::Vec2)self->rootToWorld(arg1);
+    cocos2d::Vec2 ret = self->rootToWorld(arg1);
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     olua_endinvoke(L);
@@ -11503,7 +11503,7 @@ static int _fairygui_GRoot_worldToRoot(lua_State *L)
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // cocos2d::Vec2 worldToRoot(const cocos2d::Vec2 &pt)
-    cocos2d::Vec2 ret = (cocos2d::Vec2)self->worldToRoot(arg1);
+    cocos2d::Vec2 ret = self->worldToRoot(arg1);
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     olua_endinvoke(L);
@@ -11516,7 +11516,7 @@ static int _fairygui_GRoot_get_contentScaleLevel(lua_State *L)
     olua_startinvoke(L);
 
     // static int contentScaleLevel
-    int ret = (int)fairygui::GRoot::contentScaleLevel;
+    int ret = fairygui::GRoot::contentScaleLevel;
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -11613,7 +11613,7 @@ static int _fairygui_GGroup_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GGroup *create()
-    fairygui::GGroup *ret = (fairygui::GGroup *)fairygui::GGroup::create();
+    fairygui::GGroup *ret = fairygui::GGroup::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GGroup");
 
     olua_endinvoke(L);
@@ -11630,7 +11630,7 @@ static int _fairygui_GGroup_getColumnGap(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GGroup");
 
     // int getColumnGap()
-    int ret = (int)self->getColumnGap();
+    int ret = self->getColumnGap();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -11647,7 +11647,7 @@ static int _fairygui_GGroup_getLayout(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GGroup");
 
     // fairygui::GroupLayoutType getLayout()
-    fairygui::GroupLayoutType ret = (fairygui::GroupLayoutType)self->getLayout();
+    fairygui::GroupLayoutType ret = self->getLayout();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -11664,7 +11664,7 @@ static int _fairygui_GGroup_getLineGap(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GGroup");
 
     // int getLineGap()
-    int ret = (int)self->getLineGap();
+    int ret = self->getLineGap();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -11681,7 +11681,7 @@ static int _fairygui_GGroup_getMainGridIndex(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GGroup");
 
     // int getMainGridIndex()
-    int ret = (int)self->getMainGridIndex();
+    int ret = self->getMainGridIndex();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -11698,7 +11698,7 @@ static int _fairygui_GGroup_getMainGridMinSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GGroup");
 
     // int getMainGridMinSize()
-    int ret = (int)self->getMainGridMinSize();
+    int ret = self->getMainGridMinSize();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -11715,7 +11715,7 @@ static int _fairygui_GGroup_isAutoSizeDisabled(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GGroup");
 
     // bool isAutoSizeDisabled()
-    bool ret = (bool)self->isAutoSizeDisabled();
+    bool ret = self->isAutoSizeDisabled();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -11732,7 +11732,7 @@ static int _fairygui_GGroup_isExcludeInvisibles(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GGroup");
 
     // bool isExcludeInvisibles()
-    bool ret = (bool)self->isExcludeInvisibles();
+    bool ret = self->isExcludeInvisibles();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -11765,7 +11765,7 @@ static int _fairygui_GGroup_new(lua_State *L)
     olua_startinvoke(L);
 
     // GGroup()
-    fairygui::GGroup *ret = (fairygui::GGroup *)new fairygui::GGroup();
+    fairygui::GGroup *ret = new fairygui::GGroup();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GGroup");
     olua_postnew(L, ret);
 
@@ -12028,7 +12028,7 @@ static int _fairygui_GScrollBar_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GScrollBar *create()
-    fairygui::GScrollBar *ret = (fairygui::GScrollBar *)fairygui::GScrollBar::create();
+    fairygui::GScrollBar *ret = fairygui::GScrollBar::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GScrollBar");
 
     olua_endinvoke(L);
@@ -12045,7 +12045,7 @@ static int _fairygui_GScrollBar_getMinSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GScrollBar");
 
     // float getMinSize()
-    float ret = (float)self->getMinSize();
+    float ret = self->getMinSize();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -12058,7 +12058,7 @@ static int _fairygui_GScrollBar_new(lua_State *L)
     olua_startinvoke(L);
 
     // GScrollBar()
-    fairygui::GScrollBar *ret = (fairygui::GScrollBar *)new fairygui::GScrollBar();
+    fairygui::GScrollBar *ret = new fairygui::GScrollBar();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GScrollBar");
     olua_postnew(L, ret);
 
@@ -12157,7 +12157,7 @@ static int _fairygui_GLoader_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GLoader *create()
-    fairygui::GLoader *ret = (fairygui::GLoader *)fairygui::GLoader::create();
+    fairygui::GLoader *ret = fairygui::GLoader::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GLoader");
 
     olua_endinvoke(L);
@@ -12174,7 +12174,7 @@ static int _fairygui_GLoader_getAlign(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader");
 
     // cocos2d::TextHAlignment getAlign()
-    cocos2d::TextHAlignment ret = (cocos2d::TextHAlignment)self->getAlign();
+    cocos2d::TextHAlignment ret = self->getAlign();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -12191,7 +12191,7 @@ static int _fairygui_GLoader_getAutoSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader");
 
     // bool getAutoSize()
-    bool ret = (bool)self->getAutoSize();
+    bool ret = self->getAutoSize();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -12208,7 +12208,7 @@ static int _fairygui_GLoader_getColor(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader");
 
     // cocos2d::Color3B getColor()
-    cocos2d::Color3B ret = (cocos2d::Color3B)self->getColor();
+    cocos2d::Color3B ret = self->getColor();
     int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     olua_endinvoke(L);
@@ -12225,7 +12225,7 @@ static int _fairygui_GLoader_getComponent(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader");
 
     // @addref(component ^) fairygui::GComponent *getComponent()
-    fairygui::GComponent *ret = (fairygui::GComponent *)self->getComponent();
+    fairygui::GComponent *ret = self->getComponent();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
 
     // insert code after call
@@ -12245,7 +12245,7 @@ static int _fairygui_GLoader_getContentSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader");
 
     // const cocos2d::Size &getContentSize()
-    const cocos2d::Size &ret = (const cocos2d::Size &)self->getContentSize();
+    const cocos2d::Size &ret = self->getContentSize();
     int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     olua_endinvoke(L);
@@ -12262,7 +12262,7 @@ static int _fairygui_GLoader_getFill(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader");
 
     // fairygui::LoaderFillType getFill()
-    fairygui::LoaderFillType ret = (fairygui::LoaderFillType)self->getFill();
+    fairygui::LoaderFillType ret = self->getFill();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -12279,7 +12279,7 @@ static int _fairygui_GLoader_getFillAmount(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader");
 
     // float getFillAmount()
-    float ret = (float)self->getFillAmount();
+    float ret = self->getFillAmount();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -12296,7 +12296,7 @@ static int _fairygui_GLoader_getFillMethod(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader");
 
     // fairygui::FillMethod getFillMethod()
-    fairygui::FillMethod ret = (fairygui::FillMethod)self->getFillMethod();
+    fairygui::FillMethod ret = self->getFillMethod();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -12313,7 +12313,7 @@ static int _fairygui_GLoader_getFillOrigin(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader");
 
     // fairygui::FillOrigin getFillOrigin()
-    fairygui::FillOrigin ret = (fairygui::FillOrigin)self->getFillOrigin();
+    fairygui::FillOrigin ret = self->getFillOrigin();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -12330,7 +12330,7 @@ static int _fairygui_GLoader_getFrame(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader");
 
     // int getFrame()
-    int ret = (int)self->getFrame();
+    int ret = self->getFrame();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -12347,7 +12347,7 @@ static int _fairygui_GLoader_getURL(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader");
 
     // const std::string &getURL()
-    const std::string &ret = (const std::string &)self->getURL();
+    const std::string &ret = self->getURL();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -12364,7 +12364,7 @@ static int _fairygui_GLoader_getVerticalAlign(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader");
 
     // cocos2d::TextVAlignment getVerticalAlign()
-    cocos2d::TextVAlignment ret = (cocos2d::TextVAlignment)self->getVerticalAlign();
+    cocos2d::TextVAlignment ret = self->getVerticalAlign();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -12381,7 +12381,7 @@ static int _fairygui_GLoader_isFillClockwise(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader");
 
     // bool isFillClockwise()
-    bool ret = (bool)self->isFillClockwise();
+    bool ret = self->isFillClockwise();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -12398,7 +12398,7 @@ static int _fairygui_GLoader_isPlaying(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader");
 
     // bool isPlaying()
-    bool ret = (bool)self->isPlaying();
+    bool ret = self->isPlaying();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -12415,7 +12415,7 @@ static int _fairygui_GLoader_isShrinkOnly(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader");
 
     // bool isShrinkOnly()
-    bool ret = (bool)self->isShrinkOnly();
+    bool ret = self->isShrinkOnly();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -12428,7 +12428,7 @@ static int _fairygui_GLoader_new(lua_State *L)
     olua_startinvoke(L);
 
     // GLoader()
-    fairygui::GLoader *ret = (fairygui::GLoader *)new fairygui::GLoader();
+    fairygui::GLoader *ret = new fairygui::GLoader();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GLoader");
     olua_postnew(L, ret);
 
@@ -12743,7 +12743,7 @@ static int _fairygui_GLoader3D_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GLoader3D *create()
-    fairygui::GLoader3D *ret = (fairygui::GLoader3D *)fairygui::GLoader3D::create();
+    fairygui::GLoader3D *ret = fairygui::GLoader3D::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GLoader3D");
 
     olua_endinvoke(L);
@@ -12760,7 +12760,7 @@ static int _fairygui_GLoader3D_getAlign(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader3D");
 
     // cocos2d::TextHAlignment getAlign()
-    cocos2d::TextHAlignment ret = (cocos2d::TextHAlignment)self->getAlign();
+    cocos2d::TextHAlignment ret = self->getAlign();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -12777,7 +12777,7 @@ static int _fairygui_GLoader3D_getAnimationName(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader3D");
 
     // const std::string &getAnimationName()
-    const std::string &ret = (const std::string &)self->getAnimationName();
+    const std::string &ret = self->getAnimationName();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -12794,7 +12794,7 @@ static int _fairygui_GLoader3D_getAutoSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader3D");
 
     // bool getAutoSize()
-    bool ret = (bool)self->getAutoSize();
+    bool ret = self->getAutoSize();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -12811,7 +12811,7 @@ static int _fairygui_GLoader3D_getColor(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader3D");
 
     // cocos2d::Color3B getColor()
-    cocos2d::Color3B ret = (cocos2d::Color3B)self->getColor();
+    cocos2d::Color3B ret = self->getColor();
     int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     olua_endinvoke(L);
@@ -12828,7 +12828,7 @@ static int _fairygui_GLoader3D_getContent(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader3D");
 
     // @addref(content ^) const cocos2d::Node *getContent()
-    const cocos2d::Node *ret = (const cocos2d::Node *)self->getContent();
+    const cocos2d::Node *ret = self->getContent();
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
     // insert code after call
@@ -12848,7 +12848,7 @@ static int _fairygui_GLoader3D_getFill(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader3D");
 
     // fairygui::LoaderFillType getFill()
-    fairygui::LoaderFillType ret = (fairygui::LoaderFillType)self->getFill();
+    fairygui::LoaderFillType ret = self->getFill();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -12865,7 +12865,7 @@ static int _fairygui_GLoader3D_getFrame(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader3D");
 
     // int getFrame()
-    int ret = (int)self->getFrame();
+    int ret = self->getFrame();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -12882,7 +12882,7 @@ static int _fairygui_GLoader3D_getLoop(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader3D");
 
     // bool getLoop()
-    bool ret = (bool)self->getLoop();
+    bool ret = self->getLoop();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -12899,7 +12899,7 @@ static int _fairygui_GLoader3D_getSkinName(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader3D");
 
     // const std::string &getSkinName()
-    const std::string &ret = (const std::string &)self->getSkinName();
+    const std::string &ret = self->getSkinName();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -12916,7 +12916,7 @@ static int _fairygui_GLoader3D_getURL(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader3D");
 
     // const std::string &getURL()
-    const std::string &ret = (const std::string &)self->getURL();
+    const std::string &ret = self->getURL();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -12933,7 +12933,7 @@ static int _fairygui_GLoader3D_getVerticalAlign(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader3D");
 
     // cocos2d::TextVAlignment getVerticalAlign()
-    cocos2d::TextVAlignment ret = (cocos2d::TextVAlignment)self->getVerticalAlign();
+    cocos2d::TextVAlignment ret = self->getVerticalAlign();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -12950,7 +12950,7 @@ static int _fairygui_GLoader3D_isPlaying(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader3D");
 
     // bool isPlaying()
-    bool ret = (bool)self->isPlaying();
+    bool ret = self->isPlaying();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -12967,7 +12967,7 @@ static int _fairygui_GLoader3D_isShrinkOnly(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader3D");
 
     // bool isShrinkOnly()
-    bool ret = (bool)self->isShrinkOnly();
+    bool ret = self->isShrinkOnly();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -12980,7 +12980,7 @@ static int _fairygui_GLoader3D_new(lua_State *L)
     olua_startinvoke(L);
 
     // GLoader3D()
-    fairygui::GLoader3D *ret = (fairygui::GLoader3D *)new fairygui::GLoader3D();
+    fairygui::GLoader3D *ret = new fairygui::GLoader3D();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GLoader3D");
     olua_postnew(L, ret);
 
@@ -13330,7 +13330,7 @@ static int _fairygui_GTextField_getAutoSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTextField");
 
     // fairygui::AutoSizeType getAutoSize()
-    fairygui::AutoSizeType ret = (fairygui::AutoSizeType)self->getAutoSize();
+    fairygui::AutoSizeType ret = self->getAutoSize();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -13347,7 +13347,7 @@ static int _fairygui_GTextField_getColor(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTextField");
 
     // cocos2d::Color3B getColor()
-    cocos2d::Color3B ret = (cocos2d::Color3B)self->getColor();
+    cocos2d::Color3B ret = self->getColor();
     int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     olua_endinvoke(L);
@@ -13364,7 +13364,7 @@ static int _fairygui_GTextField_getFontSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTextField");
 
     // float getFontSize()
-    float ret = (float)self->getFontSize();
+    float ret = self->getFontSize();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -13381,7 +13381,7 @@ static int _fairygui_GTextField_getOutlineColor(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTextField");
 
     // cocos2d::Color3B getOutlineColor()
-    cocos2d::Color3B ret = (cocos2d::Color3B)self->getOutlineColor();
+    cocos2d::Color3B ret = self->getOutlineColor();
     int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     olua_endinvoke(L);
@@ -13398,7 +13398,7 @@ static int _fairygui_GTextField_getTemplateVars(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTextField");
 
     // cocos2d::ValueMap *getTemplateVars()
-    cocos2d::ValueMap *ret = (cocos2d::ValueMap *)self->getTemplateVars();
+    cocos2d::ValueMap *ret = self->getTemplateVars();
     int num_ret = manual_olua_push_cocos2d_ValueMap(L, ret);
 
     olua_endinvoke(L);
@@ -13415,7 +13415,7 @@ static int _fairygui_GTextField_getTextFormat(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTextField");
 
     // fairygui::TextFormat *getTextFormat()
-    fairygui::TextFormat *ret = (fairygui::TextFormat *)self->getTextFormat();
+    fairygui::TextFormat *ret = self->getTextFormat();
     int num_ret = olua_push_cppobj(L, ret, "fgui.TextFormat");
 
     olua_endinvoke(L);
@@ -13432,7 +13432,7 @@ static int _fairygui_GTextField_getTextSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTextField");
 
     // const cocos2d::Size &getTextSize()
-    const cocos2d::Size &ret = (const cocos2d::Size &)self->getTextSize();
+    const cocos2d::Size &ret = self->getTextSize();
     int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     olua_endinvoke(L);
@@ -13449,7 +13449,7 @@ static int _fairygui_GTextField_isSingleLine(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTextField");
 
     // bool isSingleLine()
-    bool ret = (bool)self->isSingleLine();
+    bool ret = self->isSingleLine();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -13466,7 +13466,7 @@ static int _fairygui_GTextField_isUBBEnabled(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTextField");
 
     // bool isUBBEnabled()
-    bool ret = (bool)self->isUBBEnabled();
+    bool ret = self->isUBBEnabled();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -13613,7 +13613,7 @@ static int _fairygui_GTextField_setVar(lua_State *L)
     manual_olua_check_cocos2d_Value(L, 3, &arg2);
 
     // fairygui::GTextField *setVar(const std::string &name, const cocos2d::Value &value)
-    fairygui::GTextField *ret = (fairygui::GTextField *)self->setVar(arg1, arg2);
+    fairygui::GTextField *ret = self->setVar(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTextField");
 
     olua_endinvoke(L);
@@ -13676,7 +13676,7 @@ static int _fairygui_GBasicTextField_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GBasicTextField *create()
-    fairygui::GBasicTextField *ret = (fairygui::GBasicTextField *)fairygui::GBasicTextField::create();
+    fairygui::GBasicTextField *ret = fairygui::GBasicTextField::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GBasicTextField");
 
     olua_endinvoke(L);
@@ -13689,7 +13689,7 @@ static int _fairygui_GBasicTextField_new(lua_State *L)
     olua_startinvoke(L);
 
     // GBasicTextField()
-    fairygui::GBasicTextField *ret = (fairygui::GBasicTextField *)new fairygui::GBasicTextField();
+    fairygui::GBasicTextField *ret = new fairygui::GBasicTextField();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GBasicTextField");
     olua_postnew(L, ret);
 
@@ -13727,7 +13727,7 @@ static int _fairygui_GGraph_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GGraph *create()
-    fairygui::GGraph *ret = (fairygui::GGraph *)fairygui::GGraph::create();
+    fairygui::GGraph *ret = fairygui::GGraph::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GGraph");
 
     olua_endinvoke(L);
@@ -13796,7 +13796,7 @@ static int _fairygui_GGraph_getColor(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GGraph");
 
     // cocos2d::Color3B getColor()
-    cocos2d::Color3B ret = (cocos2d::Color3B)self->getColor();
+    cocos2d::Color3B ret = self->getColor();
     int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     olua_endinvoke(L);
@@ -13813,7 +13813,7 @@ static int _fairygui_GGraph_isEmpty(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GGraph");
 
     // bool isEmpty()
-    bool ret = (bool)self->isEmpty();
+    bool ret = self->isEmpty();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -13826,7 +13826,7 @@ static int _fairygui_GGraph_new(lua_State *L)
     olua_startinvoke(L);
 
     // GGraph()
-    fairygui::GGraph *ret = (fairygui::GGraph *)new fairygui::GGraph();
+    fairygui::GGraph *ret = new fairygui::GGraph();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GGraph");
     olua_postnew(L, ret);
 
@@ -13889,7 +13889,7 @@ static int _fairygui_GButton_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GButton *create()
-    fairygui::GButton *ret = (fairygui::GButton *)fairygui::GButton::create();
+    fairygui::GButton *ret = fairygui::GButton::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GButton");
 
     olua_endinvoke(L);
@@ -13906,7 +13906,7 @@ static int _fairygui_GButton_getRelatedController(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GButton");
 
     // @addref(relatedController ^) fairygui::GController *getRelatedController()
-    fairygui::GController *ret = (fairygui::GController *)self->getRelatedController();
+    fairygui::GController *ret = self->getRelatedController();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GController");
 
     // insert code after call
@@ -13926,7 +13926,7 @@ static int _fairygui_GButton_getSelectedIcon(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GButton");
 
     // const std::string &getSelectedIcon()
-    const std::string &ret = (const std::string &)self->getSelectedIcon();
+    const std::string &ret = self->getSelectedIcon();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -13943,7 +13943,7 @@ static int _fairygui_GButton_getSelectedTitle(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GButton");
 
     // const std::string &getSelectedTitle()
-    const std::string &ret = (const std::string &)self->getSelectedTitle();
+    const std::string &ret = self->getSelectedTitle();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -13960,7 +13960,7 @@ static int _fairygui_GButton_getTextField(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GButton");
 
     // @addref(textField ^) fairygui::GTextField *getTextField()
-    fairygui::GTextField *ret = (fairygui::GTextField *)self->getTextField();
+    fairygui::GTextField *ret = self->getTextField();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTextField");
 
     // insert code after call
@@ -13980,7 +13980,7 @@ static int _fairygui_GButton_getTitle(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GButton");
 
     // const std::string &getTitle()
-    const std::string &ret = (const std::string &)self->getTitle();
+    const std::string &ret = self->getTitle();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -13997,7 +13997,7 @@ static int _fairygui_GButton_getTitleColor(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GButton");
 
     // cocos2d::Color3B getTitleColor()
-    cocos2d::Color3B ret = (cocos2d::Color3B)self->getTitleColor();
+    cocos2d::Color3B ret = self->getTitleColor();
     int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     olua_endinvoke(L);
@@ -14014,7 +14014,7 @@ static int _fairygui_GButton_getTitleFontSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GButton");
 
     // int getTitleFontSize()
-    int ret = (int)self->getTitleFontSize();
+    int ret = self->getTitleFontSize();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -14031,7 +14031,7 @@ static int _fairygui_GButton_isChangeStateOnClick(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GButton");
 
     // bool isChangeStateOnClick()
-    bool ret = (bool)self->isChangeStateOnClick();
+    bool ret = self->isChangeStateOnClick();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -14048,7 +14048,7 @@ static int _fairygui_GButton_isSelected(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GButton");
 
     // bool isSelected()
-    bool ret = (bool)self->isSelected();
+    bool ret = self->isSelected();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -14061,7 +14061,7 @@ static int _fairygui_GButton_new(lua_State *L)
     olua_startinvoke(L);
 
     // GButton()
-    fairygui::GButton *ret = (fairygui::GButton *)new fairygui::GButton();
+    fairygui::GButton *ret = new fairygui::GButton();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GButton");
     olua_postnew(L, ret);
 
@@ -14278,7 +14278,7 @@ static int _fairygui_GImage_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GImage *create()
-    fairygui::GImage *ret = (fairygui::GImage *)fairygui::GImage::create();
+    fairygui::GImage *ret = fairygui::GImage::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GImage");
 
     olua_endinvoke(L);
@@ -14295,7 +14295,7 @@ static int _fairygui_GImage_getColor(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GImage");
 
     // cocos2d::Color3B getColor()
-    cocos2d::Color3B ret = (cocos2d::Color3B)self->getColor();
+    cocos2d::Color3B ret = self->getColor();
     int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     olua_endinvoke(L);
@@ -14312,7 +14312,7 @@ static int _fairygui_GImage_getFillAmount(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GImage");
 
     // float getFillAmount()
-    float ret = (float)self->getFillAmount();
+    float ret = self->getFillAmount();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -14329,7 +14329,7 @@ static int _fairygui_GImage_getFillMethod(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GImage");
 
     // fairygui::FillMethod getFillMethod()
-    fairygui::FillMethod ret = (fairygui::FillMethod)self->getFillMethod();
+    fairygui::FillMethod ret = self->getFillMethod();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -14346,7 +14346,7 @@ static int _fairygui_GImage_getFillOrigin(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GImage");
 
     // fairygui::FillOrigin getFillOrigin()
-    fairygui::FillOrigin ret = (fairygui::FillOrigin)self->getFillOrigin();
+    fairygui::FillOrigin ret = self->getFillOrigin();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -14363,7 +14363,7 @@ static int _fairygui_GImage_getFlip(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GImage");
 
     // fairygui::FlipType getFlip()
-    fairygui::FlipType ret = (fairygui::FlipType)self->getFlip();
+    fairygui::FlipType ret = self->getFlip();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -14380,7 +14380,7 @@ static int _fairygui_GImage_isFillClockwise(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GImage");
 
     // bool isFillClockwise()
-    bool ret = (bool)self->isFillClockwise();
+    bool ret = self->isFillClockwise();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -14393,7 +14393,7 @@ static int _fairygui_GImage_new(lua_State *L)
     olua_startinvoke(L);
 
     // GImage()
-    fairygui::GImage *ret = (fairygui::GImage *)new fairygui::GImage();
+    fairygui::GImage *ret = new fairygui::GImage();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GImage");
     olua_postnew(L, ret);
 
@@ -14557,7 +14557,7 @@ static int _fairygui_GLabel_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GLabel *create()
-    fairygui::GLabel *ret = (fairygui::GLabel *)fairygui::GLabel::create();
+    fairygui::GLabel *ret = fairygui::GLabel::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GLabel");
 
     olua_endinvoke(L);
@@ -14574,7 +14574,7 @@ static int _fairygui_GLabel_getTextField(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLabel");
 
     // @addref(textField ^) fairygui::GTextField *getTextField()
-    fairygui::GTextField *ret = (fairygui::GTextField *)self->getTextField();
+    fairygui::GTextField *ret = self->getTextField();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTextField");
 
     // insert code after call
@@ -14594,7 +14594,7 @@ static int _fairygui_GLabel_getTitle(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLabel");
 
     // const std::string &getTitle()
-    const std::string &ret = (const std::string &)self->getTitle();
+    const std::string &ret = self->getTitle();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -14611,7 +14611,7 @@ static int _fairygui_GLabel_getTitleColor(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLabel");
 
     // cocos2d::Color3B getTitleColor()
-    cocos2d::Color3B ret = (cocos2d::Color3B)self->getTitleColor();
+    cocos2d::Color3B ret = self->getTitleColor();
     int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     olua_endinvoke(L);
@@ -14628,7 +14628,7 @@ static int _fairygui_GLabel_getTitleFontSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GLabel");
 
     // int getTitleFontSize()
-    int ret = (int)self->getTitleFontSize();
+    int ret = self->getTitleFontSize();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -14641,7 +14641,7 @@ static int _fairygui_GLabel_new(lua_State *L)
     olua_startinvoke(L);
 
     // GLabel()
-    fairygui::GLabel *ret = (fairygui::GLabel *)new fairygui::GLabel();
+    fairygui::GLabel *ret = new fairygui::GLabel();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GLabel");
     olua_postnew(L, ret);
 
@@ -14748,7 +14748,7 @@ static int _fairygui_GList_addItemFromPool1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
 
     // @addref(children |) fairygui::GObject *addItemFromPool()
-    fairygui::GObject *ret = (fairygui::GObject *)self->addItemFromPool();
+    fairygui::GObject *ret = self->addItemFromPool();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     // insert code after call
@@ -14770,7 +14770,7 @@ static int _fairygui_GList_addItemFromPool2(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // @addref(children |) fairygui::GObject *addItemFromPool(const std::string &url)
-    fairygui::GObject *ret = (fairygui::GObject *)self->addItemFromPool(arg1);
+    fairygui::GObject *ret = self->addItemFromPool(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     // insert code after call
@@ -14833,7 +14833,7 @@ static int _fairygui_GList_childIndexToItemIndex(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // int childIndexToItemIndex(int index)
-    int ret = (int)self->childIndexToItemIndex((int)arg1);
+    int ret = self->childIndexToItemIndex((int)arg1);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -14862,7 +14862,7 @@ static int _fairygui_GList_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GList *create()
-    fairygui::GList *ret = (fairygui::GList *)fairygui::GList::create();
+    fairygui::GList *ret = fairygui::GList::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GList");
 
     olua_endinvoke(L);
@@ -14879,7 +14879,7 @@ static int _fairygui_GList_getAlign(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
 
     // cocos2d::TextHAlignment getAlign()
-    cocos2d::TextHAlignment ret = (cocos2d::TextHAlignment)self->getAlign();
+    cocos2d::TextHAlignment ret = self->getAlign();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -14896,7 +14896,7 @@ static int _fairygui_GList_getAutoResizeItem(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
 
     // bool getAutoResizeItem()
-    bool ret = (bool)self->getAutoResizeItem();
+    bool ret = self->getAutoResizeItem();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -14913,7 +14913,7 @@ static int _fairygui_GList_getColumnCount(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
 
     // int getColumnCount()
-    int ret = (int)self->getColumnCount();
+    int ret = self->getColumnCount();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -14930,7 +14930,7 @@ static int _fairygui_GList_getColumnGap(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
 
     // int getColumnGap()
-    int ret = (int)self->getColumnGap();
+    int ret = self->getColumnGap();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -14947,7 +14947,7 @@ static int _fairygui_GList_getDefaultItem(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
 
     // const std::string &getDefaultItem()
-    const std::string &ret = (const std::string &)self->getDefaultItem();
+    const std::string &ret = self->getDefaultItem();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -14964,7 +14964,7 @@ static int _fairygui_GList_getFromPool1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
 
     // fairygui::GObject *getFromPool()
-    fairygui::GObject *ret = (fairygui::GObject *)self->getFromPool();
+    fairygui::GObject *ret = self->getFromPool();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     olua_endinvoke(L);
@@ -14983,7 +14983,7 @@ static int _fairygui_GList_getFromPool2(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // fairygui::GObject *getFromPool(const std::string &url)
-    fairygui::GObject *ret = (fairygui::GObject *)self->getFromPool(arg1);
+    fairygui::GObject *ret = self->getFromPool(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     olua_endinvoke(L);
@@ -15021,7 +15021,7 @@ static int _fairygui_GList_getLayout(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
 
     // fairygui::ListLayoutType getLayout()
-    fairygui::ListLayoutType ret = (fairygui::ListLayoutType)self->getLayout();
+    fairygui::ListLayoutType ret = self->getLayout();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -15038,7 +15038,7 @@ static int _fairygui_GList_getLineCount(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
 
     // int getLineCount()
-    int ret = (int)self->getLineCount();
+    int ret = self->getLineCount();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -15055,7 +15055,7 @@ static int _fairygui_GList_getLineGap(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
 
     // int getLineGap()
-    int ret = (int)self->getLineGap();
+    int ret = self->getLineGap();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -15072,7 +15072,7 @@ static int _fairygui_GList_getNumItems(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
 
     // int getNumItems()
-    int ret = (int)self->getNumItems();
+    int ret = self->getNumItems();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -15089,7 +15089,7 @@ static int _fairygui_GList_getSelectedIndex(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
 
     // int getSelectedIndex()
-    int ret = (int)self->getSelectedIndex();
+    int ret = self->getSelectedIndex();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -15131,7 +15131,7 @@ static int _fairygui_GList_getSelectionController(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
 
     // @addref(selectionController ^) fairygui::GController *getSelectionController()
-    fairygui::GController *ret = (fairygui::GController *)self->getSelectionController();
+    fairygui::GController *ret = self->getSelectionController();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GController");
 
     // insert code after call
@@ -15151,7 +15151,7 @@ static int _fairygui_GList_getSelectionMode(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
 
     // fairygui::ListSelectionMode getSelectionMode()
-    fairygui::ListSelectionMode ret = (fairygui::ListSelectionMode)self->getSelectionMode();
+    fairygui::ListSelectionMode ret = self->getSelectionMode();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -15168,7 +15168,7 @@ static int _fairygui_GList_getVerticalAlign(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
 
     // cocos2d::TextVAlignment getVerticalAlign()
-    cocos2d::TextVAlignment ret = (cocos2d::TextVAlignment)self->getVerticalAlign();
+    cocos2d::TextVAlignment ret = self->getVerticalAlign();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -15203,7 +15203,7 @@ static int _fairygui_GList_isVirtual(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
 
     // bool isVirtual()
-    bool ret = (bool)self->isVirtual();
+    bool ret = self->isVirtual();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -15222,7 +15222,7 @@ static int _fairygui_GList_itemIndexToChildIndex(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // int itemIndexToChildIndex(int index)
-    int ret = (int)self->itemIndexToChildIndex((int)arg1);
+    int ret = self->itemIndexToChildIndex((int)arg1);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -15235,7 +15235,7 @@ static int _fairygui_GList_new(lua_State *L)
     olua_startinvoke(L);
 
     // GList()
-    fairygui::GList *ret = (fairygui::GList *)new fairygui::GList();
+    fairygui::GList *ret = new fairygui::GList();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GList");
     olua_postnew(L, ret);
 
@@ -15892,7 +15892,7 @@ static int _fairygui_GList_get_foldInvisibleItems(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
 
     // bool foldInvisibleItems
-    bool ret = (bool)self->foldInvisibleItems;
+    bool ret = self->foldInvisibleItems;
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -15931,7 +15931,7 @@ static int _fairygui_GList_get_itemProvider(lua_State *L)
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // @nullable @local std::function<std::string (int)> itemProvider
-    std::function<std::string(int)> ret = (std::function<std::string(int)>)self->itemProvider;
+    std::function<std::string(int)> ret = self->itemProvider;
     int num_ret = olua_push_std_function(L, &ret);
 
     olua_endinvoke(L);
@@ -15997,7 +15997,7 @@ static int _fairygui_GList_get_itemRenderer(lua_State *L)
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // @nullable std::function<void (int, GObject *)> itemRenderer
-    std::function<void(int, fairygui::GObject *)> ret = (std::function<void(int, fairygui::GObject *)>)self->itemRenderer;
+    std::function<void(int, fairygui::GObject *)> ret = self->itemRenderer;
     int num_ret = olua_push_std_function(L, &ret);
 
     olua_endinvoke(L);
@@ -16062,7 +16062,7 @@ static int _fairygui_GList_get_scrollItemToViewOnClick(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
 
     // bool scrollItemToViewOnClick
-    bool ret = (bool)self->scrollItemToViewOnClick;
+    bool ret = self->scrollItemToViewOnClick;
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -16200,7 +16200,7 @@ static int _fairygui_GMovieClip_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GMovieClip *create()
-    fairygui::GMovieClip *ret = (fairygui::GMovieClip *)fairygui::GMovieClip::create();
+    fairygui::GMovieClip *ret = fairygui::GMovieClip::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GMovieClip");
 
     olua_endinvoke(L);
@@ -16217,7 +16217,7 @@ static int _fairygui_GMovieClip_getColor(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GMovieClip");
 
     // cocos2d::Color3B getColor()
-    cocos2d::Color3B ret = (cocos2d::Color3B)self->getColor();
+    cocos2d::Color3B ret = self->getColor();
     int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     olua_endinvoke(L);
@@ -16234,7 +16234,7 @@ static int _fairygui_GMovieClip_getFlip(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GMovieClip");
 
     // fairygui::FlipType getFlip()
-    fairygui::FlipType ret = (fairygui::FlipType)self->getFlip();
+    fairygui::FlipType ret = self->getFlip();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -16251,7 +16251,7 @@ static int _fairygui_GMovieClip_getFrame(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GMovieClip");
 
     // int getFrame()
-    int ret = (int)self->getFrame();
+    int ret = self->getFrame();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -16268,7 +16268,7 @@ static int _fairygui_GMovieClip_getTimeScale(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GMovieClip");
 
     // float getTimeScale()
-    float ret = (float)self->getTimeScale();
+    float ret = self->getTimeScale();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -16285,7 +16285,7 @@ static int _fairygui_GMovieClip_isPlaying(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GMovieClip");
 
     // bool isPlaying()
-    bool ret = (bool)self->isPlaying();
+    bool ret = self->isPlaying();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -16298,7 +16298,7 @@ static int _fairygui_GMovieClip_new(lua_State *L)
     olua_startinvoke(L);
 
     // GMovieClip()
-    fairygui::GMovieClip *ret = (fairygui::GMovieClip *)new fairygui::GMovieClip();
+    fairygui::GMovieClip *ret = new fairygui::GMovieClip();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GMovieClip");
     olua_postnew(L, ret);
 
@@ -16639,7 +16639,7 @@ static int _fairygui_GProgressBar_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GProgressBar *create()
-    fairygui::GProgressBar *ret = (fairygui::GProgressBar *)fairygui::GProgressBar::create();
+    fairygui::GProgressBar *ret = fairygui::GProgressBar::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GProgressBar");
 
     olua_endinvoke(L);
@@ -16656,7 +16656,7 @@ static int _fairygui_GProgressBar_getMax(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GProgressBar");
 
     // double getMax()
-    double ret = (double)self->getMax();
+    double ret = self->getMax();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -16673,7 +16673,7 @@ static int _fairygui_GProgressBar_getMin(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GProgressBar");
 
     // double getMin()
-    double ret = (double)self->getMin();
+    double ret = self->getMin();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -16690,7 +16690,7 @@ static int _fairygui_GProgressBar_getTitleType(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GProgressBar");
 
     // fairygui::ProgressTitleType getTitleType()
-    fairygui::ProgressTitleType ret = (fairygui::ProgressTitleType)self->getTitleType();
+    fairygui::ProgressTitleType ret = self->getTitleType();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -16707,7 +16707,7 @@ static int _fairygui_GProgressBar_getValue(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GProgressBar");
 
     // double getValue()
-    double ret = (double)self->getValue();
+    double ret = self->getValue();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -16720,7 +16720,7 @@ static int _fairygui_GProgressBar_new(lua_State *L)
     olua_startinvoke(L);
 
     // GProgressBar()
-    fairygui::GProgressBar *ret = (fairygui::GProgressBar *)new fairygui::GProgressBar();
+    fairygui::GProgressBar *ret = new fairygui::GProgressBar();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GProgressBar");
     olua_postnew(L, ret);
 
@@ -16882,7 +16882,7 @@ static int _fairygui_GComboBox_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GComboBox *create()
-    fairygui::GComboBox *ret = (fairygui::GComboBox *)fairygui::GComboBox::create();
+    fairygui::GComboBox *ret = fairygui::GComboBox::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComboBox");
 
     olua_endinvoke(L);
@@ -16899,7 +16899,7 @@ static int _fairygui_GComboBox_getDropdown(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComboBox");
 
     // @addref(dropdown ^) fairygui::GObject *getDropdown()
-    fairygui::GObject *ret = (fairygui::GObject *)self->getDropdown();
+    fairygui::GObject *ret = self->getDropdown();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     // insert code after call
@@ -16919,7 +16919,7 @@ static int _fairygui_GComboBox_getIcons(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComboBox");
 
     // std::vector<std::string> &getIcons()
-    std::vector<std::string> &ret = (std::vector<std::string> &)self->getIcons();
+    std::vector<std::string> &ret = self->getIcons();
     int num_ret = 1;
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
@@ -16942,7 +16942,7 @@ static int _fairygui_GComboBox_getItems(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComboBox");
 
     // std::vector<std::string> &getItems()
-    std::vector<std::string> &ret = (std::vector<std::string> &)self->getItems();
+    std::vector<std::string> &ret = self->getItems();
     int num_ret = 1;
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
@@ -16965,7 +16965,7 @@ static int _fairygui_GComboBox_getSelectedIndex(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComboBox");
 
     // int getSelectedIndex()
-    int ret = (int)self->getSelectedIndex();
+    int ret = self->getSelectedIndex();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -16982,7 +16982,7 @@ static int _fairygui_GComboBox_getSelectionController(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComboBox");
 
     // @addref(selectionController ^) fairygui::GController *getSelectionController()
-    fairygui::GController *ret = (fairygui::GController *)self->getSelectionController();
+    fairygui::GController *ret = self->getSelectionController();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GController");
 
     // insert code after call
@@ -17002,7 +17002,7 @@ static int _fairygui_GComboBox_getTextField(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComboBox");
 
     // @addref(textField ^) fairygui::GTextField *getTextField()
-    fairygui::GTextField *ret = (fairygui::GTextField *)self->getTextField();
+    fairygui::GTextField *ret = self->getTextField();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTextField");
 
     // insert code after call
@@ -17022,7 +17022,7 @@ static int _fairygui_GComboBox_getTitle(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComboBox");
 
     // const std::string &getTitle()
-    const std::string &ret = (const std::string &)self->getTitle();
+    const std::string &ret = self->getTitle();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -17039,7 +17039,7 @@ static int _fairygui_GComboBox_getTitleColor(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComboBox");
 
     // const cocos2d::Color3B getTitleColor()
-    const cocos2d::Color3B ret = (const cocos2d::Color3B)self->getTitleColor();
+    const cocos2d::Color3B ret = self->getTitleColor();
     int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     olua_endinvoke(L);
@@ -17056,7 +17056,7 @@ static int _fairygui_GComboBox_getTitleFontSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComboBox");
 
     // int getTitleFontSize()
-    int ret = (int)self->getTitleFontSize();
+    int ret = self->getTitleFontSize();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -17073,7 +17073,7 @@ static int _fairygui_GComboBox_getValue(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComboBox");
 
     // const std::string &getValue()
-    const std::string &ret = (const std::string &)self->getValue();
+    const std::string &ret = self->getValue();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -17090,7 +17090,7 @@ static int _fairygui_GComboBox_getValues(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComboBox");
 
     // std::vector<std::string> &getValues()
-    std::vector<std::string> &ret = (std::vector<std::string> &)self->getValues();
+    std::vector<std::string> &ret = self->getValues();
     int num_ret = 1;
     int ret_size = (int)ret.size();
     lua_createtable(L, ret_size, 0);
@@ -17109,7 +17109,7 @@ static int _fairygui_GComboBox_new(lua_State *L)
     olua_startinvoke(L);
 
     // GComboBox()
-    fairygui::GComboBox *ret = (fairygui::GComboBox *)new fairygui::GComboBox();
+    fairygui::GComboBox *ret = new fairygui::GComboBox();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComboBox");
     olua_postnew(L, ret);
 
@@ -17254,7 +17254,7 @@ static int _fairygui_GComboBox_get_popupDirection(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComboBox");
 
     // fairygui::PopupDirection popupDirection
-    fairygui::PopupDirection ret = (fairygui::PopupDirection)self->popupDirection;
+    fairygui::PopupDirection ret = self->popupDirection;
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -17289,7 +17289,7 @@ static int _fairygui_GComboBox_get_visibleItemCount(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComboBox");
 
     // int visibleItemCount
-    int ret = (int)self->visibleItemCount;
+    int ret = self->visibleItemCount;
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -17375,7 +17375,7 @@ static int _fairygui_GRichTextField_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GRichTextField *create()
-    fairygui::GRichTextField *ret = (fairygui::GRichTextField *)fairygui::GRichTextField::create();
+    fairygui::GRichTextField *ret = fairygui::GRichTextField::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GRichTextField");
 
     olua_endinvoke(L);
@@ -17394,7 +17394,7 @@ static int _fairygui_GRichTextField_getControl(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // fairygui::HtmlObject *getControl(const std::string &name)
-    fairygui::HtmlObject *ret = (fairygui::HtmlObject *)self->getControl(arg1);
+    fairygui::HtmlObject *ret = self->getControl(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.HtmlObject");
 
     olua_endinvoke(L);
@@ -17407,7 +17407,7 @@ static int _fairygui_GRichTextField_new(lua_State *L)
     olua_startinvoke(L);
 
     // GRichTextField()
-    fairygui::GRichTextField *ret = (fairygui::GRichTextField *)new fairygui::GRichTextField();
+    fairygui::GRichTextField *ret = new fairygui::GRichTextField();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GRichTextField");
     olua_postnew(L, ret);
 
@@ -17446,7 +17446,7 @@ static int _fairygui_GSlider_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GSlider *create()
-    fairygui::GSlider *ret = (fairygui::GSlider *)fairygui::GSlider::create();
+    fairygui::GSlider *ret = fairygui::GSlider::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GSlider");
 
     olua_endinvoke(L);
@@ -17463,7 +17463,7 @@ static int _fairygui_GSlider_getMax(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GSlider");
 
     // double getMax()
-    double ret = (double)self->getMax();
+    double ret = self->getMax();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -17480,7 +17480,7 @@ static int _fairygui_GSlider_getMin(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GSlider");
 
     // double getMin()
-    double ret = (double)self->getMin();
+    double ret = self->getMin();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -17497,7 +17497,7 @@ static int _fairygui_GSlider_getTitleType(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GSlider");
 
     // fairygui::ProgressTitleType getTitleType()
-    fairygui::ProgressTitleType ret = (fairygui::ProgressTitleType)self->getTitleType();
+    fairygui::ProgressTitleType ret = self->getTitleType();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -17514,7 +17514,7 @@ static int _fairygui_GSlider_getValue(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GSlider");
 
     // double getValue()
-    double ret = (double)self->getValue();
+    double ret = self->getValue();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -17531,7 +17531,7 @@ static int _fairygui_GSlider_getWholeNumbers(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GSlider");
 
     // bool getWholeNumbers()
-    bool ret = (bool)self->getWholeNumbers();
+    bool ret = self->getWholeNumbers();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -17544,7 +17544,7 @@ static int _fairygui_GSlider_new(lua_State *L)
     olua_startinvoke(L);
 
     // GSlider()
-    fairygui::GSlider *ret = (fairygui::GSlider *)new fairygui::GSlider();
+    fairygui::GSlider *ret = new fairygui::GSlider();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GSlider");
     olua_postnew(L, ret);
 
@@ -17652,7 +17652,7 @@ static int _fairygui_GSlider_get_canDrag(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GSlider");
 
     // bool canDrag
-    bool ret = (bool)self->canDrag;
+    bool ret = self->canDrag;
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -17687,7 +17687,7 @@ static int _fairygui_GSlider_get_changeOnClick(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GSlider");
 
     // bool changeOnClick
-    bool ret = (bool)self->changeOnClick;
+    bool ret = self->changeOnClick;
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -17759,7 +17759,7 @@ static int _fairygui_GTextInput_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GTextInput *create()
-    fairygui::GTextInput *ret = (fairygui::GTextInput *)fairygui::GTextInput::create();
+    fairygui::GTextInput *ret = fairygui::GTextInput::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTextInput");
 
     olua_endinvoke(L);
@@ -17772,7 +17772,7 @@ static int _fairygui_GTextInput_new(lua_State *L)
     olua_startinvoke(L);
 
     // GTextInput()
-    fairygui::GTextInput *ret = (fairygui::GTextInput *)new fairygui::GTextInput();
+    fairygui::GTextInput *ret = new fairygui::GTextInput();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTextInput");
     olua_postnew(L, ret);
 
@@ -17938,7 +17938,7 @@ static int _fairygui_PopupMenu_addItem(lua_State *L)
     };
 
     // @addref(children | parent) fairygui::GButton *addItem(const std::string &caption, @local std::function<void (EventContext *)> callback)
-    fairygui::GButton *ret = (fairygui::GButton *)self->addItem(arg1, arg2);
+    fairygui::GButton *ret = self->addItem(arg1, arg2);
     const char *cls = olua_getluatype(L, ret, "fgui.GButton");
     if (olua_pushobjstub(L, ret, cb_store, cls) == OLUA_OBJ_EXIST) {
         olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
@@ -17997,7 +17997,7 @@ static int _fairygui_PopupMenu_addItemAt(lua_State *L)
     };
 
     // @addref(children | parent) fairygui::GButton *addItemAt(const std::string &caption, int index, @local std::function<void (EventContext *)> callback)
-    fairygui::GButton *ret = (fairygui::GButton *)self->addItemAt(arg1, (int)arg2, arg3);
+    fairygui::GButton *ret = self->addItemAt(arg1, (int)arg2, arg3);
     const char *cls = olua_getluatype(L, ret, "fgui.GButton");
     if (olua_pushobjstub(L, ret, cb_store, cls) == OLUA_OBJ_EXIST) {
         olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
@@ -18065,7 +18065,7 @@ static int _fairygui_PopupMenu_create1(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static fairygui::PopupMenu *create(const std::string &resourceURL)
-    fairygui::PopupMenu *ret = (fairygui::PopupMenu *)fairygui::PopupMenu::create(arg1);
+    fairygui::PopupMenu *ret = fairygui::PopupMenu::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.PopupMenu");
 
     olua_endinvoke(L);
@@ -18078,7 +18078,7 @@ static int _fairygui_PopupMenu_create2(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::PopupMenu *create()
-    fairygui::PopupMenu *ret = (fairygui::PopupMenu *)fairygui::PopupMenu::create();
+    fairygui::PopupMenu *ret = fairygui::PopupMenu::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.PopupMenu");
 
     olua_endinvoke(L);
@@ -18116,7 +18116,7 @@ static int _fairygui_PopupMenu_getContentPane(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PopupMenu");
 
     // @addref(contentPane ^) fairygui::GComponent *getContentPane()
-    fairygui::GComponent *ret = (fairygui::GComponent *)self->getContentPane();
+    fairygui::GComponent *ret = self->getContentPane();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
 
     // insert code after call
@@ -18136,7 +18136,7 @@ static int _fairygui_PopupMenu_getItemCount(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PopupMenu");
 
     // int getItemCount()
-    int ret = (int)self->getItemCount();
+    int ret = self->getItemCount();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -18155,7 +18155,7 @@ static int _fairygui_PopupMenu_getItemName(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // const std::string &getItemName(int index)
-    const std::string &ret = (const std::string &)self->getItemName((int)arg1);
+    const std::string &ret = self->getItemName((int)arg1);
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -18172,7 +18172,7 @@ static int _fairygui_PopupMenu_getList(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.PopupMenu");
 
     // @addref(list ^) fairygui::GList *getList()
-    fairygui::GList *ret = (fairygui::GList *)self->getList();
+    fairygui::GList *ret = self->getList();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GList");
 
     // insert code after call
@@ -18194,7 +18194,7 @@ static int _fairygui_PopupMenu_isItemChecked(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // bool isItemChecked(const std::string &name)
-    bool ret = (bool)self->isItemChecked(arg1);
+    bool ret = self->isItemChecked(arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -18207,7 +18207,7 @@ static int _fairygui_PopupMenu_new(lua_State *L)
     olua_startinvoke(L);
 
     // PopupMenu()
-    fairygui::PopupMenu *ret = (fairygui::PopupMenu *)new fairygui::PopupMenu();
+    fairygui::PopupMenu *ret = new fairygui::PopupMenu();
     int num_ret = olua_push_cppobj(L, ret, "fgui.PopupMenu");
     olua_postnew(L, ret);
 
@@ -18232,7 +18232,7 @@ static int _fairygui_PopupMenu_removeItem(lua_State *L)
     olua_startcmpdelref(L, parent, "children");
 
     // @delref(children ~ parent) bool removeItem(const std::string &name)
-    bool ret = (bool)self->removeItem(arg1);
+    bool ret = self->removeItem(arg1);
     int num_ret = olua_push_bool(L, ret);
 
     // insert code after call
@@ -18604,7 +18604,7 @@ static int _fairygui_Relations_contains(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
 
     // bool contains(fairygui::GObject *target)
-    bool ret = (bool)self->contains(arg1);
+    bool ret = self->contains(arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -18639,7 +18639,7 @@ static int _fairygui_Relations_isEmpty(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.Relations");
 
     // bool isEmpty()
-    bool ret = (bool)self->isEmpty();
+    bool ret = self->isEmpty();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -18656,7 +18656,7 @@ static int _fairygui_Relations_new(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "fgui.GObject");
 
     // Relations(fairygui::GObject *owner)
-    fairygui::Relations *ret = (fairygui::Relations *)new fairygui::Relations(arg1);
+    fairygui::Relations *ret = new fairygui::Relations(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.Relations");
     olua_postnew(L, ret);
 
@@ -18716,7 +18716,7 @@ static int _fairygui_Relations_get_handling(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.Relations");
 
     // fairygui::GObject *handling
-    fairygui::GObject *ret = (fairygui::GObject *)self->handling;
+    fairygui::GObject *ret = self->handling;
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     olua_endinvoke(L);
@@ -18896,7 +18896,7 @@ static int _fairygui_RelationItem_getTarget(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.RelationItem");
 
     // @addref(target ^) fairygui::GObject *getTarget()
-    fairygui::GObject *ret = (fairygui::GObject *)self->getTarget();
+    fairygui::GObject *ret = self->getTarget();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     // insert code after call
@@ -18936,7 +18936,7 @@ static int _fairygui_RelationItem_isEmpty(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.RelationItem");
 
     // bool isEmpty()
-    bool ret = (bool)self->isEmpty();
+    bool ret = self->isEmpty();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -18953,7 +18953,7 @@ static int _fairygui_RelationItem_new(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "fgui.GObject");
 
     // RelationItem(fairygui::GObject *owner)
-    fairygui::RelationItem *ret = (fairygui::RelationItem *)new fairygui::RelationItem(arg1);
+    fairygui::RelationItem *ret = new fairygui::RelationItem(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.RelationItem");
     olua_postnew(L, ret);
 
@@ -19060,7 +19060,7 @@ static int _fairygui_ScrollPane_getContentSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // const cocos2d::Size &getContentSize()
-    const cocos2d::Size &ret = (const cocos2d::Size &)self->getContentSize();
+    const cocos2d::Size &ret = self->getContentSize();
     int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     olua_endinvoke(L);
@@ -19077,7 +19077,7 @@ static int _fairygui_ScrollPane_getDecelerationRate(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // float getDecelerationRate()
-    float ret = (float)self->getDecelerationRate();
+    float ret = self->getDecelerationRate();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -19090,7 +19090,7 @@ static int _fairygui_ScrollPane_getDraggingPane(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::ScrollPane *getDraggingPane()
-    fairygui::ScrollPane *ret = (fairygui::ScrollPane *)fairygui::ScrollPane::getDraggingPane();
+    fairygui::ScrollPane *ret = fairygui::ScrollPane::getDraggingPane();
     int num_ret = olua_push_cppobj(L, ret, "fgui.ScrollPane");
 
     olua_endinvoke(L);
@@ -19107,7 +19107,7 @@ static int _fairygui_ScrollPane_getFooter(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // @addref(footer ^) fairygui::GComponent *getFooter()
-    fairygui::GComponent *ret = (fairygui::GComponent *)self->getFooter();
+    fairygui::GComponent *ret = self->getFooter();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
 
     // insert code after call
@@ -19127,7 +19127,7 @@ static int _fairygui_ScrollPane_getHeader(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // @addref(header ^) fairygui::GComponent *getHeader()
-    fairygui::GComponent *ret = (fairygui::GComponent *)self->getHeader();
+    fairygui::GComponent *ret = self->getHeader();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
 
     // insert code after call
@@ -19147,7 +19147,7 @@ static int _fairygui_ScrollPane_getHzScrollBar(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // @addref(hzScrollBar ^) fairygui::GScrollBar *getHzScrollBar()
-    fairygui::GScrollBar *ret = (fairygui::GScrollBar *)self->getHzScrollBar();
+    fairygui::GScrollBar *ret = self->getHzScrollBar();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GScrollBar");
 
     // insert code after call
@@ -19167,7 +19167,7 @@ static int _fairygui_ScrollPane_getOwner(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // @addref(owner ^) fairygui::GComponent *getOwner()
-    fairygui::GComponent *ret = (fairygui::GComponent *)self->getOwner();
+    fairygui::GComponent *ret = self->getOwner();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
 
     // insert code after call
@@ -19187,7 +19187,7 @@ static int _fairygui_ScrollPane_getPageController(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // @addref(pageController ^) fairygui::GController *getPageController()
-    fairygui::GController *ret = (fairygui::GController *)self->getPageController();
+    fairygui::GController *ret = self->getPageController();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GController");
 
     // insert code after call
@@ -19207,7 +19207,7 @@ static int _fairygui_ScrollPane_getPageX(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // int getPageX()
-    int ret = (int)self->getPageX();
+    int ret = self->getPageX();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -19224,7 +19224,7 @@ static int _fairygui_ScrollPane_getPageY(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // int getPageY()
-    int ret = (int)self->getPageY();
+    int ret = self->getPageY();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -19241,7 +19241,7 @@ static int _fairygui_ScrollPane_getPercX(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // float getPercX()
-    float ret = (float)self->getPercX();
+    float ret = self->getPercX();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -19258,7 +19258,7 @@ static int _fairygui_ScrollPane_getPercY(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // float getPercY()
-    float ret = (float)self->getPercY();
+    float ret = self->getPercY();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -19275,7 +19275,7 @@ static int _fairygui_ScrollPane_getPosX(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // float getPosX()
-    float ret = (float)self->getPosX();
+    float ret = self->getPosX();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -19292,7 +19292,7 @@ static int _fairygui_ScrollPane_getPosY(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // float getPosY()
-    float ret = (float)self->getPosY();
+    float ret = self->getPosY();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -19309,7 +19309,7 @@ static int _fairygui_ScrollPane_getScrollStep(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // float getScrollStep()
-    float ret = (float)self->getScrollStep();
+    float ret = self->getScrollStep();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -19326,7 +19326,7 @@ static int _fairygui_ScrollPane_getScrollingPosX(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // float getScrollingPosX()
-    float ret = (float)self->getScrollingPosX();
+    float ret = self->getScrollingPosX();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -19343,7 +19343,7 @@ static int _fairygui_ScrollPane_getScrollingPosY(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // float getScrollingPosY()
-    float ret = (float)self->getScrollingPosY();
+    float ret = self->getScrollingPosY();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -19360,7 +19360,7 @@ static int _fairygui_ScrollPane_getViewSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // const cocos2d::Size &getViewSize()
-    const cocos2d::Size &ret = (const cocos2d::Size &)self->getViewSize();
+    const cocos2d::Size &ret = self->getViewSize();
     int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     olua_endinvoke(L);
@@ -19377,7 +19377,7 @@ static int _fairygui_ScrollPane_getVtScrollBar(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // @addref(vtScrollBar ^) fairygui::GScrollBar *getVtScrollBar()
-    fairygui::GScrollBar *ret = (fairygui::GScrollBar *)self->getVtScrollBar();
+    fairygui::GScrollBar *ret = self->getVtScrollBar();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GScrollBar");
 
     // insert code after call
@@ -19397,7 +19397,7 @@ static int _fairygui_ScrollPane_isBottomMost(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // bool isBottomMost()
-    bool ret = (bool)self->isBottomMost();
+    bool ret = self->isBottomMost();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -19414,7 +19414,7 @@ static int _fairygui_ScrollPane_isBouncebackEffect(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // bool isBouncebackEffect()
-    bool ret = (bool)self->isBouncebackEffect();
+    bool ret = self->isBouncebackEffect();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -19433,7 +19433,7 @@ static int _fairygui_ScrollPane_isChildInView(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
 
     // bool isChildInView(fairygui::GObject *obj)
-    bool ret = (bool)self->isChildInView(arg1);
+    bool ret = self->isChildInView(arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -19450,7 +19450,7 @@ static int _fairygui_ScrollPane_isInertiaDisabled(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // bool isInertiaDisabled()
-    bool ret = (bool)self->isInertiaDisabled();
+    bool ret = self->isInertiaDisabled();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -19467,7 +19467,7 @@ static int _fairygui_ScrollPane_isMouseWheelEnabled(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // bool isMouseWheelEnabled()
-    bool ret = (bool)self->isMouseWheelEnabled();
+    bool ret = self->isMouseWheelEnabled();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -19484,7 +19484,7 @@ static int _fairygui_ScrollPane_isPageMode(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // bool isPageMode()
-    bool ret = (bool)self->isPageMode();
+    bool ret = self->isPageMode();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -19501,7 +19501,7 @@ static int _fairygui_ScrollPane_isRightMost(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // bool isRightMost()
-    bool ret = (bool)self->isRightMost();
+    bool ret = self->isRightMost();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -19518,7 +19518,7 @@ static int _fairygui_ScrollPane_isSnapToItem(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // bool isSnapToItem()
-    bool ret = (bool)self->isSnapToItem();
+    bool ret = self->isSnapToItem();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -19535,7 +19535,7 @@ static int _fairygui_ScrollPane_isTouchEffect(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
 
     // bool isTouchEffect()
-    bool ret = (bool)self->isTouchEffect();
+    bool ret = self->isTouchEffect();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -19588,7 +19588,7 @@ static int _fairygui_ScrollPane_new(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "fgui.GComponent");
 
     // ScrollPane(fairygui::GComponent *owner)
-    fairygui::ScrollPane *ret = (fairygui::ScrollPane *)new fairygui::ScrollPane(arg1);
+    fairygui::ScrollPane *ret = new fairygui::ScrollPane(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.ScrollPane");
     olua_postnew(L, ret);
 
@@ -20883,7 +20883,7 @@ static int _fairygui_Transition_getLabelTime(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // float getLabelTime(const std::string &label)
-    float ret = (float)self->getLabelTime(arg1);
+    float ret = self->getLabelTime(arg1);
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -20900,7 +20900,7 @@ static int _fairygui_Transition_getOwner(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
 
     // @addref(owner ^) fairygui::GComponent *getOwner()
-    fairygui::GComponent *ret = (fairygui::GComponent *)self->getOwner();
+    fairygui::GComponent *ret = self->getOwner();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
 
     // insert code after call
@@ -20920,7 +20920,7 @@ static int _fairygui_Transition_getTimeScale(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
 
     // float getTimeScale()
-    float ret = (float)self->getTimeScale();
+    float ret = self->getTimeScale();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -20937,7 +20937,7 @@ static int _fairygui_Transition_isPlaying(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
 
     // bool isPlaying()
-    bool ret = (bool)self->isPlaying();
+    bool ret = self->isPlaying();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -20954,7 +20954,7 @@ static int _fairygui_Transition_new(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "fgui.GComponent");
 
     // Transition(fairygui::GComponent *owner)
-    fairygui::Transition *ret = (fairygui::Transition *)new fairygui::Transition(arg1);
+    fairygui::Transition *ret = new fairygui::Transition(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.Transition");
     olua_postnew(L, ret);
 
@@ -21633,7 +21633,7 @@ static int _fairygui_Transition_get_name(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
 
     // std::string name
-    std::string ret = (std::string)self->name;
+    std::string ret = self->name;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -21716,7 +21716,7 @@ static int _fairygui_UIConfig_getRealFontName(lua_State *L)
     // no need to check 'arg2' with mark '@out'
 
     // static const std::string &getRealFontName(const std::string &aliasName, @out bool *isTTF)
-    const std::string &ret = (const std::string &)fairygui::UIConfig::getRealFontName(arg1, &arg2);
+    const std::string &ret = fairygui::UIConfig::getRealFontName(arg1, &arg2);
     int num_ret = olua_push_std_string(L, ret);
     olua_push_bool(L, arg2);
 
@@ -21748,7 +21748,7 @@ static int _fairygui_UIConfig_get_bringWindowToFrontOnClick(lua_State *L)
     olua_startinvoke(L);
 
     // static bool bringWindowToFrontOnClick
-    bool ret = (bool)fairygui::UIConfig::bringWindowToFrontOnClick;
+    bool ret = fairygui::UIConfig::bringWindowToFrontOnClick;
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -21777,7 +21777,7 @@ static int _fairygui_UIConfig_get_buttonSound(lua_State *L)
     olua_startinvoke(L);
 
     // static std::string buttonSound
-    std::string ret = (std::string)fairygui::UIConfig::buttonSound;
+    std::string ret = fairygui::UIConfig::buttonSound;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -21806,7 +21806,7 @@ static int _fairygui_UIConfig_get_buttonSoundVolumeScale(lua_State *L)
     olua_startinvoke(L);
 
     // static float buttonSoundVolumeScale
-    float ret = (float)fairygui::UIConfig::buttonSoundVolumeScale;
+    float ret = fairygui::UIConfig::buttonSoundVolumeScale;
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -21835,7 +21835,7 @@ static int _fairygui_UIConfig_get_clickDragSensitivity(lua_State *L)
     olua_startinvoke(L);
 
     // static int clickDragSensitivity
-    int ret = (int)fairygui::UIConfig::clickDragSensitivity;
+    int ret = fairygui::UIConfig::clickDragSensitivity;
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -21864,7 +21864,7 @@ static int _fairygui_UIConfig_get_defaultComboBoxVisibleItemCount(lua_State *L)
     olua_startinvoke(L);
 
     // static int defaultComboBoxVisibleItemCount
-    int ret = (int)fairygui::UIConfig::defaultComboBoxVisibleItemCount;
+    int ret = fairygui::UIConfig::defaultComboBoxVisibleItemCount;
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -21893,7 +21893,7 @@ static int _fairygui_UIConfig_get_defaultFont(lua_State *L)
     olua_startinvoke(L);
 
     // static std::string defaultFont
-    std::string ret = (std::string)fairygui::UIConfig::defaultFont;
+    std::string ret = fairygui::UIConfig::defaultFont;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -21922,7 +21922,7 @@ static int _fairygui_UIConfig_get_defaultScrollBarDisplay(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::ScrollBarDisplayType defaultScrollBarDisplay
-    fairygui::ScrollBarDisplayType ret = (fairygui::ScrollBarDisplayType)fairygui::UIConfig::defaultScrollBarDisplay;
+    fairygui::ScrollBarDisplayType ret = fairygui::UIConfig::defaultScrollBarDisplay;
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -21951,7 +21951,7 @@ static int _fairygui_UIConfig_get_defaultScrollBounceEffect(lua_State *L)
     olua_startinvoke(L);
 
     // static bool defaultScrollBounceEffect
-    bool ret = (bool)fairygui::UIConfig::defaultScrollBounceEffect;
+    bool ret = fairygui::UIConfig::defaultScrollBounceEffect;
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -21980,7 +21980,7 @@ static int _fairygui_UIConfig_get_defaultScrollDecelerationRate(lua_State *L)
     olua_startinvoke(L);
 
     // static float defaultScrollDecelerationRate
-    float ret = (float)fairygui::UIConfig::defaultScrollDecelerationRate;
+    float ret = fairygui::UIConfig::defaultScrollDecelerationRate;
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -22009,7 +22009,7 @@ static int _fairygui_UIConfig_get_defaultScrollStep(lua_State *L)
     olua_startinvoke(L);
 
     // static int defaultScrollStep
-    int ret = (int)fairygui::UIConfig::defaultScrollStep;
+    int ret = fairygui::UIConfig::defaultScrollStep;
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -22038,7 +22038,7 @@ static int _fairygui_UIConfig_get_defaultScrollTouchEffect(lua_State *L)
     olua_startinvoke(L);
 
     // static bool defaultScrollTouchEffect
-    bool ret = (bool)fairygui::UIConfig::defaultScrollTouchEffect;
+    bool ret = fairygui::UIConfig::defaultScrollTouchEffect;
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -22067,7 +22067,7 @@ static int _fairygui_UIConfig_get_globalModalWaiting(lua_State *L)
     olua_startinvoke(L);
 
     // static std::string globalModalWaiting
-    std::string ret = (std::string)fairygui::UIConfig::globalModalWaiting;
+    std::string ret = fairygui::UIConfig::globalModalWaiting;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -22096,7 +22096,7 @@ static int _fairygui_UIConfig_get_horizontalScrollBar(lua_State *L)
     olua_startinvoke(L);
 
     // static std::string horizontalScrollBar
-    std::string ret = (std::string)fairygui::UIConfig::horizontalScrollBar;
+    std::string ret = fairygui::UIConfig::horizontalScrollBar;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -22125,7 +22125,7 @@ static int _fairygui_UIConfig_get_modalLayerColor(lua_State *L)
     olua_startinvoke(L);
 
     // static cocos2d::Color4F modalLayerColor
-    cocos2d::Color4F ret = (cocos2d::Color4F)fairygui::UIConfig::modalLayerColor;
+    cocos2d::Color4F ret = fairygui::UIConfig::modalLayerColor;
     int num_ret = manual_olua_push_cocos2d_Color4F(L, &ret);
 
     olua_endinvoke(L);
@@ -22154,7 +22154,7 @@ static int _fairygui_UIConfig_get_popupMenu(lua_State *L)
     olua_startinvoke(L);
 
     // static std::string popupMenu
-    std::string ret = (std::string)fairygui::UIConfig::popupMenu;
+    std::string ret = fairygui::UIConfig::popupMenu;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -22183,7 +22183,7 @@ static int _fairygui_UIConfig_get_popupMenu_seperator(lua_State *L)
     olua_startinvoke(L);
 
     // static std::string popupMenu_seperator
-    std::string ret = (std::string)fairygui::UIConfig::popupMenu_seperator;
+    std::string ret = fairygui::UIConfig::popupMenu_seperator;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -22212,7 +22212,7 @@ static int _fairygui_UIConfig_get_tooltipsWin(lua_State *L)
     olua_startinvoke(L);
 
     // static std::string tooltipsWin
-    std::string ret = (std::string)fairygui::UIConfig::tooltipsWin;
+    std::string ret = fairygui::UIConfig::tooltipsWin;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -22241,7 +22241,7 @@ static int _fairygui_UIConfig_get_touchDragSensitivity(lua_State *L)
     olua_startinvoke(L);
 
     // static int touchDragSensitivity
-    int ret = (int)fairygui::UIConfig::touchDragSensitivity;
+    int ret = fairygui::UIConfig::touchDragSensitivity;
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -22270,7 +22270,7 @@ static int _fairygui_UIConfig_get_touchScrollSensitivity(lua_State *L)
     olua_startinvoke(L);
 
     // static int touchScrollSensitivity
-    int ret = (int)fairygui::UIConfig::touchScrollSensitivity;
+    int ret = fairygui::UIConfig::touchScrollSensitivity;
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -22299,7 +22299,7 @@ static int _fairygui_UIConfig_get_verticalScrollBar(lua_State *L)
     olua_startinvoke(L);
 
     // static std::string verticalScrollBar
-    std::string ret = (std::string)fairygui::UIConfig::verticalScrollBar;
+    std::string ret = fairygui::UIConfig::verticalScrollBar;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -22328,7 +22328,7 @@ static int _fairygui_UIConfig_get_windowModalWaiting(lua_State *L)
     olua_startinvoke(L);
 
     // static std::string windowModalWaiting
-    std::string ret = (std::string)fairygui::UIConfig::windowModalWaiting;
+    std::string ret = fairygui::UIConfig::windowModalWaiting;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -22406,7 +22406,7 @@ static int _fairygui_IUISource_getFileName(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.IUISource");
 
     // const std::string &getFileName()
-    const std::string &ret = (const std::string &)self->getFileName();
+    const std::string &ret = self->getFileName();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -22423,7 +22423,7 @@ static int _fairygui_IUISource_isLoaded(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.IUISource");
 
     // bool isLoaded()
-    bool ret = (bool)self->isLoaded();
+    bool ret = self->isLoaded();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -22556,7 +22556,7 @@ static int _fairygui_UISource_create(lua_State *L)
     olua_startinvoke(L);
 
     // static UISource *create()
-    fairygui::UISource *ret = (fairygui::UISource *)fairygui::UISource::create();
+    fairygui::UISource *ret = fairygui::UISource::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.UISource");
 
     olua_endinvoke(L);
@@ -22647,7 +22647,7 @@ static int _fairygui_Window_closeModalWait1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.Window");
 
     // bool closeModalWait()
-    bool ret = (bool)self->closeModalWait();
+    bool ret = self->closeModalWait();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -22666,7 +22666,7 @@ static int _fairygui_Window_closeModalWait2(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // bool closeModalWait(int requestingCmd)
-    bool ret = (bool)self->closeModalWait((int)arg1);
+    bool ret = self->closeModalWait((int)arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -22700,7 +22700,7 @@ static int _fairygui_Window_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::Window *create()
-    fairygui::Window *ret = (fairygui::Window *)fairygui::Window::create();
+    fairygui::Window *ret = fairygui::Window::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.Window");
 
     olua_endinvoke(L);
@@ -22717,7 +22717,7 @@ static int _fairygui_Window_getCloseButton(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.Window");
 
     // @addref(closeButton ^) fairygui::GObject *getCloseButton()
-    fairygui::GObject *ret = (fairygui::GObject *)self->getCloseButton();
+    fairygui::GObject *ret = self->getCloseButton();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     // insert code after call
@@ -22737,7 +22737,7 @@ static int _fairygui_Window_getContentArea(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.Window");
 
     // @addref(contentArea ^) fairygui::GObject *getContentArea()
-    fairygui::GObject *ret = (fairygui::GObject *)self->getContentArea();
+    fairygui::GObject *ret = self->getContentArea();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     // insert code after call
@@ -22757,7 +22757,7 @@ static int _fairygui_Window_getContentPane(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.Window");
 
     // @addref(contentPane ^) fairygui::GComponent *getContentPane()
-    fairygui::GComponent *ret = (fairygui::GComponent *)self->getContentPane();
+    fairygui::GComponent *ret = self->getContentPane();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
 
     // insert code after call
@@ -22777,7 +22777,7 @@ static int _fairygui_Window_getDragArea(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.Window");
 
     // @addref(dragArea ^) fairygui::GObject *getDragArea()
-    fairygui::GObject *ret = (fairygui::GObject *)self->getDragArea();
+    fairygui::GObject *ret = self->getDragArea();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     // insert code after call
@@ -22797,7 +22797,7 @@ static int _fairygui_Window_getFrame(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.Window");
 
     // @addref(frame ^) fairygui::GComponent *getFrame()
-    fairygui::GComponent *ret = (fairygui::GComponent *)self->getFrame();
+    fairygui::GComponent *ret = self->getFrame();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
 
     // insert code after call
@@ -22817,7 +22817,7 @@ static int _fairygui_Window_getModalWaitingPane(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.Window");
 
     // @addref(modalWaitingPane ^) fairygui::GObject *getModalWaitingPane()
-    fairygui::GObject *ret = (fairygui::GObject *)self->getModalWaitingPane();
+    fairygui::GObject *ret = self->getModalWaitingPane();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     // insert code after call
@@ -22909,7 +22909,7 @@ static int _fairygui_Window_isBringToFrontOnClick(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.Window");
 
     // bool isBringToFrontOnClick()
-    bool ret = (bool)self->isBringToFrontOnClick();
+    bool ret = self->isBringToFrontOnClick();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -22926,7 +22926,7 @@ static int _fairygui_Window_isModal(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.Window");
 
     // bool isModal()
-    bool ret = (bool)self->isModal();
+    bool ret = self->isModal();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -22943,7 +22943,7 @@ static int _fairygui_Window_isShowing(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.Window");
 
     // bool isShowing()
-    bool ret = (bool)self->isShowing();
+    bool ret = self->isShowing();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -22960,7 +22960,7 @@ static int _fairygui_Window_isTop(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.Window");
 
     // bool isTop()
-    bool ret = (bool)self->isTop();
+    bool ret = self->isTop();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -22973,7 +22973,7 @@ static int _fairygui_Window_new(lua_State *L)
     olua_startinvoke(L);
 
     // Window()
-    fairygui::Window *ret = (fairygui::Window *)new fairygui::Window();
+    fairygui::Window *ret = new fairygui::Window();
     int num_ret = olua_push_cppobj(L, ret, "fgui.Window");
     olua_postnew(L, ret);
 
@@ -23303,7 +23303,7 @@ static int _fairygui_DragDropManager_getAgent(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.DragDropManager");
 
     // fairygui::GLoader *getAgent()
-    fairygui::GLoader *ret = (fairygui::GLoader *)self->getAgent();
+    fairygui::GLoader *ret = self->getAgent();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GLoader");
 
     olua_endinvoke(L);
@@ -23316,7 +23316,7 @@ static int _fairygui_DragDropManager_getInstance(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::DragDropManager *getInstance()
-    fairygui::DragDropManager *ret = (fairygui::DragDropManager *)fairygui::DragDropManager::getInstance();
+    fairygui::DragDropManager *ret = fairygui::DragDropManager::getInstance();
     int num_ret = olua_push_cppobj(L, ret, "fgui.DragDropManager");
 
     olua_endinvoke(L);
@@ -23333,7 +23333,7 @@ static int _fairygui_DragDropManager_isDragging(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.DragDropManager");
 
     // bool isDragging()
-    bool ret = (bool)self->isDragging();
+    bool ret = self->isDragging();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -23346,7 +23346,7 @@ static int _fairygui_DragDropManager_new(lua_State *L)
     olua_startinvoke(L);
 
     // DragDropManager()
-    fairygui::DragDropManager *ret = (fairygui::DragDropManager *)new fairygui::DragDropManager();
+    fairygui::DragDropManager *ret = new fairygui::DragDropManager();
     int num_ret = olua_push_cppobj(L, ret, "fgui.DragDropManager");
     olua_postnew(L, ret);
 
@@ -23486,7 +23486,7 @@ static int _fairygui_UIObjectFactory_newObject1(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "fgui.PackageItem");
 
     // static fairygui::GObject *newObject(fairygui::PackageItem *pi)
-    fairygui::GObject *ret = (fairygui::GObject *)fairygui::UIObjectFactory::newObject(arg1);
+    fairygui::GObject *ret = fairygui::UIObjectFactory::newObject(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     olua_endinvoke(L);
@@ -23503,7 +23503,7 @@ static int _fairygui_UIObjectFactory_newObject2(lua_State *L)
     olua_check_uint(L, 1, &arg1);
 
     // static fairygui::GObject *newObject(fairygui::ObjectType type)
-    fairygui::GObject *ret = (fairygui::GObject *)fairygui::UIObjectFactory::newObject((fairygui::ObjectType)arg1);
+    fairygui::GObject *ret = fairygui::UIObjectFactory::newObject((fairygui::ObjectType)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     olua_endinvoke(L);
@@ -23658,7 +23658,7 @@ static int _fairygui_GearBase_create(lua_State *L)
     olua_check_int(L, 2, &arg2);
 
     // static fairygui::GearBase *create(fairygui::GObject *owner, int index)
-    fairygui::GearBase *ret = (fairygui::GearBase *)fairygui::GearBase::create(arg1, (int)arg2);
+    fairygui::GearBase *ret = fairygui::GearBase::create(arg1, (int)arg2);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GearBase");
 
     olua_endinvoke(L);
@@ -23675,7 +23675,7 @@ static int _fairygui_GearBase_new(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "fgui.GObject");
 
     // GearBase(fairygui::GObject *owner)
-    fairygui::GearBase *ret = (fairygui::GearBase *)new fairygui::GearBase(arg1);
+    fairygui::GearBase *ret = new fairygui::GearBase(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GearBase");
     olua_postnew(L, ret);
 
@@ -23689,7 +23689,7 @@ static int _fairygui_GearBase_get_disableAllTweenEffect(lua_State *L)
     olua_startinvoke(L);
 
     // static bool disableAllTweenEffect
-    bool ret = (bool)fairygui::GearBase::disableAllTweenEffect;
+    bool ret = fairygui::GearBase::disableAllTweenEffect;
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -23750,7 +23750,7 @@ static int _fairygui_GTreeNode_addChild(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GTreeNode");
 
     // fairygui::GTreeNode *addChild(@addref(children |) fairygui::GTreeNode *child)
-    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->addChild(arg1);
+    fairygui::GTreeNode *ret = self->addChild(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
     // insert code after call
@@ -23774,7 +23774,7 @@ static int _fairygui_GTreeNode_addChildAt(lua_State *L)
     olua_check_int(L, 3, &arg2);
 
     // fairygui::GTreeNode *addChildAt(@addref(children |) fairygui::GTreeNode *child, int index)
-    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->addChildAt(arg1, (int)arg2);
+    fairygui::GTreeNode *ret = self->addChildAt(arg1, (int)arg2);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
     // insert code after call
@@ -23796,7 +23796,7 @@ static int _fairygui_GTreeNode_create1(lua_State *L)
     olua_check_std_string(L, 2, &arg2);
 
     // static fairygui::GTreeNode *create(@optional bool isFolder, @optional const std::string &resURL)
-    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)fairygui::GTreeNode::create(arg1, arg2);
+    fairygui::GTreeNode *ret = fairygui::GTreeNode::create(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
     olua_endinvoke(L);
@@ -23809,7 +23809,7 @@ static int _fairygui_GTreeNode_create2(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GTreeNode *create(@optional bool isFolder, @optional const std::string &resURL)
-    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)fairygui::GTreeNode::create();
+    fairygui::GTreeNode *ret = fairygui::GTreeNode::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
     olua_endinvoke(L);
@@ -23826,7 +23826,7 @@ static int _fairygui_GTreeNode_create3(lua_State *L)
     olua_check_bool(L, 1, &arg1);
 
     // static fairygui::GTreeNode *create(@optional bool isFolder, @optional const std::string &resURL)
-    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)fairygui::GTreeNode::create(arg1);
+    fairygui::GTreeNode *ret = fairygui::GTreeNode::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
     olua_endinvoke(L);
@@ -23871,7 +23871,7 @@ static int _fairygui_GTreeNode_getCell(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
     // @addref(cell ^) fairygui::GComponent *getCell()
-    fairygui::GComponent *ret = (fairygui::GComponent *)self->getCell();
+    fairygui::GComponent *ret = self->getCell();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GComponent");
 
     // insert code after call
@@ -23893,7 +23893,7 @@ static int _fairygui_GTreeNode_getChildAt(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // @addref(children |) fairygui::GTreeNode *getChildAt(int index)
-    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->getChildAt((int)arg1);
+    fairygui::GTreeNode *ret = self->getChildAt((int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
     // insert code after call
@@ -23915,7 +23915,7 @@ static int _fairygui_GTreeNode_getChildIndex(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GTreeNode");
 
     // int getChildIndex(const fairygui::GTreeNode *child)
-    int ret = (int)self->getChildIndex(arg1);
+    int ret = self->getChildIndex(arg1);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -23932,7 +23932,7 @@ static int _fairygui_GTreeNode_getData(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
     // const cocos2d::Value &getData()
-    const cocos2d::Value &ret = (const cocos2d::Value &)self->getData();
+    const cocos2d::Value &ret = self->getData();
     int num_ret = manual_olua_push_cocos2d_Value(L, &ret);
 
     olua_endinvoke(L);
@@ -23949,7 +23949,7 @@ static int _fairygui_GTreeNode_getIcon(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
     // const std::string &getIcon()
-    const std::string &ret = (const std::string &)self->getIcon();
+    const std::string &ret = self->getIcon();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -23966,7 +23966,7 @@ static int _fairygui_GTreeNode_getNextSibling(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
     // @addref(children |) fairygui::GTreeNode *getNextSibling()
-    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->getNextSibling();
+    fairygui::GTreeNode *ret = self->getNextSibling();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
     // insert code after call
@@ -23986,7 +23986,7 @@ static int _fairygui_GTreeNode_getParent(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
     // fairygui::GTreeNode *getParent()
-    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->getParent();
+    fairygui::GTreeNode *ret = self->getParent();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
     olua_endinvoke(L);
@@ -24003,7 +24003,7 @@ static int _fairygui_GTreeNode_getPrevSibling(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
     // @addref(children |) fairygui::GTreeNode *getPrevSibling()
-    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->getPrevSibling();
+    fairygui::GTreeNode *ret = self->getPrevSibling();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
     // insert code after call
@@ -24023,7 +24023,7 @@ static int _fairygui_GTreeNode_getText(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
     // const std::string &getText()
-    const std::string &ret = (const std::string &)self->getText();
+    const std::string &ret = self->getText();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -24040,7 +24040,7 @@ static int _fairygui_GTreeNode_getTree(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
     // fairygui::GTree *getTree()
-    fairygui::GTree *ret = (fairygui::GTree *)self->getTree();
+    fairygui::GTree *ret = self->getTree();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTree");
 
     olua_endinvoke(L);
@@ -24057,7 +24057,7 @@ static int _fairygui_GTreeNode_isExpanded(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
     // bool isExpanded()
-    bool ret = (bool)self->isExpanded();
+    bool ret = self->isExpanded();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -24074,7 +24074,7 @@ static int _fairygui_GTreeNode_isFolder(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
     // bool isFolder()
-    bool ret = (bool)self->isFolder();
+    bool ret = self->isFolder();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -24087,7 +24087,7 @@ static int _fairygui_GTreeNode_new(lua_State *L)
     olua_startinvoke(L);
 
     // GTreeNode()
-    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)new fairygui::GTreeNode();
+    fairygui::GTreeNode *ret = new fairygui::GTreeNode();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
     olua_postnew(L, ret);
 
@@ -24105,7 +24105,7 @@ static int _fairygui_GTreeNode_numChildren(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
     // int numChildren()
-    int ret = (int)self->numChildren();
+    int ret = self->numChildren();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -24260,7 +24260,7 @@ static int _fairygui_GTreeNode_setChildIndexBefore(lua_State *L)
     olua_check_int(L, 3, &arg2);
 
     // int setChildIndexBefore(fairygui::GTreeNode *child, int index)
-    int ret = (int)self->setChildIndexBefore(arg1, (int)arg2);
+    int ret = self->setChildIndexBefore(arg1, (int)arg2);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -24464,7 +24464,7 @@ static int _fairygui_GTree_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::GTree *create()
-    fairygui::GTree *ret = (fairygui::GTree *)fairygui::GTree::create();
+    fairygui::GTree *ret = fairygui::GTree::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTree");
 
     olua_endinvoke(L);
@@ -24499,7 +24499,7 @@ static int _fairygui_GTree_getClickToExpand(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTree");
 
     // int getClickToExpand()
-    int ret = (int)self->getClickToExpand();
+    int ret = self->getClickToExpand();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -24516,7 +24516,7 @@ static int _fairygui_GTree_getIndent(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTree");
 
     // int getIndent()
-    int ret = (int)self->getIndent();
+    int ret = self->getIndent();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -24533,7 +24533,7 @@ static int _fairygui_GTree_getRootNode(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTree");
 
     // @addref(rootNode ^) fairygui::GTreeNode *getRootNode()
-    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->getRootNode();
+    fairygui::GTreeNode *ret = self->getRootNode();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
     // insert code after call
@@ -24553,7 +24553,7 @@ static int _fairygui_GTree_getSelectedNode(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTree");
 
     // fairygui::GTreeNode *getSelectedNode()
-    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->getSelectedNode();
+    fairygui::GTreeNode *ret = self->getSelectedNode();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
     olua_endinvoke(L);
@@ -24586,7 +24586,7 @@ static int _fairygui_GTree_new(lua_State *L)
     olua_startinvoke(L);
 
     // GTree()
-    fairygui::GTree *ret = (fairygui::GTree *)new fairygui::GTree();
+    fairygui::GTree *ret = new fairygui::GTree();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GTree");
     olua_postnew(L, ret);
 
@@ -24723,7 +24723,7 @@ static int _fairygui_GTree_get_treeNodeRender(lua_State *L)
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // @nullable std::function<void (GTreeNode *, GComponent *)> treeNodeRender
-    std::function<void(fairygui::GTreeNode *, fairygui::GComponent *)> ret = (std::function<void(fairygui::GTreeNode *, fairygui::GComponent *)>)self->treeNodeRender;
+    std::function<void(fairygui::GTreeNode *, fairygui::GComponent *)> ret = self->treeNodeRender;
     int num_ret = olua_push_std_function(L, &ret);
 
     olua_endinvoke(L);
@@ -24785,7 +24785,7 @@ static int _fairygui_GTree_get_treeNodeWillExpand(lua_State *L)
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // @nullable std::function<void (GTreeNode *, bool)> treeNodeWillExpand
-    std::function<void(fairygui::GTreeNode *, bool)> ret = (std::function<void(fairygui::GTreeNode *, bool)>)self->treeNodeWillExpand;
+    std::function<void(fairygui::GTreeNode *, bool)> ret = self->treeNodeWillExpand;
     int num_ret = olua_push_std_function(L, &ret);
 
     olua_endinvoke(L);
@@ -24880,7 +24880,7 @@ static int _fairygui_FUIContainer_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::FUIContainer *create()
-    fairygui::FUIContainer *ret = (fairygui::FUIContainer *)fairygui::FUIContainer::create();
+    fairygui::FUIContainer *ret = fairygui::FUIContainer::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.FUIContainer");
 
     olua_endinvoke(L);
@@ -24897,7 +24897,7 @@ static int _fairygui_FUIContainer_getAlphaThreshold(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIContainer");
 
     // float getAlphaThreshold()
-    float ret = (float)self->getAlphaThreshold();
+    float ret = self->getAlphaThreshold();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -24914,7 +24914,7 @@ static int _fairygui_FUIContainer_getClippingRegion(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIContainer");
 
     // const cocos2d::Rect &getClippingRegion()
-    const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getClippingRegion();
+    const cocos2d::Rect &ret = self->getClippingRegion();
     int num_ret = manual_olua_push_cocos2d_Rect(L, &ret);
 
     olua_endinvoke(L);
@@ -24931,7 +24931,7 @@ static int _fairygui_FUIContainer_getStencil(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIContainer");
 
     // cocos2d::Node *getStencil()
-    cocos2d::Node *ret = (cocos2d::Node *)self->getStencil();
+    cocos2d::Node *ret = self->getStencil();
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
     olua_endinvoke(L);
@@ -24948,7 +24948,7 @@ static int _fairygui_FUIContainer_isClippingEnabled(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIContainer");
 
     // bool isClippingEnabled()
-    bool ret = (bool)self->isClippingEnabled();
+    bool ret = self->isClippingEnabled();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -24965,7 +24965,7 @@ static int _fairygui_FUIContainer_isInverted(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIContainer");
 
     // bool isInverted()
-    bool ret = (bool)self->isInverted();
+    bool ret = self->isInverted();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -24978,7 +24978,7 @@ static int _fairygui_FUIContainer_new(lua_State *L)
     olua_startinvoke(L);
 
     // FUIContainer()
-    fairygui::FUIContainer *ret = (fairygui::FUIContainer *)new fairygui::FUIContainer();
+    fairygui::FUIContainer *ret = new fairygui::FUIContainer();
     int num_ret = olua_push_cppobj(L, ret, "fgui.FUIContainer");
     olua_postnew(L, ret);
 
@@ -25086,7 +25086,7 @@ static int _fairygui_FUIContainer_get_gOwner(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIContainer");
 
     // fairygui::GObject *gOwner
-    fairygui::GObject *ret = (fairygui::GObject *)self->gOwner;
+    fairygui::GObject *ret = self->gOwner;
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     olua_endinvoke(L);
@@ -25173,7 +25173,7 @@ static int _fairygui_FUIInput_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::FUIInput *create()
-    fairygui::FUIInput *ret = (fairygui::FUIInput *)fairygui::FUIInput::create();
+    fairygui::FUIInput *ret = fairygui::FUIInput::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.FUIInput");
 
     olua_endinvoke(L);
@@ -25190,7 +25190,7 @@ static int _fairygui_FUIInput_getTextFormat(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIInput");
 
     // fairygui::TextFormat *getTextFormat()
-    fairygui::TextFormat *ret = (fairygui::TextFormat *)self->getTextFormat();
+    fairygui::TextFormat *ret = self->getTextFormat();
     int num_ret = olua_push_cppobj(L, ret, "fgui.TextFormat");
 
     olua_endinvoke(L);
@@ -25207,7 +25207,7 @@ static int _fairygui_FUIInput_isPassword(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIInput");
 
     // bool isPassword()
-    bool ret = (bool)self->isPassword();
+    bool ret = self->isPassword();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -25224,7 +25224,7 @@ static int _fairygui_FUIInput_isSingleLine(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIInput");
 
     // bool isSingleLine()
-    bool ret = (bool)self->isSingleLine();
+    bool ret = self->isSingleLine();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -25241,7 +25241,7 @@ static int _fairygui_FUIInput_keyboardType(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIInput");
 
     // int keyboardType()
-    int ret = (int)self->keyboardType();
+    int ret = self->keyboardType();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -25254,7 +25254,7 @@ static int _fairygui_FUIInput_new(lua_State *L)
     olua_startinvoke(L);
 
     // FUIInput()
-    fairygui::FUIInput *ret = (fairygui::FUIInput *)new fairygui::FUIInput();
+    fairygui::FUIInput *ret = new fairygui::FUIInput();
     int num_ret = olua_push_cppobj(L, ret, "fgui.FUIInput");
     olua_postnew(L, ret);
 
@@ -25392,7 +25392,7 @@ static int _fairygui_FUILabel_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::FUILabel *create()
-    fairygui::FUILabel *ret = (fairygui::FUILabel *)fairygui::FUILabel::create();
+    fairygui::FUILabel *ret = fairygui::FUILabel::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.FUILabel");
 
     olua_endinvoke(L);
@@ -25409,7 +25409,7 @@ static int _fairygui_FUILabel_getText(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUILabel");
 
     // const std::string &getText()
-    const std::string &ret = (const std::string &)self->getText();
+    const std::string &ret = self->getText();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -25426,7 +25426,7 @@ static int _fairygui_FUILabel_getTextFormat(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUILabel");
 
     // fairygui::TextFormat *getTextFormat()
-    fairygui::TextFormat *ret = (fairygui::TextFormat *)self->getTextFormat();
+    fairygui::TextFormat *ret = self->getTextFormat();
     int num_ret = olua_push_cppobj(L, ret, "fgui.TextFormat");
 
     olua_endinvoke(L);
@@ -25439,7 +25439,7 @@ static int _fairygui_FUILabel_new(lua_State *L)
     olua_startinvoke(L);
 
     // FUILabel()
-    fairygui::FUILabel *ret = (fairygui::FUILabel *)new fairygui::FUILabel();
+    fairygui::FUILabel *ret = new fairygui::FUILabel();
     int num_ret = olua_push_cppobj(L, ret, "fgui.FUILabel");
     olua_postnew(L, ret);
 
@@ -25555,7 +25555,7 @@ static int _fairygui_FUIRichText_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::FUIRichText *create()
-    fairygui::FUIRichText *ret = (fairygui::FUIRichText *)fairygui::FUIRichText::create();
+    fairygui::FUIRichText *ret = fairygui::FUIRichText::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.FUIRichText");
 
     olua_endinvoke(L);
@@ -25572,7 +25572,7 @@ static int _fairygui_FUIRichText_getAnchorFontColor(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIRichText");
 
     // const cocos2d::Color3B &getAnchorFontColor()
-    const cocos2d::Color3B &ret = (const cocos2d::Color3B &)self->getAnchorFontColor();
+    const cocos2d::Color3B &ret = self->getAnchorFontColor();
     int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     olua_endinvoke(L);
@@ -25591,7 +25591,7 @@ static int _fairygui_FUIRichText_getControl(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // fairygui::HtmlObject *getControl(const std::string &name)
-    fairygui::HtmlObject *ret = (fairygui::HtmlObject *)self->getControl(arg1);
+    fairygui::HtmlObject *ret = self->getControl(arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.HtmlObject");
 
     olua_endinvoke(L);
@@ -25608,7 +25608,7 @@ static int _fairygui_FUIRichText_getControls(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIRichText");
 
     // const std::vector<HtmlObject *> &getControls()
-    const std::vector<fairygui::HtmlObject *> &ret = (const std::vector<fairygui::HtmlObject *> &)self->getControls();
+    const std::vector<fairygui::HtmlObject *> &ret = self->getControls();
     int num_ret = olua_push_std_vector(L, ret, "fgui.HtmlObject");
 
     olua_endinvoke(L);
@@ -25625,7 +25625,7 @@ static int _fairygui_FUIRichText_getDimensions(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIRichText");
 
     // const cocos2d::Size &getDimensions()
-    const cocos2d::Size &ret = (const cocos2d::Size &)self->getDimensions();
+    const cocos2d::Size &ret = self->getDimensions();
     int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     olua_endinvoke(L);
@@ -25642,7 +25642,7 @@ static int _fairygui_FUIRichText_getOverflow(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIRichText");
 
     // cocos2d::Label::Overflow getOverflow()
-    cocos2d::Label::Overflow ret = (cocos2d::Label::Overflow)self->getOverflow();
+    cocos2d::Label::Overflow ret = self->getOverflow();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -25659,7 +25659,7 @@ static int _fairygui_FUIRichText_getTextFormat(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIRichText");
 
     // fairygui::TextFormat *getTextFormat()
-    fairygui::TextFormat *ret = (fairygui::TextFormat *)self->getTextFormat();
+    fairygui::TextFormat *ret = self->getTextFormat();
     int num_ret = olua_push_cppobj(L, ret, "fgui.TextFormat");
 
     olua_endinvoke(L);
@@ -25678,7 +25678,7 @@ static int _fairygui_FUIRichText_hitTestLink(lua_State *L)
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // const char *hitTestLink(const cocos2d::Vec2 &worldPoint)
-    const char *ret = (const char *)self->hitTestLink(arg1);
+    const char *ret = self->hitTestLink(arg1);
     int num_ret = olua_push_string(L, ret);
 
     olua_endinvoke(L);
@@ -25695,7 +25695,7 @@ static int _fairygui_FUIRichText_isAnchorTextUnderline(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIRichText");
 
     // bool isAnchorTextUnderline()
-    bool ret = (bool)self->isAnchorTextUnderline();
+    bool ret = self->isAnchorTextUnderline();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -25708,7 +25708,7 @@ static int _fairygui_FUIRichText_new(lua_State *L)
     olua_startinvoke(L);
 
     // FUIRichText()
-    fairygui::FUIRichText *ret = (fairygui::FUIRichText *)new fairygui::FUIRichText();
+    fairygui::FUIRichText *ret = new fairygui::FUIRichText();
     int num_ret = olua_push_cppobj(L, ret, "fgui.FUIRichText");
     olua_postnew(L, ret);
 
@@ -25726,7 +25726,7 @@ static int _fairygui_FUIRichText_parseOptions(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIRichText");
 
     // fairygui::HtmlParseOptions &parseOptions()
-    fairygui::HtmlParseOptions &ret = (fairygui::HtmlParseOptions &)self->parseOptions();
+    fairygui::HtmlParseOptions &ret = self->parseOptions();
     int num_ret = auto_olua_push_fairygui_HtmlParseOptions(L, &ret);
 
     olua_endinvoke(L);
@@ -25937,7 +25937,7 @@ static int _fairygui_FUISprite_create(lua_State *L)
     olua_startinvoke(L);
 
     // static fairygui::FUISprite *create()
-    fairygui::FUISprite *ret = (fairygui::FUISprite *)fairygui::FUISprite::create();
+    fairygui::FUISprite *ret = fairygui::FUISprite::create();
     int num_ret = olua_push_cppobj(L, ret, "fgui.FUISprite");
 
     olua_endinvoke(L);
@@ -25954,7 +25954,7 @@ static int _fairygui_FUISprite_getFillAmount(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUISprite");
 
     // float getFillAmount()
-    float ret = (float)self->getFillAmount();
+    float ret = self->getFillAmount();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -25971,7 +25971,7 @@ static int _fairygui_FUISprite_getFillMethod(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUISprite");
 
     // fairygui::FillMethod getFillMethod()
-    fairygui::FillMethod ret = (fairygui::FillMethod)self->getFillMethod();
+    fairygui::FillMethod ret = self->getFillMethod();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -25988,7 +25988,7 @@ static int _fairygui_FUISprite_getFillOrigin(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUISprite");
 
     // fairygui::FillOrigin getFillOrigin()
-    fairygui::FillOrigin ret = (fairygui::FillOrigin)self->getFillOrigin();
+    fairygui::FillOrigin ret = self->getFillOrigin();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -26005,7 +26005,7 @@ static int _fairygui_FUISprite_isFillClockwise(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUISprite");
 
     // bool isFillClockwise()
-    bool ret = (bool)self->isFillClockwise();
+    bool ret = self->isFillClockwise();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -26022,7 +26022,7 @@ static int _fairygui_FUISprite_isScaleByTile(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUISprite");
 
     // bool isScaleByTile()
-    bool ret = (bool)self->isScaleByTile();
+    bool ret = self->isScaleByTile();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -26035,7 +26035,7 @@ static int _fairygui_FUISprite_new(lua_State *L)
     olua_startinvoke(L);
 
     // FUISprite()
-    fairygui::FUISprite *ret = (fairygui::FUISprite *)new fairygui::FUISprite();
+    fairygui::FUISprite *ret = new fairygui::FUISprite();
     int num_ret = olua_push_cppobj(L, ret, "fgui.FUISprite");
     olua_postnew(L, ret);
 
@@ -26274,7 +26274,7 @@ static int _fairygui_HtmlObject_getElement(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlObject");
 
     // fairygui::HtmlElement *getElement()
-    fairygui::HtmlElement *ret = (fairygui::HtmlElement *)self->getElement();
+    fairygui::HtmlElement *ret = self->getElement();
     int num_ret = olua_push_cppobj(L, ret, "fgui.HtmlElement");
 
     olua_endinvoke(L);
@@ -26291,7 +26291,7 @@ static int _fairygui_HtmlObject_getUI(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlObject");
 
     // fairygui::GObject *getUI()
-    fairygui::GObject *ret = (fairygui::GObject *)self->getUI();
+    fairygui::GObject *ret = self->getUI();
     int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     olua_endinvoke(L);
@@ -26308,7 +26308,7 @@ static int _fairygui_HtmlObject_isHidden(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlObject");
 
     // bool isHidden()
-    bool ret = (bool)self->isHidden();
+    bool ret = self->isHidden();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -26321,7 +26321,7 @@ static int _fairygui_HtmlObject_new(lua_State *L)
     olua_startinvoke(L);
 
     // HtmlObject()
-    fairygui::HtmlObject *ret = (fairygui::HtmlObject *)new fairygui::HtmlObject();
+    fairygui::HtmlObject *ret = new fairygui::HtmlObject();
     int num_ret = olua_push_cppobj(L, ret, "fgui.HtmlObject");
     olua_postnew(L, ret);
 
@@ -26335,7 +26335,7 @@ static int _fairygui_HtmlObject_get_buttonResource(lua_State *L)
     olua_startinvoke(L);
 
     // static std::string buttonResource
-    std::string ret = (std::string)fairygui::HtmlObject::buttonResource;
+    std::string ret = fairygui::HtmlObject::buttonResource;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -26364,7 +26364,7 @@ static int _fairygui_HtmlObject_get_inputResource(lua_State *L)
     olua_startinvoke(L);
 
     // static std::string inputResource
-    std::string ret = (std::string)fairygui::HtmlObject::inputResource;
+    std::string ret = fairygui::HtmlObject::inputResource;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -26393,7 +26393,7 @@ static int _fairygui_HtmlObject_get_loaderPool(lua_State *L)
     olua_startinvoke(L);
 
     // static cocos2d::Vector<GObject *> loaderPool
-    cocos2d::Vector<fairygui::GObject *> ret = (cocos2d::Vector<fairygui::GObject *>)fairygui::HtmlObject::loaderPool;
+    cocos2d::Vector<fairygui::GObject *> ret = fairygui::HtmlObject::loaderPool;
     int num_ret = manual_olua_push_cocos2d_Vector(L, ret, "fgui.GObject");
 
     olua_endinvoke(L);
@@ -26422,7 +26422,7 @@ static int _fairygui_HtmlObject_get_selectResource(lua_State *L)
     olua_startinvoke(L);
 
     // static std::string selectResource
-    std::string ret = (std::string)fairygui::HtmlObject::selectResource;
+    std::string ret = fairygui::HtmlObject::selectResource;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -26451,7 +26451,7 @@ static int _fairygui_HtmlObject_get_usePool(lua_State *L)
     olua_startinvoke(L);
 
     // static bool usePool
-    bool ret = (bool)fairygui::HtmlObject::usePool;
+    bool ret = fairygui::HtmlObject::usePool;
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -26555,7 +26555,7 @@ static int _fairygui_HtmlElement_getArray(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // cocos2d::ValueVector &getArray(const std::string &attrName)
-    cocos2d::ValueVector &ret = (cocos2d::ValueVector &)self->getArray(arg1);
+    cocos2d::ValueVector &ret = self->getArray(arg1);
     int num_ret = manual_olua_push_cocos2d_ValueVector(L, &ret);
 
     olua_endinvoke(L);
@@ -26576,7 +26576,7 @@ static int _fairygui_HtmlElement_getInt1(lua_State *L)
     olua_check_int(L, 3, &arg2);
 
     // int getInt(const std::string &attrName, @optional int defValue)
-    int ret = (int)self->getInt(arg1, (int)arg2);
+    int ret = self->getInt(arg1, (int)arg2);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -26595,7 +26595,7 @@ static int _fairygui_HtmlElement_getInt2(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // int getInt(const std::string &attrName, @optional int defValue)
-    int ret = (int)self->getInt(arg1);
+    int ret = self->getInt(arg1);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -26639,7 +26639,7 @@ static int _fairygui_HtmlElement_getString1(lua_State *L)
     olua_check_std_string(L, 3, &arg2);
 
     // std::string getString(const std::string &attrName, @optional const std::string &defValue)
-    std::string ret = (std::string)self->getString(arg1, arg2);
+    std::string ret = self->getString(arg1, arg2);
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -26658,7 +26658,7 @@ static int _fairygui_HtmlElement_getString2(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // std::string getString(const std::string &attrName, @optional const std::string &defValue)
-    std::string ret = (std::string)self->getString(arg1);
+    std::string ret = self->getString(arg1);
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -26698,7 +26698,7 @@ static int _fairygui_HtmlElement_new(lua_State *L)
     olua_check_uint(L, 1, &arg1);
 
     // HtmlElement(fairygui::HtmlElement::Type type)
-    fairygui::HtmlElement *ret = (fairygui::HtmlElement *)new fairygui::HtmlElement((fairygui::HtmlElement::Type)arg1);
+    fairygui::HtmlElement *ret = new fairygui::HtmlElement((fairygui::HtmlElement::Type)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fgui.HtmlElement");
     olua_postnew(L, ret);
 
@@ -26716,7 +26716,7 @@ static int _fairygui_HtmlElement_get_attrs(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
 
     // cocos2d::ValueMap attrs
-    cocos2d::ValueMap ret = (cocos2d::ValueMap)self->attrs;
+    cocos2d::ValueMap ret = self->attrs;
     int num_ret = manual_olua_push_cocos2d_ValueMap(L, &ret);
 
     olua_endinvoke(L);
@@ -26786,7 +26786,7 @@ static int _fairygui_HtmlElement_get_link(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
 
     // fairygui::HtmlElement *link
-    fairygui::HtmlElement *ret = (fairygui::HtmlElement *)self->link;
+    fairygui::HtmlElement *ret = self->link;
     int num_ret = olua_push_cppobj(L, ret, "fgui.HtmlElement");
 
     olua_endinvoke(L);
@@ -26821,7 +26821,7 @@ static int _fairygui_HtmlElement_get_obj(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
 
     // fairygui::HtmlObject *obj
-    fairygui::HtmlObject *ret = (fairygui::HtmlObject *)self->obj;
+    fairygui::HtmlObject *ret = self->obj;
     int num_ret = olua_push_cppobj(L, ret, "fgui.HtmlObject");
 
     olua_endinvoke(L);
@@ -26856,7 +26856,7 @@ static int _fairygui_HtmlElement_get_space(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
 
     // int space
-    int ret = (int)self->space;
+    int ret = self->space;
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -26891,7 +26891,7 @@ static int _fairygui_HtmlElement_get_text(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
 
     // std::string text
-    std::string ret = (std::string)self->text;
+    std::string ret = self->text;
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -26926,7 +26926,7 @@ static int _fairygui_HtmlElement_get_type(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.HtmlElement");
 
     // fairygui::HtmlElement::Type type
-    fairygui::HtmlElement::Type ret = (fairygui::HtmlElement::Type)self->type;
+    fairygui::HtmlElement::Type ret = self->type;
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);

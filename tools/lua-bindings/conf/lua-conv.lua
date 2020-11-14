@@ -53,5 +53,6 @@ typeconv 'cocos2d::backend::UniformInfo'
 typeconv 'cocos2d::backend::TextureDescriptor'
 typeconv 'cocos2d::backend::StencilDescriptor'
 typeconv 'cocos2d::backend::DepthStencilDescriptor'
+typeconv 'cocos2d::backend::VertexLayout::Attribute'
 
 return M

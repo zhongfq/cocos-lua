@@ -307,6 +307,16 @@ M.CONVS = {
             cocos2d::backend::StencilDescriptor frontFaceStencil;
         ]],
     },
+    typeconv {
+        CPPCLS = 'cocos2d::backend::VertexLayout::Attribute',
+        DEF = [[
+            std::string name;
+            @optional cocos2d::backend::VertexFormat format;
+            @optional std::size_t offset;
+            @optional std::size_t index;
+            @optional bool needToBeNormallized;
+        ]],
+    },
 }
 
 M.CLASSES = {}

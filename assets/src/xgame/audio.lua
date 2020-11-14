@@ -1,122 +1,60 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
+local runtime       = require "xgame.runtime"
+local loader        = require "xgame.loader"
+local Dispatcher    = require "xgame.Dispatcher"
 local filesystem    = require "xgame.filesystem"
-local timer         = require "xgame.timer"
 local Event         = require "xgame.event.Event"
-local Dispatcher    = require "xgame.event.Dispatcher"
 local AudioEngine   = require "cc.AudioEngine"
-
-local INVALID_AUDIO_ID = -1
-local STATE_STOPPED = "stateStopped"
-local STATE_FINISH  = "stateFinish"
-local STATE_PLAYING = "statePlaying"
-local STATE_PAUSED  = "statePaused"
-
-local trace = util.trace('[audio]')
 
 local AudioObject
 
+local audios = setmetatable({}, {__mode = 'k'})
+
 local M = {}
 
-local DEFERRED_UNCACHE_TIME = 10
+local trace = util.trace('[audio]')
 
-local audios = setmetatable({}, {__index = function (t, path)
-    local list = {}
-    rawset(t, path, list)
-    return list
-end})
+--
+-- AudioLoader: manage audio asset
+--
+local AudioLoader = loader.register(".mp3;.wav")
 
-local function makeTag(path)
-    return string.format("audio<%s>", path)
+function AudioLoader:load()
 end
 
-local function uncache(path)
-    local tag = makeTag(path)
-    timer.killDelay(tag)
-    timer.delayWithTag(DEFERRED_UNCACHE_TIME, tag, function ()
-        audios[path] = nil
-        AudioEngine.uncache(path)
-        trace('uncache: %s', path)
+function AudioLoader:unload()
+    AudioEngine.uncache(self.path)
+    trace('uncache: %s', self.path)
+end
+
+function M.play(url, loop, volume)
+    local obj = AudioObject.new(url, loop, volume)
+    obj:addListener(Event.COMPLETE, function ()
+        audios[obj] = nil
     end)
+    obj:addListener(Event.STOP, function ()
+        audios[obj] = nil
+    end)
+    return obj
 end
 
-timer.schedule(0.1, function ()
-    local willDones
-    for path, arr in pairs(audios) do
-        local autoremove = true
-        local hasAudio = false
-        for id, obj in pairs(arr) do
-            hasAudio = true
-            if obj.interrupted then
-                local newid = AudioEngine.play2d(obj.path, obj.loop, obj.volume)
-                obj:init(newid)
-            elseif not obj.id then
-                arr[id] = nil
-                willDones = willDones or {}
-                willDones[id] = obj
-                if autoremove ~= false then
-                    autoremove = obj.autoremove
-                end
-            end
-        end
-
-        if hasAudio and not next(arr) and autoremove then
-            uncache(path)
+function M.stop(url)
+    local todo = {}
+    for obj in pairs(audios) do
+        if obj.url == url then
+            todo[#todo + 1] = obj
+            audios[obj] = nil
         end
     end
-
-    if willDones then
-        for _, obj in pairs(willDones) do
-            if obj.state == STATE_FINISH then
-                obj:dispatch(Event.COMPLETE)
-            else
-                obj:dispatch(Event.STOP)
-            end
-        end
-    end
-end)
-
-function M.play(path, loop, volume, autoremove)
-    if not filesystem.exist(path) then
-        error(string.format("file not found: %s", path))
-    end
-
-    timer.killDelay(makeTag(path))
-
-    loop = loop == true
-    volume = volume and volume or 1
-    autoremove = autoremove ~= false
-
-    local id = AudioEngine.play2d(path, loop, volume)
-    if id ~= INVALID_AUDIO_ID then
-        trace('[OK] play: %s(id=%d, loop=%s, volume=%.2f)', path, id, loop, volume)
-        local obj = AudioObject.new(id, loop, volume, path, autoremove)
-        audios[path][id] = obj
-        return obj
-    else
-        trace('[NO] play: %s', path)
+    for _, obj in ipairs(todo) do
+        obj:stop()
     end
 end
 
-function M.stop(path)
-    local arr = rawget(audios, path)
-    if arr then
-        for _, obj in pairs(arr) do
-            obj:stop()
-        end
-    end
-end
-
-function M.unload(path)
-    local arr = rawget(audios, path)
-    if arr and next(arr) then
-        for _, obj in pairs(arr) do
-            obj:stop()
-            obj.autoremove = true
-        end
-    else
-        uncache(path)
-    end
+function M.unload(url)
+    M.stop(url)
+    loader.unload(url)
 end
 
 function M.dumpCallbacks()
@@ -124,51 +62,76 @@ function M.dumpCallbacks()
 end
 
 --
--- AudioObject
+-- AudioObject: manage audio instance
 --
-AudioObject = class("AudioObject", Dispatcher)
+AudioObject = class('AudioObject', Dispatcher)
 
-function AudioObject:ctor(id, loop, volume, path, autoremove)
-    self.autoremove = autoremove
-    self.path = path
-    self._duration = 0
-    self.loop = loop
-    self._volume = volume
+function AudioObject:ctor(url, loop, volume)
+    self.url = url
+    self.path = filesystem.localCachePath(url)
+    self.loop = loop == true
+    self.volume = volume or 1
+    self.id = false
+    self.state = 'loading'
 
-    self:init(id)
+    -- play later and then you can listen event
+    runtime.once('runtimeUpdate', function ()
+        self.assetRef = loader.load(url, function (success)
+            if not success then
+                self.state = 'loadError'
+                self:dispatch(Event.STOP)
+                if not string.find(url, '^https?://') then
+                    error(string.format("audio file not found: %s", url))
+                end
+                return
+            end
+    
+            if self.state == 'loading' then
+                self.state = 'playing'
+                self:_play()
+            end
+        end)
+    end)
 end
 
-function AudioObject:init(id)
-    self.id = id
-    self.state = STATE_PLAYING
-    self.playing = true
-    self.interrupted = false
-    AudioEngine.setFinishCallback(id, function ()
-        if self.loop and not self.state ~= STATE_STOPPED then
-            self.interrupted = true
+function AudioObject:_play()
+    if not self.id then
+        self.id = AudioEngine.play2d(self.path, self.loop, self.volume)
+        if self.id == -1 then
+            trace('[NO] play: %s', self.url)
+            self:stop()
+            self:dispatch(Event.STOP)
+            return
         end
-        self.id = false
-        self.state = STATE_FINISH
-    end)
+
+        AudioEngine.setFinishCallback(self.id, function ()
+            self.id = false
+            if self.loop  then
+                self:play() -- play again
+            else
+                self:dispatch(Event.COMPLETE)
+            end
+        end)
+    end
 end
 
 function AudioObject:pause()
     if self.id then
-        self.state = STATE_PAUSED
+        self.state = 'pausing'
         AudioEngine.pause(self.id)
     end
 end
 
 function AudioObject:resume()
     if self.id then
-        self.state = STATE_PLAYING
+        self.state = 'playing'
         AudioEngine.resume(self.id)
     end
 end
 
 function AudioObject:stop()
     if self.id then
-        self.state = STATE_STOPPED
+        self.state = 'stopped'
         AudioEngine.stop(self.id)
         self.id = false
     end
@@ -191,7 +154,9 @@ end
 function AudioObject.Get:volume()
     return self._volume
 end
+
 function AudioObject.Set:volume(value)
+    self._volume = value
     if self.id then
         AudioEngine.setVolume(self.id, value)
     end

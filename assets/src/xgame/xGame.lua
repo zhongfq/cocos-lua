@@ -8,7 +8,7 @@ local Stage         = require "xgame.ui.Stage"
 local FGUINode      = require "xgame.ui.FGUINode"
 local SceneStack    = require "xgame.SceneStack"
 local Event         = require "xgame.event.Event"
-local Dispatcher    = require "xgame.event.Dispatcher"
+local Dispatcher    = require "xgame.Dispatcher"
 local LoadQueue     = require "xgame.LoadQueue"
 local Director      = require "cc.Director"
 

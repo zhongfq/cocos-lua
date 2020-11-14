@@ -1,5 +1,5 @@
 local class         = require "xgame.class"
-local Dispatcher    = require "xgame.event.Dispatcher"
+local Dispatcher    = require "xgame.Dispatcher"
 local EventAgent    = require "xgame.event.EventAgent"
 
 local Service = class('Service', Dispatcher)

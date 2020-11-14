@@ -1,7 +1,7 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
 local runtime       = require "xgame.runtime"
-local Dispatcher    = require "xgame.event.Dispatcher"
+local Dispatcher    = require "xgame.Dispatcher"
 local Event         = require "xgame.event.Event"
 local PluginEvent   = require "xgame.event.PluginEvent"
 local lame          = require 'kernel.lame'

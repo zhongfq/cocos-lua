@@ -1,7 +1,7 @@
 local class         = require "xgame.class"
 local Event         = require "xgame.event.Event"
 local downloader    = require "xgame.downloader"
-local Dispatcher    = require "xgame.event.Dispatcher"
+local Dispatcher    = require "xgame.Dispatcher"
 local LoadTask      = require "xgame.LoadTask"
 
 local LoadQueue = class("LoadQueue", Dispatcher)

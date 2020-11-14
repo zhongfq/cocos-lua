@@ -1,6 +1,6 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
-local Dispatcher    = require "xgame.event.Dispatcher"
+local Dispatcher    = require "xgame.Dispatcher"
 local cjson         = require "cjson.safe"
 local impl          = require "kernel.plugins.iap"
 

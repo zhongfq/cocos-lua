@@ -4,7 +4,7 @@ local filesystem    = require "xgame.filesystem"
 local LoadTask      = require "xgame.LoadTask"
 local plist         = require "xgame.plist"
 local Event         = require "xgame.event.Event"
-local Dispatcher    = require "xgame.event.Dispatcher"
+local Dispatcher    = require "xgame.Dispatcher"
 local UIPackage     = require "fgui.UIPackage"
 
 local EVENT_RESULT = "result"
@@ -16,16 +16,16 @@ local spriteFrameCache = require("cc.SpriteFrameCache").instance
 local trace = util.trace('[loader]')
 local cache = setmetatable({}, {__mode = 'v'})
 
-local AssetLoader = class('AssetLoader', Dispatcher)
+local AssetObject = class('AssetObject', Dispatcher)
 
-function AssetLoader:ctor(path)
+function AssetObject:ctor(path)
     self.path = path
     self.status = 'unknown'
     self.type = string.lower(string.match(path, '%.%w+$'))
     self.loader = M.loaders[self.type] or M.loader['*']
 end
 
-function AssetLoader:startLoad()
+function AssetObject:startLoad()
     local task = LoadTask.new(self.path)
     self.status = 'loading'
     task:addListener(Event.COMPLETE, function ()
@@ -44,18 +44,18 @@ function AssetLoader:startLoad()
     task:start()
 end
 
-function AssetLoader:reload()
+function AssetObject:reload()
     self.loader.reload(self)
 end
 
-function AssetLoader:unload()
+function AssetObject:unload()
     if self.status ~= 'unload' then
         self.status = 'unload'
         self.loader.unload(self)
     end
 end
 
-function AssetLoader:__gc()
+function AssetObject:__gc()
     self:unload()
 end
 
@@ -73,8 +73,11 @@ end
 
 function M.load(url, callback)
     local assetRef = cache[url]
+    if not url or #url == 0 then
+        error('url is nil or empty')
+    end
     if not assetRef then
-        assetRef = AssetLoader.new(url)
+        assetRef = AssetObject.new(url)
         cache[url] = assetRef
     end
     if assetRef.status == 'loading' or assetRef.status == 'unknown' then

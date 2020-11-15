@@ -1071,13 +1071,13 @@ vbrpsy_compute_masking_s(lame_internal_flags * gfc, const FLOAT(*fftenergy_s)[HB
         dd = mask_idx_s[kk];
         dd_n = 1;
         ecb = gds->s3[j] * eb[kk] * tab[mask_idx_s[kk]];
-        ++j, ++kk;
+        ++j; ++kk;
         while (kk <= last) {
             dd += mask_idx_s[kk];
             dd_n += 1;
             x = gds->s3[j] * eb[kk] * tab[mask_idx_s[kk]];
             ecb = vbrpsy_mask_add(ecb, x, kk - b, delta);
-            ++j, ++kk;
+            ++j; ++kk;
         }
         dd = (1 + 2 * dd) / (2 * dd_n);
         avg_mask = tab[dd] * 0.5f;
@@ -1164,7 +1164,7 @@ vbrpsy_compute_masking_l(lame_internal_flags * gfc, const FLOAT fftenergy[HBLKSI
         dd = mask_idx_l[kk];
         dd_n += 1;
         ecb = gdl->s3[k] * eb_l[kk] * tab[mask_idx_l[kk]];
-        ++k, ++kk;
+        ++k; ++kk;
         while (kk <= last) {
             dd += mask_idx_l[kk];
             dd_n += 1;
@@ -1178,7 +1178,7 @@ vbrpsy_compute_masking_l(lame_internal_flags * gfc, const FLOAT fftenergy[HBLKSI
 #else
             ecb = t;
 #endif
-            ++k, ++kk;
+            ++k; ++kk;
         }
         dd = (1 + 2 * dd) / (2 * dd_n);
         avg_mask = tab[dd] * 0.5f;

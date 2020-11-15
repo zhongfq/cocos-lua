@@ -680,7 +680,7 @@ static void codechoice (CompileState *compst, TTree *p1, TTree *p2, int opt,
   Charset cs1, cs2;
   int e1 = getfirst(p1, fullset, &cs1);
   if (headfail(p1) ||
-      (!e1 && (getfirst(p2, fl, &cs2), cs_disjoint(&cs1, &cs2)))) {
+      (!e1 && ((void)(getfirst(p2, fl, &cs2)), cs_disjoint(&cs1, &cs2)))) {
     /* <p1 / p2> == test (fail(p1)) -> L1 ; p1 ; jmp L2; L1: p2; L2: */
     int test = codetestset(compst, &cs1, 0);
     int jmp = NOINST;

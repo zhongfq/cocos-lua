@@ -252,9 +252,9 @@ Rect GLViewImpl::getSafeAreaRect() const
         Vec2 rightTop = Vec2(_screenSize.width - safeAreaInsets.right, safeAreaInsets.top);
 
         // Convert a point from UI coordinates to which in design resolution coordinate.
-        leftBottom.x = (leftBottom.x - _viewPortRect.origin.x) / _scaleX,
+        leftBottom.x = (leftBottom.x - _viewPortRect.origin.x) / _scaleX;
         leftBottom.y = (leftBottom.y - _viewPortRect.origin.y) / _scaleY;
-        rightTop.x = (rightTop.x - _viewPortRect.origin.x) / _scaleX,
+        rightTop.x = (rightTop.x - _viewPortRect.origin.x) / _scaleX;
         rightTop.y = (rightTop.y - _viewPortRect.origin.y) / _scaleY;
 
         // Adjust points to make them inside design resolution

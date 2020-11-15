@@ -1159,7 +1159,7 @@ static int lp_match (lua_State *L) {
   Capture capture[INITCAPSIZE];
   const char *r;
   size_t l;
-  Pattern *p = (getpatt(L, 1, NULL), getpattern(L, 1));
+  Pattern *p = ((void)(getpatt(L, 1, NULL)), getpattern(L, 1));
   Instruction *code = (p->code != NULL) ? p->code : prepcompile(L, p, 1);
   const char *s = luaL_checklstring(L, SUBJIDX, &l);
   size_t i = initposition(L, l);

@@ -81,11 +81,16 @@ function SceneStack:_doStartScene(cls, ...)
     trace("create scene: %s", cls.classname)
     local scene = cls.new(...)
     entry.scene = scene
+    entry.scene:addListener(Event.REMOVED, self._removeScene, self)
     if scene.renderOption.snapshot and snapshot then
         entry.scene.cobj:addProtectedChild(snapshot)
     end
     self._sceneLayer:addChild(entry.scene)
     self:_updateMusic()
+end
+
+function SceneStack:_removeScene()
+    self:popScene()
 end
 
 function SceneStack:_doPopScene(onlypop)
@@ -94,8 +99,11 @@ function SceneStack:_doPopScene(onlypop)
 
     if entry then
         trace("destory scene: %s", entry.scene.classname)
+        entry.scene:removeListener(Event.REMOVED, self._removeScene, self)
         self._sceneStack[numScenes] = nil
-        self._sceneLayer:removeChild(entry.scene)
+        if entry.scene.parent then
+            self._sceneLayer:removeChild(entry.scene)
+        end
     end
 
     if not onlypop and numScenes > 1 then

@@ -18,15 +18,16 @@ local cache = setmetatable({}, {__mode = 'v'})
 
 local AssetObject = class('AssetObject', Dispatcher)
 
-function AssetObject:ctor(path)
-    self.path = path
+function AssetObject:ctor(url)
+    self.url = url
+    self.path = filesystem.localCachePath(url)
     self.status = 'unknown'
-    self.type = string.lower(string.match(path, '%.%w+$'))
+    self.type = string.lower(string.match(url, '%.%w+$'))
     self.loader = M.loaders[self.type] or M.loader['*']
 end
 
 function AssetObject:startLoad()
-    local task = LoadTask.new(self.path)
+    local task = LoadTask.new(self.url)
     self.status = 'loading'
     task:addListener(Event.COMPLETE, function ()
         if self.status == 'loading' then
@@ -112,7 +113,7 @@ function M.reload(url)
 end
 
 local function shortPath(path)
-    return filesystem.shortPath(path, 60)
+    return filesystem.shortPath(path, 80)
 end
 
 -- default
@@ -122,17 +123,15 @@ M.register('*')
 local ImageLoader = M.register('.jpg;.png')
 
 function ImageLoader:reload()
-    local path = filesystem.localCachePath(self.path)
-    if textureCache:getTextureForKey(path) then
-        textureCache:reloadTexture(path)
-        trace('reload image: %s', self.path)
+    if textureCache:getTextureForKey(self.path) then
+        textureCache:reloadTexture(self.path)
+        trace('reload image: %s', shortPath(self.url))
     end
 end
 
 function ImageLoader:unload()
-    local path = filesystem.localCachePath(self.path)
-    textureCache:removeTextureForKey(path)
-    trace('unload image: %s', self.path)
+    textureCache:removeTextureForKey(self.path)
+    trace('unload image: %s', shortPath(self.url))
 end
 
 -- .plist
@@ -145,7 +144,7 @@ function PlistLoader:load()
         self.spriteFrames = data.frames
 
         spriteFrameCache:addSpriteFramesWithFile(self.path)
-        trace("load plist: %s", shortPath(self.path))
+        trace("load plist: %s", shortPath(self.url))
         for name in pairs(self.spriteFrames) do
             self.spriteFrames[name] = spriteFrameCache:getSpriteFrameByName(name)
         end
@@ -155,7 +154,7 @@ end
 function PlistLoader:unload()
     spriteFrameCache:removeSpriteFramesFromFile(self.path)
     textureCache:removeTextureForKey(self.imagePath)
-    trace("unload plist: %s", shortPath(self.path))
+    trace("unload plist: %s", shortPath(self.url))
 end
 
 -- fgui
@@ -165,15 +164,15 @@ function FUILoader:load()
     local rawpath = string.gsub(self.path, '.fui$', '')
     local pkg = UIPackage.addPackage(rawpath)
     if not pkg then
-        error("can't load '" .. self.path .. "'")
+        error("can't load '" .. self.url .. "'")
     end
-    trace('load fgui: %s', self.path)
+    trace('load fgui: %s', self.url)
 end
 
 function FUILoader:unload()
     local rawpath = string.gsub(self.path, '.fui$', '')
     UIPackage.removePackage(rawpath)
-    trace('unload fgui: %s', self.path)
+    trace('unload fgui: %s', self.url)
 end
 
 return M

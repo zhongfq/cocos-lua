@@ -3,7 +3,6 @@ set(CJSON_HEADER
     src/cjson/fpconv.h
     src/cjson/lua_cjson.h
     src/cjson/strbuf.h
-    src/cjson/dtoa_config.h
 )
 
 set(CJSON_SRC
@@ -11,6 +10,4 @@ set(CJSON_SRC
     src/cjson/fpconv.c
     src/cjson/lua_cjson.c
     src/cjson/strbuf.c
-    src/cjson/g_fmt.c
-    src/cjson/dtoa.c
 )

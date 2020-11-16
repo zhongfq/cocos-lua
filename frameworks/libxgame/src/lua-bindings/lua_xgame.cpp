@@ -870,21 +870,28 @@ static int _xgame_runtime_setDispatcher(lua_State *L)
 {
     olua_startinvoke(L);
 
-    int handler = olua_funcref(L, 1);
-    xgame::runtime::setDispatcher([handler](const std::string &event, const std::string &args) {
+    std::function<void(const std::string &, const std::string &)> arg1;       /** dispatcher */
+
+    void *cb_store = (void *)olua_pushclassobj(L, "kernel.runtime");
+    std::string cb_tag = "Dispatcher";
+    std::string cb_name = olua_setcallback(L, cb_store, cb_tag.c_str(), 1, OLUA_TAG_REPLACE);
+    lua_Unsigned cb_ctx = olua_context(L);
+    arg1 = [cb_store, cb_name, cb_ctx](const std::string &arg1, const std::string &arg2) {
         lua_State *L = olua_mainthread(NULL);
-        if (L != NULL) {
+
+        if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
-            olua_pusherrorfunc(L);
-            olua_getref(L, handler);
-            if (lua_isfunction(L, -1)) {
-                lua_pushstring(L, event.c_str());
-                lua_pushstring(L, args.c_str());
-                lua_pcall(L, 2, 0, top + 1);
-            }
+            olua_push_std_string(L, arg1);
+            olua_push_std_string(L, arg2);
+
+            olua_callback(L, cb_store, cb_name.c_str(), 2);
+
             lua_settop(L, top);
         }
-    });
+    };
+
+    // static void setDispatcher(@local const std::function<void (const std::string &, const std::string &)> &dispatcher)
+    xgame::runtime::setDispatcher(arg1);
 
     olua_endinvoke(L);
 

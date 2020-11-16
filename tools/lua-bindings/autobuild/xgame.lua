@@ -83,26 +83,6 @@ cls.func('testCrash', [[
         return 0;
     }
 ]])
-cls.func('setDispatcher', [[
-    {
-        int handler = olua_funcref(L, 1);
-        xgame::runtime::setDispatcher([handler](const std::string &event, const std::string &args) {
-            lua_State *L = olua_mainthread(NULL);
-            if (L != NULL) {
-                int top = lua_gettop(L);
-                olua_pusherrorfunc(L);
-                olua_getref(L, handler);
-                if (lua_isfunction(L, -1)) {
-                    lua_pushstring(L, event.c_str());
-                    lua_pushstring(L, args.c_str());
-                    lua_pcall(L, 2, 0, top + 1);
-                }
-                lua_settop(L, top);
-            }
-        });
-        return 0;
-    }
-]])
 cls.func(nil, 'static void clearStorage()')
 cls.func(nil, 'static bool launch(const std::string &scriptPath)')
 cls.func(nil, 'static bool restart()')
@@ -135,6 +115,15 @@ cls.func(nil, 'static unsigned int getSampleCount()')
 cls.func(nil, 'static bool support(const std::string &api)')
 cls.func(nil, 'static void printSupport()')
 cls.func(nil, 'static void disableReport()')
+cls.callback {
+    FUNCS =  {
+        'static void setDispatcher(@local const std::function<void (const std::string &, const std::string &)> &dispatcher)'
+    },
+    TAG_MAKER = 'Dispatcher',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
+    TAG_SCOPE = 'object',
+}
 cls.callback {
     FUNCS =  {
         'static void openURL(const std::string &uri, @local @optional const std::function<void (bool)> callback)'

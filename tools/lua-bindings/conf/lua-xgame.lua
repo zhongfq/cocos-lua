@@ -55,25 +55,10 @@ runtime.FUNC("testCrash", [[
     *prt = 0;
     return 0;
 }]])
-runtime.FUNC("setDispatcher", [[
-{
-    int handler = olua_funcref(L, 1);
-    xgame::runtime::setDispatcher([handler](const std::string &event, const std::string &args) {
-        lua_State *L = olua_mainthread(NULL);
-        if (L != NULL) {
-            int top = lua_gettop(L);
-            olua_pusherrorfunc(L);
-            olua_getref(L, handler);
-            if (lua_isfunction(L, -1)) {
-                lua_pushstring(L, event.c_str());
-                lua_pushstring(L, args.c_str());
-                lua_pcall(L, 2, 0, top + 1);
-            }
-            lua_settop(L, top);
-        }
-    });
-    return 0;
-}]])
+runtime.CALLBACK {
+    NAME = 'setDispatcher',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+}
 runtime.CALLBACK {
     NAME = 'openURL',
     TAG_MODE = 'OLUA_TAG_NEW',

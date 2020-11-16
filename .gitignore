@@ -1,6 +1,7 @@
-wwwroot/current/*.manifest
-build/
-win32-build
-.DS_Store
 ._*
+.DS_Store
+build/
+frameworks/libxgame/src/lua51
 mac-build
+win32-build
+wwwroot/current/*.manifest

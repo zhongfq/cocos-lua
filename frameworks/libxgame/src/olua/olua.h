@@ -37,6 +37,7 @@ extern "C" {
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <assert.h>
 #include <math.h>
 
@@ -82,7 +83,7 @@ OLUA_API lua_State *olua_mainthread(lua_State *L);
  * memory address for lua_State, this because the malloc reuse memory.
  * olua_context can return different id for each main lua_State.
  */
-OLUA_API lua_Unsigned olua_context(lua_State *L);
+OLUA_API lua_Integer olua_context(lua_State *L);
     
 // compare raw type of value
 #define olua_isfunction(L,n)        (lua_type(L, (n)) == LUA_TFUNCTION)
@@ -259,6 +260,8 @@ OLUA_API int luaopen_olua(lua_State *L);
 #if LUA_VERSION_NUM == 501
 typedef lua_Integer lua_Unsigned;
 #define LUA_OK 0
+#define LUA_RIDX_MAINTHREAD 1
+#define LUA_RIDX_GLOBALS    2
 #define LUA_PRELOAD_TABLE "_PRELOAD"
 #define LUA_LOADED_TABLE "_LOADED"
 #define LUA_LOADER_TABLE "loaders"

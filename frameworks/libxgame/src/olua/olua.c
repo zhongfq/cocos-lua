@@ -50,8 +50,7 @@
 #define aux_pushrefkey(L, n)    (lua_pushfstring(L, ".ref.%s", (n)))
 
 typedef struct {
-    lua_State *mainthread;
-    lua_Unsigned ctxid;
+    lua_Integer ctxid;
     size_t objcount;
     size_t poolsize;
     int ref;
@@ -81,7 +80,7 @@ static olua_vmstatus_t *aux_getvmstatus(lua_State *L)
 {
     olua_vmstatus_t *vms;
     if (olua_unlikely(registry_rawgetp(L, OLUA_VMSTATUS) != LUA_TUSERDATA)) {
-        static lua_Unsigned s_ctxid = 0;
+        static lua_Integer s_ctxid = 0;
         vms = (olua_vmstatus_t *)lua_newuserdata(L, sizeof(*vms));
         vms->ctxid = ++s_ctxid;
         vms->debug = false;
@@ -90,9 +89,7 @@ static olua_vmstatus_t *aux_getvmstatus(lua_State *L)
         vms->objcount = 0;
         vms->ref = 0;
         registry_rawsetp(L, OLUA_VMSTATUS);
-        olua_rawgeti(L, LUA_REGISTRYINDEX, LUA_RIDX_MAINTHREAD);
-        vms->mainthread = lua_tothread(L, -1);
-        lua_pop(L, 2); // pop nil and main thread
+        lua_pop(L, 1); // pop nil
     } else {
         vms = (olua_vmstatus_t *)lua_touserdata(L, -1);
         lua_pop(L, 1);
@@ -113,11 +110,18 @@ OLUA_API bool olua_isdebug(lua_State *L)
 #ifndef olua_mainthread
 OLUA_API lua_State *olua_mainthread(lua_State *L)
 {
-    return L ? aux_getvmstatus(L)->mainthread : NULL;
+    lua_State *mt = NULL;
+    if (L) {
+        olua_rawgeti(L, LUA_REGISTRYINDEX, LUA_RIDX_MAINTHREAD);
+        luaL_checktype(L, -1, LUA_TTHREAD);
+        mt = lua_tothread(L, -1);
+        lua_pop(L, 1);
+    }
+    return mt;
 }
 #endif
 
-OLUA_API lua_Unsigned olua_context(lua_State *L)
+OLUA_API lua_Integer olua_context(lua_State *L)
 {
     return aux_getvmstatus(L)->ctxid;
 }
@@ -243,7 +247,7 @@ OLUA_API void *olua_newobjstub(lua_State *L, const char *cls)
     lua_pushvalue(L, -1);                   // L: objtable ud ud
     olua_rawsetp(L, -3, ptr);               // L: objtable ud     objtable[ptr] = ud
     lua_replace(L, -2);                     // L: ud
-    luaL_setmetatable(L, cls);
+    olua_setmetatable(L, cls);
     return ptr;
 }
 
@@ -264,7 +268,7 @@ OLUA_API int olua_pushobjstub(lua_State *L, void *obj, void *stub, const char *c
         lua_pushvalue(L, -1);                                   // L: objt nil obj obj
         olua_rawsetp(L, -4, obj);                               // L: objt nil obj
         lua_replace(L, -2);                                     // L: objt obj
-        luaL_setmetatable(L, cls);
+        olua_setmetatable(L, cls);
         status = OLUA_OBJ_NEW;
     } else {
         luaL_error(L, "stub object not found for '%s'", cls);
@@ -483,7 +487,9 @@ OLUA_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, 
         aux_checkref(vms);
         while (true) {
             lua_Integer ref = ++vms->ref;
-            func = lua_pushfstring(L, ".callback#%I$%s@%s", ref, cls, tag);
+            char refstr[64];
+            sprintf(refstr, "%lld", (int64_t)ref); // lua5.1 not support %I
+            func = lua_pushfstring(L, ".callback#%s$%s@%s", refstr, cls, tag);
             lua_pushvalue(L, -1);                       // L: obj ut k k
             if (olua_rawget(L, -3) == LUA_TNIL) {
                 lua_pop(L, 1);                          // L: obj ut k

@@ -249,6 +249,14 @@ static int _errorfunc(lua_State *L)
 lua_State *xlua_new()
 {
     lua_State *L = luaL_newstate();
+    
+#if LUA_VERSION_NUM == 501
+    lua_pushthread(L);
+    lua_rawseti(L, LUA_REGISTRYINDEX, LUA_RIDX_MAINTHREAD);
+    lua_pushvalue(L, LUA_GLOBALSINDEX);
+    lua_rawseti(L, LUA_REGISTRYINDEX, LUA_RIDX_GLOBALS);
+#endif
+    
     luaL_openlibs(L);
     olua_callfunc(L, _fixcoresume);
     olua_callfunc(L, _fixprint);
@@ -260,7 +268,6 @@ lua_State *xlua_new()
     
     lua_pushboolean(L, runtime::isDebug());
     lua_setglobal(L, "DEBUG");
-
     
     return L;
 }

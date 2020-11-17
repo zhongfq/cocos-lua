@@ -18,8 +18,8 @@ jobs:
       with:
         java-version: 1.8
     - name: set up lua 5.3
-      uses: actions/setup-lua@v1
+      uses: leafo/gh-actions-lua@v7
       with:
-        lua-version: 5.3
+        luaVersion: "5.4.1"
     - name: Build with Gradle
       run: cd runtime-src/proj.android && ./gradlew build

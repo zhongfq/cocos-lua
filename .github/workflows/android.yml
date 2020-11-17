@@ -22,6 +22,6 @@ jobs:
     - name: set up lua
       uses: xpol/setup-lua@v0.2
       with:
-        lua-version: "5.4.0"
+        lua-version: "5.3.5"
     - name: Build with Gradle
       run: cd runtime-src/proj.android && ./gradlew build

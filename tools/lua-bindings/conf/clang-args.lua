@@ -33,6 +33,7 @@ return {
         #include "xgame/downloader.h"
         #include "xgame/RootScene.h"
         #include "xgame/timer.h"
+        #include "xgame/window.h"
         #include "lua-bindings/LuaCocosAdapter.h"
     ]],
     FLAGS = {

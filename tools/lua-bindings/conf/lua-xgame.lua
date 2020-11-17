@@ -1,6 +1,7 @@
 local autoconf = require "autoconf"
 local M = autoconf.typemod 'xgame'
 local typeconf = M.typeconf
+local typedef = M.typedef
 local typeconv = M.typeconv
 
 M.PATH = '../../frameworks/libxgame/src/lua-bindings'
@@ -14,9 +15,26 @@ M.INCLUDES = [[
 #include "xgame/runtime.h"
 #include "xgame/RootScene.h"
 #include "xgame/timer.h"
+#include "xgame/window.h"
 #include "olua/olua.hpp"
 ]]
-M.CHUNK = [[]]
+M.CHUNK = [[
+int manual_olua_unpack_xgame_window_Bounds(lua_State *L, const xgame::window::Bounds *value)
+{
+    if (value) {
+        lua_pushnumber(L, (lua_Number)value->getMinX());
+        lua_pushnumber(L, (lua_Number)value->getMaxX());
+        lua_pushnumber(L, (lua_Number)value->getMaxY());
+        lua_pushnumber(L, (lua_Number)value->getMinY());
+    } else {
+        lua_pushnumber(L, 0);
+        lua_pushnumber(L, 0);
+        lua_pushnumber(L, 0);
+        lua_pushnumber(L, 0);
+    }
+    return 4;
+}
+]]
 
 M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, "^xgame::", "kernel.")
@@ -26,6 +44,12 @@ end
 
 M.EXCLUDE_TYPE = require "conf.exclude-type"
 M.EXCLUDE_TYPE 'xgame::BufferReader *'
+
+typedef {
+    CPPCLS = 'xgame::window::Bounds',
+    CONV = 'manual_olua_$$_xgame_window_Bounds',
+}
+
 typeconv 'xgame::downloader::FileTask'
 
 typeconf 'xgame::SceneNoCamera'
@@ -55,38 +79,13 @@ runtime.FUNC("testCrash", [[
     *prt = 0;
     return 0;
 }]])
-runtime.CALLBACK {
-    NAME = 'setDispatcher',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-runtime.CALLBACK {
-    NAME = 'openURL',
-    TAG_MODE = 'OLUA_TAG_NEW',
-    TAG_SCOPE = 'once',
-}
-runtime.CALLBACK {
-    NAME = 'requestPermission',
-    TAG_MODE = 'OLUA_TAG_NEW',
-    TAG_SCOPE = 'once',
-}
-runtime.CALLBACK {
-    NAME = 'alert',
-    TAG_MODE = 'OLUA_TAG_NEW',
-    TAG_SCOPE = 'once',
-}
+runtime.CALLBACK {NAME = 'setDispatcher',TAG_MODE = 'OLUA_TAG_REPLACE'}
+runtime.CALLBACK {NAME = 'openURL', TAG_MODE = 'OLUA_TAG_NEW',TAG_SCOPE = 'once'}
+runtime.CALLBACK {NAME = 'requestPermission', TAG_MODE = 'OLUA_TAG_NEW', TAG_SCOPE = 'once'}
+runtime.CALLBACK {NAME = 'alert', TAG_MODE = 'OLUA_TAG_NEW', TAG_SCOPE = 'once'}
 
-local filesystem = typeconf 'xgame::filesystem'
-filesystem.EXCLUDE_FUNC 'getDirectory'
-filesystem.FUNC('write', [[
-{
-    size_t len;
-    std::string path = olua_tostring(L, 1);
-    const char *data = olua_checklstring(L, 2, &len);
-    bool ret = (bool)xgame::filesystem::write(path, data, len);
-    olua_push_bool(L, ret);
-    return 1;
-}
-]])
+typeconf 'xgame::filesystem'
+    .EXCLUDE_FUNC 'getDirectory'
 
 typeconf 'xgame::preferences'
 
@@ -141,71 +140,14 @@ timer.FUNC('unschedule', [[
     return 0;
 }]])
 
-local window = typeconf 'xgame::window'
-window.FUNC("getVisibleBounds", [[
-{
-    auto rect = cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();
-    lua_pushinteger(L, (int)rect.getMinX());
-    lua_pushinteger(L, (int)rect.getMaxX());
-    lua_pushinteger(L, (int)rect.getMaxY());
-    lua_pushinteger(L, (int)rect.getMinY());
-    return 4;
-}
-]])
-window.FUNC('getVisibleSize', [[
-{
-    auto rect = cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();
-    lua_pushinteger(L, (int)rect.size.width);
-    lua_pushinteger(L, (int)rect.size.height);
-    return 2;
-}]])
-window.FUNC('getFrameSize', [[
-{
-    auto size = cocos2d::Director::getInstance()->getOpenGLView()->getFrameSize();
-    lua_pushinteger(L, (int)size.width);
-    lua_pushinteger(L, (int)size.height);
-    return 2;
-}
-]])
-window.FUNC('setFrameSize', [[
-{
-    auto glView = cocos2d::Director::getInstance()->getOpenGLView();
-    float width = (float)olua_checknumber(L, 1);
-    float height = (float)olua_checknumber(L, 2);
-    xgame::preferences::setFloat(CONF_WINDOW_WIDTH, width);
-    xgame::preferences::setFloat(CONF_WINDOW_HEIGHT, height);
-    glView->setFrameSize(width, height);
-    return 0;
-}
-]])
-window.FUNC('getDesignSize', [[
-{
-    auto size = cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize();
-    lua_pushinteger(L, (int)size.width);
-    lua_pushinteger(L, (int)size.height);
-    return 2;
-}]])
-window.FUNC('setDesignSize', [[
-{
-    cocos2d::Director::getInstance()->getOpenGLView()->setDesignResolutionSize(
-        (float)olua_checknumber(L, 1), (float)olua_checknumber(L, 2),
-        (ResolutionPolicy)olua_checkinteger(L, 3));
-    return 0;
-}]])
-window.FUNC('convertToCameraSpace', [[
-{
-    cocos2d::Rect rect;
-    cocos2d::Vec3 out;
-    auto director = cocos2d::Director::getInstance();
-    auto pt = cocos2d::Vec2(olua_checknumber(L, 1), olua_checknumber(L, 2));
-    auto runningScene = director->getRunningScene();
-    auto w2l = runningScene->getWorldToNodeTransform();
-    rect.size = director->getOpenGLView()->getDesignResolutionSize();
-    cocos2d::isScreenPointInRect(pt, runningScene->getDefaultCamera(), w2l, rect, &out);
-    lua_pushnumber(L, out.x);
-    lua_pushnumber(L, out.y);
-    return 2;
-}]])
+typeconf 'xgame::window'
+    .ATTR('getVisibleBounds', {RET = '@unpack'})
+    .ATTR('getVisibleSize', {RET = '@unpack'})
+    .ATTR('getFrameSize', {RET = '@unpack'})
+    .ATTR('setFrameSize', {ARG1 = '@pack'})
+    .ATTR('getDesignSize', {RET = '@unpack'})
+    .ATTR('setDesignSize', {ARG1 = '@pack'})
+    .ATTR('convertToCameraSpace', {ARG1 = '@pack'})
 
 typeconf 'xgame::downloader::FileState'
 typeconf 'xgame::downloader'

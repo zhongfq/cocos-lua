@@ -8931,7 +8931,7 @@ static int _fairygui_GObject_transformRect(lua_State *L)
     }
 
     if (num_args == 5) {
-        // if ((manual_olua_ispack_cocos2d_Rect(L, 2)) && (olua_is_cppobj(L, 3, "fgui.GObject"))) {
+        // if ((manual_olua_ispack_cocos2d_Rect(L, 2)) && (olua_is_cppobj(L, 6, "fgui.GObject"))) {
             // cocos2d::Rect transformRect(@pack const cocos2d::Rect &rect, fairygui::GObject *targetSpace)
             return _fairygui_GObject_transformRect2(L);
         // }

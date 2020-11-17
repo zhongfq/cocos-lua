@@ -132,3 +132,9 @@ typedef {
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
 }
+
+typedef {
+    CPPCLS = 'xgame::window::Bounds',
+    DECLTYPE = 'xgame::window::Bounds',
+    CONV = 'manual_olua_$$_cocos2d_Rect',
+}

@@ -4,6 +4,11 @@ local olua = require "olua"
 local typedef = olua.typedef
 
 typedef {
+    CONV = 'manual_olua_$$_xgame_window_Bounds',
+    CPPCLS = 'xgame::window::Bounds',
+}
+
+typedef {
     CPPCLS = 'xgame::downloader::FileTask',
     LUACLS = nil,
     DECLTYPE = nil,

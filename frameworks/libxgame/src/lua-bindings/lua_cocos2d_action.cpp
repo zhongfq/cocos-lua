@@ -3227,7 +3227,7 @@ static int _cocos2d_JumpBy_create(lua_State *L)
     }
 
     if (num_args == 5) {
-        // if ((olua_is_number(L, 1)) && (auto_olua_ispack_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 3)) && (olua_is_int(L, 4))) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_ispack_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 4)) && (olua_is_int(L, 5))) {
             // static cocos2d::JumpBy *create(float duration, @pack const cocos2d::Vec2 &position, float height, int jumps)
             return _cocos2d_JumpBy_create2(L);
         // }
@@ -3319,7 +3319,7 @@ static int _cocos2d_JumpTo_create(lua_State *L)
     }
 
     if (num_args == 5) {
-        // if ((olua_is_number(L, 1)) && (auto_olua_ispack_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 3)) && (olua_is_int(L, 4))) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_ispack_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 4)) && (olua_is_int(L, 5))) {
             // static cocos2d::JumpTo *create(float duration, @pack const cocos2d::Vec2 &position, float height, int jumps)
             return _cocos2d_JumpTo_create2(L);
         // }

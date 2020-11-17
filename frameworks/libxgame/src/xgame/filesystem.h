@@ -52,6 +52,7 @@ public:
     static bool rename(const std::string &oldPath, const std::string &newPath);
     static bool copy(const std::string &srcPath, const std::string &destPath);
     static bool write(const std::string &path, const char *data, size_t len);
+    static bool write(const std::string &path, const cocos2d::Data &data);
     static cocos2d::Data read(const std::string &path);
     static bool unzip(const std::string &path, const std::string &dest);
     

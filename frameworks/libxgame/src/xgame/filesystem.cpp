@@ -202,7 +202,12 @@ bool filesystem::write(const std::string &path, const char *data, size_t len)
     }
     
     runtime::log("[%s] write file: %s", BOOL_STR(status), filesystem::shortPath(path).c_str());
-    return false;
+    return status;
+}
+
+bool filesystem::write(const std::string &path, const cocos2d::Data &data)
+{
+    return filesystem::write(path, (const char *)data.getBytes(), (size_t)data.getSize());
 }
 
 Data filesystem::read(const std::string &path)

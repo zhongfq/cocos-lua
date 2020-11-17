@@ -11,6 +11,7 @@ set(XGAME_HEADER
     src/xgame/runtime.h
     src/xgame/Socket.h
     src/xgame/timer.h
+    src/xgame/window.h
     src/xgame/xlua.h
     src/xgame/XMLHttpRequest.h
 )
@@ -27,6 +28,7 @@ set(XGAME_SRC
     src/xgame/runtime.cpp
     src/xgame/Socket.cpp
     src/xgame/timer.cpp
+    src/xgame/window.cpp
     src/xgame/xlua.cpp
     src/xgame/XMLHttpRequest.cpp
 )

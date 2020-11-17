@@ -17,8 +17,8 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: set up lua 5.3
-      uses: leafo/gh-actions-lua@v7
+    - name: set up lua
+      uses: xpol/setup-lua@v0.2
       with:
         luaVersion: "5.4.1"
     - name: Build with Gradle

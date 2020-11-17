@@ -1,4 +1,4 @@
-[![Android Build Status](https://github.com/zhongfq/cocos-lua/workflows/android/badge.svg)](https://github.com/zhongfq/cocos-lua/actions?query=workflow%3Aandroid)
+![android](https://github.com/zhongfq/cocos-lua/workflows/Android%20CI/badge.svg?branch=zhongfq-android-ci)
 
 # Cocos-lua
 

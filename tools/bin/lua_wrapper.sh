@@ -9,4 +9,4 @@ PATH="/usr/local/bin:${PATH}"
 git pull # update workspace
 
 shift # remove script
-/usr/local/bin/lua ${SCRIPT} $@
+lua ${SCRIPT} $@

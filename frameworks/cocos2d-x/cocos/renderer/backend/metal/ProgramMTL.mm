@@ -143,6 +143,7 @@ const UniformInfo& ProgramMTL::getActiveUniformInfo(ShaderStage stage, int locat
             return _fragmentShader->getActiveUniform(location);
         default:
             CCASSERT(false, "Invalid shader stage.");
+            return _fragmentShader->getActiveUniform(location); // only for avoid compile warning
         break;
     }
 }
@@ -171,6 +172,7 @@ const std::unordered_map<std::string, UniformInfo>& ProgramMTL::getAllActiveUnif
             return _fragmentShader->getAllActiveUniformInfo();
         default:
             CCASSERT(false, "Invalid shader stage.");
+            return _fragmentShader->getAllActiveUniformInfo(); // only for avoid compile warning
             break;
     }
 }

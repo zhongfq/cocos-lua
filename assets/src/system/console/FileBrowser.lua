@@ -2,7 +2,7 @@ local class         = require "xgame.class"
 local Array         = require "xgame.Array"
 local http          = require "xgame.http"
 local Event         = require "xgame.event.Event"
-local Dispatcher    = require "xgame.event.Dispatcher"
+local Dispatcher    = require "xgame.Dispatcher"
 local UIEventType   = require "fgui.UIEventType"
 
 local FileBrowser = class('FileBrowser', Dispatcher)

@@ -1,7 +1,7 @@
 local class         = require "xgame.class"
 local Array         = require "xgame.Array"
 local runtime       = require "xgame.runtime"
-local Dispatcher    = require "xgame.event.Dispatcher"
+local Dispatcher    = require "xgame.Dispatcher"
 
 local LogCat = class('LogCat', Dispatcher)
 

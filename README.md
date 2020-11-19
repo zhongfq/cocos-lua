@@ -40,7 +40,8 @@ open cocos-lua.xcodeproj
 ```sh
 cd cocos-lua
 mkdir build\win32-build && cd build\win32-build
-cmake ../.. -G"Visual Studio 15 2017" -Tv141
+cmake ../.. -A Win32
+# cmake ../.. -G"Visual Studio 15 2017" -Tv141 -A Win32
 ```
 
 #### Android编译

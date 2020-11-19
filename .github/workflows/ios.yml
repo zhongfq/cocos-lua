@@ -1,0 +1,26 @@
+name: ios
+
+on: [push]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Create Build Environment
+      run: cmake -E make_directory build
+
+    - name: Configure CMake
+      shell: bash
+      working-directory: build
+      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -GXcode -DCMAKE_SYSTEM_NAME=iOS
+
+    - name: Build
+      working-directory: build
+      shell: bash
+      run: cmake --build . --target cocos-lua --config $BUILD_TYPE -destination "platform=iOS Simulator,name=iPhone 8"

@@ -1,5 +1,6 @@
 # Cocos-lua
 
+[![iOS Build Status](https://github.com/zhongfq/cocos-lua/workflows/ios/badge.svg)](https://github.com/zhongfq/cocos-lua/actions?query=workflow:ios)
 [![Android Build Status](https://github.com/zhongfq/cocos-lua/workflows/android/badge.svg)](https://github.com/zhongfq/cocos-lua/actions?query=workflow:android)
 [![Mac Build Status](https://github.com/zhongfq/cocos-lua/workflows/macos/badge.svg)](https://github.com/zhongfq/cocos-lua/actions?query=workflow:macos)
 [![Window Build Status](https://github.com/zhongfq/cocos-lua/workflows/windows/badge.svg)](https://github.com/zhongfq/cocos-lua/actions?query=workflow:windows)

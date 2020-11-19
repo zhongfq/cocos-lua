@@ -23,4 +23,4 @@ jobs:
     - name: Build
       working-directory: build
       shell: bash
-      run: cmake --build . --target cocos-lua --config $BUILD_TYPE -destination "platform=iOS Simulator,name=iPhone 8"
+      run: cmake --build . --target cocos-lua --config $BUILD_TYPE -- -destination "platform=iOS Simulator,name=iPhone 8"

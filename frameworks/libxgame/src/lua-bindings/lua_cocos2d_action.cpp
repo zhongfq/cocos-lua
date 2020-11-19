@@ -6526,8 +6526,8 @@ static int _cocos2d_PointArray_setControlPoints(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PointArray");
     luaL_checktype(L, 2, LUA_TTABLE);
-    size_t arg1_total = lua_rawlen(L, 2);
-    arg1.reserve(arg1_total);
+    int arg1_total = (int)lua_rawlen(L, 2);
+    arg1.reserve((size_t)arg1_total);
     for (int i = 1; i <= arg1_total; i++) {
         cocos2d::Vec2 obj;
         lua_rawgeti(L, 2, i);

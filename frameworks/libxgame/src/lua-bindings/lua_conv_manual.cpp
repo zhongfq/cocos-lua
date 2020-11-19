@@ -193,10 +193,10 @@ void manual_olua_pack_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value)
         luaL_error(L, "value is NULL");
     }
     idx = lua_absindex(L, idx);
-    value->origin.x = (int)olua_checkinteger(L, idx + 0);
-    value->origin.y = (int)olua_checkinteger(L, idx + 1);
-    value->size.width = (int)olua_checkinteger(L, idx + 2);
-    value->size.height = (int)olua_checkinteger(L, idx + 3);
+    value->origin.x = (float)olua_checknumber(L, idx + 0);
+    value->origin.y = (float)olua_checknumber(L, idx + 1);
+    value->size.width = (float)olua_checknumber(L, idx + 2);
+    value->size.height = (float)olua_checknumber(L, idx + 3);
 }
 
 int manual_olua_unpack_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value)
@@ -320,7 +320,7 @@ int manual_olua_push_cocos2d_ValueVector(lua_State *L, const cocos2d::ValueVecto
     if (value) {
         lua_createtable(L, (int)value->size(), 0);
         int idx = 1;
-        for (int i = 0; i < value->size(); i++) {
+        for (int i = 0; i < (int)value->size(); i++) {
             const auto v = value->at(i);
             if (manual_olua_push_cocos2d_Value(L, &v) > 0) {
                 lua_rawseti(L, -2, idx++);

@@ -398,8 +398,8 @@ static int _cocos2d_Mesh_create1(lua_State *L)
     std::vector<unsigned short> arg4;       /** indices */
 
     luaL_checktype(L, 1, LUA_TTABLE);
-    size_t arg1_total = lua_rawlen(L, 1);
-    arg1.reserve(arg1_total);
+    int arg1_total = (int)lua_rawlen(L, 1);
+    arg1.reserve((size_t)arg1_total);
     for (int i = 1; i <= arg1_total; i++) {
         lua_Number obj;
         lua_rawgeti(L, 1, i);
@@ -408,8 +408,8 @@ static int _cocos2d_Mesh_create1(lua_State *L)
         lua_pop(L, 1);
     }
     luaL_checktype(L, 2, LUA_TTABLE);
-    size_t arg2_total = lua_rawlen(L, 2);
-    arg2.reserve(arg2_total);
+    int arg2_total = (int)lua_rawlen(L, 2);
+    arg2.reserve((size_t)arg2_total);
     for (int i = 1; i <= arg2_total; i++) {
         lua_Number obj;
         lua_rawgeti(L, 2, i);
@@ -418,8 +418,8 @@ static int _cocos2d_Mesh_create1(lua_State *L)
         lua_pop(L, 1);
     }
     luaL_checktype(L, 3, LUA_TTABLE);
-    size_t arg3_total = lua_rawlen(L, 3);
-    arg3.reserve(arg3_total);
+    int arg3_total = (int)lua_rawlen(L, 3);
+    arg3.reserve((size_t)arg3_total);
     for (int i = 1; i <= arg3_total; i++) {
         lua_Number obj;
         lua_rawgeti(L, 3, i);
@@ -428,8 +428,8 @@ static int _cocos2d_Mesh_create1(lua_State *L)
         lua_pop(L, 1);
     }
     luaL_checktype(L, 4, LUA_TTABLE);
-    size_t arg4_total = lua_rawlen(L, 4);
-    arg4.reserve(arg4_total);
+    int arg4_total = (int)lua_rawlen(L, 4);
+    arg4.reserve((size_t)arg4_total);
     for (int i = 1; i <= arg4_total; i++) {
         lua_Unsigned obj;
         lua_rawgeti(L, 4, i);
@@ -457,8 +457,8 @@ static int _cocos2d_Mesh_create2(lua_State *L)
     std::vector<cocos2d::MeshVertexAttrib> arg4;       /** attribs */
 
     luaL_checktype(L, 1, LUA_TTABLE);
-    size_t arg1_total = lua_rawlen(L, 1);
-    arg1.reserve(arg1_total);
+    int arg1_total = (int)lua_rawlen(L, 1);
+    arg1.reserve((size_t)arg1_total);
     for (int i = 1; i <= arg1_total; i++) {
         lua_Number obj;
         lua_rawgeti(L, 1, i);
@@ -468,8 +468,8 @@ static int _cocos2d_Mesh_create2(lua_State *L)
     }
     olua_check_int(L, 2, &arg2);
     luaL_checktype(L, 3, LUA_TTABLE);
-    size_t arg3_total = lua_rawlen(L, 3);
-    arg3.reserve(arg3_total);
+    int arg3_total = (int)lua_rawlen(L, 3);
+    arg3.reserve((size_t)arg3_total);
     for (int i = 1; i <= arg3_total; i++) {
         lua_Unsigned obj;
         lua_rawgeti(L, 3, i);
@@ -478,8 +478,8 @@ static int _cocos2d_Mesh_create2(lua_State *L)
         lua_pop(L, 1);
     }
     luaL_checktype(L, 4, LUA_TTABLE);
-    size_t arg4_total = lua_rawlen(L, 4);
-    arg4.reserve(arg4_total);
+    int arg4_total = (int)lua_rawlen(L, 4);
+    arg4.reserve((size_t)arg4_total);
     for (int i = 1; i <= arg4_total; i++) {
         cocos2d::MeshVertexAttrib obj;
         lua_rawgeti(L, 4, i);

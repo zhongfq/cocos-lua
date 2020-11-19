@@ -85,7 +85,7 @@ template <typename T> int manual_olua_push_spine_Vector(lua_State *L, const spin
 {
     lua_newtable(L);
     int count = 1;
-    for (int i = 0; i < v.size(); i++) {
+    for (int i = 0; i < (int)v.size(); i++) {
         auto obj = ((spine::Vector<T*> &)v)[i];
         if (obj == nullptr) {
             continue;
@@ -99,8 +99,8 @@ template <typename T> int manual_olua_push_spine_Vector(lua_State *L, const spin
 template <typename T> void manual_olua_check_spine_Vector(lua_State *L, int idx, spine::Vector<T*> &v, const char *cls)
 {
     luaL_checktype(L, idx, LUA_TTABLE);
-    size_t total = lua_rawlen(L, idx);
-    v.ensureCapacity(total);
+    int total = (int)lua_rawlen(L, idx);
+    v.ensureCapacity((size_t)total);
     for (int i = 1; i <= total; i++) {
         lua_rawgeti(L, idx, i);
         T* obj;

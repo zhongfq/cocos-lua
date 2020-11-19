@@ -76,7 +76,7 @@ void preferences::delayFlush()
 {
 #define TAG_FLUSH "preferences::delayFlush"
     timer::killDelay(TAG_FLUSH);
-    timer::delayWithTag(0.001, TAG_FLUSH, [](){ preferences::flush(); });
+    timer::delayWithTag(0.001f, TAG_FLUSH, [](){ preferences::flush(); });
 }
 
 NS_XGAME_END

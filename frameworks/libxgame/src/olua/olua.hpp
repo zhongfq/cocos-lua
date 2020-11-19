@@ -245,7 +245,7 @@ template <typename T> int olua_push_std_set(lua_State *L, const std::set<T*> &va
 template <typename T> void olua_check_std_set(lua_State *L, int idx, std::set<T*> &value, const char *cls)
 {
     luaL_checktype(L, idx, LUA_TTABLE);
-    size_t total = lua_rawlen(L, idx);
+    int total = (int)lua_rawlen(L, idx);
     for (int i = 1; i <= total; i++) {
         T* obj;
         lua_rawgeti(L, idx, i);
@@ -276,8 +276,8 @@ template <typename T> int olua_push_std_vector(lua_State *L, const std::vector<T
 template <typename T> void olua_check_std_vector(lua_State *L, int idx, std::vector<T*> &v, const char *cls)
 {
     luaL_checktype(L, idx, LUA_TTABLE);
-    size_t total = lua_rawlen(L, idx);
-    v.reserve(total);
+    int total = (int)lua_rawlen(L, idx);
+    v.reserve((size_t)total);
     for (int i = 1; i <= total; i++) {
         T* obj;
         lua_rawgeti(L, idx, i);

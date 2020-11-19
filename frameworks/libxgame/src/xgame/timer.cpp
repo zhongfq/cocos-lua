@@ -63,7 +63,7 @@ unsigned int timer::schedule(float interval, const std::function<void (float)> c
 {
     unsigned int handler = timer::createScheduleHandler();
     const std::string tag = timer::createScheduleTag(handler);
-    timer::schedule(fmax(0, interval), CC_REPEAT_FOREVER, tag, callback);
+    timer::schedule(fmax(0.0f, interval), CC_REPEAT_FOREVER, tag, callback);
     return handler;
 }
 

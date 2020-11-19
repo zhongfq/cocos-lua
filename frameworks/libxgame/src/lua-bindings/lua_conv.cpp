@@ -2797,8 +2797,8 @@ void auto_olua_check_cocos2d_backend_TextureInfo(lua_State *L, int idx, cocos2d:
 
     olua_getfield(L, idx, "slot");
     luaL_checktype(L, -1, LUA_TTABLE);
-    size_t arg1_total = lua_rawlen(L, -1);
-    arg1.reserve(arg1_total);
+    int arg1_total = (int)lua_rawlen(L, -1);
+    arg1.reserve((size_t)arg1_total);
     for (int i = 1; i <= arg1_total; i++) {
         lua_Unsigned obj;
         lua_rawgeti(L, -1, i);
@@ -2831,8 +2831,8 @@ void auto_olua_pack_cocos2d_backend_TextureInfo(lua_State *L, int idx, cocos2d::
     std::vector<cocos2d::backend::TextureBackend *> arg2;       /** textures */
 
     luaL_checktype(L, idx + 0, LUA_TTABLE);
-    size_t arg1_total = lua_rawlen(L, idx + 0);
-    arg1.reserve(arg1_total);
+    int arg1_total = (int)lua_rawlen(L, idx + 0);
+    arg1.reserve((size_t)arg1_total);
     for (int i = 1; i <= arg1_total; i++) {
         lua_Unsigned obj;
         lua_rawgeti(L, idx + 0, i);

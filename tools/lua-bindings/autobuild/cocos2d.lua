@@ -2285,10 +2285,10 @@ cls.func('getBounds', [[
         auto self = olua_checkobj<cocos2d::Node>(L, 1);
         auto target = olua_checkobj<cocos2d::Node>(L, 2);
 
-        float left = luaL_checknumber(L, 3);
-        float right = luaL_checknumber(L, 4);
-        float top = luaL_checknumber(L, 5);
-        float bottom = luaL_checknumber(L, 6);
+        float left = (float)luaL_checknumber(L, 3);
+        float right = (float)luaL_checknumber(L, 4);
+        float top = (float)luaL_checknumber(L, 5);
+        float bottom = (float)luaL_checknumber(L, 6);
 
         cocos2d::Vec3 p1(left, bottom, 0);
         cocos2d::Vec3 p2(right, top, 0);
@@ -2610,7 +2610,7 @@ cls.prop('anchorX', [[
     {
         auto self = olua_toobj<cocos2d::Node>(L, 1);
         cocos2d::Vec2 anchor = self->getAnchorPoint();
-        anchor.x = olua_checknumber(L, 2);
+        anchor.x = (float)olua_checknumber(L, 2);
         self->setAnchorPoint(anchor);
         return 0;
     }
@@ -2625,7 +2625,7 @@ cls.prop('anchorY', [[
     {
         auto self = olua_toobj<cocos2d::Node>(L, 1);
         cocos2d::Vec2 anchor = self->getAnchorPoint();
-        anchor.y = olua_checknumber(L, 2);
+        anchor.y = (float)olua_checknumber(L, 2);
         self->setAnchorPoint(anchor);
         return 0;
     }
@@ -2640,7 +2640,7 @@ cls.prop('width', [[
     {
         auto self = olua_toobj<cocos2d::Node>(L, 1);
         cocos2d::Size size = self->getContentSize();
-        size.width = olua_checknumber(L, 2);
+        size.width = (float)olua_checknumber(L, 2);
         self->setContentSize(size);
         return 0;
     }
@@ -2655,7 +2655,7 @@ cls.prop('height', [[
     {
         auto self = olua_toobj<cocos2d::Node>(L, 1);
         cocos2d::Size size = self->getContentSize();
-        size.height = olua_checknumber(L, 2);
+        size.height = (float)olua_checknumber(L, 2);
         self->setContentSize(size);
         return 0;
     }
@@ -2669,7 +2669,7 @@ cls.prop('alpha', [[
 ]], [[
     {
         auto self = olua_toobj<cocos2d::Node>(L, 1);
-        self->setOpacity(olua_checknumber(L, 2) * 255.0f);
+        self->setOpacity((uint8_t)olua_checknumber(L, 2) * 255.0f);
         return 0;
     }
 ]])

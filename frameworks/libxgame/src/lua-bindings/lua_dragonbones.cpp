@@ -4394,8 +4394,8 @@ static int _dragonBones_UserData_set_floats(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.UserData");
     luaL_checktype(L, 2, LUA_TTABLE);
-    size_t arg1_total = lua_rawlen(L, 2);
-    arg1.reserve(arg1_total);
+    int arg1_total = (int)lua_rawlen(L, 2);
+    arg1.reserve((size_t)arg1_total);
     for (int i = 1; i <= arg1_total; i++) {
         lua_Number obj;
         lua_rawgeti(L, 2, i);
@@ -4444,8 +4444,8 @@ static int _dragonBones_UserData_set_ints(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.UserData");
     luaL_checktype(L, 2, LUA_TTABLE);
-    size_t arg1_total = lua_rawlen(L, 2);
-    arg1.reserve(arg1_total);
+    int arg1_total = (int)lua_rawlen(L, 2);
+    arg1.reserve((size_t)arg1_total);
     for (int i = 1; i <= arg1_total; i++) {
         lua_Integer obj;
         lua_rawgeti(L, 2, i);
@@ -4494,8 +4494,8 @@ static int _dragonBones_UserData_set_strings(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.UserData");
     luaL_checktype(L, 2, LUA_TTABLE);
-    size_t arg1_total = lua_rawlen(L, 2);
-    arg1.reserve(arg1_total);
+    int arg1_total = (int)lua_rawlen(L, 2);
+    arg1.reserve((size_t)arg1_total);
     for (int i = 1; i <= arg1_total; i++) {
         std::string obj;
         lua_rawgeti(L, 2, i);
@@ -6437,8 +6437,8 @@ static int _dragonBones_ArmatureData_set_animationNames(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
     luaL_checktype(L, 2, LUA_TTABLE);
-    size_t arg1_total = lua_rawlen(L, 2);
-    arg1.reserve(arg1_total);
+    int arg1_total = (int)lua_rawlen(L, 2);
+    arg1.reserve((size_t)arg1_total);
     for (int i = 1; i <= arg1_total; i++) {
         std::string obj;
         lua_rawgeti(L, 2, i);
@@ -9314,8 +9314,8 @@ static int _dragonBones_AnimationData_set_cachedFrames(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
     luaL_checktype(L, 2, LUA_TTABLE);
-    size_t arg1_total = lua_rawlen(L, 2);
-    arg1.reserve(arg1_total);
+    int arg1_total = (int)lua_rawlen(L, 2);
+    arg1.reserve((size_t)arg1_total);
     for (int i = 1; i <= arg1_total; i++) {
         bool obj;
         lua_rawgeti(L, 2, i);
@@ -10188,8 +10188,8 @@ static int _dragonBones_AnimationConfig_set_boneMask(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     luaL_checktype(L, 2, LUA_TTABLE);
-    size_t arg1_total = lua_rawlen(L, 2);
-    arg1.reserve(arg1_total);
+    int arg1_total = (int)lua_rawlen(L, 2);
+    arg1.reserve((size_t)arg1_total);
     for (int i = 1; i <= arg1_total; i++) {
         std::string obj;
         lua_rawgeti(L, 2, i);
@@ -11034,8 +11034,8 @@ static int _dragonBones_DragonBonesData_set_armatureNames(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
     luaL_checktype(L, 2, LUA_TTABLE);
-    size_t arg1_total = lua_rawlen(L, 2);
-    arg1.reserve(arg1_total);
+    int arg1_total = (int)lua_rawlen(L, 2);
+    arg1.reserve((size_t)arg1_total);
     for (int i = 1; i <= arg1_total; i++) {
         std::string obj;
         lua_rawgeti(L, 2, i);
@@ -11154,8 +11154,8 @@ static int _dragonBones_DragonBonesData_set_cachedFrames(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
     luaL_checktype(L, 2, LUA_TTABLE);
-    size_t arg1_total = lua_rawlen(L, 2);
-    arg1.reserve(arg1_total);
+    int arg1_total = (int)lua_rawlen(L, 2);
+    arg1.reserve((size_t)arg1_total);
     for (int i = 1; i <= arg1_total; i++) {
         lua_Number obj;
         lua_rawgeti(L, 2, i);
@@ -11204,8 +11204,8 @@ static int _dragonBones_DragonBonesData_set_frameIndices(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
     luaL_checktype(L, 2, LUA_TTABLE);
-    size_t arg1_total = lua_rawlen(L, 2);
-    arg1.reserve(arg1_total);
+    int arg1_total = (int)lua_rawlen(L, 2);
+    arg1.reserve((size_t)arg1_total);
     for (int i = 1; i <= arg1_total; i++) {
         lua_Unsigned obj;
         lua_rawgeti(L, 2, i);

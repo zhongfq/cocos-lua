@@ -2271,8 +2271,8 @@ static int _cocos2d_backend_ProgramState_setTextureArray(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramState");
     manual_olua_check_cocos2d_backend_UniformLocation(L, 2, &arg1);
     luaL_checktype(L, 3, LUA_TTABLE);
-    size_t arg2_total = lua_rawlen(L, 3);
-    arg2.reserve(arg2_total);
+    int arg2_total = (int)lua_rawlen(L, 3);
+    arg2.reserve((size_t)arg2_total);
     for (int i = 1; i <= arg2_total; i++) {
         lua_Unsigned obj;
         lua_rawgeti(L, 3, i);

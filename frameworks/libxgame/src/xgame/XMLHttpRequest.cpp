@@ -100,7 +100,7 @@ void XMLHttpRequest::send(const char *data, size_t len)
                 _callback(this);
             }
             release();
-        }, this, _timeout, false, "timeout");
+        }, this, (float)_timeout, false, "timeout");
     }
 }
 

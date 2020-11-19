@@ -48,8 +48,8 @@ template <typename T> int manual_olua_push_cocos2d_Vector(lua_State *L, const co
 template <typename T> void manual_olua_check_cocos2d_Vector(lua_State *L, int idx, cocos2d::Vector<T*> &v, const char *cls)
 {
     luaL_checktype(L, idx, LUA_TTABLE);
-    size_t total = lua_rawlen(L, idx);
-    v.reserve(total);
+    int total = (int)lua_rawlen(L, idx);
+    v.reserve((size_t)total);
     for (int i = 1; i <= total; i++) {
         lua_rawgeti(L, idx, i);
         T* obj;
@@ -61,8 +61,8 @@ template <typename T> void manual_olua_check_cocos2d_Vector(lua_State *L, int id
 
 template <typename T> void manual_olua_pack_cocos2d_Vector(lua_State *L, int idx, cocos2d::Vector<T*> &v, const char *cls)
 {
-    size_t total = lua_gettop(L) - (idx - 1);
-    v.reserve(total);
+    int total = (int)(lua_gettop(L) - (idx - 1));
+    v.reserve((size_t)total);
     for (int i = 0; i < total; i++) {
         T* obj;
         olua_check_cppobj(L, idx + i, (void **)&obj, cls);

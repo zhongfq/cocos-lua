@@ -10846,8 +10846,8 @@ static int _cocos2d_FileUtils_setSearchPaths(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
     luaL_checktype(L, 2, LUA_TTABLE);
-    size_t arg1_total = lua_rawlen(L, 2);
-    arg1.reserve(arg1_total);
+    int arg1_total = (int)lua_rawlen(L, 2);
+    arg1.reserve((size_t)arg1_total);
     for (int i = 1; i <= arg1_total; i++) {
         std::string obj;
         lua_rawgeti(L, 2, i);
@@ -10873,8 +10873,8 @@ static int _cocos2d_FileUtils_setSearchResolutionsOrder(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
     luaL_checktype(L, 2, LUA_TTABLE);
-    size_t arg1_total = lua_rawlen(L, 2);
-    arg1.reserve(arg1_total);
+    int arg1_total = (int)lua_rawlen(L, 2);
+    arg1.reserve((size_t)arg1_total);
     for (int i = 1; i <= arg1_total; i++) {
         std::string obj;
         lua_rawgeti(L, 2, i);
@@ -11922,8 +11922,8 @@ static int _cocos2d_GLView_setIcon2(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
     luaL_checktype(L, 2, LUA_TTABLE);
-    size_t arg1_total = lua_rawlen(L, 2);
-    arg1.reserve(arg1_total);
+    int arg1_total = (int)lua_rawlen(L, 2);
+    arg1.reserve((size_t)arg1_total);
     for (int i = 1; i <= arg1_total; i++) {
         std::string obj;
         lua_rawgeti(L, 2, i);
@@ -20913,10 +20913,10 @@ static int _cocos2d_Node_getBounds(lua_State *L)
     auto self = olua_checkobj<cocos2d::Node>(L, 1);
     auto target = olua_checkobj<cocos2d::Node>(L, 2);
 
-    float left = luaL_checknumber(L, 3);
-    float right = luaL_checknumber(L, 4);
-    float top = luaL_checknumber(L, 5);
-    float bottom = luaL_checknumber(L, 6);
+    float left = (float)luaL_checknumber(L, 3);
+    float right = (float)luaL_checknumber(L, 4);
+    float top = (float)luaL_checknumber(L, 5);
+    float bottom = (float)luaL_checknumber(L, 6);
 
     cocos2d::Vec3 p1(left, bottom, 0);
     cocos2d::Vec3 p2(right, top, 0);
@@ -24396,7 +24396,7 @@ static int _cocos2d_Node_set_alpha(lua_State *L)
     olua_startinvoke(L);
 
     auto self = olua_toobj<cocos2d::Node>(L, 1);
-    self->setOpacity(olua_checknumber(L, 2) * 255.0f);
+    self->setOpacity((uint8_t)olua_checknumber(L, 2) * 255.0f);
 
     olua_endinvoke(L);
 
@@ -24421,7 +24421,7 @@ static int _cocos2d_Node_set_anchorX(lua_State *L)
 
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     cocos2d::Vec2 anchor = self->getAnchorPoint();
-    anchor.x = olua_checknumber(L, 2);
+    anchor.x = (float)olua_checknumber(L, 2);
     self->setAnchorPoint(anchor);
 
     olua_endinvoke(L);
@@ -24447,7 +24447,7 @@ static int _cocos2d_Node_set_anchorY(lua_State *L)
 
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     cocos2d::Vec2 anchor = self->getAnchorPoint();
-    anchor.y = olua_checknumber(L, 2);
+    anchor.y = (float)olua_checknumber(L, 2);
     self->setAnchorPoint(anchor);
 
     olua_endinvoke(L);
@@ -24473,7 +24473,7 @@ static int _cocos2d_Node_set_height(lua_State *L)
 
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     cocos2d::Size size = self->getContentSize();
-    size.height = olua_checknumber(L, 2);
+    size.height = (float)olua_checknumber(L, 2);
     self->setContentSize(size);
 
     olua_endinvoke(L);
@@ -24499,7 +24499,7 @@ static int _cocos2d_Node_set_width(lua_State *L)
 
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     cocos2d::Size size = self->getContentSize();
-    size.width = olua_checknumber(L, 2);
+    size.width = (float)olua_checknumber(L, 2);
     self->setContentSize(size);
 
     olua_endinvoke(L);
@@ -51608,8 +51608,8 @@ static int _cocos2d_NavMesh_findPath(lua_State *L)
     auto_olua_check_cocos2d_Vec3(L, 2, &arg1);
     auto_olua_check_cocos2d_Vec3(L, 3, &arg2);
     luaL_checktype(L, 4, LUA_TTABLE);
-    size_t arg3_total = lua_rawlen(L, 4);
-    arg3.reserve(arg3_total);
+    int arg3_total = (int)lua_rawlen(L, 4);
+    arg3.reserve((size_t)arg3_total);
     for (int i = 1; i <= arg3_total; i++) {
         cocos2d::Vec3 obj;
         lua_rawgeti(L, 4, i);

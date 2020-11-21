@@ -24396,7 +24396,7 @@ static int _cocos2d_Node_set_alpha(lua_State *L)
     olua_startinvoke(L);
 
     auto self = olua_toobj<cocos2d::Node>(L, 1);
-    self->setOpacity((uint8_t)olua_checknumber(L, 2) * 255.0f);
+    self->setOpacity((uint8_t)(olua_checknumber(L, 2) * 255.0f));
 
     olua_endinvoke(L);
 

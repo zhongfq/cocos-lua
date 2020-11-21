@@ -12152,7 +12152,7 @@ static int _spine_SkeletonData_new(lua_State *L)
 
     const char *skel_path = olua_checkstring(L, 1);
     const char *atlas_path = olua_checkstring(L, 2);
-    float scale = olua_optnumber(L, 3, 1);
+    float scale = (float)olua_optnumber(L, 3, 1);
 
     auto texture_loader = new spine::Cocos2dTextureLoader();
     auto atlas = new spine::Atlas(atlas_path, texture_loader);

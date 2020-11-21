@@ -610,7 +610,7 @@ Node.PROP('alpha', [[
 ]], [[
 {
     auto self = olua_toobj<cocos2d::Node>(L, 1);
-    self->setOpacity((uint8_t)olua_checknumber(L, 2) * 255.0f);
+    self->setOpacity((uint8_t)(olua_checknumber(L, 2) * 255.0f));
     return 0;
 }]])
 Node.CALLBACK {NAME = 'setOnEnterCallback', NULLABLE = true}

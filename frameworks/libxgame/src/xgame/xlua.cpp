@@ -251,10 +251,7 @@ lua_State *xlua_new()
     lua_State *L = luaL_newstate();
     
 #if LUA_VERSION_NUM == 501
-    lua_pushthread(L);
-    lua_rawseti(L, LUA_REGISTRYINDEX, LUA_RIDX_MAINTHREAD);
-    lua_pushvalue(L, LUA_GLOBALSINDEX);
-    lua_rawseti(L, LUA_REGISTRYINDEX, LUA_RIDX_GLOBALS);
+    olua_initcompat(L);
 #endif
     
     luaL_openlibs(L);

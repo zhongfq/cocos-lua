@@ -928,10 +928,14 @@ OLUA_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         }
         lua_pop(L, 1);
     } else if (!strequal(cls, OLUA_VOIDCLS)) {
-        oluacls_class(L, OLUA_VOIDCLS, NULL);
-        oluacls_func(L, "__eq", cls_eq);
-        oluacls_func(L, "__tostring", cls_tostring);
-        lua_pop(L, 1);
+        if (olua_getmetatable(L, OLUA_VOIDCLS) == LUA_TNIL) {
+            oluacls_class(L, OLUA_VOIDCLS, NULL);
+            oluacls_func(L, "__eq", cls_eq);
+            oluacls_func(L, "__tostring", cls_tostring);
+            lua_pop(L, 2);
+        } else {
+            lua_pop(L, 1);
+        }
         super = OLUA_VOIDCLS;
     }
     
@@ -1418,7 +1422,7 @@ OLUA_API void olua_checkcompat(lua_State *L)
     }
     lua_rawgeti(L, LUA_REGISTRYINDEX, LUA_RIDX_GLOBALS);
     if (lua_type(L, -1) != LUA_TTABLE) {
-        luaL_error(L, "main thread not set");
+        luaL_error(L, "global table not set");
     }
     if (!lua_rawequal(L, -1, LUA_GLOBALSINDEX)) {
         luaL_error(L, "global table not match");

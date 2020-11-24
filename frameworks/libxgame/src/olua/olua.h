@@ -42,9 +42,9 @@ extern "C" {
 #include <math.h>
 
 #ifdef OLUA_DEBUG
-#define olua_assert(e) assert(e)
+#define olua_assert(e, msg) assert((e) && (msg))
 #else
-#define olua_assert(e) ((void)0)
+#define olua_assert(e, msg) ((void)0)
 #endif
 
 #ifndef OLUA_API

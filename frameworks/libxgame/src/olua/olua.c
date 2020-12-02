@@ -486,9 +486,9 @@ OLUA_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, 
         olua_vmstatus_t *vms = aux_getvmstatus(L);
         aux_checkref(vms);
         while (true) {
-            lua_Integer ref = ++vms->ref;
+            int ref = ++vms->ref;
             char refstr[64];
-            sprintf(refstr, "%lld", (int64_t)ref); // lua5.1 not support %I
+            sprintf(refstr, "%d", ref); // lua5.1 not support %I
             func = lua_pushfstring(L, ".callback#%s$%s@%s", refstr, cls, tag);
             lua_pushvalue(L, -1);               // L: obj ut k k
             if (olua_rawget(L, -3) == LUA_TNIL) {

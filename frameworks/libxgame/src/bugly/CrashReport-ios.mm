@@ -6,7 +6,7 @@
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
 #import <Foundation/Foundation.h>
-#import "Bugly.h"
+#import <Bugly/Bugly.h>
 
 #define NSStringMake(str) (str == NULL ? nil : @(str))
 #define NSStringMakeNonnull(str) (str == NULL ? @"" : @(str))

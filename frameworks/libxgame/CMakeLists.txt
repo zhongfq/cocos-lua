@@ -111,8 +111,8 @@ if (IOS)
     set_xcode_property(xgame IPHONEOS_DEPLOYMENT_TARGET "9.0")
 
     if (CCLUA_BUILD_BUGLY)
-        add_subdirectory(src/bugly/ios)
-        target_link_libraries(xgame bugly)
+        set(BUGLY_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/src/bugly/Bugly.framework")
+        target_link_libraries(xgame ${BUGLY_LIBRARY})
     endif()
 
     find_library(SC_LIBRARY SystemConfiguration)

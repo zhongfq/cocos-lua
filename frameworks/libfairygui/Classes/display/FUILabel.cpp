@@ -126,6 +126,12 @@ bool FUILabel::setBMFontFilePath(const std::string& bmfontFilePath, const Vec2& 
         reset();
         return false;
     }
+    
+    if (_overflow == Label::Overflow::SHRINK && !bmFont->isResizable())
+    {
+        std::string msg = "please set bmfont with dynamic size: " + bmfontFilePath;
+        CCASSERT(false, msg.c_str());
+    }
 
     //assign the default fontSize
     if (std::abs(fontSize) < FLT_EPSILON)

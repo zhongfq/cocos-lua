@@ -14,7 +14,6 @@ local UIImage = class("UIImage", UIView)
 function UIImage:ctor()
     self._capInset = false
     self._url = false
-    self.filePath = false
     self.preferredWidth = 0
     self.preferredHeight = 0
 end
@@ -25,13 +24,7 @@ function UIImage.Get:cobj()
     return cobj
 end
 
-function UIImage:unload()
-    self.filePath = false
-end
-
 function UIImage:loadTexture(path)
-    self.filePath = path
-
     if filesystem.exist(path) then
         self.cobj:loadTexture(path, TextureResType.LOCAL)
     else

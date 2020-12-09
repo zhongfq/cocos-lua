@@ -25,6 +25,8 @@
 #include "Utils.h"
 #include "DeviceMTL.h"
 #include "base/CCConfiguration.h"
+#include "base/CCDirector.h"
+#include "base/CCScheduler.h"
 #include "platform/CCGLView.h"
 
 #define COLOR_ATTAHCMENT_PIXEL_FORMAT MTLPixelFormatBGRA8Unorm
@@ -301,8 +303,11 @@ void Utils::getTextureBytes(std::size_t origX, std::size_t origY, std::size_t re
             [copiedTexture getBytes:image bytesPerRow:bytePerRow fromRegion:imageRegion mipmapLevel:0];
             swizzleImage(image, rectWidth, rectHeight, texture.pixelFormat);
         }
-        callback(image, rectWidth, rectHeight);
-        CC_SAFE_DELETE_ARRAY(image);
+        auto scheduler = cocos2d::Director::getInstance()->getScheduler();
+        scheduler->performFunctionInCocosThread([callback, image, rectWidth, rectHeight]() mutable {
+            callback(image, rectWidth, rectHeight);
+            CC_SAFE_DELETE_ARRAY(image);
+        });
         [copiedTexture release];
     }];
     [commandBuffer commit];

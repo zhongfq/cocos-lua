@@ -112,6 +112,7 @@ static int _cocos2d_ui_Widget_addCCSEventListener(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::Ref *arg1, int arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -153,6 +154,7 @@ static int _cocos2d_ui_Widget_addClickEventListener(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::Ref *arg1) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -193,6 +195,7 @@ static int _cocos2d_ui_Widget_addTouchEventListener(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::Ref *arg1, cocos2d::ui::Widget::TouchEventType arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -1564,6 +1567,7 @@ static int _cocos2d_ui_Widget_set_onFocusChanged(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::ui::Widget *arg1, cocos2d::ui::Widget *arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -1626,6 +1630,7 @@ static int _cocos2d_ui_Widget_set_onNextFocusedWidget(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::ui::Widget::FocusDirection arg1) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
             cocos2d::ui::Widget *ret = nullptr;       
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -5316,6 +5321,7 @@ static int _cocos2d_ui_Layout_set_onPassFocusToChild(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::ui::Widget::FocusDirection arg1, cocos2d::ui::Widget *arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
             lua_Integer ret = 0;       
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -6211,6 +6217,7 @@ static int _cocos2d_ui_WebView_setOnDidFailLoading(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::ui::WebView *arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -6252,6 +6259,7 @@ static int _cocos2d_ui_WebView_setOnDidFinishLoading(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::ui::WebView *arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -6293,6 +6301,7 @@ static int _cocos2d_ui_WebView_setOnJSCallback(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::ui::WebView *arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -6334,6 +6343,7 @@ static int _cocos2d_ui_WebView_setOnShouldStartLoading(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::ui::WebView *arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
             bool ret = false;       
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -6517,6 +6527,7 @@ static int _cocos2d_ui_VideoPlayer_addEventListener(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::Ref *arg1, cocos2d::ui::VideoPlayer::EventType arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -8517,6 +8528,7 @@ static int _cocos2d_ui_TabControl_setTabChangedEventListener(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](int arg1, cocos2d::ui::TabControl::EventType arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -8642,6 +8654,7 @@ static int _cocos2d_ui_ScrollView_addEventListener(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::Ref *arg1, cocos2d::ui::ScrollView::EventType arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -9940,6 +9953,7 @@ static int _cocos2d_ui_ListView_addEventListener(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::Ref *arg1, cocos2d::ui::ListView::EventType arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -11367,6 +11381,7 @@ static int _cocos2d_ui_PageView_addEventListener(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::Ref *arg1, cocos2d::ui::PageView::EventType arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -13557,6 +13572,7 @@ static int _cocos2d_ui_RichText_createWithXML1(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg3 = [cb_store, cb_name, cb_ctx](const std::string &arg1) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -14655,6 +14671,7 @@ static int _cocos2d_ui_RichText_setOpenUrlHandler(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](const std::string &arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -15179,6 +15196,7 @@ static int _cocos2d_ui_Slider_addEventListener(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::Ref *arg1, cocos2d::ui::Slider::EventType arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -18177,6 +18195,7 @@ static int _cocos2d_ui_TextField_addEventListener(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::Ref *arg1, cocos2d::ui::TextField::EventType arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -20507,6 +20526,7 @@ static int _cocos2d_ui_CheckBox_addEventListener(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::Ref *arg1, cocos2d::ui::CheckBox::EventType arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -20759,6 +20779,7 @@ static int _cocos2d_ui_RadioButton_addEventListener(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::ui::RadioButton *arg1, cocos2d::ui::RadioButton::EventType arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -21010,6 +21031,7 @@ static int _cocos2d_ui_RadioButtonGroup_addEventListener(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::ui::RadioButton *arg1, int arg2, cocos2d::ui::RadioButtonGroup::EventType arg3) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -21945,6 +21967,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onEditingDidBegin(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::ui::EditBox *arg1) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -22011,6 +22034,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onEditingDidEndWithAction(lua_Stat
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::ui::EditBox *arg1, cocos2d::ui::EditBoxDelegate::EditBoxEndAction arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -22078,6 +22102,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onReturn(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::ui::EditBox *arg1) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -22144,6 +22169,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onTextChanged(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::ui::EditBox *arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);

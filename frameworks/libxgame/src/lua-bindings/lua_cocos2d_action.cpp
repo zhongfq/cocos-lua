@@ -4345,6 +4345,7 @@ static int _cocos2d_ActionFloat_create(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg4 = [cb_store, cb_name, cb_ctx](float arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -7145,6 +7146,7 @@ static int _cocos2d_CallFunc_create(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx]() {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);

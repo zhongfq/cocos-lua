@@ -773,6 +773,7 @@ static int _cocos2d_backend_CommandBuffer_captureScreen(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](const unsigned char *arg1, int arg2, int arg3) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -2882,6 +2883,7 @@ static int _cocos2d_backend_TextureBackend_getBytes(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg6 = [cb_store, cb_name, cb_ctx](const unsigned char *arg1, std::size_t arg2, std::size_t arg3) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);

@@ -85,6 +85,13 @@
 #endif
 
 /**
+ * Help to check whether callback is run on the host thread of lua vm.
+ */
+#ifndef olua_checkhostthread
+#define olua_checkhostthread() ((void)0)
+#endif
+
+/**
  * Help you to delete ref when the function prototype don't provide enough
  * information. You can record some information in olua_startcmpdelref and
  * delete ref in olua_endcmpdelref by compare.

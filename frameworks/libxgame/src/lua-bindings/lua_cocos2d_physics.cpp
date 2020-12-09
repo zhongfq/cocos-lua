@@ -167,6 +167,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactBegin(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::PhysicsContact &arg1) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
             bool ret = false;       
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -238,6 +239,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPostSolve(lua_State
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::PhysicsContact &arg1, const cocos2d::PhysicsContactPostSolve &arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -305,6 +307,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPreSolve(lua_State 
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::PhysicsContact &arg1, cocos2d::PhysicsContactPreSolve &arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
             bool ret = false;       
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -377,6 +380,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactSeparate(lua_State 
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::PhysicsContact &arg1) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -6834,6 +6838,7 @@ static int _cocos2d_PhysicsWorld_queryPoint(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](cocos2d::PhysicsWorld &arg1, cocos2d::PhysicsShape &arg2, void *arg3) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
         bool ret = false;       
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -6884,6 +6889,7 @@ static int _cocos2d_PhysicsWorld_queryRect(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](cocos2d::PhysicsWorld &arg1, cocos2d::PhysicsShape &arg2, void *arg3) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
         bool ret = false;       
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -6936,6 +6942,7 @@ static int _cocos2d_PhysicsWorld_rayCast(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](cocos2d::PhysicsWorld &arg1, const cocos2d::PhysicsRayCastInfo &arg2, void *arg3) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
         bool ret = false;       
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -7245,6 +7252,7 @@ static int _cocos2d_PhysicsWorld_setPostUpdateCallback(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx]() {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -7284,6 +7292,7 @@ static int _cocos2d_PhysicsWorld_setPreUpdateCallback(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx]() {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);

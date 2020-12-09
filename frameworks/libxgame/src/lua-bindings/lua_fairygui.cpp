@@ -481,6 +481,7 @@ static int _fairygui_UIEventDispatcher_addEventListener1(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](fairygui::EventContext *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -524,6 +525,7 @@ static int _fairygui_UIEventDispatcher_addEventListener2(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](fairygui::EventContext *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -1832,6 +1834,7 @@ static int _fairygui_InputProcessor_setCaptureCallback(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](int arg1) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -3436,6 +3439,7 @@ static int _fairygui_GTweener_onComplete(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx]() {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -3470,6 +3474,7 @@ static int _fairygui_GTweener_onComplete1(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](fairygui::GTweener *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -3505,6 +3510,7 @@ static int _fairygui_GTweener_onStart(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](fairygui::GTweener *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -3540,6 +3546,7 @@ static int _fairygui_GTweener_onUpdate(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](fairygui::GTweener *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -6837,6 +6844,7 @@ static int _fairygui_GObject_addClickListener1(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](fairygui::EventContext *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -6878,6 +6886,7 @@ static int _fairygui_GObject_addClickListener2(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](fairygui::EventContext *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -15956,6 +15965,7 @@ static int _fairygui_GList_set_itemProvider(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](int arg1) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
             std::string ret;       
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -16022,6 +16032,7 @@ static int _fairygui_GList_set_itemRenderer(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](int arg1, fairygui::GObject *arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -16386,6 +16397,7 @@ static int _fairygui_GMovieClip_setPlaySettings1(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg5 = [cb_store, cb_name, cb_ctx]() {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -17921,6 +17933,7 @@ static int _fairygui_PopupMenu_addItem(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](fairygui::EventContext *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -17980,6 +17993,7 @@ static int _fairygui_PopupMenu_addItemAt(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg3 = [cb_store, cb_name, cb_ctx](fairygui::EventContext *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -21012,6 +21026,7 @@ static int _fairygui_Transition_play1(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx]() {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -21055,6 +21070,7 @@ static int _fairygui_Transition_play2(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg3 = [cb_store, cb_name, cb_ctx]() {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -21102,6 +21118,7 @@ static int _fairygui_Transition_play3(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg5 = [cb_store, cb_name, cb_ctx]() {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -21250,6 +21267,7 @@ static int _fairygui_Transition_playReverse1(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx]() {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -21293,6 +21311,7 @@ static int _fairygui_Transition_playReverse2(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg3 = [cb_store, cb_name, cb_ctx]() {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -21447,6 +21466,7 @@ static int _fairygui_Transition_setHook(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg2 = [cb_store, cb_name, cb_ctx]() {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -22448,6 +22468,7 @@ static int _fairygui_IUISource_load(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx]() {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -23544,6 +23565,7 @@ static int _fairygui_UIObjectFactory_setLoaderExtension(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx]() {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
         fairygui::GLoader *ret = nullptr;       
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -23582,6 +23604,7 @@ static int _fairygui_UIObjectFactory_setPackageItemExtension(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx]() {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
         fairygui::GComponent *ret = nullptr;       
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -24748,6 +24771,7 @@ static int _fairygui_GTree_set_treeNodeRender(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](fairygui::GTreeNode *arg1, fairygui::GComponent *arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -24810,6 +24834,7 @@ static int _fairygui_GTree_set_treeNodeWillExpand(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](fairygui::GTreeNode *arg1, bool arg2) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -25805,6 +25830,7 @@ static int _fairygui_FUIRichText_setObjectFactory(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](fairygui::HtmlElement *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
         fairygui::HtmlObject *ret = nullptr;       
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);

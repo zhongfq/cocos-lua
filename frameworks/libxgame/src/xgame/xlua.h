@@ -10,6 +10,11 @@
 #define CCLUA_HAVE_VIDEOPLAYER
 #endif
 
+static inline bool isInCocosThread() {
+    return cocos2d::Director::getInstance()->getCocos2dThreadId() == std::this_thread::get_id();
+}
+
+#define olua_checkhostthread()            assert(isInCocosThread() && "callback should run on cocos thread")
 #define olua_mainthread(L)              xlua_mainthread(L)
 #define olua_startcmpdelref(L, i, n)    xlua_startcmpdelref(L, (i), (n))
 #define olua_endcmpdelref(L, i, n)      xlua_endcmpdelref(L, (i), (n))

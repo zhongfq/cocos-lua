@@ -283,6 +283,7 @@ static int _xgame_runtime_alert(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg5 = [cb_store, cb_name, cb_ctx](bool arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -741,6 +742,7 @@ static int _xgame_runtime_openURL1(lua_State *L)
         lua_Integer cb_ctx = olua_context(L);
         arg2 = [cb_store, cb_name, cb_ctx](bool arg1) {
             lua_State *L = olua_mainthread(NULL);
+            olua_checkhostthread();
 
             if (L != NULL && olua_context(L) == cb_ctx) {
                 int top = lua_gettop(L);
@@ -831,6 +833,7 @@ static int _xgame_runtime_requestPermission(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](xgame::PermissionStatus arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -893,6 +896,7 @@ static int _xgame_runtime_setDispatcher(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](const std::string &arg1, const std::string &arg2) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -2067,6 +2071,7 @@ static int _xgame_timer_delay(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx]() {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -2104,6 +2109,7 @@ static int _xgame_timer_delayWithTag(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg3 = [cb_store, cb_name, cb_ctx]() {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -2534,6 +2540,7 @@ static int _xgame_downloader_setDispatcher(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](const xgame::downloader::FileTask &arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);

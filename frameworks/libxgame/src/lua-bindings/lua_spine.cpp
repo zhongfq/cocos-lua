@@ -1264,6 +1264,7 @@ static int _spine_AnimationState_setListener(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](spine::AnimationState *arg1, spine::EventType arg2, spine::TrackEntry *arg3, spine::Event *arg4) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -11345,6 +11346,7 @@ static int _spine_TrackEntry_setListener(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](spine::AnimationState *arg1, spine::EventType arg2, spine::TrackEntry *arg3, spine::Event *arg4) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -15302,6 +15304,7 @@ static int _spine_SkeletonAnimation_setCompleteListener(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -15336,6 +15339,7 @@ static int _spine_SkeletonAnimation_setDisposeListener(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -15412,6 +15416,7 @@ static int _spine_SkeletonAnimation_setEndListener(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -15446,6 +15451,7 @@ static int _spine_SkeletonAnimation_setEventListener(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1, spine::Event *arg2) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -15481,6 +15487,7 @@ static int _spine_SkeletonAnimation_setInterruptListener(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -15537,6 +15544,7 @@ static int _spine_SkeletonAnimation_setPostUpdateWorldTransformsListener(lua_Sta
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](spine::SkeletonAnimation *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -15576,6 +15584,7 @@ static int _spine_SkeletonAnimation_setPreUpdateWorldTransformsListener(lua_Stat
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](spine::SkeletonAnimation *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -15615,6 +15624,7 @@ static int _spine_SkeletonAnimation_setStartListener(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -15651,6 +15661,7 @@ static int _spine_SkeletonAnimation_setTrackCompleteListener(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -15687,6 +15698,7 @@ static int _spine_SkeletonAnimation_setTrackDisposeListener(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -15723,6 +15735,7 @@ static int _spine_SkeletonAnimation_setTrackEndListener(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -15759,6 +15772,7 @@ static int _spine_SkeletonAnimation_setTrackEventListener(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1, spine::Event *arg2) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -15796,6 +15810,7 @@ static int _spine_SkeletonAnimation_setTrackInterruptListener(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -15832,6 +15847,7 @@ static int _spine_SkeletonAnimation_setTrackStartListener(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);

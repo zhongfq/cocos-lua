@@ -237,7 +237,7 @@ void runtime::luaOpen(lua_CFunction libfunc)
 //
 const std::string runtime::getVersion()
 {
-    return "1.16.1";
+    return "1.16.6";
 }
 
 const std::string runtime::getPackageName()
@@ -417,7 +417,7 @@ void runtime::setDispatcher(const EventDispatcher &dispatcher)
 
 void runtime::dispatchEvent(const std::string &event, const std::string &args)
 {
-    if (Director::getInstance()->getCocos2dThreadId() == std::this_thread::get_id()) {
+    if (isInCocosThread()) {
         if (_dispatcher) {
             _dispatcher(event, args);
         } else {

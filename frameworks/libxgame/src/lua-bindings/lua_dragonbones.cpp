@@ -14875,6 +14875,7 @@ static int _dragonBones_CCArmatureDisplay_addDBEventListener(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](dragonBones::EventObject *arg1) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);

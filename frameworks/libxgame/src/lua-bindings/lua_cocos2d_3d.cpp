@@ -2036,6 +2036,7 @@ static int _cocos2d_Sprite3D_createAsync1(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](cocos2d::Sprite3D *arg1, void *arg2) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);
@@ -2080,6 +2081,7 @@ static int _cocos2d_Sprite3D_createAsync2(lua_State *L)
     lua_Integer cb_ctx = olua_context(L);
     arg3 = [cb_store, cb_name, cb_ctx](cocos2d::Sprite3D *arg1, void *arg2) {
         lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
 
         if (L != NULL && olua_context(L) == cb_ctx) {
             int top = lua_gettop(L);

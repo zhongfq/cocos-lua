@@ -82,4 +82,71 @@ void SceneNoCamera::removeAllChildren()
     Node::removeAllChildren();
 }
 
+MaskLayout::~MaskLayout()
+{
+    CC_SAFE_RELEASE(_filter);
+}
+
+void MaskLayout::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4& parentTransform, uint32_t parentFlags)
+{
+    if (!_visible)
+    {
+        return;
+    }
+    
+    if (_filter) {
+        uint32_t flags = processParentFlags(parentTransform, parentFlags);
+        Director* director = Director::getInstance();
+        CCASSERT(nullptr != director, "Director is null when setting matrix stack");
+        director->pushMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
+        director->loadMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW, _modelViewTransform);
+        _filter->visit(renderer, _modelViewTransform, flags);
+        director->popMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
+    } else {
+        Layout::visit(renderer, parentTransform, parentFlags);
+    }
+}
+
+void MaskLayout::onEnter()
+{
+    Layout::onEnter();
+    if (_filter) {
+        _filter->onEnter();
+    }
+}
+
+void MaskLayout::onExit()
+{
+    Layout::onExit();
+    if (_filter) {
+        _filter->onExit();
+    }
+}
+
+void MaskLayout::setFilter(cocos2d::Node *value)
+{
+    if (value != _filter) {
+        CC_SAFE_RELEASE(_filter);
+        CC_SAFE_RETAIN(value);
+        if (_filter) {
+            _filter->setParent(nullptr);
+            if (_running) {
+                _filter->onExit();
+            }
+        }
+        _filter = value;
+        if (_filter) {
+            _filter->setParent(this);
+            if (_running) {
+                _filter->onEnter();
+            }
+        }
+    }
+}
+
+cocos2d::Node *MaskLayout::getFilter()
+{
+    return _filter;
+}
+
 NS_XGAME_END

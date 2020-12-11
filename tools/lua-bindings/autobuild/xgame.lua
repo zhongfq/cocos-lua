@@ -359,8 +359,12 @@ cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
 cls.func(nil, 'static xgame::MaskLayout *create()')
+cls.func(nil, 'MaskLayout()')
 cls.func(nil, 'cocos2d::DrawNode *getClippingNode()')
+cls.func(nil, 'void setFilter(@nullable@addref(filter ^) cocos2d::Node *value)')
+cls.func(nil, '@addref(filter ^) cocos2d::Node *getFilter()')
 cls.prop('clippingNode', nil, nil)
+cls.prop('filter', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
 return M

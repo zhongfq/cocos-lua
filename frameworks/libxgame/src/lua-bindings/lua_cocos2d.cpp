@@ -3395,6 +3395,8 @@ static int luaopen_cocos2d_Scheduler(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_EventDispatcher_addEventListenerWithFixedPriority(lua_State *L);
+
 static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
 {
     if (olua_getrawobj(L, target)) {
@@ -3473,6 +3475,18 @@ static int _cocos2d_EventDispatcher_addCustomEventListener(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
+}
+
+static int _cocos2d_EventDispatcher_addEventListener(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+    olua_push_int(L, 1);
+
+    olua_endinvoke(L);
+
+    return _cocos2d_EventDispatcher_addEventListenerWithFixedPriority(L);
 }
 
 static int _cocos2d_EventDispatcher_addEventListenerWithFixedPriority(lua_State *L)
@@ -3987,6 +4001,7 @@ static int luaopen_cocos2d_EventDispatcher(lua_State *L)
     oluacls_class(L, "cc.EventDispatcher", "cc.Ref");
     oluacls_func(L, "__move", _cocos2d_EventDispatcher___move);
     oluacls_func(L, "addCustomEventListener", _cocos2d_EventDispatcher_addCustomEventListener);
+    oluacls_func(L, "addEventListener", _cocos2d_EventDispatcher_addEventListener);
     oluacls_func(L, "addEventListenerWithFixedPriority", _cocos2d_EventDispatcher_addEventListenerWithFixedPriority);
     oluacls_func(L, "addEventListenerWithSceneGraphPriority", _cocos2d_EventDispatcher_addEventListenerWithSceneGraphPriority);
     oluacls_func(L, "dispatchCustomEvent", _cocos2d_EventDispatcher_dispatchCustomEvent);

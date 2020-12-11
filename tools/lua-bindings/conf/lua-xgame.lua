@@ -152,5 +152,7 @@ typeconf 'xgame::window'
 typeconf 'xgame::downloader::FileState'
 typeconf 'xgame::downloader'
 typeconf 'xgame::MaskLayout'
+    .ATTR('getFilter', {RET = '@addref(filter ^)'})
+    .ATTR('setFilter', {ARG1 = '@nullable@addref(filter ^)'})
 
 return M

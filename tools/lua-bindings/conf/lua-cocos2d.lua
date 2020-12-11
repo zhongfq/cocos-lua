@@ -154,6 +154,8 @@ EventDispatcher.CALLBACK {
     TAG_MODE = 'OLUA_TAG_NEW',
 }
 EventDispatcher.CHUNK = [[
+static int _cocos2d_EventDispatcher_addEventListenerWithFixedPriority(lua_State *L);
+
 static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
 {
     if (olua_getrawobj(L, target)) {
@@ -178,6 +180,13 @@ EventDispatcher.INSERT('removeEventListenersForTarget', {
         doRemoveEventListenersForTarget(L, node, recursive, "listeners");
     ]]
 })
+EventDispatcher.FUNC('addEventListener', [[
+{
+    lua_settop(L, 2);
+    olua_push_int(L, 1);
+    return _cocos2d_EventDispatcher_addEventListenerWithFixedPriority(L);
+}
+]])
 
 typeconf 'cocos2d::EventListener::Type'
 

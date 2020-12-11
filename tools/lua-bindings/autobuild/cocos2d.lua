@@ -359,6 +359,8 @@ cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = [[
+    static int _cocos2d_EventDispatcher_addEventListenerWithFixedPriority(lua_State *L);
+
     static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
     {
         if (olua_getrawobj(L, target)) {
@@ -374,6 +376,13 @@ cls.CHUNK = [[
         }
     }
 ]]
+cls.func('addEventListener', [[
+    {
+        lua_settop(L, 2);
+        olua_push_int(L, 1);
+        return _cocos2d_EventDispatcher_addEventListenerWithFixedPriority(L);
+    }
+]])
 cls.func(nil, 'void addEventListenerWithSceneGraphPriority(@addref(listeners | 3) cocos2d::EventListener *listener, cocos2d::Node *node)')
 cls.func(nil, 'void addEventListenerWithFixedPriority(@addref(listeners |) cocos2d::EventListener *listener, int fixedPriority)')
 cls.func(nil, '@delref(listeners ~) void removeEventListener(@delref(listeners |) cocos2d::EventListener *listener)')

@@ -9,15 +9,16 @@ local ProgramState          = require "ccb.ProgramState"
 
 local director = Director.instance
 
-local GaussFilter = class('GaussFilter')
+local BlurFilter = class('BlurFilter')
 
-function GaussFilter:ctor(scale, dynamic, radius)
-    self.radius = radius or 1
+function BlurFilter:ctor(scale, dynamic, blurRadius, sampleCount)
     self.scale = scale or 0.5
+    self.blurRadius = blurRadius or 5
+    self.sampleCount = sampleCount or 3
     self.dynamic = dynamic
 end
 
-function GaussFilter:apply(source, dest)
+function BlurFilter:apply(source, dest)
     local width = source.width * self.scale // 1
     local height = source.height * self.scale // 1
     local snapshot = self:_createRenderTexture("snapshot", width, height)
@@ -88,20 +89,20 @@ function GaussFilter:apply(source, dest)
     dest.scaleY = 1 / self.scale
 end
 
-function GaussFilter:_createSprite(texture)
+function BlurFilter:_createSprite(texture)
     local sprite = Sprite.createWithTexture(texture)
     sprite.ignoreAnchorPointForPosition = true
     sprite.flippedY = true
     return sprite
 end
 
-function GaussFilter:_createBlurSprite(texture, x, y, width, height)
+function BlurFilter:_createBlurSprite(texture, x, y, width, height)
     local sprite = self:_createSprite(texture)
     sprite.programState = self:_createBlurShader(x, y, width, height)
     return sprite
 end
 
-function GaussFilter:_createRenderTexture(name, width, height)
+function BlurFilter:_createRenderTexture(name, width, height)
     local node = RenderTexture.create(width, height, PixelFormat.RGB565, PixelFormat.D24S8)
     node.name = name
     node.sprite.ignoreAnchorPointForPosition = true
@@ -110,15 +111,15 @@ function GaussFilter:_createRenderTexture(name, width, height)
     return node
 end
 
-function GaussFilter:_createBlurShader(x, y, width, height)
-    local state = ProgramState.new(shader.GaussFilter)
+function BlurFilter:_createBlurShader(x, y, width, height)
+    local state = ProgramState.new(shader.BlurFilter)
     state:setUniformVec2('resolution', {x = width, y = height})
-    state:setUniformVec2('direction', {x = x, y = y})
-    state:setUniformFloat('radius', self.radius)
+    state:setUniformFloat('sampleCount', self.sampleCount)
+    state:setUniformFloat('blurRadius', self.blurRadius)
     return state
 end
 
-shader.load('GaussFilter',
+shader.load('BlurFilter',
 [[
     attribute vec4 a_position;
     attribute vec2 a_texCoord;
@@ -148,40 +149,43 @@ shader.load('GaussFilter',
 
     varying vec4 v_fragmentColor;
     varying vec2 v_texCoord;
-    
-    uniform sampler2D u_texture;
 
     uniform vec2 resolution;
-    uniform vec2 direction;
-    uniform float radius;
+    uniform float blurRadius;
+    uniform float sampleCount;
 
+    uniform sampler2D u_texture;
 
-    void main()
+    vec3 blur(vec2);
+
+    void main(void)
     {
-        vec4 sum = vec4(0.0);
-        float psx = radius / resolution.x;
-        float psy = radius / resolution.y;
+        vec3 col = blur(v_texCoord);
+        gl_FragColor = vec4(col, 1.0) * v_fragmentColor;
+    }
 
-        sum += texture2D(u_texture, vec2(v_texCoord.x - 7.0 * psx * direction.x, v_texCoord.y - 8.0 * psy * direction.y)) * 0.003799;
-        sum += texture2D(u_texture, vec2(v_texCoord.x - 7.0 * psx * direction.x, v_texCoord.y - 7.0 * psy * direction.y)) * 0.008741;
-        sum += texture2D(u_texture, vec2(v_texCoord.x - 6.0 * psx * direction.x, v_texCoord.y - 6.0 * psy * direction.y)) * 0.017997;
-        sum += texture2D(u_texture, vec2(v_texCoord.x - 5.0 * psx * direction.x, v_texCoord.y - 5.0 * psy * direction.y)) * 0.033159;
-        sum += texture2D(u_texture, vec2(v_texCoord.x - 4.0 * psx * direction.x, v_texCoord.y - 4.0 * psy * direction.y)) * 0.054670;
-        sum += texture2D(u_texture, vec2(v_texCoord.x - 3.0 * psx * direction.x, v_texCoord.y - 3.0 * psy * direction.y)) * 0.080657;
-        sum += texture2D(u_texture, vec2(v_texCoord.x - 2.0 * psx * direction.x, v_texCoord.y - 2.0 * psy * direction.y)) * 0.106483;
-        sum += texture2D(u_texture, vec2(v_texCoord.x - 1.0 * psx * direction.x, v_texCoord.y - 1.0 * psy * direction.y)) * 0.125794;
-        sum += texture2D(u_texture, vec2(v_texCoord.x, v_texCoord.y)) * 0.137401;
-        sum += texture2D(u_texture, vec2(v_texCoord.x + 1.0 * psx * direction.x, v_texCoord.y + 1.0 * psy * direction.y)) * 0.125794;
-        sum += texture2D(u_texture, vec2(v_texCoord.x + 2.0 * psx * direction.x, v_texCoord.y + 2.0 * psy * direction.y)) * 0.106483;
-        sum += texture2D(u_texture, vec2(v_texCoord.x + 3.0 * psx * direction.x, v_texCoord.y + 3.0 * psy * direction.y)) * 0.080657;
-        sum += texture2D(u_texture, vec2(v_texCoord.x + 4.0 * psy * direction.x, v_texCoord.y + 4.0 * psy * direction.y)) * 0.054670;
-        sum += texture2D(u_texture, vec2(v_texCoord.x + 5.0 * psx * direction.x, v_texCoord.y + 5.0 * psy * direction.y)) * 0.033159;
-        sum += texture2D(u_texture, vec2(v_texCoord.x + 6.0 * psx * direction.x, v_texCoord.y + 6.0 * psy * direction.y)) * 0.017997;
-        sum += texture2D(u_texture, vec2(v_texCoord.x + 7.0 * psx * direction.x, v_texCoord.y + 7.0 * psy * direction.y)) * 0.008741;
-        sum += texture2D(u_texture, vec2(v_texCoord.x - 8.0 * psx * direction.x, v_texCoord.y - 8.0 * psy * direction.y)) * 0.003799;
-
-        gl_FragColor = v_fragmentColor*sum;
+    vec3 blur(vec2 p)
+    {
+        if (blurRadius > 0.0 && sampleCount > 1.0)
+        {
+            vec3 col = vec3(0);
+            vec2 unit = 1.0 / resolution.xy;
+            float r = blurRadius;
+            float sampleStep = r / sampleCount;
+            float count = 0.0;
+            for(float x = -r; x < r; x += sampleStep)
+            {
+                for(float y = -r; y < r; y += sampleStep)
+                {
+                    float weight = (r - abs(x)) * (r - abs(y));
+                    col += texture2D(u_texture, p + vec2(x * unit.x, y * unit.y)).rgb * weight;
+                    count += weight;
+                }
+            }
+            return col / count;
+        }
+        return texture2D(u_texture, p).rgb;
     }
 ]])
 
-return GaussFilter
+return BlurFilter

@@ -1,5 +1,4 @@
 #include "xgame/timer.h"
-#include "cocos2d.h"
 
 NS_XGAME_BEGIN
 

@@ -1,7 +1,7 @@
 #ifndef __XGAME_FILESYSTEM_PRIVATE_H__
 #define __XGAME_FILESYSTEM_PRIVATE_H__
 
-#include "xgame/config.h"
+#include "xgame/runtime.h"
 
 #include <string>
 

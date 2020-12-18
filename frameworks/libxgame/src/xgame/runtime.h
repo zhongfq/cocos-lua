@@ -1,10 +1,45 @@
 #ifndef __XGAME_RUNTIME_H__
 #define __XGAME_RUNTIME_H__
 
-#include "xgame/config.h"
 #include "xgame/xlua.h"
-
 #include "cocos2d.h"
+
+#define NS_XGAME_BEGIN  namespace xgame {
+#define NS_XGAME_END    }
+#define USING_NS_XGAME using namespace xgame
+
+#define strequal(str1, str2)           (strcmp(str1, str2) == 0)
+#define strnequal(str1, str2, len)     (strncmp(str1, str2, len) == 0)
+
+#ifdef _WIN32
+#define strcaseequal(str1, str2) (_stricmp(str1, str2) == 0)
+#define strncaseequal(str1, str2, len) (_strnicmp(str1, str2) == 0)
+#else
+#define strcaseequal(str1, str2)       (strcasecmp(str1, str2) == 0)
+#define strncaseequal(str1, str2, len) (strncasecmp(str1, str2) == 0)
+#endif
+
+#define BOOL_STR(b) ((b) ? "OK" : "NO")
+
+#define CONF_APP_VERSION        "conf.version.app"
+#define CONF_APP_BUILD          "conf.version.build"
+#define CONF_MANIFEST_VERSION   "conf.version.manifest"
+#define CONF_WINDOW_WIDTH       "conf.window.width"
+#define CONF_WINDOW_HEIGHT      "conf.window.height"
+
+#define JAVA_APPCONTEXT_CLASS   "kernel/AppContext"
+
+inline bool strstartwith(const char *src, const char *prefix)
+{
+    const char *pos = strstr(src, prefix);
+    return pos == src;
+}
+
+inline bool strendwith(const char *src, const char *suffix)
+{
+    const char *pos = strstr(src, suffix);
+    return !pos ? false : (src + strlen(src) == pos + strlen(suffix));
+}
 
 NS_XGAME_BEGIN
 

@@ -1,5 +1,4 @@
 #include "xgame/Socket.h"
-#include "xgame/runtime.h"
 
 #ifdef _WIN32
 #include <Ws2tcpip.h>

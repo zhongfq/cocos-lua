@@ -2,7 +2,6 @@
 #define __XGAME_RUNTIME_PRIVATE_H__
 
 #include "platform/CCPlatformConfig.h"
-
 #include "xgame/runtime.h"
 
 #include <string>

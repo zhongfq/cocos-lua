@@ -1,7 +1,7 @@
 #ifndef __XGAME_PREFERENCES_H__
 #define __XGAME_PREFERENCES_H__
 
-#include "xgame/config.h"
+#include "xgame/runtime.h"
 
 #include <stdio.h>
 #include <string>

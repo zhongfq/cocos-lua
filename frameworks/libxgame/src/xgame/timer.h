@@ -1,7 +1,7 @@
 #ifndef __XGAME_TIMER_H__
 #define __XGAME_TIMER_H__
 
-#include "xgame/config.h"
+#include "xgame/runtime.h"
 
 #include <string>
 #include <functional>

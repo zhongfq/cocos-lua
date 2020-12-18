@@ -1,10 +1,10 @@
 set(XGAME_HEADER
     src/xgame/AssetsBundle.h
-    src/xgame/config.h
     src/xgame/downloader.h
     src/xgame/FileFinder.h
     src/xgame/filesystem-private.h
     src/xgame/filesystem.h
+    src/xgame/luauser.h
     src/xgame/preferences.h
     src/xgame/RootScene.h
     src/xgame/runtime-private.h

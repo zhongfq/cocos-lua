@@ -1,5 +1,5 @@
-#import "runtime.h"
-#import "runtime-private.h"
+#import "xgame/runtime.h"
+#import "xgame/runtime-private.h"
 #import "cocos2d.h"
 
 #import <sys/utsname.h>

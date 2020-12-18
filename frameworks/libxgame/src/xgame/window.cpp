@@ -1,5 +1,5 @@
-#include "window.h"
-#include "preferences.h"
+#include "xgame/window.h"
+#include "xgame/preferences.h"
 
 NS_XGAME_BEGIN
 

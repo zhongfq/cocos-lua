@@ -1,6 +1,5 @@
 #include "xgame/preferences.h"
 #include "xgame/timer.h"
-
 #include "cocos2d.h"
 
 USING_NS_CC;

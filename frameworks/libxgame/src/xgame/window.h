@@ -1,8 +1,7 @@
 #ifndef __XGAME_WINDOW_H__
 #define __XGAME_WINDOW_H__
 
-#include "xgame/config.h"
-#include "xgame/xlua.h"
+#include "xgame/runtime.h"
 
 #include "cocos2d.h"
 

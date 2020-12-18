@@ -1,7 +1,7 @@
 #ifndef __XGAME_FILESYSTEM_H__
 #define __XGAME_FILESYSTEM_H__
 
-#include "xgame/config.h"
+#include "xgame/runtime.h"
 #include "base/CCData.h"
 #include "platform/CCFileUtils.h"
 

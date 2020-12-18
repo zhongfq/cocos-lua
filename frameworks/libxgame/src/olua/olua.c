@@ -110,7 +110,7 @@ OLUA_API bool olua_isdebug(lua_State *L)
     return aux_getvmstatus(L)->debug;
 }
 
-#ifndef olua_mainthread
+#ifndef OLUA_HAVE_MAINTHREAD
 OLUA_API lua_State *olua_mainthread(lua_State *L)
 {
     lua_State *mt = NULL;

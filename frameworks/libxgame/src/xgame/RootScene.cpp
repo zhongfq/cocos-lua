@@ -1,6 +1,4 @@
 #include "xgame/RootScene.h"
-#include "xgame/runtime.h"
-#include "xgame/xlua.h"
 
 using namespace cocos2d;
 
@@ -25,7 +23,7 @@ void RootScene::onEnter()
 
 void RootScene::execute()
 {
-    lua_State *L = xlua_mainthread(NULL);
+    lua_State *L = olua_mainthread(NULL);
     int top = lua_gettop(L);
     
     if (xlua_dofile(L, _scriptPath.c_str()) == LUA_OK &&

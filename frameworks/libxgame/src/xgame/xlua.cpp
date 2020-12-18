@@ -377,12 +377,15 @@ int xlua_ccobjgc(lua_State *L)
     return 0;
 }
 
-lua_State *xlua_mainthread(lua_State *L)
+#ifdef OLUA_HAVE_MAINTHREAD
+lua_State *olua_mainthread(lua_State *L)
 {
     return runtime::luaVM();
 }
+#endif
 
-void xlua_startcmpdelref(lua_State *L, int idx, const char *refname)
+#ifdef OLUA_HAVE_CMPREF
+void olua_startcmpref(lua_State *L, int idx, const char *refname)
 {
     olua_getreftable(L, idx, refname);                      // L: t
     lua_pushnil(L);                                         // L: t k
@@ -420,18 +423,21 @@ static bool should_delref(lua_State *L, int idx)
     return false;
 }
 
-void xlua_endcmpdelref(lua_State *L, int idx, const char *refname)
+void olua_endcmpref(lua_State *L, int idx, const char *refname)
 {
     olua_visitrefs(L, idx, refname, should_delref);
 }
+#endif
 
-void xlua_registerluatype(lua_State *L, const char *type, const char *cls)
+#ifdef OLUA_HAVE_LUATYPE
+void olua_registerluatype(lua_State *L, const char *type, const char *cls)
 {
     xlua_typemap[type] = cls;
 }
 
-const char *xlua_getluatype(lua_State *L, const char *type)
+const char *olua_getluatype(lua_State *L, const char *type)
 {
     auto cls = xlua_typemap.find(type);
     return cls != xlua_typemap.end() ? cls->second.c_str() : nullptr;
 }
+#endif

@@ -41,6 +41,10 @@ extern "C" {
 #include <assert.h>
 #include <math.h>
 
+#if defined(OLUA_USER_H)
+#include OLUA_USER_H
+#endif
+
 #ifdef OLUA_DEBUG
 #define olua_assert(e, msg) assert((e) && (msg))
 #else
@@ -71,7 +75,7 @@ extern "C" {
 OLUA_API size_t olua_objcount(lua_State *L);
 OLUA_API bool olua_isdebug(lua_State *L);
 
-#ifndef olua_mainthread
+#ifndef OLUA_HAVE_MAINTHREAD
 OLUA_API lua_State *olua_mainthread(lua_State *L);
 #endif
 

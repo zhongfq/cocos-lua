@@ -1,6 +1,6 @@
-#include "XMLHttpRequest.h"
-#include "runtime.h"
-#include "timer.h"
+#include "xgame/XMLHttpRequest.h"
+#include "xgame/runtime.h"
+#include "xgame/timer.h"
 
 USING_NS_CC;
 

@@ -1,11 +1,10 @@
 #ifndef __XGAME_ASSETSBUNDLE_H__
 #define __XGAME_ASSETSBUNDLE_H__
 
-#include "xgame/config.h"
+#include "xgame/runtime.h"
 #include "platform/CCFileUtils.h"
 
 #include <stdio.h>
-
 #include <string>
 #include <unordered_map>
 

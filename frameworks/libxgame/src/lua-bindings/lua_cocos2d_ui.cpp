@@ -8369,13 +8369,13 @@ static int _cocos2d_ui_TabControl_removeTab(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // insert code before call
-    olua_startcmpdelref(L, 1, "protectedChildren");
+    olua_startcmpref(L, 1, "protectedChildren");
 
     // @delref(protectedChildren ~) void removeTab(int index)
     self->removeTab((int)arg1);
 
     // insert code after call
-    olua_endcmpdelref(L, 1, "protectedChildren");
+    olua_endcmpref(L, 1, "protectedChildren");
 
     olua_endinvoke(L);
 
@@ -10484,13 +10484,13 @@ static int _cocos2d_ui_ListView_removeAllItems(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
 
     // insert code before call
-    olua_startcmpdelref(L, 1, "children");
+    olua_startcmpref(L, 1, "children");
 
     // @delref(children ~) void removeAllItems()
     self->removeAllItems();
 
     // insert code after call
-    olua_endcmpdelref(L, 1, "children");
+    olua_endcmpref(L, 1, "children");
 
     olua_endinvoke(L);
 
@@ -10508,13 +10508,13 @@ static int _cocos2d_ui_ListView_removeItem(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // insert code before call
-    olua_startcmpdelref(L, 1, "children");
+    olua_startcmpref(L, 1, "children");
 
     // @delref(children ~) void removeItem(ssize_t index)
     self->removeItem((ssize_t)arg1);
 
     // insert code after call
-    olua_endcmpdelref(L, 1, "children");
+    olua_endcmpref(L, 1, "children");
 
     olua_endinvoke(L);
 
@@ -10530,13 +10530,13 @@ static int _cocos2d_ui_ListView_removeLastItem(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
 
     // insert code before call
-    olua_startcmpdelref(L, 1, "children");
+    olua_startcmpref(L, 1, "children");
 
     // @delref(children ~) void removeLastItem()
     self->removeLastItem();
 
     // insert code after call
-    olua_endcmpdelref(L, 1, "children");
+    olua_endcmpref(L, 1, "children");
 
     olua_endinvoke(L);
 
@@ -11711,13 +11711,13 @@ static int _cocos2d_ui_PageView_removePageAtIndex(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // insert code before call
-    olua_startcmpdelref(L, 1, "children");
+    olua_startcmpref(L, 1, "children");
 
     // @delref(children ~) void removePageAtIndex(ssize_t index)
     self->removePageAtIndex((ssize_t)arg1);
 
     // insert code after call
-    olua_endcmpdelref(L, 1, "children");
+    olua_endcmpref(L, 1, "children");
 
     olua_endinvoke(L);
 

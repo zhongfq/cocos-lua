@@ -101,11 +101,10 @@ void runtime::init()
     AudioEngine::lazyInit();
     
     // cocos event
-    auto dispatcher = Director::getInstance()->getEventDispatcher();
-    dispatcher->addCustomEventListener(Director::EVENT_AFTER_UPDATE, [](EventCustom *e) {
+    runtime::on(Director::EVENT_BEFORE_UPDATE, []() {
         runtime::dispatchEvent("runtimeUpdate", "");
     });
-    dispatcher->addCustomEventListener(Director::EVENT_PROJECTION_CHANGED, [](EventCustom *e) {
+    runtime::on(Director::EVENT_PROJECTION_CHANGED, []() {
         runtime::dispatchEvent("runtimeResize", "");
     });
 }
@@ -237,7 +236,7 @@ void runtime::luaOpen(lua_CFunction libfunc)
 //
 const std::string runtime::getVersion()
 {
-    return "1.16.8";
+    return "2.0.2";
 }
 
 const std::string runtime::getPackageName()
@@ -310,11 +309,7 @@ RenderTexture *runtime::capture(Node *node, float width, float height, backend::
     image->retain();
     node->retain();
     
-    EventListenerCustom *listener = new EventListenerCustom();
-    listener->init(Director::EVENT_BEFORE_DRAW, [=](EventCustom *) {
-        director->getEventDispatcher()->removeEventListener(listener);
-        director->setNextDeltaTimeZero(true);
-
+    runtime::once(Director::EVENT_AFTER_VISIT, [=]() {
         bool savedVisible = node->isVisible();
         Point savedPos = node->getPosition();
         Point anchor;
@@ -328,13 +323,12 @@ RenderTexture *runtime::capture(Node *node, float width, float height, backend::
         image->end();
         node->setPosition(savedPos);
         node->setVisible(savedVisible);
-        
-        listener->release();
-        image->release();
-        node->release();
-    });
     
-    director->getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
+        runtime::once(Director::EVENT_AFTER_DRAW, [=]() {
+            image->release();
+            node->release();
+        });
+    });
     
     return image;
 }
@@ -417,7 +411,7 @@ void runtime::setDispatcher(const EventDispatcher &dispatcher)
 
 void runtime::dispatchEvent(const std::string &event, const std::string &args)
 {
-    if (isInCocosThread()) {
+    if (xlua_isCocosThread()) {
         if (_dispatcher) {
             _dispatcher(event, args);
         } else {
@@ -471,6 +465,26 @@ void runtime::callref(int func, const std::string &args, bool once)
             lua_settop(L, top);
         });
     }
+}
+
+void runtime::once(const std::string &event, const std::function<void()> callback)
+{
+    auto director = Director::getInstance();
+    EventListenerCustom *listener = new EventListenerCustom();
+    listener->init(event, [=](EventCustom *) {
+        callback();
+        director->getEventDispatcher()->removeEventListener(listener);
+        listener->release();
+    });
+    director->getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
+}
+
+void runtime::on(const std::string &event, const std::function<void()> callback)
+{
+    auto director = Director::getInstance();
+    director->getEventDispatcher()->addCustomEventListener(event, [=](EventCustom *) {
+        callback();
+    });
 }
 
 //

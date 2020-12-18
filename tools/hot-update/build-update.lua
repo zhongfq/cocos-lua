@@ -12,6 +12,7 @@ local ARG_URL = nil
 local ARG_RUNTIME = nil
 local ARG_COMPILE = nil
 local ARG_PUBLISH_PATH = nil
+local ARG_BUILD_PATH = nil
 
 -- parse cmd line args
 local args = {...}
@@ -32,6 +33,8 @@ while #args > 0 do
         ARG_COMPILE = true
     elseif c == '--version' then
         ARG_VERSION = assert(table.remove(args, 1), 'no version')
+    elseif c == '--build-path' then
+        ARG_BUILD_PATH = assert(table.remove(args, 1), 'no build path')
     end
 end
 
@@ -63,7 +66,7 @@ local conf = {
     RUNTIME = ARG_RUNTIME or setting[ARG_NAME].RUNTIME,
     LATEST_MANIFEST = latestManifest,
     SHARDS = setting[ARG_NAME].SHARDS,
-    BUILD_PATH = setting[ARG_NAME].BUILD_PATH,
+    BUILD_PATH = ARG_BUILD_PATH or setting[ARG_NAME].BUILD_PATH,
     COMPILE = ARG_COMPILE or setting[ARG_NAME].COMPILE,
     URL = (ARG_URL or setting[ARG_NAME].URL) .. '/' ..  ARG_VERSION,
     BUILD_LINK = setting[ARG_NAME].BUILD_LINK,

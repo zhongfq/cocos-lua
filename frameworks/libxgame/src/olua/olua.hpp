@@ -36,55 +36,6 @@
 #define olua_noapi(api) static_assert(false, #api" is not defined")
 
 /**
- * Handle the status of object after push, you can do some jobs
- * according to the object status. For example, retain object in push and
- * release object in __gc method.
- *
- *  #define olua_postpush mylua_postpush
- *  template <typename T> void mylua_postpush(lua_State *L, T* obj, int status)
- *  {
- *      if (std::is_base_of<Object, T>::value && (status == OLUA_OBJ_NEW
- *              || status == OLUA_OBJ_UPDATE)) {
- *          ((Object *)obj)->retain();
- *      }
- *  }
- */
-#ifndef olua_postpush
-#define olua_postpush(L, obj, status) ((void)L)
-#endif
-
-/**
- * Would be inserted after push object which created by operator new.
- *
- * example:
- *  static int Object_new(lua_State *L)
- *  {
- *      olua_startinvoke(L);
- *      Object *obj = new Object();
- *      olua_push_cppobj(L, obj, "Object");
- *      olua_postnew(L, obj);
- *      olua_endinvoke(L);
- *      return 1;
- *  }
- *
- *  #define olua_postnew mylua_postnew
- *  template <typename T> void mylua_postnew(lua_State *L, T *obj)
- *  {
- *      if (std::is_base_of<Object, T>::value) {
- *          ((Object *)obj)->autorelease();
- *      } else {
- *          lua_pushstring(L, ".ownership");
- *          lua_pushboolean(L, true);
- *          olua_setvariable(L, -3);
- *      }
- *  }
- *
- */
-#ifndef olua_postnew
-#define olua_postnew(L, obj) ((void)L)
-#endif
-
-/**
  * Help to check whether callback is run on the host thread of lua vm.
  */
 #ifndef olua_checkhostthread
@@ -137,6 +88,94 @@
 #define olua_endinvoke(L)   ((void)L)
 #endif
 
+/**
+ * Handle the status of object after push, you can do some jobs
+ * according to the object status. For example, retain object in push and
+ * release object in __gc method.
+ *
+ *  #define olua_postpush mylua_postpush
+ *  template <typename T> void mylua_postpush(lua_State *L, T* obj, int status)
+ *  {
+ *      if (std::is_base_of<Object, T>::value && (status == OLUA_OBJ_NEW
+ *              || status == OLUA_OBJ_UPDATE)) {
+ *          ((Object *)obj)->retain();
+ *      }
+ *  }
+ */
+#ifndef oluai_postpush
+#define oluai_postpush(L, obj, status) ((void)L)
+#endif
+template <typename T> void olua_postpush(lua_State *L, T* obj, int status)
+{
+    oluai_postpush(L, obj, status);
+}
+
+template <typename T> inline T *olua_toobj(lua_State *L, int idx);
+
+/**
+ * Handle the status of object after new.
+ *
+ * example:
+ *  static int Object_new(lua_State *L)
+ *  {
+ *      olua_startinvoke(L);
+ *      Object *obj = new Object();
+ *      olua_push_cppobj(L, obj, "Object");
+ *      olua_postnew(L, obj);
+ *      olua_endinvoke(L);
+ *      return 1;
+ *  }
+ *
+ *  #define olua_postnew mylua_postnew
+ *  template <typename T> void mylua_postnew(lua_State *L, T *obj)
+ *  {
+ *      if (std::is_base_of<Object, T>::value) {
+ *          ((Object *)obj)->autorelease();
+ *      } else {
+ *          lua_pushstring(L, ".ownership");
+ *          lua_pushboolean(L, true);
+ *          olua_setvariable(L, -3);
+ *      }
+ *  }
+ *
+ */
+#ifndef oluai_postnew
+template <typename T> void oluai_postnew(lua_State *L, T *obj)
+{
+    olua_assert(obj == olua_toobj<T>(L, -1), "must be same object");
+    olua_setownership(L, -1, OLUA_OWNERSHIP_VM);
+}
+#endif
+template <typename T> void olua_postnew(lua_State *L, T *obj)
+{
+    oluai_postnew(L, obj);
+}
+
+/**
+ * delete object which belong to lua vm.
+ */
+#ifndef oluai_postgc
+template <typename T> void oluai_postgc(lua_State *L, int idx)
+{
+    T *obj = olua_toobj<T>(L, idx);
+    if (olua_getownership(L, idx) == OLUA_OWNERSHIP_VM) {
+        olua_setrawobj(L, idx, nullptr);
+        if (std::is_void<T>()) {
+            free(obj);
+        } else {
+            delete obj;
+        }
+    }
+}
+#endif
+template <typename T> void olua_postgc(lua_State *L, int idx)
+{
+    oluai_postgc<T>(L, idx);
+}
+
+/**
+ * register lua type for c++ class.
+ */
 #ifndef oluai_registerluatype
 #define oluai_registerluatype(L, t, c) {\
     lua_pushstring(L, (t));             \
@@ -145,6 +184,9 @@
 }
 #endif
 
+/**
+ * get lua type for c++ obj or class.
+ */
 #ifndef oluai_getluatype
 #define oluai_getluatype(L, t) olua_optfieldstring(L, LUA_REGISTRYINDEX, (t), nullptr)
 #endif

@@ -95,6 +95,10 @@ public:
     static void initBugly(const char* appid);
     static void disableReport();
     static void reportError(const char *err, const char *traceback);
+    
+private:
+    static void once(const std::string &event, const std::function<void()> callback);
+    static void on(const std::string &event, const std::function<void()> callback);
 };
 
 class RuntimeContext : public cocos2d::Application

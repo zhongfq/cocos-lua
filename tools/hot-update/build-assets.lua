@@ -6,6 +6,10 @@ local compileScript = require "compile-script"
 
 local BUILD_PATH = ...
 
+if not BUILD_PATH or #BUILD_PATH == 0 then
+    error('not specify build path')
+end
+
 local conf = {
     NAME = 'APP-BUILTIN',
     VERSION = "0.0.0",

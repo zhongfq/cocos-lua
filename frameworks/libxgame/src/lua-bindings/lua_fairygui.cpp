@@ -966,13 +966,7 @@ static int _fairygui_EventContext___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (fairygui::EventContext *)olua_toobj(L, 1, "fgui.EventContext");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<fairygui::EventContext>(L, 1);
 
     olua_endinvoke(L);
 
@@ -1247,13 +1241,7 @@ static int _fairygui_PixelHitTest___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (fairygui::PixelHitTest *)olua_toobj(L, 1, "fgui.PixelHitTest");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<fairygui::PixelHitTest>(L, 1);
 
     olua_endinvoke(L);
 
@@ -1454,13 +1442,7 @@ static int _fairygui_PixelHitTestData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (fairygui::PixelHitTestData *)olua_toobj(L, 1, "fgui.PixelHitTestData");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<fairygui::PixelHitTestData>(L, 1);
 
     olua_endinvoke(L);
 
@@ -1653,13 +1635,7 @@ static int _fairygui_InputProcessor___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (fairygui::InputProcessor *)olua_toobj(L, 1, "fgui.InputProcessor");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<fairygui::InputProcessor>(L, 1);
 
     olua_endinvoke(L);
 
@@ -2010,13 +1986,7 @@ static int _fairygui_InputEvent___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (fairygui::InputEvent *)olua_toobj(L, 1, "fgui.InputEvent");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<fairygui::InputEvent>(L, 1);
 
     olua_endinvoke(L);
 
@@ -2331,13 +2301,7 @@ static int _fairygui_TextFormat___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (fairygui::TextFormat *)olua_toobj(L, 1, "fgui.TextFormat");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<fairygui::TextFormat>(L, 1);
 
     olua_endinvoke(L);
 
@@ -18483,13 +18447,7 @@ static int _fairygui_Relations___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (fairygui::Relations *)olua_toobj(L, 1, "fgui.Relations");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<fairygui::Relations>(L, 1);
 
     olua_endinvoke(L);
 
@@ -18816,13 +18774,7 @@ static int _fairygui_RelationItem___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (fairygui::RelationItem *)olua_toobj(L, 1, "fgui.RelationItem");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<fairygui::RelationItem>(L, 1);
 
     olua_endinvoke(L);
 
@@ -23274,13 +23226,7 @@ static int _fairygui_DragDropManager___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (fairygui::DragDropManager *)olua_toobj(L, 1, "fgui.DragDropManager");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<fairygui::DragDropManager>(L, 1);
 
     olua_endinvoke(L);
 
@@ -23645,13 +23591,7 @@ static int _fairygui_GearBase___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (fairygui::GearBase *)olua_toobj(L, 1, "fgui.GearBase");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<fairygui::GearBase>(L, 1);
 
     olua_endinvoke(L);
 
@@ -26230,13 +26170,7 @@ static int _fairygui_HtmlObject___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (fairygui::HtmlObject *)olua_toobj(L, 1, "fgui.HtmlObject");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<fairygui::HtmlObject>(L, 1);
 
     olua_endinvoke(L);
 
@@ -26545,13 +26479,7 @@ static int _fairygui_HtmlElement___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (fairygui::HtmlElement *)olua_toobj(L, 1, "fgui.HtmlElement");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<fairygui::HtmlElement>(L, 1);
 
     olua_endinvoke(L);
 

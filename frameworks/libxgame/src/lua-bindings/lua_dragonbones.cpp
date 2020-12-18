@@ -433,13 +433,7 @@ static int _dragonBones_EventObject___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (dragonBones::EventObject *)olua_toobj(L, 1, "db.EventObject");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<dragonBones::EventObject>(L, 1);
 
     olua_endinvoke(L);
 
@@ -1307,13 +1301,7 @@ static int _dragonBones_Point___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (dragonBones::Point *)olua_toobj(L, 1, "db.Point");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<dragonBones::Point>(L, 1);
 
     olua_endinvoke(L);
 
@@ -1827,13 +1815,7 @@ static int _dragonBones_IKConstraintData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (dragonBones::IKConstraintData *)olua_toobj(L, 1, "db.IKConstraintData");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<dragonBones::IKConstraintData>(L, 1);
 
     olua_endinvoke(L);
 
@@ -2005,13 +1987,7 @@ static int _dragonBones_TimelineData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (dragonBones::TimelineData *)olua_toobj(L, 1, "db.TimelineData");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<dragonBones::TimelineData>(L, 1);
 
     olua_endinvoke(L);
 
@@ -2300,13 +2276,7 @@ static int _dragonBones_WorldClock___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (dragonBones::WorldClock *)olua_toobj(L, 1, "db.WorldClock");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<dragonBones::WorldClock>(L, 1);
 
     olua_endinvoke(L);
 
@@ -3153,13 +3123,7 @@ static int _dragonBones_Bone___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (dragonBones::Bone *)olua_toobj(L, 1, "db.Bone");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<dragonBones::Bone>(L, 1);
 
     olua_endinvoke(L);
 
@@ -3728,13 +3692,7 @@ static int _dragonBones_ActionData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (dragonBones::ActionData *)olua_toobj(L, 1, "db.ActionData");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<dragonBones::ActionData>(L, 1);
 
     olua_endinvoke(L);
 
@@ -4130,13 +4088,7 @@ static int _dragonBones_UserData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (dragonBones::UserData *)olua_toobj(L, 1, "db.UserData");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<dragonBones::UserData>(L, 1);
 
     olua_endinvoke(L);
 
@@ -4921,13 +4873,7 @@ static int _dragonBones_BoundingBoxDisplayData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (dragonBones::BoundingBoxDisplayData *)olua_toobj(L, 1, "db.BoundingBoxDisplayData");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<dragonBones::BoundingBoxDisplayData>(L, 1);
 
     olua_endinvoke(L);
 
@@ -5065,13 +5011,7 @@ static int _dragonBones_CanvasData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (dragonBones::CanvasData *)olua_toobj(L, 1, "db.CanvasData");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<dragonBones::CanvasData>(L, 1);
 
     olua_endinvoke(L);
 
@@ -5778,13 +5718,7 @@ static int _dragonBones_ArmatureData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (dragonBones::ArmatureData *)olua_toobj(L, 1, "db.ArmatureData");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<dragonBones::ArmatureData>(L, 1);
 
     olua_endinvoke(L);
 
@@ -6946,13 +6880,7 @@ static int _dragonBones_SkinData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (dragonBones::SkinData *)olua_toobj(L, 1, "db.SkinData");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<dragonBones::SkinData>(L, 1);
 
     olua_endinvoke(L);
 
@@ -7131,13 +7059,7 @@ static int _dragonBones_BoneData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (dragonBones::BoneData *)olua_toobj(L, 1, "db.BoneData");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<dragonBones::BoneData>(L, 1);
 
     olua_endinvoke(L);
 
@@ -7565,13 +7487,7 @@ static int _dragonBones_SlotData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (dragonBones::SlotData *)olua_toobj(L, 1, "db.SlotData");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<dragonBones::SlotData>(L, 1);
 
     olua_endinvoke(L);
 
@@ -7965,13 +7881,7 @@ static int _dragonBones_AnimationState___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (dragonBones::AnimationState *)olua_toobj(L, 1, "db.AnimationState");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<dragonBones::AnimationState>(L, 1);
 
     olua_endinvoke(L);
 
@@ -8977,13 +8887,7 @@ static int _dragonBones_AnimationData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (dragonBones::AnimationData *)olua_toobj(L, 1, "db.AnimationData");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<dragonBones::AnimationData>(L, 1);
 
     olua_endinvoke(L);
 
@@ -9762,13 +9666,7 @@ static int _dragonBones_AnimationConfig___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (dragonBones::AnimationConfig *)olua_toobj(L, 1, "db.AnimationConfig");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<dragonBones::AnimationConfig>(L, 1);
 
     olua_endinvoke(L);
 
@@ -10855,13 +10753,7 @@ static int _dragonBones_DragonBonesData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (dragonBones::DragonBonesData *)olua_toobj(L, 1, "db.DragonBonesData");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<dragonBones::DragonBonesData>(L, 1);
 
     olua_endinvoke(L);
 
@@ -12378,13 +12270,7 @@ static int _dragonBones_Armature___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (dragonBones::Armature *)olua_toobj(L, 1, "db.Armature");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<dragonBones::Armature>(L, 1);
 
     olua_endinvoke(L);
 
@@ -13233,13 +13119,7 @@ static int _dragonBones_Animation___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (dragonBones::Animation *)olua_toobj(L, 1, "db.Animation");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<dragonBones::Animation>(L, 1);
 
     olua_endinvoke(L);
 
@@ -14368,13 +14248,7 @@ static int _dragonBones_CCFactory___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (dragonBones::CCFactory *)olua_toobj(L, 1, "db.Factory");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<dragonBones::CCFactory>(L, 1);
 
     olua_endinvoke(L);
 

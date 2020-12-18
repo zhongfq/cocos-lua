@@ -68,10 +68,7 @@ extern "C" {
 #endif
 
 // stat api
-OLUA_API size_t olua_modifyobjcount(lua_State *L, size_t n);
-#define olua_addobjcount(L) (olua_modifyobjcount(L, 1))
-#define olua_subobjcount(L) (olua_modifyobjcount(L, -1))
-#define olua_objcount(L) (olua_modifyobjcount(L, 0))
+OLUA_API size_t olua_objcount(lua_State *L);
 OLUA_API bool olua_isdebug(lua_State *L);
 
 #ifndef olua_mainthread
@@ -142,6 +139,12 @@ OLUA_API int olua_pushobj(lua_State *L, void *obj, const char *cls);
 OLUA_API void *olua_checkobj(lua_State *L, int idx, const char *cls);
 OLUA_API void *olua_toobj(lua_State *L, int idx, const char *cls);
 OLUA_API const char *olua_objstring(lua_State *L, int idx);
+
+// ownership
+#define OLUA_OWNERSHIP_NONE 0
+#define OLUA_OWNERSHIP_VM   1
+OLUA_API void olua_setownership(lua_State *L, int idx, int owner);
+OLUA_API int olua_getownership(lua_State *L, int idx);
     
 // optimize temporary userdata, used in push stack obj to lua inside the callback
 OLUA_API void olua_enable_objpool(lua_State *L);

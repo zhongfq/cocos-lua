@@ -10,19 +10,19 @@
 #define CCLUA_HAVE_VIDEOPLAYER
 #endif
 
-static inline bool isInCocosThread() {
+static inline bool xlua_isCocosThread() {
     return cocos2d::Director::getInstance()->getCocos2dThreadId() == std::this_thread::get_id();
 }
 
-#define olua_checkhostthread()            assert(isInCocosThread() && "callback should run on cocos thread")
+#define olua_checkhostthread()          assert(xlua_isCocosThread() && "callback should run on cocos thread")
 #define olua_mainthread(L)              xlua_mainthread(L)
 #define olua_startcmpdelref(L, i, n)    xlua_startcmpdelref(L, (i), (n))
 #define olua_endcmpdelref(L, i, n)      xlua_endcmpdelref(L, (i), (n))
-#define olua_postpush(L, v, s)          xlua_postpush(L, (v), (s))
-#define olua_postnew(L, obj)            xlua_postnew(L, (obj))
 #define olua_startinvoke(L)             (xlua_invokingstate = L)
 #define olua_endinvoke(L)               (xlua_invokingstate = nullptr)
 
+#define oluai_postpush(L, v, s)         xlua_postpush(L, (v), (s))
+#define oluai_postnew(L, obj)           xlua_postnew(L, (obj))
 #define oluai_registerluatype(L, t, c)  (xlua_registerluatype(L, (t), (c)))
 #define oluai_getluatype(L, t)          (xlua_getluatype(L, (t)))
 
@@ -56,7 +56,6 @@ template <typename T> void xlua_postpush(lua_State *L, T* obj, int status)
             luaL_error(L, "class '%s' not inherit from 'cc.Ref'", olua_getluatype(L, obj, ""));
         }
 #endif
-        olua_addobjcount(L);
     }
 }
 
@@ -65,10 +64,8 @@ template <typename T> void xlua_postnew(lua_State *L, T *obj)
     if (std::is_base_of<cocos2d::Ref, T>::value) {
         ((cocos2d::Ref *)obj)->autorelease();
     } else {
-        CCASSERT(obj == olua_toobj<T>(L, -1), "must be same object");
-        lua_pushstring(L, ".ownership");
-        lua_pushboolean(L, true);
-        olua_setvariable(L, -3);
+        olua_assert(obj == olua_toobj<T>(L, -1), "must be same object");
+        olua_setownership(L, -1, OLUA_OWNERSHIP_VM);
     }
 }
 

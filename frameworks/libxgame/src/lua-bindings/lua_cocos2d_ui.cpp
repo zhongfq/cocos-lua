@@ -21890,13 +21890,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (cocos2d::ui::LuaEditBoxDelegate *)olua_toobj(L, 1, "ccui.LuaEditBoxDelegate");
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1)) {
-        olua_setrawobj(L, 1, nullptr);
-        delete self;
-    }
+    olua_postgc<cocos2d::ui::LuaEditBoxDelegate>(L, 1);
 
     olua_endinvoke(L);
 

@@ -366,7 +366,7 @@ int xlua_ccobjgc(lua_State *L)
         const char *str = olua_objstring(L, 1);
         xgame::runtime::log("lua gc: %s(NAME=%s, RC=%d, TC=%d)", str,
             name && strlen(name) > 0 ? name : "''",
-            obj->getReferenceCount() - 1, olua_objcount(L) - 1);
+            obj->getReferenceCount() - 1, olua_objcount(L));
         lua_settop(L, top);
     }
     
@@ -374,7 +374,6 @@ int xlua_ccobjgc(lua_State *L)
     olua_setrawobj(L, 1, nullptr);
     lua_pushnil(L);
     lua_setuservalue(L, 1);
-    olua_subobjcount(L);
     return 0;
 }
 

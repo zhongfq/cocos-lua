@@ -218,6 +218,13 @@ if(APPLE)
         set_xcode_property(${APP_NAME} ASSETCATALOG_COMPILER_APPICON_NAME "AppIcon")
     endif()
 
+    if(IOS)
+        set(BUGLY_UPLOAD_COMMAND sh ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/bugly.sh)
+        set(BUGLY_UPLOAD_ARGS ${APP_PACKAGE_NAME} ${BUGLY_APPID} ${BUGLY_SECRET})
+        add_custom_command(TARGET ${APP_NAME} POST_BUILD
+            COMMAND ${BUGLY_UPLOAD_COMMAND} ${BUGLY_UPLOAD_ARGS})
+    endif()
+
     # For code-signing, set the DEVELOPMENT_TEAM:
     set_xcode_property(${APP_NAME} CLANG_ENABLE_OBJC_ARC "YES")
     set_xcode_property(${APP_NAME} SKIP_INSTALL "NO")

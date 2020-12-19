@@ -1,4 +1,5 @@
 #include "xgame/RootScene.h"
+#include "xgame/xlua.h"
 
 using namespace cocos2d;
 

@@ -2,17 +2,13 @@
 #define __XGAME_LUA_H__
 
 #include "cocos2d.h"
-#include "xgame/luauser.h"
+#include "xgame/runtime.h"
 #include "olua/olua.hpp"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 #define CCLUA_HAVE_WEBVIEW
 #define CCLUA_HAVE_VIDEOPLAYER
 #endif
-
-static inline bool xlua_isCocosThread() {
-    return cocos2d::Director::getInstance()->getCocos2dThreadId() == std::this_thread::get_id();
-}
 
 extern lua_State *xlua_invokingstate;
 
@@ -29,7 +25,7 @@ lua_State *olua_mainthread(lua_State *L);
 #endif
 
 #ifdef OLUA_HAVE_CHECKHOSTTHREAD
-#define olua_checkhostthread()  assert(xlua_isCocosThread() && "callback should run on cocos thread")
+#define olua_checkhostthread()  assert(xgame::runtime::isCocosThread() && "callback should run on cocos thread")
 #endif
 
 #ifdef OLUA_HAVE_TRACEINVOKING

@@ -41,7 +41,7 @@ extern "C" {
 #include <assert.h>
 #include <math.h>
 
-#if defined(OLUA_USER_H)
+#ifdef OLUA_USER_H
 #include OLUA_USER_H
 #endif
 

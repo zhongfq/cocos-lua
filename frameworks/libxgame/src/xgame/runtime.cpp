@@ -6,6 +6,7 @@
 #include "xgame/preferences.h"
 #include "xgame/RootScene.h"
 #include "xgame/timer.h"
+#include "xgame/xlua.h"
 #include "lua-bindings/lua_bindings.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -107,6 +108,13 @@ void runtime::init()
     runtime::on(Director::EVENT_PROJECTION_CHANGED, []() {
         runtime::dispatchEvent("runtimeResize", "");
     });
+}
+
+bool runtime::isCocosThread()
+{
+    static std::thread::id unknow;
+    const std::thread::id &current = Director::getInstance()->getCocos2dThreadId();
+    return current == unknow || current == std::this_thread::get_id();
 }
 
 float runtime::getTime()
@@ -411,7 +419,7 @@ void runtime::setDispatcher(const EventDispatcher &dispatcher)
 
 void runtime::dispatchEvent(const std::string &event, const std::string &args)
 {
-    if (xlua_isCocosThread()) {
+    if (runtime::isCocosThread()) {
         if (_dispatcher) {
             _dispatcher(event, args);
         } else {
@@ -564,9 +572,7 @@ void runtime::log(const char *fmt, ...)
     
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     if (_reportError) {
-        static std::thread::id unknow;
-        const std::thread::id &current = Director::getInstance()->getCocos2dThreadId();
-        if (current == unknow || current == std::this_thread::get_id()) {
+        if (runtime::isCocosThread()) {
             CrashReport::log(CrashReport::Verbose, _logBuf);
         } else {
             std::string msg = _logBuf;

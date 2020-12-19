@@ -100,11 +100,11 @@ template <typename T> inline T *olua_toobj(lua_State *L, int idx);
  * according to the object status. For example, retain object in push and
  * release object in __gc method.
  *
- *  #define olua_postpush mylua_postpush
- *  template <typename T> void mylua_postpush(lua_State *L, T* obj, int status)
+ *  #define OLUA_HAVE_POSTPUSH
+ *  template <typename T> void olua_postpush(lua_State *L, T* obj, int status)
  *  {
  *      if (std::is_base_of<Object, T>::value && (status == OLUA_OBJ_NEW
- *              || status == OLUA_OBJ_UPDATE)) {
+ *          || status == OLUA_OBJ_UPDATE)) {
  *          ((Object *)obj)->retain();
  *      }
  *  }
@@ -128,15 +128,14 @@ template <typename T> void olua_postpush(lua_State *L, T* obj, int status) {}
  *      return 1;
  *  }
  *
- *  #define olua_postnew mylua_postnew
- *  template <typename T> void mylua_postnew(lua_State *L, T *obj)
+ *  #define OLUA_HAVE_POSTNEW
+ *  template <typename T> void olua_postnew(lua_State *L, T *obj)
  *  {
  *      if (std::is_base_of<Object, T>::value) {
  *          ((Object *)obj)->autorelease();
  *      } else {
- *          lua_pushstring(L, ".ownership");
- *          lua_pushboolean(L, true);
- *          olua_setvariable(L, -3);
+ *          olua_assert(obj == olua_toobj<T>(L, -1), "must be same object");
+ *          olua_setownership(L, -1, OLUA_OWNERSHIP_VM);
  *      }
  *  }
  *

@@ -1,7 +1,7 @@
 #ifndef __XGAME_RUNTIME_H__
 #define __XGAME_RUNTIME_H__
 
-#include "xgame/xlua.h"
+#include "lua.hpp"
 #include "cocos2d.h"
 
 #define NS_XGAME_BEGIN  namespace xgame {
@@ -69,6 +69,7 @@ public:
     static bool restart();
     static bool isRestarting();
     static bool isDebug();
+    static bool isCocosThread();
     static float getTime();
     static void gc();
     static lua_State *luaVM();

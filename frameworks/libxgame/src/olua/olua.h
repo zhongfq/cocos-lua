@@ -96,8 +96,8 @@ OLUA_API lua_Integer olua_context(lua_State *L);
 #define olua_isboolean(L,n)         (lua_type(L, (n)) == LUA_TBOOLEAN)
 #define olua_isstring(L,n)          (lua_type(L, (n)) == LUA_TSTRING)
 #define olua_isnumber(L,n)          (lua_type(L, (n)) == LUA_TNUMBER)
-#define olua_isinteger(L,n)         (lua_isinteger(L, (n)))
 #define olua_isthread(L,n)          (lua_type(L, (n)) == LUA_TTHREAD)
+bool olua_isinteger(lua_State *L, int idx);
     
 // check or get raw value
 #define olua_tonumber(L, i)         (lua_tonumber(L, (i)))
@@ -280,7 +280,6 @@ typedef lua_Integer lua_Unsigned;
 OLUA_API void lua_setuservalue(lua_State *L, int idx);
 OLUA_API int lua_getuservalue(lua_State *L, int idx);
 OLUA_API int lua_absindex(lua_State *L, int idx);
-OLUA_API int lua_isinteger(lua_State *L, int idx);
 OLUA_API int luaL_getsubtable (lua_State *L, int idx, const char *fname);
 OLUA_API void luaL_setfuncs(lua_State *L, const luaL_Reg *l, int nup);
 OLUA_API void luaL_traceback(lua_State *L, lua_State *L1, const char *msg, int level);

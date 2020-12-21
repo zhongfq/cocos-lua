@@ -129,6 +129,20 @@ OLUA_API lua_Integer olua_context(lua_State *L)
     return aux_getvmstatus(L)->ctxid;
 }
 
+bool olua_isinteger(lua_State *L, int idx)
+{
+#if LUA_VERSION_NUM >= 503
+    if (lua_isinteger(L, idx)) {
+        return true;
+    }
+#endif
+    if (olua_isnumber(L, idx)) {
+        lua_Number n = lua_tonumber(L, idx);
+        return n == (lua_Number)(floor(n));
+    }
+    return false;
+}
+
 OLUA_API lua_Integer olua_checkinteger(lua_State *L, int idx)
 {
     luaL_checktype(L, idx, LUA_TNUMBER);
@@ -1084,7 +1098,7 @@ static void aux_checkfield(lua_State *L, int t, const char *field, int type, boo
             typearg = luaL_typename(L, idx);
         }
         msg = lua_pushfstring(L, "check '%s': %s expected, got %s", field, tname, typearg);
-        luaL_argerror(L, idx, msg);
+        luaL_argerror(L, t, msg);
     }
 }
 
@@ -1332,15 +1346,6 @@ OLUA_API int lua_absindex(lua_State *L, int idx)
 {
     return (idx > 0 || idx <= LUA_REGISTRYINDEX) ?
         idx : (idx + 1 + lua_gettop(L));
-}
-
-OLUA_API int lua_isinteger(lua_State *L, int idx)
-{
-    if (olua_isnumber(L, idx)) {
-        lua_Number n = lua_tonumber(L, idx);
-        return n == (lua_Number)(floor(n));
-    }
-    return false;
 }
 
 OLUA_API void luaL_setfuncs(lua_State *L, const luaL_Reg *l, int nup)

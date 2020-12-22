@@ -300,39 +300,49 @@ void Texture2DGL::generateMipmaps()
 
 void Texture2DGL::getBytes(std::size_t x, std::size_t y, std::size_t width, std::size_t height, bool flipImage, std::function<void(const unsigned char*, std::size_t, std::size_t)> callback)
 {
-    GLint defaultFBO = 0;
-    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
+    auto director = cocos2d::Director::getInstance();
+    auto listener = new cocos2d::EventListenerCustom();
+    listener->init(cocos2d::Director::EVENT_AFTER_DRAW, [=](cocos2d::EventCustom *) {
+        GLint defaultFBO = 0;
+        glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
 
-    GLuint frameBuffer = 0;
-    glGenFramebuffers(1, &frameBuffer);
-    glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _textureInfo.texture, 0);
-    glPixelStorei(GL_PACK_ALIGNMENT, 1);
+        GLuint frameBuffer = 0;
+        glGenFramebuffers(1, &frameBuffer);
+        glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _textureInfo.texture, 0);
+        glPixelStorei(GL_PACK_ALIGNMENT, 1);
 
-    auto bytePerRow = width * _bitsPerElement / 8;
-    unsigned char* image = new unsigned char[bytePerRow * height];
-    glReadPixels(x,y,width, height,GL_RGBA,GL_UNSIGNED_BYTE, image);
+        auto bytePerRow = width * _bitsPerElement / 8;
+        unsigned char* image = new unsigned char[bytePerRow * height];
+        glReadPixels(x,y,width, height,GL_RGBA,GL_UNSIGNED_BYTE, image);
 
-    if(flipImage)
-    {
-        unsigned char* flippedImage = new unsigned char[bytePerRow * height];
-        for (int i = 0; i < height; ++i)
+        if(flipImage)
         {
-            memcpy(&flippedImage[i * bytePerRow],
-                   &image[(height - i - 1) * bytePerRow],
-                   bytePerRow);
+            unsigned char* flippedImage = new unsigned char[bytePerRow * height];
+            for (int i = 0; i < height; ++i)
+            {
+                memcpy(&flippedImage[i * bytePerRow],
+                    &image[(height - i - 1) * bytePerRow],
+                    bytePerRow);
+            }
+            CC_SAFE_DELETE_ARRAY(image);
+            callback(flippedImage, width, height);
+            CC_SAFE_DELETE_ARRAY(flippedImage);
+        } else
+        {
+            callback(image, width, height);
+            CC_SAFE_DELETE_ARRAY(image);
         }
-        CC_SAFE_DELETE_ARRAY(image);
-        callback(flippedImage, width, height);
-        CC_SAFE_DELETE_ARRAY(flippedImage);
-    } else
-    {
-        callback(image, width, height);
-        CC_SAFE_DELETE_ARRAY(image);
-    }
 
-    glBindFramebuffer(GL_FRAMEBUFFER, defaultFBO);
-    glDeleteFramebuffers(1, &frameBuffer);
+        glBindFramebuffer(GL_FRAMEBUFFER, defaultFBO);
+        glDeleteFramebuffers(1, &frameBuffer);
+
+        director->getEventDispatcher()->removeEventListener(listener);
+        listener->release();
+        release();
+    });
+    retain();
+    director->getEventDispatcher()->addEventListenerWithFixedPriority(listener, -1);
 }
 
 TextureCubeGL::TextureCubeGL(const TextureDescriptor& descriptor)

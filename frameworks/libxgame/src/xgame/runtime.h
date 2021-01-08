@@ -4,9 +4,31 @@
 #include "lua.hpp"
 #include "cocos2d.h"
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+#define CCLUA_OS_ANDROID
+#define CCLUA_OS_NAME "android"
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#define CCLUA_OS_IOS
+#define CCLUA_OS_NAME "ios"
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+#define CCLUA_OS_MAC
+#define CCLUA_OS_NAME "mac"
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+#define CCLUA_OS_WIN32
+#define CCLUA_OS_NAME "win32"
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
+#define CCLUA_OS_LINUX
+#define CCLUA_OS_NAME "linux"
+#else
+#define CCLUA_OS_NAME "unknown"
+#endif
+
 #define NS_XGAME_BEGIN  namespace xgame {
 #define NS_XGAME_END    }
 #define USING_NS_XGAME using namespace xgame
+
+#define NS_XPLUGIN_BEGIN  namespace xgame { namespace plugin {
+#define NS_XPLUGIN_END    }}
 
 #define strequal(str1, str2)           (strcmp(str1, str2) == 0)
 #define strnequal(str1, str2, len)     (strncmp(str1, str2, len) == 0)
@@ -54,6 +76,7 @@ enum class Permission {
     AUDIO,
     CAMERA,
     PHOTO,
+    IDFA,
 };
 
 class runtime
@@ -77,6 +100,7 @@ public:
     
     // app info
     static const std::string getVersion();
+    static const uint64_t getCocosVersion();
     static const std::string getPackageName();
     static const std::string getAppVersion();
     static const std::string getAppBuild();
@@ -88,7 +112,11 @@ public:
     static void setManifestVersion(const std::string &version);
     static const std::string getNetworkStatus();
     
+#if COCOS2D_VERSION >= 0x00040000
     static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, cocos2d::backend::PixelFormat format = cocos2d::backend::PixelFormat::RGBA8888, cocos2d::backend::PixelFormat depthStencilFormat = cocos2d::backend::PixelFormat::D24S8);
+#else
+    static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, cocos2d::Texture2D::PixelFormat format = cocos2d::Texture2D::PixelFormat::RGBA8888, GLuint depthStencilFormat = 0x88f0);
+#endif
     
     // ios only
     static const PermissionStatus getPermissionStatus(Permission permission);
@@ -97,7 +125,6 @@ public:
     static const std::string getAudioSessionCatalog();
     static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> callback);
     static std::string getIDFA();
-    static bool isAdvertisingTrackingEnabled();
     
     // event dispatch
     typedef std::function<void (const std::string &event, const std::string &args)> EventDispatcher;
@@ -109,7 +136,9 @@ public:
     static bool canOpenURL(const std::string &uri);
     
     // for java and objc bridge
+    typedef std::function<void(const std::string &args)> RefCallback;
     static void callref(int func, const std::string &args, bool once);
+    static int ref(const RefCallback callback);
     
     // log
     static const std::string &getTimestamp();

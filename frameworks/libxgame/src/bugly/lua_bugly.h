@@ -1,12 +1,13 @@
-#ifndef __LUA_BUGLY_H__
-#define __LUA_BUGLY_H__
+//
+// AUTO BUILD, DON'T MODIFY!
+//
+#ifndef __AUTO_GEN_LUA_BUGLY_H__
+#define __AUTO_GEN_LUA_BUGLY_H__
 
 #include "xgame/xlua.h"
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
 int luaopen_bugly(lua_State *L);
-#else
-#define luaopen_bugly xlua_nonsupport
 #endif
 
 #endif

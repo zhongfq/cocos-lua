@@ -7,7 +7,7 @@ USING_NS_CC;
 
 NS_XGAME_BEGIN
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+#ifdef CCLUA_OS_ANDROID
 
 const std::string __filesystem_getDocumentDirectory()
 {
@@ -58,7 +58,7 @@ const std::string __filesystem_getDir(const std::string &type)
     return JniHelper::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getDirectory", type);
 }
 
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+#elif defined(CCLUA_OS_WIN32)
 
 #define CC_MAX_PATH  512
 

@@ -3,7 +3,7 @@
 
 #include "xgame/xlua.h"
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#ifdef CCLUA_OS_IOS
 LUALIB_API int luaopen_apple(lua_State *L);
 #else
 #define luaopen_apple xlua_nonsupport

@@ -9,13 +9,6 @@ NS_XGAME_BEGIN
 
 class window {
 public:
-    struct Rect {
-        float left;     // x
-        float right;    // x + width
-        float top;      // y + height
-        float bottom;   // y
-    };
-    
     typedef cocos2d::Rect Bounds;
     
     static Bounds getVisibleBounds();

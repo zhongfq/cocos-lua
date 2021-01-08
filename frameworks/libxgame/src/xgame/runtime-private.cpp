@@ -6,7 +6,7 @@ USING_NS_CC;
 
 NS_XGAME_BEGIN
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+#ifdef CCLUA_OS_ANDROID
 const std::string __runtime_getPackageName()
 {
     static std::string value;
@@ -83,7 +83,7 @@ void __runtime_pullAllFeatures()
 {
     JniHelper::callStaticVoidMethod(JAVA_APPCONTEXT_CLASS, "pullAllFeatures");
 }
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+#elif defined(CCLUA_OS_WIN32)
 
 static std::string _packageName;
 

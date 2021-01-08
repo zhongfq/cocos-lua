@@ -8,7 +8,7 @@ USING_NS_XGAME;
 
 NS_XGAME_BEGIN
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#ifdef CCLUA_OS_IOS
 const std::string __filesystem_getDocumentDirectory()
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -31,7 +31,7 @@ const std::string __filesystem_getTmpDirectory()
     }
     return str;
 }
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+#elif defined(CCLUA_OS_MAC)
 const std::string __filesystem_getAppDataDirectory()
 {
     NSArray<NSString *> *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);

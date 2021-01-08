@@ -2,20 +2,16 @@
 #define __XGAME_LUA_H__
 
 #include "cocos2d.h"
+#include "xgame/luauser.h"
 #include "xgame/runtime.h"
 #include "olua/olua.hpp"
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#define CCLUA_HAVE_WEBVIEW
-#define CCLUA_HAVE_VIDEOPLAYER
-#endif
 
 extern lua_State *xlua_invokingstate;
 
 lua_State *xlua_new();
 int xlua_dofile(lua_State *L, const char *filename);
-int xlua_nonsupport(lua_State *L);
 int xlua_ccobjgc(lua_State *L);
+int xlua_nonsupport(lua_State *L);
 
 //
 // implement olua api

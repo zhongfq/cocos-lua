@@ -112,9 +112,6 @@ if (APPLE)
 endif()
 
 if (IOS)
-    set_xcode_property(xgame TARGETED_DEVICE_FAMILY "1,2")
-    set_xcode_property(xgame IPHONEOS_DEPLOYMENT_TARGET "9.0")
-
     find_library(SC_LIBRARY SystemConfiguration)
     target_link_libraries(xgame ${SC_LIBRARY})
     

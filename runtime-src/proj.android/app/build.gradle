@@ -90,12 +90,14 @@ android.applicationVariants.all { variant ->
     def targetName = variant.name.capitalize()
     def copyTaskName = "copy${targetName}ResourcesToAssets"
     tasks.register(copyTaskName) {
-        copy {
-            from srcAssets
-            into destAssets
-            exclude "builtin.manifest"
-        }
-        compileAssets(destAssets)
+    	doLast {
+            copy {
+                from srcAssets
+                into destAssets
+                exclude "builtin.manifest"
+            }
+            compileAssets(destAssets)
+	}
     }
     tasks.getByName("pre${targetName}Build").dependsOn copyTaskName
 }

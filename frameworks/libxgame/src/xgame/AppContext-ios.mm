@@ -17,6 +17,25 @@
     return [[AppRootViewController alloc] init];
 }
 
+- (void) addAppDelegate:(id<UIApplicationDelegate>) delegate
+{
+    if (![_delegates containsObject:delegate]) {
+        [_delegates addObject:delegate];
+        
+        if (_launchDone) {
+            [delegate application:[UIApplication sharedApplication] didFinishLaunchingWithOptions:_launchOptions];
+        }
+    }
+}
+
+- (instancetype)init
+{
+    _delegates = [[NSMutableArray alloc] init];
+    _launchOptions = nil;
+    _launchDone = NO;
+    return [super init];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     cocos2d::Application *app = cocos2d::Application::getInstance();
@@ -51,6 +70,15 @@
     
     self.reachabe = [Reachability reachabilityForInternetConnection];
     [self.reachabe startNotifier];
+    
+    for (id<UIApplicationDelegate> obj in _delegates) {
+        if ([obj respondsToSelector:@selector(application:didFinishLaunchingWithOptions:)]) {
+            [obj application:application didFinishLaunchingWithOptions:launchOptions];
+        }
+    }
+    
+    _launchDone = YES;
+    _launchOptions = [NSDictionary dictionaryWithDictionary:launchOptions];
 
     return YES;
 }
@@ -101,44 +129,99 @@
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
     xgame::runtime::handleOpenURL([[url absoluteString] UTF8String]);
+    
+    for (id<UIApplicationDelegate> obj in _delegates) {
+        if ([obj respondsToSelector:@selector(application:openURL:options:)]) {
+            [obj application:app openURL:url options:options];
+        }
+    }
+    
     return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+    for (id<UIApplicationDelegate> obj in _delegates) {
+        if ([obj respondsToSelector:@selector(applicationWillResignActive:)]) {
+            [obj applicationWillResignActive:application];
+        }
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    for (id<UIApplicationDelegate> obj in _delegates) {
+        if ([obj respondsToSelector:@selector(applicationDidBecomeActive:)]) {
+            [obj applicationDidBecomeActive:application];
+        }
+    }
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    for (id<UIApplicationDelegate> obj in _delegates) {
+        if ([obj respondsToSelector:@selector(applicationDidEnterBackground:)]) {
+            [obj applicationDidEnterBackground:application];
+        }
+    }
     ((xgame::RuntimeContext *)cocos2d::Application::getInstance())->applicationDidEnterBackground();
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    for (id<UIApplicationDelegate> obj in _delegates) {
+        if ([obj respondsToSelector:@selector(applicationWillEnterForeground:)]) {
+            [obj applicationWillEnterForeground:application];
+        }
+    }
     ((xgame::RuntimeContext *)cocos2d::Application::getInstance())->applicationWillEnterForeground();
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    for (id<UIApplicationDelegate> obj in _delegates) {
+        if ([obj respondsToSelector:@selector(applicationWillTerminate:)]) {
+            [obj applicationWillTerminate:application];
+        }
+    }
     ((xgame::RuntimeContext *)cocos2d::Application::getInstance())->applicationWillTerminate();
 }
 
-
-#pragma mark -
-#pragma mark Memory management
-
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
 {
+    for (id<UIApplicationDelegate> obj in _delegates) {
+        if ([obj respondsToSelector:@selector(applicationDidReceiveMemoryWarning:)]) {
+            [obj applicationDidReceiveMemoryWarning:application];
+        }
+    }
     xgame::runtime::dispatchEvent("memoryWarning", "");
 }
 
-- (void)dealloc
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    for (id<UIApplicationDelegate> obj in _delegates) {
+        if ([obj respondsToSelector:@selector(application:didRegisterForRemoteNotificationsWithDeviceToken:)]) {
+            [obj application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+        }
+    }
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    for (id<UIApplicationDelegate> obj in _delegates) {
+        if ([obj respondsToSelector:@selector(application:didFailToRegisterForRemoteNotificationsWithError:)]) {
+            [obj application:application didFailToRegisterForRemoteNotificationsWithError:error];
+        }
+    }
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler
+{
+    for (id<UIApplicationDelegate> obj in _delegates) {
+        if ([obj respondsToSelector:@selector(application:didReceiveRemoteNotification:fetchCompletionHandler:)]) {
+            [obj application:application didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
+        }
+    }
 }
 
 @end

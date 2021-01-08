@@ -233,7 +233,9 @@ void manual_olua_check_cocos2d_Value(lua_State *L, int idx, cocos2d::Value *valu
     int top = lua_gettop(L);
     int type = lua_type(L, idx);
     idx = lua_absindex(L, idx);
-    if (type == LUA_TTABLE) {
+    if (olua_isa<cocos2d::Value>(L, idx)) {
+        *value = *olua_checkobj<cocos2d::Value>(L, idx);
+    } else if (type == LUA_TTABLE) {
         if (manual_olua_is_cocos2d_ValueVector(L, idx)) {
             cocos2d::ValueVector v;
             manual_olua_check_cocos2d_ValueVector(L, idx, &v);

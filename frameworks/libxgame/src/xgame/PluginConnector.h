@@ -1,6 +1,9 @@
 #import <Foundation/Foundation.h>
 
 #import "xgame/runtime.h"
+#import "xgame/xlua.h"
+
+#define olua_checknsstring(L, idx) ([NSString stringWithUTF8String:olua_checkstring(L, idx)])
 
 @interface PluginConnector : NSObject
 

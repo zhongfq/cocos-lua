@@ -1,6 +1,6 @@
 #include "lua_apple.h"
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#ifdef CCLUA_OS_IOS
 #import "xgame/PluginConnector.h"
 #import <AuthenticationServices/AuthenticationServices.h>
 

@@ -3,7 +3,7 @@
 
 #include "xgame/xlua.h"
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+#if defined(CCLUA_OS_ANDROID) || defined(CCLUA_OS_IOS)
 int luaopen_lame(lua_State *L);
 #else
 #define luaopen_lame xlua_nonsupport

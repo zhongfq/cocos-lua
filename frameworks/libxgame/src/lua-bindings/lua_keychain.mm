@@ -1,6 +1,6 @@
 #include "lua_keychain.h"
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#ifdef CCLUA_OS_IOS
 
 #import <Foundation/Foundation.h>
 #import <Security/Security.h>

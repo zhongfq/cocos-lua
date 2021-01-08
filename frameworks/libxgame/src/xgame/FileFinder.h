@@ -6,13 +6,13 @@
 
 #include <unordered_map>
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_MAC)
 #include "platform/apple/CCFileUtils-apple.h"
 #define SuperFileUtils cocos2d::FileUtilsApple
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+#elif defined(CCLUA_OS_ANDROID)
 #include "platform/android/CCFileUtils-android.h"
 #define SuperFileUtils cocos2d::FileUtilsAndroid
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+#elif defined(CCLUA_OS_WIN32)
 #include "platform/win32/CCFileUtils-win32.h"
 #define SuperFileUtils cocos2d::FileUtilsWin32
 #endif

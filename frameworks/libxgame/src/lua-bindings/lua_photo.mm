@@ -1,7 +1,7 @@
 #import "lua_photo.h"
 #import "xgame/PluginConnector.h"
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#ifdef CCLUA_OS_IOS
 
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <AVFoundation/AVFoundation.h>
@@ -212,14 +212,10 @@ static void request_photolibray_permission(lua_State *L)
                     did_request_permission(handler, false);
                 }]];
                 [alert addAction:[UIAlertAction actionWithTitle:@"去设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    if (@available(iOS 10_0, *)) {
-                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{@"url":@""} completionHandler: ^(BOOL success){
-                            // 如果在设置界面启用了权限，那么应用程序会重启
-                            did_request_permission(handler, false);
-                        }];
-                    } else {
-                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-                    }
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{@"url":@""} completionHandler: ^(BOOL success){
+                        // 如果在设置界面启用了权限，那么应用程序会重启
+                        did_request_permission(handler, false);
+                    }];
                 }]];
                 UIViewController *rootViewController = [[UIApplication sharedApplication] keyWindow].rootViewController;
                 [rootViewController presentViewController:alert animated:YES completion:nil];
@@ -252,14 +248,10 @@ static void request_camera_permission(lua_State *L)
                     did_request_permission(handler, granted);
                 }]];
                 [alert addAction:[UIAlertAction actionWithTitle:@"去设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    if (@available(iOS 10_0, *)) {
-                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{@"url":@""} completionHandler: ^(BOOL success){
-                            // 如果在设置界面启用了权限，那么应用程序会重启
-                            did_request_permission(handler, granted);
-                        }];
-                    } else {
-                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-                    }
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{@"url":@""} completionHandler: ^(BOOL success){
+                        // 如果在设置界面启用了权限，那么应用程序会重启
+                        did_request_permission(handler, granted);
+                    }];
                 }]];
                 UIViewController *rootViewController = [[UIApplication sharedApplication] keyWindow].rootViewController;
                 [rootViewController presentViewController:alert animated:YES completion:nil];

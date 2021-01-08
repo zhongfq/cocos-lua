@@ -12,6 +12,7 @@ set(LUA_BINDINGS_HEADER
     src/lua-bindings/lua_iap.h
     src/lua-bindings/lua_javabridge.h
     src/lua-bindings/lua_keychain.h
+    src/lua-bindings/lua_manual.h
     src/lua-bindings/lua_ocbridge.h
     src/lua-bindings/lua_photo.h
     src/lua-bindings/lua_recorder.h
@@ -33,6 +34,7 @@ set(LUA_BINDINGS_SRC
     src/lua-bindings/lua_conv.cpp
     src/lua-bindings/lua_crypto.cpp
     src/lua-bindings/lua_javabridge.cpp
+    src/lua-bindings/lua_manual.cpp
     src/lua-bindings/lua_socket.cpp
     src/lua-bindings/lua_xgame.cpp
     src/lua-bindings/lua_xml_http_request.cpp

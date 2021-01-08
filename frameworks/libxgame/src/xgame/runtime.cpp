@@ -9,7 +9,7 @@
 #include "xgame/xlua.h"
 #include "lua-bindings/lua_bindings.h"
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#if defined(CCLUA_OS_ANDROID) || defined(CCLUA_OS_IOS)
 #include "bugly/CrashReport.h"
 #endif
 
@@ -29,9 +29,11 @@ static std::vector<lua_CFunction> _luaLibs;
 static runtime::EventDispatcher _dispatcher = nullptr;
 static std::vector<std::pair<std::string, std::string>> _suspendedEvents;
 static std::string _openURI;
-static std::map<std::string, bool> _supportedFeatures;
+static std::unordered_map<std::string, bool> _supportedFeatures;
 static std::unordered_map<std::string, bool> _tracebackCaches;
 static int _sampleCount = 1;
+static std::unordered_map<int, runtime::RefCallback> _refCallbacks;
+static int _refCount = -1;
 
 static char _logBuf[MAX_LOG_LENGTH];
 static float _time = 0;
@@ -63,7 +65,7 @@ void runtime::init()
     Director::getInstance()->setAnimationInterval(1.0f / 60);
     Director::getInstance()->setDisplayStats(runtime::isDebug());
     
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+#ifdef CCLUA_OS_ANDROID
     __runtime_pullAllFeatures();
     runtime::setLogPath(filesystem::getDirectory("external.cache") + "/console.log");
     runtime::getPackageName();
@@ -98,7 +100,11 @@ void runtime::init()
     timer::schedule(1, [](float dt){ updateTimestamp(); });
     timer::schedule(0, [](float dt){ _time += dt; });
     
+#if COCOS2D_VERSION >= 0x00040000
     Texture2D::setDefaultAlphaPixelFormat(backend::PixelFormat::AUTO);
+#else
+    Texture2D::setDefaultAlphaPixelFormat(Texture2D::PixelFormat::AUTO);
+#endif
     AudioEngine::lazyInit();
     
     // cocos event
@@ -151,6 +157,7 @@ public:
             lua_close(_luaVM);
             _luaVM = nullptr;
             _restarting = false;
+            _refCallbacks.clear();
             AudioEngine::end();
             runtime::init();
             runtime::launch(scriptPath);
@@ -244,7 +251,12 @@ void runtime::luaOpen(lua_CFunction libfunc)
 //
 const std::string runtime::getVersion()
 {
-    return "2.0.3";
+    return "2.0.5";
+}
+
+const uint64_t runtime::getCocosVersion()
+{
+    return COCOS2D_VERSION;
 }
 
 const std::string runtime::getPackageName()
@@ -269,19 +281,7 @@ const std::string runtime::getChannel()
 
 const std::string runtime::getOS()
 {
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-    return "ios";
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-    return "android";
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_MAC
-    return "mac";
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-    return "win32";
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
-    return "linux";
-#else
-    return "unknown";
-#endif
+    return CCLUA_OS_NAME;
 }
 
 const std::string runtime::getDeviceInfo()
@@ -309,6 +309,7 @@ const std::string runtime::getNetworkStatus()
     return __runtime_getNetworkStatus();
 }
 
+#if COCOS2D_VERSION >= 0x00040000
 RenderTexture *runtime::capture(Node *node, float width, float height, backend::PixelFormat format, backend::PixelFormat depthStencilFormat)
 {
     auto director = Director::getInstance();
@@ -340,17 +341,42 @@ RenderTexture *runtime::capture(Node *node, float width, float height, backend::
     
     return image;
 }
+#else
+RenderTexture *runtime::capture(Node *node, float width, float height, Texture2D::PixelFormat format, GLuint depthStencilFormat)
+{
+    auto director = Director::getInstance();
+    auto image = RenderTexture::create((int)width, (int)height, format, depthStencilFormat);
+    image->getSprite()->setIgnoreAnchorPointForPosition(true);
+    director->setNextDeltaTimeZero(true);
+
+    bool savedVisible = node->isVisible();
+    Point savedPos = node->getPosition();
+    Point anchor;
+    if (!node->isIgnoreAnchorPointForPosition()) {
+        anchor = node->getAnchorPoint();
+    }
+    node->setVisible(true);
+    node->setPosition(Point(width * anchor.x, height * anchor.y));
+    image->begin();
+    node->visit();
+    image->end();
+    node->setPosition(savedPos);
+    node->setVisible(savedVisible);
+    director->getRenderer()->render();
+    return image;
+}
+#endif
 
 void runtime::setAudioSessionCatalog(const std::string &catalog)
 {
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#ifdef CCLUA_OS_IOS
     __runtime_setAudioSessionCatalog(catalog);
 #endif
 }
 
 const std::string runtime::getAudioSessionCatalog()
 {
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#ifdef CCLUA_OS_IOS
     return __runtime_getAudioSessionCatalog();
 #else
     return "";
@@ -359,7 +385,7 @@ const std::string runtime::getAudioSessionCatalog()
 
 const PermissionStatus runtime::getPermissionStatus(Permission permission)
 {
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#ifdef CCLUA_OS_IOS
     return __runtime_getPermissionStatus(permission);
 #else
     return PermissionStatus::NOT_DETERMINED;
@@ -368,7 +394,7 @@ const PermissionStatus runtime::getPermissionStatus(Permission permission)
 
 void runtime::requestPermission(Permission permission, const std::function<void (PermissionStatus)> callback)
 {
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#ifdef CCLUA_OS_IOS
     __runtime_requestPermission(permission, callback);
 #else
     callback(PermissionStatus::DENIED);
@@ -377,7 +403,7 @@ void runtime::requestPermission(Permission permission, const std::function<void 
 
 void runtime::alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> callback)
 {
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#ifdef CCLUA_OS_IOS
     __runtime_alert(title, message, ok, no, callback);
 #else
     callback(false);
@@ -386,19 +412,10 @@ void runtime::alert(const std::string &title, const std::string &message, const 
 
 std::string runtime::getIDFA()
 {
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#ifdef CCLUA_OS_IOS
     return __runtime_getIDFA();
 #else
     return "";
-#endif
-}
-
-bool runtime::isAdvertisingTrackingEnabled()
-{
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-    return __runtime_isAdvertisingTrackingEnabled();
-#else
-    return false;
 #endif
 }
 
@@ -457,22 +474,39 @@ void runtime::callref(int func, const std::string &args, bool once)
 {
     if (!xgame::runtime::isRestarting()) {
         runtime::runOnCocosThread([func, args, once]() {
-            lua_State *L = olua_mainthread(NULL);
-            int top = lua_gettop(L);
-            olua_pusherrorfunc(L);
-            olua_getref(L, func);
-            if (!lua_isnil(L, -1)) {
-                lua_pushstring(L, args.c_str());
-                lua_pcall(L, 1, 0, top + 1);
+            if (func < 0) {
+                RefCallback callback = _refCallbacks[func];
+                if (callback) {
+                    callback(args);
+                    if (once) {
+                        _refCallbacks.erase(func);
+                    }
+                }
             } else {
-                xgame::runtime::log("attempt to call nil: %d %s", func, args.c_str());
+                lua_State *L = olua_mainthread(NULL);
+                int top = lua_gettop(L);
+                olua_pusherrorfunc(L);
+                olua_getref(L, func);
+                if (!lua_isnil(L, -1)) {
+                    lua_pushstring(L, args.c_str());
+                    lua_pcall(L, 1, 0, top + 1);
+                } else {
+                    xgame::runtime::log("attempt to call nil: %d %s", func, args.c_str());
+                }
+                if (once) {
+                    olua_unref(L, func);
+                }
+                lua_settop(L, top);
             }
-            if (once) {
-                olua_unref(L, func);
-            }
-            lua_settop(L, top);
         });
     }
+}
+
+int runtime::ref(const RefCallback callback)
+{
+    _refCount--;
+    _refCallbacks[_refCount] = std::move(callback);
+    return _refCount;
 }
 
 void runtime::once(const std::string &event, const std::function<void()> callback)
@@ -570,7 +604,7 @@ void runtime::log(const char *fmt, ...)
     
     va_end(args);
     
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#if defined(CCLUA_OS_ANDROID) || defined(CCLUA_OS_IOS)
     if (_reportError) {
         if (runtime::isCocosThread()) {
             CrashReport::log(CrashReport::Verbose, _logBuf);
@@ -679,7 +713,7 @@ void RuntimeContext::initGLView(const std::string &title)
     rect.size.width = preferences::getFloat(CONF_WINDOW_WIDTH, rect.size.width);
     rect.size.height = preferences::getFloat(CONF_WINDOW_HEIGHT, rect.size.height);
     if(!glview) {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
+#if defined(CCLUA_OS_WIN32) || defined(CCLUA_OS_MAC) || defined(CCLUA_OS_LINUX)
         glview = GLViewImpl::createWithRect(title, rect);
 #else
         glview = GLViewImpl::create(title);
@@ -726,7 +760,7 @@ void RuntimeContext::applicationWillTerminate()
     auto director = Director::getInstance();
     director->retain();
     
-#if CC_TARGET_PLATFORM != CC_PLATFORM_MAC
+#ifndef CCLUA_OS_MAC
     director->popToRootScene();
     director->mainLoop();
     if (director->getRunningScene()) {
@@ -746,7 +780,7 @@ void RuntimeContext::applicationWillTerminate()
     CC_SAFE_RELEASE(_scheduler);
     
     director->release();
-#if CC_TARGET_PLATFORM != CC_PLATFORM_MAC
+#ifndef CCLUA_OS_MAC
     director->end();
     director->mainLoop();
 #endif

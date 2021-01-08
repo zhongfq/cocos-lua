@@ -230,6 +230,7 @@ static int luaopen_xgame_Permission(lua_State *L)
     oluacls_class(L, "kernel.Permission", nullptr);
     oluacls_const_integer(L, "AUDIO", (lua_Integer)xgame::Permission::AUDIO);
     oluacls_const_integer(L, "CAMERA", (lua_Integer)xgame::Permission::CAMERA);
+    oluacls_const_integer(L, "IDFA", (lua_Integer)xgame::Permission::IDFA);
     oluacls_const_integer(L, "PHOTO", (lua_Integer)xgame::Permission::PHOTO);
 
     olua_registerluatype<xgame::Permission>(L, "kernel.Permission");
@@ -509,6 +510,19 @@ static int _xgame_runtime_getChannel(lua_State *L)
     return num_ret;
 }
 
+static int _xgame_runtime_getCocosVersion(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static const uint64_t getCocosVersion()
+    const uint64_t ret = xgame::runtime::getCocosVersion();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _xgame_runtime_getDeviceInfo(lua_State *L)
 {
     olua_startinvoke(L);
@@ -669,12 +683,12 @@ static int _xgame_runtime_getVersion(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_isAdvertisingTrackingEnabled(lua_State *L)
+static int _xgame_runtime_isCocosThread(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // static bool isAdvertisingTrackingEnabled()
-    bool ret = xgame::runtime::isAdvertisingTrackingEnabled();
+    // static bool isCocosThread()
+    bool ret = xgame::runtime::isCocosThread();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -1009,6 +1023,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_func(L, "getAppVersion", _xgame_runtime_getAppVersion);
     oluacls_func(L, "getAudioSessionCatalog", _xgame_runtime_getAudioSessionCatalog);
     oluacls_func(L, "getChannel", _xgame_runtime_getChannel);
+    oluacls_func(L, "getCocosVersion", _xgame_runtime_getCocosVersion);
     oluacls_func(L, "getDeviceInfo", _xgame_runtime_getDeviceInfo);
     oluacls_func(L, "getIDFA", _xgame_runtime_getIDFA);
     oluacls_func(L, "getLanguage", _xgame_runtime_getLanguage);
@@ -1021,7 +1036,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_func(L, "getSampleCount", _xgame_runtime_getSampleCount);
     oluacls_func(L, "getTime", _xgame_runtime_getTime);
     oluacls_func(L, "getVersion", _xgame_runtime_getVersion);
-    oluacls_func(L, "isAdvertisingTrackingEnabled", _xgame_runtime_isAdvertisingTrackingEnabled);
+    oluacls_func(L, "isCocosThread", _xgame_runtime_isCocosThread);
     oluacls_func(L, "isDebug", _xgame_runtime_isDebug);
     oluacls_func(L, "isRestarting", _xgame_runtime_isRestarting);
     oluacls_func(L, "launch", _xgame_runtime_launch);
@@ -1036,11 +1051,12 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_func(L, "setSampleCount", _xgame_runtime_setSampleCount);
     oluacls_func(L, "support", _xgame_runtime_support);
     oluacls_func(L, "testCrash", _xgame_runtime_testCrash);
-    oluacls_prop(L, "advertisingTrackingEnabled", _xgame_runtime_isAdvertisingTrackingEnabled, nullptr);
     oluacls_prop(L, "appBuild", _xgame_runtime_getAppBuild, nullptr);
     oluacls_prop(L, "appVersion", _xgame_runtime_getAppVersion, nullptr);
     oluacls_prop(L, "audioSessionCatalog", _xgame_runtime_getAudioSessionCatalog, _xgame_runtime_setAudioSessionCatalog);
     oluacls_prop(L, "channel", _xgame_runtime_getChannel, nullptr);
+    oluacls_prop(L, "cocosThread", _xgame_runtime_isCocosThread, nullptr);
+    oluacls_prop(L, "cocosVersion", _xgame_runtime_getCocosVersion, nullptr);
     oluacls_prop(L, "debug", _xgame_runtime_isDebug, nullptr);
     oluacls_prop(L, "deviceInfo", _xgame_runtime_getDeviceInfo, nullptr);
     oluacls_prop(L, "idfa", _xgame_runtime_getIDFA, nullptr);

@@ -1,7 +1,10 @@
 #ifndef __CRASHREPORT_H__
 #define __CRASHREPORT_H__
 
+#include "xgame/runtime.h"
 #include "cocos2d.h"
+
+NS_XGAME_BEGIN
 
 class CrashReport
 {
@@ -18,5 +21,7 @@ public:
     enum LogLevel {Off = 0, Error = 1, Warning = 2, Info = 3, Debug = 4, Verbose = 5};
     static void log(LogLevel level, const char *message);
 };
+
+NS_XGAME_END
 
 #endif

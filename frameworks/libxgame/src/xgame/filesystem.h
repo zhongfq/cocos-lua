@@ -25,7 +25,7 @@ private:
 
 class filesystem {
 public:
-#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+#if defined(CCLUA_OS_WIN32) || defined(CCLUA_OS_MAC)
     static const std::string getAppDataDirectory();
 #endif
     

@@ -2,7 +2,7 @@
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_MAC)
 
 #define is(T) (strcmp(type, @encode(T)) == 0)
 

@@ -39,6 +39,7 @@ template <typename T> inline T *olua_toobj(lua_State *L, int idx);
 
 /**
  * Help to check whether callback is run on the host thread of lua vm.
+ * It would be inserted into the start of callback block.
  */
 #ifndef OLUA_HAVE_CHECKHOSTTHREAD
 #define olua_checkhostthread() ((void)0)
@@ -53,7 +54,7 @@ template <typename T> inline T *olua_toobj(lua_State *L, int idx);
  *  void olua_startcmpref(lua_State *L, int idx, const char *refname);
  *  void olua_endcmpref(lua_State *L, int idx, const char *refname);
  *
- * exmaple:
+ * example:
  *  static int func(lua_State *L)
  *  {
  *      ...

@@ -3,7 +3,7 @@
 #import "xgame/PluginConnector.h"
 #import "cocos2d.h"
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#ifdef CCLUA_OS_IOS
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
@@ -159,14 +159,10 @@ static int _request_permission(lua_State *L)
                         did_request_permission(handler, granted);
                     }]];
                     [alert addAction:[UIAlertAction actionWithTitle:@"去设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        if (@available(iOS 10_0, *)) {
-                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{@"url":@""} completionHandler: ^(BOOL success){
-                                // 如果在设置界面启用了录音权限，那么应用程序会重启
-                                did_request_permission(handler, granted);
-                            }];
-                        } else {
-                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-                        }
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{@"url":@""} completionHandler: ^(BOOL success){
+                            // 如果在设置界面启用了录音权限，那么应用程序会重启
+                            did_request_permission(handler, granted);
+                        }];
                     }]];
                     UIViewController *rootViewController = [[UIApplication sharedApplication] keyWindow].rootViewController;
                     [rootViewController presentViewController:alert animated:YES completion:nil];

@@ -1,7 +1,7 @@
 #include "lua_iap.h"
 #include "cocos2d.h"
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#ifdef CCLUA_OS_IOS
 #import "xgame/PluginConnector.h"
 #import <StoreKit/StoreKit.h>
 

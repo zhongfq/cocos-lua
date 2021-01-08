@@ -37,7 +37,7 @@ void BufferReader::resize(size_t size)
 
 BufferReader filesystem::s_reader;
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+#if defined(CCLUA_OS_WIN32) || defined(CCLUA_OS_MAC)
 const std::string filesystem::getAppDataDirectory()
 {
     return __filesystem_getAppDataDirectory();
@@ -66,7 +66,7 @@ const std::string filesystem::getBuiltinCacheDirectory()
 
 const std::string filesystem::getSDCardDirectory()
 {
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+#ifdef CCLUA_OS_ANDROID
     return __filesystem_getSDCardDirectory();
 #else
     return "/";
@@ -75,7 +75,7 @@ const std::string filesystem::getSDCardDirectory()
 
 const std::string filesystem::getDirectory(const std::string &type)
 {
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+#ifdef CCLUA_OS_ANDROID
     return __filesystem_getDir(type);
 #else
     return "/";

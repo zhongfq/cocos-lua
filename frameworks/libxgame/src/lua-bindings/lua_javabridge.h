@@ -3,7 +3,7 @@
 
 #include "xgame/xlua.h"
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+#ifdef CCLUA_OS_ANDROID
 int luaopen_javabridge(lua_State *L);
 #else
 #define luaopen_javabridge xlua_nonsupport

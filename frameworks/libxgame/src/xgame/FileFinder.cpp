@@ -18,7 +18,7 @@ FileFinder *FileFinder::create()
 
 FileFinder::FileFinder()
 {
-#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+#ifdef CCLUA_OS_MAC
     std::string path = filesystem::getAppDataDirectory();
     setWritablePath(path + "/");
 #endif

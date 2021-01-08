@@ -1,6 +1,6 @@
 #include "lua_javabridge.h"
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+#ifdef CCLUA_OS_ANDROID
 #include "platform/android/jni/JniHelper.h"
 #include "base/ccUTF8.h"
 #include "xgame/runtime.h"

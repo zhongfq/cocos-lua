@@ -11,15 +11,49 @@ USING_NS_XGAME;
 lua_State *xlua_invokingstate = NULL;
 static std::unordered_map<std::string, std::string> xlua_typemap;
 
+#if COCOS2D_VERSION >= 0x00040000
 extern bool CC_DLL cc_assert_script_compatible(const char *msg)
 {
-	if (xlua_invokingstate) {
-		lua_State *L = xlua_invokingstate;
-		xlua_invokingstate = NULL;
-		luaL_error(L, msg);
-	}
-	return false;
+    if (xlua_invokingstate) {
+        lua_State *L = xlua_invokingstate;
+        xlua_invokingstate = NULL;
+        luaL_error(L, msg);
+    }
+    return false;
 }
+#else
+static bool inline throw_lua_error(const char *msg)
+{
+    if (xlua_invokingstate) {
+        lua_State *L = xlua_invokingstate;
+        xlua_invokingstate = NULL;
+        luaL_error(L, msg);
+    }
+    return false;
+}
+
+#ifdef CCLUA_OS_WIN32
+#include "base/CCScriptSupport.h"
+class AssertEngine : public ScriptEngineProtocol {
+public:
+    virtual int executeString(const char* codes) { return 0; }
+    virtual int executeScriptFile(const char* filename) { return 0; }
+    virtual int executeGlobalFunction(const char* functionName) { return 0; }
+    virtual int sendEvent(ScriptEvent* evt) { return 0; }
+    virtual bool parseConfig(ConfigType type, const std::string& str) { return true; }
+
+    virtual bool handleAssert(const char *msg)
+    {
+        return throw_lua_error(msg);
+    }
+};
+#else
+extern bool cc_assert_script_compatible(const char *msg)
+{
+    return throw_lua_error(msg);
+}
+#endif
+#endif
 
 static int _coroutine_resume(lua_State *L)
 {
@@ -263,6 +297,12 @@ lua_State *xlua_new()
     
     lua_pushboolean(L, runtime::isDebug());
     lua_setglobal(L, "DEBUG");
+
+#if COCOS2D_VERSION < 0x00040000
+#ifdef CCLUA_OS_WIN32
+	ScriptEngineManager::getInstance()->setScriptEngine(new AssertEngine());
+#endif
+#endif
     
     return L;
 }
@@ -301,43 +341,6 @@ int xlua_dofile(lua_State *L, const char *filename)
     return status;
 }
 
-static int _nonsupport_func(lua_State *L)
-{
-    lua_settop(L, 0);
-    lua_pushvalue(L, lua_upvalueindex(1));
-    lua_pushvalue(L, lua_upvalueindex(2));
-    lua_getfield(L, 1, "__name");
-    xgame::runtime::log("function '%s.%s' not supported on '%s'",
-        lua_tostring(L, -1), lua_tostring(L, 2), xgame::runtime::getOS().c_str());
-    return 0;
-}
-
-static int _nonsupport_index(lua_State *L)
-{
-    lua_pushvalue(L, 1);
-    lua_pushvalue(L, 2);
-    lua_pushcclosure(L, _nonsupport_func, 2);
-    return 1;
-}
-
-int xlua_nonsupport(lua_State *L)
-{
-    lua_settop(L, 1);
-    const char *name = lua_tostring(L, 1);
-    
-    lua_newtable(L);
-    lua_pushstring(L, name);
-    lua_setfield(L, -2, "__name");
-    
-    lua_pushcfunction(L, _nonsupport_index);
-    lua_setfield(L, -2, "__index");
-    
-    lua_pushvalue(L, -1);
-    lua_setmetatable(L, -2);
-    
-    return 1;
-}
-
 static int report_gc_error(lua_State *L)
 {
     luaL_error(L, "'referenceCount > 0xFFFF' maybe a error, check this obj: %s", olua_objstring(L, 1));
@@ -373,6 +376,43 @@ int xlua_ccobjgc(lua_State *L)
     lua_pushnil(L);
     lua_setuservalue(L, 1);
     return 0;
+}
+
+static int _nonsupport_func(lua_State *L)
+{
+    lua_settop(L, 0);
+    lua_pushvalue(L, lua_upvalueindex(1));
+    lua_pushvalue(L, lua_upvalueindex(2));
+    lua_getfield(L, 1, "__name");
+    xgame::runtime::log("function '%s.%s' not supported on '%s'",
+        lua_tostring(L, -1), lua_tostring(L, 2), xgame::runtime::getOS().c_str());
+    return 0;
+}
+
+static int _nonsupport_index(lua_State *L)
+{
+    lua_pushvalue(L, 1);
+    lua_pushvalue(L, 2);
+    lua_pushcclosure(L, _nonsupport_func, 2);
+    return 1;
+}
+
+int xlua_nonsupport(lua_State *L)
+{
+    lua_settop(L, 1);
+    const char *name = lua_tostring(L, 1);
+    
+    lua_newtable(L);
+    lua_pushstring(L, name);
+    lua_setfield(L, -2, "__name");
+    
+    lua_pushcfunction(L, _nonsupport_index);
+    lua_setfield(L, -2, "__index");
+    
+    lua_pushvalue(L, -1);
+    lua_setmetatable(L, -2);
+    
+    return 1;
 }
 
 #ifdef OLUA_HAVE_MAINTHREAD

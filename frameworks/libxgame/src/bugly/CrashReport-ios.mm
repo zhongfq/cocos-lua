@@ -3,10 +3,12 @@
 #import "cocos2d.h"
 #import <string.h>
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#ifdef CCLUA_OS_IOS
 
 #import <Foundation/Foundation.h>
 #import <Bugly/Bugly.h>
+
+NS_XGAME_BEGIN
 
 #define NSStringMake(str) (str == NULL ? nil : @(str))
 #define NSStringMakeNonnull(str) (str == NULL ? @"" : @(str))
@@ -84,5 +86,7 @@ void CrashReport::log(LogLevel level, const char *msg)
         [BuglyLog level:(BuglyLogLevel)level tag:@"bugly" log:@"%s", msg];
     }
 }
+
+NS_XGAME_END
 
 #endif

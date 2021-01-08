@@ -31,7 +31,7 @@ void RootScene::execute()
         olua_getglobal(L, "main") == LUA_TFUNCTION) {
         olua_pcall(L, 0, 0);
     } else {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
         runtime::clearStorage();
         runtime::restart();
 #else

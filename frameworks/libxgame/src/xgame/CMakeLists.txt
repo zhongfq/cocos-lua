@@ -1,10 +1,12 @@
 set(XGAME_HEADER
     src/xgame/AssetsBundle.h
+    src/xgame/ByteArray.h
     src/xgame/downloader.h
     src/xgame/FileFinder.h
     src/xgame/filesystem-private.h
     src/xgame/filesystem.h
     src/xgame/luauser.h
+    src/xgame/plugin.h
     src/xgame/preferences.h
     src/xgame/RootScene.h
     src/xgame/runtime-private.h
@@ -18,6 +20,7 @@ set(XGAME_HEADER
 
 set(XGAME_SRC
     src/xgame/AssetsBundle.cpp
+    src/xgame/ByteArray.cpp
     src/xgame/downloader.cpp
     src/xgame/FileFinder.cpp
     src/xgame/filesystem-private.cpp
@@ -38,6 +41,7 @@ if(APPLE)
         list(APPEND XGAME_HEADER
             src/xgame/AppContext-ios.h
             src/xgame/AppRootViewController-ios.h
+            src/xgame/plugin-ios.h
             src/xgame/PluginConnector.h
             src/xgame/Reachability.h
         )

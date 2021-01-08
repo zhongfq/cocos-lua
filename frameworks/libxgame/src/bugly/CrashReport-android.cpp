@@ -2,11 +2,13 @@
 
 #include "cocos2d.h"
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+NS_XGAME_BEGIN
+
+#ifdef CCLUA_OS_ANDROID
 #include <android/log.h>
 #include <string.h>
 
-#define BUGLY_CLASS "kernel/plugins/bugly/Bugly"
+#define BUGLY_CLASS "kernel/plugin/bugly/Bugly"
 
 static bool s_initialized = false;
 
@@ -52,3 +54,5 @@ void CrashReport::log(LogLevel level, const char *msg) {
 }
 
 #endif
+
+NS_XGAME_END

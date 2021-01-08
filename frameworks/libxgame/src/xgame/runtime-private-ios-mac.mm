@@ -5,12 +5,13 @@
 #import <sys/utsname.h>
 #import <AVFoundation/AVFoundation.h>
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#ifdef CCLUA_OS_IOS
 #import "AppContext-ios.h"
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
 #ifdef CCLUA_FEATURE_IDFA
 #import <AdSupport/AdSupport.h>
+#import <AppTrackingTransparency/AppTrackingTransparency.h>
 #endif
 #endif
 
@@ -42,7 +43,7 @@ const std::string __runtime_getAppBuild()
 const std::string __runtime_getChannel()
 {
     if (_channel.size() == 0) {
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#ifdef CCLUA_OS_IOS
         _channel = "AppStore";
 #else
         _channel = "dev";
@@ -54,7 +55,7 @@ const std::string __runtime_getChannel()
 const std::string __runtime_getDeviceInfo()
 {
     if (_deviceInfo.size() == 0) {
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#ifdef CCLUA_OS_IOS
         struct utsname systemInfo;
         uname(&systemInfo);
         _deviceInfo.append([[NSString stringWithCString:systemInfo.machine encoding:NSASCIIStringEncoding] UTF8String]);
@@ -69,7 +70,7 @@ const std::string __runtime_getDeviceInfo()
     return _deviceInfo;
 }
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#ifdef CCLUA_OS_IOS
 PermissionStatus getAVCaptureDevicePermissionStatus(AVMediaType type)
 {
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:type];
@@ -98,6 +99,32 @@ static PermissionStatus getPHAuthorizationStatus()
     }
 }
 
+static PermissionStatus getTrackingAuthorizationStatus()
+{
+#ifdef CCLUA_FEATURE_IDFA
+    if (@available(iOS 14_0, *)) {
+        ATTrackingManagerAuthorizationStatus status = [ATTrackingManager trackingAuthorizationStatus];
+        if (status == ATTrackingManagerAuthorizationStatusNotDetermined) {
+            return PermissionStatus::NOT_DETERMINED;
+        } else if (status == ATTrackingManagerAuthorizationStatusRestricted) {
+            return PermissionStatus::RESTRICTED;
+        } else if (status == ATTrackingManagerAuthorizationStatusDenied) {
+            return PermissionStatus::DENIED;
+        } else {
+            return PermissionStatus::AUTHORIZED;
+        }
+    } else {
+        if ([[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]) {
+            return PermissionStatus::AUTHORIZED;
+        } else {
+            return PermissionStatus::RESTRICTED;
+        }
+    }
+#else
+    return PermissionStatus::RESTRICTED;
+#endif
+}
+
 PermissionStatus __runtime_getPermissionStatus(Permission permission)
 {
     if (permission == Permission::AUDIO) {
@@ -106,6 +133,8 @@ PermissionStatus __runtime_getPermissionStatus(Permission permission)
         return getAVCaptureDevicePermissionStatus(AVMediaTypeVideo);
     } else if (permission == Permission::PHOTO) {
         return getPHAuthorizationStatus();
+    } else if (permission == Permission::IDFA) {
+        return getTrackingAuthorizationStatus();
     } else {
         return PermissionStatus::NOT_DETERMINED;
     }
@@ -142,6 +171,35 @@ static void requestPHAuthorization(const std::function<void (PermissionStatus)> 
     });
 }
 
+static void requestTrackingAuthorization(const std::function<void (PermissionStatus)> callback)
+{
+#ifdef CCLUA_FEATURE_IDFA
+    if (@available(iOS 14_0, *)) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
+                if (status == ATTrackingManagerAuthorizationStatusNotDetermined) {
+                    callback(PermissionStatus::NOT_DETERMINED);
+                } else if (status == ATTrackingManagerAuthorizationStatusRestricted) {
+                    callback(PermissionStatus::RESTRICTED);
+                } else if (status == ATTrackingManagerAuthorizationStatusDenied) {
+                    callback(PermissionStatus::DENIED);
+                } else {
+                    callback(PermissionStatus::AUTHORIZED);
+                }
+            }];
+        });
+    } else {
+        if ([[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]) {
+            callback(PermissionStatus::AUTHORIZED);
+        } else {
+            callback(PermissionStatus::RESTRICTED);
+        }
+    }
+#else
+    callback(PermissionStatus::DENIED);
+#endif
+}
+
 void __runtime_requestPermission(Permission permission, const std::function<void (PermissionStatus)> callback)
 {
     if (permission == Permission::AUDIO) {
@@ -150,6 +208,8 @@ void __runtime_requestPermission(Permission permission, const std::function<void
         requestAVCaptureDevicePermission(AVMediaTypeVideo, callback);
     } else if (permission == Permission::PHOTO) {
         requestPHAuthorization(callback);
+    } else if (permission == Permission::IDFA) {
+        requestTrackingAuthorization(callback);
     } else {
         callback(PermissionStatus::DENIED);
     }
@@ -205,19 +265,11 @@ std::string __runtime_getIDFA()
 #endif
 }
 
-bool __runtime_isAdvertisingTrackingEnabled()
-{
-#ifdef CCLUA_FEATURE_IDFA
-    return [[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled];
-#else
-    return false;
-#endif
-}
 #endif
 
 void __runtime_openURL(const std::string uri, const std::function<void (bool)> callback)
 {
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#ifdef CCLUA_OS_IOS
     dispatch_async(dispatch_get_main_queue(), ^{
         NSURL *url;
         if (strstartwith(uri.c_str(), "app-settings")) {
@@ -225,7 +277,9 @@ void __runtime_openURL(const std::string uri, const std::function<void (bool)> c
         } else {
             url = [NSURL URLWithString:[NSString stringWithUTF8String:uri.c_str()]];
         }
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_10_0
         if (@available(iOS 10_0, *)) {
+#endif
             [[UIApplication sharedApplication] openURL:url options:@{} completionHandler: ^(BOOL success){
                 runtime::runOnCocosThread([callback, success](){
                     if (callback != nullptr) {
@@ -233,12 +287,14 @@ void __runtime_openURL(const std::string uri, const std::function<void (bool)> c
                     }
                 });
             }];
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_10_0
         } else {
             bool success = [[UIApplication sharedApplication] openURL:url];
             if (callback != nullptr) {
                 callback(success);
             }
         }
+#endif
     });
 #else
     bool success = Application::getInstance()->openURL(uri);
@@ -250,7 +306,7 @@ void __runtime_openURL(const std::string uri, const std::function<void (bool)> c
 
 bool __runtime_canOpenURL(const std::string uri)
 {
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#ifdef CCLUA_OS_IOS
     return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:[NSString stringWithUTF8String:uri.c_str()]]];
 #else
     return true;
@@ -267,7 +323,7 @@ const std::string __runtime_getLanguage()
 
 const std::string __runtime_getNetworkStatus()
 {
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#ifdef CCLUA_OS_IOS
     AppContext *context = (AppContext *)[UIApplication sharedApplication].delegate;
     return [[context getNetworkStatus] UTF8String];
 #else

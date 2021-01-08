@@ -40,6 +40,7 @@ M.CHUNK = [[
         return 4;
     }
 ]]
+M.DEFIF = nil
 
 M.CONVS = {
     typeconv {
@@ -74,6 +75,7 @@ cls.CHUNK = nil
 cls.enum('AUDIO', 'xgame::Permission::AUDIO')
 cls.enum('CAMERA', 'xgame::Permission::CAMERA')
 cls.enum('PHOTO', 'xgame::Permission::PHOTO')
+cls.enum('IDFA', 'xgame::Permission::IDFA')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::PermissionStatus'
@@ -105,9 +107,11 @@ cls.func(nil, 'static bool launch(const std::string &scriptPath)')
 cls.func(nil, 'static bool restart()')
 cls.func(nil, 'static bool isRestarting()')
 cls.func(nil, 'static bool isDebug()')
+cls.func(nil, 'static bool isCocosThread()')
 cls.func(nil, 'static float getTime()')
 cls.func(nil, 'static void gc()')
 cls.func(nil, 'static const std::string getVersion()')
+cls.func(nil, 'static const uint64_t getCocosVersion()')
 cls.func(nil, 'static const std::string getPackageName()')
 cls.func(nil, 'static const std::string getAppVersion()')
 cls.func(nil, 'static const std::string getAppBuild()')
@@ -123,7 +127,6 @@ cls.func(nil, 'static const xgame::PermissionStatus getPermissionStatus(xgame::P
 cls.func(nil, 'static void setAudioSessionCatalog(const std::string &catalog)')
 cls.func(nil, 'static const std::string getAudioSessionCatalog()')
 cls.func(nil, 'static std::string getIDFA()')
-cls.func(nil, 'static bool isAdvertisingTrackingEnabled()')
 cls.func(nil, 'static bool canOpenURL(const std::string &uri)')
 cls.func(nil, 'static void setLogPath(const std::string &path)')
 cls.func(nil, 'static const std::string getLogPath()')
@@ -170,8 +173,10 @@ cls.callback {
 }
 cls.prop('restarting', nil, nil)
 cls.prop('debug', nil, nil)
+cls.prop('cocosThread', nil, nil)
 cls.prop('time', nil, nil)
 cls.prop('version', nil, nil)
+cls.prop('cocosVersion', nil, nil)
 cls.prop('packageName', nil, nil)
 cls.prop('appVersion', nil, nil)
 cls.prop('appBuild', nil, nil)
@@ -183,7 +188,6 @@ cls.prop('manifestVersion', nil, nil)
 cls.prop('networkStatus', nil, nil)
 cls.prop('audioSessionCatalog', nil, nil)
 cls.prop('idfa', nil, nil)
-cls.prop('advertisingTrackingEnabled', nil, nil)
 cls.prop('logPath', nil, nil)
 cls.prop('sampleCount', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls

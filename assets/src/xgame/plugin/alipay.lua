@@ -37,7 +37,7 @@ end
 
 if runtime.os == "android" then
     local luaj = require "xgame.luaj"
-    local inst = luaj.new("kernel/plugins/alipay/Alipay")
+    local inst = luaj.new("kernel/plugin/alipay/Alipay")
     impl = {}
 
     function impl:setDispatcher(callback)
@@ -52,7 +52,7 @@ if runtime.os == "android" then
 else
     impl = setmetatable({}, {__index = function (_, func)
         return function ()
-            trace("function 'kernel.plugins.alipay.%s' not supported", func)
+            trace("function 'kernel.plugin.alipay.%s' not supported", func)
         end
     end})
 end

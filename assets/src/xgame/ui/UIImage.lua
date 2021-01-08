@@ -1,8 +1,6 @@
 local class             = require "xgame.class"
 local loader            = require "xgame.loader"
 local filesystem        = require "xgame.filesystem"
-local Event             = require "xgame.event.Event"
-local LoadTask          = require "xgame.LoadTask"
 local UIView            = require "xgame.ui.UIView"
 local ImageView         = require "ccui.ImageView"
 local TextureResType    = require "ccui.Widget.TextureResType"

@@ -72,6 +72,7 @@ runtime.EXCLUDE_FUNC 'reportError'
 runtime.EXCLUDE_FUNC 'runOnCocosThread'
 runtime.EXCLUDE_FUNC 'updateTimestamp'
 runtime.EXCLUDE_FUNC 'callref'
+runtime.EXCLUDE_FUNC 'ref'
 runtime.FUNC("testCrash", [[
 {
     xgame::runtime::log("test native crash!!!!");

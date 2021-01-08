@@ -4,7 +4,7 @@ local filesystem    = require "xgame.filesystem"
 local runtime       = require "xgame.runtime"
 local Dispatcher    = require "xgame.Dispatcher"
 local Event         = require "xgame.event.Event"
-local impl          = require "kernel.plugins.photo"
+local impl          = require "kernel.plugin.photo"
 
 local trace = util.trace("[photo]")
 
@@ -62,7 +62,7 @@ end
 
 if runtime.os == "android" then
     local luaj = require "xgame.luaj"
-    local inst = luaj.new("kernel/plugins/photo/Photo")
+    local inst = luaj.new("kernel/plugin/photo/Photo")
     impl = {}
 
     function impl:setDispatcher(callback)

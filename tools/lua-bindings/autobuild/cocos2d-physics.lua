@@ -18,6 +18,7 @@ M.INCLUDES = [[
     #include "cocos2d.h"
 ]]
 M.CHUNK = 'using namespace cocos2d;'
+M.DEFIF = nil
 
 M.CONVS = {
     typeconv {

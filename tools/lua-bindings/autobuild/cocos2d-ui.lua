@@ -20,6 +20,7 @@ M.INCLUDES = [[
     #include "ui/UIScrollViewBar.h"
 ]]
 M.CHUNK = ''
+M.DEFIF = nil
 
 M.CONVS = {
 }

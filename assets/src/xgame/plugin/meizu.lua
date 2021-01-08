@@ -52,7 +52,7 @@ end
 
 if runtime.os == "android" then
     local luaj = require "xgame.luaj"
-    local inst = luaj.new("kernel/plugins/meizu/Meizu")
+    local inst = luaj.new("kernel/plugin/meizu/Meizu")
     impl = {}
 
     function impl:setDispatcher(callback)
@@ -78,7 +78,7 @@ if runtime.os == "android" then
 else
     impl = setmetatable({}, {__index = function (_, func)
         return function ()
-            trace("function 'kernel.plugins.meizu.%s' not supported", func)
+            trace("function 'kernel.plugin.meizu.%s' not supported", func)
         end
     end})
 end

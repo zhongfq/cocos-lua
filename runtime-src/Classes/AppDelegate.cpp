@@ -56,7 +56,14 @@
 #define BUGLY_APPID "<no appid>"
 #endif
 
+#if defined(CCLUA_BUILD_JPUSH) || defined(CCLUA_BUILD_JANALYTICS)
+#include "jiguang/lua_jiguang.h"
+#include "jiguang/JiGuang.h"
+#define JPUSH_KEY "JPUSH_KEY"
+#endif
+
 USING_NS_CC;
+USING_NS_XGAME;
 
 static int _open_plugins(lua_State *L)
 {
@@ -76,6 +83,10 @@ static int _open_plugins(lua_State *L)
     
 #ifdef CCLUA_BUILD_SWF
     olua_callfunc(L, luaopen_swf);
+#endif
+    
+#if defined(CCLUA_BUILD_JPUSH) || defined(CCLUA_BUILD_JANALYTICS)
+    olua_callfunc(L, luaopen_jiguang);
 #endif
     
 //    olua_require(L, "kernel.plugins.wechat", luaopen_wechat);
@@ -100,6 +111,13 @@ bool AppDelegate::applicationDidFinishLaunching()
      *  });
      */
     
+#if defined(CCLUA_BUILD_JPUSH)
+    plugin::JPush::init(JPUSH_KEY, runtime::getChannel());
+#endif
+    
+#if defined(CCLUA_BUILD_JANALYTICS)
+    plugin::JAnalytics::init(JPUSH_KEY, runtime::getChannel());
+#endif
     initGLView("cocos-lua");
     xgame::runtime::initBugly(BUGLY_APPID);
     xgame::runtime::luaOpen(_open_plugins);

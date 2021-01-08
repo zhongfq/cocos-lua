@@ -35,11 +35,16 @@ return {
         #include "xgame/timer.h"
         #include "xgame/window.h"
         #include "lua-bindings/LuaCocosAdapter.h"
+
+        #include "jiguang/JiGuang.h"
+        #include "bugly/CrashReport.h"
     ]],
     FLAGS = {
         '-DCC_CONSTRUCTOR_ACCESS=public',
         '-DCC_ENABLE_SCRIPT_BINDING=0',
         '-DSPINE_USE_STD_FUNCTION',
+        '-DCCLUA_BUILD_JPUSH',
+        '-DCCLUA_BUILD_JANALYTICS',
         '-I../../frameworks/cocos2d-x/cocos',
         '-I../../frameworks/cocos2d-x/cocos/editor-support',
         '-I../../frameworks/cocos2d-x/cocos/platform',
@@ -48,6 +53,7 @@ return {
         '-I../../frameworks/libdragonbones/src',
         '-I../../frameworks/libxgame/src',
         '-I../../frameworks/libxgame/src/lua',
+        '-I../../frameworks/plugins',
 
         '-x', 'c++', '-nostdinc', '-std=c++11',
         '-U__SSE__',

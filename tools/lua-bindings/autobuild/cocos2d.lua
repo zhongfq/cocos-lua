@@ -27,6 +27,7 @@ M.CHUNK = [[
         return "schedule." + key;
     }
 ]]
+M.DEFIF = nil
 
 M.CONVS = {
 }

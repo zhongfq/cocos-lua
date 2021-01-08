@@ -18,6 +18,7 @@ M.INCLUDES = [[
     #include "CCDragonBonesHeaders.h"
 ]]
 M.CHUNK = ''
+M.DEFIF = nil
 
 M.CONVS = {
     typeconv {

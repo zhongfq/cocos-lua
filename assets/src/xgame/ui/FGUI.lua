@@ -35,12 +35,14 @@ function GButton:playSound()
 end
 
 function GLoader:load(url)
-    self._loadingURL = url
-    self.assetRef = loader.load(url, function (success)
-        if self._loadingURL == url and success then
-            self.url = filesystem.localCachePath(url)
-        end
-    end)
+    if url and #url > 0 then
+        self._loadingURL = url
+        self.assetRef = loader.load(url, function (success)
+            if self._loadingURL == url and success then
+                self.url = filesystem.localCachePath(url)
+            end
+        end)
+    end
 end
 
 function UIEventDispatcher:onClick(callback)

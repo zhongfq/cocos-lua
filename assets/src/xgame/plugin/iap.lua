@@ -2,7 +2,7 @@ local class         = require "xgame.class"
 local util          = require "xgame.util"
 local Dispatcher    = require "xgame.Dispatcher"
 local cjson         = require "cjson.safe"
-local impl          = require "kernel.plugins.iap"
+local impl          = require "kernel.plugin.iap"
 
 local trace = util.trace("[iap]")
 

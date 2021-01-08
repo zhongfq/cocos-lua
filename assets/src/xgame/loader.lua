@@ -77,6 +77,7 @@ function M.load(url, callback)
     if not url or #url == 0 then
         error('url is nil or empty')
     end
+    assert(string.find(url, '%.%w+$'), url)
     if not assetRef then
         assetRef = AssetObject.new(url)
         cache[url] = assetRef

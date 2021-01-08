@@ -18,6 +18,7 @@ M.INCLUDES = [[
     #include "3d/CC3DProgramInfo.h"
 ]]
 M.CHUNK = ''
+M.DEFIF = nil
 
 M.CONVS = {
     typeconv {

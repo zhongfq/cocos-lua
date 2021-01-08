@@ -5,7 +5,7 @@ local Event         = require "xgame.event.Event"
 local PluginEvent   = require "xgame.event.PluginEvent"
 local timer         = require "xgame.timer"
 local runtime       = require "xgame.runtime"
-local impl          = require "kernel.plugins.wechat"
+local impl          = require "kernel.plugin.wechat"
 local Dispatcher    = require "xgame.Dispatcher"
 local openssl       = require "openssl"
 local cjson         = require "cjson.safe"
@@ -246,7 +246,7 @@ if runtime.os == "ios" then
     end
 elseif runtime.os == "android" then
     local luaj = require "xgame.luaj"
-    local inst = luaj.new("kernel/plugins/wechat/WeChat")
+    local inst = luaj.new("kernel/plugin/wechat/WeChat")
     impl = {}
 
     function impl:setDispatcher(callback)

@@ -17,6 +17,7 @@ M.INCLUDES = [[
     #include "xgame/xlua.h"
 ]]
 M.CHUNK = nil
+M.DEFIF = nil
 
 M.CONVS = {
 }

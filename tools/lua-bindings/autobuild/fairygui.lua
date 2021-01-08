@@ -41,6 +41,7 @@ M.CHUNK = [[
         }
     }
 ]]
+M.DEFIF = nil
 
 M.CONVS = {
     typeconv {

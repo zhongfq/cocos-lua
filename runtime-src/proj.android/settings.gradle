@@ -14,5 +14,9 @@ include(':plugin-talkingdata')
 project(':plugin-talkingdata').projectDir = new File(settingsDir, '../../frameworks/plugins/talkingdata/android')
 include(':plugin-wechat')
 project(':plugin-wechat').projectDir = new File(settingsDir, '../../frameworks/plugins/wechat/android')
-include ':cocos-lua'
-project(':cocos-lua').projectDir = new File(settingsDir, 'app')
+
+include(':plugin-jiguang')
+project(':plugin-jiguang').projectDir = new File(settingsDir, '../../frameworks/plugins/jiguang/android')
+
+include ':app'
+project(':app').projectDir = new File(settingsDir, 'app')

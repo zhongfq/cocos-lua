@@ -29,6 +29,22 @@ android {
             abiFilters = []
             abiFilters.addAll(PROP_APP_ABI.split(':').collect{it as String})
         }
+
+        manifestPlaceholders = [
+            JPUSH_PKGNAME: applicationId,
+            JPUSH_APPKEY: "000000000000000000000000",
+            JPUSH_CHANNEL: "dev",
+
+            OPPO_APPKEY: "OP-00000000000000000000000000000000",
+            OPPO_APPID: "OP-00000000",
+            OPPO_APPSECRET: "OP-00000000000000000000000000000000",
+
+            VIVO_APPKEY: "00000000000000000000000000000000",
+            VIVO_APPID: "000000000",
+
+            XIAOMI_APPKEY: "MI-0000000000000",
+            XIAOMI_APPID: "MI-0000000000000000000",
+        ]
     }
 
     sourceSets.main {
@@ -115,4 +131,11 @@ dependencies {
     // implementation project(':plugin-huawei')
     // implementation project(':plugin-vivo')
     // implementation project(':plugin-oppo')
+
+    // implementation project(':plugin-jiguang')
+    // implementation 'com.huawei.hms:push:4.0.2.300'
+    // implementation 'cn.jiguang.sdk.plugin:huawei:3.6.0'
+    // implementation 'cn.jiguang.sdk.plugin:oppo:3.6.0'
+    // implementation 'cn.jiguang.sdk.plugin:vivo:3.6.0'
+    // implementation 'cn.jiguang.sdk.plugin:xiaomi:3.6.0'
 }

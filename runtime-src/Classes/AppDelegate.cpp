@@ -89,7 +89,7 @@ static int _open_plugins(lua_State *L)
     olua_callfunc(L, luaopen_jiguang);
 #endif
     
-//    olua_require(L, "kernel.plugins.wechat", luaopen_wechat);
+//    olua_require(L, "kernel.plugin.wechat", luaopen_wechat);
     return 0;
 }
 

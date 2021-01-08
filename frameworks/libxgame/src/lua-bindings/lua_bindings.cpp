@@ -105,9 +105,9 @@ int luaopen_bindings(lua_State *L)
     olua_require(L, "kernel.luaoc", luaopen_ocbridge);
     olua_require(L, "kernel.luaj", luaopen_javabridge);
     olua_require(L, "kernel.keychain", luaopen_keychain);
-    olua_require(L, "kernel.plugins.photo", luaopen_photo);
-    olua_require(L, "kernel.plugins.recorder", luaopen_recorder);
-    olua_require(L, "kernel.plugins.iap", luaopen_iap);
+    olua_require(L, "kernel.plugin.photo", luaopen_photo);
+    olua_require(L, "kernel.plugin.recorder", luaopen_recorder);
+    olua_require(L, "kernel.plugin.iap", luaopen_iap);
 
     return 0;
 }

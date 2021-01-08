@@ -4,8 +4,8 @@ local Scene         = require "cc.Scene"
 local Sprite        = require "cc.Sprite"
 local Layout        = require "ccui.Layout"
 local filesystem    = require "xgame.filesystem"
-local wechat        = require "xgame.plugins.wechat"
-local PluginEvent   = require "xgame.plugins.PluginEvent"
+local wechat        = require "xgame.plugin.wechat"
+local PluginEvent   = require "xgame.plugin.PluginEvent"
 
 local function new()
     local scene = Scene.create()

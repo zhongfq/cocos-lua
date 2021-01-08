@@ -5,7 +5,7 @@
     <application>
         <!-- cameraroll -->
         <activity
-            android:name="kernel.plugins.photo.Photo"
+            android:name="kernel.plugin.photo.Photo"
             android:exported="true"
             android:launchMode="singleTask"
             android:configChanges="orientation|keyboardHidden|screenSize"

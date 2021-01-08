@@ -12,12 +12,12 @@ public class Application extends android.app.Application {
     public void onCreate() {
         super.onCreate();
 
-        loadPlugin("kernel.plugins.wechat.WeChat");
-        loadPlugin("kernel.plugins.huawei.Huawei");
-        loadPlugin("kernel.plugins.vivo.Vivo");
-        loadPlugin("kernel.plugins.oppo.Oppo");
-        loadPlugin("kernel.plugins.alipay.Alipay");
-        loadPlugin("kernel.plugins.talkingdata.TalkingData");
+        loadPlugin("kernel.plugin.wechat.WeChat");
+        loadPlugin("kernel.plugin.huawei.Huawei");
+        loadPlugin("kernel.plugin.vivo.Vivo");
+        loadPlugin("kernel.plugin.oppo.Oppo");
+        loadPlugin("kernel.plugin.alipay.Alipay");
+        loadPlugin("kernel.plugin.talkingdata.TalkingData");
 
         PluginManager.init(this);
     }

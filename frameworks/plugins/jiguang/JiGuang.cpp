@@ -35,7 +35,6 @@ static std::string toJsonString(const std::set<std::string> &tags)
         cJSON_AddItemToArray(arr, cJSON_CreateString(iter.c_str()));
     }
     std::string result = cJSON_PrintUnformatted(arr);
-    runtime::log("[DEBUG] toJsonString: %s", result.c_str());
     cJSON_Delete(arr);
     return result;
 }
@@ -168,7 +167,6 @@ void JAnalytics::trackEvent(EventType type, cocos2d::ValueMap &value)
     cJSON_AddStringToObject(obj, "event", event.c_str());
 
     std::string info = cJSON_PrintUnformatted(obj);
-    runtime::log("[DEBUG] info: %s", info.c_str());
     JniHelper::callStaticVoidMethod(JAVA_JANALYTICS_CLASS, "trackEvent", event, info);
     cJSON_Delete(obj);
 }
@@ -237,7 +235,6 @@ void JAnalytics::identifyAccount(cocos2d::ValueMap &value)
         }
     }
     std::string account = cJSON_PrintUnformatted(obj);
-    runtime::log("[DEBUG] account: %s", account.c_str());
     JniHelper::callStaticVoidMethod(JAVA_JANALYTICS_CLASS, "identifyAccount", account);
     cJSON_Delete(obj);
 }

@@ -53,7 +53,7 @@ public class JAnalytics {
     }
 
     public static void startTrackPage(String pageName) {
-        JAnalyticsInterface.onPageEnd(mContext, pageName);
+        JAnalyticsInterface.onPageStart(mContext, pageName);
     }
 
     public static void stopTrackPage(String pageName) {

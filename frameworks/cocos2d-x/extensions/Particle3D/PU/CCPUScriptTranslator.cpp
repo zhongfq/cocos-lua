@@ -575,7 +575,7 @@ const std::string token[1000] =
     // PhysXFluidExtern
     "rest_particles_per_meter",
     "rest_density",
-    "kernel_radius_multiplier",
+    "cclua_radius_multiplier",
     "motion_limit_multiplier",
     "collision_distance_multiplier",
     "packet_size_multiplier",

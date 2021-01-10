@@ -27,13 +27,13 @@ return {
         #include "CCDragonBonesHeaders.h"
 
         // xgame
-        #include "xgame/filesystem.h"
-        #include "xgame/runtime.h"
-        #include "xgame/preferences.h"
-        #include "xgame/downloader.h"
-        #include "xgame/RootScene.h"
-        #include "xgame/timer.h"
-        #include "xgame/window.h"
+        #include "cclua/filesystem.h"
+        #include "cclua/runtime.h"
+        #include "cclua/preferences.h"
+        #include "cclua/downloader.h"
+        #include "cclua/RootScene.h"
+        #include "cclua/timer.h"
+        #include "cclua/window.h"
         #include "lua-bindings/LuaCocosAdapter.h"
 
         #include "jiguang/JiGuang.h"

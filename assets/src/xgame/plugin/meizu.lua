@@ -32,7 +32,7 @@ end
 
 function Meizu:pay(order)
     local luaj = require "xgame.luaj"
-    local AppContext = luaj.new("kernel/AppContext")
+    local AppContext = luaj.new("cclua/AppContext")
     AppContext.requestPermission('android.permission.READ_PHONE_STATE', function (granted)
         if granted == "GRANTED" then
             impl:pay(order)
@@ -52,7 +52,7 @@ end
 
 if runtime.os == "android" then
     local luaj = require "xgame.luaj"
-    local inst = luaj.new("kernel/plugin/meizu/Meizu")
+    local inst = luaj.new("cclua/plugin/meizu/Meizu")
     impl = {}
 
     function impl:setDispatcher(callback)
@@ -78,7 +78,7 @@ if runtime.os == "android" then
 else
     impl = setmetatable({}, {__index = function (_, func)
         return function ()
-            trace("function 'kernel.plugin.meizu.%s' not supported", func)
+            trace("function 'cclua.plugin.meizu.%s' not supported", func)
         end
     end})
 end

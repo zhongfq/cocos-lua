@@ -6,4 +6,4 @@
 -- window.setDesignSize
 -- window.convertToCameraSpace
 
-return require("kernel.window")
+return require("cclua.window")

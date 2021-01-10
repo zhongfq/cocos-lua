@@ -4,10 +4,10 @@
 #include "platform/android/jni/JniHelper.h"
 #include "cjson/cJSON.h"
 
-NS_XPLUGIN_BEGIN
+NS_CCLUA_PLUGIN_BEGIN
 
-#define JAVA_JPUSH_CLASS        "kernel/plugin/jiguang/JPush"
-#define JAVA_JANALYTICS_CLASS   "kernel/plugin/jiguang/JAnalytics"
+#define JAVA_JPUSH_CLASS        "cclua/plugin/jiguang/JPush"
+#define JAVA_JANALYTICS_CLASS   "cclua/plugin/jiguang/JAnalytics"
 
 USING_NS_CC;
 
@@ -35,6 +35,7 @@ static std::string toJsonString(const std::set<std::string> &tags)
         cJSON_AddItemToArray(arr, cJSON_CreateString(iter.c_str()));
     }
     std::string result = cJSON_PrintUnformatted(arr);
+    runtime::log("[DEBUG] toJsonString: %s", result.c_str());
     cJSON_Delete(arr);
     return result;
 }
@@ -167,6 +168,7 @@ void JAnalytics::trackEvent(EventType type, cocos2d::ValueMap &value)
     cJSON_AddStringToObject(obj, "event", event.c_str());
 
     std::string info = cJSON_PrintUnformatted(obj);
+    runtime::log("[DEBUG] info: %s", info.c_str());
     JniHelper::callStaticVoidMethod(JAVA_JANALYTICS_CLASS, "trackEvent", event, info);
     cJSON_Delete(obj);
 }
@@ -235,6 +237,7 @@ void JAnalytics::identifyAccount(cocos2d::ValueMap &value)
         }
     }
     std::string account = cJSON_PrintUnformatted(obj);
+    runtime::log("[DEBUG] account: %s", account.c_str());
     JniHelper::callStaticVoidMethod(JAVA_JANALYTICS_CLASS, "identifyAccount", account);
     cJSON_Delete(obj);
 }
@@ -256,6 +259,6 @@ void JAnalytics::setDebug(bool enable)
 
 #endif
 
-NS_XPLUGIN_END
+NS_CCLUA_PLUGIN_END
 
 #endif

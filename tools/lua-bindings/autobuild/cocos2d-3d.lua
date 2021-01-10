@@ -13,7 +13,7 @@ M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
-    #include "xgame/xlua.h"
+    #include "cclua/xlua.h"
     #include "cocos2d.h"
     #include "3d/CC3DProgramInfo.h"
 ]]

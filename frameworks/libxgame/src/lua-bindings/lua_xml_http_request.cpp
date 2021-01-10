@@ -1,5 +1,5 @@
 #include "lua_xml_http_request.h"
-#include "xgame/XMLHttpRequest.h"
+#include "cclua/XMLHttpRequest.h"
 #include "cjson/lua_cjson.h"
 
 static int luaopen_cocos2d_XMLHttpRequest_ResponseType(lua_State *L)

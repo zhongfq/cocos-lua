@@ -24,7 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#import "xgame/AppContext-ios.h"
+#import "cclua/AppContext-ios.h"
 
 @interface AppController : AppContext
 

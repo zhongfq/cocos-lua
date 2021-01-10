@@ -1,7 +1,7 @@
 local class     = require "xgame.class"
 local window    = require "xgame.window"
 local UIView    = require "xgame.ui.UIView"
-local Scene     = require "kernel.SceneNoCamera"
+local Scene     = require "cclua.SceneNoCamera"
 local GRoot     = require "fgui.GRoot"
 
 local FGUINode = class('FGUINode', UIView)

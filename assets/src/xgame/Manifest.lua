@@ -1,6 +1,6 @@
 local class         = require "xgame.class"
 local filesystem    = require "xgame.filesystem"
-local timer         = require "kernel.timer"
+local timer         = require "cclua.timer"
 local cjson         = require "cjson.safe"
 
 local Manifest = class("Manifest")

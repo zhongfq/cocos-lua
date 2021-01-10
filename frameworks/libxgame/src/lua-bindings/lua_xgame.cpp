@@ -4,17 +4,17 @@
 #include "lua_xgame.h"
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "xgame/filesystem.h"
-#include "xgame/xlua.h"
-#include "xgame/preferences.h"
-#include "xgame/downloader.h"
-#include "xgame/runtime.h"
-#include "xgame/RootScene.h"
-#include "xgame/timer.h"
-#include "xgame/window.h"
+#include "cclua/filesystem.h"
+#include "cclua/xlua.h"
+#include "cclua/preferences.h"
+#include "cclua/downloader.h"
+#include "cclua/runtime.h"
+#include "cclua/RootScene.h"
+#include "cclua/timer.h"
+#include "cclua/window.h"
 #include "olua/olua.hpp"
 
-int manual_olua_unpack_xgame_window_Bounds(lua_State *L, const xgame::window::Bounds *value)
+int manual_olua_unpack_xgame_window_Bounds(lua_State *L, const cclua::window::Bounds *value)
 {
     if (value) {
         lua_pushnumber(L, (lua_Number)value->getMinX());
@@ -30,7 +30,7 @@ int manual_olua_unpack_xgame_window_Bounds(lua_State *L, const xgame::window::Bo
     return 4;
 }
 
-int auto_olua_push_xgame_downloader_FileTask(lua_State *L, const xgame::downloader::FileTask *value)
+int auto_olua_push_cclua_downloader_FileTask(lua_State *L, const cclua::downloader::FileTask *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
@@ -53,7 +53,7 @@ int auto_olua_push_xgame_downloader_FileTask(lua_State *L, const xgame::download
     return 1;
 }
 
-void auto_olua_check_xgame_downloader_FileTask(lua_State *L, int idx, xgame::downloader::FileTask *value)
+void auto_olua_check_cclua_downloader_FileTask(lua_State *L, int idx, cclua::downloader::FileTask *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -86,17 +86,17 @@ void auto_olua_check_xgame_downloader_FileTask(lua_State *L, int idx, xgame::dow
     olua_getfield(L, idx, "state");
     if (!olua_isnoneornil(L, -1)) {
         olua_check_uint(L, -1, &arg4);
-        value->state = (xgame::downloader::FileState)arg4;
+        value->state = (cclua::downloader::FileState)arg4;
     }
     lua_pop(L, 1);
 }
 
-bool auto_olua_is_xgame_downloader_FileTask(lua_State *L, int idx)
+bool auto_olua_is_cclua_downloader_FileTask(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "path") && olua_hasfield(L, idx, "url");
 }
 
-void auto_olua_pack_xgame_downloader_FileTask(lua_State *L, int idx, xgame::downloader::FileTask *value)
+void auto_olua_pack_cclua_downloader_FileTask(lua_State *L, int idx, cclua::downloader::FileTask *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -118,10 +118,10 @@ void auto_olua_pack_xgame_downloader_FileTask(lua_State *L, int idx, xgame::down
     value->md5 = (std::string)arg3;
 
     olua_check_uint(L, idx + 3, &arg4);
-    value->state = (xgame::downloader::FileState)arg4;
+    value->state = (cclua::downloader::FileState)arg4;
 }
 
-int auto_olua_unpack_xgame_downloader_FileTask(lua_State *L, const xgame::downloader::FileTask *value)
+int auto_olua_unpack_cclua_downloader_FileTask(lua_State *L, const cclua::downloader::FileTask *value)
 {
     if (value) {
         olua_push_std_string(L, value->url);
@@ -137,50 +137,50 @@ int auto_olua_unpack_xgame_downloader_FileTask(lua_State *L, const xgame::downlo
     return 4;
 }
 
-bool auto_olua_ispack_xgame_downloader_FileTask(lua_State *L, int idx)
+bool auto_olua_ispack_cclua_downloader_FileTask(lua_State *L, int idx)
 {
     return olua_is_std_string(L, idx + 0) && olua_is_std_string(L, idx + 1) && olua_is_std_string(L, idx + 2) && olua_is_uint(L, idx + 3);
 }
 
-static int _xgame_SceneNoCamera___move(lua_State *L)
+static int _cclua_SceneNoCamera___move(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (xgame::SceneNoCamera *)olua_toobj(L, 1, "kernel.SceneNoCamera");
-    olua_push_cppobj(L, self, "kernel.SceneNoCamera");
+    auto self = (cclua::SceneNoCamera *)olua_toobj(L, 1, "cclua.SceneNoCamera");
+    olua_push_cppobj(L, self, "cclua.SceneNoCamera");
 
     olua_endinvoke(L);
 
     return 1;
 }
 
-static int _xgame_SceneNoCamera_create(lua_State *L)
+static int _cclua_SceneNoCamera_create(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // static xgame::SceneNoCamera *create()
-    xgame::SceneNoCamera *ret = xgame::SceneNoCamera::create();
-    int num_ret = olua_push_cppobj(L, ret, "kernel.SceneNoCamera");
+    // static cclua::SceneNoCamera *create()
+    cclua::SceneNoCamera *ret = cclua::SceneNoCamera::create();
+    int num_ret = olua_push_cppobj(L, ret, "cclua.SceneNoCamera");
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _xgame_SceneNoCamera_createWithPhysics(lua_State *L)
+static int _cclua_SceneNoCamera_createWithPhysics(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // static xgame::SceneNoCamera *createWithPhysics()
-    xgame::SceneNoCamera *ret = xgame::SceneNoCamera::createWithPhysics();
-    int num_ret = olua_push_cppobj(L, ret, "kernel.SceneNoCamera");
+    // static cclua::SceneNoCamera *createWithPhysics()
+    cclua::SceneNoCamera *ret = cclua::SceneNoCamera::createWithPhysics();
+    int num_ret = olua_push_cppobj(L, ret, "cclua.SceneNoCamera");
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _xgame_SceneNoCamera_createWithSize(lua_State *L)
+static int _cclua_SceneNoCamera_createWithSize(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -188,22 +188,22 @@ static int _xgame_SceneNoCamera_createWithSize(lua_State *L)
 
     auto_olua_check_cocos2d_Size(L, 1, &arg1);
 
-    // static xgame::SceneNoCamera *createWithSize(const cocos2d::Size &size)
-    xgame::SceneNoCamera *ret = xgame::SceneNoCamera::createWithSize(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "kernel.SceneNoCamera");
+    // static cclua::SceneNoCamera *createWithSize(const cocos2d::Size &size)
+    cclua::SceneNoCamera *ret = cclua::SceneNoCamera::createWithSize(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cclua.SceneNoCamera");
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _xgame_SceneNoCamera_new(lua_State *L)
+static int _cclua_SceneNoCamera_new(lua_State *L)
 {
     olua_startinvoke(L);
 
     // SceneNoCamera()
-    xgame::SceneNoCamera *ret = new xgame::SceneNoCamera();
-    int num_ret = olua_push_cppobj(L, ret, "kernel.SceneNoCamera");
+    cclua::SceneNoCamera *ret = new cclua::SceneNoCamera();
+    int num_ret = olua_push_cppobj(L, ret, "cclua.SceneNoCamera");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -211,59 +211,59 @@ static int _xgame_SceneNoCamera_new(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_xgame_SceneNoCamera(lua_State *L)
+static int luaopen_cclua_SceneNoCamera(lua_State *L)
 {
-    oluacls_class(L, "kernel.SceneNoCamera", "cc.Scene");
-    oluacls_func(L, "__move", _xgame_SceneNoCamera___move);
-    oluacls_func(L, "create", _xgame_SceneNoCamera_create);
-    oluacls_func(L, "createWithPhysics", _xgame_SceneNoCamera_createWithPhysics);
-    oluacls_func(L, "createWithSize", _xgame_SceneNoCamera_createWithSize);
-    oluacls_func(L, "new", _xgame_SceneNoCamera_new);
+    oluacls_class(L, "cclua.SceneNoCamera", "cc.Scene");
+    oluacls_func(L, "__move", _cclua_SceneNoCamera___move);
+    oluacls_func(L, "create", _cclua_SceneNoCamera_create);
+    oluacls_func(L, "createWithPhysics", _cclua_SceneNoCamera_createWithPhysics);
+    oluacls_func(L, "createWithSize", _cclua_SceneNoCamera_createWithSize);
+    oluacls_func(L, "new", _cclua_SceneNoCamera_new);
 
-    olua_registerluatype<xgame::SceneNoCamera>(L, "kernel.SceneNoCamera");
+    olua_registerluatype<cclua::SceneNoCamera>(L, "cclua.SceneNoCamera");
 
     return 1;
 }
 
-static int luaopen_xgame_Permission(lua_State *L)
+static int luaopen_cclua_Permission(lua_State *L)
 {
-    oluacls_class(L, "kernel.Permission", nullptr);
-    oluacls_const_integer(L, "AUDIO", (lua_Integer)xgame::Permission::AUDIO);
-    oluacls_const_integer(L, "CAMERA", (lua_Integer)xgame::Permission::CAMERA);
-    oluacls_const_integer(L, "IDFA", (lua_Integer)xgame::Permission::IDFA);
-    oluacls_const_integer(L, "PHOTO", (lua_Integer)xgame::Permission::PHOTO);
+    oluacls_class(L, "cclua.Permission", nullptr);
+    oluacls_const_integer(L, "AUDIO", (lua_Integer)cclua::Permission::AUDIO);
+    oluacls_const_integer(L, "CAMERA", (lua_Integer)cclua::Permission::CAMERA);
+    oluacls_const_integer(L, "IDFA", (lua_Integer)cclua::Permission::IDFA);
+    oluacls_const_integer(L, "PHOTO", (lua_Integer)cclua::Permission::PHOTO);
 
-    olua_registerluatype<xgame::Permission>(L, "kernel.Permission");
+    olua_registerluatype<cclua::Permission>(L, "cclua.Permission");
 
     return 1;
 }
 
-static int luaopen_xgame_PermissionStatus(lua_State *L)
+static int luaopen_cclua_PermissionStatus(lua_State *L)
 {
-    oluacls_class(L, "kernel.PermissionStatus", nullptr);
-    oluacls_const_integer(L, "AUTHORIZED", (lua_Integer)xgame::PermissionStatus::AUTHORIZED);
-    oluacls_const_integer(L, "DENIED", (lua_Integer)xgame::PermissionStatus::DENIED);
-    oluacls_const_integer(L, "NOT_DETERMINED", (lua_Integer)xgame::PermissionStatus::NOT_DETERMINED);
-    oluacls_const_integer(L, "RESTRICTED", (lua_Integer)xgame::PermissionStatus::RESTRICTED);
+    oluacls_class(L, "cclua.PermissionStatus", nullptr);
+    oluacls_const_integer(L, "AUTHORIZED", (lua_Integer)cclua::PermissionStatus::AUTHORIZED);
+    oluacls_const_integer(L, "DENIED", (lua_Integer)cclua::PermissionStatus::DENIED);
+    oluacls_const_integer(L, "NOT_DETERMINED", (lua_Integer)cclua::PermissionStatus::NOT_DETERMINED);
+    oluacls_const_integer(L, "RESTRICTED", (lua_Integer)cclua::PermissionStatus::RESTRICTED);
 
-    olua_registerluatype<xgame::PermissionStatus>(L, "kernel.PermissionStatus");
+    olua_registerluatype<cclua::PermissionStatus>(L, "cclua.PermissionStatus");
 
     return 1;
 }
 
-static int _xgame_runtime___move(lua_State *L)
+static int _cclua_runtime___move(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (xgame::runtime *)olua_toobj(L, 1, "kernel.runtime");
-    olua_push_cppobj(L, self, "kernel.runtime");
+    auto self = (cclua::runtime *)olua_toobj(L, 1, "cclua.runtime");
+    olua_push_cppobj(L, self, "cclua.runtime");
 
     olua_endinvoke(L);
 
     return 1;
 }
 
-static int _xgame_runtime_alert(lua_State *L)
+static int _cclua_runtime_alert(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -278,7 +278,7 @@ static int _xgame_runtime_alert(lua_State *L)
     olua_check_std_string(L, 3, &arg3);
     olua_check_std_string(L, 4, &arg4);
 
-    void *cb_store = (void *)olua_pushclassobj(L, "kernel.runtime");
+    void *cb_store = (void *)olua_pushclassobj(L, "cclua.runtime");
     std::string cb_tag = "alert";
     std::string cb_name = olua_setcallback(L, cb_store, cb_tag.c_str(), 5, OLUA_TAG_NEW);
     lua_Integer cb_ctx = olua_context(L);
@@ -299,14 +299,14 @@ static int _xgame_runtime_alert(lua_State *L)
     };
 
     // static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, @local const std::function<void (bool)> callback)
-    xgame::runtime::alert(arg1, arg2, arg3, arg4, arg5);
+    cclua::runtime::alert(arg1, arg2, arg3, arg4, arg5);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_runtime_canOpenURL(lua_State *L)
+static int _cclua_runtime_canOpenURL(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -315,7 +315,7 @@ static int _xgame_runtime_canOpenURL(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static bool canOpenURL(const std::string &uri)
-    bool ret = xgame::runtime::canOpenURL(arg1);
+    bool ret = cclua::runtime::canOpenURL(arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -323,7 +323,7 @@ static int _xgame_runtime_canOpenURL(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_capture1(lua_State *L)
+static int _cclua_runtime_capture1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -340,7 +340,7 @@ static int _xgame_runtime_capture1(lua_State *L)
     olua_check_uint(L, 5, &arg5);
 
     // static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
-    cocos2d::RenderTexture *ret = xgame::runtime::capture(arg1, (float)arg2, (float)arg3, (cocos2d::backend::PixelFormat)arg4, (cocos2d::backend::PixelFormat)arg5);
+    cocos2d::RenderTexture *ret = cclua::runtime::capture(arg1, (float)arg2, (float)arg3, (cocos2d::backend::PixelFormat)arg4, (cocos2d::backend::PixelFormat)arg5);
     int num_ret = olua_push_cppobj(L, ret, "cc.RenderTexture");
 
     olua_endinvoke(L);
@@ -348,7 +348,7 @@ static int _xgame_runtime_capture1(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_capture2(lua_State *L)
+static int _cclua_runtime_capture2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -361,7 +361,7 @@ static int _xgame_runtime_capture2(lua_State *L)
     olua_check_number(L, 3, &arg3);
 
     // static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
-    cocos2d::RenderTexture *ret = xgame::runtime::capture(arg1, (float)arg2, (float)arg3);
+    cocos2d::RenderTexture *ret = cclua::runtime::capture(arg1, (float)arg2, (float)arg3);
     int num_ret = olua_push_cppobj(L, ret, "cc.RenderTexture");
 
     olua_endinvoke(L);
@@ -369,7 +369,7 @@ static int _xgame_runtime_capture2(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_capture3(lua_State *L)
+static int _cclua_runtime_capture3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -384,7 +384,7 @@ static int _xgame_runtime_capture3(lua_State *L)
     olua_check_uint(L, 4, &arg4);
 
     // static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
-    cocos2d::RenderTexture *ret = xgame::runtime::capture(arg1, (float)arg2, (float)arg3, (cocos2d::backend::PixelFormat)arg4);
+    cocos2d::RenderTexture *ret = cclua::runtime::capture(arg1, (float)arg2, (float)arg3, (cocos2d::backend::PixelFormat)arg4);
     int num_ret = olua_push_cppobj(L, ret, "cc.RenderTexture");
 
     olua_endinvoke(L);
@@ -392,78 +392,78 @@ static int _xgame_runtime_capture3(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_capture(lua_State *L)
+static int _cclua_runtime_capture(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 3) {
         // if ((olua_is_cppobj(L, 1, "cc.Node")) && (olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
             // static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
-            return _xgame_runtime_capture2(L);
+            return _cclua_runtime_capture2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_cppobj(L, 1, "cc.Node")) && (olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_uint(L, 4))) {
             // static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
-            return _xgame_runtime_capture3(L);
+            return _cclua_runtime_capture3(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_cppobj(L, 1, "cc.Node")) && (olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
-            return _xgame_runtime_capture1(L);
+            return _cclua_runtime_capture1(L);
         // }
     }
 
-    luaL_error(L, "method 'xgame::runtime::capture' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'cclua::runtime::capture' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _xgame_runtime_clearStorage(lua_State *L)
+static int _cclua_runtime_clearStorage(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static void clearStorage()
-    xgame::runtime::clearStorage();
+    cclua::runtime::clearStorage();
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_runtime_disableReport(lua_State *L)
+static int _cclua_runtime_disableReport(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static void disableReport()
-    xgame::runtime::disableReport();
+    cclua::runtime::disableReport();
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_runtime_gc(lua_State *L)
+static int _cclua_runtime_gc(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static void gc()
-    xgame::runtime::gc();
+    cclua::runtime::gc();
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_runtime_getAppBuild(lua_State *L)
+static int _cclua_runtime_getAppBuild(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static const std::string getAppBuild()
-    const std::string ret = xgame::runtime::getAppBuild();
+    const std::string ret = cclua::runtime::getAppBuild();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -471,12 +471,12 @@ static int _xgame_runtime_getAppBuild(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_getAppVersion(lua_State *L)
+static int _cclua_runtime_getAppVersion(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static const std::string getAppVersion()
-    const std::string ret = xgame::runtime::getAppVersion();
+    const std::string ret = cclua::runtime::getAppVersion();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -484,12 +484,12 @@ static int _xgame_runtime_getAppVersion(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_getAudioSessionCatalog(lua_State *L)
+static int _cclua_runtime_getAudioSessionCatalog(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static const std::string getAudioSessionCatalog()
-    const std::string ret = xgame::runtime::getAudioSessionCatalog();
+    const std::string ret = cclua::runtime::getAudioSessionCatalog();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -497,12 +497,12 @@ static int _xgame_runtime_getAudioSessionCatalog(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_getChannel(lua_State *L)
+static int _cclua_runtime_getChannel(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static const std::string getChannel()
-    const std::string ret = xgame::runtime::getChannel();
+    const std::string ret = cclua::runtime::getChannel();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -510,12 +510,12 @@ static int _xgame_runtime_getChannel(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_getCocosVersion(lua_State *L)
+static int _cclua_runtime_getCocosVersion(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static const uint64_t getCocosVersion()
-    const uint64_t ret = xgame::runtime::getCocosVersion();
+    const uint64_t ret = cclua::runtime::getCocosVersion();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -523,12 +523,12 @@ static int _xgame_runtime_getCocosVersion(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_getDeviceInfo(lua_State *L)
+static int _cclua_runtime_getDeviceInfo(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static const std::string getDeviceInfo()
-    const std::string ret = xgame::runtime::getDeviceInfo();
+    const std::string ret = cclua::runtime::getDeviceInfo();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -536,12 +536,12 @@ static int _xgame_runtime_getDeviceInfo(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_getIDFA(lua_State *L)
+static int _cclua_runtime_getIDFA(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static std::string getIDFA()
-    std::string ret = xgame::runtime::getIDFA();
+    std::string ret = cclua::runtime::getIDFA();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -549,12 +549,12 @@ static int _xgame_runtime_getIDFA(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_getLanguage(lua_State *L)
+static int _cclua_runtime_getLanguage(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static const std::string getLanguage()
-    const std::string ret = xgame::runtime::getLanguage();
+    const std::string ret = cclua::runtime::getLanguage();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -562,12 +562,12 @@ static int _xgame_runtime_getLanguage(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_getLogPath(lua_State *L)
+static int _cclua_runtime_getLogPath(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static const std::string getLogPath()
-    const std::string ret = xgame::runtime::getLogPath();
+    const std::string ret = cclua::runtime::getLogPath();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -575,12 +575,12 @@ static int _xgame_runtime_getLogPath(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_getManifestVersion(lua_State *L)
+static int _cclua_runtime_getManifestVersion(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static const std::string getManifestVersion()
-    const std::string ret = xgame::runtime::getManifestVersion();
+    const std::string ret = cclua::runtime::getManifestVersion();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -588,12 +588,12 @@ static int _xgame_runtime_getManifestVersion(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_getNetworkStatus(lua_State *L)
+static int _cclua_runtime_getNetworkStatus(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static const std::string getNetworkStatus()
-    const std::string ret = xgame::runtime::getNetworkStatus();
+    const std::string ret = cclua::runtime::getNetworkStatus();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -601,12 +601,12 @@ static int _xgame_runtime_getNetworkStatus(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_getOS(lua_State *L)
+static int _cclua_runtime_getOS(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static const std::string getOS()
-    const std::string ret = xgame::runtime::getOS();
+    const std::string ret = cclua::runtime::getOS();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -614,12 +614,12 @@ static int _xgame_runtime_getOS(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_getPackageName(lua_State *L)
+static int _cclua_runtime_getPackageName(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static const std::string getPackageName()
-    const std::string ret = xgame::runtime::getPackageName();
+    const std::string ret = cclua::runtime::getPackageName();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -627,7 +627,7 @@ static int _xgame_runtime_getPackageName(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_getPermissionStatus(lua_State *L)
+static int _cclua_runtime_getPermissionStatus(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -635,8 +635,8 @@ static int _xgame_runtime_getPermissionStatus(lua_State *L)
 
     olua_check_uint(L, 1, &arg1);
 
-    // static const xgame::PermissionStatus getPermissionStatus(xgame::Permission permission)
-    const xgame::PermissionStatus ret = xgame::runtime::getPermissionStatus((xgame::Permission)arg1);
+    // static const cclua::PermissionStatus getPermissionStatus(cclua::Permission permission)
+    const cclua::PermissionStatus ret = cclua::runtime::getPermissionStatus((cclua::Permission)arg1);
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -644,12 +644,12 @@ static int _xgame_runtime_getPermissionStatus(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_getSampleCount(lua_State *L)
+static int _cclua_runtime_getSampleCount(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static unsigned int getSampleCount()
-    unsigned int ret = xgame::runtime::getSampleCount();
+    unsigned int ret = cclua::runtime::getSampleCount();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -657,12 +657,12 @@ static int _xgame_runtime_getSampleCount(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_getTime(lua_State *L)
+static int _cclua_runtime_getTime(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static float getTime()
-    float ret = xgame::runtime::getTime();
+    float ret = cclua::runtime::getTime();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -670,12 +670,12 @@ static int _xgame_runtime_getTime(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_getVersion(lua_State *L)
+static int _cclua_runtime_getVersion(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static const std::string getVersion()
-    const std::string ret = xgame::runtime::getVersion();
+    const std::string ret = cclua::runtime::getVersion();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -683,12 +683,12 @@ static int _xgame_runtime_getVersion(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_isCocosThread(lua_State *L)
+static int _cclua_runtime_isCocosThread(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static bool isCocosThread()
-    bool ret = xgame::runtime::isCocosThread();
+    bool ret = cclua::runtime::isCocosThread();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -696,12 +696,12 @@ static int _xgame_runtime_isCocosThread(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_isDebug(lua_State *L)
+static int _cclua_runtime_isDebug(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static bool isDebug()
-    bool ret = xgame::runtime::isDebug();
+    bool ret = cclua::runtime::isDebug();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -709,12 +709,12 @@ static int _xgame_runtime_isDebug(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_isRestarting(lua_State *L)
+static int _cclua_runtime_isRestarting(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static bool isRestarting()
-    bool ret = xgame::runtime::isRestarting();
+    bool ret = cclua::runtime::isRestarting();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -722,7 +722,7 @@ static int _xgame_runtime_isRestarting(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_launch(lua_State *L)
+static int _cclua_runtime_launch(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -731,7 +731,7 @@ static int _xgame_runtime_launch(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static bool launch(const std::string &scriptPath)
-    bool ret = xgame::runtime::launch(arg1);
+    bool ret = cclua::runtime::launch(arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -739,7 +739,7 @@ static int _xgame_runtime_launch(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_openURL1(lua_State *L)
+static int _cclua_runtime_openURL1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -748,7 +748,7 @@ static int _xgame_runtime_openURL1(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
 
-    void *cb_store = (void *)olua_pushclassobj(L, "kernel.runtime");
+    void *cb_store = (void *)olua_pushclassobj(L, "cclua.runtime");
     std::string cb_tag = "openURL";
     std::string cb_name;
     if (olua_is_std_function(L, 2)) {
@@ -774,14 +774,14 @@ static int _xgame_runtime_openURL1(lua_State *L)
     }
 
     // static void openURL(const std::string &uri, @local @optional const std::function<void (bool)> callback)
-    xgame::runtime::openURL(arg1, arg2);
+    cclua::runtime::openURL(arg1, arg2);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_runtime_openURL2(lua_State *L)
+static int _cclua_runtime_openURL2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -790,62 +790,62 @@ static int _xgame_runtime_openURL2(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static void openURL(const std::string &uri, @local @optional const std::function<void (bool)> callback)
-    xgame::runtime::openURL(arg1);
+    cclua::runtime::openURL(arg1);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_runtime_openURL(lua_State *L)
+static int _cclua_runtime_openURL(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
             // static void openURL(const std::string &uri, @local @optional const std::function<void (bool)> callback)
-            return _xgame_runtime_openURL2(L);
+            return _cclua_runtime_openURL2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_function(L, 2))) {
             // static void openURL(const std::string &uri, @local @optional const std::function<void (bool)> callback)
-            return _xgame_runtime_openURL1(L);
+            return _cclua_runtime_openURL1(L);
         // }
     }
 
-    luaL_error(L, "method 'xgame::runtime::openURL' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'cclua::runtime::openURL' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _xgame_runtime_printSupport(lua_State *L)
+static int _cclua_runtime_printSupport(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static void printSupport()
-    xgame::runtime::printSupport();
+    cclua::runtime::printSupport();
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_runtime_requestPermission(lua_State *L)
+static int _cclua_runtime_requestPermission(lua_State *L)
 {
     olua_startinvoke(L);
 
     lua_Unsigned arg1 = 0;       /** permission */
-    std::function<void(xgame::PermissionStatus)> arg2;       /** callback */
+    std::function<void(cclua::PermissionStatus)> arg2;       /** callback */
 
     olua_check_uint(L, 1, &arg1);
 
-    void *cb_store = (void *)olua_pushclassobj(L, "kernel.runtime");
+    void *cb_store = (void *)olua_pushclassobj(L, "cclua.runtime");
     std::string cb_tag = "requestPermission";
     std::string cb_name = olua_setcallback(L, cb_store, cb_tag.c_str(), 2, OLUA_TAG_NEW);
     lua_Integer cb_ctx = olua_context(L);
-    arg2 = [cb_store, cb_name, cb_ctx](xgame::PermissionStatus arg1) {
+    arg2 = [cb_store, cb_name, cb_ctx](cclua::PermissionStatus arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
@@ -861,20 +861,20 @@ static int _xgame_runtime_requestPermission(lua_State *L)
         }
     };
 
-    // static void requestPermission(xgame::Permission permission, @local const std::function<void (PermissionStatus)> callback)
-    xgame::runtime::requestPermission((xgame::Permission)arg1, arg2);
+    // static void requestPermission(cclua::Permission permission, @local const std::function<void (PermissionStatus)> callback)
+    cclua::runtime::requestPermission((cclua::Permission)arg1, arg2);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_runtime_restart(lua_State *L)
+static int _cclua_runtime_restart(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static bool restart()
-    bool ret = xgame::runtime::restart();
+    bool ret = cclua::runtime::restart();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -882,7 +882,7 @@ static int _xgame_runtime_restart(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_setAudioSessionCatalog(lua_State *L)
+static int _cclua_runtime_setAudioSessionCatalog(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -891,20 +891,20 @@ static int _xgame_runtime_setAudioSessionCatalog(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static void setAudioSessionCatalog(const std::string &catalog)
-    xgame::runtime::setAudioSessionCatalog(arg1);
+    cclua::runtime::setAudioSessionCatalog(arg1);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_runtime_setDispatcher(lua_State *L)
+static int _cclua_runtime_setDispatcher(lua_State *L)
 {
     olua_startinvoke(L);
 
     std::function<void(const std::string &, const std::string &)> arg1;       /** dispatcher */
 
-    void *cb_store = (void *)olua_pushclassobj(L, "kernel.runtime");
+    void *cb_store = (void *)olua_pushclassobj(L, "cclua.runtime");
     std::string cb_tag = "Dispatcher";
     std::string cb_name = olua_setcallback(L, cb_store, cb_tag.c_str(), 1, OLUA_TAG_REPLACE);
     lua_Integer cb_ctx = olua_context(L);
@@ -924,14 +924,14 @@ static int _xgame_runtime_setDispatcher(lua_State *L)
     };
 
     // static void setDispatcher(@local const std::function<void (const std::string &, const std::string &)> &dispatcher)
-    xgame::runtime::setDispatcher(arg1);
+    cclua::runtime::setDispatcher(arg1);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_runtime_setLogPath(lua_State *L)
+static int _cclua_runtime_setLogPath(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -940,14 +940,14 @@ static int _xgame_runtime_setLogPath(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static void setLogPath(const std::string &path)
-    xgame::runtime::setLogPath(arg1);
+    cclua::runtime::setLogPath(arg1);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_runtime_setManifestVersion(lua_State *L)
+static int _cclua_runtime_setManifestVersion(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -956,14 +956,14 @@ static int _xgame_runtime_setManifestVersion(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static void setManifestVersion(const std::string &version)
-    xgame::runtime::setManifestVersion(arg1);
+    cclua::runtime::setManifestVersion(arg1);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_runtime_setSampleCount(lua_State *L)
+static int _cclua_runtime_setSampleCount(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -972,14 +972,14 @@ static int _xgame_runtime_setSampleCount(lua_State *L)
     olua_check_uint(L, 1, &arg1);
 
     // static void setSampleCount(unsigned int samples)
-    xgame::runtime::setSampleCount((unsigned int)arg1);
+    cclua::runtime::setSampleCount((unsigned int)arg1);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_runtime_support(lua_State *L)
+static int _cclua_runtime_support(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -988,7 +988,7 @@ static int _xgame_runtime_support(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static bool support(const std::string &api)
-    bool ret = xgame::runtime::support(arg1);
+    bool ret = cclua::runtime::support(arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -996,11 +996,11 @@ static int _xgame_runtime_support(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_testCrash(lua_State *L)
+static int _cclua_runtime_testCrash(lua_State *L)
 {
     olua_startinvoke(L);
 
-    xgame::runtime::log("test native crash!!!!");
+    cclua::runtime::log("test native crash!!!!");
     char *prt = NULL;
     *prt = 0;
 
@@ -1009,86 +1009,86 @@ static int _xgame_runtime_testCrash(lua_State *L)
     return 0;
 }
 
-static int luaopen_xgame_runtime(lua_State *L)
+static int luaopen_cclua_runtime(lua_State *L)
 {
-    oluacls_class(L, "kernel.runtime", nullptr);
-    oluacls_func(L, "__move", _xgame_runtime___move);
-    oluacls_func(L, "alert", _xgame_runtime_alert);
-    oluacls_func(L, "canOpenURL", _xgame_runtime_canOpenURL);
-    oluacls_func(L, "capture", _xgame_runtime_capture);
-    oluacls_func(L, "clearStorage", _xgame_runtime_clearStorage);
-    oluacls_func(L, "disableReport", _xgame_runtime_disableReport);
-    oluacls_func(L, "gc", _xgame_runtime_gc);
-    oluacls_func(L, "getAppBuild", _xgame_runtime_getAppBuild);
-    oluacls_func(L, "getAppVersion", _xgame_runtime_getAppVersion);
-    oluacls_func(L, "getAudioSessionCatalog", _xgame_runtime_getAudioSessionCatalog);
-    oluacls_func(L, "getChannel", _xgame_runtime_getChannel);
-    oluacls_func(L, "getCocosVersion", _xgame_runtime_getCocosVersion);
-    oluacls_func(L, "getDeviceInfo", _xgame_runtime_getDeviceInfo);
-    oluacls_func(L, "getIDFA", _xgame_runtime_getIDFA);
-    oluacls_func(L, "getLanguage", _xgame_runtime_getLanguage);
-    oluacls_func(L, "getLogPath", _xgame_runtime_getLogPath);
-    oluacls_func(L, "getManifestVersion", _xgame_runtime_getManifestVersion);
-    oluacls_func(L, "getNetworkStatus", _xgame_runtime_getNetworkStatus);
-    oluacls_func(L, "getOS", _xgame_runtime_getOS);
-    oluacls_func(L, "getPackageName", _xgame_runtime_getPackageName);
-    oluacls_func(L, "getPermissionStatus", _xgame_runtime_getPermissionStatus);
-    oluacls_func(L, "getSampleCount", _xgame_runtime_getSampleCount);
-    oluacls_func(L, "getTime", _xgame_runtime_getTime);
-    oluacls_func(L, "getVersion", _xgame_runtime_getVersion);
-    oluacls_func(L, "isCocosThread", _xgame_runtime_isCocosThread);
-    oluacls_func(L, "isDebug", _xgame_runtime_isDebug);
-    oluacls_func(L, "isRestarting", _xgame_runtime_isRestarting);
-    oluacls_func(L, "launch", _xgame_runtime_launch);
-    oluacls_func(L, "openURL", _xgame_runtime_openURL);
-    oluacls_func(L, "printSupport", _xgame_runtime_printSupport);
-    oluacls_func(L, "requestPermission", _xgame_runtime_requestPermission);
-    oluacls_func(L, "restart", _xgame_runtime_restart);
-    oluacls_func(L, "setAudioSessionCatalog", _xgame_runtime_setAudioSessionCatalog);
-    oluacls_func(L, "setDispatcher", _xgame_runtime_setDispatcher);
-    oluacls_func(L, "setLogPath", _xgame_runtime_setLogPath);
-    oluacls_func(L, "setManifestVersion", _xgame_runtime_setManifestVersion);
-    oluacls_func(L, "setSampleCount", _xgame_runtime_setSampleCount);
-    oluacls_func(L, "support", _xgame_runtime_support);
-    oluacls_func(L, "testCrash", _xgame_runtime_testCrash);
-    oluacls_prop(L, "appBuild", _xgame_runtime_getAppBuild, nullptr);
-    oluacls_prop(L, "appVersion", _xgame_runtime_getAppVersion, nullptr);
-    oluacls_prop(L, "audioSessionCatalog", _xgame_runtime_getAudioSessionCatalog, _xgame_runtime_setAudioSessionCatalog);
-    oluacls_prop(L, "channel", _xgame_runtime_getChannel, nullptr);
-    oluacls_prop(L, "cocosThread", _xgame_runtime_isCocosThread, nullptr);
-    oluacls_prop(L, "cocosVersion", _xgame_runtime_getCocosVersion, nullptr);
-    oluacls_prop(L, "debug", _xgame_runtime_isDebug, nullptr);
-    oluacls_prop(L, "deviceInfo", _xgame_runtime_getDeviceInfo, nullptr);
-    oluacls_prop(L, "idfa", _xgame_runtime_getIDFA, nullptr);
-    oluacls_prop(L, "language", _xgame_runtime_getLanguage, nullptr);
-    oluacls_prop(L, "logPath", _xgame_runtime_getLogPath, _xgame_runtime_setLogPath);
-    oluacls_prop(L, "manifestVersion", _xgame_runtime_getManifestVersion, _xgame_runtime_setManifestVersion);
-    oluacls_prop(L, "networkStatus", _xgame_runtime_getNetworkStatus, nullptr);
-    oluacls_prop(L, "os", _xgame_runtime_getOS, nullptr);
-    oluacls_prop(L, "packageName", _xgame_runtime_getPackageName, nullptr);
-    oluacls_prop(L, "restarting", _xgame_runtime_isRestarting, nullptr);
-    oluacls_prop(L, "sampleCount", _xgame_runtime_getSampleCount, _xgame_runtime_setSampleCount);
-    oluacls_prop(L, "time", _xgame_runtime_getTime, nullptr);
-    oluacls_prop(L, "version", _xgame_runtime_getVersion, nullptr);
+    oluacls_class(L, "cclua.runtime", nullptr);
+    oluacls_func(L, "__move", _cclua_runtime___move);
+    oluacls_func(L, "alert", _cclua_runtime_alert);
+    oluacls_func(L, "canOpenURL", _cclua_runtime_canOpenURL);
+    oluacls_func(L, "capture", _cclua_runtime_capture);
+    oluacls_func(L, "clearStorage", _cclua_runtime_clearStorage);
+    oluacls_func(L, "disableReport", _cclua_runtime_disableReport);
+    oluacls_func(L, "gc", _cclua_runtime_gc);
+    oluacls_func(L, "getAppBuild", _cclua_runtime_getAppBuild);
+    oluacls_func(L, "getAppVersion", _cclua_runtime_getAppVersion);
+    oluacls_func(L, "getAudioSessionCatalog", _cclua_runtime_getAudioSessionCatalog);
+    oluacls_func(L, "getChannel", _cclua_runtime_getChannel);
+    oluacls_func(L, "getCocosVersion", _cclua_runtime_getCocosVersion);
+    oluacls_func(L, "getDeviceInfo", _cclua_runtime_getDeviceInfo);
+    oluacls_func(L, "getIDFA", _cclua_runtime_getIDFA);
+    oluacls_func(L, "getLanguage", _cclua_runtime_getLanguage);
+    oluacls_func(L, "getLogPath", _cclua_runtime_getLogPath);
+    oluacls_func(L, "getManifestVersion", _cclua_runtime_getManifestVersion);
+    oluacls_func(L, "getNetworkStatus", _cclua_runtime_getNetworkStatus);
+    oluacls_func(L, "getOS", _cclua_runtime_getOS);
+    oluacls_func(L, "getPackageName", _cclua_runtime_getPackageName);
+    oluacls_func(L, "getPermissionStatus", _cclua_runtime_getPermissionStatus);
+    oluacls_func(L, "getSampleCount", _cclua_runtime_getSampleCount);
+    oluacls_func(L, "getTime", _cclua_runtime_getTime);
+    oluacls_func(L, "getVersion", _cclua_runtime_getVersion);
+    oluacls_func(L, "isCocosThread", _cclua_runtime_isCocosThread);
+    oluacls_func(L, "isDebug", _cclua_runtime_isDebug);
+    oluacls_func(L, "isRestarting", _cclua_runtime_isRestarting);
+    oluacls_func(L, "launch", _cclua_runtime_launch);
+    oluacls_func(L, "openURL", _cclua_runtime_openURL);
+    oluacls_func(L, "printSupport", _cclua_runtime_printSupport);
+    oluacls_func(L, "requestPermission", _cclua_runtime_requestPermission);
+    oluacls_func(L, "restart", _cclua_runtime_restart);
+    oluacls_func(L, "setAudioSessionCatalog", _cclua_runtime_setAudioSessionCatalog);
+    oluacls_func(L, "setDispatcher", _cclua_runtime_setDispatcher);
+    oluacls_func(L, "setLogPath", _cclua_runtime_setLogPath);
+    oluacls_func(L, "setManifestVersion", _cclua_runtime_setManifestVersion);
+    oluacls_func(L, "setSampleCount", _cclua_runtime_setSampleCount);
+    oluacls_func(L, "support", _cclua_runtime_support);
+    oluacls_func(L, "testCrash", _cclua_runtime_testCrash);
+    oluacls_prop(L, "appBuild", _cclua_runtime_getAppBuild, nullptr);
+    oluacls_prop(L, "appVersion", _cclua_runtime_getAppVersion, nullptr);
+    oluacls_prop(L, "audioSessionCatalog", _cclua_runtime_getAudioSessionCatalog, _cclua_runtime_setAudioSessionCatalog);
+    oluacls_prop(L, "channel", _cclua_runtime_getChannel, nullptr);
+    oluacls_prop(L, "cocosThread", _cclua_runtime_isCocosThread, nullptr);
+    oluacls_prop(L, "cocosVersion", _cclua_runtime_getCocosVersion, nullptr);
+    oluacls_prop(L, "debug", _cclua_runtime_isDebug, nullptr);
+    oluacls_prop(L, "deviceInfo", _cclua_runtime_getDeviceInfo, nullptr);
+    oluacls_prop(L, "idfa", _cclua_runtime_getIDFA, nullptr);
+    oluacls_prop(L, "language", _cclua_runtime_getLanguage, nullptr);
+    oluacls_prop(L, "logPath", _cclua_runtime_getLogPath, _cclua_runtime_setLogPath);
+    oluacls_prop(L, "manifestVersion", _cclua_runtime_getManifestVersion, _cclua_runtime_setManifestVersion);
+    oluacls_prop(L, "networkStatus", _cclua_runtime_getNetworkStatus, nullptr);
+    oluacls_prop(L, "os", _cclua_runtime_getOS, nullptr);
+    oluacls_prop(L, "packageName", _cclua_runtime_getPackageName, nullptr);
+    oluacls_prop(L, "restarting", _cclua_runtime_isRestarting, nullptr);
+    oluacls_prop(L, "sampleCount", _cclua_runtime_getSampleCount, _cclua_runtime_setSampleCount);
+    oluacls_prop(L, "time", _cclua_runtime_getTime, nullptr);
+    oluacls_prop(L, "version", _cclua_runtime_getVersion, nullptr);
 
-    olua_registerluatype<xgame::runtime>(L, "kernel.runtime");
+    olua_registerluatype<cclua::runtime>(L, "cclua.runtime");
 
     return 1;
 }
 
-static int _xgame_filesystem___move(lua_State *L)
+static int _cclua_filesystem___move(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (xgame::filesystem *)olua_toobj(L, 1, "kernel.filesystem");
-    olua_push_cppobj(L, self, "kernel.filesystem");
+    auto self = (cclua::filesystem *)olua_toobj(L, 1, "cclua.filesystem");
+    olua_push_cppobj(L, self, "cclua.filesystem");
 
     olua_endinvoke(L);
 
     return 1;
 }
 
-static int _xgame_filesystem_addSearchPath1(lua_State *L)
+static int _cclua_filesystem_addSearchPath1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1099,14 +1099,14 @@ static int _xgame_filesystem_addSearchPath1(lua_State *L)
     olua_check_bool(L, 2, &arg2);
 
     // static void addSearchPath(const std::string &path, @optional bool front)
-    xgame::filesystem::addSearchPath(arg1, arg2);
+    cclua::filesystem::addSearchPath(arg1, arg2);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_filesystem_addSearchPath2(lua_State *L)
+static int _cclua_filesystem_addSearchPath2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1115,37 +1115,37 @@ static int _xgame_filesystem_addSearchPath2(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static void addSearchPath(const std::string &path, @optional bool front)
-    xgame::filesystem::addSearchPath(arg1);
+    cclua::filesystem::addSearchPath(arg1);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_filesystem_addSearchPath(lua_State *L)
+static int _cclua_filesystem_addSearchPath(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
             // static void addSearchPath(const std::string &path, @optional bool front)
-            return _xgame_filesystem_addSearchPath2(L);
+            return _cclua_filesystem_addSearchPath2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_bool(L, 2))) {
             // static void addSearchPath(const std::string &path, @optional bool front)
-            return _xgame_filesystem_addSearchPath1(L);
+            return _cclua_filesystem_addSearchPath1(L);
         // }
     }
 
-    luaL_error(L, "method 'xgame::filesystem::addSearchPath' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'cclua::filesystem::addSearchPath' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _xgame_filesystem_copy(lua_State *L)
+static int _cclua_filesystem_copy(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1156,7 +1156,7 @@ static int _xgame_filesystem_copy(lua_State *L)
     olua_check_std_string(L, 2, &arg2);
 
     // static bool copy(const std::string &srcPath, const std::string &destPath)
-    bool ret = xgame::filesystem::copy(arg1, arg2);
+    bool ret = cclua::filesystem::copy(arg1, arg2);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -1164,7 +1164,7 @@ static int _xgame_filesystem_copy(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_createDirectory1(lua_State *L)
+static int _cclua_filesystem_createDirectory1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1175,7 +1175,7 @@ static int _xgame_filesystem_createDirectory1(lua_State *L)
     olua_check_bool(L, 2, &arg2);
 
     // static bool createDirectory(const std::string &path, @optional bool isFilePath)
-    bool ret = xgame::filesystem::createDirectory(arg1, arg2);
+    bool ret = cclua::filesystem::createDirectory(arg1, arg2);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -1183,7 +1183,7 @@ static int _xgame_filesystem_createDirectory1(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_createDirectory2(lua_State *L)
+static int _cclua_filesystem_createDirectory2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1192,7 +1192,7 @@ static int _xgame_filesystem_createDirectory2(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static bool createDirectory(const std::string &path, @optional bool isFilePath)
-    bool ret = xgame::filesystem::createDirectory(arg1);
+    bool ret = cclua::filesystem::createDirectory(arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -1200,30 +1200,30 @@ static int _xgame_filesystem_createDirectory2(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_createDirectory(lua_State *L)
+static int _cclua_filesystem_createDirectory(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
             // static bool createDirectory(const std::string &path, @optional bool isFilePath)
-            return _xgame_filesystem_createDirectory2(L);
+            return _cclua_filesystem_createDirectory2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_bool(L, 2))) {
             // static bool createDirectory(const std::string &path, @optional bool isFilePath)
-            return _xgame_filesystem_createDirectory1(L);
+            return _cclua_filesystem_createDirectory1(L);
         // }
     }
 
-    luaL_error(L, "method 'xgame::filesystem::createDirectory' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'cclua::filesystem::createDirectory' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _xgame_filesystem_exist(lua_State *L)
+static int _cclua_filesystem_exist(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1232,7 +1232,7 @@ static int _xgame_filesystem_exist(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static bool exist(const std::string &path)
-    bool ret = xgame::filesystem::exist(arg1);
+    bool ret = cclua::filesystem::exist(arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -1240,7 +1240,7 @@ static int _xgame_filesystem_exist(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_fullPath(lua_State *L)
+static int _cclua_filesystem_fullPath(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1249,7 +1249,7 @@ static int _xgame_filesystem_fullPath(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static const std::string fullPath(const std::string &path)
-    const std::string ret = xgame::filesystem::fullPath(arg1);
+    const std::string ret = cclua::filesystem::fullPath(arg1);
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -1257,12 +1257,12 @@ static int _xgame_filesystem_fullPath(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_getBuiltinCacheDirectory(lua_State *L)
+static int _cclua_filesystem_getBuiltinCacheDirectory(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static const std::string getBuiltinCacheDirectory()
-    const std::string ret = xgame::filesystem::getBuiltinCacheDirectory();
+    const std::string ret = cclua::filesystem::getBuiltinCacheDirectory();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -1270,12 +1270,12 @@ static int _xgame_filesystem_getBuiltinCacheDirectory(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_getCacheDirectory(lua_State *L)
+static int _cclua_filesystem_getCacheDirectory(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static const std::string getCacheDirectory()
-    const std::string ret = xgame::filesystem::getCacheDirectory();
+    const std::string ret = cclua::filesystem::getCacheDirectory();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -1283,12 +1283,12 @@ static int _xgame_filesystem_getCacheDirectory(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_getDocumentDirectory(lua_State *L)
+static int _cclua_filesystem_getDocumentDirectory(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static const std::string getDocumentDirectory()
-    const std::string ret = xgame::filesystem::getDocumentDirectory();
+    const std::string ret = cclua::filesystem::getDocumentDirectory();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -1296,12 +1296,12 @@ static int _xgame_filesystem_getDocumentDirectory(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_getSDCardDirectory(lua_State *L)
+static int _cclua_filesystem_getSDCardDirectory(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static const std::string getSDCardDirectory()
-    const std::string ret = xgame::filesystem::getSDCardDirectory();
+    const std::string ret = cclua::filesystem::getSDCardDirectory();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -1309,12 +1309,12 @@ static int _xgame_filesystem_getSDCardDirectory(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_getTmpDirectory(lua_State *L)
+static int _cclua_filesystem_getTmpDirectory(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static const std::string getTmpDirectory()
-    const std::string ret = xgame::filesystem::getTmpDirectory();
+    const std::string ret = cclua::filesystem::getTmpDirectory();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -1322,12 +1322,12 @@ static int _xgame_filesystem_getTmpDirectory(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_getWritablePath(lua_State *L)
+static int _cclua_filesystem_getWritablePath(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static const std::string getWritablePath()
-    const std::string ret = xgame::filesystem::getWritablePath();
+    const std::string ret = cclua::filesystem::getWritablePath();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -1335,7 +1335,7 @@ static int _xgame_filesystem_getWritablePath(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_isDirectory(lua_State *L)
+static int _cclua_filesystem_isDirectory(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1344,7 +1344,7 @@ static int _xgame_filesystem_isDirectory(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static bool isDirectory(const std::string &path)
-    bool ret = xgame::filesystem::isDirectory(arg1);
+    bool ret = cclua::filesystem::isDirectory(arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -1352,7 +1352,7 @@ static int _xgame_filesystem_isDirectory(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_isFile(lua_State *L)
+static int _cclua_filesystem_isFile(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1361,7 +1361,7 @@ static int _xgame_filesystem_isFile(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static bool isFile(const std::string &path)
-    bool ret = xgame::filesystem::isFile(arg1);
+    bool ret = cclua::filesystem::isFile(arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -1369,7 +1369,7 @@ static int _xgame_filesystem_isFile(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_read(lua_State *L)
+static int _cclua_filesystem_read(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1378,7 +1378,7 @@ static int _xgame_filesystem_read(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static cocos2d::Data read(const std::string &path)
-    cocos2d::Data ret = xgame::filesystem::read(arg1);
+    cocos2d::Data ret = cclua::filesystem::read(arg1);
     int num_ret = manual_olua_push_cocos2d_Data(L, &ret);
 
     olua_endinvoke(L);
@@ -1386,7 +1386,7 @@ static int _xgame_filesystem_read(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_remove(lua_State *L)
+static int _cclua_filesystem_remove(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1395,7 +1395,7 @@ static int _xgame_filesystem_remove(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static bool remove(const std::string &path)
-    bool ret = xgame::filesystem::remove(arg1);
+    bool ret = cclua::filesystem::remove(arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -1403,7 +1403,7 @@ static int _xgame_filesystem_remove(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_rename(lua_State *L)
+static int _cclua_filesystem_rename(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1414,7 +1414,7 @@ static int _xgame_filesystem_rename(lua_State *L)
     olua_check_std_string(L, 2, &arg2);
 
     // static bool rename(const std::string &oldPath, const std::string &newPath)
-    bool ret = xgame::filesystem::rename(arg1, arg2);
+    bool ret = cclua::filesystem::rename(arg1, arg2);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -1422,7 +1422,7 @@ static int _xgame_filesystem_rename(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_shortPath1(lua_State *L)
+static int _cclua_filesystem_shortPath1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1433,7 +1433,7 @@ static int _xgame_filesystem_shortPath1(lua_State *L)
     olua_check_uint(L, 2, &arg2);
 
     // static const std::string shortPath(const std::string &path, @optional size_t limit)
-    const std::string ret = xgame::filesystem::shortPath(arg1, (size_t)arg2);
+    const std::string ret = cclua::filesystem::shortPath(arg1, (size_t)arg2);
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -1441,7 +1441,7 @@ static int _xgame_filesystem_shortPath1(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_shortPath2(lua_State *L)
+static int _cclua_filesystem_shortPath2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1450,7 +1450,7 @@ static int _xgame_filesystem_shortPath2(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     // static const std::string shortPath(const std::string &path, @optional size_t limit)
-    const std::string ret = xgame::filesystem::shortPath(arg1);
+    const std::string ret = cclua::filesystem::shortPath(arg1);
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -1458,30 +1458,30 @@ static int _xgame_filesystem_shortPath2(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_shortPath(lua_State *L)
+static int _cclua_filesystem_shortPath(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
             // static const std::string shortPath(const std::string &path, @optional size_t limit)
-            return _xgame_filesystem_shortPath2(L);
+            return _cclua_filesystem_shortPath2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_uint(L, 2))) {
             // static const std::string shortPath(const std::string &path, @optional size_t limit)
-            return _xgame_filesystem_shortPath1(L);
+            return _cclua_filesystem_shortPath1(L);
         // }
     }
 
-    luaL_error(L, "method 'xgame::filesystem::shortPath' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'cclua::filesystem::shortPath' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _xgame_filesystem_unzip(lua_State *L)
+static int _cclua_filesystem_unzip(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1492,7 +1492,7 @@ static int _xgame_filesystem_unzip(lua_State *L)
     olua_check_std_string(L, 2, &arg2);
 
     // static bool unzip(const std::string &path, const std::string &dest)
-    bool ret = xgame::filesystem::unzip(arg1, arg2);
+    bool ret = cclua::filesystem::unzip(arg1, arg2);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -1500,7 +1500,7 @@ static int _xgame_filesystem_unzip(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_write1(lua_State *L)
+static int _cclua_filesystem_write1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1513,7 +1513,7 @@ static int _xgame_filesystem_write1(lua_State *L)
     olua_check_uint(L, 3, &arg3);
 
     // static bool write(const std::string &path, const char *data, size_t len)
-    bool ret = xgame::filesystem::write(arg1, arg2, (size_t)arg3);
+    bool ret = cclua::filesystem::write(arg1, arg2, (size_t)arg3);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -1521,7 +1521,7 @@ static int _xgame_filesystem_write1(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_write2(lua_State *L)
+static int _cclua_filesystem_write2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1532,7 +1532,7 @@ static int _xgame_filesystem_write2(lua_State *L)
     manual_olua_check_cocos2d_Data(L, 2, &arg2);
 
     // static bool write(const std::string &path, const cocos2d::Data &data)
-    bool ret = xgame::filesystem::write(arg1, arg2);
+    bool ret = cclua::filesystem::write(arg1, arg2);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -1540,77 +1540,77 @@ static int _xgame_filesystem_write2(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_write(lua_State *L)
+static int _cclua_filesystem_write(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (manual_olua_is_cocos2d_Data(L, 2))) {
             // static bool write(const std::string &path, const cocos2d::Data &data)
-            return _xgame_filesystem_write2(L);
+            return _cclua_filesystem_write2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_string(L, 2)) && (olua_is_uint(L, 3))) {
             // static bool write(const std::string &path, const char *data, size_t len)
-            return _xgame_filesystem_write1(L);
+            return _cclua_filesystem_write1(L);
         // }
     }
 
-    luaL_error(L, "method 'xgame::filesystem::write' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'cclua::filesystem::write' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int luaopen_xgame_filesystem(lua_State *L)
+static int luaopen_cclua_filesystem(lua_State *L)
 {
-    oluacls_class(L, "kernel.filesystem", nullptr);
-    oluacls_func(L, "__move", _xgame_filesystem___move);
-    oluacls_func(L, "addSearchPath", _xgame_filesystem_addSearchPath);
-    oluacls_func(L, "copy", _xgame_filesystem_copy);
-    oluacls_func(L, "createDirectory", _xgame_filesystem_createDirectory);
-    oluacls_func(L, "exist", _xgame_filesystem_exist);
-    oluacls_func(L, "fullPath", _xgame_filesystem_fullPath);
-    oluacls_func(L, "getBuiltinCacheDirectory", _xgame_filesystem_getBuiltinCacheDirectory);
-    oluacls_func(L, "getCacheDirectory", _xgame_filesystem_getCacheDirectory);
-    oluacls_func(L, "getDocumentDirectory", _xgame_filesystem_getDocumentDirectory);
-    oluacls_func(L, "getSDCardDirectory", _xgame_filesystem_getSDCardDirectory);
-    oluacls_func(L, "getTmpDirectory", _xgame_filesystem_getTmpDirectory);
-    oluacls_func(L, "getWritablePath", _xgame_filesystem_getWritablePath);
-    oluacls_func(L, "isDirectory", _xgame_filesystem_isDirectory);
-    oluacls_func(L, "isFile", _xgame_filesystem_isFile);
-    oluacls_func(L, "read", _xgame_filesystem_read);
-    oluacls_func(L, "remove", _xgame_filesystem_remove);
-    oluacls_func(L, "rename", _xgame_filesystem_rename);
-    oluacls_func(L, "shortPath", _xgame_filesystem_shortPath);
-    oluacls_func(L, "unzip", _xgame_filesystem_unzip);
-    oluacls_func(L, "write", _xgame_filesystem_write);
-    oluacls_prop(L, "builtinCacheDirectory", _xgame_filesystem_getBuiltinCacheDirectory, nullptr);
-    oluacls_prop(L, "cacheDirectory", _xgame_filesystem_getCacheDirectory, nullptr);
-    oluacls_prop(L, "documentDirectory", _xgame_filesystem_getDocumentDirectory, nullptr);
-    oluacls_prop(L, "sdCardDirectory", _xgame_filesystem_getSDCardDirectory, nullptr);
-    oluacls_prop(L, "tmpDirectory", _xgame_filesystem_getTmpDirectory, nullptr);
-    oluacls_prop(L, "writablePath", _xgame_filesystem_getWritablePath, nullptr);
+    oluacls_class(L, "cclua.filesystem", nullptr);
+    oluacls_func(L, "__move", _cclua_filesystem___move);
+    oluacls_func(L, "addSearchPath", _cclua_filesystem_addSearchPath);
+    oluacls_func(L, "copy", _cclua_filesystem_copy);
+    oluacls_func(L, "createDirectory", _cclua_filesystem_createDirectory);
+    oluacls_func(L, "exist", _cclua_filesystem_exist);
+    oluacls_func(L, "fullPath", _cclua_filesystem_fullPath);
+    oluacls_func(L, "getBuiltinCacheDirectory", _cclua_filesystem_getBuiltinCacheDirectory);
+    oluacls_func(L, "getCacheDirectory", _cclua_filesystem_getCacheDirectory);
+    oluacls_func(L, "getDocumentDirectory", _cclua_filesystem_getDocumentDirectory);
+    oluacls_func(L, "getSDCardDirectory", _cclua_filesystem_getSDCardDirectory);
+    oluacls_func(L, "getTmpDirectory", _cclua_filesystem_getTmpDirectory);
+    oluacls_func(L, "getWritablePath", _cclua_filesystem_getWritablePath);
+    oluacls_func(L, "isDirectory", _cclua_filesystem_isDirectory);
+    oluacls_func(L, "isFile", _cclua_filesystem_isFile);
+    oluacls_func(L, "read", _cclua_filesystem_read);
+    oluacls_func(L, "remove", _cclua_filesystem_remove);
+    oluacls_func(L, "rename", _cclua_filesystem_rename);
+    oluacls_func(L, "shortPath", _cclua_filesystem_shortPath);
+    oluacls_func(L, "unzip", _cclua_filesystem_unzip);
+    oluacls_func(L, "write", _cclua_filesystem_write);
+    oluacls_prop(L, "builtinCacheDirectory", _cclua_filesystem_getBuiltinCacheDirectory, nullptr);
+    oluacls_prop(L, "cacheDirectory", _cclua_filesystem_getCacheDirectory, nullptr);
+    oluacls_prop(L, "documentDirectory", _cclua_filesystem_getDocumentDirectory, nullptr);
+    oluacls_prop(L, "sdCardDirectory", _cclua_filesystem_getSDCardDirectory, nullptr);
+    oluacls_prop(L, "tmpDirectory", _cclua_filesystem_getTmpDirectory, nullptr);
+    oluacls_prop(L, "writablePath", _cclua_filesystem_getWritablePath, nullptr);
 
-    olua_registerluatype<xgame::filesystem>(L, "kernel.filesystem");
+    olua_registerluatype<cclua::filesystem>(L, "cclua.filesystem");
 
     return 1;
 }
 
-static int _xgame_preferences___move(lua_State *L)
+static int _cclua_preferences___move(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (xgame::preferences *)olua_toobj(L, 1, "kernel.preferences");
-    olua_push_cppobj(L, self, "kernel.preferences");
+    auto self = (cclua::preferences *)olua_toobj(L, 1, "cclua.preferences");
+    olua_push_cppobj(L, self, "cclua.preferences");
 
     olua_endinvoke(L);
 
     return 1;
 }
 
-static int _xgame_preferences_deleteKey(lua_State *L)
+static int _cclua_preferences_deleteKey(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1619,26 +1619,26 @@ static int _xgame_preferences_deleteKey(lua_State *L)
     olua_check_string(L, 1, &arg1);
 
     // static void deleteKey(const char *key)
-    xgame::preferences::deleteKey(arg1);
+    cclua::preferences::deleteKey(arg1);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_preferences_flush(lua_State *L)
+static int _cclua_preferences_flush(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static void flush()
-    xgame::preferences::flush();
+    cclua::preferences::flush();
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_preferences_getBoolean1(lua_State *L)
+static int _cclua_preferences_getBoolean1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1649,7 +1649,7 @@ static int _xgame_preferences_getBoolean1(lua_State *L)
     olua_check_bool(L, 2, &arg2);
 
     // static bool getBoolean(const char *key, @optional bool defaultValue)
-    bool ret = xgame::preferences::getBoolean(arg1, arg2);
+    bool ret = cclua::preferences::getBoolean(arg1, arg2);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -1657,7 +1657,7 @@ static int _xgame_preferences_getBoolean1(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_preferences_getBoolean2(lua_State *L)
+static int _cclua_preferences_getBoolean2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1666,7 +1666,7 @@ static int _xgame_preferences_getBoolean2(lua_State *L)
     olua_check_string(L, 1, &arg1);
 
     // static bool getBoolean(const char *key, @optional bool defaultValue)
-    bool ret = xgame::preferences::getBoolean(arg1);
+    bool ret = cclua::preferences::getBoolean(arg1);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -1674,30 +1674,30 @@ static int _xgame_preferences_getBoolean2(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_preferences_getBoolean(lua_State *L)
+static int _cclua_preferences_getBoolean(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
         // if ((olua_is_string(L, 1))) {
             // static bool getBoolean(const char *key, @optional bool defaultValue)
-            return _xgame_preferences_getBoolean2(L);
+            return _cclua_preferences_getBoolean2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 1)) && (olua_is_bool(L, 2))) {
             // static bool getBoolean(const char *key, @optional bool defaultValue)
-            return _xgame_preferences_getBoolean1(L);
+            return _cclua_preferences_getBoolean1(L);
         // }
     }
 
-    luaL_error(L, "method 'xgame::preferences::getBoolean' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'cclua::preferences::getBoolean' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _xgame_preferences_getDouble1(lua_State *L)
+static int _cclua_preferences_getDouble1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1708,7 +1708,7 @@ static int _xgame_preferences_getDouble1(lua_State *L)
     olua_check_number(L, 2, &arg2);
 
     // static double getDouble(const char *key, @optional double defaultValue)
-    double ret = xgame::preferences::getDouble(arg1, (double)arg2);
+    double ret = cclua::preferences::getDouble(arg1, (double)arg2);
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -1716,7 +1716,7 @@ static int _xgame_preferences_getDouble1(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_preferences_getDouble2(lua_State *L)
+static int _cclua_preferences_getDouble2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1725,7 +1725,7 @@ static int _xgame_preferences_getDouble2(lua_State *L)
     olua_check_string(L, 1, &arg1);
 
     // static double getDouble(const char *key, @optional double defaultValue)
-    double ret = xgame::preferences::getDouble(arg1);
+    double ret = cclua::preferences::getDouble(arg1);
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -1733,30 +1733,30 @@ static int _xgame_preferences_getDouble2(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_preferences_getDouble(lua_State *L)
+static int _cclua_preferences_getDouble(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
         // if ((olua_is_string(L, 1))) {
             // static double getDouble(const char *key, @optional double defaultValue)
-            return _xgame_preferences_getDouble2(L);
+            return _cclua_preferences_getDouble2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 1)) && (olua_is_number(L, 2))) {
             // static double getDouble(const char *key, @optional double defaultValue)
-            return _xgame_preferences_getDouble1(L);
+            return _cclua_preferences_getDouble1(L);
         // }
     }
 
-    luaL_error(L, "method 'xgame::preferences::getDouble' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'cclua::preferences::getDouble' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _xgame_preferences_getFloat1(lua_State *L)
+static int _cclua_preferences_getFloat1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1767,7 +1767,7 @@ static int _xgame_preferences_getFloat1(lua_State *L)
     olua_check_number(L, 2, &arg2);
 
     // static float getFloat(const char *key, @optional float defaultValue)
-    float ret = xgame::preferences::getFloat(arg1, (float)arg2);
+    float ret = cclua::preferences::getFloat(arg1, (float)arg2);
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -1775,7 +1775,7 @@ static int _xgame_preferences_getFloat1(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_preferences_getFloat2(lua_State *L)
+static int _cclua_preferences_getFloat2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1784,7 +1784,7 @@ static int _xgame_preferences_getFloat2(lua_State *L)
     olua_check_string(L, 1, &arg1);
 
     // static float getFloat(const char *key, @optional float defaultValue)
-    float ret = xgame::preferences::getFloat(arg1);
+    float ret = cclua::preferences::getFloat(arg1);
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -1792,30 +1792,30 @@ static int _xgame_preferences_getFloat2(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_preferences_getFloat(lua_State *L)
+static int _cclua_preferences_getFloat(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
         // if ((olua_is_string(L, 1))) {
             // static float getFloat(const char *key, @optional float defaultValue)
-            return _xgame_preferences_getFloat2(L);
+            return _cclua_preferences_getFloat2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 1)) && (olua_is_number(L, 2))) {
             // static float getFloat(const char *key, @optional float defaultValue)
-            return _xgame_preferences_getFloat1(L);
+            return _cclua_preferences_getFloat1(L);
         // }
     }
 
-    luaL_error(L, "method 'xgame::preferences::getFloat' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'cclua::preferences::getFloat' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _xgame_preferences_getInteger1(lua_State *L)
+static int _cclua_preferences_getInteger1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1826,7 +1826,7 @@ static int _xgame_preferences_getInteger1(lua_State *L)
     olua_check_int(L, 2, &arg2);
 
     // static int getInteger(const char *key, @optional int defaultValue)
-    int ret = xgame::preferences::getInteger(arg1, (int)arg2);
+    int ret = cclua::preferences::getInteger(arg1, (int)arg2);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -1834,7 +1834,7 @@ static int _xgame_preferences_getInteger1(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_preferences_getInteger2(lua_State *L)
+static int _cclua_preferences_getInteger2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1843,7 +1843,7 @@ static int _xgame_preferences_getInteger2(lua_State *L)
     olua_check_string(L, 1, &arg1);
 
     // static int getInteger(const char *key, @optional int defaultValue)
-    int ret = xgame::preferences::getInteger(arg1);
+    int ret = cclua::preferences::getInteger(arg1);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -1851,30 +1851,30 @@ static int _xgame_preferences_getInteger2(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_preferences_getInteger(lua_State *L)
+static int _cclua_preferences_getInteger(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
         // if ((olua_is_string(L, 1))) {
             // static int getInteger(const char *key, @optional int defaultValue)
-            return _xgame_preferences_getInteger2(L);
+            return _cclua_preferences_getInteger2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 1)) && (olua_is_int(L, 2))) {
             // static int getInteger(const char *key, @optional int defaultValue)
-            return _xgame_preferences_getInteger1(L);
+            return _cclua_preferences_getInteger1(L);
         // }
     }
 
-    luaL_error(L, "method 'xgame::preferences::getInteger' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'cclua::preferences::getInteger' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _xgame_preferences_getString1(lua_State *L)
+static int _cclua_preferences_getString1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1885,7 +1885,7 @@ static int _xgame_preferences_getString1(lua_State *L)
     olua_check_string(L, 2, &arg2);
 
     // static std::string getString(const char *key, @optional const char *defaultValue)
-    std::string ret = xgame::preferences::getString(arg1, arg2);
+    std::string ret = cclua::preferences::getString(arg1, arg2);
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -1893,7 +1893,7 @@ static int _xgame_preferences_getString1(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_preferences_getString2(lua_State *L)
+static int _cclua_preferences_getString2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1902,7 +1902,7 @@ static int _xgame_preferences_getString2(lua_State *L)
     olua_check_string(L, 1, &arg1);
 
     // static std::string getString(const char *key, @optional const char *defaultValue)
-    std::string ret = xgame::preferences::getString(arg1);
+    std::string ret = cclua::preferences::getString(arg1);
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -1910,30 +1910,30 @@ static int _xgame_preferences_getString2(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_preferences_getString(lua_State *L)
+static int _cclua_preferences_getString(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
         // if ((olua_is_string(L, 1))) {
             // static std::string getString(const char *key, @optional const char *defaultValue)
-            return _xgame_preferences_getString2(L);
+            return _cclua_preferences_getString2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 1)) && (olua_is_string(L, 2))) {
             // static std::string getString(const char *key, @optional const char *defaultValue)
-            return _xgame_preferences_getString1(L);
+            return _cclua_preferences_getString1(L);
         // }
     }
 
-    luaL_error(L, "method 'xgame::preferences::getString' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'cclua::preferences::getString' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _xgame_preferences_setBoolean(lua_State *L)
+static int _cclua_preferences_setBoolean(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1944,14 +1944,14 @@ static int _xgame_preferences_setBoolean(lua_State *L)
     olua_check_bool(L, 2, &arg2);
 
     // static void setBoolean(const char *key, bool value)
-    xgame::preferences::setBoolean(arg1, arg2);
+    cclua::preferences::setBoolean(arg1, arg2);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_preferences_setDouble(lua_State *L)
+static int _cclua_preferences_setDouble(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1962,14 +1962,14 @@ static int _xgame_preferences_setDouble(lua_State *L)
     olua_check_number(L, 2, &arg2);
 
     // static void setDouble(const char *key, double value)
-    xgame::preferences::setDouble(arg1, (double)arg2);
+    cclua::preferences::setDouble(arg1, (double)arg2);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_preferences_setFloat(lua_State *L)
+static int _cclua_preferences_setFloat(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1980,14 +1980,14 @@ static int _xgame_preferences_setFloat(lua_State *L)
     olua_check_number(L, 2, &arg2);
 
     // static void setFloat(const char *key, float value)
-    xgame::preferences::setFloat(arg1, (float)arg2);
+    cclua::preferences::setFloat(arg1, (float)arg2);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_preferences_setInteger(lua_State *L)
+static int _cclua_preferences_setInteger(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1998,14 +1998,14 @@ static int _xgame_preferences_setInteger(lua_State *L)
     olua_check_int(L, 2, &arg2);
 
     // static void setInteger(const char *key, int value)
-    xgame::preferences::setInteger(arg1, (int)arg2);
+    cclua::preferences::setInteger(arg1, (int)arg2);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_preferences_setString(lua_State *L)
+static int _cclua_preferences_setString(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2016,55 +2016,55 @@ static int _xgame_preferences_setString(lua_State *L)
     olua_check_string(L, 2, &arg2);
 
     // static void setString(const char *key, const char *value)
-    xgame::preferences::setString(arg1, arg2);
+    cclua::preferences::setString(arg1, arg2);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int luaopen_xgame_preferences(lua_State *L)
+static int luaopen_cclua_preferences(lua_State *L)
 {
-    oluacls_class(L, "kernel.preferences", nullptr);
-    oluacls_func(L, "__move", _xgame_preferences___move);
-    oluacls_func(L, "deleteKey", _xgame_preferences_deleteKey);
-    oluacls_func(L, "flush", _xgame_preferences_flush);
-    oluacls_func(L, "getBoolean", _xgame_preferences_getBoolean);
-    oluacls_func(L, "getDouble", _xgame_preferences_getDouble);
-    oluacls_func(L, "getFloat", _xgame_preferences_getFloat);
-    oluacls_func(L, "getInteger", _xgame_preferences_getInteger);
-    oluacls_func(L, "getString", _xgame_preferences_getString);
-    oluacls_func(L, "setBoolean", _xgame_preferences_setBoolean);
-    oluacls_func(L, "setDouble", _xgame_preferences_setDouble);
-    oluacls_func(L, "setFloat", _xgame_preferences_setFloat);
-    oluacls_func(L, "setInteger", _xgame_preferences_setInteger);
-    oluacls_func(L, "setString", _xgame_preferences_setString);
+    oluacls_class(L, "cclua.preferences", nullptr);
+    oluacls_func(L, "__move", _cclua_preferences___move);
+    oluacls_func(L, "deleteKey", _cclua_preferences_deleteKey);
+    oluacls_func(L, "flush", _cclua_preferences_flush);
+    oluacls_func(L, "getBoolean", _cclua_preferences_getBoolean);
+    oluacls_func(L, "getDouble", _cclua_preferences_getDouble);
+    oluacls_func(L, "getFloat", _cclua_preferences_getFloat);
+    oluacls_func(L, "getInteger", _cclua_preferences_getInteger);
+    oluacls_func(L, "getString", _cclua_preferences_getString);
+    oluacls_func(L, "setBoolean", _cclua_preferences_setBoolean);
+    oluacls_func(L, "setDouble", _cclua_preferences_setDouble);
+    oluacls_func(L, "setFloat", _cclua_preferences_setFloat);
+    oluacls_func(L, "setInteger", _cclua_preferences_setInteger);
+    oluacls_func(L, "setString", _cclua_preferences_setString);
 
-    olua_registerluatype<xgame::preferences>(L, "kernel.preferences");
+    olua_registerluatype<cclua::preferences>(L, "cclua.preferences");
 
     return 1;
 }
 
 #define makeTimerDelayTag(tag) ("delayTag." + tag)
 
-static int _xgame_timer___move(lua_State *L)
+static int _cclua_timer___move(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (xgame::timer *)olua_toobj(L, 1, "kernel.timer");
-    olua_push_cppobj(L, self, "kernel.timer");
+    auto self = (cclua::timer *)olua_toobj(L, 1, "cclua.timer");
+    olua_push_cppobj(L, self, "cclua.timer");
 
     olua_endinvoke(L);
 
     return 1;
 }
 
-static int _xgame_timer_createTag(lua_State *L)
+static int _cclua_timer_createTag(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static std::string createTag()
-    std::string ret = xgame::timer::createTag();
+    std::string ret = cclua::timer::createTag();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
@@ -2072,7 +2072,7 @@ static int _xgame_timer_createTag(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_timer_delay(lua_State *L)
+static int _cclua_timer_delay(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2081,7 +2081,7 @@ static int _xgame_timer_delay(lua_State *L)
 
     olua_check_number(L, 1, &arg1);
 
-    void *cb_store = (void *)olua_pushclassobj(L, "kernel.timer");
+    void *cb_store = (void *)olua_pushclassobj(L, "cclua.timer");
     std::string cb_tag = "delay";
     std::string cb_name = olua_setcallback(L, cb_store, cb_tag.c_str(), 2, OLUA_TAG_NEW);
     lua_Integer cb_ctx = olua_context(L);
@@ -2101,14 +2101,14 @@ static int _xgame_timer_delay(lua_State *L)
     };
 
     // static void delay(float time, @local const std::function<void ()> callback)
-    xgame::timer::delay((float)arg1, arg2);
+    cclua::timer::delay((float)arg1, arg2);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_timer_delayWithTag(lua_State *L)
+static int _cclua_timer_delayWithTag(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2119,7 +2119,7 @@ static int _xgame_timer_delayWithTag(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
 
-    void *cb_store = (void *)olua_pushclassobj(L, "kernel.timer");
+    void *cb_store = (void *)olua_pushclassobj(L, "cclua.timer");
     std::string cb_tag = makeTimerDelayTag(arg2);
     std::string cb_name = olua_setcallback(L, cb_store, cb_tag.c_str(), 3, OLUA_TAG_REPLACE);
     lua_Integer cb_ctx = olua_context(L);
@@ -2139,14 +2139,14 @@ static int _xgame_timer_delayWithTag(lua_State *L)
     };
 
     // static void delayWithTag(float time, const std::string &tag, @local std::function<void ()> callback)
-    xgame::timer::delayWithTag((float)arg1, arg2, arg3);
+    cclua::timer::delayWithTag((float)arg1, arg2, arg3);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_timer_killDelay(lua_State *L)
+static int _cclua_timer_killDelay(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2155,24 +2155,24 @@ static int _xgame_timer_killDelay(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
 
     std::string cb_tag = makeTimerDelayTag(arg1);
-    void *cb_store = (void *)olua_pushclassobj(L, "kernel.timer");
+    void *cb_store = (void *)olua_pushclassobj(L, "cclua.timer");
     olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // static void killDelay(const std::string &tag)
-    xgame::timer::killDelay(arg1);
+    cclua::timer::killDelay(arg1);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_timer_schedule(lua_State *L)
+static int _cclua_timer_schedule(lua_State *L)
 {
     olua_startinvoke(L);
 
     float interval = (float)olua_checknumber(L, 1);
     uint32_t callback = olua_funcref(L, 2);
-    uint32_t id = xgame::timer::schedule(interval, [callback](float dt) {
+    uint32_t id = cclua::timer::schedule(interval, [callback](float dt) {
         lua_State *L = olua_mainthread(NULL);
         if (L != NULL) {
             int top = lua_gettop(L);
@@ -2192,7 +2192,7 @@ static int _xgame_timer_schedule(lua_State *L)
     return 1;
 }
 
-static int _xgame_timer_unschedule(lua_State *L)
+static int _cclua_timer_unschedule(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2200,42 +2200,42 @@ static int _xgame_timer_unschedule(lua_State *L)
     uint32_t callback = value >> 32;
     uint32_t id = value & 0xFFFFFFFF;
     olua_unref(L, callback);
-    xgame::timer::unschedule(id);
+    cclua::timer::unschedule(id);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int luaopen_xgame_timer(lua_State *L)
+static int luaopen_cclua_timer(lua_State *L)
 {
-    oluacls_class(L, "kernel.timer", nullptr);
-    oluacls_func(L, "__move", _xgame_timer___move);
-    oluacls_func(L, "createTag", _xgame_timer_createTag);
-    oluacls_func(L, "delay", _xgame_timer_delay);
-    oluacls_func(L, "delayWithTag", _xgame_timer_delayWithTag);
-    oluacls_func(L, "killDelay", _xgame_timer_killDelay);
-    oluacls_func(L, "schedule", _xgame_timer_schedule);
-    oluacls_func(L, "unschedule", _xgame_timer_unschedule);
+    oluacls_class(L, "cclua.timer", nullptr);
+    oluacls_func(L, "__move", _cclua_timer___move);
+    oluacls_func(L, "createTag", _cclua_timer_createTag);
+    oluacls_func(L, "delay", _cclua_timer_delay);
+    oluacls_func(L, "delayWithTag", _cclua_timer_delayWithTag);
+    oluacls_func(L, "killDelay", _cclua_timer_killDelay);
+    oluacls_func(L, "schedule", _cclua_timer_schedule);
+    oluacls_func(L, "unschedule", _cclua_timer_unschedule);
 
-    olua_registerluatype<xgame::timer>(L, "kernel.timer");
+    olua_registerluatype<cclua::timer>(L, "cclua.timer");
 
     return 1;
 }
 
-static int _xgame_window___move(lua_State *L)
+static int _cclua_window___move(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (xgame::window *)olua_toobj(L, 1, "kernel.window");
-    olua_push_cppobj(L, self, "kernel.window");
+    auto self = (cclua::window *)olua_toobj(L, 1, "cclua.window");
+    olua_push_cppobj(L, self, "cclua.window");
 
     olua_endinvoke(L);
 
     return 1;
 }
 
-static int _xgame_window_convertToCameraSpace1(lua_State *L)
+static int _cclua_window_convertToCameraSpace1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2244,7 +2244,7 @@ static int _xgame_window_convertToCameraSpace1(lua_State *L)
     auto_olua_check_cocos2d_Vec2(L, 1, &arg1);
 
     // static cocos2d::Vec2 convertToCameraSpace(const cocos2d::Vec2 &position)
-    cocos2d::Vec2 ret = xgame::window::convertToCameraSpace(arg1);
+    cocos2d::Vec2 ret = cclua::window::convertToCameraSpace(arg1);
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     olua_endinvoke(L);
@@ -2252,7 +2252,7 @@ static int _xgame_window_convertToCameraSpace1(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_window_convertToCameraSpace2(lua_State *L)
+static int _cclua_window_convertToCameraSpace2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2261,7 +2261,7 @@ static int _xgame_window_convertToCameraSpace2(lua_State *L)
     auto_olua_pack_cocos2d_Vec2(L, 1, &arg1);
 
     // static cocos2d::Vec2 convertToCameraSpace(@pack const cocos2d::Vec2 &position)
-    cocos2d::Vec2 ret = xgame::window::convertToCameraSpace(arg1);
+    cocos2d::Vec2 ret = cclua::window::convertToCameraSpace(arg1);
     int num_ret = auto_olua_unpack_cocos2d_Vec2(L, &ret);
 
     olua_endinvoke(L);
@@ -2269,35 +2269,35 @@ static int _xgame_window_convertToCameraSpace2(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_window_convertToCameraSpace(lua_State *L)
+static int _cclua_window_convertToCameraSpace(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 1))) {
             // static cocos2d::Vec2 convertToCameraSpace(const cocos2d::Vec2 &position)
-            return _xgame_window_convertToCameraSpace1(L);
+            return _cclua_window_convertToCameraSpace1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((auto_olua_ispack_cocos2d_Vec2(L, 1))) {
             // static cocos2d::Vec2 convertToCameraSpace(@pack const cocos2d::Vec2 &position)
-            return _xgame_window_convertToCameraSpace2(L);
+            return _cclua_window_convertToCameraSpace2(L);
         // }
     }
 
-    luaL_error(L, "method 'xgame::window::convertToCameraSpace' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'cclua::window::convertToCameraSpace' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _xgame_window_getDesignSize(lua_State *L)
+static int _cclua_window_getDesignSize(lua_State *L)
 {
     olua_startinvoke(L);
 
     // @unpack static cocos2d::Size getDesignSize()
-    cocos2d::Size ret = xgame::window::getDesignSize();
+    cocos2d::Size ret = cclua::window::getDesignSize();
     int num_ret = auto_olua_unpack_cocos2d_Size(L, &ret);
 
     olua_endinvoke(L);
@@ -2305,12 +2305,12 @@ static int _xgame_window_getDesignSize(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_window_getFrameSize(lua_State *L)
+static int _cclua_window_getFrameSize(lua_State *L)
 {
     olua_startinvoke(L);
 
     // @unpack static cocos2d::Size getFrameSize()
-    cocos2d::Size ret = xgame::window::getFrameSize();
+    cocos2d::Size ret = cclua::window::getFrameSize();
     int num_ret = auto_olua_unpack_cocos2d_Size(L, &ret);
 
     olua_endinvoke(L);
@@ -2318,12 +2318,12 @@ static int _xgame_window_getFrameSize(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_window_getVisibleBounds(lua_State *L)
+static int _cclua_window_getVisibleBounds(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // @unpack static xgame::window::Bounds getVisibleBounds()
-    xgame::window::Bounds ret = xgame::window::getVisibleBounds();
+    // @unpack static cclua::window::Bounds getVisibleBounds()
+    cclua::window::Bounds ret = cclua::window::getVisibleBounds();
     int num_ret = manual_olua_unpack_xgame_window_Bounds(L, &ret);
 
     olua_endinvoke(L);
@@ -2331,12 +2331,12 @@ static int _xgame_window_getVisibleBounds(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_window_getVisibleSize(lua_State *L)
+static int _cclua_window_getVisibleSize(lua_State *L)
 {
     olua_startinvoke(L);
 
     // @unpack static cocos2d::Size getVisibleSize()
-    cocos2d::Size ret = xgame::window::getVisibleSize();
+    cocos2d::Size ret = cclua::window::getVisibleSize();
     int num_ret = auto_olua_unpack_cocos2d_Size(L, &ret);
 
     olua_endinvoke(L);
@@ -2344,7 +2344,7 @@ static int _xgame_window_getVisibleSize(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_window_setDesignSize1(lua_State *L)
+static int _cclua_window_setDesignSize1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2355,14 +2355,14 @@ static int _xgame_window_setDesignSize1(lua_State *L)
     olua_check_uint(L, 2, &arg2);
 
     // static void setDesignSize(const cocos2d::Size &size, ResolutionPolicy resolutionPolicy)
-    xgame::window::setDesignSize(arg1, (ResolutionPolicy)arg2);
+    cclua::window::setDesignSize(arg1, (ResolutionPolicy)arg2);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_window_setDesignSize2(lua_State *L)
+static int _cclua_window_setDesignSize2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2373,37 +2373,37 @@ static int _xgame_window_setDesignSize2(lua_State *L)
     olua_check_uint(L, 3, &arg2);
 
     // static void setDesignSize(@pack const cocos2d::Size &size, ResolutionPolicy resolutionPolicy)
-    xgame::window::setDesignSize(arg1, (ResolutionPolicy)arg2);
+    cclua::window::setDesignSize(arg1, (ResolutionPolicy)arg2);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_window_setDesignSize(lua_State *L)
+static int _cclua_window_setDesignSize(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
         // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_uint(L, 2))) {
             // static void setDesignSize(const cocos2d::Size &size, ResolutionPolicy resolutionPolicy)
-            return _xgame_window_setDesignSize1(L);
+            return _cclua_window_setDesignSize1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((auto_olua_ispack_cocos2d_Size(L, 1)) && (olua_is_uint(L, 3))) {
             // static void setDesignSize(@pack const cocos2d::Size &size, ResolutionPolicy resolutionPolicy)
-            return _xgame_window_setDesignSize2(L);
+            return _cclua_window_setDesignSize2(L);
         // }
     }
 
-    luaL_error(L, "method 'xgame::window::setDesignSize' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'cclua::window::setDesignSize' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _xgame_window_setFrameSize1(lua_State *L)
+static int _cclua_window_setFrameSize1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2412,14 +2412,14 @@ static int _xgame_window_setFrameSize1(lua_State *L)
     auto_olua_check_cocos2d_Size(L, 1, &arg1);
 
     // static void setFrameSize(const cocos2d::Size &size)
-    xgame::window::setFrameSize(arg1);
+    cclua::window::setFrameSize(arg1);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_window_setFrameSize2(lua_State *L)
+static int _cclua_window_setFrameSize2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2428,133 +2428,133 @@ static int _xgame_window_setFrameSize2(lua_State *L)
     auto_olua_pack_cocos2d_Size(L, 1, &arg1);
 
     // static void setFrameSize(@pack const cocos2d::Size &size)
-    xgame::window::setFrameSize(arg1);
+    cclua::window::setFrameSize(arg1);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_window_setFrameSize(lua_State *L)
+static int _cclua_window_setFrameSize(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
         // if ((auto_olua_is_cocos2d_Size(L, 1))) {
             // static void setFrameSize(const cocos2d::Size &size)
-            return _xgame_window_setFrameSize1(L);
+            return _cclua_window_setFrameSize1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((auto_olua_ispack_cocos2d_Size(L, 1))) {
             // static void setFrameSize(@pack const cocos2d::Size &size)
-            return _xgame_window_setFrameSize2(L);
+            return _cclua_window_setFrameSize2(L);
         // }
     }
 
-    luaL_error(L, "method 'xgame::window::setFrameSize' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'cclua::window::setFrameSize' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int luaopen_xgame_window(lua_State *L)
+static int luaopen_cclua_window(lua_State *L)
 {
-    oluacls_class(L, "kernel.window", nullptr);
-    oluacls_func(L, "__move", _xgame_window___move);
-    oluacls_func(L, "convertToCameraSpace", _xgame_window_convertToCameraSpace);
-    oluacls_func(L, "getDesignSize", _xgame_window_getDesignSize);
-    oluacls_func(L, "getFrameSize", _xgame_window_getFrameSize);
-    oluacls_func(L, "getVisibleBounds", _xgame_window_getVisibleBounds);
-    oluacls_func(L, "getVisibleSize", _xgame_window_getVisibleSize);
-    oluacls_func(L, "setDesignSize", _xgame_window_setDesignSize);
-    oluacls_func(L, "setFrameSize", _xgame_window_setFrameSize);
-    oluacls_prop(L, "designSize", _xgame_window_getDesignSize, _xgame_window_setDesignSize);
-    oluacls_prop(L, "frameSize", _xgame_window_getFrameSize, _xgame_window_setFrameSize);
-    oluacls_prop(L, "visibleBounds", _xgame_window_getVisibleBounds, nullptr);
-    oluacls_prop(L, "visibleSize", _xgame_window_getVisibleSize, nullptr);
+    oluacls_class(L, "cclua.window", nullptr);
+    oluacls_func(L, "__move", _cclua_window___move);
+    oluacls_func(L, "convertToCameraSpace", _cclua_window_convertToCameraSpace);
+    oluacls_func(L, "getDesignSize", _cclua_window_getDesignSize);
+    oluacls_func(L, "getFrameSize", _cclua_window_getFrameSize);
+    oluacls_func(L, "getVisibleBounds", _cclua_window_getVisibleBounds);
+    oluacls_func(L, "getVisibleSize", _cclua_window_getVisibleSize);
+    oluacls_func(L, "setDesignSize", _cclua_window_setDesignSize);
+    oluacls_func(L, "setFrameSize", _cclua_window_setFrameSize);
+    oluacls_prop(L, "designSize", _cclua_window_getDesignSize, _cclua_window_setDesignSize);
+    oluacls_prop(L, "frameSize", _cclua_window_getFrameSize, _cclua_window_setFrameSize);
+    oluacls_prop(L, "visibleBounds", _cclua_window_getVisibleBounds, nullptr);
+    oluacls_prop(L, "visibleSize", _cclua_window_getVisibleSize, nullptr);
 
-    olua_registerluatype<xgame::window>(L, "kernel.window");
+    olua_registerluatype<cclua::window>(L, "cclua.window");
 
     return 1;
 }
 
-static int luaopen_xgame_downloader_FileState(lua_State *L)
+static int luaopen_cclua_downloader_FileState(lua_State *L)
 {
-    oluacls_class(L, "kernel.downloader.FileState", nullptr);
-    oluacls_const_integer(L, "INVALID", (lua_Integer)xgame::downloader::FileState::INVALID);
-    oluacls_const_integer(L, "IOERROR", (lua_Integer)xgame::downloader::FileState::IOERROR);
-    oluacls_const_integer(L, "LOADED", (lua_Integer)xgame::downloader::FileState::LOADED);
-    oluacls_const_integer(L, "PENDING", (lua_Integer)xgame::downloader::FileState::PENDING);
+    oluacls_class(L, "cclua.downloader.FileState", nullptr);
+    oluacls_const_integer(L, "INVALID", (lua_Integer)cclua::downloader::FileState::INVALID);
+    oluacls_const_integer(L, "IOERROR", (lua_Integer)cclua::downloader::FileState::IOERROR);
+    oluacls_const_integer(L, "LOADED", (lua_Integer)cclua::downloader::FileState::LOADED);
+    oluacls_const_integer(L, "PENDING", (lua_Integer)cclua::downloader::FileState::PENDING);
 
-    olua_registerluatype<xgame::downloader::FileState>(L, "kernel.downloader.FileState");
+    olua_registerluatype<cclua::downloader::FileState>(L, "cclua.downloader.FileState");
 
     return 1;
 }
 
-static int _xgame_downloader___move(lua_State *L)
+static int _cclua_downloader___move(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (xgame::downloader *)olua_toobj(L, 1, "kernel.downloader");
-    olua_push_cppobj(L, self, "kernel.downloader");
+    auto self = (cclua::downloader *)olua_toobj(L, 1, "cclua.downloader");
+    olua_push_cppobj(L, self, "cclua.downloader");
 
     olua_endinvoke(L);
 
     return 1;
 }
 
-static int _xgame_downloader_end(lua_State *L)
+static int _cclua_downloader_end(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static void end()
-    xgame::downloader::end();
+    cclua::downloader::end();
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_downloader_init(lua_State *L)
+static int _cclua_downloader_init(lua_State *L)
 {
     olua_startinvoke(L);
 
     // static void init()
-    xgame::downloader::init();
+    cclua::downloader::init();
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_downloader_load(lua_State *L)
+static int _cclua_downloader_load(lua_State *L)
 {
     olua_startinvoke(L);
 
-    xgame::downloader::FileTask arg1;       /** task */
+    cclua::downloader::FileTask arg1;       /** task */
 
-    auto_olua_check_xgame_downloader_FileTask(L, 1, &arg1);
+    auto_olua_check_cclua_downloader_FileTask(L, 1, &arg1);
 
-    // static void load(const xgame::downloader::FileTask &task)
-    xgame::downloader::load(arg1);
+    // static void load(const cclua::downloader::FileTask &task)
+    cclua::downloader::load(arg1);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _xgame_downloader_setDispatcher(lua_State *L)
+static int _cclua_downloader_setDispatcher(lua_State *L)
 {
     olua_startinvoke(L);
 
-    std::function<void(const xgame::downloader::FileTask &)> arg1;       /** callback */
+    std::function<void(const cclua::downloader::FileTask &)> arg1;       /** callback */
 
-    void *cb_store = (void *)olua_pushclassobj(L, "kernel.downloader");
+    void *cb_store = (void *)olua_pushclassobj(L, "cclua.downloader");
     std::string cb_tag = "Dispatcher";
     std::string cb_name = olua_setcallback(L, cb_store, cb_tag.c_str(), 1, OLUA_TAG_REPLACE);
     lua_Integer cb_ctx = olua_context(L);
-    arg1 = [cb_store, cb_name, cb_ctx](const xgame::downloader::FileTask &arg1) {
+    arg1 = [cb_store, cb_name, cb_ctx](const cclua::downloader::FileTask &arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
@@ -2562,7 +2562,7 @@ static int _xgame_downloader_setDispatcher(lua_State *L)
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            auto_olua_push_xgame_downloader_FileTask(L, &arg1);
+            auto_olua_push_cclua_downloader_FileTask(L, &arg1);
             olua_disable_objpool(L);
 
             olua_callback(L, cb_store, cb_name.c_str(), 1);
@@ -2574,59 +2574,59 @@ static int _xgame_downloader_setDispatcher(lua_State *L)
     };
 
     // static void setDispatcher(@local const std::function<void (const FileTask &)> callback)
-    xgame::downloader::setDispatcher(arg1);
+    cclua::downloader::setDispatcher(arg1);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int luaopen_xgame_downloader(lua_State *L)
+static int luaopen_cclua_downloader(lua_State *L)
 {
-    oluacls_class(L, "kernel.downloader", nullptr);
-    oluacls_func(L, "__move", _xgame_downloader___move);
-    oluacls_func(L, "end", _xgame_downloader_end);
-    oluacls_func(L, "init", _xgame_downloader_init);
-    oluacls_func(L, "load", _xgame_downloader_load);
-    oluacls_func(L, "setDispatcher", _xgame_downloader_setDispatcher);
+    oluacls_class(L, "cclua.downloader", nullptr);
+    oluacls_func(L, "__move", _cclua_downloader___move);
+    oluacls_func(L, "end", _cclua_downloader_end);
+    oluacls_func(L, "init", _cclua_downloader_init);
+    oluacls_func(L, "load", _cclua_downloader_load);
+    oluacls_func(L, "setDispatcher", _cclua_downloader_setDispatcher);
 
-    olua_registerluatype<xgame::downloader>(L, "kernel.downloader");
+    olua_registerluatype<cclua::downloader>(L, "cclua.downloader");
 
     return 1;
 }
 
-static int _xgame_MaskLayout___move(lua_State *L)
+static int _cclua_MaskLayout___move(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (xgame::MaskLayout *)olua_toobj(L, 1, "kernel.MaskLayout");
-    olua_push_cppobj(L, self, "kernel.MaskLayout");
+    auto self = (cclua::MaskLayout *)olua_toobj(L, 1, "cclua.MaskLayout");
+    olua_push_cppobj(L, self, "cclua.MaskLayout");
 
     olua_endinvoke(L);
 
     return 1;
 }
 
-static int _xgame_MaskLayout_create(lua_State *L)
+static int _cclua_MaskLayout_create(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // static xgame::MaskLayout *create()
-    xgame::MaskLayout *ret = xgame::MaskLayout::create();
-    int num_ret = olua_push_cppobj(L, ret, "kernel.MaskLayout");
+    // static cclua::MaskLayout *create()
+    cclua::MaskLayout *ret = cclua::MaskLayout::create();
+    int num_ret = olua_push_cppobj(L, ret, "cclua.MaskLayout");
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _xgame_MaskLayout_getClippingNode(lua_State *L)
+static int _cclua_MaskLayout_getClippingNode(lua_State *L)
 {
     olua_startinvoke(L);
 
-    xgame::MaskLayout *self = nullptr;
+    cclua::MaskLayout *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "kernel.MaskLayout");
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.MaskLayout");
 
     // cocos2d::DrawNode *getClippingNode()
     cocos2d::DrawNode *ret = self->getClippingNode();
@@ -2637,13 +2637,13 @@ static int _xgame_MaskLayout_getClippingNode(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_MaskLayout_getFilter(lua_State *L)
+static int _cclua_MaskLayout_getFilter(lua_State *L)
 {
     olua_startinvoke(L);
 
-    xgame::MaskLayout *self = nullptr;
+    cclua::MaskLayout *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "kernel.MaskLayout");
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.MaskLayout");
 
     // @addref(filter ^) cocos2d::Node *getFilter()
     cocos2d::Node *ret = self->getFilter();
@@ -2657,13 +2657,13 @@ static int _xgame_MaskLayout_getFilter(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_MaskLayout_new(lua_State *L)
+static int _cclua_MaskLayout_new(lua_State *L)
 {
     olua_startinvoke(L);
 
     // MaskLayout()
-    xgame::MaskLayout *ret = new xgame::MaskLayout();
-    int num_ret = olua_push_cppobj(L, ret, "kernel.MaskLayout");
+    cclua::MaskLayout *ret = new cclua::MaskLayout();
+    int num_ret = olua_push_cppobj(L, ret, "cclua.MaskLayout");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -2671,14 +2671,14 @@ static int _xgame_MaskLayout_new(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_MaskLayout_setFilter(lua_State *L)
+static int _cclua_MaskLayout_setFilter(lua_State *L)
 {
     olua_startinvoke(L);
 
-    xgame::MaskLayout *self = nullptr;
+    cclua::MaskLayout *self = nullptr;
     cocos2d::Node *arg1 = nullptr;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "kernel.MaskLayout");
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.MaskLayout");
     if (!olua_isnoneornil(L, 2)) {
         olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
     }
@@ -2694,35 +2694,35 @@ static int _xgame_MaskLayout_setFilter(lua_State *L)
     return 0;
 }
 
-static int luaopen_xgame_MaskLayout(lua_State *L)
+static int luaopen_cclua_MaskLayout(lua_State *L)
 {
-    oluacls_class(L, "kernel.MaskLayout", "ccui.Layout");
-    oluacls_func(L, "__move", _xgame_MaskLayout___move);
-    oluacls_func(L, "create", _xgame_MaskLayout_create);
-    oluacls_func(L, "getClippingNode", _xgame_MaskLayout_getClippingNode);
-    oluacls_func(L, "getFilter", _xgame_MaskLayout_getFilter);
-    oluacls_func(L, "new", _xgame_MaskLayout_new);
-    oluacls_func(L, "setFilter", _xgame_MaskLayout_setFilter);
-    oluacls_prop(L, "clippingNode", _xgame_MaskLayout_getClippingNode, nullptr);
-    oluacls_prop(L, "filter", _xgame_MaskLayout_getFilter, _xgame_MaskLayout_setFilter);
+    oluacls_class(L, "cclua.MaskLayout", "ccui.Layout");
+    oluacls_func(L, "__move", _cclua_MaskLayout___move);
+    oluacls_func(L, "create", _cclua_MaskLayout_create);
+    oluacls_func(L, "getClippingNode", _cclua_MaskLayout_getClippingNode);
+    oluacls_func(L, "getFilter", _cclua_MaskLayout_getFilter);
+    oluacls_func(L, "new", _cclua_MaskLayout_new);
+    oluacls_func(L, "setFilter", _cclua_MaskLayout_setFilter);
+    oluacls_prop(L, "clippingNode", _cclua_MaskLayout_getClippingNode, nullptr);
+    oluacls_prop(L, "filter", _cclua_MaskLayout_getFilter, _cclua_MaskLayout_setFilter);
 
-    olua_registerluatype<xgame::MaskLayout>(L, "kernel.MaskLayout");
+    olua_registerluatype<cclua::MaskLayout>(L, "cclua.MaskLayout");
 
     return 1;
 }
 
 int luaopen_xgame(lua_State *L)
 {
-    olua_require(L, "kernel.SceneNoCamera", luaopen_xgame_SceneNoCamera);
-    olua_require(L, "kernel.Permission", luaopen_xgame_Permission);
-    olua_require(L, "kernel.PermissionStatus", luaopen_xgame_PermissionStatus);
-    olua_require(L, "kernel.runtime", luaopen_xgame_runtime);
-    olua_require(L, "kernel.filesystem", luaopen_xgame_filesystem);
-    olua_require(L, "kernel.preferences", luaopen_xgame_preferences);
-    olua_require(L, "kernel.timer", luaopen_xgame_timer);
-    olua_require(L, "kernel.window", luaopen_xgame_window);
-    olua_require(L, "kernel.downloader.FileState", luaopen_xgame_downloader_FileState);
-    olua_require(L, "kernel.downloader", luaopen_xgame_downloader);
-    olua_require(L, "kernel.MaskLayout", luaopen_xgame_MaskLayout);
+    olua_require(L, "cclua.SceneNoCamera", luaopen_cclua_SceneNoCamera);
+    olua_require(L, "cclua.Permission", luaopen_cclua_Permission);
+    olua_require(L, "cclua.PermissionStatus", luaopen_cclua_PermissionStatus);
+    olua_require(L, "cclua.runtime", luaopen_cclua_runtime);
+    olua_require(L, "cclua.filesystem", luaopen_cclua_filesystem);
+    olua_require(L, "cclua.preferences", luaopen_cclua_preferences);
+    olua_require(L, "cclua.timer", luaopen_cclua_timer);
+    olua_require(L, "cclua.window", luaopen_cclua_window);
+    olua_require(L, "cclua.downloader.FileState", luaopen_cclua_downloader_FileState);
+    olua_require(L, "cclua.downloader", luaopen_cclua_downloader);
+    olua_require(L, "cclua.MaskLayout", luaopen_cclua_MaskLayout);
     return 0;
 }

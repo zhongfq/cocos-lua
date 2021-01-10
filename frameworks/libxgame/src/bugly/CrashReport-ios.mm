@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <Bugly/Bugly.h>
 
-NS_XGAME_BEGIN
+NS_CCLUA_BEGIN
 
 #define NSStringMake(str) (str == NULL ? nil : @(str))
 #define NSStringMakeNonnull(str) (str == NULL ? @"" : @(str))
@@ -87,6 +87,6 @@ void CrashReport::log(LogLevel level, const char *msg)
     }
 }
 
-NS_XGAME_END
+NS_CCLUA_END
 
 #endif

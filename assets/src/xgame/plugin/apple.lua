@@ -49,11 +49,11 @@ function Apple:auth()
 end
 
 if runtime.support('apple.ios') then
-    impl = require "kernel.plugin.apple"
+    impl = require "cclua.plugin.apple"
 else
     impl = setmetatable({}, {__index = function (_, func)
         return function ()
-            trace("function 'kernel.plugin.apple.%s' not supported", func)
+            trace("function 'cclua.plugin.apple.%s' not supported", func)
         end
     end})
 end

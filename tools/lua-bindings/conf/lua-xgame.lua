@@ -8,18 +8,18 @@ M.PATH = '../../frameworks/libxgame/src/lua-bindings'
 M.INCLUDES = [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "xgame/filesystem.h"
-#include "xgame/xlua.h"
-#include "xgame/preferences.h"
-#include "xgame/downloader.h"
-#include "xgame/runtime.h"
-#include "xgame/RootScene.h"
-#include "xgame/timer.h"
-#include "xgame/window.h"
+#include "cclua/filesystem.h"
+#include "cclua/xlua.h"
+#include "cclua/preferences.h"
+#include "cclua/downloader.h"
+#include "cclua/runtime.h"
+#include "cclua/RootScene.h"
+#include "cclua/timer.h"
+#include "cclua/window.h"
 #include "olua/olua.hpp"
 ]]
 M.CHUNK = [[
-int manual_olua_unpack_xgame_window_Bounds(lua_State *L, const xgame::window::Bounds *value)
+int manual_olua_unpack_xgame_window_Bounds(lua_State *L, const cclua::window::Bounds *value)
 {
     if (value) {
         lua_pushnumber(L, (lua_Number)value->getMinX());
@@ -37,26 +37,26 @@ int manual_olua_unpack_xgame_window_Bounds(lua_State *L, const xgame::window::Bo
 ]]
 
 M.MAKE_LUACLS = function (cppname)
-    cppname = string.gsub(cppname, "^xgame::", "kernel.")
+    cppname = string.gsub(cppname, "^cclua::", "cclua.")
     cppname = string.gsub(cppname, "::", ".")
     return cppname
 end
 
 M.EXCLUDE_TYPE = require "conf.exclude-type"
-M.EXCLUDE_TYPE 'xgame::BufferReader *'
+M.EXCLUDE_TYPE 'cclua::BufferReader *'
 
 typedef {
-    CPPCLS = 'xgame::window::Bounds',
+    CPPCLS = 'cclua::window::Bounds',
     CONV = 'manual_olua_$$_xgame_window_Bounds',
 }
 
-typeconv 'xgame::downloader::FileTask'
+typeconv 'cclua::downloader::FileTask'
 
-typeconf 'xgame::SceneNoCamera'
-typeconf 'xgame::Permission'
-typeconf 'xgame::PermissionStatus'
+typeconf 'cclua::SceneNoCamera'
+typeconf 'cclua::Permission'
+typeconf 'cclua::PermissionStatus'
 
-local runtime = typeconf 'xgame::runtime'
+local runtime = typeconf 'cclua::runtime'
 runtime.EXCLUDE_FUNC 'dispatchEvent'
 runtime.EXCLUDE_FUNC 'parseLaunchArgs'
 runtime.EXCLUDE_FUNC 'getNativeStackTrace'
@@ -75,7 +75,7 @@ runtime.EXCLUDE_FUNC 'callref'
 runtime.EXCLUDE_FUNC 'ref'
 runtime.FUNC("testCrash", [[
 {
-    xgame::runtime::log("test native crash!!!!");
+    cclua::runtime::log("test native crash!!!!");
     char *prt = NULL;
     *prt = 0;
     return 0;
@@ -85,12 +85,12 @@ runtime.CALLBACK {NAME = 'openURL', TAG_MODE = 'OLUA_TAG_NEW',TAG_SCOPE = 'once'
 runtime.CALLBACK {NAME = 'requestPermission', TAG_MODE = 'OLUA_TAG_NEW', TAG_SCOPE = 'once'}
 runtime.CALLBACK {NAME = 'alert', TAG_MODE = 'OLUA_TAG_NEW', TAG_SCOPE = 'once'}
 
-typeconf 'xgame::filesystem'
+typeconf 'cclua::filesystem'
     .EXCLUDE_FUNC 'getDirectory'
 
-typeconf 'xgame::preferences'
+typeconf 'cclua::preferences'
 
-local timer = typeconf 'xgame::timer'
+local timer = typeconf 'cclua::timer'
 timer.CHUNK = [[
 #define makeTimerDelayTag(tag) ("delayTag." + tag)
 ]]
@@ -115,7 +115,7 @@ timer.FUNC('schedule', [[
 {
     float interval = (float)olua_checknumber(L, 1);
     uint32_t callback = olua_funcref(L, 2);
-    uint32_t id = xgame::timer::schedule(interval, [callback](float dt) {
+    uint32_t id = cclua::timer::schedule(interval, [callback](float dt) {
         lua_State *L = olua_mainthread(NULL);
         if (L != NULL) {
             int top = lua_gettop(L);
@@ -137,11 +137,11 @@ timer.FUNC('unschedule', [[
     uint32_t callback = value >> 32;
     uint32_t id = value & 0xFFFFFFFF;
     olua_unref(L, callback);
-    xgame::timer::unschedule(id);
+    cclua::timer::unschedule(id);
     return 0;
 }]])
 
-typeconf 'xgame::window'
+typeconf 'cclua::window'
     .ATTR('getVisibleBounds', {RET = '@unpack'})
     .ATTR('getVisibleSize', {RET = '@unpack'})
     .ATTR('getFrameSize', {RET = '@unpack'})
@@ -150,9 +150,9 @@ typeconf 'xgame::window'
     .ATTR('setDesignSize', {ARG1 = '@pack'})
     .ATTR('convertToCameraSpace', {ARG1 = '@pack'})
 
-typeconf 'xgame::downloader::FileState'
-typeconf 'xgame::downloader'
-typeconf 'xgame::MaskLayout'
+typeconf 'cclua::downloader::FileState'
+typeconf 'cclua::downloader'
+typeconf 'cclua::MaskLayout'
     .ATTR('getFilter', {RET = '@addref(filter ^)'})
     .ATTR('setFilter', {ARG1 = '@nullable@addref(filter ^)'})
 

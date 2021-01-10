@@ -1,0 +1,151 @@
+#include "cclua/downloader.h"
+#include "cclua/filesystem.h"
+#include "crypto/md5util.h"
+
+#include "platform/CCFileUtils.h"
+#include "network/CCDownloader.h"
+
+#include <vector>
+#include <string>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+
+using namespace cocos2d;
+using namespace cocos2d::network;
+
+NS_CCLUA_BEGIN
+
+static cocos2d::network::Downloader *_loader = nullptr;
+static std::function<void(const downloader::FileTask &)> _callback = nullptr;
+static std::unordered_map<std::string, int64_t> _remoteFileSizes;
+static std::vector<downloader::FileTask> _tasks;
+static std::mutex _mutex;
+static std::thread *_verifyThread = nullptr;
+static std::condition_variable _cond;
+static bool _quit = false;
+
+void downloader::end()
+{
+    if (_loader) {
+        _quit = true;
+        _cond.notify_one();
+        _verifyThread->join();
+        delete _verifyThread;
+        delete _loader;
+        _verifyThread = nullptr;
+        _loader = nullptr;
+        _quit = false;
+    }
+}
+
+void downloader::init()
+{
+    if (_loader) {
+        return;
+    }
+    
+    _verifyThread = new std::thread(&downloader::start);
+    
+    DownloaderHints hints = {6, 10, ".tmp"};
+    _loader = new Downloader(hints);
+    _loader->onTaskError = [](const DownloadTask &task, int errorCode, int errorCodeInternal, const std::string &errorStr) {
+        FileTask file;
+        file.md5 = task.identifier;
+        file.url = task.requestURL;
+        file.path = task.storagePath;
+        file.state = FileState::IOERROR;
+        
+        std::lock_guard<std::mutex> lck(_mutex);
+        _tasks.push_back(file);
+        _cond.notify_one();
+    };
+    _loader->onFileTaskSuccess = [](const DownloadTask &task) {
+        FileTask file;
+        file.md5 = task.identifier;
+        file.url = task.requestURL;
+        file.path = task.storagePath;
+        file.state = FileState::PENDING;
+        
+        int64_t size = _remoteFileSizes[task.requestURL];
+        _remoteFileSizes.erase(task.requestURL);
+        if (FileUtils::getInstance()->getFileSize(file.path) != size || size == 0) {
+            file.state = FileState::IOERROR;
+        }
+        
+        std::lock_guard<std::mutex> lck(_mutex);
+        _tasks.push_back(file);
+        _cond.notify_one();
+    };
+    _loader->onTaskProgress = [](const DownloadTask& task, int64_t bytesReceived, int64_t totalBytesReceived, int64_t totalBytesExpected) {
+        _remoteFileSizes[task.requestURL] = totalBytesExpected;
+    };
+}
+
+void downloader::setDispatcher(const std::function<void(const FileTask &)> callback)
+{
+    _callback = callback;
+}
+    
+static bool verifyFile(const downloader::FileTask &task)
+{
+    unsigned char result[MD5_STR_LEN];
+    return md5f(result, task.path.c_str()) &&
+        strcaseequal((const char *)result, task.md5.c_str());
+}
+
+void downloader::load(const FileTask &task)
+{
+    auto path = task.path;
+    auto pos = path.find_last_of("/");
+    
+    if (pos != std::string::npos) {
+        path = path.substr(0, pos);
+    }
+    
+    filesystem::createDirectory(path);
+    if (filesystem::exist(task.path + ".tmp")) {
+        filesystem::remove(task.path + ".tmp");
+    }
+    _remoteFileSizes[task.url] = 0;
+    _loader->createDownloadFileTask(task.url, task.path, task.md5);
+}
+
+void downloader::start()
+{
+    while (!_quit) {
+        _mutex.lock();
+        if (_tasks.size() > 0) {
+            FileTask task = _tasks.back();
+            _tasks.pop_back();
+            _mutex.unlock();
+            
+            if (task.state == FileState::PENDING) {
+                if (task.md5.size() > 0) {
+                    task.state = verifyFile(task) ? FileState::LOADED : FileState::INVALID;
+                } else {
+                    task.state = FileState::LOADED;
+                }
+            }
+            
+            if (task.state != FileState::LOADED && filesystem::exist(task.path)) {
+                filesystem::remove(task.path);
+            }
+            
+            cocos2d::Director::getInstance()->getScheduler()->performFunctionInCocosThread([task]() {
+                if (_callback) {
+                    _callback(task);
+                }
+            });
+            
+            continue;
+        } else {
+            _mutex.unlock();
+        }
+        
+        std::unique_lock<std::mutex> lck(_mutex);
+        _cond.wait(lck);
+    }
+}
+    
+NS_CCLUA_END

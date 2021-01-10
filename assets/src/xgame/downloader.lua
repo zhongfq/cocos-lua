@@ -1,5 +1,5 @@
-local downloader    = require "kernel.downloader"
-local FileState     = require "kernel.downloader.FileState"
+local downloader    = require "cclua.downloader"
+local FileState     = require "cclua.downloader.FileState"
 local timer         = require "xgame.timer"
 local filesystem    = require "xgame.filesystem"
 local Manifest      = require "xgame.Manifest"

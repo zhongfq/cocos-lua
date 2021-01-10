@@ -42,7 +42,7 @@ end
 
 if runtime.os == "android" then
     local luaj = require "xgame.luaj"
-    local inst = luaj.new("kernel/plugin/vivo/Vivo")
+    local inst = luaj.new("cclua/plugin/vivo/Vivo")
     impl = {}
 
     function impl:setDispatcher(callback)
@@ -57,7 +57,7 @@ if runtime.os == "android" then
 else
     impl = setmetatable({}, {__index = function (_, func)
         return function ()
-            trace("function 'kernel.plugin.vivo.%s' not supported", func)
+            trace("function 'cclua.plugin.vivo.%s' not supported", func)
         end
     end})
 end

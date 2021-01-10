@@ -15,7 +15,7 @@ M.INCLUDES = [[
     #include "lua-bindings/lua_conv_manual.h"
     #include "lua-bindings/LuaCocosAdapter.h"
     #include "cocos2d.h"
-    #include "xgame/xlua.h"
+    #include "cclua/xlua.h"
 ]]
 M.CHUNK = nil
 M.DEFIF = nil

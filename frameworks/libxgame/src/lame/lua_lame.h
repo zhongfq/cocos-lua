@@ -1,7 +1,7 @@
 #ifndef __LUA_LAME_H__
 #define __LUA_LAME_H__
 
-#include "xgame/xlua.h"
+#include "cclua/xlua.h"
 
 #if defined(CCLUA_OS_ANDROID) || defined(CCLUA_OS_IOS)
 int luaopen_lame(lua_State *L);

@@ -1,7 +1,7 @@
 #ifndef __LUA_KEYCHAIN_H__
 #define __LUA_KEYCHAIN_H__
 
-#include "xgame/xlua.h"
+#include "cclua/xlua.h"
     
 #ifdef CCLUA_OS_IOS
 int luaopen_keychain(lua_State *L);

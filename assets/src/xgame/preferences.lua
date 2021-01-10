@@ -11,4 +11,4 @@
 -- preferences.deleteKey
 -- preferences.flush
 
-return require("kernel.preferences")
+return require("cclua.preferences")

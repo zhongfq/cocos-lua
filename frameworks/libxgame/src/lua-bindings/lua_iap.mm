@@ -2,7 +2,7 @@
 #include "cocos2d.h"
 
 #ifdef CCLUA_OS_IOS
-#import "xgame/PluginConnector.h"
+#import "cclua/PluginConnector.h"
 #import <StoreKit/StoreKit.h>
 
 @interface IAPConnector : PluginConnector<SKPaymentTransactionObserver, SKRequestDelegate, SKProductsRequestDelegate>
@@ -236,7 +236,7 @@ static int l_request_products(lua_State *L)
         SKProductsRequest *req = [[SKProductsRequest alloc] initWithProductIdentifiers:ids];
         req.delegate = connector;
         [req start];
-        xgame::runtime::log("request products: %s", [idsstr UTF8String]);
+        cclua::runtime::log("request products: %s", [idsstr UTF8String]);
     }
     
     return 1;
@@ -261,12 +261,12 @@ static int l_purchase(lua_State *L)
         }
         
         if (product != nil) {
-            xgame::runtime::log("purchase product: pid=%s quantity=%d", [pid UTF8String], (int)[quantify integerValue]);
+            cclua::runtime::log("purchase product: pid=%s quantity=%d", [pid UTF8String], (int)[quantify integerValue]);
             SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:product];
             payment.quantity = MAX(1, [quantify integerValue]);
             [[SKPaymentQueue defaultQueue] addPayment:payment];
         } else {
-            xgame::runtime::log("can't find product: %s", [pid UTF8String]);
+            cclua::runtime::log("can't find product: %s", [pid UTF8String]);
         }
     }
     
@@ -278,7 +278,7 @@ static int l_finish_transaction(lua_State *L)
     @autoreleasepool {
         lua_settop(L, 2);
         NSString *tid = [NSString stringWithUTF8String:luaL_checkstring(L, 2)];
-        xgame::runtime::log("try to finish transaction: %s", [tid UTF8String]);
+        cclua::runtime::log("try to finish transaction: %s", [tid UTF8String]);
         for (SKPaymentTransaction *t in [SKPaymentQueue defaultQueue].transactions)
         {
             if ([t.transactionIdentifier isEqualToString:tid]) {
@@ -339,7 +339,7 @@ int luaopen_iap(lua_State *L)
     oluacls_func(L, "restoreCompletedTransactions", l_restore_completed_transactions);
     oluacls_prop(L, "pendingTransactions", l_pending_transactions, nullptr);
     
-    xgame::runtime::registerFeature("iap.ios", true);
+    cclua::runtime::registerFeature("iap.ios", true);
     
     @autoreleasepool {
         IAPConnector *connector = [IAPConnector new];

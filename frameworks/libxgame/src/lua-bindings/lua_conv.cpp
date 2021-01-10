@@ -2,7 +2,7 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_conv.h"
-#include "xgame/xlua.h"
+#include "cclua/xlua.h"
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "network/WebSocket.h"

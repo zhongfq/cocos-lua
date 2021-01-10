@@ -61,7 +61,7 @@ end
 
 if runtime.os == "android" then
     local luaj = require "xgame.luaj"
-    local inst = luaj.new("kernel/plugin/oppo/Oppo")
+    local inst = luaj.new("cclua/plugin/oppo/Oppo")
     impl = {}
 
     function impl:setDispatcher(callback)
@@ -86,7 +86,7 @@ if runtime.os == "android" then
 else
     impl = setmetatable({}, {__index = function (_, func)
         return function ()
-            trace("function 'kernel.plugin.oppo.%s' not supported", func)
+            trace("function 'cclua.plugin.oppo.%s' not supported", func)
         end
     end})
 end

@@ -1,6 +1,6 @@
 local util      = require "xgame.util"
-local runtime   = require "kernel.runtime"
-local window    = require "kernel.window"
+local runtime   = require "cclua.runtime"
+local window    = require "cclua.window"
 
 assert(not runtime.on)
 assert(not runtime.off)
@@ -11,8 +11,8 @@ local dispatching = 0
 local suspended = {}
 local listeners = {}
 
-runtime.Permission = require "kernel.Permission"
-runtime.PermissionStatus = require "kernel.PermissionStatus"
+runtime.Permission = require "cclua.Permission"
+runtime.PermissionStatus = require "cclua.PermissionStatus"
 
 function runtime.on(event, callback, caller)
     assert(event, 'no event')
@@ -86,7 +86,7 @@ runtime.setDispatcher = false -- avoid used by others
 
 if runtime.os == 'android' then
     local luaj = require "xgame.luaj"
-    local AppContext = luaj.new("kernel/AppContext")
+    local AppContext = luaj.new("cclua/AppContext")
     function runtime.alert(title, message, ok, no, callback)
         AppContext.alert(title, message, ok, no, function (status)
             callback(status == 'true')

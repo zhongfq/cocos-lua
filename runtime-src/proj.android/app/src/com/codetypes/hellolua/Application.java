@@ -2,7 +2,7 @@ package com.codetypes.hellolua;
 
 import android.util.Log;
 
-import kernel.PluginManager;
+import cclua.PluginManager;
 
 public class Application extends android.app.Application {
 
@@ -12,12 +12,12 @@ public class Application extends android.app.Application {
     public void onCreate() {
         super.onCreate();
 
-        loadPlugin("kernel.plugin.wechat.WeChat");
-        loadPlugin("kernel.plugin.huawei.Huawei");
-        loadPlugin("kernel.plugin.vivo.Vivo");
-        loadPlugin("kernel.plugin.oppo.Oppo");
-        loadPlugin("kernel.plugin.alipay.Alipay");
-        loadPlugin("kernel.plugin.talkingdata.TalkingData");
+        loadPlugin("cclua.plugin.wechat.WeChat");
+        loadPlugin("cclua.plugin.huawei.Huawei");
+        loadPlugin("cclua.plugin.vivo.Vivo");
+        loadPlugin("cclua.plugin.oppo.Oppo");
+        loadPlugin("cclua.plugin.alipay.Alipay");
+        loadPlugin("cclua.plugin.talkingdata.TalkingData");
 
         PluginManager.init(this);
     }

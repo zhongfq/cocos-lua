@@ -1,7 +1,7 @@
 #include "lua_apple.h"
 
 #ifdef CCLUA_OS_IOS
-#import "xgame/PluginConnector.h"
+#import "cclua/PluginConnector.h"
 #import <AuthenticationServices/AuthenticationServices.h>
 
 @interface AppleConnector : PluginConnector<ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding>
@@ -47,7 +47,7 @@ static NSString *objectToJSONString(NSObject *obj)
 - (void)authorizationController:(ASAuthorizationController *)controller didCompleteWithError:(NSError *)error
 {
     @autoreleasepool {
-        xgame::runtime::log("apple auth error: errcode=%d", (int)error.code);
+        cclua::runtime::log("apple auth error: errcode=%d", (int)error.code);
         [self dispatch:@"auth" withMessage:objectToJSONString(@{@"errcode":[NSNumber numberWithInteger:error.code]})];
     }
 }
@@ -134,7 +134,7 @@ LUALIB_API int luaopen_apple(lua_State *L)
     oluacls_func(L, "auth", l_auth);
     
     if (@available(iOS 13.0, *)) {
-        xgame::runtime::registerFeature("apple.ios", true);
+        cclua::runtime::registerFeature("apple.ios", true);
         @autoreleasepool {
             AppleConnector *connector = [AppleConnector new];
             olua_push_obj(L, (void *)CFBridgingRetain(connector), CLASS_CONNECTOR);

@@ -21,6 +21,13 @@
 			"611", // A line consists of nothing but whitespace
 			"631", // Line is too long
 		],
-		"editor.snippetSuggestions": "bottom"
+		"editor.snippetSuggestions": "bottom",
+		"files.associations": {
+			"*.manifest": "json",
+			"*.jsfl": "javascript",
+			"filesystem": "cpp",
+			"stdexcept": "cpp",
+			"string": "cpp"
+		}
 	}
 }

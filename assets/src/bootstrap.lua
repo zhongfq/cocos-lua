@@ -4,7 +4,7 @@ function __TRACEBACK__(...)
     __TRACEBACK__ = _traceback
     _traceback(...)
     if not DEBUG then
-        local runtime = require "kernel.runtime"
+        local runtime = require "cclua.runtime"
         print(string.rep("*", 80))
         print('* update error, clear all and restart!!!!')
         print(string.rep("*", 80))

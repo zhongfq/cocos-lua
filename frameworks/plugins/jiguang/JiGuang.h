@@ -1,7 +1,7 @@
 #ifndef __JIGUANG_H__
 #define __JIGUANG_H__
 
-#include "xgame/plugin.h"
+#include "cclua/plugin.h"
 
 #include <string>
 #include <set>
@@ -10,7 +10,7 @@
 
 #if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
 
-NS_XPLUGIN_BEGIN
+NS_CCLUA_PLUGIN_BEGIN
 
 #ifdef CCLUA_BUILD_JPUSH
 class JPush {
@@ -49,7 +49,7 @@ public:
 };
 #endif
 
-NS_XPLUGIN_END
+NS_CCLUA_PLUGIN_END
 
 #endif
 

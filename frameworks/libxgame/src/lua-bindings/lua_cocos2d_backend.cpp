@@ -5,7 +5,7 @@
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cocos2d.h"
-#include "xgame/xlua.h"
+#include "cclua/xlua.h"
 
 static int luaopen_cocos2d_backend_BufferUsage(lua_State *L)
 {

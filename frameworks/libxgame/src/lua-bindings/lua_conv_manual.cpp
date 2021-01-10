@@ -1,6 +1,6 @@
 #include "lua_conv_manual.h"
 #include "lua_conv.h"
-#include "xgame/xlua.h"
+#include "cclua/xlua.h"
 #include "olua/olua.hpp"
 
 int manual_olua_push_cocos2d_Data(lua_State *L, const cocos2d::Data *value)

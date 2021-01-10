@@ -3,9 +3,9 @@
 #ifdef CCLUA_OS_ANDROID
 #include "platform/android/jni/JniHelper.h"
 #include "base/ccUTF8.h"
-#include "xgame/runtime.h"
-#include "xgame/xlua.h"
-#include "xgame/timer.h"
+#include "cclua/runtime.h"
+#include "cclua/xlua.h"
+#include "cclua/timer.h"
 
 #include <stdlib.h>
 
@@ -151,7 +151,7 @@ static int luaj_invoke(lua_State *L)
                 default: {
                     // never run
                     info.env->DeleteLocalRef(info.classID);
-                    xgame::runtime::log("[NO] java bridge call: %s#%s%s", classname, methodname, signature);
+                    cclua::runtime::log("[NO] java bridge call: %s#%s%s", classname, methodname, signature);
                     luaL_error(L, "method sign error: %s#%s%s", classname, methodname, signature);
                 }
             } // switch
@@ -197,7 +197,7 @@ static int luaj_invoke(lua_State *L)
         default: {
             free(args);
             info.env->DeleteLocalRef(info.classID);
-            xgame::runtime::log("[NO] java bridge call: %s#%s%s", classname, methodname, signature);
+            cclua::runtime::log("[NO] java bridge call: %s#%s%s", classname, methodname, signature);
             luaL_error(L, "unsupport return type: %s#%s%s", classname, methodname, signature);
         }
     }
@@ -217,11 +217,11 @@ static int luaj_invoke(lua_State *L)
     if (info.env->ExceptionCheck() == JNI_TRUE) {
         info.env->ExceptionDescribe();
         info.env->ExceptionClear();
-        xgame::runtime::log("[NO] java bridge call: %s#%s%s", classname, methodname, signature);
+        cclua::runtime::log("[NO] java bridge call: %s#%s%s", classname, methodname, signature);
         luaL_error(L, "java bridge call error: %s#%s%s", classname, methodname, signature);
     }
 
-    xgame::runtime::log("[OK] java bridge call: %s#%s%s", classname, methodname, signature);
+    cclua::runtime::log("[OK] java bridge call: %s#%s%s", classname, methodname, signature);
 
     return 1;
 }
@@ -259,25 +259,25 @@ int luaopen_javabridge(lua_State *L)
 extern "C" {
 #define jstring2string(jstr) (cocos2d::JniHelper::jstring2string(jstr))
 
-JNIEXPORT void JNICALL Java_kernel_LuaJ_call
+JNIEXPORT void JNICALL Java_cclua_LuaJ_call
         (JNIEnv *env, jclass cls, jint func, jstring args, jboolean once) {
     CC_UNUSED_PARAM(env);
     CC_UNUSED_PARAM(cls);
-    xgame::runtime::callref((int)func, jstring2string(args), (bool)once);
+    cclua::runtime::callref((int)func, jstring2string(args), (bool)once);
 }
 
-JNIEXPORT void JNICALL Java_kernel_LuaJ_registerFeature
+JNIEXPORT void JNICALL Java_cclua_LuaJ_registerFeature
         (JNIEnv *env, jclass cls, jstring api, jboolean enabled) {
     CC_UNUSED_PARAM(env);
     CC_UNUSED_PARAM(cls);
-    xgame::runtime::registerFeature(jstring2string(api), (bool)enabled);
+    cclua::runtime::registerFeature(jstring2string(api), (bool)enabled);
 }
 
-JNIEXPORT void JNICALL Java_kernel_LuaJ_dispatchEvent
+JNIEXPORT void JNICALL Java_cclua_LuaJ_dispatchEvent
         (JNIEnv *env, jclass cls, jstring event, jstring args) {
     CC_UNUSED_PARAM(env);
     CC_UNUSED_PARAM(cls);
-    xgame::runtime::dispatchEvent(jstring2string(event), jstring2string(args));
+    cclua::runtime::dispatchEvent(jstring2string(event), jstring2string(args));
 }
 }
 #endif

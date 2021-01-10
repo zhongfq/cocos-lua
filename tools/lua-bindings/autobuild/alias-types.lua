@@ -8,6 +8,12 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cclua::window::Bounds',
+    DECLTYPE = 'cclua::window::Bounds',
+    CONV = 'manual_olua_$$_cocos2d_Rect',
+}
+
+typedef {
     CPPCLS = 'cocos2d::CullFaceSide',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
@@ -131,10 +137,4 @@ typedef {
     CPPCLS = 'log_id_t',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-}
-
-typedef {
-    CPPCLS = 'xgame::window::Bounds',
-    DECLTYPE = 'xgame::window::Bounds',
-    CONV = 'manual_olua_$$_cocos2d_Rect',
 }

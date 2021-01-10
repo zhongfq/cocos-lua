@@ -1,4 +1,4 @@
-local luaoc = require "kernel.luaoc"
+local luaoc = require "cclua.luaoc"
 
 local cache = {}
 

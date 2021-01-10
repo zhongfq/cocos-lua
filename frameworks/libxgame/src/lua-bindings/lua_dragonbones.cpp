@@ -4,7 +4,7 @@
 #include "lua_dragonbones.h"
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "xgame/xlua.h"
+#include "cclua/xlua.h"
 #include "cocos2d.h"
 #include "CCDragonBonesHeaders.h"
 

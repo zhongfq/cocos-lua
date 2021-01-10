@@ -13,7 +13,7 @@ M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
-    #include "xgame/xlua.h"
+    #include "cclua/xlua.h"
     #include "FairyGUI.h"
     #include "GLoader3D.h"
     #include "tween/EaseManager.h"
@@ -1253,8 +1253,8 @@ cls.func(nil, 'bool isModalWaiting()')
 cls.func(nil, '@addref(inputProcessor ^) fairygui::InputProcessor *getInputProcessor()')
 cls.func(nil, 'cocos2d::Vec2 getTouchPosition(int touchId)')
 cls.func(nil, 'fairygui::GObject *getTouchTarget()')
-cls.func(nil, 'cocos2d::Vec2 worldToRoot(const cocos2d::Vec2 &pt)')
-cls.func(nil, 'cocos2d::Vec2 rootToWorld(const cocos2d::Vec2 &pt)')
+cls.func(nil, 'cocos2d::Vec2 worldToRoot(@pack const cocos2d::Vec2 &pt)')
+cls.func(nil, 'cocos2d::Vec2 rootToWorld(@pack const cocos2d::Vec2 &pt)')
 cls.func(nil, '@delref(children ~) void showPopup(@addref(children |) fairygui::GObject *popup)', '@delref(children ~) void showPopup(@addref(children |) fairygui::GObject *popup, fairygui::GObject *target, fairygui::PopupDirection dir)')
 cls.func(nil, '@delref(children ~) void togglePopup(@addref(children |) fairygui::GObject *popup)', '@delref(children ~) void togglePopup(@addref(children |) fairygui::GObject *popup, fairygui::GObject *target, fairygui::PopupDirection dir)')
 cls.func(nil, '@delref(children ~) void hidePopup()', '@delref(children ~) void hidePopup(fairygui::GObject *popup)')

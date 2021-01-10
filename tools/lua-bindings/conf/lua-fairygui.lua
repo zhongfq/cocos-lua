@@ -9,7 +9,7 @@ M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "xgame/xlua.h"
+#include "cclua/xlua.h"
 #include "FairyGUI.h"
 #include "GLoader3D.h"
 #include "tween/EaseManager.h"
@@ -308,6 +308,8 @@ GRoot.ATTR('showPopup', {RET = '@delref(children ~)', ARG1 = '@addref(children |
 GRoot.ATTR('togglePopup', {RET = '@delref(children ~)', ARG1 = '@addref(children |)'})
 GRoot.ATTR('hidePopup', {RET = '@delref(children ~)'})
 GRoot.ATTR('getInputProcessor', {RET = '@addref(inputProcessor ^)'})
+GRoot.ATTR('worldToRoot', {ARG1 = '@pack'})
+GRoot.ATTR('rootToWorld', {ARG1 = '@pack'})
 GRoot.PROP('UIRoot', 'static GRoot* getInstance()')
 GRoot.INSERT('create', {
     AFTER = [[

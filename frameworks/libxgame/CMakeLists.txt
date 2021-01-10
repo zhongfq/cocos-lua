@@ -7,22 +7,22 @@ include(src/cjson/CMakeLists.txt)
 include(src/lua-bindings/CMakeLists.txt)
 include(src/lua/CMakeLists.txt)
 include(src/olua/CMakeLists.txt)
-include(src/xgame/CMakeLists.txt)
+include(src/cclua/CMakeLists.txt)
 
 target_sources(xgame PRIVATE
-    ${CRYPTO_SRC}
+    ${CCLUA_SRC}
     ${CJSON_SRC}
+    ${CRYPTO_SRC}
     ${LUA_BINDINGS_SRC}
     ${LUA_SRC}
     ${OLUA_SRC}
-    ${XGAME_SRC}
 
-    ${CRYPTO_HEADER}
+    ${CCLUA_HEADER}
     ${CJSON_HEADER}
+    ${CRYPTO_HEADER}
     ${LUA_BINDINGS_HEADER}
     ${LUA_HEADER}
     ${OLUA_HEADER}
-    ${XGAME_HEADER}
 )
 
 if(CCLUA_BUILD_BUGLY)
@@ -90,7 +90,7 @@ target_link_libraries(xgame cocos2d)
 
 target_compile_definitions(xgame PUBLIC STDC_HEADERS)
 target_compile_definitions(xgame PUBLIC $<$<CONFIG:Debug>:OLUA_DEBUG>)
-target_compile_definitions(xgame PUBLIC OLUA_USER_H="xgame/luauser.h")
+target_compile_definitions(xgame PUBLIC OLUA_USER_H="cclua/luauser.h")
 
 if(CCLUA_BUILD_SPINE)
     target_compile_definitions(xgame PUBLIC CCLUA_BUILD_SPINE)

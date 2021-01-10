@@ -1,5 +1,5 @@
 #import "lua_photo.h"
-#import "xgame/PluginConnector.h"
+#import "cclua/PluginConnector.h"
 
 #ifdef CCLUA_OS_IOS
 
@@ -182,7 +182,7 @@ static int _set_callback(lua_State *L)
 
 static void did_request_permission(int handler, bool granted)
 {
-    xgame::runtime::runOnCocosThread([handler, granted]() {
+    cclua::runtime::runOnCocosThread([handler, granted]() {
         lua_State *L = olua_mainthread(NULL);
         int top = lua_gettop(L);
         olua_pusherrorfunc(L);
@@ -322,7 +322,7 @@ int luaopen_photo(lua_State *L)
     oluacls_func(L, "takeAvatar", _take_avatar);
     oluacls_func(L, "select", _select_image);
     
-    xgame::runtime::registerFeature("photo.ios", true);
+    cclua::runtime::registerFeature("photo.ios", true);
     
     @autoreleasepool {
         PhotoConnector *connector = [PhotoConnector new];

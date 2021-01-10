@@ -26,14 +26,14 @@
 #define  _APP_DELEGATE_H_
 
 #include "cocos2d.h"
-#include "xgame/runtime.h"
+#include "cclua/runtime.h"
 
 /**
 @brief    The cocos2d Application.
 
 Private inheritance here hides part of interface from Director.
 */
-class  AppDelegate : public xgame::RuntimeContext
+class  AppDelegate : public cclua::RuntimeContext
 {
 public:
     public:

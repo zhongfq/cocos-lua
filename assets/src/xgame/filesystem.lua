@@ -1,6 +1,6 @@
 local http          = require "xgame.http"
-local runtime       = require "kernel.runtime"
-local filesystem    = require "kernel.filesystem"
+local runtime       = require "cclua.runtime"
+local filesystem    = require "cclua.filesystem"
 
 assert(not filesystem.dir)
 assert(not filesystem.localCachePath)

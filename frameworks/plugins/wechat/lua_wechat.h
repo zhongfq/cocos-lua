@@ -1,7 +1,7 @@
 #ifndef _LUA_WECHAT_H__
 #define _LUA_WECHAT_H__
 
-#include "xgame/xlua.h"
+#include "cclua/xlua.h"
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
 int luaopen_wechat(lua_State *L);

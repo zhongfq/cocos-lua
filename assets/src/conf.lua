@@ -1,4 +1,4 @@
-local preferences   = require "kernel.preferences"
+local preferences   = require "cclua.preferences"
 
 local M = {}
 M.SERVERS = {

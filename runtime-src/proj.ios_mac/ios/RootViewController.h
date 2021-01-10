@@ -24,7 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#import "xgame/AppRootViewController-ios.h"
+#import "cclua/AppRootViewController-ios.h"
 
 
 @interface RootViewController : AppRootViewController

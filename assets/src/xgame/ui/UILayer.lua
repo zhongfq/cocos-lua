@@ -2,7 +2,7 @@ local class             = require "xgame.class"
 local Array             = require "xgame.Array"
 local UIView            = require "xgame.ui.UIView"
 local AbsoluteLayout    = require "xgame.ui.AbsoluteLayout"
-local MaskLayout        = require "kernel.MaskLayout"
+local MaskLayout        = require "cclua.MaskLayout"
 
 local ipairs = ipairs
 

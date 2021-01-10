@@ -23,18 +23,18 @@ REG 'base64'
 REG 'cjson'
 REG 'md5'
 
-REG('kernel.runtime', function ()
+REG('cclua.runtime', function ()
     return setmetatable({
         on = false,
         off = false,
     }, {__index = M.FUNC})
 end)
-REG('kernel.timer', function ()
+REG('cclua.timer', function ()
     return setmetatable({
         new = false,
     }, {__index = M.FUNC})
 end)
-REG('kernel.filesystem', function ()
+REG('cclua.filesystem', function ()
     return setmetatable({
         dir = false,
         localCachePath = false,
@@ -56,7 +56,7 @@ function require(path)
         string.find(path, 'ccui.', 1, true) == 1 or
         string.find(path, 'fgui.', 1, true) == 1 or
         string.find(path, 'swf.', 1, true) == 1 or
-        string.find(path, 'kernel.', 1, true) == 1) then
+        string.find(path, 'cclua.', 1, true) == 1) then
         return setmetatable({}, getmetatable(M.PROXY))
     else
         return _require(path)

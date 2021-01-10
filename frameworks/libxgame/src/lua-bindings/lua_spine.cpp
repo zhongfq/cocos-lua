@@ -4,8 +4,8 @@
 #include "lua_spine.h"
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "xgame/xlua.h"
-#include "xgame/runtime.h"
+#include "cclua/xlua.h"
+#include "cclua/runtime.h"
 #include "cocos2d.h"
 #include "spine/spine-cocos2dx.h"
 

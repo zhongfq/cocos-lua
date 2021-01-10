@@ -2,13 +2,13 @@
 
 #include "cocos2d.h"
 
-NS_XGAME_BEGIN
+NS_CCLUA_BEGIN
 
 #ifdef CCLUA_OS_ANDROID
 #include <android/log.h>
 #include <string.h>
 
-#define BUGLY_CLASS "kernel/plugin/bugly/Bugly"
+#define BUGLY_CLASS "cclua/plugin/bugly/Bugly"
 
 static bool s_initialized = false;
 
@@ -55,4 +55,4 @@ void CrashReport::log(LogLevel level, const char *msg) {
 
 #endif
 
-NS_XGAME_END
+NS_CCLUA_END

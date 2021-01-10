@@ -8,7 +8,7 @@ M.INCLUDES = [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cocos2d.h"
-#include "xgame/xlua.h"
+#include "cclua/xlua.h"
 ]]
 
 M.MAKE_LUACLS = function (cppname)

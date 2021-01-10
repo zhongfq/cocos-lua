@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="kernel.plugin.oppo">
+    package="cclua.plugin.oppo">
     <application>
         <uses-library android:name="org.apache.http.legacy" android:required="false" />
         <activity

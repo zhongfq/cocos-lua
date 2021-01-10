@@ -1,7 +1,7 @@
 #ifndef __LUA_APPLE_H__
 #define __LUA_APPLE_H__
 
-#include "xgame/xlua.h"
+#include "cclua/xlua.h"
 
 #ifdef CCLUA_OS_IOS
 LUALIB_API int luaopen_apple(lua_State *L);

@@ -25,14 +25,14 @@
 
 #include "AppDelegate.h"
 #include "cocos2d.h"
-#include "xgame/runtime.h"
+#include "cclua/runtime.h"
 
 USING_NS_CC;
 
 int main(int argc, char *argv[])
 {
     AppDelegate app;
-    xgame::runtime::parseLaunchArgs(argc, argv);
+    cclua::runtime::parseLaunchArgs(argc, argv);
     int status = Application::getInstance()->run();
     app.applicationWillTerminate();
     return status;

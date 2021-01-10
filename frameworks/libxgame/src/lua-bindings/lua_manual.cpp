@@ -1,7 +1,7 @@
 #include "lua_manual.h"
 #include "lua_conv_manual.h"
 #include "lua_conv.h"
-#include "xgame/xlua.h"
+#include "cclua/xlua.h"
 
 static int _cocos2d_Value_get_Null(lua_State *L)
 {

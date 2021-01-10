@@ -1,6 +1,6 @@
-local window        = require "kernel.window"
-local runtime       = require "kernel.runtime"
-local timer         = require "kernel.timer"
+local window        = require "cclua.window"
+local runtime       = require "cclua.runtime"
+local timer         = require "cclua.timer"
 local Director      = require "cc.Director"
 local olua          = require "olua"
 

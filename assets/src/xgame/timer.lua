@@ -1,4 +1,4 @@
-local timer = require "kernel.timer"
+local timer = require "cclua.timer"
 
 local assert, select = assert, select
 local xpcall, pairs = xpcall, pairs

@@ -11,7 +11,7 @@ local M = {}
 M.NAME = "conv"
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
-    #include "xgame/xlua.h"
+    #include "cclua/xlua.h"
     #include "cocos2d.h"
     #include "ui/CocosGUI.h"
     #include "network/WebSocket.h"

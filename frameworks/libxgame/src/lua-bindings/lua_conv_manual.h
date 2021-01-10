@@ -1,7 +1,7 @@
 #ifndef __LUA_CONV_MANUAL_H__
 #define __LUA_CONV_MANUAL_H__
 
-#include "xgame/xlua.h"
+#include "cclua/xlua.h"
 #include "cocos2d.h"
 #include "renderer/backend/Backend.h"
 

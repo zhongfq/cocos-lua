@@ -1,7 +1,7 @@
 #ifndef _LUA_CAMERAROLL_H__
 #define _LUA_CAMERAROLL_H__
 
-#include "xgame/xlua.h"
+#include "cclua/xlua.h"
 
 #ifdef CCLUA_OS_IOS
 int luaopen_photo(lua_State *L);

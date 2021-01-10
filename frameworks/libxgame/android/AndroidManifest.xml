@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="kernel.android">
+    package="cclua.android">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application>
         <!-- cameraroll -->
         <activity
-            android:name="kernel.plugin.photo.Photo"
+            android:name="cclua.plugin.photo.Photo"
             android:exported="true"
             android:launchMode="singleTask"
             android:configChanges="orientation|keyboardHidden|screenSize"

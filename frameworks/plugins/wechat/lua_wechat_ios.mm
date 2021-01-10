@@ -1,7 +1,7 @@
 #import "lua_wechat.h"
-#import "xgame/runtime.h"
-#import "xgame/filesystem.h"
-#import "xgame/PluginConnector.h"
+#import "cclua/runtime.h"
+#import "cclua/filesystem.h"
+#import "cclua/PluginConnector.h"
 #import "cocos2d.h"
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
@@ -69,7 +69,7 @@
 - (void)onAuthGotQrcode:(UIImage *)image
 {
     @autoreleasepool {
-        auto path = xgame::filesystem::getTmpDirectory() + "/wechat_auth_qrcode.jpg";
+        auto path = cclua::filesystem::getTmpDirectory() + "/wechat_auth_qrcode.jpg";
         NSData *data = UIImageJPEGRepresentation(image, 1.0f);
         [data writeToFile:[NSString stringWithUTF8String:path.c_str()] atomically:YES];
         
@@ -119,7 +119,7 @@ static int l_init(lua_State *L)
             const char *appid = olua_checkstring(L, 2);
             const char *universalLink = olua_checkstring(L, 3);
             [WXApi registerApp:NSStringMake(appid) universalLink:NSStringMake(universalLink)];
-            xgame::runtime::log("init wechat oath %s", appid);
+            cclua::runtime::log("init wechat oath %s", appid);
         }
     }
     
@@ -148,7 +148,7 @@ static int l_isInstalled(lua_State *L)
 static int l_auth(lua_State *L)
 {
     @autoreleasepool {
-        xgame::runtime::log("send wechat auth request");
+        cclua::runtime::log("send wechat auth request");
         WeChatConnector *connector = olua_checkconnector(L, 1);
         SendAuthReq *req = [[SendAuthReq alloc] init];
         req.scope = NSStringMake(olua_checkstring(L, 2));
@@ -175,7 +175,7 @@ static int l_authQRCode(lua_State *L)
                           scope:NSStringMake(olua_checkstring(L, 5))
                       signature:NSStringMake(olua_checkstring(L, 6))
                      schemeData:NSStringMake(olua_checkstring(L, 7))];
-        xgame::runtime::log("[%s] send wechat qrcode auth request", BOOL_STR(status));
+        cclua::runtime::log("[%s] send wechat qrcode auth request", BOOL_STR(status));
     }
     return 0;
 }
@@ -328,7 +328,7 @@ int luaopen_wechat(lua_State *L)
     oluacls_func(L, "share", l_share);
     oluacls_func(L, "open", l_open);
     
-    xgame::runtime::registerFeature("wechat.ios", true);
+    cclua::runtime::registerFeature("wechat.ios", true);
     
     @autoreleasepool {
         WeChatConnector *connector = [WeChatConnector new];

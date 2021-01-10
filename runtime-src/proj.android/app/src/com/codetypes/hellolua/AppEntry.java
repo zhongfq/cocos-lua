@@ -26,7 +26,7 @@ package com.codetypes.hellolua;
 
 import android.os.Bundle;
 import android.os.Build;
-import kernel.AppContext;
+import cclua.AppContext;
 
 public class AppEntry extends AppContext {
 

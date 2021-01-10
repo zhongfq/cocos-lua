@@ -4,7 +4,7 @@
 #include "lua_fairygui.h"
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "xgame/xlua.h"
+#include "cclua/xlua.h"
 #include "FairyGUI.h"
 #include "GLoader3D.h"
 #include "tween/EaseManager.h"
@@ -11163,7 +11163,7 @@ static int _fairygui_GRoot_playSound(lua_State *L)
     return 0;
 }
 
-static int _fairygui_GRoot_rootToWorld(lua_State *L)
+static int _fairygui_GRoot_rootToWorld1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11180,6 +11180,48 @@ static int _fairygui_GRoot_rootToWorld(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _fairygui_GRoot_rootToWorld2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GRoot *self = nullptr;
+    cocos2d::Vec2 arg1;       /** pt */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
+    auto_olua_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // cocos2d::Vec2 rootToWorld(@pack const cocos2d::Vec2 &pt)
+    cocos2d::Vec2 ret = self->rootToWorld(arg1);
+    int num_ret = auto_olua_unpack_cocos2d_Vec2(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_GRoot_rootToWorld(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 rootToWorld(const cocos2d::Vec2 &pt)
+            return _fairygui_GRoot_rootToWorld1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((auto_olua_ispack_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 rootToWorld(@pack const cocos2d::Vec2 &pt)
+            return _fairygui_GRoot_rootToWorld2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GRoot::rootToWorld' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _fairygui_GRoot_setNotAsUIRoot(lua_State *L)
@@ -11465,7 +11507,7 @@ static int _fairygui_GRoot_togglePopup(lua_State *L)
     return 0;
 }
 
-static int _fairygui_GRoot_worldToRoot(lua_State *L)
+static int _fairygui_GRoot_worldToRoot1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11482,6 +11524,48 @@ static int _fairygui_GRoot_worldToRoot(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _fairygui_GRoot_worldToRoot2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GRoot *self = nullptr;
+    cocos2d::Vec2 arg1;       /** pt */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
+    auto_olua_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // cocos2d::Vec2 worldToRoot(@pack const cocos2d::Vec2 &pt)
+    cocos2d::Vec2 ret = self->worldToRoot(arg1);
+    int num_ret = auto_olua_unpack_cocos2d_Vec2(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_GRoot_worldToRoot(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 worldToRoot(const cocos2d::Vec2 &pt)
+            return _fairygui_GRoot_worldToRoot1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((auto_olua_ispack_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 worldToRoot(@pack const cocos2d::Vec2 &pt)
+            return _fairygui_GRoot_worldToRoot2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GRoot::worldToRoot' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _fairygui_GRoot_get_contentScaleLevel(lua_State *L)

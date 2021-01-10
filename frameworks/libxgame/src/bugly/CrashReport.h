@@ -1,10 +1,10 @@
 #ifndef __CRASHREPORT_H__
 #define __CRASHREPORT_H__
 
-#include "xgame/runtime.h"
+#include "cclua/runtime.h"
 #include "cocos2d.h"
 
-NS_XGAME_BEGIN
+NS_CCLUA_BEGIN
 
 class CrashReport
 {
@@ -22,6 +22,6 @@ public:
     static void log(LogLevel level, const char *message);
 };
 
-NS_XGAME_END
+NS_CCLUA_END
 
 #endif

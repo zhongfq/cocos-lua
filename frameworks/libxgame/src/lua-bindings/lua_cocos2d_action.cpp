@@ -6,7 +6,7 @@
 #include "lua-bindings/lua_conv_manual.h"
 #include "lua-bindings/LuaCocosAdapter.h"
 #include "cocos2d.h"
-#include "xgame/xlua.h"
+#include "cclua/xlua.h"
 
 static int _cocos2d_Action___move(lua_State *L)
 {

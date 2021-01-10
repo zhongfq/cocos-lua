@@ -4,8 +4,8 @@ local runtime       = require "xgame.runtime"
 local Dispatcher    = require "xgame.Dispatcher"
 local Event         = require "xgame.event.Event"
 local PluginEvent   = require "xgame.event.PluginEvent"
-local lame          = require 'kernel.lame'
-local impl          = require "kernel.plugin.recorder"
+local lame          = require 'cclua.lame'
+local impl          = require "cclua.plugin.recorder"
 
 local PermissionStatus = runtime.PermissionStatus
 local Permission = runtime.Permission
@@ -86,7 +86,7 @@ end
 
 if runtime.os == "android" then
     local luaj = require "xgame.luaj"
-    local inst = luaj.new("kernel.plugin.recorder.Recorder")
+    local inst = luaj.new("cclua.plugin.recorder.Recorder")
     impl = {}
 
     function impl:setDispatcher(callback)

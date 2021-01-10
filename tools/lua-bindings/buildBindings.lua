@@ -20,6 +20,8 @@ export 'autobuild/fairygui.lua'
 export 'autobuild/dragonbones.lua'
 export 'autobuild/spine.lua'
 export 'autobuild/xgame.lua'
+export 'autobuild/bugly.lua'
+export 'autobuild/jiguang.lua'
 
 -- require "autobuild.make"
 

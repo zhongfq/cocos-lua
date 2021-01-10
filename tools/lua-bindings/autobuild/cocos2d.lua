@@ -19,7 +19,7 @@ M.INCLUDES = [[
     #include "base/TGAlib.h"
     #include "ui/CocosGUI.h"
     #include "navmesh/CCNavMesh.h"
-    #include "xgame/xlua.h"
+    #include "cclua/xlua.h"
 ]]
 M.CHUNK = [[
     static const std::string makeScheduleCallbackTag(const std::string &key)

@@ -2,15 +2,15 @@
 
 #ifdef CCLUA_OS_IOS
 
-#import "xgame/AppContext-ios.h"
-#import "xgame/plugin-ios.h"
+#import "cclua/AppContext-ios.h"
+#import "cclua/plugin-ios.h"
 #import "JPUSHService.h"
 #import "JANALYTICSService.h"
 
 #import <Foundation/Foundation.h>
 #import <UserNotifications/UserNotifications.h>
 
-USING_NS_XGAME;
+USING_NS_CCLUA;
 
 #ifdef CCLUA_BUILD_JPUSH
 @interface JPushDelegate : NSObject<JPUSHRegisterDelegate, UIApplicationDelegate>
@@ -112,7 +112,7 @@ USING_NS_XGAME;
 
 @end
 
-NS_XPLUGIN_BEGIN
+NS_CCLUA_PLUGIN_BEGIN
 
 void JPush::init(const std::string &appKey, const std::string &channel)
 {
@@ -220,7 +220,7 @@ void JPush::requestPermission()
 {
 }
 
-NS_XPLUGIN_END
+NS_CCLUA_PLUGIN_END
 
 #endif // CCLUA_BUILD_JPUSH
 
@@ -265,7 +265,7 @@ NS_XPLUGIN_END
 }
 @end
 
-NS_XPLUGIN_BEGIN
+NS_CCLUA_PLUGIN_BEGIN
 void JAnalytics::init(const std::string &appKey, const std::string &channel)
 {
     @autoreleasepool {
@@ -445,7 +445,7 @@ void JAnalytics::setDebug(bool enable)
     }
 }
 
-NS_XPLUGIN_END
+NS_CCLUA_PLUGIN_END
 
 #endif // CCLUA_BUILD_JANALYTICS
 

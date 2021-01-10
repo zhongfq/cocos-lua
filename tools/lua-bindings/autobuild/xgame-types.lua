@@ -5,100 +5,100 @@ local typedef = olua.typedef
 
 typedef {
     CONV = 'manual_olua_$$_xgame_window_Bounds',
-    CPPCLS = 'xgame::window::Bounds',
+    CPPCLS = 'cclua::window::Bounds',
 }
 
 typedef {
-    CPPCLS = 'xgame::downloader::FileTask',
+    CPPCLS = 'cclua::downloader::FileTask',
     LUACLS = nil,
     DECLTYPE = nil,
-    CONV = 'auto_olua_$$_xgame_downloader_FileTask',
+    CONV = 'auto_olua_$$_cclua_downloader_FileTask',
     NUM_VARS = 4,
 }
 
 typedef {
-    CPPCLS = 'xgame::SceneNoCamera *',
-    LUACLS = 'kernel.SceneNoCamera',
+    CPPCLS = 'cclua::SceneNoCamera *',
+    LUACLS = 'cclua.SceneNoCamera',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
     NUM_VARS = nil,
 }
 
 typedef {
-    CPPCLS = 'xgame::Permission',
-    LUACLS = 'kernel.Permission',
+    CPPCLS = 'cclua::Permission',
+    LUACLS = 'cclua.Permission',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
     NUM_VARS = nil,
 }
 
 typedef {
-    CPPCLS = 'xgame::PermissionStatus',
-    LUACLS = 'kernel.PermissionStatus',
+    CPPCLS = 'cclua::PermissionStatus',
+    LUACLS = 'cclua.PermissionStatus',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
     NUM_VARS = nil,
 }
 
 typedef {
-    CPPCLS = 'xgame::runtime *',
-    LUACLS = 'kernel.runtime',
+    CPPCLS = 'cclua::runtime *',
+    LUACLS = 'cclua.runtime',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
     NUM_VARS = nil,
 }
 
 typedef {
-    CPPCLS = 'xgame::filesystem *',
-    LUACLS = 'kernel.filesystem',
+    CPPCLS = 'cclua::filesystem *',
+    LUACLS = 'cclua.filesystem',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
     NUM_VARS = nil,
 }
 
 typedef {
-    CPPCLS = 'xgame::preferences *',
-    LUACLS = 'kernel.preferences',
+    CPPCLS = 'cclua::preferences *',
+    LUACLS = 'cclua.preferences',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
     NUM_VARS = nil,
 }
 
 typedef {
-    CPPCLS = 'xgame::timer *',
-    LUACLS = 'kernel.timer',
+    CPPCLS = 'cclua::timer *',
+    LUACLS = 'cclua.timer',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
     NUM_VARS = nil,
 }
 
 typedef {
-    CPPCLS = 'xgame::window *',
-    LUACLS = 'kernel.window',
+    CPPCLS = 'cclua::window *',
+    LUACLS = 'cclua.window',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
     NUM_VARS = nil,
 }
 
 typedef {
-    CPPCLS = 'xgame::downloader::FileState',
-    LUACLS = 'kernel.downloader.FileState',
+    CPPCLS = 'cclua::downloader::FileState',
+    LUACLS = 'cclua.downloader.FileState',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
     NUM_VARS = nil,
 }
 
 typedef {
-    CPPCLS = 'xgame::downloader *',
-    LUACLS = 'kernel.downloader',
+    CPPCLS = 'cclua::downloader *',
+    LUACLS = 'cclua.downloader',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
     NUM_VARS = nil,
 }
 
 typedef {
-    CPPCLS = 'xgame::MaskLayout *',
-    LUACLS = 'kernel.MaskLayout',
+    CPPCLS = 'cclua::MaskLayout *',
+    LUACLS = 'cclua.MaskLayout',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
     NUM_VARS = nil,

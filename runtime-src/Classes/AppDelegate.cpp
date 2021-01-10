@@ -24,9 +24,9 @@
 
 #include "AppDelegate.h"
 
-#include "xgame/xlua.h"
-#include "xgame/preferences.h"
-#include "xgame/FileFinder.h"
+#include "cclua/xlua.h"
+#include "cclua/preferences.h"
+#include "cclua/FileFinder.h"
 //#include "wechat/lua_wechat.h"
 
 #include "lua-bindings/lua_cocos2d_3d.h"
@@ -63,7 +63,7 @@
 #endif
 
 USING_NS_CC;
-USING_NS_XGAME;
+USING_NS_CCLUA;
 
 static int _open_plugins(lua_State *L)
 {
@@ -89,16 +89,18 @@ static int _open_plugins(lua_State *L)
     olua_callfunc(L, luaopen_jiguang);
 #endif
     
-//    olua_require(L, "kernel.plugin.wechat", luaopen_wechat);
+//    olua_require(L, "cclua.plugins.wechat", luaopen_wechat);
     return 0;
 }
 
 void AppDelegate::initGLContextAttrs()
 {
 #ifdef CCLUA_FEATURE_MSAA
-    xgame::runtime::setSampleCount(4);
+#if CC_TARGET_PLATFORM != CC_PLATFORM_MAC
+    runtime::setSampleCount(4);
+#endif
 #else
-    xgame::runtime::setSampleCount(1);
+    runtime::setSampleCount(1);
 #endif
     RuntimeContext::initGLContextAttrs();
 }
@@ -106,7 +108,7 @@ void AppDelegate::initGLContextAttrs()
 bool AppDelegate::applicationDidFinishLaunching()
 {
     /**
-     *  xgame::FileFinder::setProivder([]() {
+     *  FileFinder::setProivder([]() {
      *      return MyFileFinder::create();
      *  });
      */
@@ -119,8 +121,8 @@ bool AppDelegate::applicationDidFinishLaunching()
     plugin::JAnalytics::init(JPUSH_KEY, runtime::getChannel());
 #endif
     initGLView("cocos-lua");
-    xgame::runtime::initBugly(BUGLY_APPID);
-    xgame::runtime::luaOpen(_open_plugins);
+    runtime::initBugly(BUGLY_APPID);
+    runtime::luaOpen(_open_plugins);
     
     return RuntimeContext::applicationDidFinishLaunching();
 }

@@ -1,6 +1,6 @@
 #import "lua_recorder.h"
-#import "xgame/runtime.h"
-#import "xgame/PluginConnector.h"
+#import "cclua/runtime.h"
+#import "cclua/PluginConnector.h"
 #import "cocos2d.h"
 
 #ifdef CCLUA_OS_IOS
@@ -34,12 +34,12 @@ using namespace cocos2d;
 {
     if (_recorder != nil)
     {
-        xgame::runtime::log("only allow to run single instance");
+        cclua::runtime::log("only allow to run single instance");
         return;
     }
     
     self.filename = filename;
-    self.sessionCatalog = [NSString stringWithUTF8String:xgame::runtime::getAudioSessionCatalog().c_str()];
+    self.sessionCatalog = [NSString stringWithUTF8String:cclua::runtime::getAudioSessionCatalog().c_str()];
     
     FileUtils::getInstance()->removeFile([self.filename UTF8String]);
     
@@ -78,7 +78,7 @@ using namespace cocos2d;
         self.recorder = nil;
         
         [[AVAudioSession sharedInstance] setCategory:self.sessionCatalog error:nil];
-        xgame::runtime::setAudioSessionCatalog([self.sessionCatalog UTF8String]);
+        cclua::runtime::setAudioSessionCatalog([self.sessionCatalog UTF8String]);
     }
 }
 
@@ -123,7 +123,7 @@ static int _set_callback(lua_State *L)
 
 static void did_request_permission(int handler, bool granted)
 {
-    xgame::runtime::runOnCocosThread([handler, granted]() {
+    cclua::runtime::runOnCocosThread([handler, granted]() {
         lua_State *L = olua_mainthread(NULL);
         int top = lua_gettop(L);
         olua_pusherrorfunc(L);
@@ -205,7 +205,7 @@ int luaopen_recorder(lua_State *L)
     oluacls_func(L, "start", _start);
     oluacls_func(L, "stop", _stop);
     
-    xgame::runtime::registerFeature("recorder.ios", true);
+    cclua::runtime::registerFeature("recorder.ios", true);
     
     @autoreleasepool {
         RecorderConnector *connector = [RecorderConnector new];

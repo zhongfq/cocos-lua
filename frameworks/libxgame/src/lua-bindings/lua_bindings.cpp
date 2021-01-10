@@ -16,8 +16,8 @@
 #include "lua_keychain.h"
 #include "lua_socket.h"
 #include "cjson/lua_cjson.h"
-#include "xgame/runtime.h"
-#include "xgame/xlua.h"
+#include "cclua/runtime.h"
+#include "cclua/xlua.h"
 #include "md5/md5.h"
 
 #ifdef CCLUA_BUILD_LUASOCKET
@@ -89,25 +89,25 @@ int luaopen_bindings(lua_State *L)
     olua_require(L, "md5" , luaopen_md5);
 
 #ifdef CCLUA_BUILD_QRCODE
-    olua_require(L, "kernel.qrcode", luaopen_qrcode);
-    olua_require(L, "kernel.QRSprite", luaopen_qrsprite);
+    olua_require(L, "cclua.qrcode", luaopen_qrcode);
+    olua_require(L, "cclua.QRSprite", luaopen_qrsprite);
 #endif //CCLUA_BUILD_QRCODE
 
 #ifdef CCLUA_BUILD_LAME
-    olua_require(L, "kernel.lame", luaopen_lame);
+    olua_require(L, "cclua.lame", luaopen_lame);
 #endif //CCLUA_BUILD_LAME
 
 #ifdef CCLUA_BUILD_BUGLY
     olua_callfunc(L, luaopen_bugly);
 #endif // CCLUA_BUILD_BUGLY
 
-    olua_require(L, "kernel.Socket", luaopen_socket);
-    olua_require(L, "kernel.luaoc", luaopen_ocbridge);
-    olua_require(L, "kernel.luaj", luaopen_javabridge);
-    olua_require(L, "kernel.keychain", luaopen_keychain);
-    olua_require(L, "kernel.plugin.photo", luaopen_photo);
-    olua_require(L, "kernel.plugin.recorder", luaopen_recorder);
-    olua_require(L, "kernel.plugin.iap", luaopen_iap);
+    olua_require(L, "cclua.Socket", luaopen_socket);
+    olua_require(L, "cclua.luaoc", luaopen_ocbridge);
+    olua_require(L, "cclua.luaj", luaopen_javabridge);
+    olua_require(L, "cclua.keychain", luaopen_keychain);
+    olua_require(L, "cclua.plugin.photo", luaopen_photo);
+    olua_require(L, "cclua.plugin.recorder", luaopen_recorder);
+    olua_require(L, "cclua.plugin.iap", luaopen_iap);
 
     return 0;
 }

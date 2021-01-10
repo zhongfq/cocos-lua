@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="kernel.plugin.wechat">
+    package="cclua.plugin.wechat">
     <application>
     </application>
 </manifest>

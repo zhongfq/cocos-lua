@@ -1,4 +1,4 @@
-local luaj = require "kernel.luaj"
+local luaj = require "cclua.luaj"
 
 local cache = {}
 local RET_TYPES = {'V', 'Ljava/lang/String;', 'I', 'Z', 'J', 'F', 'D'}

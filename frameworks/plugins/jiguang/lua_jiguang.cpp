@@ -255,6 +255,7 @@ static int luaopen_cclua_plugin_JPush(lua_State *L)
     oluacls_prop(L, "registrationID", _cclua_plugin_JPush_getRegistrationID, nullptr);
 
     olua_registerluatype<cclua::plugin::JPush>(L, "cclua.plugin.JPush");
+    cclua::runtime::registerFeature("jpush", true);
 
     return 1;
 }
@@ -432,6 +433,7 @@ static int luaopen_cclua_plugin_JAnalytics(lua_State *L)
     oluacls_func(L, "trackEvent", _cclua_plugin_JAnalytics_trackEvent);
 
     olua_registerluatype<cclua::plugin::JAnalytics>(L, "cclua.plugin.JAnalytics");
+    cclua::runtime::registerFeature("janalytics", true);
 
     return 1;
 }

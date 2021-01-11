@@ -38,7 +38,6 @@ public class JAnalytics {
             public void onInit(Application app) {
                 Log.i(TAG, "init janalytics");
                 mContext = app;
-                AppContext.registerFeature("janalytics", true);
             }
 
             @Override
@@ -53,7 +52,7 @@ public class JAnalytics {
     }
 
     public static void startTrackPage(String pageName) {
-        JAnalyticsInterface.onPageEnd(mContext, pageName);
+        JAnalyticsInterface.onPageStart(mContext, pageName);
     }
 
     public static void stopTrackPage(String pageName) {

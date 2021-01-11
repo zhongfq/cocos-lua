@@ -29,6 +29,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('Off', 'cclua::CrashReport::LogLevel::Off')
 cls.enum('Error', 'cclua::CrashReport::LogLevel::Error')
 cls.enum('Warning', 'cclua::CrashReport::LogLevel::Warning')
@@ -42,6 +43,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static void init(const char *appid)')
 cls.func(nil, 'static void setUid(const char *uid)')
 cls.func(nil, 'static void setTag(int tag)')

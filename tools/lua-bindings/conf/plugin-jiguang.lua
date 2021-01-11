@@ -22,11 +22,13 @@ M.EXCLUDE_TYPE = require "conf.exclude-type"
 
 local JPush = typeconf "cclua::plugin::JPush"
 JPush.DEFIF = '#ifdef CCLUA_BUILD_JPUSH'
+JPush.REQUIRE = 'cclua::runtime::registerFeature("jpush", true);'
 
 local EventType = typeconf "cclua::plugin::JAnalytics::EventType"
 EventType.DEFIF = '#ifdef CCLUA_BUILD_JANALYTICS'
 
 local JAnalytics = typeconf "cclua::plugin::JAnalytics"
 JAnalytics.DEFIF = '#ifdef CCLUA_BUILD_JANALYTICS'
+JAnalytics.REQUIRE = 'cclua::runtime::registerFeature("janalytics", true);'
 
 return M

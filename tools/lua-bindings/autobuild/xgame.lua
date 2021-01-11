@@ -61,6 +61,7 @@ cls.SUPERCLS = 'cocos2d::Scene'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static cclua::SceneNoCamera *create()')
 cls.func(nil, 'static cclua::SceneNoCamera *createWithSize(const cocos2d::Size &size)')
 cls.func(nil, 'static cclua::SceneNoCamera *createWithPhysics()')
@@ -72,6 +73,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('AUDIO', 'cclua::Permission::AUDIO')
 cls.enum('CAMERA', 'cclua::Permission::CAMERA')
 cls.enum('PHOTO', 'cclua::Permission::PHOTO')
@@ -83,6 +85,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('NOT_DETERMINED', 'cclua::PermissionStatus::NOT_DETERMINED')
 cls.enum('RESTRICTED', 'cclua::PermissionStatus::RESTRICTED')
 cls.enum('DENIED', 'cclua::PermissionStatus::DENIED')
@@ -94,6 +97,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func('testCrash', [[
     {
         cclua::runtime::log("test native crash!!!!");
@@ -197,6 +201,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static const std::string getWritablePath()')
 cls.func(nil, 'static const std::string getCacheDirectory()')
 cls.func(nil, 'static const std::string getDocumentDirectory()')
@@ -229,6 +234,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static bool getBoolean(const char *key, @optional bool defaultValue)')
 cls.func(nil, 'static void setBoolean(const char *key, bool value)')
 cls.func(nil, 'static float getFloat(const char *key, @optional float defaultValue)')
@@ -248,6 +254,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = [[#define makeTimerDelayTag(tag) ("delayTag." + tag)]]
+cls.REQUIRE = nil
 cls.func('schedule', [[
     {
         float interval = (float)olua_checknumber(L, 1);
@@ -314,6 +321,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, '@unpack static cclua::window::Bounds getVisibleBounds()')
 cls.func(nil, '@unpack static cocos2d::Size getVisibleSize()')
 cls.func(nil, '@unpack static cocos2d::Size getFrameSize()')
@@ -332,6 +340,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('IOERROR', 'cclua::downloader::FileState::IOERROR')
 cls.enum('LOADED', 'cclua::downloader::FileState::LOADED')
 cls.enum('PENDING', 'cclua::downloader::FileState::PENDING')
@@ -343,6 +352,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static void load(const cclua::downloader::FileTask &task)')
 cls.func(nil, 'static void init()')
 cls.func(nil, 'static void end()')
@@ -362,6 +372,7 @@ cls.SUPERCLS = 'cocos2d::ui::Layout'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static cclua::MaskLayout *create()')
 cls.func(nil, 'MaskLayout()')
 cls.func(nil, 'cocos2d::DrawNode *getClippingNode()')

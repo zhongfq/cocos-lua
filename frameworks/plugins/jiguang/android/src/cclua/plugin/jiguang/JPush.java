@@ -26,7 +26,6 @@ public class JPush {
             public void onInit(Application app) {
                 Log.i(TAG, "init jpush");
                 mContext = app;
-                AppContext.registerFeature("jpush", true);
             }
 
             @Override

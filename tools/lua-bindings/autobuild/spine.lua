@@ -128,6 +128,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('Start', 'spine::EventType::EventType_Start')
 cls.enum('Interrupt', 'spine::EventType::EventType_Interrupt')
 cls.enum('End', 'spine::EventType::EventType_End')
@@ -141,6 +142,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('Region', 'spine::AttachmentType::AttachmentType_Region')
 cls.enum('Boundingbox', 'spine::AttachmentType::AttachmentType_Boundingbox')
 cls.enum('Mesh', 'spine::AttachmentType::AttachmentType_Mesh')
@@ -155,6 +157,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('Normal', 'spine::TransformMode::TransformMode_Normal')
 cls.enum('OnlyTranslation', 'spine::TransformMode::TransformMode_OnlyTranslation')
 cls.enum('NoRotationOrReflection', 'spine::TransformMode::TransformMode_NoRotationOrReflection')
@@ -167,6 +170,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('Normal', 'spine::BlendMode::BlendMode_Normal')
 cls.enum('Additive', 'spine::BlendMode::BlendMode_Additive')
 cls.enum('Multiply', 'spine::BlendMode::BlendMode_Multiply')
@@ -178,6 +182,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('Fixed', 'spine::PositionMode::PositionMode_Fixed')
 cls.enum('Percent', 'spine::PositionMode::PositionMode_Percent')
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -187,6 +192,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('Length', 'spine::SpacingMode::SpacingMode_Length')
 cls.enum('Fixed', 'spine::SpacingMode::SpacingMode_Fixed')
 cls.enum('Percent', 'spine::SpacingMode::SpacingMode_Percent')
@@ -197,6 +203,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('Tangent', 'spine::RotateMode::RotateMode_Tangent')
 cls.enum('Chain', 'spine::RotateMode::RotateMode_Chain')
 cls.enum('ChainScale', 'spine::RotateMode::RotateMode_ChainScale')
@@ -207,6 +214,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('Setup', 'spine::MixBlend::MixBlend_Setup')
 cls.enum('First', 'spine::MixBlend::MixBlend_First')
 cls.enum('Replace', 'spine::MixBlend::MixBlend_Replace')
@@ -218,6 +226,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::Event'
@@ -225,6 +234,7 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'const spine::EventData &getData()')
 cls.func(nil, 'float getTime()')
 cls.func(nil, 'int getIntValue()')
@@ -251,6 +261,7 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'EventData(const spine::String &name)')
 cls.func(nil, 'const spine::String &getName()')
 cls.func(nil, 'int getIntValue()')
@@ -279,6 +290,7 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'void update()')
 cls.func(nil, 'bool isActive()')
 cls.func(nil, 'void setActive(bool inValue)')
@@ -290,6 +302,7 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'AnimationState(spine::AnimationStateData *data)')
 cls.func(nil, 'void update(float delta)')
 cls.func(nil, 'void clearTracks()')
@@ -325,6 +338,7 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'AnimationStateData(spine::SkeletonData *skeletonData)')
 cls.func(nil, 'spine::SkeletonData *getSkeletonData()')
 cls.func(nil, 'float getDefaultMix()')
@@ -340,6 +354,7 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'Animation(const spine::String &name, Vector<spine::Timeline *> &timelines, float duration)')
 cls.func(nil, 'const spine::String &getName()')
 cls.func(nil, 'Vector<spine::Timeline *> &getTimelines()')
@@ -356,6 +371,7 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'ConstraintData(const spine::String &name)')
 cls.func(nil, 'const spine::String &getName()')
 cls.func(nil, 'size_t getOrder()')
@@ -372,6 +388,7 @@ cls.SUPERCLS = 'spine::ConstraintData'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'IkConstraintData(const spine::String &name)')
 cls.func(nil, 'Vector<spine::BoneData *> &getBones()')
 cls.func(nil, 'spine::BoneData *getTarget()')
@@ -403,6 +420,7 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'BoneData(int index, const spine::String &name, @optional spine::BoneData *parent)')
 cls.func(nil, 'int getIndex()')
 cls.func(nil, 'const spine::String &getName()')
@@ -447,6 +465,7 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'int getIndex()')
 cls.func(nil, 'const spine::String &getName()')
 cls.func(nil, 'spine::Color &getColor()')
@@ -470,6 +489,7 @@ cls.SUPERCLS = 'spine::Updatable'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'void apply()')
 cls.func(nil, 'int getOrder()')
 cls.func(nil, 'Vector<spine::Bone *> &getBones()')
@@ -500,6 +520,7 @@ cls.SUPERCLS = 'spine::Updatable'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'void apply()')
 cls.func(nil, 'int getOrder()')
 cls.func(nil, 'Vector<spine::Bone *> &getBones()')
@@ -527,6 +548,7 @@ cls.SUPERCLS = 'spine::ConstraintData'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'TransformConstraintData(const spine::String &name)')
 cls.func(nil, 'Vector<spine::BoneData *> &getBones()')
 cls.func(nil, 'spine::BoneData *getTarget()')
@@ -563,6 +585,7 @@ cls.SUPERCLS = 'spine::ConstraintData'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'PathConstraintData(const spine::String &name)')
 cls.func(nil, 'Vector<spine::BoneData *> &getBones()')
 cls.func(nil, 'spine::SlotData *getTarget()')
@@ -600,6 +623,7 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'SkeletonBounds()')
 cls.func(nil, 'bool aabbcontainsPoint(float x, float y)')
 cls.func(nil, 'bool aabbintersectsSegment(float x1, float y1, float x2, float y2)')
@@ -617,6 +641,7 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::Timeline'
@@ -624,6 +649,7 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'int getPropertyId()')
 cls.prop('propertyId', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -633,6 +659,7 @@ cls.SUPERCLS = 'spine::Timeline'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'size_t getFrameCount()')
 cls.func(nil, 'void setLinear(size_t frameIndex)')
 cls.func(nil, 'void setStepped(size_t frameIndex)')
@@ -647,6 +674,7 @@ cls.SUPERCLS = 'spine::Timeline'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'AttachmentTimeline(int frameCount)')
 cls.func(nil, 'size_t getSlotIndex()')
 cls.func(nil, 'void setSlotIndex(size_t inValue)')
@@ -664,6 +692,7 @@ cls.SUPERCLS = 'spine::CurveTimeline'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.const('ENTRIES', 'spine::ColorTimeline::ENTRIES', 'const int')
 cls.func(nil, 'ColorTimeline(int frameCount)')
 cls.func(nil, 'int getSlotIndex()')
@@ -678,6 +707,7 @@ cls.SUPERCLS = 'spine::CurveTimeline'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'DeformTimeline(int frameCount)')
 cls.func(nil, 'int getSlotIndex()')
 cls.func(nil, 'void setSlotIndex(int inValue)')
@@ -694,6 +724,7 @@ cls.SUPERCLS = 'spine::Timeline'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'DrawOrderTimeline(int frameCount)')
 cls.func(nil, 'Vector<float> &getFrames()')
 cls.func(nil, 'size_t getFrameCount()')
@@ -706,6 +737,7 @@ cls.SUPERCLS = 'spine::Timeline'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'EventTimeline(int frameCount)')
 cls.func(nil, 'Vector<float> getFrames()')
 cls.func(nil, 'size_t getFrameCount()')
@@ -718,6 +750,7 @@ cls.SUPERCLS = 'spine::CurveTimeline'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.const('ENTRIES', 'spine::IkConstraintTimeline::ENTRIES', 'const int')
 cls.func(nil, 'IkConstraintTimeline(int frameCount)')
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -727,6 +760,7 @@ cls.SUPERCLS = 'spine::CurveTimeline'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.const('ENTRIES', 'spine::PathConstraintMixTimeline::ENTRIES', 'const int')
 cls.func(nil, 'PathConstraintMixTimeline(int frameCount)')
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -736,6 +770,7 @@ cls.SUPERCLS = 'spine::CurveTimeline'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.const('ENTRIES', 'spine::PathConstraintPositionTimeline::ENTRIES', 'const int')
 cls.func(nil, 'PathConstraintPositionTimeline(int frameCount)')
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -745,6 +780,7 @@ cls.SUPERCLS = 'spine::PathConstraintPositionTimeline'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'PathConstraintSpacingTimeline(int frameCount)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -753,6 +789,7 @@ cls.SUPERCLS = 'spine::CurveTimeline'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.const('ENTRIES', 'spine::TranslateTimeline::ENTRIES', 'const int')
 cls.func(nil, 'TranslateTimeline(int frameCount)')
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -762,6 +799,7 @@ cls.SUPERCLS = 'spine::TranslateTimeline'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'ShearTimeline(int frameCount)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -770,6 +808,7 @@ cls.SUPERCLS = 'spine::CurveTimeline'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.const('ENTRIES', 'spine::TransformConstraintTimeline::ENTRIES', 'const int')
 cls.func(nil, 'TransformConstraintTimeline(int frameCount)')
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -779,6 +818,7 @@ cls.SUPERCLS = 'spine::TranslateTimeline'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'ScaleTimeline(int frameCount)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -787,6 +827,7 @@ cls.SUPERCLS = 'spine::CurveTimeline'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.const('ENTRIES', 'spine::RotateTimeline::ENTRIES', 'const int')
 cls.func(nil, 'RotateTimeline(int frameCount)')
 cls.func(nil, 'int getBoneIndex()')
@@ -801,6 +842,7 @@ cls.SUPERCLS = 'spine::CurveTimeline'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.const('ENTRIES', 'spine::TwoColorTimeline::ENTRIES', 'const int')
 cls.func(nil, 'TwoColorTimeline(int frameCount)')
 cls.func(nil, 'int getSlotIndex()')
@@ -813,6 +855,7 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::SwirlVertexEffect'
@@ -820,6 +863,7 @@ cls.SUPERCLS = 'spine::VertexEffect'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'void setCenterX(float centerX)')
 cls.func(nil, 'float getCenterX()')
 cls.func(nil, 'void setCenterY(float centerY)')
@@ -845,6 +889,7 @@ cls.SUPERCLS = 'spine::VertexEffect'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'JitterVertexEffect(float jitterX, float jitterY)')
 cls.func(nil, 'void setJitterX(float jitterX)')
 cls.func(nil, 'float getJitterX()')
@@ -859,6 +904,7 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::Skin'
@@ -866,6 +912,7 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'Skin(const spine::String &name)')
 cls.func(nil, 'void setAttachment(size_t slotIndex, const spine::String &name, spine::Attachment *attachment)')
 cls.func(nil, 'spine::Attachment *getAttachment(size_t slotIndex, const spine::String &name)')
@@ -885,6 +932,7 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::Bone'
@@ -892,6 +940,7 @@ cls.SUPERCLS = 'spine::Updatable'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static void setYDown(bool inValue)')
 cls.func(nil, 'static bool isYDown()')
 cls.func(nil, 'void updateWorldTransform()', 'void updateWorldTransform(float x, float y, float rotation, float scaleX, float scaleY, float shearX, float shearY)')
@@ -986,6 +1035,7 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'void setToSetupPose()')
 cls.func(nil, 'spine::Color &getColor()')
 cls.func(nil, 'spine::Color &getDarkColor()')
@@ -1010,6 +1060,7 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'const spine::String &getName()')
 cls.func(nil, 'spine::Attachment *copy()')
 cls.func(nil, 'int getRefCount()')
@@ -1024,6 +1075,7 @@ cls.SUPERCLS = 'spine::Attachment'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'int getId()')
 cls.func(nil, 'Vector<size_t> &getBones()')
 cls.func(nil, 'Vector<float> &getVertices()')
@@ -1044,6 +1096,7 @@ cls.SUPERCLS = 'spine::VertexAttachment'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'ClippingAttachment(const spine::String &name)')
 cls.func(nil, 'spine::SlotData *getEndSlot()')
 cls.func(nil, 'void setEndSlot(spine::SlotData *inValue)')
@@ -1055,6 +1108,7 @@ cls.SUPERCLS = 'spine::VertexAttachment'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'BoundingBoxAttachment(const spine::String &name)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -1063,6 +1117,7 @@ cls.SUPERCLS = 'spine::VertexAttachment'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'MeshAttachment(const spine::String &name)')
 cls.func(nil, 'void updateUVs()')
 cls.func(nil, 'int getHullLength()')
@@ -1134,6 +1189,7 @@ cls.SUPERCLS = 'spine::VertexAttachment'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'PathAttachment(const spine::String &name)')
 cls.func(nil, 'Vector<float> &getLengths()')
 cls.func(nil, 'bool isClosed()')
@@ -1150,6 +1206,7 @@ cls.SUPERCLS = 'spine::Updatable'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'void apply()')
 cls.func(nil, 'int getOrder()')
 cls.func(nil, 'float getPosition()')
@@ -1177,6 +1234,7 @@ cls.SUPERCLS = 'spine::Attachment'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'PointAttachment(const spine::String &name)')
 cls.func(nil, 'float getX()')
 cls.func(nil, 'void setX(float inValue)')
@@ -1194,6 +1252,7 @@ cls.SUPERCLS = 'spine::Attachment'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'RegionAttachment(const spine::String &name)')
 cls.func(nil, 'void updateOffset()')
 cls.func(nil, 'void setUVs(float u, float v, float u2, float v2, bool rotate)')
@@ -1252,6 +1311,7 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'TrackEntry()')
 cls.func(nil, 'int getTrackIndex()')
 cls.func(nil, 'spine::Animation *getAnimation()')
@@ -1332,6 +1392,7 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func('__gc', [[
     {
         auto self = olua_toobj<spine::SkeletonData>(L, 1);
@@ -1479,6 +1540,7 @@ cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'Skeleton(spine::SkeletonData *skeletonData)')
 cls.func(nil, 'void updateCache()')
 cls.func(nil, 'void printUpdateCache()')
@@ -1542,6 +1604,7 @@ cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static spine::SkeletonRenderer *create()')
 cls.func(nil, 'static spine::SkeletonRenderer *createWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData)')
 cls.func(nil, 'static spine::SkeletonRenderer *createWithData(@addref(skeletonData ^) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)')
@@ -1589,6 +1652,7 @@ cls.SUPERCLS = 'spine::SkeletonRenderer'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static spine::SkeletonAnimation *create()')
 cls.func(nil, 'static spine::SkeletonAnimation *createWithData(@addref(skeletonData ^) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)')
 cls.func(nil, 'static spine::SkeletonAnimation *createWithJsonFile(const std::string &skeletonJsonFile, spine::Atlas *atlas, @optional float scale)', 'static spine::SkeletonAnimation *createWithJsonFile(const std::string &skeletonJsonFile, const std::string &atlasFile, @optional float scale)')

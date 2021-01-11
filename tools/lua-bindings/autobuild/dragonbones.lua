@@ -39,6 +39,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('WeigthBoneCount', 'dragonBones::BinaryOffset::WeigthBoneCount')
 cls.enum('WeigthFloatOffset', 'dragonBones::BinaryOffset::WeigthFloatOffset')
 cls.enum('WeigthBoneIndices', 'dragonBones::BinaryOffset::WeigthBoneIndices')
@@ -69,6 +70,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('Armature', 'dragonBones::ArmatureType::Armature')
 cls.enum('MovieClip', 'dragonBones::ArmatureType::MovieClip')
 cls.enum('Stage', 'dragonBones::ArmatureType::Stage')
@@ -79,6 +81,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('None', 'dragonBones::OffsetMode::None')
 cls.enum('Additive', 'dragonBones::OffsetMode::Additive')
 cls.enum('Override', 'dragonBones::OffsetMode::Override')
@@ -89,6 +92,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('Image', 'dragonBones::DisplayType::Image')
 cls.enum('Armature', 'dragonBones::DisplayType::Armature')
 cls.enum('Mesh', 'dragonBones::DisplayType::Mesh')
@@ -101,6 +105,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('Rectangle', 'dragonBones::BoundingBoxType::Rectangle')
 cls.enum('Ellipse', 'dragonBones::BoundingBoxType::Ellipse')
 cls.enum('Polygon', 'dragonBones::BoundingBoxType::Polygon')
@@ -111,6 +116,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('Play', 'dragonBones::ActionType::Play')
 cls.enum('Frame', 'dragonBones::ActionType::Frame')
 cls.enum('Sound', 'dragonBones::ActionType::Sound')
@@ -121,6 +127,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('Normal', 'dragonBones::BlendMode::Normal')
 cls.enum('Add', 'dragonBones::BlendMode::Add')
 cls.enum('Alpha', 'dragonBones::BlendMode::Alpha')
@@ -142,6 +149,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('None', 'dragonBones::TweenType::None')
 cls.enum('Line', 'dragonBones::TweenType::Line')
 cls.enum('Curve', 'dragonBones::TweenType::Curve')
@@ -155,6 +163,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('Action', 'dragonBones::TimelineType::Action')
 cls.enum('ZOrder', 'dragonBones::TimelineType::ZOrder')
 cls.enum('BoneAll', 'dragonBones::TimelineType::BoneAll')
@@ -174,6 +183,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('None', 'dragonBones::AnimationFadeOutMode::None')
 cls.enum('SameLayer', 'dragonBones::AnimationFadeOutMode::SameLayer')
 cls.enum('SameGroup', 'dragonBones::AnimationFadeOutMode::SameGroup')
@@ -187,6 +197,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('DEFAULT', 'dragonBones::TextureFormat::DEFAULT')
 cls.enum('RGBA8888', 'dragonBones::TextureFormat::RGBA8888')
 cls.enum('BGRA8888', 'dragonBones::TextureFormat::BGRA8888')
@@ -201,6 +212,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static void setMaxCount(std::size_t classTypeIndex, unsigned int maxCount)')
 cls.func(nil, 'static void clearPool(@optional std::size_t classTypeIndex)')
 cls.func(nil, 'std::size_t getClassTypeIndex()')
@@ -213,6 +225,7 @@ cls.SUPERCLS = 'dragonBones::BaseObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static std::size_t getTypeIndex()')
 cls.func(nil, 'EventObject()')
 cls.func(nil, 'static void actionDataToInstance(const dragonBones::ActionData *data, dragonBones::EventObject *instance, dragonBones::Armature *armature)')
@@ -252,6 +265,7 @@ cls.SUPERCLS = 'dragonBones::BaseObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'void updateGlobalTransform()')
 cls.func(nil, 'dragonBones::Armature *getArmature()')
 cls.var('userData', 'void *userData')
@@ -263,6 +277,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'Point()')
 cls.func(nil, 'void clear()')
 cls.func(nil, 'static dragonBones::Point *getHelpPointA()')
@@ -282,6 +297,7 @@ cls.SUPERCLS = 'dragonBones::BaseObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'const dragonBones::BoneData *getTarget()')
 cls.func(nil, 'void setTarget(const dragonBones::BoneData *value)')
 cls.func(nil, 'const dragonBones::BoneData *getBone()')
@@ -303,6 +319,7 @@ cls.SUPERCLS = 'dragonBones::ConstraintData'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static std::size_t getTypeIndex()')
 cls.func(nil, 'IKConstraintData()')
 cls.var('scaleEnabled', 'bool scaleEnabled')
@@ -316,6 +333,7 @@ cls.SUPERCLS = 'dragonBones::BaseObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static std::size_t getTypeIndex()')
 cls.func(nil, 'TimelineData()')
 cls.func(nil, 'int getType()')
@@ -332,6 +350,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'void advanceTime(float passedTime)')
 cls.func(nil, 'dragonBones::WorldClock *getClock()')
 cls.func(nil, 'void setClock(dragonBones::WorldClock *value)')
@@ -343,6 +362,7 @@ cls.SUPERCLS = 'dragonBones::IAnimatable'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'WorldClock(@optional float timeValue)')
 cls.func(nil, 'bool contains(const dragonBones::IAnimatable *value)')
 cls.func(nil, 'void add(dragonBones::IAnimatable *value)')
@@ -359,6 +379,7 @@ cls.SUPERCLS = 'dragonBones::TransformObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'void init(const dragonBones::SlotData *slotData, dragonBones::Armature *armatureValue, void *rawDisplay, void *meshDisplay)')
 cls.func(nil, 'void update(int cacheFrameIndex)')
 cls.func(nil, 'void updateTransformAndMatrix()')
@@ -398,6 +419,7 @@ cls.SUPERCLS = 'dragonBones::TransformObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static std::size_t getTypeIndex()')
 cls.func(nil, 'Bone()')
 cls.func(nil, 'void init(const dragonBones::BoneData *boneData, dragonBones::Armature *armatureValue)')
@@ -426,6 +448,7 @@ cls.SUPERCLS = 'dragonBones::BaseObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'int getType()')
 cls.func(nil, 'void setType(int value)')
 cls.func(nil, 'dragonBones::SkinData *getParent()')
@@ -443,6 +466,7 @@ cls.SUPERCLS = 'dragonBones::BaseObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static std::size_t getTypeIndex()')
 cls.func(nil, 'ActionData()')
 cls.func(nil, 'int getType()')
@@ -470,6 +494,7 @@ cls.SUPERCLS = 'dragonBones::BaseObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static std::size_t getTypeIndex()')
 cls.func(nil, 'UserData()')
 cls.func(nil, 'void addInt(int value)')
@@ -495,6 +520,7 @@ cls.SUPERCLS = 'dragonBones::BaseObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'bool containsPoint(float pX, float pY)')
 cls.func(nil, 'int intersectsSegment(float xA, float yA, float xB, float yB, @optional dragonBones::Point *intersectionPointA, @optional dragonBones::Point *intersectionPointB, @optional dragonBones::Point *normalRadians)')
 cls.func(nil, 'int getType()')
@@ -511,6 +537,7 @@ cls.SUPERCLS = 'dragonBones::DisplayData'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static std::size_t getTypeIndex()')
 cls.func(nil, 'BoundingBoxDisplayData()')
 cls.func(nil, 'const dragonBones::BoundingBoxData *getBoundingBox()')
@@ -525,6 +552,7 @@ cls.SUPERCLS = 'dragonBones::BaseObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static std::size_t getTypeIndex()')
 cls.func(nil, 'CanvasData()')
 cls.var('hasBackground', 'bool hasBackground')
@@ -538,6 +566,7 @@ cls.SUPERCLS = 'dragonBones::BaseObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'dragonBones::TextureData *createTexture()')
 cls.func(nil, 'void addTexture(dragonBones::TextureData *value)')
 cls.func(nil, 'dragonBones::TextureData *getTexture(const std::string &textureName)')
@@ -555,6 +584,7 @@ cls.SUPERCLS = 'dragonBones::BaseObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'const dragonBones::TextureAtlasData *getParent()')
 cls.func(nil, 'void setParent(dragonBones::TextureAtlasData *value)')
 cls.var('rotated', 'bool rotated')
@@ -569,6 +599,7 @@ cls.SUPERCLS = 'dragonBones::BaseObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static std::size_t getTypeIndex()')
 cls.func(nil, 'ArmatureData()')
 cls.func(nil, 'void sortBones()')
@@ -632,6 +663,7 @@ cls.SUPERCLS = 'dragonBones::BaseObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static std::size_t getTypeIndex()')
 cls.func(nil, 'SkinData()')
 cls.func(nil, 'void addDisplay(const std::string &slotName, dragonBones::DisplayData *value)')
@@ -646,6 +678,7 @@ cls.SUPERCLS = 'dragonBones::BaseObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static std::size_t getTypeIndex()')
 cls.func(nil, 'BoneData()')
 cls.func(nil, 'const dragonBones::UserData *getUserData()')
@@ -670,6 +703,7 @@ cls.SUPERCLS = 'dragonBones::BaseObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static std::size_t getTypeIndex()')
 cls.func(nil, 'SlotData()')
 cls.func(nil, 'int getBlendMode()')
@@ -695,6 +729,7 @@ cls.SUPERCLS = 'dragonBones::BaseObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static std::size_t getTypeIndex()')
 cls.func(nil, 'AnimationState()')
 cls.func(nil, 'void init(dragonBones::Armature *armature, dragonBones::AnimationData *animationData, dragonBones::AnimationConfig *animationConfig)')
@@ -747,6 +782,7 @@ cls.SUPERCLS = 'dragonBones::BaseObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static std::size_t getTypeIndex()')
 cls.func(nil, 'AnimationData()')
 cls.func(nil, 'void cacheFrames(unsigned int frameRate)')
@@ -784,6 +820,7 @@ cls.SUPERCLS = 'dragonBones::BaseObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static std::size_t getTypeIndex()')
 cls.func(nil, 'AnimationConfig()')
 cls.func(nil, 'void clear()')
@@ -830,6 +867,7 @@ cls.SUPERCLS = 'dragonBones::BaseObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static std::size_t getTypeIndex()')
 cls.func(nil, 'DragonBonesData()')
 cls.func(nil, 'void addArmature(dragonBones::ArmatureData *value)')
@@ -856,6 +894,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'dragonBones::DragonBonesData *parseDragonBonesData(const char *rawData, @optional const std::string &name, @optional float scale)')
 cls.func(nil, 'dragonBones::TextureAtlasData *parseTextureAtlasData(const char *rawData, void *textureAtlas, @optional const std::string &name, @optional float scale)')
 cls.func(nil, 'dragonBones::DragonBonesData *getDragonBonesData(const std::string &name)')
@@ -880,6 +919,7 @@ cls.SUPERCLS = 'dragonBones::BaseObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static std::size_t getTypeIndex()')
 cls.func(nil, 'Armature()')
 cls.func(nil, 'void dispose()')
@@ -932,6 +972,7 @@ cls.SUPERCLS = 'dragonBones::BaseObject'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static std::size_t getTypeIndex()')
 cls.func(nil, 'Animation()')
 cls.func(nil, 'void init(dragonBones::Armature *armature)')
@@ -972,6 +1013,7 @@ cls.SUPERCLS = 'dragonBones::BaseFactory'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static dragonBones::CCFactory *getFactory()')
 cls.func(nil, 'CCFactory()')
 cls.func(nil, 'dragonBones::DragonBonesData *loadDragonBonesData(const std::string &filePath, @optional const std::string &name, @optional float scale)')
@@ -990,6 +1032,7 @@ cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
 cls.DEFIF = nil
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.func(nil, 'static dragonBones::CCArmatureDisplay *create()')
 cls.func(nil, 'CCArmatureDisplay()')
 cls.func(nil, 'void dbInit(dragonBones::Armature *armature)')

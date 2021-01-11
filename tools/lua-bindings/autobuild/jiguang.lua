@@ -29,6 +29,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = '#ifdef CCLUA_BUILD_JPUSH'
 cls.CHUNK = nil
+cls.REQUIRE = [[cclua::runtime::registerFeature("jpush", true);]]
 cls.func(nil, 'static void init(const std::string &appKey, const std::string &channel)')
 cls.func(nil, 'static void setAlias(const std::string &alias)')
 cls.func(nil, 'static void deleteAlias()')
@@ -51,6 +52,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = '#ifdef CCLUA_BUILD_JANALYTICS'
 cls.CHUNK = nil
+cls.REQUIRE = nil
 cls.enum('LOGIN', 'cclua::plugin::JAnalytics::EventType::LOGIN')
 cls.enum('REGISTER', 'cclua::plugin::JAnalytics::EventType::REGISTER')
 cls.enum('PURCHASE', 'cclua::plugin::JAnalytics::EventType::PURCHASE')
@@ -64,6 +66,7 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.DEFIF = '#ifdef CCLUA_BUILD_JANALYTICS'
 cls.CHUNK = nil
+cls.REQUIRE = [[cclua::runtime::registerFeature("janalytics", true);]]
 cls.func(nil, 'static void init(const std::string &appKey, const std::string &channel)')
 cls.func(nil, 'static void startTrackPage(const std::string &pageName)')
 cls.func(nil, 'static void stopTrackPage(const std::string &pageName)')

@@ -122,7 +122,6 @@ void JPush::init(const std::string &appKey, const std::string &channel)
         delegate.appKey = toNSString(appKey);
         delegate.channel = toNSString(channel);
         [context addAppDelegate:delegate];
-        runtime::registerFeature("jiguang.push.ios", true);
     }
 }
 
@@ -274,8 +273,6 @@ void JAnalytics::init(const std::string &appKey, const std::string &channel)
         delegate.appKey = toNSString(appKey);
         delegate.channel = toNSString(channel);
         [context addAppDelegate:delegate];
-        
-        runtime::registerFeature("janalytics.ios", true);
     }
 }
 void JAnalytics::startTrackPage(const std::string &pageName)

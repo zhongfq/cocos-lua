@@ -7,8 +7,7 @@
 #include "cclua/xlua.h"
 #include "bugly/CrashReport.h"
 
-#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
-
+#ifdef CCLUA_BUILD_BUGLY
 static int luaopen_cclua_CrashReport_LogLevel(lua_State *L)
 {
     oluacls_class(L, "cclua.CrashReport.LogLevel", nullptr);
@@ -23,7 +22,9 @@ static int luaopen_cclua_CrashReport_LogLevel(lua_State *L)
 
     return 1;
 }
+#endif
 
+#ifdef CCLUA_BUILD_BUGLY
 static int _cclua_CrashReport___move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -187,12 +188,15 @@ static int luaopen_cclua_CrashReport(lua_State *L)
 
     return 1;
 }
+#endif
 
 int luaopen_bugly(lua_State *L)
 {
+#ifdef CCLUA_BUILD_BUGLY
     olua_require(L, "cclua.CrashReport.LogLevel", luaopen_cclua_CrashReport_LogLevel);
+#endif
+#ifdef CCLUA_BUILD_BUGLY
     olua_require(L, "cclua.CrashReport", luaopen_cclua_CrashReport);
+#endif
     return 0;
 }
-
-#endif

@@ -62,6 +62,11 @@
 #define JPUSH_KEY "JPUSH_KEY"
 #endif
 
+#ifdef CCLUA_BUILD_WECHAT
+#include "wechat/WeChat.h"
+#include "wechat/lua_wechat.h"
+#endif
+
 USING_NS_CC;
 USING_NS_CCLUA;
 
@@ -89,7 +94,9 @@ static int _open_plugins(lua_State *L)
     olua_callfunc(L, luaopen_jiguang);
 #endif
     
-//    olua_require(L, "cclua.plugins.wechat", luaopen_wechat);
+#ifdef CCLUA_BUILD_WECHAT
+    olua_callfunc(L, luaopen_wechat);
+#endif
     return 0;
 }
 

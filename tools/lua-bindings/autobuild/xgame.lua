@@ -40,7 +40,6 @@ M.CHUNK = [[
         return 4;
     }
 ]]
-M.DEFIF = nil
 
 M.CONVS = {
     typeconv {
@@ -59,7 +58,6 @@ M.CLASSES = {}
 cls = typecls 'cclua::SceneNoCamera'
 cls.SUPERCLS = 'cocos2d::Scene'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cclua::SceneNoCamera *create()')
@@ -71,7 +69,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cclua::Permission'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('AUDIO', 'cclua::Permission::AUDIO')
@@ -83,7 +80,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cclua::PermissionStatus'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('NOT_DETERMINED', 'cclua::PermissionStatus::NOT_DETERMINED')
@@ -95,7 +91,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cclua::runtime'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func('testCrash', [[
@@ -199,7 +194,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cclua::filesystem'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static const std::string getWritablePath()')
@@ -232,7 +226,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cclua::preferences'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static bool getBoolean(const char *key, @optional bool defaultValue)')
@@ -252,7 +245,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cclua::timer'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = [[#define makeTimerDelayTag(tag) ("delayTag." + tag)]]
 cls.REQUIRE = nil
 cls.func('schedule', [[
@@ -319,7 +311,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cclua::window'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, '@unpack static cclua::window::Bounds getVisibleBounds()')
@@ -338,7 +329,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cclua::downloader::FileState'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('IOERROR', 'cclua::downloader::FileState::IOERROR')
@@ -350,7 +340,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cclua::downloader'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static void load(const cclua::downloader::FileTask &task)')
@@ -370,7 +359,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cclua::MaskLayout'
 cls.SUPERCLS = 'cocos2d::ui::Layout'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cclua::MaskLayout *create()')

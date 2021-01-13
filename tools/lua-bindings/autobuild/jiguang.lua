@@ -17,7 +17,6 @@ M.INCLUDES = [[
     #include "JiGuang.h"
 ]]
 M.CHUNK = nil
-M.DEFIF = '#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)'
 
 M.CONVS = {
 }
@@ -27,9 +26,9 @@ M.CLASSES = {}
 cls = typecls 'cclua::plugin::JPush'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = '#ifdef CCLUA_BUILD_JPUSH'
 cls.CHUNK = nil
 cls.REQUIRE = [[cclua::runtime::registerFeature("jpush", true);]]
+cls.ifdef('*', '#ifdef CCLUA_BUILD_JPUSH')
 cls.func(nil, 'static void init(const std::string &appKey, const std::string &channel)')
 cls.func(nil, 'static void setAlias(const std::string &alias)')
 cls.func(nil, 'static void deleteAlias()')
@@ -50,9 +49,9 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cclua::plugin::JAnalytics::EventType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = '#ifdef CCLUA_BUILD_JANALYTICS'
 cls.CHUNK = nil
 cls.REQUIRE = nil
+cls.ifdef('*', '#ifdef CCLUA_BUILD_JANALYTICS')
 cls.enum('LOGIN', 'cclua::plugin::JAnalytics::EventType::LOGIN')
 cls.enum('REGISTER', 'cclua::plugin::JAnalytics::EventType::REGISTER')
 cls.enum('PURCHASE', 'cclua::plugin::JAnalytics::EventType::PURCHASE')
@@ -64,9 +63,9 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cclua::plugin::JAnalytics'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = '#ifdef CCLUA_BUILD_JANALYTICS'
 cls.CHUNK = nil
 cls.REQUIRE = [[cclua::runtime::registerFeature("janalytics", true);]]
+cls.ifdef('*', '#ifdef CCLUA_BUILD_JANALYTICS')
 cls.func(nil, 'static void init(const std::string &appKey, const std::string &channel)')
 cls.func(nil, 'static void startTrackPage(const std::string &pageName)')
 cls.func(nil, 'static void stopTrackPage(const std::string &pageName)')

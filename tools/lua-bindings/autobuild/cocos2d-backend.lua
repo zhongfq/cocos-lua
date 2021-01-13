@@ -17,7 +17,6 @@ M.INCLUDES = [[
     #include "cclua/xlua.h"
 ]]
 M.CHUNK = nil
-M.DEFIF = nil
 
 M.CONVS = {
 }
@@ -27,7 +26,6 @@ M.CLASSES = {}
 cls = typecls 'cocos2d::backend::BufferUsage'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('STATIC', 'cocos2d::backend::BufferUsage::STATIC')
@@ -37,7 +35,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::BufferType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('VERTEX', 'cocos2d::backend::BufferType::VERTEX')
@@ -47,7 +44,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::ShaderStage'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('VERTEX', 'cocos2d::backend::ShaderStage::VERTEX')
@@ -58,7 +54,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::VertexFormat'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('FLOAT4', 'cocos2d::backend::VertexFormat::FLOAT4')
@@ -77,7 +72,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::PixelFormat'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('AUTO', 'cocos2d::backend::PixelFormat::AUTO')
@@ -112,7 +106,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::TextureUsage'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('READ', 'cocos2d::backend::TextureUsage::READ')
@@ -123,7 +116,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::IndexFormat'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('U_SHORT', 'cocos2d::backend::IndexFormat::U_SHORT')
@@ -133,7 +125,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::VertexStepMode'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('VERTEX', 'cocos2d::backend::VertexStepMode::VERTEX')
@@ -143,7 +134,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::PrimitiveType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('POINT', 'cocos2d::backend::PrimitiveType::POINT')
@@ -156,7 +146,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::TextureType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('TEXTURE_2D', 'cocos2d::backend::TextureType::TEXTURE_2D')
@@ -166,7 +155,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::SamplerAddressMode'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('REPEAT', 'cocos2d::backend::SamplerAddressMode::REPEAT')
@@ -178,7 +166,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::SamplerFilter'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('NEAREST', 'cocos2d::backend::SamplerFilter::NEAREST')
@@ -193,7 +180,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::StencilOperation'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('KEEP', 'cocos2d::backend::StencilOperation::KEEP')
@@ -207,7 +193,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::CompareFunction'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('NEVER', 'cocos2d::backend::CompareFunction::NEVER')
@@ -223,7 +208,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::BlendOperation'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('ADD', 'cocos2d::backend::BlendOperation::ADD')
@@ -234,7 +218,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::BlendFactor'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('ZERO', 'cocos2d::backend::BlendFactor::ZERO')
@@ -256,7 +239,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::ColorWriteMask'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('NONE', 'cocos2d::backend::ColorWriteMask::NONE')
@@ -270,7 +252,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::CullMode'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('NONE', 'cocos2d::backend::CullMode::NONE')
@@ -281,7 +262,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::Winding'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('CLOCK_WISE', 'cocos2d::backend::Winding::CLOCK_WISE')
@@ -291,7 +271,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::TextureCubeFace'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('POSITIVE_X', 'cocos2d::backend::TextureCubeFace::POSITIVE_X')
@@ -305,7 +284,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::ProgramType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('POSITION_COLOR_LENGTH_TEXTURE', 'cocos2d::backend::ProgramType::POSITION_COLOR_LENGTH_TEXTURE')
@@ -344,7 +322,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::Uniform'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('MVP_MATRIX', 'cocos2d::backend::Uniform::MVP_MATRIX')
@@ -361,7 +338,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::Attribute'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('POSITION', 'cocos2d::backend::Attribute::POSITION')
@@ -376,7 +352,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::FeatureType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('ETC1', 'cocos2d::backend::FeatureType::ETC1')
@@ -395,7 +370,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::Buffer'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'void updateData(void *data, std::size_t size)')
@@ -408,7 +382,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::RenderPipeline'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -416,7 +389,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::DepthStencilState'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -424,7 +396,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::VertexLayout'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'VertexLayout()')
@@ -443,7 +414,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::CommandBuffer'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'void beginFrame()')
@@ -476,7 +446,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::Device'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::backend::Device *getInstance()')
@@ -525,7 +494,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::DeviceInfo'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'bool init()')
@@ -551,7 +519,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::ShaderCache'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::backend::ShaderCache *getInstance()')
@@ -565,7 +532,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::ShaderModule'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'cocos2d::backend::ShaderStage getShaderStage()')
@@ -577,7 +543,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::ProgramCache'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::backend::ProgramCache *getInstance()')
@@ -594,7 +559,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::ProgramState'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = [[
     static inline void olua_check_value(lua_State *L, int idx, cocos2d::Vec2 *value)
     {
@@ -765,7 +729,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::Program'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::backend::Program *getBuiltinProgram(cocos2d::backend::ProgramType type)')
@@ -791,7 +754,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::TextureBackend'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'void updateSamplerDescriptor(const cocos2d::backend::SamplerDescriptor &sampler)')
@@ -818,7 +780,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::Texture2DBackend'
 cls.SUPERCLS = 'cocos2d::backend::TextureBackend'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'void updateData(uint8_t *data, std::size_t width, std::size_t height, std::size_t level)')
@@ -834,7 +795,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::backend::TextureCubemapBackend'
 cls.SUPERCLS = 'cocos2d::backend::TextureBackend'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'void updateFaceData(cocos2d::backend::TextureCubeFace side, void *data)')

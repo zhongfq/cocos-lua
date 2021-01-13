@@ -29,6 +29,7 @@
 
 #define NS_CCLUA_PLUGIN_BEGIN  namespace cclua { namespace plugin {
 #define NS_CCLUA_PLUGIN_END    }}
+#define USING_NS_CCLUA_PLUGIN using namespace cclua::plugin
 
 #define strequal(str1, str2)           (strcmp(str1, str2) == 0)
 #define strnequal(str1, str2, len)     (strncmp(str1, str2, len) == 0)

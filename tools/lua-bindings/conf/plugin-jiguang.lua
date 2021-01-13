@@ -10,8 +10,6 @@ M.INCLUDES = [[
 #include "JiGuang.h"
 ]]
 
-M.DEFIF = '#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)'
-
 M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, "^cclua::", "cclua.")
     cppname = string.gsub(cppname, "::", ".")
@@ -20,15 +18,18 @@ end
 
 M.EXCLUDE_TYPE = require "conf.exclude-type"
 
+local CCLUA_BUILD_JPUSH = '#ifdef CCLUA_BUILD_JPUSH'
+local CCLUA_BUILD_JANALYTICS = '#ifdef CCLUA_BUILD_JANALYTICS'
+
 local JPush = typeconf "cclua::plugin::JPush"
-JPush.DEFIF = '#ifdef CCLUA_BUILD_JPUSH'
+JPush.IFDEF('*', CCLUA_BUILD_JPUSH)
 JPush.REQUIRE = 'cclua::runtime::registerFeature("jpush", true);'
 
 local EventType = typeconf "cclua::plugin::JAnalytics::EventType"
-EventType.DEFIF = '#ifdef CCLUA_BUILD_JANALYTICS'
+EventType.IFDEF('*', CCLUA_BUILD_JANALYTICS)
 
 local JAnalytics = typeconf "cclua::plugin::JAnalytics"
-JAnalytics.DEFIF = '#ifdef CCLUA_BUILD_JANALYTICS'
+JAnalytics.IFDEF('*', CCLUA_BUILD_JANALYTICS)
 JAnalytics.REQUIRE = 'cclua::runtime::registerFeature("janalytics", true);'
 
 return M

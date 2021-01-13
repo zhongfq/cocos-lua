@@ -44,7 +44,7 @@ public class AppContext extends Cocos2dxActivity {
     }
 
     private static final String TAG = AppContext.class.getName();
-    private static HashMap<String, Boolean> mAPIs = new HashMap<>();
+    private static final HashMap<String, Boolean> mAPIs = new HashMap<>();
 
     private ActivityResultCallback mResultCallback;
     private PermissionsResultCallback mPermissionsResultCallback;

@@ -7,8 +7,6 @@
 #include "cclua/xlua.h"
 #include "JiGuang.h"
 
-#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
-
 #ifdef CCLUA_BUILD_JPUSH
 static int _cclua_plugin_JPush___move(lua_State *L)
 {
@@ -452,5 +450,3 @@ int luaopen_jiguang(lua_State *L)
 #endif
     return 0;
 }
-
-#endif

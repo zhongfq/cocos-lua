@@ -5743,7 +5743,7 @@ static int luaopen_cocos2d_ui_RelativeBox(lua_State *L)
     return 1;
 }
 
-#ifdef CCLUA_HAVE_WEBVIEW
+#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
 static int _cocos2d_ui_WebView___move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -6468,7 +6468,7 @@ static int luaopen_cocos2d_ui_WebView(lua_State *L)
 }
 #endif
 
-#ifdef CCLUA_HAVE_VIDEOPLAYER
+#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
 static int luaopen_cocos2d_ui_VideoPlayer_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.VideoPlayer.EventType", nullptr);
@@ -6484,7 +6484,7 @@ static int luaopen_cocos2d_ui_VideoPlayer_EventType(lua_State *L)
 }
 #endif
 
-#ifdef CCLUA_HAVE_VIDEOPLAYER
+#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
 static int luaopen_cocos2d_ui_VideoPlayer_StyleType(lua_State *L)
 {
     oluacls_class(L, "ccui.VideoPlayer.StyleType", nullptr);
@@ -6497,7 +6497,7 @@ static int luaopen_cocos2d_ui_VideoPlayer_StyleType(lua_State *L)
 }
 #endif
 
-#ifdef CCLUA_HAVE_VIDEOPLAYER
+#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
 static int _cocos2d_ui_VideoPlayer___move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -23902,16 +23902,16 @@ int luaopen_cocos2d_ui(lua_State *L)
     olua_require(L, "ccui.HBox", luaopen_cocos2d_ui_HBox);
     olua_require(L, "ccui.VBox", luaopen_cocos2d_ui_VBox);
     olua_require(L, "ccui.RelativeBox", luaopen_cocos2d_ui_RelativeBox);
-#ifdef CCLUA_HAVE_WEBVIEW
+#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
     olua_require(L, "ccui.WebView", luaopen_cocos2d_ui_WebView);
 #endif
-#ifdef CCLUA_HAVE_VIDEOPLAYER
+#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
     olua_require(L, "ccui.VideoPlayer.EventType", luaopen_cocos2d_ui_VideoPlayer_EventType);
 #endif
-#ifdef CCLUA_HAVE_VIDEOPLAYER
+#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
     olua_require(L, "ccui.VideoPlayer.StyleType", luaopen_cocos2d_ui_VideoPlayer_StyleType);
 #endif
-#ifdef CCLUA_HAVE_VIDEOPLAYER
+#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
     olua_require(L, "ccui.VideoPlayer", luaopen_cocos2d_ui_VideoPlayer);
 #endif
     olua_require(L, "ccui.AbstractCheckButton", luaopen_cocos2d_ui_AbstractCheckButton);

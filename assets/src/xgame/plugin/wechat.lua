@@ -5,7 +5,6 @@ local Event         = require "xgame.event.Event"
 local PluginEvent   = require "xgame.event.PluginEvent"
 local timer         = require "xgame.timer"
 local runtime       = require "xgame.runtime"
-local impl          = require "cclua.plugin.wechat"
 local Dispatcher    = require "xgame.Dispatcher"
 local openssl       = require "openssl"
 local cjson         = require "cjson.safe"
@@ -29,6 +28,8 @@ local WECHAT_AUTH_ERR_OK = 0 --Auth成功
 local WECHAT_AUTH_ERR_CANCEL = -4    --用户取消授权
 -- local WECHAT_AUTH_ERR_TIMEOUT = -5   --超时
 
+local Impl
+
 local WeChat = class("WeChat", Dispatcher)
 
 function WeChat:ctor()
@@ -39,7 +40,7 @@ function WeChat:ctor()
     self._appsecret = false
     self._scheme = false
 
-    impl:setDispatcher(function (...)
+    Impl.setDispatcher(function (...)
         self:_didResponse(...)
     end)
 
@@ -50,11 +51,9 @@ function WeChat:ctor()
                 -- wx4f5a7db510e75204://pay/?returnKey=(null)&ret=-2
                 -- wx4f5a7db510e75204://pay/?returnKey=&ret=0
                 local ret = string.match(url, 'ret=([0-9%-]+)')
-                self:_didResponse("pay", cjson.encode({
+                self:_didResponse("pay", {
                     errcode = tonumber(ret or -1),
-                }))
-            else
-                impl:handleOpenURL(url)
+                })
             end
         end
     end)
@@ -64,11 +63,11 @@ function WeChat:init(appid, appsecret, universalLink)
     self._appid = assert(appid, 'no app id')
     self._appsecret = appsecret
     self._scheme = string.format("%s://", appid)
-    impl:init(appid, universalLink)
+    Impl.init(appid, universalLink)
 end
 
 function WeChat.Get:installed()
-    return impl:isInstalled();
+    return Impl.isInstalled();
 end
 
 function WeChat:pay(order)
@@ -85,7 +84,7 @@ function WeChat:pay(order)
         runtime.on(Event.RUNTIME_RESUME, self._onResume, self)
     end
 
-    impl:pay(self._appid, order.partnerid, order.prepayid, order.noncestr,
+    Impl.pay(self._appid, order.partnerid, order.prepayid, order.noncestr,
         order.timestamp, order.sign)
 end
 
@@ -97,7 +96,7 @@ function WeChat:auth(ticket)
     if self.installed then
         assert(self.authScope, "no auth scope")
         assert(self.authState, "no auth state")
-        impl:auth(self.authScope, self.authState)
+        Impl.auth(self.authScope, self.authState)
     elseif ticket then
         self:_doAuthQRCode(ticket)
     else
@@ -111,7 +110,7 @@ function WeChat:auth(ticket)
 end
 
 function WeChat:open(id, path, type)
-    impl:open(assert(id), path or '', type or 0)
+    Impl.open(assert(id), path or '', type or 0)
 end
 
 function WeChat:_requestTicket()
@@ -145,7 +144,7 @@ function WeChat:_doAuthQRCode(ticket)
         .. string.format("&sdk_ticket=%s", ticket)
         .. string.format("&timestamp=%d", timestamp)
     local sign = openssl.sha1(str)
-    impl:authQRCode(self._appid, noncestr, timestamp, self.authScope, sign, "")
+    Impl.authQRCode(self._appid, noncestr, timestamp, self.authScope, sign, "")
 end
 
 function WeChat:_onResume()
@@ -161,12 +160,11 @@ function WeChat:_onResume()
     end
 end
 
-function WeChat:_didResponse(action, message)
+function WeChat:_didResponse(action, data)
     self.deferredEvent = false
     timer.killDelay(TAG_DEFERRED)
 
-    trace("%s response: %s", action, message)
-    local data = cjson.decode(message)
+    trace("%s response: %s", action, cjson.encode(data))
     if action == "auth" then
         if data.errcode == WXSUCCESS then
             self:_requestToken(data)
@@ -237,60 +235,22 @@ function WeChat:_requestToken(data)
     end)
 end
 
-if runtime.os == "ios" then
-    function impl:pay(appid, partnerid, prepayid, noncestr, timestamp, sign)
-        local URL_PAY = "weixin://app/%s/pay/?nonceStr=%s&package=Sign%%3DWXPay" ..
-            "&partnerId=%s&prepayId=%s&timeStamp=%d&sign=%s&signType=SHA1"
-        local url = string.format(URL_PAY, appid, noncestr, partnerid, prepayid, timestamp, sign)
-        runtime.openURL(url)
+if runtime.support('wechat') then
+    Impl = require "cclua.plugin.WeChat"
+    if runtime.os == 'ios' then
+        function Impl.pay(appid, partnerid, prepayid, noncestr, timestamp, sign)
+            local URL_PAY = "weixin://app/%s/pay/?nonceStr=%s&package=Sign%%3DWXPay" ..
+                "&partnerId=%s&prepayId=%s&timeStamp=%d&sign=%s&signType=SHA1"
+            local url = string.format(URL_PAY, appid, noncestr, partnerid, prepayid, timestamp, sign)
+            runtime.openURL(url)
+        end
     end
-elseif runtime.os == "android" then
-    local luaj = require "xgame.luaj"
-    local inst = luaj.new("cclua/plugin/wechat/WeChat")
-    impl = {}
-
-    function impl:setDispatcher(callback)
-        impl.callback = callback
-    end
-
-    function impl:init(appid)
-        inst.init(appid)
-    end
-
-    function impl:isInstalled()
-        return inst.isInstalled()
-    end
-
-    function impl:pay(appid, partnerid, prepayid, noncestr, timestamp, sign)
-        timestamp = string.format("%d", timestamp)
-        inst.pay(partnerid, prepayid, noncestr, timestamp, 'Sign=WXPay', sign, function (...)
-            impl.callback("pay", ...)
-        end)
-    end
-
-    function impl:auth(scope, state)
-        inst.auth(scope, state, function (...)
-            impl.callback("auth", ...)
-        end)
-    end
-
-    function impl:authQRCode(appid, noncestr, timestamp, scope, sign)
-        inst.authQRCode(appid, scope, noncestr, timestamp, sign, function (...)
-            impl.callback("authQrcode", ...)
-        end)
-    end
-
-    function impl:share(message)
-        inst.share(cjson.encode(message), function (...)
-            impl.callback("share", ...)
-        end)
-    end
-
-    function impl:open(id, path, type)
-        inst.open(id, path, type, function (...)
-            impl.callback("open", ...)
-        end)
-    end
+else
+    Impl = setmetatable({}, {__index = function (_, func)
+        return function ()
+            trace("function 'cclua.plugin.WeChat.%s' not supported", func)
+        end
+    end})
 end
 
 return WeChat.new()

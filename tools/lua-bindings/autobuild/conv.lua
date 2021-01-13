@@ -18,7 +18,6 @@ M.INCLUDES = [[
     #include "navmesh/CCNavMesh.h"
 ]]
 M.CHUNK = nil
-M.DEFIF = nil
 
 M.CONVS = {
     typeconv {

@@ -17,7 +17,6 @@ M.INCLUDES = [[
     #include "bugly/CrashReport.h"
 ]]
 M.CHUNK = nil
-M.DEFIF = '#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)'
 
 M.CONVS = {
 }
@@ -27,9 +26,9 @@ M.CLASSES = {}
 cls = typecls 'cclua::CrashReport::LogLevel'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
+cls.ifdef('*', '#ifdef CCLUA_BUILD_BUGLY')
 cls.enum('Off', 'cclua::CrashReport::LogLevel::Off')
 cls.enum('Error', 'cclua::CrashReport::LogLevel::Error')
 cls.enum('Warning', 'cclua::CrashReport::LogLevel::Warning')
@@ -41,9 +40,9 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cclua::CrashReport'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
+cls.ifdef('*', '#ifdef CCLUA_BUILD_BUGLY')
 cls.func(nil, 'static void init(const char *appid)')
 cls.func(nil, 'static void setUid(const char *uid)')
 cls.func(nil, 'static void setTag(int tag)')

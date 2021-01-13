@@ -37,6 +37,7 @@ return {
         #include "lua-bindings/LuaCocosAdapter.h"
 
         #include "jiguang/JiGuang.h"
+        #include "wechat/WeChat.h"
         #include "bugly/CrashReport.h"
     ]],
     FLAGS = {

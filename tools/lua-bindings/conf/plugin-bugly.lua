@@ -10,7 +10,7 @@ M.INCLUDES = [[
 #include "bugly/CrashReport.h"
 ]]
 
-M.DEFIF = '#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)'
+local CCLUA_BUILD_BUGLY = '#ifdef CCLUA_BUILD_BUGLY'
 
 M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, "^cclua::", "cclua.")
@@ -21,6 +21,8 @@ end
 M.EXCLUDE_TYPE = require "conf.exclude-type"
 
 typeconf "cclua::CrashReport::LogLevel"
+    .IFDEF('*', CCLUA_BUILD_BUGLY)
 typeconf "cclua::CrashReport"
+    .IFDEF('*', CCLUA_BUILD_BUGLY)
 
 return M

@@ -18,7 +18,6 @@ M.INCLUDES = [[
     #include "cocos2d.h"
 ]]
 M.CHUNK = 'using namespace cocos2d;'
-M.DEFIF = nil
 
 M.CONVS = {
     typeconv {
@@ -36,7 +35,6 @@ M.CLASSES = {}
 cls = typecls 'cocos2d::EventListenerPhysicsContact'
 cls.SUPERCLS = 'cocos2d::EventListenerCustom'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::EventListenerPhysicsContact *create()')
@@ -49,7 +47,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventListenerPhysicsContactWithGroup'
 cls.SUPERCLS = 'cocos2d::EventListenerPhysicsContact'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::EventListenerPhysicsContactWithGroup *create(int group)')
@@ -59,7 +56,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventListenerPhysicsContactWithBodies'
 cls.SUPERCLS = 'cocos2d::EventListenerPhysicsContact'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::EventListenerPhysicsContactWithBodies *create(cocos2d::PhysicsBody *bodyA, cocos2d::PhysicsBody *bodyB)')
@@ -69,7 +65,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventListenerPhysicsContactWithShapes'
 cls.SUPERCLS = 'cocos2d::EventListenerPhysicsContact'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::EventListenerPhysicsContactWithShapes *create(cocos2d::PhysicsShape *shapeA, cocos2d::PhysicsShape *shapeB)')
@@ -79,7 +74,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsBody'
 cls.SUPERCLS = 'cocos2d::Component'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.const('COMPONENT_NAME', 'cocos2d::PhysicsBody::COMPONENT_NAME', 'const std::string')
@@ -179,7 +173,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsContact::EventCode'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('NONE', 'cocos2d::PhysicsContact::EventCode::NONE')
@@ -192,7 +185,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsContact'
 cls.SUPERCLS = 'cocos2d::EventCustom'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'cocos2d::PhysicsShape *getShapeA()')
@@ -209,7 +201,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsContactPostSolve'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'float getRestitution()')
@@ -223,7 +214,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsContactPreSolve'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'float getRestitution()')
@@ -241,7 +231,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsJoint'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'cocos2d::PhysicsBody *getBodyA()')
@@ -268,7 +257,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsJointDistance'
 cls.SUPERCLS = 'cocos2d::PhysicsJoint'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::PhysicsJointDistance *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr1, const cocos2d::Vec2 &anchr2)')
@@ -281,7 +269,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsJointFixed'
 cls.SUPERCLS = 'cocos2d::PhysicsJoint'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::PhysicsJointFixed *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr)')
@@ -291,7 +278,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsJointGear'
 cls.SUPERCLS = 'cocos2d::PhysicsJoint'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::PhysicsJointGear *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, float phase, float ratio)')
@@ -307,7 +293,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsJointGroove'
 cls.SUPERCLS = 'cocos2d::PhysicsJoint'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::PhysicsJointGroove *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &grooveA, const cocos2d::Vec2 &grooveB, const cocos2d::Vec2 &anchr2)')
@@ -326,7 +311,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsJointLimit'
 cls.SUPERCLS = 'cocos2d::PhysicsJoint'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::PhysicsJointLimit *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr1, const cocos2d::Vec2 &anchr2)', 'static cocos2d::PhysicsJointLimit *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr1, const cocos2d::Vec2 &anchr2, float min, float max)')
@@ -348,7 +332,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsJointMotor'
 cls.SUPERCLS = 'cocos2d::PhysicsJoint'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::PhysicsJointMotor *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, float rate)')
@@ -361,7 +344,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsJointPin'
 cls.SUPERCLS = 'cocos2d::PhysicsJoint'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::PhysicsJointPin *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &pivot)', 'static cocos2d::PhysicsJointPin *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr1, const cocos2d::Vec2 &anchr2)')
@@ -371,7 +353,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsJointRatchet'
 cls.SUPERCLS = 'cocos2d::PhysicsJoint'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::PhysicsJointRatchet *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, float phase, float ratchet)')
@@ -390,7 +371,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsJointRotaryLimit'
 cls.SUPERCLS = 'cocos2d::PhysicsJoint'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::PhysicsJointRotaryLimit *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, float min, float max)', 'static cocos2d::PhysicsJointRotaryLimit *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b)')
@@ -406,7 +386,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsJointRotarySpring'
 cls.SUPERCLS = 'cocos2d::PhysicsJoint'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::PhysicsJointRotarySpring *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, float stiffness, float damping)')
@@ -425,7 +404,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsJointSpring'
 cls.SUPERCLS = 'cocos2d::PhysicsJoint'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::PhysicsJointSpring *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr1, const cocos2d::Vec2 &anchr2, float stiffness, float damping)')
@@ -450,7 +428,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsShape::Type'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('UNKNOWN', 'cocos2d::PhysicsShape::Type::UNKNOWN')
@@ -468,7 +445,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsShape'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'cocos2d::PhysicsBody *getBody()')
@@ -524,7 +500,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsShapePolygon'
 cls.SUPERCLS = 'cocos2d::PhysicsShape'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'cocos2d::Vec2 getPoint(int i)')
@@ -535,7 +510,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsShapeEdgePolygon'
 cls.SUPERCLS = 'cocos2d::PhysicsShape'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'int getPointsCount()')
@@ -545,7 +519,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsShapeBox'
 cls.SUPERCLS = 'cocos2d::PhysicsShapePolygon'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::PhysicsShapeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset, @optional float radius)')
@@ -556,7 +529,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsShapeCircle'
 cls.SUPERCLS = 'cocos2d::PhysicsShape'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::PhysicsShapeCircle *create(float radius, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)')
@@ -569,7 +541,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsShapeEdgeBox'
 cls.SUPERCLS = 'cocos2d::PhysicsShapeEdgePolygon'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::PhysicsShapeEdgeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)')
@@ -578,7 +549,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsShapeEdgeChain'
 cls.SUPERCLS = 'cocos2d::PhysicsShape'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'int getPointsCount()')
@@ -588,7 +558,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsShapeEdgeSegment'
 cls.SUPERCLS = 'cocos2d::PhysicsShape'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::PhysicsShapeEdgeSegment *create(const cocos2d::Vec2 &a, const cocos2d::Vec2 &b, @optional const cocos2d::PhysicsMaterial &material, @optional float border)')
@@ -601,7 +570,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsRayCastInfo'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.var('shape', 'cocos2d::PhysicsShape *shape')
@@ -616,7 +584,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsWorld'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.const('DEBUGDRAW_NONE', 'cocos2d::PhysicsWorld::DEBUGDRAW_NONE', 'const int')

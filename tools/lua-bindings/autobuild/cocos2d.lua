@@ -27,7 +27,6 @@ M.CHUNK = [[
         return "schedule." + key;
     }
 ]]
-M.DEFIF = nil
 
 M.CONVS = {
 }
@@ -37,7 +36,6 @@ M.CLASSES = {}
 cls = typecls 'cocos2d::RenderTargetFlag'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('COLOR', 'cocos2d::RenderTargetFlag::COLOR')
@@ -49,7 +47,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ClearFlag'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('NONE', 'cocos2d::ClearFlag::NONE')
@@ -62,7 +59,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::MATRIX_STACK_TYPE'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('MATRIX_STACK_MODELVIEW', 'cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW')
@@ -73,7 +69,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Director::Projection'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('_2D', 'cocos2d::Director::Projection::_2D')
@@ -85,7 +80,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::UserDefault'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'bool getBoolForKey(const char *key)', 'bool getBoolForKey(const char *key, bool defaultValue)')
@@ -114,7 +108,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Ref'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func('__gc', [[
@@ -129,7 +122,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Console'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'Console()')
@@ -150,7 +142,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Acceleration'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.var('x', '@optional double x')
@@ -162,7 +153,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Director'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::Director *getInstance()')
@@ -276,7 +266,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Scheduler'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = [[
     template <typename T> bool doScheduleUpdate(lua_State *L)
     {
@@ -368,7 +357,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventDispatcher'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = [[
     static int _cocos2d_EventDispatcher_addEventListenerWithFixedPriority(lua_State *L);
 
@@ -439,7 +427,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventListener::Type'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('UNKNOWN', 'cocos2d::EventListener::Type::UNKNOWN')
@@ -456,7 +443,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventListener'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'bool checkAvailable()')
@@ -470,7 +456,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventListenerTouchOneByOne'
 cls.SUPERCLS = 'cocos2d::EventListener'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerTouchOneByOne::LISTENER_ID', 'const std::string')
@@ -488,7 +473,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventListenerTouchAllAtOnce'
 cls.SUPERCLS = 'cocos2d::EventListener'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerTouchAllAtOnce::LISTENER_ID', 'const std::string')
@@ -503,7 +487,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventListenerCustom'
 cls.SUPERCLS = 'cocos2d::EventListener'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'EventListenerCustom()')
@@ -521,7 +504,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventListenerKeyboard'
 cls.SUPERCLS = 'cocos2d::EventListener'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerKeyboard::LISTENER_ID', 'const std::string')
@@ -534,7 +516,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventListenerAcceleration'
 cls.SUPERCLS = 'cocos2d::EventListener'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerAcceleration::LISTENER_ID', 'const std::string')
@@ -553,7 +534,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventListenerFocus'
 cls.SUPERCLS = 'cocos2d::EventListener'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerFocus::LISTENER_ID', 'const std::string')
@@ -565,7 +545,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventListenerMouse'
 cls.SUPERCLS = 'cocos2d::EventListener'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerMouse::LISTENER_ID', 'const std::string')
@@ -580,7 +559,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Event::Type'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('TOUCH', 'cocos2d::Event::Type::TOUCH')
@@ -595,7 +573,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Event'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'Event(cocos2d::Event::Type type)')
@@ -611,7 +588,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventCustom'
 cls.SUPERCLS = 'cocos2d::Event'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'EventCustom(const std::string &eventName)')
@@ -625,7 +601,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventListenerController'
 cls.SUPERCLS = 'cocos2d::EventListener'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerController::LISTENER_ID', 'const std::string')
@@ -641,7 +616,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventTouch::EventCode'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('BEGAN', 'cocos2d::EventTouch::EventCode::BEGAN')
@@ -653,7 +627,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventTouch'
 cls.SUPERCLS = 'cocos2d::Event'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.const('MAX_TOUCHES', 'cocos2d::EventTouch::MAX_TOUCHES', 'const int')
@@ -669,7 +642,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventKeyboard'
 cls.SUPERCLS = 'cocos2d::Event'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'EventKeyboard(cocos2d::EventKeyboard::KeyCode keyCode, bool isPressed)')
@@ -678,7 +650,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventAcceleration'
 cls.SUPERCLS = 'cocos2d::Event'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -686,7 +657,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventFocus'
 cls.SUPERCLS = 'cocos2d::Event'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'EventFocus(cocos2d::ui::Widget *widgetLoseFocus, cocos2d::ui::Widget *widgetGetFocus)')
@@ -695,7 +665,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventMouse::MouseEventType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('MOUSE_NONE', 'cocos2d::EventMouse::MouseEventType::MOUSE_NONE')
@@ -708,7 +677,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventMouse::MouseButton'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('BUTTON_UNSET', 'cocos2d::EventMouse::MouseButton::BUTTON_UNSET')
@@ -725,7 +693,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventMouse'
 cls.SUPERCLS = 'cocos2d::Event'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'EventMouse(cocos2d::EventMouse::MouseEventType mouseEventCode)')
@@ -761,7 +728,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventKeyboard::KeyCode'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('KEY_NONE', 'cocos2d::EventKeyboard::KeyCode::KEY_NONE')
@@ -939,7 +905,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Touch::DispatchMode'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('ALL_AT_ONCE', 'cocos2d::Touch::DispatchMode::ALL_AT_ONCE')
@@ -949,7 +914,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventController::ControllerEventType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('CONNECTION', 'cocos2d::EventController::ControllerEventType::CONNECTION')
@@ -960,7 +924,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventController'
 cls.SUPERCLS = 'cocos2d::Event'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'EventController(cocos2d::EventController::ControllerEventType type, cocos2d::Controller *controller, int keyCode)', 'EventController(cocos2d::EventController::ControllerEventType type, cocos2d::Controller *controller, bool isConnected)')
@@ -979,7 +942,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Touch'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'Touch()')
@@ -1009,7 +971,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Controller::Key'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('KEY_NONE', 'cocos2d::Controller::Key::KEY_NONE')
@@ -1043,7 +1004,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Controller'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.const('TAG_UNSET', 'cocos2d::Controller::TAG_UNSET', 'const int')
@@ -1068,7 +1028,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::AudioProfile'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'AudioProfile()')
@@ -1080,7 +1039,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::AudioEngine::AudioState'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('ERROR', 'cocos2d::AudioEngine::AudioState::ERROR')
@@ -1092,7 +1050,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::AudioEngine'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = [[
     NS_CC_BEGIN
     class LuaAudioEngine : public cocos2d::AudioEngine
@@ -1216,7 +1173,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ApplicationProtocol::Platform'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('OS_WINDOWS', 'cocos2d::ApplicationProtocol::Platform::OS_WINDOWS')
@@ -1230,7 +1186,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::LanguageType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('ENGLISH', 'cocos2d::LanguageType::ENGLISH')
@@ -1258,7 +1213,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ApplicationProtocol'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'bool applicationDidFinishLaunching()')
@@ -1280,7 +1234,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Application'
 cls.SUPERCLS = 'cocos2d::ApplicationProtocol'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'int run()')
@@ -1291,7 +1244,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Device'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static int getDPI()')
@@ -1305,7 +1257,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ResizableBuffer'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'void resize(size_t size)')
@@ -1315,7 +1266,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::FileUtils::Status'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('OK', 'cocos2d::FileUtils::Status::OK')
@@ -1331,7 +1281,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::FileUtils'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::FileUtils *getInstance()')
@@ -1531,7 +1480,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'ResolutionPolicy'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('EXACT_FIT', 'ResolutionPolicy::EXACT_FIT')
@@ -1545,7 +1493,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::GLView'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'void end()')
@@ -1610,7 +1557,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::GLViewImpl'
 cls.SUPERCLS = 'cocos2d::GLView'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -1618,7 +1564,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Image::Format'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('JPG', 'cocos2d::Image::Format::JPG')
@@ -1636,7 +1581,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Image'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = [[
     NS_CC_BEGIN
     class LuaImage : public cocos2d::Image {
@@ -1688,7 +1632,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Properties::Type'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('NONE', 'cocos2d::Properties::Type::NONE')
@@ -1703,7 +1646,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Properties'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::Properties *createNonRefCounted(const std::string &url)')
@@ -1731,7 +1673,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Material'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::Material *createWithFilename(const std::string &path)')
@@ -1759,7 +1700,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Renderer'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.const('VBO_SIZE', 'cocos2d::Renderer::VBO_SIZE', 'const int')
@@ -1850,7 +1790,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::RenderCommand::Type'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('UNKNOWN_COMMAND', 'cocos2d::RenderCommand::Type::UNKNOWN_COMMAND')
@@ -1866,7 +1805,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::CustomCommand::DrawType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('ARRAY', 'cocos2d::CustomCommand::DrawType::ARRAY')
@@ -1876,7 +1814,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PipelineDescriptor'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.var('programState', '@optional cocos2d::backend::ProgramState *programState')
@@ -1886,7 +1823,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Technique'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -1894,7 +1830,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Pass'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -1902,7 +1837,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::RenderState'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -1910,7 +1844,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::RenderCommand'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'void init(float globalZOrder, const cocos2d::Mat4 &modelViewTransform, unsigned int flags)')
@@ -1938,7 +1871,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::CustomCommand'
 cls.SUPERCLS = 'cocos2d::RenderCommand'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'CustomCommand()')
@@ -2022,7 +1954,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::MeshCommand'
 cls.SUPERCLS = 'cocos2d::CustomCommand'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'MeshCommand()')
@@ -2032,7 +1963,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TextureCache'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = [[
     static const std::string makeTextureCacheCallbackTag(const std::string &key)
     {
@@ -2091,7 +2021,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Texture2D'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static void setDefaultAlphaPixelFormat(cocos2d::backend::PixelFormat format)')
@@ -2149,7 +2078,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TextureCube'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TextureCube *create(const std::string &positive_x, const std::string &negative_x, const std::string &positive_y, const std::string &negative_y, const std::string &positive_z, const std::string &negative_z)')
@@ -2163,7 +2091,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TextureAtlas'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TextureAtlas *create(const std::string &file, ssize_t capacity)')
@@ -2196,7 +2123,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::network::WebSocket::ErrorCode'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('TIME_OUT', 'cocos2d::network::WebSocket::ErrorCode::TIME_OUT')
@@ -2207,7 +2133,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::network::WebSocket::State'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('CONNECTING', 'cocos2d::network::WebSocket::State::CONNECTING')
@@ -2219,7 +2144,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::network::WebSocket::Delegate'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'void onOpen(cocos2d::network::WebSocket *ws)')
@@ -2231,7 +2155,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::network::WebSocket'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func('init', [[
@@ -2275,7 +2198,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::LuaWebSocketDelegate'
 cls.SUPERCLS = 'cocos2d::network::WebSocket::Delegate'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'LuaWebSocketDelegate()')
@@ -2288,7 +2210,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ActionManager'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'ActionManager()')
@@ -2314,7 +2235,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Component'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::Component *create()')
@@ -2340,7 +2260,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::LuaComponent'
 cls.SUPERCLS = 'cocos2d::Component'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::LuaComponent *create()')
@@ -2355,7 +2274,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Node'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = [[
     static cocos2d::Node *_find_ancestor(cocos2d::Node *node1, cocos2d::Node *node2)
     {
@@ -2854,7 +2772,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::LuaTweenNode'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'void updateTweenAction(float value, const std::string &key)')
@@ -2872,7 +2789,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::AtlasNode'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::AtlasNode *create(const std::string &filename, int tileWidth, int tileHeight, int itemsToRender)')
@@ -2897,7 +2813,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::sImageTGA'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.var('status', 'int status')
@@ -2912,7 +2827,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TileMapAtlas'
 cls.SUPERCLS = 'cocos2d::AtlasNode'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TileMapAtlas *create(const std::string &tile, const std::string &mapFile, int tileWidth, int tileHeight)')
@@ -2929,7 +2843,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ClippingNode'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::ClippingNode *create()', 'static cocos2d::ClippingNode *create(cocos2d::Node *stencil)')
@@ -2950,7 +2863,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::MotionStreak'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::MotionStreak *create(float timeToFade, float minSeg, float strokeWidth, const cocos2d::Color3B &strokeColor, const std::string &imagePath)', 'static cocos2d::MotionStreak *create(float timeToFade, float minSeg, float strokeWidth, const cocos2d::Color3B &strokeColor, cocos2d::Texture2D *texture)')
@@ -2978,7 +2890,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ProtectedNode'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::ProtectedNode *create()')
@@ -2998,7 +2909,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::DrawNode'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::DrawNode *create(@optional float defaultLineWidth)')
@@ -3031,7 +2941,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ParallaxNode'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::ParallaxNode *create()')
@@ -3042,7 +2951,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TextHAlignment'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('LEFT', 'cocos2d::TextHAlignment::LEFT')
@@ -3053,7 +2961,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TextVAlignment'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('TOP', 'cocos2d::TextVAlignment::TOP')
@@ -3064,7 +2971,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::GlyphCollection'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('DYNAMIC', 'cocos2d::GlyphCollection::DYNAMIC')
@@ -3076,7 +2982,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::LabelEffect'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('NORMAL', 'cocos2d::LabelEffect::NORMAL')
@@ -3093,7 +2998,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Label::LabelType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('TTF', 'cocos2d::Label::LabelType::TTF')
@@ -3105,7 +3009,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Label::Overflow'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('NONE', 'cocos2d::Label::Overflow::NONE')
@@ -3117,7 +3020,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Label'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::Label *create()')
@@ -3232,7 +3134,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::LabelAtlas'
 cls.SUPERCLS = 'cocos2d::AtlasNode'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::LabelAtlas *create()', 'static cocos2d::LabelAtlas *create(const std::string &string, const std::string &charMapFile, int itemWidth, int itemHeight, int startCharMap)', 'static cocos2d::LabelAtlas *create(const std::string &string, const std::string &fntFile)')
@@ -3246,7 +3147,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::FontAtlas'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.const('CacheTextureWidth', 'cocos2d::FontAtlas::CacheTextureWidth', 'const int')
@@ -3269,7 +3169,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ClippingRectangleNode'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::ClippingRectangleNode *create(const cocos2d::Rect &clippingRegion)', 'static cocos2d::ClippingRectangleNode *create()')
@@ -3284,7 +3183,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::RenderTexture'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::RenderTexture *create(int w, int h, cocos2d::backend::PixelFormat format, cocos2d::backend::PixelFormat depthStencilFormat)', 'static cocos2d::RenderTexture *create(int w, int h, cocos2d::backend::PixelFormat format)', 'static cocos2d::RenderTexture *create(int w, int h)')
@@ -3354,7 +3252,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ProgressTimer::Type'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('RADIAL', 'cocos2d::ProgressTimer::Type::RADIAL')
@@ -3364,7 +3261,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ProgressTimer'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::ProgressTimer *create(cocos2d::Sprite *sp)')
@@ -3393,7 +3289,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::AnimationFrame'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::AnimationFrame *create(cocos2d::SpriteFrame *spriteFrame, float delayUnits, const cocos2d::ValueMap &userInfo)')
@@ -3414,7 +3309,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Animation'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::Animation *create()', 'static cocos2d::Animation *create(const Vector<cocos2d::AnimationFrame *> &arrayOfAnimationFrameNames, float delayPerUnit, @optional unsigned int loops)')
@@ -3448,7 +3342,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::SpriteFrame'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::SpriteFrame *create(const std::string &filename, const cocos2d::Rect &rect)', 'static cocos2d::SpriteFrame *create(const std::string &filename, const cocos2d::Rect &rect, bool rotated, const cocos2d::Vec2 &offset, const cocos2d::Size &originalSize)')
@@ -3495,7 +3388,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Sprite'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.const('INDEX_NOT_INITIALIZED', 'cocos2d::Sprite::INDEX_NOT_INITIALIZED', 'const int')
@@ -3565,7 +3457,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::SpriteBatchNode'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::SpriteBatchNode *createWithTexture(cocos2d::Texture2D *tex, @optional ssize_t capacity)')
@@ -3601,7 +3492,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::SpriteFrameCache'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::SpriteFrameCache *getInstance()')
@@ -3625,7 +3515,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::AnimationCache'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'AnimationCache()')
@@ -3643,7 +3532,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Scene'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::Scene *create()')
@@ -3670,7 +3558,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Layer'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::Layer *create()')
@@ -3691,7 +3578,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::LayerColor'
 cls.SUPERCLS = 'cocos2d::Layer'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::LayerColor *create()', 'static cocos2d::LayerColor *create(const cocos2d::Color4B &color, float width, float height)', 'static cocos2d::LayerColor *create(const cocos2d::Color4B &color)')
@@ -3708,7 +3594,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::LayerGradient'
 cls.SUPERCLS = 'cocos2d::LayerColor'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::LayerGradient *create()', 'static cocos2d::LayerGradient *create(const cocos2d::Color4B &start, const cocos2d::Color4B &end)', 'static cocos2d::LayerGradient *create(const cocos2d::Color4B &start, const cocos2d::Color4B &end, const cocos2d::Vec2 &v)')
@@ -3737,7 +3622,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::LayerRadialGradient'
 cls.SUPERCLS = 'cocos2d::Layer'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::LayerRadialGradient *create(const cocos2d::Color4B &startColor, const cocos2d::Color4B &endColor, float radius, const cocos2d::Vec2 &center, float expand)', 'static cocos2d::LayerRadialGradient *create()')
@@ -3776,7 +3660,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::LayerMultiplex'
 cls.SUPERCLS = 'cocos2d::Layer'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::LayerMultiplex *create()')
@@ -3792,7 +3675,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionScene::Orientation'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('LEFT_OVER', 'cocos2d::TransitionScene::Orientation::LEFT_OVER')
@@ -3804,7 +3686,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionScene'
 cls.SUPERCLS = 'cocos2d::Scene'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionScene *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -3820,7 +3701,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionSceneOriented'
 cls.SUPERCLS = 'cocos2d::TransitionScene'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionSceneOriented *create(float t, @addref(scenes |) cocos2d::Scene *scene, cocos2d::TransitionScene::Orientation orientation)')
@@ -3830,7 +3710,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionRotoZoom'
 cls.SUPERCLS = 'cocos2d::TransitionScene'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionRotoZoom *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -3840,7 +3719,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionJumpZoom'
 cls.SUPERCLS = 'cocos2d::TransitionScene'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionJumpZoom *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -3850,7 +3728,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionMoveInL'
 cls.SUPERCLS = 'cocos2d::TransitionScene'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionMoveInL *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -3862,7 +3739,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionMoveInR'
 cls.SUPERCLS = 'cocos2d::TransitionMoveInL'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionMoveInR *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -3872,7 +3748,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionMoveInT'
 cls.SUPERCLS = 'cocos2d::TransitionMoveInL'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionMoveInT *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -3882,7 +3757,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionMoveInB'
 cls.SUPERCLS = 'cocos2d::TransitionMoveInL'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionMoveInB *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -3892,7 +3766,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionSlideInL'
 cls.SUPERCLS = 'cocos2d::TransitionScene'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionSlideInL *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -3904,7 +3777,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionSlideInR'
 cls.SUPERCLS = 'cocos2d::TransitionSlideInL'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionSlideInR *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -3914,7 +3786,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionSlideInB'
 cls.SUPERCLS = 'cocos2d::TransitionSlideInL'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionSlideInB *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -3924,7 +3795,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionSlideInT'
 cls.SUPERCLS = 'cocos2d::TransitionSlideInL'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionSlideInT *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -3934,7 +3804,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionShrinkGrow'
 cls.SUPERCLS = 'cocos2d::TransitionScene'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionShrinkGrow *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -3945,7 +3814,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFlipX'
 cls.SUPERCLS = 'cocos2d::TransitionSceneOriented'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionFlipX *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)', 'static cocos2d::TransitionFlipX *create(float t, @addref(scenes |) cocos2d::Scene *s)')
@@ -3955,7 +3823,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFlipY'
 cls.SUPERCLS = 'cocos2d::TransitionSceneOriented'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionFlipY *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)', 'static cocos2d::TransitionFlipY *create(float t, @addref(scenes |) cocos2d::Scene *s)')
@@ -3965,7 +3832,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFlipAngular'
 cls.SUPERCLS = 'cocos2d::TransitionSceneOriented'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionFlipAngular *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)', 'static cocos2d::TransitionFlipAngular *create(float t, @addref(scenes |) cocos2d::Scene *s)')
@@ -3975,7 +3841,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionZoomFlipX'
 cls.SUPERCLS = 'cocos2d::TransitionSceneOriented'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionZoomFlipX *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)', 'static cocos2d::TransitionZoomFlipX *create(float t, @addref(scenes |) cocos2d::Scene *s)')
@@ -3985,7 +3850,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionZoomFlipY'
 cls.SUPERCLS = 'cocos2d::TransitionSceneOriented'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionZoomFlipY *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)', 'static cocos2d::TransitionZoomFlipY *create(float t, @addref(scenes |) cocos2d::Scene *s)')
@@ -3995,7 +3859,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionZoomFlipAngular'
 cls.SUPERCLS = 'cocos2d::TransitionSceneOriented'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionZoomFlipAngular *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)', 'static cocos2d::TransitionZoomFlipAngular *create(float t, @addref(scenes |) cocos2d::Scene *s)')
@@ -4005,7 +3868,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFade'
 cls.SUPERCLS = 'cocos2d::TransitionScene'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionFade *create(float duration, @addref(scenes |) cocos2d::Scene *scene, const cocos2d::Color3B &color)', 'static cocos2d::TransitionFade *create(float duration, @addref(scenes |) cocos2d::Scene *scene)')
@@ -4015,7 +3877,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionCrossFade'
 cls.SUPERCLS = 'cocos2d::TransitionScene'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionCrossFade *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -4025,7 +3886,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionTurnOffTiles'
 cls.SUPERCLS = 'cocos2d::TransitionScene'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionTurnOffTiles *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -4036,7 +3896,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionSplitCols'
 cls.SUPERCLS = 'cocos2d::TransitionScene'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionSplitCols *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -4048,7 +3907,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionSplitRows'
 cls.SUPERCLS = 'cocos2d::TransitionSplitCols'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionSplitRows *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -4058,7 +3916,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFadeTR'
 cls.SUPERCLS = 'cocos2d::TransitionScene'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionFadeTR *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -4070,7 +3927,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFadeBL'
 cls.SUPERCLS = 'cocos2d::TransitionFadeTR'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionFadeBL *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -4080,7 +3936,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFadeUp'
 cls.SUPERCLS = 'cocos2d::TransitionFadeTR'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionFadeUp *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -4090,7 +3945,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionFadeDown'
 cls.SUPERCLS = 'cocos2d::TransitionFadeTR'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionFadeDown *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -4100,7 +3954,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionPageTurn'
 cls.SUPERCLS = 'cocos2d::TransitionScene'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionPageTurn *create(float t, @addref(scenes |) cocos2d::Scene *scene, bool backwards)')
@@ -4111,7 +3964,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionProgress'
 cls.SUPERCLS = 'cocos2d::TransitionScene'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionProgress *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -4121,7 +3973,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionProgressRadialCCW'
 cls.SUPERCLS = 'cocos2d::TransitionProgress'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionProgressRadialCCW *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -4131,7 +3982,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionProgressRadialCW'
 cls.SUPERCLS = 'cocos2d::TransitionProgress'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionProgressRadialCW *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -4141,7 +3991,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionProgressHorizontal'
 cls.SUPERCLS = 'cocos2d::TransitionProgress'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionProgressHorizontal *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -4151,7 +4000,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionProgressVertical'
 cls.SUPERCLS = 'cocos2d::TransitionProgress'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionProgressVertical *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -4161,7 +4009,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionProgressInOut'
 cls.SUPERCLS = 'cocos2d::TransitionProgress'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionProgressInOut *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -4171,7 +4018,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TransitionProgressOutIn'
 cls.SUPERCLS = 'cocos2d::TransitionProgress'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TransitionProgressOutIn *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
@@ -4181,7 +4027,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TextFieldDelegate'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'bool onTextFieldAttachWithIME(cocos2d::TextFieldTTF *sender)')
@@ -4194,7 +4039,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TextFieldTTF'
 cls.SUPERCLS = 'cocos2d::Label'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'TextFieldTTF()')
@@ -4229,7 +4073,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::LightType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('DIRECTIONAL', 'cocos2d::LightType::DIRECTIONAL')
@@ -4241,7 +4084,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::LightFlag'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('LIGHT0', 'cocos2d::LightFlag::LIGHT0')
@@ -4265,7 +4107,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::BaseLight'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'cocos2d::LightType getLightType()')
@@ -4284,7 +4125,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::DirectionLight'
 cls.SUPERCLS = 'cocos2d::BaseLight'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::DirectionLight *create(const cocos2d::Vec3 &direction, const cocos2d::Color3B &color)')
@@ -4299,7 +4139,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PointLight'
 cls.SUPERCLS = 'cocos2d::BaseLight'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::PointLight *create(const cocos2d::Vec3 &position, const cocos2d::Color3B &color, float range)')
@@ -4312,7 +4151,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::SpotLight'
 cls.SUPERCLS = 'cocos2d::BaseLight'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::SpotLight *create(const cocos2d::Vec3 &direction, const cocos2d::Vec3 &position, const cocos2d::Color3B &color, float innerAngle, float outerAngle, float range)')
@@ -4340,7 +4178,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::AmbientLight'
 cls.SUPERCLS = 'cocos2d::BaseLight'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::AmbientLight *create(const cocos2d::Color3B &color)')
@@ -4350,7 +4187,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::CameraFlag'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('DEFAULT', 'cocos2d::CameraFlag::DEFAULT')
@@ -4367,7 +4203,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Camera::Type'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('PERSPECTIVE', 'cocos2d::Camera::Type::PERSPECTIVE')
@@ -4377,7 +4212,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Camera'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::Camera *createPerspective(float fieldOfView, float aspectRatio, float nearPlane, float farPlane)')
@@ -4437,7 +4271,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::CameraBackgroundBrush::BrushType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('NONE', 'cocos2d::CameraBackgroundBrush::BrushType::NONE')
@@ -4449,7 +4282,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::CameraBackgroundBrush'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'cocos2d::CameraBackgroundBrush::BrushType getBrushType()')
@@ -4468,7 +4300,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::CameraBackgroundDepthBrush'
 cls.SUPERCLS = 'cocos2d::CameraBackgroundBrush'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::CameraBackgroundDepthBrush *create(float depth)')
@@ -4479,7 +4310,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::CameraBackgroundColorBrush'
 cls.SUPERCLS = 'cocos2d::CameraBackgroundDepthBrush'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::CameraBackgroundColorBrush *create(const cocos2d::Color4F &color, float depth)')
@@ -4490,7 +4320,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::CameraBackgroundSkyBoxBrush'
 cls.SUPERCLS = 'cocos2d::CameraBackgroundBrush'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::CameraBackgroundSkyBoxBrush *create(const std::string &positive_x, const std::string &negative_x, const std::string &positive_y, const std::string &negative_y, const std::string &positive_z, const std::string &negative_z)', 'static cocos2d::CameraBackgroundSkyBoxBrush *create()')
@@ -4505,7 +4334,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ParticleBatchNode'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::ParticleBatchNode *createWithTexture(cocos2d::Texture2D *tex, @optional int capacity)')
@@ -4530,7 +4358,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ParticleSystem::Mode'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('GRAVITY', 'cocos2d::ParticleSystem::Mode::GRAVITY')
@@ -4540,7 +4367,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ParticleSystem::PositionType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('FREE', 'cocos2d::ParticleSystem::PositionType::FREE')
@@ -4551,7 +4377,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ParticleSystem'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::ParticleSystem *create(const std::string &plistFile)')
@@ -4719,7 +4544,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ParticleSystemQuad'
 cls.SUPERCLS = 'cocos2d::ParticleSystem'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::ParticleSystemQuad *create()', 'static cocos2d::ParticleSystemQuad *create(const std::string &filename)', 'static cocos2d::ParticleSystemQuad *create(cocos2d::ValueMap &dictionary)')
@@ -4733,7 +4557,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ParticleExplosion'
 cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::ParticleExplosion *create()')
@@ -4744,7 +4567,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ParticleFire'
 cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::ParticleFire *create()')
@@ -4755,7 +4577,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ParticleFireworks'
 cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::ParticleFireworks *create()')
@@ -4766,7 +4587,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ParticleFlower'
 cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::ParticleFlower *create()')
@@ -4777,7 +4597,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ParticleGalaxy'
 cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::ParticleGalaxy *create()')
@@ -4788,7 +4607,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ParticleMeteor'
 cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::ParticleMeteor *create()')
@@ -4799,7 +4617,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ParticleRain'
 cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::ParticleRain *create()')
@@ -4810,7 +4627,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ParticleSmoke'
 cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::ParticleSmoke *create()')
@@ -4821,7 +4637,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ParticleSnow'
 cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::ParticleSnow *create()')
@@ -4832,7 +4647,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ParticleSpiral'
 cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::ParticleSpiral *create()')
@@ -4843,7 +4657,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ParticleSun'
 cls.SUPERCLS = 'cocos2d::ParticleSystemQuad'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::ParticleSun *create()')
@@ -4854,7 +4667,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TMXTileFlags'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('kTMXTileHorizontalFlag', 'cocos2d::TMXTileFlags::kTMXTileHorizontalFlag')
@@ -4867,7 +4679,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TMXObjectGroup'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'TMXObjectGroup()')
@@ -4890,7 +4701,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TMXLayer'
 cls.SUPERCLS = 'cocos2d::SpriteBatchNode'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TMXLayer *create(cocos2d::TMXTilesetInfo *tilesetInfo, cocos2d::TMXLayerInfo *layerInfo, cocos2d::TMXMapInfo *mapInfo)')
@@ -4927,7 +4737,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TMXLayerInfo'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'TMXLayerInfo()')
@@ -4939,7 +4748,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TMXMapInfo'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TMXMapInfo *create(const std::string &tmxFile)')
@@ -5009,7 +4817,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TMXTilesetInfo'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'TMXTilesetInfo()')
@@ -5019,7 +4826,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TMXTiledMap'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::TMXTiledMap *create(const std::string &tmxFile)')
@@ -5055,7 +4861,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::FastTMXTiledMap'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::FastTMXTiledMap *create(const std::string &tmxFile)')
@@ -5084,7 +4889,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::FastTMXLayer'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.const('FAST_TMX_ORIENTATION_ORTHO', 'cocos2d::FastTMXLayer::FAST_TMX_ORIENTATION_ORTHO', 'const int')
@@ -5123,7 +4927,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::NavMeshAgent::NavMeshAgentSyncFlag'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('NONE', 'cocos2d::NavMeshAgent::NavMeshAgentSyncFlag::NONE')
@@ -5135,7 +4938,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::NavMeshAgent'
 cls.SUPERCLS = 'cocos2d::Component'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::NavMeshAgent *create(const cocos2d::NavMeshAgentParam &param)')
@@ -5197,7 +4999,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('NONE', 'cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag::NONE')
@@ -5209,7 +5010,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::NavMeshObstacle'
 cls.SUPERCLS = 'cocos2d::Component'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::NavMeshObstacle *create(float radius, float height)')
@@ -5233,7 +5033,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::NavMesh'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'void update(float dt)')

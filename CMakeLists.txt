@@ -42,6 +42,7 @@ option(CCLUA_BUILD_DRAGONBONES "Build with dragonbones support" ON)
 option(CCLUA_BUILD_SWF "Build with swf support" OFF)
 option(CCLUA_BUILD_JPUSH "Build with jpush support" OFF)
 option(CCLUA_BUILD_JANALYTICS "Build with janalytics support" OFF)
+option(CCLUA_BUILD_WECHAT "Build with wechat support" OFF)
 option(CCLUA_FEATURE_MSAA "Support MSAA" OFF)
 option(CCLUA_FEATURE_IDFA "Support IDFA" OFF)
 
@@ -185,7 +186,12 @@ endif()
 
 if(CCLUA_BUILD_JPUSH OR CCLUA_BUILD_JANALYTICS)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/plugins/jiguang)
-    target_link_libraries(${APP_NAME} jiguang)
+    target_link_libraries(${APP_NAME} plugin_jiguang)
+endif()
+
+if(CCLUA_BUILD_WECHAT)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/plugins/wechat)
+    target_link_libraries(${APP_NAME} plugin_wechat)
 endif()
 
 target_link_libraries(${APP_NAME} cocos2d)

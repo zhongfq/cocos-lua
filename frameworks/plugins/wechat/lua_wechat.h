@@ -1,12 +1,11 @@
-#ifndef _LUA_WECHAT_H__
-#define _LUA_WECHAT_H__
+//
+// AUTO BUILD, DON'T MODIFY!
+//
+#ifndef __AUTO_GEN_LUA_WECHAT_H__
+#define __AUTO_GEN_LUA_WECHAT_H__
 
-#include "cclua/xlua.h"
+#include "lua.hpp"
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
 int luaopen_wechat(lua_State *L);
-#else
-#define luaopen_wechat xlua_nonsupport
-#endif
 
 #endif

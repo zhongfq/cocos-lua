@@ -1,5 +1,5 @@
-#ifndef __JIGUANG_H__
-#define __JIGUANG_H__
+#ifndef __CCLUA_PLUGIN_JIGUANG_H__
+#define __CCLUA_PLUGIN_JIGUANG_H__
 
 #include "cclua/plugin.h"
 

@@ -41,7 +41,6 @@ M.CHUNK = [[
         }
     }
 ]]
-M.DEFIF = nil
 
 M.CONVS = {
     typeconv {
@@ -79,7 +78,6 @@ M.CLASSES = {}
 cls = typecls 'fairygui::UIEventType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.const('Enter', 'fairygui::UIEventType::Enter', 'const int')
@@ -117,7 +115,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::UIEventDispatcher'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = [[
     static std::string makeListenerTag(lua_State *L, lua_Integer type, int tagidx)
     {
@@ -180,7 +177,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::EventContext'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'EventContext()')
@@ -205,7 +201,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::IHitTest'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'bool hitTest(fairygui::GComponent *obj, const cocos2d::Vec2 &localPoint)')
@@ -214,7 +209,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::PixelHitTest'
 cls.SUPERCLS = 'fairygui::IHitTest'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'PixelHitTest(fairygui::PixelHitTestData *data, int offsetX, int offsetY)')
@@ -227,7 +221,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::PixelHitTestData'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'PixelHitTestData()')
@@ -240,7 +233,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::InputProcessor'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'fairygui::InputEvent *getRecentInput()')
@@ -271,7 +263,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::InputEvent'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'InputEvent()')
@@ -308,7 +299,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::TextFormat'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.const('OUTLINE', 'fairygui::TextFormat::OUTLINE', 'const int')
@@ -341,7 +331,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::EaseType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('Linear', 'fairygui::EaseType::Linear')
@@ -381,7 +370,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::EaseManager'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static float evaluate(fairygui::EaseType easeType, float time, float duration, float overshootOrAmplitude, float period)')
@@ -390,7 +378,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::TweenPropType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('None', 'fairygui::TweenPropType::None')
@@ -411,7 +398,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GPath'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -419,7 +405,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GTweener'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'GTweener()')
@@ -499,7 +484,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GTween'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = [[
     static bool should_del_tweener_ref(lua_State *L, int idx)
     {
@@ -602,7 +586,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::UIPackage'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.const('URL_PREFIX', 'fairygui::UIPackage::URL_PREFIX', 'const std::string')
@@ -637,7 +620,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::PackageItem'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'PackageItem()')
@@ -668,7 +650,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::PackageItemType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('IMAGE', 'fairygui::PackageItemType::IMAGE')
@@ -687,7 +668,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::ObjectType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('IMAGE', 'fairygui::ObjectType::IMAGE')
@@ -714,7 +694,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::ButtonMode'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('COMMON', 'fairygui::ButtonMode::COMMON')
@@ -725,7 +704,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::ChildrenRenderOrder'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('ASCENT', 'fairygui::ChildrenRenderOrder::ASCENT')
@@ -736,7 +714,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::OverflowType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('VISIBLE', 'fairygui::OverflowType::VISIBLE')
@@ -747,7 +724,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::ScrollType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('HORIZONTAL', 'fairygui::ScrollType::HORIZONTAL')
@@ -758,7 +734,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::ScrollBarDisplayType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('DEFAULT', 'fairygui::ScrollBarDisplayType::DEFAULT')
@@ -770,7 +745,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::LoaderFillType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('NONE', 'fairygui::LoaderFillType::NONE')
@@ -784,7 +758,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::ProgressTitleType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('PERCENT', 'fairygui::ProgressTitleType::PERCENT')
@@ -796,7 +769,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::ListLayoutType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('SINGLE_COLUMN', 'fairygui::ListLayoutType::SINGLE_COLUMN')
@@ -809,7 +781,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::ListSelectionMode'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('SINGLE', 'fairygui::ListSelectionMode::SINGLE')
@@ -821,7 +792,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GroupLayoutType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('NONE', 'fairygui::GroupLayoutType::NONE')
@@ -832,7 +802,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::PopupDirection'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('AUTO', 'fairygui::PopupDirection::AUTO')
@@ -843,7 +812,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::AutoSizeType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('NONE', 'fairygui::AutoSizeType::NONE')
@@ -855,7 +823,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::FlipType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('NONE', 'fairygui::FlipType::NONE')
@@ -867,7 +834,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::TransitionActionType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('XY', 'fairygui::TransitionActionType::XY')
@@ -892,7 +858,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::FillMethod'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('None', 'fairygui::FillMethod::None')
@@ -906,7 +871,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::FillOrigin'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('Top', 'fairygui::FillOrigin::Top')
@@ -918,7 +882,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::ObjectPropID'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('Text', 'fairygui::ObjectPropID::Text')
@@ -936,7 +899,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GController'
 cls.SUPERCLS = 'fairygui::UIEventDispatcher'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'GController()')
@@ -974,7 +936,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GObject'
 cls.SUPERCLS = 'fairygui::UIEventDispatcher'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static fairygui::GObject *getDraggingObject()')
@@ -1152,7 +1113,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GComponent'
 cls.SUPERCLS = 'fairygui::GObject'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = [[
     static int _fairygui_GComponent_getController(lua_State *L);
     static int _fairygui_GComponent_getTransition(lua_State *L);
@@ -1271,7 +1231,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GRoot'
 cls.SUPERCLS = 'fairygui::GComponent'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'GRoot()')
@@ -1360,7 +1319,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GGroup'
 cls.SUPERCLS = 'fairygui::GObject'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'GGroup()')
@@ -1394,7 +1352,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GScrollBar'
 cls.SUPERCLS = 'fairygui::GComponent'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'GScrollBar()')
@@ -1409,7 +1366,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GLoader'
 cls.SUPERCLS = 'fairygui::GObject'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'GLoader()')
@@ -1462,7 +1418,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GLoader3D'
 cls.SUPERCLS = 'fairygui::GObject'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'GLoader3D()')
@@ -1511,7 +1466,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GTextField'
 cls.SUPERCLS = 'fairygui::GObject'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'bool isUBBEnabled()')
@@ -1547,7 +1501,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GBasicTextField'
 cls.SUPERCLS = 'fairygui::GTextField'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'GBasicTextField()')
@@ -1557,7 +1510,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GGraph'
 cls.SUPERCLS = 'fairygui::GObject'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'GGraph()')
@@ -1574,7 +1526,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GButton'
 cls.SUPERCLS = 'fairygui::GComponent'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.const('UP', 'fairygui::GButton::UP', 'const std::string')
@@ -1616,7 +1567,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GImage'
 cls.SUPERCLS = 'fairygui::GObject'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'GImage()')
@@ -1644,7 +1594,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GLabel'
 cls.SUPERCLS = 'fairygui::GComponent'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'GLabel()')
@@ -1665,7 +1614,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GList'
 cls.SUPERCLS = 'fairygui::GComponent'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'GList()')
@@ -1752,7 +1700,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GMovieClip'
 cls.SUPERCLS = 'fairygui::GObject'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'GMovieClip()')
@@ -1787,7 +1734,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GProgressBar'
 cls.SUPERCLS = 'fairygui::GComponent'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'GProgressBar()')
@@ -1811,7 +1757,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GComboBox'
 cls.SUPERCLS = 'fairygui::GComponent'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'GComboBox()')
@@ -1852,7 +1797,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GRichTextField'
 cls.SUPERCLS = 'fairygui::GTextField'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'GRichTextField()')
@@ -1863,7 +1807,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GSlider'
 cls.SUPERCLS = 'fairygui::GComponent'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'GSlider()')
@@ -1890,7 +1833,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GTextInput'
 cls.SUPERCLS = 'fairygui::GTextField'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'GTextInput()')
@@ -1905,7 +1847,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::PopupMenu'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static fairygui::PopupMenu *create(const std::string &resourceURL)', 'static fairygui::PopupMenu *create()')
@@ -2003,7 +1944,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::Relations'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'Relations(fairygui::GObject *owner)')
@@ -2022,7 +1962,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::RelationType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('Left_Left', 'fairygui::RelationType::Left_Left')
@@ -2055,7 +1994,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::RelationItem'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'RelationItem(fairygui::GObject *owner)')
@@ -2074,7 +2012,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::ScrollPane'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'ScrollPane(fairygui::GComponent *owner)')
@@ -2163,7 +2100,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::Transition'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'Transition(fairygui::GComponent *owner)')
@@ -2230,7 +2166,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::UIConfig'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static void registerFont(const std::string &aliasName, const std::string &realName)')
@@ -2261,7 +2196,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::IUISource'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'const std::string &getFileName()')
@@ -2283,7 +2217,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::UISource'
 cls.SUPERCLS = 'fairygui::IUISource'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = [[
     NS_FGUI_BEGIN
     class UISource : public IUISource {
@@ -2328,7 +2261,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::Window'
 cls.SUPERCLS = 'fairygui::GComponent'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'Window()')
@@ -2412,7 +2344,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::DragDropManager'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'DragDropManager()')
@@ -2429,7 +2360,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::UIObjectFactory'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static fairygui::GObject *newObject(fairygui::PackageItem *pi)', 'static fairygui::GObject *newObject(fairygui::ObjectType type)')
@@ -2456,7 +2386,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GearBase'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'GearBase(fairygui::GObject *owner)')
@@ -2467,7 +2396,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GTreeNode'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static fairygui::GTreeNode *create(@optional bool isFolder, @optional const std::string &resURL)')
@@ -2514,7 +2442,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GTree'
 cls.SUPERCLS = 'fairygui::GList'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'GTree()')
@@ -2541,7 +2468,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::FUIContainer'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'FUIContainer()')
@@ -2567,7 +2493,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::FUIInput'
 cls.SUPERCLS = 'cocos2d::ui::EditBox'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static fairygui::FUIInput *create()')
@@ -2589,7 +2514,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::FUILabel'
 cls.SUPERCLS = 'cocos2d::Label'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'FUILabel()')
@@ -2607,7 +2531,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::FUIRichText'
 cls.SUPERCLS = 'cocos2d::Node'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'FUIRichText()')
@@ -2647,7 +2570,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::FUISprite'
 cls.SUPERCLS = 'cocos2d::Sprite'
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'FUISprite()')
@@ -2675,7 +2597,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::HtmlObject'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'HtmlObject()')
@@ -2697,7 +2618,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::HtmlElement::Type'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('TEXT', 'fairygui::HtmlElement::Type::TEXT')
@@ -2711,7 +2631,6 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::HtmlElement'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
-cls.DEFIF = nil
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'HtmlElement(fairygui::HtmlElement::Type type)')

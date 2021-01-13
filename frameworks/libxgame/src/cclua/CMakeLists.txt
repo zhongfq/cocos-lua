@@ -25,6 +25,7 @@ set(CCLUA_SRC
     src/cclua/FileFinder.cpp
     src/cclua/filesystem-private.cpp
     src/cclua/filesystem.cpp
+    src/cclua/plugin.cpp
     src/cclua/preferences.cpp
     src/cclua/RootScene.cpp
     src/cclua/runtime-private.cpp

@@ -297,6 +297,9 @@ int manual_olua_push_cocos2d_Value(lua_State *L, const cocos2d::Value *value)
         case cocos2d::Value::Type::INT_KEY_MAP:
             manual_olua_push_cocos2d_ValueMapIntKey(L, &value->asIntKeyMap());
             break;
+        case cocos2d::Value::Type::NONE:
+            olua_pushobj<cocos2d::Value>(L, &cocos2d::Value::Null);
+            break;
         default:
             ret = 0;
             break;

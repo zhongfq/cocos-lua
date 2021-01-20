@@ -45,6 +45,7 @@ return {
         '-DCC_ENABLE_SCRIPT_BINDING=0',
         '-DSPINE_USE_STD_FUNCTION',
         '-DCCLUA_BUILD_JPUSH',
+        '-DCCLUA_BUILD_JAUTH',
         '-DCCLUA_BUILD_JANALYTICS',
         '-I../../frameworks/cocos2d-x/cocos',
         '-I../../frameworks/cocos2d-x/cocos/editor-support',

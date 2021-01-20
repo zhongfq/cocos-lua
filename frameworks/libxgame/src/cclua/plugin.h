@@ -7,6 +7,7 @@
 NS_CCLUA_PLUGIN_BEGIN
 
 typedef std::function<void(const std::string &event, const cocos2d::ValueMap &data)> Dispatcher;
+typedef std::function<void(const cocos2d::ValueMap &data)> Callback;
 
 #define DISPATCHER_IMPL                                                                 \
 static void setDispatcher(const Dispatcher &dispatcher) { _dispatcher = dispatcher; }   \
@@ -22,6 +23,7 @@ private:                                                                        
     static Dispatcher _dispatcher;
 
 std::string toJSONString(cocos2d::ValueMap &value);
+std::string toJSONString(const std::set<std::string> &tags);
 void parseJSONString(const std::string &value, cocos2d::ValueMap &result);
 
 NS_CCLUA_PLUGIN_END

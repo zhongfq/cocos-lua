@@ -4,14 +4,21 @@
 
 #import "cclua/AppContext-ios.h"
 #import "cclua/plugin-ios.h"
-#import "JPUSHService.h"
-#import "JANALYTICSService.h"
+#import "ios/JPUSHService.h"
+#import "ios/JANALYTICSService.h"
+#import "ios/JVERIFICATIONService.h"
 
 #import <Foundation/Foundation.h>
 #import <UserNotifications/UserNotifications.h>
 
+#ifdef CCLUA_FEATURE_IDFA
+#import <AdSupport/AdSupport.h>
+#import <AppTrackingTransparency/AppTrackingTransparency.h>
+#endif
+
 USING_NS_CCLUA;
 
+#pragma mark -- JPush --
 #ifdef CCLUA_BUILD_JPUSH
 @interface JPushDelegate : NSObject<JPUSHRegisterDelegate, UIApplicationDelegate>
 
@@ -83,7 +90,7 @@ USING_NS_CCLUA;
     [JPUSHService registerForRemoteNotificationConfig:entiry delegate:[JPushDelegate defaultDelegate]];
     NSString *idfa = nil;
 #ifdef CCLUA_FEATURE_IDFA
-    idfa = [NSString stringWithUTF8String:runtime::getIDFA().c_str()];
+    idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
 #endif
     [JPUSHService setupWithOption:launchOptions appKey:_appKey channel:_channel apsForProduction:YES advertisingIdentifier:idfa];
     runtime::log("init jpush");
@@ -224,6 +231,358 @@ NS_CCLUA_PLUGIN_END
 #endif // CCLUA_BUILD_JPUSH
 
 
+#pragma mark -- JAuth --
+#ifdef CCLUA_BUILD_JAUTH
+
+@interface JAuthDelegate : NSObject<UIApplicationDelegate>
+
++ (instancetype) defaultDelegate;
+
+@property(strong) NSString *channel;
+@property(strong) NSString *appKey;
+
+#pragma mark -- UIApplicationDelegate --
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
+
+@end
+
+@implementation JAuthDelegate
+
++ (instancetype) defaultDelegate
+{
+    static JAuthDelegate *inst = nil;
+    if (inst == nil) {
+        inst = [[JAuthDelegate alloc] init];
+    }
+    return inst;
+}
+
+#pragma mark -- UIApplicationDelegate --
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    JVAuthConfig *config = [[JVAuthConfig alloc] init];
+    config.appKey = _appKey;
+    config.channel = _channel;
+#ifdef CCLUA_FEATURE_IDFA
+    config.advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+#endif
+    config.isProduction = YES;
+    config.authBlock = ^(NSDictionary *result) {
+        NSLog(@"init JAuth result:%@", result);
+    };
+    [JVERIFICATIONService setupWithConfig:config];
+    return YES;
+}
+
+@end
+
+NS_CCLUA_PLUGIN_BEGIN
+
+void JAuth::init(const std::string &appKey, const std::string &channel)
+{
+    @autoreleasepool {
+        AppContext *context = (AppContext *)[UIApplication sharedApplication].delegate;
+        JAuthDelegate *delegate = [JAuthDelegate defaultDelegate];
+        delegate.appKey = toNSString(appKey);
+        delegate.channel = toNSString(channel);
+        [context addAppDelegate:delegate];
+    }
+}
+
+bool JAuth::isInitSuccess()
+{
+    @autoreleasepool {
+        return [JVERIFICATIONService isSetupClient];
+    }
+}
+
+void JAuth::setDebug(bool enabled)
+{
+    @autoreleasepool {
+        [JVERIFICATIONService setDebug:enabled];
+    }
+}
+
+bool JAuth::checkVerifyEnable()
+{
+    @autoreleasepool {
+        return [JVERIFICATIONService checkVerifyEnable];
+    }
+}
+
+void JAuth::getToken(int timeout, const Callback callback)
+{
+    @autoreleasepool {
+        [JVERIFICATIONService getToken:timeout completion:^(NSDictionary *result) {
+            cocos2d::ValueMap data;
+            if ([[result allKeys] containsObject:@"token"]) {
+                data["success"] = true;
+                data["code"] = [[result objectForKey:@"code"] intValue];
+                data["token"] = [[result objectForKey:@"token"] UTF8String];
+                data["operator"] = [[result objectForKey:@"operator"] UTF8String];
+            } else {
+                data["code"] = [[result objectForKey:@"code"] intValue];
+                data["content"] = [[result objectForKey:@"content"] UTF8String];
+            }
+            runtime::runOnCocosThread([=]{
+                callback(data);
+            });
+        }];
+    }
+}
+
+void JAuth::preLogin(int timeout, const Callback callback)
+{
+    @autoreleasepool {
+        [JVERIFICATIONService preLogin:timeout completion:^(NSDictionary *result) {
+            cocos2d::ValueMap data;
+            data["code"] = [[result objectForKey:@"code"] intValue];
+            data["success"] = data["code"].asInt() == 7000;
+            data["content"] = [[result objectForKey:@"message"] UTF8String];
+            runtime::runOnCocosThread([=]{
+                callback(data);
+            });
+        }];
+    }
+}
+
+void JAuth::clearPreLoginCache()
+{
+    @autoreleasepool {
+        [JVERIFICATIONService clearPreLoginCache];
+    }
+}
+
+void JAuth::loginAuth(int timeout, const Callback callback)
+{
+    @autoreleasepool {
+        [JVERIFICATIONService getAuthorizationWithController:[[[UIApplication sharedApplication] keyWindow] rootViewController] hide:YES animated:YES timeout:timeout completion:^(NSDictionary *result) {
+            cocos2d::ValueMap data;
+            if ([[result allKeys] containsObject:@"token"]) {
+                data["success"] = true;
+                data["code"] = [[result objectForKey:@"code"] intValue];
+                data["token"] = [[result objectForKey:@"token"] UTF8String];
+                data["operator"] = [[result objectForKey:@"operator"] UTF8String];
+            } else {
+                data["code"] = [[result objectForKey:@"code"] intValue];
+                data["content"] = [[result objectForKey:@"content"] UTF8String];
+            }
+            runtime::runOnCocosThread([=]{
+                callback(data);
+            });
+        } actionBlock:^(NSInteger type, NSString *content) {
+            NSLog(@"loginAuth actionBlock :%ld %@", (long)type , content);
+        }];
+    }
+}
+
+void JAuth::dismissLoginAuth(bool needCloseAnim)
+{
+    @autoreleasepool {
+        [JVERIFICATIONService dismissLoginControllerAnimated:needCloseAnim completion:^{
+        }];
+    }
+}
+
+void JAuth::getSmsCode(const std::string &phonenum, const std::string &signid, const std::string &tempid, const Callback callback)
+{
+    @autoreleasepool {
+        [JVERIFICATIONService getSMSCode:toNSString(phonenum) templateID:toNSString(tempid) signID:toNSString(signid) completionHandler:^(NSDictionary * _Nonnull result) {
+            cocos2d::ValueMap data;
+            data["code"] = [[result objectForKey:@"code"] intValue];
+            data["success"] = data["code"].asInt() == 3000;
+            data["content"] = [[result objectForKey:@"msg"] UTF8String];
+            runtime::runOnCocosThread([=]{
+                callback(data);
+            });
+        }];
+    }
+}
+
+void JAuth::setSmsIntervalTime(long intervalTime)
+{
+    @autoreleasepool {
+        [JVERIFICATIONService setGetCodeInternal:intervalTime];
+    }
+}
+
+static UIColor *toUIColor(cocos2d::Value &value)
+{
+    UInt32 color = (UInt32)value.asInt();
+    return [UIColor colorWithRed:(color >> 24 & 0xff) / 255.0f
+                           green:(color >> 16 & 0xff) / 255.0f
+                            blue:(color >> 8 & 0xff) / 255.0f
+                           alpha:(color & 0xff) / 255.0f];
+}
+
+static inline NSAttributedString *toNSAttributedString(cocos2d::Value &value)
+{
+    return [[NSAttributedString alloc] initWithString:toNSString(value)];
+}
+
+static inline UIImage* toUIImage(cocos2d::Value &value)
+{
+    return [UIImage imageWithContentsOfFile:toNSString(value)];
+}
+
+static inline BOOL toBool(cocos2d::Value &value)
+{
+    return value.asBool();
+}
+
+static inline CGFloat toCGFloat(cocos2d::Value &value)
+{
+    return (CGFloat)value.asFloat();
+}
+
+static UIEdgeInsets toUIEdgeInsets(cocos2d::Value &value)
+{
+    cocos2d::ValueMap &map = value.asValueMap();
+    return UIEdgeInsetsMake(toCGFloat(map["top"]), toCGFloat(map["left"]), toCGFloat(map["bottom"]), toCGFloat(map["right"]));
+}
+
+static NSArray *toPrivacy(cocos2d::Value &value)
+{
+    cocos2d::ValueVector &arr = value.asValueVector();
+    CCASSERT(arr.size() >= 2, "privacy text error");
+    return [NSArray arrayWithObjects:toNSString(arr[0]), toNSString(arr[1]), nil];
+}
+
+static NSArray *toPrivacyColor(cocos2d::Value &value)
+{
+    cocos2d::ValueVector &arr = value.asValueVector();
+    CCASSERT(arr.size() >= 2, "privacy color error");
+    return [NSArray arrayWithObjects:toUIColor(arr[0]), toUIColor(arr[1]), nil];
+}
+
+static NSArray *toCloseBtnImages(cocos2d::Value &value)
+{
+    cocos2d::ValueVector &arr = value.asValueVector();
+    CCASSERT(arr.size() >= 2, "close btn image error");
+    return [NSArray arrayWithObjects:toUIImage(arr[0]), toUIImage(arr[1]), nil];
+}
+
+static NSArray *toPrivacyComponents(cocos2d::Value &value)
+{
+    cocos2d::ValueVector &arr = value.asValueVector();
+    CCASSERT(arr.size() >= 4, "privacy components error");
+    return [NSArray arrayWithObjects:toNSString(arr[0]), toNSString(arr[1]), toNSString(arr[2]), toNSString(arr[3]), nil];
+}
+
+static JVLayoutConstraint *toJVLayoutConstraint(cocos2d::Value &value)
+{
+    cocos2d::ValueVector &arr = value.asValueVector();
+    CCASSERT(arr.size() >= 6, "constraint error");
+    return [JVLayoutConstraint constraintWithAttribute:(NSLayoutAttribute)arr[0].asInt()
+                                             relatedBy:(NSLayoutRelation)arr[1].asInt()
+                                                toItem:(JVLayoutItem)arr[2].asInt()
+                                             attribute:(NSLayoutAttribute)arr[3].asInt()
+                                            multiplier:(CGFloat)arr[4].asFloat()
+                                              constant:(CGFloat)arr[5].asFloat()];
+}
+
+static NSArray *toConstraints(cocos2d::Value &value)
+{
+    cocos2d::ValueVector &arr = value.asValueVector();
+    CCASSERT(arr.size() >= 4, "constraints error");
+    return [NSArray arrayWithObjects:toJVLayoutConstraint(arr[0]), toJVLayoutConstraint(arr[1]), toJVLayoutConstraint(arr[2]), toJVLayoutConstraint(arr[3]), nil];
+}
+
+#define setValue(NAME, FUNC) do {                   \
+    if (value.find(#NAME) != value.end())           \
+        config.NAME = FUNC(value[#NAME]);           \
+} while (0)
+
+#define setBool(NAME) do {                          \
+    if (value.find(#NAME) != value.end())           \
+        config.NAME = value[#NAME].asBool();        \
+} while (0)
+
+#define setEnum(NAME, ENUM) do {                    \
+    if (value.find(#NAME) != value.end())           \
+        config.NAME = (ENUM)value[#NAME].asInt();   \
+} while (0)
+
+void JAuth::configUI(cocos2d::ValueMap &value)
+{
+    @autoreleasepool {
+        JVUIConfig *config = [[JVUIConfig alloc] init];
+        setValue(authPageBackgroundImage, toUIImage);
+        setValue(authPageGifImagePath, toNSString);
+        setValue(autoLayout, toBool);
+        setValue(shouldAutorotate, toBool);
+        setEnum(orientation, UIInterfaceOrientation);
+        setEnum(modalTransitionStyle, UIModalTransitionStyle);
+        setValue(dismissAnimationFlag, toBool);
+        setValue(navCustom, toBool);
+        setValue(navColor, toUIColor);
+        setEnum(preferredStatusBarStyle, UIStatusBarStyle);
+        setValue(navText, toNSAttributedString);
+        setValue(navReturnImg, toUIImage);
+        setValue(prefersStatusBarHidden, toBool);
+        setValue(navTransparent, toBool);
+        setValue(navReturnHidden, toBool);
+        setValue(navReturnImageEdgeInsets, toUIEdgeInsets);
+        setValue(navDividingLineHidden, toBool);
+        setValue(navBarBackGroundImage, toUIImage);
+        setValue(logoImg, toUIImage);
+        setValue(logoConstraints, toConstraints);
+        setValue(logoHorizontalConstraints, toConstraints);
+        setValue(logoHidden, toBool);
+        setValue(logBtnText, toNSString);
+        setValue(logBtnConstraints, toConstraints);
+        setValue(logBtnHorizontalConstraints, toConstraints);
+        setValue(logBtnTextColor, toUIColor);
+        setValue(numberColor, toUIColor);
+        setValue(numberSize, toCGFloat);
+        setValue(numberConstraints, toConstraints);
+        setValue(numberHorizontalConstraints, toConstraints);
+        setValue(uncheckedImg, toUIImage);
+        setValue(checkedImg, toUIImage);
+        setValue(checkViewHidden, toBool);
+        setValue(checkViewConstraints, toConstraints);
+        setValue(checkViewHorizontalConstraints, toConstraints);
+        setValue(privacyState, toBool);
+        setValue(appPrivacyOne, toPrivacy);
+        setValue(appPrivacyTwo, toPrivacy);
+        setValue(appPrivacyColor, toPrivacyColor);
+        setValue(privacyTextFontSize, toCGFloat);
+        setValue(privacyComponents, toPrivacyComponents);
+        setValue(privacyTextFontSize, toCGFloat);
+        setValue(privacyShowBookSymbol, toBool);
+        setValue(privacyLineSpacing, toCGFloat);
+        setValue(privacyConstraints, toConstraints);
+        setValue(privacyHorizontalConstraints, toConstraints);
+        setValue(agreementNavBackgroundColor, toUIColor);
+        setValue(agreementNavText, toNSAttributedString);
+        setValue(firstPrivacyAgreementNavText, toNSAttributedString);
+        setValue(secondPrivacyAgreementNavText, toNSAttributedString);
+        setValue(agreementNavReturnImage, toUIImage);
+        setEnum(agreementPreferredStatusBarStyle, UIStatusBarStyle);
+        setValue(sloganTextColor, toUIColor);
+        setValue(sloganConstraints, toConstraints);
+        setValue(sloganHorizontalConstraints, toConstraints);
+        setValue(loadingConstraints, toConstraints);
+        setValue(loadingHorizontalConstraints, toConstraints);
+        setValue(showWindow, toBool);
+        setValue(windowBackgroundImage, toUIImage);
+        setValue(windowBackgroundAlpha, toCGFloat);
+        setValue(windowCornerRadius, toCGFloat);
+        setValue(windowCloseBtnImgs, toCloseBtnImages);
+        setValue(windowConstraints, toConstraints);
+        setValue(windowHorizontalConstraints, toConstraints);
+        setValue(windowCloseBtnConstraints, toConstraints);
+        setValue(windowCloseBtnHorizontalConstraints, toConstraints);
+        [JVERIFICATIONService customUIWithConfig:config];
+    }
+}
+
+NS_CCLUA_PLUGIN_END
+
+#endif // CCLUA_BUILD_JAUTH
+
+
+#pragma mark -- JAnalytics --
 #ifdef CCLUA_BUILD_JANALYTICS
 
 @interface JAnalyticsDelegate : NSObject<UIApplicationDelegate>
@@ -256,7 +615,7 @@ NS_CCLUA_PLUGIN_END
     config.channel = _channel;
     config.isProduction = YES;
 #ifdef CCLUA_FEATURE_IDFA
-    config.advertisingId = [NSString stringWithUTF8String:runtime::getIDFA().c_str()];
+    config.advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
 #endif
     [JANALYTICSService setupWithConfig:config];
     runtime::log("init janalytics");

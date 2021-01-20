@@ -41,7 +41,7 @@ cls = typecls 'cclua::CrashReport'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.CHUNK = nil
-cls.REQUIRE = nil
+cls.REQUIRE = [[cclua::runtime::registerFeature("bugly", true);]]
 cls.ifdef('*', '#ifdef CCLUA_BUILD_BUGLY')
 cls.func(nil, 'static void init(const char *appid)')
 cls.func(nil, 'static void setUid(const char *uid)')

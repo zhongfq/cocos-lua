@@ -2,12 +2,111 @@
 
 NS_CCLUA_PLUGIN_BEGIN
 
+static void toJSONObject(cJSON *obj, cocos2d::ValueMap &map);
+
+static void toJSONArray(cJSON *obj, cocos2d::ValueVector &arr)
+{
+    for (auto &value : arr) {
+        switch(value.getType()) {
+            case cocos2d::Value::Type::BOOLEAN: {
+                cJSON_AddItemToArray(obj, cJSON_CreateBool(value.asBool()));
+                break;
+            }
+            case cocos2d::Value::Type::STRING: {
+                cJSON_AddItemToArray(obj, cJSON_CreateString(value.asString().c_str()));
+                break;
+            }
+            case cocos2d::Value::Type::VECTOR: {
+                cJSON *item = cJSON_CreateArray();
+                toJSONArray(item, value.asValueVector());
+                cJSON_AddItemToArray(obj, item);
+                break;
+            }
+            case cocos2d::Value::Type::NONE: {
+                cJSON_AddItemToArray(obj, cJSON_CreateNull());
+                break;
+            }
+            case cocos2d::Value::Type::MAP: {
+                cJSON *item = cJSON_CreateObject();
+                toJSONObject(item, value.asValueMap());
+                cJSON_AddItemToArray(obj, item);
+                break;
+            }
+            case cocos2d::Value::Type::BYTE:
+            case cocos2d::Value::Type::DOUBLE:
+            case cocos2d::Value::Type::FLOAT:
+            case cocos2d::Value::Type::INTEGER:
+            case cocos2d::Value::Type::UNSIGNED: {
+                cJSON_AddItemToArray(obj, cJSON_CreateNumber(value.asDouble()));
+                break;
+            }
+            default:
+                break;
+        }
+    }
+}
+
+static void toJSONObject(cJSON *obj, cocos2d::ValueMap &map)
+{
+    for (auto it = map.begin(); it != map.end(); ++it) {
+        const char *key = it->first.c_str();
+        cocos2d::Value &value = it->second;
+        switch(value.getType()) {
+            case cocos2d::Value::Type::BOOLEAN: {
+                cJSON_AddBoolToObject(obj, key, value.asBool());
+                break;
+            }
+            case cocos2d::Value::Type::STRING: {
+                cJSON_AddStringToObject(obj, key, value.asString().c_str());
+                break;
+            }
+            case cocos2d::Value::Type::VECTOR: {
+                cJSON *item = cJSON_CreateArray();
+                toJSONArray(item, value.asValueVector());
+                cJSON_AddItemToObject(obj, key, item);
+                break;
+            }
+            case cocos2d::Value::Type::NONE: {
+                cJSON_AddNullToObject(obj, key);
+                break;
+            }
+            case cocos2d::Value::Type::MAP: {
+                cJSON *item = cJSON_CreateObject();
+                toJSONObject(item, value.asValueMap());
+                cJSON_AddItemToObject(obj, key, item);
+                break;
+            }
+            case cocos2d::Value::Type::BYTE:
+            case cocos2d::Value::Type::DOUBLE:
+            case cocos2d::Value::Type::FLOAT:
+            case cocos2d::Value::Type::INTEGER:
+            case cocos2d::Value::Type::UNSIGNED: {
+                cJSON_AddNumberToObject(obj, key, value.asDouble());
+                break;
+            }
+            default:
+                break;
+        }
+    }
+}
+
 std::string toJSONString(cocos2d::ValueMap &value)
 {
     cJSON *obj = cJSON_CreateObject();
-
+    toJSONObject(obj, value);
     std::string result = cJSON_PrintUnformatted(obj);
     cJSON_Delete(obj);
+    return result;
+}
+
+std::string toJSONString(const std::set<std::string> &tags)
+{
+    cJSON *arr = cJSON_CreateArray();
+    for (auto iter : tags) {
+        cJSON_AddItemToArray(arr, cJSON_CreateString(iter.c_str()));
+    }
+    std::string result = cJSON_PrintUnformatted(arr);
+    cJSON_Delete(arr);
     return result;
 }
 

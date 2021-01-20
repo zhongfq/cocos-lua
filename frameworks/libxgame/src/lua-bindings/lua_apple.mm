@@ -4,6 +4,11 @@
 #import "cclua/PluginConnector.h"
 #import <AuthenticationServices/AuthenticationServices.h>
 
+#ifdef CCLUA_FEATURE_IDFA
+#import <AdSupport/AdSupport.h>
+#import <AppTrackingTransparency/AppTrackingTransparency.h>
+#endif
+
 @interface AppleConnector : PluginConnector<ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding>
 
 - (void)authorizationController:(ASAuthorizationController *)controller didCompleteWithAuthorization:(ASAuthorization *)authorization API_AVAILABLE(ios(13.0));
@@ -125,6 +130,17 @@ static int l_canMakeAuth(lua_State *L)
     return 1;
 }
 
+static int l_idfa(lua_State *L)
+{
+#ifdef CCLUA_FEATURE_IDFA
+    NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    lua_pushstring(L, [idfa UTF8String]);
+#else
+    lua_pushstring(L, "00000000-0000-0000-0000-000000000000");
+#endif
+    return 1;
+}
+
 LUALIB_API int luaopen_apple(lua_State *L)
 {
     oluacls_class(L, CLASS_CONNECTOR, nullptr);
@@ -132,6 +148,7 @@ LUALIB_API int luaopen_apple(lua_State *L)
     oluacls_func(L, "setDispatcher", l_setDispatcher);
     oluacls_func(L, "canMakeAuth", l_canMakeAuth);
     oluacls_func(L, "auth", l_auth);
+    oluacls_prop(L, "idfa", l_idfa, NULL);
     
     if (@available(iOS 13.0, *)) {
         cclua::runtime::registerFeature("apple.ios", true);

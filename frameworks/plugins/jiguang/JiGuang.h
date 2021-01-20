@@ -31,6 +31,24 @@ public:
 };
 #endif
 
+#ifdef CCLUA_BUILD_JAUTH
+class JAuth {
+public:
+    static void init(const std::string &appKey, const std::string &channel);
+    static bool isInitSuccess();
+    static void setDebug(bool enabled);
+    static bool checkVerifyEnable();
+    static void getToken(int timeout, const Callback callback);
+    static void preLogin(int timeout, const Callback callback);
+    static void clearPreLoginCache();
+    static void loginAuth(int timeout, const Callback callback);
+    static void dismissLoginAuth(bool needCloseAnim = true);
+    static void getSmsCode(const std::string &phonenum, const std::string &signid, const std::string &tempid, const Callback callback);
+    static void setSmsIntervalTime(long intervalTime);
+    static void configUI(cocos2d::ValueMap &value);
+};
+#endif
+
 #ifdef CCLUA_BUILD_JANALYTICS
 class JAnalytics {
 public:

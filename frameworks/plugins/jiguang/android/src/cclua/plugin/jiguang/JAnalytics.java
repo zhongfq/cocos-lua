@@ -28,9 +28,12 @@ public class JAnalytics {
     private static final String TAG = JAnalytics.class.getSimpleName();
     private static Application mContext;
 
-    enum EventType {
-        LOGIN, REGISTER, PURCHASE, BROWSE, COUNT, CALCULATE
-    }
+    public static final int LOGIN = 0;
+    public static final int REGISTER = 1;
+    public static final int PURCHASE = 2;
+    public static final int BROWSE = 3;
+    public static final int COUNT = 4;
+    public static final int CALCULATE = 5;
 
     static {
         PluginManager.registerPlugin(new PluginManager.Handler() {
@@ -77,11 +80,10 @@ public class JAnalytics {
         return null;
     }
 
-    public static void trackEvent(String type, String dataStr) {
+    public static void trackEvent(int type, String dataStr) {
         try {
-            EventType eventType = EventType.valueOf(type);
             JSONObject data = new JSONObject(dataStr);
-            switch (eventType) {
+            switch (type) {
                 case LOGIN: {
                     LoginEvent event = new LoginEvent();
                     event.setExtMap(getJsonExtra(data));

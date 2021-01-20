@@ -255,16 +255,6 @@ void __runtime_alert(const std::string title, const std::string message, const s
     });
 }
 
-std::string __runtime_getIDFA()
-{
-#ifdef CCLUA_FEATURE_IDFA
-    NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-    return [idfa UTF8String];
-#else
-    return "00000000-0000-0000-0000-000000000000";
-#endif
-}
-
 #endif
 
 void __runtime_openURL(const std::string uri, const std::function<void (bool)> callback)

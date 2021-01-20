@@ -185,6 +185,7 @@ static int luaopen_cclua_CrashReport(lua_State *L)
     oluacls_func(L, "setVersion", _cclua_CrashReport_setVersion);
 
     olua_registerluatype<cclua::CrashReport>(L, "cclua.CrashReport");
+    cclua::runtime::registerFeature("bugly", true);
 
     return 1;
 }

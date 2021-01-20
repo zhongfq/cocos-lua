@@ -18,6 +18,9 @@ public class Application extends android.app.Application {
         loadPlugin("cclua.plugin.oppo.Oppo");
         loadPlugin("cclua.plugin.alipay.Alipay");
         loadPlugin("cclua.plugin.talkingdata.TalkingData");
+        loadPlugin("cclua.plugin.jiguang.JPush");
+        loadPlugin("cclua.plugin.jiguang.JAuth");
+        loadPlugin("cclua.plugin.jiguang.JAnalytics");
 
         PluginManager.init(this);
     }

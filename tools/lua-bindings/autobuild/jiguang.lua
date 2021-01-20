@@ -46,6 +46,59 @@ cls.prop('enabled', nil, nil)
 cls.prop('registrationID', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cclua::plugin::JAuth'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = [[cclua::runtime::registerFeature("jauth", true);]]
+cls.ifdef('*', '#ifdef CCLUA_BUILD_JAUTH')
+cls.func(nil, 'static void init(const std::string &appKey, const std::string &channel)')
+cls.func(nil, 'static bool isInitSuccess()')
+cls.func(nil, 'static void setDebug(bool enabled)')
+cls.func(nil, 'static bool checkVerifyEnable()')
+cls.func(nil, 'static void clearPreLoginCache()')
+cls.func(nil, 'static void dismissLoginAuth(@optional bool needCloseAnim)')
+cls.func(nil, 'static void setSmsIntervalTime(long intervalTime)')
+cls.func(nil, 'static void configUI(cocos2d::ValueMap &value)')
+cls.callback {
+    FUNCS =  {
+        'static void getToken(int timeout, @local const std::function<void (const cocos2d::ValueMap &)> callback)'
+    },
+    TAG_MAKER = 'Token',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    TAG_SCOPE = 'once',
+}
+cls.callback {
+    FUNCS =  {
+        'static void preLogin(int timeout, @local const std::function<void (const cocos2d::ValueMap &)> callback)'
+    },
+    TAG_MAKER = 'preLogin',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    TAG_SCOPE = 'once',
+}
+cls.callback {
+    FUNCS =  {
+        'static void loginAuth(int timeout, @local const std::function<void (const cocos2d::ValueMap &)> callback)'
+    },
+    TAG_MAKER = 'loginAuth',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    TAG_SCOPE = 'once',
+}
+cls.callback {
+    FUNCS =  {
+        'static void getSmsCode(const std::string &phonenum, const std::string &signid, const std::string &tempid, @local const std::function<void (const cocos2d::ValueMap &)> callback)'
+    },
+    TAG_MAKER = 'SmsCode',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    TAG_SCOPE = 'once',
+}
+cls.prop('initSuccess', nil, nil)
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cclua::plugin::JAnalytics::EventType'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true

@@ -26,12 +26,26 @@ public class JPush {
             public void onInit(Application app) {
                 Log.i(TAG, "init jpush");
                 mContext = app;
+
+                testPushEnabled("jpush.oppo", "cn.jpush.android.service.PluginOppoPushService");
+                testPushEnabled("jpush.vivo", "cn.jpush.android.service.PluginVivoMessageReceiver");
+                testPushEnabled("jpush.xiaomi", "cn.jpush.android.service.PluginXiaomiPlatformsReceiver");
+                testPushEnabled("jpush.huawei", "cn.jpush.android.service.PluginHuaweiPlatformsService");
             }
 
             @Override
             public void onStart(Activity context) {
             }
         });
+    }
+
+    private static void testPushEnabled(String api, String clazz)
+    {
+        try {
+            Class<?> PushManager = Class.forName(clazz);
+            AppContext.registerFeature(api, true);
+        } catch (Throwable ignored) {
+        }
     }
 
     public static void init(String appKey, String channel) {

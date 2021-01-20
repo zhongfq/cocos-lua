@@ -12,6 +12,14 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cclua::plugin::JAuth *',
+    LUACLS = 'cclua.plugin.JAuth',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUM_VARS = nil,
+}
+
+typedef {
     CPPCLS = 'cclua::plugin::JAnalytics::EventType',
     LUACLS = 'cclua.plugin.JAnalytics.EventType',
     DECLTYPE = "lua_Unsigned",

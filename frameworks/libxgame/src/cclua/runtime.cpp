@@ -410,15 +410,6 @@ void runtime::alert(const std::string &title, const std::string &message, const 
 #endif
 }
 
-std::string runtime::getIDFA()
-{
-#ifdef CCLUA_OS_IOS
-    return __runtime_getIDFA();
-#else
-    return "";
-#endif
-}
-
 //
 // event dispatch
 //

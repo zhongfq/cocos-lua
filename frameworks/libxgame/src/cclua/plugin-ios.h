@@ -12,12 +12,9 @@ static NSString *toNSString(const std::string &value)
     return [NSString stringWithUTF8String:value.c_str()];
 }
 
-static NSString *toNSString(const cocos2d::Value &value) {
-    if (value.getType() == cocos2d::Value::Type::STRING) {
-        return toNSString(value.asString());
-    } else {
-        return nil;
-    }
+static NSString *toNSString(const cocos2d::Value &value)
+{
+    return toNSString(value.asString());
 }
 
 static NSObject *toNSObject(const cocos2d::Value &value)

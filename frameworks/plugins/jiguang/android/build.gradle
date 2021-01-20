@@ -34,4 +34,5 @@ dependencies {
     api 'cn.jiguang.sdk:jpush:3.9.0'
     api 'cn.jiguang.sdk:jcore:2.6.0'
     api 'cn.jiguang.sdk:janalytics:2.1.2'
+    api 'cn.jiguang.sdk:jverification:2.6.7'
 }

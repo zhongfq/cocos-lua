@@ -2,11 +2,11 @@
 
 #ifdef CCLUA_OS_ANDROID
 #include "platform/android/jni/JniHelper.h"
-#include "cjson/cJSON.h"
 
 NS_CCLUA_PLUGIN_BEGIN
 
 #define JAVA_JPUSH_CLASS        "cclua/plugin/jiguang/JPush"
+#define JAVA_JAUTH_CLASS        "cclua/plugin/jiguang/JAuth"
 #define JAVA_JANALYTICS_CLASS   "cclua/plugin/jiguang/JAnalytics"
 
 USING_NS_CC;
@@ -28,31 +28,19 @@ void JPush::deleteAlias()
     JniHelper::callStaticVoidMethod(JAVA_JPUSH_CLASS, "deleteAlias");
 }
 
-static std::string toJsonString(const std::set<std::string> &tags)
-{
-    cJSON *arr = cJSON_CreateArray();
-    for (auto iter : tags) {
-        cJSON_AddItemToArray(arr, cJSON_CreateString(iter.c_str()));
-    }
-    std::string result = cJSON_PrintUnformatted(arr);
-    runtime::log("[DEBUG] toJsonString: %s", result.c_str());
-    cJSON_Delete(arr);
-    return result;
-}
-
 void JPush::addTags(const std::set<std::string> &tags)
 {
-    JniHelper::callStaticVoidMethod(JAVA_JPUSH_CLASS, "addTags", toJsonString(tags));
+    JniHelper::callStaticVoidMethod(JAVA_JPUSH_CLASS, "addTags", toJSONString(tags));
 }
 
 void JPush::setTags(const std::set<std::string> &tags)
 {
-    JniHelper::callStaticVoidMethod(JAVA_JPUSH_CLASS, "setTags", toJsonString(tags));
+    JniHelper::callStaticVoidMethod(JAVA_JPUSH_CLASS, "setTags", toJSONString(tags));
 }
 
 void JPush::deleteTags(const std::set<std::string> &tags)
 {
-    JniHelper::callStaticVoidMethod(JAVA_JPUSH_CLASS, "deleteTags", toJsonString(tags));
+    JniHelper::callStaticVoidMethod(JAVA_JPUSH_CLASS, "deleteTags", toJSONString(tags));
 }
 
 void JPush::cleanTags()
@@ -89,6 +77,77 @@ std::string JPush::getRegistrationID()
 {
     return JniHelper::callStaticStringMethod(JAVA_JPUSH_CLASS, "getRegistrationID");
 }
+#endif // CCLUA_BUILD_JPUSH
+
+#ifdef CCLUA_BUILD_JAUTH
+void JAuth::init(const std::string &appKey, const std::string &channel)
+{
+    JniHelper::callStaticVoidMethod(JAVA_JAUTH_CLASS, "init", appKey, channel);
+}
+
+bool JAuth::isInitSuccess()
+{
+    return JniHelper::callStaticBooleanMethod(JAVA_JAUTH_CLASS, "isInitSuccess");
+}
+
+void JAuth::setDebug(bool enabled)
+{
+    JniHelper::callStaticVoidMethod(JAVA_JAUTH_CLASS, "setDebug", enabled);
+}
+
+bool JAuth::checkVerifyEnable()
+{
+    return JniHelper::callStaticBooleanMethod(JAVA_JAUTH_CLASS, "checkVerifyEnable");
+}
+
+static int ref(const Callback callback) {
+    return runtime::ref([=](const std::string &args){
+        ValueMap data;
+        parseJSONString(args, data);
+        callback(data);
+    });
+}
+
+void JAuth::getToken(int timeout, const Callback callback)
+{
+    JniHelper::callStaticVoidMethod(JAVA_JAUTH_CLASS, "getToken", timeout, ref(callback));
+}
+
+void JAuth::preLogin(int timeout, const Callback callback)
+{
+    JniHelper::callStaticVoidMethod(JAVA_JAUTH_CLASS, "preLogin", timeout, ref(callback));
+}
+
+void JAuth::clearPreLoginCache()
+{
+    JniHelper::callStaticVoidMethod(JAVA_JAUTH_CLASS, "clearPreLoginCache");
+}
+
+void JAuth::loginAuth(int timeout, const Callback callback)
+{
+    JniHelper::callStaticVoidMethod(JAVA_JAUTH_CLASS, "loginAuth", timeout, ref(callback));
+}
+
+void JAuth::dismissLoginAuth(bool needCloseAnim)
+{
+    JniHelper::callStaticVoidMethod(JAVA_JAUTH_CLASS, "dismissLoginAuth", needCloseAnim);
+}
+
+void JAuth::getSmsCode(const std::string &phonenum, const std::string &signid, const std::string &tempid, const Callback callback)
+{
+    JniHelper::callStaticVoidMethod(JAVA_JAUTH_CLASS, "getSmsCode", phonenum, signid, tempid, ref(callback));
+}
+
+void JAuth::setSmsIntervalTime(long intervalTime)
+{
+    JniHelper::callStaticVoidMethod(JAVA_JAUTH_CLASS, "setSmsIntervalTime", intervalTime);
+}
+
+void JAuth::configUI(cocos2d::ValueMap &value)
+{
+    JniHelper::callStaticVoidMethod(JAVA_JAUTH_CLASS, "configUI", toJSONString(value));
+}
+
 #endif
 
 #ifdef CCLUA_BUILD_JANALYTICS
@@ -109,137 +168,12 @@ void JAnalytics::stopTrackPage(const std::string &pageName)
 
 void JAnalytics::trackEvent(EventType type, cocos2d::ValueMap &value)
 {
-    cJSON *obj = cJSON_CreateObject();
-    std::string event;
-    switch (type) {
-        case EventType::LOGIN: {
-            event = "LOGIN";
-            cJSON_AddStringToObject(obj, "method", value["method"].asString().c_str());
-            cJSON_AddBoolToObject(obj, "success", value["success"].asBool());
-            break;
-        }
-        case EventType::REGISTER: {
-            event = "REGISTER";
-            cJSON_AddStringToObject(obj, "method", value["method"].asString().c_str());
-            cJSON_AddBoolToObject(obj, "success", value["success"].asBool());
-            break;
-        }
-        case EventType::PURCHASE: {
-            event = "PURCHASE";
-            cJSON_AddNumberToObject(obj, "price", value["price"].asDouble());
-            cJSON_AddBoolToObject(obj, "success", value["success"].asBool());
-            cJSON_AddStringToObject(obj, "id", value["id"].asString().c_str());
-            cJSON_AddStringToObject(obj, "name", value["name"].asString().c_str());
-            cJSON_AddStringToObject(obj, "type", value["type"].asString().c_str());
-            cJSON_AddStringToObject(obj, "currency", value["currency"].asString() == "CNY" ? "CNY" : "USD");
-            cJSON_AddNumberToObject(obj, "quantity", value["quantity"].asDouble());
-            break;
-        }
-        case EventType::BROWSE: {
-            event = "BROWSE";
-            cJSON_AddStringToObject(obj, "name", value["name"].asString().c_str());
-            cJSON_AddStringToObject(obj, "id", value["id"].asString().c_str());
-            cJSON_AddStringToObject(obj, "type", value["type"].asString().c_str());
-            cJSON_AddNumberToObject(obj, "duration", value["duration"].asDouble());
-            break;
-        }
-        case EventType::COUNT: {
-            event = "COUNT";
-            cJSON_AddStringToObject(obj, "id", value["id"].asString().c_str());
-            break;
-        }
-        case EventType::CALCULATE: {
-            event = "CALCULATE";
-            cJSON_AddStringToObject(obj, "id", value["id"].asString().c_str());
-            cJSON_AddNumberToObject(obj, "value", value["value"].asDouble());
-            break;
-        }
-    }
-
-    if (value["extra"].getType() == cocos2d::Value::Type::MAP) {
-        cocos2d::ValueMap &map = value["extra"].asValueMap();
-        cJSON *extra = cJSON_CreateObject();
-        cJSON_AddItemToObject(obj, "extra", extra);
-        for (auto it = map.begin(); it != map.end(); ++it) {
-            cJSON_AddStringToObject(extra, it->first.c_str(), it->second.asString().c_str());
-        }
-    }
-
-    cJSON_AddStringToObject(obj, "event", event.c_str());
-
-    std::string info = cJSON_PrintUnformatted(obj);
-    runtime::log("[DEBUG] info: %s", info.c_str());
-    JniHelper::callStaticVoidMethod(JAVA_JANALYTICS_CLASS, "trackEvent", event, info);
-    cJSON_Delete(obj);
+    JniHelper::callStaticVoidMethod(JAVA_JANALYTICS_CLASS, "trackEvent", (int)type, toJSONString(value));
 }
 
 void JAnalytics::identifyAccount(cocos2d::ValueMap &value)
 {
-    cJSON *obj = cJSON_CreateObject();
-    cJSON_AddStringToObject(obj, "account", value["account"].asString().c_str());
-    if (value.find("creationTime") != value.end()) {
-        cJSON_AddNumberToObject(obj, "creationTime", value["creationTime"].asDouble());
-    }
-    if (value.find("sex") != value.end()) {
-        cJSON_AddNumberToObject(obj, "sex", value["sex"].asInt());
-    }
-    if (value.find("birthday") != value.end()) {
-        cJSON_AddStringToObject(obj, "birthday", value["birthday"].asString().c_str());
-    }
-    if (value.find("paid") != value.end()) {
-        cJSON_AddNumberToObject(obj, "paid", value["paid"].asInt());
-    }
-    if (value.find("phone") != value.end()) {
-        cJSON_AddStringToObject(obj, "phone", value["phone"].asString().c_str());
-    }
-    if (value.find("email") != value.end()) {
-        cJSON_AddStringToObject(obj, "email", value["email"].asString().c_str());
-    }
-    if (value.find("name") != value.end()) {
-        cJSON_AddStringToObject(obj, "name", value["name"].asString().c_str());
-    }
-    if (value.find("wechat") != value.end()) {
-        cJSON_AddStringToObject(obj, "wechat", value["wechat"].asString().c_str());
-    }
-    if (value.find("qq") != value.end()) {
-        cJSON_AddStringToObject(obj, "qq", value["qq"].asString().c_str());
-    }
-    if (value.find("weibo") != value.end()) {
-        cJSON_AddStringToObject(obj, "weibo", value["weibo"].asString().c_str());
-    }
-    if (value["extras"].getType() == cocos2d::Value::Type::MAP) {
-        cocos2d::ValueMap &map = value["extras"].asValueMap();
-        cJSON *extras = cJSON_CreateObject();
-        cJSON_AddItemToObject(obj, "extras", extras);
-        for (auto it = map.begin(); it != map.end(); ++it) {
-            switch (it->second.getType()) {
-                case cocos2d::Value::Type::UNSIGNED:
-                case cocos2d::Value::Type::INTEGER:
-                case cocos2d::Value::Type::FLOAT:
-                case cocos2d::Value::Type::DOUBLE:
-                {
-                    cJSON_AddNumberToObject(extras, it->first.c_str(), it->second.asDouble());
-                    break;
-                }
-                case cocos2d::Value::Type::STRING:
-                {
-                    cJSON_AddStringToObject(extras, it->first.c_str(), it->second.asString().c_str());
-                    break;
-                }
-                case cocos2d::Value::Type::NONE:
-                {
-                    cJSON_AddNullToObject(extras, it->first.c_str());
-                    break;
-                }
-                default:
-                    break;
-            }
-        }
-    }
-    std::string account = cJSON_PrintUnformatted(obj);
-    runtime::log("[DEBUG] account: %s", account.c_str());
-    JniHelper::callStaticVoidMethod(JAVA_JANALYTICS_CLASS, "identifyAccount", account);
-    cJSON_Delete(obj);
+    JniHelper::callStaticVoidMethod(JAVA_JANALYTICS_CLASS, "identifyAccount", toJSONString(value));
 }
 
 void JAnalytics::detachAccount()
@@ -257,7 +191,7 @@ void JAnalytics::setDebug(bool enable)
     JniHelper::callStaticVoidMethod(JAVA_JANALYTICS_CLASS, "setDebug", enable);
 }
 
-#endif
+#endif // CCLUA_BUILD_JANALYTICS
 
 NS_CCLUA_PLUGIN_END
 

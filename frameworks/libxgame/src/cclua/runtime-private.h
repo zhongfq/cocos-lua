@@ -25,7 +25,6 @@ const std::string __runtime_getAudioSessionCatalog();
 void __runtime_alert(const std::string title, const std::string message, const std::string ok, const std::string no, const std::function<void (bool)> callback);
 cclua::PermissionStatus __runtime_getPermissionStatus(cclua::Permission permission);
 void __runtime_requestPermission(cclua::Permission permission, const std::function<void (cclua::PermissionStatus)> callback);
-std::string __runtime_getIDFA();
 #endif
 
 #ifdef CCLUA_OS_ANDROID

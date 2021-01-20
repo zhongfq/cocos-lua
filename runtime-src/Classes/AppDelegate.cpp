@@ -56,7 +56,7 @@
 #define BUGLY_APPID "<no appid>"
 #endif
 
-#if defined(CCLUA_BUILD_JPUSH) || defined(CCLUA_BUILD_JANALYTICS)
+#if defined(CCLUA_BUILD_JPUSH) || defined(CCLUA_BUILD_JANALYTICS) || defined(CCLUA_BUILD_JAUTH)
 #include "jiguang/lua_jiguang.h"
 #include "jiguang/JiGuang.h"
 #define JPUSH_KEY "JPUSH_KEY"
@@ -90,7 +90,7 @@ static int _open_plugins(lua_State *L)
     olua_callfunc(L, luaopen_swf);
 #endif
     
-#if defined(CCLUA_BUILD_JPUSH) || defined(CCLUA_BUILD_JANALYTICS)
+#if defined(CCLUA_BUILD_JPUSH) || defined(CCLUA_BUILD_JANALYTICS) || defined(CCLUA_BUILD_JAUTH)
     olua_callfunc(L, luaopen_jiguang);
 #endif
     
@@ -122,6 +122,10 @@ bool AppDelegate::applicationDidFinishLaunching()
     
 #if defined(CCLUA_BUILD_JPUSH)
     plugin::JPush::init(JPUSH_KEY, runtime::getChannel());
+#endif
+    
+#if defined(CCLUA_BUILD_JAUTH)
+    plugin::JAuth::init(JPUSH_KEY, runtime::getChannel());
 #endif
     
 #if defined(CCLUA_BUILD_JANALYTICS)

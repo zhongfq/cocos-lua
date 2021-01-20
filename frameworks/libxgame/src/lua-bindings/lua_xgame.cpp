@@ -536,19 +536,6 @@ static int _cclua_runtime_getDeviceInfo(lua_State *L)
     return num_ret;
 }
 
-static int _cclua_runtime_getIDFA(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    // static std::string getIDFA()
-    std::string ret = cclua::runtime::getIDFA();
-    int num_ret = olua_push_std_string(L, ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
 static int _cclua_runtime_getLanguage(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1025,7 +1012,6 @@ static int luaopen_cclua_runtime(lua_State *L)
     oluacls_func(L, "getChannel", _cclua_runtime_getChannel);
     oluacls_func(L, "getCocosVersion", _cclua_runtime_getCocosVersion);
     oluacls_func(L, "getDeviceInfo", _cclua_runtime_getDeviceInfo);
-    oluacls_func(L, "getIDFA", _cclua_runtime_getIDFA);
     oluacls_func(L, "getLanguage", _cclua_runtime_getLanguage);
     oluacls_func(L, "getLogPath", _cclua_runtime_getLogPath);
     oluacls_func(L, "getManifestVersion", _cclua_runtime_getManifestVersion);
@@ -1059,7 +1045,6 @@ static int luaopen_cclua_runtime(lua_State *L)
     oluacls_prop(L, "cocosVersion", _cclua_runtime_getCocosVersion, nullptr);
     oluacls_prop(L, "debug", _cclua_runtime_isDebug, nullptr);
     oluacls_prop(L, "deviceInfo", _cclua_runtime_getDeviceInfo, nullptr);
-    oluacls_prop(L, "idfa", _cclua_runtime_getIDFA, nullptr);
     oluacls_prop(L, "language", _cclua_runtime_getLanguage, nullptr);
     oluacls_prop(L, "logPath", _cclua_runtime_getLogPath, _cclua_runtime_setLogPath);
     oluacls_prop(L, "manifestVersion", _cclua_runtime_getManifestVersion, _cclua_runtime_setManifestVersion);

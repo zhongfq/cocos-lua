@@ -22,7 +22,9 @@ M.EXCLUDE_TYPE = require "conf.exclude-type"
 
 typeconf "cclua::CrashReport::LogLevel"
     .IFDEF('*', CCLUA_BUILD_BUGLY)
-typeconf "cclua::CrashReport"
-    .IFDEF('*', CCLUA_BUILD_BUGLY)
+
+local CrashReport = typeconf "cclua::CrashReport"
+CrashReport.REQUIRE = 'cclua::runtime::registerFeature("bugly", true);'
+CrashReport.IFDEF('*', CCLUA_BUILD_BUGLY)
 
 return M

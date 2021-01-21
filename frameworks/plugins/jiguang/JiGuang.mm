@@ -358,10 +358,10 @@ void JAuth::loginAuth(int timeout, const Callback callback)
     @autoreleasepool {
         [JVERIFICATIONService getAuthorizationWithController:[[[UIApplication sharedApplication] keyWindow] rootViewController] hide:YES animated:YES timeout:timeout completion:^(NSDictionary *result) {
             cocos2d::ValueMap data;
-            if ([[result allKeys] containsObject:@"token"]) {
+            if ([[result allKeys] containsObject:@"loginToken"]) {
                 data["success"] = true;
                 data["code"] = [[result objectForKey:@"code"] intValue];
-                data["token"] = [[result objectForKey:@"token"] UTF8String];
+                data["token"] = [[result objectForKey:@"loginToken"] UTF8String];
                 data["operator"] = [[result objectForKey:@"operator"] UTF8String];
             } else {
                 data["code"] = [[result objectForKey:@"code"] intValue];
@@ -392,6 +392,9 @@ void JAuth::getSmsCode(const std::string &phonenum, const std::string &signid, c
             data["code"] = [[result objectForKey:@"code"] intValue];
             data["success"] = data["code"].asInt() == 3000;
             data["content"] = [[result objectForKey:@"msg"] UTF8String];
+            if (data["success"].asBool()) {
+                data["uuid"] = [[result objectForKey:@"uuid"] UTF8String];
+            }
             runtime::runOnCocosThread([=]{
                 callback(data);
             });
@@ -422,7 +425,11 @@ static inline NSAttributedString *toNSAttributedString(cocos2d::Value &value)
 
 static inline UIImage* toUIImage(cocos2d::Value &value)
 {
-    return [UIImage imageWithContentsOfFile:toNSString(value)];
+    UIImage *img = [UIImage imageWithContentsOfFile:toNSString(value)];
+    if (!img) {
+        img = [UIImage imageNamed:toNSString(value)];
+    }
+    return img;
 }
 
 static inline BOOL toBool(cocos2d::Value &value)
@@ -441,13 +448,6 @@ static UIEdgeInsets toUIEdgeInsets(cocos2d::Value &value)
     return UIEdgeInsetsMake(toCGFloat(map["top"]), toCGFloat(map["left"]), toCGFloat(map["bottom"]), toCGFloat(map["right"]));
 }
 
-static NSArray *toPrivacy(cocos2d::Value &value)
-{
-    cocos2d::ValueVector &arr = value.asValueVector();
-    CCASSERT(arr.size() >= 2, "privacy text error");
-    return [NSArray arrayWithObjects:toNSString(arr[0]), toNSString(arr[1]), nil];
-}
-
 static NSArray *toPrivacyColor(cocos2d::Value &value)
 {
     cocos2d::ValueVector &arr = value.asValueVector();
@@ -455,47 +455,39 @@ static NSArray *toPrivacyColor(cocos2d::Value &value)
     return [NSArray arrayWithObjects:toUIColor(arr[0]), toUIColor(arr[1]), nil];
 }
 
-static NSArray *toCloseBtnImages(cocos2d::Value &value)
+static NSArray *toImages(cocos2d::Value &value)
 {
-    cocos2d::ValueVector &arr = value.asValueVector();
-    CCASSERT(arr.size() >= 2, "close btn image error");
-    return [NSArray arrayWithObjects:toUIImage(arr[0]), toUIImage(arr[1]), nil];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    for (auto &v : value.asValueVector()) {
+        [arr addObject:toUIImage(v)];
+    }
+    return arr;
 }
 
-static NSArray *toPrivacyComponents(cocos2d::Value &value)
+static NSArray *toStrings(cocos2d::Value &value)
 {
-    cocos2d::ValueVector &arr = value.asValueVector();
-    CCASSERT(arr.size() >= 4, "privacy components error");
-    return [NSArray arrayWithObjects:toNSString(arr[0]), toNSString(arr[1]), toNSString(arr[2]), toNSString(arr[3]), nil];
-}
-
-static JVLayoutConstraint *toJVLayoutConstraint(cocos2d::Value &value)
-{
-    cocos2d::ValueVector &arr = value.asValueVector();
-    CCASSERT(arr.size() >= 6, "constraint error");
-    return [JVLayoutConstraint constraintWithAttribute:(NSLayoutAttribute)arr[0].asInt()
-                                             relatedBy:(NSLayoutRelation)arr[1].asInt()
-                                                toItem:(JVLayoutItem)arr[2].asInt()
-                                             attribute:(NSLayoutAttribute)arr[3].asInt()
-                                            multiplier:(CGFloat)arr[4].asFloat()
-                                              constant:(CGFloat)arr[5].asFloat()];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    for (auto &v : value.asValueVector()) {
+        [arr addObject:toNSString(v)];
+    }
+    return arr;
 }
 
 static NSArray *toConstraints(cocos2d::Value &value)
 {
-    cocos2d::ValueVector &arr = value.asValueVector();
-    CCASSERT(arr.size() >= 4, "constraints error");
-    return [NSArray arrayWithObjects:toJVLayoutConstraint(arr[0]), toJVLayoutConstraint(arr[1]), toJVLayoutConstraint(arr[2]), toJVLayoutConstraint(arr[3]), nil];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    for (auto &v : value.asValueVector()) {
+        cocos2d::ValueVector &args = v.asValueVector();
+        args.resize(6);
+        JVLayoutConstraint *c = [JVLayoutConstraint constraintWithAttribute:(NSLayoutAttribute)args[0].asInt() relatedBy:(NSLayoutRelation)args[1].asInt() toItem:(JVLayoutItem)args[2].asInt() attribute:(NSLayoutAttribute)args[3].asInt() multiplier:(CGFloat)args[4].asFloat() constant:(CGFloat)args[5].asFloat()];
+        [arr addObject:c];
+    }
+    return arr;
 }
 
 #define setValue(NAME, FUNC) do {                   \
     if (value.find(#NAME) != value.end())           \
         config.NAME = FUNC(value[#NAME]);           \
-} while (0)
-
-#define setBool(NAME) do {                          \
-    if (value.find(#NAME) != value.end())           \
-        config.NAME = value[#NAME].asBool();        \
 } while (0)
 
 #define setEnum(NAME, ENUM) do {                    \
@@ -533,6 +525,7 @@ void JAuth::configUI(cocos2d::ValueMap &value)
         setValue(logBtnConstraints, toConstraints);
         setValue(logBtnHorizontalConstraints, toConstraints);
         setValue(logBtnTextColor, toUIColor);
+        setValue(logBtnImgs, toImages);
         setValue(numberColor, toUIColor);
         setValue(numberSize, toCGFloat);
         setValue(numberConstraints, toConstraints);
@@ -543,11 +536,11 @@ void JAuth::configUI(cocos2d::ValueMap &value)
         setValue(checkViewConstraints, toConstraints);
         setValue(checkViewHorizontalConstraints, toConstraints);
         setValue(privacyState, toBool);
-        setValue(appPrivacyOne, toPrivacy);
-        setValue(appPrivacyTwo, toPrivacy);
+        setValue(appPrivacyOne, toStrings);
+        setValue(appPrivacyTwo, toStrings);
         setValue(appPrivacyColor, toPrivacyColor);
         setValue(privacyTextFontSize, toCGFloat);
-        setValue(privacyComponents, toPrivacyComponents);
+        setValue(privacyComponents, toStrings);
         setValue(privacyTextFontSize, toCGFloat);
         setValue(privacyShowBookSymbol, toBool);
         setValue(privacyLineSpacing, toCGFloat);
@@ -568,7 +561,7 @@ void JAuth::configUI(cocos2d::ValueMap &value)
         setValue(windowBackgroundImage, toUIImage);
         setValue(windowBackgroundAlpha, toCGFloat);
         setValue(windowCornerRadius, toCGFloat);
-        setValue(windowCloseBtnImgs, toCloseBtnImages);
+        setValue(windowCloseBtnImgs, toImages);
         setValue(windowConstraints, toConstraints);
         setValue(windowHorizontalConstraints, toConstraints);
         setValue(windowCloseBtnConstraints, toConstraints);

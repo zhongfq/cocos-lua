@@ -8,6 +8,8 @@
 #import <Photos/Photos.h>
 #import <UIKit/UIKit.h>
 
+USING_NS_CCLUA;
+
 static UIImage *image_resize_to(UIImage *image, int width, int height)
 {
     UIGraphicsBeginImageContext(CGSizeMake(width, height));
@@ -182,7 +184,7 @@ static int _set_callback(lua_State *L)
 
 static void did_request_permission(int handler, bool granted)
 {
-    cclua::runtime::runOnCocosThread([handler, granted]() {
+    runtime::runOnCocosThread([handler, granted]() {
         lua_State *L = olua_mainthread(NULL);
         int top = lua_gettop(L);
         olua_pusherrorfunc(L);
@@ -196,68 +198,38 @@ static void did_request_permission(int handler, bool granted)
     });
 }
 
-static void request_photolibray_permission(lua_State *L)
+static void request_photolibray_permission(int handler)
 {
-    int handler = olua_funcref(L, 3);
-    PHAuthorizationStatus current_status = [PHPhotoLibrary authorizationStatus];
-    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-        if (current_status == PHAuthorizationStatusDenied || status == PHAuthorizationStatusRestricted)
-        {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSString *appName = [[[NSBundle mainBundle]infoDictionary] objectForKey:@"CFBundleDisplayName"];
-                NSString *title = @"没有权限访问您的照片";
-                NSString *message = [NSString stringWithFormat:@"请在iPhone的”设置-隐私-照片“选项中，允许%@访问您的照片", appName];
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    did_request_permission(handler, false);
-                }]];
-                [alert addAction:[UIAlertAction actionWithTitle:@"去设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{@"url":@""} completionHandler: ^(BOOL success){
-                        // 如果在设置界面启用了权限，那么应用程序会重启
-                        did_request_permission(handler, false);
-                    }];
-                }]];
-                UIViewController *rootViewController = [[UIApplication sharedApplication] keyWindow].rootViewController;
-                [rootViewController presentViewController:alert animated:YES completion:nil];
+    PermissionStatus current = runtime::getPermissionStatus(Permission::PHOTO);
+    runtime::requestPermission(Permission::PHOTO, [=](PermissionStatus status) {
+        if (current == PermissionStatus::DENIED || status == PermissionStatus::RESTRICTED) {
+            std::string appName = [[[[NSBundle mainBundle]infoDictionary] objectForKey:@"CFBundleDisplayName"] UTF8String];
+            std::string title = "没有权限访问您的照片";
+            std::string message = "请在iPhone的”设置-隐私-照片“选项中，允许" + appName + "访问您的照片";
+            runtime::openAppSetting(title, message, [=]() {
+                did_request_permission(handler, status == PermissionStatus::AUTHORIZED);
             });
+        } else {
+            did_request_permission(handler, status == PermissionStatus::AUTHORIZED);
         }
-        else
-        {
-            did_request_permission(handler, status == PHAuthorizationStatusAuthorized);
-        }
-    }];
+    });
 }
 
-static void request_camera_permission(lua_State *L)
+static void request_camera_permission(int handler)
 {
-    int handler = olua_funcref(L, 3);
-    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-        if (granted || status != AVAuthorizationStatusDenied)
-        {
-            did_request_permission(handler, granted);
-        }
-        else
-        {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSString *appName = [[[NSBundle mainBundle]infoDictionary] objectForKey:@"CFBundleDisplayName"];
-                NSString *title = @"没有权限访问您的相机";
-                NSString *message = [NSString stringWithFormat:@"请在iPhone的”设置-隐私-相机“选项中，允许%@访问您的相机", appName];
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    did_request_permission(handler, granted);
-                }]];
-                [alert addAction:[UIAlertAction actionWithTitle:@"去设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{@"url":@""} completionHandler: ^(BOOL success){
-                        // 如果在设置界面启用了权限，那么应用程序会重启
-                        did_request_permission(handler, granted);
-                    }];
-                }]];
-                UIViewController *rootViewController = [[UIApplication sharedApplication] keyWindow].rootViewController;
-                [rootViewController presentViewController:alert animated:YES completion:nil];
+    PermissionStatus current = runtime::getPermissionStatus(Permission::CAMERA);
+    runtime::requestPermission(Permission::CAMERA, [=](PermissionStatus status) {
+        if (current == PermissionStatus::DENIED || status == PermissionStatus::RESTRICTED) {
+            std::string appName = [[[[NSBundle mainBundle]infoDictionary] objectForKey:@"CFBundleDisplayName"] UTF8String];
+            std::string title = "没有权限访问您的相机";
+            std::string message = "请在iPhone的”设置-隐私-相机“选项中，允许" + appName + "访问您的相机";
+            runtime::openAppSetting(title, message, [=]() {
+                did_request_permission(handler, status == PermissionStatus::AUTHORIZED);
             });
+        } else {
+            did_request_permission(handler, status == PermissionStatus::AUTHORIZED);
         }
-    }];
+    });
 }
 
 static int _request_permission(lua_State *L)
@@ -266,9 +238,9 @@ static int _request_permission(lua_State *L)
         lua_settop(L, 3);
         const char *type = luaL_checkstring(L, 2);
         if (strequal(type, "PHOTO")) {
-            request_photolibray_permission(L);
+            request_photolibray_permission(olua_funcref(L, 3));
         } else {
-            request_camera_permission(L);
+            request_camera_permission(olua_funcref(L, 3));
         }
     }
     return 0;
@@ -322,7 +294,7 @@ int luaopen_photo(lua_State *L)
     oluacls_func(L, "takeAvatar", _take_avatar);
     oluacls_func(L, "select", _select_image);
     
-    cclua::runtime::registerFeature("photo.ios", true);
+    runtime::registerFeature("photo.ios", true);
     
     @autoreleasepool {
         PhotoConnector *connector = [PhotoConnector new];

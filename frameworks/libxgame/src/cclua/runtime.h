@@ -126,6 +126,10 @@ public:
     static const std::string getAudioSessionCatalog();
     static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> callback);
     
+#ifdef CCLUA_OS_IOS
+    static void openAppSetting(const std::string &title, const std::string &message, const std::function<void()> &callback);
+#endif
+    
     // event dispatch
     typedef std::function<void (const std::string &event, const std::string &args)> EventDispatcher;
     static void setDispatcher(const EventDispatcher &dispatcher);

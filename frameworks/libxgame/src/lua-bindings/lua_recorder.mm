@@ -8,7 +8,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 
-using namespace cocos2d;
+USING_NS_CC;
+USING_NS_CCLUA;
 
 @interface RecorderConnector : PluginConnector
 @property(readwrite, strong, nonatomic) NSString *filename;
@@ -34,12 +35,12 @@ using namespace cocos2d;
 {
     if (_recorder != nil)
     {
-        cclua::runtime::log("only allow to run single instance");
+        runtime::log("only allow to run single instance");
         return;
     }
     
     self.filename = filename;
-    self.sessionCatalog = [NSString stringWithUTF8String:cclua::runtime::getAudioSessionCatalog().c_str()];
+    self.sessionCatalog = [NSString stringWithUTF8String:runtime::getAudioSessionCatalog().c_str()];
     
     FileUtils::getInstance()->removeFile([self.filename UTF8String]);
     
@@ -78,7 +79,7 @@ using namespace cocos2d;
         self.recorder = nil;
         
         [[AVAudioSession sharedInstance] setCategory:self.sessionCatalog error:nil];
-        cclua::runtime::setAudioSessionCatalog([self.sessionCatalog UTF8String]);
+        runtime::setAudioSessionCatalog([self.sessionCatalog UTF8String]);
     }
 }
 
@@ -123,7 +124,7 @@ static int _set_callback(lua_State *L)
 
 static void did_request_permission(int handler, bool granted)
 {
-    cclua::runtime::runOnCocosThread([handler, granted]() {
+    runtime::runOnCocosThread([handler, granted]() {
         lua_State *L = olua_mainthread(NULL);
         int top = lua_gettop(L);
         olua_pusherrorfunc(L);
@@ -142,34 +143,19 @@ static int _request_permission(lua_State *L)
     @autoreleasepool {
         lua_settop(L, 2);
         int handler = olua_funcref(L, 2);
-        AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
-        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
-            if (granted || status != AVAuthorizationStatusDenied)
-            {
-                did_request_permission(handler, granted);
-            }
-            else
-            {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSString *appName = [[[NSBundle mainBundle]infoDictionary] objectForKey:@"CFBundleDisplayName"];
-                    NSString *title = @"没有权限访问您的麦克风";
-                    NSString *message = [NSString stringWithFormat:@"请在iPhone的”设置-隐私-麦克风“选项中，允许%@访问您的麦克风", appName];
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-                    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                        did_request_permission(handler, granted);
-                    }]];
-                    [alert addAction:[UIAlertAction actionWithTitle:@"去设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{@"url":@""} completionHandler: ^(BOOL success){
-                            // 如果在设置界面启用了录音权限，那么应用程序会重启
-                            did_request_permission(handler, granted);
-                        }];
-                    }]];
-                    UIViewController *rootViewController = [[UIApplication sharedApplication] keyWindow].rootViewController;
-                    [rootViewController presentViewController:alert animated:YES completion:nil];
+        PermissionStatus current = runtime::getPermissionStatus(Permission::AUDIO);
+        runtime::requestPermission(Permission::AUDIO, [=](PermissionStatus status) {
+            if (current == PermissionStatus::DENIED || status == PermissionStatus::RESTRICTED) {
+                std::string appName = [[[[NSBundle mainBundle]infoDictionary] objectForKey:@"CFBundleDisplayName"] UTF8String];
+                std::string title = "没有权限访问您的麦克风";
+                std::string message = "请在iPhone的”设置-隐私-麦克风“选项中，允许" + appName + "访问您的麦克风";
+                runtime::openAppSetting(title, message, [=]() {
+                    did_request_permission(handler, status == PermissionStatus::AUTHORIZED);
                 });
+            } else {
+                did_request_permission(handler, status == PermissionStatus::AUTHORIZED);
             }
-        }];
-
+        });
     }
     
     return 0;
@@ -205,7 +191,7 @@ int luaopen_recorder(lua_State *L)
     oluacls_func(L, "start", _start);
     oluacls_func(L, "stop", _stop);
     
-    cclua::runtime::registerFeature("recorder.ios", true);
+    runtime::registerFeature("recorder.ios", true);
     
     @autoreleasepool {
         RecorderConnector *connector = [RecorderConnector new];

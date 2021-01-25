@@ -60,7 +60,7 @@ else()
     set(BUILD_EDITOR_SPINE OFF)
 endif()
 
-if(NOT DEFINED BUILD_ENGINE_DONE) # to test cocos-lua into root project
+if(NOT DEFINED BUILD_ENGINE_DONE)
     set(COCOS2DX_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/frameworks/cocos2d-x)
     set(CMAKE_MODULE_PATH ${COCOS2DX_ROOT_PATH}/cmake/Modules/)
 

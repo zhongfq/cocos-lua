@@ -71,9 +71,8 @@ const std::string __runtime_getDeviceInfo()
 }
 
 #ifdef CCLUA_OS_IOS
-PermissionStatus getAVCaptureDevicePermissionStatus(AVMediaType type)
+static PermissionStatus convertToPermissionStatus(AVAuthorizationStatus status)
 {
-    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:type];
     if (status == AVAuthorizationStatusNotDetermined) {
         return PermissionStatus::NOT_DETERMINED;
     } else if (status == AVAuthorizationStatusRestricted) {
@@ -85,9 +84,8 @@ PermissionStatus getAVCaptureDevicePermissionStatus(AVMediaType type)
     }
 }
 
-static PermissionStatus getPHAuthorizationStatus()
+static PermissionStatus convertToPermissionStatus(PHAuthorizationStatus status)
 {
-    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
     if (status == PHAuthorizationStatusNotDetermined) {
         return PermissionStatus::NOT_DETERMINED;
     } else if (status == PHAuthorizationStatusRestricted) {
@@ -99,42 +97,42 @@ static PermissionStatus getPHAuthorizationStatus()
     }
 }
 
-static PermissionStatus getTrackingAuthorizationStatus()
-{
 #ifdef CCLUA_FEATURE_IDFA
-    if (@available(iOS 14_0, *)) {
-        ATTrackingManagerAuthorizationStatus status = [ATTrackingManager trackingAuthorizationStatus];
-        if (status == ATTrackingManagerAuthorizationStatusNotDetermined) {
-            return PermissionStatus::NOT_DETERMINED;
-        } else if (status == ATTrackingManagerAuthorizationStatusRestricted) {
-            return PermissionStatus::RESTRICTED;
-        } else if (status == ATTrackingManagerAuthorizationStatusDenied) {
-            return PermissionStatus::DENIED;
-        } else {
-            return PermissionStatus::AUTHORIZED;
-        }
+API_AVAILABLE(ios(14))
+static PermissionStatus convertToPermissionStatus(ATTrackingManagerAuthorizationStatus status)
+{
+    if (status == ATTrackingManagerAuthorizationStatusNotDetermined) {
+        return PermissionStatus::NOT_DETERMINED;
+    } else if (status == ATTrackingManagerAuthorizationStatusRestricted) {
+        return PermissionStatus::RESTRICTED;
+    } else if (status == ATTrackingManagerAuthorizationStatusDenied) {
+        return PermissionStatus::DENIED;
     } else {
-        if ([[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]) {
-            return PermissionStatus::AUTHORIZED;
-        } else {
-            return PermissionStatus::RESTRICTED;
-        }
+        return PermissionStatus::AUTHORIZED;
     }
-#else
-    return PermissionStatus::RESTRICTED;
-#endif
 }
+#endif
 
 PermissionStatus __runtime_getPermissionStatus(Permission permission)
 {
     if (permission == Permission::AUDIO) {
-        return getAVCaptureDevicePermissionStatus(AVMediaTypeAudio);
+        return convertToPermissionStatus([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio]);
     } else if (permission == Permission::CAMERA) {
-        return getAVCaptureDevicePermissionStatus(AVMediaTypeVideo);
+        return convertToPermissionStatus([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo]);
     } else if (permission == Permission::PHOTO) {
-        return getPHAuthorizationStatus();
+        return convertToPermissionStatus([PHPhotoLibrary authorizationStatus]);
     } else if (permission == Permission::IDFA) {
-        return getTrackingAuthorizationStatus();
+#ifdef CCLUA_FEATURE_IDFA
+        if (@available(iOS 14_0, *)) {
+            return convertToPermissionStatus([ATTrackingManager trackingAuthorizationStatus]);
+        } else if ([[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]) {
+            return PermissionStatus::AUTHORIZED;
+        } else {
+            return PermissionStatus::RESTRICTED;
+        }
+#else
+        return PermissionStatus::RESTRICTED;
+#endif
     } else {
         return PermissionStatus::NOT_DETERMINED;
     }
@@ -142,58 +140,36 @@ PermissionStatus __runtime_getPermissionStatus(Permission permission)
 
 static void requestAVCaptureDevicePermission(AVMediaType type, const std::function<void (PermissionStatus)> callback)
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [AVCaptureDevice requestAccessForMediaType:type completionHandler:^(BOOL granted) {
-            PermissionStatus status = granted ? PermissionStatus::AUTHORIZED : PermissionStatus::DENIED;
-            runtime::runOnCocosThread([callback, status](){
-                callback(status);
-            });
-        }];
-    });
+    [AVCaptureDevice requestAccessForMediaType:type completionHandler:^(BOOL granted) {
+        PermissionStatus status = granted ? PermissionStatus::AUTHORIZED : PermissionStatus::DENIED;
+        runtime::runOnCocosThread([callback, status](){
+            callback(status);
+        });
+    }];
 }
 
 static void requestPHAuthorization(const std::function<void (PermissionStatus)> callback)
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-            runtime::runOnCocosThread([callback, status](){
-                if (status == PHAuthorizationStatusNotDetermined) {
-                    callback(PermissionStatus::NOT_DETERMINED);
-                } else if (status == PHAuthorizationStatusRestricted) {
-                    callback(PermissionStatus::RESTRICTED);
-                } else if (status == PHAuthorizationStatusDenied) {
-                    callback(PermissionStatus::DENIED);
-                } else {
-                    callback(PermissionStatus::AUTHORIZED);
-                }
-            });
-        }];
-    });
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus result) {
+        PermissionStatus status = convertToPermissionStatus(result);
+        runtime::runOnCocosThread([callback, status](){
+            callback(status);
+        });
+    }];
 }
 
 static void requestTrackingAuthorization(const std::function<void (PermissionStatus)> callback)
 {
 #ifdef CCLUA_FEATURE_IDFA
     if (@available(iOS 14_0, *)) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
-                if (status == ATTrackingManagerAuthorizationStatusNotDetermined) {
-                    callback(PermissionStatus::NOT_DETERMINED);
-                } else if (status == ATTrackingManagerAuthorizationStatusRestricted) {
-                    callback(PermissionStatus::RESTRICTED);
-                } else if (status == ATTrackingManagerAuthorizationStatusDenied) {
-                    callback(PermissionStatus::DENIED);
-                } else {
-                    callback(PermissionStatus::AUTHORIZED);
-                }
-            }];
-        });
+        [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus result) {
+            PermissionStatus status = convertToPermissionStatus(result);
+            runtime::runOnCocosThread([callback, status]() {
+                callback(status);
+            });
+        }];
     } else {
-        if ([[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]) {
-            callback(PermissionStatus::AUTHORIZED);
-        } else {
-            callback(PermissionStatus::RESTRICTED);
-        }
+        callback(__runtime_getPermissionStatus(Permission::IDFA));
     }
 #else
     callback(PermissionStatus::DENIED);
@@ -229,30 +205,45 @@ const std::string __runtime_getAudioSessionCatalog()
 
 void __runtime_alert(const std::string title, const std::string message, const std::string ok, const std::string no, const std::function<void (bool)> callback)
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIAlertController *alert = [UIAlertController
-                                    alertControllerWithTitle:[NSString stringWithUTF8String:title.c_str()]
-                                    message:[NSString stringWithUTF8String:message.c_str()]
-                                    preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction
-                          actionWithTitle:[NSString stringWithUTF8String:ok.c_str()]
-                          style:UIAlertActionStyleDefault
-                          handler:^(UIAlertAction * _Nonnull action) {
-                              runtime::runOnCocosThread([callback](){
-                                  callback(true);
-                              });
-                          }]];
-        [alert addAction:[UIAlertAction
-                          actionWithTitle:[NSString stringWithUTF8String:no.c_str()]
-                          style:UIAlertActionStyleCancel
-                          handler:^(UIAlertAction * _Nonnull action) {
-                              runtime::runOnCocosThread([callback](){
-                                  callback(false);
-                              });
-                          }]];
-        UIViewController *rootViewController = [[UIApplication sharedApplication] keyWindow].rootViewController;
-        [rootViewController presentViewController:alert animated:YES completion:nil];
-    });
+    
+    UIAlertController *alert = [UIAlertController
+                                alertControllerWithTitle:[NSString stringWithUTF8String:title.c_str()]
+                                message:[NSString stringWithUTF8String:message.c_str()]
+                                preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction
+                      actionWithTitle:[NSString stringWithUTF8String:ok.c_str()]
+                      style:UIAlertActionStyleDefault
+                      handler:^(UIAlertAction * _Nonnull action) {
+                          runtime::runOnCocosThread([callback](){
+                              callback(true);
+                          });
+                      }]];
+    [alert addAction:[UIAlertAction
+                      actionWithTitle:[NSString stringWithUTF8String:no.c_str()]
+                      style:UIAlertActionStyleCancel
+                      handler:^(UIAlertAction * _Nonnull action) {
+                          runtime::runOnCocosThread([callback](){
+                              callback(false);
+                          });
+                      }]];
+    UIViewController *rootViewController = [[UIApplication sharedApplication] keyWindow].rootViewController;
+    [rootViewController presentViewController:alert animated:YES completion:nil];
+}
+
+void __runtime_openAppSetting(const std::string &title, const std::string &message, const std::function<void()> callback)
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithUTF8String:title.c_str()] message:[NSString stringWithUTF8String:message.c_str()] preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        callback();
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"去设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{@"url":@""} completionHandler: ^(BOOL success){
+            // 如果在设置界面启用了权限，那么应用程序会重启
+            callback();
+        }];
+    }]];
+    UIViewController *rootViewController = [[UIApplication sharedApplication] keyWindow].rootViewController;
+    [rootViewController presentViewController:alert animated:YES completion:nil];
 }
 
 #endif
@@ -260,32 +251,19 @@ void __runtime_alert(const std::string title, const std::string message, const s
 void __runtime_openURL(const std::string uri, const std::function<void (bool)> callback)
 {
 #ifdef CCLUA_OS_IOS
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSURL *url;
-        if (strstartwith(uri.c_str(), "app-settings")) {
-            url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-        } else {
-            url = [NSURL URLWithString:[NSString stringWithUTF8String:uri.c_str()]];
-        }
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_10_0
-        if (@available(iOS 10_0, *)) {
-#endif
-            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler: ^(BOOL success){
-                runtime::runOnCocosThread([callback, success](){
-                    if (callback != nullptr) {
-                        callback(success);
-                    }
-                });
-            }];
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_10_0
-        } else {
-            bool success = [[UIApplication sharedApplication] openURL:url];
+    NSURL *url;
+    if (strstartwith(uri.c_str(), "app-settings")) {
+        url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+    } else {
+        url = [NSURL URLWithString:[NSString stringWithUTF8String:uri.c_str()]];
+    }
+    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler: ^(BOOL success){
+        runtime::runOnCocosThread([callback, success](){
             if (callback != nullptr) {
                 callback(success);
             }
-        }
-#endif
-    });
+        });
+    }];
 #else
     bool success = Application::getInstance()->openURL(uri);
     if (callback != nullptr) {

@@ -410,6 +410,13 @@ void runtime::alert(const std::string &title, const std::string &message, const 
 #endif
 }
 
+#ifdef CCLUA_OS_IOS
+void runtime::openAppSetting(const std::string &title, const std::string &message, const std::function<void()> &callback)
+{
+    __runtime_openAppSetting(title, message, callback);
+}
+#endif
+
 //
 // event dispatch
 //

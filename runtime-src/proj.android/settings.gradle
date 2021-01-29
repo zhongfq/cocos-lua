@@ -4,7 +4,7 @@ def load(name, path) {
 }
 
 load('libcocos2dx', '../../frameworks/cocos2d-x/cocos/platform/android/libcocos2dx')
-load('libxgame', '../../frameworks/libxgame/proj.android')
+load('libxgame', '../../frameworks/libxgame/android')
 load('plugin-alipay', '../../frameworks/plugins/alipay/android')
 load('plugin-huawei', '../../frameworks/plugins/huawei/android')
 load('plugin-jiguang', '../../frameworks/plugins/jiguang/android')

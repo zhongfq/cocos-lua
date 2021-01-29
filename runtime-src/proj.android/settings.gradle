@@ -1,22 +1,15 @@
-include ':libcocos2dx'
-project(':libcocos2dx').projectDir = new File(settingsDir, '../../frameworks/cocos2d-x/cocos/platform/android/libcocos2dx')
-include ':libxgame'
-project(':libxgame').projectDir = new File(settingsDir, '../../frameworks/libxgame/android')
-include(':plugin-huawei')
-project(':plugin-huawei').projectDir = new File(settingsDir, '../../frameworks/plugins/huawei/android')
-include(':plugin-oppo')
-project(':plugin-oppo').projectDir = new File(settingsDir, '../../frameworks/plugins/oppo/android')
-include(':plugin-vivo')
-project(':plugin-vivo').projectDir = new File(settingsDir, '../../frameworks/plugins/vivo/android')
-include(':plugin-alipay')
-project(':plugin-alipay').projectDir = new File(settingsDir, '../../frameworks/plugins/alipay/android')
-include(':plugin-talkingdata')
-project(':plugin-talkingdata').projectDir = new File(settingsDir, '../../frameworks/plugins/talkingdata/android')
-include(':plugin-wechat')
-project(':plugin-wechat').projectDir = new File(settingsDir, '../../frameworks/plugins/wechat/android')
+def load(name, path) {
+    include(":${name}")
+    project(":${name}").projectDir = new File(settingsDir, "${path}")
+}
 
-include(':plugin-jiguang')
-project(':plugin-jiguang').projectDir = new File(settingsDir, '../../frameworks/plugins/jiguang/android')
-
-include ':app'
-project(':app').projectDir = new File(settingsDir, 'app')
+load('libcocos2dx', '../../frameworks/cocos2d-x/cocos/platform/android/libcocos2dx')
+load('libxgame', '../../frameworks/libxgame/proj.android')
+load('plugin-alipay', '../../frameworks/plugins/alipay/android')
+load('plugin-huawei', '../../frameworks/plugins/huawei/android')
+load('plugin-jiguang', '../../frameworks/plugins/jiguang/android')
+load('plugin-oppo', '../../frameworks/plugins/oppo/android')
+load('plugin-talkingdata', '../../frameworks/plugins/talkingdata/android')
+load('plugin-vivo', '../../frameworks/plugins/vivo/android')
+load('plugin-wechat', '../../frameworks/plugins/wechat/android')
+load('app', 'app')

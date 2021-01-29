@@ -20,7 +20,7 @@ buildscript {
 allprojects {
     repositories {
         flatDir {
-            dirs 'libs'
+            dirs project(':plugin-alipay').file('libs') 
         }
         google()
         jcenter()

@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2019-2020 codetypes@gmail.com
+ * Copyright (c) 2019-2021 codetypes@gmail.com
  *
  * https://github.com/zhongfq/olua
  *
@@ -59,11 +59,9 @@ typedef struct {
     bool debug;
 } olua_vmstatus_t;
 
-static inline void aux_checkref(olua_vmstatus_t *vms)
+static inline int checkref(olua_vmstatus_t *vms)
 {
-    if (vms->ref + 1 < 0) {
-        vms->ref = 0;
-    }
+    return ++vms->ref <= 0 ? 1 : vms->ref;
 }
 
 static int errfunc(lua_State *L)
@@ -255,7 +253,7 @@ static void aux_pushobjtable(lua_State *L)
 
 OLUA_API void *olua_newobjstub(lua_State *L, const char *cls)
 {
-    void *ptr = NULL;
+    void *ptr;
     aux_pushobjtable(L);                        // L: objtable
     olua_newrawobj(L, NULL);                    // L: objtable ud
     ptr = (void *)lua_topointer(L, -1);
@@ -522,10 +520,9 @@ OLUA_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, 
     if (func == NULL) {
         const char *cls = olua_checkfieldstring(L, -2, "classname");
         olua_vmstatus_t *vms = aux_getvmstatus(L);
-        aux_checkref(vms);
         while (true) {
-            int ref = ++vms->ref;
             char refstr[64];
+            int ref = checkref(vms);
             sprintf(refstr, "%d", ref); // lua5.1 not support %I
             func = lua_pushfstring(L, ".callback#%s$%s@%s", refstr, cls, tag);
             lua_pushvalue(L, -1);               // L: obj ut k k
@@ -533,7 +530,6 @@ OLUA_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, 
                 lua_pop(L, 1);                  // L: obj ut k
                 break;
             } else {
-                aux_checkref(vms);
                 lua_pop(L, 2);                  // L: obj ut
             }
         }
@@ -671,17 +667,17 @@ OLUA_API int olua_ref(lua_State *L, int idx)
 {
     if (!olua_isnil(L, idx)) {
         olua_vmstatus_t *vms = aux_getvmstatus(L);
+        int ref = checkref(vms);
         idx = lua_absindex(L, idx);
         aux_pushmappingtable(L);                // L: reft
-        aux_checkref(vms);
-        while (olua_rawgeti(L, -1, ++vms->ref) != LUA_TNIL) {
+        while (olua_rawgeti(L, -1, ref) != LUA_TNIL) {
             lua_pop(L, 1);
-            aux_checkref(vms);
+            ref = checkref(vms);
         }                                       // L: reft nil
         lua_pushvalue(L, idx);                  // L: reft nil value
-        lua_rawseti(L, -3, vms->ref);           // L: reft nil       reft[ref] = value
+        lua_rawseti(L, -3, ref);                // L: reft nil       reft[ref] = value
         lua_pop(L, 2);                          // L:
-        return vms->ref;
+        return ref;
     }
     return LUA_REFNIL;
 }

@@ -34,6 +34,14 @@ function Array:toMap(field)
     return map
 end
 
+function Array:toArray()
+    local arr = {}
+    for i, v in ipairs(self) do
+        arr[i] = v
+    end
+    return arr
+end
+
 function Array:back()
     return self[#self]
 end

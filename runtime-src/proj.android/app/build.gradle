@@ -31,6 +31,8 @@ android {
         }
 
         manifestPlaceholders = [
+            CCLUA_PACKAGENAME: applicationId,
+
             JPUSH_PKGNAME: applicationId,
             JPUSH_APPKEY: "000000000000000000000000",
             JPUSH_CHANNEL: "dev",
@@ -61,7 +63,6 @@ android {
     }
 
     signingConfigs {
-
        release {
             storeFile file(RELEASE_STORE_FILE)
             storePassword RELEASE_STORE_PASSWORD
@@ -113,7 +114,7 @@ android.applicationVariants.all { variant ->
                 exclude "builtin.manifest"
             }
             compileAssets(destAssets)
-	}
+        }
     }
     tasks.getByName("pre${targetName}Build").dependsOn copyTaskName
 }

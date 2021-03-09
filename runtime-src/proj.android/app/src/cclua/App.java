@@ -1,18 +1,16 @@
-package com.codetypes.hellolua;
+package cclua;
 
 import android.util.Log;
 
-import cclua.PluginManager;
+public class App extends android.app.Application {
 
-public class Application extends android.app.Application {
-
-    private static final String TAG = Application.class.getSimpleName();
+    private static final String TAG = App.class.getSimpleName();
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        loadPlugin("cclua.plugin.wechat.WeChat");
+		loadPlugin("cclua.plugin.wechat.WeChat");
         loadPlugin("cclua.plugin.huawei.Huawei");
         loadPlugin("cclua.plugin.vivo.Vivo");
         loadPlugin("cclua.plugin.oppo.Oppo");

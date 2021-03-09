@@ -10,7 +10,7 @@ buildscript {
     dependencies {
         classpath 'com.tencent.bugly:symtabfileuploader:latest.release'
         classpath 'com.android.tools.build:gradle:4.1.0'
-        classpath 'com.huawei.agconnect:agcp:1.1.1.300'
+        classpath 'com.huawei.agconnect:agcp:1.4.2.301'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

@@ -638,14 +638,18 @@ static const char *funcnamefromcode (lua_State *L, CallInfo *ci,
 
 
 /*
-** The subtraction of two potentially unrelated pointers is
-** not ISO C, but it should not crash a program; the subsequent
-** checks are ISO C and ensure a correct result.
+** Check whether pointer 'o' points to some value in the stack
+** frame of the current function. Because 'o' may not point to a
+** value in this stack, we cannot compare it with the region
+** boundaries (undefined behaviour in ISO C).
 */
 static int isinstack (CallInfo *ci, const TValue *o) {
-  StkId base = ci->func + 1;
-  ptrdiff_t i = cast(StkId, o) - base;
-  return (0 <= i && i < (ci->top - base) && s2v(base + i) == o);
+  StkId pos;
+  for (pos = ci->func + 1; pos < ci->top; pos++) {
+    if (o == s2v(pos))
+      return 1;
+  }
+  return 0;  /* not found */
 }
 
 
@@ -726,7 +730,7 @@ l_noret luaG_opinterror (lua_State *L, const TValue *p1,
 */
 l_noret luaG_tointerror (lua_State *L, const TValue *p1, const TValue *p2) {
   lua_Integer temp;
-  if (!tointegerns(p1, &temp))
+  if (!luaV_tointegerns(p1, &temp, LUA_FLOORN2I))
     p2 = p1;
   luaG_runerror(L, "number%s has no integer representation", varinfo(L, p2));
 }

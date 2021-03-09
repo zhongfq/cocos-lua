@@ -2,10 +2,6 @@ require "olua.tools.olua"
 
 local autoconf = require "autoconf"
 
--- container std::function
-autoconf.addref 'cocos2d::Action'
-autoconf.addref 'cocos2d::EventListener'
-
 autoconf.init 'conf/clang-args.lua'
 
 autoconf 'conf/lua-conv.lua'

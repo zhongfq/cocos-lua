@@ -1,6 +1,6 @@
 local class         = require "xgame.class"
-local Event         = require "xgame.event.Event"
-local KeyboardEvent = require "xgame.event.KeyboardEvent"
+local Event         = require "xgame.Event"
+local KeyboardEvent = require "xgame.KeyboardEvent"
 local UILayer       = require "xgame.ui.UILayer"
 local window        = require "xgame.window"
 

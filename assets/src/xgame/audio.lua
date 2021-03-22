@@ -4,7 +4,7 @@ local runtime       = require "xgame.runtime"
 local loader        = require "xgame.loader"
 local Dispatcher    = require "xgame.Dispatcher"
 local filesystem    = require "xgame.filesystem"
-local Event         = require "xgame.event.Event"
+local Event         = require "xgame.Event"
 local AudioEngine   = require "cc.AudioEngine"
 
 local AudioObject

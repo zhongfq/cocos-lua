@@ -1,6 +1,6 @@
 local class             = require "xgame.class"
-local Event             = require "xgame.event.Event"
-local TouchEvent        = require "xgame.event.TouchEvent"
+local Event             = require "xgame.Event"
+local TouchEvent        = require "xgame.TouchEvent"
 local UIView            = require "xgame.ui.UIView"
 local Layout            = require "ccui.Layout"
 local EditBox           = require "ccui.EditBox"

@@ -1,7 +1,7 @@
 local class         = require "xgame.class"
 local timer         = require "xgame.timer"
 local runtime       = require "xgame.runtime"
-local EventAgent    = require "xgame.event.EventAgent"
+local EventAgent    = require "xgame.EventAgent"
 local LuaComponent  = require "cc.LuaComponent"
 
 local Mediator = class("Mediator")

@@ -1,7 +1,7 @@
 local class         = require "xgame.class"
-local Event         = require "xgame.event.Event"
-local KeyboardEvent = require "xgame.event.KeyboardEvent"
-local TouchEvent    = require "xgame.event.TouchEvent"
+local Event         = require "xgame.Event"
+local KeyboardEvent = require "xgame.KeyboardEvent"
+local TouchEvent    = require "xgame.TouchEvent"
 
 local assert = assert
 local table = table

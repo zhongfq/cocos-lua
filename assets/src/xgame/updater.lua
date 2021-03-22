@@ -6,7 +6,7 @@ local filesystem    = require "xgame.filesystem"
 local Manifest      = require "xgame.Manifest"
 local runtime       = require "xgame.runtime"
 local timer         = require "xgame.timer"
-local Event         = require "xgame.event.Event"
+local Event         = require "xgame.Event"
 local cjson         = require "cjson.safe"
 
 local MAX_ATTEMPT_TIMES = 3

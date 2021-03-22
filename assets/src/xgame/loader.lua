@@ -3,7 +3,7 @@ local util          = require "xgame.util"
 local filesystem    = require "xgame.filesystem"
 local LoadTask      = require "xgame.LoadTask"
 local plist         = require "xgame.plist"
-local Event         = require "xgame.event.Event"
+local Event         = require "xgame.Event"
 local Dispatcher    = require "xgame.Dispatcher"
 local UIPackage     = require "fgui.UIPackage"
 

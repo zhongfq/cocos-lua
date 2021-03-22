@@ -1,7 +1,7 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
-local Event         = require "xgame.event.Event"
-local TouchEvent    = require "xgame.event.TouchEvent"
+local Event         = require "xgame.Event"
+local TouchEvent    = require "xgame.TouchEvent"
 local UILayer       = require "xgame.ui.UILayer"
 
 local UISlider = class("UISlider", UILayer)

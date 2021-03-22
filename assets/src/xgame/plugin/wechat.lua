@@ -1,8 +1,8 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
 local http          = require "xgame.http"
-local Event         = require "xgame.event.Event"
-local PluginEvent   = require "xgame.event.PluginEvent"
+local Event         = require "xgame.Event"
+local PluginEvent   = require "xgame.PluginEvent"
 local timer         = require "xgame.timer"
 local runtime       = require "xgame.runtime"
 local Dispatcher    = require "xgame.Dispatcher"
@@ -107,6 +107,10 @@ function WeChat:auth(ticket)
     if runtime.os == 'ios' then
         runtime.on(Event.RUNTIME_RESUME, self._onResume, self)
     end
+end
+
+function WeChat:stopAuth()
+    Impl.stopAuth()
 end
 
 function WeChat:open(id, path, type)

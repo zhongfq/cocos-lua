@@ -1,6 +1,6 @@
 local class         = require "xgame.class"
 local Array         = require "xgame.Array"
-local Event         = require "xgame.event.Event"
+local Event         = require "xgame.Event"
 local Dispatcher    = require "xgame.Dispatcher"
 
 local RadioGroup = class("RadioGroup", Dispatcher)

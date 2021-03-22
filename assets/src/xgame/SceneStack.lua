@@ -3,7 +3,7 @@ local util          = require "xgame.util"
 local runtime       = require "xgame.runtime"
 local audio         = require "xgame.audio"
 local Array         = require "xgame.Array"
-local Event         = require "xgame.event.Event"
+local Event         = require "xgame.Event"
 local UILayer       = require "xgame.ui.UILayer"
 local PixelFormat   = require "ccb.PixelFormat"
 

@@ -1,5 +1,5 @@
 local A             = require "xgame.ui.action"
-local TouchEvent    = require "xgame.event.TouchEvent"
+local TouchEvent    = require "xgame.TouchEvent"
 
 local TouchStyle = {}
 

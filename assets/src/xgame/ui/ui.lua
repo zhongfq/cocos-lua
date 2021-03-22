@@ -1,8 +1,8 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
 local loader        = require "xgame.loader"
-local Event         = require "xgame.event.Event"
-local TouchEvent    = require "xgame.event.TouchEvent"
+local Event         = require "xgame.Event"
+local TouchEvent    = require "xgame.TouchEvent"
 local dataloader    = require "xgame.ui.dataloader"
 
 local trace = util.trace("[ui]")

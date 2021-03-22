@@ -1,7 +1,7 @@
 local class         = require "xgame.class"
 local R             = require "xgame.R"
 local Mediator      = require "xgame.Mediator"
-local Event         = require "xgame.event.Event"
+local Event         = require "xgame.Event"
 local FGUI          = require "xgame.ui.FGUI"
 local ui            = require "xgame.ui.ui"
 local runtime       = require "xgame.runtime"

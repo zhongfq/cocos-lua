@@ -1,6 +1,6 @@
 local class         = require "xgame.class"
 local audio         = require "xgame.audio"
-local TouchEvent    = require "xgame.event.TouchEvent"
+local TouchEvent    = require "xgame.TouchEvent"
 local Dispatcher    = require "xgame.Dispatcher"
 
 local pairs = pairs

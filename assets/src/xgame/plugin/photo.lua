@@ -3,7 +3,7 @@ local util          = require "xgame.util"
 local filesystem    = require "xgame.filesystem"
 local runtime       = require "xgame.runtime"
 local Dispatcher    = require "xgame.Dispatcher"
-local Event         = require "xgame.event.Event"
+local Event         = require "xgame.Event"
 local impl          = require "cclua.plugin.photo"
 
 local trace = util.trace("[photo]")

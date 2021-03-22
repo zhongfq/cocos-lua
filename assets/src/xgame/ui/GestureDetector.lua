@@ -1,6 +1,6 @@
 local class         = require "xgame.class"
 local runtime       = require "xgame.runtime"
-local TouchEvent    = require "xgame.event.TouchEvent"
+local TouchEvent    = require "xgame.TouchEvent"
 
 local math = math
 local assert = assert

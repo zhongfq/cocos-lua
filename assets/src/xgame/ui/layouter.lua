@@ -1,4 +1,4 @@
-local Event     = require "xgame.event.Event"
+local Event     = require "xgame.Event"
 local runtime   = require "xgame.runtime"
 
 local running = false

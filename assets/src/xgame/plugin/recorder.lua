@@ -2,8 +2,8 @@ local class         = require "xgame.class"
 local util          = require "xgame.util"
 local runtime       = require "xgame.runtime"
 local Dispatcher    = require "xgame.Dispatcher"
-local Event         = require "xgame.event.Event"
-local PluginEvent   = require "xgame.event.PluginEvent"
+local Event         = require "xgame.Event"
+local PluginEvent   = require "xgame.PluginEvent"
 local lame          = require 'cclua.lame'
 local impl          = require "cclua.plugin.recorder"
 

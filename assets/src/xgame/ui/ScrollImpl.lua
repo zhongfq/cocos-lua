@@ -1,6 +1,6 @@
 local class             = require "xgame.class"
 local Align             = require "xgame.ui.Align"
-local TouchEvent        = require "xgame.event.TouchEvent"
+local TouchEvent        = require "xgame.TouchEvent"
 local layouter          = require "xgame.ui.layouter"
 local GestureDetector   = require "xgame.ui.GestureDetector"
 

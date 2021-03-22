@@ -1,6 +1,6 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
-local PluginEvent   = require "xgame.event.PluginEvent"
+local PluginEvent   = require "xgame.PluginEvent"
 local runtime       = require "xgame.runtime"
 local Dispatcher    = require "xgame.Dispatcher"
 local cjson         = require "cjson.safe"

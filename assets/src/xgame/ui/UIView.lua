@@ -1,5 +1,5 @@
 local class     = require "xgame.class"
-local Event     = require "xgame.event.Event"
+local Event     = require "xgame.Event"
 local Align     = require "xgame.ui.Align"
 local UIObject  = require "xgame.ui.UIObject"
 

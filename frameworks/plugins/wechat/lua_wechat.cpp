@@ -292,6 +292,18 @@ static int _cclua_plugin_WeChat_share(lua_State *L)
     return 0;
 }
 
+static int _cclua_plugin_WeChat_stopAuth(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static void stopAuth()
+    cclua::plugin::WeChat::stopAuth();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_cclua_plugin_WeChat(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.WeChat", nullptr);
@@ -306,6 +318,7 @@ static int luaopen_cclua_plugin_WeChat(lua_State *L)
 #endif
     oluacls_func(L, "setDispatcher", _cclua_plugin_WeChat_setDispatcher);
     oluacls_func(L, "share", _cclua_plugin_WeChat_share);
+    oluacls_func(L, "stopAuth", _cclua_plugin_WeChat_stopAuth);
     oluacls_prop(L, "installed", _cclua_plugin_WeChat_isInstalled, nullptr);
 
     olua_registerluatype<cclua::plugin::WeChat>(L, "cclua.plugin.WeChat");

@@ -1,5 +1,6 @@
 #include "cclua/filesystem-private.h"
 #include "cclua/filesystem.h"
+#include "cclua/jniutil.h"
 
 #include "cocos2d.h"
 
@@ -14,7 +15,7 @@ const std::string __filesystem_getDocumentDirectory()
     static std::string path;
     
     if (path.size() == 0) {
-        path = JniHelper::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getDocumentDirectory");
+        path = JniUtil::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getDocumentDirectory");
     }
     
     return path;
@@ -25,7 +26,7 @@ const std::string __filesystem_getCacheDirectory()
     static std::string path;
     
     if (path.size() == 0) {
-        path = JniHelper::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getCacheDirectory");
+        path = JniUtil::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getCacheDirectory");
     }
     
     return path;
@@ -36,7 +37,7 @@ const std::string __filesystem_getTmpDirectory()
     static std::string path;
     
     if (path.size() == 0) {
-        path = JniHelper::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getTmpDirectory");
+        path = JniUtil::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getTmpDirectory");
     }
     
     return path;
@@ -47,7 +48,7 @@ const std::string __filesystem_getSDCardDirectory()
     static std::string path;
     
     if (path.size() == 0) {
-        path = JniHelper::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getSDCardDirectory");
+        path = JniUtil::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getSDCardDirectory");
     }
     
     return path;
@@ -55,7 +56,7 @@ const std::string __filesystem_getSDCardDirectory()
 
 const std::string __filesystem_getDir(const std::string &type)
 {
-    return JniHelper::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getDirectory", type);
+    return JniUtil::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getDirectory", type);
 }
 
 #elif defined(CCLUA_OS_WIN32)

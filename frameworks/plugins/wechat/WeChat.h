@@ -22,6 +22,7 @@ public:
     static bool isInstalled();
     static void auth(const std::string &scope, const std::string &state);
     static void authQRCode(const std::string &appid, const std::string &nonceStr, const std::string &timestamp, const std::string &scope, const std::string &signature);
+    static void stopAuth();
     static void share(ShareType type, cocos2d::ValueMap &value);
     static void open(const std::string &username, const std::string path = "", ProgramType type = ProgramType::RELEASE);
 

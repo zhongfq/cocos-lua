@@ -25,8 +25,3 @@ export 'autobuild/jiguang.lua'
 export 'autobuild/wechat.lua'
 
 -- require "autobuild.make"
-
--- local checkref = olua.checkref
--- checkref {
---     REF = {'cocos2d::Node *', 'cocos2d::Action *'}
--- }

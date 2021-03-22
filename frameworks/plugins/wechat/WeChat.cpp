@@ -1,7 +1,7 @@
 #include "WeChat.h"
 
 #if defined(CCLUA_OS_ANDROID)
-#include "platform/android/jni/JniHelper.h"
+#include "cclua/jniutil.h"
 
 NS_CCLUA_PLUGIN_BEGIN
 
@@ -14,12 +14,12 @@ Dispatcher WeChat::_dispatcher;
 
 void WeChat::init(const std::string &appid, const std::string &universalLink)
 {
-    JniHelper::callStaticVoidMethod(JAVA_WECHAT_CLASS, "init", appid);
+    JniUtil::callStaticVoidMethod(JAVA_WECHAT_CLASS, "init", appid);
 }
 
 bool WeChat::isInstalled()
 {
-    return JniHelper::callStaticBooleanMethod(JAVA_WECHAT_CLASS, "isInstalled");
+    return JniUtil::callStaticBooleanMethod(JAVA_WECHAT_CLASS, "isInstalled");
 }
 
 static int callback(const std::string &event) {
@@ -32,28 +32,33 @@ static int callback(const std::string &event) {
 
 void WeChat::pay(const std::string &partnerId, const std::string &prepayId, const std::string &noncestr, const std::string &timestamp, const std::string &packageValue, const std::string &sign)
 {
-    JniHelper::callStaticVoidMethod(JAVA_WECHAT_CLASS, "pay", partnerId, prepayId, noncestr, timestamp, packageValue, sign, callback("pay"));
+    JniUtil::callStaticVoidMethod(JAVA_WECHAT_CLASS, "pay", partnerId, prepayId, noncestr, timestamp, packageValue, sign, callback("pay"));
 }
 
 void WeChat::auth(const std::string &scope, const std::string &state)
 {
-    JniHelper::callStaticVoidMethod(JAVA_WECHAT_CLASS, "auth", scope, state, callback("auth"));
+    JniUtil::callStaticVoidMethod(JAVA_WECHAT_CLASS, "auth", scope, state, callback("auth"));
 }
 
 void WeChat::authQRCode(const std::string &appid, const std::string &nonceStr, const std::string &timestamp, const std::string &scope, const std::string &signature)
 {
-    JniHelper::callStaticVoidMethod(JAVA_WECHAT_CLASS, "authQRCode", appid, scope,
+    JniUtil::callStaticVoidMethod(JAVA_WECHAT_CLASS, "authQRCode", appid, scope,
         nonceStr, timestamp, signature, callback("authQRCode"));
+}
+
+void WeChat::stopAuth()
+{
+    JniUtil::callStaticVoidMethod(JAVA_WECHAT_CLASS, "stopAuth");
 }
 
 void WeChat::share(ShareType type, cocos2d::ValueMap &value)
 {
-    JniHelper::callStaticVoidMethod(JAVA_WECHAT_CLASS, "share", toJSONString(value), callback("share"));
+    JniUtil::callStaticVoidMethod(JAVA_WECHAT_CLASS, "share", toJSONString(value), callback("share"));
 }
 
 void WeChat::open(const std::string &username, const std::string path, ProgramType type)
 {
-    JniHelper::callStaticVoidMethod("open", username, path, (int)type, callback("open"));
+    JniUtil::callStaticVoidMethod("open", username, path, (int)type, callback("open"));
 }
 
 NS_CCLUA_PLUGIN_END

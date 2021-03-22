@@ -178,6 +178,12 @@ public class WeChat {
         });
     }
 
+    public static void stopAuth() {
+        IDiffDevOAuth oauth = DiffDevOAuthFactory.getDiffDevOAuth();
+        oauth.removeAllListeners();
+        oauth.stopAuth();
+    }
+
     public static void pay(String partnerId, String prepayId, String nonceStr, String timeStamp,
                            String packageValue, String sign, final int handler) {
         AppContext context = (AppContext)Cocos2dxActivity.getContext();

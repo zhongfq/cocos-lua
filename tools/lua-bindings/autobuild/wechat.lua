@@ -53,13 +53,14 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.CHUNK = nil
 cls.REQUIRE = [[cclua::runtime::registerFeature("wechat", true);]]
-cls.ifdef('pay', '#ifdef CCLUA_OS_ANDROID')
 cls.ifdef('*', '#ifdef CCLUA_BUILD_WECHAT')
+cls.ifdef('pay', '#ifdef CCLUA_OS_ANDROID')
 cls.func(nil, 'static void pay(const std::string &partnerId, const std::string &prepayId, const std::string &noncestr, const std::string &timestamp, const std::string &packageValue, const std::string &sign)')
 cls.func(nil, 'static void init(const std::string &appid, const std::string &universalLink)')
 cls.func(nil, 'static bool isInstalled()')
 cls.func(nil, 'static void auth(const std::string &scope, const std::string &state)')
 cls.func(nil, 'static void authQRCode(const std::string &appid, const std::string &nonceStr, const std::string &timestamp, const std::string &scope, const std::string &signature)')
+cls.func(nil, 'static void stopAuth()')
 cls.func(nil, 'static void share(cclua::plugin::WeChat::ShareType type, cocos2d::ValueMap &value)')
 cls.func(nil, 'static void open(const std::string &username, @optional const std::string path, @optional cclua::plugin::WeChat::ProgramType type)')
 cls.callback {

@@ -1,5 +1,6 @@
 #include "cclua/runtime.h"
 #include "cclua/runtime-private.h"
+#include "cclua/jniutil.h"
 #include "cocos2d.h"
 
 USING_NS_CC;
@@ -11,7 +12,7 @@ const std::string __runtime_getPackageName()
 {
     static std::string value;
     if (value.size() == 0) {
-        value = JniHelper::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getPackage");
+        value = JniUtil::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getPackage");
     }
     return value;
 }
@@ -20,7 +21,7 @@ const std::string __runtime_getAppVersion()
 {
     static std::string value;
     if (value.size() == 0) {
-        value = JniHelper::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getVersion");
+        value = JniUtil::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getVersion");
     }
     return value;
 }
@@ -29,7 +30,7 @@ const std::string __runtime_getAppBuild()
 {
     static std::string value;
     if (value.size() == 0) {
-        value = JniHelper::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getVersionCode");
+        value = JniUtil::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getVersionCode");
     }
     return value;
 }
@@ -38,7 +39,7 @@ const std::string __runtime_getChannel()
 {
     static std::string value;
     if (value.size() == 0) {
-        value = JniHelper::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getChannel");
+        value = JniUtil::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getChannel");
     }
     return value;
 }
@@ -47,14 +48,14 @@ const std::string __runtime_getDeviceInfo()
 {
     static std::string value;
     if (value.size() == 0) {
-        value = JniHelper::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getDeviceInfo");
+        value = JniUtil::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getDeviceInfo");
     }
     return value;
 }
 
 void __runtime_openURL(const std::string uri, const std::function<void (bool)> callback)
 {
-    bool ret = JniHelper::callStaticBooleanMethod(JAVA_APPCONTEXT_CLASS, "openURL", uri);
+    bool ret = JniUtil::callStaticBooleanMethod(JAVA_APPCONTEXT_CLASS, "openURL", uri);
     if (callback != nullptr) {
         callback(ret);
     }
@@ -62,26 +63,26 @@ void __runtime_openURL(const std::string uri, const std::function<void (bool)> c
 
 bool __runtime_canOpenURL(const std::string uri)
 {
-    return JniHelper::callStaticBooleanMethod(JAVA_APPCONTEXT_CLASS, "canOpenURL", uri);
+    return JniUtil::callStaticBooleanMethod(JAVA_APPCONTEXT_CLASS, "canOpenURL", uri);
 }
 
 const std::string __runtime_getLanguage()
 {
     static std::string value;
     if (value.size() == 0) {
-        value = JniHelper::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getLanguage");
+        value = JniUtil::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getLanguage");
     }
     return value;
 }
 
 const std::string __runtime_getNetworkStatus()
 {
-    return JniHelper::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getNetworkStatus");
+    return JniUtil::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getNetworkStatus");
 }
 
 void __runtime_pullAllFeatures()
 {
-    JniHelper::callStaticVoidMethod(JAVA_APPCONTEXT_CLASS, "pullAllFeatures");
+    JniUtil::callStaticVoidMethod(JAVA_APPCONTEXT_CLASS, "pullAllFeatures");
 }
 #elif defined(CCLUA_OS_WIN32)
 

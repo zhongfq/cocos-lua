@@ -60,4 +60,11 @@ if(APPLE)
             src/cclua/runtime-private-ios-mac.mm
         )
     endif()
+elseif(ANDROID)
+    list(APPEND CCLUA_HEADER
+        src/cclua/jniutil.h
+    )
+    list(APPEND CCLUA_SRC
+        src/cclua/jniutil.cpp
+    )
 endif()

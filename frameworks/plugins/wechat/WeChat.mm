@@ -179,6 +179,14 @@ void WeChat::authQRCode(const std::string &appid, const std::string &nonceStr, c
     }
 }
 
+void WeChat::stopAuth()
+{
+    @autoreleasepool {
+        WeChatDelegate *delegate = [WeChatDelegate defaultDelegate];
+        [delegate.authSDK StopAuth];
+    }
+}
+
 #define THUMB_SIZE 150
 static UIImage *_create_thumb(NSString *path)
 {

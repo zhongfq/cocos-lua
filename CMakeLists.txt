@@ -214,6 +214,11 @@ if(APPLE)
     endif()
 endif()
 
+# link other flags
+if(IOS)
+    SET_TARGET_PROPERTIES(${APP_NAME} PROPERTIES LINK_FLAGS -ObjC)
+endif()
+
 # mark app resources
 setup_cocos_app_config(${APP_NAME})
 if(APPLE)

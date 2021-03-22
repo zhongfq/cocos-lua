@@ -42,7 +42,7 @@ void WeChat::auth(const std::string &scope, const std::string &state)
 
 void WeChat::authQRCode(const std::string &appid, const std::string &nonceStr, const std::string &timestamp, const std::string &scope, const std::string &signature)
 {
-    JniHelper::callStaticVoidMethod(JAVA_WECHAT_CLASS, "authQRCode", appid, 
+    JniHelper::callStaticVoidMethod(JAVA_WECHAT_CLASS, "authQRCode", appid, scope,
         nonceStr, timestamp, signature, callback("authQRCode"));
 }
 

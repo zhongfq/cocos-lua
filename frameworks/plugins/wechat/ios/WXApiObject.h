@@ -684,6 +684,72 @@ typedef void(^WXCheckULCompletion)(WXULCheckStep step, WXCheckULStepResult* resu
 
 
 
+#pragma mark - WXMusicVideoObject
+
+
+@interface WXMusicVideoObject : NSObject
+
+/*! @brief 返回一个WXMusicVideoObject对象
+ *
+ * @note 返回的WXMusicVideoObject对象是自动释放的
+ */
++ (WXMusicVideoObject *)object;
+
+/** 音乐网页的url地址
+ * @note 长度不能超过10K，不能为空
+ */
+@property (nonatomic, copy) NSString *musicUrl;
+
+/** 音乐数据url地址
+ * @note 长度不能超过10K，不能为空
+ */
+@property (nonatomic, copy) NSString *musicDataUrl;
+
+/**歌手名
+ * @note 长度不能超过1k，不能为空
+ */
+@property (nonatomic, copy) NSString *singerName;
+
+/**
+ * @note 音乐时长, 单位毫秒
+ */
+@property (nonatomic, assign) UInt32 duration;
+
+/**歌词信息 LRC格式
+ * @note 长度不能超过32K
+ */
+@property (nonatomic, copy) NSString *songLyric;
+
+/**高清封面图
+ * @note 大小不能超过1M
+ */
+@property (nonatomic, strong) NSData *hdAlbumThumbData;
+
+/**音乐专辑名称
+ * @note 长度不能超过1k
+ */
+@property (nonatomic, copy, nullable) NSString *albumName;
+
+/**音乐流派
+ * @note 长度不能超过1k
+ */
+@property (nonatomic, copy, nullable) NSString *musicGenre;
+
+/**发行时间
+ * @note Unix时间戳，单位为秒
+ */
+@property (nonatomic, assign) UInt64 issueDate;
+
+/**音乐标识符
+ * @note 长度不能超过1K，从微信跳回应用时会带上
+ */
+@property (nonatomic, copy, nullable) NSString *identification;
+
+
+@end
+
+
+
 #pragma mark - WXVideoObject
 /*! @brief 多媒体消息中包含的视频数据对象
  *
@@ -895,6 +961,30 @@ typedef void(^WXCheckULCompletion)(WXULCheckStep step, WXCheckULStepResult* resu
 
 /** 是否禁用转发 */
 @property (nonatomic, assign) BOOL disableForward;
+
+@property (nonatomic, assign) BOOL isUpdatableMessage;
+
+@property (nonatomic, assign) BOOL isSecretMessage;
+
+
+/** 业务所需的额外信息 */
+@property (nonatomic, strong, nullable) NSDictionary *extraInfoDic;
+
+@end
+
+#pragma mark - WXGameLiveObject
+
+/*! @brief WXGameLiveObject对象
+ *
+ * @note 游戏直播消息类型
+ */
+
+@interface WXGameLiveObject : NSObject
+
++ (WXGameLiveObject *)object;
+
+/** 业务所需的额外信息 */
+@property (nonatomic, strong, nullable) NSDictionary *extraInfoDic;
 
 @end
 

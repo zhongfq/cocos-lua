@@ -318,7 +318,7 @@ RenderTexture *runtime::capture(Node *node, float width, float height, backend::
     image->retain();
     node->retain();
     
-    runtime::once(Director::EVENT_AFTER_VISIT, [=]() {
+    runtime::once(Director::EVENT_BEFORE_DRAW, [=]() {
         bool savedVisible = node->isVisible();
         Point savedPos = node->getPosition();
         Point anchor;

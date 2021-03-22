@@ -22,6 +22,7 @@ end
 REG 'base64'
 REG 'cjson'
 REG 'md5'
+REG 'openssl'
 
 REG('cclua.runtime', function ()
     return setmetatable({

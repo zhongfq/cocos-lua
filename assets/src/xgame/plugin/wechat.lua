@@ -93,12 +93,12 @@ function WeChat:auth(ticket)
     self.userInfo = false
     self.deferredEvent = self.deferredEvent or PluginEvent.AUTH_CANCEL
 
-    if self.installed then
+    if ticket then
+        self:_doAuthQRCode(ticket)
+    elseif self.installed then
         assert(self.authScope, "no auth scope")
         assert(self.authState, "no auth state")
         Impl.auth(self.authScope, self.authState)
-    elseif ticket then
-        self:_doAuthQRCode(ticket)
     else
         assert(self._appsecret, "no app secret")
         self:_requestTicket()
@@ -164,7 +164,7 @@ function WeChat:_didResponse(action, data)
     self.deferredEvent = false
     timer.killDelay(TAG_DEFERRED)
 
-    trace("%s response: %s", action, cjson.encode(data))
+    trace("%s response: %s", action, util.dump(data))
     if action == "auth" then
         if data.errcode == WXSUCCESS then
             self:_requestToken(data)
@@ -173,7 +173,7 @@ function WeChat:_didResponse(action, data)
         else
             self:dispatch(PluginEvent.AUTH_FAILURE)
         end
-    elseif action == "authQrcode" then
+    elseif action == "authQRCode" then
         if data.path then
             local textureCache = Director.instance.textureCache
             textureCache:reloadTexture(data.path)

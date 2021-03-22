@@ -85,7 +85,7 @@ USING_NS_CCLUA_PLUGIN;
         cocos2d::ValueMap data;
         data["errcode"] = 0;
         data["path"] = path;
-        WeChat::dispatch("authQrcode", data);
+        WeChat::dispatch("authQRCode", data);
     }
 }
 
@@ -101,7 +101,7 @@ USING_NS_CCLUA_PLUGIN;
         cocos2d::ValueMap data;
         data["errcode"] = errCode;
         data["code"] = [authCode UTF8String];
-        WeChat::dispatch("authQrcode", data);
+        WeChat::dispatch("authQRCode", data);
     }
 }
 

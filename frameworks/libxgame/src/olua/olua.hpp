@@ -266,6 +266,8 @@ template <typename T> inline int olua_pushobj(lua_State *L, const T *value)
 #define olua_check_cppobj(L, i, v, c)   (olua_check_obj(L, (i), (v), (c)))
 #define olua_is_cppobj(L, i, c)         (olua_is_obj(L, (i), (c)))
 
+#define olua_is_std_unordered_map(L, i) (olua_istable(L, (i)))
+
 template <typename T> inline int olua_push_cppobj(lua_State *L, const T *value, const char *cls)
 {
     return olua_pushobj<T>(L, value, cls);

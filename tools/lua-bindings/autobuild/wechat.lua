@@ -53,8 +53,8 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.CHUNK = nil
 cls.REQUIRE = [[cclua::runtime::registerFeature("wechat", true);]]
-cls.ifdef('*', '#ifdef CCLUA_BUILD_WECHAT')
 cls.ifdef('pay', '#ifdef CCLUA_OS_ANDROID')
+cls.ifdef('*', '#ifdef CCLUA_BUILD_WECHAT')
 cls.func(nil, 'static void pay(const std::string &partnerId, const std::string &prepayId, const std::string &noncestr, const std::string &timestamp, const std::string &packageValue, const std::string &sign)')
 cls.func(nil, 'static void init(const std::string &appid, const std::string &universalLink)')
 cls.func(nil, 'static bool isInstalled()')

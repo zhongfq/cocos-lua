@@ -31,6 +31,10 @@
 
 #include "lua-bindings/lua_cocos2d_3d.h"
 
+#ifdef CCLUA_BUILD_COCOSSTUDIO
+#include "lua-bindings/lua_cocos2d_studio.h"
+#endif //CCLUA_BUILD_COCOSSTUDIO
+
 #ifdef CCLUA_BUILD_DRAGONBONES
 #include "lua-bindings/lua_dragonbones.h"
 #endif // CCLUA_BUILD_DRAGONBONES
@@ -73,6 +77,10 @@ USING_NS_CCLUA;
 static int _open_plugins(lua_State *L)
 {
     olua_callfunc(L, luaopen_cocos2d_3d);
+    
+#ifdef CCLUA_BUILD_COCOSSTUDIO
+    olua_callfunc(L, luaopen_cocos2d_studio);
+#endif
     
 #ifdef CCLUA_BUILD_DRAGONBONES
     olua_callfunc(L, luaopen_dragonbones);

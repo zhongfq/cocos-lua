@@ -24,6 +24,46 @@ M.CONVS = {
 
 M.CLASSES = {}
 
+cls = typecls 'cocos2d::tweenfunc::TweenType'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+cls.enum('CUSTOM_EASING', 'cocos2d::tweenfunc::TweenType::CUSTOM_EASING')
+cls.enum('Linear', 'cocos2d::tweenfunc::TweenType::Linear')
+cls.enum('Sine_EaseIn', 'cocos2d::tweenfunc::TweenType::Sine_EaseIn')
+cls.enum('Sine_EaseOut', 'cocos2d::tweenfunc::TweenType::Sine_EaseOut')
+cls.enum('Sine_EaseInOut', 'cocos2d::tweenfunc::TweenType::Sine_EaseInOut')
+cls.enum('Quad_EaseIn', 'cocos2d::tweenfunc::TweenType::Quad_EaseIn')
+cls.enum('Quad_EaseOut', 'cocos2d::tweenfunc::TweenType::Quad_EaseOut')
+cls.enum('Quad_EaseInOut', 'cocos2d::tweenfunc::TweenType::Quad_EaseInOut')
+cls.enum('Cubic_EaseIn', 'cocos2d::tweenfunc::TweenType::Cubic_EaseIn')
+cls.enum('Cubic_EaseOut', 'cocos2d::tweenfunc::TweenType::Cubic_EaseOut')
+cls.enum('Cubic_EaseInOut', 'cocos2d::tweenfunc::TweenType::Cubic_EaseInOut')
+cls.enum('Quart_EaseIn', 'cocos2d::tweenfunc::TweenType::Quart_EaseIn')
+cls.enum('Quart_EaseOut', 'cocos2d::tweenfunc::TweenType::Quart_EaseOut')
+cls.enum('Quart_EaseInOut', 'cocos2d::tweenfunc::TweenType::Quart_EaseInOut')
+cls.enum('Quint_EaseIn', 'cocos2d::tweenfunc::TweenType::Quint_EaseIn')
+cls.enum('Quint_EaseOut', 'cocos2d::tweenfunc::TweenType::Quint_EaseOut')
+cls.enum('Quint_EaseInOut', 'cocos2d::tweenfunc::TweenType::Quint_EaseInOut')
+cls.enum('Expo_EaseIn', 'cocos2d::tweenfunc::TweenType::Expo_EaseIn')
+cls.enum('Expo_EaseOut', 'cocos2d::tweenfunc::TweenType::Expo_EaseOut')
+cls.enum('Expo_EaseInOut', 'cocos2d::tweenfunc::TweenType::Expo_EaseInOut')
+cls.enum('Circ_EaseIn', 'cocos2d::tweenfunc::TweenType::Circ_EaseIn')
+cls.enum('Circ_EaseOut', 'cocos2d::tweenfunc::TweenType::Circ_EaseOut')
+cls.enum('Circ_EaseInOut', 'cocos2d::tweenfunc::TweenType::Circ_EaseInOut')
+cls.enum('Elastic_EaseIn', 'cocos2d::tweenfunc::TweenType::Elastic_EaseIn')
+cls.enum('Elastic_EaseOut', 'cocos2d::tweenfunc::TweenType::Elastic_EaseOut')
+cls.enum('Elastic_EaseInOut', 'cocos2d::tweenfunc::TweenType::Elastic_EaseInOut')
+cls.enum('Back_EaseIn', 'cocos2d::tweenfunc::TweenType::Back_EaseIn')
+cls.enum('Back_EaseOut', 'cocos2d::tweenfunc::TweenType::Back_EaseOut')
+cls.enum('Back_EaseInOut', 'cocos2d::tweenfunc::TweenType::Back_EaseInOut')
+cls.enum('Bounce_EaseIn', 'cocos2d::tweenfunc::TweenType::Bounce_EaseIn')
+cls.enum('Bounce_EaseOut', 'cocos2d::tweenfunc::TweenType::Bounce_EaseOut')
+cls.enum('Bounce_EaseInOut', 'cocos2d::tweenfunc::TweenType::Bounce_EaseInOut')
+cls.enum('TWEEN_EASING_MAX', 'cocos2d::tweenfunc::TweenType::TWEEN_EASING_MAX')
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::Action'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true

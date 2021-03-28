@@ -8,6 +8,48 @@
 #include "cocos2d.h"
 #include "cclua/xlua.h"
 
+static int luaopen_cocos2d_tweenfunc_TweenType(lua_State *L)
+{
+    oluacls_class(L, "cc.tweenfunc.TweenType", nullptr);
+    oluacls_const_integer(L, "Back_EaseIn", (lua_Integer)cocos2d::tweenfunc::TweenType::Back_EaseIn);
+    oluacls_const_integer(L, "Back_EaseInOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Back_EaseInOut);
+    oluacls_const_integer(L, "Back_EaseOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Back_EaseOut);
+    oluacls_const_integer(L, "Bounce_EaseIn", (lua_Integer)cocos2d::tweenfunc::TweenType::Bounce_EaseIn);
+    oluacls_const_integer(L, "Bounce_EaseInOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Bounce_EaseInOut);
+    oluacls_const_integer(L, "Bounce_EaseOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Bounce_EaseOut);
+    oluacls_const_integer(L, "CUSTOM_EASING", (lua_Integer)cocos2d::tweenfunc::TweenType::CUSTOM_EASING);
+    oluacls_const_integer(L, "Circ_EaseIn", (lua_Integer)cocos2d::tweenfunc::TweenType::Circ_EaseIn);
+    oluacls_const_integer(L, "Circ_EaseInOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Circ_EaseInOut);
+    oluacls_const_integer(L, "Circ_EaseOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Circ_EaseOut);
+    oluacls_const_integer(L, "Cubic_EaseIn", (lua_Integer)cocos2d::tweenfunc::TweenType::Cubic_EaseIn);
+    oluacls_const_integer(L, "Cubic_EaseInOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Cubic_EaseInOut);
+    oluacls_const_integer(L, "Cubic_EaseOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Cubic_EaseOut);
+    oluacls_const_integer(L, "Elastic_EaseIn", (lua_Integer)cocos2d::tweenfunc::TweenType::Elastic_EaseIn);
+    oluacls_const_integer(L, "Elastic_EaseInOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Elastic_EaseInOut);
+    oluacls_const_integer(L, "Elastic_EaseOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Elastic_EaseOut);
+    oluacls_const_integer(L, "Expo_EaseIn", (lua_Integer)cocos2d::tweenfunc::TweenType::Expo_EaseIn);
+    oluacls_const_integer(L, "Expo_EaseInOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Expo_EaseInOut);
+    oluacls_const_integer(L, "Expo_EaseOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Expo_EaseOut);
+    oluacls_const_integer(L, "Linear", (lua_Integer)cocos2d::tweenfunc::TweenType::Linear);
+    oluacls_const_integer(L, "Quad_EaseIn", (lua_Integer)cocos2d::tweenfunc::TweenType::Quad_EaseIn);
+    oluacls_const_integer(L, "Quad_EaseInOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Quad_EaseInOut);
+    oluacls_const_integer(L, "Quad_EaseOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Quad_EaseOut);
+    oluacls_const_integer(L, "Quart_EaseIn", (lua_Integer)cocos2d::tweenfunc::TweenType::Quart_EaseIn);
+    oluacls_const_integer(L, "Quart_EaseInOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Quart_EaseInOut);
+    oluacls_const_integer(L, "Quart_EaseOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Quart_EaseOut);
+    oluacls_const_integer(L, "Quint_EaseIn", (lua_Integer)cocos2d::tweenfunc::TweenType::Quint_EaseIn);
+    oluacls_const_integer(L, "Quint_EaseInOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Quint_EaseInOut);
+    oluacls_const_integer(L, "Quint_EaseOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Quint_EaseOut);
+    oluacls_const_integer(L, "Sine_EaseIn", (lua_Integer)cocos2d::tweenfunc::TweenType::Sine_EaseIn);
+    oluacls_const_integer(L, "Sine_EaseInOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Sine_EaseInOut);
+    oluacls_const_integer(L, "Sine_EaseOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Sine_EaseOut);
+    oluacls_const_integer(L, "TWEEN_EASING_MAX", (lua_Integer)cocos2d::tweenfunc::TweenType::TWEEN_EASING_MAX);
+
+    olua_registerluatype<cocos2d::tweenfunc::TweenType>(L, "cc.tweenfunc.TweenType");
+
+    return 1;
+}
+
 static int _cocos2d_Action___move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -10759,6 +10801,7 @@ static int luaopen_cocos2d_SplitCols(lua_State *L)
 
 int luaopen_cocos2d_action(lua_State *L)
 {
+    olua_require(L, "cc.tweenfunc.TweenType", luaopen_cocos2d_tweenfunc_TweenType);
     olua_require(L, "cc.Action", luaopen_cocos2d_Action);
     olua_require(L, "cc.FiniteTimeAction", luaopen_cocos2d_FiniteTimeAction);
     olua_require(L, "cc.Speed", luaopen_cocos2d_Speed);

@@ -4,6 +4,14 @@ local olua = require "olua"
 local typedef = olua.typedef
 
 typedef {
+    CPPCLS = 'cocos2d::tweenfunc::TweenType',
+    LUACLS = 'cc.tweenfunc.TweenType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUM_VARS = nil,
+}
+
+typedef {
     CPPCLS = 'cocos2d::Action *',
     LUACLS = 'cc.Action',
     DECLTYPE = nil,

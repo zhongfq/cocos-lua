@@ -5,10 +5,12 @@ return {
         #include "3d/CCBundle3D.h"
         #include "audio/include/AudioEngine.h"
         #include "base/TGAlib.h"
+        #include "base/CCMap.h"
         #include "renderer/backend/Backend.h"
         #include "ui/CocosGUI.h"
         #include "ui/UIScrollViewBar.h"
         #include "navmesh/CCNavMesh.h"
+        #include "editor-support/cocostudio/CocoStudio.h"
 
         // fairygui
         #include "FairyGUI.h"

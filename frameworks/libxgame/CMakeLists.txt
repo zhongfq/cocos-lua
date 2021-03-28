@@ -81,6 +81,10 @@ if(CCLUA_BUILD_FAIRYGUI)
     target_compile_definitions(xgame PUBLIC CCLUA_BUILD_FAIRYGUI)
 endif()
 
+if(CCLUA_BUILD_COCOSSTUDIO)
+    target_compile_definitions(xgame PUBLIC CCLUA_BUILD_COCOSSTUDIO)
+endif()
+
 if(CCLUA_BUILD_DRAGONBONES)
     target_link_libraries(xgame dragonbones)
     target_compile_definitions(xgame PUBLIC CCLUA_BUILD_DRAGONBONES)

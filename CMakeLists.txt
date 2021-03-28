@@ -30,6 +30,7 @@ set(APP_NAME cocos-lua)
 project(${APP_NAME})
 
 option(CCLUA_BUILD_SPINE "Build with spine support" ON)
+option(CCLUA_BUILD_COCOSSTUDIO "Build with cocos studio support" ON)
 option(CCLUA_BUILD_PBC "Build with pbc support" ON)
 option(CCLUA_BUILD_SPROTO "Build with sproto support" ON)
 option(CCLUA_BUILD_LPEG "Build with lpeg support" ON) # if CCLUA_BUILD_SPROTO ON then lpeg auto set ON end

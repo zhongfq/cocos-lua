@@ -25,6 +25,8 @@ local function typeconf(cppcls)
     return cls
 end
 
+typeconf 'cocos2d::tweenfunc::TweenType'
+
 typeconf 'cocos2d::Action'
     .EXCLUDE_FUNC 'calculateAngles'
     .EXCLUDE_FUNC 'createWithVariableList'

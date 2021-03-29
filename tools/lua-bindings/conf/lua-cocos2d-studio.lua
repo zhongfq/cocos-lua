@@ -77,7 +77,6 @@ typeconf "cocostudio::ActionScaleFrame"
 typeconf "cocostudio::ActionTintFrame"
 
 typeconf "cocostudio::AnimationData"
-
 typeconf "cocostudio::Armature"
 typeconf "cocostudio::ProcessBase"
 typeconf "cocostudio::ActionManagerEx"

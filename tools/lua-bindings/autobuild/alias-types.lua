@@ -122,6 +122,12 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocostudio::timeline::AnimationClip',
+    DECLTYPE = 'cocostudio::timeline::AnimationClip',
+    CONV = 'auto_olua_$$_cocostudio_timeline_AnimationInfo',
+}
+
+typedef {
     CPPCLS = 'jobjectRefType',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',

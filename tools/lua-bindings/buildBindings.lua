@@ -9,7 +9,6 @@ require 'autobuild.cocos2d-studio-types'
 require 'autobuild.cocos2d-backend-types'
 require 'autobuild.cocos2d-physics-types'
 require 'autobuild.cocos2d-ui-types'
-require 'conf.manual-types'
 
 export 'autobuild/conv.lua'
 export 'autobuild/cocos2d.lua'

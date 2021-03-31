@@ -1237,7 +1237,7 @@ float ScrollPane::updateTargetAndDuration(float pos, int axis)
         {
             if (v2 > 1000)
                 ratio = pow((v2 - 1000) / 1000, 2);
-    }
+        }
 #endif
 
         if (ratio != 0)
@@ -1253,7 +1253,7 @@ float ScrollPane::updateTargetAndDuration(float pos, int axis)
             float change = (int)(v * duration * 0.4f);
             pos += change;
         }
-}
+    }
 
     if (duration < TWEEN_TIME_DEFAULT)
         duration = TWEEN_TIME_DEFAULT;

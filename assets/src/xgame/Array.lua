@@ -161,6 +161,10 @@ function Array:sort(funcOrField, descending)
     local func
     if type(funcOrField) == "function" then
         func = funcOrField
+    elseif not funcOrField then
+        func = function (a, b)
+            return a < b
+        end
     elseif descending then
         func = function (a, b)
             return b[funcOrField] < a[funcOrField]

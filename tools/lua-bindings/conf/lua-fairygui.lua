@@ -21,12 +21,12 @@ M.INCLUDES = [[
 ]]
 
 M.CHUNK = [[
-bool manual_olua_is_fairygui_EventTag(lua_State *L, int idx)
+bool olua_is_fairygui_EventTag(lua_State *L, int idx)
 {
     return olua_isinteger(L, idx) || olua_isa<void>(L, idx);
 }
 
-void manual_olua_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventTag *value)
+void olua_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventTag *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -51,7 +51,7 @@ end
 
 typedef {
     CPPCLS = 'fairygui::EventTag',
-    CONV = 'manual_olua_$$_fairygui_EventTag',
+    CONV = 'olua_$$_fairygui_EventTag',
 }
 
 typeconv 'fairygui::Margin'
@@ -370,11 +370,9 @@ GList.CALLBACK {NAME = 'itemRenderer', LOCAL = false}
 -- std::function<void(int, GObject*)> itemRenderer;
 GList.INSERT('itemRenderer', {
     CALLBACK_BEFORE = [[
-        if (arg2->getParent()) {
-            olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
-            olua_addref(L, -1, "children", -2, OLUA_MODE_MULTIPLE);
-            lua_pop(L, 1);
-        }
+        olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
+        olua_addref(L, -1, "children", -2, OLUA_MODE_MULTIPLE);
+        lua_pop(L, 1);
     ]]
 })
 
@@ -587,9 +585,25 @@ typeconf 'fairygui::GTreeNode'
 local GTree = typeconf 'fairygui::GTree'
 GTree.ATTR('getList', {RET = '@addref(list ^)'})
 GTree.ATTR('getRootNode', {RET = '@addref(rootNode ^)'})
-GTree.ATTR('getSelectedNodes', {ARG1 = '@out'})
+GTree.ATTR('getSelectedNode', {RET = '@addref(nodes |)'})
+GTree.ATTR('getSelectedNodes', {ARG1 = '@addref(nodes |)@out'})
 GTree.CALLBACK {NAME = 'treeNodeRender', LOCAL = false}
 GTree.CALLBACK {NAME = 'treeNodeWillExpand', LOCAL = false}
+GTree.INSERT('treeNodeRender', {
+    CALLBACK_BEFORE = [[
+        olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
+        olua_addref(L, -1, "nodes", -3, OLUA_MODE_MULTIPLE);
+        olua_addref(L, -1, "children", -2, OLUA_MODE_MULTIPLE);
+        lua_pop(L, 1);
+    ]]
+})
+GTree.INSERT('treeNodeWillExpand', {
+    CALLBACK_BEFORE = [[
+        olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
+        olua_addref(L, -1, "nodes", -3, OLUA_MODE_MULTIPLE);
+        lua_pop(L, 1);
+    ]]
+})
 
 typeconf 'fairygui::FUIContainer'
 typeconf 'fairygui::FUIInput'

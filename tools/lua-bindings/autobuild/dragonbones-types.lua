@@ -7,7 +7,7 @@ typedef {
     CPPCLS = 'dragonBones::Rectangle',
     LUACLS = nil,
     DECLTYPE = nil,
-    CONV = 'auto_olua_$$_dragonBones_Rectangle',
+    CONV = 'olua_$$_dragonBones_Rectangle',
     NUM_VARS = 4,
 }
 

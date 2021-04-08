@@ -14,7 +14,7 @@
 #include "cclua/window.h"
 #include "olua/olua.hpp"
 
-int manual_olua_unpack_xgame_window_Bounds(lua_State *L, const cclua::window::Bounds *value)
+int olua_unpack_xgame_window_Bounds(lua_State *L, const cclua::window::Bounds *value)
 {
     if (value) {
         lua_pushnumber(L, (lua_Number)value->getMinX());
@@ -30,7 +30,7 @@ int manual_olua_unpack_xgame_window_Bounds(lua_State *L, const cclua::window::Bo
     return 4;
 }
 
-int auto_olua_push_cclua_downloader_FileTask(lua_State *L, const cclua::downloader::FileTask *value)
+int olua_push_cclua_downloader_FileTask(lua_State *L, const cclua::downloader::FileTask *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
@@ -53,7 +53,7 @@ int auto_olua_push_cclua_downloader_FileTask(lua_State *L, const cclua::download
     return 1;
 }
 
-void auto_olua_check_cclua_downloader_FileTask(lua_State *L, int idx, cclua::downloader::FileTask *value)
+void olua_check_cclua_downloader_FileTask(lua_State *L, int idx, cclua::downloader::FileTask *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -91,12 +91,12 @@ void auto_olua_check_cclua_downloader_FileTask(lua_State *L, int idx, cclua::dow
     lua_pop(L, 1);
 }
 
-bool auto_olua_is_cclua_downloader_FileTask(lua_State *L, int idx)
+bool olua_is_cclua_downloader_FileTask(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "path") && olua_hasfield(L, idx, "url");
 }
 
-void auto_olua_pack_cclua_downloader_FileTask(lua_State *L, int idx, cclua::downloader::FileTask *value)
+void olua_pack_cclua_downloader_FileTask(lua_State *L, int idx, cclua::downloader::FileTask *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -121,7 +121,7 @@ void auto_olua_pack_cclua_downloader_FileTask(lua_State *L, int idx, cclua::down
     value->state = (cclua::downloader::FileState)arg4;
 }
 
-int auto_olua_unpack_cclua_downloader_FileTask(lua_State *L, const cclua::downloader::FileTask *value)
+int olua_unpack_cclua_downloader_FileTask(lua_State *L, const cclua::downloader::FileTask *value)
 {
     if (value) {
         olua_push_std_string(L, value->url);
@@ -137,7 +137,7 @@ int auto_olua_unpack_cclua_downloader_FileTask(lua_State *L, const cclua::downlo
     return 4;
 }
 
-bool auto_olua_ispack_cclua_downloader_FileTask(lua_State *L, int idx)
+bool olua_ispack_cclua_downloader_FileTask(lua_State *L, int idx)
 {
     return olua_is_std_string(L, idx + 0) && olua_is_std_string(L, idx + 1) && olua_is_std_string(L, idx + 2) && olua_is_uint(L, idx + 3);
 }
@@ -186,7 +186,7 @@ static int _cclua_SceneNoCamera_createWithSize(lua_State *L)
 
     cocos2d::Size arg1;       /** size */
 
-    auto_olua_check_cocos2d_Size(L, 1, &arg1);
+    olua_check_cocos2d_Size(L, 1, &arg1);
 
     // static cclua::SceneNoCamera *createWithSize(const cocos2d::Size &size)
     cclua::SceneNoCamera *ret = cclua::SceneNoCamera::createWithSize(arg1);
@@ -1364,7 +1364,7 @@ static int _cclua_filesystem_read(lua_State *L)
 
     // static cocos2d::Data read(const std::string &path)
     cocos2d::Data ret = cclua::filesystem::read(arg1);
-    int num_ret = manual_olua_push_cocos2d_Data(L, &ret);
+    int num_ret = olua_push_cocos2d_Data(L, &ret);
 
     olua_endinvoke(L);
 
@@ -1514,7 +1514,7 @@ static int _cclua_filesystem_write2(lua_State *L)
     cocos2d::Data arg2;       /** data */
 
     olua_check_std_string(L, 1, &arg1);
-    manual_olua_check_cocos2d_Data(L, 2, &arg2);
+    olua_check_cocos2d_Data(L, 2, &arg2);
 
     // static bool write(const std::string &path, const cocos2d::Data &data)
     bool ret = cclua::filesystem::write(arg1, arg2);
@@ -1530,7 +1530,7 @@ static int _cclua_filesystem_write(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if ((olua_is_std_string(L, 1)) && (manual_olua_is_cocos2d_Data(L, 2))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_cocos2d_Data(L, 2))) {
             // static bool write(const std::string &path, const cocos2d::Data &data)
             return _cclua_filesystem_write2(L);
         // }
@@ -2226,11 +2226,11 @@ static int _cclua_window_convertToCameraSpace1(lua_State *L)
 
     cocos2d::Vec2 arg1;       /** position */
 
-    auto_olua_check_cocos2d_Vec2(L, 1, &arg1);
+    olua_check_cocos2d_Vec2(L, 1, &arg1);
 
     // static cocos2d::Vec2 convertToCameraSpace(const cocos2d::Vec2 &position)
     cocos2d::Vec2 ret = cclua::window::convertToCameraSpace(arg1);
-    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
+    int num_ret = olua_push_cocos2d_Vec2(L, &ret);
 
     olua_endinvoke(L);
 
@@ -2243,11 +2243,11 @@ static int _cclua_window_convertToCameraSpace2(lua_State *L)
 
     cocos2d::Vec2 arg1;       /** position */
 
-    auto_olua_pack_cocos2d_Vec2(L, 1, &arg1);
+    olua_pack_cocos2d_Vec2(L, 1, &arg1);
 
     // static cocos2d::Vec2 convertToCameraSpace(@pack const cocos2d::Vec2 &position)
     cocos2d::Vec2 ret = cclua::window::convertToCameraSpace(arg1);
-    int num_ret = auto_olua_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = olua_unpack_cocos2d_Vec2(L, &ret);
 
     olua_endinvoke(L);
 
@@ -2259,14 +2259,14 @@ static int _cclua_window_convertToCameraSpace(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if ((auto_olua_is_cocos2d_Vec2(L, 1))) {
+        // if ((olua_is_cocos2d_Vec2(L, 1))) {
             // static cocos2d::Vec2 convertToCameraSpace(const cocos2d::Vec2 &position)
             return _cclua_window_convertToCameraSpace1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((auto_olua_ispack_cocos2d_Vec2(L, 1))) {
+        // if ((olua_ispack_cocos2d_Vec2(L, 1))) {
             // static cocos2d::Vec2 convertToCameraSpace(@pack const cocos2d::Vec2 &position)
             return _cclua_window_convertToCameraSpace2(L);
         // }
@@ -2283,7 +2283,7 @@ static int _cclua_window_getDesignSize(lua_State *L)
 
     // @unpack static cocos2d::Size getDesignSize()
     cocos2d::Size ret = cclua::window::getDesignSize();
-    int num_ret = auto_olua_unpack_cocos2d_Size(L, &ret);
+    int num_ret = olua_unpack_cocos2d_Size(L, &ret);
 
     olua_endinvoke(L);
 
@@ -2296,7 +2296,7 @@ static int _cclua_window_getFrameSize(lua_State *L)
 
     // @unpack static cocos2d::Size getFrameSize()
     cocos2d::Size ret = cclua::window::getFrameSize();
-    int num_ret = auto_olua_unpack_cocos2d_Size(L, &ret);
+    int num_ret = olua_unpack_cocos2d_Size(L, &ret);
 
     olua_endinvoke(L);
 
@@ -2309,7 +2309,7 @@ static int _cclua_window_getVisibleBounds(lua_State *L)
 
     // @unpack static cclua::window::Bounds getVisibleBounds()
     cclua::window::Bounds ret = cclua::window::getVisibleBounds();
-    int num_ret = manual_olua_unpack_xgame_window_Bounds(L, &ret);
+    int num_ret = olua_unpack_xgame_window_Bounds(L, &ret);
 
     olua_endinvoke(L);
 
@@ -2322,7 +2322,7 @@ static int _cclua_window_getVisibleSize(lua_State *L)
 
     // @unpack static cocos2d::Size getVisibleSize()
     cocos2d::Size ret = cclua::window::getVisibleSize();
-    int num_ret = auto_olua_unpack_cocos2d_Size(L, &ret);
+    int num_ret = olua_unpack_cocos2d_Size(L, &ret);
 
     olua_endinvoke(L);
 
@@ -2336,7 +2336,7 @@ static int _cclua_window_setDesignSize1(lua_State *L)
     cocos2d::Size arg1;       /** size */
     lua_Unsigned arg2 = 0;       /** resolutionPolicy */
 
-    auto_olua_check_cocos2d_Size(L, 1, &arg1);
+    olua_check_cocos2d_Size(L, 1, &arg1);
     olua_check_uint(L, 2, &arg2);
 
     // static void setDesignSize(const cocos2d::Size &size, ResolutionPolicy resolutionPolicy)
@@ -2354,7 +2354,7 @@ static int _cclua_window_setDesignSize2(lua_State *L)
     cocos2d::Size arg1;       /** size */
     lua_Unsigned arg2 = 0;       /** resolutionPolicy */
 
-    auto_olua_pack_cocos2d_Size(L, 1, &arg1);
+    olua_pack_cocos2d_Size(L, 1, &arg1);
     olua_check_uint(L, 3, &arg2);
 
     // static void setDesignSize(@pack const cocos2d::Size &size, ResolutionPolicy resolutionPolicy)
@@ -2370,14 +2370,14 @@ static int _cclua_window_setDesignSize(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_uint(L, 2))) {
+        // if ((olua_is_cocos2d_Size(L, 1)) && (olua_is_uint(L, 2))) {
             // static void setDesignSize(const cocos2d::Size &size, ResolutionPolicy resolutionPolicy)
             return _cclua_window_setDesignSize1(L);
         // }
     }
 
     if (num_args == 3) {
-        // if ((auto_olua_ispack_cocos2d_Size(L, 1)) && (olua_is_uint(L, 3))) {
+        // if ((olua_ispack_cocos2d_Size(L, 1)) && (olua_is_uint(L, 3))) {
             // static void setDesignSize(@pack const cocos2d::Size &size, ResolutionPolicy resolutionPolicy)
             return _cclua_window_setDesignSize2(L);
         // }
@@ -2394,7 +2394,7 @@ static int _cclua_window_setFrameSize1(lua_State *L)
 
     cocos2d::Size arg1;       /** size */
 
-    auto_olua_check_cocos2d_Size(L, 1, &arg1);
+    olua_check_cocos2d_Size(L, 1, &arg1);
 
     // static void setFrameSize(const cocos2d::Size &size)
     cclua::window::setFrameSize(arg1);
@@ -2410,7 +2410,7 @@ static int _cclua_window_setFrameSize2(lua_State *L)
 
     cocos2d::Size arg1;       /** size */
 
-    auto_olua_pack_cocos2d_Size(L, 1, &arg1);
+    olua_pack_cocos2d_Size(L, 1, &arg1);
 
     // static void setFrameSize(@pack const cocos2d::Size &size)
     cclua::window::setFrameSize(arg1);
@@ -2425,14 +2425,14 @@ static int _cclua_window_setFrameSize(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if ((auto_olua_is_cocos2d_Size(L, 1))) {
+        // if ((olua_is_cocos2d_Size(L, 1))) {
             // static void setFrameSize(const cocos2d::Size &size)
             return _cclua_window_setFrameSize1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((auto_olua_ispack_cocos2d_Size(L, 1))) {
+        // if ((olua_ispack_cocos2d_Size(L, 1))) {
             // static void setFrameSize(@pack const cocos2d::Size &size)
             return _cclua_window_setFrameSize2(L);
         // }
@@ -2519,7 +2519,7 @@ static int _cclua_downloader_load(lua_State *L)
 
     cclua::downloader::FileTask arg1;       /** task */
 
-    auto_olua_check_cclua_downloader_FileTask(L, 1, &arg1);
+    olua_check_cclua_downloader_FileTask(L, 1, &arg1);
 
     // static void load(const cclua::downloader::FileTask &task)
     cclua::downloader::load(arg1);
@@ -2547,7 +2547,7 @@ static int _cclua_downloader_setDispatcher(lua_State *L)
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            auto_olua_push_cclua_downloader_FileTask(L, &arg1);
+            olua_push_cclua_downloader_FileTask(L, &arg1);
             olua_disable_objpool(L);
 
             olua_callback(L, cb_store, cb_name.c_str(), 1);

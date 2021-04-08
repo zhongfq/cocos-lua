@@ -22,7 +22,7 @@ M.EXCLUDE_TYPE 'cocos2d::backend::RenderPassDescriptor'
 
 typedef {
     CPPCLS = 'cocos2d::backend::UniformLocation',
-    CONV = 'manual_olua_$$_cocos2d_backend_UniformLocation',
+    CONV = 'olua_$$_cocos2d_backend_UniformLocation',
 }
 
 typeconf 'cocos2d::backend::BufferUsage'
@@ -81,22 +81,22 @@ local ProgramState = typeconf 'cocos2d::backend::ProgramState'
 ProgramState.CHUNK = [[
 static inline void olua_check_value(lua_State *L, int idx, cocos2d::Vec2 *value)
 {
-    auto_olua_check_cocos2d_Vec2(L, idx, value);
+    olua_check_cocos2d_Vec2(L, idx, value);
 }
 
 static inline void olua_check_value(lua_State *L, int idx, cocos2d::Vec3 *value)
 {
-    auto_olua_check_cocos2d_Vec3(L, idx, value);
+    olua_check_cocos2d_Vec3(L, idx, value);
 }
 
 static inline void olua_check_value(lua_State *L, int idx, cocos2d::Vec4 *value)
 {
-    auto_olua_check_cocos2d_Vec4(L, idx, value);
+    olua_check_cocos2d_Vec4(L, idx, value);
 }
 
 static inline void olua_check_value(lua_State *L, int idx, cocos2d::Mat4 *value)
 {
-    manual_olua_check_cocos2d_Mat4(L, idx, value);
+    olua_check_cocos2d_Mat4(L, idx, value);
 }
 
 static inline void olua_check_value(lua_State *L, int idx, int *value)
@@ -117,7 +117,7 @@ template <typename T> int _cocos2d_backend_ProgramState_setUniform(lua_State *L)
     if (olua_isstring(L, 2)) {
         location = self->getUniformLocation(olua_checkstring(L, 2));
     } else {
-        manual_olua_check_cocos2d_backend_UniformLocation(L, 2, &location);
+        olua_check_cocos2d_backend_UniformLocation(L, 2, &location);
     }
     olua_check_value(L, 3, &value);
     self->setUniform(location, &value, sizeof(T));
@@ -131,7 +131,7 @@ template <typename T> int _cocos2d_backend_ProgramState_setUniformv(lua_State *L
     if (olua_isstring(L, 2)) {
         location = self->getUniformLocation(olua_checkstring(L, 2));
     } else {
-        manual_olua_check_cocos2d_backend_UniformLocation(L, 2, &location);
+        olua_check_cocos2d_backend_UniformLocation(L, 2, &location);
     }
     luaL_checktype(L, 3, LUA_TTABLE);
     int len = (int)lua_rawlen(L, 3);

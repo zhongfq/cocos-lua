@@ -7,7 +7,7 @@ typedef {
     CPPCLS = 'cocostudio::timeline::AnimationInfo',
     LUACLS = nil,
     DECLTYPE = nil,
-    CONV = 'auto_olua_$$_cocostudio_timeline_AnimationInfo',
+    CONV = 'olua_$$_cocostudio_timeline_AnimationInfo',
     NUM_VARS = 3,
 }
 

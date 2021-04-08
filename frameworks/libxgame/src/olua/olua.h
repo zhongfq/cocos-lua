@@ -41,10 +41,6 @@ extern "C" {
 #include <assert.h>
 #include <math.h>
 
-#ifdef OLUA_USER_H
-#include OLUA_USER_H
-#endif
-
 #ifdef OLUA_DEBUG
 #define olua_assert(e, msg) assert((e) && (msg))
 #else
@@ -74,10 +70,6 @@ extern "C" {
 // stat api
 OLUA_API size_t olua_objcount(lua_State *L);
 OLUA_API bool olua_isdebug(lua_State *L);
-
-#ifndef OLUA_HAVE_MAINTHREAD
-OLUA_API lua_State *olua_mainthread(lua_State *L);
-#endif
 
 /**
  * New and close lua_State for several times, sometimes may got same
@@ -202,7 +194,7 @@ OLUA_API void olua_getref(lua_State *L, int ref);
 //  }
 #define OLUA_MODE_SINGLE    (1 << 1) // add & remove: only ref one
 #define OLUA_MODE_MULTIPLE  (1 << 2) // add & remove: can ref one or more
-#define OLUA_FLAG_ARRAY     (1 << 3) // obj is table
+#define OLUA_FLAG_TABLE     (1 << 3) // obj is table
 #define OLUA_FLAG_REMOVE    (1 << 4) // internal use
 typedef bool (*olua_DelRefVisitor)(lua_State *L, int idx);
 OLUA_API void olua_getreftable(lua_State *L, int idx, const char *name);

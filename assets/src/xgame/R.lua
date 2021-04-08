@@ -15,6 +15,11 @@ function M:fromPath(path)
     return self
 end
 
+function M:fromSWFUI(cls)
+    M.fromSWF(self, cls.Get:rootswfPath())
+    return self
+end
+
 function M:fromSWF(path)
     path = string.gsub(path, "/", ".")
     path = string.gsub(path, "%.swf$", "")

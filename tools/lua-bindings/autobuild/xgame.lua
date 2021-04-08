@@ -24,7 +24,7 @@ M.INCLUDES = [[
     #include "olua/olua.hpp"
 ]]
 M.CHUNK = [[
-    int manual_olua_unpack_xgame_window_Bounds(lua_State *L, const cclua::window::Bounds *value)
+    int olua_unpack_xgame_window_Bounds(lua_State *L, const cclua::window::Bounds *value)
     {
         if (value) {
             lua_pushnumber(L, (lua_Number)value->getMinX());

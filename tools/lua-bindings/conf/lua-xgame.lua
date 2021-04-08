@@ -19,7 +19,7 @@ M.INCLUDES = [[
 #include "olua/olua.hpp"
 ]]
 M.CHUNK = [[
-int manual_olua_unpack_xgame_window_Bounds(lua_State *L, const cclua::window::Bounds *value)
+int olua_unpack_xgame_window_Bounds(lua_State *L, const cclua::window::Bounds *value)
 {
     if (value) {
         lua_pushnumber(L, (lua_Number)value->getMinX());
@@ -47,7 +47,7 @@ M.EXCLUDE_TYPE 'cclua::BufferReader *'
 
 typedef {
     CPPCLS = 'cclua::window::Bounds',
-    CONV = 'manual_olua_$$_xgame_window_Bounds',
+    CONV = 'olua_$$_xgame_window_Bounds',
 }
 
 typeconv 'cclua::downloader::FileTask'

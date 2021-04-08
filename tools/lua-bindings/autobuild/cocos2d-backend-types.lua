@@ -4,7 +4,7 @@ local olua = require "olua"
 local typedef = olua.typedef
 
 typedef {
-    CONV = 'manual_olua_$$_cocos2d_backend_UniformLocation',
+    CONV = 'olua_$$_cocos2d_backend_UniformLocation',
     CPPCLS = 'cocos2d::backend::UniformLocation',
 }
 

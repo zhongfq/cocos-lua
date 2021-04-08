@@ -19,12 +19,37 @@ M.INCLUDES = [[
     #include "spine/spine-cocos2dx.h"
 ]]
 M.CHUNK = [[
-    bool manual_olua_is_spine_String(lua_State *L, int idx)
+    template <class T>
+    void olua_insert_array(spine::Vector<T> *array, T value)
+    {
+        array->add(value);
+    }
+
+    template <class T>
+    void olua_foreach_array(const spine::Vector<T> *array, const std::function<void(T)> &callback)
+    {
+        spine::Vector<T> *vararray = const_cast<spine::Vector<T> *>(array);
+        for (int i = 0, n = (int)vararray->size(); i < n; i++) {
+            callback((*vararray)[i]);
+        }
+    }
+
+    template <class T>
+    int olua_push_spine_Vector(lua_State *L, const spine::Vector<T> *array, const std::function<void(T)> &push) {
+        return olua_push_array<T, spine::Vector>(L, array, push);
+    }
+
+    template <class T>
+    void olua_check_spine_Vector(lua_State *L, int idx, spine::Vector<T> *array, const std::function<void(T *)> &check) {
+        olua_check_array<T, spine::Vector>(L, idx, array, check);
+    }
+
+    bool olua_is_spine_String(lua_State *L, int idx)
     {
         return olua_isstring(L, idx);
     }
 
-    int manual_olua_push_spine_String(lua_State *L, const spine::String *value)
+    int olua_push_spine_String(lua_State *L, const spine::String *value)
     {
         if (value && value->buffer()) {
             lua_pushlstring(L, value->buffer(), value->length());
@@ -34,7 +59,7 @@ M.CHUNK = [[
         return 1;
     }
 
-    void manual_olua_check_spine_String(lua_State *L, int idx, spine::String *value)
+    void olua_check_spine_String(lua_State *L, int idx, spine::String *value)
     {
         if (!value) {
             luaL_error(L, "value is NULL");
@@ -42,12 +67,12 @@ M.CHUNK = [[
         *value = olua_checkstring(L, idx);
     }
 
-    bool manual_olua_is_spine_Color(lua_State *L, int idx)
+    bool olua_is_spine_Color(lua_State *L, int idx)
     {
         return olua_isinteger(L, idx);
     }
 
-    void manual_olua_check_spine_Color(lua_State *L, int idx, spine::Color *value)
+    void olua_check_spine_Color(lua_State *L, int idx, spine::Color *value)
     {
         if (!value) {
             luaL_error(L, "value is NULL");
@@ -59,7 +84,7 @@ M.CHUNK = [[
         value->a = ((uint8_t)(color & 0xFF)) / 255.0f;
     }
 
-    int manual_olua_push_spine_Color(lua_State *L, const spine::Color *value)
+    int olua_push_spine_Color(lua_State *L, const spine::Color *value)
     {
         uint32_t color = 0;
         if (value) {
@@ -72,48 +97,20 @@ M.CHUNK = [[
         return 1;
     }
 
-    int manual_olua_push_spine_EventData(lua_State *L, const spine::EventData *value)
+    int olua_push_spine_EventData(lua_State *L, const spine::EventData *value)
     {
+        spine::EventData *data = const_cast<spine::EventData *>(value);
         lua_createtable(L, 0, 8);
-        olua_setfieldinteger(L, -1, "intValue", const_cast<spine::EventData *>(value)->getIntValue());
-        olua_setfieldnumber(L, -1, "getVolume", const_cast<spine::EventData *>(value)->getVolume());
-        olua_setfieldnumber(L, -1, "getBalance", const_cast<spine::EventData *>(value)->getBalance());
-        manual_olua_push_spine_String(L, &value->getName());
+        olua_setfieldinteger(L, -1, "intValue", data->getIntValue());
+        olua_setfieldnumber(L, -1, "getVolume", data->getVolume());
+        olua_setfieldnumber(L, -1, "getBalance", data->getBalance());
+        olua_push_spine_String(L, &data->getName());
         olua_rawsetf(L, -2, "name");
-        manual_olua_push_spine_String(L, &const_cast<spine::EventData *>(value)->getStringValue());
+        olua_push_spine_String(L, &data->getStringValue());
         olua_rawsetf(L, -2, "stringValue");
-        manual_olua_push_spine_String(L, &const_cast<spine::EventData *>(value)->getAudioPath());
+        olua_push_spine_String(L, &data->getAudioPath());
         olua_rawsetf(L, -2, "audioPath");
         return 1;
-    }
-
-    template <typename T> int manual_olua_push_spine_Vector(lua_State *L, const spine::Vector<T*> &v, const char *cls)
-    {
-        lua_newtable(L);
-        int count = 1;
-        for (int i = 0; i < (int)v.size(); i++) {
-            auto obj = ((spine::Vector<T*> &)v)[i];
-            if (obj == nullptr) {
-                continue;
-            }
-            olua_push_cppobj(L, obj, cls);
-            lua_rawseti(L, -2, count++);
-        }
-        return 1;
-    }
-
-    template <typename T> void manual_olua_check_spine_Vector(lua_State *L, int idx, spine::Vector<T*> &v, const char *cls)
-    {
-        luaL_checktype(L, idx, LUA_TTABLE);
-        int total = (int)lua_rawlen(L, idx);
-        v.ensureCapacity((size_t)total);
-        for (int i = 1; i <= total; i++) {
-            lua_rawgeti(L, idx, i);
-            T* obj;
-            olua_check_cppobj(L, -1, (void **)&obj, cls);
-            v.add(obj);
-            lua_pop(L, 1);
-        }
     }
 ]]
 

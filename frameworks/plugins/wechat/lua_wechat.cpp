@@ -255,7 +255,7 @@ static int _cclua_plugin_WeChat_setDispatcher(lua_State *L)
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
             olua_push_std_string(L, arg1);
-            manual_olua_push_cocos2d_ValueMap(L, &arg2);
+            olua_push_cocos2d_ValueMap(L, &arg2);
             olua_disable_objpool(L);
 
             olua_callback(L, cb_store, cb_name.c_str(), 2);
@@ -282,7 +282,7 @@ static int _cclua_plugin_WeChat_share(lua_State *L)
     cocos2d::ValueMap arg2;       /** value */
 
     olua_check_uint(L, 1, &arg1);
-    manual_olua_check_cocos2d_ValueMap(L, 2, &arg2);
+    olua_check_cocos2d_ValueMap(L, 2, &arg2);
 
     // static void share(cclua::plugin::WeChat::ShareType type, cocos2d::ValueMap &value)
     cclua::plugin::WeChat::share((cclua::plugin::WeChat::ShareType)arg1, arg2);

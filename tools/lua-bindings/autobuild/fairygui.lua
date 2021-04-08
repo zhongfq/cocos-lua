@@ -24,12 +24,12 @@ M.INCLUDES = [[
     #include "utils/html/HtmlParser.h"
 ]]
 M.CHUNK = [[
-    bool manual_olua_is_fairygui_EventTag(lua_State *L, int idx)
+    bool olua_is_fairygui_EventTag(lua_State *L, int idx)
     {
         return olua_isinteger(L, idx) || olua_isa<void>(L, idx);
     }
 
-    void manual_olua_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventTag *value)
+    void olua_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventTag *value)
     {
         if (!value) {
             luaL_error(L, "value is NULL");
@@ -1687,11 +1687,9 @@ cls.insert('itemRenderer', {
     BEFORE = nil,
     AFTER = nil,
     CALLBACK_BEFORE = [[
-        if (arg2->getParent()) {
-            olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
-            olua_addref(L, -1, "children", -2, OLUA_MODE_MULTIPLE);
-            lua_pop(L, 1);
-        }
+        olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
+        olua_addref(L, -1, "children", -2, OLUA_MODE_MULTIPLE);
+        lua_pop(L, 1);
     ]],
     CALLBACK_AFTER = nil,
 })
@@ -2451,8 +2449,8 @@ cls.func(nil, 'void setIndent(int value)')
 cls.func(nil, 'int getClickToExpand()')
 cls.func(nil, 'void setClickToExpand(int value)')
 cls.func(nil, '@addref(rootNode ^) fairygui::GTreeNode *getRootNode()')
-cls.func(nil, 'fairygui::GTreeNode *getSelectedNode()')
-cls.func(nil, 'void getSelectedNodes(@out std::vector<GTreeNode *> &result)')
+cls.func(nil, '@addref(nodes |) fairygui::GTreeNode *getSelectedNode()')
+cls.func(nil, 'void getSelectedNodes(@addref(nodes |)@out std::vector<GTreeNode *> &result)')
 cls.func(nil, 'void selectNode(fairygui::GTreeNode *node, @optional bool scrollItToView)')
 cls.func(nil, 'void unselectNode(fairygui::GTreeNode *node)')
 cls.func(nil, 'void expandAll(fairygui::GTreeNode *folderNode)')
@@ -2463,6 +2461,27 @@ cls.prop('indent', nil, nil)
 cls.prop('clickToExpand', nil, nil)
 cls.prop('rootNode', nil, nil)
 cls.prop('selectedNode', nil, nil)
+cls.insert('treeNodeRender', {
+    BEFORE = nil,
+    AFTER = nil,
+    CALLBACK_BEFORE = [[
+        olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
+        olua_addref(L, -1, "nodes", -3, OLUA_MODE_MULTIPLE);
+        olua_addref(L, -1, "children", -2, OLUA_MODE_MULTIPLE);
+        lua_pop(L, 1);
+    ]],
+    CALLBACK_AFTER = nil,
+})
+cls.insert('treeNodeWillExpand', {
+    BEFORE = nil,
+    AFTER = nil,
+    CALLBACK_BEFORE = [[
+        olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
+        olua_addref(L, -1, "nodes", -3, OLUA_MODE_MULTIPLE);
+        lua_pop(L, 1);
+    ]],
+    CALLBACK_AFTER = nil,
+})
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::FUIContainer'

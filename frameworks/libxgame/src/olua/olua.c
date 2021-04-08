@@ -108,20 +108,6 @@ OLUA_API bool olua_isdebug(lua_State *L)
     return aux_getvmstatus(L)->debug;
 }
 
-#ifndef OLUA_HAVE_MAINTHREAD
-OLUA_API lua_State *olua_mainthread(lua_State *L)
-{
-    lua_State *mt = NULL;
-    if (L) {
-        olua_rawgeti(L, LUA_REGISTRYINDEX, LUA_RIDX_MAINTHREAD);
-        luaL_checktype(L, -1, LUA_TTHREAD);
-        mt = lua_tothread(L, -1);
-        lua_pop(L, 1);
-    }
-    return mt;
-}
-#endif
-
 OLUA_API lua_Integer olua_context(lua_State *L)
 {
     return aux_getvmstatus(L)->ctxid;
@@ -731,21 +717,29 @@ static void aux_changeref(lua_State *L, int idx, const char *name, int obj, int 
             lua_settop(L, top);
             return;
         }
-        if (flags & OLUA_FLAG_ARRAY) {
+        if (flags & OLUA_FLAG_TABLE) {
             olua_assert(olua_istable(L, obj), "expect table");
-            olua_getreftable(L, idx, name);     // L: ht
-            for (int i = 1; i <= (int)lua_rawlen(L, obj); i++) {
-                lua_rawgeti(L, obj, i);         // L: ht v
-                olua_assert(olua_isuserdata(L, -1), "expect userdata");
-                lua_pushvalue(L, top + 1);      // L: ht obj true|nil
-                lua_rawset(L, -3);              // L: ht          ht[obj] = true|nil
+            olua_getreftable(L, idx, name);     // L: rt
+            lua_pushnil(L);                     // L: rt key
+            while (lua_next(L, obj)) {          // L: rt key value
+                if (olua_isuserdata(L, -2)) {
+                    lua_pushvalue(L, -2);       // L: rt key value key
+                    lua_pushvalue(L, top + 1);  // L: rt key value key true|nil
+                    lua_rawset(L, -5);          // L: rt key value   rt[key] = true|nil
+                }
+                if (olua_isuserdata(L, -1)) {
+                    lua_pushvalue(L, -1);       // L: rt key value value
+                    lua_pushvalue(L, top + 1);  // L: rt key value value true|nil
+                    lua_rawset(L, -5);          // L: rt key value   rt[value] = true|nil
+                }
+                lua_pop(L, 1);                  // L: rt key
             }
         } else {
             olua_assert(olua_isuserdata(L, obj), "expect userdata");
-            olua_getreftable(L, idx, name);     // L: ht
-            lua_pushvalue(L, obj);              // L: ht obj
-            lua_pushvalue(L, top + 1);          // L: ht obj true|nil
-            lua_rawset(L, -3);                  // L: ht          ht[obj] = true|nil
+            olua_getreftable(L, idx, name);     // L: rt
+            lua_pushvalue(L, obj);              // L: rt obj
+            lua_pushvalue(L, top + 1);          // L: rt obj true|nil
+            lua_rawset(L, -3);                  // L: rt          rt[obj] = true|nil
         }
     }
     lua_settop(L, top);

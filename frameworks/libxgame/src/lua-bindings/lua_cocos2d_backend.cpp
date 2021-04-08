@@ -580,13 +580,10 @@ static int _cocos2d_backend_VertexLayout_getAttributes(lua_State *L)
 
     // const std::unordered_map<std::string, Attribute> &getAttributes()
     const std::unordered_map<std::string, cocos2d::backend::VertexLayout::Attribute> &ret = self->getAttributes();
-    int num_ret = 1;
-    lua_createtable(L, 0, (int)ret.size());
-    for (auto &entry : ret) {
-        olua_push_std_string(L, entry.first);
-        auto_olua_push_cocos2d_backend_VertexLayout_Attribute(L, &entry.second);
-        lua_rawset(L, -3);
-    }
+    int num_ret = olua_push_std_unordered_map<std::string, cocos2d::backend::VertexLayout::Attribute>(L, &ret, [L](std::string arg1, cocos2d::backend::VertexLayout::Attribute arg2) {
+        olua_push_std_string(L, (std::string)arg1);
+        olua_push_cocos2d_backend_VertexLayout_Attribute(L, &arg2);
+    });
 
     olua_endinvoke(L);
 
@@ -1171,7 +1168,7 @@ static int _cocos2d_backend_Device_createDepthStencilState(lua_State *L)
     cocos2d::backend::DepthStencilDescriptor arg1;       /** descriptor */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccb.Device");
-    auto_olua_check_cocos2d_backend_DepthStencilDescriptor(L, 2, &arg1);
+    olua_check_cocos2d_backend_DepthStencilDescriptor(L, 2, &arg1);
 
     // cocos2d::backend::DepthStencilState *createDepthStencilState(const cocos2d::backend::DepthStencilDescriptor &descriptor)
     cocos2d::backend::DepthStencilState *ret = self->createDepthStencilState(arg1);
@@ -1310,7 +1307,7 @@ static int _cocos2d_backend_Device_newTexture(lua_State *L)
     cocos2d::backend::TextureDescriptor arg1;       /** descriptor */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccb.Device");
-    auto_olua_check_cocos2d_backend_TextureDescriptor(L, 2, &arg1);
+    olua_check_cocos2d_backend_TextureDescriptor(L, 2, &arg1);
 
     // cocos2d::backend::TextureBackend *newTexture(const cocos2d::backend::TextureDescriptor &descriptor)
     cocos2d::backend::TextureBackend *ret = self->newTexture(arg1);
@@ -1904,22 +1901,22 @@ static int luaopen_cocos2d_backend_ProgramCache(lua_State *L)
 
 static inline void olua_check_value(lua_State *L, int idx, cocos2d::Vec2 *value)
 {
-    auto_olua_check_cocos2d_Vec2(L, idx, value);
+    olua_check_cocos2d_Vec2(L, idx, value);
 }
 
 static inline void olua_check_value(lua_State *L, int idx, cocos2d::Vec3 *value)
 {
-    auto_olua_check_cocos2d_Vec3(L, idx, value);
+    olua_check_cocos2d_Vec3(L, idx, value);
 }
 
 static inline void olua_check_value(lua_State *L, int idx, cocos2d::Vec4 *value)
 {
-    auto_olua_check_cocos2d_Vec4(L, idx, value);
+    olua_check_cocos2d_Vec4(L, idx, value);
 }
 
 static inline void olua_check_value(lua_State *L, int idx, cocos2d::Mat4 *value)
 {
-    manual_olua_check_cocos2d_Mat4(L, idx, value);
+    olua_check_cocos2d_Mat4(L, idx, value);
 }
 
 static inline void olua_check_value(lua_State *L, int idx, int *value)
@@ -1940,7 +1937,7 @@ template <typename T> int _cocos2d_backend_ProgramState_setUniform(lua_State *L)
     if (olua_isstring(L, 2)) {
         location = self->getUniformLocation(olua_checkstring(L, 2));
     } else {
-        manual_olua_check_cocos2d_backend_UniformLocation(L, 2, &location);
+        olua_check_cocos2d_backend_UniformLocation(L, 2, &location);
     }
     olua_check_value(L, 3, &value);
     self->setUniform(location, &value, sizeof(T));
@@ -1954,7 +1951,7 @@ template <typename T> int _cocos2d_backend_ProgramState_setUniformv(lua_State *L
     if (olua_isstring(L, 2)) {
         location = self->getUniformLocation(olua_checkstring(L, 2));
     } else {
-        manual_olua_check_cocos2d_backend_UniformLocation(L, 2, &location);
+        olua_check_cocos2d_backend_UniformLocation(L, 2, &location);
     }
     luaL_checktype(L, 3, LUA_TTABLE);
     int len = (int)lua_rawlen(L, 3);
@@ -2069,13 +2066,10 @@ static int _cocos2d_backend_ProgramState_getFragmentTextureInfos(lua_State *L)
 
     // const std::unordered_map<int, TextureInfo> &getFragmentTextureInfos()
     const std::unordered_map<int, cocos2d::backend::TextureInfo> &ret = self->getFragmentTextureInfos();
-    int num_ret = 1;
-    lua_createtable(L, 0, (int)ret.size());
-    for (auto &entry : ret) {
-        olua_push_int(L, (lua_Integer)entry.first);
-        auto_olua_push_cocos2d_backend_TextureInfo(L, &entry.second);
-        lua_rawset(L, -3);
-    }
+    int num_ret = olua_push_std_unordered_map<int, cocos2d::backend::TextureInfo>(L, &ret, [L](int arg1, cocos2d::backend::TextureInfo arg2) {
+        olua_push_int(L, (lua_Integer)arg1);
+        olua_push_cocos2d_backend_TextureInfo(L, &arg2);
+    });
 
     olua_endinvoke(L);
 
@@ -2111,7 +2105,7 @@ static int _cocos2d_backend_ProgramState_getUniformLocation1(lua_State *L)
 
     // cocos2d::backend::UniformLocation getUniformLocation(const std::string &uniform)
     cocos2d::backend::UniformLocation ret = self->getUniformLocation(arg1);
-    int num_ret = manual_olua_push_cocos2d_backend_UniformLocation(L, &ret);
+    int num_ret = olua_push_cocos2d_backend_UniformLocation(L, &ret);
 
     olua_endinvoke(L);
 
@@ -2130,7 +2124,7 @@ static int _cocos2d_backend_ProgramState_getUniformLocation2(lua_State *L)
 
     // cocos2d::backend::UniformLocation getUniformLocation(cocos2d::backend::Uniform name)
     cocos2d::backend::UniformLocation ret = self->getUniformLocation((cocos2d::backend::Uniform)arg1);
-    int num_ret = manual_olua_push_cocos2d_backend_UniformLocation(L, &ret);
+    int num_ret = olua_push_cocos2d_backend_UniformLocation(L, &ret);
 
     olua_endinvoke(L);
 
@@ -2181,13 +2175,10 @@ static int _cocos2d_backend_ProgramState_getVertexTextureInfos(lua_State *L)
 
     // const std::unordered_map<int, TextureInfo> &getVertexTextureInfos()
     const std::unordered_map<int, cocos2d::backend::TextureInfo> &ret = self->getVertexTextureInfos();
-    int num_ret = 1;
-    lua_createtable(L, 0, (int)ret.size());
-    for (auto &entry : ret) {
-        olua_push_int(L, (lua_Integer)entry.first);
-        auto_olua_push_cocos2d_backend_TextureInfo(L, &entry.second);
-        lua_rawset(L, -3);
-    }
+    int num_ret = olua_push_std_unordered_map<int, cocos2d::backend::TextureInfo>(L, &ret, [L](int arg1, cocos2d::backend::TextureInfo arg2) {
+        olua_push_int(L, (lua_Integer)arg1);
+        olua_push_cocos2d_backend_TextureInfo(L, &arg2);
+    });
 
     olua_endinvoke(L);
 
@@ -2242,7 +2233,7 @@ static int _cocos2d_backend_ProgramState_setTexture(lua_State *L)
     cocos2d::backend::TextureBackend *arg3 = nullptr;       /** texture */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramState");
-    manual_olua_check_cocos2d_backend_UniformLocation(L, 2, &arg1);
+    olua_check_cocos2d_backend_UniformLocation(L, 2, &arg1);
     olua_check_uint(L, 3, &arg2);
     olua_check_cppobj(L, 4, (void **)&arg3, "ccb.TextureBackend");
 
@@ -2264,18 +2255,15 @@ static int _cocos2d_backend_ProgramState_setTextureArray(lua_State *L)
     std::vector<cocos2d::backend::TextureBackend *> arg3;       /** textures */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramState");
-    manual_olua_check_cocos2d_backend_UniformLocation(L, 2, &arg1);
-    luaL_checktype(L, 3, LUA_TTABLE);
-    int arg2_total = (int)lua_rawlen(L, 3);
-    arg2.reserve((size_t)arg2_total);
-    for (int i = 1; i <= arg2_total; i++) {
+    olua_check_cocos2d_backend_UniformLocation(L, 2, &arg1);
+    olua_check_std_vector<uint32_t>(L, 3, &arg2, [L](uint32_t *value) {
         lua_Unsigned obj;
-        lua_rawgeti(L, 3, i);
         olua_check_uint(L, -1, &obj);
-        arg2.push_back((uint32_t)obj);
-        lua_pop(L, 1);
-    }
-    olua_check_std_vector(L, 4, arg3, "ccb.TextureBackend");
+        *value = (uint32_t)obj;
+    });
+    olua_check_std_vector<cocos2d::backend::TextureBackend *>(L, 4, &arg3, [L](cocos2d::backend::TextureBackend **value) {
+        olua_check_cppobj(L, -1, (void **)value, "ccb.TextureBackend");
+    });
 
     // void setTextureArray(const cocos2d::backend::UniformLocation &uniformLocation, const std::vector<uint32_t> &slots, const std::vector<backend::TextureBackend *> textures)
     self->setTextureArray(arg1, arg2, arg3);
@@ -2295,7 +2283,7 @@ static int _cocos2d_backend_ProgramState_setUniform(lua_State *L)
     lua_Unsigned arg3 = 0;       /** size */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramState");
-    manual_olua_check_cocos2d_backend_UniformLocation(L, 2, &arg1);
+    olua_check_cocos2d_backend_UniformLocation(L, 2, &arg1);
     olua_check_obj(L, 3, (void **)&arg2, "void *");
     olua_check_uint(L, 4, &arg3);
 
@@ -2498,13 +2486,10 @@ static int _cocos2d_backend_Program_getActiveAttributes(lua_State *L)
 
     // const std::unordered_map<std::string, AttributeBindInfo> getActiveAttributes()
     const std::unordered_map<std::string, cocos2d::backend::AttributeBindInfo> ret = self->getActiveAttributes();
-    int num_ret = 1;
-    lua_createtable(L, 0, (int)ret.size());
-    for (auto &entry : ret) {
-        olua_push_std_string(L, entry.first);
-        auto_olua_push_cocos2d_backend_AttributeBindInfo(L, &entry.second);
-        lua_rawset(L, -3);
-    }
+    int num_ret = olua_push_std_unordered_map<std::string, cocos2d::backend::AttributeBindInfo>(L, &ret, [L](std::string arg1, cocos2d::backend::AttributeBindInfo arg2) {
+        olua_push_std_string(L, (std::string)arg1);
+        olua_push_cocos2d_backend_AttributeBindInfo(L, &arg2);
+    });
 
     olua_endinvoke(L);
 
@@ -2525,7 +2510,7 @@ static int _cocos2d_backend_Program_getActiveUniformInfo(lua_State *L)
 
     // const cocos2d::backend::UniformInfo &getActiveUniformInfo(cocos2d::backend::ShaderStage stage, int location)
     const cocos2d::backend::UniformInfo &ret = self->getActiveUniformInfo((cocos2d::backend::ShaderStage)arg1, (int)arg2);
-    int num_ret = auto_olua_push_cocos2d_backend_UniformInfo(L, &ret);
+    int num_ret = olua_push_cocos2d_backend_UniformInfo(L, &ret);
 
     olua_endinvoke(L);
 
@@ -2544,13 +2529,10 @@ static int _cocos2d_backend_Program_getAllActiveUniformInfo(lua_State *L)
 
     // const std::unordered_map<std::string, UniformInfo> &getAllActiveUniformInfo(cocos2d::backend::ShaderStage stage)
     const std::unordered_map<std::string, cocos2d::backend::UniformInfo> &ret = self->getAllActiveUniformInfo((cocos2d::backend::ShaderStage)arg1);
-    int num_ret = 1;
-    lua_createtable(L, 0, (int)ret.size());
-    for (auto &entry : ret) {
-        olua_push_std_string(L, entry.first);
-        auto_olua_push_cocos2d_backend_UniformInfo(L, &entry.second);
-        lua_rawset(L, -3);
-    }
+    int num_ret = olua_push_std_unordered_map<std::string, cocos2d::backend::UniformInfo>(L, &ret, [L](std::string arg1, cocos2d::backend::UniformInfo arg2) {
+        olua_push_std_string(L, (std::string)arg1);
+        olua_push_cocos2d_backend_UniformInfo(L, &arg2);
+    });
 
     olua_endinvoke(L);
 
@@ -2732,7 +2714,7 @@ static int _cocos2d_backend_Program_getUniformLocation1(lua_State *L)
 
     // cocos2d::backend::UniformLocation getUniformLocation(const std::string &uniform)
     cocos2d::backend::UniformLocation ret = self->getUniformLocation(arg1);
-    int num_ret = manual_olua_push_cocos2d_backend_UniformLocation(L, &ret);
+    int num_ret = olua_push_cocos2d_backend_UniformLocation(L, &ret);
 
     olua_endinvoke(L);
 
@@ -2751,7 +2733,7 @@ static int _cocos2d_backend_Program_getUniformLocation2(lua_State *L)
 
     // cocos2d::backend::UniformLocation getUniformLocation(cocos2d::backend::Uniform name)
     cocos2d::backend::UniformLocation ret = self->getUniformLocation((cocos2d::backend::Uniform)arg1);
-    int num_ret = manual_olua_push_cocos2d_backend_UniformLocation(L, &ret);
+    int num_ret = olua_push_cocos2d_backend_UniformLocation(L, &ret);
 
     olua_endinvoke(L);
 
@@ -2977,7 +2959,7 @@ static int _cocos2d_backend_TextureBackend_updateSamplerDescriptor(lua_State *L)
     cocos2d::backend::SamplerDescriptor arg1;       /** sampler */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccb.TextureBackend");
-    auto_olua_check_cocos2d_backend_SamplerDescriptor(L, 2, &arg1);
+    olua_check_cocos2d_backend_SamplerDescriptor(L, 2, &arg1);
 
     // void updateSamplerDescriptor(const cocos2d::backend::SamplerDescriptor &sampler)
     self->updateSamplerDescriptor(arg1);
@@ -2995,7 +2977,7 @@ static int _cocos2d_backend_TextureBackend_updateTextureDescriptor(lua_State *L)
     cocos2d::backend::TextureDescriptor arg1;       /** descriptor */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccb.TextureBackend");
-    auto_olua_check_cocos2d_backend_TextureDescriptor(L, 2, &arg1);
+    olua_check_cocos2d_backend_TextureDescriptor(L, 2, &arg1);
 
     // void updateTextureDescriptor(const cocos2d::backend::TextureDescriptor &descriptor)
     self->updateTextureDescriptor(arg1);

@@ -4,7 +4,7 @@ local olua = require "olua"
 local typedef = olua.typedef
 
 typedef {
-    CONV = 'manual_olua_$$_xgame_window_Bounds',
+    CONV = 'olua_$$_xgame_window_Bounds',
     CPPCLS = 'cclua::window::Bounds',
 }
 
@@ -12,7 +12,7 @@ typedef {
     CPPCLS = 'cclua::downloader::FileTask',
     LUACLS = nil,
     DECLTYPE = nil,
-    CONV = 'auto_olua_$$_cclua_downloader_FileTask',
+    CONV = 'olua_$$_cclua_downloader_FileTask',
     NUM_VARS = 4,
 }
 

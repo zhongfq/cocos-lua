@@ -10,7 +10,7 @@ typedef {
 typedef {
     CPPCLS = 'cclua::window::Bounds',
     DECLTYPE = 'cclua::window::Bounds',
-    CONV = 'manual_olua_$$_cocos2d_Rect',
+    CONV = 'olua_$$_cocos2d_Rect',
 }
 
 typedef {
@@ -76,19 +76,19 @@ typedef {
 typedef {
     CPPCLS = 'cocos2d::Point',
     DECLTYPE = 'cocos2d::Point',
-    CONV = 'auto_olua_$$_cocos2d_Vec2',
+    CONV = 'olua_$$_cocos2d_Vec2',
 }
 
 typedef {
     CPPCLS = 'cocos2d::ResizableBufferAdapter<cocos2d::Data>::BufferType',
     DECLTYPE = 'cocos2d::ResizableBufferAdapter<cocos2d::Data>::BufferType',
-    CONV = 'manual_olua_$$_cocos2d_Data',
+    CONV = 'olua_$$_cocos2d_Data',
 }
 
 typedef {
     CPPCLS = 'cocos2d::Texture2D::TexParams',
     DECLTYPE = 'cocos2d::Texture2D::TexParams',
-    CONV = 'auto_olua_$$_cocos2d_backend_SamplerDescriptor',
+    CONV = 'olua_$$_cocos2d_backend_SamplerDescriptor',
 }
 
 typedef {
@@ -100,7 +100,7 @@ typedef {
 typedef {
     CPPCLS = 'cocos2d::Vect',
     DECLTYPE = 'cocos2d::Vect',
-    CONV = 'auto_olua_$$_cocos2d_Vec2',
+    CONV = 'olua_$$_cocos2d_Vec2',
 }
 
 typedef {
@@ -124,7 +124,7 @@ typedef {
 typedef {
     CPPCLS = 'cocostudio::timeline::AnimationClip',
     DECLTYPE = 'cocostudio::timeline::AnimationClip',
-    CONV = 'auto_olua_$$_cocostudio_timeline_AnimationInfo',
+    CONV = 'olua_$$_cocostudio_timeline_AnimationInfo',
 }
 
 typedef {

@@ -7,7 +7,7 @@ typedef {
     CPPCLS = 'cocos2d::MeshVertexAttrib',
     LUACLS = nil,
     DECLTYPE = nil,
-    CONV = 'auto_olua_$$_cocos2d_MeshVertexAttrib',
+    CONV = 'olua_$$_cocos2d_MeshVertexAttrib',
     NUM_VARS = 2,
 }
 

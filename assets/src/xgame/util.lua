@@ -59,9 +59,9 @@ end
 
 function M.compareVersion(v1, v2)
     local function toIntVersion(v)
-        local v1, v2, v3 = string.match(v, "(%d+)%.(%d+)%.(%d+)")
-        if v1 then
-            return v1 * 1000000 + v2 * 1000 + v3
+        local p1, p2, p3 = string.match(v, "(%d+)%.(%d+)%.(%d+)")
+        if p1 then
+            return p1 * 1000000 + p2 * 1000 + p3
         else
             return 0
         end

@@ -40,7 +40,8 @@ const char *olua_getluatype(lua_State *L, const char *type);
 #endif
 
 #ifdef OLUA_HAVE_POSTPUSH
-template <typename T> void olua_postpush(lua_State *L, T* obj, int status)
+template <typename T>
+void olua_postpush(lua_State *L, T* obj, int status)
 {
     if (std::is_base_of<cocos2d::Ref, T>::value &&
             (status == OLUA_OBJ_NEW || status == OLUA_OBJ_UPDATE)) {
@@ -55,7 +56,8 @@ template <typename T> void olua_postpush(lua_State *L, T* obj, int status)
 #endif
 
 #ifdef OLUA_HAVE_POSTNEW
-template <typename T> void olua_postnew(lua_State *L, T *obj)
+template <typename T>
+void olua_postnew(lua_State *L, T *obj)
 {
     if (std::is_base_of<cocos2d::Ref, T>::value) {
         ((cocos2d::Ref *)obj)->autorelease();

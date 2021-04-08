@@ -10,7 +10,7 @@
 
 
 
-int auto_olua_push_cocos2d_MeshVertexAttrib(lua_State *L, const cocos2d::MeshVertexAttrib *value)
+int olua_push_cocos2d_MeshVertexAttrib(lua_State *L, const cocos2d::MeshVertexAttrib *value)
 {
     if (value) {
         lua_createtable(L, 0, 2);
@@ -27,7 +27,7 @@ int auto_olua_push_cocos2d_MeshVertexAttrib(lua_State *L, const cocos2d::MeshVer
     return 1;
 }
 
-void auto_olua_check_cocos2d_MeshVertexAttrib(lua_State *L, int idx, cocos2d::MeshVertexAttrib *value)
+void olua_check_cocos2d_MeshVertexAttrib(lua_State *L, int idx, cocos2d::MeshVertexAttrib *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -49,12 +49,12 @@ void auto_olua_check_cocos2d_MeshVertexAttrib(lua_State *L, int idx, cocos2d::Me
     lua_pop(L, 1);
 }
 
-bool auto_olua_is_cocos2d_MeshVertexAttrib(lua_State *L, int idx)
+bool olua_is_cocos2d_MeshVertexAttrib(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "vertexAttrib") && olua_hasfield(L, idx, "type");
 }
 
-void auto_olua_pack_cocos2d_MeshVertexAttrib(lua_State *L, int idx, cocos2d::MeshVertexAttrib *value)
+void olua_pack_cocos2d_MeshVertexAttrib(lua_State *L, int idx, cocos2d::MeshVertexAttrib *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -71,7 +71,7 @@ void auto_olua_pack_cocos2d_MeshVertexAttrib(lua_State *L, int idx, cocos2d::Mes
     value->vertexAttrib = (cocos2d::shaderinfos::VertexKey)arg2;
 }
 
-int auto_olua_unpack_cocos2d_MeshVertexAttrib(lua_State *L, const cocos2d::MeshVertexAttrib *value)
+int olua_unpack_cocos2d_MeshVertexAttrib(lua_State *L, const cocos2d::MeshVertexAttrib *value)
 {
     if (value) {
         olua_push_uint(L, (lua_Unsigned)value->type);
@@ -85,7 +85,7 @@ int auto_olua_unpack_cocos2d_MeshVertexAttrib(lua_State *L, const cocos2d::MeshV
     return 2;
 }
 
-bool auto_olua_ispack_cocos2d_MeshVertexAttrib(lua_State *L, int idx)
+bool olua_ispack_cocos2d_MeshVertexAttrib(lua_State *L, int idx)
 {
     return olua_is_uint(L, idx + 0) && olua_is_uint(L, idx + 1);
 }
@@ -397,46 +397,26 @@ static int _cocos2d_Mesh_create1(lua_State *L)
     std::vector<float> arg3;       /** texs */
     std::vector<unsigned short> arg4;       /** indices */
 
-    luaL_checktype(L, 1, LUA_TTABLE);
-    int arg1_total = (int)lua_rawlen(L, 1);
-    arg1.reserve((size_t)arg1_total);
-    for (int i = 1; i <= arg1_total; i++) {
+    olua_check_std_vector<float>(L, 1, &arg1, [L](float *value) {
         lua_Number obj;
-        lua_rawgeti(L, 1, i);
         olua_check_number(L, -1, &obj);
-        arg1.push_back((float)obj);
-        lua_pop(L, 1);
-    }
-    luaL_checktype(L, 2, LUA_TTABLE);
-    int arg2_total = (int)lua_rawlen(L, 2);
-    arg2.reserve((size_t)arg2_total);
-    for (int i = 1; i <= arg2_total; i++) {
+        *value = (float)obj;
+    });
+    olua_check_std_vector<float>(L, 2, &arg2, [L](float *value) {
         lua_Number obj;
-        lua_rawgeti(L, 2, i);
         olua_check_number(L, -1, &obj);
-        arg2.push_back((float)obj);
-        lua_pop(L, 1);
-    }
-    luaL_checktype(L, 3, LUA_TTABLE);
-    int arg3_total = (int)lua_rawlen(L, 3);
-    arg3.reserve((size_t)arg3_total);
-    for (int i = 1; i <= arg3_total; i++) {
+        *value = (float)obj;
+    });
+    olua_check_std_vector<float>(L, 3, &arg3, [L](float *value) {
         lua_Number obj;
-        lua_rawgeti(L, 3, i);
         olua_check_number(L, -1, &obj);
-        arg3.push_back((float)obj);
-        lua_pop(L, 1);
-    }
-    luaL_checktype(L, 4, LUA_TTABLE);
-    int arg4_total = (int)lua_rawlen(L, 4);
-    arg4.reserve((size_t)arg4_total);
-    for (int i = 1; i <= arg4_total; i++) {
+        *value = (float)obj;
+    });
+    olua_check_std_vector<unsigned short>(L, 4, &arg4, [L](unsigned short *value) {
         lua_Unsigned obj;
-        lua_rawgeti(L, 4, i);
         olua_check_uint(L, -1, &obj);
-        arg4.push_back((unsigned short)obj);
-        lua_pop(L, 1);
-    }
+        *value = (unsigned short)obj;
+    });
 
     // static cocos2d::Mesh *create(const std::vector<float> &positions, const std::vector<float> &normals, const std::vector<float> &texs, const std::vector<unsigned short> &indices)
     cocos2d::Mesh *ret = cocos2d::Mesh::create(arg1, arg2, arg3, arg4);
@@ -456,37 +436,20 @@ static int _cocos2d_Mesh_create2(lua_State *L)
     std::vector<unsigned short> arg3;       /** indices */
     std::vector<cocos2d::MeshVertexAttrib> arg4;       /** attribs */
 
-    luaL_checktype(L, 1, LUA_TTABLE);
-    int arg1_total = (int)lua_rawlen(L, 1);
-    arg1.reserve((size_t)arg1_total);
-    for (int i = 1; i <= arg1_total; i++) {
+    olua_check_std_vector<float>(L, 1, &arg1, [L](float *value) {
         lua_Number obj;
-        lua_rawgeti(L, 1, i);
         olua_check_number(L, -1, &obj);
-        arg1.push_back((float)obj);
-        lua_pop(L, 1);
-    }
+        *value = (float)obj;
+    });
     olua_check_int(L, 2, &arg2);
-    luaL_checktype(L, 3, LUA_TTABLE);
-    int arg3_total = (int)lua_rawlen(L, 3);
-    arg3.reserve((size_t)arg3_total);
-    for (int i = 1; i <= arg3_total; i++) {
+    olua_check_std_vector<unsigned short>(L, 3, &arg3, [L](unsigned short *value) {
         lua_Unsigned obj;
-        lua_rawgeti(L, 3, i);
         olua_check_uint(L, -1, &obj);
-        arg3.push_back((unsigned short)obj);
-        lua_pop(L, 1);
-    }
-    luaL_checktype(L, 4, LUA_TTABLE);
-    int arg4_total = (int)lua_rawlen(L, 4);
-    arg4.reserve((size_t)arg4_total);
-    for (int i = 1; i <= arg4_total; i++) {
-        cocos2d::MeshVertexAttrib obj;
-        lua_rawgeti(L, 4, i);
-        auto_olua_check_cocos2d_MeshVertexAttrib(L, -1, &obj);
-        arg4.push_back((cocos2d::MeshVertexAttrib)obj);
-        lua_pop(L, 1);
-    }
+        *value = (unsigned short)obj;
+    });
+    olua_check_std_vector<cocos2d::MeshVertexAttrib>(L, 4, &arg4, [L](cocos2d::MeshVertexAttrib *value) {
+        olua_check_cocos2d_MeshVertexAttrib(L, -1, value);
+    });
 
     // static cocos2d::Mesh *create(const std::vector<float> &vertices, int perVertexSizeInFloat, const std::vector<unsigned short> &indices, const std::vector<MeshVertexAttrib> &attribs)
     cocos2d::Mesh *ret = cocos2d::Mesh::create(arg1, (int)arg2, arg3, arg4);
@@ -534,10 +497,10 @@ static int _cocos2d_Mesh_draw(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Mesh");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Renderer");
     olua_check_number(L, 3, &arg2);
-    manual_olua_check_cocos2d_Mat4(L, 4, &arg3);
+    olua_check_cocos2d_Mat4(L, 4, &arg3);
     olua_check_uint(L, 5, &arg4);
     olua_check_uint(L, 6, &arg5);
-    auto_olua_check_cocos2d_Vec4(L, 7, &arg6);
+    olua_check_cocos2d_Vec4(L, 7, &arg6);
     olua_check_bool(L, 8, &arg7);
 
     // void draw(cocos2d::Renderer *renderer, float globalZ, const cocos2d::Mat4 &transform, uint32_t flags, unsigned int lightMask, const cocos2d::Vec4 &color, bool forceDepthWrite)
@@ -558,7 +521,7 @@ static int _cocos2d_Mesh_getBlendFunc(lua_State *L)
 
     // const cocos2d::BlendFunc &getBlendFunc()
     const cocos2d::BlendFunc &ret = self->getBlendFunc();
-    int num_ret = auto_olua_push_cocos2d_BlendFunc(L, &ret);
+    int num_ret = olua_push_cocos2d_BlendFunc(L, &ret);
 
     olua_endinvoke(L);
 
@@ -645,7 +608,7 @@ static int _cocos2d_Mesh_getMeshVertexAttribute(lua_State *L)
 
     // const cocos2d::MeshVertexAttrib &getMeshVertexAttribute(int idx)
     const cocos2d::MeshVertexAttrib &ret = self->getMeshVertexAttribute((int)arg1);
-    int num_ret = auto_olua_push_cocos2d_MeshVertexAttrib(L, &ret);
+    int num_ret = olua_push_cocos2d_MeshVertexAttrib(L, &ret);
 
     olua_endinvoke(L);
 
@@ -886,7 +849,7 @@ static int _cocos2d_Mesh_setBlendFunc(lua_State *L)
     cocos2d::BlendFunc arg1;       /** blendFunc */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Mesh");
-    auto_olua_check_cocos2d_BlendFunc(L, 2, &arg1);
+    olua_check_cocos2d_BlendFunc(L, 2, &arg1);
 
     // void setBlendFunc(const cocos2d::BlendFunc &blendFunc)
     self->setBlendFunc(arg1);
@@ -1290,7 +1253,7 @@ static int _cocos2d_MeshSkin_getInvBindPose(lua_State *L)
 
     // const cocos2d::Mat4 &getInvBindPose(const cocos2d::Bone3D *bone)
     const cocos2d::Mat4 &ret = self->getInvBindPose(arg1);
-    int num_ret = manual_olua_push_cocos2d_Mat4(L, &ret);
+    int num_ret = olua_push_cocos2d_Mat4(L, &ret);
 
     olua_endinvoke(L);
 
@@ -1471,7 +1434,7 @@ static int _cocos2d_BillBoard_create3(lua_State *L)
     lua_Unsigned arg3 = 0;       /** mode */
 
     olua_check_std_string(L, 1, &arg1);
-    manual_olua_check_cocos2d_Rect(L, 2, &arg2);
+    olua_check_cocos2d_Rect(L, 2, &arg2);
     olua_check_uint(L, 3, &arg3);
 
     // static cocos2d::BillBoard *create(const std::string &filename, const cocos2d::Rect &rect, @optional cocos2d::BillBoard::Mode mode)
@@ -1521,7 +1484,7 @@ static int _cocos2d_BillBoard_create6(lua_State *L)
     cocos2d::Rect arg2;       /** rect */
 
     olua_check_std_string(L, 1, &arg1);
-    manual_olua_check_cocos2d_Rect(L, 2, &arg2);
+    olua_check_cocos2d_Rect(L, 2, &arg2);
 
     // static cocos2d::BillBoard *create(const std::string &filename, const cocos2d::Rect &rect, @optional cocos2d::BillBoard::Mode mode)
     cocos2d::BillBoard *ret = cocos2d::BillBoard::create(arg1, arg2);
@@ -1554,7 +1517,7 @@ static int _cocos2d_BillBoard_create(lua_State *L)
     }
 
     if (num_args == 2) {
-        if ((olua_is_std_string(L, 1)) && (manual_olua_is_cocos2d_Rect(L, 2))) {
+        if ((olua_is_std_string(L, 1)) && (olua_is_cocos2d_Rect(L, 2))) {
             // static cocos2d::BillBoard *create(const std::string &filename, const cocos2d::Rect &rect, @optional cocos2d::BillBoard::Mode mode)
             return _cocos2d_BillBoard_create6(L);
         }
@@ -1566,7 +1529,7 @@ static int _cocos2d_BillBoard_create(lua_State *L)
     }
 
     if (num_args == 3) {
-        // if ((olua_is_std_string(L, 1)) && (manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_uint(L, 3))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_cocos2d_Rect(L, 2)) && (olua_is_uint(L, 3))) {
             // static cocos2d::BillBoard *create(const std::string &filename, const cocos2d::Rect &rect, @optional cocos2d::BillBoard::Mode mode)
             return _cocos2d_BillBoard_create3(L);
         // }
@@ -2214,7 +2177,7 @@ static int _cocos2d_Sprite3D_getBlendFunc(lua_State *L)
 
     // const cocos2d::BlendFunc &getBlendFunc()
     const cocos2d::BlendFunc &ret = self->getBlendFunc();
-    int num_ret = auto_olua_push_cocos2d_BlendFunc(L, &ret);
+    int num_ret = olua_push_cocos2d_BlendFunc(L, &ret);
 
     olua_endinvoke(L);
 
@@ -2267,7 +2230,9 @@ static int _cocos2d_Sprite3D_getMeshArrayByName(lua_State *L)
 
     // std::vector<Mesh *> getMeshArrayByName(const std::string &name)
     std::vector<cocos2d::Mesh *> ret = self->getMeshArrayByName(arg1);
-    int num_ret = olua_push_std_vector(L, ret, "cc.Mesh");
+    int num_ret = olua_push_std_vector<cocos2d::Mesh *>(L, &ret, [L](cocos2d::Mesh *value) {
+        olua_push_cppobj(L, value, "cc.Mesh");
+    });
 
     olua_endinvoke(L);
 
@@ -2339,7 +2304,9 @@ static int _cocos2d_Sprite3D_getMeshes(lua_State *L)
 
     // const Vector<cocos2d::Mesh *> &getMeshes()
     const cocos2d::Vector<cocos2d::Mesh *> &ret = self->getMeshes();
-    int num_ret = manual_olua_push_cocos2d_Vector(L, ret, "cc.Mesh");
+    int num_ret = olua_push_cocos2d_Vector<cocos2d::Mesh *>(L, &ret, [L](cocos2d::Mesh *value) {
+        olua_push_cppobj(L, value, "cc.Mesh");
+    });
 
     olua_endinvoke(L);
 
@@ -2490,7 +2457,7 @@ static int _cocos2d_Sprite3D_setBlendFunc(lua_State *L)
     cocos2d::BlendFunc arg1;       /** blendFunc */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite3D");
-    auto_olua_check_cocos2d_BlendFunc(L, 2, &arg1);
+    olua_check_cocos2d_BlendFunc(L, 2, &arg1);
 
     // void setBlendFunc(const cocos2d::BlendFunc &blendFunc)
     self->setBlendFunc(arg1);
@@ -2857,7 +2824,7 @@ static int _cocos2d_Bone3D_getInverseBindPose(lua_State *L)
 
     // const cocos2d::Mat4 &getInverseBindPose()
     const cocos2d::Mat4 &ret = self->getInverseBindPose();
-    int num_ret = manual_olua_push_cocos2d_Mat4(L, &ret);
+    int num_ret = olua_push_cocos2d_Mat4(L, &ret);
 
     olua_endinvoke(L);
 
@@ -2908,7 +2875,7 @@ static int _cocos2d_Bone3D_getWorldMat(lua_State *L)
 
     // const cocos2d::Mat4 &getWorldMat()
     const cocos2d::Mat4 &ret = self->getWorldMat();
-    int num_ret = manual_olua_push_cocos2d_Mat4(L, &ret);
+    int num_ret = olua_push_cocos2d_Mat4(L, &ret);
 
     olua_endinvoke(L);
 
@@ -2991,7 +2958,7 @@ static int _cocos2d_Bone3D_setInverseBindPose(lua_State *L)
     cocos2d::Mat4 arg1;       /** m */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Bone3D");
-    manual_olua_check_cocos2d_Mat4(L, 2, &arg1);
+    olua_check_cocos2d_Mat4(L, 2, &arg1);
 
     // void setInverseBindPose(const cocos2d::Mat4 &m)
     self->setInverseBindPose(arg1);
@@ -3009,7 +2976,7 @@ static int _cocos2d_Bone3D_setOriPose(lua_State *L)
     cocos2d::Mat4 arg1;       /** m */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Bone3D");
-    manual_olua_check_cocos2d_Mat4(L, 2, &arg1);
+    olua_check_cocos2d_Mat4(L, 2, &arg1);
 
     // void setOriPose(const cocos2d::Mat4 &m)
     self->setOriPose(arg1);

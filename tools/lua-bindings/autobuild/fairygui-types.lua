@@ -4,7 +4,7 @@ local olua = require "olua"
 local typedef = olua.typedef
 
 typedef {
-    CONV = 'manual_olua_$$_fairygui_EventTag',
+    CONV = 'olua_$$_fairygui_EventTag',
     CPPCLS = 'fairygui::EventTag',
 }
 
@@ -12,7 +12,7 @@ typedef {
     CPPCLS = 'fairygui::Margin',
     LUACLS = nil,
     DECLTYPE = nil,
-    CONV = 'auto_olua_$$_fairygui_Margin',
+    CONV = 'olua_$$_fairygui_Margin',
     NUM_VARS = 4,
 }
 
@@ -20,7 +20,7 @@ typedef {
     CPPCLS = 'fairygui::HtmlParseOptions',
     LUACLS = nil,
     DECLTYPE = nil,
-    CONV = 'auto_olua_$$_fairygui_HtmlParseOptions',
+    CONV = 'olua_$$_fairygui_HtmlParseOptions',
     NUM_VARS = 4,
 }
 
@@ -28,7 +28,7 @@ typedef {
     CPPCLS = 'fairygui::TweenValue',
     LUACLS = nil,
     DECLTYPE = nil,
-    CONV = 'auto_olua_$$_fairygui_TweenValue',
+    CONV = 'olua_$$_fairygui_TweenValue',
     NUM_VARS = 5,
 }
 

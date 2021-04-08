@@ -4,31 +4,23 @@ local olua = require "olua"
 local typedef = olua.typedef
 
 typedef {
-    CONV = 'manual_olua_$$_spine_String',
+    CONV = 'olua_$$_spine_String',
     CPPCLS = 'spine::String',
 }
 
 typedef {
-    CONV = 'manual_olua_$$_spine_EventData',
+    CONV = 'olua_$$_spine_EventData',
     CPPCLS = 'spine::EventData',
 }
 
 typedef {
-    CONV = 'manual_olua_$$_spine_Color',
+    CONV = 'olua_$$_spine_Color',
     CPPCLS = 'spine::Color',
 }
 
 typedef {
-    CONV = 'manual_olua_$$_spine_Vector',
+    CONV = 'olua_$$_spine_Vector',
     CPPCLS = 'spine::Vector',
-    PUSH_VALUE = [[
-        int ${ARG_NAME}_size = (int)${ARG_NAME}.size();
-        lua_createtable(L, ${ARG_NAME}_size, 0);
-        for (int i = 0; i < ${ARG_NAME}_size; i++) {
-            ${SUBTYPE_PUSH_FUNC}(L, ${SUBTYPE_CAST}${ARG_NAME}[i]);
-            lua_rawseti(L, -2, i + 1);
-        }
-    ]],
 }
 
 typedef {

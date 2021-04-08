@@ -59,7 +59,7 @@ function WeChat:ctor()
     end)
 end
 
-function WeChat:init(appid, appsecret, universalLink)
+function WeChat:init(appid, universalLink, appsecret)
     self._appid = assert(appid, 'no app id')
     self._appsecret = appsecret
     self._scheme = string.format("%s://", appid)

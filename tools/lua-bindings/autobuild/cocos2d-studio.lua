@@ -1448,23 +1448,11 @@ cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocostudio::timeline::SkeletonNode *create()')
 cls.func(nil, '@addref(boneNodes |) cocostudio::timeline::BoneNode *getBoneNode(const std::string &boneName)')
-cls.func(nil, 'const cocos2d::Map<std::string, BoneNode *> &getAllSubBonesMap()')
+cls.func(nil, '@addref(boneNodes |) const cocos2d::Map<std::string, BoneNode *> &getAllSubBonesMap()')
 cls.func(nil, 'void changeSkins(const std::map<std::string, std::string> &boneSkinNameMap)', 'void changeSkins(const std::string &skinGroupName)')
 cls.func(nil, 'void addSkinGroup(std::string groupName, std::map<std::string, std::string> boneSkinNameMap)')
 cls.func(nil, 'SkeletonNode()')
 cls.prop('allSubBonesMap', nil, nil)
-cls.insert('getAllSubBonesMap', {
-    BEFORE = nil,
-    AFTER = [[
-        for (auto &entry : ret) {
-            olua_push_cppobj<cocostudio::timeline::BoneNode>(L, entry.second);
-            olua_addref(L, 1, "boneNodes", -1, OLUA_MODE_MULTIPLE);
-            lua_pop(L, 1);
-        }
-    ]],
-    CALLBACK_BEFORE = nil,
-    CALLBACK_AFTER = nil,
-})
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocostudio::timeline::Timeline'

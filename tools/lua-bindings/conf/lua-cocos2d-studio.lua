@@ -193,15 +193,7 @@ typeconf "cocostudio::timeline::BoneNode"
 
 local SkeletonNode = typeconf "cocostudio::timeline::SkeletonNode"
 SkeletonNode.ATTR('getBoneNode', {RET = '@addref(boneNodes |)'})
-SkeletonNode.INSERT('getAllSubBonesMap', {
-    AFTER = [[
-        for (auto &entry : ret) {
-            olua_push_cppobj<cocostudio::timeline::BoneNode>(L, entry.second);
-            olua_addref(L, 1, "boneNodes", -1, OLUA_MODE_MULTIPLE);
-            lua_pop(L, 1);
-        }
-    ]]
-})
+SkeletonNode.ATTR('getAllSubBonesMap', {RET = '@addref(boneNodes |)'})
 
 typeconf "cocostudio::timeline::SkinNode"
 

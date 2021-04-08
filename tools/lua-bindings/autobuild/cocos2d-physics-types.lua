@@ -7,7 +7,7 @@ typedef {
     CPPCLS = 'cocos2d::PhysicsMaterial',
     LUACLS = nil,
     DECLTYPE = nil,
-    CONV = 'auto_olua_$$_cocos2d_PhysicsMaterial',
+    CONV = 'olua_$$_cocos2d_PhysicsMaterial',
     NUM_VARS = 3,
 }
 

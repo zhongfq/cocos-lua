@@ -689,7 +689,10 @@ typeconf 'cocos2d::ProtectedNode'
     .ATTR('removeAllProtectedChildrenWithCleanup', {RET = '@delref(protectedChildren *)'})
 
 typeconf 'cocos2d::DrawNode'
+
 typeconf 'cocos2d::ParallaxNode'
+    .ATTR('addChild', {ARG1 = '@addref(chilren |)'})
+    
 typeconf 'cocos2d::TextHAlignment'
 typeconf 'cocos2d::TextVAlignment'
 typeconf 'cocos2d::GlyphCollection'

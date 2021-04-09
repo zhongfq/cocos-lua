@@ -104,7 +104,19 @@ typeconf "cocostudio::BaseData"
 typeconf "cocostudio::BaseTriggerAction"
 typeconf "cocostudio::BaseTriggerCondition"
 typeconf "cocostudio::BatchNode"
-typeconf "cocostudio::Bone"
+
+local Bone = typeconf "cocostudio::Bone"
+Bone.ATTR('removeFromParent', {RET = '@delref(children | parent)'})
+Bone.INSERT({'removeFromParent'}, {
+    BEFORE = [[
+        if (!self->getParent()) {
+            return 0;
+        }
+        olua_push_cppobj<cocos2d::Node>(L, self->getParent());
+        int parent = lua_gettop(L);
+    ]]
+})
+
 typeconf "cocostudio::BoneData"
 typeconf "cocostudio::CocoLoader"
     .EXCLUDE_FUNC "*" --TODO

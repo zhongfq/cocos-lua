@@ -2430,6 +2430,23 @@ static int _cocos2d_ui_Scale9Sprite_init1(lua_State *L)
     olua_startinvoke(L);
 
     cocos2d::ui::Scale9Sprite *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
+
+    // @using bool init()
+    bool ret = self->init();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Scale9Sprite_init2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::Scale9Sprite *self = nullptr;
     cocos2d::Sprite *arg1 = nullptr;       /** sprite */
     cocos2d::Rect arg2;       /** rect */
     bool arg3 = false;       /** rotated */
@@ -2450,7 +2467,7 @@ static int _cocos2d_ui_Scale9Sprite_init1(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ui_Scale9Sprite_init2(lua_State *L)
+static int _cocos2d_ui_Scale9Sprite_init3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2473,7 +2490,7 @@ static int _cocos2d_ui_Scale9Sprite_init2(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ui_Scale9Sprite_init3(lua_State *L)
+static int _cocos2d_ui_Scale9Sprite_init4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2506,24 +2523,29 @@ static int _cocos2d_ui_Scale9Sprite_init(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
+    if (num_args == 0) {
+        // @using bool init()
+        return _cocos2d_ui_Scale9Sprite_init1(L);
+    }
+
     if (num_args == 3) {
         // if ((olua_is_cppobj(L, 2, "cc.Sprite")) && (olua_is_cocos2d_Rect(L, 3)) && (olua_is_cocos2d_Rect(L, 4))) {
             // bool init(cocos2d::Sprite *sprite, const cocos2d::Rect &rect, const cocos2d::Rect &capInsets)
-            return _cocos2d_ui_Scale9Sprite_init2(L);
+            return _cocos2d_ui_Scale9Sprite_init3(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_cppobj(L, 2, "cc.Sprite")) && (olua_is_cocos2d_Rect(L, 3)) && (olua_is_bool(L, 4)) && (olua_is_cocos2d_Rect(L, 5))) {
             // bool init(cocos2d::Sprite *sprite, const cocos2d::Rect &rect, bool rotated, const cocos2d::Rect &capInsets)
-            return _cocos2d_ui_Scale9Sprite_init1(L);
+            return _cocos2d_ui_Scale9Sprite_init2(L);
         // }
     }
 
     if (num_args == 6) {
         // if ((olua_is_cppobj(L, 2, "cc.Sprite")) && (olua_is_cocos2d_Rect(L, 3)) && (olua_is_bool(L, 4)) && (olua_is_cocos2d_Vec2(L, 5)) && (olua_is_cocos2d_Size(L, 6)) && (olua_is_cocos2d_Rect(L, 7))) {
             // bool init(cocos2d::Sprite *sprite, const cocos2d::Rect &rect, bool rotated, const cocos2d::Vec2 &offset, const cocos2d::Size &originalSize, const cocos2d::Rect &capInsets)
-            return _cocos2d_ui_Scale9Sprite_init3(L);
+            return _cocos2d_ui_Scale9Sprite_init4(L);
         // }
     }
 
@@ -2576,14 +2598,66 @@ static int _cocos2d_ui_Scale9Sprite_initWithFile2(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ui_Scale9Sprite_initWithFile3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::Scale9Sprite *self = nullptr;
+    std::string arg1;       /** file */
+    cocos2d::Rect arg2;       /** rect */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_cocos2d_Rect(L, 3, &arg2);
+
+    // @using bool initWithFile(const std::string &file, const cocos2d::Rect &rect)
+    bool ret = self->initWithFile(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Scale9Sprite_initWithFile4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::Scale9Sprite *self = nullptr;
+    std::string arg1;       /** file */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
+    olua_check_std_string(L, 2, &arg1);
+
+    // @using bool initWithFile(const std::string &file)
+    bool ret = self->initWithFile(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_ui_Scale9Sprite_initWithFile(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            // @using bool initWithFile(const std::string &file)
+            return _cocos2d_ui_Scale9Sprite_initWithFile4(L);
+        // }
+    }
+
     if (num_args == 2) {
-        // if ((olua_is_cocos2d_Rect(L, 2)) && (olua_is_std_string(L, 3))) {
+        if ((olua_is_cocos2d_Rect(L, 2)) && (olua_is_std_string(L, 3))) {
             // bool initWithFile(const cocos2d::Rect &capInsets, const std::string &file)
             return _cocos2d_ui_Scale9Sprite_initWithFile2(L);
+        }
+
+        // if ((olua_is_std_string(L, 2)) && (olua_is_cocos2d_Rect(L, 3))) {
+            // @using bool initWithFile(const std::string &file, const cocos2d::Rect &rect)
+            return _cocos2d_ui_Scale9Sprite_initWithFile3(L);
         // }
     }
 
@@ -2599,7 +2673,7 @@ static int _cocos2d_ui_Scale9Sprite_initWithFile(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_Scale9Sprite_initWithSpriteFrame(lua_State *L)
+static int _cocos2d_ui_Scale9Sprite_initWithSpriteFrame1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2620,7 +2694,49 @@ static int _cocos2d_ui_Scale9Sprite_initWithSpriteFrame(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ui_Scale9Sprite_initWithSpriteFrameName(lua_State *L)
+static int _cocos2d_ui_Scale9Sprite_initWithSpriteFrame2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::Scale9Sprite *self = nullptr;
+    cocos2d::SpriteFrame *arg1 = nullptr;       /** spriteFrame */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.SpriteFrame");
+
+    // @using bool initWithSpriteFrame(cocos2d::SpriteFrame *spriteFrame)
+    bool ret = self->initWithSpriteFrame(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Scale9Sprite_initWithSpriteFrame(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 2, "cc.SpriteFrame"))) {
+            // @using bool initWithSpriteFrame(cocos2d::SpriteFrame *spriteFrame)
+            return _cocos2d_ui_Scale9Sprite_initWithSpriteFrame2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 2, "cc.SpriteFrame")) && (olua_is_cocos2d_Rect(L, 3))) {
+            // bool initWithSpriteFrame(cocos2d::SpriteFrame *spriteFrame, const cocos2d::Rect &capInsets)
+            return _cocos2d_ui_Scale9Sprite_initWithSpriteFrame1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::Scale9Sprite::initWithSpriteFrame' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Scale9Sprite_initWithSpriteFrameName1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2639,6 +2755,48 @@ static int _cocos2d_ui_Scale9Sprite_initWithSpriteFrameName(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_ui_Scale9Sprite_initWithSpriteFrameName2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::Scale9Sprite *self = nullptr;
+    std::string arg1;       /** spriteFrameName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
+    olua_check_std_string(L, 2, &arg1);
+
+    // @using bool initWithSpriteFrameName(const std::string &spriteFrameName)
+    bool ret = self->initWithSpriteFrameName(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Scale9Sprite_initWithSpriteFrameName(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            // @using bool initWithSpriteFrameName(const std::string &spriteFrameName)
+            return _cocos2d_ui_Scale9Sprite_initWithSpriteFrameName2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_cocos2d_Rect(L, 3))) {
+            // bool initWithSpriteFrameName(const std::string &spriteFrameName, const cocos2d::Rect &capInsets)
+            return _cocos2d_ui_Scale9Sprite_initWithSpriteFrameName1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::Scale9Sprite::initWithSpriteFrameName' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_ui_Scale9Sprite_isScale9Enabled(lua_State *L)
@@ -2851,7 +3009,7 @@ static int _cocos2d_ui_Scale9Sprite_setScale9Enabled(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_Scale9Sprite_setSpriteFrame(lua_State *L)
+static int _cocos2d_ui_Scale9Sprite_setSpriteFrame1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2867,6 +3025,70 @@ static int _cocos2d_ui_Scale9Sprite_setSpriteFrame(lua_State *L)
     self->setSpriteFrame(arg1, arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Scale9Sprite_setSpriteFrame2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::Scale9Sprite *self = nullptr;
+    std::string arg1;       /** spriteFrameName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
+    olua_check_std_string(L, 2, &arg1);
+
+    // @using void setSpriteFrame(const std::string &spriteFrameName)
+    self->setSpriteFrame(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Scale9Sprite_setSpriteFrame3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::Scale9Sprite *self = nullptr;
+    cocos2d::SpriteFrame *arg1 = nullptr;       /** newFrame */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.SpriteFrame");
+
+    // @using void setSpriteFrame(cocos2d::SpriteFrame *newFrame)
+    self->setSpriteFrame(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Scale9Sprite_setSpriteFrame(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        if ((olua_is_std_string(L, 2))) {
+            // @using void setSpriteFrame(const std::string &spriteFrameName)
+            return _cocos2d_ui_Scale9Sprite_setSpriteFrame2(L);
+        }
+
+        // if ((olua_is_cppobj(L, 2, "cc.SpriteFrame"))) {
+            // @using void setSpriteFrame(cocos2d::SpriteFrame *newFrame)
+            return _cocos2d_ui_Scale9Sprite_setSpriteFrame3(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 2, "cc.SpriteFrame")) && (olua_is_cocos2d_Rect(L, 3))) {
+            // void setSpriteFrame(cocos2d::SpriteFrame *spriteFrame, const cocos2d::Rect &capInsets)
+            return _cocos2d_ui_Scale9Sprite_setSpriteFrame1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::Scale9Sprite::setSpriteFrame' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -7150,6 +7372,23 @@ static int _cocos2d_ui_AbstractCheckButton_init1(lua_State *L)
     olua_startinvoke(L);
 
     cocos2d::ui::AbstractCheckButton *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+
+    // @using bool init()
+    bool ret = self->init();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_init2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
     std::string arg1;       /** backGround */
     std::string arg2;       /** backGroundSelected */
     std::string arg3;       /** cross */
@@ -7174,7 +7413,7 @@ static int _cocos2d_ui_AbstractCheckButton_init1(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ui_AbstractCheckButton_init2(lua_State *L)
+static int _cocos2d_ui_AbstractCheckButton_init3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7205,17 +7444,22 @@ static int _cocos2d_ui_AbstractCheckButton_init(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
+    if (num_args == 0) {
+        // @using bool init()
+        return _cocos2d_ui_AbstractCheckButton_init1(L);
+    }
+
     if (num_args == 5) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6))) {
             // bool init(const std::string &backGround, const std::string &backGroundSelected, const std::string &cross, const std::string &backGroundDisabled, const std::string &frontCrossDisabled, @optional cocos2d::ui::Widget::TextureResType texType)
-            return _cocos2d_ui_AbstractCheckButton_init2(L);
+            return _cocos2d_ui_AbstractCheckButton_init3(L);
         // }
     }
 
     if (num_args == 6) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_uint(L, 7))) {
             // bool init(const std::string &backGround, const std::string &backGroundSelected, const std::string &cross, const std::string &backGroundDisabled, const std::string &frontCrossDisabled, @optional cocos2d::ui::Widget::TextureResType texType)
-            return _cocos2d_ui_AbstractCheckButton_init1(L);
+            return _cocos2d_ui_AbstractCheckButton_init2(L);
         // }
     }
 
@@ -16868,7 +17112,24 @@ static int _cocos2d_ui_Text_getType(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ui_Text_init(lua_State *L)
+static int _cocos2d_ui_Text_init1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::Text *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
+
+    // @using bool init()
+    bool ret = self->init();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Text_init2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -16889,6 +17150,27 @@ static int _cocos2d_ui_Text_init(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_ui_Text_init(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        // @using bool init()
+        return _cocos2d_ui_Text_init1(L);
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4))) {
+            // bool init(const std::string &textContent, const std::string &fontName, float fontSize)
+            return _cocos2d_ui_Text_init2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::Text::init' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_ui_Text_isShadowEnabled(lua_State *L)
@@ -19660,6 +19942,23 @@ static int _cocos2d_ui_Button_init1(lua_State *L)
     olua_startinvoke(L);
 
     cocos2d::ui::Button *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
+
+    // @using bool init()
+    bool ret = self->init();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Button_init2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::Button *self = nullptr;
     std::string arg1;       /** normalImage */
     std::string arg2;       /** selectedImage */
     std::string arg3;       /** disableImage */
@@ -19680,7 +19979,7 @@ static int _cocos2d_ui_Button_init1(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ui_Button_init2(lua_State *L)
+static int _cocos2d_ui_Button_init3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -19699,7 +19998,7 @@ static int _cocos2d_ui_Button_init2(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ui_Button_init3(lua_State *L)
+static int _cocos2d_ui_Button_init4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -19720,7 +20019,7 @@ static int _cocos2d_ui_Button_init3(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ui_Button_init4(lua_State *L)
+static int _cocos2d_ui_Button_init5(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -19747,31 +20046,36 @@ static int _cocos2d_ui_Button_init(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
+    if (num_args == 0) {
+        // @using bool init()
+        return _cocos2d_ui_Button_init1(L);
+    }
+
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
             // bool init(const std::string &normalImage, @optional const std::string &selectedImage, @optional const std::string &disableImage, @optional cocos2d::ui::Widget::TextureResType texType)
-            return _cocos2d_ui_Button_init2(L);
+            return _cocos2d_ui_Button_init3(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
             // bool init(const std::string &normalImage, @optional const std::string &selectedImage, @optional const std::string &disableImage, @optional cocos2d::ui::Widget::TextureResType texType)
-            return _cocos2d_ui_Button_init3(L);
+            return _cocos2d_ui_Button_init4(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4))) {
             // bool init(const std::string &normalImage, @optional const std::string &selectedImage, @optional const std::string &disableImage, @optional cocos2d::ui::Widget::TextureResType texType)
-            return _cocos2d_ui_Button_init4(L);
+            return _cocos2d_ui_Button_init5(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_uint(L, 5))) {
             // bool init(const std::string &normalImage, @optional const std::string &selectedImage, @optional const std::string &disableImage, @optional cocos2d::ui::Widget::TextureResType texType)
-            return _cocos2d_ui_Button_init1(L);
+            return _cocos2d_ui_Button_init2(L);
         // }
     }
 
@@ -21524,6 +21828,23 @@ static int _cocos2d_ui_ImageView_init1(lua_State *L)
     olua_startinvoke(L);
 
     cocos2d::ui::ImageView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ImageView");
+
+    // @using bool init()
+    bool ret = self->init();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ImageView_init2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::ImageView *self = nullptr;
     std::string arg1;       /** imageFileName */
     lua_Unsigned arg2 = 0;       /** texType */
 
@@ -21540,7 +21861,7 @@ static int _cocos2d_ui_ImageView_init1(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ui_ImageView_init2(lua_State *L)
+static int _cocos2d_ui_ImageView_init3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -21563,17 +21884,22 @@ static int _cocos2d_ui_ImageView_init(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
+    if (num_args == 0) {
+        // @using bool init()
+        return _cocos2d_ui_ImageView_init1(L);
+    }
+
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
             // bool init(const std::string &imageFileName, @optional cocos2d::ui::Widget::TextureResType texType)
-            return _cocos2d_ui_ImageView_init2(L);
+            return _cocos2d_ui_ImageView_init3(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
             // bool init(const std::string &imageFileName, @optional cocos2d::ui::Widget::TextureResType texType)
-            return _cocos2d_ui_ImageView_init1(L);
+            return _cocos2d_ui_ImageView_init2(L);
         // }
     }
 

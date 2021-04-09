@@ -2085,6 +2085,23 @@ static int _cocostudio_Armature_init1(lua_State *L)
     olua_startinvoke(L);
 
     cocostudio::Armature *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.Armature");
+
+    // @using bool init()
+    bool ret = self->init();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocostudio_Armature_init2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::Armature *self = nullptr;
     std::string arg1;       /** name */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.Armature");
@@ -2099,7 +2116,7 @@ static int _cocostudio_Armature_init1(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_Armature_init2(lua_State *L)
+static int _cocostudio_Armature_init3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2124,17 +2141,22 @@ static int _cocostudio_Armature_init(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
+    if (num_args == 0) {
+        // @using bool init()
+        return _cocostudio_Armature_init1(L);
+    }
+
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
             // bool init(const std::string &name)
-            return _cocostudio_Armature_init1(L);
+            return _cocostudio_Armature_init2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_cppobj(L, 3, "ccs.Bone"))) {
             // bool init(const std::string &name, cocostudio::Bone *parentBone)
-            return _cocostudio_Armature_init2(L);
+            return _cocostudio_Armature_init3(L);
         // }
     }
 
@@ -3839,6 +3861,30 @@ static int _cocostudio_ArmatureAnimation_play2(lua_State *L)
     olua_startinvoke(L);
 
     cocostudio::ArmatureAnimation *self = nullptr;
+    lua_Integer arg1 = 0;       /** durationTo */
+    lua_Integer arg2 = 0;       /** durationTween */
+    lua_Integer arg3 = 0;       /** loop */
+    lua_Integer arg4 = 0;       /** tweenEasing */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ArmatureAnimation");
+    olua_check_int(L, 2, &arg1);
+    olua_check_int(L, 3, &arg2);
+    olua_check_int(L, 4, &arg3);
+    olua_check_int(L, 5, &arg4);
+
+    // @using void play(int durationTo, int durationTween, int loop, int tweenEasing)
+    self->play((int)arg1, (int)arg2, (int)arg3, (int)arg4);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocostudio_ArmatureAnimation_play3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ArmatureAnimation *self = nullptr;
     std::string arg1;       /** animationName */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.ArmatureAnimation");
@@ -3852,7 +3898,7 @@ static int _cocostudio_ArmatureAnimation_play2(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureAnimation_play3(lua_State *L)
+static int _cocostudio_ArmatureAnimation_play4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3879,14 +3925,14 @@ static int _cocostudio_ArmatureAnimation_play(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
             // void play(const std::string &animationName, @optional int durationTo, @optional int loop)
-            return _cocostudio_ArmatureAnimation_play2(L);
+            return _cocostudio_ArmatureAnimation_play3(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_int(L, 3))) {
             // void play(const std::string &animationName, @optional int durationTo, @optional int loop)
-            return _cocostudio_ArmatureAnimation_play3(L);
+            return _cocostudio_ArmatureAnimation_play4(L);
         // }
     }
 
@@ -3894,6 +3940,13 @@ static int _cocostudio_ArmatureAnimation_play(lua_State *L)
         // if ((olua_is_std_string(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4))) {
             // void play(const std::string &animationName, @optional int durationTo, @optional int loop)
             return _cocostudio_ArmatureAnimation_play1(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5))) {
+            // @using void play(int durationTo, int durationTween, int loop, int tweenEasing)
+            return _cocostudio_ArmatureAnimation_play2(L);
         // }
     }
 
@@ -6649,7 +6702,24 @@ static int _cocostudio_Bone_getWorldInfo(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_Bone_init(lua_State *L)
+static int _cocostudio_Bone_init1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::Bone *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.Bone");
+
+    // @using bool init()
+    bool ret = self->init();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocostudio_Bone_init2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6666,6 +6736,27 @@ static int _cocostudio_Bone_init(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocostudio_Bone_init(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        // @using bool init()
+        return _cocostudio_Bone_init1(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            // bool init(const std::string &name)
+            return _cocostudio_Bone_init2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocostudio::Bone::init' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocostudio_Bone_isBlendDirty(lua_State *L)
@@ -6771,7 +6862,7 @@ static int _cocostudio_Bone_removeDisplay(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_Bone_removeFromParent(lua_State *L)
+static int _cocostudio_Bone_removeFromParent1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6781,10 +6872,67 @@ static int _cocostudio_Bone_removeFromParent(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccs.Bone");
     olua_check_bool(L, 2, &arg1);
 
-    // void removeFromParent(bool recursion)
+    // insert code before call
+    if (!self->getParent()) {
+        return 0;
+    }
+    olua_push_cppobj<cocos2d::Node>(L, self->getParent());
+    int parent = lua_gettop(L);
+
+    // @delref(children | parent) void removeFromParent(bool recursion)
     self->removeFromParent(arg1);
 
+    // insert code after call
+    olua_delref(L, parent, "children", 1, OLUA_MODE_MULTIPLE);
+
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocostudio_Bone_removeFromParent2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::Bone *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.Bone");
+
+    // insert code before call
+    if (!self->getParent()) {
+        return 0;
+    }
+    olua_push_cppobj<cocos2d::Node>(L, self->getParent());
+    int parent = lua_gettop(L);
+
+    // @using @delref(children | parent) void removeFromParent()
+    self->removeFromParent();
+
+    // insert code after call
+    olua_delref(L, parent, "children", 1, OLUA_MODE_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocostudio_Bone_removeFromParent(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        // @using @delref(children | parent) void removeFromParent()
+        return _cocostudio_Bone_removeFromParent2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_bool(L, 2))) {
+            // @delref(children | parent) void removeFromParent(bool recursion)
+            return _cocostudio_Bone_removeFromParent1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocostudio::Bone::removeFromParent' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -13475,7 +13623,7 @@ static int _cocostudio_Tween_new(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_Tween_play(lua_State *L)
+static int _cocostudio_Tween_play1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -13497,6 +13645,53 @@ static int _cocostudio_Tween_play(lua_State *L)
     self->play(arg1, (int)arg2, (int)arg3, (int)arg4, (int)arg5);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocostudio_Tween_play2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::Tween *self = nullptr;
+    lua_Integer arg1 = 0;       /** durationTo */
+    lua_Integer arg2 = 0;       /** durationTween */
+    lua_Integer arg3 = 0;       /** loop */
+    lua_Integer arg4 = 0;       /** tweenEasing */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.Tween");
+    olua_check_int(L, 2, &arg1);
+    olua_check_int(L, 3, &arg2);
+    olua_check_int(L, 4, &arg3);
+    olua_check_int(L, 5, &arg4);
+
+    // @using void play(int durationTo, int durationTween, int loop, int tweenEasing)
+    self->play((int)arg1, (int)arg2, (int)arg3, (int)arg4);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocostudio_Tween_play(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 4) {
+        // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5))) {
+            // @using void play(int durationTo, int durationTween, int loop, int tweenEasing)
+            return _cocostudio_Tween_play2(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if ((olua_is_cppobj(L, 2, "ccs.MovementBoneData")) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5)) && (olua_is_int(L, 6))) {
+            // void play(cocostudio::MovementBoneData *movementBoneData, int durationTo, int durationTween, int loop, int tweenEasing)
+            return _cocostudio_Tween_play1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocostudio::Tween::play' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -16048,7 +16243,24 @@ static int _cocostudio_timeline_ActionTimelineNode_getRoot(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_timeline_ActionTimelineNode_init(lua_State *L)
+static int _cocostudio_timeline_ActionTimelineNode_init1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::timeline::ActionTimelineNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.ActionTimelineNode");
+
+    // @using bool init()
+    bool ret = self->init();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocostudio_timeline_ActionTimelineNode_init2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -16067,6 +16279,27 @@ static int _cocostudio_timeline_ActionTimelineNode_init(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocostudio_timeline_ActionTimelineNode_init(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        // @using bool init()
+        return _cocostudio_timeline_ActionTimelineNode_init1(L);
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_cppobj(L, 3, "ccs.timeline.ActionTimeline"))) {
+            // bool init(cocos2d::Node *root, cocostudio::timeline::ActionTimeline *action)
+            return _cocostudio_timeline_ActionTimelineNode_init2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocostudio::timeline::ActionTimelineNode::init' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocostudio_timeline_ActionTimelineNode_new(lua_State *L)

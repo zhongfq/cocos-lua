@@ -16092,7 +16092,7 @@ static int _fairygui_GList_set_itemRenderer(lua_State *L)
 
                 // insert code before call
                 olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
-                olua_addref(L, -1, "children", -2, OLUA_MODE_MULTIPLE);
+                olua_addref(L, -1, "children", top + 2, OLUA_MODE_MULTIPLE);
                 lua_pop(L, 1);
 
                 olua_callback(L, cb_store, cb_name.c_str(), 2);
@@ -24806,8 +24806,8 @@ static int _fairygui_GTree_set_treeNodeRender(lua_State *L)
 
                 // insert code before call
                 olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
-                olua_addref(L, -1, "nodes", -3, OLUA_MODE_MULTIPLE);
-                olua_addref(L, -1, "children", -2, OLUA_MODE_MULTIPLE);
+                olua_addref(L, -1, "nodes", top + 1, OLUA_MODE_MULTIPLE);
+                olua_addref(L, -1, "children",top + 2, OLUA_MODE_MULTIPLE);
                 lua_pop(L, 1);
 
                 olua_callback(L, cb_store, cb_name.c_str(), 2);
@@ -24875,7 +24875,7 @@ static int _fairygui_GTree_set_treeNodeWillExpand(lua_State *L)
 
                 // insert code before call
                 olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
-                olua_addref(L, -1, "nodes", -3, OLUA_MODE_MULTIPLE);
+                olua_addref(L, -1, "nodes", top + 1, OLUA_MODE_MULTIPLE);
                 lua_pop(L, 1);
 
                 olua_callback(L, cb_store, cb_name.c_str(), 2);
@@ -25510,6 +25510,239 @@ static int _fairygui_FUILabel_new(lua_State *L)
     return num_ret;
 }
 
+static int _fairygui_FUILabel_setBMFontFilePath1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::FUILabel *self = nullptr;
+    std::string arg1;       /** bmfontFilePath */
+    cocos2d::Vec2 arg2;       /** imageOffset */
+    lua_Number arg3 = 0;       /** fontSize */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.FUILabel");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_cocos2d_Vec2(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+
+    // bool setBMFontFilePath(const std::string &bmfontFilePath, const cocos2d::Vec2 &imageOffset, @optional float fontSize)
+    bool ret = self->setBMFontFilePath(arg1, arg2, (float)arg3);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_FUILabel_setBMFontFilePath2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::FUILabel *self = nullptr;
+    std::string arg1;       /** bmfontFilePath */
+    lua_Number arg2 = 0;       /** fontSize */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.FUILabel");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+
+    // @using bool setBMFontFilePath(const std::string &bmfontFilePath, @optional float fontSize)
+    bool ret = self->setBMFontFilePath(arg1, (float)arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_FUILabel_setBMFontFilePath3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::FUILabel *self = nullptr;
+    std::string arg1;       /** bmfontFilePath */
+    cocos2d::Rect arg2;       /** imageRect */
+    bool arg3 = false;       /** imageRotated */
+    lua_Number arg4 = 0;       /** fontSize */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.FUILabel");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_cocos2d_Rect(L, 3, &arg2);
+    olua_check_bool(L, 4, &arg3);
+    olua_check_number(L, 5, &arg4);
+
+    // @using bool setBMFontFilePath(const std::string &bmfontFilePath, const cocos2d::Rect &imageRect, bool imageRotated, @optional float fontSize)
+    bool ret = self->setBMFontFilePath(arg1, arg2, arg3, (float)arg4);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_FUILabel_setBMFontFilePath4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::FUILabel *self = nullptr;
+    std::string arg1;       /** bmfontFilePath */
+    std::string arg2;       /** subTextureKey */
+    lua_Number arg3 = 0;       /** fontSize */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.FUILabel");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+
+    // @using bool setBMFontFilePath(const std::string &bmfontFilePath, const std::string &subTextureKey, @optional float fontSize)
+    bool ret = self->setBMFontFilePath(arg1, arg2, (float)arg3);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_FUILabel_setBMFontFilePath5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::FUILabel *self = nullptr;
+    std::string arg1;       /** bmfontFilePath */
+    cocos2d::Vec2 arg2;       /** imageOffset */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.FUILabel");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_cocos2d_Vec2(L, 3, &arg2);
+
+    // bool setBMFontFilePath(const std::string &bmfontFilePath, const cocos2d::Vec2 &imageOffset, @optional float fontSize)
+    bool ret = self->setBMFontFilePath(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_FUILabel_setBMFontFilePath6(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::FUILabel *self = nullptr;
+    std::string arg1;       /** bmfontFilePath */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.FUILabel");
+    olua_check_std_string(L, 2, &arg1);
+
+    // @using bool setBMFontFilePath(const std::string &bmfontFilePath, @optional float fontSize)
+    bool ret = self->setBMFontFilePath(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_FUILabel_setBMFontFilePath7(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::FUILabel *self = nullptr;
+    std::string arg1;       /** bmfontFilePath */
+    cocos2d::Rect arg2;       /** imageRect */
+    bool arg3 = false;       /** imageRotated */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.FUILabel");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_cocos2d_Rect(L, 3, &arg2);
+    olua_check_bool(L, 4, &arg3);
+
+    // @using bool setBMFontFilePath(const std::string &bmfontFilePath, const cocos2d::Rect &imageRect, bool imageRotated, @optional float fontSize)
+    bool ret = self->setBMFontFilePath(arg1, arg2, arg3);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_FUILabel_setBMFontFilePath8(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::FUILabel *self = nullptr;
+    std::string arg1;       /** bmfontFilePath */
+    std::string arg2;       /** subTextureKey */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.FUILabel");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // @using bool setBMFontFilePath(const std::string &bmfontFilePath, const std::string &subTextureKey, @optional float fontSize)
+    bool ret = self->setBMFontFilePath(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_FUILabel_setBMFontFilePath(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            // @using bool setBMFontFilePath(const std::string &bmfontFilePath, @optional float fontSize)
+            return _fairygui_FUILabel_setBMFontFilePath6(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        if ((olua_is_std_string(L, 2)) && (olua_is_cocos2d_Vec2(L, 3))) {
+            // bool setBMFontFilePath(const std::string &bmfontFilePath, const cocos2d::Vec2 &imageOffset, @optional float fontSize)
+            return _fairygui_FUILabel_setBMFontFilePath5(L);
+        }
+
+        if ((olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
+            // @using bool setBMFontFilePath(const std::string &bmfontFilePath, @optional float fontSize)
+            return _fairygui_FUILabel_setBMFontFilePath2(L);
+        }
+
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            // @using bool setBMFontFilePath(const std::string &bmfontFilePath, const std::string &subTextureKey, @optional float fontSize)
+            return _fairygui_FUILabel_setBMFontFilePath8(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        if ((olua_is_std_string(L, 2)) && (olua_is_cocos2d_Rect(L, 3)) && (olua_is_bool(L, 4))) {
+            // @using bool setBMFontFilePath(const std::string &bmfontFilePath, const cocos2d::Rect &imageRect, bool imageRotated, @optional float fontSize)
+            return _fairygui_FUILabel_setBMFontFilePath7(L);
+        }
+
+        if ((olua_is_std_string(L, 2)) && (olua_is_cocos2d_Vec2(L, 3)) && (olua_is_number(L, 4))) {
+            // bool setBMFontFilePath(const std::string &bmfontFilePath, const cocos2d::Vec2 &imageOffset, @optional float fontSize)
+            return _fairygui_FUILabel_setBMFontFilePath1(L);
+        }
+
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4))) {
+            // @using bool setBMFontFilePath(const std::string &bmfontFilePath, const std::string &subTextureKey, @optional float fontSize)
+            return _fairygui_FUILabel_setBMFontFilePath4(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_cocos2d_Rect(L, 3)) && (olua_is_bool(L, 4)) && (olua_is_number(L, 5))) {
+            // @using bool setBMFontFilePath(const std::string &bmfontFilePath, const cocos2d::Rect &imageRect, bool imageRotated, @optional float fontSize)
+            return _fairygui_FUILabel_setBMFontFilePath3(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::FUILabel::setBMFontFilePath' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
 static int _fairygui_FUILabel_setGrayed(lua_State *L)
 {
     olua_startinvoke(L);
@@ -25573,6 +25806,7 @@ static int luaopen_fairygui_FUILabel(lua_State *L)
     oluacls_func(L, "getText", _fairygui_FUILabel_getText);
     oluacls_func(L, "getTextFormat", _fairygui_FUILabel_getTextFormat);
     oluacls_func(L, "new", _fairygui_FUILabel_new);
+    oluacls_func(L, "setBMFontFilePath", _fairygui_FUILabel_setBMFontFilePath);
     oluacls_func(L, "setGrayed", _fairygui_FUILabel_setGrayed);
     oluacls_func(L, "setText", _fairygui_FUILabel_setText);
     oluacls_func(L, "setUnderlineColor", _fairygui_FUILabel_setUnderlineColor);

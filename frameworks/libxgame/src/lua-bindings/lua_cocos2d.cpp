@@ -15722,6 +15722,28 @@ static int _cocos2d_CustomCommand_init1(lua_State *L)
 
     cocos2d::CustomCommand *self = nullptr;
     lua_Number arg1 = 0;       /** globalZOrder */
+    cocos2d::Mat4 arg2;       /** modelViewTransform */
+    lua_Unsigned arg3 = 0;       /** flags */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.CustomCommand");
+    olua_check_number(L, 2, &arg1);
+    olua_check_cocos2d_Mat4(L, 3, &arg2);
+    olua_check_uint(L, 4, &arg3);
+
+    // @using void init(float globalZOrder, const cocos2d::Mat4 &modelViewTransform, unsigned int flags)
+    self->init((float)arg1, arg2, (unsigned int)arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_CustomCommand_init2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::CustomCommand *self = nullptr;
+    lua_Number arg1 = 0;       /** globalZOrder */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.CustomCommand");
     olua_check_number(L, 2, &arg1);
@@ -15734,7 +15756,7 @@ static int _cocos2d_CustomCommand_init1(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_CustomCommand_init2(lua_State *L)
+static int _cocos2d_CustomCommand_init3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -15761,14 +15783,21 @@ static int _cocos2d_CustomCommand_init(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_number(L, 2))) {
             // void init(float globalZOrder)
-            return _cocos2d_CustomCommand_init1(L);
+            return _cocos2d_CustomCommand_init2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 2)) && (olua_is_cocos2d_BlendFunc(L, 3))) {
             // void init(float globalZOrder, const cocos2d::BlendFunc &blendFunc)
-            return _cocos2d_CustomCommand_init2(L);
+            return _cocos2d_CustomCommand_init3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_number(L, 2)) && (olua_is_cocos2d_Mat4(L, 3)) && (olua_is_uint(L, 4))) {
+            // @using void init(float globalZOrder, const cocos2d::Mat4 &modelViewTransform, unsigned int flags)
+            return _cocos2d_CustomCommand_init1(L);
         // }
     }
 
@@ -16249,7 +16278,25 @@ static int _cocos2d_MeshCommand___move(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_MeshCommand_init(lua_State *L)
+static int _cocos2d_MeshCommand_init1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::MeshCommand *self = nullptr;
+    lua_Number arg1 = 0;       /** globalZOrder */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.MeshCommand");
+    olua_check_number(L, 2, &arg1);
+
+    // @using void init(float globalZOrder)
+    self->init((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_MeshCommand_init2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -16265,6 +16312,29 @@ static int _cocos2d_MeshCommand_init(lua_State *L)
     self->init((float)arg1, arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_MeshCommand_init(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_number(L, 2))) {
+            // @using void init(float globalZOrder)
+            return _cocos2d_MeshCommand_init1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_number(L, 2)) && (olua_is_cocos2d_Mat4(L, 3))) {
+            // void init(float globalZOrder, const cocos2d::Mat4 &transform)
+            return _cocos2d_MeshCommand_init2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::MeshCommand::init' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -25721,7 +25791,24 @@ static int _cocos2d_ClippingNode_hasContent(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ClippingNode_init(lua_State *L)
+static int _cocos2d_ClippingNode_init1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ClippingNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ClippingNode");
+
+    // @using bool init()
+    bool ret = self->init();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ClippingNode_init2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -25738,6 +25825,27 @@ static int _cocos2d_ClippingNode_init(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_ClippingNode_init(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        // @using bool init()
+        return _cocos2d_ClippingNode_init1(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
+            // bool init(cocos2d::Node *stencil)
+            return _cocos2d_ClippingNode_init2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ClippingNode::init' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_ClippingNode_isInverted(lua_State *L)
@@ -27442,7 +27550,7 @@ static int _cocos2d_ParallaxNode___move(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_ParallaxNode_addChild(lua_State *L)
+static int _cocos2d_ParallaxNode_addChild1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -27458,10 +27566,149 @@ static int _cocos2d_ParallaxNode_addChild(lua_State *L)
     olua_check_cocos2d_Vec2(L, 4, &arg3);
     olua_check_cocos2d_Vec2(L, 5, &arg4);
 
-    // void addChild(cocos2d::Node *child, int z, const cocos2d::Vec2 &parallaxRatio, const cocos2d::Vec2 &positionOffset)
+    // void addChild(@addref(chilren |) cocos2d::Node *child, int z, const cocos2d::Vec2 &parallaxRatio, const cocos2d::Vec2 &positionOffset)
     self->addChild(arg1, (int)arg2, arg3, arg4);
 
+    // insert code after call
+    olua_addref(L, 1, "chilren", 2, OLUA_MODE_MULTIPLE);
+
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ParallaxNode_addChild2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ParallaxNode *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;       /** child */
+    lua_Integer arg2 = 0;       /** zOrder */
+    lua_Integer arg3 = 0;       /** tag */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParallaxNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
+    olua_check_int(L, 3, &arg2);
+    olua_check_int(L, 4, &arg3);
+
+    // @using void addChild(@addref(chilren |) cocos2d::Node *child, int zOrder, int tag)
+    self->addChild(arg1, (int)arg2, (int)arg3);
+
+    // insert code after call
+    olua_addref(L, 1, "chilren", 2, OLUA_MODE_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ParallaxNode_addChild3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ParallaxNode *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;       /** child */
+    lua_Integer arg2 = 0;       /** zOrder */
+    std::string arg3;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParallaxNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
+    olua_check_int(L, 3, &arg2);
+    olua_check_std_string(L, 4, &arg3);
+
+    // @using void addChild(@addref(chilren |) cocos2d::Node *child, int zOrder, const std::string &name)
+    self->addChild(arg1, (int)arg2, arg3);
+
+    // insert code after call
+    olua_addref(L, 1, "chilren", 2, OLUA_MODE_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ParallaxNode_addChild4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ParallaxNode *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;       /** child */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParallaxNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
+
+    // @using void addChild(@addref(children |) cocos2d::Node *child)
+    self->addChild(arg1);
+
+    // insert code after call
+    olua_addref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ParallaxNode_addChild5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ParallaxNode *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;       /** child */
+    lua_Integer arg2 = 0;       /** localZOrder */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParallaxNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
+    olua_check_int(L, 3, &arg2);
+
+    // @using void addChild(@addref(children |) cocos2d::Node *child, int localZOrder)
+    self->addChild(arg1, (int)arg2);
+
+    // insert code after call
+    olua_addref(L, 1, "children", 2, OLUA_MODE_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ParallaxNode_addChild(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
+            // @using void addChild(@addref(children |) cocos2d::Node *child)
+            return _cocos2d_ParallaxNode_addChild4(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_int(L, 3))) {
+            // @using void addChild(@addref(children |) cocos2d::Node *child, int localZOrder)
+            return _cocos2d_ParallaxNode_addChild5(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_int(L, 3)) && (olua_is_int(L, 4))) {
+            // @using void addChild(@addref(chilren |) cocos2d::Node *child, int zOrder, int tag)
+            return _cocos2d_ParallaxNode_addChild2(L);
+        }
+
+        // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_int(L, 3)) && (olua_is_std_string(L, 4))) {
+            // @using void addChild(@addref(chilren |) cocos2d::Node *child, int zOrder, const std::string &name)
+            return _cocos2d_ParallaxNode_addChild3(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_int(L, 3)) && (olua_is_cocos2d_Vec2(L, 4)) && (olua_is_cocos2d_Vec2(L, 5))) {
+            // void addChild(@addref(chilren |) cocos2d::Node *child, int z, const cocos2d::Vec2 &parallaxRatio, const cocos2d::Vec2 &positionOffset)
+            return _cocos2d_ParallaxNode_addChild1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ParallaxNode::addChild' not support '%d' arguments", num_args);
 
     return 0;
 }

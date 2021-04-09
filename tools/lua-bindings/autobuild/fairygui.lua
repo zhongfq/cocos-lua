@@ -1688,7 +1688,7 @@ cls.insert('itemRenderer', {
     AFTER = nil,
     CALLBACK_BEFORE = [[
         olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
-        olua_addref(L, -1, "children", -2, OLUA_MODE_MULTIPLE);
+        olua_addref(L, -1, "children", top + 2, OLUA_MODE_MULTIPLE);
         lua_pop(L, 1);
     ]],
     CALLBACK_AFTER = nil,
@@ -2466,8 +2466,8 @@ cls.insert('treeNodeRender', {
     AFTER = nil,
     CALLBACK_BEFORE = [[
         olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
-        olua_addref(L, -1, "nodes", -3, OLUA_MODE_MULTIPLE);
-        olua_addref(L, -1, "children", -2, OLUA_MODE_MULTIPLE);
+        olua_addref(L, -1, "nodes", top + 1, OLUA_MODE_MULTIPLE);
+        olua_addref(L, -1, "children",top + 2, OLUA_MODE_MULTIPLE);
         lua_pop(L, 1);
     ]],
     CALLBACK_AFTER = nil,
@@ -2477,7 +2477,7 @@ cls.insert('treeNodeWillExpand', {
     AFTER = nil,
     CALLBACK_BEFORE = [[
         olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
-        olua_addref(L, -1, "nodes", -3, OLUA_MODE_MULTIPLE);
+        olua_addref(L, -1, "nodes", top + 1, OLUA_MODE_MULTIPLE);
         lua_pop(L, 1);
     ]],
     CALLBACK_AFTER = nil,
@@ -2542,6 +2542,7 @@ cls.func(nil, 'void setText(const std::string &value)')
 cls.func(nil, 'fairygui::TextFormat *getTextFormat()')
 cls.func(nil, 'void applyTextFormat()')
 cls.func(nil, 'void setUnderlineColor(const cocos2d::Color3B &value)')
+cls.func(nil, 'bool setBMFontFilePath(const std::string &bmfontFilePath, const cocos2d::Vec2 &imageOffset, @optional float fontSize)', '@using bool setBMFontFilePath(const std::string &bmfontFilePath, @optional float fontSize)', '@using bool setBMFontFilePath(const std::string &bmfontFilePath, const cocos2d::Rect &imageRect, bool imageRotated, @optional float fontSize)', '@using bool setBMFontFilePath(const std::string &bmfontFilePath, const std::string &subTextureKey, @optional float fontSize)')
 cls.func(nil, 'void setGrayed(bool value)')
 cls.prop('text', nil, nil)
 cls.prop('textFormat', nil, nil)

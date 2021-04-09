@@ -371,7 +371,7 @@ GList.CALLBACK {NAME = 'itemRenderer', LOCAL = false}
 GList.INSERT('itemRenderer', {
     CALLBACK_BEFORE = [[
         olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
-        olua_addref(L, -1, "children", -2, OLUA_MODE_MULTIPLE);
+        olua_addref(L, -1, "children", top + 2, OLUA_MODE_MULTIPLE);
         lua_pop(L, 1);
     ]]
 })
@@ -589,28 +589,27 @@ GTree.ATTR('getSelectedNode', {RET = '@addref(nodes |)'})
 GTree.ATTR('getSelectedNodes', {ARG1 = '@addref(nodes |)@out'})
 GTree.CALLBACK {NAME = 'treeNodeRender', LOCAL = false}
 GTree.CALLBACK {NAME = 'treeNodeWillExpand', LOCAL = false}
+-- std::function<void (GTreeNode *, GComponent *)> treeNodeRender
 GTree.INSERT('treeNodeRender', {
     CALLBACK_BEFORE = [[
         olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
-        olua_addref(L, -1, "nodes", -3, OLUA_MODE_MULTIPLE);
-        olua_addref(L, -1, "children", -2, OLUA_MODE_MULTIPLE);
+        olua_addref(L, -1, "nodes", top + 1, OLUA_MODE_MULTIPLE);
+        olua_addref(L, -1, "children",top + 2, OLUA_MODE_MULTIPLE);
         lua_pop(L, 1);
     ]]
 })
+-- std::function<void (GTreeNode *, bool)> treeNodeWillExpand
 GTree.INSERT('treeNodeWillExpand', {
     CALLBACK_BEFORE = [[
         olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
-        olua_addref(L, -1, "nodes", -3, OLUA_MODE_MULTIPLE);
+        olua_addref(L, -1, "nodes", top + 1, OLUA_MODE_MULTIPLE);
         lua_pop(L, 1);
     ]]
 })
 
 typeconf 'fairygui::FUIContainer'
 typeconf 'fairygui::FUIInput'
-
 typeconf 'fairygui::FUILabel'
-    .EXCLUDE_FUNC 'setBMFontFilePath'
-
 typeconf 'fairygui::FUIRichText'
 typeconf 'fairygui::FUISprite'
 typeconf 'fairygui::HtmlObject'

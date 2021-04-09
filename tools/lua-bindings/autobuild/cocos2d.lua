@@ -1874,7 +1874,7 @@ cls.REG_LUATYPE = true
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'CustomCommand()')
-cls.func(nil, 'void init(float globalZOrder)', 'void init(float globalZOrder, const cocos2d::BlendFunc &blendFunc)')
+cls.func(nil, '@using void init(float globalZOrder, const cocos2d::Mat4 &modelViewTransform, unsigned int flags)', 'void init(float globalZOrder)', 'void init(float globalZOrder, const cocos2d::BlendFunc &blendFunc)')
 cls.func(nil, 'void createVertexBuffer(std::size_t vertexSize, std::size_t capacity, cocos2d::CustomCommand::BufferUsage usage)')
 cls.func(nil, 'void createIndexBuffer(cocos2d::CustomCommand::IndexFormat format, std::size_t capacity, cocos2d::CustomCommand::BufferUsage usage)')
 cls.func(nil, 'void updateVertexBuffer(void *data, std::size_t length)', 'void updateVertexBuffer(void *data, std::size_t offset, std::size_t length)')
@@ -1957,7 +1957,7 @@ cls.REG_LUATYPE = true
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'MeshCommand()')
-cls.func(nil, 'void init(float globalZOrder, const cocos2d::Mat4 &transform)')
+cls.func(nil, '@using void init(float globalZOrder)', 'void init(float globalZOrder, const cocos2d::Mat4 &transform)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TextureCache'
@@ -2854,7 +2854,7 @@ cls.func(nil, 'void setAlphaThreshold(float alphaThreshold)')
 cls.func(nil, 'bool isInverted()')
 cls.func(nil, 'void setInverted(bool inverted)')
 cls.func(nil, 'ClippingNode()')
-cls.func(nil, 'bool init(cocos2d::Node *stencil)')
+cls.func(nil, '@using bool init()', 'bool init(cocos2d::Node *stencil)')
 cls.prop('stencil', nil, nil)
 cls.prop('alphaThreshold', nil, nil)
 cls.prop('inverted', nil, nil)
@@ -2944,7 +2944,7 @@ cls.REG_LUATYPE = true
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::ParallaxNode *create()')
-cls.func(nil, 'void addChild(cocos2d::Node *child, int z, const cocos2d::Vec2 &parallaxRatio, const cocos2d::Vec2 &positionOffset)')
+cls.func(nil, 'void addChild(@addref(chilren |) cocos2d::Node *child, int z, const cocos2d::Vec2 &parallaxRatio, const cocos2d::Vec2 &positionOffset)', '@using void addChild(@addref(chilren |) cocos2d::Node *child, int zOrder, int tag)', '@using void addChild(@addref(chilren |) cocos2d::Node *child, int zOrder, const std::string &name)', '@using void addChild(@addref(children |) cocos2d::Node *child)', '@using void addChild(@addref(children |) cocos2d::Node *child, int localZOrder)')
 cls.func(nil, 'ParallaxNode()')
 M.CLASSES[#M.CLASSES + 1] = cls
 

@@ -229,7 +229,7 @@ cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocostudio::Armature *create()', 'static cocostudio::Armature *create(const std::string &name)', 'static cocostudio::Armature *create(const std::string &name, cocostudio::Bone *parentBone)')
 cls.func(nil, 'Armature()')
-cls.func(nil, 'bool init(const std::string &name)', 'bool init(const std::string &name, cocostudio::Bone *parentBone)')
+cls.func(nil, '@using bool init()', 'bool init(const std::string &name)', 'bool init(const std::string &name, cocostudio::Bone *parentBone)')
 cls.func(nil, 'void addBone(cocostudio::Bone *bone, const std::string &parentName)')
 cls.func(nil, 'cocostudio::Bone *getBone(const std::string &name)')
 cls.func(nil, 'void changeBoneParent(cocostudio::Bone *bone, const std::string &parentName)')
@@ -381,7 +381,7 @@ cls.func(nil, 'ArmatureAnimation()')
 cls.func(nil, 'bool init(cocostudio::Armature *armature)')
 cls.func(nil, 'void setSpeedScale(float speedScale)')
 cls.func(nil, 'float getSpeedScale()')
-cls.func(nil, 'void play(const std::string &animationName, @optional int durationTo, @optional int loop)')
+cls.func(nil, 'void play(const std::string &animationName, @optional int durationTo, @optional int loop)', '@using void play(int durationTo, int durationTween, int loop, int tweenEasing)')
 cls.func(nil, 'void playWithIndex(int animationIndex, @optional int durationTo, @optional int loop)')
 cls.func(nil, 'void playWithNames(const std::vector<std::string> &movementNames, @optional int durationTo, @optional bool loop)')
 cls.func(nil, 'void playWithIndexes(const std::vector<int> &movementIndexes, @optional int durationTo, @optional bool loop)')
@@ -556,7 +556,7 @@ cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocostudio::Bone *create()', 'static cocostudio::Bone *create(const std::string &name)')
 cls.func(nil, 'Bone()')
-cls.func(nil, 'bool init(const std::string &name)')
+cls.func(nil, '@using bool init()', 'bool init(const std::string &name)')
 cls.func(nil, 'void addDisplay(cocostudio::DisplayData *displayData, int index)', 'void addDisplay(cocos2d::Node *display, int index)')
 cls.func(nil, 'void removeDisplay(int index)')
 cls.func(nil, 'void changeDisplayWithIndex(int index, bool force)')
@@ -564,7 +564,7 @@ cls.func(nil, 'void changeDisplayWithName(const std::string &name, bool force)')
 cls.func(nil, 'void addChildBone(cocostudio::Bone *child)')
 cls.func(nil, 'void setParentBone(cocostudio::Bone *parent)')
 cls.func(nil, 'cocostudio::Bone *getParentBone()')
-cls.func(nil, 'void removeFromParent(bool recursion)')
+cls.func(nil, '@delref(children | parent) void removeFromParent(bool recursion)', '@using @delref(children | parent) void removeFromParent()')
 cls.func(nil, 'void removeChildBone(cocostudio::Bone *bone, bool recursion)')
 cls.func(nil, 'void updateColor()')
 cls.func(nil, 'void updateZOrder()')
@@ -607,6 +607,18 @@ cls.prop('blendFunc', nil, nil)
 cls.prop('blendDirty', nil, nil)
 cls.prop('tweenData', nil, nil)
 cls.prop('worldInfo', nil, nil)
+cls.insert('removeFromParent', {
+    BEFORE = [[
+        if (!self->getParent()) {
+            return 0;
+        }
+        olua_push_cppobj<cocos2d::Node>(L, self->getParent());
+        int parent = lua_gettop(L);
+    ]],
+    AFTER = nil,
+    CALLBACK_BEFORE = nil,
+    CALLBACK_AFTER = nil,
+})
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocostudio::BoneData'
@@ -1093,7 +1105,7 @@ cls.REQUIRE = nil
 cls.func(nil, 'static cocostudio::Tween *create(cocostudio::Bone *bone)')
 cls.func(nil, 'Tween()')
 cls.func(nil, 'bool init(cocostudio::Bone *bone)')
-cls.func(nil, 'void play(cocostudio::MovementBoneData *movementBoneData, int durationTo, int durationTween, int loop, int tweenEasing)')
+cls.func(nil, 'void play(cocostudio::MovementBoneData *movementBoneData, int durationTo, int durationTween, int loop, int tweenEasing)', '@using void play(int durationTo, int durationTween, int loop, int tweenEasing)')
 cls.func(nil, 'void setAnimation(cocostudio::ArmatureAnimation *animation)')
 cls.func(nil, 'cocostudio::ArmatureAnimation *getAnimation()')
 cls.func(nil, 'void gotoAndPlay(int frameIndex)')
@@ -1391,7 +1403,7 @@ cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocostudio::timeline::ActionTimelineNode *create(cocos2d::Node *root, cocostudio::timeline::ActionTimeline *action)')
 cls.func(nil, 'ActionTimelineNode()')
-cls.func(nil, 'bool init(cocos2d::Node *root, cocostudio::timeline::ActionTimeline *action)')
+cls.func(nil, '@using bool init()', 'bool init(cocos2d::Node *root, cocostudio::timeline::ActionTimeline *action)')
 cls.func(nil, 'void setRoot(@addref(root ^) cocos2d::Node *root)')
 cls.func(nil, '@addref(root ^) cocos2d::Node *getRoot()')
 cls.func(nil, 'void setActionTimeline(@addref(actionTimeline ^) cocostudio::timeline::ActionTimeline *action)')

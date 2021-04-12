@@ -1,15 +1,49 @@
 local type = type
 local rawset = rawset
 local setmetatable = setmetatable
+local assert = assert
 
 local tracecount = 0
 local tracebacks = setmetatable({}, {__mode = "k"})
 
-local function class(classname, super)
+local function cppclass(classname, super)
+    local olua = require "olua"
+    local cls = olua.class(classname, super)
+
+    cls.Get = cls.class['.get']
+    cls.Set = cls.class['.set']
+    cls.ctor = false
+
+    function cls.new(...)
+        assert(olua.iscfunc(super.create), "super.create expect c function")
+        local self = super.create()
+        olua.setmetatable(self, classname)
+        local function create(cls, ...)
+            if cls.super then
+                create(cls.super, ...)
+            end
+            if cls.ctor then
+                cls.ctor(self, ...)
+            end
+        end
+        create(cls, ...)
+        
+        -- debug
+        tracecount = tracecount + 1
+        tracebacks[self] = tracecount
+
+        return self
+    end
+
+    return cls
+end
+
+local function luaclass(classname, super)
     local cls = {}
 
     cls.classname = classname
     cls.class = cls
+    cls.classtype = 'lua'
     cls.Get = {}
     cls.Set = {}
     
@@ -85,6 +119,14 @@ local function class(classname, super)
     end
 
     return cls
+end
+
+local function class(classname, super)
+    if type(super) == 'table' and super.classtype == 'native' then
+        return cppclass(classname, super)
+    else
+        return luaclass(classname, super)
+    end
 end
 
 return class

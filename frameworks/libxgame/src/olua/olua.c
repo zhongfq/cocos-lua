@@ -1253,10 +1253,21 @@ static int l_debug(lua_State *L)
     }
 }
 
+static int l_iscfunc(lua_State *L)
+{
+    lua_pushboolean(L, lua_iscfunction(L, 1));
+    return 1;
+}
+
 static int l_class(lua_State *L)
 {
     const char *cls = olua_checkstring(L, 1);
-    const char *super = olua_optstring(L, 2, OLUA_VOIDCLS);
+    const char *super;
+    if (olua_istable(L, 2)) {
+        super = olua_checkfieldstring(L, 2, "classname");
+    } else {
+        super = olua_optstring(L, 2, OLUA_VOIDCLS);
+    }
     oluacls_class(L, cls, super);
     return 1;
 }
@@ -1293,6 +1304,7 @@ OLUA_API int luaopen_olua(lua_State *L)
         {"move", l_move},
         {"debug", l_debug},
         {"class", l_class},
+        {"iscfunc", l_iscfunc},
         {"setmetatable", l_setmetatable},
         {"getmetatable", l_getmetatable},
         {"topointer", l_topointer},

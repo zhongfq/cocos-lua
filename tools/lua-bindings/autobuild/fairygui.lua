@@ -45,6 +45,7 @@ M.CHUNK = [[
 M.CONVS = {
     typeconv {
         CPPCLS = 'fairygui::Margin',
+        IFDEF = nil,
         DEF = [[
             float left;
             float top;
@@ -54,6 +55,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'fairygui::HtmlParseOptions',
+        IFDEF = nil,
         DEF = [[
             static bool defaultLinkUnderline;
             static cocos2d::Color3B defaultLinkColor;
@@ -63,6 +65,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'fairygui::TweenValue',
+        IFDEF = nil,
         DEF = [[
             @optional float x;
             @optional float y;

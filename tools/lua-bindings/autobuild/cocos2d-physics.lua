@@ -22,6 +22,7 @@ M.CHUNK = 'using namespace cocos2d;'
 M.CONVS = {
     typeconv {
         CPPCLS = 'cocos2d::PhysicsMaterial',
+        IFDEF = nil,
         DEF = [[
             float density;
             float restitution;

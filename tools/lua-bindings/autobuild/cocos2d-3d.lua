@@ -22,6 +22,7 @@ M.CHUNK = ''
 M.CONVS = {
     typeconv {
         CPPCLS = 'cocos2d::MeshVertexAttrib',
+        IFDEF = nil,
         DEF = [[
             cocos2d::backend::VertexFormat type;
             cocos2d::shaderinfos::VertexKey vertexAttrib;

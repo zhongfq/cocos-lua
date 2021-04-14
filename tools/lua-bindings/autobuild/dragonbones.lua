@@ -22,6 +22,7 @@ M.CHUNK = ''
 M.CONVS = {
     typeconv {
         CPPCLS = 'dragonBones::Rectangle',
+        IFDEF = nil,
         DEF = [[
             float x;
             float y;

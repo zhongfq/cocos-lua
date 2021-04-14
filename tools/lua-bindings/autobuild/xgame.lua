@@ -44,6 +44,7 @@ M.CHUNK = [[
 M.CONVS = {
     typeconv {
         CPPCLS = 'cclua::downloader::FileTask',
+        IFDEF = nil,
         DEF = [[
             std::string url;
             std::string path;

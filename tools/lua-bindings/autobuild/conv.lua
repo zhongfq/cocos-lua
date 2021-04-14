@@ -22,6 +22,7 @@ M.CHUNK = nil
 M.CONVS = {
     typeconv {
         CPPCLS = 'cocos2d::Vec2',
+        IFDEF = nil,
         DEF = [[
             float x;
             float y;
@@ -29,6 +30,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::Vec3',
+        IFDEF = nil,
         DEF = [[
             float x;
             float y;
@@ -37,6 +39,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::Vec4',
+        IFDEF = nil,
         DEF = [[
             float x;
             float y;
@@ -46,6 +49,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::Size',
+        IFDEF = nil,
         DEF = [[
             float width;
             float height;
@@ -53,6 +57,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::Viewport',
+        IFDEF = nil,
         DEF = [[
             @optional int x;
             @optional int y;
@@ -62,6 +67,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::ScissorRect',
+        IFDEF = nil,
         DEF = [[
             @optional float x;
             @optional float y;
@@ -71,6 +77,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::Quaternion',
+        IFDEF = nil,
         DEF = [[
             float x;
             float y;
@@ -80,6 +87,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::AffineTransform',
+        IFDEF = nil,
         DEF = [[
             float a;
             float b;
@@ -91,6 +99,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'GLContextAttrs',
+        IFDEF = nil,
         DEF = [[
             int redBits;
             int greenBits;
@@ -103,6 +112,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::Tex2F',
+        IFDEF = nil,
         DEF = [[
             @optional float u;
             @optional float v;
@@ -110,6 +120,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::T2F_Quad',
+        IFDEF = nil,
         DEF = [[
             cocos2d::Tex2F bl;
             cocos2d::Tex2F br;
@@ -119,6 +130,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::ccBezierConfig',
+        IFDEF = nil,
         DEF = [[
             cocos2d::Vec2 endPosition;
             cocos2d::Vec2 controlPoint_1;
@@ -127,6 +139,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::TTFConfig',
+        IFDEF = nil,
         DEF = [[
             @optional std::string fontFilePath;
             @optional float fontSize;
@@ -142,6 +155,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::BlendFunc',
+        IFDEF = nil,
         DEF = [[
             cocos2d::backend::BlendFactor src;
             cocos2d::backend::BlendFactor dst;
@@ -149,6 +163,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::ui::Margin',
+        IFDEF = nil,
         DEF = [[
             float left;
             float top;
@@ -158,6 +173,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::ResourceData',
+        IFDEF = nil,
         DEF = [[
             int type;
             std::string file;
@@ -166,6 +182,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::Quad3',
+        IFDEF = nil,
         DEF = [[
             cocos2d::Vec3 bl;
             cocos2d::Vec3 br;
@@ -175,6 +192,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::Texture2D::PixelFormatInfo',
+        IFDEF = nil,
         DEF = [[
             int bpp;
             bool compressed;
@@ -183,6 +201,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::Controller::KeyStatus',
+        IFDEF = nil,
         DEF = [[
             bool isPressed;
             float value;
@@ -191,6 +210,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::network::WebSocket::Data',
+        IFDEF = nil,
         DEF = [[
             char *bytes;
             ssize_t len;
@@ -201,6 +221,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::NavMeshAgentParam',
+        IFDEF = nil,
         DEF = [[
             float radius;
             float height;
@@ -216,6 +237,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::OffMeshLinkData',
+        IFDEF = nil,
         DEF = [[
             cocos2d::Vec3 startPosition;
             cocos2d::Vec3 endPosition;
@@ -223,6 +245,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::backend::BlendDescriptor',
+        IFDEF = nil,
         DEF = [[
             @optional cocos2d::backend::ColorWriteMask writeMask;
             @optional bool blendEnabled;
@@ -236,6 +259,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::backend::SamplerDescriptor',
+        IFDEF = nil,
         DEF = [[
             @optional cocos2d::backend::SamplerFilter magFilter;
             @optional cocos2d::backend::SamplerFilter minFilter;
@@ -245,6 +269,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::backend::TextureInfo',
+        IFDEF = nil,
         DEF = [[
             std::vector<uint32_t> slot;
             std::vector<backend::TextureBackend *> textures;
@@ -252,6 +277,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::backend::AttributeBindInfo',
+        IFDEF = nil,
         DEF = [[
             std::string attributeName;
             @optional int location;
@@ -261,6 +287,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::backend::UniformInfo',
+        IFDEF = nil,
         DEF = [[
             @optional int count;
             @optional int location;
@@ -274,6 +301,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::backend::TextureDescriptor',
+        IFDEF = nil,
         DEF = [[
             @optional cocos2d::backend::TextureType textureType;
             @optional cocos2d::backend::PixelFormat textureFormat;
@@ -287,6 +315,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::backend::StencilDescriptor',
+        IFDEF = nil,
         DEF = [[
             @optional cocos2d::backend::StencilOperation stencilFailureOperation;
             @optional cocos2d::backend::StencilOperation depthFailureOperation;
@@ -298,6 +327,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::backend::DepthStencilDescriptor',
+        IFDEF = nil,
         DEF = [[
             @optional cocos2d::backend::CompareFunction depthCompareFunction;
             @optional bool depthWriteEnabled;
@@ -309,6 +339,7 @@ M.CONVS = {
     },
     typeconv {
         CPPCLS = 'cocos2d::backend::VertexLayout::Attribute',
+        IFDEF = nil,
         DEF = [[
             std::string name;
             @optional cocos2d::backend::VertexFormat format;

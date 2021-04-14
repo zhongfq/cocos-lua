@@ -37,6 +37,7 @@ M.CHUNK = [[
 M.CONVS = {
     typeconv {
         CPPCLS = 'cocostudio::timeline::AnimationInfo',
+        IFDEF = nil,
         DEF = [[
             std::string name;
             int startIndex;

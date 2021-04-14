@@ -38,5 +38,18 @@ int WINAPI _tWinMain(HINSTANCE hInstance,
 
     // create the application instance
     AppDelegate app;
+    
+    int argc;
+	wargv = CommandLineToArgvW(GetCommandLineW(), &argc);
+	char **argv = (char **)malloc(sizeof(char *) * argc);
+	for (int i = 0; i < argc; i++) {
+		argv[i] = StringWideCharToUtf8(wargv[i]);
+	}
+	xgame::runtime::parseLaunchArgs(argc, argv);
+	for (int i = 0; i < argc; i++) {
+		free(argv[i]);
+	}
+	free(argv);
+
     return Application::getInstance()->run();
 }

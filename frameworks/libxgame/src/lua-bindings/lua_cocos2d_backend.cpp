@@ -2,10 +2,6 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_cocos2d_backend.h"
-#include "lua-bindings/lua_conv.h"
-#include "lua-bindings/lua_conv_manual.h"
-#include "cocos2d.h"
-#include "cclua/xlua.h"
 
 static int luaopen_cocos2d_backend_BufferUsage(lua_State *L)
 {
@@ -757,6 +753,7 @@ static int _cocos2d_backend_CommandBuffer_captureScreen(lua_State *L)
     std::function<void(const unsigned char *, int, int)> arg1;       /** callback */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccb.CommandBuffer");
+    olua_check_std_function(L, 2, &arg1);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "captureScreen";
@@ -2852,6 +2849,7 @@ static int _cocos2d_backend_TextureBackend_getBytes(lua_State *L)
     olua_check_uint(L, 4, &arg3);
     olua_check_uint(L, 5, &arg4);
     olua_check_bool(L, 6, &arg5);
+    olua_check_std_function(L, 7, &arg6);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "Bytes";

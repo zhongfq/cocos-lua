@@ -85,6 +85,27 @@ cls.enum('NORMAL', 'cocos2d::ui::Widget::BrightStyle::NORMAL')
 cls.enum('HIGHLIGHT', 'cocos2d::ui::Widget::BrightStyle::HIGHLIGHT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::ui::Widget::ccWidgetTouchCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::ui::Widget::ccWidgetClickCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::ui::Widget::ccWidgetEventCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::ui::Widget'
 cls.SUPERCLS = 'cocos2d::ProtectedNode'
 cls.REG_LUATYPE = true
@@ -166,7 +187,7 @@ cls.var('onFocusChanged', '@nullable std::function<void (Widget *, Widget *)> on
 cls.var('onNextFocusedWidget', '@nullable @local std::function<Widget *(FocusDirection)> onNextFocusedWidget')
 cls.callback {
     FUNCS =  {
-        'void addTouchEventListener(@nullable const std::function<void (Ref *, Widget::TouchEventType)> &callback)'
+        'void addTouchEventListener(@nullable const cocos2d::ui::Widget::ccWidgetTouchCallback &callback)'
     },
     TAG_MAKER = 'addTouchEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -175,7 +196,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void addClickEventListener(@nullable const std::function<void (Ref *)> &callback)'
+        'void addClickEventListener(@nullable const cocos2d::ui::Widget::ccWidgetClickCallback &callback)'
     },
     TAG_MAKER = 'addClickEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -184,7 +205,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void addCCSEventListener(@nullable const std::function<void (Ref *, int)> &callback)'
+        'void addCCSEventListener(@nullable const cocos2d::ui::Widget::ccWidgetEventCallback &callback)'
     },
     TAG_MAKER = 'addCCSEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -637,6 +658,14 @@ cls.func(nil, 'static cocos2d::ui::RelativeBox *create()', 'static cocos2d::ui::
 cls.func(nil, 'bool initWithSize(const cocos2d::Size &size)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::ui::WebView::ccWebViewCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+cls.ifdef('*', '#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)')
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::ui::WebView'
 cls.SUPERCLS = 'cocos2d::ui::Widget'
 cls.REG_LUATYPE = true
@@ -673,7 +702,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setOnDidFinishLoading(@nullable const std::function<void (WebView *, const std::string &)> &callback)'
+        'void setOnDidFinishLoading(@nullable const cocos2d::ui::WebView::ccWebViewCallback &callback)'
     },
     TAG_MAKER = 'OnDidFinishLoading',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -682,7 +711,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setOnDidFailLoading(@nullable const std::function<void (WebView *, const std::string &)> &callback)'
+        'void setOnDidFailLoading(@nullable const cocos2d::ui::WebView::ccWebViewCallback &callback)'
     },
     TAG_MAKER = 'OnDidFailLoading',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -691,7 +720,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setOnJSCallback(@nullable const std::function<void (WebView *, const std::string &)> &callback)'
+        'void setOnJSCallback(@nullable const cocos2d::ui::WebView::ccWebViewCallback &callback)'
     },
     TAG_MAKER = 'OnJSCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -709,7 +738,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        '@local std::function<void (WebView *, const std::string &)> getOnDidFinishLoading()'
+        '@local cocos2d::ui::WebView::ccWebViewCallback getOnDidFinishLoading()'
     },
     TAG_MAKER = 'OnDidFinishLoading',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
@@ -718,7 +747,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        '@local std::function<void (WebView *, const std::string &)> getOnDidFailLoading()'
+        '@local cocos2d::ui::WebView::ccWebViewCallback getOnDidFailLoading()'
     },
     TAG_MAKER = 'OnDidFailLoading',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
@@ -727,7 +756,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        '@local std::function<void (WebView *, const std::string &)> getOnJSCallback()'
+        '@local cocos2d::ui::WebView::ccWebViewCallback getOnJSCallback()'
     },
     TAG_MAKER = 'OnJSCallback',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
@@ -752,6 +781,14 @@ cls.enum('PAUSED', 'cocos2d::ui::VideoPlayer::EventType::PAUSED')
 cls.enum('STOPPED', 'cocos2d::ui::VideoPlayer::EventType::STOPPED')
 cls.enum('COMPLETED', 'cocos2d::ui::VideoPlayer::EventType::COMPLETED')
 cls.enum('ERROR', 'cocos2d::ui::VideoPlayer::EventType::ERROR')
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::ui::VideoPlayer::ccVideoPlayerCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+cls.ifdef('*', '#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::VideoPlayer::StyleType'
@@ -792,7 +829,7 @@ cls.func(nil, 'void onPlayEvent(int event)')
 cls.func(nil, 'VideoPlayer()')
 cls.callback {
     FUNCS =  {
-        'void addEventListener(@nullable const std::function<void (Ref *, VideoPlayer::EventType)> &callback)'
+        'void addEventListener(const cocos2d::ui::VideoPlayer::ccVideoPlayerCallback &callback)'
     },
     TAG_MAKER = 'videoPlayerCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -900,6 +937,13 @@ cls.REQUIRE = nil
 cls.enum('SELECT_CHANGED', 'cocos2d::ui::TabControl::EventType::SELECT_CHANGED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::ui::TabControl::ccTabControlCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::ui::TabControl'
 cls.SUPERCLS = 'cocos2d::ui::Widget'
 cls.REG_LUATYPE = true
@@ -926,7 +970,7 @@ cls.func(nil, 'void setHeaderDockPlace(cocos2d::ui::TabControl::Dock dockPlace)'
 cls.func(nil, 'cocos2d::ui::TabControl::Dock getHeaderDockPlace()')
 cls.callback {
     FUNCS =  {
-        'void setTabChangedEventListener(@nullable @local const std::function<void (int, EventType)> &callback)'
+        'void setTabChangedEventListener(@nullable @local const cocos2d::ui::TabControl::ccTabControlCallback &callback)'
     },
     TAG_MAKER = 'tabChangedEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -971,6 +1015,13 @@ cls.enum('CONTAINER_MOVED', 'cocos2d::ui::ScrollView::EventType::CONTAINER_MOVED
 cls.enum('SCROLLING_BEGAN', 'cocos2d::ui::ScrollView::EventType::SCROLLING_BEGAN')
 cls.enum('SCROLLING_ENDED', 'cocos2d::ui::ScrollView::EventType::SCROLLING_ENDED')
 cls.enum('AUTOSCROLL_ENDED', 'cocos2d::ui::ScrollView::EventType::AUTOSCROLL_ENDED')
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::ui::ScrollView::ccScrollViewCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::ScrollView'
@@ -1043,7 +1094,7 @@ cls.func(nil, 'bool isScrolling()')
 cls.func(nil, 'bool isAutoScrolling()')
 cls.callback {
     FUNCS =  {
-        'void addEventListener(@nullable const std::function<void (Ref *, EventType)> &callback)'
+        'void addEventListener(const cocos2d::ui::ScrollView::ccScrollViewCallback &callback)'
     },
     TAG_MAKER = 'scrollViewCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1108,6 +1159,13 @@ cls.enum('TOP', 'cocos2d::ui::ListView::MagneticType::TOP')
 cls.enum('BOTTOM', 'cocos2d::ui::ListView::MagneticType::BOTTOM')
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::ui::ListView::ccListViewCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::ui::ListView'
 cls.SUPERCLS = 'cocos2d::ui::ScrollView'
 cls.REG_LUATYPE = true
@@ -1159,7 +1217,8 @@ cls.func(nil, 'ssize_t getCurSelectedIndex()')
 cls.func(nil, 'void setCurSelectedIndex(int itemIndex)')
 cls.callback {
     FUNCS =  {
-        'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)'
+        'void addEventListener(const cocos2d::ui::ListView::ccListViewCallback &callback)',
+        '@using void addEventListener(const cocos2d::ui::ScrollView::ccScrollViewCallback &callback)'
     },
     TAG_MAKER = 'ListViewCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1236,6 +1295,13 @@ cls.enum('UP', 'cocos2d::ui::PageView::TouchDirection::UP')
 cls.enum('DOWN', 'cocos2d::ui::PageView::TouchDirection::DOWN')
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::ui::PageView::ccPageViewCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::ui::PageView'
 cls.SUPERCLS = 'cocos2d::ui::ListView'
 cls.REG_LUATYPE = true
@@ -1275,7 +1341,8 @@ cls.func(nil, 'float getIndicatorIndexNodesScale()')
 cls.func(nil, 'void setAutoScrollStopEpsilon(float epsilon)')
 cls.callback {
     FUNCS =  {
-        'void addEventListener(@nullable const std::function<void(Ref*, PageView::EventType)>& callback)'
+        'void addEventListener(const cocos2d::ui::PageView::ccPageViewCallback &callback)',
+        '@using void addEventListener(const cocos2d::ui::ScrollView::ccScrollViewCallback &callback)'
     },
     TAG_MAKER = 'PageViewCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1377,6 +1444,13 @@ cls.enum('CENTER', 'cocos2d::ui::RichText::HorizontalAlignment::CENTER')
 cls.enum('RIGHT', 'cocos2d::ui::RichText::HorizontalAlignment::RIGHT')
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::ui::RichText::OpenUrlHandler'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::ui::RichText'
 cls.SUPERCLS = 'cocos2d::ui::Widget'
 cls.REG_LUATYPE = true
@@ -1471,7 +1545,7 @@ cls.func(nil, 'static void removeTagDescription(const std::string &tag)')
 cls.func(nil, 'void openUrl(const std::string &url)')
 cls.callback {
     FUNCS =  {
-        'static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @local @optional const std::function<void (const std::string &)> &handleOpenUrl)'
+        'static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @local @optional const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)'
     },
     TAG_MAKER = 'OpenUrlHandler',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1480,7 +1554,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setOpenUrlHandler(@local const std::function<void (const std::string &)> &handleOpenUrl)'
+        'void setOpenUrlHandler(@local const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)'
     },
     TAG_MAKER = 'OpenUrlHandler',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1546,6 +1620,13 @@ cls.enum('ON_SLIDEBALL_UP', 'cocos2d::ui::Slider::EventType::ON_SLIDEBALL_UP')
 cls.enum('ON_SLIDEBALL_CANCEL', 'cocos2d::ui::Slider::EventType::ON_SLIDEBALL_CANCEL')
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::ui::Slider::ccSliderCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::ui::Slider'
 cls.SUPERCLS = 'cocos2d::ui::Widget'
 cls.REG_LUATYPE = true
@@ -1585,7 +1666,7 @@ cls.func(nil, 'cocos2d::ResourceData getBallPressedFile()')
 cls.func(nil, 'cocos2d::ResourceData getBallDisabledFile()')
 cls.callback {
     FUNCS =  {
-        'void addEventListener(@nullable const std::function<void (Ref *, EventType)> &callback)'
+        'void addEventListener(const cocos2d::ui::Slider::ccSliderCallback &callback)'
     },
     TAG_MAKER = 'sliderCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1769,6 +1850,13 @@ cls.enum('INSERT_TEXT', 'cocos2d::ui::TextField::EventType::INSERT_TEXT')
 cls.enum('DELETE_BACKWARD', 'cocos2d::ui::TextField::EventType::DELETE_BACKWARD')
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::ui::TextField::ccTextFieldCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::ui::TextField'
 cls.SUPERCLS = 'cocos2d::ui::Widget'
 cls.REG_LUATYPE = true
@@ -1823,7 +1911,7 @@ cls.func(nil, 'void setCursorPosition(std::size_t cursorPosition)')
 cls.func(nil, 'void setCursorFromPoint(const cocos2d::Vec2 &point, const cocos2d::Camera *camera)')
 cls.callback {
     FUNCS =  {
-        'void addEventListener(@nullable const std::function<void (Ref *, EventType)> &callback)'
+        'void addEventListener(const cocos2d::ui::TextField::ccTextFieldCallback &callback)'
     },
     TAG_MAKER = 'textFieldCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1927,6 +2015,13 @@ cls.enum('SELECTED', 'cocos2d::ui::CheckBox::EventType::SELECTED')
 cls.enum('UNSELECTED', 'cocos2d::ui::CheckBox::EventType::UNSELECTED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::ui::CheckBox::ccCheckBoxCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::ui::CheckBox'
 cls.SUPERCLS = 'cocos2d::ui::AbstractCheckButton'
 cls.REG_LUATYPE = true
@@ -1937,7 +2032,7 @@ cls.func(nil, 'CheckBox()')
 cls.func(nil, 'static cocos2d::ui::CheckBox *create()', 'static cocos2d::ui::CheckBox *create(const std::string &backGround, const std::string &backGroundSelected, const std::string &cross, const std::string &backGroundDisabled, const std::string &frontCrossDisabled, @optional cocos2d::ui::Widget::TextureResType texType)', 'static cocos2d::ui::CheckBox *create(const std::string &backGround, const std::string &cross, @optional cocos2d::ui::Widget::TextureResType texType)')
 cls.callback {
     FUNCS =  {
-        'void addEventListener(@nullable const std::function<void (Ref *, CheckBox::EventType)> &callback)'
+        'void addEventListener(const cocos2d::ui::CheckBox::ccCheckBoxCallback &callback)'
     },
     TAG_MAKER = 'checkBoxCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1955,6 +2050,13 @@ cls.enum('SELECTED', 'cocos2d::ui::RadioButton::EventType::SELECTED')
 cls.enum('UNSELECTED', 'cocos2d::ui::RadioButton::EventType::UNSELECTED')
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::ui::RadioButton::ccRadioButtonCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::ui::RadioButton'
 cls.SUPERCLS = 'cocos2d::ui::AbstractCheckButton'
 cls.REG_LUATYPE = true
@@ -1965,7 +2067,7 @@ cls.func(nil, 'RadioButton()')
 cls.func(nil, 'static cocos2d::ui::RadioButton *create()', 'static cocos2d::ui::RadioButton *create(const std::string &backGround, const std::string &backGroundSelected, const std::string &cross, const std::string &backGroundDisabled, const std::string &frontCrossDisabled, @optional cocos2d::ui::Widget::TextureResType texType)', 'static cocos2d::ui::RadioButton *create(const std::string &backGround, const std::string &cross, @optional cocos2d::ui::Widget::TextureResType texType)')
 cls.callback {
     FUNCS =  {
-        'void addEventListener(@nullable const std::function<void (RadioButton *, EventType)> &callback)'
+        'void addEventListener(const cocos2d::ui::RadioButton::ccRadioButtonCallback &callback)'
     },
     TAG_MAKER = 'radioButtonCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1980,6 +2082,13 @@ cls.REG_LUATYPE = true
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.enum('SELECT_CHANGED', 'cocos2d::ui::RadioButtonGroup::EventType::SELECT_CHANGED')
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::ui::RadioButtonGroup::ccRadioButtonGroupCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::RadioButtonGroup'
@@ -2001,7 +2110,7 @@ cls.func(nil, 'void setAllowedNoSelection(bool allowedNoSelection)')
 cls.func(nil, 'bool isAllowedNoSelection()')
 cls.callback {
     FUNCS =  {
-        'void addEventListener(@nullable const std::function<void (RadioButton *, int, EventType)> &callback)'
+        'void addEventListener(const cocos2d::ui::RadioButtonGroup::ccRadioButtonGroupCallback &callback)'
     },
     TAG_MAKER = 'radioButtonCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',

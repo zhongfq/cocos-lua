@@ -32,6 +32,27 @@ M.CONVS = {
 
 M.CLASSES = {}
 
+cls = typecls 'cocos2d::PhysicsRayCastCallbackFunc'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::PhysicsQueryRectCallbackFunc'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::PhysicsQueryPointCallbackFunc'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::EventListenerPhysicsContact'
 cls.SUPERCLS = 'cocos2d::EventListenerCustom'
 cls.REG_LUATYPE = true
@@ -636,7 +657,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void rayCast(@local std::function<bool (PhysicsWorld &, const PhysicsRayCastInfo &, void *)> func, const cocos2d::Vec2 &start, const cocos2d::Vec2 &end, void *data)'
+        'void rayCast(@local cocos2d::PhysicsRayCastCallbackFunc func, const cocos2d::Vec2 &start, const cocos2d::Vec2 &end, void *data)'
     },
     TAG_MAKER = 'rayCast',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -645,7 +666,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void queryRect(@local std::function<bool (PhysicsWorld &, PhysicsShape &, void *)> func, const cocos2d::Rect &rect, void *data)'
+        'void queryRect(@local cocos2d::PhysicsQueryRectCallbackFunc func, const cocos2d::Rect &rect, void *data)'
     },
     TAG_MAKER = 'queryRect',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -654,7 +675,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void queryPoint(@local std::function<bool (PhysicsWorld &, PhysicsShape &, void *)> func, const cocos2d::Vec2 &point, void *data)'
+        'void queryPoint(@local cocos2d::PhysicsQueryPointCallbackFunc func, const cocos2d::Vec2 &point, void *data)'
     },
     TAG_MAKER = 'queryPoint',
     TAG_MODE = 'OLUA_TAG_REPLACE',

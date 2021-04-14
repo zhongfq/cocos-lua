@@ -121,6 +121,8 @@ typeconf 'cocos2d::Animate'
 typeconf 'cocos2d::TargetedAction'
     .ATTR('create', {ARG2 = '@addref(actions |)'})
 
+typeconf 'cocos2d::ActionFloat::ActionFloatCallback'
+
 typeconf 'cocos2d::ActionFloat'
     .CALLBACK {
         NAME = 'create',

@@ -2,11 +2,6 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_dragonbones.h"
-#include "lua-bindings/lua_conv.h"
-#include "lua-bindings/lua_conv_manual.h"
-#include "cclua/xlua.h"
-#include "cocos2d.h"
-#include "CCDragonBonesHeaders.h"
 
 
 
@@ -14657,6 +14652,7 @@ static int _dragonBones_CCArmatureDisplay_addDBEventListener(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureDisplay");
     olua_check_std_string(L, 2, &arg1);
+    olua_check_std_function(L, 3, &arg2);
 
     void *cb_store = (void *)self;
     std::string cb_tag = (arg1);
@@ -14904,6 +14900,7 @@ static int _dragonBones_CCArmatureDisplay_removeDBEventListener(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureDisplay");
     olua_check_std_string(L, 2, &arg1);
+    olua_check_std_function(L, 3, &arg2);
 
     std::string cb_tag = (arg1);
     void *cb_store = (void *)self;

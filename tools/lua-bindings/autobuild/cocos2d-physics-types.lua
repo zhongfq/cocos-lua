@@ -4,6 +4,30 @@ local olua = require "olua"
 local typedef = olua.typedef
 
 typedef {
+    CPPCLS = 'cocos2d::PhysicsRayCastCallbackFunc',
+    LUACLS = 'cc.PhysicsRayCastCallbackFunc',
+    DECLTYPE = 'std::function<bool (cocos2d::PhysicsWorld &, const cocos2d::PhysicsRayCastInfo &, void *)>',
+    CONV = 'olua_$$_cocos2d_PhysicsRayCastCallbackFunc',
+    NUM_VARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::PhysicsQueryRectCallbackFunc',
+    LUACLS = 'cc.PhysicsQueryRectCallbackFunc',
+    DECLTYPE = 'std::function<bool (cocos2d::PhysicsWorld &, cocos2d::PhysicsShape &, void *)>',
+    CONV = 'olua_$$_cocos2d_PhysicsQueryRectCallbackFunc',
+    NUM_VARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::PhysicsQueryPointCallbackFunc',
+    LUACLS = 'cc.PhysicsQueryPointCallbackFunc',
+    DECLTYPE = 'std::function<bool (cocos2d::PhysicsWorld &, cocos2d::PhysicsShape &, void *)>',
+    CONV = 'olua_$$_cocos2d_PhysicsQueryPointCallbackFunc',
+    NUM_VARS = nil,
+}
+
+typedef {
     CPPCLS = 'cocos2d::PhysicsMaterial',
     LUACLS = nil,
     DECLTYPE = nil,

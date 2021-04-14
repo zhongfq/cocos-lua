@@ -263,6 +263,13 @@ cls.prop('valid', nil, nil)
 cls.alias('end', 'exit')
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::ccSchedulerFunc'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::Scheduler'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
@@ -316,8 +323,8 @@ cls.func(nil, 'void resumeTargets(const std::set<void *> &targetsToResume)')
 cls.func(nil, 'void removeAllFunctionsToBePerformedInCocosThread()')
 cls.callback {
     FUNCS =  {
-        'void schedule(@local const std::function<void (float)> &callback, void *target, float interval, unsigned int repeat, float delay, bool paused, const std::string &key)',
-        'void schedule(@local const std::function<void (float)> &callback, void *target, float interval, bool paused, const std::string &key)'
+        'void schedule(@local const cocos2d::ccSchedulerFunc &callback, void *target, float interval, unsigned int repeat, float delay, bool paused, const std::string &key)',
+        'void schedule(@local const cocos2d::ccSchedulerFunc &callback, void *target, float interval, bool paused, const std::string &key)'
     },
     TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -453,6 +460,20 @@ cls.prop('available', 'bool checkAvailable()', nil)
 cls.prop('enabled', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::EventListenerTouchOneByOne::ccTouchBeganCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::EventListenerTouchOneByOne::ccTouchCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::EventListenerTouchOneByOne'
 cls.SUPERCLS = 'cocos2d::EventListener'
 cls.REG_LUATYPE = true
@@ -463,11 +484,18 @@ cls.func(nil, 'static cocos2d::EventListenerTouchOneByOne *create()')
 cls.func(nil, 'void setSwallowTouches(bool needSwallow)')
 cls.func(nil, 'bool isSwallowTouches()')
 cls.func(nil, 'EventListenerTouchOneByOne()')
-cls.var('onTouchBegan', '@nullable @local std::function<bool (Touch *, Event *)> onTouchBegan')
-cls.var('onTouchMoved', '@nullable @local std::function<void (Touch *, Event *)> onTouchMoved')
-cls.var('onTouchEnded', '@nullable @local std::function<void (Touch *, Event *)> onTouchEnded')
-cls.var('onTouchCancelled', '@nullable @local std::function<void (Touch *, Event *)> onTouchCancelled')
+cls.var('onTouchBegan', '@nullable @local cocos2d::EventListenerTouchOneByOne::ccTouchBeganCallback onTouchBegan')
+cls.var('onTouchMoved', '@nullable @local cocos2d::EventListenerTouchOneByOne::ccTouchCallback onTouchMoved')
+cls.var('onTouchEnded', '@nullable @local cocos2d::EventListenerTouchOneByOne::ccTouchCallback onTouchEnded')
+cls.var('onTouchCancelled', '@nullable @local cocos2d::EventListenerTouchOneByOne::ccTouchCallback onTouchCancelled')
 cls.prop('swallowTouches', nil, nil)
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerTouchAllAtOnce'
@@ -478,10 +506,10 @@ cls.REQUIRE = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerTouchAllAtOnce::LISTENER_ID', 'const std::string')
 cls.func(nil, 'static cocos2d::EventListenerTouchAllAtOnce *create()')
 cls.func(nil, 'EventListenerTouchAllAtOnce()')
-cls.var('onTouchesBegan', '@nullable @local std::function<void (const std::vector<Touch *> &, Event *)> onTouchesBegan')
-cls.var('onTouchesMoved', '@nullable @local std::function<void (const std::vector<Touch *> &, Event *)> onTouchesMoved')
-cls.var('onTouchesEnded', '@nullable @local std::function<void (const std::vector<Touch *> &, Event *)> onTouchesEnded')
-cls.var('onTouchesCancelled', '@nullable @local std::function<void (const std::vector<Touch *> &, Event *)> onTouchesCancelled')
+cls.var('onTouchesBegan', '@nullable @local cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback onTouchesBegan')
+cls.var('onTouchesMoved', '@nullable @local cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback onTouchesMoved')
+cls.var('onTouchesEnded', '@nullable @local cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback onTouchesEnded')
+cls.var('onTouchesCancelled', '@nullable @local cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback onTouchesCancelled')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerCustom'
@@ -1283,12 +1311,24 @@ cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
 cls.CHUNK = nil
 cls.REQUIRE = nil
+cls.func('getFileDataFromZip', [[
+    {
+        cocos2d::FileUtils *self = olua_toobj<cocos2d::FileUtils>(L, 1);
+        std::string zipFilePath = olua_checkstring(L, 2);
+        std::string filename = olua_checkstring(L, 3);
+        ssize_t size = 0;
+        unsigned char *data = self->getFileDataFromZip(zipFilePath, filename, &size);
+        lua_pushlstring(L, (const char *)data, size);
+        olua_push_int(L, (lua_Integer)size);
+
+        return 2;
+    }
+]])
 cls.func(nil, 'static cocos2d::FileUtils *getInstance()')
 cls.func(nil, 'static void destroyInstance()')
 cls.func(nil, 'static void setDelegate(cocos2d::FileUtils *delegate)')
 cls.func(nil, 'void purgeCachedEntries()')
 cls.func(nil, 'cocos2d::FileUtils::Status getContents(const std::string &filename, cocos2d::ResizableBuffer *buffer)')
-cls.func(nil, '@length(arg3) unsigned char *getFileDataFromZip(const std::string &zipFilePath, const std::string &filename, @out ssize_t *size)')
 cls.func(nil, 'std::string fullPathForFilename(const std::string &filename)')
 cls.func(nil, 'void loadFilenameLookupDictionaryFromFile(const std::string &filename)')
 cls.func(nil, 'void setFilenameLookupDictionary(const cocos2d::ValueMap &filenameLookupDict)')
@@ -4974,7 +5014,7 @@ cls.func(nil, 'cocos2d::Vec3 getVelocity()')
 cls.func(nil, 'NavMeshAgent()')
 cls.callback {
     FUNCS =  {
-        'void move(const cocos2d::Vec3 &destination, @local @optional const std::function<void (NavMeshAgent *, float)> &callback)'
+        'void move(const cocos2d::Vec3 &destination, @local @optional const std::function<void (cocos2d::NavMeshAgent *, float)> &callback)'
     },
     TAG_MAKER = 'move',
     TAG_MODE = 'OLUA_TAG_REPLACE',

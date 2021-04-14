@@ -10,6 +10,8 @@
 #include "network/WebSocket.h"
 #include "navmesh/CCNavMesh.h"
 
+int luaopen_conv(lua_State *L);
+
 // cocos2d::Vec2
 int olua_push_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value);
 void olua_check_cocos2d_Vec2(lua_State *L, int idx, cocos2d::Vec2 *value);

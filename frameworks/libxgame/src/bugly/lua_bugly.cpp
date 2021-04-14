@@ -2,10 +2,6 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_bugly.h"
-#include "lua-bindings/lua_conv.h"
-#include "lua-bindings/lua_conv_manual.h"
-#include "cclua/xlua.h"
-#include "bugly/CrashReport.h"
 
 #ifdef CCLUA_BUILD_BUGLY
 static int luaopen_cclua_CrashReport_LogLevel(lua_State *L)

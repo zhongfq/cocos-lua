@@ -180,6 +180,7 @@ typeconf 'spine::Event'
 
 typeconf 'spine::EventData'
 typeconf 'spine::Updatable'
+typeconf 'spine::AnimationStateListener'
 
 typeconf 'spine::AnimationState'
     .CALLBACK {NAME = 'setListener', LOCAL = false}
@@ -343,6 +344,14 @@ typeconf 'spine::Skeleton'
 
 typeconf 'spine::SkeletonRenderer'
     .ATTR('createWithData', {ARG1 = '@addref(skeletonData ^)'})
+
+typeconf 'spine::StartListener'
+typeconf 'spine::InterruptListener'
+typeconf 'spine::EndListener'
+typeconf 'spine::DisposeListener'
+typeconf 'spine::CompleteListener'
+typeconf 'spine::EventListener'
+typeconf 'spine::UpdateWorldTransformsListener'
 
 typeconf 'spine::SkeletonAnimation'
     .ATTR('createWithData', {ARG1 = '@addref(skeletonData ^)'})

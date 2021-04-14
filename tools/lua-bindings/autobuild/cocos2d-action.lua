@@ -469,6 +469,13 @@ cls.func(nil, 'bool initWithTarget(cocos2d::Node *target, cocos2d::FiniteTimeAct
 cls.prop('forcedTarget', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::ActionFloat::ActionFloatCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::ActionFloat'
 cls.SUPERCLS = 'cocos2d::ActionInterval'
 cls.REG_LUATYPE = true
@@ -476,7 +483,7 @@ cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.callback {
     FUNCS =  {
-        'static cocos2d::ActionFloat *create(float duration, float from, float to, @local std::function<void (float)> callback)'
+        'static cocos2d::ActionFloat *create(float duration, float from, float to, @local cocos2d::ActionFloat::ActionFloatCallback callback)'
     },
     TAG_MAKER = 'ActionFloat',
     TAG_MODE = 'OLUA_TAG_NEW',

@@ -62,6 +62,8 @@ typeconv 'fairygui::TweenValue'
 
 typeconf 'fairygui::UIEventType'
 
+typeconf 'fairygui::EventCallback'
+
 local UIEventDispatcher = typeconf 'fairygui::UIEventDispatcher'
 UIEventDispatcher.CHUNK = [[
 static std::string makeListenerTag(lua_State *L, lua_Integer type, int tagidx)
@@ -105,6 +107,8 @@ typeconf 'fairygui::IHitTest'
 typeconf 'fairygui::PixelHitTest'
 typeconf 'fairygui::PixelHitTestData'
 
+typeconf 'fairygui::InputProcessor::CaptureEventCallback'
+
 typeconf 'fairygui::InputProcessor'
     .CALLBACK {NAME = 'setCaptureCallback', NULLABLE = true}
 
@@ -114,6 +118,9 @@ typeconf 'fairygui::EaseType'
 typeconf 'fairygui::EaseManager'
 typeconf 'fairygui::TweenPropType'
 typeonly 'fairygui::GPath'
+
+typeconf 'fairygui::GTweener::GTweenCallback'
+typeconf 'fairygui::GTweener::GTweenCallback0'
 
 typeconf 'fairygui::GTweener'
     .CALLBACK {NAME = 'onUpdate', LOCAL = false}
@@ -354,6 +361,9 @@ typeconf 'fairygui::GImage'
 typeconf 'fairygui::GLabel'
     .ATTR('getTextField', {RET = '@addref(textField ^)'})
 
+typeconf 'fairygui::GList::ListItemRenderer'
+typeconf 'fairygui::GList::ListItemProvider'
+
 local GList = typeconf 'fairygui::GList'
 GList.ATTR('returnToPool', {ARG1 = '@delref(children |)'})
 GList.ATTR('addItemFromPool', {RET = '@addref(children |)'})
@@ -451,6 +461,9 @@ typeconf 'fairygui::ScrollPane'
     .ATTR('getHzScrollBar', {RET = '@addref(hzScrollBar ^)'})
     .ATTR('getPageController', {RET = '@addref(pageController ^)'})
     .ATTR('setPageController', {ARG1 = '@addref(pageController ^)'})
+
+typeconf 'fairygui::Transition::PlayCompleteCallback'
+typeconf 'fairygui::Transition::TransitionHook'
 
 local Transition = typeconf 'fairygui::Transition'
 Transition.ATTR('getOwner', {RET = '@addref(owner ^)'})
@@ -559,6 +572,8 @@ Window.INSERT({'hide', 'hideImmediately'}, {
 })
 
 typeconf 'fairygui::DragDropManager'
+typeconf 'fairygui::UIObjectFactory::GLoaderCreator'
+typeconf 'fairygui::UIObjectFactory::GComponentCreator'
 typeconf 'fairygui::UIObjectFactory'
 
 typeconf 'fairygui::GearBase'
@@ -581,6 +596,9 @@ typeconf 'fairygui::GTreeNode'
     .ATTR('getPrevSibling', {RET = '@addref(children |)'})
     .ATTR('getNextSibling', {RET = '@addref(children |)'})
     .PROP('numChildren', 'int numChildren()')
+
+typeconf 'fairygui::GTree::TreeNodeRenderFunction'
+typeconf 'fairygui::GTree::TreeNodeWillExpandFunction'
 
 local GTree = typeconf 'fairygui::GTree'
 GTree.ATTR('getList', {RET = '@addref(list ^)'})

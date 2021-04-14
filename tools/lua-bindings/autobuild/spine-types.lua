@@ -120,6 +120,14 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'spine::AnimationStateListener',
+    LUACLS = 'sp.AnimationStateListener',
+    DECLTYPE = 'std::function<void (spine::AnimationState *, spine::EventType, spine::TrackEntry *, spine::Event *)>',
+    CONV = 'olua_$$_spine_AnimationStateListener',
+    NUM_VARS = nil,
+}
+
+typedef {
     CPPCLS = 'spine::AnimationState *',
     LUACLS = 'sp.AnimationState',
     DECLTYPE = nil,
@@ -524,6 +532,62 @@ typedef {
     LUACLS = 'sp.SkeletonRenderer',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
+    NUM_VARS = nil,
+}
+
+typedef {
+    CPPCLS = 'spine::StartListener',
+    LUACLS = 'sp.StartListener',
+    DECLTYPE = 'std::function<void (spine::TrackEntry *)>',
+    CONV = 'olua_$$_spine_StartListener',
+    NUM_VARS = nil,
+}
+
+typedef {
+    CPPCLS = 'spine::InterruptListener',
+    LUACLS = 'sp.InterruptListener',
+    DECLTYPE = 'std::function<void (spine::TrackEntry *)>',
+    CONV = 'olua_$$_spine_InterruptListener',
+    NUM_VARS = nil,
+}
+
+typedef {
+    CPPCLS = 'spine::EndListener',
+    LUACLS = 'sp.EndListener',
+    DECLTYPE = 'std::function<void (spine::TrackEntry *)>',
+    CONV = 'olua_$$_spine_EndListener',
+    NUM_VARS = nil,
+}
+
+typedef {
+    CPPCLS = 'spine::DisposeListener',
+    LUACLS = 'sp.DisposeListener',
+    DECLTYPE = 'std::function<void (spine::TrackEntry *)>',
+    CONV = 'olua_$$_spine_DisposeListener',
+    NUM_VARS = nil,
+}
+
+typedef {
+    CPPCLS = 'spine::CompleteListener',
+    LUACLS = 'sp.CompleteListener',
+    DECLTYPE = 'std::function<void (spine::TrackEntry *)>',
+    CONV = 'olua_$$_spine_CompleteListener',
+    NUM_VARS = nil,
+}
+
+typedef {
+    CPPCLS = 'spine::EventListener',
+    LUACLS = 'sp.EventListener',
+    DECLTYPE = 'std::function<void (spine::TrackEntry *, spine::Event *)>',
+    CONV = 'olua_$$_spine_EventListener',
+    NUM_VARS = nil,
+}
+
+typedef {
+    CPPCLS = 'spine::UpdateWorldTransformsListener',
+    LUACLS = 'sp.UpdateWorldTransformsListener',
+    DECLTYPE = 'std::function<void (spine::SkeletonAnimation *)>',
+    CONV = 'olua_$$_spine_UpdateWorldTransformsListener',
     NUM_VARS = nil,
 }
 

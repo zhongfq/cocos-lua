@@ -87,4 +87,21 @@ function M:sub(startIndex, endIndex)
     return M.new(string.sub(self._str, startIndex, endIndex - 1))
 end
 
+function M:toBytes()
+    local t = {}
+    for i = 1, #self._str do
+        t[i] = string.byte(self._str, i, i)
+    end
+    return t
+end
+
+function M.fromBytes(bytes)
+    local t = {}
+    for i = 1, #bytes do
+        local c = bytes[i] % 256
+        t[i] = string.char(c < 0 and (c + 256) or c)
+    end
+    return M.new(table.concat(t))
+end
+
 return M

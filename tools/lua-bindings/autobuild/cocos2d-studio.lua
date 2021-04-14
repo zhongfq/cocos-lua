@@ -71,9 +71,9 @@ cls.func(nil, 'cocos2d::Node *createNodeWithFlatBuffersForSimulator(const std::s
 cls.callback {
     FUNCS =  {
         'static cocos2d::Node *createNode(const std::string &filename)',
-        'static cocos2d::Node *createNode(const std::string &filename, @local const std::function<void (Ref *)> &callback)',
+        'static cocos2d::Node *createNode(const std::string &filename, @local const std::function<void (cocos2d::Ref *)> &callback)',
         'static cocos2d::Node *createNode(const cocos2d::Data &data)',
-        'static cocos2d::Node *createNode(const cocos2d::Data &data, @local const std::function<void (Ref *)> &callback)'
+        'static cocos2d::Node *createNode(const cocos2d::Data &data, @local const std::function<void (cocos2d::Ref *)> &callback)'
     },
     TAG_MAKER = 'createNode',
     TAG_MODE = 'OLUA_TAG_NEW',
@@ -83,7 +83,7 @@ cls.callback {
 cls.callback {
     FUNCS =  {
         'static cocos2d::Node *createNodeWithVisibleSize(const std::string &filename)',
-        'static cocos2d::Node *createNodeWithVisibleSize(const std::string &filename, @local const std::function<void (Ref *)> &callback)'
+        'static cocos2d::Node *createNodeWithVisibleSize(const std::string &filename, @local const std::function<void (cocos2d::Ref *)> &callback)'
     },
     TAG_MAKER = 'createNodeWithVisibleSize',
     TAG_MODE = 'OLUA_TAG_NEW',

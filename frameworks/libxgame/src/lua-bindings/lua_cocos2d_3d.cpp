@@ -2,11 +2,6 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_cocos2d_3d.h"
-#include "lua-bindings/lua_conv.h"
-#include "lua-bindings/lua_conv_manual.h"
-#include "cclua/xlua.h"
-#include "cocos2d.h"
-#include "3d/CC3DProgramInfo.h"
 
 
 
@@ -1991,6 +1986,7 @@ static int _cocos2d_Sprite3D_createAsync1(lua_State *L)
     void *arg3 = nullptr;       /** callbackparam */
 
     olua_check_std_string(L, 1, &arg1);
+    olua_check_std_function(L, 2, &arg2);
     olua_check_obj(L, 3, (void **)&arg3, "void *");
 
     void *cb_store = (void *)olua_pushclassobj(L, "cc.Sprite3D");
@@ -2036,6 +2032,7 @@ static int _cocos2d_Sprite3D_createAsync2(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
+    olua_check_std_function(L, 3, &arg3);
     olua_check_obj(L, 4, (void **)&arg4, "void *");
 
     void *cb_store = (void *)olua_pushclassobj(L, "cc.Sprite3D");

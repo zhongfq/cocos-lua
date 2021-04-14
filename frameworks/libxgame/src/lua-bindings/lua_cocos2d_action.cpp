@@ -2,11 +2,34 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_cocos2d_action.h"
-#include "lua-bindings/lua_conv.h"
-#include "lua-bindings/lua_conv_manual.h"
-#include "lua-bindings/LuaCocosAdapter.h"
-#include "cocos2d.h"
-#include "cclua/xlua.h"
+
+bool olua_is_cocos2d_ActionFloat_ActionFloatCallback(lua_State *L, int idx)
+{
+    if (olua_isfunction(L, idx)) {
+        return true;
+    }
+    if (olua_istable(L, idx)) {
+        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
+        return cls && strcmp(cls, "cc.ActionFloat.ActionFloatCallback") == 0;
+    }
+    return false;
+}
+
+int olua_push_cocos2d_ActionFloat_ActionFloatCallback(lua_State *L, const cocos2d::ActionFloat::ActionFloatCallback *value)
+{
+    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
+        luaL_error(L, "execpt 'function' or 'nil'");
+    }
+    return 1;
+}
+
+void olua_check_cocos2d_ActionFloat_ActionFloatCallback(lua_State *L, int idx, cocos2d::ActionFloat::ActionFloatCallback *value)
+{
+    if (olua_istable(L, idx)) {
+        olua_rawgetf(L, idx, "callback");
+        lua_replace(L, idx);
+    }
+}
 
 static int luaopen_cocos2d_tweenfunc_TweenType(lua_State *L)
 {
@@ -4368,6 +4391,32 @@ static int luaopen_cocos2d_TargetedAction(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_ActionFloat_ActionFloatCallback___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    luaL_checktype(L, 2, LUA_TFUNCTION);
+    lua_createtable(L, 0, 2);
+    lua_pushvalue(L, 2);
+    olua_rawsetf(L, -2, "callback");
+    lua_pushstring(L, "cc.ActionFloat.ActionFloatCallback");
+    olua_rawsetf(L, -2, "classname");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_ActionFloat_ActionFloatCallback(lua_State *L)
+{
+    oluacls_class(L, "cc.ActionFloat.ActionFloatCallback", nullptr);
+    oluacls_func(L, "__call", _cocos2d_ActionFloat_ActionFloatCallback___call);
+
+    olua_registerluatype<cocos2d::ActionFloat::ActionFloatCallback>(L, "cc.ActionFloat.ActionFloatCallback");
+
+    return 1;
+}
+
 static int _cocos2d_ActionFloat___move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -4387,11 +4436,12 @@ static int _cocos2d_ActionFloat_create(lua_State *L)
     lua_Number arg1 = 0;       /** duration */
     lua_Number arg2 = 0;       /** from */
     lua_Number arg3 = 0;       /** to */
-    std::function<void(float)> arg4;       /** callback */
+    cocos2d::ActionFloat::ActionFloatCallback arg4;       /** callback */
 
     olua_check_number(L, 1, &arg1);
     olua_check_number(L, 2, &arg2);
     olua_check_number(L, 3, &arg3);
+    olua_check_cocos2d_ActionFloat_ActionFloatCallback(L, 4, &arg4);
 
     void *cb_store = (void *)olua_newobjstub(L, "cc.ActionFloat");
     std::string cb_tag = "ActionFloat";
@@ -4411,7 +4461,7 @@ static int _cocos2d_ActionFloat_create(lua_State *L)
         }
     };
 
-    // static cocos2d::ActionFloat *create(float duration, float from, float to, @local std::function<void (float)> callback)
+    // static cocos2d::ActionFloat *create(float duration, float from, float to, @local cocos2d::ActionFloat::ActionFloatCallback callback)
     cocos2d::ActionFloat *ret = cocos2d::ActionFloat::create((float)arg1, (float)arg2, (float)arg3, arg4);
     const char *cls = olua_getluatype(L, ret, "cc.ActionFloat");
     if (olua_pushobjstub(L, ret, cb_store, cls) == OLUA_OBJ_EXIST) {
@@ -7182,6 +7232,8 @@ static int _cocos2d_CallFunc_create(lua_State *L)
     olua_startinvoke(L);
 
     std::function<void()> arg1;       /** func */
+
+    olua_check_std_function(L, 1, &arg1);
 
     void *cb_store = (void *)olua_newobjstub(L, "cc.CallFunc");
     std::string cb_tag = "CallFunc";
@@ -10842,6 +10894,7 @@ int luaopen_cocos2d_action(lua_State *L)
     olua_require(L, "cc.ReverseTime", luaopen_cocos2d_ReverseTime);
     olua_require(L, "cc.Animate", luaopen_cocos2d_Animate);
     olua_require(L, "cc.TargetedAction", luaopen_cocos2d_TargetedAction);
+    olua_require(L, "cc.ActionFloat.ActionFloatCallback", luaopen_cocos2d_ActionFloat_ActionFloatCallback);
     olua_require(L, "cc.ActionFloat", luaopen_cocos2d_ActionFloat);
     olua_require(L, "cc.ProgressTo", luaopen_cocos2d_ProgressTo);
     olua_require(L, "cc.ProgressFromTo", luaopen_cocos2d_ProgressFromTo);

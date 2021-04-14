@@ -24,6 +24,9 @@ end
 
 M.EXCLUDE_TYPE = require "conf.exclude-type"
 
+typeconv 'cocos2d::PhysicsRayCastCallbackFunc'
+typeconv 'cocos2d::PhysicsQueryRectCallbackFunc'
+typeconv 'cocos2d::PhysicsQueryPointCallbackFunc'
 typeconv 'cocos2d::PhysicsMaterial'
 typeconf 'cocos2d::EventListenerPhysicsContact'
 typeconf 'cocos2d::EventListenerPhysicsContactWithGroup'

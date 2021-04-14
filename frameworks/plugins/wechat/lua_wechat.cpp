@@ -2,10 +2,6 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_wechat.h"
-#include "lua-bindings/lua_conv.h"
-#include "lua-bindings/lua_conv_manual.h"
-#include "cclua/xlua.h"
-#include "WeChat.h"
 
 #ifdef CCLUA_BUILD_WECHAT
 static int luaopen_cclua_plugin_WeChat_ShareType(lua_State *L)
@@ -241,6 +237,8 @@ static int _cclua_plugin_WeChat_setDispatcher(lua_State *L)
     olua_startinvoke(L);
 
     std::function<void(const std::string &, const cocos2d::ValueMap &)> arg1;       /** dispatcher */
+
+    olua_check_std_function(L, 1, &arg1);
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.plugin.WeChat");
     std::string cb_tag = "Dispatcher";

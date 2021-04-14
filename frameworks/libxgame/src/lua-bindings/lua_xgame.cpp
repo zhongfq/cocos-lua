@@ -2,17 +2,6 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_xgame.h"
-#include "lua-bindings/lua_conv.h"
-#include "lua-bindings/lua_conv_manual.h"
-#include "cclua/filesystem.h"
-#include "cclua/xlua.h"
-#include "cclua/preferences.h"
-#include "cclua/downloader.h"
-#include "cclua/runtime.h"
-#include "cclua/RootScene.h"
-#include "cclua/timer.h"
-#include "cclua/window.h"
-#include "olua/olua.hpp"
 
 int olua_unpack_xgame_window_Bounds(lua_State *L, const cclua::window::Bounds *value)
 {
@@ -277,6 +266,7 @@ static int _cclua_runtime_alert(lua_State *L)
     olua_check_std_string(L, 2, &arg2);
     olua_check_std_string(L, 3, &arg3);
     olua_check_std_string(L, 4, &arg4);
+    olua_check_std_function(L, 5, &arg5);
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.runtime");
     std::string cb_tag = "alert";
@@ -734,6 +724,7 @@ static int _cclua_runtime_openURL1(lua_State *L)
     std::function<void(bool)> arg2;       /** callback */
 
     olua_check_std_string(L, 1, &arg1);
+    olua_check_std_function(L, 2, &arg2);
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.runtime");
     std::string cb_tag = "openURL";
@@ -827,6 +818,7 @@ static int _cclua_runtime_requestPermission(lua_State *L)
     std::function<void(cclua::PermissionStatus)> arg2;       /** callback */
 
     olua_check_uint(L, 1, &arg1);
+    olua_check_std_function(L, 2, &arg2);
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.runtime");
     std::string cb_tag = "requestPermission";
@@ -890,6 +882,8 @@ static int _cclua_runtime_setDispatcher(lua_State *L)
     olua_startinvoke(L);
 
     std::function<void(const std::string &, const std::string &)> arg1;       /** dispatcher */
+
+    olua_check_std_function(L, 1, &arg1);
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.runtime");
     std::string cb_tag = "Dispatcher";
@@ -2065,6 +2059,7 @@ static int _cclua_timer_delay(lua_State *L)
     std::function<void()> arg2;       /** callback */
 
     olua_check_number(L, 1, &arg1);
+    olua_check_std_function(L, 2, &arg2);
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.timer");
     std::string cb_tag = "delay";
@@ -2103,6 +2098,7 @@ static int _cclua_timer_delayWithTag(lua_State *L)
 
     olua_check_number(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
+    olua_check_std_function(L, 3, &arg3);
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.timer");
     std::string cb_tag = makeTimerDelayTag(arg2);
@@ -2534,6 +2530,8 @@ static int _cclua_downloader_setDispatcher(lua_State *L)
     olua_startinvoke(L);
 
     std::function<void(const cclua::downloader::FileTask &)> arg1;       /** callback */
+
+    olua_check_std_function(L, 1, &arg1);
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.downloader");
     std::string cb_tag = "Dispatcher";

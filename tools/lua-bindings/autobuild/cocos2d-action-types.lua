@@ -324,6 +324,14 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocos2d::ActionFloat::ActionFloatCallback',
+    LUACLS = 'cc.ActionFloat.ActionFloatCallback',
+    DECLTYPE = 'std::function<void (float)>',
+    CONV = 'olua_$$_cocos2d_ActionFloat_ActionFloatCallback',
+    NUM_VARS = nil,
+}
+
+typedef {
     CPPCLS = 'cocos2d::ActionFloat *',
     LUACLS = 'cc.ActionFloat',
     DECLTYPE = nil,

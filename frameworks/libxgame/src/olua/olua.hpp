@@ -545,6 +545,11 @@ int olua_push_std_function(lua_State *L, const std::function<T> *value)
     return 1;
 }
 
+template <typename T>
+void olua_check_std_function(lua_State *L, int idx, std::function<T> *value)
+{
+}
+
 static inline bool olua_is_std_function(lua_State *L, int idx)
 {
     return olua_isfunction(L, idx);

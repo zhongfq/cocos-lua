@@ -2,12 +2,6 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_spine.h"
-#include "lua-bindings/lua_conv.h"
-#include "lua-bindings/lua_conv_manual.h"
-#include "cclua/xlua.h"
-#include "cclua/runtime.h"
-#include "cocos2d.h"
-#include "spine/spine-cocos2dx.h"
 
 template <class T>
 void olua_insert_array(spine::Vector<T> *array, T value)
@@ -101,6 +95,230 @@ int olua_push_spine_EventData(lua_State *L, const spine::EventData *value)
     olua_push_spine_String(L, &data->getAudioPath());
     olua_rawsetf(L, -2, "audioPath");
     return 1;
+}
+
+bool olua_is_spine_AnimationStateListener(lua_State *L, int idx)
+{
+    if (olua_isfunction(L, idx)) {
+        return true;
+    }
+    if (olua_istable(L, idx)) {
+        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
+        return cls && strcmp(cls, "sp.AnimationStateListener") == 0;
+    }
+    return false;
+}
+
+int olua_push_spine_AnimationStateListener(lua_State *L, const spine::AnimationStateListener *value)
+{
+    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
+        luaL_error(L, "execpt 'function' or 'nil'");
+    }
+    return 1;
+}
+
+void olua_check_spine_AnimationStateListener(lua_State *L, int idx, spine::AnimationStateListener *value)
+{
+    if (olua_istable(L, idx)) {
+        olua_rawgetf(L, idx, "callback");
+        lua_replace(L, idx);
+    }
+}
+
+bool olua_is_spine_StartListener(lua_State *L, int idx)
+{
+    if (olua_isfunction(L, idx)) {
+        return true;
+    }
+    if (olua_istable(L, idx)) {
+        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
+        return cls && strcmp(cls, "sp.StartListener") == 0;
+    }
+    return false;
+}
+
+int olua_push_spine_StartListener(lua_State *L, const spine::StartListener *value)
+{
+    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
+        luaL_error(L, "execpt 'function' or 'nil'");
+    }
+    return 1;
+}
+
+void olua_check_spine_StartListener(lua_State *L, int idx, spine::StartListener *value)
+{
+    if (olua_istable(L, idx)) {
+        olua_rawgetf(L, idx, "callback");
+        lua_replace(L, idx);
+    }
+}
+
+bool olua_is_spine_InterruptListener(lua_State *L, int idx)
+{
+    if (olua_isfunction(L, idx)) {
+        return true;
+    }
+    if (olua_istable(L, idx)) {
+        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
+        return cls && strcmp(cls, "sp.InterruptListener") == 0;
+    }
+    return false;
+}
+
+int olua_push_spine_InterruptListener(lua_State *L, const spine::InterruptListener *value)
+{
+    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
+        luaL_error(L, "execpt 'function' or 'nil'");
+    }
+    return 1;
+}
+
+void olua_check_spine_InterruptListener(lua_State *L, int idx, spine::InterruptListener *value)
+{
+    if (olua_istable(L, idx)) {
+        olua_rawgetf(L, idx, "callback");
+        lua_replace(L, idx);
+    }
+}
+
+bool olua_is_spine_EndListener(lua_State *L, int idx)
+{
+    if (olua_isfunction(L, idx)) {
+        return true;
+    }
+    if (olua_istable(L, idx)) {
+        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
+        return cls && strcmp(cls, "sp.EndListener") == 0;
+    }
+    return false;
+}
+
+int olua_push_spine_EndListener(lua_State *L, const spine::EndListener *value)
+{
+    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
+        luaL_error(L, "execpt 'function' or 'nil'");
+    }
+    return 1;
+}
+
+void olua_check_spine_EndListener(lua_State *L, int idx, spine::EndListener *value)
+{
+    if (olua_istable(L, idx)) {
+        olua_rawgetf(L, idx, "callback");
+        lua_replace(L, idx);
+    }
+}
+
+bool olua_is_spine_DisposeListener(lua_State *L, int idx)
+{
+    if (olua_isfunction(L, idx)) {
+        return true;
+    }
+    if (olua_istable(L, idx)) {
+        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
+        return cls && strcmp(cls, "sp.DisposeListener") == 0;
+    }
+    return false;
+}
+
+int olua_push_spine_DisposeListener(lua_State *L, const spine::DisposeListener *value)
+{
+    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
+        luaL_error(L, "execpt 'function' or 'nil'");
+    }
+    return 1;
+}
+
+void olua_check_spine_DisposeListener(lua_State *L, int idx, spine::DisposeListener *value)
+{
+    if (olua_istable(L, idx)) {
+        olua_rawgetf(L, idx, "callback");
+        lua_replace(L, idx);
+    }
+}
+
+bool olua_is_spine_CompleteListener(lua_State *L, int idx)
+{
+    if (olua_isfunction(L, idx)) {
+        return true;
+    }
+    if (olua_istable(L, idx)) {
+        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
+        return cls && strcmp(cls, "sp.CompleteListener") == 0;
+    }
+    return false;
+}
+
+int olua_push_spine_CompleteListener(lua_State *L, const spine::CompleteListener *value)
+{
+    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
+        luaL_error(L, "execpt 'function' or 'nil'");
+    }
+    return 1;
+}
+
+void olua_check_spine_CompleteListener(lua_State *L, int idx, spine::CompleteListener *value)
+{
+    if (olua_istable(L, idx)) {
+        olua_rawgetf(L, idx, "callback");
+        lua_replace(L, idx);
+    }
+}
+
+bool olua_is_spine_EventListener(lua_State *L, int idx)
+{
+    if (olua_isfunction(L, idx)) {
+        return true;
+    }
+    if (olua_istable(L, idx)) {
+        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
+        return cls && strcmp(cls, "sp.EventListener") == 0;
+    }
+    return false;
+}
+
+int olua_push_spine_EventListener(lua_State *L, const spine::EventListener *value)
+{
+    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
+        luaL_error(L, "execpt 'function' or 'nil'");
+    }
+    return 1;
+}
+
+void olua_check_spine_EventListener(lua_State *L, int idx, spine::EventListener *value)
+{
+    if (olua_istable(L, idx)) {
+        olua_rawgetf(L, idx, "callback");
+        lua_replace(L, idx);
+    }
+}
+
+bool olua_is_spine_UpdateWorldTransformsListener(lua_State *L, int idx)
+{
+    if (olua_isfunction(L, idx)) {
+        return true;
+    }
+    if (olua_istable(L, idx)) {
+        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
+        return cls && strcmp(cls, "sp.UpdateWorldTransformsListener") == 0;
+    }
+    return false;
+}
+
+int olua_push_spine_UpdateWorldTransformsListener(lua_State *L, const spine::UpdateWorldTransformsListener *value)
+{
+    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
+        luaL_error(L, "execpt 'function' or 'nil'");
+    }
+    return 1;
+}
+
+void olua_check_spine_UpdateWorldTransformsListener(lua_State *L, int idx, spine::UpdateWorldTransformsListener *value)
+{
+    if (olua_istable(L, idx)) {
+        olua_rawgetf(L, idx, "callback");
+        lua_replace(L, idx);
+    }
 }
 
 static int luaopen_spine_EventType(lua_State *L)
@@ -858,6 +1076,32 @@ static int luaopen_spine_Updatable(lua_State *L)
     return 1;
 }
 
+static int _spine_AnimationStateListener___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    luaL_checktype(L, 2, LUA_TFUNCTION);
+    lua_createtable(L, 0, 2);
+    lua_pushvalue(L, 2);
+    olua_rawsetf(L, -2, "callback");
+    lua_pushstring(L, "sp.AnimationStateListener");
+    olua_rawsetf(L, -2, "classname");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int luaopen_spine_AnimationStateListener(lua_State *L)
+{
+    oluacls_class(L, "sp.AnimationStateListener", nullptr);
+    oluacls_func(L, "__call", _spine_AnimationStateListener___call);
+
+    olua_registerluatype<spine::AnimationStateListener>(L, "sp.AnimationStateListener");
+
+    return 1;
+}
+
 static int _spine_AnimationState___gc(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1242,9 +1486,10 @@ static int _spine_AnimationState_setListener(lua_State *L)
     olua_startinvoke(L);
 
     spine::AnimationState *self = nullptr;
-    std::function<void(spine::AnimationState *, spine::EventType, spine::TrackEntry *, spine::Event *)> arg1;       /** listener */
+    spine::AnimationStateListener arg1;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
+    olua_check_spine_AnimationStateListener(L, 2, &arg1);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "Listener";
@@ -1267,7 +1512,7 @@ static int _spine_AnimationState_setListener(lua_State *L)
         }
     };
 
-    // void setListener(std::function<void (AnimationState *, EventType, TrackEntry *, Event *)> listener)
+    // void setListener(spine::AnimationStateListener listener)
     self->setListener(arg1);
 
     olua_endinvoke(L);
@@ -11122,9 +11367,10 @@ static int _spine_TrackEntry_setListener(lua_State *L)
     olua_startinvoke(L);
 
     spine::TrackEntry *self = nullptr;
-    std::function<void(spine::AnimationState *, spine::EventType, spine::TrackEntry *, spine::Event *)> arg1;       /** listener */
+    spine::AnimationStateListener arg1;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_check_spine_AnimationStateListener(L, 2, &arg1);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "Listener";
@@ -11147,7 +11393,7 @@ static int _spine_TrackEntry_setListener(lua_State *L)
         }
     };
 
-    // void setListener(std::function<void (AnimationState *, EventType, TrackEntry *, Event *)> listener)
+    // void setListener(spine::AnimationStateListener listener)
     self->setListener(arg1);
 
     olua_endinvoke(L);
@@ -14358,6 +14604,188 @@ static int luaopen_spine_SkeletonRenderer(lua_State *L)
     return 1;
 }
 
+static int _spine_StartListener___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    luaL_checktype(L, 2, LUA_TFUNCTION);
+    lua_createtable(L, 0, 2);
+    lua_pushvalue(L, 2);
+    olua_rawsetf(L, -2, "callback");
+    lua_pushstring(L, "sp.StartListener");
+    olua_rawsetf(L, -2, "classname");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int luaopen_spine_StartListener(lua_State *L)
+{
+    oluacls_class(L, "sp.StartListener", nullptr);
+    oluacls_func(L, "__call", _spine_StartListener___call);
+
+    olua_registerluatype<spine::StartListener>(L, "sp.StartListener");
+
+    return 1;
+}
+
+static int _spine_InterruptListener___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    luaL_checktype(L, 2, LUA_TFUNCTION);
+    lua_createtable(L, 0, 2);
+    lua_pushvalue(L, 2);
+    olua_rawsetf(L, -2, "callback");
+    lua_pushstring(L, "sp.InterruptListener");
+    olua_rawsetf(L, -2, "classname");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int luaopen_spine_InterruptListener(lua_State *L)
+{
+    oluacls_class(L, "sp.InterruptListener", nullptr);
+    oluacls_func(L, "__call", _spine_InterruptListener___call);
+
+    olua_registerluatype<spine::InterruptListener>(L, "sp.InterruptListener");
+
+    return 1;
+}
+
+static int _spine_EndListener___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    luaL_checktype(L, 2, LUA_TFUNCTION);
+    lua_createtable(L, 0, 2);
+    lua_pushvalue(L, 2);
+    olua_rawsetf(L, -2, "callback");
+    lua_pushstring(L, "sp.EndListener");
+    olua_rawsetf(L, -2, "classname");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int luaopen_spine_EndListener(lua_State *L)
+{
+    oluacls_class(L, "sp.EndListener", nullptr);
+    oluacls_func(L, "__call", _spine_EndListener___call);
+
+    olua_registerluatype<spine::EndListener>(L, "sp.EndListener");
+
+    return 1;
+}
+
+static int _spine_DisposeListener___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    luaL_checktype(L, 2, LUA_TFUNCTION);
+    lua_createtable(L, 0, 2);
+    lua_pushvalue(L, 2);
+    olua_rawsetf(L, -2, "callback");
+    lua_pushstring(L, "sp.DisposeListener");
+    olua_rawsetf(L, -2, "classname");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int luaopen_spine_DisposeListener(lua_State *L)
+{
+    oluacls_class(L, "sp.DisposeListener", nullptr);
+    oluacls_func(L, "__call", _spine_DisposeListener___call);
+
+    olua_registerluatype<spine::DisposeListener>(L, "sp.DisposeListener");
+
+    return 1;
+}
+
+static int _spine_CompleteListener___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    luaL_checktype(L, 2, LUA_TFUNCTION);
+    lua_createtable(L, 0, 2);
+    lua_pushvalue(L, 2);
+    olua_rawsetf(L, -2, "callback");
+    lua_pushstring(L, "sp.CompleteListener");
+    olua_rawsetf(L, -2, "classname");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int luaopen_spine_CompleteListener(lua_State *L)
+{
+    oluacls_class(L, "sp.CompleteListener", nullptr);
+    oluacls_func(L, "__call", _spine_CompleteListener___call);
+
+    olua_registerluatype<spine::CompleteListener>(L, "sp.CompleteListener");
+
+    return 1;
+}
+
+static int _spine_EventListener___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    luaL_checktype(L, 2, LUA_TFUNCTION);
+    lua_createtable(L, 0, 2);
+    lua_pushvalue(L, 2);
+    olua_rawsetf(L, -2, "callback");
+    lua_pushstring(L, "sp.EventListener");
+    olua_rawsetf(L, -2, "classname");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int luaopen_spine_EventListener(lua_State *L)
+{
+    oluacls_class(L, "sp.EventListener", nullptr);
+    oluacls_func(L, "__call", _spine_EventListener___call);
+
+    olua_registerluatype<spine::EventListener>(L, "sp.EventListener");
+
+    return 1;
+}
+
+static int _spine_UpdateWorldTransformsListener___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    luaL_checktype(L, 2, LUA_TFUNCTION);
+    lua_createtable(L, 0, 2);
+    lua_pushvalue(L, 2);
+    olua_rawsetf(L, -2, "callback");
+    lua_pushstring(L, "sp.UpdateWorldTransformsListener");
+    olua_rawsetf(L, -2, "classname");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int luaopen_spine_UpdateWorldTransformsListener(lua_State *L)
+{
+    oluacls_class(L, "sp.UpdateWorldTransformsListener", nullptr);
+    oluacls_func(L, "__call", _spine_UpdateWorldTransformsListener___call);
+
+    olua_registerluatype<spine::UpdateWorldTransformsListener>(L, "sp.UpdateWorldTransformsListener");
+
+    return 1;
+}
+
 static int _spine_SkeletonAnimation___move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -15104,9 +15532,10 @@ static int _spine_SkeletonAnimation_setCompleteListener(lua_State *L)
     olua_startinvoke(L);
 
     spine::SkeletonAnimation *self = nullptr;
-    std::function<void(spine::TrackEntry *)> arg1;       /** listener */
+    spine::CompleteListener arg1;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_check_spine_CompleteListener(L, 2, &arg1);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "CompleteListener";
@@ -15126,7 +15555,7 @@ static int _spine_SkeletonAnimation_setCompleteListener(lua_State *L)
         }
     };
 
-    // void setCompleteListener(const std::function<void (TrackEntry *)> &listener)
+    // void setCompleteListener(const spine::CompleteListener &listener)
     self->setCompleteListener(arg1);
 
     olua_endinvoke(L);
@@ -15139,9 +15568,10 @@ static int _spine_SkeletonAnimation_setDisposeListener(lua_State *L)
     olua_startinvoke(L);
 
     spine::SkeletonAnimation *self = nullptr;
-    std::function<void(spine::TrackEntry *)> arg1;       /** listener */
+    spine::DisposeListener arg1;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_check_spine_DisposeListener(L, 2, &arg1);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "DisposeListener";
@@ -15161,7 +15591,7 @@ static int _spine_SkeletonAnimation_setDisposeListener(lua_State *L)
         }
     };
 
-    // void setDisposeListener(const std::function<void (TrackEntry *)> &listener)
+    // void setDisposeListener(const spine::DisposeListener &listener)
     self->setDisposeListener(arg1);
 
     olua_endinvoke(L);
@@ -15216,9 +15646,10 @@ static int _spine_SkeletonAnimation_setEndListener(lua_State *L)
     olua_startinvoke(L);
 
     spine::SkeletonAnimation *self = nullptr;
-    std::function<void(spine::TrackEntry *)> arg1;       /** listener */
+    spine::EndListener arg1;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_check_spine_EndListener(L, 2, &arg1);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "EndListener";
@@ -15238,7 +15669,7 @@ static int _spine_SkeletonAnimation_setEndListener(lua_State *L)
         }
     };
 
-    // void setEndListener(const std::function<void (TrackEntry *)> &listener)
+    // void setEndListener(const spine::EndListener &listener)
     self->setEndListener(arg1);
 
     olua_endinvoke(L);
@@ -15251,9 +15682,10 @@ static int _spine_SkeletonAnimation_setEventListener(lua_State *L)
     olua_startinvoke(L);
 
     spine::SkeletonAnimation *self = nullptr;
-    std::function<void(spine::TrackEntry *, spine::Event *)> arg1;       /** listener */
+    spine::EventListener arg1;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_check_spine_EventListener(L, 2, &arg1);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "EventListener";
@@ -15274,7 +15706,7 @@ static int _spine_SkeletonAnimation_setEventListener(lua_State *L)
         }
     };
 
-    // void setEventListener(const std::function<void (TrackEntry *, Event *)> &listener)
+    // void setEventListener(const spine::EventListener &listener)
     self->setEventListener(arg1);
 
     olua_endinvoke(L);
@@ -15287,9 +15719,10 @@ static int _spine_SkeletonAnimation_setInterruptListener(lua_State *L)
     olua_startinvoke(L);
 
     spine::SkeletonAnimation *self = nullptr;
-    std::function<void(spine::TrackEntry *)> arg1;       /** listener */
+    spine::InterruptListener arg1;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_check_spine_InterruptListener(L, 2, &arg1);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "InterruptListener";
@@ -15309,7 +15742,7 @@ static int _spine_SkeletonAnimation_setInterruptListener(lua_State *L)
         }
     };
 
-    // void setInterruptListener(const std::function<void (TrackEntry *)> &listener)
+    // void setInterruptListener(const spine::InterruptListener &listener)
     self->setInterruptListener(arg1);
 
     olua_endinvoke(L);
@@ -15344,9 +15777,10 @@ static int _spine_SkeletonAnimation_setPostUpdateWorldTransformsListener(lua_Sta
     olua_startinvoke(L);
 
     spine::SkeletonAnimation *self = nullptr;
-    std::function<void(spine::SkeletonAnimation *)> arg1;       /** listener */
+    spine::UpdateWorldTransformsListener arg1;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_check_spine_UpdateWorldTransformsListener(L, 2, &arg1);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "PostUpdateWorldTransformsListener";
@@ -15371,7 +15805,7 @@ static int _spine_SkeletonAnimation_setPostUpdateWorldTransformsListener(lua_Sta
         }
     };
 
-    // void setPostUpdateWorldTransformsListener(@local const std::function<void (SkeletonAnimation *)> &listener)
+    // void setPostUpdateWorldTransformsListener(@local const spine::UpdateWorldTransformsListener &listener)
     self->setPostUpdateWorldTransformsListener(arg1);
 
     olua_endinvoke(L);
@@ -15384,9 +15818,10 @@ static int _spine_SkeletonAnimation_setPreUpdateWorldTransformsListener(lua_Stat
     olua_startinvoke(L);
 
     spine::SkeletonAnimation *self = nullptr;
-    std::function<void(spine::SkeletonAnimation *)> arg1;       /** listener */
+    spine::UpdateWorldTransformsListener arg1;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_check_spine_UpdateWorldTransformsListener(L, 2, &arg1);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "PreUpdateWorldTransformsListener";
@@ -15411,7 +15846,7 @@ static int _spine_SkeletonAnimation_setPreUpdateWorldTransformsListener(lua_Stat
         }
     };
 
-    // void setPreUpdateWorldTransformsListener(@local const std::function<void (SkeletonAnimation *)> &listener)
+    // void setPreUpdateWorldTransformsListener(@local const spine::UpdateWorldTransformsListener &listener)
     self->setPreUpdateWorldTransformsListener(arg1);
 
     olua_endinvoke(L);
@@ -15424,9 +15859,10 @@ static int _spine_SkeletonAnimation_setStartListener(lua_State *L)
     olua_startinvoke(L);
 
     spine::SkeletonAnimation *self = nullptr;
-    std::function<void(spine::TrackEntry *)> arg1;       /** listener */
+    spine::StartListener arg1;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_check_spine_StartListener(L, 2, &arg1);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "StartListener";
@@ -15446,7 +15882,7 @@ static int _spine_SkeletonAnimation_setStartListener(lua_State *L)
         }
     };
 
-    // void setStartListener(const std::function<void (TrackEntry *)> &listener)
+    // void setStartListener(const spine::StartListener &listener)
     self->setStartListener(arg1);
 
     olua_endinvoke(L);
@@ -15460,10 +15896,11 @@ static int _spine_SkeletonAnimation_setTrackCompleteListener(lua_State *L)
 
     spine::SkeletonAnimation *self = nullptr;
     spine::TrackEntry *arg1 = nullptr;       /** entry */
-    std::function<void(spine::TrackEntry *)> arg2;       /** listener */
+    spine::CompleteListener arg2;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
     olua_check_cppobj(L, 2, (void **)&arg1, "sp.TrackEntry");
+    olua_check_spine_CompleteListener(L, 3, &arg2);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "TrackCompleteListener";
@@ -15483,7 +15920,7 @@ static int _spine_SkeletonAnimation_setTrackCompleteListener(lua_State *L)
         }
     };
 
-    // void setTrackCompleteListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *)> &listener)
+    // void setTrackCompleteListener(spine::TrackEntry *entry, const spine::CompleteListener &listener)
     self->setTrackCompleteListener(arg1, arg2);
 
     olua_endinvoke(L);
@@ -15497,10 +15934,11 @@ static int _spine_SkeletonAnimation_setTrackDisposeListener(lua_State *L)
 
     spine::SkeletonAnimation *self = nullptr;
     spine::TrackEntry *arg1 = nullptr;       /** entry */
-    std::function<void(spine::TrackEntry *)> arg2;       /** listener */
+    spine::DisposeListener arg2;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
     olua_check_cppobj(L, 2, (void **)&arg1, "sp.TrackEntry");
+    olua_check_spine_DisposeListener(L, 3, &arg2);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "TrackDisposeListener";
@@ -15520,7 +15958,7 @@ static int _spine_SkeletonAnimation_setTrackDisposeListener(lua_State *L)
         }
     };
 
-    // void setTrackDisposeListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *)> &listener)
+    // void setTrackDisposeListener(spine::TrackEntry *entry, const spine::DisposeListener &listener)
     self->setTrackDisposeListener(arg1, arg2);
 
     olua_endinvoke(L);
@@ -15534,10 +15972,11 @@ static int _spine_SkeletonAnimation_setTrackEndListener(lua_State *L)
 
     spine::SkeletonAnimation *self = nullptr;
     spine::TrackEntry *arg1 = nullptr;       /** entry */
-    std::function<void(spine::TrackEntry *)> arg2;       /** listener */
+    spine::EndListener arg2;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
     olua_check_cppobj(L, 2, (void **)&arg1, "sp.TrackEntry");
+    olua_check_spine_EndListener(L, 3, &arg2);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "TrackEndListener";
@@ -15557,7 +15996,7 @@ static int _spine_SkeletonAnimation_setTrackEndListener(lua_State *L)
         }
     };
 
-    // void setTrackEndListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *)> &listener)
+    // void setTrackEndListener(spine::TrackEntry *entry, const spine::EndListener &listener)
     self->setTrackEndListener(arg1, arg2);
 
     olua_endinvoke(L);
@@ -15571,10 +16010,11 @@ static int _spine_SkeletonAnimation_setTrackEventListener(lua_State *L)
 
     spine::SkeletonAnimation *self = nullptr;
     spine::TrackEntry *arg1 = nullptr;       /** entry */
-    std::function<void(spine::TrackEntry *, spine::Event *)> arg2;       /** listener */
+    spine::EventListener arg2;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
     olua_check_cppobj(L, 2, (void **)&arg1, "sp.TrackEntry");
+    olua_check_spine_EventListener(L, 3, &arg2);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "TrackEventListener";
@@ -15595,7 +16035,7 @@ static int _spine_SkeletonAnimation_setTrackEventListener(lua_State *L)
         }
     };
 
-    // void setTrackEventListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *, Event *)> &listener)
+    // void setTrackEventListener(spine::TrackEntry *entry, const spine::EventListener &listener)
     self->setTrackEventListener(arg1, arg2);
 
     olua_endinvoke(L);
@@ -15609,10 +16049,11 @@ static int _spine_SkeletonAnimation_setTrackInterruptListener(lua_State *L)
 
     spine::SkeletonAnimation *self = nullptr;
     spine::TrackEntry *arg1 = nullptr;       /** entry */
-    std::function<void(spine::TrackEntry *)> arg2;       /** listener */
+    spine::InterruptListener arg2;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
     olua_check_cppobj(L, 2, (void **)&arg1, "sp.TrackEntry");
+    olua_check_spine_InterruptListener(L, 3, &arg2);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "TrackInterruptListener";
@@ -15632,7 +16073,7 @@ static int _spine_SkeletonAnimation_setTrackInterruptListener(lua_State *L)
         }
     };
 
-    // void setTrackInterruptListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *)> &listener)
+    // void setTrackInterruptListener(spine::TrackEntry *entry, const spine::InterruptListener &listener)
     self->setTrackInterruptListener(arg1, arg2);
 
     olua_endinvoke(L);
@@ -15646,10 +16087,11 @@ static int _spine_SkeletonAnimation_setTrackStartListener(lua_State *L)
 
     spine::SkeletonAnimation *self = nullptr;
     spine::TrackEntry *arg1 = nullptr;       /** entry */
-    std::function<void(spine::TrackEntry *)> arg2;       /** listener */
+    spine::StartListener arg2;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
     olua_check_cppobj(L, 2, (void **)&arg1, "sp.TrackEntry");
+    olua_check_spine_StartListener(L, 3, &arg2);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "TrackStartListener";
@@ -15669,7 +16111,7 @@ static int _spine_SkeletonAnimation_setTrackStartListener(lua_State *L)
         }
     };
 
-    // void setTrackStartListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *)> &listener)
+    // void setTrackStartListener(spine::TrackEntry *entry, const spine::StartListener &listener)
     self->setTrackStartListener(arg1, arg2);
 
     olua_endinvoke(L);
@@ -15754,6 +16196,7 @@ int luaopen_spine(lua_State *L)
     olua_require(L, "sp.Event", luaopen_spine_Event);
     olua_require(L, "sp.EventData", luaopen_spine_EventData);
     olua_require(L, "sp.Updatable", luaopen_spine_Updatable);
+    olua_require(L, "sp.AnimationStateListener", luaopen_spine_AnimationStateListener);
     olua_require(L, "sp.AnimationState", luaopen_spine_AnimationState);
     olua_require(L, "sp.AnimationStateData", luaopen_spine_AnimationStateData);
     olua_require(L, "sp.Animation", luaopen_spine_Animation);
@@ -15805,6 +16248,13 @@ int luaopen_spine(lua_State *L)
     olua_require(L, "sp.SkeletonData", luaopen_spine_SkeletonData);
     olua_require(L, "sp.Skeleton", luaopen_spine_Skeleton);
     olua_require(L, "sp.SkeletonRenderer", luaopen_spine_SkeletonRenderer);
+    olua_require(L, "sp.StartListener", luaopen_spine_StartListener);
+    olua_require(L, "sp.InterruptListener", luaopen_spine_InterruptListener);
+    olua_require(L, "sp.EndListener", luaopen_spine_EndListener);
+    olua_require(L, "sp.DisposeListener", luaopen_spine_DisposeListener);
+    olua_require(L, "sp.CompleteListener", luaopen_spine_CompleteListener);
+    olua_require(L, "sp.EventListener", luaopen_spine_EventListener);
+    olua_require(L, "sp.UpdateWorldTransformsListener", luaopen_spine_UpdateWorldTransformsListener);
     olua_require(L, "sp.SkeletonAnimation", luaopen_spine_SkeletonAnimation);
     return 0;
 }

@@ -2,11 +2,6 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_cocos2d_studio.h"
-#include "lua-bindings/lua_conv.h"
-#include "lua-bindings/lua_conv_manual.h"
-#include "cclua/xlua.h"
-#include "cocos2d.h"
-#include "editor-support/cocostudio/CocoStudio.h"
 
 static std::string makeFrameEndCallbackTag(lua_Integer index, const std::string &key)
 {
@@ -190,6 +185,7 @@ static int _cocos2d_CSLoader_createNode2(lua_State *L)
     std::function<void(cocos2d::Ref *)> arg2;       /** callback */
 
     olua_check_std_string(L, 1, &arg1);
+    olua_check_std_function(L, 2, &arg2);
 
     void *cb_store = (void *)olua_pushclassobj(L, "cc.CSLoader");
     std::string cb_tag = "createNode";
@@ -214,7 +210,7 @@ static int _cocos2d_CSLoader_createNode2(lua_State *L)
         }
     };
 
-    // static cocos2d::Node *createNode(const std::string &filename, @local const std::function<void (Ref *)> &callback)
+    // static cocos2d::Node *createNode(const std::string &filename, @local const std::function<void (cocos2d::Ref *)> &callback)
     cocos2d::Node *ret = cocos2d::CSLoader::createNode(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
@@ -250,6 +246,7 @@ static int _cocos2d_CSLoader_createNode4(lua_State *L)
     std::function<void(cocos2d::Ref *)> arg2;       /** callback */
 
     olua_check_cocos2d_Data(L, 1, &arg1);
+    olua_check_std_function(L, 2, &arg2);
 
     void *cb_store = (void *)olua_pushclassobj(L, "cc.CSLoader");
     std::string cb_tag = "createNode";
@@ -274,7 +271,7 @@ static int _cocos2d_CSLoader_createNode4(lua_State *L)
         }
     };
 
-    // static cocos2d::Node *createNode(const cocos2d::Data &data, @local const std::function<void (Ref *)> &callback)
+    // static cocos2d::Node *createNode(const cocos2d::Data &data, @local const std::function<void (cocos2d::Ref *)> &callback)
     cocos2d::Node *ret = cocos2d::CSLoader::createNode(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
@@ -303,12 +300,12 @@ static int _cocos2d_CSLoader_createNode(lua_State *L)
 
     if (num_args == 2) {
         if ((olua_is_std_string(L, 1)) && (olua_is_std_function(L, 2))) {
-            // static cocos2d::Node *createNode(const std::string &filename, @local const std::function<void (Ref *)> &callback)
+            // static cocos2d::Node *createNode(const std::string &filename, @local const std::function<void (cocos2d::Ref *)> &callback)
             return _cocos2d_CSLoader_createNode2(L);
         }
 
         // if ((olua_is_cocos2d_Data(L, 1)) && (olua_is_std_function(L, 2))) {
-            // static cocos2d::Node *createNode(const cocos2d::Data &data, @local const std::function<void (Ref *)> &callback)
+            // static cocos2d::Node *createNode(const cocos2d::Data &data, @local const std::function<void (cocos2d::Ref *)> &callback)
             return _cocos2d_CSLoader_createNode4(L);
         // }
     }
@@ -400,6 +397,7 @@ static int _cocos2d_CSLoader_createNodeWithVisibleSize2(lua_State *L)
     std::function<void(cocos2d::Ref *)> arg2;       /** callback */
 
     olua_check_std_string(L, 1, &arg1);
+    olua_check_std_function(L, 2, &arg2);
 
     void *cb_store = (void *)olua_pushclassobj(L, "cc.CSLoader");
     std::string cb_tag = "createNodeWithVisibleSize";
@@ -424,7 +422,7 @@ static int _cocos2d_CSLoader_createNodeWithVisibleSize2(lua_State *L)
         }
     };
 
-    // static cocos2d::Node *createNodeWithVisibleSize(const std::string &filename, @local const std::function<void (Ref *)> &callback)
+    // static cocos2d::Node *createNodeWithVisibleSize(const std::string &filename, @local const std::function<void (cocos2d::Ref *)> &callback)
     cocos2d::Node *ret = cocos2d::CSLoader::createNodeWithVisibleSize(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
@@ -448,7 +446,7 @@ static int _cocos2d_CSLoader_createNodeWithVisibleSize(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_function(L, 2))) {
-            // static cocos2d::Node *createNodeWithVisibleSize(const std::string &filename, @local const std::function<void (Ref *)> &callback)
+            // static cocos2d::Node *createNodeWithVisibleSize(const std::string &filename, @local const std::function<void (cocos2d::Ref *)> &callback)
             return _cocos2d_CSLoader_createNodeWithVisibleSize2(L);
         // }
     }
@@ -4269,6 +4267,7 @@ static int _cocostudio_ArmatureAnimation_setFrameEventCallFunc(lua_State *L)
     std::function<void(cocostudio::Bone *, const std::string &, int, int)> arg1;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.ArmatureAnimation");
+    olua_check_std_function(L, 2, &arg1);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "FrameEventCallFunc";
@@ -4318,6 +4317,7 @@ static int _cocostudio_ArmatureAnimation_setMovementEventCallFunc(lua_State *L)
     std::function<void(cocostudio::Armature *, cocostudio::MovementEventType, const std::string &)> arg1;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.ArmatureAnimation");
+    olua_check_std_function(L, 2, &arg1);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "MovementEventCallFunc";
@@ -12688,6 +12688,7 @@ static int _cocostudio_SceneReader_setTarget(lua_State *L)
     std::function<void(cocos2d::Ref *, void *)> arg1;       /** selector */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.SceneReader");
+    olua_check_std_function(L, 2, &arg1);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "Target";
@@ -17560,6 +17561,7 @@ static int _cocostudio_timeline_ActionTimeline_addFrameEndCallFunc(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.ActionTimeline");
     olua_check_int(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
+    olua_check_std_function(L, 4, &arg3);
 
     void *cb_store = (void *)self;
     std::string cb_tag = makeFrameEndCallbackTag(arg1, arg2);
@@ -18129,6 +18131,7 @@ static int _cocostudio_timeline_ActionTimeline_setAnimationEndCallFunc(lua_State
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.ActionTimeline");
     olua_check_std_string(L, 2, &arg1);
+    olua_check_std_function(L, 3, &arg2);
 
     void *cb_store = (void *)self;
     std::string cb_tag = makeFrameEndCallbackTag(self, arg1);
@@ -18199,6 +18202,7 @@ static int _cocostudio_timeline_ActionTimeline_setFrameEventCallFunc(lua_State *
     std::function<void(cocostudio::timeline::Frame *)> arg1;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.ActionTimeline");
+    olua_check_std_function(L, 2, &arg1);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "frameEventCallFunc";
@@ -18255,6 +18259,7 @@ static int _cocostudio_timeline_ActionTimeline_setLastFrameCallFunc(lua_State *L
     std::function<void()> arg1;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.ActionTimeline");
+    olua_check_std_function(L, 2, &arg1);
 
     void *cb_store = (void *)self;
     std::string cb_tag = "lastFrameCallFunc";

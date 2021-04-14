@@ -31,6 +31,9 @@ typeconf 'cocos2d::ui::Widget::SizeType'
 typeconf 'cocos2d::ui::Widget::TouchEventType'
 typeconf 'cocos2d::ui::Widget::TextureResType'
 typeconf 'cocos2d::ui::Widget::BrightStyle'
+typeconf 'cocos2d::ui::Widget::ccWidgetTouchCallback'
+typeconf 'cocos2d::ui::Widget::ccWidgetClickCallback'
+typeconf 'cocos2d::ui::Widget::ccWidgetEventCallback'
 
 typeconf 'cocos2d::ui::Widget'
     .EXCLUDE_FUNC 'createInstance'
@@ -66,6 +69,9 @@ typeconf 'cocos2d::ui::RelativeBox'
 
 local IFDEF_IOS_OR_ANDROID = '#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)'
 
+local ccWebViewCallback = typeconf 'cocos2d::ui::WebView::ccWebViewCallback'
+ccWebViewCallback.IFDEF('*', IFDEF_IOS_OR_ANDROID)
+
 local WebView = typeconf 'cocos2d::ui::WebView'
 WebView.IFDEF('*', IFDEF_IOS_OR_ANDROID)
 WebView.CALLBACK {NAME = 'setOnShouldStartLoading', NULLABLE = true, LOCAL = false}
@@ -76,6 +82,9 @@ WebView.CALLBACK {NAME = 'setOnJSCallback', NULLABLE = true, LOCAL = false}
 local EventType = typeconf 'cocos2d::ui::VideoPlayer::EventType'
 EventType.IFDEF('*', IFDEF_IOS_OR_ANDROID)
 
+local ccVideoPlayerCallback = typeconf 'cocos2d::ui::VideoPlayer::ccVideoPlayerCallback'
+ccVideoPlayerCallback.IFDEF('*', IFDEF_IOS_OR_ANDROID)
+
 local StyleType = typeconf 'cocos2d::ui::VideoPlayer::StyleType'
 StyleType.IFDEF('*', IFDEF_IOS_OR_ANDROID)
 
@@ -85,7 +94,6 @@ VideoPlayer.CALLBACK {
     NAME = 'addEventListener',
     TAG_MAKER = 'videoPlayerCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
-    NULLABLE = true,
     LOCAL = false,
 }
 
@@ -103,6 +111,7 @@ typeconf 'cocos2d::ui::TabHeader'
 
 typeconf 'cocos2d::ui::TabControl::Dock'
 typeconf 'cocos2d::ui::TabControl::EventType'
+typeconf 'cocos2d::ui::TabControl::ccTabControlCallback'
 
 local TabControl = typeconf 'cocos2d::ui::TabControl'
 TabControl.ATTR('removeTab', {RET = '@delref(protectedChildren ~)'})
@@ -118,6 +127,7 @@ TabControl.CALLBACK {
 
 typeconf 'cocos2d::ui::ScrollView::Direction'
 typeconf 'cocos2d::ui::ScrollView::EventType'
+typeconf 'cocos2d::ui::ScrollView::ccScrollViewCallback'
 
 local ScrollView = typeconf 'cocos2d::ui::ScrollView'
 ScrollView.ATTR('getInnerContainer', {RET = '@addref(protectedChildren |)'})
@@ -125,13 +135,13 @@ ScrollView.CALLBACK {
     NAME = 'addEventListener',
     TAG_MAKER = 'scrollViewCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
-    NULLABLE = true,
     LOCAL = false,
 }
 
 typeconf 'cocos2d::ui::ListView::Gravity'
 typeconf 'cocos2d::ui::ListView::EventType'
 typeconf 'cocos2d::ui::ListView::MagneticType'
+typeconf 'cocos2d::ui::ListView::ccListViewCallback'
 
 local ListView = typeconf 'cocos2d::ui::ListView'
 ListView.ATTR('pushBackCustomItem', {ARG1 = '@addref(children |)'})
@@ -142,15 +152,17 @@ ListView.ATTR('removeAllItems', {RET = '@delref(children ~)'})
 ListView.ATTR('getItem', {RET = '@addref(children |)'})
 ListView.ATTR('getItems', {RET = '@addref(children |)'})
 ListView.CALLBACK {
-    FUNCS = {'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)'},
+    NAME = 'addEventListener',
     TAG_MAKER = 'ListViewCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    LOCAL = false,
 }
 
 typeconf 'cocos2d::ui::LoadingBar::Direction'
 typeconf 'cocos2d::ui::LoadingBar'
 typeconf 'cocos2d::ui::PageView::EventType'
 typeconf 'cocos2d::ui::PageView::TouchDirection'
+typeconf 'cocos2d::ui::PageView::ccPageViewCallback'
 
 local PageView = typeconf 'cocos2d::ui::PageView'
 PageView.ATTR('addPage', {ARG1 = '@addref(children |)'})
@@ -159,9 +171,10 @@ PageView.ATTR('removePage', {ARG1 = '@delref(children |)'})
 PageView.ATTR('removePageAtIndex', {RET = '@delref(children ~)'})
 PageView.ATTR('removeAllPages', {RET = '@delref(children *)'})
 PageView.CALLBACK {
-    FUNCS = {'void addEventListener(@nullable const std::function<void(Ref*, PageView::EventType)>& callback)'},
+    NAME = 'addEventListener',
     TAG_MAKER = 'PageViewCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    LOCAL = false,
 }
 
 typeconf 'cocos2d::ui::RichElement::Type'
@@ -172,6 +185,7 @@ typeconf 'cocos2d::ui::RichElementCustomNode'
 typeconf 'cocos2d::ui::RichElementNewLine'
 typeconf 'cocos2d::ui::RichText::WrapMode'
 typeconf 'cocos2d::ui::RichText::HorizontalAlignment'
+typeconf 'cocos2d::ui::RichText::OpenUrlHandler'
 
 local RichText = typeconf 'cocos2d::ui::RichText'
 RichText.EXCLUDE_FUNC 'setTagDescription'
@@ -185,6 +199,7 @@ RichText.CALLBACK {
 
 typeconf 'cocos2d::ui::ScrollViewBar'
 typeconf 'cocos2d::ui::Slider::EventType'
+typeconf 'cocos2d::ui::Slider::ccSliderCallback'
 
 local Slider = typeconf 'cocos2d::ui::Slider'
 Slider.ATTR('getSlidBallNormalRenderer', {RET = '@addref(protectedChildren |)'})
@@ -195,7 +210,6 @@ Slider.CALLBACK {
     NAME = 'addEventListener',
     TAG_MAKER = 'sliderCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
-    NULLABLE = true,
     LOCAL = false,
 }
 
@@ -205,13 +219,13 @@ typeconf 'cocos2d::ui::TextAtlas'
 typeconf 'cocos2d::ui::TextBMFont'
 typeconf 'cocos2d::ui::UICCTextField'
 typeconf 'cocos2d::ui::TextField::EventType'
+typeconf 'cocos2d::ui::TextField::ccTextFieldCallback'
 
 local TextField = typeconf 'cocos2d::ui::TextField'
 TextField.CALLBACK {
     NAME = 'addEventListener',
     TAG_MAKER = 'textFieldCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
-    NULLABLE = true,
     LOCAL = false,
 }
 
@@ -224,35 +238,35 @@ typeconf 'cocos2d::ui::Button'
     .ATTR('getRendererDisabled', {RET = '@addref(protectedChildren |)'})
 
 typeconf 'cocos2d::ui::CheckBox::EventType'
+typeconf 'cocos2d::ui::CheckBox::ccCheckBoxCallback'
 
 local CheckBox = typeconf 'cocos2d::ui::CheckBox'
 CheckBox.CALLBACK {
     NAME ='addEventListener',
     TAG_MAKER = 'checkBoxCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
-    NULLABLE = true,
     LOCAL = false,
 }
 
 typeconf 'cocos2d::ui::RadioButton::EventType'
+typeconf 'cocos2d::ui::RadioButton::ccRadioButtonCallback'
 
 local RadioButton = typeconf 'cocos2d::ui::RadioButton'
 RadioButton.CALLBACK {
     NAME = 'addEventListener',
     TAG_MAKER = 'radioButtonCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
-    NULLABLE = true,
     LOCAL = false,
 }
 
 typeconf 'cocos2d::ui::RadioButtonGroup::EventType'
+typeconf 'cocos2d::ui::RadioButtonGroup::ccRadioButtonGroupCallback'
 
 local RadioButtonGroup = typeconf 'cocos2d::ui::RadioButtonGroup'
 RadioButtonGroup.CALLBACK {
     NAME = 'addEventListener',
     TAG_MAKER = 'radioButtonCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
-    NULLABLE = true,
     LOCAL = false,
 }
 

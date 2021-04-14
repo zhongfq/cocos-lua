@@ -281,6 +281,13 @@ cls.func(nil, 'void setActive(bool inValue)')
 cls.prop('active', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'spine::AnimationStateListener'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'spine::AnimationState'
 cls.SUPERCLS = 'spine::SpineObject'
 cls.REG_LUATYPE = true
@@ -304,7 +311,7 @@ cls.func(nil, 'void disableQueue()')
 cls.func(nil, 'void enableQueue()')
 cls.callback {
     FUNCS =  {
-        'void setListener(std::function<void (AnimationState *, EventType, TrackEntry *, Event *)> listener)'
+        'void setListener(spine::AnimationStateListener listener)'
     },
     TAG_MAKER = 'Listener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1291,7 +1298,7 @@ cls.func(nil, 'spine::TrackEntry *getMixingTo()')
 cls.func(nil, 'void resetRotationDirections()')
 cls.callback {
     FUNCS =  {
-        'void setListener(std::function<void (AnimationState *, EventType, TrackEntry *, Event *)> listener)'
+        'void setListener(spine::AnimationStateListener listener)'
     },
     TAG_MAKER = 'Listener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1580,6 +1587,55 @@ cls.prop('twoColorTint', nil, nil)
 cls.prop('blendFunc', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'spine::StartListener'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'spine::InterruptListener'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'spine::EndListener'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'spine::DisposeListener'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'spine::CompleteListener'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'spine::EventListener'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'spine::UpdateWorldTransformsListener'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'spine::SkeletonAnimation'
 cls.SUPERCLS = 'spine::SkeletonRenderer'
 cls.REG_LUATYPE = true
@@ -1607,7 +1663,7 @@ cls.func(nil, 'void setUpdateOnlyIfVisible(bool status)')
 cls.func(nil, 'SkeletonAnimation()')
 cls.callback {
     FUNCS =  {
-        'void setStartListener(const std::function<void (TrackEntry *)> &listener)'
+        'void setStartListener(const spine::StartListener &listener)'
     },
     TAG_MAKER = 'StartListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1616,7 +1672,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setInterruptListener(const std::function<void (TrackEntry *)> &listener)'
+        'void setInterruptListener(const spine::InterruptListener &listener)'
     },
     TAG_MAKER = 'InterruptListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1625,7 +1681,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setEndListener(const std::function<void (TrackEntry *)> &listener)'
+        'void setEndListener(const spine::EndListener &listener)'
     },
     TAG_MAKER = 'EndListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1634,7 +1690,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setDisposeListener(const std::function<void (TrackEntry *)> &listener)'
+        'void setDisposeListener(const spine::DisposeListener &listener)'
     },
     TAG_MAKER = 'DisposeListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1643,7 +1699,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setCompleteListener(const std::function<void (TrackEntry *)> &listener)'
+        'void setCompleteListener(const spine::CompleteListener &listener)'
     },
     TAG_MAKER = 'CompleteListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1652,7 +1708,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setEventListener(const std::function<void (TrackEntry *, Event *)> &listener)'
+        'void setEventListener(const spine::EventListener &listener)'
     },
     TAG_MAKER = 'EventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1661,7 +1717,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setTrackStartListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *)> &listener)'
+        'void setTrackStartListener(spine::TrackEntry *entry, const spine::StartListener &listener)'
     },
     TAG_MAKER = 'TrackStartListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1670,7 +1726,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setTrackInterruptListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *)> &listener)'
+        'void setTrackInterruptListener(spine::TrackEntry *entry, const spine::InterruptListener &listener)'
     },
     TAG_MAKER = 'TrackInterruptListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1679,7 +1735,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setTrackEndListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *)> &listener)'
+        'void setTrackEndListener(spine::TrackEntry *entry, const spine::EndListener &listener)'
     },
     TAG_MAKER = 'TrackEndListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1688,7 +1744,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setTrackDisposeListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *)> &listener)'
+        'void setTrackDisposeListener(spine::TrackEntry *entry, const spine::DisposeListener &listener)'
     },
     TAG_MAKER = 'TrackDisposeListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1697,7 +1753,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setTrackCompleteListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *)> &listener)'
+        'void setTrackCompleteListener(spine::TrackEntry *entry, const spine::CompleteListener &listener)'
     },
     TAG_MAKER = 'TrackCompleteListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1706,7 +1762,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setTrackEventListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *, Event *)> &listener)'
+        'void setTrackEventListener(spine::TrackEntry *entry, const spine::EventListener &listener)'
     },
     TAG_MAKER = 'TrackEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1715,7 +1771,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setPreUpdateWorldTransformsListener(@local const std::function<void (SkeletonAnimation *)> &listener)'
+        'void setPreUpdateWorldTransformsListener(@local const spine::UpdateWorldTransformsListener &listener)'
     },
     TAG_MAKER = 'PreUpdateWorldTransformsListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1724,7 +1780,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setPostUpdateWorldTransformsListener(@local const std::function<void (SkeletonAnimation *)> &listener)'
+        'void setPostUpdateWorldTransformsListener(@local const spine::UpdateWorldTransformsListener &listener)'
     },
     TAG_MAKER = 'PostUpdateWorldTransformsListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',

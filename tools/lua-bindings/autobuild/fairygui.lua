@@ -112,6 +112,13 @@ cls.const('Drop', 'fairygui::UIEventType::Drop', 'const int')
 cls.const('GearStop', 'fairygui::UIEventType::GearStop', 'const int')
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'fairygui::EventCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'fairygui::UIEventDispatcher'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
@@ -145,8 +152,8 @@ cls.func(nil, 'bool bubbleEvent(int eventType, @optional void *data, @optional c
 cls.func(nil, 'bool isDispatchingEvent(int eventType)')
 cls.callback {
     FUNCS =  {
-        'void addEventListener(int eventType, @local const std::function<void (EventContext *)> &callback)',
-        'void addEventListener(int eventType, @local const std::function<void (EventContext *)> &callback, const fairygui::EventTag &tag)'
+        'void addEventListener(int eventType, @local const fairygui::EventCallback &callback)',
+        'void addEventListener(int eventType, @local const fairygui::EventCallback &callback, const fairygui::EventTag &tag)'
     },
     TAG_MAKER = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 4)'},
     TAG_MODE = 'OLUA_TAG_NEW',
@@ -230,6 +237,13 @@ cls.var('pixels', 'unsigned char *pixels')
 cls.var('pixelsLength', 'size_t pixelsLength')
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'fairygui::InputProcessor::CaptureEventCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'fairygui::InputProcessor'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
@@ -249,7 +263,7 @@ cls.func(nil, 'void touchMove(cocos2d::Touch *touch, cocos2d::Event *event)')
 cls.func(nil, 'void touchUp(cocos2d::Touch *touch, cocos2d::Event *event)')
 cls.callback {
     FUNCS =  {
-        'void setCaptureCallback(@nullable @local std::function<void (int)> value)'
+        'void setCaptureCallback(@nullable @local fairygui::InputProcessor::CaptureEventCallback value)'
     },
     TAG_MAKER = 'CaptureCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -402,6 +416,20 @@ cls.CHUNK = nil
 cls.REQUIRE = nil
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'fairygui::GTweener::GTweenCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'fairygui::GTweener::GTweenCallback0'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'fairygui::GTweener'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
@@ -438,7 +466,7 @@ cls.var('value', 'fairygui::TweenValue value')
 cls.var('deltaValue', 'fairygui::TweenValue deltaValue')
 cls.callback {
     FUNCS =  {
-        'fairygui::GTweener *onUpdate(std::function<void (GTweener *)> callback)'
+        'fairygui::GTweener *onUpdate(fairygui::GTweener::GTweenCallback callback)'
     },
     TAG_MAKER = 'onUpdate',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -447,7 +475,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'fairygui::GTweener *onStart(std::function<void (GTweener *)> callback)'
+        'fairygui::GTweener *onStart(fairygui::GTweener::GTweenCallback callback)'
     },
     TAG_MAKER = 'onStart',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -456,7 +484,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'fairygui::GTweener *onComplete(std::function<void ()> callback)'
+        'fairygui::GTweener *onComplete(fairygui::GTweener::GTweenCallback0 callback)'
     },
     TAG_MAKER = 'onComplete',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -465,7 +493,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'fairygui::GTweener *onComplete1(std::function<void (GTweener *)> callback)'
+        'fairygui::GTweener *onComplete1(fairygui::GTweener::GTweenCallback callback)'
     },
     TAG_MAKER = 'onComplete1',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1034,8 +1062,8 @@ cls.var('minSize', 'cocos2d::Size minSize')
 cls.var('maxSize', 'cocos2d::Size maxSize')
 cls.callback {
     FUNCS =  {
-        'void addClickListener(@local const std::function<void (EventContext *)> &callback)',
-        'void addClickListener(@local const std::function<void (EventContext *)> &callback, const fairygui::EventTag &tag)'
+        'void addClickListener(@local const fairygui::EventCallback &callback)',
+        'void addClickListener(@local const fairygui::EventCallback &callback, const fairygui::EventTag &tag)'
     },
     TAG_MAKER = {'makeListenerTag(L, fairygui::UIEventType::Click, 0)', 'makeListenerTag(L, fairygui::UIEventType::Click, 3)'},
     TAG_MODE = 'OLUA_TAG_NEW',
@@ -1611,6 +1639,20 @@ cls.prop('titleFontSize', nil, nil)
 cls.prop('textField', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'fairygui::GList::ListItemRenderer'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'fairygui::GList::ListItemProvider'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'fairygui::GList'
 cls.SUPERCLS = 'fairygui::GComponent'
 cls.REG_LUATYPE = true
@@ -1665,8 +1707,8 @@ cls.func(nil, 'int getNumItems()')
 cls.func(nil, '@delref(children ~) void setNumItems(int value)')
 cls.func(nil, 'int childIndexToItemIndex(int index)')
 cls.func(nil, 'int itemIndexToChildIndex(int index)')
-cls.var('itemRenderer', '@nullable std::function<void (int, GObject *)> itemRenderer')
-cls.var('itemProvider', '@nullable @local std::function<std::string (int)> itemProvider')
+cls.var('itemRenderer', '@nullable fairygui::GList::ListItemRenderer itemRenderer')
+cls.var('itemProvider', '@nullable @local fairygui::GList::ListItemProvider itemProvider')
 cls.var('scrollItemToViewOnClick', 'bool scrollItemToViewOnClick')
 cls.var('foldInvisibleItems', 'bool foldInvisibleItems')
 cls.prop('defaultItem', nil, nil)
@@ -1865,7 +1907,7 @@ cls.func(nil, '@addref(list ^) fairygui::GList *getList()')
 cls.func(nil, '@delref(children ~ parent)@addref(children | parent) void show()', '@delref(children ~ parent)@addref(children | parent) void show(fairygui::GObject *target, fairygui::PopupDirection dir)')
 cls.callback {
     FUNCS =  {
-        '@addref(children | parent) fairygui::GButton *addItem(const std::string &caption, @local std::function<void (EventContext *)> callback)'
+        '@addref(children | parent) fairygui::GButton *addItem(const std::string &caption, @local fairygui::EventCallback callback)'
     },
     TAG_MAKER = 'makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1874,7 +1916,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        '@addref(children | parent) fairygui::GButton *addItemAt(const std::string &caption, int index, @local std::function<void (EventContext *)> callback)'
+        '@addref(children | parent) fairygui::GButton *addItemAt(const std::string &caption, int index, @local fairygui::EventCallback callback)'
     },
     TAG_MAKER = 'makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -2095,6 +2137,20 @@ cls.prop('viewSize', nil, nil)
 cls.prop('draggingPane', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'fairygui::Transition::PlayCompleteCallback'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'fairygui::Transition::TransitionHook'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'fairygui::Transition'
 cls.SUPERCLS = 'cocos2d::Ref'
 cls.REG_LUATYPE = true
@@ -2119,9 +2175,9 @@ cls.func(nil, 'void onOwnerRemovedFromStage()')
 cls.var('name', 'std::string name')
 cls.callback {
     FUNCS =  {
-        'void play(@local @optional std::function<void ()> callback)',
-        'void play(int times, float delay, @local @optional std::function<void ()> callback)',
-        'void play(int times, float delay, float startTime, float endTime, @local @optional std::function<void ()> callback)'
+        'void play(@local @optional fairygui::Transition::PlayCompleteCallback callback)',
+        'void play(int times, float delay, @local @optional fairygui::Transition::PlayCompleteCallback callback)',
+        'void play(int times, float delay, float startTime, float endTime, @local @optional fairygui::Transition::PlayCompleteCallback callback)'
     },
     TAG_MAKER = 'play',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -2130,8 +2186,8 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void playReverse(@local @optional std::function<void ()> callback)',
-        'void playReverse(int times, float delay, @local @optional std::function<void ()> callback)'
+        'void playReverse(@local @optional fairygui::Transition::PlayCompleteCallback callback)',
+        'void playReverse(int times, float delay, @local @optional fairygui::Transition::PlayCompleteCallback callback)'
     },
     TAG_MAKER = 'playReverse',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -2140,7 +2196,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setHook(const std::string &label, @nullable @local std::function<void ()> callback)'
+        'void setHook(const std::string &label, @nullable @local fairygui::Transition::TransitionHook callback)'
     },
     TAG_MAKER = '("hook." + #1)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -2355,6 +2411,20 @@ cls.prop('agent', nil, nil)
 cls.prop('dragging', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'fairygui::UIObjectFactory::GLoaderCreator'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'fairygui::UIObjectFactory::GComponentCreator'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'fairygui::UIObjectFactory'
 cls.SUPERCLS = nil
 cls.REG_LUATYPE = true
@@ -2363,7 +2433,7 @@ cls.REQUIRE = nil
 cls.func(nil, 'static fairygui::GObject *newObject(fairygui::PackageItem *pi)', 'static fairygui::GObject *newObject(fairygui::ObjectType type)')
 cls.callback {
     FUNCS =  {
-        'static void setPackageItemExtension(const std::string &url, @local std::function<GComponent *()> creator)'
+        'static void setPackageItemExtension(const std::string &url, @local fairygui::UIObjectFactory::GComponentCreator creator)'
     },
     TAG_MAKER = 'PackageItemExtension',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -2372,7 +2442,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'static void setLoaderExtension(@local std::function<GLoader *()> creator)'
+        'static void setLoaderExtension(@local fairygui::UIObjectFactory::GLoaderCreator creator)'
     },
     TAG_MAKER = 'LoaderExtension',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -2437,6 +2507,20 @@ cls.prop('prevSibling', nil, nil)
 cls.prop('nextSibling', nil, nil)
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'fairygui::GTree::TreeNodeRenderFunction'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'fairygui::GTree::TreeNodeWillExpandFunction'
+cls.SUPERCLS = nil
+cls.REG_LUATYPE = true
+cls.CHUNK = nil
+cls.REQUIRE = nil
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'fairygui::GTree'
 cls.SUPERCLS = 'fairygui::GList'
 cls.REG_LUATYPE = true
@@ -2455,8 +2539,8 @@ cls.func(nil, 'void selectNode(fairygui::GTreeNode *node, @optional bool scrollI
 cls.func(nil, 'void unselectNode(fairygui::GTreeNode *node)')
 cls.func(nil, 'void expandAll(fairygui::GTreeNode *folderNode)')
 cls.func(nil, 'void collapseAll(fairygui::GTreeNode *folderNode)')
-cls.var('treeNodeRender', '@nullable std::function<void (GTreeNode *, GComponent *)> treeNodeRender')
-cls.var('treeNodeWillExpand', '@nullable std::function<void (GTreeNode *, bool)> treeNodeWillExpand')
+cls.var('treeNodeRender', '@nullable fairygui::GTree::TreeNodeRenderFunction treeNodeRender')
+cls.var('treeNodeWillExpand', '@nullable fairygui::GTree::TreeNodeWillExpandFunction treeNodeWillExpand')
 cls.prop('indent', nil, nil)
 cls.prop('clickToExpand', nil, nil)
 cls.prop('rootNode', nil, nil)

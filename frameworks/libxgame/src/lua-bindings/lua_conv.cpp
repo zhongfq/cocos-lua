@@ -2,11 +2,6 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_conv.h"
-#include "cclua/xlua.h"
-#include "cocos2d.h"
-#include "ui/CocosGUI.h"
-#include "network/WebSocket.h"
-#include "navmesh/CCNavMesh.h"
 
 int olua_push_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value)
 {
@@ -3754,4 +3749,9 @@ int olua_unpack_cocos2d_backend_VertexLayout_Attribute(lua_State *L, const cocos
 bool olua_ispack_cocos2d_backend_VertexLayout_Attribute(lua_State *L, int idx)
 {
     return olua_is_std_string(L, idx + 0) && olua_is_uint(L, idx + 1) && olua_is_uint(L, idx + 2) && olua_is_uint(L, idx + 3) && olua_is_bool(L, idx + 4);
+}
+
+int luaopen_conv(lua_State *L)
+{
+    return 0;
 }

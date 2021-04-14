@@ -81,6 +81,8 @@ Director.ATTR('getActionManager', {RET = '@addref(actionManager ^)'})
 Director.ATTR('setActionManager', {ARG1 = '@addref(actionManager ^)'})
 Director.ATTR('getRenderer', {RET = '@addref(renderer ^)'})
 
+typeconf 'cocos2d::ccSchedulerFunc'
+
 local Scheduler = typeconf 'cocos2d::Scheduler'
 Scheduler.EXCLUDE_FUNC 'performFunctionInCocosThread'
 Scheduler.CHUNK = [[
@@ -194,7 +196,10 @@ typeconf 'cocos2d::EventListener'
     .EXCLUDE_FUNC 'init'
     .PROP('available', 'bool checkAvailable()')
 
+typeconf 'cocos2d::EventListenerTouchOneByOne::ccTouchBeganCallback'
+typeconf 'cocos2d::EventListenerTouchOneByOne::ccTouchCallback'
 typeconf 'cocos2d::EventListenerTouchOneByOne'
+typeconf 'cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback'
 typeconf 'cocos2d::EventListenerTouchAllAtOnce'
 
 typeconf 'cocos2d::EventListenerCustom'
@@ -322,24 +327,35 @@ typeconf 'cocos2d::Device'
 typeconf 'cocos2d::ResizableBuffer'
 typeconf 'cocos2d::FileUtils::Status'
 
-typeconf 'cocos2d::FileUtils'
-    .ATTR('getFileDataFromZip', {RET = '@length(arg3)', ARG3 = '@out'})
-    .ATTR('listFilesRecursively', {ARG2 = '@out'})
-    .CALLBACK {NAME = "getStringFromFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "getDataFromFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "writeStringToFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "writeDataToFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "writeValueMapToFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "writeValueVectorToFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "isFileExist", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "isDirectoryExist", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "createDirectory", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "removeDirectory", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "removeFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "renameFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "getFileSize", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "listFilesAsync", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-    .CALLBACK {NAME = "listFilesRecursivelyAsync", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+local FileUtils =typeconf 'cocos2d::FileUtils'
+FileUtils.ATTR('listFilesRecursively', {ARG2 = '@out'})
+FileUtils.CALLBACK {NAME = "getStringFromFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+FileUtils.CALLBACK {NAME = "getDataFromFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+FileUtils.CALLBACK {NAME = "writeStringToFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+FileUtils.CALLBACK {NAME = "writeDataToFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+FileUtils.CALLBACK {NAME = "writeValueMapToFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+FileUtils.CALLBACK {NAME = "writeValueVectorToFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+FileUtils.CALLBACK {NAME = "isFileExist", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+FileUtils.CALLBACK {NAME = "isDirectoryExist", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+FileUtils.CALLBACK {NAME = "createDirectory", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+FileUtils.CALLBACK {NAME = "removeDirectory", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+FileUtils.CALLBACK {NAME = "removeFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+FileUtils.CALLBACK {NAME = "renameFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+FileUtils.CALLBACK {NAME = "getFileSize", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+FileUtils.CALLBACK {NAME = "listFilesAsync", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+FileUtils.CALLBACK {NAME = "listFilesRecursivelyAsync", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+FileUtils.FUNC('getFileDataFromZip', [[
+{
+    cocos2d::FileUtils *self = olua_toobj<cocos2d::FileUtils>(L, 1);
+    std::string zipFilePath = olua_checkstring(L, 2);
+    std::string filename = olua_checkstring(L, 3);
+    ssize_t size = 0;
+    unsigned char *data = self->getFileDataFromZip(zipFilePath, filename, &size);
+    lua_pushlstring(L, (const char *)data, size);
+    olua_push_int(L, (lua_Integer)size);
+
+    return 2;
+}]])
 
 typeconf 'ResolutionPolicy'
 typeconf 'cocos2d::GLView'

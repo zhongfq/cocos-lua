@@ -3,430 +3,233 @@
 //
 #include "lua_cocos2d_ui.h"
 
-
-
 bool olua_is_cocos2d_ui_Widget_ccWidgetTouchCallback(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "ccui.Widget.ccWidgetTouchCallback") == 0;
-    }
-    return false;
+    return olua_is_callback<cocos2d::ui::Widget::ccWidgetTouchCallback>(L, idx);
 }
 
 int olua_push_cocos2d_ui_Widget_ccWidgetTouchCallback(lua_State *L, const cocos2d::ui::Widget::ccWidgetTouchCallback *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<cocos2d::ui::Widget::ccWidgetTouchCallback>(L, value);
 }
 
 void olua_check_cocos2d_ui_Widget_ccWidgetTouchCallback(lua_State *L, int idx, cocos2d::ui::Widget::ccWidgetTouchCallback *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<cocos2d::ui::Widget::ccWidgetTouchCallback>(L, idx, value);
 }
 
 bool olua_is_cocos2d_ui_Widget_ccWidgetClickCallback(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "ccui.Widget.ccWidgetClickCallback") == 0;
-    }
-    return false;
+    return olua_is_callback<cocos2d::ui::Widget::ccWidgetClickCallback>(L, idx);
 }
 
 int olua_push_cocos2d_ui_Widget_ccWidgetClickCallback(lua_State *L, const cocos2d::ui::Widget::ccWidgetClickCallback *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<cocos2d::ui::Widget::ccWidgetClickCallback>(L, value);
 }
 
 void olua_check_cocos2d_ui_Widget_ccWidgetClickCallback(lua_State *L, int idx, cocos2d::ui::Widget::ccWidgetClickCallback *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<cocos2d::ui::Widget::ccWidgetClickCallback>(L, idx, value);
 }
 
 bool olua_is_cocos2d_ui_Widget_ccWidgetEventCallback(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "ccui.Widget.ccWidgetEventCallback") == 0;
-    }
-    return false;
+    return olua_is_callback<cocos2d::ui::Widget::ccWidgetEventCallback>(L, idx);
 }
 
 int olua_push_cocos2d_ui_Widget_ccWidgetEventCallback(lua_State *L, const cocos2d::ui::Widget::ccWidgetEventCallback *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<cocos2d::ui::Widget::ccWidgetEventCallback>(L, value);
 }
 
 void olua_check_cocos2d_ui_Widget_ccWidgetEventCallback(lua_State *L, int idx, cocos2d::ui::Widget::ccWidgetEventCallback *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<cocos2d::ui::Widget::ccWidgetEventCallback>(L, idx, value);
 }
 
 #if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
 bool olua_is_cocos2d_ui_WebView_ccWebViewCallback(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "ccui.WebView.ccWebViewCallback") == 0;
-    }
-    return false;
+    return olua_is_callback<cocos2d::ui::WebView::ccWebViewCallback>(L, idx);
 }
 
 int olua_push_cocos2d_ui_WebView_ccWebViewCallback(lua_State *L, const cocos2d::ui::WebView::ccWebViewCallback *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<cocos2d::ui::WebView::ccWebViewCallback>(L, value);
 }
 
 void olua_check_cocos2d_ui_WebView_ccWebViewCallback(lua_State *L, int idx, cocos2d::ui::WebView::ccWebViewCallback *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<cocos2d::ui::WebView::ccWebViewCallback>(L, idx, value);
 }
 #endif
 
 #if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
 bool olua_is_cocos2d_ui_VideoPlayer_ccVideoPlayerCallback(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "ccui.VideoPlayer.ccVideoPlayerCallback") == 0;
-    }
-    return false;
+    return olua_is_callback<cocos2d::ui::VideoPlayer::ccVideoPlayerCallback>(L, idx);
 }
 
 int olua_push_cocos2d_ui_VideoPlayer_ccVideoPlayerCallback(lua_State *L, const cocos2d::ui::VideoPlayer::ccVideoPlayerCallback *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<cocos2d::ui::VideoPlayer::ccVideoPlayerCallback>(L, value);
 }
 
 void olua_check_cocos2d_ui_VideoPlayer_ccVideoPlayerCallback(lua_State *L, int idx, cocos2d::ui::VideoPlayer::ccVideoPlayerCallback *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<cocos2d::ui::VideoPlayer::ccVideoPlayerCallback>(L, idx, value);
 }
 #endif
 
 bool olua_is_cocos2d_ui_TabControl_ccTabControlCallback(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "ccui.TabControl.ccTabControlCallback") == 0;
-    }
-    return false;
+    return olua_is_callback<cocos2d::ui::TabControl::ccTabControlCallback>(L, idx);
 }
 
 int olua_push_cocos2d_ui_TabControl_ccTabControlCallback(lua_State *L, const cocos2d::ui::TabControl::ccTabControlCallback *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<cocos2d::ui::TabControl::ccTabControlCallback>(L, value);
 }
 
 void olua_check_cocos2d_ui_TabControl_ccTabControlCallback(lua_State *L, int idx, cocos2d::ui::TabControl::ccTabControlCallback *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<cocos2d::ui::TabControl::ccTabControlCallback>(L, idx, value);
 }
 
 bool olua_is_cocos2d_ui_ScrollView_ccScrollViewCallback(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "ccui.ScrollView.ccScrollViewCallback") == 0;
-    }
-    return false;
+    return olua_is_callback<cocos2d::ui::ScrollView::ccScrollViewCallback>(L, idx);
 }
 
 int olua_push_cocos2d_ui_ScrollView_ccScrollViewCallback(lua_State *L, const cocos2d::ui::ScrollView::ccScrollViewCallback *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<cocos2d::ui::ScrollView::ccScrollViewCallback>(L, value);
 }
 
 void olua_check_cocos2d_ui_ScrollView_ccScrollViewCallback(lua_State *L, int idx, cocos2d::ui::ScrollView::ccScrollViewCallback *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<cocos2d::ui::ScrollView::ccScrollViewCallback>(L, idx, value);
 }
 
 bool olua_is_cocos2d_ui_ListView_ccListViewCallback(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "ccui.ListView.ccListViewCallback") == 0;
-    }
-    return false;
+    return olua_is_callback<cocos2d::ui::ListView::ccListViewCallback>(L, idx);
 }
 
 int olua_push_cocos2d_ui_ListView_ccListViewCallback(lua_State *L, const cocos2d::ui::ListView::ccListViewCallback *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<cocos2d::ui::ListView::ccListViewCallback>(L, value);
 }
 
 void olua_check_cocos2d_ui_ListView_ccListViewCallback(lua_State *L, int idx, cocos2d::ui::ListView::ccListViewCallback *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<cocos2d::ui::ListView::ccListViewCallback>(L, idx, value);
 }
 
 bool olua_is_cocos2d_ui_PageView_ccPageViewCallback(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "ccui.PageView.ccPageViewCallback") == 0;
-    }
-    return false;
+    return olua_is_callback<cocos2d::ui::PageView::ccPageViewCallback>(L, idx);
 }
 
 int olua_push_cocos2d_ui_PageView_ccPageViewCallback(lua_State *L, const cocos2d::ui::PageView::ccPageViewCallback *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<cocos2d::ui::PageView::ccPageViewCallback>(L, value);
 }
 
 void olua_check_cocos2d_ui_PageView_ccPageViewCallback(lua_State *L, int idx, cocos2d::ui::PageView::ccPageViewCallback *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<cocos2d::ui::PageView::ccPageViewCallback>(L, idx, value);
 }
 
 bool olua_is_cocos2d_ui_RichText_OpenUrlHandler(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "ccui.RichText.OpenUrlHandler") == 0;
-    }
-    return false;
+    return olua_is_callback<cocos2d::ui::RichText::OpenUrlHandler>(L, idx);
 }
 
 int olua_push_cocos2d_ui_RichText_OpenUrlHandler(lua_State *L, const cocos2d::ui::RichText::OpenUrlHandler *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<cocos2d::ui::RichText::OpenUrlHandler>(L, value);
 }
 
 void olua_check_cocos2d_ui_RichText_OpenUrlHandler(lua_State *L, int idx, cocos2d::ui::RichText::OpenUrlHandler *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<cocos2d::ui::RichText::OpenUrlHandler>(L, idx, value);
 }
 
 bool olua_is_cocos2d_ui_Slider_ccSliderCallback(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "ccui.Slider.ccSliderCallback") == 0;
-    }
-    return false;
+    return olua_is_callback<cocos2d::ui::Slider::ccSliderCallback>(L, idx);
 }
 
 int olua_push_cocos2d_ui_Slider_ccSliderCallback(lua_State *L, const cocos2d::ui::Slider::ccSliderCallback *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<cocos2d::ui::Slider::ccSliderCallback>(L, value);
 }
 
 void olua_check_cocos2d_ui_Slider_ccSliderCallback(lua_State *L, int idx, cocos2d::ui::Slider::ccSliderCallback *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<cocos2d::ui::Slider::ccSliderCallback>(L, idx, value);
 }
 
 bool olua_is_cocos2d_ui_TextField_ccTextFieldCallback(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "ccui.TextField.ccTextFieldCallback") == 0;
-    }
-    return false;
+    return olua_is_callback<cocos2d::ui::TextField::ccTextFieldCallback>(L, idx);
 }
 
 int olua_push_cocos2d_ui_TextField_ccTextFieldCallback(lua_State *L, const cocos2d::ui::TextField::ccTextFieldCallback *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<cocos2d::ui::TextField::ccTextFieldCallback>(L, value);
 }
 
 void olua_check_cocos2d_ui_TextField_ccTextFieldCallback(lua_State *L, int idx, cocos2d::ui::TextField::ccTextFieldCallback *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<cocos2d::ui::TextField::ccTextFieldCallback>(L, idx, value);
 }
 
 bool olua_is_cocos2d_ui_CheckBox_ccCheckBoxCallback(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "ccui.CheckBox.ccCheckBoxCallback") == 0;
-    }
-    return false;
+    return olua_is_callback<cocos2d::ui::CheckBox::ccCheckBoxCallback>(L, idx);
 }
 
 int olua_push_cocos2d_ui_CheckBox_ccCheckBoxCallback(lua_State *L, const cocos2d::ui::CheckBox::ccCheckBoxCallback *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<cocos2d::ui::CheckBox::ccCheckBoxCallback>(L, value);
 }
 
 void olua_check_cocos2d_ui_CheckBox_ccCheckBoxCallback(lua_State *L, int idx, cocos2d::ui::CheckBox::ccCheckBoxCallback *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<cocos2d::ui::CheckBox::ccCheckBoxCallback>(L, idx, value);
 }
 
 bool olua_is_cocos2d_ui_RadioButton_ccRadioButtonCallback(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "ccui.RadioButton.ccRadioButtonCallback") == 0;
-    }
-    return false;
+    return olua_is_callback<cocos2d::ui::RadioButton::ccRadioButtonCallback>(L, idx);
 }
 
 int olua_push_cocos2d_ui_RadioButton_ccRadioButtonCallback(lua_State *L, const cocos2d::ui::RadioButton::ccRadioButtonCallback *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<cocos2d::ui::RadioButton::ccRadioButtonCallback>(L, value);
 }
 
 void olua_check_cocos2d_ui_RadioButton_ccRadioButtonCallback(lua_State *L, int idx, cocos2d::ui::RadioButton::ccRadioButtonCallback *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<cocos2d::ui::RadioButton::ccRadioButtonCallback>(L, idx, value);
 }
 
 bool olua_is_cocos2d_ui_RadioButtonGroup_ccRadioButtonGroupCallback(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "ccui.RadioButtonGroup.ccRadioButtonGroupCallback") == 0;
-    }
-    return false;
+    return olua_is_callback<cocos2d::ui::RadioButtonGroup::ccRadioButtonGroupCallback>(L, idx);
 }
 
 int olua_push_cocos2d_ui_RadioButtonGroup_ccRadioButtonGroupCallback(lua_State *L, const cocos2d::ui::RadioButtonGroup::ccRadioButtonGroupCallback *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<cocos2d::ui::RadioButtonGroup::ccRadioButtonGroupCallback>(L, value);
 }
 
 void olua_check_cocos2d_ui_RadioButtonGroup_ccRadioButtonGroupCallback(lua_State *L, int idx, cocos2d::ui::RadioButtonGroup::ccRadioButtonGroupCallback *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<cocos2d::ui::RadioButtonGroup::ccRadioButtonGroupCallback>(L, idx, value);
 }
 
 static int luaopen_cocos2d_ui_Widget_FocusDirection(lua_State *L)
@@ -504,12 +307,8 @@ static int _cocos2d_ui_Widget_ccWidgetTouchCallback___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "ccui.Widget.ccWidgetTouchCallback");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<cocos2d::ui::Widget::ccWidgetTouchCallback>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -530,12 +329,8 @@ static int _cocos2d_ui_Widget_ccWidgetClickCallback___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "ccui.Widget.ccWidgetClickCallback");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<cocos2d::ui::Widget::ccWidgetClickCallback>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -556,12 +351,8 @@ static int _cocos2d_ui_Widget_ccWidgetEventCallback___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "ccui.Widget.ccWidgetEventCallback");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<cocos2d::ui::Widget::ccWidgetEventCallback>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -6471,12 +6262,8 @@ static int _cocos2d_ui_WebView_ccWebViewCallback___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "ccui.WebView.ccWebViewCallback");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<cocos2d::ui::WebView::ccWebViewCallback>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -7244,12 +7031,8 @@ static int _cocos2d_ui_VideoPlayer_ccVideoPlayerCallback___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "ccui.VideoPlayer.ccVideoPlayerCallback");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<cocos2d::ui::VideoPlayer::ccVideoPlayerCallback>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -8911,12 +8694,8 @@ static int _cocos2d_ui_TabControl_ccTabControlCallback___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "ccui.TabControl.ccTabControlCallback");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<cocos2d::ui::TabControl::ccTabControlCallback>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -9456,12 +9235,8 @@ static int _cocos2d_ui_ScrollView_ccScrollViewCallback___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "ccui.ScrollView.ccScrollViewCallback");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<cocos2d::ui::ScrollView::ccScrollViewCallback>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -10776,12 +10551,8 @@ static int _cocos2d_ui_ListView_ccListViewCallback___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "ccui.ListView.ccListViewCallback");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<cocos2d::ui::ListView::ccListViewCallback>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -12285,12 +12056,8 @@ static int _cocos2d_ui_PageView_ccPageViewCallback___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "ccui.PageView.ccPageViewCallback");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<cocos2d::ui::PageView::ccPageViewCallback>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -14521,12 +14288,8 @@ static int _cocos2d_ui_RichText_OpenUrlHandler___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "ccui.RichText.OpenUrlHandler");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<cocos2d::ui::RichText::OpenUrlHandler>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -16207,12 +15970,8 @@ static int _cocos2d_ui_Slider_ccSliderCallback___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "ccui.Slider.ccSliderCallback");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<cocos2d::ui::Slider::ccSliderCallback>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -19265,12 +19024,8 @@ static int _cocos2d_ui_TextField_ccTextFieldCallback___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "ccui.TextField.ccTextFieldCallback");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<cocos2d::ui::TextField::ccTextFieldCallback>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -21639,12 +21394,8 @@ static int _cocos2d_ui_CheckBox_ccCheckBoxCallback___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "ccui.CheckBox.ccCheckBoxCallback");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<cocos2d::ui::CheckBox::ccCheckBoxCallback>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -21913,12 +21664,8 @@ static int _cocos2d_ui_RadioButton_ccRadioButtonCallback___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "ccui.RadioButton.ccRadioButtonCallback");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<cocos2d::ui::RadioButton::ccRadioButtonCallback>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -22186,12 +21933,8 @@ static int _cocos2d_ui_RadioButtonGroup_ccRadioButtonGroupCallback___call(lua_St
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "ccui.RadioButtonGroup.ccRadioButtonGroupCallback");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<cocos2d::ui::RadioButtonGroup::ccRadioButtonGroupCallback>(L, nullptr);
 
     olua_endinvoke(L);
 

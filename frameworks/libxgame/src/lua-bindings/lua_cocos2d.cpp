@@ -10,114 +10,62 @@ static const std::string makeScheduleCallbackTag(const std::string &key)
 
 bool olua_is_cocos2d_ccSchedulerFunc(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "cc.ccSchedulerFunc") == 0;
-    }
-    return false;
+    return olua_is_callback<cocos2d::ccSchedulerFunc>(L, idx);
 }
 
 int olua_push_cocos2d_ccSchedulerFunc(lua_State *L, const cocos2d::ccSchedulerFunc *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<cocos2d::ccSchedulerFunc>(L, value);
 }
 
 void olua_check_cocos2d_ccSchedulerFunc(lua_State *L, int idx, cocos2d::ccSchedulerFunc *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<cocos2d::ccSchedulerFunc>(L, idx, value);
 }
 
 bool olua_is_cocos2d_EventListenerTouchOneByOne_ccTouchBeganCallback(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "cc.EventListenerTouchOneByOne.ccTouchBeganCallback") == 0;
-    }
-    return false;
+    return olua_is_callback<cocos2d::EventListenerTouchOneByOne::ccTouchBeganCallback>(L, idx);
 }
 
 int olua_push_cocos2d_EventListenerTouchOneByOne_ccTouchBeganCallback(lua_State *L, const cocos2d::EventListenerTouchOneByOne::ccTouchBeganCallback *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<cocos2d::EventListenerTouchOneByOne::ccTouchBeganCallback>(L, value);
 }
 
 void olua_check_cocos2d_EventListenerTouchOneByOne_ccTouchBeganCallback(lua_State *L, int idx, cocos2d::EventListenerTouchOneByOne::ccTouchBeganCallback *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<cocos2d::EventListenerTouchOneByOne::ccTouchBeganCallback>(L, idx, value);
 }
 
 bool olua_is_cocos2d_EventListenerTouchOneByOne_ccTouchCallback(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "cc.EventListenerTouchOneByOne.ccTouchCallback") == 0;
-    }
-    return false;
+    return olua_is_callback<cocos2d::EventListenerTouchOneByOne::ccTouchCallback>(L, idx);
 }
 
 int olua_push_cocos2d_EventListenerTouchOneByOne_ccTouchCallback(lua_State *L, const cocos2d::EventListenerTouchOneByOne::ccTouchCallback *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<cocos2d::EventListenerTouchOneByOne::ccTouchCallback>(L, value);
 }
 
 void olua_check_cocos2d_EventListenerTouchOneByOne_ccTouchCallback(lua_State *L, int idx, cocos2d::EventListenerTouchOneByOne::ccTouchCallback *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<cocos2d::EventListenerTouchOneByOne::ccTouchCallback>(L, idx, value);
 }
 
 bool olua_is_cocos2d_EventListenerTouchAllAtOnce_ccTouchesCallback(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "cc.EventListenerTouchAllAtOnce.ccTouchesCallback") == 0;
-    }
-    return false;
+    return olua_is_callback<cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback>(L, idx);
 }
 
 int olua_push_cocos2d_EventListenerTouchAllAtOnce_ccTouchesCallback(lua_State *L, const cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback>(L, value);
 }
 
 void olua_check_cocos2d_EventListenerTouchAllAtOnce_ccTouchesCallback(lua_State *L, int idx, cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback>(L, idx, value);
 }
 
 static int luaopen_cocos2d_RenderTargetFlag(lua_State *L)
@@ -2994,12 +2942,8 @@ static int _cocos2d_ccSchedulerFunc___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "cc.ccSchedulerFunc");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<cocos2d::ccSchedulerFunc>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -4282,12 +4226,8 @@ static int _cocos2d_EventListenerTouchOneByOne_ccTouchBeganCallback___call(lua_S
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "cc.EventListenerTouchOneByOne.ccTouchBeganCallback");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<cocos2d::EventListenerTouchOneByOne::ccTouchBeganCallback>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -4308,12 +4248,8 @@ static int _cocos2d_EventListenerTouchOneByOne_ccTouchCallback___call(lua_State 
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "cc.EventListenerTouchOneByOne.ccTouchCallback");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<cocos2d::EventListenerTouchOneByOne::ccTouchCallback>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -4709,12 +4645,8 @@ static int _cocos2d_EventListenerTouchAllAtOnce_ccTouchesCallback___call(lua_Sta
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "cc.EventListenerTouchAllAtOnce.ccTouchesCallback");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback>(L, nullptr);
 
     olua_endinvoke(L);
 

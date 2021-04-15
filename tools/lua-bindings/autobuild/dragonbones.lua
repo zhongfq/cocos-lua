@@ -17,7 +17,7 @@ M.INCLUDES = [[
     #include "cocos2d.h"
     #include "CCDragonBonesHeaders.h"
 ]]
-M.CHUNK = ''
+M.CHUNK = nil
 
 M.CONVS = {
     typeconv {

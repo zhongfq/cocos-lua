@@ -535,6 +535,45 @@ void olua_check_std_map(lua_State *L, int idx, std::map<K, V> *map, const std::f
     olua_check_map<K, V, std::map>(L, idx, map, check);
 }
 
+// callback
+template <typename T>
+bool olua_is_callback(lua_State *L, int idx)
+{
+    if (olua_isfunction(L, idx)) {
+        return true;
+    }
+    if (olua_istable(L, idx)) {
+        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
+        return cls && strcmp(cls, olua_getluatype<T>(L)) == 0;
+    }
+    return false;
+}
+
+template <typename T>
+int olua_push_callback(lua_State *L, const T *value)
+{
+    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
+        luaL_error(L, "execpt 'function' or 'nil'");
+    } else {
+        lua_createtable(L, 0, 2);
+        lua_pushvalue(L, -2);
+        olua_rawsetf(L, -2, "callback");
+        lua_pushstring(L, olua_getluatype<T>(L));
+        olua_rawsetf(L, -2, "classname");
+        lua_replace(L, -2);
+    }
+    return 1;
+}
+
+template <typename T>
+void olua_check_callback(lua_State *L, int idx, T *value)
+{
+    if (olua_istable(L, idx)) {
+        olua_rawgetf(L, idx, "callback");
+        lua_replace(L, idx);
+    }
+}
+
 // std::function
 template <typename T>
 int olua_push_std_function(lua_State *L, const std::function<T> *value)

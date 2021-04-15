@@ -13,7 +13,6 @@ M.INCLUDES = [[
 #include "cocos2d.h"
 #include "3d/CC3DProgramInfo.h"
 ]]
-M.CHUNK = [[]]
 
 M.EXCLUDE_TYPE = require 'conf.exclude-type'
 M.EXCLUDE_TYPE 'cocos2d::AABB'

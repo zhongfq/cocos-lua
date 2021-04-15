@@ -99,226 +99,122 @@ int olua_push_spine_EventData(lua_State *L, const spine::EventData *value)
 
 bool olua_is_spine_AnimationStateListener(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "sp.AnimationStateListener") == 0;
-    }
-    return false;
+    return olua_is_callback<spine::AnimationStateListener>(L, idx);
 }
 
 int olua_push_spine_AnimationStateListener(lua_State *L, const spine::AnimationStateListener *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<spine::AnimationStateListener>(L, value);
 }
 
 void olua_check_spine_AnimationStateListener(lua_State *L, int idx, spine::AnimationStateListener *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<spine::AnimationStateListener>(L, idx, value);
 }
 
 bool olua_is_spine_StartListener(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "sp.StartListener") == 0;
-    }
-    return false;
+    return olua_is_callback<spine::StartListener>(L, idx);
 }
 
 int olua_push_spine_StartListener(lua_State *L, const spine::StartListener *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<spine::StartListener>(L, value);
 }
 
 void olua_check_spine_StartListener(lua_State *L, int idx, spine::StartListener *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<spine::StartListener>(L, idx, value);
 }
 
 bool olua_is_spine_InterruptListener(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "sp.InterruptListener") == 0;
-    }
-    return false;
+    return olua_is_callback<spine::InterruptListener>(L, idx);
 }
 
 int olua_push_spine_InterruptListener(lua_State *L, const spine::InterruptListener *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<spine::InterruptListener>(L, value);
 }
 
 void olua_check_spine_InterruptListener(lua_State *L, int idx, spine::InterruptListener *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<spine::InterruptListener>(L, idx, value);
 }
 
 bool olua_is_spine_EndListener(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "sp.EndListener") == 0;
-    }
-    return false;
+    return olua_is_callback<spine::EndListener>(L, idx);
 }
 
 int olua_push_spine_EndListener(lua_State *L, const spine::EndListener *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<spine::EndListener>(L, value);
 }
 
 void olua_check_spine_EndListener(lua_State *L, int idx, spine::EndListener *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<spine::EndListener>(L, idx, value);
 }
 
 bool olua_is_spine_DisposeListener(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "sp.DisposeListener") == 0;
-    }
-    return false;
+    return olua_is_callback<spine::DisposeListener>(L, idx);
 }
 
 int olua_push_spine_DisposeListener(lua_State *L, const spine::DisposeListener *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<spine::DisposeListener>(L, value);
 }
 
 void olua_check_spine_DisposeListener(lua_State *L, int idx, spine::DisposeListener *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<spine::DisposeListener>(L, idx, value);
 }
 
 bool olua_is_spine_CompleteListener(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "sp.CompleteListener") == 0;
-    }
-    return false;
+    return olua_is_callback<spine::CompleteListener>(L, idx);
 }
 
 int olua_push_spine_CompleteListener(lua_State *L, const spine::CompleteListener *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<spine::CompleteListener>(L, value);
 }
 
 void olua_check_spine_CompleteListener(lua_State *L, int idx, spine::CompleteListener *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<spine::CompleteListener>(L, idx, value);
 }
 
 bool olua_is_spine_EventListener(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "sp.EventListener") == 0;
-    }
-    return false;
+    return olua_is_callback<spine::EventListener>(L, idx);
 }
 
 int olua_push_spine_EventListener(lua_State *L, const spine::EventListener *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<spine::EventListener>(L, value);
 }
 
 void olua_check_spine_EventListener(lua_State *L, int idx, spine::EventListener *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<spine::EventListener>(L, idx, value);
 }
 
 bool olua_is_spine_UpdateWorldTransformsListener(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "sp.UpdateWorldTransformsListener") == 0;
-    }
-    return false;
+    return olua_is_callback<spine::UpdateWorldTransformsListener>(L, idx);
 }
 
 int olua_push_spine_UpdateWorldTransformsListener(lua_State *L, const spine::UpdateWorldTransformsListener *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<spine::UpdateWorldTransformsListener>(L, value);
 }
 
 void olua_check_spine_UpdateWorldTransformsListener(lua_State *L, int idx, spine::UpdateWorldTransformsListener *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<spine::UpdateWorldTransformsListener>(L, idx, value);
 }
 
 static int luaopen_spine_EventType(lua_State *L)
@@ -1080,12 +976,8 @@ static int _spine_AnimationStateListener___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "sp.AnimationStateListener");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<spine::AnimationStateListener>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -14608,12 +14500,8 @@ static int _spine_StartListener___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "sp.StartListener");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<spine::StartListener>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -14634,12 +14522,8 @@ static int _spine_InterruptListener___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "sp.InterruptListener");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<spine::InterruptListener>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -14660,12 +14544,8 @@ static int _spine_EndListener___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "sp.EndListener");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<spine::EndListener>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -14686,12 +14566,8 @@ static int _spine_DisposeListener___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "sp.DisposeListener");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<spine::DisposeListener>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -14712,12 +14588,8 @@ static int _spine_CompleteListener___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "sp.CompleteListener");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<spine::CompleteListener>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -14738,12 +14610,8 @@ static int _spine_EventListener___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "sp.EventListener");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<spine::EventListener>(L, nullptr);
 
     olua_endinvoke(L);
 
@@ -14764,12 +14632,8 @@ static int _spine_UpdateWorldTransformsListener___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "sp.UpdateWorldTransformsListener");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<spine::UpdateWorldTransformsListener>(L, nullptr);
 
     olua_endinvoke(L);
 

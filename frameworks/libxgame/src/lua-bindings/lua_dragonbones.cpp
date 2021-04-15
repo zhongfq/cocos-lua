@@ -3,8 +3,6 @@
 //
 #include "lua_dragonbones.h"
 
-
-
 int olua_push_dragonBones_Rectangle(lua_State *L, const dragonBones::Rectangle *value)
 {
     if (value) {

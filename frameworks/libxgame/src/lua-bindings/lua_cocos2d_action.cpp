@@ -5,30 +5,17 @@
 
 bool olua_is_cocos2d_ActionFloat_ActionFloatCallback(lua_State *L, int idx)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cls = olua_optfieldstring(L, idx, "classname", NULL);
-        return cls && strcmp(cls, "cc.ActionFloat.ActionFloatCallback") == 0;
-    }
-    return false;
+    return olua_is_callback<cocos2d::ActionFloat::ActionFloatCallback>(L, idx);
 }
 
 int olua_push_cocos2d_ActionFloat_ActionFloatCallback(lua_State *L, const cocos2d::ActionFloat::ActionFloatCallback *value)
 {
-    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
-        luaL_error(L, "execpt 'function' or 'nil'");
-    }
-    return 1;
+    return olua_push_callback<cocos2d::ActionFloat::ActionFloatCallback>(L, value);
 }
 
 void olua_check_cocos2d_ActionFloat_ActionFloatCallback(lua_State *L, int idx, cocos2d::ActionFloat::ActionFloatCallback *value)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
+    olua_check_callback<cocos2d::ActionFloat::ActionFloatCallback>(L, idx, value);
 }
 
 static int luaopen_cocos2d_tweenfunc_TweenType(lua_State *L)
@@ -4395,12 +4382,8 @@ static int _cocos2d_ActionFloat_ActionFloatCallback___call(lua_State *L)
 {
     olua_startinvoke(L);
 
-    luaL_checktype(L, 2, LUA_TFUNCTION);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, 2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, "cc.ActionFloat.ActionFloatCallback");
-    olua_rawsetf(L, -2, "classname");
+    luaL_checktype(L, -1, LUA_TFUNCTION);
+    olua_push_callback<cocos2d::ActionFloat::ActionFloatCallback>(L, nullptr);
 
     olua_endinvoke(L);
 

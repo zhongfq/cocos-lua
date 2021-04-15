@@ -3,8 +3,6 @@
 //
 #include "lua_cocos2d_3d.h"
 
-
-
 int olua_push_cocos2d_MeshVertexAttrib(lua_State *L, const cocos2d::MeshVertexAttrib *value)
 {
     if (value) {

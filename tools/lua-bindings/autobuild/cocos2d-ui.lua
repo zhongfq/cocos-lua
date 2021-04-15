@@ -19,7 +19,7 @@ M.INCLUDES = [[
     #include "ui/CocosGUI.h"
     #include "ui/UIScrollViewBar.h"
 ]]
-M.CHUNK = ''
+M.CHUNK = nil
 
 M.CONVS = {
 }

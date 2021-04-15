@@ -14,7 +14,6 @@ M.INCLUDES = [[
 #include "ui/CocosGUI.h"
 #include "ui/UIScrollViewBar.h"
 ]]
-M.CHUNK = [[]]
 
 M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, '^cocos2d::ui::', 'ccui.')

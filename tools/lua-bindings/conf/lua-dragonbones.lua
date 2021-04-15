@@ -11,7 +11,6 @@ M.INCLUDES = [[
 #include "cocos2d.h"
 #include "CCDragonBonesHeaders.h"
 ]]
-M.CHUNK = [[]]
 
 M.EXCLUDE_TYPE = require "conf.exclude-type"
 M.EXCLUDE_TYPE 'dragonBones::Matrix *'

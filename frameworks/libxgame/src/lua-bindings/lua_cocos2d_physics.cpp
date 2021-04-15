@@ -298,7 +298,7 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactBegin(lua_State *L)
     std::string cb_tag = "onContactBegin";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @nullable @local std::function<bool (PhysicsContact &)> onContactBegin
+    // @nullable @local std::function<bool (cocos2d::PhysicsContact &)> onContactBegin
     std::function<bool(cocos2d::PhysicsContact &)> ret = self->onContactBegin;
     int num_ret = olua_push_std_function(L, &ret);
 
@@ -351,7 +351,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactBegin(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @local std::function<bool (PhysicsContact &)> onContactBegin
+    // @nullable @local std::function<bool (cocos2d::PhysicsContact &)> onContactBegin
     self->onContactBegin = arg1;
 
     olua_endinvoke(L);
@@ -371,7 +371,7 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactPostSolve(lua_State
     std::string cb_tag = "onContactPostSolve";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @nullable @local std::function<void (PhysicsContact &, const PhysicsContactPostSolve &)> onContactPostSolve
+    // @nullable @local std::function<void (cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)> onContactPostSolve
     std::function<void(cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)> ret = self->onContactPostSolve;
     int num_ret = olua_push_std_function(L, &ret);
 
@@ -420,7 +420,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPostSolve(lua_State
         arg1 = nullptr;
     }
 
-    // @nullable @local std::function<void (PhysicsContact &, const PhysicsContactPostSolve &)> onContactPostSolve
+    // @nullable @local std::function<void (cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)> onContactPostSolve
     self->onContactPostSolve = arg1;
 
     olua_endinvoke(L);
@@ -440,7 +440,7 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactPreSolve(lua_State 
     std::string cb_tag = "onContactPreSolve";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @nullable @local std::function<bool (PhysicsContact &, PhysicsContactPreSolve &)> onContactPreSolve
+    // @nullable @local std::function<bool (cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)> onContactPreSolve
     std::function<bool(cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)> ret = self->onContactPreSolve;
     int num_ret = olua_push_std_function(L, &ret);
 
@@ -494,7 +494,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPreSolve(lua_State 
         arg1 = nullptr;
     }
 
-    // @nullable @local std::function<bool (PhysicsContact &, PhysicsContactPreSolve &)> onContactPreSolve
+    // @nullable @local std::function<bool (cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)> onContactPreSolve
     self->onContactPreSolve = arg1;
 
     olua_endinvoke(L);
@@ -514,7 +514,7 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactSeparate(lua_State 
     std::string cb_tag = "onContactSeparate";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @nullable @local std::function<void (PhysicsContact &)> onContactSeparate
+    // @nullable @local std::function<void (cocos2d::PhysicsContact &)> onContactSeparate
     std::function<void(cocos2d::PhysicsContact &)> ret = self->onContactSeparate;
     int num_ret = olua_push_std_function(L, &ret);
 
@@ -562,7 +562,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactSeparate(lua_State 
         arg1 = nullptr;
     }
 
-    // @nullable @local std::function<void (PhysicsContact &)> onContactSeparate
+    // @nullable @local std::function<void (cocos2d::PhysicsContact &)> onContactSeparate
     self->onContactSeparate = arg1;
 
     olua_endinvoke(L);

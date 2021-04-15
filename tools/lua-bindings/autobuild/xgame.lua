@@ -154,7 +154,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'static void requestPermission(cclua::Permission permission, @local const std::function<void (PermissionStatus)> callback)'
+        'static void requestPermission(cclua::Permission permission, @local const std::function<void (cclua::PermissionStatus)> callback)'
     },
     TAG_MAKER = 'requestPermission',
     TAG_MODE = 'OLUA_TAG_NEW',
@@ -346,7 +346,7 @@ cls.func(nil, 'static void init()')
 cls.func(nil, 'static void end()')
 cls.callback {
     FUNCS =  {
-        'static void setDispatcher(@local const std::function<void (const FileTask &)> callback)'
+        'static void setDispatcher(@local const std::function<void (const cclua::downloader::FileTask &)> callback)'
     },
     TAG_MAKER = 'Dispatcher',
     TAG_MODE = 'OLUA_TAG_REPLACE',

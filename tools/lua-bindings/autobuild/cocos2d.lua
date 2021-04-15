@@ -537,8 +537,8 @@ cls.REQUIRE = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerKeyboard::LISTENER_ID', 'const std::string')
 cls.func(nil, 'static cocos2d::EventListenerKeyboard *create()')
 cls.func(nil, 'EventListenerKeyboard()')
-cls.var('onKeyPressed', '@nullable @local std::function<void (EventKeyboard::KeyCode, Event *)> onKeyPressed')
-cls.var('onKeyReleased', '@nullable @local std::function<void (EventKeyboard::KeyCode, Event *)> onKeyReleased')
+cls.var('onKeyPressed', '@nullable @local std::function<void (EventKeyboard::KeyCode, cocos2d::Event *)> onKeyPressed')
+cls.var('onKeyReleased', '@nullable @local std::function<void (EventKeyboard::KeyCode, cocos2d::Event *)> onKeyReleased')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerAcceleration'
@@ -578,10 +578,10 @@ cls.REQUIRE = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerMouse::LISTENER_ID', 'const std::string')
 cls.func(nil, 'static cocos2d::EventListenerMouse *create()')
 cls.func(nil, 'EventListenerMouse()')
-cls.var('onMouseDown', '@nullable @local std::function<void (EventMouse *)> onMouseDown')
-cls.var('onMouseUp', '@nullable @local std::function<void (EventMouse *)> onMouseUp')
-cls.var('onMouseMove', '@nullable @local std::function<void (EventMouse *)> onMouseMove')
-cls.var('onMouseScroll', '@nullable @local std::function<void (EventMouse *)> onMouseScroll')
+cls.var('onMouseDown', '@nullable @local std::function<void (cocos2d::EventMouse *)> onMouseDown')
+cls.var('onMouseUp', '@nullable @local std::function<void (cocos2d::EventMouse *)> onMouseUp')
+cls.var('onMouseMove', '@nullable @local std::function<void (cocos2d::EventMouse *)> onMouseMove')
+cls.var('onMouseScroll', '@nullable @local std::function<void (cocos2d::EventMouse *)> onMouseScroll')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Event::Type'
@@ -633,12 +633,12 @@ cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.const('LISTENER_ID', 'cocos2d::EventListenerController::LISTENER_ID', 'const std::string')
 cls.func(nil, 'static cocos2d::EventListenerController *create()')
-cls.var('onConnected', '@nullable @local std::function<void (Controller *, Event *)> onConnected')
-cls.var('onDisconnected', '@nullable @local std::function<void (Controller *, Event *)> onDisconnected')
-cls.var('onKeyDown', '@nullable @local std::function<void (Controller *, int, Event *)> onKeyDown')
-cls.var('onKeyUp', '@nullable @local std::function<void (Controller *, int, Event *)> onKeyUp')
-cls.var('onKeyRepeat', '@nullable @local std::function<void (Controller *, int, Event *)> onKeyRepeat')
-cls.var('onAxisEvent', '@nullable @local std::function<void (Controller *, int, Event *)> onAxisEvent')
+cls.var('onConnected', '@nullable @local std::function<void (cocos2d::Controller *, cocos2d::Event *)> onConnected')
+cls.var('onDisconnected', '@nullable @local std::function<void (cocos2d::Controller *, cocos2d::Event *)> onDisconnected')
+cls.var('onKeyDown', '@nullable @local std::function<void (cocos2d::Controller *, int, cocos2d::Event *)> onKeyDown')
+cls.var('onKeyUp', '@nullable @local std::function<void (cocos2d::Controller *, int, cocos2d::Event *)> onKeyUp')
+cls.var('onKeyRepeat', '@nullable @local std::function<void (cocos2d::Controller *, int, cocos2d::Event *)> onKeyRepeat')
+cls.var('onAxisEvent', '@nullable @local std::function<void (cocos2d::Controller *, int, cocos2d::Event *)> onAxisEvent')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventTouch::EventCode'
@@ -1370,7 +1370,7 @@ cls.callback {
 cls.callback {
     FUNCS =  {
         'cocos2d::Data getDataFromFile(const std::string &filename)',
-        'void getDataFromFile(const std::string &filename, @local std::function<void (Data)> callback)'
+        'void getDataFromFile(const std::string &filename, @local std::function<void (cocos2d::Data)> callback)'
     },
     TAG_MAKER = 'DataFromFile',
     TAG_MODE = 'OLUA_TAG_NEW',
@@ -2639,7 +2639,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void enumerateChildren(const std::string &name, @local std::function<bool (Node *)> callback)'
+        'void enumerateChildren(const std::string &name, @local std::function<bool (cocos2d::Node *)> callback)'
     },
     TAG_MAKER = 'enumerateChildren',
     TAG_MODE = 'OLUA_TAG_NEW',
@@ -3252,8 +3252,8 @@ cls.func(nil, 'RenderTexture()')
 cls.func(nil, 'bool initWithWidthAndHeight(int w, int h, cocos2d::backend::PixelFormat format)', 'bool initWithWidthAndHeight(int w, int h, cocos2d::backend::PixelFormat format, cocos2d::backend::PixelFormat depthStencilFormat)')
 cls.callback {
     FUNCS =  {
-        'bool saveToFile(const std::string &filename, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)',
-        'bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)'
+        'bool saveToFile(const std::string &filename, @optional bool isRGBA, @optional std::function<void (cocos2d::RenderTexture *, const std::string &)> callback)',
+        'bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @optional std::function<void (cocos2d::RenderTexture *, const std::string &)> callback)'
     },
     TAG_MAKER = 'saveToFile',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -3262,8 +3262,8 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'bool saveToFileAsNonPMA(const std::string &filename, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)',
-        'bool saveToFileAsNonPMA(const std::string &fileName, cocos2d::Image::Format format, bool isRGBA, std::function<void (RenderTexture *, const std::string &)> callback)'
+        'bool saveToFileAsNonPMA(const std::string &filename, @optional bool isRGBA, @optional std::function<void (cocos2d::RenderTexture *, const std::string &)> callback)',
+        'bool saveToFileAsNonPMA(const std::string &fileName, cocos2d::Image::Format format, bool isRGBA, std::function<void (cocos2d::RenderTexture *, const std::string &)> callback)'
     },
     TAG_MAKER = 'saveToFile',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -3272,7 +3272,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void newImage(std::function<void (Image *)> imageCallback, @optional bool flipImage)'
+        'void newImage(std::function<void (cocos2d::Image *)> imageCallback, @optional bool flipImage)'
     },
     TAG_MAKER = 'newImage',
     TAG_MODE = 'OLUA_TAG_NEW',

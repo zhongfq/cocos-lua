@@ -4301,7 +4301,7 @@ static int _cocostudio_ArmatureAnimation_setFrameEventCallFunc(lua_State *L)
         arg1 = nullptr;
     }
 
-    // void setFrameEventCallFunc(@nullable @local std::function<void (Bone *, const std::string &, int, int)> listener)
+    // void setFrameEventCallFunc(@nullable @local std::function<void (cocostudio::Bone *, const std::string &, int, int)> listener)
     self->setFrameEventCallFunc(arg1);
 
     olua_endinvoke(L);
@@ -4350,7 +4350,7 @@ static int _cocostudio_ArmatureAnimation_setMovementEventCallFunc(lua_State *L)
         arg1 = nullptr;
     }
 
-    // void setMovementEventCallFunc(@nullable @local std::function<void (Armature *, MovementEventType, const std::string &)> listener)
+    // void setMovementEventCallFunc(@nullable @local std::function<void (cocostudio::Armature *, cocostudio::MovementEventType, const std::string &)> listener)
     self->setMovementEventCallFunc(arg1);
 
     olua_endinvoke(L);
@@ -18243,7 +18243,7 @@ static int _cocostudio_timeline_ActionTimeline_setFrameEventCallFunc(lua_State *
         arg1 = nullptr;
     }
 
-    // void setFrameEventCallFunc(@nullable @local std::function<void (Frame *)> listener)
+    // void setFrameEventCallFunc(@nullable @local std::function<void (cocostudio::timeline::Frame *)> listener)
     self->setFrameEventCallFunc(arg1);
 
     olua_endinvoke(L);

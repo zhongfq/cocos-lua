@@ -60,10 +60,10 @@ cls.REG_LUATYPE = true
 cls.CHUNK = nil
 cls.REQUIRE = nil
 cls.func(nil, 'static cocos2d::EventListenerPhysicsContact *create()')
-cls.var('onContactBegin', '@nullable @local std::function<bool (PhysicsContact &)> onContactBegin')
-cls.var('onContactPreSolve', '@nullable @local std::function<bool (PhysicsContact &, PhysicsContactPreSolve &)> onContactPreSolve')
-cls.var('onContactPostSolve', '@nullable @local std::function<void (PhysicsContact &, const PhysicsContactPostSolve &)> onContactPostSolve')
-cls.var('onContactSeparate', '@nullable @local std::function<void (PhysicsContact &)> onContactSeparate')
+cls.var('onContactBegin', '@nullable @local std::function<bool (cocos2d::PhysicsContact &)> onContactBegin')
+cls.var('onContactPreSolve', '@nullable @local std::function<bool (cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)> onContactPreSolve')
+cls.var('onContactPostSolve', '@nullable @local std::function<void (cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)> onContactPostSolve')
+cls.var('onContactSeparate', '@nullable @local std::function<void (cocos2d::PhysicsContact &)> onContactSeparate')
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerPhysicsContactWithGroup'

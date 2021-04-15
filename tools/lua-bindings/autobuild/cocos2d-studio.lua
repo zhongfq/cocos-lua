@@ -396,7 +396,7 @@ cls.func(nil, 'cocos2d::Ref *getUserObject()')
 cls.func(nil, 'void setUserObject(cocos2d::Ref *userObject)')
 cls.callback {
     FUNCS =  {
-        'void setMovementEventCallFunc(@nullable @local std::function<void (Armature *, MovementEventType, const std::string &)> listener)'
+        'void setMovementEventCallFunc(@nullable @local std::function<void (cocostudio::Armature *, cocostudio::MovementEventType, const std::string &)> listener)'
     },
     TAG_MAKER = 'MovementEventCallFunc',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -405,7 +405,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setFrameEventCallFunc(@nullable @local std::function<void (Bone *, const std::string &, int, int)> listener)'
+        'void setFrameEventCallFunc(@nullable @local std::function<void (cocostudio::Bone *, const std::string &, int, int)> listener)'
     },
     TAG_MAKER = 'FrameEventCallFunc',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1534,7 +1534,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setFrameEventCallFunc(@nullable @local std::function<void (Frame *)> listener)'
+        'void setFrameEventCallFunc(@nullable @local std::function<void (cocostudio::timeline::Frame *)> listener)'
     },
     TAG_MAKER = 'frameEventCallFunc',
     TAG_MODE = 'OLUA_TAG_REPLACE',

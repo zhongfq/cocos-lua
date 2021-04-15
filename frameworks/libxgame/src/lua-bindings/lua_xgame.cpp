@@ -840,7 +840,7 @@ static int _cclua_runtime_requestPermission(lua_State *L)
         }
     };
 
-    // static void requestPermission(cclua::Permission permission, @local const std::function<void (PermissionStatus)> callback)
+    // static void requestPermission(cclua::Permission permission, @local const std::function<void (cclua::PermissionStatus)> callback)
     cclua::runtime::requestPermission((cclua::Permission)arg1, arg2);
 
     olua_endinvoke(L);
@@ -2556,7 +2556,7 @@ static int _cclua_downloader_setDispatcher(lua_State *L)
         }
     };
 
-    // static void setDispatcher(@local const std::function<void (const FileTask &)> callback)
+    // static void setDispatcher(@local const std::function<void (const cclua::downloader::FileTask &)> callback)
     cclua::downloader::setDispatcher(arg1);
 
     olua_endinvoke(L);

@@ -3,8 +3,6 @@
 //
 #include "lua_cocos2d_physics.h"
 
-using namespace cocos2d;
-
 int olua_push_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMaterial *value)
 {
     if (value) {

@@ -16,7 +16,7 @@ const std::string __filesystem_getDocumentDirectory()
     static std::string path;
     
     if (path.size() == 0) {
-        path = JniUtil::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getDocumentDirectory");
+        path = Jni::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getDocumentDirectory");
     }
     
     return path;
@@ -27,7 +27,7 @@ const std::string __filesystem_getCacheDirectory()
     static std::string path;
     
     if (path.size() == 0) {
-        path = JniUtil::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getCacheDirectory");
+        path = Jni::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getCacheDirectory");
     }
     
     return path;
@@ -38,7 +38,7 @@ const std::string __filesystem_getTmpDirectory()
     static std::string path;
     
     if (path.size() == 0) {
-        path = JniUtil::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getTmpDirectory");
+        path = Jni::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getTmpDirectory");
     }
     
     return path;
@@ -49,7 +49,7 @@ const std::string __filesystem_getSDCardDirectory()
     static std::string path;
     
     if (path.size() == 0) {
-        path = JniUtil::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getSDCardDirectory");
+        path = Jni::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getSDCardDirectory");
     }
     
     return path;
@@ -57,7 +57,7 @@ const std::string __filesystem_getSDCardDirectory()
 
 const std::string __filesystem_getDir(const std::string &type)
 {
-    return JniUtil::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getDirectory", type);
+    return Jni::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getDirectory", type);
 }
 
 #elif defined(CCLUA_OS_WIN32)

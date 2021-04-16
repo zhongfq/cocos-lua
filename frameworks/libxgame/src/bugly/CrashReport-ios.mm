@@ -27,6 +27,7 @@ void CrashReport::init(const char *appid)
             config.reportLogLevel = BuglyLogLevelVerbose;
             [Bugly startWithAppId:NSStringMake(appid) developmentDevice:NO config:config];
             s_initialized = true;
+            runtime::log("init bugly");
         }
     }
 }

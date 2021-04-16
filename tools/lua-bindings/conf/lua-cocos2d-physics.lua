@@ -1,6 +1,5 @@
 local autoconf = require "autoconf"
 local M = autoconf.typemod 'cocos2d_physics'
-local typedef = M.typedef
 local typeconf = M.typeconf
 local typeconv = M.typeconv
 
@@ -12,9 +11,6 @@ M.INCLUDES = [[
 #include "cclua/xlua.h"
 #include "cocos2d.h"
 ]]
-M.CHUNK = [[
-using namespace cocos2d;
-]]
 
 M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, "^cocos2d::", "cc.")
@@ -24,10 +20,11 @@ end
 
 M.EXCLUDE_TYPE = require "conf.exclude-type"
 
+typeconv 'cocos2d::PhysicsMaterial'
+
 typeconv 'cocos2d::PhysicsRayCastCallbackFunc'
 typeconv 'cocos2d::PhysicsQueryRectCallbackFunc'
 typeconv 'cocos2d::PhysicsQueryPointCallbackFunc'
-typeconv 'cocos2d::PhysicsMaterial'
 typeconf 'cocos2d::EventListenerPhysicsContact'
 typeconf 'cocos2d::EventListenerPhysicsContactWithGroup'
 typeconf 'cocos2d::EventListenerPhysicsContactWithBodies'

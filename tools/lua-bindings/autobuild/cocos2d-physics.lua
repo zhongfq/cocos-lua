@@ -17,7 +17,7 @@ M.INCLUDES = [[
     #include "cclua/xlua.h"
     #include "cocos2d.h"
 ]]
-M.CHUNK = 'using namespace cocos2d;'
+M.CHUNK = nil
 
 M.CONVS = {
     typeconv {

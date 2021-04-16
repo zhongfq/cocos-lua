@@ -6,7 +6,7 @@
 
 NS_CCLUA_BEGIN
 
-class JniUtil
+class Jni
 {
 public:
     template <typename... Ts> static void callStaticVoidMethod(const std::string &className, const std::string &methodName, Ts... xs) {

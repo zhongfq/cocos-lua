@@ -10,6 +10,8 @@
 //#define OLUA_HAVE_POSTGC
 #define OLUA_HAVE_LUATYPE
 
+#ifndef OLUA_CORE
+
 // cocos2dx
 #include "base/CCMap.h"
 #include "base/CCVector.h"
@@ -35,5 +37,7 @@ void olua_insert_array(spine::Vector<T> *array, T value);
 template <class T>
 void olua_foreach_array(const spine::Vector<T> *array, const std::function<void(T)> &callback);
 #endif // CCLUA_BUILD_SPINE
+
+#endif // OLUA_CORE
 
 #endif

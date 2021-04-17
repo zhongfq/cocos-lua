@@ -35,10 +35,6 @@
 #include <map>
 #include <unordered_map>
 
-#ifdef OLUA_USER_H
-#include OLUA_USER_H
-#endif
-
 #define olua_noapi(api) static_assert(false, #api" is not defined")
 
 template <typename T>

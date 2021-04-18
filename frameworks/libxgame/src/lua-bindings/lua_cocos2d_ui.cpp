@@ -548,10 +548,14 @@ static int _cocos2d_ui_Widget_dispatchFocusEvent(lua_State *L)
     cocos2d::ui::Widget *arg2 = nullptr;       /** widgetGetFocus */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
-    olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
-    olua_check_cppobj(L, 3, (void **)&arg2, "ccui.Widget");
+    if (!olua_isnoneornil(L, 2)) {
+        olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
+    }
+    if (!olua_isnoneornil(L, 3)) {
+        olua_check_cppobj(L, 3, (void **)&arg2, "ccui.Widget");
+    }
 
-    // void dispatchFocusEvent(cocos2d::ui::Widget *widgetLoseFocus, cocos2d::ui::Widget *widgetGetFocus)
+    // void dispatchFocusEvent(@nullable cocos2d::ui::Widget *widgetLoseFocus, @nullable cocos2d::ui::Widget *widgetGetFocus)
     self->dispatchFocusEvent(arg1, arg2);
 
     olua_endinvoke(L);
@@ -585,9 +589,11 @@ static int _cocos2d_ui_Widget_findNextFocusedWidget(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_uint(L, 2, &arg1);
-    olua_check_cppobj(L, 3, (void **)&arg2, "ccui.Widget");
+    if (!olua_isnoneornil(L, 3)) {
+        olua_check_cppobj(L, 3, (void **)&arg2, "ccui.Widget");
+    }
 
-    // cocos2d::ui::Widget *findNextFocusedWidget(cocos2d::ui::Widget::FocusDirection direction, cocos2d::ui::Widget *current)
+    // cocos2d::ui::Widget *findNextFocusedWidget(cocos2d::ui::Widget::FocusDirection direction, @nullable cocos2d::ui::Widget *current)
     cocos2d::ui::Widget *ret = self->findNextFocusedWidget((cocos2d::ui::Widget::FocusDirection)arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "ccui.Widget");
 
@@ -1255,10 +1261,14 @@ static int _cocos2d_ui_Widget_onFocusChange(lua_State *L)
     cocos2d::ui::Widget *arg2 = nullptr;       /** widgetGetFocus */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
-    olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
-    olua_check_cppobj(L, 3, (void **)&arg2, "ccui.Widget");
+    if (!olua_isnoneornil(L, 2)) {
+        olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
+    }
+    if (!olua_isnoneornil(L, 3)) {
+        olua_check_cppobj(L, 3, (void **)&arg2, "ccui.Widget");
+    }
 
-    // void onFocusChange(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui::Widget *widgetGetFocus)
+    // void onFocusChange(@nullable cocos2d::ui::Widget *widgetLostFocus, @nullable cocos2d::ui::Widget *widgetGetFocus)
     self->onFocusChange(arg1, arg2);
 
     olua_endinvoke(L);

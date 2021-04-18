@@ -37,6 +37,9 @@ typeconf 'cocos2d::ui::Widget::ccWidgetEventCallback'
 typeconf 'cocos2d::ui::Widget'
     .EXCLUDE_FUNC 'createInstance'
     .ATTR('getVirtualRenderer', {RET = '@addref(protectedChildren |)'})
+    .ATTR('findNextFocusedWidget', {ARG2 = '@nullable'})
+    .ATTR('onFocusChange', {ARG1 = '@nullable', ARG2 = '@nullable'})
+    .ATTR('dispatchFocusEvent', {ARG1 = '@nullable', ARG2 = '@nullable'})
     .CALLBACK {NAME = 'onFocusChanged', LOCAL = false}
     .CALLBACK {NAME = 'addTouchEventListener', NULLABLE = true, LOCAL = false}
     .CALLBACK {NAME = 'addClickEventListener', NULLABLE = true, LOCAL = false}

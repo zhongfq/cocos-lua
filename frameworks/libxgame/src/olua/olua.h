@@ -156,11 +156,11 @@ OLUA_API void olua_pop_objpool(lua_State *L, size_t position);
 
 // callback functions
 //  obj.uservalue {
-//      |----id----|--class--|--tag--|
-//      .callback#1$classname@onClick = lua_func
-//      .callback#2$classname@onClick = lua_func
-//      .callback#3$classname@update = lua_func
-//      .callback#4$classname@onRemoved = lua_func
+//      |---id---|--class--|--tag--|
+//      .olua.cb#1$classname@onClick = lua_func
+//      .olua.cb#2$classname@onClick = lua_func
+//      .olua.cb#3$classname@update = lua_func
+//      .olua.cb#4$classname@onRemoved = lua_func
 //      ...
 //  }
 // for olua_setcallback
@@ -191,8 +191,8 @@ OLUA_API void olua_getref(lua_State *L, int ref);
 // for ref chain, callback store in the uservalue
 // ref layout:
 //  obj.uservalue {
-//      .ref.component = obj_component  -- OLUA_MODE_SINGLE
-//      .ref.children = {               -- OLUA_MODE_MULTIPLE
+//      .olua.ref.component = obj_component  -- OLUA_MODE_SINGLE
+//      .olua.ref.children = {               -- OLUA_MODE_MULTIPLE
 //          obj_child1 = true
 //          obj_child2 = true
 //          ...

@@ -38,8 +38,9 @@
 #define OLUA_CKEY_SET       ".set"
 #define OLUA_CKEY_CLSOBJ    ".classobj"
 #define OLUA_CKEY_CLSAGENT  ".classagent"
-#define OLUA_CKEY_OWNERSHIP ".ownership"
 
+#define OLUA_OWNERSHIP      ".olua.ownership"
+#define OLUA_OBJSTUB        ".olua.objstub"
 #define OLUA_OBJTABLE       ".olua.objtable"
 #define OLUA_POOLTABLE      ".olua.pooltable"
 #define OLUA_LUAREFTABLE    ".olua.luareftable"
@@ -50,7 +51,8 @@
 
 #define strequal(s1, s2)        (strcmp((s1), (s2)) == 0)
 #define strstartwith(s1, s2)    (strstr((s1), (s2)) == s1)
-#define aux_pushrefkey(L, n)    (lua_pushfstring(L, ".ref.%s", (n)))
+#define aux_pushrefkey(L, n)    (lua_pushfstring(L, ".olua.ref.%s", (n)))
+#define aux_pushfunckey(L, ...) (lua_pushfstring(L, ".olua.cb#%s$%s@%s", __VA_ARGS__))
 
 typedef struct {
     lua_Integer ctxid;
@@ -259,7 +261,7 @@ OLUA_API int olua_pushobjstub(lua_State *L, void *obj, void *stub, const char *c
     aux_pushobjtable(L);                        // L: objt
     if (olua_rawgetp(L, -1, obj) == LUA_TUSERDATA) {
         // ref stub in obj
-        lua_pushstring(L, ".stub");             // L: objt ud .stub
+        lua_pushstring(L, OLUA_OBJSTUB);        // L: objt ud .stub
         olua_rawgetp(L, -3, stub);              // L: objt ud .stub stub
         olua_setvariable(L, -3);                // L: objt ud   obj.uv[.stub] = stub
         // stub point to obj
@@ -397,7 +399,7 @@ OLUA_API const char *olua_objstring(lua_State *L, int idx)
 OLUA_API void olua_setownership(lua_State *L, int idx, int owner)
 {
     idx = lua_absindex(L, idx);
-    lua_pushstring(L, OLUA_CKEY_OWNERSHIP);
+    lua_pushstring(L, OLUA_OWNERSHIP);
     lua_pushinteger(L, owner);
     olua_setvariable(L, idx);
 }
@@ -406,7 +408,7 @@ OLUA_API int olua_getownership(lua_State *L, int idx)
 {
     int owner = OLUA_OWNERSHIP_NONE;
     idx = lua_absindex(L, idx);
-    lua_pushstring(L, OLUA_CKEY_OWNERSHIP);
+    lua_pushstring(L, OLUA_OWNERSHIP);
     if (olua_getvariable(L, idx) == LUA_TNUMBER) {
         owner = (int)olua_tointeger(L, -1);
     }
@@ -512,7 +514,7 @@ OLUA_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, 
             char refstr[64];
             int ref = checkref(vms);
             sprintf(refstr, "%d", ref); // lua5.1 not support %I
-            func = lua_pushfstring(L, ".callback#%s$%s@%s", refstr, cls, tag);
+            func = aux_pushfunckey(L, refstr, cls, tag);
             lua_pushvalue(L, -1);               // L: obj ut k k
             if (olua_rawget(L, -3) == LUA_TNIL) {
                 lua_pop(L, 1);                  // L: obj ut k
@@ -881,16 +883,6 @@ static int cls_newindex(lua_State *L)
         lua_rawset(L, OLUA_CIDX_FUNC);
         return 0;
     }
-    
-#ifdef OLUA_DEBUG
-    if (olua_likely(olua_isstring(L, 2))) {
-        size_t len;
-        const char *key = olua_tolstring(L, 2, &len);
-        if (olua_unlikely(len > 0 && key[0] == '.')) {
-            luaL_error(L, "variable name '%s' start with '.' char", key);
-        }
-    }
-#endif
     
     olua_assert(olua_isuserdata(L, 1), "expect userdata");
     lua_settop(L, 3);

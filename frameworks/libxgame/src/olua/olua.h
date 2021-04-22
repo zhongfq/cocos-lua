@@ -275,6 +275,7 @@ typedef lua_Integer lua_Unsigned;
     lua_createtable(L, 0, sizeof(l)/sizeof((l)[0]) - 1);\
     luaL_setfuncs(L,(l),0);                             \
 }
+OLUA_API void lua_copy(lua_State *L, int fromidx, int toidx);
 OLUA_API void lua_setuservalue(lua_State *L, int idx);
 OLUA_API int lua_getuservalue(lua_State *L, int idx);
 OLUA_API int lua_absindex(lua_State *L, int idx);

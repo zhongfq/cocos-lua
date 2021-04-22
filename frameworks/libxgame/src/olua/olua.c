@@ -31,6 +31,7 @@
 #define OLUA_CIDX_FUNC (lua_upvalueindex(2))
 #define OLUA_CIDX_GET  (lua_upvalueindex(3))
 #define OLUA_CIDX_SET  (lua_upvalueindex(4))
+#define OLUA_CIDX_USER (lua_upvalueindex(5))
 
 #define OLUA_CKEY_ISA       ".isa"
 #define OLUA_CKEY_FUNC      ".func"
@@ -339,7 +340,7 @@ OLUA_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
         status = OLUA_OBJ_UPDATE;
     }
     
-    lua_insert(L, -3);                          // L: ud mt objtable
+    lua_copy(L, -1, -3);                        // L: ud objtable ud
     lua_pop(L, 2);                              // L: ud
     
     return status;
@@ -792,20 +793,36 @@ static bool lookupfunc(lua_State *L, int t, int kidx)
         lua_pop(L, 1);                          // L:
         lua_pushvalue(L, kidx);                 // L: k
         type = olua_gettable(L, t);             // L: v
-        lua_pushvalue(L, kidx);                 // L: v k
         if (olua_unlikely(type == LUA_TNIL)) {
-            lua_pushlightuserdata(L, NULL);     // L: v k v
+            lua_copy(L, kidx, -1);              // L: k
+            lua_pushlightuserdata(L, NULL);     // L: k v
         } else {
             // cache in current table
+            lua_pushvalue(L, kidx);             // L: v k
             lua_pushvalue(L, -2);               // L: v k v
         }
-        lua_rawset(L, t);                       // L: v
+        lua_rawset(L, t);                       // L: v?
     }
     if (type == LUA_TLIGHTUSERDATA && lua_touserdata(L, -1) == NULL) {
         lua_pop(L, 1);
         type = LUA_TNIL;
     }
     return type != LUA_TNIL;
+}
+
+static bool lookup_user_index_func(lua_State *L, const char *name)
+{
+    int type = lua_type(L, OLUA_CIDX_USER);
+    if (type == LUA_TNIL) {
+        lua_pushstring(L, name);
+        if (lookupfunc(L, OLUA_CIDX_FUNC, lua_gettop(L))) {
+            type = LUA_TFUNCTION;
+        }
+        lua_copy(L, -1, OLUA_CIDX_USER); // upvalue = func or name
+    } else if (type == LUA_TFUNCTION) {
+        lua_pushvalue(L, OLUA_CIDX_USER);
+    }
+    return type == LUA_TFUNCTION;
 }
 
 static int cls_metamethod(lua_State *L)
@@ -852,11 +869,19 @@ static int cls_index(lua_State *L)
         return 1;
     }
     
-    // try variable
     if (olua_likely(olua_isuserdata(L, 1))) {
-        lua_pushvalue(L, 2);
-        olua_getvariable(L, 1);
-        return 1;
+        if (lookup_user_index_func(L, "__index")) {
+            // try user's index
+            lua_pushvalue(L, 1);
+            lua_pushvalue(L, 2);
+            lua_call(L, 2, 1);
+            return 1;
+        } else {
+            // try variable
+            lua_pushvalue(L, 2);
+            olua_getvariable(L, 1);
+            return 1;
+        }
     }
     return 0;
 }
@@ -884,9 +909,21 @@ static int cls_newindex(lua_State *L)
         return 0;
     }
     
-    olua_assert(olua_isuserdata(L, 1), "expect userdata");
-    lua_settop(L, 3);
-    olua_setvariable(L, 1);
+    if (olua_likely(olua_isuserdata(L, 1))) {
+        if (lookup_user_index_func(L, "__newindex")) {
+            // try user's newindex
+            lua_pushvalue(L, 1);
+            lua_pushvalue(L, 2);
+            lua_pushvalue(L, 3);
+            lua_call(L, 3, 0);
+            return 0;
+        } else {
+            // try variable
+            lua_settop(L, 3);
+            olua_setvariable(L, 1);
+            return 0;
+        }
+    }
     return 0;
 }
 
@@ -981,7 +1018,8 @@ OLUA_API void oluacls_class(lua_State *L, const char *cls, const char *supercls)
         copy_super(L, idx, OLUA_CKEY_FUNC, super);      // L: mt .isa .func
         copy_super(L, idx, OLUA_CKEY_GET, super);       // L: mt .isa .func .get
         copy_super(L, idx, OLUA_CKEY_SET, super);       // L: mt .isa .func .get .set
-        luaL_setfuncs(L, lib,  4);                      // L: mt
+        lua_pushnil(L);                                 // L: mt .isa .func .get .set index|newindex
+        luaL_setfuncs(L, lib,  5);                      // L: mt
         
         // init meta method and isa
         olua_rawgetf(L, idx, OLUA_CKEY_FUNC);           // L: mt .func
@@ -1310,6 +1348,13 @@ OLUA_API int luaopen_olua(lua_State *L)
 
 #if LUA_VERSION_NUM == 501
 #define HAVE_USERVALUE ".olua.haveuservalue"
+
+OLUA_API void lua_copy(lua_State *L, int fromidx, int toidx)
+{
+    toidx = lua_absindex(L, toidx);
+    lua_pushvalue(L, fromidx);
+    lua_replace(L, toidx);
+}
 
 OLUA_API void lua_setuservalue(lua_State *L, int idx)
 {

@@ -819,6 +819,11 @@ static bool lookup_user_index_func(lua_State *L, const char *name)
             type = LUA_TFUNCTION;
         }
         lua_copy(L, -1, OLUA_CIDX_USER); // upvalue = func or name
+        if (type == LUA_TFUNCTION) {
+            lua_replace(L, -2); // remove name
+        } else {
+            lua_pop(L, 1);      // remove name
+        }
     } else if (type == LUA_TFUNCTION) {
         lua_pushvalue(L, OLUA_CIDX_USER);
     }

@@ -9555,6 +9555,30 @@ static int _fairygui_GComponent_getController(lua_State *L);
 static int _fairygui_GComponent_getTransition(lua_State *L);
 static int _fairygui_GComponent_getChild(lua_State *L);
 
+static int _fairygui_GComponent___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = olua_toobj<fairygui::GComponent>(L, 1);
+    if (olua_isstring(L, 2)) {
+        fairygui::GObject *child = self->getChild(olua_tostring(L, 2));
+        if (child) {
+            olua_pushobj<fairygui::GObject>(L, child);
+            olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
+
+            olua_endinvoke(L);
+
+            return 1;
+        }
+    }
+    lua_settop(L, 2);
+    olua_getvariable(L, 1);
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _fairygui_GComponent___move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -10756,6 +10780,7 @@ static int _fairygui_GComponent_swapChildrenAt(lua_State *L)
 static int luaopen_fairygui_GComponent(lua_State *L)
 {
     oluacls_class(L, "fgui.GComponent", "fgui.GObject");
+    oluacls_func(L, "__index", _fairygui_GComponent___index);
     oluacls_func(L, "__move", _fairygui_GComponent___move);
     oluacls_func(L, "addChild", _fairygui_GComponent_addChild);
     oluacls_func(L, "addChildAt", _fairygui_GComponent_addChildAt);

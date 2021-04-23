@@ -1150,6 +1150,22 @@ cls.CHUNK = [[
     static int _fairygui_GComponent_getChild(lua_State *L);
 ]]
 cls.REQUIRE = nil
+cls.func('__index', [[
+    {
+        auto self = olua_toobj<fairygui::GComponent>(L, 1);
+        if (olua_isstring(L, 2)) {
+            fairygui::GObject *child = self->getChild(olua_tostring(L, 2));
+            if (child) {
+                olua_pushobj<fairygui::GObject>(L, child);
+                olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
+                return 1;
+            }
+        }
+        lua_settop(L, 2);
+        olua_getvariable(L, 1);
+        return 1;
+    }
+]])
 cls.func('resolve', [[
     {
         auto self = olua_toobj<fairygui::GComponent>(L, 1);

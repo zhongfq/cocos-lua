@@ -11,26 +11,26 @@ function LogCat:ctor(context)
     self.logFile = io.open(runtime.logPath, "r")
     self.maxIndex = 0
 
-    self.list = context.view.fgui:resolve('panel.logList')
+    self.list = context.view.fgui.panel.logList
     self.list.itemRenderer = function (idx, item)
         idx = idx + 1
         if item.customData == self.maxIndex and item.customData ~= idx then
             self.maxIndex = self.maxIndex - 1
         end
-        item:getChild('title').text = self.logs[idx]
+        item.content.text = self.logs[idx]
         item.customData = idx
         self.maxIndex = math.max(self.maxIndex, idx)
     end
     self.list.virtual = true
 
-    local btnClear = context.view.fgui:resolve('panel.btnClear')
+    local btnClear = context.view.fgui.panel.btnClear
     btnClear:addClickListener(function ()
         self.logs:clear()
         self.maxIndex = 0
         self.list.numItems = #self.logs
     end)
 
-    local btnSend = context.view.fgui:resolve('panel.btnSend')
+    local btnSend = context.view.fgui.panel.btnSend
     btnSend:addClickListener(function ()
         print('todo: handle cmd')
     end)

@@ -521,6 +521,21 @@ static cocos2d::Node *_find_ancestor(cocos2d::Node *node1, cocos2d::Node *node2)
     }
     return NULL;
 }]]
+Node.FUNC('__index', [[
+{
+    auto self = olua_toobj<cocos2d::Node>(L, 1);
+    if (olua_isstring(L, 2)) {
+        cocos2d::Node *child = self->getChildByName(olua_tostring(L, 2));
+        if (child) {
+            olua_pushobj<cocos2d::Node>(L, child);
+            olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
+            return 1;
+        }
+    }
+    lua_settop(L, 2);
+    olua_getvariable(L, 1);
+    return 1;
+}]])
 Node.FUNC('getBounds', [[
 {
     auto self = olua_checkobj<cocos2d::Node>(L, 1);

@@ -20498,6 +20498,30 @@ static cocos2d::Node *_find_ancestor(cocos2d::Node *node1, cocos2d::Node *node2)
     return NULL;
 }
 
+static int _cocos2d_Node___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = olua_toobj<cocos2d::Node>(L, 1);
+    if (olua_isstring(L, 2)) {
+        cocos2d::Node *child = self->getChildByName(olua_tostring(L, 2));
+        if (child) {
+            olua_pushobj<cocos2d::Node>(L, child);
+            olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
+
+            olua_endinvoke(L);
+
+            return 1;
+        }
+    }
+    lua_settop(L, 2);
+    olua_getvariable(L, 1);
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _cocos2d_Node___move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -24809,6 +24833,7 @@ static int _cocos2d_Node_set_width(lua_State *L)
 static int luaopen_cocos2d_Node(lua_State *L)
 {
     oluacls_class(L, "cc.Node", "cc.Ref");
+    oluacls_func(L, "__index", _cocos2d_Node___index);
     oluacls_func(L, "__move", _cocos2d_Node___move);
     oluacls_func(L, "addChild", _cocos2d_Node_addChild);
     oluacls_func(L, "addComponent", _cocos2d_Node_addComponent);

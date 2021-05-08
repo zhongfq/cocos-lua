@@ -286,7 +286,6 @@ OLUA_API void luaL_requiref(lua_State *L, const char *modname, lua_CFunction ope
 OLUA_API void *luaL_testudata(lua_State *L, int ud, const char *tname);
 
 OLUA_API void olua_initcompat(lua_State *L);
-OLUA_API void olua_checkcompat(lua_State *L);
 OLUA_API void olua_rawsetp(lua_State *L, int idx, const void *p);
 OLUA_API int olua_rawgetp(lua_State *L, int idx, const void *p);
 #define olua_getglobal(L, k)        (lua_getglobal(L, (k)), lua_type(L, -1))

@@ -47,6 +47,7 @@
 #define OLUA_LUAREFTABLE    ".olua.luareftable"
 #define OLUA_VMSTATUS       ".olua.vmstatus"
 
+#define registry_rawgeti(L, f)  olua_rawgeti(L, LUA_REGISTRYINDEX, (f))
 #define registry_rawgetf(L, f)  olua_rawgetf(L, LUA_REGISTRYINDEX, (f))
 #define registry_rawsetf(L, f)  olua_rawsetf(L, LUA_REGISTRYINDEX, (f))
 
@@ -94,7 +95,16 @@ static olua_vmstatus_t *aux_getvmstatus(lua_State *L)
         vms->ref = 0;
         registry_rawsetf(L, OLUA_VMSTATUS);
 #if LUA_VERSION_NUM == 501
-        olua_checkcompat(L);
+        if (registry_rawgeti(L, LUA_RIDX_MAINTHREAD) != LUA_TTHREAD) {
+            luaL_error(L, "main thread not set");
+        }
+        if (registry_rawgeti(L, LUA_RIDX_GLOBALS) != LUA_TTABLE) {
+            luaL_error(L, "global table not set");
+        }
+        if (!lua_rawequal(L, -1, LUA_GLOBALSINDEX)) {
+            luaL_error(L, "global table not match");
+        }
+        lua_pop(L, 2);
 #endif
     } else {
         vms = (olua_vmstatus_t *)lua_touserdata(L, -1);
@@ -1478,23 +1488,6 @@ OLUA_API void olua_initcompat(lua_State *L)
     lua_rawseti(L, LUA_REGISTRYINDEX, LUA_RIDX_MAINTHREAD);
     lua_pushvalue(L, LUA_GLOBALSINDEX);
     lua_rawseti(L, LUA_REGISTRYINDEX, LUA_RIDX_GLOBALS);
-}
-
-OLUA_API void olua_checkcompat(lua_State *L)
-{
-    int top = lua_gettop(L);
-    lua_rawgeti(L, LUA_REGISTRYINDEX, LUA_RIDX_MAINTHREAD);
-    if (lua_type(L, -1) != LUA_TTHREAD) {
-        luaL_error(L, "main thread not set");
-    }
-    lua_rawgeti(L, LUA_REGISTRYINDEX, LUA_RIDX_GLOBALS);
-    if (lua_type(L, -1) != LUA_TTABLE) {
-        luaL_error(L, "global table not set");
-    }
-    if (!lua_rawequal(L, -1, LUA_GLOBALSINDEX)) {
-        luaL_error(L, "global table not match");
-    }
-    lua_settop(L, top);
 }
 
 OLUA_API void olua_rawsetp(lua_State *L, int idx, const void *p)

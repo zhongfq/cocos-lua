@@ -14115,6 +14115,31 @@ static int _fairygui_GGraph_drawEllipse(lua_State *L)
     return 0;
 }
 
+static int _fairygui_GGraph_drawPolygon(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GGraph *self = nullptr;
+    lua_Integer lineSize = 0;
+    cocos2d::Color4F lineColor;
+    cocos2d::Color4F fillColor;
+    std::vector<cocos2d::Vec2> points;
+
+    self = olua_toobj<fairygui::GGraph>(L, 1);
+    olua_check_int(L, 2, &lineSize);
+    olua_check_cocos2d_Color4F(L, 3, &lineColor);
+    olua_check_cocos2d_Color4F(L, 4, &fillColor);
+    olua_check_std_vector<cocos2d::Vec2>(L, 5, &points, [L](cocos2d::Vec2 *value) {
+        olua_check_cocos2d_Vec2(L, -1, value);
+    });
+
+    self->drawPolygon((int)lineSize, lineColor, fillColor, points.size() ? &points[0] : nullptr, (int)points.size());
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _fairygui_GGraph_drawRect(lua_State *L)
 {
     olua_startinvoke(L);
@@ -14135,6 +14160,43 @@ static int _fairygui_GGraph_drawRect(lua_State *L)
 
     // void drawRect(float aWidth, float aHeight, int lineSize, const cocos2d::Color4F &lineColor, const cocos2d::Color4F &fillColor)
     self->drawRect((float)arg1, (float)arg2, (int)arg3, arg4, arg5);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GGraph_drawRegularPolygon(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    int num_args = lua_gettop(L) - 1;
+    fairygui::GGraph *self = nullptr;
+    lua_Integer lineSize = 0;
+    cocos2d::Color4F lineColor;
+    cocos2d::Color4F fillColor;
+    lua_Integer sides = 0;
+    lua_Number startAngle = 0;
+    std::vector<float> distances;
+
+    self = olua_toobj<fairygui::GGraph>(L, 1);
+    olua_check_int(L, 2, &lineSize);
+    olua_check_cocos2d_Color4F(L, 3, &lineColor);
+    olua_check_cocos2d_Color4F(L, 4, &fillColor);
+    olua_check_int(L, 5, &sides);
+
+    if (num_args == 4) {
+        self->drawRegularPolygon((int)lineSize, lineColor, fillColor, (int)sides);
+    } else if (num_args == 5) {
+        olua_check_number(L, 6, &startAngle);
+        self->drawRegularPolygon((int)lineSize, lineColor, fillColor, (int)sides, startAngle);
+    } else {
+        olua_check_number(L, 6, &startAngle);
+        olua_check_std_vector<float>(L, 7, &distances, [L](float *value) {
+            *value = (float)olua_checknumber(L, -1);
+        });
+        self->drawRegularPolygon((int)lineSize, lineColor, fillColor, (int)sides, startAngle, distances.size() ? &distances[0] : nullptr, (int)distances.size());
+    }
 
     olua_endinvoke(L);
 
@@ -14213,7 +14275,9 @@ static int luaopen_fairygui_GGraph(lua_State *L)
     oluacls_func(L, "__move", _fairygui_GGraph___move);
     oluacls_func(L, "create", _fairygui_GGraph_create);
     oluacls_func(L, "drawEllipse", _fairygui_GGraph_drawEllipse);
+    oluacls_func(L, "drawPolygon", _fairygui_GGraph_drawPolygon);
     oluacls_func(L, "drawRect", _fairygui_GGraph_drawRect);
+    oluacls_func(L, "drawRegularPolygon", _fairygui_GGraph_drawRegularPolygon);
     oluacls_func(L, "getColor", _fairygui_GGraph_getColor);
     oluacls_func(L, "isEmpty", _fairygui_GGraph_isEmpty);
     oluacls_func(L, "new", _fairygui_GGraph_new);

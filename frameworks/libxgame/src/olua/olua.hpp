@@ -312,23 +312,32 @@ inline int olua_push_cppobj(lua_State *L, const T *value)
 }
 
 // map & array functions
-template <class K, class V, template<class...> class Map>
-void olua_insert_map(Map<K, V> *map, K key, V value)
+template <class K, class V>
+void olua_insert_map(std::map<K, V> *map, K key, V value)
 {
     map->insert(std::make_pair(key, value));
 }
 
-template <class K, class V, template<class...> class Map>
-void olua_foreach_map(const Map<K, V> *map, const std::function<void(K, V)> &callback)
+template <class K, class V>
+void olua_insert_map(std::unordered_map<K, V> *map, K key, V value)
+{
+    map->insert(std::make_pair(key, value));
+}
+
+template <class K, class V>
+void olua_foreach_map(const std::map<K, V> *map, const std::function<void(K, V)> &callback)
 {
     for (auto itor : (*map)) {
         callback(itor.first, itor.second);
     }
 }
 
-template <template<class...> class Map>
-bool olua_is_map(lua_State *L, int idx) {
-    return olua_istable(L, idx);
+template <class K, class V>
+void olua_foreach_map(const std::unordered_map<K, V> *map, const std::function<void(K, V)> &callback)
+{
+    for (auto itor : (*map)) {
+        callback(itor.first, itor.second);
+    }
 }
 
 template <class K,  class V, template<class...> class Map>
@@ -369,17 +378,20 @@ void olua_insert_array(std::set<T> *array, T value)
     array->insert(value);
 }
 
-template <class T, template<class...> class Array>
-void olua_foreach_array(const Array<T> *array, const std::function<void(T)> &callback)
+template <class T>
+void olua_foreach_array(const std::vector<T> *array, const std::function<void(T)> &callback)
 {
     for (auto itor : (*array)) {
         callback(itor);
     }
 }
 
-template <template<class...> class Array>
-bool olua_is_array(lua_State *L, int idx) {
-    return olua_istable(L, idx);
+template <class T>
+void olua_foreach_array(const std::set<T> *array, const std::function<void(T)> &callback)
+{
+    for (auto itor : (*array)) {
+        callback(itor);
+    }
 }
 
 template <class T, template<class...> class Array>
@@ -426,7 +438,7 @@ void olua_pack_array(lua_State *L, int idx, Array<T> *array, const std::function
 // std::vector
 static inline bool olua_is_std_vector(lua_State *L, int idx)
 {
-    return olua_is_array<std::vector>(L, idx);
+    return olua_istable(L, idx);
 }
 
 template <class T>
@@ -450,7 +462,7 @@ void olua_check_std_vector(lua_State *L, int idx, std::vector<T> *array, const s
 // std::set
 static inline bool olua_is_std_set(lua_State *L, int idx)
 {
-    return olua_is_array<std::set>(L, idx);
+    return olua_istable(L, idx);
 }
 
 template <class T>
@@ -474,7 +486,7 @@ void olua_check_std_set(lua_State *L, int idx, std::set<T> *array, const std::fu
 // std::unordered_map
 static inline bool olua_is_std_unordered_map(lua_State *L, int idx)
 {
-    return olua_is_map<std::unordered_map>(L, idx);
+    return olua_istable(L, idx);
 }
 
 template <class K, class V>
@@ -498,7 +510,7 @@ void olua_check_std_unordered_map(lua_State *L, int idx, std::unordered_map<K, V
 // std::map
 static inline bool olua_is_std_map(lua_State *L, int idx)
 {
-    return olua_is_map<std::map>(L, idx);
+    return olua_istable(L, idx);
 }
 
 template <class K, class V>

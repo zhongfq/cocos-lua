@@ -13773,6 +13773,422 @@ static int _spine_SkeletonRenderer_getTimeScale(lua_State *L)
     return num_ret;
 }
 
+static int _spine_SkeletonRenderer_initWithBinaryFile1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::SkeletonRenderer *self = nullptr;
+    std::string arg1;       /** skeletonDataFile */
+    spine::Atlas *arg2 = nullptr;       /** atlas */
+    lua_Number arg3 = 0;       /** scale */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "sp.Atlas");
+    olua_check_number(L, 4, &arg3);
+
+    // void initWithBinaryFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
+    self->initWithBinaryFile(arg1, arg2, (float)arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_SkeletonRenderer_initWithBinaryFile2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::SkeletonRenderer *self = nullptr;
+    std::string arg1;       /** skeletonDataFile */
+    std::string arg2;       /** atlasFile */
+    lua_Number arg3 = 0;       /** scale */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+
+    // void initWithBinaryFile(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
+    self->initWithBinaryFile(arg1, arg2, (float)arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_SkeletonRenderer_initWithBinaryFile3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::SkeletonRenderer *self = nullptr;
+    std::string arg1;       /** skeletonDataFile */
+    spine::Atlas *arg2 = nullptr;       /** atlas */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "sp.Atlas");
+
+    // void initWithBinaryFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
+    self->initWithBinaryFile(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_SkeletonRenderer_initWithBinaryFile4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::SkeletonRenderer *self = nullptr;
+    std::string arg1;       /** skeletonDataFile */
+    std::string arg2;       /** atlasFile */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // void initWithBinaryFile(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
+    self->initWithBinaryFile(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_SkeletonRenderer_initWithBinaryFile(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 2) {
+        if ((olua_is_std_string(L, 2)) && (olua_is_cppobj(L, 3, "sp.Atlas"))) {
+            // void initWithBinaryFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
+            return _spine_SkeletonRenderer_initWithBinaryFile3(L);
+        }
+
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            // void initWithBinaryFile(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
+            return _spine_SkeletonRenderer_initWithBinaryFile4(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        if ((olua_is_std_string(L, 2)) && (olua_is_cppobj(L, 3, "sp.Atlas")) && (olua_is_number(L, 4))) {
+            // void initWithBinaryFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
+            return _spine_SkeletonRenderer_initWithBinaryFile1(L);
+        }
+
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4))) {
+            // void initWithBinaryFile(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
+            return _spine_SkeletonRenderer_initWithBinaryFile2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'spine::SkeletonRenderer::initWithBinaryFile' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _spine_SkeletonRenderer_initWithData1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::SkeletonRenderer *self = nullptr;
+    spine::SkeletonData *arg1 = nullptr;       /** skeletonData */
+    bool arg2 = false;       /** ownsSkeletonData */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_check_cppobj(L, 2, (void **)&arg1, "sp.SkeletonData");
+    olua_check_bool(L, 3, &arg2);
+
+    // void initWithData(spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
+    self->initWithData(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_SkeletonRenderer_initWithData2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::SkeletonRenderer *self = nullptr;
+    spine::SkeletonData *arg1 = nullptr;       /** skeletonData */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_check_cppobj(L, 2, (void **)&arg1, "sp.SkeletonData");
+
+    // void initWithData(spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
+    self->initWithData(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_SkeletonRenderer_initWithData(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 2, "sp.SkeletonData"))) {
+            // void initWithData(spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
+            return _spine_SkeletonRenderer_initWithData2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 2, "sp.SkeletonData")) && (olua_is_bool(L, 3))) {
+            // void initWithData(spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
+            return _spine_SkeletonRenderer_initWithData1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'spine::SkeletonRenderer::initWithData' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _spine_SkeletonRenderer_initWithJsonFile1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::SkeletonRenderer *self = nullptr;
+    std::string arg1;       /** skeletonDataFile */
+    spine::Atlas *arg2 = nullptr;       /** atlas */
+    lua_Number arg3 = 0;       /** scale */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "sp.Atlas");
+    olua_check_number(L, 4, &arg3);
+
+    // void initWithJsonFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
+    self->initWithJsonFile(arg1, arg2, (float)arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_SkeletonRenderer_initWithJsonFile2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::SkeletonRenderer *self = nullptr;
+    std::string arg1;       /** skeletonDataFile */
+    std::string arg2;       /** atlasFile */
+    lua_Number arg3 = 0;       /** scale */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+
+    // void initWithJsonFile(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
+    self->initWithJsonFile(arg1, arg2, (float)arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_SkeletonRenderer_initWithJsonFile3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::SkeletonRenderer *self = nullptr;
+    std::string arg1;       /** skeletonDataFile */
+    spine::Atlas *arg2 = nullptr;       /** atlas */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "sp.Atlas");
+
+    // void initWithJsonFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
+    self->initWithJsonFile(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_SkeletonRenderer_initWithJsonFile4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::SkeletonRenderer *self = nullptr;
+    std::string arg1;       /** skeletonDataFile */
+    std::string arg2;       /** atlasFile */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // void initWithJsonFile(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
+    self->initWithJsonFile(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_SkeletonRenderer_initWithJsonFile(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 2) {
+        if ((olua_is_std_string(L, 2)) && (olua_is_cppobj(L, 3, "sp.Atlas"))) {
+            // void initWithJsonFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
+            return _spine_SkeletonRenderer_initWithJsonFile3(L);
+        }
+
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            // void initWithJsonFile(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
+            return _spine_SkeletonRenderer_initWithJsonFile4(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        if ((olua_is_std_string(L, 2)) && (olua_is_cppobj(L, 3, "sp.Atlas")) && (olua_is_number(L, 4))) {
+            // void initWithJsonFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
+            return _spine_SkeletonRenderer_initWithJsonFile1(L);
+        }
+
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4))) {
+            // void initWithJsonFile(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
+            return _spine_SkeletonRenderer_initWithJsonFile2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'spine::SkeletonRenderer::initWithJsonFile' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _spine_SkeletonRenderer_initWithSkeleton1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::SkeletonRenderer *self = nullptr;
+    spine::Skeleton *arg1 = nullptr;       /** skeleton */
+    bool arg2 = false;       /** ownsSkeleton */
+    bool arg3 = false;       /** ownsSkeletonData */
+    bool arg4 = false;       /** ownsAtlas */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Skeleton");
+    olua_check_bool(L, 3, &arg2);
+    olua_check_bool(L, 4, &arg3);
+    olua_check_bool(L, 5, &arg4);
+
+    // void initWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
+    self->initWithSkeleton(arg1, arg2, arg3, arg4);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_SkeletonRenderer_initWithSkeleton2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::SkeletonRenderer *self = nullptr;
+    spine::Skeleton *arg1 = nullptr;       /** skeleton */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Skeleton");
+
+    // void initWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
+    self->initWithSkeleton(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_SkeletonRenderer_initWithSkeleton3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::SkeletonRenderer *self = nullptr;
+    spine::Skeleton *arg1 = nullptr;       /** skeleton */
+    bool arg2 = false;       /** ownsSkeleton */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Skeleton");
+    olua_check_bool(L, 3, &arg2);
+
+    // void initWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
+    self->initWithSkeleton(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_SkeletonRenderer_initWithSkeleton4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::SkeletonRenderer *self = nullptr;
+    spine::Skeleton *arg1 = nullptr;       /** skeleton */
+    bool arg2 = false;       /** ownsSkeleton */
+    bool arg3 = false;       /** ownsSkeletonData */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Skeleton");
+    olua_check_bool(L, 3, &arg2);
+    olua_check_bool(L, 4, &arg3);
+
+    // void initWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
+    self->initWithSkeleton(arg1, arg2, arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_SkeletonRenderer_initWithSkeleton(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 2, "sp.Skeleton"))) {
+            // void initWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
+            return _spine_SkeletonRenderer_initWithSkeleton2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 2, "sp.Skeleton")) && (olua_is_bool(L, 3))) {
+            // void initWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
+            return _spine_SkeletonRenderer_initWithSkeleton3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_cppobj(L, 2, "sp.Skeleton")) && (olua_is_bool(L, 3)) && (olua_is_bool(L, 4))) {
+            // void initWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
+            return _spine_SkeletonRenderer_initWithSkeleton4(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_cppobj(L, 2, "sp.Skeleton")) && (olua_is_bool(L, 3)) && (olua_is_bool(L, 4)) && (olua_is_bool(L, 5))) {
+            // void initWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
+            return _spine_SkeletonRenderer_initWithSkeleton1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'spine::SkeletonRenderer::initWithSkeleton' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
 static int _spine_SkeletonRenderer_initialize(lua_State *L)
 {
     olua_startinvoke(L);
@@ -14464,6 +14880,10 @@ static int luaopen_spine_SkeletonRenderer(lua_State *L)
     oluacls_func(L, "getDebugSlotsEnabled", _spine_SkeletonRenderer_getDebugSlotsEnabled);
     oluacls_func(L, "getSkeleton", _spine_SkeletonRenderer_getSkeleton);
     oluacls_func(L, "getTimeScale", _spine_SkeletonRenderer_getTimeScale);
+    oluacls_func(L, "initWithBinaryFile", _spine_SkeletonRenderer_initWithBinaryFile);
+    oluacls_func(L, "initWithData", _spine_SkeletonRenderer_initWithData);
+    oluacls_func(L, "initWithJsonFile", _spine_SkeletonRenderer_initWithJsonFile);
+    oluacls_func(L, "initWithSkeleton", _spine_SkeletonRenderer_initWithSkeleton);
     oluacls_func(L, "initialize", _spine_SkeletonRenderer_initialize);
     oluacls_func(L, "isTwoColorTint", _spine_SkeletonRenderer_isTwoColorTint);
     oluacls_func(L, "new", _spine_SkeletonRenderer_new);

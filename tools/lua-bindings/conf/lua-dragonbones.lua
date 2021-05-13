@@ -28,10 +28,6 @@ M.EXCLUDE_TYPE 'dragonBones::IArmatureProxy *'
 M.EXCLUDE_TYPE 'dragonBones::IEventDispatcher *'
 M.EXCLUDE_TYPE 'std::vector *'
 
-M.EXCLUDE_PASS = function (cppcls, fn, decl)
-    return string.find(fn, '^_') or string.find(decl, 'std::map')
-end
-
 M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, "^dragonBones::CC", "db.")
     cppname = string.gsub(cppname, "^dragonBones::", "db.")
@@ -83,15 +79,27 @@ typeconf 'dragonBones::TextureData'
     .EXCLUDE_FUNC 'copyFrom'
 
 typeconf 'dragonBones::ArmatureData'
+
 typeconf 'dragonBones::SkinData'
+    .EXCLUDE_FUNC 'getSlotDisplays'
+    .EXCLUDE_FUNC 'displays'
+
 typeconf 'dragonBones::BoneData'
 typeconf 'dragonBones::SlotData'
 typeconf 'dragonBones::AnimationState'
+
 typeconf 'dragonBones::AnimationData'
+    .EXCLUDE_FUNC 'boneTimelines'
+    .EXCLUDE_FUNC 'slotTimelines'
+    .EXCLUDE_FUNC 'constraintTimelines'
+    .EXCLUDE_FUNC 'boneCachedFrameIndices'
+    .EXCLUDE_FUNC 'slotCachedFrameIndices'
+
 typeconf 'dragonBones::AnimationConfig'
 typeconf 'dragonBones::DragonBonesData'
 
 typeconf 'dragonBones::BaseFactory'
+    .EXCLUDE_FUNC 'getAllTextureAtlasData'
 
 local Armature = typeconf 'dragonBones::Armature'
 Armature.SUPERCLS = 'dragonBones::BaseObject'

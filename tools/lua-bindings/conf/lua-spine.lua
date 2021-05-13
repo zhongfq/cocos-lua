@@ -150,11 +150,6 @@ M.EXCLUDE_TYPE 'spine::Interpolation'
 M.EXCLUDE_TYPE 'spine::AnimationStateListenerObject'
 M.EXCLUDE_TYPE 'spine::AnimationStateListenerObject *'
 
-M.EXCLUDE_PASS = function (cppcls, fn, decl)
-    return string.find(fn, '^initWith')
-        -- or string.find(decl, 'Vector *<')
-end
-
 local function typeenum(classname)
     local cls = typeconf(classname)
     local cppname = string.match(classname, '[^:]+$')

@@ -35,17 +35,9 @@ void olua_insert_array(cocos2d::Vector<T> *array, T value)
     array->pushBack(value);
 }
 
-template <class T>
-void olua_foreach_array(const cocos2d::Vector<T> *array, const std::function<void(T)> &callback)
-{
-    for (auto itor : (*array)) {
-        callback(itor);
-    }
-}
-
 static inline bool olua_is_cocos2d_Vector(lua_State *L, int idx)
 {
-    return olua_istable(L, idx);
+    return olua_is_array<cocos2d::Vector>(L, idx);
 }
 
 template <class T>
@@ -73,12 +65,9 @@ void olua_insert_map(cocos2d::Map<K, V> *map, K key, V value)
     map->insert(key, value);
 }
 
-template <class K, class V>
-void olua_foreach_map(const cocos2d::Map<K, V> *map, const std::function<void(K, V)> &callback)
+static inline bool olua_is_cocos2d_Map(lua_State *L, int idx)
 {
-    for (auto itor : (*map)) {
-        callback(itor.first, itor.second);
-    }
+    return olua_is_map<cocos2d::Map>(L, idx);
 }
 
 template <class K, class V>

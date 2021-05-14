@@ -1,12 +1,8 @@
-local olua = require "olua"
-local autoconf = require "autoconf"
-local M = autoconf.typemod 'cocos2d'
-local typeconf = M.typeconf
-local typeonly = M.typeonly
-local include = M.include
+module 'cocos2d'
 
-M.PATH = '../../frameworks/libxgame/src/lua-bindings'
-M.INCLUDES = [[
+path = '../../frameworks/libxgame/src/lua-bindings'
+
+headers = [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "lua-bindings/LuaCocosAdapter.h"
@@ -17,15 +13,14 @@ M.INCLUDES = [[
 #include "navmesh/CCNavMesh.h"
 #include "cclua/xlua.h"
 ]]
-M.CHUNK = [[
+
+chunk = [[
 static const std::string makeScheduleCallbackTag(const std::string &key)
 {
     return "schedule." + key;
 }]]
 
-include('conf/lua-cocos2d-types.lua')
-
-M.MAKE_LUACLS = function (cppname)
+make_luacls = function (cppname)
     if cppname == 'ResolutionPolicy' then
         return 'cc.' .. cppname
     else
@@ -36,7 +31,26 @@ M.MAKE_LUACLS = function (cppname)
     end
 end
 
-M.EXCLUDE_TYPE = require "conf.exclude-type"
+include 'conf/exclude-type.lua'
+
+typedef 'cocos2d::Data'
+typedef 'cocos2d::Mat4'
+typedef 'cocos2d::Vector'
+typedef 'cocos2d::Color3B'
+typedef 'cocos2d::Color4B'
+typedef 'cocos2d::Color4F'
+typedef 'cocos2d::Value'
+typedef 'cocos2d::ValueMap'
+typedef 'cocos2d::ValueMapIntKey'
+typedef 'cocos2d::ValueVector'
+typedef 'cocos2d::Map'
+
+typedef 'cocos2d::Rect'
+    .vars '4'
+
+typedef 'cocos2d::EventListener::ListenerID'
+    .decltype 'std::string'
+    .conv 'olua_$$_std_string'
 
 typeconf 'cocos2d::RenderTargetFlag'
 typeconf 'cocos2d::ClearFlag'
@@ -44,157 +58,159 @@ typeconf 'cocos2d::MATRIX_STACK_TYPE'
 typeconf 'cocos2d::Director::Projection'
 
 typeconf 'cocos2d::UserDefault'
-    .EXCLUDE_FUNC 'setDelegate'
+    .exclude 'setDelegate'
 
-    
 typeconf 'cocos2d::Ref'
-    .EXCLUDE_FUNC 'retain'
-    .EXCLUDE_FUNC 'release'
-    .EXCLUDE_FUNC 'autorelease'
-    .FUNC('__gc', '{\n    return xlua_ccobjgc(L);\n}')
+    .exclude 'retain'
+    .exclude 'release'
+    .exclude 'autorelease'
+    .func('__gc', '{\n    return xlua_ccobjgc(L);\n}')
     
 typeconf 'cocos2d::Console'
 typeconf 'cocos2d::Acceleration'
 
-local Director = typeconf 'cocos2d::Director'
-Director.EXCLUDE_FUNC 'getCocos2dThreadId'
-Director.ALIAS('end', 'exit')
-Director.ATTR('getRunningScene', {RET = '@addref(scenes |)'})
-Director.ATTR('runWithScene', {ARG1 = '@addref(scenes |)'})
-Director.ATTR('pushScene', {ARG1 = '@addref(scenes |)'})
-Director.ATTR('replaceScene', {RET = '@delref(scenes ~)', ARG1 = '@addref(scenes |)'})
-Director.ATTR('popScene', {RET = '@delref(scenes ~)'})
-Director.ATTR('popToRootScene', {RET = '@delref(scenes ~)'})
-Director.ATTR('popToSceneStackLevel', {RET = '@delref(scenes ~)'})
-Director.ATTR('getOpenGLView', {RET = '@addref(openGLView ^)'})
-Director.ATTR('setOpenGLView', {ARG1 = '@addref(openGLView ^)'})
-Director.ATTR('getTextureCache', {RET = '@addref(textureCache ^)'})
-Director.ATTR('getNotificationNode', {RET = '@addref(notificationNode ^)'})
-Director.ATTR('setNotificationNode', {ARG1 = '@addref(notificationNode ^)'})
-Director.ATTR('convertToGL', {ARG1 = '@pack'})
-Director.ATTR('convertToUI', {ARG1 = '@pack'})
-Director.ATTR('getEventDispatcher', {RET = '@addref(eventDispatcher ^)'})
-Director.ATTR('setEventDispatcher', {ARG1 = '@addref(eventDispatcher ^)'})
-Director.ATTR('getScheduler', {RET = '@addref(scheduler ^)'})
-Director.ATTR('setScheduler', {ARG1 = '@addref(scheduler ^)'})
-Director.ATTR('getActionManager', {RET = '@addref(actionManager ^)'})
-Director.ATTR('setActionManager', {ARG1 = '@addref(actionManager ^)'})
-Director.ATTR('getRenderer', {RET = '@addref(renderer ^)'})
+typeconf 'cocos2d::Director'
+    .exclude 'getCocos2dThreadId'
+    .alias('end', 'exit')
+    .attr('getRunningScene', {ret = '@addref(scenes |)'})
+    .attr('runWithScene', {arg1 = '@addref(scenes |)'})
+    .attr('pushScene', {arg1 = '@addref(scenes |)'})
+    .attr('replaceScene', {ret = '@delref(scenes ~)', arg1 = '@addref(scenes |)'})
+    .attr('popScene', {ret = '@delref(scenes ~)'})
+    .attr('popToRootScene', {ret = '@delref(scenes ~)'})
+    .attr('popToSceneStackLevel', {ret = '@delref(scenes ~)'})
+    .attr('getOpenGLView', {ret = '@addref(openGLView ^)'})
+    .attr('setOpenGLView', {arg1 = '@addref(openGLView ^)'})
+    .attr('getTextureCache', {ret = '@addref(textureCache ^)'})
+    .attr('getNotificationNode', {ret = '@addref(notificationNode ^)'})
+    .attr('setNotificationNode', {arg1 = '@addref(notificationNode ^)'})
+    .attr('convertToGL', {arg1 = '@pack'})
+    .attr('convertToUI', {arg1 = '@pack'})
+    .attr('getEventDispatcher', {ret = '@addref(eventDispatcher ^)'})
+    .attr('setEventDispatcher', {arg1 = '@addref(eventDispatcher ^)'})
+    .attr('getScheduler', {ret = '@addref(scheduler ^)'})
+    .attr('setScheduler', {arg1 = '@addref(scheduler ^)'})
+    .attr('getActionManager', {ret = '@addref(actionManager ^)'})
+    .attr('setActionManager', {arg1 = '@addref(actionManager ^)'})
+    .attr('getRenderer', {ret = '@addref(renderer ^)'})
 
 typeconf 'cocos2d::ccSchedulerFunc'
 
-local Scheduler = typeconf 'cocos2d::Scheduler'
-Scheduler.EXCLUDE_FUNC 'performFunctionInCocosThread'
-Scheduler.CHUNK = [[
-template <typename T> bool doScheduleUpdate(lua_State *L)
-{
-    if (olua_isa<T>(L, 2)) {
-        auto self = olua_checkobj<cocos2d::Scheduler>(L, 1);
-        auto target = olua_checkobj<T>(L, 2);
-        lua_Integer priority = olua_checkinteger(L, 3);
-        bool paused = olua_checkboolean(L, 4);
-        self->scheduleUpdate(target, (int)priority, paused);
-        return true;
+typeconf 'cocos2d::Scheduler'
+    .exclude 'performFunctionInCocosThread'
+    .chunk([[
+        template <typename T> bool doScheduleUpdate(lua_State *L)
+        {
+            if (olua_isa<T>(L, 2)) {
+                auto self = olua_checkobj<cocos2d::Scheduler>(L, 1);
+                auto target = olua_checkobj<T>(L, 2);
+                lua_Integer priority = olua_checkinteger(L, 3);
+                bool paused = olua_checkboolean(L, 4);
+                self->scheduleUpdate(target, (int)priority, paused);
+                return true;
+            }
+
+            return false;
+        }
+    ]])
+    .callback {
+        name = 'schedule',
+        tag_maker = 'makeScheduleCallbackTag(#-1)',
+        tag_mode = 'OLUA_TAG_REPLACE',
+        tag_store = 2, -- 2th void *target
     }
-
-    return false;
-}]]
-Scheduler.CALLBACK {
-    NAME = 'schedule',
-    TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    TAG_STORE = 2, -- 2th void *target
-}
-Scheduler.CALLBACK {
-    NAME = 'unschedule',
-    TAG_MAKER = 'makeScheduleCallbackTag(#1)',
-    TAG_STORE = 2, -- 2th void *target
-    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
-}
-Scheduler.CALLBACK {
-    NAME = 'unscheduleAllForTarget',
-    TAG_MAKER = 'makeScheduleCallbackTag("")',
-    TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
-    TAG_STORE = 1, -- 1th void *target
-}
-Scheduler.CALLBACK {
-    NAME = 'unscheduleAll',
-    TAG_MAKER = 'makeScheduleCallbackTag("")',
-    TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
-}
-Scheduler.FUNC('scheduleUpdate', [[
-{
-    if (doScheduleUpdate<cocos2d::Scheduler>(L) ||
-        doScheduleUpdate<cocos2d::ActionManager>(L) ||
-        doScheduleUpdate<cocos2d::Node>(L) ||
-        doScheduleUpdate<cocos2d::Action>(L) ||
-        doScheduleUpdate<cocos2d::Component>(L) ||
-        doScheduleUpdate<cocos2d::ActionManager>(L)) {
-        return 0;
+    .callback {
+        name = 'unschedule',
+        tag_maker = 'makeScheduleCallbackTag(#1)',
+        tag_store = 2, -- 2th void *target
+        tag_mode = 'OLUA_TAG_SUBEQUAL',
     }
+    .callback {
+        name = 'unscheduleAllForTarget',
+        tag_maker = 'makeScheduleCallbackTag("")',
+        tag_mode = 'OLUA_TAG_SUBSTARTWITH',
+        tag_store = 1, -- 1th void *target
+    }
+    .callback {
+        name = 'unscheduleAll',
+        tag_maker = 'makeScheduleCallbackTag("")',
+        tag_mode = 'OLUA_TAG_SUBSTARTWITH',
+    }
+    .func('scheduleUpdate', [[
+        {
+            if (doScheduleUpdate<cocos2d::Scheduler>(L) ||
+                doScheduleUpdate<cocos2d::ActionManager>(L) ||
+                doScheduleUpdate<cocos2d::Node>(L) ||
+                doScheduleUpdate<cocos2d::Action>(L) ||
+                doScheduleUpdate<cocos2d::Component>(L) ||
+                doScheduleUpdate<cocos2d::ActionManager>(L)) {
+                return 0;
+            }
 
-    luaL_error(L, "unsupport type: %s", olua_typename(L, 2));
+            luaL_error(L, "unsupport type: %s", olua_typename(L, 2));
 
-    return 0;
-}]])
+            return 0;
+        }
+    ]])
 
 --
 -- event & event listener
 --
-local EventDispatcher = typeconf 'cocos2d::EventDispatcher'
-EventDispatcher.ATTR('addEventListenerWithSceneGraphPriority', {ARG1 = '@addref(listeners | 3)'})
-EventDispatcher.ATTR('addEventListenerWithFixedPriority', {ARG1 = '@addref(listeners |)'})
-EventDispatcher.ATTR('addCustomEventListener', {RET = '@addref(listeners |)'})
-EventDispatcher.ATTR('removeCustomEventListeners', {RET = '@delref(listeners ~)'})
-EventDispatcher.ATTR('removeEventListener', {RET = '@delref(listeners ~)', ARG1 = '@delref(listeners |)'})
-EventDispatcher.ATTR('removeEventListenersForType', {RET = '@delref(listeners ~)'})
-EventDispatcher.ATTR('removeAllEventListeners', {RET = '@delref(listeners ~)'})
-EventDispatcher.CALLBACK {
-    NAME = 'addCustomEventListener',
-    TAG_MAKER = '(#1)',
-    TAG_STORE = 'return',
-    TAG_MODE = 'OLUA_TAG_NEW',
-}
-EventDispatcher.CHUNK = [[
-static int _cocos2d_EventDispatcher_addEventListenerWithFixedPriority(lua_State *L);
+typeconf 'cocos2d::EventDispatcher'
+    .chunk([[
+        static int _cocos2d_EventDispatcher_addEventListenerWithFixedPriority(lua_State *L);
 
-static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
-{
-    if (olua_getrawobj(L, target)) {
-        olua_delallrefs(L, -1, refname);
-        lua_pop(L, 1);
-    }
-    if (recursive) {
-        const auto &children = target->getChildren();
-        for (const auto& child : children)
+        static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
         {
-            doRemoveEventListenersForTarget(L, child, recursive, refname);
+            if (olua_getrawobj(L, target)) {
+                olua_delallrefs(L, -1, refname);
+                lua_pop(L, 1);
+            }
+            if (recursive) {
+                const auto &children = target->getChildren();
+                for (const auto& child : children)
+                {
+                    doRemoveEventListenersForTarget(L, child, recursive, refname);
+                }
+            }
         }
+    ]])
+    .attr('addEventListenerWithSceneGraphPriority', {arg1 = '@addref(listeners | 3)'})
+    .attr('addEventListenerWithFixedPriority', {arg1 = '@addref(listeners |)'})
+    .attr('addCustomEventListener', {ret = '@addref(listeners |)'})
+    .attr('removeCustomEventListeners', {ret = '@delref(listeners ~)'})
+    .attr('removeEventListener', {ret = '@delref(listeners ~)', arg1 = '@delref(listeners |)'})
+    .attr('removeEventListenersForType', {ret = '@delref(listeners ~)'})
+    .attr('removeAllEventListeners', {ret = '@delref(listeners ~)'})
+    .callback {
+        name = 'addCustomEventListener',
+        tag_maker = '(#1)',
+        tag_store = 'return',
+        tag_mode = 'OLUA_TAG_NEW',
     }
-}]]
-EventDispatcher.INSERT('removeEventListenersForTarget', {
-    BEFORE = [[
-        bool recursive = false;
-        auto node = olua_checkobj<cocos2d::Node>(L, 2);
-        if (lua_gettop(L) >= 3) {
-            recursive = olua_toboolean(L, 3);
+    .insert('removeEventListenersForTarget', {
+        before = [[
+            bool recursive = false;
+            auto node = olua_checkobj<cocos2d::Node>(L, 2);
+            if (lua_gettop(L) >= 3) {
+                recursive = olua_toboolean(L, 3);
+            }
+            doRemoveEventListenersForTarget(L, node, recursive, "listeners");
+        ]]
+    })
+    .func('addEventListener', [[
+        {
+            lua_settop(L, 2);
+            olua_push_int(L, 1);
+            return _cocos2d_EventDispatcher_addEventListenerWithFixedPriority(L);
         }
-        doRemoveEventListenersForTarget(L, node, recursive, "listeners");
-    ]]
-})
-EventDispatcher.FUNC('addEventListener', [[
-{
-    lua_settop(L, 2);
-    olua_push_int(L, 1);
-    return _cocos2d_EventDispatcher_addEventListenerWithFixedPriority(L);
-}
-]])
+    ]])
 
 typeconf 'cocos2d::EventListener::Type'
 
 typeconf 'cocos2d::EventListener'
-    .EXCLUDE_FUNC 'init'
-    .PROP('available', 'bool checkAvailable()')
+    .exclude 'init'
+    .prop('available', 'bool checkAvailable()')
 
 typeconf 'cocos2d::EventListenerTouchOneByOne::ccTouchBeganCallback'
 typeconf 'cocos2d::EventListenerTouchOneByOne::ccTouchCallback'
@@ -203,21 +219,21 @@ typeconf 'cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback'
 typeconf 'cocos2d::EventListenerTouchAllAtOnce'
 
 typeconf 'cocos2d::EventListenerCustom'
-    .CALLBACK {
-        NAME = 'create',
-        TAG_MAKER = 'listener',
-        TAG_MODE = 'OLUA_TAG_NEW',
-        TAG_STORE = 'return',
+    .callback {
+        name = 'create',
+        tag_maker = 'listener',
+        tag_mode = 'OLUA_TAG_NEW',
+        tag_store = 'return',
     }
 
 typeconf 'cocos2d::EventListenerKeyboard'
 
 typeconf 'cocos2d::EventListenerAcceleration'
-    .CALLBACK {
-        NAME = 'create',
-        TAG_MAKER = 'listener',
-        TAG_MODE = 'OLUA_TAG_NEW',
-        TAG_STORE = 'return',
+    .callback {
+        name = 'create',
+        tag_maker = 'listener',
+        tag_mode = 'OLUA_TAG_NEW',
+        tag_store = 'return',
     }
 
 typeconf 'cocos2d::EventListenerFocus'
@@ -243,148 +259,151 @@ typeconf 'cocos2d::Touch'
 typeconf 'cocos2d::Controller::Key'
 
 typeconf 'cocos2d::Controller'
-    .EXCLUDE_FUNC 'receiveExternalKeyEvent'
+    .exclude 'receiveExternalKeyEvent'
 
 typeconf 'cocos2d::AudioProfile'
 typeconf 'cocos2d::AudioEngine::AudioState'
 
-local AudioEngine = typeconf 'cocos2d::AudioEngine'
-AudioEngine.CHUNK = [[
-NS_CC_BEGIN
-class LuaAudioEngine : public cocos2d::AudioEngine
-{
-public:
-    static std::list<int> getAudioIDs(const std::string &path)
-    {
-        std::list<int> list;
-        auto it = _audioPathIDMap.find(path);
-        if (it != _audioPathIDMap.end()) {
-            list = it->second;
-        }
-        return list;
-    }
-};
-NS_CC_END
+typeconf 'cocos2d::AudioEngine'
+    .chunk([[
+        NS_CC_BEGIN
+        class LuaAudioEngine : public cocos2d::AudioEngine
+        {
+        public:
+            static std::list<int> getAudioIDs(const std::string &path)
+            {
+                std::list<int> list;
+                auto it = _audioPathIDMap.find(path);
+                if (it != _audioPathIDMap.end()) {
+                    list = it->second;
+                }
+                return list;
+            }
+        };
+        NS_CC_END
 
-static const std::string makeAudioEngineFinishCallbackTag(lua_Integer id)
-{
-    if (id < 0) {
-        return "finishCallback.";
-    } else {
-        char buf[64];
-        sprintf(buf, "finishCallback.%d", (int)id);
-        return std::string(buf);
-    }
-}]]
-AudioEngine.INSERT('uncache', {
-    BEFORE = [[
-        std::string path = olua_checkstring(L, 1);
-        std::list<int> ids = cocos2d::LuaAudioEngine::getAudioIDs(path);
-        void *cb_store = olua_pushclassobj<cocos2d::AudioEngine>(L);
-        for (auto id : ids) {
-            std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
-            olua_removecallback(L, cb_store, tag.c_str(), OLUA_TAG_SUBEQUAL);
+        static const std::string makeAudioEngineFinishCallbackTag(lua_Integer id)
+        {
+            if (id < 0) {
+                return "finishCallback.";
+            } else {
+                char buf[64];
+                sprintf(buf, "finishCallback.%d", (int)id);
+                return std::string(buf);
+            }
         }
-    ]]
-})
-AudioEngine.CALLBACK {
-    NAME = 'stop',
-    TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
-    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
-}
-AudioEngine.CALLBACK {
-    NAME = 'stopAll',
-    TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
-    TAG_MODE = "OLUA_TAG_SUBSTARTWITH",
-}
-AudioEngine.CALLBACK {
-    NAME = 'uncacheAll',
-    TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
-    TAG_MODE = "OLUA_TAG_SUBSTARTWITH",
-}
-AudioEngine.CALLBACK {
-    NAME = 'setFinishCallback',
-    TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
-    NULLABLE = true,
-    TAG_SCOPE = 'once',
-}
-AudioEngine.CALLBACK {
-    NAME = 'preload',
-    TAG_SCOPE = 'once',
-}
+    ]])
+    .insert('uncache', {
+        before = [[
+            std::string path = olua_checkstring(L, 1);
+            std::list<int> ids = cocos2d::LuaAudioEngine::getAudioIDs(path);
+            void *cb_store = olua_pushclassobj<cocos2d::AudioEngine>(L);
+            for (auto id : ids) {
+                std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
+                olua_removecallback(L, cb_store, tag.c_str(), OLUA_TAG_SUBEQUAL);
+            }
+        ]]
+    })
+    .callback {
+        name = 'stop',
+        tag_maker = 'makeAudioEngineFinishCallbackTag(#1)',
+        tag_mode = 'OLUA_TAG_SUBEQUAL',
+    }
+    .callback {
+        name = 'stopAll',
+        tag_maker = 'makeAudioEngineFinishCallbackTag(-1)',
+        tag_mode = "OLUA_TAG_SUBSTARTWITH",
+    }
+    .callback {
+        name = 'uncacheAll',
+        tag_maker = 'makeAudioEngineFinishCallbackTag(-1)',
+        tag_mode = "OLUA_TAG_SUBSTARTWITH",
+    }
+    .callback {
+        name = 'setFinishCallback',
+        tag_maker = 'makeAudioEngineFinishCallbackTag(#1)',
+        nullable = true,
+        tag_scope = 'once',
+    }
+    .callback {
+        name = 'preload',
+        tag_scope = 'once',
+    }
 
 typeconf 'cocos2d::ApplicationProtocol::Platform'
 typeconf 'cocos2d::LanguageType'
 typeconf 'cocos2d::ApplicationProtocol'
 
 typeconf 'cocos2d::Application'
-    .EXCLUDE_FUNC 'setStartupScriptFilename'
-    .EXCLUDE_FUNC 'applicationScreenSizeChanged'
+    .exclude 'setStartupScriptFilename'
+    .exclude 'applicationScreenSizeChanged'
 
 typeconf 'cocos2d::Device'
-    .EXCLUDE_FUNC 'getTextureDataForText'
+    .exclude 'getTextureDataForText'
 
 typeconf 'cocos2d::ResizableBuffer'
 typeconf 'cocos2d::FileUtils::Status'
 
-local FileUtils =typeconf 'cocos2d::FileUtils'
-FileUtils.ATTR('listFilesRecursively', {ARG2 = '@out'})
-FileUtils.CALLBACK {NAME = "getStringFromFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-FileUtils.CALLBACK {NAME = "getDataFromFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-FileUtils.CALLBACK {NAME = "writeStringToFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-FileUtils.CALLBACK {NAME = "writeDataToFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-FileUtils.CALLBACK {NAME = "writeValueMapToFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-FileUtils.CALLBACK {NAME = "writeValueVectorToFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-FileUtils.CALLBACK {NAME = "isFileExist", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-FileUtils.CALLBACK {NAME = "isDirectoryExist", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-FileUtils.CALLBACK {NAME = "createDirectory", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-FileUtils.CALLBACK {NAME = "removeDirectory", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-FileUtils.CALLBACK {NAME = "removeFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-FileUtils.CALLBACK {NAME = "renameFile", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-FileUtils.CALLBACK {NAME = "getFileSize", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-FileUtils.CALLBACK {NAME = "listFilesAsync", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-FileUtils.CALLBACK {NAME = "listFilesRecursivelyAsync", TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
-FileUtils.FUNC('getFileDataFromZip', [[
-{
-    cocos2d::FileUtils *self = olua_toobj<cocos2d::FileUtils>(L, 1);
-    std::string zipFilePath = olua_checkstring(L, 2);
-    std::string filename = olua_checkstring(L, 3);
-    ssize_t size = 0;
-    unsigned char *data = self->getFileDataFromZip(zipFilePath, filename, &size);
-    lua_pushlstring(L, (const char *)data, size);
-    olua_push_int(L, (lua_Integer)size);
+typeconf 'cocos2d::FileUtils'
+    .attr('listFilesRecursively', {arg2 = '@out'})
+    .callback {name = "getStringFromFile", tag_scope = 'once', tag_mode = 'OLUA_TAG_NEW'}
+    .callback {name = "getDataFromFile", tag_scope = 'once', tag_mode = 'OLUA_TAG_NEW'}
+    .callback {name = "writeStringToFile", tag_scope = 'once', tag_mode = 'OLUA_TAG_NEW'}
+    .callback {name = "writeDataToFile", tag_scope = 'once', tag_mode = 'OLUA_TAG_NEW'}
+    .callback {name = "writeValueMapToFile", tag_scope = 'once', tag_mode = 'OLUA_TAG_NEW'}
+    .callback {name = "writeValueVectorToFile", tag_scope = 'once', tag_mode = 'OLUA_TAG_NEW'}
+    .callback {name = "isFileExist", tag_scope = 'once', tag_mode = 'OLUA_TAG_NEW'}
+    .callback {name = "isDirectoryExist", tag_scope = 'once', tag_mode = 'OLUA_TAG_NEW'}
+    .callback {name = "createDirectory", tag_scope = 'once', tag_mode = 'OLUA_TAG_NEW'}
+    .callback {name = "removeDirectory", tag_scope = 'once', tag_mode = 'OLUA_TAG_NEW'}
+    .callback {name = "removeFile", tag_scope = 'once', tag_mode = 'OLUA_TAG_NEW'}
+    .callback {name = "renameFile", tag_scope = 'once', tag_mode = 'OLUA_TAG_NEW'}
+    .callback {name = "getFileSize", tag_scope = 'once', tag_mode = 'OLUA_TAG_NEW'}
+    .callback {name = "listFilesAsync", tag_scope = 'once', tag_mode = 'OLUA_TAG_NEW'}
+    .callback {name = "listFilesRecursivelyAsync", tag_scope = 'once', tag_mode = 'OLUA_TAG_NEW'}
+    .func('getFileDataFromZip', [[
+        {
+            cocos2d::FileUtils *self = olua_toobj<cocos2d::FileUtils>(L, 1);
+            std::string zipFilePath = olua_checkstring(L, 2);
+            std::string filename = olua_checkstring(L, 3);
+            ssize_t size = 0;
+            unsigned char *data = self->getFileDataFromZip(zipFilePath, filename, &size);
+            lua_pushlstring(L, (const char *)data, size);
+            olua_push_int(L, (lua_Integer)size);
 
-    return 2;
-}]])
+            return 2;
+        }
+    ]])
 
 typeconf 'ResolutionPolicy'
 typeconf 'cocos2d::GLView'
 
 typeconf 'cocos2d::GLViewImpl'
-    .EXCLUDE_FUNC 'create'
-    .EXCLUDE_FUNC 'createWithRect'
-    .EXCLUDE_FUNC 'createWithFullScreen'
+    .exclude 'create'
+    .exclude 'createWithRect'
+    .exclude 'createWithFullScreen'
 
 typeconf 'cocos2d::Image::Format'
 
-local Image = typeconf 'cocos2d::Image'
-Image.CHUNK = [[
-NS_CC_BEGIN
-class LuaImage : public cocos2d::Image {
-public:
-    static bool getPNGPremultipliedAlphaEnabled() { return PNG_PREMULTIPLIED_ALPHA_ENABLED; };
-};
-NS_CC_END
-]]
-Image.FUNC('getPNGPremultipliedAlphaEnabled', [[
-{
-    lua_pushboolean(L, cocos2d::LuaImage::getPNGPremultipliedAlphaEnabled());
-    return 1;
-}]])
+typeconf 'cocos2d::Image'
+    .chunk([[
+        NS_CC_BEGIN
+        class LuaImage : public cocos2d::Image {
+        public:
+            static bool getPNGPremultipliedAlphaEnabled() { return PNG_PREMULTIPLIED_ALPHA_ENABLED; };
+        };
+        NS_CC_END
+    ]])
+    .func('getPNGPremultipliedAlphaEnabled', [[
+        {
+            lua_pushboolean(L, cocos2d::LuaImage::getPNGPremultipliedAlphaEnabled());
+            return 1;
+        }
+    ]])
 
 typeconf 'cocos2d::Properties::Type'
 typeconf 'cocos2d::Properties'
-    .ATTR('getPath', {ARG2 = '@out'})
+    .attr('getPath', {arg2 = '@out'})
 
 typeconf 'cocos2d::Material'
 typeconf 'cocos2d::Renderer'
@@ -397,31 +416,32 @@ typeonly 'cocos2d::RenderState'
 typeconf 'cocos2d::RenderCommand'
 typeconf 'cocos2d::CustomCommand'
 typeconf 'cocos2d::MeshCommand'
-    .EXCLUDE_FUNC 'listenRendererRecreated'
+    .exclude 'listenRendererRecreated'
 
-local TextureCache = typeconf 'cocos2d::TextureCache'
-TextureCache.CHUNK = [[
-static const std::string makeTextureCacheCallbackTag(const std::string &key)
-{
-    return "addImageAsync." + key;
-}]]
-TextureCache.CALLBACK {
-    NAME = 'addImageAsync',
-    TAG_MAKER = {'makeTextureCacheCallbackTag(#1)', 'makeTextureCacheCallbackTag(#-1)'},
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    TAG_SCOPE = 'once',
-    LOCAL = false,
-}
-TextureCache.CALLBACK {
-    NAME = 'unbindImageAsync',
-    TAG_MAKER = 'makeTextureCacheCallbackTag(#1)',
-    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
-}
-TextureCache.CALLBACK {
-    NAME = 'unbindAllImageAsync',
-    TAG_MAKER = 'makeTextureCacheCallbackTag("")',
-    TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
-}
+typeconf 'cocos2d::TextureCache'
+    .chunk([[
+        static const std::string makeTextureCacheCallbackTag(const std::string &key)
+        {
+            return "addImageAsync." + key;
+        }
+    ]])
+    .callback {
+        name = 'addImageAsync',
+        tag_maker = {'makeTextureCacheCallbackTag(#1)', 'makeTextureCacheCallbackTag(#-1)'},
+        tag_mode = 'OLUA_TAG_REPLACE',
+        tag_scope = 'once',
+        localvar = false,
+    }
+    .callback {
+        name = 'unbindImageAsync',
+        tag_maker = 'makeTextureCacheCallbackTag(#1)',
+        tag_mode = 'OLUA_TAG_SUBEQUAL',
+    }
+    .callback {
+        name = 'unbindAllImageAsync',
+        tag_maker = 'makeTextureCacheCallbackTag("")',
+        tag_mode = 'OLUA_TAG_SUBSTARTWITH',
+    }
 
 typeconf 'cocos2d::Texture2D'
 typeconf 'cocos2d::TextureCube'
@@ -431,278 +451,286 @@ typeconf 'cocos2d::network::WebSocket::ErrorCode'
 typeconf 'cocos2d::network::WebSocket::State'
 typeconf 'cocos2d::network::WebSocket::Delegate'
 
-local WebSocket = typeconf 'cocos2d::network::WebSocket'
-WebSocket.FUNC('init', [[
-{
-    std::vector<std::string> protocols;
-    auto self =  olua_toobj<cocos2d::network::WebSocket>(L, 1);
-    auto delegate = olua_checkobj<cocos2d::network::WebSocket::Delegate>(L, 2);
-    std::string url = olua_tostring(L, 3);
-    std::string cafile = olua_optstring(L, 5, "");
+typeconf 'cocos2d::network::WebSocket'
+    .func('init', [[
+        {
+            std::vector<std::string> protocols;
+            auto self =  olua_toobj<cocos2d::network::WebSocket>(L, 1);
+            auto delegate = olua_checkobj<cocos2d::network::WebSocket::Delegate>(L, 2);
+            std::string url = olua_tostring(L, 3);
+            std::string cafile = olua_optstring(L, 5, "");
 
-    if (!lua_isnil(L, 4)) {
-        luaL_checktype(L, 4, LUA_TTABLE);
-        int len = (int)lua_rawlen(L, 4);
-        protocols.reserve(len);
-        for (int i = 1; i <= len; i++) {
-            lua_rawgeti(L, 4, i);
-            protocols.push_back(olua_checkstring(L, -1));
-            lua_pop(L, 1);
+            if (!lua_isnil(L, 4)) {
+                luaL_checktype(L, 4, LUA_TTABLE);
+                int len = (int)lua_rawlen(L, 4);
+                protocols.reserve(len);
+                for (int i = 1; i <= len; i++) {
+                    lua_rawgeti(L, 4, i);
+                    protocols.push_back(olua_checkstring(L, -1));
+                    lua_pop(L, 1);
+                }
+            }
+
+            self->init(*delegate, url, protocols.size() > 0 ? &protocols : nullptr, cafile);
+            olua_addref(L, 1, "delegate", 2, OLUA_MODE_SINGLE);
+
+            return 0;
         }
-    }
+    ]])
 
-    self->init(*delegate, url, protocols.size() > 0 ? &protocols : nullptr, cafile);
-    olua_addref(L, 1, "delegate", 2, OLUA_MODE_SINGLE);
-
-    return 0;
-}]])
-
-local LuaWebSocketDelegate = typeconf 'cocos2d::LuaWebSocketDelegate'
-LuaWebSocketDelegate.MAKE_LUANAME = function (name)
-    return string.gsub(name, 'Callback', '')
-end
+typeconf 'cocos2d::LuaWebSocketDelegate'
+    .make_luaname(function (name)
+        return string.gsub(name, 'Callback', '')
+    end)
 
 typeconf 'cocos2d::ActionManager'
 typeconf 'cocos2d::Component'
 
-local LuaComponent = typeconf 'cocos2d::LuaComponent'
-LuaComponent.MAKE_LUANAME = function (name)
-    return string.gsub(name, 'Callback', '')
-end
+typeconf 'cocos2d::LuaComponent'
+    .make_luaname(function (name)
+        return string.gsub(name, 'Callback', '')
+    end)
 
 -- node
-local Node = typeconf 'cocos2d::Node'
-Node.EXCLUDE_FUNC 'scheduleUpdateWithPriorityLua'
-Node.ATTR('addChild', {ARG1 = '@addref(children |)'})
-Node.ATTR('getChildByTag', {RET = '@addref(children |)'})
-Node.ATTR('getChildByName', {RET = '@addref(children |)'})
-Node.ATTR('getChildren', {RET = '@addref(children |)'})
-Node.ATTR('removeFromParent', {RET = '@delref(children | parent)'})
-Node.ATTR('removeFromParentAndCleanup', {RET = '@delref(children | parent)'})
-Node.ATTR('removeChild', {ARG1 = '@delref(children |)'})
-Node.ATTR('removeChildByTag', {RET = '@delref(children ~)'})
-Node.ATTR('removeChildByName', {RET = '@delref(children ~)'})
-Node.ATTR('removeAllChildren', {RET = '@delref(children *)'})
-Node.ATTR('removeAllChildrenWithCleanup', {RET = '@delref(children *)'})
-Node.ATTR('getProgramState', {RET = '@addref(programState ^)'})
-Node.ATTR('setProgramState', {ARG1 = '@addref(programState ^)'})
-Node.ATTR('getEventDispatcher', {RET = '@addref(eventDispatcher ^)'})
-Node.ATTR('setEventDispatcher', {ARG1 = '@addref(eventDispatcher ^)'})
-Node.ATTR('getActionManager', {RET = '@addref(actionManager ^)'})
-Node.ATTR('setActionManager', {ARG1 = '@addref(actionManager ^)'})
-Node.ATTR('runAction', {RET = '@delref(actions ~)', ARG1 = '@addref(actions |)'})
-Node.ATTR('stopAllActions', {RET = '@delref(actions ~)'})
-Node.ATTR('stopAction', {RET = '@delref(actions ~)'})
-Node.ATTR('stopActionByTag', {RET = '@delref(actions ~)'})
-Node.ATTR('stopAllActionsByTag', {RET = '@delref(actions ~)'})
-Node.ATTR('stopActionsByFlags', {RET = '@delref(actions ~)'})
-Node.ATTR('getActionByTag', {RET = '@addref(actions |)'})
-Node.ATTR('setScheduler', {ARG1 = '@addref(scheduler ^)'})
-Node.ATTR('getScheduler', {RET = '@addref(scheduler ^)'})
-Node.ATTR('convertToNodeSpace', {ARG1 = '@pack'})
-Node.ATTR('convertToWorldSpace', {ARG1 = '@pack'})
-Node.ATTR('convertToNodeSpaceAR', {ARG1 = '@pack'})
-Node.ATTR('convertToWorldSpaceAR', {ARG1 = '@pack'})
-Node.ATTR('getComponent', {RET = '@addref(components |)'})
-Node.ATTR('addComponent', {ARG1 = '@addref(components |)'})
-Node.ATTR('removeComponent', {RET = '@delref(components ~)'})
-Node.ATTR('removeAllComponents', {RET = '@delref(components *)'})
-Node.ATTR('setPhysicsBody', {ARG1 = '@addref(physicsBody ^)'})
-Node.ATTR('getPhysicsBody', {RET = '@addref(physicsBody ^)'})
-Node.CHUNK = [[
-static cocos2d::Node *_find_ancestor(cocos2d::Node *node1, cocos2d::Node *node2)
-{
-    for (auto *p1 = node1; p1 != nullptr; p1 = p1->getParent()) {
-        for (auto *p2 = node2; p2 != nullptr; p2 = p2->getParent()) {
-            if (p1 == p2) {
-                return p1;
+typeconf 'cocos2d::Node'
+    .chunk([[
+        static cocos2d::Node *_find_ancestor(cocos2d::Node *node1, cocos2d::Node *node2)
+        {
+            for (auto *p1 = node1; p1 != nullptr; p1 = p1->getParent()) {
+                for (auto *p2 = node2; p2 != nullptr; p2 = p2->getParent()) {
+                    if (p1 == p2) {
+                        return p1;
+                    }
+                }
             }
+            return NULL;
         }
-    }
-    return NULL;
-}]]
-Node.FUNC('__index', [[
-{
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    if (olua_isstring(L, 2)) {
-        cocos2d::Node *child = self->getChildByName(olua_tostring(L, 2));
-        if (child) {
-            olua_pushobj<cocos2d::Node>(L, child);
-            olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
+    ]])
+    .exclude 'scheduleUpdateWithPriorityLua'
+    .attr('addChild', {arg1 = '@addref(children |)'})
+    .attr('getChildByTag', {ret = '@addref(children |)'})
+    .attr('getChildByName', {ret = '@addref(children |)'})
+    .attr('getChildren', {ret = '@addref(children |)'})
+    .attr('removeFromParent', {ret = '@delref(children | parent)'})
+    .attr('removeFromParentAndCleanup', {ret = '@delref(children | parent)'})
+    .attr('removeChild', {arg1 = '@delref(children |)'})
+    .attr('removeChildByTag', {ret = '@delref(children ~)'})
+    .attr('removeChildByName', {ret = '@delref(children ~)'})
+    .attr('removeAllChildren', {ret = '@delref(children *)'})
+    .attr('removeAllChildrenWithCleanup', {ret = '@delref(children *)'})
+    .attr('getProgramState', {ret = '@addref(programState ^)'})
+    .attr('setProgramState', {arg1 = '@addref(programState ^)'})
+    .attr('getEventDispatcher', {ret = '@addref(eventDispatcher ^)'})
+    .attr('setEventDispatcher', {arg1 = '@addref(eventDispatcher ^)'})
+    .attr('getActionManager', {ret = '@addref(actionManager ^)'})
+    .attr('setActionManager', {arg1 = '@addref(actionManager ^)'})
+    .attr('runAction', {ret = '@delref(actions ~)', arg1 = '@addref(actions |)'})
+    .attr('stopAllActions', {ret = '@delref(actions ~)'})
+    .attr('stopAction', {ret = '@delref(actions ~)'})
+    .attr('stopActionByTag', {ret = '@delref(actions ~)'})
+    .attr('stopAllActionsByTag', {ret = '@delref(actions ~)'})
+    .attr('stopActionsByFlags', {ret = '@delref(actions ~)'})
+    .attr('getActionByTag', {ret = '@addref(actions |)'})
+    .attr('setScheduler', {arg1 = '@addref(scheduler ^)'})
+    .attr('getScheduler', {ret = '@addref(scheduler ^)'})
+    .attr('convertToNodeSpace', {arg1 = '@pack'})
+    .attr('convertToWorldSpace', {arg1 = '@pack'})
+    .attr('convertToNodeSpaceAR', {arg1 = '@pack'})
+    .attr('convertToWorldSpaceAR', {arg1 = '@pack'})
+    .attr('getComponent', {ret = '@addref(components |)'})
+    .attr('addComponent', {arg1 = '@addref(components |)'})
+    .attr('removeComponent', {ret = '@delref(components ~)'})
+    .attr('removeAllComponents', {ret = '@delref(components *)'})
+    .attr('setPhysicsBody', {arg1 = '@addref(physicsBody ^)'})
+    .attr('getPhysicsBody', {ret = '@addref(physicsBody ^)'})
+    .func('__index', [[
+        {
+            auto self = olua_toobj<cocos2d::Node>(L, 1);
+            if (olua_isstring(L, 2)) {
+                cocos2d::Node *child = self->getChildByName(olua_tostring(L, 2));
+                if (child) {
+                    olua_pushobj<cocos2d::Node>(L, child);
+                    olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
+                    return 1;
+                }
+            }
+            lua_settop(L, 2);
+            olua_getvariable(L, 1);
             return 1;
         }
-    }
-    lua_settop(L, 2);
-    olua_getvariable(L, 1);
-    return 1;
-}]])
-Node.FUNC('getBounds', [[
-{
-    auto self = olua_checkobj<cocos2d::Node>(L, 1);
-    auto target = olua_checkobj<cocos2d::Node>(L, 2);
+    ]])
+    .func('getBounds', [[
+        {
+            auto self = olua_checkobj<cocos2d::Node>(L, 1);
+            auto target = olua_checkobj<cocos2d::Node>(L, 2);
 
-    float left = (float)luaL_checknumber(L, 3);
-    float right = (float)luaL_checknumber(L, 4);
-    float top = (float)luaL_checknumber(L, 5);
-    float bottom = (float)luaL_checknumber(L, 6);
+            float left = (float)luaL_checknumber(L, 3);
+            float right = (float)luaL_checknumber(L, 4);
+            float top = (float)luaL_checknumber(L, 5);
+            float bottom = (float)luaL_checknumber(L, 6);
 
-    cocos2d::Vec3 p1(left, bottom, 0);
-    cocos2d::Vec3 p2(right, top, 0);
+            cocos2d::Vec3 p1(left, bottom, 0);
+            cocos2d::Vec3 p2(right, top, 0);
 
-    auto m = cocos2d::Mat4::IDENTITY;
+            auto m = cocos2d::Mat4::IDENTITY;
 
-    if (target == self->getParent()) {
-        m = self->getNodeToParentTransform();
-    } else if (target != self) {
-        auto ancestor = _find_ancestor(target, self);
-        if (!ancestor) {
-            m = target->getWorldToNodeTransform() * self->getNodeToWorldTransform();
-        } else if (target == ancestor) {
-            m = self->getNodeToParentTransform(target);
-        } else if (self == ancestor) {
-            m = target->getNodeToParentTransform(self).getInversed();
-        } else {
-            m = target->getNodeToParentTransform(ancestor).getInversed() * self->getNodeToParentTransform(ancestor);
+            if (target == self->getParent()) {
+                m = self->getNodeToParentTransform();
+            } else if (target != self) {
+                auto ancestor = _find_ancestor(target, self);
+                if (!ancestor) {
+                    m = target->getWorldToNodeTransform() * self->getNodeToWorldTransform();
+                } else if (target == ancestor) {
+                    m = self->getNodeToParentTransform(target);
+                } else if (self == ancestor) {
+                    m = target->getNodeToParentTransform(self).getInversed();
+                } else {
+                    m = target->getNodeToParentTransform(ancestor).getInversed() * self->getNodeToParentTransform(ancestor);
+                }
+            }
+
+            m.transformPoint(&p1);
+            m.transformPoint(&p2);
+
+            left = MIN(p1.x, p2.x);
+            right = MAX(p1.x, p2.x);
+            top = MAX(p1.y, p2.y);
+            bottom = MIN(p1.y, p2.y);
+
+            lua_pushnumber(L, left);
+            lua_pushnumber(L, right);
+            lua_pushnumber(L, top);
+            lua_pushnumber(L, bottom);
+
+            return 4;
         }
-    }
-
-    m.transformPoint(&p1);
-    m.transformPoint(&p2);
-
-    left = MIN(p1.x, p2.x);
-    right = MAX(p1.x, p2.x);
-    top = MAX(p1.y, p2.y);
-    bottom = MIN(p1.y, p2.y);
-
-    lua_pushnumber(L, left);
-    lua_pushnumber(L, right);
-    lua_pushnumber(L, top);
-    lua_pushnumber(L, bottom);
-
-    return 4;
-}
-]])
-Node.PROP('x', 'float getPositionX()', 'void setPositionX(float x)')
-Node.PROP('y', 'float getPositionY()', 'void setPositionY(float y)')
-Node.PROP('z', 'float getPositionZ()', 'void setPositionZ(float z)')
-Node.PROP('anchorX', [[
-{
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    lua_pushnumber(L, self->getAnchorPoint().x);
-    return 1;
-}
-]], [[
-{
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    cocos2d::Vec2 anchor = self->getAnchorPoint();
-    anchor.x = (float)olua_checknumber(L, 2);
-    self->setAnchorPoint(anchor);
-    return 0;
-}]])
-Node.PROP('anchorY', [[
-{
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    lua_pushnumber(L, self->getAnchorPoint().y);
-    return 1;
-}
-]], [[
-{
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    cocos2d::Vec2 anchor = self->getAnchorPoint();
-    anchor.y = (float)olua_checknumber(L, 2);
-    self->setAnchorPoint(anchor);
-    return 0;
-}]])
-Node.PROP('width', [[
-{
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    lua_pushnumber(L, self->getContentSize().width);
-    return 1;
-}
-]], [[
-{
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    cocos2d::Size size = self->getContentSize();
-    size.width = (float)olua_checknumber(L, 2);
-    self->setContentSize(size);
-    return 0;
-}]])
-Node.PROP('height', [[
-{
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    lua_pushnumber(L, self->getContentSize().height);
-    return 1;
-}
-]], [[
-{
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    cocos2d::Size size = self->getContentSize();
-    size.height = (float)olua_checknumber(L, 2);
-    self->setContentSize(size);
-    return 0;
-}]])
-Node.PROP('alpha', [[
-{
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    lua_pushnumber(L, self->getOpacity() / 255.0f);
-    return 1;
-}
-]], [[
-{
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    self->setOpacity((uint8_t)(olua_checknumber(L, 2) * 255.0f));
-    return 0;
-}]])
-Node.CALLBACK {NAME = 'setOnEnterCallback', NULLABLE = true}
-Node.CALLBACK {NAME = 'getOnEnterCallback', NULLABLE = true}
-Node.CALLBACK {NAME = 'setOnExitCallback', NULLABLE = true}
-Node.CALLBACK {NAME = 'getOnExitCallback', NULLABLE = true}
-Node.CALLBACK {NAME = 'setOnEnterTransitionDidFinishCallback', NULLABLE = true}
-Node.CALLBACK {NAME = 'getOnEnterTransitionDidFinishCallback', NULLABLE = true}
-Node.CALLBACK {NAME = 'setOnExitTransitionDidStartCallback', NULLABLE = true}
-Node.CALLBACK {NAME = 'getOnExitTransitionDidStartCallback', NULLABLE = true}
-Node.CALLBACK {
-    NAME = 'scheduleOnce',
-    TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    TAG_SCOPE = 'once',
-}
-Node.CALLBACK {
-    NAME = 'schedule',
-    TAG_MAKER = "makeScheduleCallbackTag(#-1)",
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-Node.CALLBACK {
-    NAME = 'unschedule',
-    TAG_MAKER = "makeScheduleCallbackTag(#1)",
-    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
-}
-Node.CALLBACK {
-    NAME = 'unscheduleAllCallbacks',
-    TAG_MAKER = 'makeScheduleCallbackTag("")',
-    TAG_MODE = "OLUA_TAG_SUBSTARTWITH",
-}
-Node.CALLBACK {
-    NAME = 'enumerateChildren',
-    TAG_MODE = 'OLUA_TAG_NEW',
-    TAG_SCOPE = 'function',
-}
-Node.INSERT({'removeFromParent', 'removeFromParentAndCleanup'}, {
-    BEFORE = [[
-        if (!self->getParent()) {
+    ]])
+    .prop('x', 'float getPositionX()', 'void setPositionX(float x)')
+    .prop('y', 'float getPositionY()', 'void setPositionY(float y)')
+    .prop('z', 'float getPositionZ()', 'void setPositionZ(float z)')
+    .prop('anchorX', [[
+        {
+            auto self = olua_toobj<cocos2d::Node>(L, 1);
+            lua_pushnumber(L, self->getAnchorPoint().x);
+            return 1;
+        }
+        ]], [[
+        {
+            auto self = olua_toobj<cocos2d::Node>(L, 1);
+            cocos2d::Vec2 anchor = self->getAnchorPoint();
+            anchor.x = (float)olua_checknumber(L, 2);
+            self->setAnchorPoint(anchor);
             return 0;
         }
-        olua_push_cppobj<cocos2d::Node>(L, self->getParent());
-        int parent = lua_gettop(L);
-    ]]
-})
+    ]])
+    .prop('anchorY', [[
+        {
+            auto self = olua_toobj<cocos2d::Node>(L, 1);
+            lua_pushnumber(L, self->getAnchorPoint().y);
+            return 1;
+        }
+        ]], [[
+        {
+            auto self = olua_toobj<cocos2d::Node>(L, 1);
+            cocos2d::Vec2 anchor = self->getAnchorPoint();
+            anchor.y = (float)olua_checknumber(L, 2);
+            self->setAnchorPoint(anchor);
+            return 0;
+        }
+    ]])
+    .prop('width', [[
+        {
+            auto self = olua_toobj<cocos2d::Node>(L, 1);
+            lua_pushnumber(L, self->getContentSize().width);
+            return 1;
+        }
+        ]], [[
+        {
+            auto self = olua_toobj<cocos2d::Node>(L, 1);
+            cocos2d::Size size = self->getContentSize();
+            size.width = (float)olua_checknumber(L, 2);
+            self->setContentSize(size);
+            return 0;
+        }
+    ]])
+    .prop('height', [[
+        {
+            auto self = olua_toobj<cocos2d::Node>(L, 1);
+            lua_pushnumber(L, self->getContentSize().height);
+            return 1;
+        }
+        ]], [[
+        {
+            auto self = olua_toobj<cocos2d::Node>(L, 1);
+            cocos2d::Size size = self->getContentSize();
+            size.height = (float)olua_checknumber(L, 2);
+            self->setContentSize(size);
+            return 0;
+        }
+    ]])
+    .prop('alpha', [[
+        {
+            auto self = olua_toobj<cocos2d::Node>(L, 1);
+            lua_pushnumber(L, self->getOpacity() / 255.0f);
+            return 1;
+        }
+        ]], [[
+        {
+            auto self = olua_toobj<cocos2d::Node>(L, 1);
+            self->setOpacity((uint8_t)(olua_checknumber(L, 2) * 255.0f));
+            return 0;
+        }
+    ]])
+    .callback {name = 'setOnEnterCallback', nullable = true}
+    .callback {name = 'getOnEnterCallback', nullable = true}
+    .callback {name = 'setOnExitCallback', nullable = true}
+    .callback {name = 'getOnExitCallback', nullable = true}
+    .callback {name = 'setOnEnterTransitionDidFinishCallback', nullable = true}
+    .callback {name = 'getOnEnterTransitionDidFinishCallback', nullable = true}
+    .callback {name = 'setOnExitTransitionDidStartCallback', nullable = true}
+    .callback {name = 'getOnExitTransitionDidStartCallback', nullable = true}
+    .callback {
+        name = 'scheduleOnce',
+        tag_maker = 'makeScheduleCallbackTag(#-1)',
+        tag_mode = 'OLUA_TAG_REPLACE',
+        tag_scope = 'once',
+    }
+    .callback {
+        name = 'schedule',
+        tag_maker = "makeScheduleCallbackTag(#-1)",
+        tag_mode = 'OLUA_TAG_REPLACE',
+    }
+    .callback {
+        name = 'unschedule',
+        tag_maker = "makeScheduleCallbackTag(#1)",
+        tag_mode = 'OLUA_TAG_SUBEQUAL',
+    }
+    .callback {
+        name = 'unscheduleAllCallbacks',
+        tag_maker = 'makeScheduleCallbackTag("")',
+        tag_mode = "OLUA_TAG_SUBSTARTWITH",
+    }
+    .callback {
+        name = 'enumerateChildren',
+        tag_mode = 'OLUA_TAG_NEW',
+        tag_scope = 'function',
+    }
+    .insert({'removeFromParent', 'removeFromParentAndCleanup'}, {
+        before = [[
+            if (!self->getParent()) {
+                return 0;
+            }
+            olua_push_cppobj<cocos2d::Node>(L, self->getParent());
+            int parent = lua_gettop(L);
+        ]]
+    })
 
 typeconf 'cocos2d::LuaTweenNode'
-    .CALLBACK {
-        NAME = 'create',
-        TAG_MAKER = 'ActionTween',
-        TAG_MODE = 'OLUA_TAG_NEW',
-        TAG_STORE = 'return',
+    .callback {
+        name = 'create',
+        tag_maker = 'ActionTween',
+        tag_mode = 'OLUA_TAG_NEW',
+        tag_store = 'return',
     }
 
 typeconf 'cocos2d::AtlasNode'
@@ -712,17 +740,17 @@ typeconf 'cocos2d::ClippingNode'
 typeconf 'cocos2d::MotionStreak'
 
 typeconf 'cocos2d::ProtectedNode'
-    .ATTR('addProtectedChild', {ARG1 = '@addref(protectedChildren |)'})
-    .ATTR('getProtectedChildByTag', {RET = '@addref(protectedChildren |)'})
-    .ATTR('removeProtectedChild', {ARG1 = '@delref(protectedChildren |)'})
-    .ATTR('removeProtectedChildByTag', {RET = '@delref(protectedChildren ~)'})
-    .ATTR('removeAllProtectedChildren', {RET= '@delref(protectedChildren *)'})
-    .ATTR('removeAllProtectedChildrenWithCleanup', {RET = '@delref(protectedChildren *)'})
+    .attr('addProtectedChild', {arg1 = '@addref(protectedChildren |)'})
+    .attr('getProtectedChildByTag', {ret = '@addref(protectedChildren |)'})
+    .attr('removeProtectedChild', {arg1 = '@delref(protectedChildren |)'})
+    .attr('removeProtectedChildByTag', {ret = '@delref(protectedChildren ~)'})
+    .attr('removeAllProtectedChildren', {ret = '@delref(protectedChildren *)'})
+    .attr('removeAllProtectedChildrenWithCleanup', {ret = '@delref(protectedChildren *)'})
 
 typeconf 'cocos2d::DrawNode'
 
 typeconf 'cocos2d::ParallaxNode'
-    .ATTR('addChild', {ARG1 = '@addref(chilren |)'})
+    .attr('addChild', {arg1 = '@addref(chilren |)'})
     
 typeconf 'cocos2d::TextHAlignment'
 typeconf 'cocos2d::TextVAlignment'
@@ -734,31 +762,31 @@ typeconf 'cocos2d::Label'
 typeconf 'cocos2d::LabelAtlas'
 
 typeconf 'cocos2d::FontAtlas'
-    .EXCLUDE_FUNC 'getTextures'
-    .EXCLUDE_FUNC 'prepareLetterDefinitions'
+    .exclude 'getTextures'
+    .exclude 'prepareLetterDefinitions'
 
 typeconf 'cocos2d::ClippingRectangleNode'
 
-local RenderTexture = typeconf 'cocos2d::RenderTexture'
-RenderTexture.CALLBACK {
-    NAME = 'saveToFile',
-    LOCAL = false,
-    TAG_SCOPE = 'once',
-}
-RenderTexture.CALLBACK {
-    NAME = 'saveToFileAsNonPMA',
-    TAG_MAKER = 'saveToFile',
-    LOCAL = false,
-    TAG_SCOPE = 'once',
-}
-RenderTexture.CALLBACK {
-    NAME = 'newImage',
-    TAG_MODE = 'OLUA_TAG_NEW',
-    LOCAL = false,
-    TAG_SCOPE = 'once',
-}
-RenderTexture.ALIAS('begin', 'beginVisit')
-RenderTexture.ALIAS('end', 'endVisit')
+typeconf 'cocos2d::RenderTexture'
+    .callback {
+        name = 'saveToFile',
+        localvar = false,
+        tag_scope = 'once',
+    }
+    .callback {
+        name = 'saveToFileAsNonPMA',
+        tag_maker = 'saveToFile',
+        localvar = false,
+        tag_scope = 'once',
+    }
+    .callback {
+        name = 'newImage',
+        tag_mode = 'OLUA_TAG_NEW',
+        localvar = false,
+        tag_scope = 'once',
+    }
+    .alias('begin', 'beginVisit')
+    .alias('end', 'endVisit')
 
 typeconf 'cocos2d::ProgressTimer::Type'
 typeconf 'cocos2d::ProgressTimer'
@@ -771,8 +799,8 @@ typeconf 'cocos2d::SpriteFrameCache'
 typeconf 'cocos2d::AnimationCache'
 
 typeconf 'cocos2d::Scene'
-    .ATTR('getPhysicsWorld', {RET = '@addref(physicsWorld ^)'})
-    .ATTR('getPhysics3DWorld', {RET = '@addref(physics3DWorld ^)'})
+    .attr('getPhysicsWorld', {ret = '@addref(physicsWorld ^)'})
+    .attr('getPhysics3DWorld', {ret = '@addref(physics3DWorld ^)'})
 
 typeconf 'cocos2d::Layer'
 typeconf 'cocos2d::LayerColor'
@@ -784,13 +812,13 @@ typeconf 'cocos2d::TransitionScene::Orientation'
 
 local function typeconfTransition(name)
     local cls = typeconf(name)
-    cls.ATTR('create', {ARG2 = '@addref(scenes |)'})
-    cls.ATTR('easeActionWithAction', {ARG1 = '@addref(action ^)'})
+    cls.attr('create', {arg2 = '@addref(scenes |)'})
+    cls.attr('easeActionWithAction', {arg1 = '@addref(action ^)'})
     return cls
 end
 
 typeconfTransition 'cocos2d::TransitionScene'
-    .EXCLUDE_FUNC 'initWithDuration'
+    .exclude 'initWithDuration'
 
 typeconfTransition 'cocos2d::TransitionSceneOriented'
 typeconfTransition 'cocos2d::TransitionRotoZoom'
@@ -842,8 +870,8 @@ typeconf 'cocos2d::CameraFlag'
 typeconf 'cocos2d::Camera::Type'
 
 typeconf 'cocos2d::Camera'
-    .EXCLUDE_FUNC 'isVisibleInFrustum'
-    .EXCLUDE_FUNC 'setFrameBufferObject'
+    .exclude 'isVisibleInFrustum'
+    .exclude 'setFrameBufferObject'
 
 typeconf 'cocos2d::CameraBackgroundBrush::BrushType'
 typeconf 'cocos2d::CameraBackgroundBrush'
@@ -872,7 +900,7 @@ typeconf 'cocos2d::TMXTileFlags'
 typeconf 'cocos2d::TMXObjectGroup'
 
 typeconf 'cocos2d::TMXLayer'
-    .ATTR('getTileGIDAt', {ARG2 = '@out'})
+    .attr('getTileGIDAt', {arg2 = '@out'})
 
 typeconf 'cocos2d::TMXLayerInfo'
 typeconf 'cocos2d::TMXMapInfo'
@@ -881,12 +909,10 @@ typeconf 'cocos2d::TMXTiledMap'
 typeconf 'cocos2d::FastTMXTiledMap'
 
 typeconf 'cocos2d::FastTMXLayer'
-    .ATTR('getTileGIDAt', {ARG2 = '@out'})
+    .attr('getTileGIDAt', {arg2 = '@out'})
 
 typeconf 'cocos2d::NavMeshAgent::NavMeshAgentSyncFlag'
 typeconf 'cocos2d::NavMeshAgent'
 typeconf 'cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag'
 typeconf 'cocos2d::NavMeshObstacle'
 typeconf 'cocos2d::NavMesh'
-
-return M

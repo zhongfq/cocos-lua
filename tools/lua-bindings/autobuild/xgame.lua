@@ -10,7 +10,7 @@ local M = {}
 
 M.NAME = "xgame"
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
-M.INCLUDES = [[
+M.HEADERS = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
     #include "cclua/filesystem.h"
@@ -24,7 +24,7 @@ M.INCLUDES = [[
     #include "olua/olua.hpp"
 ]]
 M.CHUNK = [[
-    int olua_unpack_xgame_window_Bounds(lua_State *L, const cclua::window::Bounds *value)
+    int olua_unpack_cclua_window_Bounds(lua_State *L, const cclua::window::Bounds *value)
     {
         if (value) {
             lua_pushnumber(L, (lua_Number)value->getMinX());

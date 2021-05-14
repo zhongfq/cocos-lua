@@ -1,11 +1,8 @@
-local olua = require "olua"
-local autoconf = require "autoconf"
-local M = autoconf.typemod 'cocos2d_ui'
-local typeconf = M.typeconf
-local typedef = M.typedef
+module 'cocos2d_ui'
 
-M.PATH = '../../frameworks/libxgame/src/lua-bindings'
-M.INCLUDES = [[
+path = '../../frameworks/libxgame/src/lua-bindings'
+
+headers = [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "lua-bindings/LuaCocosAdapter.h"
@@ -15,14 +12,15 @@ M.INCLUDES = [[
 #include "ui/UIScrollViewBar.h"
 ]]
 
-M.MAKE_LUACLS = function (cppname)
+make_luacls = function (cppname)
     cppname = string.gsub(cppname, '^cocos2d::ui::', 'ccui.')
     cppname = string.gsub(cppname, "::", ".")
     return cppname
 end
 
-M.EXCLUDE_TYPE = require 'conf.exclude-type'
-M.EXCLUDE_TYPE 'cocos2d::ui::PageViewIndicator'
+include 'conf/exclude-type.lua'
+
+exclude 'cocos2d::ui::PageViewIndicator'
 
 typeconf 'cocos2d::ui::Widget::FocusDirection'
 typeconf 'cocos2d::ui::Widget::PositionType'
@@ -35,15 +33,15 @@ typeconf 'cocos2d::ui::Widget::ccWidgetClickCallback'
 typeconf 'cocos2d::ui::Widget::ccWidgetEventCallback'
 
 typeconf 'cocos2d::ui::Widget'
-    .EXCLUDE_FUNC 'createInstance'
-    .ATTR('getVirtualRenderer', {RET = '@addref(protectedChildren |)'})
-    .ATTR('findNextFocusedWidget', {ARG2 = '@nullable'})
-    .ATTR('onFocusChange', {ARG1 = '@nullable', ARG2 = '@nullable'})
-    .ATTR('dispatchFocusEvent', {ARG1 = '@nullable', ARG2 = '@nullable'})
-    .CALLBACK {NAME = 'onFocusChanged', LOCAL = false}
-    .CALLBACK {NAME = 'addTouchEventListener', NULLABLE = true, LOCAL = false}
-    .CALLBACK {NAME = 'addClickEventListener', NULLABLE = true, LOCAL = false}
-    .CALLBACK {NAME = 'addCCSEventListener', NULLABLE = true, LOCAL = false}
+    .exclude 'createInstance'
+    .attr('getVirtualRenderer', {ret = '@addref(protectedChildren |)'})
+    .attr('findNextFocusedWidget', {arg2 = '@nullable'})
+    .attr('onFocusChange', {arg1 = '@nullable', arg2 = '@nullable'})
+    .attr('dispatchFocusEvent', {arg1 = '@nullable', arg2 = '@nullable'})
+    .callback {name = 'onFocusChanged', localvar = false}
+    .callback {name = 'addTouchEventListener', nullable = true, localvar = false}
+    .callback {name = 'addClickEventListener', nullable = true, localvar = false}
+    .callback {name = 'addCCSEventListener', nullable = true, localvar = false}
 
 typeconf 'cocos2d::ui::Helper'
 typeconf 'cocos2d::ui::Scale9Sprite::State'
@@ -63,7 +61,7 @@ typeconf 'cocos2d::ui::Layout::ClippingType'
 typeconf 'cocos2d::ui::Layout::BackGroundColorType'
 
 typeconf 'cocos2d::ui::Layout'
-    .CALLBACK {NAME = 'onPassFocusToChild', NULLABLE = true, LOCAL = false}
+    .callback {name = 'onPassFocusToChild', nullable = true, localvar = false}
 
 typeconf 'cocos2d::ui::HBox'
 typeconf 'cocos2d::ui::VBox'
@@ -71,94 +69,94 @@ typeconf 'cocos2d::ui::RelativeBox'
 
 local IFDEF_IOS_OR_ANDROID = '#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)'
 
-local ccWebViewCallback = typeconf 'cocos2d::ui::WebView::ccWebViewCallback'
-ccWebViewCallback.IFDEF('*', IFDEF_IOS_OR_ANDROID)
+typeconf 'cocos2d::ui::WebView::ccWebViewCallback'
+    .ifdef('*', IFDEF_IOS_OR_ANDROID)
 
-local WebView = typeconf 'cocos2d::ui::WebView'
-WebView.IFDEF('*', IFDEF_IOS_OR_ANDROID)
-WebView.CALLBACK {NAME = 'setOnShouldStartLoading', NULLABLE = true, LOCAL = false}
-WebView.CALLBACK {NAME = 'setOnDidFinishLoading', NULLABLE = true, LOCAL = false}
-WebView.CALLBACK {NAME = 'setOnDidFailLoading', NULLABLE = true, LOCAL = false}
-WebView.CALLBACK {NAME = 'setOnJSCallback', NULLABLE = true, LOCAL = false}
+typeconf 'cocos2d::ui::WebView'
+    .ifdef('*', IFDEF_IOS_OR_ANDROID)
+    .callback {name = 'setOnShouldStartLoading', nullable = true, localvar = false}
+    .callback {name = 'setOnDidFinishLoading', nullable = true, localvar = false}
+    .callback {name = 'setOnDidFailLoading', nullable = true, localvar = false}
+    .callback {name = 'setOnJSCallback', nullable = true, localvar = false}
 
-local EventType = typeconf 'cocos2d::ui::VideoPlayer::EventType'
-EventType.IFDEF('*', IFDEF_IOS_OR_ANDROID)
+typeconf 'cocos2d::ui::VideoPlayer::EventType'
+    .ifdef('*', IFDEF_IOS_OR_ANDROID)
 
-local ccVideoPlayerCallback = typeconf 'cocos2d::ui::VideoPlayer::ccVideoPlayerCallback'
-ccVideoPlayerCallback.IFDEF('*', IFDEF_IOS_OR_ANDROID)
+typeconf 'cocos2d::ui::VideoPlayer::ccVideoPlayerCallback'
+    .ifdef('*', IFDEF_IOS_OR_ANDROID)
 
-local StyleType = typeconf 'cocos2d::ui::VideoPlayer::StyleType'
-StyleType.IFDEF('*', IFDEF_IOS_OR_ANDROID)
+typeconf 'cocos2d::ui::VideoPlayer::StyleType'
+    .ifdef('*', IFDEF_IOS_OR_ANDROID)
 
-local VideoPlayer = typeconf 'cocos2d::ui::VideoPlayer'
-VideoPlayer.IFDEF('*', IFDEF_IOS_OR_ANDROID)
-VideoPlayer.CALLBACK {
-    NAME = 'addEventListener',
-    TAG_MAKER = 'videoPlayerCallback',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    LOCAL = false,
-}
+typeconf 'cocos2d::ui::VideoPlayer'
+    .ifdef('*', IFDEF_IOS_OR_ANDROID)
+    .callback {
+        name = 'addEventListener',
+        tag_maker = 'videoPlayerCallback',
+        tag_mode = 'OLUA_TAG_REPLACE',
+        localvar = false,
+    }
 
 typeconf 'cocos2d::ui::AbstractCheckButton'
-    .ATTR('getRendererBackground', {RET = '@addref(protectedChildren |)'})
-    .ATTR('getRendererBackgroundSelected', {RET = '@addref(protectedChildren |)'})
-    .ATTR('getRendererFrontCross', {RET = '@addref(protectedChildren |)'})
-    .ATTR('getRendererBackgroundDisabled', {RET = '@addref(protectedChildren |)'})
-    .ATTR('getRendererFrontCrossDisabled', {RET = '@addref(protectedChildren |)'})
+    .attr('getRendererBackground', {ret = '@addref(protectedChildren |)'})
+    .attr('getRendererBackgroundSelected', {ret = '@addref(protectedChildren |)'})
+    .attr('getRendererFrontCross', {ret = '@addref(protectedChildren |)'})
+    .attr('getRendererBackgroundDisabled', {ret = '@addref(protectedChildren |)'})
+    .attr('getRendererFrontCrossDisabled', {ret = '@addref(protectedChildren |)'})
 
 typeconf 'cocos2d::ui::TabHeader::EventType'
 
 typeconf 'cocos2d::ui::TabHeader'
-    .ATTR('getTitleRenderer', {RET = '@addref(protectedChildren |)'})
+    .attr('getTitleRenderer', {ret = '@addref(protectedChildren |)'})
 
 typeconf 'cocos2d::ui::TabControl::Dock'
 typeconf 'cocos2d::ui::TabControl::EventType'
 typeconf 'cocos2d::ui::TabControl::ccTabControlCallback'
 
-local TabControl = typeconf 'cocos2d::ui::TabControl'
-TabControl.ATTR('removeTab', {RET = '@delref(protectedChildren ~)'})
-TabControl.ATTR('getTabHeader', {RET = '@addref(protectedChildren |)'})
-TabControl.ATTR('getTabContainer', {RET = '@addref(protectedChildren |)'})
-TabControl.ATTR('insertTab', {ARG2 = '@addref(protectedChildren |)', ARG3 = '@addref(protectedChildren |)'})
-TabControl.CALLBACK {
-    NAME = 'setTabChangedEventListener',
-    TAG_MAKER = 'tabChangedEventListener',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    NULLABLE = true,
-}
+typeconf 'cocos2d::ui::TabControl'
+    .attr('removeTab', {ret = '@delref(protectedChildren ~)'})
+    .attr('getTabHeader', {ret = '@addref(protectedChildren |)'})
+    .attr('getTabContainer', {ret = '@addref(protectedChildren |)'})
+    .attr('insertTab', {arg2 = '@addref(protectedChildren |)', arg3 = '@addref(protectedChildren |)'})
+    .callback {
+        name = 'setTabChangedEventListener',
+        tag_maker = 'tabChangedEventListener',
+        tag_mode = 'OLUA_TAG_REPLACE',
+        nullable = true,
+    }
 
 typeconf 'cocos2d::ui::ScrollView::Direction'
 typeconf 'cocos2d::ui::ScrollView::EventType'
 typeconf 'cocos2d::ui::ScrollView::ccScrollViewCallback'
 
-local ScrollView = typeconf 'cocos2d::ui::ScrollView'
-ScrollView.ATTR('getInnerContainer', {RET = '@addref(protectedChildren |)'})
-ScrollView.CALLBACK {
-    NAME = 'addEventListener',
-    TAG_MAKER = 'scrollViewCallback',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    LOCAL = false,
-}
+typeconf 'cocos2d::ui::ScrollView'
+    .attr('getInnerContainer', {ret = '@addref(protectedChildren |)'})
+    .callback {
+        name = 'addEventListener',
+        tag_maker = 'scrollViewCallback',
+        tag_mode = 'OLUA_TAG_REPLACE',
+        localvar = false,
+    }
 
 typeconf 'cocos2d::ui::ListView::Gravity'
 typeconf 'cocos2d::ui::ListView::EventType'
 typeconf 'cocos2d::ui::ListView::MagneticType'
 typeconf 'cocos2d::ui::ListView::ccListViewCallback'
 
-local ListView = typeconf 'cocos2d::ui::ListView'
-ListView.ATTR('pushBackCustomItem', {ARG1 = '@addref(children |)'})
-ListView.ATTR('insertCustomItem', {ARG1 = '@addref(children |)'})
-ListView.ATTR('removeLastItem', {RET = '@delref(children ~)'})
-ListView.ATTR('removeItem', {RET = '@delref(children ~)'})
-ListView.ATTR('removeAllItems', {RET = '@delref(children ~)'})
-ListView.ATTR('getItem', {RET = '@addref(children |)'})
-ListView.ATTR('getItems', {RET = '@addref(children |)'})
-ListView.CALLBACK {
-    NAME = 'addEventListener',
-    TAG_MAKER = 'ListViewCallback',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    LOCAL = false,
-}
+typeconf 'cocos2d::ui::ListView'
+    .attr('pushBackCustomItem', {arg1 = '@addref(children |)'})
+    .attr('insertCustomItem', {arg1 = '@addref(children |)'})
+    .attr('removeLastItem', {ret = '@delref(children ~)'})
+    .attr('removeItem', {ret = '@delref(children ~)'})
+    .attr('removeAllItems', {ret = '@delref(children ~)'})
+    .attr('getItem', {ret = '@addref(children |)'})
+    .attr('getItems', {ret = '@addref(children |)'})
+    .callback {
+        name = 'addEventListener',
+        tag_maker = 'ListViewCallback',
+        tag_mode = 'OLUA_TAG_REPLACE',
+        localvar = false,
+    }
 
 typeconf 'cocos2d::ui::LoadingBar::Direction'
 typeconf 'cocos2d::ui::LoadingBar'
@@ -166,18 +164,18 @@ typeconf 'cocos2d::ui::PageView::EventType'
 typeconf 'cocos2d::ui::PageView::TouchDirection'
 typeconf 'cocos2d::ui::PageView::ccPageViewCallback'
 
-local PageView = typeconf 'cocos2d::ui::PageView'
-PageView.ATTR('addPage', {ARG1 = '@addref(children |)'})
-PageView.ATTR('insertPage', {ARG1 = '@addref(children |)'})
-PageView.ATTR('removePage', {ARG1 = '@delref(children |)'})
-PageView.ATTR('removePageAtIndex', {RET = '@delref(children ~)'})
-PageView.ATTR('removeAllPages', {RET = '@delref(children *)'})
-PageView.CALLBACK {
-    NAME = 'addEventListener',
-    TAG_MAKER = 'PageViewCallback',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    LOCAL = false,
-}
+typeconf 'cocos2d::ui::PageView'
+    .attr('addPage', {arg1 = '@addref(children |)'})
+    .attr('insertPage', {arg1 = '@addref(children |)'})
+    .attr('removePage', {arg1 = '@delref(children |)'})
+    .attr('removePageAtIndex', {ret = '@delref(children ~)'})
+    .attr('removeAllPages', {ret = '@delref(children *)'})
+    .callback {
+        name = 'addEventListener',
+        tag_maker = 'PageViewCallback',
+        tag_mode = 'OLUA_TAG_REPLACE',
+        localvar = false,
+    }
 
 typeconf 'cocos2d::ui::RichElement::Type'
 typeconf 'cocos2d::ui::RichElement'
@@ -189,31 +187,31 @@ typeconf 'cocos2d::ui::RichText::WrapMode'
 typeconf 'cocos2d::ui::RichText::HorizontalAlignment'
 typeconf 'cocos2d::ui::RichText::OpenUrlHandler'
 
-local RichText = typeconf 'cocos2d::ui::RichText'
-RichText.EXCLUDE_FUNC 'setTagDescription'
-RichText.EXCLUDE_FUNC 'initWithXML'
-RichText.CALLBACK {
-    NAME = 'createWithXML',
-    TAG_MAKER = 'OpenUrlHandler',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    TAG_STORE = 'return',
-}
+typeconf 'cocos2d::ui::RichText'
+    .exclude 'setTagDescription'
+    .exclude 'initWithXML'
+    .callback {
+        name = 'createWithXML',
+        tag_maker = 'OpenUrlHandler',
+        tag_mode = 'OLUA_TAG_REPLACE',
+        tag_store = 'return',
+    }
 
 typeconf 'cocos2d::ui::ScrollViewBar'
 typeconf 'cocos2d::ui::Slider::EventType'
 typeconf 'cocos2d::ui::Slider::ccSliderCallback'
 
-local Slider = typeconf 'cocos2d::ui::Slider'
-Slider.ATTR('getSlidBallNormalRenderer', {RET = '@addref(protectedChildren |)'})
-Slider.ATTR('getSlidBallPressedRenderer', {RET = '@addref(protectedChildren |)'})
-Slider.ATTR('getSlidBallDisabledRenderer', {RET = '@addref(protectedChildren |)'})
-Slider.ATTR('getSlidBallRenderer', {RET = '@addref(protectedChildren |)'})
-Slider.CALLBACK {
-    NAME = 'addEventListener',
-    TAG_MAKER = 'sliderCallback',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    LOCAL = false,
-}
+typeconf 'cocos2d::ui::Slider'
+    .attr('getSlidBallNormalRenderer', {ret = '@addref(protectedChildren |)'})
+    .attr('getSlidBallPressedRenderer', {ret = '@addref(protectedChildren |)'})
+    .attr('getSlidBallDisabledRenderer', {ret = '@addref(protectedChildren |)'})
+    .attr('getSlidBallRenderer', {ret = '@addref(protectedChildren |)'})
+    .callback {
+        name = 'addEventListener',
+        tag_maker = 'sliderCallback',
+        tag_mode = 'OLUA_TAG_REPLACE',
+        localvar = false,
+    }
 
 typeconf 'cocos2d::ui::Text::Type'
 typeconf 'cocos2d::ui::Text'
@@ -223,54 +221,54 @@ typeconf 'cocos2d::ui::UICCTextField'
 typeconf 'cocos2d::ui::TextField::EventType'
 typeconf 'cocos2d::ui::TextField::ccTextFieldCallback'
 
-local TextField = typeconf 'cocos2d::ui::TextField'
-TextField.CALLBACK {
-    NAME = 'addEventListener',
-    TAG_MAKER = 'textFieldCallback',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    LOCAL = false,
-}
+typeconf 'cocos2d::ui::TextField'
+    .callback {
+        name = 'addEventListener',
+        tag_maker = 'textFieldCallback',
+        tag_mode = 'OLUA_TAG_REPLACE',
+        localvar = false,
+    }
 
 typeconf 'cocos2d::ui::Button'
-    .ATTR('setTitleLabel', {ARG1 = '@addref(protectedChildren |)'})
-    .ATTR('getTitleRenderer', {RET = '@addref(protectedChildren |)'})
-    .ATTR('getTitleLabel', {RET = '@addref(protectedChildren |)'})
-    .ATTR('getRendererNormal', {RET = '@addref(protectedChildren |)'})
-    .ATTR('getRendererClicked', {RET = '@addref(protectedChildren |)'})
-    .ATTR('getRendererDisabled', {RET = '@addref(protectedChildren |)'})
+    .attr('setTitleLabel', {arg1 = '@addref(protectedChildren |)'})
+    .attr('getTitleRenderer', {ret = '@addref(protectedChildren |)'})
+    .attr('getTitleLabel', {ret = '@addref(protectedChildren |)'})
+    .attr('getRendererNormal', {ret = '@addref(protectedChildren |)'})
+    .attr('getRendererClicked', {ret = '@addref(protectedChildren |)'})
+    .attr('getRendererDisabled', {ret = '@addref(protectedChildren |)'})
 
 typeconf 'cocos2d::ui::CheckBox::EventType'
 typeconf 'cocos2d::ui::CheckBox::ccCheckBoxCallback'
 
-local CheckBox = typeconf 'cocos2d::ui::CheckBox'
-CheckBox.CALLBACK {
-    NAME ='addEventListener',
-    TAG_MAKER = 'checkBoxCallback',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    LOCAL = false,
-}
+typeconf 'cocos2d::ui::CheckBox'
+    .callback {
+        name ='addEventListener',
+        tag_maker = 'checkBoxCallback',
+        tag_mode = 'OLUA_TAG_REPLACE',
+        localvar = false,
+    }
 
 typeconf 'cocos2d::ui::RadioButton::EventType'
 typeconf 'cocos2d::ui::RadioButton::ccRadioButtonCallback'
 
-local RadioButton = typeconf 'cocos2d::ui::RadioButton'
-RadioButton.CALLBACK {
-    NAME = 'addEventListener',
-    TAG_MAKER = 'radioButtonCallback',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    LOCAL = false,
-}
+typeconf 'cocos2d::ui::RadioButton'
+    .callback {
+        name = 'addEventListener',
+        tag_maker = 'radioButtonCallback',
+        tag_mode = 'OLUA_TAG_REPLACE',
+        localvar = false,
+    }
 
 typeconf 'cocos2d::ui::RadioButtonGroup::EventType'
 typeconf 'cocos2d::ui::RadioButtonGroup::ccRadioButtonGroupCallback'
 
-local RadioButtonGroup = typeconf 'cocos2d::ui::RadioButtonGroup'
-RadioButtonGroup.CALLBACK {
-    NAME = 'addEventListener',
-    TAG_MAKER = 'radioButtonCallback',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    LOCAL = false,
-}
+typeconf 'cocos2d::ui::RadioButtonGroup'
+    .callback {
+        name = 'addEventListener',
+        tag_maker = 'radioButtonCallback',
+        tag_mode = 'OLUA_TAG_REPLACE',
+        localvar = false,
+    }
 
 typeconf 'cocos2d::ui::ImageView'
 typeconf 'cocos2d::ui::EditBoxDelegate::EditBoxEndAction'
@@ -280,7 +278,5 @@ typeconf 'cocos2d::ui::EditBox::KeyboardReturnType'
 typeconf 'cocos2d::ui::EditBox::InputMode'
 typeconf 'cocos2d::ui::EditBox::InputFlag'
 typeconf 'cocos2d::ui::EditBox'
-    .ATTR('setDelegate', {ARG1 = '@addref(delegate ^)'})
-    .ATTR('getDelegate', {RET = '@addref(delegate ^)'})
-
-return M
+    .attr('setDelegate', {arg1 = '@addref(delegate ^)'})
+    .attr('getDelegate', {ret = '@addref(delegate ^)'})

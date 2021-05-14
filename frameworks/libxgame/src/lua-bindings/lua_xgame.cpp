@@ -3,7 +3,7 @@
 //
 #include "lua_xgame.h"
 
-int olua_unpack_xgame_window_Bounds(lua_State *L, const cclua::window::Bounds *value)
+int olua_unpack_cclua_window_Bounds(lua_State *L, const cclua::window::Bounds *value)
 {
     if (value) {
         lua_pushnumber(L, (lua_Number)value->getMinX());
@@ -2305,7 +2305,7 @@ static int _cclua_window_getVisibleBounds(lua_State *L)
 
     // @unpack static cclua::window::Bounds getVisibleBounds()
     cclua::window::Bounds ret = cclua::window::getVisibleBounds();
-    int num_ret = olua_unpack_xgame_window_Bounds(L, &ret);
+    int num_ret = olua_unpack_cclua_window_Bounds(L, &ret);
 
     olua_endinvoke(L);
 

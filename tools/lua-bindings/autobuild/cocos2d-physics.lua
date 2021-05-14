@@ -10,7 +10,7 @@ local M = {}
 
 M.NAME = "cocos2d_physics"
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
-M.INCLUDES = [[
+M.HEADERS = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
     #include "lua-bindings/LuaCocosAdapter.h"

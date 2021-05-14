@@ -1,10 +1,8 @@
-local autoconf = require "autoconf"
-local M = autoconf.typemod 'cocos2d_physics'
-local typeconf = M.typeconf
-local typeconv = M.typeconv
+module 'cocos2d_physics'
 
-M.PATH = "../../frameworks/libxgame/src/lua-bindings"
-M.INCLUDES = [[
+path = "../../frameworks/libxgame/src/lua-bindings"
+
+headers = [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "lua-bindings/LuaCocosAdapter.h"
@@ -12,13 +10,13 @@ M.INCLUDES = [[
 #include "cocos2d.h"
 ]]
 
-M.MAKE_LUACLS = function (cppname)
+make_luacls = function (cppname)
     cppname = string.gsub(cppname, "^cocos2d::", "cc.")
     cppname = string.gsub(cppname, "::", ".")
     return cppname
 end
 
-M.EXCLUDE_TYPE = require "conf.exclude-type"
+include "conf/exclude-type.lua"
 
 typeconv 'cocos2d::PhysicsMaterial'
 
@@ -57,8 +55,6 @@ typeconf 'cocos2d::PhysicsShapeEdgeChain'
 typeconf 'cocos2d::PhysicsShapeEdgeSegment'
 typeconf 'cocos2d::PhysicsRayCastInfo'
 
-local PhysicsWorld = typeconf 'cocos2d::PhysicsWorld'
-PhysicsWorld.CALLBACK {NAME = 'setPreUpdateCallback', NULLABLE = true}
-PhysicsWorld.CALLBACK {NAME = 'setPostUpdateCallback', NULLABLE = true}
-
-return M
+typeconf 'cocos2d::PhysicsWorld'
+    .callback {name = 'setPreUpdateCallback', nullable = true}
+    .callback {name = 'setPostUpdateCallback', nullable = true}

@@ -1,29 +1,25 @@
-local autoconf = require "autoconf"
-local M = autoconf.typemod 'cocos2d_backend'
-local typeconf = M.typeconf
-local typedef = M.typedef
+module 'cocos2d_backend'
 
-M.PATH = '../../frameworks/libxgame/src/lua-bindings'
-M.INCLUDES = [[
+path = '../../frameworks/libxgame/src/lua-bindings'
+
+headers = [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cocos2d.h"
 #include "cclua/xlua.h"
 ]]
 
-M.MAKE_LUACLS = function (cppname)
+make_luacls = function (cppname)
     cppname = string.gsub(cppname, "^cocos2d::backend::", "ccb.")
     cppname = string.gsub(cppname, "::", ".")
     return cppname
 end
 
-M.EXCLUDE_TYPE = require "conf.exclude-type"
-M.EXCLUDE_TYPE 'cocos2d::backend::RenderPassDescriptor'
+include "conf/exclude-type.lua"
 
-typedef {
-    CPPCLS = 'cocos2d::backend::UniformLocation',
-    CONV = 'olua_$$_cocos2d_backend_UniformLocation',
-}
+exclude 'cocos2d::backend::RenderPassDescriptor'
+
+typedef 'cocos2d::backend::UniformLocation'
 
 typeconf 'cocos2d::backend::BufferUsage'
 typeconf 'cocos2d::backend::BufferType'
@@ -49,188 +45,196 @@ typeconf 'cocos2d::backend::ProgramType'
 typeconf 'cocos2d::backend::Uniform'
 typeconf 'cocos2d::backend::Attribute'
 typeconf 'cocos2d::backend::FeatureType'
-
 typeconf 'cocos2d::backend::Buffer'
 typeconf 'cocos2d::backend::RenderPipeline'
 typeconf 'cocos2d::backend::DepthStencilState'
-
 typeconf 'cocos2d::backend::VertexLayout'
 
 typeconf 'cocos2d::backend::CommandBuffer'
-    .CALLBACK {NAME = 'captureScreen', TAG_SCOPE = 'once', TAG_MODE = 'OLUA_TAG_NEW'}
+    .callback {name = 'captureScreen', tag_scope = 'once', tag_mode = 'OLUA_TAG_NEW'}
 
-local Device = typeconf 'cocos2d::backend::Device'
-Device.INSERT({
-    'newProgram',
-    'newRenderPipeline',
-    'newTexture',
-    'newBuffer',
-    'newCommandBuffer'
-}, {
-    AFTER = [[
-        ret->autorelease();
-    ]]
-})
+typeconf 'cocos2d::backend::Device'
+    .insert({
+        'newProgram',
+        'newRenderPipeline',
+        'newTexture',
+        'newBuffer',
+        'newCommandBuffer'
+    }, {
+        after = [[
+            ret->autorelease();
+        ]]
+    })
 
 typeconf 'cocos2d::backend::DeviceInfo'
 typeconf 'cocos2d::backend::ShaderCache'
 typeconf 'cocos2d::backend::ShaderModule'
 typeconf 'cocos2d::backend::ProgramCache'
 
-local ProgramState = typeconf 'cocos2d::backend::ProgramState'
-ProgramState.CHUNK = [[
-static inline void olua_check_value(lua_State *L, int idx, cocos2d::Vec2 *value)
-{
-    olua_check_cocos2d_Vec2(L, idx, value);
-}
+typeconf 'cocos2d::backend::ProgramState'
+    .chunk([[
+        static inline void olua_check_value(lua_State *L, int idx, cocos2d::Vec2 *value)
+        {
+            olua_check_cocos2d_Vec2(L, idx, value);
+        }
 
-static inline void olua_check_value(lua_State *L, int idx, cocos2d::Vec3 *value)
-{
-    olua_check_cocos2d_Vec3(L, idx, value);
-}
+        static inline void olua_check_value(lua_State *L, int idx, cocos2d::Vec3 *value)
+        {
+            olua_check_cocos2d_Vec3(L, idx, value);
+        }
 
-static inline void olua_check_value(lua_State *L, int idx, cocos2d::Vec4 *value)
-{
-    olua_check_cocos2d_Vec4(L, idx, value);
-}
+        static inline void olua_check_value(lua_State *L, int idx, cocos2d::Vec4 *value)
+        {
+            olua_check_cocos2d_Vec4(L, idx, value);
+        }
 
-static inline void olua_check_value(lua_State *L, int idx, cocos2d::Mat4 *value)
-{
-    olua_check_cocos2d_Mat4(L, idx, value);
-}
+        static inline void olua_check_value(lua_State *L, int idx, cocos2d::Mat4 *value)
+        {
+            olua_check_cocos2d_Mat4(L, idx, value);
+        }
 
-static inline void olua_check_value(lua_State *L, int idx, int *value)
-{
-    *value = (int)olua_checkinteger(L, idx);
-}
+        static inline void olua_check_value(lua_State *L, int idx, int *value)
+        {
+            *value = (int)olua_checkinteger(L, idx);
+        }
 
-static inline void olua_check_value(lua_State *L, int idx, float *value)
-{
-    *value = (float)olua_checknumber(L, idx);
-}
+        static inline void olua_check_value(lua_State *L, int idx, float *value)
+        {
+            *value = (float)olua_checknumber(L, idx);
+        }
 
-template <typename T> int _cocos2d_backend_ProgramState_setUniform(lua_State *L)
-{
-    cocos2d::backend::UniformLocation location;
-    T value;
-    auto self = olua_toobj<cocos2d::backend::ProgramState>(L, 1);
-    if (olua_isstring(L, 2)) {
-        location = self->getUniformLocation(olua_checkstring(L, 2));
-    } else {
-        olua_check_cocos2d_backend_UniformLocation(L, 2, &location);
-    }
-    olua_check_value(L, 3, &value);
-    self->setUniform(location, &value, sizeof(T));
-    return 0;
-}
+        template <typename T> int _cocos2d_backend_ProgramState_setUniform(lua_State *L)
+        {
+            cocos2d::backend::UniformLocation location;
+            T value;
+            auto self = olua_toobj<cocos2d::backend::ProgramState>(L, 1);
+            if (olua_isstring(L, 2)) {
+                location = self->getUniformLocation(olua_checkstring(L, 2));
+            } else {
+                olua_check_cocos2d_backend_UniformLocation(L, 2, &location);
+            }
+            olua_check_value(L, 3, &value);
+            self->setUniform(location, &value, sizeof(T));
+            return 0;
+        }
 
-template <typename T> int _cocos2d_backend_ProgramState_setUniformv(lua_State *L)
-{
-    cocos2d::backend::UniformLocation location;
-    auto self = olua_toobj<cocos2d::backend::ProgramState>(L, 1);
-    if (olua_isstring(L, 2)) {
-        location = self->getUniformLocation(olua_checkstring(L, 2));
-    } else {
-        olua_check_cocos2d_backend_UniformLocation(L, 2, &location);
-    }
-    luaL_checktype(L, 3, LUA_TTABLE);
-    int len = (int)lua_rawlen(L, 3);
-    T *value = new T[len]();
-    for (int i = 0; i < len; i++) {
-        lua_rawgeti(L, 3, i + 1);
-        T v;
-        olua_check_value(L, -1, &v);
-        lua_pop(L, 1);
-        value[i] = v;
-    }
-    self->setUniform(location, value, sizeof(T) * len);
-    delete []value;
-    return 0;
-}
-]]
-ProgramState.EXCLUDE_FUNC 'setCallbackUniform'
-ProgramState.EXCLUDE_FUNC 'getCallbackUniforms'
-ProgramState.EXCLUDE_FUNC 'getVertexUniformBuffer'
-ProgramState.EXCLUDE_FUNC 'getFragmentUniformBuffer'
-ProgramState.FUNC('getVertexLayout', [[
-{
-    auto self = olua_toobj<cocos2d::backend::ProgramState>(L, 1);
-    olua_push_cppobj<cocos2d::backend::VertexLayout>(L, self->getVertexLayout().get());
-    olua_addref(L, 1, "vertexLayout", -1, OLUA_MODE_SINGLE);
-    return 1;
-}]])
-ProgramState.FUNC('setUniformVec2', [[
-{
-    _cocos2d_backend_ProgramState_setUniform<cocos2d::Vec2>(L);
-    return 0;
-}]])
-ProgramState.FUNC('setUniformVec3', [[
-{
-    _cocos2d_backend_ProgramState_setUniform<cocos2d::Vec3>(L);
-    return 0;
-}]])
-ProgramState.FUNC('setUniformVec4', [[
-{
-    _cocos2d_backend_ProgramState_setUniform<cocos2d::Vec4>(L);
-    return 0;
-}]])
-ProgramState.FUNC('setUniformMat4', [[
-{
-    _cocos2d_backend_ProgramState_setUniform<cocos2d::Mat4>(L);
-    return 0;
-}]])
-ProgramState.FUNC('setUniformInt', [[
-{
-    _cocos2d_backend_ProgramState_setUniform<int>(L);
-    return 0;
-}]])
-ProgramState.FUNC('setUniformFloat', [[
-{
-    _cocos2d_backend_ProgramState_setUniform<float>(L);
-    return 0;
-}]])
-
-ProgramState.FUNC('setUniformVec2v', [[
-{
-    _cocos2d_backend_ProgramState_setUniformv<cocos2d::Vec2>(L);
-    return 0;
-}]])
-ProgramState.FUNC('setUniformVec3v', [[
-{
-    _cocos2d_backend_ProgramState_setUniformv<cocos2d::Vec3>(L);
-    return 0;
-}]])
-ProgramState.FUNC('setUniformVec4v', [[
-{
-    _cocos2d_backend_ProgramState_setUniformv<cocos2d::Vec4>(L);
-    return 0;
-}]])
-ProgramState.FUNC('setUniformMat4v', [[
-{
-    _cocos2d_backend_ProgramState_setUniformv<cocos2d::Mat4>(L);
-    return 0;
-}]])
-ProgramState.FUNC('setUniformIntv', [[
-{
-    _cocos2d_backend_ProgramState_setUniformv<int>(L);
-    return 0;
-}]])
-ProgramState.FUNC('setUniformFloatv', [[
-{
-    _cocos2d_backend_ProgramState_setUniformv<float>(L);
-    return 0;
-}]])
+        template <typename T> int _cocos2d_backend_ProgramState_setUniformv(lua_State *L)
+        {
+            cocos2d::backend::UniformLocation location;
+            auto self = olua_toobj<cocos2d::backend::ProgramState>(L, 1);
+            if (olua_isstring(L, 2)) {
+                location = self->getUniformLocation(olua_checkstring(L, 2));
+            } else {
+                olua_check_cocos2d_backend_UniformLocation(L, 2, &location);
+            }
+            luaL_checktype(L, 3, LUA_TTABLE);
+            int len = (int)lua_rawlen(L, 3);
+            T *value = new T[len]();
+            for (int i = 0; i < len; i++) {
+                lua_rawgeti(L, 3, i + 1);
+                T v;
+                olua_check_value(L, -1, &v);
+                lua_pop(L, 1);
+                value[i] = v;
+            }
+            self->setUniform(location, value, sizeof(T) * len);
+            delete []value;
+            return 0;
+        }
+    ]])
+    .exclude 'setCallbackUniform'
+    .exclude 'getCallbackUniforms'
+    .exclude 'getVertexUniformBuffer'
+    .exclude 'getFragmentUniformBuffer'
+    .func('getVertexLayout', [[
+        {
+            auto self = olua_toobj<cocos2d::backend::ProgramState>(L, 1);
+            olua_push_cppobj<cocos2d::backend::VertexLayout>(L, self->getVertexLayout().get());
+            olua_addref(L, 1, "vertexLayout", -1, OLUA_MODE_SINGLE);
+            return 1;
+        }
+    ]])
+    .func('setUniformVec2', [[
+        {
+            _cocos2d_backend_ProgramState_setUniform<cocos2d::Vec2>(L);
+            return 0;
+        }
+    ]])
+    .func('setUniformVec3', [[
+        {
+            _cocos2d_backend_ProgramState_setUniform<cocos2d::Vec3>(L);
+            return 0;
+        }
+    ]])
+    .func('setUniformVec4', [[
+        {
+            _cocos2d_backend_ProgramState_setUniform<cocos2d::Vec4>(L);
+            return 0;
+        }
+    ]])
+    .func('setUniformMat4', [[
+        {
+            _cocos2d_backend_ProgramState_setUniform<cocos2d::Mat4>(L);
+            return 0;
+        }
+    ]])
+    .func('setUniformInt', [[
+        {
+            _cocos2d_backend_ProgramState_setUniform<int>(L);
+            return 0;
+        }
+    ]])
+    .func('setUniformFloat', [[
+        {
+            _cocos2d_backend_ProgramState_setUniform<float>(L);
+            return 0;
+        }
+    ]])
+    .func('setUniformVec2v', [[
+        {
+            _cocos2d_backend_ProgramState_setUniformv<cocos2d::Vec2>(L);
+            return 0;
+        }
+    ]])
+    .func('setUniformVec3v', [[
+        {
+            _cocos2d_backend_ProgramState_setUniformv<cocos2d::Vec3>(L);
+            return 0;
+        }
+    ]])
+    .func('setUniformVec4v', [[
+        {
+            _cocos2d_backend_ProgramState_setUniformv<cocos2d::Vec4>(L);
+            return 0;
+        }
+    ]])
+    .func('setUniformMat4v', [[
+        {
+            _cocos2d_backend_ProgramState_setUniformv<cocos2d::Mat4>(L);
+            return 0;
+        }
+    ]])
+    .func('setUniformIntv', [[
+        {
+            _cocos2d_backend_ProgramState_setUniformv<int>(L);
+            return 0;
+        }
+    ]])
+    .func('setUniformFloatv', [[
+        {
+            _cocos2d_backend_ProgramState_setUniformv<float>(L);
+            return 0;
+        }
+    ]])
 
 typeconf 'cocos2d::backend::Program'
 
 typeconf 'cocos2d::backend::TextureBackend'
-    .CALLBACK {
-        NAME = 'getBytes',
-        TAG_MODE = 'OLUA_TAG_NEW',
-        TAG_SCOPE = 'once',
+    .callback {
+        name = 'getBytes',
+        tag_mode = 'OLUA_TAG_NEW',
+        tag_scope = 'once',
     }
 
 typeconf 'cocos2d::backend::Texture2DBackend'
 typeconf 'cocos2d::backend::TextureCubemapBackend'
-
-return M

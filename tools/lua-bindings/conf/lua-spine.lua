@@ -1,11 +1,8 @@
-local autoconf = require "autoconf"
-local M = autoconf.typemod 'spine'
-local typeconf = M.typeconf
-local typedef = M.typedef
-local typeonly = M.typeonly
+module 'spine'
 
-M.PATH = "../../frameworks/libxgame/src/lua-bindings"
-M.INCLUDES = [[
+path = "../../frameworks/libxgame/src/lua-bindings"
+
+headers = [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cclua/xlua.h"
@@ -13,7 +10,8 @@ M.INCLUDES = [[
 #include "cocos2d.h"
 #include "spine/spine-cocos2dx.h"
 ]]
-M.CHUNK = [[
+
+chunk = [[
 template <class T>
 void olua_insert_array(spine::Vector<T> *array, T value)
 {
@@ -108,54 +106,40 @@ int olua_push_spine_EventData(lua_State *L, const spine::EventData *value)
     return 1;
 }]]
 
-typedef {
-    CPPCLS = 'spine::String',
-    CONV = 'olua_$$_spine_String',
-}
-
-typedef {
-    CPPCLS = 'spine::EventData',
-    CONV = 'olua_$$_spine_EventData',
-}
-
-typedef {
-    CPPCLS = 'spine::Color',
-    CONV = 'olua_$$_spine_Color',
-}
-
-typedef {
-    CPPCLS = 'spine::Vector',
-    CONV = 'olua_$$_spine_Vector',
-}
-
-M.MAKE_LUACLS = function (cppname)
+make_luacls = function (cppname)
     cppname = string.gsub(cppname, "^spine::", "sp.")
     cppname = string.gsub(cppname, "::", ".")
     return cppname
 end
 
-M.EXCLUDE_TYPE = require "conf.exclude-type"
-M.EXCLUDE_TYPE 'Unexposed *'
-M.EXCLUDE_TYPE 'spine::Bone'
-M.EXCLUDE_TYPE 'spine::Slot'
-M.EXCLUDE_TYPE 'spine::BoneData'
-M.EXCLUDE_TYPE 'spine::RTTI'
-M.EXCLUDE_TYPE 'spine::Skeleton'
-M.EXCLUDE_TYPE 'spine::SkeletonBounds'
-M.EXCLUDE_TYPE 'spine::SlotData'
-M.EXCLUDE_TYPE 'spine::IkConstraintData'
-M.EXCLUDE_TYPE 'spine::TransformConstraintData'
-M.EXCLUDE_TYPE 'spine::PathConstraintData'
-M.EXCLUDE_TYPE 'spine::Interpolation'
-M.EXCLUDE_TYPE 'spine::AnimationStateListenerObject'
-M.EXCLUDE_TYPE 'spine::AnimationStateListenerObject *'
+typedef 'spine::String'
+typedef 'spine::EventData'
+typedef 'spine::Color'
+typedef 'spine::Vector'
+
+include "conf/exclude-type.lua"
+
+exclude 'Unexposed *'
+exclude 'spine::Bone'
+exclude 'spine::Slot'
+exclude 'spine::BoneData'
+exclude 'spine::RTTI'
+exclude 'spine::Skeleton'
+exclude 'spine::SkeletonBounds'
+exclude 'spine::SlotData'
+exclude 'spine::IkConstraintData'
+exclude 'spine::TransformConstraintData'
+exclude 'spine::PathConstraintData'
+exclude 'spine::Interpolation'
+exclude 'spine::AnimationStateListenerObject'
+exclude 'spine::AnimationStateListenerObject *'
 
 local function typeenum(classname)
     local cls = typeconf(classname)
     local cppname = string.match(classname, '[^:]+$')
-    cls.MAKE_LUANAME = function (value)
+    cls.make_luaname(function (value)
         return value:gsub('^' .. cppname .. '_', '')
-    end
+    end)
     return cls
 end
 
@@ -171,14 +155,14 @@ typeenum 'spine::MixBlend'
 typeconf 'spine::SpineObject'
 
 typeconf 'spine::Event'
-    .EXCLUDE_FUNC 'Event'
+    .exclude 'Event'
 
 typeconf 'spine::EventData'
 typeconf 'spine::Updatable'
 typeconf 'spine::AnimationStateListener'
 
 typeconf 'spine::AnimationState'
-    .CALLBACK {NAME = 'setListener', LOCAL = false}
+    .callback {name = 'setListener', localvar = false}
 
 typeconf 'spine::AnimationStateData'
 
@@ -196,11 +180,11 @@ typeconf 'spine::SkeletonBounds'
 typeonly 'spine::SkeletonClipping'
 
 typeconf 'spine::Timeline'
-    .EXCLUDE_FUNC 'apply'
-    .EXCLUDE_FUNC 'setFrame'
-    .EXCLUDE_FUNC 'getVertices'
-    .EXCLUDE_FUNC 'getDrawOrders'
-    .EXCLUDE_FUNC 'getEvents'
+    .exclude 'apply'
+    .exclude 'setFrame'
+    .exclude 'getVertices'
+    .exclude 'getDrawOrders'
+    .exclude 'getEvents'
 
 typeconf 'spine::CurveTimeline'
 typeconf 'spine::AttachmentTimeline'
@@ -220,9 +204,9 @@ typeconf 'spine::RotateTimeline'
 typeconf 'spine::TwoColorTimeline'
 
 typeconf 'spine::VertexEffect'
-    .EXCLUDE_FUNC 'begin'
-    .EXCLUDE_FUNC 'end'
-    .EXCLUDE_FUNC 'transform'
+    .exclude 'begin'
+    .exclude 'end'
+    .exclude 'transform'
 
 typeconf 'spine::SwirlVertexEffect'
 typeconf 'spine::JitterVertexEffect'
@@ -230,15 +214,15 @@ typeconf 'spine::JitterVertexEffect'
 typeonly 'spine::Polygon'
 
 typeconf 'spine::Skin'
-    .EXCLUDE_FUNC 'getAttachments'
-    .EXCLUDE_FUNC 'findNamesForSlot'
-    .EXCLUDE_FUNC 'findAttachmentsForSlot'
+    .exclude 'getAttachments'
+    .exclude 'findNamesForSlot'
+    .exclude 'findAttachmentsForSlot'
 
 typeonly 'spine::Atlas'
 
 typeconf 'spine::Bone'
-    .EXCLUDE_FUNC 'localToWorld'
-    .EXCLUDE_FUNC 'worldToLocal'
+    .exclude 'localToWorld'
+    .exclude 'worldToLocal'
 
 typeconf 'spine::Slot'
 typeconf 'spine::Attachment'
@@ -252,93 +236,95 @@ typeconf 'spine::PointAttachment'
 typeconf 'spine::RegionAttachment'
 
 typeconf 'spine::TrackEntry'
-    .CALLBACK {NAME = 'setListener', LOCAL = false}
+    .callback {name = 'setListener', localvar = false}
 
-local SkeletonData = typeconf 'spine::SkeletonData'
-SkeletonData.FUNC("__gc", [[
-{
-    auto self = olua_toobj<spine::SkeletonData>(L, 1);
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
-        olua_setrawobj(L, 1, nullptr);
+typeconf 'spine::SkeletonData'
+    .func("__gc", [[
+        {
+            auto self = olua_toobj<spine::SkeletonData>(L, 1);
+            lua_pushstring(L, ".ownership");
+            olua_getvariable(L, 1);
+            if (lua_toboolean(L, -1) && self) {
+                olua_setrawobj(L, 1, nullptr);
 
-        lua_pushstring(L, ".skel.atlas");
-        olua_getvariable(L, 1);
-        auto atlas = (spine::Atlas *)olua_torawobj(L, -1);
-        delete atlas;
+                lua_pushstring(L, ".skel.atlas");
+                olua_getvariable(L, 1);
+                auto atlas = (spine::Atlas *)olua_torawobj(L, -1);
+                delete atlas;
 
-        lua_pushstring(L, ".skel.attachment_loader");
-        olua_getvariable(L, 1);
-        auto attachment_loader = (spine::Cocos2dAtlasAttachmentLoader *)olua_torawobj(L, -1);
-        delete attachment_loader;
+                lua_pushstring(L, ".skel.attachment_loader");
+                olua_getvariable(L, 1);
+                auto attachment_loader = (spine::Cocos2dAtlasAttachmentLoader *)olua_torawobj(L, -1);
+                delete attachment_loader;
 
-        lua_pushstring(L, ".skel.texture_loader");
-        olua_getvariable(L, 1);
-        auto texture_loader = (spine::Cocos2dTextureLoader *)olua_torawobj(L, -1);
-        delete texture_loader;
+                lua_pushstring(L, ".skel.texture_loader");
+                olua_getvariable(L, 1);
+                auto texture_loader = (spine::Cocos2dTextureLoader *)olua_torawobj(L, -1);
+                delete texture_loader;
 
-        delete self;
-    }
-    return 0;
-}]])
-SkeletonData.ALIAS("__gc", "dispose")
-SkeletonData.FUNC("new", [[
-{
-    const char *skel_path = olua_checkstring(L, 1);
-    const char *atlas_path = olua_checkstring(L, 2);
-    float scale = (float)olua_optnumber(L, 3, 1);
+                delete self;
+            }
+            return 0;
+        }
+    ]])
+    .alias("__gc", "dispose")
+    .func("new", [[
+        {
+            const char *skel_path = olua_checkstring(L, 1);
+            const char *atlas_path = olua_checkstring(L, 2);
+            float scale = (float)olua_optnumber(L, 3, 1);
 
-    auto texture_loader = new spine::Cocos2dTextureLoader();
-    auto atlas = new spine::Atlas(atlas_path, texture_loader);
-    spine::SkeletonData *skel_data = nullptr;
-    auto attachment_loader = new spine::Cocos2dAtlasAttachmentLoader(atlas);
+            auto texture_loader = new spine::Cocos2dTextureLoader();
+            auto atlas = new spine::Atlas(atlas_path, texture_loader);
+            spine::SkeletonData *skel_data = nullptr;
+            auto attachment_loader = new spine::Cocos2dAtlasAttachmentLoader(atlas);
 
-    if (strendwith(skel_path, ".skel")) {
-        auto reader = new spine::SkeletonBinary(attachment_loader);
-        reader->setScale(scale);
-        skel_data = reader->readSkeletonDataFile(skel_path);
-        delete reader;
-    } else {
-        auto reader = new spine::SkeletonJson(attachment_loader);
-        reader->setScale(scale);
-        skel_data = reader->readSkeletonDataFile(skel_path);
-        delete reader;
-    }
+            if (strendwith(skel_path, ".skel")) {
+                auto reader = new spine::SkeletonBinary(attachment_loader);
+                reader->setScale(scale);
+                skel_data = reader->readSkeletonDataFile(skel_path);
+                delete reader;
+            } else {
+                auto reader = new spine::SkeletonJson(attachment_loader);
+                reader->setScale(scale);
+                skel_data = reader->readSkeletonDataFile(skel_path);
+                delete reader;
+            }
 
-    if (!skel_data) {
-        delete texture_loader;
-        delete attachment_loader;
-        delete atlas;
-        luaL_error(L, "error reading skeleton file: %s", skel_path);
-    }
+            if (!skel_data) {
+                delete texture_loader;
+                delete attachment_loader;
+                delete atlas;
+                luaL_error(L, "error reading skeleton file: %s", skel_path);
+            }
 
-    olua_pushobj<spine::SkeletonData>(L, skel_data);
+            olua_pushobj<spine::SkeletonData>(L, skel_data);
 
-    lua_pushstring(L, ".ownership");
-    lua_pushboolean(L, true);
-    olua_setvariable(L, -3);
+            lua_pushstring(L, ".ownership");
+            lua_pushboolean(L, true);
+            olua_setvariable(L, -3);
 
-    lua_pushstring(L, ".skel.texture_loader");
-    olua_newrawobj(L, texture_loader);
-    olua_setvariable(L, -3);
+            lua_pushstring(L, ".skel.texture_loader");
+            olua_newrawobj(L, texture_loader);
+            olua_setvariable(L, -3);
 
-    lua_pushstring(L, ".skel.attachment_loader");
-    olua_newrawobj(L, attachment_loader);
-    olua_setvariable(L, -3);
+            lua_pushstring(L, ".skel.attachment_loader");
+            olua_newrawobj(L, attachment_loader);
+            olua_setvariable(L, -3);
 
-    lua_pushstring(L, ".skel.atlas");
-    olua_newrawobj(L, atlas);
-    olua_setvariable(L, -3);
+            lua_pushstring(L, ".skel.atlas");
+            olua_newrawobj(L, atlas);
+            olua_setvariable(L, -3);
 
-    return 1;
-}]])
+            return 1;
+        }
+    ]])
 
 typeconf 'spine::Skeleton'
-    .EXCLUDE_FUNC 'getBounds'
+    .exclude 'getBounds'
 
 typeconf 'spine::SkeletonRenderer'
-    .ATTR('createWithData', {ARG1 = '@addref(skeletonData ^)'})
+    .attr('createWithData', {arg1 = '@addref(skeletonData ^)'})
 
 typeconf 'spine::StartListener'
 typeconf 'spine::InterruptListener'
@@ -349,24 +335,22 @@ typeconf 'spine::EventListener'
 typeconf 'spine::UpdateWorldTransformsListener'
 
 typeconf 'spine::SkeletonAnimation'
-    .ATTR('createWithData', {ARG1 = '@addref(skeletonData ^)'})
-    .ATTR('getState', {RET = '@addref(state ^)'})
-    .ATTR('setAnimation', {RET = '@addref(trackEntries |)'})
-    .ATTR('addAnimation', {RET = '@addref(trackEntries |)'})
-    .ATTR('setEmptyAnimation', {RET = '@addref(trackEntries |)'})
-    .ATTR('addEmptyAnimation', {RET = '@addref(trackEntries |)'})
-    .ATTR('getCurrent', {RET = '@addref(trackEntries |)'})
-    .CALLBACK {NAME = 'setStartListener', LOCAL = false}
-    .CALLBACK {NAME = 'setInterruptListener', LOCAL = false}
-    .CALLBACK {NAME = 'setEndListener', LOCAL = false}
-    .CALLBACK {NAME = 'setDisposeListener', LOCAL = false}
-    .CALLBACK {NAME = 'setCompleteListener', LOCAL = false}
-    .CALLBACK {NAME = 'setEventListener', LOCAL = false}
-    .CALLBACK {NAME = 'setTrackStartListener', LOCAL = false}
-    .CALLBACK {NAME = 'setTrackInterruptListener', LOCAL = false}
-    .CALLBACK {NAME = 'setTrackEndListener', LOCAL = false}
-    .CALLBACK {NAME = 'setTrackDisposeListener', LOCAL = false}
-    .CALLBACK {NAME = 'setTrackCompleteListener', LOCAL = false}
-    .CALLBACK {NAME = 'setTrackEventListener', LOCAL = false}
-
-return M
+    .attr('createWithData', {arg1 = '@addref(skeletonData ^)'})
+    .attr('getState', {ret = '@addref(state ^)'})
+    .attr('setAnimation', {ret = '@addref(trackEntries |)'})
+    .attr('addAnimation', {ret = '@addref(trackEntries |)'})
+    .attr('setEmptyAnimation', {ret = '@addref(trackEntries |)'})
+    .attr('addEmptyAnimation', {ret = '@addref(trackEntries |)'})
+    .attr('getCurrent', {ret = '@addref(trackEntries |)'})
+    .callback {name = 'setStartListener', localvar = false}
+    .callback {name = 'setInterruptListener', localvar = false}
+    .callback {name = 'setEndListener', localvar = false}
+    .callback {name = 'setDisposeListener', localvar = false}
+    .callback {name = 'setCompleteListener', localvar = false}
+    .callback {name = 'setEventListener', localvar = false}
+    .callback {name = 'setTrackStartListener', localvar = false}
+    .callback {name = 'setTrackInterruptListener', localvar = false}
+    .callback {name = 'setTrackEndListener', localvar = false}
+    .callback {name = 'setTrackDisposeListener', localvar = false}
+    .callback {name = 'setTrackCompleteListener', localvar = false}
+    .callback {name = 'setTrackEventListener', localvar = false}

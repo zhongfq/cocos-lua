@@ -10,7 +10,7 @@ local M = {}
 
 M.NAME = "wechat"
 M.PATH = "../../frameworks/plugins/wechat"
-M.INCLUDES = [[
+M.HEADERS = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
     #include "cclua/xlua.h"

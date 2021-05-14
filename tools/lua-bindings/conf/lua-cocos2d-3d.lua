@@ -1,12 +1,8 @@
-local olua = require "olua"
-local autoconf = require "autoconf"
-local M = autoconf.typemod 'cocos2d_3d'
-local typeconf = M.typeconf
-local typedef = M.typedef
-local typeconv = M.typeconv
+module 'cocos2d_3d'
 
-M.PATH = '../../frameworks/libxgame/src/lua-bindings'
-M.INCLUDES = [[
+path = '../../frameworks/libxgame/src/lua-bindings'
+
+headers = [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cclua/xlua.h"
@@ -14,21 +10,22 @@ M.INCLUDES = [[
 #include "3d/CC3DProgramInfo.h"
 ]]
 
-M.EXCLUDE_TYPE = require 'conf.exclude-type'
-M.EXCLUDE_TYPE 'cocos2d::AABB'
-M.EXCLUDE_TYPE 'cocos2d::Material *'
-M.EXCLUDE_TYPE 'cocos2d::MeshIndexData *'
-M.EXCLUDE_TYPE 'cocos2d::NodeDatas'
-M.EXCLUDE_TYPE 'cocos2d::NodeDatas *'
-M.EXCLUDE_TYPE 'cocos2d::NodeData *'
-M.EXCLUDE_TYPE 'cocos2d::NodeData'
-
-M.MAKE_LUACLS = function (cppname)
+make_luacls = function (cppname)
     cppname = string.gsub(cppname, '^cocos2d::shaderinfos::', 'cc.')
     cppname = string.gsub(cppname, '^cocos2d::', 'cc.')
     cppname = string.gsub(cppname, "::", ".")
     return cppname
 end
+
+include 'conf/exclude-type.lua'
+
+exclude 'cocos2d::AABB'
+exclude 'cocos2d::Material *'
+exclude 'cocos2d::MeshIndexData *'
+exclude 'cocos2d::NodeDatas'
+exclude 'cocos2d::NodeDatas *'
+exclude 'cocos2d::NodeData *'
+exclude 'cocos2d::NodeData'
 
 typeconv 'cocos2d::MeshVertexAttrib'
 
@@ -41,7 +38,7 @@ typeconf 'cocos2d::NTextureData'
 typeconf 'cocos2d::Mesh'
 
 typeconf 'cocos2d::MeshSkin'
-    .EXCLUDE_FUNC 'create'
+    .exclude 'create'
 
 -- typeconf 'cocos2d::MeshIndexData'
 -- typeconf 'cocos2d::MeshVertexData'
@@ -56,6 +53,4 @@ typeconf 'cocos2d::Sprite3D'
 typeconf 'cocos2d::AttachNode'
 typeconf 'cocos2d::Bone3D'
 typeconf 'cocos2d::Skeleton3D'
-    .EXCLUDE_FUNC 'create'
-
-return M
+    .exclude 'create'

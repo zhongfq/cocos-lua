@@ -9,12 +9,6 @@ typedef {
 }
 
 typedef {
-    CONV = 'olua_$$_cocos2d_Rect',
-    CPPCLS = 'cocos2d::Rect',
-    NUM_VARS = 4,
-}
-
-typedef {
     CONV = 'olua_$$_cocos2d_Mat4',
     CPPCLS = 'cocos2d::Mat4',
 }
@@ -22,12 +16,6 @@ typedef {
 typedef {
     CONV = 'olua_$$_cocos2d_Vector',
     CPPCLS = 'cocos2d::Vector',
-}
-
-typedef {
-    CONV = 'olua_$$_std_string',
-    CPPCLS = 'cocos2d::EventListener::ListenerID',
-    DECLTYPE = 'std::string',
 }
 
 typedef {
@@ -68,6 +56,18 @@ typedef {
 typedef {
     CONV = 'olua_$$_cocos2d_Map',
     CPPCLS = 'cocos2d::Map',
+}
+
+typedef {
+    CONV = 'olua_$$_cocos2d_Rect',
+    CPPCLS = 'cocos2d::Rect',
+    NUM_VARS = 4,
+}
+
+typedef {
+    CONV = 'olua_$$_std_string',
+    CPPCLS = 'cocos2d::EventListener::ListenerID',
+    DECLTYPE = 'std::string',
 }
 
 typedef {

@@ -1,9 +1,8 @@
-local autoconf = require "autoconf"
-local M = autoconf.typemod 'conv'
-local typeconv = M.typeconv
+module 'conv'
 
-M.PATH = "../../frameworks/libxgame/src/lua-bindings"
-M.INCLUDES = [[
+path = "../../frameworks/libxgame/src/lua-bindings"
+
+headers = [[
 #include "cclua/xlua.h"
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
@@ -11,12 +10,8 @@ M.INCLUDES = [[
 #include "navmesh/CCNavMesh.h"
 ]]
 
-M.MAKE_LUACLS = function ()
-    return ''
-end
-
 typeconv 'cocos2d::Vec2'
-    .ATTR('*', {OPTIONAL = false})
+    .attr('*', {optional = false})
 
 typeconv 'cocos2d::Vec3'
 typeconv 'cocos2d::Vec4'
@@ -31,7 +26,7 @@ typeconv 'cocos2d::T2F_Quad'
 typeconv 'cocos2d::ccBezierConfig'
 
 typeconv 'cocos2d::TTFConfig'
-    .ATTR('*', {OPTIONAL = true})
+    .attr('*', {optional = true})
 
 typeconv 'cocos2d::BlendFunc'
 typeconv 'cocos2d::ui::Margin'
@@ -46,7 +41,7 @@ typeconv 'cocos2d::backend::BlendDescriptor'
 typeconv 'cocos2d::backend::SamplerDescriptor'
 
 typeconv 'cocos2d::backend::TextureInfo'
-    .EXCLUDE_FUNC 'location'
+    .exclude 'location'
 
 typeconv 'cocos2d::backend::AttributeBindInfo'
 typeconv 'cocos2d::backend::UniformInfo'
@@ -54,5 +49,3 @@ typeconv 'cocos2d::backend::TextureDescriptor'
 typeconv 'cocos2d::backend::StencilDescriptor'
 typeconv 'cocos2d::backend::DepthStencilDescriptor'
 typeconv 'cocos2d::backend::VertexLayout::Attribute'
-
-return M

@@ -1,30 +1,27 @@
-local autoconf = require "autoconf"
-local M = autoconf.typemod 'bugly'
-local typeconf = M.typeconf
+module 'bugly'
 
-M.PATH = "../../frameworks/libxgame/src/bugly"
-M.INCLUDES = [[
+path = "../../frameworks/libxgame/src/bugly"
+
+headers = [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cclua/xlua.h"
 #include "bugly/CrashReport.h"
 ]]
 
-local CCLUA_BUILD_BUGLY = '#ifdef CCLUA_BUILD_BUGLY'
-
-M.MAKE_LUACLS = function (cppname)
+make_luacls = function (cppname)
     cppname = string.gsub(cppname, "^cclua::", "cclua.")
     cppname = string.gsub(cppname, "::", ".")
     return cppname
 end
 
-M.EXCLUDE_TYPE = require "conf.exclude-type"
+include "conf/exclude-type.lua"
+
+local CCLUA_BUILD_BUGLY = '#ifdef CCLUA_BUILD_BUGLY'
 
 typeconf "cclua::CrashReport::LogLevel"
-    .IFDEF('*', CCLUA_BUILD_BUGLY)
+    .ifdef('*', CCLUA_BUILD_BUGLY)
 
-local CrashReport = typeconf "cclua::CrashReport"
-CrashReport.REQUIRE = 'cclua::runtime::registerFeature("bugly", true);'
-CrashReport.IFDEF('*', CCLUA_BUILD_BUGLY)
-
-return M
+typeconf "cclua::CrashReport"
+    .require 'cclua::runtime::registerFeature("bugly", true);'
+    .ifdef('*', CCLUA_BUILD_BUGLY)

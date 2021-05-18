@@ -67,35 +67,24 @@ typeconf 'cocos2d::ui::HBox'
 typeconf 'cocos2d::ui::VBox'
 typeconf 'cocos2d::ui::RelativeBox'
 
-local IFDEF_IOS_OR_ANDROID = '#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)'
-
+ifdef 'defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)'
 typeconf 'cocos2d::ui::WebView::ccWebViewCallback'
-    .ifdef('*', IFDEF_IOS_OR_ANDROID)
-
 typeconf 'cocos2d::ui::WebView'
-    .ifdef('*', IFDEF_IOS_OR_ANDROID)
     .callback {name = 'setOnShouldStartLoading', nullable = true, localvar = false}
     .callback {name = 'setOnDidFinishLoading', nullable = true, localvar = false}
     .callback {name = 'setOnDidFailLoading', nullable = true, localvar = false}
     .callback {name = 'setOnJSCallback', nullable = true, localvar = false}
-
 typeconf 'cocos2d::ui::VideoPlayer::EventType'
-    .ifdef('*', IFDEF_IOS_OR_ANDROID)
-
 typeconf 'cocos2d::ui::VideoPlayer::ccVideoPlayerCallback'
-    .ifdef('*', IFDEF_IOS_OR_ANDROID)
-
 typeconf 'cocos2d::ui::VideoPlayer::StyleType'
-    .ifdef('*', IFDEF_IOS_OR_ANDROID)
-
 typeconf 'cocos2d::ui::VideoPlayer'
-    .ifdef('*', IFDEF_IOS_OR_ANDROID)
     .callback {
         name = 'addEventListener',
         tag_maker = 'videoPlayerCallback',
         tag_mode = 'OLUA_TAG_REPLACE',
         localvar = false,
     }
+endif ''
 
 typeconf 'cocos2d::ui::AbstractCheckButton'
     .attr('getRendererBackground', {ret = '@addref(protectedChildren |)'})

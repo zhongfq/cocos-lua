@@ -17,16 +17,11 @@ end
 
 include "conf/exclude-type.lua"
 
-local CCLUA_BUILD_WECHAT = '#ifdef CCLUA_BUILD_WECHAT'
-
+ifdef 'CCLUA_BUILD_WECHAT'
 typeconf "cclua::plugin::WeChat::ShareType"
-    .ifdef('*', CCLUA_BUILD_WECHAT)
-
 typeconf "cclua::plugin::WeChat::ProgramType"
-    .ifdef('*', CCLUA_BUILD_WECHAT)
-
 typeconf "cclua::plugin::WeChat"
+    .ifdef('pay', '#ifdef CCLUA_OS_ANDROID')
     .exclude 'dispatch'
     .require 'cclua::runtime::registerFeature("wechat", true);'
-    .ifdef('*', CCLUA_BUILD_WECHAT)
-    .ifdef('pay', '#ifdef CCLUA_OS_ANDROID')
+endif ''

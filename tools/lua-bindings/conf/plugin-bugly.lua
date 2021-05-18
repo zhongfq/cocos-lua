@@ -17,11 +17,8 @@ end
 
 include "conf/exclude-type.lua"
 
-local CCLUA_BUILD_BUGLY = '#ifdef CCLUA_BUILD_BUGLY'
-
+ifdef 'CCLUA_BUILD_BUGLY'
 typeconf "cclua::CrashReport::LogLevel"
-    .ifdef('*', CCLUA_BUILD_BUGLY)
-
 typeconf "cclua::CrashReport"
     .require 'cclua::runtime::registerFeature("bugly", true);'
-    .ifdef('*', CCLUA_BUILD_BUGLY)
+endif ''

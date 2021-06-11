@@ -645,6 +645,9 @@ void GComponent::updateBounds()
         for (size_t i = 0; i < cnt; ++i)
         {
             GObject* child = _children.at(i);
+            if (!child->internalVisible3()) {
+                continue;
+            }
             tmp = child->getX();
             if (tmp < ax)
                 ax = tmp;

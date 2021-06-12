@@ -1662,7 +1662,7 @@ void Label::updateContent()
         {
             // This is the logic for TTF fonts
             const float charheight = (_textDesiredHeight / _numberOfLines);
-            _underlineNode->setLineWidth(charheight/6);
+            _underlineNode->setLineWidth(charheight/12);
 
             // atlas font
             for (int i=0; i<_numberOfLines; ++i)

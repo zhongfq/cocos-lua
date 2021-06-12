@@ -45,7 +45,7 @@ public:
     static void dismissLoginAuth(bool needCloseAnim = true);
     static void getSmsCode(const std::string &phonenum, const std::string &signid, const std::string &tempid, const Callback callback);
     static void setSmsIntervalTime(long intervalTime);
-    static void configUI(cocos2d::ValueMap &value);
+    static void configUI(cocos2d::ValueMap &value, bool landscape = true);
 };
 #endif
 

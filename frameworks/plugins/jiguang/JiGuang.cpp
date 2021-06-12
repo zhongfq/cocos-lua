@@ -143,9 +143,9 @@ void JAuth::setSmsIntervalTime(long intervalTime)
     JniHelper::callStaticVoidMethod(JAVA_JAUTH_CLASS, "setSmsIntervalTime", intervalTime);
 }
 
-void JAuth::configUI(cocos2d::ValueMap &value)
+void JAuth::configUI(cocos2d::ValueMap &value, bool landscape)
 {
-    JniHelper::callStaticVoidMethod(JAVA_JAUTH_CLASS, "configUI", toJSONString(value));
+    JniHelper::callStaticVoidMethod(JAVA_JAUTH_CLASS, "configUI", toJSONString(value), landscape);
 }
 
 #endif

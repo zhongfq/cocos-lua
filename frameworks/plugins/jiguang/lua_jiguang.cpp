@@ -275,7 +275,25 @@ static int _cclua_plugin_JAuth_clearPreLoginCache(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_JAuth_configUI(lua_State *L)
+static int _cclua_plugin_JAuth_configUI1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ValueMap arg1;       /** value */
+    bool arg2 = false;       /** landscape */
+
+    olua_check_cocos2d_ValueMap(L, 1, &arg1);
+    olua_check_bool(L, 2, &arg2);
+
+    // static void configUI(cocos2d::ValueMap &value, @optional bool landscape)
+    cclua::plugin::JAuth::configUI(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cclua_plugin_JAuth_configUI2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -283,10 +301,33 @@ static int _cclua_plugin_JAuth_configUI(lua_State *L)
 
     olua_check_cocos2d_ValueMap(L, 1, &arg1);
 
-    // static void configUI(cocos2d::ValueMap &value)
+    // static void configUI(cocos2d::ValueMap &value, @optional bool landscape)
     cclua::plugin::JAuth::configUI(arg1);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cclua_plugin_JAuth_configUI(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_cocos2d_ValueMap(L, 1))) {
+            // static void configUI(cocos2d::ValueMap &value, @optional bool landscape)
+            return _cclua_plugin_JAuth_configUI2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cocos2d_ValueMap(L, 1)) && (olua_is_bool(L, 2))) {
+            // static void configUI(cocos2d::ValueMap &value, @optional bool landscape)
+            return _cclua_plugin_JAuth_configUI1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cclua::plugin::JAuth::configUI' not support '%d' arguments", num_args);
 
     return 0;
 }

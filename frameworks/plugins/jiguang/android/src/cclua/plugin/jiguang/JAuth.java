@@ -2,15 +2,24 @@ package cclua.plugin.jiguang;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Point;
+import android.graphics.Typeface;
 import android.util.Log;
+import android.view.Display;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import cclua.AppContext;
 import cclua.LuaJ;
 import cclua.PluginManager;
 import cn.jiguang.verifysdk.api.JVerificationInterface;
@@ -20,9 +29,12 @@ import cn.jiguang.verifysdk.api.PreLoginListener;
 import cn.jiguang.verifysdk.api.RequestCallback;
 import cn.jiguang.verifysdk.api.VerifyListener;
 
+@SuppressWarnings("unused")
 public class JAuth {
     private static final String TAG = JAuth.class.getSimpleName();
     private static Application mContext;
+    private static int mWinHeight;
+    private static int mWinWidth;
 
     static {
         PluginManager.registerPlugin(new PluginManager.Handler() {
@@ -34,6 +46,16 @@ public class JAuth {
 
             @Override
             public void onStart(Activity context) {
+                Display defaultDisplay = context.getWindowManager().getDefaultDisplay();
+                Point point = new Point();
+                defaultDisplay.getSize(point);
+                if (point.x > point.y) {
+                    mWinHeight = point.x;
+                    mWinWidth = point.y;
+                } else {
+                    mWinHeight = point.y;
+                    mWinWidth = point.x;
+                }
             }
         });
     }
@@ -42,7 +64,7 @@ public class JAuth {
         JVerificationInterface.init(mContext, new RequestCallback<String>() {
             @Override
             public void onResult(int code, String msg) {
-                Log.d(TAG,"init JAuth: code = " + code + " msg = " + msg);
+                Log.d(TAG, "init JAuth: code = " + code + " msg = " + msg);
             }
         });
     }
@@ -134,7 +156,7 @@ public class JAuth {
         JVerificationInterface.dismissLoginAuthActivity(needCloseAnim, new RequestCallback<String>() {
             @Override
             public void onResult(int code, String desc) {
-                Log.d(TAG,"dismissLoginAuth: code = " + code + " desc = " + desc);
+                Log.d(TAG, "dismissLoginAuth: code = " + code + " desc = " + desc);
             }
         });
     }
@@ -161,11 +183,15 @@ public class JAuth {
         JVerificationInterface.setSmsIntervalTime(intervalTime);
     }
 
-    public static void configUI(String dataStr) {
+    public static void configUI(String dataStr, boolean landscape) {
         try {
             JSONObject data = new JSONObject(dataStr);
-            JVerifyUIConfig.Builder builder = new JVerifyUIConfig.Builder();
-            builder.setNavReturnImgPath("cclua_umcsdk_return_bg");
+            JVerifyUIConfig.Builder builder;
+            if (data.has("dialogTheme")) {
+                builder = landscape ? getDialogLandscapeConfig() : getDialogPortraitConfig();
+            } else {
+                builder = landscape ? getFullScreenLandscapeConfig() : getFullScreenPortraitConfig();
+            }
             if (data.has("authBGImgPath")) {
                 builder.setAuthBGImgPath(data.getString("authBGImgPath"));
             }
@@ -387,7 +413,7 @@ public class JAuth {
             if (data.has("appPrivacyNavTitle2")) {
                 builder.setAppPrivacyNavTitle2(data.getString("appPrivacyNavTitle2"));
             }
-            
+
             if (data.has("privacyStatusBarColorWithNav")) {
                 builder.setPrivacyStatusBarColorWithNav(data.getBoolean("privacyStatusBarColorWithNav"));
             }
@@ -460,8 +486,224 @@ public class JAuth {
         }
     }
 
-    private static int getResID(final String resName)
-    {
+    private static int getResID(final String resName) {
         return mContext.getResources().getIdentifier(resName, "drawable", mContext.getApplicationInfo().packageName);
+    }
+
+    private static int dp2Pix(Context context, float dp) {
+        try {
+            float density = context.getResources().getDisplayMetrics().density;
+            return (int) (dp * density + 0.5F);
+        } catch (Exception e) {
+            return (int) dp;
+        }
+    }
+
+    private static int px2dip(Context context, int pxValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
+
+    private static JVerifyUIConfig.Builder getFullScreenLandscapeConfig() {
+        AppContext context = (AppContext) AppContext.getContext();
+        JVerifyUIConfig.Builder builder = new JVerifyUIConfig.Builder();
+        builder.setStatusBarHidden(true);
+        builder.setSloganTextColor(0xFFD0D0D9);
+        builder.setSloganOffsetY(145);
+        builder.setLogoOffsetY(20);
+        builder.setNumFieldOffsetY(110);
+        builder.setPrivacyState(true);
+        builder.setLogoImgPath("ic_icon");
+        builder.setNavTransparent(true);
+        builder.setNavReturnImgPath("btn_back");
+        builder.setCheckedImgPath("cb_chosen");
+        builder.setUncheckedImgPath("cb_unchosen");
+        builder.setNumberColor(0xFF222328);
+        builder.setLogBtnImgPath("selector_btn_normal");
+        builder.setLogBtnTextColor(0xFFFFFFFF);
+        builder.setLogBtnText("一键登录");
+        builder.setLogBtnOffsetY(175);
+        builder.setLogBtnWidth(300);
+        builder.setLogBtnHeight(45);
+        builder.setAppPrivacyColor(0xFFBBBCC5, 0xFF8998FF);
+        builder.setPrivacyText("登录即同意《", "", "", "》并授权此APP获取本机号码");
+        builder.setPrivacyCheckboxHidden(true);
+        builder.setPrivacyTextCenterGravity(true);
+        builder.setPrivacyTextSize(12);
+        // builder.setPrivacyOffsetX(52-15);
+        builder.setPrivacyOffsetY(18);
+
+        return builder;
+    }
+
+    private static JVerifyUIConfig.Builder getFullScreenPortraitConfig() {
+        AppContext context = (AppContext) AppContext.getContext();
+        JVerifyUIConfig.Builder builder = new JVerifyUIConfig.Builder();
+        builder.setSloganTextColor(0xFFD0D0D9);
+        builder.setLogoOffsetY(103);
+        builder.setNumFieldOffsetY(190);
+        builder.setPrivacyState(true);
+        builder.setLogoImgPath("ic_icon");
+        builder.setNavTransparent(true);
+        builder.setNavReturnImgPath("btn_back");
+        builder.setCheckedImgPath(null);
+        builder.setNumberColor(0xFF222328);
+        builder.setLogBtnImgPath("selector_btn_normal");
+        builder.setLogBtnTextColor(0xFFFFFFFF);
+        builder.setLogBtnText("一键登录");
+        builder.setLogBtnOffsetY(255);
+        builder.setLogBtnWidth(300);
+        builder.setLogBtnHeight(45);
+        builder.setAppPrivacyColor(0xFFBBBCC5, 0xFF8998FF);
+        // builder.setPrivacyTopOffsetY(310);
+        builder.setPrivacyText("登录即同意《", "", "", "》并授权此APP获取本机号码");
+        builder.setPrivacyCheckboxHidden(true);
+        builder.setPrivacyTextCenterGravity(true);
+        builder.setPrivacyTextSize(12);
+        //  builder.setPrivacyOffsetX(52-15);
+
+        return builder;
+    }
+
+    private static JVerifyUIConfig.Builder getDialogPortraitConfig() {
+        AppContext context = (AppContext) AppContext.getContext();
+        int widthDp = px2dip(context, mWinWidth);
+        JVerifyUIConfig.Builder builder = new JVerifyUIConfig.Builder().setDialogTheme(widthDp - 60, 300, 0, 0, false);
+//        uiConfigBuilder.setLogoHeight(30);
+//        uiConfigBuilder.setLogoWidth(30);
+//        uiConfigBuilder.setLogoOffsetY(-15);
+//        uiConfigBuilder.setLogoOffsetX((widthDp-40)/2-15-20);
+//        uiConfigBuilder.setLogoImgPath("logo_login_land");
+        builder.setLogoHidden(true);
+
+        builder.setNumFieldOffsetY(104).setNumberColor(Color.BLACK);
+        builder.setSloganOffsetY(135);
+        builder.setSloganTextColor(0xFFD0D0D9);
+        builder.setLogBtnOffsetY(161);
+
+        builder.setPrivacyOffsetY(15);
+        builder.setCheckedImgPath("cb_chosen");
+        builder.setUncheckedImgPath("cb_unchosen");
+        builder.setNumberColor(0xFF222328);
+        builder.setLogBtnImgPath("selector_btn_normal");
+        builder.setPrivacyState(true);
+        builder.setLogBtnText("一键登录");
+        builder.setLogBtnHeight(44);
+        builder.setLogBtnWidth(250);
+        builder.setAppPrivacyColor(0xFFBBBCC5, 0xFF8998FF);
+        builder.setPrivacyText("登录即同意《", "", "", "》并授权此APP获取本机号码");
+        builder.setPrivacyCheckboxHidden(true);
+        builder.setPrivacyTextCenterGravity(true);
+//        uiConfigBuilder.setPrivacyOffsetX(52-15);
+        builder.setPrivacyTextSize(10);
+
+
+        // 图标和标题
+        LinearLayout layoutTitle = new LinearLayout(context);
+        RelativeLayout.LayoutParams layoutTitleParam = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutTitleParam.setMargins(0, dp2Pix(context, 50), 0, 0);
+        layoutTitleParam.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+        layoutTitleParam.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
+        layoutTitleParam.setLayoutDirection(LinearLayout.HORIZONTAL);
+        layoutTitle.setLayoutParams(layoutTitleParam);
+
+        ImageView img = new ImageView(context);
+        img.setImageResource(R.drawable.logo_login_land);
+        TextView tvTitle = new TextView(context);
+        tvTitle.setText("APP认证");
+        tvTitle.setTextSize(19);
+        tvTitle.setTextColor(Color.BLACK);
+        tvTitle.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+
+        LinearLayout.LayoutParams imgParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        imgParam.setMargins(0, 0, dp2Pix(context, 6), 0);
+        LinearLayout.LayoutParams titleParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        imgParam.setMargins(0, 0, dp2Pix(context, 4), 0);
+        layoutTitle.addView(img, imgParam);
+        layoutTitle.addView(tvTitle, titleParam);
+        builder.addCustomView(layoutTitle, false, null);
+
+        // 关闭按钮
+        ImageView closeButton = new ImageView(context);
+
+        RelativeLayout.LayoutParams mLayoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mLayoutParams1.setMargins(0, dp2Pix(context, 10.0f), dp2Pix(context, 10), 0);
+        mLayoutParams1.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+        mLayoutParams1.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+        closeButton.setLayoutParams(mLayoutParams1);
+        closeButton.setImageResource(R.drawable.btn_close);
+        builder.addCustomView(closeButton, true, null);
+
+        return builder;
+    }
+
+    private static JVerifyUIConfig.Builder getDialogLandscapeConfig() {
+        AppContext context = (AppContext) AppContext.getContext();
+        int widthDp = px2dip(context, mWinWidth);
+        JVerifyUIConfig.Builder builder = new JVerifyUIConfig.Builder().setDialogTheme(480, widthDp - 100, 0, 0, false);
+//        uiConfigBuilder.setLogoHeight(40);
+//        uiConfigBuilder.setLogoWidth(40);
+//        uiConfigBuilder.setLogoOffsetY(-15);
+//        uiConfigBuilder.setLogoImgPath("logo_login_land");
+        builder.setLogoHidden(true);
+
+        builder.setNumFieldOffsetY(104).setNumberColor(Color.BLACK);
+        builder.setNumberSize(22);
+        builder.setSloganOffsetY(135);
+        builder.setSloganTextColor(0xFFD0D0D9);
+        builder.setLogBtnOffsetY(161);
+
+        builder.setPrivacyOffsetY(15);
+        builder.setCheckedImgPath("cb_chosen");
+        builder.setUncheckedImgPath("cb_unchosen");
+        builder.setNumberColor(0xFF222328);
+        builder.setLogBtnImgPath("selector_btn_normal");
+        builder.setPrivacyState(true);
+        builder.setLogBtnText("一键登录");
+        builder.setLogBtnHeight(44);
+        builder.setLogBtnWidth(250);
+        builder.setAppPrivacyColor(0xFFBBBCC5, 0xFF8998FF);
+        builder.setPrivacyText("登录即同意《", "", "", "》并授权此APP获取本机号码");
+        builder.setPrivacyCheckboxHidden(true);
+        builder.setPrivacyTextCenterGravity(true);
+//        uiConfigBuilder.setPrivacyOffsetX(52-15);
+        builder.setPrivacyTextSize(10);
+
+        // 图标和标题
+        LinearLayout layoutTitle = new LinearLayout(context);
+        RelativeLayout.LayoutParams layoutTitleParam = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutTitleParam.setMargins(dp2Pix(context, 20), dp2Pix(context, 15), 0, 0);
+        layoutTitleParam.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+        layoutTitleParam.setLayoutDirection(LinearLayout.HORIZONTAL);
+        layoutTitle.setLayoutParams(layoutTitleParam);
+
+        ImageView img = new ImageView(context);
+        img.setImageResource(R.drawable.logo_login_land);
+        TextView tvTitle = new TextView(context);
+        tvTitle.setText("APP认证");
+        tvTitle.setTextSize(19);
+        tvTitle.setTextColor(Color.BLACK);
+        tvTitle.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+
+        LinearLayout.LayoutParams imgParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        imgParam.setMargins(0, 0, dp2Pix(context, 6), 0);
+        LinearLayout.LayoutParams titleParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        imgParam.setMargins(0, 0, dp2Pix(context, 4), 0);
+        layoutTitle.addView(img, imgParam);
+        layoutTitle.addView(tvTitle, titleParam);
+        builder.addCustomView(layoutTitle, false, null);
+
+        // 关闭按钮
+        ImageView closeButton = new ImageView(context);
+
+        RelativeLayout.LayoutParams mLayoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mLayoutParams1.setMargins(0, dp2Pix(context, 10.0f), dp2Pix(context, 10), 0);
+        mLayoutParams1.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+        mLayoutParams1.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+        closeButton.setLayoutParams(mLayoutParams1);
+        closeButton.setImageResource(R.drawable.btn_close);
+        builder.addCustomView(closeButton, true, null);
+
+        return builder;
     }
 }

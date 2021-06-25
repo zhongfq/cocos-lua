@@ -87,36 +87,26 @@ static int _fixcoresume(lua_State *L)
 static int _print(lua_State *L)
 {
     int n = lua_gettop(L);
-    luaL_Buffer buffer;
     lua_getglobal(L, "tostring");
-    luaL_buffinit(L, &buffer);
     for (int i = 1; i <= n; i++) {
-        const char *s;
-        size_t l;
         lua_pushvalue(L, n + 1);
         lua_pushvalue(L, i);
         lua_pcall(L, 1, 1, 0);
-        s = lua_tolstring(L, -1, &l);
-        
-        if (luaL_testudata(L, -2, "LUABOX")) {
-            lua_insert(L, -2);
+        if (!lua_isstring(L, -1)) {
+            luaL_error(L, "'tostring' must return a string to 'print'");
         }
-        
-        if (s == NULL) {
-            return luaL_error(L, "'tostring' must return a string to 'print'");
-        }
-        
+        lua_replace(L, i);
+    }
+    
+    luaL_Buffer buffer;
+    luaL_buffinit(L, &buffer);
+    for (int i = 1; i <= n; i++) {
+        size_t l;
+        const char *s = lua_tolstring(L, i, &l);
         if (i > 1) {
             luaL_addstring(&buffer, "\t");
         }
-        
         luaL_addlstring(&buffer, s, l);
-        
-        if (luaL_testudata(L, -1, "LUABOX")) {
-            lua_remove(L, -2);
-        } else {
-            lua_pop(L, 1);  /* pop str */
-        }
     }
     luaL_pushresult(&buffer);
     

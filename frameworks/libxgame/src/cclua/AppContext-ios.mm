@@ -126,17 +126,29 @@
     }
 }
 
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
     cclua::runtime::handleOpenURL([[url absoluteString] UTF8String]);
     
+    BOOL ret = NO;
     for (id<UIApplicationDelegate> obj in _delegates) {
         if ([obj respondsToSelector:@selector(application:openURL:options:)]) {
-            [obj application:app openURL:url options:options];
+            ret = [obj application:application openURL:url options:options];
         }
     }
     
-    return YES;
+    return ret;
+}
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void(^)(NSArray<id<UIUserActivityRestoring>> * __nullable restorableObjects))restorationHandler
+{
+    BOOL ret = NO;
+    for (id<UIApplicationDelegate> obj in _delegates) {
+        if ([obj respondsToSelector:@selector(application:continueUserActivity:restorationHandler:)]) {
+            ret = [obj application:application continueUserActivity:userActivity restorationHandler:restorationHandler];
+        }
+    }
+    return ret;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

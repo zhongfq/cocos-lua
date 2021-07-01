@@ -30,6 +30,7 @@ USING_NS_CCLUA_PLUGIN;
 #pragma mark -- UIApplicationDelegate --
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options;
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void(^)(NSArray<id<UIUserActivityRestoring>> * __nullable restorableObjects))restorationHandler;
 
 @end
 
@@ -118,8 +119,13 @@ USING_NS_CCLUA_PLUGIN;
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
     @autoreleasepool {
-        return [WXApi handleOpenURL:url delegate:[WeChatDelegate defaultDelegate]];
+        return [WXApi handleOpenURL:url delegate:self];
     }
+}
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void(^)(NSArray<id<UIUserActivityRestoring>> * __nullable restorableObjects))restorationHandler
+{
+    return [WXApi handleOpenUniversalLink:userActivity delegate:self];
 }
 
 @end

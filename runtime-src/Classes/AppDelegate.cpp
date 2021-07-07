@@ -27,7 +27,6 @@
 #include "cclua/xlua.h"
 #include "cclua/preferences.h"
 #include "cclua/FileFinder.h"
-//#include "wechat/lua_wechat.h"
 
 #include "lua-bindings/lua_cocos2d_3d.h"
 
@@ -52,18 +51,13 @@
 #include "lua_swf.h"
 #endif // CCLUA_BUILD_SWF
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-#define BUGLY_APPID "546f1cf279" // d21353e4-26c8-4f94-b646-cf88a225f039
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-#define BUGLY_APPID "c082cf3ca0" // c332369f-17b2-4f8e-9481-5810319e8c46
-#else
-#define BUGLY_APPID "<no appid>"
-#endif
+#ifdef CCLUA_BUILD_SQLITE3
+#include "lsqlite3.h"
+#endif // CCLUA_BUILD_SQLITE3
 
 #if defined(CCLUA_BUILD_JPUSH) || defined(CCLUA_BUILD_JANALYTICS) || defined(CCLUA_BUILD_JAUTH)
 #include "jiguang/lua_jiguang.h"
 #include "jiguang/JiGuang.h"
-#define JPUSH_KEY "JPUSH_KEY"
 #endif
 
 #ifdef CCLUA_BUILD_WECHAT
@@ -74,6 +68,11 @@
 #ifdef CCLUA_BUILD_APPLE_AUTH
 #include "apple/lua_apple.h"
 #endif
+
+#ifdef CCLUA_OS_WIN32
+#include "cclua/runtime-private.h"
+#endif
+
 USING_NS_CC;
 USING_NS_CCLUA;
 
@@ -99,6 +98,10 @@ static int _open_plugins(lua_State *L)
     
 #ifdef CCLUA_BUILD_SWF
     olua_callfunc(L, luaopen_swf);
+#endif
+    
+#ifdef CCLUA_BUILD_SQLITE3
+    olua_require(L, "sqlite3", luaopen_lsqlite3);
 #endif
     
 #if defined(CCLUA_BUILD_JPUSH) || defined(CCLUA_BUILD_JANALYTICS) || defined(CCLUA_BUILD_JAUTH)
@@ -134,20 +137,12 @@ bool AppDelegate::applicationDidFinishLaunching()
      *      return MyFileFinder::create();
      *  });
      */
-    
-#if defined(CCLUA_BUILD_JPUSH)
-    plugin::JPush::init(JPUSH_KEY, runtime::getChannel());
+
+#ifdef CCLUA_OS_WIN32
+    cclua::__runtime_setPackageName("com.codetypes.hellolua");
 #endif
     
-#if defined(CCLUA_BUILD_JAUTH)
-    plugin::JAuth::init(JPUSH_KEY, runtime::getChannel());
-#endif
-    
-#if defined(CCLUA_BUILD_JANALYTICS)
-    plugin::JAnalytics::init(JPUSH_KEY, runtime::getChannel());
-#endif
     initGLView("cocos-lua");
-    runtime::initBugly(BUGLY_APPID);
     runtime::luaOpen(_open_plugins);
     
     return RuntimeContext::applicationDidFinishLaunching();

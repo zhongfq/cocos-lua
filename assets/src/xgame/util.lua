@@ -56,6 +56,9 @@ function M.trace(prefix)
     end
 end
 
+function M.printf(...)
+    return print(string.format(...))
+end
 
 function M.compareVersion(v1, v2)
     local function toIntVersion(v)

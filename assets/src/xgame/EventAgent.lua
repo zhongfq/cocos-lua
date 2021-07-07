@@ -77,6 +77,10 @@ function EventAgent:onSelect(listener, owner)
     self:on(Event.SELECT, listener, owner)
 end
 
+function EventAgent:onUpdate(listener, owner)
+    self:on(Event.UPDATE, listener, owner)
+end
+
 function EventAgent:onIOError(listener, owner)
     self:on(Event.IOERROR, listener, owner)
 end

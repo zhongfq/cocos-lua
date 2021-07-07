@@ -18,12 +18,12 @@ local function cppclass(classname, super)
         assert(olua.iscfunc(super.create), "super.create expect c function")
         local self = super.create()
         olua.setmetatable(self, classname)
-        local function create(cls, ...)
-            if cls.super then
-                create(cls.super, ...)
+        local function create(c, ...)
+            if c.super then
+                create(c.super, ...)
             end
-            if cls.ctor then
-                cls.ctor(self, ...)
+            if c.ctor then
+                c.ctor(self, ...)
             end
         end
         create(cls, ...)
@@ -101,12 +101,12 @@ local function luaclass(classname, super)
 
     function cls.new(...)
         local self = setmetatable({}, cls)
-        local function create(cls, ...)
-            if cls.super then
-                create(cls.super, ...)
+        local function create(c, ...)
+            if c.super then
+                create(c.super, ...)
             end
-            if cls.ctor then
-                cls.ctor(self, ...)
+            if c.ctor then
+                c.ctor(self, ...)
             end
         end
         create(cls, ...)

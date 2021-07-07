@@ -4,8 +4,6 @@ local Event = require "xgame.Event"
 local ui    = require "xgame.ui.ui"
 
 local assert = assert
-local trace = util.trace("[MediatorMap]")
-local DLOG = trace
 
 local MediatorMap = class("MediatorMap")
 
@@ -28,7 +26,7 @@ function MediatorMap:_addedHandler(_, view)
     local function create()
         local m = mcls == view.class and view or mcls.new(view)
         self._instances[view] = m
-        DLOG("create '%s' for '%s'", m.classname, view.classname)
+        print(string.format("create '%s' for '%s'", m.classname, view.classname))
         ui.bindEvents(view, m)
         m:onCreate()
     end
@@ -50,7 +48,7 @@ function MediatorMap:_removeHandler(_, view)
     end
 
     self._instances[view] = nil
-    DLOG("destroy '%s' for '%s'", m.classname, view.classname)
+    print(string.format("destroy '%s' for '%s'", m.classname, view.classname))
     m:onDestroy()
     assert(m.onDestroy == true, m.classname)
 end

@@ -173,9 +173,9 @@ function WeChat:_didResponse(action, data)
         if data.errcode == WXSUCCESS then
             self:_requestToken(data)
         elseif data.errcode == WXERRCODE_USER_CANCEL then
-            self:dispatch(PluginEvent.AUTH_CANCEL)
+            self:dispatch(PluginEvent.AUTH_CANCEL, 'NATIVE')
         else
-            self:dispatch(PluginEvent.AUTH_FAILURE)
+            self:dispatch(PluginEvent.AUTH_FAILURE, 'NATIVE')
         end
     elseif action == "authQRCode" then
         if data.path then
@@ -187,9 +187,9 @@ function WeChat:_didResponse(action, data)
         elseif data.errcode == WECHAT_AUTH_ERR_OK then
             self:_requestToken(data)
         elseif data.errcode == WECHAT_AUTH_ERR_CANCEL then
-            self:dispatch(PluginEvent.AUTH_CANCEL)
+            self:dispatch(PluginEvent.AUTH_CANCEL, 'QRCODE')
         else
-            self:dispatch(PluginEvent.AUTH_FAILURE)
+            self:dispatch(PluginEvent.AUTH_FAILURE, 'QRCODE')
         end
     elseif action == "pay" then
         if data.errcode == WXSUCCESS then

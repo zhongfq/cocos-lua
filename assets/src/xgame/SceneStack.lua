@@ -1,13 +1,10 @@
 local class         = require "xgame.class"
-local util          = require "xgame.util"
 local runtime       = require "xgame.runtime"
 local audio         = require "xgame.audio"
 local Array         = require "xgame.Array"
 local Event         = require "xgame.Event"
 local UILayer       = require "xgame.ui.UILayer"
 local PixelFormat   = require "ccb.PixelFormat"
-
-local trace = util.trace("[SceneStack]")
 
 local SceneStack = class("SceneStack")
 
@@ -19,6 +16,7 @@ function SceneStack:ctor(stage)
     self._sceneLayer = UILayer.new()
     self._sceneLayer.percentWidth = 100
     self._sceneLayer.percentHeight = 100
+    self._comingScene = false
     stage:addChild(self._sceneLayer)
 end
 
@@ -32,7 +30,10 @@ function SceneStack:startScene(cls, ...)
     local entry = self:_getSceneEntry(-1)
     if entry then
         entry.scene.visible = false
-        entry.scene.cobj:onExit()
+        if self._comingScene ~= entry.scene then
+            entry.scene.cobj:onExit()
+        end
+        self._comingScene = false
     end
     self:_doStartScene(cls, ...)
 end
@@ -78,7 +79,7 @@ function SceneStack:_doStartScene(cls, ...)
         scene = false,
         snapshot = false,
     })
-    trace("create scene: %s", cls.classname)
+    print("create scene: " .. cls.classname)
     local scene = cls.new(...)
     entry.scene = scene
     entry.scene:addListener(Event.REMOVED, self._removeScene, self)
@@ -98,9 +99,10 @@ function SceneStack:_doPopScene(onlypop)
     local entry = self._sceneStack[numScenes]
 
     if entry then
-        trace("destory scene: %s", entry.scene.classname)
+        print("destory scene: " .. entry.scene.classname)
         entry.scene:removeListener(Event.REMOVED, self._removeScene, self)
         self._sceneStack[numScenes] = nil
+        self._comingScene = false
         if entry.scene.parent then
             self._sceneLayer:removeChild(entry.scene)
         end
@@ -110,7 +112,13 @@ function SceneStack:_doPopScene(onlypop)
         entry = self._sceneStack[numScenes - 1]
         entry.snapshot = false
         entry.scene.visible = true
-        entry.scene.cobj:onEnter()
+        self._comingScene = entry.scene
+        xGame:later(function ()
+            if self._comingScene == entry.scene then
+                self._comingScene = false
+                entry.scene.cobj:onEnter()
+            end
+        end)
     end
 end
 

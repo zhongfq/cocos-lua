@@ -19,22 +19,18 @@ xGame = class("xGame", Dispatcher)
 
 function xGame:ctor()
     self.stage = Stage.new()
+    self.idleTime = math.maxinteger
     self._mediatorMap = MediatorMap.new(self.stage)
     self._sceneStack = SceneStack.new(self.stage)
     self._services = {}
     self._serviceClasses = Array.new()
     self._timer = false
-    self._maxIdleDuration = math.maxinteger
     self:_initTimer()
     self:_initRuntimeEvents()
 
     local keepUIRootNotNull = FGUINode.new()
     director.runningScene:addChild(keepUIRootNotNull.cobj)
     director.runningScene:addChild(self.stage.cobj)
-end
-
-function xGame:setMaxIdleDuration(duration)
-    self._maxIdleDuration = duration
 end
 
 function xGame:gc()
@@ -212,7 +208,7 @@ function xGame:_initRuntimeEvents()
     end)
 
     runtime.on(Event.RUNTIME_RESUME, function ()
-        if pauseTime and os.time() - pauseTime > self._maxIdleDuration then
+        if pauseTime and os.time() - pauseTime > self.idleTime then
             self:popAll()
             runtime.restart()
         else

@@ -8,6 +8,7 @@ return {
     PROGRESS            = "progress",
     IOERROR             = "ioerror",
     CLOSE               = "close",
+    UPDATE              = "update",
 
     -- view event
     CREATION_COMPLETE   = "creationComplete",

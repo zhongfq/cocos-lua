@@ -113,6 +113,9 @@ public:
     static void setManifestVersion(const std::string &version);
     static const std::string getNetworkStatus();
     
+    static const std::string getPaste();
+    static void setPaste(const std::string &text);
+    
 #if COCOS2D_VERSION >= 0x00040000
     static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, cocos2d::backend::PixelFormat format = cocos2d::backend::PixelFormat::RGBA8888, cocos2d::backend::PixelFormat depthStencilFormat = cocos2d::backend::PixelFormat::D24S8);
 #else

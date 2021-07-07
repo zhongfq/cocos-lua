@@ -604,6 +604,19 @@ static int _cclua_runtime_getPackageName(lua_State *L)
     return num_ret;
 }
 
+static int _cclua_runtime_getPaste(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static const std::string getPaste()
+    const std::string ret = cclua::runtime::getPaste();
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cclua_runtime_getPermissionStatus(lua_State *L)
 {
     olua_startinvoke(L);
@@ -944,6 +957,22 @@ static int _cclua_runtime_setManifestVersion(lua_State *L)
     return 0;
 }
 
+static int _cclua_runtime_setPaste(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::string arg1;       /** text */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static void setPaste(const std::string &text)
+    cclua::runtime::setPaste(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cclua_runtime_setSampleCount(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1012,6 +1041,7 @@ static int luaopen_cclua_runtime(lua_State *L)
     oluacls_func(L, "getNetworkStatus", _cclua_runtime_getNetworkStatus);
     oluacls_func(L, "getOS", _cclua_runtime_getOS);
     oluacls_func(L, "getPackageName", _cclua_runtime_getPackageName);
+    oluacls_func(L, "getPaste", _cclua_runtime_getPaste);
     oluacls_func(L, "getPermissionStatus", _cclua_runtime_getPermissionStatus);
     oluacls_func(L, "getSampleCount", _cclua_runtime_getSampleCount);
     oluacls_func(L, "getTime", _cclua_runtime_getTime);
@@ -1028,6 +1058,7 @@ static int luaopen_cclua_runtime(lua_State *L)
     oluacls_func(L, "setDispatcher", _cclua_runtime_setDispatcher);
     oluacls_func(L, "setLogPath", _cclua_runtime_setLogPath);
     oluacls_func(L, "setManifestVersion", _cclua_runtime_setManifestVersion);
+    oluacls_func(L, "setPaste", _cclua_runtime_setPaste);
     oluacls_func(L, "setSampleCount", _cclua_runtime_setSampleCount);
     oluacls_func(L, "support", _cclua_runtime_support);
     oluacls_func(L, "testCrash", _cclua_runtime_testCrash);
@@ -1045,6 +1076,7 @@ static int luaopen_cclua_runtime(lua_State *L)
     oluacls_prop(L, "networkStatus", _cclua_runtime_getNetworkStatus, nullptr);
     oluacls_prop(L, "os", _cclua_runtime_getOS, nullptr);
     oluacls_prop(L, "packageName", _cclua_runtime_getPackageName, nullptr);
+    oluacls_prop(L, "paste", _cclua_runtime_getPaste, _cclua_runtime_setPaste);
     oluacls_prop(L, "restarting", _cclua_runtime_isRestarting, nullptr);
     oluacls_prop(L, "sampleCount", _cclua_runtime_getSampleCount, _cclua_runtime_setSampleCount);
     oluacls_prop(L, "time", _cclua_runtime_getTime, nullptr);

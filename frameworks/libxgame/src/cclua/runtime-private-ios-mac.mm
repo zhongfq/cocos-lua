@@ -299,4 +299,27 @@ const std::string __runtime_getNetworkStatus()
 #endif
 }
 
+const std::string __runtime_getPaste()
+{
+#ifdef CCLUA_OS_IOS
+    @autoreleasepool {
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        NSString *string = pasteboard.string;
+        return string ? [string UTF8String] : "";
+    }
+#else
+    return "";
+#endif
+}
+
+void __runtime_setPaste(const std::string &text)
+{
+#ifdef CCLUA_OS_IOS
+    @autoreleasepool {
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = [NSString stringWithUTF8String:text.c_str()];
+    }
+#endif
+}
+
 NS_CCLUA_END

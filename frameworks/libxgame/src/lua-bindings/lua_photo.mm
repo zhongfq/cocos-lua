@@ -12,11 +12,19 @@ USING_NS_CCLUA;
 
 static UIImage *image_resize_to(UIImage *image, int width, int height)
 {
-    UIGraphicsBeginImageContext(CGSizeMake(width, height));
-    [image drawInRect:CGRectMake(0, 0, width, height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    CGSize size = image.size;
+    CGFloat scale = std::max(width / size.width, height / size.height);
+    size.width *= scale;
+    size.height *= scale;
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    return newImage;
+    
+    CGImageRef sourceImageRef = [image CGImage];
+    CGRect rect = CGRectMake((size.width - width) / 2, (size.height - height) / 2, width, height);
+    CGImageRef newImageRef = CGImageCreateWithImageInRect(sourceImageRef, rect);
+    return [UIImage imageWithCGImage:newImageRef];
 }
 
 

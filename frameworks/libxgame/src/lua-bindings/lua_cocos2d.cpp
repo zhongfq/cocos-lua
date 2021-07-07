@@ -22503,6 +22503,11 @@ static int _cocos2d_Node_onEnter(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
+    // insert code before call
+    if (!self->getParent()) {
+        luaL_error(L, "parent is nullptr");
+    }
+
     // void onEnter()
     self->onEnter();
 
@@ -22534,6 +22539,11 @@ static int _cocos2d_Node_onExit(lua_State *L)
     cocos2d::Node *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+
+    // insert code before call
+    if (!self->getParent()) {
+        luaL_error(L, "parent is nullptr");
+    }
 
     // void onExit()
     self->onExit();

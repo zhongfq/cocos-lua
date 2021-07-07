@@ -36,6 +36,9 @@ void __runtime_pullAllFeatures();
 void __runtime_setPackageName(const std::string &packageName);
 #endif
 
+const std::string __runtime_getPaste();
+void __runtime_setPaste(const std::string &text);
+
 NS_CCLUA_END
 
 #endif

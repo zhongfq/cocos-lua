@@ -251,7 +251,7 @@ void runtime::luaOpen(lua_CFunction libfunc)
 //
 const std::string runtime::getVersion()
 {
-    return "2.4.1";
+    return "2.4.2";
 }
 
 const uint64_t runtime::getCocosVersion()
@@ -307,6 +307,16 @@ void runtime::setManifestVersion(const std::string &version)
 const std::string runtime::getNetworkStatus()
 {
     return __runtime_getNetworkStatus();
+}
+
+const std::string runtime::getPaste()
+{
+    return __runtime_getPaste();
+}
+
+void runtime::setPaste(const std::string &text)
+{
+    __runtime_setPaste(text);
 }
 
 #if COCOS2D_VERSION >= 0x00040000

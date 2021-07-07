@@ -86,6 +86,16 @@ void __runtime_pullAllFeatures()
 {
     Jni::callStaticVoidMethod(JAVA_APPCONTEXT_CLASS, "pullAllFeatures");
 }
+
+const std::string __runtime_getPaste()
+{
+    return Jni::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getPaste");
+}
+
+void __runtime_setPaste(const std::string &text)
+{
+    Jni::callStaticVoidMethod(JAVA_APPCONTEXT_CLASS, "setPaste", text);
+}
 #elif defined(CCLUA_OS_WIN32)
 
 static std::string _packageName;
@@ -141,6 +151,16 @@ void __runtime_openURL(const std::string uri, const std::function<void(bool)> ca
 bool __runtime_canOpenURL(const std::string uri)
 {
 	return false;
+}
+
+const std::string __runtime_getPaste()
+{
+    return "";
+}
+
+void __runtime_setPaste(const std::string &text)
+{
+    runtime::log("unsupport set paste");
 }
 
 #endif

@@ -1,6 +1,8 @@
 package cclua;
 
 import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -222,6 +224,22 @@ public class AppContext extends Cocos2dxActivity {
             e.printStackTrace();
         }
         return "0";
+    }
+
+    public static String getPaste() {
+        ClipboardManager clipboard = (ClipboardManager)getContext().getSystemService(CLIPBOARD_SERVICE);
+        ClipData clipData = clipboard.getPrimaryClip();
+        if (clipData != null && clipData.getItemCount() > 0) {
+            return String.valueOf(clipData.getItemAt(0).getText());
+        } else {
+            return "";
+        }
+    }
+
+    public static void setPaste(String data) {
+        ClipboardManager clipboard = (ClipboardManager)getContext().getSystemService(CLIPBOARD_SERVICE);
+        ClipData clipData = ClipData.newPlainText("cocos", data);
+        clipboard.setPrimaryClip(clipData);
     }
 
     @SuppressWarnings("unused")

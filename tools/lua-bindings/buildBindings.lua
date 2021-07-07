@@ -25,5 +25,6 @@ export 'autobuild/xgame.lua'
 export 'autobuild/bugly.lua'
 export 'autobuild/jiguang.lua'
 export 'autobuild/wechat.lua'
+export 'autobuild/apple.lua'
 
 -- require "autobuild.make"

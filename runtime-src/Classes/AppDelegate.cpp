@@ -71,6 +71,9 @@
 #include "wechat/lua_wechat.h"
 #endif
 
+#ifdef CCLUA_BUILD_APPLE_AUTH
+#include "apple/lua_apple.h"
+#endif
 USING_NS_CC;
 USING_NS_CCLUA;
 
@@ -104,6 +107,10 @@ static int _open_plugins(lua_State *L)
     
 #ifdef CCLUA_BUILD_WECHAT
     olua_callfunc(L, luaopen_wechat);
+#endif
+    
+#ifdef CCLUA_BUILD_APPLE_AUTH
+    olua_callfunc(L, luaopen_apple);
 #endif
     return 0;
 }

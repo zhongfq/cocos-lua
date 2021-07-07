@@ -18,7 +18,7 @@ typeconv 'cocos2d::MeshVertexAttrib'
     .var('vertexAttrib', 'cocos2d::shaderinfos::VertexKey vertexAttrib')
 
 
-typecls 'cocos2d::NTextureData::Usage'
+typeconf 'cocos2d::NTextureData::Usage'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -35,7 +35,7 @@ typecls 'cocos2d::NTextureData::Usage'
     .enum('Transparency', 'cocos2d::NTextureData::Usage::Transparency')
     .enum('Reflection', 'cocos2d::NTextureData::Usage::Reflection')
 
-typecls 'cocos2d::shaderinfos::VertexKey'
+typeconf 'cocos2d::shaderinfos::VertexKey'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -55,7 +55,7 @@ typecls 'cocos2d::shaderinfos::VertexKey'
     .enum('VERTEX_ATTRIB_TEX_COORDS', 'cocos2d::shaderinfos::VertexKey::VERTEX_ATTRIB_TEX_COORDS')
     .enum('VERTEX_ATTRIB_ERROR', 'cocos2d::shaderinfos::VertexKey::VERTEX_ATTRIB_ERROR')
 
-typecls 'cocos2d::shaderinfos::Uniformkey'
+typeconf 'cocos2d::shaderinfos::Uniformkey'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -77,7 +77,7 @@ typecls 'cocos2d::shaderinfos::Uniformkey'
     .enum('UNIFORM_SAMPLER3', 'cocos2d::shaderinfos::Uniformkey::UNIFORM_SAMPLER3')
     .enum('UNIFORM_MAX', 'cocos2d::shaderinfos::Uniformkey::UNIFORM_MAX')
 
-typecls 'cocos2d::NTextureData'
+typeconf 'cocos2d::NTextureData'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -88,7 +88,7 @@ typecls 'cocos2d::NTextureData'
     .var('wrapS', 'cocos2d::backend::SamplerAddressMode wrapS')
     .var('wrapT', 'cocos2d::backend::SamplerAddressMode wrapT')
 
-typecls 'cocos2d::Mesh'
+typeconf 'cocos2d::Mesh'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -134,7 +134,7 @@ typecls 'cocos2d::Mesh'
     .prop('indexBuffer', nil, nil)
     .prop('textureFileName', nil, nil)
 
-typecls 'cocos2d::MeshSkin'
+typeconf 'cocos2d::MeshSkin'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -155,7 +155,7 @@ typecls 'cocos2d::MeshSkin'
     .prop('matrixPaletteSizeInBytes', nil, nil)
     .prop('rootBone', nil, nil)
 
-typecls 'cocos2d::BillBoard::Mode'
+typeconf 'cocos2d::BillBoard::Mode'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -163,7 +163,7 @@ typecls 'cocos2d::BillBoard::Mode'
     .enum('VIEW_POINT_ORIENTED', 'cocos2d::BillBoard::Mode::VIEW_POINT_ORIENTED')
     .enum('VIEW_PLANE_ORIENTED', 'cocos2d::BillBoard::Mode::VIEW_PLANE_ORIENTED')
 
-typecls 'cocos2d::BillBoard'
+typeconf 'cocos2d::BillBoard'
     .supercls('cocos2d::Sprite')
     .reg_luatype(true)
     .chunk(nil)
@@ -175,7 +175,7 @@ typecls 'cocos2d::BillBoard'
     .func(nil, 'BillBoard()')
     .prop('mode', nil, nil)
 
-typecls 'cocos2d::Sprite3DMaterial::MaterialType'
+typeconf 'cocos2d::Sprite3DMaterial::MaterialType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -188,7 +188,7 @@ typecls 'cocos2d::Sprite3DMaterial::MaterialType'
     .enum('BUMPED_DIFFUSE', 'cocos2d::Sprite3DMaterial::MaterialType::BUMPED_DIFFUSE')
     .enum('CUSTOM', 'cocos2d::Sprite3DMaterial::MaterialType::CUSTOM')
 
-typecls 'cocos2d::Sprite3DMaterial'
+typeconf 'cocos2d::Sprite3DMaterial'
     .supercls('cocos2d::Material')
     .reg_luatype(true)
     .chunk(nil)
@@ -202,7 +202,7 @@ typecls 'cocos2d::Sprite3DMaterial'
     .func(nil, 'static void releaseCachedMaterial()')
     .prop('materialType', nil, nil)
 
-typecls 'cocos2d::Sprite3D'
+typeconf 'cocos2d::Sprite3D'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -253,7 +253,7 @@ typecls 'cocos2d::Sprite3D'
     .prop('lightMask', nil, nil)
     .prop('meshes', nil, nil)
 
-typecls 'cocos2d::AttachNode'
+typeconf 'cocos2d::AttachNode'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -261,7 +261,7 @@ typecls 'cocos2d::AttachNode'
     .func(nil, 'static cocos2d::AttachNode *create(cocos2d::Bone3D *attachBone)')
     .func(nil, 'AttachNode()')
 
-typecls 'cocos2d::Bone3D'
+typeconf 'cocos2d::Bone3D'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -288,7 +288,7 @@ typecls 'cocos2d::Bone3D'
     .prop('parentBone', nil, nil)
     .prop('childBoneCount', nil, nil)
 
-typecls 'cocos2d::Skeleton3D'
+typeconf 'cocos2d::Skeleton3D'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)

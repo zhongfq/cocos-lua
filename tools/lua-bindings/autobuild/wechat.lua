@@ -13,7 +13,7 @@ HEADERS = [[
 CHUNK = nil
 
 
-typecls 'cclua::plugin::WeChat::ShareType'
+typeconf 'cclua::plugin::WeChat::ShareType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -26,7 +26,7 @@ typecls 'cclua::plugin::WeChat::ShareType'
     .enum('VIDEO', 'cclua::plugin::WeChat::ShareType::VIDEO')
     .enum('WEB', 'cclua::plugin::WeChat::ShareType::WEB')
 
-typecls 'cclua::plugin::WeChat::ProgramType'
+typeconf 'cclua::plugin::WeChat::ProgramType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -36,7 +36,7 @@ typecls 'cclua::plugin::WeChat::ProgramType'
     .enum('TEST', 'cclua::plugin::WeChat::ProgramType::TEST')
     .enum('PREVIEW', 'cclua::plugin::WeChat::ProgramType::PREVIEW')
 
-typecls 'cclua::plugin::WeChat'
+typeconf 'cclua::plugin::WeChat'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)

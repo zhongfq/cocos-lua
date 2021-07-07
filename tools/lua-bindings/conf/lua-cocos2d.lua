@@ -724,6 +724,13 @@ typeconf 'cocos2d::Node'
             int parent = lua_gettop(L);
         ]]
     })
+    .insert({'onEnter', 'onExit'}, {
+        before = [[
+            if (!self->getParent()) {
+                luaL_error(L, "parent is nullptr");
+            }
+        ]]
+    })
 
 typeconf 'cocos2d::LuaTweenNode'
     .callback {

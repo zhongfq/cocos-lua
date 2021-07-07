@@ -13,7 +13,7 @@ HEADERS = [[
 CHUNK = nil
 
 
-typecls 'cocos2d::backend::BufferUsage'
+typeconf 'cocos2d::backend::BufferUsage'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -21,7 +21,7 @@ typecls 'cocos2d::backend::BufferUsage'
     .enum('STATIC', 'cocos2d::backend::BufferUsage::STATIC')
     .enum('DYNAMIC', 'cocos2d::backend::BufferUsage::DYNAMIC')
 
-typecls 'cocos2d::backend::BufferType'
+typeconf 'cocos2d::backend::BufferType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -29,7 +29,7 @@ typecls 'cocos2d::backend::BufferType'
     .enum('VERTEX', 'cocos2d::backend::BufferType::VERTEX')
     .enum('INDEX', 'cocos2d::backend::BufferType::INDEX')
 
-typecls 'cocos2d::backend::ShaderStage'
+typeconf 'cocos2d::backend::ShaderStage'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -38,7 +38,7 @@ typecls 'cocos2d::backend::ShaderStage'
     .enum('FRAGMENT', 'cocos2d::backend::ShaderStage::FRAGMENT')
     .enum('VERTEX_AND_FRAGMENT', 'cocos2d::backend::ShaderStage::VERTEX_AND_FRAGMENT')
 
-typecls 'cocos2d::backend::VertexFormat'
+typeconf 'cocos2d::backend::VertexFormat'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -55,7 +55,7 @@ typecls 'cocos2d::backend::VertexFormat'
     .enum('USHORT2', 'cocos2d::backend::VertexFormat::USHORT2')
     .enum('UBYTE4', 'cocos2d::backend::VertexFormat::UBYTE4')
 
-typecls 'cocos2d::backend::PixelFormat'
+typeconf 'cocos2d::backend::PixelFormat'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -88,7 +88,7 @@ typecls 'cocos2d::backend::PixelFormat'
     .enum('DEFAULT', 'cocos2d::backend::PixelFormat::DEFAULT')
     .enum('NONE', 'cocos2d::backend::PixelFormat::NONE')
 
-typecls 'cocos2d::backend::TextureUsage'
+typeconf 'cocos2d::backend::TextureUsage'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -97,7 +97,7 @@ typecls 'cocos2d::backend::TextureUsage'
     .enum('WRITE', 'cocos2d::backend::TextureUsage::WRITE')
     .enum('RENDER_TARGET', 'cocos2d::backend::TextureUsage::RENDER_TARGET')
 
-typecls 'cocos2d::backend::IndexFormat'
+typeconf 'cocos2d::backend::IndexFormat'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -105,7 +105,7 @@ typecls 'cocos2d::backend::IndexFormat'
     .enum('U_SHORT', 'cocos2d::backend::IndexFormat::U_SHORT')
     .enum('U_INT', 'cocos2d::backend::IndexFormat::U_INT')
 
-typecls 'cocos2d::backend::VertexStepMode'
+typeconf 'cocos2d::backend::VertexStepMode'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -113,7 +113,7 @@ typecls 'cocos2d::backend::VertexStepMode'
     .enum('VERTEX', 'cocos2d::backend::VertexStepMode::VERTEX')
     .enum('INSTANCE', 'cocos2d::backend::VertexStepMode::INSTANCE')
 
-typecls 'cocos2d::backend::PrimitiveType'
+typeconf 'cocos2d::backend::PrimitiveType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -124,7 +124,7 @@ typecls 'cocos2d::backend::PrimitiveType'
     .enum('TRIANGLE', 'cocos2d::backend::PrimitiveType::TRIANGLE')
     .enum('TRIANGLE_STRIP', 'cocos2d::backend::PrimitiveType::TRIANGLE_STRIP')
 
-typecls 'cocos2d::backend::TextureType'
+typeconf 'cocos2d::backend::TextureType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -132,7 +132,7 @@ typecls 'cocos2d::backend::TextureType'
     .enum('TEXTURE_2D', 'cocos2d::backend::TextureType::TEXTURE_2D')
     .enum('TEXTURE_CUBE', 'cocos2d::backend::TextureType::TEXTURE_CUBE')
 
-typecls 'cocos2d::backend::SamplerAddressMode'
+typeconf 'cocos2d::backend::SamplerAddressMode'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -142,7 +142,7 @@ typecls 'cocos2d::backend::SamplerAddressMode'
     .enum('CLAMP_TO_EDGE', 'cocos2d::backend::SamplerAddressMode::CLAMP_TO_EDGE')
     .enum('DONT_CARE', 'cocos2d::backend::SamplerAddressMode::DONT_CARE')
 
-typecls 'cocos2d::backend::SamplerFilter'
+typeconf 'cocos2d::backend::SamplerFilter'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -155,7 +155,7 @@ typecls 'cocos2d::backend::SamplerFilter'
     .enum('LINEAR_MIPMAP_NEAREST', 'cocos2d::backend::SamplerFilter::LINEAR_MIPMAP_NEAREST')
     .enum('DONT_CARE', 'cocos2d::backend::SamplerFilter::DONT_CARE')
 
-typecls 'cocos2d::backend::StencilOperation'
+typeconf 'cocos2d::backend::StencilOperation'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -167,7 +167,7 @@ typecls 'cocos2d::backend::StencilOperation'
     .enum('INCREMENT_WRAP', 'cocos2d::backend::StencilOperation::INCREMENT_WRAP')
     .enum('DECREMENT_WRAP', 'cocos2d::backend::StencilOperation::DECREMENT_WRAP')
 
-typecls 'cocos2d::backend::CompareFunction'
+typeconf 'cocos2d::backend::CompareFunction'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -181,7 +181,7 @@ typecls 'cocos2d::backend::CompareFunction'
     .enum('NOT_EQUAL', 'cocos2d::backend::CompareFunction::NOT_EQUAL')
     .enum('ALWAYS', 'cocos2d::backend::CompareFunction::ALWAYS')
 
-typecls 'cocos2d::backend::BlendOperation'
+typeconf 'cocos2d::backend::BlendOperation'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -190,7 +190,7 @@ typecls 'cocos2d::backend::BlendOperation'
     .enum('SUBTRACT', 'cocos2d::backend::BlendOperation::SUBTRACT')
     .enum('RESERVE_SUBTRACT', 'cocos2d::backend::BlendOperation::RESERVE_SUBTRACT')
 
-typecls 'cocos2d::backend::BlendFactor'
+typeconf 'cocos2d::backend::BlendFactor'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -210,7 +210,7 @@ typecls 'cocos2d::backend::BlendFactor'
     .enum('ONE_MINUS_CONSTANT_ALPHA', 'cocos2d::backend::BlendFactor::ONE_MINUS_CONSTANT_ALPHA')
     .enum('BLEND_CLOLOR', 'cocos2d::backend::BlendFactor::BLEND_CLOLOR')
 
-typecls 'cocos2d::backend::ColorWriteMask'
+typeconf 'cocos2d::backend::ColorWriteMask'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -222,7 +222,7 @@ typecls 'cocos2d::backend::ColorWriteMask'
     .enum('ALPHA', 'cocos2d::backend::ColorWriteMask::ALPHA')
     .enum('ALL', 'cocos2d::backend::ColorWriteMask::ALL')
 
-typecls 'cocos2d::backend::CullMode'
+typeconf 'cocos2d::backend::CullMode'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -231,7 +231,7 @@ typecls 'cocos2d::backend::CullMode'
     .enum('BACK', 'cocos2d::backend::CullMode::BACK')
     .enum('FRONT', 'cocos2d::backend::CullMode::FRONT')
 
-typecls 'cocos2d::backend::Winding'
+typeconf 'cocos2d::backend::Winding'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -239,7 +239,7 @@ typecls 'cocos2d::backend::Winding'
     .enum('CLOCK_WISE', 'cocos2d::backend::Winding::CLOCK_WISE')
     .enum('COUNTER_CLOCK_WISE', 'cocos2d::backend::Winding::COUNTER_CLOCK_WISE')
 
-typecls 'cocos2d::backend::TextureCubeFace'
+typeconf 'cocos2d::backend::TextureCubeFace'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -251,7 +251,7 @@ typecls 'cocos2d::backend::TextureCubeFace'
     .enum('POSITIVE_Z', 'cocos2d::backend::TextureCubeFace::POSITIVE_Z')
     .enum('NEGATIVE_Z', 'cocos2d::backend::TextureCubeFace::NEGATIVE_Z')
 
-typecls 'cocos2d::backend::ProgramType'
+typeconf 'cocos2d::backend::ProgramType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -288,7 +288,7 @@ typecls 'cocos2d::backend::ProgramType'
     .enum('PARTICLE_COLOR_3D', 'cocos2d::backend::ProgramType::PARTICLE_COLOR_3D')
     .enum('CUSTOM_PROGRAM', 'cocos2d::backend::ProgramType::CUSTOM_PROGRAM')
 
-typecls 'cocos2d::backend::Uniform'
+typeconf 'cocos2d::backend::Uniform'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -303,7 +303,7 @@ typecls 'cocos2d::backend::Uniform'
     .enum('EFFECT_COLOR', 'cocos2d::backend::Uniform::EFFECT_COLOR')
     .enum('UNIFORM_MAX', 'cocos2d::backend::Uniform::UNIFORM_MAX')
 
-typecls 'cocos2d::backend::Attribute'
+typeconf 'cocos2d::backend::Attribute'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -316,7 +316,7 @@ typecls 'cocos2d::backend::Attribute'
     .enum('TEXCOORD3', 'cocos2d::backend::Attribute::TEXCOORD3')
     .enum('ATTRIBUTE_MAX', 'cocos2d::backend::Attribute::ATTRIBUTE_MAX')
 
-typecls 'cocos2d::backend::FeatureType'
+typeconf 'cocos2d::backend::FeatureType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -333,7 +333,7 @@ typecls 'cocos2d::backend::FeatureType'
     .enum('DEPTH24', 'cocos2d::backend::FeatureType::DEPTH24')
     .enum('ASTC', 'cocos2d::backend::FeatureType::ASTC')
 
-typecls 'cocos2d::backend::Buffer'
+typeconf 'cocos2d::backend::Buffer'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -344,19 +344,19 @@ typecls 'cocos2d::backend::Buffer'
     .func(nil, 'std::size_t getSize()')
     .prop('size', nil, nil)
 
-typecls 'cocos2d::backend::RenderPipeline'
+typeconf 'cocos2d::backend::RenderPipeline'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::backend::DepthStencilState'
+typeconf 'cocos2d::backend::DepthStencilState'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::backend::VertexLayout'
+typeconf 'cocos2d::backend::VertexLayout'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -373,7 +373,7 @@ typecls 'cocos2d::backend::VertexLayout'
     .prop('attributes', nil, nil)
     .prop('valid', nil, nil)
 
-typecls 'cocos2d::backend::CommandBuffer'
+typeconf 'cocos2d::backend::CommandBuffer'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -404,7 +404,7 @@ typecls 'cocos2d::backend::CommandBuffer'
         TAG_SCOPE = 'once',
     }
 
-typecls 'cocos2d::backend::Device'
+typeconf 'cocos2d::backend::Device'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -451,7 +451,7 @@ typecls 'cocos2d::backend::Device'
         CALLBACK_AFTER = nil,
     })
 
-typecls 'cocos2d::backend::DeviceInfo'
+typeconf 'cocos2d::backend::DeviceInfo'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -475,7 +475,7 @@ typecls 'cocos2d::backend::DeviceInfo'
     .prop('maxTextureUnits', nil, nil)
     .prop('maxSamplesAllowed', nil, nil)
 
-typecls 'cocos2d::backend::ShaderCache'
+typeconf 'cocos2d::backend::ShaderCache'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -487,7 +487,7 @@ typecls 'cocos2d::backend::ShaderCache'
     .func(nil, 'void removeUnusedShader()')
     .prop('instance', nil, nil)
 
-typecls 'cocos2d::backend::ShaderModule'
+typeconf 'cocos2d::backend::ShaderModule'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -497,7 +497,7 @@ typecls 'cocos2d::backend::ShaderModule'
     .prop('shaderStage', nil, nil)
     .prop('hashValue', nil, nil)
 
-typecls 'cocos2d::backend::ProgramCache'
+typeconf 'cocos2d::backend::ProgramCache'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -512,7 +512,7 @@ typecls 'cocos2d::backend::ProgramCache'
     .func(nil, 'cocos2d::backend::Program *getCustomProgram(const std::string &key)')
     .prop('instance', nil, nil)
 
-typecls 'cocos2d::backend::ProgramState'
+typeconf 'cocos2d::backend::ProgramState'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk([[
@@ -681,7 +681,7 @@ typecls 'cocos2d::backend::ProgramState'
     .prop('vertexTextureInfos', nil, nil)
     .prop('fragmentTextureInfos', nil, nil)
 
-typecls 'cocos2d::backend::Program'
+typeconf 'cocos2d::backend::Program'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -705,7 +705,7 @@ typecls 'cocos2d::backend::Program'
     .prop('fragmentShader', nil, nil)
     .prop('programType', nil, nil)
 
-typecls 'cocos2d::backend::TextureBackend'
+typeconf 'cocos2d::backend::TextureBackend'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -730,7 +730,7 @@ typecls 'cocos2d::backend::TextureBackend'
     .prop('textureUsage', nil, nil)
     .prop('textureType', nil, nil)
 
-typecls 'cocos2d::backend::Texture2DBackend'
+typeconf 'cocos2d::backend::Texture2DBackend'
     .supercls('cocos2d::backend::TextureBackend')
     .reg_luatype(true)
     .chunk(nil)
@@ -744,7 +744,7 @@ typecls 'cocos2d::backend::Texture2DBackend'
     .prop('width', nil, nil)
     .prop('height', nil, nil)
 
-typecls 'cocos2d::backend::TextureCubemapBackend'
+typeconf 'cocos2d::backend::TextureCubemapBackend'
     .supercls('cocos2d::backend::TextureBackend')
     .reg_luatype(true)
     .chunk(nil)

@@ -13,7 +13,7 @@ HEADERS = [[
 CHUNK = nil
 
 
-typecls 'cclua::CrashReport::LogLevel'
+typeconf 'cclua::CrashReport::LogLevel'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -26,7 +26,7 @@ typecls 'cclua::CrashReport::LogLevel'
     .enum('Debug', 'cclua::CrashReport::LogLevel::Debug')
     .enum('Verbose', 'cclua::CrashReport::LogLevel::Verbose')
 
-typecls 'cclua::CrashReport'
+typeconf 'cclua::CrashReport'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)

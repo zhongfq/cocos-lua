@@ -20,7 +20,7 @@ typeconv 'dragonBones::Rectangle'
     .var('height', 'float height')
 
 
-typecls 'dragonBones::BinaryOffset'
+typeconf 'dragonBones::BinaryOffset'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -49,7 +49,7 @@ typecls 'dragonBones::BinaryOffset'
     .enum('DeformValueOffset', 'dragonBones::BinaryOffset::DeformValueOffset')
     .enum('DeformFloatOffset', 'dragonBones::BinaryOffset::DeformFloatOffset')
 
-typecls 'dragonBones::ArmatureType'
+typeconf 'dragonBones::ArmatureType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -58,7 +58,7 @@ typecls 'dragonBones::ArmatureType'
     .enum('MovieClip', 'dragonBones::ArmatureType::MovieClip')
     .enum('Stage', 'dragonBones::ArmatureType::Stage')
 
-typecls 'dragonBones::OffsetMode'
+typeconf 'dragonBones::OffsetMode'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -67,7 +67,7 @@ typecls 'dragonBones::OffsetMode'
     .enum('Additive', 'dragonBones::OffsetMode::Additive')
     .enum('Override', 'dragonBones::OffsetMode::Override')
 
-typecls 'dragonBones::DisplayType'
+typeconf 'dragonBones::DisplayType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -78,7 +78,7 @@ typecls 'dragonBones::DisplayType'
     .enum('BoundingBox', 'dragonBones::DisplayType::BoundingBox')
     .enum('Path', 'dragonBones::DisplayType::Path')
 
-typecls 'dragonBones::BoundingBoxType'
+typeconf 'dragonBones::BoundingBoxType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -87,7 +87,7 @@ typecls 'dragonBones::BoundingBoxType'
     .enum('Ellipse', 'dragonBones::BoundingBoxType::Ellipse')
     .enum('Polygon', 'dragonBones::BoundingBoxType::Polygon')
 
-typecls 'dragonBones::ActionType'
+typeconf 'dragonBones::ActionType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -96,7 +96,7 @@ typecls 'dragonBones::ActionType'
     .enum('Frame', 'dragonBones::ActionType::Frame')
     .enum('Sound', 'dragonBones::ActionType::Sound')
 
-typecls 'dragonBones::BlendMode'
+typeconf 'dragonBones::BlendMode'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -116,7 +116,7 @@ typecls 'dragonBones::BlendMode'
     .enum('Screen', 'dragonBones::BlendMode::Screen')
     .enum('Subtract', 'dragonBones::BlendMode::Subtract')
 
-typecls 'dragonBones::TweenType'
+typeconf 'dragonBones::TweenType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -128,7 +128,7 @@ typecls 'dragonBones::TweenType'
     .enum('QuadOut', 'dragonBones::TweenType::QuadOut')
     .enum('QuadInOut', 'dragonBones::TweenType::QuadInOut')
 
-typecls 'dragonBones::TimelineType'
+typeconf 'dragonBones::TimelineType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -146,7 +146,7 @@ typecls 'dragonBones::TimelineType'
     .enum('AnimationTime', 'dragonBones::TimelineType::AnimationTime')
     .enum('AnimationWeight', 'dragonBones::TimelineType::AnimationWeight')
 
-typecls 'dragonBones::AnimationFadeOutMode'
+typeconf 'dragonBones::AnimationFadeOutMode'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -158,7 +158,7 @@ typecls 'dragonBones::AnimationFadeOutMode'
     .enum('All', 'dragonBones::AnimationFadeOutMode::All')
     .enum('Single', 'dragonBones::AnimationFadeOutMode::Single')
 
-typecls 'dragonBones::TextureFormat'
+typeconf 'dragonBones::TextureFormat'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -171,7 +171,7 @@ typecls 'dragonBones::TextureFormat'
     .enum('RGB565', 'dragonBones::TextureFormat::RGB565')
     .enum('RGBA5551', 'dragonBones::TextureFormat::RGBA5551')
 
-typecls 'dragonBones::BaseObject'
+typeconf 'dragonBones::BaseObject'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -182,7 +182,7 @@ typecls 'dragonBones::BaseObject'
     .func(nil, 'void returnToPool()')
     .prop('classTypeIndex', nil, nil)
 
-typecls 'dragonBones::EventObject'
+typeconf 'dragonBones::EventObject'
     .supercls('dragonBones::BaseObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -220,7 +220,7 @@ typecls 'dragonBones::EventObject'
     .prop('animationState', nil, nil)
     .prop('data', nil, nil)
 
-typecls 'dragonBones::TransformObject'
+typeconf 'dragonBones::TransformObject'
     .supercls('dragonBones::BaseObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -230,7 +230,7 @@ typecls 'dragonBones::TransformObject'
     .var('userData', 'void *userData')
     .prop('armature', nil, nil)
 
-typecls 'dragonBones::Point'
+typeconf 'dragonBones::Point'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -248,7 +248,7 @@ typecls 'dragonBones::Point'
     .prop('helpPointC', nil, nil)
     .prop('helpPointD', nil, nil)
 
-typecls 'dragonBones::ConstraintData'
+typeconf 'dragonBones::ConstraintData'
     .supercls('dragonBones::BaseObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -268,7 +268,7 @@ typecls 'dragonBones::ConstraintData'
     .prop('bone', nil, nil)
     .prop('root', nil, nil)
 
-typecls 'dragonBones::IKConstraintData'
+typeconf 'dragonBones::IKConstraintData'
     .supercls('dragonBones::ConstraintData')
     .reg_luatype(true)
     .chunk(nil)
@@ -280,7 +280,7 @@ typecls 'dragonBones::IKConstraintData'
     .var('weight', 'float weight')
     .prop('typeIndex', nil, nil)
 
-typecls 'dragonBones::TimelineData'
+typeconf 'dragonBones::TimelineData'
     .supercls('dragonBones::BaseObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -295,7 +295,7 @@ typecls 'dragonBones::TimelineData'
     .prop('typeIndex', nil, nil)
     .prop('type', nil, nil)
 
-typecls 'dragonBones::IAnimatable'
+typeconf 'dragonBones::IAnimatable'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -305,7 +305,7 @@ typecls 'dragonBones::IAnimatable'
     .func(nil, 'void setClock(dragonBones::WorldClock *value)')
     .prop('clock', nil, nil)
 
-typecls 'dragonBones::WorldClock'
+typeconf 'dragonBones::WorldClock'
     .supercls('dragonBones::IAnimatable')
     .reg_luatype(true)
     .chunk(nil)
@@ -320,7 +320,7 @@ typecls 'dragonBones::WorldClock'
     .var('timeScale', 'float timeScale')
     .prop('staticClock', nil, nil)
 
-typecls 'dragonBones::Slot'
+typeconf 'dragonBones::Slot'
     .supercls('dragonBones::TransformObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -358,7 +358,7 @@ typecls 'dragonBones::Slot'
     .prop('childArmature', nil, nil)
     .prop('parent', nil, nil)
 
-typecls 'dragonBones::Bone'
+typeconf 'dragonBones::Bone'
     .supercls('dragonBones::TransformObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -385,7 +385,7 @@ typecls 'dragonBones::Bone'
     .prop('parent', nil, nil)
     .prop('offsetMode', nil, nil)
 
-typecls 'dragonBones::DisplayData'
+typeconf 'dragonBones::DisplayData'
     .supercls('dragonBones::BaseObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -401,7 +401,7 @@ typecls 'dragonBones::DisplayData'
     .prop('type', nil, nil)
     .prop('parent', nil, nil)
 
-typecls 'dragonBones::ActionData'
+typeconf 'dragonBones::ActionData'
     .supercls('dragonBones::BaseObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -427,7 +427,7 @@ typecls 'dragonBones::ActionData'
     .prop('slot', nil, nil)
     .prop('data', nil, nil)
 
-typecls 'dragonBones::UserData'
+typeconf 'dragonBones::UserData'
     .supercls('dragonBones::BaseObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -451,7 +451,7 @@ typecls 'dragonBones::UserData'
     .prop('floats', nil, nil)
     .prop('strings', nil, nil)
 
-typecls 'dragonBones::BoundingBoxData'
+typeconf 'dragonBones::BoundingBoxData'
     .supercls('dragonBones::BaseObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -466,7 +466,7 @@ typecls 'dragonBones::BoundingBoxData'
     .var('height', 'float height')
     .prop('type', nil, nil)
 
-typecls 'dragonBones::BoundingBoxDisplayData'
+typeconf 'dragonBones::BoundingBoxDisplayData'
     .supercls('dragonBones::DisplayData')
     .reg_luatype(true)
     .chunk(nil)
@@ -479,7 +479,7 @@ typecls 'dragonBones::BoundingBoxDisplayData'
     .prop('typeIndex', nil, nil)
     .prop('boundingBox', nil, nil)
 
-typecls 'dragonBones::CanvasData'
+typeconf 'dragonBones::CanvasData'
     .supercls('dragonBones::BaseObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -491,7 +491,7 @@ typecls 'dragonBones::CanvasData'
     .var('aabb', 'dragonBones::Rectangle aabb')
     .prop('typeIndex', nil, nil)
 
-typecls 'dragonBones::TextureAtlasData'
+typeconf 'dragonBones::TextureAtlasData'
     .supercls('dragonBones::BaseObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -510,7 +510,7 @@ typecls 'dragonBones::TextureAtlasData'
     .var('textures', 'std::map<std::string, TextureData *> textures')
     .prop('textures', nil, nil)
 
-typecls 'dragonBones::TextureData'
+typeconf 'dragonBones::TextureData'
     .supercls('dragonBones::BaseObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -523,7 +523,7 @@ typecls 'dragonBones::TextureData'
     .var('parent', 'dragonBones::TextureAtlasData *parent')
     .prop('parent', nil, nil)
 
-typecls 'dragonBones::ArmatureData'
+typeconf 'dragonBones::ArmatureData'
     .supercls('dragonBones::BaseObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -590,7 +590,7 @@ typecls 'dragonBones::ArmatureData'
     .prop('userData', nil, nil)
     .prop('parent', nil, nil)
 
-typecls 'dragonBones::SkinData'
+typeconf 'dragonBones::SkinData'
     .supercls('dragonBones::BaseObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -603,7 +603,7 @@ typecls 'dragonBones::SkinData'
     .var('parent', 'dragonBones::ArmatureData *parent')
     .prop('typeIndex', nil, nil)
 
-typecls 'dragonBones::BoneData'
+typeconf 'dragonBones::BoneData'
     .supercls('dragonBones::BaseObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -626,7 +626,7 @@ typecls 'dragonBones::BoneData'
     .prop('userData', nil, nil)
     .prop('parent', nil, nil)
 
-typecls 'dragonBones::SlotData'
+typeconf 'dragonBones::SlotData'
     .supercls('dragonBones::BaseObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -650,7 +650,7 @@ typecls 'dragonBones::SlotData'
     .prop('parent', nil, nil)
     .prop('userData', nil, nil)
 
-typecls 'dragonBones::AnimationState'
+typeconf 'dragonBones::AnimationState'
     .supercls('dragonBones::BaseObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -701,7 +701,7 @@ typecls 'dragonBones::AnimationState'
     .prop('name', nil, nil)
     .prop('animationData', nil, nil)
 
-typecls 'dragonBones::AnimationData'
+typeconf 'dragonBones::AnimationData'
     .supercls('dragonBones::BaseObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -737,7 +737,7 @@ typecls 'dragonBones::AnimationData'
     .prop('zOrderTimeline', nil, nil)
     .prop('parent', nil, nil)
 
-typecls 'dragonBones::AnimationConfig'
+typeconf 'dragonBones::AnimationConfig'
     .supercls('dragonBones::BaseObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -782,7 +782,7 @@ typecls 'dragonBones::AnimationConfig'
     .prop('fadeOutTweenType', nil, nil)
     .prop('fadeInTweenType', nil, nil)
 
-typecls 'dragonBones::DragonBonesData'
+typeconf 'dragonBones::DragonBonesData'
     .supercls('dragonBones::BaseObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -808,7 +808,7 @@ typecls 'dragonBones::DragonBonesData'
     .prop('armatureNames', nil, nil)
     .prop('userData', nil, nil)
 
-typecls 'dragonBones::BaseFactory'
+typeconf 'dragonBones::BaseFactory'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -833,7 +833,7 @@ typecls 'dragonBones::BaseFactory'
     .prop('allDragonBonesData', nil, nil)
     .prop('clock', nil, nil)
 
-typecls 'dragonBones::Armature'
+typeconf 'dragonBones::Armature'
     .supercls('dragonBones::BaseObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -884,7 +884,7 @@ typecls 'dragonBones::Armature'
     .prop('parent', nil, nil)
     .prop('animatable', nil, nil)
 
-typecls 'dragonBones::Animation'
+typeconf 'dragonBones::Animation'
     .supercls('dragonBones::BaseObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -926,7 +926,7 @@ typecls 'dragonBones::Animation'
     .prop('animationConfig', nil, nil)
     .prop('lastAnimationState', nil, nil)
 
-typecls 'dragonBones::CCFactory'
+typeconf 'dragonBones::CCFactory'
     .supercls('dragonBones::BaseFactory')
     .reg_luatype(true)
     .chunk(nil)
@@ -943,7 +943,7 @@ typecls 'dragonBones::CCFactory'
     .prop('soundEventManager', nil, nil)
     .prop('clock', nil, nil)
 
-typecls 'dragonBones::CCArmatureDisplay'
+typeconf 'dragonBones::CCArmatureDisplay'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)

@@ -42,7 +42,7 @@ typeconv 'cclua::downloader::FileTask'
     .var('state', '@optional cclua::downloader::FileState state')
 
 
-typecls 'cclua::SceneNoCamera'
+typeconf 'cclua::SceneNoCamera'
     .supercls('cocos2d::Scene')
     .reg_luatype(true)
     .chunk(nil)
@@ -52,7 +52,7 @@ typecls 'cclua::SceneNoCamera'
     .func(nil, 'static cclua::SceneNoCamera *createWithPhysics()')
     .func(nil, 'SceneNoCamera()')
 
-typecls 'cclua::Permission'
+typeconf 'cclua::Permission'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -62,7 +62,7 @@ typecls 'cclua::Permission'
     .enum('PHOTO', 'cclua::Permission::PHOTO')
     .enum('IDFA', 'cclua::Permission::IDFA')
 
-typecls 'cclua::PermissionStatus'
+typeconf 'cclua::PermissionStatus'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -72,7 +72,7 @@ typecls 'cclua::PermissionStatus'
     .enum('DENIED', 'cclua::PermissionStatus::DENIED')
     .enum('AUTHORIZED', 'cclua::PermissionStatus::AUTHORIZED')
 
-typecls 'cclua::runtime'
+typeconf 'cclua::runtime'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -105,6 +105,8 @@ typecls 'cclua::runtime'
     .func(nil, 'static const std::string getManifestVersion()')
     .func(nil, 'static void setManifestVersion(const std::string &version)')
     .func(nil, 'static const std::string getNetworkStatus()')
+    .func(nil, 'static const std::string getPaste()')
+    .func(nil, 'static void setPaste(const std::string &text)')
     .func(nil, 'static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)')
     .func(nil, 'static const cclua::PermissionStatus getPermissionStatus(cclua::Permission permission)')
     .func(nil, 'static void setAudioSessionCatalog(const std::string &catalog)')
@@ -168,11 +170,12 @@ typecls 'cclua::runtime'
     .prop('language', nil, nil)
     .prop('manifestVersion', nil, nil)
     .prop('networkStatus', nil, nil)
+    .prop('paste', nil, nil)
     .prop('audioSessionCatalog', nil, nil)
     .prop('logPath', nil, nil)
     .prop('sampleCount', nil, nil)
 
-typecls 'cclua::filesystem'
+typeconf 'cclua::filesystem'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -203,7 +206,7 @@ typecls 'cclua::filesystem'
     .prop('builtinCacheDirectory', nil, nil)
     .prop('sdCardDirectory', nil, nil)
 
-typecls 'cclua::preferences'
+typeconf 'cclua::preferences'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -221,7 +224,7 @@ typecls 'cclua::preferences'
     .func(nil, 'static void deleteKey(const char *key)')
     .func(nil, 'static void flush()')
 
-typecls 'cclua::timer'
+typeconf 'cclua::timer'
     .supercls(nil)
     .reg_luatype(true)
     .chunk([[#define makeTimerDelayTag(tag) ("delayTag." + tag)]])
@@ -286,7 +289,7 @@ typecls 'cclua::timer'
         TAG_SCOPE = 'once',
     }
 
-typecls 'cclua::window'
+typeconf 'cclua::window'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -303,7 +306,7 @@ typecls 'cclua::window'
     .prop('frameSize', nil, nil)
     .prop('designSize', nil, nil)
 
-typecls 'cclua::downloader::FileState'
+typeconf 'cclua::downloader::FileState'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -313,7 +316,7 @@ typecls 'cclua::downloader::FileState'
     .enum('PENDING', 'cclua::downloader::FileState::PENDING')
     .enum('INVALID', 'cclua::downloader::FileState::INVALID')
 
-typecls 'cclua::downloader'
+typeconf 'cclua::downloader'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -331,7 +334,7 @@ typecls 'cclua::downloader'
         TAG_SCOPE = 'object',
     }
 
-typecls 'cclua::MaskLayout'
+typeconf 'cclua::MaskLayout'
     .supercls('cocos2d::ui::Layout')
     .reg_luatype(true)
     .chunk(nil)

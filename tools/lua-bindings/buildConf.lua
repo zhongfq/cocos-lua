@@ -2,7 +2,7 @@ require "olua.tools.olua"
 
 local autoconf = require "autoconf"
 
-autoconf.init 'conf/clang-args.lua'
+autoconf 'conf/clang-args.lua'
 
 autoconf 'conf/lua-conv.lua'
 autoconf 'conf/lua-cocos2d.lua'

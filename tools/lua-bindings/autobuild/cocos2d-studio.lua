@@ -34,7 +34,7 @@ typeconv 'cocostudio::timeline::AnimationInfo'
     .var('endIndex', 'int endIndex')
 
 
-typecls 'cocos2d::CSLoader'
+typeconf 'cocos2d::CSLoader'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -81,7 +81,7 @@ typecls 'cocos2d::CSLoader'
     .prop('recordJsonPath', nil, nil)
     .prop('jsonPath', nil, nil)
 
-typecls 'cocostudio::MovementEventType'
+typeconf 'cocostudio::MovementEventType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -90,7 +90,7 @@ typecls 'cocostudio::MovementEventType'
     .enum('COMPLETE', 'cocostudio::MovementEventType::COMPLETE')
     .enum('LOOP_COMPLETE', 'cocostudio::MovementEventType::LOOP_COMPLETE')
 
-typecls 'cocostudio::DisplayType'
+typeconf 'cocostudio::DisplayType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -100,7 +100,7 @@ typecls 'cocostudio::DisplayType'
     .enum('CS_DISPLAY_PARTICLE', 'cocostudio::DisplayType::CS_DISPLAY_PARTICLE')
     .enum('CS_DISPLAY_MAX', 'cocostudio::DisplayType::CS_DISPLAY_MAX')
 
-typecls 'cocostudio::ActionFrame'
+typeconf 'cocostudio::ActionFrame'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -121,7 +121,7 @@ typecls 'cocostudio::ActionFrame'
     .prop('frameType', nil, nil)
     .prop('easingType', nil, nil)
 
-typecls 'cocostudio::ActionFadeFrame'
+typeconf 'cocostudio::ActionFadeFrame'
     .supercls('cocostudio::ActionFrame')
     .reg_luatype(true)
     .chunk(nil)
@@ -131,7 +131,7 @@ typecls 'cocostudio::ActionFadeFrame'
     .func(nil, 'int getOpacity()')
     .prop('opacity', nil, nil)
 
-typecls 'cocostudio::ActionFrameEasing'
+typeconf 'cocostudio::ActionFrameEasing'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -140,7 +140,7 @@ typecls 'cocostudio::ActionFrameEasing'
     .func(nil, 'float bounceTime(float t)')
     .func(nil, 'float easeValue(float t)')
 
-typecls 'cocostudio::ActionMoveFrame'
+typeconf 'cocostudio::ActionMoveFrame'
     .supercls('cocostudio::ActionFrame')
     .reg_luatype(true)
     .chunk(nil)
@@ -150,7 +150,7 @@ typecls 'cocostudio::ActionMoveFrame'
     .func(nil, 'cocos2d::Vec2 getPosition()')
     .prop('position', nil, nil)
 
-typecls 'cocostudio::ActionRotationFrame'
+typeconf 'cocostudio::ActionRotationFrame'
     .supercls('cocostudio::ActionFrame')
     .reg_luatype(true)
     .chunk(nil)
@@ -160,7 +160,7 @@ typecls 'cocostudio::ActionRotationFrame'
     .func(nil, 'float getRotation()')
     .prop('rotation', nil, nil)
 
-typecls 'cocostudio::ActionScaleFrame'
+typeconf 'cocostudio::ActionScaleFrame'
     .supercls('cocostudio::ActionFrame')
     .reg_luatype(true)
     .chunk(nil)
@@ -173,7 +173,7 @@ typecls 'cocostudio::ActionScaleFrame'
     .prop('scaleX', nil, nil)
     .prop('scaleY', nil, nil)
 
-typecls 'cocostudio::ActionTintFrame'
+typeconf 'cocostudio::ActionTintFrame'
     .supercls('cocostudio::ActionFrame')
     .reg_luatype(true)
     .chunk(nil)
@@ -183,7 +183,7 @@ typecls 'cocostudio::ActionTintFrame'
     .func(nil, 'cocos2d::Color3B getColor()')
     .prop('color', nil, nil)
 
-typecls 'cocostudio::AnimationData'
+typeconf 'cocostudio::AnimationData'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -198,7 +198,7 @@ typecls 'cocostudio::AnimationData'
     .var('movementNames', 'std::vector<std::string> movementNames')
     .prop('movementCount', nil, nil)
 
-typecls 'cocostudio::Armature'
+typeconf 'cocostudio::Armature'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -237,7 +237,7 @@ typecls 'cocostudio::Armature'
     .prop('version', nil, nil)
     .prop('batchNode', nil, nil)
 
-typecls 'cocostudio::ProcessBase'
+typeconf 'cocostudio::ProcessBase'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -267,7 +267,7 @@ typecls 'cocostudio::ProcessBase'
     .prop('currentPercent', nil, nil)
     .prop('rawDuration', nil, nil)
 
-typecls 'cocostudio::ActionManagerEx'
+typeconf 'cocostudio::ActionManagerEx'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -283,7 +283,7 @@ typecls 'cocostudio::ActionManagerEx'
     .prop('instance', nil, nil)
     .prop('studioVersionNumber', nil, nil)
 
-typecls 'cocostudio::ActionNode'
+typeconf 'cocostudio::ActionNode'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -312,7 +312,7 @@ typecls 'cocostudio::ActionNode'
     .prop('lastFrameIndex', nil, nil)
     .prop('actionDoneOnce', nil, nil)
 
-typecls 'cocostudio::ActionObject'
+typeconf 'cocostudio::ActionObject'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -342,7 +342,7 @@ typecls 'cocostudio::ActionObject'
     .prop('totalTime', nil, nil)
     .prop('playing', nil, nil)
 
-typecls 'cocostudio::ArmatureAnimation'
+typeconf 'cocostudio::ArmatureAnimation'
     .supercls('cocostudio::ProcessBase')
     .reg_luatype(true)
     .chunk(nil)
@@ -388,7 +388,7 @@ typecls 'cocostudio::ArmatureAnimation'
     .prop('animationData', nil, nil)
     .prop('userObject', nil, nil)
 
-typecls 'cocostudio::ArmatureData'
+typeconf 'cocostudio::ArmatureData'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -402,7 +402,7 @@ typecls 'cocostudio::ArmatureData'
     .var('boneDataDic', 'cocos2d::Map<std::string, BoneData *> boneDataDic')
     .var('dataVersion', 'float dataVersion')
 
-typecls 'cocostudio::ArmatureDataManager'
+typeconf 'cocostudio::ArmatureDataManager'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -432,7 +432,7 @@ typecls 'cocostudio::ArmatureDataManager'
     .prop('animationDatas', nil, nil)
     .prop('textureDatas', nil, nil)
 
-typecls 'cocostudio::DisplayData'
+typeconf 'cocostudio::DisplayData'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -444,7 +444,7 @@ typecls 'cocostudio::DisplayData'
     .var('displayType', 'cocostudio::DisplayType displayType')
     .var('displayName', 'std::string displayName')
 
-typecls 'cocostudio::ArmatureDisplayData'
+typeconf 'cocostudio::ArmatureDisplayData'
     .supercls('cocostudio::DisplayData')
     .reg_luatype(true)
     .chunk(nil)
@@ -452,13 +452,13 @@ typecls 'cocostudio::ArmatureDisplayData'
     .func(nil, 'static cocostudio::ArmatureDisplayData *create()')
     .func(nil, 'ArmatureDisplayData()')
 
-typecls 'cocostudio::ArmatureMovementDispatcher'
+typeconf 'cocostudio::ArmatureMovementDispatcher'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocostudio::BaseData'
+typeconf 'cocostudio::BaseData'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -484,7 +484,7 @@ typecls 'cocostudio::BaseData'
     .var('b', 'int b')
     .prop('color', nil, nil)
 
-typecls 'cocostudio::BaseTriggerAction'
+typeconf 'cocostudio::BaseTriggerAction'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -493,7 +493,7 @@ typecls 'cocostudio::BaseTriggerAction'
     .func(nil, 'void done()')
     .func(nil, 'void removeAll()')
 
-typecls 'cocostudio::BaseTriggerCondition'
+typeconf 'cocostudio::BaseTriggerCondition'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -502,7 +502,7 @@ typecls 'cocostudio::BaseTriggerCondition'
     .func(nil, 'bool detect()')
     .func(nil, 'void removeAll()')
 
-typecls 'cocostudio::BatchNode'
+typeconf 'cocostudio::BatchNode'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -510,7 +510,7 @@ typecls 'cocostudio::BatchNode'
     .func(nil, 'static cocostudio::BatchNode *create()')
     .func(nil, 'BatchNode()')
 
-typecls 'cocostudio::Bone'
+typeconf 'cocostudio::Bone'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -581,7 +581,7 @@ typecls 'cocostudio::Bone'
         CALLBACK_AFTER = nil,
     })
 
-typecls 'cocostudio::BoneData'
+typeconf 'cocostudio::BoneData'
     .supercls('cocostudio::BaseData')
     .reg_luatype(true)
     .chunk(nil)
@@ -596,13 +596,13 @@ typecls 'cocostudio::BoneData'
     .var('displayDataList', 'cocos2d::Vector<DisplayData *> displayDataList')
     .var('boneDataTransform', 'cocos2d::AffineTransform boneDataTransform')
 
-typecls 'cocostudio::CocoLoader'
+typeconf 'cocostudio::CocoLoader'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocostudio::ColliderBody'
+typeconf 'cocostudio::ColliderBody'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -613,7 +613,7 @@ typecls 'cocostudio::ColliderBody'
     .prop('contourData', nil, nil)
     .prop('calculatedVertexList', nil, nil)
 
-typecls 'cocostudio::ColliderDetector'
+typeconf 'cocostudio::ColliderDetector'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -635,13 +635,13 @@ typecls 'cocostudio::ColliderDetector'
     .prop('colliderBodyList', nil, nil)
     .prop('bone', nil, nil)
 
-typecls 'cocostudio::ColliderFilter'
+typeconf 'cocostudio::ColliderFilter'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocostudio::ComAttribute'
+typeconf 'cocostudio::ComAttribute'
     .supercls('cocos2d::Component')
     .reg_luatype(true)
     .chunk(nil)
@@ -660,7 +660,7 @@ typecls 'cocostudio::ComAttribute'
     .func(nil, 'std::string getString(const std::string &key, @optional const std::string &def)')
     .func(nil, 'bool parse(const std::string &jsonFile)')
 
-typecls 'cocostudio::ComAudio'
+typeconf 'cocostudio::ComAudio'
     .supercls('cocos2d::Component')
     .reg_luatype(true)
     .chunk(nil)
@@ -703,7 +703,7 @@ typecls 'cocostudio::ComAudio'
     .prop('file', nil, nil)
     .prop('loop', nil, nil)
 
-typecls 'cocostudio::ComController'
+typeconf 'cocostudio::ComController'
     .supercls('cocos2d::Component')
     .reg_luatype(true)
     .chunk(nil)
@@ -713,7 +713,7 @@ typecls 'cocostudio::ComController'
     .func(nil, 'ComController()')
     .func(nil, 'static cocostudio::ComController *create()')
 
-typecls 'cocostudio::ComRender'
+typeconf 'cocostudio::ComRender'
     .supercls('cocos2d::Component')
     .reg_luatype(true)
     .chunk(nil)
@@ -726,7 +726,7 @@ typecls 'cocostudio::ComRender'
     .func(nil, 'ComRender()', 'ComRender(cocos2d::Node *node, const char *comName)')
     .prop('node', nil, nil)
 
-typecls 'cocostudio::ContourData'
+typeconf 'cocostudio::ContourData'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -737,7 +737,7 @@ typecls 'cocostudio::ContourData'
     .func(nil, 'void addVertex(cocos2d::Vec2 &vertex)')
     .var('vertexList', 'std::vector<cocos2d::Vec2> vertexList')
 
-typecls 'cocostudio::DataReaderHelper'
+typeconf 'cocostudio::DataReaderHelper'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -753,7 +753,7 @@ typecls 'cocostudio::DataReaderHelper'
     .prop('instance', nil, nil)
     .prop('positionReadScale', nil, nil)
 
-typecls 'cocostudio::DecorativeDisplay'
+typeconf 'cocostudio::DecorativeDisplay'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -771,7 +771,7 @@ typecls 'cocostudio::DecorativeDisplay'
     .prop('displayData', nil, nil)
     .prop('colliderDetector', nil, nil)
 
-typecls 'cocostudio::DisplayFactory'
+typeconf 'cocostudio::DisplayFactory'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -789,7 +789,7 @@ typecls 'cocostudio::DisplayFactory'
     .func(nil, 'static void createParticleDisplay(cocostudio::Bone *bone, cocostudio::DecorativeDisplay *decoDisplay)')
     .func(nil, 'static void updateParticleDisplay(cocostudio::Bone *bone, cocos2d::Node *display, float dt)')
 
-typecls 'cocostudio::DisplayManager'
+typeconf 'cocostudio::DisplayManager'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -830,7 +830,7 @@ typecls 'cocostudio::DisplayManager'
     .prop('anchorPointInPoints', nil, nil)
     .prop('forceChangeDisplay', nil, nil)
 
-typecls 'cocostudio::FrameData'
+typeconf 'cocostudio::FrameData'
     .supercls('cocostudio::BaseData')
     .reg_luatype(true)
     .chunk(nil)
@@ -849,7 +849,7 @@ typecls 'cocostudio::FrameData'
     .var('strSound', 'std::string strSound')
     .var('strSoundEffect', 'std::string strSoundEffect')
 
-typecls 'cocostudio::GUIReader'
+typeconf 'cocostudio::GUIReader'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -866,7 +866,7 @@ typecls 'cocostudio::GUIReader'
     .prop('instance', nil, nil)
     .prop('filePath', nil, nil)
 
-typecls 'cocostudio::InputDelegate'
+typeconf 'cocostudio::InputDelegate'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -899,7 +899,7 @@ typecls 'cocostudio::InputDelegate'
     .prop('touchMode', nil, nil)
     .prop('touchPriority', nil, nil)
 
-typecls 'cocostudio::MovementBoneData'
+typeconf 'cocostudio::MovementBoneData'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -915,7 +915,7 @@ typecls 'cocostudio::MovementBoneData'
     .var('name', 'std::string name')
     .var('frameList', 'cocos2d::Vector<FrameData *> frameList')
 
-typecls 'cocostudio::MovementData'
+typeconf 'cocostudio::MovementData'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -933,7 +933,7 @@ typecls 'cocostudio::MovementData'
     .var('tweenEasing', 'cocos2d::tweenfunc::TweenType tweenEasing')
     .var('movBoneDataDic', 'cocos2d::Map<std::string, MovementBoneData *> movBoneDataDic')
 
-typecls 'cocostudio::ParticleDisplayData'
+typeconf 'cocostudio::ParticleDisplayData'
     .supercls('cocostudio::DisplayData')
     .reg_luatype(true)
     .chunk(nil)
@@ -941,7 +941,7 @@ typecls 'cocostudio::ParticleDisplayData'
     .func(nil, 'static cocostudio::ParticleDisplayData *create()')
     .func(nil, 'ParticleDisplayData()')
 
-typecls 'cocostudio::SceneReader::AttachComponentType'
+typeconf 'cocostudio::SceneReader::AttachComponentType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -950,7 +950,7 @@ typecls 'cocostudio::SceneReader::AttachComponentType'
     .enum('RENDER_NODE', 'cocostudio::SceneReader::AttachComponentType::RENDER_NODE')
     .enum('DEFAULT', 'cocostudio::SceneReader::AttachComponentType::DEFAULT')
 
-typecls 'cocostudio::SceneReader'
+typeconf 'cocostudio::SceneReader'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -974,7 +974,7 @@ typecls 'cocostudio::SceneReader'
     .prop('instance', nil, nil)
     .prop('attachComponentType', nil, nil)
 
-typecls 'cocostudio::Skin'
+typeconf 'cocostudio::Skin'
     .supercls('cocos2d::Sprite')
     .reg_luatype(true)
     .chunk(nil)
@@ -994,7 +994,7 @@ typecls 'cocostudio::Skin'
     .prop('bone', nil, nil)
     .prop('displayName', nil, nil)
 
-typecls 'cocostudio::SpriteDisplayData'
+typeconf 'cocostudio::SpriteDisplayData'
     .supercls('cocostudio::DisplayData')
     .reg_luatype(true)
     .chunk(nil)
@@ -1003,7 +1003,7 @@ typecls 'cocostudio::SpriteDisplayData'
     .func(nil, 'SpriteDisplayData()')
     .var('skinData', 'cocostudio::BaseData skinData')
 
-typecls 'cocostudio::SpriteFrameCacheHelper'
+typeconf 'cocostudio::SpriteFrameCacheHelper'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1014,7 +1014,7 @@ typecls 'cocostudio::SpriteFrameCacheHelper'
     .func(nil, 'void removeSpriteFrameFromFile(const std::string &plistPath)')
     .prop('instance', nil, nil)
 
-typecls 'cocostudio::TextureData'
+typeconf 'cocostudio::TextureData'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -1031,7 +1031,7 @@ typecls 'cocostudio::TextureData'
     .var('name', 'std::string name')
     .var('contourDataList', 'cocos2d::Vector<ContourData *> contourDataList')
 
-typecls 'cocostudio::Tween'
+typeconf 'cocostudio::Tween'
     .supercls('cocostudio::ProcessBase')
     .reg_luatype(true)
     .chunk(nil)
@@ -1049,7 +1049,7 @@ typecls 'cocostudio::Tween'
     .prop('animation', nil, nil)
     .prop('movementBoneData', nil, nil)
 
-typecls 'cocostudio::timeline::InnerActionType'
+typeconf 'cocostudio::timeline::InnerActionType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1058,7 +1058,7 @@ typecls 'cocostudio::timeline::InnerActionType'
     .enum('NoLoopAction', 'cocostudio::timeline::InnerActionType::NoLoopAction')
     .enum('SingleFrame', 'cocostudio::timeline::InnerActionType::SingleFrame')
 
-typecls 'cocostudio::timeline::Frame'
+typeconf 'cocostudio::timeline::Frame'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -1087,7 +1087,7 @@ typecls 'cocostudio::timeline::Frame'
     .prop('easingParams', nil, nil)
     .prop('enterWhenPassed', nil, nil)
 
-typecls 'cocostudio::timeline::AlphaFrame'
+typeconf 'cocostudio::timeline::AlphaFrame'
     .supercls('cocostudio::timeline::Frame')
     .reg_luatype(true)
     .chunk(nil)
@@ -1098,7 +1098,7 @@ typecls 'cocostudio::timeline::AlphaFrame'
     .func(nil, 'uint8_t getAlpha()')
     .prop('alpha', nil, nil)
 
-typecls 'cocostudio::timeline::AnchorPointFrame'
+typeconf 'cocostudio::timeline::AnchorPointFrame'
     .supercls('cocostudio::timeline::Frame')
     .reg_luatype(true)
     .chunk(nil)
@@ -1109,7 +1109,7 @@ typecls 'cocostudio::timeline::AnchorPointFrame'
     .func(nil, 'cocos2d::Point getAnchorPoint()')
     .prop('anchorPoint', nil, nil)
 
-typecls 'cocostudio::timeline::BlendFuncFrame'
+typeconf 'cocostudio::timeline::BlendFuncFrame'
     .supercls('cocostudio::timeline::Frame')
     .reg_luatype(true)
     .chunk(nil)
@@ -1120,7 +1120,7 @@ typecls 'cocostudio::timeline::BlendFuncFrame'
     .func(nil, 'void setBlendFunc(cocos2d::BlendFunc blendFunc)')
     .prop('blendFunc', nil, nil)
 
-typecls 'cocostudio::timeline::ColorFrame'
+typeconf 'cocostudio::timeline::ColorFrame'
     .supercls('cocostudio::timeline::Frame')
     .reg_luatype(true)
     .chunk(nil)
@@ -1131,7 +1131,7 @@ typecls 'cocostudio::timeline::ColorFrame'
     .func(nil, 'cocos2d::Color3B getColor()')
     .prop('color', nil, nil)
 
-typecls 'cocostudio::timeline::EventFrame'
+typeconf 'cocostudio::timeline::EventFrame'
     .supercls('cocostudio::timeline::Frame')
     .reg_luatype(true)
     .chunk(nil)
@@ -1143,7 +1143,7 @@ typecls 'cocostudio::timeline::EventFrame'
     .func(nil, 'std::string getEvent()')
     .prop('event', nil, nil)
 
-typecls 'cocostudio::timeline::InnerActionFrame'
+typeconf 'cocostudio::timeline::InnerActionFrame'
     .supercls('cocostudio::timeline::Frame')
     .reg_luatype(true)
     .chunk(nil)
@@ -1166,7 +1166,7 @@ typecls 'cocostudio::timeline::InnerActionFrame'
     .prop('endFrameIndex', nil, nil)
     .prop('singleFrameIndex', nil, nil)
 
-typecls 'cocostudio::timeline::PlayableFrame'
+typeconf 'cocostudio::timeline::PlayableFrame'
     .supercls('cocostudio::timeline::Frame')
     .reg_luatype(true)
     .chunk(nil)
@@ -1178,7 +1178,7 @@ typecls 'cocostudio::timeline::PlayableFrame'
     .func(nil, 'void setPlayableAct(std::string playact)')
     .prop('playableAct', nil, nil)
 
-typecls 'cocostudio::timeline::PositionFrame'
+typeconf 'cocostudio::timeline::PositionFrame'
     .supercls('cocostudio::timeline::Frame')
     .reg_luatype(true)
     .chunk(nil)
@@ -1195,7 +1195,7 @@ typecls 'cocostudio::timeline::PositionFrame'
     .prop('x', nil, nil)
     .prop('y', nil, nil)
 
-typecls 'cocostudio::timeline::RotationFrame'
+typeconf 'cocostudio::timeline::RotationFrame'
     .supercls('cocostudio::timeline::Frame')
     .reg_luatype(true)
     .chunk(nil)
@@ -1206,7 +1206,7 @@ typecls 'cocostudio::timeline::RotationFrame'
     .func(nil, 'float getRotation()')
     .prop('rotation', nil, nil)
 
-typecls 'cocostudio::timeline::SkewFrame'
+typeconf 'cocostudio::timeline::SkewFrame'
     .supercls('cocostudio::timeline::Frame')
     .reg_luatype(true)
     .chunk(nil)
@@ -1220,7 +1220,7 @@ typecls 'cocostudio::timeline::SkewFrame'
     .prop('skewX', nil, nil)
     .prop('skewY', nil, nil)
 
-typecls 'cocostudio::timeline::RotationSkewFrame'
+typeconf 'cocostudio::timeline::RotationSkewFrame'
     .supercls('cocostudio::timeline::SkewFrame')
     .reg_luatype(true)
     .chunk(nil)
@@ -1228,7 +1228,7 @@ typecls 'cocostudio::timeline::RotationSkewFrame'
     .func(nil, 'static cocostudio::timeline::RotationSkewFrame *create()')
     .func(nil, 'RotationSkewFrame()')
 
-typecls 'cocostudio::timeline::ScaleFrame'
+typeconf 'cocostudio::timeline::ScaleFrame'
     .supercls('cocostudio::timeline::Frame')
     .reg_luatype(true)
     .chunk(nil)
@@ -1243,7 +1243,7 @@ typecls 'cocostudio::timeline::ScaleFrame'
     .prop('scaleX', nil, nil)
     .prop('scaleY', nil, nil)
 
-typecls 'cocostudio::timeline::TextureFrame'
+typeconf 'cocostudio::timeline::TextureFrame'
     .supercls('cocostudio::timeline::Frame')
     .reg_luatype(true)
     .chunk(nil)
@@ -1254,7 +1254,7 @@ typecls 'cocostudio::timeline::TextureFrame'
     .func(nil, 'std::string getTextureName()')
     .prop('textureName', nil, nil)
 
-typecls 'cocostudio::timeline::VisibleFrame'
+typeconf 'cocostudio::timeline::VisibleFrame'
     .supercls('cocostudio::timeline::Frame')
     .reg_luatype(true)
     .chunk(nil)
@@ -1265,7 +1265,7 @@ typecls 'cocostudio::timeline::VisibleFrame'
     .func(nil, 'bool isVisible()')
     .prop('visible', nil, nil)
 
-typecls 'cocostudio::timeline::ZOrderFrame'
+typeconf 'cocostudio::timeline::ZOrderFrame'
     .supercls('cocostudio::timeline::Frame')
     .reg_luatype(true)
     .chunk(nil)
@@ -1276,7 +1276,7 @@ typecls 'cocostudio::timeline::ZOrderFrame'
     .func(nil, 'int getZOrder()')
     .prop('zOrder', nil, nil)
 
-typecls 'cocostudio::timeline::ActionTimelineCache'
+typeconf 'cocostudio::timeline::ActionTimelineCache'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1298,7 +1298,7 @@ typecls 'cocostudio::timeline::ActionTimelineCache'
     .func(nil, 'cocostudio::timeline::ActionTimeline *createActionWithFlatBuffersForSimulator(const std::string &fileName)')
     .prop('instance', nil, nil)
 
-typecls 'cocostudio::timeline::ActionTimelineData'
+typeconf 'cocostudio::timeline::ActionTimelineData'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -1310,7 +1310,7 @@ typecls 'cocostudio::timeline::ActionTimelineData'
     .func(nil, 'bool init(int actionTag)')
     .prop('actionTag', nil, nil)
 
-typecls 'cocostudio::timeline::ActionTimelineNode'
+typeconf 'cocostudio::timeline::ActionTimelineNode'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -1325,7 +1325,7 @@ typecls 'cocostudio::timeline::ActionTimelineNode'
     .prop('root', nil, nil)
     .prop('actionTimeline', nil, nil)
 
-typecls 'cocostudio::timeline::BoneNode'
+typeconf 'cocostudio::timeline::BoneNode'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -1365,7 +1365,7 @@ typecls 'cocostudio::timeline::BoneNode'
     .prop('debugDrawColor', nil, nil)
     .prop('visibleSkinsRect', nil, nil)
 
-typecls 'cocostudio::timeline::SkeletonNode'
+typeconf 'cocostudio::timeline::SkeletonNode'
     .supercls('cocostudio::timeline::BoneNode')
     .reg_luatype(true)
     .chunk(nil)
@@ -1378,7 +1378,7 @@ typecls 'cocostudio::timeline::SkeletonNode'
     .func(nil, 'SkeletonNode()')
     .prop('allSubBonesMap', nil, nil)
 
-typecls 'cocostudio::timeline::Timeline'
+typeconf 'cocostudio::timeline::Timeline'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -1403,7 +1403,7 @@ typecls 'cocostudio::timeline::Timeline'
     .prop('node', nil, nil)
     .prop('actionTimeline', nil, nil)
 
-typecls 'cocostudio::timeline::ActionTimeline'
+typeconf 'cocostudio::timeline::ActionTimeline'
     .supercls('cocos2d::Action')
     .reg_luatype(true)
     .chunk(nil)

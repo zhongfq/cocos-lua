@@ -14,7 +14,7 @@ HEADERS = [[
 CHUNK = nil
 
 
-typecls 'cocos2d::tweenfunc::TweenType'
+typeconf 'cocos2d::tweenfunc::TweenType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -53,7 +53,7 @@ typecls 'cocos2d::tweenfunc::TweenType'
     .enum('Bounce_EaseInOut', 'cocos2d::tweenfunc::TweenType::Bounce_EaseInOut')
     .enum('TWEEN_EASING_MAX', 'cocos2d::tweenfunc::TweenType::TWEEN_EASING_MAX')
 
-typecls 'cocos2d::Action'
+typeconf 'cocos2d::Action'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -81,7 +81,7 @@ typecls 'cocos2d::Action'
     .prop('tag', nil, nil)
     .prop('flags', nil, nil)
 
-typecls 'cocos2d::FiniteTimeAction'
+typeconf 'cocos2d::FiniteTimeAction'
     .supercls('cocos2d::Action')
     .reg_luatype(true)
     .chunk(nil)
@@ -90,7 +90,7 @@ typecls 'cocos2d::FiniteTimeAction'
     .func(nil, 'void setDuration(float duration)')
     .prop('duration', nil, nil)
 
-typecls 'cocos2d::Speed'
+typeconf 'cocos2d::Speed'
     .supercls('cocos2d::Action')
     .reg_luatype(true)
     .chunk(nil)
@@ -103,7 +103,7 @@ typecls 'cocos2d::Speed'
     .prop('speed', nil, nil)
     .prop('innerAction', nil, nil)
 
-typecls 'cocos2d::Follow'
+typeconf 'cocos2d::Follow'
     .supercls('cocos2d::Action')
     .reg_luatype(true)
     .chunk(nil)
@@ -116,7 +116,7 @@ typecls 'cocos2d::Follow'
     .func(nil, 'bool initWithTargetAndOffset(cocos2d::Node *followedNode, float xOffset, float yOffset, @optional const cocos2d::Rect &rect)')
     .prop('boundarySet', nil, nil)
 
-typecls 'cocos2d::tweenfunc'
+typeconf 'cocos2d::tweenfunc'
     .supercls(nil)
     .reg_luatype(false)
     .chunk(nil)
@@ -160,7 +160,7 @@ typecls 'cocos2d::tweenfunc'
     .func(nil, 'static float bounceEaseOut(float time)')
     .func(nil, 'static float bounceEaseInOut(float time)')
 
-typecls 'cocos2d::ActionInterval'
+typeconf 'cocos2d::ActionInterval'
     .supercls('cocos2d::FiniteTimeAction')
     .reg_luatype(true)
     .chunk(nil)
@@ -171,14 +171,14 @@ typecls 'cocos2d::ActionInterval'
     .prop('elapsed', nil, nil)
     .prop('amplitudeRate', nil, nil)
 
-typecls 'cocos2d::ActionTween'
+typeconf 'cocos2d::ActionTween'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::ActionTween *create(float duration, const std::string &key, float from, float to)')
 
-typecls 'cocos2d::Sequence'
+typeconf 'cocos2d::Sequence'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
@@ -186,7 +186,7 @@ typecls 'cocos2d::Sequence'
     .func(nil, 'static cocos2d::Sequence *create(@pack@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)')
     .func(nil, 'static cocos2d::Sequence *createWithTwoActions(@addref(actions |) cocos2d::FiniteTimeAction *actionOne, @addref(actions |) cocos2d::FiniteTimeAction *actionTwo)')
 
-typecls 'cocos2d::Repeat'
+typeconf 'cocos2d::Repeat'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
@@ -196,7 +196,7 @@ typecls 'cocos2d::Repeat'
     .func(nil, '@addref(innerAction ^) cocos2d::FiniteTimeAction *getInnerAction()')
     .prop('innerAction', nil, nil)
 
-typecls 'cocos2d::RepeatForever'
+typeconf 'cocos2d::RepeatForever'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
@@ -206,7 +206,7 @@ typecls 'cocos2d::RepeatForever'
     .func(nil, '@addref(innerAction ^) cocos2d::ActionInterval *getInnerAction()')
     .prop('innerAction', nil, nil)
 
-typecls 'cocos2d::Spawn'
+typeconf 'cocos2d::Spawn'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
@@ -214,189 +214,189 @@ typecls 'cocos2d::Spawn'
     .func(nil, 'static cocos2d::Spawn *create(@pack@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)')
     .func(nil, 'static cocos2d::Spawn *createWithTwoActions(@addref(actions |) cocos2d::FiniteTimeAction *action1, @addref(actions |) cocos2d::FiniteTimeAction *action2)')
 
-typecls 'cocos2d::RotateTo'
+typeconf 'cocos2d::RotateTo'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::RotateTo *create(float duration, float dstAngleX, float dstAngleY)', 'static cocos2d::RotateTo *create(float duration, float dstAngle)', 'static cocos2d::RotateTo *create(float duration, const cocos2d::Vec3 &dstAngle3D)')
 
-typecls 'cocos2d::RotateFrom'
+typeconf 'cocos2d::RotateFrom'
     .supercls('cocos2d::RotateTo')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::RotateFrom *create(float duration, float fromAngleX, float fromAngleY)', 'static cocos2d::RotateFrom *create(float duration, float fromAngle)', 'static cocos2d::RotateFrom *create(float duration, const cocos2d::Vec3 &fromAngle3D)')
 
-typecls 'cocos2d::RotateBy'
+typeconf 'cocos2d::RotateBy'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::RotateBy *create(float duration, float deltaAngle)', 'static cocos2d::RotateBy *create(float duration, float deltaAngleZ_X, float deltaAngleZ_Y)', 'static cocos2d::RotateBy *create(float duration, const cocos2d::Vec3 &deltaAngle3D)')
 
-typecls 'cocos2d::MoveBy'
+typeconf 'cocos2d::MoveBy'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::MoveBy *create(float duration, @pack const cocos2d::Vec2 &deltaPosition)', 'static cocos2d::MoveBy *create(float duration, @pack const cocos2d::Vec3 &deltaPosition)')
 
-typecls 'cocos2d::MoveTo'
+typeconf 'cocos2d::MoveTo'
     .supercls('cocos2d::MoveBy')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::MoveTo *create(float duration, @pack const cocos2d::Vec2 &position)', 'static cocos2d::MoveTo *create(float duration, @pack const cocos2d::Vec3 &position)')
 
-typecls 'cocos2d::MoveFrom'
+typeconf 'cocos2d::MoveFrom'
     .supercls('cocos2d::MoveBy')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::MoveFrom *create(float duration, @pack const cocos2d::Vec2 &position)', 'static cocos2d::MoveFrom *create(float duration, @pack const cocos2d::Vec3 &position)')
 
-typecls 'cocos2d::SkewTo'
+typeconf 'cocos2d::SkewTo'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::SkewTo *create(float t, float sx, float sy)')
 
-typecls 'cocos2d::SkewBy'
+typeconf 'cocos2d::SkewBy'
     .supercls('cocos2d::SkewTo')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::SkewBy *create(float t, float deltaSkewX, float deltaSkewY)')
 
-typecls 'cocos2d::ResizeTo'
+typeconf 'cocos2d::ResizeTo'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::ResizeTo *create(float duration, const cocos2d::Size &final_size)')
 
-typecls 'cocos2d::ResizeBy'
+typeconf 'cocos2d::ResizeBy'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::ResizeBy *create(float duration, const cocos2d::Size &deltaSize)')
 
-typecls 'cocos2d::BezierBy'
+typeconf 'cocos2d::BezierBy'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::BezierBy *create(float t, @pack const cocos2d::ccBezierConfig &c)')
 
-typecls 'cocos2d::BezierTo'
+typeconf 'cocos2d::BezierTo'
     .supercls('cocos2d::BezierBy')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::BezierTo *create(float t, @pack const cocos2d::ccBezierConfig &c)')
 
-typecls 'cocos2d::JumpBy'
+typeconf 'cocos2d::JumpBy'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::JumpBy *create(float duration, @pack const cocos2d::Vec2 &position, float height, int jumps)')
 
-typecls 'cocos2d::JumpTo'
+typeconf 'cocos2d::JumpTo'
     .supercls('cocos2d::JumpBy')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::JumpTo *create(float duration, @pack const cocos2d::Vec2 &position, float height, int jumps)')
 
-typecls 'cocos2d::ScaleTo'
+typeconf 'cocos2d::ScaleTo'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::ScaleTo *create(float duration, float s)', 'static cocos2d::ScaleTo *create(float duration, float sx, float sy)', 'static cocos2d::ScaleTo *create(float duration, float sx, float sy, float sz)')
 
-typecls 'cocos2d::ScaleBy'
+typeconf 'cocos2d::ScaleBy'
     .supercls('cocos2d::ScaleTo')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::ScaleBy *create(float duration, float s)', 'static cocos2d::ScaleBy *create(float duration, float sx, float sy)', 'static cocos2d::ScaleBy *create(float duration, float sx, float sy, float sz)')
 
-typecls 'cocos2d::ScaleFrom'
+typeconf 'cocos2d::ScaleFrom'
     .supercls('cocos2d::ScaleTo')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::ScaleFrom *create(float duration, float s)', 'static cocos2d::ScaleFrom *create(float duration, float sx, float sy)', 'static cocos2d::ScaleFrom *create(float duration, float sx, float sy, float sz)')
 
-typecls 'cocos2d::Blink'
+typeconf 'cocos2d::Blink'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::Blink *create(float duration, int blinks)')
 
-typecls 'cocos2d::FadeTo'
+typeconf 'cocos2d::FadeTo'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::FadeTo *create(float duration, uint8_t opacity)')
 
-typecls 'cocos2d::FadeFrom'
+typeconf 'cocos2d::FadeFrom'
     .supercls('cocos2d::FadeTo')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::FadeFrom *create(float d, uint8_t opacity)')
 
-typecls 'cocos2d::FadeIn'
+typeconf 'cocos2d::FadeIn'
     .supercls('cocos2d::FadeTo')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::FadeIn *create(float d)')
 
-typecls 'cocos2d::FadeOut'
+typeconf 'cocos2d::FadeOut'
     .supercls('cocos2d::FadeTo')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::FadeOut *create(float d)')
 
-typecls 'cocos2d::TintTo'
+typeconf 'cocos2d::TintTo'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::TintTo *create(float duration, uint8_t red, uint8_t green, uint8_t blue)', 'static cocos2d::TintTo *create(float duration, const cocos2d::Color3B &color)')
 
-typecls 'cocos2d::TintBy'
+typeconf 'cocos2d::TintBy'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::TintBy *create(float duration, int16_t deltaRed, int16_t deltaGreen, int16_t deltaBlue)')
 
-typecls 'cocos2d::DelayTime'
+typeconf 'cocos2d::DelayTime'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::DelayTime *create(float d)')
 
-typecls 'cocos2d::ReverseTime'
+typeconf 'cocos2d::ReverseTime'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::ReverseTime *create(@addref(actions |) cocos2d::FiniteTimeAction *action)')
 
-typecls 'cocos2d::Animate'
+typeconf 'cocos2d::Animate'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
@@ -408,7 +408,7 @@ typecls 'cocos2d::Animate'
     .prop('animation', nil, nil)
     .prop('currentFrameIndex', nil, nil)
 
-typecls 'cocos2d::TargetedAction'
+typeconf 'cocos2d::TargetedAction'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
@@ -419,13 +419,13 @@ typecls 'cocos2d::TargetedAction'
     .func(nil, 'bool initWithTarget(cocos2d::Node *target, cocos2d::FiniteTimeAction *action)')
     .prop('forcedTarget', nil, nil)
 
-typecls 'cocos2d::ActionFloat::ActionFloatCallback'
+typeconf 'cocos2d::ActionFloat::ActionFloatCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::ActionFloat'
+typeconf 'cocos2d::ActionFloat'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
@@ -440,21 +440,21 @@ typecls 'cocos2d::ActionFloat'
         TAG_SCOPE = 'object',
     }
 
-typecls 'cocos2d::ProgressTo'
+typeconf 'cocos2d::ProgressTo'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::ProgressTo *create(float duration, float percent)')
 
-typecls 'cocos2d::ProgressFromTo'
+typeconf 'cocos2d::ProgressFromTo'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::ProgressFromTo *create(float duration, float fromPercentage, float toPercentage)')
 
-typecls 'cocos2d::ActionEase'
+typeconf 'cocos2d::ActionEase'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
@@ -462,7 +462,7 @@ typecls 'cocos2d::ActionEase'
     .func(nil, '@addref(innerAction ^) cocos2d::ActionInterval *getInnerAction()')
     .prop('innerAction', nil, nil)
 
-typecls 'cocos2d::EaseRateAction'
+typeconf 'cocos2d::EaseRateAction'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
@@ -472,217 +472,217 @@ typecls 'cocos2d::EaseRateAction'
     .func(nil, 'float getRate()')
     .prop('rate', nil, nil)
 
-typecls 'cocos2d::EaseExponentialIn'
+typeconf 'cocos2d::EaseExponentialIn'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseExponentialIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseExponentialOut'
+typeconf 'cocos2d::EaseExponentialOut'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseExponentialOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseExponentialInOut'
+typeconf 'cocos2d::EaseExponentialInOut'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseExponentialInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseSineIn'
+typeconf 'cocos2d::EaseSineIn'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseSineIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseSineOut'
+typeconf 'cocos2d::EaseSineOut'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseSineOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseSineInOut'
+typeconf 'cocos2d::EaseSineInOut'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseSineInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseBounceIn'
+typeconf 'cocos2d::EaseBounceIn'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseBounceIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseBounceOut'
+typeconf 'cocos2d::EaseBounceOut'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseBounceOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseBounceInOut'
+typeconf 'cocos2d::EaseBounceInOut'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseBounceInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseBackIn'
+typeconf 'cocos2d::EaseBackIn'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseBackIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseBackOut'
+typeconf 'cocos2d::EaseBackOut'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseBackOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseBackInOut'
+typeconf 'cocos2d::EaseBackInOut'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseBackInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseQuadraticActionIn'
+typeconf 'cocos2d::EaseQuadraticActionIn'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseQuadraticActionIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseQuadraticActionOut'
+typeconf 'cocos2d::EaseQuadraticActionOut'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseQuadraticActionOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseQuadraticActionInOut'
+typeconf 'cocos2d::EaseQuadraticActionInOut'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseQuadraticActionInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseQuarticActionIn'
+typeconf 'cocos2d::EaseQuarticActionIn'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseQuarticActionIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseQuarticActionOut'
+typeconf 'cocos2d::EaseQuarticActionOut'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseQuarticActionOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseQuarticActionInOut'
+typeconf 'cocos2d::EaseQuarticActionInOut'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseQuarticActionInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseQuinticActionIn'
+typeconf 'cocos2d::EaseQuinticActionIn'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseQuinticActionIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseQuinticActionOut'
+typeconf 'cocos2d::EaseQuinticActionOut'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseQuinticActionOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseQuinticActionInOut'
+typeconf 'cocos2d::EaseQuinticActionInOut'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseQuinticActionInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseCircleActionIn'
+typeconf 'cocos2d::EaseCircleActionIn'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseCircleActionIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseCircleActionOut'
+typeconf 'cocos2d::EaseCircleActionOut'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseCircleActionOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseCircleActionInOut'
+typeconf 'cocos2d::EaseCircleActionInOut'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseCircleActionInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseCubicActionIn'
+typeconf 'cocos2d::EaseCubicActionIn'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseCubicActionIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseCubicActionOut'
+typeconf 'cocos2d::EaseCubicActionOut'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseCubicActionOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseCubicActionInOut'
+typeconf 'cocos2d::EaseCubicActionInOut'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseCubicActionInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
 
-typecls 'cocos2d::EaseIn'
+typeconf 'cocos2d::EaseIn'
     .supercls('cocos2d::EaseRateAction')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action, float rate)')
 
-typecls 'cocos2d::EaseOut'
+typeconf 'cocos2d::EaseOut'
     .supercls('cocos2d::EaseRateAction')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action, float rate)')
 
-typecls 'cocos2d::EaseInOut'
+typeconf 'cocos2d::EaseInOut'
     .supercls('cocos2d::EaseRateAction')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action, float rate)')
 
-typecls 'cocos2d::EaseElastic'
+typeconf 'cocos2d::EaseElastic'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
@@ -691,28 +691,28 @@ typecls 'cocos2d::EaseElastic'
     .func(nil, 'void setPeriod(float fPeriod)')
     .prop('period', nil, nil)
 
-typecls 'cocos2d::EaseElasticIn'
+typeconf 'cocos2d::EaseElasticIn'
     .supercls('cocos2d::EaseElastic')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseElasticIn *create(@addref(innerAction ^) cocos2d::ActionInterval *action, @optional float rate)')
 
-typecls 'cocos2d::EaseElasticOut'
+typeconf 'cocos2d::EaseElasticOut'
     .supercls('cocos2d::EaseElastic')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseElasticOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action, @optional float rate)')
 
-typecls 'cocos2d::EaseElasticInOut'
+typeconf 'cocos2d::EaseElasticInOut'
     .supercls('cocos2d::EaseElastic')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EaseElasticInOut *create(@addref(innerAction ^) cocos2d::ActionInterval *action, @optional float rate)')
 
-typecls 'cocos2d::EaseBezierAction'
+typeconf 'cocos2d::EaseBezierAction'
     .supercls('cocos2d::ActionEase')
     .reg_luatype(true)
     .chunk(nil)
@@ -720,7 +720,7 @@ typecls 'cocos2d::EaseBezierAction'
     .func(nil, 'static cocos2d::EaseBezierAction *create(@addref(innerAction ^) cocos2d::ActionInterval *action)')
     .func(nil, 'void setBezierParamer(float p0, float p1, float p2, float p3)')
 
-typecls 'cocos2d::PointArray'
+typeconf 'cocos2d::PointArray'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -740,7 +740,7 @@ typecls 'cocos2d::PointArray'
     .func(nil, 'void setControlPoints(std::vector<Vec2> controlPoints)')
     .prop('controlPoints', nil, nil)
 
-typecls 'cocos2d::CardinalSplineTo'
+typeconf 'cocos2d::CardinalSplineTo'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
@@ -751,83 +751,83 @@ typecls 'cocos2d::CardinalSplineTo'
     .func(nil, 'void setPoints(cocos2d::PointArray *points)')
     .prop('points', nil, nil)
 
-typecls 'cocos2d::CardinalSplineBy'
+typeconf 'cocos2d::CardinalSplineBy'
     .supercls('cocos2d::CardinalSplineTo')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::CardinalSplineBy *create(float duration, cocos2d::PointArray *points, float tension)')
 
-typecls 'cocos2d::CatmullRomTo'
+typeconf 'cocos2d::CatmullRomTo'
     .supercls('cocos2d::CardinalSplineTo')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::CatmullRomTo *create(float dt, cocos2d::PointArray *points)')
 
-typecls 'cocos2d::CatmullRomBy'
+typeconf 'cocos2d::CatmullRomBy'
     .supercls('cocos2d::CardinalSplineBy')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::CatmullRomBy *create(float dt, cocos2d::PointArray *points)')
 
-typecls 'cocos2d::ActionInstant'
+typeconf 'cocos2d::ActionInstant'
     .supercls('cocos2d::FiniteTimeAction')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::Show'
+typeconf 'cocos2d::Show'
     .supercls('cocos2d::ActionInstant')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::Show *create()')
 
-typecls 'cocos2d::Hide'
+typeconf 'cocos2d::Hide'
     .supercls('cocos2d::ActionInstant')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::Hide *create()')
 
-typecls 'cocos2d::ToggleVisibility'
+typeconf 'cocos2d::ToggleVisibility'
     .supercls('cocos2d::ActionInstant')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::ToggleVisibility *create()')
 
-typecls 'cocos2d::RemoveSelf'
+typeconf 'cocos2d::RemoveSelf'
     .supercls('cocos2d::ActionInstant')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::RemoveSelf *create(@optional bool isNeedCleanUp)')
 
-typecls 'cocos2d::FlipX'
+typeconf 'cocos2d::FlipX'
     .supercls('cocos2d::ActionInstant')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::FlipX *create(bool x)')
 
-typecls 'cocos2d::FlipY'
+typeconf 'cocos2d::FlipY'
     .supercls('cocos2d::ActionInstant')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::FlipY *create(bool y)')
 
-typecls 'cocos2d::Place'
+typeconf 'cocos2d::Place'
     .supercls('cocos2d::ActionInstant')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::Place *create(const cocos2d::Vec2 &pos)')
 
-typecls 'cocos2d::CallFunc'
+typeconf 'cocos2d::CallFunc'
     .supercls('cocos2d::ActionInstant')
     .reg_luatype(true)
     .chunk(nil)
@@ -843,7 +843,7 @@ typecls 'cocos2d::CallFunc'
         TAG_SCOPE = 'object',
     }
 
-typecls 'cocos2d::ActionCamera'
+typeconf 'cocos2d::ActionCamera'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
@@ -858,14 +858,14 @@ typecls 'cocos2d::ActionCamera'
     .prop('center', nil, nil)
     .prop('up', nil, nil)
 
-typecls 'cocos2d::OrbitCamera'
+typeconf 'cocos2d::OrbitCamera'
     .supercls('cocos2d::ActionCamera')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::OrbitCamera *create(float t, float radius, float deltaRadius, float angleZ, float deltaAngleZ, float angleX, float deltaAngleX)')
 
-typecls 'cocos2d::GridBase'
+typeconf 'cocos2d::GridBase'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -898,7 +898,7 @@ typecls 'cocos2d::GridBase'
     .prop('textureFlipped', nil, nil)
     .prop('gridRect', nil, nil)
 
-typecls 'cocos2d::Grid3D'
+typeconf 'cocos2d::Grid3D'
     .supercls('cocos2d::GridBase')
     .reg_luatype(true)
     .chunk(nil)
@@ -911,7 +911,7 @@ typecls 'cocos2d::Grid3D'
     .func(nil, 'bool getNeedDepthTestForBlit()')
     .prop('needDepthTestForBlit', nil, nil)
 
-typecls 'cocos2d::TiledGrid3D'
+typeconf 'cocos2d::TiledGrid3D'
     .supercls('cocos2d::GridBase')
     .reg_luatype(true)
     .chunk(nil)
@@ -921,7 +921,7 @@ typecls 'cocos2d::TiledGrid3D'
     .func(nil, 'cocos2d::Quad3 getOriginalTile(const cocos2d::Vec2 &pos)')
     .func(nil, 'void setTile(const cocos2d::Vec2 &pos, const cocos2d::Quad3 &coords)')
 
-typecls 'cocos2d::NodeGrid'
+typeconf 'cocos2d::NodeGrid'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -935,7 +935,7 @@ typecls 'cocos2d::NodeGrid'
     .prop('grid', nil, nil)
     .prop('gridRect', nil, nil)
 
-typecls 'cocos2d::GridAction'
+typeconf 'cocos2d::GridAction'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
@@ -943,7 +943,7 @@ typecls 'cocos2d::GridAction'
     .func(nil, 'cocos2d::GridBase *getGrid()')
     .prop('grid', nil, nil)
 
-typecls 'cocos2d::Grid3DAction'
+typeconf 'cocos2d::Grid3DAction'
     .supercls('cocos2d::GridAction')
     .reg_luatype(true)
     .chunk(nil)
@@ -954,7 +954,7 @@ typecls 'cocos2d::Grid3DAction'
     .func(nil, 'cocos2d::Rect getGridRect()')
     .prop('gridRect', nil, nil)
 
-typecls 'cocos2d::TiledGrid3DAction'
+typeconf 'cocos2d::TiledGrid3DAction'
     .supercls('cocos2d::GridAction')
     .reg_luatype(true)
     .chunk(nil)
@@ -964,7 +964,7 @@ typecls 'cocos2d::TiledGrid3DAction'
     .func(nil, 'cocos2d::Quad3 getOriginalTile(const cocos2d::Vec2 &position)')
     .func(nil, 'void setTile(const cocos2d::Vec2 &position, const cocos2d::Quad3 &coords)')
 
-typecls 'cocos2d::AccelDeccelAmplitude'
+typeconf 'cocos2d::AccelDeccelAmplitude'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
@@ -974,7 +974,7 @@ typecls 'cocos2d::AccelDeccelAmplitude'
     .func(nil, 'void setRate(float rate)')
     .prop('rate', nil, nil)
 
-typecls 'cocos2d::AccelAmplitude'
+typeconf 'cocos2d::AccelAmplitude'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
@@ -984,7 +984,7 @@ typecls 'cocos2d::AccelAmplitude'
     .func(nil, 'void setRate(float rate)')
     .prop('rate', nil, nil)
 
-typecls 'cocos2d::DeccelAmplitude'
+typeconf 'cocos2d::DeccelAmplitude'
     .supercls('cocos2d::ActionInterval')
     .reg_luatype(true)
     .chunk(nil)
@@ -994,14 +994,14 @@ typecls 'cocos2d::DeccelAmplitude'
     .func(nil, 'void setRate(float rate)')
     .prop('rate', nil, nil)
 
-typecls 'cocos2d::StopGrid'
+typeconf 'cocos2d::StopGrid'
     .supercls('cocos2d::ActionInstant')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::StopGrid *create()')
 
-typecls 'cocos2d::ReuseGrid'
+typeconf 'cocos2d::ReuseGrid'
     .supercls('cocos2d::ActionInstant')
     .reg_luatype(true)
     .chunk(nil)
@@ -1009,7 +1009,7 @@ typecls 'cocos2d::ReuseGrid'
     .func(nil, 'static cocos2d::ReuseGrid *create(int times)')
     .func(nil, 'bool initWithTimes(int times)')
 
-typecls 'cocos2d::Waves3D'
+typeconf 'cocos2d::Waves3D'
     .supercls('cocos2d::Grid3DAction')
     .reg_luatype(true)
     .chunk(nil)
@@ -1019,7 +1019,7 @@ typecls 'cocos2d::Waves3D'
     .func(nil, 'void setAmplitude(float amplitude)')
     .prop('amplitude', nil, nil)
 
-typecls 'cocos2d::FlipX3D'
+typeconf 'cocos2d::FlipX3D'
     .supercls('cocos2d::Grid3DAction')
     .reg_luatype(true)
     .chunk(nil)
@@ -1027,14 +1027,14 @@ typecls 'cocos2d::FlipX3D'
     .func(nil, 'static cocos2d::FlipX3D *create(float duration)')
     .func(nil, 'bool initWithSize(const cocos2d::Size &gridSize, float duration)')
 
-typecls 'cocos2d::FlipY3D'
+typeconf 'cocos2d::FlipY3D'
     .supercls('cocos2d::FlipX3D')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::FlipY3D *create(float duration)')
 
-typecls 'cocos2d::Lens3D'
+typeconf 'cocos2d::Lens3D'
     .supercls('cocos2d::Grid3DAction')
     .reg_luatype(true)
     .chunk(nil)
@@ -1048,7 +1048,7 @@ typecls 'cocos2d::Lens3D'
     .prop('lensEffect', nil, nil)
     .prop('position', nil, nil)
 
-typecls 'cocos2d::Ripple3D'
+typeconf 'cocos2d::Ripple3D'
     .supercls('cocos2d::Grid3DAction')
     .reg_luatype(true)
     .chunk(nil)
@@ -1061,14 +1061,14 @@ typecls 'cocos2d::Ripple3D'
     .prop('position', nil, nil)
     .prop('amplitude', nil, nil)
 
-typecls 'cocos2d::Shaky3D'
+typeconf 'cocos2d::Shaky3D'
     .supercls('cocos2d::Grid3DAction')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::Shaky3D *create(float initWithDuration, const cocos2d::Size &gridSize, int range, bool shakeZ)')
 
-typecls 'cocos2d::Liquid'
+typeconf 'cocos2d::Liquid'
     .supercls('cocos2d::Grid3DAction')
     .reg_luatype(true)
     .chunk(nil)
@@ -1078,7 +1078,7 @@ typecls 'cocos2d::Liquid'
     .func(nil, 'void setAmplitude(float amplitude)')
     .prop('amplitude', nil, nil)
 
-typecls 'cocos2d::Waves'
+typeconf 'cocos2d::Waves'
     .supercls('cocos2d::Grid3DAction')
     .reg_luatype(true)
     .chunk(nil)
@@ -1088,7 +1088,7 @@ typecls 'cocos2d::Waves'
     .func(nil, 'void setAmplitude(float amplitude)')
     .prop('amplitude', nil, nil)
 
-typecls 'cocos2d::Twirl'
+typeconf 'cocos2d::Twirl'
     .supercls('cocos2d::Grid3DAction')
     .reg_luatype(true)
     .chunk(nil)
@@ -1101,28 +1101,28 @@ typecls 'cocos2d::Twirl'
     .prop('position', nil, nil)
     .prop('amplitude', nil, nil)
 
-typecls 'cocos2d::PageTurn3D'
+typeconf 'cocos2d::PageTurn3D'
     .supercls('cocos2d::Grid3DAction')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::PageTurn3D *create(float duration, const cocos2d::Size &gridSize)')
 
-typecls 'cocos2d::ShakyTiles3D'
+typeconf 'cocos2d::ShakyTiles3D'
     .supercls('cocos2d::TiledGrid3DAction')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::ShakyTiles3D *create(float duration, const cocos2d::Size &gridSize, int range, bool shakeZ)')
 
-typecls 'cocos2d::ShatteredTiles3D'
+typeconf 'cocos2d::ShatteredTiles3D'
     .supercls('cocos2d::TiledGrid3DAction')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::ShatteredTiles3D *create(float duration, const cocos2d::Size &gridSize, int range, bool shatterZ)')
 
-typecls 'cocos2d::ShuffleTiles'
+typeconf 'cocos2d::ShuffleTiles'
     .supercls('cocos2d::TiledGrid3DAction')
     .reg_luatype(true)
     .chunk(nil)
@@ -1130,7 +1130,7 @@ typecls 'cocos2d::ShuffleTiles'
     .func(nil, 'static cocos2d::ShuffleTiles *create(float duration, const cocos2d::Size &gridSize, unsigned int seed)')
     .func(nil, 'cocos2d::Size getDelta(const cocos2d::Size &pos)')
 
-typecls 'cocos2d::FadeOutTRTiles'
+typeconf 'cocos2d::FadeOutTRTiles'
     .supercls('cocos2d::TiledGrid3DAction')
     .reg_luatype(true)
     .chunk(nil)
@@ -1141,28 +1141,28 @@ typecls 'cocos2d::FadeOutTRTiles'
     .func(nil, 'void turnOffTile(const cocos2d::Vec2 &pos)')
     .func(nil, 'void transformTile(const cocos2d::Vec2 &pos, float distance)')
 
-typecls 'cocos2d::FadeOutBLTiles'
+typeconf 'cocos2d::FadeOutBLTiles'
     .supercls('cocos2d::FadeOutTRTiles')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::FadeOutBLTiles *create(float duration, const cocos2d::Size &gridSize)')
 
-typecls 'cocos2d::FadeOutUpTiles'
+typeconf 'cocos2d::FadeOutUpTiles'
     .supercls('cocos2d::FadeOutTRTiles')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::FadeOutUpTiles *create(float duration, const cocos2d::Size &gridSize)')
 
-typecls 'cocos2d::FadeOutDownTiles'
+typeconf 'cocos2d::FadeOutDownTiles'
     .supercls('cocos2d::FadeOutUpTiles')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::FadeOutDownTiles *create(float duration, const cocos2d::Size &gridSize)')
 
-typecls 'cocos2d::TurnOffTiles'
+typeconf 'cocos2d::TurnOffTiles'
     .supercls('cocos2d::TiledGrid3DAction')
     .reg_luatype(true)
     .chunk(nil)
@@ -1171,7 +1171,7 @@ typecls 'cocos2d::TurnOffTiles'
     .func(nil, 'void turnOnTile(const cocos2d::Vec2 &pos)')
     .func(nil, 'void turnOffTile(const cocos2d::Vec2 &pos)')
 
-typecls 'cocos2d::WavesTiles3D'
+typeconf 'cocos2d::WavesTiles3D'
     .supercls('cocos2d::TiledGrid3DAction')
     .reg_luatype(true)
     .chunk(nil)
@@ -1181,7 +1181,7 @@ typecls 'cocos2d::WavesTiles3D'
     .func(nil, 'void setAmplitude(float amplitude)')
     .prop('amplitude', nil, nil)
 
-typecls 'cocos2d::JumpTiles3D'
+typeconf 'cocos2d::JumpTiles3D'
     .supercls('cocos2d::TiledGrid3DAction')
     .reg_luatype(true)
     .chunk(nil)
@@ -1191,14 +1191,14 @@ typecls 'cocos2d::JumpTiles3D'
     .func(nil, 'void setAmplitude(float amplitude)')
     .prop('amplitude', nil, nil)
 
-typecls 'cocos2d::SplitRows'
+typeconf 'cocos2d::SplitRows'
     .supercls('cocos2d::TiledGrid3DAction')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::SplitRows *create(float duration, unsigned int rows)')
 
-typecls 'cocos2d::SplitCols'
+typeconf 'cocos2d::SplitCols'
     .supercls('cocos2d::TiledGrid3DAction')
     .reg_luatype(true)
     .chunk(nil)

@@ -23,7 +23,7 @@ CHUNK = [[
 ]]
 
 
-typecls 'cocos2d::RenderTargetFlag'
+typeconf 'cocos2d::RenderTargetFlag'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -33,7 +33,7 @@ typecls 'cocos2d::RenderTargetFlag'
     .enum('STENCIL', 'cocos2d::RenderTargetFlag::STENCIL')
     .enum('ALL', 'cocos2d::RenderTargetFlag::ALL')
 
-typecls 'cocos2d::ClearFlag'
+typeconf 'cocos2d::ClearFlag'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -44,7 +44,7 @@ typecls 'cocos2d::ClearFlag'
     .enum('STENCIL', 'cocos2d::ClearFlag::STENCIL')
     .enum('ALL', 'cocos2d::ClearFlag::ALL')
 
-typecls 'cocos2d::MATRIX_STACK_TYPE'
+typeconf 'cocos2d::MATRIX_STACK_TYPE'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -53,7 +53,7 @@ typecls 'cocos2d::MATRIX_STACK_TYPE'
     .enum('MATRIX_STACK_PROJECTION', 'cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION')
     .enum('MATRIX_STACK_TEXTURE', 'cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_TEXTURE')
 
-typecls 'cocos2d::Director::Projection'
+typeconf 'cocos2d::Director::Projection'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -63,7 +63,7 @@ typecls 'cocos2d::Director::Projection'
     .enum('CUSTOM', 'cocos2d::Director::Projection::CUSTOM')
     .enum('DEFAULT', 'cocos2d::Director::Projection::DEFAULT')
 
-typecls 'cocos2d::UserDefault'
+typeconf 'cocos2d::UserDefault'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -90,7 +90,7 @@ typecls 'cocos2d::UserDefault'
     .prop('xmlFilePath', nil, nil)
     .prop('xmlFileExist', nil, nil)
 
-typecls 'cocos2d::Ref'
+typeconf 'cocos2d::Ref'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -103,7 +103,7 @@ typecls 'cocos2d::Ref'
     .func(nil, 'unsigned int getReferenceCount()')
     .prop('referenceCount', nil, nil)
 
-typecls 'cocos2d::Console'
+typeconf 'cocos2d::Console'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -122,7 +122,7 @@ typecls 'cocos2d::Console'
     .prop('ipv6Server', nil, nil)
     .prop('commandSeparator', nil, nil)
 
-typecls 'cocos2d::Acceleration'
+typeconf 'cocos2d::Acceleration'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -132,7 +132,7 @@ typecls 'cocos2d::Acceleration'
     .var('z', '@optional double z')
     .var('timestamp', '@optional double timestamp')
 
-typecls 'cocos2d::Director'
+typeconf 'cocos2d::Director'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -244,13 +244,13 @@ typecls 'cocos2d::Director'
     .prop('valid', nil, nil)
     .alias('end', 'exit')
 
-typecls 'cocos2d::ccSchedulerFunc'
+typeconf 'cocos2d::ccSchedulerFunc'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::Scheduler'
+typeconf 'cocos2d::Scheduler'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk([[
@@ -340,7 +340,7 @@ typecls 'cocos2d::Scheduler'
     }
     .prop('timeScale', nil, nil)
 
-typecls 'cocos2d::EventDispatcher'
+typeconf 'cocos2d::EventDispatcher'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk([[
@@ -409,7 +409,7 @@ typecls 'cocos2d::EventDispatcher'
         CALLBACK_AFTER = nil,
     })
 
-typecls 'cocos2d::EventListener::Type'
+typeconf 'cocos2d::EventListener::Type'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -424,7 +424,7 @@ typecls 'cocos2d::EventListener::Type'
     .enum('GAME_CONTROLLER', 'cocos2d::EventListener::Type::GAME_CONTROLLER')
     .enum('CUSTOM', 'cocos2d::EventListener::Type::CUSTOM')
 
-typecls 'cocos2d::EventListener'
+typeconf 'cocos2d::EventListener'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -436,19 +436,19 @@ typecls 'cocos2d::EventListener'
     .prop('available', 'bool checkAvailable()', nil)
     .prop('enabled', nil, nil)
 
-typecls 'cocos2d::EventListenerTouchOneByOne::ccTouchBeganCallback'
+typeconf 'cocos2d::EventListenerTouchOneByOne::ccTouchBeganCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::EventListenerTouchOneByOne::ccTouchCallback'
+typeconf 'cocos2d::EventListenerTouchOneByOne::ccTouchCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::EventListenerTouchOneByOne'
+typeconf 'cocos2d::EventListenerTouchOneByOne'
     .supercls('cocos2d::EventListener')
     .reg_luatype(true)
     .chunk(nil)
@@ -464,13 +464,13 @@ typecls 'cocos2d::EventListenerTouchOneByOne'
     .var('onTouchCancelled', '@nullable @local cocos2d::EventListenerTouchOneByOne::ccTouchCallback onTouchCancelled')
     .prop('swallowTouches', nil, nil)
 
-typecls 'cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback'
+typeconf 'cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::EventListenerTouchAllAtOnce'
+typeconf 'cocos2d::EventListenerTouchAllAtOnce'
     .supercls('cocos2d::EventListener')
     .reg_luatype(true)
     .chunk(nil)
@@ -483,7 +483,7 @@ typecls 'cocos2d::EventListenerTouchAllAtOnce'
     .var('onTouchesEnded', '@nullable @local cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback onTouchesEnded')
     .var('onTouchesCancelled', '@nullable @local cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback onTouchesCancelled')
 
-typecls 'cocos2d::EventListenerCustom'
+typeconf 'cocos2d::EventListenerCustom'
     .supercls('cocos2d::EventListener')
     .reg_luatype(true)
     .chunk(nil)
@@ -499,7 +499,7 @@ typecls 'cocos2d::EventListenerCustom'
         TAG_SCOPE = 'object',
     }
 
-typecls 'cocos2d::EventListenerKeyboard'
+typeconf 'cocos2d::EventListenerKeyboard'
     .supercls('cocos2d::EventListener')
     .reg_luatype(true)
     .chunk(nil)
@@ -510,7 +510,7 @@ typecls 'cocos2d::EventListenerKeyboard'
     .var('onKeyPressed', '@nullable @local std::function<void (EventKeyboard::KeyCode, cocos2d::Event *)> onKeyPressed')
     .var('onKeyReleased', '@nullable @local std::function<void (EventKeyboard::KeyCode, cocos2d::Event *)> onKeyReleased')
 
-typecls 'cocos2d::EventListenerAcceleration'
+typeconf 'cocos2d::EventListenerAcceleration'
     .supercls('cocos2d::EventListener')
     .reg_luatype(true)
     .chunk(nil)
@@ -527,7 +527,7 @@ typecls 'cocos2d::EventListenerAcceleration'
         TAG_SCOPE = 'object',
     }
 
-typecls 'cocos2d::EventListenerFocus'
+typeconf 'cocos2d::EventListenerFocus'
     .supercls('cocos2d::EventListener')
     .reg_luatype(true)
     .chunk(nil)
@@ -537,7 +537,7 @@ typecls 'cocos2d::EventListenerFocus'
     .func(nil, 'EventListenerFocus()')
     .var('onFocusChanged', '@nullable @local std::function<void (ui::Widget *, ui::Widget *)> onFocusChanged')
 
-typecls 'cocos2d::EventListenerMouse'
+typeconf 'cocos2d::EventListenerMouse'
     .supercls('cocos2d::EventListener')
     .reg_luatype(true)
     .chunk(nil)
@@ -550,7 +550,7 @@ typecls 'cocos2d::EventListenerMouse'
     .var('onMouseMove', '@nullable @local std::function<void (cocos2d::EventMouse *)> onMouseMove')
     .var('onMouseScroll', '@nullable @local std::function<void (cocos2d::EventMouse *)> onMouseScroll')
 
-typecls 'cocos2d::Event::Type'
+typeconf 'cocos2d::Event::Type'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -563,7 +563,7 @@ typecls 'cocos2d::Event::Type'
     .enum('GAME_CONTROLLER', 'cocos2d::Event::Type::GAME_CONTROLLER')
     .enum('CUSTOM', 'cocos2d::Event::Type::CUSTOM')
 
-typecls 'cocos2d::Event'
+typeconf 'cocos2d::Event'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -577,7 +577,7 @@ typecls 'cocos2d::Event'
     .prop('stopped', nil, nil)
     .prop('currentTarget', nil, nil)
 
-typecls 'cocos2d::EventCustom'
+typeconf 'cocos2d::EventCustom'
     .supercls('cocos2d::Event')
     .reg_luatype(true)
     .chunk(nil)
@@ -589,7 +589,7 @@ typecls 'cocos2d::EventCustom'
     .prop('userData', nil, nil)
     .prop('eventName', nil, nil)
 
-typecls 'cocos2d::EventListenerController'
+typeconf 'cocos2d::EventListenerController'
     .supercls('cocos2d::EventListener')
     .reg_luatype(true)
     .chunk(nil)
@@ -603,7 +603,7 @@ typecls 'cocos2d::EventListenerController'
     .var('onKeyRepeat', '@nullable @local std::function<void (cocos2d::Controller *, int, cocos2d::Event *)> onKeyRepeat')
     .var('onAxisEvent', '@nullable @local std::function<void (cocos2d::Controller *, int, cocos2d::Event *)> onAxisEvent')
 
-typecls 'cocos2d::EventTouch::EventCode'
+typeconf 'cocos2d::EventTouch::EventCode'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -613,7 +613,7 @@ typecls 'cocos2d::EventTouch::EventCode'
     .enum('ENDED', 'cocos2d::EventTouch::EventCode::ENDED')
     .enum('CANCELLED', 'cocos2d::EventTouch::EventCode::CANCELLED')
 
-typecls 'cocos2d::EventTouch'
+typeconf 'cocos2d::EventTouch'
     .supercls('cocos2d::Event')
     .reg_luatype(true)
     .chunk(nil)
@@ -627,27 +627,27 @@ typecls 'cocos2d::EventTouch'
     .prop('eventCode', nil, nil)
     .prop('touches', nil, nil)
 
-typecls 'cocos2d::EventKeyboard'
+typeconf 'cocos2d::EventKeyboard'
     .supercls('cocos2d::Event')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'EventKeyboard(cocos2d::EventKeyboard::KeyCode keyCode, bool isPressed)')
 
-typecls 'cocos2d::EventAcceleration'
+typeconf 'cocos2d::EventAcceleration'
     .supercls('cocos2d::Event')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::EventFocus'
+typeconf 'cocos2d::EventFocus'
     .supercls('cocos2d::Event')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'EventFocus(cocos2d::ui::Widget *widgetLoseFocus, cocos2d::ui::Widget *widgetGetFocus)')
 
-typecls 'cocos2d::EventMouse::MouseEventType'
+typeconf 'cocos2d::EventMouse::MouseEventType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -658,7 +658,7 @@ typecls 'cocos2d::EventMouse::MouseEventType'
     .enum('MOUSE_MOVE', 'cocos2d::EventMouse::MouseEventType::MOUSE_MOVE')
     .enum('MOUSE_SCROLL', 'cocos2d::EventMouse::MouseEventType::MOUSE_SCROLL')
 
-typecls 'cocos2d::EventMouse::MouseButton'
+typeconf 'cocos2d::EventMouse::MouseButton'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -673,7 +673,7 @@ typecls 'cocos2d::EventMouse::MouseButton'
     .enum('BUTTON_7', 'cocos2d::EventMouse::MouseButton::BUTTON_7')
     .enum('BUTTON_8', 'cocos2d::EventMouse::MouseButton::BUTTON_8')
 
-typecls 'cocos2d::EventMouse'
+typeconf 'cocos2d::EventMouse'
     .supercls('cocos2d::Event')
     .reg_luatype(true)
     .chunk(nil)
@@ -707,7 +707,7 @@ typecls 'cocos2d::EventMouse'
     .prop('previousLocationInView', nil, nil)
     .prop('startLocationInView', nil, nil)
 
-typecls 'cocos2d::EventKeyboard::KeyCode'
+typeconf 'cocos2d::EventKeyboard::KeyCode'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -883,7 +883,7 @@ typecls 'cocos2d::EventKeyboard::KeyCode'
     .enum('KEY_ENTER', 'cocos2d::EventKeyboard::KeyCode::KEY_ENTER')
     .enum('KEY_PLAY', 'cocos2d::EventKeyboard::KeyCode::KEY_PLAY')
 
-typecls 'cocos2d::Touch::DispatchMode'
+typeconf 'cocos2d::Touch::DispatchMode'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -891,7 +891,7 @@ typecls 'cocos2d::Touch::DispatchMode'
     .enum('ALL_AT_ONCE', 'cocos2d::Touch::DispatchMode::ALL_AT_ONCE')
     .enum('ONE_BY_ONE', 'cocos2d::Touch::DispatchMode::ONE_BY_ONE')
 
-typecls 'cocos2d::EventController::ControllerEventType'
+typeconf 'cocos2d::EventController::ControllerEventType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -900,7 +900,7 @@ typecls 'cocos2d::EventController::ControllerEventType'
     .enum('BUTTON_STATUS_CHANGED', 'cocos2d::EventController::ControllerEventType::BUTTON_STATUS_CHANGED')
     .enum('AXIS_STATUS_CHANGED', 'cocos2d::EventController::ControllerEventType::AXIS_STATUS_CHANGED')
 
-typecls 'cocos2d::EventController'
+typeconf 'cocos2d::EventController'
     .supercls('cocos2d::Event')
     .reg_luatype(true)
     .chunk(nil)
@@ -917,7 +917,7 @@ typecls 'cocos2d::EventController'
     .prop('keyCode', nil, nil)
     .prop('connected', nil, nil)
 
-typecls 'cocos2d::Touch'
+typeconf 'cocos2d::Touch'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -945,7 +945,7 @@ typecls 'cocos2d::Touch'
     .prop('currentForce', nil, nil)
     .prop('maxForce', nil, nil)
 
-typecls 'cocos2d::Controller::Key'
+typeconf 'cocos2d::Controller::Key'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -977,7 +977,7 @@ typecls 'cocos2d::Controller::Key'
     .enum('BUTTON_PAUSE', 'cocos2d::Controller::Key::BUTTON_PAUSE')
     .enum('KEY_MAX', 'cocos2d::Controller::Key::KEY_MAX')
 
-typecls 'cocos2d::Controller'
+typeconf 'cocos2d::Controller'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1000,7 +1000,7 @@ typecls 'cocos2d::Controller'
     .prop('connected', nil, nil)
     .prop('tag', nil, nil)
 
-typecls 'cocos2d::AudioProfile'
+typeconf 'cocos2d::AudioProfile'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1010,7 +1010,7 @@ typecls 'cocos2d::AudioProfile'
     .var('maxInstances', 'unsigned int maxInstances')
     .var('minDelay', 'double minDelay')
 
-typecls 'cocos2d::AudioEngine::AudioState'
+typeconf 'cocos2d::AudioEngine::AudioState'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1020,7 +1020,7 @@ typecls 'cocos2d::AudioEngine::AudioState'
     .enum('PLAYING', 'cocos2d::AudioEngine::AudioState::PLAYING')
     .enum('PAUSED', 'cocos2d::AudioEngine::AudioState::PAUSED')
 
-typecls 'cocos2d::AudioEngine'
+typeconf 'cocos2d::AudioEngine'
     .supercls(nil)
     .reg_luatype(true)
     .chunk([[
@@ -1142,7 +1142,7 @@ typecls 'cocos2d::AudioEngine'
         CALLBACK_AFTER = nil,
     })
 
-typecls 'cocos2d::ApplicationProtocol::Platform'
+typeconf 'cocos2d::ApplicationProtocol::Platform'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1154,7 +1154,7 @@ typecls 'cocos2d::ApplicationProtocol::Platform'
     .enum('OS_IPHONE', 'cocos2d::ApplicationProtocol::Platform::OS_IPHONE')
     .enum('OS_IPAD', 'cocos2d::ApplicationProtocol::Platform::OS_IPAD')
 
-typecls 'cocos2d::LanguageType'
+typeconf 'cocos2d::LanguageType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1180,7 +1180,7 @@ typecls 'cocos2d::LanguageType'
     .enum('BULGARIAN', 'cocos2d::LanguageType::BULGARIAN')
     .enum('BELARUSIAN', 'cocos2d::LanguageType::BELARUSIAN')
 
-typecls 'cocos2d::ApplicationProtocol'
+typeconf 'cocos2d::ApplicationProtocol'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1200,7 +1200,7 @@ typecls 'cocos2d::ApplicationProtocol'
     .prop('targetPlatform', nil, nil)
     .prop('version', nil, nil)
 
-typecls 'cocos2d::Application'
+typeconf 'cocos2d::Application'
     .supercls('cocos2d::ApplicationProtocol')
     .reg_luatype(true)
     .chunk(nil)
@@ -1209,7 +1209,7 @@ typecls 'cocos2d::Application'
     .func(nil, 'static cocos2d::Application *getInstance()')
     .prop('instance', nil, nil)
 
-typecls 'cocos2d::Device'
+typeconf 'cocos2d::Device'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1221,7 +1221,7 @@ typecls 'cocos2d::Device'
     .func(nil, 'static void vibrate(float duration)')
     .prop('dpi', nil, nil)
 
-typecls 'cocos2d::ResizableBuffer'
+typeconf 'cocos2d::ResizableBuffer'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1229,7 +1229,7 @@ typecls 'cocos2d::ResizableBuffer'
     .func(nil, 'void resize(size_t size)')
     .func(nil, 'void *buffer()')
 
-typecls 'cocos2d::FileUtils::Status'
+typeconf 'cocos2d::FileUtils::Status'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1243,7 +1243,7 @@ typecls 'cocos2d::FileUtils::Status'
     .enum('ObtainSizeFailed', 'cocos2d::FileUtils::Status::ObtainSizeFailed')
     .enum('NotRegularFileType', 'cocos2d::FileUtils::Status::NotRegularFileType')
 
-typecls 'cocos2d::FileUtils'
+typeconf 'cocos2d::FileUtils'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1453,7 +1453,7 @@ typecls 'cocos2d::FileUtils'
     .prop('popupNotify', nil, nil)
     .prop('fullPathCache', nil, nil)
 
-typecls 'ResolutionPolicy'
+typeconf 'ResolutionPolicy'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1465,7 +1465,7 @@ typecls 'ResolutionPolicy'
     .enum('FIXED_WIDTH', 'ResolutionPolicy::FIXED_WIDTH')
     .enum('UNKNOWN', 'ResolutionPolicy::UNKNOWN')
 
-typecls 'cocos2d::GLView'
+typeconf 'cocos2d::GLView'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -1528,13 +1528,13 @@ typecls 'cocos2d::GLView'
     .prop('scaleY', nil, nil)
     .prop('resolutionPolicy', nil, nil)
 
-typecls 'cocos2d::GLViewImpl'
+typeconf 'cocos2d::GLViewImpl'
     .supercls('cocos2d::GLView')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::Image::Format'
+typeconf 'cocos2d::Image::Format'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1550,7 +1550,7 @@ typecls 'cocos2d::Image::Format'
     .enum('RAW_DATA', 'cocos2d::Image::Format::RAW_DATA')
     .enum('UNKNOWN', 'cocos2d::Image::Format::UNKNOWN')
 
-typecls 'cocos2d::Image'
+typeconf 'cocos2d::Image'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk([[
@@ -1600,7 +1600,7 @@ typecls 'cocos2d::Image'
     .prop('bitPerPixel', nil, nil)
     .prop('compressed', nil, nil)
 
-typecls 'cocos2d::Properties::Type'
+typeconf 'cocos2d::Properties::Type'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1613,7 +1613,7 @@ typecls 'cocos2d::Properties::Type'
     .enum('VECTOR4', 'cocos2d::Properties::Type::VECTOR4')
     .enum('MATRIX', 'cocos2d::Properties::Type::MATRIX')
 
-typecls 'cocos2d::Properties'
+typeconf 'cocos2d::Properties'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1639,7 +1639,7 @@ typecls 'cocos2d::Properties'
     .prop('nextNamespace', nil, nil)
     .prop('id', nil, nil)
 
-typecls 'cocos2d::Material'
+typeconf 'cocos2d::Material'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -1665,7 +1665,7 @@ typecls 'cocos2d::Material'
     .prop('techniqueCount', nil, nil)
     .prop('renderState', nil, nil)
 
-typecls 'cocos2d::Renderer'
+typeconf 'cocos2d::Renderer'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1754,7 +1754,7 @@ typecls 'cocos2d::Renderer'
     .prop('scissorTest', nil, nil)
     .prop('scissorRect', nil, nil)
 
-typecls 'cocos2d::RenderCommand::Type'
+typeconf 'cocos2d::RenderCommand::Type'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1768,7 +1768,7 @@ typecls 'cocos2d::RenderCommand::Type'
     .enum('CALLBACK_COMMAND', 'cocos2d::RenderCommand::Type::CALLBACK_COMMAND')
     .enum('CAPTURE_SCREEN_COMMAND', 'cocos2d::RenderCommand::Type::CAPTURE_SCREEN_COMMAND')
 
-typecls 'cocos2d::CustomCommand::DrawType'
+typeconf 'cocos2d::CustomCommand::DrawType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1776,7 +1776,7 @@ typecls 'cocos2d::CustomCommand::DrawType'
     .enum('ARRAY', 'cocos2d::CustomCommand::DrawType::ARRAY')
     .enum('ELEMENT', 'cocos2d::CustomCommand::DrawType::ELEMENT')
 
-typecls 'cocos2d::PipelineDescriptor'
+typeconf 'cocos2d::PipelineDescriptor'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1784,25 +1784,25 @@ typecls 'cocos2d::PipelineDescriptor'
     .var('programState', '@optional cocos2d::backend::ProgramState *programState')
     .var('blendDescriptor', 'cocos2d::backend::BlendDescriptor blendDescriptor')
 
-typecls 'cocos2d::Technique'
+typeconf 'cocos2d::Technique'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::Pass'
+typeconf 'cocos2d::Pass'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::RenderState'
+typeconf 'cocos2d::RenderState'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::RenderCommand'
+typeconf 'cocos2d::RenderCommand'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1828,7 +1828,7 @@ typecls 'cocos2d::RenderCommand'
     .prop('pipelineDescriptor', nil, nil)
     .prop('mv', nil, nil)
 
-typecls 'cocos2d::CustomCommand'
+typeconf 'cocos2d::CustomCommand'
     .supercls('cocos2d::RenderCommand')
     .reg_luatype(true)
     .chunk(nil)
@@ -1910,7 +1910,7 @@ typecls 'cocos2d::CustomCommand'
     .prop('beforeCallback', nil, nil)
     .prop('afterCallback', nil, nil)
 
-typecls 'cocos2d::MeshCommand'
+typeconf 'cocos2d::MeshCommand'
     .supercls('cocos2d::CustomCommand')
     .reg_luatype(true)
     .chunk(nil)
@@ -1918,7 +1918,7 @@ typecls 'cocos2d::MeshCommand'
     .func(nil, 'MeshCommand()')
     .func(nil, '@using void init(float globalZOrder)', 'void init(float globalZOrder, const cocos2d::Mat4 &transform)')
 
-typecls 'cocos2d::TextureCache'
+typeconf 'cocos2d::TextureCache'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk([[
@@ -1975,7 +1975,7 @@ typecls 'cocos2d::TextureCache'
     .prop('description', nil, nil)
     .prop('cachedTextureInfo', nil, nil)
 
-typecls 'cocos2d::Texture2D'
+typeconf 'cocos2d::Texture2D'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -2031,7 +2031,7 @@ typecls 'cocos2d::Texture2D'
     .prop('alphaTextureName', nil, nil)
     .prop('pixelFormatInfoMap', nil, nil)
 
-typecls 'cocos2d::TextureCube'
+typeconf 'cocos2d::TextureCube'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -2043,7 +2043,7 @@ typecls 'cocos2d::TextureCube'
     .func(nil, 'TextureCube()')
     .prop('backendTexture', nil, nil)
 
-typecls 'cocos2d::TextureAtlas'
+typeconf 'cocos2d::TextureAtlas'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -2074,7 +2074,7 @@ typecls 'cocos2d::TextureAtlas'
     .prop('capacity', nil, nil)
     .prop('texture', nil, nil)
 
-typecls 'cocos2d::network::WebSocket::ErrorCode'
+typeconf 'cocos2d::network::WebSocket::ErrorCode'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2083,7 +2083,7 @@ typecls 'cocos2d::network::WebSocket::ErrorCode'
     .enum('CONNECTION_FAILURE', 'cocos2d::network::WebSocket::ErrorCode::CONNECTION_FAILURE')
     .enum('UNKNOWN', 'cocos2d::network::WebSocket::ErrorCode::UNKNOWN')
 
-typecls 'cocos2d::network::WebSocket::State'
+typeconf 'cocos2d::network::WebSocket::State'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2093,7 +2093,7 @@ typecls 'cocos2d::network::WebSocket::State'
     .enum('CLOSING', 'cocos2d::network::WebSocket::State::CLOSING')
     .enum('CLOSED', 'cocos2d::network::WebSocket::State::CLOSED')
 
-typecls 'cocos2d::network::WebSocket::Delegate'
+typeconf 'cocos2d::network::WebSocket::Delegate'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2103,7 +2103,7 @@ typecls 'cocos2d::network::WebSocket::Delegate'
     .func(nil, 'void onClose(cocos2d::network::WebSocket *ws)')
     .func(nil, 'void onError(cocos2d::network::WebSocket *ws, const cocos2d::network::WebSocket::ErrorCode &error)')
 
-typecls 'cocos2d::network::WebSocket'
+typeconf 'cocos2d::network::WebSocket'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2145,7 +2145,7 @@ typecls 'cocos2d::network::WebSocket'
     .prop('url', nil, nil)
     .prop('protocol', nil, nil)
 
-typecls 'cocos2d::LuaWebSocketDelegate'
+typeconf 'cocos2d::LuaWebSocketDelegate'
     .supercls('cocos2d::network::WebSocket::Delegate')
     .reg_luatype(true)
     .chunk(nil)
@@ -2156,7 +2156,7 @@ typecls 'cocos2d::LuaWebSocketDelegate'
     .var('onClose', '@nullable @local std::function<void (network::WebSocket *)> onCloseCallback')
     .var('onError', '@nullable @local std::function<void (network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback')
 
-typecls 'cocos2d::ActionManager'
+typeconf 'cocos2d::ActionManager'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -2180,7 +2180,7 @@ typecls 'cocos2d::ActionManager'
     .func(nil, 'void update(float dt)')
     .prop('numberOfRunningActions', nil, nil)
 
-typecls 'cocos2d::Component'
+typeconf 'cocos2d::Component'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -2204,7 +2204,7 @@ typecls 'cocos2d::Component'
     .prop('name', nil, nil)
     .prop('owner', nil, nil)
 
-typecls 'cocos2d::LuaComponent'
+typeconf 'cocos2d::LuaComponent'
     .supercls('cocos2d::Component')
     .reg_luatype(true)
     .chunk(nil)
@@ -2217,7 +2217,7 @@ typecls 'cocos2d::LuaComponent'
     .var('onAdd', '@nullable @local std::function<void ()> onAddCallback')
     .var('onRemove', '@nullable @local std::function<void ()> onRemoveCallback')
 
-typecls 'cocos2d::Node'
+typeconf 'cocos2d::Node'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk([[
@@ -2729,8 +2729,28 @@ typecls 'cocos2d::Node'
         CALLBACK_BEFORE = nil,
         CALLBACK_AFTER = nil,
     })
+    .insert('onEnter', {
+        BEFORE = [[
+            if (!self->getParent()) {
+                luaL_error(L, "parent is nullptr");
+            }
+        ]],
+        AFTER = nil,
+        CALLBACK_BEFORE = nil,
+        CALLBACK_AFTER = nil,
+    })
+    .insert('onExit', {
+        BEFORE = [[
+            if (!self->getParent()) {
+                luaL_error(L, "parent is nullptr");
+            }
+        ]],
+        AFTER = nil,
+        CALLBACK_BEFORE = nil,
+        CALLBACK_AFTER = nil,
+    })
 
-typecls 'cocos2d::LuaTweenNode'
+typeconf 'cocos2d::LuaTweenNode'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -2746,7 +2766,7 @@ typecls 'cocos2d::LuaTweenNode'
         TAG_SCOPE = 'object',
     }
 
-typecls 'cocos2d::AtlasNode'
+typeconf 'cocos2d::AtlasNode'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -2769,7 +2789,7 @@ typecls 'cocos2d::AtlasNode'
     .prop('textureAtlas', nil, nil)
     .prop('quadsToDraw', nil, nil)
 
-typecls 'cocos2d::sImageTGA'
+typeconf 'cocos2d::sImageTGA'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2782,7 +2802,7 @@ typecls 'cocos2d::sImageTGA'
     .var('imageData', 'unsigned char *imageData')
     .var('flipped', 'int flipped')
 
-typecls 'cocos2d::TileMapAtlas'
+typeconf 'cocos2d::TileMapAtlas'
     .supercls('cocos2d::AtlasNode')
     .reg_luatype(true)
     .chunk(nil)
@@ -2797,7 +2817,7 @@ typecls 'cocos2d::TileMapAtlas'
     .func(nil, 'void setTGAInfo(struct cocos2d::sImageTGA *TGAInfo)')
     .prop('tgaInfo', nil, nil)
 
-typecls 'cocos2d::ClippingNode'
+typeconf 'cocos2d::ClippingNode'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -2816,7 +2836,7 @@ typecls 'cocos2d::ClippingNode'
     .prop('alphaThreshold', nil, nil)
     .prop('inverted', nil, nil)
 
-typecls 'cocos2d::MotionStreak'
+typeconf 'cocos2d::MotionStreak'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -2842,7 +2862,7 @@ typecls 'cocos2d::MotionStreak'
     .prop('stroke', nil, nil)
     .prop('startingPositionInitialized', nil, nil)
 
-typecls 'cocos2d::ProtectedNode'
+typeconf 'cocos2d::ProtectedNode'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -2860,7 +2880,7 @@ typecls 'cocos2d::ProtectedNode'
     .func(nil, 'void disableCascadeOpacity()')
     .func(nil, 'ProtectedNode()')
 
-typecls 'cocos2d::DrawNode'
+typeconf 'cocos2d::DrawNode'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -2891,7 +2911,7 @@ typecls 'cocos2d::DrawNode'
     .prop('lineWidth', nil, nil)
     .prop('isolated', nil, nil)
 
-typecls 'cocos2d::ParallaxNode'
+typeconf 'cocos2d::ParallaxNode'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -2900,7 +2920,7 @@ typecls 'cocos2d::ParallaxNode'
     .func(nil, 'void addChild(@addref(chilren |) cocos2d::Node *child, int z, const cocos2d::Vec2 &parallaxRatio, const cocos2d::Vec2 &positionOffset)', '@using void addChild(@addref(chilren |) cocos2d::Node *child, int zOrder, int tag)', '@using void addChild(@addref(chilren |) cocos2d::Node *child, int zOrder, const std::string &name)', '@using void addChild(@addref(children |) cocos2d::Node *child)', '@using void addChild(@addref(children |) cocos2d::Node *child, int localZOrder)')
     .func(nil, 'ParallaxNode()')
 
-typecls 'cocos2d::TextHAlignment'
+typeconf 'cocos2d::TextHAlignment'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2909,7 +2929,7 @@ typecls 'cocos2d::TextHAlignment'
     .enum('CENTER', 'cocos2d::TextHAlignment::CENTER')
     .enum('RIGHT', 'cocos2d::TextHAlignment::RIGHT')
 
-typecls 'cocos2d::TextVAlignment'
+typeconf 'cocos2d::TextVAlignment'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2918,7 +2938,7 @@ typecls 'cocos2d::TextVAlignment'
     .enum('CENTER', 'cocos2d::TextVAlignment::CENTER')
     .enum('BOTTOM', 'cocos2d::TextVAlignment::BOTTOM')
 
-typecls 'cocos2d::GlyphCollection'
+typeconf 'cocos2d::GlyphCollection'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2928,7 +2948,7 @@ typecls 'cocos2d::GlyphCollection'
     .enum('ASCII', 'cocos2d::GlyphCollection::ASCII')
     .enum('CUSTOM', 'cocos2d::GlyphCollection::CUSTOM')
 
-typecls 'cocos2d::LabelEffect'
+typeconf 'cocos2d::LabelEffect'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2943,7 +2963,7 @@ typecls 'cocos2d::LabelEffect'
     .enum('STRIKETHROUGH', 'cocos2d::LabelEffect::STRIKETHROUGH')
     .enum('ALL', 'cocos2d::LabelEffect::ALL')
 
-typecls 'cocos2d::Label::LabelType'
+typeconf 'cocos2d::Label::LabelType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2953,7 +2973,7 @@ typecls 'cocos2d::Label::LabelType'
     .enum('CHARMAP', 'cocos2d::Label::LabelType::CHARMAP')
     .enum('STRING_TEXTURE', 'cocos2d::Label::LabelType::STRING_TEXTURE')
 
-typecls 'cocos2d::Label::Overflow'
+typeconf 'cocos2d::Label::Overflow'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2963,7 +2983,7 @@ typecls 'cocos2d::Label::Overflow'
     .enum('SHRINK', 'cocos2d::Label::Overflow::SHRINK')
     .enum('RESIZE_HEIGHT', 'cocos2d::Label::Overflow::RESIZE_HEIGHT')
 
-typecls 'cocos2d::Label'
+typeconf 'cocos2d::Label'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -3076,7 +3096,7 @@ typecls 'cocos2d::Label'
     .prop('fontAtlas', nil, nil)
     .prop('blendFunc', nil, nil)
 
-typecls 'cocos2d::LabelAtlas'
+typeconf 'cocos2d::LabelAtlas'
     .supercls('cocos2d::AtlasNode')
     .reg_luatype(true)
     .chunk(nil)
@@ -3088,7 +3108,7 @@ typecls 'cocos2d::LabelAtlas'
     .func(nil, 'LabelAtlas()')
     .prop('string', nil, nil)
 
-typecls 'cocos2d::FontAtlas'
+typeconf 'cocos2d::FontAtlas'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -3109,7 +3129,7 @@ typecls 'cocos2d::FontAtlas'
     .prop('lineHeight', nil, nil)
     .prop('fontName', nil, nil)
 
-typecls 'cocos2d::ClippingRectangleNode'
+typeconf 'cocos2d::ClippingRectangleNode'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -3122,7 +3142,7 @@ typecls 'cocos2d::ClippingRectangleNode'
     .prop('clippingRegion', nil, nil)
     .prop('clippingEnabled', nil, nil)
 
-typecls 'cocos2d::RenderTexture'
+typeconf 'cocos2d::RenderTexture'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -3190,7 +3210,7 @@ typecls 'cocos2d::RenderTexture'
     .alias('begin', 'beginVisit')
     .alias('end', 'endVisit')
 
-typecls 'cocos2d::ProgressTimer::Type'
+typeconf 'cocos2d::ProgressTimer::Type'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -3198,7 +3218,7 @@ typecls 'cocos2d::ProgressTimer::Type'
     .enum('RADIAL', 'cocos2d::ProgressTimer::Type::RADIAL')
     .enum('BAR', 'cocos2d::ProgressTimer::Type::BAR')
 
-typecls 'cocos2d::ProgressTimer'
+typeconf 'cocos2d::ProgressTimer'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -3225,7 +3245,7 @@ typecls 'cocos2d::ProgressTimer'
     .prop('midpoint', nil, nil)
     .prop('barChangeRate', nil, nil)
 
-typecls 'cocos2d::AnimationFrame'
+typeconf 'cocos2d::AnimationFrame'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -3244,7 +3264,7 @@ typecls 'cocos2d::AnimationFrame'
     .prop('delayUnits', nil, nil)
     .prop('userInfo', nil, nil)
 
-typecls 'cocos2d::Animation'
+typeconf 'cocos2d::Animation'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -3276,7 +3296,7 @@ typecls 'cocos2d::Animation'
     .prop('restoreOriginalFrame', nil, nil)
     .prop('loops', nil, nil)
 
-typecls 'cocos2d::SpriteFrame'
+typeconf 'cocos2d::SpriteFrame'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -3321,7 +3341,7 @@ typecls 'cocos2d::SpriteFrame'
     .prop('offset', nil, nil)
     .prop('anchorPoint', nil, nil)
 
-typecls 'cocos2d::Sprite'
+typeconf 'cocos2d::Sprite'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -3389,7 +3409,7 @@ typecls 'cocos2d::Sprite'
     .prop('resourceType', nil, nil)
     .prop('resourceName', nil, nil)
 
-typecls 'cocos2d::SpriteBatchNode'
+typeconf 'cocos2d::SpriteBatchNode'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -3423,7 +3443,7 @@ typecls 'cocos2d::SpriteBatchNode'
     .prop('texture', nil, nil)
     .prop('blendFunc', nil, nil)
 
-typecls 'cocos2d::SpriteFrameCache'
+typeconf 'cocos2d::SpriteFrameCache'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -3445,7 +3465,7 @@ typecls 'cocos2d::SpriteFrameCache'
     .func(nil, 'bool reloadTexture(const std::string &plist)')
     .prop('instance', nil, nil)
 
-typecls 'cocos2d::AnimationCache'
+typeconf 'cocos2d::AnimationCache'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -3461,7 +3481,7 @@ typecls 'cocos2d::AnimationCache'
     .func(nil, 'void addAnimationsWithFile(const std::string &plist)')
     .prop('instance', nil, nil)
 
-typecls 'cocos2d::Scene'
+typeconf 'cocos2d::Scene'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -3486,7 +3506,7 @@ typecls 'cocos2d::Scene'
     .prop('lights', nil, nil)
     .prop('physicsWorld', nil, nil)
 
-typecls 'cocos2d::Layer'
+typeconf 'cocos2d::Layer'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -3505,7 +3525,7 @@ typecls 'cocos2d::Layer'
     .func(nil, 'void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event)')
     .func(nil, 'Layer()')
 
-typecls 'cocos2d::LayerColor'
+typeconf 'cocos2d::LayerColor'
     .supercls('cocos2d::Layer')
     .reg_luatype(true)
     .chunk(nil)
@@ -3520,7 +3540,7 @@ typecls 'cocos2d::LayerColor'
     .func(nil, 'bool initWithColor(const cocos2d::Color4B &color, float width, float height)', 'bool initWithColor(const cocos2d::Color4B &color)')
     .prop('blendFunc', nil, nil)
 
-typecls 'cocos2d::LayerGradient'
+typeconf 'cocos2d::LayerGradient'
     .supercls('cocos2d::LayerColor')
     .reg_luatype(true)
     .chunk(nil)
@@ -3547,7 +3567,7 @@ typecls 'cocos2d::LayerGradient'
     .prop('endOpacity', nil, nil)
     .prop('vector', nil, nil)
 
-typecls 'cocos2d::LayerRadialGradient'
+typeconf 'cocos2d::LayerRadialGradient'
     .supercls('cocos2d::Layer')
     .reg_luatype(true)
     .chunk(nil)
@@ -3584,7 +3604,7 @@ typecls 'cocos2d::LayerRadialGradient'
     .prop('endColor3B', nil, nil)
     .prop('blendFunc', nil, nil)
 
-typecls 'cocos2d::LayerMultiplex'
+typeconf 'cocos2d::LayerMultiplex'
     .supercls('cocos2d::Layer')
     .reg_luatype(true)
     .chunk(nil)
@@ -3598,7 +3618,7 @@ typecls 'cocos2d::LayerMultiplex'
     .func(nil, 'LayerMultiplex()')
     .func(nil, 'bool initWithArray(const Vector<cocos2d::Layer *> &arrayOfLayers)')
 
-typecls 'cocos2d::TransitionScene::Orientation'
+typeconf 'cocos2d::TransitionScene::Orientation'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -3608,7 +3628,7 @@ typecls 'cocos2d::TransitionScene::Orientation'
     .enum('UP_OVER', 'cocos2d::TransitionScene::Orientation::UP_OVER')
     .enum('DOWN_OVER', 'cocos2d::TransitionScene::Orientation::DOWN_OVER')
 
-typecls 'cocos2d::TransitionScene'
+typeconf 'cocos2d::TransitionScene'
     .supercls('cocos2d::Scene')
     .reg_luatype(true)
     .chunk(nil)
@@ -3622,7 +3642,7 @@ typecls 'cocos2d::TransitionScene'
     .prop('inScene', nil, nil)
     .prop('duration', nil, nil)
 
-typecls 'cocos2d::TransitionSceneOriented'
+typeconf 'cocos2d::TransitionSceneOriented'
     .supercls('cocos2d::TransitionScene')
     .reg_luatype(true)
     .chunk(nil)
@@ -3630,7 +3650,7 @@ typecls 'cocos2d::TransitionSceneOriented'
     .func(nil, 'static cocos2d::TransitionSceneOriented *create(float t, @addref(scenes |) cocos2d::Scene *scene, cocos2d::TransitionScene::Orientation orientation)')
     .func(nil, 'TransitionSceneOriented()')
 
-typecls 'cocos2d::TransitionRotoZoom'
+typeconf 'cocos2d::TransitionRotoZoom'
     .supercls('cocos2d::TransitionScene')
     .reg_luatype(true)
     .chunk(nil)
@@ -3638,7 +3658,7 @@ typecls 'cocos2d::TransitionRotoZoom'
     .func(nil, 'static cocos2d::TransitionRotoZoom *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
     .func(nil, 'TransitionRotoZoom()')
 
-typecls 'cocos2d::TransitionJumpZoom'
+typeconf 'cocos2d::TransitionJumpZoom'
     .supercls('cocos2d::TransitionScene')
     .reg_luatype(true)
     .chunk(nil)
@@ -3646,7 +3666,7 @@ typecls 'cocos2d::TransitionJumpZoom'
     .func(nil, 'static cocos2d::TransitionJumpZoom *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
     .func(nil, 'TransitionJumpZoom()')
 
-typecls 'cocos2d::TransitionMoveInL'
+typeconf 'cocos2d::TransitionMoveInL'
     .supercls('cocos2d::TransitionScene')
     .reg_luatype(true)
     .chunk(nil)
@@ -3656,7 +3676,7 @@ typecls 'cocos2d::TransitionMoveInL'
     .func(nil, 'cocos2d::ActionInterval *easeActionWithAction(@addref(action ^) cocos2d::ActionInterval *action)')
     .func(nil, 'TransitionMoveInL()')
 
-typecls 'cocos2d::TransitionMoveInR'
+typeconf 'cocos2d::TransitionMoveInR'
     .supercls('cocos2d::TransitionMoveInL')
     .reg_luatype(true)
     .chunk(nil)
@@ -3664,7 +3684,7 @@ typecls 'cocos2d::TransitionMoveInR'
     .func(nil, 'static cocos2d::TransitionMoveInR *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
     .func(nil, 'TransitionMoveInR()')
 
-typecls 'cocos2d::TransitionMoveInT'
+typeconf 'cocos2d::TransitionMoveInT'
     .supercls('cocos2d::TransitionMoveInL')
     .reg_luatype(true)
     .chunk(nil)
@@ -3672,7 +3692,7 @@ typecls 'cocos2d::TransitionMoveInT'
     .func(nil, 'static cocos2d::TransitionMoveInT *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
     .func(nil, 'TransitionMoveInT()')
 
-typecls 'cocos2d::TransitionMoveInB'
+typeconf 'cocos2d::TransitionMoveInB'
     .supercls('cocos2d::TransitionMoveInL')
     .reg_luatype(true)
     .chunk(nil)
@@ -3680,7 +3700,7 @@ typecls 'cocos2d::TransitionMoveInB'
     .func(nil, 'static cocos2d::TransitionMoveInB *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
     .func(nil, 'TransitionMoveInB()')
 
-typecls 'cocos2d::TransitionSlideInL'
+typeconf 'cocos2d::TransitionSlideInL'
     .supercls('cocos2d::TransitionScene')
     .reg_luatype(true)
     .chunk(nil)
@@ -3690,7 +3710,7 @@ typecls 'cocos2d::TransitionSlideInL'
     .func(nil, 'cocos2d::ActionInterval *action()')
     .func(nil, 'TransitionSlideInL()')
 
-typecls 'cocos2d::TransitionSlideInR'
+typeconf 'cocos2d::TransitionSlideInR'
     .supercls('cocos2d::TransitionSlideInL')
     .reg_luatype(true)
     .chunk(nil)
@@ -3698,7 +3718,7 @@ typecls 'cocos2d::TransitionSlideInR'
     .func(nil, 'static cocos2d::TransitionSlideInR *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
     .func(nil, 'TransitionSlideInR()')
 
-typecls 'cocos2d::TransitionSlideInB'
+typeconf 'cocos2d::TransitionSlideInB'
     .supercls('cocos2d::TransitionSlideInL')
     .reg_luatype(true)
     .chunk(nil)
@@ -3706,7 +3726,7 @@ typecls 'cocos2d::TransitionSlideInB'
     .func(nil, 'static cocos2d::TransitionSlideInB *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
     .func(nil, 'TransitionSlideInB()')
 
-typecls 'cocos2d::TransitionSlideInT'
+typeconf 'cocos2d::TransitionSlideInT'
     .supercls('cocos2d::TransitionSlideInL')
     .reg_luatype(true)
     .chunk(nil)
@@ -3714,7 +3734,7 @@ typecls 'cocos2d::TransitionSlideInT'
     .func(nil, 'static cocos2d::TransitionSlideInT *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
     .func(nil, 'TransitionSlideInT()')
 
-typecls 'cocos2d::TransitionShrinkGrow'
+typeconf 'cocos2d::TransitionShrinkGrow'
     .supercls('cocos2d::TransitionScene')
     .reg_luatype(true)
     .chunk(nil)
@@ -3723,7 +3743,7 @@ typecls 'cocos2d::TransitionShrinkGrow'
     .func(nil, 'cocos2d::ActionInterval *easeActionWithAction(@addref(action ^) cocos2d::ActionInterval *action)')
     .func(nil, 'TransitionShrinkGrow()')
 
-typecls 'cocos2d::TransitionFlipX'
+typeconf 'cocos2d::TransitionFlipX'
     .supercls('cocos2d::TransitionSceneOriented')
     .reg_luatype(true)
     .chunk(nil)
@@ -3731,7 +3751,7 @@ typecls 'cocos2d::TransitionFlipX'
     .func(nil, 'static cocos2d::TransitionFlipX *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)', 'static cocos2d::TransitionFlipX *create(float t, @addref(scenes |) cocos2d::Scene *s)')
     .func(nil, 'TransitionFlipX()')
 
-typecls 'cocos2d::TransitionFlipY'
+typeconf 'cocos2d::TransitionFlipY'
     .supercls('cocos2d::TransitionSceneOriented')
     .reg_luatype(true)
     .chunk(nil)
@@ -3739,7 +3759,7 @@ typecls 'cocos2d::TransitionFlipY'
     .func(nil, 'static cocos2d::TransitionFlipY *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)', 'static cocos2d::TransitionFlipY *create(float t, @addref(scenes |) cocos2d::Scene *s)')
     .func(nil, 'TransitionFlipY()')
 
-typecls 'cocos2d::TransitionFlipAngular'
+typeconf 'cocos2d::TransitionFlipAngular'
     .supercls('cocos2d::TransitionSceneOriented')
     .reg_luatype(true)
     .chunk(nil)
@@ -3747,7 +3767,7 @@ typecls 'cocos2d::TransitionFlipAngular'
     .func(nil, 'static cocos2d::TransitionFlipAngular *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)', 'static cocos2d::TransitionFlipAngular *create(float t, @addref(scenes |) cocos2d::Scene *s)')
     .func(nil, 'TransitionFlipAngular()')
 
-typecls 'cocos2d::TransitionZoomFlipX'
+typeconf 'cocos2d::TransitionZoomFlipX'
     .supercls('cocos2d::TransitionSceneOriented')
     .reg_luatype(true)
     .chunk(nil)
@@ -3755,7 +3775,7 @@ typecls 'cocos2d::TransitionZoomFlipX'
     .func(nil, 'static cocos2d::TransitionZoomFlipX *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)', 'static cocos2d::TransitionZoomFlipX *create(float t, @addref(scenes |) cocos2d::Scene *s)')
     .func(nil, 'TransitionZoomFlipX()')
 
-typecls 'cocos2d::TransitionZoomFlipY'
+typeconf 'cocos2d::TransitionZoomFlipY'
     .supercls('cocos2d::TransitionSceneOriented')
     .reg_luatype(true)
     .chunk(nil)
@@ -3763,7 +3783,7 @@ typecls 'cocos2d::TransitionZoomFlipY'
     .func(nil, 'static cocos2d::TransitionZoomFlipY *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)', 'static cocos2d::TransitionZoomFlipY *create(float t, @addref(scenes |) cocos2d::Scene *s)')
     .func(nil, 'TransitionZoomFlipY()')
 
-typecls 'cocos2d::TransitionZoomFlipAngular'
+typeconf 'cocos2d::TransitionZoomFlipAngular'
     .supercls('cocos2d::TransitionSceneOriented')
     .reg_luatype(true)
     .chunk(nil)
@@ -3771,7 +3791,7 @@ typecls 'cocos2d::TransitionZoomFlipAngular'
     .func(nil, 'static cocos2d::TransitionZoomFlipAngular *create(float t, @addref(scenes |) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)', 'static cocos2d::TransitionZoomFlipAngular *create(float t, @addref(scenes |) cocos2d::Scene *s)')
     .func(nil, 'TransitionZoomFlipAngular()')
 
-typecls 'cocos2d::TransitionFade'
+typeconf 'cocos2d::TransitionFade'
     .supercls('cocos2d::TransitionScene')
     .reg_luatype(true)
     .chunk(nil)
@@ -3779,7 +3799,7 @@ typecls 'cocos2d::TransitionFade'
     .func(nil, 'static cocos2d::TransitionFade *create(float duration, @addref(scenes |) cocos2d::Scene *scene, const cocos2d::Color3B &color)', 'static cocos2d::TransitionFade *create(float duration, @addref(scenes |) cocos2d::Scene *scene)')
     .func(nil, 'TransitionFade()')
 
-typecls 'cocos2d::TransitionCrossFade'
+typeconf 'cocos2d::TransitionCrossFade'
     .supercls('cocos2d::TransitionScene')
     .reg_luatype(true)
     .chunk(nil)
@@ -3787,7 +3807,7 @@ typecls 'cocos2d::TransitionCrossFade'
     .func(nil, 'static cocos2d::TransitionCrossFade *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
     .func(nil, 'TransitionCrossFade()')
 
-typecls 'cocos2d::TransitionTurnOffTiles'
+typeconf 'cocos2d::TransitionTurnOffTiles'
     .supercls('cocos2d::TransitionScene')
     .reg_luatype(true)
     .chunk(nil)
@@ -3796,7 +3816,7 @@ typecls 'cocos2d::TransitionTurnOffTiles'
     .func(nil, 'cocos2d::ActionInterval *easeActionWithAction(@addref(action ^) cocos2d::ActionInterval *action)')
     .func(nil, 'TransitionTurnOffTiles()')
 
-typecls 'cocos2d::TransitionSplitCols'
+typeconf 'cocos2d::TransitionSplitCols'
     .supercls('cocos2d::TransitionScene')
     .reg_luatype(true)
     .chunk(nil)
@@ -3806,7 +3826,7 @@ typecls 'cocos2d::TransitionSplitCols'
     .func(nil, 'cocos2d::ActionInterval *easeActionWithAction(@addref(action ^) cocos2d::ActionInterval *action)')
     .func(nil, 'TransitionSplitCols()')
 
-typecls 'cocos2d::TransitionSplitRows'
+typeconf 'cocos2d::TransitionSplitRows'
     .supercls('cocos2d::TransitionSplitCols')
     .reg_luatype(true)
     .chunk(nil)
@@ -3814,7 +3834,7 @@ typecls 'cocos2d::TransitionSplitRows'
     .func(nil, 'static cocos2d::TransitionSplitRows *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
     .func(nil, 'TransitionSplitRows()')
 
-typecls 'cocos2d::TransitionFadeTR'
+typeconf 'cocos2d::TransitionFadeTR'
     .supercls('cocos2d::TransitionScene')
     .reg_luatype(true)
     .chunk(nil)
@@ -3824,7 +3844,7 @@ typecls 'cocos2d::TransitionFadeTR'
     .func(nil, 'cocos2d::ActionInterval *easeActionWithAction(@addref(action ^) cocos2d::ActionInterval *action)')
     .func(nil, 'TransitionFadeTR()')
 
-typecls 'cocos2d::TransitionFadeBL'
+typeconf 'cocos2d::TransitionFadeBL'
     .supercls('cocos2d::TransitionFadeTR')
     .reg_luatype(true)
     .chunk(nil)
@@ -3832,7 +3852,7 @@ typecls 'cocos2d::TransitionFadeBL'
     .func(nil, 'static cocos2d::TransitionFadeBL *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
     .func(nil, 'TransitionFadeBL()')
 
-typecls 'cocos2d::TransitionFadeUp'
+typeconf 'cocos2d::TransitionFadeUp'
     .supercls('cocos2d::TransitionFadeTR')
     .reg_luatype(true)
     .chunk(nil)
@@ -3840,7 +3860,7 @@ typecls 'cocos2d::TransitionFadeUp'
     .func(nil, 'static cocos2d::TransitionFadeUp *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
     .func(nil, 'TransitionFadeUp()')
 
-typecls 'cocos2d::TransitionFadeDown'
+typeconf 'cocos2d::TransitionFadeDown'
     .supercls('cocos2d::TransitionFadeTR')
     .reg_luatype(true)
     .chunk(nil)
@@ -3848,7 +3868,7 @@ typecls 'cocos2d::TransitionFadeDown'
     .func(nil, 'static cocos2d::TransitionFadeDown *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
     .func(nil, 'TransitionFadeDown()')
 
-typecls 'cocos2d::TransitionPageTurn'
+typeconf 'cocos2d::TransitionPageTurn'
     .supercls('cocos2d::TransitionScene')
     .reg_luatype(true)
     .chunk(nil)
@@ -3857,7 +3877,7 @@ typecls 'cocos2d::TransitionPageTurn'
     .func(nil, 'cocos2d::ActionInterval *actionWithSize(const cocos2d::Size &vector)')
     .func(nil, 'TransitionPageTurn()')
 
-typecls 'cocos2d::TransitionProgress'
+typeconf 'cocos2d::TransitionProgress'
     .supercls('cocos2d::TransitionScene')
     .reg_luatype(true)
     .chunk(nil)
@@ -3865,7 +3885,7 @@ typecls 'cocos2d::TransitionProgress'
     .func(nil, 'static cocos2d::TransitionProgress *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
     .func(nil, 'TransitionProgress()')
 
-typecls 'cocos2d::TransitionProgressRadialCCW'
+typeconf 'cocos2d::TransitionProgressRadialCCW'
     .supercls('cocos2d::TransitionProgress')
     .reg_luatype(true)
     .chunk(nil)
@@ -3873,7 +3893,7 @@ typecls 'cocos2d::TransitionProgressRadialCCW'
     .func(nil, 'static cocos2d::TransitionProgressRadialCCW *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
     .func(nil, 'TransitionProgressRadialCCW()')
 
-typecls 'cocos2d::TransitionProgressRadialCW'
+typeconf 'cocos2d::TransitionProgressRadialCW'
     .supercls('cocos2d::TransitionProgress')
     .reg_luatype(true)
     .chunk(nil)
@@ -3881,7 +3901,7 @@ typecls 'cocos2d::TransitionProgressRadialCW'
     .func(nil, 'static cocos2d::TransitionProgressRadialCW *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
     .func(nil, 'TransitionProgressRadialCW()')
 
-typecls 'cocos2d::TransitionProgressHorizontal'
+typeconf 'cocos2d::TransitionProgressHorizontal'
     .supercls('cocos2d::TransitionProgress')
     .reg_luatype(true)
     .chunk(nil)
@@ -3889,7 +3909,7 @@ typecls 'cocos2d::TransitionProgressHorizontal'
     .func(nil, 'static cocos2d::TransitionProgressHorizontal *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
     .func(nil, 'TransitionProgressHorizontal()')
 
-typecls 'cocos2d::TransitionProgressVertical'
+typeconf 'cocos2d::TransitionProgressVertical'
     .supercls('cocos2d::TransitionProgress')
     .reg_luatype(true)
     .chunk(nil)
@@ -3897,7 +3917,7 @@ typecls 'cocos2d::TransitionProgressVertical'
     .func(nil, 'static cocos2d::TransitionProgressVertical *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
     .func(nil, 'TransitionProgressVertical()')
 
-typecls 'cocos2d::TransitionProgressInOut'
+typeconf 'cocos2d::TransitionProgressInOut'
     .supercls('cocos2d::TransitionProgress')
     .reg_luatype(true)
     .chunk(nil)
@@ -3905,7 +3925,7 @@ typecls 'cocos2d::TransitionProgressInOut'
     .func(nil, 'static cocos2d::TransitionProgressInOut *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
     .func(nil, 'TransitionProgressInOut()')
 
-typecls 'cocos2d::TransitionProgressOutIn'
+typeconf 'cocos2d::TransitionProgressOutIn'
     .supercls('cocos2d::TransitionProgress')
     .reg_luatype(true)
     .chunk(nil)
@@ -3913,7 +3933,7 @@ typecls 'cocos2d::TransitionProgressOutIn'
     .func(nil, 'static cocos2d::TransitionProgressOutIn *create(float t, @addref(scenes |) cocos2d::Scene *scene)')
     .func(nil, 'TransitionProgressOutIn()')
 
-typecls 'cocos2d::TextFieldDelegate'
+typeconf 'cocos2d::TextFieldDelegate'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -3924,7 +3944,7 @@ typecls 'cocos2d::TextFieldDelegate'
     .func(nil, 'bool onTextFieldDeleteBackward(cocos2d::TextFieldTTF *sender, const char *delText, size_t nLen)')
     .func(nil, 'bool onVisit(cocos2d::TextFieldTTF *sender, cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)')
 
-typecls 'cocos2d::TextFieldTTF'
+typeconf 'cocos2d::TextFieldTTF'
     .supercls('cocos2d::Label')
     .reg_luatype(true)
     .chunk(nil)
@@ -3957,7 +3977,7 @@ typecls 'cocos2d::TextFieldTTF'
     .prop('passwordTextStyle', nil, nil)
     .prop('secureTextEntry', nil, nil)
 
-typecls 'cocos2d::LightType'
+typeconf 'cocos2d::LightType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -3967,7 +3987,7 @@ typecls 'cocos2d::LightType'
     .enum('SPOT', 'cocos2d::LightType::SPOT')
     .enum('AMBIENT', 'cocos2d::LightType::AMBIENT')
 
-typecls 'cocos2d::LightFlag'
+typeconf 'cocos2d::LightFlag'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -3989,7 +4009,7 @@ typecls 'cocos2d::LightFlag'
     .enum('LIGHT14', 'cocos2d::LightFlag::LIGHT14')
     .enum('LIGHT15', 'cocos2d::LightFlag::LIGHT15')
 
-typecls 'cocos2d::BaseLight'
+typeconf 'cocos2d::BaseLight'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -4006,7 +4026,7 @@ typecls 'cocos2d::BaseLight'
     .prop('lightFlag', nil, nil)
     .prop('enabled', nil, nil)
 
-typecls 'cocos2d::DirectionLight'
+typeconf 'cocos2d::DirectionLight'
     .supercls('cocos2d::BaseLight')
     .reg_luatype(true)
     .chunk(nil)
@@ -4019,7 +4039,7 @@ typecls 'cocos2d::DirectionLight'
     .prop('direction', nil, nil)
     .prop('directionInWorld', nil, nil)
 
-typecls 'cocos2d::PointLight'
+typeconf 'cocos2d::PointLight'
     .supercls('cocos2d::BaseLight')
     .reg_luatype(true)
     .chunk(nil)
@@ -4030,7 +4050,7 @@ typecls 'cocos2d::PointLight'
     .func(nil, 'PointLight()')
     .prop('range', nil, nil)
 
-typecls 'cocos2d::SpotLight'
+typeconf 'cocos2d::SpotLight'
     .supercls('cocos2d::BaseLight')
     .reg_luatype(true)
     .chunk(nil)
@@ -4056,7 +4076,7 @@ typecls 'cocos2d::SpotLight'
     .prop('outerAngle', nil, nil)
     .prop('cosOuterAngle', nil, nil)
 
-typecls 'cocos2d::AmbientLight'
+typeconf 'cocos2d::AmbientLight'
     .supercls('cocos2d::BaseLight')
     .reg_luatype(true)
     .chunk(nil)
@@ -4064,7 +4084,7 @@ typecls 'cocos2d::AmbientLight'
     .func(nil, 'static cocos2d::AmbientLight *create(const cocos2d::Color3B &color)')
     .func(nil, 'AmbientLight()')
 
-typecls 'cocos2d::CameraFlag'
+typeconf 'cocos2d::CameraFlag'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -4079,7 +4099,7 @@ typecls 'cocos2d::CameraFlag'
     .enum('USER7', 'cocos2d::CameraFlag::USER7')
     .enum('USER8', 'cocos2d::CameraFlag::USER8')
 
-typecls 'cocos2d::Camera::Type'
+typeconf 'cocos2d::Camera::Type'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -4087,7 +4107,7 @@ typecls 'cocos2d::Camera::Type'
     .enum('PERSPECTIVE', 'cocos2d::Camera::Type::PERSPECTIVE')
     .enum('ORTHOGRAPHIC', 'cocos2d::Camera::Type::ORTHOGRAPHIC')
 
-typecls 'cocos2d::Camera'
+typeconf 'cocos2d::Camera'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -4145,7 +4165,7 @@ typecls 'cocos2d::Camera'
     .prop('backgroundBrush', nil, nil)
     .prop('brushValid', nil, nil)
 
-typecls 'cocos2d::CameraBackgroundBrush::BrushType'
+typeconf 'cocos2d::CameraBackgroundBrush::BrushType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -4155,7 +4175,7 @@ typecls 'cocos2d::CameraBackgroundBrush::BrushType'
     .enum('COLOR', 'cocos2d::CameraBackgroundBrush::BrushType::COLOR')
     .enum('SKYBOX', 'cocos2d::CameraBackgroundBrush::BrushType::SKYBOX')
 
-typecls 'cocos2d::CameraBackgroundBrush'
+typeconf 'cocos2d::CameraBackgroundBrush'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -4172,7 +4192,7 @@ typecls 'cocos2d::CameraBackgroundBrush'
     .prop('brushType', nil, nil)
     .prop('valid', nil, nil)
 
-typecls 'cocos2d::CameraBackgroundDepthBrush'
+typeconf 'cocos2d::CameraBackgroundDepthBrush'
     .supercls('cocos2d::CameraBackgroundBrush')
     .reg_luatype(true)
     .chunk(nil)
@@ -4181,7 +4201,7 @@ typecls 'cocos2d::CameraBackgroundDepthBrush'
     .func(nil, 'void setDepth(float depth)')
     .func(nil, 'CameraBackgroundDepthBrush()')
 
-typecls 'cocos2d::CameraBackgroundColorBrush'
+typeconf 'cocos2d::CameraBackgroundColorBrush'
     .supercls('cocos2d::CameraBackgroundDepthBrush')
     .reg_luatype(true)
     .chunk(nil)
@@ -4190,7 +4210,7 @@ typecls 'cocos2d::CameraBackgroundColorBrush'
     .func(nil, 'void setColor(const cocos2d::Color4F &color)')
     .func(nil, 'CameraBackgroundColorBrush()')
 
-typecls 'cocos2d::CameraBackgroundSkyBoxBrush'
+typeconf 'cocos2d::CameraBackgroundSkyBoxBrush'
     .supercls('cocos2d::CameraBackgroundBrush')
     .reg_luatype(true)
     .chunk(nil)
@@ -4203,7 +4223,7 @@ typecls 'cocos2d::CameraBackgroundSkyBoxBrush'
     .func(nil, 'CameraBackgroundSkyBoxBrush()')
     .prop('actived', nil, nil)
 
-typecls 'cocos2d::ParticleBatchNode'
+typeconf 'cocos2d::ParticleBatchNode'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -4226,7 +4246,7 @@ typecls 'cocos2d::ParticleBatchNode'
     .prop('texture', nil, nil)
     .prop('blendFunc', nil, nil)
 
-typecls 'cocos2d::ParticleSystem::Mode'
+typeconf 'cocos2d::ParticleSystem::Mode'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -4234,7 +4254,7 @@ typecls 'cocos2d::ParticleSystem::Mode'
     .enum('GRAVITY', 'cocos2d::ParticleSystem::Mode::GRAVITY')
     .enum('RADIUS', 'cocos2d::ParticleSystem::Mode::RADIUS')
 
-typecls 'cocos2d::ParticleSystem::PositionType'
+typeconf 'cocos2d::ParticleSystem::PositionType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -4243,7 +4263,7 @@ typecls 'cocos2d::ParticleSystem::PositionType'
     .enum('RELATIVE', 'cocos2d::ParticleSystem::PositionType::RELATIVE')
     .enum('GROUPED', 'cocos2d::ParticleSystem::PositionType::GROUPED')
 
-typecls 'cocos2d::ParticleSystem'
+typeconf 'cocos2d::ParticleSystem'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -4409,7 +4429,7 @@ typecls 'cocos2d::ParticleSystem'
     .prop('sourcePositionCompatible', nil, nil)
     .prop('paused', nil, nil)
 
-typecls 'cocos2d::ParticleSystemQuad'
+typeconf 'cocos2d::ParticleSystemQuad'
     .supercls('cocos2d::ParticleSystem')
     .reg_luatype(true)
     .chunk(nil)
@@ -4421,7 +4441,7 @@ typecls 'cocos2d::ParticleSystemQuad'
     .func(nil, 'void listenRendererRecreated(cocos2d::EventCustom *event)')
     .func(nil, 'ParticleSystemQuad()')
 
-typecls 'cocos2d::ParticleExplosion'
+typeconf 'cocos2d::ParticleExplosion'
     .supercls('cocos2d::ParticleSystemQuad')
     .reg_luatype(true)
     .chunk(nil)
@@ -4430,7 +4450,7 @@ typecls 'cocos2d::ParticleExplosion'
     .func(nil, 'static cocos2d::ParticleExplosion *createWithTotalParticles(int numberOfParticles)')
     .func(nil, 'ParticleExplosion()')
 
-typecls 'cocos2d::ParticleFire'
+typeconf 'cocos2d::ParticleFire'
     .supercls('cocos2d::ParticleSystemQuad')
     .reg_luatype(true)
     .chunk(nil)
@@ -4439,7 +4459,7 @@ typecls 'cocos2d::ParticleFire'
     .func(nil, 'static cocos2d::ParticleFire *createWithTotalParticles(int numberOfParticles)')
     .func(nil, 'ParticleFire()')
 
-typecls 'cocos2d::ParticleFireworks'
+typeconf 'cocos2d::ParticleFireworks'
     .supercls('cocos2d::ParticleSystemQuad')
     .reg_luatype(true)
     .chunk(nil)
@@ -4448,7 +4468,7 @@ typecls 'cocos2d::ParticleFireworks'
     .func(nil, 'static cocos2d::ParticleFireworks *createWithTotalParticles(int numberOfParticles)')
     .func(nil, 'ParticleFireworks()')
 
-typecls 'cocos2d::ParticleFlower'
+typeconf 'cocos2d::ParticleFlower'
     .supercls('cocos2d::ParticleSystemQuad')
     .reg_luatype(true)
     .chunk(nil)
@@ -4457,7 +4477,7 @@ typecls 'cocos2d::ParticleFlower'
     .func(nil, 'static cocos2d::ParticleFlower *createWithTotalParticles(int numberOfParticles)')
     .func(nil, 'ParticleFlower()')
 
-typecls 'cocos2d::ParticleGalaxy'
+typeconf 'cocos2d::ParticleGalaxy'
     .supercls('cocos2d::ParticleSystemQuad')
     .reg_luatype(true)
     .chunk(nil)
@@ -4466,7 +4486,7 @@ typecls 'cocos2d::ParticleGalaxy'
     .func(nil, 'static cocos2d::ParticleGalaxy *createWithTotalParticles(int numberOfParticles)')
     .func(nil, 'ParticleGalaxy()')
 
-typecls 'cocos2d::ParticleMeteor'
+typeconf 'cocos2d::ParticleMeteor'
     .supercls('cocos2d::ParticleSystemQuad')
     .reg_luatype(true)
     .chunk(nil)
@@ -4475,7 +4495,7 @@ typecls 'cocos2d::ParticleMeteor'
     .func(nil, 'static cocos2d::ParticleMeteor *createWithTotalParticles(int numberOfParticles)')
     .func(nil, 'ParticleMeteor()')
 
-typecls 'cocos2d::ParticleRain'
+typeconf 'cocos2d::ParticleRain'
     .supercls('cocos2d::ParticleSystemQuad')
     .reg_luatype(true)
     .chunk(nil)
@@ -4484,7 +4504,7 @@ typecls 'cocos2d::ParticleRain'
     .func(nil, 'static cocos2d::ParticleRain *createWithTotalParticles(int numberOfParticles)')
     .func(nil, 'ParticleRain()')
 
-typecls 'cocos2d::ParticleSmoke'
+typeconf 'cocos2d::ParticleSmoke'
     .supercls('cocos2d::ParticleSystemQuad')
     .reg_luatype(true)
     .chunk(nil)
@@ -4493,7 +4513,7 @@ typecls 'cocos2d::ParticleSmoke'
     .func(nil, 'static cocos2d::ParticleSmoke *createWithTotalParticles(int numberOfParticles)')
     .func(nil, 'ParticleSmoke()')
 
-typecls 'cocos2d::ParticleSnow'
+typeconf 'cocos2d::ParticleSnow'
     .supercls('cocos2d::ParticleSystemQuad')
     .reg_luatype(true)
     .chunk(nil)
@@ -4502,7 +4522,7 @@ typecls 'cocos2d::ParticleSnow'
     .func(nil, 'static cocos2d::ParticleSnow *createWithTotalParticles(int numberOfParticles)')
     .func(nil, 'ParticleSnow()')
 
-typecls 'cocos2d::ParticleSpiral'
+typeconf 'cocos2d::ParticleSpiral'
     .supercls('cocos2d::ParticleSystemQuad')
     .reg_luatype(true)
     .chunk(nil)
@@ -4511,7 +4531,7 @@ typecls 'cocos2d::ParticleSpiral'
     .func(nil, 'static cocos2d::ParticleSpiral *createWithTotalParticles(int numberOfParticles)')
     .func(nil, 'ParticleSpiral()')
 
-typecls 'cocos2d::ParticleSun'
+typeconf 'cocos2d::ParticleSun'
     .supercls('cocos2d::ParticleSystemQuad')
     .reg_luatype(true)
     .chunk(nil)
@@ -4520,7 +4540,7 @@ typecls 'cocos2d::ParticleSun'
     .func(nil, 'static cocos2d::ParticleSun *createWithTotalParticles(int numberOfParticles)')
     .func(nil, 'ParticleSun()')
 
-typecls 'cocos2d::TMXTileFlags'
+typeconf 'cocos2d::TMXTileFlags'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -4531,7 +4551,7 @@ typecls 'cocos2d::TMXTileFlags'
     .enum('kTMXFlipedAll', 'cocos2d::TMXTileFlags::kTMXFlipedAll')
     .enum('kTMXFlippedMask', 'cocos2d::TMXTileFlags::kTMXFlippedMask')
 
-typecls 'cocos2d::TMXObjectGroup'
+typeconf 'cocos2d::TMXObjectGroup'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -4552,7 +4572,7 @@ typecls 'cocos2d::TMXObjectGroup'
     .prop('properties', nil, nil)
     .prop('objects', nil, nil)
 
-typecls 'cocos2d::TMXLayer'
+typeconf 'cocos2d::TMXLayer'
     .supercls('cocos2d::SpriteBatchNode')
     .reg_luatype(true)
     .chunk(nil)
@@ -4587,7 +4607,7 @@ typecls 'cocos2d::TMXLayer'
     .prop('layerOrientation', nil, nil)
     .prop('properties', nil, nil)
 
-typecls 'cocos2d::TMXLayerInfo'
+typeconf 'cocos2d::TMXLayerInfo'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -4597,7 +4617,7 @@ typecls 'cocos2d::TMXLayerInfo'
     .func(nil, 'cocos2d::ValueMap &getProperties()')
     .prop('properties', nil, nil)
 
-typecls 'cocos2d::TMXMapInfo'
+typeconf 'cocos2d::TMXMapInfo'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -4665,7 +4685,7 @@ typecls 'cocos2d::TMXMapInfo'
     .prop('tmxFileName', nil, nil)
     .prop('externalTilesetFileName', nil, nil)
 
-typecls 'cocos2d::TMXTilesetInfo'
+typeconf 'cocos2d::TMXTilesetInfo'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -4673,7 +4693,7 @@ typecls 'cocos2d::TMXTilesetInfo'
     .func(nil, 'TMXTilesetInfo()')
     .func(nil, 'cocos2d::Rect getRectForGID(uint32_t gid)')
 
-typecls 'cocos2d::TMXTiledMap'
+typeconf 'cocos2d::TMXTiledMap'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -4707,7 +4727,7 @@ typecls 'cocos2d::TMXTiledMap'
     .prop('layerNum', nil, nil)
     .prop('resourceFile', nil, nil)
 
-typecls 'cocos2d::FastTMXTiledMap'
+typeconf 'cocos2d::FastTMXTiledMap'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -4734,7 +4754,7 @@ typecls 'cocos2d::FastTMXTiledMap'
     .prop('objectGroups', nil, nil)
     .prop('properties', nil, nil)
 
-typecls 'cocos2d::FastTMXLayer'
+typeconf 'cocos2d::FastTMXLayer'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -4771,7 +4791,7 @@ typecls 'cocos2d::FastTMXLayer'
     .prop('layerOrientation', nil, nil)
     .prop('properties', nil, nil)
 
-typecls 'cocos2d::NavMeshAgent::NavMeshAgentSyncFlag'
+typeconf 'cocos2d::NavMeshAgent::NavMeshAgentSyncFlag'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -4781,7 +4801,7 @@ typecls 'cocos2d::NavMeshAgent::NavMeshAgentSyncFlag'
     .enum('AGENT_TO_NODE', 'cocos2d::NavMeshAgent::NavMeshAgentSyncFlag::AGENT_TO_NODE')
     .enum('NODE_AND_NODE', 'cocos2d::NavMeshAgent::NavMeshAgentSyncFlag::NODE_AND_NODE')
 
-typecls 'cocos2d::NavMeshAgent'
+typeconf 'cocos2d::NavMeshAgent'
     .supercls('cocos2d::Component')
     .reg_luatype(true)
     .chunk(nil)
@@ -4841,7 +4861,7 @@ typecls 'cocos2d::NavMeshAgent'
     .prop('syncFlag', nil, nil)
     .prop('velocity', nil, nil)
 
-typecls 'cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag'
+typeconf 'cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -4851,7 +4871,7 @@ typecls 'cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag'
     .enum('OBSTACLE_TO_NODE', 'cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag::OBSTACLE_TO_NODE')
     .enum('NODE_AND_NODE', 'cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag::NODE_AND_NODE')
 
-typecls 'cocos2d::NavMeshObstacle'
+typeconf 'cocos2d::NavMeshObstacle'
     .supercls('cocos2d::Component')
     .reg_luatype(true)
     .chunk(nil)
@@ -4873,7 +4893,7 @@ typecls 'cocos2d::NavMeshObstacle'
     .prop('height', nil, nil)
     .prop('syncFlag', nil, nil)
 
-typecls 'cocos2d::NavMesh'
+typeconf 'cocos2d::NavMesh'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)

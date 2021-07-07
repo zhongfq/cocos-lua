@@ -56,7 +56,7 @@ typeconv 'fairygui::TweenValue'
     .var('d', '@optional double d')
 
 
-typecls 'fairygui::UIEventType'
+typeconf 'fairygui::UIEventType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -92,13 +92,13 @@ typecls 'fairygui::UIEventType'
     .const('Drop', 'fairygui::UIEventType::Drop', 'const int')
     .const('GearStop', 'fairygui::UIEventType::GearStop', 'const int')
 
-typecls 'fairygui::EventCallback'
+typeconf 'fairygui::EventCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'fairygui::UIEventDispatcher'
+typeconf 'fairygui::UIEventDispatcher'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk([[
@@ -159,7 +159,7 @@ typecls 'fairygui::UIEventDispatcher'
         TAG_SCOPE = 'object',
     }
 
-typecls 'fairygui::EventContext'
+typeconf 'fairygui::EventContext'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -182,14 +182,14 @@ typecls 'fairygui::EventContext'
     .prop('dataValue', nil, nil)
     .prop('data', nil, nil)
 
-typecls 'fairygui::IHitTest'
+typeconf 'fairygui::IHitTest'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'bool hitTest(fairygui::GComponent *obj, const cocos2d::Vec2 &localPoint)')
 
-typecls 'fairygui::PixelHitTest'
+typeconf 'fairygui::PixelHitTest'
     .supercls('fairygui::IHitTest')
     .reg_luatype(true)
     .chunk(nil)
@@ -200,7 +200,7 @@ typecls 'fairygui::PixelHitTest'
     .var('scaleX', 'float scaleX')
     .var('scaleY', 'float scaleY')
 
-typecls 'fairygui::PixelHitTestData'
+typeconf 'fairygui::PixelHitTestData'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -211,13 +211,13 @@ typecls 'fairygui::PixelHitTestData'
     .var('pixels', 'unsigned char *pixels')
     .var('pixelsLength', 'size_t pixelsLength')
 
-typecls 'fairygui::InputProcessor::CaptureEventCallback'
+typeconf 'fairygui::InputProcessor::CaptureEventCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'fairygui::InputProcessor'
+typeconf 'fairygui::InputProcessor'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -246,7 +246,7 @@ typecls 'fairygui::InputProcessor'
     .prop('recentInput', nil, nil)
     .prop('touchOnUI', nil, nil)
 
-typecls 'fairygui::InputEvent'
+typeconf 'fairygui::InputEvent'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -281,7 +281,7 @@ typecls 'fairygui::InputEvent'
     .prop('mouseWheelDelta', nil, nil)
     .prop('processor', nil, nil)
 
-typecls 'fairygui::TextFormat'
+typeconf 'fairygui::TextFormat'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -312,7 +312,7 @@ typecls 'fairygui::TextFormat'
     .var('shadowBlurRadius', 'int shadowBlurRadius')
     .var('glowColor', 'cocos2d::Color3B glowColor')
 
-typecls 'fairygui::EaseType'
+typeconf 'fairygui::EaseType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -350,14 +350,14 @@ typecls 'fairygui::EaseType'
     .enum('BounceInOut', 'fairygui::EaseType::BounceInOut')
     .enum('Custom', 'fairygui::EaseType::Custom')
 
-typecls 'fairygui::EaseManager'
+typeconf 'fairygui::EaseManager'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'static float evaluate(fairygui::EaseType easeType, float time, float duration, float overshootOrAmplitude, float period)')
 
-typecls 'fairygui::TweenPropType'
+typeconf 'fairygui::TweenPropType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -376,25 +376,25 @@ typecls 'fairygui::TweenPropType'
     .enum('Alpha', 'fairygui::TweenPropType::Alpha')
     .enum('Progress', 'fairygui::TweenPropType::Progress')
 
-typecls 'fairygui::GPath'
+typeconf 'fairygui::GPath'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'fairygui::GTweener::GTweenCallback'
+typeconf 'fairygui::GTweener::GTweenCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'fairygui::GTweener::GTweenCallback0'
+typeconf 'fairygui::GTweener::GTweenCallback0'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'fairygui::GTweener'
+typeconf 'fairygui::GTweener'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -472,7 +472,7 @@ typecls 'fairygui::GTweener'
     .prop('normalizedTime', nil, nil)
     .prop('completed', nil, nil)
 
-typecls 'fairygui::GTween'
+typeconf 'fairygui::GTween'
     .supercls(nil)
     .reg_luatype(true)
     .chunk([[
@@ -573,7 +573,7 @@ typecls 'fairygui::GTween'
         CALLBACK_AFTER = nil,
     })
 
-typecls 'fairygui::UIPackage'
+typeconf 'fairygui::UIPackage'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -606,7 +606,7 @@ typecls 'fairygui::UIPackage'
     .prop('name', nil, nil)
     .prop('branch', nil, nil)
 
-typecls 'fairygui::PackageItem'
+typeconf 'fairygui::PackageItem'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -635,7 +635,7 @@ typecls 'fairygui::PackageItem'
     .prop('branch', nil, nil)
     .prop('highResolution', nil, nil)
 
-typecls 'fairygui::PackageItemType'
+typeconf 'fairygui::PackageItemType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -652,7 +652,7 @@ typecls 'fairygui::PackageItemType'
     .enum('SPINE', 'fairygui::PackageItemType::SPINE')
     .enum('DRAGONBONES', 'fairygui::PackageItemType::DRAGONBONES')
 
-typecls 'fairygui::ObjectType'
+typeconf 'fairygui::ObjectType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -677,7 +677,7 @@ typecls 'fairygui::ObjectType'
     .enum('TREE', 'fairygui::ObjectType::TREE')
     .enum('LOADER3D', 'fairygui::ObjectType::LOADER3D')
 
-typecls 'fairygui::ButtonMode'
+typeconf 'fairygui::ButtonMode'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -686,7 +686,7 @@ typecls 'fairygui::ButtonMode'
     .enum('CHECK', 'fairygui::ButtonMode::CHECK')
     .enum('RADIO', 'fairygui::ButtonMode::RADIO')
 
-typecls 'fairygui::ChildrenRenderOrder'
+typeconf 'fairygui::ChildrenRenderOrder'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -695,7 +695,7 @@ typecls 'fairygui::ChildrenRenderOrder'
     .enum('DESCENT', 'fairygui::ChildrenRenderOrder::DESCENT')
     .enum('ARCH', 'fairygui::ChildrenRenderOrder::ARCH')
 
-typecls 'fairygui::OverflowType'
+typeconf 'fairygui::OverflowType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -704,7 +704,7 @@ typecls 'fairygui::OverflowType'
     .enum('HIDDEN', 'fairygui::OverflowType::HIDDEN')
     .enum('SCROLL', 'fairygui::OverflowType::SCROLL')
 
-typecls 'fairygui::ScrollType'
+typeconf 'fairygui::ScrollType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -713,7 +713,7 @@ typecls 'fairygui::ScrollType'
     .enum('VERTICAL', 'fairygui::ScrollType::VERTICAL')
     .enum('BOTH', 'fairygui::ScrollType::BOTH')
 
-typecls 'fairygui::ScrollBarDisplayType'
+typeconf 'fairygui::ScrollBarDisplayType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -723,7 +723,7 @@ typecls 'fairygui::ScrollBarDisplayType'
     .enum('AUTO', 'fairygui::ScrollBarDisplayType::AUTO')
     .enum('HIDDEN', 'fairygui::ScrollBarDisplayType::HIDDEN')
 
-typecls 'fairygui::LoaderFillType'
+typeconf 'fairygui::LoaderFillType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -735,7 +735,7 @@ typecls 'fairygui::LoaderFillType'
     .enum('SCALE_FREE', 'fairygui::LoaderFillType::SCALE_FREE')
     .enum('SCALE_NO_BORDER', 'fairygui::LoaderFillType::SCALE_NO_BORDER')
 
-typecls 'fairygui::ProgressTitleType'
+typeconf 'fairygui::ProgressTitleType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -745,7 +745,7 @@ typecls 'fairygui::ProgressTitleType'
     .enum('VALUE', 'fairygui::ProgressTitleType::VALUE')
     .enum('MAX', 'fairygui::ProgressTitleType::MAX')
 
-typecls 'fairygui::ListLayoutType'
+typeconf 'fairygui::ListLayoutType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -756,7 +756,7 @@ typecls 'fairygui::ListLayoutType'
     .enum('FLOW_VERTICAL', 'fairygui::ListLayoutType::FLOW_VERTICAL')
     .enum('PAGINATION', 'fairygui::ListLayoutType::PAGINATION')
 
-typecls 'fairygui::ListSelectionMode'
+typeconf 'fairygui::ListSelectionMode'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -766,7 +766,7 @@ typecls 'fairygui::ListSelectionMode'
     .enum('MULTIPLE_SINGLECLICK', 'fairygui::ListSelectionMode::MULTIPLE_SINGLECLICK')
     .enum('NONE', 'fairygui::ListSelectionMode::NONE')
 
-typecls 'fairygui::GroupLayoutType'
+typeconf 'fairygui::GroupLayoutType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -775,7 +775,7 @@ typecls 'fairygui::GroupLayoutType'
     .enum('HORIZONTAL', 'fairygui::GroupLayoutType::HORIZONTAL')
     .enum('VERTICAL', 'fairygui::GroupLayoutType::VERTICAL')
 
-typecls 'fairygui::PopupDirection'
+typeconf 'fairygui::PopupDirection'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -784,7 +784,7 @@ typecls 'fairygui::PopupDirection'
     .enum('UP', 'fairygui::PopupDirection::UP')
     .enum('DOWN', 'fairygui::PopupDirection::DOWN')
 
-typecls 'fairygui::AutoSizeType'
+typeconf 'fairygui::AutoSizeType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -794,7 +794,7 @@ typecls 'fairygui::AutoSizeType'
     .enum('HEIGHT', 'fairygui::AutoSizeType::HEIGHT')
     .enum('SHRINK', 'fairygui::AutoSizeType::SHRINK')
 
-typecls 'fairygui::FlipType'
+typeconf 'fairygui::FlipType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -804,7 +804,7 @@ typecls 'fairygui::FlipType'
     .enum('VERTICAL', 'fairygui::FlipType::VERTICAL')
     .enum('BOTH', 'fairygui::FlipType::BOTH')
 
-typecls 'fairygui::TransitionActionType'
+typeconf 'fairygui::TransitionActionType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -827,7 +827,7 @@ typecls 'fairygui::TransitionActionType'
     .enum('Icon', 'fairygui::TransitionActionType::Icon')
     .enum('Unknown', 'fairygui::TransitionActionType::Unknown')
 
-typecls 'fairygui::FillMethod'
+typeconf 'fairygui::FillMethod'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -839,7 +839,7 @@ typecls 'fairygui::FillMethod'
     .enum('Radial180', 'fairygui::FillMethod::Radial180')
     .enum('Radial360', 'fairygui::FillMethod::Radial360')
 
-typecls 'fairygui::FillOrigin'
+typeconf 'fairygui::FillOrigin'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -849,7 +849,7 @@ typecls 'fairygui::FillOrigin'
     .enum('Left', 'fairygui::FillOrigin::Left')
     .enum('Right', 'fairygui::FillOrigin::Right')
 
-typecls 'fairygui::ObjectPropID'
+typeconf 'fairygui::ObjectPropID'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -865,7 +865,7 @@ typecls 'fairygui::ObjectPropID'
     .enum('FontSize', 'fairygui::ObjectPropID::FontSize')
     .enum('Selected', 'fairygui::ObjectPropID::Selected')
 
-typecls 'fairygui::GController'
+typeconf 'fairygui::GController'
     .supercls('fairygui::UIEventDispatcher')
     .reg_luatype(true)
     .chunk(nil)
@@ -901,7 +901,7 @@ typecls 'fairygui::GController'
     .prop('previousPageId', nil, nil)
     .prop('pageCount', nil, nil)
 
-typecls 'fairygui::GObject'
+typeconf 'fairygui::GObject'
     .supercls('fairygui::UIEventDispatcher')
     .reg_luatype(true)
     .chunk(nil)
@@ -1077,7 +1077,7 @@ typecls 'fairygui::GObject'
         CALLBACK_AFTER = nil,
     })
 
-typecls 'fairygui::GComponent'
+typeconf 'fairygui::GComponent'
     .supercls('fairygui::GObject')
     .reg_luatype(true)
     .chunk([[
@@ -1210,7 +1210,7 @@ typecls 'fairygui::GComponent'
     .prop('viewHeight', nil, nil)
     .alias('resolve', 'getChildByPath')
 
-typecls 'fairygui::GRoot'
+typeconf 'fairygui::GRoot'
     .supercls('fairygui::GComponent')
     .reg_luatype(true)
     .chunk(nil)
@@ -1297,7 +1297,7 @@ typecls 'fairygui::GRoot'
         CALLBACK_AFTER = nil,
     })
 
-typecls 'fairygui::GGroup'
+typeconf 'fairygui::GGroup'
     .supercls('fairygui::GObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -1329,7 +1329,7 @@ typecls 'fairygui::GGroup'
     .prop('mainGridIndex', nil, nil)
     .prop('mainGridMinSize', nil, nil)
 
-typecls 'fairygui::GScrollBar'
+typeconf 'fairygui::GScrollBar'
     .supercls('fairygui::GComponent')
     .reg_luatype(true)
     .chunk(nil)
@@ -1342,7 +1342,7 @@ typecls 'fairygui::GScrollBar'
     .func(nil, 'float getMinSize()')
     .prop('minSize', nil, nil)
 
-typecls 'fairygui::GLoader'
+typeconf 'fairygui::GLoader'
     .supercls('fairygui::GObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -1393,7 +1393,7 @@ typecls 'fairygui::GLoader'
     .prop('fillAmount', nil, nil)
     .prop('component', nil, nil)
 
-typecls 'fairygui::GLoader3D'
+typeconf 'fairygui::GLoader3D'
     .supercls('fairygui::GObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -1440,7 +1440,7 @@ typecls 'fairygui::GLoader3D'
     .prop('skinName', nil, nil)
     .prop('loop', nil, nil)
 
-typecls 'fairygui::GTextField'
+typeconf 'fairygui::GTextField'
     .supercls('fairygui::GObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -1474,7 +1474,7 @@ typecls 'fairygui::GTextField'
     .prop('outlineColor', nil, nil)
     .prop('templateVars', nil, nil)
 
-typecls 'fairygui::GBasicTextField'
+typeconf 'fairygui::GBasicTextField'
     .supercls('fairygui::GTextField')
     .reg_luatype(true)
     .chunk(nil)
@@ -1482,7 +1482,7 @@ typecls 'fairygui::GBasicTextField'
     .func(nil, 'GBasicTextField()')
     .func(nil, 'static fairygui::GBasicTextField *create()')
 
-typecls 'fairygui::GGraph'
+typeconf 'fairygui::GGraph'
     .supercls('fairygui::GObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -1551,7 +1551,7 @@ typecls 'fairygui::GGraph'
     .prop('empty', nil, nil)
     .prop('color', nil, nil)
 
-typecls 'fairygui::GButton'
+typeconf 'fairygui::GButton'
     .supercls('fairygui::GComponent')
     .reg_luatype(true)
     .chunk(nil)
@@ -1591,7 +1591,7 @@ typecls 'fairygui::GButton'
     .prop('changeStateOnClick', nil, nil)
     .prop('textField', nil, nil)
 
-typecls 'fairygui::GImage'
+typeconf 'fairygui::GImage'
     .supercls('fairygui::GObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -1617,7 +1617,7 @@ typecls 'fairygui::GImage'
     .prop('fillClockwise', nil, nil)
     .prop('fillAmount', nil, nil)
 
-typecls 'fairygui::GLabel'
+typeconf 'fairygui::GLabel'
     .supercls('fairygui::GComponent')
     .reg_luatype(true)
     .chunk(nil)
@@ -1636,19 +1636,19 @@ typecls 'fairygui::GLabel'
     .prop('titleFontSize', nil, nil)
     .prop('textField', nil, nil)
 
-typecls 'fairygui::GList::ListItemRenderer'
+typeconf 'fairygui::GList::ListItemRenderer'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'fairygui::GList::ListItemProvider'
+typeconf 'fairygui::GList::ListItemProvider'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'fairygui::GList'
+typeconf 'fairygui::GList'
     .supercls('fairygui::GComponent')
     .reg_luatype(true)
     .chunk(nil)
@@ -1731,7 +1731,7 @@ typecls 'fairygui::GList'
         CALLBACK_AFTER = nil,
     })
 
-typecls 'fairygui::GMovieClip'
+typeconf 'fairygui::GMovieClip'
     .supercls('fairygui::GObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -1764,7 +1764,7 @@ typecls 'fairygui::GMovieClip'
     .prop('flip', nil, nil)
     .prop('color', nil, nil)
 
-typecls 'fairygui::GProgressBar'
+typeconf 'fairygui::GProgressBar'
     .supercls('fairygui::GComponent')
     .reg_luatype(true)
     .chunk(nil)
@@ -1786,7 +1786,7 @@ typecls 'fairygui::GProgressBar'
     .prop('max', nil, nil)
     .prop('value', nil, nil)
 
-typecls 'fairygui::GComboBox'
+typeconf 'fairygui::GComboBox'
     .supercls('fairygui::GComponent')
     .reg_luatype(true)
     .chunk(nil)
@@ -1825,7 +1825,7 @@ typecls 'fairygui::GComboBox'
     .prop('dropdown', nil, nil)
     .prop('textField', nil, nil)
 
-typecls 'fairygui::GRichTextField'
+typeconf 'fairygui::GRichTextField'
     .supercls('fairygui::GTextField')
     .reg_luatype(true)
     .chunk(nil)
@@ -1834,7 +1834,7 @@ typecls 'fairygui::GRichTextField'
     .func(nil, 'static fairygui::GRichTextField *create()')
     .func(nil, 'fairygui::HtmlObject *getControl(const std::string &name)')
 
-typecls 'fairygui::GSlider'
+typeconf 'fairygui::GSlider'
     .supercls('fairygui::GComponent')
     .reg_luatype(true)
     .chunk(nil)
@@ -1859,7 +1859,7 @@ typecls 'fairygui::GSlider'
     .prop('value', nil, nil)
     .prop('wholeNumbers', nil, nil)
 
-typecls 'fairygui::GTextInput'
+typeconf 'fairygui::GTextInput'
     .supercls('fairygui::GTextField')
     .reg_luatype(true)
     .chunk(nil)
@@ -1872,7 +1872,7 @@ typecls 'fairygui::GTextInput'
     .func(nil, 'void setMaxLength(int value)')
     .func(nil, 'void setRestrict(const std::string &value)')
 
-typecls 'fairygui::PopupMenu'
+typeconf 'fairygui::PopupMenu'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -1968,7 +1968,7 @@ typecls 'fairygui::PopupMenu'
         CALLBACK_AFTER = nil,
     })
 
-typecls 'fairygui::Relations'
+typeconf 'fairygui::Relations'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1985,7 +1985,7 @@ typecls 'fairygui::Relations'
     .var('handling', 'fairygui::GObject *handling')
     .prop('empty', nil, nil)
 
-typecls 'fairygui::RelationType'
+typeconf 'fairygui::RelationType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2016,7 +2016,7 @@ typecls 'fairygui::RelationType'
     .enum('BottomExt_Bottom', 'fairygui::RelationType::BottomExt_Bottom')
     .enum('Size', 'fairygui::RelationType::Size')
 
-typecls 'fairygui::RelationItem'
+typeconf 'fairygui::RelationItem'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2033,7 +2033,7 @@ typecls 'fairygui::RelationItem'
     .prop('target', nil, nil)
     .prop('empty', nil, nil)
 
-typecls 'fairygui::ScrollPane'
+typeconf 'fairygui::ScrollPane'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -2120,19 +2120,19 @@ typecls 'fairygui::ScrollPane'
     .prop('viewSize', nil, nil)
     .prop('draggingPane', nil, nil)
 
-typecls 'fairygui::Transition::PlayCompleteCallback'
+typeconf 'fairygui::Transition::PlayCompleteCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'fairygui::Transition::TransitionHook'
+typeconf 'fairygui::Transition::TransitionHook'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'fairygui::Transition'
+typeconf 'fairygui::Transition'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -2197,7 +2197,7 @@ typecls 'fairygui::Transition'
     .prop('playing', nil, nil)
     .prop('timeScale', nil, nil)
 
-typecls 'fairygui::UIConfig'
+typeconf 'fairygui::UIConfig'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2226,7 +2226,7 @@ typecls 'fairygui::UIConfig'
     .var('popupMenu', 'static std::string popupMenu')
     .var('popupMenu_seperator', 'static std::string popupMenu_seperator')
 
-typecls 'fairygui::IUISource'
+typeconf 'fairygui::IUISource'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -2246,7 +2246,7 @@ typecls 'fairygui::IUISource'
     .prop('fileName', nil, nil)
     .prop('loaded', nil, nil)
 
-typecls 'fairygui::UISource'
+typeconf 'fairygui::UISource'
     .supercls('fairygui::IUISource')
     .reg_luatype(true)
     .chunk([[
@@ -2289,7 +2289,7 @@ typecls 'fairygui::UISource'
     .func('create', 'static UISource *create()')
     .func('loadComplete', 'void loadComplete()')
 
-typecls 'fairygui::Window'
+typeconf 'fairygui::Window'
     .supercls('fairygui::GComponent')
     .reg_luatype(true)
     .chunk(nil)
@@ -2371,7 +2371,7 @@ typecls 'fairygui::Window'
         CALLBACK_AFTER = nil,
     })
 
-typecls 'fairygui::DragDropManager'
+typeconf 'fairygui::DragDropManager'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2386,19 +2386,19 @@ typecls 'fairygui::DragDropManager'
     .prop('agent', nil, nil)
     .prop('dragging', nil, nil)
 
-typecls 'fairygui::UIObjectFactory::GLoaderCreator'
+typeconf 'fairygui::UIObjectFactory::GLoaderCreator'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'fairygui::UIObjectFactory::GComponentCreator'
+typeconf 'fairygui::UIObjectFactory::GComponentCreator'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'fairygui::UIObjectFactory'
+typeconf 'fairygui::UIObjectFactory'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2423,7 +2423,7 @@ typecls 'fairygui::UIObjectFactory'
         TAG_SCOPE = 'object',
     }
 
-typecls 'fairygui::GearBase'
+typeconf 'fairygui::GearBase'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2432,7 +2432,7 @@ typecls 'fairygui::GearBase'
     .func(nil, 'static fairygui::GearBase *create(fairygui::GObject *owner, int index)')
     .var('disableAllTweenEffect', 'static bool disableAllTweenEffect')
 
-typecls 'fairygui::GTreeNode'
+typeconf 'fairygui::GTreeNode'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -2477,19 +2477,19 @@ typecls 'fairygui::GTreeNode'
     .prop('prevSibling', nil, nil)
     .prop('nextSibling', nil, nil)
 
-typecls 'fairygui::GTree::TreeNodeRenderFunction'
+typeconf 'fairygui::GTree::TreeNodeRenderFunction'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'fairygui::GTree::TreeNodeWillExpandFunction'
+typeconf 'fairygui::GTree::TreeNodeWillExpandFunction'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'fairygui::GTree'
+typeconf 'fairygui::GTree'
     .supercls('fairygui::GList')
     .reg_luatype(true)
     .chunk(nil)
@@ -2535,7 +2535,7 @@ typecls 'fairygui::GTree'
         CALLBACK_AFTER = nil,
     })
 
-typecls 'fairygui::FUIContainer'
+typeconf 'fairygui::FUIContainer'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -2559,7 +2559,7 @@ typecls 'fairygui::FUIContainer'
     .prop('alphaThreshold', nil, nil)
     .prop('inverted', nil, nil)
 
-typecls 'fairygui::FUIInput'
+typeconf 'fairygui::FUIInput'
     .supercls('cocos2d::ui::EditBox')
     .reg_luatype(true)
     .chunk(nil)
@@ -2579,7 +2579,7 @@ typecls 'fairygui::FUIInput'
     .prop('singleLine', nil, nil)
     .prop('password', nil, nil)
 
-typecls 'fairygui::FUILabel'
+typeconf 'fairygui::FUILabel'
     .supercls('cocos2d::Label')
     .reg_luatype(true)
     .chunk(nil)
@@ -2596,7 +2596,7 @@ typecls 'fairygui::FUILabel'
     .prop('text', nil, nil)
     .prop('textFormat', nil, nil)
 
-typecls 'fairygui::FUIRichText'
+typeconf 'fairygui::FUIRichText'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -2634,7 +2634,7 @@ typecls 'fairygui::FUIRichText'
     .prop('anchorFontColor', nil, nil)
     .prop('controls', nil, nil)
 
-typecls 'fairygui::FUISprite'
+typeconf 'fairygui::FUISprite'
     .supercls('cocos2d::Sprite')
     .reg_luatype(true)
     .chunk(nil)
@@ -2660,7 +2660,7 @@ typecls 'fairygui::FUISprite'
     .prop('fillAmount', nil, nil)
     .prop('scaleByTile', nil, nil)
 
-typecls 'fairygui::HtmlObject'
+typeconf 'fairygui::HtmlObject'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2680,7 +2680,7 @@ typecls 'fairygui::HtmlObject'
     .prop('ui', nil, nil)
     .prop('hidden', nil, nil)
 
-typecls 'fairygui::HtmlElement::Type'
+typeconf 'fairygui::HtmlElement::Type'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2692,7 +2692,7 @@ typecls 'fairygui::HtmlElement::Type'
     .enum('SELECT', 'fairygui::HtmlElement::Type::SELECT')
     .enum('OBJECT', 'fairygui::HtmlElement::Type::OBJECT')
 
-typecls 'fairygui::HtmlElement'
+typeconf 'fairygui::HtmlElement'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)

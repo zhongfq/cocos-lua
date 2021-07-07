@@ -16,7 +16,7 @@ HEADERS = [[
 CHUNK = nil
 
 
-typecls 'cocos2d::ui::Widget::FocusDirection'
+typeconf 'cocos2d::ui::Widget::FocusDirection'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -26,7 +26,7 @@ typecls 'cocos2d::ui::Widget::FocusDirection'
     .enum('UP', 'cocos2d::ui::Widget::FocusDirection::UP')
     .enum('DOWN', 'cocos2d::ui::Widget::FocusDirection::DOWN')
 
-typecls 'cocos2d::ui::Widget::PositionType'
+typeconf 'cocos2d::ui::Widget::PositionType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -34,7 +34,7 @@ typecls 'cocos2d::ui::Widget::PositionType'
     .enum('ABSOLUTE', 'cocos2d::ui::Widget::PositionType::ABSOLUTE')
     .enum('PERCENT', 'cocos2d::ui::Widget::PositionType::PERCENT')
 
-typecls 'cocos2d::ui::Widget::SizeType'
+typeconf 'cocos2d::ui::Widget::SizeType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -42,7 +42,7 @@ typecls 'cocos2d::ui::Widget::SizeType'
     .enum('ABSOLUTE', 'cocos2d::ui::Widget::SizeType::ABSOLUTE')
     .enum('PERCENT', 'cocos2d::ui::Widget::SizeType::PERCENT')
 
-typecls 'cocos2d::ui::Widget::TouchEventType'
+typeconf 'cocos2d::ui::Widget::TouchEventType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -52,7 +52,7 @@ typecls 'cocos2d::ui::Widget::TouchEventType'
     .enum('ENDED', 'cocos2d::ui::Widget::TouchEventType::ENDED')
     .enum('CANCELED', 'cocos2d::ui::Widget::TouchEventType::CANCELED')
 
-typecls 'cocos2d::ui::Widget::TextureResType'
+typeconf 'cocos2d::ui::Widget::TextureResType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -60,7 +60,7 @@ typecls 'cocos2d::ui::Widget::TextureResType'
     .enum('LOCAL', 'cocos2d::ui::Widget::TextureResType::LOCAL')
     .enum('PLIST', 'cocos2d::ui::Widget::TextureResType::PLIST')
 
-typecls 'cocos2d::ui::Widget::BrightStyle'
+typeconf 'cocos2d::ui::Widget::BrightStyle'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -69,25 +69,25 @@ typecls 'cocos2d::ui::Widget::BrightStyle'
     .enum('NORMAL', 'cocos2d::ui::Widget::BrightStyle::NORMAL')
     .enum('HIGHLIGHT', 'cocos2d::ui::Widget::BrightStyle::HIGHLIGHT')
 
-typecls 'cocos2d::ui::Widget::ccWidgetTouchCallback'
+typeconf 'cocos2d::ui::Widget::ccWidgetTouchCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::ui::Widget::ccWidgetClickCallback'
+typeconf 'cocos2d::ui::Widget::ccWidgetClickCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::ui::Widget::ccWidgetEventCallback'
+typeconf 'cocos2d::ui::Widget::ccWidgetEventCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::ui::Widget'
+typeconf 'cocos2d::ui::Widget'
     .supercls('cocos2d::ProtectedNode')
     .reg_luatype(true)
     .chunk(nil)
@@ -228,7 +228,7 @@ typecls 'cocos2d::ui::Widget'
     .prop('callbackType', nil, nil)
     .prop('layoutComponentEnabled', nil, nil)
 
-typecls 'cocos2d::ui::Helper'
+typeconf 'cocos2d::ui::Helper'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -242,7 +242,7 @@ typecls 'cocos2d::ui::Helper'
     .func(nil, 'static cocos2d::Rect restrictCapInsetRect(const cocos2d::Rect &capInsets, const cocos2d::Size &textureSize)')
     .func(nil, 'static cocos2d::Rect convertBoundingBoxToScreen(cocos2d::Node *node)')
 
-typecls 'cocos2d::ui::Scale9Sprite::State'
+typeconf 'cocos2d::ui::Scale9Sprite::State'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -250,7 +250,7 @@ typecls 'cocos2d::ui::Scale9Sprite::State'
     .enum('NORMAL', 'cocos2d::ui::Scale9Sprite::State::NORMAL')
     .enum('GRAY', 'cocos2d::ui::Scale9Sprite::State::GRAY')
 
-typecls 'cocos2d::ui::Scale9Sprite::RenderingType'
+typeconf 'cocos2d::ui::Scale9Sprite::RenderingType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -258,7 +258,7 @@ typecls 'cocos2d::ui::Scale9Sprite::RenderingType'
     .enum('SIMPLE', 'cocos2d::ui::Scale9Sprite::RenderingType::SIMPLE')
     .enum('SLICE', 'cocos2d::ui::Scale9Sprite::RenderingType::SLICE')
 
-typecls 'cocos2d::ui::Scale9Sprite'
+typeconf 'cocos2d::ui::Scale9Sprite'
     .supercls('cocos2d::Sprite')
     .reg_luatype(true)
     .chunk(nil)
@@ -308,7 +308,7 @@ typecls 'cocos2d::ui::Scale9Sprite'
     .prop('renderingType', nil, nil)
     .prop('capInsets', nil, nil)
 
-typecls 'cocos2d::ui::LayoutComponent::HorizontalEdge'
+typeconf 'cocos2d::ui::LayoutComponent::HorizontalEdge'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -318,7 +318,7 @@ typecls 'cocos2d::ui::LayoutComponent::HorizontalEdge'
     .enum('Right', 'cocos2d::ui::LayoutComponent::HorizontalEdge::Right')
     .enum('Center', 'cocos2d::ui::LayoutComponent::HorizontalEdge::Center')
 
-typecls 'cocos2d::ui::LayoutComponent::VerticalEdge'
+typeconf 'cocos2d::ui::LayoutComponent::VerticalEdge'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -328,7 +328,7 @@ typecls 'cocos2d::ui::LayoutComponent::VerticalEdge'
     .enum('Top', 'cocos2d::ui::LayoutComponent::VerticalEdge::Top')
     .enum('Center', 'cocos2d::ui::LayoutComponent::VerticalEdge::Center')
 
-typecls 'cocos2d::ui::LayoutComponent'
+typeconf 'cocos2d::ui::LayoutComponent'
     .supercls('cocos2d::Component')
     .reg_luatype(true)
     .chunk(nil)
@@ -409,7 +409,7 @@ typecls 'cocos2d::ui::LayoutComponent'
     .prop('stretchWidthEnabled', nil, nil)
     .prop('stretchHeightEnabled', nil, nil)
 
-typecls 'cocos2d::ui::LayoutParameter::Type'
+typeconf 'cocos2d::ui::LayoutParameter::Type'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -418,7 +418,7 @@ typecls 'cocos2d::ui::LayoutParameter::Type'
     .enum('LINEAR', 'cocos2d::ui::LayoutParameter::Type::LINEAR')
     .enum('RELATIVE', 'cocos2d::ui::LayoutParameter::Type::RELATIVE')
 
-typecls 'cocos2d::ui::LayoutParameter'
+typeconf 'cocos2d::ui::LayoutParameter'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -434,7 +434,7 @@ typecls 'cocos2d::ui::LayoutParameter'
     .prop('margin', nil, nil)
     .prop('layoutType', nil, nil)
 
-typecls 'cocos2d::ui::LinearLayoutParameter::LinearGravity'
+typeconf 'cocos2d::ui::LinearLayoutParameter::LinearGravity'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -447,7 +447,7 @@ typecls 'cocos2d::ui::LinearLayoutParameter::LinearGravity'
     .enum('CENTER_VERTICAL', 'cocos2d::ui::LinearLayoutParameter::LinearGravity::CENTER_VERTICAL')
     .enum('CENTER_HORIZONTAL', 'cocos2d::ui::LinearLayoutParameter::LinearGravity::CENTER_HORIZONTAL')
 
-typecls 'cocos2d::ui::LinearLayoutParameter'
+typeconf 'cocos2d::ui::LinearLayoutParameter'
     .supercls('cocos2d::ui::LayoutParameter')
     .reg_luatype(true)
     .chunk(nil)
@@ -458,7 +458,7 @@ typecls 'cocos2d::ui::LinearLayoutParameter'
     .func(nil, 'cocos2d::ui::LinearLayoutParameter::LinearGravity getGravity()')
     .prop('gravity', nil, nil)
 
-typecls 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign'
+typeconf 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -486,7 +486,7 @@ typecls 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign'
     .enum('LOCATION_BELOW_CENTER', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_BELOW_CENTER')
     .enum('LOCATION_BELOW_RIGHTALIGN', 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_BELOW_RIGHTALIGN')
 
-typecls 'cocos2d::ui::RelativeLayoutParameter'
+typeconf 'cocos2d::ui::RelativeLayoutParameter'
     .supercls('cocos2d::ui::LayoutParameter')
     .reg_luatype(true)
     .chunk(nil)
@@ -503,7 +503,7 @@ typecls 'cocos2d::ui::RelativeLayoutParameter'
     .prop('relativeToWidgetName', nil, nil)
     .prop('relativeName', nil, nil)
 
-typecls 'cocos2d::ui::Layout::Type'
+typeconf 'cocos2d::ui::Layout::Type'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -513,7 +513,7 @@ typecls 'cocos2d::ui::Layout::Type'
     .enum('HORIZONTAL', 'cocos2d::ui::Layout::Type::HORIZONTAL')
     .enum('RELATIVE', 'cocos2d::ui::Layout::Type::RELATIVE')
 
-typecls 'cocos2d::ui::Layout::ClippingType'
+typeconf 'cocos2d::ui::Layout::ClippingType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -521,7 +521,7 @@ typecls 'cocos2d::ui::Layout::ClippingType'
     .enum('STENCIL', 'cocos2d::ui::Layout::ClippingType::STENCIL')
     .enum('SCISSOR', 'cocos2d::ui::Layout::ClippingType::SCISSOR')
 
-typecls 'cocos2d::ui::Layout::BackGroundColorType'
+typeconf 'cocos2d::ui::Layout::BackGroundColorType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -530,7 +530,7 @@ typecls 'cocos2d::ui::Layout::BackGroundColorType'
     .enum('SOLID', 'cocos2d::ui::Layout::BackGroundColorType::SOLID')
     .enum('GRADIENT', 'cocos2d::ui::Layout::BackGroundColorType::GRADIENT')
 
-typecls 'cocos2d::ui::Layout'
+typeconf 'cocos2d::ui::Layout'
     .supercls('cocos2d::ui::Widget')
     .reg_luatype(true)
     .chunk(nil)
@@ -591,7 +591,7 @@ typecls 'cocos2d::ui::Layout'
     .prop('passFocusToChild', nil, nil)
     .prop('renderFile', nil, nil)
 
-typecls 'cocos2d::ui::HBox'
+typeconf 'cocos2d::ui::HBox'
     .supercls('cocos2d::ui::Layout')
     .reg_luatype(true)
     .chunk(nil)
@@ -600,7 +600,7 @@ typecls 'cocos2d::ui::HBox'
     .func(nil, 'static cocos2d::ui::HBox *create()', 'static cocos2d::ui::HBox *create(const cocos2d::Size &size)')
     .func(nil, 'bool initWithSize(const cocos2d::Size &size)')
 
-typecls 'cocos2d::ui::VBox'
+typeconf 'cocos2d::ui::VBox'
     .supercls('cocos2d::ui::Layout')
     .reg_luatype(true)
     .chunk(nil)
@@ -609,7 +609,7 @@ typecls 'cocos2d::ui::VBox'
     .func(nil, 'static cocos2d::ui::VBox *create()', 'static cocos2d::ui::VBox *create(const cocos2d::Size &size)')
     .func(nil, 'bool initWithSize(const cocos2d::Size &size)')
 
-typecls 'cocos2d::ui::RelativeBox'
+typeconf 'cocos2d::ui::RelativeBox'
     .supercls('cocos2d::ui::Layout')
     .reg_luatype(true)
     .chunk(nil)
@@ -618,14 +618,14 @@ typecls 'cocos2d::ui::RelativeBox'
     .func(nil, 'static cocos2d::ui::RelativeBox *create()', 'static cocos2d::ui::RelativeBox *create(const cocos2d::Size &size)')
     .func(nil, 'bool initWithSize(const cocos2d::Size &size)')
 
-typecls 'cocos2d::ui::WebView::ccWebViewCallback'
+typeconf 'cocos2d::ui::WebView::ccWebViewCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .ifdef('*', '#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)')
 
-typecls 'cocos2d::ui::WebView'
+typeconf 'cocos2d::ui::WebView'
     .supercls('cocos2d::ui::Widget')
     .reg_luatype(true)
     .chunk(nil)
@@ -728,7 +728,7 @@ typecls 'cocos2d::ui::WebView'
     .prop('onJSCallback', nil, nil)
     .prop('opacityWebView', nil, nil)
 
-typecls 'cocos2d::ui::VideoPlayer::EventType'
+typeconf 'cocos2d::ui::VideoPlayer::EventType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -740,14 +740,14 @@ typecls 'cocos2d::ui::VideoPlayer::EventType'
     .enum('COMPLETED', 'cocos2d::ui::VideoPlayer::EventType::COMPLETED')
     .enum('ERROR', 'cocos2d::ui::VideoPlayer::EventType::ERROR')
 
-typecls 'cocos2d::ui::VideoPlayer::ccVideoPlayerCallback'
+typeconf 'cocos2d::ui::VideoPlayer::ccVideoPlayerCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .ifdef('*', '#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)')
 
-typecls 'cocos2d::ui::VideoPlayer::StyleType'
+typeconf 'cocos2d::ui::VideoPlayer::StyleType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -756,7 +756,7 @@ typecls 'cocos2d::ui::VideoPlayer::StyleType'
     .enum('DEFAULT', 'cocos2d::ui::VideoPlayer::StyleType::DEFAULT')
     .enum('NONE', 'cocos2d::ui::VideoPlayer::StyleType::NONE')
 
-typecls 'cocos2d::ui::VideoPlayer'
+typeconf 'cocos2d::ui::VideoPlayer'
     .supercls('cocos2d::ui::Widget')
     .reg_luatype(true)
     .chunk(nil)
@@ -799,7 +799,7 @@ typecls 'cocos2d::ui::VideoPlayer'
     .prop('keepAspectRatioEnabled', nil, nil)
     .prop('fullScreenEnabled', nil, nil)
 
-typecls 'cocos2d::ui::AbstractCheckButton'
+typeconf 'cocos2d::ui::AbstractCheckButton'
     .supercls('cocos2d::ui::Widget')
     .reg_luatype(true)
     .chunk(nil)
@@ -838,7 +838,7 @@ typecls 'cocos2d::ui::AbstractCheckButton'
     .prop('crossNormalFile', nil, nil)
     .prop('crossDisabledFile', nil, nil)
 
-typecls 'cocos2d::ui::TabHeader::EventType'
+typeconf 'cocos2d::ui::TabHeader::EventType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -846,7 +846,7 @@ typecls 'cocos2d::ui::TabHeader::EventType'
     .enum('SELECTED', 'cocos2d::ui::TabHeader::EventType::SELECTED')
     .enum('UNSELECTED', 'cocos2d::ui::TabHeader::EventType::UNSELECTED')
 
-typecls 'cocos2d::ui::TabHeader'
+typeconf 'cocos2d::ui::TabHeader'
     .supercls('cocos2d::ui::AbstractCheckButton')
     .reg_luatype(true)
     .chunk(nil)
@@ -869,7 +869,7 @@ typecls 'cocos2d::ui::TabHeader'
     .prop('titleFontName', nil, nil)
     .prop('indexInTabControl', nil, nil)
 
-typecls 'cocos2d::ui::TabControl::Dock'
+typeconf 'cocos2d::ui::TabControl::Dock'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -879,20 +879,20 @@ typecls 'cocos2d::ui::TabControl::Dock'
     .enum('BOTTOM', 'cocos2d::ui::TabControl::Dock::BOTTOM')
     .enum('RIGHT', 'cocos2d::ui::TabControl::Dock::RIGHT')
 
-typecls 'cocos2d::ui::TabControl::EventType'
+typeconf 'cocos2d::ui::TabControl::EventType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .enum('SELECT_CHANGED', 'cocos2d::ui::TabControl::EventType::SELECT_CHANGED')
 
-typecls 'cocos2d::ui::TabControl::ccTabControlCallback'
+typeconf 'cocos2d::ui::TabControl::ccTabControlCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::ui::TabControl'
+typeconf 'cocos2d::ui::TabControl'
     .supercls('cocos2d::ui::Widget')
     .reg_luatype(true)
     .chunk(nil)
@@ -933,7 +933,7 @@ typecls 'cocos2d::ui::TabControl'
     .prop('headerSelectedZoom', nil, nil)
     .prop('headerDockPlace', nil, nil)
 
-typecls 'cocos2d::ui::ScrollView::Direction'
+typeconf 'cocos2d::ui::ScrollView::Direction'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -943,7 +943,7 @@ typecls 'cocos2d::ui::ScrollView::Direction'
     .enum('HORIZONTAL', 'cocos2d::ui::ScrollView::Direction::HORIZONTAL')
     .enum('BOTH', 'cocos2d::ui::ScrollView::Direction::BOTH')
 
-typecls 'cocos2d::ui::ScrollView::EventType'
+typeconf 'cocos2d::ui::ScrollView::EventType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -962,13 +962,13 @@ typecls 'cocos2d::ui::ScrollView::EventType'
     .enum('SCROLLING_ENDED', 'cocos2d::ui::ScrollView::EventType::SCROLLING_ENDED')
     .enum('AUTOSCROLL_ENDED', 'cocos2d::ui::ScrollView::EventType::AUTOSCROLL_ENDED')
 
-typecls 'cocos2d::ui::ScrollView::ccScrollViewCallback'
+typeconf 'cocos2d::ui::ScrollView::ccScrollViewCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::ui::ScrollView'
+typeconf 'cocos2d::ui::ScrollView'
     .supercls('cocos2d::ui::Layout')
     .reg_luatype(true)
     .chunk(nil)
@@ -1066,7 +1066,7 @@ typecls 'cocos2d::ui::ScrollView'
     .prop('scrolling', nil, nil)
     .prop('autoScrolling', nil, nil)
 
-typecls 'cocos2d::ui::ListView::Gravity'
+typeconf 'cocos2d::ui::ListView::Gravity'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1078,7 +1078,7 @@ typecls 'cocos2d::ui::ListView::Gravity'
     .enum('BOTTOM', 'cocos2d::ui::ListView::Gravity::BOTTOM')
     .enum('CENTER_VERTICAL', 'cocos2d::ui::ListView::Gravity::CENTER_VERTICAL')
 
-typecls 'cocos2d::ui::ListView::EventType'
+typeconf 'cocos2d::ui::ListView::EventType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1086,7 +1086,7 @@ typecls 'cocos2d::ui::ListView::EventType'
     .enum('ON_SELECTED_ITEM_START', 'cocos2d::ui::ListView::EventType::ON_SELECTED_ITEM_START')
     .enum('ON_SELECTED_ITEM_END', 'cocos2d::ui::ListView::EventType::ON_SELECTED_ITEM_END')
 
-typecls 'cocos2d::ui::ListView::MagneticType'
+typeconf 'cocos2d::ui::ListView::MagneticType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1099,13 +1099,13 @@ typecls 'cocos2d::ui::ListView::MagneticType'
     .enum('TOP', 'cocos2d::ui::ListView::MagneticType::TOP')
     .enum('BOTTOM', 'cocos2d::ui::ListView::MagneticType::BOTTOM')
 
-typecls 'cocos2d::ui::ListView::ccListViewCallback'
+typeconf 'cocos2d::ui::ListView::ccListViewCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::ui::ListView'
+typeconf 'cocos2d::ui::ListView'
     .supercls('cocos2d::ui::ScrollView')
     .reg_luatype(true)
     .chunk(nil)
@@ -1180,7 +1180,7 @@ typecls 'cocos2d::ui::ListView'
     .prop('bottommostItemInCurrentView', nil, nil)
     .prop('curSelectedIndex', nil, nil)
 
-typecls 'cocos2d::ui::LoadingBar::Direction'
+typeconf 'cocos2d::ui::LoadingBar::Direction'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1188,7 +1188,7 @@ typecls 'cocos2d::ui::LoadingBar::Direction'
     .enum('LEFT', 'cocos2d::ui::LoadingBar::Direction::LEFT')
     .enum('RIGHT', 'cocos2d::ui::LoadingBar::Direction::RIGHT')
 
-typecls 'cocos2d::ui::LoadingBar'
+typeconf 'cocos2d::ui::LoadingBar'
     .supercls('cocos2d::ui::Widget')
     .reg_luatype(true)
     .chunk(nil)
@@ -1212,14 +1212,14 @@ typecls 'cocos2d::ui::LoadingBar'
     .prop('capInsets', nil, nil)
     .prop('renderFile', nil, nil)
 
-typecls 'cocos2d::ui::PageView::EventType'
+typeconf 'cocos2d::ui::PageView::EventType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .enum('TURNING', 'cocos2d::ui::PageView::EventType::TURNING')
 
-typecls 'cocos2d::ui::PageView::TouchDirection'
+typeconf 'cocos2d::ui::PageView::TouchDirection'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1229,13 +1229,13 @@ typecls 'cocos2d::ui::PageView::TouchDirection'
     .enum('UP', 'cocos2d::ui::PageView::TouchDirection::UP')
     .enum('DOWN', 'cocos2d::ui::PageView::TouchDirection::DOWN')
 
-typecls 'cocos2d::ui::PageView::ccPageViewCallback'
+typeconf 'cocos2d::ui::PageView::ccPageViewCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::ui::PageView'
+typeconf 'cocos2d::ui::PageView'
     .supercls('cocos2d::ui::ListView')
     .reg_luatype(true)
     .chunk(nil)
@@ -1293,7 +1293,7 @@ typecls 'cocos2d::ui::PageView'
     .prop('indicatorIndexNodesOpacity', nil, nil)
     .prop('indicatorIndexNodesScale', nil, nil)
 
-typecls 'cocos2d::ui::RichElement::Type'
+typeconf 'cocos2d::ui::RichElement::Type'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1303,7 +1303,7 @@ typecls 'cocos2d::ui::RichElement::Type'
     .enum('CUSTOM', 'cocos2d::ui::RichElement::Type::CUSTOM')
     .enum('NEWLINE', 'cocos2d::ui::RichElement::Type::NEWLINE')
 
-typecls 'cocos2d::ui::RichElement'
+typeconf 'cocos2d::ui::RichElement'
     .supercls('cocos2d::Ref')
     .reg_luatype(true)
     .chunk(nil)
@@ -1313,7 +1313,7 @@ typecls 'cocos2d::ui::RichElement'
     .func(nil, 'bool equalType(cocos2d::ui::RichElement::Type type)')
     .func(nil, 'void setColor(const cocos2d::Color3B &color)')
 
-typecls 'cocos2d::ui::RichElementText'
+typeconf 'cocos2d::ui::RichElementText'
     .supercls('cocos2d::ui::RichElement')
     .reg_luatype(true)
     .chunk(nil)
@@ -1322,7 +1322,7 @@ typecls 'cocos2d::ui::RichElementText'
     .func(nil, 'bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)')
     .func(nil, 'static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)')
 
-typecls 'cocos2d::ui::RichElementImage'
+typeconf 'cocos2d::ui::RichElementImage'
     .supercls('cocos2d::ui::RichElement')
     .reg_luatype(true)
     .chunk(nil)
@@ -1334,7 +1334,7 @@ typecls 'cocos2d::ui::RichElementImage'
     .func(nil, 'void setHeight(int height)')
     .func(nil, 'void setUrl(const std::string &url)')
 
-typecls 'cocos2d::ui::RichElementCustomNode'
+typeconf 'cocos2d::ui::RichElementCustomNode'
     .supercls('cocos2d::ui::RichElement')
     .reg_luatype(true)
     .chunk(nil)
@@ -1343,7 +1343,7 @@ typecls 'cocos2d::ui::RichElementCustomNode'
     .func(nil, 'bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, cocos2d::Node *customNode)')
     .func(nil, 'static cocos2d::ui::RichElementCustomNode *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, cocos2d::Node *customNode)')
 
-typecls 'cocos2d::ui::RichElementNewLine'
+typeconf 'cocos2d::ui::RichElementNewLine'
     .supercls('cocos2d::ui::RichElement')
     .reg_luatype(true)
     .chunk(nil)
@@ -1351,7 +1351,7 @@ typecls 'cocos2d::ui::RichElementNewLine'
     .func(nil, 'RichElementNewLine()')
     .func(nil, 'static cocos2d::ui::RichElementNewLine *create(int tag, const cocos2d::Color3B &color, uint8_t opacity)')
 
-typecls 'cocos2d::ui::RichText::WrapMode'
+typeconf 'cocos2d::ui::RichText::WrapMode'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1359,7 +1359,7 @@ typecls 'cocos2d::ui::RichText::WrapMode'
     .enum('WRAP_PER_WORD', 'cocos2d::ui::RichText::WrapMode::WRAP_PER_WORD')
     .enum('WRAP_PER_CHAR', 'cocos2d::ui::RichText::WrapMode::WRAP_PER_CHAR')
 
-typecls 'cocos2d::ui::RichText::HorizontalAlignment'
+typeconf 'cocos2d::ui::RichText::HorizontalAlignment'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1368,13 +1368,13 @@ typecls 'cocos2d::ui::RichText::HorizontalAlignment'
     .enum('CENTER', 'cocos2d::ui::RichText::HorizontalAlignment::CENTER')
     .enum('RIGHT', 'cocos2d::ui::RichText::HorizontalAlignment::RIGHT')
 
-typecls 'cocos2d::ui::RichText::OpenUrlHandler'
+typeconf 'cocos2d::ui::RichText::OpenUrlHandler'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::ui::RichText'
+typeconf 'cocos2d::ui::RichText'
     .supercls('cocos2d::ui::Widget')
     .reg_luatype(true)
     .chunk(nil)
@@ -1507,7 +1507,7 @@ typecls 'cocos2d::ui::RichText'
     .prop('anchorTextGlowColor3B', nil, nil)
     .prop('defaults', nil, nil)
 
-typecls 'cocos2d::ui::ScrollViewBar'
+typeconf 'cocos2d::ui::ScrollViewBar'
     .supercls('cocos2d::ProtectedNode')
     .reg_luatype(true)
     .chunk(nil)
@@ -1530,7 +1530,7 @@ typecls 'cocos2d::ui::ScrollViewBar'
     .prop('autoHideEnabled', nil, nil)
     .prop('autoHideTime', nil, nil)
 
-typecls 'cocos2d::ui::Slider::EventType'
+typeconf 'cocos2d::ui::Slider::EventType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1540,13 +1540,13 @@ typecls 'cocos2d::ui::Slider::EventType'
     .enum('ON_SLIDEBALL_UP', 'cocos2d::ui::Slider::EventType::ON_SLIDEBALL_UP')
     .enum('ON_SLIDEBALL_CANCEL', 'cocos2d::ui::Slider::EventType::ON_SLIDEBALL_CANCEL')
 
-typecls 'cocos2d::ui::Slider::ccSliderCallback'
+typeconf 'cocos2d::ui::Slider::ccSliderCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::ui::Slider'
+typeconf 'cocos2d::ui::Slider'
     .supercls('cocos2d::ui::Widget')
     .reg_luatype(true)
     .chunk(nil)
@@ -1608,7 +1608,7 @@ typecls 'cocos2d::ui::Slider'
     .prop('ballPressedFile', nil, nil)
     .prop('ballDisabledFile', nil, nil)
 
-typecls 'cocos2d::ui::Text::Type'
+typeconf 'cocos2d::ui::Text::Type'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1616,7 +1616,7 @@ typecls 'cocos2d::ui::Text::Type'
     .enum('SYSTEM', 'cocos2d::ui::Text::Type::SYSTEM')
     .enum('TTF', 'cocos2d::ui::Text::Type::TTF')
 
-typecls 'cocos2d::ui::Text'
+typeconf 'cocos2d::ui::Text'
     .supercls('cocos2d::ui::Widget')
     .reg_luatype(true)
     .chunk(nil)
@@ -1678,7 +1678,7 @@ typecls 'cocos2d::ui::Text'
     .prop('effectColor', nil, nil)
     .prop('blendFunc', nil, nil)
 
-typecls 'cocos2d::ui::TextAtlas'
+typeconf 'cocos2d::ui::TextAtlas'
     .supercls('cocos2d::ui::Widget')
     .reg_luatype(true)
     .chunk(nil)
@@ -1696,7 +1696,7 @@ typecls 'cocos2d::ui::TextAtlas'
     .prop('stringLength', nil, nil)
     .prop('renderFile', nil, nil)
 
-typecls 'cocos2d::ui::TextBMFont'
+typeconf 'cocos2d::ui::TextBMFont'
     .supercls('cocos2d::ui::Widget')
     .reg_luatype(true)
     .chunk(nil)
@@ -1714,7 +1714,7 @@ typecls 'cocos2d::ui::TextBMFont'
     .prop('stringLength', nil, nil)
     .prop('renderFile', nil, nil)
 
-typecls 'cocos2d::ui::UICCTextField'
+typeconf 'cocos2d::ui::UICCTextField'
     .supercls('cocos2d::TextFieldTTF')
     .reg_luatype(true)
     .chunk(nil)
@@ -1752,7 +1752,7 @@ typecls 'cocos2d::ui::UICCTextField'
     .prop('insertText', nil, nil)
     .prop('deleteBackward', nil, nil)
 
-typecls 'cocos2d::ui::TextField::EventType'
+typeconf 'cocos2d::ui::TextField::EventType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1762,13 +1762,13 @@ typecls 'cocos2d::ui::TextField::EventType'
     .enum('INSERT_TEXT', 'cocos2d::ui::TextField::EventType::INSERT_TEXT')
     .enum('DELETE_BACKWARD', 'cocos2d::ui::TextField::EventType::DELETE_BACKWARD')
 
-typecls 'cocos2d::ui::TextField::ccTextFieldCallback'
+typeconf 'cocos2d::ui::TextField::ccTextFieldCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::ui::TextField'
+typeconf 'cocos2d::ui::TextField'
     .supercls('cocos2d::ui::Widget')
     .reg_luatype(true)
     .chunk(nil)
@@ -1849,7 +1849,7 @@ typecls 'cocos2d::ui::TextField'
     .prop('textHorizontalAlignment', nil, nil)
     .prop('textVerticalAlignment', nil, nil)
 
-typecls 'cocos2d::ui::Button'
+typeconf 'cocos2d::ui::Button'
     .supercls('cocos2d::ui::Widget')
     .reg_luatype(true)
     .chunk(nil)
@@ -1915,7 +1915,7 @@ typecls 'cocos2d::ui::Button'
     .prop('disabledFile', nil, nil)
     .prop('normalTextureSize', nil, nil)
 
-typecls 'cocos2d::ui::CheckBox::EventType'
+typeconf 'cocos2d::ui::CheckBox::EventType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1923,13 +1923,13 @@ typecls 'cocos2d::ui::CheckBox::EventType'
     .enum('SELECTED', 'cocos2d::ui::CheckBox::EventType::SELECTED')
     .enum('UNSELECTED', 'cocos2d::ui::CheckBox::EventType::UNSELECTED')
 
-typecls 'cocos2d::ui::CheckBox::ccCheckBoxCallback'
+typeconf 'cocos2d::ui::CheckBox::ccCheckBoxCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::ui::CheckBox'
+typeconf 'cocos2d::ui::CheckBox'
     .supercls('cocos2d::ui::AbstractCheckButton')
     .reg_luatype(true)
     .chunk(nil)
@@ -1947,7 +1947,7 @@ typecls 'cocos2d::ui::CheckBox'
         TAG_SCOPE = 'object',
     }
 
-typecls 'cocos2d::ui::RadioButton::EventType'
+typeconf 'cocos2d::ui::RadioButton::EventType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -1955,13 +1955,13 @@ typecls 'cocos2d::ui::RadioButton::EventType'
     .enum('SELECTED', 'cocos2d::ui::RadioButton::EventType::SELECTED')
     .enum('UNSELECTED', 'cocos2d::ui::RadioButton::EventType::UNSELECTED')
 
-typecls 'cocos2d::ui::RadioButton::ccRadioButtonCallback'
+typeconf 'cocos2d::ui::RadioButton::ccRadioButtonCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::ui::RadioButton'
+typeconf 'cocos2d::ui::RadioButton'
     .supercls('cocos2d::ui::AbstractCheckButton')
     .reg_luatype(true)
     .chunk(nil)
@@ -1979,20 +1979,20 @@ typecls 'cocos2d::ui::RadioButton'
         TAG_SCOPE = 'object',
     }
 
-typecls 'cocos2d::ui::RadioButtonGroup::EventType'
+typeconf 'cocos2d::ui::RadioButtonGroup::EventType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .enum('SELECT_CHANGED', 'cocos2d::ui::RadioButtonGroup::EventType::SELECT_CHANGED')
 
-typecls 'cocos2d::ui::RadioButtonGroup::ccRadioButtonGroupCallback'
+typeconf 'cocos2d::ui::RadioButtonGroup::ccRadioButtonGroupCallback'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'cocos2d::ui::RadioButtonGroup'
+typeconf 'cocos2d::ui::RadioButtonGroup'
     .supercls('cocos2d::ui::Widget')
     .reg_luatype(true)
     .chunk(nil)
@@ -2022,7 +2022,7 @@ typecls 'cocos2d::ui::RadioButtonGroup'
     .prop('numberOfRadioButtons', nil, nil)
     .prop('allowedNoSelection', nil, nil)
 
-typecls 'cocos2d::ui::ImageView'
+typeconf 'cocos2d::ui::ImageView'
     .supercls('cocos2d::ui::Widget')
     .reg_luatype(true)
     .chunk(nil)
@@ -2045,7 +2045,7 @@ typecls 'cocos2d::ui::ImageView'
     .prop('blendFunc', nil, nil)
     .prop('renderFile', nil, nil)
 
-typecls 'cocos2d::ui::EditBoxDelegate::EditBoxEndAction'
+typeconf 'cocos2d::ui::EditBoxDelegate::EditBoxEndAction'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2055,7 +2055,7 @@ typecls 'cocos2d::ui::EditBoxDelegate::EditBoxEndAction'
     .enum('TAB_TO_PREVIOUS', 'cocos2d::ui::EditBoxDelegate::EditBoxEndAction::TAB_TO_PREVIOUS')
     .enum('RETURN', 'cocos2d::ui::EditBoxDelegate::EditBoxEndAction::RETURN')
 
-typecls 'cocos2d::ui::EditBoxDelegate'
+typeconf 'cocos2d::ui::EditBoxDelegate'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2065,7 +2065,7 @@ typecls 'cocos2d::ui::EditBoxDelegate'
     .func(nil, 'void editBoxReturn(cocos2d::ui::EditBox *editBox)')
     .func(nil, 'void editBoxEditingDidEndWithAction(cocos2d::ui::EditBox *, cocos2d::ui::EditBoxDelegate::EditBoxEndAction )')
 
-typecls 'cocos2d::ui::LuaEditBoxDelegate'
+typeconf 'cocos2d::ui::LuaEditBoxDelegate'
     .supercls('cocos2d::ui::EditBoxDelegate')
     .reg_luatype(true)
     .chunk(nil)
@@ -2076,7 +2076,7 @@ typecls 'cocos2d::ui::LuaEditBoxDelegate'
     .var('onReturn', '@nullable @local std::function<void (cocos2d::ui::EditBox *)> onReturn')
     .var('onEditingDidEndWithAction', '@nullable @local std::function<void (cocos2d::ui::EditBox *, EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction')
 
-typecls 'cocos2d::ui::EditBox::KeyboardReturnType'
+typeconf 'cocos2d::ui::EditBox::KeyboardReturnType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2088,7 +2088,7 @@ typecls 'cocos2d::ui::EditBox::KeyboardReturnType'
     .enum('GO', 'cocos2d::ui::EditBox::KeyboardReturnType::GO')
     .enum('NEXT', 'cocos2d::ui::EditBox::KeyboardReturnType::NEXT')
 
-typecls 'cocos2d::ui::EditBox::InputMode'
+typeconf 'cocos2d::ui::EditBox::InputMode'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2101,7 +2101,7 @@ typecls 'cocos2d::ui::EditBox::InputMode'
     .enum('DECIMAL', 'cocos2d::ui::EditBox::InputMode::DECIMAL')
     .enum('SINGLE_LINE', 'cocos2d::ui::EditBox::InputMode::SINGLE_LINE')
 
-typecls 'cocos2d::ui::EditBox::InputFlag'
+typeconf 'cocos2d::ui::EditBox::InputFlag'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -2113,7 +2113,7 @@ typecls 'cocos2d::ui::EditBox::InputFlag'
     .enum('INITIAL_CAPS_ALL_CHARACTERS', 'cocos2d::ui::EditBox::InputFlag::INITIAL_CAPS_ALL_CHARACTERS')
     .enum('LOWERCASE_ALL_CHARACTERS', 'cocos2d::ui::EditBox::InputFlag::LOWERCASE_ALL_CHARACTERS')
 
-typecls 'cocos2d::ui::EditBox'
+typeconf 'cocos2d::ui::EditBox'
     .supercls('cocos2d::ui::Widget')
     .reg_luatype(true)
     .chunk(nil)

@@ -1,5 +1,5 @@
-return {
-    HEADERS = [[
+clang {
+    headers = [[
         #include "cocos2d.h"
         #include "3d/CC3DProgramInfo.h"
         #include "3d/CCBundle3D.h"
@@ -41,14 +41,16 @@ return {
         #include "jiguang/JiGuang.h"
         #include "wechat/WeChat.h"
         #include "bugly/CrashReport.h"
+        #include "apple/Apple.h"
     ]],
-    FLAGS = {
+    flags = {
         '-DCC_CONSTRUCTOR_ACCESS=public',
         '-DCC_ENABLE_SCRIPT_BINDING=0',
         '-DSPINE_USE_STD_FUNCTION',
         '-DCCLUA_BUILD_JPUSH',
         '-DCCLUA_BUILD_JAUTH',
         '-DCCLUA_BUILD_JANALYTICS',
+        '-DCCLUA_BUILD_APPLE_AUTH',
         '-I../../frameworks/cocos2d-x/cocos',
         '-I../../frameworks/cocos2d-x/cocos/editor-support',
         '-I../../frameworks/cocos2d-x/cocos/platform',

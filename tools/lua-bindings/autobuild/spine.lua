@@ -109,7 +109,7 @@ CHUNK = [[
 ]]
 
 
-typecls 'spine::EventType'
+typeconf 'spine::EventType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -121,7 +121,7 @@ typecls 'spine::EventType'
     .enum('Dispose', 'spine::EventType::EventType_Dispose')
     .enum('Event', 'spine::EventType::EventType_Event')
 
-typecls 'spine::AttachmentType'
+typeconf 'spine::AttachmentType'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -134,7 +134,7 @@ typecls 'spine::AttachmentType'
     .enum('Point', 'spine::AttachmentType::AttachmentType_Point')
     .enum('Clipping', 'spine::AttachmentType::AttachmentType_Clipping')
 
-typecls 'spine::TransformMode'
+typeconf 'spine::TransformMode'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -145,7 +145,7 @@ typecls 'spine::TransformMode'
     .enum('NoScale', 'spine::TransformMode::TransformMode_NoScale')
     .enum('NoScaleOrReflection', 'spine::TransformMode::TransformMode_NoScaleOrReflection')
 
-typecls 'spine::BlendMode'
+typeconf 'spine::BlendMode'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -155,7 +155,7 @@ typecls 'spine::BlendMode'
     .enum('Multiply', 'spine::BlendMode::BlendMode_Multiply')
     .enum('Screen', 'spine::BlendMode::BlendMode_Screen')
 
-typecls 'spine::PositionMode'
+typeconf 'spine::PositionMode'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -163,7 +163,7 @@ typecls 'spine::PositionMode'
     .enum('Fixed', 'spine::PositionMode::PositionMode_Fixed')
     .enum('Percent', 'spine::PositionMode::PositionMode_Percent')
 
-typecls 'spine::SpacingMode'
+typeconf 'spine::SpacingMode'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -172,7 +172,7 @@ typecls 'spine::SpacingMode'
     .enum('Fixed', 'spine::SpacingMode::SpacingMode_Fixed')
     .enum('Percent', 'spine::SpacingMode::SpacingMode_Percent')
 
-typecls 'spine::RotateMode'
+typeconf 'spine::RotateMode'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -181,7 +181,7 @@ typecls 'spine::RotateMode'
     .enum('Chain', 'spine::RotateMode::RotateMode_Chain')
     .enum('ChainScale', 'spine::RotateMode::RotateMode_ChainScale')
 
-typecls 'spine::MixBlend'
+typeconf 'spine::MixBlend'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
@@ -191,13 +191,13 @@ typecls 'spine::MixBlend'
     .enum('Replace', 'spine::MixBlend::MixBlend_Replace')
     .enum('Add', 'spine::MixBlend::MixBlend_Add')
 
-typecls 'spine::SpineObject'
+typeconf 'spine::SpineObject'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'spine::Event'
+typeconf 'spine::Event'
     .supercls('spine::SpineObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -222,7 +222,7 @@ typecls 'spine::Event'
     .prop('volume', nil, nil)
     .prop('balance', nil, nil)
 
-typecls 'spine::EventData'
+typeconf 'spine::EventData'
     .supercls('spine::SpineObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -249,7 +249,7 @@ typecls 'spine::EventData'
     .prop('volume', nil, nil)
     .prop('balance', nil, nil)
 
-typecls 'spine::Updatable'
+typeconf 'spine::Updatable'
     .supercls('spine::SpineObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -259,13 +259,13 @@ typecls 'spine::Updatable'
     .func(nil, 'void setActive(bool inValue)')
     .prop('active', nil, nil)
 
-typecls 'spine::AnimationStateListener'
+typeconf 'spine::AnimationStateListener'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'spine::AnimationState'
+typeconf 'spine::AnimationState'
     .supercls('spine::SpineObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -299,7 +299,7 @@ typecls 'spine::AnimationState'
     .prop('tracks', nil, nil)
     .prop('timeScale', nil, nil)
 
-typecls 'spine::AnimationStateData'
+typeconf 'spine::AnimationStateData'
     .supercls('spine::SpineObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -313,7 +313,7 @@ typecls 'spine::AnimationStateData'
     .prop('skeletonData', nil, nil)
     .prop('defaultMix', nil, nil)
 
-typecls 'spine::Animation'
+typeconf 'spine::Animation'
     .supercls('spine::SpineObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -328,7 +328,7 @@ typecls 'spine::Animation'
     .prop('timelines', nil, nil)
     .prop('duration', nil, nil)
 
-typecls 'spine::ConstraintData'
+typeconf 'spine::ConstraintData'
     .supercls('spine::SpineObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -343,7 +343,7 @@ typecls 'spine::ConstraintData'
     .prop('order', nil, nil)
     .prop('skinRequired', nil, nil)
 
-typecls 'spine::IkConstraintData'
+typeconf 'spine::IkConstraintData'
     .supercls('spine::ConstraintData')
     .reg_luatype(true)
     .chunk(nil)
@@ -373,7 +373,7 @@ typecls 'spine::IkConstraintData'
     .prop('mix', nil, nil)
     .prop('softness', nil, nil)
 
-typecls 'spine::BoneData'
+typeconf 'spine::BoneData'
     .supercls('spine::SpineObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -416,7 +416,7 @@ typecls 'spine::BoneData'
     .prop('transformMode', nil, nil)
     .prop('skinRequired', nil, nil)
 
-typecls 'spine::SlotData'
+typeconf 'spine::SlotData'
     .supercls('spine::SpineObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -438,7 +438,7 @@ typecls 'spine::SlotData'
     .prop('attachmentName', nil, nil)
     .prop('blendMode', nil, nil)
 
-typecls 'spine::IkConstraint'
+typeconf 'spine::IkConstraint'
     .supercls('spine::Updatable')
     .reg_luatype(true)
     .chunk(nil)
@@ -467,7 +467,7 @@ typecls 'spine::IkConstraint'
     .prop('mix', nil, nil)
     .prop('softness', nil, nil)
 
-typecls 'spine::TransformConstraint'
+typeconf 'spine::TransformConstraint'
     .supercls('spine::Updatable')
     .reg_luatype(true)
     .chunk(nil)
@@ -493,7 +493,7 @@ typecls 'spine::TransformConstraint'
     .prop('scaleMix', nil, nil)
     .prop('shearMix', nil, nil)
 
-typecls 'spine::TransformConstraintData'
+typeconf 'spine::TransformConstraintData'
     .supercls('spine::ConstraintData')
     .reg_luatype(true)
     .chunk(nil)
@@ -528,7 +528,7 @@ typecls 'spine::TransformConstraintData'
     .prop('relative', nil, nil)
     .prop('local', nil, nil)
 
-typecls 'spine::PathConstraintData'
+typeconf 'spine::PathConstraintData'
     .supercls('spine::ConstraintData')
     .reg_luatype(true)
     .chunk(nil)
@@ -564,7 +564,7 @@ typecls 'spine::PathConstraintData'
     .prop('rotateMix', nil, nil)
     .prop('translateMix', nil, nil)
 
-typecls 'spine::SkeletonBounds'
+typeconf 'spine::SkeletonBounds'
     .supercls('spine::SpineObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -580,13 +580,13 @@ typecls 'spine::SkeletonBounds'
     .prop('width', nil, nil)
     .prop('height', nil, nil)
 
-typecls 'spine::SkeletonClipping'
+typeconf 'spine::SkeletonClipping'
     .supercls('spine::SpineObject')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'spine::Timeline'
+typeconf 'spine::Timeline'
     .supercls('spine::SpineObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -594,7 +594,7 @@ typecls 'spine::Timeline'
     .func(nil, 'int getPropertyId()')
     .prop('propertyId', nil, nil)
 
-typecls 'spine::CurveTimeline'
+typeconf 'spine::CurveTimeline'
     .supercls('spine::Timeline')
     .reg_luatype(true)
     .chunk(nil)
@@ -607,7 +607,7 @@ typecls 'spine::CurveTimeline'
     .func(nil, 'float getCurveType(size_t frameIndex)')
     .prop('frameCount', nil, nil)
 
-typecls 'spine::AttachmentTimeline'
+typeconf 'spine::AttachmentTimeline'
     .supercls('spine::Timeline')
     .reg_luatype(true)
     .chunk(nil)
@@ -623,7 +623,7 @@ typecls 'spine::AttachmentTimeline'
     .prop('attachmentNames', nil, nil)
     .prop('frameCount', nil, nil)
 
-typecls 'spine::ColorTimeline'
+typeconf 'spine::ColorTimeline'
     .supercls('spine::CurveTimeline')
     .reg_luatype(true)
     .chunk(nil)
@@ -636,7 +636,7 @@ typecls 'spine::ColorTimeline'
     .prop('slotIndex', nil, nil)
     .prop('frames', nil, nil)
 
-typecls 'spine::DeformTimeline'
+typeconf 'spine::DeformTimeline'
     .supercls('spine::CurveTimeline')
     .reg_luatype(true)
     .chunk(nil)
@@ -651,7 +651,7 @@ typecls 'spine::DeformTimeline'
     .prop('frames', nil, nil)
     .prop('attachment', nil, nil)
 
-typecls 'spine::DrawOrderTimeline'
+typeconf 'spine::DrawOrderTimeline'
     .supercls('spine::Timeline')
     .reg_luatype(true)
     .chunk(nil)
@@ -662,7 +662,7 @@ typecls 'spine::DrawOrderTimeline'
     .prop('frames', nil, nil)
     .prop('frameCount', nil, nil)
 
-typecls 'spine::EventTimeline'
+typeconf 'spine::EventTimeline'
     .supercls('spine::Timeline')
     .reg_luatype(true)
     .chunk(nil)
@@ -673,7 +673,7 @@ typecls 'spine::EventTimeline'
     .prop('frames', nil, nil)
     .prop('frameCount', nil, nil)
 
-typecls 'spine::IkConstraintTimeline'
+typeconf 'spine::IkConstraintTimeline'
     .supercls('spine::CurveTimeline')
     .reg_luatype(true)
     .chunk(nil)
@@ -681,7 +681,7 @@ typecls 'spine::IkConstraintTimeline'
     .const('ENTRIES', 'spine::IkConstraintTimeline::ENTRIES', 'const int')
     .func(nil, 'IkConstraintTimeline(int frameCount)')
 
-typecls 'spine::PathConstraintMixTimeline'
+typeconf 'spine::PathConstraintMixTimeline'
     .supercls('spine::CurveTimeline')
     .reg_luatype(true)
     .chunk(nil)
@@ -689,7 +689,7 @@ typecls 'spine::PathConstraintMixTimeline'
     .const('ENTRIES', 'spine::PathConstraintMixTimeline::ENTRIES', 'const int')
     .func(nil, 'PathConstraintMixTimeline(int frameCount)')
 
-typecls 'spine::PathConstraintPositionTimeline'
+typeconf 'spine::PathConstraintPositionTimeline'
     .supercls('spine::CurveTimeline')
     .reg_luatype(true)
     .chunk(nil)
@@ -697,14 +697,14 @@ typecls 'spine::PathConstraintPositionTimeline'
     .const('ENTRIES', 'spine::PathConstraintPositionTimeline::ENTRIES', 'const int')
     .func(nil, 'PathConstraintPositionTimeline(int frameCount)')
 
-typecls 'spine::PathConstraintSpacingTimeline'
+typeconf 'spine::PathConstraintSpacingTimeline'
     .supercls('spine::PathConstraintPositionTimeline')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'PathConstraintSpacingTimeline(int frameCount)')
 
-typecls 'spine::TranslateTimeline'
+typeconf 'spine::TranslateTimeline'
     .supercls('spine::CurveTimeline')
     .reg_luatype(true)
     .chunk(nil)
@@ -712,14 +712,14 @@ typecls 'spine::TranslateTimeline'
     .const('ENTRIES', 'spine::TranslateTimeline::ENTRIES', 'const int')
     .func(nil, 'TranslateTimeline(int frameCount)')
 
-typecls 'spine::ShearTimeline'
+typeconf 'spine::ShearTimeline'
     .supercls('spine::TranslateTimeline')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'ShearTimeline(int frameCount)')
 
-typecls 'spine::TransformConstraintTimeline'
+typeconf 'spine::TransformConstraintTimeline'
     .supercls('spine::CurveTimeline')
     .reg_luatype(true)
     .chunk(nil)
@@ -727,14 +727,14 @@ typecls 'spine::TransformConstraintTimeline'
     .const('ENTRIES', 'spine::TransformConstraintTimeline::ENTRIES', 'const int')
     .func(nil, 'TransformConstraintTimeline(int frameCount)')
 
-typecls 'spine::ScaleTimeline'
+typeconf 'spine::ScaleTimeline'
     .supercls('spine::TranslateTimeline')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'ScaleTimeline(int frameCount)')
 
-typecls 'spine::RotateTimeline'
+typeconf 'spine::RotateTimeline'
     .supercls('spine::CurveTimeline')
     .reg_luatype(true)
     .chunk(nil)
@@ -747,7 +747,7 @@ typecls 'spine::RotateTimeline'
     .prop('boneIndex', nil, nil)
     .prop('frames', nil, nil)
 
-typecls 'spine::TwoColorTimeline'
+typeconf 'spine::TwoColorTimeline'
     .supercls('spine::CurveTimeline')
     .reg_luatype(true)
     .chunk(nil)
@@ -758,13 +758,13 @@ typecls 'spine::TwoColorTimeline'
     .func(nil, 'void setSlotIndex(int inValue)')
     .prop('slotIndex', nil, nil)
 
-typecls 'spine::VertexEffect'
+typeconf 'spine::VertexEffect'
     .supercls('spine::SpineObject')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'spine::SwirlVertexEffect'
+typeconf 'spine::SwirlVertexEffect'
     .supercls('spine::VertexEffect')
     .reg_luatype(true)
     .chunk(nil)
@@ -788,7 +788,7 @@ typecls 'spine::SwirlVertexEffect'
     .prop('worldX', nil, nil)
     .prop('worldY', nil, nil)
 
-typecls 'spine::JitterVertexEffect'
+typeconf 'spine::JitterVertexEffect'
     .supercls('spine::VertexEffect')
     .reg_luatype(true)
     .chunk(nil)
@@ -801,13 +801,13 @@ typecls 'spine::JitterVertexEffect'
     .prop('jitterX', nil, nil)
     .prop('jitterY', nil, nil)
 
-typecls 'spine::Polygon'
+typeconf 'spine::Polygon'
     .supercls('spine::SpineObject')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'spine::Skin'
+typeconf 'spine::Skin'
     .supercls('spine::SpineObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -825,13 +825,13 @@ typecls 'spine::Skin'
     .prop('bones', nil, nil)
     .prop('constraints', nil, nil)
 
-typecls 'spine::Atlas'
+typeconf 'spine::Atlas'
     .supercls('spine::SpineObject')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'spine::Bone'
+typeconf 'spine::Bone'
     .supercls('spine::Updatable')
     .reg_luatype(true)
     .chunk(nil)
@@ -924,7 +924,7 @@ typecls 'spine::Bone'
     .prop('worldScaleY', nil, nil)
     .prop('appliedValid', nil, nil)
 
-typecls 'spine::Slot'
+typeconf 'spine::Slot'
     .supercls('spine::SpineObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -947,7 +947,7 @@ typecls 'spine::Slot'
     .prop('attachmentTime', nil, nil)
     .prop('deform', nil, nil)
 
-typecls 'spine::Attachment'
+typeconf 'spine::Attachment'
     .supercls('spine::SpineObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -960,7 +960,7 @@ typecls 'spine::Attachment'
     .prop('name', nil, nil)
     .prop('refCount', nil, nil)
 
-typecls 'spine::VertexAttachment'
+typeconf 'spine::VertexAttachment'
     .supercls('spine::Attachment')
     .reg_luatype(true)
     .chunk(nil)
@@ -979,7 +979,7 @@ typecls 'spine::VertexAttachment'
     .prop('worldVerticesLength', nil, nil)
     .prop('deformAttachment', nil, nil)
 
-typecls 'spine::ClippingAttachment'
+typeconf 'spine::ClippingAttachment'
     .supercls('spine::VertexAttachment')
     .reg_luatype(true)
     .chunk(nil)
@@ -989,14 +989,14 @@ typecls 'spine::ClippingAttachment'
     .func(nil, 'void setEndSlot(spine::SlotData *inValue)')
     .prop('endSlot', nil, nil)
 
-typecls 'spine::BoundingBoxAttachment'
+typeconf 'spine::BoundingBoxAttachment'
     .supercls('spine::VertexAttachment')
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
     .func(nil, 'BoundingBoxAttachment(const spine::String &name)')
 
-typecls 'spine::MeshAttachment'
+typeconf 'spine::MeshAttachment'
     .supercls('spine::VertexAttachment')
     .reg_luatype(true)
     .chunk(nil)
@@ -1066,7 +1066,7 @@ typecls 'spine::MeshAttachment'
     .prop('width', nil, nil)
     .prop('height', nil, nil)
 
-typecls 'spine::PathAttachment'
+typeconf 'spine::PathAttachment'
     .supercls('spine::VertexAttachment')
     .reg_luatype(true)
     .chunk(nil)
@@ -1081,7 +1081,7 @@ typecls 'spine::PathAttachment'
     .prop('closed', nil, nil)
     .prop('constantSpeed', nil, nil)
 
-typecls 'spine::PathConstraint'
+typeconf 'spine::PathConstraint'
     .supercls('spine::Updatable')
     .reg_luatype(true)
     .chunk(nil)
@@ -1107,7 +1107,7 @@ typecls 'spine::PathConstraint'
     .prop('bones', nil, nil)
     .prop('target', nil, nil)
 
-typecls 'spine::PointAttachment'
+typeconf 'spine::PointAttachment'
     .supercls('spine::Attachment')
     .reg_luatype(true)
     .chunk(nil)
@@ -1123,7 +1123,7 @@ typecls 'spine::PointAttachment'
     .prop('y', nil, nil)
     .prop('rotation', nil, nil)
 
-typecls 'spine::RegionAttachment'
+typeconf 'spine::RegionAttachment'
     .supercls('spine::Attachment')
     .reg_luatype(true)
     .chunk(nil)
@@ -1180,7 +1180,7 @@ typecls 'spine::RegionAttachment'
     .prop('offset', nil, nil)
     .prop('uvs', nil, nil)
 
-typecls 'spine::TrackEntry'
+typeconf 'spine::TrackEntry'
     .supercls('spine::SpineObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -1259,7 +1259,7 @@ typecls 'spine::TrackEntry'
     .prop('mixingFrom', nil, nil)
     .prop('mixingTo', nil, nil)
 
-typecls 'spine::SkeletonData'
+typeconf 'spine::SkeletonData'
     .supercls('spine::SpineObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -1405,7 +1405,7 @@ typecls 'spine::SkeletonData'
     .prop('fps', nil, nil)
     .alias('__gc', 'dispose')
 
-typecls 'spine::Skeleton'
+typeconf 'spine::Skeleton'
     .supercls('spine::SpineObject')
     .reg_luatype(true)
     .chunk(nil)
@@ -1467,7 +1467,7 @@ typecls 'spine::Skeleton'
     .prop('scaleX', nil, nil)
     .prop('scaleY', nil, nil)
 
-typecls 'spine::SkeletonRenderer'
+typeconf 'spine::SkeletonRenderer'
     .supercls('cocos2d::Node')
     .reg_luatype(true)
     .chunk(nil)
@@ -1517,49 +1517,49 @@ typecls 'spine::SkeletonRenderer'
     .prop('twoColorTint', nil, nil)
     .prop('blendFunc', nil, nil)
 
-typecls 'spine::StartListener'
+typeconf 'spine::StartListener'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'spine::InterruptListener'
+typeconf 'spine::InterruptListener'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'spine::EndListener'
+typeconf 'spine::EndListener'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'spine::DisposeListener'
+typeconf 'spine::DisposeListener'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'spine::CompleteListener'
+typeconf 'spine::CompleteListener'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'spine::EventListener'
+typeconf 'spine::EventListener'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'spine::UpdateWorldTransformsListener'
+typeconf 'spine::UpdateWorldTransformsListener'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
 
-typecls 'spine::SkeletonAnimation'
+typeconf 'spine::SkeletonAnimation'
     .supercls('spine::SkeletonRenderer')
     .reg_luatype(true)
     .chunk(nil)

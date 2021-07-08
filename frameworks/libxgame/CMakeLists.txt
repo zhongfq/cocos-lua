@@ -7,6 +7,7 @@ include(src/cjson/CMakeLists.txt)
 include(src/lua-bindings/CMakeLists.txt)
 include(src/lua/CMakeLists.txt)
 include(src/olua/CMakeLists.txt)
+include(src/lfs/CMakeLists.txt)
 include(src/cclua/CMakeLists.txt)
 
 target_sources(xgame PRIVATE
@@ -15,6 +16,7 @@ target_sources(xgame PRIVATE
     ${CRYPTO_SRC}
     ${LUA_BINDINGS_SRC}
     ${LUA_SRC}
+    ${LFS_SRC}
     ${OLUA_SRC}
 
     ${CCLUA_HEADER}
@@ -22,6 +24,7 @@ target_sources(xgame PRIVATE
     ${CRYPTO_HEADER}
     ${LUA_BINDINGS_HEADER}
     ${LUA_HEADER}
+    ${LFS_HEADER}
     ${OLUA_HEADER}
 )
 
@@ -37,31 +40,6 @@ if(CCLUA_BUILD_BUGLY)
         set(BUGLY_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/src/bugly/Bugly.framework")
         target_link_libraries(xgame ${BUGLY_LIBRARY})
     endif()
-endif()
-
-if(CCLUA_BUILD_LUASOCKET)
-    include(src/luasocket/CMakeLists.txt)
-    target_sources(xgame PRIVATE ${LUASOCKET_HEADER} ${LUASOCKET_SRC})
-    target_compile_definitions(xgame PUBLIC CCLUA_BUILD_LUASOCKET)
-endif()
-
-if(CCLUA_BUILD_PBC)
-    include(src/pbc/CMakeLists.txt)
-    target_sources(xgame PRIVATE ${PBC_HEADER} ${PBC_SRC})
-    target_compile_definitions(xgame PUBLIC CCLUA_BUILD_PBC)
-endif()
-
-if(CCLUA_BUILD_SPROTO)
-    set(CCLUA_BUILD_LPEG ON)
-    include(src/sproto/CMakeLists.txt)
-    target_sources(xgame PRIVATE ${SPROTO_HEADER} ${SPROTO_SRC})
-    target_compile_definitions(xgame PUBLIC CCLUA_BUILD_SPROTO)
-endif()
-
-if(CCLUA_BUILD_LPEG)
-    include(src/lpeg/CMakeLists.txt)
-    target_sources(xgame PRIVATE ${LPEG_HEADER} ${LPEG_SRC})
-    target_compile_definitions(xgame PUBLIC CCLUA_BUILD_LPEG)
 endif()
 
 if(CCLUA_BUILD_LAME AND (IOS OR ANDROID))
@@ -130,8 +108,6 @@ if (IOS)
     find_library(STOREKIT_LIBRARY StoreKit)
     target_link_libraries(xgame ${STOREKIT_LIBRARY})
 endif()
-
-add_dependencies(xgame cocos2d)
 
 target_include_directories(xgame
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src

@@ -128,8 +128,6 @@ target_link_libraries(dragonbones
 	PRIVATE cocos2d
 )
 
-add_dependencies(dragonbones cocos2d)
-
 target_include_directories(dragonbones
 	PUBLIC ${DRAGONBONES_ROOT}/src
 )

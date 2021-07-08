@@ -52,8 +52,26 @@
 #endif // CCLUA_BUILD_SWF
 
 #ifdef CCLUA_BUILD_SQLITE3
-#include "lsqlite3.h"
+#include "sqlite3/lsqlite3.h"
 #endif // CCLUA_BUILD_SQLITE3
+
+#ifdef CCLUA_BUILD_LUASOCKET
+#include "luasocket/luasocket.h"
+#include "luasocket/luasocket_scripts.h"
+#include "luasocket/mime.h"
+#endif // CCLUA_BUILD_LUASOCKET
+
+#ifdef CCLUA_BUILD_PBC
+#include "pbc/pbc.h"
+#endif // CCLUA_BUILD_PBC
+
+#ifdef CCLUA_BUILD_SPROTO
+#include "sproto/lsproto.h"
+#endif // CCLUA_BUILD_SPROTO
+
+#ifdef CCLUA_BUILD_LPEG
+#include "lpeg/lptree.h"
+#endif //CCLUA_BUILD_LPEG
 
 #if defined(CCLUA_BUILD_JPUSH) || defined(CCLUA_BUILD_JANALYTICS) || defined(CCLUA_BUILD_JAUTH)
 #include "jiguang/lua_jiguang.h"
@@ -103,6 +121,24 @@ static int _open_plugins(lua_State *L)
 #ifdef CCLUA_BUILD_SQLITE3
     olua_require(L, "sqlite3", luaopen_lsqlite3);
 #endif
+    
+#ifdef CCLUA_BUILD_LUASOCKET
+    olua_require(L, "socket.core", luaopen_socket_core);
+    olua_require(L, "mime.core", luaopen_mime_core);
+    olua_require(L, "luasocket.scripts", luaopen_luasocket_scripts);
+#endif // CCLUA_BUILD_LUASOCKET
+
+#ifdef CCLUA_BUILD_SPROTO
+    olua_require(L, "sproto.core", luaopen_sproto_core);
+#endif //CCLUA_BUILD_SPROTO
+
+#ifdef CCLUA_BUILD_LPEG
+    olua_require(L, "lpeg", luaopen_lpeg);
+#endif // CCLUA_BUILD_LPEG
+
+#ifdef CCLUA_BUILD_PBC
+    olua_require(L, "protobuf.c", luaopen_protobuf_c);
+#endif // CCLUA_BUILD_PBC
     
 #if defined(CCLUA_BUILD_JPUSH) || defined(CCLUA_BUILD_JANALYTICS) || defined(CCLUA_BUILD_JAUTH)
     olua_callfunc(L, luaopen_jiguang);

@@ -122,7 +122,9 @@ public:
     static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, cocos2d::Texture2D::PixelFormat format = cocos2d::Texture2D::PixelFormat::RGBA8888, GLuint depthStencilFormat = 0x88f0);
 #endif
     
-    static void useSystemFrameRate(bool use);
+    static uint32_t getMaxFrameRate();
+    static uint32_t getFrameRate();
+    static void setFrameRate(uint32_t frameRate);
     
     // ios only
     static const PermissionStatus getPermissionStatus(Permission permission);

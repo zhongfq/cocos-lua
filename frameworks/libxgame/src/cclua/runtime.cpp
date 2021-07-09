@@ -393,9 +393,20 @@ const std::string runtime::getAudioSessionCatalog()
 #endif
 }
 
-void runtime::useSystemFrameRate(bool use)
+uint32_t runtime::getMaxFrameRate()
 {
-    __runtime_useSystemFrameRate(use);
+    return __runtime_getMaxFrameRate();
+}
+
+uint32_t runtime::getFrameRate()
+{
+    return (uint32_t)round(1.0 / Director::getInstance()->getAnimationInterval());
+}
+
+void runtime::setFrameRate(uint32_t frameRate)
+{
+    CCASSERT(frameRate > 0, "frameRate > 0");
+    Director::getInstance()->setAnimationInterval(1.0 / frameRate);
 }
 
 const PermissionStatus runtime::getPermissionStatus(Permission permission)

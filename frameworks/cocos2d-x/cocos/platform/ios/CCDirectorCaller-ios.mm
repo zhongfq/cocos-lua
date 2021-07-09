@@ -118,15 +118,6 @@ static id s_sharedDirectorCaller;
     displayLink.preferredFramesPerSecond = self.preferredFramesPerSecond;
     [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 }
-
--(void) useSystemFrameRate:(bool) use
-{
-    if (use) {
-        displayLink.preferredFramesPerSecond = 0;
-    } else {
-        displayLink.preferredFramesPerSecond = self.preferredFramesPerSecond;
-    }
-}
                       
 -(void) doCaller: (id) sender
 {

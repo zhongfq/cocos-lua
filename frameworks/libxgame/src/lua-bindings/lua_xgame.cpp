@@ -526,6 +526,19 @@ static int _cclua_runtime_getDeviceInfo(lua_State *L)
     return num_ret;
 }
 
+static int _cclua_runtime_getFrameRate(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static uint32_t getFrameRate()
+    uint32_t ret = cclua::runtime::getFrameRate();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cclua_runtime_getLanguage(lua_State *L)
 {
     olua_startinvoke(L);
@@ -559,6 +572,19 @@ static int _cclua_runtime_getManifestVersion(lua_State *L)
     // static const std::string getManifestVersion()
     const std::string ret = cclua::runtime::getManifestVersion();
     int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cclua_runtime_getMaxFrameRate(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static uint32_t getMaxFrameRate()
+    uint32_t ret = cclua::runtime::getMaxFrameRate();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
 
@@ -925,6 +951,22 @@ static int _cclua_runtime_setDispatcher(lua_State *L)
     return 0;
 }
 
+static int _cclua_runtime_setFrameRate(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Unsigned arg1 = 0;       /** frameRate */
+
+    olua_check_uint(L, 1, &arg1);
+
+    // static void setFrameRate(uint32_t frameRate)
+    cclua::runtime::setFrameRate((uint32_t)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cclua_runtime_setLogPath(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1019,22 +1061,6 @@ static int _cclua_runtime_testCrash(lua_State *L)
     return 0;
 }
 
-static int _cclua_runtime_useSystemFrameRate(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    bool arg1 = false;       /** use */
-
-    olua_check_bool(L, 1, &arg1);
-
-    // static void useSystemFrameRate(bool use)
-    cclua::runtime::useSystemFrameRate(arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 static int luaopen_cclua_runtime(lua_State *L)
 {
     oluacls_class(L, "cclua.runtime", nullptr);
@@ -1051,9 +1077,11 @@ static int luaopen_cclua_runtime(lua_State *L)
     oluacls_func(L, "getChannel", _cclua_runtime_getChannel);
     oluacls_func(L, "getCocosVersion", _cclua_runtime_getCocosVersion);
     oluacls_func(L, "getDeviceInfo", _cclua_runtime_getDeviceInfo);
+    oluacls_func(L, "getFrameRate", _cclua_runtime_getFrameRate);
     oluacls_func(L, "getLanguage", _cclua_runtime_getLanguage);
     oluacls_func(L, "getLogPath", _cclua_runtime_getLogPath);
     oluacls_func(L, "getManifestVersion", _cclua_runtime_getManifestVersion);
+    oluacls_func(L, "getMaxFrameRate", _cclua_runtime_getMaxFrameRate);
     oluacls_func(L, "getNetworkStatus", _cclua_runtime_getNetworkStatus);
     oluacls_func(L, "getOS", _cclua_runtime_getOS);
     oluacls_func(L, "getPackageName", _cclua_runtime_getPackageName);
@@ -1072,13 +1100,13 @@ static int luaopen_cclua_runtime(lua_State *L)
     oluacls_func(L, "restart", _cclua_runtime_restart);
     oluacls_func(L, "setAudioSessionCatalog", _cclua_runtime_setAudioSessionCatalog);
     oluacls_func(L, "setDispatcher", _cclua_runtime_setDispatcher);
+    oluacls_func(L, "setFrameRate", _cclua_runtime_setFrameRate);
     oluacls_func(L, "setLogPath", _cclua_runtime_setLogPath);
     oluacls_func(L, "setManifestVersion", _cclua_runtime_setManifestVersion);
     oluacls_func(L, "setPaste", _cclua_runtime_setPaste);
     oluacls_func(L, "setSampleCount", _cclua_runtime_setSampleCount);
     oluacls_func(L, "support", _cclua_runtime_support);
     oluacls_func(L, "testCrash", _cclua_runtime_testCrash);
-    oluacls_func(L, "useSystemFrameRate", _cclua_runtime_useSystemFrameRate);
     oluacls_prop(L, "appBuild", _cclua_runtime_getAppBuild, nullptr);
     oluacls_prop(L, "appVersion", _cclua_runtime_getAppVersion, nullptr);
     oluacls_prop(L, "audioSessionCatalog", _cclua_runtime_getAudioSessionCatalog, _cclua_runtime_setAudioSessionCatalog);
@@ -1087,9 +1115,11 @@ static int luaopen_cclua_runtime(lua_State *L)
     oluacls_prop(L, "cocosVersion", _cclua_runtime_getCocosVersion, nullptr);
     oluacls_prop(L, "debug", _cclua_runtime_isDebug, nullptr);
     oluacls_prop(L, "deviceInfo", _cclua_runtime_getDeviceInfo, nullptr);
+    oluacls_prop(L, "frameRate", _cclua_runtime_getFrameRate, _cclua_runtime_setFrameRate);
     oluacls_prop(L, "language", _cclua_runtime_getLanguage, nullptr);
     oluacls_prop(L, "logPath", _cclua_runtime_getLogPath, _cclua_runtime_setLogPath);
     oluacls_prop(L, "manifestVersion", _cclua_runtime_getManifestVersion, _cclua_runtime_setManifestVersion);
+    oluacls_prop(L, "maxFrameRate", _cclua_runtime_getMaxFrameRate, nullptr);
     oluacls_prop(L, "networkStatus", _cclua_runtime_getNetworkStatus, nullptr);
     oluacls_prop(L, "os", _cclua_runtime_getOS, nullptr);
     oluacls_prop(L, "packageName", _cclua_runtime_getPackageName, nullptr);

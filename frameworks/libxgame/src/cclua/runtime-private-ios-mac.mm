@@ -1,7 +1,6 @@
 #import "cclua/runtime.h"
 #import "cclua/runtime-private.h"
 #import "cocos2d.h"
-#import "platform/ios/CCDirectorCaller-ios.h"
 
 #import <sys/utsname.h>
 #import <AVFoundation/AVFoundation.h>
@@ -282,12 +281,12 @@ bool __runtime_canOpenURL(const std::string uri)
 #endif
 }
 
-void __runtime_useSystemFrameRate(bool use)
+uint32_t __runtime_getMaxFrameRate()
 {
 #ifdef CCLUA_OS_IOS
-    [[CCDirectorCaller sharedDirectorCaller] useSystemFrameRate:use];
+    return (uint32_t)[UIScreen mainScreen].maximumFramesPerSecond;
 #else
-    runtime::log("unsupport useSystemFrames");
+    return 0;
 #endif
 }
 

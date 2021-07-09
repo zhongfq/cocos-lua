@@ -25,6 +25,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
+import android.view.Display;
 import android.view.WindowManager;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
@@ -145,6 +146,13 @@ public class AppContext extends Cocos2dxActivity {
     public static String getDeviceInfo() {
         return String.format("%s, %s, %s, %s", Build.DISPLAY,
                 Build.VERSION.RELEASE, Build.VERSION.SDK_INT, Build.MODEL);
+    }
+
+    @SuppressWarnings("unused")
+    public static int getMaxFrameRate() {
+        final AppContext context = (AppContext) AppContext.getContext();
+        Display display = context.getWindowManager().getDefaultDisplay();
+        return (int)display.getRefreshRate();
     }
 
     @SuppressWarnings("unused")

@@ -22,6 +22,7 @@ if(APPLE)
     target_compile_options(sqlite3 PRIVATE -Wno-shorten-64-to-32)
     target_compile_options(sqlite3 PRIVATE -Wno-unreachable-code)
     target_compile_options(sqlite3 PRIVATE -Wno-comma)
+    target_compile_options(sqlite3 PRIVATE "-Wno-#warnings")
 endif()
 
 target_include_directories(sqlite3

@@ -37,7 +37,6 @@
 -(void) stopMainLoop;
 -(void) doCaller: (id) sender;
 -(void) setAnimationInterval:(double)interval;
--(void) useSystemFrameRate:(bool)use;
 +(id) sharedDirectorCaller;
 +(void) destroy;
 @end

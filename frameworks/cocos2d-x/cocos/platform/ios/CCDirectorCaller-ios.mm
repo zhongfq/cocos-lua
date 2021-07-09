@@ -113,10 +113,19 @@ static id s_sharedDirectorCaller;
     // Director::setAnimationInterval() is called, we should invalidate it first
     [self stopMainLoop];
         
-    self.preferredFramesPerSecond = (int)(1.0 / intervalNew);
+    self.preferredFramesPerSecond = (int)round((1.0 / intervalNew));
     displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(doCaller:)];
     displayLink.preferredFramesPerSecond = self.preferredFramesPerSecond;
     [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+}
+
+-(void) useSystemFrameRate:(bool) use
+{
+    if (use) {
+        displayLink.preferredFramesPerSecond = 0;
+    } else {
+        displayLink.preferredFramesPerSecond = self.preferredFramesPerSecond;
+    }
 }
                       
 -(void) doCaller: (id) sender

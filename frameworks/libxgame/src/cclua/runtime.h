@@ -122,6 +122,8 @@ public:
     static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, cocos2d::Texture2D::PixelFormat format = cocos2d::Texture2D::PixelFormat::RGBA8888, GLuint depthStencilFormat = 0x88f0);
 #endif
     
+    static void useSystemFrameRate(bool use);
+    
     // ios only
     static const PermissionStatus getPermissionStatus(Permission permission);
     static void requestPermission(Permission permission, const std::function<void (PermissionStatus)> callback);

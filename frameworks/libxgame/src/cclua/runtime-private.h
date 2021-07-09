@@ -19,6 +19,8 @@ const std::string __runtime_getNetworkStatus();
 void __runtime_openURL(const std::string uri, const std::function<void (bool)> callback);
 bool __runtime_canOpenURL(const std::string uri);
 
+void __runtime_useSystemFrameRate(bool use);
+
 #ifdef CCLUA_OS_IOS
 void __runtime_setAudioSessionCatalog(const std::string &catalog);
 const std::string __runtime_getAudioSessionCatalog();

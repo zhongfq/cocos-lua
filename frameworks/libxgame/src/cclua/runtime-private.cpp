@@ -68,6 +68,11 @@ bool __runtime_canOpenURL(const std::string uri)
     return Jni::callStaticBooleanMethod(JAVA_APPCONTEXT_CLASS, "canOpenURL", uri);
 }
 
+void __runtime_useSystemFrameRate(bool use)
+{
+    runtime::log("unsupport useSystemFrames");
+}
+
 const std::string __runtime_getLanguage()
 {
     static std::string value;
@@ -151,6 +156,11 @@ void __runtime_openURL(const std::string uri, const std::function<void(bool)> ca
 bool __runtime_canOpenURL(const std::string uri)
 {
 	return false;
+}
+
+void __runtime_useSystemFrameRate(bool use)
+{
+    runtime::log("unsupport useSystemFrames");
 }
 
 const std::string __runtime_getPaste()

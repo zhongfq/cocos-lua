@@ -1,6 +1,7 @@
 #import "cclua/runtime.h"
 #import "cclua/runtime-private.h"
 #import "cocos2d.h"
+#import "platform/ios/CCDirectorCaller-ios.h"
 
 #import <sys/utsname.h>
 #import <AVFoundation/AVFoundation.h>
@@ -278,6 +279,15 @@ bool __runtime_canOpenURL(const std::string uri)
     return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:[NSString stringWithUTF8String:uri.c_str()]]];
 #else
     return true;
+#endif
+}
+
+void __runtime_useSystemFrameRate(bool use)
+{
+#ifdef CCLUA_OS_IOS
+    [[CCDirectorCaller sharedDirectorCaller] useSystemFrameRate:use];
+#else
+    runtime::log("unsupport useSystemFrames");
 #endif
 }
 

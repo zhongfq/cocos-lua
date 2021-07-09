@@ -251,7 +251,7 @@ void runtime::luaOpen(lua_CFunction libfunc)
 //
 const std::string runtime::getVersion()
 {
-    return "2.4.2";
+    return "2.4.3";
 }
 
 const uint64_t runtime::getCocosVersion()
@@ -391,6 +391,11 @@ const std::string runtime::getAudioSessionCatalog()
 #else
     return "";
 #endif
+}
+
+void runtime::useSystemFrameRate(bool use)
+{
+    __runtime_useSystemFrameRate(use);
 }
 
 const PermissionStatus runtime::getPermissionStatus(Permission permission)

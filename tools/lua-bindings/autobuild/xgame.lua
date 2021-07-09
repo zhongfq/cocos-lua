@@ -108,6 +108,7 @@ typeconf 'cclua::runtime'
     .func(nil, 'static const std::string getPaste()')
     .func(nil, 'static void setPaste(const std::string &text)')
     .func(nil, 'static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)')
+    .func(nil, 'static void useSystemFrameRate(bool use)')
     .func(nil, 'static const cclua::PermissionStatus getPermissionStatus(cclua::Permission permission)')
     .func(nil, 'static void setAudioSessionCatalog(const std::string &catalog)')
     .func(nil, 'static const std::string getAudioSessionCatalog()')

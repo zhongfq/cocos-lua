@@ -1019,6 +1019,22 @@ static int _cclua_runtime_testCrash(lua_State *L)
     return 0;
 }
 
+static int _cclua_runtime_useSystemFrameRate(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    bool arg1 = false;       /** use */
+
+    olua_check_bool(L, 1, &arg1);
+
+    // static void useSystemFrameRate(bool use)
+    cclua::runtime::useSystemFrameRate(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_cclua_runtime(lua_State *L)
 {
     oluacls_class(L, "cclua.runtime", nullptr);
@@ -1062,6 +1078,7 @@ static int luaopen_cclua_runtime(lua_State *L)
     oluacls_func(L, "setSampleCount", _cclua_runtime_setSampleCount);
     oluacls_func(L, "support", _cclua_runtime_support);
     oluacls_func(L, "testCrash", _cclua_runtime_testCrash);
+    oluacls_func(L, "useSystemFrameRate", _cclua_runtime_useSystemFrameRate);
     oluacls_prop(L, "appBuild", _cclua_runtime_getAppBuild, nullptr);
     oluacls_prop(L, "appVersion", _cclua_runtime_getAppVersion, nullptr);
     oluacls_prop(L, "audioSessionCatalog", _cclua_runtime_getAudioSessionCatalog, _cclua_runtime_setAudioSessionCatalog);

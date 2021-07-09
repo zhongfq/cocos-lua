@@ -39,6 +39,7 @@ clang {
         #include "lua-bindings/LuaCocosAdapter.h"
 
         #include "jiguang/JiGuang.h"
+        #include "talkingdata/TalkingData.h"
         #include "wechat/WeChat.h"
         #include "bugly/CrashReport.h"
         #include "apple/Apple.h"
@@ -50,6 +51,7 @@ clang {
         '-DCCLUA_BUILD_JPUSH',
         '-DCCLUA_BUILD_JAUTH',
         '-DCCLUA_BUILD_JANALYTICS',
+        '-DCCLUA_BUILD_TALKINGDATA',
         '-DCCLUA_BUILD_APPLE_AUTH',
         '-I../../frameworks/cocos2d-x/cocos',
         '-I../../frameworks/cocos2d-x/cocos/editor-support',

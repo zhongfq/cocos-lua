@@ -93,6 +93,7 @@ endif()
 
 if(APPLE)
     set_xcode_property(xgame CLANG_ENABLE_OBJC_ARC "YES")
+    target_compile_options(xgame PUBLIC -Wno-nullability-completeness)
 endif()
 
 if (IOS)

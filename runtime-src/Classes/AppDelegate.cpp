@@ -78,6 +78,10 @@
 #include "jiguang/JiGuang.h"
 #endif
 
+#ifdef CCLUA_BUILD_TALKINGDATA
+#include "talkingdata/lua_talkingdata.h"
+#endif
+
 #ifdef CCLUA_BUILD_WECHAT
 #include "wechat/WeChat.h"
 #include "wechat/lua_wechat.h"
@@ -142,6 +146,10 @@ static int _open_plugins(lua_State *L)
     
 #if defined(CCLUA_BUILD_JPUSH) || defined(CCLUA_BUILD_JANALYTICS) || defined(CCLUA_BUILD_JAUTH)
     olua_callfunc(L, luaopen_jiguang);
+#endif
+    
+#ifdef CCLUA_BUILD_TALKINGDATA
+    olua_callfunc(L, luaopen_talkingdata);
 #endif
     
 #ifdef CCLUA_BUILD_WECHAT

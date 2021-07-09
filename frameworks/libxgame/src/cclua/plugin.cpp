@@ -90,10 +90,10 @@ static void toJSONObject(cJSON *obj, cocos2d::ValueMap &map)
     }
 }
 
-std::string toJSONString(cocos2d::ValueMap &value)
+std::string toJSONString(const cocos2d::ValueMap &value)
 {
     cJSON *obj = cJSON_CreateObject();
-    toJSONObject(obj, value);
+    toJSONObject(obj, const_cast<cocos2d::ValueMap &>(value));
     std::string result = cJSON_PrintUnformatted(obj);
     cJSON_Delete(obj);
     return result;

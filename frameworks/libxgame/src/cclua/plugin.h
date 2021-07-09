@@ -22,7 +22,7 @@ static void dispatch(const std::string &event, cocos2d::ValueMap &data)         
 private:                                                                                \
     static Dispatcher _dispatcher;
 
-std::string toJSONString(cocos2d::ValueMap &value);
+std::string toJSONString(const cocos2d::ValueMap &value);
 std::string toJSONString(const std::set<std::string> &tags);
 void parseJSONString(const std::string &value, cocos2d::ValueMap &result);
 

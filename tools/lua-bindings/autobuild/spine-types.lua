@@ -4,6 +4,12 @@ local olua = require "olua"
 local typedef = olua.typedef
 
 typedef {
+    CONV = 'olua_$$_int',
+    CPPCLS = 'spine::PropertyId',
+    DECLTYPE = 'lua_Integer',
+}
+
+typedef {
     CONV = 'olua_$$_spine_String',
     CPPCLS = 'spine::String',
 }
@@ -248,6 +254,22 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'spine::CurveTimeline1 *',
+    LUACLS = 'sp.CurveTimeline1',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUM_VARS = nil,
+}
+
+typedef {
+    CPPCLS = 'spine::CurveTimeline2 *',
+    LUACLS = 'sp.CurveTimeline2',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUM_VARS = nil,
+}
+
+typedef {
     CPPCLS = 'spine::AttachmentTimeline *',
     LUACLS = 'sp.AttachmentTimeline',
     DECLTYPE = nil,
@@ -256,8 +278,40 @@ typedef {
 }
 
 typedef {
-    CPPCLS = 'spine::ColorTimeline *',
-    LUACLS = 'sp.ColorTimeline',
+    CPPCLS = 'spine::RGBATimeline *',
+    LUACLS = 'sp.RGBATimeline',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUM_VARS = nil,
+}
+
+typedef {
+    CPPCLS = 'spine::RGBTimeline *',
+    LUACLS = 'sp.RGBTimeline',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUM_VARS = nil,
+}
+
+typedef {
+    CPPCLS = 'spine::AlphaTimeline *',
+    LUACLS = 'sp.AlphaTimeline',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUM_VARS = nil,
+}
+
+typedef {
+    CPPCLS = 'spine::RGBA2Timeline *',
+    LUACLS = 'sp.RGBA2Timeline',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUM_VARS = nil,
+}
+
+typedef {
+    CPPCLS = 'spine::RGB2Timeline *',
+    LUACLS = 'sp.RGB2Timeline',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
     NUM_VARS = nil,
@@ -354,14 +408,6 @@ typedef {
 typedef {
     CPPCLS = 'spine::RotateTimeline *',
     LUACLS = 'sp.RotateTimeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
-}
-
-typedef {
-    CPPCLS = 'spine::TwoColorTimeline *',
-    LUACLS = 'sp.TwoColorTimeline',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
     NUM_VARS = nil,

@@ -158,7 +158,7 @@ bool __runtime_canOpenURL(const std::string uri)
 	return false;
 }
 
-uint32_t __runtime_getMaxFrameRate(bool use)
+uint32_t __runtime_getMaxFrameRate()
 {
     return 60;
 }

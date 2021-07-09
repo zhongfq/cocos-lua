@@ -27,6 +27,7 @@ file(GLOB_RECURSE COCOS_SPINE_SRC
     editor-support/spine/IkConstraintTimeline.cpp
     editor-support/spine/Json.cpp
     editor-support/spine/LinkedMesh.cpp
+    editor-support/spine/Log.cpp
     editor-support/spine/MathUtil.cpp
     editor-support/spine/MeshAttachment.cpp
     editor-support/spine/PathAttachment.cpp
@@ -61,7 +62,6 @@ file(GLOB_RECURSE COCOS_SPINE_SRC
     editor-support/spine/TransformConstraintTimeline.cpp
     editor-support/spine/TranslateTimeline.cpp
     editor-support/spine/Triangulator.cpp
-    editor-support/spine/TwoColorTimeline.cpp
     editor-support/spine/Updatable.cpp
     editor-support/spine/v3/SkeletonBatch.cpp
     editor-support/spine/v3/SkeletonTwoColorBatch.cpp
@@ -107,6 +107,7 @@ file(GLOB_RECURSE COCOS_SPINE_HEADER
     editor-support/spine/IkConstraintTimeline.h
     editor-support/spine/Json.h
     editor-support/spine/LinkedMesh.h
+    editor-support/spine/Log.h
     editor-support/spine/MathUtil.h
     editor-support/spine/MeshAttachment.h
     editor-support/spine/MixBlend.h
@@ -120,6 +121,7 @@ file(GLOB_RECURSE COCOS_SPINE_HEADER
     editor-support/spine/PointAttachment.h
     editor-support/spine/Pool.h
     editor-support/spine/PositionMode.h
+    editor-support/spine/Property.h
     editor-support/spine/RegionAttachment.h
     editor-support/spine/RotateMode.h
     editor-support/spine/RotateTimeline.h
@@ -151,7 +153,6 @@ file(GLOB_RECURSE COCOS_SPINE_HEADER
     editor-support/spine/TransformMode.h
     editor-support/spine/TranslateTimeline.h
     editor-support/spine/Triangulator.h
-    editor-support/spine/TwoColorTimeline.h
     editor-support/spine/Updatable.h
     editor-support/spine/v3/SkeletonBatch.h
     editor-support/spine/v3/SkeletonTwoColorBatch.h

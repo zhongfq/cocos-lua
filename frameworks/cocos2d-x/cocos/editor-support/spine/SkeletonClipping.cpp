@@ -33,8 +33,8 @@
 
 #include <spine/SkeletonClipping.h>
 
-#include <spine/Slot.h>
 #include <spine/ClippingAttachment.h>
+#include <spine/Slot.h>
 
 using namespace spine;
 
@@ -86,13 +86,13 @@ void SkeletonClipping::clipEnd() {
 	_clippingPolygon.clear();
 }
 
-void SkeletonClipping::clipTriangles(Vector<float> &vertices, Vector<unsigned short> &triangles, Vector<float> &uvs, size_t stride) {
+void SkeletonClipping::clipTriangles(Vector<float> &vertices, Vector<unsigned short> &triangles, Vector<float> &uvs,
+									 size_t stride) {
 	clipTriangles(vertices.buffer(), triangles.buffer(), triangles.size(), uvs.buffer(), stride);
 }
 
 void SkeletonClipping::clipTriangles(float *vertices, unsigned short *triangles,
-	size_t trianglesLength, float *uvs, size_t stride
-) {
+									 size_t trianglesLength, float *uvs, size_t stride) {
 	Vector<float> &clipOutput = _clipOutput;
 	Vector<float> &clippedVertices = _clippedVertices;
 	Vector<unsigned short> &clippedTriangles = _clippedTriangles;
@@ -105,7 +105,7 @@ void SkeletonClipping::clipTriangles(float *vertices, unsigned short *triangles,
 	clippedTriangles.clear();
 
 	size_t i = 0;
-	continue_outer:
+continue_outer:
 	for (; i < trianglesLength; i += 3) {
 		int vertexOffset = triangles[i] * stride;
 		float x1 = vertices[vertexOffset], y1 = vertices[vertexOffset + 1];
@@ -147,9 +147,9 @@ void SkeletonClipping::clipTriangles(float *vertices, unsigned short *triangles,
 				clippedTriangles.setSize(s + 3 * (clipOutputCount - 2), 0);
 				clipOutputCount--;
 				for (size_t ii = 1; ii < clipOutputCount; ii++) {
-					clippedTriangles[s] = (unsigned short)(index);
-					clippedTriangles[s + 1] = (unsigned short)(index + ii);
-					clippedTriangles[s + 2] = (unsigned short)(index + ii + 1);
+					clippedTriangles[s] = (unsigned short) (index);
+					clippedTriangles[s + 1] = (unsigned short) (index + ii);
+					clippedTriangles[s + 2] = (unsigned short) (index + ii + 1);
 					s += 3;
 				}
 				index += clipOutputCount + 1;
@@ -172,9 +172,9 @@ void SkeletonClipping::clipTriangles(float *vertices, unsigned short *triangles,
 
 				s = clippedTriangles.size();
 				clippedTriangles.setSize(s + 3, 0);
-				clippedTriangles[s] = (unsigned short)index;
-				clippedTriangles[s + 1] = (unsigned short)(index + 1);
-				clippedTriangles[s + 2] = (unsigned short)(index + 2);
+				clippedTriangles[s] = (unsigned short) index;
+				clippedTriangles[s + 1] = (unsigned short) (index + 1);
+				clippedTriangles[s + 2] = (unsigned short) (index + 2);
 				index += 3;
 				i += 3;
 				goto continue_outer;
@@ -200,8 +200,7 @@ Vector<float> &SkeletonClipping::getClippedUVs() {
 }
 
 bool SkeletonClipping::clip(float x1, float y1, float x2, float y2, float x3, float y3, Vector<float> *clippingArea,
-	Vector<float> *output
-) {
+							Vector<float> *output) {
 	Vector<float> *originalOutput = output;
 	bool clipped = false;
 

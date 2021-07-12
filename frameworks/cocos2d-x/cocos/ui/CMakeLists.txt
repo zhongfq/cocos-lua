@@ -106,6 +106,7 @@ set(COCOS_UI_HEADER
     ui/UITextField.h
     ui/UIVBox.h
     ui/UIWidget.h
+    ui/UIEditBox/UIEditBox.h
     )
 
 set(COCOS_UI_SRC

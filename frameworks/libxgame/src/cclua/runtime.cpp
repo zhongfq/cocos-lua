@@ -405,8 +405,10 @@ uint32_t runtime::getFrameRate()
 
 void runtime::setFrameRate(uint32_t frameRate)
 {
-    CCASSERT(frameRate > 0, "frameRate > 0");
-    Director::getInstance()->setAnimationInterval(1.0 / frameRate);
+    if (runtime::getFrameRate() != frameRate) {
+        CCASSERT(frameRate > 0, "frameRate > 0");
+        Director::getInstance()->setAnimationInterval(1.0 / frameRate);
+    }
 }
 
 const PermissionStatus runtime::getPermissionStatus(Permission permission)

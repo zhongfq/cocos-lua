@@ -67,14 +67,18 @@ static id s_sharedDirectorCaller;
         [nc addObserver:self selector:@selector(appDidBecomeInactive) name:UIApplicationWillResignActiveNotification object:nil];
         
         self.preferredFramesPerSecond = 60;
+        displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(doCaller:)];
+        displayLink.preferredFramesPerSecond = self.preferredFramesPerSecond;
+        [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     }
     return self;
 }
 
 -(void) dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [displayLink invalidate];
     [displayLink release];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
 
@@ -95,28 +99,18 @@ static id s_sharedDirectorCaller;
 
 -(void) startMainLoop
 {
-    // Director::setAnimationInterval() is called, we should invalidate it first
-    [self stopMainLoop];
-    displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(doCaller:)];
-    displayLink.preferredFramesPerSecond = self.preferredFramesPerSecond;
-    [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    displayLink.paused = false;
 }
 
 -(void) stopMainLoop
 {
-    [displayLink invalidate];
-    displayLink = nil;
+    displayLink.paused = true;
 }
 
 -(void) setAnimationInterval:(double)intervalNew
 {
-    // Director::setAnimationInterval() is called, we should invalidate it first
-    [self stopMainLoop];
-        
     self.preferredFramesPerSecond = (int)round((1.0 / intervalNew));
-    displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(doCaller:)];
     displayLink.preferredFramesPerSecond = self.preferredFramesPerSecond;
-    [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 }
                       
 -(void) doCaller: (id) sender

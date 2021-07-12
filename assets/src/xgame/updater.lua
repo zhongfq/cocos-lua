@@ -9,9 +9,6 @@ local timer         = require "xgame.timer"
 local Event         = require "xgame.Event"
 local cjson         = require "cjson.safe"
 
-local MAX_ATTEMPT_TIMES = 3
-local ATTEMPT_INTERVAL = 0.3
-
 local builtinManifest = downloader.builtinManifest
 local localManifest = downloader.localManifest
 local remoteManifest = downloader.remoteManifest
@@ -24,17 +21,6 @@ function M:ctor(url)
     self._url = url
     self._attemptTimes = 0
     self._manifests = {}
-end
-
-function M:_deferTry()
-    if self._attemptTimes < MAX_ATTEMPT_TIMES then
-        self._attemptTimes = self._attemptTimes + 1
-        timer.delay(ATTEMPT_INTERVAL, function ()
-            self:_checkVersion()
-        end)
-    else
-        self:_didError('version')
-    end
 end
 
 function M:_removeFileIfExist(path)
@@ -58,7 +44,7 @@ function M:_loadManifest(name)
     return m
 end
 
-function M:_cmpVersion(v1, v2)
+function M:_cmpVersion(version1, version2)
     local function toIntVersion(v)
         local v1, v2, v3 = string.match(v, "(%d+)%.(%d+)%.(%d+)")
         if v1 then
@@ -67,11 +53,11 @@ function M:_cmpVersion(v1, v2)
             return 0
         end
     end
-    return toIntVersion(v1) - toIntVersion(v2)
+    return toIntVersion(version1) - toIntVersion(version2)
 end
 
-function M:_maxVersion(v1, v2)
-    return self:_cmpVersion(v1, v2) < 0 and v2 or v1
+function M:_maxVersion(version1, version2)
+    return self:_cmpVersion(version1, version2) < 0 and version2 or version1
 end
 
 function M:_checkAndDownloadManifest(name, info)
@@ -213,7 +199,7 @@ function M:_checkVersion()
             self._url, runtime.os, runtime.appVersion, version, runtime.channel)
         local status, data = http({url = url, responseType = 'JSON'})
         if status ~= 200 or not data then
-            self:_deferTry()
+            self:_didError('version')
             return
         end
 
@@ -229,7 +215,7 @@ function M:_checkVersion()
         for _, info in pairs(data.assets) do
             newVersion = self:_maxVersion(newVersion, info.version)
             if not self:_checkAndDownloadManifest(info.name, info) then
-                self:_deferTry()
+                self:_didError('manifest')
                 return
             end
         end

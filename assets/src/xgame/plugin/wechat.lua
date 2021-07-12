@@ -84,8 +84,8 @@ function WeChat:pay(order)
         runtime.on(Event.RUNTIME_RESUME, self._onResume, self)
     end
 
-    Impl.pay(self._appid, order.partnerid, order.prepayid, order.noncestr,
-        order.timestamp, order.sign)
+    Impl.pay(order.partnerid, order.prepayid, order.noncestr,
+        order.timestamp, 'Sign=WXPay',order.sign)
 end
 
 function WeChat:auth(ticket)

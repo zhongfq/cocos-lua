@@ -72,9 +72,6 @@ function ScrollImpl:press(id, x, y)
     self:_tryFocus(id, x, y)
     self._container:unschedule(TAG_UPDATE)
     self._touchCount = self._touchCount + 1
-    if self._touchCount == 1 then
-        self._target:dispatch(TouchEvent.SCROLL_BEGIN)
-    end
 end
 
 function ScrollImpl:release(id, x, y)
@@ -132,9 +129,9 @@ function ScrollImpl:tap(id, x, y)
         end
         focus:touchUp(touches)
         self._focuses[id] = nil
-        self._touchCount = self._touchCount - 1
-        self:_checkScrollEnd()
     end
+    self._touchCount = self._touchCount - 1
+    self:_checkScrollEnd()
 end
 
 local function mathEqual(x1, x2)
@@ -227,8 +224,12 @@ function ScrollImpl:pan(deltaX, deltaY)
 
     self._container.x = x
     self._container.y = y
-    self._scrolling = true
     self:dispatchScrolling(lastX, lastY, x, y)
+
+    if not self._scrolling then
+        self._scrolling = true
+        self._target:dispatch(TouchEvent.SCROLL_BEGIN)
+    end
 end
 
 function ScrollImpl:getElapseTime(vel)

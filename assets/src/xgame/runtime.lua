@@ -1,4 +1,5 @@
 local util      = require "xgame.util"
+local timer     = require "xgame.timer"
 local runtime   = require "cclua.runtime"
 local window    = require "cclua.window"
 
@@ -10,6 +11,8 @@ local ANONYMOUS = {}
 local dispatching = 0
 local suspended = {}
 local listeners = {}
+local frameRate = nil
+local usedBy = nil
 
 runtime.Permission = require "cclua.Permission"
 runtime.PermissionStatus = require "cclua.PermissionStatus"
@@ -50,6 +53,24 @@ function runtime.off(event, callback)
     end
 end
 
+function runtime.useMaxFrameRate(use, owner)
+    local TAG = '__runtime_useMaxFrameRate__'
+    if not frameRate then
+        frameRate = runtime.frameRate
+    end
+    timer.killDelay(TAG)
+    if use then
+        usedBy = owner
+        runtime.frameRate = runtime.maxFrameRate
+    else
+        timer.delayWithTag(1, TAG, function ()
+            if usedBy == owner then
+                usedBy = nil
+                runtime.frameRate = frameRate
+            end
+        end)
+    end
+end
 
 function runtime.isPad()
     local vw, vh = window.getFrameSize()

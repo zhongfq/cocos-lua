@@ -5,7 +5,7 @@ local M = {}
 
 local function createRequest(data)
     local xhr = XMLHttpRequest.new()
-    xhr.timeout = data.timeout or 0
+    xhr.timeout = data.timeout or 10
 
     if data.headers then
         for field, value in pairs(data.headers) do

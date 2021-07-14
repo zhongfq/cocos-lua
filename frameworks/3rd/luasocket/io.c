@@ -2,11 +2,9 @@
 * Input/Output abstraction
 * LuaSocket toolkit
 \*=========================================================================*/
+#include "luasocket.h"
 #include "io.h"
 
-/*=========================================================================*\
-* Exported functions
-\*=========================================================================*/
 /*-------------------------------------------------------------------------*\
 * Initializes C structure
 \*-------------------------------------------------------------------------*/
@@ -25,6 +23,6 @@ const char *io_strerror(int err) {
         case IO_DONE: return NULL;
         case IO_CLOSED: return "closed";
         case IO_TIMEOUT: return "timeout";
-        default: return "unknown error"; 
+        default: return "unknown error";
     }
 }

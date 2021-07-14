@@ -7,10 +7,10 @@
 -----------------------------------------------------------------------------
 -- Declare module and import dependencies
 -------------------------------------------------------------------------------
-local socket = require("socket.socket")
+local socket = require("socket")
 local url = require("socket.url")
-local ltn12 = require("socket.ltn12")
-local mime = require("socket.mime")
+local ltn12 = require("ltn12")
+local mime = require("mime")
 local string = require("string")
 local headers = require("socket.headers")
 local base = _G
@@ -22,12 +22,28 @@ local _M = socket.http
 -- Program constants
 -----------------------------------------------------------------------------
 -- connection timeout in seconds
-TIMEOUT = 60
--- default port for document retrieval
-_M.PORT = 80
+_M.TIMEOUT = 60
 -- user agent field sent in request
 _M.USERAGENT = socket._VERSION
 
+-- supported schemes and their particulars
+local SCHEMES = {
+    http = {
+        port = 80
+        , create = function(t)
+            return socket.tcp end }
+    , https = {
+        port = 443
+        , create = function(t)
+          local https = assert(
+            require("ssl.https"), 'LuaSocket: LuaSec not found')
+          local tcp = assert(
+            https.tcp, 'LuaSocket: Function tcp() not available from LuaSec')
+          return tcp(t) end }}
+
+-- default scheme and port for document retrieval
+local SCHEME = 'http'
+local PORT = SCHEMES[SCHEME].port
 -----------------------------------------------------------------------------
 -- Reads MIME headers from a connection, unfolding where needed
 -----------------------------------------------------------------------------
@@ -108,13 +124,13 @@ local metat = { __index = {} }
 
 function _M.open(host, port, create)
     -- create socket with user connect function, or with default
-    local c = socket.try((create or socket.tcp)())
+    local c = socket.try(create())
     local h = base.setmetatable({ c = c }, metat)
     -- create finalized try
     h.try = socket.newtry(function() h:close() end)
     -- set timeout before connecting
     h.try(c:settimeout(_M.TIMEOUT))
-    h.try(c:connect(host, port or _M.PORT))
+    h.try(c:connect(host, port))
     -- here everything worked
     return h
 end
@@ -144,10 +160,15 @@ function metat.__index:sendbody(headers, source, step)
 end
 
 function metat.__index:receivestatusline()
-    local status = self.try(self.c:receive(5))
+    local status,ec = self.try(self.c:receive(5))
     -- identify HTTP/0.9 responses, which do not contain a status line
     -- this is just a heuristic, but is what the RFC recommends
-    if status ~= "HTTP/" then return nil, status end
+    if status ~= "HTTP/" then
+        if ec == "timeout" then
+            return 408
+        end 
+        return nil, status 
+    end
     -- otherwise proceed reading a status line
     status = self.try(self.c:receive("*l", status))
     local code = socket.skip(2, string.find(status, "HTTP/%d*%.%d* (%d%d%d)"))
@@ -186,7 +207,7 @@ end
 local function adjusturi(reqt)
     local u = reqt
     -- if there is a proxy, we need the full url. otherwise, just a part.
-    if not reqt.proxy and not PROXY then
+    if not reqt.proxy and not _M.PROXY then
         u = {
            path = socket.try(reqt.path, "invalid path 'nil'"),
            params = reqt.params,
@@ -198,7 +219,7 @@ local function adjusturi(reqt)
 end
 
 local function adjustproxy(reqt)
-    local proxy = reqt.proxy or PROXY
+    local proxy = reqt.proxy or _M.PROXY
     if proxy then
         proxy = url.parse(proxy)
         return proxy.host, proxy.port or 3128
@@ -209,16 +230,30 @@ end
 
 local function adjustheaders(reqt)
     -- default headers
+    local host = reqt.host
+    local port = tostring(reqt.port)
+    if port ~= tostring(SCHEMES[reqt.scheme].port) then
+        host = host .. ':' .. port end
     local lower = {
         ["user-agent"] = _M.USERAGENT,
-        ["host"] = reqt.host,
+        ["host"] = host,
         ["connection"] = "close, TE",
         ["te"] = "trailers"
     }
     -- if we have authentication information, pass it along
     if reqt.user and reqt.password then
         lower["authorization"] =
-            "Basic " ..  (mime.b64(reqt.user .. ":" .. reqt.password))
+            "Basic " ..  (mime.b64(reqt.user .. ":" ..
+		url.unescape(reqt.password)))
+    end
+    -- if we have proxy authentication information, pass it along
+    local proxy = reqt.proxy or _M.PROXY
+    if proxy then
+        proxy = url.parse(proxy)
+        if proxy.user and proxy.password then
+            lower["proxy-authorization"] =
+                "Basic " ..  (mime.b64(proxy.user .. ":" .. proxy.password))
+        end
     end
     -- override with user headers
     for i,v in base.pairs(reqt.headers or lower) do
@@ -229,10 +264,8 @@ end
 
 -- default url parts
 local default = {
-    host = "",
-    port = _M.PORT,
-    path ="/",
-    scheme = "http"
+    path ="/"
+    , scheme = "http"
 }
 
 local function adjustrequest(reqt)
@@ -240,25 +273,39 @@ local function adjustrequest(reqt)
     local nreqt = reqt.url and url.parse(reqt.url, default) or {}
     -- explicit components override url
     for i,v in base.pairs(reqt) do nreqt[i] = v end
-    if nreqt.port == "" then nreqt.port = 80 end
-    socket.try(nreqt.host and nreqt.host ~= "",
-        "invalid host '" .. base.tostring(nreqt.host) .. "'")
+    -- default to scheme particulars
+    local schemedefs, host, port, method
+        = SCHEMES[nreqt.scheme], nreqt.host, nreqt.port, nreqt.method
+    if not nreqt.create then nreqt.create = schemedefs.create(nreqt) end
+    if not (port and port ~= '') then nreqt.port = schemedefs.port end
+    if not (method and method ~= '') then nreqt.method = 'GET' end
+    if not (host and host ~= "") then
+        socket.try(nil, "invalid host '" .. base.tostring(nreqt.host) .. "'")
+    end
     -- compute uri if user hasn't overriden
     nreqt.uri = reqt.uri or adjusturi(nreqt)
-    -- ajust host and port if there is a proxy
-    nreqt.host, nreqt.port = adjustproxy(nreqt)
     -- adjust headers in request
     nreqt.headers = adjustheaders(nreqt)
+    -- ajust host and port if there is a proxy
+    nreqt.host, nreqt.port = adjustproxy(nreqt)
     return nreqt
 end
 
 local function shouldredirect(reqt, code, headers)
-    return headers.location and
-           string.gsub(headers.location, "%s", "") ~= "" and
-           (reqt.redirect ~= false) and
+    local location = headers.location
+    if not location then return false end
+    location = string.gsub(location, "%s", "")
+    if location == "" then return false end
+    local scheme = url.parse(location).scheme
+    if scheme and (not SCHEMES[scheme]) then return false end
+    -- avoid https downgrades
+    if ('https' == reqt.scheme) and ('https' ~= scheme) then return false end
+    return (reqt.redirect ~= false) and
            (code == 301 or code == 302 or code == 303 or code == 307) and
            (not reqt.method or reqt.method == "GET" or reqt.method == "HEAD")
-           and (not reqt.nredirects or reqt.nredirects < 5)
+        and ((false == reqt.maxredirects)
+                or ((reqt.nredirects or 0)
+                        < (reqt.maxredirects or 5)))
 end
 
 local function shouldreceivebody(reqt, code)
@@ -272,14 +319,21 @@ end
 local trequest, tredirect
 
 --[[local]] function tredirect(reqt, location)
+    -- the RFC says the redirect URL has to be absolute, but some
+    -- servers do not respect that
+    local newurl = url.absolute(reqt.url, location)
+    -- if switching schemes, reset port and create function
+    if url.parse(newurl).scheme ~= reqt.scheme then
+        reqt.port = nil
+        reqt.create = nil end
+    -- make new request
     local result, code, headers, status = trequest {
-        -- the RFC says the redirect URL has to be absolute, but some
-        -- servers do not respect that
-        url = url.absolute(reqt.url, location),
+        url = newurl,
         source = reqt.source,
         sink = reqt.sink,
         headers = reqt.headers,
         proxy = reqt.proxy,
+        maxredirects = reqt.maxredirects,
         nredirects = (reqt.nredirects or 0) + 1,
         create = reqt.create
     }
@@ -306,6 +360,8 @@ end
     if not code then
         h:receive09body(status, nreqt.sink, nreqt.step)
         return 1, 200
+    elseif code == 408 then
+        return 1, code
     end
     local headers
     -- ignore any 100-continue messages
@@ -328,11 +384,13 @@ end
     return 1, code, headers, status
 end
 
-local function srequest(u, b)
+-- turns an url and a body into a generic request
+local function genericform(u, b)
     local t = {}
     local reqt = {
         url = u,
-        sink = ltn12.sink.table(t)
+        sink = ltn12.sink.table(t),
+        target = t
     }
     if b then
         reqt.source = ltn12.source.string(b)
@@ -342,8 +400,15 @@ local function srequest(u, b)
         }
         reqt.method = "POST"
     end
-    local code, headers, status = socket.skip(1, trequest(reqt))
-    return table.concat(t), code, headers, status
+    return reqt
+end
+
+_M.genericform = genericform
+
+local function srequest(u, b)
+    local reqt = genericform(u, b)
+    local _, code, headers, status = trequest(reqt)
+    return table.concat(reqt.target), code, headers, status
 end
 
 _M.request = socket.protect(function(reqt, body)
@@ -351,4 +416,5 @@ _M.request = socket.protect(function(reqt, body)
     else return trequest(reqt) end
 end)
 
+_M.schemes = SCHEMES
 return _M

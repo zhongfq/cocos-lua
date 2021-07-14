@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.6)
 set(LUASOCKET_HEADER
     auxiliar.h
     buffer.h
+    compat.h
     except.h
     inet.h
     io.h
@@ -10,15 +11,19 @@ set(LUASOCKET_HEADER
     luasocket.h
     mime.h
     options.h
+    pierror.h
     select.h
     socket.h
     tcp.h
     timeout.h
     udp.h
+    unixdgram.h
+    unixstream.h
 )
 set(LUASOCKET_SRC
     auxiliar.c
     buffer.c
+    compat.c
     except.c
     inet.c
     io.c
@@ -30,7 +35,8 @@ set(LUASOCKET_SRC
     tcp.c
     timeout.c
     udp.c
-    
+    unixdgram.c
+    unixstream.c
 )
 
 if (WINDOWS)
@@ -60,6 +66,10 @@ target_link_libraries(luasocket
 	PRIVATE xgame
 	PRIVATE cocos2d
 )
+
+if(APPLE)
+    target_compile_options(luasocket PRIVATE -Wno-shorten-64-to-32)
+endif()
 
 target_include_directories(luasocket
 	PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..

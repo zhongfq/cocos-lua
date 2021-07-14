@@ -9,6 +9,7 @@
 -----------------------------------------------------------------------------
 local string = require("string")
 local table = require("table")
+local unpack = unpack or table.unpack
 local base = _G
 local _M = {}
 if module then -- heuristic for exporting a global package table
@@ -20,6 +21,9 @@ _M.filter = filter
 _M.source = source
 _M.sink = sink
 _M.pump = pump
+
+local unpack = unpack or table.unpack
+local select = base.select
 
 -- 2048 seems to be better in windows...
 _M.BLOCKSIZE = 2048
@@ -42,7 +46,7 @@ end
 -- (thanks to Wim Couwenberg)
 function filter.chain(...)
     local arg = {...}
-    local n = select('#',...)
+    local n = base.select('#',...)
     local top, index = 1, 1
     local retry = ""
     return function(chunk)
@@ -124,6 +128,16 @@ function source.string(s)
     else return source.empty() end
 end
 
+-- creates table source
+function source.table(t)
+    base.assert('table' == type(t))
+    local i = 0
+    return function()
+        i = i + 1
+        return t[i]
+    end
+end
+
 -- creates rewindable source
 function source.rewind(src)
     base.assert(src)
@@ -139,7 +153,9 @@ function source.rewind(src)
     end
 end
 
-function source.chain(src, f)
+-- chains a source with one or several filter(s)
+function source.chain(src, f, ...)
+    if ... then f=filter.chain(f, ...) end
     base.assert(src and f)
     local last_in, last_out = "", ""
     local state = "feeding"
@@ -254,8 +270,13 @@ function sink.error(err)
     end
 end
 
--- chains a sink with a filter
-function sink.chain(f, snk)
+-- chains a sink with one or several filter(s)
+function sink.chain(f, snk, ...)
+    if ... then
+        local args = { f, snk, ... }
+        snk = table.remove(args, #args)
+        f = filter.chain(unpack(args))
+    end
     base.assert(f and snk)
     return function(chunk, err)
         if chunk ~= "" then

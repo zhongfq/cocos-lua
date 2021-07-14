@@ -1,19 +1,13 @@
 #ifndef LUASOCKET_H
 #define LUASOCKET_H
-
-#if __cplusplus
-extern "C" {
-#endif
-
 /*=========================================================================*\
 * LuaSocket toolkit
 * Networking support for the Lua language
 * Diego Nehab
 * 9/11/1999
 \*=========================================================================*/
-#include "lua.h"
 
-/*-------------------------------------------------------------------------*\
+/*-------------------------------------------------------------------------* \
 * Current socket library version
 \*-------------------------------------------------------------------------*/
 #define LUASOCKET_VERSION    "LuaSocket 3.0-rc1"
@@ -23,16 +17,20 @@ extern "C" {
 * This macro prefixes all exported API functions
 \*-------------------------------------------------------------------------*/
 #ifndef LUASOCKET_API
-#define LUASOCKET_API extern
+#ifdef _WIN32
+#define LUASOCKET_API __declspec(dllexport)
+#else
+#define LUASOCKET_API __attribute__ ((visibility ("default")))
 #endif
+#endif
+
+#include "lua.h"
+#include "lauxlib.h"
+#include "compat.h"
 
 /*-------------------------------------------------------------------------*\
 * Initializes the library.
 \*-------------------------------------------------------------------------*/
 LUASOCKET_API int luaopen_socket_core(lua_State *L);
-    
-#if __cplusplus
-}
-#endif
 
 #endif /* LUASOCKET_H */

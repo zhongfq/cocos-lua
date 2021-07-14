@@ -17,8 +17,6 @@ set(LUASOCKET_HEADER
     tcp.h
     timeout.h
     udp.h
-    unixdgram.h
-    unixstream.h
 )
 set(LUASOCKET_SRC
     auxiliar.c
@@ -35,8 +33,6 @@ set(LUASOCKET_SRC
     tcp.c
     timeout.c
     udp.c
-    unixdgram.c
-    unixstream.c
 )
 
 if (WINDOWS)
@@ -50,11 +46,15 @@ else()
     list(APPEND LUASOCKET_HEADER
         unix.h
         usocket.h
+        unixdgram.h
+        unixstream.h
     )
     list(APPEND LUASOCKET_SRC
         serial.c
         unix.c
         usocket.c
+        unixdgram.c
+        unixstream.c
     )
 endif()
 

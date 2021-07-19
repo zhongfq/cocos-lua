@@ -105,9 +105,6 @@ if (IOS)
 
     find_library(PHOTOS_LIBRARY Photos)
     target_link_libraries(xgame ${PHOTOS_LIBRARY})
-
-    find_library(STOREKIT_LIBRARY StoreKit)
-    target_link_libraries(xgame ${STOREKIT_LIBRARY})
 endif()
 
 target_include_directories(xgame

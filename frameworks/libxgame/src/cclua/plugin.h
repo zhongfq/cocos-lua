@@ -6,12 +6,13 @@
 
 NS_CCLUA_PLUGIN_BEGIN
 
-typedef std::function<void(const std::string &event, const cocos2d::ValueMap &data)> Dispatcher;
-typedef std::function<void(const cocos2d::ValueMap &data)> Callback;
+typedef std::function<void(const std::string &event, const cocos2d::Value &data)> Dispatcher;
+typedef std::function<void(const cocos2d::Value &data)> Callback;
 
 #define DISPATCHER_IMPL                                                                 \
+public:                                                                                 \
 static void setDispatcher(const Dispatcher &dispatcher) { _dispatcher = dispatcher; }   \
-static void dispatch(const std::string &event, cocos2d::ValueMap &data)                 \
+static void dispatch(const std::string &event, const cocos2d::Value &data)                 \
 {                                                                                       \
     cclua::runtime::runOnCocosThread([=]() {                                            \
         if (_dispatcher) {                                                              \

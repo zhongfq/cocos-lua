@@ -22,6 +22,15 @@ static cocos2d::Value toValue(NSString *value)
     return value ? cocos2d::Value([value UTF8String]) : cocos2d::Value::Null;
 }
 
+static cocos2d::Value toValue(NSArray<NSString *> *value)
+{
+    cocos2d::ValueVector arr;
+    for (int i = 0; i < value.count; i++) {
+        arr.push_back(cocos2d::Value(toValue([value objectAtIndex: i])));
+    }
+    return cocos2d::Value(arr);
+}
+
 static cocos2d::Value toValue(NSData *value)
 {
     return value ? cocos2d::Value([[[NSString alloc] initWithData:value encoding:NSUTF8StringEncoding] UTF8String]) : cocos2d::Value::Null;

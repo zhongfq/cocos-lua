@@ -21,7 +21,15 @@ public:
 };
 
 class AppleIAP {
+public:
+    static bool canMakePayments();
+    static void requestProducts(const std::set<std::string> &products);
+    static void purchase(const std::string &product, uint32_t quantify = 1);
+    static void finishTransaction(const std::string &tid);
+    static void restoreCompletedTransactions();
+    static cocos2d::ValueVector getPendingTransactions();
     
+    DISPATCHER_IMPL
 };
 
 NS_CCLUA_PLUGIN_END

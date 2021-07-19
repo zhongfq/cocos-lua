@@ -104,7 +104,7 @@ static int ref(const Callback callback) {
     return runtime::ref([=](const std::string &args){
         ValueMap data;
         parseJSONString(args, data);
-        callback(data);
+        callback(cocos2d::Value(data));
     });
 }
 

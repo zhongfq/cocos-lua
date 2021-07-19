@@ -18,6 +18,7 @@ static bool s_initialized = false;
 void CrashReport::init(const char *appid)
 {
 	if (!s_initialized) {
+        runtime::log("init bugly");
         Jni::callStaticVoidMethod(BUGLY_CLASS, "init", appid, false);
         s_initialized = true;
     }

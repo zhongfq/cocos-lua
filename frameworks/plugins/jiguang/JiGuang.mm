@@ -325,7 +325,7 @@ void JAuth::getToken(int timeout, const Callback callback)
                 data["content"] = [[result objectForKey:@"content"] UTF8String];
             }
             runtime::runOnCocosThread([=]{
-                callback(data);
+                callback(cocos2d::Value(data));
             });
         }];
     }
@@ -340,7 +340,7 @@ void JAuth::preLogin(int timeout, const Callback callback)
             data["success"] = data["code"].asInt() == 7000;
             data["content"] = [[result objectForKey:@"message"] UTF8String];
             runtime::runOnCocosThread([=]{
-                callback(data);
+                callback(cocos2d::Value(data));
             });
         }];
     }
@@ -368,7 +368,7 @@ void JAuth::loginAuth(int timeout, const Callback callback)
                 data["content"] = [[result objectForKey:@"content"] UTF8String];
             }
             runtime::runOnCocosThread([=]{
-                callback(data);
+                callback(cocos2d::Value(data));
             });
         } actionBlock:^(NSInteger type, NSString *content) {
             NSLog(@"loginAuth actionBlock :%ld %@", (long)type , content);
@@ -396,7 +396,7 @@ void JAuth::getSmsCode(const std::string &phonenum, const std::string &signid, c
                 data["uuid"] = [[result objectForKey:@"uuid"] UTF8String];
             }
             runtime::runOnCocosThread([=]{
-                callback(data);
+                callback(cocos2d::Value(data));
             });
         }];
     }

@@ -26,7 +26,7 @@ static int callback(const std::string &event) {
     return runtime::ref([=](const std::string &args){
         ValueMap data;
         parseJSONString(args, data);
-        WeChat::dispatch(event, data);
+        WeChat::dispatch(event, cocos2d::Value(data));
     });
 }
 

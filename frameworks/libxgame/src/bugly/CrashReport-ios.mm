@@ -21,13 +21,13 @@ void CrashReport::init(const char *appid)
 {
     @autoreleasepool {
         if (!s_initialized) {
+            runtime::log("init bugly");
             BuglyConfig *config = [[BuglyConfig alloc] init];
             config.channel = NSStringMake(s_channel.c_str());
             config.version = NSStringMake(s_version.c_str());
             config.reportLogLevel = BuglyLogLevelVerbose;
             [Bugly startWithAppId:NSStringMake(appid) developmentDevice:NO config:config];
             s_initialized = true;
-            runtime::log("init bugly");
         }
     }
 }

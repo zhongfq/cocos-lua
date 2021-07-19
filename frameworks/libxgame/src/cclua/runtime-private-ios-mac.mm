@@ -286,7 +286,7 @@ uint32_t __runtime_getMaxFrameRate()
 #ifdef CCLUA_OS_IOS
     return (uint32_t)[UIScreen mainScreen].maximumFramesPerSecond;
 #else
-    return 0;
+    return 60;
 #endif
 }
 

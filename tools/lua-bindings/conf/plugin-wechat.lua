@@ -22,6 +22,5 @@ typeconf "cclua::plugin::WeChat::ShareType"
 typeconf "cclua::plugin::WeChat::ProgramType"
 typeconf "cclua::plugin::WeChat"
     .ifdef('pay', '#ifdef CCLUA_OS_ANDROID')
-    .exclude 'dispatch'
     .require 'cclua::runtime::registerFeature("wechat", true);'
 endif ''

@@ -89,6 +89,24 @@ static int _cclua_plugin_WeChat_authQRCode(lua_State *L)
     return 0;
 }
 
+static int _cclua_plugin_WeChat_dispatch(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::string arg1;       /** event */
+    cocos2d::Value arg2;       /** data */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_cocos2d_Value(L, 2, &arg2);
+
+    // static void dispatch(const std::string &event, const cocos2d::Value &data)
+    cclua::plugin::WeChat::dispatch(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cclua_plugin_WeChat_init(lua_State *L)
 {
     olua_startinvoke(L);
@@ -236,7 +254,7 @@ static int _cclua_plugin_WeChat_setDispatcher(lua_State *L)
 {
     olua_startinvoke(L);
 
-    std::function<void(const std::string &, const cocos2d::ValueMap &)> arg1;       /** dispatcher */
+    std::function<void(const std::string &, const cocos2d::Value &)> arg1;       /** dispatcher */
 
     olua_check_std_function(L, 1, &arg1);
 
@@ -244,7 +262,7 @@ static int _cclua_plugin_WeChat_setDispatcher(lua_State *L)
     std::string cb_tag = "Dispatcher";
     std::string cb_name = olua_setcallback(L, cb_store, cb_tag.c_str(), 1, OLUA_TAG_REPLACE);
     lua_Integer cb_ctx = olua_context(L);
-    arg1 = [cb_store, cb_name, cb_ctx](const std::string &arg1, const cocos2d::ValueMap &arg2) {
+    arg1 = [cb_store, cb_name, cb_ctx](const std::string &arg1, const cocos2d::Value &arg2) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
@@ -253,7 +271,7 @@ static int _cclua_plugin_WeChat_setDispatcher(lua_State *L)
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
             olua_push_std_string(L, arg1);
-            olua_push_cocos2d_ValueMap(L, &arg2);
+            olua_push_cocos2d_Value(L, &arg2);
             olua_disable_objpool(L);
 
             olua_callback(L, cb_store, cb_name.c_str(), 2);
@@ -264,7 +282,7 @@ static int _cclua_plugin_WeChat_setDispatcher(lua_State *L)
         }
     };
 
-    // static void setDispatcher(@local const std::function<void (const std::string &, const cocos2d::ValueMap &)> &dispatcher)
+    // static void setDispatcher(@local const std::function<void (const std::string &, const cocos2d::Value &)> &dispatcher)
     cclua::plugin::WeChat::setDispatcher(arg1);
 
     olua_endinvoke(L);
@@ -308,6 +326,7 @@ static int luaopen_cclua_plugin_WeChat(lua_State *L)
     oluacls_func(L, "__move", _cclua_plugin_WeChat___move);
     oluacls_func(L, "auth", _cclua_plugin_WeChat_auth);
     oluacls_func(L, "authQRCode", _cclua_plugin_WeChat_authQRCode);
+    oluacls_func(L, "dispatch", _cclua_plugin_WeChat_dispatch);
     oluacls_func(L, "init", _cclua_plugin_WeChat_init);
     oluacls_func(L, "isInstalled", _cclua_plugin_WeChat_isInstalled);
     oluacls_func(L, "open", _cclua_plugin_WeChat_open);

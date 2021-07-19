@@ -21,3 +21,9 @@ ifdef 'CCLUA_BUILD_APPLE_AUTH'
 typeconf "cclua::plugin::AppleAuth"
     .require 'cclua::runtime::registerFeature("apple.auth.ios", true);'
 endif ''
+
+ifdef 'CCLUA_BUILD_APPLE_IAP'
+typeconf "cclua::plugin::AppleIAP"
+    .require 'cclua::runtime::registerFeature("apple.iap.ios", true);'
+endif ''
+

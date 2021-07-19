@@ -67,11 +67,11 @@ USING_NS_CCLUA_PLUGIN;
             data["state"] = [authResp.state UTF8String];
             data["lang"] = [authResp.lang UTF8String];
             data["country"] = [authResp.country UTF8String];
-            WeChat::dispatch("auth", data);
+            WeChat::dispatch("auth", cocos2d::Value(data));
         } else if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
             cocos2d::ValueMap data;
             data["errcode"] = resp.errCode;
-            WeChat::dispatch("share", data);
+            WeChat::dispatch("share", cocos2d::Value(data));
         }
     }
 }
@@ -86,7 +86,7 @@ USING_NS_CCLUA_PLUGIN;
         cocos2d::ValueMap data;
         data["errcode"] = 0;
         data["path"] = path;
-        WeChat::dispatch("authQRCode", data);
+        WeChat::dispatch("authQRCode", cocos2d::Value(data));
     }
 }
 
@@ -102,7 +102,7 @@ USING_NS_CCLUA_PLUGIN;
         cocos2d::ValueMap data;
         data["errcode"] = errCode;
         data["code"] = [authCode UTF8String];
-        WeChat::dispatch("authQRCode", data);
+        WeChat::dispatch("authQRCode", cocos2d::Value(data));
     }
 }
 
@@ -110,7 +110,7 @@ USING_NS_CCLUA_PLUGIN;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     @autoreleasepool {
-        cclua::runtime::log("init wechat oath %s", [_appid UTF8String]);
+        cclua::runtime::log("init wechat '%s'", [_appid UTF8String]);
         [WXApi registerApp:_appid universalLink:_universalLink];
         return YES;
     }

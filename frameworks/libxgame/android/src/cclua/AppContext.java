@@ -274,7 +274,7 @@ public class AppContext extends Cocos2dxActivity {
 
     @SuppressWarnings("unused")
     public static String getChannel() {
-        return getMetaData("CHANNEL");
+        return getMetaData("cclua.channel");
     }
 
     @SuppressWarnings("unused")

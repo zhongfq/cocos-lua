@@ -9,9 +9,7 @@ set(LUA_BINDINGS_HEADER
     src/lua-bindings/lua_conv_manual.h
     src/lua-bindings/lua_conv.h
     src/lua-bindings/lua_crypto.h
-    src/lua-bindings/lua_iap.h
     src/lua-bindings/lua_javabridge.h
-    src/lua-bindings/lua_keychain.h
     src/lua-bindings/lua_manual.h
     src/lua-bindings/lua_ocbridge.h
     src/lua-bindings/lua_photo.h
@@ -63,8 +61,6 @@ endif()
 
 if(APPLE)
     list(APPEND LUA_BINDINGS_SRC
-        src/lua-bindings/lua_iap.mm
-        src/lua-bindings/lua_keychain.mm
         src/lua-bindings/lua_ocbridge.mm
         src/lua-bindings/lua_photo.mm
         src/lua-bindings/lua_recorder.mm

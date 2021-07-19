@@ -20,6 +20,5 @@ include "conf/exclude-type.lua"
 
 ifdef 'CCLUA_BUILD_TALKINGDATA'
 typeconf "cclua::plugin::TCAgent"
-    .exclude 'dispatch'
     .require 'cclua::runtime::registerFeature("talkingdata", true);'
 endif ''

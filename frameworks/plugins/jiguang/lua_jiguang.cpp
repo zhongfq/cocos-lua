@@ -388,7 +388,7 @@ static int _cclua_plugin_JAuth_getSmsCode(lua_State *L)
     std::string arg1;       /** phonenum */
     std::string arg2;       /** signid */
     std::string arg3;       /** tempid */
-    std::function<void(const cocos2d::ValueMap &)> arg4;       /** callback */
+    std::function<void(const cocos2d::Value &)> arg4;       /** callback */
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
@@ -399,7 +399,7 @@ static int _cclua_plugin_JAuth_getSmsCode(lua_State *L)
     std::string cb_tag = "SmsCode";
     std::string cb_name = olua_setcallback(L, cb_store, cb_tag.c_str(), 4, OLUA_TAG_NEW);
     lua_Integer cb_ctx = olua_context(L);
-    arg4 = [cb_store, cb_name, cb_ctx](const cocos2d::ValueMap &arg1) {
+    arg4 = [cb_store, cb_name, cb_ctx](const cocos2d::Value &arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
@@ -407,7 +407,7 @@ static int _cclua_plugin_JAuth_getSmsCode(lua_State *L)
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cocos2d_ValueMap(L, &arg1);
+            olua_push_cocos2d_Value(L, &arg1);
             olua_disable_objpool(L);
 
             olua_callback(L, cb_store, cb_name.c_str(), 1);
@@ -420,7 +420,7 @@ static int _cclua_plugin_JAuth_getSmsCode(lua_State *L)
         }
     };
 
-    // static void getSmsCode(const std::string &phonenum, const std::string &signid, const std::string &tempid, @local const std::function<void (const cocos2d::ValueMap &)> callback)
+    // static void getSmsCode(const std::string &phonenum, const std::string &signid, const std::string &tempid, @local const std::function<void (const cocos2d::Value &)> callback)
     cclua::plugin::JAuth::getSmsCode(arg1, arg2, arg3, arg4);
 
     olua_endinvoke(L);
@@ -433,7 +433,7 @@ static int _cclua_plugin_JAuth_getToken(lua_State *L)
     olua_startinvoke(L);
 
     lua_Integer arg1 = 0;       /** timeout */
-    std::function<void(const cocos2d::ValueMap &)> arg2;       /** callback */
+    std::function<void(const cocos2d::Value &)> arg2;       /** callback */
 
     olua_check_int(L, 1, &arg1);
     olua_check_std_function(L, 2, &arg2);
@@ -442,7 +442,7 @@ static int _cclua_plugin_JAuth_getToken(lua_State *L)
     std::string cb_tag = "Token";
     std::string cb_name = olua_setcallback(L, cb_store, cb_tag.c_str(), 2, OLUA_TAG_NEW);
     lua_Integer cb_ctx = olua_context(L);
-    arg2 = [cb_store, cb_name, cb_ctx](const cocos2d::ValueMap &arg1) {
+    arg2 = [cb_store, cb_name, cb_ctx](const cocos2d::Value &arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
@@ -450,7 +450,7 @@ static int _cclua_plugin_JAuth_getToken(lua_State *L)
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cocos2d_ValueMap(L, &arg1);
+            olua_push_cocos2d_Value(L, &arg1);
             olua_disable_objpool(L);
 
             olua_callback(L, cb_store, cb_name.c_str(), 1);
@@ -463,7 +463,7 @@ static int _cclua_plugin_JAuth_getToken(lua_State *L)
         }
     };
 
-    // static void getToken(int timeout, @local const std::function<void (const cocos2d::ValueMap &)> callback)
+    // static void getToken(int timeout, @local const std::function<void (const cocos2d::Value &)> callback)
     cclua::plugin::JAuth::getToken((int)arg1, arg2);
 
     olua_endinvoke(L);
@@ -507,7 +507,7 @@ static int _cclua_plugin_JAuth_loginAuth(lua_State *L)
     olua_startinvoke(L);
 
     lua_Integer arg1 = 0;       /** timeout */
-    std::function<void(const cocos2d::ValueMap &)> arg2;       /** callback */
+    std::function<void(const cocos2d::Value &)> arg2;       /** callback */
 
     olua_check_int(L, 1, &arg1);
     olua_check_std_function(L, 2, &arg2);
@@ -516,7 +516,7 @@ static int _cclua_plugin_JAuth_loginAuth(lua_State *L)
     std::string cb_tag = "loginAuth";
     std::string cb_name = olua_setcallback(L, cb_store, cb_tag.c_str(), 2, OLUA_TAG_NEW);
     lua_Integer cb_ctx = olua_context(L);
-    arg2 = [cb_store, cb_name, cb_ctx](const cocos2d::ValueMap &arg1) {
+    arg2 = [cb_store, cb_name, cb_ctx](const cocos2d::Value &arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
@@ -524,7 +524,7 @@ static int _cclua_plugin_JAuth_loginAuth(lua_State *L)
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cocos2d_ValueMap(L, &arg1);
+            olua_push_cocos2d_Value(L, &arg1);
             olua_disable_objpool(L);
 
             olua_callback(L, cb_store, cb_name.c_str(), 1);
@@ -537,7 +537,7 @@ static int _cclua_plugin_JAuth_loginAuth(lua_State *L)
         }
     };
 
-    // static void loginAuth(int timeout, @local const std::function<void (const cocos2d::ValueMap &)> callback)
+    // static void loginAuth(int timeout, @local const std::function<void (const cocos2d::Value &)> callback)
     cclua::plugin::JAuth::loginAuth((int)arg1, arg2);
 
     olua_endinvoke(L);
@@ -550,7 +550,7 @@ static int _cclua_plugin_JAuth_preLogin(lua_State *L)
     olua_startinvoke(L);
 
     lua_Integer arg1 = 0;       /** timeout */
-    std::function<void(const cocos2d::ValueMap &)> arg2;       /** callback */
+    std::function<void(const cocos2d::Value &)> arg2;       /** callback */
 
     olua_check_int(L, 1, &arg1);
     olua_check_std_function(L, 2, &arg2);
@@ -559,7 +559,7 @@ static int _cclua_plugin_JAuth_preLogin(lua_State *L)
     std::string cb_tag = "preLogin";
     std::string cb_name = olua_setcallback(L, cb_store, cb_tag.c_str(), 2, OLUA_TAG_NEW);
     lua_Integer cb_ctx = olua_context(L);
-    arg2 = [cb_store, cb_name, cb_ctx](const cocos2d::ValueMap &arg1) {
+    arg2 = [cb_store, cb_name, cb_ctx](const cocos2d::Value &arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
@@ -567,7 +567,7 @@ static int _cclua_plugin_JAuth_preLogin(lua_State *L)
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cocos2d_ValueMap(L, &arg1);
+            olua_push_cocos2d_Value(L, &arg1);
             olua_disable_objpool(L);
 
             olua_callback(L, cb_store, cb_name.c_str(), 1);
@@ -580,7 +580,7 @@ static int _cclua_plugin_JAuth_preLogin(lua_State *L)
         }
     };
 
-    // static void preLogin(int timeout, @local const std::function<void (const cocos2d::ValueMap &)> callback)
+    // static void preLogin(int timeout, @local const std::function<void (const cocos2d::Value &)> callback)
     cclua::plugin::JAuth::preLogin((int)arg1, arg2);
 
     olua_endinvoke(L);

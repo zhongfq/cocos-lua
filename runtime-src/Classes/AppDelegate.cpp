@@ -56,11 +56,9 @@
 #endif // CCLUA_BUILD_SQLITE3
 
 #ifdef CCLUA_BUILD_LUASOCKET
-extern "C" {
 #include "luasocket/luasocket.h"
 #include "luasocket/luasocket_scripts.h"
 #include "luasocket/mime.h"
-}
 #endif // CCLUA_BUILD_LUASOCKET
 
 #ifdef CCLUA_BUILD_PBC
@@ -89,7 +87,7 @@ extern "C" {
 #include "wechat/lua_wechat.h"
 #endif
 
-#ifdef CCLUA_BUILD_APPLE_AUTH
+#if defined(CCLUA_BUILD_APPLE_AUTH) || defined(CCLUA_BUILD_APPLE_IAP)
 #include "apple/lua_apple.h"
 #endif
 
@@ -158,7 +156,7 @@ static int _open_plugins(lua_State *L)
     olua_callfunc(L, luaopen_wechat);
 #endif
     
-#ifdef CCLUA_BUILD_APPLE_AUTH
+#if defined(CCLUA_BUILD_APPLE_AUTH) || defined(CCLUA_BUILD_APPLE_IAP)
     olua_callfunc(L, luaopen_apple);
 #endif
     return 0;
@@ -185,10 +183,12 @@ bool AppDelegate::applicationDidFinishLaunching()
      */
 
 #ifdef CCLUA_OS_WIN32
-    cclua::__runtime_setPackageName("com.codetypes.hellolua");
+    cclua::__runtime_setPackageName(APP_PACKAGE_NAME);
 #endif
     
-    initGLView("cocos-lua");
+    // runtime::setProperty("cclua.metadata.key", "hello");
+    
+    initGLView(APP_NAME);
     runtime::luaOpen(_open_plugins);
     
     return RuntimeContext::applicationDidFinishLaunching();

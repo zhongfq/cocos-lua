@@ -11,9 +11,7 @@
 #include "lua_manual.h"
 #include "lua_xml_http_request.h"
 #include "lua_photo.h"
-#include "lua_iap.h"
 #include "lua_recorder.h"
-#include "lua_keychain.h"
 #include "lua_socket.h"
 #include "cjson/lua_cjson.h"
 #include "cclua/runtime.h"
@@ -69,10 +67,8 @@ int luaopen_bindings(lua_State *L)
     olua_require(L, "cclua.Socket", luaopen_socket);
     olua_require(L, "cclua.luaoc", luaopen_ocbridge);
     olua_require(L, "cclua.luaj", luaopen_javabridge);
-    olua_require(L, "cclua.keychain", luaopen_keychain);
     olua_require(L, "cclua.plugin.photo", luaopen_photo);
     olua_require(L, "cclua.plugin.recorder", luaopen_recorder);
-    olua_require(L, "cclua.plugin.iap", luaopen_iap);
 
     return 0;
 }

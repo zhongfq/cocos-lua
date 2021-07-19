@@ -31,6 +31,7 @@ static std::vector<std::pair<std::string, std::string>> _suspendedEvents;
 static std::string _openURI;
 static std::unordered_map<std::string, bool> _supportedFeatures;
 static std::unordered_map<std::string, bool> _tracebackCaches;
+static std::unordered_map<std::string, std::string> _properties;
 static int _sampleCount = 1;
 static std::unordered_map<int, runtime::RefCallback> _refCallbacks;
 static int _refCount = -1;
@@ -251,7 +252,7 @@ void runtime::luaOpen(lua_CFunction libfunc)
 //
 const std::string runtime::getVersion()
 {
-    return "2.4.3";
+    return "2.4.6";
 }
 
 const uint64_t runtime::getCocosVersion()
@@ -307,6 +308,21 @@ void runtime::setManifestVersion(const std::string &version)
 const std::string runtime::getNetworkStatus()
 {
     return __runtime_getNetworkStatus();
+}
+
+bool runtime::hasProperty(const std::string &key)
+{
+    return _properties.find(key) != _properties.end();
+}
+
+std::string runtime::getProperty(const std::string &key)
+{
+    return runtime::hasProperty(key) ? _properties[key] : "";
+}
+
+void runtime::setProperty(const std::string &key, const std::string &value)
+{
+    _properties[key] = value;
 }
 
 const std::string runtime::getPaste()

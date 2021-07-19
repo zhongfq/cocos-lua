@@ -5,99 +5,89 @@ local buildSharding = require "build-sharding"
 local builtinAssets = require "builtin-assets"
 local compileScript = require "compile-script"
 
-local ARG_DEBUG = false
-local ARG_NAME = 'LOCAL'
-local ARG_VERSION = nil
-local ARG_URL = nil
-local ARG_RUNTIME = nil
-local ARG_COMPILE = nil
-local ARG_PUBLISH_PATH = nil
-local ARG_BUILD_PATH = nil
+local conf = setmetatable({}, {__index = setting.LOCAL})
 
 -- parse cmd line args
 local args = {...}
 while #args > 0 do
     local c = table.remove(args, 1)
     if c == '--debug' then
-        ARG_DEBUG = true
+        conf.DEBUG = true
     elseif c == '--setting' then
-        ARG_NAME = assert(table.remove(args, 1), 'no setting name')
-        assert(setting[ARG_NAME], 'setting not found: ' .. ARG_NAME)
+        local NAME = assert(table.remove(args, 1), 'no setting name')
+        setmetatable(conf, {__index = assert(setting[NAME], 'setting not found: ' .. NAME)})
     elseif c == '--publish-path' then
-        ARG_PUBLISH_PATH = assert(table.remove(args, 1), 'no publish path')
+        conf.PUBLISH_PATH = assert(table.remove(args, 1), 'no publish path')
     elseif c == '--runtime' then
-        ARG_RUNTIME = assert(table.remove(args, 1), 'no runtime version')
+        conf.RUNTIME = assert(table.remove(args, 1), 'no runtime version')
     elseif c == '--url' then
-        ARG_URL = assert(table.remove(args, 1), 'no url')
+        conf.URL = assert(table.remove(args, 1), 'no url')
     elseif c == '--compile' then
-        ARG_COMPILE = true
+        conf.COMPILE = true
     elseif c == '--version' then
-        ARG_VERSION = assert(table.remove(args, 1), 'no version')
-    elseif c == '--build-path' then
-        ARG_BUILD_PATH = assert(table.remove(args, 1), 'no build path')
+        conf.VERSION = assert(table.remove(args, 1), 'no version')
+    elseif c == '--encrypt-metadata' then
+        conf.ENCRYPT_METADATA = true
+    elseif c == '--encrypt-key' then
+        conf.ENCRYPT_KEY = assert(table.remove(args, 1), 'no encrypt key')
     end
 end
 
 -- check publish directory
-ARG_PUBLISH_PATH = ARG_PUBLISH_PATH or setting[ARG_NAME].PUBLISH_PATH
-if not shell.exist(ARG_PUBLISH_PATH) then
-    error('no such directory: ' .. assert(ARG_PUBLISH_PATH))
+if not shell.exist(conf.PUBLISH_PATH) then
+    error('no such directory: ' .. assert(conf.PUBLISH_PATH))
 end
 
--- read latest manifest
+-- build path
+if not conf.SIDE_BY_SIDE then
+    if conf.NAME == 'BUILTIN' then
+        conf.BUILD_PATH = "../.."
+    else
+        conf.BUILD_PATH = conf.PUBLISH_PATH .. '/current'
+        shell.bash [[
+            cd ${conf.PUBLISH_PATH}
+            mkdir -p current && cd current
+            ln -sfn ../../../assets assets
+        ]]
+    end
+end
+
+-- read latest manifest && calc current version
 local latestManifestPath
-local needBuildLink = not shell.exist(ARG_PUBLISH_PATH .. '/current')
-if ARG_NAME == 'BUILTIN' then
-    latestManifestPath = setting[ARG_NAME].BUILD_PATH .. '/assets/builtin.manifest'
+local needBuildLink = not shell.exist(conf.PUBLISH_PATH .. '/current')
+if conf.NAME == 'BUILTIN' then
+    latestManifestPath = '../../assets/builtin.metadata'
 else
-    latestManifestPath = ARG_PUBLISH_PATH .. '/current/assets.manifest'
+    latestManifestPath = conf.PUBLISH_PATH .. '/current/assets.metadata'
 end
-local latestManifest = shell.readJson(latestManifestPath, {assets = {}, version = '0.0.0'})
-
--- calc current version
-ARG_VERSION = ARG_VERSION or shell.nextversion(latestManifest.version)
-
--- create build conf
-local OUTPUT_PATH
-local conf = {
-    DEBUG = ARG_DEBUG,
-    NAME = ARG_NAME,
-    VERSION = ARG_VERSION,
-    RUNTIME = ARG_RUNTIME or setting[ARG_NAME].RUNTIME,
-    LATEST_MANIFEST = latestManifest,
-    SHARDS = setting[ARG_NAME].SHARDS,
-    BUILD_PATH = ARG_BUILD_PATH or setting[ARG_NAME].BUILD_PATH,
-    COMPILE = ARG_COMPILE or setting[ARG_NAME].COMPILE,
-    URL = (ARG_URL or setting[ARG_NAME].URL) .. '/' ..  ARG_VERSION,
-    BUILD_LINK = setting[ARG_NAME].BUILD_LINK,
-}
+conf.LATEST_MANIFEST = shell.readManifest(latestManifestPath, conf)
+conf.VERSION = conf.VERSION or shell.nextversion(conf.LATEST_MANIFEST.version)
+conf.URL = conf.URL .. '/' .. (conf.SIDE_BY_SIDE and conf.VERSION or 'current')
 
 if not conf.BUILD_PATH or conf.COMPILE then
     shell.bash 'rm -rf build'
     shell.bash 'mkdir -p build/assets'
     shell.bash 'cp -rf ../../assets/* build/assets'
-    shell.bash 'rm build/assets/builtin.manifest'
+    shell.bash 'rm build/assets/builtin.metadata'
     conf.BUILD_PATH = 'build'
 end
 
 conf.ASSETS_PATH = conf.BUILD_PATH .. '/assets'
 builtinAssets = builtinAssets(conf.ASSETS_PATH)
 conf.IS_BUILTIN = function (path) return builtinAssets[path] end
-conf.ASSETS_MANIFEST_PATH = conf.BUILD_PATH .. '/assets.manifest'
-conf.VERSION_MANIFEST_PATH = conf.BUILD_PATH .. '/version.manifest'
-conf.PUBLISH_PATH = ARG_PUBLISH_PATH
-OUTPUT_PATH = ARG_PUBLISH_PATH .. '/' .. conf.VERSION
+conf.ASSETS_MANIFEST_PATH = conf.BUILD_PATH .. '/assets.metadata'
+conf.VERSION_MANIFEST_PATH = conf.BUILD_PATH .. '/version.metadata'
+
+-- create build conf
+local OUTPUT_PATH = conf.PUBLISH_PATH .. '/' .. (conf.SIDE_BY_SIDE and conf.VERSION or 'current')
 
 if conf.NAME == 'BUILTIN' then
-    conf.ASSETS_MANIFEST_PATH = conf.BUILD_PATH .. '/assets/builtin.manifest'
+    conf.ASSETS_MANIFEST_PATH = conf.BUILD_PATH .. '/assets/builtin.metadata'
     conf.VERSION_MANIFEST_PATH = nil
     OUTPUT_PATH = conf.BUILD_PATH
     -- conf.SHOULD_BUILD = function (path)
     --     return builtinAssets[path]
     -- end
-elseif conf.NAME == 'LOCAL' then
-    conf.URL = setting[ARG_NAME].URL .. '/current'
-    OUTPUT_PATH = ARG_PUBLISH_PATH .. '/current'
 end
 
 if conf.COMPILE then
@@ -119,26 +109,35 @@ if hasUpdate then
         shell.bash 'cp -rf ${BUILD_PATH}/* ${OUTPUT_PATH}'
     end
 
-    needBuildLink = needBuildLink or ARG_DEBUG
+    needBuildLink = needBuildLink or conf.DEBUG
 end
 
 if conf.BUILD_LINK and needBuildLink then
-    shell.bash [[
-        cd ${ARG_PUBLISH_PATH}
-        ln -sfn ${ARG_VERSION} current
-        ln -sfn ${ARG_VERSION} current.ios
-        ln -sfn ${ARG_VERSION} current.android
-        ln -sfn current/version.manifest version
-        ln -sfn current.ios/version.manifest version.ios
-        ln -sfn current.android/version.manifest version.android
-    ]]
+    if conf.SIDE_BY_SIDE then
+        shell.bash [[
+            cd ${conf.PUBLISH_PATH}
+            ln -sfn ${conf.VERSION} current
+            ln -sfn ${conf.VERSION} current.ios
+            ln -sfn ${conf.VERSION} current.android
+            ln -sfn current/version.metadata version
+            ln -sfn current.ios/version.metadata version.ios
+            ln -sfn current.android/version.metadata version.android
+        ]]
+    else
+        shell.bash [[
+            cd ${conf.PUBLISH_PATH}
+            ln -sfn current/version.metadata version
+            ln -sfn current/version.metadata version.ios
+            ln -sfn current/version.metadata version.android
+        ]]
+    end
 end
 
 if conf.NAME == 'BUILTIN' then
     local data = shell.read(conf.ASSETS_MANIFEST_PATH)
     data = string.gsub(data, '", "date":%d+', '", "date":' .. os.time())
     print('always update builtin manifest asset date')
-    shell.write(conf.ASSETS_MANIFEST_PATH, data)
+    shell.writeManifest(conf.ASSETS_MANIFEST_PATH, data, conf)
 end
 
 -- shell.bash 'rm -rf build'

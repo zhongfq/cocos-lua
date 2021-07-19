@@ -1,7 +1,6 @@
-print('hello path:', ...)
-
 local builtinAssets = require "builtin-assets"
 local buildManifest = require "build-manifest"
+local buildBundle = require "build-bundle"
 local compileScript = require "compile-script"
 
 local BUILD_PATH = ...
@@ -18,7 +17,7 @@ local conf = {
     BUILD_PATH = BUILD_PATH,
     ASSETS_PATH = BUILD_PATH,
     PUBLISH_PATH = BUILD_PATH,
-    ASSETS_MANIFEST_PATH = BUILD_PATH .. '/builtin.manifest',
+    ASSETS_MANIFEST_PATH = BUILD_PATH .. '/builtin.metadata',
     COMPILE = true,
     URL = "builtin://",
 }
@@ -38,3 +37,4 @@ end
 
 compileScript(BUILD_PATH)
 buildManifest(conf)
+buildBundle(BUILD_PATH)

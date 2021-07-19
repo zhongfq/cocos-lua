@@ -113,6 +113,11 @@ public:
     static void setManifestVersion(const std::string &version);
     static const std::string getNetworkStatus();
     
+    // property value
+    static bool hasProperty(const std::string &key);
+    static std::string getProperty(const std::string &key);
+    static void setProperty(const std::string &key, const std::string &value);
+    
     static const std::string getPaste();
     static void setPaste(const std::string &text);
     

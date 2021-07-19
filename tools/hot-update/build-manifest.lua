@@ -23,7 +23,7 @@ return function (conf)
     local hasUpdate = false
 
     for _, path in ipairs(shell.list(ASSETS_PATH)) do
-        if path == 'builtin.manifest' or not SHOULD_BUILD(path) then
+        if path == 'builtin.metadata' or not SHOULD_BUILD(path) then
             goto continue
         end
 
@@ -85,7 +85,7 @@ return function (conf)
 
         writeline('{')
         writeline('  "package_url":"%s",', conf.URL .. '/assets')
-        writeline('  "manifest_url":"%s",', conf.URL .. '/assets.manifest')
+        writeline('  "manifest_url":"%s",', conf.URL .. '/assets.metadata')
         writeline('  "date":"%s",', os.date("!%Y-%m-%d %H:%M:%S", os.time() + 8 * 60 * 60))
         writeline('  "version":"%s",', conf.VERSION)
 
@@ -105,14 +105,14 @@ return function (conf)
         writeline('  }')
         writeline('}')
 
-        shell.write(conf.ASSETS_MANIFEST_PATH, table.concat(data, ''))
+        shell.writeManifest(conf.ASSETS_MANIFEST_PATH, table.concat(data, ''), conf)
 
         if conf.VERSION_MANIFEST_PATH then
             shell.write(conf.VERSION_MANIFEST_PATH, shell.format [[
                 {
                     "runtime": "${conf.RUNTIME}",
                     "assets": [
-                        {"name": "main", "url":"${conf.URL}/assets.manifest", "version":"${conf.VERSION}"}
+                        {"name": "main", "url":"${conf.URL}/assets.metadata", "version":"${conf.VERSION}"}
                     ]
                 }
             ]])

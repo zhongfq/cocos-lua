@@ -33,6 +33,7 @@ end
 
 local cjson = require "cjson.safe"
 local lfs = require "lfs"
+local xxtea = require "xxtea"
 
 function M.toversion(str)
     local v1, v2, v3 = string.match(str, "(%d+)%.(%d+)%.(%d+)")
@@ -58,11 +59,21 @@ function M.read(path, defautl)
     end
 end
 
-function M.readJson(path, defautl)
+function M.readManifest(path, conf)
     if M.exist(path) then
-        return cjson.decode(M.read(path)) or defautl
-    elseif defautl then
-        return defautl
+        local data = M.read(path)
+        return cjson.decode(data) or cjson.decode(xxtea.decrypt(data,
+            assert(conf.ENCRYPT_KEY, 'no encrypt key')))
+    else
+        return {assets = {}, version = '0.0.0'}
+    end
+end
+
+function M.writeManifest(path, data, conf)
+    if conf.ENCRYPT_METADATA then
+        M.write(path, xxtea.encrypt(data,  assert(conf.ENCRYPT_KEY, 'no encrypt key')))
+    else
+        M.write(path, data)
     end
 end
 

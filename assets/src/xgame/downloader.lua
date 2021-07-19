@@ -17,9 +17,9 @@ local started = false
 
 local ASSETS_DIR = filesystem.dir.assets
 local M = {
-    remoteManifest = Manifest.new(ASSETS_DIR .. '/remote.manifest'),
-    localManifest = Manifest.new(ASSETS_DIR .. '/local.manifest'),
-    builtinManifest = Manifest.new('builtin.manifest'),
+    remoteManifest = Manifest.new(ASSETS_DIR .. '/remote.metadata'),
+    localManifest = Manifest.new(ASSETS_DIR .. '/local.metadata'),
+    builtinManifest = Manifest.new('builtin.metadata'),
 }
 
 local function checkStart()

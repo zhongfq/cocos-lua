@@ -5,9 +5,7 @@ local http          = require "xgame.http"
 local filesystem    = require "xgame.filesystem"
 local Manifest      = require "xgame.Manifest"
 local runtime       = require "xgame.runtime"
-local timer         = require "xgame.timer"
 local Event         = require "xgame.Event"
-local cjson         = require "cjson.safe"
 
 local builtinManifest = downloader.builtinManifest
 local localManifest = downloader.localManifest
@@ -35,7 +33,7 @@ function M:_resolveAssetPath(path)
 end
 
 function M:_loadManifest(name)
-    local path = string.format('%s/%s.manifest', filesystem.dir.assets, name)
+    local path = string.format('%s/%s.metadata', filesystem.dir.assets, name)
     local m = self._manifests[path]
     if not m then
         m = Manifest.new(path)
@@ -68,7 +66,7 @@ function M:_checkAndDownloadManifest(name, info)
             return false
         else
             filesystem.write(m.path, data)
-            m.data = cjson.decode(data)
+            m:setContent(data)
         end
     else
         print(string.format("manifest '%s' is up-to-date", name))
@@ -93,7 +91,7 @@ function M:_mergeManifests(versionData)
     remoteManifest:flush()
 end
 
-function M:_downloadAssets(localManifest, assets)
+function M:_downloadAssets(assets)
     local total = 0
     local current = 0
     for path, asset in pairs(assets) do
@@ -125,7 +123,7 @@ function M:_verifyAssets()
         filesystem.copy(builtinManifest.path, localManifest.path)
     end
 
-    -- compare builtin.manifest and local.manifest
+    -- compare builtin.metadata and local.metadata
     -- remove file when the date of builtin asset is newer
     local shouldSave = false
     for path, builtinAsset in pairs(builtinManifest.assets) do
@@ -141,7 +139,7 @@ function M:_verifyAssets()
         localManifest:flush()
     end
 
-    -- compare local.manifest and remote.manifest, should updated when:
+    -- compare local.metadata and remote.metadata, should updated when:
     -- 1. date not equal and asset.builtin = true
     -- 2. date not equal and pass filter test
     -- 3. date equal but file lose
@@ -183,7 +181,7 @@ function M:_verifyAssets()
 
     if next(assets) then
         self._shouldRestart = true
-        self:_downloadAssets(localManifest, assets)
+        self:_downloadAssets(assets)
     else
         print("all assets is up-to-date")
         runtime.manifestVersion = remoteManifest.version

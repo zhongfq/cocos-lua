@@ -47,7 +47,7 @@ bool FileFinder::init()
 AssetsBundle *FileFinder::createAssetsBundle()
 {
     AssetsBundle *bundle = new AssetsBundle();
-    bundle->init("builtin.assets");
+    bundle->init("assets.bundle");
     return bundle;
 }
 

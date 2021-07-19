@@ -660,6 +660,23 @@ static int _cclua_runtime_getPermissionStatus(lua_State *L)
     return num_ret;
 }
 
+static int _cclua_runtime_getProperty(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::string arg1;       /** key */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static std::string getProperty(const std::string &key)
+    std::string ret = cclua::runtime::getProperty(arg1);
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cclua_runtime_getSampleCount(lua_State *L)
 {
     olua_startinvoke(L);
@@ -693,6 +710,23 @@ static int _cclua_runtime_getVersion(lua_State *L)
     // static const std::string getVersion()
     const std::string ret = cclua::runtime::getVersion();
     int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cclua_runtime_hasProperty(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::string arg1;       /** key */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static bool hasProperty(const std::string &key)
+    bool ret = cclua::runtime::hasProperty(arg1);
+    int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
 
@@ -1015,6 +1049,24 @@ static int _cclua_runtime_setPaste(lua_State *L)
     return 0;
 }
 
+static int _cclua_runtime_setProperty(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::string arg1;       /** key */
+    std::string arg2;       /** value */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+
+    // static void setProperty(const std::string &key, const std::string &value)
+    cclua::runtime::setProperty(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cclua_runtime_setSampleCount(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1087,9 +1139,11 @@ static int luaopen_cclua_runtime(lua_State *L)
     oluacls_func(L, "getPackageName", _cclua_runtime_getPackageName);
     oluacls_func(L, "getPaste", _cclua_runtime_getPaste);
     oluacls_func(L, "getPermissionStatus", _cclua_runtime_getPermissionStatus);
+    oluacls_func(L, "getProperty", _cclua_runtime_getProperty);
     oluacls_func(L, "getSampleCount", _cclua_runtime_getSampleCount);
     oluacls_func(L, "getTime", _cclua_runtime_getTime);
     oluacls_func(L, "getVersion", _cclua_runtime_getVersion);
+    oluacls_func(L, "hasProperty", _cclua_runtime_hasProperty);
     oluacls_func(L, "isCocosThread", _cclua_runtime_isCocosThread);
     oluacls_func(L, "isDebug", _cclua_runtime_isDebug);
     oluacls_func(L, "isRestarting", _cclua_runtime_isRestarting);
@@ -1104,6 +1158,7 @@ static int luaopen_cclua_runtime(lua_State *L)
     oluacls_func(L, "setLogPath", _cclua_runtime_setLogPath);
     oluacls_func(L, "setManifestVersion", _cclua_runtime_setManifestVersion);
     oluacls_func(L, "setPaste", _cclua_runtime_setPaste);
+    oluacls_func(L, "setProperty", _cclua_runtime_setProperty);
     oluacls_func(L, "setSampleCount", _cclua_runtime_setSampleCount);
     oluacls_func(L, "support", _cclua_runtime_support);
     oluacls_func(L, "testCrash", _cclua_runtime_testCrash);

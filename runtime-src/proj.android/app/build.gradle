@@ -87,6 +87,10 @@ android {
             signingConfig signingConfigs.release
         }
     }
+
+    aaptOptions {
+        noCompress '.bundle'
+    }
 }
 
 def compileAssets(path) {

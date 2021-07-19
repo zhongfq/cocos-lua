@@ -13,7 +13,7 @@ local function writeManifest(conf, name, shard)
         return v1.path < v2.path
     end)
 
-    local latestManifest = shell.readJson(conf.PUBLISH_PATH .. '/current/' .. name, {assets = {}})
+    local latestManifest = shell.readManifest(conf.PUBLISH_PATH .. '/current/' .. name, conf)
 
     writeline('{')
     writeline('  "package_url":"%s",', shard.package_url)
@@ -49,7 +49,7 @@ local function writeManifest(conf, name, shard)
     writeline('  }')
     writeline('}')
 
-    shell.write(manifestPath, table.concat(data, ''))
+    shell.writeManifest(manifestPath, table.concat(data, ''), conf)
 end
 
 local function writeVersions(conf)
@@ -61,14 +61,14 @@ local function writeVersions(conf)
 
     local assets = {}
     for _, m in ipairs(conf.SHARDS) do
-        local manifest = shell.readJson(conf.BUILD_PATH .. '/' .. m.NAME .. '.manifest')
+        local manifest = shell.readManifest(conf.BUILD_PATH .. '/' .. m.NAME .. '.metadata', conf)
         assets[#assets + 1] = shell.format [[
             {"name":"${m.NAME}", "url":"${manifest.manifest_url}", "version":"${manifest.version}"}
         ]]
     end
 
     assets = table.concat(assets, ',\n')
-    shell.write(conf.BUILD_PATH .. '/version.manifest', shell.format [[
+    shell.write(conf.VERSION_MANIFEST_PATH, shell.format [[
         {
             "runtime": "${conf.RUNTIME}",
             "assets": [
@@ -81,14 +81,14 @@ end
 return function (conf)
     print("start build shards:")
 
-    local manifest = shell.readJson(conf.ASSETS_MANIFEST_PATH)
+    local manifest = shell.readManifest(conf.ASSETS_MANIFEST_PATH, conf)
     for _, m in ipairs(conf.SHARDS) do
         local shard = {
             assets = {},
             name = m.NAME,
             version = manifest.version,
             package_url = manifest.package_url,
-            manifest_url = string.gsub(manifest.manifest_url, 'assets.manifest$', m.NAME .. '.manifest'),
+            manifest_url = string.gsub(manifest.manifest_url, 'assets.metadata$', m.NAME .. '.metadata'),
         }
         for path, info in pairs(manifest.assets) do
             for p in string.gmatch(m.PATTERN, '[^;]+') do
@@ -99,7 +99,7 @@ return function (conf)
                 end
             end
         end
-        writeManifest(conf, m.NAME .. '.manifest', shard)
+        writeManifest(conf, m.NAME .. '.metadata', shard)
     end
 
     if next(manifest.assets) then

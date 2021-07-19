@@ -1,8 +1,9 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
+local runtime       = require "xgame.runtime"
 local Dispatcher    = require "xgame.Dispatcher"
-local cjson         = require "cjson.safe"
-local impl          = require "cclua.plugin.iap"
+
+local AppleIAP
 
 local trace = util.trace("[iap]")
 
@@ -20,43 +21,33 @@ IAP.RESTORE_COMPLETE = "restoreTransactionComplete"
 IAP.RESTORE_FAIL = "restoreTransactionFail"
 
 function IAP:ctor()
-    impl:setDispatcher(function (...)
-        self:_didResponse(...)
+    AppleIAP.setDispatcher(function (...)
+        self:dispatch(...)
     end)
 end
 
-function IAP:_didResponse(event, message)
-    local obj = cjson.decode(message)
-    if obj then
-        self:dispatch(event, obj)
-    else
-        self:dispatch(event, message)
-    end
-end
-
 function IAP:canMakePayments()
-    return impl:canMakePayments()
+    return AppleIAP.canMakePayments()
 end
 
 function IAP:requestProducts(ids)
-    impl:requestProducts(table.concat(ids, ","))
+    AppleIAP.requestProducts(ids)
 end
 
 function IAP:purchase(product, quantity)
-    trace("purchas '%s'", product.identifier)
-    impl:purchase(product.identifier, math.min(quantity or 1, 1))
+    AppleIAP.purchase(product.identifier, quantity or 1)
 end
 
 function IAP:finishTransaction(transaction)
-    impl:finishTransaction(transaction.identifier)
+    AppleIAP.finishTransaction(transaction.identifier)
 end
 
 function IAP:finishTransactionIdentifier(identifier)
-    impl:finishTransaction(identifier)
+    AppleIAP.finishTransaction(identifier)
 end
 
 function IAP:restoreCompletedTransactions()
-    impl:restoreCompletedTransactions()
+    AppleIAP.restoreCompletedTransactions()
 end
 
 local function isTrue(str)
@@ -66,18 +57,27 @@ end
 function IAP.Get:pendingTransactions()
     local transactions = {}
     local filter = {}
-    for _, t in pairs(cjson.decode(impl.pendingTransactions)) do
+    for _, t in ipairs(AppleIAP.pendingTransactions) do
         if filter[t.productIdentifier] or isTrue(t.error) then
             self:finishTransaction(t)
-        elseif isTrue(t.receipt) then
+        elseif t.receipt then
             filter[t.productIdentifier] = true
             table.insert(transactions, t)
         else
             self:finishTransaction(t)
         end
     end
-
     return transactions
+end
+
+if runtime.support('apple.iap') then
+    AppleIAP = require "cclua.plugin.AppleIAP"
+else
+    AppleIAP = setmetatable({}, {__index = function (_, func)
+        return function ()
+            trace("function 'cclua.plugin.AppleIAP.%s' not supported", func)
+        end
+    end})
 end
 
 return IAP.new()

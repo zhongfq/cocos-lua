@@ -56,9 +56,11 @@
 #endif // CCLUA_BUILD_SQLITE3
 
 #ifdef CCLUA_BUILD_LUASOCKET
+extern "C" {
 #include "luasocket/luasocket.h"
 #include "luasocket/luasocket_scripts.h"
 #include "luasocket/mime.h"
+}
 #endif // CCLUA_BUILD_LUASOCKET
 
 #ifdef CCLUA_BUILD_PBC

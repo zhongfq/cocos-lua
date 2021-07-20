@@ -16,20 +16,11 @@ function M.addSearchPath(path)
     end
 end
 
-function M.addCSearchPath(path)
-    if not string.find(package.cpath, path, 1, true) then
-        print("add search path: " .. path)
-        package.cpath = path .. "/?.so;" .. package.cpath
-    end
-end
-
-if M.OS == 'osx' then
-    M.addCSearchPath('../lualib/osx')
-elseif M.OS == 'linux' then
-    M.addCSearchPath('../lualib/linux')
-else
-    error('TODO')
-end
+local version = string.match(_VERSION, '%d.%d'):gsub('%.', '')
+local osn = package.cpath:find('?.dll') and 'windows' or
+    ((io.popen('uname'):read("*l"):find('Darwin')) and 'macos' or 'linux')
+local suffix = osn == 'windows' and 'dll' or 'so'
+package.cpath = string.format('../lua/%s/lua%s/?.%s;%s', osn, version, suffix, package.cpath)
 
 local cjson = require "cjson.safe"
 local lfs = require "lfs"

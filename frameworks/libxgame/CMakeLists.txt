@@ -9,6 +9,7 @@ include(src/lua/CMakeLists.txt)
 include(src/olua/CMakeLists.txt)
 include(src/lfs/CMakeLists.txt)
 include(src/cclua/CMakeLists.txt)
+include(src/xxtea/CMakeLists.txt)
 
 target_sources(xgame PRIVATE
     ${CCLUA_SRC}
@@ -18,6 +19,7 @@ target_sources(xgame PRIVATE
     ${LUA_SRC}
     ${LFS_SRC}
     ${OLUA_SRC}
+    ${XXTEA_SRC}
 
     ${CCLUA_HEADER}
     ${CJSON_HEADER}
@@ -26,6 +28,7 @@ target_sources(xgame PRIVATE
     ${LUA_HEADER}
     ${LFS_HEADER}
     ${OLUA_HEADER}
+    ${XXTEA_HEADER}
 )
 
 if(CCLUA_BUILD_BUGLY)

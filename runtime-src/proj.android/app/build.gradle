@@ -1,3 +1,4 @@
+import org.gradle.internal.os.OperatingSystem;
 apply plugin: 'com.android.application'
 apply plugin: 'bugly'
 //apply plugin: 'com.huawei.agconnect' @huawei
@@ -94,10 +95,22 @@ android {
 }
 
 def compileAssets(path) {
-    def cmdArgs = ["${projectDir}/../../../tools/bin/lua_wrapper.sh", "../hot-update/build-assets.lua", path]
-    println 'running command : ' + cmdArgs.join(' ')
+    def tools = file("${projectDir}/../../../tools").getAbsolutePath()
+    def script = "build-assets.lua"
+    def cmdArgs = [script, path]
+    def lua
+    if (OperatingSystem.current().isWindows()) {
+        lua = "${tools}/lua/windows/lua54/lua"
+    } else if (OperatingSystem.current().isMacOsX()) {
+        lua = "${tools}/lua/macos/lua54/lua"
+    } else {
+        lua = "${tools}/lua/linux/lua54/lua"
+    }
+    println "workingDir: ${tools}/hot-update"
+    println "running command: ${lua} ${script} ${path}"
     exec {
-        executable "/bin/bash"
+        workingDir "${tools}/hot-update"
+        executable lua
         args cmdArgs
     }
 }

@@ -4,6 +4,9 @@
 ** (http://keplerproject.github.io/luafilesystem)
 */
 
+#ifndef __LUA_LFS_H_
+#define __LUA_LFS_H_
+
 /* Define 'chdir' for systems that do not implement it */
 #ifdef NO_CHDIR
 #define chdir(p)	(-1)
@@ -32,4 +35,6 @@ extern "C" {
 
 #ifdef __cplusplus
 }
+#endif
+
 #endif

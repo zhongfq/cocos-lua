@@ -62,8 +62,7 @@ void runtime::init()
     FileFinder::setDelegate(FileFinder::create());
     filesystem::addSearchPath(filesystem::getDocumentDirectory() + "/assets", true);
     filesystem::addSearchPath(_workdir, true);
-    filesystem::remove(filesystem::getBuiltinCacheDirectory());
-    Director::getInstance()->setAnimationInterval(1.0f / 60);
+    runtime::setFrameRate(60);
     Director::getInstance()->setDisplayStats(runtime::isDebug());
     
 #ifdef CCLUA_OS_ANDROID
@@ -82,7 +81,6 @@ void runtime::init()
     
     // create paths
     filesystem::createDirectory(filesystem::getCacheDirectory());
-    filesystem::createDirectory(filesystem::getBuiltinCacheDirectory());
     filesystem::createDirectory(filesystem::getTmpDirectory());
     filesystem::createDirectory(filesystem::getDocumentDirectory() + "/assets");
     
@@ -139,6 +137,7 @@ void runtime::gc()
 
 void runtime::clearStorage()
 {
+    filesystem::remove(filesystem::getBuiltinCacheDirectory());
     filesystem::remove(filesystem::getDocumentDirectory() + "/assets");
     filesystem::createDirectory(filesystem::getDocumentDirectory() + "/assets");
     runtime::log("app clean version: %s(%s)", runtime::getAppVersion().c_str(),

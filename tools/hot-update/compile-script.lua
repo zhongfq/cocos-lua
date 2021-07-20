@@ -5,11 +5,11 @@ return function (path)
     local LUAC = ''
 
     if shell.OS == 'osx' then
-        LUAC = "../bin/osx/luac"
+        LUAC = "../lua/macos/lua54/luac"
     elseif shell.OS == 'linux' then
-        LUAC = "../bin/linux/luac"
+        LUAC = "../lua/linux/lua54/luac"
     else
-        error('not support yet: ' .. shell.OS)
+        LUAC = "../lua/windows/lua54/luac"
     end
 
     LUAC = shell.realpath(LUAC)

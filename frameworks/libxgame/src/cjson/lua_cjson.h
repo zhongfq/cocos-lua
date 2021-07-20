@@ -10,8 +10,14 @@ extern "C" {
 
 #define USE_INTERNAL_FPCONV
 
-int luaopen_cjson(lua_State *l);
-int luaopen_cjson_safe(lua_State *l);
+#ifdef _MSC_VER
+#define CJSON_EXPORT    __declspec(dllexport)
+#else
+#define CJSON_EXPORT    extern
+#endif
+
+CJSON_EXPORT int luaopen_cjson(lua_State *l);
+CJSON_EXPORT int luaopen_cjson_safe(lua_State *l);
     
 #ifdef __cplusplus
 }

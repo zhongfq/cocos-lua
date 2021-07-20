@@ -46,6 +46,7 @@
 
 #include "strbuf.h"
 #include "fpconv.h"
+#include "lua_cjson.h"
 
 #ifndef CJSON_MODNAME
 #define CJSON_MODNAME   "cjson"
@@ -1564,7 +1565,7 @@ static int lua_cjson_safe_new(lua_State *l)
     return 1;
 }
 
-int luaopen_cjson(lua_State *l)
+CJSON_EXPORT int luaopen_cjson(lua_State *l)
 {
     lua_cjson_new(l);
 
@@ -1578,7 +1579,7 @@ int luaopen_cjson(lua_State *l)
     return 1;
 }
 
-int luaopen_cjson_safe(lua_State *l)
+CJSON_EXPORT int luaopen_cjson_safe(lua_State *l)
 {
     lua_cjson_safe_new(l);
 

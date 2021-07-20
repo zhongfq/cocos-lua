@@ -18,6 +18,7 @@
 #include "cclua/xlua.h"
 #include "md5/md5.h"
 #include "lfs/lfs.h"
+#include "xxtea/lua_xxtea.h"
 
 #ifdef CCLUA_BUILD_BUGLY
 #include "bugly/lua_bugly.h"

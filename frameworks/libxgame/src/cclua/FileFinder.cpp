@@ -87,7 +87,10 @@ std::string FileFinder::getFullPathForFilenameWithinDirectory(const std::string&
             BufferReader *reader = filesystem::getBufferReader();
             if (_builtinAssets->getContents(fullPath, reader) == FileUtils::Status::OK) {
                 filesystem::createDirectory(realPath, true);
-                filesystem::write(realPath, (const char *)reader->buffer(), reader->size());
+                cocos2d::Data data;
+                data.fastSet((unsigned char *)reader->buffer(), reader->size());
+                writeDataToFile(data, realPath);
+                data.fastSet(nullptr, 0);
             }
         }
         return realPath;

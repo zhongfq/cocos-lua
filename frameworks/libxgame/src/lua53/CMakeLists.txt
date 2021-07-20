@@ -1,0 +1,66 @@
+cmake_minimum_required(VERSION 3.6)
+
+project(lua)
+
+set(LUA_HEADER
+    src/lua53/lapi.h
+    src/lua53/lauxlib.h
+    src/lua53/lcode.h
+    src/lua53/lctype.h
+    src/lua53/ldebug.h
+    src/lua53/ldo.h
+    src/lua53/lfunc.h
+    src/lua53/lgc.h
+    src/lua53/llex.h
+    src/lua53/llimits.h
+    src/lua53/lmem.h
+    src/lua53/lobject.h
+    src/lua53/lopcodes.h
+    src/lua53/lparser.h
+    src/lua53/lprefix.h
+    src/lua53/lstate.h
+    src/lua53/lstring.h
+    src/lua53/ltable.h
+    src/lua53/ltm.h
+    src/lua53/lua.h
+    src/lua53/luaconf.h
+    src/lua53/lualib.h
+    src/lua53/lundump.h
+    src/lua53/lvm.h
+    src/lua53/lzio.h
+)
+
+set(LUA_SRC
+    src/lua53/lapi.c
+    src/lua53/lauxlib.c
+    src/lua53/lbaselib.c
+    src/lua53/lbitlib.c
+    src/lua53/lcode.c
+    src/lua53/lcorolib.c
+    src/lua53/lctype.c
+    src/lua53/ldblib.c
+    src/lua53/ldebug.c
+    src/lua53/ldump.c
+    src/lua53/lfunc.c
+    src/lua53/lgc.c
+    src/lua53/linit.c
+    src/lua53/liolib.c
+    src/lua53/llex.c
+    src/lua53/lmathlib.c
+    src/lua53/lmem.c
+    src/lua53/loadlib.c
+    src/lua53/lobject.c
+    src/lua53/lopcodes.c
+    src/lua53/loslib.c
+    src/lua53/lparser.c
+    src/lua53/lstate.c
+    src/lua53/lstring.c
+    src/lua53/lstrlib.c
+    src/lua53/ltable.c
+    src/lua53/ltablib.c
+    src/lua53/ltm.c
+    src/lua53/lundump.c
+    src/lua53/lutf8lib.c
+    src/lua53/lvm.c
+    src/lua53/lzio.c
+)

@@ -2,10 +2,10 @@ cmake_minimum_required(VERSION 3.6)
 
 add_library(xgame "")
 
-include(src/crypto/CMakeLists.txt)
 include(src/cjson/CMakeLists.txt)
 include(src/lua-bindings/CMakeLists.txt)
 include(src/lua/CMakeLists.txt)
+include(src/md5/CMakeLists.txt)
 include(src/olua/CMakeLists.txt)
 include(src/lfs/CMakeLists.txt)
 include(src/cclua/CMakeLists.txt)
@@ -14,8 +14,8 @@ include(src/xxtea/CMakeLists.txt)
 target_sources(xgame PRIVATE
     ${CCLUA_SRC}
     ${CJSON_SRC}
-    ${CRYPTO_SRC}
     ${LUA_BINDINGS_SRC}
+    ${MD5_SRC}
     ${LUA_SRC}
     ${LFS_SRC}
     ${OLUA_SRC}
@@ -23,8 +23,8 @@ target_sources(xgame PRIVATE
 
     ${CCLUA_HEADER}
     ${CJSON_HEADER}
-    ${CRYPTO_HEADER}
     ${LUA_BINDINGS_HEADER}
+    ${MD5_HEADER}
     ${LUA_HEADER}
     ${LFS_HEADER}
     ${OLUA_HEADER}

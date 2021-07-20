@@ -1,6 +1,6 @@
-local shell = require "core.shell"
+local toolset = require "toolset"
 
-local function writeManifest(conf, name, shard)
+local function write_metadata(conf, name, shard)
     local manifestPath = conf.BUILD_PATH .. '/' .. name
     local hasUpdate = false
     local data = {}
@@ -13,7 +13,7 @@ local function writeManifest(conf, name, shard)
         return v1.path < v2.path
     end)
 
-    local latestManifest = shell.readManifest(conf.PUBLISH_PATH .. '/current/' .. name, conf)
+    local latestManifest = toolset.read_metadata(conf.PUBLISH_PATH .. '/current/' .. name, conf)
 
     writeline('{')
     writeline('  "package_url":"%s",', shard.package_url)
@@ -49,7 +49,7 @@ local function writeManifest(conf, name, shard)
     writeline('  }')
     writeline('}')
 
-    shell.writeManifest(manifestPath, table.concat(data, ''), conf)
+    toolset.write_metadata(manifestPath, table.concat(data, ''), conf)
 end
 
 local function writeVersions(conf)
@@ -61,14 +61,14 @@ local function writeVersions(conf)
 
     local assets = {}
     for _, m in ipairs(conf.SHARDS) do
-        local manifest = shell.readManifest(conf.BUILD_PATH .. '/' .. m.NAME .. '.metadata', conf)
-        assets[#assets + 1] = shell.format [[
+        local manifest = toolset.read_metadata(conf.BUILD_PATH .. '/' .. m.NAME .. '.metadata', conf)
+        assets[#assets + 1] = toolset.format [[
             {"name":"${m.NAME}", "url":"${manifest.manifest_url}", "version":"${manifest.version}"}
         ]]
     end
 
     assets = table.concat(assets, ',\n')
-    shell.write(conf.VERSION_MANIFEST_PATH, shell.format [[
+    toolset.write(conf.VERSION_MANIFEST_PATH, toolset.format [[
         {
             "runtime": "${conf.RUNTIME}",
             "assets": [
@@ -81,7 +81,7 @@ end
 return function (conf)
     print("start build shards:")
 
-    local manifest = shell.readManifest(conf.ASSETS_MANIFEST_PATH, conf)
+    local manifest = toolset.read_metadata(conf.ASSETS_MANIFEST_PATH, conf)
     for _, m in ipairs(conf.SHARDS) do
         local shard = {
             assets = {},
@@ -99,7 +99,7 @@ return function (conf)
                 end
             end
         end
-        writeManifest(conf, m.NAME .. '.metadata', shard)
+        write_metadata(conf, m.NAME .. '.metadata', shard)
     end
 
     if next(manifest.assets) then

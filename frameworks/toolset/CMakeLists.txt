@@ -27,9 +27,10 @@ endif()
 add_subdirectory(cjson)
 add_subdirectory(lfs)
 add_subdirectory(xxtea)
+add_subdirectory(md5)
 
 # install lua luac and lualib
-get_filename_component(OUTPUT_DIR "../../tools/lua/${OS}/${LUA}"
+get_filename_component(OUTPUT_DIR "../../tools/lua/${LUA}/${OS}"
     REALPATH BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
 install(TARGETS lua luac DESTINATION ${OUTPUT_DIR})
 if(WIN32)
@@ -38,3 +39,4 @@ endif()
 install(TARGETS lfs DESTINATION ${OUTPUT_DIR})
 install(TARGETS cjson DESTINATION ${OUTPUT_DIR})
 install(TARGETS xxtea DESTINATION ${OUTPUT_DIR})
+install(TARGETS md5 DESTINATION ${OUTPUT_DIR})

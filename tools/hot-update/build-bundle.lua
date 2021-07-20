@@ -1,6 +1,6 @@
 return function (dir)
     assert(#dir > 0)
-    local shell = require "core.shell"
+    local toolset = require "toolset"
     local list = {}
     local size = 0
 
@@ -22,11 +22,11 @@ return function (dir)
         size = 1 + (2 + #path) + 4 + size
     end
 
-    for _, path in ipairs(shell.list(dir .. "/src")) do
+    for _, path in ipairs(toolset.list(dir .. "/src")) do
         add_file('src/' .. path)
     end
 
-    for _, path in ipairs(shell.list(dir .. "/res")) do
+    for _, path in ipairs(toolset.list(dir .. "/res")) do
         add_file('res/' .. path)
     end
 
@@ -57,9 +57,7 @@ return function (dir)
         f:close()
     end
 
-    shell.bash [[
-        rm -rf ${dir}/src
-        rm -rf ${dir}/res
-        rm -rf ${dir}/builtin.metadata
-    ]]
+    toolset.rm "${dir}/builtin.metadata"
+    toolset.rmdir "${dir}/src"
+    toolset.rmdir "${dir}/res"
 end

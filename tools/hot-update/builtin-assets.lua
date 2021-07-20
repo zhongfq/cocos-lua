@@ -1,11 +1,10 @@
-local shell     = require "core.shell"
-local simulator = require "core.simulator"
+local toolset = require "toolset"
 
 -- local assetsPath = '../../assets'
 -- do
 return function (assetsPath)
-    shell.addSearchPath(assetsPath .. '')
-    shell.addSearchPath(assetsPath .. '/src')
+    toolset.add_path(assetsPath .. '')
+    toolset.add_path(assetsPath .. '/src')
 
     local assets = {}
 
@@ -31,7 +30,7 @@ return function (assetsPath)
 
     local function addFolder(dir, pattern)
         print(string.format("add folder: '%s' '%s'", dir, pattern))
-        for _, path in ipairs(shell.list(assetsPath .. '/' .. dir, pattern)) do
+        for _, path in ipairs(toolset.list(assetsPath .. '/' .. dir, pattern)) do
             if #dir > 0 then
                 addPath(dir .. '/' .. path)
             else
@@ -48,9 +47,9 @@ return function (assetsPath)
         end
     end
 
-    -- addFolder('', '*.lua')
-    addFolder('res', '*')
-    addFolder('src', '*')
+    -- addFolder('', '%.lua$')
+    addFolder('res')
+    addFolder('src')
 
     return assets
 end

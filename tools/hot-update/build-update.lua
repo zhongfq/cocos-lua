@@ -1,4 +1,6 @@
-local shell = require "core.shell"
+loadfile('../lua/script/init.lua')('../lua')
+
+local toolset = require "toolset"
 local setting = require "setting"
 local buildManifest = require "build-manifest"
 local buildSharding = require "build-sharding"
@@ -34,7 +36,7 @@ while #args > 0 do
 end
 
 -- check publish directory
-if not shell.exist(conf.PUBLISH_PATH) then
+if not toolset.exist(conf.PUBLISH_PATH) then
     error('no such directory: ' .. assert(conf.PUBLISH_PATH))
 end
 
@@ -44,7 +46,7 @@ if not conf.SIDE_BY_SIDE then
         conf.BUILD_PATH = "../.."
     else
         conf.BUILD_PATH = conf.PUBLISH_PATH .. '/current'
-        shell.bash [[
+        toolset.bash [[
             cd ${conf.PUBLISH_PATH}
             mkdir -p current && cd current
             ln -sfn ../../../assets assets
@@ -54,21 +56,21 @@ end
 
 -- read latest manifest && calc current version
 local latestManifestPath
-local needBuildLink = not shell.exist(conf.PUBLISH_PATH .. '/current')
+local needBuildLink = not toolset.exist(conf.PUBLISH_PATH .. '/current')
 if conf.NAME == 'BUILTIN' then
     latestManifestPath = '../../assets/builtin.metadata'
 else
     latestManifestPath = conf.PUBLISH_PATH .. '/current/assets.metadata'
 end
-conf.LATEST_MANIFEST = shell.readManifest(latestManifestPath, conf)
-conf.VERSION = conf.VERSION or shell.nextversion(conf.LATEST_MANIFEST.version)
+conf.LATEST_MANIFEST = toolset.read_metadata(latestManifestPath, conf)
+conf.VERSION = conf.VERSION or toolset.next_version(conf.LATEST_MANIFEST.version)
 conf.URL = conf.URL .. '/' .. (conf.SIDE_BY_SIDE and conf.VERSION or 'current')
 
 if not conf.BUILD_PATH or conf.COMPILE then
-    shell.bash 'rm -rf build'
-    shell.bash 'mkdir -p build/assets'
-    shell.bash 'cp -rf ../../assets/* build/assets'
-    shell.bash 'rm build/assets/builtin.metadata'
+    toolset.bash 'rm -rf build'
+    toolset.bash 'mkdir -p build/assets'
+    toolset.bash 'cp -rf ../../assets/* build/assets'
+    toolset.bash 'rm -r build/assets/builtin.metadata'
     conf.BUILD_PATH = 'build'
 end
 
@@ -104,9 +106,9 @@ if hasUpdate then
     if conf.BUILD_PATH ~= OUTPUT_PATH then
         local BUILD_PATH = conf.BUILD_PATH
         print(string.format("publish assets: %s => %s ", BUILD_PATH, OUTPUT_PATH))
-        shell.bash 'rm -rf ${OUTPUT_PATH}'
-        shell.bash 'mkdir -p ${OUTPUT_PATH}'
-        shell.bash 'cp -rf ${BUILD_PATH}/* ${OUTPUT_PATH}'
+        toolset.bash 'rm -rf ${OUTPUT_PATH}'
+        toolset.bash 'mkdir -p ${OUTPUT_PATH}'
+        toolset.bash 'cp -rf ${BUILD_PATH}/* ${OUTPUT_PATH}'
     end
 
     needBuildLink = needBuildLink or conf.DEBUG
@@ -114,7 +116,7 @@ end
 
 if conf.BUILD_LINK and needBuildLink then
     if conf.SIDE_BY_SIDE then
-        shell.bash [[
+        toolset.bash [[
             cd ${conf.PUBLISH_PATH}
             ln -sfn ${conf.VERSION} current
             ln -sfn ${conf.VERSION} current.ios
@@ -124,7 +126,7 @@ if conf.BUILD_LINK and needBuildLink then
             ln -sfn current.android/version.metadata version.android
         ]]
     else
-        shell.bash [[
+        toolset.bash [[
             cd ${conf.PUBLISH_PATH}
             ln -sfn current/version.metadata version
             ln -sfn current/version.metadata version.ios
@@ -134,10 +136,10 @@ if conf.BUILD_LINK and needBuildLink then
 end
 
 if conf.NAME == 'BUILTIN' then
-    local data = shell.read(conf.ASSETS_MANIFEST_PATH)
+    local data = toolset.read(conf.ASSETS_MANIFEST_PATH)
     data = string.gsub(data, '", "date":%d+', '", "date":' .. os.time())
     print('always update builtin manifest asset date')
-    shell.writeManifest(conf.ASSETS_MANIFEST_PATH, data, conf)
+    toolset.write_metadata(conf.ASSETS_MANIFEST_PATH, data, conf)
 end
 
--- shell.bash 'rm -rf build'
+-- toolset.bash 'rm -rf build'

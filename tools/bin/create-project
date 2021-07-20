@@ -1,5 +1,0 @@
-#!/bin/bash
-
-pushd `dirname $0` > /dev/null 2>&1
-
-lua ./create-project.lua $@

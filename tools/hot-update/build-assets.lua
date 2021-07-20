@@ -1,3 +1,5 @@
+loadfile('../lua/script/init.lua')('../lua')
+
 local builtinAssets = require "builtin-assets"
 local buildManifest = require "build-manifest"
 local buildBundle = require "build-bundle"

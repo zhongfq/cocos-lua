@@ -38,6 +38,16 @@ end
 -------------------------------------------------------------------------------
 -- io
 -------------------------------------------------------------------------------
+local function isdir(path)
+    local attr = lfs.attributes(path)
+    return attr and attr.mode == 'directory'
+end
+
+local function isfile(path)
+    local attr = lfs.attributes(path)
+    return attr and attr.mode == 'file'
+end
+
 function toolset.exist(path)
     path = toolset.format(path)
     return lfs.attributes(path)
@@ -66,7 +76,18 @@ end
 function toolset.link(old, new)
     old = toolset.format(old)
     new = toolset.format(new)
-    lfs.link(old, new, true)
+    if toolset.exist(new) then
+        os.remove(new)
+    end
+    if toolset.os == 'windows' then
+        local flag = isfile(old) and '' or '/D'
+        -- mklink need administrator rights
+        toolset.bash(string.format('mklink %s %s %s', flag,
+            string.gsub(new, '/', '\\'),
+            string.gsub(old, '/', '\\')))
+    else
+        toolset.bash(string.format('ln -sfn %s %s', old, new))
+    end
 end
 
 function toolset.realpath(path)
@@ -86,16 +107,6 @@ function toolset.realpath(path)
         end
     end
     return path
-end
-
-local function isdir(path)
-    local attr = lfs.attributes(path)
-    return attr and attr.mode == 'directory'
-end
-
-local function isfile(path)
-    local attr = lfs.attributes(path)
-    return attr and attr.mode == 'file'
 end
 
 local function domkdir(dir)

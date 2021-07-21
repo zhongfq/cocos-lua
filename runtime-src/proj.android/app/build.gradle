@@ -100,11 +100,11 @@ def compileAssets(path) {
     def cmdArgs = [script, path]
     def lua
     if (OperatingSystem.current().isWindows()) {
-        lua = "${tools}/lua/windows/lua54/lua"
+        lua = "${tools}/lua/lua54/windows/lua.exe"
     } else if (OperatingSystem.current().isMacOsX()) {
-        lua = "${tools}/lua/macos/lua54/lua"
+        lua = "${tools}/lua/lua54/macos/lua"
     } else {
-        lua = "${tools}/lua/linux/lua54/lua"
+        lua = "${tools}/lua/lua54/linux/lua"
     }
     println "workingDir: ${tools}/hot-update"
     println "running command: ${lua} ${script} ${path}"

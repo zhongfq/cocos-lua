@@ -46,17 +46,19 @@ if not conf.SIDE_BY_SIDE then
         conf.BUILD_PATH = "../.."
     else
         conf.BUILD_PATH = conf.PUBLISH_PATH .. '/current'
-        toolset.bash [[
-            cd ${conf.PUBLISH_PATH}
-            mkdir -p current && cd current
-            ln -sfn ../../../assets assets
-        ]]
+        toolset.pushdir('${conf.PUBLISH_PATH}')
+        toolset.mkdir('current')
+        toolset.pushdir('current')
+        toolset.link('../../../assets', 'assets')
+        toolset.popdir()
+        toolset.popdir()
     end
 end
 
 -- read latest manifest && calc current version
 local latestManifestPath
 local needBuildLink = not toolset.exist(conf.PUBLISH_PATH .. '/current')
+    or not toolset.exist(conf.PUBLISH_PATH .. '/version')
 if conf.NAME == 'BUILTIN' then
     latestManifestPath = '../../assets/builtin.metadata'
 else
@@ -115,24 +117,20 @@ if hasUpdate then
 end
 
 if conf.BUILD_LINK and needBuildLink then
+    toolset.pushdir('${conf.PUBLISH_PATH}')
     if conf.SIDE_BY_SIDE then
-        toolset.bash [[
-            cd ${conf.PUBLISH_PATH}
-            ln -sfn ${conf.VERSION} current
-            ln -sfn ${conf.VERSION} current.ios
-            ln -sfn ${conf.VERSION} current.android
-            ln -sfn current/version.metadata version
-            ln -sfn current.ios/version.metadata version.ios
-            ln -sfn current.android/version.metadata version.android
-        ]]
+        toolset.link('${conf.VERSION}', 'current')
+        toolset.link('${conf.VERSION}', 'current.ios')
+        toolset.link('${conf.VERSION}', 'current.android')
+        toolset.link('current/version.metadata', 'version')
+        toolset.link('current.ios/version.metadata', 'version.ios')
+        toolset.link('current.android/version.metadata', 'version.android')
     else
-        toolset.bash [[
-            cd ${conf.PUBLISH_PATH}
-            ln -sfn current/version.metadata version
-            ln -sfn current/version.metadata version.ios
-            ln -sfn current/version.metadata version.android
-        ]]
+        toolset.link('current/version.metadata', 'version')
+        toolset.link('current/version.metadata', 'version.ios')
+        toolset.link('current/version.metadata', 'version.android')
     end
+    toolset.popdir()
 end
 
 if conf.NAME == 'BUILTIN' then

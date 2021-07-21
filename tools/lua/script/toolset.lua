@@ -4,6 +4,8 @@ local xxtea = require "xxtea"
 
 local toolset = {}
 
+local dir_stack = {}
+
 require "simulator"
 
 toolset.os = package.cpath:find('?.dll') and 'windows' or
@@ -39,6 +41,32 @@ end
 function toolset.exist(path)
     path = toolset.format(path)
     return lfs.attributes(path)
+end
+
+function toolset.pwd()
+    return lfs.currentdir()
+end
+
+function toolset.cd(dir)
+    dir = toolset.format(dir)
+    lfs.chdir(dir)
+end
+
+function toolset.pushdir(dir)
+    dir = toolset.format(dir)
+    dir_stack[#dir_stack + 1] = lfs.currentdir()
+    lfs.chdir(dir)
+end
+
+function toolset.popdir()
+    lfs.chdir(dir_stack[#dir_stack])
+    dir_stack[#dir_stack] = nil
+end
+
+function toolset.link(old, new)
+    old = toolset.format(old)
+    new = toolset.format(new)
+    lfs.link(old, new, true)
 end
 
 function toolset.realpath(path)

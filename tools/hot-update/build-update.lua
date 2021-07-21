@@ -67,10 +67,10 @@ conf.VERSION = conf.VERSION or toolset.next_version(conf.LATEST_MANIFEST.version
 conf.URL = conf.URL .. '/' .. (conf.SIDE_BY_SIDE and conf.VERSION or 'current')
 
 if not conf.BUILD_PATH or conf.COMPILE then
-    toolset.bash 'rm -rf build'
-    toolset.bash 'mkdir -p build/assets'
-    toolset.bash 'cp -rf ../../assets/* build/assets'
-    toolset.bash 'rm -r build/assets/builtin.metadata'
+    toolset.rmdir 'build'
+    toolset.mkdir 'build/assets'
+    toolset.cp('../../assets', 'build/assets')
+    toolset.rm('build/assets/builtin.metadata')
     conf.BUILD_PATH = 'build'
 end
 
@@ -106,9 +106,9 @@ if hasUpdate then
     if conf.BUILD_PATH ~= OUTPUT_PATH then
         local BUILD_PATH = conf.BUILD_PATH
         print(string.format("publish assets: %s => %s ", BUILD_PATH, OUTPUT_PATH))
-        toolset.bash 'rm -rf ${OUTPUT_PATH}'
-        toolset.bash 'mkdir -p ${OUTPUT_PATH}'
-        toolset.bash 'cp -rf ${BUILD_PATH}/* ${OUTPUT_PATH}'
+        toolset.rmdir '${OUTPUT_PATH}'
+        toolset.mkdir '${OUTPUT_PATH}'
+        toolset.cp('${BUILD_PATH}', '${OUTPUT_PATH}')
     end
 
     needBuildLink = needBuildLink or conf.DEBUG

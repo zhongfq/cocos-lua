@@ -8,10 +8,10 @@ if not package.loaded.init then
     -- c search path
     local version = string.match(_VERSION, '%d.%d'):gsub('%.', '')
     local suffix = osn == 'windows' and 'dll' or 'so'
-    package.cpath = string.format('%s/lua%s/%s/?.%s;%s', path, version, osn, suffix, package.cpath)
+    package.cpath = string.format('%s/lua%s/%s/?.%s', path, version, osn, suffix)
     print('lua cpath: ' .. package.cpath)
 
     -- lua search path
-    package.path = path .. "/script/?.lua;" .. package.path
+    package.path = path .. "/script/?.lua;./?.lua"
     print('lua path: ' .. package.path)
 end

@@ -1,3 +1,7 @@
+local lfs = require "lfs"
+local cjson = require "cjson.safe"
+local xxtea = require "xxtea"
+
 local toolset = {}
 
 require "simulator"
@@ -33,12 +37,91 @@ end
 -- io
 -------------------------------------------------------------------------------
 function toolset.exist(path)
-    local lfs = require "lfs"
+    path = toolset.format(path)
     return lfs.attributes(path)
 end
 
+function toolset.realpath(path)
+    path = toolset.format(path)
+    path = string.gsub(path, '\\', '/')
+    if string.find(path, '^/') or string.find(path, ':') then
+        return path
+    end
+    path = string.gsub(path, '^%./', '')
+    path = lfs.currentdir() .. '/' .. path
+    path = string.gsub(path, '//', '/')
+    while true do
+        local idx
+        path, idx = string.gsub(path, '[^/]+/%.%./', '')
+        if idx == 0 then
+            break
+        end
+    end
+    return path
+end
+
+local function isdir(path)
+    local attr = lfs.attributes(path)
+    return attr and attr.mode == 'directory'
+end
+
+local function isfile(path)
+    local attr = lfs.attributes(path)
+    return attr and attr.mode == 'file'
+end
+
+local function domkdir(dir)
+    dir = toolset.format(dir)
+    dir = string.gsub(dir, '\\', '/')
+    if toolset.os == 'windows' then
+        os.execute(string.format('mkdir %s', dir))
+    else
+        os.execute(string.format('mkdir -p %s', dir))
+    end
+end
+
+local function docp(from, to)
+    if isfile(from) then
+        if isdir(to) then
+            local name = string.match(from, '[^/]+$')
+            lfs.cp(from, to .. '/' .. name)
+        else
+            lfs.cp(from, to)
+        end
+    elseif isdir(from) and isdir(to) then
+        local arr = toolset.list(from)
+        for _, v in ipairs(arr) do
+            local dir = string.gsub(v, '/?[^/]+$', '')
+            dir = to .. (#dir > 0 and ('/' .. dir) or '')
+            if not isdir(dir) then
+                domkdir(dir)
+            end
+            lfs.cp(from .. '/' .. v, to .. '/' .. v)
+        end
+    elseif isdir(from) then
+        error(string.format('file or directory not exist: %s', to))
+    else
+        error(string.format('file or directory not exist: %s', from))
+    end
+end
+
+function toolset.cp(from, to)
+    from = toolset.format(from)
+    to = toolset.format(to)
+    print(string.format('cp %s -> %s', from, to))
+    from = toolset.realpath(from)
+    to = toolset.realpath(to)
+    docp(from, to)
+end
+
+function toolset.mkdir(dir)
+    dir = toolset.format(dir)
+    dir = string.gsub(dir, '\\', '/')
+    print('mkdir ' .. dir)
+    domkdir(dir)
+end
+
 local function dormdir(dir)
-    local lfs = require('lfs')
     for file in lfs.dir(dir) do
         local file_path = dir..'/'..file
         if file ~= "." and file ~= ".." then
@@ -55,7 +138,9 @@ end
 function toolset.rmdir(dir)
     dir = toolset.format(dir)
     print('rmdir ' .. dir)
-    dormdir(dir)
+    if isdir(dir) then
+        dormdir(dir)
+    end
 end
 
 function toolset.rm(path)
@@ -65,6 +150,7 @@ function toolset.rm(path)
 end
 
 function toolset.read(path, defautl)
+    path = toolset.format(path)
     if toolset.exist(path) then
         local file = io.open(path)
         local data = file:read("*a")
@@ -78,6 +164,7 @@ function toolset.read(path, defautl)
 end
 
 function toolset.write(path, content)
+    path = toolset.format(path)
     local file = io.open(path, "w")
     file:write(content)
     file:flush()
@@ -85,8 +172,7 @@ function toolset.write(path, content)
 end
 
 function toolset.read_metadata(path, conf)
-    local cjson = require "cjson.safe"
-    local xxtea = require "xxtea"
+    path = toolset.format(path)
     if toolset.exist(path) then
         local data = toolset.read(path)
         return cjson.decode(data) or cjson.decode(xxtea.decrypt(data,
@@ -97,7 +183,7 @@ function toolset.read_metadata(path, conf)
 end
 
 function toolset.write_metadata(path, data, conf)
-    local xxtea = require "xxtea"
+    path = toolset.format(path)
     if conf.ENCRYPT_METADATA then
         toolset.write(path, xxtea.encrypt(data,  assert(conf.ENCRYPT_KEY, 'no encrypt key')))
     else
@@ -106,7 +192,6 @@ function toolset.write_metadata(path, data, conf)
 end
 
 function toolset.list(basedir, pattern)
-    local lfs = require "lfs"
     local arr = {}
     local function list(dir, folder)
         folder = folder or ''
@@ -124,7 +209,7 @@ function toolset.list(basedir, pattern)
             end
         end
     end
-    list(basedir)
+    list(toolset.format(basedir))
     return arr
 end
 

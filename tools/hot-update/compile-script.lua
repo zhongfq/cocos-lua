@@ -1,7 +1,6 @@
 return function (path)
     assert(#path > 0)
 
-    local lfs = require "lfs"
     local toolset = require "toolset"
     local LUAC = ''
 
@@ -13,9 +12,10 @@ return function (path)
         LUAC = "../lua/lua54/windows/luac"
     end
 
-    LUAC = lfs.currentdir() .. '/' .. LUAC
+    LUAC = toolset.realpath(LUAC)
 
-    print('compile script: ' .. lfs.currentdir() .. '/' .. path)
+    print('compile: ' .. toolset.realpath(path))
+    print('luac: ' .. LUAC)
 
     for _, f in ipairs(toolset.list(path, "%.lua$")) do
         assert(string.find(f, '^src/') or string.find(f, '^res/'), f)

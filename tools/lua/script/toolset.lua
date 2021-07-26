@@ -90,7 +90,7 @@ function toolset.link(old, new)
     end
 end
 
-function toolset.realpath(path)
+function toolset.fullpath(path)
     path = toolset.format(path)
     path = string.gsub(path, '\\', '/')
     if string.find(path, '^/') or string.find(path, ':') then
@@ -148,8 +148,8 @@ function toolset.cp(from, to)
     from = toolset.format(from)
     to = toolset.format(to)
     print(string.format('cp %s -> %s', from, to))
-    from = toolset.realpath(from)
-    to = toolset.realpath(to)
+    from = toolset.fullpath(from)
+    to = toolset.fullpath(to)
     docp(from, to)
 end
 

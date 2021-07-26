@@ -12,9 +12,9 @@ return function (path)
         LUAC = "../lua/lua54/windows/luac"
     end
 
-    LUAC = toolset.realpath(LUAC)
+    LUAC = toolset.fullpath(LUAC)
 
-    print('compile: ' .. toolset.realpath(path))
+    print('compile: ' .. toolset.fullpath(path))
     print('luac: ' .. LUAC)
 
     for _, f in ipairs(toolset.list(path, "%.lua$")) do

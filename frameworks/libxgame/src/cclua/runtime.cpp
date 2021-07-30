@@ -251,7 +251,7 @@ void runtime::luaOpen(lua_CFunction libfunc)
 //
 const std::string runtime::getVersion()
 {
-    return "2.4.6";
+    return "2.4.7";
 }
 
 const uint64_t runtime::getCocosVersion()

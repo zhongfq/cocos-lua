@@ -30,6 +30,10 @@
 
 #include "lua-bindings/lua_cocos2d_3d.h"
 
+extern "C" {
+#include "luaopenssl/openssl.h"
+}
+
 #ifdef CCLUA_BUILD_COCOSSTUDIO
 #include "lua-bindings/lua_cocos2d_studio.h"
 #endif //CCLUA_BUILD_COCOSSTUDIO
@@ -123,6 +127,8 @@ static int _open_plugins(lua_State *L)
 #ifdef CCLUA_BUILD_SWF
     olua_callfunc(L, luaopen_swf);
 #endif
+    
+    olua_require(L, "openssl", luaopen_openssl);
     
 #ifdef CCLUA_BUILD_SQLITE3
     olua_require(L, "sqlite3", luaopen_lsqlite3);

@@ -44,6 +44,9 @@ static AssetsBundle::File *file_open(const char *path, const char *mode)
 
 int	file_close(AssetsBundle::File *file)
 {
+    if (!file) {
+        return 0;
+    }
 #ifdef CCLUA_OS_ANDROID
     AAsset_close((AAsset * )file);
     return 0;

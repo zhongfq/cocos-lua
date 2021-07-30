@@ -49,7 +49,6 @@ int luaopen_bindings(lua_State *L)
     olua_require(L, "cjson.safe", luaopen_cjson_safe);
     olua_require(L, "base64", luaopen_base64);
     olua_require(L, "xxtea", luaopen_xxtea);
-    olua_require(L, "openssl", luaopen_openssl);
     olua_require(L, "md5" , luaopen_md5);
 
 #ifdef CCLUA_BUILD_QRCODE

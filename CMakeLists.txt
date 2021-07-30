@@ -177,6 +177,9 @@ target_compile_definitions(${APP_NAME} PUBLIC APP_PACKAGE_NAME="${APP_PACKAGE_NA
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libxgame)
 target_link_libraries(${APP_NAME} xgame)
 
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/luaopenssl)
+target_link_libraries(${APP_NAME} luaopenssl)
+
 if(CCLUA_BUILD_FAIRYGUI)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libfairygui)
     target_link_libraries(${APP_NAME} fairygui)

@@ -82,10 +82,12 @@ function WeChat:pay(order)
     if runtime.os == "ios" then
         self.deferredEvent = self.deferredEvent or PluginEvent.PAY_CANCEL
         runtime.on(Event.RUNTIME_RESUME, self._onResume, self)
+        Impl.pay(self._appid, order.partnerid, order.prepayid, order.noncestr,
+            order.timestamp, order.sign)
+    else
+        Impl.pay(order.partnerid, order.prepayid, order.noncestr,
+            order.timestamp, 'Sign=WXPay', order.sign)
     end
-
-    Impl.pay(order.partnerid, order.prepayid, order.noncestr,
-        order.timestamp, 'Sign=WXPay',order.sign)
 end
 
 function WeChat:auth(ticket)

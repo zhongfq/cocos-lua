@@ -3,6 +3,7 @@
 
 #include "lua.hpp"
 #include "cocos2d.h"
+#include "renderer/backend/ProgramCache.h"
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 #define CCLUA_OS_ANDROID
@@ -177,6 +178,23 @@ public:
     static void disableReport();
     static void reportError(const char *err, const char *traceback);
     
+    // Director api
+    static cocos2d::backend::ProgramCache *getProgramCache();
+    static cocos2d::FileUtils *getFileUtils();
+    static cocos2d::SpriteFrameCache *getSpriteFrameCache();
+    static cocos2d::TextureCache *getTextureCache();
+    static cocos2d::Scheduler *getScheduler();
+    static cocos2d::ActionManager *getActionManager();
+    static cocos2d::EventDispatcher *getEventDispatcher();
+    static bool isDisplayStats();
+    static void setDisplayStats(bool displayStats);
+    static cocos2d::Scene *getRunningScene();
+    static void pushScene(cocos2d::Scene *scene);
+    static void replaceScene(cocos2d::Scene *scene);
+    static void popScene();
+    static void popToRootScene();
+    static void purgeCachedData();
+    static void exit();
 private:
     static void once(const std::string &event, const std::function<void()> callback);
     static void on(const std::string &event, const std::function<void()> callback);

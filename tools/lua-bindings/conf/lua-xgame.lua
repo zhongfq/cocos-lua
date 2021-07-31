@@ -69,6 +69,27 @@ typeconf 'cclua::runtime'
     .exclude 'updateTimestamp'
     .exclude 'callref'
     .exclude 'ref'
+    .attr('getProgramCache', {ret = '@addref(programCache ^ director)'})
+    .attr('getFileUtils', {ret = '@addref(fileUtils ^ director)'})
+    .attr('getSpriteFrameCache', {ret = '@addref(spriteFrameCache ^ director)'})
+    .attr('getTextureCache', {ret = '@addref(textureCache ^ director)'})
+    .attr('getScheduler', {ret = '@addref(scheduler ^ director)'})
+    .attr('getActionManager', {ret = '@addref(actionManager ^ director)'})
+    .attr('getEventDispatcher', {ret = '@addref(eventDispatcher ^ director)'})
+    .attr('getRunningScene', {ret = '@addref(scenes | director)'})
+    .attr('pushScene', {arg1 = '@addref(scenes | director)'})
+    .attr('replaceScene', {ret = '@delref(scenes ~ director)', arg1 = '@addref(scenes | director)'})
+    .attr('popScene', {ret = '@delref(scenes ~ director)'})
+    .attr('popToRootScene', {ret = '@delref(scenes ~ director)'})
+    .insert({'getProgramCache', 'getFileUtils', 'getSpriteFrameCache', 'getTextureCache',
+        'getScheduler', 'getActionManager', 'getEventDispatcher', 'getRunningScene',
+        'pushScene', 'replaceScene', 'popScene', 'popToRootScene'},
+    {
+        before = [[
+            olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
+            int director = lua_gettop(L);
+        ]]
+    })
     .func("testCrash", [[
         {
             cclua::runtime::log("test native crash!!!!");

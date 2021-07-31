@@ -10,9 +10,7 @@ local SceneStack    = require "xgame.SceneStack"
 local Event         = require "xgame.Event"
 local Dispatcher    = require "xgame.Dispatcher"
 local LoadQueue     = require "xgame.LoadQueue"
-local Director      = require "cc.Director"
 
-local director = Director.instance
 local trace = util.trace("[xGame]")
 
 xGame = class("xGame", Dispatcher)
@@ -29,8 +27,8 @@ function xGame:ctor()
     self:_initRuntimeEvents()
 
     local keepUIRootNotNull = FGUINode.new()
-    director.runningScene:addChild(keepUIRootNotNull.cobj)
-    director.runningScene:addChild(self.stage.cobj)
+    runtime.runningScene:addChild(keepUIRootNotNull.cobj)
+    runtime.runningScene:addChild(self.stage.cobj)
 end
 
 function xGame:gc()

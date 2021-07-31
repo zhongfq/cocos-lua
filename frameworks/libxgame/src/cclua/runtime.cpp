@@ -251,7 +251,7 @@ void runtime::luaOpen(lua_CFunction libfunc)
 //
 const std::string runtime::getVersion()
 {
-    return "2.4.7";
+    return "2.4.8";
 }
 
 const uint64_t runtime::getCocosVersion()
@@ -732,6 +732,86 @@ void runtime::reportError(const char *err, const char *traceback)
         }
     }
 #endif
+}
+
+cocos2d::backend::ProgramCache *runtime::getProgramCache()
+{
+    return backend::ProgramCache::getInstance();
+}
+
+cocos2d::FileUtils *runtime::getFileUtils()
+{
+    return FileFinder::getInstance();
+}
+
+cocos2d::SpriteFrameCache *runtime::getSpriteFrameCache()
+{
+    return SpriteFrameCache::getInstance();
+}
+
+cocos2d::TextureCache *runtime::getTextureCache()
+{
+    return Director::getInstance()->getTextureCache();
+}
+
+cocos2d::Scheduler *runtime::getScheduler()
+{
+    return Director::getInstance()->getScheduler();
+}
+
+cocos2d::ActionManager *runtime::getActionManager()
+{
+    return Director::getInstance()->getActionManager();
+}
+
+cocos2d::EventDispatcher *runtime::getEventDispatcher()
+{
+    return Director::getInstance()->getEventDispatcher();
+}
+
+bool runtime::isDisplayStats()
+{
+    return Director::getInstance()->isDisplayStats();
+}
+
+void runtime::setDisplayStats(bool displayStats)
+{
+    Director::getInstance()->setDisplayStats(displayStats);
+}
+
+cocos2d::Scene *runtime::getRunningScene()
+{
+    return Director::getInstance()->getRunningScene();
+}
+
+void runtime::pushScene(cocos2d::Scene *scene)
+{
+    Director::getInstance()->pushScene(scene);
+}
+
+void runtime::replaceScene(cocos2d::Scene *scene)
+{
+    Director::getInstance()->replaceScene(scene);
+}
+
+void runtime::popScene()
+{
+    Director::getInstance()->popScene();
+}
+
+void runtime::popToRootScene()
+{
+    Director::getInstance()->popToRootScene();
+}
+
+void runtime::purgeCachedData()
+{
+    Director::getInstance()->purgeCachedData();
+}
+
+void runtime::exit()
+{
+    Director::getInstance()->end();
 }
 
 //

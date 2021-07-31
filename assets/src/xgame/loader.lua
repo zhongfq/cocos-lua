@@ -1,5 +1,6 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
+local runtime       = require "xgame.runtime"
 local filesystem    = require "xgame.filesystem"
 local LoadTask      = require "xgame.LoadTask"
 local plist         = require "xgame.plist"
@@ -11,8 +12,6 @@ local EVENT_RESULT = "result"
 
 local M = {loaders = {}}
 
-local textureCache = require("cc.Director").instance.textureCache
-local spriteFrameCache = require("cc.SpriteFrameCache").instance
 local trace = util.trace('[loader]')
 local cache = setmetatable({}, {__mode = 'v'})
 
@@ -124,14 +123,14 @@ M.register('*')
 local ImageLoader = M.register('.jpg;.png')
 
 function ImageLoader:reload()
-    if textureCache:getTextureForKey(self.path) then
-        textureCache:reloadTexture(self.path)
+    if runtime.textureCache:getTextureForKey(self.path) then
+        runtime.textureCache:reloadTexture(self.path)
         trace('reload image: %s', shortPath(self.url))
     end
 end
 
 function ImageLoader:unload()
-    textureCache:removeTextureForKey(self.path)
+    runtime.textureCache:removeTextureForKey(self.path)
     trace('unload image: %s', shortPath(self.url))
 end
 
@@ -139,22 +138,22 @@ end
 local PlistLoader = M.register('.plist')
 
 function PlistLoader:load()
-    if not spriteFrameCache:isSpriteFramesWithFileLoaded(self.path) then
+    if not runtime.spriteFrameCache:isSpriteFramesWithFileLoaded(self.path) then
         local data = plist.parse(filesystem.read(self.path))
         self.imagePath = string.gsub(self.path, "[^/]+$", data.metadata.textureFileName)
         self.spriteFrames = data.frames
 
-        spriteFrameCache:addSpriteFramesWithFile(self.path)
+        runtime.spriteFrameCache:addSpriteFramesWithFile(self.path)
         trace("load plist: %s", shortPath(self.url))
         for name in pairs(self.spriteFrames) do
-            self.spriteFrames[name] = spriteFrameCache:getSpriteFrameByName(name)
+            self.spriteFrames[name] = runtime.spriteFrameCache:getSpriteFrameByName(name)
         end
     end
 end
 
 function PlistLoader:unload()
-    spriteFrameCache:removeSpriteFramesFromFile(self.path)
-    textureCache:removeTextureForKey(self.imagePath)
+    runtime.spriteFrameCache:removeSpriteFramesFromFile(self.path)
+    runtime.textureCache:removeTextureForKey(self.imagePath)
     trace("unload plist: %s", shortPath(self.url))
 end
 

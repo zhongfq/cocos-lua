@@ -125,6 +125,22 @@ typeconf 'cclua::runtime'
     .func(nil, 'static bool support(const std::string &api)')
     .func(nil, 'static void printSupport()')
     .func(nil, 'static void disableReport()')
+    .func(nil, '@addref(programCache ^ director) static cocos2d::backend::ProgramCache *getProgramCache()')
+    .func(nil, '@addref(fileUtils ^ director) static cocos2d::FileUtils *getFileUtils()')
+    .func(nil, '@addref(spriteFrameCache ^ director) static cocos2d::SpriteFrameCache *getSpriteFrameCache()')
+    .func(nil, '@addref(textureCache ^ director) static cocos2d::TextureCache *getTextureCache()')
+    .func(nil, '@addref(scheduler ^ director) static cocos2d::Scheduler *getScheduler()')
+    .func(nil, '@addref(actionManager ^ director) static cocos2d::ActionManager *getActionManager()')
+    .func(nil, '@addref(eventDispatcher ^ director) static cocos2d::EventDispatcher *getEventDispatcher()')
+    .func(nil, 'static bool isDisplayStats()')
+    .func(nil, 'static void setDisplayStats(bool displayStats)')
+    .func(nil, '@addref(scenes | director) static cocos2d::Scene *getRunningScene()')
+    .func(nil, 'static void pushScene(@addref(scenes | director) cocos2d::Scene *scene)')
+    .func(nil, '@delref(scenes ~ director) static void replaceScene(@addref(scenes | director) cocos2d::Scene *scene)')
+    .func(nil, '@delref(scenes ~ director) static void popScene()')
+    .func(nil, '@delref(scenes ~ director) static void popToRootScene()')
+    .func(nil, 'static void purgeCachedData()')
+    .func(nil, 'static void exit()')
     .callback {
         FUNCS =  {
             'static void setDispatcher(@local const std::function<void (const std::string &, const std::string &)> &dispatcher)'
@@ -182,6 +198,123 @@ typeconf 'cclua::runtime'
     .prop('audioSessionCatalog', nil, nil)
     .prop('logPath', nil, nil)
     .prop('sampleCount', nil, nil)
+    .prop('programCache', nil, nil)
+    .prop('fileUtils', nil, nil)
+    .prop('spriteFrameCache', nil, nil)
+    .prop('textureCache', nil, nil)
+    .prop('scheduler', nil, nil)
+    .prop('actionManager', nil, nil)
+    .prop('eventDispatcher', nil, nil)
+    .prop('displayStats', nil, nil)
+    .prop('runningScene', nil, nil)
+    .insert('getProgramCache', {
+        BEFORE = [[
+            olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
+            int director = lua_gettop(L);
+        ]],
+        AFTER = nil,
+        CALLBACK_BEFORE = nil,
+        CALLBACK_AFTER = nil,
+    })
+    .insert('getFileUtils', {
+        BEFORE = [[
+            olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
+            int director = lua_gettop(L);
+        ]],
+        AFTER = nil,
+        CALLBACK_BEFORE = nil,
+        CALLBACK_AFTER = nil,
+    })
+    .insert('getSpriteFrameCache', {
+        BEFORE = [[
+            olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
+            int director = lua_gettop(L);
+        ]],
+        AFTER = nil,
+        CALLBACK_BEFORE = nil,
+        CALLBACK_AFTER = nil,
+    })
+    .insert('getTextureCache', {
+        BEFORE = [[
+            olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
+            int director = lua_gettop(L);
+        ]],
+        AFTER = nil,
+        CALLBACK_BEFORE = nil,
+        CALLBACK_AFTER = nil,
+    })
+    .insert('getScheduler', {
+        BEFORE = [[
+            olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
+            int director = lua_gettop(L);
+        ]],
+        AFTER = nil,
+        CALLBACK_BEFORE = nil,
+        CALLBACK_AFTER = nil,
+    })
+    .insert('getActionManager', {
+        BEFORE = [[
+            olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
+            int director = lua_gettop(L);
+        ]],
+        AFTER = nil,
+        CALLBACK_BEFORE = nil,
+        CALLBACK_AFTER = nil,
+    })
+    .insert('getEventDispatcher', {
+        BEFORE = [[
+            olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
+            int director = lua_gettop(L);
+        ]],
+        AFTER = nil,
+        CALLBACK_BEFORE = nil,
+        CALLBACK_AFTER = nil,
+    })
+    .insert('getRunningScene', {
+        BEFORE = [[
+            olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
+            int director = lua_gettop(L);
+        ]],
+        AFTER = nil,
+        CALLBACK_BEFORE = nil,
+        CALLBACK_AFTER = nil,
+    })
+    .insert('pushScene', {
+        BEFORE = [[
+            olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
+            int director = lua_gettop(L);
+        ]],
+        AFTER = nil,
+        CALLBACK_BEFORE = nil,
+        CALLBACK_AFTER = nil,
+    })
+    .insert('replaceScene', {
+        BEFORE = [[
+            olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
+            int director = lua_gettop(L);
+        ]],
+        AFTER = nil,
+        CALLBACK_BEFORE = nil,
+        CALLBACK_AFTER = nil,
+    })
+    .insert('popScene', {
+        BEFORE = [[
+            olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
+            int director = lua_gettop(L);
+        ]],
+        AFTER = nil,
+        CALLBACK_BEFORE = nil,
+        CALLBACK_AFTER = nil,
+    })
+    .insert('popToRootScene', {
+        BEFORE = [[
+            olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
+            int director = lua_gettop(L);
+        ]],
+        AFTER = nil,
+        CALLBACK_BEFORE = nil,
+        CALLBACK_AFTER = nil,
+    })
 
 typeconf 'cclua::filesystem'
     .supercls(nil)

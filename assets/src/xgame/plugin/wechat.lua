@@ -1,14 +1,10 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
-local http          = require "xgame.http"
 local Event         = require "xgame.Event"
 local PluginEvent   = require "xgame.PluginEvent"
 local timer         = require "xgame.timer"
 local runtime       = require "xgame.runtime"
 local Dispatcher    = require "xgame.Dispatcher"
-local openssl       = require "openssl"
-local cjson         = require "cjson.safe"
-local Director      = require "cc.Director"
 
 local trace = util.trace("[wechat]")
 
@@ -37,7 +33,6 @@ function WeChat:ctor()
     self.authState = ''
     self.deferredEvent = false
     self._appid = false
-    self._appsecret = false
     self._scheme = false
 
     Impl.setDispatcher(function (...)
@@ -59,9 +54,8 @@ function WeChat:ctor()
     end)
 end
 
-function WeChat:init(appid, universalLink, appsecret)
+function WeChat:init(appid, universalLink)
     self._appid = assert(appid, 'no app id')
-    self._appsecret = appsecret
     self._scheme = string.format("%s://", appid)
     Impl.init(appid, universalLink)
 end
@@ -90,20 +84,22 @@ function WeChat:pay(order)
     end
 end
 
-function WeChat:auth(ticket)
+function WeChat:auth(info)
     assert(self._appid, "not init wechat")
     self.userInfo = false
     self.deferredEvent = self.deferredEvent or PluginEvent.AUTH_CANCEL
 
-    if ticket then
-        self:_doAuthQRCode(ticket)
+    if info then
+        assert(info.noncestr, 'no noncestr')
+        assert(info.timestamp, 'no timestamp')
+        assert(info.sign, 'no sign')
+        Impl.authQRCode(self._appid, info.noncestr, info.timestamp, self.authScope, info.sign)
     elseif self.installed then
         assert(self.authScope, "no auth scope")
         assert(self.authState, "no auth state")
         Impl.auth(self.authScope, self.authState)
     else
-        assert(self._appsecret, "no app secret")
-        self:_requestTicket()
+        trace('no weixin client')
     end
 
     if runtime.os == 'ios' then
@@ -117,40 +113,6 @@ end
 
 function WeChat:open(id, path, type)
     Impl.open(assert(id), path or '', type or 0)
-end
-
-function WeChat:_requestTicket()
-    local URL_ACCESS_TOKEN = "https://api.weixin.qq.com/cgi-bin/token" ..
-        "?grant_type=client_credential&appid=%s&secret=%s"
-    local URL_SDK_TICKET = "https://api.weixin.qq.com/cgi-bin/ticket/getticket" ..
-        "?access_token=%s&type=2"
-    http.block(function ()
-        local url = string.format(URL_ACCESS_TOKEN, self._appid, self._appsecret)
-        local status, result = http({url = url, responseType = 'JSON'})
-        if status ~= 200 or not result.access_token then
-            self:dispatch(PluginEvent.AUTH_FAILURE)
-            return
-        end
-
-        url = string.format(URL_SDK_TICKET, result.access_token)
-        status, result = http({url = url, responseType = 'JSON'})
-        if status ~= 200 or result.errcode ~= 0 then
-            self:dispatch(PluginEvent.AUTH_FAILURE)
-        else
-            self:_doAuthQRCode(result['ticket'])
-        end
-    end)
-end
-
-function WeChat:_doAuthQRCode(ticket)
-    local timestamp = tostring(os.time())
-    local noncestr = openssl.sha1(timestamp)
-    local str = string.format("appid=%s", self._appid)
-        .. string.format("&noncestr=%s", noncestr)
-        .. string.format("&sdk_ticket=%s", ticket)
-        .. string.format("&timestamp=%d", timestamp)
-    local sign = openssl.sha1(str)
-    Impl.authQRCode(self._appid, noncestr, timestamp, self.authScope, sign, "")
 end
 
 function WeChat:_onResume()
@@ -173,7 +135,7 @@ function WeChat:_didResponse(action, data)
     trace("%s response: %s", action, util.dump(data))
     if action == "auth" then
         if data.errcode == WXSUCCESS then
-            self:_requestToken(data)
+            self:dispatch(PluginEvent.AUTH_SUCCESS, data)
         elseif data.errcode == WXERRCODE_USER_CANCEL then
             self:dispatch(PluginEvent.AUTH_CANCEL, 'NATIVE')
         else
@@ -181,13 +143,12 @@ function WeChat:_didResponse(action, data)
         end
     elseif action == "authQRCode" then
         if data.path then
-            local textureCache = Director.instance.textureCache
-            textureCache:reloadTexture(data.path)
-            local texture = textureCache:getTextureForKey(data.path)
+            runtime.textureCache:reloadTexture(data.path)
+            local texture = runtime.textureCache:getTextureForKey(data.path)
             texture:setAliasTexParameters()
             self:dispatch(PluginEvent.GOT_QRCODE, data.path)
         elseif data.errcode == WECHAT_AUTH_ERR_OK then
-            self:_requestToken(data)
+            self:dispatch(PluginEvent.AUTH_SUCCESS, data)
         elseif data.errcode == WECHAT_AUTH_ERR_CANCEL then
             self:dispatch(PluginEvent.AUTH_CANCEL, 'QRCODE')
         else
@@ -202,43 +163,6 @@ function WeChat:_didResponse(action, data)
             self:dispatch(PluginEvent.PAY_FAILURE)
         end
     end
-end
-
-function WeChat:_requestToken(data)
-    if not self._appsecret then
-        self:dispatch(PluginEvent.AUTH_SUCCESS, data)
-        return
-    end
-
-    local URL_ACCESS_TOKEN = "https://api.weixin.qq.com/sns/oauth2/access_token" ..
-        "?appid=%s&secret=%s&code=%s&grant_type=authorization_code"
-    local URL_USERINFO = "https://api.weixin.qq.com/sns/userinfo" ..
-        "?openid=%s&access_token=%s"
-
-    http.block(function ()
-        local url = string.format(URL_ACCESS_TOKEN, self._appid, self._appsecret, data.code)
-        local status, result = http({url = url, responseType = 'JSON'})
-        if status ~= 200 or not result.access_token then
-            self:dispatch(PluginEvent.AUTH_FAILURE)
-            return
-        end
-
-        url = string.format(URL_USERINFO, result.openid, result.access_token)
-        status, result = http({url = url, responseType = 'JSON'})
-        -- {"errcode":40001,"errmsg":"invalid credential, access_token is invalid or
-        -- not latest, hints:[ req_id: BfnAOYFFE-K3Rv7 ]"}
-        if status ~= 200 or not result or not result.unionid then
-            self:dispatch(PluginEvent.AUTH_FAILURE)
-        else
-            self.userInfo = {
-                avatar = result.headimgurl,
-                uid = 'wxuid:' .. result.unionid,
-                nickname = result.nickname,
-                sex = result.sex,
-            }
-            self:dispatch(PluginEvent.AUTH_SUCCESS, self.userInfo)
-        end
-    end)
 end
 
 if runtime.support('wechat') then

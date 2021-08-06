@@ -68,6 +68,1775 @@ void olua_check_cocos2d_EventListenerTouchAllAtOnce_ccTouchesCallback(lua_State 
     olua_check_callback<cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback>(L, idx, value);
 }
 
+static int _cocos2d_Mat4___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_postgc<cocos2d::Mat4>(L, 1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::Mat4 *)olua_toobj(L, 1, "cc.Mat4");
+    olua_push_cppobj(L, self, "cc.Mat4");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_Mat4_add1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    lua_Number arg1 = 0;       /** scalar */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_number(L, 2, &arg1);
+
+    // void add(float scalar)
+    self->add((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_add2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    lua_Number arg1 = 0;       /** scalar */
+    cocos2d::Mat4 *arg2 = nullptr;       /** dst */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_number(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Mat4");
+
+    // void add(float scalar, cocos2d::Mat4 *dst)
+    self->add((float)arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_add3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    cocos2d::Mat4 arg1;       /** mat */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_cocos2d_Mat4(L, 2, &arg1);
+
+    // void add(const cocos2d::Mat4 &mat)
+    self->add(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_add4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 arg1;       /** m1 */
+    cocos2d::Mat4 arg2;       /** m2 */
+    cocos2d::Mat4 *arg3 = nullptr;       /** dst */
+
+    olua_check_cocos2d_Mat4(L, 1, &arg1);
+    olua_check_cocos2d_Mat4(L, 2, &arg2);
+    olua_check_cppobj(L, 3, (void **)&arg3, "cc.Mat4");
+
+    // static void add(const cocos2d::Mat4 &m1, const cocos2d::Mat4 &m2, cocos2d::Mat4 *dst)
+    cocos2d::Mat4::add(arg1, arg2, arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_add(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        if ((olua_is_number(L, 2))) {
+            // void add(float scalar)
+            return _cocos2d_Mat4_add1(L);
+        }
+
+        // if ((olua_is_cocos2d_Mat4(L, 2))) {
+            // void add(const cocos2d::Mat4 &mat)
+            return _cocos2d_Mat4_add3(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_number(L, 2)) && (olua_is_cppobj(L, 3, "cc.Mat4"))) {
+            // void add(float scalar, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_add2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_cocos2d_Mat4(L, 1)) && (olua_is_cocos2d_Mat4(L, 2)) && (olua_is_cppobj(L, 3, "cc.Mat4"))) {
+            // static void add(const cocos2d::Mat4 &m1, const cocos2d::Mat4 &m2, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_add4(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Mat4::add' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_createBillboard1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Vec3 arg1;       /** objectPosition */
+    cocos2d::Vec3 arg2;       /** cameraPosition */
+    cocos2d::Vec3 arg3;       /** cameraUpVector */
+    cocos2d::Mat4 *arg4 = nullptr;       /** dst */
+
+    olua_check_cocos2d_Vec3(L, 1, &arg1);
+    olua_check_cocos2d_Vec3(L, 2, &arg2);
+    olua_check_cocos2d_Vec3(L, 3, &arg3);
+    olua_check_cppobj(L, 4, (void **)&arg4, "cc.Mat4");
+
+    // static void createBillboard(const cocos2d::Vec3 &objectPosition, const cocos2d::Vec3 &cameraPosition, const cocos2d::Vec3 &cameraUpVector, cocos2d::Mat4 *dst)
+    cocos2d::Mat4::createBillboard(arg1, arg2, arg3, arg4);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_createBillboard2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Vec3 arg1;       /** objectPosition */
+    cocos2d::Vec3 arg2;       /** cameraPosition */
+    cocos2d::Vec3 arg3;       /** cameraUpVector */
+    cocos2d::Vec3 arg4;       /** cameraForwardVector */
+    cocos2d::Mat4 *arg5 = nullptr;       /** dst */
+
+    olua_check_cocos2d_Vec3(L, 1, &arg1);
+    olua_check_cocos2d_Vec3(L, 2, &arg2);
+    olua_check_cocos2d_Vec3(L, 3, &arg3);
+    olua_check_cocos2d_Vec3(L, 4, &arg4);
+    olua_check_cppobj(L, 5, (void **)&arg5, "cc.Mat4");
+
+    // static void createBillboard(const cocos2d::Vec3 &objectPosition, const cocos2d::Vec3 &cameraPosition, const cocos2d::Vec3 &cameraUpVector, const cocos2d::Vec3 &cameraForwardVector, cocos2d::Mat4 *dst)
+    cocos2d::Mat4::createBillboard(arg1, arg2, arg3, arg4, arg5);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_createBillboard(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 4) {
+        // if ((olua_is_cocos2d_Vec3(L, 1)) && (olua_is_cocos2d_Vec3(L, 2)) && (olua_is_cocos2d_Vec3(L, 3)) && (olua_is_cppobj(L, 4, "cc.Mat4"))) {
+            // static void createBillboard(const cocos2d::Vec3 &objectPosition, const cocos2d::Vec3 &cameraPosition, const cocos2d::Vec3 &cameraUpVector, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_createBillboard1(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if ((olua_is_cocos2d_Vec3(L, 1)) && (olua_is_cocos2d_Vec3(L, 2)) && (olua_is_cocos2d_Vec3(L, 3)) && (olua_is_cocos2d_Vec3(L, 4)) && (olua_is_cppobj(L, 5, "cc.Mat4"))) {
+            // static void createBillboard(const cocos2d::Vec3 &objectPosition, const cocos2d::Vec3 &cameraPosition, const cocos2d::Vec3 &cameraUpVector, const cocos2d::Vec3 &cameraForwardVector, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_createBillboard2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Mat4::createBillboard' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_createLookAt1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Vec3 arg1;       /** eyePosition */
+    cocos2d::Vec3 arg2;       /** targetPosition */
+    cocos2d::Vec3 arg3;       /** up */
+    cocos2d::Mat4 *arg4 = nullptr;       /** dst */
+
+    olua_check_cocos2d_Vec3(L, 1, &arg1);
+    olua_check_cocos2d_Vec3(L, 2, &arg2);
+    olua_check_cocos2d_Vec3(L, 3, &arg3);
+    olua_check_cppobj(L, 4, (void **)&arg4, "cc.Mat4");
+
+    // static void createLookAt(const cocos2d::Vec3 &eyePosition, const cocos2d::Vec3 &targetPosition, const cocos2d::Vec3 &up, cocos2d::Mat4 *dst)
+    cocos2d::Mat4::createLookAt(arg1, arg2, arg3, arg4);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_createLookAt2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** eyePositionX */
+    lua_Number arg2 = 0;       /** eyePositionY */
+    lua_Number arg3 = 0;       /** eyePositionZ */
+    lua_Number arg4 = 0;       /** targetCenterX */
+    lua_Number arg5 = 0;       /** targetCenterY */
+    lua_Number arg6 = 0;       /** targetCenterZ */
+    lua_Number arg7 = 0;       /** upX */
+    lua_Number arg8 = 0;       /** upY */
+    lua_Number arg9 = 0;       /** upZ */
+    cocos2d::Mat4 *arg10 = nullptr;       /** dst */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    olua_check_number(L, 4, &arg4);
+    olua_check_number(L, 5, &arg5);
+    olua_check_number(L, 6, &arg6);
+    olua_check_number(L, 7, &arg7);
+    olua_check_number(L, 8, &arg8);
+    olua_check_number(L, 9, &arg9);
+    olua_check_cppobj(L, 10, (void **)&arg10, "cc.Mat4");
+
+    // static void createLookAt(float eyePositionX, float eyePositionY, float eyePositionZ, float targetCenterX, float targetCenterY, float targetCenterZ, float upX, float upY, float upZ, cocos2d::Mat4 *dst)
+    cocos2d::Mat4::createLookAt((float)arg1, (float)arg2, (float)arg3, (float)arg4, (float)arg5, (float)arg6, (float)arg7, (float)arg8, (float)arg9, arg10);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_createLookAt(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 4) {
+        // if ((olua_is_cocos2d_Vec3(L, 1)) && (olua_is_cocos2d_Vec3(L, 2)) && (olua_is_cocos2d_Vec3(L, 3)) && (olua_is_cppobj(L, 4, "cc.Mat4"))) {
+            // static void createLookAt(const cocos2d::Vec3 &eyePosition, const cocos2d::Vec3 &targetPosition, const cocos2d::Vec3 &up, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_createLookAt1(L);
+        // }
+    }
+
+    if (num_args == 10) {
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_number(L, 6)) && (olua_is_number(L, 7)) && (olua_is_number(L, 8)) && (olua_is_number(L, 9)) && (olua_is_cppobj(L, 10, "cc.Mat4"))) {
+            // static void createLookAt(float eyePositionX, float eyePositionY, float eyePositionZ, float targetCenterX, float targetCenterY, float targetCenterZ, float upX, float upY, float upZ, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_createLookAt2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Mat4::createLookAt' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_createOrthographic(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** width */
+    lua_Number arg2 = 0;       /** height */
+    lua_Number arg3 = 0;       /** zNearPlane */
+    lua_Number arg4 = 0;       /** zFarPlane */
+    cocos2d::Mat4 *arg5 = nullptr;       /** dst */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    olua_check_number(L, 4, &arg4);
+    olua_check_cppobj(L, 5, (void **)&arg5, "cc.Mat4");
+
+    // static void createOrthographic(float width, float height, float zNearPlane, float zFarPlane, cocos2d::Mat4 *dst)
+    cocos2d::Mat4::createOrthographic((float)arg1, (float)arg2, (float)arg3, (float)arg4, arg5);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_createOrthographicOffCenter(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** left */
+    lua_Number arg2 = 0;       /** right */
+    lua_Number arg3 = 0;       /** bottom */
+    lua_Number arg4 = 0;       /** top */
+    lua_Number arg5 = 0;       /** zNearPlane */
+    lua_Number arg6 = 0;       /** zFarPlane */
+    cocos2d::Mat4 *arg7 = nullptr;       /** dst */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    olua_check_number(L, 4, &arg4);
+    olua_check_number(L, 5, &arg5);
+    olua_check_number(L, 6, &arg6);
+    olua_check_cppobj(L, 7, (void **)&arg7, "cc.Mat4");
+
+    // static void createOrthographicOffCenter(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane, cocos2d::Mat4 *dst)
+    cocos2d::Mat4::createOrthographicOffCenter((float)arg1, (float)arg2, (float)arg3, (float)arg4, (float)arg5, (float)arg6, arg7);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_createPerspective(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** fieldOfView */
+    lua_Number arg2 = 0;       /** aspectRatio */
+    lua_Number arg3 = 0;       /** zNearPlane */
+    lua_Number arg4 = 0;       /** zFarPlane */
+    cocos2d::Mat4 *arg5 = nullptr;       /** dst */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    olua_check_number(L, 4, &arg4);
+    olua_check_cppobj(L, 5, (void **)&arg5, "cc.Mat4");
+
+    // static void createPerspective(float fieldOfView, float aspectRatio, float zNearPlane, float zFarPlane, cocos2d::Mat4 *dst)
+    cocos2d::Mat4::createPerspective((float)arg1, (float)arg2, (float)arg3, (float)arg4, arg5);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_createRotation1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Quaternion arg1;       /** quat */
+    cocos2d::Mat4 *arg2 = nullptr;       /** dst */
+
+    olua_check_cocos2d_Quaternion(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Mat4");
+
+    // static void createRotation(const cocos2d::Quaternion &quat, cocos2d::Mat4 *dst)
+    cocos2d::Mat4::createRotation(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_createRotation2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Vec3 arg1;       /** axis */
+    lua_Number arg2 = 0;       /** angle */
+    cocos2d::Mat4 *arg3 = nullptr;       /** dst */
+
+    olua_check_cocos2d_Vec3(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+    olua_check_cppobj(L, 3, (void **)&arg3, "cc.Mat4");
+
+    // static void createRotation(const cocos2d::Vec3 &axis, float angle, cocos2d::Mat4 *dst)
+    cocos2d::Mat4::createRotation(arg1, (float)arg2, arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_createRotation(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if ((olua_is_cocos2d_Quaternion(L, 1)) && (olua_is_cppobj(L, 2, "cc.Mat4"))) {
+            // static void createRotation(const cocos2d::Quaternion &quat, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_createRotation1(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_cocos2d_Vec3(L, 1)) && (olua_is_number(L, 2)) && (olua_is_cppobj(L, 3, "cc.Mat4"))) {
+            // static void createRotation(const cocos2d::Vec3 &axis, float angle, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_createRotation2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Mat4::createRotation' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_createRotationX(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** angle */
+    cocos2d::Mat4 *arg2 = nullptr;       /** dst */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Mat4");
+
+    // static void createRotationX(float angle, cocos2d::Mat4 *dst)
+    cocos2d::Mat4::createRotationX((float)arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_createRotationY(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** angle */
+    cocos2d::Mat4 *arg2 = nullptr;       /** dst */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Mat4");
+
+    // static void createRotationY(float angle, cocos2d::Mat4 *dst)
+    cocos2d::Mat4::createRotationY((float)arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_createRotationZ(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** angle */
+    cocos2d::Mat4 *arg2 = nullptr;       /** dst */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Mat4");
+
+    // static void createRotationZ(float angle, cocos2d::Mat4 *dst)
+    cocos2d::Mat4::createRotationZ((float)arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_createScale1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Vec3 arg1;       /** scale */
+    cocos2d::Mat4 *arg2 = nullptr;       /** dst */
+
+    olua_check_cocos2d_Vec3(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Mat4");
+
+    // static void createScale(const cocos2d::Vec3 &scale, cocos2d::Mat4 *dst)
+    cocos2d::Mat4::createScale(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_createScale2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** xScale */
+    lua_Number arg2 = 0;       /** yScale */
+    lua_Number arg3 = 0;       /** zScale */
+    cocos2d::Mat4 *arg4 = nullptr;       /** dst */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    olua_check_cppobj(L, 4, (void **)&arg4, "cc.Mat4");
+
+    // static void createScale(float xScale, float yScale, float zScale, cocos2d::Mat4 *dst)
+    cocos2d::Mat4::createScale((float)arg1, (float)arg2, (float)arg3, arg4);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_createScale(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if ((olua_is_cocos2d_Vec3(L, 1)) && (olua_is_cppobj(L, 2, "cc.Mat4"))) {
+            // static void createScale(const cocos2d::Vec3 &scale, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_createScale1(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_cppobj(L, 4, "cc.Mat4"))) {
+            // static void createScale(float xScale, float yScale, float zScale, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_createScale2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Mat4::createScale' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_createTranslation1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Vec3 arg1;       /** translation */
+    cocos2d::Mat4 *arg2 = nullptr;       /** dst */
+
+    olua_check_cocos2d_Vec3(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Mat4");
+
+    // static void createTranslation(const cocos2d::Vec3 &translation, cocos2d::Mat4 *dst)
+    cocos2d::Mat4::createTranslation(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_createTranslation2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** xTranslation */
+    lua_Number arg2 = 0;       /** yTranslation */
+    lua_Number arg3 = 0;       /** zTranslation */
+    cocos2d::Mat4 *arg4 = nullptr;       /** dst */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    olua_check_cppobj(L, 4, (void **)&arg4, "cc.Mat4");
+
+    // static void createTranslation(float xTranslation, float yTranslation, float zTranslation, cocos2d::Mat4 *dst)
+    cocos2d::Mat4::createTranslation((float)arg1, (float)arg2, (float)arg3, arg4);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_createTranslation(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if ((olua_is_cocos2d_Vec3(L, 1)) && (olua_is_cppobj(L, 2, "cc.Mat4"))) {
+            // static void createTranslation(const cocos2d::Vec3 &translation, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_createTranslation1(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_cppobj(L, 4, "cc.Mat4"))) {
+            // static void createTranslation(float xTranslation, float yTranslation, float zTranslation, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_createTranslation2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Mat4::createTranslation' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_determinant(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+
+    // float determinant()
+    float ret = self->determinant();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Mat4_getInversed(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+
+    // cocos2d::Mat4 getInversed()
+    cocos2d::Mat4 ret = self->getInversed();
+    int num_ret = olua_push_cocos2d_Mat4(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Mat4_getNegated(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+
+    // cocos2d::Mat4 getNegated()
+    cocos2d::Mat4 ret = self->getNegated();
+    int num_ret = olua_push_cocos2d_Mat4(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Mat4_getTransposed(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+
+    // cocos2d::Mat4 getTransposed()
+    cocos2d::Mat4 ret = self->getTransposed();
+    int num_ret = olua_push_cocos2d_Mat4(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Mat4_inverse(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+
+    // bool inverse()
+    bool ret = self->inverse();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Mat4_isIdentity(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+
+    // bool isIdentity()
+    bool ret = self->isIdentity();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Mat4_multiply1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    lua_Number arg1 = 0;       /** scalar */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_number(L, 2, &arg1);
+
+    // void multiply(float scalar)
+    self->multiply((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_multiply2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    lua_Number arg1 = 0;       /** scalar */
+    cocos2d::Mat4 *arg2 = nullptr;       /** dst */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_number(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Mat4");
+
+    // void multiply(float scalar, cocos2d::Mat4 *dst)
+    self->multiply((float)arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_multiply3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 arg1;       /** mat */
+    lua_Number arg2 = 0;       /** scalar */
+    cocos2d::Mat4 *arg3 = nullptr;       /** dst */
+
+    olua_check_cocos2d_Mat4(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+    olua_check_cppobj(L, 3, (void **)&arg3, "cc.Mat4");
+
+    // static void multiply(const cocos2d::Mat4 &mat, float scalar, cocos2d::Mat4 *dst)
+    cocos2d::Mat4::multiply(arg1, (float)arg2, arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_multiply4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    cocos2d::Mat4 arg1;       /** mat */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_cocos2d_Mat4(L, 2, &arg1);
+
+    // void multiply(const cocos2d::Mat4 &mat)
+    self->multiply(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_multiply5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 arg1;       /** m1 */
+    cocos2d::Mat4 arg2;       /** m2 */
+    cocos2d::Mat4 *arg3 = nullptr;       /** dst */
+
+    olua_check_cocos2d_Mat4(L, 1, &arg1);
+    olua_check_cocos2d_Mat4(L, 2, &arg2);
+    olua_check_cppobj(L, 3, (void **)&arg3, "cc.Mat4");
+
+    // static void multiply(const cocos2d::Mat4 &m1, const cocos2d::Mat4 &m2, cocos2d::Mat4 *dst)
+    cocos2d::Mat4::multiply(arg1, arg2, arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_multiply(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        if ((olua_is_number(L, 2))) {
+            // void multiply(float scalar)
+            return _cocos2d_Mat4_multiply1(L);
+        }
+
+        // if ((olua_is_cocos2d_Mat4(L, 2))) {
+            // void multiply(const cocos2d::Mat4 &mat)
+            return _cocos2d_Mat4_multiply4(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_number(L, 2)) && (olua_is_cppobj(L, 3, "cc.Mat4"))) {
+            // void multiply(float scalar, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_multiply2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        if ((olua_is_cocos2d_Mat4(L, 1)) && (olua_is_number(L, 2)) && (olua_is_cppobj(L, 3, "cc.Mat4"))) {
+            // static void multiply(const cocos2d::Mat4 &mat, float scalar, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_multiply3(L);
+        }
+
+        // if ((olua_is_cocos2d_Mat4(L, 1)) && (olua_is_cocos2d_Mat4(L, 2)) && (olua_is_cppobj(L, 3, "cc.Mat4"))) {
+            // static void multiply(const cocos2d::Mat4 &m1, const cocos2d::Mat4 &m2, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_multiply5(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Mat4::multiply' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_negate(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+
+    // void negate()
+    self->negate();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_new1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // Mat4()
+    cocos2d::Mat4 *ret = new cocos2d::Mat4();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Mat4");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Mat4_new2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** m11 */
+    lua_Number arg2 = 0;       /** m12 */
+    lua_Number arg3 = 0;       /** m13 */
+    lua_Number arg4 = 0;       /** m14 */
+    lua_Number arg5 = 0;       /** m21 */
+    lua_Number arg6 = 0;       /** m22 */
+    lua_Number arg7 = 0;       /** m23 */
+    lua_Number arg8 = 0;       /** m24 */
+    lua_Number arg9 = 0;       /** m31 */
+    lua_Number arg10 = 0;       /** m32 */
+    lua_Number arg11 = 0;       /** m33 */
+    lua_Number arg12 = 0;       /** m34 */
+    lua_Number arg13 = 0;       /** m41 */
+    lua_Number arg14 = 0;       /** m42 */
+    lua_Number arg15 = 0;       /** m43 */
+    lua_Number arg16 = 0;       /** m44 */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    olua_check_number(L, 4, &arg4);
+    olua_check_number(L, 5, &arg5);
+    olua_check_number(L, 6, &arg6);
+    olua_check_number(L, 7, &arg7);
+    olua_check_number(L, 8, &arg8);
+    olua_check_number(L, 9, &arg9);
+    olua_check_number(L, 10, &arg10);
+    olua_check_number(L, 11, &arg11);
+    olua_check_number(L, 12, &arg12);
+    olua_check_number(L, 13, &arg13);
+    olua_check_number(L, 14, &arg14);
+    olua_check_number(L, 15, &arg15);
+    olua_check_number(L, 16, &arg16);
+
+    // Mat4(float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24, float m31, float m32, float m33, float m34, float m41, float m42, float m43, float m44)
+    cocos2d::Mat4 *ret = new cocos2d::Mat4((float)arg1, (float)arg2, (float)arg3, (float)arg4, (float)arg5, (float)arg6, (float)arg7, (float)arg8, (float)arg9, (float)arg10, (float)arg11, (float)arg12, (float)arg13, (float)arg14, (float)arg15, (float)arg16);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Mat4");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Mat4_new(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // Mat4()
+        return _cocos2d_Mat4_new1(L);
+    }
+
+    if (num_args == 16) {
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_number(L, 6)) && (olua_is_number(L, 7)) && (olua_is_number(L, 8)) && (olua_is_number(L, 9)) && (olua_is_number(L, 10)) && (olua_is_number(L, 11)) && (olua_is_number(L, 12)) && (olua_is_number(L, 13)) && (olua_is_number(L, 14)) && (olua_is_number(L, 15)) && (olua_is_number(L, 16))) {
+            // Mat4(float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24, float m31, float m32, float m33, float m34, float m41, float m42, float m43, float m44)
+            return _cocos2d_Mat4_new2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Mat4::new' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_rotate1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    cocos2d::Quaternion arg1;       /** q */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_cocos2d_Quaternion(L, 2, &arg1);
+
+    // void rotate(const cocos2d::Quaternion &q)
+    self->rotate(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_rotate2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    cocos2d::Quaternion arg1;       /** q */
+    cocos2d::Mat4 *arg2 = nullptr;       /** dst */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_cocos2d_Quaternion(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Mat4");
+
+    // void rotate(const cocos2d::Quaternion &q, cocos2d::Mat4 *dst)
+    self->rotate(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_rotate3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    cocos2d::Vec3 arg1;       /** axis */
+    lua_Number arg2 = 0;       /** angle */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_cocos2d_Vec3(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+
+    // void rotate(const cocos2d::Vec3 &axis, float angle)
+    self->rotate(arg1, (float)arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_rotate4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    cocos2d::Vec3 arg1;       /** axis */
+    lua_Number arg2 = 0;       /** angle */
+    cocos2d::Mat4 *arg3 = nullptr;       /** dst */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_cocos2d_Vec3(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_cppobj(L, 4, (void **)&arg3, "cc.Mat4");
+
+    // void rotate(const cocos2d::Vec3 &axis, float angle, cocos2d::Mat4 *dst)
+    self->rotate(arg1, (float)arg2, arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_rotate(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_cocos2d_Quaternion(L, 2))) {
+            // void rotate(const cocos2d::Quaternion &q)
+            return _cocos2d_Mat4_rotate1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        if ((olua_is_cocos2d_Quaternion(L, 2)) && (olua_is_cppobj(L, 3, "cc.Mat4"))) {
+            // void rotate(const cocos2d::Quaternion &q, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_rotate2(L);
+        }
+
+        // if ((olua_is_cocos2d_Vec3(L, 2)) && (olua_is_number(L, 3))) {
+            // void rotate(const cocos2d::Vec3 &axis, float angle)
+            return _cocos2d_Mat4_rotate3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_cocos2d_Vec3(L, 2)) && (olua_is_number(L, 3)) && (olua_is_cppobj(L, 4, "cc.Mat4"))) {
+            // void rotate(const cocos2d::Vec3 &axis, float angle, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_rotate4(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Mat4::rotate' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_rotateX1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    lua_Number arg1 = 0;       /** angle */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_number(L, 2, &arg1);
+
+    // void rotateX(float angle)
+    self->rotateX((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_rotateX2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    lua_Number arg1 = 0;       /** angle */
+    cocos2d::Mat4 *arg2 = nullptr;       /** dst */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_number(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Mat4");
+
+    // void rotateX(float angle, cocos2d::Mat4 *dst)
+    self->rotateX((float)arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_rotateX(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_number(L, 2))) {
+            // void rotateX(float angle)
+            return _cocos2d_Mat4_rotateX1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_number(L, 2)) && (olua_is_cppobj(L, 3, "cc.Mat4"))) {
+            // void rotateX(float angle, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_rotateX2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Mat4::rotateX' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_rotateY1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    lua_Number arg1 = 0;       /** angle */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_number(L, 2, &arg1);
+
+    // void rotateY(float angle)
+    self->rotateY((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_rotateY2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    lua_Number arg1 = 0;       /** angle */
+    cocos2d::Mat4 *arg2 = nullptr;       /** dst */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_number(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Mat4");
+
+    // void rotateY(float angle, cocos2d::Mat4 *dst)
+    self->rotateY((float)arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_rotateY(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_number(L, 2))) {
+            // void rotateY(float angle)
+            return _cocos2d_Mat4_rotateY1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_number(L, 2)) && (olua_is_cppobj(L, 3, "cc.Mat4"))) {
+            // void rotateY(float angle, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_rotateY2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Mat4::rotateY' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_rotateZ1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    lua_Number arg1 = 0;       /** angle */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_number(L, 2, &arg1);
+
+    // void rotateZ(float angle)
+    self->rotateZ((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_rotateZ2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    lua_Number arg1 = 0;       /** angle */
+    cocos2d::Mat4 *arg2 = nullptr;       /** dst */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_number(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Mat4");
+
+    // void rotateZ(float angle, cocos2d::Mat4 *dst)
+    self->rotateZ((float)arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_rotateZ(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_number(L, 2))) {
+            // void rotateZ(float angle)
+            return _cocos2d_Mat4_rotateZ1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_number(L, 2)) && (olua_is_cppobj(L, 3, "cc.Mat4"))) {
+            // void rotateZ(float angle, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_rotateZ2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Mat4::rotateZ' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_scale1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    lua_Number arg1 = 0;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_number(L, 2, &arg1);
+
+    // void scale(float value)
+    self->scale((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_scale2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    lua_Number arg1 = 0;       /** value */
+    cocos2d::Mat4 *arg2 = nullptr;       /** dst */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_number(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Mat4");
+
+    // void scale(float value, cocos2d::Mat4 *dst)
+    self->scale((float)arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_scale3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    lua_Number arg1 = 0;       /** xScale */
+    lua_Number arg2 = 0;       /** yScale */
+    lua_Number arg3 = 0;       /** zScale */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+
+    // void scale(float xScale, float yScale, float zScale)
+    self->scale((float)arg1, (float)arg2, (float)arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_scale4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    lua_Number arg1 = 0;       /** xScale */
+    lua_Number arg2 = 0;       /** yScale */
+    lua_Number arg3 = 0;       /** zScale */
+    cocos2d::Mat4 *arg4 = nullptr;       /** dst */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_cppobj(L, 5, (void **)&arg4, "cc.Mat4");
+
+    // void scale(float xScale, float yScale, float zScale, cocos2d::Mat4 *dst)
+    self->scale((float)arg1, (float)arg2, (float)arg3, arg4);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_scale5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    cocos2d::Vec3 arg1;       /** s */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_cocos2d_Vec3(L, 2, &arg1);
+
+    // void scale(const cocos2d::Vec3 &s)
+    self->scale(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_scale6(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    cocos2d::Vec3 arg1;       /** s */
+    cocos2d::Mat4 *arg2 = nullptr;       /** dst */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_cocos2d_Vec3(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Mat4");
+
+    // void scale(const cocos2d::Vec3 &s, cocos2d::Mat4 *dst)
+    self->scale(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_scale(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        if ((olua_is_cocos2d_Vec3(L, 2))) {
+            // void scale(const cocos2d::Vec3 &s)
+            return _cocos2d_Mat4_scale5(L);
+        }
+
+        // if ((olua_is_number(L, 2))) {
+            // void scale(float value)
+            return _cocos2d_Mat4_scale1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        if ((olua_is_cocos2d_Vec3(L, 2)) && (olua_is_cppobj(L, 3, "cc.Mat4"))) {
+            // void scale(const cocos2d::Vec3 &s, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_scale6(L);
+        }
+
+        // if ((olua_is_number(L, 2)) && (olua_is_cppobj(L, 3, "cc.Mat4"))) {
+            // void scale(float value, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_scale2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
+            // void scale(float xScale, float yScale, float zScale)
+            return _cocos2d_Mat4_scale3(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_cppobj(L, 5, "cc.Mat4"))) {
+            // void scale(float xScale, float yScale, float zScale, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_scale4(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Mat4::scale' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_set1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    lua_Number arg1 = 0;       /** m11 */
+    lua_Number arg2 = 0;       /** m12 */
+    lua_Number arg3 = 0;       /** m13 */
+    lua_Number arg4 = 0;       /** m14 */
+    lua_Number arg5 = 0;       /** m21 */
+    lua_Number arg6 = 0;       /** m22 */
+    lua_Number arg7 = 0;       /** m23 */
+    lua_Number arg8 = 0;       /** m24 */
+    lua_Number arg9 = 0;       /** m31 */
+    lua_Number arg10 = 0;       /** m32 */
+    lua_Number arg11 = 0;       /** m33 */
+    lua_Number arg12 = 0;       /** m34 */
+    lua_Number arg13 = 0;       /** m41 */
+    lua_Number arg14 = 0;       /** m42 */
+    lua_Number arg15 = 0;       /** m43 */
+    lua_Number arg16 = 0;       /** m44 */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_number(L, 5, &arg4);
+    olua_check_number(L, 6, &arg5);
+    olua_check_number(L, 7, &arg6);
+    olua_check_number(L, 8, &arg7);
+    olua_check_number(L, 9, &arg8);
+    olua_check_number(L, 10, &arg9);
+    olua_check_number(L, 11, &arg10);
+    olua_check_number(L, 12, &arg11);
+    olua_check_number(L, 13, &arg12);
+    olua_check_number(L, 14, &arg13);
+    olua_check_number(L, 15, &arg14);
+    olua_check_number(L, 16, &arg15);
+    olua_check_number(L, 17, &arg16);
+
+    // void set(float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24, float m31, float m32, float m33, float m34, float m41, float m42, float m43, float m44)
+    self->set((float)arg1, (float)arg2, (float)arg3, (float)arg4, (float)arg5, (float)arg6, (float)arg7, (float)arg8, (float)arg9, (float)arg10, (float)arg11, (float)arg12, (float)arg13, (float)arg14, (float)arg15, (float)arg16);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_set2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    cocos2d::Mat4 arg1;       /** mat */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_cocos2d_Mat4(L, 2, &arg1);
+
+    // void set(const cocos2d::Mat4 &mat)
+    self->set(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_set(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_cocos2d_Mat4(L, 2))) {
+            // void set(const cocos2d::Mat4 &mat)
+            return _cocos2d_Mat4_set2(L);
+        // }
+    }
+
+    if (num_args == 16) {
+        // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_number(L, 6)) && (olua_is_number(L, 7)) && (olua_is_number(L, 8)) && (olua_is_number(L, 9)) && (olua_is_number(L, 10)) && (olua_is_number(L, 11)) && (olua_is_number(L, 12)) && (olua_is_number(L, 13)) && (olua_is_number(L, 14)) && (olua_is_number(L, 15)) && (olua_is_number(L, 16)) && (olua_is_number(L, 17))) {
+            // void set(float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24, float m31, float m32, float m33, float m34, float m41, float m42, float m43, float m44)
+            return _cocos2d_Mat4_set1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Mat4::set' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_setIdentity(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+
+    // void setIdentity()
+    self->setIdentity();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_setZero(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+
+    // void setZero()
+    self->setZero();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_subtract1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    cocos2d::Mat4 arg1;       /** mat */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_cocos2d_Mat4(L, 2, &arg1);
+
+    // void subtract(const cocos2d::Mat4 &mat)
+    self->subtract(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_subtract2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 arg1;       /** m1 */
+    cocos2d::Mat4 arg2;       /** m2 */
+    cocos2d::Mat4 *arg3 = nullptr;       /** dst */
+
+    olua_check_cocos2d_Mat4(L, 1, &arg1);
+    olua_check_cocos2d_Mat4(L, 2, &arg2);
+    olua_check_cppobj(L, 3, (void **)&arg3, "cc.Mat4");
+
+    // static void subtract(const cocos2d::Mat4 &m1, const cocos2d::Mat4 &m2, cocos2d::Mat4 *dst)
+    cocos2d::Mat4::subtract(arg1, arg2, arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_subtract(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_cocos2d_Mat4(L, 2))) {
+            // void subtract(const cocos2d::Mat4 &mat)
+            return _cocos2d_Mat4_subtract1(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_cocos2d_Mat4(L, 1)) && (olua_is_cocos2d_Mat4(L, 2)) && (olua_is_cppobj(L, 3, "cc.Mat4"))) {
+            // static void subtract(const cocos2d::Mat4 &m1, const cocos2d::Mat4 &m2, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_subtract2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Mat4::subtract' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_translate1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    lua_Number arg1 = 0;       /** x */
+    lua_Number arg2 = 0;       /** y */
+    lua_Number arg3 = 0;       /** z */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+
+    // void translate(float x, float y, float z)
+    self->translate((float)arg1, (float)arg2, (float)arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_translate2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    lua_Number arg1 = 0;       /** x */
+    lua_Number arg2 = 0;       /** y */
+    lua_Number arg3 = 0;       /** z */
+    cocos2d::Mat4 *arg4 = nullptr;       /** dst */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_cppobj(L, 5, (void **)&arg4, "cc.Mat4");
+
+    // void translate(float x, float y, float z, cocos2d::Mat4 *dst)
+    self->translate((float)arg1, (float)arg2, (float)arg3, arg4);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_translate3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    cocos2d::Vec3 arg1;       /** t */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_cocos2d_Vec3(L, 2, &arg1);
+
+    // void translate(const cocos2d::Vec3 &t)
+    self->translate(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_translate4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+    cocos2d::Vec3 arg1;       /** t */
+    cocos2d::Mat4 *arg2 = nullptr;       /** dst */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+    olua_check_cocos2d_Vec3(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Mat4");
+
+    // void translate(const cocos2d::Vec3 &t, cocos2d::Mat4 *dst)
+    self->translate(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_translate(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_cocos2d_Vec3(L, 2))) {
+            // void translate(const cocos2d::Vec3 &t)
+            return _cocos2d_Mat4_translate3(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cocos2d_Vec3(L, 2)) && (olua_is_cppobj(L, 3, "cc.Mat4"))) {
+            // void translate(const cocos2d::Vec3 &t, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_translate4(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
+            // void translate(float x, float y, float z)
+            return _cocos2d_Mat4_translate1(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_cppobj(L, 5, "cc.Mat4"))) {
+            // void translate(float x, float y, float z, cocos2d::Mat4 *dst)
+            return _cocos2d_Mat4_translate2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Mat4::translate' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Mat4_transpose(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Mat4 *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Mat4");
+
+    // void transpose()
+    self->transpose();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_Mat4(lua_State *L)
+{
+    oluacls_class(L, "cc.Mat4", nullptr);
+    oluacls_func(L, "__gc", _cocos2d_Mat4___gc);
+    oluacls_func(L, "__move", _cocos2d_Mat4___move);
+    oluacls_func(L, "add", _cocos2d_Mat4_add);
+    oluacls_func(L, "createBillboard", _cocos2d_Mat4_createBillboard);
+    oluacls_func(L, "createLookAt", _cocos2d_Mat4_createLookAt);
+    oluacls_func(L, "createOrthographic", _cocos2d_Mat4_createOrthographic);
+    oluacls_func(L, "createOrthographicOffCenter", _cocos2d_Mat4_createOrthographicOffCenter);
+    oluacls_func(L, "createPerspective", _cocos2d_Mat4_createPerspective);
+    oluacls_func(L, "createRotation", _cocos2d_Mat4_createRotation);
+    oluacls_func(L, "createRotationX", _cocos2d_Mat4_createRotationX);
+    oluacls_func(L, "createRotationY", _cocos2d_Mat4_createRotationY);
+    oluacls_func(L, "createRotationZ", _cocos2d_Mat4_createRotationZ);
+    oluacls_func(L, "createScale", _cocos2d_Mat4_createScale);
+    oluacls_func(L, "createTranslation", _cocos2d_Mat4_createTranslation);
+    oluacls_func(L, "determinant", _cocos2d_Mat4_determinant);
+    oluacls_func(L, "getInversed", _cocos2d_Mat4_getInversed);
+    oluacls_func(L, "getNegated", _cocos2d_Mat4_getNegated);
+    oluacls_func(L, "getTransposed", _cocos2d_Mat4_getTransposed);
+    oluacls_func(L, "inverse", _cocos2d_Mat4_inverse);
+    oluacls_func(L, "isIdentity", _cocos2d_Mat4_isIdentity);
+    oluacls_func(L, "multiply", _cocos2d_Mat4_multiply);
+    oluacls_func(L, "negate", _cocos2d_Mat4_negate);
+    oluacls_func(L, "new", _cocos2d_Mat4_new);
+    oluacls_func(L, "rotate", _cocos2d_Mat4_rotate);
+    oluacls_func(L, "rotateX", _cocos2d_Mat4_rotateX);
+    oluacls_func(L, "rotateY", _cocos2d_Mat4_rotateY);
+    oluacls_func(L, "rotateZ", _cocos2d_Mat4_rotateZ);
+    oluacls_func(L, "scale", _cocos2d_Mat4_scale);
+    oluacls_func(L, "set", _cocos2d_Mat4_set);
+    oluacls_func(L, "setIdentity", _cocos2d_Mat4_setIdentity);
+    oluacls_func(L, "setZero", _cocos2d_Mat4_setZero);
+    oluacls_func(L, "subtract", _cocos2d_Mat4_subtract);
+    oluacls_func(L, "translate", _cocos2d_Mat4_translate);
+    oluacls_func(L, "transpose", _cocos2d_Mat4_transpose);
+    oluacls_prop(L, "identity", _cocos2d_Mat4_isIdentity, _cocos2d_Mat4_setIdentity);
+    oluacls_prop(L, "inversed", _cocos2d_Mat4_getInversed, nullptr);
+    oluacls_prop(L, "negated", _cocos2d_Mat4_getNegated, nullptr);
+    oluacls_prop(L, "transposed", _cocos2d_Mat4_getTransposed, nullptr);
+
+    olua_registerluatype<cocos2d::Mat4>(L, "cc.Mat4");
+
+    return 1;
+}
+
 static int luaopen_cocos2d_RenderTargetFlag(lua_State *L)
 {
     oluacls_class(L, "cc.RenderTargetFlag", nullptr);
@@ -13243,6 +15012,27 @@ static int _cocos2d_Properties_getLong(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_Properties_getMat4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Properties *self = nullptr;
+    const char *arg1 = nullptr;       /** name */
+    cocos2d::Mat4 *arg2 = nullptr;       /** out */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Properties");
+    olua_check_string(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Mat4");
+
+    // bool getMat4(const char *name, cocos2d::Mat4 *out)
+    bool ret = self->getMat4(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Properties_getNamespace1(lua_State *L)
 {
     olua_startinvoke(L);
@@ -13687,6 +15477,7 @@ static int luaopen_cocos2d_Properties(lua_State *L)
     oluacls_func(L, "getId", _cocos2d_Properties_getId);
     oluacls_func(L, "getInt", _cocos2d_Properties_getInt);
     oluacls_func(L, "getLong", _cocos2d_Properties_getLong);
+    oluacls_func(L, "getMat4", _cocos2d_Properties_getMat4);
     oluacls_func(L, "getNamespace", _cocos2d_Properties_getNamespace);
     oluacls_func(L, "getNextNamespace", _cocos2d_Properties_getNextNamespace);
     oluacls_func(L, "getNextProperty", _cocos2d_Properties_getNextProperty);
@@ -23298,6 +25089,24 @@ static int _cocos2d_Node_setAdditionalTransform1(lua_State *L)
     olua_startinvoke(L);
 
     cocos2d::Node *self = nullptr;
+    cocos2d::Mat4 *arg1 = nullptr;       /** additionalTransform */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Mat4");
+
+    // void setAdditionalTransform(const cocos2d::Mat4 *additionalTransform)
+    self->setAdditionalTransform(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Node_setAdditionalTransform2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *self = nullptr;
     cocos2d::Mat4 arg1;       /** additionalTransform */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
@@ -23311,7 +25120,7 @@ static int _cocos2d_Node_setAdditionalTransform1(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Node_setAdditionalTransform2(lua_State *L)
+static int _cocos2d_Node_setAdditionalTransform3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -23336,11 +25145,16 @@ static int _cocos2d_Node_setAdditionalTransform(lua_State *L)
     if (num_args == 1) {
         if ((olua_is_cocos2d_AffineTransform(L, 2))) {
             // void setAdditionalTransform(const cocos2d::AffineTransform &additionalTransform)
+            return _cocos2d_Node_setAdditionalTransform3(L);
+        }
+
+        if ((olua_is_cocos2d_Mat4(L, 2))) {
+            // void setAdditionalTransform(const cocos2d::Mat4 &additionalTransform)
             return _cocos2d_Node_setAdditionalTransform2(L);
         }
 
-        // if ((olua_is_cocos2d_Mat4(L, 2))) {
-            // void setAdditionalTransform(const cocos2d::Mat4 &additionalTransform)
+        // if ((olua_is_cppobj(L, 2, "cc.Mat4"))) {
+            // void setAdditionalTransform(const cocos2d::Mat4 *additionalTransform)
             return _cocos2d_Node_setAdditionalTransform1(L);
         // }
     }
@@ -37202,6 +39016,71 @@ static int _cocos2d_Scene_onProjectionChanged(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_Scene_render1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Scene *self = nullptr;
+    cocos2d::Renderer *arg1 = nullptr;       /** renderer */
+    cocos2d::Mat4 arg2;       /** eyeTransform */
+    cocos2d::Mat4 *arg3 = nullptr;       /** eyeProjection */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Scene");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Renderer");
+    olua_check_cocos2d_Mat4(L, 3, &arg2);
+    olua_check_cppobj(L, 4, (void **)&arg3, "cc.Mat4");
+
+    // void render(cocos2d::Renderer *renderer, const cocos2d::Mat4 &eyeTransform, @optional const cocos2d::Mat4 *eyeProjection)
+    self->render(arg1, arg2, arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Scene_render2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Scene *self = nullptr;
+    cocos2d::Renderer *arg1 = nullptr;       /** renderer */
+    cocos2d::Mat4 arg2;       /** eyeTransform */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Scene");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Renderer");
+    olua_check_cocos2d_Mat4(L, 3, &arg2);
+
+    // void render(cocos2d::Renderer *renderer, const cocos2d::Mat4 &eyeTransform, @optional const cocos2d::Mat4 *eyeProjection)
+    self->render(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Scene_render(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 2, "cc.Renderer")) && (olua_is_cocos2d_Mat4(L, 3))) {
+            // void render(cocos2d::Renderer *renderer, const cocos2d::Mat4 &eyeTransform, @optional const cocos2d::Mat4 *eyeProjection)
+            return _cocos2d_Scene_render2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_cppobj(L, 2, "cc.Renderer")) && (olua_is_cocos2d_Mat4(L, 3)) && (olua_is_cppobj(L, 4, "cc.Mat4"))) {
+            // void render(cocos2d::Renderer *renderer, const cocos2d::Mat4 &eyeTransform, @optional const cocos2d::Mat4 *eyeProjection)
+            return _cocos2d_Scene_render1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Scene::render' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
 static int _cocos2d_Scene_setCameraOrderDirty(lua_State *L)
 {
     olua_startinvoke(L);
@@ -37287,6 +39166,7 @@ static int luaopen_cocos2d_Scene(lua_State *L)
     oluacls_func(L, "initWithSize", _cocos2d_Scene_initWithSize);
     oluacls_func(L, "new", _cocos2d_Scene_new);
     oluacls_func(L, "onProjectionChanged", _cocos2d_Scene_onProjectionChanged);
+    oluacls_func(L, "render", _cocos2d_Scene_render);
     oluacls_func(L, "setCameraOrderDirty", _cocos2d_Scene_setCameraOrderDirty);
     oluacls_func(L, "setNavMeshDebugCamera", _cocos2d_Scene_setNavMeshDebugCamera);
     oluacls_func(L, "setPhysics3DDebugCamera", _cocos2d_Scene_setPhysics3DDebugCamera);
@@ -52335,6 +54215,7 @@ static int luaopen_cocos2d_NavMesh(lua_State *L)
 
 int luaopen_cocos2d(lua_State *L)
 {
+    olua_require(L, "cc.Mat4", luaopen_cocos2d_Mat4);
     olua_require(L, "cc.RenderTargetFlag", luaopen_cocos2d_RenderTargetFlag);
     olua_require(L, "cc.ClearFlag", luaopen_cocos2d_ClearFlag);
     olua_require(L, "cc.MATRIX_STACK_TYPE", luaopen_cocos2d_MATRIX_STACK_TYPE);

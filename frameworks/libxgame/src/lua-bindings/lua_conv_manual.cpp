@@ -29,19 +29,6 @@ int olua_is_cocos2d_Data(lua_State *L, int idx)
     return olua_isstring(L, idx);
 }
 
-int olua_push_cocos2d_Mat4(lua_State *L, const cocos2d::Mat4 *value)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
-    }
-    lua_createtable(L, 16, 0);
-    for (int i = 0; i < 16; i++) {
-        lua_pushnumber(L, value->m[i]);
-        lua_rawseti(L, -2, i + 1);
-    }
-    return 1;
-}
-
 int olua_push_cocos2d_Color3B(lua_State *L, const cocos2d::Color3B *value)
 {
     uint32_t color = 0;
@@ -133,25 +120,20 @@ bool olua_is_cocos2d_Color4F(lua_State *L, int idx)
 
 bool olua_is_cocos2d_Mat4(lua_State *L, int idx)
 {
-    if (lua_istable(L, idx) && lua_rawlen(L, idx) == 16) {
-        return true;
-    }
-    return false;
+    return olua_isa<cocos2d::Mat4>(L, idx);
+}
+
+int olua_push_cocos2d_Mat4(lua_State *L, const cocos2d::Mat4 *value)
+{
+    cocos2d::Mat4 *mat = new cocos2d::Mat4(*value);
+    olua_pushobj<cocos2d::Mat4>(L, mat);
+    olua_postnew(L, mat);
+    return 1;
 }
 
 void olua_check_cocos2d_Mat4(lua_State *L, int idx, cocos2d::Mat4 *value)
 {
-    luaL_checktype(L, idx, LUA_TTABLE);
-    int len = (int)lua_rawlen(L, idx);
-    if (len != 16) {
-        luaL_error(L, "expect value count: '16', got '%d'", len);
-    }
-    
-    for (int i = 0; i < len; i++) {
-        lua_rawgeti(L, idx, i + 1);
-        value->m[i] = (float)luaL_checknumber(L, -1);
-        lua_pop(L, 1);
-    }
+    *value = *olua_checkobj<cocos2d::Mat4>(L, idx);
 }
 
 int olua_push_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value)

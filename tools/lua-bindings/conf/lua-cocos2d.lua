@@ -52,6 +52,11 @@ typedef 'cocos2d::EventListener::ListenerID'
     .decltype 'std::string'
     .conv 'olua_$$_std_string'
 
+typeconf 'cocos2d::Mat4'
+    .exclude 'm'
+    .exclude 'ZERO'
+    .exclude 'IDENTITY'
+
 typeconf 'cocos2d::RenderTargetFlag'
 typeconf 'cocos2d::ClearFlag'
 typeconf 'cocos2d::MATRIX_STACK_TYPE'

@@ -71,6 +71,14 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocos2d::Mat4 *',
+    LUACLS = 'cc.Mat4',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUM_VARS = nil,
+}
+
+typedef {
     CPPCLS = 'cocos2d::RenderTargetFlag',
     LUACLS = 'cc.RenderTargetFlag',
     DECLTYPE = "lua_Unsigned",

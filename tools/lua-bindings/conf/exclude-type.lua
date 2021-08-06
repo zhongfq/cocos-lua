@@ -8,7 +8,6 @@ exclude 'cocos2d::FontLetterDefinition'
 exclude 'cocos2d::Grabber *'
 exclude 'cocos2d::GroupCommandManager *'
 exclude 'cocos2d::IMEKeyboardNotificationInfo'
-exclude 'cocos2d::Mat4 *'
 exclude 'cocos2d::MipmapInfo *'
 exclude 'cocos2d::NavMesh *'         -- TDDO
 exclude 'cocos2d::Physics3DWorld *'  -- TDDO

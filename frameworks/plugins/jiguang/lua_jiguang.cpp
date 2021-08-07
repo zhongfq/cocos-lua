@@ -397,7 +397,7 @@ static int _cclua_plugin_JAuth_getSmsCode(lua_State *L)
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.plugin.JAuth");
     std::string cb_tag = "SmsCode";
-    std::string cb_name = olua_setcallback(L, cb_store, cb_tag.c_str(), 4, OLUA_TAG_NEW);
+    std::string cb_name = olua_setcallback(L, cb_store,  4, cb_tag.c_str(), OLUA_TAG_NEW);
     lua_Integer cb_ctx = olua_context(L);
     arg4 = [cb_store, cb_name, cb_ctx](const cocos2d::Value &arg1) {
         lua_State *L = olua_mainthread(NULL);
@@ -440,7 +440,7 @@ static int _cclua_plugin_JAuth_getToken(lua_State *L)
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.plugin.JAuth");
     std::string cb_tag = "Token";
-    std::string cb_name = olua_setcallback(L, cb_store, cb_tag.c_str(), 2, OLUA_TAG_NEW);
+    std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_NEW);
     lua_Integer cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](const cocos2d::Value &arg1) {
         lua_State *L = olua_mainthread(NULL);
@@ -514,7 +514,7 @@ static int _cclua_plugin_JAuth_loginAuth(lua_State *L)
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.plugin.JAuth");
     std::string cb_tag = "loginAuth";
-    std::string cb_name = olua_setcallback(L, cb_store, cb_tag.c_str(), 2, OLUA_TAG_NEW);
+    std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_NEW);
     lua_Integer cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](const cocos2d::Value &arg1) {
         lua_State *L = olua_mainthread(NULL);
@@ -557,7 +557,7 @@ static int _cclua_plugin_JAuth_preLogin(lua_State *L)
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.plugin.JAuth");
     std::string cb_tag = "preLogin";
-    std::string cb_name = olua_setcallback(L, cb_store, cb_tag.c_str(), 2, OLUA_TAG_NEW);
+    std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_NEW);
     lua_Integer cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](const cocos2d::Value &arg1) {
         lua_State *L = olua_mainthread(NULL);

@@ -180,8 +180,8 @@ void olua_postgc(lua_State *L, int idx);
 template <typename T>
 void olua_postgc(lua_State *L, int idx)
 {
-    T *obj = olua_toobj<T>(L, idx);
     if (olua_getownership(L, idx) == OLUA_OWNERSHIP_VM) {
+        T *obj = olua_toobj<T>(L, idx);
         olua_setrawobj(L, idx, nullptr);
         if (std::is_void<T>()) {
             free(obj);

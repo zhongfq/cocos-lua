@@ -494,7 +494,7 @@ static bool test_tag_mode(lua_State *L, int idx, const char *tag, int mode)
     return false;
 }
 
-OLUA_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, int fidx, int tagmode)
+OLUA_API const char *olua_setcallback(lua_State *L, void *obj, int fidx, const char *tag, int tagmode)
 {
     const char *func = NULL;
     fidx = lua_absindex(L, fidx);

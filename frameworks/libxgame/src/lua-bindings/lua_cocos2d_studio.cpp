@@ -17525,7 +17525,7 @@ static int _cocostudio_timeline_ActionTimeline_addAnimationInfo(lua_State *L)
     if (olua_getfield(L, 2, "clipEndCallBack") == LUA_TFUNCTION) {
         void *cb_store = (void *)self;
         std::string cb_tag = makeFrameEndCallbackTag(arg1.endIndex, arg1.name);
-        std::string cb_name = olua_setcallback(L, cb_store, cb_tag.c_str(), -1, OLUA_TAG_REPLACE);
+        std::string cb_name = olua_setcallback(L, cb_store, -1, cb_tag.c_str(), OLUA_TAG_REPLACE);
         lua_Integer cb_ctx = olua_context(L);
         arg1.clipEndCallBack = [cb_store, cb_name, cb_ctx]() {
             lua_State *L = olua_mainthread(NULL);

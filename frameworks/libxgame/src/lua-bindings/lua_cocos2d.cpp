@@ -12325,9 +12325,9 @@ static int _cocos2d_FileUtils_listFilesRecursively(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
     olua_check_std_string(L, 2, &arg1);
-    // no need to check 'arg2' with mark '@out'
+    // no need to check 'arg2' with mark '@ret'
 
-    // void listFilesRecursively(const std::string &dirPath, @out std::vector<std::string> *files)
+    // void listFilesRecursively(const std::string &dirPath, @ret std::vector<std::string> *files)
     self->listFilesRecursively(arg1, &arg2);
 
     olua_push_std_vector<std::string>(L, &arg2, [L](std::string value) {
@@ -15192,9 +15192,9 @@ static int _cocos2d_Properties_getPath(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Properties");
     olua_check_string(L, 2, &arg1);
-    // no need to check 'arg2' with mark '@out'
+    // no need to check 'arg2' with mark '@ret'
 
-    // bool getPath(const char *name, @out std::string *path)
+    // bool getPath(const char *name, @ret std::string *path)
     bool ret = self->getPath(arg1, &arg2);
     int num_ret = olua_push_bool(L, ret);
     olua_push_std_string(L, arg2);
@@ -50431,9 +50431,9 @@ static int _cocos2d_TMXLayer_getTileGIDAt(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.TMXLayer");
     olua_check_cocos2d_Vec2(L, 2, &arg1);
-    // no need to check 'arg2' with mark '@out'
+    // no need to check 'arg2' with mark '@ret'
 
-    // uint32_t getTileGIDAt(const cocos2d::Vec2 &tileCoordinate, @out cocos2d::TMXTileFlags *flags)
+    // uint32_t getTileGIDAt(const cocos2d::Vec2 &tileCoordinate, @ret cocos2d::TMXTileFlags *flags)
     uint32_t ret = self->getTileGIDAt(arg1, &arg2);
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
     olua_push_uint(L, (lua_Unsigned)arg2);
@@ -52717,9 +52717,9 @@ static int _cocos2d_FastTMXLayer_getTileGIDAt(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.FastTMXLayer");
     olua_check_cocos2d_Vec2(L, 2, &arg1);
-    // no need to check 'arg2' with mark '@out'
+    // no need to check 'arg2' with mark '@ret'
 
-    // int getTileGIDAt(const cocos2d::Vec2 &tileCoordinate, @out cocos2d::TMXTileFlags *flags)
+    // int getTileGIDAt(const cocos2d::Vec2 &tileCoordinate, @ret cocos2d::TMXTileFlags *flags)
     int ret = self->getTileGIDAt(arg1, &arg2);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
     olua_push_uint(L, (lua_Unsigned)arg2);

@@ -349,7 +349,7 @@ typeconf 'cocos2d::ResizableBuffer'
 typeconf 'cocos2d::FileUtils::Status'
 
 typeconf 'cocos2d::FileUtils'
-    .attr('listFilesRecursively', {arg2 = '@out'})
+    .attr('listFilesRecursively', {arg2 = '@ret'})
     .callback {name = "getStringFromFile", tag_scope = 'once', tag_mode = 'OLUA_TAG_NEW'}
     .callback {name = "getDataFromFile", tag_scope = 'once', tag_mode = 'OLUA_TAG_NEW'}
     .callback {name = "writeStringToFile", tag_scope = 'once', tag_mode = 'OLUA_TAG_NEW'}
@@ -407,7 +407,7 @@ typeconf 'cocos2d::Image'
 
 typeconf 'cocos2d::Properties::Type'
 typeconf 'cocos2d::Properties'
-    .attr('getPath', {arg2 = '@out'})
+    .attr('getPath', {arg2 = '@ret'})
 
 typeconf 'cocos2d::Material'
 typeconf 'cocos2d::Renderer'
@@ -911,7 +911,7 @@ typeconf 'cocos2d::TMXTileFlags'
 typeconf 'cocos2d::TMXObjectGroup'
 
 typeconf 'cocos2d::TMXLayer'
-    .attr('getTileGIDAt', {arg2 = '@out'})
+    .attr('getTileGIDAt', {arg2 = '@ret'})
 
 typeconf 'cocos2d::TMXLayerInfo'
 typeconf 'cocos2d::TMXMapInfo'
@@ -920,7 +920,7 @@ typeconf 'cocos2d::TMXTiledMap'
 typeconf 'cocos2d::FastTMXTiledMap'
 
 typeconf 'cocos2d::FastTMXLayer'
-    .attr('getTileGIDAt', {arg2 = '@out'})
+    .attr('getTileGIDAt', {arg2 = '@ret'})
 
 typeconf 'cocos2d::NavMeshAgent::NavMeshAgentSyncFlag'
 typeconf 'cocos2d::NavMeshAgent'

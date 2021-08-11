@@ -442,7 +442,7 @@ typeconf 'fairygui::GList'
     .attr('setVirtual', {ret = '@delref(children ~)'})
     .attr('setVirtualAndLoop', {ret = '@delref(children ~)'})
     .attr('setNumItems', {ret = '@delref(children ~)'})
-    .attr('getSelection', {arg1 = '@out'})
+    .attr('getSelection', {arg1 = '@ret'})
     .callback {name = 'itemRenderer', localvar = false}
     .insert('itemRenderer', {
         callback_before = [[
@@ -556,7 +556,7 @@ typeconf 'fairygui::Transition'
     }
 
 typeconf 'fairygui::UIConfig'
-    .attr('getRealFontName', {arg2 = '@out'})
+    .attr('getRealFontName', {arg2 = '@ret'})
 
 typeconf 'fairygui::IUISource'
     .callback {name = 'load', nullable = true}
@@ -670,7 +670,7 @@ typeconf 'fairygui::GTree'
     .attr('getList', {ret = '@addref(list ^)'})
     .attr('getRootNode', {ret = '@addref(rootNode ^)'})
     .attr('getSelectedNode', {ret = '@addref(nodes |)'})
-    .attr('getSelectedNodes', {arg1 = '@addref(nodes |)@out'})
+    .attr('getSelectedNodes', {arg1 = '@addref(nodes |)@ret'})
     .callback {name = 'treeNodeRender', localvar = false}
     .callback {name = 'treeNodeWillExpand', localvar = false}
     -- std::function<void (GTreeNode *, GComponent *)> treeNodeRender

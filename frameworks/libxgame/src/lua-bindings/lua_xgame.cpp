@@ -131,7 +131,7 @@ bool olua_ispack_cclua_downloader_FileTask(lua_State *L, int idx)
     return olua_is_std_string(L, idx + 0) && olua_is_std_string(L, idx + 1) && olua_is_std_string(L, idx + 2) && olua_is_uint(L, idx + 3);
 }
 
-static int _cclua_SceneNoCamera___move(lua_State *L)
+static int _cclua_SceneNoCamera___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -203,7 +203,7 @@ static int _cclua_SceneNoCamera_new(lua_State *L)
 static int luaopen_cclua_SceneNoCamera(lua_State *L)
 {
     oluacls_class(L, "cclua.SceneNoCamera", "cc.Scene");
-    oluacls_func(L, "__move", _cclua_SceneNoCamera___move);
+    oluacls_func(L, "__olua_move", _cclua_SceneNoCamera___olua_move);
     oluacls_func(L, "create", _cclua_SceneNoCamera_create);
     oluacls_func(L, "createWithPhysics", _cclua_SceneNoCamera_createWithPhysics);
     oluacls_func(L, "createWithSize", _cclua_SceneNoCamera_createWithSize);
@@ -240,7 +240,7 @@ static int luaopen_cclua_PermissionStatus(lua_State *L)
     return 1;
 }
 
-static int _cclua_runtime___move(lua_State *L)
+static int _cclua_runtime___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1417,7 +1417,7 @@ static int _cclua_runtime_testCrash(lua_State *L)
 static int luaopen_cclua_runtime(lua_State *L)
 {
     oluacls_class(L, "cclua.runtime", nullptr);
-    oluacls_func(L, "__move", _cclua_runtime___move);
+    oluacls_func(L, "__olua_move", _cclua_runtime___olua_move);
     oluacls_func(L, "alert", _cclua_runtime_alert);
     oluacls_func(L, "canOpenURL", _cclua_runtime_canOpenURL);
     oluacls_func(L, "capture", _cclua_runtime_capture);
@@ -1515,7 +1515,7 @@ static int luaopen_cclua_runtime(lua_State *L)
     return 1;
 }
 
-static int _cclua_filesystem___move(lua_State *L)
+static int _cclua_filesystem___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2005,7 +2005,7 @@ static int _cclua_filesystem_write(lua_State *L)
 static int luaopen_cclua_filesystem(lua_State *L)
 {
     oluacls_class(L, "cclua.filesystem", nullptr);
-    oluacls_func(L, "__move", _cclua_filesystem___move);
+    oluacls_func(L, "__olua_move", _cclua_filesystem___olua_move);
     oluacls_func(L, "addSearchPath", _cclua_filesystem_addSearchPath);
     oluacls_func(L, "copy", _cclua_filesystem_copy);
     oluacls_func(L, "createDirectory", _cclua_filesystem_createDirectory);
@@ -2037,7 +2037,7 @@ static int luaopen_cclua_filesystem(lua_State *L)
     return 1;
 }
 
-static int _cclua_preferences___move(lua_State *L)
+static int _cclua_preferences___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2465,7 +2465,7 @@ static int _cclua_preferences_setString(lua_State *L)
 static int luaopen_cclua_preferences(lua_State *L)
 {
     oluacls_class(L, "cclua.preferences", nullptr);
-    oluacls_func(L, "__move", _cclua_preferences___move);
+    oluacls_func(L, "__olua_move", _cclua_preferences___olua_move);
     oluacls_func(L, "deleteKey", _cclua_preferences_deleteKey);
     oluacls_func(L, "flush", _cclua_preferences_flush);
     oluacls_func(L, "getBoolean", _cclua_preferences_getBoolean);
@@ -2486,7 +2486,7 @@ static int luaopen_cclua_preferences(lua_State *L)
 
 #define makeTimerDelayTag(tag) ("delayTag." + tag)
 
-static int _cclua_timer___move(lua_State *L)
+static int _cclua_timer___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2651,7 +2651,7 @@ static int _cclua_timer_unschedule(lua_State *L)
 static int luaopen_cclua_timer(lua_State *L)
 {
     oluacls_class(L, "cclua.timer", nullptr);
-    oluacls_func(L, "__move", _cclua_timer___move);
+    oluacls_func(L, "__olua_move", _cclua_timer___olua_move);
     oluacls_func(L, "createTag", _cclua_timer_createTag);
     oluacls_func(L, "delay", _cclua_timer_delay);
     oluacls_func(L, "delayWithTag", _cclua_timer_delayWithTag);
@@ -2664,7 +2664,7 @@ static int luaopen_cclua_timer(lua_State *L)
     return 1;
 }
 
-static int _cclua_window___move(lua_State *L)
+static int _cclua_window___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2902,7 +2902,7 @@ static int _cclua_window_setFrameSize(lua_State *L)
 static int luaopen_cclua_window(lua_State *L)
 {
     oluacls_class(L, "cclua.window", nullptr);
-    oluacls_func(L, "__move", _cclua_window___move);
+    oluacls_func(L, "__olua_move", _cclua_window___olua_move);
     oluacls_func(L, "convertToCameraSpace", _cclua_window_convertToCameraSpace);
     oluacls_func(L, "getDesignSize", _cclua_window_getDesignSize);
     oluacls_func(L, "getFrameSize", _cclua_window_getFrameSize);
@@ -2933,7 +2933,7 @@ static int luaopen_cclua_downloader_FileState(lua_State *L)
     return 1;
 }
 
-static int _cclua_downloader___move(lua_State *L)
+static int _cclua_downloader___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3027,7 +3027,7 @@ static int _cclua_downloader_setDispatcher(lua_State *L)
 static int luaopen_cclua_downloader(lua_State *L)
 {
     oluacls_class(L, "cclua.downloader", nullptr);
-    oluacls_func(L, "__move", _cclua_downloader___move);
+    oluacls_func(L, "__olua_move", _cclua_downloader___olua_move);
     oluacls_func(L, "end", _cclua_downloader_end);
     oluacls_func(L, "init", _cclua_downloader_init);
     oluacls_func(L, "load", _cclua_downloader_load);
@@ -3038,7 +3038,7 @@ static int luaopen_cclua_downloader(lua_State *L)
     return 1;
 }
 
-static int _cclua_MaskLayout___move(lua_State *L)
+static int _cclua_MaskLayout___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3140,7 +3140,7 @@ static int _cclua_MaskLayout_setFilter(lua_State *L)
 static int luaopen_cclua_MaskLayout(lua_State *L)
 {
     oluacls_class(L, "cclua.MaskLayout", "ccui.Layout");
-    oluacls_func(L, "__move", _cclua_MaskLayout___move);
+    oluacls_func(L, "__olua_move", _cclua_MaskLayout___olua_move);
     oluacls_func(L, "create", _cclua_MaskLayout_create);
     oluacls_func(L, "getClippingNode", _cclua_MaskLayout_getClippingNode);
     oluacls_func(L, "getFilter", _cclua_MaskLayout_getFilter);

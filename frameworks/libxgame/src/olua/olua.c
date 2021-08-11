@@ -1278,9 +1278,9 @@ static int l_take(lua_State *L)
 static int l_move(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TUSERDATA);
-    lua_getfield(L, 1, "__move");
+    lua_getfield(L, 1, "__olua_move");
     if (!olua_isfunction(L, -1)) {
-        luaL_error(L, "method '__move' not found in '%s'", olua_objstring(L, 1));
+        luaL_error(L, "method '__olua_move' not found in '%s'", olua_objstring(L, 1));
     }
     lua_insert(L, 1);
     lua_call(L, lua_gettop(L) - 1, LUA_MULTRET);

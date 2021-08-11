@@ -4,7 +4,7 @@
 #include "lua_apple.h"
 
 #ifdef CCLUA_BUILD_APPLE_AUTH
-static int _cclua_plugin_AppleAuth___move(lua_State *L)
+static int _cclua_plugin_AppleAuth___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -71,7 +71,7 @@ static int _cclua_plugin_AppleAuth_canMakeAuth(lua_State *L)
 static int luaopen_cclua_plugin_AppleAuth(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.AppleAuth", nullptr);
-    oluacls_func(L, "__move", _cclua_plugin_AppleAuth___move);
+    oluacls_func(L, "__olua_move", _cclua_plugin_AppleAuth___olua_move);
     oluacls_func(L, "auth", _cclua_plugin_AppleAuth_auth);
     oluacls_func(L, "canMakeAuth", _cclua_plugin_AppleAuth_canMakeAuth);
 
@@ -83,7 +83,7 @@ static int luaopen_cclua_plugin_AppleAuth(lua_State *L)
 #endif
 
 #ifdef CCLUA_BUILD_APPLE_IAP
-static int _cclua_plugin_AppleIAP___move(lua_State *L)
+static int _cclua_plugin_AppleIAP___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -285,7 +285,7 @@ static int _cclua_plugin_AppleIAP_setDispatcher(lua_State *L)
 static int luaopen_cclua_plugin_AppleIAP(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.AppleIAP", nullptr);
-    oluacls_func(L, "__move", _cclua_plugin_AppleIAP___move);
+    oluacls_func(L, "__olua_move", _cclua_plugin_AppleIAP___olua_move);
     oluacls_func(L, "canMakePayments", _cclua_plugin_AppleIAP_canMakePayments);
     oluacls_func(L, "dispatch", _cclua_plugin_AppleIAP_dispatch);
     oluacls_func(L, "finishTransaction", _cclua_plugin_AppleIAP_finishTransaction);

@@ -35,7 +35,7 @@ static int luaopen_cclua_plugin_WeChat_ProgramType(lua_State *L)
 #endif
 
 #ifdef CCLUA_BUILD_WECHAT
-static int _cclua_plugin_WeChat___move(lua_State *L)
+static int _cclua_plugin_WeChat___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -323,7 +323,7 @@ static int _cclua_plugin_WeChat_stopAuth(lua_State *L)
 static int luaopen_cclua_plugin_WeChat(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.WeChat", nullptr);
-    oluacls_func(L, "__move", _cclua_plugin_WeChat___move);
+    oluacls_func(L, "__olua_move", _cclua_plugin_WeChat___olua_move);
     oluacls_func(L, "auth", _cclua_plugin_WeChat_auth);
     oluacls_func(L, "authQRCode", _cclua_plugin_WeChat_authQRCode);
     oluacls_func(L, "dispatch", _cclua_plugin_WeChat_dispatch);

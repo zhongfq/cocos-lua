@@ -151,7 +151,7 @@ static int luaopen_cocos2d_shaderinfos_Uniformkey(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_NTextureData___move(lua_State *L)
+static int _cocos2d_NTextureData___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -341,7 +341,7 @@ static int _cocos2d_NTextureData_set_wrapT(lua_State *L)
 static int luaopen_cocos2d_NTextureData(lua_State *L)
 {
     oluacls_class(L, "cc.NTextureData", nullptr);
-    oluacls_func(L, "__move", _cocos2d_NTextureData___move);
+    oluacls_func(L, "__olua_move", _cocos2d_NTextureData___olua_move);
     oluacls_prop(L, "filename", _cocos2d_NTextureData_get_filename, _cocos2d_NTextureData_set_filename);
     oluacls_prop(L, "id", _cocos2d_NTextureData_get_id, _cocos2d_NTextureData_set_id);
     oluacls_prop(L, "type", _cocos2d_NTextureData_get_type, _cocos2d_NTextureData_set_type);
@@ -353,7 +353,7 @@ static int luaopen_cocos2d_NTextureData(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_Mesh___move(lua_State *L)
+static int _cocos2d_Mesh___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1083,7 +1083,7 @@ static int _cocos2d_Mesh_setVisible(lua_State *L)
 static int luaopen_cocos2d_Mesh(lua_State *L)
 {
     oluacls_class(L, "cc.Mesh", "cc.Ref");
-    oluacls_func(L, "__move", _cocos2d_Mesh___move);
+    oluacls_func(L, "__olua_move", _cocos2d_Mesh___olua_move);
     oluacls_func(L, "calculateAABB", _cocos2d_Mesh_calculateAABB);
     oluacls_func(L, "create", _cocos2d_Mesh_create);
     oluacls_func(L, "draw", _cocos2d_Mesh_draw);
@@ -1130,7 +1130,7 @@ static int luaopen_cocos2d_Mesh(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_MeshSkin___move(lua_State *L)
+static int _cocos2d_MeshSkin___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1337,7 +1337,7 @@ static int _cocos2d_MeshSkin_removeAllBones(lua_State *L)
 static int luaopen_cocos2d_MeshSkin(lua_State *L)
 {
     oluacls_class(L, "cc.MeshSkin", "cc.Ref");
-    oluacls_func(L, "__move", _cocos2d_MeshSkin___move);
+    oluacls_func(L, "__olua_move", _cocos2d_MeshSkin___olua_move);
     oluacls_func(L, "addSkinBone", _cocos2d_MeshSkin_addSkinBone);
     oluacls_func(L, "getBoneByIndex", _cocos2d_MeshSkin_getBoneByIndex);
     oluacls_func(L, "getBoneByName", _cocos2d_MeshSkin_getBoneByName);
@@ -1370,7 +1370,7 @@ static int luaopen_cocos2d_BillBoard_Mode(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_BillBoard___move(lua_State *L)
+static int _cocos2d_BillBoard___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1644,7 +1644,7 @@ static int _cocos2d_BillBoard_setMode(lua_State *L)
 static int luaopen_cocos2d_BillBoard(lua_State *L)
 {
     oluacls_class(L, "cc.BillBoard", "cc.Sprite");
-    oluacls_func(L, "__move", _cocos2d_BillBoard___move);
+    oluacls_func(L, "__olua_move", _cocos2d_BillBoard___olua_move);
     oluacls_func(L, "create", _cocos2d_BillBoard_create);
     oluacls_func(L, "createWithTexture", _cocos2d_BillBoard_createWithTexture);
     oluacls_func(L, "getMode", _cocos2d_BillBoard_getMode);
@@ -1673,7 +1673,7 @@ static int luaopen_cocos2d_Sprite3DMaterial_MaterialType(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_Sprite3DMaterial___move(lua_State *L)
+static int _cocos2d_Sprite3DMaterial___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1835,7 +1835,7 @@ static int _cocos2d_Sprite3DMaterial_setTexture(lua_State *L)
 static int luaopen_cocos2d_Sprite3DMaterial(lua_State *L)
 {
     oluacls_class(L, "cc.Sprite3DMaterial", "cc.Material");
-    oluacls_func(L, "__move", _cocos2d_Sprite3DMaterial___move);
+    oluacls_func(L, "__olua_move", _cocos2d_Sprite3DMaterial___olua_move);
     oluacls_func(L, "createBuiltInMaterial", _cocos2d_Sprite3DMaterial_createBuiltInMaterial);
     oluacls_func(L, "createWithFilename", _cocos2d_Sprite3DMaterial_createWithFilename);
     oluacls_func(L, "createWithProgramState", _cocos2d_Sprite3DMaterial_createWithProgramState);
@@ -1850,7 +1850,7 @@ static int luaopen_cocos2d_Sprite3DMaterial(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_Sprite3D___move(lua_State *L)
+static int _cocos2d_Sprite3D___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2612,7 +2612,7 @@ static int _cocos2d_Sprite3D_setTexture(lua_State *L)
 static int luaopen_cocos2d_Sprite3D(lua_State *L)
 {
     oluacls_class(L, "cc.Sprite3D", "cc.Node");
-    oluacls_func(L, "__move", _cocos2d_Sprite3D___move);
+    oluacls_func(L, "__olua_move", _cocos2d_Sprite3D___olua_move);
     oluacls_func(L, "addMesh", _cocos2d_Sprite3D_addMesh);
     oluacls_func(L, "afterAsyncLoad", _cocos2d_Sprite3D_afterAsyncLoad);
     oluacls_func(L, "create", _cocos2d_Sprite3D_create);
@@ -2655,7 +2655,7 @@ static int luaopen_cocos2d_Sprite3D(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_AttachNode___move(lua_State *L)
+static int _cocos2d_AttachNode___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2701,7 +2701,7 @@ static int _cocos2d_AttachNode_new(lua_State *L)
 static int luaopen_cocos2d_AttachNode(lua_State *L)
 {
     oluacls_class(L, "cc.AttachNode", "cc.Node");
-    oluacls_func(L, "__move", _cocos2d_AttachNode___move);
+    oluacls_func(L, "__olua_move", _cocos2d_AttachNode___olua_move);
     oluacls_func(L, "create", _cocos2d_AttachNode_create);
     oluacls_func(L, "new", _cocos2d_AttachNode_new);
 
@@ -2710,7 +2710,7 @@ static int luaopen_cocos2d_AttachNode(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_Bone3D___move(lua_State *L)
+static int _cocos2d_Bone3D___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3000,7 +3000,7 @@ static int _cocos2d_Bone3D_updateWorldMat(lua_State *L)
 static int luaopen_cocos2d_Bone3D(lua_State *L)
 {
     oluacls_class(L, "cc.Bone3D", "cc.Ref");
-    oluacls_func(L, "__move", _cocos2d_Bone3D___move);
+    oluacls_func(L, "__olua_move", _cocos2d_Bone3D___olua_move);
     oluacls_func(L, "addChildBone", _cocos2d_Bone3D_addChildBone);
     oluacls_func(L, "clearBoneBlendState", _cocos2d_Bone3D_clearBoneBlendState);
     oluacls_func(L, "create", _cocos2d_Bone3D_create);
@@ -3028,7 +3028,7 @@ static int luaopen_cocos2d_Bone3D(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_Skeleton3D___move(lua_State *L)
+static int _cocos2d_Skeleton3D___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3217,7 +3217,7 @@ static int _cocos2d_Skeleton3D_updateBoneMatrix(lua_State *L)
 static int luaopen_cocos2d_Skeleton3D(lua_State *L)
 {
     oluacls_class(L, "cc.Skeleton3D", "cc.Ref");
-    oluacls_func(L, "__move", _cocos2d_Skeleton3D___move);
+    oluacls_func(L, "__olua_move", _cocos2d_Skeleton3D___olua_move);
     oluacls_func(L, "addBone", _cocos2d_Skeleton3D_addBone);
     oluacls_func(L, "getBoneByIndex", _cocos2d_Skeleton3D_getBoneByIndex);
     oluacls_func(L, "getBoneByName", _cocos2d_Skeleton3D_getBoneByName);

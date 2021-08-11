@@ -395,7 +395,7 @@ static int luaopen_cocos2d_backend_FeatureType(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_backend_Buffer___move(lua_State *L)
+static int _cocos2d_backend_Buffer___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -487,7 +487,7 @@ static int _cocos2d_backend_Buffer_usingDefaultStoredData(lua_State *L)
 static int luaopen_cocos2d_backend_Buffer(lua_State *L)
 {
     oluacls_class(L, "ccb.Buffer", "cc.Ref");
-    oluacls_func(L, "__move", _cocos2d_backend_Buffer___move);
+    oluacls_func(L, "__olua_move", _cocos2d_backend_Buffer___olua_move);
     oluacls_func(L, "getSize", _cocos2d_backend_Buffer_getSize);
     oluacls_func(L, "updateData", _cocos2d_backend_Buffer_updateData);
     oluacls_func(L, "updateSubData", _cocos2d_backend_Buffer_updateSubData);
@@ -499,7 +499,7 @@ static int luaopen_cocos2d_backend_Buffer(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_backend_RenderPipeline___move(lua_State *L)
+static int _cocos2d_backend_RenderPipeline___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -514,14 +514,14 @@ static int _cocos2d_backend_RenderPipeline___move(lua_State *L)
 static int luaopen_cocos2d_backend_RenderPipeline(lua_State *L)
 {
     oluacls_class(L, "ccb.RenderPipeline", "cc.Ref");
-    oluacls_func(L, "__move", _cocos2d_backend_RenderPipeline___move);
+    oluacls_func(L, "__olua_move", _cocos2d_backend_RenderPipeline___olua_move);
 
     olua_registerluatype<cocos2d::backend::RenderPipeline>(L, "ccb.RenderPipeline");
 
     return 1;
 }
 
-static int _cocos2d_backend_DepthStencilState___move(lua_State *L)
+static int _cocos2d_backend_DepthStencilState___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -536,7 +536,7 @@ static int _cocos2d_backend_DepthStencilState___move(lua_State *L)
 static int luaopen_cocos2d_backend_DepthStencilState(lua_State *L)
 {
     oluacls_class(L, "ccb.DepthStencilState", "cc.Ref");
-    oluacls_func(L, "__move", _cocos2d_backend_DepthStencilState___move);
+    oluacls_func(L, "__olua_move", _cocos2d_backend_DepthStencilState___olua_move);
 
     olua_registerluatype<cocos2d::backend::DepthStencilState>(L, "ccb.DepthStencilState");
 
@@ -554,7 +554,7 @@ static int _cocos2d_backend_VertexLayout___gc(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_VertexLayout___move(lua_State *L)
+static int _cocos2d_backend_VertexLayout___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -699,7 +699,7 @@ static int luaopen_cocos2d_backend_VertexLayout(lua_State *L)
 {
     oluacls_class(L, "ccb.VertexLayout", nullptr);
     oluacls_func(L, "__gc", _cocos2d_backend_VertexLayout___gc);
-    oluacls_func(L, "__move", _cocos2d_backend_VertexLayout___move);
+    oluacls_func(L, "__olua_move", _cocos2d_backend_VertexLayout___olua_move);
     oluacls_func(L, "getAttributes", _cocos2d_backend_VertexLayout_getAttributes);
     oluacls_func(L, "getStride", _cocos2d_backend_VertexLayout_getStride);
     oluacls_func(L, "getVertexStepMode", _cocos2d_backend_VertexLayout_getVertexStepMode);
@@ -717,7 +717,7 @@ static int luaopen_cocos2d_backend_VertexLayout(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_backend_CommandBuffer___move(lua_State *L)
+static int _cocos2d_backend_CommandBuffer___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1121,7 +1121,7 @@ static int _cocos2d_backend_CommandBuffer_setWinding(lua_State *L)
 static int luaopen_cocos2d_backend_CommandBuffer(lua_State *L)
 {
     oluacls_class(L, "ccb.CommandBuffer", "cc.Ref");
-    oluacls_func(L, "__move", _cocos2d_backend_CommandBuffer___move);
+    oluacls_func(L, "__olua_move", _cocos2d_backend_CommandBuffer___olua_move);
     oluacls_func(L, "beginFrame", _cocos2d_backend_CommandBuffer_beginFrame);
     oluacls_func(L, "captureScreen", _cocos2d_backend_CommandBuffer_captureScreen);
     oluacls_func(L, "drawArrays", _cocos2d_backend_CommandBuffer_drawArrays);
@@ -1145,7 +1145,7 @@ static int luaopen_cocos2d_backend_CommandBuffer(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_backend_Device___move(lua_State *L)
+static int _cocos2d_backend_Device___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1339,7 +1339,7 @@ static int _cocos2d_backend_Device_setFrameBufferOnly(lua_State *L)
 static int luaopen_cocos2d_backend_Device(lua_State *L)
 {
     oluacls_class(L, "ccb.Device", "cc.Ref");
-    oluacls_func(L, "__move", _cocos2d_backend_Device___move);
+    oluacls_func(L, "__olua_move", _cocos2d_backend_Device___olua_move);
     oluacls_func(L, "createDepthStencilState", _cocos2d_backend_Device_createDepthStencilState);
     oluacls_func(L, "getDeviceInfo", _cocos2d_backend_Device_getDeviceInfo);
     oluacls_func(L, "getInstance", _cocos2d_backend_Device_getInstance);
@@ -1357,7 +1357,7 @@ static int luaopen_cocos2d_backend_Device(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_backend_DeviceInfo___move(lua_State *L)
+static int _cocos2d_backend_DeviceInfo___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1544,7 +1544,7 @@ static int _cocos2d_backend_DeviceInfo_init(lua_State *L)
 static int luaopen_cocos2d_backend_DeviceInfo(lua_State *L)
 {
     oluacls_class(L, "ccb.DeviceInfo", nullptr);
-    oluacls_func(L, "__move", _cocos2d_backend_DeviceInfo___move);
+    oluacls_func(L, "__olua_move", _cocos2d_backend_DeviceInfo___olua_move);
     oluacls_func(L, "checkForFeatureSupported", _cocos2d_backend_DeviceInfo_checkForFeatureSupported);
     oluacls_func(L, "getExtension", _cocos2d_backend_DeviceInfo_getExtension);
     oluacls_func(L, "getMaxAttributes", _cocos2d_backend_DeviceInfo_getMaxAttributes);
@@ -1569,7 +1569,7 @@ static int luaopen_cocos2d_backend_DeviceInfo(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_backend_ShaderCache___move(lua_State *L)
+static int _cocos2d_backend_ShaderCache___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1659,7 +1659,7 @@ static int _cocos2d_backend_ShaderCache_removeUnusedShader(lua_State *L)
 static int luaopen_cocos2d_backend_ShaderCache(lua_State *L)
 {
     oluacls_class(L, "ccb.ShaderCache", "cc.Ref");
-    oluacls_func(L, "__move", _cocos2d_backend_ShaderCache___move);
+    oluacls_func(L, "__olua_move", _cocos2d_backend_ShaderCache___olua_move);
     oluacls_func(L, "destroyInstance", _cocos2d_backend_ShaderCache_destroyInstance);
     oluacls_func(L, "getInstance", _cocos2d_backend_ShaderCache_getInstance);
     oluacls_func(L, "newFragmentShaderModule", _cocos2d_backend_ShaderCache_newFragmentShaderModule);
@@ -1672,7 +1672,7 @@ static int luaopen_cocos2d_backend_ShaderCache(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_backend_ShaderModule___move(lua_State *L)
+static int _cocos2d_backend_ShaderModule___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1721,7 +1721,7 @@ static int _cocos2d_backend_ShaderModule_getShaderStage(lua_State *L)
 static int luaopen_cocos2d_backend_ShaderModule(lua_State *L)
 {
     oluacls_class(L, "ccb.ShaderModule", "cc.Ref");
-    oluacls_func(L, "__move", _cocos2d_backend_ShaderModule___move);
+    oluacls_func(L, "__olua_move", _cocos2d_backend_ShaderModule___olua_move);
     oluacls_func(L, "getHashValue", _cocos2d_backend_ShaderModule_getHashValue);
     oluacls_func(L, "getShaderStage", _cocos2d_backend_ShaderModule_getShaderStage);
     oluacls_prop(L, "hashValue", _cocos2d_backend_ShaderModule_getHashValue, nullptr);
@@ -1732,7 +1732,7 @@ static int luaopen_cocos2d_backend_ShaderModule(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_backend_ProgramCache___move(lua_State *L)
+static int _cocos2d_backend_ProgramCache___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1880,7 +1880,7 @@ static int _cocos2d_backend_ProgramCache_removeUnusedProgram(lua_State *L)
 static int luaopen_cocos2d_backend_ProgramCache(lua_State *L)
 {
     oluacls_class(L, "ccb.ProgramCache", "cc.Ref");
-    oluacls_func(L, "__move", _cocos2d_backend_ProgramCache___move);
+    oluacls_func(L, "__olua_move", _cocos2d_backend_ProgramCache___olua_move);
     oluacls_func(L, "addCustomProgram", _cocos2d_backend_ProgramCache_addCustomProgram);
     oluacls_func(L, "destroyInstance", _cocos2d_backend_ProgramCache_destroyInstance);
     oluacls_func(L, "getBuiltinProgram", _cocos2d_backend_ProgramCache_getBuiltinProgram);
@@ -1965,7 +1965,7 @@ template <typename T> int _cocos2d_backend_ProgramState_setUniformv(lua_State *L
     return 0;
 }
 
-static int _cocos2d_backend_ProgramState___move(lua_State *L)
+static int _cocos2d_backend_ProgramState___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2427,7 +2427,7 @@ static int _cocos2d_backend_ProgramState_setUniformVec4v(lua_State *L)
 static int luaopen_cocos2d_backend_ProgramState(lua_State *L)
 {
     oluacls_class(L, "ccb.ProgramState", "cc.Ref");
-    oluacls_func(L, "__move", _cocos2d_backend_ProgramState___move);
+    oluacls_func(L, "__olua_move", _cocos2d_backend_ProgramState___olua_move);
     oluacls_func(L, "clone", _cocos2d_backend_ProgramState_clone);
     oluacls_func(L, "getAttributeLocation", _cocos2d_backend_ProgramState_getAttributeLocation);
     oluacls_func(L, "getFragmentTextureInfos", _cocos2d_backend_ProgramState_getFragmentTextureInfos);
@@ -2461,7 +2461,7 @@ static int luaopen_cocos2d_backend_ProgramState(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_backend_Program___move(lua_State *L)
+static int _cocos2d_backend_Program___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2778,7 +2778,7 @@ static int _cocos2d_backend_Program_getVertexShader(lua_State *L)
 static int luaopen_cocos2d_backend_Program(lua_State *L)
 {
     oluacls_class(L, "ccb.Program", "cc.Ref");
-    oluacls_func(L, "__move", _cocos2d_backend_Program___move);
+    oluacls_func(L, "__olua_move", _cocos2d_backend_Program___olua_move);
     oluacls_func(L, "getActiveAttributes", _cocos2d_backend_Program_getActiveAttributes);
     oluacls_func(L, "getActiveUniformInfo", _cocos2d_backend_Program_getActiveUniformInfo);
     oluacls_func(L, "getAllActiveUniformInfo", _cocos2d_backend_Program_getAllActiveUniformInfo);
@@ -2803,7 +2803,7 @@ static int luaopen_cocos2d_backend_Program(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_backend_TextureBackend___move(lua_State *L)
+static int _cocos2d_backend_TextureBackend___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2988,7 +2988,7 @@ static int _cocos2d_backend_TextureBackend_updateTextureDescriptor(lua_State *L)
 static int luaopen_cocos2d_backend_TextureBackend(lua_State *L)
 {
     oluacls_class(L, "ccb.TextureBackend", "cc.Ref");
-    oluacls_func(L, "__move", _cocos2d_backend_TextureBackend___move);
+    oluacls_func(L, "__olua_move", _cocos2d_backend_TextureBackend___olua_move);
     oluacls_func(L, "generateMipmaps", _cocos2d_backend_TextureBackend_generateMipmaps);
     oluacls_func(L, "getBytes", _cocos2d_backend_TextureBackend_getBytes);
     oluacls_func(L, "getTextureFormat", _cocos2d_backend_TextureBackend_getTextureFormat);
@@ -3006,7 +3006,7 @@ static int luaopen_cocos2d_backend_TextureBackend(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_backend_Texture2DBackend___move(lua_State *L)
+static int _cocos2d_backend_Texture2DBackend___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3163,7 +3163,7 @@ static int _cocos2d_backend_Texture2DBackend_updateSubData(lua_State *L)
 static int luaopen_cocos2d_backend_Texture2DBackend(lua_State *L)
 {
     oluacls_class(L, "ccb.Texture2DBackend", "ccb.TextureBackend");
-    oluacls_func(L, "__move", _cocos2d_backend_Texture2DBackend___move);
+    oluacls_func(L, "__olua_move", _cocos2d_backend_Texture2DBackend___olua_move);
     oluacls_func(L, "getHeight", _cocos2d_backend_Texture2DBackend_getHeight);
     oluacls_func(L, "getWidth", _cocos2d_backend_Texture2DBackend_getWidth);
     oluacls_func(L, "updateCompressedData", _cocos2d_backend_Texture2DBackend_updateCompressedData);
@@ -3178,7 +3178,7 @@ static int luaopen_cocos2d_backend_Texture2DBackend(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_backend_TextureCubemapBackend___move(lua_State *L)
+static int _cocos2d_backend_TextureCubemapBackend___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3213,7 +3213,7 @@ static int _cocos2d_backend_TextureCubemapBackend_updateFaceData(lua_State *L)
 static int luaopen_cocos2d_backend_TextureCubemapBackend(lua_State *L)
 {
     oluacls_class(L, "ccb.TextureCubemapBackend", "ccb.TextureBackend");
-    oluacls_func(L, "__move", _cocos2d_backend_TextureCubemapBackend___move);
+    oluacls_func(L, "__olua_move", _cocos2d_backend_TextureCubemapBackend___olua_move);
     oluacls_func(L, "updateFaceData", _cocos2d_backend_TextureCubemapBackend_updateFaceData);
 
     olua_registerluatype<cocos2d::backend::TextureCubemapBackend>(L, "ccb.TextureCubemapBackend");

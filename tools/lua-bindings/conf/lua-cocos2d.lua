@@ -50,7 +50,6 @@ typedef 'cocos2d::Rect'
 
 typedef 'cocos2d::EventListener::ListenerID'
     .decltype 'std::string'
-    .conv 'olua_$$_std_string'
 
 typeconf 'cocos2d::Mat4'
     .exclude 'm'

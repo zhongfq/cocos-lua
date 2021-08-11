@@ -114,7 +114,6 @@ end
 
 typedef 'spine::PropertyId'
     .decltype 'lua_Integer'
-    .conv 'olua_$$_int'
 
 typedef 'spine::String'
 typedef 'spine::EventData'

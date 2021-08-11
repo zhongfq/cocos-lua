@@ -4,7 +4,7 @@
 #include "lua_talkingdata.h"
 
 #ifdef CCLUA_BUILD_TALKINGDATA
-static int _cclua_plugin_TCAgent___move(lua_State *L)
+static int _cclua_plugin_TCAgent___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -457,7 +457,7 @@ static int _cclua_plugin_TCAgent_viewItem(lua_State *L)
 static int luaopen_cclua_plugin_TCAgent(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.TalkingData", nullptr);
-    oluacls_func(L, "__move", _cclua_plugin_TCAgent___move);
+    oluacls_func(L, "__olua_move", _cclua_plugin_TCAgent___olua_move);
     oluacls_func(L, "cancelOrder", _cclua_plugin_TCAgent_cancelOrder);
     oluacls_func(L, "init", _cclua_plugin_TCAgent_init);
     oluacls_func(L, "onLogin", _cclua_plugin_TCAgent_onLogin);

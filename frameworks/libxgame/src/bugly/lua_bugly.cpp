@@ -21,7 +21,7 @@ static int luaopen_cclua_CrashReport_LogLevel(lua_State *L)
 #endif
 
 #ifdef CCLUA_BUILD_BUGLY
-static int _cclua_CrashReport___move(lua_State *L)
+static int _cclua_CrashReport___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -170,7 +170,7 @@ static int _cclua_CrashReport_setVersion(lua_State *L)
 static int luaopen_cclua_CrashReport(lua_State *L)
 {
     oluacls_class(L, "cclua.CrashReport", nullptr);
-    oluacls_func(L, "__move", _cclua_CrashReport___move);
+    oluacls_func(L, "__olua_move", _cclua_CrashReport___olua_move);
     oluacls_func(L, "init", _cclua_CrashReport_init);
     oluacls_func(L, "log", _cclua_CrashReport_log);
     oluacls_func(L, "reportException", _cclua_CrashReport_reportException);

@@ -4,7 +4,7 @@
 #include "lua_jiguang.h"
 
 #ifdef CCLUA_BUILD_JPUSH
-static int _cclua_plugin_JPush___move(lua_State *L)
+static int _cclua_plugin_JPush___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -213,7 +213,7 @@ static int _cclua_plugin_JPush_setTags(lua_State *L)
 static int luaopen_cclua_plugin_JPush(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.JPush", nullptr);
-    oluacls_func(L, "__move", _cclua_plugin_JPush___move);
+    oluacls_func(L, "__olua_move", _cclua_plugin_JPush___olua_move);
     oluacls_func(L, "addTags", _cclua_plugin_JPush_addTags);
     oluacls_func(L, "cleanTags", _cclua_plugin_JPush_cleanTags);
     oluacls_func(L, "deleteAlias", _cclua_plugin_JPush_deleteAlias);
@@ -238,7 +238,7 @@ static int luaopen_cclua_plugin_JPush(lua_State *L)
 #endif
 
 #ifdef CCLUA_BUILD_JAUTH
-static int _cclua_plugin_JAuth___move(lua_State *L)
+static int _cclua_plugin_JAuth___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -623,7 +623,7 @@ static int _cclua_plugin_JAuth_setSmsIntervalTime(lua_State *L)
 static int luaopen_cclua_plugin_JAuth(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.JAuth", nullptr);
-    oluacls_func(L, "__move", _cclua_plugin_JAuth___move);
+    oluacls_func(L, "__olua_move", _cclua_plugin_JAuth___olua_move);
     oluacls_func(L, "checkVerifyEnable", _cclua_plugin_JAuth_checkVerifyEnable);
     oluacls_func(L, "clearPreLoginCache", _cclua_plugin_JAuth_clearPreLoginCache);
     oluacls_func(L, "configUI", _cclua_plugin_JAuth_configUI);
@@ -663,7 +663,7 @@ static int luaopen_cclua_plugin_JAnalytics_EventType(lua_State *L)
 #endif
 
 #ifdef CCLUA_BUILD_JANALYTICS
-static int _cclua_plugin_JAnalytics___move(lua_State *L)
+static int _cclua_plugin_JAnalytics___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -806,7 +806,7 @@ static int _cclua_plugin_JAnalytics_trackEvent(lua_State *L)
 static int luaopen_cclua_plugin_JAnalytics(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.JAnalytics", nullptr);
-    oluacls_func(L, "__move", _cclua_plugin_JAnalytics___move);
+    oluacls_func(L, "__olua_move", _cclua_plugin_JAnalytics___olua_move);
     oluacls_func(L, "detachAccount", _cclua_plugin_JAnalytics_detachAccount);
     oluacls_func(L, "identifyAccount", _cclua_plugin_JAnalytics_identifyAccount);
     oluacls_func(L, "init", _cclua_plugin_JAnalytics_init);

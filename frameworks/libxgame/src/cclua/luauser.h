@@ -10,7 +10,7 @@
 //#define OLUA_HAVE_POSTGC
 #define OLUA_HAVE_LUATYPE
 
-#ifndef OLUA_CORE
+#ifdef __cplusplus
 
 // cocos2dx
 #include "base/CCMap.h"
@@ -38,6 +38,6 @@ template <class T>
 void olua_foreach_array(const spine::Vector<T> *array, const std::function<void(T)> &callback);
 #endif // CCLUA_BUILD_SPINE
 
-#endif // OLUA_CORE
+#endif // __cplusplus
 
 #endif

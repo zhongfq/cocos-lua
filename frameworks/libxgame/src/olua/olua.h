@@ -27,7 +27,7 @@
 #define __OLUA_H__
 
 // if define template function in the user header file, it should
-// wrapped with 'ifndef OLUA_CORE'.
+// wrapped with 'ifdef __cplusplus'.
 #ifdef OLUA_USER_H
 #include OLUA_USER_H
 #endif

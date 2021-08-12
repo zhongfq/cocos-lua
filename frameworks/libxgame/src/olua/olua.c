@@ -23,8 +23,6 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#define OLUA_CORE
-
 #include "olua.h"
 
 #define OLUA_CIDX_ISA  (lua_upvalueindex(1))

@@ -15567,7 +15567,14 @@ static int _fairygui_GList_getSelection(lua_State *L)
     std::vector<int> arg1;       /** result */
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
-    // no need to check 'arg1' with mark '@ret'
+    //'arg1' with mark '@ret'
+    if (!olua_isnoneornil(L, 2)) {
+        olua_check_std_vector<int>(L, 2, &arg1, [L](int *value) {
+            lua_Integer obj;
+            olua_check_int(L, -1, &obj);
+            *value = (int)obj;
+        });
+    }
 
     // void getSelection(@ret std::vector<int> &result)
     self->getSelection(arg1);
@@ -22212,7 +22219,10 @@ static int _fairygui_UIConfig_getRealFontName(lua_State *L)
     bool arg2 = false;       /** isTTF */
 
     olua_check_std_string(L, 1, &arg1);
-    // no need to check 'arg2' with mark '@ret'
+    //'arg2' with mark '@ret'
+    if (!olua_isnoneornil(L, 2)) {
+        olua_check_bool(L, 2, &arg2);
+    }
 
     // static const std::string &getRealFontName(const std::string &aliasName, @ret bool *isTTF)
     const std::string &ret = fairygui::UIConfig::getRealFontName(arg1, &arg2);
@@ -25154,7 +25164,12 @@ static int _fairygui_GTree_getSelectedNodes(lua_State *L)
     std::vector<fairygui::GTreeNode *> arg1;       /** result */
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTree");
-    // no need to check 'arg1' with mark '@ret'
+    //'arg1' with mark '@ret'
+    if (!olua_isnoneornil(L, 2)) {
+        olua_check_std_vector<fairygui::GTreeNode *>(L, 2, &arg1, [L](fairygui::GTreeNode **value) {
+            olua_check_cppobj(L, -1, (void **)value, "fgui.GTreeNode");
+        });
+    }
 
     // void getSelectedNodes(@addref(nodes |)@ret std::vector<GTreeNode *> &result)
     self->getSelectedNodes(arg1);

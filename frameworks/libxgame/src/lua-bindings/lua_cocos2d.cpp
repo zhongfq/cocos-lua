@@ -12325,7 +12325,12 @@ static int _cocos2d_FileUtils_listFilesRecursively(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
     olua_check_std_string(L, 2, &arg1);
-    // no need to check 'arg2' with mark '@ret'
+    //'arg2' with mark '@ret'
+    if (!olua_isnoneornil(L, 3)) {
+        olua_check_std_vector<std::string>(L, 3, &arg2, [L](std::string *value) {
+            olua_check_std_string(L, -1, value);
+        });
+    }
 
     // void listFilesRecursively(const std::string &dirPath, @ret std::vector<std::string> *files)
     self->listFilesRecursively(arg1, &arg2);
@@ -15192,7 +15197,10 @@ static int _cocos2d_Properties_getPath(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Properties");
     olua_check_string(L, 2, &arg1);
-    // no need to check 'arg2' with mark '@ret'
+    //'arg2' with mark '@ret'
+    if (!olua_isnoneornil(L, 3)) {
+        olua_check_std_string(L, 3, &arg2);
+    }
 
     // bool getPath(const char *name, @ret std::string *path)
     bool ret = self->getPath(arg1, &arg2);
@@ -50431,7 +50439,12 @@ static int _cocos2d_TMXLayer_getTileGIDAt(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.TMXLayer");
     olua_check_cocos2d_Vec2(L, 2, &arg1);
-    // no need to check 'arg2' with mark '@ret'
+    //'arg2' with mark '@ret'
+    if (!olua_isnoneornil(L, 3)) {
+        lua_Unsigned value;
+        olua_check_uint(L, 3, &value);
+        arg2 = (cocos2d::TMXTileFlags)value;
+    }
 
     // uint32_t getTileGIDAt(const cocos2d::Vec2 &tileCoordinate, @ret cocos2d::TMXTileFlags *flags)
     uint32_t ret = self->getTileGIDAt(arg1, &arg2);
@@ -52717,7 +52730,12 @@ static int _cocos2d_FastTMXLayer_getTileGIDAt(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.FastTMXLayer");
     olua_check_cocos2d_Vec2(L, 2, &arg1);
-    // no need to check 'arg2' with mark '@ret'
+    //'arg2' with mark '@ret'
+    if (!olua_isnoneornil(L, 3)) {
+        lua_Unsigned value;
+        olua_check_uint(L, 3, &value);
+        arg2 = (cocos2d::TMXTileFlags)value;
+    }
 
     // int getTileGIDAt(const cocos2d::Vec2 &tileCoordinate, @ret cocos2d::TMXTileFlags *flags)
     int ret = self->getTileGIDAt(arg1, &arg2);

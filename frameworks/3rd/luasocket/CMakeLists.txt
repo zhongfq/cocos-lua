@@ -25,7 +25,7 @@ set(LUASOCKET_SRC
     except.c
     inet.c
     io.c
-    luasocket_scripts.c
+    luasocket_scripts.cpp
     luasocket.c
     mime.c
     options.c

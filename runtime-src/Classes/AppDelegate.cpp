@@ -137,7 +137,7 @@ static int _open_plugins(lua_State *L)
 #ifdef CCLUA_BUILD_LUASOCKET
     olua_require(L, "socket.core", luaopen_socket_core);
     olua_require(L, "mime.core", luaopen_mime_core);
-    olua_require(L, "luasocket.scripts", luaopen_luasocket_scripts);
+    olua_callfunc(L, luaopen_luasocket_scripts);
 #endif // CCLUA_BUILD_LUASOCKET
 
 #ifdef CCLUA_BUILD_SPROTO

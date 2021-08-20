@@ -9,6 +9,7 @@ extern "C" {
 #endif
 
 #include "lua.h"
+#include "lauxlib.h"
 
 int luaopen_luasocket_scripts(lua_State* L);
 

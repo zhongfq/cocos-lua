@@ -103,6 +103,7 @@ int buffer_meth_send(lua_State *L, p_buffer buf) {
 * object:receive() interface
 \*-------------------------------------------------------------------------*/
 int buffer_meth_receive(lua_State *L, p_buffer buf) {
+    lua_settop(L, 3);
     int err = IO_DONE, top = lua_gettop(L);
     luaL_Buffer b;
     size_t size;

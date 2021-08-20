@@ -45,10 +45,10 @@ end
 
 function SceneStack:popScene()
     self:_doPopScene(false)
+    self:_updateMusic()
     runtime.once(Event.RUNTIME_UPDATE, function ()
         runtime.gc()
     end)
-    self:_updateMusic()
 end
 
 function SceneStack:popAll()
@@ -86,8 +86,8 @@ function SceneStack:_doStartScene(cls, ...)
     if scene.renderOption.snapshot and snapshot then
         entry.scene.cobj:addProtectedChild(snapshot)
     end
-    self._sceneLayer:addChild(entry.scene)
     self:_updateMusic()
+    self._sceneLayer:addChild(entry.scene)
 end
 
 function SceneStack:_removeScene()

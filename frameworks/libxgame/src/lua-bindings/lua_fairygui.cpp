@@ -9515,18 +9515,14 @@ static int luaopen_fairygui_GObject(lua_State *L)
     oluacls_prop(L, "icon", _fairygui_GObject_getIcon, _fairygui_GObject_setIcon);
     oluacls_prop(L, "packageItem", _fairygui_GObject_getPackageItem, nullptr);
     oluacls_prop(L, "parent", _fairygui_GObject_getParent, nullptr);
-    oluacls_prop(L, "pivot", _fairygui_GObject_getPivot, _fairygui_GObject_setPivot);
     oluacls_prop(L, "pivotAsAnchor", _fairygui_GObject_isPivotAsAnchor, nullptr);
     oluacls_prop(L, "pixelSnapping", _fairygui_GObject_isPixelSnapping, _fairygui_GObject_setPixelSnapping);
-    oluacls_prop(L, "position", _fairygui_GObject_getPosition, _fairygui_GObject_setPosition);
     oluacls_prop(L, "relations", _fairygui_GObject_relations, nullptr);
     oluacls_prop(L, "resourceURL", _fairygui_GObject_getResourceURL, nullptr);
     oluacls_prop(L, "root", _fairygui_GObject_getRoot, nullptr);
     oluacls_prop(L, "rotation", _fairygui_GObject_getRotation, _fairygui_GObject_setRotation);
-    oluacls_prop(L, "scale", _fairygui_GObject_getScale, _fairygui_GObject_setScale);
     oluacls_prop(L, "scaleX", _fairygui_GObject_getScaleX, _fairygui_GObject_setScaleX);
     oluacls_prop(L, "scaleY", _fairygui_GObject_getScaleY, _fairygui_GObject_setScaleY);
-    oluacls_prop(L, "size", _fairygui_GObject_getSize, _fairygui_GObject_setSize);
     oluacls_prop(L, "skewX", _fairygui_GObject_getSkewX, _fairygui_GObject_setSkewX);
     oluacls_prop(L, "skewY", _fairygui_GObject_getSkewY, _fairygui_GObject_setSkewY);
     oluacls_prop(L, "sortingOrder", _fairygui_GObject_getSortingOrder, _fairygui_GObject_setSortingOrder);
@@ -26758,7 +26754,6 @@ static int luaopen_fairygui_FUIRichText(lua_State *L)
     oluacls_prop(L, "anchorFontColor", _fairygui_FUIRichText_getAnchorFontColor, _fairygui_FUIRichText_setAnchorFontColor);
     oluacls_prop(L, "anchorTextUnderline", _fairygui_FUIRichText_isAnchorTextUnderline, _fairygui_FUIRichText_setAnchorTextUnderline);
     oluacls_prop(L, "controls", _fairygui_FUIRichText_getControls, nullptr);
-    oluacls_prop(L, "dimensions", _fairygui_FUIRichText_getDimensions, _fairygui_FUIRichText_setDimensions);
     oluacls_prop(L, "overflow", _fairygui_FUIRichText_getOverflow, _fairygui_FUIRichText_setOverflow);
     oluacls_prop(L, "textFormat", _fairygui_FUIRichText_getTextFormat, nullptr);
 

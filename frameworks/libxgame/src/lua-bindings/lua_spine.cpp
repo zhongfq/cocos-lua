@@ -11506,7 +11506,6 @@ static int luaopen_spine_RegionAttachment(lua_State *L)
     oluacls_prop(L, "rotation", _spine_RegionAttachment_getRotation, _spine_RegionAttachment_setRotation);
     oluacls_prop(L, "scaleX", _spine_RegionAttachment_getScaleX, _spine_RegionAttachment_setScaleX);
     oluacls_prop(L, "scaleY", _spine_RegionAttachment_getScaleY, _spine_RegionAttachment_setScaleY);
-    oluacls_prop(L, "uvs", _spine_RegionAttachment_getUVs, _spine_RegionAttachment_setUVs);
     oluacls_prop(L, "width", _spine_RegionAttachment_getWidth, _spine_RegionAttachment_setWidth);
     oluacls_prop(L, "x", _spine_RegionAttachment_getX, _spine_RegionAttachment_setX);
     oluacls_prop(L, "y", _spine_RegionAttachment_getY, _spine_RegionAttachment_setY);

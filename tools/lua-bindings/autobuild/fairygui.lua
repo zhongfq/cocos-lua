@@ -1024,18 +1024,14 @@ typeconf 'fairygui::GObject'
     .prop('draggingObject', nil, nil)
     .prop('x', nil, nil)
     .prop('y', nil, nil)
-    .prop('position', nil, nil)
     .prop('xMin', nil, nil)
     .prop('yMin', nil, nil)
     .prop('pixelSnapping', nil, nil)
     .prop('width', nil, nil)
     .prop('height', nil, nil)
-    .prop('size', nil, nil)
-    .prop('pivot', nil, nil)
     .prop('pivotAsAnchor', nil, nil)
     .prop('scaleX', nil, nil)
     .prop('scaleY', nil, nil)
-    .prop('scale', nil, nil)
     .prop('skewX', nil, nil)
     .prop('skewY', nil, nil)
     .prop('rotation', nil, nil)
@@ -2627,7 +2623,6 @@ typeconf 'fairygui::FUIRichText'
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
-    .prop('dimensions', nil, nil)
     .prop('textFormat', nil, nil)
     .prop('overflow', nil, nil)
     .prop('anchorTextUnderline', nil, nil)

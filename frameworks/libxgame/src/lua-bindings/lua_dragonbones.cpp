@@ -3097,7 +3097,6 @@ static int luaopen_dragonBones_Slot(lua_State *L)
     oluacls_func(L, "updateTransformAndMatrix", _dragonBones_Slot_updateTransformAndMatrix);
     oluacls_prop(L, "boundingBoxData", _dragonBones_Slot_getBoundingBoxData, nullptr);
     oluacls_prop(L, "childArmature", _dragonBones_Slot_getChildArmature, _dragonBones_Slot_setChildArmature);
-    oluacls_prop(L, "display", _dragonBones_Slot_getDisplay, _dragonBones_Slot_setDisplay);
     oluacls_prop(L, "displayIndex", _dragonBones_Slot_getDisplayIndex, _dragonBones_Slot_setDisplayIndex);
     oluacls_prop(L, "meshDisplay", _dragonBones_Slot_getMeshDisplay, nullptr);
     oluacls_prop(L, "name", _dragonBones_Slot_getName, nullptr);

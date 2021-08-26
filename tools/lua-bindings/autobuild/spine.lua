@@ -1249,7 +1249,6 @@ typeconf 'spine::RegionAttachment'
     .prop('regionOriginalWidth', nil, nil)
     .prop('regionOriginalHeight', nil, nil)
     .prop('offset', nil, nil)
-    .prop('uvs', nil, nil)
 
 typeconf 'spine::TrackEntry'
     .supercls('spine::SpineObject')

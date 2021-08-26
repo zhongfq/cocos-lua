@@ -2910,7 +2910,6 @@ static int luaopen_cclua_window(lua_State *L)
     oluacls_func(L, "getVisibleSize", _cclua_window_getVisibleSize);
     oluacls_func(L, "setDesignSize", _cclua_window_setDesignSize);
     oluacls_func(L, "setFrameSize", _cclua_window_setFrameSize);
-    oluacls_prop(L, "designSize", _cclua_window_getDesignSize, _cclua_window_setDesignSize);
     oluacls_prop(L, "frameSize", _cclua_window_getFrameSize, _cclua_window_setFrameSize);
     oluacls_prop(L, "visibleBounds", _cclua_window_getVisibleBounds, nullptr);
     oluacls_prop(L, "visibleSize", _cclua_window_getVisibleSize, nullptr);

@@ -14079,8 +14079,6 @@ static int luaopen_cocos2d_GLView(lua_State *L)
     oluacls_func(L, "windowShouldClose", _cocos2d_GLView_windowShouldClose);
     oluacls_prop(L, "allTouches", _cocos2d_GLView_getAllTouches, nullptr);
     oluacls_prop(L, "contentScaleFactor", _cocos2d_GLView_getContentScaleFactor, _cocos2d_GLView_setContentScaleFactor);
-    oluacls_prop(L, "designResolutionSize", _cocos2d_GLView_getDesignResolutionSize, _cocos2d_GLView_setDesignResolutionSize);
-    oluacls_prop(L, "frameSize", _cocos2d_GLView_getFrameSize, _cocos2d_GLView_setFrameSize);
     oluacls_prop(L, "frameZoomFactor", _cocos2d_GLView_getFrameZoomFactor, _cocos2d_GLView_setFrameZoomFactor);
     oluacls_prop(L, "glContextAttrs", _cocos2d_GLView_getGLContextAttrs, _cocos2d_GLView_setGLContextAttrs);
     oluacls_prop(L, "openGLReady", _cocos2d_GLView_isOpenGLReady, nullptr);
@@ -16913,10 +16911,8 @@ static int luaopen_cocos2d_Renderer(lua_State *L)
     oluacls_prop(L, "drawnBatches", _cocos2d_Renderer_getDrawnBatches, nullptr);
     oluacls_prop(L, "drawnVertices", _cocos2d_Renderer_getDrawnVertices, nullptr);
     oluacls_prop(L, "renderTargetFlag", _cocos2d_Renderer_getRenderTargetFlag, nullptr);
-    oluacls_prop(L, "scissorRect", _cocos2d_Renderer_getScissorRect, _cocos2d_Renderer_setScissorRect);
     oluacls_prop(L, "scissorTest", _cocos2d_Renderer_getScissorTest, _cocos2d_Renderer_setScissorTest);
     oluacls_prop(L, "stencilAttachment", _cocos2d_Renderer_getStencilAttachment, nullptr);
-    oluacls_prop(L, "stencilCompareFunction", _cocos2d_Renderer_getStencilCompareFunction, _cocos2d_Renderer_setStencilCompareFunction);
     oluacls_prop(L, "stencilDepthPassOperation", _cocos2d_Renderer_getStencilDepthPassOperation, nullptr);
     oluacls_prop(L, "stencilFailureOperation", _cocos2d_Renderer_getStencilFailureOperation, nullptr);
     oluacls_prop(L, "stencilPassDepthFailureOperation", _cocos2d_Renderer_getStencilPassDepthFailureOperation, nullptr);
@@ -16924,7 +16920,6 @@ static int luaopen_cocos2d_Renderer(lua_State *L)
     oluacls_prop(L, "stencilReferenceValue", _cocos2d_Renderer_getStencilReferenceValue, nullptr);
     oluacls_prop(L, "stencilTest", _cocos2d_Renderer_getStencilTest, _cocos2d_Renderer_setStencilTest);
     oluacls_prop(L, "stencilWriteMask", _cocos2d_Renderer_getStencilWriteMask, _cocos2d_Renderer_setStencilWriteMask);
-    oluacls_prop(L, "viewport", _cocos2d_Renderer_getViewport, nullptr);
     oluacls_prop(L, "winding", _cocos2d_Renderer_getWinding, _cocos2d_Renderer_setWinding);
     oluacls_const_integer(L, "BATCH_TRIAGCOMMAND_RESERVED_SIZE", (lua_Integer)cocos2d::Renderer::BATCH_TRIAGCOMMAND_RESERVED_SIZE);
     oluacls_const_integer(L, "INDEX_VBO_SIZE", (lua_Integer)cocos2d::Renderer::INDEX_VBO_SIZE);
@@ -18226,7 +18221,6 @@ static int luaopen_cocos2d_CustomCommand(lua_State *L)
     oluacls_prop(L, "afterCallback", _cocos2d_CustomCommand_getAfterCallback, _cocos2d_CustomCommand_setAfterCallback);
     oluacls_prop(L, "beforeCallback", _cocos2d_CustomCommand_getBeforeCallback, _cocos2d_CustomCommand_setBeforeCallback);
     oluacls_prop(L, "drawType", _cocos2d_CustomCommand_getDrawType, _cocos2d_CustomCommand_setDrawType);
-    oluacls_prop(L, "indexBuffer", _cocos2d_CustomCommand_getIndexBuffer, _cocos2d_CustomCommand_setIndexBuffer);
     oluacls_prop(L, "indexCapacity", _cocos2d_CustomCommand_getIndexCapacity, nullptr);
     oluacls_prop(L, "indexDrawCount", _cocos2d_CustomCommand_getIndexDrawCount, nullptr);
     oluacls_prop(L, "indexDrawOffset", _cocos2d_CustomCommand_getIndexDrawOffset, nullptr);
@@ -32524,7 +32518,6 @@ static int luaopen_cocos2d_Label(lua_State *L)
     oluacls_prop(L, "bmFontFilePath", _cocos2d_Label_getBMFontFilePath, _cocos2d_Label_setBMFontFilePath);
     oluacls_prop(L, "bmFontSize", _cocos2d_Label_getBMFontSize, _cocos2d_Label_setBMFontSize);
     oluacls_prop(L, "clipMarginEnabled", _cocos2d_Label_isClipMarginEnabled, _cocos2d_Label_setClipMarginEnabled);
-    oluacls_prop(L, "dimensions", _cocos2d_Label_getDimensions, _cocos2d_Label_setDimensions);
     oluacls_prop(L, "effectColor", _cocos2d_Label_getEffectColor, nullptr);
     oluacls_prop(L, "fontAtlas", _cocos2d_Label_getFontAtlas, nullptr);
     oluacls_prop(L, "height", _cocos2d_Label_getHeight, _cocos2d_Label_setHeight);

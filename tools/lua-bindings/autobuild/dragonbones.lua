@@ -354,7 +354,6 @@ typeconf 'dragonBones::Slot'
     .prop('boundingBoxData', nil, nil)
     .prop('rawDisplay', nil, nil)
     .prop('meshDisplay', nil, nil)
-    .prop('display', nil, nil)
     .prop('childArmature', nil, nil)
     .prop('parent', nil, nil)
 

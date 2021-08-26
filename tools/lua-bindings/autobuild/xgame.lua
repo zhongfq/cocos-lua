@@ -445,7 +445,6 @@ typeconf 'cclua::window'
     .prop('visibleBounds', nil, nil)
     .prop('visibleSize', nil, nil)
     .prop('frameSize', nil, nil)
-    .prop('designSize', nil, nil)
 
 typeconf 'cclua::downloader::FileState'
     .supercls(nil)

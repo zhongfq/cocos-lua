@@ -7,11 +7,11 @@ return function (dir)
     local CHUNK_META = 1
     local CHUNK_DATA = 2
 
-    local data = io.open(dir .. "/assets.bundle", 'w+')
+    local data = io.open(dir .. "/assets.bundle", 'wb+')
 
     local function add_file(path)
         print('pack file: ' .. path)
-        local f = assert(io.open(dir .. '/' .. path, 'r'), path)
+        local f = assert(io.open(dir .. '/' .. path, 'rb'), path)
         list[#list + 1] = {
             path = path,
             size = f:seek('end'),

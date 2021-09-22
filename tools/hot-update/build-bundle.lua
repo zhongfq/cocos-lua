@@ -7,7 +7,7 @@ return function (dir)
     local CHUNK_META = 1
     local CHUNK_DATA = 2
 
-    local data = io.open(dir .. "/assets.bundle", 'wb+')
+    local data = io.open(dir .. "/assets.bundle", 'w+b')
 
     local function add_file(path)
         print('pack file: ' .. path)
@@ -56,7 +56,6 @@ return function (dir)
         data:write(string.pack("<s4", f:read('*a')))
         f:close()
     end
-
     toolset.rm "${dir}/builtin.metadata"
     toolset.rmdir "${dir}/src"
     toolset.rmdir "${dir}/res"

@@ -99,13 +99,21 @@ function toolset.fullpath(path)
     path = string.gsub(path, '^%./', '')
     path = lfs.currentdir() .. '/' .. path
     path = string.gsub(path, '//', '/')
+    if toolset.os == 'windows' then
+        path = string.gsub(path, '/', '\\')
+    end
     while true do
         local idx
-        path, idx = string.gsub(path, '[^/]+/%.%./', '')
+        if toolset.os == 'windows' then
+            path, idx = string.gsub(path, '[^\\]+\\%.%.\\', '')
+        else
+            path, idx = string.gsub(path, '[^/]+/%.%./', '')
+        end   
         if idx == 0 then
             break
         end
     end
+    
     return path
 end
 

@@ -7,11 +7,11 @@ return function (dir)
     local CHUNK_META = 1
     local CHUNK_DATA = 2
 
-    local data = io.open(dir .. "/assets.bundle", 'w+')
+    local data = io.open(dir .. "/assets.bundle", 'w+b')
 
     local function add_file(path)
         print('pack file: ' .. path)
-        local f = assert(io.open(dir .. '/' .. path, 'r'), path)
+        local f = assert(io.open(dir .. '/' .. path, 'rb'), path)
         list[#list + 1] = {
             path = path,
             size = f:seek('end'),
@@ -51,12 +51,11 @@ return function (dir)
 
     -- write data
     for _, v in ipairs(list) do
-        local f = assert(io.open(dir .. '/' .. v.path, 'r'))
+        local f = assert(io.open(dir .. '/' .. v.path, 'rb'))
         data:write(string.pack("<I1", CHUNK_DATA))
         data:write(string.pack("<s4", f:read('*a')))
         f:close()
     end
-
     toolset.rm "${dir}/builtin.metadata"
     toolset.rmdir "${dir}/src"
     toolset.rmdir "${dir}/res"

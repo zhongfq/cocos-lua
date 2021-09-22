@@ -51,7 +51,7 @@ return function (dir)
 
     -- write data
     for _, v in ipairs(list) do
-        local f = assert(io.open(dir .. '/' .. v.path, 'r'))
+        local f = assert(io.open(dir .. '/' .. v.path, 'rb'))
         data:write(string.pack("<I1", CHUNK_DATA))
         data:write(string.pack("<s4", f:read('*a')))
         f:close()

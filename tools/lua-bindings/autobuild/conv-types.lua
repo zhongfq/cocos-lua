@@ -156,14 +156,6 @@ typedef {
 }
 
 typedef {
-    CPPCLS = 'cocos2d::network::WebSocket::Data',
-    LUACLS = nil,
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cocos2d_network_WebSocket_Data',
-    NUM_VARS = 5,
-}
-
-typedef {
     CPPCLS = 'cocos2d::NavMeshAgentParam',
     LUACLS = nil,
     DECLTYPE = nil,

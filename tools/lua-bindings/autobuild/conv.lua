@@ -125,13 +125,6 @@ typeconv 'cocos2d::Controller::KeyStatus'
     .var('value', 'float value')
     .var('isAnalog', 'bool isAnalog')
 
-typeconv 'cocos2d::network::WebSocket::Data'
-    .var('bytes', 'char *bytes')
-    .var('len', 'ssize_t len')
-    .var('issued', 'ssize_t issued')
-    .var('isBinary', 'bool isBinary')
-    .var('ext', 'void *ext')
-
 typeconv 'cocos2d::NavMeshAgentParam'
     .var('radius', 'float radius')
     .var('height', 'float height')

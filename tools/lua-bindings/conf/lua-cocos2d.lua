@@ -44,6 +44,7 @@ typedef 'cocos2d::ValueMap'
 typedef 'cocos2d::ValueMapIntKey'
 typedef 'cocos2d::ValueVector'
 typedef 'cocos2d::Map'
+typedef 'cocos2d::network::WebSocket::Data'
 
 typedef 'cocos2d::Rect'
     .vars '4'

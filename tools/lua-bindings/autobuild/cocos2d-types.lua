@@ -59,6 +59,11 @@ typedef {
 }
 
 typedef {
+    CONV = 'olua_$$_cocos2d_network_WebSocket_Data',
+    CPPCLS = 'cocos2d::network::WebSocket::Data',
+}
+
+typedef {
     CONV = 'olua_$$_cocos2d_Rect',
     CPPCLS = 'cocos2d::Rect',
     NUM_VARS = 4,

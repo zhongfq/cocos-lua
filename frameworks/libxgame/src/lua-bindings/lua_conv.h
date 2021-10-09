@@ -164,14 +164,6 @@ void olua_pack_cocos2d_Controller_KeyStatus(lua_State *L, int idx, cocos2d::Cont
 int olua_unpack_cocos2d_Controller_KeyStatus(lua_State *L, const cocos2d::Controller::KeyStatus *value);
 bool olua_ispack_cocos2d_Controller_KeyStatus(lua_State *L, int idx);
 
-// cocos2d::network::WebSocket::Data
-int olua_push_cocos2d_network_WebSocket_Data(lua_State *L, const cocos2d::network::WebSocket::Data *value);
-void olua_check_cocos2d_network_WebSocket_Data(lua_State *L, int idx, cocos2d::network::WebSocket::Data *value);
-bool olua_is_cocos2d_network_WebSocket_Data(lua_State *L, int idx);
-void olua_pack_cocos2d_network_WebSocket_Data(lua_State *L, int idx, cocos2d::network::WebSocket::Data *value);
-int olua_unpack_cocos2d_network_WebSocket_Data(lua_State *L, const cocos2d::network::WebSocket::Data *value);
-bool olua_ispack_cocos2d_network_WebSocket_Data(lua_State *L, int idx);
-
 // cocos2d::NavMeshAgentParam
 int olua_push_cocos2d_NavMeshAgentParam(lua_State *L, const cocos2d::NavMeshAgentParam *value);
 void olua_check_cocos2d_NavMeshAgentParam(lua_State *L, int idx, cocos2d::NavMeshAgentParam *value);

@@ -3,6 +3,54 @@
 #include "cclua/xlua.h"
 #include "olua/olua.hpp"
 
+int olua_push_cocos2d_network_WebSocket_Data(lua_State *L, const cocos2d::network::WebSocket::Data *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 5);
+
+        lua_pushlstring(L, (const char *)value->bytes, (size_t)value->len);
+        olua_setfield(L, -2, "bytes");
+
+        olua_push_int(L, (lua_Integer)value->len);
+        olua_setfield(L, -2, "len");
+
+        olua_push_int(L, (lua_Integer)value->issued);
+        olua_setfield(L, -2, "issued");
+
+        olua_push_bool(L, value->isBinary);
+        olua_setfield(L, -2, "isBinary");
+
+        olua_push_obj(L, value->ext, "void *");
+        olua_setfield(L, -2, "ext");
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void olua_check_cocos2d_network_WebSocket_Data(lua_State *L, int idx, cocos2d::network::WebSocket::Data *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->bytes = (char *)olua_checkfieldstring(L, idx, "bytes");
+    value->len = (ssize_t)olua_checkfieldnumber(L, idx, "len");
+    value->issued = (ssize_t)olua_checkfieldboolean(L, idx, "issued");
+    value->isBinary = (bool)olua_checkfieldboolean(L, idx, "isBinary");
+
+    olua_getfield(L, idx, "ext");
+    value->ext = (void *)olua_toobj(L, idx, "void *");
+    lua_pop(L, 1);
+}
+
+bool olua_is_cocos2d_network_WebSocket_Data(lua_State *L, int idx)
+{
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "ext") && olua_hasfield(L, idx, "isBinary") && olua_hasfield(L, idx, "issued") && olua_hasfield(L, idx, "len") && olua_hasfield(L, idx, "bytes");
+}
+
 int olua_push_cocos2d_Data(lua_State *L, const cocos2d::Data *value)
 {
     if (!value || value->isNull()) {

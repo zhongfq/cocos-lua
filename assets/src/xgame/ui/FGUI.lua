@@ -1,5 +1,6 @@
 local class             = require "xgame.class"
 local loader            = require "xgame.loader"
+local runtime           = require "xgame.runtime"
 local window            = require "xgame.window"
 local filesystem        = require "xgame.filesystem"
 local UILayer           = require "xgame.ui.UILayer"
@@ -26,6 +27,11 @@ function FGUI:createUI(pkg, name)
     self.width = self.fgui.width
     self.height = self.fgui.height
     self.fguiNode.root:addChild(self.fgui)
+
+    local layout = self.fgui:resolve('#layout')
+    if layout then
+        layout.selectedPage = runtime.isPad() and 'iPad' or 'iPhone'
+    end
 end
 
 -- extend fairygui

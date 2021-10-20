@@ -1,5 +1,6 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
+local filesystem    = require "xgame.filesystem"
 local runtime       = require "xgame.runtime"
 local Dispatcher    = require "xgame.Dispatcher"
 local Event         = require "xgame.Event"
@@ -59,6 +60,9 @@ function Recorder:start(path)
         trace("audio recorder already running!")
         return
     end
+
+    filesystem.remove(path)
+    filesystem.remove(path .. '.pcm')
 
     local status = runtime.getPermissionStatus(Permission.AUDIO)
     if status == PermissionStatus.DENIED or status == PermissionStatus.RESTRICTED then

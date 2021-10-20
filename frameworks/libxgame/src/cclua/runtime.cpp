@@ -38,7 +38,6 @@ static int _refCount = -1;
 
 static char _logBuf[MAX_LOG_LENGTH];
 static float _time = 0;
-static std::string _timestamp;
 static FILE *_logFile = NULL;
 static std::mutex _logMutex;
 static std::string _logPath;
@@ -96,7 +95,6 @@ void runtime::init()
     preferences::setString(CONF_APP_BUILD, runtime::getAppBuild().c_str());
     preferences::flush();
     
-    timer::schedule(1, [](float dt){ updateTimestamp(); });
     timer::schedule(0, [](float dt){ _time += dt; });
     
 #if COCOS2D_VERSION >= 0x00040000
@@ -251,7 +249,7 @@ void runtime::luaOpen(lua_CFunction libfunc)
 //
 const std::string runtime::getVersion()
 {
-    return "2.4.9";
+    return "2.4.11";
 }
 
 const uint64_t runtime::getCocosVersion()
@@ -573,20 +571,6 @@ void runtime::on(const std::string &event, const std::function<void()> callback)
 //
 // log
 //
-const std::string &runtime::getTimestamp()
-{
-    return _timestamp;
-}
-
-void runtime::updateTimestamp()
-{
-    char buf[64];
-    time_t t = time(NULL);
-    struct tm *stm = localtime(&t);
-    sprintf(buf, "%02d:%02d:%02d", stm->tm_hour, stm->tm_min, stm->tm_sec);
-    _timestamp.assign(buf);
-}
-
 void runtime::setLogPath(const std::string &path)
 {
     if (_logFile) {
@@ -629,12 +613,13 @@ void runtime::log(const char *fmt, ...)
     va_list args;
     va_start(args, fmt);
     
-    if (_timestamp.size() == 0) {
-        updateTimestamp();
-    }
+    char timestamp[32];
+    time_t t = time(NULL);
+    struct tm *stm = localtime(&t);
+    sprintf(timestamp, "%02d:%02d:%02d", stm->tm_hour, stm->tm_min, stm->tm_sec);
     
     int maxLen = MAX_LOG_LENGTH - 4;
-    int len = sprintf(_logBuf, "[%s] ", _timestamp.c_str());
+    int len = sprintf(_logBuf, "[%s] ", timestamp);
     // cocos2d::log has a bug when log length > MAX_LOG_LEGNTH - 3
     maxLen -= len;
     len = vsnprintf(_logBuf + len, maxLen, fmt, args);
@@ -657,9 +642,31 @@ void runtime::log(const char *fmt, ...)
         }
     }
 #endif
-
-#ifdef COCOS2D_DEBUG
-    cocos2d::log("%s", _logBuf);
+    
+#if defined(CCLUA_OS_ANDROID)
+    __android_log_print(ANDROID_LOG_DEBUG, "cclua debug info", "%s\n", _logBuf);
+#elif defined(CCLUA_OS_WIN32)
+    int pos = 0;
+    int len = nret;
+    char tempBuf[MAX_LOG_LENGTH + 1] = { 0 };
+    WCHAR wszBuf[MAX_LOG_LENGTH + 1] = { 0 };
+    do
+    {
+        std::copy(buf + pos, buf + pos + MAX_LOG_LENGTH, tempBuf);
+        tempBuf[MAX_LOG_LENGTH] = 0;
+        MultiByteToWideChar(CP_UTF8, 0, tempBuf, -1, wszBuf, sizeof(wszBuf));
+        OutputDebugStringW(wszBuf);
+        WideCharToMultiByte(CP_ACP, 0, wszBuf, -1, tempBuf, sizeof(tempBuf), nullptr, FALSE);
+        printf("%s", tempBuf);
+        pos += MAX_LOG_LENGTH;
+    } while (pos < len);
+    SendLogToWindow(buf);
+    printf("\n");
+    fflush(stdout);
+#else
+    // Linux, Mac, iOS, etc
+    fprintf(stdout, "%s\n", _logBuf);
+    fflush(stdout);
 #endif
 }
 
@@ -734,10 +741,17 @@ void runtime::reportError(const char *err, const char *traceback)
 #endif
 }
 
+#if COCOS2D_VERSION >= 0x00040000
 cocos2d::backend::ProgramCache *runtime::getProgramCache()
 {
     return backend::ProgramCache::getInstance();
 }
+#else
+cocos2d::GLProgramCache *runtime::getProgramCache()
+{
+    return GLProgramCache::getInstance();
+}
+#endif
 
 cocos2d::FileUtils *runtime::getFileUtils()
 {

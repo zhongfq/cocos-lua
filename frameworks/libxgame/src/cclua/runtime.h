@@ -3,7 +3,10 @@
 
 #include "lua.hpp"
 #include "cocos2d.h"
+
+#if COCOS2D_VERSION >= 0x00040000
 #include "renderer/backend/ProgramCache.h"
+#endif
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 #define CCLUA_OS_ANDROID
@@ -158,8 +161,6 @@ public:
     static int ref(const RefCallback callback);
     
     // log
-    static const std::string &getTimestamp();
-    static void updateTimestamp();
     static void setLogPath(const std::string &path);
     static const std::string getLogPath();
     static void log(const char *format, ...);
@@ -179,7 +180,11 @@ public:
     static void reportError(const char *err, const char *traceback);
     
     // Director api
+#if COCOS2D_VERSION >= 0x00040000
     static cocos2d::backend::ProgramCache *getProgramCache();
+#else
+    static cocos2d::GLProgramCache *getProgramCache();
+#endif
     static cocos2d::FileUtils *getFileUtils();
     static cocos2d::SpriteFrameCache *getSpriteFrameCache();
     static cocos2d::TextureCache *getTextureCache();

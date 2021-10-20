@@ -119,7 +119,7 @@ void AssetsBundle::init(const std::string &path)
         return;
     }
     
-    _data = file_open(to_assets_path(fullPath).c_str(), "r");
+    _data = file_open(to_assets_path(fullPath).c_str(), "rb");
     if (_data != NULL) {
         while (true) {
             ChunkKind kind = file_read_kind(_data);

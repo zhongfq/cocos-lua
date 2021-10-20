@@ -554,6 +554,7 @@ bool Bundle3D::loadMeshDatasBinary_0_1(MeshDatas& meshdatas)
         }
         else
         {
+            usage = shaderinfos::VertexKey::VERTEX_ATTRIB_ERROR;
             CCASSERT(false, "invalidate usage value");
         }
         meshVertexAttribute.vertexAttrib = usage;

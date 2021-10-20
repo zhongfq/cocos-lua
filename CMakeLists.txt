@@ -105,7 +105,7 @@ list(APPEND GAME_HEADER
 
 if(ANDROID)
     # change APP_NAME to the share library name for Android, it's value depend on AndroidManifest.xml
-    set(APP_NAME cocoslua)
+    set(APP_NAME cclua)
     list(APPEND GAME_SOURCE
          ${RUNTIME_SRC_ROOT}/proj.android/app/jni/hellocpp/main.cpp
          )

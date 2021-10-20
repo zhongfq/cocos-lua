@@ -13,6 +13,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.NetworkRequest;
 import android.net.Uri;
@@ -20,13 +21,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.LocaleList;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 
@@ -193,17 +195,19 @@ public class AppContext extends Cocos2dxActivity {
     }
 
     public static String getNetworkStatus() {
-        ConnectivityManager cm = (ConnectivityManager) AppContext.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo info = cm.getActiveNetworkInfo();
-        if (info != null && info.isConnected()) {
-            if (info.getType() == ConnectivityManager.TYPE_WIFI) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) AppContext.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        Network nw = connectivityManager.getActiveNetwork();
+        NetworkCapabilities actNw = nw != null ? connectivityManager.getNetworkCapabilities(nw) : null;
+
+        if (actNw != null) {
+            if (actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
                 return "WIFI";
-            } else {
+            } else if (actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
                 return "MOBILE";
             }
-        } else {
-            return "NONE";
         }
+
+        return "NONE";
     }
 
     @SuppressWarnings("unused")

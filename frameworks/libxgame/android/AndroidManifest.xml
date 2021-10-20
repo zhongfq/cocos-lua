@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application android:networkSecurityConfig="@xml/network_security_config">
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="${CCLUA_PACKAGENAME}.fileprovider"
             android:grantUriPermissions="true"
             android:exported="false">

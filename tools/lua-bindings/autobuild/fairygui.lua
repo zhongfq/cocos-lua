@@ -1525,13 +1525,13 @@ typeconf 'fairygui::GGraph'
                 self->drawRegularPolygon((int)lineSize, lineColor, fillColor, (int)sides);
             } else if (num_args == 5) {
                 olua_check_number(L, 6, &startAngle);
-                self->drawRegularPolygon((int)lineSize, lineColor, fillColor, (int)sides, startAngle);
+                self->drawRegularPolygon((int)lineSize, lineColor, fillColor, (int)sides, (float)startAngle);
             } else {
                 olua_check_number(L, 6, &startAngle);
                 olua_check_std_vector<float>(L, 7, &distances, [L](float *value) {
                     *value = (float)olua_checknumber(L, -1);
                 });
-                self->drawRegularPolygon((int)lineSize, lineColor, fillColor, (int)sides, startAngle, distances.size() ? &distances[0] : nullptr, (int)distances.size());
+                self->drawRegularPolygon((int)lineSize, lineColor, fillColor, (int)sides, (float)startAngle, distances.size() ? &distances[0] : nullptr, (int)distances.size());
             }
 
             return 0;

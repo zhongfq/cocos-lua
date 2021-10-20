@@ -606,6 +606,28 @@ void _writeLogToFile(const char *error)
     }
 }
 
+#if defined(CCLUA_OS_WIN32)
+void SendLogToWindow(const char *log)
+{
+    static const int CCLOG_STRING_TAG = 1;
+    // Send data as a message
+    COPYDATASTRUCT myCDS;
+    myCDS.dwData = CCLOG_STRING_TAG;
+    myCDS.cbData = (DWORD)strlen(log) + 1;
+    myCDS.lpData = (PVOID)log;
+    if (Director::getInstance()->getOpenGLView())
+    {
+        HWND hwnd = Director::getInstance()->getOpenGLView()->getWin32Window();
+        // use non-block version of SendMessage 
+        PostMessage(hwnd,
+            WM_COPYDATA,
+            (WPARAM)(HWND)hwnd,
+            (LPARAM)(LPVOID)&myCDS);
+
+    }
+}
+#endif
+
 void runtime::log(const char *fmt, ...)
 {
     std::lock_guard<std::mutex> lock(_logMutex);
@@ -618,13 +640,12 @@ void runtime::log(const char *fmt, ...)
     struct tm *stm = localtime(&t);
     sprintf(timestamp, "%02d:%02d:%02d", stm->tm_hour, stm->tm_min, stm->tm_sec);
     
-    int maxLen = MAX_LOG_LENGTH - 4;
+    int maxLen = MAX_LOG_LENGTH - 1;
     int len = sprintf(_logBuf, "[%s] ", timestamp);
-    // cocos2d::log has a bug when log length > MAX_LOG_LEGNTH - 3
     maxLen -= len;
     len = vsnprintf(_logBuf + len, maxLen, fmt, args);
     if (len >= maxLen) {
-        _logBuf[maxLen] = '\0';
+        _logBuf[MAX_LOG_LENGTH - 1] = '\0';
     }
     _writeLogToFile(_logBuf);
     
@@ -652,7 +673,7 @@ void runtime::log(const char *fmt, ...)
     WCHAR wszBuf[MAX_LOG_LENGTH + 1] = { 0 };
     do
     {
-        std::copy(buf + pos, buf + pos + MAX_LOG_LENGTH, tempBuf);
+        std::copy(_logBuf + pos, _logBuf + pos + MAX_LOG_LENGTH, tempBuf);
         tempBuf[MAX_LOG_LENGTH] = 0;
         MultiByteToWideChar(CP_UTF8, 0, tempBuf, -1, wszBuf, sizeof(wszBuf));
         OutputDebugStringW(wszBuf);
@@ -660,7 +681,7 @@ void runtime::log(const char *fmt, ...)
         printf("%s", tempBuf);
         pos += MAX_LOG_LENGTH;
     } while (pos < len);
-    SendLogToWindow(buf);
+    SendLogToWindow(_logBuf);
     printf("\n");
     fflush(stdout);
 #else

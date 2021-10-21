@@ -36,7 +36,6 @@ static int _sampleCount = 1;
 static std::unordered_map<int, runtime::RefCallback> _refCallbacks;
 static int _refCount = -1;
 
-static char _logBuf[MAX_LOG_LENGTH];
 static float _time = 0;
 static FILE *_logFile = NULL;
 static std::mutex _logMutex;
@@ -420,7 +419,7 @@ void runtime::setFrameRate(uint32_t frameRate)
 {
     if (runtime::getFrameRate() != frameRate) {
         CCASSERT(frameRate > 0, "frameRate > 0");
-        Director::getInstance()->setAnimationInterval(1.0 / frameRate);
+        Director::getInstance()->setAnimationInterval(1.0f / frameRate);
     }
 }
 
@@ -544,7 +543,7 @@ void runtime::callref(int func, const std::string &args, bool once)
 int runtime::ref(const RefCallback callback)
 {
     _refCount--;
-    _refCallbacks[_refCount] = std::move(callback);
+    _refCallbacks[_refCount] = callback;
     return _refCount;
 }
 
@@ -589,23 +588,6 @@ const std::string runtime::getLogPath()
     return _logPath;
 }
 
-void _writeLogToFile(const char *error)
-{
-    static std::string cache;
-    if (_logFile) {
-        if (cache.size() > 0) {
-            fwrite(cache.c_str(), sizeof(char), (size_t)cache.size(), _logFile);
-            cache.clear();
-        }
-        fwrite(error, sizeof(char), strlen(error), _logFile);
-        fwrite("\n", 1, 1, _logFile);
-        fflush(_logFile);
-    } else {
-        cache.append(error);
-        cache.append("\n");
-    }
-}
-
 #if defined(CCLUA_OS_WIN32)
 void SendLogToWindow(const char *log)
 {
@@ -631,32 +613,70 @@ void SendLogToWindow(const char *log)
 void runtime::log(const char *fmt, ...)
 {
     std::lock_guard<std::mutex> lock(_logMutex);
+
+    static char s_buf[MAX_LOG_LENGTH] = {0};
     
     va_list args;
-    va_start(args, fmt);
-    
-    char timestamp[32];
-    time_t t = time(NULL);
-    struct tm *stm = localtime(&t);
-    sprintf(timestamp, "%02d:%02d:%02d", stm->tm_hour, stm->tm_min, stm->tm_sec);
-    
-    int maxLen = MAX_LOG_LENGTH - 1;
-    int len = sprintf(_logBuf, "[%s] ", timestamp);
-    maxLen -= len;
-    len = vsnprintf(_logBuf + len, maxLen, fmt, args);
-    if (len >= maxLen) {
-        _logBuf[MAX_LOG_LENGTH - 1] = '\0';
+    int bufsize = MAX_LOG_LENGTH;
+    char* buf = nullptr;
+    int buflen = 0;
+    do {
+        if (bufsize > MAX_LOG_LENGTH) {
+            buf = (char*)malloc(bufsize * sizeof(char));
+        } else {
+            buf = s_buf;
+        }
+        if (buf == nullptr)
+            return;
+
+        time_t t = time(NULL);
+        struct tm* stm = localtime(&t);
+        int tlen = sprintf(buf, "[%02d:%02d:%02d] ", stm->tm_hour, stm->tm_min, stm->tm_sec);
+        
+        va_start(args, fmt);
+        buflen = vsnprintf(buf + tlen, bufsize - (3 + tlen), fmt, args);
+        va_end(args);
+
+        if (buflen >= 0) {
+            if (buflen <= bufsize - (3 + tlen)) {
+                buflen += tlen;
+                break;
+            } else {
+                bufsize = buflen + (3 + tlen);
+                if (buf != s_buf) {
+                    free(buf);
+                }
+            }
+        } else {
+            bufsize *= 2;
+            if (buf != s_buf) {
+                free(buf);
+            }
+        }
+    } while (true);
+    buf[buflen] = '\n';
+    buf[++buflen] = '\0';
+
+    // write to file
+    static std::string s_cache;
+    if (_logFile) {
+        if (s_cache.size() > 0) {
+            fwrite(s_cache.c_str(), sizeof(char), (size_t)s_cache.size(), _logFile);
+            s_cache.clear();
+        }
+        fwrite(buf, sizeof(char), buflen, _logFile);
+        fflush(_logFile);
     }
-    _writeLogToFile(_logBuf);
-    
-    va_end(args);
+    else {
+        s_cache.append(buf);
+    }
     
 #if defined(CCLUA_OS_ANDROID) || defined(CCLUA_OS_IOS)
     if (_reportError) {
         if (runtime::isCocosThread()) {
-            CrashReport::log(CrashReport::Verbose, _logBuf);
+            CrashReport::log(CrashReport::Verbose, buf);
         } else {
-            std::string msg = _logBuf;
+            std::string msg = buf;
             runtime::runOnCocosThread([msg]() {
                 CrashReport::log(CrashReport::Verbose, msg.c_str());
             });
@@ -665,15 +685,15 @@ void runtime::log(const char *fmt, ...)
 #endif
     
 #if defined(CCLUA_OS_ANDROID)
-    __android_log_print(ANDROID_LOG_DEBUG, "cclua debug info", "%s\n", _logBuf);
+    __android_log_print(ANDROID_LOG_DEBUG, "cclua debug info", "%s", buf);
 #elif defined(CCLUA_OS_WIN32)
     int pos = 0;
-    int len = nret;
+    int len = buflen;
     char tempBuf[MAX_LOG_LENGTH + 1] = { 0 };
     WCHAR wszBuf[MAX_LOG_LENGTH + 1] = { 0 };
     do
     {
-        std::copy(_logBuf + pos, _logBuf + pos + MAX_LOG_LENGTH, tempBuf);
+        std::copy(buf + pos, buf + pos + MAX_LOG_LENGTH, tempBuf);
         tempBuf[MAX_LOG_LENGTH] = 0;
         MultiByteToWideChar(CP_UTF8, 0, tempBuf, -1, wszBuf, sizeof(wszBuf));
         OutputDebugStringW(wszBuf);
@@ -681,14 +701,17 @@ void runtime::log(const char *fmt, ...)
         printf("%s", tempBuf);
         pos += MAX_LOG_LENGTH;
     } while (pos < len);
-    SendLogToWindow(_logBuf);
-    printf("\n");
+    SendLogToWindow(buf);
     fflush(stdout);
 #else
     // Linux, Mac, iOS, etc
-    fprintf(stdout, "%s\n", _logBuf);
+    fprintf(stdout, "%s", buf);
     fflush(stdout);
 #endif
+
+    if (buf != s_buf) {
+        free(buf);
+    }
 }
 
 //

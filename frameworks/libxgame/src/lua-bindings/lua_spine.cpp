@@ -12521,25 +12521,6 @@ static int _spine_SkeletonData_findBone(lua_State *L)
     return num_ret;
 }
 
-static int _spine_SkeletonData_findBoneIndex(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::SkeletonData *self = nullptr;
-    spine::String arg1;       /** boneName */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
-    olua_check_spine_String(L, 2, &arg1);
-
-    // int findBoneIndex(const spine::String &boneName)
-    int ret = self->findBoneIndex(arg1);
-    int num_ret = olua_push_int(L, (lua_Integer)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
 static int _spine_SkeletonData_findEvent(lua_State *L)
 {
     olua_startinvoke(L);
@@ -12597,25 +12578,6 @@ static int _spine_SkeletonData_findPathConstraint(lua_State *L)
     return num_ret;
 }
 
-static int _spine_SkeletonData_findPathConstraintIndex(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::SkeletonData *self = nullptr;
-    spine::String arg1;       /** pathConstraintName */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
-    olua_check_spine_String(L, 2, &arg1);
-
-    // int findPathConstraintIndex(const spine::String &pathConstraintName)
-    int ret = self->findPathConstraintIndex(arg1);
-    int num_ret = olua_push_int(L, (lua_Integer)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
 static int _spine_SkeletonData_findSkin(lua_State *L)
 {
     olua_startinvoke(L);
@@ -12648,25 +12610,6 @@ static int _spine_SkeletonData_findSlot(lua_State *L)
     // spine::SlotData *findSlot(const spine::String &slotName)
     spine::SlotData *ret = self->findSlot(arg1);
     int num_ret = olua_push_cppobj(L, ret, "sp.SlotData");
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_SkeletonData_findSlotIndex(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::SkeletonData *self = nullptr;
-    spine::String arg1;       /** slotName */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
-    olua_check_spine_String(L, 2, &arg1);
-
-    // int findSlotIndex(const spine::String &slotName)
-    int ret = self->findSlotIndex(arg1);
-    int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
 
@@ -13292,14 +13235,11 @@ static int luaopen_spine_SkeletonData(lua_State *L)
     oluacls_func(L, "dispose", _spine_SkeletonData___gc);
     oluacls_func(L, "findAnimation", _spine_SkeletonData_findAnimation);
     oluacls_func(L, "findBone", _spine_SkeletonData_findBone);
-    oluacls_func(L, "findBoneIndex", _spine_SkeletonData_findBoneIndex);
     oluacls_func(L, "findEvent", _spine_SkeletonData_findEvent);
     oluacls_func(L, "findIkConstraint", _spine_SkeletonData_findIkConstraint);
     oluacls_func(L, "findPathConstraint", _spine_SkeletonData_findPathConstraint);
-    oluacls_func(L, "findPathConstraintIndex", _spine_SkeletonData_findPathConstraintIndex);
     oluacls_func(L, "findSkin", _spine_SkeletonData_findSkin);
     oluacls_func(L, "findSlot", _spine_SkeletonData_findSlot);
-    oluacls_func(L, "findSlotIndex", _spine_SkeletonData_findSlotIndex);
     oluacls_func(L, "findTransformConstraint", _spine_SkeletonData_findTransformConstraint);
     oluacls_func(L, "getAnimations", _spine_SkeletonData_getAnimations);
     oluacls_func(L, "getAudioPath", _spine_SkeletonData_getAudioPath);
@@ -13399,25 +13339,6 @@ static int _spine_Skeleton_findBone(lua_State *L)
     return num_ret;
 }
 
-static int _spine_Skeleton_findBoneIndex(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::Skeleton *self = nullptr;
-    spine::String arg1;       /** boneName */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
-    olua_check_spine_String(L, 2, &arg1);
-
-    // int findBoneIndex(const spine::String &boneName)
-    int ret = self->findBoneIndex(arg1);
-    int num_ret = olua_push_int(L, (lua_Integer)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
 static int _spine_Skeleton_findIkConstraint(lua_State *L)
 {
     olua_startinvoke(L);
@@ -13469,25 +13390,6 @@ static int _spine_Skeleton_findSlot(lua_State *L)
     // spine::Slot *findSlot(const spine::String &slotName)
     spine::Slot *ret = self->findSlot(arg1);
     int num_ret = olua_push_cppobj(L, ret, "sp.Slot");
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_Skeleton_findSlotIndex(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::Skeleton *self = nullptr;
-    spine::String arg1;       /** slotName */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
-    olua_check_spine_String(L, 2, &arg1);
-
-    // int findSlotIndex(const spine::String &slotName)
-    int ret = self->findSlotIndex(arg1);
-    int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
 
@@ -14226,11 +14128,9 @@ static int luaopen_spine_Skeleton(lua_State *L)
     oluacls_func(L, "__gc", _spine_Skeleton___gc);
     oluacls_func(L, "__olua_move", _spine_Skeleton___olua_move);
     oluacls_func(L, "findBone", _spine_Skeleton_findBone);
-    oluacls_func(L, "findBoneIndex", _spine_Skeleton_findBoneIndex);
     oluacls_func(L, "findIkConstraint", _spine_Skeleton_findIkConstraint);
     oluacls_func(L, "findPathConstraint", _spine_Skeleton_findPathConstraint);
     oluacls_func(L, "findSlot", _spine_Skeleton_findSlot);
-    oluacls_func(L, "findSlotIndex", _spine_Skeleton_findSlotIndex);
     oluacls_func(L, "findTransformConstraint", _spine_Skeleton_findTransformConstraint);
     oluacls_func(L, "getAttachment", _spine_Skeleton_getAttachment);
     oluacls_func(L, "getBones", _spine_Skeleton_getBones);

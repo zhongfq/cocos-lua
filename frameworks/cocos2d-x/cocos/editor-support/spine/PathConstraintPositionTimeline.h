@@ -42,7 +42,7 @@ namespace spine {
 	RTTI_DECL
 
 	public:
-		static const int ENTRIES = 4;
+		static const int ENTRIES;
 
 		explicit PathConstraintPositionTimeline(size_t frameCount, size_t bezierCount, int pathConstraintIndex);
 

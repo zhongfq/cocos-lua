@@ -60,7 +60,7 @@ namespace spine {
 		PathConstraint(PathConstraintData &data, Skeleton &skeleton);
 
 		/// Applies the constraint to the constrained bones.
-		void apply();
+        void apply() {};
 
 		virtual void update();
 

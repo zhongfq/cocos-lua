@@ -152,3 +152,8 @@ void CurveTimeline2::setFrame(size_t frame, float time, float value1, float valu
 	_frames[frame + CurveTimeline2::VALUE1] = value1;
 	_frames[frame + CurveTimeline2::VALUE2] = value2;
 }
+
+float CurveTimeline2::getCurveValue(float time)
+{
+    return 0;
+}

@@ -65,7 +65,7 @@ namespace spine {
 		IkConstraint(IkConstraintData &data, Skeleton &skeleton);
 
 		/// Applies the constraint to the constrained bones.
-		void apply();
+        void apply() {};
 
 		virtual void update();
 

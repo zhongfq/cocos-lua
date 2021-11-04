@@ -59,6 +59,14 @@ function Array:indexOf(item)
     return 0
 end
 
+function Array:find(field, value)
+    for _, v in ipairs(self) do
+        if v[field] == value then
+            return v
+        end
+    end
+end
+
 function Array:shift()
     return self:removeAt(1)
 end

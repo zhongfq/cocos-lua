@@ -17,16 +17,16 @@ local cache = setmetatable({}, {__mode = 'v'})
 
 local AssetObject = class('AssetObject', Dispatcher)
 
-function AssetObject:ctor(url)
-    self.url = url
-    self.path = filesystem.localCachePath(url)
+function AssetObject:ctor(uri)
+    self.uri = uri
+    self.path = filesystem.localPath(uri)
     self.status = 'unknown'
-    self.type = string.lower(string.match(url, '%.%w+$'))
+    self.type = string.lower(string.match(uri, '%.%w+$'))
     self.loader = M.loaders[self.type] or M.loader['*']
 end
 
 function AssetObject:startLoad()
-    local task = LoadTask.new(self.url)
+    local task = LoadTask.new(self.uri)
     self.status = 'loading'
     task:addListener(Event.COMPLETE, function ()
         if self.status == 'loading' then
@@ -71,15 +71,15 @@ function M.register(suffix)
     return loader
 end
 
-function M.load(url, callback)
-    local assetRef = cache[url]
-    if not url or #url == 0 then
-        error('url is nil or empty')
+function M.load(uri, callback)
+    local assetRef = cache[uri]
+    if not uri or #uri == 0 then
+        error('uri is nil or empty')
     end
-    assert(string.find(url, '%.%w+$'), url)
+    assert(string.find(uri, '%.%w+$'), uri)
     if not assetRef then
-        assetRef = AssetObject.new(url)
-        cache[url] = assetRef
+        assetRef = AssetObject.new(uri)
+        cache[uri] = assetRef
     end
     if assetRef.status == 'loading' or assetRef.status == 'unknown' then
         assetRef:addListener(EVENT_RESULT, function ()
@@ -97,16 +97,16 @@ function M.load(url, callback)
     return assetRef
 end
 
-function M.unload(url)
-    local assetRef = cache[url]
+function M.unload(uri)
+    local assetRef = cache[uri]
     if assetRef then
         assetRef:unload()
-        cache[url] = nil
+        cache[uri] = nil
     end
 end
 
-function M.reload(url)
-    local assetRef = cache[url]
+function M.reload(uri)
+    local assetRef = cache[uri]
     if assetRef then
         assetRef:reload()
     end
@@ -125,13 +125,13 @@ local ImageLoader = M.register('.jpg;.png')
 function ImageLoader:reload()
     if runtime.textureCache:getTextureForKey(self.path) then
         runtime.textureCache:reloadTexture(self.path)
-        trace('reload image: %s', shortPath(self.url))
+        trace('reload image: %s', shortPath(self.uri))
     end
 end
 
 function ImageLoader:unload()
     runtime.textureCache:removeTextureForKey(self.path)
-    trace('unload image: %s', shortPath(self.url))
+    trace('unload image: %s', shortPath(self.uri))
 end
 
 -- .plist
@@ -144,7 +144,7 @@ function PlistLoader:load()
         self.spriteFrames = data.frames
 
         runtime.spriteFrameCache:addSpriteFramesWithFile(self.path)
-        trace("load plist: %s", shortPath(self.url))
+        trace("load plist: %s", shortPath(self.uri))
         for name in pairs(self.spriteFrames) do
             self.spriteFrames[name] = runtime.spriteFrameCache:getSpriteFrameByName(name)
         end
@@ -154,7 +154,7 @@ end
 function PlistLoader:unload()
     runtime.spriteFrameCache:removeSpriteFramesFromFile(self.path)
     runtime.textureCache:removeTextureForKey(self.imagePath)
-    trace("unload plist: %s", shortPath(self.url))
+    trace("unload plist: %s", shortPath(self.uri))
 end
 
 -- fgui
@@ -164,15 +164,15 @@ function FUILoader:load()
     local rawpath = string.gsub(self.path, '.fui$', '')
     local pkg = UIPackage.addPackage(rawpath)
     if not pkg then
-        error("can't load '" .. self.url .. "'")
+        error("can't load '" .. self.uri .. "'")
     end
-    trace('load fgui: %s', self.url)
+    trace('load fgui: %s', self.uri)
 end
 
 function FUILoader:unload()
     local rawpath = string.gsub(self.path, '.fui$', '')
     UIPackage.removePackage(rawpath)
-    trace('unload fgui: %s', self.url)
+    trace('unload fgui: %s', self.uri)
 end
 
 return M

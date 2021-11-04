@@ -11,7 +11,7 @@ local UIImage = class("UIImage", UIView)
 
 function UIImage:ctor()
     self._capInset = false
-    self._url = false
+    self._uri = false
     self.preferredWidth = 0
     self.preferredHeight = 0
 end
@@ -36,27 +36,27 @@ function UIImage:loadTexture(path)
     self:_validateNow()
 end
 
-function UIImage:_doLoad(url, callback)
-    if url and #url > 0 then
-        self._url = url
-        self.assetRef = loader.load(url, function (success)
-            if self._url == url and success then
+function UIImage:_doLoad(uri, callback)
+    if uri and #uri > 0 then
+        self._uri = uri
+        self.assetRef = loader.load(uri, function (success)
+            if self._uri == uri and success then
                 callback()
             end
         end)
     end
 end
 
-function UIImage:load(url)
+function UIImage:load(uri)
     self:_doLoad(function ()
-        self:loadTexture(filesystem.localCachePath(url))
+        self:loadTexture(filesystem.localPath(uri))
         self:validateDisplay()
     end)
 end
 
-function UIImage:loadAsync(url)
+function UIImage:loadAsync(uri)
     self:_doLoad(function ()
-        self:loadTexture(filesystem.localCachePath(url))
+        self:loadTexture(filesystem.localPath(uri))
         self:validateDisplay()
     end)
 end

@@ -1,5 +1,4 @@
 local downloader    = require "cclua.downloader"
-local FileState     = require "cclua.downloader.FileState"
 local timer         = require "xgame.timer"
 local filesystem    = require "xgame.filesystem"
 local Manifest      = require "xgame.Manifest"
@@ -43,18 +42,18 @@ local function checkStart()
 
                 if task.attempts == 0 then
                     task.attempts = 1
-                    downloader.load(task)
+                    downloader.load(task.uri, task.path, task.md5 or '')
                 end
             end
         end)
     end
 end
 
-local function notify(url, success)
+local function notify(uri, success)
     local __TRACEBACK__ = __TRACEBACK__
     local doneTasks = {}
     for task in pairs(loadTasks) do
-        if task.url == url then
+        if task.uri == uri then
             doneTasks[#doneTasks + 1] = task
         end
     end
@@ -68,12 +67,12 @@ local function notify(url, success)
 end
 
 local function doLoad(task)
-    assert(task.url, "no url")
-    if not loadingList[task.url] then
-        loadingList[task.url] = {
+    assert(task.uri, "no uri")
+    if not loadingList[task.uri] then
+        loadingList[task.uri] = {
             attempts = 0,
-            url = task.url,
-            path = assert(task.path, task.url),
+            uri = task.uri,
+            path = assert(task.path, task.uri),
             md5 = task.md5,
         }
     end
@@ -82,81 +81,81 @@ local function doLoad(task)
     checkStart()
 end
 
-downloader.setDispatcher(function (task)
-    local state = task.state
-    task = loadingList[task.url]
+downloader.setDispatcher(function (state, uri)
+    local task = loadingList[uri]
     if not task then
         return
-    elseif state == FileState.IOERROR or state == FileState.INVALID then
+    elseif state == 'success' then
+        print('[OK] load: ' .. uri)
+        loadingList[uri] = nil
+        notify(uri, true)
+    else
         task.attempts = task.attempts + 1
         if task.attempts >= MAX_ATTEMPTS then
-            print('[NO] load: ' .. task.url)
-            loadingList[task.url] = nil
-            notify(task.url, false)
+            print('[NO] load: ' .. task.uri)
+            loadingList[task.uri] = nil
+            notify(task.uri, false)
         else
             timer.delay(ATTEMPT_INTERVAL, function ()
-                downloader.load(task)
+                downloader.load(task.uri, task.path, task.md5 or '')
             end)
         end
-    else
-        print('[OK] load: ' .. task.url)
-        loadingList[task.url] = nil
-        notify(task.url, true)
     end
 end)
 
-function M.shouldDownload(task)
-    local remoteFile = M.remoteManifest.assets[task.url]
+function M.setURIResolver(resolver)
+    downloader.setURIResolver(resolver)
+end
+
+function M.shouldDownload(target)
+    local remoteFile = M.remoteManifest.assets[target.uri]
     if remoteFile then
-        local localFile = M.localManifest.assets[task.url]
-        return (not filesystem.exist(task.path) and
-                not filesystem.exist(task.url))
+        local localFile = M.localManifest.assets[target.uri]
+        return (not filesystem.exist(target.path) and
+                not filesystem.exist(target.uri))
             or (not localFile)
             or (localFile.date < remoteFile.date)
-    elseif string.find(task.url, '^https?://') then
-        return not filesystem.exist(task.path)
+    elseif filesystem.isRemoteURI(target.uri) then
+        return not filesystem.exist(target.path)
     else
-        assert(filesystem.exist(task.url), task.url)
+        assert(filesystem.exist(target.uri), target.uri)
         return false
     end
 end
 
-function M.load(task)
-    if M.shouldDownload(task) then
-        local remoteFile = M.remoteManifest.assets[task.url]
+function M.load(target)
+    if M.shouldDownload(target) then
+        local remoteFile = M.remoteManifest.assets[target.uri]
         local function callback(success)
             if success then
                 local loader = require "xgame.loader"
-                loader.reload(task.url)
+                loader.reload(target.uri)
                 if remoteFile then
                     local asset = {
                         date = remoteFile.date,
                         md5 = remoteFile.md5,
                         builtin = remoteFile.builtin,
                     }
-                    M.localManifest:update(task.url, asset)
+                    M.localManifest:update(target.uri, asset)
                 end
-                task:loadSuccess()
+                target:loadSuccess()
             else
-                task:loadError()
+                target:loadError()
             end
         end
+
+        local task = {
+            path = target.path,
+            uri = target.uri,
+            callback = callback,
+        }
         if remoteFile then
-            doLoad({
-                path = task.path,
-                md5 = remoteFile.md5,
-                url = M.remoteManifest.packageURL .. '/' .. task.url,
-                callback = callback,
-            })
-        else
-            doLoad({
-                url = task.url,
-                path = task.path,
-                callback = callback,
-            })
+            task.md5 = remoteFile.md5
+            task.uri = M.remoteManifest.packageURL .. '/' .. task.uri
         end
+        doLoad(task)
     else
-        task:loadSuccess()
+        target:loadSuccess()
     end
 end
 

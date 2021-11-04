@@ -11,17 +11,6 @@ USING_NS_CCLUA;
 lua_State *xlua_invokingstate = NULL;
 static std::unordered_map<std::string, std::string> xlua_typemap;
 
-#if COCOS2D_VERSION >= 0x00040000
-extern bool CC_DLL cc_assert_script_compatible(const char *msg)
-{
-    if (xlua_invokingstate) {
-        lua_State *L = xlua_invokingstate;
-        xlua_invokingstate = NULL;
-        luaL_error(L, msg);
-    }
-    return false;
-}
-#else
 static bool inline throw_lua_error(const char *msg)
 {
     if (xlua_invokingstate) {
@@ -32,7 +21,7 @@ static bool inline throw_lua_error(const char *msg)
     return false;
 }
 
-#ifdef CCLUA_OS_WIN32
+#if COCOS2D_VERSION < 0x00040000 && defined(CCLUA_OS_WIN32)
 #include "base/CCScriptSupport.h"
 class AssertEngine : public ScriptEngineProtocol {
 public:
@@ -52,7 +41,6 @@ extern bool cc_assert_script_compatible(const char *msg)
 {
     return throw_lua_error(msg);
 }
-#endif
 #endif
 
 static int _coroutine_resume(lua_State *L)

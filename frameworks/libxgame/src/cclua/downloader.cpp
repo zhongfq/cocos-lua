@@ -9,6 +9,7 @@
 #include <string>
 #include <thread>
 #include <mutex>
+#include <regex>
 #include <condition_variable>
 
 using namespace cocos2d;
@@ -17,9 +18,10 @@ using namespace cocos2d::network;
 NS_CCLUA_BEGIN
 
 static cocos2d::network::Downloader *_loader = nullptr;
-static std::function<void(const downloader::FileTask &)> _callback = nullptr;
-static std::unordered_map<std::string, int64_t> _remoteFileSizes;
-static std::vector<downloader::FileTask> _tasks;
+static downloader::EventDispatcher _dispatcher = nullptr;
+static downloader::URIResolver _resolver = nullptr;
+static std::unordered_map<std::string, downloader::Task> _uri2Tasks;
+static std::vector<downloader::Task> _tasks;
 static std::mutex _mutex;
 static std::thread *_verifyThread = nullptr;
 static std::condition_variable _cond;
@@ -50,91 +52,99 @@ void downloader::init()
     DownloaderHints hints = {6, 10, ".tmp"};
     _loader = new Downloader(hints);
     _loader->onTaskError = [](const DownloadTask &task, int errorCode, int errorCodeInternal, const std::string &errorStr) {
-        FileTask file;
-        file.md5 = task.identifier;
-        file.url = task.requestURL;
-        file.path = task.storagePath;
-        file.state = FileState::IOERROR;
-        
         std::lock_guard<std::mutex> lck(_mutex);
-        _tasks.push_back(file);
+        Task t = _uri2Tasks[task.identifier];
+        t.state = TaskState::IOERROR;
+        _uri2Tasks.erase(task.identifier);
+        _tasks.push_back(t);
         _cond.notify_one();
     };
     _loader->onFileTaskSuccess = [](const DownloadTask &task) {
-        FileTask file;
-        file.md5 = task.identifier;
-        file.url = task.requestURL;
-        file.path = task.storagePath;
-        file.state = FileState::PENDING;
-        
-        int64_t size = _remoteFileSizes[task.requestURL];
-        _remoteFileSizes.erase(task.requestURL);
-        if (FileUtils::getInstance()->getFileSize(file.path) != size || size == 0) {
-            file.state = FileState::IOERROR;
-        }
-        
         std::lock_guard<std::mutex> lck(_mutex);
-        _tasks.push_back(file);
+        Task t = _uri2Tasks[task.identifier];
+        _uri2Tasks.erase(task.identifier);
+        if (FileUtils::getInstance()->getFileSize(t.path) != t.size || t.size == 0) {
+            t.state = TaskState::IOERROR;
+        } else {
+            t.state = TaskState::PENDING;
+        }
+        _tasks.push_back(t);
         _cond.notify_one();
     };
     _loader->onTaskProgress = [](const DownloadTask& task, int64_t bytesReceived, int64_t totalBytesReceived, int64_t totalBytesExpected) {
-        _remoteFileSizes[task.requestURL] = totalBytesExpected;
+        std::lock_guard<std::mutex> lck(_mutex);
+        Task &t = _uri2Tasks[task.identifier];
+        t.size = totalBytesExpected;
     };
 }
 
-void downloader::setDispatcher(const std::function<void(const FileTask &)> callback)
+void downloader::load(const std::string &uri, const std::string &path, const std::string &md5)
 {
-    _callback = callback;
+    const std::string tmp = path + ".tmp";
+    filesystem::createDirectory(path, true);
+    if (filesystem::exist(tmp)) {
+        filesystem::remove(tmp);
+    }
+    Task task;
+    task.uri = uri;
+    task.path = path;
+    task.md5 = md5;
+    task.state = TaskState::INVALID;
+    task.size = 0;
+    if (std::regex_search(task.uri, std::regex("^https?://"))) {
+        task.url = task.uri;
+    } else {
+        CCASSERT(_resolver != nullptr, "uri resolver not set");
+        task.url = _resolver(task.uri);
+    }
+    
+    std::lock_guard<std::mutex> lck(_mutex);
+    _uri2Tasks[task.uri] = task;
+    _loader->createDownloadFileTask(task.url, task.path, task.uri);
+}
+
+void downloader::setDispatcher(const EventDispatcher &dispatcher)
+{
+    _dispatcher = dispatcher;
+}
+
+void downloader::setURIResolver(const URIResolver &resolver)
+{
+    _resolver = resolver;
 }
     
-static bool verifyFile(const downloader::FileTask &task)
+static bool verifyFile(const downloader::Task &task)
 {
     unsigned char result[MD5_STR_LEN];
     return md5f(result, task.path.c_str()) &&
         strcaseequal((const char *)result, task.md5.c_str());
 }
 
-void downloader::load(const FileTask &task)
-{
-    auto path = task.path;
-    auto pos = path.find_last_of("/");
-    
-    if (pos != std::string::npos) {
-        path = path.substr(0, pos);
-    }
-    
-    filesystem::createDirectory(path);
-    if (filesystem::exist(task.path + ".tmp")) {
-        filesystem::remove(task.path + ".tmp");
-    }
-    _remoteFileSizes[task.url] = 0;
-    _loader->createDownloadFileTask(task.url, task.path, task.md5);
-}
-
 void downloader::start()
 {
+    static const char *const state[] = {"invalid", "ioerror", "pending", "success"};
     while (!_quit) {
         _mutex.lock();
         if (_tasks.size() > 0) {
-            FileTask task = _tasks.back();
+            Task task = _tasks.back();
             _tasks.pop_back();
             _mutex.unlock();
             
-            if (task.state == FileState::PENDING) {
+            if (task.state == TaskState::PENDING) {
                 if (task.md5.size() > 0) {
-                    task.state = verifyFile(task) ? FileState::LOADED : FileState::INVALID;
+                    task.state = verifyFile(task) ? TaskState::SUCCESS : TaskState::INVALID;
                 } else {
-                    task.state = FileState::LOADED;
+                    task.state = TaskState::SUCCESS;
                 }
             }
             
-            if (task.state != FileState::LOADED && filesystem::exist(task.path)) {
+            if (task.state != TaskState::SUCCESS && filesystem::exist(task.path)) {
                 filesystem::remove(task.path);
             }
             
-            cocos2d::Director::getInstance()->getScheduler()->performFunctionInCocosThread([task]() {
-                if (_callback) {
-                    _callback(task);
+            runtime::runOnCocosThread([task] {
+                if (_dispatcher) {
+                    _dispatcher(state[(int)task.state], task.uri);
                 }
             });
             

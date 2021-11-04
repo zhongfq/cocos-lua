@@ -35,12 +35,6 @@ CHUNK = [[
     }
 ]]
 
-typeconv 'cclua::downloader::FileTask'
-    .var('url', 'std::string url')
-    .var('path', 'std::string path')
-    .var('md5', '@optional std::string md5')
-    .var('state', '@optional cclua::downloader::FileState state')
-
 
 typeconf 'cclua::SceneNoCamera'
     .supercls('cocos2d::Scene')
@@ -446,29 +440,28 @@ typeconf 'cclua::window'
     .prop('visibleSize', nil, nil)
     .prop('frameSize', nil, nil)
 
-typeconf 'cclua::downloader::FileState'
-    .supercls(nil)
-    .reg_luatype(true)
-    .chunk(nil)
-    .require(nil)
-    .enum('IOERROR', 'cclua::downloader::FileState::IOERROR')
-    .enum('LOADED', 'cclua::downloader::FileState::LOADED')
-    .enum('PENDING', 'cclua::downloader::FileState::PENDING')
-    .enum('INVALID', 'cclua::downloader::FileState::INVALID')
-
 typeconf 'cclua::downloader'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .require(nil)
-    .func(nil, 'static void load(const cclua::downloader::FileTask &task)')
+    .func(nil, 'static void load(const std::string &uri, const std::string &path, @optional const std::string &md5)')
     .func(nil, 'static void init()')
     .func(nil, 'static void end()')
     .callback {
         FUNCS =  {
-            'static void setDispatcher(@local const std::function<void (const cclua::downloader::FileTask &)> callback)'
+            'static void setDispatcher(@local const std::function<void (const std::string &, const std::string &)> &dispatcher)'
         },
         TAG_MAKER = 'Dispatcher',
+        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_STORE = nil,
+        TAG_SCOPE = 'object',
+    }
+    .callback {
+        FUNCS =  {
+            'static void setURIResolver(@local const std::function<std::string (const std::string &)> &resolver)'
+        },
+        TAG_MAKER = 'URIResolver',
         TAG_MODE = 'OLUA_TAG_REPLACE',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',

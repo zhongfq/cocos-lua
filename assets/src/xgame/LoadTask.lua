@@ -6,12 +6,12 @@ local Dispatcher    = require "xgame.Dispatcher"
 
 local LoadTask = class("LoadTask", Dispatcher)
 
-function LoadTask:ctor(url)
-    self.url = url
-    if string.find(url, '^https?://') then
-        self.path = filesystem.localCachePath(url)
+function LoadTask:ctor(uri)
+    self.uri = uri
+    if filesystem.isRemoteURI(uri) then
+        self.path = filesystem.localPath(uri)
     else
-        self.path = filesystem.dir.assets .. '/' .. url
+        self.path = filesystem.dir.assets .. '/' .. uri
     end
 end
 

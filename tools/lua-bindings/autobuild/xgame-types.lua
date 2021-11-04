@@ -9,14 +9,6 @@ typedef {
 }
 
 typedef {
-    CPPCLS = 'cclua::downloader::FileTask',
-    LUACLS = nil,
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cclua_downloader_FileTask',
-    NUM_VARS = 4,
-}
-
-typedef {
     CPPCLS = 'cclua::SceneNoCamera *',
     LUACLS = 'cclua.SceneNoCamera',
     DECLTYPE = nil,
@@ -77,14 +69,6 @@ typedef {
     LUACLS = 'cclua.window',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
-}
-
-typedef {
-    CPPCLS = 'cclua::downloader::FileState',
-    LUACLS = 'cclua.downloader.FileState',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
     NUM_VARS = nil,
 }
 

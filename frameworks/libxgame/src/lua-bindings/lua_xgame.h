@@ -18,12 +18,4 @@
 
 int luaopen_xgame(lua_State *L);
 
-// cclua::downloader::FileTask
-int olua_push_cclua_downloader_FileTask(lua_State *L, const cclua::downloader::FileTask *value);
-void olua_check_cclua_downloader_FileTask(lua_State *L, int idx, cclua::downloader::FileTask *value);
-bool olua_is_cclua_downloader_FileTask(lua_State *L, int idx);
-void olua_pack_cclua_downloader_FileTask(lua_State *L, int idx, cclua::downloader::FileTask *value);
-int olua_unpack_cclua_downloader_FileTask(lua_State *L, const cclua::downloader::FileTask *value);
-bool olua_ispack_cclua_downloader_FileTask(lua_State *L, int idx);
-
 #endif

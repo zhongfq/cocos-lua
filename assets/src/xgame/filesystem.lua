@@ -3,7 +3,7 @@ local runtime       = require "cclua.runtime"
 local filesystem    = require "cclua.filesystem"
 
 assert(not filesystem.dir)
-assert(not filesystem.localCachePath)
+assert(not filesystem.localPath)
 
 filesystem.dir = {
     sdcard = assert(filesystem.sdCardDirectory), -- android only
@@ -28,17 +28,19 @@ local cacheDirectory = filesystem.dir.cache
 
 local function encodeURI(s)
     s = http.decodeURI(s)
-    return string.gsub(s, '[?/*:<>|\\]', '+')
+    return string.gsub(s, '[?/*:<>|\\]+', '_')
 end
 
-function filesystem.localCachePath(url)
-    if string.find(url, "^https?://static") then
-        return cacheDirectory .. "/http_static/" .. encodeURI(url)
-    elseif string.find(url, "^https?://") then
-        return cacheDirectory .. "/http/" .. encodeURI(url)
+function filesystem.localPath(uri)
+    if filesystem.isRemoteURI(uri) then
+        return cacheDirectory .. "/http/" .. encodeURI(uri)
     else
-        return url
+        return uri
     end
+end
+
+function filesystem.isRemoteURI(uri)
+    return string.find(uri, "^https?://") or string.find(uri, "^uri://")
 end
 
 function filesystem.nomedia(dir)

@@ -11,27 +11,34 @@ NS_CCLUA_BEGIN
 class downloader
 {
 public:
-    enum FileState {
-        IOERROR = 0,
-        LOADED,
+    enum class TaskState {
+        INVALID = 0,
+        IOERROR,
         PENDING,
-        INVALID,
+        SUCCESS,
     };
     
-    struct FileTask {
-        std::string url;
+    struct Task {
+        std::string uri;
         std::string path;
-        std::string md5 = "";
-        FileState state = FileState::INVALID;
+        std::string md5;
+        TaskState state = TaskState::INVALID;
+        
+        std::string url;
+        int64_t size = 0;
     };
     
-    static void load(const FileTask &task);
-    static void setDispatcher(const std::function<void(const FileTask &)> callback);
+    typedef std::function<void(const std::string &state, const std::string &uri)> EventDispatcher;
+    typedef std::function<std::string(const std::string &uri)> URIResolver;
+        
+    static void load(const std::string &uri, const std::string &path, const std::string &md5 = "");
+    static void setDispatcher(const EventDispatcher &dispatcher);
+    static void setURIResolver(const URIResolver &resolver);
+
     static void init();
     static void end();
 private:
     static void start();
-public:
 };
     
 NS_CCLUA_END

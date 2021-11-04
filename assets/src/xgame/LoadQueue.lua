@@ -17,7 +17,7 @@ function LoadQueue:ctor(assets)
         if downloader.shouldDownload(task) then
             task:addListener(Event.COMPLETE, self._complete, self)
             task:addListener(Event.IOERROR, self._ioerror, self)
-            self._loadTasks[task.url] = task
+            self._loadTasks[task.uri] = task
             self.totalCount = self.totalCount + 1
         end
     end
@@ -48,7 +48,7 @@ end
 function LoadQueue:_complete(task)
     task:removeListener(Event.COMPLETE, self._complete, self)
     task:removeListener(Event.IOERROR, self._ioerror, self)
-    self._loadTasks[task.url] = nil
+    self._loadTasks[task.uri] = nil
     self.currentCount = self.currentCount + 1
     self:dispatch(Event.PROGRESS)
     if not next(self._loadTasks) then

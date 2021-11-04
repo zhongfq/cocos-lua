@@ -46,8 +46,6 @@ exclude 'cclua::BufferReader *'
 
 typedef 'cclua::window::Bounds'
 
-typeconv 'cclua::downloader::FileTask'
-
 typeconf 'cclua::SceneNoCamera'
 typeconf 'cclua::Permission'
 typeconf 'cclua::PermissionStatus'
@@ -169,7 +167,6 @@ typeconf 'cclua::window'
     .attr('setDesignSize', {arg1 = '@pack'})
     .attr('convertToCameraSpace', {arg1 = '@pack'})
 
-typeconf 'cclua::downloader::FileState'
 typeconf 'cclua::downloader'
 typeconf 'cclua::MaskLayout'
     .attr('getFilter', {ret = '@addref(filter ^)'})

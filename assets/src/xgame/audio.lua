@@ -28,8 +28,8 @@ function AudioLoader:unload()
     trace('uncache: %s', self.path)
 end
 
-function M.play(url, loop, volume)
-    local obj = AudioObject.new(url, loop, volume)
+function M.play(uri, loop, volume)
+    local obj = AudioObject.new(uri, loop, volume)
     obj:addListener(Event.COMPLETE, function ()
         audios[obj] = nil
     end)
@@ -39,10 +39,10 @@ function M.play(url, loop, volume)
     return obj
 end
 
-function M.stop(url)
+function M.stop(uri)
     local todo = {}
     for obj in pairs(audios) do
-        if obj.url == url then
+        if obj.uri == uri then
             todo[#todo + 1] = obj
             audios[obj] = nil
         end
@@ -52,9 +52,9 @@ function M.stop(url)
     end
 end
 
-function M.unload(url)
-    M.stop(url)
-    loader.unload(url)
+function M.unload(uri)
+    M.stop(uri)
+    loader.unload(uri)
 end
 
 function M.dumpCallbacks()
@@ -66,9 +66,9 @@ end
 --
 AudioObject = class('AudioObject', Dispatcher)
 
-function AudioObject:ctor(url, loop, volume)
-    self.url = url
-    self.path = filesystem.localCachePath(url)
+function AudioObject:ctor(uri, loop, volume)
+    self.uri = uri
+    self.path = filesystem.localPath(uri)
     self.loop = loop == true
     self.volume = volume or 1
     self.id = false
@@ -76,12 +76,12 @@ function AudioObject:ctor(url, loop, volume)
 
     -- play later and then you can listen event
     runtime.once('runtimeUpdate', function ()
-        self.assetRef = loader.load(url, function (success)
+        self.assetRef = loader.load(uri, function (success)
             if not success then
                 self.state = 'loadError'
                 self:dispatch(Event.STOP)
-                if not string.find(url, '^https?://') then
-                    error(string.format("audio file not found: %s", url))
+                if not filesystem.isRemoteuri(uri) then
+                    error(string.format("audio file not found: %s", uri))
                 end
                 return
             end
@@ -98,7 +98,7 @@ function AudioObject:_play()
     if not self.id then
         self.id = AudioEngine.play2d(self.path, self.loop, self.volume)
         if self.id == -1 then
-            trace('[NO] play: %s', self.url)
+            trace('[NO] play: %s', self.uri)
             self:stop()
             self:dispatch(Event.STOP)
             return

@@ -40,7 +40,7 @@
 
 NS_CC_BEGIN
 
-#define MAX_AUDIOINSTANCES 32
+#define MAX_AUDIOINSTANCES 64
 
 class CC_DLL AudioEngineImpl : public cocos2d::Ref
 {

@@ -262,8 +262,19 @@ end
 
 function toolset.bash(expr)
     expr = toolset.format(expr)
+    local flag = false
     for cmd in string.gmatch(expr, '[^\n\r]+') do
-        print("bash: " .. cmd)
+        if string.find(cmd, '[\\] *$') then
+            if flag then
+                print("      " .. cmd)
+            else
+                print("bash: " .. cmd)
+            end
+            flag = true
+        else
+            flag = false
+            print("bash: " .. cmd)
+        end
     end
     os.execute(expr)
 end

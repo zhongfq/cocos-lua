@@ -36,7 +36,7 @@ end)
 REG('cclua.filesystem', function ()
     return setmetatable({
         dir = false,
-        localCachePath = false,
+        localPath = false,
         exist = function () end,
         sdCardDirectory = M.DUMMY_STR,
         documentDirectory = M.DUMMY_STR,

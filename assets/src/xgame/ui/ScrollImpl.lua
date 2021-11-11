@@ -151,9 +151,9 @@ function ScrollImpl:dispatchScrolling(lastX, lastY, x, y)
     if mathEqual(lastY, y) then
         vertical = Align.NONE
     elseif lastY < y then
-        vertical = Align.TOP
-    else
         vertical = Align.BOTTOM
+    else
+        vertical = Align.TOP
     end
     self._target:dispatch(TouchEvent.SCROLLING, horizontal, vertical)
 end

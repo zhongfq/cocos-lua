@@ -258,6 +258,7 @@ if(APPLE)
     target_compile_options(cocos2d PRIVATE -Wno-reorder)
     target_compile_options(cocos2d PRIVATE -Wno-deprecated-declarations)
     target_compile_options(cocos2d PRIVATE -Wno-shorten-64-to-32)
+    target_compile_options(cocos2d PRIVATE -Wno-comma)
     if(CCLUA_BUILD_FAIRYGUI)
         target_compile_options(fairygui PRIVATE -Wno-reorder)
     endif()
@@ -282,13 +283,6 @@ if(APPLE)
         set_xcode_property(${APP_NAME} INFOPLIST_FILE "${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Info.plist")
         set_xcode_property(${APP_NAME} ASSETCATALOG_COMPILER_APPICON_NAME "AppIcon")
         set_xcode_property(${APP_NAME} CODE_SIGN_ENTITLEMENTS "${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/app.entitlements")
-    endif()
-
-    if(IOS)
-        set(BUGLY_UPLOAD_COMMAND sh ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/bugly.sh)
-        set(BUGLY_UPLOAD_ARGS ${APP_PACKAGE_NAME} ${BUGLY_APPID} ${BUGLY_SECRET})
-        add_custom_command(TARGET ${APP_NAME} POST_BUILD
-            COMMAND ${BUGLY_UPLOAD_COMMAND} ${BUGLY_UPLOAD_ARGS})
     endif()
 
     # For code-signing, set the DEVELOPMENT_TEAM:

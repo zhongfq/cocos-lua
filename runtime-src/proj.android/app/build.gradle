@@ -1,12 +1,6 @@
 import org.gradle.internal.os.OperatingSystem;
 apply plugin: 'com.android.application'
-apply plugin: 'bugly'
 //apply plugin: 'com.huawei.agconnect' @huawei
-
-bugly {
-    appId = 'c082cf3ca0'
-    appKey = 'c332369f-17b2-4f8e-9481-5810319e8c46'
-}
 
 android {
     compileSdkVersion PROP_COMPILE_SDK_VERSION.toInteger()

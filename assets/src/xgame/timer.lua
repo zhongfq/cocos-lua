@@ -96,23 +96,23 @@ local function createScheduler()
     local entries = {}
     local willAddedEntries = {}
     local dispatching = false
-    local id = 0
+    local ref = 0
     local inst = {}
     
     function inst:schedule(interval, callback)
         assert(callback)
         assert(interval >= 0)
     
-        local entries = dispatching and willAddedEntries or entries
+        local usingEntries = dispatching and willAddedEntries or entries
     
-        id = id + 1
-        entries[id] = {
+        ref = ref + 1
+        usingEntries[ref] = {
             interval = interval,
             time = timestamp + interval,
             callback = callback,
         }
     
-        return id
+        return ref
     end
     
     function inst:unschedule(id)
@@ -215,12 +215,12 @@ function timer.new()
         handlers = {}
     end
     
-    function inst:schedule(interval, callback)
-        return scheduler:schedule(interval, callback)
+    function inst:schedule(...)
+        return scheduler:schedule(...)
     end
     
-    function inst:unschedule(id)
-        scheduler:unschedule(id)
+    function inst:unschedule(...)
+        scheduler:unschedule(...)
     end
     
     function inst:clear()

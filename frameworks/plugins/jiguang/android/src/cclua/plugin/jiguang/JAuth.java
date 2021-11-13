@@ -348,8 +348,7 @@ public class JAuth {
             }
             if (data.has("privacyText")) {
                 JSONArray arr = data.getJSONArray("privacyText");
-                builder.setPrivacyText(arr.getString(0), arr.getString(1),
-                        arr.getString(2), arr.getString(3));
+                builder.setPrivacyText(arr.getString(0), arr.getString(1));
             }
             if (data.has("checkedImgPath")) {
                 builder.setCheckedImgPath(data.getString("checkedImgPath"));
@@ -526,7 +525,7 @@ public class JAuth {
         builder.setLogBtnWidth(300);
         builder.setLogBtnHeight(45);
         builder.setAppPrivacyColor(0xFFBBBCC5, 0xFF8998FF);
-        builder.setPrivacyText("登录即同意《", "", "", "》并授权此APP获取本机号码");
+        builder.setPrivacyText("登录即同意","并使用本机号码登录");
         builder.setPrivacyCheckboxHidden(true);
         builder.setPrivacyTextCenterGravity(true);
         builder.setPrivacyTextSize(12);
@@ -556,7 +555,7 @@ public class JAuth {
         builder.setLogBtnHeight(45);
         builder.setAppPrivacyColor(0xFFBBBCC5, 0xFF8998FF);
         // builder.setPrivacyTopOffsetY(310);
-        builder.setPrivacyText("登录即同意《", "", "", "》并授权此APP获取本机号码");
+        builder.setPrivacyText("登录即同意", "并使用本机号码登录");
         builder.setPrivacyCheckboxHidden(true);
         builder.setPrivacyTextCenterGravity(true);
         builder.setPrivacyTextSize(12);
@@ -591,7 +590,7 @@ public class JAuth {
         builder.setLogBtnHeight(44);
         builder.setLogBtnWidth(250);
         builder.setAppPrivacyColor(0xFFBBBCC5, 0xFF8998FF);
-        builder.setPrivacyText("登录即同意《", "", "", "》并授权此APP获取本机号码");
+        builder.setPrivacyText("登录即同意", "并授权此APP获取本机号码");
         builder.setPrivacyCheckboxHidden(true);
         builder.setPrivacyTextCenterGravity(true);
 //        uiConfigBuilder.setPrivacyOffsetX(52-15);
@@ -663,7 +662,7 @@ public class JAuth {
         builder.setLogBtnHeight(44);
         builder.setLogBtnWidth(250);
         builder.setAppPrivacyColor(0xFFBBBCC5, 0xFF8998FF);
-        builder.setPrivacyText("登录即同意《", "", "", "》并授权此APP获取本机号码");
+        builder.setPrivacyText("登录即同意",  "并授权此APP获取本机号码");
         builder.setPrivacyCheckboxHidden(true);
         builder.setPrivacyTextCenterGravity(true);
 //        uiConfigBuilder.setPrivacyOffsetX(52-15);

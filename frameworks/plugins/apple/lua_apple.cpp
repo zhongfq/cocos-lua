@@ -41,6 +41,8 @@ static int _cclua_plugin_AppleAuth_auth(lua_State *L)
 
             olua_callback(L, cb_store, cb_name.c_str(), 1);
 
+            olua_removecallback(L, cb_store, cb_name.c_str(), OLUA_TAG_WHOLE);
+
             //pop stack value
             olua_pop_objpool(L, last);
             lua_settop(L, top);

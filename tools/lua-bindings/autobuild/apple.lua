@@ -27,7 +27,7 @@ typeconf 'cclua::plugin::AppleAuth'
         TAG_MAKER = 'auth',
         TAG_MODE = 'OLUA_TAG_REPLACE',
         TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        TAG_SCOPE = 'once',
     }
 
 typeconf 'cclua::plugin::AppleIAP'

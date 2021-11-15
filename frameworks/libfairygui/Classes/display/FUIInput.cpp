@@ -47,7 +47,7 @@ void FUIInput::setText(const std::string & value)
 
 void FUIInput::applyTextFormat()
 {
-    setFontName(_textFormat->face.c_str());
+    setFontName(UIConfig::getRealFontName(_textFormat->face).c_str());
     setFontSize(_textFormat->fontSize);
     setPlaceholderFontSize(_textFormat->fontSize);
     setFontColor(_textFormat->color);

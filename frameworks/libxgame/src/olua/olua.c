@@ -444,7 +444,7 @@ OLUA_API void olua_pop_objpool(lua_State *L, size_t position)
 {
     if (olua_likely(registry_rawgetf(L, OLUA_POOLTABLE) == LUA_TTABLE)) {
         size_t len = (size_t)lua_rawlen(L, -1);
-        olua_assert(position < len, "invalid position");
+        olua_assert(position <= len, "invalid position");
         aux_getvmstatus(L)->poolsize = position;
         for (size_t i = position + 1; i <= len; i++) {
             olua_rawgeti(L, -1, (lua_Integer)i);

@@ -115,6 +115,10 @@ function WeChat:open(id, path, type)
     Impl.open(assert(id), path or '', type or 0)
 end
 
+function WeChat:openCustomerService(corpid, url)
+    Impl.openCustomerService(corpid, url)
+end
+
 function WeChat:_onResume()
     runtime.off(Event.RUNTIME_RESUME, self._onResume)
     

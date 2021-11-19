@@ -32,7 +32,7 @@ target_include_directories(${LIBNAME}
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..
 )
 
-target_link_libraries(${LIBNAME} PRIVATE xgame)
+target_link_libraries(${LIBNAME} PRIVATE xgame cocos2d)
 
 if(IOS)
     target_link_libraries(${LIBNAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/ios/libWeChatSDK.a)

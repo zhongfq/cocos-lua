@@ -33,6 +33,7 @@ enum WXScene {
     WXSceneTimeline         = 1,   /**< 朋友圈     */
     WXSceneFavorite         = 2,   /**< 收藏       */
     WXSceneSpecifiedSession = 3,   /**< 指定联系人  */
+    WXSceneState            = 4,   /**< 状态  */
 };
 
 
@@ -163,7 +164,6 @@ typedef void(^WXCheckULCompletion)(WXULCheckStep step, WXCheckULStepResult* resu
 #pragma mark - WXMediaMessage
 @class WXMediaMessage;
 
-
 #pragma mark - SendAuthReq
 /*! @brief 第三方程序向微信终端请求认证的消息结构
  *
@@ -201,7 +201,55 @@ typedef void(^WXCheckULCompletion)(WXULCheckStep step, WXCheckULStepResult* resu
 @property (nonatomic, copy, nullable) NSString *country;
 @end
 
+#pragma mark - WXStateJumpInfo
+/*! @brief 状态发表时的小尾巴跳转信息
+ */
+@interface WXStateJumpInfo : NSObject
 
+@end
+
+#pragma mark - WXStateJumpUrlInfo
+/*! @brief 状态小尾巴跳转指定url的信息
+ */
+@interface WXStateJumpUrlInfo : WXStateJumpInfo
+/** 跳转到指定的url
+ * @note 必填，url长度必须大于0且小于10K
+ */
+@property (nonatomic, copy) NSString *url;
+
+@end
+
+#pragma mark - WXStateSceneDataObject
+/*! @brief 场景类型额外参数基类
+ */
+@interface WXSceneDataObject : NSObject
+
+@end
+
+#pragma mark - WXStateSceneDataObject
+/*! @brief 状态场景类型
+ * 用户填写WXStateSceneDataObject参数后，可以跳转到微信状态发表页
+ */
+@interface WXStateSceneDataObject : WXSceneDataObject
+
+/** 状态标志的ID
+ * @note 选填，文本长度必须小于10K
+ */
+@property (nonatomic, copy) NSString *stateId;
+/** 状态发表时附带的文本描述
+ * @note 选填，文本长度必须小于10K
+ */
+@property (nonatomic, copy) NSString *stateTitle;
+/** 后台校验token
+ * @note 选填，文本长度必须小于10K
+ */
+@property (nonatomic, copy) NSString *token;
+/** 小尾巴跳转所需的信息
+ * @note 必填，目前仅支持url跳转
+ */
+@property (nonatomic, strong) WXStateJumpInfo *stateJumpDataInfo;
+
+@end
 
 #pragma mark - SendMessageToWXReq
 /*! @brief 第三方程序发送消息至微信终端程序的消息结构体
@@ -229,6 +277,11 @@ typedef void(^WXCheckULCompletion)(WXULCheckStep step, WXCheckULStepResult* resu
  * @note WXSceneSpecifiedSession时有效
  */
 @property (nonatomic, copy, nullable) NSString *toUserOpenId;
+/** 目标场景附带信息
+ * @note 目前只针对状态场景
+ */
+@property (nonatomic, strong) WXSceneDataObject *sceneDataObject;
+
 @end
 
 #pragma mark - SendMessageToWXResp
@@ -745,6 +798,10 @@ typedef void(^WXCheckULCompletion)(WXULCheckStep step, WXCheckULStepResult* resu
  */
 @property (nonatomic, copy, nullable) NSString *identification;
 
+/**运营H5地址
+ * @note 选填，建议填写，用户进入歌曲详情页将展示内嵌的运营H5，可展示该歌曲的相关评论、歌曲推荐等内容，不可诱导下载、分享等。
+ */
+@property (nonatomic, copy, nullable) NSString *musicOperationUrl;
 
 @end
 
@@ -1076,4 +1133,28 @@ typedef void(^WXCheckULCompletion)(WXULCheckStep step, WXCheckULStepResult* resu
 @property (nonatomic, copy, nullable) NSString *extMsg;
 
 @end
+
+#pragma mark - WXOpenCustomerServiceReq
+@interface WXOpenCustomerServiceReq : BaseReq
+
++ (WXOpenCustomerServiceReq *)object;
+
+/**企微客服发起流程 url
+ */
+@property (nonatomic, copy, nullable) NSString *url;
+
+/**企业 id
+ */
+@property (nonatomic, copy, nullable) NSString *corpid;
+
+@end
+
+@interface WXOpenCustomerServiceResp : BaseResp
+
+/** 业务返回数据
+ */
+@property (nonatomic, copy, nullable) NSString *extMsg;
+
+@end
+
 NS_ASSUME_NONNULL_END

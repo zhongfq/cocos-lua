@@ -290,6 +290,16 @@ void WeChat::open(const std::string &username, const std::string path, ProgramTy
     }
 }
 
+void WeChat::openCustomerService(const std::string &corpid, const std::string &url)
+{
+    @autoreleasepool {
+        WXOpenCustomerServiceReq *req = [[WXOpenCustomerServiceReq alloc] init];
+        req.corpid = toNSString(corpid);
+        req.url = toNSString(url);
+        [WXApi sendReq:req completion:nil];
+    }
+}
+
 NS_CCLUA_PLUGIN_END
 
 #endif

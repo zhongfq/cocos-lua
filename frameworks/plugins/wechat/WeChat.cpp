@@ -61,6 +61,11 @@ void WeChat::open(const std::string &username, const std::string path, ProgramTy
     Jni::callStaticVoidMethod("open", username, path, (int)type, callback("open"));
 }
 
+void WeChat::openCustomerService(const std::string &corpid, const std::string &url)
+{
+    Jni::callStaticVoidMethod("openCustomerService", corpid, url);
+}
+
 NS_CCLUA_PLUGIN_END
 
 #endif

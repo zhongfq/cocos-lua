@@ -25,6 +25,7 @@ public:
     static void stopAuth();
     static void share(ShareType type, cocos2d::ValueMap &value);
     static void open(const std::string &username, const std::string path = "", ProgramType type = ProgramType::RELEASE);
+    static void openCustomerService(const std::string &corpid, const std::string &url);
 
     DISPATCHER_IMPL
 };

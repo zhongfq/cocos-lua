@@ -13,6 +13,7 @@ import com.tencent.mm.opensdk.diffdev.OAuthErrCode;
 import com.tencent.mm.opensdk.diffdev.OAuthListener;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
+import com.tencent.mm.opensdk.modelbiz.WXOpenCustomerServiceChat;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXImageObject;
@@ -379,4 +380,20 @@ public class WeChat {
         api.sendReq(req);
     }
 
+    public static void openCustomerService(String corpid, String url) {
+        AppContext context = (AppContext)Cocos2dxActivity.getContext();
+        IWXAPI api = WXAPIFactory.createWXAPI(context, WeChat.APP_ID);
+
+        WeChat.notifyRespose = new WeChatCallback() {
+            @Override
+            public void onResponse(BaseResp baseResp) {
+                WeChat.notifyRespose = NULL_CALLBACK;
+            }
+        };
+
+        WXOpenCustomerServiceChat.Req req = new WXOpenCustomerServiceChat.Req();
+        req.corpId = corpid;
+        req.url = url;
+        api.sendReq(req);
+    }
 }

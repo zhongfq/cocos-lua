@@ -222,6 +222,24 @@ static int _cclua_plugin_WeChat_open(lua_State *L)
     return 0;
 }
 
+static int _cclua_plugin_WeChat_openCustomerService(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::string arg1;       /** corpid */
+    std::string arg2;       /** url */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+
+    // static void openCustomerService(const std::string &corpid, const std::string &url)
+    cclua::plugin::WeChat::openCustomerService(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 #ifdef CCLUA_OS_ANDROID
 static int _cclua_plugin_WeChat_pay(lua_State *L)
 {
@@ -330,6 +348,7 @@ static int luaopen_cclua_plugin_WeChat(lua_State *L)
     oluacls_func(L, "init", _cclua_plugin_WeChat_init);
     oluacls_func(L, "isInstalled", _cclua_plugin_WeChat_isInstalled);
     oluacls_func(L, "open", _cclua_plugin_WeChat_open);
+    oluacls_func(L, "openCustomerService", _cclua_plugin_WeChat_openCustomerService);
 #ifdef CCLUA_OS_ANDROID
     oluacls_func(L, "pay", _cclua_plugin_WeChat_pay);
 #endif

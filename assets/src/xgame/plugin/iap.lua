@@ -72,6 +72,7 @@ end
 
 if runtime.support('apple.iap') then
     AppleIAP = require "cclua.plugin.AppleIAP"
+    AppleIAP.init()
 else
     AppleIAP = setmetatable({}, {__index = function (_, func)
         return function ()

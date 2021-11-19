@@ -120,6 +120,9 @@ Dispatcher AppleIAP::_dispatcher;
 
 + (instancetype) defaultDelegate;
 
+- (instancetype)init;
+- (void)dealloc;
+
 // SKPaymentTransactionObserver
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray<SKPaymentTransaction *> *)transactions;
 - (void)paymentQueue:(SKPaymentQueue *)queue removedTransactions:(NSArray<SKPaymentTransaction *> *)transactions;
@@ -150,7 +153,7 @@ static cocos2d::ValueMap toValueMap(SKPaymentTransaction *transaction)
         if (receipt) {
             cocos2d::ValueMap receiptDict;
             setValueMap(receiptDict, "receipt-data", toValue([receipt base64EncodedStringWithOptions:0]));
-            setValueMap(dict, "receipt", cocos2d::Value(receiptDict));
+            setValueMap(dict, "receipt", cocos2d::Value(toJSONString(receiptDict)));
         }
     }
     
@@ -202,6 +205,17 @@ static cocos2d::ValueVector toValueVector(NSArray<SKProduct *> *products)
         inst = [[AppleIAPDelegate alloc] init];
     }
     return inst;
+}
+
+- (instancetype)init
+{
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+    return [super init];
+}
+
+- (void)dealloc
+{
+    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray<SKPaymentTransaction *> *)transactions
@@ -282,6 +296,14 @@ static cocos2d::ValueVector toValueVector(NSArray<SKProduct *> *products)
 }
 
 @end
+
+void AppleIAP::init()
+{
+    @autoreleasepool {
+        // init
+        [AppleIAPDelegate defaultDelegate];
+    }
+}
 
 bool AppleIAP::canMakePayments()
 {

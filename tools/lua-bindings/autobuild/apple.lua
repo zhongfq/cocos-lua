@@ -36,6 +36,7 @@ typeconf 'cclua::plugin::AppleIAP'
     .chunk(nil)
     .require([[cclua::runtime::registerFeature("apple.iap.ios", true);]])
     .ifdef('*', '#ifdef CCLUA_BUILD_APPLE_IAP')
+    .func(nil, 'static void init()')
     .func(nil, 'static bool canMakePayments()')
     .func(nil, 'static void requestProducts(const std::set<std::string> &products)')
     .func(nil, 'static void purchase(const std::string &product, @optional uint32_t quantify)')

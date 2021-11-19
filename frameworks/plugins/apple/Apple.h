@@ -22,6 +22,7 @@ public:
 
 class AppleIAP {
 public:
+    static void init();
     static bool canMakePayments();
     static void requestProducts(const std::set<std::string> &products);
     static void purchase(const std::string &product, uint32_t quantify = 1);

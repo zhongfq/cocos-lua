@@ -157,6 +157,18 @@ static int _cclua_plugin_AppleIAP_getPendingTransactions(lua_State *L)
     return num_ret;
 }
 
+static int _cclua_plugin_AppleIAP_init(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static void init()
+    cclua::plugin::AppleIAP::init();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cclua_plugin_AppleIAP_purchase1(lua_State *L)
 {
     olua_startinvoke(L);
@@ -292,6 +304,7 @@ static int luaopen_cclua_plugin_AppleIAP(lua_State *L)
     oluacls_func(L, "dispatch", _cclua_plugin_AppleIAP_dispatch);
     oluacls_func(L, "finishTransaction", _cclua_plugin_AppleIAP_finishTransaction);
     oluacls_func(L, "getPendingTransactions", _cclua_plugin_AppleIAP_getPendingTransactions);
+    oluacls_func(L, "init", _cclua_plugin_AppleIAP_init);
     oluacls_func(L, "purchase", _cclua_plugin_AppleIAP_purchase);
     oluacls_func(L, "requestProducts", _cclua_plugin_AppleIAP_requestProducts);
     oluacls_func(L, "restoreCompletedTransactions", _cclua_plugin_AppleIAP_restoreCompletedTransactions);

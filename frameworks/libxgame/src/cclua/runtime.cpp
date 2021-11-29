@@ -6,8 +6,10 @@
 #include "cclua/preferences.h"
 #include "cclua/RootScene.h"
 #include "cclua/timer.h"
+#include "cclua/window.h"
 #include "cclua/xlua.h"
 #include "lua-bindings/lua_bindings.h"
+#include "ui/CocosGUI.h"
 
 #if defined(CCLUA_OS_ANDROID) || defined(CCLUA_OS_IOS)
 #include "bugly/CrashReport.h"
@@ -21,8 +23,10 @@
 #include <deque>
 
 USING_NS_CC;
+USING_NS_CCLUA;
 
-NS_CCLUA_BEGIN
+#define CCLUA_ENV_PREFIX "cclua-env."
+
 static bool _restarting = false;
 static lua_State *_luaVM = nullptr;
 static std::vector<lua_CFunction> _luaLibs;
@@ -31,7 +35,7 @@ static std::vector<std::pair<std::string, std::string>> _suspendedEvents;
 static std::string _openURI;
 static std::unordered_map<std::string, bool> _supportedFeatures;
 static std::unordered_map<std::string, bool> _tracebackCaches;
-static std::unordered_map<std::string, std::string> _properties;
+static std::unordered_map<std::string, std::string> _envs;
 static int _sampleCount = 1;
 static std::unordered_map<int, runtime::RefCallback> _refCallbacks;
 static int _refCount = -1;
@@ -248,7 +252,7 @@ void runtime::luaOpen(lua_CFunction libfunc)
 //
 const std::string runtime::getVersion()
 {
-    return "2.4.12";
+    return "2.4.14";
 }
 
 const uint64_t runtime::getCocosVersion()
@@ -306,20 +310,30 @@ const std::string runtime::getNetworkStatus()
     return __runtime_getNetworkStatus();
 }
 
-bool runtime::hasProperty(const std::string &key)
+std::string runtime::getEnv(const std::string &key)
 {
-    return _properties.find(key) != _properties.end();
+    if (_envs.find(key) != _envs.end()) {
+        return _envs[key];
+    }
+    return preferences::getString(CCLUA_ENV_PREFIX + key);
 }
 
-std::string runtime::getProperty(const std::string &key)
+void runtime::setEnv(const std::string &key, const std::string &value, bool save)
 {
-    return runtime::hasProperty(key) ? _properties[key] : "";
+    if (save) {
+        if (value == "") {
+            preferences::deleteKey(CCLUA_ENV_PREFIX + key);
+        } else {
+            preferences::setString(CCLUA_ENV_PREFIX + key, value);
+        }
+    }
+    if (value == "") {
+        _envs.erase(key);
+    } else {
+        _envs[key] = value;
+    }
 }
 
-void runtime::setProperty(const std::string &key, const std::string &value)
-{
-    _properties[key] = value;
-}
 
 const std::string runtime::getPaste()
 {
@@ -714,6 +728,53 @@ void runtime::log(const char *fmt, ...)
     }
 }
 
+void runtime::showLog()
+{
+    Size frameSize = window::getFrameSize();
+    window::setDesignSize(Size(750 * frameSize.width / frameSize.height, 750), ResolutionPolicy::NO_BORDER);
+    
+    Rect rect = window::getVisibleBounds();
+    Size size = window::getVisibleSize();
+    Scene *scene = Scene::create();
+    scene->setIgnoreAnchorPointForPosition(true);
+    
+    ui::Layout *view = ui::Layout::create();
+    view->setIgnoreAnchorPointForPosition(true);
+    view->setBackGroundColor(Color3B::BLACK);
+    view->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
+    view->setContentSize(size);
+    view->setPosition(rect.origin);
+    
+    cocos2d::Data log = filesystem::read(runtime::getLogPath());
+    ui::Text *label = ui::Text::create();
+    label->setFontSize(25);
+    label->setString((const char *)log.getBytes());
+    label->setTextColor(Color4B::WHITE);
+    label->setIgnoreAnchorPointForPosition(true);
+    label->setTouchEnabled(false);
+    
+    ui::ScrollView *scroll = ui::ScrollView::create();
+    scroll->setIgnoreAnchorPointForPosition(true);
+    scroll->addChild(label);
+    scroll->setContentSize(size);
+    scroll->setInnerContainerSize(label->getContentSize());
+    view->addChild(scroll);
+    
+    ui::Button *btn = ui::Button::create();
+    btn->setContentSize(Size(120, 80));
+    btn->setTitleText("Restart");
+    btn->getTitleLabel()->setSystemFontSize(40);
+    btn->setIgnoreAnchorPointForPosition(true);
+    btn->setPosition(Vec2(size.width - 150, 0));
+    btn->addClickEventListener([](Ref *target) {
+        runtime::restart();
+    });
+    view->addChild(btn);
+    view->setAnchorPoint(Vec2(0.5f, 0.5f));
+    view->setScale(0.9, 0.9);
+    runtime::getRunningScene()->addChild(view);
+}
+
 //
 // msaa antialias
 //
@@ -964,5 +1025,3 @@ void RuntimeContext::applicationWillTerminate()
     director->mainLoop();
 #endif
 }
-
-NS_CCLUA_END

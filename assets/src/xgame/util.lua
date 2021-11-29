@@ -87,9 +87,13 @@ function M.dump(root, ...)
                 table.insert(tbl, space .. tostring(k) .. " = " .. tostring(v))
             else
                 filter[v] = name .. "." .. tostring(k)
-                table.insert(tbl, space .. tostring(k) .. " = {")
-                _dump(v, name .. "." .. tostring(k),  space)
-                table.insert(tbl, space .. "}")
+                if next(v) then
+                    table.insert(tbl, space .. tostring(k) .. " = {")
+                    _dump(v, name .. "." .. tostring(k),  space)
+                    table.insert(tbl, space .. "}")
+                else
+                    table.insert(tbl, space .. tostring(k) .. " = {}")
+                end
             end
         end
     end

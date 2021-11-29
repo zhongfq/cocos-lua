@@ -11,7 +11,7 @@ function Manifest:ctor(path)
     self._tag = timer.createTag()
     self._flushing = false
     self._path = path
-    self._key = runtime.getProperty('cclua.metadata.key')
+    self._key = runtime.getEnv('cclua.metadata.key')
     if filesystem.exist(path) then
         self:setContent(filesystem.read(path))
     else

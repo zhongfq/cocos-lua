@@ -446,6 +446,23 @@ static int _cclua_runtime_getDeviceInfo(lua_State *L)
     return num_ret;
 }
 
+static int _cclua_runtime_getEnv(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::string arg1;       /** key */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static std::string getEnv(const std::string &key)
+    std::string ret = cclua::runtime::getEnv(arg1);
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cclua_runtime_getEventDispatcher(lua_State *L)
 {
     olua_startinvoke(L);
@@ -640,23 +657,6 @@ static int _cclua_runtime_getProgramCache(lua_State *L)
     return num_ret;
 }
 
-static int _cclua_runtime_getProperty(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    std::string arg1;       /** key */
-
-    olua_check_std_string(L, 1, &arg1);
-
-    // static std::string getProperty(const std::string &key)
-    std::string ret = cclua::runtime::getProperty(arg1);
-    int num_ret = olua_push_std_string(L, ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
 static int _cclua_runtime_getRunningScene(lua_State *L)
 {
     olua_startinvoke(L);
@@ -770,23 +770,6 @@ static int _cclua_runtime_getVersion(lua_State *L)
     // static const std::string getVersion()
     const std::string ret = cclua::runtime::getVersion();
     int num_ret = olua_push_std_string(L, ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _cclua_runtime_hasProperty(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    std::string arg1;       /** key */
-
-    olua_check_std_string(L, 1, &arg1);
-
-    // static bool hasProperty(const std::string &key)
-    bool ret = cclua::runtime::hasProperty(arg1);
-    int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
 
@@ -1174,6 +1157,67 @@ static int _cclua_runtime_setDisplayStats(lua_State *L)
     return 0;
 }
 
+static int _cclua_runtime_setEnv1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::string arg1;       /** key */
+    std::string arg2;       /** value */
+    bool arg3 = false;       /** save */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_bool(L, 3, &arg3);
+
+    // static void setEnv(const std::string &key, const std::string &value, @optional bool save)
+    cclua::runtime::setEnv(arg1, arg2, arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cclua_runtime_setEnv2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::string arg1;       /** key */
+    std::string arg2;       /** value */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+
+    // static void setEnv(const std::string &key, const std::string &value, @optional bool save)
+    cclua::runtime::setEnv(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cclua_runtime_setEnv(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
+            // static void setEnv(const std::string &key, const std::string &value, @optional bool save)
+            return _cclua_runtime_setEnv2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
+            // static void setEnv(const std::string &key, const std::string &value, @optional bool save)
+            return _cclua_runtime_setEnv1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cclua::runtime::setEnv' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
 static int _cclua_runtime_setFrameRate(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1238,24 +1282,6 @@ static int _cclua_runtime_setPaste(lua_State *L)
     return 0;
 }
 
-static int _cclua_runtime_setProperty(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    std::string arg1;       /** key */
-    std::string arg2;       /** value */
-
-    olua_check_std_string(L, 1, &arg1);
-    olua_check_std_string(L, 2, &arg2);
-
-    // static void setProperty(const std::string &key, const std::string &value)
-    cclua::runtime::setProperty(arg1, arg2);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 static int _cclua_runtime_setSampleCount(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1266,6 +1292,18 @@ static int _cclua_runtime_setSampleCount(lua_State *L)
 
     // static void setSampleCount(unsigned int samples)
     cclua::runtime::setSampleCount((unsigned int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cclua_runtime_showLog(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static void showLog()
+    cclua::runtime::showLog();
 
     olua_endinvoke(L);
 
@@ -1320,6 +1358,7 @@ static int luaopen_cclua_runtime(lua_State *L)
     oluacls_func(L, "getChannel", _cclua_runtime_getChannel);
     oluacls_func(L, "getCocosVersion", _cclua_runtime_getCocosVersion);
     oluacls_func(L, "getDeviceInfo", _cclua_runtime_getDeviceInfo);
+    oluacls_func(L, "getEnv", _cclua_runtime_getEnv);
     oluacls_func(L, "getEventDispatcher", _cclua_runtime_getEventDispatcher);
     oluacls_func(L, "getFileUtils", _cclua_runtime_getFileUtils);
     oluacls_func(L, "getFrameRate", _cclua_runtime_getFrameRate);
@@ -1333,7 +1372,6 @@ static int luaopen_cclua_runtime(lua_State *L)
     oluacls_func(L, "getPaste", _cclua_runtime_getPaste);
     oluacls_func(L, "getPermissionStatus", _cclua_runtime_getPermissionStatus);
     oluacls_func(L, "getProgramCache", _cclua_runtime_getProgramCache);
-    oluacls_func(L, "getProperty", _cclua_runtime_getProperty);
     oluacls_func(L, "getRunningScene", _cclua_runtime_getRunningScene);
     oluacls_func(L, "getSampleCount", _cclua_runtime_getSampleCount);
     oluacls_func(L, "getScheduler", _cclua_runtime_getScheduler);
@@ -1341,7 +1379,6 @@ static int luaopen_cclua_runtime(lua_State *L)
     oluacls_func(L, "getTextureCache", _cclua_runtime_getTextureCache);
     oluacls_func(L, "getTime", _cclua_runtime_getTime);
     oluacls_func(L, "getVersion", _cclua_runtime_getVersion);
-    oluacls_func(L, "hasProperty", _cclua_runtime_hasProperty);
     oluacls_func(L, "isCocosThread", _cclua_runtime_isCocosThread);
     oluacls_func(L, "isDebug", _cclua_runtime_isDebug);
     oluacls_func(L, "isDisplayStats", _cclua_runtime_isDisplayStats);
@@ -1359,12 +1396,13 @@ static int luaopen_cclua_runtime(lua_State *L)
     oluacls_func(L, "setAudioSessionCatalog", _cclua_runtime_setAudioSessionCatalog);
     oluacls_func(L, "setDispatcher", _cclua_runtime_setDispatcher);
     oluacls_func(L, "setDisplayStats", _cclua_runtime_setDisplayStats);
+    oluacls_func(L, "setEnv", _cclua_runtime_setEnv);
     oluacls_func(L, "setFrameRate", _cclua_runtime_setFrameRate);
     oluacls_func(L, "setLogPath", _cclua_runtime_setLogPath);
     oluacls_func(L, "setManifestVersion", _cclua_runtime_setManifestVersion);
     oluacls_func(L, "setPaste", _cclua_runtime_setPaste);
-    oluacls_func(L, "setProperty", _cclua_runtime_setProperty);
     oluacls_func(L, "setSampleCount", _cclua_runtime_setSampleCount);
+    oluacls_func(L, "showLog", _cclua_runtime_showLog);
     oluacls_func(L, "support", _cclua_runtime_support);
     oluacls_func(L, "testCrash", _cclua_runtime_testCrash);
     oluacls_prop(L, "actionManager", _cclua_runtime_getActionManager, nullptr);
@@ -1941,11 +1979,11 @@ static int _cclua_preferences_deleteKey(lua_State *L)
 {
     olua_startinvoke(L);
 
-    const char *arg1 = nullptr;       /** key */
+    std::string arg1;       /** key */
 
-    olua_check_string(L, 1, &arg1);
+    olua_check_std_string(L, 1, &arg1);
 
-    // static void deleteKey(const char *key)
+    // static void deleteKey(const std::string &key)
     cclua::preferences::deleteKey(arg1);
 
     olua_endinvoke(L);
@@ -1969,13 +2007,13 @@ static int _cclua_preferences_getBoolean1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    const char *arg1 = nullptr;       /** key */
+    std::string arg1;       /** key */
     bool arg2 = false;       /** defaultValue */
 
-    olua_check_string(L, 1, &arg1);
+    olua_check_std_string(L, 1, &arg1);
     olua_check_bool(L, 2, &arg2);
 
-    // static bool getBoolean(const char *key, @optional bool defaultValue)
+    // static bool getBoolean(const std::string &key, @optional bool defaultValue)
     bool ret = cclua::preferences::getBoolean(arg1, arg2);
     int num_ret = olua_push_bool(L, ret);
 
@@ -1988,11 +2026,11 @@ static int _cclua_preferences_getBoolean2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    const char *arg1 = nullptr;       /** key */
+    std::string arg1;       /** key */
 
-    olua_check_string(L, 1, &arg1);
+    olua_check_std_string(L, 1, &arg1);
 
-    // static bool getBoolean(const char *key, @optional bool defaultValue)
+    // static bool getBoolean(const std::string &key, @optional bool defaultValue)
     bool ret = cclua::preferences::getBoolean(arg1);
     int num_ret = olua_push_bool(L, ret);
 
@@ -2006,15 +2044,15 @@ static int _cclua_preferences_getBoolean(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if ((olua_is_string(L, 1))) {
-            // static bool getBoolean(const char *key, @optional bool defaultValue)
+        // if ((olua_is_std_string(L, 1))) {
+            // static bool getBoolean(const std::string &key, @optional bool defaultValue)
             return _cclua_preferences_getBoolean2(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((olua_is_string(L, 1)) && (olua_is_bool(L, 2))) {
-            // static bool getBoolean(const char *key, @optional bool defaultValue)
+        // if ((olua_is_std_string(L, 1)) && (olua_is_bool(L, 2))) {
+            // static bool getBoolean(const std::string &key, @optional bool defaultValue)
             return _cclua_preferences_getBoolean1(L);
         // }
     }
@@ -2028,13 +2066,13 @@ static int _cclua_preferences_getDouble1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    const char *arg1 = nullptr;       /** key */
+    std::string arg1;       /** key */
     lua_Number arg2 = 0;       /** defaultValue */
 
-    olua_check_string(L, 1, &arg1);
+    olua_check_std_string(L, 1, &arg1);
     olua_check_number(L, 2, &arg2);
 
-    // static double getDouble(const char *key, @optional double defaultValue)
+    // static double getDouble(const std::string &key, @optional double defaultValue)
     double ret = cclua::preferences::getDouble(arg1, (double)arg2);
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
@@ -2047,11 +2085,11 @@ static int _cclua_preferences_getDouble2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    const char *arg1 = nullptr;       /** key */
+    std::string arg1;       /** key */
 
-    olua_check_string(L, 1, &arg1);
+    olua_check_std_string(L, 1, &arg1);
 
-    // static double getDouble(const char *key, @optional double defaultValue)
+    // static double getDouble(const std::string &key, @optional double defaultValue)
     double ret = cclua::preferences::getDouble(arg1);
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
@@ -2065,15 +2103,15 @@ static int _cclua_preferences_getDouble(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if ((olua_is_string(L, 1))) {
-            // static double getDouble(const char *key, @optional double defaultValue)
+        // if ((olua_is_std_string(L, 1))) {
+            // static double getDouble(const std::string &key, @optional double defaultValue)
             return _cclua_preferences_getDouble2(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((olua_is_string(L, 1)) && (olua_is_number(L, 2))) {
-            // static double getDouble(const char *key, @optional double defaultValue)
+        // if ((olua_is_std_string(L, 1)) && (olua_is_number(L, 2))) {
+            // static double getDouble(const std::string &key, @optional double defaultValue)
             return _cclua_preferences_getDouble1(L);
         // }
     }
@@ -2087,13 +2125,13 @@ static int _cclua_preferences_getFloat1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    const char *arg1 = nullptr;       /** key */
+    std::string arg1;       /** key */
     lua_Number arg2 = 0;       /** defaultValue */
 
-    olua_check_string(L, 1, &arg1);
+    olua_check_std_string(L, 1, &arg1);
     olua_check_number(L, 2, &arg2);
 
-    // static float getFloat(const char *key, @optional float defaultValue)
+    // static float getFloat(const std::string &key, @optional float defaultValue)
     float ret = cclua::preferences::getFloat(arg1, (float)arg2);
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
@@ -2106,11 +2144,11 @@ static int _cclua_preferences_getFloat2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    const char *arg1 = nullptr;       /** key */
+    std::string arg1;       /** key */
 
-    olua_check_string(L, 1, &arg1);
+    olua_check_std_string(L, 1, &arg1);
 
-    // static float getFloat(const char *key, @optional float defaultValue)
+    // static float getFloat(const std::string &key, @optional float defaultValue)
     float ret = cclua::preferences::getFloat(arg1);
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
@@ -2124,15 +2162,15 @@ static int _cclua_preferences_getFloat(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if ((olua_is_string(L, 1))) {
-            // static float getFloat(const char *key, @optional float defaultValue)
+        // if ((olua_is_std_string(L, 1))) {
+            // static float getFloat(const std::string &key, @optional float defaultValue)
             return _cclua_preferences_getFloat2(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((olua_is_string(L, 1)) && (olua_is_number(L, 2))) {
-            // static float getFloat(const char *key, @optional float defaultValue)
+        // if ((olua_is_std_string(L, 1)) && (olua_is_number(L, 2))) {
+            // static float getFloat(const std::string &key, @optional float defaultValue)
             return _cclua_preferences_getFloat1(L);
         // }
     }
@@ -2146,13 +2184,13 @@ static int _cclua_preferences_getInteger1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    const char *arg1 = nullptr;       /** key */
+    std::string arg1;       /** key */
     lua_Integer arg2 = 0;       /** defaultValue */
 
-    olua_check_string(L, 1, &arg1);
+    olua_check_std_string(L, 1, &arg1);
     olua_check_int(L, 2, &arg2);
 
-    // static int getInteger(const char *key, @optional int defaultValue)
+    // static int getInteger(const std::string &key, @optional int defaultValue)
     int ret = cclua::preferences::getInteger(arg1, (int)arg2);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
@@ -2165,11 +2203,11 @@ static int _cclua_preferences_getInteger2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    const char *arg1 = nullptr;       /** key */
+    std::string arg1;       /** key */
 
-    olua_check_string(L, 1, &arg1);
+    olua_check_std_string(L, 1, &arg1);
 
-    // static int getInteger(const char *key, @optional int defaultValue)
+    // static int getInteger(const std::string &key, @optional int defaultValue)
     int ret = cclua::preferences::getInteger(arg1);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
@@ -2183,15 +2221,15 @@ static int _cclua_preferences_getInteger(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if ((olua_is_string(L, 1))) {
-            // static int getInteger(const char *key, @optional int defaultValue)
+        // if ((olua_is_std_string(L, 1))) {
+            // static int getInteger(const std::string &key, @optional int defaultValue)
             return _cclua_preferences_getInteger2(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((olua_is_string(L, 1)) && (olua_is_int(L, 2))) {
-            // static int getInteger(const char *key, @optional int defaultValue)
+        // if ((olua_is_std_string(L, 1)) && (olua_is_int(L, 2))) {
+            // static int getInteger(const std::string &key, @optional int defaultValue)
             return _cclua_preferences_getInteger1(L);
         // }
     }
@@ -2205,13 +2243,13 @@ static int _cclua_preferences_getString1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    const char *arg1 = nullptr;       /** key */
-    const char *arg2 = nullptr;       /** defaultValue */
+    std::string arg1;       /** key */
+    std::string arg2;       /** defaultValue */
 
-    olua_check_string(L, 1, &arg1);
-    olua_check_string(L, 2, &arg2);
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
 
-    // static std::string getString(const char *key, @optional const char *defaultValue)
+    // static std::string getString(const std::string &key, @optional const std::string &defaultValue)
     std::string ret = cclua::preferences::getString(arg1, arg2);
     int num_ret = olua_push_std_string(L, ret);
 
@@ -2224,11 +2262,11 @@ static int _cclua_preferences_getString2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    const char *arg1 = nullptr;       /** key */
+    std::string arg1;       /** key */
 
-    olua_check_string(L, 1, &arg1);
+    olua_check_std_string(L, 1, &arg1);
 
-    // static std::string getString(const char *key, @optional const char *defaultValue)
+    // static std::string getString(const std::string &key, @optional const std::string &defaultValue)
     std::string ret = cclua::preferences::getString(arg1);
     int num_ret = olua_push_std_string(L, ret);
 
@@ -2242,15 +2280,15 @@ static int _cclua_preferences_getString(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if ((olua_is_string(L, 1))) {
-            // static std::string getString(const char *key, @optional const char *defaultValue)
+        // if ((olua_is_std_string(L, 1))) {
+            // static std::string getString(const std::string &key, @optional const std::string &defaultValue)
             return _cclua_preferences_getString2(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((olua_is_string(L, 1)) && (olua_is_string(L, 2))) {
-            // static std::string getString(const char *key, @optional const char *defaultValue)
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
+            // static std::string getString(const std::string &key, @optional const std::string &defaultValue)
             return _cclua_preferences_getString1(L);
         // }
     }
@@ -2264,13 +2302,13 @@ static int _cclua_preferences_setBoolean(lua_State *L)
 {
     olua_startinvoke(L);
 
-    const char *arg1 = nullptr;       /** key */
+    std::string arg1;       /** key */
     bool arg2 = false;       /** value */
 
-    olua_check_string(L, 1, &arg1);
+    olua_check_std_string(L, 1, &arg1);
     olua_check_bool(L, 2, &arg2);
 
-    // static void setBoolean(const char *key, bool value)
+    // static void setBoolean(const std::string &key, bool value)
     cclua::preferences::setBoolean(arg1, arg2);
 
     olua_endinvoke(L);
@@ -2282,13 +2320,13 @@ static int _cclua_preferences_setDouble(lua_State *L)
 {
     olua_startinvoke(L);
 
-    const char *arg1 = nullptr;       /** key */
+    std::string arg1;       /** key */
     lua_Number arg2 = 0;       /** value */
 
-    olua_check_string(L, 1, &arg1);
+    olua_check_std_string(L, 1, &arg1);
     olua_check_number(L, 2, &arg2);
 
-    // static void setDouble(const char *key, double value)
+    // static void setDouble(const std::string &key, double value)
     cclua::preferences::setDouble(arg1, (double)arg2);
 
     olua_endinvoke(L);
@@ -2300,13 +2338,13 @@ static int _cclua_preferences_setFloat(lua_State *L)
 {
     olua_startinvoke(L);
 
-    const char *arg1 = nullptr;       /** key */
+    std::string arg1;       /** key */
     lua_Number arg2 = 0;       /** value */
 
-    olua_check_string(L, 1, &arg1);
+    olua_check_std_string(L, 1, &arg1);
     olua_check_number(L, 2, &arg2);
 
-    // static void setFloat(const char *key, float value)
+    // static void setFloat(const std::string &key, float value)
     cclua::preferences::setFloat(arg1, (float)arg2);
 
     olua_endinvoke(L);
@@ -2318,13 +2356,13 @@ static int _cclua_preferences_setInteger(lua_State *L)
 {
     olua_startinvoke(L);
 
-    const char *arg1 = nullptr;       /** key */
+    std::string arg1;       /** key */
     lua_Integer arg2 = 0;       /** value */
 
-    olua_check_string(L, 1, &arg1);
+    olua_check_std_string(L, 1, &arg1);
     olua_check_int(L, 2, &arg2);
 
-    // static void setInteger(const char *key, int value)
+    // static void setInteger(const std::string &key, int value)
     cclua::preferences::setInteger(arg1, (int)arg2);
 
     olua_endinvoke(L);
@@ -2336,13 +2374,13 @@ static int _cclua_preferences_setString(lua_State *L)
 {
     olua_startinvoke(L);
 
-    const char *arg1 = nullptr;       /** key */
-    const char *arg2 = nullptr;       /** value */
+    std::string arg1;       /** key */
+    std::string arg2;       /** value */
 
-    olua_check_string(L, 1, &arg1);
-    olua_check_string(L, 2, &arg2);
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
 
-    // static void setString(const char *key, const char *value)
+    // static void setString(const std::string &key, const std::string &value)
     cclua::preferences::setString(arg1, arg2);
 
     olua_endinvoke(L);

@@ -117,10 +117,9 @@ public:
     static void setManifestVersion(const std::string &version);
     static const std::string getNetworkStatus();
     
-    // property value
-    static bool hasProperty(const std::string &key);
-    static std::string getProperty(const std::string &key);
-    static void setProperty(const std::string &key, const std::string &value);
+    // environment value
+    static std::string getEnv(const std::string &key);
+    static void setEnv(const std::string &key, const std::string &value, bool save = false);
     
     static const std::string getPaste();
     static void setPaste(const std::string &text);
@@ -164,6 +163,7 @@ public:
     static void setLogPath(const std::string &path);
     static const std::string getLogPath();
     static void log(const char *format, ...);
+    static void showLog();
     
     // msaa antialias for vector graphics
     static void setSampleCount(unsigned int samples);

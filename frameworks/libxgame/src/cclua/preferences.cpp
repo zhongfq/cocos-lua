@@ -6,64 +6,64 @@ USING_NS_CC;
 
 NS_CCLUA_BEGIN
 
-bool preferences::getBoolean(const char *key, bool defaultValue)
+bool preferences::getBoolean(const std::string &key, bool defaultValue)
 {
-    return UserDefault::getInstance()->getBoolForKey(key, defaultValue);
+    return UserDefault::getInstance()->getBoolForKey(key.c_str(), defaultValue);
 }
 
-void preferences::setBoolean(const char *key, bool value)
+void preferences::setBoolean(const std::string &key, bool value)
 {
-    UserDefault::getInstance()->setBoolForKey(key, value);
+    UserDefault::getInstance()->setBoolForKey(key.c_str(), value);
     preferences::delayFlush();
 }
 
-float preferences::getFloat(const char *key, float defaultValue)
+float preferences::getFloat(const std::string &key, float defaultValue)
 {
-    return UserDefault::getInstance()->getFloatForKey(key, defaultValue);
+    return UserDefault::getInstance()->getFloatForKey(key.c_str(), defaultValue);
 }
 
-void preferences::setFloat(const char *key, float value)
+void preferences::setFloat(const std::string &key, float value)
 {
-    UserDefault::getInstance()->setFloatForKey(key, value);
+    UserDefault::getInstance()->setFloatForKey(key.c_str(), value);
     preferences::delayFlush();
 }
 
-double preferences::getDouble(const char *key, double defaultValue)
+double preferences::getDouble(const std::string &key, double defaultValue)
 {
-    return UserDefault::getInstance()->getDoubleForKey(key, defaultValue);
+    return UserDefault::getInstance()->getDoubleForKey(key.c_str(), defaultValue);
 }
 
-void preferences::setDouble(const char *key, double value)
+void preferences::setDouble(const std::string &key, double value)
 {
-    UserDefault::getInstance()->setDoubleForKey(key, value);
+    UserDefault::getInstance()->setDoubleForKey(key.c_str(), value);
     preferences::delayFlush();
 }
 
-int preferences::getInteger(const char *key, int defaultValue)
+int preferences::getInteger(const std::string &key, int defaultValue)
 {
-    return UserDefault::getInstance()->getIntegerForKey(key, defaultValue);
+    return UserDefault::getInstance()->getIntegerForKey(key.c_str(), defaultValue);
 }
 
-void preferences::setInteger(const char *key, int value)
+void preferences::setInteger(const std::string &key, int value)
 {
-    UserDefault::getInstance()->setIntegerForKey(key, value);
+    UserDefault::getInstance()->setIntegerForKey(key.c_str(), value);
     preferences::delayFlush();
 }
 
-std::string preferences::getString(const char *key, const char *defaultValue)
+std::string preferences::getString(const std::string &key, const std::string &defaultValue)
 {
-    return UserDefault::getInstance()->getStringForKey(key, defaultValue);
+    return UserDefault::getInstance()->getStringForKey(key.c_str(), defaultValue);
 }
 
-void preferences::setString(const char *key, const char *value)
+void preferences::setString(const std::string &key, const std::string &value)
 {
-    UserDefault::getInstance()->setStringForKey(key, value);
+    UserDefault::getInstance()->setStringForKey(key.c_str(), value);
     preferences::delayFlush();
 }
 
-void preferences::deleteKey(const char *key)
+void preferences::deleteKey(const std::string &key)
 {
-    UserDefault::getInstance()->deleteValueForKey(key);
+    UserDefault::getInstance()->deleteValueForKey(key.c_str());
 }
 
 void preferences::flush()

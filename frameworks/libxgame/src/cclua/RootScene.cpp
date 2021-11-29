@@ -30,13 +30,13 @@ void RootScene::execute()
     if (xlua_dofile(L, _scriptPath.c_str()) == LUA_OK &&
         olua_getglobal(L, "main") == LUA_TFUNCTION) {
         olua_pcall(L, 0, 0);
+    } else if (runtime::getEnv("cclua.debug") == "true") {
+        runtime::log("launch error, see the console!!!");
+        runtime::clearStorage();
+        runtime::showLog();
     } else {
-#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
         runtime::clearStorage();
         runtime::restart();
-#else
-        runtime::log("launch error, see the console!!!");
-#endif
     }
     lua_settop(L, top);
 }

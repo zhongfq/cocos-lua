@@ -10,17 +10,17 @@ NS_CCLUA_BEGIN
 
 class preferences {
 public:
-    static bool getBoolean(const char *key, bool defaultValue = false);
-    static void setBoolean(const char *key, bool value);
-    static float getFloat(const char *key, float defaultValue = 0);
-    static void setFloat(const char *key, float value);
-    static double getDouble(const char *key, double defaultValue = 0);
-    static void setDouble(const char *key, double value);
-    static int getInteger(const char *key, int defaultValue = 0);
-    static void setInteger(const char *key, int value);
-    static std::string getString(const char *key, const char *defaultValue = "");
-    static void setString(const char *key, const char *value);
-    static void deleteKey(const char *key);
+    static bool getBoolean(const std::string &key, bool defaultValue = false);
+    static void setBoolean(const std::string &key, bool value);
+    static float getFloat(const std::string &key, float defaultValue = 0);
+    static void setFloat(const std::string &key, float value);
+    static double getDouble(const std::string &key, double defaultValue = 0);
+    static void setDouble(const std::string &key, double value);
+    static int getInteger(const std::string &key, int defaultValue = 0);
+    static void setInteger(const std::string &key, int value);
+    static std::string getString(const std::string &key, const std::string &defaultValue = "");
+    static void setString(const std::string &key, const std::string &value);
+    static void deleteKey(const std::string &key);
     static void flush();
 private:
     static void delayFlush();

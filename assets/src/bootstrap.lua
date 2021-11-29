@@ -3,13 +3,17 @@ local _traceback = __TRACEBACK__
 function __TRACEBACK__(...)
     __TRACEBACK__ = _traceback
     _traceback(...)
-    if not DEBUG then
-        local runtime = require "cclua.runtime"
+    local runtime = require "cclua.runtime"
+    if runtime.getEnv("cclua.debug") == "true" then
+        print("launch error, see the console!!!")
+        runtime.clearStorage()
+        runtime.showLog()
+    else
         print(string.rep("*", 80))
         print('* update error, clear all and restart!!!!')
         print(string.rep("*", 80))
-        runtime:clearStorage()
-        runtime:restart()
+        runtime.clearStorage()
+        runtime.restart()
     end
 end
 

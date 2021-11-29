@@ -79,6 +79,10 @@ extern "C" {
 #include "lpeg/lptree.h"
 #endif //CCLUA_BUILD_LPEG
 
+#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
+#include "bugly/CrashReport.h"
+#endif
+
 #if defined(CCLUA_BUILD_JPUSH) || defined(CCLUA_BUILD_JANALYTICS) || defined(CCLUA_BUILD_JAUTH)
 #include "jiguang/lua_jiguang.h"
 #include "jiguang/JiGuang.h"
@@ -194,7 +198,14 @@ bool AppDelegate::applicationDidFinishLaunching()
     cclua::__runtime_setPackageName(APP_PACKAGE_NAME);
 #endif
     
-    // runtime::setProperty("cclua.metadata.key", "hello");
+#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
+    CrashReport::setVersion(runtime::getVersion().c_str());
+    CrashReport::setChannel(runtime::getChannel().c_str());
+#else
+    runtime::setEnv("cclua.debug", "true", true);
+#endif
+    
+    // runtime::setEnv("cclua.metadata.key", "hello");
     
     initGLView(APP_NAME);
     runtime::luaOpen(_open_plugins);

@@ -495,7 +495,16 @@ static NSArray *toConstraints(cocos2d::Value &value)
         config.NAME = (ENUM)value[#NAME].asInt();   \
 } while (0)
 
-static JVUIConfig *getFullScreenLandscapeConfig()
+static CGFloat getCGFloat(cocos2d::ValueMap &value, const std::string &key, CGFloat defaultValue)
+{
+    if (value.find(key) != value.end()) {
+        return toCGFloat(value[key]);
+    } else {
+        return defaultValue;
+    }
+}
+
+static JVUIConfig *getFullScreenLandscapeConfig(cocos2d::ValueMap &value)
 {
     UIView *view = [[[[UIApplication sharedApplication] keyWindow] rootViewController] view];
     JVUIConfig *config = [[JVUIConfig alloc] init];
@@ -603,7 +612,7 @@ static JVUIConfig *getFullScreenLandscapeConfig()
     return config;
 }
 
-static JVUIConfig *getDialogPortraitConfig()
+static JVUIConfig *getDialogPortraitConfig(cocos2d::ValueMap &value)
 {
     JVUIConfig *config = [[JVUIConfig alloc] init];
     config.navCustom = YES;
@@ -619,8 +628,8 @@ static JVUIConfig *getDialogPortraitConfig()
 
     config.sloganTextColor = [UIColor colorWithRed:187/255.0 green:188/255.0 blue:197/255.0 alpha:1/1.0];
     config.privacyComponents = @[@"同意《",@"",@"",@"》并授权此应用获取本机号码"];
-    CGFloat windowW = 320;
-    CGFloat windowH = 250;
+    CGFloat windowW = getCGFloat(value, "windowWidth", 320);
+    CGFloat windowH = getCGFloat(value, "windowHeight", 260);
     JVLayoutConstraint *windowConstraintX = [JVLayoutConstraint constraintWithAttribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:JVLayoutItemSuper attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
     JVLayoutConstraint *windowConstraintY = [JVLayoutConstraint constraintWithAttribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:JVLayoutItemSuper attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
 
@@ -735,7 +744,7 @@ static JVUIConfig *getDialogPortraitConfig()
 void JAuth::configUI(cocos2d::ValueMap &value, bool landscape)
 {
     @autoreleasepool {
-        JVUIConfig *config = landscape ? getFullScreenLandscapeConfig() : getDialogPortraitConfig();
+        JVUIConfig *config = landscape ? getFullScreenLandscapeConfig(value) : getDialogPortraitConfig(value);
         setValue(authPageBackgroundImage, toUIImage);
         setValue(authPageGifImagePath, toNSString);
         setValue(autoLayout, toBool);

@@ -93,6 +93,15 @@ static olua_vmstatus_t *aux_getvmstatus(lua_State *L)
         vms->ref = 0;
         registry_rawsetf(L, OLUA_VMSTATUS);
 #if LUA_VERSION_NUM == 501
+        // detect main thread
+        olua_getglobal(L, "coroutine");
+        olua_getfield(L, -1, "running");
+        lua_call(L, 0, 1);
+        if (olua_isnil(L, -1)) {
+            olua_initcompat(L);
+        }
+        lua_pop(L, 2); // pop coroutine table and return value
+
         if (registry_rawgeti(L, LUA_RIDX_MAINTHREAD) != LUA_TTHREAD) {
             luaL_error(L, "main thread not set");
         }

@@ -13,4 +13,6 @@ new_globals = {
     "typeconf",
     "typedef",
     "typeonly",
+    "export",
+    "autoconf",
 }

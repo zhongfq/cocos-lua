@@ -62,14 +62,5 @@ clang {
         '-I../../frameworks/libxgame/src',
         '-I../../frameworks/libxgame/src/lua',
         '-I../../frameworks/plugins',
-
-        '-x', 'c++', '-nostdinc', '-std=c++11',
-        '-U__SSE__',
-        '-DANDROID', '-target', 'armv7-none-linux-androideabi',
-
-        '-idirafter', '${HOMEDIR}/include/c++',
-        '-idirafter', '${HOMEDIR}/include/c',
-        '-idirafter', '${HOMEDIR}/include/android-sysroot/x86_64-linux-android',
-        '-idirafter', '${HOMEDIR}/include/android-sysroot',
     },
 }

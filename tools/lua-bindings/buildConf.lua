@@ -1,7 +1,5 @@
 require "olua.tools.olua"
 
-local autoconf = require "autoconf"
-
 autoconf 'conf/clang-args.lua'
 
 autoconf 'conf/lua-conv.lua'

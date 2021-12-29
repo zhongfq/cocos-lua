@@ -1,5 +1,4 @@
-local olua = require "olua.tools.olua"
-local export = olua.export
+require "olua.tools.olua"
 
 require 'autobuild.alias-types'
 require 'autobuild.conv-types'

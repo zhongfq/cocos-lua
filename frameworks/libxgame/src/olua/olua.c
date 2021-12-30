@@ -52,7 +52,7 @@
 #define strequal(s1, s2)        (strcmp((s1), (s2)) == 0)
 #define strstartwith(s1, s2)    (strstr((s1), (s2)) == s1)
 #define aux_pushrefkey(L, n)    (lua_pushfstring(L, ".olua.ref.%s", (n)))
-#define aux_pushfunckey(L, ...) (lua_pushfstring(L, ".olua.cb#%s$%s@%s", __VA_ARGS__))
+#define aux_pushcbkey(L, ...)   (lua_pushfstring(L, ".olua.cb#%s$%s@%s", __VA_ARGS__))
 
 typedef struct {
     lua_Integer ctxid;
@@ -532,7 +532,7 @@ OLUA_API const char *olua_setcallback(lua_State *L, void *obj, int fidx, const c
             char refstr[64];
             int ref = checkref(vms);
             sprintf(refstr, "%d", ref); // lua5.1 not support %I
-            func = aux_pushfunckey(L, refstr, cls, tag);
+            func = aux_pushcbkey(L, refstr, cls, tag);
             lua_pushvalue(L, -1);               // L: obj ut k k
             if (olua_rawget(L, -3) == LUA_TNIL) {
                 lua_pop(L, 1);                  // L: obj ut k
@@ -1118,6 +1118,8 @@ OLUA_API void oluacls_func(lua_State *L, const char *name, lua_CFunction func)
 OLUA_API void oluacls_const(lua_State *L, const char *name)
 {
     aux_setfunc(L, OLUA_CKEY_GET, name, cls_const, 1);
+    lua_pushstring(L, name);
+    aux_setfunc(L, OLUA_CKEY_SET, name, cls_readonly, 1);
 }
 
 static void aux_checkfield(lua_State *L, int t, const char *field, int type, bool isinteger)

@@ -1,4 +1,4 @@
-require "olua.tools.olua"
+require "olua.tools"
 
 require 'autobuild.alias-types'
 require 'autobuild.conv-types'

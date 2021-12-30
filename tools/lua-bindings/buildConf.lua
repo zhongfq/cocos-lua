@@ -1,4 +1,4 @@
-require "olua.tools.olua"
+require "olua.tools"
 
 autoconf 'conf/clang-args.lua'
 

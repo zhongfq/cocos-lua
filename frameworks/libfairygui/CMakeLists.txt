@@ -195,7 +195,7 @@ target_include_directories(fairygui
 set_target_properties(fairygui PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-    FOLDER "Internal"
+    FOLDER "cclua"
 )
 
 if(XCODE OR VS)

@@ -32,7 +32,7 @@ target_include_directories(sqlite3
 set_target_properties(sqlite3 PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-    FOLDER "Internal"
+    FOLDER "cclua/3rd"
 )
 
 if(XCODE OR VS)

@@ -86,7 +86,7 @@ target_include_directories(luaopenssl
 set_target_properties(luaopenssl PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-    FOLDER "Internal"
+    FOLDER "cclua/3rd"
 )
 
 if(XCODE OR VS)

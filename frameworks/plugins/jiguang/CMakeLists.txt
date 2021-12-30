@@ -89,7 +89,7 @@ endif()
 set_target_properties(${LIBNAME} PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-    FOLDER "Plugins"
+    FOLDER "cclua/plugins"
 )
 
 if(XCODE OR VS)

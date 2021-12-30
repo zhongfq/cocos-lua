@@ -78,7 +78,7 @@ target_include_directories(luasocket
 set_target_properties(luasocket PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-    FOLDER "Internal"
+    FOLDER "cclua/3rd"
 )
 
 if(XCODE OR VS)

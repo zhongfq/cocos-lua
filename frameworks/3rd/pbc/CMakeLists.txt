@@ -53,7 +53,7 @@ target_include_directories(pbc
 set_target_properties(pbc PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-    FOLDER "Internal"
+    FOLDER "cclua/3rd"
 )
 
 if(XCODE OR VS)

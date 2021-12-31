@@ -1025,12 +1025,12 @@ OLUA_API void oluacls_class(lua_State *L, const char *cls, const char *supercls)
             {NULL, NULL}
         };
         static const char *events[] = {
-          "__gc", "__len", "__eq", "__tostring",
-          "__add", "__sub", "__mul", "__mod", "__pow",
-          "__div", "__idiv",
-          "__band", "__bor", "__bxor", "__shl", "__shr",
-          "__unm", "__bnot", "__lt", "__le",
-          "__concat", "__call", NULL
+            "__gc", "__len", "__eq", "__tostring",
+            "__add", "__sub", "__mul", "__mod", "__pow",
+            "__div", "__idiv",
+            "__band", "__bor", "__bxor", "__shl", "__shr",
+            "__unm", "__bnot", "__lt", "__le",
+            "__concat", "__call", "__close", NULL
         };
         
         int idx = lua_gettop(L);

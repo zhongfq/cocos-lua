@@ -1,8 +1,8 @@
 module 'fairygui'
 
-path = "../../frameworks/libxgame/src/lua-bindings"
+path "../../frameworks/libxgame/src/lua-bindings"
 
-headers = [[
+headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cclua/xlua.h"
@@ -16,7 +16,7 @@ headers = [[
 #include "utils/html/HtmlParser.h"
 ]]
 
-chunk = [[
+chunk [[
 bool olua_is_fairygui_EventTag(lua_State *L, int idx)
 {
     return olua_isinteger(L, idx) || olua_isa<void>(L, idx);
@@ -34,10 +34,10 @@ void olua_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventTag *val
     }
 }]]
 
-make_luacls = function (cppname)
+make_luacls(function (cppname)
     cppname = string.gsub(cppname, '^fairygui::', 'fgui.')
     return cppname
-end
+end)
 
 include "conf/exclude-type.lua"
 

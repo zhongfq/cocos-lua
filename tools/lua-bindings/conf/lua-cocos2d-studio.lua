@@ -1,8 +1,8 @@
 module 'cocos2d_studio'
 
-path = '../../frameworks/libxgame/src/lua-bindings'
+path '../../frameworks/libxgame/src/lua-bindings'
 
-headers = [[
+headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cclua/xlua.h"
@@ -10,7 +10,7 @@ headers = [[
 #include "editor-support/cocostudio/CocoStudio.h"
 ]]
 
-chunk = [[
+chunk [[
 static std::string makeFrameEndCallbackTag(lua_Integer index, const std::string &key)
 {
     if (index < 0) {
@@ -28,12 +28,12 @@ static std::string makeFrameEndCallbackTag(cocostudio::timeline::ActionTimeline 
 ]]
 
 
-make_luacls = function (cppname)
+make_luacls(function (cppname)
     cppname = string.gsub(cppname, '^cocos2d::', 'cc.')
     cppname = string.gsub(cppname, '^cocostudio::', 'ccs.')
     cppname = string.gsub(cppname, "::", ".")
     return cppname
-end
+end)
 
 include 'conf/exclude-type.lua'
 

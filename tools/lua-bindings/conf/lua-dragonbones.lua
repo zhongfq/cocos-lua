@@ -1,8 +1,8 @@
 module 'dragonbones'
 
-path = "../../frameworks/libxgame/src/lua-bindings"
+path "../../frameworks/libxgame/src/lua-bindings"
 
-headers = [[
+headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cclua/xlua.h"
@@ -10,12 +10,12 @@ headers = [[
 #include "CCDragonBonesHeaders.h"
 ]]
 
-make_luacls = function (cppname)
+make_luacls(function (cppname)
     cppname = string.gsub(cppname, "^dragonBones::CC", "db.")
     cppname = string.gsub(cppname, "^dragonBones::", "db.")
     cppname = string.gsub(cppname, "::", ".")
     return cppname
-end
+end)
 
 include "conf/exclude-type.lua"
 

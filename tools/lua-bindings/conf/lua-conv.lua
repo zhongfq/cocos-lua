@@ -1,8 +1,8 @@
 module 'conv'
 
-path = "../../frameworks/libxgame/src/lua-bindings"
+path "../../frameworks/libxgame/src/lua-bindings"
 
-headers = [[
+headers [[
 #include "cclua/xlua.h"
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"

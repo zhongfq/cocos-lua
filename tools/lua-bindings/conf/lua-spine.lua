@@ -1,8 +1,8 @@
 module 'spine'
 
-path = "../../frameworks/libxgame/src/lua-bindings"
+path "../../frameworks/libxgame/src/lua-bindings"
 
-headers = [[
+headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cclua/xlua.h"
@@ -11,7 +11,7 @@ headers = [[
 #include "spine/spine-cocos2dx.h"
 ]]
 
-chunk = [[
+chunk [[
 template <class T>
 void olua_insert_array(spine::Vector<T> *array, T value)
 {
@@ -106,11 +106,11 @@ int olua_push_spine_EventData(lua_State *L, const spine::EventData *value)
     return 1;
 }]]
 
-make_luacls = function (cppname)
+make_luacls(function (cppname)
     cppname = string.gsub(cppname, "^spine::", "sp.")
     cppname = string.gsub(cppname, "::", ".")
     return cppname
-end
+end)
 
 typedef 'spine::PropertyId'
     .decltype 'lua_Integer'

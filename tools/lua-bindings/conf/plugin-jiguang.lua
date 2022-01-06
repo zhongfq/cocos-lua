@@ -1,19 +1,19 @@
 module 'jiguang'
 
-path = "../../frameworks/plugins/jiguang"
+path "../../frameworks/plugins/jiguang"
 
-headers = [[
+headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cclua/xlua.h"
 #include "JiGuang.h"
 ]]
 
-make_luacls = function (cppname)
+make_luacls(function (cppname)
     cppname = string.gsub(cppname, "^cclua::", "cclua.")
     cppname = string.gsub(cppname, "::", ".")
     return cppname
-end
+end)
 
 include "conf/exclude-type.lua"
 

@@ -1,19 +1,19 @@
 module 'apple'
 
-path = "../../frameworks/plugins/apple"
+path "../../frameworks/plugins/apple"
 
-headers = [[
+headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cclua/xlua.h"
 #include "apple/Apple.h"
 ]]
 
-make_luacls = function (cppname)
+make_luacls(function (cppname)
     cppname = string.gsub(cppname, "^cclua::", "cclua.")
     cppname = string.gsub(cppname, "::", ".")
     return cppname
-end
+end)
 
 include "conf/exclude-type.lua"
 

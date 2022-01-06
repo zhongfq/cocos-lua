@@ -1,8 +1,8 @@
 module 'cocos2d_3d'
 
-path = '../../frameworks/libxgame/src/lua-bindings'
+path '../../frameworks/libxgame/src/lua-bindings'
 
-headers = [[
+headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cclua/xlua.h"
@@ -10,12 +10,12 @@ headers = [[
 #include "3d/CC3DProgramInfo.h"
 ]]
 
-make_luacls = function (cppname)
+make_luacls(function (cppname)
     cppname = string.gsub(cppname, '^cocos2d::shaderinfos::', 'cc.')
     cppname = string.gsub(cppname, '^cocos2d::', 'cc.')
     cppname = string.gsub(cppname, "::", ".")
     return cppname
-end
+end)
 
 include 'conf/exclude-type.lua'
 

@@ -1,8 +1,8 @@
 module 'xgame'
 
-path = '../../frameworks/libxgame/src/lua-bindings'
+path '../../frameworks/libxgame/src/lua-bindings'
 
-headers = [[
+headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cclua/filesystem.h"
@@ -16,7 +16,7 @@ headers = [[
 #include "olua/olua.hpp"
 ]]
 
-chunk = [[
+chunk [[
 int olua_unpack_cclua_window_Bounds(lua_State *L, const cclua::window::Bounds *value)
 {
     if (value) {
@@ -34,11 +34,11 @@ int olua_unpack_cclua_window_Bounds(lua_State *L, const cclua::window::Bounds *v
 }
 ]]
 
-make_luacls = function (cppname)
+make_luacls(function (cppname)
     cppname = string.gsub(cppname, "^cclua::", "cclua.")
     cppname = string.gsub(cppname, "::", ".")
     return cppname
-end
+end)
 
 include "conf/exclude-type.lua"
 

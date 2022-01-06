@@ -1,20 +1,20 @@
 module 'talkingdata'
 
-path = "../../frameworks/plugins/talkingdata"
+path "../../frameworks/plugins/talkingdata"
 
-headers = [[
+headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cclua/xlua.h"
 #include "TalkingData.h"
 ]]
 
-make_luacls = function (cppname)
+make_luacls(function (cppname)
     cppname = string.gsub(cppname, "^cclua::", "cclua.")
     cppname = string.gsub(cppname, "::", ".")
     cppname = string.gsub(cppname, "TCAgent", "TalkingData")
     return cppname
-end
+end)
 
 include "conf/exclude-type.lua"
 

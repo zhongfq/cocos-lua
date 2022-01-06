@@ -1,19 +1,19 @@
 module 'cocos2d_backend'
 
-path = '../../frameworks/libxgame/src/lua-bindings'
+path '../../frameworks/libxgame/src/lua-bindings'
 
-headers = [[
+headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cocos2d.h"
 #include "cclua/xlua.h"
 ]]
 
-make_luacls = function (cppname)
+make_luacls(function (cppname)
     cppname = string.gsub(cppname, "^cocos2d::backend::", "ccb.")
     cppname = string.gsub(cppname, "::", ".")
     return cppname
-end
+end)
 
 include "conf/exclude-type.lua"
 

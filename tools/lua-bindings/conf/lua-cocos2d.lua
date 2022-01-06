@@ -1,8 +1,8 @@
 module 'cocos2d'
 
-path = '../../frameworks/libxgame/src/lua-bindings'
+path '../../frameworks/libxgame/src/lua-bindings'
 
-headers = [[
+headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "lua-bindings/LuaCocosAdapter.h"
@@ -14,13 +14,13 @@ headers = [[
 #include "cclua/xlua.h"
 ]]
 
-chunk = [[
+chunk [[
 static const std::string makeScheduleCallbackTag(const std::string &key)
 {
     return "schedule." + key;
 }]]
 
-make_luacls = function (cppname)
+make_luacls(function (cppname)
     if cppname == 'ResolutionPolicy' then
         return 'cc.' .. cppname
     else
@@ -29,7 +29,7 @@ make_luacls = function (cppname)
         cppname = string.gsub(cppname, "::", ".")
         return cppname
     end
-end
+end)
 
 include 'conf/exclude-type.lua'
 

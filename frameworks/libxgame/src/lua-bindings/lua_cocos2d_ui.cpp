@@ -14398,8 +14398,7 @@ static int _cocos2d_ui_RichText_createWithXML1(lua_State *L)
 
     // static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @local @optional const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)
     cocos2d::ui::RichText *ret = cocos2d::ui::RichText::createWithXML(arg1, arg2, arg3);
-    const char *cls = olua_getluatype(L, ret, "ccui.RichText");
-    if (olua_pushobjstub(L, ret, cb_store, cls) == OLUA_OBJ_EXIST) {
+    if (olua_pushobjstub(L, ret, cb_store, "ccui.RichText") == OLUA_OBJ_EXIST) {
         olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
         lua_pushstring(L, cb_name.c_str());
         lua_pushvalue(L, 3);

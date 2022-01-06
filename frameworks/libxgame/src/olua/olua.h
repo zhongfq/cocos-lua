@@ -56,6 +56,12 @@ extern "C" {
 #ifndef OLUA_API
 #define OLUA_API extern
 #endif
+
+#ifdef _WIN32
+#define OLUA_LIB __declspec(dllexport)
+#else
+#define OLUA_LIB extern
+#endif
     
 // object status
 #define OLUA_OBJ_EXIST  0

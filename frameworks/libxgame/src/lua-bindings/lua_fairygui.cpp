@@ -18395,8 +18395,7 @@ static int _fairygui_PopupMenu_addItem(lua_State *L)
 
     // @addref(children | parent) fairygui::GButton *addItem(const std::string &caption, @local fairygui::EventCallback callback)
     fairygui::GButton *ret = self->addItem(arg1, arg2);
-    const char *cls = olua_getluatype(L, ret, "fgui.GButton");
-    if (olua_pushobjstub(L, ret, cb_store, cls) == OLUA_OBJ_EXIST) {
+    if (olua_pushobjstub(L, ret, cb_store, "fgui.GButton") == OLUA_OBJ_EXIST) {
         olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
         lua_pushstring(L, cb_name.c_str());
         lua_pushvalue(L, 3);
@@ -18456,8 +18455,7 @@ static int _fairygui_PopupMenu_addItemAt(lua_State *L)
 
     // @addref(children | parent) fairygui::GButton *addItemAt(const std::string &caption, int index, @local fairygui::EventCallback callback)
     fairygui::GButton *ret = self->addItemAt(arg1, (int)arg2, arg3);
-    const char *cls = olua_getluatype(L, ret, "fgui.GButton");
-    if (olua_pushobjstub(L, ret, cb_store, cls) == OLUA_OBJ_EXIST) {
+    if (olua_pushobjstub(L, ret, cb_store, "fgui.GButton") == OLUA_OBJ_EXIST) {
         olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
         lua_pushstring(L, cb_name.c_str());
         lua_pushvalue(L, 4);

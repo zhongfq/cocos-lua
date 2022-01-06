@@ -49,6 +49,8 @@ static lua_State *olua_mainthread(lua_State *L)
         luaL_checktype(L, -1, LUA_TTHREAD);
         mt = lua_tothread(L, -1);
         lua_pop(L, 1);
+    } else {
+        olua_assert(L, "main thread not found");
     }
     return mt;
 }
@@ -288,6 +290,25 @@ template <typename T>
 inline int olua_pushobj(lua_State *L, const T *value)
 {
     return olua_pushobj<T>(L, value, nullptr);
+}
+
+template <typename T>
+inline void *olua_newobjstub(lua_State *L)
+{
+    return olua_newobjstub(L, olua_getluatype<T>(L));
+}
+
+template <typename T>
+inline int olua_pushobjstub(lua_State *L, T *value, void *stub, const char *cls)
+{
+    cls = olua_getluatype(L, value, cls);
+    return olua_pushobjstub(L, (void *)value, stub, cls);
+}
+
+template <typename T>
+inline int olua_pushobjstub(lua_State *L, T *value, void *stub)
+{
+    return olua_pushobjstub<T>(L, value, stub, nullptr);
 }
 
 // convertor between c++ and lua, use for code generation

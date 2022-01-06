@@ -4446,8 +4446,7 @@ static int _cocos2d_ActionFloat_create(lua_State *L)
 
     // static cocos2d::ActionFloat *create(float duration, float from, float to, @local cocos2d::ActionFloat::ActionFloatCallback callback)
     cocos2d::ActionFloat *ret = cocos2d::ActionFloat::create((float)arg1, (float)arg2, (float)arg3, arg4);
-    const char *cls = olua_getluatype(L, ret, "cc.ActionFloat");
-    if (olua_pushobjstub(L, ret, cb_store, cls) == OLUA_OBJ_EXIST) {
+    if (olua_pushobjstub(L, ret, cb_store, "cc.ActionFloat") == OLUA_OBJ_EXIST) {
         lua_pushstring(L, cb_name.c_str());
         lua_pushvalue(L, 4);
         olua_setvariable(L, -3);
@@ -7237,8 +7236,7 @@ static int _cocos2d_CallFunc_create(lua_State *L)
 
     // static cocos2d::CallFunc *create(@local const std::function<void ()> &func)
     cocos2d::CallFunc *ret = cocos2d::CallFunc::create(arg1);
-    const char *cls = olua_getluatype(L, ret, "cc.CallFunc");
-    if (olua_pushobjstub(L, ret, cb_store, cls) == OLUA_OBJ_EXIST) {
+    if (olua_pushobjstub(L, ret, cb_store, "cc.CallFunc") == OLUA_OBJ_EXIST) {
         lua_pushstring(L, cb_name.c_str());
         lua_pushvalue(L, 1);
         olua_setvariable(L, -3);

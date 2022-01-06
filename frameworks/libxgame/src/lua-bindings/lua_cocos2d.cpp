@@ -5311,8 +5311,7 @@ static int _cocos2d_EventDispatcher_addCustomEventListener(lua_State *L)
 
     // @addref(listeners |) cocos2d::EventListenerCustom *addCustomEventListener(const std::string &eventName, @local const std::function<void (EventCustom *)> &callback)
     cocos2d::EventListenerCustom *ret = self->addCustomEventListener(arg1, arg2);
-    const char *cls = olua_getluatype(L, ret, "cc.EventListenerCustom");
-    if (olua_pushobjstub(L, ret, cb_store, cls) == OLUA_OBJ_EXIST) {
+    if (olua_pushobjstub(L, ret, cb_store, "cc.EventListenerCustom") == OLUA_OBJ_EXIST) {
         lua_pushstring(L, cb_name.c_str());
         lua_pushvalue(L, 3);
         olua_setvariable(L, -3);
@@ -6819,8 +6818,7 @@ static int _cocos2d_EventListenerCustom_create(lua_State *L)
 
     // static cocos2d::EventListenerCustom *create(const std::string &eventName, @local const std::function<void (EventCustom *)> &callback)
     cocos2d::EventListenerCustom *ret = cocos2d::EventListenerCustom::create(arg1, arg2);
-    const char *cls = olua_getluatype(L, ret, "cc.EventListenerCustom");
-    if (olua_pushobjstub(L, ret, cb_store, cls) == OLUA_OBJ_EXIST) {
+    if (olua_pushobjstub(L, ret, cb_store, "cc.EventListenerCustom") == OLUA_OBJ_EXIST) {
         lua_pushstring(L, cb_name.c_str());
         lua_pushvalue(L, 2);
         olua_setvariable(L, -3);
@@ -7097,8 +7095,7 @@ static int _cocos2d_EventListenerAcceleration_create(lua_State *L)
 
     // static cocos2d::EventListenerAcceleration *create(@local const std::function<void (Acceleration *, Event *)> &callback)
     cocos2d::EventListenerAcceleration *ret = cocos2d::EventListenerAcceleration::create(arg1);
-    const char *cls = olua_getluatype(L, ret, "cc.EventListenerAcceleration");
-    if (olua_pushobjstub(L, ret, cb_store, cls) == OLUA_OBJ_EXIST) {
+    if (olua_pushobjstub(L, ret, cb_store, "cc.EventListenerAcceleration") == OLUA_OBJ_EXIST) {
         lua_pushstring(L, cb_name.c_str());
         lua_pushvalue(L, 1);
         olua_setvariable(L, -3);
@@ -26944,8 +26941,7 @@ static int _cocos2d_LuaTweenNode_create(lua_State *L)
 
     // static cocos2d::LuaTweenNode *create(@local const std::function<void (float, const std::string &)> &callback)
     cocos2d::LuaTweenNode *ret = cocos2d::LuaTweenNode::create(arg1);
-    const char *cls = olua_getluatype(L, ret, "cc.LuaTweenNode");
-    if (olua_pushobjstub(L, ret, cb_store, cls) == OLUA_OBJ_EXIST) {
+    if (olua_pushobjstub(L, ret, cb_store, "cc.LuaTweenNode") == OLUA_OBJ_EXIST) {
         lua_pushstring(L, cb_name.c_str());
         lua_pushvalue(L, 1);
         olua_setvariable(L, -3);

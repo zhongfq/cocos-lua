@@ -341,7 +341,7 @@ int xlua_ccobjgc(lua_State *L)
         const char *str = olua_objstring(L, 1);
         cclua::runtime::log("lua gc: %s(NAME=%s, RC=%d, TC=%d)", str,
             name && strlen(name) > 0 ? name : "''",
-            obj->getReferenceCount() - 1, olua_objcount(L));
+            (int)obj->getReferenceCount() - 1, (int)olua_objcount(L));
         lua_settop(L, top);
     }
     

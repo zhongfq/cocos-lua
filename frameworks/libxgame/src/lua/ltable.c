@@ -68,18 +68,21 @@
 #define MAXHSIZE	luaM_limitN(1u << MAXHBITS, Node)
 
 
+/*
+** When the original hash value is good, hashing by a power of 2
+** avoids the cost of '%'.
+*/
 #define hashpow2(t,n)		(gnode(t, lmod((n), sizenode(t))))
+
+/*
+** for other types, it is better to avoid modulo by power of 2, as
+** they can have many 2 factors.
+*/
+#define hashmod(t,n)	(gnode(t, ((n) % ((sizenode(t)-1)|1))))
+
 
 #define hashstr(t,str)		hashpow2(t, (str)->hash)
 #define hashboolean(t,p)	hashpow2(t, p)
-#define hashint(t,i)		hashpow2(t, i)
-
-
-/*
-** for some types, it is better to avoid modulus by power of 2, as
-** they tend to have many 2 factors.
-*/
-#define hashmod(t,n)	(gnode(t, ((n) % ((sizenode(t)-1)|1))))
 
 
 #define hashpointer(t,p)	hashmod(t, point2uint(p))
@@ -95,6 +98,20 @@ static const Node dummynode_ = {
 
 static const TValue absentkey = {ABSTKEYCONSTANT};
 
+
+/*
+** Hash for integers. To allow a good hash, use the remainder operator
+** ('%'). If integer fits as a non-negative int, compute an int
+** remainder, which is faster. Otherwise, use an unsigned-integer
+** remainder, which uses all bits and ensures a non-negative result.
+*/
+static Node *hashint (const Table *t, lua_Integer i) {
+  lua_Unsigned ui = l_castS2U(i);
+  if (ui <= (unsigned int)INT_MAX)
+    return hashmod(t, cast_int(ui));
+  else
+    return hashmod(t, ui);
+}
 
 
 /*
@@ -129,39 +146,50 @@ static int l_hashfloat (lua_Number n) {
 
 /*
 ** returns the 'main' position of an element in a table (that is,
-** the index of its hash value). The key comes broken (tag in 'ktt'
-** and value in 'vkl') so that we can call it on keys inserted into
-** nodes.
+** the index of its hash value).
 */
-static Node *mainposition (const Table *t, int ktt, const Value *kvl) {
-  switch (withvariant(ktt)) {
-    case LUA_VNUMINT:
-      return hashint(t, ivalueraw(*kvl));
-    case LUA_VNUMFLT:
-      return hashmod(t, l_hashfloat(fltvalueraw(*kvl)));
-    case LUA_VSHRSTR:
-      return hashstr(t, tsvalueraw(*kvl));
-    case LUA_VLNGSTR:
-      return hashpow2(t, luaS_hashlongstr(tsvalueraw(*kvl)));
+static Node *mainpositionTV (const Table *t, const TValue *key) {
+  switch (ttypetag(key)) {
+    case LUA_VNUMINT: {
+      lua_Integer i = ivalue(key);
+      return hashint(t, i);
+    }
+    case LUA_VNUMFLT: {
+      lua_Number n = fltvalue(key);
+      return hashmod(t, l_hashfloat(n));
+    }
+    case LUA_VSHRSTR: {
+      TString *ts = tsvalue(key);
+      return hashstr(t, ts);
+    }
+    case LUA_VLNGSTR: {
+      TString *ts = tsvalue(key);
+      return hashpow2(t, luaS_hashlongstr(ts));
+    }
     case LUA_VFALSE:
       return hashboolean(t, 0);
     case LUA_VTRUE:
       return hashboolean(t, 1);
-    case LUA_VLIGHTUSERDATA:
-      return hashpointer(t, pvalueraw(*kvl));
-    case LUA_VLCF:
-      return hashpointer(t, fvalueraw(*kvl));
-    default:
-      return hashpointer(t, gcvalueraw(*kvl));
+    case LUA_VLIGHTUSERDATA: {
+      void *p = pvalue(key);
+      return hashpointer(t, p);
+    }
+    case LUA_VLCF: {
+      lua_CFunction f = fvalue(key);
+      return hashpointer(t, f);
+    }
+    default: {
+      GCObject *o = gcvalue(key);
+      return hashpointer(t, o);
+    }
   }
 }
 
 
-/*
-** Returns the main position of an element given as a 'TValue'
-*/
-static Node *mainpositionTV (const Table *t, const TValue *key) {
-  return mainposition(t, rawtt(key), valraw(key));
+l_sinline Node *mainpositionfromnode (const Table *t, Node *nd) {
+  TValue key;
+  getnodekey(cast(lua_State *, NULL), &key, nd);
+  return mainpositionTV(t, &key);
 }
 
 
@@ -660,7 +688,7 @@ void luaH_newkey (lua_State *L, Table *t, const TValue *key, TValue *value) {
       return;
     }
     lua_assert(!isdummy(t));
-    othern = mainposition(t, keytt(mp), &keyval(mp));
+    othern = mainpositionfromnode(t, mp);
     if (othern != mp) {  /* is colliding node out of its main position? */
       /* yes; move colliding node into free position */
       while (othern + gnext(othern) != mp)  /* find previous */

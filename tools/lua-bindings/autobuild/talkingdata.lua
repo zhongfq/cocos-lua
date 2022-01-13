@@ -17,7 +17,7 @@ typeconf 'cclua::plugin::TCAgent'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
-    .require([[cclua::runtime::registerFeature("talkingdata", true);]])
+    .luaopen([[cclua::runtime::registerFeature("talkingdata", true);]])
     .ifdef('*', '#ifdef CCLUA_BUILD_TALKINGDATA')
     .func(nil, 'static void setLogEnabled(bool value)')
     .func(nil, 'static void init(const std::string &appkey, const std::string &channel)')

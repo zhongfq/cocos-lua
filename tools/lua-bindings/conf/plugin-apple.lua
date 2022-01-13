@@ -19,12 +19,12 @@ include "conf/exclude-type.lua"
 
 ifdef 'CCLUA_BUILD_APPLE_AUTH'
 typeconf "cclua::plugin::AppleAuth"
-    .require 'cclua::runtime::registerFeature("apple.auth.ios", true);'
+    .luaopen 'cclua::runtime::registerFeature("apple.auth.ios", true);'
     .callback 'auth' .tag_scope 'once'
 endif ''
 
 ifdef 'CCLUA_BUILD_APPLE_IAP'
 typeconf "cclua::plugin::AppleIAP"
-    .require 'cclua::runtime::registerFeature("apple.iap.ios", true);'
+    .luaopen 'cclua::runtime::registerFeature("apple.iap.ios", true);'
 endif ''
 

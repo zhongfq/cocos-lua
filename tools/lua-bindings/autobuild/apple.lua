@@ -17,7 +17,7 @@ typeconf 'cclua::plugin::AppleAuth'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
-    .require([[cclua::runtime::registerFeature("apple.auth.ios", true);]])
+    .luaopen([[cclua::runtime::registerFeature("apple.auth.ios", true);]])
     .ifdef('*', '#ifdef CCLUA_BUILD_APPLE_AUTH')
     .func(nil, 'static bool canMakeAuth()')
     .callback {
@@ -34,7 +34,7 @@ typeconf 'cclua::plugin::AppleIAP'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
-    .require([[cclua::runtime::registerFeature("apple.iap.ios", true);]])
+    .luaopen([[cclua::runtime::registerFeature("apple.iap.ios", true);]])
     .ifdef('*', '#ifdef CCLUA_BUILD_APPLE_IAP')
     .func(nil, 'static void init()')
     .func(nil, 'static bool canMakePayments()')

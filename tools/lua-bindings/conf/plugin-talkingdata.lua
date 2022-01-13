@@ -20,5 +20,5 @@ include "conf/exclude-type.lua"
 
 ifdef 'CCLUA_BUILD_TALKINGDATA'
 typeconf "cclua::plugin::TCAgent"
-    .require 'cclua::runtime::registerFeature("talkingdata", true);'
+    .luaopen 'cclua::runtime::registerFeature("talkingdata", true);'
 endif ''

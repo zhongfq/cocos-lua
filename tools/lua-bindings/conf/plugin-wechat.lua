@@ -24,5 +24,5 @@ typeconf "cclua::plugin::WeChat"
     .ifdef 'CCLUA_OS_ANDROID'
     .func('pay')
     .endif ''
-    .require 'cclua::runtime::registerFeature("wechat", true);'
+    .luaopen 'cclua::runtime::registerFeature("wechat", true);'
 endif ''

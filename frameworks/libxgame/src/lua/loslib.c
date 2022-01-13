@@ -138,12 +138,19 @@
 /* }================================================================== */
 
 
+#if defined(__APPLE__) && !defined(ANDROID)
+#include <TargetConditionals.h>
+#endif
 
 static int os_execute (lua_State *L) {
   const char *cmd = luaL_optstring(L, 1, NULL);
   int stat;
   errno = 0;
+#ifdef TARGET_OS_IPHONE
+  stat = 0; /* iOS 11 not support system */
+#else
   stat = system(cmd);
+#endif
   if (cmd != NULL)
     return luaL_execresult(L, stat);
   else {

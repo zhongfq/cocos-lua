@@ -777,7 +777,7 @@ static int _cocos2d_backend_CommandBuffer_captureScreen(lua_State *L)
         }
     };
 
-    // void captureScreen(@local std::function<void (const unsigned char *, int, int)> callback)
+    // void captureScreen(@localvar std::function<void (const unsigned char *, int, int)> callback)
     self->captureScreen(arg1);
 
     olua_endinvoke(L);
@@ -2873,7 +2873,7 @@ static int _cocos2d_backend_TextureBackend_getBytes(lua_State *L)
         }
     };
 
-    // void getBytes(std::size_t x, std::size_t y, std::size_t width, std::size_t height, bool flipImage, @local std::function<void (const unsigned char *, std::size_t, std::size_t)> callback)
+    // void getBytes(std::size_t x, std::size_t y, std::size_t width, std::size_t height, bool flipImage, @localvar std::function<void (const unsigned char *, std::size_t, std::size_t)> callback)
     self->getBytes((std::size_t)arg1, (std::size_t)arg2, (std::size_t)arg3, (std::size_t)arg4, arg5, arg6);
 
     olua_endinvoke(L);

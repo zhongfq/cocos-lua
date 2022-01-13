@@ -1,7 +1,3 @@
-local olua = require "olua"
-local export = olua.export
-local typedef = olua.typedef
-
 dofile "autobuild/alias-types.lua"
 dofile "autobuild/conv-types.lua"
 dofile "autobuild/cocos2d-types.lua"
@@ -20,7 +16,6 @@ dofile "autobuild/jiguang-types.lua"
 dofile "autobuild/wechat-types.lua"
 dofile "autobuild/talkingdata-types.lua"
 dofile "autobuild/apple-types.lua"
-
 export "autobuild/conv.lua"
 export "autobuild/cocos2d.lua"
 export "autobuild/cocos2d-action.lua"

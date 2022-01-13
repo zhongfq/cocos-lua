@@ -10,7 +10,7 @@ new_globals = {
     "ifdef",
     "include",
     "ipairs",
-    "make_luacls",
+    "luacls",
     "pairs",
     "path",
     "typeconf",

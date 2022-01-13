@@ -9,7 +9,7 @@ headers [[
 #include "JiGuang.h"
 ]]
 
-make_luacls(function (cppname)
+luacls(function (cppname)
     cppname = string.gsub(cppname, "^cclua::", "cclua.")
     cppname = string.gsub(cppname, "::", ".")
     return cppname
@@ -25,10 +25,10 @@ endif ''
 ifdef 'CCLUA_BUILD_JAUTH'
 typeconf "cclua::plugin::JAuth"
     .require 'cclua::runtime::registerFeature("jauth", true);'
-    .callback {name = "getToken", tag_mode = 'OLUA_TAG_NEW',tag_scope = 'once'}
-    .callback {name = "preLogin", tag_mode = 'OLUA_TAG_NEW',tag_scope = 'once'}
-    .callback {name = "loginAuth", tag_mode = 'OLUA_TAG_NEW',tag_scope = 'once'}
-    .callback {name = "getSmsCode", tag_mode = 'OLUA_TAG_NEW',tag_scope = 'once'}
+    .callback "getToken" .tag_mode 'new' .tag_scope 'once'
+    .callback "preLogin" .tag_mode 'new' .tag_scope 'once'
+    .callback "loginAuth" .tag_mode 'new' .tag_scope 'once'
+    .callback "getSmsCode" .tag_mode 'new' .tag_scope 'once'
 endif ''
 
 ifdef 'CCLUA_BUILD_JANALYTICS'

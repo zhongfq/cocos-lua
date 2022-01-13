@@ -137,37 +137,37 @@ typeconf 'cclua::runtime'
     .func(nil, 'static void exit()')
     .callback {
         FUNCS =  {
-            'static void setDispatcher(@local const std::function<void (const std::string &, const std::string &)> &dispatcher)'
+            'static void setDispatcher(@localvar const std::function<void (const std::string &, const std::string &)> &dispatcher)'
         },
         TAG_MAKER = 'Dispatcher',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            'static void openURL(const std::string &uri, @local @optional const std::function<void (bool)> callback)'
+            'static void openURL(const std::string &uri, @localvar @optional const std::function<void (bool)> callback)'
         },
         TAG_MAKER = 'openURL',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
     .callback {
         FUNCS =  {
-            'static void requestPermission(cclua::Permission permission, @local const std::function<void (cclua::PermissionStatus)> callback)'
+            'static void requestPermission(cclua::Permission permission, @localvar const std::function<void (cclua::PermissionStatus)> callback)'
         },
         TAG_MAKER = 'requestPermission',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
     .callback {
         FUNCS =  {
-            'static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, @local const std::function<void (bool)> callback)'
+            'static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, @localvar const std::function<void (bool)> callback)'
         },
         TAG_MAKER = 'alert',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
@@ -398,10 +398,10 @@ typeconf 'cclua::timer'
     .func(nil, 'static std::string createTag()')
     .callback {
         FUNCS =  {
-            'static void delayWithTag(float time, const std::string &tag, @local std::function<void ()> callback)'
+            'static void delayWithTag(float time, const std::string &tag, @localvar std::function<void ()> callback)'
         },
         TAG_MAKER = 'makeTimerDelayTag(#2)',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
@@ -410,16 +410,16 @@ typeconf 'cclua::timer'
             'static void killDelay(const std::string &tag)'
         },
         TAG_MAKER = 'makeTimerDelayTag(#1)',
-        TAG_MODE = 'OLUA_TAG_SUBEQUAL',
+        TAG_MODE = 'subequal',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            'static void delay(float time, @local const std::function<void ()> callback)'
+            'static void delay(float time, @localvar const std::function<void ()> callback)'
         },
         TAG_MAKER = 'delay',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
@@ -450,19 +450,19 @@ typeconf 'cclua::downloader'
     .func(nil, 'static void end()')
     .callback {
         FUNCS =  {
-            'static void setDispatcher(@local const std::function<void (const std::string &, const std::string &)> &dispatcher)'
+            'static void setDispatcher(@localvar const std::function<void (const std::string &, const std::string &)> &dispatcher)'
         },
         TAG_MAKER = 'Dispatcher',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            'static void setURIResolver(@local const std::function<std::string (const std::string &)> &resolver)'
+            'static void setURIResolver(@localvar const std::function<std::string (const std::string &)> &resolver)'
         },
         TAG_MAKER = 'URIResolver',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }

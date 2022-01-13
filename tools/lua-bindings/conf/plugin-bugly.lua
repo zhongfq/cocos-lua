@@ -9,7 +9,7 @@ headers [[
 #include "bugly/CrashReport.h"
 ]]
 
-make_luacls(function (cppname)
+luacls(function (cppname)
     cppname = string.gsub(cppname, "^cclua::", "cclua.")
     cppname = string.gsub(cppname, "::", ".")
     return cppname

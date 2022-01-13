@@ -22,10 +22,10 @@ typeconf 'cclua::plugin::AppleAuth'
     .func(nil, 'static bool canMakeAuth()')
     .callback {
         FUNCS =  {
-            'static void auth(@local const std::function<void (const cocos2d::ValueMap &)> &callback)'
+            'static void auth(@localvar const std::function<void (const cocos2d::ValueMap &)> &callback)'
         },
         TAG_MAKER = 'auth',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
@@ -46,10 +46,10 @@ typeconf 'cclua::plugin::AppleIAP'
     .func(nil, 'static void dispatch(const std::string &event, const cocos2d::Value &data)')
     .callback {
         FUNCS =  {
-            'static void setDispatcher(@local const std::function<void (const std::string &, const cocos2d::Value &)> &dispatcher)'
+            'static void setDispatcher(@localvar const std::function<void (const std::string &, const cocos2d::Value &)> &dispatcher)'
         },
         TAG_MAKER = 'Dispatcher',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }

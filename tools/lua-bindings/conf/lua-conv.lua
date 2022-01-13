@@ -11,7 +11,7 @@ headers [[
 ]]
 
 typeconv 'cocos2d::Vec2'
-    .attr('*', {optional = false})
+    .var '*' .optional 'false'
 
 typeconv 'cocos2d::Vec3'
 typeconv 'cocos2d::Vec4'
@@ -26,7 +26,7 @@ typeconv 'cocos2d::T2F_Quad'
 typeconv 'cocos2d::ccBezierConfig'
 
 typeconv 'cocos2d::TTFConfig'
-    .attr('*', {optional = true})
+    .var '*' .optional 'true'
 
 typeconv 'cocos2d::BlendFunc'
 typeconv 'cocos2d::ui::Margin'

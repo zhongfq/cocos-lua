@@ -9,7 +9,7 @@ headers [[
 #include "TalkingData.h"
 ]]
 
-make_luacls(function (cppname)
+luacls(function (cppname)
     cppname = string.gsub(cppname, "^cclua::", "cclua.")
     cppname = string.gsub(cppname, "::", ".")
     cppname = string.gsub(cppname, "TCAgent", "TalkingData")

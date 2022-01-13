@@ -176,7 +176,7 @@ static int _cclua_runtime_alert(lua_State *L)
         }
     };
 
-    // static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, @local const std::function<void (bool)> callback)
+    // static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, @localvar const std::function<void (bool)> callback)
     cclua::runtime::alert(arg1, arg2, arg3, arg4, arg5);
 
     olua_endinvoke(L);
@@ -880,7 +880,7 @@ static int _cclua_runtime_openURL1(lua_State *L)
         arg2 = nullptr;
     }
 
-    // static void openURL(const std::string &uri, @local @optional const std::function<void (bool)> callback)
+    // static void openURL(const std::string &uri, @localvar @optional const std::function<void (bool)> callback)
     cclua::runtime::openURL(arg1, arg2);
 
     olua_endinvoke(L);
@@ -896,7 +896,7 @@ static int _cclua_runtime_openURL2(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
 
-    // static void openURL(const std::string &uri, @local @optional const std::function<void (bool)> callback)
+    // static void openURL(const std::string &uri, @localvar @optional const std::function<void (bool)> callback)
     cclua::runtime::openURL(arg1);
 
     olua_endinvoke(L);
@@ -910,14 +910,14 @@ static int _cclua_runtime_openURL(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
-            // static void openURL(const std::string &uri, @local @optional const std::function<void (bool)> callback)
+            // static void openURL(const std::string &uri, @localvar @optional const std::function<void (bool)> callback)
             return _cclua_runtime_openURL2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_function(L, 2))) {
-            // static void openURL(const std::string &uri, @local @optional const std::function<void (bool)> callback)
+            // static void openURL(const std::string &uri, @localvar @optional const std::function<void (bool)> callback)
             return _cclua_runtime_openURL1(L);
         // }
     }
@@ -1069,7 +1069,7 @@ static int _cclua_runtime_requestPermission(lua_State *L)
         }
     };
 
-    // static void requestPermission(cclua::Permission permission, @local const std::function<void (cclua::PermissionStatus)> callback)
+    // static void requestPermission(cclua::Permission permission, @localvar const std::function<void (cclua::PermissionStatus)> callback)
     cclua::runtime::requestPermission((cclua::Permission)arg1, arg2);
 
     olua_endinvoke(L);
@@ -1133,7 +1133,7 @@ static int _cclua_runtime_setDispatcher(lua_State *L)
         }
     };
 
-    // static void setDispatcher(@local const std::function<void (const std::string &, const std::string &)> &dispatcher)
+    // static void setDispatcher(@localvar const std::function<void (const std::string &, const std::string &)> &dispatcher)
     cclua::runtime::setDispatcher(arg1);
 
     olua_endinvoke(L);
@@ -2466,7 +2466,7 @@ static int _cclua_timer_delay(lua_State *L)
         }
     };
 
-    // static void delay(float time, @local const std::function<void ()> callback)
+    // static void delay(float time, @localvar const std::function<void ()> callback)
     cclua::timer::delay((float)arg1, arg2);
 
     olua_endinvoke(L);
@@ -2505,7 +2505,7 @@ static int _cclua_timer_delayWithTag(lua_State *L)
         }
     };
 
-    // static void delayWithTag(float time, const std::string &tag, @local std::function<void ()> callback)
+    // static void delayWithTag(float time, const std::string &tag, @localvar std::function<void ()> callback)
     cclua::timer::delayWithTag((float)arg1, arg2, arg3);
 
     olua_endinvoke(L);
@@ -2648,7 +2648,7 @@ static int _cclua_window_convertToCameraSpace(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if ((olua_ispack_cocos2d_Vec2(L, 1))) {
+        // if ((olua_canpack_cocos2d_Vec2(L, 1))) {
             // static cocos2d::Vec2 convertToCameraSpace(@pack const cocos2d::Vec2 &position)
             return _cclua_window_convertToCameraSpace2(L);
         // }
@@ -2759,7 +2759,7 @@ static int _cclua_window_setDesignSize(lua_State *L)
     }
 
     if (num_args == 3) {
-        // if ((olua_ispack_cocos2d_Size(L, 1)) && (olua_is_uint(L, 3))) {
+        // if ((olua_canpack_cocos2d_Size(L, 1)) && (olua_is_uint(L, 3))) {
             // static void setDesignSize(@pack const cocos2d::Size &size, ResolutionPolicy resolutionPolicy)
             return _cclua_window_setDesignSize2(L);
         // }
@@ -2814,7 +2814,7 @@ static int _cclua_window_setFrameSize(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if ((olua_ispack_cocos2d_Size(L, 1))) {
+        // if ((olua_canpack_cocos2d_Size(L, 1))) {
             // static void setFrameSize(@pack const cocos2d::Size &size)
             return _cclua_window_setFrameSize2(L);
         // }
@@ -2969,7 +2969,7 @@ static int _cclua_downloader_setDispatcher(lua_State *L)
         }
     };
 
-    // static void setDispatcher(@local const std::function<void (const std::string &, const std::string &)> &dispatcher)
+    // static void setDispatcher(@localvar const std::function<void (const std::string &, const std::string &)> &dispatcher)
     cclua::downloader::setDispatcher(arg1);
 
     olua_endinvoke(L);
@@ -3008,7 +3008,7 @@ static int _cclua_downloader_setURIResolver(lua_State *L)
         return (std::string)ret;
     };
 
-    // static void setURIResolver(@local const std::function<std::string (const std::string &)> &resolver)
+    // static void setURIResolver(@localvar const std::function<std::string (const std::string &)> &resolver)
     cclua::downloader::setURIResolver(arg1);
 
     olua_endinvoke(L);

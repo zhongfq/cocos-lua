@@ -106,7 +106,7 @@ int olua_unpack_dragonBones_Rectangle(lua_State *L, const dragonBones::Rectangle
     return 4;
 }
 
-bool olua_ispack_dragonBones_Rectangle(lua_State *L, int idx)
+bool olua_canpack_dragonBones_Rectangle(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_number(L, idx + 3);
 }
@@ -15056,7 +15056,7 @@ static int _dragonBones_CCArmatureDisplay_addDBEventListener(lua_State *L)
         }
     };
 
-    // void addDBEventListener(const std::string &type, @local const std::function<void (EventObject *)> &listener)
+    // void addDBEventListener(const std::string &type, @localvar const std::function<void (EventObject *)> &listener)
     self->addDBEventListener(arg1, arg2);
 
     olua_endinvoke(L);
@@ -15285,7 +15285,7 @@ static int _dragonBones_CCArmatureDisplay_removeDBEventListener(lua_State *L)
     void *cb_store = (void *)self;
     olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // void removeDBEventListener(const std::string &type, @nullable @local const std::function<void (EventObject *)> &listener)
+    // void removeDBEventListener(const std::string &type, @localvar @nullable const std::function<void (EventObject *)> &listener)
     self->removeDBEventListener(arg1, arg2);
 
     olua_endinvoke(L);

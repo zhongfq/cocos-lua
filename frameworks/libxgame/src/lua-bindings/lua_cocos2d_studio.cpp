@@ -107,7 +107,7 @@ int olua_unpack_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio
     return 3;
 }
 
-bool olua_ispack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx)
+bool olua_canpack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx)
 {
     return olua_is_std_string(L, idx + 0) && olua_is_int(L, idx + 1) && olua_is_int(L, idx + 2);
 }
@@ -210,7 +210,7 @@ static int _cocos2d_CSLoader_createNode2(lua_State *L)
         }
     };
 
-    // static cocos2d::Node *createNode(const std::string &filename, @local const std::function<void (cocos2d::Ref *)> &callback)
+    // static cocos2d::Node *createNode(const std::string &filename, @localvar const std::function<void (cocos2d::Ref *)> &callback)
     cocos2d::Node *ret = cocos2d::CSLoader::createNode(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
@@ -271,7 +271,7 @@ static int _cocos2d_CSLoader_createNode4(lua_State *L)
         }
     };
 
-    // static cocos2d::Node *createNode(const cocos2d::Data &data, @local const std::function<void (cocos2d::Ref *)> &callback)
+    // static cocos2d::Node *createNode(const cocos2d::Data &data, @localvar const std::function<void (cocos2d::Ref *)> &callback)
     cocos2d::Node *ret = cocos2d::CSLoader::createNode(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
@@ -300,12 +300,12 @@ static int _cocos2d_CSLoader_createNode(lua_State *L)
 
     if (num_args == 2) {
         if ((olua_is_std_string(L, 1)) && (olua_is_std_function(L, 2))) {
-            // static cocos2d::Node *createNode(const std::string &filename, @local const std::function<void (cocos2d::Ref *)> &callback)
+            // static cocos2d::Node *createNode(const std::string &filename, @localvar const std::function<void (cocos2d::Ref *)> &callback)
             return _cocos2d_CSLoader_createNode2(L);
         }
 
         // if ((olua_is_cocos2d_Data(L, 1)) && (olua_is_std_function(L, 2))) {
-            // static cocos2d::Node *createNode(const cocos2d::Data &data, @local const std::function<void (cocos2d::Ref *)> &callback)
+            // static cocos2d::Node *createNode(const cocos2d::Data &data, @localvar const std::function<void (cocos2d::Ref *)> &callback)
             return _cocos2d_CSLoader_createNode4(L);
         // }
     }
@@ -422,7 +422,7 @@ static int _cocos2d_CSLoader_createNodeWithVisibleSize2(lua_State *L)
         }
     };
 
-    // static cocos2d::Node *createNodeWithVisibleSize(const std::string &filename, @local const std::function<void (cocos2d::Ref *)> &callback)
+    // static cocos2d::Node *createNodeWithVisibleSize(const std::string &filename, @localvar const std::function<void (cocos2d::Ref *)> &callback)
     cocos2d::Node *ret = cocos2d::CSLoader::createNodeWithVisibleSize(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
@@ -446,7 +446,7 @@ static int _cocos2d_CSLoader_createNodeWithVisibleSize(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_function(L, 2))) {
-            // static cocos2d::Node *createNodeWithVisibleSize(const std::string &filename, @local const std::function<void (cocos2d::Ref *)> &callback)
+            // static cocos2d::Node *createNodeWithVisibleSize(const std::string &filename, @localvar const std::function<void (cocos2d::Ref *)> &callback)
             return _cocos2d_CSLoader_createNodeWithVisibleSize2(L);
         // }
     }
@@ -4301,7 +4301,7 @@ static int _cocostudio_ArmatureAnimation_setFrameEventCallFunc(lua_State *L)
         arg1 = nullptr;
     }
 
-    // void setFrameEventCallFunc(@nullable @local std::function<void (cocostudio::Bone *, const std::string &, int, int)> listener)
+    // void setFrameEventCallFunc(@localvar @nullable std::function<void (cocostudio::Bone *, const std::string &, int, int)> listener)
     self->setFrameEventCallFunc(arg1);
 
     olua_endinvoke(L);
@@ -4350,7 +4350,7 @@ static int _cocostudio_ArmatureAnimation_setMovementEventCallFunc(lua_State *L)
         arg1 = nullptr;
     }
 
-    // void setMovementEventCallFunc(@nullable @local std::function<void (cocostudio::Armature *, cocostudio::MovementEventType, const std::string &)> listener)
+    // void setMovementEventCallFunc(@localvar @nullable std::function<void (cocostudio::Armature *, cocostudio::MovementEventType, const std::string &)> listener)
     self->setMovementEventCallFunc(arg1);
 
     olua_endinvoke(L);
@@ -12720,7 +12720,7 @@ static int _cocostudio_SceneReader_setTarget(lua_State *L)
         arg1 = nullptr;
     }
 
-    // void setTarget(@nullable @local const std::function<void (cocos2d::Ref *, void *)> &selector)
+    // void setTarget(@localvar @nullable const std::function<void (cocos2d::Ref *, void *)> &selector)
     self->setTarget(arg1);
 
     olua_endinvoke(L);
@@ -17580,7 +17580,7 @@ static int _cocostudio_timeline_ActionTimeline_addFrameEndCallFunc(lua_State *L)
         }
     };
 
-    // void addFrameEndCallFunc(int frameIndex, const std::string &funcKey, @local std::function<void ()> func)
+    // void addFrameEndCallFunc(int frameIndex, const std::string &funcKey, @localvar std::function<void ()> func)
     self->addFrameEndCallFunc((int)arg1, arg2, arg3);
 
     olua_endinvoke(L);
@@ -18150,7 +18150,7 @@ static int _cocostudio_timeline_ActionTimeline_setAnimationEndCallFunc(lua_State
         }
     };
 
-    // void setAnimationEndCallFunc(const std::string animationName, @local std::function<void ()> func)
+    // void setAnimationEndCallFunc(const std::string animationName, @localvar std::function<void ()> func)
     self->setAnimationEndCallFunc(arg1, arg2);
 
     olua_endinvoke(L);
@@ -18243,7 +18243,7 @@ static int _cocostudio_timeline_ActionTimeline_setFrameEventCallFunc(lua_State *
         arg1 = nullptr;
     }
 
-    // void setFrameEventCallFunc(@nullable @local std::function<void (cocostudio::timeline::Frame *)> listener)
+    // void setFrameEventCallFunc(@localvar @nullable std::function<void (cocostudio::timeline::Frame *)> listener)
     self->setFrameEventCallFunc(arg1);
 
     olua_endinvoke(L);
@@ -18284,7 +18284,7 @@ static int _cocostudio_timeline_ActionTimeline_setLastFrameCallFunc(lua_State *L
         arg1 = nullptr;
     }
 
-    // void setLastFrameCallFunc(@nullable @local std::function<void ()> listener)
+    // void setLastFrameCallFunc(@localvar @nullable std::function<void ()> listener)
     self->setLastFrameCallFunc(arg1);
 
     olua_endinvoke(L);

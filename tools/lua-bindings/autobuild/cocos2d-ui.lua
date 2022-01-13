@@ -165,13 +165,13 @@ typeconf 'cocos2d::ui::Widget'
     .func(nil, 'void onFocusChange(@nullable cocos2d::ui::Widget *widgetLostFocus, @nullable cocos2d::ui::Widget *widgetGetFocus)')
     .func(nil, 'void dispatchFocusEvent(@nullable cocos2d::ui::Widget *widgetLoseFocus, @nullable cocos2d::ui::Widget *widgetGetFocus)')
     .var('onFocusChanged', '@nullable std::function<void (cocos2d::ui::Widget *, cocos2d::ui::Widget *)> onFocusChanged')
-    .var('onNextFocusedWidget', '@nullable @local std::function<cocos2d::ui::Widget * (cocos2d::ui::Widget::FocusDirection)> onNextFocusedWidget')
+    .var('onNextFocusedWidget', '@nullable @localvar std::function<cocos2d::ui::Widget * (cocos2d::ui::Widget::FocusDirection)> onNextFocusedWidget')
     .callback {
         FUNCS =  {
             'void addTouchEventListener(@nullable const cocos2d::ui::Widget::ccWidgetTouchCallback &callback)'
         },
         TAG_MAKER = 'addTouchEventListener',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -180,7 +180,7 @@ typeconf 'cocos2d::ui::Widget'
             'void addClickEventListener(@nullable const cocos2d::ui::Widget::ccWidgetClickCallback &callback)'
         },
         TAG_MAKER = 'addClickEventListener',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -189,7 +189,7 @@ typeconf 'cocos2d::ui::Widget'
             'void addCCSEventListener(@nullable const cocos2d::ui::Widget::ccWidgetEventCallback &callback)'
         },
         TAG_MAKER = 'addCCSEventListener',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -655,7 +655,7 @@ typeconf 'cocos2d::ui::WebView'
             'void setOnShouldStartLoading(@nullable const std::function<bool (WebView *, const std::string &)> &callback)'
         },
         TAG_MAKER = 'OnShouldStartLoading',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -664,7 +664,7 @@ typeconf 'cocos2d::ui::WebView'
             'void setOnDidFinishLoading(@nullable const cocos2d::ui::WebView::ccWebViewCallback &callback)'
         },
         TAG_MAKER = 'OnDidFinishLoading',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -673,7 +673,7 @@ typeconf 'cocos2d::ui::WebView'
             'void setOnDidFailLoading(@nullable const cocos2d::ui::WebView::ccWebViewCallback &callback)'
         },
         TAG_MAKER = 'OnDidFailLoading',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -682,43 +682,43 @@ typeconf 'cocos2d::ui::WebView'
             'void setOnJSCallback(@nullable const cocos2d::ui::WebView::ccWebViewCallback &callback)'
         },
         TAG_MAKER = 'OnJSCallback',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            '@local std::function<bool (cocos2d::ui::WebView *, const std::string &)> getOnShouldStartLoading()'
+            '@localvar std::function<bool (cocos2d::ui::WebView *, const std::string &)> getOnShouldStartLoading()'
         },
         TAG_MAKER = 'OnShouldStartLoading',
-        TAG_MODE = 'OLUA_TAG_SUBEQUAL',
+        TAG_MODE = 'subequal',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            '@local cocos2d::ui::WebView::ccWebViewCallback getOnDidFinishLoading()'
+            '@localvar cocos2d::ui::WebView::ccWebViewCallback getOnDidFinishLoading()'
         },
         TAG_MAKER = 'OnDidFinishLoading',
-        TAG_MODE = 'OLUA_TAG_SUBEQUAL',
+        TAG_MODE = 'subequal',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            '@local cocos2d::ui::WebView::ccWebViewCallback getOnDidFailLoading()'
+            '@localvar cocos2d::ui::WebView::ccWebViewCallback getOnDidFailLoading()'
         },
         TAG_MAKER = 'OnDidFailLoading',
-        TAG_MODE = 'OLUA_TAG_SUBEQUAL',
+        TAG_MODE = 'subequal',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            '@local cocos2d::ui::WebView::ccWebViewCallback getOnJSCallback()'
+            '@localvar cocos2d::ui::WebView::ccWebViewCallback getOnJSCallback()'
         },
         TAG_MAKER = 'OnJSCallback',
-        TAG_MODE = 'OLUA_TAG_SUBEQUAL',
+        TAG_MODE = 'subequal',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -787,7 +787,7 @@ typeconf 'cocos2d::ui::VideoPlayer'
             'void addEventListener(const cocos2d::ui::VideoPlayer::ccVideoPlayerCallback &callback)'
         },
         TAG_MAKER = 'videoPlayerCallback',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -918,10 +918,10 @@ typeconf 'cocos2d::ui::TabControl'
     .func(nil, 'cocos2d::ui::TabControl::Dock getHeaderDockPlace()')
     .callback {
         FUNCS =  {
-            'void setTabChangedEventListener(@nullable @local const cocos2d::ui::TabControl::ccTabControlCallback &callback)'
+            'void setTabChangedEventListener(@localvar @nullable const cocos2d::ui::TabControl::ccTabControlCallback &callback)'
         },
         TAG_MAKER = 'tabChangedEventListener',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1041,7 +1041,7 @@ typeconf 'cocos2d::ui::ScrollView'
             'void addEventListener(const cocos2d::ui::ScrollView::ccScrollViewCallback &callback)'
         },
         TAG_MAKER = 'scrollViewCallback',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1160,7 +1160,7 @@ typeconf 'cocos2d::ui::ListView'
             '@using void addEventListener(const cocos2d::ui::ScrollView::ccScrollViewCallback &callback)'
         },
         TAG_MAKER = 'ListViewCallback',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1278,7 +1278,7 @@ typeconf 'cocos2d::ui::PageView'
             '@using void addEventListener(const cocos2d::ui::ScrollView::ccScrollViewCallback &callback)'
         },
         TAG_MAKER = 'PageViewCallback',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1468,19 +1468,19 @@ typeconf 'cocos2d::ui::RichText'
     .func(nil, 'void openUrl(const std::string &url)')
     .callback {
         FUNCS =  {
-            'static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @local @optional const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)'
+            'static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @localvar @optional const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)'
         },
         TAG_MAKER = 'OpenUrlHandler',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = "return",
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            'void setOpenUrlHandler(@local const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)'
+            'void setOpenUrlHandler(@localvar const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)'
         },
         TAG_MAKER = 'OpenUrlHandler',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1588,7 +1588,7 @@ typeconf 'cocos2d::ui::Slider'
             'void addEventListener(const cocos2d::ui::Slider::ccSliderCallback &callback)'
         },
         TAG_MAKER = 'sliderCallback',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1825,7 +1825,7 @@ typeconf 'cocos2d::ui::TextField'
             'void addEventListener(const cocos2d::ui::TextField::ccTextFieldCallback &callback)'
         },
         TAG_MAKER = 'textFieldCallback',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1942,7 +1942,7 @@ typeconf 'cocos2d::ui::CheckBox'
             'void addEventListener(const cocos2d::ui::CheckBox::ccCheckBoxCallback &callback)'
         },
         TAG_MAKER = 'checkBoxCallback',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1974,7 +1974,7 @@ typeconf 'cocos2d::ui::RadioButton'
             'void addEventListener(const cocos2d::ui::RadioButton::ccRadioButtonCallback &callback)'
         },
         TAG_MAKER = 'radioButtonCallback',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -2014,7 +2014,7 @@ typeconf 'cocos2d::ui::RadioButtonGroup'
             'void addEventListener(const cocos2d::ui::RadioButtonGroup::ccRadioButtonGroupCallback &callback)'
         },
         TAG_MAKER = 'radioButtonCallback',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -2071,10 +2071,10 @@ typeconf 'cocos2d::ui::LuaEditBoxDelegate'
     .chunk(nil)
     .require(nil)
     .func(nil, 'LuaEditBoxDelegate()')
-    .var('onEditingDidBegin', '@nullable @local std::function<void (cocos2d::ui::EditBox *)> onEditingDidBegin')
-    .var('onTextChanged', '@nullable @local std::function<void (cocos2d::ui::EditBox *, const std::string &)> onTextChanged')
-    .var('onReturn', '@nullable @local std::function<void (cocos2d::ui::EditBox *)> onReturn')
-    .var('onEditingDidEndWithAction', '@nullable @local std::function<void (cocos2d::ui::EditBox *, EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction')
+    .var('onEditingDidBegin', '@nullable @localvar std::function<void (cocos2d::ui::EditBox *)> onEditingDidBegin')
+    .var('onTextChanged', '@nullable @localvar std::function<void (cocos2d::ui::EditBox *, const std::string &)> onTextChanged')
+    .var('onReturn', '@nullable @localvar std::function<void (cocos2d::ui::EditBox *)> onReturn')
+    .var('onEditingDidEndWithAction', '@nullable @localvar std::function<void (cocos2d::ui::EditBox *, EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction')
 
 typeconf 'cocos2d::ui::EditBox::KeyboardReturnType'
     .supercls(nil)

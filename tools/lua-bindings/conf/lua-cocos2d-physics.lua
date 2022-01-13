@@ -10,7 +10,7 @@ headers [[
 #include "cocos2d.h"
 ]]
 
-make_luacls(function (cppname)
+luacls(function (cppname)
     cppname = string.gsub(cppname, "^cocos2d::", "cc.")
     cppname = string.gsub(cppname, "::", ".")
     return cppname
@@ -56,5 +56,5 @@ typeconf 'cocos2d::PhysicsShapeEdgeSegment'
 typeconf 'cocos2d::PhysicsRayCastInfo'
 
 typeconf 'cocos2d::PhysicsWorld'
-    .callback {name = 'setPreUpdateCallback', nullable = true}
-    .callback {name = 'setPostUpdateCallback', nullable = true}
+    .callback 'setPreUpdateCallback' .arg1 '@nullable'
+    .callback 'setPostUpdateCallback' .arg1 '@nullable'

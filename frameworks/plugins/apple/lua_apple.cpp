@@ -49,7 +49,7 @@ static int _cclua_plugin_AppleAuth_auth(lua_State *L)
         }
     };
 
-    // static void auth(@local const std::function<void (const cocos2d::ValueMap &)> &callback)
+    // static void auth(@localvar const std::function<void (const cocos2d::ValueMap &)> &callback)
     cclua::plugin::AppleAuth::auth(arg1);
 
     olua_endinvoke(L);
@@ -288,7 +288,7 @@ static int _cclua_plugin_AppleIAP_setDispatcher(lua_State *L)
         }
     };
 
-    // static void setDispatcher(@local const std::function<void (const std::string &, const cocos2d::Value &)> &dispatcher)
+    // static void setDispatcher(@localvar const std::function<void (const std::string &, const cocos2d::Value &)> &dispatcher)
     cclua::plugin::AppleIAP::setDispatcher(arg1);
 
     olua_endinvoke(L);

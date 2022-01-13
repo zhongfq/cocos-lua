@@ -1800,7 +1800,7 @@ static int _cocos2d_Sequence_create(lua_State *L)
             return _cocos2d_Sequence_create1(L);
         }
 
-        // if ((olua_ispack_cocos2d_Vector(L, 1))) {
+        // if ((olua_canpack_cocos2d_Vector(L, 1))) {
             // static cocos2d::Sequence *create(@pack@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
             return _cocos2d_Sequence_create2(L);
         // }
@@ -2098,7 +2098,7 @@ static int _cocos2d_Spawn_create(lua_State *L)
             return _cocos2d_Spawn_create1(L);
         }
 
-        // if ((olua_ispack_cocos2d_Vector(L, 1))) {
+        // if ((olua_canpack_cocos2d_Vector(L, 1))) {
             // static cocos2d::Spawn *create(@pack@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
             return _cocos2d_Spawn_create2(L);
         // }
@@ -2584,14 +2584,14 @@ static int _cocos2d_MoveBy_create(lua_State *L)
     }
 
     if (num_args == 3) {
-        // if ((olua_is_number(L, 1)) && (olua_ispack_cocos2d_Vec2(L, 2))) {
+        // if ((olua_is_number(L, 1)) && (olua_canpack_cocos2d_Vec2(L, 2))) {
             // static cocos2d::MoveBy *create(float duration, @pack const cocos2d::Vec2 &deltaPosition)
             return _cocos2d_MoveBy_create2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if ((olua_is_number(L, 1)) && (olua_ispack_cocos2d_Vec3(L, 2))) {
+        // if ((olua_is_number(L, 1)) && (olua_canpack_cocos2d_Vec3(L, 2))) {
             // static cocos2d::MoveBy *create(float duration, @pack const cocos2d::Vec3 &deltaPosition)
             return _cocos2d_MoveBy_create4(L);
         // }
@@ -2718,14 +2718,14 @@ static int _cocos2d_MoveTo_create(lua_State *L)
     }
 
     if (num_args == 3) {
-        // if ((olua_is_number(L, 1)) && (olua_ispack_cocos2d_Vec2(L, 2))) {
+        // if ((olua_is_number(L, 1)) && (olua_canpack_cocos2d_Vec2(L, 2))) {
             // static cocos2d::MoveTo *create(float duration, @pack const cocos2d::Vec2 &position)
             return _cocos2d_MoveTo_create2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if ((olua_is_number(L, 1)) && (olua_ispack_cocos2d_Vec3(L, 2))) {
+        // if ((olua_is_number(L, 1)) && (olua_canpack_cocos2d_Vec3(L, 2))) {
             // static cocos2d::MoveTo *create(float duration, @pack const cocos2d::Vec3 &position)
             return _cocos2d_MoveTo_create4(L);
         // }
@@ -2852,14 +2852,14 @@ static int _cocos2d_MoveFrom_create(lua_State *L)
     }
 
     if (num_args == 3) {
-        // if ((olua_is_number(L, 1)) && (olua_ispack_cocos2d_Vec2(L, 2))) {
+        // if ((olua_is_number(L, 1)) && (olua_canpack_cocos2d_Vec2(L, 2))) {
             // static cocos2d::MoveFrom *create(float duration, @pack const cocos2d::Vec2 &position)
             return _cocos2d_MoveFrom_create2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if ((olua_is_number(L, 1)) && (olua_ispack_cocos2d_Vec3(L, 2))) {
+        // if ((olua_is_number(L, 1)) && (olua_canpack_cocos2d_Vec3(L, 2))) {
             // static cocos2d::MoveFrom *create(float duration, @pack const cocos2d::Vec3 &position)
             return _cocos2d_MoveFrom_create4(L);
         // }
@@ -3115,7 +3115,7 @@ static int _cocos2d_BezierBy_create(lua_State *L)
     }
 
     if (num_args == 4) {
-        // if ((olua_is_number(L, 1)) && (olua_ispack_cocos2d_ccBezierConfig(L, 2))) {
+        // if ((olua_is_number(L, 1)) && (olua_canpack_cocos2d_ccBezierConfig(L, 2))) {
             // static cocos2d::BezierBy *create(float t, @pack const cocos2d::ccBezierConfig &c)
             return _cocos2d_BezierBy_create2(L);
         // }
@@ -3199,7 +3199,7 @@ static int _cocos2d_BezierTo_create(lua_State *L)
     }
 
     if (num_args == 4) {
-        // if ((olua_is_number(L, 1)) && (olua_ispack_cocos2d_ccBezierConfig(L, 2))) {
+        // if ((olua_is_number(L, 1)) && (olua_canpack_cocos2d_ccBezierConfig(L, 2))) {
             // static cocos2d::BezierTo *create(float t, @pack const cocos2d::ccBezierConfig &c)
             return _cocos2d_BezierTo_create2(L);
         // }
@@ -3291,7 +3291,7 @@ static int _cocos2d_JumpBy_create(lua_State *L)
     }
 
     if (num_args == 5) {
-        // if ((olua_is_number(L, 1)) && (olua_ispack_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 4)) && (olua_is_int(L, 5))) {
+        // if ((olua_is_number(L, 1)) && (olua_canpack_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 4)) && (olua_is_int(L, 5))) {
             // static cocos2d::JumpBy *create(float duration, @pack const cocos2d::Vec2 &position, float height, int jumps)
             return _cocos2d_JumpBy_create2(L);
         // }
@@ -3383,7 +3383,7 @@ static int _cocos2d_JumpTo_create(lua_State *L)
     }
 
     if (num_args == 5) {
-        // if ((olua_is_number(L, 1)) && (olua_ispack_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 4)) && (olua_is_int(L, 5))) {
+        // if ((olua_is_number(L, 1)) && (olua_canpack_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 4)) && (olua_is_int(L, 5))) {
             // static cocos2d::JumpTo *create(float duration, @pack const cocos2d::Vec2 &position, float height, int jumps)
             return _cocos2d_JumpTo_create2(L);
         // }
@@ -4444,7 +4444,7 @@ static int _cocos2d_ActionFloat_create(lua_State *L)
         }
     };
 
-    // static cocos2d::ActionFloat *create(float duration, float from, float to, @local cocos2d::ActionFloat::ActionFloatCallback callback)
+    // static cocos2d::ActionFloat *create(float duration, float from, float to, @localvar cocos2d::ActionFloat::ActionFloatCallback callback)
     cocos2d::ActionFloat *ret = cocos2d::ActionFloat::create((float)arg1, (float)arg2, (float)arg3, arg4);
     if (olua_pushobjstub(L, ret, cb_store, "cc.ActionFloat") == OLUA_OBJ_EXIST) {
         lua_pushstring(L, cb_name.c_str());
@@ -7234,7 +7234,7 @@ static int _cocos2d_CallFunc_create(lua_State *L)
         }
     };
 
-    // static cocos2d::CallFunc *create(@local const std::function<void ()> &func)
+    // static cocos2d::CallFunc *create(@localvar const std::function<void ()> &func)
     cocos2d::CallFunc *ret = cocos2d::CallFunc::create(arg1);
     if (olua_pushobjstub(L, ret, cb_store, "cc.CallFunc") == OLUA_OBJ_EXIST) {
         lua_pushstring(L, cb_name.c_str());

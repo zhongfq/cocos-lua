@@ -18,6 +18,6 @@ void olua_check_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostu
 bool olua_is_cocostudio_timeline_AnimationInfo(lua_State *L, int idx);
 void olua_pack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostudio::timeline::AnimationInfo *value);
 int olua_unpack_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio::timeline::AnimationInfo *value);
-bool olua_ispack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx);
+bool olua_canpack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx);
 
 #endif

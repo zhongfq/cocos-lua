@@ -292,7 +292,7 @@ typeconf 'spine::AnimationState'
             'void setListener(spine::AnimationStateListener listener)'
         },
         TAG_MAKER = 'Listener',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1305,7 +1305,7 @@ typeconf 'spine::TrackEntry'
             'void setListener(spine::AnimationStateListener listener)'
         },
         TAG_MAKER = 'Listener',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1661,7 +1661,7 @@ typeconf 'spine::SkeletonAnimation'
             'void setStartListener(const spine::StartListener &listener)'
         },
         TAG_MAKER = 'StartListener',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1670,7 +1670,7 @@ typeconf 'spine::SkeletonAnimation'
             'void setInterruptListener(const spine::InterruptListener &listener)'
         },
         TAG_MAKER = 'InterruptListener',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1679,7 +1679,7 @@ typeconf 'spine::SkeletonAnimation'
             'void setEndListener(const spine::EndListener &listener)'
         },
         TAG_MAKER = 'EndListener',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1688,7 +1688,7 @@ typeconf 'spine::SkeletonAnimation'
             'void setDisposeListener(const spine::DisposeListener &listener)'
         },
         TAG_MAKER = 'DisposeListener',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1697,7 +1697,7 @@ typeconf 'spine::SkeletonAnimation'
             'void setCompleteListener(const spine::CompleteListener &listener)'
         },
         TAG_MAKER = 'CompleteListener',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1706,7 +1706,7 @@ typeconf 'spine::SkeletonAnimation'
             'void setEventListener(const spine::EventListener &listener)'
         },
         TAG_MAKER = 'EventListener',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1715,7 +1715,7 @@ typeconf 'spine::SkeletonAnimation'
             'void setTrackStartListener(spine::TrackEntry *entry, const spine::StartListener &listener)'
         },
         TAG_MAKER = 'TrackStartListener',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1724,7 +1724,7 @@ typeconf 'spine::SkeletonAnimation'
             'void setTrackInterruptListener(spine::TrackEntry *entry, const spine::InterruptListener &listener)'
         },
         TAG_MAKER = 'TrackInterruptListener',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1733,7 +1733,7 @@ typeconf 'spine::SkeletonAnimation'
             'void setTrackEndListener(spine::TrackEntry *entry, const spine::EndListener &listener)'
         },
         TAG_MAKER = 'TrackEndListener',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1742,7 +1742,7 @@ typeconf 'spine::SkeletonAnimation'
             'void setTrackDisposeListener(spine::TrackEntry *entry, const spine::DisposeListener &listener)'
         },
         TAG_MAKER = 'TrackDisposeListener',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1751,7 +1751,7 @@ typeconf 'spine::SkeletonAnimation'
             'void setTrackCompleteListener(spine::TrackEntry *entry, const spine::CompleteListener &listener)'
         },
         TAG_MAKER = 'TrackCompleteListener',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1760,25 +1760,25 @@ typeconf 'spine::SkeletonAnimation'
             'void setTrackEventListener(spine::TrackEntry *entry, const spine::EventListener &listener)'
         },
         TAG_MAKER = 'TrackEventListener',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            'void setPreUpdateWorldTransformsListener(@local const spine::UpdateWorldTransformsListener &listener)'
+            'void setPreUpdateWorldTransformsListener(@localvar const spine::UpdateWorldTransformsListener &listener)'
         },
         TAG_MAKER = 'PreUpdateWorldTransformsListener',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            'void setPostUpdateWorldTransformsListener(@local const spine::UpdateWorldTransformsListener &listener)'
+            'void setPostUpdateWorldTransformsListener(@localvar const spine::UpdateWorldTransformsListener &listener)'
         },
         TAG_MAKER = 'PostUpdateWorldTransformsListener',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }

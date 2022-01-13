@@ -43,10 +43,10 @@ typeconf 'cocos2d::EventListenerPhysicsContact'
     .chunk(nil)
     .require(nil)
     .func(nil, 'static cocos2d::EventListenerPhysicsContact *create()')
-    .var('onContactBegin', '@nullable @local std::function<bool (cocos2d::PhysicsContact &)> onContactBegin')
-    .var('onContactPreSolve', '@nullable @local std::function<bool (cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)> onContactPreSolve')
-    .var('onContactPostSolve', '@nullable @local std::function<void (cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)> onContactPostSolve')
-    .var('onContactSeparate', '@nullable @local std::function<void (cocos2d::PhysicsContact &)> onContactSeparate')
+    .var('onContactBegin', '@nullable @localvar std::function<bool (cocos2d::PhysicsContact &)> onContactBegin')
+    .var('onContactPreSolve', '@nullable @localvar std::function<bool (cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)> onContactPreSolve')
+    .var('onContactPostSolve', '@nullable @localvar std::function<void (cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)> onContactPostSolve')
+    .var('onContactSeparate', '@nullable @localvar std::function<void (cocos2d::PhysicsContact &)> onContactSeparate')
 
 typeconf 'cocos2d::EventListenerPhysicsContactWithGroup'
     .supercls('cocos2d::EventListenerPhysicsContact')
@@ -592,46 +592,46 @@ typeconf 'cocos2d::PhysicsWorld'
     .func(nil, 'void step(float delta)')
     .callback {
         FUNCS =  {
-            'void setPreUpdateCallback(@nullable @local const std::function<void ()> &callback)'
+            'void setPreUpdateCallback(@localvar @nullable const std::function<void ()> &callback)'
         },
         TAG_MAKER = 'PreUpdateCallback',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            'void setPostUpdateCallback(@nullable @local const std::function<void ()> &callback)'
+            'void setPostUpdateCallback(@localvar @nullable const std::function<void ()> &callback)'
         },
         TAG_MAKER = 'PostUpdateCallback',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            'void rayCast(@local cocos2d::PhysicsRayCastCallbackFunc func, const cocos2d::Vec2 &start, const cocos2d::Vec2 &end, void *data)'
+            'void rayCast(@localvar cocos2d::PhysicsRayCastCallbackFunc func, const cocos2d::Vec2 &start, const cocos2d::Vec2 &end, void *data)'
         },
         TAG_MAKER = 'rayCast',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            'void queryRect(@local cocos2d::PhysicsQueryRectCallbackFunc func, const cocos2d::Rect &rect, void *data)'
+            'void queryRect(@localvar cocos2d::PhysicsQueryRectCallbackFunc func, const cocos2d::Rect &rect, void *data)'
         },
         TAG_MAKER = 'queryRect',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            'void queryPoint(@local cocos2d::PhysicsQueryPointCallbackFunc func, const cocos2d::Vec2 &point, void *data)'
+            'void queryPoint(@localvar cocos2d::PhysicsQueryPointCallbackFunc func, const cocos2d::Vec2 &point, void *data)'
         },
         TAG_MAKER = 'queryPoint',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }

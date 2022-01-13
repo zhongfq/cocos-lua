@@ -18,7 +18,7 @@ void olua_check_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::PhysicsM
 bool olua_is_cocos2d_PhysicsMaterial(lua_State *L, int idx);
 void olua_pack_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::PhysicsMaterial *value);
 int olua_unpack_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMaterial *value);
-bool olua_ispack_cocos2d_PhysicsMaterial(lua_State *L, int idx);
+bool olua_canpack_cocos2d_PhysicsMaterial(lua_State *L, int idx);
 
 // cocos2d::PhysicsRayCastCallbackFunc
 bool olua_is_cocos2d_PhysicsRayCastCallbackFunc(lua_State *L, int idx);

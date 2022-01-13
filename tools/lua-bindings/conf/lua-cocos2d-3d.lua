@@ -10,7 +10,7 @@ headers [[
 #include "3d/CC3DProgramInfo.h"
 ]]
 
-make_luacls(function (cppname)
+luacls(function (cppname)
     cppname = string.gsub(cppname, '^cocos2d::shaderinfos::', 'cc.')
     cppname = string.gsub(cppname, '^cocos2d::', 'cc.')
     cppname = string.gsub(cppname, "::", ".")

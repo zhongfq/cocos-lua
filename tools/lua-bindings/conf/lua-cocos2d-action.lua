@@ -10,7 +10,7 @@ headers [[
 #include "cclua/xlua.h"
 ]]
 
-make_luacls(function (cppname)
+luacls(function (cppname)
     cppname = string.gsub(cppname, "^cocos2d::", "cc.")
     cppname = string.gsub(cppname, "::", ".")
     return cppname
@@ -43,9 +43,12 @@ typeconf 'cocos2d::Action'
 typeconf 'cocos2d::FiniteTimeAction'
 
 typeconf 'cocos2d::Speed'
-    .attr('create', {arg1 = '@addref(innerAction ^)'})
-    .attr('setInnerAction', {arg1 = '@addref(innerAction ^)'})
-    .attr('getInnerAction', {ret = '@addref(innerAction ^)'})
+    .func 'create'
+        .arg1 '@addref(innerAction ^)'
+    .func 'setInnerAction'
+        .arg1 '@addref(innerAction ^)'
+    .func 'getInnerAction'
+        .ret '@addref(innerAction ^)'
 
 typeconf 'cocos2d::Follow'
 typeconf 'cocos2d::tweenfunc'
@@ -53,35 +56,50 @@ typeconf 'cocos2d::ActionInterval'
 typeconf 'cocos2d::ActionTween'
 
 typeconf 'cocos2d::Sequence'
-    .attr('createWithTwoActions', {arg1 = '@addref(actions |)', arg2 = '@addref(actions |)'})
-    .attr('create', {arg1 = '@pack@addref(actions |)'})
+    .func 'createWithTwoActions'
+        .arg1 '@addref(actions |)'
+        .arg2 '@addref(actions |)'
+    .func 'create'
+        .arg1 '@pack@addref(actions |)'
 
 typeconf 'cocos2d::Repeat'
-    .attr('create', {arg1 = '@addref(innerAction ^)'})
-    .attr('setInnerAction', {arg1 = '@addref(innerAction ^)'})
-    .attr('getInnerAction', {ret = '@addref(innerAction ^)'})
+    .func 'create'
+        .arg1 '@addref(innerAction ^)'
+    .func 'setInnerAction'
+        .arg1 '@addref(innerAction ^)'
+    .func 'getInnerAction'
+        .ret '@addref(innerAction ^)'
 
 typeconf 'cocos2d::RepeatForever'
-    .attr('create', {arg1 = '@addref(innerAction ^)'})
-    .attr('setInnerAction', {arg1 = '@addref(innerAction ^)'})
-    .attr('getInnerAction', {ret = '@addref(innerAction ^)'})
+    .func 'create'
+        .arg1 '@addref(innerAction ^)'
+    .func 'setInnerAction'
+        .arg1 '@addref(innerAction ^)'
+    .func 'getInnerAction'
+        .ret '@addref(innerAction ^)'
 
 typeconf 'cocos2d::Spawn'
-    .attr('createWithTwoActions', {arg1 = '@addref(actions |)', arg2 = '@addref(actions |)'})
-    .attr('create', {arg1 = '@pack@addref(actions |)'})
+    .func 'createWithTwoActions'
+        .arg1 '@addref(actions |)'
+        .arg2 '@addref(actions |)'
+    .func 'create'
+        .arg1 '@pack@addref(actions |)'
 
 typeconf 'cocos2d::RotateTo'
 typeconf 'cocos2d::RotateFrom'
 typeconf 'cocos2d::RotateBy'
 
 typeconf 'cocos2d::MoveBy'
-    .attr('create', {arg2 = '@pack'})
+    .func 'create'
+        .arg2 '@pack'
 
 typeconf 'cocos2d::MoveTo'
-    .attr('create', {arg2 = '@pack'})
+    .func 'create'
+        .arg2 '@pack'
 
 typeconf 'cocos2d::MoveFrom'
-    .attr('create', {arg2 = '@pack'})
+    .func 'create'
+        .arg2 '@pack'
 
 typeconf 'cocos2d::SkewTo'
 typeconf 'cocos2d::SkewBy'
@@ -89,16 +107,20 @@ typeconf 'cocos2d::ResizeTo'
 typeconf 'cocos2d::ResizeBy'
 
 typeconf 'cocos2d::BezierBy'
-    .attr('create', {arg2 = '@pack'})
+    .func 'create'
+        .arg2 '@pack'
 
 typeconf 'cocos2d::BezierTo'
-    .attr('create', {arg2 = '@pack'})
+    .func 'create'
+        .arg2 '@pack'
 
 typeconf 'cocos2d::JumpBy'
-    .attr('create', {arg2 = '@pack'})
+    .func 'create'
+        .arg2 '@pack'
 
 typeconf 'cocos2d::JumpTo'
-    .attr('create', {arg2 = '@pack'})
+    .func 'create'
+        .arg2 '@pack'
 
 typeconf 'cocos2d::ScaleTo'
 typeconf 'cocos2d::ScaleBy'
@@ -113,32 +135,33 @@ typeconf 'cocos2d::TintBy'
 typeconf 'cocos2d::DelayTime'
 
 typeconf 'cocos2d::ReverseTime'
-    .attr('create', {arg1 = '@addref(actions |)'})
+    .func 'create'
+        .arg1 '@addref(actions |)'
 
 typeconf 'cocos2d::Animate'
 
 typeconf 'cocos2d::TargetedAction'
-    .attr('create', {arg2 = '@addref(actions |)'})
+    .func 'create'
+        .arg2 '@addref(actions |)'
 
 typeconf 'cocos2d::ActionFloat::ActionFloatCallback'
 
 typeconf 'cocos2d::ActionFloat'
-    .callback {
-        name = 'create',
-        tag_maker = 'ActionFloat',
-        tag_mode = 'OLUA_TAG_NEW',
-        tag_store = 'return',
-    }
+    .callback 'create'
+        .tag_maker 'ActionFloat'
+        .tag_mode 'new'
+        .tag_store 'return'
 
 typeconf 'cocos2d::ProgressTo'
 typeconf 'cocos2d::ProgressFromTo'
 
 typeconf 'cocos2d::ActionEase'
-    .attr('getInnerAction', {ret = '@addref(innerAction ^)'})
+    .func 'getInnerAction'
+        .ret '@addref(innerAction ^)'
 
 local function typeease(name)
     local cls = typeconf(name)
-    cls.attr('create', {arg1 = '@addref(innerAction ^)'})
+    cls.func 'create' .arg1 '@addref(innerAction ^)'
     return cls
 end
 
@@ -194,12 +217,10 @@ typeconf "cocos2d::FlipY"
 typeconf "cocos2d::Place"
 
 typeconf "cocos2d::CallFunc"
-    .callback {
-        name = 'create',
-        tag_maker = 'CallFunc',
-        tag_mode = 'OLUA_TAG_NEW',
-        tag_store = 'return',
-    }
+    .callback 'create'
+        .tag_maker 'CallFunc'
+        .tag_mode 'new'
+        .tag_store 'return'
 
 typeconf 'cocos2d::ActionCamera'
 typeconf 'cocos2d::OrbitCamera'

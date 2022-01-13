@@ -420,7 +420,7 @@ static int _cclua_plugin_JAuth_getSmsCode(lua_State *L)
         }
     };
 
-    // static void getSmsCode(const std::string &phonenum, const std::string &signid, const std::string &tempid, @local const std::function<void (const cocos2d::Value &)> callback)
+    // static void getSmsCode(const std::string &phonenum, const std::string &signid, const std::string &tempid, @localvar const std::function<void (const cocos2d::Value &)> callback)
     cclua::plugin::JAuth::getSmsCode(arg1, arg2, arg3, arg4);
 
     olua_endinvoke(L);
@@ -463,7 +463,7 @@ static int _cclua_plugin_JAuth_getToken(lua_State *L)
         }
     };
 
-    // static void getToken(int timeout, @local const std::function<void (const cocos2d::Value &)> callback)
+    // static void getToken(int timeout, @localvar const std::function<void (const cocos2d::Value &)> callback)
     cclua::plugin::JAuth::getToken((int)arg1, arg2);
 
     olua_endinvoke(L);
@@ -537,7 +537,7 @@ static int _cclua_plugin_JAuth_loginAuth(lua_State *L)
         }
     };
 
-    // static void loginAuth(int timeout, @local const std::function<void (const cocos2d::Value &)> callback)
+    // static void loginAuth(int timeout, @localvar const std::function<void (const cocos2d::Value &)> callback)
     cclua::plugin::JAuth::loginAuth((int)arg1, arg2);
 
     olua_endinvoke(L);
@@ -580,7 +580,7 @@ static int _cclua_plugin_JAuth_preLogin(lua_State *L)
         }
     };
 
-    // static void preLogin(int timeout, @local const std::function<void (const cocos2d::Value &)> callback)
+    // static void preLogin(int timeout, @localvar const std::function<void (const cocos2d::Value &)> callback)
     cclua::plugin::JAuth::preLogin((int)arg1, arg2);
 
     olua_endinvoke(L);

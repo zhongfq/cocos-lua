@@ -9,7 +9,7 @@ headers [[
 #include "apple/Apple.h"
 ]]
 
-make_luacls(function (cppname)
+luacls(function (cppname)
     cppname = string.gsub(cppname, "^cclua::", "cclua.")
     cppname = string.gsub(cppname, "::", ".")
     return cppname
@@ -20,7 +20,7 @@ include "conf/exclude-type.lua"
 ifdef 'CCLUA_BUILD_APPLE_AUTH'
 typeconf "cclua::plugin::AppleAuth"
     .require 'cclua::runtime::registerFeature("apple.auth.ios", true);'
-    .callback {name = 'auth', tag_scope = 'once'}
+    .callback 'auth' .tag_scope 'once'
 endif ''
 
 ifdef 'CCLUA_BUILD_APPLE_IAP'

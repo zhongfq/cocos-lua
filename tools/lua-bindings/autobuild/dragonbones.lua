@@ -960,19 +960,19 @@ typeconf 'dragonBones::CCArmatureDisplay'
     .var('debugDraw', 'bool debugDraw')
     .callback {
         FUNCS =  {
-            'void addDBEventListener(const std::string &type, @local const std::function<void (EventObject *)> &listener)'
+            'void addDBEventListener(const std::string &type, @localvar const std::function<void (EventObject *)> &listener)'
         },
         TAG_MAKER = '(#1)',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            'void removeDBEventListener(const std::string &type, @nullable @local const std::function<void (EventObject *)> &listener)'
+            'void removeDBEventListener(const std::string &type, @localvar @nullable const std::function<void (EventObject *)> &listener)'
         },
         TAG_MAKER = '(#1)',
-        TAG_MODE = 'OLUA_TAG_SUBEQUAL',
+        TAG_MODE = 'subequal',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }

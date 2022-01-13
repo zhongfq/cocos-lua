@@ -18,6 +18,6 @@ void olua_check_cocos2d_MeshVertexAttrib(lua_State *L, int idx, cocos2d::MeshVer
 bool olua_is_cocos2d_MeshVertexAttrib(lua_State *L, int idx);
 void olua_pack_cocos2d_MeshVertexAttrib(lua_State *L, int idx, cocos2d::MeshVertexAttrib *value);
 int olua_unpack_cocos2d_MeshVertexAttrib(lua_State *L, const cocos2d::MeshVertexAttrib *value);
-bool olua_ispack_cocos2d_MeshVertexAttrib(lua_State *L, int idx);
+bool olua_canpack_cocos2d_MeshVertexAttrib(lua_State *L, int idx);
 
 #endif

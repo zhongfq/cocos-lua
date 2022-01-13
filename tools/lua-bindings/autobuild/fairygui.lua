@@ -131,11 +131,11 @@ typeconf 'fairygui::UIEventDispatcher'
     .func(nil, 'bool isDispatchingEvent(int eventType)')
     .callback {
         FUNCS =  {
-            'void addEventListener(int eventType, @local const fairygui::EventCallback &callback)',
-            'void addEventListener(int eventType, @local const fairygui::EventCallback &callback, const fairygui::EventTag &tag)'
+            'void addEventListener(int eventType, @localvar const fairygui::EventCallback &callback)',
+            'void addEventListener(int eventType, @localvar const fairygui::EventCallback &callback, const fairygui::EventTag &tag)'
         },
         TAG_MAKER = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 4)'},
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -145,7 +145,7 @@ typeconf 'fairygui::UIEventDispatcher'
             'void removeEventListener(int eventType, const fairygui::EventTag &tag)'
         },
         TAG_MAKER = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 3)'},
-        TAG_MODE = {'OLUA_TAG_SUBSTARTWITH', 'OLUA_TAG_SUBEQUAL'},
+        TAG_MODE = {'substartwith', 'subequal'},
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -154,7 +154,7 @@ typeconf 'fairygui::UIEventDispatcher'
             'void removeEventListeners()'
         },
         TAG_MAKER = 'makeListenerTag(L, -1, 0)',
-        TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
+        TAG_MODE = 'substartwith',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -236,10 +236,10 @@ typeconf 'fairygui::InputProcessor'
     .func(nil, 'void touchUp(cocos2d::Touch *touch, cocos2d::Event *event)')
     .callback {
         FUNCS =  {
-            'void setCaptureCallback(@nullable @local fairygui::InputProcessor::CaptureEventCallback value)'
+            'void setCaptureCallback(@localvar @nullable fairygui::InputProcessor::CaptureEventCallback value)'
         },
         TAG_MAKER = 'CaptureCallback',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -433,7 +433,7 @@ typeconf 'fairygui::GTweener'
             'fairygui::GTweener *onUpdate(fairygui::GTweener::GTweenCallback callback)'
         },
         TAG_MAKER = 'onUpdate',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -442,7 +442,7 @@ typeconf 'fairygui::GTweener'
             'fairygui::GTweener *onStart(fairygui::GTweener::GTweenCallback callback)'
         },
         TAG_MAKER = 'onStart',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -451,7 +451,7 @@ typeconf 'fairygui::GTweener'
             'fairygui::GTweener *onComplete(fairygui::GTweener::GTweenCallback0 callback)'
         },
         TAG_MAKER = 'onComplete',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -460,7 +460,7 @@ typeconf 'fairygui::GTweener'
             'fairygui::GTweener *onComplete1(fairygui::GTweener::GTweenCallback callback)'
         },
         TAG_MAKER = 'onComplete1',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1002,11 +1002,11 @@ typeconf 'fairygui::GObject'
     .var('maxSize', 'cocos2d::Size maxSize')
     .callback {
         FUNCS =  {
-            'void addClickListener(@local const fairygui::EventCallback &callback)',
-            'void addClickListener(@local const fairygui::EventCallback &callback, const fairygui::EventTag &tag)'
+            'void addClickListener(@localvar const fairygui::EventCallback &callback)',
+            'void addClickListener(@localvar const fairygui::EventCallback &callback, const fairygui::EventTag &tag)'
         },
         TAG_MAKER = {'makeListenerTag(L, fairygui::UIEventType::Click, 0)', 'makeListenerTag(L, fairygui::UIEventType::Click, 3)'},
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1015,7 +1015,7 @@ typeconf 'fairygui::GObject'
             'void removeClickListener(const fairygui::EventTag &tag)'
         },
         TAG_MAKER = 'makeListenerTag(L, fairygui::UIEventType::Click, 2)',
-        TAG_MODE = 'OLUA_TAG_SUBEQUAL',
+        TAG_MODE = 'subequal',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1699,7 +1699,7 @@ typeconf 'fairygui::GList'
     .func(nil, 'int childIndexToItemIndex(int index)')
     .func(nil, 'int itemIndexToChildIndex(int index)')
     .var('itemRenderer', '@nullable fairygui::GList::ListItemRenderer itemRenderer')
-    .var('itemProvider', '@nullable @local fairygui::GList::ListItemProvider itemProvider')
+    .var('itemProvider', '@nullable @localvar fairygui::GList::ListItemProvider itemProvider')
     .var('scrollItemToViewOnClick', 'bool scrollItemToViewOnClick')
     .var('foldInvisibleItems', 'bool foldInvisibleItems')
     .prop('defaultItem', nil, nil)
@@ -1747,10 +1747,10 @@ typeconf 'fairygui::GMovieClip'
     .func(nil, 'void setColor(const cocos2d::Color3B &value)')
     .callback {
         FUNCS =  {
-            'void setPlaySettings(@optional int start, @optional int end, @optional int times, @optional int endAt, @local @optional std::function<void ()> completeCallback)'
+            'void setPlaySettings(@optional int start, @optional int end, @optional int times, @optional int endAt, @localvar @optional std::function<void ()> completeCallback)'
         },
         TAG_MAKER = 'PlaySettings',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1891,19 +1891,19 @@ typeconf 'fairygui::PopupMenu'
     .func(nil, '@delref(children ~ parent)@addref(children | parent) void show()', '@delref(children ~ parent)@addref(children | parent) void show(fairygui::GObject *target, fairygui::PopupDirection dir)')
     .callback {
         FUNCS =  {
-            '@addref(children | parent) fairygui::GButton *addItem(const std::string &caption, @local fairygui::EventCallback callback)'
+            '@addref(children | parent) fairygui::GButton *addItem(const std::string &caption, @localvar fairygui::EventCallback callback)'
         },
         TAG_MAKER = 'makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0)',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = "return",
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            '@addref(children | parent) fairygui::GButton *addItemAt(const std::string &caption, int index, @local fairygui::EventCallback callback)'
+            '@addref(children | parent) fairygui::GButton *addItemAt(const std::string &caption, int index, @localvar fairygui::EventCallback callback)'
         },
         TAG_MAKER = 'makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0)',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = "return",
         TAG_SCOPE = 'object',
     }
@@ -2152,31 +2152,31 @@ typeconf 'fairygui::Transition'
     .var('name', 'std::string name')
     .callback {
         FUNCS =  {
-            'void play(@local @optional fairygui::Transition::PlayCompleteCallback callback)',
-            'void play(int times, float delay, @local @optional fairygui::Transition::PlayCompleteCallback callback)',
-            'void play(int times, float delay, float startTime, float endTime, @local @optional fairygui::Transition::PlayCompleteCallback callback)'
+            'void play(@localvar @optional fairygui::Transition::PlayCompleteCallback callback)',
+            'void play(int times, float delay, @localvar @optional fairygui::Transition::PlayCompleteCallback callback)',
+            'void play(int times, float delay, float startTime, float endTime, @localvar @optional fairygui::Transition::PlayCompleteCallback callback)'
         },
         TAG_MAKER = 'play',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            'void playReverse(@local @optional fairygui::Transition::PlayCompleteCallback callback)',
-            'void playReverse(int times, float delay, @local @optional fairygui::Transition::PlayCompleteCallback callback)'
+            'void playReverse(@localvar @optional fairygui::Transition::PlayCompleteCallback callback)',
+            'void playReverse(int times, float delay, @localvar @optional fairygui::Transition::PlayCompleteCallback callback)'
         },
         TAG_MAKER = 'playReverse',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            'void setHook(const std::string &label, @nullable @local fairygui::Transition::TransitionHook callback)'
+            'void setHook(const std::string &label, @localvar @nullable fairygui::Transition::TransitionHook callback)'
         },
         TAG_MAKER = '("hook." + #1)',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -2185,7 +2185,7 @@ typeconf 'fairygui::Transition'
             'void clearHooks()'
         },
         TAG_MAKER = '("hook.")',
-        TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
+        TAG_MODE = 'substartwith',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -2232,10 +2232,10 @@ typeconf 'fairygui::IUISource'
     .func(nil, 'bool isLoaded()')
     .callback {
         FUNCS =  {
-            'void load(@nullable @local std::function<void ()> callback)'
+            'void load(@localvar @nullable std::function<void ()> callback)'
         },
         TAG_MAKER = 'load',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -2402,19 +2402,19 @@ typeconf 'fairygui::UIObjectFactory'
     .func(nil, 'static fairygui::GObject *newObject(fairygui::PackageItem *pi)', 'static fairygui::GObject *newObject(fairygui::ObjectType type)')
     .callback {
         FUNCS =  {
-            'static void setPackageItemExtension(const std::string &url, @local fairygui::UIObjectFactory::GComponentCreator creator)'
+            'static void setPackageItemExtension(const std::string &url, @localvar fairygui::UIObjectFactory::GComponentCreator creator)'
         },
         TAG_MAKER = 'PackageItemExtension',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            'static void setLoaderExtension(@local fairygui::UIObjectFactory::GLoaderCreator creator)'
+            'static void setLoaderExtension(@localvar fairygui::UIObjectFactory::GLoaderCreator creator)'
         },
         TAG_MAKER = 'LoaderExtension',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -2616,10 +2616,10 @@ typeconf 'fairygui::FUIRichText'
     .func(nil, 'const char *hitTestLink(const cocos2d::Vec2 &worldPoint)')
     .callback {
         FUNCS =  {
-            'void setObjectFactory(@local const std::function<HtmlObject *(HtmlElement *)> &value)'
+            'void setObjectFactory(@localvar const std::function<HtmlObject *(HtmlElement *)> &value)'
         },
         TAG_MAKER = 'ObjectFactory',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }

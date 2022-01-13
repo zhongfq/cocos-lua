@@ -92,7 +92,7 @@ int olua_unpack_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMate
     return 3;
 }
 
-bool olua_ispack_cocos2d_PhysicsMaterial(lua_State *L, int idx)
+bool olua_canpack_cocos2d_PhysicsMaterial(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2);
 }
@@ -245,7 +245,7 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactBegin(lua_State *L)
     std::string cb_tag = "onContactBegin";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @nullable @local std::function<bool (cocos2d::PhysicsContact &)> onContactBegin
+    // @nullable @localvar std::function<bool (cocos2d::PhysicsContact &)> onContactBegin
     std::function<bool(cocos2d::PhysicsContact &)> ret = self->onContactBegin;
     int num_ret = olua_push_std_function(L, &ret);
 
@@ -298,7 +298,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactBegin(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @local std::function<bool (cocos2d::PhysicsContact &)> onContactBegin
+    // @nullable @localvar std::function<bool (cocos2d::PhysicsContact &)> onContactBegin
     self->onContactBegin = arg1;
 
     olua_endinvoke(L);
@@ -318,7 +318,7 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactPostSolve(lua_State
     std::string cb_tag = "onContactPostSolve";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @nullable @local std::function<void (cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)> onContactPostSolve
+    // @nullable @localvar std::function<void (cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)> onContactPostSolve
     std::function<void(cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)> ret = self->onContactPostSolve;
     int num_ret = olua_push_std_function(L, &ret);
 
@@ -367,7 +367,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPostSolve(lua_State
         arg1 = nullptr;
     }
 
-    // @nullable @local std::function<void (cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)> onContactPostSolve
+    // @nullable @localvar std::function<void (cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)> onContactPostSolve
     self->onContactPostSolve = arg1;
 
     olua_endinvoke(L);
@@ -387,7 +387,7 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactPreSolve(lua_State 
     std::string cb_tag = "onContactPreSolve";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @nullable @local std::function<bool (cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)> onContactPreSolve
+    // @nullable @localvar std::function<bool (cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)> onContactPreSolve
     std::function<bool(cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)> ret = self->onContactPreSolve;
     int num_ret = olua_push_std_function(L, &ret);
 
@@ -441,7 +441,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPreSolve(lua_State 
         arg1 = nullptr;
     }
 
-    // @nullable @local std::function<bool (cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)> onContactPreSolve
+    // @nullable @localvar std::function<bool (cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)> onContactPreSolve
     self->onContactPreSolve = arg1;
 
     olua_endinvoke(L);
@@ -461,7 +461,7 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactSeparate(lua_State 
     std::string cb_tag = "onContactSeparate";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @nullable @local std::function<void (cocos2d::PhysicsContact &)> onContactSeparate
+    // @nullable @localvar std::function<void (cocos2d::PhysicsContact &)> onContactSeparate
     std::function<void(cocos2d::PhysicsContact &)> ret = self->onContactSeparate;
     int num_ret = olua_push_std_function(L, &ret);
 
@@ -509,7 +509,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactSeparate(lua_State 
         arg1 = nullptr;
     }
 
-    // @nullable @local std::function<void (cocos2d::PhysicsContact &)> onContactSeparate
+    // @nullable @localvar std::function<void (cocos2d::PhysicsContact &)> onContactSeparate
     self->onContactSeparate = arg1;
 
     olua_endinvoke(L);
@@ -6979,7 +6979,7 @@ static int _cocos2d_PhysicsWorld_queryPoint(lua_State *L)
         return (bool)ret;
     };
 
-    // void queryPoint(@local cocos2d::PhysicsQueryPointCallbackFunc func, const cocos2d::Vec2 &point, void *data)
+    // void queryPoint(@localvar cocos2d::PhysicsQueryPointCallbackFunc func, const cocos2d::Vec2 &point, void *data)
     self->queryPoint(arg1, arg2, arg3);
 
     olua_endinvoke(L);
@@ -7031,7 +7031,7 @@ static int _cocos2d_PhysicsWorld_queryRect(lua_State *L)
         return (bool)ret;
     };
 
-    // void queryRect(@local cocos2d::PhysicsQueryRectCallbackFunc func, const cocos2d::Rect &rect, void *data)
+    // void queryRect(@localvar cocos2d::PhysicsQueryRectCallbackFunc func, const cocos2d::Rect &rect, void *data)
     self->queryRect(arg1, arg2, arg3);
 
     olua_endinvoke(L);
@@ -7085,7 +7085,7 @@ static int _cocos2d_PhysicsWorld_rayCast(lua_State *L)
         return (bool)ret;
     };
 
-    // void rayCast(@local cocos2d::PhysicsRayCastCallbackFunc func, const cocos2d::Vec2 &start, const cocos2d::Vec2 &end, void *data)
+    // void rayCast(@localvar cocos2d::PhysicsRayCastCallbackFunc func, const cocos2d::Vec2 &start, const cocos2d::Vec2 &end, void *data)
     self->rayCast(arg1, arg2, arg3, arg4);
 
     olua_endinvoke(L);
@@ -7387,7 +7387,7 @@ static int _cocos2d_PhysicsWorld_setPostUpdateCallback(lua_State *L)
         arg1 = nullptr;
     }
 
-    // void setPostUpdateCallback(@nullable @local const std::function<void ()> &callback)
+    // void setPostUpdateCallback(@localvar @nullable const std::function<void ()> &callback)
     self->setPostUpdateCallback(arg1);
 
     olua_endinvoke(L);
@@ -7428,7 +7428,7 @@ static int _cocos2d_PhysicsWorld_setPreUpdateCallback(lua_State *L)
         arg1 = nullptr;
     }
 
-    // void setPreUpdateCallback(@nullable @local const std::function<void ()> &callback)
+    // void setPreUpdateCallback(@localvar @nullable const std::function<void ()> &callback)
     self->setPreUpdateCallback(arg1);
 
     olua_endinvoke(L);

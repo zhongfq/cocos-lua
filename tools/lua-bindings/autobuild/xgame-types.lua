@@ -1,8 +1,5 @@
 -- AUTO BUILD, DON'T MODIFY!
 
-local olua = require "olua"
-local typedef = olua.typedef
-
 typedef {
     CONV = 'olua_$$_cclua_window_Bounds',
     CPPCLS = 'cclua::window::Bounds',

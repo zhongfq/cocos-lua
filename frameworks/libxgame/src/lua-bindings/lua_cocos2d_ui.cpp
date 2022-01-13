@@ -1904,7 +1904,7 @@ static int _cocos2d_ui_Widget_get_onNextFocusedWidget(lua_State *L)
     std::string cb_tag = "onNextFocusedWidget";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @nullable @local std::function<cocos2d::ui::Widget * (cocos2d::ui::Widget::FocusDirection)> onNextFocusedWidget
+    // @nullable @localvar std::function<cocos2d::ui::Widget * (cocos2d::ui::Widget::FocusDirection)> onNextFocusedWidget
     std::function<cocos2d::ui::Widget *(cocos2d::ui::Widget::FocusDirection)> ret = self->onNextFocusedWidget;
     int num_ret = olua_push_std_function(L, &ret);
 
@@ -1952,7 +1952,7 @@ static int _cocos2d_ui_Widget_set_onNextFocusedWidget(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @local std::function<cocos2d::ui::Widget * (cocos2d::ui::Widget::FocusDirection)> onNextFocusedWidget
+    // @nullable @localvar std::function<cocos2d::ui::Widget * (cocos2d::ui::Widget::FocusDirection)> onNextFocusedWidget
     self->onNextFocusedWidget = arg1;
 
     olua_endinvoke(L);
@@ -6381,7 +6381,7 @@ static int _cocos2d_ui_WebView_getOnDidFailLoading(lua_State *L)
     std::string cb_tag = "OnDidFailLoading";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @local cocos2d::ui::WebView::ccWebViewCallback getOnDidFailLoading()
+    // @localvar cocos2d::ui::WebView::ccWebViewCallback getOnDidFailLoading()
     cocos2d::ui::WebView::ccWebViewCallback ret = self->getOnDidFailLoading();
     int num_ret = olua_push_cocos2d_ui_WebView_ccWebViewCallback(L, &ret);
 
@@ -6402,7 +6402,7 @@ static int _cocos2d_ui_WebView_getOnDidFinishLoading(lua_State *L)
     std::string cb_tag = "OnDidFinishLoading";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @local cocos2d::ui::WebView::ccWebViewCallback getOnDidFinishLoading()
+    // @localvar cocos2d::ui::WebView::ccWebViewCallback getOnDidFinishLoading()
     cocos2d::ui::WebView::ccWebViewCallback ret = self->getOnDidFinishLoading();
     int num_ret = olua_push_cocos2d_ui_WebView_ccWebViewCallback(L, &ret);
 
@@ -6423,7 +6423,7 @@ static int _cocos2d_ui_WebView_getOnJSCallback(lua_State *L)
     std::string cb_tag = "OnJSCallback";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @local cocos2d::ui::WebView::ccWebViewCallback getOnJSCallback()
+    // @localvar cocos2d::ui::WebView::ccWebViewCallback getOnJSCallback()
     cocos2d::ui::WebView::ccWebViewCallback ret = self->getOnJSCallback();
     int num_ret = olua_push_cocos2d_ui_WebView_ccWebViewCallback(L, &ret);
 
@@ -6444,7 +6444,7 @@ static int _cocos2d_ui_WebView_getOnShouldStartLoading(lua_State *L)
     std::string cb_tag = "OnShouldStartLoading";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @local std::function<bool (cocos2d::ui::WebView *, const std::string &)> getOnShouldStartLoading()
+    // @localvar std::function<bool (cocos2d::ui::WebView *, const std::string &)> getOnShouldStartLoading()
     std::function<bool(cocos2d::ui::WebView *, const std::string &)> ret = self->getOnShouldStartLoading();
     int num_ret = olua_push_std_function(L, &ret);
 
@@ -9161,7 +9161,7 @@ static int _cocos2d_ui_TabControl_setTabChangedEventListener(lua_State *L)
         arg1 = nullptr;
     }
 
-    // void setTabChangedEventListener(@nullable @local const cocos2d::ui::TabControl::ccTabControlCallback &callback)
+    // void setTabChangedEventListener(@localvar @nullable const cocos2d::ui::TabControl::ccTabControlCallback &callback)
     self->setTabChangedEventListener(arg1);
 
     olua_endinvoke(L);
@@ -14396,7 +14396,7 @@ static int _cocos2d_ui_RichText_createWithXML1(lua_State *L)
         arg3 = nullptr;
     }
 
-    // static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @local @optional const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)
+    // static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @localvar @optional const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)
     cocos2d::ui::RichText *ret = cocos2d::ui::RichText::createWithXML(arg1, arg2, arg3);
     if (olua_pushobjstub(L, ret, cb_store, "ccui.RichText") == OLUA_OBJ_EXIST) {
         olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
@@ -14420,7 +14420,7 @@ static int _cocos2d_ui_RichText_createWithXML2(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
 
-    // static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @local @optional const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)
+    // static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @localvar @optional const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)
     cocos2d::ui::RichText *ret = cocos2d::ui::RichText::createWithXML(arg1);
     int num_ret = olua_push_cppobj(L, ret, "ccui.RichText");
 
@@ -14439,7 +14439,7 @@ static int _cocos2d_ui_RichText_createWithXML3(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
     olua_check_cocos2d_ValueMap(L, 2, &arg2);
 
-    // static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @local @optional const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)
+    // static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @localvar @optional const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)
     cocos2d::ui::RichText *ret = cocos2d::ui::RichText::createWithXML(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "ccui.RichText");
 
@@ -14454,21 +14454,21 @@ static int _cocos2d_ui_RichText_createWithXML(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
-            // static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @local @optional const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)
+            // static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @localvar @optional const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)
             return _cocos2d_ui_RichText_createWithXML2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_cocos2d_ValueMap(L, 2))) {
-            // static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @local @optional const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)
+            // static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @localvar @optional const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)
             return _cocos2d_ui_RichText_createWithXML3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_cocos2d_ValueMap(L, 2)) && (olua_is_cocos2d_ui_RichText_OpenUrlHandler(L, 3))) {
-            // static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @local @optional const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)
+            // static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @localvar @optional const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)
             return _cocos2d_ui_RichText_createWithXML1(L);
         // }
     }
@@ -15491,7 +15491,7 @@ static int _cocos2d_ui_RichText_setOpenUrlHandler(lua_State *L)
         }
     };
 
-    // void setOpenUrlHandler(@local const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)
+    // void setOpenUrlHandler(@localvar const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)
     self->setOpenUrlHandler(arg1);
 
     olua_endinvoke(L);
@@ -22910,7 +22910,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_get_onEditingDidBegin(lua_State *L)
     std::string cb_tag = "onEditingDidBegin";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @nullable @local std::function<void (cocos2d::ui::EditBox *)> onEditingDidBegin
+    // @nullable @localvar std::function<void (cocos2d::ui::EditBox *)> onEditingDidBegin
     std::function<void(cocos2d::ui::EditBox *)> ret = self->onEditingDidBegin;
     int num_ret = olua_push_std_function(L, &ret);
 
@@ -22958,7 +22958,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onEditingDidBegin(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @local std::function<void (cocos2d::ui::EditBox *)> onEditingDidBegin
+    // @nullable @localvar std::function<void (cocos2d::ui::EditBox *)> onEditingDidBegin
     self->onEditingDidBegin = arg1;
 
     olua_endinvoke(L);
@@ -22978,7 +22978,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_get_onEditingDidEndWithAction(lua_Stat
     std::string cb_tag = "onEditingDidEndWithAction";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @nullable @local std::function<void (cocos2d::ui::EditBox *, EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction
+    // @nullable @localvar std::function<void (cocos2d::ui::EditBox *, EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction
     std::function<void(cocos2d::ui::EditBox *, cocos2d::ui::EditBoxDelegate::EditBoxEndAction)> ret = self->onEditingDidEndWithAction;
     int num_ret = olua_push_std_function(L, &ret);
 
@@ -23027,7 +23027,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onEditingDidEndWithAction(lua_Stat
         arg1 = nullptr;
     }
 
-    // @nullable @local std::function<void (cocos2d::ui::EditBox *, EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction
+    // @nullable @localvar std::function<void (cocos2d::ui::EditBox *, EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction
     self->onEditingDidEndWithAction = arg1;
 
     olua_endinvoke(L);
@@ -23047,7 +23047,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_get_onReturn(lua_State *L)
     std::string cb_tag = "onReturn";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @nullable @local std::function<void (cocos2d::ui::EditBox *)> onReturn
+    // @nullable @localvar std::function<void (cocos2d::ui::EditBox *)> onReturn
     std::function<void(cocos2d::ui::EditBox *)> ret = self->onReturn;
     int num_ret = olua_push_std_function(L, &ret);
 
@@ -23095,7 +23095,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onReturn(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @local std::function<void (cocos2d::ui::EditBox *)> onReturn
+    // @nullable @localvar std::function<void (cocos2d::ui::EditBox *)> onReturn
     self->onReturn = arg1;
 
     olua_endinvoke(L);
@@ -23115,7 +23115,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_get_onTextChanged(lua_State *L)
     std::string cb_tag = "onTextChanged";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @nullable @local std::function<void (cocos2d::ui::EditBox *, const std::string &)> onTextChanged
+    // @nullable @localvar std::function<void (cocos2d::ui::EditBox *, const std::string &)> onTextChanged
     std::function<void(cocos2d::ui::EditBox *, const std::string &)> ret = self->onTextChanged;
     int num_ret = olua_push_std_function(L, &ret);
 
@@ -23164,7 +23164,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onTextChanged(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @local std::function<void (cocos2d::ui::EditBox *, const std::string &)> onTextChanged
+    // @nullable @localvar std::function<void (cocos2d::ui::EditBox *, const std::string &)> onTextChanged
     self->onTextChanged = arg1;
 
     olua_endinvoke(L);

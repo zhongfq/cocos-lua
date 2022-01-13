@@ -34,7 +34,7 @@ void olua_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventTag *val
     }
 }]]
 
-make_luacls(function (cppname)
+luacls(function (cppname)
     cppname = string.gsub(cppname, '^fairygui::', 'fgui.')
     return cppname
 end)
@@ -52,13 +52,13 @@ typeconv 'fairygui::Margin'
 typeconv 'fairygui::HtmlParseOptions'
 
 typeconv 'fairygui::TweenValue'
-    .attr('*', {optional = true})
+    .var '*' .optional 'true'
 
 typeconf 'fairygui::UIEventType'
 typeconf 'fairygui::EventCallback'
 
 typeconf 'fairygui::UIEventDispatcher'
-    .chunk([[
+    .chunk [[
         static std::string makeListenerTag(lua_State *L, lua_Integer type, int tagidx)
         {
             char buf[64];
@@ -79,22 +79,16 @@ typeconf 'fairygui::UIEventDispatcher'
             }
             return std::string(buf);
         }
-    ]])
-    .callback {
-        name = 'addEventListener',
-        tag_maker = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 4)'},
-        tag_mode = 'OLUA_TAG_NEW',
-    }
-    .callback {
-        name = 'removeEventListener',
-        tag_maker = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 3)'},
-        tag_mode = {'OLUA_TAG_SUBSTARTWITH', 'OLUA_TAG_SUBEQUAL'},
-    }
-    .callback {
-        name = 'removeEventListeners',
-        tag_maker = 'makeListenerTag(L, -1, 0)',
-        tag_mode = 'OLUA_TAG_SUBSTARTWITH',
-    }
+    ]]
+    .callback 'addEventListener'
+        .tag_maker {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 4)'}
+        .tag_mode 'new'
+    .callback 'removeEventListener'
+        .tag_maker {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 3)'}
+        .tag_mode {'substartwith', 'subequal'}
+    .callback 'removeEventListeners'
+        .tag_maker 'makeListenerTag(L, -1, 0)'
+        .tag_mode 'substartwith'
 
 typeconf 'fairygui::EventContext'
 typeconf 'fairygui::IHitTest'
@@ -104,7 +98,7 @@ typeconf 'fairygui::PixelHitTestData'
 typeconf 'fairygui::InputProcessor::CaptureEventCallback'
 
 typeconf 'fairygui::InputProcessor'
-    .callback {name = 'setCaptureCallback', nullable = true}
+    .callback 'setCaptureCallback' .arg1 '@nullable'
 
 typeconf 'fairygui::InputEvent'
 typeconf 'fairygui::TextFormat'
@@ -117,29 +111,13 @@ typeconf 'fairygui::GTweener::GTweenCallback'
 typeconf 'fairygui::GTweener::GTweenCallback0'
 
 typeconf 'fairygui::GTweener'
-    .callback {name = 'onUpdate', localvar = false}
-    .callback {name = 'onStart', localvar = false}
-    .callback {name = 'onComplete', localvar = false}
-    .callback {name = 'onComplete1', localvar = false}
-
-local DELREF_TWEEN = {
-    after = [[
-        olua_pushclassobj<fairygui::GTween>(L);
-        olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
-        lua_pop(L, 1);
-    ]]
-}
-local REF_TEWEENER = {
-    after = [[
-        olua_pushclassobj<fairygui::GTween>(L);
-        olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
-        olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
-        lua_pop(L, 1);
-    ]]
-}
+    .callback 'onUpdate' .localvar 'false'
+    .callback 'onStart' .localvar 'false'
+    .callback 'onComplete' .localvar 'false'
+    .callback 'onComplete1' .localvar 'false'
 
 typeconf 'fairygui::GTween'
-    .chunk([[
+    .chunk [[
         static bool should_del_tweener_ref(lua_State *L, int idx)
         {
             if (olua_isa<fairygui::GTweener>(L, idx)) {
@@ -149,21 +127,26 @@ typeconf 'fairygui::GTween'
                 }
             }
             return false;
-        }
-    ]])
-    .insert('to', REF_TEWEENER)
-    .insert('toColor', REF_TEWEENER)
-    .insert('toDouble', REF_TEWEENER)
-    .insert('delayedCall', REF_TEWEENER)
-    .insert('shake', REF_TEWEENER)
-    .insert('kill', DELREF_TWEEN)
-    .insert('clean', {
-        after = [[
+        }]]
+    .insert {'to', 'toColor', 'toDouble', 'delayedCall', 'shake'}
+        .after [[
+            olua_pushclassobj<fairygui::GTween>(L);
+            olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
+            olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
+            lua_pop(L, 1);
+        ]]
+    .insert 'kill'
+        .after [[
+            olua_pushclassobj<fairygui::GTween>(L);
+            olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
+            lua_pop(L, 1);
+        ]]
+    .insert'clean'
+        .after [[
             olua_pushclassobj<fairygui::GTween>(L);
             olua_delallrefs(L, -1, "tweeners");
             lua_pop(L, 1);
         ]]
-    })
 
 typeconf 'fairygui::UIPackage'
 
@@ -197,72 +180,67 @@ typeconf 'fairygui::GController'
 
 typeconf 'fairygui::GObject'
     .exclude 'constructFromResource'
-    .attr('getGroup', {ret = '@addref(group ^)'})
-    .attr('setGroup', {arg1 = '@addref(group ^)'})
-    .attr('globalToLocal', {arg1 = '@pack'})
-    .attr('localToGlobal', {arg1 = '@pack'})
-    .attr('transformRect', {arg1 = '@pack'})
-    .attr('displayObject', {ret = '@addref(displayObject ^)'})
-    .prop('relations', 'Relations* relations()')
-    .prop('displayObject', 'cocos2d::Node* displayObject()')
-    .callback {
-        name = 'addClickListener',
-        tag_maker = {
+    .func 'getGroup' .ret '@addref(group ^)'
+    .func 'setGroup' .arg1 '@addref(group ^)'
+    .func 'globalToLocal' .arg1 '@pack'
+    .func 'localToGlobal' .arg1 '@pack'
+    .func 'transformRect' .arg1 '@pack'
+    .func 'displayObject' .ret '@addref(displayObject ^)'
+    .prop 'relations' .get 'Relations* relations()'
+    .prop 'displayObject' .get 'cocos2d::Node* displayObject()'
+    .callback 'addClickListener'
+        .tag_maker {
             'makeListenerTag(L, fairygui::UIEventType::Click, 0)', -- no tag
             'makeListenerTag(L, fairygui::UIEventType::Click, 3)', -- tag stack idx
-        },
-        tag_mode = 'OLUA_TAG_NEW',
-    }
-    .callback {
-        name = 'removeClickListener',
-        tag_maker = 'makeListenerTag(L, fairygui::UIEventType::Click, 2)',
-        tag_mode = 'OLUA_TAG_SUBEQUAL',
-    }
-    .insert('center', {
-        before = [[
+        }
+        .tag_mode 'new'
+    .callback 'removeClickListener'
+        .tag_maker 'makeListenerTag(L, fairygui::UIEventType::Click, 2)'
+        .tag_mode 'subequal'
+    .insert 'center'
+        .before [[
             if (!self->getParent() && !fairygui::UIRoot) {
                 luaL_error(L, "UIRoot and parent are both nullptr");
             }
         ]]
-    })
-    .insert('makeFullScreen', {
-        before = [[
+    .insert 'makeFullScreen'
+        .before [[
             if (!fairygui::UIRoot) {
                 luaL_error(L, "UIRoot is nullptr");
             }
         ]]
-    })
 
 typeconf 'fairygui::GComponent'
-    .chunk([[
+    .chunk [[
         static int _fairygui_GComponent_getController(lua_State *L);
         static int _fairygui_GComponent_getTransition(lua_State *L);
         static int _fairygui_GComponent_getChild(lua_State *L);
-    ]])
+    ]]
     .exclude 'getChildByPath'
-    .alias('resolve', 'getChildByPath')
-    .attr('addChild', {arg1 = '@addref(children |)'})
-    .attr('addChildAt', {arg1 = '@addref(children |)'})
-    .attr('removeChild', {arg1 = '@delref(children |)'})
-    .attr('removeChildAt', {ret = '@delref(children ~)'})
-    .attr('removeChildren', {ret = '@delref(children ~)'})
-    .attr('getChildAt', {ret = '@addref(children |)'})
-    .attr('getChild', {ret = '@addref(children |)'})
-    .attr('getChildInGroup', {ret = '@addref(children |)'})
-    .attr('getChildById', {ret = '@addref(children |)'})
-    .attr('getChildren', {ret = '@addref(children |)'})
-    .attr('addController', {arg1 = '@addref(controllers |)'})
-    .attr('getControllerAt', {ret = '@addref(controllers |)'})
-    .attr('getController', {ret = '@addref(controllers |)'})
-    .attr('getControllers', {ret = '@addref(controllers |)'})
-    .attr('removeController', {arg1 = '@delref(controllers |)'})
-    .attr('getTransition', {ret = '@addref(transitions |)'})
-    .attr('getTransitionAt', {ret = '@addref(transitions |)'})
-    .attr('getTransitions', {ret = '@addref(transitions |)'})
-    .attr('getMask', {ret = '@addref(mask ^)'})
-    .attr('setMask', {arg1 = '@addref(mask ^)'})
-    .prop('numChildren', 'int numChildren()')
-    .func('__index', [[
+    .alias 'resolve -> getChildByPath'
+    .func 'addChild' .arg1 '@addref(children |)'
+    .func 'addChildAt' .arg1 '@addref(children |)'
+    .func 'removeChild' .arg1 '@delref(children |)'
+    .func 'removeChildAt' .ret '@delref(children ~)'
+    .func 'removeChildren' .ret '@delref(children ~)'
+    .func 'getChildAt' .ret '@addref(children |)'
+    .func 'getChild' .ret '@addref(children |)'
+    .func 'getChildInGroup' .ret '@addref(children |)'
+    .func 'getChildById' .ret '@addref(children |)'
+    .func 'getChildren' .ret '@addref(children |)'
+    .func 'addController' .arg1 '@addref(controllers |)'
+    .func 'getControllerAt' .ret '@addref(controllers |)'
+    .func 'getController' .ret '@addref(controllers |)'
+    .func 'getControllers' .ret '@addref(controllers |)'
+    .func 'removeController' .arg1 '@delref(controllers |)'
+    .func 'getTransition' .ret '@addref(transitions |)'
+    .func 'getTransitionAt' .ret '@addref(transitions |)'
+    .func 'getTransitions' .ret '@addref(transitions |)'
+    .func 'getMask' .ret '@addref(mask ^)'
+    .func 'setMask' .arg1 '@addref(mask ^)'
+    .prop 'numChildren' .get 'int numChildren()'
+    .func '__index'
+        .snippet [[
         {
             auto self = olua_toobj<fairygui::GComponent>(L, 1);
             if (olua_isstring(L, 2)) {
@@ -276,9 +254,9 @@ typeconf 'fairygui::GComponent'
             lua_settop(L, 2);
             olua_getvariable(L, 1);
             return 1;
-        }
-    ]])
-    .func('resolve', [[
+        }]]
+    .func 'resolve'
+        .snippet [[
         {
             auto self = olua_toobj<fairygui::GComponent>(L, 1);
             const char *name = olua_checkstring(L, 2);
@@ -314,56 +292,54 @@ typeconf 'fairygui::GComponent'
                 }
             }
             return 0;
-        }
-    ]])
+        }]]
 
 typeconf 'fairygui::GRoot'
-    .attr('showWindow', {ret = '@delref(children ~)', arg1 = '@addref(children |)'})
-    .attr('hideWindow', {ret = '@delref(children ~ parent)'})
-    .attr('hideWindowImmediately', {ret = '@delref(children ~ parent)'})
-    .attr('getTopWindow', {ret = '@addref(children |)'})
-    .attr('getModalWaitingPane', {ret = '@addref(children |)'})
-    .attr('getModalLayer', {ret = '@addref(children |)'})
-    .attr('showPopup', {ret = '@delref(children ~)', arg1 = '@addref(children |)'})
-    .attr('togglePopup', {ret = '@delref(children ~)', arg1 = '@addref(children |)'})
-    .attr('hidePopup', {ret = '@delref(children ~)'})
-    .attr('getInputProcessor', {ret = '@addref(inputProcessor ^)'})
-    .attr('worldToRoot', {arg1 = '@pack'})
-    .attr('rootToWorld', {arg1 = '@pack'})
-    .prop('UIRoot', 'static GRoot* getInstance()')
-    .insert('create', {
-        after = [[
+    .func 'showWindow' .ret '@delref(children ~)' .arg1 '@addref(children |)'
+    .func 'hideWindow' .ret '@delref(children ~ parent)'
+    .func 'hideWindowImmediately' .ret '@delref(children ~ parent)'
+    .func 'getTopWindow' .ret '@addref(children |)'
+    .func 'getModalWaitingPane' .ret '@addref(children |)'
+    .func 'getModalLayer' .ret '@addref(children |)'
+    .func 'showPopup' .ret '@delref(children ~)' .arg1 '@addref(children |)'
+    .func 'togglePopup' .ret '@delref(children ~)' .arg1 '@addref(children |)'
+    .func 'hidePopup' .ret '@delref(children ~)'
+    .func 'getInputProcessor' .ret '@addref(inputProcessor ^)'
+    .func 'worldToRoot' .arg1 '@pack'
+    .func 'rootToWorld' .arg1 '@pack'
+    .prop 'UIRoot' .get 'static GRoot* getInstance()'
+    .insert 'create'
+        .after [[
             olua_push_cppobj<cocos2d::Node>(L, ret->displayObject());
             olua_addref(L, -1, "fgui.root", -2, OLUA_MODE_SINGLE);
             olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
             lua_pop(L, 1);
         ]]
-    })
-    .insert({'hideWindow', 'hideWindowImmediately'}, {
-        before = [[
+    .insert {'hideWindow', 'hideWindowImmediately'}
+        .before [[
             int parent = 1;
             if (arg1->getParent()) {
                 olua_push_cppobj<fairygui::GComponent>(L, arg1->getParent());
                 parent = lua_gettop(L);
             }
         ]]
-    })
 
 typeconf 'fairygui::GGroup'
 typeconf 'fairygui::GScrollBar'
 
 typeconf 'fairygui::GLoader'
-    .attr('getComponent', {ret = '@addref(component ^)'})
+    .func 'getComponent' .ret '@addref(component ^)'
 
 typeconf 'fairygui::GLoader3D'
-    .attr('getContent', {ret = '@addref(content ^)'})
-    .attr('setContent', {arg1 = '@addref(content ^)'})
+    .func 'getContent' .ret '@addref(content ^)'
+    .func 'setContent' .arg1 '@addref(content ^)'
 
 typeconf 'fairygui::GTextField'
 typeconf 'fairygui::GBasicTextField'
 
 typeconf 'fairygui::GGraph'
-    .func('drawPolygon', [[
+    .func 'drawPolygon'
+        .snippet[[
         {
             fairygui::GGraph *self = nullptr;
             lua_Integer lineSize = 0;
@@ -382,9 +358,9 @@ typeconf 'fairygui::GGraph'
             self->drawPolygon((int)lineSize, lineColor, fillColor, points.size() ? &points[0] : nullptr, (int)points.size());
             
             return 0;
-        }
-    ]])
-    .func('drawRegularPolygon', [[
+        }]]
+    .func 'drawRegularPolygon'
+        .snippet[[
         {
             int num_args = lua_gettop(L) - 1;
             fairygui::GGraph *self = nullptr;
@@ -415,80 +391,74 @@ typeconf 'fairygui::GGraph'
             }
             
             return 0;
-        }
-    ]])
+        }]]
 
 typeconf 'fairygui::GButton'
-    .attr('getRelatedController', {ret = '@addref(relatedController ^)'})
-    .attr('setRelatedController', {arg1 = '@addref(relatedController ^)'})
-    .attr('getTextField', {ret = '@addref(textField ^)'})
+    .func 'getRelatedController' .ret '@addref(relatedController ^)'
+    .func 'setRelatedController' .arg1 '@addref(relatedController ^)'
+    .func 'getTextField' .ret '@addref(textField ^)'
 
 typeconf 'fairygui::GImage'
 
 typeconf 'fairygui::GLabel'
-    .attr('getTextField', {ret = '@addref(textField ^)'})
+    .func 'getTextField' .ret '@addref(textField ^)'
 
 typeconf 'fairygui::GList::ListItemRenderer'
 typeconf 'fairygui::GList::ListItemProvider'
 
 typeconf 'fairygui::GList'
-    .attr('returnToPool', {arg1 = '@delref(children |)'})
-    .attr('addItemFromPool', {ret = '@addref(children |)'})
-    .attr('removeChildToPoolAt', {ret = '@delref(children ~)'})
-    .attr('removeChildToPool', {arg1 = '@delref(children |)'})
-    .attr('removeChildrenToPool', {ret = '@delref(children ~)'})
-    .attr('getSelectionController', {ret = '@addref(selectionController ^)'})
-    .attr('setSelectionController', {arg1 = '@addref(selectionController ^)'})
-    .attr('setVirtual', {ret = '@delref(children ~)'})
-    .attr('setVirtualAndLoop', {ret = '@delref(children ~)'})
-    .attr('setNumItems', {ret = '@delref(children ~)'})
-    .attr('getSelection', {arg1 = '@ret'})
-    .callback {name = 'itemRenderer', localvar = false}
-    .insert('itemRenderer', {
-        callback_before = [[
+    .func 'returnToPool' .arg1 '@delref(children |)'
+    .func 'addItemFromPool' .ret '@addref(children |)'
+    .func 'removeChildToPoolAt' .ret '@delref(children ~)'
+    .func 'removeChildToPool' .arg1 '@delref(children |)'
+    .func 'removeChildrenToPool' .ret '@delref(children ~)'
+    .func 'getSelectionController' .ret '@addref(selectionController ^)'
+    .func 'setSelectionController' .arg1 '@addref(selectionController ^)'
+    .func 'setVirtual' .ret '@delref(children ~)'
+    .func 'setVirtualAndLoop' .ret '@delref(children ~)'
+    .func 'setNumItems' .ret '@delref(children ~)'
+    .func 'getSelection' .arg1 '@ret'
+    .callback 'itemRenderer' .localvar 'false'
+    .insert 'itemRenderer'
+        .cbefore [[
             olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
             olua_addref(L, -1, "children", top + 2, OLUA_MODE_MULTIPLE);
             lua_pop(L, 1);
         ]]
-    })
 
 typeconf 'fairygui::GMovieClip'
 typeconf 'fairygui::GProgressBar'
 
 typeconf 'fairygui::GComboBox'
-    .attr('getSelectionController', {ret = '@addref(selectionController ^)'})
-    .attr('setSelectionController', {arg1 = '@addref(selectionController ^)'})
-    .attr('getDropdown', {ret = '@addref(dropdown ^)'})
-    .attr('getTextField', {ret = '@addref(textField ^)'})
+    .func 'getSelectionController' .ret '@addref(selectionController ^)'
+    .func 'setSelectionController' .arg1 '@addref(selectionController ^)'
+    .func 'getDropdown' .ret '@addref(dropdown ^)'
+    .func 'getTextField' .ret '@addref(textField ^)'
 
 typeconf 'fairygui::GRichTextField'
 typeconf 'fairygui::GSlider'
 typeconf 'fairygui::GTextInput'
 
 typeconf 'fairygui::PopupMenu'
-    .attr('addItem', {ret = '@addref(children | parent)'})
-    .attr('addItemAt', {ret = '@addref(children | parent)'})
-    .attr('removeItem', {ret = '@delref(children ~ parent)'})
-    .attr('clearItems', {ret = '@delref(children ~ parent)'})
-    .attr('getContentPane', {ret = '@addref(contentPane ^)'})
-    .attr('getList', {ret = '@addref(list ^)'})
-    .attr('show', {ret = '@delref(children ~ parent)@addref(children | parent)'})
-    .callback {
-        name = 'addItem',
-        tag_maker = 'makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0)',
-        tag_mode = 'OLUA_TAG_REPLACE',
-        tag_store = 'return',
-    }
-    .callback {
-        name = 'addItemAt',
-        tag_maker = 'makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0)',
-        tag_mode = 'OLUA_TAG_REPLACE',
-        tag_store = 'return',
-    }
+    .func 'removeItem' .ret '@delref(children ~ parent)'
+    .func 'clearItems' .ret '@delref(children ~ parent)'
+    .func 'getContentPane' .ret '@addref(contentPane ^)'
+    .func 'getList' .ret '@addref(list ^)'
+    .func 'show' .ret '@delref(children ~ parent)@addref(children | parent)'
+    .callback 'addItem'
+        .ret '@addref(children | parent)'
+        .tag_maker 'makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0)'
+        .tag_mode 'replace'
+        .tag_store 'return'
+    .callback 'addItemAt'
+        .ret '@addref(children | parent)'
+        .tag_maker 'makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0)'
+        .tag_mode 'replace'
+        .tag_store 'return'
     -- void show()
     -- void show(GObject* target, PopupDirection dir)
-    .insert('show', {
-        before = [[
+    .insert 'show'
+        .before [[
             fairygui::GRoot *root = fairygui::UIRoot;
             if (lua_gettop(L) > 1) {
                 fairygui::GObject *target = olua_checkobj<fairygui::GObject>(L, 2);
@@ -500,70 +470,60 @@ typeconf 'fairygui::PopupMenu'
             olua_push_cppobj<fairygui::GRoot>(L, root);
             int parent = lua_gettop(L);
         ]]
-    })
     -- bool removeItem(const std::string& name)
     -- void clearItems()
     -- GButton* addItem(const std::string& caption, EventCallback callback);
     -- GButton* addItemAt(const std::string& caption, int index, EventCallback callback);
-    .insert({'removeItem', 'clearItems', 'addItem', 'addItemAt'}, {
-        before = [[
+    .insert {'removeItem', 'clearItems', 'addItem', 'addItemAt'}
+        .before [[
             olua_push_cppobj<fairygui::GList>(L, self->getList());
             int parent = lua_gettop(L);
         ]]
-    })
 
 typeconf 'fairygui::Relations'
 typeconf 'fairygui::RelationType'
 
 typeconf 'fairygui::RelationItem'
-    .attr('getTarget', {ret = '@addref(target ^)'})
-    .attr('setTarget', {arg1 = '@addref(target ^)'})
+    .func 'getTarget' .ret '@addref(target ^)'
+    .func 'setTarget' .arg1 '@addref(target ^)'
 
 typeconf 'fairygui::ScrollPane'
-    .attr('getOwner', {ret = '@addref(owner ^)'})
-    .attr('getHeader', {ret = '@addref(header ^)'})
-    .attr('getFooter', {ret = '@addref(footer ^)'})
-    .attr('getVtScrollBar', {ret = '@addref(vtScrollBar ^)'})
-    .attr('getHzScrollBar', {ret = '@addref(hzScrollBar ^)'})
-    .attr('getPageController', {ret = '@addref(pageController ^)'})
-    .attr('setPageController', {arg1 = '@addref(pageController ^)'})
+    .func 'getOwner' .ret '@addref(owner ^)'
+    .func 'getHeader' .ret '@addref(header ^)'
+    .func 'getFooter' .ret '@addref(footer ^)'
+    .func 'getVtScrollBar' .ret '@addref(vtScrollBar ^)'
+    .func 'getHzScrollBar' .ret '@addref(hzScrollBar ^)'
+    .func 'getPageController' .ret '@addref(pageController ^)'
+    .func 'setPageController' .arg1 '@addref(pageController ^)'
 
 typeconf 'fairygui::Transition::PlayCompleteCallback'
 typeconf 'fairygui::Transition::TransitionHook'
 
 typeconf 'fairygui::Transition'
-    .attr('getOwner', {ret = '@addref(owner ^)'})
-    .callback {
-        name = 'play',
-        tag_maker = 'play',
-        tag_mode = 'OLUA_TAG_REPLACE',
-    }
-    .callback {
-        name = 'playReverse',
-        tag_maker = 'playReverse',
-        tag_mode = 'OLUA_TAG_REPLACE',
-    }
-    .callback {
-        name = 'setHook',
-        tag_maker = '("hook." + #1)',
-        tag_mode = 'OLUA_TAG_REPLACE',
-        nullable = true,
-    }
-    .callback {
-        name = 'clearHooks',
-        tag_maker = '("hook.")',
-        tag_mode = 'OLUA_TAG_SUBSTARTWITH',
-    }
+    .func 'getOwner' .ret '@addref(owner ^)'
+    .callback 'play'
+        .tag_maker 'play'
+        .tag_mode 'replace'
+    .callback 'playReverse'
+        .tag_maker 'playReverse'
+        .tag_mode 'replace'
+    .callback 'setHook'
+        .tag_maker '("hook." + #1)'
+        .tag_mode 'replace'
+        .arg2 '@nullable'
+    .callback 'clearHooks'
+        .tag_maker '("hook.")'
+        .tag_mode 'substartwith'
 
 typeconf 'fairygui::UIConfig'
-    .attr('getRealFontName', {arg2 = '@ret'})
+    .func 'getRealFontName' .arg2 '@ret'
 
 typeconf 'fairygui::IUISource'
-    .callback {name = 'load', nullable = true}
+    .callback 'load' .arg1 '@nullable'
 
 typeconf 'fairygui::UISource'
     .supercls 'fairygui::IUISource'
-    .chunk([[
+    .chunk [[
         NS_FGUI_BEGIN
         class UISource : public IUISource {
         public:
@@ -598,26 +558,26 @@ typeconf 'fairygui::UISource'
             std::string _name;
         };
         NS_FGUI_END
-    ]])
-    .func('create', 'static UISource *create()')
-    .func('loadComplete', 'void loadComplete()')
+    ]]
+    .func 'create' .snippet 'static UISource *create()'
+    .func 'loadComplete' .snippet 'void loadComplete()'
 
 typeconf 'fairygui::Window'
-    .attr('show', {ret = '@delref(children ~ parent)@addref(children | parent)'})
-    .attr('hide', {ret = '@delref(children ~ parent)'})
-    .attr('hideImmediately', {ret = '@delref(children ~ parent)'})
-    .attr('getContentPane', {ret = '@addref(contentPane ^)'})
-    .attr('setContentPane', {arg1 = '@addref(contentPane ^)'})
-    .attr('getFrame', {ret = '@addref(frame ^)'})
-    .attr('getCloseButton', {ret = '@addref(closeButton ^)'})
-    .attr('setCloseButton', {arg1 = '@addref(closeButton ^)'})
-    .attr('getDragArea', {ret = '@addref(dragArea ^)'})
-    .attr('setDragArea', {arg1 = '@addref(dragArea ^)'})
-    .attr('getContentArea', {ret = '@addref(contentArea ^)'})
-    .attr('setContentArea', {arg1 = '@addref(contentArea ^)'})
-    .attr('getModalWaitingPane', {ret = '@addref(modalWaitingPane ^)'})
-    .insert('show', {
-        before = [[
+    .func 'show' .ret '@delref(children ~ parent)@addref(children | parent)'
+    .func 'hide' .ret '@delref(children ~ parent)'
+    .func 'hideImmediately' .ret '@delref(children ~ parent)'
+    .func 'getContentPane' .ret '@addref(contentPane ^)'
+    .func 'setContentPane' .arg1 '@addref(contentPane ^)'
+    .func 'getFrame' .ret '@addref(frame ^)'
+    .func 'getCloseButton' .ret '@addref(closeButton ^)'
+    .func 'setCloseButton' .arg1 '@addref(closeButton ^)'
+    .func 'getDragArea' .ret '@addref(dragArea ^)'
+    .func 'setDragArea' .arg1 '@addref(dragArea ^)'
+    .func 'getContentArea' .ret '@addref(contentArea ^)'
+    .func 'setContentArea' .arg1 '@addref(contentArea ^)'
+    .func 'getModalWaitingPane' .ret '@addref(modalWaitingPane ^)'
+    .insert 'show'
+        .before [[
             fairygui::GComponent *root = fairygui::UIRoot;
             if (!root) {
                 luaL_error(L, "no root to add 'Window'");
@@ -625,9 +585,8 @@ typeconf 'fairygui::Window'
             olua_push_cppobj<fairygui::GComponent>(L, root);
             int parent = lua_gettop(L);
         ]]
-    })
-    .insert({'hide', 'hideImmediately'}, {
-        before = [[
+    .insert {'hide', 'hideImmediately'}
+        .before [[
             fairygui::GComponent *root = self->getParent() ? self->getParent() : fairygui::UIRoot;
             if (!root) {
                 return 0;
@@ -635,7 +594,6 @@ typeconf 'fairygui::Window'
             olua_push_cppobj<fairygui::GComponent>(L, root);
             int parent = lua_gettop(L);
         ]]
-    })
 
 typeconf 'fairygui::DragDropManager'
 typeconf 'fairygui::UIObjectFactory::GLoaderCreator'
@@ -652,44 +610,42 @@ typeconf 'fairygui::GearBase'
     .exclude 'setup'
 
 typeconf 'fairygui::GTreeNode'
-    .attr('getCell', {ret = '@addref(cell ^)'})
-    .attr('addChild', {arg1 = '@addref(children |)'})
-    .attr('addChildAt', {arg1 = '@addref(children |)'})
-    .attr('removeChild', {arg1 = '@delref(children |)'})
-    .attr('removeChildAt', {ret ='@delref(children ~)'})
-    .attr('removeChildren', {ret ='@delref(children ~)'})
-    .attr('getChildAt', {ret = '@addref(children |)'})
-    .attr('getPrevSibling', {ret = '@addref(children |)'})
-    .attr('getNextSibling', {ret = '@addref(children |)'})
-    .prop('numChildren', 'int numChildren()')
+    .func 'getCell' .ret '@addref(cell ^)'
+    .func 'addChild' .arg1 '@addref(children |)'
+    .func 'addChildAt' .arg1 '@addref(children |)'
+    .func 'removeChild' .arg1 '@delref(children |)'
+    .func 'removeChildAt' .ret '@delref(children ~)'
+    .func 'removeChildren' .ret '@delref(children ~)'
+    .func 'getChildAt' .ret '@addref(children |)'
+    .func 'getPrevSibling' .ret '@addref(children |)'
+    .func 'getNextSibling' .ret '@addref(children |)'
+    .prop 'numChildren' .get 'int numChildren()'
 
 typeconf 'fairygui::GTree::TreeNodeRenderFunction'
 typeconf 'fairygui::GTree::TreeNodeWillExpandFunction'
 
 typeconf 'fairygui::GTree'
-    .attr('getList', {ret = '@addref(list ^)'})
-    .attr('getRootNode', {ret = '@addref(rootNode ^)'})
-    .attr('getSelectedNode', {ret = '@addref(nodes |)'})
-    .attr('getSelectedNodes', {arg1 = '@addref(nodes |)@ret'})
-    .callback {name = 'treeNodeRender', localvar = false}
-    .callback {name = 'treeNodeWillExpand', localvar = false}
+    .func 'getList' .ret '@addref(list ^)'
+    .func 'getRootNode' .ret '@addref(rootNode ^)'
+    .func 'getSelectedNode' .ret '@addref(nodes |)'
+    .func 'getSelectedNodes' .arg1 '@addref(nodes |)@ret'
+    .callback 'treeNodeRender' .localvar 'false'
+    .callback 'treeNodeWillExpand' .localvar 'false'
     -- std::function<void (GTreeNode *, GComponent *)> treeNodeRender
-    .insert('treeNodeRender', {
-        callback_before = [[
+    .insert 'treeNodeRender'
+        .cbefore [[
             olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
             olua_addref(L, -1, "nodes", top + 1, OLUA_MODE_MULTIPLE);
             olua_addref(L, -1, "children",top + 2, OLUA_MODE_MULTIPLE);
             lua_pop(L, 1);
         ]]
-    })
     -- std::function<void (GTreeNode *, bool)> treeNodeWillExpand
-    .insert('treeNodeWillExpand', {
-        callback_before = [[
+    .insert 'treeNodeWillExpand'
+        .cbefore [[
             olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
             olua_addref(L, -1, "nodes", top + 1, OLUA_MODE_MULTIPLE);
             lua_pop(L, 1);
         ]]
-    })
 
 typeconf 'fairygui::FUIContainer'
 typeconf 'fairygui::FUIInput'

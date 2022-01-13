@@ -237,11 +237,11 @@ typeconf 'cocos2d::Sprite3D'
     .func(nil, 'void afterAsyncLoad(void *param)')
     .callback {
         FUNCS =  {
-            'static void createAsync(const std::string &modelPath, @local const std::function<void (Sprite3D *, void *)> &callback, void *callbackparam)',
-            'static void createAsync(const std::string &modelPath, const std::string &texturePath, @local const std::function<void (Sprite3D *, void *)> &callback, void *callbackparam)'
+            'static void createAsync(const std::string &modelPath, @localvar const std::function<void (Sprite3D *, void *)> &callback, void *callbackparam)',
+            'static void createAsync(const std::string &modelPath, const std::string &texturePath, @localvar const std::function<void (Sprite3D *, void *)> &callback, void *callbackparam)'
         },
         TAG_MAKER = 'createAsync',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }

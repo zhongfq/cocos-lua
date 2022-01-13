@@ -300,7 +300,7 @@ static int _cclua_plugin_WeChat_setDispatcher(lua_State *L)
         }
     };
 
-    // static void setDispatcher(@local const std::function<void (const std::string &, const cocos2d::Value &)> &dispatcher)
+    // static void setDispatcher(@localvar const std::function<void (const std::string &, const cocos2d::Value &)> &dispatcher)
     cclua::plugin::WeChat::setDispatcher(arg1);
 
     olua_endinvoke(L);

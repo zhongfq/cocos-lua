@@ -432,10 +432,10 @@ typeconf 'cocos2d::ActionFloat'
     .require(nil)
     .callback {
         FUNCS =  {
-            'static cocos2d::ActionFloat *create(float duration, float from, float to, @local cocos2d::ActionFloat::ActionFloatCallback callback)'
+            'static cocos2d::ActionFloat *create(float duration, float from, float to, @localvar cocos2d::ActionFloat::ActionFloatCallback callback)'
         },
         TAG_MAKER = 'ActionFloat',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = "return",
         TAG_SCOPE = 'object',
     }
@@ -835,10 +835,10 @@ typeconf 'cocos2d::CallFunc'
     .func(nil, 'void execute()')
     .callback {
         FUNCS =  {
-            'static cocos2d::CallFunc *create(@local const std::function<void ()> &func)'
+            'static cocos2d::CallFunc *create(@localvar const std::function<void ()> &func)'
         },
         TAG_MAKER = 'CallFunc',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = "return",
         TAG_SCOPE = 'object',
     }

@@ -34,7 +34,7 @@ int olua_unpack_cclua_window_Bounds(lua_State *L, const cclua::window::Bounds *v
 }
 ]]
 
-make_luacls(function (cppname)
+luacls(function (cppname)
     cppname = string.gsub(cppname, "^cclua::", "cclua.")
     cppname = string.gsub(cppname, "::", ".")
     return cppname
@@ -66,39 +66,37 @@ typeconf 'cclua::runtime'
     .exclude 'updateTimestamp'
     .exclude 'callref'
     .exclude 'ref'
-    .attr('getProgramCache', {ret = '@addref(programCache ^ director)'})
-    .attr('getFileUtils', {ret = '@addref(fileUtils ^ director)'})
-    .attr('getSpriteFrameCache', {ret = '@addref(spriteFrameCache ^ director)'})
-    .attr('getTextureCache', {ret = '@addref(textureCache ^ director)'})
-    .attr('getScheduler', {ret = '@addref(scheduler ^ director)'})
-    .attr('getActionManager', {ret = '@addref(actionManager ^ director)'})
-    .attr('getEventDispatcher', {ret = '@addref(eventDispatcher ^ director)'})
-    .attr('getRunningScene', {ret = '@addref(scenes | director)'})
-    .attr('pushScene', {arg1 = '@addref(scenes | director)'})
-    .attr('replaceScene', {ret = '@delref(scenes ~ director)', arg1 = '@addref(scenes | director)'})
-    .attr('popScene', {ret = '@delref(scenes ~ director)'})
-    .attr('popToRootScene', {ret = '@delref(scenes ~ director)'})
-    .insert({'getProgramCache', 'getFileUtils', 'getSpriteFrameCache', 'getTextureCache',
-        'getScheduler', 'getActionManager', 'getEventDispatcher', 'getRunningScene',
-        'pushScene', 'replaceScene', 'popScene', 'popToRootScene'},
-    {
-        before = [[
+    .func 'getProgramCache' .ret '@addref(programCache ^ director)'
+    .func 'getFileUtils' .ret '@addref(fileUtils ^ director)'
+    .func 'getSpriteFrameCache' .ret '@addref(spriteFrameCache ^ director)'
+    .func 'getTextureCache' .ret '@addref(textureCache ^ director)'
+    .func 'getScheduler' .ret '@addref(scheduler ^ director)'
+    .func 'getActionManager' .ret '@addref(actionManager ^ director)'
+    .func 'getEventDispatcher' .ret '@addref(eventDispatcher ^ director)'
+    .func 'getRunningScene' .ret '@addref(scenes | director)'
+    .func 'pushScene' .arg1 '@addref(scenes | director)'
+    .func 'replaceScene' .ret '@delref(scenes ~ director)' .arg1 '@addref(scenes | director)'
+    .func 'popScene' .ret '@delref(scenes ~ director)'
+    .func 'popToRootScene' .ret '@delref(scenes ~ director)'
+    .insert {'getProgramCache', 'getFileUtils', 'getSpriteFrameCache', 'getTextureCache',
+            'getScheduler', 'getActionManager', 'getEventDispatcher', 'getRunningScene',
+            'pushScene', 'replaceScene', 'popScene', 'popToRootScene'}
+        .before [[
             olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
             int director = lua_gettop(L);
         ]]
-    })
-    .func("testCrash", [[
+    .func "testCrash"
+        .snippet [[
         {
             cclua::runtime::log("test native crash!!!!");
             char *prt = NULL;
             *prt = 0;
             return 0;
-        }
-    ]])
-    .callback {name = 'setDispatcher',tag_mode = 'OLUA_TAG_REPLACE'}
-    .callback {name = 'openURL', tag_mode = 'OLUA_TAG_NEW',tag_scope = 'once'}
-    .callback {name = 'requestPermission', tag_mode = 'OLUA_TAG_NEW', tag_scope = 'once'}
-    .callback {name = 'alert', tag_mode = 'OLUA_TAG_NEW', tag_scope = 'once'}
+        }]]
+    .callback 'setDispatcher' .tag_mode 'replace'
+    .callback 'openURL' .tag_mode 'new' .tag_scope 'once'
+    .callback 'requestPermission' .tag_mode 'new' .tag_scope 'once'
+    .callback 'alert' .tag_mode 'new' .tag_scope 'once'
 
 typeconf 'cclua::filesystem'
     .exclude 'getDirectory'
@@ -106,27 +104,22 @@ typeconf 'cclua::filesystem'
 typeconf 'cclua::preferences'
 
 typeconf 'cclua::timer'
-    .chunk([[
+    .chunk [[
         #define makeTimerDelayTag(tag) ("delayTag." + tag)
-    ]])
-    .callback {
-        name = 'delayWithTag',
-        tag_mode = 'OLUA_TAG_REPLACE',
-        tag_maker = 'makeTimerDelayTag(#2)',
-        tag_scope = 'once',
-    }
-    .callback {
-        name = 'killDelay',
-        tag_maker = 'makeTimerDelayTag(#1)',
-        tag_mode = 'OLUA_TAG_SUBEQUAL',
-    }
-    .callback {
-        name = 'delay',
-        tag_mode = 'OLUA_TAG_NEW',
-        tag_maker = 'delay',
-        tag_scope = 'once',
-    }
-    .func('schedule', [[
+    ]]
+    .callback 'delayWithTag'
+        .tag_mode 'replace'
+        .tag_maker 'makeTimerDelayTag(#2)'
+        .tag_scope 'once'
+    .callback 'killDelay'
+        .tag_maker 'makeTimerDelayTag(#1)'
+        .tag_mode 'subequal'
+    .callback 'delay'
+        .tag_mode 'new'
+        .tag_maker 'delay'
+        .tag_scope 'once'
+    .func 'schedule'
+        .snippet [[
         {
             float interval = (float)olua_checknumber(L, 1);
             uint32_t callback = olua_funcref(L, 2);
@@ -145,9 +138,9 @@ typeconf 'cclua::timer'
             });
             lua_pushinteger(L, ((uint64_t)callback << 32) | (uint64_t)id);
             return 1;
-        }
-    ]])
-    .func('unschedule', [[
+        }]]
+    .func 'unschedule'
+        .snippet [[
         {
             uint64_t value = olua_checkinteger(L, 1);
             uint32_t callback = value >> 32;
@@ -155,19 +148,18 @@ typeconf 'cclua::timer'
             olua_unref(L, callback);
             cclua::timer::unschedule(id);
             return 0;
-        }
-    ]])
+        }]]
 
 typeconf 'cclua::window'
-    .attr('getVisibleBounds', {ret = '@unpack'})
-    .attr('getVisibleSize', {ret = '@unpack'})
-    .attr('getFrameSize', {ret = '@unpack'})
-    .attr('setFrameSize', {arg1 = '@pack'})
-    .attr('getDesignSize', {ret = '@unpack'})
-    .attr('setDesignSize', {arg1 = '@pack'})
-    .attr('convertToCameraSpace', {arg1 = '@pack'})
+    .func 'getVisibleBounds' .ret '@unpack'
+    .func 'getVisibleSize' .ret '@unpack'
+    .func 'getFrameSize' .ret '@unpack'
+    .func 'setFrameSize' .arg1 '@pack'
+    .func 'getDesignSize' .ret '@unpack'
+    .func 'setDesignSize' .arg1 '@pack'
+    .func 'convertToCameraSpace' .arg1 '@pack'
 
 typeconf 'cclua::downloader'
 typeconf 'cclua::MaskLayout'
-    .attr('getFilter', {ret = '@addref(filter ^)'})
-    .attr('setFilter', {arg1 = '@nullable@addref(filter ^)'})
+    .func 'getFilter' .ret '@addref(filter ^)'
+    .func 'setFilter' .arg1 '@nullable@addref(filter ^)'

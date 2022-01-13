@@ -78,7 +78,7 @@ int olua_unpack_cocos2d_MeshVertexAttrib(lua_State *L, const cocos2d::MeshVertex
     return 2;
 }
 
-bool olua_ispack_cocos2d_MeshVertexAttrib(lua_State *L, int idx)
+bool olua_canpack_cocos2d_MeshVertexAttrib(lua_State *L, int idx)
 {
     return olua_is_uint(L, idx + 0) && olua_is_uint(L, idx + 1);
 }
@@ -2011,7 +2011,7 @@ static int _cocos2d_Sprite3D_createAsync1(lua_State *L)
         }
     };
 
-    // static void createAsync(const std::string &modelPath, @local const std::function<void (Sprite3D *, void *)> &callback, void *callbackparam)
+    // static void createAsync(const std::string &modelPath, @localvar const std::function<void (Sprite3D *, void *)> &callback, void *callbackparam)
     cocos2d::Sprite3D::createAsync(arg1, arg2, arg3);
 
     olua_endinvoke(L);
@@ -2057,7 +2057,7 @@ static int _cocos2d_Sprite3D_createAsync2(lua_State *L)
         }
     };
 
-    // static void createAsync(const std::string &modelPath, const std::string &texturePath, @local const std::function<void (Sprite3D *, void *)> &callback, void *callbackparam)
+    // static void createAsync(const std::string &modelPath, const std::string &texturePath, @localvar const std::function<void (Sprite3D *, void *)> &callback, void *callbackparam)
     cocos2d::Sprite3D::createAsync(arg1, arg2, arg3, arg4);
 
     olua_endinvoke(L);
@@ -2071,14 +2071,14 @@ static int _cocos2d_Sprite3D_createAsync(lua_State *L)
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_function(L, 2)) && (olua_is_obj(L, 3, "void *"))) {
-            // static void createAsync(const std::string &modelPath, @local const std::function<void (Sprite3D *, void *)> &callback, void *callbackparam)
+            // static void createAsync(const std::string &modelPath, @localvar const std::function<void (Sprite3D *, void *)> &callback, void *callbackparam)
             return _cocos2d_Sprite3D_createAsync1(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_function(L, 3)) && (olua_is_obj(L, 4, "void *"))) {
-            // static void createAsync(const std::string &modelPath, const std::string &texturePath, @local const std::function<void (Sprite3D *, void *)> &callback, void *callbackparam)
+            // static void createAsync(const std::string &modelPath, const std::string &texturePath, @localvar const std::function<void (Sprite3D *, void *)> &callback, void *callbackparam)
             return _cocos2d_Sprite3D_createAsync2(L);
         // }
     }

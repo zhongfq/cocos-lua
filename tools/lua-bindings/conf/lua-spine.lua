@@ -106,7 +106,7 @@ int olua_push_spine_EventData(lua_State *L, const spine::EventData *value)
     return 1;
 }]]
 
-make_luacls(function (cppname)
+luacls(function (cppname)
     cppname = string.gsub(cppname, "^spine::", "sp.")
     cppname = string.gsub(cppname, "::", ".")
     return cppname
@@ -140,7 +140,7 @@ exclude 'spine::AnimationStateListenerObject *'
 local function typeenum(classname)
     local cls = typeconf(classname)
     local cppname = string.match(classname, '[^:]+$')
-    cls.make_luaname(function (value)
+    cls.luaname(function (value)
         return value:gsub('^' .. cppname .. '_', '')
     end)
     return cls
@@ -165,7 +165,7 @@ typeconf 'spine::Updatable'
 typeconf 'spine::AnimationStateListener'
 
 typeconf 'spine::AnimationState'
-    .callback {name = 'setListener', localvar = false}
+    .callback 'setListener' .localvar 'false'
 
 typeconf 'spine::AnimationStateData'
 
@@ -244,10 +244,11 @@ typeconf 'spine::PointAttachment'
 typeconf 'spine::RegionAttachment'
 
 typeconf 'spine::TrackEntry'
-    .callback {name = 'setListener', localvar = false}
+    .callback 'setListener' .localvar 'false'
 
 typeconf 'spine::SkeletonData'
-    .func("__gc", [[
+    .func "__gc"
+        .snippet [[
         {
             auto self = olua_toobj<spine::SkeletonData>(L, 1);
             lua_pushstring(L, ".ownership");
@@ -273,10 +274,10 @@ typeconf 'spine::SkeletonData'
                 delete self;
             }
             return 0;
-        }
-    ]])
-    .alias("__gc", "dispose")
-    .func("new", [[
+        }]]
+    .alias "__gc -> dispose"
+    .func "new"
+        .snippet [[
         {
             const char *skel_path = olua_checkstring(L, 1);
             const char *atlas_path = olua_checkstring(L, 2);
@@ -325,14 +326,13 @@ typeconf 'spine::SkeletonData'
             olua_setvariable(L, -3);
 
             return 1;
-        }
-    ]])
+        }]]
 
 typeconf 'spine::Skeleton'
     .exclude 'getBounds'
 
 typeconf 'spine::SkeletonRenderer'
-    .attr('createWithData', {arg1 = '@addref(skeletonData ^)'})
+    .func 'createWithData' .arg1 '@addref(skeletonData ^)'
 
 typeconf 'spine::StartListener'
 typeconf 'spine::InterruptListener'
@@ -343,22 +343,22 @@ typeconf 'spine::EventListener'
 typeconf 'spine::UpdateWorldTransformsListener'
 
 typeconf 'spine::SkeletonAnimation'
-    .attr('createWithData', {arg1 = '@addref(skeletonData ^)'})
-    .attr('getState', {ret = '@addref(state ^)'})
-    .attr('setAnimation', {ret = '@addref(trackEntries |)'})
-    .attr('addAnimation', {ret = '@addref(trackEntries |)'})
-    .attr('setEmptyAnimation', {ret = '@addref(trackEntries |)'})
-    .attr('addEmptyAnimation', {ret = '@addref(trackEntries |)'})
-    .attr('getCurrent', {ret = '@addref(trackEntries |)'})
-    .callback {name = 'setStartListener', localvar = false}
-    .callback {name = 'setInterruptListener', localvar = false}
-    .callback {name = 'setEndListener', localvar = false}
-    .callback {name = 'setDisposeListener', localvar = false}
-    .callback {name = 'setCompleteListener', localvar = false}
-    .callback {name = 'setEventListener', localvar = false}
-    .callback {name = 'setTrackStartListener', localvar = false}
-    .callback {name = 'setTrackInterruptListener', localvar = false}
-    .callback {name = 'setTrackEndListener', localvar = false}
-    .callback {name = 'setTrackDisposeListener', localvar = false}
-    .callback {name = 'setTrackCompleteListener', localvar = false}
-    .callback {name = 'setTrackEventListener', localvar = false}
+    .func 'createWithData' .arg1 '@addref(skeletonData ^)'
+    .func 'getState' .ret '@addref(state ^)'
+    .func 'setAnimation' .ret '@addref(trackEntries |)'
+    .func 'addAnimation' .ret '@addref(trackEntries |)'
+    .func 'setEmptyAnimation' .ret '@addref(trackEntries |)'
+    .func 'addEmptyAnimation' .ret '@addref(trackEntries |)'
+    .func 'getCurrent' .ret '@addref(trackEntries |)'
+    .callback 'setStartListener' .localvar 'false'
+    .callback 'setInterruptListener' .localvar 'false'
+    .callback 'setEndListener' .localvar 'false'
+    .callback 'setDisposeListener' .localvar 'false'
+    .callback 'setCompleteListener' .localvar 'false'
+    .callback 'setEventListener' .localvar 'false'
+    .callback 'setTrackStartListener' .localvar 'false'
+    .callback 'setTrackInterruptListener' .localvar 'false'
+    .callback 'setTrackEndListener' .localvar 'false'
+    .callback 'setTrackDisposeListener' .localvar 'false'
+    .callback 'setTrackCompleteListener' .localvar 'false'
+    .callback 'setTrackEventListener' .localvar 'false'

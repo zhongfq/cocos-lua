@@ -71,6 +71,7 @@ extern "C" {
 // default super class of object
 #define OLUA_VOIDCLS "void *"
 
+#if !defined(olua_likely)
 #if defined(__GNUC__) || defined(__clang__)
 #define olua_likely(x)      (__builtin_expect(!!(x), 1))
 #define olua_unlikely(x)    (__builtin_expect(!!(x), 0))
@@ -78,6 +79,7 @@ extern "C" {
 #define olua_likely(x)      (x)
 #define olua_unlikely(x)    (x)
 #endif
+#endif // luai_likely
 
 // stat api
 OLUA_API size_t olua_objcount(lua_State *L);

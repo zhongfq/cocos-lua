@@ -9,7 +9,7 @@ headers [[
 #include "cclua/xlua.h"
 ]]
 
-make_luacls(function (cppname)
+luacls(function (cppname)
     cppname = string.gsub(cppname, "^cocos2d::backend::", "ccb.")
     cppname = string.gsub(cppname, "::", ".")
     return cppname
@@ -51,20 +51,15 @@ typeconf 'cocos2d::backend::DepthStencilState'
 typeconf 'cocos2d::backend::VertexLayout'
 
 typeconf 'cocos2d::backend::CommandBuffer'
-    .callback {name = 'captureScreen', tag_scope = 'once', tag_mode = 'OLUA_TAG_NEW'}
+    .callback 'captureScreen'
+        .tag_scope 'once'
+        .tag_mode 'new'
 
 typeconf 'cocos2d::backend::Device'
-    .insert({
-        'newProgram',
-        'newRenderPipeline',
-        'newTexture',
-        'newBuffer',
-        'newCommandBuffer'
-    }, {
-        after = [[
+    .insert {'newProgram', 'newRenderPipeline', 'newTexture', 'newBuffer', 'newCommandBuffer'}
+        .after [[
             ret->autorelease();
         ]]
-    })
 
 typeconf 'cocos2d::backend::DeviceInfo'
 typeconf 'cocos2d::backend::ShaderCache'
@@ -72,7 +67,7 @@ typeconf 'cocos2d::backend::ShaderModule'
 typeconf 'cocos2d::backend::ProgramCache'
 
 typeconf 'cocos2d::backend::ProgramState'
-    .chunk([[
+    .chunk [[
         static inline void olua_check_value(lua_State *L, int idx, cocos2d::Vec2 *value)
         {
             olua_check_cocos2d_Vec2(L, idx, value);
@@ -141,100 +136,99 @@ typeconf 'cocos2d::backend::ProgramState'
             delete []value;
             return 0;
         }
-    ]])
+    ]]
     .exclude 'setCallbackUniform'
     .exclude 'getCallbackUniforms'
     .exclude 'getVertexUniformBuffer'
     .exclude 'getFragmentUniformBuffer'
-    .func('getVertexLayout', [[
+    .func 'getVertexLayout'
+        .snippet [[
         {
             auto self = olua_toobj<cocos2d::backend::ProgramState>(L, 1);
             olua_push_cppobj<cocos2d::backend::VertexLayout>(L, self->getVertexLayout().get());
             olua_addref(L, 1, "vertexLayout", -1, OLUA_MODE_SINGLE);
             return 1;
-        }
-    ]])
-    .func('setUniformVec2', [[
+        }]]
+    .func 'setUniformVec2'
+        .snippet [[
         {
             _cocos2d_backend_ProgramState_setUniform<cocos2d::Vec2>(L);
             return 0;
-        }
-    ]])
-    .func('setUniformVec3', [[
+        }]]
+    .func 'setUniformVec3'
+        .snippet [[
         {
             _cocos2d_backend_ProgramState_setUniform<cocos2d::Vec3>(L);
             return 0;
-        }
-    ]])
-    .func('setUniformVec4', [[
+        }]]
+    .func 'setUniformVec4'
+        .snippet [[
         {
             _cocos2d_backend_ProgramState_setUniform<cocos2d::Vec4>(L);
             return 0;
         }
-    ]])
-    .func('setUniformMat4', [[
+    ]]
+    .func 'setUniformMat4'
+        .snippet [[
         {
             _cocos2d_backend_ProgramState_setUniform<cocos2d::Mat4>(L);
             return 0;
-        }
-    ]])
-    .func('setUniformInt', [[
+        }]]
+    .func 'setUniformInt'
+        .snippet [[
         {
             _cocos2d_backend_ProgramState_setUniform<int>(L);
             return 0;
-        }
-    ]])
-    .func('setUniformFloat', [[
+        }]]
+    .func 'setUniformFloat'
+        .snippet[[
         {
             _cocos2d_backend_ProgramState_setUniform<float>(L);
             return 0;
-        }
-    ]])
-    .func('setUniformVec2v', [[
+        }]]
+    .func 'setUniformVec2v'
+        .snippet [[
         {
             _cocos2d_backend_ProgramState_setUniformv<cocos2d::Vec2>(L);
             return 0;
-        }
-    ]])
-    .func('setUniformVec3v', [[
+        }]]
+    .func 'setUniformVec3v'
+        .snippet [[
         {
             _cocos2d_backend_ProgramState_setUniformv<cocos2d::Vec3>(L);
             return 0;
-        }
-    ]])
-    .func('setUniformVec4v', [[
+        }]]
+    .func 'setUniformVec4v'
+        .snippet [[
         {
             _cocos2d_backend_ProgramState_setUniformv<cocos2d::Vec4>(L);
             return 0;
-        }
-    ]])
-    .func('setUniformMat4v', [[
+        }]]
+    .func 'setUniformMat4v'
+        .snippet [[
         {
             _cocos2d_backend_ProgramState_setUniformv<cocos2d::Mat4>(L);
             return 0;
-        }
-    ]])
-    .func('setUniformIntv', [[
+        }]]
+    .func 'setUniformIntv'
+        .snippet [[
         {
             _cocos2d_backend_ProgramState_setUniformv<int>(L);
             return 0;
-        }
-    ]])
-    .func('setUniformFloatv', [[
+        }]]
+    .func 'setUniformFloatv'
+        .snippet [[
         {
             _cocos2d_backend_ProgramState_setUniformv<float>(L);
             return 0;
-        }
-    ]])
+        }]]
 
 typeconf 'cocos2d::backend::Program'
 
 typeconf 'cocos2d::backend::TextureBackend'
-    .callback {
-        name = 'getBytes',
-        tag_mode = 'OLUA_TAG_NEW',
-        tag_scope = 'once',
-    }
+    .callback 'getBytes'
+        .tag_mode 'new'
+        .tag_scope 'once'
 
 typeconf 'cocos2d::backend::Texture2DBackend'
 typeconf 'cocos2d::backend::TextureCubemapBackend'

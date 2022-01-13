@@ -24,7 +24,7 @@ void olua_check_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *value);
 bool olua_is_fairygui_Margin(lua_State *L, int idx);
 void olua_pack_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *value);
 int olua_unpack_fairygui_Margin(lua_State *L, const fairygui::Margin *value);
-bool olua_ispack_fairygui_Margin(lua_State *L, int idx);
+bool olua_canpack_fairygui_Margin(lua_State *L, int idx);
 
 // fairygui::HtmlParseOptions
 int olua_push_fairygui_HtmlParseOptions(lua_State *L, const fairygui::HtmlParseOptions *value);
@@ -32,7 +32,7 @@ void olua_check_fairygui_HtmlParseOptions(lua_State *L, int idx, fairygui::HtmlP
 bool olua_is_fairygui_HtmlParseOptions(lua_State *L, int idx);
 void olua_pack_fairygui_HtmlParseOptions(lua_State *L, int idx, fairygui::HtmlParseOptions *value);
 int olua_unpack_fairygui_HtmlParseOptions(lua_State *L, const fairygui::HtmlParseOptions *value);
-bool olua_ispack_fairygui_HtmlParseOptions(lua_State *L, int idx);
+bool olua_canpack_fairygui_HtmlParseOptions(lua_State *L, int idx);
 
 // fairygui::TweenValue
 int olua_push_fairygui_TweenValue(lua_State *L, const fairygui::TweenValue *value);
@@ -40,7 +40,7 @@ void olua_check_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenValue 
 bool olua_is_fairygui_TweenValue(lua_State *L, int idx);
 void olua_pack_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenValue *value);
 int olua_unpack_fairygui_TweenValue(lua_State *L, const fairygui::TweenValue *value);
-bool olua_ispack_fairygui_TweenValue(lua_State *L, int idx);
+bool olua_canpack_fairygui_TweenValue(lua_State *L, int idx);
 
 // fairygui::EventCallback
 bool olua_is_fairygui_EventCallback(lua_State *L, int idx);

@@ -396,10 +396,10 @@ typeconf 'cocos2d::backend::CommandBuffer'
     .func(nil, 'void setStencilReferenceValue(unsigned int value)', 'void setStencilReferenceValue(unsigned int frontRef, unsigned int backRef)')
     .callback {
         FUNCS =  {
-            'void captureScreen(@local std::function<void (const unsigned char *, int, int)> callback)'
+            'void captureScreen(@localvar std::function<void (const unsigned char *, int, int)> callback)'
         },
         TAG_MAKER = 'captureScreen',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
@@ -719,10 +719,10 @@ typeconf 'cocos2d::backend::TextureBackend'
     .func(nil, 'bool hasMipmaps()')
     .callback {
         FUNCS =  {
-            'void getBytes(std::size_t x, std::size_t y, std::size_t width, std::size_t height, bool flipImage, @local std::function<void (const unsigned char *, std::size_t, std::size_t)> callback)'
+            'void getBytes(std::size_t x, std::size_t y, std::size_t width, std::size_t height, bool flipImage, @localvar std::function<void (const unsigned char *, std::size_t, std::size_t)> callback)'
         },
         TAG_MAKER = 'Bytes',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }

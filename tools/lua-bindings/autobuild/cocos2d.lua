@@ -345,11 +345,11 @@ typeconf 'cocos2d::Scheduler'
     .func(nil, 'void removeAllFunctionsToBePerformedInCocosThread()')
     .callback {
         FUNCS =  {
-            'void schedule(@local const cocos2d::ccSchedulerFunc &callback, void *target, float interval, unsigned int repeat, float delay, bool paused, const std::string &key)',
-            'void schedule(@local const cocos2d::ccSchedulerFunc &callback, void *target, float interval, bool paused, const std::string &key)'
+            'void schedule(@localvar const cocos2d::ccSchedulerFunc &callback, void *target, float interval, unsigned int repeat, float delay, bool paused, const std::string &key)',
+            'void schedule(@localvar const cocos2d::ccSchedulerFunc &callback, void *target, float interval, bool paused, const std::string &key)'
         },
         TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = 2,
         TAG_SCOPE = 'object',
     }
@@ -358,7 +358,7 @@ typeconf 'cocos2d::Scheduler'
             'void unschedule(const std::string &key, void *target)'
         },
         TAG_MAKER = 'makeScheduleCallbackTag(#1)',
-        TAG_MODE = 'OLUA_TAG_SUBEQUAL',
+        TAG_MODE = 'subequal',
         TAG_STORE = 2,
         TAG_SCOPE = 'object',
     }
@@ -367,7 +367,7 @@ typeconf 'cocos2d::Scheduler'
             'void unscheduleAllForTarget(void *target)'
         },
         TAG_MAKER = 'makeScheduleCallbackTag("")',
-        TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
+        TAG_MODE = 'substartwith',
         TAG_STORE = 1,
         TAG_SCOPE = 'object',
     }
@@ -376,7 +376,7 @@ typeconf 'cocos2d::Scheduler'
             'void unscheduleAll()'
         },
         TAG_MAKER = 'makeScheduleCallbackTag("")',
-        TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
+        TAG_MODE = 'substartwith',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -429,10 +429,10 @@ typeconf 'cocos2d::EventDispatcher'
     .func(nil, 'EventDispatcher()')
     .callback {
         FUNCS =  {
-            '@addref(listeners |) cocos2d::EventListenerCustom *addCustomEventListener(const std::string &eventName, @local const std::function<void (EventCustom *)> &callback)'
+            '@addref(listeners |) cocos2d::EventListenerCustom *addCustomEventListener(const std::string &eventName, @localvar const std::function<void (EventCustom *)> &callback)'
         },
         TAG_MAKER = '(#1)',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = "return",
         TAG_SCOPE = 'object',
     }
@@ -500,10 +500,10 @@ typeconf 'cocos2d::EventListenerTouchOneByOne'
     .func(nil, 'void setSwallowTouches(bool needSwallow)')
     .func(nil, 'bool isSwallowTouches()')
     .func(nil, 'EventListenerTouchOneByOne()')
-    .var('onTouchBegan', '@nullable @local cocos2d::EventListenerTouchOneByOne::ccTouchBeganCallback onTouchBegan')
-    .var('onTouchMoved', '@nullable @local cocos2d::EventListenerTouchOneByOne::ccTouchCallback onTouchMoved')
-    .var('onTouchEnded', '@nullable @local cocos2d::EventListenerTouchOneByOne::ccTouchCallback onTouchEnded')
-    .var('onTouchCancelled', '@nullable @local cocos2d::EventListenerTouchOneByOne::ccTouchCallback onTouchCancelled')
+    .var('onTouchBegan', '@nullable @localvar cocos2d::EventListenerTouchOneByOne::ccTouchBeganCallback onTouchBegan')
+    .var('onTouchMoved', '@nullable @localvar cocos2d::EventListenerTouchOneByOne::ccTouchCallback onTouchMoved')
+    .var('onTouchEnded', '@nullable @localvar cocos2d::EventListenerTouchOneByOne::ccTouchCallback onTouchEnded')
+    .var('onTouchCancelled', '@nullable @localvar cocos2d::EventListenerTouchOneByOne::ccTouchCallback onTouchCancelled')
     .prop('swallowTouches', nil, nil)
 
 typeconf 'cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback'
@@ -520,10 +520,10 @@ typeconf 'cocos2d::EventListenerTouchAllAtOnce'
     .const('LISTENER_ID', 'cocos2d::EventListenerTouchAllAtOnce::LISTENER_ID', 'const std::string')
     .func(nil, 'static cocos2d::EventListenerTouchAllAtOnce *create()')
     .func(nil, 'EventListenerTouchAllAtOnce()')
-    .var('onTouchesBegan', '@nullable @local cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback onTouchesBegan')
-    .var('onTouchesMoved', '@nullable @local cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback onTouchesMoved')
-    .var('onTouchesEnded', '@nullable @local cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback onTouchesEnded')
-    .var('onTouchesCancelled', '@nullable @local cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback onTouchesCancelled')
+    .var('onTouchesBegan', '@nullable @localvar cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback onTouchesBegan')
+    .var('onTouchesMoved', '@nullable @localvar cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback onTouchesMoved')
+    .var('onTouchesEnded', '@nullable @localvar cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback onTouchesEnded')
+    .var('onTouchesCancelled', '@nullable @localvar cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback onTouchesCancelled')
 
 typeconf 'cocos2d::EventListenerCustom'
     .supercls('cocos2d::EventListener')
@@ -533,10 +533,10 @@ typeconf 'cocos2d::EventListenerCustom'
     .func(nil, 'EventListenerCustom()')
     .callback {
         FUNCS =  {
-            'static cocos2d::EventListenerCustom *create(const std::string &eventName, @local const std::function<void (EventCustom *)> &callback)'
+            'static cocos2d::EventListenerCustom *create(const std::string &eventName, @localvar const std::function<void (EventCustom *)> &callback)'
         },
         TAG_MAKER = 'listener',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'replace',
         TAG_STORE = "return",
         TAG_SCOPE = 'object',
     }
@@ -549,8 +549,8 @@ typeconf 'cocos2d::EventListenerKeyboard'
     .const('LISTENER_ID', 'cocos2d::EventListenerKeyboard::LISTENER_ID', 'const std::string')
     .func(nil, 'static cocos2d::EventListenerKeyboard *create()')
     .func(nil, 'EventListenerKeyboard()')
-    .var('onKeyPressed', '@nullable @local std::function<void (EventKeyboard::KeyCode, cocos2d::Event *)> onKeyPressed')
-    .var('onKeyReleased', '@nullable @local std::function<void (EventKeyboard::KeyCode, cocos2d::Event *)> onKeyReleased')
+    .var('onKeyPressed', '@nullable @localvar std::function<void (EventKeyboard::KeyCode, cocos2d::Event *)> onKeyPressed')
+    .var('onKeyReleased', '@nullable @localvar std::function<void (EventKeyboard::KeyCode, cocos2d::Event *)> onKeyReleased')
 
 typeconf 'cocos2d::EventListenerAcceleration'
     .supercls('cocos2d::EventListener')
@@ -561,10 +561,10 @@ typeconf 'cocos2d::EventListenerAcceleration'
     .func(nil, 'EventListenerAcceleration()')
     .callback {
         FUNCS =  {
-            'static cocos2d::EventListenerAcceleration *create(@local const std::function<void (Acceleration *, Event *)> &callback)'
+            'static cocos2d::EventListenerAcceleration *create(@localvar const std::function<void (Acceleration *, Event *)> &callback)'
         },
         TAG_MAKER = 'listener',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'replace',
         TAG_STORE = "return",
         TAG_SCOPE = 'object',
     }
@@ -577,7 +577,7 @@ typeconf 'cocos2d::EventListenerFocus'
     .const('LISTENER_ID', 'cocos2d::EventListenerFocus::LISTENER_ID', 'const std::string')
     .func(nil, 'static cocos2d::EventListenerFocus *create()')
     .func(nil, 'EventListenerFocus()')
-    .var('onFocusChanged', '@nullable @local std::function<void (ui::Widget *, ui::Widget *)> onFocusChanged')
+    .var('onFocusChanged', '@nullable @localvar std::function<void (ui::Widget *, ui::Widget *)> onFocusChanged')
 
 typeconf 'cocos2d::EventListenerMouse'
     .supercls('cocos2d::EventListener')
@@ -587,10 +587,10 @@ typeconf 'cocos2d::EventListenerMouse'
     .const('LISTENER_ID', 'cocos2d::EventListenerMouse::LISTENER_ID', 'const std::string')
     .func(nil, 'static cocos2d::EventListenerMouse *create()')
     .func(nil, 'EventListenerMouse()')
-    .var('onMouseDown', '@nullable @local std::function<void (cocos2d::EventMouse *)> onMouseDown')
-    .var('onMouseUp', '@nullable @local std::function<void (cocos2d::EventMouse *)> onMouseUp')
-    .var('onMouseMove', '@nullable @local std::function<void (cocos2d::EventMouse *)> onMouseMove')
-    .var('onMouseScroll', '@nullable @local std::function<void (cocos2d::EventMouse *)> onMouseScroll')
+    .var('onMouseDown', '@nullable @localvar std::function<void (cocos2d::EventMouse *)> onMouseDown')
+    .var('onMouseUp', '@nullable @localvar std::function<void (cocos2d::EventMouse *)> onMouseUp')
+    .var('onMouseMove', '@nullable @localvar std::function<void (cocos2d::EventMouse *)> onMouseMove')
+    .var('onMouseScroll', '@nullable @localvar std::function<void (cocos2d::EventMouse *)> onMouseScroll')
 
 typeconf 'cocos2d::Event::Type'
     .supercls(nil)
@@ -638,12 +638,12 @@ typeconf 'cocos2d::EventListenerController'
     .require(nil)
     .const('LISTENER_ID', 'cocos2d::EventListenerController::LISTENER_ID', 'const std::string')
     .func(nil, 'static cocos2d::EventListenerController *create()')
-    .var('onConnected', '@nullable @local std::function<void (cocos2d::Controller *, cocos2d::Event *)> onConnected')
-    .var('onDisconnected', '@nullable @local std::function<void (cocos2d::Controller *, cocos2d::Event *)> onDisconnected')
-    .var('onKeyDown', '@nullable @local std::function<void (cocos2d::Controller *, int, cocos2d::Event *)> onKeyDown')
-    .var('onKeyUp', '@nullable @local std::function<void (cocos2d::Controller *, int, cocos2d::Event *)> onKeyUp')
-    .var('onKeyRepeat', '@nullable @local std::function<void (cocos2d::Controller *, int, cocos2d::Event *)> onKeyRepeat')
-    .var('onAxisEvent', '@nullable @local std::function<void (cocos2d::Controller *, int, cocos2d::Event *)> onAxisEvent')
+    .var('onConnected', '@nullable @localvar std::function<void (cocos2d::Controller *, cocos2d::Event *)> onConnected')
+    .var('onDisconnected', '@nullable @localvar std::function<void (cocos2d::Controller *, cocos2d::Event *)> onDisconnected')
+    .var('onKeyDown', '@nullable @localvar std::function<void (cocos2d::Controller *, int, cocos2d::Event *)> onKeyDown')
+    .var('onKeyUp', '@nullable @localvar std::function<void (cocos2d::Controller *, int, cocos2d::Event *)> onKeyUp')
+    .var('onKeyRepeat', '@nullable @localvar std::function<void (cocos2d::Controller *, int, cocos2d::Event *)> onKeyRepeat')
+    .var('onAxisEvent', '@nullable @localvar std::function<void (cocos2d::Controller *, int, cocos2d::Event *)> onAxisEvent')
 
 typeconf 'cocos2d::EventTouch::EventCode'
     .supercls(nil)
@@ -1124,7 +1124,7 @@ typeconf 'cocos2d::AudioEngine'
             'static void stop(int audioID)'
         },
         TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
-        TAG_MODE = 'OLUA_TAG_SUBEQUAL',
+        TAG_MODE = 'subequal',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1133,7 +1133,7 @@ typeconf 'cocos2d::AudioEngine'
             'static void stopAll()'
         },
         TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
-        TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
+        TAG_MODE = 'substartwith',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1142,26 +1142,26 @@ typeconf 'cocos2d::AudioEngine'
             'static void uncacheAll()'
         },
         TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
-        TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
+        TAG_MODE = 'substartwith',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            'static void setFinishCallback(int audioID, @nullable @local const std::function<void (int, const std::string &)> &callback)'
+            'static void setFinishCallback(int audioID, @localvar @nullable const std::function<void (int, const std::string &)> &callback)'
         },
         TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
     .callback {
         FUNCS =  {
             'static void preload(const std::string &filePath)',
-            'static void preload(const std::string &filePath, @local std::function<void (bool)> callback)'
+            'static void preload(const std::string &filePath, @localvar std::function<void (bool)> callback)'
         },
         TAG_MAKER = 'preload',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
@@ -1339,150 +1339,150 @@ typeconf 'cocos2d::FileUtils'
     .callback {
         FUNCS =  {
             'std::string getStringFromFile(const std::string &filename)',
-            'void getStringFromFile(const std::string &path, @local std::function<void (std::string)> callback)'
+            'void getStringFromFile(const std::string &path, @localvar std::function<void (std::string)> callback)'
         },
         TAG_MAKER = 'StringFromFile',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
     .callback {
         FUNCS =  {
             'cocos2d::Data getDataFromFile(const std::string &filename)',
-            'void getDataFromFile(const std::string &filename, @local std::function<void (cocos2d::Data)> callback)'
+            'void getDataFromFile(const std::string &filename, @localvar std::function<void (cocos2d::Data)> callback)'
         },
         TAG_MAKER = 'DataFromFile',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
     .callback {
         FUNCS =  {
             'bool writeStringToFile(const std::string &dataStr, const std::string &fullPath)',
-            'void writeStringToFile(std::string dataStr, const std::string &fullPath, @local std::function<void (bool)> callback)'
+            'void writeStringToFile(std::string dataStr, const std::string &fullPath, @localvar std::function<void (bool)> callback)'
         },
         TAG_MAKER = 'writeStringToFile',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
     .callback {
         FUNCS =  {
             'bool writeDataToFile(const cocos2d::Data &data, const std::string &fullPath)',
-            'void writeDataToFile(cocos2d::Data data, const std::string &fullPath, @local std::function<void (bool)> callback)'
+            'void writeDataToFile(cocos2d::Data data, const std::string &fullPath, @localvar std::function<void (bool)> callback)'
         },
         TAG_MAKER = 'writeDataToFile',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
     .callback {
         FUNCS =  {
             'bool writeValueMapToFile(const cocos2d::ValueMap &dict, const std::string &fullPath)',
-            'void writeValueMapToFile(cocos2d::ValueMap dict, const std::string &fullPath, @local std::function<void (bool)> callback)'
+            'void writeValueMapToFile(cocos2d::ValueMap dict, const std::string &fullPath, @localvar std::function<void (bool)> callback)'
         },
         TAG_MAKER = 'writeValueMapToFile',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
     .callback {
         FUNCS =  {
             'bool writeValueVectorToFile(const cocos2d::ValueVector &vecData, const std::string &fullPath)',
-            'void writeValueVectorToFile(cocos2d::ValueVector vecData, const std::string &fullPath, @local std::function<void (bool)> callback)'
+            'void writeValueVectorToFile(cocos2d::ValueVector vecData, const std::string &fullPath, @localvar std::function<void (bool)> callback)'
         },
         TAG_MAKER = 'writeValueVectorToFile',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
     .callback {
         FUNCS =  {
             'bool isFileExist(const std::string &filename)',
-            'void isFileExist(const std::string &filename, @local std::function<void (bool)> callback)'
+            'void isFileExist(const std::string &filename, @localvar std::function<void (bool)> callback)'
         },
         TAG_MAKER = 'isFileExist',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
     .callback {
         FUNCS =  {
             'bool isDirectoryExist(const std::string &dirPath)',
-            'void isDirectoryExist(const std::string &fullPath, @local std::function<void (bool)> callback)'
+            'void isDirectoryExist(const std::string &fullPath, @localvar std::function<void (bool)> callback)'
         },
         TAG_MAKER = 'isDirectoryExist',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
     .callback {
         FUNCS =  {
             'bool createDirectory(const std::string &dirPath)',
-            'void createDirectory(const std::string &dirPath, @local std::function<void (bool)> callback)'
+            'void createDirectory(const std::string &dirPath, @localvar std::function<void (bool)> callback)'
         },
         TAG_MAKER = 'createDirectory',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
     .callback {
         FUNCS =  {
             'bool removeDirectory(const std::string &dirPath)',
-            'void removeDirectory(const std::string &dirPath, @local std::function<void (bool)> callback)'
+            'void removeDirectory(const std::string &dirPath, @localvar std::function<void (bool)> callback)'
         },
         TAG_MAKER = 'removeDirectory',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
     .callback {
         FUNCS =  {
             'bool removeFile(const std::string &filepath)',
-            'void removeFile(const std::string &filepath, @local std::function<void (bool)> callback)'
+            'void removeFile(const std::string &filepath, @localvar std::function<void (bool)> callback)'
         },
         TAG_MAKER = 'removeFile',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
     .callback {
         FUNCS =  {
             'bool renameFile(const std::string &path, const std::string &oldname, const std::string &name)',
-            'void renameFile(const std::string &path, const std::string &oldname, const std::string &name, @local std::function<void (bool)> callback)',
+            'void renameFile(const std::string &path, const std::string &oldname, const std::string &name, @localvar std::function<void (bool)> callback)',
             'bool renameFile(const std::string &oldfullpath, const std::string &newfullpath)',
-            'void renameFile(const std::string &oldfullpath, const std::string &newfullpath, @local std::function<void (bool)> callback)'
+            'void renameFile(const std::string &oldfullpath, const std::string &newfullpath, @localvar std::function<void (bool)> callback)'
         },
         TAG_MAKER = 'renameFile',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
     .callback {
         FUNCS =  {
             'long getFileSize(const std::string &filepath)',
-            'void getFileSize(const std::string &filepath, @local std::function<void (long)> callback)'
+            'void getFileSize(const std::string &filepath, @localvar std::function<void (long)> callback)'
         },
         TAG_MAKER = 'FileSize',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
     .callback {
         FUNCS =  {
-            'void listFilesAsync(const std::string &dirPath, @local std::function<void (std::vector<std::string>)> callback)'
+            'void listFilesAsync(const std::string &dirPath, @localvar std::function<void (std::vector<std::string>)> callback)'
         },
         TAG_MAKER = 'listFilesAsync',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
     .callback {
         FUNCS =  {
-            'void listFilesRecursivelyAsync(const std::string &dirPath, @local std::function<void (std::vector<std::string>)> callback)'
+            'void listFilesRecursivelyAsync(const std::string &dirPath, @localvar std::function<void (std::vector<std::string>)> callback)'
         },
         TAG_MAKER = 'listFilesRecursivelyAsync',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
@@ -1896,40 +1896,40 @@ typeconf 'cocos2d::CustomCommand'
     .func(nil, 'void setLineWidth(float lineWidth)')
     .func(nil, 'float getLineWidth()')
     .func(nil, 'cocos2d::CustomCommand::IndexFormat getIndexFormat()')
-    .var('func', '@nullable @local std::function<void ()> func')
+    .var('func', '@nullable @localvar std::function<void ()> func')
     .callback {
         FUNCS =  {
-            'void setBeforeCallback(@local const std::function<void ()> &before)'
+            'void setBeforeCallback(@localvar const std::function<void ()> &before)'
         },
         TAG_MAKER = 'BeforeCallback',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            'void setAfterCallback(@local const std::function<void ()> &after)'
+            'void setAfterCallback(@localvar const std::function<void ()> &after)'
         },
         TAG_MAKER = 'AfterCallback',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            '@local const std::function<void ()> &getBeforeCallback()'
+            '@localvar const std::function<void ()> &getBeforeCallback()'
         },
         TAG_MAKER = 'BeforeCallback',
-        TAG_MODE = 'OLUA_TAG_SUBEQUAL',
+        TAG_MODE = 'subequal',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            '@local const std::function<void ()> &getAfterCallback()'
+            '@localvar const std::function<void ()> &getAfterCallback()'
         },
         TAG_MAKER = 'AfterCallback',
-        TAG_MODE = 'OLUA_TAG_SUBEQUAL',
+        TAG_MODE = 'subequal',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -1986,7 +1986,7 @@ typeconf 'cocos2d::TextureCache'
             'void addImageAsync(const std::string &path, const std::function<void (Texture2D *)> &callback, const std::string &callbackKey)'
         },
         TAG_MAKER = {'makeTextureCacheCallbackTag(#1)', 'makeTextureCacheCallbackTag(#-1)'},
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
@@ -1995,7 +1995,7 @@ typeconf 'cocos2d::TextureCache'
             'void unbindImageAsync(const std::string &filename)'
         },
         TAG_MAKER = 'makeTextureCacheCallbackTag(#1)',
-        TAG_MODE = 'OLUA_TAG_SUBEQUAL',
+        TAG_MODE = 'subequal',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -2004,7 +2004,7 @@ typeconf 'cocos2d::TextureCache'
             'void unbindAllImageAsync()'
         },
         TAG_MAKER = 'makeTextureCacheCallbackTag("")',
-        TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
+        TAG_MODE = 'substartwith',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -2188,10 +2188,10 @@ typeconf 'cocos2d::LuaWebSocketDelegate'
     .chunk(nil)
     .require(nil)
     .func(nil, 'LuaWebSocketDelegate()')
-    .var('onOpen', '@nullable @local std::function<void (network::WebSocket *)> onOpenCallback')
-    .var('onMessage', '@nullable @local std::function<void (network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback')
-    .var('onClose', '@nullable @local std::function<void (network::WebSocket *)> onCloseCallback')
-    .var('onError', '@nullable @local std::function<void (network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback')
+    .var('onOpen', '@nullable @localvar std::function<void (network::WebSocket *)> onOpenCallback')
+    .var('onMessage', '@nullable @localvar std::function<void (network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback')
+    .var('onClose', '@nullable @localvar std::function<void (network::WebSocket *)> onCloseCallback')
+    .var('onError', '@nullable @localvar std::function<void (network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback')
 
 typeconf 'cocos2d::ActionManager'
     .supercls('cocos2d::Ref')
@@ -2248,11 +2248,11 @@ typeconf 'cocos2d::LuaComponent'
     .require(nil)
     .func(nil, 'static cocos2d::LuaComponent *create()')
     .func(nil, 'LuaComponent()')
-    .var('onUpdate', '@nullable @local std::function<void (float)> onUpdateCallback')
-    .var('onEnter', '@nullable @local std::function<void ()> onEnterCallback')
-    .var('onExit', '@nullable @local std::function<void ()> onExitCallback')
-    .var('onAdd', '@nullable @local std::function<void ()> onAddCallback')
-    .var('onRemove', '@nullable @local std::function<void ()> onRemoveCallback')
+    .var('onUpdate', '@nullable @localvar std::function<void (float)> onUpdateCallback')
+    .var('onEnter', '@nullable @localvar std::function<void ()> onEnterCallback')
+    .var('onExit', '@nullable @localvar std::function<void ()> onExitCallback')
+    .var('onAdd', '@nullable @localvar std::function<void ()> onAddCallback')
+    .var('onRemove', '@nullable @localvar std::function<void ()> onRemoveCallback')
 
 typeconf 'cocos2d::Node'
     .supercls('cocos2d::Ref')
@@ -2488,93 +2488,93 @@ typeconf 'cocos2d::Node'
     .func(nil, '@addref(physicsBody ^) cocos2d::PhysicsBody *getPhysicsBody()')
     .callback {
         FUNCS =  {
-            'void setOnEnterCallback(@nullable @local const std::function<void ()> &callback)'
+            'void setOnEnterCallback(@localvar @nullable const std::function<void ()> &callback)'
         },
         TAG_MAKER = 'OnEnterCallback',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            '@nullable @local const std::function<void ()> &getOnEnterCallback()'
+            '@nullable @localvar const std::function<void ()> &getOnEnterCallback()'
         },
         TAG_MAKER = 'OnEnterCallback',
-        TAG_MODE = 'OLUA_TAG_SUBEQUAL',
+        TAG_MODE = 'subequal',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            'void setOnExitCallback(@nullable @local const std::function<void ()> &callback)'
+            'void setOnExitCallback(@localvar @nullable const std::function<void ()> &callback)'
         },
         TAG_MAKER = 'OnExitCallback',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            '@nullable @local const std::function<void ()> &getOnExitCallback()'
+            '@nullable @localvar const std::function<void ()> &getOnExitCallback()'
         },
         TAG_MAKER = 'OnExitCallback',
-        TAG_MODE = 'OLUA_TAG_SUBEQUAL',
+        TAG_MODE = 'subequal',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            'void setOnEnterTransitionDidFinishCallback(@nullable @local const std::function<void ()> &callback)'
+            'void setOnEnterTransitionDidFinishCallback(@localvar @nullable const std::function<void ()> &callback)'
         },
         TAG_MAKER = 'OnEnterTransitionDidFinishCallback',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            '@nullable @local const std::function<void ()> &getOnEnterTransitionDidFinishCallback()'
+            '@nullable @localvar const std::function<void ()> &getOnEnterTransitionDidFinishCallback()'
         },
         TAG_MAKER = 'OnEnterTransitionDidFinishCallback',
-        TAG_MODE = 'OLUA_TAG_SUBEQUAL',
+        TAG_MODE = 'subequal',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            'void setOnExitTransitionDidStartCallback(@nullable @local const std::function<void ()> &callback)'
+            'void setOnExitTransitionDidStartCallback(@localvar @nullable const std::function<void ()> &callback)'
         },
         TAG_MAKER = 'OnExitTransitionDidStartCallback',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            '@nullable @local const std::function<void ()> &getOnExitTransitionDidStartCallback()'
+            '@nullable @localvar const std::function<void ()> &getOnExitTransitionDidStartCallback()'
         },
         TAG_MAKER = 'OnExitTransitionDidStartCallback',
-        TAG_MODE = 'OLUA_TAG_SUBEQUAL',
+        TAG_MODE = 'subequal',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            'void scheduleOnce(@local const std::function<void (float)> &callback, float delay, const std::string &key)'
+            'void scheduleOnce(@localvar const std::function<void (float)> &callback, float delay, const std::string &key)'
         },
         TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
     .callback {
         FUNCS =  {
-            'void schedule(@local const std::function<void (float)> &callback, const std::string &key)',
-            'void schedule(@local const std::function<void (float)> &callback, float interval, const std::string &key)',
-            'void schedule(@local const std::function<void (float)> &callback, float interval, unsigned int repeat, float delay, const std::string &key)'
+            'void schedule(@localvar const std::function<void (float)> &callback, const std::string &key)',
+            'void schedule(@localvar const std::function<void (float)> &callback, float interval, const std::string &key)',
+            'void schedule(@localvar const std::function<void (float)> &callback, float interval, unsigned int repeat, float delay, const std::string &key)'
         },
         TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -2583,7 +2583,7 @@ typeconf 'cocos2d::Node'
             'void unschedule(const std::string &key)'
         },
         TAG_MAKER = 'makeScheduleCallbackTag(#1)',
-        TAG_MODE = 'OLUA_TAG_SUBEQUAL',
+        TAG_MODE = 'subequal',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
@@ -2592,16 +2592,16 @@ typeconf 'cocos2d::Node'
             'void unscheduleAllCallbacks()'
         },
         TAG_MAKER = 'makeScheduleCallbackTag("")',
-        TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
+        TAG_MODE = 'substartwith',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }
     .callback {
         FUNCS =  {
-            'void enumerateChildren(const std::string &name, @local std::function<bool (cocos2d::Node *)> callback)'
+            'void enumerateChildren(const std::string &name, @localvar std::function<bool (cocos2d::Node *)> callback)'
         },
         TAG_MAKER = 'enumerateChildren',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'function',
     }
@@ -2795,10 +2795,10 @@ typeconf 'cocos2d::LuaTweenNode'
     .func(nil, 'void updateTweenAction(float value, const std::string &key)')
     .callback {
         FUNCS =  {
-            'static cocos2d::LuaTweenNode *create(@local const std::function<void (float, const std::string &)> &callback)'
+            'static cocos2d::LuaTweenNode *create(@localvar const std::function<void (float, const std::string &)> &callback)'
         },
         TAG_MAKER = 'ActionTween',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = "return",
         TAG_SCOPE = 'object',
     }
@@ -3214,7 +3214,7 @@ typeconf 'cocos2d::RenderTexture'
             'bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @optional std::function<void (cocos2d::RenderTexture *, const std::string &)> callback)'
         },
         TAG_MAKER = 'saveToFile',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
@@ -3224,7 +3224,7 @@ typeconf 'cocos2d::RenderTexture'
             'bool saveToFileAsNonPMA(const std::string &fileName, cocos2d::Image::Format format, bool isRGBA, std::function<void (cocos2d::RenderTexture *, const std::string &)> callback)'
         },
         TAG_MAKER = 'saveToFile',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
@@ -3233,7 +3233,7 @@ typeconf 'cocos2d::RenderTexture'
             'void newImage(std::function<void (cocos2d::Image *)> imageCallback, @optional bool flipImage)'
         },
         TAG_MAKER = 'newImage',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
@@ -4877,10 +4877,10 @@ typeconf 'cocos2d::NavMeshAgent'
     .func(nil, 'NavMeshAgent()')
     .callback {
         FUNCS =  {
-            'void move(const cocos2d::Vec3 &destination, @local @optional const std::function<void (cocos2d::NavMeshAgent *, float)> &callback)'
+            'void move(const cocos2d::Vec3 &destination, @localvar @optional const std::function<void (cocos2d::NavMeshAgent *, float)> &callback)'
         },
         TAG_MAKER = 'move',
-        TAG_MODE = 'OLUA_TAG_REPLACE',
+        TAG_MODE = 'replace',
         TAG_STORE = nil,
         TAG_SCOPE = 'object',
     }

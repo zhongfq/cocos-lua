@@ -16971,7 +16971,7 @@ static int _spine_SkeletonAnimation_setPostUpdateWorldTransformsListener(lua_Sta
         }
     };
 
-    // void setPostUpdateWorldTransformsListener(@local const spine::UpdateWorldTransformsListener &listener)
+    // void setPostUpdateWorldTransformsListener(@localvar const spine::UpdateWorldTransformsListener &listener)
     self->setPostUpdateWorldTransformsListener(arg1);
 
     olua_endinvoke(L);
@@ -17012,7 +17012,7 @@ static int _spine_SkeletonAnimation_setPreUpdateWorldTransformsListener(lua_Stat
         }
     };
 
-    // void setPreUpdateWorldTransformsListener(@local const spine::UpdateWorldTransformsListener &listener)
+    // void setPreUpdateWorldTransformsListener(@localvar const spine::UpdateWorldTransformsListener &listener)
     self->setPreUpdateWorldTransformsListener(arg1);
 
     olua_endinvoke(L);

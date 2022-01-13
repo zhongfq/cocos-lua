@@ -51,37 +51,37 @@ typeconf 'cclua::plugin::JAuth'
     .func(nil, 'static void configUI(cocos2d::ValueMap &value, @optional bool landscape)')
     .callback {
         FUNCS =  {
-            'static void getToken(int timeout, @local const std::function<void (const cocos2d::Value &)> callback)'
+            'static void getToken(int timeout, @localvar const std::function<void (const cocos2d::Value &)> callback)'
         },
         TAG_MAKER = 'Token',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
     .callback {
         FUNCS =  {
-            'static void preLogin(int timeout, @local const std::function<void (const cocos2d::Value &)> callback)'
+            'static void preLogin(int timeout, @localvar const std::function<void (const cocos2d::Value &)> callback)'
         },
         TAG_MAKER = 'preLogin',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
     .callback {
         FUNCS =  {
-            'static void loginAuth(int timeout, @local const std::function<void (const cocos2d::Value &)> callback)'
+            'static void loginAuth(int timeout, @localvar const std::function<void (const cocos2d::Value &)> callback)'
         },
         TAG_MAKER = 'loginAuth',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }
     .callback {
         FUNCS =  {
-            'static void getSmsCode(const std::string &phonenum, const std::string &signid, const std::string &tempid, @local const std::function<void (const cocos2d::Value &)> callback)'
+            'static void getSmsCode(const std::string &phonenum, const std::string &signid, const std::string &tempid, @localvar const std::function<void (const cocos2d::Value &)> callback)'
         },
         TAG_MAKER = 'SmsCode',
-        TAG_MODE = 'OLUA_TAG_NEW',
+        TAG_MODE = 'new',
         TAG_STORE = nil,
         TAG_SCOPE = 'once',
     }

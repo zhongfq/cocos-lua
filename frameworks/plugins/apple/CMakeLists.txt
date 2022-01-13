@@ -39,6 +39,10 @@ if(IOS)
     endif()
 endif()
 
+if(APPLE)
+    set_xcode_property(${LIBNAME} CLANG_ENABLE_OBJC_ARC "YES")
+endif()
+
 set_target_properties(${LIBNAME} PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"

@@ -38,6 +38,10 @@ if(IOS)
     target_link_libraries(${LIBNAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/ios/libWeChatSDK.a)
 endif()
 
+if(APPLE)
+    set_xcode_property(${LIBNAME} CLANG_ENABLE_OBJC_ARC "YES")
+endif()
+
 if(ANDROID OR IOS)
     target_compile_definitions(${LIBNAME} PUBLIC CCLUA_BUILD_WECHAT)
 endif()

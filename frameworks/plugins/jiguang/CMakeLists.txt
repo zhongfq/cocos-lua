@@ -46,6 +46,10 @@ target_include_directories(${LIBNAME}
 
 target_link_libraries(${LIBNAME} PRIVATE xgame cocos2d)
 
+if(APPLE)
+    set_xcode_property(${LIBNAME} CLANG_ENABLE_OBJC_ARC "YES")
+endif()
+
 if(IOS)
     find_library(LIBRESOLV resolv)
     target_link_libraries(${LIBNAME}

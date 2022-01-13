@@ -76,6 +76,9 @@ lua buildConfig.lua     # 自动扫描类，生成扫描结果
 lua buildBindings.lua   # 执行导出lua bindings
 ```
 
+* [olua 设计与实现](https://codetypes.com/posts/5890848b/)
+* [olua 导出工具使用](https://codetypes.com/posts/c505b168/)
+
 ## 核心实现
 
 cocos-lua在lua层屏蔽Ref的release和retain方法，改由lua gc管理，以实现c++对象的安全访问。

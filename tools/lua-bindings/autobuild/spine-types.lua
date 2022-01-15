@@ -1,644 +1,644 @@
 -- AUTO BUILD, DON'T MODIFY!
 
 typedef {
-    CONV = 'olua_$$_int',
-    CPPCLS = 'spine::PropertyId',
-    DECLTYPE = 'lua_Integer',
+    conv = 'olua_$$_int',
+    cppcls = 'spine::PropertyId',
+    decltype = 'lua_Integer',
 }
 
 typedef {
-    CONV = 'olua_$$_spine_String',
-    CPPCLS = 'spine::String',
+    conv = 'olua_$$_spine_String',
+    cppcls = 'spine::String',
 }
 
 typedef {
-    CONV = 'olua_$$_spine_EventData',
-    CPPCLS = 'spine::EventData',
+    conv = 'olua_$$_spine_EventData',
+    cppcls = 'spine::EventData',
 }
 
 typedef {
-    CONV = 'olua_$$_spine_Color',
-    CPPCLS = 'spine::Color',
+    conv = 'olua_$$_spine_Color',
+    cppcls = 'spine::Color',
 }
 
 typedef {
-    CONV = 'olua_$$_spine_Vector',
-    CPPCLS = 'spine::Vector',
+    conv = 'olua_$$_spine_Vector',
+    cppcls = 'spine::Vector',
 }
 
 typedef {
-    CPPCLS = 'spine::EventType',
-    LUACLS = 'sp.EventType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'spine::EventType',
+    luacls = 'sp.EventType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::AttachmentType',
-    LUACLS = 'sp.AttachmentType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'spine::AttachmentType',
+    luacls = 'sp.AttachmentType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::TransformMode',
-    LUACLS = 'sp.TransformMode',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'spine::TransformMode',
+    luacls = 'sp.TransformMode',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::BlendMode',
-    LUACLS = 'sp.BlendMode',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'spine::BlendMode',
+    luacls = 'sp.BlendMode',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::PositionMode',
-    LUACLS = 'sp.PositionMode',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'spine::PositionMode',
+    luacls = 'sp.PositionMode',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::SpacingMode',
-    LUACLS = 'sp.SpacingMode',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'spine::SpacingMode',
+    luacls = 'sp.SpacingMode',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::RotateMode',
-    LUACLS = 'sp.RotateMode',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'spine::RotateMode',
+    luacls = 'sp.RotateMode',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::MixBlend',
-    LUACLS = 'sp.MixBlend',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'spine::MixBlend',
+    luacls = 'sp.MixBlend',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::SpineObject *',
-    LUACLS = 'sp.SpineObject',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::SpineObject *',
+    luacls = 'sp.SpineObject',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::Event *',
-    LUACLS = 'sp.Event',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::Event *',
+    luacls = 'sp.Event',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::EventData *',
-    LUACLS = 'sp.EventData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::EventData *',
+    luacls = 'sp.EventData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::Updatable *',
-    LUACLS = 'sp.Updatable',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::Updatable *',
+    luacls = 'sp.Updatable',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::AnimationStateListener',
-    LUACLS = 'sp.AnimationStateListener',
-    DECLTYPE = 'std::function<void (spine::AnimationState *, spine::EventType, spine::TrackEntry *, spine::Event *)>',
-    CONV = 'olua_$$_spine_AnimationStateListener',
-    NUM_VARS = nil,
+    cppcls = 'spine::AnimationStateListener',
+    luacls = 'sp.AnimationStateListener',
+    decltype = 'std::function<void (spine::AnimationState *, spine::EventType, spine::TrackEntry *, spine::Event *)>',
+    conv = 'olua_$$_spine_AnimationStateListener',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::AnimationState *',
-    LUACLS = 'sp.AnimationState',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::AnimationState *',
+    luacls = 'sp.AnimationState',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::AnimationStateData *',
-    LUACLS = 'sp.AnimationStateData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::AnimationStateData *',
+    luacls = 'sp.AnimationStateData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::Animation *',
-    LUACLS = 'sp.Animation',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::Animation *',
+    luacls = 'sp.Animation',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::ConstraintData *',
-    LUACLS = 'sp.ConstraintData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::ConstraintData *',
+    luacls = 'sp.ConstraintData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::IkConstraintData *',
-    LUACLS = 'sp.IkConstraintData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::IkConstraintData *',
+    luacls = 'sp.IkConstraintData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::BoneData *',
-    LUACLS = 'sp.BoneData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::BoneData *',
+    luacls = 'sp.BoneData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::SlotData *',
-    LUACLS = 'sp.SlotData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::SlotData *',
+    luacls = 'sp.SlotData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::IkConstraint *',
-    LUACLS = 'sp.IkConstraint',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::IkConstraint *',
+    luacls = 'sp.IkConstraint',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::TransformConstraint *',
-    LUACLS = 'sp.TransformConstraint',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::TransformConstraint *',
+    luacls = 'sp.TransformConstraint',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::TransformConstraintData *',
-    LUACLS = 'sp.TransformConstraintData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::TransformConstraintData *',
+    luacls = 'sp.TransformConstraintData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::PathConstraintData *',
-    LUACLS = 'sp.PathConstraintData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::PathConstraintData *',
+    luacls = 'sp.PathConstraintData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::SkeletonBounds *',
-    LUACLS = 'sp.SkeletonBounds',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::SkeletonBounds *',
+    luacls = 'sp.SkeletonBounds',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::SkeletonClipping *',
-    LUACLS = 'sp.SkeletonClipping',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::SkeletonClipping *',
+    luacls = 'sp.SkeletonClipping',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::Timeline *',
-    LUACLS = 'sp.Timeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::Timeline *',
+    luacls = 'sp.Timeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::CurveTimeline *',
-    LUACLS = 'sp.CurveTimeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::CurveTimeline *',
+    luacls = 'sp.CurveTimeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::CurveTimeline1 *',
-    LUACLS = 'sp.CurveTimeline1',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::CurveTimeline1 *',
+    luacls = 'sp.CurveTimeline1',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::CurveTimeline2 *',
-    LUACLS = 'sp.CurveTimeline2',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::CurveTimeline2 *',
+    luacls = 'sp.CurveTimeline2',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::AttachmentTimeline *',
-    LUACLS = 'sp.AttachmentTimeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::AttachmentTimeline *',
+    luacls = 'sp.AttachmentTimeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::RGBATimeline *',
-    LUACLS = 'sp.RGBATimeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::RGBATimeline *',
+    luacls = 'sp.RGBATimeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::RGBTimeline *',
-    LUACLS = 'sp.RGBTimeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::RGBTimeline *',
+    luacls = 'sp.RGBTimeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::AlphaTimeline *',
-    LUACLS = 'sp.AlphaTimeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::AlphaTimeline *',
+    luacls = 'sp.AlphaTimeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::RGBA2Timeline *',
-    LUACLS = 'sp.RGBA2Timeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::RGBA2Timeline *',
+    luacls = 'sp.RGBA2Timeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::RGB2Timeline *',
-    LUACLS = 'sp.RGB2Timeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::RGB2Timeline *',
+    luacls = 'sp.RGB2Timeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::DeformTimeline *',
-    LUACLS = 'sp.DeformTimeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::DeformTimeline *',
+    luacls = 'sp.DeformTimeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::DrawOrderTimeline *',
-    LUACLS = 'sp.DrawOrderTimeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::DrawOrderTimeline *',
+    luacls = 'sp.DrawOrderTimeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::EventTimeline *',
-    LUACLS = 'sp.EventTimeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::EventTimeline *',
+    luacls = 'sp.EventTimeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::IkConstraintTimeline *',
-    LUACLS = 'sp.IkConstraintTimeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::IkConstraintTimeline *',
+    luacls = 'sp.IkConstraintTimeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::PathConstraintMixTimeline *',
-    LUACLS = 'sp.PathConstraintMixTimeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::PathConstraintMixTimeline *',
+    luacls = 'sp.PathConstraintMixTimeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::PathConstraintPositionTimeline *',
-    LUACLS = 'sp.PathConstraintPositionTimeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::PathConstraintPositionTimeline *',
+    luacls = 'sp.PathConstraintPositionTimeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::PathConstraintSpacingTimeline *',
-    LUACLS = 'sp.PathConstraintSpacingTimeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::PathConstraintSpacingTimeline *',
+    luacls = 'sp.PathConstraintSpacingTimeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::TranslateTimeline *',
-    LUACLS = 'sp.TranslateTimeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::TranslateTimeline *',
+    luacls = 'sp.TranslateTimeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::ShearTimeline *',
-    LUACLS = 'sp.ShearTimeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::ShearTimeline *',
+    luacls = 'sp.ShearTimeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::TransformConstraintTimeline *',
-    LUACLS = 'sp.TransformConstraintTimeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::TransformConstraintTimeline *',
+    luacls = 'sp.TransformConstraintTimeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::ScaleTimeline *',
-    LUACLS = 'sp.ScaleTimeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::ScaleTimeline *',
+    luacls = 'sp.ScaleTimeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::RotateTimeline *',
-    LUACLS = 'sp.RotateTimeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::RotateTimeline *',
+    luacls = 'sp.RotateTimeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::VertexEffect *',
-    LUACLS = 'sp.VertexEffect',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::VertexEffect *',
+    luacls = 'sp.VertexEffect',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::SwirlVertexEffect *',
-    LUACLS = 'sp.SwirlVertexEffect',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::SwirlVertexEffect *',
+    luacls = 'sp.SwirlVertexEffect',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::JitterVertexEffect *',
-    LUACLS = 'sp.JitterVertexEffect',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::JitterVertexEffect *',
+    luacls = 'sp.JitterVertexEffect',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::Polygon *',
-    LUACLS = 'sp.Polygon',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::Polygon *',
+    luacls = 'sp.Polygon',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::Skin *',
-    LUACLS = 'sp.Skin',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::Skin *',
+    luacls = 'sp.Skin',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::Atlas *',
-    LUACLS = 'sp.Atlas',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::Atlas *',
+    luacls = 'sp.Atlas',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::Bone *',
-    LUACLS = 'sp.Bone',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::Bone *',
+    luacls = 'sp.Bone',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::Slot *',
-    LUACLS = 'sp.Slot',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::Slot *',
+    luacls = 'sp.Slot',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::Attachment *',
-    LUACLS = 'sp.Attachment',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::Attachment *',
+    luacls = 'sp.Attachment',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::VertexAttachment *',
-    LUACLS = 'sp.VertexAttachment',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::VertexAttachment *',
+    luacls = 'sp.VertexAttachment',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::ClippingAttachment *',
-    LUACLS = 'sp.ClippingAttachment',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::ClippingAttachment *',
+    luacls = 'sp.ClippingAttachment',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::BoundingBoxAttachment *',
-    LUACLS = 'sp.BoundingBoxAttachment',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::BoundingBoxAttachment *',
+    luacls = 'sp.BoundingBoxAttachment',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::MeshAttachment *',
-    LUACLS = 'sp.MeshAttachment',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::MeshAttachment *',
+    luacls = 'sp.MeshAttachment',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::PathAttachment *',
-    LUACLS = 'sp.PathAttachment',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::PathAttachment *',
+    luacls = 'sp.PathAttachment',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::PathConstraint *',
-    LUACLS = 'sp.PathConstraint',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::PathConstraint *',
+    luacls = 'sp.PathConstraint',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::PointAttachment *',
-    LUACLS = 'sp.PointAttachment',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::PointAttachment *',
+    luacls = 'sp.PointAttachment',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::RegionAttachment *',
-    LUACLS = 'sp.RegionAttachment',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::RegionAttachment *',
+    luacls = 'sp.RegionAttachment',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::TrackEntry *',
-    LUACLS = 'sp.TrackEntry',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::TrackEntry *',
+    luacls = 'sp.TrackEntry',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::SkeletonData *',
-    LUACLS = 'sp.SkeletonData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::SkeletonData *',
+    luacls = 'sp.SkeletonData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::Skeleton *',
-    LUACLS = 'sp.Skeleton',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::Skeleton *',
+    luacls = 'sp.Skeleton',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::SkeletonRenderer *',
-    LUACLS = 'sp.SkeletonRenderer',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::SkeletonRenderer *',
+    luacls = 'sp.SkeletonRenderer',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::StartListener',
-    LUACLS = 'sp.StartListener',
-    DECLTYPE = 'std::function<void (spine::TrackEntry *)>',
-    CONV = 'olua_$$_spine_StartListener',
-    NUM_VARS = nil,
+    cppcls = 'spine::StartListener',
+    luacls = 'sp.StartListener',
+    decltype = 'std::function<void (spine::TrackEntry *)>',
+    conv = 'olua_$$_spine_StartListener',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::InterruptListener',
-    LUACLS = 'sp.InterruptListener',
-    DECLTYPE = 'std::function<void (spine::TrackEntry *)>',
-    CONV = 'olua_$$_spine_InterruptListener',
-    NUM_VARS = nil,
+    cppcls = 'spine::InterruptListener',
+    luacls = 'sp.InterruptListener',
+    decltype = 'std::function<void (spine::TrackEntry *)>',
+    conv = 'olua_$$_spine_InterruptListener',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::EndListener',
-    LUACLS = 'sp.EndListener',
-    DECLTYPE = 'std::function<void (spine::TrackEntry *)>',
-    CONV = 'olua_$$_spine_EndListener',
-    NUM_VARS = nil,
+    cppcls = 'spine::EndListener',
+    luacls = 'sp.EndListener',
+    decltype = 'std::function<void (spine::TrackEntry *)>',
+    conv = 'olua_$$_spine_EndListener',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::DisposeListener',
-    LUACLS = 'sp.DisposeListener',
-    DECLTYPE = 'std::function<void (spine::TrackEntry *)>',
-    CONV = 'olua_$$_spine_DisposeListener',
-    NUM_VARS = nil,
+    cppcls = 'spine::DisposeListener',
+    luacls = 'sp.DisposeListener',
+    decltype = 'std::function<void (spine::TrackEntry *)>',
+    conv = 'olua_$$_spine_DisposeListener',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::CompleteListener',
-    LUACLS = 'sp.CompleteListener',
-    DECLTYPE = 'std::function<void (spine::TrackEntry *)>',
-    CONV = 'olua_$$_spine_CompleteListener',
-    NUM_VARS = nil,
+    cppcls = 'spine::CompleteListener',
+    luacls = 'sp.CompleteListener',
+    decltype = 'std::function<void (spine::TrackEntry *)>',
+    conv = 'olua_$$_spine_CompleteListener',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::EventListener',
-    LUACLS = 'sp.EventListener',
-    DECLTYPE = 'std::function<void (spine::TrackEntry *, spine::Event *)>',
-    CONV = 'olua_$$_spine_EventListener',
-    NUM_VARS = nil,
+    cppcls = 'spine::EventListener',
+    luacls = 'sp.EventListener',
+    decltype = 'std::function<void (spine::TrackEntry *, spine::Event *)>',
+    conv = 'olua_$$_spine_EventListener',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::UpdateWorldTransformsListener',
-    LUACLS = 'sp.UpdateWorldTransformsListener',
-    DECLTYPE = 'std::function<void (spine::SkeletonAnimation *)>',
-    CONV = 'olua_$$_spine_UpdateWorldTransformsListener',
-    NUM_VARS = nil,
+    cppcls = 'spine::UpdateWorldTransformsListener',
+    luacls = 'sp.UpdateWorldTransformsListener',
+    decltype = 'std::function<void (spine::SkeletonAnimation *)>',
+    conv = 'olua_$$_spine_UpdateWorldTransformsListener',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'spine::SkeletonAnimation *',
-    LUACLS = 'sp.SkeletonAnimation',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'spine::SkeletonAnimation *',
+    luacls = 'sp.SkeletonAnimation',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 

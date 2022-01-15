@@ -2,9 +2,9 @@
 
 dofile "autobuild/cocos2d-types.lua"
 
-NAME = "cocos2d"
-PATH = "../../frameworks/libxgame/src/lua-bindings"
-HEADERS = [[
+name = "cocos2d"
+path = "../../frameworks/libxgame/src/lua-bindings"
+headers = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
     #include "lua-bindings/LuaCocosAdapter.h"
@@ -15,7 +15,7 @@ HEADERS = [[
     #include "navmesh/CCNavMesh.h"
     #include "cclua/xlua.h"
 ]]
-CHUNK = [[
+chunk = [[
     static const std::string makeScheduleCallbackTag(const std::string &key)
     {
         return "schedule." + key;
@@ -344,41 +344,41 @@ typeconf 'cocos2d::Scheduler'
     .func(nil, 'void resumeTargets(const std::set<void *> &targetsToResume)')
     .func(nil, 'void removeAllFunctionsToBePerformedInCocosThread()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void schedule(@localvar const cocos2d::ccSchedulerFunc &callback, void *target, float interval, unsigned int repeat, float delay, bool paused, const std::string &key)',
             'void schedule(@localvar const cocos2d::ccSchedulerFunc &callback, void *target, float interval, bool paused, const std::string &key)'
         },
-        TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
-        TAG_MODE = 'replace',
-        TAG_STORE = 2,
-        TAG_SCOPE = 'object',
+        tag_maker = 'makeScheduleCallbackTag(#-1)',
+        tag_mode = 'replace',
+        tag_store = 2,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void unschedule(const std::string &key, void *target)'
         },
-        TAG_MAKER = 'makeScheduleCallbackTag(#1)',
-        TAG_MODE = 'subequal',
-        TAG_STORE = 2,
-        TAG_SCOPE = 'object',
+        tag_maker = 'makeScheduleCallbackTag(#1)',
+        tag_mode = 'subequal',
+        tag_store = 2,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void unscheduleAllForTarget(void *target)'
         },
-        TAG_MAKER = 'makeScheduleCallbackTag("")',
-        TAG_MODE = 'substartwith',
-        TAG_STORE = 1,
-        TAG_SCOPE = 'object',
+        tag_maker = 'makeScheduleCallbackTag("")',
+        tag_mode = 'substartwith',
+        tag_store = 1,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void unscheduleAll()'
         },
-        TAG_MAKER = 'makeScheduleCallbackTag("")',
-        TAG_MODE = 'substartwith',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'makeScheduleCallbackTag("")',
+        tag_mode = 'substartwith',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('timeScale', nil, nil)
 
@@ -428,17 +428,17 @@ typeconf 'cocos2d::EventDispatcher'
     .func(nil, 'bool hasEventListener(const cocos2d::EventListener::ListenerID &listenerID)')
     .func(nil, 'EventDispatcher()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             '@addref(listeners |) cocos2d::EventListenerCustom *addCustomEventListener(const std::string &eventName, @localvar const std::function<void (EventCustom *)> &callback)'
         },
-        TAG_MAKER = '(#1)',
-        TAG_MODE = 'new',
-        TAG_STORE = "return",
-        TAG_SCOPE = 'object',
+        tag_maker = '(#1)',
+        tag_mode = 'new',
+        tag_store = -1,
+        tag_scope = 'object',
     }
     .prop('enabled', nil, nil)
     .insert('removeEventListenersForTarget', {
-        BEFORE = [[
+        before = [[
             bool recursive = false;
             auto node = olua_checkobj<cocos2d::Node>(L, 2);
             if (lua_gettop(L) >= 3) {
@@ -446,9 +446,9 @@ typeconf 'cocos2d::EventDispatcher'
             }
             doRemoveEventListenersForTarget(L, node, recursive, "listeners");
         ]],
-        AFTER = nil,
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        after = nil,
+        cbefore = nil,
+        cafter = nil,
     })
 
 typeconf 'cocos2d::EventListener::Type'
@@ -532,13 +532,13 @@ typeconf 'cocos2d::EventListenerCustom'
     .luaopen(nil)
     .func(nil, 'EventListenerCustom()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static cocos2d::EventListenerCustom *create(const std::string &eventName, @localvar const std::function<void (EventCustom *)> &callback)'
         },
-        TAG_MAKER = 'listener',
-        TAG_MODE = 'replace',
-        TAG_STORE = "return",
-        TAG_SCOPE = 'object',
+        tag_maker = 'listener',
+        tag_mode = 'replace',
+        tag_store = -1,
+        tag_scope = 'object',
     }
 
 typeconf 'cocos2d::EventListenerKeyboard'
@@ -560,13 +560,13 @@ typeconf 'cocos2d::EventListenerAcceleration'
     .const('LISTENER_ID', 'cocos2d::EventListenerAcceleration::LISTENER_ID', 'const std::string')
     .func(nil, 'EventListenerAcceleration()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static cocos2d::EventListenerAcceleration *create(@localvar const std::function<void (Acceleration *, Event *)> &callback)'
         },
-        TAG_MAKER = 'listener',
-        TAG_MODE = 'replace',
-        TAG_STORE = "return",
-        TAG_SCOPE = 'object',
+        tag_maker = 'listener',
+        tag_mode = 'replace',
+        tag_store = -1,
+        tag_scope = 'object',
     }
 
 typeconf 'cocos2d::EventListenerFocus'
@@ -1120,57 +1120,57 @@ typeconf 'cocos2d::AudioEngine'
     .func(nil, 'static void setEnabled(bool isEnabled)')
     .func(nil, 'static bool isEnabled()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static void stop(int audioID)'
         },
-        TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
-        TAG_MODE = 'subequal',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'makeAudioEngineFinishCallbackTag(#1)',
+        tag_mode = 'subequal',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static void stopAll()'
         },
-        TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
-        TAG_MODE = 'substartwith',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'makeAudioEngineFinishCallbackTag(-1)',
+        tag_mode = 'substartwith',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static void uncacheAll()'
         },
-        TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
-        TAG_MODE = 'substartwith',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'makeAudioEngineFinishCallbackTag(-1)',
+        tag_mode = 'substartwith',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static void setFinishCallback(int audioID, @localvar @nullable const std::function<void (int, const std::string &)> &callback)'
         },
-        TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'makeAudioEngineFinishCallbackTag(#1)',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static void preload(const std::string &filePath)',
             'static void preload(const std::string &filePath, @localvar std::function<void (bool)> callback)'
         },
-        TAG_MAKER = 'preload',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'preload',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .prop('defaultProfile', nil, nil)
     .prop('maxAudioInstance', nil, nil)
     .prop('playingAudioCount', nil, nil)
     .prop('enabled', nil, nil)
     .insert('uncache', {
-        BEFORE = [[
+        before = [[
             std::string path = olua_checkstring(L, 1);
             std::list<int> ids = cocos2d::LuaAudioEngine::getAudioIDs(path);
             void *cb_store = olua_pushclassobj<cocos2d::AudioEngine>(L);
@@ -1179,9 +1179,9 @@ typeconf 'cocos2d::AudioEngine'
                 olua_removecallback(L, cb_store, tag.c_str(), OLUA_TAG_SUBEQUAL);
             }
         ]],
-        AFTER = nil,
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        after = nil,
+        cbefore = nil,
+        cafter = nil,
     })
 
 typeconf 'cocos2d::ApplicationProtocol::Platform'
@@ -1337,154 +1337,154 @@ typeconf 'cocos2d::FileUtils'
     .func(nil, 'const std::unordered_map<std::string, std::string> getFullPathCache()')
     .func(nil, 'std::string getNewFilename(const std::string &filename)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'std::string getStringFromFile(const std::string &filename)',
             'void getStringFromFile(const std::string &path, @localvar std::function<void (std::string)> callback)'
         },
-        TAG_MAKER = 'StringFromFile',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'StringFromFile',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'cocos2d::Data getDataFromFile(const std::string &filename)',
             'void getDataFromFile(const std::string &filename, @localvar std::function<void (cocos2d::Data)> callback)'
         },
-        TAG_MAKER = 'DataFromFile',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'DataFromFile',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'bool writeStringToFile(const std::string &dataStr, const std::string &fullPath)',
             'void writeStringToFile(std::string dataStr, const std::string &fullPath, @localvar std::function<void (bool)> callback)'
         },
-        TAG_MAKER = 'writeStringToFile',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'writeStringToFile',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'bool writeDataToFile(const cocos2d::Data &data, const std::string &fullPath)',
             'void writeDataToFile(cocos2d::Data data, const std::string &fullPath, @localvar std::function<void (bool)> callback)'
         },
-        TAG_MAKER = 'writeDataToFile',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'writeDataToFile',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'bool writeValueMapToFile(const cocos2d::ValueMap &dict, const std::string &fullPath)',
             'void writeValueMapToFile(cocos2d::ValueMap dict, const std::string &fullPath, @localvar std::function<void (bool)> callback)'
         },
-        TAG_MAKER = 'writeValueMapToFile',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'writeValueMapToFile',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'bool writeValueVectorToFile(const cocos2d::ValueVector &vecData, const std::string &fullPath)',
             'void writeValueVectorToFile(cocos2d::ValueVector vecData, const std::string &fullPath, @localvar std::function<void (bool)> callback)'
         },
-        TAG_MAKER = 'writeValueVectorToFile',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'writeValueVectorToFile',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'bool isFileExist(const std::string &filename)',
             'void isFileExist(const std::string &filename, @localvar std::function<void (bool)> callback)'
         },
-        TAG_MAKER = 'isFileExist',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'isFileExist',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'bool isDirectoryExist(const std::string &dirPath)',
             'void isDirectoryExist(const std::string &fullPath, @localvar std::function<void (bool)> callback)'
         },
-        TAG_MAKER = 'isDirectoryExist',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'isDirectoryExist',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'bool createDirectory(const std::string &dirPath)',
             'void createDirectory(const std::string &dirPath, @localvar std::function<void (bool)> callback)'
         },
-        TAG_MAKER = 'createDirectory',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'createDirectory',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'bool removeDirectory(const std::string &dirPath)',
             'void removeDirectory(const std::string &dirPath, @localvar std::function<void (bool)> callback)'
         },
-        TAG_MAKER = 'removeDirectory',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'removeDirectory',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'bool removeFile(const std::string &filepath)',
             'void removeFile(const std::string &filepath, @localvar std::function<void (bool)> callback)'
         },
-        TAG_MAKER = 'removeFile',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'removeFile',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'bool renameFile(const std::string &path, const std::string &oldname, const std::string &name)',
             'void renameFile(const std::string &path, const std::string &oldname, const std::string &name, @localvar std::function<void (bool)> callback)',
             'bool renameFile(const std::string &oldfullpath, const std::string &newfullpath)',
             'void renameFile(const std::string &oldfullpath, const std::string &newfullpath, @localvar std::function<void (bool)> callback)'
         },
-        TAG_MAKER = 'renameFile',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'renameFile',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'long getFileSize(const std::string &filepath)',
             'void getFileSize(const std::string &filepath, @localvar std::function<void (long)> callback)'
         },
-        TAG_MAKER = 'FileSize',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'FileSize',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void listFilesAsync(const std::string &dirPath, @localvar std::function<void (std::vector<std::string>)> callback)'
         },
-        TAG_MAKER = 'listFilesAsync',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'listFilesAsync',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void listFilesRecursivelyAsync(const std::string &dirPath, @localvar std::function<void (std::vector<std::string>)> callback)'
         },
-        TAG_MAKER = 'listFilesRecursivelyAsync',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'listFilesRecursivelyAsync',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .prop('instance', nil, nil)
     .prop('searchResolutionsOrder', nil, nil)
@@ -1898,40 +1898,40 @@ typeconf 'cocos2d::CustomCommand'
     .func(nil, 'cocos2d::CustomCommand::IndexFormat getIndexFormat()')
     .var('func', '@nullable @localvar std::function<void ()> func')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setBeforeCallback(@localvar const std::function<void ()> &before)'
         },
-        TAG_MAKER = 'BeforeCallback',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'BeforeCallback',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setAfterCallback(@localvar const std::function<void ()> &after)'
         },
-        TAG_MAKER = 'AfterCallback',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'AfterCallback',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             '@localvar const std::function<void ()> &getBeforeCallback()'
         },
-        TAG_MAKER = 'BeforeCallback',
-        TAG_MODE = 'subequal',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'BeforeCallback',
+        tag_mode = 'subequal',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             '@localvar const std::function<void ()> &getAfterCallback()'
         },
-        TAG_MAKER = 'AfterCallback',
-        TAG_MODE = 'subequal',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'AfterCallback',
+        tag_mode = 'subequal',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('vertexCapacity', nil, nil)
     .prop('indexCapacity', nil, nil)
@@ -1981,32 +1981,32 @@ typeconf 'cocos2d::TextureCache'
     .func(nil, 'std::string getTextureFilePath(cocos2d::Texture2D *texture)')
     .func(nil, 'void renameTextureWithKey(const std::string &srcName, const std::string &dstName)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void addImageAsync(const std::string &filepath, const std::function<void (Texture2D *)> &callback)',
             'void addImageAsync(const std::string &path, const std::function<void (Texture2D *)> &callback, const std::string &callbackKey)'
         },
-        TAG_MAKER = {'makeTextureCacheCallbackTag(#1)', 'makeTextureCacheCallbackTag(#-1)'},
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = {'makeTextureCacheCallbackTag(#1)', 'makeTextureCacheCallbackTag(#-1)'},
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void unbindImageAsync(const std::string &filename)'
         },
-        TAG_MAKER = 'makeTextureCacheCallbackTag(#1)',
-        TAG_MODE = 'subequal',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'makeTextureCacheCallbackTag(#1)',
+        tag_mode = 'subequal',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void unbindAllImageAsync()'
         },
-        TAG_MAKER = 'makeTextureCacheCallbackTag("")',
-        TAG_MODE = 'substartwith',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'makeTextureCacheCallbackTag("")',
+        tag_mode = 'substartwith',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('etC1AlphaFileSuffix', nil, nil)
     .prop('description', nil, nil)
@@ -2487,123 +2487,123 @@ typeconf 'cocos2d::Node'
     .func(nil, 'void setPhysicsBody(@addref(physicsBody ^) cocos2d::PhysicsBody *physicsBody)')
     .func(nil, '@addref(physicsBody ^) cocos2d::PhysicsBody *getPhysicsBody()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setOnEnterCallback(@localvar @nullable const std::function<void ()> &callback)'
         },
-        TAG_MAKER = 'OnEnterCallback',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'OnEnterCallback',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             '@nullable @localvar const std::function<void ()> &getOnEnterCallback()'
         },
-        TAG_MAKER = 'OnEnterCallback',
-        TAG_MODE = 'subequal',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'OnEnterCallback',
+        tag_mode = 'subequal',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setOnExitCallback(@localvar @nullable const std::function<void ()> &callback)'
         },
-        TAG_MAKER = 'OnExitCallback',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'OnExitCallback',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             '@nullable @localvar const std::function<void ()> &getOnExitCallback()'
         },
-        TAG_MAKER = 'OnExitCallback',
-        TAG_MODE = 'subequal',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'OnExitCallback',
+        tag_mode = 'subequal',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setOnEnterTransitionDidFinishCallback(@localvar @nullable const std::function<void ()> &callback)'
         },
-        TAG_MAKER = 'OnEnterTransitionDidFinishCallback',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'OnEnterTransitionDidFinishCallback',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             '@nullable @localvar const std::function<void ()> &getOnEnterTransitionDidFinishCallback()'
         },
-        TAG_MAKER = 'OnEnterTransitionDidFinishCallback',
-        TAG_MODE = 'subequal',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'OnEnterTransitionDidFinishCallback',
+        tag_mode = 'subequal',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setOnExitTransitionDidStartCallback(@localvar @nullable const std::function<void ()> &callback)'
         },
-        TAG_MAKER = 'OnExitTransitionDidStartCallback',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'OnExitTransitionDidStartCallback',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             '@nullable @localvar const std::function<void ()> &getOnExitTransitionDidStartCallback()'
         },
-        TAG_MAKER = 'OnExitTransitionDidStartCallback',
-        TAG_MODE = 'subequal',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'OnExitTransitionDidStartCallback',
+        tag_mode = 'subequal',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void scheduleOnce(@localvar const std::function<void (float)> &callback, float delay, const std::string &key)'
         },
-        TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'makeScheduleCallbackTag(#-1)',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void schedule(@localvar const std::function<void (float)> &callback, const std::string &key)',
             'void schedule(@localvar const std::function<void (float)> &callback, float interval, const std::string &key)',
             'void schedule(@localvar const std::function<void (float)> &callback, float interval, unsigned int repeat, float delay, const std::string &key)'
         },
-        TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'makeScheduleCallbackTag(#-1)',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void unschedule(const std::string &key)'
         },
-        TAG_MAKER = 'makeScheduleCallbackTag(#1)',
-        TAG_MODE = 'subequal',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'makeScheduleCallbackTag(#1)',
+        tag_mode = 'subequal',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void unscheduleAllCallbacks()'
         },
-        TAG_MAKER = 'makeScheduleCallbackTag("")',
-        TAG_MODE = 'substartwith',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'makeScheduleCallbackTag("")',
+        tag_mode = 'substartwith',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void enumerateChildren(const std::string &name, @localvar std::function<bool (cocos2d::Node *)> callback)'
         },
-        TAG_MAKER = 'enumerateChildren',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'function',
+        tag_maker = 'enumerateChildren',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'function',
     }
     .prop('x', 'float getPositionX()', 'void setPositionX(float x)')
     .prop('y', 'float getPositionY()', 'void setPositionY(float y)')
@@ -2743,48 +2743,48 @@ typeconf 'cocos2d::Node'
     .prop('programState', nil, nil)
     .prop('physicsBody', nil, nil)
     .insert('removeFromParent', {
-        BEFORE = [[
+        before = [[
             if (!self->getParent()) {
                 return 0;
             }
             olua_push_cppobj<cocos2d::Node>(L, self->getParent());
             int parent = lua_gettop(L);
         ]],
-        AFTER = nil,
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        after = nil,
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('removeFromParentAndCleanup', {
-        BEFORE = [[
+        before = [[
             if (!self->getParent()) {
                 return 0;
             }
             olua_push_cppobj<cocos2d::Node>(L, self->getParent());
             int parent = lua_gettop(L);
         ]],
-        AFTER = nil,
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        after = nil,
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('onEnter', {
-        BEFORE = [[
+        before = [[
             if (!self->getParent()) {
                 luaL_error(L, "parent is nullptr");
             }
         ]],
-        AFTER = nil,
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        after = nil,
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('onExit', {
-        BEFORE = [[
+        before = [[
             if (!self->getParent()) {
                 luaL_error(L, "parent is nullptr");
             }
         ]],
-        AFTER = nil,
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        after = nil,
+        cbefore = nil,
+        cafter = nil,
     })
 
 typeconf 'cocos2d::LuaTweenNode'
@@ -2794,13 +2794,13 @@ typeconf 'cocos2d::LuaTweenNode'
     .luaopen(nil)
     .func(nil, 'void updateTweenAction(float value, const std::string &key)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static cocos2d::LuaTweenNode *create(@localvar const std::function<void (float, const std::string &)> &callback)'
         },
-        TAG_MAKER = 'ActionTween',
-        TAG_MODE = 'new',
-        TAG_STORE = "return",
-        TAG_SCOPE = 'object',
+        tag_maker = 'ActionTween',
+        tag_mode = 'new',
+        tag_store = -1,
+        tag_scope = 'object',
     }
 
 typeconf 'cocos2d::AtlasNode'
@@ -3209,33 +3209,33 @@ typeconf 'cocos2d::RenderTexture'
     .func(nil, 'RenderTexture()')
     .func(nil, 'bool initWithWidthAndHeight(int w, int h, cocos2d::backend::PixelFormat format)', 'bool initWithWidthAndHeight(int w, int h, cocos2d::backend::PixelFormat format, cocos2d::backend::PixelFormat depthStencilFormat)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'bool saveToFile(const std::string &filename, @optional bool isRGBA, @optional std::function<void (cocos2d::RenderTexture *, const std::string &)> callback)',
             'bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @optional std::function<void (cocos2d::RenderTexture *, const std::string &)> callback)'
         },
-        TAG_MAKER = 'saveToFile',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'saveToFile',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'bool saveToFileAsNonPMA(const std::string &filename, @optional bool isRGBA, @optional std::function<void (cocos2d::RenderTexture *, const std::string &)> callback)',
             'bool saveToFileAsNonPMA(const std::string &fileName, cocos2d::Image::Format format, bool isRGBA, std::function<void (cocos2d::RenderTexture *, const std::string &)> callback)'
         },
-        TAG_MAKER = 'saveToFile',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'saveToFile',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void newImage(std::function<void (cocos2d::Image *)> imageCallback, @optional bool flipImage)'
         },
-        TAG_MAKER = 'newImage',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'newImage',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .prop('clearFlags', nil, nil)
     .prop('clearColor', nil, nil)
@@ -4876,13 +4876,13 @@ typeconf 'cocos2d::NavMeshAgent'
     .func(nil, 'cocos2d::Vec3 getVelocity()')
     .func(nil, 'NavMeshAgent()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void move(const cocos2d::Vec3 &destination, @localvar @optional const std::function<void (cocos2d::NavMeshAgent *, float)> &callback)'
         },
-        TAG_MAKER = 'move',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'move',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('navMeshAgentComponentName', nil, nil)
     .prop('radius', nil, nil)

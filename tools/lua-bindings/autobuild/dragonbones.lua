@@ -2,16 +2,16 @@
 
 dofile "autobuild/dragonbones-types.lua"
 
-NAME = "dragonbones"
-PATH = "../../frameworks/libxgame/src/lua-bindings"
-HEADERS = [[
+name = "dragonbones"
+path = "../../frameworks/libxgame/src/lua-bindings"
+headers = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
     #include "cclua/xlua.h"
     #include "cocos2d.h"
     #include "CCDragonBonesHeaders.h"
 ]]
-CHUNK = nil
+chunk = nil
 
 typeconv 'dragonBones::Rectangle'
     .var('x', 'float x')
@@ -959,22 +959,22 @@ typeconf 'dragonBones::CCArmatureDisplay'
     .func(nil, 'dragonBones::Animation *getAnimation()')
     .var('debugDraw', 'bool debugDraw')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void addDBEventListener(const std::string &type, @localvar const std::function<void (EventObject *)> &listener)'
         },
-        TAG_MAKER = '(#1)',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = '(#1)',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void removeDBEventListener(const std::string &type, @localvar @nullable const std::function<void (EventObject *)> &listener)'
         },
-        TAG_MAKER = '(#1)',
-        TAG_MODE = 'subequal',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = '(#1)',
+        tag_mode = 'subequal',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('armature', nil, nil)
     .prop('animation', nil, nil)

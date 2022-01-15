@@ -2,9 +2,9 @@
 
 dofile "autobuild/spine-types.lua"
 
-NAME = "spine"
-PATH = "../../frameworks/libxgame/src/lua-bindings"
-HEADERS = [[
+name = "spine"
+path = "../../frameworks/libxgame/src/lua-bindings"
+headers = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
     #include "cclua/xlua.h"
@@ -12,7 +12,7 @@ HEADERS = [[
     #include "cocos2d.h"
     #include "spine/spine-cocos2dx.h"
 ]]
-CHUNK = [[
+chunk = [[
     template <class T>
     void olua_insert_array(spine::Vector<T> *array, T value)
     {
@@ -288,13 +288,13 @@ typeconf 'spine::AnimationState'
     .func(nil, 'void disableQueue()')
     .func(nil, 'void enableQueue()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setListener(spine::AnimationStateListener listener)'
         },
-        TAG_MAKER = 'Listener',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'Listener',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('data', nil, nil)
     .prop('tracks', nil, nil)
@@ -1301,13 +1301,13 @@ typeconf 'spine::TrackEntry'
     .func(nil, 'void resetRotationDirections()')
     .func(nil, 'float getTrackComplete()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setListener(spine::AnimationStateListener listener)'
         },
-        TAG_MAKER = 'Listener',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'Listener',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('trackIndex', nil, nil)
     .prop('animation', nil, nil)
@@ -1657,129 +1657,129 @@ typeconf 'spine::SkeletonAnimation'
     .func(nil, 'void setUpdateOnlyIfVisible(bool status)')
     .func(nil, 'SkeletonAnimation()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setStartListener(const spine::StartListener &listener)'
         },
-        TAG_MAKER = 'StartListener',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'StartListener',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setInterruptListener(const spine::InterruptListener &listener)'
         },
-        TAG_MAKER = 'InterruptListener',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'InterruptListener',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setEndListener(const spine::EndListener &listener)'
         },
-        TAG_MAKER = 'EndListener',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'EndListener',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setDisposeListener(const spine::DisposeListener &listener)'
         },
-        TAG_MAKER = 'DisposeListener',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'DisposeListener',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setCompleteListener(const spine::CompleteListener &listener)'
         },
-        TAG_MAKER = 'CompleteListener',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'CompleteListener',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setEventListener(const spine::EventListener &listener)'
         },
-        TAG_MAKER = 'EventListener',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'EventListener',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setTrackStartListener(spine::TrackEntry *entry, const spine::StartListener &listener)'
         },
-        TAG_MAKER = 'TrackStartListener',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'TrackStartListener',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setTrackInterruptListener(spine::TrackEntry *entry, const spine::InterruptListener &listener)'
         },
-        TAG_MAKER = 'TrackInterruptListener',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'TrackInterruptListener',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setTrackEndListener(spine::TrackEntry *entry, const spine::EndListener &listener)'
         },
-        TAG_MAKER = 'TrackEndListener',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'TrackEndListener',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setTrackDisposeListener(spine::TrackEntry *entry, const spine::DisposeListener &listener)'
         },
-        TAG_MAKER = 'TrackDisposeListener',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'TrackDisposeListener',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setTrackCompleteListener(spine::TrackEntry *entry, const spine::CompleteListener &listener)'
         },
-        TAG_MAKER = 'TrackCompleteListener',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'TrackCompleteListener',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setTrackEventListener(spine::TrackEntry *entry, const spine::EventListener &listener)'
         },
-        TAG_MAKER = 'TrackEventListener',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'TrackEventListener',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setPreUpdateWorldTransformsListener(@localvar const spine::UpdateWorldTransformsListener &listener)'
         },
-        TAG_MAKER = 'PreUpdateWorldTransformsListener',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'PreUpdateWorldTransformsListener',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setPostUpdateWorldTransformsListener(@localvar const spine::UpdateWorldTransformsListener &listener)'
         },
-        TAG_MAKER = 'PostUpdateWorldTransformsListener',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'PostUpdateWorldTransformsListener',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('state', nil, nil)

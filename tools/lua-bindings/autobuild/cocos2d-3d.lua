@@ -2,16 +2,16 @@
 
 dofile "autobuild/cocos2d-3d-types.lua"
 
-NAME = "cocos2d_3d"
-PATH = "../../frameworks/libxgame/src/lua-bindings"
-HEADERS = [[
+name = "cocos2d_3d"
+path = "../../frameworks/libxgame/src/lua-bindings"
+headers = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
     #include "cclua/xlua.h"
     #include "cocos2d.h"
     #include "3d/CC3DProgramInfo.h"
 ]]
-CHUNK = nil
+chunk = nil
 
 typeconv 'cocos2d::MeshVertexAttrib'
     .var('type', 'cocos2d::backend::VertexFormat type')
@@ -236,14 +236,14 @@ typeconf 'cocos2d::Sprite3D'
     .func(nil, 'void onAABBDirty()')
     .func(nil, 'void afterAsyncLoad(void *param)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static void createAsync(const std::string &modelPath, @localvar const std::function<void (Sprite3D *, void *)> &callback, void *callbackparam)',
             'static void createAsync(const std::string &modelPath, const std::string &texturePath, @localvar const std::function<void (Sprite3D *, void *)> &callback, void *callbackparam)'
         },
-        TAG_MAKER = 'createAsync',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'createAsync',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('mesh', nil, nil)
     .prop('meshCount', nil, nil)

@@ -1,642 +1,642 @@
 -- AUTO BUILD, DON'T MODIFY!
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::AnimationInfo',
-    LUACLS = nil,
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cocostudio_timeline_AnimationInfo',
-    NUM_VARS = 3,
+    cppcls = 'cocostudio::timeline::AnimationInfo',
+    luacls = nil,
+    decltype = nil,
+    conv = 'olua_$$_cocostudio_timeline_AnimationInfo',
+    num_vars = 3,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::CSLoader *',
-    LUACLS = 'cc.CSLoader',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::CSLoader *',
+    luacls = 'cc.CSLoader',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::MovementEventType',
-    LUACLS = 'ccs.MovementEventType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::MovementEventType',
+    luacls = 'ccs.MovementEventType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::DisplayType',
-    LUACLS = 'ccs.DisplayType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::DisplayType',
+    luacls = 'ccs.DisplayType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ActionFrame *',
-    LUACLS = 'ccs.ActionFrame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ActionFrame *',
+    luacls = 'ccs.ActionFrame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ActionFadeFrame *',
-    LUACLS = 'ccs.ActionFadeFrame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ActionFadeFrame *',
+    luacls = 'ccs.ActionFadeFrame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ActionFrameEasing *',
-    LUACLS = 'ccs.ActionFrameEasing',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ActionFrameEasing *',
+    luacls = 'ccs.ActionFrameEasing',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ActionMoveFrame *',
-    LUACLS = 'ccs.ActionMoveFrame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ActionMoveFrame *',
+    luacls = 'ccs.ActionMoveFrame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ActionRotationFrame *',
-    LUACLS = 'ccs.ActionRotationFrame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ActionRotationFrame *',
+    luacls = 'ccs.ActionRotationFrame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ActionScaleFrame *',
-    LUACLS = 'ccs.ActionScaleFrame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ActionScaleFrame *',
+    luacls = 'ccs.ActionScaleFrame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ActionTintFrame *',
-    LUACLS = 'ccs.ActionTintFrame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ActionTintFrame *',
+    luacls = 'ccs.ActionTintFrame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::AnimationData *',
-    LUACLS = 'ccs.AnimationData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::AnimationData *',
+    luacls = 'ccs.AnimationData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::Armature *',
-    LUACLS = 'ccs.Armature',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::Armature *',
+    luacls = 'ccs.Armature',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ProcessBase *',
-    LUACLS = 'ccs.ProcessBase',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ProcessBase *',
+    luacls = 'ccs.ProcessBase',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ActionManagerEx *',
-    LUACLS = 'ccs.ActionManagerEx',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ActionManagerEx *',
+    luacls = 'ccs.ActionManagerEx',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ActionNode *',
-    LUACLS = 'ccs.ActionNode',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ActionNode *',
+    luacls = 'ccs.ActionNode',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ActionObject *',
-    LUACLS = 'ccs.ActionObject',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ActionObject *',
+    luacls = 'ccs.ActionObject',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ArmatureAnimation *',
-    LUACLS = 'ccs.ArmatureAnimation',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ArmatureAnimation *',
+    luacls = 'ccs.ArmatureAnimation',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ArmatureData *',
-    LUACLS = 'ccs.ArmatureData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ArmatureData *',
+    luacls = 'ccs.ArmatureData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ArmatureDataManager *',
-    LUACLS = 'ccs.ArmatureDataManager',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ArmatureDataManager *',
+    luacls = 'ccs.ArmatureDataManager',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::DisplayData *',
-    LUACLS = 'ccs.DisplayData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::DisplayData *',
+    luacls = 'ccs.DisplayData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ArmatureDisplayData *',
-    LUACLS = 'ccs.ArmatureDisplayData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ArmatureDisplayData *',
+    luacls = 'ccs.ArmatureDisplayData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ArmatureMovementDispatcher *',
-    LUACLS = 'ccs.ArmatureMovementDispatcher',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ArmatureMovementDispatcher *',
+    luacls = 'ccs.ArmatureMovementDispatcher',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::BaseData *',
-    LUACLS = 'ccs.BaseData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::BaseData *',
+    luacls = 'ccs.BaseData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::BaseTriggerAction *',
-    LUACLS = 'ccs.BaseTriggerAction',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::BaseTriggerAction *',
+    luacls = 'ccs.BaseTriggerAction',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::BaseTriggerCondition *',
-    LUACLS = 'ccs.BaseTriggerCondition',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::BaseTriggerCondition *',
+    luacls = 'ccs.BaseTriggerCondition',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::BatchNode *',
-    LUACLS = 'ccs.BatchNode',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::BatchNode *',
+    luacls = 'ccs.BatchNode',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::Bone *',
-    LUACLS = 'ccs.Bone',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::Bone *',
+    luacls = 'ccs.Bone',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::BoneData *',
-    LUACLS = 'ccs.BoneData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::BoneData *',
+    luacls = 'ccs.BoneData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::CocoLoader *',
-    LUACLS = 'ccs.CocoLoader',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::CocoLoader *',
+    luacls = 'ccs.CocoLoader',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ColliderBody *',
-    LUACLS = 'ccs.ColliderBody',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ColliderBody *',
+    luacls = 'ccs.ColliderBody',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ColliderDetector *',
-    LUACLS = 'ccs.ColliderDetector',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ColliderDetector *',
+    luacls = 'ccs.ColliderDetector',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ColliderFilter *',
-    LUACLS = 'ccs.ColliderFilter',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ColliderFilter *',
+    luacls = 'ccs.ColliderFilter',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ComAttribute *',
-    LUACLS = 'ccs.ComAttribute',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ComAttribute *',
+    luacls = 'ccs.ComAttribute',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ComAudio *',
-    LUACLS = 'ccs.ComAudio',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ComAudio *',
+    luacls = 'ccs.ComAudio',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ComController *',
-    LUACLS = 'ccs.ComController',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ComController *',
+    luacls = 'ccs.ComController',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ComRender *',
-    LUACLS = 'ccs.ComRender',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ComRender *',
+    luacls = 'ccs.ComRender',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ContourData *',
-    LUACLS = 'ccs.ContourData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ContourData *',
+    luacls = 'ccs.ContourData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::DataReaderHelper *',
-    LUACLS = 'ccs.DataReaderHelper',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::DataReaderHelper *',
+    luacls = 'ccs.DataReaderHelper',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::DecorativeDisplay *',
-    LUACLS = 'ccs.DecorativeDisplay',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::DecorativeDisplay *',
+    luacls = 'ccs.DecorativeDisplay',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::DisplayFactory *',
-    LUACLS = 'ccs.DisplayFactory',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::DisplayFactory *',
+    luacls = 'ccs.DisplayFactory',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::DisplayManager *',
-    LUACLS = 'ccs.DisplayManager',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::DisplayManager *',
+    luacls = 'ccs.DisplayManager',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::FrameData *',
-    LUACLS = 'ccs.FrameData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::FrameData *',
+    luacls = 'ccs.FrameData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::GUIReader *',
-    LUACLS = 'ccs.GUIReader',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::GUIReader *',
+    luacls = 'ccs.GUIReader',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::InputDelegate *',
-    LUACLS = 'ccs.InputDelegate',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::InputDelegate *',
+    luacls = 'ccs.InputDelegate',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::MovementBoneData *',
-    LUACLS = 'ccs.MovementBoneData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::MovementBoneData *',
+    luacls = 'ccs.MovementBoneData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::MovementData *',
-    LUACLS = 'ccs.MovementData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::MovementData *',
+    luacls = 'ccs.MovementData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::ParticleDisplayData *',
-    LUACLS = 'ccs.ParticleDisplayData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::ParticleDisplayData *',
+    luacls = 'ccs.ParticleDisplayData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::SceneReader::AttachComponentType',
-    LUACLS = 'ccs.SceneReader.AttachComponentType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::SceneReader::AttachComponentType',
+    luacls = 'ccs.SceneReader.AttachComponentType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::SceneReader *',
-    LUACLS = 'ccs.SceneReader',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::SceneReader *',
+    luacls = 'ccs.SceneReader',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::Skin *',
-    LUACLS = 'ccs.Skin',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::Skin *',
+    luacls = 'ccs.Skin',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::SpriteDisplayData *',
-    LUACLS = 'ccs.SpriteDisplayData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::SpriteDisplayData *',
+    luacls = 'ccs.SpriteDisplayData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::SpriteFrameCacheHelper *',
-    LUACLS = 'ccs.SpriteFrameCacheHelper',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::SpriteFrameCacheHelper *',
+    luacls = 'ccs.SpriteFrameCacheHelper',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::TextureData *',
-    LUACLS = 'ccs.TextureData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::TextureData *',
+    luacls = 'ccs.TextureData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::Tween *',
-    LUACLS = 'ccs.Tween',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::Tween *',
+    luacls = 'ccs.Tween',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::InnerActionType',
-    LUACLS = 'ccs.timeline.InnerActionType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::InnerActionType',
+    luacls = 'ccs.timeline.InnerActionType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::Frame *',
-    LUACLS = 'ccs.timeline.Frame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::Frame *',
+    luacls = 'ccs.timeline.Frame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::AlphaFrame *',
-    LUACLS = 'ccs.timeline.AlphaFrame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::AlphaFrame *',
+    luacls = 'ccs.timeline.AlphaFrame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::AnchorPointFrame *',
-    LUACLS = 'ccs.timeline.AnchorPointFrame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::AnchorPointFrame *',
+    luacls = 'ccs.timeline.AnchorPointFrame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::BlendFuncFrame *',
-    LUACLS = 'ccs.timeline.BlendFuncFrame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::BlendFuncFrame *',
+    luacls = 'ccs.timeline.BlendFuncFrame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::ColorFrame *',
-    LUACLS = 'ccs.timeline.ColorFrame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::ColorFrame *',
+    luacls = 'ccs.timeline.ColorFrame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::EventFrame *',
-    LUACLS = 'ccs.timeline.EventFrame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::EventFrame *',
+    luacls = 'ccs.timeline.EventFrame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::InnerActionFrame *',
-    LUACLS = 'ccs.timeline.InnerActionFrame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::InnerActionFrame *',
+    luacls = 'ccs.timeline.InnerActionFrame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::PlayableFrame *',
-    LUACLS = 'ccs.timeline.PlayableFrame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::PlayableFrame *',
+    luacls = 'ccs.timeline.PlayableFrame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::PositionFrame *',
-    LUACLS = 'ccs.timeline.PositionFrame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::PositionFrame *',
+    luacls = 'ccs.timeline.PositionFrame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::RotationFrame *',
-    LUACLS = 'ccs.timeline.RotationFrame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::RotationFrame *',
+    luacls = 'ccs.timeline.RotationFrame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::SkewFrame *',
-    LUACLS = 'ccs.timeline.SkewFrame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::SkewFrame *',
+    luacls = 'ccs.timeline.SkewFrame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::RotationSkewFrame *',
-    LUACLS = 'ccs.timeline.RotationSkewFrame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::RotationSkewFrame *',
+    luacls = 'ccs.timeline.RotationSkewFrame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::ScaleFrame *',
-    LUACLS = 'ccs.timeline.ScaleFrame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::ScaleFrame *',
+    luacls = 'ccs.timeline.ScaleFrame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::TextureFrame *',
-    LUACLS = 'ccs.timeline.TextureFrame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::TextureFrame *',
+    luacls = 'ccs.timeline.TextureFrame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::VisibleFrame *',
-    LUACLS = 'ccs.timeline.VisibleFrame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::VisibleFrame *',
+    luacls = 'ccs.timeline.VisibleFrame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::ZOrderFrame *',
-    LUACLS = 'ccs.timeline.ZOrderFrame',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::ZOrderFrame *',
+    luacls = 'ccs.timeline.ZOrderFrame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::ActionTimelineCache *',
-    LUACLS = 'ccs.timeline.ActionTimelineCache',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::ActionTimelineCache *',
+    luacls = 'ccs.timeline.ActionTimelineCache',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::ActionTimelineData *',
-    LUACLS = 'ccs.timeline.ActionTimelineData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::ActionTimelineData *',
+    luacls = 'ccs.timeline.ActionTimelineData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::ActionTimelineNode *',
-    LUACLS = 'ccs.timeline.ActionTimelineNode',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::ActionTimelineNode *',
+    luacls = 'ccs.timeline.ActionTimelineNode',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::BoneNode *',
-    LUACLS = 'ccs.timeline.BoneNode',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::BoneNode *',
+    luacls = 'ccs.timeline.BoneNode',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::SkeletonNode *',
-    LUACLS = 'ccs.timeline.SkeletonNode',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::SkeletonNode *',
+    luacls = 'ccs.timeline.SkeletonNode',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::SkinNode *',
-    LUACLS = 'cc.Node',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::SkinNode *',
+    luacls = 'cc.Node',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::Timeline *',
-    LUACLS = 'ccs.timeline.Timeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::Timeline *',
+    luacls = 'ccs.timeline.Timeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocostudio::timeline::ActionTimeline *',
-    LUACLS = 'ccs.timeline.ActionTimeline',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocostudio::timeline::ActionTimeline *',
+    luacls = 'ccs.timeline.ActionTimeline',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 

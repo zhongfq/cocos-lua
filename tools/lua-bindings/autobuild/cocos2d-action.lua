@@ -2,16 +2,16 @@
 
 dofile "autobuild/cocos2d-action-types.lua"
 
-NAME = "cocos2d_action"
-PATH = "../../frameworks/libxgame/src/lua-bindings"
-HEADERS = [[
+name = "cocos2d_action"
+path = "../../frameworks/libxgame/src/lua-bindings"
+headers = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
     #include "lua-bindings/LuaCocosAdapter.h"
     #include "cocos2d.h"
     #include "cclua/xlua.h"
 ]]
-CHUNK = nil
+chunk = nil
 
 
 typeconf 'cocos2d::tweenfunc::TweenType'
@@ -431,13 +431,13 @@ typeconf 'cocos2d::ActionFloat'
     .chunk(nil)
     .luaopen(nil)
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static cocos2d::ActionFloat *create(float duration, float from, float to, @localvar cocos2d::ActionFloat::ActionFloatCallback callback)'
         },
-        TAG_MAKER = 'ActionFloat',
-        TAG_MODE = 'new',
-        TAG_STORE = "return",
-        TAG_SCOPE = 'object',
+        tag_maker = 'ActionFloat',
+        tag_mode = 'new',
+        tag_store = -1,
+        tag_scope = 'object',
     }
 
 typeconf 'cocos2d::ProgressTo'
@@ -834,13 +834,13 @@ typeconf 'cocos2d::CallFunc'
     .luaopen(nil)
     .func(nil, 'void execute()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static cocos2d::CallFunc *create(@localvar const std::function<void ()> &func)'
         },
-        TAG_MAKER = 'CallFunc',
-        TAG_MODE = 'new',
-        TAG_STORE = "return",
-        TAG_SCOPE = 'object',
+        tag_maker = 'CallFunc',
+        tag_mode = 'new',
+        tag_store = -1,
+        tag_scope = 'object',
     }
 
 typeconf 'cocos2d::ActionCamera'

@@ -2,15 +2,15 @@
 
 dofile "autobuild/jiguang-types.lua"
 
-NAME = "jiguang"
-PATH = "../../frameworks/plugins/jiguang"
-HEADERS = [[
+name = "jiguang"
+path = "../../frameworks/plugins/jiguang"
+headers = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
     #include "cclua/xlua.h"
     #include "JiGuang.h"
 ]]
-CHUNK = nil
+chunk = nil
 
 
 typeconf 'cclua::plugin::JPush'
@@ -50,40 +50,40 @@ typeconf 'cclua::plugin::JAuth'
     .func(nil, 'static void setSmsIntervalTime(long intervalTime)')
     .func(nil, 'static void configUI(cocos2d::ValueMap &value, @optional bool landscape)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static void getToken(int timeout, @localvar const std::function<void (const cocos2d::Value &)> callback)'
         },
-        TAG_MAKER = 'Token',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'Token',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static void preLogin(int timeout, @localvar const std::function<void (const cocos2d::Value &)> callback)'
         },
-        TAG_MAKER = 'preLogin',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'preLogin',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static void loginAuth(int timeout, @localvar const std::function<void (const cocos2d::Value &)> callback)'
         },
-        TAG_MAKER = 'loginAuth',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'loginAuth',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static void getSmsCode(const std::string &phonenum, const std::string &signid, const std::string &tempid, @localvar const std::function<void (const cocos2d::Value &)> callback)'
         },
-        TAG_MAKER = 'SmsCode',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'SmsCode',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .prop('initSuccess', nil, nil)
 

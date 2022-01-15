@@ -1,26 +1,26 @@
 -- AUTO BUILD, DON'T MODIFY!
 
 typedef {
-    CPPCLS = 'cclua::plugin::WeChat::ShareType',
-    LUACLS = 'cclua.plugin.WeChat.ShareType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'cclua::plugin::WeChat::ShareType',
+    luacls = 'cclua.plugin.WeChat.ShareType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cclua::plugin::WeChat::ProgramType',
-    LUACLS = 'cclua.plugin.WeChat.ProgramType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'cclua::plugin::WeChat::ProgramType',
+    luacls = 'cclua.plugin.WeChat.ProgramType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cclua::plugin::WeChat *',
-    LUACLS = 'cclua.plugin.WeChat',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cclua::plugin::WeChat *',
+    luacls = 'cclua.plugin.WeChat',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 

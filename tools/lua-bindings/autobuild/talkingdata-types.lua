@@ -1,10 +1,10 @@
 -- AUTO BUILD, DON'T MODIFY!
 
 typedef {
-    CPPCLS = 'cclua::plugin::TCAgent *',
-    LUACLS = 'cclua.plugin.TalkingData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cclua::plugin::TCAgent *',
+    luacls = 'cclua.plugin.TalkingData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 

@@ -27588,7 +27588,7 @@ static int _cocos2d_TileMapAtlas_getTGAInfo(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.TileMapAtlas");
 
     // struct cocos2d::sImageTGA *getTGAInfo()
-    cocos2d::sImageTGA *ret = self->getTGAInfo();
+    struct cocos2d::sImageTGA *ret = self->getTGAInfo();
     int num_ret = olua_push_cppobj(L, ret, "cc.sImageTGA");
 
     olua_endinvoke(L);
@@ -27675,7 +27675,7 @@ static int _cocos2d_TileMapAtlas_setTGAInfo(lua_State *L)
     olua_startinvoke(L);
 
     cocos2d::TileMapAtlas *self = nullptr;
-    cocos2d::sImageTGA *arg1 = nullptr;       /** TGAInfo */
+    struct cocos2d::sImageTGA *arg1 = nullptr;       /** TGAInfo */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.TileMapAtlas");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.sImageTGA");

@@ -2,9 +2,9 @@
 
 dofile "autobuild/cocos2d-ui-types.lua"
 
-NAME = "cocos2d_ui"
-PATH = "../../frameworks/libxgame/src/lua-bindings"
-HEADERS = [[
+name = "cocos2d_ui"
+path = "../../frameworks/libxgame/src/lua-bindings"
+headers = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
     #include "lua-bindings/LuaCocosAdapter.h"
@@ -13,7 +13,7 @@ HEADERS = [[
     #include "ui/CocosGUI.h"
     #include "ui/UIScrollViewBar.h"
 ]]
-CHUNK = nil
+chunk = nil
 
 
 typeconf 'cocos2d::ui::Widget::FocusDirection'
@@ -167,31 +167,31 @@ typeconf 'cocos2d::ui::Widget'
     .var('onFocusChanged', '@nullable std::function<void (cocos2d::ui::Widget *, cocos2d::ui::Widget *)> onFocusChanged')
     .var('onNextFocusedWidget', '@nullable @localvar std::function<cocos2d::ui::Widget * (cocos2d::ui::Widget::FocusDirection)> onNextFocusedWidget')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void addTouchEventListener(@nullable const cocos2d::ui::Widget::ccWidgetTouchCallback &callback)'
         },
-        TAG_MAKER = 'addTouchEventListener',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'addTouchEventListener',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void addClickEventListener(@nullable const cocos2d::ui::Widget::ccWidgetClickCallback &callback)'
         },
-        TAG_MAKER = 'addClickEventListener',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'addClickEventListener',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void addCCSEventListener(@nullable const cocos2d::ui::Widget::ccWidgetEventCallback &callback)'
         },
-        TAG_MAKER = 'addCCSEventListener',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'addCCSEventListener',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('enabled', nil, nil)
     .prop('bright', nil, nil)
@@ -651,76 +651,76 @@ typeconf 'cocos2d::ui::WebView'
     .func(nil, 'void setBackgroundTransparent()')
     .func(nil, 'WebView()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setOnShouldStartLoading(@nullable const std::function<bool (WebView *, const std::string &)> &callback)'
         },
-        TAG_MAKER = 'OnShouldStartLoading',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'OnShouldStartLoading',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setOnDidFinishLoading(@nullable const cocos2d::ui::WebView::ccWebViewCallback &callback)'
         },
-        TAG_MAKER = 'OnDidFinishLoading',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'OnDidFinishLoading',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setOnDidFailLoading(@nullable const cocos2d::ui::WebView::ccWebViewCallback &callback)'
         },
-        TAG_MAKER = 'OnDidFailLoading',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'OnDidFailLoading',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setOnJSCallback(@nullable const cocos2d::ui::WebView::ccWebViewCallback &callback)'
         },
-        TAG_MAKER = 'OnJSCallback',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'OnJSCallback',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             '@localvar std::function<bool (cocos2d::ui::WebView *, const std::string &)> getOnShouldStartLoading()'
         },
-        TAG_MAKER = 'OnShouldStartLoading',
-        TAG_MODE = 'subequal',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'OnShouldStartLoading',
+        tag_mode = 'subequal',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             '@localvar cocos2d::ui::WebView::ccWebViewCallback getOnDidFinishLoading()'
         },
-        TAG_MAKER = 'OnDidFinishLoading',
-        TAG_MODE = 'subequal',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'OnDidFinishLoading',
+        tag_mode = 'subequal',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             '@localvar cocos2d::ui::WebView::ccWebViewCallback getOnDidFailLoading()'
         },
-        TAG_MAKER = 'OnDidFailLoading',
-        TAG_MODE = 'subequal',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'OnDidFailLoading',
+        tag_mode = 'subequal',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             '@localvar cocos2d::ui::WebView::ccWebViewCallback getOnJSCallback()'
         },
-        TAG_MAKER = 'OnJSCallback',
-        TAG_MODE = 'subequal',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'OnJSCallback',
+        tag_mode = 'subequal',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('onShouldStartLoading', nil, nil)
     .prop('onDidFinishLoading', nil, nil)
@@ -783,13 +783,13 @@ typeconf 'cocos2d::ui::VideoPlayer'
     .func(nil, 'void onPlayEvent(int event)')
     .func(nil, 'VideoPlayer()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void addEventListener(const cocos2d::ui::VideoPlayer::ccVideoPlayerCallback &callback)'
         },
-        TAG_MAKER = 'videoPlayerCallback',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'videoPlayerCallback',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('fileName', nil, nil)
     .prop('url', nil, nil)
@@ -917,13 +917,13 @@ typeconf 'cocos2d::ui::TabControl'
     .func(nil, 'void setHeaderDockPlace(cocos2d::ui::TabControl::Dock dockPlace)')
     .func(nil, 'cocos2d::ui::TabControl::Dock getHeaderDockPlace()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setTabChangedEventListener(@localvar @nullable const cocos2d::ui::TabControl::ccTabControlCallback &callback)'
         },
-        TAG_MAKER = 'tabChangedEventListener',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'tabChangedEventListener',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('tabCount', nil, nil)
     .prop('selectedTabIndex', nil, nil)
@@ -1037,13 +1037,13 @@ typeconf 'cocos2d::ui::ScrollView'
     .func(nil, 'bool isScrolling()')
     .func(nil, 'bool isAutoScrolling()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void addEventListener(const cocos2d::ui::ScrollView::ccScrollViewCallback &callback)'
         },
-        TAG_MAKER = 'scrollViewCallback',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'scrollViewCallback',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('direction', nil, nil)
     .prop('innerContainer', nil, nil)
@@ -1155,14 +1155,14 @@ typeconf 'cocos2d::ui::ListView'
     .func(nil, 'ssize_t getCurSelectedIndex()')
     .func(nil, 'void setCurSelectedIndex(int itemIndex)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void addEventListener(const cocos2d::ui::ListView::ccListViewCallback &callback)',
             '@using void addEventListener(const cocos2d::ui::ScrollView::ccScrollViewCallback &callback)'
         },
-        TAG_MAKER = 'ListViewCallback',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'ListViewCallback',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('items', nil, nil)
     .prop('magneticType', nil, nil)
@@ -1273,14 +1273,14 @@ typeconf 'cocos2d::ui::PageView'
     .func(nil, 'float getIndicatorIndexNodesScale()')
     .func(nil, 'void setAutoScrollStopEpsilon(float epsilon)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void addEventListener(const cocos2d::ui::PageView::ccPageViewCallback &callback)',
             '@using void addEventListener(const cocos2d::ui::ScrollView::ccScrollViewCallback &callback)'
         },
-        TAG_MAKER = 'PageViewCallback',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'PageViewCallback',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('currentPageIndex', nil, nil)
     .prop('indicatorEnabled', nil, nil)
@@ -1467,22 +1467,22 @@ typeconf 'cocos2d::ui::RichText'
     .func(nil, 'static void removeTagDescription(const std::string &tag)')
     .func(nil, 'void openUrl(const std::string &url)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @localvar @optional const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)'
         },
-        TAG_MAKER = 'OpenUrlHandler',
-        TAG_MODE = 'replace',
-        TAG_STORE = "return",
-        TAG_SCOPE = 'object',
+        tag_maker = 'OpenUrlHandler',
+        tag_mode = 'replace',
+        tag_store = -1,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setOpenUrlHandler(@localvar const cocos2d::ui::RichText::OpenUrlHandler &handleOpenUrl)'
         },
-        TAG_MAKER = 'OpenUrlHandler',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'OpenUrlHandler',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('wrapMode', nil, nil)
     .prop('horizontalAlignment', nil, nil)
@@ -1584,13 +1584,13 @@ typeconf 'cocos2d::ui::Slider'
     .func(nil, 'cocos2d::ResourceData getBallPressedFile()')
     .func(nil, 'cocos2d::ResourceData getBallDisabledFile()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void addEventListener(const cocos2d::ui::Slider::ccSliderCallback &callback)'
         },
-        TAG_MAKER = 'sliderCallback',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'sliderCallback',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('scale9Enabled', nil, nil)
     .prop('capInsetsBarRenderer', nil, nil)
@@ -1821,13 +1821,13 @@ typeconf 'cocos2d::ui::TextField'
     .func(nil, 'void setCursorPosition(std::size_t cursorPosition)')
     .func(nil, 'void setCursorFromPoint(const cocos2d::Vec2 &point, const cocos2d::Camera *camera)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void addEventListener(const cocos2d::ui::TextField::ccTextFieldCallback &callback)'
         },
-        TAG_MAKER = 'textFieldCallback',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'textFieldCallback',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('touchSize', nil, nil)
     .prop('placeHolder', nil, nil)
@@ -1938,13 +1938,13 @@ typeconf 'cocos2d::ui::CheckBox'
     .func(nil, 'CheckBox()')
     .func(nil, 'static cocos2d::ui::CheckBox *create()', 'static cocos2d::ui::CheckBox *create(const std::string &backGround, const std::string &backGroundSelected, const std::string &cross, const std::string &backGroundDisabled, const std::string &frontCrossDisabled, @optional cocos2d::ui::Widget::TextureResType texType)', 'static cocos2d::ui::CheckBox *create(const std::string &backGround, const std::string &cross, @optional cocos2d::ui::Widget::TextureResType texType)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void addEventListener(const cocos2d::ui::CheckBox::ccCheckBoxCallback &callback)'
         },
-        TAG_MAKER = 'checkBoxCallback',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'checkBoxCallback',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
 
 typeconf 'cocos2d::ui::RadioButton::EventType'
@@ -1970,13 +1970,13 @@ typeconf 'cocos2d::ui::RadioButton'
     .func(nil, 'RadioButton()')
     .func(nil, 'static cocos2d::ui::RadioButton *create()', 'static cocos2d::ui::RadioButton *create(const std::string &backGround, const std::string &backGroundSelected, const std::string &cross, const std::string &backGroundDisabled, const std::string &frontCrossDisabled, @optional cocos2d::ui::Widget::TextureResType texType)', 'static cocos2d::ui::RadioButton *create(const std::string &backGround, const std::string &cross, @optional cocos2d::ui::Widget::TextureResType texType)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void addEventListener(const cocos2d::ui::RadioButton::ccRadioButtonCallback &callback)'
         },
-        TAG_MAKER = 'radioButtonCallback',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'radioButtonCallback',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
 
 typeconf 'cocos2d::ui::RadioButtonGroup::EventType'
@@ -2010,13 +2010,13 @@ typeconf 'cocos2d::ui::RadioButtonGroup'
     .func(nil, 'void setAllowedNoSelection(bool allowedNoSelection)')
     .func(nil, 'bool isAllowedNoSelection()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void addEventListener(const cocos2d::ui::RadioButtonGroup::ccRadioButtonGroupCallback &callback)'
         },
-        TAG_MAKER = 'radioButtonCallback',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'radioButtonCallback',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('selectedButtonIndex', nil, nil)
     .prop('numberOfRadioButtons', nil, nil)

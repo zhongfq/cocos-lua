@@ -2,15 +2,15 @@
 
 dofile "autobuild/talkingdata-types.lua"
 
-NAME = "talkingdata"
-PATH = "../../frameworks/plugins/talkingdata"
-HEADERS = [[
+name = "talkingdata"
+path = "../../frameworks/plugins/talkingdata"
+headers = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
     #include "cclua/xlua.h"
     #include "TalkingData.h"
 ]]
-CHUNK = nil
+chunk = nil
 
 
 typeconf 'cclua::plugin::TCAgent'

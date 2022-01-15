@@ -150,7 +150,7 @@ typeconf 'cocos2d::ActionFloat'
     .callback 'create'
         .tag_maker 'ActionFloat'
         .tag_mode 'new'
-        .tag_store 'return'
+        .tag_store '-1'
 
 typeconf 'cocos2d::ProgressTo'
 typeconf 'cocos2d::ProgressFromTo'
@@ -220,7 +220,7 @@ typeconf "cocos2d::CallFunc"
     .callback 'create'
         .tag_maker 'CallFunc'
         .tag_mode 'new'
-        .tag_store 'return'
+        .tag_store '-1'
 
 typeconf 'cocos2d::ActionCamera'
 typeconf 'cocos2d::OrbitCamera'

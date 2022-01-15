@@ -2,16 +2,16 @@
 
 dofile "autobuild/cocos2d-studio-types.lua"
 
-NAME = "cocos2d_studio"
-PATH = "../../frameworks/libxgame/src/lua-bindings"
-HEADERS = [[
+name = "cocos2d_studio"
+path = "../../frameworks/libxgame/src/lua-bindings"
+headers = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
     #include "cclua/xlua.h"
     #include "cocos2d.h"
     #include "editor-support/cocostudio/CocoStudio.h"
 ]]
-CHUNK = [[
+chunk = [[
     static std::string makeFrameEndCallbackTag(lua_Integer index, const std::string &key)
     {
         if (index < 0) {
@@ -56,26 +56,26 @@ typeconf 'cocos2d::CSLoader'
     .func(nil, 'bool bindCallback(const std::string &callbackName, const std::string &callbackType, cocos2d::ui::Widget *sender, cocos2d::Node *handler)')
     .func(nil, 'cocos2d::Node *createNodeWithFlatBuffersForSimulator(const std::string &filename)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static cocos2d::Node *createNode(const std::string &filename)',
             'static cocos2d::Node *createNode(const std::string &filename, @localvar const std::function<void (cocos2d::Ref *)> &callback)',
             'static cocos2d::Node *createNode(const cocos2d::Data &data)',
             'static cocos2d::Node *createNode(const cocos2d::Data &data, @localvar const std::function<void (cocos2d::Ref *)> &callback)'
         },
-        TAG_MAKER = 'createNode',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'function',
+        tag_maker = 'createNode',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'function',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static cocos2d::Node *createNodeWithVisibleSize(const std::string &filename)',
             'static cocos2d::Node *createNodeWithVisibleSize(const std::string &filename, @localvar const std::function<void (cocos2d::Ref *)> &callback)'
         },
-        TAG_MAKER = 'createNodeWithVisibleSize',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'function',
+        tag_maker = 'createNodeWithVisibleSize',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'function',
     }
     .prop('instance', nil, nil)
     .prop('recordJsonPath', nil, nil)
@@ -365,22 +365,22 @@ typeconf 'cocostudio::ArmatureAnimation'
     .func(nil, 'cocos2d::Ref *getUserObject()')
     .func(nil, 'void setUserObject(cocos2d::Ref *userObject)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setMovementEventCallFunc(@localvar @nullable std::function<void (cocostudio::Armature *, cocostudio::MovementEventType, const std::string &)> listener)'
         },
-        TAG_MAKER = 'MovementEventCallFunc',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'MovementEventCallFunc',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setFrameEventCallFunc(@localvar @nullable std::function<void (cocostudio::Bone *, const std::string &, int, int)> listener)'
         },
-        TAG_MAKER = 'FrameEventCallFunc',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'FrameEventCallFunc',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('speedScale', nil, nil)
     .prop('movementCount', nil, nil)
@@ -569,16 +569,16 @@ typeconf 'cocostudio::Bone'
     .prop('tweenData', nil, nil)
     .prop('worldInfo', nil, nil)
     .insert('removeFromParent', {
-        BEFORE = [[
+        before = [[
             if (!self->getParent()) {
                 return 0;
             }
             olua_push_cppobj<cocos2d::Node>(L, self->getParent());
             int parent = lua_gettop(L);
         ]],
-        AFTER = nil,
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        after = nil,
+        cbefore = nil,
+        cafter = nil,
     })
 
 typeconf 'cocostudio::BoneData'
@@ -963,13 +963,13 @@ typeconf 'cocostudio::SceneReader'
     .func(nil, 'cocostudio::SceneReader::AttachComponentType getAttachComponentType()')
     .func(nil, 'SceneReader()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setTarget(@localvar @nullable const std::function<void (cocos2d::Ref *, void *)> &selector)'
         },
-        TAG_MAKER = 'Target',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'Target',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('instance', nil, nil)
     .prop('attachComponentType', nil, nil)
@@ -1433,85 +1433,85 @@ typeconf 'cocostudio::timeline::ActionTimeline'
     .func(nil, 'const cocostudio::timeline::AnimationInfo &getAnimationInfo(const std::string &animationName)')
     .func(nil, 'void start()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setAnimationEndCallFunc(const std::string animationName, @localvar std::function<void ()> func)'
         },
-        TAG_MAKER = 'makeFrameEndCallbackTag(#0, #1)',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'makeFrameEndCallbackTag(#0, #1)',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setFrameEventCallFunc(@localvar @nullable std::function<void (cocostudio::timeline::Frame *)> listener)'
         },
-        TAG_MAKER = 'frameEventCallFunc',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'frameEventCallFunc',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void clearFrameEventCallFunc()'
         },
-        TAG_MAKER = 'frameEventCallFunc',
-        TAG_MODE = 'substartwith',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'frameEventCallFunc',
+        tag_mode = 'substartwith',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setLastFrameCallFunc(@localvar @nullable std::function<void ()> listener)'
         },
-        TAG_MAKER = 'lastFrameCallFunc',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'lastFrameCallFunc',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void clearLastFrameCallFunc()'
         },
-        TAG_MAKER = 'lastFrameCallFunc',
-        TAG_MODE = 'substartwith',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'lastFrameCallFunc',
+        tag_mode = 'substartwith',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void addFrameEndCallFunc(int frameIndex, const std::string &funcKey, @localvar std::function<void ()> func)'
         },
-        TAG_MAKER = 'makeFrameEndCallbackTag(#1, #2)',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'makeFrameEndCallbackTag(#1, #2)',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void removeFrameEndCallFunc(int frameIndex, const std::string &funcKey)'
         },
-        TAG_MAKER = 'makeFrameEndCallbackTag(#1, #2)',
-        TAG_MODE = 'substartwith',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'makeFrameEndCallbackTag(#1, #2)',
+        tag_mode = 'substartwith',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void removeFrameEndCallFuncs(int frameIndex)'
         },
-        TAG_MAKER = 'makeFrameEndCallbackTag(#1, "")',
-        TAG_MODE = 'substartwith',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'makeFrameEndCallbackTag(#1, "")',
+        tag_mode = 'substartwith',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void clearFrameEndCallFuncs()'
         },
-        TAG_MAKER = 'makeFrameEndCallbackTag(-1, "")',
-        TAG_MODE = 'substartwith',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'makeFrameEndCallbackTag(-1, "")',
+        tag_mode = 'substartwith',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('playing', nil, nil)
     .prop('timeSpeed', nil, nil)
@@ -1521,7 +1521,7 @@ typeconf 'cocostudio::timeline::ActionTimeline'
     .prop('currentFrame', nil, nil)
     .prop('timelines', nil, nil)
     .insert('addAnimationInfo', {
-        BEFORE = [[
+        before = [[
             if (olua_getfield(L, 2, "clipEndCallBack") == LUA_TFUNCTION) {
                 void *cb_store = (void *)self;
                 std::string cb_tag = makeFrameEndCallbackTag(arg1.endIndex, arg1.name);
@@ -1541,25 +1541,25 @@ typeconf 'cocostudio::timeline::ActionTimeline'
                 };
             }
         ]],
-        AFTER = nil,
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        after = nil,
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('removeAnimationInfo', {
-        BEFORE = [[
+        before = [[
             auto info = self->getAnimationInfo(arg1);
             std::string cb_tag = makeFrameEndCallbackTag(info.endIndex, arg1);
             void *cb_store = (void *)self;
             olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBSTARTWITH);
         ]],
-        AFTER = nil,
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        after = nil,
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('setFrameEventCallFunc', {
-        BEFORE = nil,
-        AFTER = nil,
-        CALLBACK_BEFORE = [[
+        before = nil,
+        after = nil,
+        cbefore = [[
             if (arg1->getTimeline() && arg1->getTimeline()->getActionTimeline()) {
                 olua_push_cppobj<cocostudio::timeline::ActionTimeline>(L, arg1->getTimeline()->getActionTimeline());
                 olua_push_cppobj<cocostudio::timeline::Timeline>(L, arg1->getTimeline());
@@ -1569,5 +1569,5 @@ typeconf 'cocostudio::timeline::ActionTimeline'
                 lua_pop(L, 3);
             }
         ]],
-        CALLBACK_AFTER = nil,
+        cafter = nil,
     })

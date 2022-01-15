@@ -1,18 +1,18 @@
 -- AUTO BUILD, DON'T MODIFY!
 
 typedef {
-    CPPCLS = 'cclua::CrashReport::LogLevel',
-    LUACLS = 'cclua.CrashReport.LogLevel',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'cclua::CrashReport::LogLevel',
+    luacls = 'cclua.CrashReport.LogLevel',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cclua::CrashReport *',
-    LUACLS = 'cclua.CrashReport',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cclua::CrashReport *',
+    luacls = 'cclua.CrashReport',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 

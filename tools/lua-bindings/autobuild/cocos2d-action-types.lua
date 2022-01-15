@@ -1,1050 +1,1050 @@
 -- AUTO BUILD, DON'T MODIFY!
 
 typedef {
-    CPPCLS = 'cocos2d::tweenfunc::TweenType',
-    LUACLS = 'cc.tweenfunc.TweenType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::tweenfunc::TweenType',
+    luacls = 'cc.tweenfunc.TweenType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Action *',
-    LUACLS = 'cc.Action',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Action *',
+    luacls = 'cc.Action',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::FiniteTimeAction *',
-    LUACLS = 'cc.FiniteTimeAction',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::FiniteTimeAction *',
+    luacls = 'cc.FiniteTimeAction',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Speed *',
-    LUACLS = 'cc.Speed',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Speed *',
+    luacls = 'cc.Speed',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Follow *',
-    LUACLS = 'cc.Follow',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Follow *',
+    luacls = 'cc.Follow',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::tweenfunc *',
-    LUACLS = 'cc.tweenfunc',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::tweenfunc *',
+    luacls = 'cc.tweenfunc',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ActionInterval *',
-    LUACLS = 'cc.ActionInterval',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::ActionInterval *',
+    luacls = 'cc.ActionInterval',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ActionTween *',
-    LUACLS = 'cc.ActionTween',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::ActionTween *',
+    luacls = 'cc.ActionTween',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Sequence *',
-    LUACLS = 'cc.Sequence',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Sequence *',
+    luacls = 'cc.Sequence',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Repeat *',
-    LUACLS = 'cc.Repeat',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Repeat *',
+    luacls = 'cc.Repeat',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::RepeatForever *',
-    LUACLS = 'cc.RepeatForever',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::RepeatForever *',
+    luacls = 'cc.RepeatForever',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Spawn *',
-    LUACLS = 'cc.Spawn',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Spawn *',
+    luacls = 'cc.Spawn',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::RotateTo *',
-    LUACLS = 'cc.RotateTo',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::RotateTo *',
+    luacls = 'cc.RotateTo',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::RotateFrom *',
-    LUACLS = 'cc.RotateFrom',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::RotateFrom *',
+    luacls = 'cc.RotateFrom',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::RotateBy *',
-    LUACLS = 'cc.RotateBy',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::RotateBy *',
+    luacls = 'cc.RotateBy',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::MoveBy *',
-    LUACLS = 'cc.MoveBy',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::MoveBy *',
+    luacls = 'cc.MoveBy',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::MoveTo *',
-    LUACLS = 'cc.MoveTo',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::MoveTo *',
+    luacls = 'cc.MoveTo',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::MoveFrom *',
-    LUACLS = 'cc.MoveFrom',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::MoveFrom *',
+    luacls = 'cc.MoveFrom',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::SkewTo *',
-    LUACLS = 'cc.SkewTo',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::SkewTo *',
+    luacls = 'cc.SkewTo',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::SkewBy *',
-    LUACLS = 'cc.SkewBy',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::SkewBy *',
+    luacls = 'cc.SkewBy',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ResizeTo *',
-    LUACLS = 'cc.ResizeTo',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::ResizeTo *',
+    luacls = 'cc.ResizeTo',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ResizeBy *',
-    LUACLS = 'cc.ResizeBy',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::ResizeBy *',
+    luacls = 'cc.ResizeBy',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::BezierBy *',
-    LUACLS = 'cc.BezierBy',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::BezierBy *',
+    luacls = 'cc.BezierBy',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::BezierTo *',
-    LUACLS = 'cc.BezierTo',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::BezierTo *',
+    luacls = 'cc.BezierTo',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::JumpBy *',
-    LUACLS = 'cc.JumpBy',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::JumpBy *',
+    luacls = 'cc.JumpBy',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::JumpTo *',
-    LUACLS = 'cc.JumpTo',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::JumpTo *',
+    luacls = 'cc.JumpTo',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ScaleTo *',
-    LUACLS = 'cc.ScaleTo',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::ScaleTo *',
+    luacls = 'cc.ScaleTo',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ScaleBy *',
-    LUACLS = 'cc.ScaleBy',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::ScaleBy *',
+    luacls = 'cc.ScaleBy',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ScaleFrom *',
-    LUACLS = 'cc.ScaleFrom',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::ScaleFrom *',
+    luacls = 'cc.ScaleFrom',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Blink *',
-    LUACLS = 'cc.Blink',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Blink *',
+    luacls = 'cc.Blink',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::FadeTo *',
-    LUACLS = 'cc.FadeTo',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::FadeTo *',
+    luacls = 'cc.FadeTo',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::FadeFrom *',
-    LUACLS = 'cc.FadeFrom',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::FadeFrom *',
+    luacls = 'cc.FadeFrom',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::FadeIn *',
-    LUACLS = 'cc.FadeIn',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::FadeIn *',
+    luacls = 'cc.FadeIn',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::FadeOut *',
-    LUACLS = 'cc.FadeOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::FadeOut *',
+    luacls = 'cc.FadeOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::TintTo *',
-    LUACLS = 'cc.TintTo',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::TintTo *',
+    luacls = 'cc.TintTo',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::TintBy *',
-    LUACLS = 'cc.TintBy',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::TintBy *',
+    luacls = 'cc.TintBy',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::DelayTime *',
-    LUACLS = 'cc.DelayTime',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::DelayTime *',
+    luacls = 'cc.DelayTime',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ReverseTime *',
-    LUACLS = 'cc.ReverseTime',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::ReverseTime *',
+    luacls = 'cc.ReverseTime',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Animate *',
-    LUACLS = 'cc.Animate',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Animate *',
+    luacls = 'cc.Animate',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::TargetedAction *',
-    LUACLS = 'cc.TargetedAction',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::TargetedAction *',
+    luacls = 'cc.TargetedAction',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ActionFloat::ActionFloatCallback',
-    LUACLS = 'cc.ActionFloat.ActionFloatCallback',
-    DECLTYPE = 'std::function<void (float)>',
-    CONV = 'olua_$$_cocos2d_ActionFloat_ActionFloatCallback',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::ActionFloat::ActionFloatCallback',
+    luacls = 'cc.ActionFloat.ActionFloatCallback',
+    decltype = 'std::function<void (float)>',
+    conv = 'olua_$$_cocos2d_ActionFloat_ActionFloatCallback',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ActionFloat *',
-    LUACLS = 'cc.ActionFloat',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::ActionFloat *',
+    luacls = 'cc.ActionFloat',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ProgressTo *',
-    LUACLS = 'cc.ProgressTo',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::ProgressTo *',
+    luacls = 'cc.ProgressTo',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ProgressFromTo *',
-    LUACLS = 'cc.ProgressFromTo',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::ProgressFromTo *',
+    luacls = 'cc.ProgressFromTo',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ActionEase *',
-    LUACLS = 'cc.ActionEase',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::ActionEase *',
+    luacls = 'cc.ActionEase',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseRateAction *',
-    LUACLS = 'cc.EaseRateAction',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseRateAction *',
+    luacls = 'cc.EaseRateAction',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseExponentialIn *',
-    LUACLS = 'cc.EaseExponentialIn',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseExponentialIn *',
+    luacls = 'cc.EaseExponentialIn',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseExponentialOut *',
-    LUACLS = 'cc.EaseExponentialOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseExponentialOut *',
+    luacls = 'cc.EaseExponentialOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseExponentialInOut *',
-    LUACLS = 'cc.EaseExponentialInOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseExponentialInOut *',
+    luacls = 'cc.EaseExponentialInOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseSineIn *',
-    LUACLS = 'cc.EaseSineIn',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseSineIn *',
+    luacls = 'cc.EaseSineIn',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseSineOut *',
-    LUACLS = 'cc.EaseSineOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseSineOut *',
+    luacls = 'cc.EaseSineOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseSineInOut *',
-    LUACLS = 'cc.EaseSineInOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseSineInOut *',
+    luacls = 'cc.EaseSineInOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseBounceIn *',
-    LUACLS = 'cc.EaseBounceIn',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseBounceIn *',
+    luacls = 'cc.EaseBounceIn',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseBounceOut *',
-    LUACLS = 'cc.EaseBounceOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseBounceOut *',
+    luacls = 'cc.EaseBounceOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseBounceInOut *',
-    LUACLS = 'cc.EaseBounceInOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseBounceInOut *',
+    luacls = 'cc.EaseBounceInOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseBackIn *',
-    LUACLS = 'cc.EaseBackIn',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseBackIn *',
+    luacls = 'cc.EaseBackIn',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseBackOut *',
-    LUACLS = 'cc.EaseBackOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseBackOut *',
+    luacls = 'cc.EaseBackOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseBackInOut *',
-    LUACLS = 'cc.EaseBackInOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseBackInOut *',
+    luacls = 'cc.EaseBackInOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseQuadraticActionIn *',
-    LUACLS = 'cc.EaseQuadraticActionIn',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseQuadraticActionIn *',
+    luacls = 'cc.EaseQuadraticActionIn',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseQuadraticActionOut *',
-    LUACLS = 'cc.EaseQuadraticActionOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseQuadraticActionOut *',
+    luacls = 'cc.EaseQuadraticActionOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseQuadraticActionInOut *',
-    LUACLS = 'cc.EaseQuadraticActionInOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseQuadraticActionInOut *',
+    luacls = 'cc.EaseQuadraticActionInOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseQuarticActionIn *',
-    LUACLS = 'cc.EaseQuarticActionIn',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseQuarticActionIn *',
+    luacls = 'cc.EaseQuarticActionIn',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseQuarticActionOut *',
-    LUACLS = 'cc.EaseQuarticActionOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseQuarticActionOut *',
+    luacls = 'cc.EaseQuarticActionOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseQuarticActionInOut *',
-    LUACLS = 'cc.EaseQuarticActionInOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseQuarticActionInOut *',
+    luacls = 'cc.EaseQuarticActionInOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseQuinticActionIn *',
-    LUACLS = 'cc.EaseQuinticActionIn',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseQuinticActionIn *',
+    luacls = 'cc.EaseQuinticActionIn',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseQuinticActionOut *',
-    LUACLS = 'cc.EaseQuinticActionOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseQuinticActionOut *',
+    luacls = 'cc.EaseQuinticActionOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseQuinticActionInOut *',
-    LUACLS = 'cc.EaseQuinticActionInOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseQuinticActionInOut *',
+    luacls = 'cc.EaseQuinticActionInOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseCircleActionIn *',
-    LUACLS = 'cc.EaseCircleActionIn',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseCircleActionIn *',
+    luacls = 'cc.EaseCircleActionIn',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseCircleActionOut *',
-    LUACLS = 'cc.EaseCircleActionOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseCircleActionOut *',
+    luacls = 'cc.EaseCircleActionOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseCircleActionInOut *',
-    LUACLS = 'cc.EaseCircleActionInOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseCircleActionInOut *',
+    luacls = 'cc.EaseCircleActionInOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseCubicActionIn *',
-    LUACLS = 'cc.EaseCubicActionIn',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseCubicActionIn *',
+    luacls = 'cc.EaseCubicActionIn',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseCubicActionOut *',
-    LUACLS = 'cc.EaseCubicActionOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseCubicActionOut *',
+    luacls = 'cc.EaseCubicActionOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseCubicActionInOut *',
-    LUACLS = 'cc.EaseCubicActionInOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseCubicActionInOut *',
+    luacls = 'cc.EaseCubicActionInOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseIn *',
-    LUACLS = 'cc.EaseIn',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseIn *',
+    luacls = 'cc.EaseIn',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseOut *',
-    LUACLS = 'cc.EaseOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseOut *',
+    luacls = 'cc.EaseOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseInOut *',
-    LUACLS = 'cc.EaseInOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseInOut *',
+    luacls = 'cc.EaseInOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseElastic *',
-    LUACLS = 'cc.EaseElastic',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseElastic *',
+    luacls = 'cc.EaseElastic',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseElasticIn *',
-    LUACLS = 'cc.EaseElasticIn',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseElasticIn *',
+    luacls = 'cc.EaseElasticIn',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseElasticOut *',
-    LUACLS = 'cc.EaseElasticOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseElasticOut *',
+    luacls = 'cc.EaseElasticOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseElasticInOut *',
-    LUACLS = 'cc.EaseElasticInOut',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseElasticInOut *',
+    luacls = 'cc.EaseElasticInOut',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::EaseBezierAction *',
-    LUACLS = 'cc.EaseBezierAction',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::EaseBezierAction *',
+    luacls = 'cc.EaseBezierAction',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::PointArray *',
-    LUACLS = 'cc.PointArray',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::PointArray *',
+    luacls = 'cc.PointArray',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::CardinalSplineTo *',
-    LUACLS = 'cc.CardinalSplineTo',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::CardinalSplineTo *',
+    luacls = 'cc.CardinalSplineTo',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::CardinalSplineBy *',
-    LUACLS = 'cc.CardinalSplineBy',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::CardinalSplineBy *',
+    luacls = 'cc.CardinalSplineBy',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::CatmullRomTo *',
-    LUACLS = 'cc.CatmullRomTo',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::CatmullRomTo *',
+    luacls = 'cc.CatmullRomTo',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::CatmullRomBy *',
-    LUACLS = 'cc.CatmullRomBy',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::CatmullRomBy *',
+    luacls = 'cc.CatmullRomBy',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ActionInstant *',
-    LUACLS = 'cc.ActionInstant',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::ActionInstant *',
+    luacls = 'cc.ActionInstant',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Show *',
-    LUACLS = 'cc.Show',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Show *',
+    luacls = 'cc.Show',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Hide *',
-    LUACLS = 'cc.Hide',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Hide *',
+    luacls = 'cc.Hide',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ToggleVisibility *',
-    LUACLS = 'cc.ToggleVisibility',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::ToggleVisibility *',
+    luacls = 'cc.ToggleVisibility',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::RemoveSelf *',
-    LUACLS = 'cc.RemoveSelf',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::RemoveSelf *',
+    luacls = 'cc.RemoveSelf',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::FlipX *',
-    LUACLS = 'cc.FlipX',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::FlipX *',
+    luacls = 'cc.FlipX',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::FlipY *',
-    LUACLS = 'cc.FlipY',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::FlipY *',
+    luacls = 'cc.FlipY',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Place *',
-    LUACLS = 'cc.Place',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Place *',
+    luacls = 'cc.Place',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::CallFunc *',
-    LUACLS = 'cc.CallFunc',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::CallFunc *',
+    luacls = 'cc.CallFunc',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ActionCamera *',
-    LUACLS = 'cc.ActionCamera',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::ActionCamera *',
+    luacls = 'cc.ActionCamera',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::OrbitCamera *',
-    LUACLS = 'cc.OrbitCamera',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::OrbitCamera *',
+    luacls = 'cc.OrbitCamera',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::GridBase *',
-    LUACLS = 'cc.GridBase',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::GridBase *',
+    luacls = 'cc.GridBase',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Grid3D *',
-    LUACLS = 'cc.Grid3D',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Grid3D *',
+    luacls = 'cc.Grid3D',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::TiledGrid3D *',
-    LUACLS = 'cc.TiledGrid3D',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::TiledGrid3D *',
+    luacls = 'cc.TiledGrid3D',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::NodeGrid *',
-    LUACLS = 'cc.NodeGrid',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::NodeGrid *',
+    luacls = 'cc.NodeGrid',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::GridAction *',
-    LUACLS = 'cc.GridAction',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::GridAction *',
+    luacls = 'cc.GridAction',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Grid3DAction *',
-    LUACLS = 'cc.Grid3DAction',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Grid3DAction *',
+    luacls = 'cc.Grid3DAction',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::TiledGrid3DAction *',
-    LUACLS = 'cc.TiledGrid3DAction',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::TiledGrid3DAction *',
+    luacls = 'cc.TiledGrid3DAction',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::AccelDeccelAmplitude *',
-    LUACLS = 'cc.AccelDeccelAmplitude',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::AccelDeccelAmplitude *',
+    luacls = 'cc.AccelDeccelAmplitude',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::AccelAmplitude *',
-    LUACLS = 'cc.AccelAmplitude',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::AccelAmplitude *',
+    luacls = 'cc.AccelAmplitude',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::DeccelAmplitude *',
-    LUACLS = 'cc.DeccelAmplitude',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::DeccelAmplitude *',
+    luacls = 'cc.DeccelAmplitude',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::StopGrid *',
-    LUACLS = 'cc.StopGrid',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::StopGrid *',
+    luacls = 'cc.StopGrid',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ReuseGrid *',
-    LUACLS = 'cc.ReuseGrid',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::ReuseGrid *',
+    luacls = 'cc.ReuseGrid',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Waves3D *',
-    LUACLS = 'cc.Waves3D',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Waves3D *',
+    luacls = 'cc.Waves3D',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::FlipX3D *',
-    LUACLS = 'cc.FlipX3D',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::FlipX3D *',
+    luacls = 'cc.FlipX3D',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::FlipY3D *',
-    LUACLS = 'cc.FlipY3D',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::FlipY3D *',
+    luacls = 'cc.FlipY3D',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Lens3D *',
-    LUACLS = 'cc.Lens3D',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Lens3D *',
+    luacls = 'cc.Lens3D',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Ripple3D *',
-    LUACLS = 'cc.Ripple3D',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Ripple3D *',
+    luacls = 'cc.Ripple3D',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Shaky3D *',
-    LUACLS = 'cc.Shaky3D',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Shaky3D *',
+    luacls = 'cc.Shaky3D',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Liquid *',
-    LUACLS = 'cc.Liquid',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Liquid *',
+    luacls = 'cc.Liquid',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Waves *',
-    LUACLS = 'cc.Waves',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Waves *',
+    luacls = 'cc.Waves',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Twirl *',
-    LUACLS = 'cc.Twirl',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Twirl *',
+    luacls = 'cc.Twirl',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::PageTurn3D *',
-    LUACLS = 'cc.PageTurn3D',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::PageTurn3D *',
+    luacls = 'cc.PageTurn3D',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ShakyTiles3D *',
-    LUACLS = 'cc.ShakyTiles3D',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::ShakyTiles3D *',
+    luacls = 'cc.ShakyTiles3D',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ShatteredTiles3D *',
-    LUACLS = 'cc.ShatteredTiles3D',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::ShatteredTiles3D *',
+    luacls = 'cc.ShatteredTiles3D',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ShuffleTiles *',
-    LUACLS = 'cc.ShuffleTiles',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::ShuffleTiles *',
+    luacls = 'cc.ShuffleTiles',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::FadeOutTRTiles *',
-    LUACLS = 'cc.FadeOutTRTiles',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::FadeOutTRTiles *',
+    luacls = 'cc.FadeOutTRTiles',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::FadeOutBLTiles *',
-    LUACLS = 'cc.FadeOutBLTiles',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::FadeOutBLTiles *',
+    luacls = 'cc.FadeOutBLTiles',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::FadeOutUpTiles *',
-    LUACLS = 'cc.FadeOutUpTiles',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::FadeOutUpTiles *',
+    luacls = 'cc.FadeOutUpTiles',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::FadeOutDownTiles *',
-    LUACLS = 'cc.FadeOutDownTiles',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::FadeOutDownTiles *',
+    luacls = 'cc.FadeOutDownTiles',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::TurnOffTiles *',
-    LUACLS = 'cc.TurnOffTiles',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::TurnOffTiles *',
+    luacls = 'cc.TurnOffTiles',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::WavesTiles3D *',
-    LUACLS = 'cc.WavesTiles3D',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::WavesTiles3D *',
+    luacls = 'cc.WavesTiles3D',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::JumpTiles3D *',
-    LUACLS = 'cc.JumpTiles3D',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::JumpTiles3D *',
+    luacls = 'cc.JumpTiles3D',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::SplitRows *',
-    LUACLS = 'cc.SplitRows',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::SplitRows *',
+    luacls = 'cc.SplitRows',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::SplitCols *',
-    LUACLS = 'cc.SplitCols',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::SplitCols *',
+    luacls = 'cc.SplitCols',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 

@@ -185,7 +185,7 @@ typeconf 'cocos2d::EventDispatcher'
     .callback 'addCustomEventListener'
         .ret '@addref(listeners |)'
         .tag_maker '(#1)'
-        .tag_store 'return'
+        .tag_store '-1'
         .tag_mode 'new'
     .insert 'removeEventListenersForTarget'
         .before [[
@@ -217,12 +217,12 @@ typeconf 'cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback'
 typeconf 'cocos2d::EventListenerTouchAllAtOnce'
 
 typeconf 'cocos2d::EventListenerCustom'
-    .callback 'create' .tag_store 'return' .tag_maker 'listener'
+    .callback 'create' .tag_store '-1' .tag_maker 'listener'
 
 typeconf 'cocos2d::EventListenerKeyboard'
 
 typeconf 'cocos2d::EventListenerAcceleration'
-    .callback 'create' .tag_store 'return' .tag_maker 'listener'
+    .callback 'create' .tag_store '-1' .tag_maker 'listener'
 
 typeconf 'cocos2d::EventListenerFocus'
 typeconf 'cocos2d::EventListenerMouse'
@@ -699,7 +699,7 @@ typeconf 'cocos2d::LuaTweenNode'
     .callback 'create'
         .tag_maker 'ActionTween'
         .tag_mode 'new'
-        .tag_store 'return'
+        .tag_store '-1'
 
 typeconf 'cocos2d::AtlasNode'
 typeconf 'cocos2d::sImageTGA'

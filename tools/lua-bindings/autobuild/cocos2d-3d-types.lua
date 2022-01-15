@@ -1,122 +1,122 @@
 -- AUTO BUILD, DON'T MODIFY!
 
 typedef {
-    CPPCLS = 'cocos2d::MeshVertexAttrib',
-    LUACLS = nil,
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cocos2d_MeshVertexAttrib',
-    NUM_VARS = 2,
+    cppcls = 'cocos2d::MeshVertexAttrib',
+    luacls = nil,
+    decltype = nil,
+    conv = 'olua_$$_cocos2d_MeshVertexAttrib',
+    num_vars = 2,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::NTextureData::Usage',
-    LUACLS = 'cc.NTextureData.Usage',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::NTextureData::Usage',
+    luacls = 'cc.NTextureData.Usage',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::shaderinfos::VertexKey',
-    LUACLS = 'cc.VertexKey',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::shaderinfos::VertexKey',
+    luacls = 'cc.VertexKey',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::shaderinfos::Uniformkey',
-    LUACLS = 'cc.Uniformkey',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::shaderinfos::Uniformkey',
+    luacls = 'cc.Uniformkey',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::NTextureData *',
-    LUACLS = 'cc.NTextureData',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::NTextureData *; struct cocos2d::NTextureData *',
+    luacls = 'cc.NTextureData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Mesh *',
-    LUACLS = 'cc.Mesh',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Mesh *',
+    luacls = 'cc.Mesh',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::MeshSkin *',
-    LUACLS = 'cc.MeshSkin',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::MeshSkin *',
+    luacls = 'cc.MeshSkin',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::BillBoard::Mode',
-    LUACLS = 'cc.BillBoard.Mode',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::BillBoard::Mode',
+    luacls = 'cc.BillBoard.Mode',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::BillBoard *',
-    LUACLS = 'cc.BillBoard',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::BillBoard *',
+    luacls = 'cc.BillBoard',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Sprite3DMaterial::MaterialType',
-    LUACLS = 'cc.Sprite3DMaterial.MaterialType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Sprite3DMaterial::MaterialType',
+    luacls = 'cc.Sprite3DMaterial.MaterialType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Sprite3DMaterial *',
-    LUACLS = 'cc.Sprite3DMaterial',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Sprite3DMaterial *',
+    luacls = 'cc.Sprite3DMaterial',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Sprite3D *',
-    LUACLS = 'cc.Sprite3D',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Sprite3D *',
+    luacls = 'cc.Sprite3D',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::AttachNode *',
-    LUACLS = 'cc.AttachNode',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::AttachNode *',
+    luacls = 'cc.AttachNode',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Bone3D *',
-    LUACLS = 'cc.Bone3D',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Bone3D *',
+    luacls = 'cc.Bone3D',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Skeleton3D *',
-    LUACLS = 'cc.Skeleton3D',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cocos2d::Skeleton3D *',
+    luacls = 'cc.Skeleton3D',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 

@@ -2,16 +2,16 @@
 
 dofile "autobuild/cocos2d-physics-types.lua"
 
-NAME = "cocos2d_physics"
-PATH = "../../frameworks/libxgame/src/lua-bindings"
-HEADERS = [[
+name = "cocos2d_physics"
+path = "../../frameworks/libxgame/src/lua-bindings"
+headers = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
     #include "lua-bindings/LuaCocosAdapter.h"
     #include "cclua/xlua.h"
     #include "cocos2d.h"
 ]]
-CHUNK = nil
+chunk = nil
 
 typeconv 'cocos2d::PhysicsMaterial'
     .var('density', 'float density')
@@ -591,49 +591,49 @@ typeconf 'cocos2d::PhysicsWorld'
     .func(nil, 'bool isAutoStep()')
     .func(nil, 'void step(float delta)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setPreUpdateCallback(@localvar @nullable const std::function<void ()> &callback)'
         },
-        TAG_MAKER = 'PreUpdateCallback',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'PreUpdateCallback',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setPostUpdateCallback(@localvar @nullable const std::function<void ()> &callback)'
         },
-        TAG_MAKER = 'PostUpdateCallback',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'PostUpdateCallback',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void rayCast(@localvar cocos2d::PhysicsRayCastCallbackFunc func, const cocos2d::Vec2 &start, const cocos2d::Vec2 &end, void *data)'
         },
-        TAG_MAKER = 'rayCast',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'rayCast',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void queryRect(@localvar cocos2d::PhysicsQueryRectCallbackFunc func, const cocos2d::Rect &rect, void *data)'
         },
-        TAG_MAKER = 'queryRect',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'queryRect',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void queryPoint(@localvar cocos2d::PhysicsQueryPointCallbackFunc func, const cocos2d::Vec2 &point, void *data)'
         },
-        TAG_MAKER = 'queryPoint',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'queryPoint',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('allBodies', nil, nil)
     .prop('scene', nil, nil)

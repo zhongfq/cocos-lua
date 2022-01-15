@@ -1,34 +1,34 @@
 -- AUTO BUILD, DON'T MODIFY!
 
 typedef {
-    CPPCLS = 'cclua::plugin::JPush *',
-    LUACLS = 'cclua.plugin.JPush',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cclua::plugin::JPush *',
+    luacls = 'cclua.plugin.JPush',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cclua::plugin::JAuth *',
-    LUACLS = 'cclua.plugin.JAuth',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cclua::plugin::JAuth *',
+    luacls = 'cclua.plugin.JAuth',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cclua::plugin::JAnalytics::EventType',
-    LUACLS = 'cclua.plugin.JAnalytics.EventType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'cclua::plugin::JAnalytics::EventType',
+    luacls = 'cclua.plugin.JAnalytics.EventType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cclua::plugin::JAnalytics *',
-    LUACLS = 'cclua.plugin.JAnalytics',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cclua::plugin::JAnalytics *',
+    luacls = 'cclua.plugin.JAnalytics',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 

@@ -172,7 +172,7 @@ typeconf 'cocos2d::ui::RichText'
     .callback 'createWithXML'
         .tag_maker 'OpenUrlHandler'
         .tag_mode 'replace'
-        .tag_store 'return'
+        .tag_store '-1'
 
 typeconf 'cocos2d::ui::ScrollViewBar'
 typeconf 'cocos2d::ui::Slider::EventType'

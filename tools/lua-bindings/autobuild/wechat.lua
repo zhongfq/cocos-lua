@@ -2,15 +2,15 @@
 
 dofile "autobuild/wechat-types.lua"
 
-NAME = "wechat"
-PATH = "../../frameworks/plugins/wechat"
-HEADERS = [[
+name = "wechat"
+path = "../../frameworks/plugins/wechat"
+headers = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
     #include "cclua/xlua.h"
     #include "WeChat.h"
 ]]
-CHUNK = nil
+chunk = nil
 
 
 typeconf 'cclua::plugin::WeChat::ShareType'
@@ -54,12 +54,12 @@ typeconf 'cclua::plugin::WeChat'
     .func(nil, 'static void openCustomerService(const std::string &corpid, const std::string &url)')
     .func(nil, 'static void dispatch(const std::string &event, const cocos2d::Value &data)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static void setDispatcher(@localvar const std::function<void (const std::string &, const cocos2d::Value &)> &dispatcher)'
         },
-        TAG_MAKER = 'Dispatcher',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'Dispatcher',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('installed', nil, nil)

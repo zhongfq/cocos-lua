@@ -1,87 +1,87 @@
 -- AUTO BUILD, DON'T MODIFY!
 
 typedef {
-    CONV = 'olua_$$_cclua_window_Bounds',
-    CPPCLS = 'cclua::window::Bounds',
+    conv = 'olua_$$_cclua_window_Bounds',
+    cppcls = 'cclua::window::Bounds',
 }
 
 typedef {
-    CPPCLS = 'cclua::SceneNoCamera *',
-    LUACLS = 'cclua.SceneNoCamera',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cclua::SceneNoCamera *',
+    luacls = 'cclua.SceneNoCamera',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cclua::Permission',
-    LUACLS = 'cclua.Permission',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'cclua::Permission',
+    luacls = 'cclua.Permission',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cclua::PermissionStatus',
-    LUACLS = 'cclua.PermissionStatus',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUM_VARS = nil,
+    cppcls = 'cclua::PermissionStatus',
+    luacls = 'cclua.PermissionStatus',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cclua::runtime *',
-    LUACLS = 'cclua.runtime',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cclua::runtime *',
+    luacls = 'cclua.runtime',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cclua::filesystem *',
-    LUACLS = 'cclua.filesystem',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cclua::filesystem *',
+    luacls = 'cclua.filesystem',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cclua::preferences *',
-    LUACLS = 'cclua.preferences',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cclua::preferences *',
+    luacls = 'cclua.preferences',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cclua::timer *',
-    LUACLS = 'cclua.timer',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cclua::timer *',
+    luacls = 'cclua.timer',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cclua::window *',
-    LUACLS = 'cclua.window',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cclua::window *',
+    luacls = 'cclua.window',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cclua::downloader *',
-    LUACLS = 'cclua.downloader',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cclua::downloader *',
+    luacls = 'cclua.downloader',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'cclua::MaskLayout *',
-    LUACLS = 'cclua.MaskLayout',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUM_VARS = nil,
+    cppcls = 'cclua::MaskLayout *',
+    luacls = 'cclua.MaskLayout',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 

@@ -2,15 +2,15 @@
 
 dofile "autobuild/cocos2d-backend-types.lua"
 
-NAME = "cocos2d_backend"
-PATH = "../../frameworks/libxgame/src/lua-bindings"
-HEADERS = [[
+name = "cocos2d_backend"
+path = "../../frameworks/libxgame/src/lua-bindings"
+headers = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
     #include "cocos2d.h"
     #include "cclua/xlua.h"
 ]]
-CHUNK = nil
+chunk = nil
 
 
 typeconf 'cocos2d::backend::BufferUsage'
@@ -395,13 +395,13 @@ typeconf 'cocos2d::backend::CommandBuffer'
     .func(nil, 'void setDepthStencilState(cocos2d::backend::DepthStencilState *depthStencilState)')
     .func(nil, 'void setStencilReferenceValue(unsigned int value)', 'void setStencilReferenceValue(unsigned int frontRef, unsigned int backRef)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void captureScreen(@localvar std::function<void (const unsigned char *, int, int)> callback)'
         },
-        TAG_MAKER = 'captureScreen',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'captureScreen',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
 
 typeconf 'cocos2d::backend::Device'
@@ -421,34 +421,34 @@ typeconf 'cocos2d::backend::Device'
     .prop('instance', nil, nil)
     .prop('deviceInfo', nil, nil)
     .insert('newProgram', {
-        BEFORE = nil,
-        AFTER = 'ret->autorelease();',
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        before = nil,
+        after = 'ret->autorelease();',
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('newRenderPipeline', {
-        BEFORE = nil,
-        AFTER = 'ret->autorelease();',
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        before = nil,
+        after = 'ret->autorelease();',
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('newTexture', {
-        BEFORE = nil,
-        AFTER = 'ret->autorelease();',
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        before = nil,
+        after = 'ret->autorelease();',
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('newBuffer', {
-        BEFORE = nil,
-        AFTER = 'ret->autorelease();',
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        before = nil,
+        after = 'ret->autorelease();',
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('newCommandBuffer', {
-        BEFORE = nil,
-        AFTER = 'ret->autorelease();',
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        before = nil,
+        after = 'ret->autorelease();',
+        cbefore = nil,
+        cafter = nil,
     })
 
 typeconf 'cocos2d::backend::DeviceInfo'
@@ -718,13 +718,13 @@ typeconf 'cocos2d::backend::TextureBackend'
     .func(nil, 'cocos2d::backend::TextureType getTextureType()')
     .func(nil, 'bool hasMipmaps()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void getBytes(std::size_t x, std::size_t y, std::size_t width, std::size_t height, bool flipImage, @localvar std::function<void (const unsigned char *, std::size_t, std::size_t)> callback)'
         },
-        TAG_MAKER = 'Bytes',
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'Bytes',
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'once',
     }
     .prop('textureFormat', nil, nil)
     .prop('textureUsage', nil, nil)

@@ -2,15 +2,15 @@
 
 dofile "autobuild/bugly-types.lua"
 
-NAME = "bugly"
-PATH = "../../frameworks/libxgame/src/bugly"
-HEADERS = [[
+name = "bugly"
+path = "../../frameworks/libxgame/src/bugly"
+headers = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
     #include "cclua/xlua.h"
     #include "bugly/CrashReport.h"
 ]]
-CHUNK = nil
+chunk = nil
 
 
 typeconf 'cclua::CrashReport::LogLevel'

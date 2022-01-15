@@ -2,15 +2,15 @@
 
 dofile "autobuild/apple-types.lua"
 
-NAME = "apple"
-PATH = "../../frameworks/plugins/apple"
-HEADERS = [[
+name = "apple"
+path = "../../frameworks/plugins/apple"
+headers = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
     #include "cclua/xlua.h"
     #include "apple/Apple.h"
 ]]
-CHUNK = nil
+chunk = nil
 
 
 typeconf 'cclua::plugin::AppleAuth'
@@ -21,13 +21,13 @@ typeconf 'cclua::plugin::AppleAuth'
     .ifdef('*', '#ifdef CCLUA_BUILD_APPLE_AUTH')
     .func(nil, 'static bool canMakeAuth()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static void auth(@localvar const std::function<void (const cocos2d::ValueMap &)> &callback)'
         },
-        TAG_MAKER = 'auth',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'once',
+        tag_maker = 'auth',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'once',
     }
 
 typeconf 'cclua::plugin::AppleIAP'
@@ -45,12 +45,12 @@ typeconf 'cclua::plugin::AppleIAP'
     .func(nil, 'static cocos2d::ValueVector getPendingTransactions()')
     .func(nil, 'static void dispatch(const std::string &event, const cocos2d::Value &data)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static void setDispatcher(@localvar const std::function<void (const std::string &, const cocos2d::Value &)> &dispatcher)'
         },
-        TAG_MAKER = 'Dispatcher',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'Dispatcher',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('pendingTransactions', nil, nil)

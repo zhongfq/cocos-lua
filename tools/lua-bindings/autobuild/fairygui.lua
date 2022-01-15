@@ -2,9 +2,9 @@
 
 dofile "autobuild/fairygui-types.lua"
 
-NAME = "fairygui"
-PATH = "../../frameworks/libxgame/src/lua-bindings"
-HEADERS = [[
+name = "fairygui"
+path = "../../frameworks/libxgame/src/lua-bindings"
+headers = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
     #include "cclua/xlua.h"
@@ -17,7 +17,7 @@ HEADERS = [[
     #include "utils/html/HtmlObject.h"
     #include "utils/html/HtmlParser.h"
 ]]
-CHUNK = [[
+chunk = [[
     bool olua_is_fairygui_EventTag(lua_State *L, int idx)
     {
         return olua_isinteger(L, idx) || olua_isa<void>(L, idx);
@@ -130,33 +130,33 @@ typeconf 'fairygui::UIEventDispatcher'
     .func(nil, 'bool bubbleEvent(int eventType, @optional void *data, @optional const cocos2d::Value &dataValue)')
     .func(nil, 'bool isDispatchingEvent(int eventType)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void addEventListener(int eventType, @localvar const fairygui::EventCallback &callback)',
             'void addEventListener(int eventType, @localvar const fairygui::EventCallback &callback, const fairygui::EventTag &tag)'
         },
-        TAG_MAKER = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 4)'},
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 4)'},
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void removeEventListener(int eventType)',
             'void removeEventListener(int eventType, const fairygui::EventTag &tag)'
         },
-        TAG_MAKER = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 3)'},
-        TAG_MODE = {'substartwith', 'subequal'},
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 3)'},
+        tag_mode = {'substartwith', 'subequal'},
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void removeEventListeners()'
         },
-        TAG_MAKER = 'makeListenerTag(L, -1, 0)',
-        TAG_MODE = 'substartwith',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'makeListenerTag(L, -1, 0)',
+        tag_mode = 'substartwith',
+        tag_store = 0,
+        tag_scope = 'object',
     }
 
 typeconf 'fairygui::EventContext'
@@ -235,13 +235,13 @@ typeconf 'fairygui::InputProcessor'
     .func(nil, 'void touchMove(cocos2d::Touch *touch, cocos2d::Event *event)')
     .func(nil, 'void touchUp(cocos2d::Touch *touch, cocos2d::Event *event)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setCaptureCallback(@localvar @nullable fairygui::InputProcessor::CaptureEventCallback value)'
         },
-        TAG_MAKER = 'CaptureCallback',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'CaptureCallback',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('recentInput', nil, nil)
     .prop('touchOnUI', nil, nil)
@@ -429,40 +429,40 @@ typeconf 'fairygui::GTweener'
     .var('value', 'fairygui::TweenValue value')
     .var('deltaValue', 'fairygui::TweenValue deltaValue')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'fairygui::GTweener *onUpdate(fairygui::GTweener::GTweenCallback callback)'
         },
-        TAG_MAKER = 'onUpdate',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'onUpdate',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'fairygui::GTweener *onStart(fairygui::GTweener::GTweenCallback callback)'
         },
-        TAG_MAKER = 'onStart',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'onStart',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'fairygui::GTweener *onComplete(fairygui::GTweener::GTweenCallback0 callback)'
         },
-        TAG_MAKER = 'onComplete',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'onComplete',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'fairygui::GTweener *onComplete1(fairygui::GTweener::GTweenCallback callback)'
         },
-        TAG_MAKER = 'onComplete1',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'onComplete1',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('delay', nil, nil)
     .prop('duration', nil, nil)
@@ -498,79 +498,79 @@ typeconf 'fairygui::GTween'
     .func(nil, 'static fairygui::GTweener *getTween(cocos2d::Ref *target)', 'static fairygui::GTweener *getTween(cocos2d::Ref *target, fairygui::TweenPropType propType)')
     .func(nil, 'static void clean()')
     .insert('to', {
-        BEFORE = nil,
-        AFTER = [[
+        before = nil,
+        after = [[
             olua_pushclassobj<fairygui::GTween>(L);
             olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
             olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
             lua_pop(L, 1);
         ]],
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('toColor', {
-        BEFORE = nil,
-        AFTER = [[
+        before = nil,
+        after = [[
             olua_pushclassobj<fairygui::GTween>(L);
             olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
             olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
             lua_pop(L, 1);
         ]],
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('toDouble', {
-        BEFORE = nil,
-        AFTER = [[
+        before = nil,
+        after = [[
             olua_pushclassobj<fairygui::GTween>(L);
             olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
             olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
             lua_pop(L, 1);
         ]],
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('delayedCall', {
-        BEFORE = nil,
-        AFTER = [[
+        before = nil,
+        after = [[
             olua_pushclassobj<fairygui::GTween>(L);
             olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
             olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
             lua_pop(L, 1);
         ]],
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('shake', {
-        BEFORE = nil,
-        AFTER = [[
+        before = nil,
+        after = [[
             olua_pushclassobj<fairygui::GTween>(L);
             olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
             olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
             lua_pop(L, 1);
         ]],
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('kill', {
-        BEFORE = nil,
-        AFTER = [[
+        before = nil,
+        after = [[
             olua_pushclassobj<fairygui::GTween>(L);
             olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
             lua_pop(L, 1);
         ]],
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('clean', {
-        BEFORE = nil,
-        AFTER = [[
+        before = nil,
+        after = [[
             olua_pushclassobj<fairygui::GTween>(L);
             olua_delallrefs(L, -1, "tweeners");
             lua_pop(L, 1);
         ]],
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        cbefore = nil,
+        cafter = nil,
     })
 
 typeconf 'fairygui::UIPackage'
@@ -1001,23 +1001,23 @@ typeconf 'fairygui::GObject'
     .var('minSize', 'cocos2d::Size minSize')
     .var('maxSize', 'cocos2d::Size maxSize')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void addClickListener(@localvar const fairygui::EventCallback &callback)',
             'void addClickListener(@localvar const fairygui::EventCallback &callback, const fairygui::EventTag &tag)'
         },
-        TAG_MAKER = {'makeListenerTag(L, fairygui::UIEventType::Click, 0)', 'makeListenerTag(L, fairygui::UIEventType::Click, 3)'},
-        TAG_MODE = 'new',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = {'makeListenerTag(L, fairygui::UIEventType::Click, 0)', 'makeListenerTag(L, fairygui::UIEventType::Click, 3)'},
+        tag_mode = 'new',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void removeClickListener(const fairygui::EventTag &tag)'
         },
-        TAG_MAKER = 'makeListenerTag(L, fairygui::UIEventType::Click, 2)',
-        TAG_MODE = 'subequal',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'makeListenerTag(L, fairygui::UIEventType::Click, 2)',
+        tag_mode = 'subequal',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('relations', 'Relations* relations()', nil)
     .prop('displayObject', 'cocos2d::Node* displayObject()', nil)
@@ -1053,24 +1053,24 @@ typeconf 'fairygui::GObject'
     .prop('parent', nil, nil)
     .prop('root', nil, nil)
     .insert('center', {
-        BEFORE = [[
+        before = [[
             if (!self->getParent() && !fairygui::UIRoot) {
                 luaL_error(L, "UIRoot and parent are both nullptr");
             }
         ]],
-        AFTER = nil,
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        after = nil,
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('makeFullScreen', {
-        BEFORE = [[
+        before = [[
             if (!fairygui::UIRoot) {
                 luaL_error(L, "UIRoot is nullptr");
             }
         ]],
-        AFTER = nil,
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        after = nil,
+        cbefore = nil,
+        cafter = nil,
     })
 
 typeconf 'fairygui::GComponent'
@@ -1258,39 +1258,39 @@ typeconf 'fairygui::GRoot'
     .prop('soundEnabled', nil, nil)
     .prop('soundVolumeScale', nil, nil)
     .insert('create', {
-        BEFORE = nil,
-        AFTER = [[
+        before = nil,
+        after = [[
             olua_push_cppobj<cocos2d::Node>(L, ret->displayObject());
             olua_addref(L, -1, "fgui.root", -2, OLUA_MODE_SINGLE);
             olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
             lua_pop(L, 1);
         ]],
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('hideWindow', {
-        BEFORE = [[
+        before = [[
             int parent = 1;
             if (arg1->getParent()) {
                 olua_push_cppobj<fairygui::GComponent>(L, arg1->getParent());
                 parent = lua_gettop(L);
             }
         ]],
-        AFTER = nil,
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        after = nil,
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('hideWindowImmediately', {
-        BEFORE = [[
+        before = [[
             int parent = 1;
             if (arg1->getParent()) {
                 olua_push_cppobj<fairygui::GComponent>(L, arg1->getParent());
                 parent = lua_gettop(L);
             }
         ]],
-        AFTER = nil,
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        after = nil,
+        cbefore = nil,
+        cafter = nil,
     })
 
 typeconf 'fairygui::GGroup'
@@ -1717,14 +1717,14 @@ typeconf 'fairygui::GList'
     .prop('virtual', nil, nil)
     .prop('numItems', nil, nil)
     .insert('itemRenderer', {
-        BEFORE = nil,
-        AFTER = nil,
-        CALLBACK_BEFORE = [[
+        before = nil,
+        after = nil,
+        cbefore = [[
             olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
             olua_addref(L, -1, "children", top + 2, OLUA_MODE_MULTIPLE);
             lua_pop(L, 1);
         ]],
-        CALLBACK_AFTER = nil,
+        cafter = nil,
     })
 
 typeconf 'fairygui::GMovieClip'
@@ -1746,13 +1746,13 @@ typeconf 'fairygui::GMovieClip'
     .func(nil, 'cocos2d::Color3B getColor()')
     .func(nil, 'void setColor(const cocos2d::Color3B &value)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setPlaySettings(@optional int start, @optional int end, @optional int times, @optional int endAt, @localvar @optional std::function<void ()> completeCallback)'
         },
-        TAG_MAKER = 'PlaySettings',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'PlaySettings',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('playing', nil, nil)
     .prop('frame', nil, nil)
@@ -1890,28 +1890,28 @@ typeconf 'fairygui::PopupMenu'
     .func(nil, '@addref(list ^) fairygui::GList *getList()')
     .func(nil, '@delref(children ~ parent)@addref(children | parent) void show()', '@delref(children ~ parent)@addref(children | parent) void show(fairygui::GObject *target, fairygui::PopupDirection dir)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             '@addref(children | parent) fairygui::GButton *addItem(const std::string &caption, @localvar fairygui::EventCallback callback)'
         },
-        TAG_MAKER = 'makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0)',
-        TAG_MODE = 'replace',
-        TAG_STORE = "return",
-        TAG_SCOPE = 'object',
+        tag_maker = 'makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0)',
+        tag_mode = 'replace',
+        tag_store = -1,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             '@addref(children | parent) fairygui::GButton *addItemAt(const std::string &caption, int index, @localvar fairygui::EventCallback callback)'
         },
-        TAG_MAKER = 'makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0)',
-        TAG_MODE = 'replace',
-        TAG_STORE = "return",
-        TAG_SCOPE = 'object',
+        tag_maker = 'makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0)',
+        tag_mode = 'replace',
+        tag_store = -1,
+        tag_scope = 'object',
     }
     .prop('itemCount', nil, nil)
     .prop('contentPane', nil, nil)
     .prop('list', nil, nil)
     .insert('show', {
-        BEFORE = [[
+        before = [[
             fairygui::GRoot *root = fairygui::UIRoot;
             if (lua_gettop(L) > 1) {
                 fairygui::GObject *target = olua_checkobj<fairygui::GObject>(L, 2);
@@ -1923,45 +1923,45 @@ typeconf 'fairygui::PopupMenu'
             olua_push_cppobj<fairygui::GRoot>(L, root);
             int parent = lua_gettop(L);
         ]],
-        AFTER = nil,
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        after = nil,
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('removeItem', {
-        BEFORE = [[
+        before = [[
             olua_push_cppobj<fairygui::GList>(L, self->getList());
             int parent = lua_gettop(L);
         ]],
-        AFTER = nil,
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        after = nil,
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('clearItems', {
-        BEFORE = [[
+        before = [[
             olua_push_cppobj<fairygui::GList>(L, self->getList());
             int parent = lua_gettop(L);
         ]],
-        AFTER = nil,
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        after = nil,
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('addItem', {
-        BEFORE = [[
+        before = [[
             olua_push_cppobj<fairygui::GList>(L, self->getList());
             int parent = lua_gettop(L);
         ]],
-        AFTER = nil,
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        after = nil,
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('addItemAt', {
-        BEFORE = [[
+        before = [[
             olua_push_cppobj<fairygui::GList>(L, self->getList());
             int parent = lua_gettop(L);
         ]],
-        AFTER = nil,
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        after = nil,
+        cbefore = nil,
+        cafter = nil,
     })
 
 typeconf 'fairygui::Relations'
@@ -2151,43 +2151,43 @@ typeconf 'fairygui::Transition'
     .func(nil, 'void onOwnerRemovedFromStage()')
     .var('name', 'std::string name')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void play(@localvar @optional fairygui::Transition::PlayCompleteCallback callback)',
             'void play(int times, float delay, @localvar @optional fairygui::Transition::PlayCompleteCallback callback)',
             'void play(int times, float delay, float startTime, float endTime, @localvar @optional fairygui::Transition::PlayCompleteCallback callback)'
         },
-        TAG_MAKER = 'play',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'play',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void playReverse(@localvar @optional fairygui::Transition::PlayCompleteCallback callback)',
             'void playReverse(int times, float delay, @localvar @optional fairygui::Transition::PlayCompleteCallback callback)'
         },
-        TAG_MAKER = 'playReverse',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'playReverse',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setHook(const std::string &label, @localvar @nullable fairygui::Transition::TransitionHook callback)'
         },
-        TAG_MAKER = '("hook." + #1)',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = '("hook." + #1)',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void clearHooks()'
         },
-        TAG_MAKER = '("hook.")',
-        TAG_MODE = 'substartwith',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = '("hook.")',
+        tag_mode = 'substartwith',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('owner', nil, nil)
     .prop('playing', nil, nil)
@@ -2231,13 +2231,13 @@ typeconf 'fairygui::IUISource'
     .func(nil, 'void setFileName(const std::string &value)')
     .func(nil, 'bool isLoaded()')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void load(@localvar @nullable std::function<void ()> callback)'
         },
-        TAG_MAKER = 'load',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'load',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('fileName', nil, nil)
     .prop('loaded', nil, nil)
@@ -2328,7 +2328,7 @@ typeconf 'fairygui::Window'
     .prop('contentArea', nil, nil)
     .prop('modalWaitingPane', nil, nil)
     .insert('show', {
-        BEFORE = [[
+        before = [[
             fairygui::GComponent *root = fairygui::UIRoot;
             if (!root) {
                 luaL_error(L, "no root to add 'Window'");
@@ -2336,12 +2336,12 @@ typeconf 'fairygui::Window'
             olua_push_cppobj<fairygui::GComponent>(L, root);
             int parent = lua_gettop(L);
         ]],
-        AFTER = nil,
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        after = nil,
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('hide', {
-        BEFORE = [[
+        before = [[
             fairygui::GComponent *root = self->getParent() ? self->getParent() : fairygui::UIRoot;
             if (!root) {
                 return 0;
@@ -2349,12 +2349,12 @@ typeconf 'fairygui::Window'
             olua_push_cppobj<fairygui::GComponent>(L, root);
             int parent = lua_gettop(L);
         ]],
-        AFTER = nil,
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        after = nil,
+        cbefore = nil,
+        cafter = nil,
     })
     .insert('hideImmediately', {
-        BEFORE = [[
+        before = [[
             fairygui::GComponent *root = self->getParent() ? self->getParent() : fairygui::UIRoot;
             if (!root) {
                 return 0;
@@ -2362,9 +2362,9 @@ typeconf 'fairygui::Window'
             olua_push_cppobj<fairygui::GComponent>(L, root);
             int parent = lua_gettop(L);
         ]],
-        AFTER = nil,
-        CALLBACK_BEFORE = nil,
-        CALLBACK_AFTER = nil,
+        after = nil,
+        cbefore = nil,
+        cafter = nil,
     })
 
 typeconf 'fairygui::DragDropManager'
@@ -2401,22 +2401,22 @@ typeconf 'fairygui::UIObjectFactory'
     .luaopen(nil)
     .func(nil, 'static fairygui::GObject *newObject(fairygui::PackageItem *pi)', 'static fairygui::GObject *newObject(fairygui::ObjectType type)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static void setPackageItemExtension(const std::string &url, @localvar fairygui::UIObjectFactory::GComponentCreator creator)'
         },
-        TAG_MAKER = 'PackageItemExtension',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'PackageItemExtension',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .callback {
-        FUNCS =  {
+        funcs =  {
             'static void setLoaderExtension(@localvar fairygui::UIObjectFactory::GLoaderCreator creator)'
         },
-        TAG_MAKER = 'LoaderExtension',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'LoaderExtension',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
 
 typeconf 'fairygui::GearBase'
@@ -2510,25 +2510,25 @@ typeconf 'fairygui::GTree'
     .prop('rootNode', nil, nil)
     .prop('selectedNode', nil, nil)
     .insert('treeNodeRender', {
-        BEFORE = nil,
-        AFTER = nil,
-        CALLBACK_BEFORE = [[
+        before = nil,
+        after = nil,
+        cbefore = [[
             olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
             olua_addref(L, -1, "nodes", top + 1, OLUA_MODE_MULTIPLE);
             olua_addref(L, -1, "children",top + 2, OLUA_MODE_MULTIPLE);
             lua_pop(L, 1);
         ]],
-        CALLBACK_AFTER = nil,
+        cafter = nil,
     })
     .insert('treeNodeWillExpand', {
-        BEFORE = nil,
-        AFTER = nil,
-        CALLBACK_BEFORE = [[
+        before = nil,
+        after = nil,
+        cbefore = [[
             olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
             olua_addref(L, -1, "nodes", top + 1, OLUA_MODE_MULTIPLE);
             lua_pop(L, 1);
         ]],
-        CALLBACK_AFTER = nil,
+        cafter = nil,
     })
 
 typeconf 'fairygui::FUIContainer'
@@ -2615,13 +2615,13 @@ typeconf 'fairygui::FUIRichText'
     .func(nil, 'fairygui::HtmlObject *getControl(const std::string &name)')
     .func(nil, 'const char *hitTestLink(const cocos2d::Vec2 &worldPoint)')
     .callback {
-        FUNCS =  {
+        funcs =  {
             'void setObjectFactory(@localvar const std::function<HtmlObject *(HtmlElement *)> &value)'
         },
-        TAG_MAKER = 'ObjectFactory',
-        TAG_MODE = 'replace',
-        TAG_STORE = nil,
-        TAG_SCOPE = 'object',
+        tag_maker = 'ObjectFactory',
+        tag_mode = 'replace',
+        tag_store = 0,
+        tag_scope = 'object',
     }
     .prop('textFormat', nil, nil)
     .prop('overflow', nil, nil)

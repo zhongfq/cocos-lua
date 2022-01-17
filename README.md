@@ -72,8 +72,7 @@ tools/lua-bindings提供代码生成脚本，具体的例子可以参考tools/lu
 ```sh
 # window cmd，mac or linux terminal
 cd tools/lua-bindings
-lua buildConfig.lua     # 自动扫描类，生成扫描结果
-lua buildBindings.lua   # 执行导出lua bindings
+lua build.lua
 ```
 
 * [olua 设计与实现](https://codetypes.com/posts/5890848b/)

@@ -19,3 +19,5 @@ autoconf 'conf/plugin-jiguang.lua'
 autoconf 'conf/plugin-wechat.lua'
 autoconf 'conf/plugin-talkingdata.lua'
 autoconf 'conf/plugin-apple.lua'
+
+dofile 'autobuild/make.lua'

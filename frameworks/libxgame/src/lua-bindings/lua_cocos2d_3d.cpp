@@ -83,9 +83,23 @@ bool olua_canpack_cocos2d_MeshVertexAttrib(lua_State *L, int idx)
     return olua_is_uint(L, idx + 0) && olua_is_uint(L, idx + 1);
 }
 
+static int _cocos2d_NTextureData_Usage___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_cocos2d_NTextureData_Usage(lua_State *L)
 {
     oluacls_class(L, "cc.NTextureData.Usage", nullptr);
+    oluacls_func(L, "__index", _cocos2d_NTextureData_Usage___index);
     oluacls_const_integer(L, "Ambient", (lua_Integer)cocos2d::NTextureData::Usage::Ambient);
     oluacls_const_integer(L, "Bump", (lua_Integer)cocos2d::NTextureData::Usage::Bump);
     oluacls_const_integer(L, "Diffuse", (lua_Integer)cocos2d::NTextureData::Usage::Diffuse);
@@ -103,9 +117,23 @@ static int luaopen_cocos2d_NTextureData_Usage(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_shaderinfos_VertexKey___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_cocos2d_shaderinfos_VertexKey(lua_State *L)
 {
     oluacls_class(L, "cc.VertexKey", nullptr);
+    oluacls_func(L, "__index", _cocos2d_shaderinfos_VertexKey___index);
     oluacls_const_integer(L, "VERTEX_ATTRIB_BINORMAL", (lua_Integer)cocos2d::shaderinfos::VertexKey::VERTEX_ATTRIB_BINORMAL);
     oluacls_const_integer(L, "VERTEX_ATTRIB_BLEND_INDEX", (lua_Integer)cocos2d::shaderinfos::VertexKey::VERTEX_ATTRIB_BLEND_INDEX);
     oluacls_const_integer(L, "VERTEX_ATTRIB_BLEND_WEIGHT", (lua_Integer)cocos2d::shaderinfos::VertexKey::VERTEX_ATTRIB_BLEND_WEIGHT);
@@ -126,9 +154,23 @@ static int luaopen_cocos2d_shaderinfos_VertexKey(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_shaderinfos_Uniformkey___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_cocos2d_shaderinfos_Uniformkey(lua_State *L)
 {
     oluacls_class(L, "cc.Uniformkey", nullptr);
+    oluacls_func(L, "__index", _cocos2d_shaderinfos_Uniformkey___index);
     oluacls_const_integer(L, "UNIFORM_AMBIENT_COLOR", (lua_Integer)cocos2d::shaderinfos::Uniformkey::UNIFORM_AMBIENT_COLOR);
     oluacls_const_integer(L, "UNIFORM_COS_TIME", (lua_Integer)cocos2d::shaderinfos::Uniformkey::UNIFORM_COS_TIME);
     oluacls_const_integer(L, "UNIFORM_MAX", (lua_Integer)cocos2d::shaderinfos::Uniformkey::UNIFORM_MAX);
@@ -1359,9 +1401,23 @@ static int luaopen_cocos2d_MeshSkin(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_BillBoard_Mode___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_cocos2d_BillBoard_Mode(lua_State *L)
 {
     oluacls_class(L, "cc.BillBoard.Mode", nullptr);
+    oluacls_func(L, "__index", _cocos2d_BillBoard_Mode___index);
     oluacls_const_integer(L, "VIEW_PLANE_ORIENTED", (lua_Integer)cocos2d::BillBoard::Mode::VIEW_PLANE_ORIENTED);
     oluacls_const_integer(L, "VIEW_POINT_ORIENTED", (lua_Integer)cocos2d::BillBoard::Mode::VIEW_POINT_ORIENTED);
 
@@ -1657,9 +1713,23 @@ static int luaopen_cocos2d_BillBoard(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_Sprite3DMaterial_MaterialType___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_cocos2d_Sprite3DMaterial_MaterialType(lua_State *L)
 {
     oluacls_class(L, "cc.Sprite3DMaterial.MaterialType", nullptr);
+    oluacls_func(L, "__index", _cocos2d_Sprite3DMaterial_MaterialType___index);
     oluacls_const_integer(L, "BUMPED_DIFFUSE", (lua_Integer)cocos2d::Sprite3DMaterial::MaterialType::BUMPED_DIFFUSE);
     oluacls_const_integer(L, "CUSTOM", (lua_Integer)cocos2d::Sprite3DMaterial::MaterialType::CUSTOM);
     oluacls_const_integer(L, "DIFFUSE", (lua_Integer)cocos2d::Sprite3DMaterial::MaterialType::DIFFUSE);

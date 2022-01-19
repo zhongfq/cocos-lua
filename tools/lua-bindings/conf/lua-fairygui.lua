@@ -55,6 +55,14 @@ typeconv 'fairygui::TweenValue'
     .var '*' .optional 'true'
 
 typeconf 'fairygui::UIEventType'
+    .func '__index'
+        .snippet [[
+        {
+            const char *cls = olua_checkfieldstring(L, 1, "classname");
+            const char *key = olua_tostring(L, 2);
+            luaL_error(L, "enum '%s.%s' not found", cls, key);
+            return 0;
+        }]]
 typeconf 'fairygui::EventCallback'
 
 typeconf 'fairygui::UIEventDispatcher'

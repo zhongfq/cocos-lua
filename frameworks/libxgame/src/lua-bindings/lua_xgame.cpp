@@ -102,9 +102,23 @@ static int luaopen_cclua_SceneNoCamera(lua_State *L)
     return 1;
 }
 
+static int _cclua_Permission___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_cclua_Permission(lua_State *L)
 {
     oluacls_class(L, "cclua.Permission", nullptr);
+    oluacls_func(L, "__index", _cclua_Permission___index);
     oluacls_const_integer(L, "AUDIO", (lua_Integer)cclua::Permission::AUDIO);
     oluacls_const_integer(L, "CAMERA", (lua_Integer)cclua::Permission::CAMERA);
     oluacls_const_integer(L, "IDFA", (lua_Integer)cclua::Permission::IDFA);
@@ -115,9 +129,23 @@ static int luaopen_cclua_Permission(lua_State *L)
     return 1;
 }
 
+static int _cclua_PermissionStatus___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_cclua_PermissionStatus(lua_State *L)
 {
     oluacls_class(L, "cclua.PermissionStatus", nullptr);
+    oluacls_func(L, "__index", _cclua_PermissionStatus___index);
     oluacls_const_integer(L, "AUTHORIZED", (lua_Integer)cclua::PermissionStatus::AUTHORIZED);
     oluacls_const_integer(L, "DENIED", (lua_Integer)cclua::PermissionStatus::DENIED);
     oluacls_const_integer(L, "NOT_DETERMINED", (lua_Integer)cclua::PermissionStatus::NOT_DETERMINED);

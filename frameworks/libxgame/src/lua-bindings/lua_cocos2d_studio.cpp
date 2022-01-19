@@ -729,9 +729,23 @@ static int luaopen_cocos2d_CSLoader(lua_State *L)
     return 1;
 }
 
+static int _cocostudio_MovementEventType___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_cocostudio_MovementEventType(lua_State *L)
 {
     oluacls_class(L, "ccs.MovementEventType", nullptr);
+    oluacls_func(L, "__index", _cocostudio_MovementEventType___index);
     oluacls_const_integer(L, "COMPLETE", (lua_Integer)cocostudio::MovementEventType::COMPLETE);
     oluacls_const_integer(L, "LOOP_COMPLETE", (lua_Integer)cocostudio::MovementEventType::LOOP_COMPLETE);
     oluacls_const_integer(L, "START", (lua_Integer)cocostudio::MovementEventType::START);
@@ -741,9 +755,23 @@ static int luaopen_cocostudio_MovementEventType(lua_State *L)
     return 1;
 }
 
+static int _cocostudio_DisplayType___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_cocostudio_DisplayType(lua_State *L)
 {
     oluacls_class(L, "ccs.DisplayType", nullptr);
+    oluacls_func(L, "__index", _cocostudio_DisplayType___index);
     oluacls_const_integer(L, "CS_DISPLAY_ARMATURE", (lua_Integer)cocostudio::DisplayType::CS_DISPLAY_ARMATURE);
     oluacls_const_integer(L, "CS_DISPLAY_MAX", (lua_Integer)cocostudio::DisplayType::CS_DISPLAY_MAX);
     oluacls_const_integer(L, "CS_DISPLAY_PARTICLE", (lua_Integer)cocostudio::DisplayType::CS_DISPLAY_PARTICLE);
@@ -12494,9 +12522,23 @@ static int luaopen_cocostudio_ParticleDisplayData(lua_State *L)
     return 1;
 }
 
+static int _cocostudio_SceneReader_AttachComponentType___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_cocostudio_SceneReader_AttachComponentType(lua_State *L)
 {
     oluacls_class(L, "ccs.SceneReader.AttachComponentType", nullptr);
+    oluacls_func(L, "__index", _cocostudio_SceneReader_AttachComponentType___index);
     oluacls_const_integer(L, "DEFAULT", (lua_Integer)cocostudio::SceneReader::AttachComponentType::DEFAULT);
     oluacls_const_integer(L, "EMPTY_NODE", (lua_Integer)cocostudio::SceneReader::AttachComponentType::EMPTY_NODE);
     oluacls_const_integer(L, "RENDER_NODE", (lua_Integer)cocostudio::SceneReader::AttachComponentType::RENDER_NODE);
@@ -13755,9 +13797,23 @@ static int luaopen_cocostudio_Tween(lua_State *L)
     return 1;
 }
 
+static int _cocostudio_timeline_InnerActionType___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_cocostudio_timeline_InnerActionType(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.InnerActionType", nullptr);
+    oluacls_func(L, "__index", _cocostudio_timeline_InnerActionType___index);
     oluacls_const_integer(L, "LoopAction", (lua_Integer)cocostudio::timeline::InnerActionType::LoopAction);
     oluacls_const_integer(L, "NoLoopAction", (lua_Integer)cocostudio::timeline::InnerActionType::NoLoopAction);
     oluacls_const_integer(L, "SingleFrame", (lua_Integer)cocostudio::timeline::InnerActionType::SingleFrame);

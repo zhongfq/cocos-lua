@@ -111,9 +111,23 @@ bool olua_canpack_dragonBones_Rectangle(lua_State *L, int idx)
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_number(L, idx + 3);
 }
 
+static int _dragonBones_BinaryOffset___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_dragonBones_BinaryOffset(lua_State *L)
 {
     oluacls_class(L, "db.BinaryOffset", nullptr);
+    oluacls_func(L, "__index", _dragonBones_BinaryOffset___index);
     oluacls_const_integer(L, "DeformCount", (lua_Integer)dragonBones::BinaryOffset::DeformCount);
     oluacls_const_integer(L, "DeformFloatOffset", (lua_Integer)dragonBones::BinaryOffset::DeformFloatOffset);
     oluacls_const_integer(L, "DeformValueCount", (lua_Integer)dragonBones::BinaryOffset::DeformValueCount);
@@ -143,9 +157,23 @@ static int luaopen_dragonBones_BinaryOffset(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_ArmatureType___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_dragonBones_ArmatureType(lua_State *L)
 {
     oluacls_class(L, "db.ArmatureType", nullptr);
+    oluacls_func(L, "__index", _dragonBones_ArmatureType___index);
     oluacls_const_integer(L, "Armature", (lua_Integer)dragonBones::ArmatureType::Armature);
     oluacls_const_integer(L, "MovieClip", (lua_Integer)dragonBones::ArmatureType::MovieClip);
     oluacls_const_integer(L, "Stage", (lua_Integer)dragonBones::ArmatureType::Stage);
@@ -155,9 +183,23 @@ static int luaopen_dragonBones_ArmatureType(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_OffsetMode___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_dragonBones_OffsetMode(lua_State *L)
 {
     oluacls_class(L, "db.OffsetMode", nullptr);
+    oluacls_func(L, "__index", _dragonBones_OffsetMode___index);
     oluacls_const_integer(L, "Additive", (lua_Integer)dragonBones::OffsetMode::Additive);
     oluacls_const_integer(L, "None", (lua_Integer)dragonBones::OffsetMode::None);
     oluacls_const_integer(L, "Override", (lua_Integer)dragonBones::OffsetMode::Override);
@@ -167,9 +209,23 @@ static int luaopen_dragonBones_OffsetMode(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_DisplayType___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_dragonBones_DisplayType(lua_State *L)
 {
     oluacls_class(L, "db.DisplayType", nullptr);
+    oluacls_func(L, "__index", _dragonBones_DisplayType___index);
     oluacls_const_integer(L, "Armature", (lua_Integer)dragonBones::DisplayType::Armature);
     oluacls_const_integer(L, "BoundingBox", (lua_Integer)dragonBones::DisplayType::BoundingBox);
     oluacls_const_integer(L, "Image", (lua_Integer)dragonBones::DisplayType::Image);
@@ -181,9 +237,23 @@ static int luaopen_dragonBones_DisplayType(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_BoundingBoxType___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_dragonBones_BoundingBoxType(lua_State *L)
 {
     oluacls_class(L, "db.BoundingBoxType", nullptr);
+    oluacls_func(L, "__index", _dragonBones_BoundingBoxType___index);
     oluacls_const_integer(L, "Ellipse", (lua_Integer)dragonBones::BoundingBoxType::Ellipse);
     oluacls_const_integer(L, "Polygon", (lua_Integer)dragonBones::BoundingBoxType::Polygon);
     oluacls_const_integer(L, "Rectangle", (lua_Integer)dragonBones::BoundingBoxType::Rectangle);
@@ -193,9 +263,23 @@ static int luaopen_dragonBones_BoundingBoxType(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_ActionType___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_dragonBones_ActionType(lua_State *L)
 {
     oluacls_class(L, "db.ActionType", nullptr);
+    oluacls_func(L, "__index", _dragonBones_ActionType___index);
     oluacls_const_integer(L, "Frame", (lua_Integer)dragonBones::ActionType::Frame);
     oluacls_const_integer(L, "Play", (lua_Integer)dragonBones::ActionType::Play);
     oluacls_const_integer(L, "Sound", (lua_Integer)dragonBones::ActionType::Sound);
@@ -205,9 +289,23 @@ static int luaopen_dragonBones_ActionType(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_BlendMode___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_dragonBones_BlendMode(lua_State *L)
 {
     oluacls_class(L, "db.BlendMode", nullptr);
+    oluacls_func(L, "__index", _dragonBones_BlendMode___index);
     oluacls_const_integer(L, "Add", (lua_Integer)dragonBones::BlendMode::Add);
     oluacls_const_integer(L, "Alpha", (lua_Integer)dragonBones::BlendMode::Alpha);
     oluacls_const_integer(L, "Darken", (lua_Integer)dragonBones::BlendMode::Darken);
@@ -228,9 +326,23 @@ static int luaopen_dragonBones_BlendMode(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_TweenType___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_dragonBones_TweenType(lua_State *L)
 {
     oluacls_class(L, "db.TweenType", nullptr);
+    oluacls_func(L, "__index", _dragonBones_TweenType___index);
     oluacls_const_integer(L, "Curve", (lua_Integer)dragonBones::TweenType::Curve);
     oluacls_const_integer(L, "Line", (lua_Integer)dragonBones::TweenType::Line);
     oluacls_const_integer(L, "None", (lua_Integer)dragonBones::TweenType::None);
@@ -243,9 +355,23 @@ static int luaopen_dragonBones_TweenType(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_TimelineType___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_dragonBones_TimelineType(lua_State *L)
 {
     oluacls_class(L, "db.TimelineType", nullptr);
+    oluacls_func(L, "__index", _dragonBones_TimelineType___index);
     oluacls_const_integer(L, "Action", (lua_Integer)dragonBones::TimelineType::Action);
     oluacls_const_integer(L, "AnimationTime", (lua_Integer)dragonBones::TimelineType::AnimationTime);
     oluacls_const_integer(L, "AnimationWeight", (lua_Integer)dragonBones::TimelineType::AnimationWeight);
@@ -264,9 +390,23 @@ static int luaopen_dragonBones_TimelineType(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_AnimationFadeOutMode___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_dragonBones_AnimationFadeOutMode(lua_State *L)
 {
     oluacls_class(L, "db.AnimationFadeOutMode", nullptr);
+    oluacls_func(L, "__index", _dragonBones_AnimationFadeOutMode___index);
     oluacls_const_integer(L, "All", (lua_Integer)dragonBones::AnimationFadeOutMode::All);
     oluacls_const_integer(L, "None", (lua_Integer)dragonBones::AnimationFadeOutMode::None);
     oluacls_const_integer(L, "SameGroup", (lua_Integer)dragonBones::AnimationFadeOutMode::SameGroup);
@@ -279,9 +419,23 @@ static int luaopen_dragonBones_AnimationFadeOutMode(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_TextureFormat___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_dragonBones_TextureFormat(lua_State *L)
 {
     oluacls_class(L, "db.TextureFormat", nullptr);
+    oluacls_func(L, "__index", _dragonBones_TextureFormat___index);
     oluacls_const_integer(L, "BGRA8888", (lua_Integer)dragonBones::TextureFormat::BGRA8888);
     oluacls_const_integer(L, "DEFAULT", (lua_Integer)dragonBones::TextureFormat::DEFAULT);
     oluacls_const_integer(L, "RGB565", (lua_Integer)dragonBones::TextureFormat::RGB565);

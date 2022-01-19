@@ -217,9 +217,23 @@ void olua_check_spine_UpdateWorldTransformsListener(lua_State *L, int idx, spine
     olua_check_callback<spine::UpdateWorldTransformsListener>(L, idx, value);
 }
 
+static int _spine_EventType___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_spine_EventType(lua_State *L)
 {
     oluacls_class(L, "sp.EventType", nullptr);
+    oluacls_func(L, "__index", _spine_EventType___index);
     oluacls_const_integer(L, "Complete", (lua_Integer)spine::EventType::EventType_Complete);
     oluacls_const_integer(L, "Dispose", (lua_Integer)spine::EventType::EventType_Dispose);
     oluacls_const_integer(L, "End", (lua_Integer)spine::EventType::EventType_End);
@@ -232,9 +246,23 @@ static int luaopen_spine_EventType(lua_State *L)
     return 1;
 }
 
+static int _spine_AttachmentType___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_spine_AttachmentType(lua_State *L)
 {
     oluacls_class(L, "sp.AttachmentType", nullptr);
+    oluacls_func(L, "__index", _spine_AttachmentType___index);
     oluacls_const_integer(L, "Boundingbox", (lua_Integer)spine::AttachmentType::AttachmentType_Boundingbox);
     oluacls_const_integer(L, "Clipping", (lua_Integer)spine::AttachmentType::AttachmentType_Clipping);
     oluacls_const_integer(L, "Linkedmesh", (lua_Integer)spine::AttachmentType::AttachmentType_Linkedmesh);
@@ -248,9 +276,23 @@ static int luaopen_spine_AttachmentType(lua_State *L)
     return 1;
 }
 
+static int _spine_TransformMode___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_spine_TransformMode(lua_State *L)
 {
     oluacls_class(L, "sp.TransformMode", nullptr);
+    oluacls_func(L, "__index", _spine_TransformMode___index);
     oluacls_const_integer(L, "NoRotationOrReflection", (lua_Integer)spine::TransformMode::TransformMode_NoRotationOrReflection);
     oluacls_const_integer(L, "NoScale", (lua_Integer)spine::TransformMode::TransformMode_NoScale);
     oluacls_const_integer(L, "NoScaleOrReflection", (lua_Integer)spine::TransformMode::TransformMode_NoScaleOrReflection);
@@ -262,9 +304,23 @@ static int luaopen_spine_TransformMode(lua_State *L)
     return 1;
 }
 
+static int _spine_BlendMode___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_spine_BlendMode(lua_State *L)
 {
     oluacls_class(L, "sp.BlendMode", nullptr);
+    oluacls_func(L, "__index", _spine_BlendMode___index);
     oluacls_const_integer(L, "Additive", (lua_Integer)spine::BlendMode::BlendMode_Additive);
     oluacls_const_integer(L, "Multiply", (lua_Integer)spine::BlendMode::BlendMode_Multiply);
     oluacls_const_integer(L, "Normal", (lua_Integer)spine::BlendMode::BlendMode_Normal);
@@ -275,9 +331,23 @@ static int luaopen_spine_BlendMode(lua_State *L)
     return 1;
 }
 
+static int _spine_PositionMode___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_spine_PositionMode(lua_State *L)
 {
     oluacls_class(L, "sp.PositionMode", nullptr);
+    oluacls_func(L, "__index", _spine_PositionMode___index);
     oluacls_const_integer(L, "Fixed", (lua_Integer)spine::PositionMode::PositionMode_Fixed);
     oluacls_const_integer(L, "Percent", (lua_Integer)spine::PositionMode::PositionMode_Percent);
 
@@ -286,9 +356,23 @@ static int luaopen_spine_PositionMode(lua_State *L)
     return 1;
 }
 
+static int _spine_SpacingMode___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_spine_SpacingMode(lua_State *L)
 {
     oluacls_class(L, "sp.SpacingMode", nullptr);
+    oluacls_func(L, "__index", _spine_SpacingMode___index);
     oluacls_const_integer(L, "Fixed", (lua_Integer)spine::SpacingMode::SpacingMode_Fixed);
     oluacls_const_integer(L, "Length", (lua_Integer)spine::SpacingMode::SpacingMode_Length);
     oluacls_const_integer(L, "Percent", (lua_Integer)spine::SpacingMode::SpacingMode_Percent);
@@ -299,9 +383,23 @@ static int luaopen_spine_SpacingMode(lua_State *L)
     return 1;
 }
 
+static int _spine_RotateMode___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_spine_RotateMode(lua_State *L)
 {
     oluacls_class(L, "sp.RotateMode", nullptr);
+    oluacls_func(L, "__index", _spine_RotateMode___index);
     oluacls_const_integer(L, "Chain", (lua_Integer)spine::RotateMode::RotateMode_Chain);
     oluacls_const_integer(L, "ChainScale", (lua_Integer)spine::RotateMode::RotateMode_ChainScale);
     oluacls_const_integer(L, "Tangent", (lua_Integer)spine::RotateMode::RotateMode_Tangent);
@@ -311,9 +409,23 @@ static int luaopen_spine_RotateMode(lua_State *L)
     return 1;
 }
 
+static int _spine_MixBlend___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_spine_MixBlend(lua_State *L)
 {
     oluacls_class(L, "sp.MixBlend", nullptr);
+    oluacls_func(L, "__index", _spine_MixBlend___index);
     oluacls_const_integer(L, "Add", (lua_Integer)spine::MixBlend::MixBlend_Add);
     oluacls_const_integer(L, "First", (lua_Integer)spine::MixBlend::MixBlend_First);
     oluacls_const_integer(L, "Replace", (lua_Integer)spine::MixBlend::MixBlend_Replace);

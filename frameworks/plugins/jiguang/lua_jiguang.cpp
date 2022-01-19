@@ -646,9 +646,23 @@ static int luaopen_cclua_plugin_JAuth(lua_State *L)
 #endif
 
 #ifdef CCLUA_BUILD_JANALYTICS
+static int _cclua_plugin_JAnalytics_EventType___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_cclua_plugin_JAnalytics_EventType(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.JAnalytics.EventType", nullptr);
+    oluacls_func(L, "__index", _cclua_plugin_JAnalytics_EventType___index);
     oluacls_const_integer(L, "BROWSE", (lua_Integer)cclua::plugin::JAnalytics::EventType::BROWSE);
     oluacls_const_integer(L, "CALCULATE", (lua_Integer)cclua::plugin::JAnalytics::EventType::CALCULATE);
     oluacls_const_integer(L, "COUNT", (lua_Integer)cclua::plugin::JAnalytics::EventType::COUNT);

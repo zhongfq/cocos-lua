@@ -91,6 +91,14 @@ typeconf 'fairygui::UIEventType'
     .const('DragEnd', 'fairygui::UIEventType::DragEnd', 'const int')
     .const('Drop', 'fairygui::UIEventType::Drop', 'const int')
     .const('GearStop', 'fairygui::UIEventType::GearStop', 'const int')
+    .func('__index', [[
+        {
+            const char *cls = olua_checkfieldstring(L, 1, "classname");
+            const char *key = olua_tostring(L, 2);
+            luaL_error(L, "enum '%s.%s' not found", cls, key);
+            return 0;
+        }
+    ]])
 
 typeconf 'fairygui::EventCallback'
     .supercls(nil)

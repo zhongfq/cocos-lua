@@ -202,7 +202,7 @@ OLUA_API int olua_pcall(lua_State *L, int nargs, int nresults)
     int status;
     int errfunc = lua_absindex(L, -(nargs + 1));
     olua_pusherrorfunc(L);
-    lua_insert(L, errfunc);
+    lua_insert(L, errfunc);     // insert error handle at func position
     status = lua_pcall(L, nargs, nresults, errfunc);
     lua_remove(L, errfunc);
     return status;
@@ -613,13 +613,14 @@ OLUA_API int olua_callback(lua_State *L, void *obj, const char *func, int argc)
         }
         status = lua_pcall(L, argc, 1, -(2 + argc));
     } else {
+        lua_pop(L, 1);
         if (olua_getrawobj(L, obj)) {
             lua_pop(L, 1);
             lua_pushfstring(L, "callback missed: %s", func);
         } else {
             lua_pushfstring(L, "object missed: %s", func);
         }
-        lua_pcall(L, 1, 0, 0);
+        lua_pcall(L, 1, 0, 0); // call error func
     }
     if (status != LUA_OK) {
         lua_pushnil(L);
@@ -892,19 +893,17 @@ static int cls_index(lua_State *L)
         return 1;
     }
     
-    if (olua_likely(olua_isuserdata(L, 1))) {
-        if (lookup_user_index_func(L, "__index")) {
-            // try user's index
-            lua_pushvalue(L, 1);
-            lua_pushvalue(L, 2);
-            lua_call(L, 2, 1);
-            return 1;
-        } else {
-            // try variable
-            lua_pushvalue(L, 2);
-            olua_getvariable(L, 1);
-            return 1;
-        }
+    if (olua_unlikely(lookup_user_index_func(L, "__index"))) {
+        // try user's index
+        lua_pushvalue(L, 1);
+        lua_pushvalue(L, 2);
+        lua_call(L, 2, 1);
+        return 1;
+    } else if (olua_likely(olua_isuserdata(L, 1))) {
+        // try variable
+        lua_pushvalue(L, 2);
+        olua_getvariable(L, 1);
+        return 1;
     }
     return 0;
 }
@@ -934,20 +933,18 @@ static int cls_newindex(lua_State *L)
         return 0;
     }
     
-    if (olua_likely(type == LUA_TUSERDATA)) {
-        if (lookup_user_index_func(L, "__newindex")) {
-            // try user's newindex
-            lua_pushvalue(L, 1);
-            lua_pushvalue(L, 2);
-            lua_pushvalue(L, 3);
-            lua_call(L, 3, 0);
-            return 0;
-        } else {
-            // try variable
-            lua_settop(L, 3);
-            olua_setvariable(L, 1);
-            return 0;
-        }
+    if (olua_unlikely(lookup_user_index_func(L, "__newindex"))) {
+        // try user's newindex
+        lua_pushvalue(L, 1);
+        lua_pushvalue(L, 2);
+        lua_pushvalue(L, 3);
+        lua_call(L, 3, 0);
+        return 0;
+    } else if (olua_likely(type == LUA_TUSERDATA)) {
+        // try variable
+        lua_settop(L, 3);
+        olua_setvariable(L, 1);
+        return 0;
     }
     return 0;
 }
@@ -1295,6 +1292,7 @@ static int l_move(lua_State *L)
         luaL_error(L, "method '__olua_move' not found in '%s'", olua_objstring(L, 1));
     }
     lua_insert(L, 1);
+    // maybe move object from object pool to the object table
     lua_call(L, lua_gettop(L) - 1, LUA_MULTRET);
     return lua_gettop(L);
 }

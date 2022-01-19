@@ -4,9 +4,23 @@
 #include "lua_wechat.h"
 
 #ifdef CCLUA_BUILD_WECHAT
+static int _cclua_plugin_WeChat_ShareType___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_cclua_plugin_WeChat_ShareType(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.WeChat.ShareType", nullptr);
+    oluacls_func(L, "__index", _cclua_plugin_WeChat_ShareType___index);
     oluacls_const_integer(L, "IMAGE", (lua_Integer)cclua::plugin::WeChat::ShareType::IMAGE);
     oluacls_const_integer(L, "MUSIC", (lua_Integer)cclua::plugin::WeChat::ShareType::MUSIC);
     oluacls_const_integer(L, "NONE", (lua_Integer)cclua::plugin::WeChat::ShareType::NONE);
@@ -21,9 +35,23 @@ static int luaopen_cclua_plugin_WeChat_ShareType(lua_State *L)
 #endif
 
 #ifdef CCLUA_BUILD_WECHAT
+static int _cclua_plugin_WeChat_ProgramType___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *key = olua_tostring(L, 2);
+    luaL_error(L, "enum '%s.%s' not found", cls, key);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_cclua_plugin_WeChat_ProgramType(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.WeChat.ProgramType", nullptr);
+    oluacls_func(L, "__index", _cclua_plugin_WeChat_ProgramType___index);
     oluacls_const_integer(L, "PREVIEW", (lua_Integer)cclua::plugin::WeChat::ProgramType::PREVIEW);
     oluacls_const_integer(L, "RELEASE", (lua_Integer)cclua::plugin::WeChat::ProgramType::RELEASE);
     oluacls_const_integer(L, "TEST", (lua_Integer)cclua::plugin::WeChat::ProgramType::TEST);

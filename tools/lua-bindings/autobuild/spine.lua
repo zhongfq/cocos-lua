@@ -28,16 +28,6 @@ chunk = [[
         }
     }
 
-    template <class T>
-    int olua_push_spine_Vector(lua_State *L, const spine::Vector<T> *array, const std::function<void(T)> &push) {
-        return olua_push_array<T, spine::Vector>(L, array, push);
-    }
-
-    template <class T>
-    void olua_check_spine_Vector(lua_State *L, int idx, spine::Vector<T> *array, const std::function<void(T *)> &check) {
-        olua_check_array<T, spine::Vector>(L, idx, array, check);
-    }
-
     bool olua_is_spine_String(lua_State *L, int idx)
     {
         return olua_isstring(L, idx);

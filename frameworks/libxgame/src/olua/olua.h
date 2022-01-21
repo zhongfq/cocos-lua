@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2019-2021 codetypes@gmail.com
+ * Copyright (c) 2019-2022 codetypes@gmail.com
  *
  * https://github.com/zhongfq/olua
  *
@@ -64,9 +64,9 @@ extern "C" {
 #endif
     
 // object status
-#define OLUA_OBJ_EXIST  0
-#define OLUA_OBJ_NEW    1
-#define OLUA_OBJ_UPDATE 2   // update object metatable
+#define OLUA_OBJ_EXIST  0   // object exist
+#define OLUA_OBJ_NEW    1   // object new create
+#define OLUA_OBJ_UPDATE 2   // object exist but update object metatable
 
 // default super class of object
 #define OLUA_VOIDCLS "void *"
@@ -203,7 +203,7 @@ OLUA_API void olua_getref(lua_State *L, int ref);
  * ref layout:
  * obj.uservalue {
  *     .olua.ref.component = obj_component  -- OLUA_MODE_SINGLE
- *     .olua.ref.children = {                               -- OLUA_MODE_MULTIPLE
+ *     .olua.ref.children = {               -- OLUA_MODE_MULTIPLE
  *         obj_child1 = true
  *         obj_child2 = true
  *         ...

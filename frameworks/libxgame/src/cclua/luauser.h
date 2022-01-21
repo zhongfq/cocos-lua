@@ -19,14 +19,8 @@
 template <class K, class V>
 void olua_insert_map(cocos2d::Map<K, V> *map, K key, V value);
 
-template <class K, class V>
-void olua_foreach_map(const cocos2d::Map<K, V> *map, const std::function<void(K, V)> &callback);
-
 template <class T>
 void olua_insert_array(cocos2d::Vector<T> *array, T value);
-
-template <class T>
-void olua_foreach_array(const cocos2d::Vector<T> *array, const std::function<void(T)> &callback);
 
 // spine
 #ifdef CCLUA_BUILD_SPINE

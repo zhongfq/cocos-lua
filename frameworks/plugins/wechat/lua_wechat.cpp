@@ -302,7 +302,7 @@ static int _cclua_plugin_WeChat_setDispatcher(lua_State *L)
 
     std::function<void(const std::string &, const cocos2d::Value &)> arg1;       /** dispatcher */
 
-    olua_check_std_function(L, 1, &arg1);
+    olua_check_callback(L, 1, &arg1, "std.function");
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.plugin.WeChat");
     std::string cb_tag = "Dispatcher";

@@ -359,7 +359,7 @@ typeconf 'fairygui::GGraph'
             olua_check_int(L, 2, &lineSize);
             olua_check_cocos2d_Color4F(L, 3, &lineColor);
             olua_check_cocos2d_Color4F(L, 4, &fillColor);
-            olua_check_std_vector<cocos2d::Vec2>(L, 5, &points, [L](cocos2d::Vec2 *value) {
+            olua_check_array<cocos2d::Vec2>(L, 5, &points, [L](cocos2d::Vec2 *value) {
                 olua_check_cocos2d_Vec2(L, -1, value);
             });
             
@@ -392,7 +392,7 @@ typeconf 'fairygui::GGraph'
                 self->drawRegularPolygon((int)lineSize, lineColor, fillColor, (int)sides, (float)startAngle);
             } else {
                 olua_check_number(L, 6, &startAngle);
-                olua_check_std_vector<float>(L, 7, &distances, [L](float *value) {
+                olua_check_array<float>(L, 7, &distances, [L](float *value) {
                     *value = (float)olua_checknumber(L, -1);
                 });
                 self->drawRegularPolygon((int)lineSize, lineColor, fillColor, (int)sides, (float)startAngle, distances.size() ? &distances[0] : nullptr, (int)distances.size());

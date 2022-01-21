@@ -22,7 +22,7 @@ static int _cclua_plugin_AppleAuth_auth(lua_State *L)
 
     std::function<void(const cocos2d::ValueMap &)> arg1;       /** callback */
 
-    olua_check_std_function(L, 1, &arg1);
+    olua_check_callback(L, 1, &arg1, "std.function");
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.plugin.AppleAuth");
     std::string cb_tag = "auth";
@@ -232,7 +232,7 @@ static int _cclua_plugin_AppleIAP_requestProducts(lua_State *L)
 
     std::set<std::string> arg1;       /** products */
 
-    olua_check_std_set<std::string>(L, 1, &arg1, [L](std::string *value) {
+    olua_check_array<std::string>(L, 1, &arg1, [L](std::string *value) {
         olua_check_std_string(L, -1, value);
     });
 
@@ -262,7 +262,7 @@ static int _cclua_plugin_AppleIAP_setDispatcher(lua_State *L)
 
     std::function<void(const std::string &, const cocos2d::Value &)> arg1;       /** dispatcher */
 
-    olua_check_std_function(L, 1, &arg1);
+    olua_check_callback(L, 1, &arg1, "std.function");
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.plugin.AppleIAP");
     std::string cb_tag = "Dispatcher";

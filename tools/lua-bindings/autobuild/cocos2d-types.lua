@@ -11,7 +11,7 @@ typedef {
 }
 
 typedef {
-    conv = 'olua_$$_cocos2d_Vector',
+    conv = 'olua_$$_array',
     cppcls = 'cocos2d::Vector',
 }
 
@@ -51,7 +51,7 @@ typedef {
 }
 
 typedef {
-    conv = 'olua_$$_cocos2d_Map',
+    conv = 'olua_$$_map',
     cppcls = 'cocos2d::Map',
 }
 
@@ -156,7 +156,7 @@ typedef {
     cppcls = 'cocos2d::ccSchedulerFunc',
     luacls = 'cc.ccSchedulerFunc',
     decltype = 'std::function<void (float)>',
-    conv = 'olua_$$_cocos2d_ccSchedulerFunc',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -196,7 +196,7 @@ typedef {
     cppcls = 'cocos2d::EventListenerTouchOneByOne::ccTouchBeganCallback',
     luacls = 'cc.EventListenerTouchOneByOne.ccTouchBeganCallback',
     decltype = 'std::function<bool (cocos2d::Touch *, cocos2d::Event *)>',
-    conv = 'olua_$$_cocos2d_EventListenerTouchOneByOne_ccTouchBeganCallback',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -204,7 +204,7 @@ typedef {
     cppcls = 'cocos2d::EventListenerTouchOneByOne::ccTouchCallback',
     luacls = 'cc.EventListenerTouchOneByOne.ccTouchCallback',
     decltype = 'std::function<void (cocos2d::Touch *, cocos2d::Event *)>',
-    conv = 'olua_$$_cocos2d_EventListenerTouchOneByOne_ccTouchCallback',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -220,7 +220,7 @@ typedef {
     cppcls = 'cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback',
     luacls = 'cc.EventListenerTouchAllAtOnce.ccTouchesCallback',
     decltype = 'std::function<void (const std::vector<Touch *> &, cocos2d::Event *)>',
-    conv = 'olua_$$_cocos2d_EventListenerTouchAllAtOnce_ccTouchesCallback',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 

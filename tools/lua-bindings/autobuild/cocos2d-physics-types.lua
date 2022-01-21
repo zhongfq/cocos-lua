@@ -12,7 +12,7 @@ typedef {
     cppcls = 'cocos2d::PhysicsRayCastCallbackFunc',
     luacls = 'cc.PhysicsRayCastCallbackFunc',
     decltype = 'std::function<bool (cocos2d::PhysicsWorld &, const cocos2d::PhysicsRayCastInfo &, void *)>',
-    conv = 'olua_$$_cocos2d_PhysicsRayCastCallbackFunc',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -20,7 +20,7 @@ typedef {
     cppcls = 'cocos2d::PhysicsQueryRectCallbackFunc',
     luacls = 'cc.PhysicsQueryRectCallbackFunc',
     decltype = 'std::function<bool (cocos2d::PhysicsWorld &, cocos2d::PhysicsShape &, void *)>',
-    conv = 'olua_$$_cocos2d_PhysicsQueryRectCallbackFunc',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -28,7 +28,7 @@ typedef {
     cppcls = 'cocos2d::PhysicsQueryPointCallbackFunc',
     luacls = 'cc.PhysicsQueryPointCallbackFunc',
     decltype = 'std::function<bool (cocos2d::PhysicsWorld &, cocos2d::PhysicsShape &, void *)>',
-    conv = 'olua_$$_cocos2d_PhysicsQueryPointCallbackFunc',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 

@@ -52,7 +52,7 @@ typedef {
     cppcls = 'cocos2d::ui::Widget::ccWidgetTouchCallback',
     luacls = 'ccui.Widget.ccWidgetTouchCallback',
     decltype = 'std::function<void (cocos2d::Ref *, Widget::TouchEventType)>',
-    conv = 'olua_$$_cocos2d_ui_Widget_ccWidgetTouchCallback',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -60,7 +60,7 @@ typedef {
     cppcls = 'cocos2d::ui::Widget::ccWidgetClickCallback',
     luacls = 'ccui.Widget.ccWidgetClickCallback',
     decltype = 'std::function<void (cocos2d::Ref *)>',
-    conv = 'olua_$$_cocos2d_ui_Widget_ccWidgetClickCallback',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -68,7 +68,7 @@ typedef {
     cppcls = 'cocos2d::ui::Widget::ccWidgetEventCallback',
     luacls = 'ccui.Widget.ccWidgetEventCallback',
     decltype = 'std::function<void (cocos2d::Ref *, int)>',
-    conv = 'olua_$$_cocos2d_ui_Widget_ccWidgetEventCallback',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -244,7 +244,7 @@ typedef {
     cppcls = 'cocos2d::ui::WebView::ccWebViewCallback',
     luacls = 'ccui.WebView.ccWebViewCallback',
     decltype = 'std::function<void (cocos2d::ui::WebView *, const std::string &)>',
-    conv = 'olua_$$_cocos2d_ui_WebView_ccWebViewCallback',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -268,7 +268,7 @@ typedef {
     cppcls = 'cocos2d::ui::VideoPlayer::ccVideoPlayerCallback',
     luacls = 'ccui.VideoPlayer.ccVideoPlayerCallback',
     decltype = 'std::function<void (cocos2d::Ref *, VideoPlayer::EventType)>',
-    conv = 'olua_$$_cocos2d_ui_VideoPlayer_ccVideoPlayerCallback',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -332,7 +332,7 @@ typedef {
     cppcls = 'cocos2d::ui::TabControl::ccTabControlCallback',
     luacls = 'ccui.TabControl.ccTabControlCallback',
     decltype = 'std::function<void (int, cocos2d::ui::TabControl::EventType)>',
-    conv = 'olua_$$_cocos2d_ui_TabControl_ccTabControlCallback',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -364,7 +364,7 @@ typedef {
     cppcls = 'cocos2d::ui::ScrollView::ccScrollViewCallback',
     luacls = 'ccui.ScrollView.ccScrollViewCallback',
     decltype = 'std::function<void (cocos2d::Ref *, cocos2d::ui::ScrollView::EventType)>',
-    conv = 'olua_$$_cocos2d_ui_ScrollView_ccScrollViewCallback',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -404,7 +404,7 @@ typedef {
     cppcls = 'cocos2d::ui::ListView::ccListViewCallback',
     luacls = 'ccui.ListView.ccListViewCallback',
     decltype = 'std::function<void (cocos2d::Ref *, cocos2d::ui::ListView::EventType)>',
-    conv = 'olua_$$_cocos2d_ui_ListView_ccListViewCallback',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -452,7 +452,7 @@ typedef {
     cppcls = 'cocos2d::ui::PageView::ccPageViewCallback',
     luacls = 'ccui.PageView.ccPageViewCallback',
     decltype = 'std::function<void (cocos2d::Ref *, cocos2d::ui::PageView::EventType)>',
-    conv = 'olua_$$_cocos2d_ui_PageView_ccPageViewCallback',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -532,7 +532,7 @@ typedef {
     cppcls = 'cocos2d::ui::RichText::OpenUrlHandler',
     luacls = 'ccui.RichText.OpenUrlHandler',
     decltype = 'std::function<void (const std::string &)>',
-    conv = 'olua_$$_cocos2d_ui_RichText_OpenUrlHandler',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -564,7 +564,7 @@ typedef {
     cppcls = 'cocos2d::ui::Slider::ccSliderCallback',
     luacls = 'ccui.Slider.ccSliderCallback',
     decltype = 'std::function<void (cocos2d::Ref *, cocos2d::ui::Slider::EventType)>',
-    conv = 'olua_$$_cocos2d_ui_Slider_ccSliderCallback',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -628,7 +628,7 @@ typedef {
     cppcls = 'cocos2d::ui::TextField::ccTextFieldCallback',
     luacls = 'ccui.TextField.ccTextFieldCallback',
     decltype = 'std::function<void (cocos2d::Ref *, cocos2d::ui::TextField::EventType)>',
-    conv = 'olua_$$_cocos2d_ui_TextField_ccTextFieldCallback',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -660,7 +660,7 @@ typedef {
     cppcls = 'cocos2d::ui::CheckBox::ccCheckBoxCallback',
     luacls = 'ccui.CheckBox.ccCheckBoxCallback',
     decltype = 'std::function<void (cocos2d::Ref *, CheckBox::EventType)>',
-    conv = 'olua_$$_cocos2d_ui_CheckBox_ccCheckBoxCallback',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -684,7 +684,7 @@ typedef {
     cppcls = 'cocos2d::ui::RadioButton::ccRadioButtonCallback',
     luacls = 'ccui.RadioButton.ccRadioButtonCallback',
     decltype = 'std::function<void (cocos2d::ui::RadioButton *, cocos2d::ui::RadioButton::EventType)>',
-    conv = 'olua_$$_cocos2d_ui_RadioButton_ccRadioButtonCallback',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -708,7 +708,7 @@ typedef {
     cppcls = 'cocos2d::ui::RadioButtonGroup::ccRadioButtonGroupCallback',
     luacls = 'ccui.RadioButtonGroup.ccRadioButtonGroupCallback',
     decltype = 'std::function<void (cocos2d::ui::RadioButton *, int, cocos2d::ui::RadioButtonGroup::EventType)>',
-    conv = 'olua_$$_cocos2d_ui_RadioButtonGroup_ccRadioButtonGroupCallback',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 

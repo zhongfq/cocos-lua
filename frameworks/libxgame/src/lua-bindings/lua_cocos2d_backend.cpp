@@ -912,7 +912,7 @@ static int _cocos2d_backend_VertexLayout_getAttributes(lua_State *L)
 
     // const std::unordered_map<std::string, Attribute> &getAttributes()
     const std::unordered_map<std::string, cocos2d::backend::VertexLayout::Attribute> &ret = self->getAttributes();
-    int num_ret = olua_push_std_unordered_map<std::string, cocos2d::backend::VertexLayout::Attribute>(L, &ret, [L](std::string arg1, cocos2d::backend::VertexLayout::Attribute arg2) {
+    int num_ret = olua_push_map<std::string, cocos2d::backend::VertexLayout::Attribute>(L, &ret, [L](std::string arg1, cocos2d::backend::VertexLayout::Attribute arg2) {
         olua_push_std_string(L, (std::string)arg1);
         olua_push_cocos2d_backend_VertexLayout_Attribute(L, &arg2);
     });
@@ -1089,7 +1089,7 @@ static int _cocos2d_backend_CommandBuffer_captureScreen(lua_State *L)
     std::function<void(const unsigned char *, int, int)> arg1;       /** callback */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccb.CommandBuffer");
-    olua_check_std_function(L, 2, &arg1);
+    olua_check_callback(L, 2, &arg1, "std.function");
 
     void *cb_store = (void *)self;
     std::string cb_tag = "captureScreen";
@@ -2399,7 +2399,7 @@ static int _cocos2d_backend_ProgramState_getFragmentTextureInfos(lua_State *L)
 
     // const std::unordered_map<int, TextureInfo> &getFragmentTextureInfos()
     const std::unordered_map<int, cocos2d::backend::TextureInfo> &ret = self->getFragmentTextureInfos();
-    int num_ret = olua_push_std_unordered_map<int, cocos2d::backend::TextureInfo>(L, &ret, [L](int arg1, cocos2d::backend::TextureInfo arg2) {
+    int num_ret = olua_push_map<int, cocos2d::backend::TextureInfo>(L, &ret, [L](int arg1, cocos2d::backend::TextureInfo arg2) {
         olua_push_int(L, (lua_Integer)arg1);
         olua_push_cocos2d_backend_TextureInfo(L, &arg2);
     });
@@ -2508,7 +2508,7 @@ static int _cocos2d_backend_ProgramState_getVertexTextureInfos(lua_State *L)
 
     // const std::unordered_map<int, TextureInfo> &getVertexTextureInfos()
     const std::unordered_map<int, cocos2d::backend::TextureInfo> &ret = self->getVertexTextureInfos();
-    int num_ret = olua_push_std_unordered_map<int, cocos2d::backend::TextureInfo>(L, &ret, [L](int arg1, cocos2d::backend::TextureInfo arg2) {
+    int num_ret = olua_push_map<int, cocos2d::backend::TextureInfo>(L, &ret, [L](int arg1, cocos2d::backend::TextureInfo arg2) {
         olua_push_int(L, (lua_Integer)arg1);
         olua_push_cocos2d_backend_TextureInfo(L, &arg2);
     });
@@ -2589,12 +2589,12 @@ static int _cocos2d_backend_ProgramState_setTextureArray(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramState");
     olua_check_cocos2d_backend_UniformLocation(L, 2, &arg1);
-    olua_check_std_vector<uint32_t>(L, 3, &arg2, [L](uint32_t *value) {
+    olua_check_array<uint32_t>(L, 3, &arg2, [L](uint32_t *value) {
         lua_Unsigned obj;
         olua_check_uint(L, -1, &obj);
         *value = (uint32_t)obj;
     });
-    olua_check_std_vector<cocos2d::backend::TextureBackend *>(L, 4, &arg3, [L](cocos2d::backend::TextureBackend **value) {
+    olua_check_array<cocos2d::backend::TextureBackend *>(L, 4, &arg3, [L](cocos2d::backend::TextureBackend **value) {
         olua_check_cppobj(L, -1, (void **)value, "ccb.TextureBackend");
     });
 
@@ -2819,7 +2819,7 @@ static int _cocos2d_backend_Program_getActiveAttributes(lua_State *L)
 
     // const std::unordered_map<std::string, AttributeBindInfo> getActiveAttributes()
     const std::unordered_map<std::string, cocos2d::backend::AttributeBindInfo> ret = self->getActiveAttributes();
-    int num_ret = olua_push_std_unordered_map<std::string, cocos2d::backend::AttributeBindInfo>(L, &ret, [L](std::string arg1, cocos2d::backend::AttributeBindInfo arg2) {
+    int num_ret = olua_push_map<std::string, cocos2d::backend::AttributeBindInfo>(L, &ret, [L](std::string arg1, cocos2d::backend::AttributeBindInfo arg2) {
         olua_push_std_string(L, (std::string)arg1);
         olua_push_cocos2d_backend_AttributeBindInfo(L, &arg2);
     });
@@ -2862,7 +2862,7 @@ static int _cocos2d_backend_Program_getAllActiveUniformInfo(lua_State *L)
 
     // const std::unordered_map<std::string, UniformInfo> &getAllActiveUniformInfo(cocos2d::backend::ShaderStage stage)
     const std::unordered_map<std::string, cocos2d::backend::UniformInfo> &ret = self->getAllActiveUniformInfo((cocos2d::backend::ShaderStage)arg1);
-    int num_ret = olua_push_std_unordered_map<std::string, cocos2d::backend::UniformInfo>(L, &ret, [L](std::string arg1, cocos2d::backend::UniformInfo arg2) {
+    int num_ret = olua_push_map<std::string, cocos2d::backend::UniformInfo>(L, &ret, [L](std::string arg1, cocos2d::backend::UniformInfo arg2) {
         olua_push_std_string(L, (std::string)arg1);
         olua_push_cocos2d_backend_UniformInfo(L, &arg2);
     });
@@ -3185,7 +3185,7 @@ static int _cocos2d_backend_TextureBackend_getBytes(lua_State *L)
     olua_check_uint(L, 4, &arg3);
     olua_check_uint(L, 5, &arg4);
     olua_check_bool(L, 6, &arg5);
-    olua_check_std_function(L, 7, &arg6);
+    olua_check_callback(L, 7, &arg6, "std.function");
 
     void *cb_store = (void *)self;
     std::string cb_tag = "Bytes";

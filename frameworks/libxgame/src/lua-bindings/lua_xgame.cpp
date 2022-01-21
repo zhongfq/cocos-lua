@@ -182,7 +182,7 @@ static int _cclua_runtime_alert(lua_State *L)
     olua_check_std_string(L, 2, &arg2);
     olua_check_std_string(L, 3, &arg3);
     olua_check_std_string(L, 4, &arg4);
-    olua_check_std_function(L, 5, &arg5);
+    olua_check_callback(L, 5, &arg5, "std.function");
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.runtime");
     std::string cb_tag = "alert";
@@ -881,12 +881,12 @@ static int _cclua_runtime_openURL1(lua_State *L)
     std::function<void(bool)> arg2;       /** callback */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_check_std_function(L, 2, &arg2);
+    olua_check_callback(L, 2, &arg2, "std.function");
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.runtime");
     std::string cb_tag = "openURL";
     std::string cb_name;
-    if (olua_is_std_function(L, 2)) {
+    if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_NEW);
         lua_Integer cb_ctx = olua_context(L);
         arg2 = [cb_store, cb_name, cb_ctx](bool arg1) {
@@ -944,7 +944,7 @@ static int _cclua_runtime_openURL(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_function(L, 2))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_callback(L, 2, "std.function"))) {
             // static void openURL(const std::string &uri, @localvar @optional const std::function<void (bool)> callback)
             return _cclua_runtime_openURL1(L);
         // }
@@ -1075,7 +1075,7 @@ static int _cclua_runtime_requestPermission(lua_State *L)
     std::function<void(cclua::PermissionStatus)> arg2;       /** callback */
 
     olua_check_uint(L, 1, &arg1);
-    olua_check_std_function(L, 2, &arg2);
+    olua_check_callback(L, 2, &arg2, "std.function");
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.runtime");
     std::string cb_tag = "requestPermission";
@@ -1140,7 +1140,7 @@ static int _cclua_runtime_setDispatcher(lua_State *L)
 
     std::function<void(const std::string &, const std::string &)> arg1;       /** dispatcher */
 
-    olua_check_std_function(L, 1, &arg1);
+    olua_check_callback(L, 1, &arg1, "std.function");
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.runtime");
     std::string cb_tag = "Dispatcher";
@@ -2473,7 +2473,7 @@ static int _cclua_timer_delay(lua_State *L)
     std::function<void()> arg2;       /** callback */
 
     olua_check_number(L, 1, &arg1);
-    olua_check_std_function(L, 2, &arg2);
+    olua_check_callback(L, 2, &arg2, "std.function");
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.timer");
     std::string cb_tag = "delay";
@@ -2512,7 +2512,7 @@ static int _cclua_timer_delayWithTag(lua_State *L)
 
     olua_check_number(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
-    olua_check_std_function(L, 3, &arg3);
+    olua_check_callback(L, 3, &arg3, "std.function");
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.timer");
     std::string cb_tag = makeTimerDelayTag(arg2);
@@ -2976,7 +2976,7 @@ static int _cclua_downloader_setDispatcher(lua_State *L)
 
     std::function<void(const std::string &, const std::string &)> arg1;       /** dispatcher */
 
-    olua_check_std_function(L, 1, &arg1);
+    olua_check_callback(L, 1, &arg1, "std.function");
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.downloader");
     std::string cb_tag = "Dispatcher";
@@ -3011,7 +3011,7 @@ static int _cclua_downloader_setURIResolver(lua_State *L)
 
     std::function<std::string(const std::string &)> arg1;       /** resolver */
 
-    olua_check_std_function(L, 1, &arg1);
+    olua_check_callback(L, 1, &arg1, "std.function");
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.downloader");
     std::string cb_tag = "URIResolver";

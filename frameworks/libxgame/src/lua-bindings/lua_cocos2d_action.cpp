@@ -3,21 +3,6 @@
 //
 #include "lua_cocos2d_action.h"
 
-bool olua_is_cocos2d_ActionFloat_ActionFloatCallback(lua_State *L, int idx)
-{
-    return olua_is_callback<cocos2d::ActionFloat::ActionFloatCallback>(L, idx);
-}
-
-int olua_push_cocos2d_ActionFloat_ActionFloatCallback(lua_State *L, const cocos2d::ActionFloat::ActionFloatCallback *value)
-{
-    return olua_push_callback<cocos2d::ActionFloat::ActionFloatCallback>(L, value);
-}
-
-void olua_check_cocos2d_ActionFloat_ActionFloatCallback(lua_State *L, int idx, cocos2d::ActionFloat::ActionFloatCallback *value)
-{
-    olua_check_callback<cocos2d::ActionFloat::ActionFloatCallback>(L, idx, value);
-}
-
 static int _cocos2d_tweenfunc_TweenType___index(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1761,7 +1746,7 @@ static int _cocos2d_Sequence_create1(lua_State *L)
 
     cocos2d::Vector<cocos2d::FiniteTimeAction *> arg1;       /** arrayOfActions */
 
-    olua_check_cocos2d_Vector<cocos2d::FiniteTimeAction *>(L, 1, &arg1, [L](cocos2d::FiniteTimeAction **value) {
+    olua_check_array<cocos2d::FiniteTimeAction *>(L, 1, &arg1, [L](cocos2d::FiniteTimeAction **value) {
         olua_check_cppobj(L, -1, (void **)value, "cc.FiniteTimeAction");
     });
 
@@ -1783,7 +1768,7 @@ static int _cocos2d_Sequence_create2(lua_State *L)
 
     cocos2d::Vector<cocos2d::FiniteTimeAction *> arg1;       /** arrayOfActions */
 
-    olua_pack_cocos2d_Vector<cocos2d::FiniteTimeAction *>(L, 1, &arg1, [L](cocos2d::FiniteTimeAction **value) {
+    olua_pack_array<cocos2d::FiniteTimeAction *>(L, 1, &arg1, [L](cocos2d::FiniteTimeAction **value) {
         olua_check_cppobj(L, -1, (void **)value, "cc.FiniteTimeAction");
     });
 
@@ -1793,7 +1778,7 @@ static int _cocos2d_Sequence_create2(lua_State *L)
 
     // insert code after call
     int ref_store = lua_absindex(L, -1);
-    olua_push_cocos2d_Vector<cocos2d::FiniteTimeAction *>(L, &arg1, [L](cocos2d::FiniteTimeAction *value) {
+    olua_push_array<cocos2d::FiniteTimeAction *>(L, &arg1, [L](cocos2d::FiniteTimeAction *value) {
         olua_push_cppobj(L, value, "cc.FiniteTimeAction");
     });
     olua_addref(L, ref_store, "actions", -1, OLUA_MODE_MULTIPLE | OLUA_FLAG_TABLE);
@@ -1809,12 +1794,12 @@ static int _cocos2d_Sequence_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        if ((olua_is_cocos2d_Vector(L, 1))) {
+        if ((olua_is_array(L, 1))) {
             // static cocos2d::Sequence *create(@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
             return _cocos2d_Sequence_create1(L);
         }
 
-        // if ((olua_canpack_cocos2d_Vector(L, 1))) {
+        // if ((olua_canpack_array(L, 1))) {
             // static cocos2d::Sequence *create(@pack@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
             return _cocos2d_Sequence_create2(L);
         // }
@@ -2059,7 +2044,7 @@ static int _cocos2d_Spawn_create1(lua_State *L)
 
     cocos2d::Vector<cocos2d::FiniteTimeAction *> arg1;       /** arrayOfActions */
 
-    olua_check_cocos2d_Vector<cocos2d::FiniteTimeAction *>(L, 1, &arg1, [L](cocos2d::FiniteTimeAction **value) {
+    olua_check_array<cocos2d::FiniteTimeAction *>(L, 1, &arg1, [L](cocos2d::FiniteTimeAction **value) {
         olua_check_cppobj(L, -1, (void **)value, "cc.FiniteTimeAction");
     });
 
@@ -2081,7 +2066,7 @@ static int _cocos2d_Spawn_create2(lua_State *L)
 
     cocos2d::Vector<cocos2d::FiniteTimeAction *> arg1;       /** arrayOfActions */
 
-    olua_pack_cocos2d_Vector<cocos2d::FiniteTimeAction *>(L, 1, &arg1, [L](cocos2d::FiniteTimeAction **value) {
+    olua_pack_array<cocos2d::FiniteTimeAction *>(L, 1, &arg1, [L](cocos2d::FiniteTimeAction **value) {
         olua_check_cppobj(L, -1, (void **)value, "cc.FiniteTimeAction");
     });
 
@@ -2091,7 +2076,7 @@ static int _cocos2d_Spawn_create2(lua_State *L)
 
     // insert code after call
     int ref_store = lua_absindex(L, -1);
-    olua_push_cocos2d_Vector<cocos2d::FiniteTimeAction *>(L, &arg1, [L](cocos2d::FiniteTimeAction *value) {
+    olua_push_array<cocos2d::FiniteTimeAction *>(L, &arg1, [L](cocos2d::FiniteTimeAction *value) {
         olua_push_cppobj(L, value, "cc.FiniteTimeAction");
     });
     olua_addref(L, ref_store, "actions", -1, OLUA_MODE_MULTIPLE | OLUA_FLAG_TABLE);
@@ -2107,12 +2092,12 @@ static int _cocos2d_Spawn_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        if ((olua_is_cocos2d_Vector(L, 1))) {
+        if ((olua_is_array(L, 1))) {
             // static cocos2d::Spawn *create(@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
             return _cocos2d_Spawn_create1(L);
         }
 
-        // if ((olua_canpack_cocos2d_Vector(L, 1))) {
+        // if ((olua_canpack_array(L, 1))) {
             // static cocos2d::Spawn *create(@pack@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
             return _cocos2d_Spawn_create2(L);
         // }
@@ -4397,7 +4382,7 @@ static int _cocos2d_ActionFloat_ActionFloatCallback___call(lua_State *L)
     olua_startinvoke(L);
 
     luaL_checktype(L, -1, LUA_TFUNCTION);
-    olua_push_callback<cocos2d::ActionFloat::ActionFloatCallback>(L, nullptr);
+    olua_push_callback(L, (cocos2d::ActionFloat::ActionFloatCallback *)nullptr, "cc.ActionFloat.ActionFloatCallback");
 
     olua_endinvoke(L);
 
@@ -4438,7 +4423,7 @@ static int _cocos2d_ActionFloat_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_number(L, 2, &arg2);
     olua_check_number(L, 3, &arg3);
-    olua_check_cocos2d_ActionFloat_ActionFloatCallback(L, 4, &arg4);
+    olua_check_callback(L, 4, &arg4, "cc.ActionFloat.ActionFloatCallback");
 
     void *cb_store = (void *)olua_newobjstub(L, "cc.ActionFloat");
     std::string cb_tag = "ActionFloat";
@@ -6495,7 +6480,7 @@ static int _cocos2d_PointArray_getControlPoints(lua_State *L)
 
     // const std::vector<Vec2> &getControlPoints()
     const std::vector<cocos2d::Vec2> &ret = self->getControlPoints();
-    int num_ret = olua_push_std_vector<cocos2d::Vec2>(L, &ret, [L](cocos2d::Vec2 value) {
+    int num_ret = olua_push_array<cocos2d::Vec2>(L, &ret, [L](cocos2d::Vec2 value) {
         olua_push_cocos2d_Vec2(L, &value);
     });
 
@@ -6622,7 +6607,7 @@ static int _cocos2d_PointArray_setControlPoints(lua_State *L)
     std::vector<cocos2d::Vec2> arg1;       /** controlPoints */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PointArray");
-    olua_check_std_vector<cocos2d::Vec2>(L, 2, &arg1, [L](cocos2d::Vec2 *value) {
+    olua_check_array<cocos2d::Vec2>(L, 2, &arg1, [L](cocos2d::Vec2 *value) {
         olua_check_cocos2d_Vec2(L, -1, value);
     });
 
@@ -7229,7 +7214,7 @@ static int _cocos2d_CallFunc_create(lua_State *L)
 
     std::function<void()> arg1;       /** func */
 
-    olua_check_std_function(L, 1, &arg1);
+    olua_check_callback(L, 1, &arg1, "std.function");
 
     void *cb_store = (void *)olua_newobjstub(L, "cc.CallFunc");
     std::string cb_tag = "CallFunc";

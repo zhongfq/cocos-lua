@@ -22,7 +22,7 @@ static int _cclua_plugin_JPush_addTags(lua_State *L)
 
     std::set<std::string> arg1;       /** tags */
 
-    olua_check_std_set<std::string>(L, 1, &arg1, [L](std::string *value) {
+    olua_check_array<std::string>(L, 1, &arg1, [L](std::string *value) {
         olua_check_std_string(L, -1, value);
     });
 
@@ -64,7 +64,7 @@ static int _cclua_plugin_JPush_deleteTags(lua_State *L)
 
     std::set<std::string> arg1;       /** tags */
 
-    olua_check_std_set<std::string>(L, 1, &arg1, [L](std::string *value) {
+    olua_check_array<std::string>(L, 1, &arg1, [L](std::string *value) {
         olua_check_std_string(L, -1, value);
     });
 
@@ -198,7 +198,7 @@ static int _cclua_plugin_JPush_setTags(lua_State *L)
 
     std::set<std::string> arg1;       /** tags */
 
-    olua_check_std_set<std::string>(L, 1, &arg1, [L](std::string *value) {
+    olua_check_array<std::string>(L, 1, &arg1, [L](std::string *value) {
         olua_check_std_string(L, -1, value);
     });
 
@@ -393,7 +393,7 @@ static int _cclua_plugin_JAuth_getSmsCode(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
     olua_check_std_string(L, 3, &arg3);
-    olua_check_std_function(L, 4, &arg4);
+    olua_check_callback(L, 4, &arg4, "std.function");
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.plugin.JAuth");
     std::string cb_tag = "SmsCode";
@@ -436,7 +436,7 @@ static int _cclua_plugin_JAuth_getToken(lua_State *L)
     std::function<void(const cocos2d::Value &)> arg2;       /** callback */
 
     olua_check_int(L, 1, &arg1);
-    olua_check_std_function(L, 2, &arg2);
+    olua_check_callback(L, 2, &arg2, "std.function");
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.plugin.JAuth");
     std::string cb_tag = "Token";
@@ -510,7 +510,7 @@ static int _cclua_plugin_JAuth_loginAuth(lua_State *L)
     std::function<void(const cocos2d::Value &)> arg2;       /** callback */
 
     olua_check_int(L, 1, &arg1);
-    olua_check_std_function(L, 2, &arg2);
+    olua_check_callback(L, 2, &arg2, "std.function");
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.plugin.JAuth");
     std::string cb_tag = "loginAuth";
@@ -553,7 +553,7 @@ static int _cclua_plugin_JAuth_preLogin(lua_State *L)
     std::function<void(const cocos2d::Value &)> arg2;       /** callback */
 
     olua_check_int(L, 1, &arg1);
-    olua_check_std_function(L, 2, &arg2);
+    olua_check_callback(L, 2, &arg2, "std.function");
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.plugin.JAuth");
     std::string cb_tag = "preLogin";

@@ -22,7 +22,7 @@ typedef {
 }
 
 typedef {
-    conv = 'olua_$$_spine_Vector',
+    conv = 'olua_$$_array',
     cppcls = 'spine::Vector',
 }
 
@@ -126,7 +126,7 @@ typedef {
     cppcls = 'spine::AnimationStateListener',
     luacls = 'sp.AnimationStateListener',
     decltype = 'std::function<void (spine::AnimationState *, spine::EventType, spine::TrackEntry *, spine::Event *)>',
-    conv = 'olua_$$_spine_AnimationStateListener',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -582,7 +582,7 @@ typedef {
     cppcls = 'spine::StartListener',
     luacls = 'sp.StartListener',
     decltype = 'std::function<void (spine::TrackEntry *)>',
-    conv = 'olua_$$_spine_StartListener',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -590,7 +590,7 @@ typedef {
     cppcls = 'spine::InterruptListener',
     luacls = 'sp.InterruptListener',
     decltype = 'std::function<void (spine::TrackEntry *)>',
-    conv = 'olua_$$_spine_InterruptListener',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -598,7 +598,7 @@ typedef {
     cppcls = 'spine::EndListener',
     luacls = 'sp.EndListener',
     decltype = 'std::function<void (spine::TrackEntry *)>',
-    conv = 'olua_$$_spine_EndListener',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -606,7 +606,7 @@ typedef {
     cppcls = 'spine::DisposeListener',
     luacls = 'sp.DisposeListener',
     decltype = 'std::function<void (spine::TrackEntry *)>',
-    conv = 'olua_$$_spine_DisposeListener',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -614,7 +614,7 @@ typedef {
     cppcls = 'spine::CompleteListener',
     luacls = 'sp.CompleteListener',
     decltype = 'std::function<void (spine::TrackEntry *)>',
-    conv = 'olua_$$_spine_CompleteListener',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -622,7 +622,7 @@ typedef {
     cppcls = 'spine::EventListener',
     luacls = 'sp.EventListener',
     decltype = 'std::function<void (spine::TrackEntry *, spine::Event *)>',
-    conv = 'olua_$$_spine_EventListener',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -630,7 +630,7 @@ typedef {
     cppcls = 'spine::UpdateWorldTransformsListener',
     luacls = 'sp.UpdateWorldTransformsListener',
     decltype = 'std::function<void (spine::SkeletonAnimation *)>',
-    conv = 'olua_$$_spine_UpdateWorldTransformsListener',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 

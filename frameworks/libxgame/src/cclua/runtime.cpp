@@ -771,7 +771,7 @@ void runtime::showLog()
     });
     view->addChild(btn);
     view->setAnchorPoint(Vec2(0.5f, 0.5f));
-    view->setScale(0.9, 0.9);
+    view->setScale(0.9f, 0.9f);
     runtime::getRunningScene()->addChild(view);
 }
 

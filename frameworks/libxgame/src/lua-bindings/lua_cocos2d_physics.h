@@ -20,19 +20,4 @@ void olua_pack_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::PhysicsMa
 int olua_unpack_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMaterial *value);
 bool olua_canpack_cocos2d_PhysicsMaterial(lua_State *L, int idx);
 
-// cocos2d::PhysicsRayCastCallbackFunc
-bool olua_is_cocos2d_PhysicsRayCastCallbackFunc(lua_State *L, int idx);
-int olua_push_cocos2d_PhysicsRayCastCallbackFunc(lua_State *L, const cocos2d::PhysicsRayCastCallbackFunc *value);
-void olua_check_cocos2d_PhysicsRayCastCallbackFunc(lua_State *L, int idx, cocos2d::PhysicsRayCastCallbackFunc *value);
-
-// cocos2d::PhysicsQueryRectCallbackFunc
-bool olua_is_cocos2d_PhysicsQueryRectCallbackFunc(lua_State *L, int idx);
-int olua_push_cocos2d_PhysicsQueryRectCallbackFunc(lua_State *L, const cocos2d::PhysicsQueryRectCallbackFunc *value);
-void olua_check_cocos2d_PhysicsQueryRectCallbackFunc(lua_State *L, int idx, cocos2d::PhysicsQueryRectCallbackFunc *value);
-
-// cocos2d::PhysicsQueryPointCallbackFunc
-bool olua_is_cocos2d_PhysicsQueryPointCallbackFunc(lua_State *L, int idx);
-int olua_push_cocos2d_PhysicsQueryPointCallbackFunc(lua_State *L, const cocos2d::PhysicsQueryPointCallbackFunc *value);
-void olua_check_cocos2d_PhysicsQueryPointCallbackFunc(lua_State *L, int idx, cocos2d::PhysicsQueryPointCallbackFunc *value);
-
 #endif

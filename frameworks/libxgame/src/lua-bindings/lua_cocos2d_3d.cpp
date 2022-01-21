@@ -432,22 +432,22 @@ static int _cocos2d_Mesh_create1(lua_State *L)
     std::vector<float> arg3;       /** texs */
     std::vector<unsigned short> arg4;       /** indices */
 
-    olua_check_std_vector<float>(L, 1, &arg1, [L](float *value) {
+    olua_check_array<float>(L, 1, &arg1, [L](float *value) {
         lua_Number obj;
         olua_check_number(L, -1, &obj);
         *value = (float)obj;
     });
-    olua_check_std_vector<float>(L, 2, &arg2, [L](float *value) {
+    olua_check_array<float>(L, 2, &arg2, [L](float *value) {
         lua_Number obj;
         olua_check_number(L, -1, &obj);
         *value = (float)obj;
     });
-    olua_check_std_vector<float>(L, 3, &arg3, [L](float *value) {
+    olua_check_array<float>(L, 3, &arg3, [L](float *value) {
         lua_Number obj;
         olua_check_number(L, -1, &obj);
         *value = (float)obj;
     });
-    olua_check_std_vector<unsigned short>(L, 4, &arg4, [L](unsigned short *value) {
+    olua_check_array<unsigned short>(L, 4, &arg4, [L](unsigned short *value) {
         lua_Unsigned obj;
         olua_check_uint(L, -1, &obj);
         *value = (unsigned short)obj;
@@ -471,18 +471,18 @@ static int _cocos2d_Mesh_create2(lua_State *L)
     std::vector<unsigned short> arg3;       /** indices */
     std::vector<cocos2d::MeshVertexAttrib> arg4;       /** attribs */
 
-    olua_check_std_vector<float>(L, 1, &arg1, [L](float *value) {
+    olua_check_array<float>(L, 1, &arg1, [L](float *value) {
         lua_Number obj;
         olua_check_number(L, -1, &obj);
         *value = (float)obj;
     });
     olua_check_int(L, 2, &arg2);
-    olua_check_std_vector<unsigned short>(L, 3, &arg3, [L](unsigned short *value) {
+    olua_check_array<unsigned short>(L, 3, &arg3, [L](unsigned short *value) {
         lua_Unsigned obj;
         olua_check_uint(L, -1, &obj);
         *value = (unsigned short)obj;
     });
-    olua_check_std_vector<cocos2d::MeshVertexAttrib>(L, 4, &arg4, [L](cocos2d::MeshVertexAttrib *value) {
+    olua_check_array<cocos2d::MeshVertexAttrib>(L, 4, &arg4, [L](cocos2d::MeshVertexAttrib *value) {
         olua_check_cocos2d_MeshVertexAttrib(L, -1, value);
     });
 
@@ -500,12 +500,12 @@ static int _cocos2d_Mesh_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 4) {
-        if ((olua_is_std_vector(L, 1)) && (olua_is_std_vector(L, 2)) && (olua_is_std_vector(L, 3)) && (olua_is_std_vector(L, 4))) {
+        if ((olua_is_array(L, 1)) && (olua_is_array(L, 2)) && (olua_is_array(L, 3)) && (olua_is_array(L, 4))) {
             // static cocos2d::Mesh *create(const std::vector<float> &positions, const std::vector<float> &normals, const std::vector<float> &texs, const std::vector<unsigned short> &indices)
             return _cocos2d_Mesh_create1(L);
         }
 
-        // if ((olua_is_std_vector(L, 1)) && (olua_is_int(L, 2)) && (olua_is_std_vector(L, 3)) && (olua_is_std_vector(L, 4))) {
+        // if ((olua_is_array(L, 1)) && (olua_is_int(L, 2)) && (olua_is_array(L, 3)) && (olua_is_array(L, 4))) {
             // static cocos2d::Mesh *create(const std::vector<float> &vertices, int perVertexSizeInFloat, const std::vector<unsigned short> &indices, const std::vector<MeshVertexAttrib> &attribs)
             return _cocos2d_Mesh_create2(L);
         // }
@@ -2054,7 +2054,7 @@ static int _cocos2d_Sprite3D_createAsync1(lua_State *L)
     void *arg3 = nullptr;       /** callbackparam */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_check_std_function(L, 2, &arg2);
+    olua_check_callback(L, 2, &arg2, "std.function");
     olua_check_obj(L, 3, (void **)&arg3, "void *");
 
     void *cb_store = (void *)olua_pushclassobj(L, "cc.Sprite3D");
@@ -2100,7 +2100,7 @@ static int _cocos2d_Sprite3D_createAsync2(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
-    olua_check_std_function(L, 3, &arg3);
+    olua_check_callback(L, 3, &arg3, "std.function");
     olua_check_obj(L, 4, (void **)&arg4, "void *");
 
     void *cb_store = (void *)olua_pushclassobj(L, "cc.Sprite3D");
@@ -2140,14 +2140,14 @@ static int _cocos2d_Sprite3D_createAsync(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 3) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_function(L, 2)) && (olua_is_obj(L, 3, "void *"))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_callback(L, 2, "std.function")) && (olua_is_obj(L, 3, "void *"))) {
             // static void createAsync(const std::string &modelPath, @localvar const std::function<void (Sprite3D *, void *)> &callback, void *callbackparam)
             return _cocos2d_Sprite3D_createAsync1(L);
         // }
     }
 
     if (num_args == 4) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_function(L, 3)) && (olua_is_obj(L, 4, "void *"))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_callback(L, 3, "std.function")) && (olua_is_obj(L, 4, "void *"))) {
             // static void createAsync(const std::string &modelPath, const std::string &texturePath, @localvar const std::function<void (Sprite3D *, void *)> &callback, void *callbackparam)
             return _cocos2d_Sprite3D_createAsync2(L);
         // }
@@ -2295,7 +2295,7 @@ static int _cocos2d_Sprite3D_getMeshArrayByName(lua_State *L)
 
     // std::vector<Mesh *> getMeshArrayByName(const std::string &name)
     std::vector<cocos2d::Mesh *> ret = self->getMeshArrayByName(arg1);
-    int num_ret = olua_push_std_vector<cocos2d::Mesh *>(L, &ret, [L](cocos2d::Mesh *value) {
+    int num_ret = olua_push_array<cocos2d::Mesh *>(L, &ret, [L](cocos2d::Mesh *value) {
         olua_push_cppobj(L, value, "cc.Mesh");
     });
 
@@ -2369,7 +2369,7 @@ static int _cocos2d_Sprite3D_getMeshes(lua_State *L)
 
     // const Vector<cocos2d::Mesh *> &getMeshes()
     const cocos2d::Vector<cocos2d::Mesh *> &ret = self->getMeshes();
-    int num_ret = olua_push_cocos2d_Vector<cocos2d::Mesh *>(L, &ret, [L](cocos2d::Mesh *value) {
+    int num_ret = olua_push_array<cocos2d::Mesh *>(L, &ret, [L](cocos2d::Mesh *value) {
         olua_push_cppobj(L, value, "cc.Mesh");
     });
 

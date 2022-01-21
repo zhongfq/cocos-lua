@@ -41,7 +41,7 @@ typedef {
     cppcls = 'fairygui::EventCallback',
     luacls = 'fgui.EventCallback',
     decltype = 'std::function<void (fairygui::EventContext *)>',
-    conv = 'olua_$$_fairygui_EventCallback',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -89,7 +89,7 @@ typedef {
     cppcls = 'fairygui::InputProcessor::CaptureEventCallback',
     luacls = 'fgui.InputProcessor::CaptureEventCallback',
     decltype = 'std::function<void (int)>',
-    conv = 'olua_$$_fairygui_InputProcessor_CaptureEventCallback',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -153,7 +153,7 @@ typedef {
     cppcls = 'fairygui::GTweener::GTweenCallback',
     luacls = 'fgui.GTweener::GTweenCallback',
     decltype = 'std::function<void (fairygui::GTweener *)>',
-    conv = 'olua_$$_fairygui_GTweener_GTweenCallback',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -161,7 +161,7 @@ typedef {
     cppcls = 'fairygui::GTweener::GTweenCallback0',
     luacls = 'fgui.GTweener::GTweenCallback0',
     decltype = 'std::function<void ()>',
-    conv = 'olua_$$_fairygui_GTweener_GTweenCallback0',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -465,7 +465,7 @@ typedef {
     cppcls = 'fairygui::GList::ListItemRenderer',
     luacls = 'fgui.GList::ListItemRenderer',
     decltype = 'std::function<void (int, fairygui::GObject *)>',
-    conv = 'olua_$$_fairygui_GList_ListItemRenderer',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -473,7 +473,7 @@ typedef {
     cppcls = 'fairygui::GList::ListItemProvider',
     luacls = 'fgui.GList::ListItemProvider',
     decltype = 'std::function<std::string (int)>',
-    conv = 'olua_$$_fairygui_GList_ListItemProvider',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -577,7 +577,7 @@ typedef {
     cppcls = 'fairygui::Transition::PlayCompleteCallback',
     luacls = 'fgui.Transition::PlayCompleteCallback',
     decltype = 'std::function<void ()>',
-    conv = 'olua_$$_fairygui_Transition_PlayCompleteCallback',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -585,7 +585,7 @@ typedef {
     cppcls = 'fairygui::Transition::TransitionHook',
     luacls = 'fgui.Transition::TransitionHook',
     decltype = 'std::function<void ()>',
-    conv = 'olua_$$_fairygui_Transition_TransitionHook',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -641,7 +641,7 @@ typedef {
     cppcls = 'fairygui::UIObjectFactory::GLoaderCreator',
     luacls = 'fgui.UIObjectFactory::GLoaderCreator',
     decltype = 'std::function<fairygui::GLoader * ()>',
-    conv = 'olua_$$_fairygui_UIObjectFactory_GLoaderCreator',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -649,7 +649,7 @@ typedef {
     cppcls = 'fairygui::UIObjectFactory::GComponentCreator',
     luacls = 'fgui.UIObjectFactory::GComponentCreator',
     decltype = 'std::function<fairygui::GComponent * ()>',
-    conv = 'olua_$$_fairygui_UIObjectFactory_GComponentCreator',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -681,7 +681,7 @@ typedef {
     cppcls = 'fairygui::GTree::TreeNodeRenderFunction',
     luacls = 'fgui.GTree::TreeNodeRenderFunction',
     decltype = 'std::function<void (fairygui::GTreeNode *, fairygui::GComponent *)>',
-    conv = 'olua_$$_fairygui_GTree_TreeNodeRenderFunction',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 
@@ -689,7 +689,7 @@ typedef {
     cppcls = 'fairygui::GTree::TreeNodeWillExpandFunction',
     luacls = 'fgui.GTree::TreeNodeWillExpandFunction',
     decltype = 'std::function<void (fairygui::GTreeNode *, bool)>',
-    conv = 'olua_$$_fairygui_GTree_TreeNodeWillExpandFunction',
+    conv = 'olua_$$_callback',
     num_vars = nil,
 }
 

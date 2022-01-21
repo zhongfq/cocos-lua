@@ -40,62 +40,11 @@ void olua_insert_array(cocos2d::Vector<T> *array, T value)
     array->pushBack(value);
 }
 
-template <class T>
-void olua_foreach_array(const cocos2d::Vector<T> *array, const std::function<void(T)> &callback)
-{
-    for (auto itor : (*array)) {
-        callback(itor);
-    }
-}
-
-static inline bool olua_is_cocos2d_Vector(lua_State *L, int idx)
-{
-    return olua_istable(L, idx);
-}
-
-template <class T>
-int olua_push_cocos2d_Vector(lua_State *L, const cocos2d::Vector<T> *array, const std::function<void(T)> &push)
-{
-    return olua_push_array<T, cocos2d::Vector>(L, array, push);
-}
-
-template <class T>
-void olua_check_cocos2d_Vector(lua_State *L, int idx, cocos2d::Vector<T> *array, const std::function<void(T *)> &check)
-{
-    olua_check_array<T, cocos2d::Vector>(L, idx, array, check);
-}
-
-template <typename T>
-void olua_pack_cocos2d_Vector(lua_State *L, int idx, cocos2d::Vector<T> *array, const std::function<void(T *)> &check)
-{
-    olua_pack_array<T, cocos2d::Vector>(L, idx, array, check);
-}
-
 // cocos2d::Map
 template <class K, class V>
 void olua_insert_map(cocos2d::Map<K, V> *map, K key, V value)
 {
     map->insert(key, value);
-}
-
-template <class K, class V>
-void olua_foreach_map(const cocos2d::Map<K, V> *map, const std::function<void(K, V)> &callback)
-{
-    for (auto itor : (*map)) {
-        callback(itor.first, itor.second);
-    }
-}
-
-template <class K, class V>
-int olua_push_cocos2d_Map(lua_State *L, const cocos2d::Map<K, V> *map, const std::function<void(K, V)> &push)
-{
-    return olua_push_map<K, V, cocos2d::Map>(L, map, push);
-}
-
-template <class K, class V>
-void olua_check_cocos2d_Map(lua_State *L, int idx, cocos2d::Map<K, V> *map, const std::function<void(K *, V *)> &check)
-{
-    olua_check_map<K, V, cocos2d::Map>(L, idx, map, check);
 }
 
 int olua_push_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value);

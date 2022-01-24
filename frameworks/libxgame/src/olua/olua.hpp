@@ -333,21 +333,15 @@ inline int olua_push_cppobj(lua_State *L, const T *value)
 }
 
 // map
-template <class K, class V>
-void olua_insert_map(std::map<K, V> *map, K key, V value)
-{
-    map->insert(std::make_pair(key, value));
-}
-
-template <class K, class V>
-void olua_insert_map(std::unordered_map<K, V> *map, K key, V value)
-{
-    map->insert(std::make_pair(key, value));
-}
-
 static inline bool olua_is_map(lua_State *L, int idx)
 {
     return olua_istable(L, idx);
+}
+
+template <class K, class V, class Map>
+void olua_insert_map(Map *map, K key, V value)
+{
+    map->insert(std::make_pair(key, value));
 }
 
 template <class K, class V, class Map>
@@ -452,16 +446,23 @@ void olua_pack_array(lua_State *L, int idx, Array *array, const std::function<vo
 }
 
 // callback
+static int olua_callback_wrapper(lua_State *L)
+{
+    lua_pushvalue(L, lua_upvalueindex(1));
+    lua_insert(L, 1);
+    lua_call(L, lua_gettop(L) - 1, LUA_MULTRET);
+    return lua_gettop(L);
+}
+
 static bool olua_is_callback(lua_State *L, int idx, const char *cls)
 {
-    if (olua_isfunction(L, idx)) {
-        return true;
-    }
-    if (olua_istable(L, idx)) {
-        const char *cb_cls = olua_optfieldstring(L, idx, "classname", NULL);
+    bool is_wrapper = lua_tocfunction(L, idx) == olua_callback_wrapper;
+    if (is_wrapper && lua_getupvalue(L, idx, 2)) {
+        const char *cb_cls = lua_tostring(L, -1);
+        lua_pop(L, 1);
         return cb_cls && strcmp(cb_cls, cls) == 0;
     }
-    return false;
+    return olua_isfunction(L, idx);
 }
 
 template <typename T>
@@ -471,25 +472,19 @@ int olua_push_callback(lua_State *L, const T *value, const char *cls)
         luaL_error(L, "execpt 'function' or 'nil'");
     }
     if (cls && strcmp(cls, "std.function") == 0) {
+        lua_pushvalue(L, -1);
         return 1;
+    } else {
+        lua_pushvalue(L, -1);
+        lua_pushstring(L, olua_getluatype(L, value, cls));
+        lua_pushcclosure(L, olua_callback_wrapper, 2);
     }
-    cls = olua_getluatype(L, value, cls);
-    lua_createtable(L, 0, 2);
-    lua_pushvalue(L, -2);
-    olua_rawsetf(L, -2, "callback");
-    lua_pushstring(L, cls);
-    olua_rawsetf(L, -2, "classname");
-    lua_replace(L, -2);
     return 1;
 }
 
 template <typename T>
 void olua_check_callback(lua_State *L, int idx, T *value, const char *cls)
 {
-    if (olua_istable(L, idx)) {
-        olua_rawgetf(L, idx, "callback");
-        lua_replace(L, idx);
-    }
     luaL_checktype(L, idx, LUA_TFUNCTION);
 }
 

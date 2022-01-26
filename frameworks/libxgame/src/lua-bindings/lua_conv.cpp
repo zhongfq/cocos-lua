@@ -3629,7 +3629,9 @@ bool olua_canpack_cocos2d_backend_VertexLayout_Attribute(lua_State *L, int idx)
     return olua_is_std_string(L, idx + 0) && olua_is_uint(L, idx + 1) && olua_is_uint(L, idx + 2) && olua_is_uint(L, idx + 3) && olua_is_bool(L, idx + 4);
 }
 
-int luaopen_conv(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_conv(lua_State *L)
 {
     return 0;
 }
+OLUA_END_DECLS

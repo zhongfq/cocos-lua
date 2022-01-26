@@ -12,6 +12,7 @@ headers = [[
     #include "3d/CC3DProgramInfo.h"
 ]]
 chunk = nil
+luaopen = nil
 
 typeconv 'cocos2d::MeshVertexAttrib'
     .var('type', 'cocos2d::backend::VertexFormat type')

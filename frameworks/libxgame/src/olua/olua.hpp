@@ -311,11 +311,30 @@ inline int olua_pushobjstub(lua_State *L, T *value, void *stub)
     return olua_pushobjstub<T>(L, value, stub, nullptr);
 }
 
+//
 // convertor between c++ and lua, use for code generation
-#define olua_push_std_string(L, v)      ((lua_pushstring(L, (v).c_str())), 1)
-#define olua_check_std_string(L, i, v)  (*(v) = olua_checkstring(L, (i)))
-#define olua_is_std_string(L, i)        (olua_isstring(L, (i)))
+//
 
+// std::string
+static inline bool olua_is_std_string(lua_State *L, int idx)
+{
+    return olua_isstring(L, idx);
+}
+
+static inline int olua_push_std_string(lua_State *L, const std::string &value)
+{
+    lua_pushlstring(L, value.c_str(), value.length());
+    return 1;
+}
+
+static inline void olua_check_std_string(lua_State *L, int idx, std::string *value)
+{
+    size_t len;
+    const char *str = olua_checklstring(L, idx, &len);
+    *value = std::string(str, len);
+}
+
+// c++ object
 #define olua_to_cppobj(L, i, v, c)      (olua_to_obj(L, (i), (v), (c)))
 #define olua_check_cppobj(L, i, v, c)   (olua_check_obj(L, (i), (v), (c)))
 #define olua_is_cppobj(L, i, c)         (olua_is_obj(L, (i), (c)))

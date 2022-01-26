@@ -12,6 +12,7 @@ headers = [[
     #include "CCDragonBonesHeaders.h"
 ]]
 chunk = nil
+luaopen = nil
 
 typeconv 'dragonBones::Rectangle'
     .var('x', 'float x')

@@ -454,7 +454,8 @@ static int _cclua_plugin_TCAgent_viewItem(lua_State *L)
     return 0;
 }
 
-static int luaopen_cclua_plugin_TCAgent(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_plugin_TCAgent(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.TalkingData", nullptr);
     oluacls_func(L, "__olua_move", _cclua_plugin_TCAgent___olua_move);
@@ -478,12 +479,16 @@ static int luaopen_cclua_plugin_TCAgent(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 #endif
 
-int luaopen_talkingdata(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_talkingdata(lua_State *L)
 {
 #ifdef CCLUA_BUILD_TALKINGDATA
     olua_require(L, "cclua.plugin.TalkingData", luaopen_cclua_plugin_TCAgent);
 #endif
+
     return 0;
 }
+OLUA_END_DECLS

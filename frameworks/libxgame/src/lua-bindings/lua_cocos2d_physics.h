@@ -10,7 +10,9 @@
 #include "cclua/xlua.h"
 #include "cocos2d.h"
 
-int luaopen_cocos2d_physics(lua_State *L);
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_physics(lua_State *L);
+OLUA_END_DECLS
 
 // cocos2d::PhysicsMaterial
 int olua_push_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMaterial *value);

@@ -16,6 +16,8 @@
 #include "cclua/window.h"
 #include "olua/olua.hpp"
 
-int luaopen_xgame(lua_State *L);
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_xgame(lua_State *L);
+OLUA_END_DECLS
 
 #endif

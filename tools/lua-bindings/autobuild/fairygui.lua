@@ -35,6 +35,7 @@ chunk = [[
         }
     }
 ]]
+luaopen = nil
 
 typeconv 'fairygui::Margin'
     .var('left', 'float left')

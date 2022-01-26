@@ -12,6 +12,7 @@ headers = [[
     #include "cocos2d.h"
 ]]
 chunk = nil
+luaopen = nil
 
 typeconv 'cocos2d::PhysicsMaterial'
     .var('density', 'float density')

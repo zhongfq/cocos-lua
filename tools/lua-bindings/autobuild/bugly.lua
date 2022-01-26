@@ -11,6 +11,7 @@ headers = [[
     #include "bugly/CrashReport.h"
 ]]
 chunk = nil
+luaopen = nil
 
 
 typeconf 'cclua::CrashReport::LogLevel'

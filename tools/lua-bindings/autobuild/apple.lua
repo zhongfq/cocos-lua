@@ -11,6 +11,7 @@ headers = [[
     #include "apple/Apple.h"
 ]]
 chunk = nil
+luaopen = nil
 
 
 typeconf 'cclua::plugin::AppleAuth'

@@ -9,6 +9,8 @@
 #include "cclua/xlua.h"
 #include "TalkingData.h"
 
-int luaopen_talkingdata(lua_State *L);
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_talkingdata(lua_State *L);
+OLUA_END_DECLS
 
 #endif

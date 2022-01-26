@@ -11,6 +11,7 @@ headers = [[
     #include "JiGuang.h"
 ]]
 chunk = nil
+luaopen = nil
 
 
 typeconf 'cclua::plugin::JPush'

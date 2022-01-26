@@ -210,7 +210,8 @@ static int _cclua_plugin_JPush_setTags(lua_State *L)
     return 0;
 }
 
-static int luaopen_cclua_plugin_JPush(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_plugin_JPush(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.JPush", nullptr);
     oluacls_func(L, "__olua_move", _cclua_plugin_JPush___olua_move);
@@ -235,6 +236,7 @@ static int luaopen_cclua_plugin_JPush(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 #endif
 
 #ifdef CCLUA_BUILD_JAUTH
@@ -620,7 +622,8 @@ static int _cclua_plugin_JAuth_setSmsIntervalTime(lua_State *L)
     return 0;
 }
 
-static int luaopen_cclua_plugin_JAuth(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_plugin_JAuth(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.JAuth", nullptr);
     oluacls_func(L, "__olua_move", _cclua_plugin_JAuth___olua_move);
@@ -643,6 +646,7 @@ static int luaopen_cclua_plugin_JAuth(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 #endif
 
 #ifdef CCLUA_BUILD_JANALYTICS
@@ -659,7 +663,8 @@ static int _cclua_plugin_JAnalytics_EventType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cclua_plugin_JAnalytics_EventType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_plugin_JAnalytics_EventType(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.JAnalytics.EventType", nullptr);
     oluacls_func(L, "__index", _cclua_plugin_JAnalytics_EventType___index);
@@ -674,6 +679,7 @@ static int luaopen_cclua_plugin_JAnalytics_EventType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 #endif
 
 #ifdef CCLUA_BUILD_JANALYTICS
@@ -817,7 +823,8 @@ static int _cclua_plugin_JAnalytics_trackEvent(lua_State *L)
     return 0;
 }
 
-static int luaopen_cclua_plugin_JAnalytics(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_plugin_JAnalytics(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.JAnalytics", nullptr);
     oluacls_func(L, "__olua_move", _cclua_plugin_JAnalytics___olua_move);
@@ -835,9 +842,11 @@ static int luaopen_cclua_plugin_JAnalytics(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 #endif
 
-int luaopen_jiguang(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_jiguang(lua_State *L)
 {
 #ifdef CCLUA_BUILD_JPUSH
     olua_require(L, "cclua.plugin.JPush", luaopen_cclua_plugin_JPush);
@@ -851,5 +860,7 @@ int luaopen_jiguang(lua_State *L)
 #ifdef CCLUA_BUILD_JANALYTICS
     olua_require(L, "cclua.plugin.JAnalytics", luaopen_cclua_plugin_JAnalytics);
 #endif
+
     return 0;
 }
+OLUA_END_DECLS

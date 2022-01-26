@@ -11,6 +11,7 @@ headers = [[
     #include "WeChat.h"
 ]]
 chunk = nil
+luaopen = nil
 
 
 typeconf 'cclua::plugin::WeChat::ShareType'

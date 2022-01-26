@@ -11,6 +11,8 @@ new_globals = {
     "include",
     "ipairs",
     "luacls",
+    "luaopen",
+    "olua"
     "pairs",
     "path",
     "typeconf",

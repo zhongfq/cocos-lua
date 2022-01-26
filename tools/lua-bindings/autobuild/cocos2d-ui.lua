@@ -14,6 +14,7 @@ headers = [[
     #include "ui/UIScrollViewBar.h"
 ]]
 chunk = nil
+luaopen = nil
 
 
 typeconf 'cocos2d::ui::Widget::FocusDirection'

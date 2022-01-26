@@ -9,6 +9,8 @@
 #include "cclua/xlua.h"
 #include "JiGuang.h"
 
-int luaopen_jiguang(lua_State *L);
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_jiguang(lua_State *L);
+OLUA_END_DECLS
 
 #endif

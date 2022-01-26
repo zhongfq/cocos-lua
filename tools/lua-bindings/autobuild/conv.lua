@@ -12,6 +12,7 @@ headers = [[
     #include "navmesh/CCNavMesh.h"
 ]]
 chunk = nil
+luaopen = nil
 
 typeconv 'cocos2d::Vec2'
     .var('x', 'float x')

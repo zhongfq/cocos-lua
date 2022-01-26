@@ -9,6 +9,8 @@
 #include "cocos2d.h"
 #include "cclua/xlua.h"
 
-int luaopen_cocos2d_backend(lua_State *L);
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_backend(lua_State *L);
+OLUA_END_DECLS
 
 #endif

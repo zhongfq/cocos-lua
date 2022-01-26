@@ -47,6 +47,14 @@ extern "C" {
 #include <assert.h>
 #include <math.h>
 
+#if defined(__cplusplus)
+#define OLUA_BEGIN_DECLS   extern "C" {
+#define OLUA_END_DECLS     }
+#else
+#define OLUA_BEGIN_DECLS
+#define OLUA_END_DECLS
+#endif
+
 #ifdef OLUA_DEBUG
 #define olua_assert(e, msg) assert((e) && (msg))
 #else

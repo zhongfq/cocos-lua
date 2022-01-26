@@ -88,7 +88,8 @@ static int _cclua_SceneNoCamera_new(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cclua_SceneNoCamera(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_SceneNoCamera(lua_State *L)
 {
     oluacls_class(L, "cclua.SceneNoCamera", "cc.Scene");
     oluacls_func(L, "__olua_move", _cclua_SceneNoCamera___olua_move);
@@ -101,6 +102,7 @@ static int luaopen_cclua_SceneNoCamera(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cclua_Permission___index(lua_State *L)
 {
@@ -115,7 +117,8 @@ static int _cclua_Permission___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cclua_Permission(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_Permission(lua_State *L)
 {
     oluacls_class(L, "cclua.Permission", nullptr);
     oluacls_func(L, "__index", _cclua_Permission___index);
@@ -128,6 +131,7 @@ static int luaopen_cclua_Permission(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cclua_PermissionStatus___index(lua_State *L)
 {
@@ -142,7 +146,8 @@ static int _cclua_PermissionStatus___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cclua_PermissionStatus(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_PermissionStatus(lua_State *L)
 {
     oluacls_class(L, "cclua.PermissionStatus", nullptr);
     oluacls_func(L, "__index", _cclua_PermissionStatus___index);
@@ -155,6 +160,7 @@ static int luaopen_cclua_PermissionStatus(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cclua_runtime___olua_move(lua_State *L)
 {
@@ -1368,7 +1374,8 @@ static int _cclua_runtime_testCrash(lua_State *L)
     return 0;
 }
 
-static int luaopen_cclua_runtime(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_runtime(lua_State *L)
 {
     oluacls_class(L, "cclua.runtime", nullptr);
     oluacls_func(L, "__olua_move", _cclua_runtime___olua_move);
@@ -1468,6 +1475,7 @@ static int luaopen_cclua_runtime(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cclua_filesystem___olua_move(lua_State *L)
 {
@@ -1956,7 +1964,8 @@ static int _cclua_filesystem_write(lua_State *L)
     return 0;
 }
 
-static int luaopen_cclua_filesystem(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_filesystem(lua_State *L)
 {
     oluacls_class(L, "cclua.filesystem", nullptr);
     oluacls_func(L, "__olua_move", _cclua_filesystem___olua_move);
@@ -1990,6 +1999,7 @@ static int luaopen_cclua_filesystem(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cclua_preferences___olua_move(lua_State *L)
 {
@@ -2416,7 +2426,8 @@ static int _cclua_preferences_setString(lua_State *L)
     return 0;
 }
 
-static int luaopen_cclua_preferences(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_preferences(lua_State *L)
 {
     oluacls_class(L, "cclua.preferences", nullptr);
     oluacls_func(L, "__olua_move", _cclua_preferences___olua_move);
@@ -2437,6 +2448,7 @@ static int luaopen_cclua_preferences(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 #define makeTimerDelayTag(tag) ("delayTag." + tag)
 
@@ -2602,7 +2614,8 @@ static int _cclua_timer_unschedule(lua_State *L)
     return 0;
 }
 
-static int luaopen_cclua_timer(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_timer(lua_State *L)
 {
     oluacls_class(L, "cclua.timer", nullptr);
     oluacls_func(L, "__olua_move", _cclua_timer___olua_move);
@@ -2617,6 +2630,7 @@ static int luaopen_cclua_timer(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cclua_window___olua_move(lua_State *L)
 {
@@ -2853,7 +2867,8 @@ static int _cclua_window_setFrameSize(lua_State *L)
     return 0;
 }
 
-static int luaopen_cclua_window(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_window(lua_State *L)
 {
     oluacls_class(L, "cclua.window", nullptr);
     oluacls_func(L, "__olua_move", _cclua_window___olua_move);
@@ -2872,6 +2887,7 @@ static int luaopen_cclua_window(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cclua_downloader___olua_move(lua_State *L)
 {
@@ -3044,7 +3060,8 @@ static int _cclua_downloader_setURIResolver(lua_State *L)
     return 0;
 }
 
-static int luaopen_cclua_downloader(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_downloader(lua_State *L)
 {
     oluacls_class(L, "cclua.downloader", nullptr);
     oluacls_func(L, "__olua_move", _cclua_downloader___olua_move);
@@ -3058,6 +3075,7 @@ static int luaopen_cclua_downloader(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cclua_MaskLayout___olua_move(lua_State *L)
 {
@@ -3158,7 +3176,8 @@ static int _cclua_MaskLayout_setFilter(lua_State *L)
     return 0;
 }
 
-static int luaopen_cclua_MaskLayout(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_MaskLayout(lua_State *L)
 {
     oluacls_class(L, "cclua.MaskLayout", "ccui.Layout");
     oluacls_func(L, "__olua_move", _cclua_MaskLayout___olua_move);
@@ -3174,8 +3193,10 @@ static int luaopen_cclua_MaskLayout(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
-int luaopen_xgame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_xgame(lua_State *L)
 {
     olua_require(L, "cclua.SceneNoCamera", luaopen_cclua_SceneNoCamera);
     olua_require(L, "cclua.Permission", luaopen_cclua_Permission);
@@ -3187,5 +3208,7 @@ int luaopen_xgame(lua_State *L)
     olua_require(L, "cclua.window", luaopen_cclua_window);
     olua_require(L, "cclua.downloader", luaopen_cclua_downloader);
     olua_require(L, "cclua.MaskLayout", luaopen_cclua_MaskLayout);
+
     return 0;
 }
+OLUA_END_DECLS

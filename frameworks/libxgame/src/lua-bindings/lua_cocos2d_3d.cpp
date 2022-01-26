@@ -96,7 +96,8 @@ static int _cocos2d_NTextureData_Usage___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_NTextureData_Usage(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_NTextureData_Usage(lua_State *L)
 {
     oluacls_class(L, "cc.NTextureData.Usage", nullptr);
     oluacls_func(L, "__index", _cocos2d_NTextureData_Usage___index);
@@ -116,6 +117,7 @@ static int luaopen_cocos2d_NTextureData_Usage(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_shaderinfos_VertexKey___index(lua_State *L)
 {
@@ -130,7 +132,8 @@ static int _cocos2d_shaderinfos_VertexKey___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_shaderinfos_VertexKey(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_shaderinfos_VertexKey(lua_State *L)
 {
     oluacls_class(L, "cc.VertexKey", nullptr);
     oluacls_func(L, "__index", _cocos2d_shaderinfos_VertexKey___index);
@@ -153,6 +156,7 @@ static int luaopen_cocos2d_shaderinfos_VertexKey(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_shaderinfos_Uniformkey___index(lua_State *L)
 {
@@ -167,7 +171,8 @@ static int _cocos2d_shaderinfos_Uniformkey___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_shaderinfos_Uniformkey(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_shaderinfos_Uniformkey(lua_State *L)
 {
     oluacls_class(L, "cc.Uniformkey", nullptr);
     oluacls_func(L, "__index", _cocos2d_shaderinfos_Uniformkey___index);
@@ -192,6 +197,7 @@ static int luaopen_cocos2d_shaderinfos_Uniformkey(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_NTextureData___olua_move(lua_State *L)
 {
@@ -380,7 +386,8 @@ static int _cocos2d_NTextureData_set_wrapT(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_NTextureData(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_NTextureData(lua_State *L)
 {
     oluacls_class(L, "cc.NTextureData", nullptr);
     oluacls_func(L, "__olua_move", _cocos2d_NTextureData___olua_move);
@@ -394,6 +401,7 @@ static int luaopen_cocos2d_NTextureData(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_Mesh___olua_move(lua_State *L)
 {
@@ -1122,7 +1130,8 @@ static int _cocos2d_Mesh_setVisible(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_Mesh(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_Mesh(lua_State *L)
 {
     oluacls_class(L, "cc.Mesh", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocos2d_Mesh___olua_move);
@@ -1171,6 +1180,7 @@ static int luaopen_cocos2d_Mesh(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_MeshSkin___olua_move(lua_State *L)
 {
@@ -1376,7 +1386,8 @@ static int _cocos2d_MeshSkin_removeAllBones(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_MeshSkin(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_MeshSkin(lua_State *L)
 {
     oluacls_class(L, "cc.MeshSkin", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocos2d_MeshSkin___olua_move);
@@ -1400,6 +1411,7 @@ static int luaopen_cocos2d_MeshSkin(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_BillBoard_Mode___index(lua_State *L)
 {
@@ -1414,7 +1426,8 @@ static int _cocos2d_BillBoard_Mode___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_BillBoard_Mode(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_BillBoard_Mode(lua_State *L)
 {
     oluacls_class(L, "cc.BillBoard.Mode", nullptr);
     oluacls_func(L, "__index", _cocos2d_BillBoard_Mode___index);
@@ -1425,6 +1438,7 @@ static int luaopen_cocos2d_BillBoard_Mode(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_BillBoard___olua_move(lua_State *L)
 {
@@ -1697,7 +1711,8 @@ static int _cocos2d_BillBoard_setMode(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_BillBoard(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_BillBoard(lua_State *L)
 {
     oluacls_class(L, "cc.BillBoard", "cc.Sprite");
     oluacls_func(L, "__olua_move", _cocos2d_BillBoard___olua_move);
@@ -1712,6 +1727,7 @@ static int luaopen_cocos2d_BillBoard(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_Sprite3DMaterial_MaterialType___index(lua_State *L)
 {
@@ -1726,7 +1742,8 @@ static int _cocos2d_Sprite3DMaterial_MaterialType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_Sprite3DMaterial_MaterialType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_Sprite3DMaterial_MaterialType(lua_State *L)
 {
     oluacls_class(L, "cc.Sprite3DMaterial.MaterialType", nullptr);
     oluacls_func(L, "__index", _cocos2d_Sprite3DMaterial_MaterialType___index);
@@ -1742,6 +1759,7 @@ static int luaopen_cocos2d_Sprite3DMaterial_MaterialType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_Sprite3DMaterial___olua_move(lua_State *L)
 {
@@ -1902,7 +1920,8 @@ static int _cocos2d_Sprite3DMaterial_setTexture(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_Sprite3DMaterial(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_Sprite3DMaterial(lua_State *L)
 {
     oluacls_class(L, "cc.Sprite3DMaterial", "cc.Material");
     oluacls_func(L, "__olua_move", _cocos2d_Sprite3DMaterial___olua_move);
@@ -1919,6 +1938,7 @@ static int luaopen_cocos2d_Sprite3DMaterial(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_Sprite3D___olua_move(lua_State *L)
 {
@@ -2679,7 +2699,8 @@ static int _cocos2d_Sprite3D_setTexture(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_Sprite3D(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_Sprite3D(lua_State *L)
 {
     oluacls_class(L, "cc.Sprite3D", "cc.Node");
     oluacls_func(L, "__olua_move", _cocos2d_Sprite3D___olua_move);
@@ -2724,6 +2745,7 @@ static int luaopen_cocos2d_Sprite3D(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_AttachNode___olua_move(lua_State *L)
 {
@@ -2768,7 +2790,8 @@ static int _cocos2d_AttachNode_new(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocos2d_AttachNode(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_AttachNode(lua_State *L)
 {
     oluacls_class(L, "cc.AttachNode", "cc.Node");
     oluacls_func(L, "__olua_move", _cocos2d_AttachNode___olua_move);
@@ -2779,6 +2802,7 @@ static int luaopen_cocos2d_AttachNode(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_Bone3D___olua_move(lua_State *L)
 {
@@ -3067,7 +3091,8 @@ static int _cocos2d_Bone3D_updateWorldMat(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_Bone3D(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_Bone3D(lua_State *L)
 {
     oluacls_class(L, "cc.Bone3D", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocos2d_Bone3D___olua_move);
@@ -3097,6 +3122,7 @@ static int luaopen_cocos2d_Bone3D(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_Skeleton3D___olua_move(lua_State *L)
 {
@@ -3284,7 +3310,8 @@ static int _cocos2d_Skeleton3D_updateBoneMatrix(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_Skeleton3D(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_Skeleton3D(lua_State *L)
 {
     oluacls_class(L, "cc.Skeleton3D", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocos2d_Skeleton3D___olua_move);
@@ -3305,8 +3332,10 @@ static int luaopen_cocos2d_Skeleton3D(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
-int luaopen_cocos2d_3d(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_3d(lua_State *L)
 {
     olua_require(L, "cc.NTextureData.Usage", luaopen_cocos2d_NTextureData_Usage);
     olua_require(L, "cc.VertexKey", luaopen_cocos2d_shaderinfos_VertexKey);
@@ -3322,5 +3351,7 @@ int luaopen_cocos2d_3d(lua_State *L)
     olua_require(L, "cc.AttachNode", luaopen_cocos2d_AttachNode);
     olua_require(L, "cc.Bone3D", luaopen_cocos2d_Bone3D);
     olua_require(L, "cc.Skeleton3D", luaopen_cocos2d_Skeleton3D);
+
     return 0;
 }
+OLUA_END_DECLS

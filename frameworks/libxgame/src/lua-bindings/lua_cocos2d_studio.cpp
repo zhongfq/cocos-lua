@@ -697,7 +697,8 @@ static int _cocos2d_CSLoader_setRecordJsonPath(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_CSLoader(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_CSLoader(lua_State *L)
 {
     oluacls_class(L, "cc.CSLoader", nullptr);
     oluacls_func(L, "__gc", _cocos2d_CSLoader___gc);
@@ -728,6 +729,7 @@ static int luaopen_cocos2d_CSLoader(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_MovementEventType___index(lua_State *L)
 {
@@ -742,7 +744,8 @@ static int _cocostudio_MovementEventType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_MovementEventType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_MovementEventType(lua_State *L)
 {
     oluacls_class(L, "ccs.MovementEventType", nullptr);
     oluacls_func(L, "__index", _cocostudio_MovementEventType___index);
@@ -754,6 +757,7 @@ static int luaopen_cocostudio_MovementEventType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_DisplayType___index(lua_State *L)
 {
@@ -768,7 +772,8 @@ static int _cocostudio_DisplayType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_DisplayType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_DisplayType(lua_State *L)
 {
     oluacls_class(L, "ccs.DisplayType", nullptr);
     oluacls_func(L, "__index", _cocostudio_DisplayType___index);
@@ -781,6 +786,7 @@ static int luaopen_cocostudio_DisplayType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ActionFrame___olua_move(lua_State *L)
 {
@@ -1039,7 +1045,8 @@ static int _cocostudio_ActionFrame_setFrameType(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_ActionFrame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ActionFrame(lua_State *L)
 {
     oluacls_class(L, "ccs.ActionFrame", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_ActionFrame___olua_move);
@@ -1063,6 +1070,7 @@ static int luaopen_cocostudio_ActionFrame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ActionFadeFrame___olua_move(lua_State *L)
 {
@@ -1125,7 +1133,8 @@ static int _cocostudio_ActionFadeFrame_setOpacity(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_ActionFadeFrame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ActionFadeFrame(lua_State *L)
 {
     oluacls_class(L, "ccs.ActionFadeFrame", "ccs.ActionFrame");
     oluacls_func(L, "__olua_move", _cocostudio_ActionFadeFrame___olua_move);
@@ -1138,6 +1147,7 @@ static int luaopen_cocostudio_ActionFadeFrame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ActionFrameEasing___olua_move(lua_State *L)
 {
@@ -1203,7 +1213,8 @@ static int _cocostudio_ActionFrameEasing_new(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocostudio_ActionFrameEasing(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ActionFrameEasing(lua_State *L)
 {
     oluacls_class(L, "ccs.ActionFrameEasing", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_ActionFrameEasing___olua_move);
@@ -1215,6 +1226,7 @@ static int luaopen_cocostudio_ActionFrameEasing(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ActionMoveFrame___olua_move(lua_State *L)
 {
@@ -1277,7 +1289,8 @@ static int _cocostudio_ActionMoveFrame_setPosition(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_ActionMoveFrame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ActionMoveFrame(lua_State *L)
 {
     oluacls_class(L, "ccs.ActionMoveFrame", "ccs.ActionFrame");
     oluacls_func(L, "__olua_move", _cocostudio_ActionMoveFrame___olua_move);
@@ -1290,6 +1303,7 @@ static int luaopen_cocostudio_ActionMoveFrame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ActionRotationFrame___olua_move(lua_State *L)
 {
@@ -1352,7 +1366,8 @@ static int _cocostudio_ActionRotationFrame_setRotation(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_ActionRotationFrame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ActionRotationFrame(lua_State *L)
 {
     oluacls_class(L, "ccs.ActionRotationFrame", "ccs.ActionFrame");
     oluacls_func(L, "__olua_move", _cocostudio_ActionRotationFrame___olua_move);
@@ -1365,6 +1380,7 @@ static int luaopen_cocostudio_ActionRotationFrame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ActionScaleFrame___olua_move(lua_State *L)
 {
@@ -1462,7 +1478,8 @@ static int _cocostudio_ActionScaleFrame_setScaleY(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_ActionScaleFrame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ActionScaleFrame(lua_State *L)
 {
     oluacls_class(L, "ccs.ActionScaleFrame", "ccs.ActionFrame");
     oluacls_func(L, "__olua_move", _cocostudio_ActionScaleFrame___olua_move);
@@ -1478,6 +1495,7 @@ static int luaopen_cocostudio_ActionScaleFrame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ActionTintFrame___olua_move(lua_State *L)
 {
@@ -1540,7 +1558,8 @@ static int _cocostudio_ActionTintFrame_setColor(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_ActionTintFrame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ActionTintFrame(lua_State *L)
 {
     oluacls_class(L, "ccs.ActionTintFrame", "ccs.ActionFrame");
     oluacls_func(L, "__olua_move", _cocostudio_ActionTintFrame___olua_move);
@@ -1553,6 +1572,7 @@ static int luaopen_cocostudio_ActionTintFrame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_AnimationData___olua_move(lua_State *L)
 {
@@ -1762,7 +1782,8 @@ static int _cocostudio_AnimationData_set_name(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_AnimationData(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_AnimationData(lua_State *L)
 {
     oluacls_class(L, "ccs.AnimationData", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_AnimationData___olua_move);
@@ -1780,6 +1801,7 @@ static int luaopen_cocostudio_AnimationData(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_Armature___olua_move(lua_State *L)
 {
@@ -2349,7 +2371,8 @@ static int _cocostudio_Armature_updateOffsetPoint(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_Armature(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_Armature(lua_State *L)
 {
     oluacls_class(L, "ccs.Armature", "cc.Node");
     oluacls_func(L, "__olua_move", _cocostudio_Armature___olua_move);
@@ -2391,6 +2414,7 @@ static int luaopen_cocostudio_Armature(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ProcessBase___olua_move(lua_State *L)
 {
@@ -2699,7 +2723,8 @@ static int _cocostudio_ProcessBase_update(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_ProcessBase(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ProcessBase(lua_State *L)
 {
     oluacls_class(L, "ccs.ProcessBase", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_ProcessBase___olua_move);
@@ -2732,6 +2757,7 @@ static int luaopen_cocostudio_ProcessBase(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ActionManagerEx___olua_move(lua_State *L)
 {
@@ -2926,7 +2952,8 @@ static int _cocostudio_ActionManagerEx_stopActionByName(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocostudio_ActionManagerEx(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ActionManagerEx(lua_State *L)
 {
     oluacls_class(L, "ccs.ActionManagerEx", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_ActionManagerEx___olua_move);
@@ -2945,6 +2972,7 @@ static int luaopen_cocostudio_ActionManagerEx(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ActionNode___olua_move(lua_State *L)
 {
@@ -3251,7 +3279,8 @@ static int _cocostudio_ActionNode_updateActionToTimeLine(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocostudio_ActionNode(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ActionNode(lua_State *L)
 {
     oluacls_class(L, "ccs.ActionNode", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_ActionNode___olua_move);
@@ -3283,6 +3312,7 @@ static int luaopen_cocostudio_ActionNode(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ActionObject___olua_move(lua_State *L)
 {
@@ -3643,7 +3673,8 @@ static int _cocostudio_ActionObject_updateToFrameByTime(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_ActionObject(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ActionObject(lua_State *L)
 {
     oluacls_class(L, "ccs.ActionObject", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_ActionObject___olua_move);
@@ -3676,6 +3707,7 @@ static int luaopen_cocostudio_ActionObject(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ArmatureAnimation___olua_move(lua_State *L)
 {
@@ -4426,7 +4458,8 @@ static int _cocostudio_ArmatureAnimation_setUserObject(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_ArmatureAnimation(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ArmatureAnimation(lua_State *L)
 {
     oluacls_class(L, "ccs.ArmatureAnimation", "ccs.ProcessBase");
     oluacls_func(L, "__olua_move", _cocostudio_ArmatureAnimation___olua_move);
@@ -4459,6 +4492,7 @@ static int luaopen_cocostudio_ArmatureAnimation(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ArmatureData___olua_move(lua_State *L)
 {
@@ -4664,7 +4698,8 @@ static int _cocostudio_ArmatureData_set_name(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_ArmatureData(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ArmatureData(lua_State *L)
 {
     oluacls_class(L, "ccs.ArmatureData", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_ArmatureData___olua_move);
@@ -4681,6 +4716,7 @@ static int luaopen_cocostudio_ArmatureData(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ArmatureDataManager___olua_move(lua_State *L)
 {
@@ -5265,7 +5301,8 @@ static int _cocostudio_ArmatureDataManager_removeTextureData(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_ArmatureDataManager(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ArmatureDataManager(lua_State *L)
 {
     oluacls_class(L, "ccs.ArmatureDataManager", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_ArmatureDataManager___olua_move);
@@ -5298,6 +5335,7 @@ static int luaopen_cocostudio_ArmatureDataManager(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_DisplayData___olua_move(lua_State *L)
 {
@@ -5443,7 +5481,8 @@ static int _cocostudio_DisplayData_set_displayType(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_DisplayData(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_DisplayData(lua_State *L)
 {
     oluacls_class(L, "ccs.DisplayData", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_DisplayData___olua_move);
@@ -5458,6 +5497,7 @@ static int luaopen_cocostudio_DisplayData(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ArmatureDisplayData___olua_move(lua_State *L)
 {
@@ -5498,7 +5538,8 @@ static int _cocostudio_ArmatureDisplayData_new(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocostudio_ArmatureDisplayData(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ArmatureDisplayData(lua_State *L)
 {
     oluacls_class(L, "ccs.ArmatureDisplayData", "ccs.DisplayData");
     oluacls_func(L, "__olua_move", _cocostudio_ArmatureDisplayData___olua_move);
@@ -5509,6 +5550,7 @@ static int luaopen_cocostudio_ArmatureDisplayData(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ArmatureMovementDispatcher___olua_move(lua_State *L)
 {
@@ -5522,7 +5564,8 @@ static int _cocostudio_ArmatureMovementDispatcher___olua_move(lua_State *L)
     return 1;
 }
 
-static int luaopen_cocostudio_ArmatureMovementDispatcher(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ArmatureMovementDispatcher(lua_State *L)
 {
     oluacls_class(L, "ccs.ArmatureMovementDispatcher", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_ArmatureMovementDispatcher___olua_move);
@@ -5531,6 +5574,7 @@ static int luaopen_cocostudio_ArmatureMovementDispatcher(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_BaseData___olua_move(lua_State *L)
 {
@@ -6101,7 +6145,8 @@ static int _cocostudio_BaseData_set_zOrder(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_BaseData(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_BaseData(lua_State *L)
 {
     oluacls_class(L, "ccs.BaseData", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_BaseData___olua_move);
@@ -6130,6 +6175,7 @@ static int luaopen_cocostudio_BaseData(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_BaseTriggerAction___olua_move(lua_State *L)
 {
@@ -6192,7 +6238,8 @@ static int _cocostudio_BaseTriggerAction_removeAll(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_BaseTriggerAction(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_BaseTriggerAction(lua_State *L)
 {
     oluacls_class(L, "ccs.BaseTriggerAction", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_BaseTriggerAction___olua_move);
@@ -6204,6 +6251,7 @@ static int luaopen_cocostudio_BaseTriggerAction(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_BaseTriggerCondition___olua_move(lua_State *L)
 {
@@ -6267,7 +6315,8 @@ static int _cocostudio_BaseTriggerCondition_removeAll(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_BaseTriggerCondition(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_BaseTriggerCondition(lua_State *L)
 {
     oluacls_class(L, "ccs.BaseTriggerCondition", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_BaseTriggerCondition___olua_move);
@@ -6279,6 +6328,7 @@ static int luaopen_cocostudio_BaseTriggerCondition(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_BatchNode___olua_move(lua_State *L)
 {
@@ -6319,7 +6369,8 @@ static int _cocostudio_BatchNode_new(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocostudio_BatchNode(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_BatchNode(lua_State *L)
 {
     oluacls_class(L, "ccs.BatchNode", "cc.Node");
     oluacls_func(L, "__olua_move", _cocostudio_BatchNode___olua_move);
@@ -6330,6 +6381,7 @@ static int luaopen_cocostudio_BatchNode(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_Bone___olua_move(lua_State *L)
 {
@@ -7163,7 +7215,8 @@ static int _cocostudio_Bone_updateZOrder(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_Bone(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_Bone(lua_State *L)
 {
     oluacls_class(L, "ccs.Bone", "cc.Node");
     oluacls_func(L, "__olua_move", _cocostudio_Bone___olua_move);
@@ -7225,6 +7278,7 @@ static int luaopen_cocostudio_Bone(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_BoneData___olua_move(lua_State *L)
 {
@@ -7463,7 +7517,8 @@ static int _cocostudio_BoneData_set_parentName(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_BoneData(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_BoneData(lua_State *L)
 {
     oluacls_class(L, "ccs.BoneData", "ccs.BaseData");
     oluacls_func(L, "__olua_move", _cocostudio_BoneData___olua_move);
@@ -7481,6 +7536,7 @@ static int luaopen_cocostudio_BoneData(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_CocoLoader___olua_move(lua_State *L)
 {
@@ -7494,7 +7550,8 @@ static int _cocostudio_CocoLoader___olua_move(lua_State *L)
     return 1;
 }
 
-static int luaopen_cocostudio_CocoLoader(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_CocoLoader(lua_State *L)
 {
     oluacls_class(L, "ccs.CocoLoader", nullptr);
     oluacls_func(L, "__olua_move", _cocostudio_CocoLoader___olua_move);
@@ -7503,6 +7560,7 @@ static int luaopen_cocostudio_CocoLoader(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ColliderBody___olua_move(lua_State *L)
 {
@@ -7570,7 +7628,8 @@ static int _cocostudio_ColliderBody_new(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocostudio_ColliderBody(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ColliderBody(lua_State *L)
 {
     oluacls_class(L, "ccs.ColliderBody", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_ColliderBody___olua_move);
@@ -7584,6 +7643,7 @@ static int luaopen_cocostudio_ColliderBody(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ColliderDetector___olua_move(lua_State *L)
 {
@@ -7898,7 +7958,8 @@ static int _cocostudio_ColliderDetector_updateTransform(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_ColliderDetector(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ColliderDetector(lua_State *L)
 {
     oluacls_class(L, "ccs.ColliderDetector", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_ColliderDetector___olua_move);
@@ -7923,6 +7984,7 @@ static int luaopen_cocostudio_ColliderDetector(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ColliderFilter___olua_move(lua_State *L)
 {
@@ -7936,7 +7998,8 @@ static int _cocostudio_ColliderFilter___olua_move(lua_State *L)
     return 1;
 }
 
-static int luaopen_cocostudio_ColliderFilter(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ColliderFilter(lua_State *L)
 {
     oluacls_class(L, "ccs.ColliderFilter", nullptr);
     oluacls_func(L, "__olua_move", _cocostudio_ColliderFilter___olua_move);
@@ -7945,6 +8008,7 @@ static int luaopen_cocostudio_ColliderFilter(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ComAttribute___olua_move(lua_State *L)
 {
@@ -8349,7 +8413,8 @@ static int _cocostudio_ComAttribute_setString(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_ComAttribute(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ComAttribute(lua_State *L)
 {
     oluacls_class(L, "ccs.ComAttribute", "cc.Component");
     oluacls_func(L, "__olua_move", _cocostudio_ComAttribute___olua_move);
@@ -8371,6 +8436,7 @@ static int luaopen_cocostudio_ComAttribute(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ComAudio___olua_move(lua_State *L)
 {
@@ -9072,7 +9138,8 @@ static int _cocostudio_ComAudio_willPlayBackgroundMusic(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocostudio_ComAudio(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ComAudio(lua_State *L)
 {
     oluacls_class(L, "ccs.ComAudio", "cc.Component");
     oluacls_func(L, "__olua_move", _cocostudio_ComAudio___olua_move);
@@ -9118,6 +9185,7 @@ static int luaopen_cocostudio_ComAudio(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ComController___olua_move(lua_State *L)
 {
@@ -9171,7 +9239,8 @@ static int _cocostudio_ComController_new(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocostudio_ComController(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ComController(lua_State *L)
 {
     oluacls_class(L, "ccs.ComController", "cc.Component");
     oluacls_func(L, "__olua_move", _cocostudio_ComController___olua_move);
@@ -9184,6 +9253,7 @@ static int luaopen_cocostudio_ComController(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ComRender___olua_move(lua_State *L)
 {
@@ -9353,7 +9423,8 @@ static int _cocostudio_ComRender_setNode(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_ComRender(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ComRender(lua_State *L)
 {
     oluacls_class(L, "ccs.ComRender", "cc.Component");
     oluacls_func(L, "__olua_move", _cocostudio_ComRender___olua_move);
@@ -9369,6 +9440,7 @@ static int luaopen_cocostudio_ComRender(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ContourData___olua_move(lua_State *L)
 {
@@ -9483,7 +9555,8 @@ static int _cocostudio_ContourData_set_vertexList(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_ContourData(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ContourData(lua_State *L)
 {
     oluacls_class(L, "ccs.ContourData", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_ContourData___olua_move);
@@ -9497,6 +9570,7 @@ static int luaopen_cocostudio_ContourData(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_DataReaderHelper___gc(lua_State *L)
 {
@@ -9643,7 +9717,8 @@ static int _cocostudio_DataReaderHelper_setPositionReadScale(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_DataReaderHelper(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_DataReaderHelper(lua_State *L)
 {
     oluacls_class(L, "ccs.DataReaderHelper", nullptr);
     oluacls_func(L, "__gc", _cocostudio_DataReaderHelper___gc);
@@ -9663,6 +9738,7 @@ static int luaopen_cocostudio_DataReaderHelper(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_DecorativeDisplay___olua_move(lua_State *L)
 {
@@ -9825,7 +9901,8 @@ static int _cocostudio_DecorativeDisplay_setDisplayData(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_DecorativeDisplay(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_DecorativeDisplay(lua_State *L)
 {
     oluacls_class(L, "ccs.DecorativeDisplay", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_DecorativeDisplay___olua_move);
@@ -9846,6 +9923,7 @@ static int luaopen_cocostudio_DecorativeDisplay(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_DisplayFactory___olua_move(lua_State *L)
 {
@@ -10093,7 +10171,8 @@ static int _cocostudio_DisplayFactory_updateParticleDisplay(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_DisplayFactory(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_DisplayFactory(lua_State *L)
 {
     oluacls_class(L, "ccs.DisplayFactory", nullptr);
     oluacls_func(L, "__olua_move", _cocostudio_DisplayFactory___olua_move);
@@ -10114,6 +10193,7 @@ static int luaopen_cocostudio_DisplayFactory(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_DisplayManager___olua_move(lua_State *L)
 {
@@ -10639,7 +10719,8 @@ static int _cocostudio_DisplayManager_setVisible(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_DisplayManager(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_DisplayManager(lua_State *L)
 {
     oluacls_class(L, "ccs.DisplayManager", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_DisplayManager___olua_move);
@@ -10683,6 +10764,7 @@ static int luaopen_cocostudio_DisplayManager(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_FrameData___olua_move(lua_State *L)
 {
@@ -11108,7 +11190,8 @@ static int _cocostudio_FrameData_set_tweenEasing(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_FrameData(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_FrameData(lua_State *L)
 {
     oluacls_class(L, "ccs.FrameData", "ccs.BaseData");
     oluacls_func(L, "__olua_move", _cocostudio_FrameData___olua_move);
@@ -11130,6 +11213,7 @@ static int luaopen_cocostudio_FrameData(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_GUIReader___olua_move(lua_State *L)
 {
@@ -11299,7 +11383,8 @@ static int _cocostudio_GUIReader_widgetFromJsonFile(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocostudio_GUIReader(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_GUIReader(lua_State *L)
 {
     oluacls_class(L, "ccs.GUIReader", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_GUIReader___olua_move);
@@ -11319,6 +11404,7 @@ static int luaopen_cocostudio_GUIReader(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_InputDelegate___gc(lua_State *L)
 {
@@ -11761,7 +11847,8 @@ static int _cocostudio_InputDelegate_setTouchPriority(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_InputDelegate(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_InputDelegate(lua_State *L)
 {
     oluacls_class(L, "ccs.InputDelegate", nullptr);
     oluacls_func(L, "__gc", _cocostudio_InputDelegate___gc);
@@ -11798,6 +11885,7 @@ static int luaopen_cocostudio_InputDelegate(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_MovementBoneData___olua_move(lua_State *L)
 {
@@ -12071,7 +12159,8 @@ static int _cocostudio_MovementBoneData_set_scale(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_MovementBoneData(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_MovementBoneData(lua_State *L)
 {
     oluacls_class(L, "ccs.MovementBoneData", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_MovementBoneData___olua_move);
@@ -12090,6 +12179,7 @@ static int luaopen_cocostudio_MovementBoneData(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_MovementData___olua_move(lua_State *L)
 {
@@ -12453,7 +12543,8 @@ static int _cocostudio_MovementData_set_tweenEasing(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_MovementData(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_MovementData(lua_State *L)
 {
     oluacls_class(L, "ccs.MovementData", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_MovementData___olua_move);
@@ -12474,6 +12565,7 @@ static int luaopen_cocostudio_MovementData(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_ParticleDisplayData___olua_move(lua_State *L)
 {
@@ -12514,7 +12606,8 @@ static int _cocostudio_ParticleDisplayData_new(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocostudio_ParticleDisplayData(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_ParticleDisplayData(lua_State *L)
 {
     oluacls_class(L, "ccs.ParticleDisplayData", "ccs.DisplayData");
     oluacls_func(L, "__olua_move", _cocostudio_ParticleDisplayData___olua_move);
@@ -12525,6 +12618,7 @@ static int luaopen_cocostudio_ParticleDisplayData(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_SceneReader_AttachComponentType___index(lua_State *L)
 {
@@ -12539,7 +12633,8 @@ static int _cocostudio_SceneReader_AttachComponentType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_SceneReader_AttachComponentType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_SceneReader_AttachComponentType(lua_State *L)
 {
     oluacls_class(L, "ccs.SceneReader.AttachComponentType", nullptr);
     oluacls_func(L, "__index", _cocostudio_SceneReader_AttachComponentType___index);
@@ -12551,6 +12646,7 @@ static int luaopen_cocostudio_SceneReader_AttachComponentType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_SceneReader___gc(lua_State *L)
 {
@@ -12776,7 +12872,8 @@ static int _cocostudio_SceneReader_setTarget(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_SceneReader(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_SceneReader(lua_State *L)
 {
     oluacls_class(L, "ccs.SceneReader", nullptr);
     oluacls_func(L, "__gc", _cocostudio_SceneReader___gc);
@@ -12796,6 +12893,7 @@ static int luaopen_cocostudio_SceneReader(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_Skin___olua_move(lua_State *L)
 {
@@ -13011,7 +13109,8 @@ static int _cocostudio_Skin_updateArmatureTransform(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_Skin(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_Skin(lua_State *L)
 {
     oluacls_class(L, "ccs.Skin", "cc.Sprite");
     oluacls_func(L, "__olua_move", _cocostudio_Skin___olua_move);
@@ -13034,6 +13133,7 @@ static int luaopen_cocostudio_Skin(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_SpriteDisplayData___olua_move(lua_State *L)
 {
@@ -13109,7 +13209,8 @@ static int _cocostudio_SpriteDisplayData_set_skinData(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_SpriteDisplayData(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_SpriteDisplayData(lua_State *L)
 {
     oluacls_class(L, "ccs.SpriteDisplayData", "ccs.DisplayData");
     oluacls_func(L, "__olua_move", _cocostudio_SpriteDisplayData___olua_move);
@@ -13121,6 +13222,7 @@ static int luaopen_cocostudio_SpriteDisplayData(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_SpriteFrameCacheHelper___olua_move(lua_State *L)
 {
@@ -13197,7 +13299,8 @@ static int _cocostudio_SpriteFrameCacheHelper_removeSpriteFrameFromFile(lua_Stat
     return 0;
 }
 
-static int luaopen_cocostudio_SpriteFrameCacheHelper(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_SpriteFrameCacheHelper(lua_State *L)
 {
     oluacls_class(L, "ccs.SpriteFrameCacheHelper", nullptr);
     oluacls_func(L, "__olua_move", _cocostudio_SpriteFrameCacheHelper___olua_move);
@@ -13211,6 +13314,7 @@ static int luaopen_cocostudio_SpriteFrameCacheHelper(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_TextureData___olua_move(lua_State *L)
 {
@@ -13519,7 +13623,8 @@ static int _cocostudio_TextureData_set_width(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_TextureData(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_TextureData(lua_State *L)
 {
     oluacls_class(L, "ccs.TextureData", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_TextureData___olua_move);
@@ -13539,6 +13644,7 @@ static int luaopen_cocostudio_TextureData(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_Tween___olua_move(lua_State *L)
 {
@@ -13781,7 +13887,8 @@ static int _cocostudio_Tween_setMovementBoneData(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_Tween(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_Tween(lua_State *L)
 {
     oluacls_class(L, "ccs.Tween", "ccs.ProcessBase");
     oluacls_func(L, "__olua_move", _cocostudio_Tween___olua_move);
@@ -13802,6 +13909,7 @@ static int luaopen_cocostudio_Tween(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_InnerActionType___index(lua_State *L)
 {
@@ -13816,7 +13924,8 @@ static int _cocostudio_timeline_InnerActionType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_InnerActionType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_InnerActionType(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.InnerActionType", nullptr);
     oluacls_func(L, "__index", _cocostudio_timeline_InnerActionType___index);
@@ -13828,6 +13937,7 @@ static int luaopen_cocostudio_timeline_InnerActionType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_Frame___olua_move(lua_State *L)
 {
@@ -14141,7 +14251,8 @@ static int _cocostudio_timeline_Frame_setTweenType(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_Frame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_Frame(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.Frame", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_Frame___olua_move);
@@ -14173,6 +14284,7 @@ static int luaopen_cocostudio_timeline_Frame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_AlphaFrame___olua_move(lua_State *L)
 {
@@ -14248,7 +14360,8 @@ static int _cocostudio_timeline_AlphaFrame_setAlpha(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_AlphaFrame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_AlphaFrame(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.AlphaFrame", "ccs.timeline.Frame");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_AlphaFrame___olua_move);
@@ -14262,6 +14375,7 @@ static int luaopen_cocostudio_timeline_AlphaFrame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_AnchorPointFrame___olua_move(lua_State *L)
 {
@@ -14337,7 +14451,8 @@ static int _cocostudio_timeline_AnchorPointFrame_setAnchorPoint(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_AnchorPointFrame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_AnchorPointFrame(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.AnchorPointFrame", "ccs.timeline.Frame");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_AnchorPointFrame___olua_move);
@@ -14351,6 +14466,7 @@ static int luaopen_cocostudio_timeline_AnchorPointFrame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_BlendFuncFrame___olua_move(lua_State *L)
 {
@@ -14426,7 +14542,8 @@ static int _cocostudio_timeline_BlendFuncFrame_setBlendFunc(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_BlendFuncFrame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_BlendFuncFrame(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.BlendFuncFrame", "ccs.timeline.Frame");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_BlendFuncFrame___olua_move);
@@ -14440,6 +14557,7 @@ static int luaopen_cocostudio_timeline_BlendFuncFrame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_ColorFrame___olua_move(lua_State *L)
 {
@@ -14515,7 +14633,8 @@ static int _cocostudio_timeline_ColorFrame_setColor(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_ColorFrame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_ColorFrame(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.ColorFrame", "ccs.timeline.Frame");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_ColorFrame___olua_move);
@@ -14529,6 +14648,7 @@ static int luaopen_cocostudio_timeline_ColorFrame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_EventFrame___olua_move(lua_State *L)
 {
@@ -14620,7 +14740,8 @@ static int _cocostudio_timeline_EventFrame_setEvent(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_EventFrame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_EventFrame(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.EventFrame", "ccs.timeline.Frame");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_EventFrame___olua_move);
@@ -14635,6 +14756,7 @@ static int luaopen_cocostudio_timeline_EventFrame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_InnerActionFrame___olua_move(lua_State *L)
 {
@@ -14851,7 +14973,8 @@ static int _cocostudio_timeline_InnerActionFrame_setStartFrameIndex(lua_State *L
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_InnerActionFrame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_InnerActionFrame(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.InnerActionFrame", "ccs.timeline.Frame");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_InnerActionFrame___olua_move);
@@ -14877,6 +15000,7 @@ static int luaopen_cocostudio_timeline_InnerActionFrame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_PlayableFrame___olua_move(lua_State *L)
 {
@@ -14952,7 +15076,8 @@ static int _cocostudio_timeline_PlayableFrame_setPlayableAct(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_PlayableFrame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_PlayableFrame(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.PlayableFrame", "ccs.timeline.Frame");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_PlayableFrame___olua_move);
@@ -14967,6 +15092,7 @@ static int luaopen_cocostudio_timeline_PlayableFrame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_PositionFrame___olua_move(lua_State *L)
 {
@@ -15112,7 +15238,8 @@ static int _cocostudio_timeline_PositionFrame_setY(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_PositionFrame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_PositionFrame(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.PositionFrame", "ccs.timeline.Frame");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_PositionFrame___olua_move);
@@ -15132,6 +15259,7 @@ static int luaopen_cocostudio_timeline_PositionFrame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_RotationFrame___olua_move(lua_State *L)
 {
@@ -15207,7 +15335,8 @@ static int _cocostudio_timeline_RotationFrame_setRotation(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_RotationFrame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_RotationFrame(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.RotationFrame", "ccs.timeline.Frame");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_RotationFrame___olua_move);
@@ -15221,6 +15350,7 @@ static int luaopen_cocostudio_timeline_RotationFrame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_SkewFrame___olua_move(lua_State *L)
 {
@@ -15331,7 +15461,8 @@ static int _cocostudio_timeline_SkewFrame_setSkewY(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_SkewFrame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_SkewFrame(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.SkewFrame", "ccs.timeline.Frame");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_SkewFrame___olua_move);
@@ -15348,6 +15479,7 @@ static int luaopen_cocostudio_timeline_SkewFrame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_RotationSkewFrame___olua_move(lua_State *L)
 {
@@ -15388,7 +15520,8 @@ static int _cocostudio_timeline_RotationSkewFrame_new(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocostudio_timeline_RotationSkewFrame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_RotationSkewFrame(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.RotationSkewFrame", "ccs.timeline.SkewFrame");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_RotationSkewFrame___olua_move);
@@ -15399,6 +15532,7 @@ static int luaopen_cocostudio_timeline_RotationSkewFrame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_ScaleFrame___olua_move(lua_State *L)
 {
@@ -15527,7 +15661,8 @@ static int _cocostudio_timeline_ScaleFrame_setScaleY(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_ScaleFrame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_ScaleFrame(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.ScaleFrame", "ccs.timeline.Frame");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_ScaleFrame___olua_move);
@@ -15545,6 +15680,7 @@ static int luaopen_cocostudio_timeline_ScaleFrame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_TextureFrame___olua_move(lua_State *L)
 {
@@ -15620,7 +15756,8 @@ static int _cocostudio_timeline_TextureFrame_setTextureName(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_TextureFrame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_TextureFrame(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.TextureFrame", "ccs.timeline.Frame");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_TextureFrame___olua_move);
@@ -15634,6 +15771,7 @@ static int luaopen_cocostudio_timeline_TextureFrame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_VisibleFrame___olua_move(lua_State *L)
 {
@@ -15709,7 +15847,8 @@ static int _cocostudio_timeline_VisibleFrame_setVisible(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_VisibleFrame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_VisibleFrame(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.VisibleFrame", "ccs.timeline.Frame");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_VisibleFrame___olua_move);
@@ -15723,6 +15862,7 @@ static int luaopen_cocostudio_timeline_VisibleFrame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_ZOrderFrame___olua_move(lua_State *L)
 {
@@ -15798,7 +15938,8 @@ static int _cocostudio_timeline_ZOrderFrame_setZOrder(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_ZOrderFrame(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_ZOrderFrame(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.ZOrderFrame", "ccs.timeline.Frame");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_ZOrderFrame___olua_move);
@@ -15812,6 +15953,7 @@ static int luaopen_cocostudio_timeline_ZOrderFrame(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_ActionTimelineCache___olua_move(lua_State *L)
 {
@@ -16096,7 +16238,8 @@ static int _cocostudio_timeline_ActionTimelineCache_removeAction(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_ActionTimelineCache(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_ActionTimelineCache(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.ActionTimelineCache", nullptr);
     oluacls_func(L, "__olua_move", _cocostudio_timeline_ActionTimelineCache___olua_move);
@@ -16121,6 +16264,7 @@ static int luaopen_cocostudio_timeline_ActionTimelineCache(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_ActionTimelineData___olua_move(lua_State *L)
 {
@@ -16219,7 +16363,8 @@ static int _cocostudio_timeline_ActionTimelineData_setActionTag(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_ActionTimelineData(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_ActionTimelineData(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.ActionTimelineData", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_ActionTimelineData___olua_move);
@@ -16234,6 +16379,7 @@ static int luaopen_cocostudio_timeline_ActionTimelineData(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_ActionTimelineNode___olua_move(lua_State *L)
 {
@@ -16421,7 +16567,8 @@ static int _cocostudio_timeline_ActionTimelineNode_setRoot(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_ActionTimelineNode(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_ActionTimelineNode(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.ActionTimelineNode", "cc.Node");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_ActionTimelineNode___olua_move);
@@ -16439,6 +16586,7 @@ static int luaopen_cocostudio_timeline_ActionTimelineNode(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_BoneNode___olua_move(lua_State *L)
 {
@@ -16989,7 +17137,8 @@ static int _cocostudio_timeline_BoneNode_setLocalZOrder(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_BoneNode(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_BoneNode(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.BoneNode", "cc.Node");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_BoneNode___olua_move);
@@ -17032,6 +17181,7 @@ static int luaopen_cocostudio_timeline_BoneNode(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_SkeletonNode___olua_move(lua_State *L)
 {
@@ -17200,7 +17350,8 @@ static int _cocostudio_timeline_SkeletonNode_new(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocostudio_timeline_SkeletonNode(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_SkeletonNode(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.SkeletonNode", "ccs.timeline.BoneNode");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_SkeletonNode___olua_move);
@@ -17216,6 +17367,7 @@ static int luaopen_cocostudio_timeline_SkeletonNode(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_Timeline___olua_move(lua_State *L)
 {
@@ -17513,7 +17665,8 @@ static int _cocostudio_timeline_Timeline_stepToFrame(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_Timeline(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_Timeline(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.Timeline", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_Timeline___olua_move);
@@ -17541,6 +17694,7 @@ static int luaopen_cocostudio_timeline_Timeline(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocostudio_timeline_ActionTimeline_IsAnimationInfoExists(lua_State *L)
 {
@@ -18392,7 +18546,8 @@ static int _cocostudio_timeline_ActionTimeline_start(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocostudio_timeline_ActionTimeline(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocostudio_timeline_ActionTimeline(lua_State *L)
 {
     oluacls_class(L, "ccs.timeline.ActionTimeline", "cc.Action");
     oluacls_func(L, "IsAnimationInfoExists", _cocostudio_timeline_ActionTimeline_IsAnimationInfoExists);
@@ -18441,8 +18596,10 @@ static int luaopen_cocostudio_timeline_ActionTimeline(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
-int luaopen_cocos2d_studio(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_studio(lua_State *L)
 {
     olua_require(L, "cc.CSLoader", luaopen_cocos2d_CSLoader);
     olua_require(L, "ccs.MovementEventType", luaopen_cocostudio_MovementEventType);
@@ -18522,5 +18679,7 @@ int luaopen_cocos2d_studio(lua_State *L)
     olua_require(L, "ccs.timeline.SkeletonNode", luaopen_cocostudio_timeline_SkeletonNode);
     olua_require(L, "ccs.timeline.Timeline", luaopen_cocostudio_timeline_Timeline);
     olua_require(L, "ccs.timeline.ActionTimeline", luaopen_cocostudio_timeline_ActionTimeline);
+
     return 0;
 }
+OLUA_END_DECLS

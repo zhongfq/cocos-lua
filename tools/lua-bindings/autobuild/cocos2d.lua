@@ -21,6 +21,7 @@ chunk = [[
         return "schedule." + key;
     }
 ]]
+luaopen = nil
 
 
 typeconf 'cocos2d::Mat4'

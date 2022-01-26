@@ -70,7 +70,8 @@ static int _cclua_plugin_AppleAuth_canMakeAuth(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cclua_plugin_AppleAuth(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_plugin_AppleAuth(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.AppleAuth", nullptr);
     oluacls_func(L, "__olua_move", _cclua_plugin_AppleAuth___olua_move);
@@ -82,6 +83,7 @@ static int luaopen_cclua_plugin_AppleAuth(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 #endif
 
 #ifdef CCLUA_BUILD_APPLE_IAP
@@ -296,7 +298,8 @@ static int _cclua_plugin_AppleIAP_setDispatcher(lua_State *L)
     return 0;
 }
 
-static int luaopen_cclua_plugin_AppleIAP(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_plugin_AppleIAP(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.AppleIAP", nullptr);
     oluacls_func(L, "__olua_move", _cclua_plugin_AppleIAP___olua_move);
@@ -316,9 +319,11 @@ static int luaopen_cclua_plugin_AppleIAP(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 #endif
 
-int luaopen_apple(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_apple(lua_State *L)
 {
 #ifdef CCLUA_BUILD_APPLE_AUTH
     olua_require(L, "cclua.plugin.AppleAuth", luaopen_cclua_plugin_AppleAuth);
@@ -326,5 +331,7 @@ int luaopen_apple(lua_State *L)
 #ifdef CCLUA_BUILD_APPLE_IAP
     olua_require(L, "cclua.plugin.AppleIAP", luaopen_cclua_plugin_AppleIAP);
 #endif
+
     return 0;
 }
+OLUA_END_DECLS

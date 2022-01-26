@@ -9,6 +9,8 @@
 #include "cclua/xlua.h"
 #include "apple/Apple.h"
 
-int luaopen_apple(lua_State *L);
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_apple(lua_State *L);
+OLUA_END_DECLS
 
 #endif

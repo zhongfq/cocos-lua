@@ -11,6 +11,7 @@ headers = [[
     #include "TalkingData.h"
 ]]
 chunk = nil
+luaopen = nil
 
 
 typeconf 'cclua::plugin::TCAgent'

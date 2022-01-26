@@ -16,7 +16,9 @@
 #include "utils/html/HtmlObject.h"
 #include "utils/html/HtmlParser.h"
 
-int luaopen_fairygui(lua_State *L);
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_fairygui(lua_State *L);
+OLUA_END_DECLS
 
 // fairygui::Margin
 int olua_push_fairygui_Margin(lua_State *L, const fairygui::Margin *value);

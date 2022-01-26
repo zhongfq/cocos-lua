@@ -10,7 +10,9 @@
 #include "cocos2d.h"
 #include "3d/CC3DProgramInfo.h"
 
-int luaopen_cocos2d_3d(lua_State *L);
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_3d(lua_State *L);
+OLUA_END_DECLS
 
 // cocos2d::MeshVertexAttrib
 int olua_push_cocos2d_MeshVertexAttrib(lua_State *L, const cocos2d::MeshVertexAttrib *value);

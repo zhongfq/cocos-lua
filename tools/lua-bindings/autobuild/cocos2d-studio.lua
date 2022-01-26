@@ -27,6 +27,7 @@ chunk = [[
         return makeFrameEndCallbackTag((lua_Integer)info.endIndex, animationName);
     }
 ]]
+luaopen = nil
 
 typeconv 'cocostudio::timeline::AnimationInfo'
     .var('name', 'std::string name')

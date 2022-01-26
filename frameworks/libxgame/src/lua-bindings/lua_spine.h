@@ -11,6 +11,8 @@
 #include "cocos2d.h"
 #include "spine/spine-cocos2dx.h"
 
-int luaopen_spine(lua_State *L);
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_spine(lua_State *L);
+OLUA_END_DECLS
 
 #endif

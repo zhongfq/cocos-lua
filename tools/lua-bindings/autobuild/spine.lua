@@ -97,6 +97,7 @@ chunk = [[
         return 1;
     }
 ]]
+luaopen = nil
 
 
 typeconf 'spine::EventType'

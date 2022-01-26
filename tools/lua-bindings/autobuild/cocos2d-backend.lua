@@ -11,6 +11,7 @@ headers = [[
     #include "cclua/xlua.h"
 ]]
 chunk = nil
+luaopen = nil
 
 
 typeconf 'cocos2d::backend::BufferUsage'

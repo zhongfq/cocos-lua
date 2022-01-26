@@ -17,7 +17,8 @@ static int _cclua_plugin_WeChat_ShareType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cclua_plugin_WeChat_ShareType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_plugin_WeChat_ShareType(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.WeChat.ShareType", nullptr);
     oluacls_func(L, "__index", _cclua_plugin_WeChat_ShareType___index);
@@ -32,6 +33,7 @@ static int luaopen_cclua_plugin_WeChat_ShareType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 #endif
 
 #ifdef CCLUA_BUILD_WECHAT
@@ -48,7 +50,8 @@ static int _cclua_plugin_WeChat_ProgramType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cclua_plugin_WeChat_ProgramType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_plugin_WeChat_ProgramType(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.WeChat.ProgramType", nullptr);
     oluacls_func(L, "__index", _cclua_plugin_WeChat_ProgramType___index);
@@ -60,6 +63,7 @@ static int luaopen_cclua_plugin_WeChat_ProgramType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 #endif
 
 #ifdef CCLUA_BUILD_WECHAT
@@ -366,7 +370,8 @@ static int _cclua_plugin_WeChat_stopAuth(lua_State *L)
     return 0;
 }
 
-static int luaopen_cclua_plugin_WeChat(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_plugin_WeChat(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.WeChat", nullptr);
     oluacls_func(L, "__olua_move", _cclua_plugin_WeChat___olua_move);
@@ -390,9 +395,11 @@ static int luaopen_cclua_plugin_WeChat(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 #endif
 
-int luaopen_wechat(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_wechat(lua_State *L)
 {
 #ifdef CCLUA_BUILD_WECHAT
     olua_require(L, "cclua.plugin.WeChat.ShareType", luaopen_cclua_plugin_WeChat_ShareType);
@@ -403,5 +410,7 @@ int luaopen_wechat(lua_State *L)
 #ifdef CCLUA_BUILD_WECHAT
     olua_require(L, "cclua.plugin.WeChat", luaopen_cclua_plugin_WeChat);
 #endif
+
     return 0;
 }
+OLUA_END_DECLS

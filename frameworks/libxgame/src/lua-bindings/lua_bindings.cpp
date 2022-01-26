@@ -43,7 +43,6 @@ int luaopen_bindings(lua_State *L)
     olua_callfunc(L, luaopen_xml_http_request);
     olua_callfunc(L, luaopen_manual);
     
-    olua_require(L, "olua", luaopen_olua);
     olua_require(L, "lfs", luaopen_lfs);
     olua_require(L, "cjson", luaopen_cjson);
     olua_require(L, "cjson.safe", luaopen_cjson_safe);

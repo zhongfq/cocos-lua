@@ -12,6 +12,8 @@
 #include "ui/CocosGUI.h"
 #include "ui/UIScrollViewBar.h"
 
-int luaopen_cocos2d_ui(lua_State *L);
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui(lua_State *L);
+OLUA_END_DECLS
 
 #endif

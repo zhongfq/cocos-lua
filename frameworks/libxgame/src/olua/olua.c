@@ -1007,6 +1007,7 @@ OLUA_API void oluacls_class(lua_State *L, const char *cls, const char *supercls)
         lua_pushnil(L);
     } else if (olua_getmetatable(L, supercls) != LUA_TTABLE) {
         if (strequal(supercls, OLUA_VOIDCLS)) {
+            olua_require(L, "olua", luaopen_olua); // init olua lib api
             oluacls_class(L, OLUA_VOIDCLS, NULL);
             oluacls_func(L, "__eq", cls_eq);
             oluacls_func(L, "__tostring", cls_tostring);

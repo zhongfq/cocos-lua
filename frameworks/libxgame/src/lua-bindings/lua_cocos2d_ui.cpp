@@ -16,7 +16,8 @@ static int _cocos2d_ui_Widget_FocusDirection___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_Widget_FocusDirection(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Widget_FocusDirection(lua_State *L)
 {
     oluacls_class(L, "ccui.Widget.FocusDirection", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_Widget_FocusDirection___index);
@@ -29,6 +30,7 @@ static int luaopen_cocos2d_ui_Widget_FocusDirection(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Widget_PositionType___index(lua_State *L)
 {
@@ -43,7 +45,8 @@ static int _cocos2d_ui_Widget_PositionType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_Widget_PositionType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Widget_PositionType(lua_State *L)
 {
     oluacls_class(L, "ccui.Widget.PositionType", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_Widget_PositionType___index);
@@ -54,6 +57,7 @@ static int luaopen_cocos2d_ui_Widget_PositionType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Widget_SizeType___index(lua_State *L)
 {
@@ -68,7 +72,8 @@ static int _cocos2d_ui_Widget_SizeType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_Widget_SizeType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Widget_SizeType(lua_State *L)
 {
     oluacls_class(L, "ccui.Widget.SizeType", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_Widget_SizeType___index);
@@ -79,6 +84,7 @@ static int luaopen_cocos2d_ui_Widget_SizeType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Widget_TouchEventType___index(lua_State *L)
 {
@@ -93,7 +99,8 @@ static int _cocos2d_ui_Widget_TouchEventType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_Widget_TouchEventType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Widget_TouchEventType(lua_State *L)
 {
     oluacls_class(L, "ccui.Widget.TouchEventType", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_Widget_TouchEventType___index);
@@ -106,6 +113,7 @@ static int luaopen_cocos2d_ui_Widget_TouchEventType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Widget_TextureResType___index(lua_State *L)
 {
@@ -120,7 +128,8 @@ static int _cocos2d_ui_Widget_TextureResType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_Widget_TextureResType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Widget_TextureResType(lua_State *L)
 {
     oluacls_class(L, "ccui.Widget.TextureResType", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_Widget_TextureResType___index);
@@ -131,6 +140,7 @@ static int luaopen_cocos2d_ui_Widget_TextureResType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Widget_BrightStyle___index(lua_State *L)
 {
@@ -145,7 +155,8 @@ static int _cocos2d_ui_Widget_BrightStyle___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_Widget_BrightStyle(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Widget_BrightStyle(lua_State *L)
 {
     oluacls_class(L, "ccui.Widget.BrightStyle", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_Widget_BrightStyle___index);
@@ -157,6 +168,7 @@ static int luaopen_cocos2d_ui_Widget_BrightStyle(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Widget_ccWidgetTouchCallback___call(lua_State *L)
 {
@@ -170,7 +182,8 @@ static int _cocos2d_ui_Widget_ccWidgetTouchCallback___call(lua_State *L)
     return 1;
 }
 
-static int luaopen_cocos2d_ui_Widget_ccWidgetTouchCallback(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Widget_ccWidgetTouchCallback(lua_State *L)
 {
     oluacls_class(L, "ccui.Widget.ccWidgetTouchCallback", nullptr);
     oluacls_func(L, "__call", _cocos2d_ui_Widget_ccWidgetTouchCallback___call);
@@ -179,6 +192,7 @@ static int luaopen_cocos2d_ui_Widget_ccWidgetTouchCallback(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Widget_ccWidgetClickCallback___call(lua_State *L)
 {
@@ -192,7 +206,8 @@ static int _cocos2d_ui_Widget_ccWidgetClickCallback___call(lua_State *L)
     return 1;
 }
 
-static int luaopen_cocos2d_ui_Widget_ccWidgetClickCallback(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Widget_ccWidgetClickCallback(lua_State *L)
 {
     oluacls_class(L, "ccui.Widget.ccWidgetClickCallback", nullptr);
     oluacls_func(L, "__call", _cocos2d_ui_Widget_ccWidgetClickCallback___call);
@@ -201,6 +216,7 @@ static int luaopen_cocos2d_ui_Widget_ccWidgetClickCallback(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Widget_ccWidgetEventCallback___call(lua_State *L)
 {
@@ -214,7 +230,8 @@ static int _cocos2d_ui_Widget_ccWidgetEventCallback___call(lua_State *L)
     return 1;
 }
 
-static int luaopen_cocos2d_ui_Widget_ccWidgetEventCallback(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Widget_ccWidgetEventCallback(lua_State *L)
 {
     oluacls_class(L, "ccui.Widget.ccWidgetEventCallback", nullptr);
     oluacls_func(L, "__call", _cocos2d_ui_Widget_ccWidgetEventCallback___call);
@@ -223,6 +240,7 @@ static int luaopen_cocos2d_ui_Widget_ccWidgetEventCallback(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Widget___olua_move(lua_State *L)
 {
@@ -1825,7 +1843,8 @@ static int _cocos2d_ui_Widget_set_onNextFocusedWidget(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_Widget(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Widget(lua_State *L)
 {
     oluacls_class(L, "ccui.Widget", "cc.ProtectedNode");
     oluacls_func(L, "__olua_move", _cocos2d_ui_Widget___olua_move);
@@ -1945,6 +1964,7 @@ static int luaopen_cocos2d_ui_Widget(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Helper___olua_move(lua_State *L)
 {
@@ -2104,7 +2124,8 @@ static int _cocos2d_ui_Helper_seekWidgetByTag(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocos2d_ui_Helper(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Helper(lua_State *L)
 {
     oluacls_class(L, "ccui.Helper", nullptr);
     oluacls_func(L, "__olua_move", _cocos2d_ui_Helper___olua_move);
@@ -2121,6 +2142,7 @@ static int luaopen_cocos2d_ui_Helper(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Scale9Sprite_State___index(lua_State *L)
 {
@@ -2135,7 +2157,8 @@ static int _cocos2d_ui_Scale9Sprite_State___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_Scale9Sprite_State(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Scale9Sprite_State(lua_State *L)
 {
     oluacls_class(L, "ccui.Scale9Sprite.State", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_Scale9Sprite_State___index);
@@ -2146,6 +2169,7 @@ static int luaopen_cocos2d_ui_Scale9Sprite_State(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Scale9Sprite_RenderingType___index(lua_State *L)
 {
@@ -2160,7 +2184,8 @@ static int _cocos2d_ui_Scale9Sprite_RenderingType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_Scale9Sprite_RenderingType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Scale9Sprite_RenderingType(lua_State *L)
 {
     oluacls_class(L, "ccui.Scale9Sprite.RenderingType", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_Scale9Sprite_RenderingType___index);
@@ -2171,6 +2196,7 @@ static int luaopen_cocos2d_ui_Scale9Sprite_RenderingType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Scale9Sprite___olua_move(lua_State *L)
 {
@@ -3382,7 +3408,8 @@ static int _cocos2d_ui_Scale9Sprite_updateWithSprite(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_Scale9Sprite(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Scale9Sprite(lua_State *L)
 {
     oluacls_class(L, "ccui.Scale9Sprite", "cc.Sprite");
     oluacls_func(L, "__olua_move", _cocos2d_ui_Scale9Sprite___olua_move);
@@ -3435,6 +3462,7 @@ static int luaopen_cocos2d_ui_Scale9Sprite(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_LayoutComponent_HorizontalEdge___index(lua_State *L)
 {
@@ -3449,7 +3477,8 @@ static int _cocos2d_ui_LayoutComponent_HorizontalEdge___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_LayoutComponent_HorizontalEdge(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_LayoutComponent_HorizontalEdge(lua_State *L)
 {
     oluacls_class(L, "ccui.LayoutComponent.HorizontalEdge", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_LayoutComponent_HorizontalEdge___index);
@@ -3462,6 +3491,7 @@ static int luaopen_cocos2d_ui_LayoutComponent_HorizontalEdge(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_LayoutComponent_VerticalEdge___index(lua_State *L)
 {
@@ -3476,7 +3506,8 @@ static int _cocos2d_ui_LayoutComponent_VerticalEdge___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_LayoutComponent_VerticalEdge(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_LayoutComponent_VerticalEdge(lua_State *L)
 {
     oluacls_class(L, "ccui.LayoutComponent.VerticalEdge", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_LayoutComponent_VerticalEdge___index);
@@ -3489,6 +3520,7 @@ static int luaopen_cocos2d_ui_LayoutComponent_VerticalEdge(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_LayoutComponent___olua_move(lua_State *L)
 {
@@ -4403,7 +4435,8 @@ static int _cocos2d_ui_LayoutComponent_setVerticalEdge(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_LayoutComponent(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_LayoutComponent(lua_State *L)
 {
     oluacls_class(L, "ccui.LayoutComponent", "cc.Component");
     oluacls_func(L, "__olua_move", _cocos2d_ui_LayoutComponent___olua_move);
@@ -4487,6 +4520,7 @@ static int luaopen_cocos2d_ui_LayoutComponent(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_LayoutParameter_Type___index(lua_State *L)
 {
@@ -4501,7 +4535,8 @@ static int _cocos2d_ui_LayoutParameter_Type___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_LayoutParameter_Type(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_LayoutParameter_Type(lua_State *L)
 {
     oluacls_class(L, "ccui.LayoutParameter.Type", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_LayoutParameter_Type___index);
@@ -4513,6 +4548,7 @@ static int luaopen_cocos2d_ui_LayoutParameter_Type(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_LayoutParameter___olua_move(lua_State *L)
 {
@@ -4657,7 +4693,8 @@ static int _cocos2d_ui_LayoutParameter_setMargin(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_LayoutParameter(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_LayoutParameter(lua_State *L)
 {
     oluacls_class(L, "ccui.LayoutParameter", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocos2d_ui_LayoutParameter___olua_move);
@@ -4676,6 +4713,7 @@ static int luaopen_cocos2d_ui_LayoutParameter(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_LinearLayoutParameter_LinearGravity___index(lua_State *L)
 {
@@ -4690,7 +4728,8 @@ static int _cocos2d_ui_LinearLayoutParameter_LinearGravity___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_LinearLayoutParameter_LinearGravity(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_LinearLayoutParameter_LinearGravity(lua_State *L)
 {
     oluacls_class(L, "ccui.LinearLayoutParameter.LinearGravity", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_LinearLayoutParameter_LinearGravity___index);
@@ -4706,6 +4745,7 @@ static int luaopen_cocos2d_ui_LinearLayoutParameter_LinearGravity(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_LinearLayoutParameter___olua_move(lua_State *L)
 {
@@ -4781,7 +4821,8 @@ static int _cocos2d_ui_LinearLayoutParameter_setGravity(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_LinearLayoutParameter(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_LinearLayoutParameter(lua_State *L)
 {
     oluacls_class(L, "ccui.LinearLayoutParameter", "ccui.LayoutParameter");
     oluacls_func(L, "__olua_move", _cocos2d_ui_LinearLayoutParameter___olua_move);
@@ -4795,6 +4836,7 @@ static int luaopen_cocos2d_ui_LinearLayoutParameter(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_RelativeLayoutParameter_RelativeAlign___index(lua_State *L)
 {
@@ -4809,7 +4851,8 @@ static int _cocos2d_ui_RelativeLayoutParameter_RelativeAlign___index(lua_State *
     return 0;
 }
 
-static int luaopen_cocos2d_ui_RelativeLayoutParameter_RelativeAlign(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_RelativeLayoutParameter_RelativeAlign(lua_State *L)
 {
     oluacls_class(L, "ccui.RelativeLayoutParameter.RelativeAlign", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_RelativeLayoutParameter_RelativeAlign___index);
@@ -4840,6 +4883,7 @@ static int luaopen_cocos2d_ui_RelativeLayoutParameter_RelativeAlign(lua_State *L
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_RelativeLayoutParameter___olua_move(lua_State *L)
 {
@@ -4985,7 +5029,8 @@ static int _cocos2d_ui_RelativeLayoutParameter_setRelativeToWidgetName(lua_State
     return 0;
 }
 
-static int luaopen_cocos2d_ui_RelativeLayoutParameter(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_RelativeLayoutParameter(lua_State *L)
 {
     oluacls_class(L, "ccui.RelativeLayoutParameter", "ccui.LayoutParameter");
     oluacls_func(L, "__olua_move", _cocos2d_ui_RelativeLayoutParameter___olua_move);
@@ -5005,6 +5050,7 @@ static int luaopen_cocos2d_ui_RelativeLayoutParameter(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Layout_Type___index(lua_State *L)
 {
@@ -5019,7 +5065,8 @@ static int _cocos2d_ui_Layout_Type___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_Layout_Type(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Layout_Type(lua_State *L)
 {
     oluacls_class(L, "ccui.Layout.Type", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_Layout_Type___index);
@@ -5032,6 +5079,7 @@ static int luaopen_cocos2d_ui_Layout_Type(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Layout_ClippingType___index(lua_State *L)
 {
@@ -5046,7 +5094,8 @@ static int _cocos2d_ui_Layout_ClippingType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_Layout_ClippingType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Layout_ClippingType(lua_State *L)
 {
     oluacls_class(L, "ccui.Layout.ClippingType", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_Layout_ClippingType___index);
@@ -5057,6 +5106,7 @@ static int luaopen_cocos2d_ui_Layout_ClippingType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Layout_BackGroundColorType___index(lua_State *L)
 {
@@ -5071,7 +5121,8 @@ static int _cocos2d_ui_Layout_BackGroundColorType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_Layout_BackGroundColorType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Layout_BackGroundColorType(lua_State *L)
 {
     oluacls_class(L, "ccui.Layout.BackGroundColorType", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_Layout_BackGroundColorType___index);
@@ -5083,6 +5134,7 @@ static int luaopen_cocos2d_ui_Layout_BackGroundColorType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Layout___olua_move(lua_State *L)
 {
@@ -5882,7 +5934,8 @@ static int _cocos2d_ui_Layout_set_onPassFocusToChild(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_Layout(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Layout(lua_State *L)
 {
     oluacls_class(L, "ccui.Layout", "ccui.Widget");
     oluacls_func(L, "__olua_move", _cocos2d_ui_Layout___olua_move);
@@ -5946,6 +5999,7 @@ static int luaopen_cocos2d_ui_Layout(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_HBox___olua_move(lua_State *L)
 {
@@ -6043,7 +6097,8 @@ static int _cocos2d_ui_HBox_new(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocos2d_ui_HBox(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_HBox(lua_State *L)
 {
     oluacls_class(L, "ccui.HBox", "ccui.Layout");
     oluacls_func(L, "__olua_move", _cocos2d_ui_HBox___olua_move);
@@ -6055,6 +6110,7 @@ static int luaopen_cocos2d_ui_HBox(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_VBox___olua_move(lua_State *L)
 {
@@ -6152,7 +6208,8 @@ static int _cocos2d_ui_VBox_new(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocos2d_ui_VBox(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_VBox(lua_State *L)
 {
     oluacls_class(L, "ccui.VBox", "ccui.Layout");
     oluacls_func(L, "__olua_move", _cocos2d_ui_VBox___olua_move);
@@ -6164,6 +6221,7 @@ static int luaopen_cocos2d_ui_VBox(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_RelativeBox___olua_move(lua_State *L)
 {
@@ -6261,7 +6319,8 @@ static int _cocos2d_ui_RelativeBox_new(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocos2d_ui_RelativeBox(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_RelativeBox(lua_State *L)
 {
     oluacls_class(L, "ccui.RelativeBox", "ccui.Layout");
     oluacls_func(L, "__olua_move", _cocos2d_ui_RelativeBox___olua_move);
@@ -6273,6 +6332,7 @@ static int luaopen_cocos2d_ui_RelativeBox(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 #if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
 static int _cocos2d_ui_WebView_ccWebViewCallback___call(lua_State *L)
@@ -6287,7 +6347,8 @@ static int _cocos2d_ui_WebView_ccWebViewCallback___call(lua_State *L)
     return 1;
 }
 
-static int luaopen_cocos2d_ui_WebView_ccWebViewCallback(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_WebView_ccWebViewCallback(lua_State *L)
 {
     oluacls_class(L, "ccui.WebView.ccWebViewCallback", nullptr);
     oluacls_func(L, "__call", _cocos2d_ui_WebView_ccWebViewCallback___call);
@@ -6296,6 +6357,7 @@ static int luaopen_cocos2d_ui_WebView_ccWebViewCallback(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 #endif
 
 #if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
@@ -6992,7 +7054,8 @@ static int _cocos2d_ui_WebView_stopLoading(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_WebView(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_WebView(lua_State *L)
 {
     oluacls_class(L, "ccui.WebView", "ccui.Widget");
     oluacls_func(L, "__olua_move", _cocos2d_ui_WebView___olua_move);
@@ -7033,6 +7096,7 @@ static int luaopen_cocos2d_ui_WebView(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 #endif
 
 #if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
@@ -7049,7 +7113,8 @@ static int _cocos2d_ui_VideoPlayer_EventType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_VideoPlayer_EventType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_VideoPlayer_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.VideoPlayer.EventType", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_VideoPlayer_EventType___index);
@@ -7063,6 +7128,7 @@ static int luaopen_cocos2d_ui_VideoPlayer_EventType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 #endif
 
 #if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
@@ -7078,7 +7144,8 @@ static int _cocos2d_ui_VideoPlayer_ccVideoPlayerCallback___call(lua_State *L)
     return 1;
 }
 
-static int luaopen_cocos2d_ui_VideoPlayer_ccVideoPlayerCallback(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_VideoPlayer_ccVideoPlayerCallback(lua_State *L)
 {
     oluacls_class(L, "ccui.VideoPlayer.ccVideoPlayerCallback", nullptr);
     oluacls_func(L, "__call", _cocos2d_ui_VideoPlayer_ccVideoPlayerCallback___call);
@@ -7087,6 +7154,7 @@ static int luaopen_cocos2d_ui_VideoPlayer_ccVideoPlayerCallback(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 #endif
 
 #if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
@@ -7103,7 +7171,8 @@ static int _cocos2d_ui_VideoPlayer_StyleType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_VideoPlayer_StyleType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_VideoPlayer_StyleType(lua_State *L)
 {
     oluacls_class(L, "ccui.VideoPlayer.StyleType", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_VideoPlayer_StyleType___index);
@@ -7114,6 +7183,7 @@ static int luaopen_cocos2d_ui_VideoPlayer_StyleType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 #endif
 
 #if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
@@ -7506,7 +7576,8 @@ static int _cocos2d_ui_VideoPlayer_stop(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_VideoPlayer(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_VideoPlayer(lua_State *L)
 {
     oluacls_class(L, "ccui.VideoPlayer", "ccui.Widget");
     oluacls_func(L, "__olua_move", _cocos2d_ui_VideoPlayer___olua_move);
@@ -7543,6 +7614,7 @@ static int luaopen_cocos2d_ui_VideoPlayer(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 #endif
 
 static int _cocos2d_ui_AbstractCheckButton___olua_move(lua_State *L)
@@ -8295,7 +8367,8 @@ static int _cocos2d_ui_AbstractCheckButton_setZoomScale(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_AbstractCheckButton(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_AbstractCheckButton(lua_State *L)
 {
     oluacls_class(L, "ccui.AbstractCheckButton", "ccui.Widget");
     oluacls_func(L, "__olua_move", _cocos2d_ui_AbstractCheckButton___olua_move);
@@ -8337,6 +8410,7 @@ static int luaopen_cocos2d_ui_AbstractCheckButton(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_TabHeader_EventType___index(lua_State *L)
 {
@@ -8351,7 +8425,8 @@ static int _cocos2d_ui_TabHeader_EventType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_TabHeader_EventType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_TabHeader_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.TabHeader.EventType", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_TabHeader_EventType___index);
@@ -8362,6 +8437,7 @@ static int luaopen_cocos2d_ui_TabHeader_EventType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_TabHeader___olua_move(lua_State *L)
 {
@@ -8707,7 +8783,8 @@ static int _cocos2d_ui_TabHeader_setTitleText(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_TabHeader(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_TabHeader(lua_State *L)
 {
     oluacls_class(L, "ccui.TabHeader", "ccui.AbstractCheckButton");
     oluacls_func(L, "__olua_move", _cocos2d_ui_TabHeader___olua_move);
@@ -8733,6 +8810,7 @@ static int luaopen_cocos2d_ui_TabHeader(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_TabControl_Dock___index(lua_State *L)
 {
@@ -8747,7 +8825,8 @@ static int _cocos2d_ui_TabControl_Dock___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_TabControl_Dock(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_TabControl_Dock(lua_State *L)
 {
     oluacls_class(L, "ccui.TabControl.Dock", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_TabControl_Dock___index);
@@ -8760,6 +8839,7 @@ static int luaopen_cocos2d_ui_TabControl_Dock(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_TabControl_EventType___index(lua_State *L)
 {
@@ -8774,7 +8854,8 @@ static int _cocos2d_ui_TabControl_EventType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_TabControl_EventType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_TabControl_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.TabControl.EventType", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_TabControl_EventType___index);
@@ -8784,6 +8865,7 @@ static int luaopen_cocos2d_ui_TabControl_EventType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_TabControl_ccTabControlCallback___call(lua_State *L)
 {
@@ -8797,7 +8879,8 @@ static int _cocos2d_ui_TabControl_ccTabControlCallback___call(lua_State *L)
     return 1;
 }
 
-static int luaopen_cocos2d_ui_TabControl_ccTabControlCallback(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_TabControl_ccTabControlCallback(lua_State *L)
 {
     oluacls_class(L, "ccui.TabControl.ccTabControlCallback", nullptr);
     oluacls_func(L, "__call", _cocos2d_ui_TabControl_ccTabControlCallback___call);
@@ -8806,6 +8889,7 @@ static int luaopen_cocos2d_ui_TabControl_ccTabControlCallback(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_TabControl___olua_move(lua_State *L)
 {
@@ -9256,7 +9340,8 @@ static int _cocos2d_ui_TabControl_setTabChangedEventListener(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_TabControl(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_TabControl(lua_State *L)
 {
     oluacls_class(L, "ccui.TabControl", "ccui.Widget");
     oluacls_func(L, "__olua_move", _cocos2d_ui_TabControl___olua_move);
@@ -9292,6 +9377,7 @@ static int luaopen_cocos2d_ui_TabControl(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_ScrollView_Direction___index(lua_State *L)
 {
@@ -9306,7 +9392,8 @@ static int _cocos2d_ui_ScrollView_Direction___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_ScrollView_Direction(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_ScrollView_Direction(lua_State *L)
 {
     oluacls_class(L, "ccui.ScrollView.Direction", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_ScrollView_Direction___index);
@@ -9319,6 +9406,7 @@ static int luaopen_cocos2d_ui_ScrollView_Direction(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_ScrollView_EventType___index(lua_State *L)
 {
@@ -9333,7 +9421,8 @@ static int _cocos2d_ui_ScrollView_EventType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_ScrollView_EventType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_ScrollView_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.ScrollView.EventType", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_ScrollView_EventType___index);
@@ -9355,6 +9444,7 @@ static int luaopen_cocos2d_ui_ScrollView_EventType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_ScrollView_ccScrollViewCallback___call(lua_State *L)
 {
@@ -9368,7 +9458,8 @@ static int _cocos2d_ui_ScrollView_ccScrollViewCallback___call(lua_State *L)
     return 1;
 }
 
-static int luaopen_cocos2d_ui_ScrollView_ccScrollViewCallback(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_ScrollView_ccScrollViewCallback(lua_State *L)
 {
     oluacls_class(L, "ccui.ScrollView.ccScrollViewCallback", nullptr);
     oluacls_func(L, "__call", _cocos2d_ui_ScrollView_ccScrollViewCallback___call);
@@ -9377,6 +9468,7 @@ static int luaopen_cocos2d_ui_ScrollView_ccScrollViewCallback(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_ScrollView___olua_move(lua_State *L)
 {
@@ -10536,7 +10628,8 @@ static int _cocos2d_ui_ScrollView_stopScroll(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_ScrollView(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_ScrollView(lua_State *L)
 {
     oluacls_class(L, "ccui.ScrollView", "ccui.Layout");
     oluacls_func(L, "__olua_move", _cocos2d_ui_ScrollView___olua_move);
@@ -10629,6 +10722,7 @@ static int luaopen_cocos2d_ui_ScrollView(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_ListView_Gravity___index(lua_State *L)
 {
@@ -10643,7 +10737,8 @@ static int _cocos2d_ui_ListView_Gravity___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_ListView_Gravity(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_ListView_Gravity(lua_State *L)
 {
     oluacls_class(L, "ccui.ListView.Gravity", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_ListView_Gravity___index);
@@ -10658,6 +10753,7 @@ static int luaopen_cocos2d_ui_ListView_Gravity(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_ListView_EventType___index(lua_State *L)
 {
@@ -10672,7 +10768,8 @@ static int _cocos2d_ui_ListView_EventType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_ListView_EventType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_ListView_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.ListView.EventType", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_ListView_EventType___index);
@@ -10683,6 +10780,7 @@ static int luaopen_cocos2d_ui_ListView_EventType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_ListView_MagneticType___index(lua_State *L)
 {
@@ -10697,7 +10795,8 @@ static int _cocos2d_ui_ListView_MagneticType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_ListView_MagneticType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_ListView_MagneticType(lua_State *L)
 {
     oluacls_class(L, "ccui.ListView.MagneticType", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_ListView_MagneticType___index);
@@ -10713,6 +10812,7 @@ static int luaopen_cocos2d_ui_ListView_MagneticType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_ListView_ccListViewCallback___call(lua_State *L)
 {
@@ -10726,7 +10826,8 @@ static int _cocos2d_ui_ListView_ccListViewCallback___call(lua_State *L)
     return 1;
 }
 
-static int luaopen_cocos2d_ui_ListView_ccListViewCallback(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_ListView_ccListViewCallback(lua_State *L)
 {
     oluacls_class(L, "ccui.ListView.ccListViewCallback", nullptr);
     oluacls_func(L, "__call", _cocos2d_ui_ListView_ccListViewCallback___call);
@@ -10735,6 +10836,7 @@ static int luaopen_cocos2d_ui_ListView_ccListViewCallback(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_ListView___olua_move(lua_State *L)
 {
@@ -11701,7 +11803,8 @@ static int _cocos2d_ui_ListView_setTopPadding(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_ListView(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_ListView(lua_State *L)
 {
     oluacls_class(L, "ccui.ListView", "ccui.ScrollView");
     oluacls_func(L, "__olua_move", _cocos2d_ui_ListView___olua_move);
@@ -11770,6 +11873,7 @@ static int luaopen_cocos2d_ui_ListView(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_LoadingBar_Direction___index(lua_State *L)
 {
@@ -11784,7 +11888,8 @@ static int _cocos2d_ui_LoadingBar_Direction___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_LoadingBar_Direction(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_LoadingBar_Direction(lua_State *L)
 {
     oluacls_class(L, "ccui.LoadingBar.Direction", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_LoadingBar_Direction___index);
@@ -11795,6 +11900,7 @@ static int luaopen_cocos2d_ui_LoadingBar_Direction(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_LoadingBar___olua_move(lua_State *L)
 {
@@ -12182,7 +12288,8 @@ static int _cocos2d_ui_LoadingBar_setScale9Enabled(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_LoadingBar(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_LoadingBar(lua_State *L)
 {
     oluacls_class(L, "ccui.LoadingBar", "ccui.Widget");
     oluacls_func(L, "__olua_move", _cocos2d_ui_LoadingBar___olua_move);
@@ -12209,6 +12316,7 @@ static int luaopen_cocos2d_ui_LoadingBar(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_PageView_EventType___index(lua_State *L)
 {
@@ -12223,7 +12331,8 @@ static int _cocos2d_ui_PageView_EventType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_PageView_EventType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_PageView_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.PageView.EventType", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_PageView_EventType___index);
@@ -12233,6 +12342,7 @@ static int luaopen_cocos2d_ui_PageView_EventType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_PageView_TouchDirection___index(lua_State *L)
 {
@@ -12247,7 +12357,8 @@ static int _cocos2d_ui_PageView_TouchDirection___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_PageView_TouchDirection(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_PageView_TouchDirection(lua_State *L)
 {
     oluacls_class(L, "ccui.PageView.TouchDirection", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_PageView_TouchDirection___index);
@@ -12260,6 +12371,7 @@ static int luaopen_cocos2d_ui_PageView_TouchDirection(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_PageView_ccPageViewCallback___call(lua_State *L)
 {
@@ -12273,7 +12385,8 @@ static int _cocos2d_ui_PageView_ccPageViewCallback___call(lua_State *L)
     return 1;
 }
 
-static int luaopen_cocos2d_ui_PageView_ccPageViewCallback(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_PageView_ccPageViewCallback(lua_State *L)
 {
     oluacls_class(L, "ccui.PageView.ccPageViewCallback", nullptr);
     oluacls_func(L, "__call", _cocos2d_ui_PageView_ccPageViewCallback___call);
@@ -12282,6 +12395,7 @@ static int luaopen_cocos2d_ui_PageView_ccPageViewCallback(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_PageView___olua_move(lua_State *L)
 {
@@ -13089,7 +13203,8 @@ static int _cocos2d_ui_PageView_setIndicatorSpaceBetweenIndexNodes(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_PageView(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_PageView(lua_State *L)
 {
     oluacls_class(L, "ccui.PageView", "ccui.ListView");
     oluacls_func(L, "__olua_move", _cocos2d_ui_PageView___olua_move);
@@ -13141,6 +13256,7 @@ static int luaopen_cocos2d_ui_PageView(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_RichElement_Type___index(lua_State *L)
 {
@@ -13155,7 +13271,8 @@ static int _cocos2d_ui_RichElement_Type___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_RichElement_Type(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_RichElement_Type(lua_State *L)
 {
     oluacls_class(L, "ccui.RichElement.Type", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_RichElement_Type___index);
@@ -13168,6 +13285,7 @@ static int luaopen_cocos2d_ui_RichElement_Type(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_RichElement___olua_move(lua_State *L)
 {
@@ -13255,7 +13373,8 @@ static int _cocos2d_ui_RichElement_setColor(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_RichElement(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_RichElement(lua_State *L)
 {
     oluacls_class(L, "ccui.RichElement", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocos2d_ui_RichElement___olua_move);
@@ -13268,6 +13387,7 @@ static int luaopen_cocos2d_ui_RichElement(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_RichElementText___olua_move(lua_State *L)
 {
@@ -14013,7 +14133,8 @@ static int _cocos2d_ui_RichElementText_new(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocos2d_ui_RichElementText(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_RichElementText(lua_State *L)
 {
     oluacls_class(L, "ccui.RichElementText", "ccui.RichElement");
     oluacls_func(L, "__olua_move", _cocos2d_ui_RichElementText___olua_move);
@@ -14025,6 +14146,7 @@ static int luaopen_cocos2d_ui_RichElementText(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_RichElementImage___olua_move(lua_State *L)
 {
@@ -14322,7 +14444,8 @@ static int _cocos2d_ui_RichElementImage_setWidth(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_RichElementImage(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_RichElementImage(lua_State *L)
 {
     oluacls_class(L, "ccui.RichElementImage", "ccui.RichElement");
     oluacls_func(L, "__olua_move", _cocos2d_ui_RichElementImage___olua_move);
@@ -14337,6 +14460,7 @@ static int luaopen_cocos2d_ui_RichElementImage(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_RichElementCustomNode___olua_move(lua_State *L)
 {
@@ -14412,7 +14536,8 @@ static int _cocos2d_ui_RichElementCustomNode_new(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocos2d_ui_RichElementCustomNode(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_RichElementCustomNode(lua_State *L)
 {
     oluacls_class(L, "ccui.RichElementCustomNode", "ccui.RichElement");
     oluacls_func(L, "__olua_move", _cocos2d_ui_RichElementCustomNode___olua_move);
@@ -14424,6 +14549,7 @@ static int luaopen_cocos2d_ui_RichElementCustomNode(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_RichElementNewLine___olua_move(lua_State *L)
 {
@@ -14472,7 +14598,8 @@ static int _cocos2d_ui_RichElementNewLine_new(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocos2d_ui_RichElementNewLine(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_RichElementNewLine(lua_State *L)
 {
     oluacls_class(L, "ccui.RichElementNewLine", "ccui.RichElement");
     oluacls_func(L, "__olua_move", _cocos2d_ui_RichElementNewLine___olua_move);
@@ -14483,6 +14610,7 @@ static int luaopen_cocos2d_ui_RichElementNewLine(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_RichText_WrapMode___index(lua_State *L)
 {
@@ -14497,7 +14625,8 @@ static int _cocos2d_ui_RichText_WrapMode___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_RichText_WrapMode(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_RichText_WrapMode(lua_State *L)
 {
     oluacls_class(L, "ccui.RichText.WrapMode", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_RichText_WrapMode___index);
@@ -14508,6 +14637,7 @@ static int luaopen_cocos2d_ui_RichText_WrapMode(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_RichText_HorizontalAlignment___index(lua_State *L)
 {
@@ -14522,7 +14652,8 @@ static int _cocos2d_ui_RichText_HorizontalAlignment___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_RichText_HorizontalAlignment(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_RichText_HorizontalAlignment(lua_State *L)
 {
     oluacls_class(L, "ccui.RichText.HorizontalAlignment", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_RichText_HorizontalAlignment___index);
@@ -14534,6 +14665,7 @@ static int luaopen_cocos2d_ui_RichText_HorizontalAlignment(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_RichText_OpenUrlHandler___call(lua_State *L)
 {
@@ -14547,7 +14679,8 @@ static int _cocos2d_ui_RichText_OpenUrlHandler___call(lua_State *L)
     return 1;
 }
 
-static int luaopen_cocos2d_ui_RichText_OpenUrlHandler(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_RichText_OpenUrlHandler(lua_State *L)
 {
     oluacls_class(L, "ccui.RichText.OpenUrlHandler", nullptr);
     oluacls_func(L, "__call", _cocos2d_ui_RichText_OpenUrlHandler___call);
@@ -14556,6 +14689,7 @@ static int luaopen_cocos2d_ui_RichText_OpenUrlHandler(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_RichText___olua_move(lua_State *L)
 {
@@ -15814,7 +15948,8 @@ static int _cocos2d_ui_RichText_stringWithColor4B(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocos2d_ui_RichText(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_RichText(lua_State *L)
 {
     oluacls_class(L, "ccui.RichText", "ccui.Widget");
     oluacls_func(L, "__olua_move", _cocos2d_ui_RichText___olua_move);
@@ -15934,6 +16069,7 @@ static int luaopen_cocos2d_ui_RichText(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_ScrollViewBar___olua_move(lua_State *L)
 {
@@ -16176,7 +16312,8 @@ static int _cocos2d_ui_ScrollViewBar_setWidth(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_ScrollViewBar(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_ScrollViewBar(lua_State *L)
 {
     oluacls_class(L, "ccui.ScrollViewBar", "cc.ProtectedNode");
     oluacls_func(L, "__olua_move", _cocos2d_ui_ScrollViewBar___olua_move);
@@ -16202,6 +16339,7 @@ static int luaopen_cocos2d_ui_ScrollViewBar(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Slider_EventType___index(lua_State *L)
 {
@@ -16216,7 +16354,8 @@ static int _cocos2d_ui_Slider_EventType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_Slider_EventType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Slider_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.Slider.EventType", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_Slider_EventType___index);
@@ -16229,6 +16368,7 @@ static int luaopen_cocos2d_ui_Slider_EventType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Slider_ccSliderCallback___call(lua_State *L)
 {
@@ -16242,7 +16382,8 @@ static int _cocos2d_ui_Slider_ccSliderCallback___call(lua_State *L)
     return 1;
 }
 
-static int luaopen_cocos2d_ui_Slider_ccSliderCallback(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Slider_ccSliderCallback(lua_State *L)
 {
     oluacls_class(L, "ccui.Slider.ccSliderCallback", nullptr);
     oluacls_func(L, "__call", _cocos2d_ui_Slider_ccSliderCallback___call);
@@ -16251,6 +16392,7 @@ static int luaopen_cocos2d_ui_Slider_ccSliderCallback(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Slider___olua_move(lua_State *L)
 {
@@ -17244,7 +17386,8 @@ static int _cocos2d_ui_Slider_updateVisualSlider(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_Slider(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Slider(lua_State *L)
 {
     oluacls_class(L, "ccui.Slider", "ccui.Widget");
     oluacls_func(L, "__olua_move", _cocos2d_ui_Slider___olua_move);
@@ -17301,6 +17444,7 @@ static int luaopen_cocos2d_ui_Slider(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Text_Type___index(lua_State *L)
 {
@@ -17315,7 +17459,8 @@ static int _cocos2d_ui_Text_Type___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_Text_Type(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Text_Type(lua_State *L)
 {
     oluacls_class(L, "ccui.Text.Type", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_Text_Type___index);
@@ -17326,6 +17471,7 @@ static int luaopen_cocos2d_ui_Text_Type(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Text___olua_move(lua_State *L)
 {
@@ -18231,7 +18377,8 @@ static int _cocos2d_ui_Text_setTouchScaleChangeEnabled(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_Text(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Text(lua_State *L)
 {
     oluacls_class(L, "ccui.Text", "ccui.Widget");
     oluacls_func(L, "__olua_move", _cocos2d_ui_Text___olua_move);
@@ -18296,6 +18443,7 @@ static int luaopen_cocos2d_ui_Text(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_TextAtlas___olua_move(lua_State *L)
 {
@@ -18506,7 +18654,8 @@ static int _cocos2d_ui_TextAtlas_setString(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_TextAtlas(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_TextAtlas(lua_State *L)
 {
     oluacls_class(L, "ccui.TextAtlas", "ccui.Widget");
     oluacls_func(L, "__olua_move", _cocos2d_ui_TextAtlas___olua_move);
@@ -18527,6 +18676,7 @@ static int luaopen_cocos2d_ui_TextAtlas(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_TextBMFont___olua_move(lua_State *L)
 {
@@ -18723,7 +18873,8 @@ static int _cocos2d_ui_TextBMFont_setString(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_TextBMFont(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_TextBMFont(lua_State *L)
 {
     oluacls_class(L, "ccui.TextBMFont", "ccui.Widget");
     oluacls_func(L, "__olua_move", _cocos2d_ui_TextBMFont___olua_move);
@@ -18744,6 +18895,7 @@ static int luaopen_cocos2d_ui_TextBMFont(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_UICCTextField___olua_move(lua_State *L)
 {
@@ -19243,7 +19395,8 @@ static int _cocos2d_ui_UICCTextField_setPasswordText(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_UICCTextField(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_UICCTextField(lua_State *L)
 {
     oluacls_class(L, "ccui.UICCTextField", "cc.TextFieldTTF");
     oluacls_func(L, "__olua_move", _cocos2d_ui_UICCTextField___olua_move);
@@ -19284,6 +19437,7 @@ static int luaopen_cocos2d_ui_UICCTextField(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_TextField_EventType___index(lua_State *L)
 {
@@ -19298,7 +19452,8 @@ static int _cocos2d_ui_TextField_EventType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_TextField_EventType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_TextField_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.TextField.EventType", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_TextField_EventType___index);
@@ -19311,6 +19466,7 @@ static int luaopen_cocos2d_ui_TextField_EventType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_TextField_ccTextFieldCallback___call(lua_State *L)
 {
@@ -19324,7 +19480,8 @@ static int _cocos2d_ui_TextField_ccTextFieldCallback___call(lua_State *L)
     return 1;
 }
 
-static int luaopen_cocos2d_ui_TextField_ccTextFieldCallback(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_TextField_ccTextFieldCallback(lua_State *L)
 {
     oluacls_class(L, "ccui.TextField.ccTextFieldCallback", nullptr);
     oluacls_func(L, "__call", _cocos2d_ui_TextField_ccTextFieldCallback___call);
@@ -19333,6 +19490,7 @@ static int luaopen_cocos2d_ui_TextField_ccTextFieldCallback(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_TextField___olua_move(lua_State *L)
 {
@@ -20275,7 +20433,8 @@ static int _cocos2d_ui_TextField_setTouchSize(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_TextField(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_TextField(lua_State *L)
 {
     oluacls_class(L, "ccui.TextField", "ccui.Widget");
     oluacls_func(L, "__olua_move", _cocos2d_ui_TextField___olua_move);
@@ -20351,6 +20510,7 @@ static int luaopen_cocos2d_ui_TextField(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_Button___olua_move(lua_State *L)
 {
@@ -21601,7 +21761,8 @@ static int _cocos2d_ui_Button_setZoomScale(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_Button(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_Button(lua_State *L)
 {
     oluacls_class(L, "ccui.Button", "ccui.Widget");
     oluacls_func(L, "__olua_move", _cocos2d_ui_Button___olua_move);
@@ -21670,6 +21831,7 @@ static int luaopen_cocos2d_ui_Button(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_CheckBox_EventType___index(lua_State *L)
 {
@@ -21684,7 +21846,8 @@ static int _cocos2d_ui_CheckBox_EventType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_CheckBox_EventType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_CheckBox_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.CheckBox.EventType", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_CheckBox_EventType___index);
@@ -21695,6 +21858,7 @@ static int luaopen_cocos2d_ui_CheckBox_EventType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_CheckBox_ccCheckBoxCallback___call(lua_State *L)
 {
@@ -21708,7 +21872,8 @@ static int _cocos2d_ui_CheckBox_ccCheckBoxCallback___call(lua_State *L)
     return 1;
 }
 
-static int luaopen_cocos2d_ui_CheckBox_ccCheckBoxCallback(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_CheckBox_ccCheckBoxCallback(lua_State *L)
 {
     oluacls_class(L, "ccui.CheckBox.ccCheckBoxCallback", nullptr);
     oluacls_func(L, "__call", _cocos2d_ui_CheckBox_ccCheckBoxCallback___call);
@@ -21717,6 +21882,7 @@ static int luaopen_cocos2d_ui_CheckBox_ccCheckBoxCallback(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_CheckBox___olua_move(lua_State *L)
 {
@@ -21941,7 +22107,8 @@ static int _cocos2d_ui_CheckBox_new(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocos2d_ui_CheckBox(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_CheckBox(lua_State *L)
 {
     oluacls_class(L, "ccui.CheckBox", "ccui.AbstractCheckButton");
     oluacls_func(L, "__olua_move", _cocos2d_ui_CheckBox___olua_move);
@@ -21954,6 +22121,7 @@ static int luaopen_cocos2d_ui_CheckBox(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_RadioButton_EventType___index(lua_State *L)
 {
@@ -21968,7 +22136,8 @@ static int _cocos2d_ui_RadioButton_EventType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_RadioButton_EventType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_RadioButton_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.RadioButton.EventType", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_RadioButton_EventType___index);
@@ -21979,6 +22148,7 @@ static int luaopen_cocos2d_ui_RadioButton_EventType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_RadioButton_ccRadioButtonCallback___call(lua_State *L)
 {
@@ -21992,7 +22162,8 @@ static int _cocos2d_ui_RadioButton_ccRadioButtonCallback___call(lua_State *L)
     return 1;
 }
 
-static int luaopen_cocos2d_ui_RadioButton_ccRadioButtonCallback(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_RadioButton_ccRadioButtonCallback(lua_State *L)
 {
     oluacls_class(L, "ccui.RadioButton.ccRadioButtonCallback", nullptr);
     oluacls_func(L, "__call", _cocos2d_ui_RadioButton_ccRadioButtonCallback___call);
@@ -22001,6 +22172,7 @@ static int luaopen_cocos2d_ui_RadioButton_ccRadioButtonCallback(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_RadioButton___olua_move(lua_State *L)
 {
@@ -22225,7 +22397,8 @@ static int _cocos2d_ui_RadioButton_new(lua_State *L)
     return num_ret;
 }
 
-static int luaopen_cocos2d_ui_RadioButton(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_RadioButton(lua_State *L)
 {
     oluacls_class(L, "ccui.RadioButton", "ccui.AbstractCheckButton");
     oluacls_func(L, "__olua_move", _cocos2d_ui_RadioButton___olua_move);
@@ -22238,6 +22411,7 @@ static int luaopen_cocos2d_ui_RadioButton(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_RadioButtonGroup_EventType___index(lua_State *L)
 {
@@ -22252,7 +22426,8 @@ static int _cocos2d_ui_RadioButtonGroup_EventType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_RadioButtonGroup_EventType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_RadioButtonGroup_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.RadioButtonGroup.EventType", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_RadioButtonGroup_EventType___index);
@@ -22262,6 +22437,7 @@ static int luaopen_cocos2d_ui_RadioButtonGroup_EventType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_RadioButtonGroup_ccRadioButtonGroupCallback___call(lua_State *L)
 {
@@ -22275,7 +22451,8 @@ static int _cocos2d_ui_RadioButtonGroup_ccRadioButtonGroupCallback___call(lua_St
     return 1;
 }
 
-static int luaopen_cocos2d_ui_RadioButtonGroup_ccRadioButtonGroupCallback(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_RadioButtonGroup_ccRadioButtonGroupCallback(lua_State *L)
 {
     oluacls_class(L, "ccui.RadioButtonGroup.ccRadioButtonGroupCallback", nullptr);
     oluacls_func(L, "__call", _cocos2d_ui_RadioButtonGroup_ccRadioButtonGroupCallback___call);
@@ -22284,6 +22461,7 @@ static int luaopen_cocos2d_ui_RadioButtonGroup_ccRadioButtonGroupCallback(lua_St
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_RadioButtonGroup___olua_move(lua_State *L)
 {
@@ -22616,7 +22794,8 @@ static int _cocos2d_ui_RadioButtonGroup_setSelectedButtonWithoutEvent(lua_State 
     return 0;
 }
 
-static int luaopen_cocos2d_ui_RadioButtonGroup(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_RadioButtonGroup(lua_State *L)
 {
     oluacls_class(L, "ccui.RadioButtonGroup", "ccui.Widget");
     oluacls_func(L, "__olua_move", _cocos2d_ui_RadioButtonGroup___olua_move);
@@ -22641,6 +22820,7 @@ static int luaopen_cocos2d_ui_RadioButtonGroup(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_ImageView___olua_move(lua_State *L)
 {
@@ -23044,7 +23224,8 @@ static int _cocos2d_ui_ImageView_setTextureRect(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_ImageView(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_ImageView(lua_State *L)
 {
     oluacls_class(L, "ccui.ImageView", "ccui.Widget");
     oluacls_func(L, "__olua_move", _cocos2d_ui_ImageView___olua_move);
@@ -23070,6 +23251,7 @@ static int luaopen_cocos2d_ui_ImageView(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_EditBoxDelegate_EditBoxEndAction___index(lua_State *L)
 {
@@ -23084,7 +23266,8 @@ static int _cocos2d_ui_EditBoxDelegate_EditBoxEndAction___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_EditBoxDelegate_EditBoxEndAction(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_EditBoxDelegate_EditBoxEndAction(lua_State *L)
 {
     oluacls_class(L, "ccui.EditBoxDelegate.EditBoxEndAction", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_EditBoxDelegate_EditBoxEndAction___index);
@@ -23097,6 +23280,7 @@ static int luaopen_cocos2d_ui_EditBoxDelegate_EditBoxEndAction(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_EditBoxDelegate___olua_move(lua_State *L)
 {
@@ -23186,7 +23370,8 @@ static int _cocos2d_ui_EditBoxDelegate_editBoxTextChanged(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_EditBoxDelegate(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_EditBoxDelegate(lua_State *L)
 {
     oluacls_class(L, "ccui.EditBoxDelegate", nullptr);
     oluacls_func(L, "__olua_move", _cocos2d_ui_EditBoxDelegate___olua_move);
@@ -23199,6 +23384,7 @@ static int luaopen_cocos2d_ui_EditBoxDelegate(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_LuaEditBoxDelegate___gc(lua_State *L)
 {
@@ -23519,7 +23705,8 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onTextChanged(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_LuaEditBoxDelegate(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_LuaEditBoxDelegate(lua_State *L)
 {
     oluacls_class(L, "ccui.LuaEditBoxDelegate", "ccui.EditBoxDelegate");
     oluacls_func(L, "__gc", _cocos2d_ui_LuaEditBoxDelegate___gc);
@@ -23534,6 +23721,7 @@ static int luaopen_cocos2d_ui_LuaEditBoxDelegate(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_EditBox_KeyboardReturnType___index(lua_State *L)
 {
@@ -23548,7 +23736,8 @@ static int _cocos2d_ui_EditBox_KeyboardReturnType___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_EditBox_KeyboardReturnType(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_EditBox_KeyboardReturnType(lua_State *L)
 {
     oluacls_class(L, "ccui.EditBox.KeyboardReturnType", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_EditBox_KeyboardReturnType___index);
@@ -23563,6 +23752,7 @@ static int luaopen_cocos2d_ui_EditBox_KeyboardReturnType(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_EditBox_InputMode___index(lua_State *L)
 {
@@ -23577,7 +23767,8 @@ static int _cocos2d_ui_EditBox_InputMode___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_EditBox_InputMode(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_EditBox_InputMode(lua_State *L)
 {
     oluacls_class(L, "ccui.EditBox.InputMode", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_EditBox_InputMode___index);
@@ -23593,6 +23784,7 @@ static int luaopen_cocos2d_ui_EditBox_InputMode(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_EditBox_InputFlag___index(lua_State *L)
 {
@@ -23607,7 +23799,8 @@ static int _cocos2d_ui_EditBox_InputFlag___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_EditBox_InputFlag(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_EditBox_InputFlag(lua_State *L)
 {
     oluacls_class(L, "ccui.EditBox.InputFlag", nullptr);
     oluacls_func(L, "__index", _cocos2d_ui_EditBox_InputFlag___index);
@@ -23622,6 +23815,7 @@ static int luaopen_cocos2d_ui_EditBox_InputFlag(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
 static int _cocos2d_ui_EditBox___olua_move(lua_State *L)
 {
@@ -25168,7 +25362,8 @@ static int _cocos2d_ui_EditBox_setTextHorizontalAlignment(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_ui_EditBox(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_EditBox(lua_State *L)
 {
     oluacls_class(L, "ccui.EditBox", "ccui.Widget");
     oluacls_func(L, "__olua_move", _cocos2d_ui_EditBox___olua_move);
@@ -25240,8 +25435,10 @@ static int luaopen_cocos2d_ui_EditBox(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 
-int luaopen_cocos2d_ui(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui(lua_State *L)
 {
     olua_require(L, "ccui.Widget.FocusDirection", luaopen_cocos2d_ui_Widget_FocusDirection);
     olua_require(L, "ccui.Widget.PositionType", luaopen_cocos2d_ui_Widget_PositionType);
@@ -25353,5 +25550,7 @@ int luaopen_cocos2d_ui(lua_State *L)
     olua_require(L, "ccui.EditBox.InputMode", luaopen_cocos2d_ui_EditBox_InputMode);
     olua_require(L, "ccui.EditBox.InputFlag", luaopen_cocos2d_ui_EditBox_InputFlag);
     olua_require(L, "ccui.EditBox", luaopen_cocos2d_ui_EditBox);
+
     return 0;
 }
+OLUA_END_DECLS

@@ -17,7 +17,8 @@ static int _cclua_CrashReport_LogLevel___index(lua_State *L)
     return 0;
 }
 
-static int luaopen_cclua_CrashReport_LogLevel(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_CrashReport_LogLevel(lua_State *L)
 {
     oluacls_class(L, "cclua.CrashReport.LogLevel", nullptr);
     oluacls_func(L, "__index", _cclua_CrashReport_LogLevel___index);
@@ -32,6 +33,7 @@ static int luaopen_cclua_CrashReport_LogLevel(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 #endif
 
 #ifdef CCLUA_BUILD_BUGLY
@@ -181,7 +183,8 @@ static int _cclua_CrashReport_setVersion(lua_State *L)
     return 0;
 }
 
-static int luaopen_cclua_CrashReport(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_CrashReport(lua_State *L)
 {
     oluacls_class(L, "cclua.CrashReport", nullptr);
     oluacls_func(L, "__olua_move", _cclua_CrashReport___olua_move);
@@ -199,9 +202,11 @@ static int luaopen_cclua_CrashReport(lua_State *L)
 
     return 1;
 }
+OLUA_END_DECLS
 #endif
 
-int luaopen_bugly(lua_State *L)
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_bugly(lua_State *L)
 {
 #ifdef CCLUA_BUILD_BUGLY
     olua_require(L, "cclua.CrashReport.LogLevel", luaopen_cclua_CrashReport_LogLevel);
@@ -209,5 +214,7 @@ int luaopen_bugly(lua_State *L)
 #ifdef CCLUA_BUILD_BUGLY
     olua_require(L, "cclua.CrashReport", luaopen_cclua_CrashReport);
 #endif
+
     return 0;
 }
+OLUA_END_DECLS

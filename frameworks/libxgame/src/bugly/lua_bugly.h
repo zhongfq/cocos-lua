@@ -9,6 +9,8 @@
 #include "cclua/xlua.h"
 #include "bugly/CrashReport.h"
 
-int luaopen_bugly(lua_State *L);
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_bugly(lua_State *L);
+OLUA_END_DECLS
 
 #endif

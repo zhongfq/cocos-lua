@@ -34,6 +34,7 @@ chunk = [[
         return 4;
     }
 ]]
+luaopen = nil
 
 
 typeconf 'cclua::SceneNoCamera'

@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.6)
 
 add_library(xgame "")
 
+include(src/box2d/CMakeLists.txt)
 include(src/cjson/CMakeLists.txt)
 include(src/lua-bindings/CMakeLists.txt)
 include(src/lua/CMakeLists.txt)
@@ -60,6 +61,12 @@ endif()
 if(CCLUA_BUILD_FAIRYGUI)
     target_link_libraries(xgame fairygui)
     target_compile_definitions(xgame PUBLIC CCLUA_BUILD_FAIRYGUI)
+endif()
+
+if(CCLUA_BUILD_BOX2D)
+    target_link_libraries(xgame box2d)
+    target_sources(xgame PRIVATE ${BOX2D_SRC} ${BOX2D_HEADER})
+    target_compile_definitions(xgame PUBLIC CCLUA_BUILD_BOX2D)
 endif()
 
 if(CCLUA_BUILD_COCOSSTUDIO)

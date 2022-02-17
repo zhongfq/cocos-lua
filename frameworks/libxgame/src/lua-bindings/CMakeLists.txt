@@ -59,6 +59,11 @@ if(CCLUA_BUILD_FAIRYGUI)
     list(APPEND LUA_BINDINGS_SRC src/lua-bindings/lua_fairygui.cpp)
 endif()
 
+if(CCLUA_BUILD_BOX2D)
+    list(APPEND LUA_BINDINGS_HEADER src/lua-bindings/lua_box2d.h)
+    list(APPEND LUA_BINDINGS_SRC src/lua-bindings/lua_box2d.cpp)
+endif()
+
 if(APPLE)
     list(APPEND LUA_BINDINGS_SRC
         src/lua-bindings/lua_ocbridge.mm

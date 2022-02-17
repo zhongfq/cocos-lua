@@ -28,6 +28,10 @@ clang {
         // dragonbones
         #include "CCDragonBonesHeaders.h"
 
+        // box2d
+        #include "box2d/box2d.h"
+        #include "box2d/Box2DAdapter.h"
+
         // xgame
         #include "cclua/filesystem.h"
         #include "cclua/runtime.h"
@@ -57,6 +61,7 @@ clang {
         '-I../../frameworks/cocos2d-x/cocos/editor-support',
         '-I../../frameworks/cocos2d-x/cocos/platform',
         '-I../../frameworks/cocos2d-x/external',
+        '-I../../frameworks/box2d/include',
         '-I../../frameworks/libfairygui/Classes',
         '-I../../frameworks/libdragonbones/src',
         '-I../../frameworks/libxgame/src',

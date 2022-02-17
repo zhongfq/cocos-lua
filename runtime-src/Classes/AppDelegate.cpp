@@ -42,6 +42,9 @@ extern "C" {
 #include "lua-bindings/lua_dragonbones.h"
 #endif // CCLUA_BUILD_DRAGONBONES
 
+#ifdef CCLUA_BUILD_BOX2D
+#include "lua-bindings/lua_box2d.h"
+#endif // CCLUA_BUILD_BOX2D
 
 #ifdef CCLUA_BUILD_FAIRYGUI
 #include "lua-bindings/lua_fairygui.h"
@@ -126,6 +129,10 @@ static int _open_plugins(lua_State *L)
 
 #ifdef CCLUA_BUILD_SPINE
 	olua_callfunc(L, luaopen_spine);
+#endif
+    
+#ifdef CCLUA_BUILD_BOX2D
+    olua_callfunc(L, luaopen_box2d);
 #endif
     
 #ifdef CCLUA_BUILD_SWF

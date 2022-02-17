@@ -41,6 +41,7 @@ option(CCLUA_BUILD_LAME "Build with lame support" ON)
 option(CCLUA_BUILD_QRCODE "Build with qrcode support" ON)
 option(CCLUA_BUILD_FAIRYGUI "Build with fairygui support" ON)
 option(CCLUA_BUILD_DRAGONBONES "Build with dragonbones support" OFF)
+option(CCLUA_BUILD_BOX2D "Build with box2d support" ON)
 option(CCLUA_BUILD_SWF "Build with swf support" OFF)
 option(CCLUA_BUILD_JPUSH "Build with jpush support" OFF)
 option(CCLUA_BUILD_JAUTH "Build with jauth support" OFF)
@@ -183,11 +184,34 @@ target_link_libraries(${APP_NAME} luaopenssl)
 if(CCLUA_BUILD_FAIRYGUI)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libfairygui)
     target_link_libraries(${APP_NAME} fairygui)
+    set_target_properties(fairygui PROPERTIES
+        ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+        FOLDER "cclua"
+    )
+    if(XCODE OR VS)
+        cocos_mark_code_files("fairygui" GROUPBASE "${CMAKE_CURRENT_SOURCE_DIR}/Classes")
+    endif()
 endif()
 
 if(CCLUA_BUILD_DRAGONBONES)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libdragonbones)
     target_link_libraries(${APP_NAME} dragonbones)
+endif()
+
+if(CCLUA_BUILD_BOX2D)
+    set(BOX2D_BUILD_UNIT_TESTS OFF)
+    set(BOX2D_BUILD_TESTBED OFF)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/box2d)
+    target_link_libraries(${APP_NAME} box2d)
+    set_target_properties(box2d PROPERTIES
+        ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+        FOLDER "cclua"
+    )
+    if(XCODE OR VS)
+        cocos_mark_code_files("box2d" GROUPBASE "${CMAKE_CURRENT_SOURCE_DIR}/box2d")
+    endif()
 endif()
 
 if(CCLUA_BUILD_SWF)
@@ -255,15 +279,30 @@ target_include_directories(${APP_NAME}
 
 # suspend warnings
 if(APPLE)
-    target_compile_options(cocos2d PRIVATE -Wno-reorder)
-    target_compile_options(cocos2d PRIVATE -Wno-deprecated-declarations)
-    target_compile_options(cocos2d PRIVATE -Wno-shorten-64-to-32)
-    target_compile_options(cocos2d PRIVATE -Wno-comma)
+    target_compile_options(cocos2d
+      PRIVATE
+        -Wno-reorder
+        -Wno-deprecated-declarations
+        -Wno-shorten-64-to-32
+        -Wno-comma
+    )
     if(CCLUA_BUILD_FAIRYGUI)
-        target_compile_options(fairygui PRIVATE -Wno-reorder)
+        target_compile_options(fairygui
+          PRIVATE
+            -Wno-reorder
+        )
     endif()
     if(CCLUA_BUILD_DRAGONBONES)
-        target_compile_options(dragonbones PRIVATE -Wno-shorten-64-to-32)
+        target_compile_options(dragonbones
+          PRIVATE
+            -Wno-shorten-64-to-32
+        )
+    endif()
+    if(CCLUA_BUILD_BOX2D)
+        target_compile_options(box2d
+          PRIVATE
+            -Wno-shorten-64-to-32
+        )
     endif()
 endif()
 

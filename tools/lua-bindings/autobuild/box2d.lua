@@ -12,19 +12,7 @@ headers = [[
     #include "box2d/box2d.h"
     #include "box2d/Box2DAdapter.h"
 ]]
-chunk = [[
-    int olua_push_b2MassData(lua_State *L, const b2MassData *value)
-    {
-        lua_createtable(L, 0, 2);
-        olua_push_number(L, value->mass);
-        olua_setfield(L, -2, "mass");
-        olua_push_b2Vec2(L, &value->center);
-        olua_setfield(L, -2, "center");
-        olua_push_number(L, value->I);
-        olua_setfield(L, -2, "I");
-        return 1;
-    }
-]]
+chunk = nil
 luaopen = nil
 
 typeconv 'b2Vec2'
@@ -35,6 +23,16 @@ typeconv 'b2Vec3'
     .var('x', 'float x')
     .var('y', 'float y')
     .var('z', 'float z')
+
+typeconv 'b2ContactID'
+    .var('cf', 'b2ContactFeature cf')
+    .var('key', 'uint32 key')
+
+typeconv 'b2ContactFeature'
+    .var('indexA', 'uint8 indexA')
+    .var('indexB', 'uint8 indexB')
+    .var('typeA', 'uint8 typeA')
+    .var('typeB', 'uint8 typeB')
 
 typeconv 'b2Color'
     .var('r', 'float r')
@@ -54,6 +52,16 @@ typeconv 'b2ManifoldPoint'
     .var('localPoint', 'b2Vec2 localPoint')
     .var('normalImpulse', 'float normalImpulse')
     .var('tangentImpulse', 'float tangentImpulse')
+    .var('id', 'b2ContactID id')
+
+typeconv 'b2Rot'
+    .var('s', 'float s')
+    .var('c', 'float c')
+
+typeconv 'b2MassData'
+    .var('mass', 'float mass')
+    .var('center', 'b2Vec2 center')
+    .var('I', 'float I')
 
 
 typeconf 'b2Draw'
@@ -70,7 +78,9 @@ typeconf 'b2Draw'
     .func(nil, 'void DrawCircle(const b2Vec2 &center, float radius, const b2Color &color)')
     .func(nil, 'void DrawSolidCircle(const b2Vec2 &center, float radius, const b2Vec2 &axis, const b2Color &color)')
     .func(nil, 'void DrawSegment(const b2Vec2 &p1, const b2Vec2 &p2, const b2Color &color)')
+    .func(nil, 'void DrawTransform(const b2Transform &xf)')
     .func(nil, 'void DrawPoint(const b2Vec2 &p, float size, const b2Color &color)')
+    .prop('flags', nil, nil)
 
 typeconf 'b2DestructionListener'
     .supercls(nil)
@@ -163,6 +173,34 @@ typeconf 'b2MassData'
     .var('center', 'b2Vec2 center')
     .var('I', 'float I')
 
+typeconf 'b2Transform'
+    .supercls(nil)
+    .reg_luatype(true)
+    .chunk(nil)
+    .luaopen(nil)
+    .func(nil, 'b2Transform()', 'b2Transform(const b2Vec2 &position, const b2Rot &rotation)')
+    .func(nil, 'void SetIdentity()')
+    .func(nil, 'void Set(const b2Vec2 &position, float angle)')
+    .var('p', 'b2Vec2 p')
+    .var('q', 'b2Rot q')
+
+typeconf 'b2RayCastInput'
+    .supercls(nil)
+    .reg_luatype(true)
+    .chunk(nil)
+    .luaopen(nil)
+    .var('p1', 'b2Vec2 p1')
+    .var('p2', 'b2Vec2 p2')
+    .var('maxFraction', 'float maxFraction')
+
+typeconf 'b2RayCastOutput'
+    .supercls(nil)
+    .reg_luatype(true)
+    .chunk(nil)
+    .luaopen(nil)
+    .var('normal', 'b2Vec2 normal')
+    .var('fraction', 'float fraction')
+
 typeconf 'b2Shape::Type'
     .supercls(nil)
     .reg_luatype(true)
@@ -181,9 +219,14 @@ typeconf 'b2Shape'
     .luaopen(nil)
     .func(nil, 'b2Shape::Type GetType()')
     .func(nil, 'int32 GetChildCount()')
+    .func(nil, 'bool TestPoint(const b2Transform &xf, const b2Vec2 &p)')
+    .func(nil, 'bool RayCast(b2RayCastOutput *output, const b2RayCastInput &input, const b2Transform &transform, int32 childIndex)')
+    .func(nil, 'void ComputeAABB(b2AABB *aabb, const b2Transform &xf, int32 childIndex)')
     .func(nil, 'void ComputeMass(b2MassData *massData, float density)')
     .var('m_type', 'b2Shape::Type m_type')
     .var('m_radius', 'float m_radius')
+    .prop('type', nil, nil)
+    .prop('childCount', nil, nil)
 
 typeconf 'b2PolygonShape'
     .supercls('b2Shape')
@@ -272,6 +315,7 @@ typeconf 'b2Body'
     .func(nil, 'b2Fixture *CreateFixture(const b2FixtureDef *def)', 'b2Fixture *CreateFixture(const b2Shape *shape, float density)')
     .func(nil, 'void DestroyFixture(b2Fixture *fixture)')
     .func(nil, 'void SetTransform(const b2Vec2 &position, float angle)')
+    .func(nil, 'const b2Transform &GetTransform()')
     .func(nil, 'const b2Vec2 &GetPosition()')
     .func(nil, 'float GetAngle()')
     .func(nil, 'const b2Vec2 &GetWorldCenter()')
@@ -322,6 +366,30 @@ typeconf 'b2Body'
     .func(nil, 'b2BodyUserData &GetUserData()')
     .func(nil, 'b2World *GetWorld()')
     .func(nil, 'void Dump()')
+    .prop('position', nil, nil)
+    .prop('angle', nil, nil)
+    .prop('worldCenter', nil, nil)
+    .prop('localCenter', nil, nil)
+    .prop('linearVelocity', nil, nil)
+    .prop('angularVelocity', nil, nil)
+    .prop('mass', nil, nil)
+    .prop('inertia', nil, nil)
+    .prop('massData', nil, nil)
+    .prop('linearDamping', nil, nil)
+    .prop('angularDamping', nil, nil)
+    .prop('gravityScale', nil, nil)
+    .prop('type', nil, nil)
+    .prop('bullet', nil, nil)
+    .prop('sleepingAllowed', nil, nil)
+    .prop('awake', nil, nil)
+    .prop('enabled', nil, nil)
+    .prop('fixedRotation', nil, nil)
+    .prop('fixtureList', nil, nil)
+    .prop('jointList', nil, nil)
+    .prop('contactList', nil, nil)
+    .prop('next', nil, nil)
+    .prop('userData', nil, nil)
+    .prop('world', nil, nil)
 
 typeconf 'b2BodyUserData'
     .supercls(nil)
@@ -362,6 +430,7 @@ typeconf 'b2Fixture'
     .func(nil, 'b2Fixture *GetNext()')
     .func(nil, 'b2FixtureUserData &GetUserData()')
     .func(nil, 'bool TestPoint(const b2Vec2 &p)')
+    .func(nil, 'bool RayCast(b2RayCastOutput *output, const b2RayCastInput &input, int32 childIndex)')
     .func(nil, 'void GetMassData(b2MassData *massData)')
     .func(nil, 'void SetDensity(float density)')
     .func(nil, 'float GetDensity()')
@@ -373,6 +442,17 @@ typeconf 'b2Fixture'
     .func(nil, 'void SetRestitutionThreshold(float threshold)')
     .func(nil, 'const b2AABB &GetAABB(int32 childIndex)')
     .func(nil, 'void Dump(int32 bodyIndex)')
+    .prop('type', nil, nil)
+    .prop('shape', nil, nil)
+    .prop('sensor', nil, nil)
+    .prop('filterData', nil, nil)
+    .prop('body', nil, nil)
+    .prop('next', nil, nil)
+    .prop('userData', nil, nil)
+    .prop('density', nil, nil)
+    .prop('friction', nil, nil)
+    .prop('restitution', nil, nil)
+    .prop('restitutionThreshold', nil, nil)
 
 typeconf 'b2JointDef'
     .supercls(nil)
@@ -422,6 +502,15 @@ typeconf 'b2Joint'
     .func(nil, 'void Dump()')
     .func(nil, 'void ShiftOrigin(const b2Vec2 &newOrigin)')
     .func(nil, 'void Draw(b2Draw *draw)')
+    .prop('type', nil, nil)
+    .prop('bodyA', nil, nil)
+    .prop('bodyB', nil, nil)
+    .prop('anchorA', nil, nil)
+    .prop('anchorB', nil, nil)
+    .prop('next', nil, nil)
+    .prop('userData', nil, nil)
+    .prop('enabled', nil, nil)
+    .prop('collideConnected', nil, nil)
 
 typeconf 'b2DistanceJointDef'
     .supercls('b2JointDef')
@@ -456,6 +545,14 @@ typeconf 'b2DistanceJoint'
     .func(nil, 'float GetStiffness()')
     .func(nil, 'void SetDamping(float damping)')
     .func(nil, 'float GetDamping()')
+    .prop('localAnchorA', nil, nil)
+    .prop('localAnchorB', nil, nil)
+    .prop('length', nil, nil)
+    .prop('minLength', nil, nil)
+    .prop('maxLength', nil, nil)
+    .prop('currentLength', nil, nil)
+    .prop('stiffness', nil, nil)
+    .prop('damping', nil, nil)
 
 typeconf 'b2FrictionJointDef'
     .supercls('b2JointDef')
@@ -480,6 +577,10 @@ typeconf 'b2FrictionJoint'
     .func(nil, 'float GetMaxForce()')
     .func(nil, 'void SetMaxTorque(float torque)')
     .func(nil, 'float GetMaxTorque()')
+    .prop('localAnchorA', nil, nil)
+    .prop('localAnchorB', nil, nil)
+    .prop('maxForce', nil, nil)
+    .prop('maxTorque', nil, nil)
 
 typeconf 'b2GearJointDef'
     .supercls('b2JointDef')
@@ -500,6 +601,9 @@ typeconf 'b2GearJoint'
     .func(nil, 'b2Joint *GetJoint2()')
     .func(nil, 'void SetRatio(float ratio)')
     .func(nil, 'float GetRatio()')
+    .prop('joint1', nil, nil)
+    .prop('joint2', nil, nil)
+    .prop('ratio', nil, nil)
 
 typeconf 'b2MotorJointDef'
     .supercls('b2JointDef')
@@ -529,6 +633,11 @@ typeconf 'b2MotorJoint'
     .func(nil, 'float GetMaxTorque()')
     .func(nil, 'void SetCorrectionFactor(float factor)')
     .func(nil, 'float GetCorrectionFactor()')
+    .prop('linearOffset', nil, nil)
+    .prop('angularOffset', nil, nil)
+    .prop('maxForce', nil, nil)
+    .prop('maxTorque', nil, nil)
+    .prop('correctionFactor', nil, nil)
 
 typeconf 'b2MouseJointDef'
     .supercls('b2JointDef')
@@ -554,6 +663,10 @@ typeconf 'b2MouseJoint'
     .func(nil, 'float GetStiffness()')
     .func(nil, 'void SetDamping(float damping)')
     .func(nil, 'float GetDamping()')
+    .prop('target', nil, nil)
+    .prop('maxForce', nil, nil)
+    .prop('stiffness', nil, nil)
+    .prop('damping', nil, nil)
 
 typeconf 'b2PrismaticJointDef'
     .supercls('b2JointDef')
@@ -596,6 +709,18 @@ typeconf 'b2PrismaticJoint'
     .func(nil, 'void SetMaxMotorForce(float force)')
     .func(nil, 'float GetMaxMotorForce()')
     .func(nil, 'float GetMotorForce(float inv_dt)')
+    .prop('localAnchorA', nil, nil)
+    .prop('localAnchorB', nil, nil)
+    .prop('localAxisA', nil, nil)
+    .prop('referenceAngle', nil, nil)
+    .prop('jointTranslation', nil, nil)
+    .prop('jointSpeed', nil, nil)
+    .prop('limitEnabled', nil, nil)
+    .prop('lowerLimit', nil, nil)
+    .prop('upperLimit', nil, nil)
+    .prop('motorEnabled', nil, nil)
+    .prop('motorSpeed', nil, nil)
+    .prop('maxMotorForce', nil, nil)
 
 typeconf 'b2PulleyJointDef'
     .supercls('b2JointDef')
@@ -624,6 +749,13 @@ typeconf 'b2PulleyJoint'
     .func(nil, 'float GetRatio()')
     .func(nil, 'float GetCurrentLengthA()')
     .func(nil, 'float GetCurrentLengthB()')
+    .prop('groundAnchorA', nil, nil)
+    .prop('groundAnchorB', nil, nil)
+    .prop('lengthA', nil, nil)
+    .prop('lengthB', nil, nil)
+    .prop('ratio', nil, nil)
+    .prop('currentLengthA', nil, nil)
+    .prop('currentLengthB', nil, nil)
 
 typeconf 'b2RevoluteJointDef'
     .supercls('b2JointDef')
@@ -664,6 +796,17 @@ typeconf 'b2RevoluteJoint'
     .func(nil, 'void SetMaxMotorTorque(float torque)')
     .func(nil, 'float GetMaxMotorTorque()')
     .func(nil, 'float GetMotorTorque(float inv_dt)')
+    .prop('localAnchorA', nil, nil)
+    .prop('localAnchorB', nil, nil)
+    .prop('referenceAngle', nil, nil)
+    .prop('jointAngle', nil, nil)
+    .prop('jointSpeed', nil, nil)
+    .prop('limitEnabled', nil, nil)
+    .prop('lowerLimit', nil, nil)
+    .prop('upperLimit', nil, nil)
+    .prop('motorEnabled', nil, nil)
+    .prop('motorSpeed', nil, nil)
+    .prop('maxMotorTorque', nil, nil)
 
 typeconf 'b2WeldJointDef'
     .supercls('b2JointDef')
@@ -690,6 +833,11 @@ typeconf 'b2WeldJoint'
     .func(nil, 'float GetStiffness()')
     .func(nil, 'void SetDamping(float damping)')
     .func(nil, 'float GetDamping()')
+    .prop('localAnchorA', nil, nil)
+    .prop('localAnchorB', nil, nil)
+    .prop('referenceAngle', nil, nil)
+    .prop('stiffness', nil, nil)
+    .prop('damping', nil, nil)
 
 typeconf 'b2WheelJointDef'
     .supercls('b2JointDef')
@@ -738,6 +886,21 @@ typeconf 'b2WheelJoint'
     .func(nil, 'float GetStiffness()')
     .func(nil, 'void SetDamping(float damping)')
     .func(nil, 'float GetDamping()')
+    .prop('localAnchorA', nil, nil)
+    .prop('localAnchorB', nil, nil)
+    .prop('localAxisA', nil, nil)
+    .prop('jointTranslation', nil, nil)
+    .prop('jointLinearSpeed', nil, nil)
+    .prop('jointAngle', nil, nil)
+    .prop('jointAngularSpeed', nil, nil)
+    .prop('limitEnabled', nil, nil)
+    .prop('lowerLimit', nil, nil)
+    .prop('upperLimit', nil, nil)
+    .prop('motorEnabled', nil, nil)
+    .prop('motorSpeed', nil, nil)
+    .prop('maxMotorTorque', nil, nil)
+    .prop('stiffness', nil, nil)
+    .prop('damping', nil, nil)
 
 typeconf 'b2JointEdge'
     .supercls(nil)
@@ -815,6 +978,10 @@ typeconf 'b2BroadPhase'
     .func(nil, 'int32 GetTreeBalance()')
     .func(nil, 'float GetTreeQuality()')
     .func(nil, 'void ShiftOrigin(const b2Vec2 &newOrigin)')
+    .prop('proxyCount', nil, nil)
+    .prop('treeHeight', nil, nil)
+    .prop('treeBalance', nil, nil)
+    .prop('treeQuality', nil, nil)
 
 typeconf 'b2AABB'
     .supercls(nil)
@@ -827,8 +994,13 @@ typeconf 'b2AABB'
     .func(nil, 'float GetPerimeter()')
     .func(nil, 'void Combine(const b2AABB &aabb)', 'void Combine(const b2AABB &aabb1, const b2AABB &aabb2)')
     .func(nil, 'bool Contains(const b2AABB &aabb)')
+    .func(nil, 'bool RayCast(b2RayCastOutput *output, const b2RayCastInput &input)')
     .var('lowerBound', 'b2Vec2 lowerBound')
     .var('upperBound', 'b2Vec2 upperBound')
+    .prop('valid', nil, nil)
+    .prop('center', nil, nil)
+    .prop('extents', nil, nil)
+    .prop('perimeter', nil, nil)
 
 typeconf 'b2Contact'
     .supercls(nil)
@@ -856,6 +1028,19 @@ typeconf 'b2Contact'
     .func(nil, 'void ResetRestitutionThreshold()')
     .func(nil, 'void SetTangentSpeed(float speed)')
     .func(nil, 'float GetTangentSpeed()')
+    .func(nil, 'void Evaluate(b2Manifold *manifold, const b2Transform &xfA, const b2Transform &xfB)')
+    .prop('manifold', nil, nil)
+    .prop('touching', nil, nil)
+    .prop('enabled', nil, nil)
+    .prop('next', nil, nil)
+    .prop('fixtureA', nil, nil)
+    .prop('childIndexA', nil, nil)
+    .prop('fixtureB', nil, nil)
+    .prop('childIndexB', nil, nil)
+    .prop('friction', nil, nil)
+    .prop('restitution', nil, nil)
+    .prop('restitutionThreshold', nil, nil)
+    .prop('tangentSpeed', nil, nil)
 
 typeconf 'b2ContactImpulse'
     .supercls(nil)
@@ -929,10 +1114,30 @@ typeconf 'b2World'
     .func(nil, 'const b2ContactManager &GetContactManager()')
     .func(nil, 'const b2Profile &GetProfile()')
     .func(nil, 'void Dump()')
+    .prop('bodyList', nil, nil)
+    .prop('jointList', nil, nil)
+    .prop('contactList', nil, nil)
+    .prop('allowSleeping', nil, nil)
+    .prop('warmStarting', nil, nil)
+    .prop('continuousPhysics', nil, nil)
+    .prop('subStepping', nil, nil)
+    .prop('proxyCount', nil, nil)
+    .prop('bodyCount', nil, nil)
+    .prop('jointCount', nil, nil)
+    .prop('contactCount', nil, nil)
+    .prop('treeHeight', nil, nil)
+    .prop('treeBalance', nil, nil)
+    .prop('treeQuality', nil, nil)
+    .prop('gravity', nil, nil)
+    .prop('locked', nil, nil)
+    .prop('autoClearForces', nil, nil)
+    .prop('contactManager', nil, nil)
+    .prop('profile', nil, nil)
 
 typeconf 'b2WorldManifold'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
     .luaopen(nil)
+    .func(nil, 'void Initialize(const b2Manifold *manifold, const b2Transform &xfA, float radiusA, const b2Transform &xfB, float radiusB)')
     .var('normal', 'b2Vec2 normal')

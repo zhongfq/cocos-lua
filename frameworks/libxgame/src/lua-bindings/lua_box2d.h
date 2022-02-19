@@ -31,6 +31,22 @@ void olua_pack_b2Vec3(lua_State *L, int idx, b2Vec3 *value);
 int olua_unpack_b2Vec3(lua_State *L, const b2Vec3 *value);
 bool olua_canpack_b2Vec3(lua_State *L, int idx);
 
+// b2ContactID
+int olua_push_b2ContactID(lua_State *L, const b2ContactID *value);
+void olua_check_b2ContactID(lua_State *L, int idx, b2ContactID *value);
+bool olua_is_b2ContactID(lua_State *L, int idx);
+void olua_pack_b2ContactID(lua_State *L, int idx, b2ContactID *value);
+int olua_unpack_b2ContactID(lua_State *L, const b2ContactID *value);
+bool olua_canpack_b2ContactID(lua_State *L, int idx);
+
+// b2ContactFeature
+int olua_push_b2ContactFeature(lua_State *L, const b2ContactFeature *value);
+void olua_check_b2ContactFeature(lua_State *L, int idx, b2ContactFeature *value);
+bool olua_is_b2ContactFeature(lua_State *L, int idx);
+void olua_pack_b2ContactFeature(lua_State *L, int idx, b2ContactFeature *value);
+int olua_unpack_b2ContactFeature(lua_State *L, const b2ContactFeature *value);
+bool olua_canpack_b2ContactFeature(lua_State *L, int idx);
+
 // b2Color
 int olua_push_b2Color(lua_State *L, const b2Color *value);
 void olua_check_b2Color(lua_State *L, int idx, b2Color *value);
@@ -62,5 +78,21 @@ bool olua_is_b2ManifoldPoint(lua_State *L, int idx);
 void olua_pack_b2ManifoldPoint(lua_State *L, int idx, b2ManifoldPoint *value);
 int olua_unpack_b2ManifoldPoint(lua_State *L, const b2ManifoldPoint *value);
 bool olua_canpack_b2ManifoldPoint(lua_State *L, int idx);
+
+// b2Rot
+int olua_push_b2Rot(lua_State *L, const b2Rot *value);
+void olua_check_b2Rot(lua_State *L, int idx, b2Rot *value);
+bool olua_is_b2Rot(lua_State *L, int idx);
+void olua_pack_b2Rot(lua_State *L, int idx, b2Rot *value);
+int olua_unpack_b2Rot(lua_State *L, const b2Rot *value);
+bool olua_canpack_b2Rot(lua_State *L, int idx);
+
+// b2MassData
+int olua_push_b2MassData(lua_State *L, const b2MassData *value);
+void olua_check_b2MassData(lua_State *L, int idx, b2MassData *value);
+bool olua_is_b2MassData(lua_State *L, int idx);
+void olua_pack_b2MassData(lua_State *L, int idx, b2MassData *value);
+int olua_unpack_b2MassData(lua_State *L, const b2MassData *value);
+bool olua_canpack_b2MassData(lua_State *L, int idx);
 
 #endif

@@ -20,9 +20,9 @@ include "conf/exclude-type.lua"
 
 typeconv 'cocos2d::PhysicsMaterial'
 
-typeconv 'cocos2d::PhysicsRayCastCallbackFunc'
-typeconv 'cocos2d::PhysicsQueryRectCallbackFunc'
-typeconv 'cocos2d::PhysicsQueryPointCallbackFunc'
+typeconf 'cocos2d::PhysicsRayCastCallbackFunc'
+typeconf 'cocos2d::PhysicsQueryRectCallbackFunc'
+typeconf 'cocos2d::PhysicsQueryPointCallbackFunc'
 typeconf 'cocos2d::EventListenerPhysicsContact'
 typeconf 'cocos2d::EventListenerPhysicsContactWithGroup'
 typeconf 'cocos2d::EventListenerPhysicsContactWithBodies'

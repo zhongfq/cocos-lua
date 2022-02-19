@@ -3,18 +3,6 @@
 //
 #include "lua_box2d.h"
 
-int olua_push_b2MassData(lua_State *L, const b2MassData *value)
-{
-    lua_createtable(L, 0, 2);
-    olua_push_number(L, value->mass);
-    olua_setfield(L, -2, "mass");
-    olua_push_b2Vec2(L, &value->center);
-    olua_setfield(L, -2, "center");
-    olua_push_number(L, value->I);
-    olua_setfield(L, -2, "I");
-    return 1;
-}
-
 int olua_push_b2Vec2(lua_State *L, const b2Vec2 *value)
 {
     if (value) {
@@ -187,6 +175,194 @@ int olua_unpack_b2Vec3(lua_State *L, const b2Vec3 *value)
 bool olua_canpack_b2Vec3(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2);
+}
+
+int olua_push_b2ContactID(lua_State *L, const b2ContactID *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 2);
+
+        olua_push_b2ContactFeature(L, &value->cf);
+        olua_setfield(L, -2, "cf");
+
+        olua_push_uint(L, (lua_Unsigned)value->key);
+        olua_setfield(L, -2, "key");
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void olua_check_b2ContactID(lua_State *L, int idx, b2ContactID *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    luaL_checktype(L, idx, LUA_TTABLE);
+
+    b2ContactFeature arg1;       /** cf */
+    lua_Unsigned arg2 = 0;       /** key */
+
+    olua_getfield(L, idx, "cf");
+    olua_check_b2ContactFeature(L, -1, &arg1);
+    value->cf = (b2ContactFeature)arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "key");
+    olua_check_uint(L, -1, &arg2);
+    value->key = (uint32)arg2;
+    lua_pop(L, 1);
+}
+
+bool olua_is_b2ContactID(lua_State *L, int idx)
+{
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "key") && olua_hasfield(L, idx, "cf");
+}
+
+void olua_pack_b2ContactID(lua_State *L, int idx, b2ContactID *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+
+    b2ContactFeature arg1;       /** cf */
+    lua_Unsigned arg2 = 0;       /** key */
+
+    olua_check_b2ContactFeature(L, idx + 0, &arg1);
+    value->cf = (b2ContactFeature)arg1;
+
+    olua_check_uint(L, idx + 1, &arg2);
+    value->key = (uint32)arg2;
+}
+
+int olua_unpack_b2ContactID(lua_State *L, const b2ContactID *value)
+{
+    if (value) {
+        olua_push_b2ContactFeature(L, &value->cf);
+        olua_push_uint(L, (lua_Unsigned)value->key);
+    } else {
+        for (int i = 0; i < 2; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 2;
+}
+
+bool olua_canpack_b2ContactID(lua_State *L, int idx)
+{
+    return olua_is_b2ContactFeature(L, idx + 0) && olua_is_uint(L, idx + 1);
+}
+
+int olua_push_b2ContactFeature(lua_State *L, const b2ContactFeature *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 4);
+
+        olua_push_uint(L, (lua_Unsigned)value->indexA);
+        olua_setfield(L, -2, "indexA");
+
+        olua_push_uint(L, (lua_Unsigned)value->indexB);
+        olua_setfield(L, -2, "indexB");
+
+        olua_push_uint(L, (lua_Unsigned)value->typeA);
+        olua_setfield(L, -2, "typeA");
+
+        olua_push_uint(L, (lua_Unsigned)value->typeB);
+        olua_setfield(L, -2, "typeB");
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void olua_check_b2ContactFeature(lua_State *L, int idx, b2ContactFeature *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    luaL_checktype(L, idx, LUA_TTABLE);
+
+    lua_Unsigned arg1 = 0;       /** indexA */
+    lua_Unsigned arg2 = 0;       /** indexB */
+    lua_Unsigned arg3 = 0;       /** typeA */
+    lua_Unsigned arg4 = 0;       /** typeB */
+
+    olua_getfield(L, idx, "indexA");
+    olua_check_uint(L, -1, &arg1);
+    value->indexA = (uint8)arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "indexB");
+    olua_check_uint(L, -1, &arg2);
+    value->indexB = (uint8)arg2;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "typeA");
+    olua_check_uint(L, -1, &arg3);
+    value->typeA = (uint8)arg3;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "typeB");
+    olua_check_uint(L, -1, &arg4);
+    value->typeB = (uint8)arg4;
+    lua_pop(L, 1);
+}
+
+bool olua_is_b2ContactFeature(lua_State *L, int idx)
+{
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "typeB") && olua_hasfield(L, idx, "typeA") && olua_hasfield(L, idx, "indexB") && olua_hasfield(L, idx, "indexA");
+}
+
+void olua_pack_b2ContactFeature(lua_State *L, int idx, b2ContactFeature *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+
+    lua_Unsigned arg1 = 0;       /** indexA */
+    lua_Unsigned arg2 = 0;       /** indexB */
+    lua_Unsigned arg3 = 0;       /** typeA */
+    lua_Unsigned arg4 = 0;       /** typeB */
+
+    olua_check_uint(L, idx + 0, &arg1);
+    value->indexA = (uint8)arg1;
+
+    olua_check_uint(L, idx + 1, &arg2);
+    value->indexB = (uint8)arg2;
+
+    olua_check_uint(L, idx + 2, &arg3);
+    value->typeA = (uint8)arg3;
+
+    olua_check_uint(L, idx + 3, &arg4);
+    value->typeB = (uint8)arg4;
+}
+
+int olua_unpack_b2ContactFeature(lua_State *L, const b2ContactFeature *value)
+{
+    if (value) {
+        olua_push_uint(L, (lua_Unsigned)value->indexA);
+        olua_push_uint(L, (lua_Unsigned)value->indexB);
+        olua_push_uint(L, (lua_Unsigned)value->typeA);
+        olua_push_uint(L, (lua_Unsigned)value->typeB);
+    } else {
+        for (int i = 0; i < 4; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 4;
+}
+
+bool olua_canpack_b2ContactFeature(lua_State *L, int idx)
+{
+    return olua_is_uint(L, idx + 0) && olua_is_uint(L, idx + 1) && olua_is_uint(L, idx + 2) && olua_is_uint(L, idx + 3);
 }
 
 int olua_push_b2Color(lua_State *L, const b2Color *value)
@@ -460,7 +636,7 @@ bool olua_canpack_b2Filter(lua_State *L, int idx)
 int olua_push_b2ManifoldPoint(lua_State *L, const b2ManifoldPoint *value)
 {
     if (value) {
-        lua_createtable(L, 0, 3);
+        lua_createtable(L, 0, 4);
 
         olua_push_b2Vec2(L, &value->localPoint);
         olua_setfield(L, -2, "localPoint");
@@ -470,6 +646,9 @@ int olua_push_b2ManifoldPoint(lua_State *L, const b2ManifoldPoint *value)
 
         olua_push_number(L, (lua_Number)value->tangentImpulse);
         olua_setfield(L, -2, "tangentImpulse");
+
+        olua_push_b2ContactID(L, &value->id);
+        olua_setfield(L, -2, "id");
     } else {
         lua_pushnil(L);
     }
@@ -488,6 +667,7 @@ void olua_check_b2ManifoldPoint(lua_State *L, int idx, b2ManifoldPoint *value)
     b2Vec2 arg1;       /** localPoint */
     lua_Number arg2 = 0;       /** normalImpulse */
     lua_Number arg3 = 0;       /** tangentImpulse */
+    b2ContactID arg4;       /** id */
 
     olua_getfield(L, idx, "localPoint");
     olua_check_b2Vec2(L, -1, &arg1);
@@ -503,11 +683,16 @@ void olua_check_b2ManifoldPoint(lua_State *L, int idx, b2ManifoldPoint *value)
     olua_check_number(L, -1, &arg3);
     value->tangentImpulse = (float)arg3;
     lua_pop(L, 1);
+
+    olua_getfield(L, idx, "id");
+    olua_check_b2ContactID(L, -1, &arg4);
+    value->id = (b2ContactID)arg4;
+    lua_pop(L, 1);
 }
 
 bool olua_is_b2ManifoldPoint(lua_State *L, int idx)
 {
-    return olua_istable(L, idx) && olua_hasfield(L, idx, "tangentImpulse") && olua_hasfield(L, idx, "normalImpulse") && olua_hasfield(L, idx, "localPoint");
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "id") && olua_hasfield(L, idx, "tangentImpulse") && olua_hasfield(L, idx, "normalImpulse") && olua_hasfield(L, idx, "localPoint");
 }
 
 void olua_pack_b2ManifoldPoint(lua_State *L, int idx, b2ManifoldPoint *value)
@@ -520,6 +705,7 @@ void olua_pack_b2ManifoldPoint(lua_State *L, int idx, b2ManifoldPoint *value)
     b2Vec2 arg1;       /** localPoint */
     lua_Number arg2 = 0;       /** normalImpulse */
     lua_Number arg3 = 0;       /** tangentImpulse */
+    b2ContactID arg4;       /** id */
 
     olua_check_b2Vec2(L, idx + 0, &arg1);
     value->localPoint = (b2Vec2)arg1;
@@ -529,6 +715,9 @@ void olua_pack_b2ManifoldPoint(lua_State *L, int idx, b2ManifoldPoint *value)
 
     olua_check_number(L, idx + 2, &arg3);
     value->tangentImpulse = (float)arg3;
+
+    olua_check_b2ContactID(L, idx + 3, &arg4);
+    value->id = (b2ContactID)arg4;
 }
 
 int olua_unpack_b2ManifoldPoint(lua_State *L, const b2ManifoldPoint *value)
@@ -537,6 +726,181 @@ int olua_unpack_b2ManifoldPoint(lua_State *L, const b2ManifoldPoint *value)
         olua_push_b2Vec2(L, &value->localPoint);
         olua_push_number(L, (lua_Number)value->normalImpulse);
         olua_push_number(L, (lua_Number)value->tangentImpulse);
+        olua_push_b2ContactID(L, &value->id);
+    } else {
+        for (int i = 0; i < 4; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 4;
+}
+
+bool olua_canpack_b2ManifoldPoint(lua_State *L, int idx)
+{
+    return olua_is_b2Vec2(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_b2ContactID(L, idx + 3);
+}
+
+int olua_push_b2Rot(lua_State *L, const b2Rot *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 2);
+
+        olua_push_number(L, (lua_Number)value->s);
+        olua_setfield(L, -2, "s");
+
+        olua_push_number(L, (lua_Number)value->c);
+        olua_setfield(L, -2, "c");
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void olua_check_b2Rot(lua_State *L, int idx, b2Rot *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    luaL_checktype(L, idx, LUA_TTABLE);
+
+    lua_Number arg1 = 0;       /** s */
+    lua_Number arg2 = 0;       /** c */
+
+    olua_getfield(L, idx, "s");
+    olua_check_number(L, -1, &arg1);
+    value->s = (float)arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "c");
+    olua_check_number(L, -1, &arg2);
+    value->c = (float)arg2;
+    lua_pop(L, 1);
+}
+
+bool olua_is_b2Rot(lua_State *L, int idx)
+{
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "c") && olua_hasfield(L, idx, "s");
+}
+
+void olua_pack_b2Rot(lua_State *L, int idx, b2Rot *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+
+    lua_Number arg1 = 0;       /** s */
+    lua_Number arg2 = 0;       /** c */
+
+    olua_check_number(L, idx + 0, &arg1);
+    value->s = (float)arg1;
+
+    olua_check_number(L, idx + 1, &arg2);
+    value->c = (float)arg2;
+}
+
+int olua_unpack_b2Rot(lua_State *L, const b2Rot *value)
+{
+    if (value) {
+        olua_push_number(L, (lua_Number)value->s);
+        olua_push_number(L, (lua_Number)value->c);
+    } else {
+        for (int i = 0; i < 2; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 2;
+}
+
+bool olua_canpack_b2Rot(lua_State *L, int idx)
+{
+    return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1);
+}
+
+int olua_push_b2MassData(lua_State *L, const b2MassData *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 3);
+
+        olua_push_number(L, (lua_Number)value->mass);
+        olua_setfield(L, -2, "mass");
+
+        olua_push_b2Vec2(L, &value->center);
+        olua_setfield(L, -2, "center");
+
+        olua_push_number(L, (lua_Number)value->I);
+        olua_setfield(L, -2, "I");
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void olua_check_b2MassData(lua_State *L, int idx, b2MassData *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    luaL_checktype(L, idx, LUA_TTABLE);
+
+    lua_Number arg1 = 0;       /** mass */
+    b2Vec2 arg2;       /** center */
+    lua_Number arg3 = 0;       /** I */
+
+    olua_getfield(L, idx, "mass");
+    olua_check_number(L, -1, &arg1);
+    value->mass = (float)arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "center");
+    olua_check_b2Vec2(L, -1, &arg2);
+    value->center = (b2Vec2)arg2;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "I");
+    olua_check_number(L, -1, &arg3);
+    value->I = (float)arg3;
+    lua_pop(L, 1);
+}
+
+bool olua_is_b2MassData(lua_State *L, int idx)
+{
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "I") && olua_hasfield(L, idx, "center") && olua_hasfield(L, idx, "mass");
+}
+
+void olua_pack_b2MassData(lua_State *L, int idx, b2MassData *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+
+    lua_Number arg1 = 0;       /** mass */
+    b2Vec2 arg2;       /** center */
+    lua_Number arg3 = 0;       /** I */
+
+    olua_check_number(L, idx + 0, &arg1);
+    value->mass = (float)arg1;
+
+    olua_check_b2Vec2(L, idx + 1, &arg2);
+    value->center = (b2Vec2)arg2;
+
+    olua_check_number(L, idx + 2, &arg3);
+    value->I = (float)arg3;
+}
+
+int olua_unpack_b2MassData(lua_State *L, const b2MassData *value)
+{
+    if (value) {
+        olua_push_number(L, (lua_Number)value->mass);
+        olua_push_b2Vec2(L, &value->center);
+        olua_push_number(L, (lua_Number)value->I);
     } else {
         for (int i = 0; i < 3; i++) {
             lua_pushnil(L);
@@ -546,9 +910,9 @@ int olua_unpack_b2ManifoldPoint(lua_State *L, const b2ManifoldPoint *value)
     return 3;
 }
 
-bool olua_canpack_b2ManifoldPoint(lua_State *L, int idx)
+bool olua_canpack_b2MassData(lua_State *L, int idx)
 {
-    return olua_is_b2Vec2(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2);
+    return olua_is_number(L, idx + 0) && olua_is_b2Vec2(L, idx + 1) && olua_is_number(L, idx + 2);
 }
 
 static int _b2Draw_AppendFlags(lua_State *L)
@@ -721,6 +1085,24 @@ static int _b2Draw_DrawSolidPolygon(lua_State *L)
     return 0;
 }
 
+static int _b2Draw_DrawTransform(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2Draw *self = nullptr;
+    b2Transform *arg1 = nullptr;       /** xf */
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.interface.Draw");
+    olua_check_cppobj(L, 2, (void **)&arg1, "box2d.Transform");
+
+    // void DrawTransform(const b2Transform &xf)
+    self->DrawTransform(*arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _b2Draw_GetFlags(lua_State *L)
 {
     olua_startinvoke(L);
@@ -780,9 +1162,11 @@ OLUA_LIB int luaopen_b2Draw(lua_State *L)
     oluacls_func(L, "DrawSegment", _b2Draw_DrawSegment);
     oluacls_func(L, "DrawSolidCircle", _b2Draw_DrawSolidCircle);
     oluacls_func(L, "DrawSolidPolygon", _b2Draw_DrawSolidPolygon);
+    oluacls_func(L, "DrawTransform", _b2Draw_DrawTransform);
     oluacls_func(L, "GetFlags", _b2Draw_GetFlags);
     oluacls_func(L, "SetFlags", _b2Draw_SetFlags);
     oluacls_func(L, "__olua_move", _b2Draw___olua_move);
+    oluacls_prop(L, "flags", _b2Draw_GetFlags, _b2Draw_SetFlags);
 
     olua_registerluatype<b2Draw>(L, "box2d.interface.Draw");
 
@@ -2163,6 +2547,436 @@ OLUA_LIB int luaopen_b2MassData(lua_State *L)
 }
 OLUA_END_DECLS
 
+static int _b2Transform_Set(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2Transform *self = nullptr;
+    b2Vec2 arg1;       /** position */
+    lua_Number arg2 = 0;       /** angle */
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.Transform");
+    olua_check_b2Vec2(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+
+    // void Set(const b2Vec2 &position, float angle)
+    self->Set(arg1, (float)arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _b2Transform_SetIdentity(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2Transform *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.Transform");
+
+    // void SetIdentity()
+    self->SetIdentity();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _b2Transform___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_postgc<b2Transform>(L, 1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _b2Transform___olua_move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (b2Transform *)olua_toobj(L, 1, "box2d.Transform");
+    olua_push_cppobj(L, self, "box2d.Transform");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _b2Transform_new1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // b2Transform()
+    b2Transform *ret = new b2Transform();
+    int num_ret = olua_push_cppobj(L, ret, "box2d.Transform");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _b2Transform_new2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2Vec2 arg1;       /** position */
+    b2Rot arg2;       /** rotation */
+
+    olua_check_b2Vec2(L, 1, &arg1);
+    olua_check_b2Rot(L, 2, &arg2);
+
+    // b2Transform(const b2Vec2 &position, const b2Rot &rotation)
+    b2Transform *ret = new b2Transform(arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "box2d.Transform");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _b2Transform_new(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // b2Transform()
+        return _b2Transform_new1(L);
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_b2Vec2(L, 1)) && (olua_is_b2Rot(L, 2))) {
+            // b2Transform(const b2Vec2 &position, const b2Rot &rotation)
+            return _b2Transform_new2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'b2Transform::new' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _b2Transform_get_p(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2Transform *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.Transform");
+
+    // b2Vec2 p
+    b2Vec2 ret = self->p;
+    int num_ret = olua_push_b2Vec2(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _b2Transform_set_p(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2Transform *self = nullptr;
+    b2Vec2 arg1;       /** p */
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.Transform");
+    olua_check_b2Vec2(L, 2, &arg1);
+
+    // b2Vec2 p
+    self->p = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _b2Transform_get_q(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2Transform *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.Transform");
+
+    // b2Rot q
+    b2Rot ret = self->q;
+    int num_ret = olua_push_b2Rot(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _b2Transform_set_q(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2Transform *self = nullptr;
+    b2Rot arg1;       /** q */
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.Transform");
+    olua_check_b2Rot(L, 2, &arg1);
+
+    // b2Rot q
+    self->q = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_b2Transform(lua_State *L)
+{
+    oluacls_class(L, "box2d.Transform", nullptr);
+    oluacls_func(L, "Set", _b2Transform_Set);
+    oluacls_func(L, "SetIdentity", _b2Transform_SetIdentity);
+    oluacls_func(L, "__gc", _b2Transform___gc);
+    oluacls_func(L, "__olua_move", _b2Transform___olua_move);
+    oluacls_func(L, "new", _b2Transform_new);
+    oluacls_prop(L, "p", _b2Transform_get_p, _b2Transform_set_p);
+    oluacls_prop(L, "q", _b2Transform_get_q, _b2Transform_set_q);
+
+    olua_registerluatype<b2Transform>(L, "box2d.Transform");
+
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _b2RayCastInput___olua_move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (b2RayCastInput *)olua_toobj(L, 1, "box2d.RayCastInput");
+    olua_push_cppobj(L, self, "box2d.RayCastInput");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _b2RayCastInput_get_maxFraction(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2RayCastInput *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.RayCastInput");
+
+    // float maxFraction
+    float ret = self->maxFraction;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _b2RayCastInput_set_maxFraction(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2RayCastInput *self = nullptr;
+    lua_Number arg1 = 0;       /** maxFraction */
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.RayCastInput");
+    olua_check_number(L, 2, &arg1);
+
+    // float maxFraction
+    self->maxFraction = (float)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _b2RayCastInput_get_p1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2RayCastInput *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.RayCastInput");
+
+    // b2Vec2 p1
+    b2Vec2 ret = self->p1;
+    int num_ret = olua_push_b2Vec2(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _b2RayCastInput_set_p1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2RayCastInput *self = nullptr;
+    b2Vec2 arg1;       /** p1 */
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.RayCastInput");
+    olua_check_b2Vec2(L, 2, &arg1);
+
+    // b2Vec2 p1
+    self->p1 = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _b2RayCastInput_get_p2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2RayCastInput *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.RayCastInput");
+
+    // b2Vec2 p2
+    b2Vec2 ret = self->p2;
+    int num_ret = olua_push_b2Vec2(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _b2RayCastInput_set_p2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2RayCastInput *self = nullptr;
+    b2Vec2 arg1;       /** p2 */
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.RayCastInput");
+    olua_check_b2Vec2(L, 2, &arg1);
+
+    // b2Vec2 p2
+    self->p2 = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_b2RayCastInput(lua_State *L)
+{
+    oluacls_class(L, "box2d.RayCastInput", nullptr);
+    oluacls_func(L, "__olua_move", _b2RayCastInput___olua_move);
+    oluacls_prop(L, "maxFraction", _b2RayCastInput_get_maxFraction, _b2RayCastInput_set_maxFraction);
+    oluacls_prop(L, "p1", _b2RayCastInput_get_p1, _b2RayCastInput_set_p1);
+    oluacls_prop(L, "p2", _b2RayCastInput_get_p2, _b2RayCastInput_set_p2);
+
+    olua_registerluatype<b2RayCastInput>(L, "box2d.RayCastInput");
+
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _b2RayCastOutput___olua_move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (b2RayCastOutput *)olua_toobj(L, 1, "box2d.RayCastOutput");
+    olua_push_cppobj(L, self, "box2d.RayCastOutput");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _b2RayCastOutput_get_fraction(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2RayCastOutput *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.RayCastOutput");
+
+    // float fraction
+    float ret = self->fraction;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _b2RayCastOutput_set_fraction(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2RayCastOutput *self = nullptr;
+    lua_Number arg1 = 0;       /** fraction */
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.RayCastOutput");
+    olua_check_number(L, 2, &arg1);
+
+    // float fraction
+    self->fraction = (float)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _b2RayCastOutput_get_normal(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2RayCastOutput *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.RayCastOutput");
+
+    // b2Vec2 normal
+    b2Vec2 ret = self->normal;
+    int num_ret = olua_push_b2Vec2(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _b2RayCastOutput_set_normal(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2RayCastOutput *self = nullptr;
+    b2Vec2 arg1;       /** normal */
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.RayCastOutput");
+    olua_check_b2Vec2(L, 2, &arg1);
+
+    // b2Vec2 normal
+    self->normal = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_b2RayCastOutput(lua_State *L)
+{
+    oluacls_class(L, "box2d.RayCastOutput", nullptr);
+    oluacls_func(L, "__olua_move", _b2RayCastOutput___olua_move);
+    oluacls_prop(L, "fraction", _b2RayCastOutput_get_fraction, _b2RayCastOutput_set_fraction);
+    oluacls_prop(L, "normal", _b2RayCastOutput_get_normal, _b2RayCastOutput_set_normal);
+
+    olua_registerluatype<b2RayCastOutput>(L, "box2d.RayCastOutput");
+
+    return 1;
+}
+OLUA_END_DECLS
+
 static int _b2Shape_Type___index(lua_State *L)
 {
     olua_startinvoke(L);
@@ -2192,6 +3006,28 @@ OLUA_LIB int luaopen_b2Shape_Type(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+
+static int _b2Shape_ComputeAABB(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2Shape *self = nullptr;
+    b2AABB *arg1 = nullptr;       /** aabb */
+    b2Transform *arg2 = nullptr;       /** xf */
+    lua_Integer arg3 = 0;       /** childIndex */
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.Shape");
+    olua_check_cppobj(L, 2, (void **)&arg1, "box2d.AABB");
+    olua_check_cppobj(L, 3, (void **)&arg2, "box2d.Transform");
+    olua_check_int(L, 4, &arg3);
+
+    // void ComputeAABB(b2AABB *aabb, const b2Transform &xf, int32 childIndex)
+    self->ComputeAABB(arg1, *arg2, (int32)arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
 
 static int _b2Shape_ComputeMass(lua_State *L)
 {
@@ -2241,6 +3077,52 @@ static int _b2Shape_GetType(lua_State *L)
     // b2Shape::Type GetType()
     b2Shape::Type ret = self->GetType();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _b2Shape_RayCast(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2Shape *self = nullptr;
+    b2RayCastOutput *arg1 = nullptr;       /** output */
+    b2RayCastInput *arg2 = nullptr;       /** input */
+    b2Transform *arg3 = nullptr;       /** transform */
+    lua_Integer arg4 = 0;       /** childIndex */
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.Shape");
+    olua_check_cppobj(L, 2, (void **)&arg1, "box2d.RayCastOutput");
+    olua_check_cppobj(L, 3, (void **)&arg2, "box2d.RayCastInput");
+    olua_check_cppobj(L, 4, (void **)&arg3, "box2d.Transform");
+    olua_check_int(L, 5, &arg4);
+
+    // bool RayCast(b2RayCastOutput *output, const b2RayCastInput &input, const b2Transform &transform, int32 childIndex)
+    bool ret = self->RayCast(arg1, *arg2, *arg3, (int32)arg4);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _b2Shape_TestPoint(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2Shape *self = nullptr;
+    b2Transform *arg1 = nullptr;       /** xf */
+    b2Vec2 arg2;       /** p */
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.Shape");
+    olua_check_cppobj(L, 2, (void **)&arg1, "box2d.Transform");
+    olua_check_b2Vec2(L, 3, &arg2);
+
+    // bool TestPoint(const b2Transform &xf, const b2Vec2 &p)
+    bool ret = self->TestPoint(*arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
 
@@ -2333,10 +3215,15 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_b2Shape(lua_State *L)
 {
     oluacls_class(L, "box2d.Shape", nullptr);
+    oluacls_func(L, "ComputeAABB", _b2Shape_ComputeAABB);
     oluacls_func(L, "ComputeMass", _b2Shape_ComputeMass);
     oluacls_func(L, "GetChildCount", _b2Shape_GetChildCount);
     oluacls_func(L, "GetType", _b2Shape_GetType);
+    oluacls_func(L, "RayCast", _b2Shape_RayCast);
+    oluacls_func(L, "TestPoint", _b2Shape_TestPoint);
     oluacls_func(L, "__olua_move", _b2Shape___olua_move);
+    oluacls_prop(L, "childCount", _b2Shape_GetChildCount, nullptr);
+    oluacls_prop(L, "type", _b2Shape_GetType, nullptr);
     oluacls_prop(L, "m_radius", _b2Shape_get_m_radius, _b2Shape_set_m_radius);
     oluacls_prop(L, "m_type", _b2Shape_get_m_type, _b2Shape_set_m_type);
 
@@ -4354,6 +5241,23 @@ static int _b2Body_GetPosition(lua_State *L)
     return num_ret;
 }
 
+static int _b2Body_GetTransform(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2Body *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.Body");
+
+    // const b2Transform &GetTransform()
+    const b2Transform &ret = self->GetTransform();
+    int num_ret = olua_push_cppobj(L, &ret, "box2d.Transform");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _b2Body_GetType(lua_State *L)
 {
     olua_startinvoke(L);
@@ -4841,6 +5745,7 @@ OLUA_LIB int luaopen_b2Body(lua_State *L)
     oluacls_func(L, "GetMassData", _b2Body_GetMassData);
     oluacls_func(L, "GetNext", _b2Body_GetNext);
     oluacls_func(L, "GetPosition", _b2Body_GetPosition);
+    oluacls_func(L, "GetTransform", _b2Body_GetTransform);
     oluacls_func(L, "GetType", _b2Body_GetType);
     oluacls_func(L, "GetUserData", _b2Body_GetUserData);
     oluacls_func(L, "GetWorld", _b2Body_GetWorld);
@@ -4867,6 +5772,30 @@ OLUA_LIB int luaopen_b2Body(lua_State *L)
     oluacls_func(L, "SetTransform", _b2Body_SetTransform);
     oluacls_func(L, "SetType", _b2Body_SetType);
     oluacls_func(L, "__olua_move", _b2Body___olua_move);
+    oluacls_prop(L, "angle", _b2Body_GetAngle, nullptr);
+    oluacls_prop(L, "angularDamping", _b2Body_GetAngularDamping, _b2Body_SetAngularDamping);
+    oluacls_prop(L, "angularVelocity", _b2Body_GetAngularVelocity, _b2Body_SetAngularVelocity);
+    oluacls_prop(L, "awake", _b2Body_IsAwake, _b2Body_SetAwake);
+    oluacls_prop(L, "bullet", _b2Body_IsBullet, _b2Body_SetBullet);
+    oluacls_prop(L, "contactList", _b2Body_GetContactList, nullptr);
+    oluacls_prop(L, "enabled", _b2Body_IsEnabled, _b2Body_SetEnabled);
+    oluacls_prop(L, "fixedRotation", _b2Body_IsFixedRotation, _b2Body_SetFixedRotation);
+    oluacls_prop(L, "fixtureList", _b2Body_GetFixtureList, nullptr);
+    oluacls_prop(L, "gravityScale", _b2Body_GetGravityScale, _b2Body_SetGravityScale);
+    oluacls_prop(L, "inertia", _b2Body_GetInertia, nullptr);
+    oluacls_prop(L, "jointList", _b2Body_GetJointList, nullptr);
+    oluacls_prop(L, "linearDamping", _b2Body_GetLinearDamping, _b2Body_SetLinearDamping);
+    oluacls_prop(L, "linearVelocity", _b2Body_GetLinearVelocity, _b2Body_SetLinearVelocity);
+    oluacls_prop(L, "localCenter", _b2Body_GetLocalCenter, nullptr);
+    oluacls_prop(L, "mass", _b2Body_GetMass, nullptr);
+    oluacls_prop(L, "massData", _b2Body_GetMassData, _b2Body_SetMassData);
+    oluacls_prop(L, "next", _b2Body_GetNext, nullptr);
+    oluacls_prop(L, "position", _b2Body_GetPosition, nullptr);
+    oluacls_prop(L, "sleepingAllowed", _b2Body_IsSleepingAllowed, _b2Body_SetSleepingAllowed);
+    oluacls_prop(L, "type", _b2Body_GetType, _b2Body_SetType);
+    oluacls_prop(L, "userData", _b2Body_GetUserData, nullptr);
+    oluacls_prop(L, "world", _b2Body_GetWorld, nullptr);
+    oluacls_prop(L, "worldCenter", _b2Body_GetWorldCenter, nullptr);
 
     olua_registerluatype<b2Body>(L, "box2d.Body");
 
@@ -5542,6 +6471,29 @@ static int _b2Fixture_IsSensor(lua_State *L)
     return num_ret;
 }
 
+static int _b2Fixture_RayCast(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2Fixture *self = nullptr;
+    b2RayCastOutput *arg1 = nullptr;       /** output */
+    b2RayCastInput *arg2 = nullptr;       /** input */
+    lua_Integer arg3 = 0;       /** childIndex */
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.Fixture");
+    olua_check_cppobj(L, 2, (void **)&arg1, "box2d.RayCastOutput");
+    olua_check_cppobj(L, 3, (void **)&arg2, "box2d.RayCastInput");
+    olua_check_int(L, 4, &arg3);
+
+    // bool RayCast(b2RayCastOutput *output, const b2RayCastInput &input, int32 childIndex)
+    bool ret = self->RayCast(arg1, *arg2, (int32)arg3);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _b2Fixture_Refilter(lua_State *L)
 {
     olua_startinvoke(L);
@@ -5715,6 +6667,7 @@ OLUA_LIB int luaopen_b2Fixture(lua_State *L)
     oluacls_func(L, "GetType", _b2Fixture_GetType);
     oluacls_func(L, "GetUserData", _b2Fixture_GetUserData);
     oluacls_func(L, "IsSensor", _b2Fixture_IsSensor);
+    oluacls_func(L, "RayCast", _b2Fixture_RayCast);
     oluacls_func(L, "Refilter", _b2Fixture_Refilter);
     oluacls_func(L, "SetDensity", _b2Fixture_SetDensity);
     oluacls_func(L, "SetFilterData", _b2Fixture_SetFilterData);
@@ -5724,6 +6677,17 @@ OLUA_LIB int luaopen_b2Fixture(lua_State *L)
     oluacls_func(L, "SetSensor", _b2Fixture_SetSensor);
     oluacls_func(L, "TestPoint", _b2Fixture_TestPoint);
     oluacls_func(L, "__olua_move", _b2Fixture___olua_move);
+    oluacls_prop(L, "body", _b2Fixture_GetBody, nullptr);
+    oluacls_prop(L, "density", _b2Fixture_GetDensity, _b2Fixture_SetDensity);
+    oluacls_prop(L, "filterData", _b2Fixture_GetFilterData, _b2Fixture_SetFilterData);
+    oluacls_prop(L, "friction", _b2Fixture_GetFriction, _b2Fixture_SetFriction);
+    oluacls_prop(L, "next", _b2Fixture_GetNext, nullptr);
+    oluacls_prop(L, "restitution", _b2Fixture_GetRestitution, _b2Fixture_SetRestitution);
+    oluacls_prop(L, "restitutionThreshold", _b2Fixture_GetRestitutionThreshold, _b2Fixture_SetRestitutionThreshold);
+    oluacls_prop(L, "sensor", _b2Fixture_IsSensor, _b2Fixture_SetSensor);
+    oluacls_prop(L, "shape", _b2Fixture_GetShape, nullptr);
+    oluacls_prop(L, "type", _b2Fixture_GetType, nullptr);
+    oluacls_prop(L, "userData", _b2Fixture_GetUserData, nullptr);
 
     olua_registerluatype<b2Fixture>(L, "box2d.Fixture");
 
@@ -6272,6 +7236,15 @@ OLUA_LIB int luaopen_b2Joint(lua_State *L)
     oluacls_func(L, "IsEnabled", _b2Joint_IsEnabled);
     oluacls_func(L, "ShiftOrigin", _b2Joint_ShiftOrigin);
     oluacls_func(L, "__olua_move", _b2Joint___olua_move);
+    oluacls_prop(L, "anchorA", _b2Joint_GetAnchorA, nullptr);
+    oluacls_prop(L, "anchorB", _b2Joint_GetAnchorB, nullptr);
+    oluacls_prop(L, "bodyA", _b2Joint_GetBodyA, nullptr);
+    oluacls_prop(L, "bodyB", _b2Joint_GetBodyB, nullptr);
+    oluacls_prop(L, "collideConnected", _b2Joint_GetCollideConnected, nullptr);
+    oluacls_prop(L, "enabled", _b2Joint_IsEnabled, nullptr);
+    oluacls_prop(L, "next", _b2Joint_GetNext, nullptr);
+    oluacls_prop(L, "type", _b2Joint_GetType, nullptr);
+    oluacls_prop(L, "userData", _b2Joint_GetUserData, nullptr);
 
     olua_registerluatype<b2Joint>(L, "box2d.Joint");
 
@@ -6854,6 +7827,14 @@ OLUA_LIB int luaopen_b2DistanceJoint(lua_State *L)
     oluacls_func(L, "SetMinLength", _b2DistanceJoint_SetMinLength);
     oluacls_func(L, "SetStiffness", _b2DistanceJoint_SetStiffness);
     oluacls_func(L, "__olua_move", _b2DistanceJoint___olua_move);
+    oluacls_prop(L, "currentLength", _b2DistanceJoint_GetCurrentLength, nullptr);
+    oluacls_prop(L, "damping", _b2DistanceJoint_GetDamping, _b2DistanceJoint_SetDamping);
+    oluacls_prop(L, "length", _b2DistanceJoint_GetLength, _b2DistanceJoint_SetLength);
+    oluacls_prop(L, "localAnchorA", _b2DistanceJoint_GetLocalAnchorA, nullptr);
+    oluacls_prop(L, "localAnchorB", _b2DistanceJoint_GetLocalAnchorB, nullptr);
+    oluacls_prop(L, "maxLength", _b2DistanceJoint_GetMaxLength, _b2DistanceJoint_SetMaxLength);
+    oluacls_prop(L, "minLength", _b2DistanceJoint_GetMinLength, _b2DistanceJoint_SetMinLength);
+    oluacls_prop(L, "stiffness", _b2DistanceJoint_GetStiffness, _b2DistanceJoint_SetStiffness);
 
     olua_registerluatype<b2DistanceJoint>(L, "box2d.DistanceJoint");
 
@@ -7194,6 +8175,10 @@ OLUA_LIB int luaopen_b2FrictionJoint(lua_State *L)
     oluacls_func(L, "SetMaxForce", _b2FrictionJoint_SetMaxForce);
     oluacls_func(L, "SetMaxTorque", _b2FrictionJoint_SetMaxTorque);
     oluacls_func(L, "__olua_move", _b2FrictionJoint___olua_move);
+    oluacls_prop(L, "localAnchorA", _b2FrictionJoint_GetLocalAnchorA, nullptr);
+    oluacls_prop(L, "localAnchorB", _b2FrictionJoint_GetLocalAnchorB, nullptr);
+    oluacls_prop(L, "maxForce", _b2FrictionJoint_GetMaxForce, _b2FrictionJoint_SetMaxForce);
+    oluacls_prop(L, "maxTorque", _b2FrictionJoint_GetMaxTorque, _b2FrictionJoint_SetMaxTorque);
 
     olua_registerluatype<b2FrictionJoint>(L, "box2d.FrictionJoint");
 
@@ -7438,6 +8423,9 @@ OLUA_LIB int luaopen_b2GearJoint(lua_State *L)
     oluacls_func(L, "GetRatio", _b2GearJoint_GetRatio);
     oluacls_func(L, "SetRatio", _b2GearJoint_SetRatio);
     oluacls_func(L, "__olua_move", _b2GearJoint___olua_move);
+    oluacls_prop(L, "joint1", _b2GearJoint_GetJoint1, nullptr);
+    oluacls_prop(L, "joint2", _b2GearJoint_GetJoint2, nullptr);
+    oluacls_prop(L, "ratio", _b2GearJoint_GetRatio, _b2GearJoint_SetRatio);
 
     olua_registerluatype<b2GearJoint>(L, "box2d.GearJoint");
 
@@ -7887,6 +8875,11 @@ OLUA_LIB int luaopen_b2MotorJoint(lua_State *L)
     oluacls_func(L, "SetMaxForce", _b2MotorJoint_SetMaxForce);
     oluacls_func(L, "SetMaxTorque", _b2MotorJoint_SetMaxTorque);
     oluacls_func(L, "__olua_move", _b2MotorJoint___olua_move);
+    oluacls_prop(L, "angularOffset", _b2MotorJoint_GetAngularOffset, _b2MotorJoint_SetAngularOffset);
+    oluacls_prop(L, "correctionFactor", _b2MotorJoint_GetCorrectionFactor, _b2MotorJoint_SetCorrectionFactor);
+    oluacls_prop(L, "linearOffset", _b2MotorJoint_GetLinearOffset, _b2MotorJoint_SetLinearOffset);
+    oluacls_prop(L, "maxForce", _b2MotorJoint_GetMaxForce, _b2MotorJoint_SetMaxForce);
+    oluacls_prop(L, "maxTorque", _b2MotorJoint_GetMaxTorque, _b2MotorJoint_SetMaxTorque);
 
     olua_registerluatype<b2MotorJoint>(L, "box2d.MotorJoint");
 
@@ -8242,6 +9235,10 @@ OLUA_LIB int luaopen_b2MouseJoint(lua_State *L)
     oluacls_func(L, "SetStiffness", _b2MouseJoint_SetStiffness);
     oluacls_func(L, "SetTarget", _b2MouseJoint_SetTarget);
     oluacls_func(L, "__olua_move", _b2MouseJoint___olua_move);
+    oluacls_prop(L, "damping", _b2MouseJoint_GetDamping, _b2MouseJoint_SetDamping);
+    oluacls_prop(L, "maxForce", _b2MouseJoint_GetMaxForce, _b2MouseJoint_SetMaxForce);
+    oluacls_prop(L, "stiffness", _b2MouseJoint_GetStiffness, _b2MouseJoint_SetStiffness);
+    oluacls_prop(L, "target", _b2MouseJoint_GetTarget, _b2MouseJoint_SetTarget);
 
     olua_registerluatype<b2MouseJoint>(L, "box2d.MouseJoint");
 
@@ -9023,6 +10020,18 @@ OLUA_LIB int luaopen_b2PrismaticJoint(lua_State *L)
     oluacls_func(L, "SetMaxMotorForce", _b2PrismaticJoint_SetMaxMotorForce);
     oluacls_func(L, "SetMotorSpeed", _b2PrismaticJoint_SetMotorSpeed);
     oluacls_func(L, "__olua_move", _b2PrismaticJoint___olua_move);
+    oluacls_prop(L, "jointSpeed", _b2PrismaticJoint_GetJointSpeed, nullptr);
+    oluacls_prop(L, "jointTranslation", _b2PrismaticJoint_GetJointTranslation, nullptr);
+    oluacls_prop(L, "limitEnabled", _b2PrismaticJoint_IsLimitEnabled, nullptr);
+    oluacls_prop(L, "localAnchorA", _b2PrismaticJoint_GetLocalAnchorA, nullptr);
+    oluacls_prop(L, "localAnchorB", _b2PrismaticJoint_GetLocalAnchorB, nullptr);
+    oluacls_prop(L, "localAxisA", _b2PrismaticJoint_GetLocalAxisA, nullptr);
+    oluacls_prop(L, "lowerLimit", _b2PrismaticJoint_GetLowerLimit, nullptr);
+    oluacls_prop(L, "maxMotorForce", _b2PrismaticJoint_GetMaxMotorForce, _b2PrismaticJoint_SetMaxMotorForce);
+    oluacls_prop(L, "motorEnabled", _b2PrismaticJoint_IsMotorEnabled, nullptr);
+    oluacls_prop(L, "motorSpeed", _b2PrismaticJoint_GetMotorSpeed, _b2PrismaticJoint_SetMotorSpeed);
+    oluacls_prop(L, "referenceAngle", _b2PrismaticJoint_GetReferenceAngle, nullptr);
+    oluacls_prop(L, "upperLimit", _b2PrismaticJoint_GetUpperLimit, nullptr);
 
     olua_registerluatype<b2PrismaticJoint>(L, "box2d.PrismaticJoint");
 
@@ -9495,6 +10504,13 @@ OLUA_LIB int luaopen_b2PulleyJoint(lua_State *L)
     oluacls_func(L, "GetLengthB", _b2PulleyJoint_GetLengthB);
     oluacls_func(L, "GetRatio", _b2PulleyJoint_GetRatio);
     oluacls_func(L, "__olua_move", _b2PulleyJoint___olua_move);
+    oluacls_prop(L, "currentLengthA", _b2PulleyJoint_GetCurrentLengthA, nullptr);
+    oluacls_prop(L, "currentLengthB", _b2PulleyJoint_GetCurrentLengthB, nullptr);
+    oluacls_prop(L, "groundAnchorA", _b2PulleyJoint_GetGroundAnchorA, nullptr);
+    oluacls_prop(L, "groundAnchorB", _b2PulleyJoint_GetGroundAnchorB, nullptr);
+    oluacls_prop(L, "lengthA", _b2PulleyJoint_GetLengthA, nullptr);
+    oluacls_prop(L, "lengthB", _b2PulleyJoint_GetLengthB, nullptr);
+    oluacls_prop(L, "ratio", _b2PulleyJoint_GetRatio, nullptr);
 
     olua_registerluatype<b2PulleyJoint>(L, "box2d.PulleyJoint");
 
@@ -10220,6 +11236,17 @@ OLUA_LIB int luaopen_b2RevoluteJoint(lua_State *L)
     oluacls_func(L, "SetMaxMotorTorque", _b2RevoluteJoint_SetMaxMotorTorque);
     oluacls_func(L, "SetMotorSpeed", _b2RevoluteJoint_SetMotorSpeed);
     oluacls_func(L, "__olua_move", _b2RevoluteJoint___olua_move);
+    oluacls_prop(L, "jointAngle", _b2RevoluteJoint_GetJointAngle, nullptr);
+    oluacls_prop(L, "jointSpeed", _b2RevoluteJoint_GetJointSpeed, nullptr);
+    oluacls_prop(L, "limitEnabled", _b2RevoluteJoint_IsLimitEnabled, nullptr);
+    oluacls_prop(L, "localAnchorA", _b2RevoluteJoint_GetLocalAnchorA, nullptr);
+    oluacls_prop(L, "localAnchorB", _b2RevoluteJoint_GetLocalAnchorB, nullptr);
+    oluacls_prop(L, "lowerLimit", _b2RevoluteJoint_GetLowerLimit, nullptr);
+    oluacls_prop(L, "maxMotorTorque", _b2RevoluteJoint_GetMaxMotorTorque, _b2RevoluteJoint_SetMaxMotorTorque);
+    oluacls_prop(L, "motorEnabled", _b2RevoluteJoint_IsMotorEnabled, nullptr);
+    oluacls_prop(L, "motorSpeed", _b2RevoluteJoint_GetMotorSpeed, _b2RevoluteJoint_SetMotorSpeed);
+    oluacls_prop(L, "referenceAngle", _b2RevoluteJoint_GetReferenceAngle, nullptr);
+    oluacls_prop(L, "upperLimit", _b2RevoluteJoint_GetUpperLimit, nullptr);
 
     olua_registerluatype<b2RevoluteJoint>(L, "box2d.RevoluteJoint");
 
@@ -10614,6 +11641,11 @@ OLUA_LIB int luaopen_b2WeldJoint(lua_State *L)
     oluacls_func(L, "SetDamping", _b2WeldJoint_SetDamping);
     oluacls_func(L, "SetStiffness", _b2WeldJoint_SetStiffness);
     oluacls_func(L, "__olua_move", _b2WeldJoint___olua_move);
+    oluacls_prop(L, "damping", _b2WeldJoint_GetDamping, _b2WeldJoint_SetDamping);
+    oluacls_prop(L, "localAnchorA", _b2WeldJoint_GetLocalAnchorA, nullptr);
+    oluacls_prop(L, "localAnchorB", _b2WeldJoint_GetLocalAnchorB, nullptr);
+    oluacls_prop(L, "referenceAngle", _b2WeldJoint_GetReferenceAngle, nullptr);
+    oluacls_prop(L, "stiffness", _b2WeldJoint_GetStiffness, _b2WeldJoint_SetStiffness);
 
     olua_registerluatype<b2WeldJoint>(L, "box2d.WeldJoint");
 
@@ -11523,6 +12555,21 @@ OLUA_LIB int luaopen_b2WheelJoint(lua_State *L)
     oluacls_func(L, "SetMotorSpeed", _b2WheelJoint_SetMotorSpeed);
     oluacls_func(L, "SetStiffness", _b2WheelJoint_SetStiffness);
     oluacls_func(L, "__olua_move", _b2WheelJoint___olua_move);
+    oluacls_prop(L, "damping", _b2WheelJoint_GetDamping, _b2WheelJoint_SetDamping);
+    oluacls_prop(L, "jointAngle", _b2WheelJoint_GetJointAngle, nullptr);
+    oluacls_prop(L, "jointAngularSpeed", _b2WheelJoint_GetJointAngularSpeed, nullptr);
+    oluacls_prop(L, "jointLinearSpeed", _b2WheelJoint_GetJointLinearSpeed, nullptr);
+    oluacls_prop(L, "jointTranslation", _b2WheelJoint_GetJointTranslation, nullptr);
+    oluacls_prop(L, "limitEnabled", _b2WheelJoint_IsLimitEnabled, nullptr);
+    oluacls_prop(L, "localAnchorA", _b2WheelJoint_GetLocalAnchorA, nullptr);
+    oluacls_prop(L, "localAnchorB", _b2WheelJoint_GetLocalAnchorB, nullptr);
+    oluacls_prop(L, "localAxisA", _b2WheelJoint_GetLocalAxisA, nullptr);
+    oluacls_prop(L, "lowerLimit", _b2WheelJoint_GetLowerLimit, nullptr);
+    oluacls_prop(L, "maxMotorTorque", _b2WheelJoint_GetMaxMotorTorque, _b2WheelJoint_SetMaxMotorTorque);
+    oluacls_prop(L, "motorEnabled", _b2WheelJoint_IsMotorEnabled, nullptr);
+    oluacls_prop(L, "motorSpeed", _b2WheelJoint_GetMotorSpeed, _b2WheelJoint_SetMotorSpeed);
+    oluacls_prop(L, "stiffness", _b2WheelJoint_GetStiffness, _b2WheelJoint_SetStiffness);
+    oluacls_prop(L, "upperLimit", _b2WheelJoint_GetUpperLimit, nullptr);
 
     olua_registerluatype<b2WheelJoint>(L, "box2d.WheelJoint");
 
@@ -12850,6 +13897,10 @@ OLUA_LIB int luaopen_b2BroadPhase(lua_State *L)
     oluacls_func(L, "__gc", _b2BroadPhase___gc);
     oluacls_func(L, "__olua_move", _b2BroadPhase___olua_move);
     oluacls_func(L, "new", _b2BroadPhase_new);
+    oluacls_prop(L, "proxyCount", _b2BroadPhase_GetProxyCount, nullptr);
+    oluacls_prop(L, "treeBalance", _b2BroadPhase_GetTreeBalance, nullptr);
+    oluacls_prop(L, "treeHeight", _b2BroadPhase_GetTreeHeight, nullptr);
+    oluacls_prop(L, "treeQuality", _b2BroadPhase_GetTreeQuality, nullptr);
 
     olua_registerluatype<b2BroadPhase>(L, "box2d.BroadPhase");
 
@@ -13005,6 +14056,27 @@ static int _b2AABB_IsValid(lua_State *L)
     return num_ret;
 }
 
+static int _b2AABB_RayCast(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2AABB *self = nullptr;
+    b2RayCastOutput *arg1 = nullptr;       /** output */
+    b2RayCastInput *arg2 = nullptr;       /** input */
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.AABB");
+    olua_check_cppobj(L, 2, (void **)&arg1, "box2d.RayCastOutput");
+    olua_check_cppobj(L, 3, (void **)&arg2, "box2d.RayCastInput");
+
+    // bool RayCast(b2RayCastOutput *output, const b2RayCastInput &input)
+    bool ret = self->RayCast(arg1, *arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _b2AABB___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -13097,7 +14169,12 @@ OLUA_LIB int luaopen_b2AABB(lua_State *L)
     oluacls_func(L, "GetExtents", _b2AABB_GetExtents);
     oluacls_func(L, "GetPerimeter", _b2AABB_GetPerimeter);
     oluacls_func(L, "IsValid", _b2AABB_IsValid);
+    oluacls_func(L, "RayCast", _b2AABB_RayCast);
     oluacls_func(L, "__olua_move", _b2AABB___olua_move);
+    oluacls_prop(L, "center", _b2AABB_GetCenter, nullptr);
+    oluacls_prop(L, "extents", _b2AABB_GetExtents, nullptr);
+    oluacls_prop(L, "perimeter", _b2AABB_GetPerimeter, nullptr);
+    oluacls_prop(L, "valid", _b2AABB_IsValid, nullptr);
     oluacls_prop(L, "lowerBound", _b2AABB_get_lowerBound, _b2AABB_set_lowerBound);
     oluacls_prop(L, "upperBound", _b2AABB_get_upperBound, _b2AABB_set_upperBound);
 
@@ -13106,6 +14183,28 @@ OLUA_LIB int luaopen_b2AABB(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+
+static int _b2Contact_Evaluate(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2Contact *self = nullptr;
+    b2Manifold *arg1 = nullptr;       /** manifold */
+    b2Transform *arg2 = nullptr;       /** xfA */
+    b2Transform *arg3 = nullptr;       /** xfB */
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.Contact");
+    olua_check_cppobj(L, 2, (void **)&arg1, "box2d.Manifold");
+    olua_check_cppobj(L, 3, (void **)&arg2, "box2d.Transform");
+    olua_check_cppobj(L, 4, (void **)&arg3, "box2d.Transform");
+
+    // void Evaluate(b2Manifold *manifold, const b2Transform &xfA, const b2Transform &xfB)
+    self->Evaluate(arg1, *arg2, *arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
 
 static int _b2Contact_GetChildIndexA(lua_State *L)
 {
@@ -13483,6 +14582,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_b2Contact(lua_State *L)
 {
     oluacls_class(L, "box2d.Contact", nullptr);
+    oluacls_func(L, "Evaluate", _b2Contact_Evaluate);
     oluacls_func(L, "GetChildIndexA", _b2Contact_GetChildIndexA);
     oluacls_func(L, "GetChildIndexB", _b2Contact_GetChildIndexB);
     oluacls_func(L, "GetFixtureA", _b2Contact_GetFixtureA);
@@ -13505,6 +14605,18 @@ OLUA_LIB int luaopen_b2Contact(lua_State *L)
     oluacls_func(L, "SetRestitutionThreshold", _b2Contact_SetRestitutionThreshold);
     oluacls_func(L, "SetTangentSpeed", _b2Contact_SetTangentSpeed);
     oluacls_func(L, "__olua_move", _b2Contact___olua_move);
+    oluacls_prop(L, "childIndexA", _b2Contact_GetChildIndexA, nullptr);
+    oluacls_prop(L, "childIndexB", _b2Contact_GetChildIndexB, nullptr);
+    oluacls_prop(L, "enabled", _b2Contact_IsEnabled, _b2Contact_SetEnabled);
+    oluacls_prop(L, "fixtureA", _b2Contact_GetFixtureA, nullptr);
+    oluacls_prop(L, "fixtureB", _b2Contact_GetFixtureB, nullptr);
+    oluacls_prop(L, "friction", _b2Contact_GetFriction, _b2Contact_SetFriction);
+    oluacls_prop(L, "manifold", _b2Contact_GetManifold, nullptr);
+    oluacls_prop(L, "next", _b2Contact_GetNext, nullptr);
+    oluacls_prop(L, "restitution", _b2Contact_GetRestitution, _b2Contact_SetRestitution);
+    oluacls_prop(L, "restitutionThreshold", _b2Contact_GetRestitutionThreshold, _b2Contact_SetRestitutionThreshold);
+    oluacls_prop(L, "tangentSpeed", _b2Contact_GetTangentSpeed, _b2Contact_SetTangentSpeed);
+    oluacls_prop(L, "touching", _b2Contact_IsTouching, nullptr);
 
     olua_registerluatype<b2Contact>(L, "box2d.Contact");
 
@@ -14575,12 +15687,57 @@ OLUA_LIB int luaopen_b2World(lua_State *L)
     oluacls_func(L, "__gc", _b2World___gc);
     oluacls_func(L, "__olua_move", _b2World___olua_move);
     oluacls_func(L, "new", _b2World_new);
+    oluacls_prop(L, "allowSleeping", _b2World_GetAllowSleeping, _b2World_SetAllowSleeping);
+    oluacls_prop(L, "autoClearForces", _b2World_GetAutoClearForces, _b2World_SetAutoClearForces);
+    oluacls_prop(L, "bodyCount", _b2World_GetBodyCount, nullptr);
+    oluacls_prop(L, "bodyList", _b2World_GetBodyList, nullptr);
+    oluacls_prop(L, "contactCount", _b2World_GetContactCount, nullptr);
+    oluacls_prop(L, "contactList", _b2World_GetContactList, nullptr);
+    oluacls_prop(L, "contactManager", _b2World_GetContactManager, nullptr);
+    oluacls_prop(L, "continuousPhysics", _b2World_GetContinuousPhysics, _b2World_SetContinuousPhysics);
+    oluacls_prop(L, "gravity", _b2World_GetGravity, _b2World_SetGravity);
+    oluacls_prop(L, "jointCount", _b2World_GetJointCount, nullptr);
+    oluacls_prop(L, "jointList", _b2World_GetJointList, nullptr);
+    oluacls_prop(L, "locked", _b2World_IsLocked, nullptr);
+    oluacls_prop(L, "profile", _b2World_GetProfile, nullptr);
+    oluacls_prop(L, "proxyCount", _b2World_GetProxyCount, nullptr);
+    oluacls_prop(L, "subStepping", _b2World_GetSubStepping, _b2World_SetSubStepping);
+    oluacls_prop(L, "treeBalance", _b2World_GetTreeBalance, nullptr);
+    oluacls_prop(L, "treeHeight", _b2World_GetTreeHeight, nullptr);
+    oluacls_prop(L, "treeQuality", _b2World_GetTreeQuality, nullptr);
+    oluacls_prop(L, "warmStarting", _b2World_GetWarmStarting, _b2World_SetWarmStarting);
 
     olua_registerluatype<b2World>(L, "box2d.World");
 
     return 1;
 }
 OLUA_END_DECLS
+
+static int _b2WorldManifold_Initialize(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    b2WorldManifold *self = nullptr;
+    b2Manifold *arg1 = nullptr;       /** manifold */
+    b2Transform *arg2 = nullptr;       /** xfA */
+    lua_Number arg3 = 0;       /** radiusA */
+    b2Transform *arg4 = nullptr;       /** xfB */
+    lua_Number arg5 = 0;       /** radiusB */
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.WorldManifold");
+    olua_check_cppobj(L, 2, (void **)&arg1, "box2d.Manifold");
+    olua_check_cppobj(L, 3, (void **)&arg2, "box2d.Transform");
+    olua_check_number(L, 4, &arg3);
+    olua_check_cppobj(L, 5, (void **)&arg4, "box2d.Transform");
+    olua_check_number(L, 6, &arg5);
+
+    // void Initialize(const b2Manifold *manifold, const b2Transform &xfA, float radiusA, const b2Transform &xfB, float radiusB)
+    self->Initialize(arg1, *arg2, (float)arg3, *arg4, (float)arg5);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
 
 static int _b2WorldManifold___olua_move(lua_State *L)
 {
@@ -14633,6 +15790,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_b2WorldManifold(lua_State *L)
 {
     oluacls_class(L, "box2d.WorldManifold", nullptr);
+    oluacls_func(L, "Initialize", _b2WorldManifold_Initialize);
     oluacls_func(L, "__olua_move", _b2WorldManifold___olua_move);
     oluacls_prop(L, "normal", _b2WorldManifold_get_normal, _b2WorldManifold_set_normal);
 
@@ -14657,6 +15815,9 @@ OLUA_LIB int luaopen_box2d(lua_State *L)
     olua_require(L, "box2d.QueryCallback", luaopen_box2d_QueryCallback);
     olua_require(L, "box2d.RayCastCallback", luaopen_box2d_RayCastCallback);
     olua_require(L, "box2d.MassData", luaopen_b2MassData);
+    olua_require(L, "box2d.Transform", luaopen_b2Transform);
+    olua_require(L, "box2d.RayCastInput", luaopen_b2RayCastInput);
+    olua_require(L, "box2d.RayCastOutput", luaopen_b2RayCastOutput);
     olua_require(L, "box2d.Shape.Type", luaopen_b2Shape_Type);
     olua_require(L, "box2d.Shape", luaopen_b2Shape);
     olua_require(L, "box2d.PolygonShape", luaopen_b2PolygonShape);

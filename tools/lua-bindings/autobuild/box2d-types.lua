@@ -13,11 +13,6 @@ typedef {
 }
 
 typedef {
-    conv = 'olua_$$_b2MassData',
-    cppcls = 'b2MassData',
-}
-
-typedef {
     cppcls = 'b2Vec2',
     luacls = nil,
     decltype = nil,
@@ -31,6 +26,22 @@ typedef {
     decltype = nil,
     conv = 'olua_$$_b2Vec3',
     num_vars = 3,
+}
+
+typedef {
+    cppcls = 'b2ContactID',
+    luacls = nil,
+    decltype = nil,
+    conv = 'olua_$$_b2ContactID',
+    num_vars = 2,
+}
+
+typedef {
+    cppcls = 'b2ContactFeature',
+    luacls = nil,
+    decltype = nil,
+    conv = 'olua_$$_b2ContactFeature',
+    num_vars = 4,
 }
 
 typedef {
@@ -62,7 +73,15 @@ typedef {
     luacls = nil,
     decltype = nil,
     conv = 'olua_$$_b2ManifoldPoint',
-    num_vars = 3,
+    num_vars = 4,
+}
+
+typedef {
+    cppcls = 'b2Rot',
+    luacls = nil,
+    decltype = nil,
+    conv = 'olua_$$_b2Rot',
+    num_vars = 2,
 }
 
 typedef {
@@ -156,6 +175,38 @@ typedef {
 typedef {
     cppcls = 'b2MassData *; struct b2MassData *',
     luacls = 'box2d.MassData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'b2MassData;structb2MassData',
+    luacls = nil,
+    decltype = nil,
+    conv = 'olua_$$_b2MassData',
+    num_vars = 3,
+}
+
+typedef {
+    cppcls = 'b2Transform *; struct b2Transform *',
+    luacls = 'box2d.Transform',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'b2RayCastInput *; struct b2RayCastInput *',
+    luacls = 'box2d.RayCastInput',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'b2RayCastOutput *; struct b2RayCastOutput *',
+    luacls = 'box2d.RayCastOutput',
     decltype = nil,
     conv = 'olua_$$_cppobj',
     num_vars = nil,

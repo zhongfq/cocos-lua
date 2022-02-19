@@ -30,40 +30,24 @@ end)
 include 'conf/exclude-type.lua'
 
 exclude 'b2BlockAllocator *'
-exclude 'b2ContactID'
-exclude 'b2RayCastOutput *'
-exclude 'b2Transform'
-
-chunk [[
-int olua_push_b2MassData(lua_State *L, const b2MassData *value)
-{
-    lua_createtable(L, 0, 2);
-    olua_push_number(L, value->mass);
-    olua_setfield(L, -2, "mass");
-    olua_push_b2Vec2(L, &value->center);
-    olua_setfield(L, -2, "center");
-    olua_push_number(L, value->I);
-    olua_setfield(L, -2, "I");
-    return 1;
-}
-]]
 
 typedef 'int8;int16;int32'
     .decltype 'lua_Integer'
-
 typedef 'uint8;uint16;uint32'
     .decltype 'lua_Unsigned'
 
-typedef 'b2MassData'
-
 typeconv 'b2Vec2'
 typeconv 'b2Vec3'
+typeconv 'b2ContactID'
+typeconv 'b2ContactFeature'
 typeconv 'b2Color'
 typeconv 'b2FixtureUserData'
 typeconv 'b2Filter'
 typeconv 'b2ManifoldPoint'
+typeconv 'b2Rot'
+typeconv 'b2MassData'
+-- typeconv 'b2MassData'
 
--- need provide implemention
 typeconf 'b2Draw'
 typeconf 'b2DestructionListener'
 typeconf 'b2ContactFilter'
@@ -77,6 +61,9 @@ typeconf 'box2d::QueryCallback'
 typeconf 'box2d::RayCastCallback'
 
 typeconf 'b2MassData'
+typeconf 'b2Transform'
+typeconf 'b2RayCastInput'
+typeconf 'b2RayCastOutput'
 
 typeconf 'b2Shape::Type'
     .luaname(function (value) return value:gsub('^e_', '') end)

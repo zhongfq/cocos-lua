@@ -18,8 +18,11 @@ void DestructionListener::SayGoodbye(b2Fixture *fixture)
 
 bool ContactFilter::ShouldCollide(b2Fixture *fixtureA, b2Fixture *fixtureB)
 {
-    CCASSERT(shouldCollide, "no collide callback");
-    return shouldCollide(fixtureA, fixtureB);
+    if (shouldCollide) {
+        return shouldCollide(fixtureA, fixtureB);
+    } else {
+        return b2ContactFilter::ShouldCollide(fixtureA, fixtureB);
+    }
 }
 
 

@@ -9,7 +9,7 @@ set(APP_VERSION "1.0.0")
 set(APP_BUILD "100")
 
 # apple developer team
-set(APPLE_DEVELOPMENT_TEAM "2566X92242")
+set(APPLE_DEVELOPMENT_TEAM "GFJDX458W5")
 
 # bugly
 if(IOS)

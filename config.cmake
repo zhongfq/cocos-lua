@@ -1,5 +1,5 @@
 # app package name
-set(APP_PACKAGE_NAME "com.codetypes.hellolua")
+set(APP_PACKAGE_NAME "com.codetypes.cclua")
 
 # app name
 set(APP_PRODUCT_NAME "cocoslua")

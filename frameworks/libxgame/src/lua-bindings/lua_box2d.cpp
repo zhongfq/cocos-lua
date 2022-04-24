@@ -2415,6 +2415,76 @@ OLUA_LIB int luaopen_box2d_RayCastCallback(lua_State *L)
 }
 OLUA_END_DECLS
 
+static int _box2d_Draw___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_postgc<box2d::Draw>(L, 1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _box2d_Draw___olua_move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (box2d::Draw *)olua_toobj(L, 1, "box2d.Draw");
+    olua_push_cppobj(L, self, "box2d.Draw");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _box2d_Draw_getRenderer(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::Draw *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "box2d.Draw");
+
+    // cocos2d::DrawNode *getRenderer()
+    cocos2d::DrawNode *ret = self->getRenderer();
+    int num_ret = olua_push_cppobj(L, ret, "cc.DrawNode");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _box2d_Draw_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // Draw()
+    box2d::Draw *ret = new box2d::Draw();
+    int num_ret = olua_push_cppobj(L, ret, "box2d.Draw");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_box2d_Draw(lua_State *L)
+{
+    oluacls_class(L, "box2d.Draw", "box2d.interface.Draw");
+    oluacls_func(L, "__gc", _box2d_Draw___gc);
+    oluacls_func(L, "__olua_move", _box2d_Draw___olua_move);
+    oluacls_func(L, "getRenderer", _box2d_Draw_getRenderer);
+    oluacls_func(L, "new", _box2d_Draw_new);
+    oluacls_prop(L, "renderer", _box2d_Draw_getRenderer, nullptr);
+
+    olua_registerluatype<box2d::Draw>(L, "box2d.Draw");
+
+    return 1;
+}
+OLUA_END_DECLS
+
 static int _b2MassData___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -15814,6 +15884,7 @@ OLUA_LIB int luaopen_box2d(lua_State *L)
     olua_require(L, "box2d.ContactListener", luaopen_box2d_ContactListener);
     olua_require(L, "box2d.QueryCallback", luaopen_box2d_QueryCallback);
     olua_require(L, "box2d.RayCastCallback", luaopen_box2d_RayCastCallback);
+    olua_require(L, "box2d.Draw", luaopen_box2d_Draw);
     olua_require(L, "box2d.MassData", luaopen_b2MassData);
     olua_require(L, "box2d.Transform", luaopen_b2Transform);
     olua_require(L, "box2d.RayCastInput", luaopen_b2RayCastInput);

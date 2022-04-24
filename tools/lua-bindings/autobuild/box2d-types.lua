@@ -173,6 +173,14 @@ typedef {
 }
 
 typedef {
+    cppcls = 'box2d::Draw *',
+    luacls = 'box2d.Draw',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
     cppcls = 'b2MassData *; struct b2MassData *',
     luacls = 'box2d.MassData',
     decltype = nil,

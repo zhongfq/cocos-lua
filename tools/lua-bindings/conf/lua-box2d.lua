@@ -59,6 +59,7 @@ typeconf 'box2d::ContactFilter'
 typeconf 'box2d::ContactListener'
 typeconf 'box2d::QueryCallback'
 typeconf 'box2d::RayCastCallback'
+typeconf 'box2d::Draw'
 
 typeconf 'b2MassData'
 typeconf 'b2Transform'

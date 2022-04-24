@@ -345,6 +345,7 @@ void CommandBufferGL::setVertexBuffer(Buffer* buffer)
         return;
     
     buffer->retain();
+    CC_SAFE_RELEASE(_vertexBuffer);
     _vertexBuffer = static_cast<BufferGL*>(buffer);
 }
 

@@ -164,6 +164,15 @@ typeconf 'box2d::RayCastCallback'
     .func(nil, 'RayCastCallback()')
     .var('reportFixture', '@nullable @localvar std::function<float (b2Fixture *, const b2Vec2 &, const b2Vec2 &, float)> reportFixture')
 
+typeconf 'box2d::Draw'
+    .supercls('b2Draw')
+    .reg_luatype(true)
+    .chunk(nil)
+    .luaopen(nil)
+    .func(nil, 'Draw()')
+    .func(nil, 'cocos2d::DrawNode *getRenderer()')
+    .prop('renderer', nil, nil)
+
 typeconf 'b2MassData'
     .supercls(nil)
     .reg_luatype(true)

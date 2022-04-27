@@ -145,8 +145,8 @@ dependencies {
 
     // implementation project(':plugin-jiguang')
     // implementation 'com.huawei.hms:push:4.0.2.300'
-    // implementation 'cn.jiguang.sdk.plugin:huawei:3.6.0'
-    // implementation 'cn.jiguang.sdk.plugin:oppo:3.6.0'
-    // implementation 'cn.jiguang.sdk.plugin:vivo:3.6.0'
-    // implementation 'cn.jiguang.sdk.plugin:xiaomi:3.6.0'
+    // implementation 'cn.jiguang.sdk.plugin:huawei:4.6.4'
+    // implementation 'cn.jiguang.sdk.plugin:oppo:4.6.4'
+    // implementation 'cn.jiguang.sdk.plugin:vivo:4.6.4'
+    // implementation 'cn.jiguang.sdk.plugin:xiaomi:4.6.4'
 }

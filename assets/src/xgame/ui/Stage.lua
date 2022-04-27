@@ -89,7 +89,11 @@ function Stage:preemptTouch(target, id, x, y)
     self:touchCancel({[id] = {id = id, x = x, y = y}})
     self._trackedTouches[id] = target
     self.focus = target
-    target:touchMove({[id] = {id = id, x = x, y = y}})
+    if not target.touches[id] then
+        target:touchDown({[id] = {id = id, x = x, y = y}})
+    else
+        target:touchMove({[id] = {id = id, x = x, y = y}})
+    end
 end
 
 function Stage:touchDown(points)

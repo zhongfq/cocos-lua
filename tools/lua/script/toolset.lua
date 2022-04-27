@@ -76,10 +76,14 @@ end
 function toolset.link(old, new)
     old = toolset.format(old)
     new = toolset.format(new)
-    if toolset.exist(new) then
-        os.remove(new)
-    end
     if toolset.os == 'windows' then
+        if toolset.exist(new) then
+            if isdir(new) then
+                lfs.rmdir(new)
+            else
+                os.remove(new)
+            end
+        end
         local flag = isfile(old) and '' or '/D'
         -- mklink need administrator rights
         toolset.bash(string.format('mklink %s %s %s', flag,
@@ -108,22 +112,23 @@ function toolset.fullpath(path)
             path, idx = string.gsub(path, '[^\\]+\\%.%.\\', '')
         else
             path, idx = string.gsub(path, '[^/]+/%.%./', '')
-        end   
+        end
         if idx == 0 then
             break
         end
     end
-    
     return path
 end
 
 local function domkdir(dir)
     dir = toolset.format(dir)
     dir = string.gsub(dir, '\\', '/')
-    if toolset.os == 'windows' then
-        os.execute(string.format('mkdir %s', dir))
-    else
-        os.execute(string.format('mkdir -p %s', dir))
+    if not toolset.exist(dir) then
+        if toolset.os == 'windows' then
+            os.execute(string.format('mkdir %s', dir))
+        else
+            os.execute(string.format('mkdir -p %s', dir))
+        end
     end
 end
 

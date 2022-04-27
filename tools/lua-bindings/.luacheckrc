@@ -12,7 +12,7 @@ new_globals = {
     "ipairs",
     "luacls",
     "luaopen",
-    "olua"
+    "olua",
     "pairs",
     "path",
     "typeconf",

@@ -29,9 +29,6 @@ function FGUI:createUI(pkg, name)
     self.fguiNode.root:addChild(self.fgui)
 
     local layout = self.fgui:resolve('#layout')
-    if layout then
-        layout.selectedPage = runtime.isPad() and 'iPad' or 'iPhone'
-    end
 end
 
 -- extend fairygui

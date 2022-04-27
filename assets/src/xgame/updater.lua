@@ -118,7 +118,7 @@ end
 
 function M:_verifyAssets()
     self:_didUpdate('verifyAssets')
-    
+
     if not filesystem.exist(localManifest.path) then
         filesystem.copy(builtinManifest.path, localManifest.path)
     end

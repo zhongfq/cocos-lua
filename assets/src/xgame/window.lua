@@ -6,4 +6,12 @@
 -- window.setDesignSize
 -- window.convertToCameraSpace
 
-return require("cclua.window")
+local window = require("cclua.window")
+
+function window.getFitScale()
+    local width, height = window.getFrameSize()
+    local dw, dh = window.getDesignSize()
+    return math.max(width / dw, height / dh)
+end
+
+return window

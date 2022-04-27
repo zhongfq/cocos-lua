@@ -32,8 +32,8 @@ dependencies {
     implementation project(':libxgame')
     implementation 'com.android.support:appcompat-v7:28.0.0'
 
-    api 'cn.jiguang.sdk:jpush:4.4.0'
-    api 'cn.jiguang.sdk:jcore:3.0.0-release'
+    api 'cn.jiguang.sdk:jpush:4.6.4'
+    api 'cn.jiguang.sdk:jcore:3.2.4'
     api 'cn.jiguang.sdk:janalytics:2.1.4'
-    api 'cn.jiguang.sdk:jverification:2.7.6'
+    api 'cn.jiguang.sdk:jverification:2.7.8'
 }

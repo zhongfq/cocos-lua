@@ -68,7 +68,8 @@ function SceneStack:_doCaptureScene(entry)
     end
     if not entry.snapshot then
         local node = entry.scene.cobj
-        entry.snapshot = runtime.capture(node, node.width, node.height, PixelFormat.RGB565)
+        local scale = entry.scene.renderOption.snapshotScale or 1
+        entry.snapshot = runtime.capture(node, node.width, node.height, scale, PixelFormat.RGB565)
     end
     return entry.snapshot
 end

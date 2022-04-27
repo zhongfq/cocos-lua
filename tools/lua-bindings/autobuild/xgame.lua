@@ -104,7 +104,7 @@ typeconf 'cclua::runtime'
     .func(nil, 'static void setEnv(const std::string &key, const std::string &value, @optional bool save)')
     .func(nil, 'static const std::string getPaste()')
     .func(nil, 'static void setPaste(const std::string &text)')
-    .func(nil, 'static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)')
+    .func(nil, 'static cocos2d::Sprite *capture(cocos2d::Node *node, float width, float height, @optional float scale, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)')
     .func(nil, 'static uint32_t getMaxFrameRate()')
     .func(nil, 'static uint32_t getFrameRate()')
     .func(nil, 'static void setFrameRate(uint32_t frameRate)')

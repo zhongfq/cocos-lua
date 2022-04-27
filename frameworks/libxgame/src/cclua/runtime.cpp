@@ -53,7 +53,7 @@ void runtime::parseLaunchArgs(int argc, char *argv[])
         runtime::log("launch args: %s", argv[i]);
     }
     for (int i = 0; i < argc; i++) {
-        if (strequal(argv[i], "-workdir") && i < argc - 1) {
+        if (strequal(argv[i], "--workdir") && i < argc - 1) {
             _workdir = argv[++i];
         }
     }
@@ -252,7 +252,7 @@ void runtime::luaOpen(lua_CFunction libfunc)
 //
 const std::string runtime::getVersion()
 {
-    return "2.4.14";
+    return CCLUA_VERSION;
 }
 
 const uint64_t runtime::getCocosVersion()
@@ -346,62 +346,56 @@ void runtime::setPaste(const std::string &text)
 }
 
 #if COCOS2D_VERSION >= 0x00040000
-RenderTexture *runtime::capture(Node *node, float width, float height, backend::PixelFormat format, backend::PixelFormat depthStencilFormat)
+Sprite *runtime::capture(Node *node, float width, float height, float scale, backend::PixelFormat format, backend::PixelFormat depthStencilFormat)
+#else
+Sprite *runtime::capture(Node *node, float width, float height, float scale, Texture2D::PixelFormat format, GLuint depthStencilFormat)
+#endif
 {
+    width *= scale;
+    height *= scale;
     auto director = Director::getInstance();
-    auto image = RenderTexture::create((int)width, (int)height, format, depthStencilFormat);
-    image->getSprite()->setIgnoreAnchorPointForPosition(true);
+    auto rt = RenderTexture::create((int)width, (int)height, format, depthStencilFormat);
+    auto image = rt->getSprite();
+    image->setIgnoreAnchorPointForPosition(true);
+    image->setScale(1.0f / scale);
+    image->setAnchorPoint(Vec2::ZERO);
     image->retain();
+    image->removeFromParent();
+    rt->retain();
     node->retain();
     
+#if COCOS2D_VERSION >= 0x00040000
     runtime::once(Director::EVENT_BEFORE_DRAW, [=]() {
-        bool savedVisible = node->isVisible();
-        Point savedPos = node->getPosition();
-        Point anchor;
-        if (!node->isIgnoreAnchorPointForPosition()) {
-            anchor = node->getAnchorPoint();
-        }
+#endif
+        bool lastVisible = node->isVisible();
+        Vec2 lastPosition = node->getPosition();
+        Vec2 lastAnchor = node->getAnchorPoint();
+        Vec2 lastScale = Vec2(node->getScaleX(), node->getScaleY());
         node->setVisible(true);
-        node->setPosition(Point(width * anchor.x, height * anchor.y));
-        image->begin();
+        node->setAnchorPoint(Vec2::ZERO);
+        node->setPosition(Vec2::ZERO);
+        node->setScale(node->getScaleX() * scale, node->getScaleY() * scale);
+        rt->begin();
         node->visit();
-        image->end();
-        node->setPosition(savedPos);
-        node->setVisible(savedVisible);
-    
+        rt->end();
+        node->setAnchorPoint(lastAnchor);
+        node->setScale(lastScale.x, lastScale.y);
+        node->setPosition(lastPosition);
+        node->setVisible(lastVisible);
+        
         runtime::once(Director::EVENT_AFTER_DRAW, [=]() {
+            rt->release();
             image->release();
             node->release();
         });
+#if COCOS2D_VERSION >= 0x00040000
     });
+#else
+    director->getRenderer()->render();
+#endif
     
     return image;
 }
-#else
-RenderTexture *runtime::capture(Node *node, float width, float height, Texture2D::PixelFormat format, GLuint depthStencilFormat)
-{
-    auto director = Director::getInstance();
-    auto image = RenderTexture::create((int)width, (int)height, format, depthStencilFormat);
-    image->getSprite()->setIgnoreAnchorPointForPosition(true);
-    director->setNextDeltaTimeZero(true);
-
-    bool savedVisible = node->isVisible();
-    Point savedPos = node->getPosition();
-    Point anchor;
-    if (!node->isIgnoreAnchorPointForPosition()) {
-        anchor = node->getAnchorPoint();
-    }
-    node->setVisible(true);
-    node->setPosition(Point(width * anchor.x, height * anchor.y));
-    image->begin();
-    node->visit();
-    image->end();
-    node->setPosition(savedPos);
-    node->setVisible(savedVisible);
-    director->getRenderer()->render();
-    return image;
-}
-#endif
 
 void runtime::setAudioSessionCatalog(const std::string &catalog)
 {

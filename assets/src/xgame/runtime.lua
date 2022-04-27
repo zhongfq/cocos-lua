@@ -72,15 +72,6 @@ function runtime.useMaxFrameRate(use, owner)
     end
 end
 
-function runtime.isPad()
-    local vw, vh = window.getFrameSize()
-    return vw / vh < (960 / 640)
-end
-
-function runtime.isMobile()
-    return runtime.os == 'ios' or runtime.os == 'android'
-end
-
 runtime.setDispatcher(function (event, args)
     local map = listeners[event]
     local __TRACEBACK__ = __TRACEBACK__

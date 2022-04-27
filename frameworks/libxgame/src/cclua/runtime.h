@@ -125,9 +125,9 @@ public:
     static void setPaste(const std::string &text);
     
 #if COCOS2D_VERSION >= 0x00040000
-    static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, cocos2d::backend::PixelFormat format = cocos2d::backend::PixelFormat::RGBA8888, cocos2d::backend::PixelFormat depthStencilFormat = cocos2d::backend::PixelFormat::D24S8);
+    static cocos2d::Sprite *capture(cocos2d::Node *node, float width, float height, float scale = 1, cocos2d::backend::PixelFormat format = cocos2d::backend::PixelFormat::RGBA8888, cocos2d::backend::PixelFormat depthStencilFormat = cocos2d::backend::PixelFormat::D24S8);
 #else
-    static cocos2d::RenderTexture *capture(cocos2d::Node *node, float width, float height, cocos2d::Texture2D::PixelFormat format = cocos2d::Texture2D::PixelFormat::RGBA8888, GLuint depthStencilFormat = 0x88f0);
+    static cocos2d::Sprite *capture(cocos2d::Node *node, float width, float height, float scale = 1, cocos2d::Texture2D::PixelFormat format = cocos2d::Texture2D::PixelFormat::RGBA8888, GLuint depthStencilFormat = 0x88f0);
 #endif
     
     static uint32_t getMaxFrameRate();

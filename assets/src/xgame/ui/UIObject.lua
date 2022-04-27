@@ -84,6 +84,9 @@ function UIObject:touchDown(points)
 end
 
 function UIObject:touchMove(points)
+    for id, value in pairs(points) do
+        self.touches[id] = value
+    end
     self:dispatch(TouchEvent.TOUCH_MOVE, points)
 end
 

@@ -113,6 +113,10 @@ function ScrollImpl:_abortFocus(id)
     end
 end
 
+function ScrollImpl:getScrollBounds()
+    return self._target:getScrollBounds()
+end
+
 function ScrollImpl:_abortAllFocuses()
     for id in pairs(self._focuses) do
         self:_abortFocus(id)
@@ -155,7 +159,7 @@ function ScrollImpl:dispatchScrolling(lastX, lastY, x, y)
     else
         vertical = Align.TOP
     end
-    self._target:dispatch(TouchEvent.SCROLLING, horizontal, vertical)
+    self._target:dispatch(TouchEvent.SCROLLING, horizontal, vertical, lastX, lastY)
 end
 
 function ScrollImpl:pan(deltaX, deltaY)
@@ -180,7 +184,7 @@ function ScrollImpl:pan(deltaX, deltaY)
     self:_abortAllFocuses()
 
     local target = self._target
-    local left, right, top, bottom = target:getScrollBounds()
+    local left, right, top, bottom = self:getScrollBounds()
     local x = self._container.x
     local y = self._container.y
     local lastX = x
@@ -241,7 +245,7 @@ function ScrollImpl:fling(velX, velY)
     self:_abortAllFocuses()
 
     local target = self._target
-    local left, right, top, bottom = target:getScrollBounds()
+    local left, right, top, bottom = self:getScrollBounds()
     local MAX, MIN = self.maxVel, self.minVel
 
     -- time, factor, duration
@@ -315,7 +319,7 @@ end
 
 function ScrollImpl:validate()
     local target = self._target
-    local left, right, top, bottom = target:getScrollBounds()
+    local left, right, top, bottom = self:getScrollBounds()
     local x = self._container.x
     local y = self._container.y
 
@@ -337,7 +341,7 @@ function ScrollImpl:_validateX(value, force)
     end
 
     local target = self._target
-    local left, right = target:getScrollBounds()
+    local left, right = self:getScrollBounds()
     local x = self._container.x
     local width = right - left
 
@@ -364,7 +368,7 @@ function ScrollImpl:_validateY(value, force)
     end
 
     local target = self._target
-    local _, _, top, bottom = target:getScrollBounds()
+    local _, _, top, bottom = self:getScrollBounds()
     local y = self._container.y
     local height = top - bottom
 

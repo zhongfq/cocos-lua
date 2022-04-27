@@ -1,4 +1,5 @@
 local class             = require "xgame.class"
+local window            = require "xgame.window"
 local Array             = require "xgame.Array"
 local UIView            = require "xgame.ui.UIView"
 local AbsoluteLayout    = require "xgame.ui.AbsoluteLayout"
@@ -12,7 +13,10 @@ local UILayer = class("UILayer", UIView)
 
 function UILayer:ctor()
     self.musicOption = {} -- path|keep
-    self.renderOption = {}
+    self.renderOption = {
+        snapshot = false,
+        snapshotScale = window.getFitScale()
+    }
     self.children = Array.new()
     self.touchChildren = true
     self._innerContainer = InnerContainer.new()

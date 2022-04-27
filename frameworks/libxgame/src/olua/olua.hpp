@@ -198,8 +198,8 @@ void olua_postgc(lua_State *L, int idx)
  * register or get lua type for c++ class.
  */
 #ifdef OLUA_HAVE_LUATYPE
-void olua_registerluatype(lua_State *L, const char *type, const char *cls);
-const char *olua_getluatype(lua_State *L, const char *cls);
+OLUA_API void olua_registerluatype(lua_State *L, const char *type, const char *cls);
+OLUA_API const char *olua_getluatype(lua_State *L, const char *cls);
 #else
 static inline void olua_registerluatype(lua_State *L, const char *type, const char *cls)
 {

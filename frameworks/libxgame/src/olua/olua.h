@@ -111,7 +111,7 @@ OLUA_API lua_Integer olua_context(lua_State *L);
 #define olua_isstring(L,n)          (lua_type(L, (n)) == LUA_TSTRING)
 #define olua_isnumber(L,n)          (lua_type(L, (n)) == LUA_TNUMBER)
 #define olua_isthread(L,n)          (lua_type(L, (n)) == LUA_TTHREAD)
-bool olua_isinteger(lua_State *L, int idx);
+OLUA_API bool olua_isinteger(lua_State *L, int idx);
     
 // check or get raw value
 #define olua_tonumber(L, i)         (lua_tonumber(L, (i)))
@@ -288,7 +288,7 @@ OLUA_API bool olua_hasfield(lua_State *L, int idx, const char *field);
 OLUA_API int luaopen_olua(lua_State *L);
     
 #if LUA_VERSION_NUM == 501
-typedef lua_Integer lua_Unsigned;
+typedef unsigned long lua_Unsigned;
 #define LUA_OK 0
 #define LUA_RIDX_MAINTHREAD 1
 #define LUA_RIDX_GLOBALS    2

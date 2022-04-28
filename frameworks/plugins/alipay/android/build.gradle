@@ -30,5 +30,5 @@ dependencies {
     implementation project(':libcocos2dx')
     implementation project(':libxgame')
 
-    api(name:'alipaysdk-15.8.03.210428205839', ext:'aar')
+    api 'com.alipay.sdk:alipaysdk-android:+@aar'
 }

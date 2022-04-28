@@ -23,9 +23,6 @@ allprojects {
         }
     }
     repositories {
-        flatDir {
-            dirs project(':plugin-alipay').file('libs') 
-        }
         google()
         mavenCentral()
         maven {url 'https://developer.huawei.com/repo/'}

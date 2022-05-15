@@ -441,7 +441,7 @@ typeconf 'cocos2d::network::WebSocket'
             }
 
             self->init(*delegate, url, protocols.size() > 0 ? &protocols : nullptr, cafile);
-            olua_addref(L, 1, "delegate", 2, OLUA_MODE_SINGLE);
+            olua_addref(L, 1, "delegate", 2, OLUA_FLAG_SINGLE);
 
             return 0;
         }
@@ -521,7 +521,7 @@ typeconf 'cocos2d::Node'
                     cocos2d::Node *child = self->getChildByName(olua_tostring(L, 2));
                     if (child) {
                         olua_pushobj<cocos2d::Node>(L, child);
-                        olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
+                        olua_addref(L, 1, "children", -1, OLUA_FLAG_MULTIPLE);
                         return 1;
                     }
                 }

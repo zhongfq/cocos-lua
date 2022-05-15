@@ -210,16 +210,16 @@ OLUA_API void olua_getref(lua_State *L, int ref);
  * ref chain, callback stored in the uservalue
  * ref layout:
  * obj.uservalue {
- *     .olua.ref.component = obj_component  -- OLUA_MODE_SINGLE
- *     .olua.ref.children = {               -- OLUA_MODE_MULTIPLE
+ *     .olua.ref.component = obj_component  -- OLUA_FLAG_SINGLE
+ *     .olua.ref.children = {               -- OLUA_FLAG_MULTIPLE
  *         obj_child1 = true
  *         obj_child2 = true
  *         ...
  *     }
  * }
  */
-#define OLUA_MODE_SINGLE    (1 << 1) // add & remove: only ref one
-#define OLUA_MODE_MULTIPLE  (1 << 2) // add & remove: can ref one or more
+#define OLUA_FLAG_SINGLE    (1 << 1) // add & remove: only ref one
+#define OLUA_FLAG_MULTIPLE  (1 << 2) // add & remove: can ref one or more
 #define OLUA_FLAG_TABLE     (1 << 3) // obj is table
 #define OLUA_FLAG_REMOVE    (1 << 4) // internal use
 typedef bool (*olua_DelRefVisitor)(lua_State *L, int idx);

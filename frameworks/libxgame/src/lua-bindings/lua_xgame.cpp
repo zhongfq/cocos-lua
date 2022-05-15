@@ -429,7 +429,7 @@ static int _cclua_runtime_getActionManager(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.ActionManager");
 
     // insert code after call
-    olua_addref(L, director, "actionManager", -1, OLUA_MODE_SINGLE);
+    olua_addref(L, director, "actionManager", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -544,7 +544,7 @@ static int _cclua_runtime_getEventDispatcher(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.EventDispatcher");
 
     // insert code after call
-    olua_addref(L, director, "eventDispatcher", -1, OLUA_MODE_SINGLE);
+    olua_addref(L, director, "eventDispatcher", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -564,7 +564,7 @@ static int _cclua_runtime_getFileUtils(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.FileUtils");
 
     // insert code after call
-    olua_addref(L, director, "fileUtils", -1, OLUA_MODE_SINGLE);
+    olua_addref(L, director, "fileUtils", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -718,7 +718,7 @@ static int _cclua_runtime_getProgramCache(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "ccb.ProgramCache");
 
     // insert code after call
-    olua_addref(L, director, "programCache", -1, OLUA_MODE_SINGLE);
+    olua_addref(L, director, "programCache", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -738,7 +738,7 @@ static int _cclua_runtime_getRunningScene(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.Scene");
 
     // insert code after call
-    olua_addref(L, director, "scenes", -1, OLUA_MODE_MULTIPLE);
+    olua_addref(L, director, "scenes", -1, OLUA_FLAG_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -771,7 +771,7 @@ static int _cclua_runtime_getScheduler(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.Scheduler");
 
     // insert code after call
-    olua_addref(L, director, "scheduler", -1, OLUA_MODE_SINGLE);
+    olua_addref(L, director, "scheduler", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -791,7 +791,7 @@ static int _cclua_runtime_getSpriteFrameCache(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.SpriteFrameCache");
 
     // insert code after call
-    olua_addref(L, director, "spriteFrameCache", -1, OLUA_MODE_SINGLE);
+    olua_addref(L, director, "spriteFrameCache", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -811,7 +811,7 @@ static int _cclua_runtime_getTextureCache(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.TextureCache");
 
     // insert code after call
-    olua_addref(L, director, "textureCache", -1, OLUA_MODE_SINGLE);
+    olua_addref(L, director, "textureCache", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -1075,7 +1075,7 @@ static int _cclua_runtime_pushScene(lua_State *L)
     cclua::runtime::pushScene(arg1);
 
     // insert code after call
-    olua_addref(L, director, "scenes", 1, OLUA_MODE_MULTIPLE);
+    olua_addref(L, director, "scenes", 1, OLUA_FLAG_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -1099,7 +1099,7 @@ static int _cclua_runtime_replaceScene(lua_State *L)
     cclua::runtime::replaceScene(arg1);
 
     // insert code after call
-    olua_addref(L, director, "scenes", 1, OLUA_MODE_MULTIPLE);
+    olua_addref(L, director, "scenes", 1, OLUA_FLAG_MULTIPLE);
     olua_endcmpref(L, director, "scenes");
 
     olua_endinvoke(L);
@@ -3166,7 +3166,7 @@ static int _cclua_MaskLayout_getFilter(lua_State *L)
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
     // insert code after call
-    olua_addref(L, 1, "filter", -1, OLUA_MODE_SINGLE);
+    olua_addref(L, 1, "filter", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -3203,7 +3203,7 @@ static int _cclua_MaskLayout_setFilter(lua_State *L)
     self->setFilter(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "filter", 2, OLUA_MODE_SINGLE);
+    olua_addref(L, 1, "filter", 2, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 

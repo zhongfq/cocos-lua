@@ -272,8 +272,8 @@ typeconf "cocostudio::timeline::ActionTimeline"
                 olua_push_cppobj<cocostudio::timeline::ActionTimeline>(L, arg1->getTimeline()->getActionTimeline());
                 olua_push_cppobj<cocostudio::timeline::Timeline>(L, arg1->getTimeline());
                 olua_push_cppobj<cocostudio::timeline::Frame>(L, arg1);
-                olua_addref(L, -3, "timelines", -2, OLUA_MODE_MULTIPLE);
-                olua_addref(L, -2, "frames", -1, OLUA_MODE_MULTIPLE);
+                olua_addref(L, -3, "timelines", -2, OLUA_FLAG_MULTIPLE);
+                olua_addref(L, -2, "frames", -1, OLUA_FLAG_MULTIPLE);
                 lua_pop(L, 3);
             }
         ]]

@@ -146,7 +146,7 @@ typeconf 'cocos2d::backend::ProgramState'
         {
             auto self = olua_toobj<cocos2d::backend::ProgramState>(L, 1);
             olua_push_cppobj<cocos2d::backend::VertexLayout>(L, self->getVertexLayout().get());
-            olua_addref(L, 1, "vertexLayout", -1, OLUA_MODE_SINGLE);
+            olua_addref(L, 1, "vertexLayout", -1, OLUA_FLAG_SINGLE);
             return 1;
         }]]
     .func 'setUniformVec2'

@@ -510,7 +510,7 @@ typeconf 'fairygui::GTween'
         before = nil,
         after = [[
             olua_pushclassobj<fairygui::GTween>(L);
-            olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
+            olua_addref(L, -1, "tweeners", -2, OLUA_FLAG_MULTIPLE);
             olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
             lua_pop(L, 1);
         ]],
@@ -521,7 +521,7 @@ typeconf 'fairygui::GTween'
         before = nil,
         after = [[
             olua_pushclassobj<fairygui::GTween>(L);
-            olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
+            olua_addref(L, -1, "tweeners", -2, OLUA_FLAG_MULTIPLE);
             olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
             lua_pop(L, 1);
         ]],
@@ -532,7 +532,7 @@ typeconf 'fairygui::GTween'
         before = nil,
         after = [[
             olua_pushclassobj<fairygui::GTween>(L);
-            olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
+            olua_addref(L, -1, "tweeners", -2, OLUA_FLAG_MULTIPLE);
             olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
             lua_pop(L, 1);
         ]],
@@ -543,7 +543,7 @@ typeconf 'fairygui::GTween'
         before = nil,
         after = [[
             olua_pushclassobj<fairygui::GTween>(L);
-            olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
+            olua_addref(L, -1, "tweeners", -2, OLUA_FLAG_MULTIPLE);
             olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
             lua_pop(L, 1);
         ]],
@@ -554,7 +554,7 @@ typeconf 'fairygui::GTween'
         before = nil,
         after = [[
             olua_pushclassobj<fairygui::GTween>(L);
-            olua_addref(L, -1, "tweeners", -2, OLUA_MODE_MULTIPLE);
+            olua_addref(L, -1, "tweeners", -2, OLUA_FLAG_MULTIPLE);
             olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
             lua_pop(L, 1);
         ]],
@@ -1099,7 +1099,7 @@ typeconf 'fairygui::GComponent'
                     fairygui::GObject *child = self->getChild(olua_tostring(L, 2));
                     if (child) {
                         olua_pushobj<fairygui::GObject>(L, child);
-                        olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
+                        olua_addref(L, 1, "children", -1, OLUA_FLAG_MULTIPLE);
                         return 1;
                     }
                 }
@@ -1274,8 +1274,8 @@ typeconf 'fairygui::GRoot'
         before = nil,
         after = [[
             olua_push_cppobj<cocos2d::Node>(L, ret->displayObject());
-            olua_addref(L, -1, "fgui.root", -2, OLUA_MODE_SINGLE);
-            olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
+            olua_addref(L, -1, "fgui.root", -2, OLUA_FLAG_SINGLE);
+            olua_addref(L, 1, "children", -1, OLUA_FLAG_MULTIPLE);
             lua_pop(L, 1);
         ]],
         cbefore = nil,
@@ -1734,7 +1734,7 @@ typeconf 'fairygui::GList'
         after = nil,
         cbefore = [[
             olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
-            olua_addref(L, -1, "children", top + 2, OLUA_MODE_MULTIPLE);
+            olua_addref(L, -1, "children", top + 2, OLUA_FLAG_MULTIPLE);
             lua_pop(L, 1);
         ]],
         cafter = nil,
@@ -2527,8 +2527,8 @@ typeconf 'fairygui::GTree'
         after = nil,
         cbefore = [[
             olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
-            olua_addref(L, -1, "nodes", top + 1, OLUA_MODE_MULTIPLE);
-            olua_addref(L, -1, "children",top + 2, OLUA_MODE_MULTIPLE);
+            olua_addref(L, -1, "nodes", top + 1, OLUA_FLAG_MULTIPLE);
+            olua_addref(L, -1, "children",top + 2, OLUA_FLAG_MULTIPLE);
             lua_pop(L, 1);
         ]],
         cafter = nil,
@@ -2538,7 +2538,7 @@ typeconf 'fairygui::GTree'
         after = nil,
         cbefore = [[
             olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
-            olua_addref(L, -1, "nodes", top + 1, OLUA_MODE_MULTIPLE);
+            olua_addref(L, -1, "nodes", top + 1, OLUA_FLAG_MULTIPLE);
             lua_pop(L, 1);
         ]],
         cafter = nil,

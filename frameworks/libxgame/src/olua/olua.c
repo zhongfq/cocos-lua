@@ -725,18 +725,18 @@ static void aux_changeref(lua_State *L, int idx, const char *name, int obj, int 
     olua_assert(olua_isuserdata(L, idx), "expect userdata");
     if (flags & OLUA_FLAG_REMOVE) {
         lua_pushnil(L);
-    } else if (flags & OLUA_MODE_SINGLE) {
+    } else if (flags & OLUA_FLAG_SINGLE) {
         olua_assert(olua_isuserdata(L, obj) || olua_isnil(L, obj), "expect userdata or nil");
         lua_pushvalue(L, obj);
     } else {
         lua_pushboolean(L, true);
     }
-    if (flags & OLUA_MODE_SINGLE) {
+    if (flags & OLUA_FLAG_SINGLE) {
         aux_getusertable(L, idx);               // L: uv
         aux_pushrefkey(L, name);                // L: uv name
         lua_pushvalue(L, top + 1);              // L: uv name obj|nil
         lua_rawset(L, -3);                      // L: uv            uv[name] = obj|nil
-    } else if (flags & OLUA_MODE_MULTIPLE) {
+    } else if (flags & OLUA_FLAG_MULTIPLE) {
         if (olua_isnil(L, obj)) {
             lua_settop(L, top);
             return;
@@ -781,7 +781,7 @@ OLUA_API void olua_delref(lua_State *L, int idx, const char *name, int obj, int 
 
 OLUA_API void olua_delallrefs(lua_State *L, int idx, const char *name)
 {
-    aux_changeref(L, idx, name, 0, OLUA_MODE_SINGLE | OLUA_FLAG_REMOVE);
+    aux_changeref(L, idx, name, 0, OLUA_FLAG_SINGLE | OLUA_FLAG_REMOVE);
 }
 
 OLUA_API void olua_visitrefs(lua_State *L, int idx, const char *name, olua_DelRefVisitor walk)

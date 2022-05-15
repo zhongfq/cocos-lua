@@ -9769,24 +9769,30 @@ static int _fairygui_GComponent___index(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = olua_toobj<fairygui::GComponent>(L, 1);
-    if (olua_isstring(L, 2)) {
-        fairygui::GObject *child = self->getChild(olua_tostring(L, 2));
-        if (child) {
-            olua_pushobj<fairygui::GObject>(L, child);
-            olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
+    if(olua_isuserdata(L, 1)) {
+        if (olua_isstring(L, 2)) {
+            auto self = olua_toobj<fairygui::GComponent>(L, 1);
+            fairygui::GObject *child = self->getChild(olua_tostring(L, 2));
+            if (child) {
+                olua_pushobj<fairygui::GObject>(L, child);
+                olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
 
-            olua_endinvoke(L);
+                olua_endinvoke(L);
 
-            return 1;
+                return 1;
+            }
         }
+        lua_settop(L, 2);
+        olua_getvariable(L, 1);
+
+        olua_endinvoke(L);
+
+        return 1;
+    } else {
+        olua_endinvoke(L);
+
+        return 0;
     }
-    lua_settop(L, 2);
-    olua_getvariable(L, 1);
-
-    olua_endinvoke(L);
-
-    return 1;
 }
 
 static int _fairygui_GComponent___olua_move(lua_State *L)

@@ -1093,18 +1093,22 @@ typeconf 'fairygui::GComponent'
     .luaopen(nil)
     .func('__index', [[
         {
-            auto self = olua_toobj<fairygui::GComponent>(L, 1);
-            if (olua_isstring(L, 2)) {
-                fairygui::GObject *child = self->getChild(olua_tostring(L, 2));
-                if (child) {
-                    olua_pushobj<fairygui::GObject>(L, child);
-                    olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
-                    return 1;
+            if(olua_isuserdata(L, 1)) {
+                if (olua_isstring(L, 2)) {
+                    auto self = olua_toobj<fairygui::GComponent>(L, 1);
+                    fairygui::GObject *child = self->getChild(olua_tostring(L, 2));
+                    if (child) {
+                        olua_pushobj<fairygui::GObject>(L, child);
+                        olua_addref(L, 1, "children", -1, OLUA_MODE_MULTIPLE);
+                        return 1;
+                    }
                 }
+                lua_settop(L, 2);
+                olua_getvariable(L, 1);
+                return 1;
+            } else {
+                return 0;
             }
-            lua_settop(L, 2);
-            olua_getvariable(L, 1);
-            return 1;
         }
     ]])
     .func('resolve', [[

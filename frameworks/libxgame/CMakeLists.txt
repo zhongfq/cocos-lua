@@ -102,6 +102,10 @@ if(CCLUA_FEATURE_IDFA)
     target_compile_definitions(xgame PUBLIC CCLUA_FEATURE_IDFA)
 endif()
 
+if(CCLUA_FEATURE_INTCOLOR)
+    target_compile_definitions(xgame PUBLIC CCLUA_FEATURE_INTCOLOR)
+endif()
+
 if(APPLE)
     set_xcode_property(xgame CLANG_ENABLE_OBJC_ARC "YES")
     target_compile_options(xgame PUBLIC -Wno-nullability-completeness)

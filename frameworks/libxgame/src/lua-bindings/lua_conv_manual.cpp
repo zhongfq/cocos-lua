@@ -79,6 +79,7 @@ int olua_is_cocos2d_Data(lua_State *L, int idx)
 
 int olua_push_cocos2d_Color3B(lua_State *L, const cocos2d::Color3B *value)
 {
+#ifdef CCLUA_FEATURE_INTCOLOR
     uint32_t color = 0;
     if (value) {
         color |= value->r << 16;
@@ -87,6 +88,12 @@ int olua_push_cocos2d_Color3B(lua_State *L, const cocos2d::Color3B *value)
     }
     
     lua_pushinteger(L, color);
+#else
+    lua_createtable(L, 0, 3);
+    olua_setfieldinteger(L, -1, "r", value->r);
+    olua_setfieldinteger(L, -1, "g", value->g);
+    olua_setfieldinteger(L, -1, "b", value->b);
+#endif
     return 1;
 }
 
@@ -95,19 +102,31 @@ void olua_check_cocos2d_Color3B(lua_State *L, int idx, cocos2d::Color3B *value)
     if (!value) {
         luaL_error(L, "value is NULL");
     }
+#ifdef CCLUA_FEATURE_INTCOLOR
     uint32_t color = (uint32_t)olua_checkinteger(L, idx);
     value->r = (uint8_t)(color >> 16 & 0xFF);
     value->g = (uint8_t)(color >> 8 & 0xFF);
     value->b = (uint8_t)(color & 0xFF);
+#else
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->r = (uint8_t)olua_checkfieldinteger(L, idx, "r");
+    value->g = (uint8_t)olua_checkfieldinteger(L, idx, "g");
+    value->b = (uint8_t)olua_checkfieldinteger(L, idx, "b");
+#endif
 }
 
 bool olua_is_cocos2d_Color3B(lua_State *L, int idx)
 {
+#ifdef CCLUA_FEATURE_INTCOLOR
     return olua_isinteger(L, idx) && ((lua_Unsigned)olua_tointeger(L, idx)) <= 0xFFFFFF;
+#else
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "b") && olua_hasfield(L, idx, "g") && olua_hasfield(L, idx, "r");
+#endif
 }
 
 int olua_push_cocos2d_Color4B(lua_State *L, const cocos2d::Color4B *value)
 {
+#ifdef CCLUA_FEATURE_INTCOLOR
     uint32_t color = 0;
     if (value) {
         color |= value->r << 24;
@@ -116,6 +135,13 @@ int olua_push_cocos2d_Color4B(lua_State *L, const cocos2d::Color4B *value)
         color |= value->a;
     }
     lua_pushinteger(L, color);
+#else
+    lua_createtable(L, 0, 4);
+    olua_setfieldinteger(L, -1, "r", value->r);
+    olua_setfieldinteger(L, -1, "g", value->g);
+    olua_setfieldinteger(L, -1, "b", value->b);
+    olua_setfieldinteger(L, -1, "a", value->a);
+#endif
     return 1;
 }
 
@@ -124,20 +150,33 @@ void olua_check_cocos2d_Color4B(lua_State *L, int idx, cocos2d::Color4B *value)
     if (!value) {
         luaL_error(L, "value is NULL");
     }
+#ifdef CCLUA_FEATURE_INTCOLOR
     uint32_t color = (uint32_t)olua_checkinteger(L, idx);
     value->r = (uint8_t)(color >> 24 & 0xFF);
     value->g = (uint8_t)(color >> 16 & 0xFF);
     value->b = (uint8_t)(color >> 8 & 0xFF);
     value->a = (uint8_t)(color & 0xFF);
+#else
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->r = (uint8_t)olua_checkfieldinteger(L, idx, "r");
+    value->g = (uint8_t)olua_checkfieldinteger(L, idx, "g");
+    value->b = (uint8_t)olua_checkfieldinteger(L, idx, "b");
+    value->a = (uint8_t)olua_checkfieldinteger(L, idx, "a");
+#endif
 }
 
 bool olua_is_cocos2d_Color4B(lua_State *L, int idx)
 {
+#ifdef CCLUA_FEATURE_INTCOLOR
     return olua_isinteger(L, idx);
+#else
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "a") && olua_hasfield(L, idx, "b") && olua_hasfield(L, idx, "g") && olua_hasfield(L, idx, "r");
+#endif
 }
 
 int olua_push_cocos2d_Color4F(lua_State *L, const cocos2d::Color4F *value)
 {
+#ifdef CCLUA_FEATURE_INTCOLOR
     uint32_t color = 0;
     if (value) {
         color |= (uint32_t)((uint8_t)(value->r * 255)) << 24;
@@ -146,6 +185,13 @@ int olua_push_cocos2d_Color4F(lua_State *L, const cocos2d::Color4F *value)
         color |= (uint32_t)((uint8_t)(value->a * 255));
     }
     lua_pushinteger(L, color);
+#else
+    lua_createtable(L, 0, 4);
+    olua_setfieldnumber(L, -1, "r", value->r);
+    olua_setfieldnumber(L, -1, "g", value->g);
+    olua_setfieldnumber(L, -1, "b", value->b);
+    olua_setfieldnumber(L, -1, "a", value->a);
+#endif
     return 1;
 }
 
@@ -154,16 +200,28 @@ void olua_check_cocos2d_Color4F(lua_State *L, int idx, cocos2d::Color4F *value)
     if (!value) {
         luaL_error(L, "value is NULL");
     }
+#ifdef CCLUA_FEATURE_INTCOLOR
     uint32_t color = (uint32_t)olua_checkinteger(L, idx);
     value->r = ((uint8_t)(color >> 24 & 0xFF)) / 255.0f;
     value->g = ((uint8_t)(color >> 16 & 0xFF)) / 255.0f;
     value->b = ((uint8_t)(color >> 8 & 0xFF)) / 255.0f;
     value->a = ((uint8_t)(color & 0xFF)) / 255.0f;
+#else
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->r = (float)olua_checkfieldnumber(L, idx, "r");
+    value->g = (float)olua_checkfieldnumber(L, idx, "g");
+    value->b = (float)olua_checkfieldnumber(L, idx, "b");
+    value->a = (float)olua_checkfieldnumber(L, idx, "a");
+#endif
 }
 
 bool olua_is_cocos2d_Color4F(lua_State *L, int idx)
 {
+#ifdef CCLUA_FEATURE_INTCOLOR
     return olua_isinteger(L, idx);
+#else
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "a") && olua_hasfield(L, idx, "b") && olua_hasfield(L, idx, "g") && olua_hasfield(L, idx, "r");
+#endif
 }
 
 bool olua_is_cocos2d_Mat4(lua_State *L, int idx)

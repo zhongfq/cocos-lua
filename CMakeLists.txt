@@ -52,6 +52,7 @@ option(CCLUA_BUILD_APPLE_AUTH "Build with apple auth support" OFF)
 option(CCLUA_BUILD_APPLE_IAP "Build with apple iap support" OFF)
 option(CCLUA_FEATURE_MSAA "Support MSAA" OFF)
 option(CCLUA_FEATURE_IDFA "Support IDFA" OFF)
+option(CCLUA_FEATURE_INTCOLOR "Support integer color" ON)
 
 include(config.cmake)
 

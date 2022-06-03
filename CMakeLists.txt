@@ -323,6 +323,7 @@ if(APPLE)
         set_xcode_property(${APP_NAME} INFOPLIST_FILE "${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Info.plist")
         set_xcode_property(${APP_NAME} ASSETCATALOG_COMPILER_APPICON_NAME "AppIcon")
         set_xcode_property(${APP_NAME} CODE_SIGN_ENTITLEMENTS "${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/app.entitlements")
+        set(CMAKE_XCODE_ATTRIBUTE_ARCHS "arm64")
     endif()
 
     # For code-signing, set the DEVELOPMENT_TEAM:

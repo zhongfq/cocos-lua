@@ -465,7 +465,7 @@ void olua_pack_array(lua_State *L, int idx, Array *array, const std::function<vo
 }
 
 // callback
-static int olua_callback_wrapper(lua_State *L)
+static inline int olua_callback_wrapper(lua_State *L)
 {
     lua_pushvalue(L, lua_upvalueindex(1));
     lua_insert(L, 1);
@@ -473,7 +473,7 @@ static int olua_callback_wrapper(lua_State *L)
     return lua_gettop(L);
 }
 
-static bool olua_is_callback(lua_State *L, int idx, const char *cls)
+static inline bool olua_is_callback(lua_State *L, int idx, const char *cls)
 {
     bool is_wrapper = lua_tocfunction(L, idx) == olua_callback_wrapper;
     if (is_wrapper && lua_getupvalue(L, idx, 2)) {

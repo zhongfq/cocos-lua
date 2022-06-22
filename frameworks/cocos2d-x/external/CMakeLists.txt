@@ -26,7 +26,7 @@ option(BUILD_EXT_UNZIP "Build with internal unzip support" ON)
 add_library(external empty.cpp)
 
 if(BUILD_EXT_BOX2D)
-    add_subdirectory(Box2D)
+    add_subdirectory(box2d)
     target_link_libraries(external ext_box2d)
 endif(BUILD_EXT_BOX2D)
 if(BUILD_EXT_CHIPMUNK)

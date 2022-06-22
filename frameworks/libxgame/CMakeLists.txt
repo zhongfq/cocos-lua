@@ -64,7 +64,7 @@ if(CCLUA_BUILD_FAIRYGUI)
 endif()
 
 if(CCLUA_BUILD_BOX2D)
-    target_link_libraries(xgame box2d)
+    target_link_libraries(xgame ext_box2d)
     target_sources(xgame PRIVATE ${BOX2D_SRC} ${BOX2D_HEADER})
     target_compile_definitions(xgame PUBLIC CCLUA_BUILD_BOX2D)
 endif()

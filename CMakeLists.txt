@@ -60,6 +60,12 @@ add_definitions(-DCC_FILEUTILS_APPLE_ENABLE_OBJC=0)
 add_definitions(-DCC_ENABLE_SCRIPT_BINDING=0)
 add_definitions(-DCC_CONSTRUCTOR_ACCESS=public)
 
+if(CCLUA_BUILD_BOX2D)
+    set(BUILD_EXT_BOX2D ON)
+else()
+    set(BUILD_EXT_BOX2D OFF)
+endif()
+
 if(CCLUA_BUILD_SPINE)
     set(BUILD_EDITOR_SPINE ON)
     add_definitions(-DSPINE_USE_STD_FUNCTION)
@@ -200,21 +206,6 @@ if(CCLUA_BUILD_DRAGONBONES)
     target_link_libraries(${APP_NAME} dragonbones)
 endif()
 
-if(CCLUA_BUILD_BOX2D)
-    set(BOX2D_BUILD_UNIT_TESTS OFF)
-    set(BOX2D_BUILD_TESTBED OFF)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/box2d)
-    target_link_libraries(${APP_NAME} box2d)
-    set_target_properties(box2d PROPERTIES
-        ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-        FOLDER "cclua"
-    )
-    if(XCODE OR VS)
-        cocos_mark_code_files("box2d" GROUPBASE "${CMAKE_CURRENT_SOURCE_DIR}/box2d")
-    endif()
-endif()
-
 if(CCLUA_BUILD_SWF)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libswf)
     target_link_libraries(${APP_NAME} swf)
@@ -299,12 +290,6 @@ if(APPLE)
             -Wno-shorten-64-to-32
         )
     endif()
-    if(CCLUA_BUILD_BOX2D)
-        target_compile_options(box2d
-          PRIVATE
-            -Wno-shorten-64-to-32
-        )
-    endif()
 endif()
 
 # link other flags
@@ -370,13 +355,6 @@ endif()
 
 # Debug
 if(APPLE)
-    function(set_xcode_debug TARGET)
-        set_xcode_property(${TARGET} GCC_GENERATE_DEBUGGING_SYMBOLS[variant=Debug] "YES")
-        set_xcode_property(${TARGET} GCC_GENERATE_DEBUGGING_SYMBOLS[variant=MinSizeRel] "NO")
-        set_xcode_property(${TARGET} GCC_GENERATE_DEBUGGING_SYMBOLS[variant=RelWithDebInfo] "YES")
-        set_xcode_property(${TARGET} GCC_GENERATE_DEBUGGING_SYMBOLS[variant=Release] "NO")
-    endfunction()
-
     set_xcode_debug(${APP_NAME})
     set_xcode_debug(cocos2d)
     if(CCLUA_BUILD_FAIRYGUI)

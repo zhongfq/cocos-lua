@@ -288,6 +288,14 @@ function(set_xcode_property TARGET XCODE_PROPERTY XCODE_VALUE)
     set_property(TARGET ${TARGET} PROPERTY XCODE_ATTRIBUTE_${XCODE_PROPERTY} ${XCODE_VALUE})
 endfunction(set_xcode_property)
 
+# This set target can be debug
+function(set_xcode_debug TARGET)
+    set_xcode_property(${TARGET} GCC_GENERATE_DEBUGGING_SYMBOLS[variant=Debug] "YES")
+    set_xcode_property(${TARGET} GCC_GENERATE_DEBUGGING_SYMBOLS[variant=MinSizeRel] "YES")
+    set_xcode_property(${TARGET} GCC_GENERATE_DEBUGGING_SYMBOLS[variant=RelWithDebInfo] "YES")
+    set_xcode_property(${TARGET} GCC_GENERATE_DEBUGGING_SYMBOLS[variant=Release] "YES")
+endfunction()
+
 # works same as find_package, but do additional care to properly find
 macro(cocos_find_package pkg_name pkg_prefix)
     if(NOT ${pkg_prefix}_FOUND)

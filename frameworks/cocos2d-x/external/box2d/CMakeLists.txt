@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-set(BOX2D_SOURCE_FILES
+set(SOURCES
     src/collision/b2_broad_phase.cpp
     src/collision/b2_chain_shape.cpp
     src/collision/b2_circle_shape.cpp
@@ -57,7 +57,7 @@ set(BOX2D_SOURCE_FILES
     src/rope/b2_rope.cpp
 )
 
-set(BOX2D_HEADER_FILES
+set(HEADERS
     include/box2d/b2_api.h
     include/box2d/b2_block_allocator.h
     include/box2d/b2_body.h
@@ -100,7 +100,7 @@ set(BOX2D_HEADER_FILES
     include/box2d/box2d.h
 )
 
-add_library(ext_box2d ${BOX2D_SOURCE_FILES} ${BOX2D_HEADER_FILES})
+add_library(ext_box2d ${SOURCES} ${HEADERS})
 target_include_directories(ext_box2d
   PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include

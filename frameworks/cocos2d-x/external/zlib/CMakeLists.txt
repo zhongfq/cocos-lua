@@ -1,30 +1,87 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.10)
 
-set(lib_name zlib)
-set(target_name ext_${lib_name})
+set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
 
-project(${lib_name})
+project(zlib C)
 
-include(../cmake/CocosExternalConfig.cmake)
+set(VERSION "1.2.12")
 
-if(WINDOWS)
-  add_library(${target_name} SHARED IMPORTED GLOBAL)
-else()
-  add_library(${target_name} STATIC IMPORTED GLOBAL)
+option(ASM686 "Enable building i686 assembly implementation")
+option(AMD64 "Enable building amd64 assembly implementation")
+
+include(CheckTypeSize)
+
+if(MSVC)
+    set(CMAKE_DEBUG_POSTFIX "d")
+    add_definitions(-D_CRT_SECURE_NO_DEPRECATE)
+    add_definitions(-D_CRT_NONSTDC_NO_DEPRECATE)
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 endif()
 
-set_target_properties(${target_name} PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/include"
+#============================================================================
+# zlib
+#============================================================================
+
+set(ZLIB_PUBLIC_HDRS
+    zconf.h
+    zlib.h
+)
+set(ZLIB_PRIVATE_HDRS
+    crc32.h
+    deflate.h
+    gzguts.h
+    inffast.h
+    inffixed.h
+    inflate.h
+    inftrees.h
+    trees.h
+    zutil.h
+)
+set(ZLIB_SRCS
+    adler32.c
+    compress.c
+    crc32.c
+    deflate.c
+    gzclose.c
+    gzlib.c
+    gzread.c
+    gzwrite.c
+    inflate.c
+    infback.c
+    inftrees.c
+    inffast.c
+    trees.c
+    uncompr.c
+    zutil.c
 )
 
-if(WINDOWS)
-  set_target_properties(${target_name} PROPERTIES
-    IMPORTED_LOCATION "${platform_spec_path}/zlib1.dll"
-    IMPORTED_IMPLIB "${platform_spec_path}/zdll.lib"
-  )
-else()
-  set_target_properties(${target_name} PROPERTIES
-    IMPORTED_LOCATION "${platform_spec_path}/libz.a"
-  )
+add_library(ext_zlib ${ZLIB_SRCS} ${ZLIB_PUBLIC_HDRS} ${ZLIB_PRIVATE_HDRS})
+target_include_directories(ext_zlib
+  PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)
+set_target_properties(ext_zlib
+  PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    FOLDER "External"
+)
+
+check_type_size(off64_t OFF64_T)
+if(HAVE_OFF64_T)
+    target_compile_definitions(ext_zlib PUBLIC _LARGEFILE64_SOURCE=1)
 endif()
 
+if(APPLE)
+    target_compile_options(ext_zlib
+      PRIVATE
+        -Wno-comma
+        -Wno-shorten-64-to-32
+        -Wno-strict-prototypes
+    )
+endif()
+
+if(XCODE OR VS)
+    set_xcode_debug(ext_zlib)
+    cocos_mark_code_files("ext_zlib" GROUPBASE "${CMAKE_CURRENT_SOURCE_DIR}")
+endif()

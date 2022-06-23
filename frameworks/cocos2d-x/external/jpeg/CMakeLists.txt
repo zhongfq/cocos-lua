@@ -1,63 +1,63 @@
 cmake_minimum_required(VERSION 3.10)
 
 set(HEADERS
-    src/jconfig.h
-    src/jerror.h
-    src/jmorecfg.h
-    src/jpeglib.h
+    jconfig.h
+    jerror.h
+    jmorecfg.h
+    jpeglib.h
 )
 set(SOURCES
-    src/jaricom.c
-    src/jcapimin.c
-    src/jcapistd.c
-    src/jcarith.c
-    src/jccoefct.c
-    src/jccolor.c
-    src/jcdctmgr.c
-    src/jchuff.c
-    src/jcinit.c
-    src/jcmainct.c
-    src/jcmarker.c
-    src/jcmaster.c
-    src/jcomapi.c
-    src/jcparam.c
-    src/jcprepct.c
-    src/jcsample.c
-    src/jctrans.c
-    src/jdapimin.c
-    src/jdapistd.c
-    src/jdarith.c
-    src/jdatadst.c
-    src/jdatasrc.c
-    src/jdcoefct.c
-    src/jdcolor.c
-    src/jddctmgr.c
-    src/jdhuff.c
-    src/jdinput.c
-    src/jdmainct.c
-    src/jdmarker.c
-    src/jdmaster.c
-    src/jdmerge.c
-    src/jdpostct.c
-    src/jdsample.c
-    src/jdtrans.c
-    src/jerror.c
-    src/jfdctflt.c
-    src/jfdctfst.c
-    src/jfdctint.c
-    src/jidctflt.c
-    src/jidctfst.c
-    src/jidctint.c
-    src/jmemmgr.c
-    src/jmemnobs.c
-    src/jquant1.c
-    src/jquant2.c
-    src/jutils.c
+    jaricom.c
+    jcapimin.c
+    jcapistd.c
+    jcarith.c
+    jccoefct.c
+    jccolor.c
+    jcdctmgr.c
+    jchuff.c
+    jcinit.c
+    jcmainct.c
+    jcmarker.c
+    jcmaster.c
+    jcomapi.c
+    jcparam.c
+    jcprepct.c
+    jcsample.c
+    jctrans.c
+    jdapimin.c
+    jdapistd.c
+    jdarith.c
+    jdatadst.c
+    jdatasrc.c
+    jdcoefct.c
+    jdcolor.c
+    jddctmgr.c
+    jdhuff.c
+    jdinput.c
+    jdmainct.c
+    jdmarker.c
+    jdmaster.c
+    jdmerge.c
+    jdpostct.c
+    jdsample.c
+    jdtrans.c
+    jerror.c
+    jfdctflt.c
+    jfdctfst.c
+    jfdctint.c
+    jidctflt.c
+    jidctfst.c
+    jidctint.c
+    jmemmgr.c
+    jmemnobs.c
+    jquant1.c
+    jquant2.c
+    jutils.c
 )
 add_library(ext_jpeg ${HEADERS} ${SOURCES})
 target_include_directories(ext_jpeg
   PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}
 )
 set_target_properties(ext_jpeg
   PROPERTIES
@@ -73,5 +73,5 @@ if(APPLE)
 endif()
 if(XCODE OR VS)
     set_xcode_debug(ext_jpeg)
-    cocos_mark_code_files("ext_jpeg" GROUPBASE "${CMAKE_CURRENT_SOURCE_DIR}/src")
+    cocos_mark_code_files("ext_jpeg" GROUPBASE "${CMAKE_CURRENT_SOURCE_DIR}")
 endif()

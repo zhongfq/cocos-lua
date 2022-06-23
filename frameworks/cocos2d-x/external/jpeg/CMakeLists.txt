@@ -66,10 +66,10 @@ set_target_properties(ext_jpeg
     FOLDER "External"
 )
 if(APPLE)
-    # target_compile_options(ext_jpeg
-    #   PRIVATE
-    #     -Wno-shorten-64-to-32
-    # )
+    target_compile_options(ext_jpeg
+      PRIVATE
+        -Wno-comma
+    )
 endif()
 if(XCODE OR VS)
     set_xcode_debug(ext_jpeg)

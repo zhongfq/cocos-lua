@@ -162,14 +162,12 @@ if(WINDOWS OR MACOSX OR LINUX)
     )
 endif()
 
-if(MACOSX OR ANDROID OR WINDOWS)
-    if(BUILD_EXT_ZLIB)
-        add_subdirectory(zlib)
-        target_link_libraries(external 
-            ext_zlib
-        )
-    endif(BUILD_EXT_ZLIB)
-endif()
+if(BUILD_EXT_ZLIB)
+    add_subdirectory(zlib)
+    target_link_libraries(external 
+        ext_zlib
+    )
+endif(BUILD_EXT_ZLIB)
 
 # unzip depend on zlib
 if(BUILD_EXT_UNZIP)

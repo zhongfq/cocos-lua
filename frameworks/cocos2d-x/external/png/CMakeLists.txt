@@ -11,6 +11,12 @@ else()
 endif()
 
 if(PNG_HARDWARE_OPTIMIZATIONS)
+    if(IOS)
+        if(CMAKE_SYSTEM_PROCESSOR STREQUAL "")
+            set(CMAKE_SYSTEM_PROCESSOR "arm64")
+        endif()
+        set(PNG_ARM_NEON "on")
+    endif()
     # set definitions and sources for arm
     if(CMAKE_SYSTEM_PROCESSOR MATCHES "^arm" OR CMAKE_SYSTEM_PROCESSOR MATCHES "^aarch64")
         set(PNG_ARM_NEON_POSSIBLE_VALUES check on off)

@@ -1,41 +1,88 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.10)
 
-set(lib_name openssl)
+include(include/CMakeLists.txt)
+include(crypto/CMakeLists.txt)
+include(ssl/CMakeLists.txt)
 
-project(${lib_name})
+add_definitions(-DOPENSSL_NO_ASM)
+add_definitions(-DOPENSSL_NO_STATIC_ENGINE)
+if( MSVC )
+  include( MSVCRuntime )
+  configure_msvc_runtime()
+  set( OPENSSLDIR "C:/ssl" )
+  set( ENGINESDIR "C:/engines-1.1" )
+else()
+  set( OPENSSLDIR "${CMAKE_INSTALL_PREFIX}/ssl" )
+  set( ENGINESDIR "${CMAKE_INSTALL_PREFIX}/engines-1.1" )
+endif()
+add_definitions( "-DOPENSSLDIR=\"${OPENSSLDIR}\"" )
+add_definitions( "-DENGINESDIR=\"${ENGINESDIR}\"" )
 
-include(../cmake/CocosExternalConfig.cmake)
+if(APPLE)
+    set(CMAKE_MACOSX_RPATH ON)
+    add_definitions(-DOPENSSL_SYSNAME_MACOSX)
+endif()
 
-# -----macro: set openssl sub target-----
-macro(set_openssl_sub_target sub_lib_name)
-  
-  set(sub_target_name ext_${sub_lib_name})
-  if(WINDOWS)
-    add_library(${sub_target_name} SHARED IMPORTED GLOBAL)
-  else()
-    add_library(${sub_target_name} STATIC IMPORTED GLOBAL)
-  endif()
+if(WIN32 AND NOT CYGWIN)
+    add_definitions(-DOPENSSL_SYSNAME_WIN32)
+    add_definitions(-DWIN32_LEAN_AND_MEAN)
+    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+endif()
 
-  set_target_properties(${sub_target_name} PROPERTIES
-    INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/include/${platform_name}"
-  )
-  if(WINDOWS)
-    set_target_properties(${sub_target_name} PROPERTIES
-      IMPORTED_LOCATION "${platform_spec_path}/lib${sub_lib_name}-1_1.dll"
-      IMPORTED_IMPLIB "${platform_spec_path}/lib${sub_lib_name}.lib"
+include(CheckTypeSize)
+check_type_size("long" LONG_INT)
+check_type_size("long long" LONG_LONG_INT)
+check_type_size("int" INT)
+if(HAVE_LONG_INT AND (${LONG_INT} EQUAL 8))
+    set(SIXTY_FOUR_BIT_LONG ON)
+elseif(HAVE_LONG_LONG_INT AND (${LONG_LONG_INT} EQUAL 8))
+    set(SIXTY_FOUR_BIT ON)
+else()
+    set(THIRTY_TWO_BIT ON)
+endif()
+
+if(MSVC OR (WIN32 AND MINGW AND NOT CYGWIN))
+    set(OPENSSL_EXPORT_VAR_AS_FUNCTION 1)
+endif()
+
+string(TIMESTAMP BUILDINF_DATE "%Y-%m-%d %H:%M:%S UTC" UTC)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/crypto/buildinf.h.cmake  ${CMAKE_CURRENT_BINARY_DIR}/include/crypto/buildinf.h)
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/opensslconf.h.cmake 
+    ${CMAKE_CURRENT_BINARY_DIR}/include/openssl/opensslconf.h)
+
+    configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/crypto/bn_conf.h.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/include/crypto/bn_conf.h )
+configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/crypto/dso_conf.h.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/include/crypto/dso_conf.h )
+
+add_library(ext_openssl ${OPENSSL_HEADERS} ${CRYPTO_HEADERS} ${CRYPTO_SOURCES} ${SSL_HEADERS} ${SSL_SOURCES})
+target_include_directories(ext_openssl
+  PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${CMAKE_CURRENT_BINARY_DIR}/include
+  PRIVATE
+  ${CMAKE_CURRENT_SOURCE_DIR}/crypto/ec/curve448
+  ${CMAKE_CURRENT_SOURCE_DIR}/crypto/ec/curve448/arch_32
+  ${CMAKE_CURRENT_SOURCE_DIR}/crypto/modes
+  ${CMAKE_CURRENT_BINARY_DIR}/include/crypto
+)
+set_target_properties(ext_openssl
+  PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    FOLDER "External"
+)
+if(APPLE)
+    target_compile_options(ext_openssl
+      PRIVATE
+        -Wno-shorten-64-to-32
+        -Wno-comma
+        -Wno-unreachable-code
     )
-  else()
-    set_target_properties(${sub_target_name} PROPERTIES
-      IMPORTED_LOCATION "${platform_spec_path}/lib${sub_lib_name}.a"
-    )
-  endif()
-endmacro()
-
-# -----sub target 1: ssl-----
-set(target_name ssl)
-set_openssl_sub_target(${target_name})
-
-# -----sub target 2: crypto-----
-set(target_name crypto)
-set_openssl_sub_target(${target_name})
-
+endif()
+if(XCODE OR VS)
+    set_xcode_debug(ext_openssl)
+    cocos_mark_code_files("ext_openssl" GROUPBASE "${CMAKE_CURRENT_SOURCE_DIR}")
+endif()

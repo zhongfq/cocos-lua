@@ -6,17 +6,10 @@ include(ssl/CMakeLists.txt)
 
 add_definitions(-DOPENSSL_NO_ASM)
 add_definitions(-DOPENSSL_NO_STATIC_ENGINE)
-if( MSVC )
-  include( MSVCRuntime )
-  configure_msvc_runtime()
-  set( OPENSSLDIR "C:/ssl" )
-  set( ENGINESDIR "C:/engines-1.1" )
-else()
-  set( OPENSSLDIR "${CMAKE_INSTALL_PREFIX}/ssl" )
-  set( ENGINESDIR "${CMAKE_INSTALL_PREFIX}/engines-1.1" )
-endif()
-add_definitions( "-DOPENSSLDIR=\"${OPENSSLDIR}\"" )
-add_definitions( "-DENGINESDIR=\"${ENGINESDIR}\"" )
+set(OPENSSLDIR "${CMAKE_INSTALL_PREFIX}/ssl")
+set(ENGINESDIR "${CMAKE_INSTALL_PREFIX}/engines")
+add_definitions("-DOPENSSLDIR=\"${OPENSSLDIR}\"")
+add_definitions("-DENGINESDIR=\"${ENGINESDIR}\"")
 
 if(APPLE)
     set(CMAKE_MACOSX_RPATH ON)
@@ -46,15 +39,22 @@ if(MSVC OR (WIN32 AND MINGW AND NOT CYGWIN))
 endif()
 
 string(TIMESTAMP BUILDINF_DATE "%Y-%m-%d %H:%M:%S UTC" UTC)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/crypto/buildinf.h.cmake  ${CMAKE_CURRENT_BINARY_DIR}/include/crypto/buildinf.h)
-
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/opensslconf.h.cmake 
-    ${CMAKE_CURRENT_BINARY_DIR}/include/openssl/opensslconf.h)
-
-    configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/crypto/bn_conf.h.cmake
-  ${CMAKE_CURRENT_BINARY_DIR}/include/crypto/bn_conf.h )
-configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/crypto/dso_conf.h.cmake
-  ${CMAKE_CURRENT_BINARY_DIR}/include/crypto/dso_conf.h )
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/crypto/buildinf.h.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/include/crypto/buildinf.h
+)
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/opensslconf.h.cmake 
+    ${CMAKE_CURRENT_BINARY_DIR}/include/openssl/opensslconf.h
+)
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/crypto/bn_conf.h.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/include/crypto/bn_conf.h
+)
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/crypto/dso_conf.h.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/include/crypto/dso_conf.h
+)
 
 add_library(ext_openssl ${OPENSSL_HEADERS} ${CRYPTO_HEADERS} ${CRYPTO_SOURCES} ${SSL_HEADERS} ${SSL_SOURCES})
 target_include_directories(ext_openssl
@@ -63,10 +63,10 @@ target_include_directories(ext_openssl
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_CURRENT_BINARY_DIR}/include
   PRIVATE
-  ${CMAKE_CURRENT_SOURCE_DIR}/crypto/ec/curve448
-  ${CMAKE_CURRENT_SOURCE_DIR}/crypto/ec/curve448/arch_32
-  ${CMAKE_CURRENT_SOURCE_DIR}/crypto/modes
-  ${CMAKE_CURRENT_BINARY_DIR}/include/crypto
+    ${CMAKE_CURRENT_SOURCE_DIR}/crypto/ec/curve448
+    ${CMAKE_CURRENT_SOURCE_DIR}/crypto/ec/curve448/arch_32
+    ${CMAKE_CURRENT_SOURCE_DIR}/crypto/modes
+    ${CMAKE_CURRENT_BINARY_DIR}/include/crypto
 )
 set_target_properties(ext_openssl
   PROPERTIES
@@ -80,7 +80,7 @@ if(APPLE)
         -Wno-shorten-64-to-32
         -Wno-comma
         -Wno-unreachable-code
-    )
+)
 endif()
 if(XCODE OR VS)
     set_xcode_debug(ext_openssl)

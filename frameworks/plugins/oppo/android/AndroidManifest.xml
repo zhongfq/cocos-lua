@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cclua.plugin.oppo">
     <application>
+        <meta-data android:name="cclua.plugin.oppo.Oppo" android:value="true" />
         <uses-library android:name="org.apache.http.legacy" android:required="false" />
         <activity
             android:name="com.nearme.game.sdk.component.proxy.ProxyActivity"

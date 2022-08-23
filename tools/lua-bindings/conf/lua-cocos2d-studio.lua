@@ -5,7 +5,6 @@ path '../../frameworks/libxgame/src/lua-bindings'
 headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "cclua/xlua.h"
 #include "cocos2d.h"
 #include "editor-support/cocostudio/CocoStudio.h"
 ]]
@@ -26,6 +25,8 @@ static std::string makeFrameEndCallbackTag(cocostudio::timeline::ActionTimeline 
     return makeFrameEndCallbackTag((lua_Integer)info.endIndex, animationName);
 }
 ]]
+
+luaopen [[cclua::runtime::registerFeature("cocostudio", true);]]
 
 
 luacls(function (cppname)
@@ -248,12 +249,12 @@ typeconf "cocostudio::timeline::ActionTimeline"
                 arg1.clipEndCallBack = [cb_store, cb_name, cb_ctx]() {
                     lua_State *L = olua_mainthread(NULL);
                     olua_checkhostthread();
-        
+
                     if (L != NULL && olua_context(L) == cb_ctx) {
                         int top = lua_gettop(L);
-        
+
                         olua_callback(L, cb_store, cb_name.c_str(), 0);
-        
+
                         lua_settop(L, top);
                     }
                 };

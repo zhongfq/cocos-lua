@@ -124,6 +124,10 @@ private:
         return "J";
     }
 
+    static std::string getSignature(long long) {
+        return "J";
+    }
+
     static std::string getSignature(float) {
         return "F";
     }
@@ -140,8 +144,8 @@ private:
         return "Ljava/lang/String;";
     }
 
-    template <typename T> static std::string getSignature(T x) {
-        static_assert(sizeof(x) == 0, "Unsupported argument type");
+    template <typename T> static std::string getSignature(T) {
+        static_assert(sizeof(T) == 0, "Unsupported argument type");
         return "";
     }
 

@@ -2594,24 +2594,12 @@ OLUA_LIB int luaopen_cocos2d_PhysicsBody(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_PhysicsContact_EventCode___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_PhysicsContact_EventCode(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsContact.EventCode", nullptr);
-    oluacls_func(L, "__index", _cocos2d_PhysicsContact_EventCode___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "BEGIN", (lua_Integer)cocos2d::PhysicsContact::EventCode::BEGIN);
     oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::PhysicsContact::EventCode::NONE);
     oluacls_const_integer(L, "POSTSOLVE", (lua_Integer)cocos2d::PhysicsContact::EventCode::POSTSOLVE);
@@ -5005,24 +4993,12 @@ OLUA_LIB int luaopen_cocos2d_PhysicsJointSpring(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_PhysicsShape_Type___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_PhysicsShape_Type(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsShape.Type", nullptr);
-    oluacls_func(L, "__index", _cocos2d_PhysicsShape_Type___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "BOX", (lua_Integer)cocos2d::PhysicsShape::Type::BOX);
     oluacls_const_integer(L, "CIRCLE", (lua_Integer)cocos2d::PhysicsShape::Type::CIRCLE);
     oluacls_const_integer(L, "EDGEBOX", (lua_Integer)cocos2d::PhysicsShape::Type::EDGEBOX);

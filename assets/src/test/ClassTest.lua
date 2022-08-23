@@ -1,4 +1,4 @@
-local class = require "xgame.class"
+local class = require "cclua.class"
 
 local MyNode = class('MyNode', require('cc.Node'))
 

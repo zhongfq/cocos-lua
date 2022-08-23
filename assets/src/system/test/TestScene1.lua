@@ -1,5 +1,5 @@
-local class         = require "xgame.class"
-local MixFGUI       = require "xgame.ui.MixFGUI"
+local class         = require "cclua.class"
+local MixFGUI       = require "cclua.ui.MixFGUI"
 local UIPackage     = require "fgui.UIPackage"
 
 local TestScene1 = class("TestScene1", MixFGUI)
@@ -19,7 +19,7 @@ function TestScene1:onCreate()
         print('update scene1')
     end)
     self.view:resolve('goBtn'):addClickListener(function ()
-        xGame:startScene('system.test.TestScene2')
+        cclua.startScene('system.test.TestScene2')
     end)
 end
 

@@ -1,4 +1,4 @@
-#import "JiGuang.h"
+#import "jiguang.h"
 
 #ifdef CCLUA_OS_IOS
 
@@ -11,14 +11,15 @@
 #import <Foundation/Foundation.h>
 #import <UserNotifications/UserNotifications.h>
 
-#ifdef CCLUA_FEATURE_IDFA
+#ifdef CCLUA_FEATURE_TRACKING
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 #endif
 
 USING_NS_CCLUA;
+USING_NS_CCLUA_PLUGIN;
 
-#pragma mark -- JPush --
+#pragma mark -- jpush --
 #ifdef CCLUA_BUILD_JPUSH
 @interface JPushDelegate : NSObject<JPUSHRegisterDelegate, UIApplicationDelegate>
 
@@ -89,7 +90,7 @@ USING_NS_CCLUA;
     }
     [JPUSHService registerForRemoteNotificationConfig:entiry delegate:[JPushDelegate defaultDelegate]];
     NSString *idfa = nil;
-#ifdef CCLUA_FEATURE_IDFA
+#ifdef CCLUA_FEATURE_TRACKING
     idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
 #endif
     [JPUSHService setupWithOption:launchOptions appKey:_appKey channel:_channel apsForProduction:YES advertisingIdentifier:idfa];
@@ -119,9 +120,7 @@ USING_NS_CCLUA;
 
 @end
 
-NS_CCLUA_PLUGIN_BEGIN
-
-void JPush::init(const std::string &appKey, const std::string &channel)
+void jpush::init(const std::string &appKey, const std::string &channel)
 {
     @autoreleasepool {
         AppContext *context = (AppContext *)[UIApplication sharedApplication].delegate;
@@ -132,7 +131,7 @@ void JPush::init(const std::string &appKey, const std::string &channel)
     }
 }
 
-void JPush::setAlias(const std::string &alias)
+void jpush::setAlias(const std::string &alias)
 {
     @autoreleasepool {
         [JPUSHService setAlias:toNSString(alias) completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
@@ -141,7 +140,7 @@ void JPush::setAlias(const std::string &alias)
     }
 }
 
-void JPush::deleteAlias()
+void jpush::deleteAlias()
 {
     @autoreleasepool {
         [JPUSHService deleteAlias:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
@@ -150,7 +149,7 @@ void JPush::deleteAlias()
     }
 }
 
-void JPush::addTags(const std::set<std::string> &tags)
+void jpush::addTags(const std::set<std::string> &tags)
 {
     @autoreleasepool {
         [JPUSHService addTags:toNSSetString(tags) completion:^(NSInteger iResCode, NSSet *iTags, NSInteger seq) {
@@ -159,7 +158,7 @@ void JPush::addTags(const std::set<std::string> &tags)
     }
 }
 
-void JPush::setTags(const std::set<std::string> &tags)
+void jpush::setTags(const std::set<std::string> &tags)
 {
     @autoreleasepool {
         [JPUSHService setTags:toNSSetString(tags) completion:^(NSInteger iResCode, NSSet *iTags, NSInteger seq) {
@@ -168,7 +167,7 @@ void JPush::setTags(const std::set<std::string> &tags)
     }
 }
 
-void JPush::deleteTags(const std::set<std::string> &tags)
+void jpush::deleteTags(const std::set<std::string> &tags)
 {
     @autoreleasepool {
         [JPUSHService deleteTags:toNSSetString(tags) completion:^(NSInteger iResCode, NSSet *iTags, NSInteger seq) {
@@ -177,7 +176,7 @@ void JPush::deleteTags(const std::set<std::string> &tags)
     }
 }
 
-void JPush::cleanTags()
+void jpush::cleanTags()
 {
     @autoreleasepool {
         [JPUSHService cleanTags:^(NSInteger iResCode, NSSet *iTags, NSInteger seq) {
@@ -186,21 +185,21 @@ void JPush::cleanTags()
     }
 }
 
-void JPush::setDebug(bool enabled)
+void jpush::setDebug(bool enabled)
 {
     @autoreleasepool {
         [JPUSHService setDebugMode];
     }
 }
 
-void JPush::setLogOFF()
+void jpush::setLogOFF()
 {
     @autoreleasepool {
         [JPUSHService setLogOFF];
     }
 }
 
-void JPush::setBadge(int value)
+void jpush::setBadge(int value)
 {
     @autoreleasepool {
         [JPUSHService setBadge:value];
@@ -208,31 +207,31 @@ void JPush::setBadge(int value)
     }
 }
 
-std::string JPush::getRegistrationID()
+std::string jpush::getRegistrationID()
 {
     @autoreleasepool {
         return [[JPUSHService registrationID] UTF8String];
     }
 }
 
-bool JPush::isEnabled()
+bool jpush::isEnabled()
 {
     @autoreleasepool {
         return [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
     }
 }
 
-void JPush::requestPermission()
+void jpush::requestPermission()
 {
 }
-
-NS_CCLUA_PLUGIN_END
 
 #endif // CCLUA_BUILD_JPUSH
 
 
-#pragma mark -- JAuth --
+#pragma mark -- jauth --
 #ifdef CCLUA_BUILD_JAUTH
+
+Callback jauth::_dispatcher;
 
 @interface JAuthDelegate : NSObject<UIApplicationDelegate>
 
@@ -263,12 +262,12 @@ NS_CCLUA_PLUGIN_END
     JVAuthConfig *config = [[JVAuthConfig alloc] init];
     config.appKey = _appKey;
     config.channel = _channel;
-#ifdef CCLUA_FEATURE_IDFA
+#ifdef CCLUA_FEATURE_TRACKING
     config.advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
 #endif
     config.isProduction = YES;
     config.authBlock = ^(NSDictionary *result) {
-        NSLog(@"init JAuth result:%@", result);
+        NSLog(@"init jauth result:%@", result);
     };
     [JVERIFICATIONService setupWithConfig:config];
     return YES;
@@ -276,9 +275,7 @@ NS_CCLUA_PLUGIN_END
 
 @end
 
-NS_CCLUA_PLUGIN_BEGIN
-
-void JAuth::init(const std::string &appKey, const std::string &channel)
+void jauth::init(const std::string &appKey, const std::string &channel)
 {
     @autoreleasepool {
         AppContext *context = (AppContext *)[UIApplication sharedApplication].delegate;
@@ -289,94 +286,87 @@ void JAuth::init(const std::string &appKey, const std::string &channel)
     }
 }
 
-bool JAuth::isInitSuccess()
+bool jauth::isInitSuccess()
 {
     @autoreleasepool {
         return [JVERIFICATIONService isSetupClient];
     }
 }
 
-void JAuth::setDebug(bool enabled)
+void jauth::setDebug(bool enabled)
 {
     @autoreleasepool {
         [JVERIFICATIONService setDebug:enabled];
     }
 }
 
-bool JAuth::checkVerifyEnable()
+bool jauth::checkVerifyEnable()
 {
     @autoreleasepool {
         return [JVERIFICATIONService checkVerifyEnable];
     }
 }
 
-void JAuth::getToken(int timeout, const Callback callback)
+void jauth::getToken(int timeout)
 {
     @autoreleasepool {
         [JVERIFICATIONService getToken:timeout completion:^(NSDictionary *result) {
             cocos2d::ValueMap data;
+            data["code"] = (int64_t)[[result objectForKey:@"code"] intValue];
             if ([[result allKeys] containsObject:@"token"]) {
                 data["success"] = true;
-                data["code"] = [[result objectForKey:@"code"] intValue];
                 data["token"] = [[result objectForKey:@"token"] UTF8String];
                 data["operator"] = [[result objectForKey:@"operator"] UTF8String];
             } else {
-                data["code"] = [[result objectForKey:@"code"] intValue];
                 data["content"] = [[result objectForKey:@"content"] UTF8String];
             }
-            runtime::runOnCocosThread([=]{
-                callback(cocos2d::Value(data));
-            });
+            jauth::dispatch("getToken", data);
         }];
     }
 }
 
-void JAuth::preLogin(int timeout, const Callback callback)
+void jauth::preLogin(int timeout)
 {
     @autoreleasepool {
         [JVERIFICATIONService preLogin:timeout completion:^(NSDictionary *result) {
             cocos2d::ValueMap data;
-            data["code"] = [[result objectForKey:@"code"] intValue];
+            std::string status;
+            data["code"] = (int64_t)[[result objectForKey:@"code"] intValue];
             data["success"] = data["code"].asInt() == 7000;
             data["content"] = [[result objectForKey:@"message"] UTF8String];
-            runtime::runOnCocosThread([=]{
-                callback(cocos2d::Value(data));
-            });
+            jauth::dispatch("preLogin", data);
         }];
     }
 }
 
-void JAuth::clearPreLoginCache()
+void jauth::clearPreLoginCache()
 {
     @autoreleasepool {
         [JVERIFICATIONService clearPreLoginCache];
     }
 }
 
-void JAuth::loginAuth(int timeout, const Callback callback)
+void jauth::loginAuth(int timeout)
 {
     @autoreleasepool {
         [JVERIFICATIONService getAuthorizationWithController:[[[UIApplication sharedApplication] keyWindow] rootViewController] hide:YES animated:YES timeout:timeout completion:^(NSDictionary *result) {
             cocos2d::ValueMap data;
+            data["code"] = (int64_t)[[result objectForKey:@"code"] intValue];
             if ([[result allKeys] containsObject:@"loginToken"]) {
                 data["success"] = true;
-                data["code"] = [[result objectForKey:@"code"] intValue];
                 data["token"] = [[result objectForKey:@"loginToken"] UTF8String];
                 data["operator"] = [[result objectForKey:@"operator"] UTF8String];
             } else {
-                data["code"] = [[result objectForKey:@"code"] intValue];
                 data["content"] = [[result objectForKey:@"content"] UTF8String];
             }
-            runtime::runOnCocosThread([=]{
-                callback(cocos2d::Value(data));
-            });
+            jauth::dispatch("loginAuth", data);
         } actionBlock:^(NSInteger type, NSString *content) {
             NSLog(@"loginAuth actionBlock :%ld %@", (long)type , content);
         }];
     }
 }
 
-void JAuth::dismissLoginAuth(bool needCloseAnim)
+void jauth::dismissLoginAuth(bool needCloseAnim)
 {
     @autoreleasepool {
         [JVERIFICATIONService dismissLoginControllerAnimated:needCloseAnim completion:^{
@@ -384,25 +374,23 @@ void JAuth::dismissLoginAuth(bool needCloseAnim)
     }
 }
 
-void JAuth::getSmsCode(const std::string &phonenum, const std::string &signid, const std::string &tempid, const Callback callback)
+void jauth::getSmsCode(const std::string &phonenum, const std::string &signid, const std::string &tempid)
 {
     @autoreleasepool {
         [JVERIFICATIONService getSMSCode:toNSString(phonenum) templateID:toNSString(tempid) signID:toNSString(signid) completionHandler:^(NSDictionary * _Nonnull result) {
             cocos2d::ValueMap data;
-            data["code"] = [[result objectForKey:@"code"] intValue];
+            data["code"] = (int64_t)[[result objectForKey:@"code"] intValue];
             data["success"] = data["code"].asInt() == 3000;
             data["content"] = [[result objectForKey:@"msg"] UTF8String];
             if (data["success"].asBool()) {
                 data["uuid"] = [[result objectForKey:@"uuid"] UTF8String];
             }
-            runtime::runOnCocosThread([=]{
-                callback(cocos2d::Value(data));
-            });
+            jauth::dispatch("getSmsCode", data);
         }];
     }
 }
 
-void JAuth::setSmsIntervalTime(long intervalTime)
+void jauth::setSmsIntervalTime(int64_t intervalTime)
 {
     @autoreleasepool {
         [JVERIFICATIONService setGetCodeInternal:intervalTime];
@@ -741,7 +729,7 @@ static JVUIConfig *getDialogPortraitConfig(cocos2d::ValueMap &value)
     return config;
 }
 
-void JAuth::configUI(cocos2d::ValueMap &value, bool landscape)
+void jauth::configUI(cocos2d::ValueMap &value, bool landscape)
 {
     @autoreleasepool {
         JVUIConfig *config = landscape ? getFullScreenLandscapeConfig(value) : getDialogPortraitConfig(value);
@@ -816,12 +804,10 @@ void JAuth::configUI(cocos2d::ValueMap &value, bool landscape)
     }
 }
 
-NS_CCLUA_PLUGIN_END
-
 #endif // CCLUA_BUILD_JAUTH
 
 
-#pragma mark -- JAnalytics --
+#pragma mark -- janalytics --
 #ifdef CCLUA_BUILD_JANALYTICS
 
 @interface JAnalyticsDelegate : NSObject<UIApplicationDelegate>
@@ -853,7 +839,7 @@ NS_CCLUA_PLUGIN_END
     config.appKey = _appKey;
     config.channel = _channel;
     config.isProduction = YES;
-#ifdef CCLUA_FEATURE_IDFA
+#ifdef CCLUA_FEATURE_TRACKING
     config.advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
 #endif
     [JANALYTICSService setupWithConfig:config];
@@ -862,8 +848,7 @@ NS_CCLUA_PLUGIN_END
 }
 @end
 
-NS_CCLUA_PLUGIN_BEGIN
-void JAnalytics::init(const std::string &appKey, const std::string &channel)
+void janalytics::init(const std::string &appKey, const std::string &channel)
 {
     @autoreleasepool {
         AppContext *context = (AppContext *)[UIApplication sharedApplication].delegate;
@@ -873,14 +858,14 @@ void JAnalytics::init(const std::string &appKey, const std::string &channel)
         [context addAppDelegate:delegate];
     }
 }
-void JAnalytics::startTrackPage(const std::string &pageName)
+void janalytics::startTrackPage(const std::string &pageName)
 {
     @autoreleasepool {
         [JANALYTICSService startLogPageView:toNSString(pageName)];
     }
 }
 
-void JAnalytics::stopTrackPage(const std::string &pageName)
+void janalytics::stopTrackPage(const std::string &pageName)
 {
     @autoreleasepool {
         [JANALYTICSService stopLogPageView:toNSString(pageName)];
@@ -902,7 +887,7 @@ static NSDictionary<NSString *, NSString *>* toExtra(cocos2d::Value &value)
     return extra;
 }
 
-void JAnalytics::trackEvent(EventType type, cocos2d::ValueMap &value)
+void janalytics::trackEvent(EventType type, cocos2d::ValueMap &value)
 {
     @autoreleasepool {
         switch (type) {
@@ -970,7 +955,7 @@ void JAnalytics::trackEvent(EventType type, cocos2d::ValueMap &value)
     }
 }
 
-void JAnalytics::identifyAccount(cocos2d::ValueMap &value)
+void janalytics::identifyAccount(cocos2d::ValueMap &value)
 {
     @autoreleasepool {
         JANALYTICSUserInfo *userInfo = [[JANALYTICSUserInfo alloc] init];
@@ -1017,7 +1002,7 @@ void JAnalytics::identifyAccount(cocos2d::ValueMap &value)
     }
 }
 
-void JAnalytics::detachAccount()
+void janalytics::detachAccount()
 {
     @autoreleasepool {
         [JANALYTICSService detachAccount:^(NSInteger err, NSString *msg) {
@@ -1026,21 +1011,19 @@ void JAnalytics::detachAccount()
     }
 }
 
-void JAnalytics::setFrequency(int frequency)
+void janalytics::setFrequency(int frequency)
 {
     @autoreleasepool {
         [JANALYTICSService setFrequency:(NSUInteger) frequency];
     }
 }
 
-void JAnalytics::setDebug(bool enable)
+void janalytics::setDebug(bool enable)
 {
     @autoreleasepool {
         [JANALYTICSService setDebug:enable];
     }
 }
-
-NS_CCLUA_PLUGIN_END
 
 #endif // CCLUA_BUILD_JANALYTICS
 

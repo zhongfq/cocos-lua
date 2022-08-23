@@ -6,8 +6,7 @@
 
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "cclua/xlua.h"
-#include "apple/Apple.h"
+#include "apple/apple.h"
 
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_apple(lua_State *L);

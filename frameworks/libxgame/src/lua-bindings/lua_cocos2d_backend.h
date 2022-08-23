@@ -7,7 +7,6 @@
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cocos2d.h"
-#include "cclua/xlua.h"
 
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_backend(lua_State *L);

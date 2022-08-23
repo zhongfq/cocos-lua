@@ -1,5 +1,53 @@
 typedef {
+    cppcls = 'MPEG_mode',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
+    cppcls = 'Padding_type',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
+    cppcls = 'Psy_model',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
+    cppcls = 'QRecLevel',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
+    cppcls = 'QRencodeMode',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
     cppcls = 'android_LogPriority',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
+    cppcls = 'asm_optimizations',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
+    cppcls = 'buffer_constraint',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
+    cppcls = 'cclua::Lame::MPEGMode',
     decltype = 'lua_Unsigned',
     conv = 'olua_$$_uint',
 }
@@ -137,7 +185,25 @@ typedef {
 }
 
 typedef {
+    cppcls = 'lame_errorcodes_t',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
     cppcls = 'log_id_t',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
+    cppcls = 'preset_mode',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
+    cppcls = 'vbr_mode',
     decltype = 'lua_Unsigned',
     conv = 'olua_$$_uint',
 }

@@ -38,33 +38,33 @@ void BufferReader::resize(size_t size)
 BufferReader filesystem::s_reader;
 
 #if defined(CCLUA_OS_WIN32) || defined(CCLUA_OS_MAC)
-const std::string filesystem::getAppDataDirectory()
+std::string filesystem::getAppDataDirectory()
 {
     return __filesystem_getAppDataDirectory();
 }
 #endif
 
-const std::string filesystem::getDocumentDirectory()
+std::string filesystem::getDocumentDirectory()
 {
     return __filesystem_getDocumentDirectory();
 }
 
-const std::string filesystem::getCacheDirectory()
+std::string filesystem::getCacheDirectory()
 {
     return __filesystem_getCacheDirectory();
 }
 
-const std::string filesystem::getTmpDirectory()
+std::string filesystem::getTmpDirectory()
 {
     return __filesystem_getTmpDirectory();
 }
 
-const std::string filesystem::getBuiltinCacheDirectory()
+std::string filesystem::getBuiltinCacheDirectory()
 {
     return filesystem::getCacheDirectory() + "/builtin";
 }
 
-const std::string filesystem::getSDCardDirectory()
+std::string filesystem::getSDCardDirectory()
 {
 #ifdef CCLUA_OS_ANDROID
     return __filesystem_getSDCardDirectory();
@@ -73,7 +73,7 @@ const std::string filesystem::getSDCardDirectory()
 #endif
 }
 
-const std::string filesystem::getDirectory(const std::string &type)
+std::string filesystem::getDirectory(const std::string &type)
 {
 #ifdef CCLUA_OS_ANDROID
     return __filesystem_getDir(type);
@@ -83,7 +83,7 @@ const std::string filesystem::getDirectory(const std::string &type)
 }
 
 
-const std::string filesystem::getWritablePath()
+std::string filesystem::getWritablePath()
 {
     std::string path = FileUtils::getInstance()->getWritablePath();
     auto sep = path.at(path.size() - 1);
@@ -101,7 +101,7 @@ void filesystem::addSearchPath(const std::string &path, bool front)
     }
 }
 
-const std::string filesystem::shortPath(const std::string &path, size_t limit)
+std::string filesystem::trimPath(const std::string &path, size_t limit)
 {
     size_t len = path.size();
     if (len > limit) {
@@ -111,7 +111,7 @@ const std::string filesystem::shortPath(const std::string &path, size_t limit)
     }
 }
 
-const std::string filesystem::fullPath(const std::string &path)
+std::string filesystem::fullPath(const std::string &path)
 {
     return FileUtils::getInstance()->fullPathForFilename(path);
 }
@@ -129,7 +129,7 @@ bool filesystem::createDirectory(const std::string &path, bool isFilePath)
         return true;
     } else {
         bool status = FileUtils::getInstance()->createDirectory(dir);
-        runtime::log("[%s] create dir: %s", BOOL_STR(status), filesystem::shortPath(dir).c_str());
+        runtime::log("[%s] create dir: %s", BOOL_STR(status), filesystem::trimPath(dir).c_str());
         return status;
     }
 }
@@ -139,7 +139,7 @@ bool filesystem::remove(const std::string &path)
     bool status = filesystem::isDirectory(path)
         ? FileUtils::getInstance()->removeDirectory(path)
         : FileUtils::getInstance()->removeFile(path);
-    runtime::log("[%s] remove: %s", BOOL_STR(status), filesystem::shortPath(path).c_str());
+    runtime::log("[%s] remove: %s", BOOL_STR(status), filesystem::trimPath(path).c_str());
     return status;
 }
 
@@ -163,12 +163,17 @@ bool filesystem::isDirectory(const std::string &path)
     return FileUtils::getInstance()->isDirectoryExist(path);
 }
 
+bool filesystem::isAbsolutePath(const std::string& path)
+{
+    return FileUtils::getInstance()->isAbsolutePath(path);
+}
+
 bool filesystem::rename(const std::string &oldPath, const std::string &newPath)
 {
     bool status = FileUtils::getInstance()->renameFile(oldPath, newPath);
     runtime::log("[%s] rename: %s => %s", BOOL_STR(status),
-        filesystem::shortPath(oldPath).c_str(),
-        filesystem::shortPath(newPath).c_str());
+        filesystem::trimPath(oldPath).c_str(),
+        filesystem::trimPath(newPath).c_str());
     return status;
 }
 
@@ -183,8 +188,8 @@ bool filesystem::copy(const std::string &srcPath, const std::string &destPath)
     }
     
     runtime::log("[%s] copy file: %s => %s", BOOL_STR(status),
-        filesystem::shortPath(srcPath, 40).c_str(),
-        filesystem::shortPath(destPath, 40).c_str());
+        filesystem::trimPath(srcPath, 40).c_str(),
+        filesystem::trimPath(destPath, 40).c_str());
     return status;
 }
 
@@ -200,7 +205,7 @@ bool filesystem::write(const std::string &path, const char *data, size_t len)
         status = true;
     }
     
-    runtime::log("[%s] write file: %s", BOOL_STR(status), filesystem::shortPath(path).c_str());
+    runtime::log("[%s] write file: %s", BOOL_STR(status), filesystem::trimPath(path).c_str());
     return status;
 }
 
@@ -212,7 +217,7 @@ bool filesystem::write(const std::string &path, const cocos2d::Data &data)
 Data filesystem::read(const std::string &path)
 {
     Data data = FileUtils::getInstance()->getDataFromFile(path);
-    runtime::log("[%s] read file: %s", BOOL_STR(!data.isNull()), filesystem::shortPath(path).c_str());
+    runtime::log("[%s] read file: %s", BOOL_STR(!data.isNull()), filesystem::trimPath(path).c_str());
     return data;
 }
 
@@ -260,8 +265,8 @@ bool filesystem::unzip(const std::string &path, const std::string &dest)
     bool status = _doUnzip(path, dest);
     runtime::log("[%s] unzip: %s => %s",
         BOOL_STR(status),
-        filesystem::shortPath(path).c_str(),
-        filesystem::shortPath(dest).c_str());
+        filesystem::trimPath(path).c_str(),
+        filesystem::trimPath(dest).c_str());
     return status;
 }
 

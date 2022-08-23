@@ -1,8 +1,7 @@
 #include "cclua/filesystem-private.h"
 #include "cclua/filesystem.h"
-#ifdef CCLUA_OS_ANDROID
-#include "cclua/jniutil.h"
-#endif
+#include "cclua/plugin.h"
+
 #include "cocos2d.h"
 
 USING_NS_CC;

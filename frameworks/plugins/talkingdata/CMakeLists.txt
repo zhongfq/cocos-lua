@@ -4,20 +4,20 @@ set(LIBNAME plugin_talkingdata)
 
 set(SOURCE
     lua_talkingdata.cpp
-    TalkingData.cpp
+    talkingdata.cpp
 )
 
 set(HEADER
     lua_talkingdata.h
-    TalkingData.h
+    talkingdata.h
 )
 
 if(IOS)
     list(APPEND HEADER
-        ios/TalkingData.h
+        ios/talkingdata.h
     )
     list(APPEND SOURCE
-        TalkingData.mm
+        talkingdata.mm
     )
 endif()
 

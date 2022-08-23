@@ -1,10 +1,20 @@
 local toolset = require "toolset"
 
+local function fixAPI()
+    require 'cclua.init'
+
+    local runtime = require "cclua.runtime"
+    runtime.packageName = 'com.codetypes.cclua'
+end
+
 -- local assetsPath = '../../assets'
 -- do
 return function (assetsPath)
+    toolset.set_rootdir(assetsPath)
     toolset.add_path(assetsPath .. '')
     toolset.add_path(assetsPath .. '/src')
+
+    fixAPI()
 
     local assets = {}
 

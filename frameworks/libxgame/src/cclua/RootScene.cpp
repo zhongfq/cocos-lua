@@ -81,12 +81,12 @@ void SceneNoCamera::removeAllChildren()
     Node::removeAllChildren();
 }
 
-MaskLayout::~MaskLayout()
+Container::~Container()
 {
     CC_SAFE_RELEASE(_filter);
 }
 
-void MaskLayout::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4& parentTransform, uint32_t parentFlags)
+void Container::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4& parentTransform, uint32_t parentFlags)
 {
     if (!_visible)
     {
@@ -106,7 +106,7 @@ void MaskLayout::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4& parentT
     }
 }
 
-void MaskLayout::onEnter()
+void Container::onEnter()
 {
     Layout::onEnter();
     if (_filter) {
@@ -114,7 +114,7 @@ void MaskLayout::onEnter()
     }
 }
 
-void MaskLayout::onExit()
+void Container::onExit()
 {
     Layout::onExit();
     if (_filter) {
@@ -122,7 +122,7 @@ void MaskLayout::onExit()
     }
 }
 
-void MaskLayout::setFilter(cocos2d::Node *value)
+void Container::setFilter(cocos2d::Node *value)
 {
     if (value != _filter) {
         CC_SAFE_RELEASE(_filter);
@@ -143,7 +143,7 @@ void MaskLayout::setFilter(cocos2d::Node *value)
     }
 }
 
-cocos2d::Node *MaskLayout::getFilter()
+cocos2d::Node *Container::getFilter()
 {
     return _filter;
 }

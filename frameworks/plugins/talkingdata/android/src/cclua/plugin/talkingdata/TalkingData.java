@@ -1,14 +1,7 @@
 package cclua.plugin.talkingdata;
 
-import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
-
-import com.tendcloud.tenddata.Order;
 import com.tendcloud.tenddata.TCAgent;
 import com.tendcloud.tenddata.TDProfile;
-import com.tendcloud.tenddata.a;
-import com.tendcloud.tenddata.ac;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,24 +11,14 @@ import java.util.Iterator;
 import java.util.Map;
 
 import cclua.AppContext;
-import cclua.PluginManager;
 
 @SuppressWarnings("unused")
 public class TalkingData {
-    private static final String TAG = TalkingData.class.getName();
-
     static {
-        PluginManager.registerPlugin(new PluginManager.Handler() {
-            @Override
-            public void onInit(Application app) {
-                AppContext.registerFeature("talkingdata", true);
-            }
-
-            @Override
-            public void onStart(Activity context) {
-            }
-        });
+        AppContext.registerPlugin(context -> AppContext.registerFeature("cclua.plugin.talkingdata", true));
     }
+
+    private static final String TAG = TalkingData.class.getName();
 
     private static Map<String, Object> toMap(String jsonstr) {
         if (jsonstr == null || jsonstr.length() == 0)
@@ -65,14 +48,9 @@ public class TalkingData {
         }
     }
 
-    public static void setLogEnabled(final boolean value) {
-        final AppContext context = (AppContext) AppContext.getContext();
-        context.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TCAgent.LOG_ON = value;
-            }
-        });
+    public static void setLogEnabled(boolean value) {
+        AppContext context = AppContext.getContext();
+        context.runOnUiThread(() -> TCAgent.LOG_ON = value);
     }
 
     private static TDProfile.ProfileType getType(int type) {
@@ -114,197 +92,99 @@ public class TalkingData {
         return TDProfile.ProfileType.ANONYMOUS;
     }
 
-    public static void init(final String appkey, final String channel) {
-        final AppContext context = (AppContext) AppContext.getContext();
-        context.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TCAgent.init(context.getApplicationContext(), appkey, channel);
-            }
-        });
+    public static void init(String appkey, String channel) {
+        AppContext context = AppContext.getContext();
+        context.runOnUiThread(() -> TCAgent.init(context.getApplicationContext(), appkey, channel));
     }
 
-    public static void onRegister(final String profileID, final int type, final String name) {
-        final AppContext context = (AppContext) AppContext.getContext();
-        context.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TCAgent.onRegister(profileID, getType(type), name);
-            }
-        });
+    public static void onRegister(String profileID, int type, String name) {
+        AppContext context = AppContext.getContext();
+        context.runOnUiThread(() -> TCAgent.onRegister(profileID, getType(type), name));
     }
 
-    public static void onLogin(final String profileID, final int type, final String name) {
-        final AppContext context = (AppContext) AppContext.getContext();
-        context.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TCAgent.onLogin(profileID, getType(type), name);
-            }
-        });
+    public static void onLogin(String profileID, int type, String name) {
+        AppContext context = AppContext.getContext();
+        context.runOnUiThread(() -> TCAgent.onLogin(profileID, getType(type), name));
     }
 
-    public static void setReportUncaughtExceptions(final boolean value) {
-        final AppContext context = (AppContext) AppContext.getContext();
-        context.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TCAgent.setReportUncaughtExceptions(value);
-            }
-        });
+    public static void setReportUncaughtExceptions(boolean value) {
+        AppContext context = AppContext.getContext();
+        context.runOnUiThread(() -> TCAgent.setReportUncaughtExceptions(value));
     }
 
-    public static void trackPageBegin(final String name) {
-        final AppContext context = (AppContext) AppContext.getContext();
-        context.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TCAgent.onPageStart(context, name);
-            }
-        });
+    public static void trackPageBegin(String name) {
+        AppContext context = AppContext.getContext();
+        context.runOnUiThread(() -> TCAgent.onPageStart(context, name));
     }
 
-    public static void trackPageEnd(final String name) {
-        final AppContext context = (AppContext) AppContext.getContext();
-        context.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TCAgent.onPageEnd(context, name);
-            }
-        });
+    public static void trackPageEnd(String name) {
+        AppContext context = AppContext.getContext();
+        context.runOnUiThread(() -> TCAgent.onPageEnd(context, name));
     }
 
-    public static void trackEvent(final String event) {
-        final AppContext context = (AppContext) AppContext.getContext();
-        context.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TCAgent.onEvent(context, event);
-            }
-        });
+    public static void trackEvent(String event) {
+        AppContext context = AppContext.getContext();
+        context.runOnUiThread(() -> TCAgent.onEvent(context, event));
     }
 
-    public static void trackEvent(final String event, final String label) {
-        final AppContext context = (AppContext) AppContext.getContext();
-        context.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TCAgent.onEvent(context, event, label);
-            }
-        });
+    public static void trackEvent(String event, String label) {
+        AppContext context = AppContext.getContext();
+        context.runOnUiThread(() -> TCAgent.onEvent(context, event, label));
     }
 
-    public static void trackEvent(final String event, final String label, final String kvstr) {
-        final AppContext context = (AppContext) AppContext.getContext();
-        context.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TCAgent.onEvent(context, event, label, toMap(kvstr));
-            }
-        });
+    public static void trackEvent(String event, String label, String kvstr) {
+        AppContext context = AppContext.getContext();
+        context.runOnUiThread(() -> TCAgent.onEvent(context, event, label, toMap(kvstr)));
     }
 
-    public static void trackEvent(final String event, final String label, final String kvstr, final double value) {
-        final AppContext context = (AppContext) AppContext.getContext();
-        context.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TCAgent.onEvent(context, event, label, toMap(kvstr), value);
-            }
-        });
+    public static void trackEvent(String event, String label, String kvstr, double value) {
+        AppContext context = AppContext.getContext();
+        context.runOnUiThread(() -> TCAgent.onEvent(context, event, label, toMap(kvstr), value));
     }
 
-    public static void setGlobalKV(final String key, final boolean value) {
-        final AppContext context = (AppContext) AppContext.getContext();
-        context.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TCAgent.setGlobalKV(key, value);
-            }
-        });
+    public static void setGlobalKV(String key, boolean value) {
+        AppContext context = AppContext.getContext();
+        context.runOnUiThread(() -> TCAgent.setGlobalKV(key, value));
     }
 
-    public static void setGlobalKV(final String key, final String value) {
-        final AppContext context = (AppContext) AppContext.getContext();
-        context.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TCAgent.setGlobalKV(key, value);
-            }
-        });
+    public static void setGlobalKV(String key, String value) {
+        AppContext context = AppContext.getContext();
+        context.runOnUiThread(() -> TCAgent.setGlobalKV(key, value));
     }
 
-    public static void setGlobalKV(final String key, final long value) {
-        final AppContext context = (AppContext) AppContext.getContext();
-        context.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TCAgent.setGlobalKV(key, value);
-            }
-        });
+    public static void setGlobalKV(String key, long value) {
+        AppContext context = AppContext.getContext();
+        context.runOnUiThread(() -> TCAgent.setGlobalKV(key, value));
     }
 
-    public static void setGlobalKV(final String key, final double value) {
-        final AppContext context = (AppContext) AppContext.getContext();
-        context.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TCAgent.setGlobalKV(key, value);
-            }
-        });
+    public static void setGlobalKV(String key, double value) {
+        AppContext context = AppContext.getContext();
+        context.runOnUiThread(() -> TCAgent.setGlobalKV(key, value));
     }
 
-    public static void removeGlobalKV(final String key) {
-        final AppContext context = (AppContext) AppContext.getContext();
-        context.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TCAgent.removeGlobalKV(key);
-            }
-        });
+    public static void removeGlobalKV(String key) {
+        AppContext context = AppContext.getContext();
+        context.runOnUiThread(() -> TCAgent.removeGlobalKV(key));
     }
 
     // order
-    public static void placeOrder(final String orderId, final int amount, final String currencyType) {
-        final AppContext context = (AppContext) AppContext.getContext();
-        context.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TCAgent.onPlaceOrder(orderId, amount, currencyType);
-            }
-        });
+    public static void placeOrder(String orderId, int amount, String currencyType) {
+        AppContext context = AppContext.getContext();
+        context.runOnUiThread(() -> TCAgent.onPlaceOrder(orderId, amount, currencyType));
     }
 
-    public static void payOrder(final String orderId, final int amount, final String currencyType, final String paymentType)
-    {
-        final AppContext context = (AppContext) AppContext.getContext();
-        context.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TCAgent.onOrderPaySucc(orderId, amount, currencyType, paymentType);
-            }
-        });
+    public static void payOrder(String orderId, int amount, String currencyType, String paymentType) {
+        AppContext context = AppContext.getContext();
+        context.runOnUiThread(() -> TCAgent.onOrderPaySucc(orderId, amount, currencyType, paymentType));
     }
 
-    public static void cancelOrder(final String orderId, final int amount, final String currencyType)
-    {
-        final AppContext context = (AppContext) AppContext.getContext();
-        context.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TCAgent.onCancelOrder(orderId, amount, currencyType);
-            }
-        });
+    public static void cancelOrder(String orderId, int amount, String currencyType) {
+        AppContext context = AppContext.getContext();
+        context.runOnUiThread(() -> TCAgent.onCancelOrder(orderId, amount, currencyType));
     }
 
-    public static void viewItem(final String itemId, final String category, final String name, final int unitPrice)
-    {
-        final AppContext context = (AppContext) AppContext.getContext();
-        context.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TCAgent.onViewItem(itemId, category, name, unitPrice);
-            }
-        });
+    public static void viewItem(String itemId, String category, String name, int unitPrice) {
+        AppContext context = AppContext.getContext();
+        context.runOnUiThread(() -> TCAgent.onViewItem(itemId, category, name, unitPrice));
     }
 }

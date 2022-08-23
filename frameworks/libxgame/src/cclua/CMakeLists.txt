@@ -1,13 +1,19 @@
 set(CCLUA_HEADER
     src/cclua/AssetsBundle.h
     src/cclua/ByteArray.h
+    src/cclua/cclua.h
     src/cclua/downloader.h
     src/cclua/FileFinder.h
     src/cclua/filesystem-private.h
     src/cclua/filesystem.h
+    src/cclua/Lame.h
     src/cclua/luauser.h
+    src/cclua/microphone.h
+    src/cclua/permission.h
+    src/cclua/photo.h
     src/cclua/plugin.h
     src/cclua/preferences.h
+    src/cclua/QRCode.h
     src/cclua/RootScene.h
     src/cclua/runtime-private.h
     src/cclua/runtime.h
@@ -25,8 +31,13 @@ set(CCLUA_SRC
     src/cclua/FileFinder.cpp
     src/cclua/filesystem-private.cpp
     src/cclua/filesystem.cpp
+    src/cclua/Lame.cpp
+    src/cclua/microphone.cpp
+    src/cclua/permission.cpp
+    src/cclua/photo.cpp
     src/cclua/plugin.cpp
     src/cclua/preferences.cpp
+    src/cclua/QRCode.cpp
     src/cclua/RootScene.cpp
     src/cclua/runtime-private.cpp
     src/cclua/runtime.cpp
@@ -43,15 +54,15 @@ if(APPLE)
             src/cclua/AppContext-ios.h
             src/cclua/AppRootViewController-ios.h
             src/cclua/plugin-ios.h
-            src/cclua/PluginConnector.h
             src/cclua/Reachability.h
         )
         list(APPEND CCLUA_SRC
             src/cclua/AppContext-ios.mm
             src/cclua/AppRootViewController-ios.mm
-            src/cclua/PluginConnector.mm
-            src/cclua/Reachability.m
             src/cclua/filesystem-private-ios-mac.mm
+            src/cclua/photo.mm
+            src/cclua/Reachability.m
+            src/cclua/microphone.mm
             src/cclua/runtime-private-ios-mac.mm
         )
     elseif(MACOSX)

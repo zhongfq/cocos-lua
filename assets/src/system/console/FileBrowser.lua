@@ -1,8 +1,8 @@
-local class         = require "xgame.class"
-local Array         = require "xgame.Array"
-local http          = require "xgame.http"
-local Event         = require "xgame.Event"
-local Dispatcher    = require "xgame.Dispatcher"
+local class         = require "cclua.class"
+local Array         = require "cclua.Array"
+local http          = require "cclua.http"
+local Event         = require "cclua.Event"
+local Dispatcher    = require "cclua.Dispatcher"
 local UIEventType   = require "fgui.UIEventType"
 
 local FileBrowser = class('FileBrowser', Dispatcher)

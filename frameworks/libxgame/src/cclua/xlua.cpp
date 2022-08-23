@@ -92,7 +92,7 @@ static int _print(lua_State *L)
         size_t l;
         const char *s = lua_tolstring(L, i, &l);
         if (i > 1) {
-            luaL_addstring(&buffer, "\t");
+            luaL_addstring(&buffer, "    ");
         }
         luaL_addlstring(&buffer, s, l);
     }
@@ -183,6 +183,48 @@ static int _addlualoader(lua_State *L)
     return 0;
 }
 
+static int _loadfile(lua_State *L)
+{
+    int num = lua_gettop(L);
+    int env = (!lua_isnone(L, 3) ? 3 : 0);
+    
+    // search cocos directories
+    const char *path = lua_tostring(L, 1);
+    if (!filesystem::isAbsolutePath(path)) {
+        FileUtils *fileUtils = FileUtils::getInstance();
+        BufferReader *reader = filesystem::getBufferReader();
+        if (filesystem::exist(path) && fileUtils->getContents(path, reader) == FileUtils::Status::OK) {
+            lua_pushfstring(L, "%s%s", "@", path);
+            int status = luaL_loadbuffer(L, (const char *)reader->buffer(),
+                (size_t)reader->size(), lua_tostring(L, -1));
+            if (status == LUA_OK) {
+                runtime::log("loadfile: %s", path);
+                if (env != 0) {
+                  lua_pushvalue(L, env);
+                  if (!lua_setupvalue(L, -2, 1))
+                    lua_pop(L, 1);
+                }
+                return 1;
+            }
+            lua_pop(L, 1); // pop path
+        }
+    }
+
+    // call builtin loadfile
+    lua_pushvalue(L, lua_upvalueindex(1));
+    lua_insert(L, 1);
+    lua_call(L, num, LUA_MULTRET);
+    return lua_gettop(L);
+}
+
+static int _fixloadfile(lua_State *L)
+{
+    lua_getglobal(L, "loadfile");
+    lua_pushcclosure(L, _loadfile, 1);
+    lua_setglobal(L, "loadfile");
+    return 0;
+}
+
 static char *simplify_traceback(const char *msg)
 {
     const char *FUNCSTR = ": in function '";
@@ -263,6 +305,7 @@ lua_State *xlua_new()
     luaL_openlibs(L);
     olua_callfunc(L, _fixcoresume);
     olua_callfunc(L, _fixprint);
+    olua_callfunc(L, _fixloadfile);
     olua_callfunc(L, _addsearchpath);
     olua_callfunc(L, _addlualoader);
     
@@ -350,43 +393,6 @@ int xlua_ccobjgc(lua_State *L)
     lua_pushnil(L);
     lua_setuservalue(L, 1);
     return 0;
-}
-
-static int _nonsupport_func(lua_State *L)
-{
-    lua_settop(L, 0);
-    lua_pushvalue(L, lua_upvalueindex(1));
-    lua_pushvalue(L, lua_upvalueindex(2));
-    lua_getfield(L, 1, "__name");
-    cclua::runtime::log("function '%s.%s' not supported on '%s'",
-        lua_tostring(L, -1), lua_tostring(L, 2), cclua::runtime::getOS().c_str());
-    return 0;
-}
-
-static int _nonsupport_index(lua_State *L)
-{
-    lua_pushvalue(L, 1);
-    lua_pushvalue(L, 2);
-    lua_pushcclosure(L, _nonsupport_func, 2);
-    return 1;
-}
-
-int xlua_nonsupport(lua_State *L)
-{
-    lua_settop(L, 1);
-    const char *name = lua_tostring(L, 1);
-    
-    lua_newtable(L);
-    lua_pushstring(L, name);
-    lua_setfield(L, -2, "__name");
-    
-    lua_pushcfunction(L, _nonsupport_index);
-    lua_setfield(L, -2, "__index");
-    
-    lua_pushvalue(L, -1);
-    lua_setmetatable(L, -2);
-    
-    return 1;
 }
 
 #ifdef OLUA_HAVE_MAINTHREAD

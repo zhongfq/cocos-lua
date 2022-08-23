@@ -7,18 +7,18 @@ path = "../../frameworks/plugins/talkingdata"
 headers = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
-    #include "cclua/xlua.h"
-    #include "TalkingData.h"
+    #include "talkingdata.h"
 ]]
 chunk = nil
 luaopen = nil
 
 
-typeconf 'cclua::plugin::TCAgent'
+typeconf 'cclua::plugin::talkingdata'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
-    .luaopen([[cclua::runtime::registerFeature("talkingdata", true);]])
+    .luaopen([[cclua::runtime::registerFeature("cclua.plugin.talkingdata.ios", true);]])
+    .indexerror(nil)
     .ifdef('*', '#ifdef CCLUA_BUILD_TALKINGDATA')
     .func(nil, 'static void setLogEnabled(bool value)')
     .func(nil, 'static void init(const std::string &appkey, const std::string &channel)')

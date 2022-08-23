@@ -12,7 +12,6 @@
 #include "base/TGAlib.h"
 #include "ui/CocosGUI.h"
 #include "navmesh/CCNavMesh.h"
-#include "cclua/xlua.h"
 
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d(lua_State *L);

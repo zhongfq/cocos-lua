@@ -1,6 +1,6 @@
 wwwroot/*
 build/
-assets/builtin.metadata
+assets/builtin.manifest
 assets/assets.bundle
 .DS_Store
 ._*

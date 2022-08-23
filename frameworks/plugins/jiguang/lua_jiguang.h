@@ -6,8 +6,7 @@
 
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "cclua/xlua.h"
-#include "JiGuang.h"
+#include "jiguang.h"
 
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_jiguang(lua_State *L);

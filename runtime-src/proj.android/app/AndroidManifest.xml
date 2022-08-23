@@ -28,7 +28,6 @@
         tools:ignore="ProtectedPermissions" />
 
     <application
-        android:name="cclua.App"
         android:label="@string/app_name"
         android:allowBackup="false"
         android:icon="@mipmap/icon"

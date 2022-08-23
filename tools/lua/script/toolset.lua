@@ -3,8 +3,8 @@ local cjson = require "cjson.safe"
 local xxtea = require "xxtea"
 
 local toolset = {}
-
 local dir_stack = {}
+local lualoadfile = loadfile
 
 require "simulator"
 
@@ -18,6 +18,12 @@ function toolset.add_path(path)
     if not string.find(package.path, path, 1, true) then
         print("add search path: " .. path)
         package.path = path .. "/?.lua;" .. package.path
+    end
+end
+
+function toolset.set_rootdir(dir)
+    function loadfile(path, ...)
+        return lualoadfile(path, ...) or lualoadfile(dir .. '/' .. path, ...)
     end
 end
 
@@ -223,24 +229,19 @@ function toolset.write(path, content)
     file:close()
 end
 
-function toolset.read_metadata(path, conf)
+function toolset.read_manifest(path, conf)
     path = toolset.format(path)
     if toolset.exist(path) then
         local data = toolset.read(path)
-        return cjson.decode(data) or cjson.decode(xxtea.decrypt(data,
-            assert(conf.ENCRYPT_KEY, 'no encrypt key')))
+        return cjson.decode(data)
     else
         return {assets = {}, version = '0.0.0'}
     end
 end
 
-function toolset.write_metadata(path, data, conf)
+function toolset.write_manifest(path, data, conf)
     path = toolset.format(path)
-    if conf.ENCRYPT_METADATA then
-        toolset.write(path, xxtea.encrypt(data,  assert(conf.ENCRYPT_KEY, 'no encrypt key')))
-    else
-        toolset.write(path, data)
-    end
+    toolset.write(path, data)
 end
 
 function toolset.list(basedir, pattern)

@@ -8,8 +8,8 @@ olua.debug(DEBUG)
 
 -- enable lua debug
 if DEBUG then
-    -- require("xgame.LuaPanda").start("127.0.0.1", 8818)
-    -- local hanlder = require("xgame.LuaDebug")("localhost", 7003)
+    -- require("LuaPanda").start("127.0.0.1", 8818)
+    -- local hanlder = require("LuaDebug")("localhost", 7003)
     -- timer.schedule(0, hanlder)
 end
 
@@ -17,9 +17,6 @@ end
 if runtime.os == 'mac' or runtime.os == 'win32' then
     window.setFrameSize(900, 500)
 end
-
--- print runtime info
-runtime.printSupport()
 
 -- set status & frame rate
 runtime.frameRate = 60

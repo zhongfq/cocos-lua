@@ -5,7 +5,6 @@ path '../../frameworks/libxgame/src/lua-bindings'
 headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "cclua/xlua.h"
 #include "cocos2d.h"
 #include "3d/CC3DProgramInfo.h"
 ]]

@@ -1,198 +1,192 @@
-#include "JiGuang.h"
+#include "jiguang.h"
 
-#ifdef CCLUA_OS_ANDROID
-#include "cclua/jniutil.h"
+#if defined(CCLUA_BUILD_JPUSH) && defined(CCLUA_OS_ANDROID)
 
-NS_CCLUA_PLUGIN_BEGIN
+USING_NS_CCLUA;
+USING_NS_CCLUA_PLUGIN;
 
-#define JAVA_JPUSH_CLASS        "cclua/plugin/jiguang/JPush"
-#define JAVA_JAUTH_CLASS        "cclua/plugin/jiguang/JAuth"
-#define JAVA_JANALYTICS_CLASS   "cclua/plugin/jiguang/JAnalytics"
+const char *jpush::JAVA_CLASS = "cclua/plugin/jiguang/JPush";
 
-USING_NS_CC;
-
-#ifdef CCLUA_BUILD_JPUSH
-
-void JPush::init(const std::string &appKey, const std::string &channel)
+void jpush::init(const std::string &appKey, const std::string &channel)
 {
-    Jni::callStaticVoidMethod(JAVA_JPUSH_CLASS, "init", appKey, channel);
+    Jni::callStaticVoidMethod(JAVA_CLASS, "init", appKey, channel);
 }
 
-void JPush::setAlias(const std::string &alias)
+void jpush::setAlias(const std::string &alias)
 {
-    Jni::callStaticVoidMethod(JAVA_JPUSH_CLASS, "setAlias", alias);
+    Jni::callStaticVoidMethod(JAVA_CLASS, "setAlias", alias);
 }
 
-void JPush::deleteAlias()
+void jpush::deleteAlias()
 {
-    Jni::callStaticVoidMethod(JAVA_JPUSH_CLASS, "deleteAlias");
+    Jni::callStaticVoidMethod(JAVA_CLASS, "deleteAlias");
 }
 
-void JPush::addTags(const std::set<std::string> &tags)
+void jpush::addTags(const std::set<std::string> &tags)
 {
-    Jni::callStaticVoidMethod(JAVA_JPUSH_CLASS, "addTags", toJSONString(tags));
+    Jni::callStaticVoidMethod(JAVA_CLASS, "addTags", toJSONString(tags));
 }
 
-void JPush::setTags(const std::set<std::string> &tags)
+void jpush::setTags(const std::set<std::string> &tags)
 {
-    Jni::callStaticVoidMethod(JAVA_JPUSH_CLASS, "setTags", toJSONString(tags));
+    Jni::callStaticVoidMethod(JAVA_CLASS, "setTags", toJSONString(tags));
 }
 
-void JPush::deleteTags(const std::set<std::string> &tags)
+void jpush::deleteTags(const std::set<std::string> &tags)
 {
-    Jni::callStaticVoidMethod(JAVA_JPUSH_CLASS, "deleteTags", toJSONString(tags));
+    Jni::callStaticVoidMethod(JAVA_CLASS, "deleteTags", toJSONString(tags));
 }
 
-void JPush::cleanTags()
+void jpush::cleanTags()
 {
-    Jni::callStaticVoidMethod(JAVA_JPUSH_CLASS, "cleanTags");
+    Jni::callStaticVoidMethod(JAVA_CLASS, "cleanTags");
 }
 
-void JPush::setDebug(bool enabled)
+void jpush::setDebug(bool enabled)
 {
-    Jni::callStaticVoidMethod(JAVA_JPUSH_CLASS, "setDebugMode", enabled);
+    Jni::callStaticVoidMethod(JAVA_CLASS, "setDebugMode", enabled);
 }
 
-void JPush::setLogOFF()
+void jpush::setLogOFF()
 {
-    Jni::callStaticVoidMethod(JAVA_JPUSH_CLASS, "setLogOFF");
+    Jni::callStaticVoidMethod(JAVA_CLASS, "setLogOFF");
 }
 
-void JPush::setBadge(int value)
+void jpush::setBadge(int value)
 {
-    Jni::callStaticVoidMethod(JAVA_JPUSH_CLASS, "setBadge", value);
+    Jni::callStaticVoidMethod(JAVA_CLASS, "setBadge", value);
 }
 
-bool JPush::isEnabled()
+bool jpush::isEnabled()
 {
-    return Jni::callStaticBooleanMethod(JAVA_JPUSH_CLASS, "isEnabled");
+    return Jni::callStaticBooleanMethod(JAVA_CLASS, "isEnabled");
 }
 
-void JPush::requestPermission()
+void jpush::requestPermission()
 {
-    Jni::callStaticVoidMethod(JAVA_JPUSH_CLASS, "requestPermission");
+    Jni::callStaticVoidMethod(JAVA_CLASS, "requestPermission");
 }
 
-std::string JPush::getRegistrationID()
+std::string jpush::getRegistrationID()
 {
-    return Jni::callStaticStringMethod(JAVA_JPUSH_CLASS, "getRegistrationID");
+    return Jni::callStaticStringMethod(JAVA_CLASS, "getRegistrationID");
 }
+
 #endif // CCLUA_BUILD_JPUSH
 
-#ifdef CCLUA_BUILD_JAUTH
-void JAuth::init(const std::string &appKey, const std::string &channel)
+#if defined(CCLUA_BUILD_JAUTH) && defined(CCLUA_OS_ANDROID)
+
+USING_NS_CCLUA;
+USING_NS_CCLUA_PLUGIN;
+
+const char *jauth::JAVA_CLASS = "cclua/plugin/jiguang/JAuth";
+Callback jauth::_dispatcher;
+
+void jauth::init(const std::string &appKey, const std::string &channel)
 {
-    Jni::callStaticVoidMethod(JAVA_JAUTH_CLASS, "init", appKey, channel);
+    Jni::callStaticVoidMethod(JAVA_CLASS, "init", appKey, channel);
 }
 
-bool JAuth::isInitSuccess()
+bool jauth::isInitSuccess()
 {
-    return Jni::callStaticBooleanMethod(JAVA_JAUTH_CLASS, "isInitSuccess");
+    return Jni::callStaticBooleanMethod(JAVA_CLASS, "isInitSuccess");
 }
 
-void JAuth::setDebug(bool enabled)
+void jauth::setDebug(bool enabled)
 {
-    Jni::callStaticVoidMethod(JAVA_JAUTH_CLASS, "setDebug", enabled);
+    Jni::callStaticVoidMethod(JAVA_CLASS, "setDebug", enabled);
 }
 
-bool JAuth::checkVerifyEnable()
+bool jauth::checkVerifyEnable()
 {
-    return Jni::callStaticBooleanMethod(JAVA_JAUTH_CLASS, "checkVerifyEnable");
+    return Jni::callStaticBooleanMethod(JAVA_CLASS, "checkVerifyEnable");
 }
 
-static int ref(const Callback callback) {
-    return runtime::ref([=](const std::string &args){
-        ValueMap data;
-        parseJSONString(args, data);
-        callback(cocos2d::Value(data));
-    });
-}
-
-void JAuth::getToken(int timeout, const Callback callback)
+void jauth::getToken(int timeout)
 {
-    Jni::callStaticVoidMethod(JAVA_JAUTH_CLASS, "getToken", timeout, ref(callback));
+    Jni::callStaticVoidMethod(JAVA_CLASS, "getToken", timeout);
 }
 
-void JAuth::preLogin(int timeout, const Callback callback)
+void jauth::preLogin(int timeout)
 {
-    Jni::callStaticVoidMethod(JAVA_JAUTH_CLASS, "preLogin", timeout, ref(callback));
+    Jni::callStaticVoidMethod(JAVA_CLASS, "preLogin", timeout);
 }
 
-void JAuth::clearPreLoginCache()
+void jauth::clearPreLoginCache()
 {
-    Jni::callStaticVoidMethod(JAVA_JAUTH_CLASS, "clearPreLoginCache");
+    Jni::callStaticVoidMethod(JAVA_CLASS, "clearPreLoginCache");
 }
 
-void JAuth::loginAuth(int timeout, const Callback callback)
+void jauth::loginAuth(int timeout)
 {
-    Jni::callStaticVoidMethod(JAVA_JAUTH_CLASS, "loginAuth", timeout, ref(callback));
+    Jni::callStaticVoidMethod(JAVA_CLASS, "loginAuth", timeout);
 }
 
-void JAuth::dismissLoginAuth(bool needCloseAnim)
+void jauth::dismissLoginAuth(bool needCloseAnim)
 {
-    Jni::callStaticVoidMethod(JAVA_JAUTH_CLASS, "dismissLoginAuth", needCloseAnim);
+    Jni::callStaticVoidMethod(JAVA_CLASS, "dismissLoginAuth", needCloseAnim);
 }
 
-void JAuth::getSmsCode(const std::string &phonenum, const std::string &signid, const std::string &tempid, const Callback callback)
+void jauth::getSmsCode(const std::string &phonenum, const std::string &signid, const std::string &tempid)
 {
-    Jni::callStaticVoidMethod(JAVA_JAUTH_CLASS, "getSmsCode", phonenum, signid, tempid, ref(callback));
+    Jni::callStaticVoidMethod(JAVA_CLASS, "getSmsCode", phonenum, signid, tempid);
 }
 
-void JAuth::setSmsIntervalTime(long intervalTime)
+void jauth::setSmsIntervalTime(int64_t intervalTime)
 {
-    Jni::callStaticVoidMethod(JAVA_JAUTH_CLASS, "setSmsIntervalTime", intervalTime);
+    Jni::callStaticVoidMethod(JAVA_CLASS, "setSmsIntervalTime", intervalTime);
 }
 
-void JAuth::configUI(cocos2d::ValueMap &value, bool landscape)
+void jauth::configUI(cocos2d::ValueMap &value, bool landscape)
 {
-    Jni::callStaticVoidMethod(JAVA_JAUTH_CLASS, "configUI", toJSONString(value), landscape);
+    Jni::callStaticVoidMethod(JAVA_CLASS, "configUI", toJSONString(value), landscape);
 }
+#endif // CCLUA_BUILD_JAUTH
 
-#endif
+#if defined(CCLUA_BUILD_JANALYTICS) && defined(CCLUA_OS_ANDROID)
 
-#ifdef CCLUA_BUILD_JANALYTICS
-void JAnalytics::init(const std::string &appKey, const std::string &channel)
+USING_NS_CCLUA;
+USING_NS_CCLUA_PLUGIN;
+
+const char *janalytics::JAVA_CLASS = "cclua/plugin/jiguang/JAnalytics";
+
+void janalytics::init(const std::string &appKey, const std::string &channel)
 {
-    Jni::callStaticVoidMethod(JAVA_JANALYTICS_CLASS, "init", appKey, channel);
+    Jni::callStaticVoidMethod(JAVA_CLASS, "init", appKey, channel);
 }
 
-void JAnalytics::startTrackPage(const std::string &pageName)
+void janalytics::startTrackPage(const std::string &pageName)
 {
-    Jni::callStaticVoidMethod(JAVA_JANALYTICS_CLASS, "startTrackPage", pageName);
+    Jni::callStaticVoidMethod(JAVA_CLASS, "startTrackPage", pageName);
 }
 
-void JAnalytics::stopTrackPage(const std::string &pageName)
+void janalytics::stopTrackPage(const std::string &pageName)
 {
-    Jni::callStaticVoidMethod(JAVA_JANALYTICS_CLASS, "stopTrackPage", pageName);
+    Jni::callStaticVoidMethod(JAVA_CLASS, "stopTrackPage", pageName);
 }
 
-void JAnalytics::trackEvent(EventType type, cocos2d::ValueMap &value)
+void janalytics::trackEvent(EventType type, cocos2d::ValueMap &value)
 {
-    Jni::callStaticVoidMethod(JAVA_JANALYTICS_CLASS, "trackEvent", (int)type, toJSONString(value));
+    Jni::callStaticVoidMethod(JAVA_CLASS, "trackEvent", (int)type, toJSONString(value));
 }
 
-void JAnalytics::identifyAccount(cocos2d::ValueMap &value)
+void janalytics::identifyAccount(cocos2d::ValueMap &value)
 {
-    Jni::callStaticVoidMethod(JAVA_JANALYTICS_CLASS, "identifyAccount", toJSONString(value));
+    Jni::callStaticVoidMethod(JAVA_CLASS, "identifyAccount", toJSONString(value));
 }
 
-void JAnalytics::detachAccount()
+void janalytics::detachAccount()
 {
-    Jni::callStaticVoidMethod(JAVA_JANALYTICS_CLASS, "detachAccount");
+    Jni::callStaticVoidMethod(JAVA_CLASS, "detachAccount");
 }
 
-void JAnalytics::setFrequency(int frequency)
+void janalytics::setFrequency(int frequency)
 {
-    Jni::callStaticVoidMethod(JAVA_JANALYTICS_CLASS, "setFrequency", frequency);
+    Jni::callStaticVoidMethod(JAVA_CLASS, "setFrequency", frequency);
 }
 
-void JAnalytics::setDebug(bool enable)
+void janalytics::setDebug(bool enable)
 {
-    Jni::callStaticVoidMethod(JAVA_JANALYTICS_CLASS, "setDebug", enable);
+    Jni::callStaticVoidMethod(JAVA_CLASS, "setDebug", enable);
 }
-
 #endif // CCLUA_BUILD_JANALYTICS
-
-NS_CCLUA_PLUGIN_END
-
-#endif

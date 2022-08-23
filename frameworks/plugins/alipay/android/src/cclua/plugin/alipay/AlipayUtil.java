@@ -31,18 +31,4 @@ public class AlipayUtil {
 
         return ok;
     }
-
-    public static String appendVerifyStatus(AlipayResult result, boolean verify) {
-        JSONObject data = new JSONObject();
-        try {
-            data.put("verify_status", verify ? "true" : "false");
-            data.put("result_status", result.resultStatus);
-            data.put("result", result.result);
-            data.put("memo", result.memo);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return data.toString();
-    }
 }

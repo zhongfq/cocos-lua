@@ -1,8 +1,8 @@
-local class         = require "xgame.class"
-local util          = require "xgame.util"
-local timer         = require "xgame.timer"
-local UIScene       = require "xgame.ui.UIScene"
-local FGUINode      = require "xgame.ui.FGUINode"
+local class         = require "cclua.class"
+local util          = require "cclua.util"
+local timer         = require "cclua.timer"
+local UIScene       = require "cclua.ui.UIScene"
+local FGUINode      = require "cclua.ui.FGUINode"
 local UIPackage     = require "fgui.UIPackage"
 local GRoot         = require "fgui.GRoot"
 local Window        = require "fgui.Window"
@@ -70,7 +70,7 @@ function FGUITest:ctor()
     view.btn2:addClickListener(function ()
         collectgarbage('collect')
         play(g3)
-        xGame:popScene()
+        cclua.popScene()
         timer.delay(4, function ()
             print('gc')
             collectgarbage('collect')

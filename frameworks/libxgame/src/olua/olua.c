@@ -415,6 +415,22 @@ OLUA_API const char *olua_objstring(lua_State *L, int idx)
     return lua_pushfstring(L, "%s: %p", olua_typename(L, idx), p);
 }
 
+OLUA_API int olua_indexerror(lua_State *L)
+{
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *field = olua_tostring(L, 2);
+    luaL_error(L, "index '%s.%s' error", cls, field);
+    return 0;
+}
+
+OLUA_API int olua_newindexerror(lua_State *L)
+{
+    const char *cls = olua_checkfieldstring(L, 1, "classname");
+    const char *field = olua_tostring(L, 2);
+    luaL_error(L, "newindex '%s.%s' error", cls, field);
+    return 0;
+}
+
 OLUA_API void olua_setownership(lua_State *L, int idx, int owner)
 {
     idx = lua_absindex(L, idx);
@@ -1513,3 +1529,68 @@ OLUA_API int olua_rawgetp(lua_State *L, int idx, const void *p)
     return olua_rawget(L, idx);
 }
 #endif
+
+#ifndef OLUA_HAVE_MAINTHREAD
+OLUA_API lua_State *olua_mainthread(lua_State *L)
+{
+    lua_State *mt = NULL;
+    if (L) {
+        olua_rawgeti(L, LUA_REGISTRYINDEX, LUA_RIDX_MAINTHREAD);
+        luaL_checktype(L, -1, LUA_TTHREAD);
+        mt = lua_tothread(L, -1);
+        lua_pop(L, 1);
+    } else {
+        olua_assert(L, "main thread not found");
+    }
+    return mt;
+}
+#endif
+
+#ifndef OLUA_HAVE_LUATYPE
+OLUA_API void olua_registerluatype(lua_State *L, const char *type, const char *cls)
+{
+    lua_pushstring(L, type);
+    lua_pushstring(L, cls);
+    lua_rawset(L, LUA_REGISTRYINDEX);
+}
+
+OLUA_API const char *olua_getluatype(lua_State *L, const char *cls)
+{
+    return olua_optfieldstring(L, LUA_REGISTRYINDEX, cls, NULL);
+}
+#endif
+
+OLUA_API int olua_callback_wrapper(lua_State *L)
+{
+    lua_pushvalue(L, lua_upvalueindex(1));
+    lua_insert(L, 1);
+    lua_call(L, lua_gettop(L) - 1, LUA_MULTRET);
+    return lua_gettop(L);
+}
+
+OLUA_API bool olua_is_callback(lua_State *L, int idx, const char *cls)
+{
+    bool is_wrapper = lua_tocfunction(L, idx) == olua_callback_wrapper;
+    if (is_wrapper && lua_getupvalue(L, idx, 2)) {
+        const char *cb_cls = lua_tostring(L, -1);
+        lua_pop(L, 1);
+        return cb_cls && strcmp(cb_cls, cls) == 0;
+    }
+    return olua_isfunction(L, idx);
+}
+
+OLUA_API int olua_push_callback(lua_State *L, const char *cls)
+{
+    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
+        luaL_error(L, "execpt 'function' or 'nil'");
+    }
+    if (cls && strcmp(cls, "std.function") == 0) {
+        lua_pushvalue(L, -1);
+        return 1;
+    } else {
+        lua_pushvalue(L, -1);
+        lua_pushstring(L, cls);
+        lua_pushcclosure(L, olua_callback_wrapper, 2);
+    }
+    return 1;
+}

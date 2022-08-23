@@ -65,24 +65,13 @@ inline bool strstartwith(const char *src, const char *prefix)
 inline bool strendwith(const char *src, const char *suffix)
 {
     const char *pos = strstr(src, suffix);
-    return !pos ? false : (src + strlen(src) == pos + strlen(suffix));
+    return pos != nullptr && (src + strlen(src) == pos + strlen(suffix));
 }
 
 NS_CCLUA_BEGIN
 
-enum class PermissionStatus {
-    NOT_DETERMINED,
-    RESTRICTED,
-    DENIED,
-    AUTHORIZED
-};
-
-enum class Permission {
-    AUDIO,
-    CAMERA,
-    PHOTO,
-    IDFA,
-};
+typedef int64_t callback_t;
+typedef std::function<void(const std::string &event, const cocos2d::Value &data)> Callback;
 
 class runtime
 {
@@ -104,24 +93,25 @@ public:
     static void luaOpen(lua_CFunction libfunc);
     
     // app info
-    static const std::string getVersion();
-    static const uint64_t getCocosVersion();
-    static const std::string getPackageName();
-    static const std::string getAppVersion();
-    static const std::string getAppBuild();
-    static const std::string getChannel();
-    static const std::string getOS();
-    static const std::string getDeviceInfo();
-    static const std::string getLanguage();
-    static const std::string getManifestVersion();
+    static std::string getVersion();
+    static uint64_t getCocosVersion();
+    static std::string getPackageName();
+    static std::string getAppName();
+    static std::string getAppVersion();
+    static std::string getAppBuild();
+    static std::string getChannel();
+    static std::string getOS();
+    static std::string getDeviceInfo();
+    static std::string getLanguage();
+    static std::string getManifestVersion();
     static void setManifestVersion(const std::string &version);
-    static const std::string getNetworkStatus();
+    static std::string getNetworkStatus();
     
     // environment value
     static std::string getEnv(const std::string &key);
     static void setEnv(const std::string &key, const std::string &value, bool save = false);
     
-    static const std::string getPaste();
+    static std::string getPaste();
     static void setPaste(const std::string &text);
     
 #if COCOS2D_VERSION >= 0x00040000
@@ -134,34 +124,32 @@ public:
     static uint32_t getFrameRate();
     static void setFrameRate(uint32_t frameRate);
     
-    // ios only
-    static const PermissionStatus getPermissionStatus(Permission permission);
-    static void requestPermission(Permission permission, const std::function<void (PermissionStatus)> callback);
-    static void setAudioSessionCatalog(const std::string &catalog);
-    static const std::string getAudioSessionCatalog();
+    static std::string getPermission(const std::string &permission);
+    static void requestPermission(const std::string &permission, const std::function<void (const std::string &)> callback);
     static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> callback);
     
-#ifdef CCLUA_OS_IOS
-    static void openAppSetting(const std::string &title, const std::string &message, const std::function<void()> &callback);
-#endif
+    // ios only
+    static void setAudioSessionCatalog(const std::string &catalog);
+    static std::string getAudioSessionCatalog();
     
     // event dispatch
-    typedef std::function<void (const std::string &event, const std::string &args)> EventDispatcher;
-    static void setDispatcher(const EventDispatcher &dispatcher);
-    static void dispatchEvent(const std::string &event, const std::string &args);
-    static void runOnCocosThread(const std::function<void ()> &callback);
+    static void setDispatcher(const Callback &dispatcher);
+    static void dispatch(const std::string &event, const cocos2d::Value &args);
+    static void dispatch(const std::string &event, const std::string &args = "");
+    static void runLater(const std::function<void ()> &callback);
     static void openURL(const std::string &uri, const std::function<void (bool)> callback = nullptr);
     static void handleOpenURL(const std::string &uri);
     static bool canOpenURL(const std::string &uri);
     
     // for java and objc bridge
-    typedef std::function<void(const std::string &args)> RefCallback;
-    static void callref(int func, const std::string &args, bool once);
-    static int ref(const RefCallback callback);
+    static void installAPK(const std::string &path);
+    static void callref(callback_t func, const std::string &status, const std::string &data, bool once);
+    static callback_t ref(const Callback &callback);
+    static void unref(callback_t func);
     
     // log
     static void setLogPath(const std::string &path);
-    static const std::string getLogPath();
+    static std::string getLogPath();
     static void log(const char *format, ...);
     static void showLog();
     
@@ -170,9 +158,9 @@ public:
     static unsigned int getSampleCount();
     
     // feature
-    static bool support(const std::string &api);
+    static bool hasFeature(const std::string &api);
     static void registerFeature(const std::string &api, bool enabled);
-    static void printSupport();
+    static void printFeatures();
     
     // error
     static void initBugly(const char* appid);

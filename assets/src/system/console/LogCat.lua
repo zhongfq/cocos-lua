@@ -1,7 +1,7 @@
-local class         = require "xgame.class"
-local Array         = require "xgame.Array"
-local runtime       = require "xgame.runtime"
-local Dispatcher    = require "xgame.Dispatcher"
+local class         = require "cclua.class"
+local Array         = require "cclua.Array"
+local runtime       = require "cclua.runtime"
+local Dispatcher    = require "cclua.Dispatcher"
 
 local LogCat = class('LogCat', Dispatcher)
 

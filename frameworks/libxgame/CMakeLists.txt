@@ -3,13 +3,15 @@ cmake_minimum_required(VERSION 3.6)
 add_library(xgame "")
 
 include(src/box2d/CMakeLists.txt)
+include(src/cclua/CMakeLists.txt)
 include(src/cjson/CMakeLists.txt)
+include(src/lame/CMakeLists.txt)
+include(src/lfs/CMakeLists.txt)
 include(src/lua-bindings/CMakeLists.txt)
 include(src/lua/CMakeLists.txt)
 include(src/md5/CMakeLists.txt)
 include(src/olua/CMakeLists.txt)
-include(src/lfs/CMakeLists.txt)
-include(src/cclua/CMakeLists.txt)
+include(src/qrencode/CMakeLists.txt)
 include(src/xxtea/CMakeLists.txt)
 
 target_sources(xgame PRIVATE
@@ -17,18 +19,22 @@ target_sources(xgame PRIVATE
     ${CJSON_SRC}
     ${LUA_BINDINGS_SRC}
     ${MD5_SRC}
+    ${LAME_SRC}
     ${LUA_SRC}
     ${LFS_SRC}
     ${OLUA_SRC}
+    ${QRCODE_SRC}
     ${XXTEA_SRC}
 
     ${CCLUA_HEADER}
     ${CJSON_HEADER}
+    ${LAME_HEADER}
     ${LUA_BINDINGS_HEADER}
     ${MD5_HEADER}
     ${LUA_HEADER}
     ${LFS_HEADER}
     ${OLUA_HEADER}
+    ${QRCODE_HEADER}
     ${XXTEA_HEADER}
 )
 
@@ -44,18 +50,6 @@ if(CCLUA_BUILD_BUGLY)
         set(BUGLY_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/src/bugly/Bugly.framework")
         target_link_libraries(xgame ${BUGLY_LIBRARY})
     endif()
-endif()
-
-if(CCLUA_BUILD_LAME AND (IOS OR ANDROID))
-    include(src/lame/CMakeLists.txt)
-    target_sources(xgame PRIVATE ${LAME_SRC} ${LAME_HEADER})
-    target_compile_definitions(xgame PUBLIC CCLUA_BUILD_LAME)
-endif()
-
-if(CCLUA_BUILD_QRCODE)
-    include(src/qrencode/CMakeLists.txt)
-    target_sources(xgame PRIVATE ${QRCODE_HEADER} ${QRCODE_SRC})
-    target_compile_definitions(xgame PUBLIC CCLUA_BUILD_QRCODE)
 endif()
 
 if(CCLUA_BUILD_FAIRYGUI)
@@ -84,6 +78,7 @@ target_compile_definitions(xgame PUBLIC STDC_HEADERS)
 target_compile_definitions(xgame PUBLIC $<$<CONFIG:Debug>:OLUA_DEBUG>)
 target_compile_definitions(xgame PUBLIC OLUA_USER_H="cclua/luauser.h")
 target_compile_definitions(xgame PUBLIC CCLUA_VERSION="${CCLUA_VERSION}")
+target_compile_definitions(xgame PRIVATE HAVE_STDINT_H)
 
 if(CCLUA_BUILD_SPINE)
     target_compile_definitions(xgame PUBLIC CCLUA_BUILD_SPINE)
@@ -94,12 +89,12 @@ if(CCLUA_FEATURE_MSAA)
     target_compile_definitions(xgame PUBLIC CCLUA_FEATURE_MSAA)
 endif()
 
-if(CCLUA_FEATURE_IDFA)
+if(CCLUA_FEATURE_TRACKING)
     find_library(APP_TRACKING_TRANSPARENCY_LIBRARY AppTrackingTransparency)
     target_link_libraries(xgame ${APP_TRACKING_TRANSPARENCY_LIBRARY})
     find_library(AD_SUPPORT_LIBRARY AdSupport)
     target_link_libraries(xgame ${AD_SUPPORT_LIBRARY})
-    target_compile_definitions(xgame PUBLIC CCLUA_FEATURE_IDFA)
+    target_compile_definitions(xgame PUBLIC CCLUA_FEATURE_TRACKING)
 endif()
 
 if(CCLUA_FEATURE_INTCOLOR)

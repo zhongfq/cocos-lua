@@ -30,7 +30,7 @@ return function (dir)
         add_file('res/' .. path)
     end
 
-    add_file('builtin.metadata')
+    add_file('builtin.manifest')
 
     table.sort(list, function (a, b)
         return a.path < b.path
@@ -56,7 +56,7 @@ return function (dir)
         data:write(string.pack("<s4", f:read('*a')))
         f:close()
     end
-    toolset.rm "${dir}/builtin.metadata"
+    toolset.rm "${dir}/builtin.manifest"
     toolset.rmdir "${dir}/src"
     toolset.rmdir "${dir}/res"
 end

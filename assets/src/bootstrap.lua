@@ -17,14 +17,15 @@ function __TRACEBACK__(...)
     end
 end
 
+require "cclua.init"
 require "init"
 
-local updater   = require "xgame.updater"
-local runtime   = require "xgame.runtime"
+local Updater   = require "cclua.Updater"
+local runtime   = require "cclua.runtime"
 local conf      = require "conf"
 
 function main()
-    local inst = updater.new(conf.VERSION_URL)
+    local inst = Updater.new(conf.VERSION_URL)
 
     inst.onError = function (callback)
         print("## onError")

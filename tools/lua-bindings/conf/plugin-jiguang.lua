@@ -5,8 +5,7 @@ path "../../frameworks/plugins/jiguang"
 headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "cclua/xlua.h"
-#include "JiGuang.h"
+#include "jiguang.h"
 ]]
 
 luacls(function (cppname)
@@ -18,13 +17,13 @@ end)
 include "conf/exclude-type.lua"
 
 ifdef 'CCLUA_BUILD_JPUSH'
-typeconf "cclua::plugin::JPush"
-    .luaopen 'cclua::runtime::registerFeature("jpush", true);'
+typeconf "cclua::plugin::jpush"
+    .luaopen 'cclua::runtime::registerFeature("cclua.plugin.jpush.ios", true);'
 endif ''
 
 ifdef 'CCLUA_BUILD_JAUTH'
-typeconf "cclua::plugin::JAuth"
-    .luaopen 'cclua::runtime::registerFeature("jauth", true);'
+typeconf "cclua::plugin::jauth"
+    .luaopen 'cclua::runtime::registerFeature("cclua.plugin.jauth.ios", true);'
     .callback "getToken" .tag_mode 'new' .tag_scope 'once'
     .callback "preLogin" .tag_mode 'new' .tag_scope 'once'
     .callback "loginAuth" .tag_mode 'new' .tag_scope 'once'
@@ -32,7 +31,7 @@ typeconf "cclua::plugin::JAuth"
 endif ''
 
 ifdef 'CCLUA_BUILD_JANALYTICS'
-typeconf "cclua::plugin::JAnalytics::EventType"
-typeconf "cclua::plugin::JAnalytics"
-    .luaopen 'cclua::runtime::registerFeature("janalytics", true);'
+typeconf "cclua::plugin::janalytics::EventType"
+typeconf "cclua::plugin::janalytics"
+    .luaopen 'cclua::runtime::registerFeature("cclua.plugin.janalytics.ios", true);'
 endif ''

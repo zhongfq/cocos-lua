@@ -1,6 +1,6 @@
 local toolset = require "toolset"
 
-local function write_metadata(conf, name, shard)
+local function write_manifest(conf, name, shard)
     local manifestPath = conf.BUILD_PATH .. '/' .. name
     local hasUpdate = false
     local data = {}
@@ -13,7 +13,7 @@ local function write_metadata(conf, name, shard)
         return v1.path < v2.path
     end)
 
-    local latestManifest = toolset.read_metadata(conf.PUBLISH_PATH .. '/current/' .. name, conf)
+    local latestManifest = toolset.read_manifest(conf.PUBLISH_PATH .. '/current/' .. name, conf)
 
     writeline('{')
     writeline('  "package_url":"%s",', shard.package_url)
@@ -49,19 +49,13 @@ local function write_metadata(conf, name, shard)
     writeline('  }')
     writeline('}')
 
-    toolset.write_metadata(manifestPath, table.concat(data, ''), conf)
+    toolset.write_manifest(manifestPath, table.concat(data, ''), conf)
 end
 
 local function writeVersions(conf)
-    local data = {}
-    local function writeline(fmt, ...)
-        data[#data + 1] = string.format(fmt, ...)
-        data[#data + 1] = '\n'
-    end
-
     local assets = {}
     for _, m in ipairs(conf.SHARDS) do
-        local manifest = toolset.read_metadata(conf.BUILD_PATH .. '/' .. m.NAME .. '.metadata', conf)
+        local manifest = toolset.read_manifest(conf.BUILD_PATH .. '/' .. m.NAME .. '.manifest', conf)
         assets[#assets + 1] = toolset.format [[
             {"name":"${m.NAME}", "url":"${manifest.manifest_url}", "version":"${manifest.version}"}
         ]]
@@ -81,14 +75,14 @@ end
 return function (conf)
     print("start build shards:")
 
-    local manifest = toolset.read_metadata(conf.ASSETS_MANIFEST_PATH, conf)
+    local manifest = toolset.read_manifest(conf.ASSETS_MANIFEST_PATH, conf)
     for _, m in ipairs(conf.SHARDS) do
         local shard = {
             assets = {},
             name = m.NAME,
             version = manifest.version,
             package_url = manifest.package_url,
-            manifest_url = string.gsub(manifest.manifest_url, 'assets.metadata$', m.NAME .. '.metadata'),
+            manifest_url = string.gsub(manifest.manifest_url, 'assets.manifest$', m.NAME .. '.manifest'),
         }
         for path, info in pairs(manifest.assets) do
             for p in string.gmatch(m.PATTERN, '[^;]+') do
@@ -99,7 +93,7 @@ return function (conf)
                 end
             end
         end
-        write_metadata(conf, m.NAME .. '.metadata', shard)
+        write_manifest(conf, m.NAME .. '.manifest', shard)
     end
 
     if next(manifest.assets) then

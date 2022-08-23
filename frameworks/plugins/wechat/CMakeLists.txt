@@ -4,12 +4,12 @@ set(LIBNAME plugin_wechat)
 
 set(SOURCE
     lua_wechat.cpp
-    WeChat.cpp
+    wechat.cpp
 )
 
 set(HEADER
     lua_wechat.h
-    WeChat.h
+    wechat.h
 )
 
 if(IOS)
@@ -19,7 +19,7 @@ if(IOS)
         ios/WXApiObject.h
     )
     list(APPEND SOURCE
-        WeChat.mm
+        wechat.mm
     )
 endif()
 

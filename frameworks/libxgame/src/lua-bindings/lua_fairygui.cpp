@@ -368,19 +368,6 @@ bool olua_canpack_fairygui_TweenValue(lua_State *L, int idx)
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_number(L, idx + 3) && olua_is_number(L, idx + 4);
 }
 
-static int _fairygui_UIEventType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 static int _fairygui_UIEventType___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -397,7 +384,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_UIEventType(lua_State *L)
 {
     oluacls_class(L, "fgui.UIEventType", nullptr);
-    oluacls_func(L, "__index", _fairygui_UIEventType___index);
+    oluacls_func(L, "__index", olua_indexerror);
     oluacls_func(L, "__olua_move", _fairygui_UIEventType___olua_move);
     oluacls_const_integer(L, "Changed", (lua_Integer)fairygui::UIEventType::Changed);
     oluacls_const_integer(L, "Click", (lua_Integer)fairygui::UIEventType::Click);
@@ -472,11 +459,11 @@ static std::string makeListenerTag(lua_State *L, lua_Integer type, int tagidx)
         }
     }
     if (type < 0) {
-        sprintf(buf, "listeners.");
+        snprintf(buf, sizeof(buf), "listeners.");
     } else if (tag > 0) {
-        sprintf(buf, "listeners.%d.%p", (int)type, (void *)tag);
+        snprintf(buf, sizeof(buf), "listeners.%d.%p", (int)type, (void *)tag);
     } else {
-        sprintf(buf, "listeners.%d.", (int)type);
+        snprintf(buf, sizeof(buf), "listeners.%d.", (int)type);
     }
     return std::string(buf);
 }
@@ -3112,24 +3099,12 @@ OLUA_LIB int luaopen_fairygui_TextFormat(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_EaseType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_EaseType(lua_State *L)
 {
     oluacls_class(L, "fgui.EaseType", nullptr);
-    oluacls_func(L, "__index", _fairygui_EaseType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "BackIn", (lua_Integer)fairygui::EaseType::BackIn);
     oluacls_const_integer(L, "BackInOut", (lua_Integer)fairygui::EaseType::BackInOut);
     oluacls_const_integer(L, "BackOut", (lua_Integer)fairygui::EaseType::BackOut);
@@ -3219,24 +3194,12 @@ OLUA_LIB int luaopen_fairygui_EaseManager(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_TweenPropType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_TweenPropType(lua_State *L)
 {
     oluacls_class(L, "fgui.TweenPropType", nullptr);
-    oluacls_func(L, "__index", _fairygui_TweenPropType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "Alpha", (lua_Integer)fairygui::TweenPropType::Alpha);
     oluacls_const_integer(L, "Height", (lua_Integer)fairygui::TweenPropType::Height);
     oluacls_const_integer(L, "None", (lua_Integer)fairygui::TweenPropType::None);
@@ -6046,24 +6009,12 @@ OLUA_LIB int luaopen_fairygui_PackageItem(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_PackageItemType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_PackageItemType(lua_State *L)
 {
     oluacls_class(L, "fgui.PackageItemType", nullptr);
-    oluacls_func(L, "__index", _fairygui_PackageItemType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "ATLAS", (lua_Integer)fairygui::PackageItemType::ATLAS);
     oluacls_const_integer(L, "COMPONENT", (lua_Integer)fairygui::PackageItemType::COMPONENT);
     oluacls_const_integer(L, "DRAGONBONES", (lua_Integer)fairygui::PackageItemType::DRAGONBONES);
@@ -6082,24 +6033,12 @@ OLUA_LIB int luaopen_fairygui_PackageItemType(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_ObjectType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_ObjectType(lua_State *L)
 {
     oluacls_class(L, "fgui.ObjectType", nullptr);
-    oluacls_func(L, "__index", _fairygui_ObjectType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "BUTTON", (lua_Integer)fairygui::ObjectType::BUTTON);
     oluacls_const_integer(L, "COMBOBOX", (lua_Integer)fairygui::ObjectType::COMBOBOX);
     oluacls_const_integer(L, "COMPONENT", (lua_Integer)fairygui::ObjectType::COMPONENT);
@@ -6126,24 +6065,12 @@ OLUA_LIB int luaopen_fairygui_ObjectType(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_ButtonMode___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_ButtonMode(lua_State *L)
 {
     oluacls_class(L, "fgui.ButtonMode", nullptr);
-    oluacls_func(L, "__index", _fairygui_ButtonMode___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "CHECK", (lua_Integer)fairygui::ButtonMode::CHECK);
     oluacls_const_integer(L, "COMMON", (lua_Integer)fairygui::ButtonMode::COMMON);
     oluacls_const_integer(L, "RADIO", (lua_Integer)fairygui::ButtonMode::RADIO);
@@ -6154,24 +6081,12 @@ OLUA_LIB int luaopen_fairygui_ButtonMode(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_ChildrenRenderOrder___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_ChildrenRenderOrder(lua_State *L)
 {
     oluacls_class(L, "fgui.ChildrenRenderOrder", nullptr);
-    oluacls_func(L, "__index", _fairygui_ChildrenRenderOrder___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "ARCH", (lua_Integer)fairygui::ChildrenRenderOrder::ARCH);
     oluacls_const_integer(L, "ASCENT", (lua_Integer)fairygui::ChildrenRenderOrder::ASCENT);
     oluacls_const_integer(L, "DESCENT", (lua_Integer)fairygui::ChildrenRenderOrder::DESCENT);
@@ -6182,24 +6097,12 @@ OLUA_LIB int luaopen_fairygui_ChildrenRenderOrder(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_OverflowType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_OverflowType(lua_State *L)
 {
     oluacls_class(L, "fgui.OverflowType", nullptr);
-    oluacls_func(L, "__index", _fairygui_OverflowType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "HIDDEN", (lua_Integer)fairygui::OverflowType::HIDDEN);
     oluacls_const_integer(L, "SCROLL", (lua_Integer)fairygui::OverflowType::SCROLL);
     oluacls_const_integer(L, "VISIBLE", (lua_Integer)fairygui::OverflowType::VISIBLE);
@@ -6210,24 +6113,12 @@ OLUA_LIB int luaopen_fairygui_OverflowType(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_ScrollType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_ScrollType(lua_State *L)
 {
     oluacls_class(L, "fgui.ScrollType", nullptr);
-    oluacls_func(L, "__index", _fairygui_ScrollType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "BOTH", (lua_Integer)fairygui::ScrollType::BOTH);
     oluacls_const_integer(L, "HORIZONTAL", (lua_Integer)fairygui::ScrollType::HORIZONTAL);
     oluacls_const_integer(L, "VERTICAL", (lua_Integer)fairygui::ScrollType::VERTICAL);
@@ -6238,24 +6129,12 @@ OLUA_LIB int luaopen_fairygui_ScrollType(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_ScrollBarDisplayType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_ScrollBarDisplayType(lua_State *L)
 {
     oluacls_class(L, "fgui.ScrollBarDisplayType", nullptr);
-    oluacls_func(L, "__index", _fairygui_ScrollBarDisplayType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "AUTO", (lua_Integer)fairygui::ScrollBarDisplayType::AUTO);
     oluacls_const_integer(L, "DEFAULT", (lua_Integer)fairygui::ScrollBarDisplayType::DEFAULT);
     oluacls_const_integer(L, "HIDDEN", (lua_Integer)fairygui::ScrollBarDisplayType::HIDDEN);
@@ -6267,24 +6146,12 @@ OLUA_LIB int luaopen_fairygui_ScrollBarDisplayType(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_LoaderFillType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_LoaderFillType(lua_State *L)
 {
     oluacls_class(L, "fgui.LoaderFillType", nullptr);
-    oluacls_func(L, "__index", _fairygui_LoaderFillType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "NONE", (lua_Integer)fairygui::LoaderFillType::NONE);
     oluacls_const_integer(L, "SCALE", (lua_Integer)fairygui::LoaderFillType::SCALE);
     oluacls_const_integer(L, "SCALE_FREE", (lua_Integer)fairygui::LoaderFillType::SCALE_FREE);
@@ -6298,24 +6165,12 @@ OLUA_LIB int luaopen_fairygui_LoaderFillType(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_ProgressTitleType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_ProgressTitleType(lua_State *L)
 {
     oluacls_class(L, "fgui.ProgressTitleType", nullptr);
-    oluacls_func(L, "__index", _fairygui_ProgressTitleType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "MAX", (lua_Integer)fairygui::ProgressTitleType::MAX);
     oluacls_const_integer(L, "PERCENT", (lua_Integer)fairygui::ProgressTitleType::PERCENT);
     oluacls_const_integer(L, "VALUE", (lua_Integer)fairygui::ProgressTitleType::VALUE);
@@ -6327,24 +6182,12 @@ OLUA_LIB int luaopen_fairygui_ProgressTitleType(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_ListLayoutType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_ListLayoutType(lua_State *L)
 {
     oluacls_class(L, "fgui.ListLayoutType", nullptr);
-    oluacls_func(L, "__index", _fairygui_ListLayoutType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "FLOW_HORIZONTAL", (lua_Integer)fairygui::ListLayoutType::FLOW_HORIZONTAL);
     oluacls_const_integer(L, "FLOW_VERTICAL", (lua_Integer)fairygui::ListLayoutType::FLOW_VERTICAL);
     oluacls_const_integer(L, "PAGINATION", (lua_Integer)fairygui::ListLayoutType::PAGINATION);
@@ -6357,24 +6200,12 @@ OLUA_LIB int luaopen_fairygui_ListLayoutType(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_ListSelectionMode___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_ListSelectionMode(lua_State *L)
 {
     oluacls_class(L, "fgui.ListSelectionMode", nullptr);
-    oluacls_func(L, "__index", _fairygui_ListSelectionMode___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "MULTIPLE", (lua_Integer)fairygui::ListSelectionMode::MULTIPLE);
     oluacls_const_integer(L, "MULTIPLE_SINGLECLICK", (lua_Integer)fairygui::ListSelectionMode::MULTIPLE_SINGLECLICK);
     oluacls_const_integer(L, "NONE", (lua_Integer)fairygui::ListSelectionMode::NONE);
@@ -6386,24 +6217,12 @@ OLUA_LIB int luaopen_fairygui_ListSelectionMode(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_GroupLayoutType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_GroupLayoutType(lua_State *L)
 {
     oluacls_class(L, "fgui.GroupLayoutType", nullptr);
-    oluacls_func(L, "__index", _fairygui_GroupLayoutType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "HORIZONTAL", (lua_Integer)fairygui::GroupLayoutType::HORIZONTAL);
     oluacls_const_integer(L, "NONE", (lua_Integer)fairygui::GroupLayoutType::NONE);
     oluacls_const_integer(L, "VERTICAL", (lua_Integer)fairygui::GroupLayoutType::VERTICAL);
@@ -6414,24 +6233,12 @@ OLUA_LIB int luaopen_fairygui_GroupLayoutType(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_PopupDirection___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_PopupDirection(lua_State *L)
 {
     oluacls_class(L, "fgui.PopupDirection", nullptr);
-    oluacls_func(L, "__index", _fairygui_PopupDirection___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "AUTO", (lua_Integer)fairygui::PopupDirection::AUTO);
     oluacls_const_integer(L, "DOWN", (lua_Integer)fairygui::PopupDirection::DOWN);
     oluacls_const_integer(L, "UP", (lua_Integer)fairygui::PopupDirection::UP);
@@ -6442,24 +6249,12 @@ OLUA_LIB int luaopen_fairygui_PopupDirection(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_AutoSizeType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_AutoSizeType(lua_State *L)
 {
     oluacls_class(L, "fgui.AutoSizeType", nullptr);
-    oluacls_func(L, "__index", _fairygui_AutoSizeType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "BOTH", (lua_Integer)fairygui::AutoSizeType::BOTH);
     oluacls_const_integer(L, "HEIGHT", (lua_Integer)fairygui::AutoSizeType::HEIGHT);
     oluacls_const_integer(L, "NONE", (lua_Integer)fairygui::AutoSizeType::NONE);
@@ -6471,24 +6266,12 @@ OLUA_LIB int luaopen_fairygui_AutoSizeType(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_FlipType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_FlipType(lua_State *L)
 {
     oluacls_class(L, "fgui.FlipType", nullptr);
-    oluacls_func(L, "__index", _fairygui_FlipType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "BOTH", (lua_Integer)fairygui::FlipType::BOTH);
     oluacls_const_integer(L, "HORIZONTAL", (lua_Integer)fairygui::FlipType::HORIZONTAL);
     oluacls_const_integer(L, "NONE", (lua_Integer)fairygui::FlipType::NONE);
@@ -6500,24 +6283,12 @@ OLUA_LIB int luaopen_fairygui_FlipType(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_TransitionActionType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_TransitionActionType(lua_State *L)
 {
     oluacls_class(L, "fgui.TransitionActionType", nullptr);
-    oluacls_func(L, "__index", _fairygui_TransitionActionType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "Alpha", (lua_Integer)fairygui::TransitionActionType::Alpha);
     oluacls_const_integer(L, "Animation", (lua_Integer)fairygui::TransitionActionType::Animation);
     oluacls_const_integer(L, "Color", (lua_Integer)fairygui::TransitionActionType::Color);
@@ -6542,24 +6313,12 @@ OLUA_LIB int luaopen_fairygui_TransitionActionType(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_FillMethod___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_FillMethod(lua_State *L)
 {
     oluacls_class(L, "fgui.FillMethod", nullptr);
-    oluacls_func(L, "__index", _fairygui_FillMethod___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "Horizontal", (lua_Integer)fairygui::FillMethod::Horizontal);
     oluacls_const_integer(L, "None", (lua_Integer)fairygui::FillMethod::None);
     oluacls_const_integer(L, "Radial180", (lua_Integer)fairygui::FillMethod::Radial180);
@@ -6573,24 +6332,12 @@ OLUA_LIB int luaopen_fairygui_FillMethod(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_FillOrigin___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_FillOrigin(lua_State *L)
 {
     oluacls_class(L, "fgui.FillOrigin", nullptr);
-    oluacls_func(L, "__index", _fairygui_FillOrigin___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "Bottom", (lua_Integer)fairygui::FillOrigin::Bottom);
     oluacls_const_integer(L, "Left", (lua_Integer)fairygui::FillOrigin::Left);
     oluacls_const_integer(L, "Right", (lua_Integer)fairygui::FillOrigin::Right);
@@ -6602,24 +6349,12 @@ OLUA_LIB int luaopen_fairygui_FillOrigin(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_ObjectPropID___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_ObjectPropID(lua_State *L)
 {
     oluacls_class(L, "fgui.ObjectPropID", nullptr);
-    oluacls_func(L, "__index", _fairygui_ObjectPropID___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "Color", (lua_Integer)fairygui::ObjectPropID::Color);
     oluacls_const_integer(L, "DeltaTime", (lua_Integer)fairygui::ObjectPropID::DeltaTime);
     oluacls_const_integer(L, "FontSize", (lua_Integer)fairygui::ObjectPropID::FontSize);
@@ -19484,24 +19219,12 @@ OLUA_LIB int luaopen_fairygui_Relations(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_RelationType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_RelationType(lua_State *L)
 {
     oluacls_class(L, "fgui.RelationType", nullptr);
-    oluacls_func(L, "__index", _fairygui_RelationType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "BottomExt_Bottom", (lua_Integer)fairygui::RelationType::BottomExt_Bottom);
     oluacls_const_integer(L, "BottomExt_Top", (lua_Integer)fairygui::RelationType::BottomExt_Top);
     oluacls_const_integer(L, "Bottom_Bottom", (lua_Integer)fairygui::RelationType::Bottom_Bottom);
@@ -27696,24 +27419,12 @@ OLUA_LIB int luaopen_fairygui_HtmlObject(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _fairygui_HtmlElement_Type___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_HtmlElement_Type(lua_State *L)
 {
     oluacls_class(L, "fgui.HtmlElement::Type", nullptr);
-    oluacls_func(L, "__index", _fairygui_HtmlElement_Type___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "IMAGE", (lua_Integer)fairygui::HtmlElement::Type::IMAGE);
     oluacls_const_integer(L, "INPUT", (lua_Integer)fairygui::HtmlElement::Type::INPUT);
     oluacls_const_integer(L, "LINK", (lua_Integer)fairygui::HtmlElement::Type::LINK);
@@ -28277,6 +27988,8 @@ OLUA_LIB int luaopen_fairygui(lua_State *L)
     olua_require(L, "fgui.HtmlObject", luaopen_fairygui_HtmlObject);
     olua_require(L, "fgui.HtmlElement::Type", luaopen_fairygui_HtmlElement_Type);
     olua_require(L, "fgui.HtmlElement", luaopen_fairygui_HtmlElement);
+
+    cclua::runtime::registerFeature("fairygui", true);
 
     return 0;
 }

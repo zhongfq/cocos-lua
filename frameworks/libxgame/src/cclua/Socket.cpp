@@ -179,7 +179,7 @@ void Socket::start_conntect()
         hints.ai_protocol = IPPROTO_TCP;
         
         char port_str[16];
-        sprintf(port_str, "%d", _port);
+        snprintf(port_str, sizeof(port_str), "%d", _port);
         
         int error = getaddrinfo(_host.c_str(), port_str, &hints, &ai_list);
         if (error != 0)

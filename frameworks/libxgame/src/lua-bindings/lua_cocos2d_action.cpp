@@ -3,24 +3,12 @@
 //
 #include "lua_cocos2d_action.h"
 
-static int _cocos2d_tweenfunc_TweenType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_tweenfunc_TweenType(lua_State *L)
 {
     oluacls_class(L, "cc.tweenfunc.TweenType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_tweenfunc_TweenType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "Back_EaseIn", (lua_Integer)cocos2d::tweenfunc::TweenType::Back_EaseIn);
     oluacls_const_integer(L, "Back_EaseInOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Back_EaseInOut);
     oluacls_const_integer(L, "Back_EaseOut", (lua_Integer)cocos2d::tweenfunc::TweenType::Back_EaseOut);

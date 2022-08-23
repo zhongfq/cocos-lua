@@ -101,11 +101,11 @@
     {
         NetworkStatus status = [self.reachabe currentReachabilityStatus];
         if (status == NotReachable) {
-            cclua::runtime::dispatchEvent("networkChange", "NONE");
+            cclua::runtime::dispatch("networkChange", "NONE");
         } else if (status == ReachableViaWiFi) {
-            cclua::runtime::dispatchEvent("networkChange", "WIFI");
+            cclua::runtime::dispatch("networkChange", "WIFI");
         } else if (status == ReachableViaWWAN) {
-            cclua::runtime::dispatchEvent("networkChange", "MOBILE");
+            cclua::runtime::dispatch("networkChange", "MOBILE");
         }
     }
     else if ([notification.name isEqualToString:UIApplicationDidBecomeActiveNotification])
@@ -206,7 +206,7 @@
             [obj applicationDidReceiveMemoryWarning:application];
         }
     }
-    cclua::runtime::dispatchEvent("memoryWarning", "");
+    cclua::runtime::dispatch("memoryWarning");
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken

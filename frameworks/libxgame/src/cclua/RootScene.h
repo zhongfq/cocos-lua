@@ -43,12 +43,12 @@ public:
     virtual void removeAllChildren() override;
 };
 
-class MaskLayout : public cocos2d::ui::Layout {
+class Container : public cocos2d::ui::Layout {
 public:
-    CREATE_FUNC(MaskLayout);
+    CREATE_FUNC(Container);
     
-    MaskLayout() {};
-    virtual ~MaskLayout();
+    Container() {};
+    virtual ~Container();
     
     cocos2d::DrawNode *getClippingNode() { return _clippingStencil; }
     

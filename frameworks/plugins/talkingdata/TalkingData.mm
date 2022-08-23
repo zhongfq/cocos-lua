@@ -1,11 +1,13 @@
-#import "TalkingData.h"
+#import "talkingdata.h"
 
-USING_NS_CCLUA_PLUGIN;
+#if defined(CCLUA_BUILD_TALKINGDATA) && defined(CCLUA_OS_IOS)
 
-#if defined(CCLUA_OS_IOS)
 #import "ios/TalkingData.h"
 #import "cclua/AppContext-ios.h"
 #import "cclua/plugin-ios.h"
+
+USING_NS_CCLUA;
+USING_NS_CCLUA_PLUGIN;
 
 @interface TalkingDataDelegate : NSObject<UIApplicationDelegate>
 
@@ -40,7 +42,7 @@ USING_NS_CCLUA_PLUGIN;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     @autoreleasepool {
-        cclua::runtime::log("init talkingdata %s", [self.appkey UTF8String]);
+        runtime::log("init talkingdata %s", [self.appkey UTF8String]);
         [TalkingData sessionStarted:self.appkey withChannelId:self.channel];
         return YES;
     }
@@ -57,14 +59,14 @@ static NSDictionary<NSString *, NSObject *> *toNSDictionary(const cocos2d::Value
     return map;
 }
 
-void TCAgent::setLogEnabled(bool value)
+void talkingdata::setLogEnabled(bool value)
 {
     @autoreleasepool {
         [TalkingData setLogEnabled:value];
     }
 }
 
-void TCAgent::init(const std::string &appkey, const std::string &channel)
+void talkingdata::init(const std::string &appkey, const std::string &channel)
 {
     @autoreleasepool {
         TalkingDataDelegate *delegate = [TalkingDataDelegate defaultDelegate];
@@ -73,131 +75,130 @@ void TCAgent::init(const std::string &appkey, const std::string &channel)
     }
 }
 
-void TCAgent::onRegister(const std::string &uid, int type, const std::string &name)
+void talkingdata::onRegister(const std::string &uid, int type, const std::string &name)
 {
     @autoreleasepool {
         [TalkingData onRegister:toNSString(uid) type:(TDProfileType)type name:toNSString(name)];
     }
 }
 
-void TCAgent::onLogin(const std::string &uid, int type, const std::string &name)
+void talkingdata::onLogin(const std::string &uid, int type, const std::string &name)
 {
     @autoreleasepool {
         [TalkingData onLogin:toNSString(uid) type:(TDProfileType)type name:toNSString(name)];
     }
 }
 
-void TCAgent::setReportUncaughtExceptions(bool value)
+void talkingdata::setReportUncaughtExceptions(bool value)
 {
     @autoreleasepool {
         [TalkingData setExceptionReportEnabled:value];
     }
 }
 
-void TCAgent::trackPageBegin(const std::string &name)
+void talkingdata::trackPageBegin(const std::string &name)
 {
     @autoreleasepool {
         [TalkingData trackPageBegin:toNSString(name)];
     }
 }
 
-void TCAgent::trackPageEnd(const std::string &name)
+void talkingdata::trackPageEnd(const std::string &name)
 {
     @autoreleasepool {
         [TalkingData trackPageEnd:toNSString(name)];
     }
 }
 
-void TCAgent::trackEvent(const std::string &event)
+void talkingdata::trackEvent(const std::string &event)
 {
     @autoreleasepool {
         [TalkingData trackEvent:toNSString(event)];
     }
 }
 
-void TCAgent::trackEvent(const std::string &event, const std::string &label)
+void talkingdata::trackEvent(const std::string &event, const std::string &label)
 {
     @autoreleasepool {
         [TalkingData trackEvent:toNSString(event) label:toNSString(label)];
     }
 }
 
-void TCAgent::trackEvent(const std::string &event, const std::string &label, const cocos2d::ValueMap &map)
+void talkingdata::trackEvent(const std::string &event, const std::string &label, const cocos2d::ValueMap &map)
 {
     @autoreleasepool {
         [TalkingData trackEvent:toNSString(event) label:toNSString(label) parameters:toNSDictionary(map)];
     }
 }
 
-void TCAgent::trackEvent(const std::string &event, const std::string &label, const cocos2d::ValueMap &map, double value)
+void talkingdata::trackEvent(const std::string &event, const std::string &label, const cocos2d::ValueMap &map, double value)
 {
     @autoreleasepool {
         [TalkingData trackEvent:toNSString(event) label:toNSString(label) parameters:toNSDictionary(map) value: value];
     }
 }
 
-void TCAgent::setGlobalKV(const std::string &key, bool value)
+void talkingdata::setGlobalKV(const std::string &key, bool value)
 {
     @autoreleasepool {
         [TalkingData setGlobalKV:toNSString(key) value:[NSNumber numberWithBool:value]];
     }
 }
 
-void TCAgent::setGlobalKV(const std::string &key, const std::string &value)
+void talkingdata::setGlobalKV(const std::string &key, const std::string &value)
 {
     @autoreleasepool {
         [TalkingData setGlobalKV:toNSString(key) value:toNSString(value)];
     }
 }
 
-void TCAgent::setGlobalKV(const std::string &key, long value)
+void talkingdata::setGlobalKV(const std::string &key, long value)
 {
     @autoreleasepool {
         [TalkingData setGlobalKV:toNSString(key) value:[NSNumber numberWithLong:value]];
     }
 }
 
-void TCAgent::setGlobalKV(const std::string &key, double value)
+void talkingdata::setGlobalKV(const std::string &key, double value)
 {
     @autoreleasepool {
         [TalkingData setGlobalKV:toNSString(key) value:[NSNumber numberWithDouble:value]];
     }
 }
 
-void TCAgent::removeGlobalKV(const std::string &key)
+void talkingdata::removeGlobalKV(const std::string &key)
 {
     @autoreleasepool {
         [TalkingData removeGlobalKV:toNSString(key)];
     }
 }
 
-void TCAgent::placeOrder(const std::string &orderId, int amount, const std::string &currencyType)
+void talkingdata::placeOrder(const std::string &orderId, int amount, const std::string &currencyType)
 {
     @autoreleasepool {
         [TalkingData onPlaceOrder:toNSString(orderId) amount:amount currencyType:toNSString(currencyType)];
     }
 }
 
-void TCAgent::payOrder(const std::string &orderId, int amount, const std::string &currencyType, const std::string &paymentType)
+void talkingdata::payOrder(const std::string &orderId, int amount, const std::string &currencyType, const std::string &paymentType)
 {
     @autoreleasepool {
         [TalkingData onOrderPaySucc:toNSString(orderId) amount:amount currencyType:toNSString(currencyType) paymentType:toNSString(paymentType)];
     }
 }
 
-void TCAgent::cancelOrder(const std::string &orderId, int amount, const std::string &currencyType)
+void talkingdata::cancelOrder(const std::string &orderId, int amount, const std::string &currencyType)
 {
     @autoreleasepool {
         [TalkingData onCancelOrder:toNSString(orderId) amount:amount currencyType:toNSString(currencyType)];
     }
 }
 
-void TCAgent::viewItem(const std::string &itemId, const std::string &category, const std::string &name, int unitPrice)
+void talkingdata::viewItem(const std::string &itemId, const std::string &category, const std::string &name, int unitPrice)
 {
     @autoreleasepool {
         [TalkingData onViewItem:toNSString(itemId) category:toNSString(category) name:toNSString(name) unitPrice:unitPrice];
     }
 }
-
 
 #endif

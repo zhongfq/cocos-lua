@@ -3,12 +3,12 @@ cmake_minimum_required(VERSION 3.6)
 set(LIBNAME plugin_jiguang)
 
 set(SRC
-    JiGuang.cpp
+    jiguang.cpp
     lua_jiguang.cpp
 )
 
 set(HEADER
-    JiGuang.h
+    jiguang.h
     lua_jiguang.h
 )
 

@@ -88,7 +88,6 @@ extern "C" {
 
 #if defined(CCLUA_BUILD_JPUSH) || defined(CCLUA_BUILD_JANALYTICS) || defined(CCLUA_BUILD_JAUTH)
 #include "jiguang/lua_jiguang.h"
-#include "jiguang/JiGuang.h"
 #endif
 
 #ifdef CCLUA_BUILD_TALKINGDATA
@@ -96,11 +95,26 @@ extern "C" {
 #endif
 
 #ifdef CCLUA_BUILD_WECHAT
-#include "wechat/WeChat.h"
 #include "wechat/lua_wechat.h"
 #endif
 
-#if defined(CCLUA_BUILD_APPLE_AUTH) || defined(CCLUA_BUILD_APPLE_IAP)
+#ifdef CCLUA_BUILD_ALIPAY
+#include "alipay/lua_alipay.h"
+#endif
+
+#ifdef CCLUA_BUILD_HUAWEI
+#include "huawei/lua_huawei.h"
+#endif
+
+#ifdef CCLUA_BUILD_OPPO
+#include "oppo/lua_oppo.h"
+#endif
+
+#ifdef CCLUA_BUILD_VIVO
+#include "vivo/lua_vivo.h"
+#endif
+
+#ifdef CCLUA_OS_IOS
 #include "apple/lua_apple.h"
 #endif
 
@@ -175,7 +189,23 @@ static int _open_plugins(lua_State *L)
     olua_callfunc(L, luaopen_wechat);
 #endif
     
-#if defined(CCLUA_BUILD_APPLE_AUTH) || defined(CCLUA_BUILD_APPLE_IAP)
+#ifdef CCLUA_BUILD_ALIPAY
+    olua_callfunc(L, luaopen_alipay);
+#endif
+    
+#ifdef CCLUA_BUILD_HUAWEI
+    olua_callfunc(L, luaopen_huawei);
+#endif
+
+#ifdef CCLUA_BUILD_OPPO
+    olua_callfunc(L, luaopen_oppo);
+#endif
+
+#ifdef CCLUA_BUILD_VIVO
+    olua_callfunc(L, luaopen_vivo);
+#endif
+    
+#ifdef CCLUA_OS_IOS
     olua_callfunc(L, luaopen_apple);
 #endif
     return 0;
@@ -206,13 +236,11 @@ bool AppDelegate::applicationDidFinishLaunching()
 #endif
     
 #if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
-    CrashReport::setVersion(runtime::getVersion().c_str());
-    CrashReport::setChannel(runtime::getChannel().c_str());
+    bugly::setVersion(runtime::getVersion().c_str());
+    bugly::setChannel(runtime::getChannel().c_str());
 #else
     runtime::setEnv("cclua.debug", "true", true);
 #endif
-    
-    // runtime::setEnv("cclua.metadata.key", "hello");
     
     initGLView(APP_NAME);
     runtime::luaOpen(_open_plugins);

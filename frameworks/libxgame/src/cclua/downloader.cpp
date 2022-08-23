@@ -17,8 +17,8 @@ using namespace cocos2d::network;
 
 NS_CCLUA_BEGIN
 
-static cocos2d::network::Downloader *_loader = nullptr;
-static downloader::EventDispatcher _dispatcher = nullptr;
+static Downloader *_loader = nullptr;
+static Callback _dispatcher = nullptr;
 static downloader::URIResolver _resolver = nullptr;
 static std::unordered_map<std::string, downloader::Task> _uri2Tasks;
 static std::vector<downloader::Task> _tasks;
@@ -103,7 +103,7 @@ void downloader::load(const std::string &uri, const std::string &path, const std
     _loader->createDownloadFileTask(task.url, task.path, task.uri);
 }
 
-void downloader::setDispatcher(const EventDispatcher &dispatcher)
+void downloader::setDispatcher(const Callback &dispatcher)
 {
     _dispatcher = dispatcher;
 }
@@ -142,9 +142,9 @@ void downloader::start()
                 filesystem::remove(task.path);
             }
             
-            runtime::runOnCocosThread([task] {
+            runtime::runLater([task] {
                 if (_dispatcher) {
-                    _dispatcher(state[(int)task.state], task.uri);
+                    _dispatcher(state[(int)task.state], cocos2d::Value(task.uri));
                 }
             });
             

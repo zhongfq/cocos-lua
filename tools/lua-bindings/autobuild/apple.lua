@@ -7,47 +7,31 @@ path = "../../frameworks/plugins/apple"
 headers = [[
     #include "lua-bindings/lua_conv.h"
     #include "lua-bindings/lua_conv_manual.h"
-    #include "cclua/xlua.h"
-    #include "apple/Apple.h"
+    #include "apple/apple.h"
 ]]
 chunk = nil
 luaopen = nil
 
 
-typeconf 'cclua::plugin::AppleAuth'
+typeconf 'cclua::plugin::apple'
     .supercls(nil)
     .reg_luatype(true)
     .chunk(nil)
-    .luaopen([[cclua::runtime::registerFeature("apple.auth.ios", true);]])
-    .ifdef('*', '#ifdef CCLUA_BUILD_APPLE_AUTH')
+    .luaopen([[cclua::runtime::registerFeature("cclua.plugin.apple.ios", true);]])
+    .indexerror(nil)
+    .ifdef('*', '#ifdef CCLUA_OS_IOS')
     .func(nil, 'static bool canMakeAuth()')
-    .callback {
-        funcs =  {
-            'static void auth(@localvar const std::function<void (const cocos2d::ValueMap &)> &callback)'
-        },
-        tag_maker = 'auth',
-        tag_mode = 'replace',
-        tag_store = 0,
-        tag_scope = 'once',
-    }
-
-typeconf 'cclua::plugin::AppleIAP'
-    .supercls(nil)
-    .reg_luatype(true)
-    .chunk(nil)
-    .luaopen([[cclua::runtime::registerFeature("apple.iap.ios", true);]])
-    .ifdef('*', '#ifdef CCLUA_BUILD_APPLE_IAP')
-    .func(nil, 'static void init()')
+    .func(nil, 'static void auth()')
     .func(nil, 'static bool canMakePayments()')
     .func(nil, 'static void requestProducts(const std::set<std::string> &products)')
     .func(nil, 'static void purchase(const std::string &product, @optional uint32_t quantify)')
     .func(nil, 'static void finishTransaction(const std::string &tid)')
-    .func(nil, 'static void restoreCompletedTransactions()')
+    .func(nil, 'static void restoreTransactions(@optional const std::string &appUsername)')
     .func(nil, 'static cocos2d::ValueVector getPendingTransactions()')
-    .func(nil, 'static void dispatch(const std::string &event, const cocos2d::Value &data)')
+    .func(nil, 'static void dispatch(const std::string &event, const cocos2d::ValueMap &data)')
     .callback {
         funcs =  {
-            'static void setDispatcher(@localvar const std::function<void (const std::string &, const cocos2d::Value &)> &dispatcher)'
+            'static void setDispatcher(@localvar const cclua::Callback &dispatcher)'
         },
         tag_maker = 'Dispatcher',
         tag_mode = 'replace',

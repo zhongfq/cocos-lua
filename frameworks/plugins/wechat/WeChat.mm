@@ -1,14 +1,17 @@
-#import "WeChat.h"
+#import "wechat.h"
 
-USING_NS_CCLUA;
-USING_NS_CCLUA_PLUGIN;
+#if defined(CCLUA_BUILD_WECHAT) && defined(CCLUA_OS_IOS)
 
-#if defined(CCLUA_OS_IOS)
 #import "ios/WXApi.h"
 #import "ios/WechatAuthSDK.h"
 #import "cclua/AppContext-ios.h"
 #import "cclua/plugin-ios.h"
 #import "cclua/filesystem.h"
+
+USING_NS_CCLUA;
+USING_NS_CCLUA_PLUGIN;
+
+Callback wechat::_dispatcher;
 
 @interface WeChatDelegate : NSObject<WXApiDelegate, WechatAuthAPIDelegate, UIApplicationDelegate>
 
@@ -17,7 +20,7 @@ USING_NS_CCLUA_PLUGIN;
 @property(nonatomic, strong) NSString *appid;
 
 - (instancetype)init;
-+ (instancetype) defaultDelegate;
++ (instancetype)defaultDelegate;
 
 // wechat sdk
 - (void)onReq:(BaseReq*)req;
@@ -62,16 +65,17 @@ USING_NS_CCLUA_PLUGIN;
         if ([resp isKindOfClass:[SendAuthResp class]]) {
             SendAuthResp *authResp = (SendAuthResp *)resp;
             cocos2d::ValueMap data;
-            data["errcode"] = authResp.errCode;
+            data["errcode"] = (int64_t)authResp.errCode;
             data["code"] = [authResp.code UTF8String];
             data["state"] = [authResp.state UTF8String];
             data["lang"] = [authResp.lang UTF8String];
             data["country"] = [authResp.country UTF8String];
-            WeChat::dispatch("auth", cocos2d::Value(data));
+            wechat::dispatch("auth", data);
         } else if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
+            SendMessageToWXResp *wxResp = (SendMessageToWXResp *)resp;
             cocos2d::ValueMap data;
-            data["errcode"] = resp.errCode;
-            WeChat::dispatch("share", cocos2d::Value(data));
+            data["errcode"] = (int64_t)wxResp.errCode;
+            wechat::dispatch("sendMessage", data);
         }
     }
 }
@@ -79,20 +83,22 @@ USING_NS_CCLUA_PLUGIN;
 - (void)onAuthGotQrcode:(UIImage *)image
 {
     @autoreleasepool {
-        auto path = cclua::filesystem::getTmpDirectory() + "/wechat_auth_qrcode.jpg";
+        auto path = cclua::filesystem::getTmpDirectory() + "/wx_auth_qrcode.jpg";
         NSData *imgData = UIImageJPEGRepresentation(image, 1.0f);
         [imgData writeToFile:[NSString stringWithUTF8String:path.c_str()] atomically:YES];
-        
         cocos2d::ValueMap data;
-        data["errcode"] = 0;
         data["path"] = path;
-        WeChat::dispatch("authQRCode", cocos2d::Value(data));
+        data["state"] = "AuthGotQrcode";
+        wechat::dispatch("authQRCode", data);
     }
 }
 
 - (void)onQrcodeScanned
 {
     @autoreleasepool {
+        cocos2d::ValueMap data;
+        data["state"] = "QrcodeScanned";
+        wechat::dispatch("authQRCode", data);
     }
 }
 
@@ -100,9 +106,11 @@ USING_NS_CCLUA_PLUGIN;
 {
     @autoreleasepool {
         cocos2d::ValueMap data;
-        data["errcode"] = errCode;
+        std::string status;
+        data["errcode"] = (int64_t)errCode;
         data["code"] = [authCode UTF8String];
-        WeChat::dispatch("authQRCode", cocos2d::Value(data));
+        data["state"] = "AuthFinish";
+        wechat::dispatch("authQRCode", data);
     }
 }
 
@@ -130,31 +138,25 @@ USING_NS_CCLUA_PLUGIN;
 
 @end
 
-NS_CCLUA_PLUGIN_BEGIN
-
-Dispatcher WeChat::_dispatcher;
-
-void WeChat::init(const std::string &appid, const std::string &universalLink)
+void wechat::init(const std::string &appid, const std::string &universalLink)
 {
     @autoreleasepool {
-        if (!TARGET_IPHONE_SIMULATOR) {
-            AppContext *context = (AppContext *)[UIApplication sharedApplication].delegate;
-            WeChatDelegate *delegate = [WeChatDelegate defaultDelegate];
-            delegate.appid = toNSString(appid);
-            delegate.universalLink = toNSString(universalLink);
-            [context addAppDelegate:delegate];
-        }
+        AppContext *context = (AppContext *)[UIApplication sharedApplication].delegate;
+        WeChatDelegate *delegate = [WeChatDelegate defaultDelegate];
+        delegate.appid = toNSString(appid);
+        delegate.universalLink = toNSString(universalLink);
+        [context addAppDelegate:delegate];
     }
 }
 
-bool WeChat::isInstalled()
+bool wechat::isInstalled()
 {
     @autoreleasepool {
         return [WXApi isWXAppInstalled];
     }
 }
 
-void WeChat::auth(const std::string &scope, const std::string &state)
+void wechat::auth(const std::string &scope, const std::string &state)
 {
     @autoreleasepool {
         cclua::runtime::log("send wechat auth request");
@@ -168,7 +170,7 @@ void WeChat::auth(const std::string &scope, const std::string &state)
     }
 }
 
-void WeChat::authQRCode(const std::string &appid, const std::string &nonceStr, const std::string &timestamp, const std::string &scope, const std::string &signature)
+void wechat::authQRCode(const std::string &appid, const std::string &nonceStr, const std::string &timestamp, const std::string &scope, const std::string &signature)
 {
     @autoreleasepool {
         WeChatDelegate *delegate = [WeChatDelegate defaultDelegate];
@@ -185,7 +187,7 @@ void WeChat::authQRCode(const std::string &appid, const std::string &nonceStr, c
     }
 }
 
-void WeChat::stopAuth()
+void wechat::stopAuth()
 {
     @autoreleasepool {
         WeChatDelegate *delegate = [WeChatDelegate defaultDelegate];
@@ -204,11 +206,11 @@ static UIImage *_create_thumb(NSString *path)
     return newImage;
 }
 
-void WeChat::share(ShareType type, cocos2d::ValueMap &value)
+void wechat::share(ShareType type, cocos2d::ValueMap &value)
 {
     @autoreleasepool {
         SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
-        req.scene = value["scene"].asInt();
+        req.scene = (int)value["scene"].asInt();
         switch (type) {
             case ShareType::TEXT: {
                 req.text = toNSString(value["text"].asString());
@@ -279,7 +281,7 @@ void WeChat::share(ShareType type, cocos2d::ValueMap &value)
     }
 }
 
-void WeChat::open(const std::string &username, const std::string path, ProgramType type)
+void wechat::open(const std::string &username, const std::string &path, ProgramType type)
 {
     @autoreleasepool {
         WXLaunchMiniProgramReq *req = [[WXLaunchMiniProgramReq alloc] init];
@@ -290,7 +292,7 @@ void WeChat::open(const std::string &username, const std::string path, ProgramTy
     }
 }
 
-void WeChat::openCustomerService(const std::string &corpid, const std::string &url)
+void wechat::openCustomerService(const std::string &corpid, const std::string &url)
 {
     @autoreleasepool {
         WXOpenCustomerServiceReq *req = [[WXOpenCustomerServiceReq alloc] init];
@@ -299,7 +301,5 @@ void WeChat::openCustomerService(const std::string &corpid, const std::string &u
         [WXApi sendReq:req completion:nil];
     }
 }
-
-NS_CCLUA_PLUGIN_END
 
 #endif

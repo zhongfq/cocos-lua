@@ -28,10 +28,6 @@ while #args > 0 do
         conf.COMPILE = true
     elseif c == '--version' then
         conf.VERSION = assert(table.remove(args, 1), 'no version')
-    elseif c == '--encrypt-metadata' then
-        conf.ENCRYPT_METADATA = true
-    elseif c == '--encrypt-key' then
-        conf.ENCRYPT_KEY = assert(table.remove(args, 1), 'no encrypt key')
     end
 end
 
@@ -60,11 +56,11 @@ local latestManifestPath
 local needBuildLink = not toolset.exist(conf.PUBLISH_PATH .. '/current')
     or not toolset.exist(conf.PUBLISH_PATH .. '/version')
 if conf.NAME == 'BUILTIN' then
-    latestManifestPath = '../../assets/builtin.metadata'
+    latestManifestPath = '../../assets/builtin.manifest'
 else
-    latestManifestPath = conf.PUBLISH_PATH .. '/current/assets.metadata'
+    latestManifestPath = conf.PUBLISH_PATH .. '/current/assets.manifest'
 end
-conf.LATEST_MANIFEST = toolset.read_metadata(latestManifestPath, conf)
+conf.LATEST_MANIFEST = toolset.read_manifest(latestManifestPath, conf)
 conf.VERSION = conf.VERSION or toolset.next_version(conf.LATEST_MANIFEST.version)
 conf.URL = conf.URL .. '/' .. (conf.SIDE_BY_SIDE and conf.VERSION or 'current')
 
@@ -72,21 +68,21 @@ if not conf.BUILD_PATH or conf.COMPILE then
     toolset.rmdir 'build'
     toolset.mkdir 'build/assets'
     toolset.cp('../../assets', 'build/assets')
-    toolset.rm('build/assets/builtin.metadata')
+    toolset.rm('build/assets/builtin.manifest')
     conf.BUILD_PATH = 'build'
 end
 
 conf.ASSETS_PATH = conf.BUILD_PATH .. '/assets'
 builtinAssets = builtinAssets(conf.ASSETS_PATH)
 conf.IS_BUILTIN = function (path) return builtinAssets[path] end
-conf.ASSETS_MANIFEST_PATH = conf.BUILD_PATH .. '/assets.metadata'
-conf.VERSION_MANIFEST_PATH = conf.BUILD_PATH .. '/version.metadata'
+conf.ASSETS_MANIFEST_PATH = conf.BUILD_PATH .. '/assets.manifest'
+conf.VERSION_MANIFEST_PATH = conf.BUILD_PATH .. '/version.manifest'
 
 -- create build conf
 local OUTPUT_PATH = conf.PUBLISH_PATH .. '/' .. (conf.SIDE_BY_SIDE and conf.VERSION or 'current')
 
 if conf.NAME == 'BUILTIN' then
-    conf.ASSETS_MANIFEST_PATH = conf.BUILD_PATH .. '/assets/builtin.metadata'
+    conf.ASSETS_MANIFEST_PATH = conf.BUILD_PATH .. '/assets/builtin.manifest'
     conf.VERSION_MANIFEST_PATH = nil
     OUTPUT_PATH = conf.BUILD_PATH
     -- conf.SHOULD_BUILD = function (path)
@@ -122,13 +118,13 @@ if conf.BUILD_LINK and needBuildLink then
         toolset.link('${conf.VERSION}', 'current')
         toolset.link('${conf.VERSION}', 'current.ios')
         toolset.link('${conf.VERSION}', 'current.android')
-        toolset.link('current/version.metadata', 'version')
-        toolset.link('current.ios/version.metadata', 'version.ios')
-        toolset.link('current.android/version.metadata', 'version.android')
+        toolset.link('current/version.manifest', 'version')
+        toolset.link('current.ios/version.manifest', 'version.ios')
+        toolset.link('current.android/version.manifest', 'version.android')
     else
-        toolset.link('current/version.metadata', 'version')
-        toolset.link('current/version.metadata', 'version.ios')
-        toolset.link('current/version.metadata', 'version.android')
+        toolset.link('current/version.manifest', 'version')
+        toolset.link('current/version.manifest', 'version.ios')
+        toolset.link('current/version.manifest', 'version.android')
     end
     toolset.popdir()
 end
@@ -137,7 +133,7 @@ if conf.NAME == 'BUILTIN' then
     local data = toolset.read(conf.ASSETS_MANIFEST_PATH)
     data = string.gsub(data, '", "date":%d+', '", "date":' .. os.time())
     print('always update builtin manifest asset date')
-    toolset.write_metadata(conf.ASSETS_MANIFEST_PATH, data, conf)
+    toolset.write_manifest(conf.ASSETS_MANIFEST_PATH, data, conf)
 end
 
 -- toolset.bash 'rm -rf build'

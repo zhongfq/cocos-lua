@@ -19,7 +19,7 @@ local conf = {
     BUILD_PATH = BUILD_PATH,
     ASSETS_PATH = BUILD_PATH,
     PUBLISH_PATH = BUILD_PATH,
-    ASSETS_MANIFEST_PATH = BUILD_PATH .. '/builtin.metadata',
+    ASSETS_MANIFEST_PATH = BUILD_PATH .. '/builtin.manifest',
     COMPILE = true,
     URL = "builtin://",
 }

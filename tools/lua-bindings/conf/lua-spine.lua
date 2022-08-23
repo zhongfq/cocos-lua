@@ -5,7 +5,6 @@ path "../../frameworks/libxgame/src/lua-bindings"
 headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "cclua/xlua.h"
 #include "cclua/runtime.h"
 #include "cocos2d.h"
 #include "spine/spine-cocos2dx.h"
@@ -95,6 +94,8 @@ int olua_push_spine_EventData(lua_State *L, const spine::EventData *value)
     olua_rawsetf(L, -2, "audioPath");
     return 1;
 }]]
+
+luaopen [[cclua::runtime::registerFeature("spine", true);]]
 
 luacls(function (cppname)
     cppname = string.gsub(cppname, "^spine::", "sp.")

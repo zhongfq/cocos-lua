@@ -1,47 +1,37 @@
 package cclua.plugin.alipay;
 
-import android.app.Activity;
-import android.app.Application;
-import android.util.Log;
-
 import com.alipay.sdk.app.PayTask;
 
-import org.cocos2dx.lib.Cocos2dxActivity;
+import java.util.HashMap;
 
 import cclua.AppContext;
 import cclua.LuaJ;
-import cclua.PluginManager;
 
 @SuppressWarnings("unused")
 public class Alipay {
-    private static final String TAG = Alipay.class.getSimpleName();
-
     static {
-        PluginManager.registerPlugin(new PluginManager.Handler() {
-            @Override
-            public void onInit(Application app) {
-                Log.i(TAG, "init alipay sdk");
-                AppContext.registerFeature("alipay", true);
-            }
-
-            @Override
-            public void onStart(Activity context) {
-
-            }
-        });
+        AppContext.registerPlugin(context -> AppContext.registerFeature("cclua.plugin.alipay", true));
     }
 
-    public static void pay(final String order, final int handler) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                AppContext context = (AppContext) Cocos2dxActivity.getContext();
-                PayTask payTask = new PayTask(context);
-                final String resultstr = payTask.pay(order, true);
+    private static final String TAG = Alipay.class.getSimpleName();
+    private static long sCallback = 0;
 
-                AlipayResult result = new AlipayResult(resultstr);
-                LuaJ.invokeOnce(handler, AlipayUtil.appendVerifyStatus(result, false));
-            }
+    public static void setDispatcher(long callback) {
+        sCallback = callback;
+    }
+
+    public static void pay(final String order) {
+        new Thread(() -> {
+            AppContext context = AppContext.getContext();
+            PayTask payTask = new PayTask(context);
+            final String resultstr = payTask.pay(order, true);
+            AlipayResult result = new AlipayResult(resultstr);
+            HashMap<String, Object> data = new HashMap<>();
+            data.put("verify_status", false);
+            data.put("result_status", result.resultStatus);
+            data.put("result", result.result);
+            data.put("memo", result.memo);
+            LuaJ.invoke(sCallback, "pay", data);
         }).start();
     }
 }

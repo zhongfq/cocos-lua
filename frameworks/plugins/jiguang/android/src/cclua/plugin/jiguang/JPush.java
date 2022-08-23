@@ -1,68 +1,53 @@
 package cclua.plugin.jiguang;
 
-import android.app.Activity;
-import android.app.Application;
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.lang.reflect.Method;
 import java.util.Set;
 import java.util.TreeSet;
 
-import cn.jpush.android.api.JPushInterface;
 import cclua.AppContext;
-import cclua.PluginManager;
+import cn.jpush.android.api.JPushInterface;
 
 @SuppressWarnings("unused")
 public class JPush {
-    private static final String TAG = JPush.class.getSimpleName();
-    private static Application mContext;
-
     static {
-        PluginManager.registerPlugin(new PluginManager.Handler() {
-            @Override
-            public void onInit(Application app) {
-                Log.i(TAG, "init jpush");
-                mContext = app;
-
-                testPushEnabled("jpush.oppo", "cn.jpush.android.service.PluginOppoPushService");
-                testPushEnabled("jpush.vivo", "cn.jpush.android.service.PluginVivoMessageReceiver");
-                testPushEnabled("jpush.xiaomi", "cn.jpush.android.service.PluginXiaomiPlatformsReceiver");
-                testPushEnabled("jpush.huawei", "cn.jpush.android.service.PluginHuaweiPlatformsService");
-            }
-
-            @Override
-            public void onStart(Activity context) {
-            }
+        AppContext.registerPlugin(context -> {
+            AppContext.registerFeature("cclua.plugin.jpush", true);
+            testPushEnabled("jpush.oppo", "cn.jpush.android.service.PluginOppoPushService");
+            testPushEnabled("jpush.vivo", "cn.jpush.android.service.PluginVivoMessageReceiver");
+            testPushEnabled("jpush.xiaomi", "cn.jpush.android.service.PluginXiaomiPlatformsReceiver");
+            testPushEnabled("jpush.huawei", "cn.jpush.android.service.PluginHuaweiPlatformsService");
         });
     }
 
-    private static void testPushEnabled(String api, String clazz)
-    {
+    private static final String TAG = JPush.class.getSimpleName();
+
+    private static void testPushEnabled(String api, String classname) {
         try {
-            Class<?> PushManager = Class.forName(clazz);
+            Class<?> PushManager = Class.forName(classname);
             AppContext.registerFeature(api, true);
         } catch (Throwable ignored) {
         }
     }
 
     public static void init(String appKey, String channel) {
-        JPushInterface.init(mContext);
-        JPushInterface.setChannel(mContext, channel);
+        AppContext context = AppContext.getContext();
+        context.runOnUiThread(() -> {
+            JPushInterface.init(AppContext.getContext());
+            JPushInterface.setChannel(AppContext.getContext(), channel);
+        });
     }
 
     public static void setAlias(String alias) {
-        JPushInterface.setAlias(mContext, 0, alias);
+        JPushInterface.setAlias(AppContext.getContext(), 0, alias);
     }
 
     public static void deleteAlias() {
-        JPushInterface.deleteAlias(mContext, 0);
+        JPushInterface.deleteAlias(AppContext.getContext(), 0);
     }
 
-    private static Set<String> toSet(String value)
-    {
+    private static Set<String> toSet(String value) {
         Set<String> tags = new TreeSet<>();
         try {
             JSONArray arr = new JSONArray(value);
@@ -76,19 +61,19 @@ public class JPush {
     }
 
     public static void addTags(String tags) {
-        JPushInterface.addTags(mContext, 0, toSet(tags));
+        JPushInterface.addTags(AppContext.getContext(), 0, toSet(tags));
     }
 
     public static void setTags(String tags) {
-        JPushInterface.setTags(mContext, 0, toSet(tags));
+        JPushInterface.setTags(AppContext.getContext(), 0, toSet(tags));
     }
 
     public static void deleteTags(String tags) {
-        JPushInterface.deleteTags(mContext, 0, toSet(tags));
+        JPushInterface.deleteTags(AppContext.getContext(), 0, toSet(tags));
     }
 
     public static void cleanTags() {
-        JPushInterface.cleanTags(mContext, 0);
+        JPushInterface.cleanTags(AppContext.getContext(), 0);
     }
 
     public static void setDebugMode(boolean debug) {
@@ -99,15 +84,15 @@ public class JPush {
     }
 
     public static boolean isEnabled() {
-        return JPushInterface.isNotificationEnabled(mContext) == 1;
+        return JPushInterface.isNotificationEnabled(AppContext.getContext()) == 1;
     }
 
     public static void setBadge(int value) {
-        JPushInterface.setBadgeNumber(mContext, value);
+        JPushInterface.setBadgeNumber(AppContext.getContext(), value);
     }
 
     public static String getRegistrationID() {
-        return JPushInterface.getRegistrationID(mContext);
+        return JPushInterface.getRegistrationID(AppContext.getContext());
     }
 
     public static void requestPermission() {

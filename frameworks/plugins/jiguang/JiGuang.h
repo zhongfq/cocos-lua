@@ -3,17 +3,9 @@
 
 #include "cclua/plugin.h"
 
-#include <string>
-#include <set>
-#include <functional>
-#include <unordered_map>
-
-#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
-
 NS_CCLUA_PLUGIN_BEGIN
 
-#ifdef CCLUA_BUILD_JPUSH
-class JPush {
+class jpush {
 public:
     static void init(const std::string &appKey, const std::string &channel);
     static void setAlias(const std::string &alias);
@@ -28,29 +20,55 @@ public:
     static bool isEnabled();
     static void requestPermission();
     static std::string getRegistrationID();
-};
+private:
+#ifdef CCLUA_OS_ANDROID
+    static const char *JAVA_CLASS;
 #endif
+};
 
-#ifdef CCLUA_BUILD_JAUTH
-class JAuth {
+class jauth {
 public:
     static void init(const std::string &appKey, const std::string &channel);
     static bool isInitSuccess();
     static void setDebug(bool enabled);
     static bool checkVerifyEnable();
-    static void getToken(int timeout, const Callback callback);
-    static void preLogin(int timeout, const Callback callback);
+    static void getToken(int timeout);
+    static void preLogin(int timeout);
     static void clearPreLoginCache();
-    static void loginAuth(int timeout, const Callback callback);
+    static void loginAuth(int timeout);
     static void dismissLoginAuth(bool needCloseAnim = true);
-    static void getSmsCode(const std::string &phonenum, const std::string &signid, const std::string &tempid, const Callback callback);
-    static void setSmsIntervalTime(long intervalTime);
+    static void getSmsCode(const std::string &phonenum, const std::string &signid, const std::string &tempid);
+    static void setSmsIntervalTime(int64_t intervalTime);
     static void configUI(cocos2d::ValueMap &value, bool landscape = true);
-};
+    
+public:
+    static void setDispatcher(const cclua::Callback &dispatcher)
+    {
+#ifdef CCLUA_OS_ANDROID
+        callback_t func = runtime::ref(dispatcher);
+        Jni::callStaticVoidMethod(JAVA_CLASS, "setDispatcher", func);
+#else
+        _dispatcher = dispatcher;
 #endif
+    }
+    
+    static void dispatch(const std::string &event, const cocos2d::ValueMap &data)
+    {
+        cclua::runtime::runLater([=]() {
+            if (_dispatcher) {
+                _dispatcher(event, cocos2d::Value(data));
+            }
+        });
+    }
+    
+private:
+    static cclua::Callback _dispatcher;
+#ifdef CCLUA_OS_ANDROID
+    static const char *JAVA_CLASS;
+#endif
+};
 
-#ifdef CCLUA_BUILD_JANALYTICS
-class JAnalytics {
+class janalytics {
 public:
     enum class EventType {
         LOGIN, REGISTER, PURCHASE, BROWSE, COUNT, CALCULATE
@@ -64,11 +82,13 @@ public:
     static void detachAccount();
     static void setFrequency(int frequency);
     static void setDebug(bool enable);
-};
+
+private:
+#ifdef CCLUA_OS_ANDROID
+    static const char *JAVA_CLASS;
 #endif
+};
 
 NS_CCLUA_PLUGIN_END
-
-#endif
 
 #endif

@@ -3,14 +3,9 @@
 
 #include "cclua/plugin.h"
 
-#include <string>
-
-#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
-
 NS_CCLUA_PLUGIN_BEGIN
 
-// lua class name is TalkingData
-class TCAgent {
+class talkingdata {
 public:
     static void setLogEnabled(bool value);
     static void init(const std::string &appkey, const std::string &channel);
@@ -32,10 +27,12 @@ public:
     static void payOrder(const std::string &orderId, int amount, const std::string &currencyType, const std::string &paymentType);
     static void cancelOrder(const std::string &orderId, int amount, const std::string &currencyType);
     static void viewItem(const std::string &itemId, const std::string &category, const std::string &name, int unitPrice);
+private:
+#ifdef CCLUA_OS_ANDROID
+    static const char *JAVA_CLASS;
+#endif
 };
 
 NS_CCLUA_PLUGIN_END
-
-#endif
 
 #endif //__CCLUA_PLUGIN_TALKINGDATA_H__

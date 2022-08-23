@@ -7,7 +7,6 @@ headers [[
 #include "lua-bindings/lua_conv_manual.h"
 #include "lua-bindings/LuaCocosAdapter.h"
 #include "cocos2d.h"
-#include "cclua/xlua.h"
 ]]
 
 luacls(function (cppname)

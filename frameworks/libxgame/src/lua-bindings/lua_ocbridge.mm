@@ -4,6 +4,8 @@
 
 #if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_MAC)
 
+USING_NS_CCLUA;
+
 #define is(T) (strcmp(type, @encode(T)) == 0)
 
 /**
@@ -490,6 +492,8 @@ int luaopen_ocbridge(lua_State *L)
     };
     
     luaL_newlib(L, lib);
+    
+    runtime::registerFeature("cclua.luaoc", true);
 
     return 1;
 }

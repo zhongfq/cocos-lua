@@ -12,8 +12,6 @@ set(LUA_BINDINGS_HEADER
     src/lua-bindings/lua_javabridge.h
     src/lua-bindings/lua_manual.h
     src/lua-bindings/lua_ocbridge.h
-    src/lua-bindings/lua_photo.h
-    src/lua-bindings/lua_recorder.h
     src/lua-bindings/lua_socket.h
     src/lua-bindings/lua_xgame.h
     src/lua-bindings/lua_xml_http_request.h
@@ -67,7 +65,5 @@ endif()
 if(APPLE)
     list(APPEND LUA_BINDINGS_SRC
         src/lua-bindings/lua_ocbridge.mm
-        src/lua-bindings/lua_photo.mm
-        src/lua-bindings/lua_recorder.mm
     )
 endif()

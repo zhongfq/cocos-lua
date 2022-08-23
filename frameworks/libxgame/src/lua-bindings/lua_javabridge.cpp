@@ -9,7 +9,8 @@
 
 #include <stdlib.h>
 
-using namespace cocos2d;
+USING_NS_CC;
+USING_NS_CCLUA;
 
 #define TYPE_VOID     'V'
 #define TYPE_BOOL     'Z'
@@ -151,7 +152,7 @@ static int luaj_invoke(lua_State *L)
                 default: {
                     // never run
                     info.env->DeleteLocalRef(info.classID);
-                    cclua::runtime::log("[NO] java bridge call: %s#%s%s", classname, methodname, signature);
+                    runtime::log("[NO] java bridge call: %s#%s%s", classname, methodname, signature);
                     luaL_error(L, "method sign error: %s#%s%s", classname, methodname, signature);
                 }
             } // switch
@@ -197,7 +198,7 @@ static int luaj_invoke(lua_State *L)
         default: {
             free(args);
             info.env->DeleteLocalRef(info.classID);
-            cclua::runtime::log("[NO] java bridge call: %s#%s%s", classname, methodname, signature);
+            runtime::log("[NO] java bridge call: %s#%s%s", classname, methodname, signature);
             luaL_error(L, "unsupport return type: %s#%s%s", classname, methodname, signature);
         }
     }
@@ -217,11 +218,11 @@ static int luaj_invoke(lua_State *L)
     if (info.env->ExceptionCheck() == JNI_TRUE) {
         info.env->ExceptionDescribe();
         info.env->ExceptionClear();
-        cclua::runtime::log("[NO] java bridge call: %s#%s%s", classname, methodname, signature);
+        runtime::log("[NO] java bridge call: %s#%s%s", classname, methodname, signature);
         luaL_error(L, "java bridge call error: %s#%s%s", classname, methodname, signature);
     }
 
-    cclua::runtime::log("[OK] java bridge call: %s#%s%s", classname, methodname, signature);
+    runtime::log("[OK] java bridge call: %s#%s%s", classname, methodname, signature);
 
     return 1;
 }
@@ -252,6 +253,8 @@ int luaopen_javabridge(lua_State *L)
     };
     
     luaL_newlib(L, lib);
+
+    runtime::registerFeature("cclua.luaj", true);
     
     return 1;
 }
@@ -260,24 +263,24 @@ extern "C" {
 #define jstring2string(jstr) (cocos2d::JniHelper::jstring2string(jstr))
 
 JNIEXPORT void JNICALL Java_cclua_LuaJ_call
-        (JNIEnv *env, jclass cls, jint func, jstring args, jboolean once) {
+        (JNIEnv *env, jclass cls, jlong func, jstring event, jstring data, jboolean once) {
     CC_UNUSED_PARAM(env);
     CC_UNUSED_PARAM(cls);
-    cclua::runtime::callref((int)func, jstring2string(args), (bool)once);
+    runtime::callref(func, jstring2string(event), jstring2string(data), (bool)once);
 }
 
 JNIEXPORT void JNICALL Java_cclua_LuaJ_registerFeature
         (JNIEnv *env, jclass cls, jstring api, jboolean enabled) {
     CC_UNUSED_PARAM(env);
     CC_UNUSED_PARAM(cls);
-    cclua::runtime::registerFeature(jstring2string(api), (bool)enabled);
+    runtime::registerFeature(jstring2string(api), (bool)enabled);
 }
 
 JNIEXPORT void JNICALL Java_cclua_LuaJ_dispatchEvent
         (JNIEnv *env, jclass cls, jstring event, jstring args) {
     CC_UNUSED_PARAM(env);
     CC_UNUSED_PARAM(cls);
-    cclua::runtime::dispatchEvent(jstring2string(event), jstring2string(args));
+    runtime::dispatch(jstring2string(event), jstring2string(args));
 }
 }
 #endif

@@ -4,14 +4,13 @@
 #include "cocos2d.h"
 #include "cclua/luauser.h"
 #include "cclua/runtime.h"
-#include "olua/olua.hpp"
+#include "olua/olua.h"
 
 extern lua_State *xlua_invokingstate;
 
 lua_State *xlua_new();
 int xlua_dofile(lua_State *L, const char *filename);
 int xlua_ccobjgc(lua_State *L);
-int xlua_nonsupport(lua_State *L);
 
 //
 // implement olua api

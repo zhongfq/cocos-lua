@@ -5,7 +5,6 @@ path "../../frameworks/libxgame/src/lua-bindings"
 headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "cclua/xlua.h"
 #include "FairyGUI.h"
 #include "GLoader3D.h"
 #include "tween/EaseManager.h"
@@ -34,6 +33,8 @@ void olua_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventTag *val
     }
 }]]
 
+luaopen [[cclua::runtime::registerFeature("fairygui", true);]]
+
 luacls(function (cppname)
     cppname = string.gsub(cppname, '^fairygui::', 'fgui.')
     return cppname
@@ -55,14 +56,7 @@ typeconv 'fairygui::TweenValue'
     .var '*' .optional 'true'
 
 typeconf 'fairygui::UIEventType'
-    .func '__index'
-        .snippet [[
-        {
-            const char *cls = olua_checkfieldstring(L, 1, "classname");
-            const char *key = olua_tostring(L, 2);
-            luaL_error(L, "enum '%s.%s' not found", cls, key);
-            return 0;
-        }]]
+    .indexerror 'r'
 typeconf 'fairygui::EventCallback'
 
 typeconf 'fairygui::UIEventDispatcher'
@@ -79,11 +73,11 @@ typeconf 'fairygui::UIEventDispatcher'
                 }
             }
             if (type < 0) {
-                sprintf(buf, "listeners.");
+                snprintf(buf, sizeof(buf), "listeners.");
             } else if (tag > 0) {
-                sprintf(buf, "listeners.%d.%p", (int)type, (void *)tag);
+                snprintf(buf, sizeof(buf), "listeners.%d.%p", (int)type, (void *)tag);
             } else {
-                sprintf(buf, "listeners.%d.", (int)type);
+                snprintf(buf, sizeof(buf), "listeners.%d.", (int)type);
             }
             return std::string(buf);
         }
@@ -293,7 +287,7 @@ typeconf 'fairygui::GComponent'
                 olua_push_cppobj<fairygui::GComponent>(L, self);
                 lua_pushlstring(L, name, sep - name);
                 lua_call(L, 2, 1);
-                
+
                 if (type != '.' || *sep == '\0') {
                     return 1;
                 } else if (olua_isa<fairygui::GComponent>(L, -1)) {
@@ -358,7 +352,7 @@ typeconf 'fairygui::GGraph'
             cocos2d::Color4F lineColor;
             cocos2d::Color4F fillColor;
             std::vector<cocos2d::Vec2> points;
-            
+
             self = olua_toobj<fairygui::GGraph>(L, 1);
             olua_check_int(L, 2, &lineSize);
             olua_check_cocos2d_Color4F(L, 3, &lineColor);
@@ -366,9 +360,9 @@ typeconf 'fairygui::GGraph'
             olua_check_array<cocos2d::Vec2>(L, 5, &points, [L](cocos2d::Vec2 *value) {
                 olua_check_cocos2d_Vec2(L, -1, value);
             });
-            
+
             self->drawPolygon((int)lineSize, lineColor, fillColor, points.size() ? &points[0] : nullptr, (int)points.size());
-            
+
             return 0;
         }]]
     .func 'drawRegularPolygon'
@@ -382,13 +376,13 @@ typeconf 'fairygui::GGraph'
             lua_Integer sides = 0;
             lua_Number startAngle = 0;
             std::vector<float> distances;
-            
+
             self = olua_toobj<fairygui::GGraph>(L, 1);
             olua_check_int(L, 2, &lineSize);
             olua_check_cocos2d_Color4F(L, 3, &lineColor);
             olua_check_cocos2d_Color4F(L, 4, &fillColor);
             olua_check_int(L, 5, &sides);
-            
+
             if (num_args == 4) {
                 self->drawRegularPolygon((int)lineSize, lineColor, fillColor, (int)sides);
             } else if (num_args == 5) {
@@ -401,7 +395,7 @@ typeconf 'fairygui::GGraph'
                 });
                 self->drawRegularPolygon((int)lineSize, lineColor, fillColor, (int)sides, (float)startAngle, distances.size() ? &distances[0] : nullptr, (int)distances.size());
             }
-            
+
             return 0;
         }]]
 

@@ -4,24 +4,13 @@
 #include "cclua/runtime.h"
 #include "cjson/cJSON.h"
 
+#ifdef CCLUA_OS_ANDROID
+#include "cclua/jniutil.h"
+#endif
+
+#include <set>
+
 NS_CCLUA_PLUGIN_BEGIN
-
-typedef std::function<void(const std::string &event, const cocos2d::Value &data)> Dispatcher;
-typedef std::function<void(const cocos2d::Value &data)> Callback;
-
-#define DISPATCHER_IMPL                                                                 \
-public:                                                                                 \
-static void setDispatcher(const Dispatcher &dispatcher) { _dispatcher = dispatcher; }   \
-static void dispatch(const std::string &event, const cocos2d::Value &data)                 \
-{                                                                                       \
-    cclua::runtime::runOnCocosThread([=]() {                                            \
-        if (_dispatcher) {                                                              \
-            _dispatcher(event, data);                                                   \
-        }                                                                               \
-    });                                                                                 \
-}                                                                                       \
-private:                                                                                \
-    static Dispatcher _dispatcher;
 
 std::string toJSONString(const cocos2d::ValueMap &value);
 std::string toJSONString(const std::set<std::string> &tags);

@@ -1,12 +1,11 @@
-#ifndef __CRASHREPORT_H__
-#define __CRASHREPORT_H__
+#ifndef __CCLUA_BUGLY_H__
+#define __CCLUA_BUGLY_H__
 
-#include "cclua/runtime.h"
-#include "cocos2d.h"
+#include "cclua/plugin.h"
 
 NS_CCLUA_BEGIN
 
-class CrashReport
+class bugly
 {
 public:
 	static void init(const char *appid);
@@ -20,6 +19,11 @@ public:
 
     enum LogLevel {Off = 0, Error = 1, Warning = 2, Info = 3, Debug = 4, Verbose = 5};
     static void log(LogLevel level, const char *message);
+
+private:
+#ifdef CCLUA_OS_ANDROID
+    static const char *JAVA_CLASS;
+#endif
 };
 
 NS_CCLUA_END

@@ -5,15 +5,7 @@ path '../../frameworks/libxgame/src/lua-bindings'
 headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "cclua/filesystem.h"
-#include "cclua/xlua.h"
-#include "cclua/preferences.h"
-#include "cclua/downloader.h"
-#include "cclua/runtime.h"
-#include "cclua/RootScene.h"
-#include "cclua/timer.h"
-#include "cclua/window.h"
-#include "olua/olua.hpp"
+#include "cclua/cclua.h"
 ]]
 
 chunk [[
@@ -46,26 +38,68 @@ exclude 'cclua::BufferReader *'
 
 typedef 'cclua::window::Bounds'
 
+typeconf 'cclua::Callback'
+typeconf 'cclua::Lame::VBRMode'
+typeconf 'cclua::Lame'
+typeconf 'cclua::QRCode::ECLevel'
+typeconf 'cclua::QRCode::EncodeMode'
+typeconf 'cclua::QRCode'
 typeconf 'cclua::SceneNoCamera'
-typeconf 'cclua::Permission'
-typeconf 'cclua::PermissionStatus'
-
+typeconf 'cclua::permission::status'
+    .indexerror 'rw'
+typeconf 'cclua::permission::android'
+    .indexerror 'rw'
+typeconf 'cclua::permission'
+    .indexerror 'rw'
+    .prop 'status'
+        .get [[
+        {
+            lua_getfield(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
+            lua_getfield(L, -1, "cclua.permission.status");
+            return 1;
+        }]]
+    .prop 'android'
+        .get [[
+        {
+            lua_getfield(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
+            lua_getfield(L, -1, "cclua.permission.android");
+            return 1;
+        }]]
 typeconf 'cclua::runtime'
-    .exclude 'dispatchEvent'
-    .exclude 'parseLaunchArgs'
+    .exclude 'callref'
+    .exclude 'dispatch'
     .exclude 'getNativeStackTrace'
     .exclude 'handleOpenURL'
     .exclude 'init'
     .exclude 'initBugly'
+    .exclude 'isCocosThread'
     .exclude 'log'
     .exclude 'luaOpen'
     .exclude 'luaVM'
+    .exclude 'parseLaunchArgs'
+    .exclude 'ref'
     .exclude 'registerFeature'
     .exclude 'reportError'
-    .exclude 'runOnCocosThread'
+    .exclude 'runLater'
+    .exclude 'unref'
     .exclude 'updateTimestamp'
-    .exclude 'callref'
-    .exclude 'ref'
+    .chunk [[
+        static int _cclua_runtime_load_index_func(lua_State *L)
+        {
+            if (olua_isstring(L, lua_upvalueindex(2))) {
+                const char *name = olua_tostring(L, lua_upvalueindex(1));
+                const char *func = olua_tostring(L, lua_upvalueindex(2));
+                cclua::runtime::log("function '%s.%s' not supported", name, func);
+                return 0;
+            } else {
+                const char *func = olua_tostring(L, 2);
+                lua_pushvalue(L, lua_upvalueindex(1));
+                lua_pushstring(L, func);
+                lua_pushcclosure(L, _cclua_runtime_load_index_func, 2);
+                return 1;
+            }
+        }
+    ]]
     .func 'getProgramCache' .ret '@addref(programCache ^ director)'
     .func 'getFileUtils' .ret '@addref(fileUtils ^ director)'
     .func 'getSpriteFrameCache' .ret '@addref(spriteFrameCache ^ director)'
@@ -92,6 +126,31 @@ typeconf 'cclua::runtime'
             char *prt = NULL;
             *prt = 0;
             return 0;
+        }]]
+    .func "load"
+        .snippet [[
+        {
+            const char *name = olua_checkstring(L, 1);
+            if (cclua::runtime::hasFeature(name)) {
+                lua_getfield(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
+                if (olua_rawgetf(L, -1, name) == LUA_TTABLE) {
+                    return 1;
+                }
+            }
+
+            cclua::runtime::log("module '%s' is not available", name);
+            lua_newtable(L);
+            lua_newtable(L);
+            lua_pushvalue(L, 1);
+            lua_pushcclosure(L, _cclua_runtime_load_index_func, 1);
+            olua_rawsetf(L, -2, "__index");
+            lua_setmetatable(L, -2);
+            lua_getfield(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
+            lua_pushvalue(L, 1);
+            lua_pushvalue(L, -3);
+            lua_rawset(L, -3);
+            lua_pop(L, 1);
+            return 1;
         }]]
     .callback 'setDispatcher' .tag_mode 'replace'
     .callback 'openURL' .tag_mode 'new' .tag_scope 'once'
@@ -160,6 +219,16 @@ typeconf 'cclua::window'
     .func 'convertToCameraSpace' .arg1 '@pack'
 
 typeconf 'cclua::downloader'
-typeconf 'cclua::MaskLayout'
+typeconf 'cclua::Container'
     .func 'getFilter' .ret '@addref(filter ^)'
     .func 'setFilter' .arg1 '@nullable@addref(filter ^)'
+
+ifdef 'defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)'
+typeconf 'cclua::microphone'
+    .luaopen 'cclua::runtime::registerFeature("cclua.microphone", true);'
+typeconf 'cclua::photo'
+    .luaopen 'cclua::runtime::registerFeature("cclua.photo", true);'
+    .callback 'selectAvatar' .tag_mode 'replace' .tag_maker 'select' .tag_scope 'once'
+    .callback 'takeAvatar' .tag_mode 'replace' .tag_maker 'select' .tag_scope 'once'
+    .callback 'select' .tag_mode 'replace' .tag_maker 'select' .tag_scope 'once'
+endif ''

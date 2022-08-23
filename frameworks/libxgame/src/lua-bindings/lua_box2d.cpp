@@ -3047,24 +3047,12 @@ OLUA_LIB int luaopen_b2RayCastOutput(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _b2Shape_Type___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_b2Shape_Type(lua_State *L)
 {
     oluacls_class(L, "box2d.Shape.Type", nullptr);
-    oluacls_func(L, "__index", _b2Shape_Type___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "chain", (lua_Integer)b2Shape::Type::e_chain);
     oluacls_const_integer(L, "circle", (lua_Integer)b2Shape::Type::e_circle);
     oluacls_const_integer(L, "edge", (lua_Integer)b2Shape::Type::e_edge);
@@ -4731,24 +4719,12 @@ OLUA_LIB int luaopen_b2BodyDef(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _b2BodyType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_b2BodyType(lua_State *L)
 {
     oluacls_class(L, "box2d.BodyType", nullptr);
-    oluacls_func(L, "__index", _b2BodyType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "dynamicBody", (lua_Integer)b2BodyType::b2_dynamicBody);
     oluacls_const_integer(L, "kinematicBody", (lua_Integer)b2BodyType::b2_kinematicBody);
     oluacls_const_integer(L, "staticBody", (lua_Integer)b2BodyType::b2_staticBody);
@@ -6996,24 +6972,12 @@ OLUA_LIB int luaopen_b2JointDef(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _b2JointType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_b2JointType(lua_State *L)
 {
     oluacls_class(L, "box2d.JointType", nullptr);
-    oluacls_func(L, "__index", _b2JointType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "distanceJoint", (lua_Integer)b2JointType::e_distanceJoint);
     oluacls_const_integer(L, "frictionJoint", (lua_Integer)b2JointType::e_frictionJoint);
     oluacls_const_integer(L, "gearJoint", (lua_Integer)b2JointType::e_gearJoint);
@@ -14922,24 +14886,12 @@ OLUA_LIB int luaopen_b2Manifold(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _b2Manifold_Type___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_b2Manifold_Type(lua_State *L)
 {
     oluacls_class(L, "box2d.Manifold.Type", nullptr);
-    oluacls_func(L, "__index", _b2Manifold_Type___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "circles", (lua_Integer)b2Manifold::Type::e_circles);
     oluacls_const_integer(L, "faceA", (lua_Integer)b2Manifold::Type::e_faceA);
     oluacls_const_integer(L, "faceB", (lua_Integer)b2Manifold::Type::e_faceB);

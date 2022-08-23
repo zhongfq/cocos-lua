@@ -5,10 +5,11 @@ path "../../frameworks/libxgame/src/lua-bindings"
 headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "cclua/xlua.h"
 #include "cocos2d.h"
 #include "CCDragonBonesHeaders.h"
 ]]
+
+luaopen [[cclua::runtime::registerFeature("dragonbones", true);]]
 
 luacls(function (cppname)
     cppname = string.gsub(cppname, "^dragonBones::CC", "db.")

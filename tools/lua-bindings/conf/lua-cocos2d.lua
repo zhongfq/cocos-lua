@@ -11,7 +11,6 @@ headers [[
 #include "base/TGAlib.h"
 #include "ui/CocosGUI.h"
 #include "navmesh/CCNavMesh.h"
-#include "cclua/xlua.h"
 ]]
 
 chunk [[
@@ -76,7 +75,7 @@ typeconf 'cocos2d::Ref'
         {
             return xlua_ccobjgc(L);
         }]]
-    
+
 typeconf 'cocos2d::Console'
 typeconf 'cocos2d::Acceleration'
 
@@ -278,7 +277,7 @@ typeconf 'cocos2d::AudioEngine'
                 return "finishCallback.";
             } else {
                 char buf[64];
-                sprintf(buf, "finishCallback.%d", (int)id);
+                snprintf(buf, sizeof(buf), "finishCallback.%d", (int)id);
                 return std::string(buf);
             }
         }
@@ -725,7 +724,7 @@ typeconf 'cocos2d::DrawNode'
 
 typeconf 'cocos2d::ParallaxNode'
     .func 'addChild' .arg1 '@addref(chilren |)'
-    
+
 typeconf 'cocos2d::TextHAlignment'
 typeconf 'cocos2d::TextVAlignment'
 typeconf 'cocos2d::GlyphCollection'

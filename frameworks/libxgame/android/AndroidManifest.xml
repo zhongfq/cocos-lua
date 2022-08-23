@@ -19,7 +19,7 @@
         </provider>
         <!-- cameraroll -->
         <activity
-            android:name="cclua.plugin.photo.Photo"
+            android:name="cclua.Photo"
             android:exported="true"
             android:launchMode="singleTask"
             android:configChanges="orientation|keyboardHidden|screenSize" />

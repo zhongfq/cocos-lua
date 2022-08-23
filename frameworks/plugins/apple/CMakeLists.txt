@@ -11,8 +11,8 @@ set(HEADER
 )
 
 if(IOS)
-    list(APPEND SRC Apple.mm)
-    list(APPEND HEADER Apple.h)
+    list(APPEND SRC apple.mm)
+    list(APPEND HEADER apple.h)
 endif()
 
 list(APPEND SRC ${HEADER})
@@ -27,16 +27,10 @@ target_include_directories(${LIBNAME}
 target_link_libraries(${LIBNAME} xgame cocos2d)
 
 if(IOS)
-    if(CCLUA_BUILD_APPLE_AUTH)
-        find_library(AUTHENTICATION_SERVICES AuthenticationServices)
-        target_link_libraries(${LIBNAME} ${AUTHENTICATION_SERVICES})
-        target_compile_definitions(${LIBNAME} PUBLIC CCLUA_BUILD_APPLE_AUTH)
-    endif()
-    if(CCLUA_BUILD_APPLE_IAP)
-        find_library(STOREKIT_LIBRARY StoreKit)
-        target_link_libraries(${LIBNAME} ${STOREKIT_LIBRARY})
-        target_compile_definitions(${LIBNAME} PUBLIC CCLUA_BUILD_APPLE_IAP)
-    endif()
+    find_library(AUTHENTICATION_SERVICES AuthenticationServices)
+    target_link_libraries(${LIBNAME} ${AUTHENTICATION_SERVICES})
+    find_library(STOREKIT_LIBRARY StoreKit)
+    target_link_libraries(${LIBNAME} ${STOREKIT_LIBRARY})
 endif()
 
 if(APPLE)

@@ -4,6 +4,7 @@
 #import "cclua/plugin.h"
 
 #import <Foundation/Foundation.h>
+#import <CoreGraphics/CoreGraphics.h>
 
 NS_CCLUA_PLUGIN_BEGIN
 
@@ -15,6 +16,11 @@ static NSString *toNSString(const std::string &value)
 static NSString *toNSString(const cocos2d::Value &value)
 {
     return toNSString(value.asString());
+}
+
+static CGSize toCGSize(const cocos2d::Size &size)
+{
+    return CGSizeMake(size.width, size.height);
 }
 
 static cocos2d::Value toValue(NSString *value)
@@ -48,9 +54,9 @@ static NSObject *toNSObject(const cocos2d::Value &value)
     switch(value.getType())
     {
         case cocos2d::Value::Type::INTEGER:
-            return [NSNumber numberWithInt:value.asInt()];
+            return [NSNumber numberWithLongLong:value.asInt64()];
         case cocos2d::Value::Type::UNSIGNED:
-            return [NSNumber numberWithUnsignedInt:value.asUnsignedInt()];
+            return [NSNumber numberWithUnsignedLongLong:value.asUnsignedInt64()];
         case cocos2d::Value::Type::FLOAT:
             return [NSNumber numberWithFloat:value.asFloat()];
         case cocos2d::Value::Type::DOUBLE:

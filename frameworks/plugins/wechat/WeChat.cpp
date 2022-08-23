@@ -1,71 +1,56 @@
-#include "WeChat.h"
+#include "wechat.h"
 
-#if defined(CCLUA_OS_ANDROID)
-#include "cclua/jniutil.h"
+#if defined(CCLUA_BUILD_WECHAT) && defined(CCLUA_OS_ANDROID)
 
-NS_CCLUA_PLUGIN_BEGIN
-
-#define JAVA_WECHAT_CLASS        "cclua/plugin/wechat/WeChat"
-
-USING_NS_CC;
 USING_NS_CCLUA;
+USING_NS_CCLUA_PLUGIN;
 
-Dispatcher WeChat::_dispatcher;
+Callback wechat::_dispatcher;
+const char *wechat::JAVA_CLASS = "cclua/plugin/wechat/WeChat";
 
-void WeChat::init(const std::string &appid, const std::string &universalLink)
+void wechat::init(const std::string &appid, const std::string &universalLink)
 {
-    Jni::callStaticVoidMethod(JAVA_WECHAT_CLASS, "init", appid);
+    Jni::callStaticVoidMethod(JAVA_CLASS, "init", appid);
 }
 
-bool WeChat::isInstalled()
+bool wechat::isInstalled()
 {
-    return Jni::callStaticBooleanMethod(JAVA_WECHAT_CLASS, "isInstalled");
+    return Jni::callStaticBooleanMethod(JAVA_CLASS, "isInstalled");
 }
 
-static int callback(const std::string &event) {
-    return runtime::ref([=](const std::string &args){
-        ValueMap data;
-        parseJSONString(args, data);
-        WeChat::dispatch(event, cocos2d::Value(data));
-    });
-}
-
-void WeChat::pay(const std::string &partnerId, const std::string &prepayId, const std::string &noncestr, const std::string &timestamp, const std::string &packageValue, const std::string &sign)
+void wechat::pay(const std::string &partnerId, const std::string &prepayId, const std::string &noncestr, const std::string &timestamp, const std::string &packageValue, const std::string &sign)
 {
-    Jni::callStaticVoidMethod(JAVA_WECHAT_CLASS, "pay", partnerId, prepayId, noncestr, timestamp, packageValue, sign, callback("pay"));
+    Jni::callStaticVoidMethod(JAVA_CLASS, "pay", partnerId, prepayId, noncestr, timestamp, packageValue, sign);
 }
 
-void WeChat::auth(const std::string &scope, const std::string &state)
+void wechat::auth(const std::string &scope, const std::string &state)
 {
-    Jni::callStaticVoidMethod(JAVA_WECHAT_CLASS, "auth", scope, state, callback("auth"));
+    Jni::callStaticVoidMethod(JAVA_CLASS, "auth", scope, state);
 }
 
-void WeChat::authQRCode(const std::string &appid, const std::string &nonceStr, const std::string &timestamp, const std::string &scope, const std::string &signature)
+void wechat::authQRCode(const std::string &appid, const std::string &nonceStr, const std::string &timestamp, const std::string &scope, const std::string &signature)
 {
-    Jni::callStaticVoidMethod(JAVA_WECHAT_CLASS, "authQRCode", appid, scope,
-        nonceStr, timestamp, signature, callback("authQRCode"));
+    Jni::callStaticVoidMethod(JAVA_CLASS, "authQRCode", appid, scope, nonceStr, timestamp, signature);
 }
 
-void WeChat::stopAuth()
+void wechat::stopAuth()
 {
-    Jni::callStaticVoidMethod(JAVA_WECHAT_CLASS, "stopAuth");
+    Jni::callStaticVoidMethod(JAVA_CLASS, "stopAuth");
 }
 
-void WeChat::share(ShareType type, cocos2d::ValueMap &value)
+void wechat::share(ShareType type, cocos2d::ValueMap &value)
 {
-    Jni::callStaticVoidMethod(JAVA_WECHAT_CLASS, "share", toJSONString(value), callback("share"));
+    Jni::callStaticVoidMethod(JAVA_CLASS, "share", toJSONString(value));
 }
 
-void WeChat::open(const std::string &username, const std::string path, ProgramType type)
+void wechat::open(const std::string &username, const std::string &path, ProgramType type)
 {
-    Jni::callStaticVoidMethod(JAVA_WECHAT_CLASS, "open", username, path, (int)type, callback("open"));
+    Jni::callStaticVoidMethod(JAVA_CLASS, "open", username, path, (int)type);
 }
 
-void WeChat::openCustomerService(const std::string &corpid, const std::string &url)
+void wechat::openCustomerService(const std::string &corpid, const std::string &url)
 {
-    Jni::callStaticVoidMethod(JAVA_WECHAT_CLASS, "openCustomerService", corpid, url);
+    Jni::callStaticVoidMethod(JAVA_CLASS, "openCustomerService", corpid, url);
 }
-
-NS_CCLUA_PLUGIN_END
 
 #endif

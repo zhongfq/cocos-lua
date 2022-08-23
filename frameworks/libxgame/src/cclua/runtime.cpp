@@ -4,11 +4,14 @@
 #include "cclua/FileFinder.h"
 #include "cclua/downloader.h"
 #include "cclua/preferences.h"
+#include "cclua/permission.h"
 #include "cclua/RootScene.h"
 #include "cclua/timer.h"
 #include "cclua/window.h"
 #include "cclua/xlua.h"
+#include "cclua/plugin.h"
 #include "lua-bindings/lua_bindings.h"
+#include "lua-bindings/lua_conv_manual.h"
 #include "ui/CocosGUI.h"
 
 #if defined(CCLUA_OS_ANDROID) || defined(CCLUA_OS_IOS)
@@ -21,6 +24,7 @@
 #include <stdarg.h>
 #include <thread>
 #include <deque>
+#include <map>
 
 USING_NS_CC;
 USING_NS_CCLUA;
@@ -30,15 +34,15 @@ USING_NS_CCLUA;
 static bool _restarting = false;
 static lua_State *_luaVM = nullptr;
 static std::vector<lua_CFunction> _luaLibs;
-static runtime::EventDispatcher _dispatcher = nullptr;
-static std::vector<std::pair<std::string, std::string>> _suspendedEvents;
+static Callback _dispatcher = nullptr;
+static std::vector<std::pair<std::string, cocos2d::Value>> _suspendedEvents;
 static std::string _openURI;
-static std::unordered_map<std::string, bool> _supportedFeatures;
+static std::map<std::string, bool> _supportedFeatures;
 static std::unordered_map<std::string, bool> _tracebackCaches;
 static std::unordered_map<std::string, std::string> _envs;
 static int _sampleCount = 1;
-static std::unordered_map<int, runtime::RefCallback> _refCallbacks;
-static int _refCount = -1;
+static std::unordered_map<callback_t, Callback> _refCallbacks;
+static callback_t _refCount = -1;
 
 static float _time = 0;
 static FILE *_logFile = NULL;
@@ -71,6 +75,7 @@ void runtime::init()
     __runtime_pullAllFeatures();
     runtime::setLogPath(filesystem::getDirectory("external.cache") + "/console.log");
     runtime::getPackageName();
+    runtime::getAppName();
     runtime::getDeviceInfo();
     runtime::getLanguage();
     filesystem::getDocumentDirectory();
@@ -109,10 +114,10 @@ void runtime::init()
     
     // cocos event
     runtime::on(Director::EVENT_BEFORE_UPDATE, []() {
-        runtime::dispatchEvent("runtimeUpdate", "");
+        runtime::dispatch("runtimeUpdate");
     });
     runtime::on(Director::EVENT_PROJECTION_CHANGED, []() {
-        runtime::dispatchEvent("runtimeResize", "");
+        runtime::dispatch("runtimeResize");
     });
 }
 
@@ -131,7 +136,7 @@ float runtime::getTime()
 void runtime::gc()
 {
     lua_State *L = runtime::luaVM();
-    runtime::dispatchEvent("runtimeGC", "");
+    runtime::dispatch("runtimeGC");
     lua_gc(L, LUA_GCCOLLECT, 0);
     runtime::log("lua mem: %.3fM", lua_gc(L, LUA_GCCOUNT, 0) / 1024.0f);
 }
@@ -154,7 +159,7 @@ public:
     RestartImpl(const std::string &scriptPath):_scriptPath(scriptPath) {};
     virtual ~RestartImpl() {
         std::string scriptPath = _scriptPath;
-        runtime::runOnCocosThread([scriptPath]() {
+        runtime::runLater([scriptPath]() {
             lua_close(_luaVM);
             _luaVM = nullptr;
             _restarting = false;
@@ -250,52 +255,57 @@ void runtime::luaOpen(lua_CFunction libfunc)
 //
 // app info
 //
-const std::string runtime::getVersion()
+std::string runtime::getVersion()
 {
     return CCLUA_VERSION;
 }
 
-const uint64_t runtime::getCocosVersion()
+uint64_t runtime::getCocosVersion()
 {
     return COCOS2D_VERSION;
 }
 
-const std::string runtime::getPackageName()
+std::string runtime::getPackageName()
 {
     return __runtime_getPackageName();
 }
 
-const std::string runtime::getAppVersion()
+std::string runtime::getAppName()
+{
+    return __runtime_getAppName();
+}
+
+std::string runtime::getAppVersion()
 {
     return __runtime_getAppVersion();
 }
 
-const std::string runtime::getAppBuild()
+std::string runtime::getAppBuild()
 {
     return __runtime_getAppBuild();
 }
 
-const std::string runtime::getChannel()
+std::string runtime::getChannel()
 {
     return __runtime_getChannel();
 }
 
-const std::string runtime::getOS()
+std::string runtime::getOS()
 {
     return CCLUA_OS_NAME;
 }
 
-const std::string runtime::getDeviceInfo()
+std::string runtime::getDeviceInfo()
 {
     return __runtime_getDeviceInfo();
 }
 
-const std::string runtime::getLanguage()
+std::string runtime::getLanguage()
 {
     return __runtime_getLanguage();
 }
 
-const std::string runtime::getManifestVersion()
+std::string runtime::getManifestVersion()
 {
     return preferences::getString(CONF_MANIFEST_VERSION, "0.0.0");
 }
@@ -305,7 +315,7 @@ void runtime::setManifestVersion(const std::string &version)
     preferences::setString(CONF_MANIFEST_VERSION, version.c_str());
 }
 
-const std::string runtime::getNetworkStatus()
+std::string runtime::getNetworkStatus()
 {
     return __runtime_getNetworkStatus();
 }
@@ -334,8 +344,7 @@ void runtime::setEnv(const std::string &key, const std::string &value, bool save
     }
 }
 
-
-const std::string runtime::getPaste()
+std::string runtime::getPaste()
 {
     return __runtime_getPaste();
 }
@@ -401,10 +410,12 @@ void runtime::setAudioSessionCatalog(const std::string &catalog)
 {
 #ifdef CCLUA_OS_IOS
     __runtime_setAudioSessionCatalog(catalog);
+#else
+    runtime::log("runtime::setAudioSessionCatalog not support on '%s'", runtime::getOS().c_str());
 #endif
 }
 
-const std::string runtime::getAudioSessionCatalog()
+std::string runtime::getAudioSessionCatalog()
 {
 #ifdef CCLUA_OS_IOS
     return __runtime_getAudioSessionCatalog();
@@ -427,25 +438,25 @@ void runtime::setFrameRate(uint32_t frameRate)
 {
     if (runtime::getFrameRate() != frameRate) {
         CCASSERT(frameRate > 0, "frameRate > 0");
-        Director::getInstance()->setAnimationInterval(1.0f / frameRate);
+        Director::getInstance()->setAnimationInterval(1.0f / (float)frameRate);
     }
 }
 
-const PermissionStatus runtime::getPermissionStatus(Permission permission)
+std::string runtime::getPermission(const std::string &permission)
 {
-#ifdef CCLUA_OS_IOS
-    return __runtime_getPermissionStatus(permission);
+#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
+    return __runtime_getPermission(permission);
 #else
-    return PermissionStatus::NOT_DETERMINED;
+    return permission::status::NOT_DETERMINED;
 #endif
 }
 
-void runtime::requestPermission(Permission permission, const std::function<void (PermissionStatus)> callback)
+void runtime::requestPermission(const std::string &permission, const std::function<void (const std::string &)> callback)
 {
-#ifdef CCLUA_OS_IOS
+#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
     __runtime_requestPermission(permission, callback);
 #else
-    callback(PermissionStatus::DENIED);
+    callback(permission::status::DENIED);
 #endif
 }
 
@@ -458,29 +469,22 @@ void runtime::alert(const std::string &title, const std::string &message, const 
 #endif
 }
 
-#ifdef CCLUA_OS_IOS
-void runtime::openAppSetting(const std::string &title, const std::string &message, const std::function<void()> &callback)
-{
-    __runtime_openAppSetting(title, message, callback);
-}
-#endif
-
 //
 // event dispatch
 //
-void runtime::setDispatcher(const EventDispatcher &dispatcher)
+void runtime::setDispatcher(const Callback &dispatcher)
 {
     _dispatcher = dispatcher;
     if (_dispatcher) {
         auto events = _suspendedEvents;
         _suspendedEvents.clear();
         for (auto &it : events) {
-            runtime::dispatchEvent(it.first, it.second);
+            runtime::dispatch(it.first, it.second);
         }
     }
 }
 
-void runtime::dispatchEvent(const std::string &event, const std::string &args)
+void runtime::dispatch(const std::string &event, const cocos2d::Value &args)
 {
     if (runtime::isCocosThread()) {
         if (_dispatcher) {
@@ -489,13 +493,18 @@ void runtime::dispatchEvent(const std::string &event, const std::string &args)
             _suspendedEvents.push_back(std::make_pair(event, args));
         }
     } else {
-        runtime::runOnCocosThread([event, args]() {
-            runtime::dispatchEvent(event, args);
+        runtime::runLater([event, args]() {
+            runtime::dispatch(event, args);
         });
     }
 }
 
-void runtime::runOnCocosThread(const std::function<void ()> &callback)
+void runtime::dispatch(const std::string &event, const std::string &args)
+{
+    runtime::dispatch(event, cocos2d::Value(args));
+}
+
+void runtime::runLater(const std::function<void ()> &callback)
 {
     Director::getInstance()->getScheduler()->performFunctionInCocosThread(callback);
 }
@@ -508,7 +517,7 @@ void runtime::openURL(const std::string &uri, const std::function<void (bool)> c
 void runtime::handleOpenURL(const std::string &uri)
 {
     _openURI = uri;
-    runtime::dispatchEvent("openURL", uri);
+    runtime::dispatch("openURL", uri);
 }
 
 bool runtime::canOpenURL(const std::string &uri)
@@ -516,31 +525,43 @@ bool runtime::canOpenURL(const std::string &uri)
     return __runtime_canOpenURL(uri);
 }
 
-void runtime::callref(int func, const std::string &args, bool once)
+void runtime::installAPK(const std::string &path)
+{
+#ifdef CCLUA_OS_ANDORID
+    __runtime_installAPK(path);
+#else
+    runtime::log("runtime::installAPK not support on '%s'", runtime::getOS().c_str());
+#endif
+}
+
+void runtime::callref(callback_t func, const std::string &status, const std::string &data, bool once)
 {
     if (!cclua::runtime::isRestarting()) {
-        runtime::runOnCocosThread([func, args, once]() {
+        runtime::runLater([=]() {
+            ValueMap args;
+            plugin::parseJSONString(data, args);
             if (func < 0) {
-                RefCallback callback = _refCallbacks[func];
+                Callback callback = _refCallbacks[func];
                 if (callback) {
-                    callback(args);
+                    callback(status, Value(args));
                     if (once) {
-                        _refCallbacks.erase(func);
+                        runtime::unref(func);
                     }
                 }
             } else {
                 lua_State *L = olua_mainthread(NULL);
                 int top = lua_gettop(L);
                 olua_pusherrorfunc(L);
-                olua_getref(L, func);
+                olua_getref(L, (int)func);
                 if (!lua_isnil(L, -1)) {
-                    lua_pushstring(L, args.c_str());
-                    lua_pcall(L, 1, 0, top + 1);
+                    lua_pushstring(L, status.c_str());
+                    olua_push_cocos2d_ValueMap(L, &args);
+                    lua_pcall(L, 2, 0, top + 1);
                 } else {
-                    cclua::runtime::log("attempt to call nil: %d %s", func, args.c_str());
+                    cclua::runtime::log("attempt to call nil: %d %s", (int)func, data.c_str());
                 }
                 if (once) {
-                    olua_unref(L, func);
+                    olua_unref(L, (int)func);
                 }
                 lua_settop(L, top);
             }
@@ -548,11 +569,16 @@ void runtime::callref(int func, const std::string &args, bool once)
     }
 }
 
-int runtime::ref(const RefCallback callback)
+callback_t runtime::ref(const Callback &callback)
 {
     _refCount--;
     _refCallbacks[_refCount] = callback;
     return _refCount;
+}
+
+void runtime::unref(callback_t func)
+{
+    _refCallbacks.erase(func);
 }
 
 void runtime::once(const std::string &event, const std::function<void()> callback)
@@ -588,10 +614,10 @@ void runtime::setLogPath(const std::string &path)
     _logPath = path;
     _logFile = fopen(path.c_str(), "w");
     
-    runtime::log("[%s] set log path: %s", BOOL_STR(_logFile), filesystem::shortPath(path).c_str());
+    runtime::log("[%s] set log path: %s", BOOL_STR(_logFile), filesystem::trimPath(path).c_str());
 }
 
-const std::string runtime::getLogPath()
+std::string runtime::getLogPath()
 {
     return _logPath;
 }
@@ -639,7 +665,7 @@ void runtime::log(const char *fmt, ...)
 
         time_t t = time(NULL);
         struct tm* stm = localtime(&t);
-        int tlen = sprintf(buf, "[%02d:%02d:%02d] ", stm->tm_hour, stm->tm_min, stm->tm_sec);
+        int tlen = snprintf(buf, bufsize, "[%02d:%02d:%02d] ", stm->tm_hour, stm->tm_min, stm->tm_sec);
         
         va_start(args, fmt);
         buflen = vsnprintf(buf + tlen, bufsize - (3 + tlen), fmt, args);
@@ -668,7 +694,7 @@ void runtime::log(const char *fmt, ...)
     // write to file
     static std::string s_cache;
     if (_logFile) {
-        if (s_cache.size() > 0) {
+        if (!s_cache.empty()) {
             fwrite(s_cache.c_str(), sizeof(char), (size_t)s_cache.size(), _logFile);
             s_cache.clear();
         }
@@ -682,11 +708,11 @@ void runtime::log(const char *fmt, ...)
 #if defined(CCLUA_OS_ANDROID) || defined(CCLUA_OS_IOS)
     if (_reportError) {
         if (runtime::isCocosThread()) {
-            CrashReport::log(CrashReport::Verbose, buf);
+            bugly::log(bugly::Verbose, buf);
         } else {
             std::string msg = buf;
-            runtime::runOnCocosThread([msg]() {
-                CrashReport::log(CrashReport::Verbose, msg.c_str());
+            runtime::runLater([msg]() {
+                bugly::log(bugly::Verbose, msg.c_str());
             });
         }
     }
@@ -786,7 +812,7 @@ unsigned int runtime::getSampleCount()
 //
 // feature
 //
-bool runtime::support(const std::string &api) {
+bool runtime::hasFeature(const std::string &api) {
     auto itor = _supportedFeatures.find(api);
     if (itor == _supportedFeatures.end()) {
         itor = _supportedFeatures.find(api + "." + runtime::getOS());
@@ -794,10 +820,10 @@ bool runtime::support(const std::string &api) {
     return itor != _supportedFeatures.end() && itor->second;
 }
 
-void runtime::printSupport()
+void runtime::printFeatures()
 {
     for (auto &it : _supportedFeatures) {
-        runtime::log("api support: %s = %s", it.first.c_str(), it.second ? "true" : "false");
+        runtime::log("supported feature: %s = %s", it.first.c_str(), it.second ? "true" : "false");
     }
 }
 
@@ -813,7 +839,7 @@ void runtime::initBugly(const char* appid)
 {
 #ifdef CCLUA_BUILD_BUGLY
     runtime::log("init bugly: appid=%s", appid);
-    CrashReport::init(appid);
+    bugly::init(appid);
 #endif //CCLUA_BUILD_BUGLY
 
 #ifdef COCOS2D_DEBUG
@@ -834,7 +860,7 @@ void runtime::reportError(const char *err, const char *traceback)
         errmsg.append(err).append(traceback);
         if (_tracebackCaches.find(errmsg) == _tracebackCaches.end()) {
             _tracebackCaches[errmsg] = true;
-            CrashReport::reportException(err, traceback);
+            bugly::reportException(err, traceback);
         }
     }
 #endif
@@ -962,7 +988,7 @@ void RuntimeContext::initGLContextAttrs()
     // set OpenGL context attributes: red,green,blue,alpha,depth,stencil
     GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8, 0};
     
-    glContextAttrs.multisamplingCount = runtime::getSampleCount();
+    glContextAttrs.multisamplingCount = (int)runtime::getSampleCount();
     
     GLView::setGLContextAttrs(glContextAttrs);
 }
@@ -980,13 +1006,13 @@ bool RuntimeContext::applicationDidFinishLaunching()
 void RuntimeContext::applicationDidEnterBackground()
 {
     Director::getInstance()->stopAnimation();
-    runtime::dispatchEvent("runtimePause", "");
+    runtime::dispatch("runtimePause");
 }
 
 void RuntimeContext::applicationWillEnterForeground()
 {
     Director::getInstance()->startAnimation();
-    runtime::dispatchEvent("runtimeResume", "");
+    runtime::dispatch("runtimeResume");
 }
 
 void RuntimeContext::applicationWillTerminate()

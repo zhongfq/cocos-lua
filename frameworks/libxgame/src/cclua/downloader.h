@@ -28,11 +28,10 @@ public:
         int64_t size = 0;
     };
     
-    typedef std::function<void(const std::string &state, const std::string &uri)> EventDispatcher;
     typedef std::function<std::string(const std::string &uri)> URIResolver;
         
     static void load(const std::string &uri, const std::string &path, const std::string &md5 = "");
-    static void setDispatcher(const EventDispatcher &dispatcher);
+    static void setDispatcher(const Callback &dispatcher);
     static void setURIResolver(const URIResolver &resolver);
 
     static void init();

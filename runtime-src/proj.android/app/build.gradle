@@ -110,24 +110,26 @@ def compileAssets(path) {
 }
 
 android.applicationVariants.all { variant ->
-    def srcAssets = "${projectDir}/../../../assets"
-    def destAssets = "${projectDir}/assets"
+    if (!project.hasProperty("keep-assets")) {
+        def srcAssets = "${projectDir}/../../../assets"
+        def destAssets = "${projectDir}/assets"
 
-    delete destAssets
+        delete destAssets
 
-    def targetName = variant.name.capitalize()
-    def copyTaskName = "copy${targetName}ResourcesToAssets"
-    tasks.register(copyTaskName) {
-    	doLast {
-            copy {
-                from srcAssets
-                into destAssets
-                exclude "builtin.manifest"
+        def targetName = variant.name.capitalize()
+        def copyTaskName = "copy${targetName}ResourcesToAssets"
+        tasks.register(copyTaskName) {
+            doLast {
+                copy {
+                    from srcAssets
+                    into destAssets
+                    exclude "builtin.manifest"
+                }
+                compileAssets(destAssets)
             }
-            compileAssets(destAssets)
         }
+        tasks.getByName("pre${targetName}Build").dependsOn copyTaskName
     }
-    tasks.getByName("pre${targetName}Build").dependsOn copyTaskName
 }
 
 dependencies {

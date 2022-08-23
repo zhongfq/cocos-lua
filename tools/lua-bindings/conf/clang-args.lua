@@ -33,20 +33,18 @@ clang {
         #include "box2d/Box2DAdapter.h"
 
         // xgame
-        #include "cclua/filesystem.h"
-        #include "cclua/runtime.h"
-        #include "cclua/preferences.h"
-        #include "cclua/downloader.h"
-        #include "cclua/RootScene.h"
-        #include "cclua/timer.h"
-        #include "cclua/window.h"
+        #include "cclua/cclua.h"
         #include "lua-bindings/LuaCocosAdapter.h"
 
-        #include "jiguang/JiGuang.h"
-        #include "talkingdata/TalkingData.h"
-        #include "wechat/WeChat.h"
+        #include "alipay/alipay.h"
+        #include "apple/apple.h"
         #include "bugly/CrashReport.h"
-        #include "apple/Apple.h"
+        #include "huawei/huawei.h"
+        #include "jiguang/jiguang.h"
+        #include "oppo/oppo.h"
+        #include "talkingdata/talkingdata.h"
+        #include "vivo/vivo.h"
+        #include "wechat/wechat.h"
     ]],
     flags = {
         '-DCC_CONSTRUCTOR_ACCESS=public',
@@ -56,7 +54,7 @@ clang {
         '-DCCLUA_BUILD_JAUTH',
         '-DCCLUA_BUILD_JANALYTICS',
         '-DCCLUA_BUILD_TALKINGDATA',
-        '-DCCLUA_BUILD_APPLE_AUTH',
+        '-DCCLUA_BUILD_WECHAT',
         '-I../../frameworks/cocos2d-x/cocos',
         '-I../../frameworks/cocos2d-x/cocos/editor-support',
         '-I../../frameworks/cocos2d-x/cocos/platform',

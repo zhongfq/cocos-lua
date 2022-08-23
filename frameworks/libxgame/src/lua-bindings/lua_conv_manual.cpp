@@ -1,7 +1,7 @@
 #include "lua_conv_manual.h"
 #include "lua_conv.h"
 #include "cclua/xlua.h"
-#include "olua/olua.hpp"
+#include "olua/olua.h"
 
 int olua_push_cocos2d_network_WebSocket_Data(lua_State *L, const cocos2d::network::WebSocket::Data *value)
 {
@@ -337,7 +337,7 @@ void olua_check_cocos2d_Value(lua_State *L, int idx, cocos2d::Value *value)
     } else if (type == LUA_TBOOLEAN) {
         *value = cocos2d::Value((bool)lua_toboolean(L, idx));
     } else if (olua_isinteger(L, -1)) {
-        *value = cocos2d::Value((int)lua_tointeger(L, idx));
+        *value = cocos2d::Value((int64_t)lua_tointeger(L, idx));
     } else if (type == LUA_TNUMBER) {
         *value = cocos2d::Value(lua_tonumber(L,idx));
     } else {
@@ -354,10 +354,10 @@ int olua_push_cocos2d_Value(lua_State *L, const cocos2d::Value *value)
             lua_pushinteger(L, value->asByte());
             break;
         case cocos2d::Value::Type::INTEGER:
-            lua_pushinteger(L, value->asInt());
+            lua_pushinteger(L, value->asInt64());
             break;
         case cocos2d::Value::Type::UNSIGNED:
-            lua_pushinteger(L, (lua_Integer)value->asUnsignedInt());
+            lua_pushinteger(L, (lua_Integer)value->asUnsignedInt64());
             break;
         case cocos2d::Value::Type::FLOAT:
             lua_pushnumber(L, value->asFloat());

@@ -3,24 +3,12 @@
 //
 #include "lua_cocos2d_ui.h"
 
-static int _cocos2d_ui_Widget_FocusDirection___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_Widget_FocusDirection(lua_State *L)
 {
     oluacls_class(L, "ccui.Widget.FocusDirection", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_Widget_FocusDirection___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "DOWN", (lua_Integer)cocos2d::ui::Widget::FocusDirection::DOWN);
     oluacls_const_integer(L, "LEFT", (lua_Integer)cocos2d::ui::Widget::FocusDirection::LEFT);
     oluacls_const_integer(L, "RIGHT", (lua_Integer)cocos2d::ui::Widget::FocusDirection::RIGHT);
@@ -32,24 +20,12 @@ OLUA_LIB int luaopen_cocos2d_ui_Widget_FocusDirection(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_Widget_PositionType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_Widget_PositionType(lua_State *L)
 {
     oluacls_class(L, "ccui.Widget.PositionType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_Widget_PositionType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "ABSOLUTE", (lua_Integer)cocos2d::ui::Widget::PositionType::ABSOLUTE);
     oluacls_const_integer(L, "PERCENT", (lua_Integer)cocos2d::ui::Widget::PositionType::PERCENT);
 
@@ -59,24 +35,12 @@ OLUA_LIB int luaopen_cocos2d_ui_Widget_PositionType(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_Widget_SizeType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_Widget_SizeType(lua_State *L)
 {
     oluacls_class(L, "ccui.Widget.SizeType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_Widget_SizeType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "ABSOLUTE", (lua_Integer)cocos2d::ui::Widget::SizeType::ABSOLUTE);
     oluacls_const_integer(L, "PERCENT", (lua_Integer)cocos2d::ui::Widget::SizeType::PERCENT);
 
@@ -86,24 +50,12 @@ OLUA_LIB int luaopen_cocos2d_ui_Widget_SizeType(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_Widget_TouchEventType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_Widget_TouchEventType(lua_State *L)
 {
     oluacls_class(L, "ccui.Widget.TouchEventType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_Widget_TouchEventType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "BEGAN", (lua_Integer)cocos2d::ui::Widget::TouchEventType::BEGAN);
     oluacls_const_integer(L, "CANCELED", (lua_Integer)cocos2d::ui::Widget::TouchEventType::CANCELED);
     oluacls_const_integer(L, "ENDED", (lua_Integer)cocos2d::ui::Widget::TouchEventType::ENDED);
@@ -115,24 +67,12 @@ OLUA_LIB int luaopen_cocos2d_ui_Widget_TouchEventType(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_Widget_TextureResType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_Widget_TextureResType(lua_State *L)
 {
     oluacls_class(L, "ccui.Widget.TextureResType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_Widget_TextureResType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "LOCAL", (lua_Integer)cocos2d::ui::Widget::TextureResType::LOCAL);
     oluacls_const_integer(L, "PLIST", (lua_Integer)cocos2d::ui::Widget::TextureResType::PLIST);
 
@@ -142,24 +82,12 @@ OLUA_LIB int luaopen_cocos2d_ui_Widget_TextureResType(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_Widget_BrightStyle___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_Widget_BrightStyle(lua_State *L)
 {
     oluacls_class(L, "ccui.Widget.BrightStyle", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_Widget_BrightStyle___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "HIGHLIGHT", (lua_Integer)cocos2d::ui::Widget::BrightStyle::HIGHLIGHT);
     oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::Widget::BrightStyle::NONE);
     oluacls_const_integer(L, "NORMAL", (lua_Integer)cocos2d::ui::Widget::BrightStyle::NORMAL);
@@ -2144,24 +2072,12 @@ OLUA_LIB int luaopen_cocos2d_ui_Helper(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_Scale9Sprite_State___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_Scale9Sprite_State(lua_State *L)
 {
     oluacls_class(L, "ccui.Scale9Sprite.State", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_Scale9Sprite_State___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "GRAY", (lua_Integer)cocos2d::ui::Scale9Sprite::State::GRAY);
     oluacls_const_integer(L, "NORMAL", (lua_Integer)cocos2d::ui::Scale9Sprite::State::NORMAL);
 
@@ -2171,24 +2087,12 @@ OLUA_LIB int luaopen_cocos2d_ui_Scale9Sprite_State(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_Scale9Sprite_RenderingType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_Scale9Sprite_RenderingType(lua_State *L)
 {
     oluacls_class(L, "ccui.Scale9Sprite.RenderingType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_Scale9Sprite_RenderingType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "SIMPLE", (lua_Integer)cocos2d::ui::Scale9Sprite::RenderingType::SIMPLE);
     oluacls_const_integer(L, "SLICE", (lua_Integer)cocos2d::ui::Scale9Sprite::RenderingType::SLICE);
 
@@ -3464,24 +3368,12 @@ OLUA_LIB int luaopen_cocos2d_ui_Scale9Sprite(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_LayoutComponent_HorizontalEdge___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_LayoutComponent_HorizontalEdge(lua_State *L)
 {
     oluacls_class(L, "ccui.LayoutComponent.HorizontalEdge", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_LayoutComponent_HorizontalEdge___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "Center", (lua_Integer)cocos2d::ui::LayoutComponent::HorizontalEdge::Center);
     oluacls_const_integer(L, "Left", (lua_Integer)cocos2d::ui::LayoutComponent::HorizontalEdge::Left);
     oluacls_const_integer(L, "None", (lua_Integer)cocos2d::ui::LayoutComponent::HorizontalEdge::None);
@@ -3493,24 +3385,12 @@ OLUA_LIB int luaopen_cocos2d_ui_LayoutComponent_HorizontalEdge(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_LayoutComponent_VerticalEdge___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_LayoutComponent_VerticalEdge(lua_State *L)
 {
     oluacls_class(L, "ccui.LayoutComponent.VerticalEdge", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_LayoutComponent_VerticalEdge___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "Bottom", (lua_Integer)cocos2d::ui::LayoutComponent::VerticalEdge::Bottom);
     oluacls_const_integer(L, "Center", (lua_Integer)cocos2d::ui::LayoutComponent::VerticalEdge::Center);
     oluacls_const_integer(L, "None", (lua_Integer)cocos2d::ui::LayoutComponent::VerticalEdge::None);
@@ -4522,24 +4402,12 @@ OLUA_LIB int luaopen_cocos2d_ui_LayoutComponent(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_LayoutParameter_Type___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_LayoutParameter_Type(lua_State *L)
 {
     oluacls_class(L, "ccui.LayoutParameter.Type", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_LayoutParameter_Type___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "LINEAR", (lua_Integer)cocos2d::ui::LayoutParameter::Type::LINEAR);
     oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::LayoutParameter::Type::NONE);
     oluacls_const_integer(L, "RELATIVE", (lua_Integer)cocos2d::ui::LayoutParameter::Type::RELATIVE);
@@ -4715,24 +4583,12 @@ OLUA_LIB int luaopen_cocos2d_ui_LayoutParameter(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_LinearLayoutParameter_LinearGravity___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_LinearLayoutParameter_LinearGravity(lua_State *L)
 {
     oluacls_class(L, "ccui.LinearLayoutParameter.LinearGravity", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_LinearLayoutParameter_LinearGravity___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "BOTTOM", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::BOTTOM);
     oluacls_const_integer(L, "CENTER_HORIZONTAL", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::CENTER_HORIZONTAL);
     oluacls_const_integer(L, "CENTER_VERTICAL", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::CENTER_VERTICAL);
@@ -4838,24 +4694,12 @@ OLUA_LIB int luaopen_cocos2d_ui_LinearLayoutParameter(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_RelativeLayoutParameter_RelativeAlign___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_RelativeLayoutParameter_RelativeAlign(lua_State *L)
 {
     oluacls_class(L, "ccui.RelativeLayoutParameter.RelativeAlign", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_RelativeLayoutParameter_RelativeAlign___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "CENTER_IN_PARENT", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::CENTER_IN_PARENT);
     oluacls_const_integer(L, "LOCATION_ABOVE_CENTER", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_ABOVE_CENTER);
     oluacls_const_integer(L, "LOCATION_ABOVE_LEFTALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_ABOVE_LEFTALIGN);
@@ -5052,24 +4896,12 @@ OLUA_LIB int luaopen_cocos2d_ui_RelativeLayoutParameter(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_Layout_Type___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_Layout_Type(lua_State *L)
 {
     oluacls_class(L, "ccui.Layout.Type", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_Layout_Type___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "ABSOLUTE", (lua_Integer)cocos2d::ui::Layout::Type::ABSOLUTE);
     oluacls_const_integer(L, "HORIZONTAL", (lua_Integer)cocos2d::ui::Layout::Type::HORIZONTAL);
     oluacls_const_integer(L, "RELATIVE", (lua_Integer)cocos2d::ui::Layout::Type::RELATIVE);
@@ -5081,24 +4913,12 @@ OLUA_LIB int luaopen_cocos2d_ui_Layout_Type(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_Layout_ClippingType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_Layout_ClippingType(lua_State *L)
 {
     oluacls_class(L, "ccui.Layout.ClippingType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_Layout_ClippingType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "SCISSOR", (lua_Integer)cocos2d::ui::Layout::ClippingType::SCISSOR);
     oluacls_const_integer(L, "STENCIL", (lua_Integer)cocos2d::ui::Layout::ClippingType::STENCIL);
 
@@ -5108,24 +4928,12 @@ OLUA_LIB int luaopen_cocos2d_ui_Layout_ClippingType(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_Layout_BackGroundColorType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_Layout_BackGroundColorType(lua_State *L)
 {
     oluacls_class(L, "ccui.Layout.BackGroundColorType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_Layout_BackGroundColorType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "GRADIENT", (lua_Integer)cocos2d::ui::Layout::BackGroundColorType::GRADIENT);
     oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::Layout::BackGroundColorType::NONE);
     oluacls_const_integer(L, "SOLID", (lua_Integer)cocos2d::ui::Layout::BackGroundColorType::SOLID);
@@ -7100,24 +6908,12 @@ OLUA_END_DECLS
 #endif
 
 #if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
-static int _cocos2d_ui_VideoPlayer_EventType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_VideoPlayer_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.VideoPlayer.EventType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_VideoPlayer_EventType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "COMPLETED", (lua_Integer)cocos2d::ui::VideoPlayer::EventType::COMPLETED);
     oluacls_const_integer(L, "ERROR", (lua_Integer)cocos2d::ui::VideoPlayer::EventType::ERROR);
     oluacls_const_integer(L, "PAUSED", (lua_Integer)cocos2d::ui::VideoPlayer::EventType::PAUSED);
@@ -7158,24 +6954,12 @@ OLUA_END_DECLS
 #endif
 
 #if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
-static int _cocos2d_ui_VideoPlayer_StyleType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_VideoPlayer_StyleType(lua_State *L)
 {
     oluacls_class(L, "ccui.VideoPlayer.StyleType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_VideoPlayer_StyleType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "DEFAULT", (lua_Integer)cocos2d::ui::VideoPlayer::StyleType::DEFAULT);
     oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::VideoPlayer::StyleType::NONE);
 
@@ -8412,24 +8196,12 @@ OLUA_LIB int luaopen_cocos2d_ui_AbstractCheckButton(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_TabHeader_EventType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_TabHeader_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.TabHeader.EventType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_TabHeader_EventType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "SELECTED", (lua_Integer)cocos2d::ui::TabHeader::EventType::SELECTED);
     oluacls_const_integer(L, "UNSELECTED", (lua_Integer)cocos2d::ui::TabHeader::EventType::UNSELECTED);
 
@@ -8812,24 +8584,12 @@ OLUA_LIB int luaopen_cocos2d_ui_TabHeader(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_TabControl_Dock___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_TabControl_Dock(lua_State *L)
 {
     oluacls_class(L, "ccui.TabControl.Dock", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_TabControl_Dock___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "BOTTOM", (lua_Integer)cocos2d::ui::TabControl::Dock::BOTTOM);
     oluacls_const_integer(L, "LEFT", (lua_Integer)cocos2d::ui::TabControl::Dock::LEFT);
     oluacls_const_integer(L, "RIGHT", (lua_Integer)cocos2d::ui::TabControl::Dock::RIGHT);
@@ -8841,24 +8601,12 @@ OLUA_LIB int luaopen_cocos2d_ui_TabControl_Dock(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_TabControl_EventType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_TabControl_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.TabControl.EventType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_TabControl_EventType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "SELECT_CHANGED", (lua_Integer)cocos2d::ui::TabControl::EventType::SELECT_CHANGED);
 
     olua_registerluatype<cocos2d::ui::TabControl::EventType>(L, "ccui.TabControl.EventType");
@@ -9379,24 +9127,12 @@ OLUA_LIB int luaopen_cocos2d_ui_TabControl(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_ScrollView_Direction___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_ScrollView_Direction(lua_State *L)
 {
     oluacls_class(L, "ccui.ScrollView.Direction", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_ScrollView_Direction___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "BOTH", (lua_Integer)cocos2d::ui::ScrollView::Direction::BOTH);
     oluacls_const_integer(L, "HORIZONTAL", (lua_Integer)cocos2d::ui::ScrollView::Direction::HORIZONTAL);
     oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::ScrollView::Direction::NONE);
@@ -9408,24 +9144,12 @@ OLUA_LIB int luaopen_cocos2d_ui_ScrollView_Direction(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_ScrollView_EventType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_ScrollView_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.ScrollView.EventType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_ScrollView_EventType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "AUTOSCROLL_ENDED", (lua_Integer)cocos2d::ui::ScrollView::EventType::AUTOSCROLL_ENDED);
     oluacls_const_integer(L, "BOUNCE_BOTTOM", (lua_Integer)cocos2d::ui::ScrollView::EventType::BOUNCE_BOTTOM);
     oluacls_const_integer(L, "BOUNCE_LEFT", (lua_Integer)cocos2d::ui::ScrollView::EventType::BOUNCE_LEFT);
@@ -10724,24 +10448,12 @@ OLUA_LIB int luaopen_cocos2d_ui_ScrollView(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_ListView_Gravity___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_ListView_Gravity(lua_State *L)
 {
     oluacls_class(L, "ccui.ListView.Gravity", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_ListView_Gravity___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "BOTTOM", (lua_Integer)cocos2d::ui::ListView::Gravity::BOTTOM);
     oluacls_const_integer(L, "CENTER_HORIZONTAL", (lua_Integer)cocos2d::ui::ListView::Gravity::CENTER_HORIZONTAL);
     oluacls_const_integer(L, "CENTER_VERTICAL", (lua_Integer)cocos2d::ui::ListView::Gravity::CENTER_VERTICAL);
@@ -10755,24 +10467,12 @@ OLUA_LIB int luaopen_cocos2d_ui_ListView_Gravity(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_ListView_EventType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_ListView_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.ListView.EventType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_ListView_EventType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "ON_SELECTED_ITEM_END", (lua_Integer)cocos2d::ui::ListView::EventType::ON_SELECTED_ITEM_END);
     oluacls_const_integer(L, "ON_SELECTED_ITEM_START", (lua_Integer)cocos2d::ui::ListView::EventType::ON_SELECTED_ITEM_START);
 
@@ -10782,24 +10482,12 @@ OLUA_LIB int luaopen_cocos2d_ui_ListView_EventType(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_ListView_MagneticType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_ListView_MagneticType(lua_State *L)
 {
     oluacls_class(L, "ccui.ListView.MagneticType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_ListView_MagneticType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "BOTH_END", (lua_Integer)cocos2d::ui::ListView::MagneticType::BOTH_END);
     oluacls_const_integer(L, "BOTTOM", (lua_Integer)cocos2d::ui::ListView::MagneticType::BOTTOM);
     oluacls_const_integer(L, "CENTER", (lua_Integer)cocos2d::ui::ListView::MagneticType::CENTER);
@@ -11875,24 +11563,12 @@ OLUA_LIB int luaopen_cocos2d_ui_ListView(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_LoadingBar_Direction___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_LoadingBar_Direction(lua_State *L)
 {
     oluacls_class(L, "ccui.LoadingBar.Direction", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_LoadingBar_Direction___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "LEFT", (lua_Integer)cocos2d::ui::LoadingBar::Direction::LEFT);
     oluacls_const_integer(L, "RIGHT", (lua_Integer)cocos2d::ui::LoadingBar::Direction::RIGHT);
 
@@ -12318,24 +11994,12 @@ OLUA_LIB int luaopen_cocos2d_ui_LoadingBar(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_PageView_EventType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_PageView_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.PageView.EventType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_PageView_EventType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "TURNING", (lua_Integer)cocos2d::ui::PageView::EventType::TURNING);
 
     olua_registerluatype<cocos2d::ui::PageView::EventType>(L, "ccui.PageView.EventType");
@@ -12344,24 +12008,12 @@ OLUA_LIB int luaopen_cocos2d_ui_PageView_EventType(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_PageView_TouchDirection___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_PageView_TouchDirection(lua_State *L)
 {
     oluacls_class(L, "ccui.PageView.TouchDirection", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_PageView_TouchDirection___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "DOWN", (lua_Integer)cocos2d::ui::PageView::TouchDirection::DOWN);
     oluacls_const_integer(L, "LEFT", (lua_Integer)cocos2d::ui::PageView::TouchDirection::LEFT);
     oluacls_const_integer(L, "RIGHT", (lua_Integer)cocos2d::ui::PageView::TouchDirection::RIGHT);
@@ -13258,24 +12910,12 @@ OLUA_LIB int luaopen_cocos2d_ui_PageView(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_RichElement_Type___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_RichElement_Type(lua_State *L)
 {
     oluacls_class(L, "ccui.RichElement.Type", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_RichElement_Type___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "CUSTOM", (lua_Integer)cocos2d::ui::RichElement::Type::CUSTOM);
     oluacls_const_integer(L, "IMAGE", (lua_Integer)cocos2d::ui::RichElement::Type::IMAGE);
     oluacls_const_integer(L, "NEWLINE", (lua_Integer)cocos2d::ui::RichElement::Type::NEWLINE);
@@ -14612,24 +14252,12 @@ OLUA_LIB int luaopen_cocos2d_ui_RichElementNewLine(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_RichText_WrapMode___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_RichText_WrapMode(lua_State *L)
 {
     oluacls_class(L, "ccui.RichText.WrapMode", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_RichText_WrapMode___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "WRAP_PER_CHAR", (lua_Integer)cocos2d::ui::RichText::WrapMode::WRAP_PER_CHAR);
     oluacls_const_integer(L, "WRAP_PER_WORD", (lua_Integer)cocos2d::ui::RichText::WrapMode::WRAP_PER_WORD);
 
@@ -14639,24 +14267,12 @@ OLUA_LIB int luaopen_cocos2d_ui_RichText_WrapMode(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_RichText_HorizontalAlignment___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_RichText_HorizontalAlignment(lua_State *L)
 {
     oluacls_class(L, "ccui.RichText.HorizontalAlignment", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_RichText_HorizontalAlignment___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "CENTER", (lua_Integer)cocos2d::ui::RichText::HorizontalAlignment::CENTER);
     oluacls_const_integer(L, "LEFT", (lua_Integer)cocos2d::ui::RichText::HorizontalAlignment::LEFT);
     oluacls_const_integer(L, "RIGHT", (lua_Integer)cocos2d::ui::RichText::HorizontalAlignment::RIGHT);
@@ -16341,24 +15957,12 @@ OLUA_LIB int luaopen_cocos2d_ui_ScrollViewBar(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_Slider_EventType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_Slider_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.Slider.EventType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_Slider_EventType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "ON_PERCENTAGE_CHANGED", (lua_Integer)cocos2d::ui::Slider::EventType::ON_PERCENTAGE_CHANGED);
     oluacls_const_integer(L, "ON_SLIDEBALL_CANCEL", (lua_Integer)cocos2d::ui::Slider::EventType::ON_SLIDEBALL_CANCEL);
     oluacls_const_integer(L, "ON_SLIDEBALL_DOWN", (lua_Integer)cocos2d::ui::Slider::EventType::ON_SLIDEBALL_DOWN);
@@ -17446,24 +17050,12 @@ OLUA_LIB int luaopen_cocos2d_ui_Slider(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_Text_Type___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_Text_Type(lua_State *L)
 {
     oluacls_class(L, "ccui.Text.Type", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_Text_Type___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "SYSTEM", (lua_Integer)cocos2d::ui::Text::Type::SYSTEM);
     oluacls_const_integer(L, "TTF", (lua_Integer)cocos2d::ui::Text::Type::TTF);
 
@@ -19439,24 +19031,12 @@ OLUA_LIB int luaopen_cocos2d_ui_UICCTextField(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_TextField_EventType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_TextField_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.TextField.EventType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_TextField_EventType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "ATTACH_WITH_IME", (lua_Integer)cocos2d::ui::TextField::EventType::ATTACH_WITH_IME);
     oluacls_const_integer(L, "DELETE_BACKWARD", (lua_Integer)cocos2d::ui::TextField::EventType::DELETE_BACKWARD);
     oluacls_const_integer(L, "DETACH_WITH_IME", (lua_Integer)cocos2d::ui::TextField::EventType::DETACH_WITH_IME);
@@ -21833,24 +21413,12 @@ OLUA_LIB int luaopen_cocos2d_ui_Button(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_CheckBox_EventType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_CheckBox_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.CheckBox.EventType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_CheckBox_EventType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "SELECTED", (lua_Integer)cocos2d::ui::CheckBox::EventType::SELECTED);
     oluacls_const_integer(L, "UNSELECTED", (lua_Integer)cocos2d::ui::CheckBox::EventType::UNSELECTED);
 
@@ -22123,24 +21691,12 @@ OLUA_LIB int luaopen_cocos2d_ui_CheckBox(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_RadioButton_EventType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_RadioButton_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.RadioButton.EventType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_RadioButton_EventType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "SELECTED", (lua_Integer)cocos2d::ui::RadioButton::EventType::SELECTED);
     oluacls_const_integer(L, "UNSELECTED", (lua_Integer)cocos2d::ui::RadioButton::EventType::UNSELECTED);
 
@@ -22413,24 +21969,12 @@ OLUA_LIB int luaopen_cocos2d_ui_RadioButton(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_RadioButtonGroup_EventType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_RadioButtonGroup_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.RadioButtonGroup.EventType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_RadioButtonGroup_EventType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "SELECT_CHANGED", (lua_Integer)cocos2d::ui::RadioButtonGroup::EventType::SELECT_CHANGED);
 
     olua_registerluatype<cocos2d::ui::RadioButtonGroup::EventType>(L, "ccui.RadioButtonGroup.EventType");
@@ -23253,24 +22797,12 @@ OLUA_LIB int luaopen_cocos2d_ui_ImageView(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_EditBoxDelegate_EditBoxEndAction___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_EditBoxDelegate_EditBoxEndAction(lua_State *L)
 {
     oluacls_class(L, "ccui.EditBoxDelegate.EditBoxEndAction", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_EditBoxDelegate_EditBoxEndAction___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "RETURN", (lua_Integer)cocos2d::ui::EditBoxDelegate::EditBoxEndAction::RETURN);
     oluacls_const_integer(L, "TAB_TO_NEXT", (lua_Integer)cocos2d::ui::EditBoxDelegate::EditBoxEndAction::TAB_TO_NEXT);
     oluacls_const_integer(L, "TAB_TO_PREVIOUS", (lua_Integer)cocos2d::ui::EditBoxDelegate::EditBoxEndAction::TAB_TO_PREVIOUS);
@@ -23723,24 +23255,12 @@ OLUA_LIB int luaopen_cocos2d_ui_LuaEditBoxDelegate(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_EditBox_KeyboardReturnType___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_EditBox_KeyboardReturnType(lua_State *L)
 {
     oluacls_class(L, "ccui.EditBox.KeyboardReturnType", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_EditBox_KeyboardReturnType___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "DEFAULT", (lua_Integer)cocos2d::ui::EditBox::KeyboardReturnType::DEFAULT);
     oluacls_const_integer(L, "DONE", (lua_Integer)cocos2d::ui::EditBox::KeyboardReturnType::DONE);
     oluacls_const_integer(L, "GO", (lua_Integer)cocos2d::ui::EditBox::KeyboardReturnType::GO);
@@ -23754,24 +23274,12 @@ OLUA_LIB int luaopen_cocos2d_ui_EditBox_KeyboardReturnType(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_EditBox_InputMode___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_EditBox_InputMode(lua_State *L)
 {
     oluacls_class(L, "ccui.EditBox.InputMode", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_EditBox_InputMode___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "ANY", (lua_Integer)cocos2d::ui::EditBox::InputMode::ANY);
     oluacls_const_integer(L, "DECIMAL", (lua_Integer)cocos2d::ui::EditBox::InputMode::DECIMAL);
     oluacls_const_integer(L, "EMAIL_ADDRESS", (lua_Integer)cocos2d::ui::EditBox::InputMode::EMAIL_ADDRESS);
@@ -23786,24 +23294,12 @@ OLUA_LIB int luaopen_cocos2d_ui_EditBox_InputMode(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cocos2d_ui_EditBox_InputFlag___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *cls = olua_checkfieldstring(L, 1, "classname");
-    const char *key = olua_tostring(L, 2);
-    luaL_error(L, "enum '%s.%s' not found", cls, key);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_EditBox_InputFlag(lua_State *L)
 {
     oluacls_class(L, "ccui.EditBox.InputFlag", nullptr);
-    oluacls_func(L, "__index", _cocos2d_ui_EditBox_InputFlag___index);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_const_integer(L, "INITIAL_CAPS_ALL_CHARACTERS", (lua_Integer)cocos2d::ui::EditBox::InputFlag::INITIAL_CAPS_ALL_CHARACTERS);
     oluacls_const_integer(L, "INITIAL_CAPS_SENTENCE", (lua_Integer)cocos2d::ui::EditBox::InputFlag::INITIAL_CAPS_SENTENCE);
     oluacls_const_integer(L, "INITIAL_CAPS_WORD", (lua_Integer)cocos2d::ui::EditBox::InputFlag::INITIAL_CAPS_WORD);

@@ -47,6 +47,10 @@ if $cygwin ; then
     [ -n "$JAVA_HOME" ] && JAVA_HOME=`cygpath --unix "$JAVA_HOME"`
 fi
 
+if $darwin ; then
+    JAVA_HOME="/Applications/Android Studio.app/Contents/jre/Contents/Home"
+fi
+
 # Attempt to set APP_HOME
 # Resolve links: $0 may be a link
 PRG="$0"

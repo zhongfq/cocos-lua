@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated May 1, 2019. Replaces all prior versions.
+ * Last updated January 1, 2020. Replaces all prior versions.
  *
- * Copyright (c) 2013-2019, Esoteric Software LLC
+ * Copyright (c) 2013-2020, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -15,99 +15,107 @@
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
  *
- * THIS SOFTWARE IS PROVIDED BY ESOTERIC SOFTWARE LLC "AS IS" AND ANY EXPRESS
- * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
- * NO EVENT SHALL ESOTERIC SOFTWARE LLC BE LIABLE FOR ANY DIRECT, INDIRECT,
- * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
- * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES, BUSINESS
- * INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THE SPINE RUNTIMES ARE PROVIDED BY ESOTERIC SOFTWARE LLC "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL ESOTERIC SOFTWARE LLC BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
+ * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 #ifndef Spine_SlotData_h
 #define Spine_SlotData_h
 
-#include "spine/BlendMode.h"
-#include "spine/SpineObject.h"
-#include "spine/SpineString.h"
-#include "spine/Color.h"
+#include <spine/BlendMode.h>
+#include <spine/SpineObject.h>
+#include <spine/SpineString.h>
+#include <spine/Color.h>
 
 namespace spine {
-class BoneData;
+	class BoneData;
 
-class SP_API SlotData : public SpineObject {
-	friend class SkeletonBinary;
+	class SP_API SlotData : public SpineObject {
+		friend class SkeletonBinary;
 
-	friend class SkeletonJson;
+		friend class SkeletonJson;
 
-	friend class AttachmentTimeline;
+		friend class AttachmentTimeline;
 
-	friend class ColorTimeline;
+		friend class RGBATimeline;
 
-	friend class DeformTimeline;
+		friend class RGBTimeline;
 
-	friend class DrawOrderTimeline;
+		friend class AlphaTimeline;
 
-	friend class EventTimeline;
+		friend class RGBA2Timeline;
 
-	friend class IkConstraintTimeline;
+		friend class RGB2Timeline;
 
-	friend class PathConstraintMixTimeline;
+		friend class DeformTimeline;
 
-	friend class PathConstraintPositionTimeline;
+		friend class DrawOrderTimeline;
 
-	friend class PathConstraintSpacingTimeline;
+		friend class EventTimeline;
 
-	friend class ScaleTimeline;
+		friend class IkConstraintTimeline;
 
-	friend class ShearTimeline;
+		friend class PathConstraintMixTimeline;
 
-	friend class TransformConstraintTimeline;
+		friend class PathConstraintPositionTimeline;
 
-	friend class TranslateTimeline;
+		friend class PathConstraintSpacingTimeline;
 
-	friend class TwoColorTimeline;
+		friend class ScaleTimeline;
 
-public:
-	SlotData(int index, const String &name, BoneData &boneData);
+		friend class ShearTimeline;
 
-	int getIndex();
+		friend class TransformConstraintTimeline;
 
-	const String &getName();
+		friend class TranslateTimeline;
 
-	BoneData &getBoneData();
+		friend class TwoColorTimeline;
 
-	Color &getColor();
+	public:
+		SlotData(int index, const String &name, BoneData &boneData);
 
-	Color &getDarkColor();
+		int getIndex();
 
-	bool hasDarkColor();
+		const String &getName();
 
-	void setHasDarkColor(bool inValue);
+		BoneData &getBoneData();
 
-	/// May be empty.
-	const String &getAttachmentName();
+		Color &getColor();
 
-	void setAttachmentName(const String &inValue);
+		Color &getDarkColor();
 
-	BlendMode getBlendMode();
+		bool hasDarkColor();
 
-	void setBlendMode(BlendMode inValue);
+		void setHasDarkColor(bool inValue);
 
-private:
-	const int _index;
-	String _name;
-	BoneData &_boneData;
-	Color _color;
-	Color _darkColor;
+		/// May be empty.
+		const String &getAttachmentName();
 
-	bool _hasDarkColor;
-	String _attachmentName;
-	BlendMode _blendMode;
-};
+		void setAttachmentName(const String &inValue);
+
+		BlendMode getBlendMode();
+
+		void setBlendMode(BlendMode inValue);
+
+	private:
+		const int _index;
+		String _name;
+		BoneData &_boneData;
+		Color _color;
+		Color _darkColor;
+
+		bool _hasDarkColor;
+		String _attachmentName;
+		BlendMode _blendMode;
+	};
 }
 
 #endif /* Spine_SlotData_h */

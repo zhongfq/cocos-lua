@@ -49,6 +49,18 @@ Value::Value(unsigned char v)
     _field.byteVal = v;
 }
 
+Value::Value(int64_t v)
+: _type(Type::INTEGER)
+{
+    _field.intVal = v;
+}
+
+Value::Value(uint64_t v)
+: _type(Type::UNSIGNED)
+{
+    _field.unsignedVal = v;
+}
+
 Value::Value(int v)
 : _type(Type::INTEGER)
 {
@@ -270,6 +282,20 @@ Value& Value::operator= (unsigned char v)
     return *this;
 }
 
+Value& Value::operator= (int64_t v)
+{
+    reset(Type::INTEGER);
+    _field.intVal = v;
+    return *this;
+}
+
+Value& Value::operator= (uint64_t v)
+{
+    reset(Type::UNSIGNED);
+    _field.unsignedVal = v;
+    return *this;
+}
+
 Value& Value::operator= (int v)
 {
     reset(Type::INTEGER);
@@ -487,13 +513,13 @@ int Value::asInt() const
     CCASSERT(_type != Type::VECTOR && _type != Type::MAP && _type != Type::INT_KEY_MAP, "Only base type (bool, string, float, double, int) could be converted");
     if (_type == Type::INTEGER)
     {
-        return _field.intVal;
+        return static_cast<int>(_field.intVal);
     }
 
     if (_type == Type::UNSIGNED)
     {
         CCASSERT(_field.unsignedVal < INT_MAX, "Can only convert values < INT_MAX");
-        return (int)_field.unsignedVal;
+        return static_cast<int>(_field.unsignedVal);
     }
 
     if (_type == Type::BYTE)
@@ -524,13 +550,54 @@ int Value::asInt() const
     return 0;
 }
 
+int64_t Value::asInt64() const
+{
+    CCASSERT(_type != Type::VECTOR && _type != Type::MAP && _type != Type::INT_KEY_MAP, "Only base type (bool, string, float, double, int) could be converted");
+    if (_type == Type::INTEGER)
+    {
+        return _field.intVal;
+    }
+
+    if (_type == Type::UNSIGNED)
+    {
+        return (int64_t)_field.unsignedVal;
+    }
+
+    if (_type == Type::BYTE)
+    {
+        return _field.byteVal;
+    }
+
+    if (_type == Type::STRING)
+    {
+        return atoi(_field.strVal->c_str());
+    }
+
+    if (_type == Type::FLOAT)
+    {
+        return static_cast<int64_t>(_field.floatVal);
+    }
+
+    if (_type == Type::DOUBLE)
+    {
+        return static_cast<int64_t>(_field.doubleVal);
+    }
+
+    if (_type == Type::BOOLEAN)
+    {
+        return _field.boolVal ? 1 : 0;
+    }
+
+    return 0;
+}
+
 
 unsigned int Value::asUnsignedInt() const
 {
     CCASSERT(_type != Type::VECTOR && _type != Type::MAP && _type != Type::INT_KEY_MAP, "Only base type (bool, string, float, double, int) could be converted");
     if (_type == Type::UNSIGNED)
     {
-        return _field.unsignedVal;
+        return static_cast<unsigned int>(_field.unsignedVal);
     }
 
     if (_type == Type::INTEGER)
@@ -558,6 +625,49 @@ unsigned int Value::asUnsignedInt() const
     if (_type == Type::DOUBLE)
     {
         return static_cast<unsigned int>(_field.doubleVal);
+    }
+
+    if (_type == Type::BOOLEAN)
+    {
+        return _field.boolVal ? 1u : 0u;
+    }
+
+    return 0u;
+}
+
+uint64_t Value::asUnsignedInt64() const
+{
+    CCASSERT(_type != Type::VECTOR && _type != Type::MAP && _type != Type::INT_KEY_MAP, "Only base type (bool, string, float, double, int) could be converted");
+    if (_type == Type::UNSIGNED)
+    {
+        return _field.unsignedVal;
+    }
+
+    if (_type == Type::INTEGER)
+    {
+        CCASSERT(_field.intVal >= 0, "Only values >= 0 can be converted to unsigned");
+        return static_cast<uint64_t>(_field.intVal);
+    }
+
+    if (_type == Type::BYTE)
+    {
+        return static_cast<uint64_t>(_field.byteVal);
+    }
+
+    if (_type == Type::STRING)
+    {
+        // NOTE: strtoul is required (need to augment on unsupported platforms)
+        return static_cast<uint64_t>(strtoul(_field.strVal->c_str(), nullptr, 10));
+    }
+
+    if (_type == Type::FLOAT)
+    {
+        return static_cast<uint64_t>(_field.floatVal);
+    }
+
+    if (_type == Type::DOUBLE)
+    {
+        return static_cast<uint64_t>(_field.doubleVal);
     }
 
     if (_type == Type::BOOLEAN)

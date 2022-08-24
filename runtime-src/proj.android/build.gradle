@@ -3,14 +3,13 @@
 buildscript {
     repositories {
         google()
-        jcenter()
-        maven {url 'http://developer.huawei.com/repo/'}
+        mavenCentral()
+        maven {url 'https://developer.huawei.com/repo/'}
     }
 
     dependencies {
-        classpath 'com.tencent.bugly:symtabfileuploader:latest.release'
-        classpath 'com.android.tools.build:gradle:3.5.3'
-        classpath 'com.huawei.agconnect:agcp:1.1.1.300'
+        classpath 'com.android.tools.build:gradle:7.1.2'
+        classpath 'com.huawei.agconnect:agcp:1.4.2.301'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -18,10 +17,15 @@ buildscript {
 }
 
 allprojects {
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:deprecation"
+        }
+    }
     repositories {
         google()
-        jcenter()
-        maven {url 'http://developer.huawei.com/repo/'}
+        mavenCentral()
+        maven {url 'https://developer.huawei.com/repo/'}
     }
 }
 

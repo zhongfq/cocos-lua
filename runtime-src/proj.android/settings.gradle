@@ -1,16 +1,15 @@
-include ':libcocos2dx'
-project(':libcocos2dx').projectDir = new File(settingsDir, '../../frameworks/cocos2d-x/cocos/platform/android/libcocos2dx')
-include ':libxgame'
-project(':libxgame').projectDir = new File(settingsDir, '../../frameworks/libxgame/proj.android')
-include(':plugin-huawei')
-project(':plugin-huawei').projectDir = new File(settingsDir, '../../frameworks/plugins/huawei')
-include(':plugin-oppo')
-project(':plugin-oppo').projectDir = new File(settingsDir, '../../frameworks/plugins/oppo')
-include(':plugin-vivo')
-project(':plugin-vivo').projectDir = new File(settingsDir, '../../frameworks/plugins/vivo')
-include(':plugin-alipay')
-project(':plugin-alipay').projectDir = new File(settingsDir, '../../frameworks/plugins/alipay')
-include(':plugin-talkingdata')
-project(':plugin-talkingdata').projectDir = new File(settingsDir, '../../frameworks/plugins/talkingdata')
-include ':harbor'
-project(':harbor').projectDir = new File(settingsDir, 'app')
+def load(name, path) {
+    include(":${name}")
+    project(":${name}").projectDir = new File(settingsDir, "${path}")
+}
+
+load('libcocos2dx', '../../frameworks/cocos2d-x/cocos/platform/android/libcocos2dx')
+load('libxgame', '../../frameworks/libxgame/android')
+load('plugin-alipay', '../../frameworks/plugins/alipay/android')
+load('plugin-huawei', '../../frameworks/plugins/huawei/android')
+load('plugin-jiguang', '../../frameworks/plugins/jiguang/android')
+load('plugin-oppo', '../../frameworks/plugins/oppo/android')
+load('plugin-talkingdata', '../../frameworks/plugins/talkingdata/android')
+load('plugin-vivo', '../../frameworks/plugins/vivo/android')
+load('plugin-wechat', '../../frameworks/plugins/wechat/android')
+load('app', 'app')

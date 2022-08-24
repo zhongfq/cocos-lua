@@ -26,7 +26,7 @@
 
 #include "editor-support/cocosbuilder/CCBReader.h"
 #include "editor-support/cocosbuilder/CCNode+CCBRelativePositioning.h"
-#include "audio/include/SimpleAudioEngine.h"
+#include "editor-support/cocostudio/SimpleAudioEngine.h"
 #include "editor-support/cocosbuilder/CCBSelectorResolver.h"
 
 #include <string>

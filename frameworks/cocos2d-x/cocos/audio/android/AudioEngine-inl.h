@@ -34,7 +34,7 @@
 #include "base/CCRef.h"
 #include "base/ccUtils.h"
 
-#define MAX_AUDIOINSTANCES 24
+#define MAX_AUDIOINSTANCES 64
 
 #define ERRORLOG(msg) log("fun:%s,line:%d,msg:%s",__func__,__LINE__,#msg)
 
@@ -42,8 +42,6 @@ NS_CC_BEGIN
 
 class EventCustom;
 class EventListener;
-
-namespace experimental {
 
 class IAudioPlayer;
 class AudioPlayerProvider;
@@ -103,7 +101,6 @@ private:
 };
 
 #endif // __AUDIO_ENGINE_INL_H_
- }
 NS_CC_END
 
 #endif

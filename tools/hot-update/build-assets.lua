@@ -1,10 +1,15 @@
-print('hello path:', ...)
+loadfile('../lua/script/init.lua')('../lua')
 
 local builtinAssets = require "builtin-assets"
 local buildManifest = require "build-manifest"
+local buildBundle = require "build-bundle"
 local compileScript = require "compile-script"
 
-local BUILD_PATH, PACKAGE_NAME = ...
+local BUILD_PATH = ...
+
+if not BUILD_PATH or #BUILD_PATH == 0 then
+    error('not specify build path')
+end
 
 local conf = {
     NAME = 'APP-BUILTIN',
@@ -19,7 +24,7 @@ local conf = {
     URL = "builtin://",
 }
 
-builtinAssets = builtinAssets(conf.ASSETS_PATH, PACKAGE_NAME)
+builtinAssets = builtinAssets(conf.ASSETS_PATH)
 conf.IS_BUILTIN = function (path)
     return builtinAssets[path]
 end
@@ -34,3 +39,4 @@ end
 
 compileScript(BUILD_PATH)
 buildManifest(conf)
+buildBundle(BUILD_PATH)

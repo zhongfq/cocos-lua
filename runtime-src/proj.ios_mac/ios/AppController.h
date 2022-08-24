@@ -24,13 +24,13 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#import "xgame/AppContext-ios.h"
+#import "cclua/AppContext-ios.h"
 
-@interface AppController : AppContext {
-    
-}
+@interface AppController : AppContext
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
+
+- (AppRootViewController *) createRootViewController;
 
 @end
 

@@ -243,7 +243,7 @@ void GridBase::afterDraw(cocos2d::Node * /*target*/)
 
     director->setViewport();
     const auto& vp = Camera::getDefaultViewport();
-    glViewport(vp._left, vp._bottom, vp._width, vp._height);
+    glViewport(vp.left, vp.bottom, vp.width, vp.height);
 //    if (target->getCamera()->isDirty())
 //    {
 //        Vec2 offset = target->getAnchorPointInPoints();

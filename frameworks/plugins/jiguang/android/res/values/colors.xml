@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#102135</color>
+    <color name="colorPrimaryDark">#102135</color>
+    <color name="colorAccent">#E0E0E0</color>
+
+    <color name="colorButtonBule">#2974C7</color>
+
+    <color name="colorMainDemo">#50ffffff</color>
+
+    <color name="color80White">#80ffffff</color>
+    <color name="color40black">#40000000</color>
+
+    <color name="colorMainLine">#2B4460</color>
+
+    <color name="colorNewworkText">#FFD0D0D9</color>
+
+    <color name="colorTextGray">#cccccc</color>
+
+    <color name="colorLittleWhite">#F5F6F7</color>
+
+    <color name="colorBgWarning">#0E1B2B</color>
+
+    <color name="colorTextHighLight">#1A1A1A</color>
+
+    <color name="colorBtnMainLand">#172EE5</color>
+
+</resources>

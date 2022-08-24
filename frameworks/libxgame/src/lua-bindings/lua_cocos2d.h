@@ -4,8 +4,18 @@
 #ifndef __AUTO_GEN_LUA_COCOS2D_H__
 #define __AUTO_GEN_LUA_COCOS2D_H__
 
-#include "xgame/xlua.h"
+#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_conv_manual.h"
+#include "lua-bindings/LuaCocosAdapter.h"
+#include "cclua/xlua.h"
+#include "cocos2d.h"
+#include "ui/CocosGUI.h"
+#include "audio/include/AudioEngine.h"
+#include "vr/CCVRGenericRenderer.h"
+#include "vr/CCVRGenericHeadTracker.h"
 
-LUALIB_API int luaopen_cocos2d(lua_State *L);
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d(lua_State *L);
+OLUA_END_DECLS
 
 #endif

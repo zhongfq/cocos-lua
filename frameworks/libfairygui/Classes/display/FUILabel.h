@@ -21,14 +21,19 @@ public:
     TextFormat* getTextFormat() const { return _textFormat; }
     void applyTextFormat();
 
-    virtual bool setBMFontFilePath(const std::string& bmfontFilePath, const cocos2d::Vec2& imageOffset = cocos2d::Vec2::ZERO, float fontSize = 0) override;
+    void setUnderlineColor(const cocos2d::Color3B& value);
+
+    virtual bool setBMFontFilePath(const std::string& bmfontFilePath, const cocos2d::Vec2& imageOffset, float fontSize = 0) override;
+    virtual bool setBMFontFilePath(const std::string& bmfontFilePath, float fontSize = 0) override;
+    virtual bool setBMFontFilePath(const std::string& bmfontFilePath, const cocos2d::Rect& imageRect, bool imageRotated, float fontSize = 0) override;
+    virtual bool setBMFontFilePath(const std::string& bmfontFilePath, const std::string& subTextureKey, float fontSize = 0) override;
 
     void setGrayed(bool value);
 protected:
     /*
-    ×¢Òâ£¡£¡£¡Èç¹ûÕâÀï³öÏÖÁË±àÒë´íÎó£¬ĞèÒªĞŞ¸Äcocos2dµÄÔ´Âë£¬ÎÄ¼ş2d/CCLabel.h£¬´óÔ¼ÔÚ672ĞĞ£¬ÎªupdateBMFontScaleº¯Êı´òÉÏvirtualĞŞÊÎ·û¡£
-    ÒòÎªÕâ¸ö·½·¨ÀïÓĞÇ¿ÖÆ×ÖÌå¶ÔÏóÖ¸ÕëÎªFontFntÀàĞÍµÄ´úÂë£¬µ«ÎÒÃÇ²»Ê¹ÓÃFontFnt£¨FontFntÖ»Ö§³Ö´ÓÍâ²¿ÎÄ¼şÖĞÔØÈëÅäÖÃ£¬¸üÔã¸âµÄÊÇBMFontConfigurationÊÇ¶¨ÒåÔÚcppÀïµÄ¡££©
-    ËùÒÔĞèÒªÖØĞ´Õâ¸ö·½·¨¡£
+    æ³¨æ„ï¼ï¼ï¼å¦‚æœè¿™é‡Œå‡ºç°äº†ç¼–è¯‘é”™è¯¯ï¼Œéœ€è¦ä¿®æ”¹cocos2dçš„æºç ï¼Œæ–‡ä»¶2d/CCLabel.hï¼Œå¤§çº¦åœ¨672è¡Œï¼Œä¸ºupdateBMFontScaleå‡½æ•°æ‰“ä¸Švirtualä¿®é¥°ç¬¦ã€‚
+    å› ä¸ºè¿™ä¸ªæ–¹æ³•é‡Œæœ‰å¼ºåˆ¶å­—ä½“å¯¹è±¡æŒ‡é’ˆä¸ºFontFntç±»å‹çš„ä»£ç ï¼Œä½†æˆ‘ä»¬ä¸ä½¿ç”¨FontFntï¼ˆFontFntåªæ”¯æŒä»å¤–éƒ¨æ–‡ä»¶ä¸­è½½å…¥é…ç½®ï¼Œæ›´ç³Ÿç³•çš„æ˜¯BMFontConfigurationæ˜¯å®šä¹‰åœ¨cppé‡Œçš„ã€‚ï¼‰
+    æ‰€ä»¥éœ€è¦é‡å†™è¿™ä¸ªæ–¹æ³•ã€‚
     */
     virtual void updateBMFontScale() override;
 

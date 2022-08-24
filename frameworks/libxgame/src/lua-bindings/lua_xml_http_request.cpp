@@ -1,7 +1,6 @@
 #include "lua_xml_http_request.h"
-#include "xgame/XMLHttpRequest.h"
+#include "cclua/XMLHttpRequest.h"
 #include "cjson/lua_cjson.h"
-#include "xgame/xruntime.h"
 
 static int luaopen_cocos2d_XMLHttpRequest_ResponseType(lua_State *L)
 {
@@ -58,7 +57,7 @@ static int _cocos2d_XMLHttpRequest_setResponseCallback(lua_State *L)
 {
     auto self = olua_checkobj<cocos2d::XMLHttpRequest>(L, 1);
     void *cb_store = self;
-    std::string func = olua_setcallback(L, cb_store, "responseCallback", 2, OLUA_TAG_REPLACE);
+    std::string func = olua_setcallback(L, cb_store, 2, "responseCallback", OLUA_TAG_REPLACE);
     int ref = olua_ref(L, 1);
     lua_Unsigned ctx = olua_context(L);
     self->setResponseCallback([cb_store, func, ref, ctx] (cocos2d::XMLHttpRequest *request) mutable {
@@ -66,7 +65,7 @@ static int _cocos2d_XMLHttpRequest_setResponseCallback(lua_State *L)
         if (L != NULL && (olua_context(L) == ctx)) {
             int top = lua_gettop(L);
             ctx = 0;
-            olua_push_cppobj<cocos2d::XMLHttpRequest>(L, request, nullptr);
+            olua_pushobj<cocos2d::XMLHttpRequest>(L, request);
             olua_callback(L, cb_store, func.c_str(), 1);
             lua_settop(L, top);
             olua_unref(L, ref);
@@ -191,7 +190,7 @@ static int _cocos2d_XMLHttpRequest_getResponse(lua_State *L)
 {
     auto self = olua_checkobj<cocos2d::XMLHttpRequest>(L, 1);
     if (self->getResponseType() == cocos2d::XMLHttpRequest::ResponseType::JSON) {
-        olua_requiref(L, "__private_cjson_safe", luaopen_cjson_safe, false);
+        luaL_requiref(L, "__private_cjson_safe", luaopen_cjson_safe, false);
         lua_getfield(L, -1, "decode");
         luaL_checktype(L, -1, LUA_TFUNCTION);
         lua_pushlstring(L, self->getDataStr().c_str(), self->getDataSize());

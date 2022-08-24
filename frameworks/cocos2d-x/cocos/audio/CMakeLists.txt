@@ -69,7 +69,6 @@ elseif(ANDROID)
         audio/android/AudioDecoderSLES.h
         audio/android/AudioDecoderMp3.h
         audio/android/PcmData.h
-        audio/android/jni/cddandroidAndroidJavaEngine.h
         audio/android/AudioMixerController.h
         audio/android/AudioResamplerCubic.h
         audio/android/AudioEngine-inl.h
@@ -78,9 +77,7 @@ elseif(ANDROID)
         )
 
     set(COCOS_AUDIO_PLATFORM_SRC
-        audio/android/cddSimpleAudioEngine.cpp
         audio/android/ccdandroidUtils.cpp
-        audio/android/jni/cddandroidAndroidJavaEngine.cpp
         audio/android/AudioEngine-inl.cpp
         audio/android/CCThreadPool.cpp
         audio/android/AssetFd.cpp
@@ -191,7 +188,6 @@ endif()
 set(COCOS_AUDIO_HEADER
     audio/include/AudioEngine.h
     audio/include/Export.h
-    audio/include/SimpleAudioEngine.h
     ${COCOS_AUDIO_PLATFORM_HEADER}
     )
 list(APPEND COCOS_AUDIO_SRC ${COCOS_AUDIO_PLATFORM_SRC})

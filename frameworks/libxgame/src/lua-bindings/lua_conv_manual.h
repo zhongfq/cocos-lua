@@ -1,78 +1,77 @@
 #ifndef __LUA_CONV_MANUAL_H__
 #define __LUA_CONV_MANUAL_H__
 
-#include "xgame/xlua.h"
+#include "cclua/xlua.h"
 #include "cocos2d.h"
+#include "network/WebSocket.h"
 
-int manual_olua_push_cocos2d_Data(lua_State *L, const cocos2d::Data *value);
-int manual_olua_check_cocos2d_Data(lua_State *L, int idx, cocos2d::Data *value);
+#if COCOS2D_VERSION >= 0x00040000
+#include "renderer/backend/Backend.h"
+#endif
 
-int manual_olua_push_cocos2d_Mat4(lua_State *L, const cocos2d::Mat4 *value);
-void manual_olua_check_cocos2d_Mat4(lua_State *L, int idx, cocos2d::Mat4 *value);
-bool manual_olua_is_cocos2d_Mat4(lua_State *L, int idx);
+int olua_push_cocos2d_network_WebSocket_Data(lua_State *L, const cocos2d::network::WebSocket::Data *value);
+void olua_check_cocos2d_network_WebSocket_Data(lua_State *L, int idx, cocos2d::network::WebSocket::Data *value);
+bool olua_is_cocos2d_network_WebSocket_Data(lua_State *L, int idx);
+
+int olua_push_cocos2d_Data(lua_State *L, const cocos2d::Data *value);
+int olua_check_cocos2d_Data(lua_State *L, int idx, cocos2d::Data *value);
+int olua_is_cocos2d_Data(lua_State *L, int idx);
+
+int olua_push_cocos2d_Mat4(lua_State *L, const cocos2d::Mat4 *value);
+void olua_check_cocos2d_Mat4(lua_State *L, int idx, cocos2d::Mat4 *value);
+bool olua_is_cocos2d_Mat4(lua_State *L, int idx);
 
 // cocos2d::Color3B
-int manual_olua_push_cocos2d_Color3B(lua_State *L, const cocos2d::Color3B *value);
-void manual_olua_check_cocos2d_Color3B(lua_State *L, int idx, cocos2d::Color3B *value);
-bool manual_olua_is_cocos2d_Color3B(lua_State *L, int idx);
+int olua_push_cocos2d_Color3B(lua_State *L, const cocos2d::Color3B *value);
+void olua_check_cocos2d_Color3B(lua_State *L, int idx, cocos2d::Color3B *value);
+bool olua_is_cocos2d_Color3B(lua_State *L, int idx);
 
 // cocos2d::Color4B
-int manual_olua_push_cocos2d_Color4B(lua_State *L, const cocos2d::Color4B *value);
-void manual_olua_check_cocos2d_Color4B(lua_State *L, int idx, cocos2d::Color4B *value);
-bool manual_olua_is_cocos2d_Color4B(lua_State *L, int idx);
+int olua_push_cocos2d_Color4B(lua_State *L, const cocos2d::Color4B *value);
+void olua_check_cocos2d_Color4B(lua_State *L, int idx, cocos2d::Color4B *value);
+bool olua_is_cocos2d_Color4B(lua_State *L, int idx);
 
 // cocos2d::Color4F
-int manual_olua_push_cocos2d_Color4F(lua_State *L, const cocos2d::Color4F *value);
-void manual_olua_check_cocos2d_Color4F(lua_State *L, int idx, cocos2d::Color4F *value);
-bool manual_olua_is_cocos2d_Color4F(lua_State *L, int idx);
+int olua_push_cocos2d_Color4F(lua_State *L, const cocos2d::Color4F *value);
+void olua_check_cocos2d_Color4F(lua_State *L, int idx, cocos2d::Color4F *value);
+bool olua_is_cocos2d_Color4F(lua_State *L, int idx);
 
 // Vector
-template <typename T> int manual_olua_push_cocos2d_Vector(lua_State *L, const cocos2d::Vector<T*> &v, const char *cls)
+template <class T>
+void olua_insert_array(cocos2d::Vector<T> *array, T value)
 {
-    lua_newtable(L);
-    int i = 1;
-    for (const auto obj : v) {
-        if (obj == nullptr) {
-            continue;
-        }
-        olua_push_cppobj(L, obj, cls);
-        lua_rawseti(L, -2, i);
-        i++;
-    }
-    return 1;
+    array->pushBack(value);
 }
 
-template <typename T> void manual_olua_check_cocos2d_Vector(lua_State *L, int idx, cocos2d::Vector<T*> &v, const char *cls)
+// cocos2d::Map
+template <class K, class V>
+void olua_insert_map(cocos2d::Map<K, V> *map, K key, V value)
 {
-    luaL_checktype(L, idx, LUA_TTABLE);
-    size_t total = lua_rawlen(L, idx);
-    v.reserve(total);
-    for (int i = 1; i <= total; i++) {
-        lua_rawgeti(L, idx, i);
-        T* obj;
-        olua_check_cppobj(L, -1, (void **)&obj, cls);
-        v.pushBack(obj);
-        lua_pop(L, 1);
-    }
+    map->insert(key, value);
 }
 
-int manual_olua_push_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value);
-void manual_olua_check_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value);
-void manual_olua_pack_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value);
-int manual_olua_unpack_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value);
-bool manual_olua_is_cocos2d_Rect(lua_State *L, int idx);
-void manual_olua_pack_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::ccBezierConfig *value);
-void manual_olua_check_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::ccBezierConfig *value);
-bool manual_olua_is_cocos2d_Value(lua_State *L, int idx);
-void manual_olua_check_cocos2d_Value(lua_State *L, int idx, cocos2d::Value *value);
-int manual_olua_push_cocos2d_Value(lua_State *L, const cocos2d::Value *value);
-int manual_olua_is_cocos2d_ValueVector(lua_State *L, int idx);
-int manual_olua_push_cocos2d_ValueVector(lua_State *L, const cocos2d::ValueVector *value);
-void manual_olua_check_cocos2d_ValueVector(lua_State *L, int idx, cocos2d::ValueVector *value);
-int manual_olua_push_cocos2d_ValueMapIntKey(lua_State *L, const cocos2d::ValueMapIntKey *value);
-void manual_olua_check_cocos2d_ValueMapIntKey(lua_State *L, int idx, cocos2d::ValueMapIntKey *value);
-int manual_olua_is_cocos2d_ValueMapIntKey(lua_State *L, int idx);
-int manual_olua_push_cocos2d_ValueMap(lua_State *L, const cocos2d::ValueMap *value);
-void manual_olua_check_cocos2d_ValueMap(lua_State *L, int idx, cocos2d::ValueMap *value);
+int olua_push_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value);
+void olua_check_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value);
+void olua_pack_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value);
+int olua_unpack_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value);
+bool olua_is_cocos2d_Rect(lua_State *L, int idx);
+bool olua_is_cocos2d_Value(lua_State *L, int idx);
+void olua_check_cocos2d_Value(lua_State *L, int idx, cocos2d::Value *value);
+int olua_push_cocos2d_Value(lua_State *L, const cocos2d::Value *value);
+int olua_is_cocos2d_ValueVector(lua_State *L, int idx);
+int olua_push_cocos2d_ValueVector(lua_State *L, const cocos2d::ValueVector *value);
+void olua_check_cocos2d_ValueVector(lua_State *L, int idx, cocos2d::ValueVector *value);
+int olua_push_cocos2d_ValueMapIntKey(lua_State *L, const cocos2d::ValueMapIntKey *value);
+void olua_check_cocos2d_ValueMapIntKey(lua_State *L, int idx, cocos2d::ValueMapIntKey *value);
+int olua_is_cocos2d_ValueMapIntKey(lua_State *L, int idx);
+int olua_push_cocos2d_ValueMap(lua_State *L, const cocos2d::ValueMap *value);
+void olua_check_cocos2d_ValueMap(lua_State *L, int idx, cocos2d::ValueMap *value);
+
+#if COCOS2D_VERSION >= 0x00040000
+int olua_is_cocos2d_backend_UniformLocation(lua_State *L, int idx);
+int olua_push_cocos2d_backend_UniformLocation(lua_State *L, const cocos2d::backend::UniformLocation *value);
+void olua_check_cocos2d_backend_UniformLocation(lua_State *L, int idx, cocos2d::backend::UniformLocation *value);
+#endif
+
 
 #endif

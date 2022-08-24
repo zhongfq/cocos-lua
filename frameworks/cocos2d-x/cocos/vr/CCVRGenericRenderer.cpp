@@ -65,18 +65,18 @@ void VRGenericRenderer::setup(GLView* /*glview*/)
     // set origin to 0,0 in case origin is not 0,0
     auto vp = Camera::getDefaultViewport();
 
-    _leftEye.viewport._bottom = vp._bottom/2 + vp._height/4;
-    _leftEye.viewport._left = vp._left/4;
-    _leftEye.viewport._width = vp._width/2;
-    _leftEye.viewport._height = vp._height/2;
+    _leftEye.viewport.bottom = vp.bottom/2 + vp.height/4;
+    _leftEye.viewport.left = vp.left/4;
+    _leftEye.viewport.width = vp.width/2;
+    _leftEye.viewport.height = vp.height/2;
 
-    _rightEye.viewport._bottom = vp._bottom/2 + vp._height/4;
-    _rightEye.viewport._left = _leftEye.viewport._width + vp._left/2;
-    _rightEye.viewport._width = vp._width/2;
-    _rightEye.viewport._height = vp._height/2;
+    _rightEye.viewport.bottom = vp.bottom/2 + vp.height/4;
+    _rightEye.viewport.left = _leftEye.viewport.width + vp.left/2;
+    _rightEye.viewport.width = vp.width/2;
+    _rightEye.viewport.height = vp.height/2;
 
 
-    _texSize = Size(vp._width, vp._height);
+    _texSize = Size(vp.width, vp.height);
 
     _fb = experimental::FrameBuffer::create(1, _texSize.width, _texSize.height);
     _fb->retain();
@@ -168,8 +168,8 @@ DistortionMesh* VRGenericRenderer::createDistortionMesh(VREye::EyeType eyeType)
 
     const float screenWidth = _texSize.width;
     const float screenHeight = _texSize.height;
-    const float xEyeOffsetScreen = (eyeType == VREye::EyeType::LEFT) ? screenWidth/4 + vp._left : screenWidth*3/4 + vp._left;
-    const float yEyeOffsetScreen = screenHeight/2 + vp._bottom;
+    const float xEyeOffsetScreen = (eyeType == VREye::EyeType::LEFT) ? screenWidth/4 + vp.left : screenWidth*3/4 + vp.left;
+    const float yEyeOffsetScreen = screenHeight/2 + vp.bottom;
 
     const float textureWidth = _texSize.width;
     const float textureHeight = _texSize.height;

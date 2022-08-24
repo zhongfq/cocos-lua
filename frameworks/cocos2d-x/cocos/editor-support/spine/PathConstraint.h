@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated May 1, 2019. Replaces all prior versions.
+ * Last updated January 1, 2020. Replaces all prior versions.
  *
- * Copyright (c) 2013-2019, Esoteric Software LLC
+ * Copyright (c) 2013-2020, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -15,68 +15,84 @@
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
  *
- * THIS SOFTWARE IS PROVIDED BY ESOTERIC SOFTWARE LLC "AS IS" AND ANY EXPRESS
- * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
- * NO EVENT SHALL ESOTERIC SOFTWARE LLC BE LIABLE FOR ANY DIRECT, INDIRECT,
- * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
- * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES, BUSINESS
- * INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THE SPINE RUNTIMES ARE PROVIDED BY ESOTERIC SOFTWARE LLC "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL ESOTERIC SOFTWARE LLC BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
+ * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 #ifndef Spine_PathConstraint_h
 #define Spine_PathConstraint_h
 
-#include "spine/ConstraintData.h"
+#include <spine/ConstraintData.h>
 
-#include "spine/Vector.h"
+#include <spine/Vector.h>
 
 namespace spine {
 	class PathConstraintData;
+
 	class Skeleton;
+
 	class PathAttachment;
+
 	class Bone;
+
 	class Slot;
 
 	class SP_API PathConstraint : public Updatable {
 		friend class Skeleton;
+
 		friend class PathConstraintMixTimeline;
+
 		friend class PathConstraintPositionTimeline;
+
 		friend class PathConstraintSpacingTimeline;
 
-		RTTI_DECL
+	RTTI_DECL
 
 	public:
-		PathConstraint(PathConstraintData& data, Skeleton& skeleton);
+		PathConstraint(PathConstraintData &data, Skeleton &skeleton);
 
 		/// Applies the constraint to the constrained bones.
-		void apply();
+        void apply() {};
 
 		virtual void update();
 
 		virtual int getOrder();
 
 		float getPosition();
+
 		void setPosition(float inValue);
 
 		float getSpacing();
+
 		void setSpacing(float inValue);
 
-		float getRotateMix();
-		void setRotateMix(float inValue);
+		float getMixRotate();
 
-		float getTranslateMix();
-		void setTranslateMix(float inValue);
+		void setMixRotate(float inValue);
 
-		Vector<Bone*>& getBones();
+		float getMixX();
 
-		Slot* getTarget();
-		void setTarget(Slot* inValue);
+		void setMixX(float inValue);
 
-		PathConstraintData& getData();
+		float getMixY();
+
+		void setMixY(float inValue);
+
+		Vector<Bone *> &getBones();
+
+		Slot *getTarget();
+
+		void setTarget(Slot *inValue);
+
+		PathConstraintData &getData();
 
 		bool isActive();
 
@@ -88,10 +104,11 @@ namespace spine {
 		static const int BEFORE;
 		static const int AFTER;
 
-		PathConstraintData& _data;
-		Vector<Bone*> _bones;
-		Slot* _target;
-		float _position, _spacing, _rotateMix, _translateMix;
+		PathConstraintData &_data;
+		Vector<Bone *> _bones;
+		Slot *_target;
+		float _position, _spacing;
+		float _mixRotate, _mixX, _mixY;
 
 		Vector<float> _spaces;
 		Vector<float> _positions;
@@ -102,13 +119,15 @@ namespace spine {
 
 		bool _active;
 
-		Vector<float>& computeWorldPositions(PathAttachment& path, int spacesCount, bool tangents, bool percentPosition, bool percentSpacing);
+		Vector<float> &computeWorldPositions(PathAttachment &path, int spacesCount, bool tangents);
 
-		static void addBeforePosition(float p, Vector<float>& temp, int i, Vector<float>& output, int o);
+		static void addBeforePosition(float p, Vector<float> &temp, int i, Vector<float> &output, int o);
 
-		static void addAfterPosition(float p, Vector<float>& temp, int i, Vector<float>& output, int o);
+		static void addAfterPosition(float p, Vector<float> &temp, int i, Vector<float> &output, int o);
 
-		static void addCurvePosition(float p, float x1, float y1, float cx1, float cy1, float cx2, float cy2, float x2, float y2, Vector<float>& output, int o, bool tangents);
+		static void
+		addCurvePosition(float p, float x1, float y1, float cx1, float cy1, float cx2, float cy2, float x2, float y2,
+						 Vector<float> &output, int o, bool tangents);
 	};
 }
 

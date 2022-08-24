@@ -21,9 +21,6 @@
 		0E4C8BC4225C84B60095CF59 /* libxgame Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4C8BB0225C82AC0095CF59 /* libxgame Mac.a */; };
 		0E4C8BDD225C8BEF0095CF59 /* libfairygui iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4C8BB9225C82B50095CF59 /* libfairygui iOS.a */; };
 		0E4C8BDE225C8BF60095CF59 /* libxgame iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4C8BB2225C82AC0095CF59 /* libxgame iOS.a */; };
-		0E730C7C2272B4810067866B /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E730C752272B4810067866B /* libWeChatSDK.a */; };
-		0E730C842272B4910067866B /* lua_wechat_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E730C812272B4900067866B /* lua_wechat_ios.mm */; };
-		0E730C852272B4910067866B /* lua_wechat_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E730C812272B4900067866B /* lua_wechat_ios.mm */; };
 		0E7EC676240FDBE200251513 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E7EC675240FDBE200251513 /* AdSupport.framework */; };
 		0E7EC678240FDBF500251513 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E7EC677240FDBF500251513 /* AuthenticationServices.framework */; };
 		0EB8B3E6234EF24A004354EE /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3E5234EF24A004354EE /* libiconv.tbd */; };
@@ -32,7 +29,6 @@
 		0EB8B3EC234EF275004354EE /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3EB234EF275004354EE /* AVKit.framework */; };
 		0EB8B3EE234EF27B004354EE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3ED234EF27B004354EE /* CoreGraphics.framework */; };
 		0EB8B3F0234EF281004354EE /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3EF234EF281004354EE /* CoreMedia.framework */; };
-		0EB8B3F2234EF289004354EE /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3F1234EF289004354EE /* CoreMotion.framework */; };
 		0EB8B3F3234EF292004354EE /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3F1234EF289004354EE /* CoreMotion.framework */; };
 		0EB8B3F5234EF29D004354EE /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3F4234EF29D004354EE /* CoreTelephony.framework */; };
 		0EB8B3F7234EF2A3004354EE /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3F6234EF2A3004354EE /* CoreText.framework */; };
@@ -51,8 +47,11 @@
 		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
 		1AF87B781F6F77F7007BE51C /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1AF87B481F6F77D6007BE51C /* AppController.mm */; };
 		1AF87B881F6F781D007BE51C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AF87B591F6F77D6007BE51C /* LaunchScreen.storyboard */; };
-		1AF87B891F6F781D007BE51C /* LaunchScreenBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1AF87B5A1F6F77D6007BE51C /* LaunchScreenBackground.jpg */; };
 		1AF87B8A1F6F7822007BE51C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AF87B5B1F6F77D6007BE51C /* main.m */; };
+		3D1BCB6F28B5155D00C9AF35 /* LaunchScreenBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D1BCB6E28B5155C00C9AF35 /* LaunchScreenBackground.png */; };
+		3D6E081528B4D9D1008F1847 /* apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EECBD28B4D9B0008F1847 /* apple.mm */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		3D6E081628B4D9D1008F1847 /* lua_apple.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EECBE28B4D9B0008F1847 /* lua_apple.cpp */; };
+		3D6EECBA28B4D930008F1847 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EECB928B4D92F008F1847 /* RootViewController.mm */; };
 		46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8419C43A87006E1F66 /* AppDelegate.cpp */; };
 		46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8419C43A87006E1F66 /* AppDelegate.cpp */; };
 		503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 503AE0F617EB97AB00D1A890 /* Icon.icns */; };
@@ -200,12 +199,6 @@
 		0E4C8BAA225C82AC0095CF59 /* libxgame.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libxgame.xcodeproj; path = ../../frameworks/libxgame/proj.ios_mac/libxgame.xcodeproj; sourceTree = "<group>"; };
 		0E4C8BB3225C82B50095CF59 /* fairygui.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = fairygui.xcodeproj; path = ../../frameworks/libfairygui/proj.ios_mac/fairygui.xcodeproj; sourceTree = "<group>"; };
 		0E4C8BDF225C8FCA0095CF59 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
-		0E730C722272B4810067866B /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXApiObject.h; path = ../../frameworks/plugins/wechat/ios/WXApiObject.h; sourceTree = "<group>"; };
-		0E730C752272B4810067866B /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = ../../frameworks/plugins/wechat/ios/libWeChatSDK.a; sourceTree = "<group>"; };
-		0E730C762272B4810067866B /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXApi.h; path = ../../frameworks/plugins/wechat/ios/WXApi.h; sourceTree = "<group>"; };
-		0E730C772272B4810067866B /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WechatAuthSDK.h; path = ../../frameworks/plugins/wechat/ios/WechatAuthSDK.h; sourceTree = "<group>"; };
-		0E730C802272B4900067866B /* lua_wechat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lua_wechat.h; path = ../../frameworks/plugins/wechat/lua_wechat.h; sourceTree = "<group>"; };
-		0E730C812272B4900067866B /* lua_wechat_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = lua_wechat_ios.mm; path = ../../frameworks/plugins/wechat/lua_wechat_ios.mm; sourceTree = "<group>"; };
 		0E7EC675240FDBE200251513 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
 		0E7EC677240FDBF500251513 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/System/Library/Frameworks/AuthenticationServices.framework; sourceTree = DEVELOPER_DIR; };
 		0EB6C2AF23252CB4000F4D81 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.4.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -239,7 +232,6 @@
 		1AF87B481F6F77D6007BE51C /* AppController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppController.mm; sourceTree = "<group>"; };
 		1AF87B581F6F77D6007BE51C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AF87B591F6F77D6007BE51C /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		1AF87B5A1F6F77D6007BE51C /* LaunchScreenBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = LaunchScreenBackground.jpg; sourceTree = "<group>"; };
 		1AF87B5B1F6F77D6007BE51C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1AF87B5C1F6F77D6007BE51C /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -247,6 +239,13 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		294D0D631D0D56D500F7F5D4 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
+		3D1BCB6E28B5155C00C9AF35 /* LaunchScreenBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchScreenBackground.png; sourceTree = "<group>"; };
+		3D6EECB828B4D92F008F1847 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RootViewController.h; path = "../../../../cocos-lua/runtime-src/proj.ios_mac/ios/RootViewController.h"; sourceTree = "<group>"; };
+		3D6EECB928B4D92F008F1847 /* RootViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = RootViewController.mm; path = "../../../../cocos-lua/runtime-src/proj.ios_mac/ios/RootViewController.mm"; sourceTree = "<group>"; };
+		3D6EECBD28B4D9B0008F1847 /* apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = apple.mm; sourceTree = "<group>"; };
+		3D6EECBE28B4D9B0008F1847 /* lua_apple.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_apple.cpp; sourceTree = "<group>"; };
+		3D6EECBF28B4D9B0008F1847 /* lua_apple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_apple.h; sourceTree = "<group>"; };
+		3D6EECC028B4D9B0008F1847 /* apple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = apple.h; sourceTree = "<group>"; };
 		46880B8419C43A87006E1F66 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		46880B8519C43A87006E1F66 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		503AE0F617EB97AB00D1A890 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
@@ -290,7 +289,6 @@
 				0EB8B3FB234EF2B2004354EE /* GameController.framework in Frameworks */,
 				0EB8B40B234EF2E1004354EE /* WebKit.framework in Frameworks */,
 				1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */,
-				0E730C7C2272B4810067866B /* libWeChatSDK.a in Frameworks */,
 				0EB8B3F0234EF281004354EE /* CoreMedia.framework in Frameworks */,
 				0EB8B3FD234EF2B9004354EE /* OpenAL.framework in Frameworks */,
 				0E24B3E422701692000054C9 /* Bugly.framework in Frameworks */,
@@ -304,7 +302,6 @@
 				0EB8B403234EF2CA004354EE /* QuartzCore.framework in Frameworks */,
 				D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */,
 				0EB8B3F5234EF29D004354EE /* CoreTelephony.framework in Frameworks */,
-				0EB8B3F2234EF289004354EE /* CoreMotion.framework in Frameworks */,
 				0EB8B3FF234EF2BF004354EE /* OpenGLES.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,30 +372,9 @@
 		0E730C6F2272B44A0067866B /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
-				0E730C702272B4600067866B /* wechat */,
+				3D6EECBB28B4D9B0008F1847 /* apple */,
 			);
 			name = Plugins;
-			sourceTree = "<group>";
-		};
-		0E730C702272B4600067866B /* wechat */ = {
-			isa = PBXGroup;
-			children = (
-				0E730C712272B46A0067866B /* ios */,
-				0E730C812272B4900067866B /* lua_wechat_ios.mm */,
-				0E730C802272B4900067866B /* lua_wechat.h */,
-			);
-			name = wechat;
-			sourceTree = "<group>";
-		};
-		0E730C712272B46A0067866B /* ios */ = {
-			isa = PBXGroup;
-			children = (
-				0E730C752272B4810067866B /* libWeChatSDK.a */,
-				0E730C772272B4810067866B /* WechatAuthSDK.h */,
-				0E730C762272B4810067866B /* WXApi.h */,
-				0E730C722272B4810067866B /* WXApiObject.h */,
-			);
-			name = ios;
 			sourceTree = "<group>";
 		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
@@ -422,14 +398,16 @@
 		1AF87B461F6F77D6007BE51C /* ios */ = {
 			isa = PBXGroup;
 			children = (
-				1A88B2631FC3D9C9005C14AE /* Images.xcassets */,
 				1AF87B471F6F77D6007BE51C /* AppController.h */,
 				1AF87B481F6F77D6007BE51C /* AppController.mm */,
+				1A88B2631FC3D9C9005C14AE /* Images.xcassets */,
 				1AF87B581F6F77D6007BE51C /* Info.plist */,
 				1AF87B591F6F77D6007BE51C /* LaunchScreen.storyboard */,
-				1AF87B5A1F6F77D6007BE51C /* LaunchScreenBackground.jpg */,
+				3D1BCB6E28B5155C00C9AF35 /* LaunchScreenBackground.png */,
 				1AF87B5B1F6F77D6007BE51C /* main.m */,
 				1AF87B5C1F6F77D6007BE51C /* Prefix.pch */,
+				3D6EECB828B4D92F008F1847 /* RootViewController.h */,
+				3D6EECB928B4D92F008F1847 /* RootViewController.mm */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -511,6 +489,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3D6EECBB28B4D9B0008F1847 /* apple */ = {
+			isa = PBXGroup;
+			children = (
+				3D6EECC028B4D9B0008F1847 /* apple.h */,
+				3D6EECBD28B4D9B0008F1847 /* apple.mm */,
+				3D6EECBE28B4D9B0008F1847 /* lua_apple.cpp */,
+				3D6EECBF28B4D9B0008F1847 /* lua_apple.h */,
+			);
+			name = apple;
+			path = ../../frameworks/plugins/apple;
+			sourceTree = "<group>";
+		};
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -551,7 +541,6 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
-				0E4B932A226DC7B300B22B9F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -593,7 +582,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1340;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = 2566X92242;
@@ -710,7 +699,7 @@
 				1A88B2641FC3D9C9005C14AE /* Images.xcassets in Resources */,
 				0E1BFDF5231E440C004205A8 /* res in Resources */,
 				0E1BFDF9231E440C004205A8 /* builtin.manifest in Resources */,
-				1AF87B891F6F781D007BE51C /* LaunchScreenBackground.jpg in Resources */,
+				3D1BCB6F28B5155D00C9AF35 /* LaunchScreenBackground.png in Resources */,
 				1AF87B881F6F781D007BE51C /* LaunchScreen.storyboard in Resources */,
 				0E1BFDF7231E440C004205A8 /* src in Resources */,
 			);
@@ -729,35 +718,17 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		0E4B932A226DC7B300B22B9F /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "UPLOAD_SIMULATOR_SYMBOLS=0\nUPLOAD_DEBUG_SYMBOLS=0\nUPLOAD_ARCHIVE_ONLY=1\nBUGLY_APP_ID=\"546f1cf279\"\nBUGLY_APP_KEY=\"d21353e4-26c8-4f94-b646-cf88a225f039\"\nBUNDLE_IDENTIFIER=\"org.cocos2dx.hellolua\"\n. ../../frameworks/libxgame/src/bugly/dsymtool/dSYMUpload.sh\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				1AF87B781F6F77F7007BE51C /* AppController.mm in Sources */,
+				3D6E081528B4D9D1008F1847 /* apple.mm in Sources */,
+				3D6EECBA28B4D930008F1847 /* RootViewController.mm in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				1AF87B8A1F6F7822007BE51C /* main.m in Sources */,
-				0E730C842272B4910067866B /* lua_wechat_ios.mm in Sources */,
+				3D6E081628B4D9D1008F1847 /* lua_apple.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -767,7 +738,6 @@
 			files = (
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
-				0E730C852272B4910067866B /* lua_wechat_ios.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -826,15 +796,19 @@
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = 2566X92242;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../frameworks/libxgame/src/bugly/ios";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../frameworks/libxgame/src/bugly/";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../frameworks/cocos2d-x/external/openssl/include/ios",
+				);
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../frameworks/plugins/wechat/ios";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codetypes.hellolua;
@@ -854,14 +828,18 @@
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = 2566X92242;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../frameworks/libxgame/src/bugly/ios";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../frameworks/libxgame/src/bugly/";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../frameworks/cocos2d-x/external/openssl/include/ios",
+				);
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../frameworks/plugins/wechat/ios";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codetypes.hellolua;
@@ -882,6 +860,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = ../../runtime/mac;
 				DEVELOPMENT_TEAM = 2566X92242;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -890,6 +869,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)/../../frameworks/cocos2d-x/external/openssl/include/mac",
 					"$(SRCROOT)/../../frameworks/cocos2d-x/external/glfw3/include/mac",
 					"$(_COCOS_HEADER_MAC_BEGIN)",
 					"$(_COCOS_HEADER_MAC_END)",
@@ -911,6 +891,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2566X92242;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = mac/Prefix.pch;
@@ -918,6 +899,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)/../../frameworks/cocos2d-x/external/openssl/include/mac",
 					"$(SRCROOT)/../../frameworks/cocos2d-x/external/glfw3/include/mac",
 					"$(_COCOS_HEADER_MAC_BEGIN)",
 					"$(_COCOS_HEADER_MAC_END)",
@@ -949,6 +931,7 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -966,27 +949,40 @@
 					"CC_ENABLE_SCRIPT_BINDING=0",
 					"CC_FILEUTILS_APPLE_ENABLE_OBJC=0",
 					"CC_CONSTRUCTOR_ACCESS=public",
+					CCLUA_BUILD_FAIRYGUI,
+					CCLUA_BUILD_SPINE,
+					"'OLUA_USER_H=\"cclua/luauser.h\"'",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
+				GCC_WARN_UNUSED_VARIABLE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../../frameworks/cocos2d-x",
 					"$(SRCROOT)/../../frameworks/cocos2d-x/cocos",
+					"$(SRCROOT)/../../frameworks/cocos2d-x/cocos/editor-support",
+					"$(SRCROOT)/../../frameworks/libdragonbones/src",
 					"$(SRCROOT)/../../frameworks/libswf/Classes",
+					"$(SRCROOT)/../../frameworks/libfairygui/Classes",
 					"$(SRCROOT)/../../frameworks/libxgame/src",
-					"$(SRCROOT)/../../frameworks/libxgame/src/lua/src",
+					"$(SRCROOT)/../../frameworks/libxgame/src/lua",
+					"$(SRCROOT)/../../frameworks/libxgame/src/luaopenssl/deps/auxiliar",
 					"$(SRCROOT)/../../frameworks/plugins",
+					"$(SRCROOT)/../../frameworks/3rd",
 					"$(SRCROOT)/../Classes",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				WARNING_CFLAGS = (
+					"-Wno-conditional-uninitialized",
+					"-Wno-nullability-completeness",
+					"-Wno-unused-function",
+				);
 			};
 			name = Debug;
 		};
@@ -1009,6 +1005,7 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1023,28 +1020,41 @@
 					"CC_ENABLE_SCRIPT_BINDING=0",
 					"CC_FILEUTILS_APPLE_ENABLE_OBJC=0",
 					"CC_CONSTRUCTOR_ACCESS=public",
+					CCLUA_BUILD_FAIRYGUI,
+					CCLUA_BUILD_SPINE,
+					"'OLUA_USER_H=\"cclua/luauser.h\"'",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
+				GCC_WARN_UNUSED_VARIABLE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../../frameworks/cocos2d-x",
 					"$(SRCROOT)/../../frameworks/cocos2d-x/cocos",
+					"$(SRCROOT)/../../frameworks/cocos2d-x/cocos/editor-support",
+					"$(SRCROOT)/../../frameworks/libdragonbones/src",
 					"$(SRCROOT)/../../frameworks/libswf/Classes",
+					"$(SRCROOT)/../../frameworks/libfairygui/Classes",
 					"$(SRCROOT)/../../frameworks/libxgame/src",
-					"$(SRCROOT)/../../frameworks/libxgame/src/lua/src",
+					"$(SRCROOT)/../../frameworks/libxgame/src/lua",
+					"$(SRCROOT)/../../frameworks/libxgame/src/luaopenssl/deps/auxiliar",
 					"$(SRCROOT)/../../frameworks/plugins",
+					"$(SRCROOT)/../../frameworks/3rd",
 					"$(SRCROOT)/../Classes",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				VALIDATE_PRODUCT = YES;
+				WARNING_CFLAGS = (
+					"-Wno-conditional-uninitialized",
+					"-Wno-nullability-completeness",
+					"-Wno-unused-function",
+				);
 			};
 			name = Release;
 		};

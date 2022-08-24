@@ -1,5 +1,5 @@
-local class     = require "xgame.class"
-local Mediator  = require "xgame.Mediator"
+local class     = require "cclua.class"
+local Mediator  = require "cclua.Mediator"
 
 local TestScene2Mediator = class('TestScene2Mediator', Mediator)
 
@@ -11,7 +11,7 @@ function TestScene2Mediator:onCreate()
         print('update scene2')
     end)
     view:resolve('backBtn'):addClickListener(function ()
-        xGame:popScene()
+        cclua.popScene()
     end)
 end
 

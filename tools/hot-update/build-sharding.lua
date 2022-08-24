@@ -1,6 +1,6 @@
-local shell = require "core.shell"
+local toolset = require "toolset"
 
-local function writeManifest(conf, name, shard)
+local function write_manifest(conf, name, shard)
     local manifestPath = conf.BUILD_PATH .. '/' .. name
     local hasUpdate = false
     local data = {}
@@ -13,7 +13,7 @@ local function writeManifest(conf, name, shard)
         return v1.path < v2.path
     end)
 
-    local latestManifest = shell.readJson(conf.PUBLISH_PATH .. '/current/' .. name, {assets = {}})
+    local latestManifest = toolset.read_manifest(conf.PUBLISH_PATH .. '/current/' .. name, conf)
 
     writeline('{')
     writeline('  "package_url":"%s",', shard.package_url)
@@ -49,26 +49,20 @@ local function writeManifest(conf, name, shard)
     writeline('  }')
     writeline('}')
 
-    shell.write(manifestPath, table.concat(data, ''))
+    toolset.write_manifest(manifestPath, table.concat(data, ''), conf)
 end
 
 local function writeVersions(conf)
-    local data = {}
-    local function writeline(fmt, ...)
-        data[#data + 1] = string.format(fmt, ...)
-        data[#data + 1] = '\n'
-    end
-
     local assets = {}
     for _, m in ipairs(conf.SHARDS) do
-        local manifest = shell.readJson(conf.BUILD_PATH .. '/' .. m.NAME .. '.manifest')
-        assets[#assets + 1] = shell.format [[
+        local manifest = toolset.read_manifest(conf.BUILD_PATH .. '/' .. m.NAME .. '.manifest', conf)
+        assets[#assets + 1] = toolset.format [[
             {"name":"${m.NAME}", "url":"${manifest.manifest_url}", "version":"${manifest.version}"}
         ]]
     end
 
     assets = table.concat(assets, ',\n')
-    shell.write(conf.BUILD_PATH .. '/version.manifest', shell.format [[
+    toolset.write(conf.VERSION_MANIFEST_PATH, toolset.format [[
         {
             "runtime": "${conf.RUNTIME}",
             "assets": [
@@ -81,7 +75,7 @@ end
 return function (conf)
     print("start build shards:")
 
-    local manifest = shell.readJson(conf.ASSETS_MANIFEST_PATH)
+    local manifest = toolset.read_manifest(conf.ASSETS_MANIFEST_PATH, conf)
     for _, m in ipairs(conf.SHARDS) do
         local shard = {
             assets = {},
@@ -99,7 +93,7 @@ return function (conf)
                 end
             end
         end
-        writeManifest(conf, m.NAME .. '.manifest', shard)
+        write_manifest(conf, m.NAME .. '.manifest', shard)
     end
 
     if next(manifest.assets) then

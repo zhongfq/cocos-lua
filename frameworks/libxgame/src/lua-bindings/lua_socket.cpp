@@ -1,14 +1,14 @@
 #include "lua_socket.h"
-#include "xgame/xsocket.h"
-#include "xgame/xlua.h"
-#include "olua/olua.hpp"
+#include "cclua/Socket.h"
+#include "cclua/xlua.h"
+#include "olua/olua.h"
 
 #include <string.h>
 #include <stdlib.h>
 
-using namespace xgame;
+USING_NS_CCLUA;
 
-#define SOCKET_CLS "kernel.Socket"
+#define SOCKET_CLS "cclua.Socket"
 
 static int _socket_new(lua_State *L)
 {
@@ -328,7 +328,7 @@ static int _socket_write_bytes(lua_State *L)
 
 LUALIB_API int luaopen_socket(lua_State *L)
 {
-    oluacls_class(L, SOCKET_CLS, nullptr);
+    oluacls_class(L, "cclua.Socket", nullptr);
     oluacls_func(L, "__gc", _socket_gc);
     oluacls_func(L, "new", _socket_new);
     oluacls_func(L, "connect", _socket_connect);
@@ -359,8 +359,6 @@ LUALIB_API int luaopen_socket(lua_State *L)
     oluacls_func(L, "writeBytes", _socket_write_bytes);
     oluacls_prop(L, "bytesAvailable", _socket_bytes_available, NULL);
     oluacls_prop(L, "status", _socket_get_status, NULL);
-    
-    olua_registerluatype<Socket>(L, SOCKET_CLS);
 
     return 1;
 }

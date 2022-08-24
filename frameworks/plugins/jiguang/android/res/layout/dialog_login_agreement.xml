@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#7f000000">
+
+    <LinearLayout
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="71dp"
+        android:layout_marginBottom="169dp"
+        android:background="@drawable/shape_dailog_login_bg"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="用户协议示例"
+            android:textColor="#1A1A1A"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+
+        <!--android:scrollbars="none"-->
+        <!--android:fadeScrollbars="true"-->
+
+        <ScrollView
+            android:layout_marginTop="16dp"
+            android:layout_weight="10000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:lineSpacingExtra="4dp"
+                android:textColor="#4C4C4C"
+                android:text="本处仅作为示例使用，非强制弹窗。开发者在使用时可根据自身实际情况选择是否需要在此页面增加用户协议弹窗，如选择增加此弹窗可填写自己应用的用户协议。
+\n\n
+极光认证优势：\n
+1.覆盖全面：整合三大运营商，覆盖99.9%以上的用户 。\n
+2.提升体验：一键认证，用户无需输入手机号码、无需输入验证码，一键点击即可快速完成注册/登录流  程，提高转化率优化用户体验  。\n
+3.安全保障：告别明文短信验证码，降低被劫持风险。\n
+4.稳定高效 ：依托亿级推送业务技术架构，高并发处理认证请求 。\n
+5.便捷接入：快速完成SDK集成，无需额外开发成本。\n
+如果您想要快速地测试、请参考文档:\nhttps://docs.jiguang.cn/jverification/client/android_guide/在几分钟内跑通Demo。 \n
+极光认证文档网站上，有相关的所有指南、API、教程等全部的文档。包括本文档的更新版本，都会及时地发布到该网站上。\n" />
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:stateListAnimator="@null"
+                android:id="@+id/dialog_login_no"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@drawable/shape_dailog_login_bt_no"
+                android:text="不同意"
+                android:textColor="#666666"
+                android:textSize="16dp"
+                android:layout_margin="16dp"/>
+
+            <Button
+                android:stateListAnimator="@null"
+                android:id="@+id/dialog_login_yes"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@drawable/shape_dailog_login_bt_yes"
+                android:text="同意"
+                android:textColor="#FFFFFF"
+                android:textSize="16dp"
+                android:layout_margin="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -27,6 +27,7 @@
 #import "AppController.h"
 #import "cocos2d.h"
 #import "AppDelegate.h"
+#import "RootViewController.h"
 
 @implementation AppController
 
@@ -42,5 +43,9 @@ static AppDelegate s_sharedApplication;
     return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
-@end
+- (AppRootViewController *) createRootViewController
+{
+    return [RootViewController new];
+}
 
+@end

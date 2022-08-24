@@ -1,0 +1,6 @@
+framework module account_login_sdk_noui_core {
+  umbrella header "account_login_sdk_noui_core.h"
+
+  export *
+  module * { export * }
+}

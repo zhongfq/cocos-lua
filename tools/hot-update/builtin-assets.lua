@@ -1,11 +1,20 @@
-local shell     = require "core.shell"
-local simulator = require "core.simulator"
+local toolset = require "toolset"
+
+local function fixAPI()
+    require 'cclua.init'
+
+    local runtime = require "cclua.runtime"
+    runtime.packageName = 'com.codetypes.cclua'
+end
 
 -- local assetsPath = '../../assets'
 -- do
-return function (assetsPath, packageName)
-    shell.addSearchPath(assetsPath .. '')
-    shell.addSearchPath(assetsPath .. '/src')
+return function (assetsPath)
+    toolset.set_rootdir(assetsPath)
+    toolset.add_path(assetsPath .. '')
+    toolset.add_path(assetsPath .. '/src')
+
+    fixAPI()
 
     local assets = {}
 
@@ -31,7 +40,7 @@ return function (assetsPath, packageName)
 
     local function addFolder(dir, pattern)
         print(string.format("add folder: '%s' '%s'", dir, pattern))
-        for _, path in ipairs(shell.list(assetsPath .. '/' .. dir, pattern)) do
+        for _, path in ipairs(toolset.list(assetsPath .. '/' .. dir, pattern)) do
             if #dir > 0 then
                 addPath(dir .. '/' .. path)
             else
@@ -48,10 +57,9 @@ return function (assetsPath, packageName)
         end
     end
 
-    addPath('builtin.assets')
-    -- addFolder('', '*.lua')
-    addFolder('res', '*')
-    addFolder('src', '*')
+    -- addFolder('', '%.lua$')
+    addFolder('res')
+    addFolder('src')
 
     return assets
 end

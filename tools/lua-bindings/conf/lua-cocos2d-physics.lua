@@ -1,63 +1,28 @@
-local autoconf = require "autoconf"
-local M = autoconf.typemod 'cocos2d_physics'
-local typedef = M.typedef
-local typeconf = M.typeconf
-local typeconv = M.typeconv
+module 'cocos2d_physics'
 
-M.PATH = "../../frameworks/libxgame/src/lua-bindings"
-M.INCLUDES = [[
-#include "lua-bindings/lua_cocos2d_physics.h"
+path "../../frameworks/libxgame/src/lua-bindings"
+
+headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "lua-bindings/LuaCocosAdapter.h"
-#include "xgame/xlua.h"
-#include "xgame/xruntime.h"
+#include "cclua/xlua.h"
 #include "cocos2d.h"
 ]]
-M.CHUNK = [[
-using namespace cocos2d;
-]]
 
-M.MAKE_LUACLS = function (cppname)
+luacls(function (cppname)
     cppname = string.gsub(cppname, "^cocos2d::", "cc.")
     cppname = string.gsub(cppname, "::", ".")
     return cppname
-end
+end)
 
-M.EXCLUDE_TYPE = require "conf.exclude-type"
-
-typedef {
-    CPPCLS = 'cocos2d::PhysicsWorld',
-    CONV = 'olua_$$_cppobj',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::PhysicsShape',
-    CONV = 'olua_$$_cppobj',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::PhysicsContact',
-    CONV = 'olua_$$_cppobj',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::PhysicsContactPreSolve',
-    CONV = 'olua_$$_cppobj',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::PhysicsContactPostSolve',
-    CONV = 'olua_$$_cppobj',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::PhysicsRayCastInfo',
-    CONV = 'olua_$$_cppobj',
-}
+include "conf/exclude-type.lua"
 
 typeconv 'cocos2d::PhysicsMaterial'
 
+typeconf 'cocos2d::PhysicsRayCastCallbackFunc'
+typeconf 'cocos2d::PhysicsQueryRectCallbackFunc'
+typeconf 'cocos2d::PhysicsQueryPointCallbackFunc'
 typeconf 'cocos2d::EventListenerPhysicsContact'
 typeconf 'cocos2d::EventListenerPhysicsContactWithGroup'
 typeconf 'cocos2d::EventListenerPhysicsContactWithBodies'
@@ -90,16 +55,6 @@ typeconf 'cocos2d::PhysicsShapeEdgeChain'
 typeconf 'cocos2d::PhysicsShapeEdgeSegment'
 typeconf 'cocos2d::PhysicsRayCastInfo'
 
-local PhysicsWorld = typeconf 'cocos2d::PhysicsWorld'
-PhysicsWorld.CALLBACK {NAME = 'setPreUpdateCallback', NULLABLE = true}
-PhysicsWorld.CALLBACK {NAME = 'setPostUpdateCallback', NULLABLE = true}
-PhysicsWorld.FUNC('getScene', [[
-{
-    auto self = olua_toobj<cocos2d::PhysicsWorld>(L, 1);
-    cocos2d::Scene &scene = self->getScene();
-    olua_push_cppobj<cocos2d::Scene>(L, &scene);
-    return 1;
-}]])
-PhysicsWorld.PROP('scene')
-
-return M
+typeconf 'cocos2d::PhysicsWorld'
+    .callback 'setPreUpdateCallback' .arg1 '@nullable'
+    .callback 'setPostUpdateCallback' .arg1 '@nullable'

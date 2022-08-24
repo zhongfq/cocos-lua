@@ -4,8 +4,12 @@
 #ifndef __AUTO_GEN_LUA_XGAME_H__
 #define __AUTO_GEN_LUA_XGAME_H__
 
-#include "xgame/xlua.h"
+#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_conv_manual.h"
+#include "cclua/cclua.h"
 
-LUALIB_API int luaopen_xgame(lua_State *L);
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_xgame(lua_State *L);
+OLUA_END_DECLS
 
 #endif

@@ -35,7 +35,11 @@
 #include "base/CCDirector.h"
 #include "2d/CCLabel.h"
 
+// avoid xcode 12 build error:
+// Property with 'retain (or strong)' attribute must be of object type
+#define strong assign
 #import <GameController/GameController.h>
+#undef strong
 
 typedef void (^GCControllerConnectionBlock)(GCController* controller);
 typedef void (^GCControllerDisconnectionBlock)(GCController* controller);

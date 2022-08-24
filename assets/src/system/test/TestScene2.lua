@@ -1,5 +1,5 @@
-local class     = require "xgame.class"
-local UIScene   = require "xgame.ui.UIScene"
+local class     = require "cclua.class"
+local UIScene   = require "cclua.ui.UIScene"
 local UIPackage = require "fgui.UIPackage"
 local GRoot     = require "fgui.GRoot"
 

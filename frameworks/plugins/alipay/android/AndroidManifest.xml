@@ -1,0 +1,6 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cclua.plugin.aliapy">
+    <application>
+        <meta-data android:name="cclua.plugin.alipay.Alipay" android:value="true" />
+    </application>
+</manifest>

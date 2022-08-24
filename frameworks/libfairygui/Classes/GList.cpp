@@ -56,6 +56,11 @@ GList::~GList()
     scrollItemToViewOnClick = false;
 }
 
+void GList::setDefaultItem(const std::string& value)
+{ 
+    _defaultItem = UIPackage::normalizeURL(value);
+}
+
 void GList::setLayout(ListLayoutType value)
 {
     if (_layout != value)
@@ -1073,7 +1078,6 @@ void GList::setNumItems(int value)
         if (_virtualListChanged != 0)
             CALL_LATER_CANCEL(GList, doRefreshVirtualList);
 
-        //����ˢ��
         doRefreshVirtualList();
     }
     else
@@ -2476,7 +2480,7 @@ void GList::readItems(ByteBuffer* buffer)
     int itemCount = buffer->readShort();
     for (int i = 0; i < itemCount; i++)
     {
-        int nextPos = buffer->readShort();
+        int nextPos = buffer->readUshort();
         nextPos += buffer->getPos();
 
         str = buffer->readSP();

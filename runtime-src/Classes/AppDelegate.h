@@ -25,16 +25,18 @@
 #ifndef  _APP_DELEGATE_H_
 #define  _APP_DELEGATE_H_
 
-#include "xgame/xruntime.h"
+#include "cocos2d.h"
+#include "cclua/runtime.h"
 
 /**
 @brief    The cocos2d Application.
 
 Private inheritance here hides part of interface from Director.
 */
-class  AppDelegate : public xgame::RuntimeContext
+class  AppDelegate : public cclua::RuntimeContext
 {
 public:
+    public:
     virtual void initGLContextAttrs();
     virtual bool applicationDidFinishLaunching();
 };

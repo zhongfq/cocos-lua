@@ -1,7 +1,6 @@
-return {
-    HEADERS = [[
+clang {
+    headers = [[
         #include "audio/include/AudioEngine.h"
-        #include "audio/include/SimpleAudioEngine.h"
         #include "base/TGAlib.h"
         #include "cocos2d.h"
         #include "ui/CocosGUI.h"
@@ -10,24 +9,32 @@ return {
         #include "vr/CCVRGenericRenderer.h"
 
         #include "FairyGUI.h"
+        #include "GLoader3D.h"
         #include "tween/EaseManager.h"
         #include "tween/GPath.h"
         #include "display/FUISprite.h"
+        #include "utils/html/HtmlElement.h"
+        #include "utils/html/HtmlObject.h"
+        #include "utils/html/HtmlParser.h"
 
         #include "spine/spine-cocos2dx.h"
 
-        #include "xgame/xfilesystem.h"
-        #include "xgame/xfilefinder.h"
-        #include "xgame/xruntime.h"
-        #include "xgame/xpreferences.h"
-        #include "xgame/xdownloader.h"
-        #include "xgame/xrootscene.h"
-        #include "xgame/xtimer.h"
+        #include "cclua/cclua.h"
         #include "lua-bindings/LuaCocosAdapter.h"
 
         #include "CCDragonBonesHeaders.h"
+
+        #include "alipay/alipay.h"
+        #include "apple/apple.h"
+        #include "bugly/CrashReport.h"
+        #include "huawei/huawei.h"
+        #include "jiguang/jiguang.h"
+        #include "oppo/oppo.h"
+        #include "talkingdata/talkingdata.h"
+        #include "vivo/vivo.h"
+        #include "wechat/wechat.h"
     ]],
-    FLAGS = {
+    flags = {
         '-DCC_CONSTRUCTOR_ACCESS=public',
         '-DCC_ENABLE_SCRIPT_BINDING=0',
         '-DSPINE_USE_STD_FUNCTION',
@@ -38,15 +45,7 @@ return {
         '-I../../frameworks/libfairygui/Classes',
         '-I../../frameworks/libdragonbones/src',
         '-I../../frameworks/libxgame/src',
-        '-I../../frameworks/libxgame/src/lua/src',
-
-        '-x', 'c++', '-nostdinc', '-std=c++11',
-        '-U__SSE__',
-        '-DANDROID', '-target', 'armv7-none-linux-androideabi',
-
-        '-idirafter', '${HOMEDIR}/include/c++',
-        '-idirafter', '${HOMEDIR}/include/c',
-        '-idirafter', '${HOMEDIR}/include/android-sysroot/x86_64-linux-android',
-        '-idirafter', '${HOMEDIR}/include/android-sysroot',
+        '-I../../frameworks/libxgame/src/lua',
+        '-I../../frameworks/plugins',
     },
 }

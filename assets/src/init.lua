@@ -1,6 +1,6 @@
-local window        = require "kernel.window"
-local runtime       = require "kernel.runtime"
-local timer         = require "kernel.timer"
+local window        = require "cclua.window"
+local runtime       = require "cclua.runtime"
+local timer         = require "cclua.timer"
 local Director      = require "cc.Director"
 local olua          = require "olua"
 
@@ -8,8 +8,9 @@ olua.debug(DEBUG)
 
 -- enable lua debug
 if DEBUG then
-    local hanlder = require("xgame.LuaDebug")("localhost", 7003)
-    timer.schedule(0, hanlder)
+    -- require("LuaPanda").start("127.0.0.1", 8818)
+    -- local hanlder = require("LuaDebug")("localhost", 7003)
+    -- timer.schedule(0, hanlder)
 end
 
 -- set window size on mac or win
@@ -17,13 +18,9 @@ if runtime.os == 'mac' or runtime.os == 'win32' then
     window.setFrameSize(900, 500)
 end
 
--- print runtime info
-runtime.printSupport()
-
 -- set status & frame rate
-local director = Director.instance
-director:setAnimationInterval(1 / 60)
-director:setDisplayStats(DEBUG)
+runtime.frameRate = 60
+runtime.displayStats = DEBUG
 
 -- init design size
 local DESIGN_WIDTH = 1334

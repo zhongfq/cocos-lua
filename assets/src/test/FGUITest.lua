@@ -1,8 +1,8 @@
-local class         = require "xgame.class"
-local util          = require "xgame.util"
-local timer         = require "xgame.timer"
-local UIScene       = require "xgame.ui.UIScene"
-local FGUINode      = require "xgame.ui.FGUINode"
+local class         = require "cclua.class"
+local util          = require "cclua.util"
+local timer         = require "cclua.timer"
+local UIScene       = require "cclua.ui.UIScene"
+local FGUINode      = require "cclua.ui.FGUINode"
 local UIPackage     = require "fgui.UIPackage"
 local GRoot         = require "fgui.GRoot"
 local Window        = require "fgui.Window"
@@ -21,7 +21,7 @@ function FGUITest:ctor()
     window.contentPane = UIPackage.createObject("Bag", "BagWin")
     -- window:center()
     window.modal = true
-    local list = window.contentPane:getChild("list")
+    local list = window.contentPane.list
     list.itemRenderer = function (index, obj)
         obj.icon = string.format('res/fui/icons/i%d.png', math.random(0, 9))
         obj.text = string.format('%d', math.random(1, 100))
@@ -42,7 +42,7 @@ function FGUITest:ctor()
     local g5 = UIPackage.createObject("Transition", "PowerUp")
     g5:getTransition("t0"):setHook("play_num_now", function ()
         GTween.to(startValue, endValue, 0.3):onUpdate(function (tweener)
-            g5:getChild("value").text = tostring(tweener.value.x)
+            g5.value.text = tostring(tweener.value.x)
         end)
     end)
 
@@ -59,31 +59,31 @@ function FGUITest:ctor()
         end)
     end
 
-    view:getChild("btn0"):addClickListener(function ()
+    view.btn0:addClickListener(function ()
         collectgarbage('collect')
         play(g1)
     end)
-    view:getChild("btn1"):addClickListener(function ()
+    view.btn1:addClickListener(function ()
         collectgarbage('collect')
         play(g2)
     end)
-    view:getChild("btn2"):addClickListener(function ()
+    view.btn2:addClickListener(function ()
         collectgarbage('collect')
         play(g3)
-        xGame:popScene()
+        cclua.popScene()
         timer.delay(4, function ()
             print('gc')
             collectgarbage('collect')
         end)
     end)
 
-    view:getChild("btn3"):addClickListener(function ()
+    view.btn3:addClickListener(function ()
         print("click btn3")
         window:show()
         util.dumpUserValue(root)
     end)
 
-    view:getChild("btn4"):addClickListener(function ()
+    view.btn4:addClickListener(function ()
         print("click btn4")
         local window = Window.create()
         window.contentPane = UIPackage.createObject("Bag", "BagWin")

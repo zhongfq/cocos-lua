@@ -1,6 +1,6 @@
 package com.codetypes.hellolua.wxapi;
 
-import kernel.plugins.wechat.WeChatEntryActivity;
+import cclua.plugin.wechat.WeChatEntryActivity;
 
 public class WXEntryActivity extends WeChatEntryActivity {
 }

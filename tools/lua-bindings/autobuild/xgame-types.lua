@@ -1,109 +1,159 @@
 -- AUTO BUILD, DON'T MODIFY!
 
-local olua = require "olua"
-local typedef = olua.typedef
-
 typedef {
-    CPPCLS = 'xgame::downloader::FileTask',
-    LUACLS = nil,
-    DECLTYPE = nil,
-    CONV = 'auto_olua_$$_xgame_downloader_FileTask',
-    NUMVARS = 4,
+    conv = 'olua_$$_cclua_window_Bounds',
+    cppcls = 'cclua::window::Bounds',
 }
 
 typedef {
-    CPPCLS = 'xgame::SceneNoCamera *',
-    LUACLS = 'kernel.SceneNoCamera',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'cclua::Callback',
+    luacls = 'cclua.Callback',
+    decltype = 'std::function<void (const std::string &, const cocos2d::Value &)>',
+    conv = 'olua_$$_callback',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'xgame::Permission',
-    LUACLS = 'kernel.Permission',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'cclua::Lame::VBRMode',
+    luacls = 'cclua.Lame.VBRMode',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'xgame::PermissionStatus',
-    LUACLS = 'kernel.PermissionStatus',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'cclua::Lame *',
+    luacls = 'cclua.Lame',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'xgame::runtime *',
-    LUACLS = 'kernel.runtime',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'cclua::QRCode::ECLevel',
+    luacls = 'cclua.QRCode.ECLevel',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'xgame::filesystem *',
-    LUACLS = 'kernel.filesystem',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'cclua::QRCode::EncodeMode',
+    luacls = 'cclua.QRCode.EncodeMode',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'xgame::preferences *',
-    LUACLS = 'kernel.preferences',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'cclua::QRCode *',
+    luacls = 'cclua.QRCode',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'xgame::timer *',
-    LUACLS = 'kernel.timer',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'cclua::SceneNoCamera *',
+    luacls = 'cclua.SceneNoCamera',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'xgame::window *',
-    LUACLS = 'kernel.window',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'cclua::permission::status *',
+    luacls = 'cclua.permission.status',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'xgame::downloader::FileState',
-    LUACLS = 'kernel.downloader.FileState',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'cclua::permission::android *',
+    luacls = 'cclua.permission.android',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'xgame::downloader *',
-    LUACLS = 'kernel.downloader',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'cclua::permission *',
+    luacls = 'cclua.permission',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'xgame::MaskLayout *',
-    LUACLS = 'kernel.MaskLayout',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'cclua::runtime *',
+    luacls = 'cclua.runtime',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'xgame::FileFinder *',
-    LUACLS = 'kernel.FileFinder',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'cclua::filesystem *',
+    luacls = 'cclua.filesystem',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'cclua::preferences *',
+    luacls = 'cclua.preferences',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'cclua::timer *',
+    luacls = 'cclua.timer',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'cclua::window *',
+    luacls = 'cclua.window',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'cclua::downloader *',
+    luacls = 'cclua.downloader',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'cclua::Container *',
+    luacls = 'cclua.Container',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'cclua::microphone *',
+    luacls = 'cclua.microphone',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'cclua::photo *',
+    luacls = 'cclua.photo',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 

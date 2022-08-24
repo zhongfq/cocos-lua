@@ -9,7 +9,6 @@ set(LAME_HEADER
     src/lame/lame.h
     src/lame/lame_global_flags.h
     src/lame/lameerror.h
-    src/lame/lua_lame.h
     src/lame/machine.h
     src/lame/newmdct.h
     src/lame/psymodel.h
@@ -31,7 +30,6 @@ set(LAME_SRC
     src/lame/gain_analysis.c
     src/lame/id3tag.c
     src/lame/lame.c
-    src/lame/lua_lame.cpp
     src/lame/mpglib_interface.c
     src/lame/newmdct.c
     src/lame/presets.c

@@ -1,0 +1,6 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cclua.plugin.wechat">
+    <application>
+        <meta-data android:name="cclua.plugin.wechat.WeChat" android:value="true" />
+    </application>
+</manifest>

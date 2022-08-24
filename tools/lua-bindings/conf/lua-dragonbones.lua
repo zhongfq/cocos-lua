@@ -1,50 +1,41 @@
-local autoconf = require "autoconf"
-local M = autoconf.typemod 'dragonbones'
-local typeconf = M.typeconf
-local typedef = M.typedef
-local typeconv = M.typeconv
+module 'dragonbones'
 
-M.PATH = "../../frameworks/libxgame/src/lua-bindings"
-M.INCLUDES = [[
-#include "lua-bindings/lua_dragonbones.h"
+path "../../frameworks/libxgame/src/lua-bindings"
+
+headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "xgame/xlua.h"
-#include "xgame/xruntime.h"
 #include "cocos2d.h"
 #include "CCDragonBonesHeaders.h"
 ]]
-M.CHUNK = [[]]
 
-typeconv 'dragonBones::Rectangle'
+luaopen [[cclua::runtime::registerFeature("dragonbones", true);]]
 
-M.MAKE_LUACLS = function (cppname)
+luacls(function (cppname)
     cppname = string.gsub(cppname, "^dragonBones::CC", "db.")
     cppname = string.gsub(cppname, "^dragonBones::", "db.")
     cppname = string.gsub(cppname, "::", ".")
     return cppname
-end
+end)
 
-M.EXCLUDE_TYPE = require "conf.exclude-type"
-M.EXCLUDE_TYPE 'dragonBones::Matrix *'
-M.EXCLUDE_TYPE 'dragonBones::Matrix'
-M.EXCLUDE_TYPE 'dragonBones::WorldClock'
-M.EXCLUDE_TYPE 'dragonBones::Transform *'
-M.EXCLUDE_TYPE 'dragonBones::Transform'
-M.EXCLUDE_TYPE 'dragonBones::Point'
-M.EXCLUDE_TYPE 'dragonBones::ColorTransform'
-M.EXCLUDE_TYPE 'dragonBones::ColorTransform *'
-M.EXCLUDE_TYPE 'dragonBones::Rectangle *'
-M.EXCLUDE_TYPE 'dragonBones::MeshDisplayData *'
-M.EXCLUDE_TYPE 'dragonBones::CanvasData *'
-M.EXCLUDE_TYPE 'dragonBones::IArmatureProxy *'
-M.EXCLUDE_TYPE 'dragonBones::IEventDispatcher *'
-M.EXCLUDE_TYPE 'std::vector *'
+include "conf/exclude-type.lua"
 
-M.EXCLUDE_PASS = function (cppcls, fn, decl)
-    return string.find(fn, '^_') or string.find(decl, 'std::map')
-end
+exclude 'dragonBones::Matrix *'
+exclude 'dragonBones::Matrix'
+exclude 'dragonBones::WorldClock'
+exclude 'dragonBones::Transform *'
+exclude 'dragonBones::Transform'
+exclude 'dragonBones::Point'
+exclude 'dragonBones::ColorTransform'
+exclude 'dragonBones::ColorTransform *'
+exclude 'dragonBones::Rectangle *'
+exclude 'dragonBones::MeshDisplayData *'
+exclude 'dragonBones::CanvasData *'
+exclude 'dragonBones::IArmatureProxy *'
+exclude 'dragonBones::IEventDispatcher *'
+exclude 'std::vector *'
 
+typeconv 'dragonBones::Rectangle'
 
 typeconf 'dragonBones::BinaryOffset'
 typeconf 'dragonBones::ArmatureType'
@@ -70,8 +61,8 @@ typeconf 'dragonBones::IAnimatable'
 typeconf 'dragonBones::WorldClock'
 
 typeconf 'dragonBones::Slot'
-    .EXCLUDE 'getDisplayList'
-    .EXCLUDE 'setDisplayList'
+    .exclude 'getDisplayList'
+    .exclude 'setDisplayList'
 
 typeconf 'dragonBones::Bone'
 typeconf 'dragonBones::DisplayData'
@@ -82,39 +73,45 @@ typeconf 'dragonBones::BoundingBoxDisplayData'
 typeconf 'dragonBones::CanvasData'
 
 typeconf 'dragonBones::TextureAtlasData'
-    .EXCLUDE 'copyFrom'
+    .exclude 'copyFrom'
 
 typeconf 'dragonBones::TextureData'
-    .EXCLUDE 'copyFrom'
+    .exclude 'copyFrom'
 
 typeconf 'dragonBones::ArmatureData'
+
 typeconf 'dragonBones::SkinData'
+    .exclude 'getSlotDisplays'
+    .exclude 'displays'
+
 typeconf 'dragonBones::BoneData'
 typeconf 'dragonBones::SlotData'
 typeconf 'dragonBones::AnimationState'
+
 typeconf 'dragonBones::AnimationData'
+    .exclude 'boneTimelines'
+    .exclude 'slotTimelines'
+    .exclude 'constraintTimelines'
+    .exclude 'boneCachedFrameIndices'
+    .exclude 'slotCachedFrameIndices'
+
 typeconf 'dragonBones::AnimationConfig'
 typeconf 'dragonBones::DragonBonesData'
 
 typeconf 'dragonBones::BaseFactory'
+    .exclude 'getAllTextureAtlasData'
 
-local Armature = typeconf 'dragonBones::Armature'
-Armature.SUPERCLS = 'dragonBones::BaseObject'
+typeconf 'dragonBones::Armature'
+    .supercls 'dragonBones::BaseObject'
 
 typeconf 'dragonBones::Animation'
 typeconf 'dragonBones::CCFactory'
 
 typeconf 'dragonBones::CCArmatureDisplay'
-    .CALLBACK {
-        NAME = 'addDBEventListener',
-        TAG_MAKER = '(#1)',
-        TAG_MODE = 'OLUA_TAG_NEW',
-    }
-    .CALLBACK {
-        NAME = 'removeDBEventListener',
-        TAG_MAKER = '(#1)',
-        TAG_MODE = 'OLUA_TAG_SUBEQUAL',
-        NULLABLE = true,
-    }
-
-return M
+    .callback 'addDBEventListener'
+        .tag_maker '(#1)'
+        .tag_mode 'new'
+    .callback 'removeDBEventListener'
+        .tag_maker '(#1)'
+        .tag_mode 'subequal'
+        .arg2 '@nullable'

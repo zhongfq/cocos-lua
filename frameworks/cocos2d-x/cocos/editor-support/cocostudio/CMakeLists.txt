@@ -85,6 +85,7 @@ set(COCOS_CS_HEADER
     editor-support/cocostudio/CCComExtensionData.h
     editor-support/cocostudio/CCComController.h
     editor-support/cocostudio/TriggerObj.h
+    editor-support/cocostudio/SimpleAudioEngine.h
     editor-support/cocostudio/CocoLoader.h
     editor-support/cocostudio/CCColliderDetector.h
     editor-support/cocostudio/LocalizationManager.h
@@ -133,6 +134,7 @@ set(COCOS_CS_SRC
     editor-support/cocostudio/TriggerBase.cpp
     editor-support/cocostudio/TriggerMng.cpp
     editor-support/cocostudio/TriggerObj.cpp
+    editor-support/cocostudio/SimpleAudioEngine.cpp
     editor-support/cocostudio/FlatBuffersSerialize.cpp
     editor-support/cocostudio/CCComExtensionData.cpp
     editor-support/cocostudio/CocoStudio.cpp

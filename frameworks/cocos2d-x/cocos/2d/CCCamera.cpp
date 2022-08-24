@@ -461,12 +461,12 @@ void Camera::applyViewport()
 
     if(nullptr == _fbo)
     {
-        glViewport(getDefaultViewport()._left, getDefaultViewport()._bottom, getDefaultViewport()._width, getDefaultViewport()._height);
+        glViewport(getDefaultViewport().left, getDefaultViewport().bottom, getDefaultViewport().width, getDefaultViewport().height);
     }
     else
     {
-        glViewport(_viewport._left * _fbo->getWidth(), _viewport._bottom * _fbo->getHeight(),
-                   _viewport._width * _fbo->getWidth(), _viewport._height * _fbo->getHeight());
+        glViewport(_viewport.left * _fbo->getWidth(), _viewport.bottom * _fbo->getHeight(),
+                   _viewport.width * _fbo->getWidth(), _viewport.height * _fbo->getHeight());
     }
 }
 

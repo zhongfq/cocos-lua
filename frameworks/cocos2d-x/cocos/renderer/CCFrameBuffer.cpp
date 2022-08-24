@@ -37,17 +37,17 @@ FrameBuffer* FrameBuffer::_defaultFBO = nullptr;
 std::set<FrameBuffer*> FrameBuffer::_frameBuffers;
 
 Viewport::Viewport(float left, float bottom, float width, float height)
-: _left(left)
-, _bottom(bottom)
-, _width(width)
-, _height(height)
+: left(left)
+, bottom(bottom)
+, width(width)
+, height(height)
 {
 }
 
 Viewport::Viewport()
 {
-    _left = _bottom = 0.f;
-    _width = _height = 1.0f;
+    left = bottom = 0.f;
+    width = height = 1.0f;
 }
 
 RenderTargetBase::RenderTargetBase()

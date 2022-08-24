@@ -40,7 +40,7 @@ public:
     bool isShrinkOnly() const { return _shrinkOnly; }
     void setShrinkOnly(bool value);
 
-    const cocos2d::Size& getContentSize() { return _contentSize; }
+    const cocos2d::Size& getContentSize();
 
     cocos2d::Color3B getColor() const;
     void setColor(const cocos2d::Color3B& value);
@@ -96,8 +96,6 @@ private:
     bool _shrinkOnly;
     bool _updatingLayout;
     PackageItem* _contentItem;
-    cocos2d::Size _contentSize;
-    cocos2d::Size _contentSourceSize;
     int _contentStatus;
     bool _playing;
     int _frame;

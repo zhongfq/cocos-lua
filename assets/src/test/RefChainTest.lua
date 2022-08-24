@@ -1,7 +1,7 @@
 local _ENV = setmetatable({}, {__index = _ENV})
 
-local runtime   = require "kernel.runtime"
-local timer     = require "kernel.timer"
+local runtime   = require "cclua.runtime"
+local timer     = require "cclua.timer"
 local Director  = require "cc.Director"
 local Scene     = require "cc.Scene"
 local Node      = require "cc.Node"

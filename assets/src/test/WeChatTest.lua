@@ -1,11 +1,11 @@
-local util          = require "xgame.util"
+local util          = require "cclua.util"
 local Director      = require "cc.Director"
 local Scene         = require "cc.Scene"
 local Sprite        = require "cc.Sprite"
 local Layout        = require "ccui.Layout"
-local filesystem    = require "xgame.filesystem"
-local wechat        = require "xgame.plugins.wechat"
-local PluginEvent   = require "xgame.plugins.PluginEvent"
+local filesystem    = require "cclua.filesystem"
+local wechat        = require "cclua.plugin.wechat"
+local PluginEvent   = require "cclua.plugin.PluginEvent"
 
 local function new()
     local scene = Scene.create()

@@ -1,29 +1,23 @@
-local class         = require "xgame.class"
-local Event         = require "xgame.event.Event"
-local MixFGUI       = require "xgame.ui.MixFGUI"
-local ui            = require "xgame.ui.ui"
-local runtime       = require "xgame.runtime"
+local class         = require "cclua.class"
+local R             = require "cclua.R"
+local Mediator      = require "cclua.Mediator"
+local Event         = require "cclua.Event"
+local FGUI          = require "cclua.ui.FGUI"
+local ui            = require "cclua.ui.ui"
+local runtime       = require "cclua.runtime"
 local UIPackage     = require "fgui.UIPackage"
 local UIEventType   = require "fgui.UIEventType"
 local FileBrowser   = require "system.console.FileBrowser"
 local LogCat        = require "system.console.LogCat"
 
-local Console = class("Console", MixFGUI)
+local CONSOLE_RES = 'res/ui/console.fui'
 
-function Console:ctor()
-end
+local M = class("Console", Mediator)
 
-function Console:onCreate()
-    UIPackage.addPackage("res/ui/console")
+function M:onCreate()
+    Mediator.onCreate(self)
 
-    self.view = UIPackage.createObject("console", "main")
-    self.view.width = self.width
-    self.view.height = self.height
-    self.rootfgui.name = 'console'
-    self.rootfgui:addChild(self.view)
-    self.rootfgui:setSize(self.width, self.height)
-
-    local tabController = self.view:resolve('panel#tab')
+    local tabController = self.view.fgui:resolve('panel#tab')
     tabController:addEventListener(UIEventType.Changed, function ()
         local prev = self.tab[tabController.previousPage]
         local curr = self.tab[tabController.selectedPage]
@@ -41,14 +35,6 @@ function Console:onCreate()
 
     local fileBrowser = FileBrowser.new(self, 'https://codetypes.com/testswf/')
     fileBrowser:addListener(Event.SELECT, function (_, data)
-        if string.find(data.url, '%.swf$') then
-            self.visible = false
-            self.contentLoader.visible = false
-            xGame:startScene('system.console.TestSWF', data.url, function ()
-                self.visible = true
-                self.contentLoader.visible = true
-            end)
-        end
     end)
 
     self.tab = {
@@ -57,7 +43,7 @@ function Console:onCreate()
     }
 
     -- init toggle button
-    local btnOpen = self:addChild(ui.inflate {
+    local btnOpen = self.view:addChild(ui.inflate {
         classname = "UILayer",
         horizontalAlign = "left",
         verticalAlign = "bottom",
@@ -70,11 +56,11 @@ function Console:onCreate()
     })
     local function click ()
         local curr = self.tab[tabController.selectedPage]
-        if self.contentLoader.visible then
-            self.contentLoader.visible = false
+        if self.view.fguiNode.visible then
+            self.view.fguiNode.visible = false
             curr:stop()
         else
-            self.contentLoader.visible = true
+            self.view.fguiNode.visible = true
             curr:start()
         end
     end
@@ -83,4 +69,17 @@ function Console:onCreate()
     click() -- hide console panel
 end
 
-return Console
+local UI = class('ConsoleUI', FGUI)
+
+function UI:ctor()
+    self.mediatorClass = M
+    self:loadAssets(CONSOLE_RES)
+    self:createUI("console", "main")
+end
+
+function UI:assets()
+    return R.new()
+        :fromFGUI(CONSOLE_RES)
+end
+
+return UI

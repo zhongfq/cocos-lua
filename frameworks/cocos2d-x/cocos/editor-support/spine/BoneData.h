@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated May 1, 2019. Replaces all prior versions.
+ * Last updated January 1, 2020. Replaces all prior versions.
  *
- * Copyright (c) 2013-2019, Esoteric Software LLC
+ * Copyright (c) 2013-2020, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -15,109 +15,126 @@
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
  *
- * THIS SOFTWARE IS PROVIDED BY ESOTERIC SOFTWARE LLC "AS IS" AND ANY EXPRESS
- * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
- * NO EVENT SHALL ESOTERIC SOFTWARE LLC BE LIABLE FOR ANY DIRECT, INDIRECT,
- * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
- * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES, BUSINESS
- * INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THE SPINE RUNTIMES ARE PROVIDED BY ESOTERIC SOFTWARE LLC "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL ESOTERIC SOFTWARE LLC BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
+ * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 #ifndef Spine_BoneData_h
 #define Spine_BoneData_h
 
-#include "spine/TransformMode.h"
-#include "spine/SpineObject.h"
-#include "spine/SpineString.h"
+#include <spine/TransformMode.h>
+#include <spine/SpineObject.h>
+#include <spine/SpineString.h>
+#include <spine/Color.h>
 
 namespace spine {
-class SP_API BoneData : public SpineObject {
-	friend class SkeletonBinary;
+	class SP_API BoneData : public SpineObject {
+		friend class SkeletonBinary;
 
-	friend class SkeletonJson;
+		friend class SkeletonJson;
 
-	friend class AnimationState;
+		friend class AnimationState;
 
-	friend class RotateTimeline;
+		friend class RotateTimeline;
 
-	friend class ScaleTimeline;
+		friend class ScaleTimeline;
 
-	friend class ShearTimeline;
+		friend class ScaleXTimeline;
 
-	friend class TranslateTimeline;
+		friend class ScaleYTimeline;
 
-public:
-	BoneData(int index, const String &name, BoneData *parent = NULL);
+		friend class ShearTimeline;
 
-	/// The index of the bone in Skeleton.Bones
-	int getIndex();
+		friend class ShearXTimeline;
 
-	/// The name of the bone, which is unique within the skeleton.
-	const String &getName();
+		friend class ShearYTimeline;
 
-	/// May be NULL.
-	BoneData *getParent();
+		friend class TranslateTimeline;
 
-	float getLength();
+		friend class TranslateXTimeline;
 
-	void setLength(float inValue);
+		friend class TranslateYTimeline;
 
-	/// Local X translation.
-	float getX();
+	public:
+		BoneData(int index, const String &name, BoneData *parent = NULL);
 
-	void setX(float inValue);
+		/// The index of the bone in Skeleton.Bones
+		int getIndex();
 
-	/// Local Y translation.
-	float getY();
+		/// The name of the bone, which is unique within the skeleton.
+		const String &getName();
 
-	void setY(float inValue);
+		/// May be NULL.
+		BoneData *getParent();
 
-	/// Local rotation.
-	float getRotation();
+		float getLength();
 
-	void setRotation(float inValue);
+		void setLength(float inValue);
 
-	/// Local scaleX.
-	float getScaleX();
+		/// Local X translation.
+		float getX();
 
-	void setScaleX(float inValue);
+		void setX(float inValue);
 
-	/// Local scaleY.
-	float getScaleY();
+		/// Local Y translation.
+		float getY();
 
-	void setScaleY(float inValue);
+		void setY(float inValue);
 
-	/// Local shearX.
-	float getShearX();
+		/// Local rotation.
+		float getRotation();
 
-	void setShearX(float inValue);
+		void setRotation(float inValue);
 
-	/// Local shearY.
-	float getShearY();
+		/// Local scaleX.
+		float getScaleX();
 
-	void setShearY(float inValue);
+		void setScaleX(float inValue);
 
-	/// The transform mode for how parent world transforms affect this bone.
-	TransformMode getTransformMode();
+		/// Local scaleY.
+		float getScaleY();
 
-	void setTransformMode(TransformMode inValue);
+		void setScaleY(float inValue);
 
-	bool isSkinRequired();
-	void setSkinRequired(bool inValue);
+		/// Local shearX.
+		float getShearX();
 
-private:
-	const int _index;
-	const String _name;
-	BoneData *_parent;
-	float _length;
-	float _x, _y, _rotation, _scaleX, _scaleY, _shearX, _shearY;
-	TransformMode _transformMode;
-	bool _skinRequired;
-};
+		void setShearX(float inValue);
+
+		/// Local shearY.
+		float getShearY();
+
+		void setShearY(float inValue);
+
+		/// The transform mode for how parent world transforms affect this bone.
+		TransformMode getTransformMode();
+
+		void setTransformMode(TransformMode inValue);
+
+		bool isSkinRequired();
+
+		void setSkinRequired(bool inValue);
+
+		Color &getColor();
+
+	private:
+		const int _index;
+		const String _name;
+		BoneData *_parent;
+		float _length;
+		float _x, _y, _rotation, _scaleX, _scaleY, _shearX, _shearY;
+		TransformMode _transformMode;
+		bool _skinRequired;
+		Color _color;
+	};
 }
 
 #endif /* Spine_BoneData_h */

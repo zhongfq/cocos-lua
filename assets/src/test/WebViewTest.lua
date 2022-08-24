@@ -1,4 +1,4 @@
-local runtime = require "kernel.runtime"
+local runtime = require "cclua.runtime"
 
 local M = {}
 

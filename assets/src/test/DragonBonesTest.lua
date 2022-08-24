@@ -1,6 +1,6 @@
-local class     = require "xgame.class"
-local UIScene   = require "xgame.ui.UIScene"
-local R         = require "xgame.R"
+local class     = require "cclua.class"
+local UIScene   = require "cclua.ui.UIScene"
+local R         = require "cclua.R"
 local DBFactory = require "db.Factory"
 
 local DragonBonesTest = class('DragonBonesTest', UIScene)

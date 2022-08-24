@@ -1,0 +1,27 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cclua.plugin.oppo">
+    <application>
+        <meta-data android:name="cclua.plugin.oppo.Oppo" android:value="true" />
+        <uses-library android:name="org.apache.http.legacy" android:required="false" />
+        <activity
+            android:name="com.nearme.game.sdk.component.proxy.ProxyActivity"
+            android:theme="@style/Theme_Dialog_Custom"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:process=":gcsdk">
+        </activity>
+        <service
+            android:name="com.nearme.game.sdk.component.proxy.ProxyApiService"
+            android:process=":gcsdk"
+            android:priority="1000">
+        </service>
+        <!-- UserCenter SDK Register start -->
+        <receiver android:name="com.nearme.game.sdk.component.proxy.ProxyUserCenterOperateReceiver"
+            android:exported="true"
+            android:process=":gcsdk"> <intent-filter>
+            <action android:name="com.oppo.usercenter.account_login" />
+            <action android:name="com.oppo.usercenter.account_logout" />
+            <action android:name="com.oppo.usercenter.modify_name" />
+            <action android:name="com.usercenter.action.receiver.account_login"/> <action android:name="com.heytap.usercenter.account_logout"/>
+        </intent-filter> </receiver>
+    </application>
+</manifest>

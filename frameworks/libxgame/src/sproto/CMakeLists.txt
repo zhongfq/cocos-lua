@@ -1,9 +1,0 @@
-set(SPROTO_HEADER
-    src/sproto/lsproto.h
-    src/sproto/msvcint.h
-    src/sproto/sproto.h
-)
-set(SPROTO_SRC
-    src/sproto/lsproto.c
-    src/sproto/sproto.c
-)

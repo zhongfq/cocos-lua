@@ -14,6 +14,11 @@
 		}
 	],
 	"settings": {
+		"files.exclude": {
+			"**/build/**": true,
+			"runtime/": true,
+			"wwwroot/": true
+		},
 		"luacheck.globals": ["main", "xGame", "__TRACEBACK__", "DEBUG"],
 		"luacheck.ignore": [
 			"212", // Unused argument

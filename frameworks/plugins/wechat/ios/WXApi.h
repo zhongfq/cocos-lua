@@ -11,6 +11,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+typedef BOOL(^WXGrantReadPasteBoardPermissionCompletion)(void);
+
+
 #pragma mark - WXApiDelegate
 /*! @brief 接收并处理来自微信终端程序的事件消息
  *
@@ -38,6 +42,17 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)onResp:(BaseResp*)resp;
 
+/* ! @brief 用于在iOS16以及以上系统上，控制OpenSDK是否读取剪切板中微信传递的数据以及读取的时机
+ * 在iOS16以及以上系统，在SDK需要读取剪切板中微信写入的数据时，会回调该方法。没有实现默认会直接读取微信通过剪切板传递过来的数据
+ * 注意：
+ *      1. 只在iOS16以及以上的系统版本上回调;
+ *      2. 不实现时，OpenSDK会直接调用读取剪切板接口，读取微信传递过来的数据;
+ *      3. 若实现该方法：开发者需要通过调用completion(), 支持异步，通知SDK允许读取剪切板中微信传递的数据,
+ *                    不调用completion()则代表不授权OpenSDK读取剪切板，会导致收不到onReq:, onResp:回调，无法后续业务流程。请谨慎使用
+ *      4. 不要长时间持有completion不释放，可能会导致内存泄漏。
+ */
+- (void)onNeedGrantReadPasteBoardPermissionWithURL:(nonnull NSURL *)openURL completion:(nonnull WXGrantReadPasteBoardPermissionCompletion)completion;
+
 @end
 
 #pragma mark - WXApiLogDelegate
@@ -47,6 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onLog:(NSString*)log logLevel:(WXLogLevel)level;
 
 @end
+
 
 #pragma mark - WXApi
 
@@ -101,6 +117,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (BOOL)isWXAppSupportApi;
 
+
+/*! @brief 判断当前微信的版本是否支持分享微信状态功能
+ *
+ * @attention 需在工程LSApplicationQueriesSchemes配置中添加weixinStateAPI
+ * @return 支持返回YES，不支持返回NO。
+ */
++ (BOOL)isWXAppSupportStateAPI;
 
 
 /*! @brief 获取微信的itunes安装地址
@@ -157,6 +180,18 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)sendAuthReq:(SendAuthReq *)req viewController:(UIViewController*)viewController delegate:(nullable id<WXApiDelegate>)delegate completion:(void (^ __nullable)(BOOL success))completion;
 
 
+/*! @brief 测试函数，用于排查当前App通过Universal Link方式分享到微信的流程
+    注意1:  调用自检函数之前必须要先调用registerApp:universalLink接口, 并确认调用成功
+    注意2:  自检过程中会有Log产生，可以先调用startLogByLevel函数，根据Log排查问题
+    注意3:  会多次回调block
+    注意4:  仅用于新接入SDK时调试使用，请勿在正式环境的调用
+ *
+ *  当completion回调的step为WXULCheckStepFinal时，表示检测通过，Universal Link接入成功
+ *  @param completion 回调Block
+ */
++ (void)checkUniversalLinkReady:(nonnull WXCheckULCompletion)completion;
+
+
 /*! @brief WXApi的成员函数，接受微信的log信息。byBlock
     注意1:SDK会强引用这个block,注意不要导致内存泄漏,注意不要导致内存泄漏
     注意2:调用过一次startLog by block之后，如果再调用一次任意方式的startLoad,会释放上一次logBlock，不再回调上一个logBlock
@@ -164,6 +199,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param level 打印log的级别
  *  @param logBlock 打印log的回调block
  */
+
 + (void)startLogByLevel:(WXLogLevel)level logBlock:(WXLogBolock)logBlock;
 
 /*! @brief WXApi的成员函数，接受微信的log信息。byDelegate 
@@ -178,6 +214,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param 
  */
 + (void)stopLog;
+
 @end
 
 NS_ASSUME_NONNULL_END

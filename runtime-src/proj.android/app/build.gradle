@@ -1,147 +1,154 @@
-import org.gradle.internal.os.OperatingSystem
-
+import org.gradle.internal.os.OperatingSystem;
 apply plugin: 'com.android.application'
-apply plugin: 'bugly'
 //apply plugin: 'com.huawei.agconnect' @huawei
-
-bugly {
-    appId = 'c082cf3ca0'
-    appKey = 'c332369f-17b2-4f8e-9481-5810319e8c46'
-}
 
 android {
     compileSdkVersion PROP_COMPILE_SDK_VERSION.toInteger()
-    buildToolsVersion PROP_BUILD_TOOLS_VERSION
 
     defaultConfig {
-        applicationId "org.cocos2dx.hellolua"
+        applicationId "com.codetypes.hellolua"
         minSdkVersion PROP_MIN_SDK_VERSION
         targetSdkVersion PROP_TARGET_SDK_VERSION
-        versionCode 1
-        versionName "1.0"
-        externalNativeBuild {
-            if (PROP_BUILD_TYPE == 'ndk-build') {
-                ndkBuild {
-                    targets 'cocos2dlua'
-                    arguments 'NDK_TOOLCHAIN_VERSION=clang'
-                    arguments '-j' + Runtime.runtime.availableProcessors()
+        versionCode 100
+        versionName "1.1.0"
 
-                    def module_paths = [project.file("../../../cocos2d-x").absolutePath,
-                                        project.file("../../../cocos2d-x/cocos").absolutePath,
-                                        project.file("../../../cocos2d-x/external").absolutePath]
-                    if (OperatingSystem.current().isWindows()) {
-                        module_paths = module_paths.collect { it.replaceAll('\\\\', '/') }
-                        arguments 'NDK_MODULE_PATH=' + module_paths.join(";")
-                    } else {
-                        arguments 'NDK_MODULE_PATH=' + module_paths.join(':')
-                    }
-                }
-            } else if (PROP_BUILD_TYPE == 'cmake') {
-                cmake {
-                    arguments "-DCMAKE_FIND_ROOT_PATH=", "-DANDROID_STL=c++_static", "-DANDROID_TOOLCHAIN=clang", "-DANDROID_ARM_NEON=TRUE"
-                    cppFlags "-frtti -fexceptions -fsigned-char"
-                }
+        externalNativeBuild {
+            cmake {
+                targets 'cclua'
+                arguments "-DCMAKE_FIND_ROOT_PATH=", "-DANDROID_STL=c++_static", "-DANDROID_TOOLCHAIN=clang", "-DANDROID_ARM_NEON=TRUE"
+                cppFlags "-frtti -fexceptions -fsigned-char"
             }
         }
+
         ndk {
             abiFilters = []
-            abiFilters.addAll(PROP_APP_ABI.split(':').collect { it as String })
+            abiFilters.addAll(PROP_APP_ABI.split(':').collect{it as String})
         }
+
+        manifestPlaceholders = [
+            CCLUA_PACKAGENAME: applicationId,
+
+            JPUSH_PKGNAME: applicationId,
+            JPUSH_APPKEY: "000000000000000000000000",
+            JPUSH_CHANNEL: "dev",
+
+            OPPO_APPKEY: "OP-00000000000000000000000000000000",
+            OPPO_APPID: "OP-00000000",
+            OPPO_APPSECRET: "OP-00000000000000000000000000000000",
+
+            VIVO_APPKEY: "00000000000000000000000000000000",
+            VIVO_APPID: "000000000",
+
+            XIAOMI_APPKEY: "MI-0000000000000",
+            XIAOMI_APPID: "MI-0000000000000000000",
+        ]
     }
+
     sourceSets.main {
         java.srcDir "src"
         res.srcDir "res"
-        jniLibs.srcDir "libs"
         manifest.srcFile "AndroidManifest.xml"
         assets.srcDir "assets"
     }
-    externalNativeBuild {
-        if (PROP_BUILD_TYPE == 'ndk-build') {
-            ndkBuild {
-                path "jni/Android.mk"
-            }
-        } else if (PROP_BUILD_TYPE == 'cmake') {
-            cmake {
-                path "../../../CMakeLists.txt"
-            }
-        }
-    }
-    signingConfigs {
 
-        release {
-            if (project.hasProperty("RELEASE_STORE_FILE")) {
-                storeFile file(RELEASE_STORE_FILE)
-                storePassword RELEASE_STORE_PASSWORD
-                keyAlias RELEASE_KEY_ALIAS
-                keyPassword RELEASE_KEY_PASSWORD
-            }
+    externalNativeBuild {
+        cmake {
+            path "../../../CMakeLists.txt"
         }
     }
+
+    signingConfigs {
+       release {
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
+    }
+
     buildTypes {
         release {
-            signingConfig signingConfigs.release
             debuggable false
             jniDebuggable false
             renderscriptDebuggable false
-            externalNativeBuild {
-                ndkBuild {
-                    arguments 'NDK_DEBUG=0'
-                }
-            }
-        }
-        debug {
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+        }
+
+        debug {
             debuggable true
             jniDebuggable true
             renderscriptDebuggable true
-            externalNativeBuild {
-                ndkBuild {
-                    arguments 'NDK_DEBUG=1'
-                }
-            }
+            signingConfig signingConfigs.release
         }
+    }
+
+    aaptOptions {
+        noCompress '.bundle'
     }
 }
 
 def compileAssets(path) {
-    def cmdArgs = ["${projectDir}/../../../tools/bin/lua_wrapper.sh", "../hot-update/build-assets.lua", path]
-    println 'running command : ' + cmdArgs.join(' ')
+    def tools = file("${projectDir}/../../../tools").getAbsolutePath()
+    def script = "build-assets.lua"
+    def cmdArgs = [script, path]
+    def lua
+    if (OperatingSystem.current().isWindows()) {
+        lua = "${tools}/lua/lua54/windows/lua.exe"
+    } else if (OperatingSystem.current().isMacOsX()) {
+        lua = "${tools}/lua/lua54/macos/lua"
+    } else {
+        lua = "${tools}/lua/lua54/linux/lua"
+    }
+    println "workingDir: ${tools}/hot-update"
+    println "running command: ${lua} ${script} ${path}"
     exec {
-        executable "/bin/bash"
+        workingDir "${tools}/hot-update"
+        executable lua
         args cmdArgs
     }
 }
 
 android.applicationVariants.all { variant ->
-    def srcAssets = "${projectDir}/../../../assets"
-    def destAssets = "${projectDir}/assets"
+    if (!project.hasProperty("keep-assets")) {
+        def srcAssets = "${projectDir}/../../../assets"
+        def destAssets = "${projectDir}/assets"
 
-    delete destAssets
+        delete destAssets
 
-    def targetName = variant.name.capitalize()
-    def copyTaskName = "copy${targetName}ResourcesToAssets"
-
-    tasks.register(copyTaskName) {
-        copy {
-            from srcAssets
-            into destAssets
-            exclude "builtin.manifest"
+        def targetName = variant.name.capitalize()
+        def copyTaskName = "copy${targetName}ResourcesToAssets"
+        tasks.register(copyTaskName) {
+            doLast {
+                copy {
+                    from srcAssets
+                    into destAssets
+                    exclude "builtin.manifest"
+                }
+                compileAssets(destAssets)
+            }
         }
-        compileAssets(destAssets)
+        tasks.getByName("pre${targetName}Build").dependsOn copyTaskName
     }
-    tasks.getByName("pre${targetName}Build").dependsOn copyTaskName
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':libcocos2dx')
     implementation project(':libxgame')
 
-    implementation 'com.android.support:support-v4:28.0.0'
+    implementation project(':plugin-wechat')
 
-    implementation project(':plugin-alipay')
+    // implementation project(':plugin-alipay')
     // implementation project(':plugin-talkingdata')
     // implementation project(':plugin-huawei')
     // implementation project(':plugin-vivo')
     // implementation project(':plugin-oppo')
+
+    // implementation project(':plugin-jiguang')
+    // implementation 'com.huawei.hms:push:4.0.2.300'
+    // implementation 'cn.jiguang.sdk.plugin:huawei:4.6.4'
+    // implementation 'cn.jiguang.sdk.plugin:oppo:4.6.4'
+    // implementation 'cn.jiguang.sdk.plugin:vivo:4.6.4'
+    // implementation 'cn.jiguang.sdk.plugin:xiaomi:4.6.4'
 }

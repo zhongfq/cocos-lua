@@ -28,6 +28,7 @@
 // No Available on tvOS
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS && !defined(CC_TARGET_OS_TVOS)
 
+using namespace cocos2d::ui;
 using namespace cocos2d::experimental::ui;
 //-------------------------------------------------------------------------------------
 

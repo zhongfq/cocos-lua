@@ -65,10 +65,17 @@ public:
     explicit Value(unsigned char v);
     
     /** Create a Value by an integer value. */
+    explicit Value(int64_t v);
+
+    /** Create a Value by an unsigned value. */
+    explicit Value(uint64_t v);
+    
+    /** Create a Value by an integer value. */
     explicit Value(int v);
 
     /** Create a Value by an unsigned value. */
     explicit Value(unsigned int v);
+
 
     /** Create a Value by a float value. */
     explicit Value(float v);
@@ -116,6 +123,10 @@ public:
     /** Assignment operator, assign from unsigned char to Value. */
     Value& operator= (unsigned char v);
     /** Assignment operator, assign from integer to Value. */
+    Value& operator= (int64_t v);
+    /** Assignment operator, assign from integer to Value. */
+    Value& operator= (uint64_t v);
+    /** Assignment operator, assign from integer to Value. */
     Value& operator= (int v);
     /** Assignment operator, assign from integer to Value. */
     Value& operator= (unsigned int v);
@@ -158,8 +169,10 @@ public:
     unsigned char asByte() const;
     /** Gets as an integer value. Will convert to integer if possible, or will trigger assert error. */
     int asInt() const;
+    int64_t asInt64() const;
     /** Gets as an unsigned value. Will convert to unsigned if possible, or will trigger assert error. */
     unsigned int asUnsignedInt() const;
+    uint64_t asUnsignedInt64() const;
     /** Gets as a float value. Will convert to float if possible, or will trigger assert error. */
     float asFloat() const;
     /** Gets as a double value. Will convert to double if possible, or will trigger assert error. */
@@ -230,8 +243,8 @@ private:
     union
     {
         unsigned char byteVal;
-        int intVal;
-        unsigned int unsignedVal;
+        int64_t intVal;
+        uint64_t unsignedVal;
         float floatVal;
         double doubleVal;
         bool boolVal;

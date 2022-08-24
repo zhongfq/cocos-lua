@@ -452,7 +452,7 @@ void GGroup::setup_beforeAdd(ByteBuffer* buffer, int beginPos)
     {
         _excludeInvisibles = buffer->readBool();
         _autoSizeDisabled = buffer->readBool();
-        _mainChildIndex = buffer->readShort();
+        _mainGridIndex = buffer->readShort();
     }
 }
 
@@ -464,4 +464,4 @@ void GGroup::setup_afterAdd(ByteBuffer* buffer, int beginPos)
         handleVisibleChanged();
 }
 
-NS_FGUI_END
+NS_FGUI_END

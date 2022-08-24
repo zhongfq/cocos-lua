@@ -1,15 +1,16 @@
 #include "lua_javabridge.h"
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+#ifdef CCLUA_OS_ANDROID
 #include "platform/android/jni/JniHelper.h"
 #include "base/ccUTF8.h"
-#include "xgame/xruntime.h"
-#include "xgame/xlua.h"
-#include "xgame/xtimer.h"
+#include "cclua/runtime.h"
+#include "cclua/xlua.h"
+#include "cclua/timer.h"
 
 #include <stdlib.h>
 
-using namespace cocos2d;
+USING_NS_CC;
+USING_NS_CCLUA;
 
 #define TYPE_VOID     'V'
 #define TYPE_BOOL     'Z'
@@ -130,7 +131,7 @@ static int luaj_invoke(lua_State *L)
                 }
                 case TYPE_INT: {
                     if (lua_isfunction(L, 4 + i)) {
-                        args[i].i = (jint)olua_reffunc(L, 4 + i);
+                        args[i].i = (jint)olua_funcref(L, 4 + i);
                     } else {
                         args[i].i = (jint)luaL_checkinteger(L, 4 + i);
                     }
@@ -151,7 +152,7 @@ static int luaj_invoke(lua_State *L)
                 default: {
                     // never run
                     info.env->DeleteLocalRef(info.classID);
-                    xgame::runtime::log("[NO] java bridge call: %s#%s%s", classname, methodname, signature);
+                    runtime::log("[NO] java bridge call: %s#%s%s", classname, methodname, signature);
                     luaL_error(L, "method sign error: %s#%s%s", classname, methodname, signature);
                 }
             } // switch
@@ -197,7 +198,7 @@ static int luaj_invoke(lua_State *L)
         default: {
             free(args);
             info.env->DeleteLocalRef(info.classID);
-            xgame::runtime::log("[NO] java bridge call: %s#%s%s", classname, methodname, signature);
+            runtime::log("[NO] java bridge call: %s#%s%s", classname, methodname, signature);
             luaL_error(L, "unsupport return type: %s#%s%s", classname, methodname, signature);
         }
     }
@@ -217,11 +218,11 @@ static int luaj_invoke(lua_State *L)
     if (info.env->ExceptionCheck() == JNI_TRUE) {
         info.env->ExceptionDescribe();
         info.env->ExceptionClear();
-        xgame::runtime::log("[NO] java bridge call: %s#%s%s", classname, methodname, signature);
+        runtime::log("[NO] java bridge call: %s#%s%s", classname, methodname, signature);
         luaL_error(L, "java bridge call error: %s#%s%s", classname, methodname, signature);
     }
 
-    xgame::runtime::log("[OK] java bridge call: %s#%s%s", classname, methodname, signature);
+    runtime::log("[OK] java bridge call: %s#%s%s", classname, methodname, signature);
 
     return 1;
 }
@@ -252,58 +253,34 @@ int luaopen_javabridge(lua_State *L)
     };
     
     luaL_newlib(L, lib);
+
+    runtime::registerFeature("cclua.luaj", true);
     
     return 1;
 }
 
 extern "C" {
-JNIEXPORT void JNICALL Java_kernel_LuaJ_call
-        (JNIEnv *env, jclass cls, jint jfunc, jstring jargs, jboolean jonce) {
+#define jstring2string(jstr) (cocos2d::JniHelper::jstring2string(jstr))
+
+JNIEXPORT void JNICALL Java_cclua_LuaJ_call
+        (JNIEnv *env, jclass cls, jlong func, jstring event, jstring data, jboolean once) {
     CC_UNUSED_PARAM(env);
     CC_UNUSED_PARAM(cls);
-
-    if (!xgame::runtime::isRestarting()) {
-        std::string args = cocos2d::JniHelper::jstring2string(jargs);
-        int func = (int)jfunc;
-        bool once = (bool)jonce;
-        auto listener = new EventListenerCustom();
-        listener->autorelease();
-        listener->init(Director::EVENT_BEFORE_UPDATE, [func, args, once, listener](EventCustom *event){
-            lua_State *L = olua_mainthread(NULL);
-            int top = lua_gettop(L);
-            olua_geterrorfunc(L);
-            olua_getref(L, func);
-            if (!lua_isnil(L, -1)) {
-                lua_pushstring(L, args.c_str());
-                lua_pcall(L, 1, 0, top + 1);
-            } else {
-                xgame::runtime::log("attempt to call nil: %d %s", func, args.c_str());
-            }
-            if (once) {
-                olua_unref(L, func);
-            }
-            lua_settop(L, top);
-            Director::getInstance()->getEventDispatcher()->removeEventListener(listener);
-        });
-        Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
-    }
+    runtime::callref(func, jstring2string(event), jstring2string(data), (bool)once);
 }
 
-JNIEXPORT void JNICALL Java_kernel_LuaJ_registerFeature
-        (JNIEnv *env, jclass cls, jstring japi, jboolean enabled) {
+JNIEXPORT void JNICALL Java_cclua_LuaJ_registerFeature
+        (JNIEnv *env, jclass cls, jstring api, jboolean enabled) {
     CC_UNUSED_PARAM(env);
     CC_UNUSED_PARAM(cls);
-    std::string api = cocos2d::JniHelper::jstring2string(japi);
-    xgame::runtime::registerFeature(api, (bool)enabled);
+    runtime::registerFeature(jstring2string(api), (bool)enabled);
 }
 
-JNIEXPORT void JNICALL Java_kernel_LuaJ_dispatchEvent
-        (JNIEnv *env, jclass cls, jstring jevent, jstring jargs) {
+JNIEXPORT void JNICALL Java_cclua_LuaJ_dispatchEvent
+        (JNIEnv *env, jclass cls, jstring event, jstring args) {
     CC_UNUSED_PARAM(env);
     CC_UNUSED_PARAM(cls);
-    std::string event = cocos2d::JniHelper::jstring2string(jevent);
-    std::string args = cocos2d::JniHelper::jstring2string(jargs);
-    xgame::runtime::dispatchEvent(event, args);
+    runtime::dispatch(jstring2string(event), jstring2string(args));
 }
 }
 #endif

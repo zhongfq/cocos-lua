@@ -14,9 +14,9 @@ static Color3B toGrayed(const Color3B& source)
 }
 
 FUILabel::FUILabel() : _fontSize(-1),
-                       _bmFontCanTint(false),
-                       _textFormat(new TextFormat()),
-                       _grayed(false)
+_bmFontCanTint(false),
+_textFormat(new TextFormat()),
+_grayed(false)
 {
 }
 
@@ -42,7 +42,7 @@ void FUILabel::applyTextFormat()
 
         if (_fontName.find("ui://") != -1)
         {
-            setBMFontFilePath(_fontName);
+            setBMFontFilePath(_fontName, Vec2(0, 0), 0);
         }
         else
         {
@@ -82,10 +82,11 @@ void FUILabel::applyTextFormat()
         }
     }
 
-    if (_currentLabelType != LabelType::BMFONT)
-        setTextColor((Color4B)(_grayed ? toGrayed(_textFormat->color) : _textFormat->color));
-    else if (_bmFontCanTint)
+    if (_currentLabelType != LabelType::BMFONT || _bmFontCanTint)
+    {
+        //setTextColor((Color4B)(_grayed ? toGrayed(_textFormat->color) : _textFormat->color));
         setColor(_grayed ? toGrayed(_textFormat->color) : _textFormat->color);
+    }
 
     if (_textFormat->underline)
         enableUnderline();
@@ -94,8 +95,8 @@ void FUILabel::applyTextFormat()
 
     if (_textFormat->italics)
         enableItalics();
-    else
-        disableEffect(LabelEffect::ITALICS);
+    //else //Cant call this, cocos will do setRotationSkew(0)!
+    //    disableEffect(LabelEffect::ITALICS);
 
     if (_textFormat->bold && _currentLabelType != LabelType::STRING_TEXTURE)
         enableBold();
@@ -125,6 +126,12 @@ bool FUILabel::setBMFontFilePath(const std::string& bmfontFilePath, const Vec2& 
         reset();
         return false;
     }
+    
+    if (_overflow == Label::Overflow::SHRINK && !bmFont->isResizable())
+    {
+        std::string msg = "please set bmfont with dynamic size: " + bmfontFilePath;
+        CCASSERT(false, msg.c_str());
+    }
 
     //assign the default fontSize
     if (std::abs(fontSize) < FLT_EPSILON)
@@ -145,6 +152,21 @@ bool FUILabel::setBMFontFilePath(const std::string& bmfontFilePath, const Vec2& 
     setFontAtlas(bmFont->createFontAtlas());
 
     return true;
+}
+
+bool FUILabel::setBMFontFilePath(const std::string& bmfontFilePath, float fontSize)
+{
+    return setBMFontFilePath(bmfontFilePath, Vec2(0, 0), fontSize);
+}
+
+bool FUILabel::setBMFontFilePath(const std::string& bmfontFilePath, const Rect& imageRect, bool imageRotated, float fontSize)
+{
+    return setBMFontFilePath(bmfontFilePath, Vec2(0, 0), fontSize);
+}
+
+bool FUILabel::setBMFontFilePath(const std::string& bmfontFilePath, const std::string& subTextureKey, float fontSize)
+{
+    return setBMFontFilePath(bmfontFilePath, Vec2(0, 0), fontSize);
 }
 
 void FUILabel::setGrayed(bool value)
@@ -179,6 +201,11 @@ void FUILabel::updateBMFontScale()
     {
         _bmfontScale = 1.0f;
     }
+}
+
+void FUILabel::setUnderlineColor(const cocos2d::Color3B& value)
+{
+    //NOT IMPLEMENTED
 }
 
 NS_FGUI_END

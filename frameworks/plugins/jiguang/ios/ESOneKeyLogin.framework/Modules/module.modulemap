@@ -1,0 +1,6 @@
+framework module ESOneKeyLogin {
+  umbrella header "ESOneKeyLogin.h"
+
+  export *
+  module * { export * }
+}

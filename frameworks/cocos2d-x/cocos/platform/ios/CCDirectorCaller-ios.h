@@ -28,14 +28,15 @@
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
 
 #import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface CCDirectorCaller : NSObject {
-        id displayLink;
+        CADisplayLink *displayLink;
         int interval;
         BOOL isAppActive;
     CFTimeInterval lastDisplayTime;
 }
-@property (readwrite) int interval;
+@property (readwrite) int preferredFramesPerSecond;
 -(void) startMainLoop;
 -(void) stopMainLoop;
 -(void) doCaller: (id) sender;

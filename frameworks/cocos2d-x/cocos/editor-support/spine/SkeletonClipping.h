@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated May 1, 2019. Replaces all prior versions.
+ * Last updated January 1, 2020. Replaces all prior versions.
  *
- * Copyright (c) 2013-2019, Esoteric Software LLC
+ * Copyright (c) 2013-2020, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -15,47 +15,52 @@
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
  *
- * THIS SOFTWARE IS PROVIDED BY ESOTERIC SOFTWARE LLC "AS IS" AND ANY EXPRESS
- * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
- * NO EVENT SHALL ESOTERIC SOFTWARE LLC BE LIABLE FOR ANY DIRECT, INDIRECT,
- * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
- * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES, BUSINESS
- * INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THE SPINE RUNTIMES ARE PROVIDED BY ESOTERIC SOFTWARE LLC "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL ESOTERIC SOFTWARE LLC BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
+ * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 #ifndef Spine_SkeletonClipping_h
 #define Spine_SkeletonClipping_h
 
-#include "spine/Vector.h"
-#include "spine/Triangulator.h"
+#include <spine/Vector.h>
+#include <spine/Triangulator.h>
 
 namespace spine {
 	class Slot;
+
 	class ClippingAttachment;
 
 	class SP_API SkeletonClipping : public SpineObject {
 	public:
 		SkeletonClipping();
 
-		size_t clipStart(Slot& slot, ClippingAttachment* clip);
+		size_t clipStart(Slot &slot, ClippingAttachment *clip);
 
-		void clipEnd(Slot& slot);
+		void clipEnd(Slot &slot);
 
 		void clipEnd();
 
-		void clipTriangles(float* vertices, unsigned short* triangles, size_t trianglesLength, float* uvs, size_t stride);
+		void
+		clipTriangles(float *vertices, unsigned short *triangles, size_t trianglesLength, float *uvs, size_t stride);
 
-		void clipTriangles(Vector<float>& vertices, Vector<unsigned short>& triangles, Vector<float>& uvs, size_t stride);
+		void
+		clipTriangles(Vector<float> &vertices, Vector<unsigned short> &triangles, Vector<float> &uvs, size_t stride);
 
 		bool isClipping();
 
-		Vector<float>& getClippedVertices();
-		Vector<unsigned short>& getClippedTriangles();
-		Vector<float>& getClippedUVs();
+		Vector<float> &getClippedVertices();
+
+		Vector<unsigned short> &getClippedTriangles();
+
+		Vector<float> &getClippedUVs();
 
 	private:
 		Triangulator _triangulator;
@@ -65,14 +70,15 @@ namespace spine {
 		Vector<unsigned short> _clippedTriangles;
 		Vector<float> _clippedUVs;
 		Vector<float> _scratch;
-		ClippingAttachment* _clipAttachment;
-		Vector< Vector<float>* > *_clippingPolygons;
+		ClippingAttachment *_clipAttachment;
+		Vector<Vector<float> *> *_clippingPolygons;
 
 		/** Clips the input triangle against the convex, clockwise clipping area. If the triangle lies entirely within the clipping
 		  * area, false is returned. The clipping area must duplicate the first vertex at the end of the vertices list. */
-		bool clip(float x1, float y1, float x2, float y2, float x3, float y3, Vector<float>* clippingArea, Vector<float>* output);
+		bool clip(float x1, float y1, float x2, float y2, float x3, float y3, Vector<float> *clippingArea,
+				  Vector<float> *output);
 
-		static void makeClockwise(Vector<float>& polygon);
+		static void makeClockwise(Vector<float> &polygon);
 	};
 }
 

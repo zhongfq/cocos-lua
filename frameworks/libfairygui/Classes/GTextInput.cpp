@@ -119,13 +119,14 @@ void GTextInput::editBoxReturn(cocos2d::ui::EditBox * editBox)
 {
     //found that this will trigger even when focus is lost
     //if (isSingleLine())
-    // dispatchEvent(UIEventType::Submit);
+    dispatchEvent(UIEventType::Submit);
 }
 
 void GTextInput::editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std::string& text)
 {
     _text.clear();
     _text.append(_input->getText());
+    dispatchEvent(UIEventType::Changed);
 }
 
 NS_FGUI_END

@@ -1,98 +1,167 @@
-local olua = require "olua"
-local typedef = olua.typedef
-
 typedef {
-    CPPCLS = 'android_LogPriority',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
+    cppcls = 'MPEG_mode',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Point',
-    DECLTYPE = 'cocos2d::Point',
-    CONV = 'auto_olua_$$_cocos2d_Vec2',
+    cppcls = 'Padding_type',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ResizableBufferAdapter<cocos2d::Data>::BufferType',
-    DECLTYPE = 'cocos2d::ResizableBufferAdapter<cocos2d::Data>::BufferType',
-    CONV = 'manual_olua_$$_cocos2d_Data',
+    cppcls = 'Psy_model',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
 }
 
 typedef {
-    CPPCLS = 'cocos2d::TMXTileFlags',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
+    cppcls = 'QRecLevel',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Vect',
-    DECLTYPE = 'cocos2d::Vect',
-    CONV = 'auto_olua_$$_cocos2d_Vec2',
+    cppcls = 'QRencodeMode',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
 }
 
 typedef {
-    CPPCLS = 'cocos2d::VolatileTexture::ccCachedImageType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
+    cppcls = 'android_LogPriority',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ui::CheckBoxEventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
+    cppcls = 'asm_optimizations',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ui::ListViewEventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
+    cppcls = 'buffer_constraint',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ui::PageViewEventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
+    cppcls = 'cclua::Lame::MPEGMode',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ui::ScrollviewEventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
+    cppcls = 'cclua::window::Bounds',
+    decltype = 'cclua::window::Bounds',
+    conv = 'olua_$$_cocos2d_Rect',
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ui::SliderEventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
+    cppcls = 'cocos2d::Point',
+    decltype = 'cocos2d::Point',
+    conv = 'olua_$$_cocos2d_Vec2',
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ui::TextFiledEventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
+    cppcls = 'cocos2d::ResizableBufferAdapter<cocos2d::Data>::BufferType',
+    decltype = 'cocos2d::ResizableBufferAdapter<cocos2d::Data>::BufferType',
+    conv = 'olua_$$_cocos2d_Data',
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ui::TouchEventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
+    cppcls = 'cocos2d::TMXTileFlags',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
 }
 
 typedef {
-    CPPCLS = 'jobjectRefType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
+    cppcls = 'cocos2d::Vect',
+    decltype = 'cocos2d::Vect',
+    conv = 'olua_$$_cocos2d_Vec2',
 }
 
 typedef {
-    CPPCLS = 'khronos_boolean_enum_t',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
+    cppcls = 'cocos2d::VolatileTexture::ccCachedImageType',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
 }
 
 typedef {
-    CPPCLS = 'log_id_t',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
+    cppcls = 'cocos2d::ui::CheckBoxEventType',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
+    cppcls = 'cocos2d::ui::ListViewEventType',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
+    cppcls = 'cocos2d::ui::PageViewEventType',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
+    cppcls = 'cocos2d::ui::ScrollviewEventType',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
+    cppcls = 'cocos2d::ui::SliderEventType',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
+    cppcls = 'cocos2d::ui::TextFiledEventType',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
+    cppcls = 'cocos2d::ui::TouchEventType',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
+    cppcls = 'jobjectRefType',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
+    cppcls = 'khronos_boolean_enum_t',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
+    cppcls = 'lame_errorcodes_t',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
+    cppcls = 'log_id_t',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
+    cppcls = 'preset_mode',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
+}
+
+typedef {
+    cppcls = 'vbr_mode',
+    decltype = 'lua_Unsigned',
+    conv = 'olua_$$_uint',
 }

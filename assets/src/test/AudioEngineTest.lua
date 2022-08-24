@@ -1,5 +1,5 @@
-local util  = require "xgame.util"
-local timer = require "xgame.timer"
+local util  = require "cclua.util"
+local timer = require "cclua.timer"
 
 local M = {}
 

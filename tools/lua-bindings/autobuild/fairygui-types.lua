@@ -1,618 +1,767 @@
 -- AUTO BUILD, DON'T MODIFY!
 
-local olua = require "olua"
-local typedef = olua.typedef
+typedef {
+    conv = 'olua_$$_fairygui_EventTag',
+    cppcls = 'fairygui::EventTag',
+}
+
+typedef {
+    cppcls = 'fairygui::Margin',
+    luacls = nil,
+    decltype = nil,
+    conv = 'olua_$$_fairygui_Margin',
+    num_vars = 4,
+}
+
+typedef {
+    cppcls = 'fairygui::HtmlParseOptions',
+    luacls = nil,
+    decltype = nil,
+    conv = 'olua_$$_fairygui_HtmlParseOptions',
+    num_vars = 4,
+}
+
+typedef {
+    cppcls = 'fairygui::TweenValue',
+    luacls = nil,
+    decltype = nil,
+    conv = 'olua_$$_fairygui_TweenValue',
+    num_vars = 5,
+}
+
+typedef {
+    cppcls = 'fairygui::UIEventType *',
+    luacls = 'fgui.UIEventType',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'fairygui::EventCallback',
+    luacls = 'fgui.EventCallback',
+    decltype = 'std::function<void (fairygui::EventContext *)>',
+    conv = 'olua_$$_callback',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'fairygui::UIEventDispatcher *',
+    luacls = 'fgui.UIEventDispatcher',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'fairygui::EventContext *',
+    luacls = 'fgui.EventContext',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'fairygui::IHitTest *',
+    luacls = 'fgui.IHitTest',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'fairygui::PixelHitTest *',
+    luacls = 'fgui.PixelHitTest',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'fairygui::PixelHitTestData *',
+    luacls = 'fgui.PixelHitTestData',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'fairygui::InputProcessor::CaptureEventCallback',
+    luacls = 'fgui.InputProcessor::CaptureEventCallback',
+    decltype = 'std::function<void (int)>',
+    conv = 'olua_$$_callback',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'fairygui::InputProcessor *',
+    luacls = 'fgui.InputProcessor',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'fairygui::InputEvent *',
+    luacls = 'fgui.InputEvent',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'fairygui::TextFormat *',
+    luacls = 'fgui.TextFormat',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'fairygui::EaseType',
+    luacls = 'fgui.EaseType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'fairygui::EaseManager *',
+    luacls = 'fgui.EaseManager',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'fairygui::TweenPropType',
+    luacls = 'fgui.TweenPropType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'fairygui::GPath *',
+    luacls = 'fgui.GPath',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
 
 typedef {
-    CONV = 'manual_olua_$$_fairygui_EventTag',
-    CPPCLS = 'fairygui::EventTag',
+    cppcls = 'fairygui::GTweener::GTweenCallback',
+    luacls = 'fgui.GTweener::GTweenCallback',
+    decltype = 'std::function<void (fairygui::GTweener *)>',
+    conv = 'olua_$$_callback',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::Margin',
-    LUACLS = nil,
-    DECLTYPE = nil,
-    CONV = 'auto_olua_$$_fairygui_Margin',
-    NUMVARS = 4,
+    cppcls = 'fairygui::GTweener::GTweenCallback0',
+    luacls = 'fgui.GTweener::GTweenCallback0',
+    decltype = 'std::function<void ()>',
+    conv = 'olua_$$_callback',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::TweenValue',
-    LUACLS = nil,
-    DECLTYPE = nil,
-    CONV = 'auto_olua_$$_fairygui_TweenValue',
-    NUMVARS = 5,
+    cppcls = 'fairygui::GTweener *',
+    luacls = 'fgui.GTweener',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::UIEventType *',
-    LUACLS = 'fgui.UIEventType',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GTween *',
+    luacls = 'fgui.GTween',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::UIEventDispatcher *',
-    LUACLS = 'fgui.UIEventDispatcher',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::UIPackage *',
+    luacls = 'fgui.UIPackage',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::EventContext *',
-    LUACLS = 'fgui.EventContext',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::PackageItem *',
+    luacls = 'fgui.PackageItem',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::IHitTest *',
-    LUACLS = 'fgui.IHitTest',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::PackageItemType',
+    luacls = 'fgui.PackageItemType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::InputProcessor *',
-    LUACLS = 'fgui.InputProcessor',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::ObjectType',
+    luacls = 'fgui.ObjectType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::InputEvent *',
-    LUACLS = 'fgui.InputEvent',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::ButtonMode',
+    luacls = 'fgui.ButtonMode',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::TextFormat *',
-    LUACLS = 'fgui.TextFormat',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::ChildrenRenderOrder',
+    luacls = 'fgui.ChildrenRenderOrder',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::EaseType',
-    LUACLS = 'fgui.EaseType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::OverflowType',
+    luacls = 'fgui.OverflowType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::EaseManager *',
-    LUACLS = 'fgui.EaseManager',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::ScrollType',
+    luacls = 'fgui.ScrollType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::TweenPropType',
-    LUACLS = 'fgui.TweenPropType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::ScrollBarDisplayType',
+    luacls = 'fgui.ScrollBarDisplayType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GPath *',
-    LUACLS = 'fgui.GPath',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::LoaderFillType',
+    luacls = 'fgui.LoaderFillType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GTweener *',
-    LUACLS = 'fgui.GTweener',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::ProgressTitleType',
+    luacls = 'fgui.ProgressTitleType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GTween *',
-    LUACLS = 'fgui.GTween',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::ListLayoutType',
+    luacls = 'fgui.ListLayoutType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::UIPackage *',
-    LUACLS = 'fgui.UIPackage',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::ListSelectionMode',
+    luacls = 'fgui.ListSelectionMode',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::PackageItem *',
-    LUACLS = 'fgui.PackageItem',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GroupLayoutType',
+    luacls = 'fgui.GroupLayoutType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::PackageItemType',
-    LUACLS = 'fgui.PackageItemType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::PopupDirection',
+    luacls = 'fgui.PopupDirection',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::ObjectType',
-    LUACLS = 'fgui.ObjectType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::AutoSizeType',
+    luacls = 'fgui.AutoSizeType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::ButtonMode',
-    LUACLS = 'fgui.ButtonMode',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::FlipType',
+    luacls = 'fgui.FlipType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::ChildrenRenderOrder',
-    LUACLS = 'fgui.ChildrenRenderOrder',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::TransitionActionType',
+    luacls = 'fgui.TransitionActionType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::OverflowType',
-    LUACLS = 'fgui.OverflowType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::FillMethod',
+    luacls = 'fgui.FillMethod',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::ScrollType',
-    LUACLS = 'fgui.ScrollType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::FillOrigin',
+    luacls = 'fgui.FillOrigin',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::ScrollBarDisplayType',
-    LUACLS = 'fgui.ScrollBarDisplayType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::ObjectPropID',
+    luacls = 'fgui.ObjectPropID',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::LoaderFillType',
-    LUACLS = 'fgui.LoaderFillType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GController *',
+    luacls = 'fgui.GController',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::ProgressTitleType',
-    LUACLS = 'fgui.ProgressTitleType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GObject *',
+    luacls = 'fgui.GObject',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::ListLayoutType',
-    LUACLS = 'fgui.ListLayoutType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GComponent *',
+    luacls = 'fgui.GComponent',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::ListSelectionMode',
-    LUACLS = 'fgui.ListSelectionMode',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GRoot *',
+    luacls = 'fgui.GRoot',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GroupLayoutType',
-    LUACLS = 'fgui.GroupLayoutType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GGroup *',
+    luacls = 'fgui.GGroup',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::PopupDirection',
-    LUACLS = 'fgui.PopupDirection',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GScrollBar *',
+    luacls = 'fgui.GScrollBar',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::AutoSizeType',
-    LUACLS = 'fgui.AutoSizeType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GLoader *',
+    luacls = 'fgui.GLoader',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::FlipType',
-    LUACLS = 'fgui.FlipType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GLoader3D *',
+    luacls = 'fgui.GLoader3D',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::TransitionActionType',
-    LUACLS = 'fgui.TransitionActionType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GTextField *',
+    luacls = 'fgui.GTextField',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::FillMethod',
-    LUACLS = 'fgui.FillMethod',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GBasicTextField *',
+    luacls = 'fgui.GBasicTextField',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::FillOrigin',
-    LUACLS = 'fgui.FillOrigin',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GGraph *',
+    luacls = 'fgui.GGraph',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::ObjectPropID',
-    LUACLS = 'fgui.ObjectPropID',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GButton *',
+    luacls = 'fgui.GButton',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GController *',
-    LUACLS = 'fgui.GController',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GImage *',
+    luacls = 'fgui.GImage',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GObject *',
-    LUACLS = 'fgui.GObject',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GLabel *',
+    luacls = 'fgui.GLabel',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GComponent *',
-    LUACLS = 'fgui.GComponent',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GList::ListItemRenderer',
+    luacls = 'fgui.GList::ListItemRenderer',
+    decltype = 'std::function<void (int, fairygui::GObject *)>',
+    conv = 'olua_$$_callback',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GRoot *',
-    LUACLS = 'fgui.GRoot',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GList::ListItemProvider',
+    luacls = 'fgui.GList::ListItemProvider',
+    decltype = 'std::function<std::string (int)>',
+    conv = 'olua_$$_callback',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GGroup *',
-    LUACLS = 'fgui.GGroup',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GList *',
+    luacls = 'fgui.GList',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GScrollBar *',
-    LUACLS = 'fgui.GScrollBar',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GMovieClip *',
+    luacls = 'fgui.GMovieClip',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GLoader *',
-    LUACLS = 'fgui.GLoader',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GProgressBar *',
+    luacls = 'fgui.GProgressBar',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GTextField *',
-    LUACLS = 'fgui.GTextField',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GComboBox *',
+    luacls = 'fgui.GComboBox',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GBasicTextField *',
-    LUACLS = 'fgui.GBasicTextField',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GRichTextField *',
+    luacls = 'fgui.GRichTextField',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GGraph *',
-    LUACLS = 'fgui.GGraph',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GSlider *',
+    luacls = 'fgui.GSlider',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GButton *',
-    LUACLS = 'fgui.GButton',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GTextInput *',
+    luacls = 'fgui.GTextInput',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GImage *',
-    LUACLS = 'fgui.GImage',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::PopupMenu *',
+    luacls = 'fgui.PopupMenu',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GLabel *',
-    LUACLS = 'fgui.GLabel',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::Relations *',
+    luacls = 'fgui.Relations',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GList *',
-    LUACLS = 'fgui.GList',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::RelationType',
+    luacls = 'fgui.RelationType',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GMovieClip *',
-    LUACLS = 'fgui.GMovieClip',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::RelationItem *',
+    luacls = 'fgui.RelationItem',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GProgressBar *',
-    LUACLS = 'fgui.GProgressBar',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::ScrollPane *',
+    luacls = 'fgui.ScrollPane',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GComboBox *',
-    LUACLS = 'fgui.GComboBox',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::Transition::PlayCompleteCallback',
+    luacls = 'fgui.Transition::PlayCompleteCallback',
+    decltype = 'std::function<void ()>',
+    conv = 'olua_$$_callback',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GRichTextField *',
-    LUACLS = 'fgui.GRichTextField',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::Transition::TransitionHook',
+    luacls = 'fgui.Transition::TransitionHook',
+    decltype = 'std::function<void ()>',
+    conv = 'olua_$$_callback',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GSlider *',
-    LUACLS = 'fgui.GSlider',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::Transition *',
+    luacls = 'fgui.Transition',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GTextInput *',
-    LUACLS = 'fgui.GTextInput',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::UIConfig *',
+    luacls = 'fgui.UIConfig',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::PopupMenu *',
-    LUACLS = 'fgui.PopupMenu',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::IUISource *',
+    luacls = 'fgui.IUISource',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::Relations *',
-    LUACLS = 'fgui.Relations',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::UISource *',
+    luacls = 'fgui.UISource',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::RelationType',
-    LUACLS = 'fgui.RelationType',
-    DECLTYPE = "lua_Unsigned",
-    CONV = 'olua_$$_uint',
-    NUMVARS = nil,
+    cppcls = 'fairygui::Window *',
+    luacls = 'fgui.Window',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::RelationItem *',
-    LUACLS = 'fgui.RelationItem',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::DragDropManager *',
+    luacls = 'fgui.DragDropManager',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::ScrollPane *',
-    LUACLS = 'fgui.ScrollPane',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::UIObjectFactory::GLoaderCreator',
+    luacls = 'fgui.UIObjectFactory::GLoaderCreator',
+    decltype = 'std::function<fairygui::GLoader * ()>',
+    conv = 'olua_$$_callback',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::Transition *',
-    LUACLS = 'fgui.Transition',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::UIObjectFactory::GComponentCreator',
+    luacls = 'fgui.UIObjectFactory::GComponentCreator',
+    decltype = 'std::function<fairygui::GComponent * ()>',
+    conv = 'olua_$$_callback',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::UIConfig *',
-    LUACLS = 'fgui.UIConfig',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::UIObjectFactory *',
+    luacls = 'fgui.UIObjectFactory',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::IUISource *',
-    LUACLS = 'fgui.IUISource',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GearBase *',
+    luacls = 'fgui.GearBase',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::UISource *',
-    LUACLS = 'fgui.UISource',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GTreeNode *',
+    luacls = 'fgui.GTreeNode',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::Window *',
-    LUACLS = 'fgui.Window',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GTree::TreeNodeRenderFunction',
+    luacls = 'fgui.GTree::TreeNodeRenderFunction',
+    decltype = 'std::function<void (fairygui::GTreeNode *, fairygui::GComponent *)>',
+    conv = 'olua_$$_callback',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::DragDropManager *',
-    LUACLS = 'fgui.DragDropManager',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GTree::TreeNodeWillExpandFunction',
+    luacls = 'fgui.GTree::TreeNodeWillExpandFunction',
+    decltype = 'std::function<void (fairygui::GTreeNode *, bool)>',
+    conv = 'olua_$$_callback',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::UIObjectFactory *',
-    LUACLS = 'fgui.UIObjectFactory',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::GTree *',
+    luacls = 'fgui.GTree',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GearBase *',
-    LUACLS = 'fgui.GearBase',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::FUIContainer *',
+    luacls = 'fgui.FUIContainer',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GTreeNode *',
-    LUACLS = 'fgui.GTreeNode',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::FUIInput *',
+    luacls = 'fgui.FUIInput',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::GTree *',
-    LUACLS = 'fgui.GTree',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::FUILabel *',
+    luacls = 'fgui.FUILabel',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::FUIContainer *',
-    LUACLS = 'fgui.FUIContainer',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::FUIRichText *',
+    luacls = 'fgui.FUIRichText',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::FUIInput *',
-    LUACLS = 'fgui.FUIInput',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::FUISprite *',
+    luacls = 'fgui.FUISprite',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::FUILabel *',
-    LUACLS = 'fgui.FUILabel',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::HtmlObject *',
+    luacls = 'fgui.HtmlObject',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::FUIRichText *',
-    LUACLS = 'fgui.FUIRichText',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::HtmlElement::Type',
+    luacls = 'fgui.HtmlElement::Type',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
 }
 
 typedef {
-    CPPCLS = 'fairygui::FUISprite *',
-    LUACLS = 'fgui.FUISprite',
-    DECLTYPE = nil,
-    CONV = 'olua_$$_cppobj',
-    NUMVARS = nil,
+    cppcls = 'fairygui::HtmlElement *',
+    luacls = 'fgui.HtmlElement',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
 }
 

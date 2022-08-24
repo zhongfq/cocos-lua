@@ -1,5 +1,5 @@
-local runtime = require "kernel.runtime"
-local timer = require "kernel.timer"
+local runtime = require "cclua.runtime"
+local timer = require "cclua.timer"
 
 local M = {}
 

@@ -1,8 +1,8 @@
-local class         = require "xgame.class"
-local Array         = require "xgame.Array"
-local http          = require "xgame.http"
-local Event         = require "xgame.event.Event"
-local Dispatcher    = require "xgame.event.Dispatcher"
+local class         = require "cclua.class"
+local Array         = require "cclua.Array"
+local http          = require "cclua.http"
+local Event         = require "cclua.Event"
+local Dispatcher    = require "cclua.Dispatcher"
 local UIEventType   = require "fgui.UIEventType"
 
 local FileBrowser = class('FileBrowser', Dispatcher)
@@ -12,7 +12,7 @@ function FileBrowser:ctor(context, url)
     self.dirs = Array.new({})
     self.url = url
 
-    self.list = context.view:resolve('panel.fileList')
+    self.list = context.view.fgui:resolve('panel.fileList')
     self.list:addEventListener(UIEventType.ClickItem, function (context)
         local data = context.data.customData
         if data.name == '../' then

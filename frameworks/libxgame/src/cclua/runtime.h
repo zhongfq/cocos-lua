@@ -4,6 +4,14 @@
 #include "lua.hpp"
 #include "cocos2d.h"
 
+#ifndef CCLUA_VERSION
+#define CCLUA_VERSION "1.0.0"
+#endif
+
+#ifndef APP_NAME
+#define APP_NAME "cclua"
+#endif
+
 #if COCOS2D_VERSION >= 0x00040000
 #include "renderer/backend/ProgramCache.h"
 #endif

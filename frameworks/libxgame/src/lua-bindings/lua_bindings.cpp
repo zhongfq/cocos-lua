@@ -4,8 +4,6 @@
 #include "lua_ocbridge.h"
 #include "lua_xgame.h"
 #include "lua_cocos2d.h"
-#include "lua_cocos2d_action.h"
-#include "lua_cocos2d_backend.h"
 #include "lua_cocos2d_physics.h"
 #include "lua_cocos2d_ui.h"
 #include "lua_manual.h"
@@ -18,6 +16,11 @@
 #include "lfs/lfs.h"
 #include "xxtea/lua_xxtea.h"
 
+#if COCOS2D_VERSION >= 0x00040000
+#include "lua_cocos2d_action.h"
+#include "lua_cocos2d_backend.h"
+#endif
+
 #ifdef CCLUA_BUILD_BUGLY
 #include "bugly/lua_bugly.h"
 #endif //CCLUA_BUILD_BUGLY
@@ -25,8 +28,10 @@
 int luaopen_bindings(lua_State *L)
 {
     olua_callfunc(L, luaopen_cocos2d);
+#if COCOS2D_VERSION >= 0x00040000
     olua_callfunc(L, luaopen_cocos2d_action);
     olua_callfunc(L, luaopen_cocos2d_backend);
+#endif
     olua_callfunc(L, luaopen_cocos2d_physics);
     olua_callfunc(L, luaopen_cocos2d_ui);
     olua_callfunc(L, luaopen_xgame);

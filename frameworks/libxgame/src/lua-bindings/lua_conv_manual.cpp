@@ -538,6 +538,7 @@ void olua_check_cocos2d_ValueMap(lua_State *L, int idx, cocos2d::ValueMap *value
     lua_settop(L, top);
 }
 
+#if COCOS2D_VERSION >= 0x00040000
 int olua_is_cocos2d_backend_UniformLocation(lua_State *L, int idx)
 {
     return olua_istable(L, idx)
@@ -581,3 +582,5 @@ void olua_check_cocos2d_backend_UniformLocation(lua_State *L, int idx, cocos2d::
     }
     lua_settop(L, top);
 }
+
+#endif

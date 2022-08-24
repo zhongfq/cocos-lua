@@ -4,7 +4,10 @@
 #include "cclua/xlua.h"
 #include "cocos2d.h"
 #include "network/WebSocket.h"
+
+#if COCOS2D_VERSION >= 0x00040000
 #include "renderer/backend/Backend.h"
+#endif
 
 int olua_push_cocos2d_network_WebSocket_Data(lua_State *L, const cocos2d::network::WebSocket::Data *value);
 void olua_check_cocos2d_network_WebSocket_Data(lua_State *L, int idx, cocos2d::network::WebSocket::Data *value);
@@ -64,9 +67,11 @@ int olua_is_cocos2d_ValueMapIntKey(lua_State *L, int idx);
 int olua_push_cocos2d_ValueMap(lua_State *L, const cocos2d::ValueMap *value);
 void olua_check_cocos2d_ValueMap(lua_State *L, int idx, cocos2d::ValueMap *value);
 
+#if COCOS2D_VERSION >= 0x00040000
 int olua_is_cocos2d_backend_UniformLocation(lua_State *L, int idx);
 int olua_push_cocos2d_backend_UniformLocation(lua_State *L, const cocos2d::backend::UniformLocation *value);
 void olua_check_cocos2d_backend_UniformLocation(lua_State *L, int idx, cocos2d::backend::UniformLocation *value);
+#endif
 
 
 #endif

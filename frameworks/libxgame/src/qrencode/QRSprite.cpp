@@ -44,9 +44,13 @@ bool QRSprite::initWithString(const std::string& code)
                 *data++ = 0;
             }
         }
-        
+#if COCOS2D_VERSION >= 0x00040000
         texture->initWithData(img, _qrcode->width * _qrcode->width, backend::PixelFormat::RGB888,
                                _qrcode->width, _qrcode->width, Size(_qrcode->width, _qrcode->width));
+#else
+        texture->initWithData(img, _qrcode->width * _qrcode->width, Texture2D::PixelFormat::RGB888,
+                               _qrcode->width, _qrcode->width, Size(_qrcode->width, _qrcode->width));
+#endif
         texture->setAliasTexParameters();
         setTexture(texture);
         Rect rect = Rect::ZERO;

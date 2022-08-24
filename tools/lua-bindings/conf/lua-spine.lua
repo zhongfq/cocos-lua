@@ -160,9 +160,9 @@ typeconf 'spine::AnimationState'
     .callback 'setListener' .localvar 'false'
 
 typeconf 'spine::AnimationStateData'
-
 typeconf 'spine::Animation'
-
+typeconf 'spine::Sequence'
+typeconf 'spine::TextureRegion'
 typeconf 'spine::ConstraintData'
 typeconf 'spine::IkConstraintData'
 typeconf 'spine::BoneData'
@@ -202,14 +202,6 @@ typeconf 'spine::ShearTimeline'
 typeconf 'spine::TransformConstraintTimeline'
 typeconf 'spine::ScaleTimeline'
 typeconf 'spine::RotateTimeline'
-
-typeconf 'spine::VertexEffect'
-    .exclude 'begin'
-    .exclude 'end'
-    .exclude 'transform'
-
-typeconf 'spine::SwirlVertexEffect'
-typeconf 'spine::JitterVertexEffect'
 
 typeonly 'spine::Polygon'
 

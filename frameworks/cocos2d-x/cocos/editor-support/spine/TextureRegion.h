@@ -27,44 +27,24 @@
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-#ifndef Spine_Triangulator_h
-#define Spine_Triangulator_h
+#ifndef Spine_TextureRegion_h
+#define Spine_TextureRegion_h
 
 #include <spine/Vector.h>
-#include <spine/Pool.h>
 
 namespace spine {
-	class SP_API Triangulator : public SpineObject {
+	class SP_API TextureRegion : public SpineObject {
 	public:
-		~Triangulator();
+		void *rendererObject;
+		float u, v, u2, v2;
+		int degrees;
+		float offsetX, offsetY;
+		int width, height;
+		int originalWidth, originalHeight;
 
-		Vector<int> &triangulate(Vector<float> &vertices);
-
-		Vector<Vector < float>* > &
-		decompose(Vector<float>
-		&vertices,
-		Vector<int> &triangles
-		);
-
-	private:
-		Vector<Vector < float>* >
-		_convexPolygons;
-		Vector<Vector < int>* >
-		_convexPolygonsIndices;
-
-		Vector<int> _indices;
-		Vector<bool> _isConcaveArray;
-		Vector<int> _triangles;
-
-		Pool <Vector<float>> _polygonPool;
-		Pool <Vector<int>> _polygonIndicesPool;
-
-		static bool isConcave(int index, int vertexCount, Vector<float> &vertices, Vector<int> &indices);
-
-		static bool positiveArea(float p1x, float p1y, float p2x, float p2y, float p3x, float p3y);
-
-		static int winding(float p1x, float p1y, float p2x, float p2y, float p3x, float p3y);
+		TextureRegion(): rendererObject(NULL), u(0), v(0), u2(0), v2(0), degrees(0), offsetX(0), offsetY(0), width(0), height(0), originalWidth(0), originalHeight(0) {};
+		~TextureRegion() {};
 	};
 }
 
-#endif /* Spine_Triangulator_h */
+#endif

@@ -27,44 +27,11 @@
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-#ifndef Spine_Triangulator_h
-#define Spine_Triangulator_h
+#ifndef SPINE_VERTEXEFFECT_H_
+#define SPINE_VERTEXEFFECT_H_
 
-#include <spine/Vector.h>
-#include <spine/Pool.h>
+#define SPINE_MAJOR_VERSION 4
+#define SPINE_MINOR_VERSION 1
+#define SPINE_VERSION_STRING "4.1"
 
-namespace spine {
-	class SP_API Triangulator : public SpineObject {
-	public:
-		~Triangulator();
-
-		Vector<int> &triangulate(Vector<float> &vertices);
-
-		Vector<Vector < float>* > &
-		decompose(Vector<float>
-		&vertices,
-		Vector<int> &triangles
-		);
-
-	private:
-		Vector<Vector < float>* >
-		_convexPolygons;
-		Vector<Vector < int>* >
-		_convexPolygonsIndices;
-
-		Vector<int> _indices;
-		Vector<bool> _isConcaveArray;
-		Vector<int> _triangles;
-
-		Pool <Vector<float>> _polygonPool;
-		Pool <Vector<int>> _polygonIndicesPool;
-
-		static bool isConcave(int index, int vertexCount, Vector<float> &vertices, Vector<int> &indices);
-
-		static bool positiveArea(float p1x, float p1y, float p2x, float p2y, float p3x, float p3y);
-
-		static int winding(float p1x, float p1y, float p2x, float p2y, float p3x, float p3y);
-	};
-}
-
-#endif /* Spine_Triangulator_h */
+#endif

@@ -27,44 +27,72 @@
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-#ifndef Spine_Triangulator_h
-#define Spine_Triangulator_h
+#ifndef Spine_Sequence_h
+#define Spine_Sequence_h
 
 #include <spine/Vector.h>
-#include <spine/Pool.h>
+#include <spine/SpineString.h>
+#include <spine/TextureRegion.h>
 
 namespace spine {
-	class SP_API Triangulator : public SpineObject {
+	class Slot;
+
+	class Attachment;
+
+	class SkeletonBinary;
+	class SkeletonJson;
+
+	class SP_API Sequence : public SpineObject {
+		friend class SkeletonBinary;
+		friend class SkeletonJson;
 	public:
-		~Triangulator();
+		Sequence(int count);
 
-		Vector<int> &triangulate(Vector<float> &vertices);
+		~Sequence();
 
-		Vector<Vector < float>* > &
-		decompose(Vector<float>
-		&vertices,
-		Vector<int> &triangles
-		);
+		Sequence *copy();
+
+		void apply(Slot *slot, Attachment *attachment);
+
+		String getPath(const String &basePath, int index);
+
+		int getId() { return _id; }
+
+		void setId(int id) { _id = id; }
+
+		int getStart() { return _start; }
+
+		void setStart(int start) { _start = start; }
+
+		int getDigits() { return _digits; }
+
+		void setDigits(int digits) { _digits = digits; }
+
+		int getSetupIndex() { return _setupIndex; }
+
+		void setSetupIndex(int setupIndex) { _setupIndex = setupIndex; }
+
+		Vector<TextureRegion *> &getRegions() { return _regions; }
 
 	private:
-		Vector<Vector < float>* >
-		_convexPolygons;
-		Vector<Vector < int>* >
-		_convexPolygonsIndices;
+		int _id;
+		Vector<TextureRegion *> _regions;
+		int _start;
+		int _digits;
+		int _setupIndex;
 
-		Vector<int> _indices;
-		Vector<bool> _isConcaveArray;
-		Vector<int> _triangles;
+		int getNextID();
+	};
 
-		Pool <Vector<float>> _polygonPool;
-		Pool <Vector<int>> _polygonIndicesPool;
-
-		static bool isConcave(int index, int vertexCount, Vector<float> &vertices, Vector<int> &indices);
-
-		static bool positiveArea(float p1x, float p1y, float p2x, float p2y, float p3x, float p3y);
-
-		static int winding(float p1x, float p1y, float p2x, float p2y, float p3x, float p3y);
+	enum SequenceMode {
+		hold = 0,
+		once = 1,
+		loop = 2,
+		pingpong = 3,
+		onceReverse = 4,
+		loopReverse = 5,
+		pingpongReverse = 6
 	};
 }
 
-#endif /* Spine_Triangulator_h */
+#endif

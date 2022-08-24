@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated January 1, 2020. Replaces all prior versions.
+ * Last updated September 24, 2021. Replaces all prior versions.
  *
- * Copyright (c) 2013-2020, Esoteric Software LLC
+ * Copyright (c) 2013-2021, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -66,6 +66,9 @@ namespace spine {
 		/// The mix duration to use when changing from the specified animation to the other,
 		/// or the DefaultMix if no mix duration has been set.
 		float getMix(Animation *from, Animation *to);
+
+		/// Removes all mixes and sets the default mix to 0.
+		void clear();
 
 	private:
 		class AnimationPair : public SpineObject {

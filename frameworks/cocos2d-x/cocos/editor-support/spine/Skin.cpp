@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated January 1, 2020. Replaces all prior versions.
+ * Last updated September 24, 2021. Replaces all prior versions.
  *
- * Copyright (c) 2013-2020, Esoteric Software LLC
+ * Copyright (c) 2013-2021, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -26,10 +26,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
-
-#ifdef SPINE_UE4
-#include "SpinePluginPrivatePCH.h"
-#endif
 
 #include <spine/Skin.h>
 
@@ -84,7 +80,7 @@ void Skin::AttachmentMap::remove(size_t slotIndex, const String &attachmentName)
 
 int Skin::AttachmentMap::findInBucket(Vector<Entry> &bucket, const String &attachmentName) {
 	for (size_t i = 0; i < bucket.size(); i++)
-		if (bucket[i]._name == attachmentName) return i;
+		if (bucket[i]._name == attachmentName) return (int) i;
 	return -1;
 }
 
@@ -148,7 +144,7 @@ void Skin::attachAll(Skeleton &skeleton, Skin &oldSkin) {
 	Skin::AttachmentMap::Entries entries = oldSkin.getAttachments();
 	while (entries.hasNext()) {
 		Skin::AttachmentMap::Entry &entry = entries.next();
-		int slotIndex = entry._slotIndex;
+		int slotIndex = (int) entry._slotIndex;
 		Slot *slot = slots[slotIndex];
 
 		if (slot->getAttachment() == entry._attachment) {

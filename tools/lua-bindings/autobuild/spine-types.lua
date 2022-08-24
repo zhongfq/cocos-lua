@@ -155,6 +155,22 @@ typedef {
 }
 
 typedef {
+    cppcls = 'spine::Sequence *',
+    luacls = 'sp.Sequence',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'spine::TextureRegion *',
+    luacls = 'sp.TextureRegion',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
     cppcls = 'spine::ConstraintData *',
     luacls = 'sp.ConstraintData',
     decltype = nil,
@@ -405,30 +421,6 @@ typedef {
 typedef {
     cppcls = 'spine::RotateTimeline *',
     luacls = 'sp.RotateTimeline',
-    decltype = nil,
-    conv = 'olua_$$_cppobj',
-    num_vars = nil,
-}
-
-typedef {
-    cppcls = 'spine::VertexEffect *',
-    luacls = 'sp.VertexEffect',
-    decltype = nil,
-    conv = 'olua_$$_cppobj',
-    num_vars = nil,
-}
-
-typedef {
-    cppcls = 'spine::SwirlVertexEffect *',
-    luacls = 'sp.SwirlVertexEffect',
-    decltype = nil,
-    conv = 'olua_$$_cppobj',
-    num_vars = nil,
-}
-
-typedef {
-    cppcls = 'spine::JitterVertexEffect *',
-    luacls = 'sp.JitterVertexEffect',
     decltype = nil,
     conv = 'olua_$$_cppobj',
     num_vars = nil,

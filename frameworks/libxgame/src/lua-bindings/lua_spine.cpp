@@ -1417,6 +1417,22 @@ static int _spine_AnimationStateData___olua_move(lua_State *L)
     return 1;
 }
 
+static int _spine_AnimationStateData_clear(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::AnimationStateData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationStateData");
+
+    // void clear()
+    self->clear();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _spine_AnimationStateData_getDefaultMix(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1579,6 +1595,7 @@ OLUA_LIB int luaopen_spine_AnimationStateData(lua_State *L)
     oluacls_class(L, "sp.AnimationStateData", "sp.SpineObject");
     oluacls_func(L, "__gc", _spine_AnimationStateData___gc);
     oluacls_func(L, "__olua_move", _spine_AnimationStateData___olua_move);
+    oluacls_func(L, "clear", _spine_AnimationStateData_clear);
     oluacls_func(L, "getDefaultMix", _spine_AnimationStateData_getDefaultMix);
     oluacls_func(L, "getMix", _spine_AnimationStateData_getMix);
     oluacls_func(L, "getSkeletonData", _spine_AnimationStateData_getSkeletonData);
@@ -1717,6 +1734,77 @@ static int _spine_Animation_new(lua_State *L)
     return num_ret;
 }
 
+static int _spine_Animation_search1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::Vector<float> arg1;       /** values */
+    lua_Number arg2 = 0;       /** target */
+
+    olua_check_array<float>(L, 1, &arg1, [L](float *value) {
+        lua_Number obj;
+        olua_check_number(L, -1, &obj);
+        *value = (float)obj;
+    });
+    olua_check_number(L, 2, &arg2);
+
+    // static int search(Vector<float> &values, float target)
+    int ret = spine::Animation::search(arg1, (float)arg2);
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_Animation_search2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::Vector<float> arg1;       /** values */
+    lua_Number arg2 = 0;       /** target */
+    lua_Integer arg3 = 0;       /** step */
+
+    olua_check_array<float>(L, 1, &arg1, [L](float *value) {
+        lua_Number obj;
+        olua_check_number(L, -1, &obj);
+        *value = (float)obj;
+    });
+    olua_check_number(L, 2, &arg2);
+    olua_check_int(L, 3, &arg3);
+
+    // static int search(Vector<float> &values, float target, int step)
+    int ret = spine::Animation::search(arg1, (float)arg2, (int)arg3);
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_Animation_search(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if ((olua_is_array(L, 1)) && (olua_is_number(L, 2))) {
+            // static int search(Vector<float> &values, float target)
+            return _spine_Animation_search1(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_array(L, 1)) && (olua_is_number(L, 2)) && (olua_is_int(L, 3))) {
+            // static int search(Vector<float> &values, float target, int step)
+            return _spine_Animation_search2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'spine::Animation::search' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
 static int _spine_Animation_setDuration(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1746,12 +1834,785 @@ OLUA_LIB int luaopen_spine_Animation(lua_State *L)
     oluacls_func(L, "getTimelines", _spine_Animation_getTimelines);
     oluacls_func(L, "hasTimeline", _spine_Animation_hasTimeline);
     oluacls_func(L, "new", _spine_Animation_new);
+    oluacls_func(L, "search", _spine_Animation_search);
     oluacls_func(L, "setDuration", _spine_Animation_setDuration);
     oluacls_prop(L, "duration", _spine_Animation_getDuration, _spine_Animation_setDuration);
     oluacls_prop(L, "name", _spine_Animation_getName, nullptr);
     oluacls_prop(L, "timelines", _spine_Animation_getTimelines, nullptr);
 
     olua_registerluatype<spine::Animation>(L, "sp.Animation");
+
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _spine_Sequence___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_postgc<spine::Sequence>(L, 1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_Sequence___olua_move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (spine::Sequence *)olua_toobj(L, 1, "sp.Sequence");
+    olua_push_cppobj(L, self, "sp.Sequence");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _spine_Sequence_apply(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::Sequence *self = nullptr;
+    spine::Slot *arg1 = nullptr;       /** slot */
+    spine::Attachment *arg2 = nullptr;       /** attachment */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Slot");
+    olua_check_cppobj(L, 3, (void **)&arg2, "sp.Attachment");
+
+    // void apply(spine::Slot *slot, spine::Attachment *attachment)
+    self->apply(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_Sequence_copy(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::Sequence *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+
+    // spine::Sequence *copy()
+    spine::Sequence *ret = self->copy();
+    int num_ret = olua_push_cppobj(L, ret, "sp.Sequence");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_Sequence_getDigits(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::Sequence *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+
+    // int getDigits()
+    int ret = self->getDigits();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_Sequence_getId(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::Sequence *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+
+    // int getId()
+    int ret = self->getId();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_Sequence_getPath(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::Sequence *self = nullptr;
+    spine::String arg1;       /** basePath */
+    lua_Integer arg2 = 0;       /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+    olua_check_spine_String(L, 2, &arg1);
+    olua_check_int(L, 3, &arg2);
+
+    // spine::String getPath(const spine::String &basePath, int index)
+    spine::String ret = self->getPath(arg1, (int)arg2);
+    int num_ret = olua_push_spine_String(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_Sequence_getRegions(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::Sequence *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+
+    // Vector<spine::TextureRegion *> &getRegions()
+    spine::Vector<spine::TextureRegion *> &ret = self->getRegions();
+    int num_ret = olua_push_array<spine::TextureRegion *>(L, &ret, [L](spine::TextureRegion *value) {
+        olua_push_cppobj(L, value, "sp.TextureRegion");
+    });
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_Sequence_getSetupIndex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::Sequence *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+
+    // int getSetupIndex()
+    int ret = self->getSetupIndex();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_Sequence_getStart(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::Sequence *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+
+    // int getStart()
+    int ret = self->getStart();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_Sequence_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Integer arg1 = 0;       /** count */
+
+    olua_check_int(L, 1, &arg1);
+
+    // Sequence(int count)
+    spine::Sequence *ret = new spine::Sequence((int)arg1);
+    int num_ret = olua_push_cppobj(L, ret, "sp.Sequence");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_Sequence_setDigits(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::Sequence *self = nullptr;
+    lua_Integer arg1 = 0;       /** digits */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+    olua_check_int(L, 2, &arg1);
+
+    // void setDigits(int digits)
+    self->setDigits((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_Sequence_setId(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::Sequence *self = nullptr;
+    lua_Integer arg1 = 0;       /** id */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+    olua_check_int(L, 2, &arg1);
+
+    // void setId(int id)
+    self->setId((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_Sequence_setSetupIndex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::Sequence *self = nullptr;
+    lua_Integer arg1 = 0;       /** setupIndex */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+    olua_check_int(L, 2, &arg1);
+
+    // void setSetupIndex(int setupIndex)
+    self->setSetupIndex((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_Sequence_setStart(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::Sequence *self = nullptr;
+    lua_Integer arg1 = 0;       /** start */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+    olua_check_int(L, 2, &arg1);
+
+    // void setStart(int start)
+    self->setStart((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_spine_Sequence(lua_State *L)
+{
+    oluacls_class(L, "sp.Sequence", "sp.SpineObject");
+    oluacls_func(L, "__gc", _spine_Sequence___gc);
+    oluacls_func(L, "__olua_move", _spine_Sequence___olua_move);
+    oluacls_func(L, "apply", _spine_Sequence_apply);
+    oluacls_func(L, "copy", _spine_Sequence_copy);
+    oluacls_func(L, "getDigits", _spine_Sequence_getDigits);
+    oluacls_func(L, "getId", _spine_Sequence_getId);
+    oluacls_func(L, "getPath", _spine_Sequence_getPath);
+    oluacls_func(L, "getRegions", _spine_Sequence_getRegions);
+    oluacls_func(L, "getSetupIndex", _spine_Sequence_getSetupIndex);
+    oluacls_func(L, "getStart", _spine_Sequence_getStart);
+    oluacls_func(L, "new", _spine_Sequence_new);
+    oluacls_func(L, "setDigits", _spine_Sequence_setDigits);
+    oluacls_func(L, "setId", _spine_Sequence_setId);
+    oluacls_func(L, "setSetupIndex", _spine_Sequence_setSetupIndex);
+    oluacls_func(L, "setStart", _spine_Sequence_setStart);
+    oluacls_prop(L, "digits", _spine_Sequence_getDigits, _spine_Sequence_setDigits);
+    oluacls_prop(L, "id", _spine_Sequence_getId, _spine_Sequence_setId);
+    oluacls_prop(L, "regions", _spine_Sequence_getRegions, nullptr);
+    oluacls_prop(L, "setupIndex", _spine_Sequence_getSetupIndex, _spine_Sequence_setSetupIndex);
+    oluacls_prop(L, "start", _spine_Sequence_getStart, _spine_Sequence_setStart);
+
+    olua_registerluatype<spine::Sequence>(L, "sp.Sequence");
+
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _spine_TextureRegion___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_postgc<spine::TextureRegion>(L, 1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_TextureRegion___olua_move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (spine::TextureRegion *)olua_toobj(L, 1, "sp.TextureRegion");
+    olua_push_cppobj(L, self, "sp.TextureRegion");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _spine_TextureRegion_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // TextureRegion()
+    spine::TextureRegion *ret = new spine::TextureRegion();
+    int num_ret = olua_push_cppobj(L, ret, "sp.TextureRegion");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_TextureRegion_get_degrees(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+
+    // int degrees
+    int ret = self->degrees;
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_TextureRegion_set_degrees(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+    lua_Integer arg1 = 0;       /** degrees */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_check_int(L, 2, &arg1);
+
+    // int degrees
+    self->degrees = (int)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_TextureRegion_get_height(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+
+    // int height
+    int ret = self->height;
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_TextureRegion_set_height(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+    lua_Integer arg1 = 0;       /** height */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_check_int(L, 2, &arg1);
+
+    // int height
+    self->height = (int)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_TextureRegion_get_offsetX(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+
+    // float offsetX
+    float ret = self->offsetX;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_TextureRegion_set_offsetX(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+    lua_Number arg1 = 0;       /** offsetX */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_check_number(L, 2, &arg1);
+
+    // float offsetX
+    self->offsetX = (float)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_TextureRegion_get_offsetY(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+
+    // float offsetY
+    float ret = self->offsetY;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_TextureRegion_set_offsetY(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+    lua_Number arg1 = 0;       /** offsetY */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_check_number(L, 2, &arg1);
+
+    // float offsetY
+    self->offsetY = (float)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_TextureRegion_get_originalHeight(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+
+    // int originalHeight
+    int ret = self->originalHeight;
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_TextureRegion_set_originalHeight(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+    lua_Integer arg1 = 0;       /** originalHeight */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_check_int(L, 2, &arg1);
+
+    // int originalHeight
+    self->originalHeight = (int)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_TextureRegion_get_originalWidth(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+
+    // int originalWidth
+    int ret = self->originalWidth;
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_TextureRegion_set_originalWidth(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+    lua_Integer arg1 = 0;       /** originalWidth */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_check_int(L, 2, &arg1);
+
+    // int originalWidth
+    self->originalWidth = (int)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_TextureRegion_get_rendererObject(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+
+    // void *rendererObject
+    void *ret = self->rendererObject;
+    int num_ret = olua_push_obj(L, ret, "void *");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_TextureRegion_set_rendererObject(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+    void *arg1 = nullptr;       /** rendererObject */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_check_obj(L, 2, (void **)&arg1, "void *");
+
+    // void *rendererObject
+    self->rendererObject = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_TextureRegion_get_u(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+
+    // float u
+    float ret = self->u;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_TextureRegion_set_u(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+    lua_Number arg1 = 0;       /** u */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_check_number(L, 2, &arg1);
+
+    // float u
+    self->u = (float)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_TextureRegion_get_u2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+
+    // float u2
+    float ret = self->u2;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_TextureRegion_set_u2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+    lua_Number arg1 = 0;       /** u2 */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_check_number(L, 2, &arg1);
+
+    // float u2
+    self->u2 = (float)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_TextureRegion_get_v(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+
+    // float v
+    float ret = self->v;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_TextureRegion_set_v(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+    lua_Number arg1 = 0;       /** v */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_check_number(L, 2, &arg1);
+
+    // float v
+    self->v = (float)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_TextureRegion_get_v2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+
+    // float v2
+    float ret = self->v2;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_TextureRegion_set_v2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+    lua_Number arg1 = 0;       /** v2 */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_check_number(L, 2, &arg1);
+
+    // float v2
+    self->v2 = (float)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_TextureRegion_get_width(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+
+    // int width
+    int ret = self->width;
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_TextureRegion_set_width(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TextureRegion *self = nullptr;
+    lua_Integer arg1 = 0;       /** width */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_check_int(L, 2, &arg1);
+
+    // int width
+    self->width = (int)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_spine_TextureRegion(lua_State *L)
+{
+    oluacls_class(L, "sp.TextureRegion", "sp.SpineObject");
+    oluacls_func(L, "__gc", _spine_TextureRegion___gc);
+    oluacls_func(L, "__olua_move", _spine_TextureRegion___olua_move);
+    oluacls_func(L, "new", _spine_TextureRegion_new);
+    oluacls_prop(L, "degrees", _spine_TextureRegion_get_degrees, _spine_TextureRegion_set_degrees);
+    oluacls_prop(L, "height", _spine_TextureRegion_get_height, _spine_TextureRegion_set_height);
+    oluacls_prop(L, "offsetX", _spine_TextureRegion_get_offsetX, _spine_TextureRegion_set_offsetX);
+    oluacls_prop(L, "offsetY", _spine_TextureRegion_get_offsetY, _spine_TextureRegion_set_offsetY);
+    oluacls_prop(L, "originalHeight", _spine_TextureRegion_get_originalHeight, _spine_TextureRegion_set_originalHeight);
+    oluacls_prop(L, "originalWidth", _spine_TextureRegion_get_originalWidth, _spine_TextureRegion_set_originalWidth);
+    oluacls_prop(L, "rendererObject", _spine_TextureRegion_get_rendererObject, _spine_TextureRegion_set_rendererObject);
+    oluacls_prop(L, "u", _spine_TextureRegion_get_u, _spine_TextureRegion_set_u);
+    oluacls_prop(L, "u2", _spine_TextureRegion_get_u2, _spine_TextureRegion_set_u2);
+    oluacls_prop(L, "v", _spine_TextureRegion_get_v, _spine_TextureRegion_set_v);
+    oluacls_prop(L, "v2", _spine_TextureRegion_get_v2, _spine_TextureRegion_set_v2);
+    oluacls_prop(L, "width", _spine_TextureRegion_get_width, _spine_TextureRegion_set_width);
+
+    olua_registerluatype<spine::TextureRegion>(L, "sp.TextureRegion");
 
     return 1;
 }
@@ -6868,415 +7729,6 @@ OLUA_LIB int luaopen_spine_RotateTimeline(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _spine_VertexEffect___olua_move(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    auto self = (spine::VertexEffect *)olua_toobj(L, 1, "sp.VertexEffect");
-    olua_push_cppobj(L, self, "sp.VertexEffect");
-
-    olua_endinvoke(L);
-
-    return 1;
-}
-
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_spine_VertexEffect(lua_State *L)
-{
-    oluacls_class(L, "sp.VertexEffect", "sp.SpineObject");
-    oluacls_func(L, "__olua_move", _spine_VertexEffect___olua_move);
-
-    olua_registerluatype<spine::VertexEffect>(L, "sp.VertexEffect");
-
-    return 1;
-}
-OLUA_END_DECLS
-
-static int _spine_SwirlVertexEffect___olua_move(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    auto self = (spine::SwirlVertexEffect *)olua_toobj(L, 1, "sp.SwirlVertexEffect");
-    olua_push_cppobj(L, self, "sp.SwirlVertexEffect");
-
-    olua_endinvoke(L);
-
-    return 1;
-}
-
-static int _spine_SwirlVertexEffect_getAngle(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::SwirlVertexEffect *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SwirlVertexEffect");
-
-    // float getAngle()
-    float ret = self->getAngle();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_SwirlVertexEffect_getCenterX(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::SwirlVertexEffect *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SwirlVertexEffect");
-
-    // float getCenterX()
-    float ret = self->getCenterX();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_SwirlVertexEffect_getCenterY(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::SwirlVertexEffect *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SwirlVertexEffect");
-
-    // float getCenterY()
-    float ret = self->getCenterY();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_SwirlVertexEffect_getRadius(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::SwirlVertexEffect *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SwirlVertexEffect");
-
-    // float getRadius()
-    float ret = self->getRadius();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_SwirlVertexEffect_getWorldX(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::SwirlVertexEffect *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SwirlVertexEffect");
-
-    // float getWorldX()
-    float ret = self->getWorldX();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_SwirlVertexEffect_getWorldY(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::SwirlVertexEffect *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SwirlVertexEffect");
-
-    // float getWorldY()
-    float ret = self->getWorldY();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_SwirlVertexEffect_setAngle(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::SwirlVertexEffect *self = nullptr;
-    lua_Number arg1 = 0;       /** angle */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SwirlVertexEffect");
-    olua_check_number(L, 2, &arg1);
-
-    // void setAngle(float angle)
-    self->setAngle((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_SwirlVertexEffect_setCenterX(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::SwirlVertexEffect *self = nullptr;
-    lua_Number arg1 = 0;       /** centerX */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SwirlVertexEffect");
-    olua_check_number(L, 2, &arg1);
-
-    // void setCenterX(float centerX)
-    self->setCenterX((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_SwirlVertexEffect_setCenterY(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::SwirlVertexEffect *self = nullptr;
-    lua_Number arg1 = 0;       /** centerY */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SwirlVertexEffect");
-    olua_check_number(L, 2, &arg1);
-
-    // void setCenterY(float centerY)
-    self->setCenterY((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_SwirlVertexEffect_setRadius(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::SwirlVertexEffect *self = nullptr;
-    lua_Number arg1 = 0;       /** radius */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SwirlVertexEffect");
-    olua_check_number(L, 2, &arg1);
-
-    // void setRadius(float radius)
-    self->setRadius((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_SwirlVertexEffect_setWorldX(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::SwirlVertexEffect *self = nullptr;
-    lua_Number arg1 = 0;       /** worldX */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SwirlVertexEffect");
-    olua_check_number(L, 2, &arg1);
-
-    // void setWorldX(float worldX)
-    self->setWorldX((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_SwirlVertexEffect_setWorldY(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::SwirlVertexEffect *self = nullptr;
-    lua_Number arg1 = 0;       /** worldY */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SwirlVertexEffect");
-    olua_check_number(L, 2, &arg1);
-
-    // void setWorldY(float worldY)
-    self->setWorldY((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_spine_SwirlVertexEffect(lua_State *L)
-{
-    oluacls_class(L, "sp.SwirlVertexEffect", "sp.VertexEffect");
-    oluacls_func(L, "__olua_move", _spine_SwirlVertexEffect___olua_move);
-    oluacls_func(L, "getAngle", _spine_SwirlVertexEffect_getAngle);
-    oluacls_func(L, "getCenterX", _spine_SwirlVertexEffect_getCenterX);
-    oluacls_func(L, "getCenterY", _spine_SwirlVertexEffect_getCenterY);
-    oluacls_func(L, "getRadius", _spine_SwirlVertexEffect_getRadius);
-    oluacls_func(L, "getWorldX", _spine_SwirlVertexEffect_getWorldX);
-    oluacls_func(L, "getWorldY", _spine_SwirlVertexEffect_getWorldY);
-    oluacls_func(L, "setAngle", _spine_SwirlVertexEffect_setAngle);
-    oluacls_func(L, "setCenterX", _spine_SwirlVertexEffect_setCenterX);
-    oluacls_func(L, "setCenterY", _spine_SwirlVertexEffect_setCenterY);
-    oluacls_func(L, "setRadius", _spine_SwirlVertexEffect_setRadius);
-    oluacls_func(L, "setWorldX", _spine_SwirlVertexEffect_setWorldX);
-    oluacls_func(L, "setWorldY", _spine_SwirlVertexEffect_setWorldY);
-    oluacls_prop(L, "angle", _spine_SwirlVertexEffect_getAngle, _spine_SwirlVertexEffect_setAngle);
-    oluacls_prop(L, "centerX", _spine_SwirlVertexEffect_getCenterX, _spine_SwirlVertexEffect_setCenterX);
-    oluacls_prop(L, "centerY", _spine_SwirlVertexEffect_getCenterY, _spine_SwirlVertexEffect_setCenterY);
-    oluacls_prop(L, "radius", _spine_SwirlVertexEffect_getRadius, _spine_SwirlVertexEffect_setRadius);
-    oluacls_prop(L, "worldX", _spine_SwirlVertexEffect_getWorldX, _spine_SwirlVertexEffect_setWorldX);
-    oluacls_prop(L, "worldY", _spine_SwirlVertexEffect_getWorldY, _spine_SwirlVertexEffect_setWorldY);
-
-    olua_registerluatype<spine::SwirlVertexEffect>(L, "sp.SwirlVertexEffect");
-
-    return 1;
-}
-OLUA_END_DECLS
-
-static int _spine_JitterVertexEffect___gc(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    olua_postgc<spine::JitterVertexEffect>(L, 1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_JitterVertexEffect___olua_move(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    auto self = (spine::JitterVertexEffect *)olua_toobj(L, 1, "sp.JitterVertexEffect");
-    olua_push_cppobj(L, self, "sp.JitterVertexEffect");
-
-    olua_endinvoke(L);
-
-    return 1;
-}
-
-static int _spine_JitterVertexEffect_getJitterX(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::JitterVertexEffect *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.JitterVertexEffect");
-
-    // float getJitterX()
-    float ret = self->getJitterX();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_JitterVertexEffect_getJitterY(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::JitterVertexEffect *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.JitterVertexEffect");
-
-    // float getJitterY()
-    float ret = self->getJitterY();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_JitterVertexEffect_new(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Number arg1 = 0;       /** jitterX */
-    lua_Number arg2 = 0;       /** jitterY */
-
-    olua_check_number(L, 1, &arg1);
-    olua_check_number(L, 2, &arg2);
-
-    // JitterVertexEffect(float jitterX, float jitterY)
-    spine::JitterVertexEffect *ret = new spine::JitterVertexEffect((float)arg1, (float)arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.JitterVertexEffect");
-    olua_postnew(L, ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_JitterVertexEffect_setJitterX(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::JitterVertexEffect *self = nullptr;
-    lua_Number arg1 = 0;       /** jitterX */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.JitterVertexEffect");
-    olua_check_number(L, 2, &arg1);
-
-    // void setJitterX(float jitterX)
-    self->setJitterX((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_JitterVertexEffect_setJitterY(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::JitterVertexEffect *self = nullptr;
-    lua_Number arg1 = 0;       /** jitterY */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.JitterVertexEffect");
-    olua_check_number(L, 2, &arg1);
-
-    // void setJitterY(float jitterY)
-    self->setJitterY((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_spine_JitterVertexEffect(lua_State *L)
-{
-    oluacls_class(L, "sp.JitterVertexEffect", "sp.VertexEffect");
-    oluacls_func(L, "__gc", _spine_JitterVertexEffect___gc);
-    oluacls_func(L, "__olua_move", _spine_JitterVertexEffect___olua_move);
-    oluacls_func(L, "getJitterX", _spine_JitterVertexEffect_getJitterX);
-    oluacls_func(L, "getJitterY", _spine_JitterVertexEffect_getJitterY);
-    oluacls_func(L, "new", _spine_JitterVertexEffect_new);
-    oluacls_func(L, "setJitterX", _spine_JitterVertexEffect_setJitterX);
-    oluacls_func(L, "setJitterY", _spine_JitterVertexEffect_setJitterY);
-    oluacls_prop(L, "jitterX", _spine_JitterVertexEffect_getJitterX, _spine_JitterVertexEffect_setJitterX);
-    oluacls_prop(L, "jitterY", _spine_JitterVertexEffect_getJitterY, _spine_JitterVertexEffect_setJitterY);
-
-    olua_registerluatype<spine::JitterVertexEffect>(L, "sp.JitterVertexEffect");
-
-    return 1;
-}
-OLUA_END_DECLS
-
 static int _spine_Polygon___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -8705,23 +9157,6 @@ static int _spine_Slot_getAttachmentState(lua_State *L)
     return num_ret;
 }
 
-static int _spine_Slot_getAttachmentTime(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::Slot *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Slot");
-
-    // float getAttachmentTime()
-    float ret = self->getAttachmentTime();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
 static int _spine_Slot_getColor(lua_State *L)
 {
     olua_startinvoke(L);
@@ -8769,6 +9204,23 @@ static int _spine_Slot_getDeform(lua_State *L)
     int num_ret = olua_push_array<float>(L, &ret, [L](float value) {
         olua_push_number(L, (lua_Number)value);
     });
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_Slot_getSequenceIndex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::Slot *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.Slot");
+
+    // int getSequenceIndex()
+    int ret = self->getSequenceIndex();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
 
@@ -8828,18 +9280,18 @@ static int _spine_Slot_setAttachmentState(lua_State *L)
     return 0;
 }
 
-static int _spine_Slot_setAttachmentTime(lua_State *L)
+static int _spine_Slot_setSequenceIndex(lua_State *L)
 {
     olua_startinvoke(L);
 
     spine::Slot *self = nullptr;
-    lua_Number arg1 = 0;       /** inValue */
+    lua_Integer arg1 = 0;       /** index */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.Slot");
-    olua_check_number(L, 2, &arg1);
+    olua_check_int(L, 2, &arg1);
 
-    // void setAttachmentTime(float inValue)
-    self->setAttachmentTime((float)arg1);
+    // void setSequenceIndex(int index)
+    self->setSequenceIndex((int)arg1);
 
     olua_endinvoke(L);
 
@@ -8869,21 +9321,21 @@ OLUA_LIB int luaopen_spine_Slot(lua_State *L)
     oluacls_func(L, "__olua_move", _spine_Slot___olua_move);
     oluacls_func(L, "getAttachment", _spine_Slot_getAttachment);
     oluacls_func(L, "getAttachmentState", _spine_Slot_getAttachmentState);
-    oluacls_func(L, "getAttachmentTime", _spine_Slot_getAttachmentTime);
     oluacls_func(L, "getColor", _spine_Slot_getColor);
     oluacls_func(L, "getDarkColor", _spine_Slot_getDarkColor);
     oluacls_func(L, "getDeform", _spine_Slot_getDeform);
+    oluacls_func(L, "getSequenceIndex", _spine_Slot_getSequenceIndex);
     oluacls_func(L, "hasDarkColor", _spine_Slot_hasDarkColor);
     oluacls_func(L, "setAttachment", _spine_Slot_setAttachment);
     oluacls_func(L, "setAttachmentState", _spine_Slot_setAttachmentState);
-    oluacls_func(L, "setAttachmentTime", _spine_Slot_setAttachmentTime);
+    oluacls_func(L, "setSequenceIndex", _spine_Slot_setSequenceIndex);
     oluacls_func(L, "setToSetupPose", _spine_Slot_setToSetupPose);
     oluacls_prop(L, "attachment", _spine_Slot_getAttachment, _spine_Slot_setAttachment);
     oluacls_prop(L, "attachmentState", _spine_Slot_getAttachmentState, _spine_Slot_setAttachmentState);
-    oluacls_prop(L, "attachmentTime", _spine_Slot_getAttachmentTime, _spine_Slot_setAttachmentTime);
     oluacls_prop(L, "color", _spine_Slot_getColor, nullptr);
     oluacls_prop(L, "darkColor", _spine_Slot_getDarkColor, nullptr);
     oluacls_prop(L, "deform", _spine_Slot_getDeform, nullptr);
+    oluacls_prop(L, "sequenceIndex", _spine_Slot_getSequenceIndex, _spine_Slot_setSequenceIndex);
 
     olua_registerluatype<spine::Slot>(L, "sp.Slot");
 
@@ -9054,23 +9506,6 @@ static int _spine_VertexAttachment_getBones(lua_State *L)
     return num_ret;
 }
 
-static int _spine_VertexAttachment_getDeformAttachment(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::VertexAttachment *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.VertexAttachment");
-
-    // spine::VertexAttachment *getDeformAttachment()
-    spine::VertexAttachment *ret = self->getDeformAttachment();
-    int num_ret = olua_push_cppobj(L, ret, "sp.VertexAttachment");
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
 static int _spine_VertexAttachment_getId(lua_State *L)
 {
     olua_startinvoke(L);
@@ -9082,6 +9517,23 @@ static int _spine_VertexAttachment_getId(lua_State *L)
     // int getId()
     int ret = self->getId();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_VertexAttachment_getTimelineAttachment(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::VertexAttachment *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.VertexAttachment");
+
+    // spine::Attachment *getTimelineAttachment()
+    spine::Attachment *ret = self->getTimelineAttachment();
+    int num_ret = olua_push_cppobj(L, ret, "sp.Attachment");
 
     olua_endinvoke(L);
 
@@ -9124,18 +9576,18 @@ static int _spine_VertexAttachment_getWorldVerticesLength(lua_State *L)
     return num_ret;
 }
 
-static int _spine_VertexAttachment_setDeformAttachment(lua_State *L)
+static int _spine_VertexAttachment_setTimelineAttachment(lua_State *L)
 {
     olua_startinvoke(L);
 
     spine::VertexAttachment *self = nullptr;
-    spine::VertexAttachment *arg1 = nullptr;       /** attachment */
+    spine::Attachment *arg1 = nullptr;       /** attachment */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.VertexAttachment");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.VertexAttachment");
+    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Attachment");
 
-    // void setDeformAttachment(spine::VertexAttachment *attachment)
-    self->setDeformAttachment(arg1);
+    // void setTimelineAttachment(spine::Attachment *attachment)
+    self->setTimelineAttachment(arg1);
 
     olua_endinvoke(L);
 
@@ -9167,15 +9619,15 @@ OLUA_LIB int luaopen_spine_VertexAttachment(lua_State *L)
     oluacls_func(L, "__olua_move", _spine_VertexAttachment___olua_move);
     oluacls_func(L, "copyTo", _spine_VertexAttachment_copyTo);
     oluacls_func(L, "getBones", _spine_VertexAttachment_getBones);
-    oluacls_func(L, "getDeformAttachment", _spine_VertexAttachment_getDeformAttachment);
     oluacls_func(L, "getId", _spine_VertexAttachment_getId);
+    oluacls_func(L, "getTimelineAttachment", _spine_VertexAttachment_getTimelineAttachment);
     oluacls_func(L, "getVertices", _spine_VertexAttachment_getVertices);
     oluacls_func(L, "getWorldVerticesLength", _spine_VertexAttachment_getWorldVerticesLength);
-    oluacls_func(L, "setDeformAttachment", _spine_VertexAttachment_setDeformAttachment);
+    oluacls_func(L, "setTimelineAttachment", _spine_VertexAttachment_setTimelineAttachment);
     oluacls_func(L, "setWorldVerticesLength", _spine_VertexAttachment_setWorldVerticesLength);
     oluacls_prop(L, "bones", _spine_VertexAttachment_getBones, nullptr);
-    oluacls_prop(L, "deformAttachment", _spine_VertexAttachment_getDeformAttachment, _spine_VertexAttachment_setDeformAttachment);
     oluacls_prop(L, "id", _spine_VertexAttachment_getId, nullptr);
+    oluacls_prop(L, "timelineAttachment", _spine_VertexAttachment_getTimelineAttachment, _spine_VertexAttachment_setTimelineAttachment);
     oluacls_prop(L, "vertices", _spine_VertexAttachment_getVertices, nullptr);
     oluacls_prop(L, "worldVerticesLength", _spine_VertexAttachment_getWorldVerticesLength, _spine_VertexAttachment_setWorldVerticesLength);
 
@@ -9498,7 +9950,7 @@ static int _spine_MeshAttachment_getPath(lua_State *L)
     return num_ret;
 }
 
-static int _spine_MeshAttachment_getRegionDegrees(lua_State *L)
+static int _spine_MeshAttachment_getRegion(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9506,128 +9958,9 @@ static int _spine_MeshAttachment_getRegionDegrees(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
 
-    // int getRegionDegrees()
-    int ret = self->getRegionDegrees();
-    int num_ret = olua_push_int(L, (lua_Integer)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_MeshAttachment_getRegionHeight(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::MeshAttachment *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-
-    // float getRegionHeight()
-    float ret = self->getRegionHeight();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_MeshAttachment_getRegionOffsetX(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::MeshAttachment *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-
-    // float getRegionOffsetX()
-    float ret = self->getRegionOffsetX();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_MeshAttachment_getRegionOffsetY(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::MeshAttachment *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-
-    // float getRegionOffsetY()
-    float ret = self->getRegionOffsetY();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_MeshAttachment_getRegionOriginalHeight(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::MeshAttachment *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-
-    // float getRegionOriginalHeight()
-    float ret = self->getRegionOriginalHeight();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_MeshAttachment_getRegionOriginalWidth(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::MeshAttachment *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-
-    // float getRegionOriginalWidth()
-    float ret = self->getRegionOriginalWidth();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_MeshAttachment_getRegionU(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::MeshAttachment *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-
-    // float getRegionU()
-    float ret = self->getRegionU();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_MeshAttachment_getRegionU2(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::MeshAttachment *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-
-    // float getRegionU2()
-    float ret = self->getRegionU2();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
+    // spine::TextureRegion *getRegion()
+    spine::TextureRegion *ret = self->getRegion();
+    int num_ret = olua_push_cppobj(L, ret, "sp.TextureRegion");
 
     olua_endinvoke(L);
 
@@ -9653,7 +9986,7 @@ static int _spine_MeshAttachment_getRegionUVs(lua_State *L)
     return num_ret;
 }
 
-static int _spine_MeshAttachment_getRegionV(lua_State *L)
+static int _spine_MeshAttachment_getSequence(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9661,43 +9994,9 @@ static int _spine_MeshAttachment_getRegionV(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
 
-    // float getRegionV()
-    float ret = self->getRegionV();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_MeshAttachment_getRegionV2(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::MeshAttachment *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-
-    // float getRegionV2()
-    float ret = self->getRegionV2();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_MeshAttachment_getRegionWidth(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::MeshAttachment *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-
-    // float getRegionWidth()
-    float ret = self->getRegionWidth();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
+    // spine::Sequence *getSequence()
+    spine::Sequence *ret = self->getSequence();
+    int num_ret = olua_push_cppobj(L, ret, "sp.Sequence");
 
     olua_endinvoke(L);
 
@@ -9866,198 +10165,36 @@ static int _spine_MeshAttachment_setPath(lua_State *L)
     return 0;
 }
 
-static int _spine_MeshAttachment_setRegionDegrees(lua_State *L)
+static int _spine_MeshAttachment_setRegion(lua_State *L)
 {
     olua_startinvoke(L);
 
     spine::MeshAttachment *self = nullptr;
-    lua_Integer arg1 = 0;       /** inValue */
+    spine::TextureRegion *arg1 = nullptr;       /** region */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-    olua_check_int(L, 2, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg1, "sp.TextureRegion");
 
-    // void setRegionDegrees(int inValue)
-    self->setRegionDegrees((int)arg1);
+    // void setRegion(spine::TextureRegion *region)
+    self->setRegion(arg1);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _spine_MeshAttachment_setRegionHeight(lua_State *L)
+static int _spine_MeshAttachment_setSequence(lua_State *L)
 {
     olua_startinvoke(L);
 
     spine::MeshAttachment *self = nullptr;
-    lua_Number arg1 = 0;       /** inValue */
+    spine::Sequence *arg1 = nullptr;       /** sequence */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-    olua_check_number(L, 2, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Sequence");
 
-    // void setRegionHeight(float inValue)
-    self->setRegionHeight((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_MeshAttachment_setRegionOffsetX(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::MeshAttachment *self = nullptr;
-    lua_Number arg1 = 0;       /** inValue */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-    olua_check_number(L, 2, &arg1);
-
-    // void setRegionOffsetX(float inValue)
-    self->setRegionOffsetX((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_MeshAttachment_setRegionOffsetY(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::MeshAttachment *self = nullptr;
-    lua_Number arg1 = 0;       /** inValue */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-    olua_check_number(L, 2, &arg1);
-
-    // void setRegionOffsetY(float inValue)
-    self->setRegionOffsetY((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_MeshAttachment_setRegionOriginalHeight(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::MeshAttachment *self = nullptr;
-    lua_Number arg1 = 0;       /** inValue */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-    olua_check_number(L, 2, &arg1);
-
-    // void setRegionOriginalHeight(float inValue)
-    self->setRegionOriginalHeight((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_MeshAttachment_setRegionOriginalWidth(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::MeshAttachment *self = nullptr;
-    lua_Number arg1 = 0;       /** inValue */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-    olua_check_number(L, 2, &arg1);
-
-    // void setRegionOriginalWidth(float inValue)
-    self->setRegionOriginalWidth((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_MeshAttachment_setRegionU(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::MeshAttachment *self = nullptr;
-    lua_Number arg1 = 0;       /** inValue */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-    olua_check_number(L, 2, &arg1);
-
-    // void setRegionU(float inValue)
-    self->setRegionU((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_MeshAttachment_setRegionU2(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::MeshAttachment *self = nullptr;
-    lua_Number arg1 = 0;       /** inValue */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-    olua_check_number(L, 2, &arg1);
-
-    // void setRegionU2(float inValue)
-    self->setRegionU2((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_MeshAttachment_setRegionV(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::MeshAttachment *self = nullptr;
-    lua_Number arg1 = 0;       /** inValue */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-    olua_check_number(L, 2, &arg1);
-
-    // void setRegionV(float inValue)
-    self->setRegionV((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_MeshAttachment_setRegionV2(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::MeshAttachment *self = nullptr;
-    lua_Number arg1 = 0;       /** inValue */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-    olua_check_number(L, 2, &arg1);
-
-    // void setRegionV2(float inValue)
-    self->setRegionV2((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_MeshAttachment_setRegionWidth(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::MeshAttachment *self = nullptr;
-    lua_Number arg1 = 0;       /** inValue */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-    olua_check_number(L, 2, &arg1);
-
-    // void setRegionWidth(float inValue)
-    self->setRegionWidth((float)arg1);
+    // void setSequence(spine::Sequence *sequence)
+    self->setSequence(arg1);
 
     olua_endinvoke(L);
 
@@ -10082,7 +10219,7 @@ static int _spine_MeshAttachment_setWidth(lua_State *L)
     return 0;
 }
 
-static int _spine_MeshAttachment_updateUVs(lua_State *L)
+static int _spine_MeshAttachment_updateRegion(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10090,8 +10227,8 @@ static int _spine_MeshAttachment_updateUVs(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
 
-    // void updateUVs()
-    self->updateUVs();
+    // void updateRegion()
+    self->updateRegion();
 
     olua_endinvoke(L);
 
@@ -10110,18 +10247,9 @@ OLUA_LIB int luaopen_spine_MeshAttachment(lua_State *L)
     oluacls_func(L, "getHullLength", _spine_MeshAttachment_getHullLength);
     oluacls_func(L, "getParentMesh", _spine_MeshAttachment_getParentMesh);
     oluacls_func(L, "getPath", _spine_MeshAttachment_getPath);
-    oluacls_func(L, "getRegionDegrees", _spine_MeshAttachment_getRegionDegrees);
-    oluacls_func(L, "getRegionHeight", _spine_MeshAttachment_getRegionHeight);
-    oluacls_func(L, "getRegionOffsetX", _spine_MeshAttachment_getRegionOffsetX);
-    oluacls_func(L, "getRegionOffsetY", _spine_MeshAttachment_getRegionOffsetY);
-    oluacls_func(L, "getRegionOriginalHeight", _spine_MeshAttachment_getRegionOriginalHeight);
-    oluacls_func(L, "getRegionOriginalWidth", _spine_MeshAttachment_getRegionOriginalWidth);
-    oluacls_func(L, "getRegionU", _spine_MeshAttachment_getRegionU);
-    oluacls_func(L, "getRegionU2", _spine_MeshAttachment_getRegionU2);
+    oluacls_func(L, "getRegion", _spine_MeshAttachment_getRegion);
     oluacls_func(L, "getRegionUVs", _spine_MeshAttachment_getRegionUVs);
-    oluacls_func(L, "getRegionV", _spine_MeshAttachment_getRegionV);
-    oluacls_func(L, "getRegionV2", _spine_MeshAttachment_getRegionV2);
-    oluacls_func(L, "getRegionWidth", _spine_MeshAttachment_getRegionWidth);
+    oluacls_func(L, "getSequence", _spine_MeshAttachment_getSequence);
     oluacls_func(L, "getTriangles", _spine_MeshAttachment_getTriangles);
     oluacls_func(L, "getUVs", _spine_MeshAttachment_getUVs);
     oluacls_func(L, "getWidth", _spine_MeshAttachment_getWidth);
@@ -10131,37 +10259,19 @@ OLUA_LIB int luaopen_spine_MeshAttachment(lua_State *L)
     oluacls_func(L, "setHullLength", _spine_MeshAttachment_setHullLength);
     oluacls_func(L, "setParentMesh", _spine_MeshAttachment_setParentMesh);
     oluacls_func(L, "setPath", _spine_MeshAttachment_setPath);
-    oluacls_func(L, "setRegionDegrees", _spine_MeshAttachment_setRegionDegrees);
-    oluacls_func(L, "setRegionHeight", _spine_MeshAttachment_setRegionHeight);
-    oluacls_func(L, "setRegionOffsetX", _spine_MeshAttachment_setRegionOffsetX);
-    oluacls_func(L, "setRegionOffsetY", _spine_MeshAttachment_setRegionOffsetY);
-    oluacls_func(L, "setRegionOriginalHeight", _spine_MeshAttachment_setRegionOriginalHeight);
-    oluacls_func(L, "setRegionOriginalWidth", _spine_MeshAttachment_setRegionOriginalWidth);
-    oluacls_func(L, "setRegionU", _spine_MeshAttachment_setRegionU);
-    oluacls_func(L, "setRegionU2", _spine_MeshAttachment_setRegionU2);
-    oluacls_func(L, "setRegionV", _spine_MeshAttachment_setRegionV);
-    oluacls_func(L, "setRegionV2", _spine_MeshAttachment_setRegionV2);
-    oluacls_func(L, "setRegionWidth", _spine_MeshAttachment_setRegionWidth);
+    oluacls_func(L, "setRegion", _spine_MeshAttachment_setRegion);
+    oluacls_func(L, "setSequence", _spine_MeshAttachment_setSequence);
     oluacls_func(L, "setWidth", _spine_MeshAttachment_setWidth);
-    oluacls_func(L, "updateUVs", _spine_MeshAttachment_updateUVs);
+    oluacls_func(L, "updateRegion", _spine_MeshAttachment_updateRegion);
     oluacls_prop(L, "color", _spine_MeshAttachment_getColor, nullptr);
     oluacls_prop(L, "edges", _spine_MeshAttachment_getEdges, nullptr);
     oluacls_prop(L, "height", _spine_MeshAttachment_getHeight, _spine_MeshAttachment_setHeight);
     oluacls_prop(L, "hullLength", _spine_MeshAttachment_getHullLength, _spine_MeshAttachment_setHullLength);
     oluacls_prop(L, "parentMesh", _spine_MeshAttachment_getParentMesh, _spine_MeshAttachment_setParentMesh);
     oluacls_prop(L, "path", _spine_MeshAttachment_getPath, _spine_MeshAttachment_setPath);
-    oluacls_prop(L, "regionDegrees", _spine_MeshAttachment_getRegionDegrees, _spine_MeshAttachment_setRegionDegrees);
-    oluacls_prop(L, "regionHeight", _spine_MeshAttachment_getRegionHeight, _spine_MeshAttachment_setRegionHeight);
-    oluacls_prop(L, "regionOffsetX", _spine_MeshAttachment_getRegionOffsetX, _spine_MeshAttachment_setRegionOffsetX);
-    oluacls_prop(L, "regionOffsetY", _spine_MeshAttachment_getRegionOffsetY, _spine_MeshAttachment_setRegionOffsetY);
-    oluacls_prop(L, "regionOriginalHeight", _spine_MeshAttachment_getRegionOriginalHeight, _spine_MeshAttachment_setRegionOriginalHeight);
-    oluacls_prop(L, "regionOriginalWidth", _spine_MeshAttachment_getRegionOriginalWidth, _spine_MeshAttachment_setRegionOriginalWidth);
-    oluacls_prop(L, "regionU", _spine_MeshAttachment_getRegionU, _spine_MeshAttachment_setRegionU);
-    oluacls_prop(L, "regionU2", _spine_MeshAttachment_getRegionU2, _spine_MeshAttachment_setRegionU2);
+    oluacls_prop(L, "region", _spine_MeshAttachment_getRegion, _spine_MeshAttachment_setRegion);
     oluacls_prop(L, "regionUVs", _spine_MeshAttachment_getRegionUVs, nullptr);
-    oluacls_prop(L, "regionV", _spine_MeshAttachment_getRegionV, _spine_MeshAttachment_setRegionV);
-    oluacls_prop(L, "regionV2", _spine_MeshAttachment_getRegionV2, _spine_MeshAttachment_setRegionV2);
-    oluacls_prop(L, "regionWidth", _spine_MeshAttachment_getRegionWidth, _spine_MeshAttachment_setRegionWidth);
+    oluacls_prop(L, "sequence", _spine_MeshAttachment_getSequence, _spine_MeshAttachment_setSequence);
     oluacls_prop(L, "triangles", _spine_MeshAttachment_getTriangles, nullptr);
     oluacls_prop(L, "uvs", _spine_MeshAttachment_getUVs, nullptr);
     oluacls_prop(L, "width", _spine_MeshAttachment_getWidth, _spine_MeshAttachment_setWidth);
@@ -10933,7 +11043,7 @@ static int _spine_RegionAttachment_getPath(lua_State *L)
     return num_ret;
 }
 
-static int _spine_RegionAttachment_getRegionHeight(lua_State *L)
+static int _spine_RegionAttachment_getRegion(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10941,94 +11051,9 @@ static int _spine_RegionAttachment_getRegionHeight(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
 
-    // float getRegionHeight()
-    float ret = self->getRegionHeight();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_RegionAttachment_getRegionOffsetX(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::RegionAttachment *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
-
-    // float getRegionOffsetX()
-    float ret = self->getRegionOffsetX();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_RegionAttachment_getRegionOffsetY(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::RegionAttachment *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
-
-    // float getRegionOffsetY()
-    float ret = self->getRegionOffsetY();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_RegionAttachment_getRegionOriginalHeight(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::RegionAttachment *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
-
-    // float getRegionOriginalHeight()
-    float ret = self->getRegionOriginalHeight();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_RegionAttachment_getRegionOriginalWidth(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::RegionAttachment *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
-
-    // float getRegionOriginalWidth()
-    float ret = self->getRegionOriginalWidth();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _spine_RegionAttachment_getRegionWidth(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::RegionAttachment *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
-
-    // float getRegionWidth()
-    float ret = self->getRegionWidth();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
+    // spine::TextureRegion *getRegion()
+    spine::TextureRegion *ret = self->getRegion();
+    int num_ret = olua_push_cppobj(L, ret, "sp.TextureRegion");
 
     olua_endinvoke(L);
 
@@ -11080,6 +11105,23 @@ static int _spine_RegionAttachment_getScaleY(lua_State *L)
     // float getScaleY()
     float ret = self->getScaleY();
     int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_RegionAttachment_getSequence(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::RegionAttachment *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+
+    // spine::Sequence *getSequence()
+    spine::Sequence *ret = self->getSequence();
+    int num_ret = olua_push_cppobj(L, ret, "sp.Sequence");
 
     olua_endinvoke(L);
 
@@ -11210,108 +11252,18 @@ static int _spine_RegionAttachment_setPath(lua_State *L)
     return 0;
 }
 
-static int _spine_RegionAttachment_setRegionHeight(lua_State *L)
+static int _spine_RegionAttachment_setRegion(lua_State *L)
 {
     olua_startinvoke(L);
 
     spine::RegionAttachment *self = nullptr;
-    lua_Number arg1 = 0;       /** inValue */
+    spine::TextureRegion *arg1 = nullptr;       /** region */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
-    olua_check_number(L, 2, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg1, "sp.TextureRegion");
 
-    // void setRegionHeight(float inValue)
-    self->setRegionHeight((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_RegionAttachment_setRegionOffsetX(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::RegionAttachment *self = nullptr;
-    lua_Number arg1 = 0;       /** inValue */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
-    olua_check_number(L, 2, &arg1);
-
-    // void setRegionOffsetX(float inValue)
-    self->setRegionOffsetX((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_RegionAttachment_setRegionOffsetY(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::RegionAttachment *self = nullptr;
-    lua_Number arg1 = 0;       /** inValue */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
-    olua_check_number(L, 2, &arg1);
-
-    // void setRegionOffsetY(float inValue)
-    self->setRegionOffsetY((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_RegionAttachment_setRegionOriginalHeight(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::RegionAttachment *self = nullptr;
-    lua_Number arg1 = 0;       /** inValue */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
-    olua_check_number(L, 2, &arg1);
-
-    // void setRegionOriginalHeight(float inValue)
-    self->setRegionOriginalHeight((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_RegionAttachment_setRegionOriginalWidth(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::RegionAttachment *self = nullptr;
-    lua_Number arg1 = 0;       /** inValue */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
-    olua_check_number(L, 2, &arg1);
-
-    // void setRegionOriginalWidth(float inValue)
-    self->setRegionOriginalWidth((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_RegionAttachment_setRegionWidth(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::RegionAttachment *self = nullptr;
-    lua_Number arg1 = 0;       /** inValue */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
-    olua_check_number(L, 2, &arg1);
-
-    // void setRegionWidth(float inValue)
-    self->setRegionWidth((float)arg1);
+    // void setRegion(spine::TextureRegion *region)
+    self->setRegion(arg1);
 
     olua_endinvoke(L);
 
@@ -11372,26 +11324,18 @@ static int _spine_RegionAttachment_setScaleY(lua_State *L)
     return 0;
 }
 
-static int _spine_RegionAttachment_setUVs(lua_State *L)
+static int _spine_RegionAttachment_setSequence(lua_State *L)
 {
     olua_startinvoke(L);
 
     spine::RegionAttachment *self = nullptr;
-    lua_Number arg1 = 0;       /** u */
-    lua_Number arg2 = 0;       /** v */
-    lua_Number arg3 = 0;       /** u2 */
-    lua_Number arg4 = 0;       /** v2 */
-    lua_Number arg5 = 0;       /** degrees */
+    spine::Sequence *arg1 = nullptr;       /** sequence */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
-    olua_check_number(L, 2, &arg1);
-    olua_check_number(L, 3, &arg2);
-    olua_check_number(L, 4, &arg3);
-    olua_check_number(L, 5, &arg4);
-    olua_check_number(L, 6, &arg5);
+    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Sequence");
 
-    // void setUVs(float u, float v, float u2, float v2, float degrees)
-    self->setUVs((float)arg1, (float)arg2, (float)arg3, (float)arg4, (float)arg5);
+    // void setSequence(spine::Sequence *sequence)
+    self->setSequence(arg1);
 
     olua_endinvoke(L);
 
@@ -11452,7 +11396,7 @@ static int _spine_RegionAttachment_setY(lua_State *L)
     return 0;
 }
 
-static int _spine_RegionAttachment_updateOffset(lua_State *L)
+static int _spine_RegionAttachment_updateRegion(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11460,8 +11404,8 @@ static int _spine_RegionAttachment_updateOffset(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
 
-    // void updateOffset()
-    self->updateOffset();
+    // void updateRegion()
+    self->updateRegion();
 
     olua_endinvoke(L);
 
@@ -11478,15 +11422,11 @@ OLUA_LIB int luaopen_spine_RegionAttachment(lua_State *L)
     oluacls_func(L, "getHeight", _spine_RegionAttachment_getHeight);
     oluacls_func(L, "getOffset", _spine_RegionAttachment_getOffset);
     oluacls_func(L, "getPath", _spine_RegionAttachment_getPath);
-    oluacls_func(L, "getRegionHeight", _spine_RegionAttachment_getRegionHeight);
-    oluacls_func(L, "getRegionOffsetX", _spine_RegionAttachment_getRegionOffsetX);
-    oluacls_func(L, "getRegionOffsetY", _spine_RegionAttachment_getRegionOffsetY);
-    oluacls_func(L, "getRegionOriginalHeight", _spine_RegionAttachment_getRegionOriginalHeight);
-    oluacls_func(L, "getRegionOriginalWidth", _spine_RegionAttachment_getRegionOriginalWidth);
-    oluacls_func(L, "getRegionWidth", _spine_RegionAttachment_getRegionWidth);
+    oluacls_func(L, "getRegion", _spine_RegionAttachment_getRegion);
     oluacls_func(L, "getRotation", _spine_RegionAttachment_getRotation);
     oluacls_func(L, "getScaleX", _spine_RegionAttachment_getScaleX);
     oluacls_func(L, "getScaleY", _spine_RegionAttachment_getScaleY);
+    oluacls_func(L, "getSequence", _spine_RegionAttachment_getSequence);
     oluacls_func(L, "getUVs", _spine_RegionAttachment_getUVs);
     oluacls_func(L, "getWidth", _spine_RegionAttachment_getWidth);
     oluacls_func(L, "getX", _spine_RegionAttachment_getX);
@@ -11494,33 +11434,25 @@ OLUA_LIB int luaopen_spine_RegionAttachment(lua_State *L)
     oluacls_func(L, "new", _spine_RegionAttachment_new);
     oluacls_func(L, "setHeight", _spine_RegionAttachment_setHeight);
     oluacls_func(L, "setPath", _spine_RegionAttachment_setPath);
-    oluacls_func(L, "setRegionHeight", _spine_RegionAttachment_setRegionHeight);
-    oluacls_func(L, "setRegionOffsetX", _spine_RegionAttachment_setRegionOffsetX);
-    oluacls_func(L, "setRegionOffsetY", _spine_RegionAttachment_setRegionOffsetY);
-    oluacls_func(L, "setRegionOriginalHeight", _spine_RegionAttachment_setRegionOriginalHeight);
-    oluacls_func(L, "setRegionOriginalWidth", _spine_RegionAttachment_setRegionOriginalWidth);
-    oluacls_func(L, "setRegionWidth", _spine_RegionAttachment_setRegionWidth);
+    oluacls_func(L, "setRegion", _spine_RegionAttachment_setRegion);
     oluacls_func(L, "setRotation", _spine_RegionAttachment_setRotation);
     oluacls_func(L, "setScaleX", _spine_RegionAttachment_setScaleX);
     oluacls_func(L, "setScaleY", _spine_RegionAttachment_setScaleY);
-    oluacls_func(L, "setUVs", _spine_RegionAttachment_setUVs);
+    oluacls_func(L, "setSequence", _spine_RegionAttachment_setSequence);
     oluacls_func(L, "setWidth", _spine_RegionAttachment_setWidth);
     oluacls_func(L, "setX", _spine_RegionAttachment_setX);
     oluacls_func(L, "setY", _spine_RegionAttachment_setY);
-    oluacls_func(L, "updateOffset", _spine_RegionAttachment_updateOffset);
+    oluacls_func(L, "updateRegion", _spine_RegionAttachment_updateRegion);
     oluacls_prop(L, "color", _spine_RegionAttachment_getColor, nullptr);
     oluacls_prop(L, "height", _spine_RegionAttachment_getHeight, _spine_RegionAttachment_setHeight);
     oluacls_prop(L, "offset", _spine_RegionAttachment_getOffset, nullptr);
     oluacls_prop(L, "path", _spine_RegionAttachment_getPath, _spine_RegionAttachment_setPath);
-    oluacls_prop(L, "regionHeight", _spine_RegionAttachment_getRegionHeight, _spine_RegionAttachment_setRegionHeight);
-    oluacls_prop(L, "regionOffsetX", _spine_RegionAttachment_getRegionOffsetX, _spine_RegionAttachment_setRegionOffsetX);
-    oluacls_prop(L, "regionOffsetY", _spine_RegionAttachment_getRegionOffsetY, _spine_RegionAttachment_setRegionOffsetY);
-    oluacls_prop(L, "regionOriginalHeight", _spine_RegionAttachment_getRegionOriginalHeight, _spine_RegionAttachment_setRegionOriginalHeight);
-    oluacls_prop(L, "regionOriginalWidth", _spine_RegionAttachment_getRegionOriginalWidth, _spine_RegionAttachment_setRegionOriginalWidth);
-    oluacls_prop(L, "regionWidth", _spine_RegionAttachment_getRegionWidth, _spine_RegionAttachment_setRegionWidth);
+    oluacls_prop(L, "region", _spine_RegionAttachment_getRegion, _spine_RegionAttachment_setRegion);
     oluacls_prop(L, "rotation", _spine_RegionAttachment_getRotation, _spine_RegionAttachment_setRotation);
     oluacls_prop(L, "scaleX", _spine_RegionAttachment_getScaleX, _spine_RegionAttachment_setScaleX);
     oluacls_prop(L, "scaleY", _spine_RegionAttachment_getScaleY, _spine_RegionAttachment_setScaleY);
+    oluacls_prop(L, "sequence", _spine_RegionAttachment_getSequence, _spine_RegionAttachment_setSequence);
+    oluacls_prop(L, "uvs", _spine_RegionAttachment_getUVs, nullptr);
     oluacls_prop(L, "width", _spine_RegionAttachment_getWidth, _spine_RegionAttachment_setWidth);
     oluacls_prop(L, "x", _spine_RegionAttachment_getX, _spine_RegionAttachment_setX);
     oluacls_prop(L, "y", _spine_RegionAttachment_getY, _spine_RegionAttachment_setY);
@@ -11887,6 +11819,23 @@ static int _spine_TrackEntry_getReverse(lua_State *L)
 
     // bool getReverse()
     bool ret = self->getReverse();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_TrackEntry_getShortestRotation(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TrackEntry *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // bool getShortestRotation()
+    bool ret = self->getShortestRotation();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -12317,6 +12266,24 @@ static int _spine_TrackEntry_setReverse(lua_State *L)
     return 0;
 }
 
+static int _spine_TrackEntry_setShortestRotation(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TrackEntry *self = nullptr;
+    bool arg1 = false;       /** inValue */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setShortestRotation(bool inValue)
+    self->setShortestRotation(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _spine_TrackEntry_setTimeScale(lua_State *L)
 {
     olua_startinvoke(L);
@@ -12397,6 +12364,7 @@ OLUA_LIB int luaopen_spine_TrackEntry(lua_State *L)
     oluacls_func(L, "getNext", _spine_TrackEntry_getNext);
     oluacls_func(L, "getPrevious", _spine_TrackEntry_getPrevious);
     oluacls_func(L, "getReverse", _spine_TrackEntry_getReverse);
+    oluacls_func(L, "getShortestRotation", _spine_TrackEntry_getShortestRotation);
     oluacls_func(L, "getTimeScale", _spine_TrackEntry_getTimeScale);
     oluacls_func(L, "getTrackComplete", _spine_TrackEntry_getTrackComplete);
     oluacls_func(L, "getTrackEnd", _spine_TrackEntry_getTrackEnd);
@@ -12420,6 +12388,7 @@ OLUA_LIB int luaopen_spine_TrackEntry(lua_State *L)
     oluacls_func(L, "setMixDuration", _spine_TrackEntry_setMixDuration);
     oluacls_func(L, "setMixTime", _spine_TrackEntry_setMixTime);
     oluacls_func(L, "setReverse", _spine_TrackEntry_setReverse);
+    oluacls_func(L, "setShortestRotation", _spine_TrackEntry_setShortestRotation);
     oluacls_func(L, "setTimeScale", _spine_TrackEntry_setTimeScale);
     oluacls_func(L, "setTrackEnd", _spine_TrackEntry_setTrackEnd);
     oluacls_func(L, "setTrackTime", _spine_TrackEntry_setTrackTime);
@@ -12444,6 +12413,7 @@ OLUA_LIB int luaopen_spine_TrackEntry(lua_State *L)
     oluacls_prop(L, "next", _spine_TrackEntry_getNext, nullptr);
     oluacls_prop(L, "previous", _spine_TrackEntry_getPrevious, nullptr);
     oluacls_prop(L, "reverse", _spine_TrackEntry_getReverse, _spine_TrackEntry_setReverse);
+    oluacls_prop(L, "shortestRotation", _spine_TrackEntry_getShortestRotation, _spine_TrackEntry_setShortestRotation);
     oluacls_prop(L, "timeScale", _spine_TrackEntry_getTimeScale, _spine_TrackEntry_setTimeScale);
     oluacls_prop(L, "trackComplete", _spine_TrackEntry_getTrackComplete, nullptr);
     oluacls_prop(L, "trackEnd", _spine_TrackEntry_getTrackEnd, _spine_TrackEntry_setTrackEnd);
@@ -13695,23 +13665,6 @@ static int _spine_Skeleton_getSlots(lua_State *L)
     return num_ret;
 }
 
-static int _spine_Skeleton_getTime(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::Skeleton *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
-
-    // float getTime()
-    float ret = self->getTime();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
 static int _spine_Skeleton_getTransformConstraints(lua_State *L)
 {
     olua_startinvoke(L);
@@ -13983,24 +13936,6 @@ static int _spine_Skeleton_setSlotsToSetupPose(lua_State *L)
     return 0;
 }
 
-static int _spine_Skeleton_setTime(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::Skeleton *self = nullptr;
-    lua_Number arg1 = 0;       /** inValue */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
-    olua_check_number(L, 2, &arg1);
-
-    // void setTime(float inValue)
-    self->setTime((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 static int _spine_Skeleton_setToSetupPose(lua_State *L)
 {
     olua_startinvoke(L);
@@ -14047,24 +13982,6 @@ static int _spine_Skeleton_setY(lua_State *L)
 
     // void setY(float inValue)
     self->setY((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _spine_Skeleton_update(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::Skeleton *self = nullptr;
-    lua_Number arg1 = 0;       /** delta */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
-    olua_check_number(L, 2, &arg1);
-
-    // void update(float delta)
-    self->update((float)arg1);
 
     olua_endinvoke(L);
 
@@ -14165,7 +14082,6 @@ OLUA_LIB int luaopen_spine_Skeleton(lua_State *L)
     oluacls_func(L, "getScaleY", _spine_Skeleton_getScaleY);
     oluacls_func(L, "getSkin", _spine_Skeleton_getSkin);
     oluacls_func(L, "getSlots", _spine_Skeleton_getSlots);
-    oluacls_func(L, "getTime", _spine_Skeleton_getTime);
     oluacls_func(L, "getTransformConstraints", _spine_Skeleton_getTransformConstraints);
     oluacls_func(L, "getUpdateCacheList", _spine_Skeleton_getUpdateCacheList);
     oluacls_func(L, "getX", _spine_Skeleton_getX);
@@ -14179,11 +14095,9 @@ OLUA_LIB int luaopen_spine_Skeleton(lua_State *L)
     oluacls_func(L, "setScaleY", _spine_Skeleton_setScaleY);
     oluacls_func(L, "setSkin", _spine_Skeleton_setSkin);
     oluacls_func(L, "setSlotsToSetupPose", _spine_Skeleton_setSlotsToSetupPose);
-    oluacls_func(L, "setTime", _spine_Skeleton_setTime);
     oluacls_func(L, "setToSetupPose", _spine_Skeleton_setToSetupPose);
     oluacls_func(L, "setX", _spine_Skeleton_setX);
     oluacls_func(L, "setY", _spine_Skeleton_setY);
-    oluacls_func(L, "update", _spine_Skeleton_update);
     oluacls_func(L, "updateCache", _spine_Skeleton_updateCache);
     oluacls_func(L, "updateWorldTransform", _spine_Skeleton_updateWorldTransform);
     oluacls_prop(L, "bones", _spine_Skeleton_getBones, nullptr);
@@ -14197,7 +14111,6 @@ OLUA_LIB int luaopen_spine_Skeleton(lua_State *L)
     oluacls_prop(L, "scaleY", _spine_Skeleton_getScaleY, _spine_Skeleton_setScaleY);
     oluacls_prop(L, "skin", _spine_Skeleton_getSkin, _spine_Skeleton_setSkin);
     oluacls_prop(L, "slots", _spine_Skeleton_getSlots, nullptr);
-    oluacls_prop(L, "time", _spine_Skeleton_getTime, _spine_Skeleton_setTime);
     oluacls_prop(L, "transformConstraints", _spine_Skeleton_getTransformConstraints, nullptr);
     oluacls_prop(L, "updateCacheList", _spine_Skeleton_getUpdateCacheList, nullptr);
     oluacls_prop(L, "x", _spine_Skeleton_getX, _spine_Skeleton_setX);
@@ -15732,24 +15645,6 @@ static int _spine_SkeletonRenderer_setTwoColorTint(lua_State *L)
     return 0;
 }
 
-static int _spine_SkeletonRenderer_setVertexEffect(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    spine::SkeletonRenderer *self = nullptr;
-    spine::VertexEffect *arg1 = nullptr;       /** effect */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.VertexEffect");
-
-    // void setVertexEffect(spine::VertexEffect *effect)
-    self->setVertexEffect(arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 static int _spine_SkeletonRenderer_updateWorldTransform(lua_State *L)
 {
     olua_startinvoke(L);
@@ -15805,7 +15700,6 @@ OLUA_LIB int luaopen_spine_SkeletonRenderer(lua_State *L)
     oluacls_func(L, "setTimeScale", _spine_SkeletonRenderer_setTimeScale);
     oluacls_func(L, "setToSetupPose", _spine_SkeletonRenderer_setToSetupPose);
     oluacls_func(L, "setTwoColorTint", _spine_SkeletonRenderer_setTwoColorTint);
-    oluacls_func(L, "setVertexEffect", _spine_SkeletonRenderer_setVertexEffect);
     oluacls_func(L, "updateWorldTransform", _spine_SkeletonRenderer_updateWorldTransform);
     oluacls_prop(L, "blendFunc", _spine_SkeletonRenderer_getBlendFunc, _spine_SkeletonRenderer_setBlendFunc);
     oluacls_prop(L, "debugBonesEnabled", _spine_SkeletonRenderer_getDebugBonesEnabled, _spine_SkeletonRenderer_setDebugBonesEnabled);
@@ -17407,6 +17301,8 @@ OLUA_LIB int luaopen_spine(lua_State *L)
     olua_require(L, "sp.AnimationState", luaopen_spine_AnimationState);
     olua_require(L, "sp.AnimationStateData", luaopen_spine_AnimationStateData);
     olua_require(L, "sp.Animation", luaopen_spine_Animation);
+    olua_require(L, "sp.Sequence", luaopen_spine_Sequence);
+    olua_require(L, "sp.TextureRegion", luaopen_spine_TextureRegion);
     olua_require(L, "sp.ConstraintData", luaopen_spine_ConstraintData);
     olua_require(L, "sp.IkConstraintData", luaopen_spine_IkConstraintData);
     olua_require(L, "sp.BoneData", luaopen_spine_BoneData);
@@ -17439,9 +17335,6 @@ OLUA_LIB int luaopen_spine(lua_State *L)
     olua_require(L, "sp.TransformConstraintTimeline", luaopen_spine_TransformConstraintTimeline);
     olua_require(L, "sp.ScaleTimeline", luaopen_spine_ScaleTimeline);
     olua_require(L, "sp.RotateTimeline", luaopen_spine_RotateTimeline);
-    olua_require(L, "sp.VertexEffect", luaopen_spine_VertexEffect);
-    olua_require(L, "sp.SwirlVertexEffect", luaopen_spine_SwirlVertexEffect);
-    olua_require(L, "sp.JitterVertexEffect", luaopen_spine_JitterVertexEffect);
     olua_require(L, "sp.Polygon", luaopen_spine_Polygon);
     olua_require(L, "sp.Skin", luaopen_spine_Skin);
     olua_require(L, "sp.Atlas", luaopen_spine_Atlas);

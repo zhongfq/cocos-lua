@@ -27,44 +27,47 @@
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-#ifndef Spine_Triangulator_h
-#define Spine_Triangulator_h
+#ifndef Spine_SequenceTimeline_h
+#define Spine_SequenceTimeline_h
 
-#include <spine/Vector.h>
-#include <spine/Pool.h>
+#include <spine/Timeline.h>
+#include <spine/Sequence.h>
 
 namespace spine {
-	class SP_API Triangulator : public SpineObject {
+	class Attachment;
+
+	class SP_API SequenceTimeline : public Timeline {
+		friend class SkeletonBinary;
+
+		friend class SkeletonJson;
+
+	RTTI_DECL
+
 	public:
-		~Triangulator();
+		explicit SequenceTimeline(size_t frameCount, int slotIndex, spine::Attachment *attachment);
 
-		Vector<int> &triangulate(Vector<float> &vertices);
+		virtual ~SequenceTimeline();
 
-		Vector<Vector < float>* > &
-		decompose(Vector<float>
-		&vertices,
-		Vector<int> &triangles
-		);
+		virtual void
+		apply(Skeleton &skeleton, float lastTime, float time, Vector<Event *> *pEvents, float alpha, MixBlend blend,
+			  MixDirection direction);
 
-	private:
-		Vector<Vector < float>* >
-		_convexPolygons;
-		Vector<Vector < int>* >
-		_convexPolygonsIndices;
+		void setFrame(int frame, float time, SequenceMode mode, int index, float delay);
 
-		Vector<int> _indices;
-		Vector<bool> _isConcaveArray;
-		Vector<int> _triangles;
+		int getSlotIndex() { return _slotIndex; };
 
-		Pool <Vector<float>> _polygonPool;
-		Pool <Vector<int>> _polygonIndicesPool;
+		void setSlotIndex(int inValue) { _slotIndex = inValue; }
 
-		static bool isConcave(int index, int vertexCount, Vector<float> &vertices, Vector<int> &indices);
+		Attachment *getAttachment() { return _attachment; }
 
-		static bool positiveArea(float p1x, float p1y, float p2x, float p2y, float p3x, float p3y);
+	protected:
+		int _slotIndex;
+		Attachment *_attachment;
 
-		static int winding(float p1x, float p1y, float p2x, float p2y, float p3x, float p3y);
+		static const int ENTRIES = 3;
+		static const int MODE = 1;
+		static const int DELAY = 2;
 	};
 }
 
-#endif /* Spine_Triangulator_h */
+#endif /* Spine_SequenceTimeline_h */

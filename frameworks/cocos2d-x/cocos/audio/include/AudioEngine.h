@@ -22,17 +22,16 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-
 #pragma once
-
-#include "platform/CCPlatformConfig.h"
-#include "platform/CCPlatformMacros.h"
-#include "audio/include/Export.h"
 
 #include <functional>
 #include <list>
 #include <string>
 #include <unordered_map>
+
+#include "platform/CCPlatformConfig.h"
+#include "platform/CCPlatformMacros.h"
+#include "audio/include/Export.h"
 
 #ifdef ERROR
 #undef ERROR
@@ -44,7 +43,6 @@
  */
 
 NS_CC_BEGIN
-
 /**
  * @class AudioProfile
  *
@@ -290,7 +288,7 @@ public:
      * @param filePath The file path of an audio.
      * @param callback A callback which will be called after loading is finished.
      */
-    static void preload(const std::string& filePath, const std::function<void(bool isSuccess)>& callback);
+    static void preload(const std::string& filePath, std::function<void(bool isSuccess)> callback);
 
     /**
      * Gets playing audio count.

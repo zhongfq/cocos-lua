@@ -2,530 +2,219 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="src">
-      <UniqueIdentifier>{c038600c-eb16-4a25-9380-03fbe02c55a4}</UniqueIdentifier>
+      <UniqueIdentifier>{162f23ee-08e8-4623-a9c9-dd8eaec29455}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\xgame">
-      <UniqueIdentifier>{3fdeae57-a6ac-4dc5-83e1-1517d28ca706}</UniqueIdentifier>
+    <Filter Include="3rd">
+      <UniqueIdentifier>{60b5e215-7937-41e1-b680-abb0ec7da243}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\pbc">
-      <UniqueIdentifier>{449a4993-c4f7-45bd-96c6-d5f2e8bdff4b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\sproto">
-      <UniqueIdentifier>{14fd8058-e706-4938-9e99-7a7c571ef93e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\olua">
-      <UniqueIdentifier>{ab4c1a8c-5149-40e9-88b7-303d28356a84}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\lpeg">
-      <UniqueIdentifier>{e44994c0-51ad-4d92-a686-beebeadb9c90}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\lua">
-      <UniqueIdentifier>{07e32ff0-6bd1-42e9-9896-93a2f2a560e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\lua-bindings">
-      <UniqueIdentifier>{398fb43f-4300-4561-bb5e-89bc967cb546}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\crypto">
-      <UniqueIdentifier>{fa4d17b9-a7bd-463d-ab74-eaa640f8b72a}</UniqueIdentifier>
+    <Filter Include="src\cclua">
+      <UniqueIdentifier>{a4e62f8d-7dd7-43fb-88b2-169a34a96240}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\cjson">
-      <UniqueIdentifier>{1e04208c-8945-4616-8a7c-cb6fe37592af}</UniqueIdentifier>
+      <UniqueIdentifier>{5fc8fd21-a7bb-4570-8a21-46fe22d8fab1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\lfs">
+      <UniqueIdentifier>{6a643501-009f-427b-b6b9-955c08edfc00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\lua">
+      <UniqueIdentifier>{4041db86-693f-4bf9-99ef-63f594be5b70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\md5">
+      <UniqueIdentifier>{955d4e29-3b73-4fe8-89df-4d33aba30661}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\olua">
+      <UniqueIdentifier>{39a4270e-72fb-4848-bb35-ef35eff25130}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\qrencode">
-      <UniqueIdentifier>{bf38e316-83c6-42c2-bacd-6b7503020f96}</UniqueIdentifier>
+      <UniqueIdentifier>{7cdb471f-f434-4af2-92e9-54ac6e06c2dd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\bugly">
-      <UniqueIdentifier>{b83fff6e-c716-4e70-9f1e-64ade54f5d22}</UniqueIdentifier>
+    <Filter Include="src\xxtea">
+      <UniqueIdentifier>{be893211-cd9a-4050-b1f1-128ff1f5171e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\lame">
-      <UniqueIdentifier>{5809b51f-30f0-42de-94d7-4f95ada7184e}</UniqueIdentifier>
+    <Filter Include="src\lua-bindings">
+      <UniqueIdentifier>{89ad095d-1d1f-4209-bfc9-1fcad4307210}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\luasocket">
-      <UniqueIdentifier>{c6ab294b-9bf1-46dd-91c4-79fadc1f9a8e}</UniqueIdentifier>
+    <Filter Include="3rd\lpeg">
+      <UniqueIdentifier>{9bf30280-1f6a-4f3e-955c-ab136bb83c0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rd\sqlite3">
+      <UniqueIdentifier>{443fecec-0b99-4829-a433-53509c2fe5c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rd\sproto">
+      <UniqueIdentifier>{a0856ea4-d2b6-43c1-b3dd-505ed93eb01f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rd\pbc">
+      <UniqueIdentifier>{76d62167-0f1c-44fe-927b-405ce86a6a94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rd\luasocket">
+      <UniqueIdentifier>{eaf1a481-51cf-4d68-981d-7c86073c8f5d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\lua\src\lapi.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\lauxlib.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\lbaselib.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\lbitlib.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\lcode.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\lcorolib.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\lctype.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\ldblib.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\ldebug.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\ldo.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\ldump.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\lfunc.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\lgc.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\linit.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\liolib.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\llex.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\lmathlib.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\lmem.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\loadlib.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\lobject.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\lopcodes.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\loslib.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\lparser.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\lstate.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\lstring.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\lstrlib.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\ltable.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\ltablib.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\ltm.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\lundump.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\lutf8lib.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\lvm.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua\src\lzio.c">
-      <Filter>src\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\xgame\xdownloader.cpp">
-      <Filter>src\xgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\xgame\xfilefinder.cpp">
-      <Filter>src\xgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\xgame\xfilesystem.cpp">
-      <Filter>src\xgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\xgame\xfilesystem-private.cpp">
-      <Filter>src\xgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\xgame\xlua.cpp">
-      <Filter>src\xgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\xgame\XMLHttpRequest.cpp">
-      <Filter>src\xgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\xgame\xpreferences.cpp">
-      <Filter>src\xgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\xgame\xrootscene.cpp">
-      <Filter>src\xgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\xgame\xruntime.cpp">
-      <Filter>src\xgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\xgame\xruntime-private.cpp">
-      <Filter>src\xgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\xgame\xsocket.cpp">
-      <Filter>src\xgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\xgame\xtimer.cpp">
-      <Filter>src\xgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua-bindings\lua_bindings.cpp">
-      <Filter>src\lua-bindings</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\olua\olua.c">
-      <Filter>src\olua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\crypto\md5.c">
-      <Filter>src\crypto</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\crypto\md5util.c">
-      <Filter>src\crypto</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\crypto\xxtea.cpp">
-      <Filter>src\crypto</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua-bindings\lua_cocos2d.cpp">
-      <Filter>src\lua-bindings</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua-bindings\lua_cocos2d_physics.cpp">
-      <Filter>src\lua-bindings</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua-bindings\lua_cocos2d_ui.cpp">
-      <Filter>src\lua-bindings</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua-bindings\lua_conv.cpp">
-      <Filter>src\lua-bindings</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua-bindings\lua_conv_manual.cpp">
-      <Filter>src\lua-bindings</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua-bindings\lua_spine.cpp">
-      <Filter>src\lua-bindings</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua-bindings\lua_xgame.cpp">
-      <Filter>src\lua-bindings</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua-bindings\lua_xml_http_request.cpp">
-      <Filter>src\lua-bindings</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua-bindings\LuaCocosAdapter.cpp">
-      <Filter>src\lua-bindings</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\cjson\cJSON.c">
+    <ClInclude Include="..\src\cclua\AssetsBundle.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cclua\ByteArray.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cclua\cclua.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cclua\downloader.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cclua\FileFinder.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cclua\filesystem.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cclua\filesystem-private.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cclua\luauser.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cclua\microphone.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cclua\permission.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cclua\photo.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cclua\plugin.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cclua\preferences.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cclua\QRCode.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cclua\RootScene.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cclua\runtime.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cclua\runtime-private.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cclua\Socket.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cclua\timer.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cclua\window.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cclua\xlua.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cclua\XMLHttpRequest.h">
+      <Filter>src\cclua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cjson\lua_cjson.h">
       <Filter>src\cjson</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\cjson\fpconv.c">
+    </ClInclude>
+    <ClInclude Include="..\src\cjson\strbuf.h">
       <Filter>src\cjson</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\cjson\lua_cjson.c">
+    </ClInclude>
+    <ClInclude Include="..\src\cjson\cJSON.h">
       <Filter>src\cjson</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\cjson\strbuf.c">
+    </ClInclude>
+    <ClInclude Include="..\src\cjson\fpconv.h">
       <Filter>src\cjson</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua-bindings\lua_fairygui.cpp">
-      <Filter>src\lua-bindings</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\sproto\lsproto.c">
-      <Filter>src\sproto</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\sproto\sproto.c">
-      <Filter>src\sproto</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lpeg\lpcap.c">
-      <Filter>src\lpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lpeg\lpcode.c">
-      <Filter>src\lpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lpeg\lpprint.c">
-      <Filter>src\lpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lpeg\lptree.c">
-      <Filter>src\lpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lpeg\lpvm.c">
-      <Filter>src\lpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua-bindings\lua_crypto.cpp">
-      <Filter>src\lua-bindings</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\pbc\alloc.c">
-      <Filter>src\pbc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\pbc\array.c">
-      <Filter>src\pbc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\pbc\bootstrap.c">
-      <Filter>src\pbc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\pbc\context.c">
-      <Filter>src\pbc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\pbc\decode.c">
-      <Filter>src\pbc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\pbc\map.c">
-      <Filter>src\pbc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\pbc\packet.c">
-      <Filter>src\pbc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\pbc\pattern.c">
-      <Filter>src\pbc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\pbc\pbc-lua53.c">
-      <Filter>src\pbc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\pbc\proto.c">
-      <Filter>src\pbc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\pbc\register.c">
-      <Filter>src\pbc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\pbc\rmessage.c">
-      <Filter>src\pbc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\pbc\stringpool.c">
-      <Filter>src\pbc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\pbc\varint.c">
-      <Filter>src\pbc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\pbc\wmessage.c">
-      <Filter>src\pbc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\qrencode\QRSprite.cpp">
-      <Filter>src\qrencode</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\qrencode\lua_qrcode.cpp">
-      <Filter>src\qrencode</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\qrencode\split.c">
-      <Filter>src\qrencode</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\qrencode\rscode.c">
-      <Filter>src\qrencode</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\qrencode\qrspec.c">
-      <Filter>src\qrencode</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\qrencode\qrinput.c">
-      <Filter>src\qrencode</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\qrencode\qrencode.c">
-      <Filter>src\qrencode</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\qrencode\mask.c">
-      <Filter>src\qrencode</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\qrencode\bitstream.c">
-      <Filter>src\qrencode</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua-bindings\lua_javabridge.cpp">
-      <Filter>src\lua-bindings</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua-bindings\lua_dragonbones.cpp">
-      <Filter>src\lua-bindings</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\luasocket\auxiliar.c">
-      <Filter>src\luasocket</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\luasocket\buffer.c">
-      <Filter>src\luasocket</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\luasocket\except.c">
-      <Filter>src\luasocket</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\luasocket\inet.c">
-      <Filter>src\luasocket</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\luasocket\io.c">
-      <Filter>src\luasocket</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\luasocket\luasocket.c">
-      <Filter>src\luasocket</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\luasocket\luasocket_scripts.c">
-      <Filter>src\luasocket</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\luasocket\mime.c">
-      <Filter>src\luasocket</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\luasocket\options.c">
-      <Filter>src\luasocket</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\luasocket\select.c">
-      <Filter>src\luasocket</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\luasocket\tcp.c">
-      <Filter>src\luasocket</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\luasocket\timeout.c">
-      <Filter>src\luasocket</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\luasocket\udp.c">
-      <Filter>src\luasocket</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\luasocket\wsocket.c">
-      <Filter>src\luasocket</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua-bindings\lua_socket.cpp">
-      <Filter>src\lua-bindings</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\src\lua\src\lapi.h">
+    </ClInclude>
+    <ClInclude Include="..\src\lfs\lfs.h">
+      <Filter>src\lfs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\lua\lapi.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\lauxlib.h">
+    <ClInclude Include="..\src\lua\lauxlib.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\lcode.h">
+    <ClInclude Include="..\src\lua\lcode.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\lctype.h">
+    <ClInclude Include="..\src\lua\lctype.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\ldebug.h">
+    <ClInclude Include="..\src\lua\ldebug.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\ldo.h">
+    <ClInclude Include="..\src\lua\ldo.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\lfunc.h">
+    <ClInclude Include="..\src\lua\lfunc.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\lgc.h">
+    <ClInclude Include="..\src\lua\lgc.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\llex.h">
+    <ClInclude Include="..\src\lua\ljumptab.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\llimits.h">
+    <ClInclude Include="..\src\lua\llex.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\lmem.h">
+    <ClInclude Include="..\src\lua\llimits.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\lobject.h">
+    <ClInclude Include="..\src\lua\lmem.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\lopcodes.h">
+    <ClInclude Include="..\src\lua\lobject.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\lparser.h">
+    <ClInclude Include="..\src\lua\lopcodes.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\lprefix.h">
+    <ClInclude Include="..\src\lua\lopnames.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\lstate.h">
+    <ClInclude Include="..\src\lua\lparser.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\lstring.h">
+    <ClInclude Include="..\src\lua\lprefix.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\ltable.h">
+    <ClInclude Include="..\src\lua\lstate.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\ltm.h">
+    <ClInclude Include="..\src\lua\lstring.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\lua.h">
+    <ClInclude Include="..\src\lua\ltable.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\lua.hpp">
+    <ClInclude Include="..\src\lua\ltm.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\luaconf.h">
+    <ClInclude Include="..\src\lua\lua.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\lualib.h">
+    <ClInclude Include="..\src\lua\lua.hpp">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\lundump.h">
+    <ClInclude Include="..\src\lua\luaconf.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\lvm.h">
+    <ClInclude Include="..\src\lua\lualib.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua\src\lzio.h">
+    <ClInclude Include="..\src\lua\lundump.h">
       <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\xgame\xdef.h">
-      <Filter>src\xgame</Filter>
+    <ClInclude Include="..\src\lua\lvm.h">
+      <Filter>src\lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\xgame\xdownloader.h">
-      <Filter>src\xgame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\xgame\xfilefinder.h">
-      <Filter>src\xgame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\xgame\xfilesystem.h">
-      <Filter>src\xgame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\xgame\xfilesystem-private.h">
-      <Filter>src\xgame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\xgame\xlua.h">
-      <Filter>src\xgame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\xgame\XMLHttpRequest.h">
-      <Filter>src\xgame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\xgame\xpreferences.h">
-      <Filter>src\xgame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\xgame\xrootscene.h">
-      <Filter>src\xgame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\xgame\xruntime.h">
-      <Filter>src\xgame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\xgame\xruntime-private.h">
-      <Filter>src\xgame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\xgame\xsocket.h">
-      <Filter>src\xgame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\xgame\xtimer.h">
-      <Filter>src\xgame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\lua-bindings\lua_bindings.h">
-      <Filter>src\lua-bindings</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\olua\olua.h">
-      <Filter>src\olua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\olua\olua.hpp">
-      <Filter>src\olua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\crypto\md5.h">
-      <Filter>src\crypto</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\crypto\md5util.h">
-      <Filter>src\crypto</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\crypto\xxtea.h">
-      <Filter>src\crypto</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\lua-bindings\lua_cocos2d.h">
-      <Filter>src\lua-bindings</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\lua-bindings\lua_cocos2d_physics.h">
-      <Filter>src\lua-bindings</Filter>
+    <ClInclude Include="..\src\lua\lzio.h">
+      <Filter>src\lua</Filter>
     </ClInclude>
     <ClInclude Include="..\src\lua-bindings\lua_cocos2d_ui.h">
       <Filter>src\lua-bindings</Filter>
@@ -534,6 +223,27 @@
       <Filter>src\lua-bindings</Filter>
     </ClInclude>
     <ClInclude Include="..\src\lua-bindings\lua_conv_manual.h">
+      <Filter>src\lua-bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\lua-bindings\lua_crypto.h">
+      <Filter>src\lua-bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\lua-bindings\lua_dragonbones.h">
+      <Filter>src\lua-bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\lua-bindings\lua_fairygui.h">
+      <Filter>src\lua-bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\lua-bindings\lua_javabridge.h">
+      <Filter>src\lua-bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\lua-bindings\lua_manual.h">
+      <Filter>src\lua-bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\lua-bindings\lua_ocbridge.h">
+      <Filter>src\lua-bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\lua-bindings\lua_socket.h">
       <Filter>src\lua-bindings</Filter>
     </ClInclude>
     <ClInclude Include="..\src\lua-bindings\lua_spine.h">
@@ -548,185 +258,567 @@
     <ClInclude Include="..\src\lua-bindings\LuaCocosAdapter.h">
       <Filter>src\lua-bindings</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\cjson\cJSON.h">
-      <Filter>src\cjson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\cjson\fpconv.h">
-      <Filter>src\cjson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\cjson\lua_cjson.h">
-      <Filter>src\cjson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\cjson\strbuf.h">
-      <Filter>src\cjson</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\lua-bindings\lua_fairygui.h">
+    <ClInclude Include="..\src\lua-bindings\lua_bindings.h">
       <Filter>src\lua-bindings</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\sproto\lsproto.h">
-      <Filter>src\sproto</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\sproto\msvcint.h">
-      <Filter>src\sproto</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\sproto\sproto.h">
-      <Filter>src\sproto</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\lpeg\lpcap.h">
-      <Filter>src\lpeg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\lpeg\lpcode.h">
-      <Filter>src\lpeg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\lpeg\lpprint.h">
-      <Filter>src\lpeg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\lpeg\lptree.h">
-      <Filter>src\lpeg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\lpeg\lptypes.h">
-      <Filter>src\lpeg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\lpeg\lpvm.h">
-      <Filter>src\lpeg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\lua-bindings\lua_crypto.h">
+    <ClInclude Include="..\src\lua-bindings\lua_cocos2d.h">
       <Filter>src\lua-bindings</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\pbc\alloc.h">
-      <Filter>src\pbc</Filter>
+    <ClInclude Include="..\src\lua-bindings\lua_cocos2d_physics.h">
+      <Filter>src\lua-bindings</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\pbc\array.h">
-      <Filter>src\pbc</Filter>
+    <ClInclude Include="..\src\lua-bindings\lua_cocos2d_studio.h">
+      <Filter>src\lua-bindings</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\pbc\bootstrap.h">
-      <Filter>src\pbc</Filter>
+    <ClInclude Include="..\src\md5\lua_md5.h">
+      <Filter>src\md5</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\pbc\context.h">
-      <Filter>src\pbc</Filter>
+    <ClInclude Include="..\src\md5\md5.h">
+      <Filter>src\md5</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\pbc\descriptor.pbc.h">
-      <Filter>src\pbc</Filter>
+    <ClInclude Include="..\src\md5\md5util.h">
+      <Filter>src\md5</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\pbc\map.h">
-      <Filter>src\pbc</Filter>
+    <ClInclude Include="..\src\xxtea\lua_xxtea.h">
+      <Filter>src\xxtea</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\pbc\packet.h">
-      <Filter>src\pbc</Filter>
+    <ClInclude Include="..\src\xxtea\xxtea.h">
+      <Filter>src\xxtea</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\pbc\pattern.h">
-      <Filter>src\pbc</Filter>
+    <ClInclude Include="..\src\olua\olua.h">
+      <Filter>src\olua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\pbc\pbc.h">
-      <Filter>src\pbc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\pbc\proto.h">
-      <Filter>src\pbc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\pbc\stringpool.h">
-      <Filter>src\pbc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\pbc\varint.h">
-      <Filter>src\pbc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\qrencode\split.h">
-      <Filter>src\qrencode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\qrencode\rscode.h">
-      <Filter>src\qrencode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\qrencode\QRSprite.h">
-      <Filter>src\qrencode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\qrencode\qrspec.h">
-      <Filter>src\qrencode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\qrencode\qrinput.h">
-      <Filter>src\qrencode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\qrencode\qrencode.h">
+    <ClInclude Include="..\src\qrencode\bitstream.h">
       <Filter>src\qrencode</Filter>
     </ClInclude>
     <ClInclude Include="..\src\qrencode\mask.h">
       <Filter>src\qrencode</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\qrencode\lua_qrcode.h">
+    <ClInclude Include="..\src\qrencode\qrencode.h">
       <Filter>src\qrencode</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\qrencode\bitstream.h">
+    <ClInclude Include="..\src\qrencode\qrinput.h">
       <Filter>src\qrencode</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua-bindings\lua_iap.h">
+    <ClInclude Include="..\src\qrencode\qrspec.h">
+      <Filter>src\qrencode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\qrencode\QRSprite.h">
+      <Filter>src\qrencode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\qrencode\rscode.h">
+      <Filter>src\qrencode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\qrencode\split.h">
+      <Filter>src\qrencode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\lpeg\lpcap.h">
+      <Filter>3rd\lpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\lpeg\lpcode.h">
+      <Filter>3rd\lpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\lpeg\lpprint.h">
+      <Filter>3rd\lpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\lpeg\lptree.h">
+      <Filter>3rd\lpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\lpeg\lptypes.h">
+      <Filter>3rd\lpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\lpeg\lpvm.h">
+      <Filter>3rd\lpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\sqlite3\lsqlite3.h">
+      <Filter>3rd\sqlite3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\sqlite3\sqlite3.h">
+      <Filter>3rd\sqlite3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\sproto\msvcint.h">
+      <Filter>3rd\sproto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\sproto\sproto.h">
+      <Filter>3rd\sproto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\sproto\lsproto.h">
+      <Filter>3rd\sproto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\pbc\alloc.h">
+      <Filter>3rd\pbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\pbc\array.h">
+      <Filter>3rd\pbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\pbc\bootstrap.h">
+      <Filter>3rd\pbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\pbc\context.h">
+      <Filter>3rd\pbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\pbc\descriptor.pbc.h">
+      <Filter>3rd\pbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\pbc\map.h">
+      <Filter>3rd\pbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\pbc\packet.h">
+      <Filter>3rd\pbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\pbc\pattern.h">
+      <Filter>3rd\pbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\pbc\pbc.h">
+      <Filter>3rd\pbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\pbc\proto.h">
+      <Filter>3rd\pbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\pbc\stringpool.h">
+      <Filter>3rd\pbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\pbc\varint.h">
+      <Filter>3rd\pbc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\luasocket\select.h">
+      <Filter>3rd\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\luasocket\socket.h">
+      <Filter>3rd\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\luasocket\tcp.h">
+      <Filter>3rd\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\luasocket\timeout.h">
+      <Filter>3rd\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\luasocket\udp.h">
+      <Filter>3rd\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\luasocket\wsocket.h">
+      <Filter>3rd\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\luasocket\auxiliar.h">
+      <Filter>3rd\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\luasocket\buffer.h">
+      <Filter>3rd\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\luasocket\compat.h">
+      <Filter>3rd\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\luasocket\except.h">
+      <Filter>3rd\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\luasocket\inet.h">
+      <Filter>3rd\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\luasocket\io.h">
+      <Filter>3rd\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\luasocket\luasocket.h">
+      <Filter>3rd\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\luasocket\luasocket_scripts.h">
+      <Filter>3rd\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\luasocket\mime.h">
+      <Filter>3rd\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\luasocket\options.h">
+      <Filter>3rd\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\luasocket\pierror.h">
+      <Filter>3rd\luasocket</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\cclua\AssetsBundle.cpp">
+      <Filter>src\cclua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cclua\ByteArray.cpp">
+      <Filter>src\cclua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cclua\downloader.cpp">
+      <Filter>src\cclua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cclua\FileFinder.cpp">
+      <Filter>src\cclua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cclua\filesystem.cpp">
+      <Filter>src\cclua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cclua\filesystem-private.cpp">
+      <Filter>src\cclua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cclua\microphone.cpp">
+      <Filter>src\cclua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cclua\permission.cpp">
+      <Filter>src\cclua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cclua\photo.cpp">
+      <Filter>src\cclua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cclua\plugin.cpp">
+      <Filter>src\cclua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cclua\preferences.cpp">
+      <Filter>src\cclua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cclua\QRCode.cpp">
+      <Filter>src\cclua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cclua\RootScene.cpp">
+      <Filter>src\cclua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cclua\runtime.cpp">
+      <Filter>src\cclua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cclua\runtime-private.cpp">
+      <Filter>src\cclua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cclua\Socket.cpp">
+      <Filter>src\cclua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cclua\timer.cpp">
+      <Filter>src\cclua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cclua\window.cpp">
+      <Filter>src\cclua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cclua\xlua.cpp">
+      <Filter>src\cclua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cclua\XMLHttpRequest.cpp">
+      <Filter>src\cclua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cjson\lua_cjson.c">
+      <Filter>src\cjson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cjson\strbuf.c">
+      <Filter>src\cjson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cjson\cJSON.c">
+      <Filter>src\cjson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cjson\fpconv.c">
+      <Filter>src\cjson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lfs\lfs.c">
+      <Filter>src\lfs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\lapi.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\lauxlib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\lbaselib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\lcode.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\lcorolib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\lctype.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\ldblib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\ldebug.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\ldo.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\ldump.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\lfunc.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\lgc.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\linit.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\liolib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\llex.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\lmathlib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\lmem.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\loadlib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\lobject.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\lopcodes.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\loslib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\lparser.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\lstate.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\lstring.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\lstrlib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\ltable.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\ltablib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\ltm.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\lundump.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\lutf8lib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\lvm.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua\lzio.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua-bindings\lua_conv.cpp">
       <Filter>src\lua-bindings</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\lua-bindings\lua_javabridge.h">
+    </ClCompile>
+    <ClCompile Include="..\src\lua-bindings\lua_conv_manual.cpp">
       <Filter>src\lua-bindings</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\lua-bindings\lua_keychain.h">
+    </ClCompile>
+    <ClCompile Include="..\src\lua-bindings\lua_crypto.cpp">
       <Filter>src\lua-bindings</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\lua-bindings\lua_photo.h">
+    </ClCompile>
+    <ClCompile Include="..\src\lua-bindings\lua_dragonbones.cpp">
       <Filter>src\lua-bindings</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\lua-bindings\lua_recorder.h">
+    </ClCompile>
+    <ClCompile Include="..\src\lua-bindings\lua_fairygui.cpp">
       <Filter>src\lua-bindings</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\bugly\lua_bugly.h">
-      <Filter>src\bugly</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\lame\lua_lame.h">
-      <Filter>src\lame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\lua-bindings\lua_dragonbones.h">
+    </ClCompile>
+    <ClCompile Include="..\src\lua-bindings\lua_javabridge.cpp">
       <Filter>src\lua-bindings</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\luasocket\auxiliar.h">
-      <Filter>src\luasocket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\luasocket\buffer.h">
-      <Filter>src\luasocket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\luasocket\except.h">
-      <Filter>src\luasocket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\luasocket\inet.h">
-      <Filter>src\luasocket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\luasocket\io.h">
-      <Filter>src\luasocket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\luasocket\luasocket.h">
-      <Filter>src\luasocket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\luasocket\luasocket_scripts.h">
-      <Filter>src\luasocket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\luasocket\mime.h">
-      <Filter>src\luasocket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\luasocket\options.h">
-      <Filter>src\luasocket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\luasocket\select.h">
-      <Filter>src\luasocket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\luasocket\socket.h">
-      <Filter>src\luasocket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\luasocket\tcp.h">
-      <Filter>src\luasocket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\luasocket\timeout.h">
-      <Filter>src\luasocket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\luasocket\udp.h">
-      <Filter>src\luasocket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\luasocket\wsocket.h">
-      <Filter>src\luasocket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\lua-bindings\lua_socket.h">
+    </ClCompile>
+    <ClCompile Include="..\src\lua-bindings\lua_manual.cpp">
       <Filter>src\lua-bindings</Filter>
-    </ClInclude>
+    </ClCompile>
+    <ClCompile Include="..\src\lua-bindings\lua_socket.cpp">
+      <Filter>src\lua-bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua-bindings\lua_spine.cpp">
+      <Filter>src\lua-bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua-bindings\lua_xgame.cpp">
+      <Filter>src\lua-bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua-bindings\lua_xml_http_request.cpp">
+      <Filter>src\lua-bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua-bindings\LuaCocosAdapter.cpp">
+      <Filter>src\lua-bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua-bindings\lua_bindings.cpp">
+      <Filter>src\lua-bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua-bindings\lua_cocos2d.cpp">
+      <Filter>src\lua-bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua-bindings\lua_cocos2d_physics.cpp">
+      <Filter>src\lua-bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua-bindings\lua_cocos2d_studio.cpp">
+      <Filter>src\lua-bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua-bindings\lua_cocos2d_ui.cpp">
+      <Filter>src\lua-bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\md5\lua_md5.cpp">
+      <Filter>src\md5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\md5\md5.c">
+      <Filter>src\md5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\md5\md5util.c">
+      <Filter>src\md5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\xxtea\lua_xxtea.c">
+      <Filter>src\xxtea</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\xxtea\xxtea.c">
+      <Filter>src\xxtea</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\olua\olua.c">
+      <Filter>src\olua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\qrencode\mask.c">
+      <Filter>src\qrencode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\qrencode\qrencode.c">
+      <Filter>src\qrencode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\qrencode\qrinput.c">
+      <Filter>src\qrencode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\qrencode\qrspec.c">
+      <Filter>src\qrencode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\qrencode\QRSprite.cpp">
+      <Filter>src\qrencode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\qrencode\rscode.c">
+      <Filter>src\qrencode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\qrencode\split.c">
+      <Filter>src\qrencode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\qrencode\bitstream.c">
+      <Filter>src\qrencode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\lpeg\lpcap.c">
+      <Filter>3rd\lpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\lpeg\lpcode.c">
+      <Filter>3rd\lpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\lpeg\lpprint.c">
+      <Filter>3rd\lpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\lpeg\lptree.c">
+      <Filter>3rd\lpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\lpeg\lpvm.c">
+      <Filter>3rd\lpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\sqlite3\lsqlite3.c">
+      <Filter>3rd\sqlite3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\sqlite3\sqlite3.c">
+      <Filter>3rd\sqlite3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\sproto\sproto.c">
+      <Filter>3rd\sproto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\sproto\lsproto.c">
+      <Filter>3rd\sproto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\pbc\array.c">
+      <Filter>3rd\pbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\pbc\bootstrap.c">
+      <Filter>3rd\pbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\pbc\context.c">
+      <Filter>3rd\pbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\pbc\decode.c">
+      <Filter>3rd\pbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\pbc\map.c">
+      <Filter>3rd\pbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\pbc\packet.c">
+      <Filter>3rd\pbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\pbc\pattern.c">
+      <Filter>3rd\pbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\pbc\pbc-lua53.c">
+      <Filter>3rd\pbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\pbc\proto.c">
+      <Filter>3rd\pbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\pbc\register.c">
+      <Filter>3rd\pbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\pbc\rmessage.c">
+      <Filter>3rd\pbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\pbc\stringpool.c">
+      <Filter>3rd\pbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\pbc\varint.c">
+      <Filter>3rd\pbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\pbc\wmessage.c">
+      <Filter>3rd\pbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\pbc\alloc.c">
+      <Filter>3rd\pbc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\luasocket\tcp.c">
+      <Filter>3rd\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\luasocket\timeout.c">
+      <Filter>3rd\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\luasocket\udp.c">
+      <Filter>3rd\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\luasocket\wsocket.c">
+      <Filter>3rd\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\luasocket\auxiliar.c">
+      <Filter>3rd\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\luasocket\buffer.c">
+      <Filter>3rd\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\luasocket\compat.c">
+      <Filter>3rd\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\luasocket\except.c">
+      <Filter>3rd\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\luasocket\inet.c">
+      <Filter>3rd\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\luasocket\io.c">
+      <Filter>3rd\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\luasocket\luasocket.c">
+      <Filter>3rd\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\luasocket\luasocket_scripts.cpp">
+      <Filter>3rd\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\luasocket\mime.c">
+      <Filter>3rd\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\luasocket\options.c">
+      <Filter>3rd\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\luasocket\select.c">
+      <Filter>3rd\luasocket</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\lua-bindings\lua_ocbridge.mm">
+      <Filter>src\lua-bindings</Filter>
+    </None>
   </ItemGroup>
 </Project>

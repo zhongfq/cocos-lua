@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="源文件\luaopenssl">
+      <UniqueIdentifier>{9b8d1392-eb25-447c-aa62-c70ab7da2d48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\luaopenssl\deps">
+      <UniqueIdentifier>{e7287f83-2513-4539-8acb-0b07c3fe97f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\luaopenssl\deps\auxiliar">
+      <UniqueIdentifier>{8ec9bdf2-1fc7-4998-85ff-a6b7a9bc94d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\luaopenssl\deps\lua-compat">
+      <UniqueIdentifier>{444143a9-1c24-4f90-8076-822a979d1535}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\luaopenssl\deps\lua-compat\c-api">
+      <UniqueIdentifier>{dbcbe92b-8897-4844-ae24-2ae0a710703f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\luaopenssl\asn1.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\bio.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\callback.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\cipher.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\cms.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\compat.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\crl.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\csr.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\dh.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\digest.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\dsa.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\ec.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\engine.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\hmac.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\lbn.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\lhash.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\misc.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\ocsp.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\openssl.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\ots.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\pkcs7.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\pkcs12.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\pkey.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\rsa.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\srp.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\ssl.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\th-lock.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\util.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\x509.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\xalgor.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\xattrs.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\xexts.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\xname.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\xstore.c">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\deps\auxiliar\auxiliar.c">
+      <Filter>源文件\luaopenssl\deps\lua-compat\c-api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\luaopenssl\deps\auxiliar\subsidiar.c">
+      <Filter>源文件\luaopenssl\deps\lua-compat\c-api</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\luaopenssl\LICENSE">
+      <Filter>源文件\luaopenssl</Filter>
+    </None>
+    <None Include="..\..\luaopenssl\README.md">
+      <Filter>源文件\luaopenssl</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\luaopenssl\oids.txt">
+      <Filter>源文件\luaopenssl</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\luaopenssl\openssl.h">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\luaopenssl\private.h">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\luaopenssl\sk.h">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\luaopenssl\ssl_options.h">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\luaopenssl\stdatomic.h">
+      <Filter>源文件\luaopenssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\luaopenssl\deps\lua-compat\lprefix.h">
+      <Filter>源文件\luaopenssl\deps\lua-compat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\luaopenssl\deps\lua-compat\c-api\compat-5.3.h">
+      <Filter>源文件\luaopenssl\deps\lua-compat\c-api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\luaopenssl\deps\auxiliar\auxiliar.h">
+      <Filter>源文件\luaopenssl\deps\lua-compat\c-api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\luaopenssl\deps\auxiliar\subsidiar.h">
+      <Filter>源文件\luaopenssl\deps\lua-compat\c-api</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -16,212 +16,124 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\cjson\cJSON.c" />
-    <ClCompile Include="..\src\cjson\fpconv.c" />
-    <ClCompile Include="..\src\cjson\lua_cjson.c" />
-    <ClCompile Include="..\src\cjson\strbuf.c" />
-    <ClCompile Include="..\src\crypto\md5.c" />
-    <ClCompile Include="..\src\crypto\md5util.c" />
-    <ClCompile Include="..\src\crypto\xxtea.cpp" />
-    <ClCompile Include="..\src\lpeg\lpcap.c" />
-    <ClCompile Include="..\src\lpeg\lpcode.c" />
-    <ClCompile Include="..\src\lpeg\lpprint.c" />
-    <ClCompile Include="..\src\lpeg\lptree.c" />
-    <ClCompile Include="..\src\lpeg\lpvm.c" />
-    <ClCompile Include="..\src\lua-bindings\LuaCocosAdapter.cpp" />
-    <ClCompile Include="..\src\lua-bindings\lua_bindings.cpp" />
-    <ClCompile Include="..\src\lua-bindings\lua_cocos2d.cpp" />
-    <ClCompile Include="..\src\lua-bindings\lua_cocos2d_physics.cpp" />
-    <ClCompile Include="..\src\lua-bindings\lua_cocos2d_ui.cpp" />
-    <ClCompile Include="..\src\lua-bindings\lua_conv.cpp" />
-    <ClCompile Include="..\src\lua-bindings\lua_conv_manual.cpp" />
-    <ClCompile Include="..\src\lua-bindings\lua_crypto.cpp" />
-    <ClCompile Include="..\src\lua-bindings\lua_dragonbones.cpp" />
-    <ClCompile Include="..\src\lua-bindings\lua_fairygui.cpp" />
-    <ClCompile Include="..\src\lua-bindings\lua_javabridge.cpp" />
-    <ClCompile Include="..\src\lua-bindings\lua_socket.cpp" />
-    <ClCompile Include="..\src\lua-bindings\lua_spine.cpp" />
-    <ClCompile Include="..\src\lua-bindings\lua_xgame.cpp" />
-    <ClCompile Include="..\src\lua-bindings\lua_xml_http_request.cpp" />
-    <ClCompile Include="..\src\luasocket\auxiliar.c" />
-    <ClCompile Include="..\src\luasocket\buffer.c" />
-    <ClCompile Include="..\src\luasocket\except.c" />
-    <ClCompile Include="..\src\luasocket\inet.c" />
-    <ClCompile Include="..\src\luasocket\io.c" />
-    <ClCompile Include="..\src\luasocket\luasocket.c" />
-    <ClCompile Include="..\src\luasocket\luasocket_scripts.c" />
-    <ClCompile Include="..\src\luasocket\mime.c" />
-    <ClCompile Include="..\src\luasocket\options.c" />
-    <ClCompile Include="..\src\luasocket\select.c" />
-    <ClCompile Include="..\src\luasocket\tcp.c" />
-    <ClCompile Include="..\src\luasocket\timeout.c" />
-    <ClCompile Include="..\src\luasocket\udp.c" />
-    <ClCompile Include="..\src\luasocket\wsocket.c" />
-    <ClCompile Include="..\src\lua\src\lapi.c" />
-    <ClCompile Include="..\src\lua\src\lauxlib.c" />
-    <ClCompile Include="..\src\lua\src\lbaselib.c" />
-    <ClCompile Include="..\src\lua\src\lbitlib.c" />
-    <ClCompile Include="..\src\lua\src\lcode.c" />
-    <ClCompile Include="..\src\lua\src\lcorolib.c" />
-    <ClCompile Include="..\src\lua\src\lctype.c" />
-    <ClCompile Include="..\src\lua\src\ldblib.c" />
-    <ClCompile Include="..\src\lua\src\ldebug.c" />
-    <ClCompile Include="..\src\lua\src\ldo.c" />
-    <ClCompile Include="..\src\lua\src\ldump.c" />
-    <ClCompile Include="..\src\lua\src\lfunc.c" />
-    <ClCompile Include="..\src\lua\src\lgc.c" />
-    <ClCompile Include="..\src\lua\src\linit.c" />
-    <ClCompile Include="..\src\lua\src\liolib.c" />
-    <ClCompile Include="..\src\lua\src\llex.c" />
-    <ClCompile Include="..\src\lua\src\lmathlib.c" />
-    <ClCompile Include="..\src\lua\src\lmem.c" />
-    <ClCompile Include="..\src\lua\src\loadlib.c" />
-    <ClCompile Include="..\src\lua\src\lobject.c" />
-    <ClCompile Include="..\src\lua\src\lopcodes.c" />
-    <ClCompile Include="..\src\lua\src\loslib.c" />
-    <ClCompile Include="..\src\lua\src\lparser.c" />
-    <ClCompile Include="..\src\lua\src\lstate.c" />
-    <ClCompile Include="..\src\lua\src\lstring.c" />
-    <ClCompile Include="..\src\lua\src\lstrlib.c" />
-    <ClCompile Include="..\src\lua\src\ltable.c" />
-    <ClCompile Include="..\src\lua\src\ltablib.c" />
-    <ClCompile Include="..\src\lua\src\ltm.c" />
-    <ClCompile Include="..\src\lua\src\lundump.c" />
-    <ClCompile Include="..\src\lua\src\lutf8lib.c" />
-    <ClCompile Include="..\src\lua\src\lvm.c" />
-    <ClCompile Include="..\src\lua\src\lzio.c" />
-    <ClCompile Include="..\src\olua\olua.c" />
-    <ClCompile Include="..\src\pbc\alloc.c" />
-    <ClCompile Include="..\src\pbc\array.c" />
-    <ClCompile Include="..\src\pbc\bootstrap.c" />
-    <ClCompile Include="..\src\pbc\context.c" />
-    <ClCompile Include="..\src\pbc\decode.c" />
-    <ClCompile Include="..\src\pbc\map.c" />
-    <ClCompile Include="..\src\pbc\packet.c" />
-    <ClCompile Include="..\src\pbc\pattern.c" />
-    <ClCompile Include="..\src\pbc\pbc-lua53.c" />
-    <ClCompile Include="..\src\pbc\proto.c" />
-    <ClCompile Include="..\src\pbc\register.c" />
-    <ClCompile Include="..\src\pbc\rmessage.c" />
-    <ClCompile Include="..\src\pbc\stringpool.c" />
-    <ClCompile Include="..\src\pbc\varint.c" />
-    <ClCompile Include="..\src\pbc\wmessage.c" />
-    <ClCompile Include="..\src\qrencode\bitstream.c" />
-    <ClCompile Include="..\src\qrencode\lua_qrcode.cpp" />
-    <ClCompile Include="..\src\qrencode\mask.c" />
-    <ClCompile Include="..\src\qrencode\qrencode.c" />
-    <ClCompile Include="..\src\qrencode\qrinput.c" />
-    <ClCompile Include="..\src\qrencode\qrspec.c" />
-    <ClCompile Include="..\src\qrencode\QRSprite.cpp" />
-    <ClCompile Include="..\src\qrencode\rscode.c" />
-    <ClCompile Include="..\src\qrencode\split.c" />
-    <ClCompile Include="..\src\sproto\lsproto.c" />
-    <ClCompile Include="..\src\sproto\sproto.c" />
-    <ClCompile Include="..\src\xgame\xdownloader.cpp" />
-    <ClCompile Include="..\src\xgame\xfilefinder.cpp" />
-    <ClCompile Include="..\src\xgame\xfilesystem-private.cpp" />
-    <ClCompile Include="..\src\xgame\xfilesystem.cpp" />
-    <ClCompile Include="..\src\xgame\xlua.cpp" />
-    <ClCompile Include="..\src\xgame\XMLHttpRequest.cpp" />
-    <ClCompile Include="..\src\xgame\xpreferences.cpp" />
-    <ClCompile Include="..\src\xgame\xrootscene.cpp" />
-    <ClCompile Include="..\src\xgame\xruntime-private.cpp" />
-    <ClCompile Include="..\src\xgame\xruntime.cpp" />
-    <ClCompile Include="..\src\xgame\xsocket.cpp" />
-    <ClCompile Include="..\src\xgame\xtimer.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\src\bugly\lua_bugly.h" />
+    <ClInclude Include="..\..\3rd\lpeg\lpcap.h" />
+    <ClInclude Include="..\..\3rd\lpeg\lpcode.h" />
+    <ClInclude Include="..\..\3rd\lpeg\lpprint.h" />
+    <ClInclude Include="..\..\3rd\lpeg\lptree.h" />
+    <ClInclude Include="..\..\3rd\lpeg\lptypes.h" />
+    <ClInclude Include="..\..\3rd\lpeg\lpvm.h" />
+    <ClInclude Include="..\..\3rd\luasocket\auxiliar.h" />
+    <ClInclude Include="..\..\3rd\luasocket\buffer.h" />
+    <ClInclude Include="..\..\3rd\luasocket\compat.h" />
+    <ClInclude Include="..\..\3rd\luasocket\except.h" />
+    <ClInclude Include="..\..\3rd\luasocket\inet.h" />
+    <ClInclude Include="..\..\3rd\luasocket\io.h" />
+    <ClInclude Include="..\..\3rd\luasocket\luasocket.h" />
+    <ClInclude Include="..\..\3rd\luasocket\luasocket_scripts.h" />
+    <ClInclude Include="..\..\3rd\luasocket\mime.h" />
+    <ClInclude Include="..\..\3rd\luasocket\options.h" />
+    <ClInclude Include="..\..\3rd\luasocket\pierror.h" />
+    <ClInclude Include="..\..\3rd\luasocket\select.h" />
+    <ClInclude Include="..\..\3rd\luasocket\socket.h" />
+    <ClInclude Include="..\..\3rd\luasocket\tcp.h" />
+    <ClInclude Include="..\..\3rd\luasocket\timeout.h" />
+    <ClInclude Include="..\..\3rd\luasocket\udp.h" />
+    <ClInclude Include="..\..\3rd\luasocket\wsocket.h" />
+    <ClInclude Include="..\..\3rd\pbc\alloc.h" />
+    <ClInclude Include="..\..\3rd\pbc\array.h" />
+    <ClInclude Include="..\..\3rd\pbc\bootstrap.h" />
+    <ClInclude Include="..\..\3rd\pbc\context.h" />
+    <ClInclude Include="..\..\3rd\pbc\descriptor.pbc.h" />
+    <ClInclude Include="..\..\3rd\pbc\map.h" />
+    <ClInclude Include="..\..\3rd\pbc\packet.h" />
+    <ClInclude Include="..\..\3rd\pbc\pattern.h" />
+    <ClInclude Include="..\..\3rd\pbc\pbc.h" />
+    <ClInclude Include="..\..\3rd\pbc\proto.h" />
+    <ClInclude Include="..\..\3rd\pbc\stringpool.h" />
+    <ClInclude Include="..\..\3rd\pbc\varint.h" />
+    <ClInclude Include="..\..\3rd\sproto\lsproto.h" />
+    <ClInclude Include="..\..\3rd\sproto\msvcint.h" />
+    <ClInclude Include="..\..\3rd\sproto\sproto.h" />
+    <ClInclude Include="..\..\3rd\sqlite3\lsqlite3.h" />
+    <ClInclude Include="..\..\3rd\sqlite3\sqlite3.h" />
+    <ClInclude Include="..\src\cclua\AssetsBundle.h" />
+    <ClInclude Include="..\src\cclua\ByteArray.h" />
+    <ClInclude Include="..\src\cclua\cclua.h" />
+    <ClInclude Include="..\src\cclua\downloader.h" />
+    <ClInclude Include="..\src\cclua\FileFinder.h" />
+    <ClInclude Include="..\src\cclua\filesystem-private.h" />
+    <ClInclude Include="..\src\cclua\filesystem.h" />
+    <ClInclude Include="..\src\cclua\luauser.h" />
+    <ClInclude Include="..\src\cclua\microphone.h" />
+    <ClInclude Include="..\src\cclua\permission.h" />
+    <ClInclude Include="..\src\cclua\photo.h" />
+    <ClInclude Include="..\src\cclua\plugin.h" />
+    <ClInclude Include="..\src\cclua\preferences.h" />
+    <ClInclude Include="..\src\cclua\QRCode.h" />
+    <ClInclude Include="..\src\cclua\RootScene.h" />
+    <ClInclude Include="..\src\cclua\runtime-private.h" />
+    <ClInclude Include="..\src\cclua\runtime.h" />
+    <ClInclude Include="..\src\cclua\Socket.h" />
+    <ClInclude Include="..\src\cclua\timer.h" />
+    <ClInclude Include="..\src\cclua\window.h" />
+    <ClInclude Include="..\src\cclua\xlua.h" />
+    <ClInclude Include="..\src\cclua\XMLHttpRequest.h" />
     <ClInclude Include="..\src\cjson\cJSON.h" />
     <ClInclude Include="..\src\cjson\fpconv.h" />
     <ClInclude Include="..\src\cjson\lua_cjson.h" />
     <ClInclude Include="..\src\cjson\strbuf.h" />
-    <ClInclude Include="..\src\crypto\md5.h" />
-    <ClInclude Include="..\src\crypto\md5util.h" />
-    <ClInclude Include="..\src\crypto\xxtea.h" />
-    <ClInclude Include="..\src\lame\lua_lame.h" />
-    <ClInclude Include="..\src\lpeg\lpcap.h" />
-    <ClInclude Include="..\src\lpeg\lpcode.h" />
-    <ClInclude Include="..\src\lpeg\lpprint.h" />
-    <ClInclude Include="..\src\lpeg\lptree.h" />
-    <ClInclude Include="..\src\lpeg\lptypes.h" />
-    <ClInclude Include="..\src\lpeg\lpvm.h" />
+    <ClInclude Include="..\src\lfs\lfs.h" />
     <ClInclude Include="..\src\lua-bindings\LuaCocosAdapter.h" />
     <ClInclude Include="..\src\lua-bindings\lua_bindings.h" />
     <ClInclude Include="..\src\lua-bindings\lua_cocos2d.h" />
     <ClInclude Include="..\src\lua-bindings\lua_cocos2d_physics.h" />
+    <ClInclude Include="..\src\lua-bindings\lua_cocos2d_studio.h" />
     <ClInclude Include="..\src\lua-bindings\lua_cocos2d_ui.h" />
     <ClInclude Include="..\src\lua-bindings\lua_conv.h" />
     <ClInclude Include="..\src\lua-bindings\lua_conv_manual.h" />
     <ClInclude Include="..\src\lua-bindings\lua_crypto.h" />
     <ClInclude Include="..\src\lua-bindings\lua_dragonbones.h" />
     <ClInclude Include="..\src\lua-bindings\lua_fairygui.h" />
-    <ClInclude Include="..\src\lua-bindings\lua_iap.h" />
     <ClInclude Include="..\src\lua-bindings\lua_javabridge.h" />
-    <ClInclude Include="..\src\lua-bindings\lua_keychain.h" />
-    <ClInclude Include="..\src\lua-bindings\lua_photo.h" />
-    <ClInclude Include="..\src\lua-bindings\lua_recorder.h" />
+    <ClInclude Include="..\src\lua-bindings\lua_manual.h" />
+    <ClInclude Include="..\src\lua-bindings\lua_ocbridge.h" />
     <ClInclude Include="..\src\lua-bindings\lua_socket.h" />
     <ClInclude Include="..\src\lua-bindings\lua_spine.h" />
     <ClInclude Include="..\src\lua-bindings\lua_xgame.h" />
     <ClInclude Include="..\src\lua-bindings\lua_xml_http_request.h" />
-    <ClInclude Include="..\src\luasocket\auxiliar.h" />
-    <ClInclude Include="..\src\luasocket\buffer.h" />
-    <ClInclude Include="..\src\luasocket\except.h" />
-    <ClInclude Include="..\src\luasocket\inet.h" />
-    <ClInclude Include="..\src\luasocket\io.h" />
-    <ClInclude Include="..\src\luasocket\luasocket.h" />
-    <ClInclude Include="..\src\luasocket\luasocket_scripts.h" />
-    <ClInclude Include="..\src\luasocket\mime.h" />
-    <ClInclude Include="..\src\luasocket\options.h" />
-    <ClInclude Include="..\src\luasocket\select.h" />
-    <ClInclude Include="..\src\luasocket\socket.h" />
-    <ClInclude Include="..\src\luasocket\tcp.h" />
-    <ClInclude Include="..\src\luasocket\timeout.h" />
-    <ClInclude Include="..\src\luasocket\udp.h" />
-    <ClInclude Include="..\src\luasocket\wsocket.h" />
-    <ClInclude Include="..\src\lua\src\lapi.h" />
-    <ClInclude Include="..\src\lua\src\lauxlib.h" />
-    <ClInclude Include="..\src\lua\src\lcode.h" />
-    <ClInclude Include="..\src\lua\src\lctype.h" />
-    <ClInclude Include="..\src\lua\src\ldebug.h" />
-    <ClInclude Include="..\src\lua\src\ldo.h" />
-    <ClInclude Include="..\src\lua\src\lfunc.h" />
-    <ClInclude Include="..\src\lua\src\lgc.h" />
-    <ClInclude Include="..\src\lua\src\llex.h" />
-    <ClInclude Include="..\src\lua\src\llimits.h" />
-    <ClInclude Include="..\src\lua\src\lmem.h" />
-    <ClInclude Include="..\src\lua\src\lobject.h" />
-    <ClInclude Include="..\src\lua\src\lopcodes.h" />
-    <ClInclude Include="..\src\lua\src\lparser.h" />
-    <ClInclude Include="..\src\lua\src\lprefix.h" />
-    <ClInclude Include="..\src\lua\src\lstate.h" />
-    <ClInclude Include="..\src\lua\src\lstring.h" />
-    <ClInclude Include="..\src\lua\src\ltable.h" />
-    <ClInclude Include="..\src\lua\src\ltm.h" />
-    <ClInclude Include="..\src\lua\src\lua.h" />
-    <ClInclude Include="..\src\lua\src\lua.hpp" />
-    <ClInclude Include="..\src\lua\src\luaconf.h" />
-    <ClInclude Include="..\src\lua\src\lualib.h" />
-    <ClInclude Include="..\src\lua\src\lundump.h" />
-    <ClInclude Include="..\src\lua\src\lvm.h" />
-    <ClInclude Include="..\src\lua\src\lzio.h" />
+    <ClInclude Include="..\src\lua\lapi.h" />
+    <ClInclude Include="..\src\lua\lauxlib.h" />
+    <ClInclude Include="..\src\lua\lcode.h" />
+    <ClInclude Include="..\src\lua\lctype.h" />
+    <ClInclude Include="..\src\lua\ldebug.h" />
+    <ClInclude Include="..\src\lua\ldo.h" />
+    <ClInclude Include="..\src\lua\lfunc.h" />
+    <ClInclude Include="..\src\lua\lgc.h" />
+    <ClInclude Include="..\src\lua\ljumptab.h" />
+    <ClInclude Include="..\src\lua\llex.h" />
+    <ClInclude Include="..\src\lua\llimits.h" />
+    <ClInclude Include="..\src\lua\lmem.h" />
+    <ClInclude Include="..\src\lua\lobject.h" />
+    <ClInclude Include="..\src\lua\lopcodes.h" />
+    <ClInclude Include="..\src\lua\lopnames.h" />
+    <ClInclude Include="..\src\lua\lparser.h" />
+    <ClInclude Include="..\src\lua\lprefix.h" />
+    <ClInclude Include="..\src\lua\lstate.h" />
+    <ClInclude Include="..\src\lua\lstring.h" />
+    <ClInclude Include="..\src\lua\ltable.h" />
+    <ClInclude Include="..\src\lua\ltm.h" />
+    <ClInclude Include="..\src\lua\lua.h" />
+    <ClInclude Include="..\src\lua\lua.hpp" />
+    <ClInclude Include="..\src\lua\luaconf.h" />
+    <ClInclude Include="..\src\lua\lualib.h" />
+    <ClInclude Include="..\src\lua\lundump.h" />
+    <ClInclude Include="..\src\lua\lvm.h" />
+    <ClInclude Include="..\src\lua\lzio.h" />
+    <ClInclude Include="..\src\md5\lua_md5.h" />
+    <ClInclude Include="..\src\md5\md5.h" />
+    <ClInclude Include="..\src\md5\md5util.h" />
     <ClInclude Include="..\src\olua\olua.h" />
-    <ClInclude Include="..\src\olua\olua.hpp" />
-    <ClInclude Include="..\src\pbc\alloc.h" />
-    <ClInclude Include="..\src\pbc\array.h" />
-    <ClInclude Include="..\src\pbc\bootstrap.h" />
-    <ClInclude Include="..\src\pbc\context.h" />
-    <ClInclude Include="..\src\pbc\descriptor.pbc.h" />
-    <ClInclude Include="..\src\pbc\map.h" />
-    <ClInclude Include="..\src\pbc\packet.h" />
-    <ClInclude Include="..\src\pbc\pattern.h" />
-    <ClInclude Include="..\src\pbc\pbc.h" />
-    <ClInclude Include="..\src\pbc\proto.h" />
-    <ClInclude Include="..\src\pbc\stringpool.h" />
-    <ClInclude Include="..\src\pbc\varint.h" />
     <ClInclude Include="..\src\qrencode\bitstream.h" />
-    <ClInclude Include="..\src\qrencode\lua_qrcode.h" />
     <ClInclude Include="..\src\qrencode\mask.h" />
     <ClInclude Include="..\src\qrencode\qrencode.h" />
     <ClInclude Include="..\src\qrencode\qrinput.h" />
@@ -229,28 +141,146 @@
     <ClInclude Include="..\src\qrencode\QRSprite.h" />
     <ClInclude Include="..\src\qrencode\rscode.h" />
     <ClInclude Include="..\src\qrencode\split.h" />
-    <ClInclude Include="..\src\sproto\lsproto.h" />
-    <ClInclude Include="..\src\sproto\msvcint.h" />
-    <ClInclude Include="..\src\sproto\sproto.h" />
-    <ClInclude Include="..\src\xgame\xdef.h" />
-    <ClInclude Include="..\src\xgame\xdownloader.h" />
-    <ClInclude Include="..\src\xgame\xfilefinder.h" />
-    <ClInclude Include="..\src\xgame\xfilesystem-private.h" />
-    <ClInclude Include="..\src\xgame\xfilesystem.h" />
-    <ClInclude Include="..\src\xgame\xlua.h" />
-    <ClInclude Include="..\src\xgame\XMLHttpRequest.h" />
-    <ClInclude Include="..\src\xgame\xpreferences.h" />
-    <ClInclude Include="..\src\xgame\xrootscene.h" />
-    <ClInclude Include="..\src\xgame\xruntime-private.h" />
-    <ClInclude Include="..\src\xgame\xruntime.h" />
-    <ClInclude Include="..\src\xgame\xsocket.h" />
-    <ClInclude Include="..\src\xgame\xtimer.h" />
+    <ClInclude Include="..\src\xxtea\lua_xxtea.h" />
+    <ClInclude Include="..\src\xxtea\xxtea.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\3rd\lpeg\lpcap.c" />
+    <ClCompile Include="..\..\3rd\lpeg\lpcode.c" />
+    <ClCompile Include="..\..\3rd\lpeg\lpprint.c" />
+    <ClCompile Include="..\..\3rd\lpeg\lptree.c" />
+    <ClCompile Include="..\..\3rd\lpeg\lpvm.c" />
+    <ClCompile Include="..\..\3rd\luasocket\auxiliar.c" />
+    <ClCompile Include="..\..\3rd\luasocket\buffer.c" />
+    <ClCompile Include="..\..\3rd\luasocket\compat.c" />
+    <ClCompile Include="..\..\3rd\luasocket\except.c" />
+    <ClCompile Include="..\..\3rd\luasocket\inet.c" />
+    <ClCompile Include="..\..\3rd\luasocket\io.c" />
+    <ClCompile Include="..\..\3rd\luasocket\luasocket.c" />
+    <ClCompile Include="..\..\3rd\luasocket\luasocket_scripts.cpp" />
+    <ClCompile Include="..\..\3rd\luasocket\mime.c" />
+    <ClCompile Include="..\..\3rd\luasocket\options.c" />
+    <ClCompile Include="..\..\3rd\luasocket\select.c" />
+    <ClCompile Include="..\..\3rd\luasocket\tcp.c" />
+    <ClCompile Include="..\..\3rd\luasocket\timeout.c" />
+    <ClCompile Include="..\..\3rd\luasocket\udp.c" />
+    <ClCompile Include="..\..\3rd\luasocket\wsocket.c" />
+    <ClCompile Include="..\..\3rd\pbc\alloc.c" />
+    <ClCompile Include="..\..\3rd\pbc\array.c" />
+    <ClCompile Include="..\..\3rd\pbc\bootstrap.c" />
+    <ClCompile Include="..\..\3rd\pbc\context.c" />
+    <ClCompile Include="..\..\3rd\pbc\decode.c" />
+    <ClCompile Include="..\..\3rd\pbc\map.c" />
+    <ClCompile Include="..\..\3rd\pbc\packet.c" />
+    <ClCompile Include="..\..\3rd\pbc\pattern.c" />
+    <ClCompile Include="..\..\3rd\pbc\pbc-lua53.c" />
+    <ClCompile Include="..\..\3rd\pbc\proto.c" />
+    <ClCompile Include="..\..\3rd\pbc\register.c" />
+    <ClCompile Include="..\..\3rd\pbc\rmessage.c" />
+    <ClCompile Include="..\..\3rd\pbc\stringpool.c" />
+    <ClCompile Include="..\..\3rd\pbc\varint.c" />
+    <ClCompile Include="..\..\3rd\pbc\wmessage.c" />
+    <ClCompile Include="..\..\3rd\sproto\lsproto.c" />
+    <ClCompile Include="..\..\3rd\sproto\sproto.c" />
+    <ClCompile Include="..\..\3rd\sqlite3\lsqlite3.c" />
+    <ClCompile Include="..\..\3rd\sqlite3\sqlite3.c" />
+    <ClCompile Include="..\src\cclua\AssetsBundle.cpp" />
+    <ClCompile Include="..\src\cclua\ByteArray.cpp" />
+    <ClCompile Include="..\src\cclua\downloader.cpp" />
+    <ClCompile Include="..\src\cclua\FileFinder.cpp" />
+    <ClCompile Include="..\src\cclua\filesystem-private.cpp" />
+    <ClCompile Include="..\src\cclua\filesystem.cpp" />
+    <ClCompile Include="..\src\cclua\microphone.cpp" />
+    <ClCompile Include="..\src\cclua\permission.cpp" />
+    <ClCompile Include="..\src\cclua\photo.cpp" />
+    <ClCompile Include="..\src\cclua\plugin.cpp" />
+    <ClCompile Include="..\src\cclua\preferences.cpp" />
+    <ClCompile Include="..\src\cclua\QRCode.cpp" />
+    <ClCompile Include="..\src\cclua\RootScene.cpp" />
+    <ClCompile Include="..\src\cclua\runtime-private.cpp" />
+    <ClCompile Include="..\src\cclua\runtime.cpp" />
+    <ClCompile Include="..\src\cclua\Socket.cpp" />
+    <ClCompile Include="..\src\cclua\timer.cpp" />
+    <ClCompile Include="..\src\cclua\window.cpp" />
+    <ClCompile Include="..\src\cclua\xlua.cpp" />
+    <ClCompile Include="..\src\cclua\XMLHttpRequest.cpp" />
+    <ClCompile Include="..\src\cjson\cJSON.c" />
+    <ClCompile Include="..\src\cjson\fpconv.c" />
+    <ClCompile Include="..\src\cjson\lua_cjson.c" />
+    <ClCompile Include="..\src\cjson\strbuf.c" />
+    <ClCompile Include="..\src\lfs\lfs.c" />
+    <ClCompile Include="..\src\lua-bindings\LuaCocosAdapter.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_bindings.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_cocos2d.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_cocos2d_physics.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_cocos2d_studio.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_cocos2d_ui.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_conv.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_conv_manual.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_crypto.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_dragonbones.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_fairygui.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_javabridge.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_manual.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_socket.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_spine.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_xgame.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_xml_http_request.cpp" />
+    <ClCompile Include="..\src\lua\lapi.c" />
+    <ClCompile Include="..\src\lua\lauxlib.c" />
+    <ClCompile Include="..\src\lua\lbaselib.c" />
+    <ClCompile Include="..\src\lua\lcode.c" />
+    <ClCompile Include="..\src\lua\lcorolib.c" />
+    <ClCompile Include="..\src\lua\lctype.c" />
+    <ClCompile Include="..\src\lua\ldblib.c" />
+    <ClCompile Include="..\src\lua\ldebug.c" />
+    <ClCompile Include="..\src\lua\ldo.c" />
+    <ClCompile Include="..\src\lua\ldump.c" />
+    <ClCompile Include="..\src\lua\lfunc.c" />
+    <ClCompile Include="..\src\lua\lgc.c" />
+    <ClCompile Include="..\src\lua\linit.c" />
+    <ClCompile Include="..\src\lua\liolib.c" />
+    <ClCompile Include="..\src\lua\llex.c" />
+    <ClCompile Include="..\src\lua\lmathlib.c" />
+    <ClCompile Include="..\src\lua\lmem.c" />
+    <ClCompile Include="..\src\lua\loadlib.c" />
+    <ClCompile Include="..\src\lua\lobject.c" />
+    <ClCompile Include="..\src\lua\lopcodes.c" />
+    <ClCompile Include="..\src\lua\loslib.c" />
+    <ClCompile Include="..\src\lua\lparser.c" />
+    <ClCompile Include="..\src\lua\lstate.c" />
+    <ClCompile Include="..\src\lua\lstring.c" />
+    <ClCompile Include="..\src\lua\lstrlib.c" />
+    <ClCompile Include="..\src\lua\ltable.c" />
+    <ClCompile Include="..\src\lua\ltablib.c" />
+    <ClCompile Include="..\src\lua\ltm.c" />
+    <ClCompile Include="..\src\lua\lundump.c" />
+    <ClCompile Include="..\src\lua\lutf8lib.c" />
+    <ClCompile Include="..\src\lua\lvm.c" />
+    <ClCompile Include="..\src\lua\lzio.c" />
+    <ClCompile Include="..\src\md5\lua_md5.cpp" />
+    <ClCompile Include="..\src\md5\md5.c" />
+    <ClCompile Include="..\src\md5\md5util.c" />
+    <ClCompile Include="..\src\olua\olua.c" />
+    <ClCompile Include="..\src\qrencode\bitstream.c" />
+    <ClCompile Include="..\src\qrencode\mask.c" />
+    <ClCompile Include="..\src\qrencode\qrencode.c" />
+    <ClCompile Include="..\src\qrencode\qrinput.c" />
+    <ClCompile Include="..\src\qrencode\qrspec.c" />
+    <ClCompile Include="..\src\qrencode\QRSprite.cpp" />
+    <ClCompile Include="..\src\qrencode\rscode.c" />
+    <ClCompile Include="..\src\qrencode\split.c" />
+    <ClCompile Include="..\src\xxtea\lua_xxtea.c" />
+    <ClCompile Include="..\src\xxtea\xxtea.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\lua-bindings\lua_ocbridge.mm" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9F2D6CE6-C893-4400-B50C-6DB70CC2562F}</ProjectGuid>
     <RootNamespace>libxgame</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -262,6 +292,7 @@
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v140_xp</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0'">v141</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v141_xp</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -272,6 +303,7 @@
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v140_xp</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0'">v141</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v141_xp</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -308,8 +340,8 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)external;$(EngineRoot)external\libwebsockets\win32\include;$(EngineRoot)extensions;$(EngineRoot)external\bullet\include;$(EngineRoot)external\bullet\include\bullet;$(EngineRoot)external\openssl\include\win32;$(EngineRoot)external\win32-specific\zlib\include;..\src;..\src\lua\src;..\..\libfairygui\Classes;..\..\libdragonbones\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;SPINE_USE_STD_FUNCTION;_WINDOWS;_DEBUG;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_USRLUASTATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)external;$(EngineRoot)external\libwebsockets\win32\include;$(EngineRoot)extensions;$(EngineRoot)external\bullet\include;$(EngineRoot)external\bullet\include\bullet;$(EngineRoot)external\openssl\include\win32;$(EngineRoot)external\win32-specific\zlib\include;..\src;..\src\lua;..\..\3rd\luaopenssl\deps\auxiliar;..\..\libfairygui\Classes;..\..\libdragonbones\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>CCLUA_BUILD_FAIRYGUI;CCLUA_BUILD_LPEG;CCLUA_BUILD_LUASOCKET;CCLUA_BUILD_PBC;CCLUA_BUILD_SPINE;CCLUA_BUILD_SPROTO;CCLUA_FEATURE_INTCOLOR;CCLUA_FEATURE_MSAA;HAVE_STDINT_H;OLUA_USER_H="cclua/luauser.h";STDC_HEADERS;WIN32;SPINE_USE_STD_FUNCTION;_WINDOWS;_DEBUG;OLUA_DEBUG;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_USRLUASTATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -340,7 +372,7 @@
       <Optimization>MinSpace</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)cocos;$(EngineRoot)external\lua\tolua;$(EngineRoot)external\lua\luajit\include;$(EngineRoot)external\lua;$(EngineRoot)extensions;$(EngineRoot)external\libwebsockets\win32\include;$(EngineRoot)external;$(EngineRoot)external\bullet\include;$(EngineRoot)external\bullet\include\bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;SPINE_USE_STD_FUNCTION;NDEBUG;_WINDOWS;LIBLUA_EXPORTS;_CRT_SECURE_NO_WARNINGS;_USRLUASTATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CCLUA_BUILD_FAIRYGUI;CCLUA_BUILD_LPEG;CCLUA_BUILD_LUASOCKET;CCLUA_BUILD_PBC;CCLUA_BUILD_SPINE;CCLUA_BUILD_SPROTO;CCLUA_FEATURE_INTCOLOR;CCLUA_FEATURE_MSAA;HAVE_STDINT_H;OLUA_USER_H="cclua/luauser.h";STDC_HEADERS;WIN32;SPINE_USE_STD_FUNCTION;NDEBUG;_WINDOWS;LIBLUA_EXPORTS;_CRT_SECURE_NO_WARNINGS;_USRLUASTATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>

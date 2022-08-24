@@ -8709,7 +8709,7 @@ static int _cocos2d_AudioEngine_preload2(lua_State *L)
         }
     };
 
-    // static void preload(const std::string &filePath, @localvar const std::function<void (bool)> &callback)
+    // static void preload(const std::string &filePath, @localvar std::function<void (bool)> callback)
     cocos2d::AudioEngine::preload(arg1, arg2);
 
     olua_endinvoke(L);
@@ -8730,7 +8730,7 @@ static int _cocos2d_AudioEngine_preload(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_callback(L, 2, "std.function"))) {
-            // static void preload(const std::string &filePath, @localvar const std::function<void (bool)> &callback)
+            // static void preload(const std::string &filePath, @localvar std::function<void (bool)> callback)
             return _cocos2d_AudioEngine_preload2(L);
         // }
     }

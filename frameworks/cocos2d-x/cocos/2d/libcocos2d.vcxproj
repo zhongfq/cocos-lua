@@ -15,7 +15,7 @@
     <ProjectGuid>{98A51BA8-FC3A-415B-AC8F-8C7BD464E93E}</ProjectGuid>
     <RootNamespace>cocos2d-x.win32</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -27,6 +27,7 @@
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v140_xp</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0'">v141</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v141_xp</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -37,6 +38,7 @@
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v140_xp</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0'">v141</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v141_xp</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -421,7 +423,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\uv\prebuilt\win32\*.*" "$(OutDir)"</Com
     <ClCompile Include="..\audio\win32\AudioEngine-win32.cpp" />
     <ClCompile Include="..\audio\win32\AudioPlayer.cpp" />
     <ClCompile Include="..\audio\win32\MciPlayer.cpp" />
-    <ClCompile Include="..\audio\win32\SimpleAudioEngine.cpp" />
     <ClCompile Include="..\base\allocator\CCAllocatorDiagnostics.cpp" />
     <ClCompile Include="..\base\allocator\CCAllocatorGlobal.cpp" />
     <ClCompile Include="..\base\allocator\CCAllocatorGlobalNewDelete.cpp" />
@@ -551,6 +552,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\uv\prebuilt\win32\*.*" "$(OutDir)"</Com
     <ClCompile Include="..\editor-support\cocostudio\DictionaryHelper.cpp" />
     <ClCompile Include="..\editor-support\cocostudio\FlatBuffersSerialize.cpp" />
     <ClCompile Include="..\editor-support\cocostudio\LocalizationManager.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\SimpleAudioEngine.cpp" />
     <ClCompile Include="..\editor-support\cocostudio\TriggerBase.cpp" />
     <ClCompile Include="..\editor-support\cocostudio\TriggerMng.cpp" />
     <ClCompile Include="..\editor-support\cocostudio\TriggerObj.cpp" />
@@ -1011,7 +1013,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\uv\prebuilt\win32\*.*" "$(OutDir)"</Com
     <ClInclude Include="..\3d\cocos3d.h" />
     <ClInclude Include="..\audio\include\AudioEngine.h" />
     <ClInclude Include="..\audio\include\Export.h" />
-    <ClInclude Include="..\audio\include\SimpleAudioEngine.h" />
     <ClInclude Include="..\audio\win32\AudioCache.h" />
     <ClInclude Include="..\audio\win32\AudioDecoder.h" />
     <ClInclude Include="..\audio\win32\AudioDecoderManager.h" />
@@ -1181,6 +1182,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\uv\prebuilt\win32\*.*" "$(OutDir)"</Com
     <ClInclude Include="..\editor-support\cocostudio\DictionaryHelper.h" />
     <ClInclude Include="..\editor-support\cocostudio\FlatBuffersSerialize.h" />
     <ClInclude Include="..\editor-support\cocostudio\LocalizationManager.h" />
+    <ClInclude Include="..\editor-support\cocostudio\SimpleAudioEngine.h" />
     <ClInclude Include="..\editor-support\cocostudio\TriggerBase.h" />
     <ClInclude Include="..\editor-support\cocostudio\TriggerMng.h" />
     <ClInclude Include="..\editor-support\cocostudio\TriggerObj.h" />

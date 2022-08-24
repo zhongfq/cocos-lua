@@ -14,22 +14,6 @@ typedef {
 }
 
 typedef {
-    cppcls = 'cclua::Lame::VBRMode',
-    luacls = 'cclua.Lame.VBRMode',
-    decltype = "lua_Unsigned",
-    conv = 'olua_$$_uint',
-    num_vars = nil,
-}
-
-typedef {
-    cppcls = 'cclua::Lame *',
-    luacls = 'cclua.Lame',
-    decltype = nil,
-    conv = 'olua_$$_cppobj',
-    num_vars = nil,
-}
-
-typedef {
     cppcls = 'cclua::QRCode::ECLevel',
     luacls = 'cclua.QRCode.ECLevel',
     decltype = "lua_Unsigned",
@@ -136,6 +120,22 @@ typedef {
 typedef {
     cppcls = 'cclua::Container *',
     luacls = 'cclua.Container',
+    decltype = nil,
+    conv = 'olua_$$_cppobj',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'cclua::Lame::VBRMode',
+    luacls = 'cclua.Lame.VBRMode',
+    decltype = "lua_Unsigned",
+    conv = 'olua_$$_uint',
+    num_vars = nil,
+}
+
+typedef {
+    cppcls = 'cclua::Lame *',
+    luacls = 'cclua.Lame',
     decltype = nil,
     conv = 'olua_$$_cppobj',
     num_vars = nil,

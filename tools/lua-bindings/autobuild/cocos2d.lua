@@ -1125,7 +1125,7 @@ typeconf 'cocos2d::AudioEngine'
     .callback {
         funcs =  {
             'static void preload(const std::string &filePath)',
-            'static void preload(const std::string &filePath, @localvar const std::function<void (bool)> &callback)'
+            'static void preload(const std::string &filePath, @localvar std::function<void (bool)> callback)'
         },
         tag_maker = 'preload',
         tag_mode = 'replace',

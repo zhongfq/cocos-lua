@@ -1,8 +1,6 @@
 local util          = require "cclua.util"
 local filesystem    = require "cclua.filesystem"
 local runtime       = require "cclua.runtime"
-local Lame          = require "cclua.Lame"
-local VBRMode       = require "cclua.Lame.VBRMode"
 local permission    = require "cclua.permission"
 
 local microphone = runtime.load("cclua.microphone")
@@ -23,6 +21,8 @@ microphone.setDispatcher(function (event, data)
             return
         end
         if data.status == "started" then
+            local Lame = require "cclua.Lame"
+            local VBRMode = require "cclua.Lame.VBRMode"
             mp3Encoder = Lame.new()
             mp3Encoder.inSamplerate = 44100
             mp3Encoder.numChannels = 2

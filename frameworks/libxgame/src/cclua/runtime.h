@@ -12,6 +12,10 @@
 #define APP_NAME "cclua"
 #endif
 
+#ifndef APP_PACKAGE_NAME
+#define APP_PACKAGE_NAME "com.codetypes.hellolua"
+#endif
+
 #if COCOS2D_VERSION >= 0x00040000
 #include "renderer/backend/ProgramCache.h"
 #endif

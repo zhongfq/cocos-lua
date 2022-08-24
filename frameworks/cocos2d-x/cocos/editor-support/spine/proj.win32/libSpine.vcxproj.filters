@@ -5,8 +5,283 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="src\v3">
+      <UniqueIdentifier>{ac517ba4-84d4-4443-a035-a6336cc62ce6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\v3\SkeletonBatch.cpp">
+      <Filter>src\v3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\v3\SkeletonTwoColorBatch.cpp">
+      <Filter>src\v3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Slot.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SlotData.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\spine-cocos2dx.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpineObject.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TextureLoader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Timeline.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TransformConstraint.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TransformConstraintData.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TransformConstraintTimeline.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TranslateTimeline.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Triangulator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Updatable.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VertexAttachment.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\VertexEffect.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Animation.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AnimationState.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AnimationStateData.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Atlas.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AtlasAttachmentLoader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Attachment.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AttachmentLoader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AttachmentTimeline.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AttachmentVertices.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Bone.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BoneData.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BoundingBoxAttachment.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ClippingAttachment.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColorTimeline.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ConstraintData.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CurveTimeline.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DeformTimeline.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DrawOrderTimeline.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Event.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EventData.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EventTimeline.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Extension.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IkConstraint.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IkConstraintData.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IkConstraintTimeline.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Json.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LinkedMesh.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Log.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MathUtil.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MeshAttachment.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PathAttachment.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PathConstraint.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PathConstraintData.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PathConstraintMixTimeline.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PathConstraintPositionTimeline.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PathConstraintSpacingTimeline.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PointAttachment.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RegionAttachment.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RotateTimeline.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RTTI.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ScaleTimeline.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ShearTimeline.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Skeleton.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SkeletonAnimation.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SkeletonBinary.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SkeletonBounds.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SkeletonClipping.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SkeletonData.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SkeletonJson.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SkeletonRenderer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Skin.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\v3\SkeletonBatch.h">
+      <Filter>src\v3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\v3\SkeletonTwoColorBatch.h">
+      <Filter>src\v3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Skin.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Slot.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SlotData.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpacingMode.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\spine.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\spine-cocos2dx.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpineObject.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpineString.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TextureLoader.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Timeline.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TransformConstraint.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TransformConstraintData.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TransformConstraintTimeline.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TransformMode.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TranslateTimeline.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Triangulator.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Updatable.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Vector.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\VertexAttachment.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\VertexEffect.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Vertices.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="..\Animation.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -58,10 +333,10 @@
     <ClInclude Include="..\ColorTimeline.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\ContainerUtil.h">
+    <ClInclude Include="..\ConstraintData.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\ConstraintData.h">
+    <ClInclude Include="..\ContainerUtil.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\CurveTimeline.h">
@@ -88,7 +363,7 @@
     <ClInclude Include="..\EventTimeline.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\extension.h">
+    <ClInclude Include="..\Extension.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\HashMap.h">
@@ -110,6 +385,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\LinkedMesh.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Log.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\MathUtil.h">
@@ -151,6 +429,9 @@
     <ClInclude Include="..\PositionMode.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\Property.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="..\RegionAttachment.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -175,9 +456,6 @@
     <ClInclude Include="..\SkeletonAnimation.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\SkeletonBatch.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\SkeletonBinary.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -196,280 +474,5 @@
     <ClInclude Include="..\SkeletonRenderer.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\SkeletonTwoColorBatch.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Skin.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Slot.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SlotData.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SpacingMode.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\spine.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\spine-cocos2dx.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SpineObject.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SpineString.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TextureLoader.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Timeline.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TimelineType.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TransformConstraint.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TransformConstraintData.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TransformConstraintTimeline.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TransformMode.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TranslateTimeline.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Triangulator.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TwoColorTimeline.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Updatable.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Vector.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\VertexAttachment.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\VertexEffect.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Vertices.h">
-      <Filter>src</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\Animation.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\AnimationState.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\AnimationStateData.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Atlas.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\AtlasAttachmentLoader.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Attachment.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\AttachmentLoader.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\AttachmentTimeline.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\AttachmentVertices.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Bone.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\BoneData.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\BoundingBoxAttachment.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ClippingAttachment.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ColorTimeline.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CurveTimeline.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ConstraintData.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DeformTimeline.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DrawOrderTimeline.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Event.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EventData.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EventTimeline.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Extension.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\IkConstraint.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\IkConstraintData.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\IkConstraintTimeline.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Json.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\LinkedMesh.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MathUtil.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MeshAttachment.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\PathAttachment.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\PathConstraint.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\PathConstraintData.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\PathConstraintMixTimeline.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\PathConstraintPositionTimeline.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\PathConstraintSpacingTimeline.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\PointAttachment.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\RegionAttachment.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\RotateTimeline.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\RTTI.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ScaleTimeline.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ShearTimeline.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Skeleton.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SkeletonAnimation.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SkeletonBatch.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SkeletonBinary.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SkeletonBounds.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SkeletonClipping.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SkeletonData.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SkeletonJson.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SkeletonRenderer.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SkeletonTwoColorBatch.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Skin.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Slot.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SlotData.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\spine-cocos2dx.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SpineObject.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TextureLoader.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Timeline.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TransformConstraint.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TransformConstraintData.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TransformConstraintTimeline.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TranslateTimeline.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Triangulator.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TwoColorTimeline.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Updatable.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\VertexAttachment.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\VertexEffect.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

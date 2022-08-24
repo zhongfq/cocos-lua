@@ -58,9 +58,6 @@
     <Filter Include="cocostudio">
       <UniqueIdentifier>{dbdbbfad-71fc-4f1d-a809-b43651f87267}</UniqueIdentifier>
     </Filter>
-    <Filter Include="cocosdenshion">
-      <UniqueIdentifier>{3bd71d42-dfa4-4649-bb01-ad607fdca1c2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ui">
       <UniqueIdentifier>{704c4ce6-b7ad-4406-9414-71169734bbc1}</UniqueIdentifier>
     </Filter>
@@ -78,12 +75,6 @@
     </Filter>
     <Filter Include="extension\physics_nodes">
       <UniqueIdentifier>{1de7fce7-0dee-4571-8fcd-43eb617aaf8b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cocosdenshion\Header Files">
-      <UniqueIdentifier>{f42979de-0079-4eba-b469-81ebff9ec588}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cocosdenshion\Source Files">
-      <UniqueIdentifier>{f42ec238-cddc-475a-b343-6d0984cb9681}</UniqueIdentifier>
     </Filter>
     <Filter Include="network">
       <UniqueIdentifier>{31338a7d-ebe1-4867-9c17-d3645122a864}</UniqueIdentifier>
@@ -217,9 +208,6 @@
     <Filter Include="extension\GUI\CCControlExtensions">
       <UniqueIdentifier>{118d80ca-ccf2-480c-b87d-25220af23440}</UniqueIdentifier>
     </Filter>
-    <Filter Include="audioengine">
-      <UniqueIdentifier>{e916e2b4-0a6e-4d25-8b36-66fa03719f48}</UniqueIdentifier>
-    </Filter>
     <Filter Include="cocostudio\TimelineAction\trigger">
       <UniqueIdentifier>{0554a5b1-03a1-4d38-87a5-976dbe9a39d9}</UniqueIdentifier>
     </Filter>
@@ -291,6 +279,9 @@
     </Filter>
     <Filter Include="external\md5">
       <UniqueIdentifier>{d3d38486-e13f-47b4-96b0-51a7c78e6d69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="audio">
+      <UniqueIdentifier>{e916e2b4-0a6e-4d25-8b36-66fa03719f48}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -853,12 +844,6 @@
     <ClCompile Include="..\..\extensions\physics-nodes\CCPhysicsSprite.cpp">
       <Filter>extension\physics_nodes</Filter>
     </ClCompile>
-    <ClCompile Include="..\audio\win32\MciPlayer.cpp">
-      <Filter>cocosdenshion\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\audio\win32\SimpleAudioEngine.cpp">
-      <Filter>cocosdenshion\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\network\HttpClient.cpp">
       <Filter>network\Source Files</Filter>
     </ClCompile>
@@ -1269,18 +1254,6 @@
     </ClCompile>
     <ClCompile Include="..\ui\UIWebView.cpp">
       <Filter>ui\UIWidgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\audio\AudioEngine.cpp">
-      <Filter>audioengine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\audio\win32\AudioCache.cpp">
-      <Filter>audioengine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\audio\win32\AudioEngine-win32.cpp">
-      <Filter>audioengine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\audio\win32\AudioPlayer.cpp">
-      <Filter>audioengine</Filter>
     </ClCompile>
     <ClCompile Include="..\editor-support\cocostudio\ActionTimeline\CSLoader.cpp">
       <Filter>cocostudio\TimelineAction</Filter>
@@ -1966,18 +1939,6 @@
     <ClCompile Include="..\vr\CCVRGenericRenderer.cpp">
       <Filter>vr</Filter>
     </ClCompile>
-    <ClCompile Include="..\audio\win32\AudioDecoder.cpp">
-      <Filter>audioengine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\audio\win32\AudioDecoderMp3.cpp">
-      <Filter>audioengine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\audio\win32\AudioDecoderOgg.cpp">
-      <Filter>audioengine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\audio\win32\AudioDecoderManager.cpp">
-      <Filter>audioengine</Filter>
-    </ClCompile>
     <ClCompile Include="..\network\CCDownloader-curl.cpp">
       <Filter>network\Source Files</Filter>
     </ClCompile>
@@ -2001,6 +1962,36 @@
     <ClCompile Include="..\base\CCEventController.cpp" />
     <ClCompile Include="..\base\CCEventListenerController.cpp" />
     <ClCompile Include="..\precheader.cpp" />
+    <ClCompile Include="..\audio\win32\AudioCache.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\audio\win32\AudioDecoder.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\audio\win32\AudioDecoderManager.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\audio\win32\AudioDecoderMp3.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\audio\win32\AudioDecoderOgg.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\audio\win32\AudioEngine-win32.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\audio\win32\AudioPlayer.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\audio\win32\MciPlayer.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\audio\AudioEngine.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\editor-support\cocostudio\SimpleAudioEngine.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\physics\CCPhysicsBody.h">
@@ -2646,15 +2637,6 @@
     <ClInclude Include="..\..\extensions\ExtensionMacros.h">
       <Filter>extension</Filter>
     </ClInclude>
-    <ClInclude Include="..\audio\include\Export.h">
-      <Filter>cocosdenshion\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\audio\win32\MciPlayer.h">
-      <Filter>cocosdenshion\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\audio\include\SimpleAudioEngine.h">
-      <Filter>cocosdenshion\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\network\HttpClient.h">
       <Filter>network\Header Files</Filter>
     </ClInclude>
@@ -3134,18 +3116,6 @@
     </ClInclude>
     <ClInclude Include="..\ui\UIWebView.h">
       <Filter>ui\UIWidgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\audio\include\AudioEngine.h">
-      <Filter>audioengine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\audio\win32\AudioCache.h">
-      <Filter>audioengine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\audio\win32\AudioEngine-win32.h">
-      <Filter>audioengine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\audio\win32\AudioPlayer.h">
-      <Filter>audioengine</Filter>
     </ClInclude>
     <ClInclude Include="..\editor-support\cocostudio\ActionTimeline\CSLoader.h">
       <Filter>cocostudio\TimelineAction</Filter>
@@ -3879,21 +3849,6 @@
     <ClInclude Include="..\vr\CCVRGenericRenderer.h">
       <Filter>vr</Filter>
     </ClInclude>
-    <ClInclude Include="..\audio\win32\AudioDecoder.h">
-      <Filter>audioengine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\audio\win32\AudioMacros.h">
-      <Filter>audioengine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\audio\win32\AudioDecoderMp3.h">
-      <Filter>audioengine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\audio\win32\AudioDecoderOgg.h">
-      <Filter>audioengine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\audio\win32\AudioDecoderManager.h">
-      <Filter>audioengine</Filter>
-    </ClInclude>
     <ClInclude Include="..\network\Uri.h">
       <Filter>network\Header Files</Filter>
     </ClInclude>
@@ -3913,6 +3868,42 @@
     <ClInclude Include="..\base\CCEventController.h" />
     <ClInclude Include="..\base\CCEventListenerController.h" />
     <ClInclude Include="..\precheader.h" />
+    <ClInclude Include="..\audio\win32\AudioCache.h">
+      <Filter>audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\audio\win32\AudioDecoder.h">
+      <Filter>audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\audio\win32\AudioDecoderManager.h">
+      <Filter>audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\audio\win32\AudioDecoderMp3.h">
+      <Filter>audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\audio\win32\AudioDecoderOgg.h">
+      <Filter>audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\audio\win32\AudioEngine-win32.h">
+      <Filter>audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\audio\win32\AudioMacros.h">
+      <Filter>audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\audio\win32\AudioPlayer.h">
+      <Filter>audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\audio\win32\MciPlayer.h">
+      <Filter>audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\audio\include\AudioEngine.h">
+      <Filter>audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\audio\include\Export.h">
+      <Filter>audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\editor-support\cocostudio\SimpleAudioEngine.h">
+      <Filter>audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\math\Mat4.inl">

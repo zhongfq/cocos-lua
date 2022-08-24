@@ -317,7 +317,8 @@ typeconf 'cclua::runtime'
     .func('load', [[
         {
             const char *name = olua_checkstring(L, 1);
-            if (cclua::runtime::hasFeature(name)) {
+            const char *feature = olua_optstring(L, 2, name);
+            if (cclua::runtime::hasFeature(feature)) {
                 lua_getfield(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
                 if (olua_rawgetf(L, -1, name) == LUA_TTABLE) {
                     return 1;

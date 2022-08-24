@@ -527,7 +527,7 @@ bool runtime::canOpenURL(const std::string &uri)
 
 void runtime::installAPK(const std::string &path)
 {
-#ifdef CCLUA_OS_ANDORID
+#ifdef CCLUA_OS_ANDROID
     __runtime_installAPK(path);
 #else
     runtime::log("runtime::installAPK not support on '%s'", runtime::getOS().c_str());

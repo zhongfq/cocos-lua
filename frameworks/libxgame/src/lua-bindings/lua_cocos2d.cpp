@@ -10396,15 +10396,17 @@ static int _cocos2d_AudioEngine_play2d1(lua_State *L)
     std::string arg1;       /** filePath */
     bool arg2 = false;       /** loop */
     lua_Number arg3 = 0;       /** volume */
-    cocos2d::AudioProfile *arg4 = nullptr;       /** profile */
+    lua_Number arg4 = 0;       /** position */
+    cocos2d::AudioProfile *arg5 = nullptr;       /** profile */
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_bool(L, 2, &arg2);
     olua_check_number(L, 3, &arg3);
-    olua_check_cppobj(L, 4, (void **)&arg4, "cc.AudioProfile");
+    olua_check_number(L, 4, &arg4);
+    olua_check_cppobj(L, 5, (void **)&arg5, "cc.AudioProfile");
 
-    // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional const cocos2d::AudioProfile *profile)
-    int ret = cocos2d::AudioEngine::play2d(arg1, arg2, (float)arg3, arg4);
+    // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional float position, @optional const cocos2d::AudioProfile *profile)
+    int ret = cocos2d::AudioEngine::play2d(arg1, arg2, (float)arg3, (float)arg4, arg5);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -10420,7 +10422,7 @@ static int _cocos2d_AudioEngine_play2d2(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
 
-    // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional const cocos2d::AudioProfile *profile)
+    // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional float position, @optional const cocos2d::AudioProfile *profile)
     int ret = cocos2d::AudioEngine::play2d(arg1);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
@@ -10439,7 +10441,7 @@ static int _cocos2d_AudioEngine_play2d3(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
     olua_check_bool(L, 2, &arg2);
 
-    // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional const cocos2d::AudioProfile *profile)
+    // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional float position, @optional const cocos2d::AudioProfile *profile)
     int ret = cocos2d::AudioEngine::play2d(arg1, arg2);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
@@ -10460,8 +10462,31 @@ static int _cocos2d_AudioEngine_play2d4(lua_State *L)
     olua_check_bool(L, 2, &arg2);
     olua_check_number(L, 3, &arg3);
 
-    // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional const cocos2d::AudioProfile *profile)
+    // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional float position, @optional const cocos2d::AudioProfile *profile)
     int ret = cocos2d::AudioEngine::play2d(arg1, arg2, (float)arg3);
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_AudioEngine_play2d5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::string arg1;       /** filePath */
+    bool arg2 = false;       /** loop */
+    lua_Number arg3 = 0;       /** volume */
+    lua_Number arg4 = 0;       /** position */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_bool(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    olua_check_number(L, 4, &arg4);
+
+    // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional float position, @optional const cocos2d::AudioProfile *profile)
+    int ret = cocos2d::AudioEngine::play2d(arg1, arg2, (float)arg3, (float)arg4);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -10475,28 +10500,35 @@ static int _cocos2d_AudioEngine_play2d(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
-            // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional const cocos2d::AudioProfile *profile)
+            // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional float position, @optional const cocos2d::AudioProfile *profile)
             return _cocos2d_AudioEngine_play2d2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_bool(L, 2))) {
-            // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional const cocos2d::AudioProfile *profile)
+            // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional float position, @optional const cocos2d::AudioProfile *profile)
             return _cocos2d_AudioEngine_play2d3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_bool(L, 2)) && (olua_is_number(L, 3))) {
-            // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional const cocos2d::AudioProfile *profile)
+            // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional float position, @optional const cocos2d::AudioProfile *profile)
             return _cocos2d_AudioEngine_play2d4(L);
         // }
     }
 
     if (num_args == 4) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_bool(L, 2)) && (olua_is_number(L, 3)) && (olua_is_cppobj(L, 4, "cc.AudioProfile"))) {
-            // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional const cocos2d::AudioProfile *profile)
+        // if ((olua_is_std_string(L, 1)) && (olua_is_bool(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
+            // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional float position, @optional const cocos2d::AudioProfile *profile)
+            return _cocos2d_AudioEngine_play2d5(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_bool(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_cppobj(L, 5, "cc.AudioProfile"))) {
+            // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional float position, @optional const cocos2d::AudioProfile *profile)
             return _cocos2d_AudioEngine_play2d1(L);
         // }
     }

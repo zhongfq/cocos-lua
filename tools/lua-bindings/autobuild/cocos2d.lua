@@ -1146,7 +1146,7 @@ typeconf 'cocos2d::AudioEngine'
     .func(nil, 'static bool lazyInit()')
     .func(nil, 'static void end()')
     .func(nil, 'static cocos2d::AudioProfile *getDefaultProfile()')
-    .func(nil, 'static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional const cocos2d::AudioProfile *profile)')
+    .func(nil, 'static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional float position, @optional const cocos2d::AudioProfile *profile)')
     .func(nil, 'static void setLoop(int audioID, bool loop)')
     .func(nil, 'static bool isLoop(int audioID)')
     .func(nil, 'static void setVolume(int audioID, float volume)')

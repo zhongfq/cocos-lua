@@ -123,12 +123,13 @@ public:
      * @param filePath The path of an audio file.
      * @param loop Whether audio instance loop or not.
      * @param volume Volume value (range from 0.0 to 1.0).
+     * @param position The offset in seconds from the start.
      * @param profile A profile for audio instance. When profile is not specified, default profile will be used.
      * @return An audio ID. It allows you to dynamically change the behavior of an audio instance on the fly.
      *
      * @see `AudioProfile`
      */
-    static int play2d(const std::string& filePath, bool loop = false, float volume = 1.0f, const AudioProfile *profile = nullptr);
+    static int play2d(const std::string& filePath, bool loop = false, float volume = 1.0f, float position = 0.0f, const AudioProfile *profile = nullptr);
     
     /** 
      * Sets whether an audio instance loop or not.

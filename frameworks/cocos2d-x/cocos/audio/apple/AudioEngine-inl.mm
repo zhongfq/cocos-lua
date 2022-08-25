@@ -404,7 +404,7 @@ AudioCache* AudioEngineImpl::preload(const std::string& filePath, std::function<
     return audioCache;
 }
 
-int AudioEngineImpl::play2d(const std::string &filePath ,bool loop ,float volume)
+int AudioEngineImpl::play2d(const std::string &filePath ,bool loop ,float volume, float position)
 {
     if (s_ALDevice == nullptr) {
         return AudioEngine::INVALID_AUDIO_ID;
@@ -424,6 +424,11 @@ int AudioEngineImpl::play2d(const std::string &filePath ,bool loop ,float volume
     player->_alSource = alSource;
     player->_loop = loop;
     player->_volume = volume;
+    
+    if (position > 0) {
+        player->_timeDirty = true;
+        player->_currTime = position;
+    }
 
     auto audioCache = preload(filePath, nullptr);
     if (audioCache == nullptr) {

@@ -138,8 +138,8 @@ public:
     static void setFrameRate(uint32_t frameRate);
     
     static std::string getPermission(const std::string &permission);
-    static void requestPermission(const std::string &permission, const std::function<void (const std::string &)> callback);
-    static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> callback);
+    static void requestPermission(const std::string &permission, const std::function<void (const std::string &)> &callback);
+    static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> &callback);
     
     // ios only
     static void setAudioSessionCatalog(const std::string &catalog);
@@ -202,8 +202,8 @@ public:
     static void purgeCachedData();
     static void exit();
 private:
-    static void once(const std::string &event, const std::function<void()> callback);
-    static void on(const std::string &event, const std::function<void()> callback);
+    static void once(const std::string &event, const std::function<void()> &callback);
+    static void on(const std::string &event, const std::function<void()> &callback);
 };
 
 class RuntimeContext : public cocos2d::Application

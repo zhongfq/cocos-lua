@@ -55,14 +55,14 @@ typeconf 'cclua::permission'
         .get [[
         {
             lua_getfield(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
-            lua_getfield(L, -1, "cclua.permission.status");
+            lua_getfield(L, -1, olua_getluatype<cclua::permission::status>(L));
             return 1;
         }]]
     .prop 'android'
         .get [[
         {
             lua_getfield(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
-            lua_getfield(L, -1, "cclua.permission.android");
+            lua_getfield(L, -1, olua_getluatype<cclua::permission::android>(L));
             return 1;
         }]]
 typeconf 'cclua::runtime'

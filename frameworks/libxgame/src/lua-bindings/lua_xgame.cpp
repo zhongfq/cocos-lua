@@ -3298,7 +3298,7 @@ static int _cclua_permission_get_android(lua_State *L)
     olua_startinvoke(L);
 
     lua_getfield(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
-    lua_getfield(L, -1, "cclua.permission.android");
+    lua_getfield(L, -1, olua_getluatype<cclua::permission::android>(L));
 
     olua_endinvoke(L);
 
@@ -3310,7 +3310,7 @@ static int _cclua_permission_get_status(lua_State *L)
     olua_startinvoke(L);
 
     lua_getfield(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
-    lua_getfield(L, -1, "cclua.permission.status");
+    lua_getfield(L, -1, olua_getluatype<cclua::permission::status>(L));
 
     olua_endinvoke(L);
 
@@ -3408,7 +3408,7 @@ static int _cclua_runtime_alert(lua_State *L)
         }
     };
 
-    // static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, @localvar const std::function<void (bool)> callback)
+    // static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, @localvar const std::function<void (bool)> &callback)
     cclua::runtime::alert(arg1, arg2, arg3, arg4, arg5);
 
     olua_endinvoke(L);
@@ -4401,7 +4401,7 @@ static int _cclua_runtime_requestPermission(lua_State *L)
         }
     };
 
-    // static void requestPermission(const std::string &permission, @localvar const std::function<void (const std::string &)> callback)
+    // static void requestPermission(const std::string &permission, @localvar const std::function<void (const std::string &)> &callback)
     cclua::runtime::requestPermission(arg1, arg2);
 
     olua_endinvoke(L);

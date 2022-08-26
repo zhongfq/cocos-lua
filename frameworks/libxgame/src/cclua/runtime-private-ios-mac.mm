@@ -190,7 +190,7 @@ static void requestTrackingAuthorization(const std::function<void (const std::st
 #endif
 }
 
-void __runtime_requestPermission(const std::string &permission, const std::function<void (const std::string &)> callback)
+void __runtime_requestPermission(const std::string &permission, const std::function<void (const std::string &)> &callback)
 {
     if (permission == permission::MICROPHONE) {
         requestAVCaptureDevicePermission(AVMediaTypeAudio, callback);
@@ -218,9 +218,9 @@ std::string __runtime_getAudioSessionCatalog()
     return _audioSessionCatalog;
 }
 
-void __runtime_alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> callback)
+void __runtime_alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> &callback)
 {
-    
+    std::function<void (bool)> objc_callback = callback;
     UIAlertController *alert = [UIAlertController
                                 alertControllerWithTitle:[NSString stringWithUTF8String:title.c_str()]
                                 message:[NSString stringWithUTF8String:message.c_str()]
@@ -229,16 +229,16 @@ void __runtime_alert(const std::string &title, const std::string &message, const
                       actionWithTitle:[NSString stringWithUTF8String:ok.c_str()]
                       style:UIAlertActionStyleDefault
                       handler:^(UIAlertAction * _Nonnull action) {
-                          runtime::runLater([callback](){
-                              callback(true);
+                          runtime::runLater([objc_callback](){
+                              objc_callback(true);
                           });
                       }]];
     [alert addAction:[UIAlertAction
                       actionWithTitle:[NSString stringWithUTF8String:no.c_str()]
                       style:UIAlertActionStyleCancel
                       handler:^(UIAlertAction * _Nonnull action) {
-                          runtime::runLater([callback](){
-                              callback(false);
+                          runtime::runLater([objc_callback](){
+                              objc_callback(false);
                           });
                       }]];
     UIViewController *rootViewController = [[UIApplication sharedApplication] keyWindow].rootViewController;
@@ -246,19 +246,20 @@ void __runtime_alert(const std::string &title, const std::string &message, const
 }
 #endif
 
-void __runtime_openURL(const std::string &uri, const std::function<void (bool)> callback)
+void __runtime_openURL(const std::string &uri, const std::function<void (bool)> &callback)
 {
 #ifdef CCLUA_OS_IOS
     NSURL *url;
+    std::function<void (bool)> objc_callback = callback;
     if (strstartwith(uri.c_str(), "app-settings")) {
         url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
     } else {
         url = [NSURL URLWithString:[NSString stringWithUTF8String:uri.c_str()]];
     }
     [[UIApplication sharedApplication] openURL:url options:@{} completionHandler: ^(BOOL success){
-        runtime::runLater([callback, success](){
-            if (callback != nullptr) {
-                callback(success);
+        runtime::runLater([objc_callback, success](){
+            if (objc_callback != nullptr) {
+                objc_callback(success);
             }
         });
     }];

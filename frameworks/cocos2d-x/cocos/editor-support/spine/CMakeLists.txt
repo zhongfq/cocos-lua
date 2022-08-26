@@ -41,6 +41,8 @@ file(GLOB_RECURSE COCOS_SPINE_SRC
     editor-support/spine/RotateTimeline.cpp
     editor-support/spine/RTTI.cpp
     editor-support/spine/ScaleTimeline.cpp
+    editor-support/spine/Sequence.cpp
+    editor-support/spine/SequenceTimeline.cpp
     editor-support/spine/ShearTimeline.cpp
     editor-support/spine/Skeleton.cpp
     editor-support/spine/SkeletonAnimation.cpp
@@ -127,6 +129,8 @@ file(GLOB_RECURSE COCOS_SPINE_HEADER
     editor-support/spine/RotateTimeline.h
     editor-support/spine/RTTI.h
     editor-support/spine/ScaleTimeline.h
+    editor-support/spine/Sequence.h
+    editor-support/spine/SequenceTimeline.h
     editor-support/spine/ShearTimeline.h
     editor-support/spine/Skeleton.h
     editor-support/spine/SkeletonAnimation.h
@@ -145,6 +149,7 @@ file(GLOB_RECURSE COCOS_SPINE_HEADER
     editor-support/spine/SpineObject.h
     editor-support/spine/SpineString.h
     editor-support/spine/TextureLoader.h
+    editor-support/spine/TextureRegion.h
     editor-support/spine/Timeline.h
     editor-support/spine/TimelineType.h
     editor-support/spine/TransformConstraint.h
@@ -159,6 +164,7 @@ file(GLOB_RECURSE COCOS_SPINE_HEADER
     editor-support/spine/v4/SkeletonBatch.h
     editor-support/spine/v4/SkeletonTwoColorBatch.h
     editor-support/spine/Vector.h
+    editor-support/spine/Version.h
     editor-support/spine/VertexAttachment.h
     editor-support/spine/VertexEffect.h
     editor-support/spine/Vertices.h

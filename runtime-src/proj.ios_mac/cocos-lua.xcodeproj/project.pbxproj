@@ -968,9 +968,9 @@
 					"$(SRCROOT)/../../frameworks/libfairygui/Classes",
 					"$(SRCROOT)/../../frameworks/libxgame/src",
 					"$(SRCROOT)/../../frameworks/libxgame/src/lua",
-					"$(SRCROOT)/../../frameworks/libxgame/src/luaopenssl/deps/auxiliar",
 					"$(SRCROOT)/../../frameworks/plugins",
 					"$(SRCROOT)/../../frameworks/3rd",
+					"$(SRCROOT)/../../frameworks/3rd/luaopenssl/deps/auxiliar",
 					"$(SRCROOT)/../Classes",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1039,9 +1039,9 @@
 					"$(SRCROOT)/../../frameworks/libfairygui/Classes",
 					"$(SRCROOT)/../../frameworks/libxgame/src",
 					"$(SRCROOT)/../../frameworks/libxgame/src/lua",
-					"$(SRCROOT)/../../frameworks/libxgame/src/luaopenssl/deps/auxiliar",
 					"$(SRCROOT)/../../frameworks/plugins",
 					"$(SRCROOT)/../../frameworks/3rd",
+					"$(SRCROOT)/../../frameworks/3rd/luaopenssl/deps/auxiliar",
 					"$(SRCROOT)/../Classes",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;

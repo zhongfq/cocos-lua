@@ -160,9 +160,9 @@ typeconf 'spine::AnimationState'
     .callback 'setListener' .localvar 'false'
 
 typeconf 'spine::AnimationStateData'
-
 typeconf 'spine::Animation'
-
+typeconf 'spine::Sequence'
+typeconf 'spine::TextureRegion'
 typeconf 'spine::ConstraintData'
 typeconf 'spine::IkConstraintData'
 typeconf 'spine::BoneData'
@@ -203,14 +203,6 @@ typeconf 'spine::TransformConstraintTimeline'
 typeconf 'spine::ScaleTimeline'
 typeconf 'spine::RotateTimeline'
 
-typeconf 'spine::VertexEffect'
-    .exclude 'begin'
-    .exclude 'end'
-    .exclude 'transform'
-
-typeconf 'spine::SwirlVertexEffect'
-typeconf 'spine::JitterVertexEffect'
-
 typeonly 'spine::Polygon'
 
 typeconf 'spine::Skin'
@@ -248,15 +240,15 @@ typeconf 'spine::SkeletonData'
             if (lua_toboolean(L, -1) && self) {
                 olua_setrawobj(L, 1, nullptr);
 
-                lua_pushstring(L, ".skel.atlas");
-                olua_getvariable(L, 1);
-                auto atlas = (spine::Atlas *)olua_torawobj(L, -1);
-                delete atlas;
-
                 lua_pushstring(L, ".skel.attachment_loader");
                 olua_getvariable(L, 1);
                 auto attachment_loader = (spine::Cocos2dAtlasAttachmentLoader *)olua_torawobj(L, -1);
                 delete attachment_loader;
+                
+                lua_pushstring(L, ".skel.atlas");
+                olua_getvariable(L, 1);
+                auto atlas = (spine::Atlas *)olua_torawobj(L, -1);
+                delete atlas;
 
                 lua_pushstring(L, ".skel.texture_loader");
                 olua_getvariable(L, 1);
@@ -278,25 +270,28 @@ typeconf 'spine::SkeletonData'
             auto texture_loader = new spine::Cocos2dTextureLoader();
             auto atlas = new spine::Atlas(atlas_path, texture_loader);
             spine::SkeletonData *skel_data = nullptr;
+            spine::String error;
             auto attachment_loader = new spine::Cocos2dAtlasAttachmentLoader(atlas);
 
             if (strendwith(skel_path, ".skel")) {
                 auto reader = new spine::SkeletonBinary(attachment_loader);
                 reader->setScale(scale);
                 skel_data = reader->readSkeletonDataFile(skel_path);
+                error = reader->getError();
                 delete reader;
             } else {
                 auto reader = new spine::SkeletonJson(attachment_loader);
                 reader->setScale(scale);
                 skel_data = reader->readSkeletonDataFile(skel_path);
+                error = reader->getError();
                 delete reader;
             }
 
             if (!skel_data) {
-                delete texture_loader;
                 delete attachment_loader;
                 delete atlas;
-                luaL_error(L, "error reading skeleton file: %s", skel_path);
+                delete texture_loader;
+                luaL_error(L, "%s\nerror reading skeleton file: %s", error.buffer(), skel_path);
             }
 
             olua_pushobj<spine::SkeletonData>(L, skel_data);

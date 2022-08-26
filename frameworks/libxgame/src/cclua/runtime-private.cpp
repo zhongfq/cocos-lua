@@ -71,7 +71,7 @@ std::string __runtime_getDeviceInfo()
     return value;
 }
 
-void __runtime_openURL(const std::string &uri, const std::function<void (bool)> callback)
+void __runtime_openURL(const std::string &uri, const std::function<void (bool)> &callback)
 {
     bool ret = Jni::callStaticBooleanMethod(JAVA_APPCONTEXT_CLASS, "openURL", uri);
     if (callback != nullptr) {
@@ -108,7 +108,7 @@ std::string __runtime_getPermission(const std::string &permission)
     return Jni::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getPermission", permission);
 }
 
-void __runtime_requestPermission(const std::string &permission, const std::function<void (const std::string &)> callback)
+void __runtime_requestPermission(const std::string &permission, const std::function<void (const std::string &)> &callback)
 {
     callback_t func = runtime::ref([=] (const std::string &status, const cocos2d::Value &data) {
         callback(status);
@@ -190,7 +190,7 @@ std::string __runtime_getNetworkStatus()
     return "WIFI";
 }
 
-void __runtime_openURL(const std::string &uri, const std::function<void(bool)> callback)
+void __runtime_openURL(const std::string &uri, const std::function<void(bool)> &callback)
 {
     if (callback != nullptr) {
         callback(false);

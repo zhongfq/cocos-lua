@@ -51,6 +51,8 @@
     <ClCompile Include="..\RegionAttachment.cpp" />
     <ClCompile Include="..\RotateTimeline.cpp" />
     <ClCompile Include="..\RTTI.cpp" />
+    <ClInclude Include="..\Sequence.cpp" />
+    <ClInclude Include="..\SequenceTimeline.cpp" />
     <ClCompile Include="..\ScaleTimeline.cpp" />
     <ClCompile Include="..\ShearTimeline.cpp" />
     <ClCompile Include="..\Skeleton.cpp" />
@@ -77,7 +79,6 @@
     <ClCompile Include="..\v3\SkeletonBatch.cpp" />
     <ClCompile Include="..\v3\SkeletonTwoColorBatch.cpp" />
     <ClCompile Include="..\VertexAttachment.cpp" />
-    <ClCompile Include="..\VertexEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Animation.h" />
@@ -134,6 +135,8 @@
     <ClInclude Include="..\RotateMode.h" />
     <ClInclude Include="..\RotateTimeline.h" />
     <ClInclude Include="..\RTTI.h" />
+    <ClInclude Include="..\Sequence.h" />
+    <ClInclude Include="..\SequenceTimeline.h" />
     <ClInclude Include="..\ScaleTimeline.h" />
     <ClInclude Include="..\ShearTimeline.h" />
     <ClInclude Include="..\Skeleton.h" />
@@ -153,6 +156,7 @@
     <ClInclude Include="..\SpineObject.h" />
     <ClInclude Include="..\SpineString.h" />
     <ClInclude Include="..\TextureLoader.h" />
+    <ClInclude Include="..\TextureRegion.h" />
     <ClInclude Include="..\Timeline.h" />
     <ClInclude Include="..\TransformConstraint.h" />
     <ClInclude Include="..\TransformConstraintData.h" />
@@ -164,8 +168,8 @@
     <ClInclude Include="..\v3\SkeletonBatch.h" />
     <ClInclude Include="..\v3\SkeletonTwoColorBatch.h" />
     <ClInclude Include="..\Vector.h" />
+    <ClInclude Include="..\Version.h" />
     <ClInclude Include="..\VertexAttachment.h" />
-    <ClInclude Include="..\VertexEffect.h" />
     <ClInclude Include="..\Vertices.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

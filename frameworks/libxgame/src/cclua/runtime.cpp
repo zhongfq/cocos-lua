@@ -451,7 +451,7 @@ std::string runtime::getPermission(const std::string &permission)
 #endif
 }
 
-void runtime::requestPermission(const std::string &permission, const std::function<void (const std::string &)> callback)
+void runtime::requestPermission(const std::string &permission, const std::function<void (const std::string &)> &callback)
 {
 #if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
     __runtime_requestPermission(permission, callback);
@@ -460,7 +460,7 @@ void runtime::requestPermission(const std::string &permission, const std::functi
 #endif
 }
 
-void runtime::alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> callback)
+void runtime::alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> &callback)
 {
 #ifdef CCLUA_OS_IOS
     __runtime_alert(title, message, ok, no, callback);
@@ -581,7 +581,7 @@ void runtime::unref(callback_t func)
     _refCallbacks.erase(func);
 }
 
-void runtime::once(const std::string &event, const std::function<void()> callback)
+void runtime::once(const std::string &event, const std::function<void()> &callback)
 {
     auto director = Director::getInstance();
     EventListenerCustom *listener = new EventListenerCustom();
@@ -593,7 +593,7 @@ void runtime::once(const std::string &event, const std::function<void()> callbac
     director->getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
 }
 
-void runtime::on(const std::string &event, const std::function<void()> callback)
+void runtime::on(const std::string &event, const std::function<void()> &callback)
 {
     auto director = Director::getInstance();
     director->getEventDispatcher()->addCustomEventListener(event, [=](EventCustom *) {

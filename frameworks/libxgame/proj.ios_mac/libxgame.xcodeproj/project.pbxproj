@@ -2024,6 +2024,7 @@
 					"$(SRCROOT)/../../libfairygui/Classes",
 					"$(SRCROOT)/../../libdragonbones/src",
 					"$(SRCROOT)/../../3rd",
+					"$(SRCROOT)/../../3rd/luaopenssl/deps/auxiliar",
 					"$(SRCROOT)/../src",
 					"$(SRCROOT)/../src/lua",
 				);
@@ -2112,6 +2113,7 @@
 					"$(SRCROOT)/../../libfairygui/Classes",
 					"$(SRCROOT)/../../libdragonbones/src",
 					"$(SRCROOT)/../../3rd",
+					"$(SRCROOT)/../../3rd/luaopenssl/deps/auxiliar",
 					"$(SRCROOT)/../src",
 					"$(SRCROOT)/../src/lua",
 				);

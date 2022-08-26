@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated January 1, 2020. Replaces all prior versions.
+ * Last updated September 24, 2021. Replaces all prior versions.
  *
- * Copyright (c) 2013-2020, Esoteric Software LLC
+ * Copyright (c) 2013-2021, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -26,10 +26,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
-
-#ifdef SPINE_UE4
-#include "SpinePluginPrivatePCH.h"
-#endif
 
 #include <spine/CurveTimeline.h>
 
@@ -115,7 +111,7 @@ void CurveTimeline1::setFrame(size_t frame, float time, float value) {
 }
 
 float CurveTimeline1::getCurveValue(float time) {
-	int i = _frames.size() - 2;
+	int i = (int) _frames.size() - 2;
 	for (int ii = 2; ii <= i; ii += 2) {
 		if (_frames[ii] > time) {
 			i = ii - 2;
@@ -151,9 +147,4 @@ void CurveTimeline2::setFrame(size_t frame, float time, float value1, float valu
 	_frames[frame] = time;
 	_frames[frame + CurveTimeline2::VALUE1] = value1;
 	_frames[frame + CurveTimeline2::VALUE2] = value2;
-}
-
-float CurveTimeline2::getCurveValue(float time)
-{
-    return 0;
 }

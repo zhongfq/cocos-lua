@@ -1023,13 +1023,13 @@ OLUA_API void oluacls_class(lua_State *L, const char *cls, const char *supercls)
         lua_pushnil(L);
     } else if (olua_getmetatable(L, supercls) != LUA_TTABLE) {
         if (strequal(supercls, OLUA_VOIDCLS)) {
-            olua_require(L, "olua", luaopen_olua); // init olua lib api
+            luaL_requiref(L, "olua", luaopen_olua, 1); // init olua lib api
             oluacls_class(L, OLUA_VOIDCLS, NULL);
             oluacls_func(L, "__eq", cls_eq);
             oluacls_func(L, "__tostring", cls_tostring);
             lua_getmetatable(L, -1);
-            lua_insert(L, -3);
-            lua_pop(L, 2);      // pop nil and class agent
+            lua_insert(L, -4);
+            lua_pop(L, 3);      // pop olua, nil and class agent
         } else {
             luaL_error(L, "super class not found: %s => %s", cls, supercls);
         }

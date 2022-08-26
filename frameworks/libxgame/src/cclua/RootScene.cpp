@@ -1,5 +1,5 @@
 #include "cclua/RootScene.h"
-#include "cclua/olua-2dx.h"
+#include "cclua/cclua.h"
 
 using namespace cocos2d;
 

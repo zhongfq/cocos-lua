@@ -1,7 +1,7 @@
 #ifndef __CCLUA_RUNTIME_H__
 #define __CCLUA_RUNTIME_H__
 
-#include "lua.hpp"
+#include "olua-2dx.h"
 #include "cocos2d.h"
 
 #ifndef CCLUA_VERSION

@@ -8,7 +8,6 @@
 #include "cclua/RootScene.h"
 #include "cclua/timer.h"
 #include "cclua/window.h"
-#include "cclua/olua-2dx.h"
 #include "cclua/plugin.h"
 #include "lua-bindings/lua_bindings.h"
 #include "lua-bindings/lua_conv_manual.h"

@@ -3,10 +3,9 @@
 
 #include "cocos2d.h"
 #include "cclua/luauser.h"
-#include "cclua/runtime.h"
 #include "olua/olua.h"
 
-extern lua_State *xlua_invokingstate;
+extern lua_State *cclua_invokingstate;
 
 lua_State *cclua_new();
 int cclua_dofile(lua_State *L, const char *filename);
@@ -20,12 +19,12 @@ OLUA_API lua_State *olua_mainthread(lua_State *L);
 #endif
 
 #ifdef OLUA_HAVE_CHECKHOSTTHREAD
-#define olua_checkhostthread()  assert(cclua::runtime::isCocosThread() && "callback should run on cocos thread")
+OLUA_API void olua_checkhostthread();
 #endif
 
 #ifdef OLUA_HAVE_TRACEINVOKING
-#define olua_startinvoke(L)     (xlua_invokingstate = L)
-#define olua_endinvoke(L)       (xlua_invokingstate = nullptr)
+#define olua_startinvoke(L)     (cclua_invokingstate = L)
+#define olua_endinvoke(L)       (cclua_invokingstate = nullptr)
 #endif
 
 #ifdef OLUA_HAVE_CMPREF

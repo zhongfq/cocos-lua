@@ -20,7 +20,7 @@ set(CCLUA_HEADER
     src/cclua/Socket.h
     src/cclua/timer.h
     src/cclua/window.h
-    src/cclua/xlua.h
+    src/cclua/olua-2dx.h
     src/cclua/XMLHttpRequest.h
 )
 
@@ -44,7 +44,7 @@ set(CCLUA_SRC
     src/cclua/Socket.cpp
     src/cclua/timer.cpp
     src/cclua/window.cpp
-    src/cclua/xlua.cpp
+    src/cclua/olua-2dx.cpp
     src/cclua/XMLHttpRequest.cpp
 )
 

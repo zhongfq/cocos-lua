@@ -5,6 +5,7 @@
 #include "filesystem.h"
 #include "Lame.h"
 #include "microphone.h"
+#include "olua-2dx.h"
 #include "permission.h"
 #include "photo.h"
 #include "preferences.h"

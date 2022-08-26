@@ -1,5 +1,5 @@
-#ifndef __CCLUA_LUA_H__
-#define __CCLUA_LUA_H__
+#ifndef __CCLUA_OLUA_2DX_H__
+#define __CCLUA_OLUA_2DX_H__
 
 #include "cocos2d.h"
 #include "cclua/luauser.h"
@@ -8,9 +8,9 @@
 
 extern lua_State *xlua_invokingstate;
 
-lua_State *xlua_new();
-int xlua_dofile(lua_State *L, const char *filename);
-int xlua_ccobjgc(lua_State *L);
+lua_State *cclua_new();
+int cclua_dofile(lua_State *L, const char *filename);
+int cclua_ccobjgc(lua_State *L);
 
 //
 // implement olua api

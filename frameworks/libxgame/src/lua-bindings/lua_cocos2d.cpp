@@ -2481,7 +2481,7 @@ static int _cocos2d_Ref___gc(lua_State *L)
 
     olua_endinvoke(L);
 
-    return xlua_ccobjgc(L);
+    return cclua_ccobjgc(L);
 }
 
 static int _cocos2d_Ref___olua_move(lua_State *L)

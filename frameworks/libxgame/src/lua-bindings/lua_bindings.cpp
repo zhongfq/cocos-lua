@@ -11,7 +11,7 @@
 #include "lua_socket.h"
 #include "cjson/lua_cjson.h"
 #include "cclua/runtime.h"
-#include "cclua/xlua.h"
+#include "cclua/olua-2dx.h"
 #include "md5/lua_md5.h"
 #include "lfs/lfs.h"
 #include "xxtea/lua_xxtea.h"

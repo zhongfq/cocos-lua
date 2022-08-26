@@ -1,6 +1,6 @@
 #include "lua_conv_manual.h"
 #include "lua_conv.h"
-#include "cclua/xlua.h"
+#include "cclua/olua-2dx.h"
 #include "olua/olua.h"
 
 int olua_push_cocos2d_network_WebSocket_Data(lua_State *L, const cocos2d::network::WebSocket::Data *value)

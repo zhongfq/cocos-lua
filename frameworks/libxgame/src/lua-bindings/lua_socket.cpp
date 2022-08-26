@@ -1,6 +1,6 @@
 #include "lua_socket.h"
 #include "cclua/Socket.h"
-#include "cclua/xlua.h"
+#include "cclua/olua-2dx.h"
 #include "olua/olua.h"
 
 #include <string.h>

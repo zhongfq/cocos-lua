@@ -1,1 +1,3 @@
 autobuild/
+*.log
+update-spine.lua

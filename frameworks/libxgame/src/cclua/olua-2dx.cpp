@@ -1,4 +1,4 @@
-#include "cclua/xlua.h"
+#include "cclua/olua-2dx.h"
 #include "cclua/filesystem.h"
 
 #include "cocos2d.h"
@@ -298,7 +298,7 @@ static int _errorfunc(lua_State *L)
     return 0;
 }
 
-lua_State *xlua_new()
+lua_State *cclua_new()
 {
     lua_State *L = luaL_newstate();
     
@@ -324,7 +324,7 @@ lua_State *xlua_new()
     return L;
 }
 
-int xlua_dofile(lua_State *L, const char *filename)
+int cclua_dofile(lua_State *L, const char *filename)
 {
     int errfunc, status;
     
@@ -364,7 +364,7 @@ static int report_gc_error(lua_State *L)
     return 0;
 }
 
-int xlua_ccobjgc(lua_State *L)
+int cclua_ccobjgc(lua_State *L)
 {
     auto obj = olua_toobj<cocos2d::Ref>(L, 1);
 #ifdef COCOS2D_DEBUG

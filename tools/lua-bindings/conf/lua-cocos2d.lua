@@ -73,7 +73,7 @@ typeconf 'cocos2d::Ref'
     .func '__gc'
         .snippet [[
         {
-            return xlua_ccobjgc(L);
+            return cclua_ccobjgc(L);
         }]]
 
 typeconf 'cocos2d::Console'

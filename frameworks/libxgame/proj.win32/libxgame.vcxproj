@@ -76,7 +76,7 @@
     <ClInclude Include="..\src\cclua\Socket.h" />
     <ClInclude Include="..\src\cclua\timer.h" />
     <ClInclude Include="..\src\cclua\window.h" />
-    <ClInclude Include="..\src\cclua\xlua.h" />
+    <ClInclude Include="..\src\cclua\olua-2dx.h" />
     <ClInclude Include="..\src\cclua\XMLHttpRequest.h" />
     <ClInclude Include="..\src\cjson\cJSON.h" />
     <ClInclude Include="..\src\cjson\fpconv.h" />
@@ -202,7 +202,7 @@
     <ClCompile Include="..\src\cclua\Socket.cpp" />
     <ClCompile Include="..\src\cclua\timer.cpp" />
     <ClCompile Include="..\src\cclua\window.cpp" />
-    <ClCompile Include="..\src\cclua\xlua.cpp" />
+    <ClCompile Include="..\src\cclua\olua-2dx.cpp" />
     <ClCompile Include="..\src\cclua\XMLHttpRequest.cpp" />
     <ClCompile Include="..\src\cjson\cJSON.c" />
     <ClCompile Include="..\src\cjson\fpconv.c" />

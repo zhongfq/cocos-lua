@@ -6,7 +6,6 @@ headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "lua-bindings/LuaCocosAdapter.h"
-#include "cclua/xlua.h"
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "audio/include/AudioEngine.h"
@@ -65,7 +64,7 @@ typeconf 'cocos2d::Ref'
     .func '__gc'
         .snippet [[
         {
-            return xlua_ccobjgc(L);
+            return cclua_ccobjgc(L);
         }]]
 
 typeconf 'cocos2d::Acceleration'

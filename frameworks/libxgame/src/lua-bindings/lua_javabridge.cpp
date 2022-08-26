@@ -3,9 +3,6 @@
 #ifdef CCLUA_OS_ANDROID
 #include "platform/android/jni/JniHelper.h"
 #include "base/ccUTF8.h"
-#include "cclua/runtime.h"
-#include "cclua/xlua.h"
-#include "cclua/timer.h"
 
 #include <stdlib.h>
 

@@ -3,7 +3,7 @@ module 'conv'
 path "../../frameworks/libxgame/src/lua-bindings"
 
 headers [[
-#include "cclua/xlua.h"
+#include "cclua/cclua.h"
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "network/WebSocket.h"

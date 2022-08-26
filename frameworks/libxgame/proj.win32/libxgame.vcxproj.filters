@@ -111,7 +111,7 @@
     <ClInclude Include="..\src\cclua\window.h">
       <Filter>src\cclua</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\cclua\xlua.h">
+    <ClInclude Include="..\src\cclua\olua-2dx.h">
       <Filter>src\cclua</Filter>
     </ClInclude>
     <ClInclude Include="..\src\cclua\XMLHttpRequest.h">
@@ -488,7 +488,7 @@
     <ClCompile Include="..\src\cclua\window.cpp">
       <Filter>src\cclua</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\cclua\xlua.cpp">
+    <ClCompile Include="..\src\cclua\olua-2dx.cpp">
       <Filter>src\cclua</Filter>
     </ClCompile>
     <ClCompile Include="..\src\cclua\XMLHttpRequest.cpp">

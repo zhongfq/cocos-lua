@@ -24,9 +24,7 @@
 
 #include "AppDelegate.h"
 
-#include "cclua/xlua.h"
-#include "cclua/preferences.h"
-#include "cclua/FileFinder.h"
+#include "cclua/cclua.h"
 
 #if COCOS2D_VERSION >= 0x00040000
 #include "lua-bindings/lua_cocos2d_3d.h"

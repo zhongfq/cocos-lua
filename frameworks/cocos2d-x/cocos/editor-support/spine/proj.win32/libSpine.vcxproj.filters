@@ -55,9 +55,6 @@
     <ClCompile Include="..\VertexAttachment.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\VertexEffect.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Animation.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -187,6 +184,12 @@
     <ClCompile Include="..\Skeleton.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sequence.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SequenceTimeline.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="..\SkeletonAnimation.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -274,9 +277,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\VertexAttachment.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\VertexEffect.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Vertices.h">
@@ -444,6 +444,12 @@
     <ClInclude Include="..\RTTI.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\Sequence.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SequenceTimeline.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="..\ScaleTimeline.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -472,6 +478,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\SkeletonRenderer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TextureRegion.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Version.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

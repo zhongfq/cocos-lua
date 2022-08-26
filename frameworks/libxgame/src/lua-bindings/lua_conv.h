@@ -4,7 +4,7 @@
 #ifndef __AUTO_GEN_LUA_CONV_H__
 #define __AUTO_GEN_LUA_CONV_H__
 
-#include "cclua/xlua.h"
+#include "cclua/cclua.h"
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "network/WebSocket.h"

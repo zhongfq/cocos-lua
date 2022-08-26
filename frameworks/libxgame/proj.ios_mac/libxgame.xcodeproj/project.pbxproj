@@ -261,8 +261,8 @@
 		3D6EEB6D28B4D850008F1847 /* photo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE98228B4D84E008F1847 /* photo.cpp */; };
 		3D6EEB6E28B4D850008F1847 /* XMLHttpRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE98328B4D84E008F1847 /* XMLHttpRequest.cpp */; };
 		3D6EEB6F28B4D850008F1847 /* XMLHttpRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE98328B4D84E008F1847 /* XMLHttpRequest.cpp */; };
-		3D6EEB7028B4D850008F1847 /* xlua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE98B28B4D84E008F1847 /* xlua.cpp */; };
-		3D6EEB7128B4D850008F1847 /* xlua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE98B28B4D84E008F1847 /* xlua.cpp */; };
+		3D6EEB7028B4D850008F1847 /* olua-2dx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE98B28B4D84E008F1847 /* olua-2dx.cpp */; };
+		3D6EEB7128B4D850008F1847 /* olua-2dx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE98B28B4D84E008F1847 /* olua-2dx.cpp */; };
 		3D6EEB7228B4D850008F1847 /* plugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE98C28B4D84F008F1847 /* plugin.cpp */; };
 		3D6EEB7328B4D850008F1847 /* plugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE98C28B4D84F008F1847 /* plugin.cpp */; };
 		3D6EEB7428B4D850008F1847 /* microphone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE98D28B4D84F008F1847 /* microphone.cpp */; };
@@ -634,7 +634,7 @@
 		3D6EE96A28B4D84E008F1847 /* ByteArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ByteArray.h; sourceTree = "<group>"; };
 		3D6EE96B28B4D84E008F1847 /* photo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = photo.mm; sourceTree = "<group>"; };
 		3D6EE96D28B4D84E008F1847 /* plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plugin.h; sourceTree = "<group>"; };
-		3D6EE96E28B4D84E008F1847 /* xlua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlua.h; sourceTree = "<group>"; };
+		3D6EE96E28B4D84E008F1847 /* olua-2dx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = olua-2dx.h; sourceTree = "<group>"; };
 		3D6EE96F28B4D84E008F1847 /* Lame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Lame.cpp; sourceTree = "<group>"; };
 		3D6EE97028B4D84E008F1847 /* filesystem-private-ios-mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "filesystem-private-ios-mac.mm"; sourceTree = "<group>"; };
 		3D6EE97128B4D84E008F1847 /* permission.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = permission.cpp; sourceTree = "<group>"; };
@@ -661,7 +661,7 @@
 		3D6EE98828B4D84E008F1847 /* XMLHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLHttpRequest.h; sourceTree = "<group>"; };
 		3D6EE98928B4D84E008F1847 /* runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = runtime.h; sourceTree = "<group>"; };
 		3D6EE98A28B4D84E008F1847 /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timer.h; sourceTree = "<group>"; };
-		3D6EE98B28B4D84E008F1847 /* xlua.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xlua.cpp; sourceTree = "<group>"; };
+		3D6EE98B28B4D84E008F1847 /* olua-2dx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = olua-2dx.cpp; sourceTree = "<group>"; };
 		3D6EE98C28B4D84F008F1847 /* plugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plugin.cpp; sourceTree = "<group>"; };
 		3D6EE98D28B4D84F008F1847 /* microphone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = microphone.cpp; sourceTree = "<group>"; };
 		3D6EE98E28B4D84F008F1847 /* filesystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = filesystem.cpp; sourceTree = "<group>"; };
@@ -1285,8 +1285,8 @@
 				3D6EE98A28B4D84E008F1847 /* timer.h */,
 				3D6EE97728B4D84E008F1847 /* window.cpp */,
 				3D6EE98628B4D84E008F1847 /* window.h */,
-				3D6EE98B28B4D84E008F1847 /* xlua.cpp */,
-				3D6EE96E28B4D84E008F1847 /* xlua.h */,
+				3D6EE98B28B4D84E008F1847 /* olua-2dx.cpp */,
+				3D6EE96E28B4D84E008F1847 /* olua-2dx.h */,
 				3D6EE98328B4D84E008F1847 /* XMLHttpRequest.cpp */,
 				3D6EE98828B4D84E008F1847 /* XMLHttpRequest.h */,
 			);
@@ -1673,7 +1673,7 @@
 				3D6EEC3C28B4D851008F1847 /* lundump.c in Sources */,
 				3D6EEC2E28B4D851008F1847 /* loadlib.c in Sources */,
 				3D6BE0AF28B5AE2E005C8879 /* mime.c in Sources */,
-				3D6EEB7028B4D850008F1847 /* xlua.cpp in Sources */,
+				3D6EEB7028B4D850008F1847 /* olua-2dx.cpp in Sources */,
 				3D6EECA228B4D852008F1847 /* qrinput.c in Sources */,
 				3D6EEC9A28B4D852008F1847 /* bitstream.c in Sources */,
 				3D6EEB6C28B4D850008F1847 /* photo.cpp in Sources */,
@@ -1878,7 +1878,7 @@
 				3D6EEC3D28B4D851008F1847 /* lundump.c in Sources */,
 				3D6EEC2F28B4D851008F1847 /* loadlib.c in Sources */,
 				3D6BE09828B5AE2E005C8879 /* lsqlite3.c in Sources */,
-				3D6EEB7128B4D850008F1847 /* xlua.cpp in Sources */,
+				3D6EEB7128B4D850008F1847 /* olua-2dx.cpp in Sources */,
 				3D6BE07228B5AE2D005C8879 /* pkcs12.c in Sources */,
 				3D6EECA328B4D852008F1847 /* qrinput.c in Sources */,
 				3D6BE02828B5AE2D005C8879 /* srp.c in Sources */,

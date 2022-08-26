@@ -1,7 +1,7 @@
 #ifndef __LUA_CONV_MANUAL_H__
 #define __LUA_CONV_MANUAL_H__
 
-#include "cclua/xlua.h"
+#include "cclua/cclua.h"
 #include "cocos2d.h"
 #include "network/WebSocket.h"
 

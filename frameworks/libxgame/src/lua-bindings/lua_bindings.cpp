@@ -10,8 +10,6 @@
 #include "lua_xml_http_request.h"
 #include "lua_socket.h"
 #include "cjson/lua_cjson.h"
-#include "cclua/runtime.h"
-#include "cclua/xlua.h"
 #include "md5/lua_md5.h"
 #include "lfs/lfs.h"
 #include "xxtea/lua_xxtea.h"

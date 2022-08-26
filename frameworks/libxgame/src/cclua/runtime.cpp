@@ -8,7 +8,6 @@
 #include "cclua/RootScene.h"
 #include "cclua/timer.h"
 #include "cclua/window.h"
-#include "cclua/xlua.h"
 #include "cclua/plugin.h"
 #include "lua-bindings/lua_bindings.h"
 #include "lua-bindings/lua_conv_manual.h"
@@ -227,7 +226,7 @@ bool runtime::restart()
 lua_State *runtime::luaVM()
 {
     if (_luaVM == nullptr) {
-        _luaVM = xlua_new();
+        _luaVM = cclua_new();
         luaopen_bindings(_luaVM);
         for (auto func : _luaLibs) {
             olua_callfunc(_luaVM, func);

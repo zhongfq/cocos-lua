@@ -1,5 +1,5 @@
 #include "cclua/RootScene.h"
-#include "cclua/xlua.h"
+#include "cclua/cclua.h"
 
 using namespace cocos2d;
 
@@ -27,7 +27,7 @@ void RootScene::execute()
     lua_State *L = olua_mainthread(NULL);
     int top = lua_gettop(L);
     
-    if (xlua_dofile(L, _scriptPath.c_str()) == LUA_OK &&
+    if (cclua_dofile(L, _scriptPath.c_str()) == LUA_OK &&
         olua_getglobal(L, "main") == LUA_TFUNCTION) {
         olua_pcall(L, 0, 0);
     } else if (runtime::getEnv("cclua.debug") == "true") {

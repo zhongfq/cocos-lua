@@ -1,5 +1,6 @@
-#include "cclua/xlua.h"
+#include "cclua/olua-2dx.h"
 #include "cclua/filesystem.h"
+#include "cclua/runtime.h"
 
 #include "cocos2d.h"
 
@@ -8,14 +9,14 @@
 USING_NS_CC;
 USING_NS_CCLUA;
 
-lua_State *xlua_invokingstate = NULL;
-static std::unordered_map<std::string, std::string> xlua_typemap;
+lua_State *cclua_invokingstate = NULL;
+static std::unordered_map<std::string, std::string> cclua_typemap;
 
 static bool inline throw_lua_error(const char *msg)
 {
-    if (xlua_invokingstate) {
-        lua_State *L = xlua_invokingstate;
-        xlua_invokingstate = NULL;
+    if (cclua_invokingstate) {
+        lua_State *L = cclua_invokingstate;
+        cclua_invokingstate = NULL;
         luaL_error(L, msg);
     }
     return false;
@@ -298,7 +299,7 @@ static int _errorfunc(lua_State *L)
     return 0;
 }
 
-lua_State *xlua_new()
+lua_State *cclua_new()
 {
     lua_State *L = luaL_newstate();
     
@@ -324,7 +325,7 @@ lua_State *xlua_new()
     return L;
 }
 
-int xlua_dofile(lua_State *L, const char *filename)
+int cclua_dofile(lua_State *L, const char *filename)
 {
     int errfunc, status;
     
@@ -364,7 +365,7 @@ static int report_gc_error(lua_State *L)
     return 0;
 }
 
-int xlua_ccobjgc(lua_State *L)
+int cclua_ccobjgc(lua_State *L)
 {
     auto obj = olua_toobj<cocos2d::Ref>(L, 1);
 #ifdef COCOS2D_DEBUG
@@ -399,6 +400,13 @@ int xlua_ccobjgc(lua_State *L)
 OLUA_API lua_State *olua_mainthread(lua_State *L)
 {
     return runtime::luaVM();
+}
+#endif
+
+#ifdef OLUA_HAVE_CHECKHOSTTHREAD
+OLUA_API void olua_checkhostthread()
+{
+    assert(cclua::runtime::isCocosThread() && "callback should run on cocos thread");
 }
 #endif
 
@@ -450,12 +458,12 @@ OLUA_API void olua_endcmpref(lua_State *L, int idx, const char *refname)
 #ifdef OLUA_HAVE_LUATYPE
 OLUA_API void olua_registerluatype(lua_State *L, const char *type, const char *cls)
 {
-    xlua_typemap[type] = cls;
+    cclua_typemap[type] = cls;
 }
 
 OLUA_API const char *olua_getluatype(lua_State *L, const char *type)
 {
-    auto cls = xlua_typemap.find(type);
-    return cls != xlua_typemap.end() ? cls->second.c_str() : nullptr;
+    auto cls = cclua_typemap.find(type);
+    return cls != cclua_typemap.end() ? cls->second.c_str() : nullptr;
 }
 #endif

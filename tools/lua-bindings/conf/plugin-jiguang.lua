@@ -5,7 +5,7 @@ path "../../frameworks/plugins/jiguang"
 headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "jiguang.h"
+#include "jiguang/jiguang.h"
 ]]
 
 luacls(function (cppname)

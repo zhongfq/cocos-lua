@@ -19,5 +19,3 @@ autoconf 'conf/plugin-oppo.lua'
 autoconf 'conf/plugin-talkingdata.lua'
 autoconf 'conf/plugin-vivo.lua'
 autoconf 'conf/plugin-wechat.lua'
-
-dofile 'autobuild/make.lua'

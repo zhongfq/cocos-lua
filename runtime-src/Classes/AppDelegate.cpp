@@ -26,7 +26,9 @@
 
 #include "cclua/cclua.h"
 
+#if COCOS2D_VERSION >= 0x00040000
 #include "lua-bindings/lua_cocos2d_3d.h"
+#endif
 
 extern "C" {
 #include "luaopenssl/openssl.h"
@@ -125,7 +127,9 @@ USING_NS_CCLUA;
 
 static int _open_plugins(lua_State *L)
 {
+#if COCOS2D_VERSION >= 0x00040000
     olua_callfunc(L, luaopen_cocos2d_3d);
+#endif
     
 #ifdef CCLUA_BUILD_COCOSSTUDIO
     olua_callfunc(L, luaopen_cocos2d_studio);

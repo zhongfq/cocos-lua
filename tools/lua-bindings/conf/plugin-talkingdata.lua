@@ -5,7 +5,7 @@ path "../../frameworks/plugins/talkingdata"
 headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "talkingdata.h"
+#include "talkingdata/talkingdata.h"
 ]]
 
 luacls(function (cppname)

@@ -5,7 +5,7 @@ path "../../frameworks/plugins/wechat"
 headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "wechat.h"
+#include "wechat/wechat.h"
 ]]
 
 luacls(function (cppname)

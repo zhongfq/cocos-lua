@@ -10,7 +10,7 @@ USING_NS_CC;
 USING_NS_CCLUA;
 
 lua_State *cclua_invokingstate = NULL;
-static std::unordered_map<std::string, std::string> xlua_typemap;
+static std::unordered_map<std::string, std::string> cclua_typemap;
 
 static bool inline throw_lua_error(const char *msg)
 {
@@ -458,12 +458,12 @@ OLUA_API void olua_endcmpref(lua_State *L, int idx, const char *refname)
 #ifdef OLUA_HAVE_LUATYPE
 OLUA_API void olua_registerluatype(lua_State *L, const char *type, const char *cls)
 {
-    xlua_typemap[type] = cls;
+    cclua_typemap[type] = cls;
 }
 
 OLUA_API const char *olua_getluatype(lua_State *L, const char *type)
 {
-    auto cls = xlua_typemap.find(type);
-    return cls != xlua_typemap.end() ? cls->second.c_str() : nullptr;
+    auto cls = cclua_typemap.find(type);
+    return cls != cclua_typemap.end() ? cls->second.c_str() : nullptr;
 }
 #endif

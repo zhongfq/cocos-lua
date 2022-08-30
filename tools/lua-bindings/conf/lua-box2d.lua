@@ -26,8 +26,6 @@ luacls(function (cppname)
     return cppname
 end)
 
-include 'conf/exclude-type.lua'
-
 exclude 'b2BlockAllocator *'
 
 typedef 'int8;int16;int32'

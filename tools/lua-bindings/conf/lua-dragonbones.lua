@@ -18,8 +18,6 @@ luacls(function (cppname)
     return cppname
 end)
 
-include "conf/exclude-type.lua"
-
 exclude 'dragonBones::Matrix *'
 exclude 'dragonBones::Matrix'
 exclude 'dragonBones::WorldClock'

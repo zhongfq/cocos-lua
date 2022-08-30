@@ -180,8 +180,8 @@ typeconf 'cocos2d::EventDispatcher'
             }
         }
     }]]
-    .insert 'removeEventListenersForTarget'
-        .before [[
+    .func 'removeEventListenersForTarget'
+        .insert_before [[
             bool recursive = false;
             auto node = olua_checkobj<cocos2d::Node>(L, 2);
             if (lua_gettop(L) >= 3) {
@@ -273,8 +273,8 @@ typeconf 'cocos2d::AudioEngine'
             return std::string(buf);
         }
     }]]
-    .insert 'uncache'
-        .before [[
+    .func 'uncache'
+        .insert_before [[
             std::string path = olua_checkstring(L, 1);
             std::list<int> ids = cocos2d::LuaAudioEngine::getAudioIDs(path);
             const char *cls = olua_getluatype<cocos2d::AudioEngine>(L);
@@ -696,6 +696,13 @@ typeconf 'cocos2d::LuaComponent'
     end)
 
 -- node
+local push_node_parent = [[
+    if (!self->getParent()) {
+        return 0;
+    }
+    olua_push_cppobj<cocos2d::Node>(L, self->getParent());
+    int parent = lua_gettop(L);
+]]
 typeconf 'cocos2d::Node'
     .exclude 'enumerateChildren'
     .exclude 'scheduleUpdateWithPriorityLua'
@@ -704,8 +711,8 @@ typeconf 'cocos2d::Node'
     .func 'getChildByTag' .ret '@addref(children |)'
     .func 'getChildByName' .ret '@addref(children |)'
     .func 'getChildren' .ret '@addref(children |)'
-    .func 'removeFromParent' .ret '@delref(children | parent)'
-    .func 'removeFromParentAndCleanup' .ret '@delref(children | parent)'
+    .func 'removeFromParent' .ret '@delref(children | parent)' .insert_before(push_node_parent)
+    .func 'removeFromParentAndCleanup' .ret '@delref(children | parent)' .insert_before(push_node_parent)
     .func 'removeChild' .arg1 '@delref(children |)'
     .func 'removeChildByTag' .ret '@delref(children ~)'
     .func 'removeChildByName' .ret '@delref(children ~)'
@@ -739,17 +746,18 @@ typeconf 'cocos2d::Node'
     .func 'setPhysicsBody' .arg1 '@addref(physicsBody ^)'
     .func 'getPhysicsBody' .ret '@addref(physicsBody ^)'
     .chunk [[
-    static cocos2d::Node *_find_ancestor(cocos2d::Node *node1, cocos2d::Node *node2)
-    {
-        for (auto *p1 = node1; p1 != nullptr; p1 = p1->getParent()) {
-            for (auto *p2 = node2; p2 != nullptr; p2 = p2->getParent()) {
-                if (p1 == p2) {
-                    return p1;
+        static cocos2d::Node *_find_ancestor(cocos2d::Node *node1, cocos2d::Node *node2)
+        {
+            for (auto *p1 = node1; p1 != nullptr; p1 = p1->getParent()) {
+                for (auto *p2 = node2; p2 != nullptr; p2 = p2->getParent()) {
+                    if (p1 == p2) {
+                        return p1;
+                    }
                 }
             }
+            return NULL;
         }
-        return NULL;
-    }]]
+    ]]
     .func 'getBounds'
         .snippet [[
         {
@@ -893,14 +901,6 @@ typeconf 'cocos2d::Node'
     .callback 'getOnEnterTransitionDidFinishCallback' .ret '@nullable'
     .callback 'setOnExitTransitionDidStartCallback' .arg1 '@nullable'
     .callback 'getOnExitTransitionDidStartCallback' .ret '@nullable'
-    .insert {'removeFromParent', 'removeFromParentAndCleanup'}
-        .before [[
-            if (!self->getParent()) {
-                return 0;
-            }
-            olua_push_cppobj<cocos2d::Node>(L, self->getParent());
-            int parent = lua_gettop(L);
-        ]]
 
 typeconf 'cocos2d::AtlasNode'
 

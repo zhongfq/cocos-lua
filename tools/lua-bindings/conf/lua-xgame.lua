@@ -26,14 +26,6 @@ int olua_unpack_cclua_window_Bounds(lua_State *L, const cclua::window::Bounds *v
 }
 ]]
 
-luacls(function (cppname)
-    cppname = string.gsub(cppname, "^cclua::", "cclua.")
-    cppname = string.gsub(cppname, "::", ".")
-    return cppname
-end)
-
-include "conf/exclude-type.lua"
-
 exclude 'cclua::BufferReader *'
 
 typedef 'cclua::window::Bounds'
@@ -63,6 +55,12 @@ typeconf 'cclua::permission'
             lua_getfield(L, -1, olua_getluatype<cclua::permission::android>(L));
             return 1;
         }]]
+
+local push_director = [[
+    olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
+    int director = lua_gettop(L);
+]]
+
 typeconf 'cclua::runtime'
     .exclude 'callref'
     .exclude 'dispatch'
@@ -98,25 +96,18 @@ typeconf 'cclua::runtime'
             }
         }
     ]]
-    .func 'getProgramCache' .ret '@addref(programCache ^ director)'
-    .func 'getFileUtils' .ret '@addref(fileUtils ^ director)'
-    .func 'getSpriteFrameCache' .ret '@addref(spriteFrameCache ^ director)'
-    .func 'getTextureCache' .ret '@addref(textureCache ^ director)'
-    .func 'getScheduler' .ret '@addref(scheduler ^ director)'
-    .func 'getActionManager' .ret '@addref(actionManager ^ director)'
-    .func 'getEventDispatcher' .ret '@addref(eventDispatcher ^ director)'
-    .func 'getRunningScene' .ret '@addref(scenes | director)'
-    .func 'pushScene' .arg1 '@addref(scenes | director)'
-    .func 'replaceScene' .ret '@delref(scenes ~ director)' .arg1 '@addref(scenes | director)'
-    .func 'popScene' .ret '@delref(scenes ~ director)'
-    .func 'popToRootScene' .ret '@delref(scenes ~ director)'
-    .insert {'getProgramCache', 'getFileUtils', 'getSpriteFrameCache', 'getTextureCache',
-            'getScheduler', 'getActionManager', 'getEventDispatcher', 'getRunningScene',
-            'pushScene', 'replaceScene', 'popScene', 'popToRootScene'}
-        .before [[
-            olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
-            int director = lua_gettop(L);
-        ]]
+    .func 'getProgramCache' .ret '@addref(programCache ^ director)' .insert_before(push_director)
+    .func 'getFileUtils' .ret '@addref(fileUtils ^ director)' .insert_before(push_director)
+    .func 'getSpriteFrameCache' .ret '@addref(spriteFrameCache ^ director)' .insert_before(push_director)
+    .func 'getTextureCache' .ret '@addref(textureCache ^ director)' .insert_before(push_director)
+    .func 'getScheduler' .ret '@addref(scheduler ^ director)' .insert_before(push_director)
+    .func 'getActionManager' .ret '@addref(actionManager ^ director)' .insert_before(push_director)
+    .func 'getEventDispatcher' .ret '@addref(eventDispatcher ^ director)' .insert_before(push_director)
+    .func 'getRunningScene' .ret '@addref(scenes | director)' .insert_before(push_director)
+    .func 'pushScene' .arg1 '@addref(scenes | director)' .insert_before(push_director)
+    .func 'replaceScene' .ret '@delref(scenes ~ director)' .arg1 '@addref(scenes | director)' .insert_before(push_director)
+    .func 'popScene' .ret '@delref(scenes ~ director)' .insert_before(push_director)
+    .func 'popToRootScene' .ret '@delref(scenes ~ director)' .insert_before(push_director)
     .func "testCrash"
         .snippet [[
         {

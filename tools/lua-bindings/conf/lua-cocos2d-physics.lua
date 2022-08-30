@@ -15,8 +15,6 @@ luacls(function (cppname)
     return cppname
 end)
 
-include "conf/exclude-type.lua"
-
 typeconv 'cocos2d::PhysicsMaterial'
 
 typeconf 'cocos2d::PhysicsRayCastCallbackFunc'

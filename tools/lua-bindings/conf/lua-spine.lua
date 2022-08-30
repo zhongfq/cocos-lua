@@ -111,7 +111,6 @@ typedef 'spine::Color'
 typedef 'spine::Vector'
     .conv 'olua_$$_array'
 
-include "conf/exclude-type.lua"
 
 exclude 'Unexposed *'
 exclude 'spine::Bone'
@@ -243,7 +242,7 @@ typeconf 'spine::SkeletonData'
                 olua_getvariable(L, 1);
                 auto attachment_loader = (spine::Cocos2dAtlasAttachmentLoader *)olua_torawobj(L, -1);
                 delete attachment_loader;
-                
+
                 lua_pushstring(L, ".skel.atlas");
                 olua_getvariable(L, 1);
                 auto atlas = (spine::Atlas *)olua_torawobj(L, -1);

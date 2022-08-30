@@ -28,7 +28,6 @@ static std::string makeFrameEndCallbackTag(cocostudio::timeline::ActionTimeline 
 
 luaopen [[cclua::runtime::registerFeature("cocostudio", true);]]
 
-
 luacls(function (cppname)
     cppname = string.gsub(cppname, '^cocos2d::', 'cc.')
     cppname = string.gsub(cppname, '^cocostudio::', 'ccs.')
@@ -98,8 +97,7 @@ typeconf "cocostudio::BatchNode"
 typeconf "cocostudio::Bone"
     .func 'removeFromParent'
         .ret '@delref(children | parent)'
-    .insert 'removeFromParent'
-        .before [[
+        .insert_before [[
             if (!self->getParent()) {
                 return 0;
             }
@@ -217,6 +215,16 @@ typeconf "cocostudio::timeline::ActionTimeline"
         .tag_maker "frameEventCallFunc"
         .tag_mode 'replace'
         .arg1 '@nullable'
+        .insert_cbefore [[
+            if (arg1->getTimeline() && arg1->getTimeline()->getActionTimeline()) {
+                olua_push_cppobj<cocostudio::timeline::ActionTimeline>(L, arg1->getTimeline()->getActionTimeline());
+                olua_push_cppobj<cocostudio::timeline::Timeline>(L, arg1->getTimeline());
+                olua_push_cppobj<cocostudio::timeline::Frame>(L, arg1);
+                olua_addref(L, -3, "timelines", -2, OLUA_FLAG_MULTIPLE);
+                olua_addref(L, -2, "frames", -1, OLUA_FLAG_MULTIPLE);
+                lua_pop(L, 3);
+            }
+        ]]
     .callback 'clearFrameEventCallFunc'
         .tag_maker "frameEventCallFunc"
         .tag_mode 'substartwith'
@@ -239,8 +247,8 @@ typeconf "cocostudio::timeline::ActionTimeline"
     .callback 'clearFrameEndCallFuncs'
         .tag_mode 'substartwith'
         .tag_maker 'makeFrameEndCallbackTag(-1, "")'
-    .insert 'addAnimationInfo'
-        .before [[
+    .func 'addAnimationInfo'
+        .insert_before [[
             if (olua_getfield(L, 2, "clipEndCallBack") == LUA_TFUNCTION) {
                 void *cb_store = (void *)self;
                 std::string cb_tag = makeFrameEndCallbackTag(arg1.endIndex, arg1.name);
@@ -260,21 +268,10 @@ typeconf "cocostudio::timeline::ActionTimeline"
                 };
             }
         ]]
-    .insert 'removeAnimationInfo'
-        .before [[
+    .func 'removeAnimationInfo'
+        .insert_before [[
             auto info = self->getAnimationInfo(arg1);
             std::string cb_tag = makeFrameEndCallbackTag(info.endIndex, arg1);
             void *cb_store = (void *)self;
             olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBSTARTWITH);
-        ]]
-    .insert 'setFrameEventCallFunc'
-        .cbefore [[
-            if (arg1->getTimeline() && arg1->getTimeline()->getActionTimeline()) {
-                olua_push_cppobj<cocostudio::timeline::ActionTimeline>(L, arg1->getTimeline()->getActionTimeline());
-                olua_push_cppobj<cocostudio::timeline::Timeline>(L, arg1->getTimeline());
-                olua_push_cppobj<cocostudio::timeline::Frame>(L, arg1);
-                olua_addref(L, -3, "timelines", -2, OLUA_FLAG_MULTIPLE);
-                olua_addref(L, -2, "frames", -1, OLUA_FLAG_MULTIPLE);
-                lua_pop(L, 3);
-            }
         ]]

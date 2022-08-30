@@ -15,8 +15,6 @@ luacls(function (cppname)
     return cppname
 end)
 
-include "conf/exclude-type.lua"
-
 local function typeconf(cppcls)
     local cls = _ENV.typeconf(cppcls)
     cls.exclude 'new'

@@ -8,14 +8,6 @@ headers [[
 #include "jiguang/jiguang.h"
 ]]
 
-luacls(function (cppname)
-    cppname = string.gsub(cppname, "^cclua::", "cclua.")
-    cppname = string.gsub(cppname, "::", ".")
-    return cppname
-end)
-
-include "conf/exclude-type.lua"
-
 ifdef 'CCLUA_BUILD_JPUSH'
 typeconf "cclua::plugin::jpush"
     .luaopen 'cclua::runtime::registerFeature("cclua.plugin.jpush.ios", true);'

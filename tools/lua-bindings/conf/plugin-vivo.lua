@@ -8,14 +8,6 @@ headers [[
 #include "vivo/vivo.h"
 ]]
 
-luacls(function (cppname)
-    cppname = string.gsub(cppname, "^cclua::", "cclua.")
-    cppname = string.gsub(cppname, "::", ".")
-    return cppname
-end)
-
-include "conf/exclude-type.lua"
-
 ifdef 'CCLUA_BUILD_VIVO'
 typeconf "cclua::plugin::vivo"
 endif ''

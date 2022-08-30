@@ -16,16 +16,6 @@ luacls(function (cppname)
     return cppname
 end)
 
-include 'conf/exclude-type.lua'
-
-exclude 'cocos2d::AABB'
-exclude 'cocos2d::Material *'
-exclude 'cocos2d::MeshIndexData *'
-exclude 'cocos2d::NodeDatas'
-exclude 'cocos2d::NodeDatas *'
-exclude 'cocos2d::NodeData *'
-exclude 'cocos2d::NodeData'
-
 typeconv 'cocos2d::MeshVertexAttrib'
 
 typeconf 'cocos2d::NTextureData::Usage'

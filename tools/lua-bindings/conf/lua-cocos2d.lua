@@ -30,8 +30,6 @@ luacls(function (cppname)
     end
 end)
 
-include 'conf/exclude-type.lua'
-
 typedef 'cocos2d::Data'
 typedef 'cocos2d::Mat4'
 typedef 'cocos2d::Vector'
@@ -183,13 +181,8 @@ typeconf 'cocos2d::EventDispatcher'
     .func 'removeEventListener' .ret '@delref(listeners ~)' .arg1 '@delref(listeners |)'
     .func 'removeEventListenersForType' .ret '@delref(listeners ~)'
     .func 'removeAllEventListeners' .ret '@delref(listeners ~)'
-    .callback 'addCustomEventListener'
-        .ret '@addref(listeners |)'
-        .tag_maker '(#1)'
-        .tag_store '-1'
-        .tag_mode 'new'
-    .insert 'removeEventListenersForTarget'
-        .before [[
+    .func 'removeEventListenersForTarget'
+        .insert_before [[
             bool recursive = false;
             auto node = olua_checkobj<cocos2d::Node>(L, 2);
             if (lua_gettop(L) >= 3) {
@@ -204,6 +197,11 @@ typeconf 'cocos2d::EventDispatcher'
             olua_push_int(L, 1);
             return _cocos2d_EventDispatcher_addEventListenerWithFixedPriority(L);
         }]]
+    .callback 'addCustomEventListener'
+        .ret '@addref(listeners |)'
+        .tag_maker '(#1)'
+        .tag_store '-1'
+        .tag_mode 'new'
 
 typeconf 'cocos2d::EventListener::Type'
 
@@ -282,8 +280,8 @@ typeconf 'cocos2d::AudioEngine'
             }
         }
     ]]
-    .insert 'uncache'
-        .before [[
+    .func 'uncache'
+        .insert_before [[
             std::string path = olua_checkstring(L, 1);
             std::list<int> ids = cocos2d::LuaAudioEngine::getAudioIDs(path);
             void *cb_store = olua_pushclassobj<cocos2d::AudioEngine>(L);
@@ -460,6 +458,20 @@ typeconf 'cocos2d::LuaComponent'
     end)
 
 -- node
+local push_node_parent = [[
+    if (!self->getParent()) {
+        return 0;
+    }
+    olua_push_cppobj<cocos2d::Node>(L, self->getParent());
+    int parent = lua_gettop(L);
+]]
+
+local check_node_parent = [[
+    if (!self->getParent()) {
+        luaL_error(L, "parent is nullptr");
+    }
+]]
+
 typeconf 'cocos2d::Node'
     .chunk [[
         static cocos2d::Node *_find_ancestor(cocos2d::Node *node1, cocos2d::Node *node2)
@@ -479,8 +491,8 @@ typeconf 'cocos2d::Node'
     .func 'getChildByTag' .ret '@addref(children |)'
     .func 'getChildByName' .ret '@addref(children |)'
     .func 'getChildren' .ret '@addref(children |)'
-    .func 'removeFromParent' .ret '@delref(children | parent)'
-    .func 'removeFromParentAndCleanup' .ret '@delref(children | parent)'
+    .func 'removeFromParent' .ret '@delref(children | parent)' .insert_before(push_node_parent)
+    .func 'removeFromParentAndCleanup' .ret '@delref(children | parent)' .insert_before(push_node_parent)
     .func 'removeChild' .arg1 '@delref(children |)'
     .func 'removeChildByTag' .ret '@delref(children ~)'
     .func 'removeChildByName' .ret '@delref(children ~)'
@@ -511,6 +523,8 @@ typeconf 'cocos2d::Node'
     .func 'removeAllComponents' .ret '@delref(components *)'
     .func 'setPhysicsBody' .arg1 '@addref(physicsBody ^)'
     .func 'getPhysicsBody' .ret '@addref(physicsBody ^)'
+    .func 'onEnter' .insert_before(check_node_parent)
+    .func 'onExit' .insert_before(check_node_parent)
     .func '__index'
         .snippet [[
         {
@@ -685,20 +699,6 @@ typeconf 'cocos2d::Node'
     .callback 'enumerateChildren'
         .tag_mode 'new'
         .tag_scope 'function'
-    .insert {'removeFromParent', 'removeFromParentAndCleanup'}
-        .before [[
-            if (!self->getParent()) {
-                return 0;
-            }
-            olua_push_cppobj<cocos2d::Node>(L, self->getParent());
-            int parent = lua_gettop(L);
-        ]]
-    .insert {'onEnter', 'onExit'}
-        .before [[
-            if (!self->getParent()) {
-                luaL_error(L, "parent is nullptr");
-            }
-        ]]
 
 typeconf 'cocos2d::LuaTweenNode'
     .callback 'create'

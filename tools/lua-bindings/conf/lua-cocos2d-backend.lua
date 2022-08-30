@@ -14,8 +14,6 @@ luacls(function (cppname)
     return cppname
 end)
 
-include "conf/exclude-type.lua"
-
 exclude 'cocos2d::backend::RenderPassDescriptor'
 
 typedef 'cocos2d::backend::UniformLocation'
@@ -55,10 +53,11 @@ typeconf 'cocos2d::backend::CommandBuffer'
         .tag_mode 'new'
 
 typeconf 'cocos2d::backend::Device'
-    .insert {'newProgram', 'newRenderPipeline', 'newTexture', 'newBuffer', 'newCommandBuffer'}
-        .after [[
-            ret->autorelease();
-        ]]
+    .func 'newProgram' .insert_after 'ret->autorelease();'
+    .func 'newRenderPipeline' .insert_after 'ret->autorelease();'
+    .func 'newTexture' .insert_after 'ret->autorelease();'
+    .func 'newBuffer' .insert_after 'ret->autorelease();'
+    .func 'newCommandBuffer' .insert_after 'ret->autorelease();'
 
 typeconf 'cocos2d::backend::DeviceInfo'
 typeconf 'cocos2d::backend::ShaderCache'

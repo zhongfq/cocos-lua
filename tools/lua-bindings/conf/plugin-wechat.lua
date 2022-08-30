@@ -8,14 +8,6 @@ headers [[
 #include "wechat/wechat.h"
 ]]
 
-luacls(function (cppname)
-    cppname = string.gsub(cppname, "^cclua::", "cclua.")
-    cppname = string.gsub(cppname, "::", ".")
-    return cppname
-end)
-
-include "conf/exclude-type.lua"
-
 ifdef 'CCLUA_BUILD_WECHAT'
 typeconf "cclua::plugin::wechat::ShareType"
 typeconf "cclua::plugin::wechat::ProgramType"

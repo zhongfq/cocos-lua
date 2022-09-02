@@ -3,7 +3,7 @@
 //
 #include "lua_conv.h"
 
-int olua_push_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value)
+OLUA_LIB int olua_push_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value)
 {
     if (value) {
         lua_createtable(L, 0, 2);
@@ -20,7 +20,7 @@ int olua_push_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value)
     return 1;
 }
 
-void olua_check_cocos2d_Vec2(lua_State *L, int idx, cocos2d::Vec2 *value)
+OLUA_LIB void olua_check_cocos2d_Vec2(lua_State *L, int idx, cocos2d::Vec2 *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -42,12 +42,12 @@ void olua_check_cocos2d_Vec2(lua_State *L, int idx, cocos2d::Vec2 *value)
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_Vec2(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_Vec2(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "y") && olua_hasfield(L, idx, "x");
 }
 
-void olua_pack_cocos2d_Vec2(lua_State *L, int idx, cocos2d::Vec2 *value)
+OLUA_LIB void olua_pack_cocos2d_Vec2(lua_State *L, int idx, cocos2d::Vec2 *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -64,7 +64,7 @@ void olua_pack_cocos2d_Vec2(lua_State *L, int idx, cocos2d::Vec2 *value)
     value->y = (float)arg2;
 }
 
-int olua_unpack_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value)
+OLUA_LIB int olua_unpack_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value)
 {
     if (value) {
         olua_push_number(L, (lua_Number)value->x);
@@ -78,12 +78,12 @@ int olua_unpack_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value)
     return 2;
 }
 
-bool olua_canpack_cocos2d_Vec2(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_Vec2(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1);
 }
 
-int olua_push_cocos2d_Vec3(lua_State *L, const cocos2d::Vec3 *value)
+OLUA_LIB int olua_push_cocos2d_Vec3(lua_State *L, const cocos2d::Vec3 *value)
 {
     if (value) {
         lua_createtable(L, 0, 3);
@@ -103,7 +103,7 @@ int olua_push_cocos2d_Vec3(lua_State *L, const cocos2d::Vec3 *value)
     return 1;
 }
 
-void olua_check_cocos2d_Vec3(lua_State *L, int idx, cocos2d::Vec3 *value)
+OLUA_LIB void olua_check_cocos2d_Vec3(lua_State *L, int idx, cocos2d::Vec3 *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -131,12 +131,12 @@ void olua_check_cocos2d_Vec3(lua_State *L, int idx, cocos2d::Vec3 *value)
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_Vec3(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_Vec3(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "z") && olua_hasfield(L, idx, "y") && olua_hasfield(L, idx, "x");
 }
 
-void olua_pack_cocos2d_Vec3(lua_State *L, int idx, cocos2d::Vec3 *value)
+OLUA_LIB void olua_pack_cocos2d_Vec3(lua_State *L, int idx, cocos2d::Vec3 *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -157,7 +157,7 @@ void olua_pack_cocos2d_Vec3(lua_State *L, int idx, cocos2d::Vec3 *value)
     value->z = (float)arg3;
 }
 
-int olua_unpack_cocos2d_Vec3(lua_State *L, const cocos2d::Vec3 *value)
+OLUA_LIB int olua_unpack_cocos2d_Vec3(lua_State *L, const cocos2d::Vec3 *value)
 {
     if (value) {
         olua_push_number(L, (lua_Number)value->x);
@@ -172,12 +172,12 @@ int olua_unpack_cocos2d_Vec3(lua_State *L, const cocos2d::Vec3 *value)
     return 3;
 }
 
-bool olua_canpack_cocos2d_Vec3(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_Vec3(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2);
 }
 
-int olua_push_cocos2d_Vec4(lua_State *L, const cocos2d::Vec4 *value)
+OLUA_LIB int olua_push_cocos2d_Vec4(lua_State *L, const cocos2d::Vec4 *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
@@ -200,7 +200,7 @@ int olua_push_cocos2d_Vec4(lua_State *L, const cocos2d::Vec4 *value)
     return 1;
 }
 
-void olua_check_cocos2d_Vec4(lua_State *L, int idx, cocos2d::Vec4 *value)
+OLUA_LIB void olua_check_cocos2d_Vec4(lua_State *L, int idx, cocos2d::Vec4 *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -234,12 +234,12 @@ void olua_check_cocos2d_Vec4(lua_State *L, int idx, cocos2d::Vec4 *value)
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_Vec4(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_Vec4(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "w") && olua_hasfield(L, idx, "z") && olua_hasfield(L, idx, "y") && olua_hasfield(L, idx, "x");
 }
 
-void olua_pack_cocos2d_Vec4(lua_State *L, int idx, cocos2d::Vec4 *value)
+OLUA_LIB void olua_pack_cocos2d_Vec4(lua_State *L, int idx, cocos2d::Vec4 *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -264,7 +264,7 @@ void olua_pack_cocos2d_Vec4(lua_State *L, int idx, cocos2d::Vec4 *value)
     value->w = (float)arg4;
 }
 
-int olua_unpack_cocos2d_Vec4(lua_State *L, const cocos2d::Vec4 *value)
+OLUA_LIB int olua_unpack_cocos2d_Vec4(lua_State *L, const cocos2d::Vec4 *value)
 {
     if (value) {
         olua_push_number(L, (lua_Number)value->x);
@@ -280,12 +280,12 @@ int olua_unpack_cocos2d_Vec4(lua_State *L, const cocos2d::Vec4 *value)
     return 4;
 }
 
-bool olua_canpack_cocos2d_Vec4(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_Vec4(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_number(L, idx + 3);
 }
 
-int olua_push_cocos2d_Size(lua_State *L, const cocos2d::Size *value)
+OLUA_LIB int olua_push_cocos2d_Size(lua_State *L, const cocos2d::Size *value)
 {
     if (value) {
         lua_createtable(L, 0, 2);
@@ -302,7 +302,7 @@ int olua_push_cocos2d_Size(lua_State *L, const cocos2d::Size *value)
     return 1;
 }
 
-void olua_check_cocos2d_Size(lua_State *L, int idx, cocos2d::Size *value)
+OLUA_LIB void olua_check_cocos2d_Size(lua_State *L, int idx, cocos2d::Size *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -324,12 +324,12 @@ void olua_check_cocos2d_Size(lua_State *L, int idx, cocos2d::Size *value)
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_Size(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_Size(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "height") && olua_hasfield(L, idx, "width");
 }
 
-void olua_pack_cocos2d_Size(lua_State *L, int idx, cocos2d::Size *value)
+OLUA_LIB void olua_pack_cocos2d_Size(lua_State *L, int idx, cocos2d::Size *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -346,7 +346,7 @@ void olua_pack_cocos2d_Size(lua_State *L, int idx, cocos2d::Size *value)
     value->height = (float)arg2;
 }
 
-int olua_unpack_cocos2d_Size(lua_State *L, const cocos2d::Size *value)
+OLUA_LIB int olua_unpack_cocos2d_Size(lua_State *L, const cocos2d::Size *value)
 {
     if (value) {
         olua_push_number(L, (lua_Number)value->width);
@@ -360,12 +360,12 @@ int olua_unpack_cocos2d_Size(lua_State *L, const cocos2d::Size *value)
     return 2;
 }
 
-bool olua_canpack_cocos2d_Size(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_Size(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1);
 }
 
-int olua_push_cocos2d_Viewport(lua_State *L, const cocos2d::Viewport *value)
+OLUA_LIB int olua_push_cocos2d_Viewport(lua_State *L, const cocos2d::Viewport *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
@@ -388,7 +388,7 @@ int olua_push_cocos2d_Viewport(lua_State *L, const cocos2d::Viewport *value)
     return 1;
 }
 
-void olua_check_cocos2d_Viewport(lua_State *L, int idx, cocos2d::Viewport *value)
+OLUA_LIB void olua_check_cocos2d_Viewport(lua_State *L, int idx, cocos2d::Viewport *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -430,12 +430,12 @@ void olua_check_cocos2d_Viewport(lua_State *L, int idx, cocos2d::Viewport *value
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_Viewport(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_Viewport(lua_State *L, int idx)
 {
     return olua_istable(L, idx);
 }
 
-void olua_pack_cocos2d_Viewport(lua_State *L, int idx, cocos2d::Viewport *value)
+OLUA_LIB void olua_pack_cocos2d_Viewport(lua_State *L, int idx, cocos2d::Viewport *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -460,7 +460,7 @@ void olua_pack_cocos2d_Viewport(lua_State *L, int idx, cocos2d::Viewport *value)
     value->h = (unsigned int)arg4;
 }
 
-int olua_unpack_cocos2d_Viewport(lua_State *L, const cocos2d::Viewport *value)
+OLUA_LIB int olua_unpack_cocos2d_Viewport(lua_State *L, const cocos2d::Viewport *value)
 {
     if (value) {
         olua_push_int(L, (lua_Integer)value->x);
@@ -476,12 +476,12 @@ int olua_unpack_cocos2d_Viewport(lua_State *L, const cocos2d::Viewport *value)
     return 4;
 }
 
-bool olua_canpack_cocos2d_Viewport(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_Viewport(lua_State *L, int idx)
 {
     return olua_is_int(L, idx + 0) && olua_is_int(L, idx + 1) && olua_is_uint(L, idx + 2) && olua_is_uint(L, idx + 3);
 }
 
-int olua_push_cocos2d_ScissorRect(lua_State *L, const cocos2d::ScissorRect *value)
+OLUA_LIB int olua_push_cocos2d_ScissorRect(lua_State *L, const cocos2d::ScissorRect *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
@@ -504,7 +504,7 @@ int olua_push_cocos2d_ScissorRect(lua_State *L, const cocos2d::ScissorRect *valu
     return 1;
 }
 
-void olua_check_cocos2d_ScissorRect(lua_State *L, int idx, cocos2d::ScissorRect *value)
+OLUA_LIB void olua_check_cocos2d_ScissorRect(lua_State *L, int idx, cocos2d::ScissorRect *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -546,12 +546,12 @@ void olua_check_cocos2d_ScissorRect(lua_State *L, int idx, cocos2d::ScissorRect 
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_ScissorRect(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_ScissorRect(lua_State *L, int idx)
 {
     return olua_istable(L, idx);
 }
 
-void olua_pack_cocos2d_ScissorRect(lua_State *L, int idx, cocos2d::ScissorRect *value)
+OLUA_LIB void olua_pack_cocos2d_ScissorRect(lua_State *L, int idx, cocos2d::ScissorRect *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -576,7 +576,7 @@ void olua_pack_cocos2d_ScissorRect(lua_State *L, int idx, cocos2d::ScissorRect *
     value->height = (float)arg4;
 }
 
-int olua_unpack_cocos2d_ScissorRect(lua_State *L, const cocos2d::ScissorRect *value)
+OLUA_LIB int olua_unpack_cocos2d_ScissorRect(lua_State *L, const cocos2d::ScissorRect *value)
 {
     if (value) {
         olua_push_number(L, (lua_Number)value->x);
@@ -592,12 +592,12 @@ int olua_unpack_cocos2d_ScissorRect(lua_State *L, const cocos2d::ScissorRect *va
     return 4;
 }
 
-bool olua_canpack_cocos2d_ScissorRect(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_ScissorRect(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_number(L, idx + 3);
 }
 
-int olua_push_cocos2d_Quaternion(lua_State *L, const cocos2d::Quaternion *value)
+OLUA_LIB int olua_push_cocos2d_Quaternion(lua_State *L, const cocos2d::Quaternion *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
@@ -620,7 +620,7 @@ int olua_push_cocos2d_Quaternion(lua_State *L, const cocos2d::Quaternion *value)
     return 1;
 }
 
-void olua_check_cocos2d_Quaternion(lua_State *L, int idx, cocos2d::Quaternion *value)
+OLUA_LIB void olua_check_cocos2d_Quaternion(lua_State *L, int idx, cocos2d::Quaternion *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -654,12 +654,12 @@ void olua_check_cocos2d_Quaternion(lua_State *L, int idx, cocos2d::Quaternion *v
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_Quaternion(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_Quaternion(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "w") && olua_hasfield(L, idx, "z") && olua_hasfield(L, idx, "y") && olua_hasfield(L, idx, "x");
 }
 
-void olua_pack_cocos2d_Quaternion(lua_State *L, int idx, cocos2d::Quaternion *value)
+OLUA_LIB void olua_pack_cocos2d_Quaternion(lua_State *L, int idx, cocos2d::Quaternion *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -684,7 +684,7 @@ void olua_pack_cocos2d_Quaternion(lua_State *L, int idx, cocos2d::Quaternion *va
     value->w = (float)arg4;
 }
 
-int olua_unpack_cocos2d_Quaternion(lua_State *L, const cocos2d::Quaternion *value)
+OLUA_LIB int olua_unpack_cocos2d_Quaternion(lua_State *L, const cocos2d::Quaternion *value)
 {
     if (value) {
         olua_push_number(L, (lua_Number)value->x);
@@ -700,12 +700,12 @@ int olua_unpack_cocos2d_Quaternion(lua_State *L, const cocos2d::Quaternion *valu
     return 4;
 }
 
-bool olua_canpack_cocos2d_Quaternion(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_Quaternion(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_number(L, idx + 3);
 }
 
-int olua_push_cocos2d_AffineTransform(lua_State *L, const cocos2d::AffineTransform *value)
+OLUA_LIB int olua_push_cocos2d_AffineTransform(lua_State *L, const cocos2d::AffineTransform *value)
 {
     if (value) {
         lua_createtable(L, 0, 6);
@@ -734,7 +734,7 @@ int olua_push_cocos2d_AffineTransform(lua_State *L, const cocos2d::AffineTransfo
     return 1;
 }
 
-void olua_check_cocos2d_AffineTransform(lua_State *L, int idx, cocos2d::AffineTransform *value)
+OLUA_LIB void olua_check_cocos2d_AffineTransform(lua_State *L, int idx, cocos2d::AffineTransform *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -780,12 +780,12 @@ void olua_check_cocos2d_AffineTransform(lua_State *L, int idx, cocos2d::AffineTr
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_AffineTransform(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_AffineTransform(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "ty") && olua_hasfield(L, idx, "tx") && olua_hasfield(L, idx, "d") && olua_hasfield(L, idx, "c") && olua_hasfield(L, idx, "b") && olua_hasfield(L, idx, "a");
 }
 
-void olua_pack_cocos2d_AffineTransform(lua_State *L, int idx, cocos2d::AffineTransform *value)
+OLUA_LIB void olua_pack_cocos2d_AffineTransform(lua_State *L, int idx, cocos2d::AffineTransform *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -818,7 +818,7 @@ void olua_pack_cocos2d_AffineTransform(lua_State *L, int idx, cocos2d::AffineTra
     value->ty = (float)arg6;
 }
 
-int olua_unpack_cocos2d_AffineTransform(lua_State *L, const cocos2d::AffineTransform *value)
+OLUA_LIB int olua_unpack_cocos2d_AffineTransform(lua_State *L, const cocos2d::AffineTransform *value)
 {
     if (value) {
         olua_push_number(L, (lua_Number)value->a);
@@ -836,12 +836,12 @@ int olua_unpack_cocos2d_AffineTransform(lua_State *L, const cocos2d::AffineTrans
     return 6;
 }
 
-bool olua_canpack_cocos2d_AffineTransform(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_AffineTransform(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_number(L, idx + 3) && olua_is_number(L, idx + 4) && olua_is_number(L, idx + 5);
 }
 
-int olua_push_GLContextAttrs(lua_State *L, const GLContextAttrs *value)
+OLUA_LIB int olua_push_GLContextAttrs(lua_State *L, const GLContextAttrs *value)
 {
     if (value) {
         lua_createtable(L, 0, 7);
@@ -873,7 +873,7 @@ int olua_push_GLContextAttrs(lua_State *L, const GLContextAttrs *value)
     return 1;
 }
 
-void olua_check_GLContextAttrs(lua_State *L, int idx, GLContextAttrs *value)
+OLUA_LIB void olua_check_GLContextAttrs(lua_State *L, int idx, GLContextAttrs *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -925,12 +925,12 @@ void olua_check_GLContextAttrs(lua_State *L, int idx, GLContextAttrs *value)
     lua_pop(L, 1);
 }
 
-bool olua_is_GLContextAttrs(lua_State *L, int idx)
+OLUA_LIB bool olua_is_GLContextAttrs(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "multisamplingCount") && olua_hasfield(L, idx, "stencilBits") && olua_hasfield(L, idx, "depthBits") && olua_hasfield(L, idx, "alphaBits") && olua_hasfield(L, idx, "blueBits") && olua_hasfield(L, idx, "greenBits") && olua_hasfield(L, idx, "redBits");
 }
 
-void olua_pack_GLContextAttrs(lua_State *L, int idx, GLContextAttrs *value)
+OLUA_LIB void olua_pack_GLContextAttrs(lua_State *L, int idx, GLContextAttrs *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -967,7 +967,7 @@ void olua_pack_GLContextAttrs(lua_State *L, int idx, GLContextAttrs *value)
     value->multisamplingCount = (int)arg7;
 }
 
-int olua_unpack_GLContextAttrs(lua_State *L, const GLContextAttrs *value)
+OLUA_LIB int olua_unpack_GLContextAttrs(lua_State *L, const GLContextAttrs *value)
 {
     if (value) {
         olua_push_int(L, (lua_Integer)value->redBits);
@@ -986,12 +986,12 @@ int olua_unpack_GLContextAttrs(lua_State *L, const GLContextAttrs *value)
     return 7;
 }
 
-bool olua_canpack_GLContextAttrs(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_GLContextAttrs(lua_State *L, int idx)
 {
     return olua_is_int(L, idx + 0) && olua_is_int(L, idx + 1) && olua_is_int(L, idx + 2) && olua_is_int(L, idx + 3) && olua_is_int(L, idx + 4) && olua_is_int(L, idx + 5) && olua_is_int(L, idx + 6);
 }
 
-int olua_push_cocos2d_Tex2F(lua_State *L, const cocos2d::Tex2F *value)
+OLUA_LIB int olua_push_cocos2d_Tex2F(lua_State *L, const cocos2d::Tex2F *value)
 {
     if (value) {
         lua_createtable(L, 0, 2);
@@ -1008,7 +1008,7 @@ int olua_push_cocos2d_Tex2F(lua_State *L, const cocos2d::Tex2F *value)
     return 1;
 }
 
-void olua_check_cocos2d_Tex2F(lua_State *L, int idx, cocos2d::Tex2F *value)
+OLUA_LIB void olua_check_cocos2d_Tex2F(lua_State *L, int idx, cocos2d::Tex2F *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -1034,12 +1034,12 @@ void olua_check_cocos2d_Tex2F(lua_State *L, int idx, cocos2d::Tex2F *value)
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_Tex2F(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_Tex2F(lua_State *L, int idx)
 {
     return olua_istable(L, idx);
 }
 
-void olua_pack_cocos2d_Tex2F(lua_State *L, int idx, cocos2d::Tex2F *value)
+OLUA_LIB void olua_pack_cocos2d_Tex2F(lua_State *L, int idx, cocos2d::Tex2F *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -1056,7 +1056,7 @@ void olua_pack_cocos2d_Tex2F(lua_State *L, int idx, cocos2d::Tex2F *value)
     value->v = (float)arg2;
 }
 
-int olua_unpack_cocos2d_Tex2F(lua_State *L, const cocos2d::Tex2F *value)
+OLUA_LIB int olua_unpack_cocos2d_Tex2F(lua_State *L, const cocos2d::Tex2F *value)
 {
     if (value) {
         olua_push_number(L, (lua_Number)value->u);
@@ -1070,12 +1070,12 @@ int olua_unpack_cocos2d_Tex2F(lua_State *L, const cocos2d::Tex2F *value)
     return 2;
 }
 
-bool olua_canpack_cocos2d_Tex2F(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_Tex2F(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1);
 }
 
-int olua_push_cocos2d_T2F_Quad(lua_State *L, const cocos2d::T2F_Quad *value)
+OLUA_LIB int olua_push_cocos2d_T2F_Quad(lua_State *L, const cocos2d::T2F_Quad *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
@@ -1098,7 +1098,7 @@ int olua_push_cocos2d_T2F_Quad(lua_State *L, const cocos2d::T2F_Quad *value)
     return 1;
 }
 
-void olua_check_cocos2d_T2F_Quad(lua_State *L, int idx, cocos2d::T2F_Quad *value)
+OLUA_LIB void olua_check_cocos2d_T2F_Quad(lua_State *L, int idx, cocos2d::T2F_Quad *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -1132,12 +1132,12 @@ void olua_check_cocos2d_T2F_Quad(lua_State *L, int idx, cocos2d::T2F_Quad *value
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_T2F_Quad(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_T2F_Quad(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "tr") && olua_hasfield(L, idx, "tl") && olua_hasfield(L, idx, "br") && olua_hasfield(L, idx, "bl");
 }
 
-void olua_pack_cocos2d_T2F_Quad(lua_State *L, int idx, cocos2d::T2F_Quad *value)
+OLUA_LIB void olua_pack_cocos2d_T2F_Quad(lua_State *L, int idx, cocos2d::T2F_Quad *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -1162,7 +1162,7 @@ void olua_pack_cocos2d_T2F_Quad(lua_State *L, int idx, cocos2d::T2F_Quad *value)
     value->tr = (cocos2d::Tex2F)arg4;
 }
 
-int olua_unpack_cocos2d_T2F_Quad(lua_State *L, const cocos2d::T2F_Quad *value)
+OLUA_LIB int olua_unpack_cocos2d_T2F_Quad(lua_State *L, const cocos2d::T2F_Quad *value)
 {
     if (value) {
         olua_push_cocos2d_Tex2F(L, &value->bl);
@@ -1178,12 +1178,12 @@ int olua_unpack_cocos2d_T2F_Quad(lua_State *L, const cocos2d::T2F_Quad *value)
     return 4;
 }
 
-bool olua_canpack_cocos2d_T2F_Quad(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_T2F_Quad(lua_State *L, int idx)
 {
     return olua_is_cocos2d_Tex2F(L, idx + 0) && olua_is_cocos2d_Tex2F(L, idx + 1) && olua_is_cocos2d_Tex2F(L, idx + 2) && olua_is_cocos2d_Tex2F(L, idx + 3);
 }
 
-int olua_push_cocos2d_ccBezierConfig(lua_State *L, const cocos2d::ccBezierConfig *value)
+OLUA_LIB int olua_push_cocos2d_ccBezierConfig(lua_State *L, const cocos2d::ccBezierConfig *value)
 {
     if (value) {
         lua_createtable(L, 0, 3);
@@ -1203,7 +1203,7 @@ int olua_push_cocos2d_ccBezierConfig(lua_State *L, const cocos2d::ccBezierConfig
     return 1;
 }
 
-void olua_check_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::ccBezierConfig *value)
+OLUA_LIB void olua_check_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::ccBezierConfig *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -1231,12 +1231,12 @@ void olua_check_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::ccBezierC
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_ccBezierConfig(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_ccBezierConfig(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "controlPoint_2") && olua_hasfield(L, idx, "controlPoint_1") && olua_hasfield(L, idx, "endPosition");
 }
 
-void olua_pack_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::ccBezierConfig *value)
+OLUA_LIB void olua_pack_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::ccBezierConfig *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -1257,7 +1257,7 @@ void olua_pack_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::ccBezierCo
     value->controlPoint_2 = (cocos2d::Vec2)arg3;
 }
 
-int olua_unpack_cocos2d_ccBezierConfig(lua_State *L, const cocos2d::ccBezierConfig *value)
+OLUA_LIB int olua_unpack_cocos2d_ccBezierConfig(lua_State *L, const cocos2d::ccBezierConfig *value)
 {
     if (value) {
         olua_push_cocos2d_Vec2(L, &value->endPosition);
@@ -1272,12 +1272,12 @@ int olua_unpack_cocos2d_ccBezierConfig(lua_State *L, const cocos2d::ccBezierConf
     return 3;
 }
 
-bool olua_canpack_cocos2d_ccBezierConfig(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_ccBezierConfig(lua_State *L, int idx)
 {
     return olua_is_cocos2d_Vec2(L, idx + 0) && olua_is_cocos2d_Vec2(L, idx + 1) && olua_is_cocos2d_Vec2(L, idx + 2);
 }
 
-int olua_push_cocos2d_TTFConfig(lua_State *L, const cocos2d::TTFConfig *value)
+OLUA_LIB int olua_push_cocos2d_TTFConfig(lua_State *L, const cocos2d::TTFConfig *value)
 {
     if (value) {
         lua_createtable(L, 0, 10);
@@ -1318,7 +1318,7 @@ int olua_push_cocos2d_TTFConfig(lua_State *L, const cocos2d::TTFConfig *value)
     return 1;
 }
 
-void olua_check_cocos2d_TTFConfig(lua_State *L, int idx, cocos2d::TTFConfig *value)
+OLUA_LIB void olua_check_cocos2d_TTFConfig(lua_State *L, int idx, cocos2d::TTFConfig *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -1408,12 +1408,12 @@ void olua_check_cocos2d_TTFConfig(lua_State *L, int idx, cocos2d::TTFConfig *val
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_TTFConfig(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_TTFConfig(lua_State *L, int idx)
 {
     return olua_istable(L, idx);
 }
 
-void olua_pack_cocos2d_TTFConfig(lua_State *L, int idx, cocos2d::TTFConfig *value)
+OLUA_LIB void olua_pack_cocos2d_TTFConfig(lua_State *L, int idx, cocos2d::TTFConfig *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -1462,7 +1462,7 @@ void olua_pack_cocos2d_TTFConfig(lua_State *L, int idx, cocos2d::TTFConfig *valu
     value->strikethrough = (bool)arg10;
 }
 
-int olua_unpack_cocos2d_TTFConfig(lua_State *L, const cocos2d::TTFConfig *value)
+OLUA_LIB int olua_unpack_cocos2d_TTFConfig(lua_State *L, const cocos2d::TTFConfig *value)
 {
     if (value) {
         olua_push_std_string(L, value->fontFilePath);
@@ -1484,12 +1484,12 @@ int olua_unpack_cocos2d_TTFConfig(lua_State *L, const cocos2d::TTFConfig *value)
     return 10;
 }
 
-bool olua_canpack_cocos2d_TTFConfig(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_TTFConfig(lua_State *L, int idx)
 {
     return olua_is_std_string(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_uint(L, idx + 2) && olua_is_string(L, idx + 3) && olua_is_bool(L, idx + 4) && olua_is_int(L, idx + 5) && olua_is_bool(L, idx + 6) && olua_is_bool(L, idx + 7) && olua_is_bool(L, idx + 8) && olua_is_bool(L, idx + 9);
 }
 
-int olua_push_cocos2d_BlendFunc(lua_State *L, const cocos2d::BlendFunc *value)
+OLUA_LIB int olua_push_cocos2d_BlendFunc(lua_State *L, const cocos2d::BlendFunc *value)
 {
     if (value) {
         lua_createtable(L, 0, 2);
@@ -1506,7 +1506,7 @@ int olua_push_cocos2d_BlendFunc(lua_State *L, const cocos2d::BlendFunc *value)
     return 1;
 }
 
-void olua_check_cocos2d_BlendFunc(lua_State *L, int idx, cocos2d::BlendFunc *value)
+OLUA_LIB void olua_check_cocos2d_BlendFunc(lua_State *L, int idx, cocos2d::BlendFunc *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -1528,12 +1528,12 @@ void olua_check_cocos2d_BlendFunc(lua_State *L, int idx, cocos2d::BlendFunc *val
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_BlendFunc(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_BlendFunc(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "dst") && olua_hasfield(L, idx, "src");
 }
 
-void olua_pack_cocos2d_BlendFunc(lua_State *L, int idx, cocos2d::BlendFunc *value)
+OLUA_LIB void olua_pack_cocos2d_BlendFunc(lua_State *L, int idx, cocos2d::BlendFunc *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -1550,7 +1550,7 @@ void olua_pack_cocos2d_BlendFunc(lua_State *L, int idx, cocos2d::BlendFunc *valu
     value->dst = (cocos2d::backend::BlendFactor)arg2;
 }
 
-int olua_unpack_cocos2d_BlendFunc(lua_State *L, const cocos2d::BlendFunc *value)
+OLUA_LIB int olua_unpack_cocos2d_BlendFunc(lua_State *L, const cocos2d::BlendFunc *value)
 {
     if (value) {
         olua_push_uint(L, (lua_Unsigned)value->src);
@@ -1564,12 +1564,12 @@ int olua_unpack_cocos2d_BlendFunc(lua_State *L, const cocos2d::BlendFunc *value)
     return 2;
 }
 
-bool olua_canpack_cocos2d_BlendFunc(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_BlendFunc(lua_State *L, int idx)
 {
     return olua_is_uint(L, idx + 0) && olua_is_uint(L, idx + 1);
 }
 
-int olua_push_cocos2d_ui_Margin(lua_State *L, const cocos2d::ui::Margin *value)
+OLUA_LIB int olua_push_cocos2d_ui_Margin(lua_State *L, const cocos2d::ui::Margin *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
@@ -1592,7 +1592,7 @@ int olua_push_cocos2d_ui_Margin(lua_State *L, const cocos2d::ui::Margin *value)
     return 1;
 }
 
-void olua_check_cocos2d_ui_Margin(lua_State *L, int idx, cocos2d::ui::Margin *value)
+OLUA_LIB void olua_check_cocos2d_ui_Margin(lua_State *L, int idx, cocos2d::ui::Margin *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -1626,12 +1626,12 @@ void olua_check_cocos2d_ui_Margin(lua_State *L, int idx, cocos2d::ui::Margin *va
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_ui_Margin(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_ui_Margin(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "bottom") && olua_hasfield(L, idx, "right") && olua_hasfield(L, idx, "top") && olua_hasfield(L, idx, "left");
 }
 
-void olua_pack_cocos2d_ui_Margin(lua_State *L, int idx, cocos2d::ui::Margin *value)
+OLUA_LIB void olua_pack_cocos2d_ui_Margin(lua_State *L, int idx, cocos2d::ui::Margin *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -1656,7 +1656,7 @@ void olua_pack_cocos2d_ui_Margin(lua_State *L, int idx, cocos2d::ui::Margin *val
     value->bottom = (float)arg4;
 }
 
-int olua_unpack_cocos2d_ui_Margin(lua_State *L, const cocos2d::ui::Margin *value)
+OLUA_LIB int olua_unpack_cocos2d_ui_Margin(lua_State *L, const cocos2d::ui::Margin *value)
 {
     if (value) {
         olua_push_number(L, (lua_Number)value->left);
@@ -1672,12 +1672,12 @@ int olua_unpack_cocos2d_ui_Margin(lua_State *L, const cocos2d::ui::Margin *value
     return 4;
 }
 
-bool olua_canpack_cocos2d_ui_Margin(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_ui_Margin(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_number(L, idx + 3);
 }
 
-int olua_push_cocos2d_ResourceData(lua_State *L, const cocos2d::ResourceData *value)
+OLUA_LIB int olua_push_cocos2d_ResourceData(lua_State *L, const cocos2d::ResourceData *value)
 {
     if (value) {
         lua_createtable(L, 0, 3);
@@ -1697,7 +1697,7 @@ int olua_push_cocos2d_ResourceData(lua_State *L, const cocos2d::ResourceData *va
     return 1;
 }
 
-void olua_check_cocos2d_ResourceData(lua_State *L, int idx, cocos2d::ResourceData *value)
+OLUA_LIB void olua_check_cocos2d_ResourceData(lua_State *L, int idx, cocos2d::ResourceData *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -1725,12 +1725,12 @@ void olua_check_cocos2d_ResourceData(lua_State *L, int idx, cocos2d::ResourceDat
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_ResourceData(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_ResourceData(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "plist") && olua_hasfield(L, idx, "file") && olua_hasfield(L, idx, "type");
 }
 
-void olua_pack_cocos2d_ResourceData(lua_State *L, int idx, cocos2d::ResourceData *value)
+OLUA_LIB void olua_pack_cocos2d_ResourceData(lua_State *L, int idx, cocos2d::ResourceData *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -1751,7 +1751,7 @@ void olua_pack_cocos2d_ResourceData(lua_State *L, int idx, cocos2d::ResourceData
     value->plist = (std::string)arg3;
 }
 
-int olua_unpack_cocos2d_ResourceData(lua_State *L, const cocos2d::ResourceData *value)
+OLUA_LIB int olua_unpack_cocos2d_ResourceData(lua_State *L, const cocos2d::ResourceData *value)
 {
     if (value) {
         olua_push_int(L, (lua_Integer)value->type);
@@ -1766,12 +1766,12 @@ int olua_unpack_cocos2d_ResourceData(lua_State *L, const cocos2d::ResourceData *
     return 3;
 }
 
-bool olua_canpack_cocos2d_ResourceData(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_ResourceData(lua_State *L, int idx)
 {
     return olua_is_int(L, idx + 0) && olua_is_std_string(L, idx + 1) && olua_is_std_string(L, idx + 2);
 }
 
-int olua_push_cocos2d_Quad3(lua_State *L, const cocos2d::Quad3 *value)
+OLUA_LIB int olua_push_cocos2d_Quad3(lua_State *L, const cocos2d::Quad3 *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
@@ -1794,7 +1794,7 @@ int olua_push_cocos2d_Quad3(lua_State *L, const cocos2d::Quad3 *value)
     return 1;
 }
 
-void olua_check_cocos2d_Quad3(lua_State *L, int idx, cocos2d::Quad3 *value)
+OLUA_LIB void olua_check_cocos2d_Quad3(lua_State *L, int idx, cocos2d::Quad3 *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -1828,12 +1828,12 @@ void olua_check_cocos2d_Quad3(lua_State *L, int idx, cocos2d::Quad3 *value)
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_Quad3(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_Quad3(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "tr") && olua_hasfield(L, idx, "tl") && olua_hasfield(L, idx, "br") && olua_hasfield(L, idx, "bl");
 }
 
-void olua_pack_cocos2d_Quad3(lua_State *L, int idx, cocos2d::Quad3 *value)
+OLUA_LIB void olua_pack_cocos2d_Quad3(lua_State *L, int idx, cocos2d::Quad3 *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -1858,7 +1858,7 @@ void olua_pack_cocos2d_Quad3(lua_State *L, int idx, cocos2d::Quad3 *value)
     value->tr = (cocos2d::Vec3)arg4;
 }
 
-int olua_unpack_cocos2d_Quad3(lua_State *L, const cocos2d::Quad3 *value)
+OLUA_LIB int olua_unpack_cocos2d_Quad3(lua_State *L, const cocos2d::Quad3 *value)
 {
     if (value) {
         olua_push_cocos2d_Vec3(L, &value->bl);
@@ -1874,12 +1874,12 @@ int olua_unpack_cocos2d_Quad3(lua_State *L, const cocos2d::Quad3 *value)
     return 4;
 }
 
-bool olua_canpack_cocos2d_Quad3(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_Quad3(lua_State *L, int idx)
 {
     return olua_is_cocos2d_Vec3(L, idx + 0) && olua_is_cocos2d_Vec3(L, idx + 1) && olua_is_cocos2d_Vec3(L, idx + 2) && olua_is_cocos2d_Vec3(L, idx + 3);
 }
 
-int olua_push_cocos2d_Texture2D_PixelFormatInfo(lua_State *L, const cocos2d::Texture2D::PixelFormatInfo *value)
+OLUA_LIB int olua_push_cocos2d_Texture2D_PixelFormatInfo(lua_State *L, const cocos2d::Texture2D::PixelFormatInfo *value)
 {
     if (value) {
         lua_createtable(L, 0, 3);
@@ -1899,7 +1899,7 @@ int olua_push_cocos2d_Texture2D_PixelFormatInfo(lua_State *L, const cocos2d::Tex
     return 1;
 }
 
-void olua_check_cocos2d_Texture2D_PixelFormatInfo(lua_State *L, int idx, cocos2d::Texture2D::PixelFormatInfo *value)
+OLUA_LIB void olua_check_cocos2d_Texture2D_PixelFormatInfo(lua_State *L, int idx, cocos2d::Texture2D::PixelFormatInfo *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -1927,12 +1927,12 @@ void olua_check_cocos2d_Texture2D_PixelFormatInfo(lua_State *L, int idx, cocos2d
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_Texture2D_PixelFormatInfo(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_Texture2D_PixelFormatInfo(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "alpha") && olua_hasfield(L, idx, "compressed") && olua_hasfield(L, idx, "bpp");
 }
 
-void olua_pack_cocos2d_Texture2D_PixelFormatInfo(lua_State *L, int idx, cocos2d::Texture2D::PixelFormatInfo *value)
+OLUA_LIB void olua_pack_cocos2d_Texture2D_PixelFormatInfo(lua_State *L, int idx, cocos2d::Texture2D::PixelFormatInfo *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -1953,7 +1953,7 @@ void olua_pack_cocos2d_Texture2D_PixelFormatInfo(lua_State *L, int idx, cocos2d:
     value->alpha = (bool)arg3;
 }
 
-int olua_unpack_cocos2d_Texture2D_PixelFormatInfo(lua_State *L, const cocos2d::Texture2D::PixelFormatInfo *value)
+OLUA_LIB int olua_unpack_cocos2d_Texture2D_PixelFormatInfo(lua_State *L, const cocos2d::Texture2D::PixelFormatInfo *value)
 {
     if (value) {
         olua_push_int(L, (lua_Integer)value->bpp);
@@ -1968,12 +1968,12 @@ int olua_unpack_cocos2d_Texture2D_PixelFormatInfo(lua_State *L, const cocos2d::T
     return 3;
 }
 
-bool olua_canpack_cocos2d_Texture2D_PixelFormatInfo(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_Texture2D_PixelFormatInfo(lua_State *L, int idx)
 {
     return olua_is_int(L, idx + 0) && olua_is_bool(L, idx + 1) && olua_is_bool(L, idx + 2);
 }
 
-int olua_push_cocos2d_Controller_KeyStatus(lua_State *L, const cocos2d::Controller::KeyStatus *value)
+OLUA_LIB int olua_push_cocos2d_Controller_KeyStatus(lua_State *L, const cocos2d::Controller::KeyStatus *value)
 {
     if (value) {
         lua_createtable(L, 0, 3);
@@ -1993,7 +1993,7 @@ int olua_push_cocos2d_Controller_KeyStatus(lua_State *L, const cocos2d::Controll
     return 1;
 }
 
-void olua_check_cocos2d_Controller_KeyStatus(lua_State *L, int idx, cocos2d::Controller::KeyStatus *value)
+OLUA_LIB void olua_check_cocos2d_Controller_KeyStatus(lua_State *L, int idx, cocos2d::Controller::KeyStatus *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -2021,12 +2021,12 @@ void olua_check_cocos2d_Controller_KeyStatus(lua_State *L, int idx, cocos2d::Con
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_Controller_KeyStatus(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_Controller_KeyStatus(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "isAnalog") && olua_hasfield(L, idx, "value") && olua_hasfield(L, idx, "isPressed");
 }
 
-void olua_pack_cocos2d_Controller_KeyStatus(lua_State *L, int idx, cocos2d::Controller::KeyStatus *value)
+OLUA_LIB void olua_pack_cocos2d_Controller_KeyStatus(lua_State *L, int idx, cocos2d::Controller::KeyStatus *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -2047,7 +2047,7 @@ void olua_pack_cocos2d_Controller_KeyStatus(lua_State *L, int idx, cocos2d::Cont
     value->isAnalog = (bool)arg3;
 }
 
-int olua_unpack_cocos2d_Controller_KeyStatus(lua_State *L, const cocos2d::Controller::KeyStatus *value)
+OLUA_LIB int olua_unpack_cocos2d_Controller_KeyStatus(lua_State *L, const cocos2d::Controller::KeyStatus *value)
 {
     if (value) {
         olua_push_bool(L, value->isPressed);
@@ -2062,12 +2062,12 @@ int olua_unpack_cocos2d_Controller_KeyStatus(lua_State *L, const cocos2d::Contro
     return 3;
 }
 
-bool olua_canpack_cocos2d_Controller_KeyStatus(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_Controller_KeyStatus(lua_State *L, int idx)
 {
     return olua_is_bool(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_bool(L, idx + 2);
 }
 
-int olua_push_cocos2d_NavMeshAgentParam(lua_State *L, const cocos2d::NavMeshAgentParam *value)
+OLUA_LIB int olua_push_cocos2d_NavMeshAgentParam(lua_State *L, const cocos2d::NavMeshAgentParam *value)
 {
     if (value) {
         lua_createtable(L, 0, 10);
@@ -2108,7 +2108,7 @@ int olua_push_cocos2d_NavMeshAgentParam(lua_State *L, const cocos2d::NavMeshAgen
     return 1;
 }
 
-void olua_check_cocos2d_NavMeshAgentParam(lua_State *L, int idx, cocos2d::NavMeshAgentParam *value)
+OLUA_LIB void olua_check_cocos2d_NavMeshAgentParam(lua_State *L, int idx, cocos2d::NavMeshAgentParam *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -2178,12 +2178,12 @@ void olua_check_cocos2d_NavMeshAgentParam(lua_State *L, int idx, cocos2d::NavMes
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_NavMeshAgentParam(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_NavMeshAgentParam(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "queryFilterType") && olua_hasfield(L, idx, "obstacleAvoidanceType") && olua_hasfield(L, idx, "updateFlags") && olua_hasfield(L, idx, "separationWeight") && olua_hasfield(L, idx, "pathOptimizationRange") && olua_hasfield(L, idx, "collisionQueryRange") && olua_hasfield(L, idx, "maxSpeed") && olua_hasfield(L, idx, "maxAcceleration") && olua_hasfield(L, idx, "height") && olua_hasfield(L, idx, "radius");
 }
 
-void olua_pack_cocos2d_NavMeshAgentParam(lua_State *L, int idx, cocos2d::NavMeshAgentParam *value)
+OLUA_LIB void olua_pack_cocos2d_NavMeshAgentParam(lua_State *L, int idx, cocos2d::NavMeshAgentParam *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -2232,7 +2232,7 @@ void olua_pack_cocos2d_NavMeshAgentParam(lua_State *L, int idx, cocos2d::NavMesh
     value->queryFilterType = (unsigned char)arg10;
 }
 
-int olua_unpack_cocos2d_NavMeshAgentParam(lua_State *L, const cocos2d::NavMeshAgentParam *value)
+OLUA_LIB int olua_unpack_cocos2d_NavMeshAgentParam(lua_State *L, const cocos2d::NavMeshAgentParam *value)
 {
     if (value) {
         olua_push_number(L, (lua_Number)value->radius);
@@ -2254,12 +2254,12 @@ int olua_unpack_cocos2d_NavMeshAgentParam(lua_State *L, const cocos2d::NavMeshAg
     return 10;
 }
 
-bool olua_canpack_cocos2d_NavMeshAgentParam(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_NavMeshAgentParam(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_number(L, idx + 3) && olua_is_number(L, idx + 4) && olua_is_number(L, idx + 5) && olua_is_number(L, idx + 6) && olua_is_uint(L, idx + 7) && olua_is_uint(L, idx + 8) && olua_is_uint(L, idx + 9);
 }
 
-int olua_push_cocos2d_OffMeshLinkData(lua_State *L, const cocos2d::OffMeshLinkData *value)
+OLUA_LIB int olua_push_cocos2d_OffMeshLinkData(lua_State *L, const cocos2d::OffMeshLinkData *value)
 {
     if (value) {
         lua_createtable(L, 0, 2);
@@ -2276,7 +2276,7 @@ int olua_push_cocos2d_OffMeshLinkData(lua_State *L, const cocos2d::OffMeshLinkDa
     return 1;
 }
 
-void olua_check_cocos2d_OffMeshLinkData(lua_State *L, int idx, cocos2d::OffMeshLinkData *value)
+OLUA_LIB void olua_check_cocos2d_OffMeshLinkData(lua_State *L, int idx, cocos2d::OffMeshLinkData *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -2298,12 +2298,12 @@ void olua_check_cocos2d_OffMeshLinkData(lua_State *L, int idx, cocos2d::OffMeshL
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_OffMeshLinkData(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_OffMeshLinkData(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "endPosition") && olua_hasfield(L, idx, "startPosition");
 }
 
-void olua_pack_cocos2d_OffMeshLinkData(lua_State *L, int idx, cocos2d::OffMeshLinkData *value)
+OLUA_LIB void olua_pack_cocos2d_OffMeshLinkData(lua_State *L, int idx, cocos2d::OffMeshLinkData *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -2320,7 +2320,7 @@ void olua_pack_cocos2d_OffMeshLinkData(lua_State *L, int idx, cocos2d::OffMeshLi
     value->endPosition = (cocos2d::Vec3)arg2;
 }
 
-int olua_unpack_cocos2d_OffMeshLinkData(lua_State *L, const cocos2d::OffMeshLinkData *value)
+OLUA_LIB int olua_unpack_cocos2d_OffMeshLinkData(lua_State *L, const cocos2d::OffMeshLinkData *value)
 {
     if (value) {
         olua_push_cocos2d_Vec3(L, &value->startPosition);
@@ -2334,12 +2334,12 @@ int olua_unpack_cocos2d_OffMeshLinkData(lua_State *L, const cocos2d::OffMeshLink
     return 2;
 }
 
-bool olua_canpack_cocos2d_OffMeshLinkData(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_OffMeshLinkData(lua_State *L, int idx)
 {
     return olua_is_cocos2d_Vec3(L, idx + 0) && olua_is_cocos2d_Vec3(L, idx + 1);
 }
 
-int olua_push_cocos2d_backend_BlendDescriptor(lua_State *L, const cocos2d::backend::BlendDescriptor *value)
+OLUA_LIB int olua_push_cocos2d_backend_BlendDescriptor(lua_State *L, const cocos2d::backend::BlendDescriptor *value)
 {
     if (value) {
         lua_createtable(L, 0, 8);
@@ -2374,7 +2374,7 @@ int olua_push_cocos2d_backend_BlendDescriptor(lua_State *L, const cocos2d::backe
     return 1;
 }
 
-void olua_check_cocos2d_backend_BlendDescriptor(lua_State *L, int idx, cocos2d::backend::BlendDescriptor *value)
+OLUA_LIB void olua_check_cocos2d_backend_BlendDescriptor(lua_State *L, int idx, cocos2d::backend::BlendDescriptor *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -2448,12 +2448,12 @@ void olua_check_cocos2d_backend_BlendDescriptor(lua_State *L, int idx, cocos2d::
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_backend_BlendDescriptor(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_backend_BlendDescriptor(lua_State *L, int idx)
 {
     return olua_istable(L, idx);
 }
 
-void olua_pack_cocos2d_backend_BlendDescriptor(lua_State *L, int idx, cocos2d::backend::BlendDescriptor *value)
+OLUA_LIB void olua_pack_cocos2d_backend_BlendDescriptor(lua_State *L, int idx, cocos2d::backend::BlendDescriptor *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -2494,7 +2494,7 @@ void olua_pack_cocos2d_backend_BlendDescriptor(lua_State *L, int idx, cocos2d::b
     value->destinationAlphaBlendFactor = (cocos2d::backend::BlendFactor)arg8;
 }
 
-int olua_unpack_cocos2d_backend_BlendDescriptor(lua_State *L, const cocos2d::backend::BlendDescriptor *value)
+OLUA_LIB int olua_unpack_cocos2d_backend_BlendDescriptor(lua_State *L, const cocos2d::backend::BlendDescriptor *value)
 {
     if (value) {
         olua_push_uint(L, (lua_Unsigned)value->writeMask);
@@ -2514,12 +2514,12 @@ int olua_unpack_cocos2d_backend_BlendDescriptor(lua_State *L, const cocos2d::bac
     return 8;
 }
 
-bool olua_canpack_cocos2d_backend_BlendDescriptor(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_backend_BlendDescriptor(lua_State *L, int idx)
 {
     return olua_is_uint(L, idx + 0) && olua_is_bool(L, idx + 1) && olua_is_uint(L, idx + 2) && olua_is_uint(L, idx + 3) && olua_is_uint(L, idx + 4) && olua_is_uint(L, idx + 5) && olua_is_uint(L, idx + 6) && olua_is_uint(L, idx + 7);
 }
 
-int olua_push_cocos2d_backend_SamplerDescriptor(lua_State *L, const cocos2d::backend::SamplerDescriptor *value)
+OLUA_LIB int olua_push_cocos2d_backend_SamplerDescriptor(lua_State *L, const cocos2d::backend::SamplerDescriptor *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
@@ -2542,7 +2542,7 @@ int olua_push_cocos2d_backend_SamplerDescriptor(lua_State *L, const cocos2d::bac
     return 1;
 }
 
-void olua_check_cocos2d_backend_SamplerDescriptor(lua_State *L, int idx, cocos2d::backend::SamplerDescriptor *value)
+OLUA_LIB void olua_check_cocos2d_backend_SamplerDescriptor(lua_State *L, int idx, cocos2d::backend::SamplerDescriptor *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -2584,12 +2584,12 @@ void olua_check_cocos2d_backend_SamplerDescriptor(lua_State *L, int idx, cocos2d
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_backend_SamplerDescriptor(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_backend_SamplerDescriptor(lua_State *L, int idx)
 {
     return olua_istable(L, idx);
 }
 
-void olua_pack_cocos2d_backend_SamplerDescriptor(lua_State *L, int idx, cocos2d::backend::SamplerDescriptor *value)
+OLUA_LIB void olua_pack_cocos2d_backend_SamplerDescriptor(lua_State *L, int idx, cocos2d::backend::SamplerDescriptor *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -2614,7 +2614,7 @@ void olua_pack_cocos2d_backend_SamplerDescriptor(lua_State *L, int idx, cocos2d:
     value->tAddressMode = (cocos2d::backend::SamplerAddressMode)arg4;
 }
 
-int olua_unpack_cocos2d_backend_SamplerDescriptor(lua_State *L, const cocos2d::backend::SamplerDescriptor *value)
+OLUA_LIB int olua_unpack_cocos2d_backend_SamplerDescriptor(lua_State *L, const cocos2d::backend::SamplerDescriptor *value)
 {
     if (value) {
         olua_push_uint(L, (lua_Unsigned)value->magFilter);
@@ -2630,12 +2630,12 @@ int olua_unpack_cocos2d_backend_SamplerDescriptor(lua_State *L, const cocos2d::b
     return 4;
 }
 
-bool olua_canpack_cocos2d_backend_SamplerDescriptor(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_backend_SamplerDescriptor(lua_State *L, int idx)
 {
     return olua_is_uint(L, idx + 0) && olua_is_uint(L, idx + 1) && olua_is_uint(L, idx + 2) && olua_is_uint(L, idx + 3);
 }
 
-int olua_push_cocos2d_backend_TextureInfo(lua_State *L, const cocos2d::backend::TextureInfo *value)
+OLUA_LIB int olua_push_cocos2d_backend_TextureInfo(lua_State *L, const cocos2d::backend::TextureInfo *value)
 {
     if (value) {
         lua_createtable(L, 0, 2);
@@ -2656,7 +2656,7 @@ int olua_push_cocos2d_backend_TextureInfo(lua_State *L, const cocos2d::backend::
     return 1;
 }
 
-void olua_check_cocos2d_backend_TextureInfo(lua_State *L, int idx, cocos2d::backend::TextureInfo *value)
+OLUA_LIB void olua_check_cocos2d_backend_TextureInfo(lua_State *L, int idx, cocos2d::backend::TextureInfo *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -2684,12 +2684,12 @@ void olua_check_cocos2d_backend_TextureInfo(lua_State *L, int idx, cocos2d::back
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_backend_TextureInfo(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_backend_TextureInfo(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "textures") && olua_hasfield(L, idx, "slot");
 }
 
-void olua_pack_cocos2d_backend_TextureInfo(lua_State *L, int idx, cocos2d::backend::TextureInfo *value)
+OLUA_LIB void olua_pack_cocos2d_backend_TextureInfo(lua_State *L, int idx, cocos2d::backend::TextureInfo *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -2712,7 +2712,7 @@ void olua_pack_cocos2d_backend_TextureInfo(lua_State *L, int idx, cocos2d::backe
     value->textures = (std::vector<cocos2d::backend::TextureBackend *>)arg2;
 }
 
-int olua_unpack_cocos2d_backend_TextureInfo(lua_State *L, const cocos2d::backend::TextureInfo *value)
+OLUA_LIB int olua_unpack_cocos2d_backend_TextureInfo(lua_State *L, const cocos2d::backend::TextureInfo *value)
 {
     if (value) {
         olua_push_array<uint32_t>(L, &value->slot, [L](uint32_t value) {
@@ -2730,12 +2730,12 @@ int olua_unpack_cocos2d_backend_TextureInfo(lua_State *L, const cocos2d::backend
     return 2;
 }
 
-bool olua_canpack_cocos2d_backend_TextureInfo(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_backend_TextureInfo(lua_State *L, int idx)
 {
     return olua_is_array(L, idx + 0) && olua_is_array(L, idx + 1);
 }
 
-int olua_push_cocos2d_backend_AttributeBindInfo(lua_State *L, const cocos2d::backend::AttributeBindInfo *value)
+OLUA_LIB int olua_push_cocos2d_backend_AttributeBindInfo(lua_State *L, const cocos2d::backend::AttributeBindInfo *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
@@ -2758,7 +2758,7 @@ int olua_push_cocos2d_backend_AttributeBindInfo(lua_State *L, const cocos2d::bac
     return 1;
 }
 
-void olua_check_cocos2d_backend_AttributeBindInfo(lua_State *L, int idx, cocos2d::backend::AttributeBindInfo *value)
+OLUA_LIB void olua_check_cocos2d_backend_AttributeBindInfo(lua_State *L, int idx, cocos2d::backend::AttributeBindInfo *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -2798,12 +2798,12 @@ void olua_check_cocos2d_backend_AttributeBindInfo(lua_State *L, int idx, cocos2d
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_backend_AttributeBindInfo(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_backend_AttributeBindInfo(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "attributeName");
 }
 
-void olua_pack_cocos2d_backend_AttributeBindInfo(lua_State *L, int idx, cocos2d::backend::AttributeBindInfo *value)
+OLUA_LIB void olua_pack_cocos2d_backend_AttributeBindInfo(lua_State *L, int idx, cocos2d::backend::AttributeBindInfo *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -2828,7 +2828,7 @@ void olua_pack_cocos2d_backend_AttributeBindInfo(lua_State *L, int idx, cocos2d:
     value->type = (int)arg4;
 }
 
-int olua_unpack_cocos2d_backend_AttributeBindInfo(lua_State *L, const cocos2d::backend::AttributeBindInfo *value)
+OLUA_LIB int olua_unpack_cocos2d_backend_AttributeBindInfo(lua_State *L, const cocos2d::backend::AttributeBindInfo *value)
 {
     if (value) {
         olua_push_std_string(L, value->attributeName);
@@ -2844,12 +2844,12 @@ int olua_unpack_cocos2d_backend_AttributeBindInfo(lua_State *L, const cocos2d::b
     return 4;
 }
 
-bool olua_canpack_cocos2d_backend_AttributeBindInfo(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_backend_AttributeBindInfo(lua_State *L, int idx)
 {
     return olua_is_std_string(L, idx + 0) && olua_is_int(L, idx + 1) && olua_is_int(L, idx + 2) && olua_is_int(L, idx + 3);
 }
 
-int olua_push_cocos2d_backend_UniformInfo(lua_State *L, const cocos2d::backend::UniformInfo *value)
+OLUA_LIB int olua_push_cocos2d_backend_UniformInfo(lua_State *L, const cocos2d::backend::UniformInfo *value)
 {
     if (value) {
         lua_createtable(L, 0, 8);
@@ -2884,7 +2884,7 @@ int olua_push_cocos2d_backend_UniformInfo(lua_State *L, const cocos2d::backend::
     return 1;
 }
 
-void olua_check_cocos2d_backend_UniformInfo(lua_State *L, int idx, cocos2d::backend::UniformInfo *value)
+OLUA_LIB void olua_check_cocos2d_backend_UniformInfo(lua_State *L, int idx, cocos2d::backend::UniformInfo *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -2958,12 +2958,12 @@ void olua_check_cocos2d_backend_UniformInfo(lua_State *L, int idx, cocos2d::back
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_backend_UniformInfo(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_backend_UniformInfo(lua_State *L, int idx)
 {
     return olua_istable(L, idx);
 }
 
-void olua_pack_cocos2d_backend_UniformInfo(lua_State *L, int idx, cocos2d::backend::UniformInfo *value)
+OLUA_LIB void olua_pack_cocos2d_backend_UniformInfo(lua_State *L, int idx, cocos2d::backend::UniformInfo *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -3004,7 +3004,7 @@ void olua_pack_cocos2d_backend_UniformInfo(lua_State *L, int idx, cocos2d::backe
     value->needConvert = (bool)arg8;
 }
 
-int olua_unpack_cocos2d_backend_UniformInfo(lua_State *L, const cocos2d::backend::UniformInfo *value)
+OLUA_LIB int olua_unpack_cocos2d_backend_UniformInfo(lua_State *L, const cocos2d::backend::UniformInfo *value)
 {
     if (value) {
         olua_push_int(L, (lua_Integer)value->count);
@@ -3024,12 +3024,12 @@ int olua_unpack_cocos2d_backend_UniformInfo(lua_State *L, const cocos2d::backend
     return 8;
 }
 
-bool olua_canpack_cocos2d_backend_UniformInfo(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_backend_UniformInfo(lua_State *L, int idx)
 {
     return olua_is_int(L, idx + 0) && olua_is_int(L, idx + 1) && olua_is_uint(L, idx + 2) && olua_is_bool(L, idx + 3) && olua_is_uint(L, idx + 4) && olua_is_uint(L, idx + 5) && olua_is_bool(L, idx + 6) && olua_is_bool(L, idx + 7);
 }
 
-int olua_push_cocos2d_backend_TextureDescriptor(lua_State *L, const cocos2d::backend::TextureDescriptor *value)
+OLUA_LIB int olua_push_cocos2d_backend_TextureDescriptor(lua_State *L, const cocos2d::backend::TextureDescriptor *value)
 {
     if (value) {
         lua_createtable(L, 0, 8);
@@ -3064,7 +3064,7 @@ int olua_push_cocos2d_backend_TextureDescriptor(lua_State *L, const cocos2d::bac
     return 1;
 }
 
-void olua_check_cocos2d_backend_TextureDescriptor(lua_State *L, int idx, cocos2d::backend::TextureDescriptor *value)
+OLUA_LIB void olua_check_cocos2d_backend_TextureDescriptor(lua_State *L, int idx, cocos2d::backend::TextureDescriptor *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -3136,12 +3136,12 @@ void olua_check_cocos2d_backend_TextureDescriptor(lua_State *L, int idx, cocos2d
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_backend_TextureDescriptor(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_backend_TextureDescriptor(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "samplerDescriptor");
 }
 
-void olua_pack_cocos2d_backend_TextureDescriptor(lua_State *L, int idx, cocos2d::backend::TextureDescriptor *value)
+OLUA_LIB void olua_pack_cocos2d_backend_TextureDescriptor(lua_State *L, int idx, cocos2d::backend::TextureDescriptor *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -3182,7 +3182,7 @@ void olua_pack_cocos2d_backend_TextureDescriptor(lua_State *L, int idx, cocos2d:
     value->sampleCount = (int)arg8;
 }
 
-int olua_unpack_cocos2d_backend_TextureDescriptor(lua_State *L, const cocos2d::backend::TextureDescriptor *value)
+OLUA_LIB int olua_unpack_cocos2d_backend_TextureDescriptor(lua_State *L, const cocos2d::backend::TextureDescriptor *value)
 {
     if (value) {
         olua_push_uint(L, (lua_Unsigned)value->textureType);
@@ -3202,12 +3202,12 @@ int olua_unpack_cocos2d_backend_TextureDescriptor(lua_State *L, const cocos2d::b
     return 8;
 }
 
-bool olua_canpack_cocos2d_backend_TextureDescriptor(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_backend_TextureDescriptor(lua_State *L, int idx)
 {
     return olua_is_uint(L, idx + 0) && olua_is_uint(L, idx + 1) && olua_is_uint(L, idx + 2) && olua_is_uint(L, idx + 3) && olua_is_uint(L, idx + 4) && olua_is_uint(L, idx + 5) && olua_is_cocos2d_backend_SamplerDescriptor(L, idx + 6) && olua_is_int(L, idx + 7);
 }
 
-int olua_push_cocos2d_backend_StencilDescriptor(lua_State *L, const cocos2d::backend::StencilDescriptor *value)
+OLUA_LIB int olua_push_cocos2d_backend_StencilDescriptor(lua_State *L, const cocos2d::backend::StencilDescriptor *value)
 {
     if (value) {
         lua_createtable(L, 0, 6);
@@ -3236,7 +3236,7 @@ int olua_push_cocos2d_backend_StencilDescriptor(lua_State *L, const cocos2d::bac
     return 1;
 }
 
-void olua_check_cocos2d_backend_StencilDescriptor(lua_State *L, int idx, cocos2d::backend::StencilDescriptor *value)
+OLUA_LIB void olua_check_cocos2d_backend_StencilDescriptor(lua_State *L, int idx, cocos2d::backend::StencilDescriptor *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -3294,12 +3294,12 @@ void olua_check_cocos2d_backend_StencilDescriptor(lua_State *L, int idx, cocos2d
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_backend_StencilDescriptor(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_backend_StencilDescriptor(lua_State *L, int idx)
 {
     return olua_istable(L, idx);
 }
 
-void olua_pack_cocos2d_backend_StencilDescriptor(lua_State *L, int idx, cocos2d::backend::StencilDescriptor *value)
+OLUA_LIB void olua_pack_cocos2d_backend_StencilDescriptor(lua_State *L, int idx, cocos2d::backend::StencilDescriptor *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -3332,7 +3332,7 @@ void olua_pack_cocos2d_backend_StencilDescriptor(lua_State *L, int idx, cocos2d:
     value->writeMask = (unsigned int)arg6;
 }
 
-int olua_unpack_cocos2d_backend_StencilDescriptor(lua_State *L, const cocos2d::backend::StencilDescriptor *value)
+OLUA_LIB int olua_unpack_cocos2d_backend_StencilDescriptor(lua_State *L, const cocos2d::backend::StencilDescriptor *value)
 {
     if (value) {
         olua_push_uint(L, (lua_Unsigned)value->stencilFailureOperation);
@@ -3350,12 +3350,12 @@ int olua_unpack_cocos2d_backend_StencilDescriptor(lua_State *L, const cocos2d::b
     return 6;
 }
 
-bool olua_canpack_cocos2d_backend_StencilDescriptor(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_backend_StencilDescriptor(lua_State *L, int idx)
 {
     return olua_is_uint(L, idx + 0) && olua_is_uint(L, idx + 1) && olua_is_uint(L, idx + 2) && olua_is_uint(L, idx + 3) && olua_is_uint(L, idx + 4) && olua_is_uint(L, idx + 5);
 }
 
-int olua_push_cocos2d_backend_DepthStencilDescriptor(lua_State *L, const cocos2d::backend::DepthStencilDescriptor *value)
+OLUA_LIB int olua_push_cocos2d_backend_DepthStencilDescriptor(lua_State *L, const cocos2d::backend::DepthStencilDescriptor *value)
 {
     if (value) {
         lua_createtable(L, 0, 6);
@@ -3384,7 +3384,7 @@ int olua_push_cocos2d_backend_DepthStencilDescriptor(lua_State *L, const cocos2d
     return 1;
 }
 
-void olua_check_cocos2d_backend_DepthStencilDescriptor(lua_State *L, int idx, cocos2d::backend::DepthStencilDescriptor *value)
+OLUA_LIB void olua_check_cocos2d_backend_DepthStencilDescriptor(lua_State *L, int idx, cocos2d::backend::DepthStencilDescriptor *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -3438,12 +3438,12 @@ void olua_check_cocos2d_backend_DepthStencilDescriptor(lua_State *L, int idx, co
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_backend_DepthStencilDescriptor(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_backend_DepthStencilDescriptor(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "frontFaceStencil") && olua_hasfield(L, idx, "backFaceStencil");
 }
 
-void olua_pack_cocos2d_backend_DepthStencilDescriptor(lua_State *L, int idx, cocos2d::backend::DepthStencilDescriptor *value)
+OLUA_LIB void olua_pack_cocos2d_backend_DepthStencilDescriptor(lua_State *L, int idx, cocos2d::backend::DepthStencilDescriptor *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -3476,7 +3476,7 @@ void olua_pack_cocos2d_backend_DepthStencilDescriptor(lua_State *L, int idx, coc
     value->frontFaceStencil = (cocos2d::backend::StencilDescriptor)arg6;
 }
 
-int olua_unpack_cocos2d_backend_DepthStencilDescriptor(lua_State *L, const cocos2d::backend::DepthStencilDescriptor *value)
+OLUA_LIB int olua_unpack_cocos2d_backend_DepthStencilDescriptor(lua_State *L, const cocos2d::backend::DepthStencilDescriptor *value)
 {
     if (value) {
         olua_push_uint(L, (lua_Unsigned)value->depthCompareFunction);
@@ -3494,12 +3494,12 @@ int olua_unpack_cocos2d_backend_DepthStencilDescriptor(lua_State *L, const cocos
     return 6;
 }
 
-bool olua_canpack_cocos2d_backend_DepthStencilDescriptor(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_backend_DepthStencilDescriptor(lua_State *L, int idx)
 {
     return olua_is_uint(L, idx + 0) && olua_is_bool(L, idx + 1) && olua_is_bool(L, idx + 2) && olua_is_bool(L, idx + 3) && olua_is_cocos2d_backend_StencilDescriptor(L, idx + 4) && olua_is_cocos2d_backend_StencilDescriptor(L, idx + 5);
 }
 
-int olua_push_cocos2d_backend_VertexLayout_Attribute(lua_State *L, const cocos2d::backend::VertexLayout::Attribute *value)
+OLUA_LIB int olua_push_cocos2d_backend_VertexLayout_Attribute(lua_State *L, const cocos2d::backend::VertexLayout::Attribute *value)
 {
     if (value) {
         lua_createtable(L, 0, 5);
@@ -3525,7 +3525,7 @@ int olua_push_cocos2d_backend_VertexLayout_Attribute(lua_State *L, const cocos2d
     return 1;
 }
 
-void olua_check_cocos2d_backend_VertexLayout_Attribute(lua_State *L, int idx, cocos2d::backend::VertexLayout::Attribute *value)
+OLUA_LIB void olua_check_cocos2d_backend_VertexLayout_Attribute(lua_State *L, int idx, cocos2d::backend::VertexLayout::Attribute *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -3573,12 +3573,12 @@ void olua_check_cocos2d_backend_VertexLayout_Attribute(lua_State *L, int idx, co
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_backend_VertexLayout_Attribute(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_backend_VertexLayout_Attribute(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "name");
 }
 
-void olua_pack_cocos2d_backend_VertexLayout_Attribute(lua_State *L, int idx, cocos2d::backend::VertexLayout::Attribute *value)
+OLUA_LIB void olua_pack_cocos2d_backend_VertexLayout_Attribute(lua_State *L, int idx, cocos2d::backend::VertexLayout::Attribute *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -3607,7 +3607,7 @@ void olua_pack_cocos2d_backend_VertexLayout_Attribute(lua_State *L, int idx, coc
     value->needToBeNormallized = (bool)arg5;
 }
 
-int olua_unpack_cocos2d_backend_VertexLayout_Attribute(lua_State *L, const cocos2d::backend::VertexLayout::Attribute *value)
+OLUA_LIB int olua_unpack_cocos2d_backend_VertexLayout_Attribute(lua_State *L, const cocos2d::backend::VertexLayout::Attribute *value)
 {
     if (value) {
         olua_push_std_string(L, value->name);
@@ -3624,7 +3624,7 @@ int olua_unpack_cocos2d_backend_VertexLayout_Attribute(lua_State *L, const cocos
     return 5;
 }
 
-bool olua_canpack_cocos2d_backend_VertexLayout_Attribute(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_backend_VertexLayout_Attribute(lua_State *L, int idx)
 {
     return olua_is_std_string(L, idx + 0) && olua_is_uint(L, idx + 1) && olua_is_uint(L, idx + 2) && olua_is_uint(L, idx + 3) && olua_is_bool(L, idx + 4);
 }

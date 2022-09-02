@@ -3,7 +3,7 @@
 //
 #include "lua_box2d.h"
 
-int olua_push_b2Vec2(lua_State *L, const b2Vec2 *value)
+OLUA_LIB int olua_push_b2Vec2(lua_State *L, const b2Vec2 *value)
 {
     if (value) {
         lua_createtable(L, 0, 2);
@@ -20,7 +20,7 @@ int olua_push_b2Vec2(lua_State *L, const b2Vec2 *value)
     return 1;
 }
 
-void olua_check_b2Vec2(lua_State *L, int idx, b2Vec2 *value)
+OLUA_LIB void olua_check_b2Vec2(lua_State *L, int idx, b2Vec2 *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -42,12 +42,12 @@ void olua_check_b2Vec2(lua_State *L, int idx, b2Vec2 *value)
     lua_pop(L, 1);
 }
 
-bool olua_is_b2Vec2(lua_State *L, int idx)
+OLUA_LIB bool olua_is_b2Vec2(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "y") && olua_hasfield(L, idx, "x");
 }
 
-void olua_pack_b2Vec2(lua_State *L, int idx, b2Vec2 *value)
+OLUA_LIB void olua_pack_b2Vec2(lua_State *L, int idx, b2Vec2 *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -64,7 +64,7 @@ void olua_pack_b2Vec2(lua_State *L, int idx, b2Vec2 *value)
     value->y = (float)arg2;
 }
 
-int olua_unpack_b2Vec2(lua_State *L, const b2Vec2 *value)
+OLUA_LIB int olua_unpack_b2Vec2(lua_State *L, const b2Vec2 *value)
 {
     if (value) {
         olua_push_number(L, (lua_Number)value->x);
@@ -78,12 +78,12 @@ int olua_unpack_b2Vec2(lua_State *L, const b2Vec2 *value)
     return 2;
 }
 
-bool olua_canpack_b2Vec2(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_b2Vec2(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1);
 }
 
-int olua_push_b2Vec3(lua_State *L, const b2Vec3 *value)
+OLUA_LIB int olua_push_b2Vec3(lua_State *L, const b2Vec3 *value)
 {
     if (value) {
         lua_createtable(L, 0, 3);
@@ -103,7 +103,7 @@ int olua_push_b2Vec3(lua_State *L, const b2Vec3 *value)
     return 1;
 }
 
-void olua_check_b2Vec3(lua_State *L, int idx, b2Vec3 *value)
+OLUA_LIB void olua_check_b2Vec3(lua_State *L, int idx, b2Vec3 *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -131,12 +131,12 @@ void olua_check_b2Vec3(lua_State *L, int idx, b2Vec3 *value)
     lua_pop(L, 1);
 }
 
-bool olua_is_b2Vec3(lua_State *L, int idx)
+OLUA_LIB bool olua_is_b2Vec3(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "z") && olua_hasfield(L, idx, "y") && olua_hasfield(L, idx, "x");
 }
 
-void olua_pack_b2Vec3(lua_State *L, int idx, b2Vec3 *value)
+OLUA_LIB void olua_pack_b2Vec3(lua_State *L, int idx, b2Vec3 *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -157,7 +157,7 @@ void olua_pack_b2Vec3(lua_State *L, int idx, b2Vec3 *value)
     value->z = (float)arg3;
 }
 
-int olua_unpack_b2Vec3(lua_State *L, const b2Vec3 *value)
+OLUA_LIB int olua_unpack_b2Vec3(lua_State *L, const b2Vec3 *value)
 {
     if (value) {
         olua_push_number(L, (lua_Number)value->x);
@@ -172,12 +172,12 @@ int olua_unpack_b2Vec3(lua_State *L, const b2Vec3 *value)
     return 3;
 }
 
-bool olua_canpack_b2Vec3(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_b2Vec3(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2);
 }
 
-int olua_push_b2ContactID(lua_State *L, const b2ContactID *value)
+OLUA_LIB int olua_push_b2ContactID(lua_State *L, const b2ContactID *value)
 {
     if (value) {
         lua_createtable(L, 0, 2);
@@ -194,7 +194,7 @@ int olua_push_b2ContactID(lua_State *L, const b2ContactID *value)
     return 1;
 }
 
-void olua_check_b2ContactID(lua_State *L, int idx, b2ContactID *value)
+OLUA_LIB void olua_check_b2ContactID(lua_State *L, int idx, b2ContactID *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -216,12 +216,12 @@ void olua_check_b2ContactID(lua_State *L, int idx, b2ContactID *value)
     lua_pop(L, 1);
 }
 
-bool olua_is_b2ContactID(lua_State *L, int idx)
+OLUA_LIB bool olua_is_b2ContactID(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "key") && olua_hasfield(L, idx, "cf");
 }
 
-void olua_pack_b2ContactID(lua_State *L, int idx, b2ContactID *value)
+OLUA_LIB void olua_pack_b2ContactID(lua_State *L, int idx, b2ContactID *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -238,7 +238,7 @@ void olua_pack_b2ContactID(lua_State *L, int idx, b2ContactID *value)
     value->key = (uint32)arg2;
 }
 
-int olua_unpack_b2ContactID(lua_State *L, const b2ContactID *value)
+OLUA_LIB int olua_unpack_b2ContactID(lua_State *L, const b2ContactID *value)
 {
     if (value) {
         olua_push_b2ContactFeature(L, &value->cf);
@@ -252,12 +252,12 @@ int olua_unpack_b2ContactID(lua_State *L, const b2ContactID *value)
     return 2;
 }
 
-bool olua_canpack_b2ContactID(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_b2ContactID(lua_State *L, int idx)
 {
     return olua_is_b2ContactFeature(L, idx + 0) && olua_is_uint(L, idx + 1);
 }
 
-int olua_push_b2ContactFeature(lua_State *L, const b2ContactFeature *value)
+OLUA_LIB int olua_push_b2ContactFeature(lua_State *L, const b2ContactFeature *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
@@ -280,7 +280,7 @@ int olua_push_b2ContactFeature(lua_State *L, const b2ContactFeature *value)
     return 1;
 }
 
-void olua_check_b2ContactFeature(lua_State *L, int idx, b2ContactFeature *value)
+OLUA_LIB void olua_check_b2ContactFeature(lua_State *L, int idx, b2ContactFeature *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -314,12 +314,12 @@ void olua_check_b2ContactFeature(lua_State *L, int idx, b2ContactFeature *value)
     lua_pop(L, 1);
 }
 
-bool olua_is_b2ContactFeature(lua_State *L, int idx)
+OLUA_LIB bool olua_is_b2ContactFeature(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "typeB") && olua_hasfield(L, idx, "typeA") && olua_hasfield(L, idx, "indexB") && olua_hasfield(L, idx, "indexA");
 }
 
-void olua_pack_b2ContactFeature(lua_State *L, int idx, b2ContactFeature *value)
+OLUA_LIB void olua_pack_b2ContactFeature(lua_State *L, int idx, b2ContactFeature *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -344,7 +344,7 @@ void olua_pack_b2ContactFeature(lua_State *L, int idx, b2ContactFeature *value)
     value->typeB = (uint8)arg4;
 }
 
-int olua_unpack_b2ContactFeature(lua_State *L, const b2ContactFeature *value)
+OLUA_LIB int olua_unpack_b2ContactFeature(lua_State *L, const b2ContactFeature *value)
 {
     if (value) {
         olua_push_uint(L, (lua_Unsigned)value->indexA);
@@ -360,12 +360,12 @@ int olua_unpack_b2ContactFeature(lua_State *L, const b2ContactFeature *value)
     return 4;
 }
 
-bool olua_canpack_b2ContactFeature(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_b2ContactFeature(lua_State *L, int idx)
 {
     return olua_is_uint(L, idx + 0) && olua_is_uint(L, idx + 1) && olua_is_uint(L, idx + 2) && olua_is_uint(L, idx + 3);
 }
 
-int olua_push_b2Color(lua_State *L, const b2Color *value)
+OLUA_LIB int olua_push_b2Color(lua_State *L, const b2Color *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
@@ -388,7 +388,7 @@ int olua_push_b2Color(lua_State *L, const b2Color *value)
     return 1;
 }
 
-void olua_check_b2Color(lua_State *L, int idx, b2Color *value)
+OLUA_LIB void olua_check_b2Color(lua_State *L, int idx, b2Color *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -422,12 +422,12 @@ void olua_check_b2Color(lua_State *L, int idx, b2Color *value)
     lua_pop(L, 1);
 }
 
-bool olua_is_b2Color(lua_State *L, int idx)
+OLUA_LIB bool olua_is_b2Color(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "a") && olua_hasfield(L, idx, "b") && olua_hasfield(L, idx, "g") && olua_hasfield(L, idx, "r");
 }
 
-void olua_pack_b2Color(lua_State *L, int idx, b2Color *value)
+OLUA_LIB void olua_pack_b2Color(lua_State *L, int idx, b2Color *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -452,7 +452,7 @@ void olua_pack_b2Color(lua_State *L, int idx, b2Color *value)
     value->a = (float)arg4;
 }
 
-int olua_unpack_b2Color(lua_State *L, const b2Color *value)
+OLUA_LIB int olua_unpack_b2Color(lua_State *L, const b2Color *value)
 {
     if (value) {
         olua_push_number(L, (lua_Number)value->r);
@@ -468,12 +468,12 @@ int olua_unpack_b2Color(lua_State *L, const b2Color *value)
     return 4;
 }
 
-bool olua_canpack_b2Color(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_b2Color(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_number(L, idx + 3);
 }
 
-int olua_push_b2FixtureUserData(lua_State *L, const b2FixtureUserData *value)
+OLUA_LIB int olua_push_b2FixtureUserData(lua_State *L, const b2FixtureUserData *value)
 {
     if (value) {
         lua_createtable(L, 0, 1);
@@ -487,7 +487,7 @@ int olua_push_b2FixtureUserData(lua_State *L, const b2FixtureUserData *value)
     return 1;
 }
 
-void olua_check_b2FixtureUserData(lua_State *L, int idx, b2FixtureUserData *value)
+OLUA_LIB void olua_check_b2FixtureUserData(lua_State *L, int idx, b2FixtureUserData *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -503,12 +503,12 @@ void olua_check_b2FixtureUserData(lua_State *L, int idx, b2FixtureUserData *valu
     lua_pop(L, 1);
 }
 
-bool olua_is_b2FixtureUserData(lua_State *L, int idx)
+OLUA_LIB bool olua_is_b2FixtureUserData(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "pointer");
 }
 
-void olua_pack_b2FixtureUserData(lua_State *L, int idx, b2FixtureUserData *value)
+OLUA_LIB void olua_pack_b2FixtureUserData(lua_State *L, int idx, b2FixtureUserData *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -521,7 +521,7 @@ void olua_pack_b2FixtureUserData(lua_State *L, int idx, b2FixtureUserData *value
     value->pointer = (uintptr_t)arg1;
 }
 
-int olua_unpack_b2FixtureUserData(lua_State *L, const b2FixtureUserData *value)
+OLUA_LIB int olua_unpack_b2FixtureUserData(lua_State *L, const b2FixtureUserData *value)
 {
     if (value) {
         olua_push_uint(L, (lua_Unsigned)value->pointer);
@@ -534,12 +534,12 @@ int olua_unpack_b2FixtureUserData(lua_State *L, const b2FixtureUserData *value)
     return 1;
 }
 
-bool olua_canpack_b2FixtureUserData(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_b2FixtureUserData(lua_State *L, int idx)
 {
     return olua_is_uint(L, idx + 0);
 }
 
-int olua_push_b2Filter(lua_State *L, const b2Filter *value)
+OLUA_LIB int olua_push_b2Filter(lua_State *L, const b2Filter *value)
 {
     if (value) {
         lua_createtable(L, 0, 3);
@@ -559,7 +559,7 @@ int olua_push_b2Filter(lua_State *L, const b2Filter *value)
     return 1;
 }
 
-void olua_check_b2Filter(lua_State *L, int idx, b2Filter *value)
+OLUA_LIB void olua_check_b2Filter(lua_State *L, int idx, b2Filter *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -587,12 +587,12 @@ void olua_check_b2Filter(lua_State *L, int idx, b2Filter *value)
     lua_pop(L, 1);
 }
 
-bool olua_is_b2Filter(lua_State *L, int idx)
+OLUA_LIB bool olua_is_b2Filter(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "groupIndex") && olua_hasfield(L, idx, "maskBits") && olua_hasfield(L, idx, "categoryBits");
 }
 
-void olua_pack_b2Filter(lua_State *L, int idx, b2Filter *value)
+OLUA_LIB void olua_pack_b2Filter(lua_State *L, int idx, b2Filter *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -613,7 +613,7 @@ void olua_pack_b2Filter(lua_State *L, int idx, b2Filter *value)
     value->groupIndex = (int16)arg3;
 }
 
-int olua_unpack_b2Filter(lua_State *L, const b2Filter *value)
+OLUA_LIB int olua_unpack_b2Filter(lua_State *L, const b2Filter *value)
 {
     if (value) {
         olua_push_uint(L, (lua_Unsigned)value->categoryBits);
@@ -628,12 +628,12 @@ int olua_unpack_b2Filter(lua_State *L, const b2Filter *value)
     return 3;
 }
 
-bool olua_canpack_b2Filter(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_b2Filter(lua_State *L, int idx)
 {
     return olua_is_uint(L, idx + 0) && olua_is_uint(L, idx + 1) && olua_is_int(L, idx + 2);
 }
 
-int olua_push_b2ManifoldPoint(lua_State *L, const b2ManifoldPoint *value)
+OLUA_LIB int olua_push_b2ManifoldPoint(lua_State *L, const b2ManifoldPoint *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
@@ -656,7 +656,7 @@ int olua_push_b2ManifoldPoint(lua_State *L, const b2ManifoldPoint *value)
     return 1;
 }
 
-void olua_check_b2ManifoldPoint(lua_State *L, int idx, b2ManifoldPoint *value)
+OLUA_LIB void olua_check_b2ManifoldPoint(lua_State *L, int idx, b2ManifoldPoint *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -690,12 +690,12 @@ void olua_check_b2ManifoldPoint(lua_State *L, int idx, b2ManifoldPoint *value)
     lua_pop(L, 1);
 }
 
-bool olua_is_b2ManifoldPoint(lua_State *L, int idx)
+OLUA_LIB bool olua_is_b2ManifoldPoint(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "id") && olua_hasfield(L, idx, "tangentImpulse") && olua_hasfield(L, idx, "normalImpulse") && olua_hasfield(L, idx, "localPoint");
 }
 
-void olua_pack_b2ManifoldPoint(lua_State *L, int idx, b2ManifoldPoint *value)
+OLUA_LIB void olua_pack_b2ManifoldPoint(lua_State *L, int idx, b2ManifoldPoint *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -720,7 +720,7 @@ void olua_pack_b2ManifoldPoint(lua_State *L, int idx, b2ManifoldPoint *value)
     value->id = (b2ContactID)arg4;
 }
 
-int olua_unpack_b2ManifoldPoint(lua_State *L, const b2ManifoldPoint *value)
+OLUA_LIB int olua_unpack_b2ManifoldPoint(lua_State *L, const b2ManifoldPoint *value)
 {
     if (value) {
         olua_push_b2Vec2(L, &value->localPoint);
@@ -736,12 +736,12 @@ int olua_unpack_b2ManifoldPoint(lua_State *L, const b2ManifoldPoint *value)
     return 4;
 }
 
-bool olua_canpack_b2ManifoldPoint(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_b2ManifoldPoint(lua_State *L, int idx)
 {
     return olua_is_b2Vec2(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_b2ContactID(L, idx + 3);
 }
 
-int olua_push_b2Rot(lua_State *L, const b2Rot *value)
+OLUA_LIB int olua_push_b2Rot(lua_State *L, const b2Rot *value)
 {
     if (value) {
         lua_createtable(L, 0, 2);
@@ -758,7 +758,7 @@ int olua_push_b2Rot(lua_State *L, const b2Rot *value)
     return 1;
 }
 
-void olua_check_b2Rot(lua_State *L, int idx, b2Rot *value)
+OLUA_LIB void olua_check_b2Rot(lua_State *L, int idx, b2Rot *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -780,12 +780,12 @@ void olua_check_b2Rot(lua_State *L, int idx, b2Rot *value)
     lua_pop(L, 1);
 }
 
-bool olua_is_b2Rot(lua_State *L, int idx)
+OLUA_LIB bool olua_is_b2Rot(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "c") && olua_hasfield(L, idx, "s");
 }
 
-void olua_pack_b2Rot(lua_State *L, int idx, b2Rot *value)
+OLUA_LIB void olua_pack_b2Rot(lua_State *L, int idx, b2Rot *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -802,7 +802,7 @@ void olua_pack_b2Rot(lua_State *L, int idx, b2Rot *value)
     value->c = (float)arg2;
 }
 
-int olua_unpack_b2Rot(lua_State *L, const b2Rot *value)
+OLUA_LIB int olua_unpack_b2Rot(lua_State *L, const b2Rot *value)
 {
     if (value) {
         olua_push_number(L, (lua_Number)value->s);
@@ -816,12 +816,12 @@ int olua_unpack_b2Rot(lua_State *L, const b2Rot *value)
     return 2;
 }
 
-bool olua_canpack_b2Rot(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_b2Rot(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1);
 }
 
-int olua_push_b2MassData(lua_State *L, const b2MassData *value)
+OLUA_LIB int olua_push_b2MassData(lua_State *L, const b2MassData *value)
 {
     if (value) {
         lua_createtable(L, 0, 3);
@@ -841,7 +841,7 @@ int olua_push_b2MassData(lua_State *L, const b2MassData *value)
     return 1;
 }
 
-void olua_check_b2MassData(lua_State *L, int idx, b2MassData *value)
+OLUA_LIB void olua_check_b2MassData(lua_State *L, int idx, b2MassData *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -869,12 +869,12 @@ void olua_check_b2MassData(lua_State *L, int idx, b2MassData *value)
     lua_pop(L, 1);
 }
 
-bool olua_is_b2MassData(lua_State *L, int idx)
+OLUA_LIB bool olua_is_b2MassData(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "I") && olua_hasfield(L, idx, "center") && olua_hasfield(L, idx, "mass");
 }
 
-void olua_pack_b2MassData(lua_State *L, int idx, b2MassData *value)
+OLUA_LIB void olua_pack_b2MassData(lua_State *L, int idx, b2MassData *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -895,7 +895,7 @@ void olua_pack_b2MassData(lua_State *L, int idx, b2MassData *value)
     value->I = (float)arg3;
 }
 
-int olua_unpack_b2MassData(lua_State *L, const b2MassData *value)
+OLUA_LIB int olua_unpack_b2MassData(lua_State *L, const b2MassData *value)
 {
     if (value) {
         olua_push_number(L, (lua_Number)value->mass);
@@ -910,7 +910,7 @@ int olua_unpack_b2MassData(lua_State *L, const b2MassData *value)
     return 3;
 }
 
-bool olua_canpack_b2MassData(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_b2MassData(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_b2Vec2(L, idx + 1) && olua_is_number(L, idx + 2);
 }

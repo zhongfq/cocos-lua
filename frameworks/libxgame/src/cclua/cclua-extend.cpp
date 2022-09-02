@@ -453,6 +453,48 @@ cocos2d::Bounds NodeExtend::getBounds(cocos2d::Node *obj, cocos2d::Node *target,
     return cocos2d::Rect(left, bottom, right - left, top - bottom);
 }
 
+cocos2d::Vec4 Mat4Extend::transform(cocos2d::Mat4 *mat, const cocos2d::Vec4 &p)
+{
+    cocos2d::Vec4 result;
+    mat->transformVector(p, &result);
+    return result;
+}
+
+cocos2d::Vec3 Mat4Extend::transform(cocos2d::Mat4 *mat, const cocos2d::Vec3 &p)
+{
+    cocos2d::Vec3 result;
+    mat->transformPoint(p, &result);
+    return result;
+}
+
+cocos2d::Vec2 Mat4Extend::transform(cocos2d::Mat4 *mat, const cocos2d::Vec2 &p)
+{
+    cocos2d::Vec3 result;
+    mat->transformPoint(cocos2d::Vec3(p.x, p.y, 0), &result);
+    return cocos2d::Vec2(result.x, result.y);
+}
+
+cocos2d::Mat4 *Mat4Extend::__add(cocos2d::Mat4 *mat1, cocos2d::Mat4 *mat2)
+{
+    cocos2d::Mat4 *mat = new cocos2d::Mat4();
+    *mat = *mat1 + *mat2;
+    return mat;
+}
+
+cocos2d::Mat4 *Mat4Extend::__sub(cocos2d::Mat4 *mat1, cocos2d::Mat4 *mat2)
+{
+    cocos2d::Mat4 *mat = new cocos2d::Mat4();
+    *mat = *mat1 - *mat2;
+    return mat;
+}
+
+cocos2d::Mat4 *Mat4Extend::__mul(cocos2d::Mat4 *mat1, cocos2d::Mat4 *mat2)
+{
+    cocos2d::Mat4 *mat = new cocos2d::Mat4();
+    *mat = (*mat1) * (*mat2);
+    return mat;
+}
+
 #ifdef CCLUA_BUILD_SPINE
 using namespace spine;
 

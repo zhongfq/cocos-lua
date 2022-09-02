@@ -3,7 +3,7 @@
 //
 #include "lua_cocos2d_3d.h"
 
-int olua_push_cocos2d_MeshVertexAttrib(lua_State *L, const cocos2d::MeshVertexAttrib *value)
+OLUA_LIB int olua_push_cocos2d_MeshVertexAttrib(lua_State *L, const cocos2d::MeshVertexAttrib *value)
 {
     if (value) {
         lua_createtable(L, 0, 2);
@@ -20,7 +20,7 @@ int olua_push_cocos2d_MeshVertexAttrib(lua_State *L, const cocos2d::MeshVertexAt
     return 1;
 }
 
-void olua_check_cocos2d_MeshVertexAttrib(lua_State *L, int idx, cocos2d::MeshVertexAttrib *value)
+OLUA_LIB void olua_check_cocos2d_MeshVertexAttrib(lua_State *L, int idx, cocos2d::MeshVertexAttrib *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -42,12 +42,12 @@ void olua_check_cocos2d_MeshVertexAttrib(lua_State *L, int idx, cocos2d::MeshVer
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_MeshVertexAttrib(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_MeshVertexAttrib(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "vertexAttrib") && olua_hasfield(L, idx, "type");
 }
 
-void olua_pack_cocos2d_MeshVertexAttrib(lua_State *L, int idx, cocos2d::MeshVertexAttrib *value)
+OLUA_LIB void olua_pack_cocos2d_MeshVertexAttrib(lua_State *L, int idx, cocos2d::MeshVertexAttrib *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -64,7 +64,7 @@ void olua_pack_cocos2d_MeshVertexAttrib(lua_State *L, int idx, cocos2d::MeshVert
     value->vertexAttrib = (cocos2d::shaderinfos::VertexKey)arg2;
 }
 
-int olua_unpack_cocos2d_MeshVertexAttrib(lua_State *L, const cocos2d::MeshVertexAttrib *value)
+OLUA_LIB int olua_unpack_cocos2d_MeshVertexAttrib(lua_State *L, const cocos2d::MeshVertexAttrib *value)
 {
     if (value) {
         olua_push_uint(L, (lua_Unsigned)value->type);
@@ -78,7 +78,7 @@ int olua_unpack_cocos2d_MeshVertexAttrib(lua_State *L, const cocos2d::MeshVertex
     return 2;
 }
 
-bool olua_canpack_cocos2d_MeshVertexAttrib(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_MeshVertexAttrib(lua_State *L, int idx)
 {
     return olua_is_uint(L, idx + 0) && olua_is_uint(L, idx + 1);
 }

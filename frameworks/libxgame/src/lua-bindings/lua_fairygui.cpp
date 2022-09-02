@@ -20,7 +20,7 @@ void olua_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventTag *val
     }
 }
 
-int olua_push_fairygui_Margin(lua_State *L, const fairygui::Margin *value)
+OLUA_LIB int olua_push_fairygui_Margin(lua_State *L, const fairygui::Margin *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
@@ -43,7 +43,7 @@ int olua_push_fairygui_Margin(lua_State *L, const fairygui::Margin *value)
     return 1;
 }
 
-void olua_check_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *value)
+OLUA_LIB void olua_check_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -77,12 +77,12 @@ void olua_check_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *value)
     lua_pop(L, 1);
 }
 
-bool olua_is_fairygui_Margin(lua_State *L, int idx)
+OLUA_LIB bool olua_is_fairygui_Margin(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "bottom") && olua_hasfield(L, idx, "right") && olua_hasfield(L, idx, "top") && olua_hasfield(L, idx, "left");
 }
 
-void olua_pack_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *value)
+OLUA_LIB void olua_pack_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -107,7 +107,7 @@ void olua_pack_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *value)
     value->bottom = (float)arg4;
 }
 
-int olua_unpack_fairygui_Margin(lua_State *L, const fairygui::Margin *value)
+OLUA_LIB int olua_unpack_fairygui_Margin(lua_State *L, const fairygui::Margin *value)
 {
     if (value) {
         olua_push_number(L, (lua_Number)value->left);
@@ -123,12 +123,12 @@ int olua_unpack_fairygui_Margin(lua_State *L, const fairygui::Margin *value)
     return 4;
 }
 
-bool olua_canpack_fairygui_Margin(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_fairygui_Margin(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_number(L, idx + 3);
 }
 
-int olua_push_fairygui_HtmlParseOptions(lua_State *L, const fairygui::HtmlParseOptions *value)
+OLUA_LIB int olua_push_fairygui_HtmlParseOptions(lua_State *L, const fairygui::HtmlParseOptions *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
@@ -151,7 +151,7 @@ int olua_push_fairygui_HtmlParseOptions(lua_State *L, const fairygui::HtmlParseO
     return 1;
 }
 
-void olua_check_fairygui_HtmlParseOptions(lua_State *L, int idx, fairygui::HtmlParseOptions *value)
+OLUA_LIB void olua_check_fairygui_HtmlParseOptions(lua_State *L, int idx, fairygui::HtmlParseOptions *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -185,12 +185,12 @@ void olua_check_fairygui_HtmlParseOptions(lua_State *L, int idx, fairygui::HtmlP
     lua_pop(L, 1);
 }
 
-bool olua_is_fairygui_HtmlParseOptions(lua_State *L, int idx)
+OLUA_LIB bool olua_is_fairygui_HtmlParseOptions(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "linkColor") && olua_hasfield(L, idx, "linkUnderline") && olua_hasfield(L, idx, "defaultLinkColor") && olua_hasfield(L, idx, "defaultLinkUnderline");
 }
 
-void olua_pack_fairygui_HtmlParseOptions(lua_State *L, int idx, fairygui::HtmlParseOptions *value)
+OLUA_LIB void olua_pack_fairygui_HtmlParseOptions(lua_State *L, int idx, fairygui::HtmlParseOptions *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -215,7 +215,7 @@ void olua_pack_fairygui_HtmlParseOptions(lua_State *L, int idx, fairygui::HtmlPa
     value->linkColor = (cocos2d::Color3B)arg4;
 }
 
-int olua_unpack_fairygui_HtmlParseOptions(lua_State *L, const fairygui::HtmlParseOptions *value)
+OLUA_LIB int olua_unpack_fairygui_HtmlParseOptions(lua_State *L, const fairygui::HtmlParseOptions *value)
 {
     if (value) {
         olua_push_bool(L, value->defaultLinkUnderline);
@@ -231,12 +231,12 @@ int olua_unpack_fairygui_HtmlParseOptions(lua_State *L, const fairygui::HtmlPars
     return 4;
 }
 
-bool olua_canpack_fairygui_HtmlParseOptions(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_fairygui_HtmlParseOptions(lua_State *L, int idx)
 {
     return olua_is_bool(L, idx + 0) && olua_is_cocos2d_Color3B(L, idx + 1) && olua_is_bool(L, idx + 2) && olua_is_cocos2d_Color3B(L, idx + 3);
 }
 
-int olua_push_fairygui_TweenValue(lua_State *L, const fairygui::TweenValue *value)
+OLUA_LIB int olua_push_fairygui_TweenValue(lua_State *L, const fairygui::TweenValue *value)
 {
     if (value) {
         lua_createtable(L, 0, 5);
@@ -262,7 +262,7 @@ int olua_push_fairygui_TweenValue(lua_State *L, const fairygui::TweenValue *valu
     return 1;
 }
 
-void olua_check_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenValue *value)
+OLUA_LIB void olua_check_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenValue *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -312,12 +312,12 @@ void olua_check_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenValue 
     lua_pop(L, 1);
 }
 
-bool olua_is_fairygui_TweenValue(lua_State *L, int idx)
+OLUA_LIB bool olua_is_fairygui_TweenValue(lua_State *L, int idx)
 {
     return olua_istable(L, idx);
 }
 
-void olua_pack_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenValue *value)
+OLUA_LIB void olua_pack_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenValue *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -346,7 +346,7 @@ void olua_pack_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenValue *
     value->d = (double)arg5;
 }
 
-int olua_unpack_fairygui_TweenValue(lua_State *L, const fairygui::TweenValue *value)
+OLUA_LIB int olua_unpack_fairygui_TweenValue(lua_State *L, const fairygui::TweenValue *value)
 {
     if (value) {
         olua_push_number(L, (lua_Number)value->x);
@@ -363,7 +363,7 @@ int olua_unpack_fairygui_TweenValue(lua_State *L, const fairygui::TweenValue *va
     return 5;
 }
 
-bool olua_canpack_fairygui_TweenValue(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_fairygui_TweenValue(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_number(L, idx + 3) && olua_is_number(L, idx + 4);
 }

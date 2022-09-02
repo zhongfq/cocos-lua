@@ -18,7 +18,7 @@ static std::string makeFrameEndCallbackTag(cocostudio::timeline::ActionTimeline 
     return makeFrameEndCallbackTag((lua_Integer)info.endIndex, animationName);
 }
 
-int olua_push_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio::timeline::AnimationInfo *value)
+OLUA_LIB int olua_push_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio::timeline::AnimationInfo *value)
 {
     if (value) {
         lua_createtable(L, 0, 3);
@@ -38,7 +38,7 @@ int olua_push_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio::
     return 1;
 }
 
-void olua_check_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostudio::timeline::AnimationInfo *value)
+OLUA_LIB void olua_check_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostudio::timeline::AnimationInfo *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -66,12 +66,12 @@ void olua_check_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostu
     lua_pop(L, 1);
 }
 
-bool olua_is_cocostudio_timeline_AnimationInfo(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocostudio_timeline_AnimationInfo(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "endIndex") && olua_hasfield(L, idx, "startIndex") && olua_hasfield(L, idx, "name");
 }
 
-void olua_pack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostudio::timeline::AnimationInfo *value)
+OLUA_LIB void olua_pack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostudio::timeline::AnimationInfo *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -92,7 +92,7 @@ void olua_pack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostud
     value->endIndex = (int)arg3;
 }
 
-int olua_unpack_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio::timeline::AnimationInfo *value)
+OLUA_LIB int olua_unpack_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio::timeline::AnimationInfo *value)
 {
     if (value) {
         olua_push_std_string(L, value->name);
@@ -107,7 +107,7 @@ int olua_unpack_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio
     return 3;
 }
 
-bool olua_canpack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx)
 {
     return olua_is_std_string(L, idx + 0) && olua_is_int(L, idx + 1) && olua_is_int(L, idx + 2);
 }

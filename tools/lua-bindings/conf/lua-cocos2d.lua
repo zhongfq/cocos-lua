@@ -51,9 +51,14 @@ typedef 'cocos2d::EventListener::ListenerID'
     .decltype 'std::string'
 
 typeconf 'cocos2d::Mat4'
+    .extend 'cocos2d::Mat4Extend'
     .exclude 'm'
     .exclude 'ZERO'
     .exclude 'IDENTITY'
+    .func 'transform' .arg2 '@pack'
+    .func '__add' .ret '@postnew'
+    .func '__sub' .ret '@postnew'
+    .func '__mul' .ret '@postnew'
 
 typeconf 'cocos2d::RenderTargetFlag'
 typeconf 'cocos2d::ClearFlag'
@@ -473,8 +478,8 @@ local check_node_parent = [[
 ]]
 
 typeconf 'cocos2d::Node'
-    .exclude 'scheduleUpdateWithPriorityLua'
     .extend 'cocos2d::NodeExtend'
+    .exclude 'scheduleUpdateWithPriorityLua'
     .func 'addChild' .arg1 '@addref(children |)'
     .func 'getChildByTag' .ret '@addref(children |)'
     .func 'getChildByName' .ret '@addref(children |)'

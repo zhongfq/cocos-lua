@@ -3,7 +3,7 @@
 //
 #include "lua_cocos2d_physics.h"
 
-int olua_push_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMaterial *value)
+OLUA_LIB int olua_push_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMaterial *value)
 {
     if (value) {
         lua_createtable(L, 0, 3);
@@ -23,7 +23,7 @@ int olua_push_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMateri
     return 1;
 }
 
-void olua_check_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::PhysicsMaterial *value)
+OLUA_LIB void olua_check_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::PhysicsMaterial *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -51,12 +51,12 @@ void olua_check_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::PhysicsM
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_PhysicsMaterial(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_PhysicsMaterial(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "friction") && olua_hasfield(L, idx, "restitution") && olua_hasfield(L, idx, "density");
 }
 
-void olua_pack_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::PhysicsMaterial *value)
+OLUA_LIB void olua_pack_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::PhysicsMaterial *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -77,7 +77,7 @@ void olua_pack_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::PhysicsMa
     value->friction = (float)arg3;
 }
 
-int olua_unpack_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMaterial *value)
+OLUA_LIB int olua_unpack_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMaterial *value)
 {
     if (value) {
         olua_push_number(L, (lua_Number)value->density);
@@ -92,7 +92,7 @@ int olua_unpack_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMate
     return 3;
 }
 
-bool olua_canpack_cocos2d_PhysicsMaterial(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_PhysicsMaterial(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2);
 }

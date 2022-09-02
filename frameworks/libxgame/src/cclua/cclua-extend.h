@@ -230,6 +230,16 @@ public:
     static cocos2d::Bounds getBounds(cocos2d::Node *obj, cocos2d::Node *target, float left, float right, float top, float bottom);
 };
 
+class Mat4Extend {
+public:
+    static cocos2d::Vec4 transform(cocos2d::Mat4 *mat, const cocos2d::Vec4 &p);
+    static cocos2d::Vec3 transform(cocos2d::Mat4 *mat, const cocos2d::Vec3 &p);
+    static cocos2d::Vec2 transform(cocos2d::Mat4 *mat, const cocos2d::Vec2 &p);
+    static cocos2d::Mat4 *__add(cocos2d::Mat4 *mat1, cocos2d::Mat4 *mat2);
+    static cocos2d::Mat4 *__sub(cocos2d::Mat4 *mat1, cocos2d::Mat4 *mat2);
+    static cocos2d::Mat4 *__mul(cocos2d::Mat4 *mat1, cocos2d::Mat4 *mat2);
+};
+
 NS_CC_END
 
 #ifdef CCLUA_BUILD_SPINE

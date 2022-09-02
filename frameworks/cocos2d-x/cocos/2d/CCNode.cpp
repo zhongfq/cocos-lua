@@ -187,6 +187,7 @@ Node::~Node()
 
     delete[] _additionalTransform;
     CC_SAFE_RELEASE(_programState);
+    CC_SAFE_RELEASE(_calcScrollMatrix);
 }
 
 bool Node::init()
@@ -1193,7 +1194,12 @@ uint32_t Node::processParentFlags(const Mat4& parentTransform, uint32_t parentFl
     
 
     if(flags & FLAGS_DIRTY_MASK)
+    {
         _modelViewTransform = this->transform(parentTransform);
+        if (_calcScrollMatrix && _scrollable) {
+            _modelViewTransform = _modelViewTransform * _calcScrollMatrix->getNodeToParentTransform();
+        }
+    }
     
     _transformUpdated = false;
     _contentSizeDirty = false;
@@ -1640,7 +1646,14 @@ Mat4 Node::getNodeToParentTransform(Node* ancestor) const
 
     for (Node *p = _parent;  p != nullptr && p != ancestor ; p = p->getParent())
     {
-        t = p->getNodeToParentTransform() * t;
+        if (p->_scrollable && p->_calcScrollMatrix)
+        {
+            t = p->getNodeToParentTransform() * p->_calcScrollMatrix->getNodeToParentTransform() * t;
+        }
+        else
+        {
+            t = p->getNodeToParentTransform() * t;
+        }
     }
 
     return t;
@@ -2194,6 +2207,103 @@ void Node::setProgramState(backend::ProgramState* programState)
 backend::ProgramState* Node::getProgramState() const
 {
     return _programState;
+}
+
+void Node::checkCalcScrollMatrix()
+{
+    if (_calcScrollMatrix == nullptr)
+    {
+        _calcScrollMatrix = Node::create();
+        _calcScrollMatrix->setIgnoreAnchorPointForPosition(true);
+        _calcScrollMatrix->setAnchorPoint(Vec2::ZERO);
+        _calcScrollMatrix->retain();
+    }
+}
+
+void Node::setScrollable(bool value)
+{
+    _scrollable = value;
+    _transformUpdated = true;
+}
+
+bool Node::getScrollable() const
+{
+    return _scrollable;
+}
+
+void Node::setScrollX(float value)
+{
+    checkCalcScrollMatrix();
+    if (_calcScrollMatrix)
+    {
+        _calcScrollMatrix->setPositionX(value);
+        _transformUpdated = true;
+    }
+}
+
+float Node::getScrollX() const
+{
+    return _calcScrollMatrix == nullptr ? 0 : _calcScrollMatrix->getPositionX();
+}
+
+void Node::setScrollY(float value)
+{
+    checkCalcScrollMatrix();
+    if (_calcScrollMatrix)
+    {
+        _calcScrollMatrix->setPositionY(value);
+        _transformUpdated = true;
+    }
+}
+
+float Node::getScrollY() const
+{
+    return _calcScrollMatrix == nullptr ? 0 : _calcScrollMatrix->getPositionY();
+}
+
+void Node::setScrollScaleX(float value)
+{
+    checkCalcScrollMatrix();
+    if (_calcScrollMatrix)
+    {
+        _calcScrollMatrix->setScaleX(value);
+        _transformUpdated = true;
+    }
+}
+
+float Node::getScrollScaleX() const
+{
+    return _calcScrollMatrix == nullptr ? 0 : _calcScrollMatrix->getScaleX();
+}
+
+void Node::setScrollScaleY(float value)
+{
+    checkCalcScrollMatrix();
+    if (_calcScrollMatrix)
+    {
+        _calcScrollMatrix->setScaleY(value);
+        _transformUpdated = true;
+    }
+}
+
+float Node::getScrollScaleY() const
+{
+    return _calcScrollMatrix == nullptr ? 0 : _calcScrollMatrix->getScaleY();
+}
+
+void Node::setScrollRotation(float value)
+{
+    checkCalcScrollMatrix();
+    if (_calcScrollMatrix)
+    {
+        _calcScrollMatrix->setRotation(value);
+        _transformUpdated = true;
+    }
+}
+
+float Node::getScrollRotation() const
+{
+    return _calcScrollMatrix == nullptr ? 0 :  _calcScrollMatrix->getRotation();
 }
 
 NS_CC_END

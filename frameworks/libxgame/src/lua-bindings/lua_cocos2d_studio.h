@@ -14,11 +14,11 @@ OLUA_LIB int luaopen_cocos2d_studio(lua_State *L);
 OLUA_END_DECLS
 
 // cocostudio::timeline::AnimationInfo
-int olua_push_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio::timeline::AnimationInfo *value);
-void olua_check_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostudio::timeline::AnimationInfo *value);
-bool olua_is_cocostudio_timeline_AnimationInfo(lua_State *L, int idx);
-void olua_pack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostudio::timeline::AnimationInfo *value);
-int olua_unpack_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio::timeline::AnimationInfo *value);
-bool olua_canpack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx);
+OLUA_LIB int olua_push_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio::timeline::AnimationInfo *value);
+OLUA_LIB void olua_check_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostudio::timeline::AnimationInfo *value);
+OLUA_LIB bool olua_is_cocostudio_timeline_AnimationInfo(lua_State *L, int idx);
+OLUA_LIB void olua_pack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostudio::timeline::AnimationInfo *value);
+OLUA_LIB int olua_unpack_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio::timeline::AnimationInfo *value);
+OLUA_LIB bool olua_canpack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx);
 
 #endif

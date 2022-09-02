@@ -2,6 +2,7 @@
 #define __CCLUA_WINDOW_H__
 
 #include "cclua/runtime.h"
+#include "cclua/cclua-extend.h"
 
 #include "cocos2d.h"
 
@@ -9,9 +10,7 @@ NS_CCLUA_BEGIN
 
 class window {
 public:
-    typedef cocos2d::Rect Bounds;
-    
-    static Bounds getVisibleBounds();
+    static cocos2d::Bounds getVisibleBounds();
     static cocos2d::Size getVisibleSize();
     static cocos2d::Size getFrameSize();
     static void setFrameSize(const cocos2d::Size &size);

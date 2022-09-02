@@ -9,4 +9,4 @@ new_globals = {
     "printf",
     "require",
 }
-ignore = {"212"}
+ignore = {"212", "611", "631"}

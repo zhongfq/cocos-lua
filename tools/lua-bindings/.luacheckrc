@@ -20,3 +20,4 @@ new_globals = {
     "typedef",
     "typeonly",
 }
+ignore = {"212", "611", "631"}

@@ -3,9 +3,9 @@
 
 NS_CCLUA_BEGIN
 
-window::Bounds window::getVisibleBounds()
+cocos2d::Bounds window::getVisibleBounds()
 {
-    return (window::Bounds)cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();
+    return cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();
 }
 
 cocos2d::Size window::getVisibleSize()

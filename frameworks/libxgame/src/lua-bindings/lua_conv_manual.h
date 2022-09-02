@@ -9,6 +9,8 @@
 #include "renderer/backend/Backend.h"
 #endif
 
+int olua_unpack_cocos2d_Bounds(lua_State *L, const cocos2d::Bounds *value);
+
 int olua_push_cocos2d_network_WebSocket_Data(lua_State *L, const cocos2d::network::WebSocket::Data *value);
 void olua_check_cocos2d_network_WebSocket_Data(lua_State *L, int idx, cocos2d::network::WebSocket::Data *value);
 bool olua_is_cocos2d_network_WebSocket_Data(lua_State *L, int idx);

@@ -6,7 +6,6 @@
 
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "lua-bindings/LuaCocosAdapter.h"
 #include "cocos2d.h"
 
 OLUA_BEGIN_DECLS

@@ -12430,33 +12430,12 @@ static int _spine_SkeletonData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = olua_toobj<spine::SkeletonData>(L, 1);
-    lua_pushstring(L, ".ownership");
-    olua_getvariable(L, 1);
-    if (lua_toboolean(L, -1) && self) {
-        olua_setrawobj(L, 1, nullptr);
-
-        lua_pushstring(L, ".skel.attachment_loader");
-        olua_getvariable(L, 1);
-        auto attachment_loader = (spine::Cocos2dAtlasAttachmentLoader *)olua_torawobj(L, -1);
-        delete attachment_loader;
-
-        lua_pushstring(L, ".skel.atlas");
-        olua_getvariable(L, 1);
-        auto atlas = (spine::Atlas *)olua_torawobj(L, -1);
-        delete atlas;
-
-        lua_pushstring(L, ".skel.texture_loader");
-        olua_getvariable(L, 1);
-        auto texture_loader = (spine::Cocos2dTextureLoader *)olua_torawobj(L, -1);
-        delete texture_loader;
-
-        delete self;
-    }
+    // @extend(spine::SkeletonDataExtend) static oluaret_t __gc(lua_State *L)
+    oluaret_t ret = spine::SkeletonDataExtend::__gc(L);
 
     olua_endinvoke(L);
 
-    return 0;
+    return (int)ret;
 }
 
 static int _spine_SkeletonData___olua_move(lua_State *L)
@@ -12469,6 +12448,18 @@ static int _spine_SkeletonData___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
+}
+
+static int _spine_SkeletonData_create(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @extend(spine::SkeletonDataExtend) static oluaret_t create(lua_State *L)
+    oluaret_t ret = spine::SkeletonDataExtend::create(L);
+
+    olua_endinvoke(L);
+
+    return (int)ret;
 }
 
 static int _spine_SkeletonData_findAnimation(lua_State *L)
@@ -12962,64 +12953,6 @@ static int _spine_SkeletonData_getY(lua_State *L)
     return num_ret;
 }
 
-static int _spine_SkeletonData_new(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    const char *skel_path = olua_checkstring(L, 1);
-    const char *atlas_path = olua_checkstring(L, 2);
-    float scale = (float)olua_optnumber(L, 3, 1);
-
-    auto texture_loader = new spine::Cocos2dTextureLoader();
-    auto atlas = new spine::Atlas(atlas_path, texture_loader);
-    spine::SkeletonData *skel_data = nullptr;
-    spine::String error;
-    auto attachment_loader = new spine::Cocos2dAtlasAttachmentLoader(atlas);
-
-    if (strendwith(skel_path, ".skel")) {
-        auto reader = new spine::SkeletonBinary(attachment_loader);
-        reader->setScale(scale);
-        skel_data = reader->readSkeletonDataFile(skel_path);
-        error = reader->getError();
-        delete reader;
-    } else {
-        auto reader = new spine::SkeletonJson(attachment_loader);
-        reader->setScale(scale);
-        skel_data = reader->readSkeletonDataFile(skel_path);
-        error = reader->getError();
-        delete reader;
-    }
-
-    if (!skel_data) {
-        delete attachment_loader;
-        delete atlas;
-        delete texture_loader;
-        luaL_error(L, "%s\nerror reading skeleton file: %s", error.buffer(), skel_path);
-    }
-
-    olua_pushobj<spine::SkeletonData>(L, skel_data);
-
-    lua_pushstring(L, ".ownership");
-    lua_pushboolean(L, true);
-    olua_setvariable(L, -3);
-
-    lua_pushstring(L, ".skel.texture_loader");
-    olua_newrawobj(L, texture_loader);
-    olua_setvariable(L, -3);
-
-    lua_pushstring(L, ".skel.attachment_loader");
-    olua_newrawobj(L, attachment_loader);
-    olua_setvariable(L, -3);
-
-    lua_pushstring(L, ".skel.atlas");
-    olua_newrawobj(L, atlas);
-    olua_setvariable(L, -3);
-
-    olua_endinvoke(L);
-
-    return 1;
-}
-
 static int _spine_SkeletonData_setAudioPath(lua_State *L)
 {
     olua_startinvoke(L);
@@ -13224,6 +13157,7 @@ OLUA_LIB int luaopen_spine_SkeletonData(lua_State *L)
     oluacls_class(L, "sp.SkeletonData", "sp.SpineObject");
     oluacls_func(L, "__gc", _spine_SkeletonData___gc);
     oluacls_func(L, "__olua_move", _spine_SkeletonData___olua_move);
+    oluacls_func(L, "create", _spine_SkeletonData_create);
     oluacls_func(L, "dispose", _spine_SkeletonData___gc);
     oluacls_func(L, "findAnimation", _spine_SkeletonData_findAnimation);
     oluacls_func(L, "findBone", _spine_SkeletonData_findBone);
@@ -13252,7 +13186,7 @@ OLUA_LIB int luaopen_spine_SkeletonData(lua_State *L)
     oluacls_func(L, "getWidth", _spine_SkeletonData_getWidth);
     oluacls_func(L, "getX", _spine_SkeletonData_getX);
     oluacls_func(L, "getY", _spine_SkeletonData_getY);
-    oluacls_func(L, "new", _spine_SkeletonData_new);
+    oluacls_func(L, "new", _spine_SkeletonData_create);
     oluacls_func(L, "setAudioPath", _spine_SkeletonData_setAudioPath);
     oluacls_func(L, "setDefaultSkin", _spine_SkeletonData_setDefaultSkin);
     oluacls_func(L, "setFps", _spine_SkeletonData_setFps);

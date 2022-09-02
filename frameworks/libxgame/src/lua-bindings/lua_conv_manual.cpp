@@ -2,6 +2,22 @@
 #include "lua_conv.h"
 #include "cclua/cclua.h"
 
+int olua_unpack_cocos2d_Bounds(lua_State *L, const cocos2d::Bounds *value)
+{
+    if (value) {
+        lua_pushnumber(L, (lua_Number)value->getMinX());
+        lua_pushnumber(L, (lua_Number)value->getMaxX());
+        lua_pushnumber(L, (lua_Number)value->getMaxY());
+        lua_pushnumber(L, (lua_Number)value->getMinY());
+    } else {
+        lua_pushnumber(L, 0);
+        lua_pushnumber(L, 0);
+        lua_pushnumber(L, 0);
+        lua_pushnumber(L, 0);
+    }
+    return 4;
+}
+
 int olua_push_cocos2d_network_WebSocket_Data(lua_State *L, const cocos2d::network::WebSocket::Data *value)
 {
     if (value) {

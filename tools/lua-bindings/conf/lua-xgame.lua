@@ -8,27 +8,7 @@ headers [[
 #include "cclua/cclua.h"
 ]]
 
-chunk [[
-int olua_unpack_cclua_window_Bounds(lua_State *L, const cclua::window::Bounds *value)
-{
-    if (value) {
-        lua_pushnumber(L, (lua_Number)value->getMinX());
-        lua_pushnumber(L, (lua_Number)value->getMaxX());
-        lua_pushnumber(L, (lua_Number)value->getMaxY());
-        lua_pushnumber(L, (lua_Number)value->getMinY());
-    } else {
-        lua_pushnumber(L, 0);
-        lua_pushnumber(L, 0);
-        lua_pushnumber(L, 0);
-        lua_pushnumber(L, 0);
-    }
-    return 4;
-}
-]]
-
 exclude 'cclua::BufferReader *'
-
-typedef 'cclua::window::Bounds'
 
 typeconf 'cclua::Callback'
 typeconf 'cclua::Lame::VBRMode'

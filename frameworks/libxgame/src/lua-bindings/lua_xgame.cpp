@@ -3,22 +3,6 @@
 //
 #include "lua_xgame.h"
 
-int olua_unpack_cclua_window_Bounds(lua_State *L, const cclua::window::Bounds *value)
-{
-    if (value) {
-        lua_pushnumber(L, (lua_Number)value->getMinX());
-        lua_pushnumber(L, (lua_Number)value->getMaxX());
-        lua_pushnumber(L, (lua_Number)value->getMaxY());
-        lua_pushnumber(L, (lua_Number)value->getMinY());
-    } else {
-        lua_pushnumber(L, 0);
-        lua_pushnumber(L, 0);
-        lua_pushnumber(L, 0);
-        lua_pushnumber(L, 0);
-    }
-    return 4;
-}
-
 static int _cclua_Callback___call(lua_State *L)
 {
     olua_startinvoke(L);
@@ -6037,9 +6021,9 @@ static int _cclua_window_getVisibleBounds(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // @unpack static cclua::window::Bounds getVisibleBounds()
-    cclua::window::Bounds ret = cclua::window::getVisibleBounds();
-    int num_ret = olua_unpack_cclua_window_Bounds(L, &ret);
+    // @unpack static cocos2d::Bounds getVisibleBounds()
+    cocos2d::Bounds ret = cclua::window::getVisibleBounds();
+    int num_ret = olua_unpack_cocos2d_Bounds(L, &ret);
 
     olua_endinvoke(L);
 

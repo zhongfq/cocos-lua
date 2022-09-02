@@ -43,7 +43,6 @@ typeconv 'b2Filter'
 typeconv 'b2ManifoldPoint'
 typeconv 'b2Rot'
 typeconv 'b2MassData'
--- typeconv 'b2MassData'
 
 typeconf 'b2Draw'
 typeconf 'b2DestructionListener'

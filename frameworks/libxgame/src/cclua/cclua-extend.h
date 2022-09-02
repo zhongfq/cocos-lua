@@ -1,14 +1,17 @@
-#ifndef __LUACOCOSADAPTER_H__
-#define __LUACOCOSADAPTER_H__
+#ifndef __CCLUA_EXTEND_H__
+#define __CCLUA_EXTEND_H__
 
 #include "2d/CCComponent.h"
 #include "2d/CCActionTween.h"
 #include "ui/CocosGUI.h"
 #include "network/WebSocket.h"
+#include "cclua/olua-2dx.h"
 
 #include <functional>
 
 NS_CC_BEGIN
+
+typedef cocos2d::Rect Bounds;
 
 class LuaComponent : public Component
 {
@@ -205,6 +208,42 @@ private:
     CC_DISALLOW_COPY_AND_ASSIGN(RotateFrom);
 };
 
+class NodeExtend {
+public:
+    static float getAnchorX(cocos2d::Node *obj);
+    static void setAnchorX(cocos2d::Node *obj, float value);
+    
+    static float getAnchorY(cocos2d::Node *obj);
+    static void setAnchorY(cocos2d::Node *obj, float value);
+    
+    static float getWidth(cocos2d::Node *obj);
+    static void setWidth(cocos2d::Node *obj, float value);
+    
+    static float getHeight(cocos2d::Node *obj);
+    static void setHeight(cocos2d::Node *obj, float value);
+    
+    static float getAlpha(cocos2d::Node *obj);
+    static void setAlpha(cocos2d::Node *obj, float value);
+    
+    static oluaret_t __index(lua_State *L);
+    
+    static cocos2d::Bounds getBounds(cocos2d::Node *obj, cocos2d::Node *target, float left, float right, float top, float bottom);
+};
+
 NS_CC_END
+
+#ifdef CCLUA_BUILD_SPINE
+#include "spine/spine-cocos2dx.h"
+
+namespace spine {
+
+class SkeletonDataExtend {
+public:
+    static oluaret_t __gc(lua_State *L);
+    static oluaret_t create(lua_State *L);
+};
+
+}
+#endif // CCLUA_BUILD_SPINE
 
 #endif

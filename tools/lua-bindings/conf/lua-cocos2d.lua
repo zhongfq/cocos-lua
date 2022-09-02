@@ -5,7 +5,6 @@ path '../../frameworks/libxgame/src/lua-bindings'
 headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "lua-bindings/LuaCocosAdapter.h"
 #include "audio/include/AudioEngine.h"
 #include "cocos2d.h"
 #include "base/TGAlib.h"
@@ -44,7 +43,7 @@ typedef 'cocos2d::ValueVector'
 typedef 'cocos2d::Map'
     .conv 'olua_$$_map'
 typedef 'cocos2d::network::WebSocket::Data'
-
+typedef 'cocos2d::Bounds'
 typedef 'cocos2d::Rect'
     .vars '4'
 
@@ -340,6 +339,7 @@ typeconf 'cocos2d::FileUtils'
             unsigned char *data = self->getFileDataFromZip(zipFilePath, filename, &size);
             lua_pushlstring(L, (const char *)data, size);
             olua_push_int(L, (lua_Integer)size);
+            free(data);
 
             return 2;
         }]]
@@ -473,20 +473,8 @@ local check_node_parent = [[
 ]]
 
 typeconf 'cocos2d::Node'
-    .chunk [[
-        static cocos2d::Node *_find_ancestor(cocos2d::Node *node1, cocos2d::Node *node2)
-        {
-            for (auto *p1 = node1; p1 != nullptr; p1 = p1->getParent()) {
-                for (auto *p2 = node2; p2 != nullptr; p2 = p2->getParent()) {
-                    if (p1 == p2) {
-                        return p1;
-                    }
-                }
-            }
-            return NULL;
-        }
-    ]]
     .exclude 'scheduleUpdateWithPriorityLua'
+    .extend 'cocos2d::NodeExtend'
     .func 'addChild' .arg1 '@addref(children |)'
     .func 'getChildByTag' .ret '@addref(children |)'
     .func 'getChildByName' .ret '@addref(children |)'
@@ -525,156 +513,10 @@ typeconf 'cocos2d::Node'
     .func 'getPhysicsBody' .ret '@addref(physicsBody ^)'
     .func 'onEnter' .insert_before(check_node_parent)
     .func 'onExit' .insert_before(check_node_parent)
-    .func '__index'
-        .snippet [[
-        {
-            if(olua_isuserdata(L, 1)) {
-                if (olua_isstring(L, 2)) {
-                    auto self = olua_toobj<cocos2d::Node>(L, 1);
-                    cocos2d::Node *child = self->getChildByName(olua_tostring(L, 2));
-                    if (child) {
-                        olua_pushobj<cocos2d::Node>(L, child);
-                        olua_addref(L, 1, "children", -1, OLUA_FLAG_MULTIPLE);
-                        return 1;
-                    }
-                }
-                lua_settop(L, 2);
-                olua_getvariable(L, 1);
-                return 1;
-            } else {
-                return 0;
-            }
-        }
-    ]]
-    .func 'getBounds'
-        .snippet [[
-        {
-            auto self = olua_checkobj<cocos2d::Node>(L, 1);
-            auto target = olua_checkobj<cocos2d::Node>(L, 2);
-
-            float left = (float)luaL_checknumber(L, 3);
-            float right = (float)luaL_checknumber(L, 4);
-            float top = (float)luaL_checknumber(L, 5);
-            float bottom = (float)luaL_checknumber(L, 6);
-
-            cocos2d::Vec3 p1(left, bottom, 0);
-            cocos2d::Vec3 p2(right, top, 0);
-
-            auto m = cocos2d::Mat4::IDENTITY;
-
-            if (target == self->getParent()) {
-                m = self->getNodeToParentTransform();
-            } else if (target != self) {
-                auto ancestor = _find_ancestor(target, self);
-                if (!ancestor) {
-                    m = target->getWorldToNodeTransform() * self->getNodeToWorldTransform();
-                } else if (target == ancestor) {
-                    m = self->getNodeToParentTransform(target);
-                } else if (self == ancestor) {
-                    m = target->getNodeToParentTransform(self).getInversed();
-                } else {
-                    m = target->getNodeToParentTransform(ancestor).getInversed() * self->getNodeToParentTransform(ancestor);
-                }
-            }
-
-            m.transformPoint(&p1);
-            m.transformPoint(&p2);
-
-            left = MIN(p1.x, p2.x);
-            right = MAX(p1.x, p2.x);
-            top = MAX(p1.y, p2.y);
-            bottom = MIN(p1.y, p2.y);
-
-            lua_pushnumber(L, left);
-            lua_pushnumber(L, right);
-            lua_pushnumber(L, top);
-            lua_pushnumber(L, bottom);
-
-            return 4;
-        }
-    ]]
-    .prop 'x'
-        .get 'float getPositionX()'
-        .set 'void setPositionX(float x)'
-    .prop 'y'
-        .get 'float getPositionY()'
-        .set 'void setPositionY(float y)'
-    .prop 'z'
-        .get 'float getPositionZ()'
-        .set 'void setPositionZ(float z)'
-    .prop 'anchorX'
-        .get [[
-        {
-            auto self = olua_toobj<cocos2d::Node>(L, 1);
-            lua_pushnumber(L, self->getAnchorPoint().x);
-            return 1;
-        }]]
-        .set [[
-        {
-            auto self = olua_toobj<cocos2d::Node>(L, 1);
-            cocos2d::Vec2 anchor = self->getAnchorPoint();
-            anchor.x = (float)olua_checknumber(L, 2);
-            self->setAnchorPoint(anchor);
-            return 0;
-        }]]
-    .prop 'anchorY'
-        .get [[
-        {
-            auto self = olua_toobj<cocos2d::Node>(L, 1);
-            lua_pushnumber(L, self->getAnchorPoint().y);
-            return 1;
-        }]]
-        .set [[
-        {
-            auto self = olua_toobj<cocos2d::Node>(L, 1);
-            cocos2d::Vec2 anchor = self->getAnchorPoint();
-            anchor.y = (float)olua_checknumber(L, 2);
-            self->setAnchorPoint(anchor);
-            return 0;
-        }]]
-    .prop 'width'
-        .get [[
-        {
-            auto self = olua_toobj<cocos2d::Node>(L, 1);
-            lua_pushnumber(L, self->getContentSize().width);
-            return 1;
-        }]]
-        .set [[
-        {
-            auto self = olua_toobj<cocos2d::Node>(L, 1);
-            cocos2d::Size size = self->getContentSize();
-            size.width = (float)olua_checknumber(L, 2);
-            self->setContentSize(size);
-            return 0;
-        }]]
-    .prop 'height'
-        .get [[
-        {
-            auto self = olua_toobj<cocos2d::Node>(L, 1);
-            lua_pushnumber(L, self->getContentSize().height);
-            return 1;
-        }]]
-        .set [[
-        {
-            auto self = olua_toobj<cocos2d::Node>(L, 1);
-            cocos2d::Size size = self->getContentSize();
-            size.height = (float)olua_checknumber(L, 2);
-            self->setContentSize(size);
-            return 0;
-        }]]
-    .prop 'alpha'
-        .get [[
-        {
-            auto self = olua_toobj<cocos2d::Node>(L, 1);
-            lua_pushnumber(L, self->getOpacity() / 255.0f);
-            return 1;
-        }]]
-        .set [[
-        {
-            auto self = olua_toobj<cocos2d::Node>(L, 1);
-            self->setOpacity((uint8_t)(olua_checknumber(L, 2) * 255.0f));
-            return 0;
-        }]]
+    .func 'getBounds' .ret '@unpack'
+    .prop 'x' .get 'float getPositionX()' .set 'void setPositionX(float x)'
+    .prop 'y' .get 'float getPositionY()' .set 'void setPositionY(float y)'
+    .prop 'z' .get 'float getPositionZ()' .set 'void setPositionZ(float z)'
     .callback 'setOnEnterCallback' .arg1 '@nullable'
     .callback 'getOnEnterCallback' .ret '@nullable'
     .callback 'setOnExitCallback' .arg1 '@nullable'

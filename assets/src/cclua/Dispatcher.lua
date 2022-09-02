@@ -100,13 +100,13 @@ function hashlist:insert(key, value, priority)
         current = header.prev
     else
         current = header
-        local next = current.next
-        while next ~= header do
-            if not next.priority or priority > next.priority then
+        local nextEntry = current.next
+        while nextEntry ~= header do
+            if not nextEntry.priority or priority > nextEntry.priority then
                 break
             else
-                current = next
-                next = current.next
+                current = nextEntry
+                nextEntry = current.next
             end
         end
     end

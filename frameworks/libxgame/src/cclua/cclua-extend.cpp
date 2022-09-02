@@ -1,6 +1,7 @@
-#include "LuaCocosAdapter.h"
+#include "cclua-extend.h"
+#include "runtime.h"
 
-NS_CC_BEGIN
+USING_NS_CC;
 
 LuaComponent* LuaComponent::create()
 {
@@ -329,4 +330,211 @@ RotateFrom *RotateFrom::reverse() const
     return nullptr;
 }
 
-NS_CC_END
+float NodeExtend::getAnchorX(cocos2d::Node *obj)
+{
+    return obj->getAnchorPoint().x;
+}
+
+void NodeExtend::setAnchorX(cocos2d::Node *obj, float value)
+{
+    cocos2d::Vec2 anchor = obj->getAnchorPoint();
+    anchor.x = value;
+    obj->setAnchorPoint(anchor);
+}
+
+float NodeExtend::getAnchorY(cocos2d::Node *obj)
+{
+    return obj->getAnchorPoint().y;
+}
+
+void NodeExtend::setAnchorY(cocos2d::Node *obj, float value)
+{
+    cocos2d::Vec2 anchor = obj->getAnchorPoint();
+    anchor.y = value;
+    obj->setAnchorPoint(anchor);
+}
+
+float NodeExtend::getWidth(cocos2d::Node *obj)
+{
+    return obj->getContentSize().width;
+}
+
+void NodeExtend::setWidth(cocos2d::Node *obj, float value)
+{
+    cocos2d::Size size = obj->getContentSize();
+    size.width = value;
+    obj->setContentSize(size);
+}
+
+float NodeExtend::getHeight(cocos2d::Node *obj)
+{
+    return obj->getContentSize().height;
+}
+
+void NodeExtend::setHeight(cocos2d::Node *obj, float value)
+{
+    cocos2d::Size size = obj->getContentSize();
+    size.height = value;
+    obj->setContentSize(size);
+}
+
+float NodeExtend::getAlpha(cocos2d::Node *obj)
+{
+    return obj->getOpacity() / 255.0f;
+}
+
+void NodeExtend::setAlpha(cocos2d::Node *obj, float value)
+{
+    obj->setOpacity((uint8_t)(value * 255.0f));
+}
+
+oluaret_t NodeExtend::__index(lua_State *L)
+{
+    if(!olua_isuserdata(L, 1)) {
+        return 0;
+    }
+        
+    if (olua_isstring(L, 2)) {
+        auto self = olua_toobj<cocos2d::Node>(L, 1);
+        cocos2d::Node *child = self->getChildByName(olua_tostring(L, 2));
+        if (child) {
+            olua_pushobj<cocos2d::Node>(L, child);
+            olua_addref(L, 1, "children", -1, OLUA_FLAG_MULTIPLE);
+            return 1;
+        }
+    }
+    lua_settop(L, 2);
+    olua_getvariable(L, 1);
+    return 1;
+}
+
+static cocos2d::Node *_find_ancestor(cocos2d::Node *node1, cocos2d::Node *node2)
+{
+    for (auto *p1 = node1; p1 != nullptr; p1 = p1->getParent()) {
+        for (auto *p2 = node2; p2 != nullptr; p2 = p2->getParent()) {
+            if (p1 == p2) {
+                return p1;
+            }
+        }
+    }
+    return NULL;
+}
+
+cocos2d::Bounds NodeExtend::getBounds(cocos2d::Node *obj, cocos2d::Node *target, float left, float right, float top, float bottom)
+{
+    cocos2d::Vec3 p1(left, bottom, 0);
+    cocos2d::Vec3 p2(right, top, 0);
+
+    auto m = cocos2d::Mat4::IDENTITY;
+
+    if (target == obj->getParent()) {
+        m = obj->getNodeToParentTransform();
+    } else if (target != obj) {
+        auto ancestor = _find_ancestor(target, obj);
+        if (!ancestor) {
+            m = target->getWorldToNodeTransform() * obj->getNodeToWorldTransform();
+        } else if (target == ancestor) {
+            m = obj->getNodeToParentTransform(target);
+        } else if (obj == ancestor) {
+            m = target->getNodeToParentTransform(obj).getInversed();
+        } else {
+            m = target->getNodeToParentTransform(ancestor).getInversed() * obj->getNodeToParentTransform(ancestor);
+        }
+    }
+
+    m.transformPoint(&p1);
+    m.transformPoint(&p2);
+
+    left = MIN(p1.x, p2.x);
+    right = MAX(p1.x, p2.x);
+    top = MAX(p1.y, p2.y);
+    bottom = MIN(p1.y, p2.y);
+    
+    return cocos2d::Rect(left, bottom, right - left, top - bottom);
+}
+
+#ifdef CCLUA_BUILD_SPINE
+using namespace spine;
+
+oluaret_t SkeletonDataExtend::__gc(lua_State *L)
+{
+    auto self = olua_toobj<spine::SkeletonData>(L, 1);
+    lua_pushstring(L, ".ownership");
+    olua_getvariable(L, 1);
+    if (lua_toboolean(L, -1) && self) {
+        olua_setrawobj(L, 1, nullptr);
+
+        lua_pushstring(L, ".skel.attachment_loader");
+        olua_getvariable(L, 1);
+        auto attachment_loader = (spine::Cocos2dAtlasAttachmentLoader *)olua_torawobj(L, -1);
+        delete attachment_loader;
+
+        lua_pushstring(L, ".skel.atlas");
+        olua_getvariable(L, 1);
+        auto atlas = (spine::Atlas *)olua_torawobj(L, -1);
+        delete atlas;
+
+        lua_pushstring(L, ".skel.texture_loader");
+        olua_getvariable(L, 1);
+        auto texture_loader = (spine::Cocos2dTextureLoader *)olua_torawobj(L, -1);
+        delete texture_loader;
+
+        delete self;
+    }
+    return 0;
+}
+
+oluaret_t SkeletonDataExtend::create(lua_State *L)
+{
+    const char *skel_path = olua_checkstring(L, 1);
+    const char *atlas_path = olua_checkstring(L, 2);
+    float scale = (float)olua_optnumber(L, 3, 1);
+
+    auto texture_loader = new spine::Cocos2dTextureLoader();
+    auto atlas = new spine::Atlas(atlas_path, texture_loader);
+    spine::SkeletonData *skel_data = nullptr;
+    spine::String error;
+    auto attachment_loader = new spine::Cocos2dAtlasAttachmentLoader(atlas);
+
+    if (strendwith(skel_path, ".skel")) {
+        auto reader = new spine::SkeletonBinary(attachment_loader);
+        reader->setScale(scale);
+        skel_data = reader->readSkeletonDataFile(skel_path);
+        error = reader->getError();
+        delete reader;
+    } else {
+        auto reader = new spine::SkeletonJson(attachment_loader);
+        reader->setScale(scale);
+        skel_data = reader->readSkeletonDataFile(skel_path);
+        error = reader->getError();
+        delete reader;
+    }
+
+    if (!skel_data) {
+        delete attachment_loader;
+        delete atlas;
+        delete texture_loader;
+        luaL_error(L, "%s\nerror reading skeleton file: %s", error.buffer(), skel_path);
+    }
+
+    olua_pushobj<spine::SkeletonData>(L, skel_data);
+
+    lua_pushstring(L, ".ownership");
+    lua_pushboolean(L, true);
+    olua_setvariable(L, -3);
+
+    lua_pushstring(L, ".skel.texture_loader");
+    olua_newrawobj(L, texture_loader);
+    olua_setvariable(L, -3);
+
+    lua_pushstring(L, ".skel.attachment_loader");
+    olua_newrawobj(L, attachment_loader);
+    olua_setvariable(L, -3);
+
+    lua_pushstring(L, ".skel.atlas");
+    olua_newrawobj(L, atlas);
+    olua_setvariable(L, -3);
+
+    return 1;
+}
+#endif

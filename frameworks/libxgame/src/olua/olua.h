@@ -89,6 +89,8 @@ OLUA_BEGIN_DECLS
 #endif
 #endif // luai_likely
 
+typedef int oluaret_t;
+
 // stat api
 OLUA_API size_t olua_objcount(lua_State *L);
 OLUA_API bool olua_isdebug(lua_State *L);

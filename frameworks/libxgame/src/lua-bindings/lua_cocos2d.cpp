@@ -11811,6 +11811,7 @@ static int _cocos2d_FileUtils_getFileDataFromZip(lua_State *L)
     unsigned char *data = self->getFileDataFromZip(zipFilePath, filename, &size);
     lua_pushlstring(L, (const char *)data, size);
     olua_push_int(L, (lua_Integer)size);
+    free(data);
 
     olua_endinvoke(L);
 
@@ -22532,46 +22533,16 @@ OLUA_LIB int luaopen_cocos2d_LuaComponent(lua_State *L)
 }
 OLUA_END_DECLS
 
-static cocos2d::Node *_find_ancestor(cocos2d::Node *node1, cocos2d::Node *node2)
-{
-    for (auto *p1 = node1; p1 != nullptr; p1 = p1->getParent()) {
-        for (auto *p2 = node2; p2 != nullptr; p2 = p2->getParent()) {
-            if (p1 == p2) {
-                return p1;
-            }
-        }
-    }
-    return NULL;
-}
-
 static int _cocos2d_Node___index(lua_State *L)
 {
     olua_startinvoke(L);
 
-    if(olua_isuserdata(L, 1)) {
-        if (olua_isstring(L, 2)) {
-            auto self = olua_toobj<cocos2d::Node>(L, 1);
-            cocos2d::Node *child = self->getChildByName(olua_tostring(L, 2));
-            if (child) {
-                olua_pushobj<cocos2d::Node>(L, child);
-                olua_addref(L, 1, "children", -1, OLUA_FLAG_MULTIPLE);
+    // @extend(cocos2d::NodeExtend) static oluaret_t __index(lua_State *L)
+    oluaret_t ret = cocos2d::NodeExtend::__index(L);
 
-                olua_endinvoke(L);
+    olua_endinvoke(L);
 
-                return 1;
-            }
-        }
-        lua_settop(L, 2);
-        olua_getvariable(L, 1);
-
-        olua_endinvoke(L);
-
-        return 1;
-    } else {
-        olua_endinvoke(L);
-
-        return 0;
-    }
+    return (int)ret;
 }
 
 static int _cocos2d_Node___olua_move(lua_State *L)
@@ -22584,6 +22555,24 @@ static int _cocos2d_Node___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
+}
+
+static int _cocos2d_Node__setLocalZOrder(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *self = nullptr;
+    lua_Integer arg1 = 0;       /** z */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+    olua_check_int(L, 2, &arg1);
+
+    // void _setLocalZOrder(std::int32_t z)
+    self->_setLocalZOrder((std::int32_t)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 static int _cocos2d_Node_addChild1(lua_State *L)
@@ -23199,6 +23188,23 @@ static int _cocos2d_Node_getActionManager(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Node_getAlpha(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *arg1 = nullptr;       /** obj */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
+
+    // @extend(cocos2d::NodeExtend) static float getAlpha(cocos2d::Node *obj)
+    float ret = cocos2d::NodeExtend::getAlpha(arg1);
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Node_getAnchorPoint(lua_State *L)
 {
     olua_startinvoke(L);
@@ -23227,6 +23233,40 @@ static int _cocos2d_Node_getAnchorPointInPoints(lua_State *L)
     // const cocos2d::Vec2 &getAnchorPointInPoints()
     const cocos2d::Vec2 &ret = self->getAnchorPointInPoints();
     int num_ret = olua_push_cocos2d_Vec2(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Node_getAnchorX(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *arg1 = nullptr;       /** obj */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
+
+    // @extend(cocos2d::NodeExtend) static float getAnchorX(cocos2d::Node *obj)
+    float ret = cocos2d::NodeExtend::getAnchorX(arg1);
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Node_getAnchorY(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *arg1 = nullptr;       /** obj */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
+
+    // @extend(cocos2d::NodeExtend) static float getAnchorY(cocos2d::Node *obj)
+    float ret = cocos2d::NodeExtend::getAnchorY(arg1);
+    int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
 
@@ -23267,50 +23307,27 @@ static int _cocos2d_Node_getBounds(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = olua_checkobj<cocos2d::Node>(L, 1);
-    auto target = olua_checkobj<cocos2d::Node>(L, 2);
+    cocos2d::Node *arg1 = nullptr;       /** obj */
+    cocos2d::Node *arg2 = nullptr;       /** target */
+    lua_Number arg3 = 0;       /** left */
+    lua_Number arg4 = 0;       /** right */
+    lua_Number arg5 = 0;       /** top */
+    lua_Number arg6 = 0;       /** bottom */
 
-    float left = (float)luaL_checknumber(L, 3);
-    float right = (float)luaL_checknumber(L, 4);
-    float top = (float)luaL_checknumber(L, 5);
-    float bottom = (float)luaL_checknumber(L, 6);
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Node");
+    olua_check_number(L, 3, &arg3);
+    olua_check_number(L, 4, &arg4);
+    olua_check_number(L, 5, &arg5);
+    olua_check_number(L, 6, &arg6);
 
-    cocos2d::Vec3 p1(left, bottom, 0);
-    cocos2d::Vec3 p2(right, top, 0);
-
-    auto m = cocos2d::Mat4::IDENTITY;
-
-    if (target == self->getParent()) {
-        m = self->getNodeToParentTransform();
-    } else if (target != self) {
-        auto ancestor = _find_ancestor(target, self);
-        if (!ancestor) {
-            m = target->getWorldToNodeTransform() * self->getNodeToWorldTransform();
-        } else if (target == ancestor) {
-            m = self->getNodeToParentTransform(target);
-        } else if (self == ancestor) {
-            m = target->getNodeToParentTransform(self).getInversed();
-        } else {
-            m = target->getNodeToParentTransform(ancestor).getInversed() * self->getNodeToParentTransform(ancestor);
-        }
-    }
-
-    m.transformPoint(&p1);
-    m.transformPoint(&p2);
-
-    left = MIN(p1.x, p2.x);
-    right = MAX(p1.x, p2.x);
-    top = MAX(p1.y, p2.y);
-    bottom = MIN(p1.y, p2.y);
-
-    lua_pushnumber(L, left);
-    lua_pushnumber(L, right);
-    lua_pushnumber(L, top);
-    lua_pushnumber(L, bottom);
+    // @extend(cocos2d::NodeExtend) @unpack static cocos2d::Bounds getBounds(cocos2d::Node *obj, cocos2d::Node *target, float left, float right, float top, float bottom)
+    cocos2d::Bounds ret = cocos2d::NodeExtend::getBounds(arg1, arg2, (float)arg3, (float)arg4, (float)arg5, (float)arg6);
+    int num_ret = olua_unpack_cocos2d_Bounds(L, &ret);
 
     olua_endinvoke(L);
 
-    return 4;
+    return num_ret;
 }
 
 static int _cocos2d_Node_getCameraMask(lua_State *L)
@@ -23550,6 +23567,23 @@ static int _cocos2d_Node_getGlobalZOrder(lua_State *L)
 
     // float getGlobalZOrder()
     float ret = self->getGlobalZOrder();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Node_getHeight(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *arg1 = nullptr;       /** obj */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
+
+    // @extend(cocos2d::NodeExtend) static float getHeight(cocos2d::Node *obj)
+    float ret = cocos2d::NodeExtend::getHeight(arg1);
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -24355,6 +24389,23 @@ static int _cocos2d_Node_getUserObject(lua_State *L)
     // cocos2d::Ref *getUserObject()
     cocos2d::Ref *ret = self->getUserObject();
     int num_ret = olua_push_cppobj(L, ret, "cc.Ref");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Node_getWidth(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *arg1 = nullptr;       /** obj */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
+
+    // @extend(cocos2d::NodeExtend) static float getWidth(cocos2d::Node *obj)
+    float ret = cocos2d::NodeExtend::getWidth(arg1);
+    int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
 
@@ -25425,6 +25476,24 @@ static int _cocos2d_Node_setAdditionalTransform(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_Node_setAlpha(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *arg1 = nullptr;       /** obj */
+    lua_Number arg2 = 0;       /** value */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
+    olua_check_number(L, 2, &arg2);
+
+    // @extend(cocos2d::NodeExtend) static void setAlpha(cocos2d::Node *obj, float value)
+    cocos2d::NodeExtend::setAlpha(arg1, (float)arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cocos2d_Node_setAnchorPoint(lua_State *L)
 {
     olua_startinvoke(L);
@@ -25437,6 +25506,42 @@ static int _cocos2d_Node_setAnchorPoint(lua_State *L)
 
     // void setAnchorPoint(const cocos2d::Vec2 &anchorPoint)
     self->setAnchorPoint(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Node_setAnchorX(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *arg1 = nullptr;       /** obj */
+    lua_Number arg2 = 0;       /** value */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
+    olua_check_number(L, 2, &arg2);
+
+    // @extend(cocos2d::NodeExtend) static void setAnchorX(cocos2d::Node *obj, float value)
+    cocos2d::NodeExtend::setAnchorX(arg1, (float)arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Node_setAnchorY(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *arg1 = nullptr;       /** obj */
+    lua_Number arg2 = 0;       /** value */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
+    olua_check_number(L, 2, &arg2);
+
+    // @extend(cocos2d::NodeExtend) static void setAnchorY(cocos2d::Node *obj, float value)
+    cocos2d::NodeExtend::setAnchorY(arg1, (float)arg2);
 
     olua_endinvoke(L);
 
@@ -25609,6 +25714,24 @@ static int _cocos2d_Node_setGlobalZOrder(lua_State *L)
 
     // void setGlobalZOrder(float globalZOrder)
     self->setGlobalZOrder((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Node_setHeight(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *arg1 = nullptr;       /** obj */
+    lua_Number arg2 = 0;       /** value */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
+    olua_check_number(L, 2, &arg2);
+
+    // @extend(cocos2d::NodeExtend) static void setHeight(cocos2d::Node *obj, float value)
+    cocos2d::NodeExtend::setHeight(arg1, (float)arg2);
 
     olua_endinvoke(L);
 
@@ -26458,6 +26581,24 @@ static int _cocos2d_Node_setVisible(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_Node_setWidth(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *arg1 = nullptr;       /** obj */
+    lua_Number arg2 = 0;       /** value */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
+    olua_check_number(L, 2, &arg2);
+
+    // @extend(cocos2d::NodeExtend) static void setWidth(cocos2d::Node *obj, float value)
+    cocos2d::NodeExtend::setWidth(arg1, (float)arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cocos2d_Node_sortAllChildren(lua_State *L)
 {
     olua_startinvoke(L);
@@ -26795,140 +26936,13 @@ static int _cocos2d_Node_visit(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Node_get_alpha(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    lua_pushnumber(L, self->getOpacity() / 255.0f);
-
-    olua_endinvoke(L);
-
-    return 1;
-}
-
-static int _cocos2d_Node_set_alpha(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    self->setOpacity((uint8_t)(olua_checknumber(L, 2) * 255.0f));
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _cocos2d_Node_get_anchorX(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    lua_pushnumber(L, self->getAnchorPoint().x);
-
-    olua_endinvoke(L);
-
-    return 1;
-}
-
-static int _cocos2d_Node_set_anchorX(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    cocos2d::Vec2 anchor = self->getAnchorPoint();
-    anchor.x = (float)olua_checknumber(L, 2);
-    self->setAnchorPoint(anchor);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _cocos2d_Node_get_anchorY(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    lua_pushnumber(L, self->getAnchorPoint().y);
-
-    olua_endinvoke(L);
-
-    return 1;
-}
-
-static int _cocos2d_Node_set_anchorY(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    cocos2d::Vec2 anchor = self->getAnchorPoint();
-    anchor.y = (float)olua_checknumber(L, 2);
-    self->setAnchorPoint(anchor);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _cocos2d_Node_get_height(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    lua_pushnumber(L, self->getContentSize().height);
-
-    olua_endinvoke(L);
-
-    return 1;
-}
-
-static int _cocos2d_Node_set_height(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    cocos2d::Size size = self->getContentSize();
-    size.height = (float)olua_checknumber(L, 2);
-    self->setContentSize(size);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _cocos2d_Node_get_width(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    lua_pushnumber(L, self->getContentSize().width);
-
-    olua_endinvoke(L);
-
-    return 1;
-}
-
-static int _cocos2d_Node_set_width(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    auto self = olua_toobj<cocos2d::Node>(L, 1);
-    cocos2d::Size size = self->getContentSize();
-    size.width = (float)olua_checknumber(L, 2);
-    self->setContentSize(size);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_Node(lua_State *L)
 {
     oluacls_class(L, "cc.Node", "cc.Ref");
     oluacls_func(L, "__index", _cocos2d_Node___index);
     oluacls_func(L, "__olua_move", _cocos2d_Node___olua_move);
+    oluacls_func(L, "_setLocalZOrder", _cocos2d_Node__setLocalZOrder);
     oluacls_func(L, "addChild", _cocos2d_Node_addChild);
     oluacls_func(L, "addComponent", _cocos2d_Node_addComponent);
     oluacls_func(L, "cleanup", _cocos2d_Node_cleanup);
@@ -26943,8 +26957,11 @@ OLUA_LIB int luaopen_cocos2d_Node(lua_State *L)
     oluacls_func(L, "enumerateChildren", _cocos2d_Node_enumerateChildren);
     oluacls_func(L, "getActionByTag", _cocos2d_Node_getActionByTag);
     oluacls_func(L, "getActionManager", _cocos2d_Node_getActionManager);
+    oluacls_func(L, "getAlpha", _cocos2d_Node_getAlpha);
     oluacls_func(L, "getAnchorPoint", _cocos2d_Node_getAnchorPoint);
     oluacls_func(L, "getAnchorPointInPoints", _cocos2d_Node_getAnchorPointInPoints);
+    oluacls_func(L, "getAnchorX", _cocos2d_Node_getAnchorX);
+    oluacls_func(L, "getAnchorY", _cocos2d_Node_getAnchorY);
     oluacls_func(L, "getAttachedNodeCount", _cocos2d_Node_getAttachedNodeCount);
     oluacls_func(L, "getBoundingBox", _cocos2d_Node_getBoundingBox);
     oluacls_func(L, "getBounds", _cocos2d_Node_getBounds);
@@ -26961,6 +26978,7 @@ OLUA_LIB int luaopen_cocos2d_Node(lua_State *L)
     oluacls_func(L, "getDisplayedOpacity", _cocos2d_Node_getDisplayedOpacity);
     oluacls_func(L, "getEventDispatcher", _cocos2d_Node_getEventDispatcher);
     oluacls_func(L, "getGlobalZOrder", _cocos2d_Node_getGlobalZOrder);
+    oluacls_func(L, "getHeight", _cocos2d_Node_getHeight);
     oluacls_func(L, "getLocalZOrder", _cocos2d_Node_getLocalZOrder);
     oluacls_func(L, "getName", _cocos2d_Node_getName);
     oluacls_func(L, "getNodeToParentAffineTransform", _cocos2d_Node_getNodeToParentAffineTransform);
@@ -27002,6 +27020,7 @@ OLUA_LIB int luaopen_cocos2d_Node(lua_State *L)
     oluacls_func(L, "getTag", _cocos2d_Node_getTag);
     oluacls_func(L, "getUserData", _cocos2d_Node_getUserData);
     oluacls_func(L, "getUserObject", _cocos2d_Node_getUserObject);
+    oluacls_func(L, "getWidth", _cocos2d_Node_getWidth);
     oluacls_func(L, "getWorldToNodeAffineTransform", _cocos2d_Node_getWorldToNodeAffineTransform);
     oluacls_func(L, "getWorldToNodeTransform", _cocos2d_Node_getWorldToNodeTransform);
     oluacls_func(L, "init", _cocos2d_Node_init);
@@ -27036,7 +27055,10 @@ OLUA_LIB int luaopen_cocos2d_Node(lua_State *L)
     oluacls_func(L, "scheduleUpdateWithPriority", _cocos2d_Node_scheduleUpdateWithPriority);
     oluacls_func(L, "setActionManager", _cocos2d_Node_setActionManager);
     oluacls_func(L, "setAdditionalTransform", _cocos2d_Node_setAdditionalTransform);
+    oluacls_func(L, "setAlpha", _cocos2d_Node_setAlpha);
     oluacls_func(L, "setAnchorPoint", _cocos2d_Node_setAnchorPoint);
+    oluacls_func(L, "setAnchorX", _cocos2d_Node_setAnchorX);
+    oluacls_func(L, "setAnchorY", _cocos2d_Node_setAnchorY);
     oluacls_func(L, "setCameraMask", _cocos2d_Node_setCameraMask);
     oluacls_func(L, "setCascadeColorEnabled", _cocos2d_Node_setCascadeColorEnabled);
     oluacls_func(L, "setCascadeOpacityEnabled", _cocos2d_Node_setCascadeOpacityEnabled);
@@ -27044,6 +27066,7 @@ OLUA_LIB int luaopen_cocos2d_Node(lua_State *L)
     oluacls_func(L, "setContentSize", _cocos2d_Node_setContentSize);
     oluacls_func(L, "setEventDispatcher", _cocos2d_Node_setEventDispatcher);
     oluacls_func(L, "setGlobalZOrder", _cocos2d_Node_setGlobalZOrder);
+    oluacls_func(L, "setHeight", _cocos2d_Node_setHeight);
     oluacls_func(L, "setIgnoreAnchorPointForPosition", _cocos2d_Node_setIgnoreAnchorPointForPosition);
     oluacls_func(L, "setLocalZOrder", _cocos2d_Node_setLocalZOrder);
     oluacls_func(L, "setName", _cocos2d_Node_setName);
@@ -27080,6 +27103,7 @@ OLUA_LIB int luaopen_cocos2d_Node(lua_State *L)
     oluacls_func(L, "setUserData", _cocos2d_Node_setUserData);
     oluacls_func(L, "setUserObject", _cocos2d_Node_setUserObject);
     oluacls_func(L, "setVisible", _cocos2d_Node_setVisible);
+    oluacls_func(L, "setWidth", _cocos2d_Node_setWidth);
     oluacls_func(L, "sortAllChildren", _cocos2d_Node_sortAllChildren);
     oluacls_func(L, "stopAction", _cocos2d_Node_stopAction);
     oluacls_func(L, "stopActionByTag", _cocos2d_Node_stopActionByTag);
@@ -27096,11 +27120,11 @@ OLUA_LIB int luaopen_cocos2d_Node(lua_State *L)
     oluacls_func(L, "updateTransform", _cocos2d_Node_updateTransform);
     oluacls_func(L, "visit", _cocos2d_Node_visit);
     oluacls_prop(L, "actionManager", _cocos2d_Node_getActionManager, _cocos2d_Node_setActionManager);
-    oluacls_prop(L, "alpha", _cocos2d_Node_get_alpha, _cocos2d_Node_set_alpha);
+    oluacls_prop(L, "alpha", _cocos2d_Node_getAlpha, _cocos2d_Node_setAlpha);
     oluacls_prop(L, "anchorPoint", _cocos2d_Node_getAnchorPoint, _cocos2d_Node_setAnchorPoint);
     oluacls_prop(L, "anchorPointInPoints", _cocos2d_Node_getAnchorPointInPoints, nullptr);
-    oluacls_prop(L, "anchorX", _cocos2d_Node_get_anchorX, _cocos2d_Node_set_anchorX);
-    oluacls_prop(L, "anchorY", _cocos2d_Node_get_anchorY, _cocos2d_Node_set_anchorY);
+    oluacls_prop(L, "anchorX", _cocos2d_Node_getAnchorX, _cocos2d_Node_setAnchorX);
+    oluacls_prop(L, "anchorY", _cocos2d_Node_getAnchorY, _cocos2d_Node_setAnchorY);
     oluacls_prop(L, "attachedNodeCount", _cocos2d_Node_getAttachedNodeCount, nullptr);
     oluacls_prop(L, "boundingBox", _cocos2d_Node_getBoundingBox, nullptr);
     oluacls_prop(L, "cameraMask", _cocos2d_Node_getCameraMask, _cocos2d_Node_setCameraMask);
@@ -27115,7 +27139,7 @@ OLUA_LIB int luaopen_cocos2d_Node(lua_State *L)
     oluacls_prop(L, "displayedOpacity", _cocos2d_Node_getDisplayedOpacity, nullptr);
     oluacls_prop(L, "eventDispatcher", _cocos2d_Node_getEventDispatcher, _cocos2d_Node_setEventDispatcher);
     oluacls_prop(L, "globalZOrder", _cocos2d_Node_getGlobalZOrder, _cocos2d_Node_setGlobalZOrder);
-    oluacls_prop(L, "height", _cocos2d_Node_get_height, _cocos2d_Node_set_height);
+    oluacls_prop(L, "height", _cocos2d_Node_getHeight, _cocos2d_Node_setHeight);
     oluacls_prop(L, "ignoreAnchorPointForPosition", _cocos2d_Node_isIgnoreAnchorPointForPosition, _cocos2d_Node_setIgnoreAnchorPointForPosition);
     oluacls_prop(L, "localZOrder", _cocos2d_Node_getLocalZOrder, _cocos2d_Node_setLocalZOrder);
     oluacls_prop(L, "name", _cocos2d_Node_getName, _cocos2d_Node_setName);
@@ -27158,7 +27182,7 @@ OLUA_LIB int luaopen_cocos2d_Node(lua_State *L)
     oluacls_prop(L, "userData", _cocos2d_Node_getUserData, _cocos2d_Node_setUserData);
     oluacls_prop(L, "userObject", _cocos2d_Node_getUserObject, _cocos2d_Node_setUserObject);
     oluacls_prop(L, "visible", _cocos2d_Node_isVisible, _cocos2d_Node_setVisible);
-    oluacls_prop(L, "width", _cocos2d_Node_get_width, _cocos2d_Node_set_width);
+    oluacls_prop(L, "width", _cocos2d_Node_getWidth, _cocos2d_Node_setWidth);
     oluacls_prop(L, "worldToNodeAffineTransform", _cocos2d_Node_getWorldToNodeAffineTransform, nullptr);
     oluacls_prop(L, "worldToNodeTransform", _cocos2d_Node_getWorldToNodeTransform, nullptr);
     oluacls_prop(L, "x", _cocos2d_Node_getPositionX, _cocos2d_Node_setPositionX);

@@ -6,98 +6,101 @@ local LoadTask      = require "cclua.LoadTask"
 local plist         = require "cclua.plist"
 local Event         = require "cclua.Event"
 local Dispatcher    = require "cclua.Dispatcher"
-local UIPackage     = require "fgui.UIPackage"
 
 local EVENT_RESULT = "result"
 
-local M = {loaders = {}}
-
 local trace = util.trace('[loader]')
+local loader = {}
 local cache = setmetatable({}, {__mode = 'v'})
 
-local AssetObject = class('AssetObject', Dispatcher)
+local STATUS_LOADING = "loading"
+local STATUS_COMPLETED = "completed"
+local STATUS_ERROR = "error"
+local STATUS_READY = "ready"
 
-function AssetObject:ctor(uri)
+local AssetRef = class('AssetRef', Dispatcher)
+
+function AssetRef:ctor(uri)
     self.uri = uri
     self.path = filesystem.localPath(uri)
-    self.status = 'unknown'
+    self.status = STATUS_READY
     self.type = string.lower(string.match(uri, '%.%w+$'))
-    self.loader = M.loaders[self.type] or M.loader['*']
+    self.loader = loader[self.type] or loader['*']
 end
 
-function AssetObject:startLoad()
+function AssetRef:startLoad()
     local task = LoadTask.new(self.uri)
-    self.status = 'loading'
+    self.status = STATUS_LOADING
     task:addListener(Event.COMPLETE, function ()
-        if self.status == 'loading' then
-            self.status = 'loadOk'
+        if self.status == STATUS_LOADING then
+            self.status = STATUS_COMPLETED
             self.loader.load(self)
         end
         self:dispatch(EVENT_RESULT)
     end)
     task:addListener(Event.IOERROR, function ()
-        if self.status == 'loading' then
-            self.status = 'loadNo'
+        if self.status == STATUS_LOADING then
+            self.status = STATUS_ERROR
         end
         self:dispatch(EVENT_RESULT)
     end)
     task:start()
 end
 
-function AssetObject:reload()
+function AssetRef:reload()
     self.loader.reload(self)
 end
 
-function AssetObject:unload()
+function AssetRef:unload()
     if self.status ~= 'unload' then
         self.status = 'unload'
         self.loader.unload(self)
     end
 end
 
-function AssetObject:__gc()
+function AssetRef:__gc()
     self:unload()
 end
 
-function M.register(suffix)
-    local loader = {
+function loader.register(suffix)
+    local entry = {
         load = function () end,
         reload = function () end,
         unload = function () end,
     }
     for name in string.gmatch(suffix, '[^; ]+') do
-        M.loaders[name] = loader
+        loader[name] = entry
     end
-    return loader
+    return entry
 end
 
-function M.load(uri, callback)
+function loader.load(uri, callback)
     local assetRef = cache[uri]
     if not uri or #uri == 0 then
         error('uri is nil or empty')
     end
     assert(string.find(uri, '%.%w+$'), uri)
     if not assetRef then
-        assetRef = AssetObject.new(uri)
+        assetRef = AssetRef.new(uri)
         cache[uri] = assetRef
     end
-    if assetRef.status == 'loading' or assetRef.status == 'unknown' then
+    if assetRef.status == STATUS_LOADING or assetRef.status == STATUS_READY then
         assetRef:addListener(EVENT_RESULT, function ()
             assetRef:removeListener(EVENT_RESULT, util.callee())
             if callback then
-                callback(assetRef.status == 'loadOk')
+                callback(assetRef.status == STATUS_COMPLETED)
             end
         end)
     elseif callback then
-        callback(assetRef.status == 'loadOk')
+        callback(assetRef.status == STATUS_COMPLETED)
     end
-    if assetRef.status == 'unknown' then
+    if assetRef.status == STATUS_READY then
         assetRef:startLoad()
     end
     return assetRef
 end
 
-function M.unload(uri)
+function loader.unload(uri)
     local assetRef = cache[uri]
     if assetRef then
         assetRef:unload()
@@ -105,7 +108,7 @@ function M.unload(uri)
     end
 end
 
-function M.reload(uri)
+function loader.reload(uri)
     local assetRef = cache[uri]
     if assetRef then
         assetRef:reload()
@@ -117,10 +120,10 @@ local function trimPath(path)
 end
 
 -- default
-M.register('*')
+loader.register('*')
 
 -- jpg & png
-local ImageLoader = M.register('.jpg;.png')
+local ImageLoader = loader.register('.jpg;.png')
 
 function ImageLoader:reload()
     if runtime.textureCache:getTextureForKey(self.path) then
@@ -135,7 +138,7 @@ function ImageLoader:unload()
 end
 
 -- .plist
-local PlistLoader = M.register('.plist')
+local PlistLoader = loader.register('.plist')
 
 function PlistLoader:load()
     if not runtime.spriteFrameCache:isSpriteFramesWithFileLoaded(self.path) then
@@ -158,21 +161,24 @@ function PlistLoader:unload()
 end
 
 -- fgui
-local FUILoader = M.register('.fui')
+if runtime.hasFeature("fairygui") then
+    local UIPackage = require "fgui.UIPackage"
+    local FUILoader = loader.register('.fui')
 
-function FUILoader:load()
-    local rawpath = string.gsub(self.path, '.fui$', '')
-    local pkg = UIPackage.addPackage(rawpath)
-    if not pkg then
-        error("can't load '" .. self.uri .. "'")
+    function FUILoader:load()
+        local rawpath = string.gsub(self.path, '.fui$', '')
+        local pkg = UIPackage.addPackage(rawpath)
+        if not pkg then
+            error("can't load '" .. self.uri .. "'")
+        end
+        trace('load fgui: %s', self.uri)
     end
-    trace('load fgui: %s', self.uri)
+
+    function FUILoader:unload()
+        local rawpath = string.gsub(self.path, '.fui$', '')
+        UIPackage.removePackage(rawpath)
+        trace('unload fgui: %s', self.uri)
+    end
 end
 
-function FUILoader:unload()
-    local rawpath = string.gsub(self.path, '.fui$', '')
-    UIPackage.removePackage(rawpath)
-    trace('unload fgui: %s', self.uri)
-end
-
-return M
+return loader

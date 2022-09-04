@@ -208,6 +208,16 @@ private:
     CC_DISALLOW_COPY_AND_ASSIGN(RotateFrom);
 };
 
+class ImageExtend : private cocos2d::Image {
+public:
+    static bool getPNGPremultipliedAlphaEnabled() { return PNG_PREMULTIPLIED_ALPHA_ENABLED; }
+};
+
+class FileUtilsExtend {
+public:
+    static cocos2d::Data getFileDataFromZip(cocos2d::FileUtils *obj, const std::string &zipPath, const std::string &name);
+};
+
 class NodeExtend {
 public:
     static float getAnchorX(cocos2d::Node *obj);
@@ -232,12 +242,12 @@ public:
 
 class Mat4Extend {
 public:
-    static cocos2d::Vec4 transform(cocos2d::Mat4 *mat, const cocos2d::Vec4 &p);
-    static cocos2d::Vec3 transform(cocos2d::Mat4 *mat, const cocos2d::Vec3 &p);
-    static cocos2d::Vec2 transform(cocos2d::Mat4 *mat, const cocos2d::Vec2 &p);
-    static cocos2d::Mat4 *__add(cocos2d::Mat4 *mat1, cocos2d::Mat4 *mat2);
-    static cocos2d::Mat4 *__sub(cocos2d::Mat4 *mat1, cocos2d::Mat4 *mat2);
-    static cocos2d::Mat4 *__mul(cocos2d::Mat4 *mat1, cocos2d::Mat4 *mat2);
+    static cocos2d::Vec4 transform(cocos2d::Mat4 *mat, OLUA_PACK const cocos2d::Vec4 &p);
+    static cocos2d::Vec3 transform(cocos2d::Mat4 *mat, OLUA_PACK const cocos2d::Vec3 &p);
+    static cocos2d::Vec2 transform(cocos2d::Mat4 *mat, OLUA_PACK const cocos2d::Vec2 &p);
+    static OLUA_POSTNEW cocos2d::Mat4 *__add(cocos2d::Mat4 *mat1, cocos2d::Mat4 *mat2);
+    static OLUA_POSTNEW cocos2d::Mat4 *__sub(cocos2d::Mat4 *mat1, cocos2d::Mat4 *mat2);
+    static OLUA_POSTNEW cocos2d::Mat4 *__mul(cocos2d::Mat4 *mat1, cocos2d::Mat4 *mat2);
 };
 
 NS_CC_END
@@ -250,7 +260,7 @@ namespace spine {
 class SkeletonDataExtend {
 public:
     static oluaret_t __gc(lua_State *L);
-    static oluaret_t create(lua_State *L);
+    static oluaret_t create(lua_State *L, const char *skelPath, const char *atlasPath, float scale = 1.0f);
 };
 
 }

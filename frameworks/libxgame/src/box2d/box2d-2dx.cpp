@@ -1,4 +1,4 @@
-#include "Box2DAdapter.h"
+#include "box2d-2dx.h"
 
 USING_NS_BOX2D;
 USING_NS_CC;
@@ -67,48 +67,70 @@ float RayCastCallback::ReportFixture(b2Fixture *fixture, const b2Vec2 &point, co
     return reportFixture(fixture, point, normal, fraction);
 }
 
-Draw::Draw()
+Box2dNode *Box2dNode::create(b2World *world)
 {
-    _node = DrawNode::create();
-    CC_SAFE_RETAIN(_node);
+    Box2dNode *ret = new (std::nothrow) Box2dNode();
+    if (ret && ret->init(world)) {
+        ret->autorelease();
+        return ret;
+    }
+    CC_SAFE_DELETE(ret);
+    return nullptr;
 }
 
-Draw::~Draw()
+Box2dNode::Box2dNode()
+:_world(nullptr)
 {
-    CC_SAFE_RELEASE(_node);
 }
 
-void Draw::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
+Box2dNode::~Box2dNode()
 {
-    
 }
 
-void Draw::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
+bool Box2dNode::init(b2World *world)
 {
-    
+    _world = world;
+    _world->SetDebugDraw(this);
+    return DrawNode::init();
 }
 
-void Draw::DrawCircle(const b2Vec2& center, float radius, const b2Color& color)
+void Box2dNode::visit(Renderer *renderer, const Mat4& parentTransform, uint32_t parentFlags)
 {
-    
+    _world->DebugDraw();
+    DrawNode::visit(renderer, parentTransform, parentFlags);
 }
 
-void Draw::DrawSolidCircle(const b2Vec2& center, float radius, const b2Vec2& axis, const b2Color& color)
-{
-    
-}
-
-void Draw::DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& color)
-{
-    
-}
-
-void Draw::DrawTransform(const b2Transform& xf)
+void Box2dNode::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
 {
     
 }
 
-void Draw::DrawPoint(const b2Vec2& p, float size, const b2Color& color)
+void Box2dNode::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
+{
+    
+}
+
+void Box2dNode::DrawCircle(const b2Vec2& center, float radius, const b2Color& color)
+{
+    
+}
+
+void Box2dNode::DrawSolidCircle(const b2Vec2& center, float radius, const b2Vec2& axis, const b2Color& color)
+{
+    
+}
+
+void Box2dNode::DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& color)
+{
+    
+}
+
+void Box2dNode::DrawTransform(const b2Transform& xf)
+{
+    
+}
+
+void Box2dNode::DrawPoint(const b2Vec2& p, float size, const b2Color& color)
 {
     
 }

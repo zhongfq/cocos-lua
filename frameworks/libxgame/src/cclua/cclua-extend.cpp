@@ -330,6 +330,15 @@ RotateFrom *RotateFrom::reverse() const
     return nullptr;
 }
 
+cocos2d::Data FileUtilsExtend::getFileDataFromZip(cocos2d::FileUtils *obj, const std::string &zipPath, const std::string &name)
+{
+    cocos2d::Data data;
+    ssize_t size = 0;
+    unsigned char *value = obj->getFileDataFromZip(zipPath, name, &size);
+    data.fastSet(value, size);
+    return data;
+}
+
 float NodeExtend::getAnchorX(cocos2d::Node *obj)
 {
     return obj->getAnchorPoint().x;
@@ -526,12 +535,8 @@ oluaret_t SkeletonDataExtend::__gc(lua_State *L)
     return 0;
 }
 
-oluaret_t SkeletonDataExtend::create(lua_State *L)
+oluaret_t SkeletonDataExtend::create(lua_State *L, const char *skel_path, const char *atlas_path, float scale)
 {
-    const char *skel_path = olua_checkstring(L, 1);
-    const char *atlas_path = olua_checkstring(L, 2);
-    float scale = (float)olua_optnumber(L, 3, 1);
-
     auto texture_loader = new spine::Cocos2dTextureLoader();
     auto atlas = new spine::Atlas(atlas_path, texture_loader);
     spine::SkeletonData *skel_data = nullptr;

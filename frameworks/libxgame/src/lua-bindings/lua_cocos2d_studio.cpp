@@ -13982,7 +13982,7 @@ static int _cocostudio_timeline_Frame_getNode(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.Frame");
 
-    // @addref(node ^) cocos2d::Node *getNode()
+    // @addref(^) cocos2d::Node *getNode()
     cocos2d::Node *ret = self->getNode();
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
@@ -14002,7 +14002,7 @@ static int _cocostudio_timeline_Frame_getTimeline(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.Frame");
 
-    // @addref(timeline ^) cocostudio::timeline::Timeline *getTimeline()
+    // @addref(^) cocostudio::timeline::Timeline *getTimeline()
     cocostudio::timeline::Timeline *ret = self->getTimeline();
     int num_ret = olua_push_cppobj(L, ret, "ccs.timeline.Timeline");
 
@@ -14135,7 +14135,7 @@ static int _cocostudio_timeline_Frame_setNode(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.Frame");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
 
-    // void setNode(@addref(node ^) cocos2d::Node *node)
+    // void setNode(@addref(^) cocos2d::Node *node)
     self->setNode(arg1);
 
     // insert code after call
@@ -14156,7 +14156,7 @@ static int _cocostudio_timeline_Frame_setTimeline(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.Frame");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccs.timeline.Timeline");
 
-    // void setTimeline(@addref(timeline ^) cocostudio::timeline::Timeline *timeline)
+    // void setTimeline(@addref(^) cocostudio::timeline::Timeline *timeline)
     self->setTimeline(arg1);
 
     // insert code after call
@@ -16372,12 +16372,12 @@ static int _cocostudio_timeline_ActionTimelineNode_getActionTimeline(lua_State *
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.ActionTimelineNode");
 
-    // @addref(actionTimeline ^) cocostudio::timeline::ActionTimeline *getActionTimeline()
+    // @addref(^) cocostudio::timeline::ActionTimeline *getActionTimeline()
     cocostudio::timeline::ActionTimeline *ret = self->getActionTimeline();
     int num_ret = olua_push_cppobj(L, ret, "ccs.timeline.ActionTimeline");
 
     // insert code after call
-    olua_addref(L, 1, "actionTimeline", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "actiontimeline", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -16392,7 +16392,7 @@ static int _cocostudio_timeline_ActionTimelineNode_getRoot(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.ActionTimelineNode");
 
-    // @addref(root ^) cocos2d::Node *getRoot()
+    // @addref(^) cocos2d::Node *getRoot()
     cocos2d::Node *ret = self->getRoot();
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
@@ -16487,11 +16487,11 @@ static int _cocostudio_timeline_ActionTimelineNode_setActionTimeline(lua_State *
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.ActionTimelineNode");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccs.timeline.ActionTimeline");
 
-    // void setActionTimeline(@addref(actionTimeline ^) cocostudio::timeline::ActionTimeline *action)
+    // void setActionTimeline(@addref(^) cocostudio::timeline::ActionTimeline *action)
     self->setActionTimeline(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "actionTimeline", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "actiontimeline", 2, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -16508,7 +16508,7 @@ static int _cocostudio_timeline_ActionTimelineNode_setRoot(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.ActionTimelineNode");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
 
-    // void setRoot(@addref(root ^) cocos2d::Node *root)
+    // void setRoot(@addref(^) cocos2d::Node *root)
     self->setRoot(arg1);
 
     // insert code after call
@@ -17409,12 +17409,12 @@ static int _cocostudio_timeline_Timeline_getActionTimeline(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.Timeline");
 
-    // @addref(actionTimeline ^) cocostudio::timeline::ActionTimeline *getActionTimeline()
+    // @addref(^) cocostudio::timeline::ActionTimeline *getActionTimeline()
     cocostudio::timeline::ActionTimeline *ret = self->getActionTimeline();
     int num_ret = olua_push_cppobj(L, ret, "ccs.timeline.ActionTimeline");
 
     // insert code after call
-    olua_addref(L, 1, "actionTimeline", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "actiontimeline", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -17451,7 +17451,7 @@ static int _cocostudio_timeline_Timeline_getNode(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.Timeline");
 
-    // @addref(node ^) cocos2d::Node *getNode()
+    // @addref(^) cocos2d::Node *getNode()
     cocos2d::Node *ret = self->getNode();
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
@@ -17567,11 +17567,11 @@ static int _cocostudio_timeline_Timeline_setActionTimeline(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.Timeline");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccs.timeline.ActionTimeline");
 
-    // void setActionTimeline(@addref(actionTimeline ^) cocostudio::timeline::ActionTimeline *action)
+    // void setActionTimeline(@addref(^) cocostudio::timeline::ActionTimeline *action)
     self->setActionTimeline(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "actionTimeline", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "actiontimeline", 2, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -17588,7 +17588,7 @@ static int _cocostudio_timeline_Timeline_setNode(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.Timeline");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
 
-    // void setNode(@addref(node ^) cocos2d::Node *node)
+    // void setNode(@addref(^) cocos2d::Node *node)
     self->setNode(arg1);
 
     // insert code after call

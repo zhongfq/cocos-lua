@@ -38,100 +38,13 @@ typeconf 'cclua::permission'
             return 1;
         }]]
 
-local push_director = [[
-    olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
-    int director = lua_gettop(L);
-]]
-
 typeconf 'cclua::runtime'
-    .exclude 'callref'
-    .exclude 'dispatch'
-    .exclude 'getNativeStackTrace'
-    .exclude 'handleOpenURL'
-    .exclude 'init'
-    .exclude 'initBugly'
-    .exclude 'isCocosThread'
-    .exclude 'log'
-    .exclude 'luaOpen'
-    .exclude 'luaVM'
-    .exclude 'parseLaunchArgs'
-    .exclude 'ref'
-    .exclude 'registerFeature'
-    .exclude 'reportError'
-    .exclude 'runLater'
-    .exclude 'unref'
-    .exclude 'updateTimestamp'
-    .chunk [[
-        static int _cclua_runtime_load_index_func(lua_State *L)
-        {
-            if (olua_isstring(L, lua_upvalueindex(2))) {
-                const char *name = olua_tostring(L, lua_upvalueindex(1));
-                const char *func = olua_tostring(L, lua_upvalueindex(2));
-                cclua::runtime::log("function '%s.%s' not supported", name, func);
-                return 0;
-            } else {
-                const char *func = olua_tostring(L, 2);
-                lua_pushvalue(L, lua_upvalueindex(1));
-                lua_pushstring(L, func);
-                lua_pushcclosure(L, _cclua_runtime_load_index_func, 2);
-                return 1;
-            }
-        }
-    ]]
-    .func 'getProgramCache' .ret '@addref(programCache ^ director)' .insert_before(push_director)
-    .func 'getFileUtils' .ret '@addref(fileUtils ^ director)' .insert_before(push_director)
-    .func 'getSpriteFrameCache' .ret '@addref(spriteFrameCache ^ director)' .insert_before(push_director)
-    .func 'getTextureCache' .ret '@addref(textureCache ^ director)' .insert_before(push_director)
-    .func 'getScheduler' .ret '@addref(scheduler ^ director)' .insert_before(push_director)
-    .func 'getActionManager' .ret '@addref(actionManager ^ director)' .insert_before(push_director)
-    .func 'getEventDispatcher' .ret '@addref(eventDispatcher ^ director)' .insert_before(push_director)
-    .func 'getRunningScene' .ret '@addref(scenes | director)' .insert_before(push_director)
-    .func 'pushScene' .arg1 '@addref(scenes | director)' .insert_before(push_director)
-    .func 'replaceScene' .ret '@delref(scenes ~ director)' .arg1 '@addref(scenes | director)' .insert_before(push_director)
-    .func 'popScene' .ret '@delref(scenes ~ director)' .insert_before(push_director)
-    .func 'popToRootScene' .ret '@delref(scenes ~ director)' .insert_before(push_director)
-    .func "testCrash"
-        .snippet [[
-        {
-            cclua::runtime::log("test native crash!!!!");
-            char *prt = NULL;
-            *prt = 0;
-            return 0;
-        }]]
-    .func "load"
-        .snippet [[
-        {
-            const char *name = olua_checkstring(L, 1);
-            const char *feature = olua_optstring(L, 2, name);
-            if (cclua::runtime::hasFeature(feature)) {
-                lua_getfield(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
-                if (olua_rawgetf(L, -1, name) == LUA_TTABLE) {
-                    return 1;
-                }
-            }
-
-            cclua::runtime::log("module '%s' is not available", name);
-            lua_newtable(L);
-            lua_newtable(L);
-            lua_pushvalue(L, 1);
-            lua_pushcclosure(L, _cclua_runtime_load_index_func, 1);
-            olua_rawsetf(L, -2, "__index");
-            lua_setmetatable(L, -2);
-            lua_getfield(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
-            lua_pushvalue(L, 1);
-            lua_pushvalue(L, -3);
-            lua_rawset(L, -3);
-            lua_pop(L, 1);
-            return 1;
-        }]]
     .callback 'setDispatcher' .tag_mode 'replace'
     .callback 'openURL' .tag_mode 'new' .tag_scope 'once'
     .callback 'requestPermission' .tag_mode 'new' .tag_scope 'once'
     .callback 'alert' .tag_mode 'new' .tag_scope 'once'
 
 typeconf 'cclua::filesystem'
-    .exclude 'getDirectory'
-
 typeconf 'cclua::preferences'
 
 typeconf 'cclua::timer'
@@ -182,18 +95,8 @@ typeconf 'cclua::timer'
         }]]
 
 typeconf 'cclua::window'
-    .func 'getVisibleBounds' .ret '@unpack'
-    .func 'getVisibleSize' .ret '@unpack'
-    .func 'getFrameSize' .ret '@unpack'
-    .func 'setFrameSize' .arg1 '@pack'
-    .func 'getDesignSize' .ret '@unpack'
-    .func 'setDesignSize' .arg1 '@pack'
-    .func 'convertToCameraSpace' .arg1 '@pack'
-
 typeconf 'cclua::downloader'
 typeconf 'cclua::Container'
-    .func 'getFilter' .ret '@addref(filter ^)'
-    .func 'setFilter' .arg1 '@nullable@addref(filter ^)'
 
 ifdef 'defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)'
 typeconf 'cclua::microphone'

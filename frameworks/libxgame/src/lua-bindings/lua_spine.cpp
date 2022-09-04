@@ -12366,16 +12366,65 @@ static int _spine_SkeletonData___olua_move(lua_State *L)
     return 1;
 }
 
-static int _spine_SkeletonData_create(lua_State *L)
+static int _spine_SkeletonData_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // @extend(spine::SkeletonDataExtend) static oluaret_t create(lua_State *L)
-    oluaret_t ret = spine::SkeletonDataExtend::create(L);
+    const char *arg2 = nullptr;       /** skelPath */
+    const char *arg3 = nullptr;       /** atlasPath */
+    lua_Number arg4 = 0;       /** scale */
+
+    olua_check_string(L, 1, &arg2);
+    olua_check_string(L, 2, &arg3);
+    olua_check_number(L, 3, &arg4);
+
+    // @extend(spine::SkeletonDataExtend) static oluaret_t create(lua_State *L, const char *skelPath, const char *atlasPath, @optional float scale)
+    oluaret_t ret = spine::SkeletonDataExtend::create(L, arg2, arg3, (float)arg4);
 
     olua_endinvoke(L);
 
     return (int)ret;
+}
+
+static int _spine_SkeletonData_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *arg2 = nullptr;       /** skelPath */
+    const char *arg3 = nullptr;       /** atlasPath */
+
+    olua_check_string(L, 1, &arg2);
+    olua_check_string(L, 2, &arg3);
+
+    // @extend(spine::SkeletonDataExtend) static oluaret_t create(lua_State *L, const char *skelPath, const char *atlasPath, @optional float scale)
+    oluaret_t ret = spine::SkeletonDataExtend::create(L, arg2, arg3);
+
+    olua_endinvoke(L);
+
+    return (int)ret;
+}
+
+static int _spine_SkeletonData_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if ((olua_is_string(L, 1)) && (olua_is_string(L, 2))) {
+            // @extend(spine::SkeletonDataExtend) static oluaret_t create(lua_State *L, const char *skelPath, const char *atlasPath, @optional float scale)
+            return _spine_SkeletonData_create2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_string(L, 1)) && (olua_is_string(L, 2)) && (olua_is_number(L, 3))) {
+            // @extend(spine::SkeletonDataExtend) static oluaret_t create(lua_State *L, const char *skelPath, const char *atlasPath, @optional float scale)
+            return _spine_SkeletonData_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'spine::SkeletonData::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _spine_SkeletonData_findAnimation(lua_State *L)

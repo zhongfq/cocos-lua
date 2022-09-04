@@ -90,20 +90,21 @@ class runtime
 {
 public:
     // parse launch args(for lua debug)
-    static void parseLaunchArgs(int argc, char *argv[]);
+    static void parseLaunchArgs(int argc, char *argv[]) OLUA_EXCLUDE;
     
     // lua vm & init
-    static void init();
+    static void init() OLUA_EXCLUDE;
     static void clearStorage();
     static bool launch(const std::string &scriptPath);
     static bool restart();
     static bool isRestarting();
     static bool isDebug();
-    static bool isCocosThread();
+    static bool isCocosThread() OLUA_EXCLUDE;
     static float getTime();
     static void gc();
-    static lua_State *luaVM();
-    static void luaOpen(lua_CFunction libfunc);
+    static void testCrash();
+    static lua_State *luaVM() OLUA_EXCLUDE;
+    static void luaOpen(lua_CFunction libfunc) OLUA_EXCLUDE;
     
     // app info
     static std::string getVersion();
@@ -147,23 +148,23 @@ public:
     
     // event dispatch
     static void setDispatcher(const Callback &dispatcher);
-    static void dispatch(const std::string &event, const cocos2d::Value &args);
-    static void dispatch(const std::string &event, const std::string &args = "");
-    static void runLater(const std::function<void ()> &callback);
+    static void dispatch(const std::string &event, const cocos2d::Value &args) OLUA_EXCLUDE;
+    static void dispatch(const std::string &event, const std::string &args = "") OLUA_EXCLUDE;
+    static void runLater(const std::function<void ()> &callback) OLUA_EXCLUDE;
     static void openURL(const std::string &uri, const std::function<void (bool)> callback = nullptr);
-    static void handleOpenURL(const std::string &uri);
+    static void handleOpenURL(const std::string &uri) OLUA_EXCLUDE;
     static bool canOpenURL(const std::string &uri);
     
     // for java and objc bridge
     static void installAPK(const std::string &path);
-    static void callref(callback_t func, const std::string &status, const std::string &data, bool once);
-    static callback_t ref(const Callback &callback);
-    static void unref(callback_t func);
+    static void callref(callback_t func, const std::string &status, const std::string &data, bool once) OLUA_EXCLUDE;
+    static callback_t ref(const Callback &callback) OLUA_EXCLUDE;
+    static void unref(callback_t func) OLUA_EXCLUDE;
     
     // log
     static void setLogPath(const std::string &path);
     static std::string getLogPath();
-    static void log(const char *format, ...);
+    static void log(const char *format, ...) OLUA_EXCLUDE;
     static void showLog();
     
     // msaa antialias for vector graphics
@@ -172,33 +173,36 @@ public:
     
     // feature
     static bool hasFeature(const std::string &api);
-    static void registerFeature(const std::string &api, bool enabled);
+    static void registerFeature(const std::string &api, bool enabled) OLUA_EXCLUDE;
     static void printFeatures();
+    static oluaret_t load(lua_State *L, const std::string &name);
+    static oluaret_t load(lua_State *L, const std::string &name, const std::string &feature);
     
     // error
-    static void initBugly(const char* appid);
+    static void initBugly(const char* appid) OLUA_EXCLUDE;
     static void disableReport();
-    static void reportError(const char *err, const char *traceback);
+    static void reportError(const char *err, const char *traceback) OLUA_EXCLUDE;
     
     // Director api
+    static int pushdirector(lua_State *L) OLUA_EXCLUDE;
 #if COCOS2D_VERSION >= 0x00040000
-    static cocos2d::backend::ProgramCache *getProgramCache();
+    static OLUA_ADDREF(^ ::pushdirector) cocos2d::backend::ProgramCache *getProgramCache();
 #else
-    static cocos2d::GLProgramCache *getProgramCache();
+    static OLUA_ADDREF(^ ::pushdirector) cocos2d::GLProgramCache *getProgramCache();
 #endif
-    static cocos2d::FileUtils *getFileUtils();
-    static cocos2d::SpriteFrameCache *getSpriteFrameCache();
-    static cocos2d::TextureCache *getTextureCache();
-    static cocos2d::Scheduler *getScheduler();
-    static cocos2d::ActionManager *getActionManager();
-    static cocos2d::EventDispatcher *getEventDispatcher();
+    static OLUA_ADDREF(^ ::pushdirector) cocos2d::FileUtils *getFileUtils();
+    static OLUA_ADDREF(^ ::pushdirector) cocos2d::SpriteFrameCache *getSpriteFrameCache();
+    static OLUA_ADDREF(^ ::pushdirector) cocos2d::TextureCache *getTextureCache();
+    static OLUA_ADDREF(^ ::pushdirector) cocos2d::Scheduler *getScheduler();
+    static OLUA_ADDREF(^ ::pushdirector) cocos2d::ActionManager *getActionManager();
+    static OLUA_ADDREF(^ ::pushdirector) cocos2d::EventDispatcher *getEventDispatcher();
     static bool isDisplayStats();
     static void setDisplayStats(bool displayStats);
-    static cocos2d::Scene *getRunningScene();
-    static void pushScene(cocos2d::Scene *scene);
-    static void replaceScene(cocos2d::Scene *scene);
-    static void popScene();
-    static void popToRootScene();
+    static OLUA_ADDREF(scenes | ::pushdirector) cocos2d::Scene *getRunningScene();
+    static void pushScene(OLUA_ADDREF(scenes | ::pushdirector) cocos2d::Scene *scene);
+    static OLUA_DEFREF(scenes ~ ::pushdirector) void replaceScene(OLUA_ADDREF(scenes | ::pushdirector) cocos2d::Scene *scene);
+    static OLUA_DEFREF(scenes ~ ::pushdirector) void popScene();
+    static OLUA_DEFREF(scenes ~ ::pushdirector) void popToRootScene();
     static void purgeCachedData();
     static void exit();
 private:

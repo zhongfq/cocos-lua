@@ -39,7 +39,7 @@ public:
 
     // android only
     static std::string getSDCardDirectory();
-    static std::string getDirectory(const std::string &type);
+    static std::string getDirectory(const std::string &type) OLUA_EXCLUDE;
 
     static void addSearchPath(const std::string &path, bool front = false);
     static std::string trimPath(const std::string &path, size_t limit = 60); // for log

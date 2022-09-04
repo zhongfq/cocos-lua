@@ -56,8 +56,8 @@ public:
     virtual void onEnter() override;
     virtual void onExit() override;
     
-    void setFilter(cocos2d::Node *value);
-    cocos2d::Node *getFilter();
+    void setFilter(OLUA_NULLABLE OLUA_ADDREF(^) cocos2d::Node *value);
+    OLUA_ADDREF(^) cocos2d::Node *getFilter();
 private:
     cocos2d::Node *_filter = nullptr;
 };

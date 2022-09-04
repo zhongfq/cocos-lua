@@ -3332,12 +3332,12 @@ static int _cocos2d_Director_getActionManager(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // @addref(actionManager ^) cocos2d::ActionManager *getActionManager()
+    // @addref(^) cocos2d::ActionManager *getActionManager()
     cocos2d::ActionManager *ret = self->getActionManager();
     int num_ret = olua_push_cppobj(L, ret, "cc.ActionManager");
 
     // insert code after call
-    olua_addref(L, 1, "actionManager", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "actionmanager", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -3420,12 +3420,12 @@ static int _cocos2d_Director_getEventDispatcher(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // @addref(eventDispatcher ^) cocos2d::EventDispatcher *getEventDispatcher()
+    // @addref(^) cocos2d::EventDispatcher *getEventDispatcher()
     cocos2d::EventDispatcher *ret = self->getEventDispatcher();
     int num_ret = olua_push_cppobj(L, ret, "cc.EventDispatcher");
 
     // insert code after call
-    olua_addref(L, 1, "eventDispatcher", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "eventdispatcher", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -3489,12 +3489,12 @@ static int _cocos2d_Director_getNotificationNode(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // @addref(notificationNode ^) cocos2d::Node *getNotificationNode()
+    // @addref(^) cocos2d::Node *getNotificationNode()
     cocos2d::Node *ret = self->getNotificationNode();
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
     // insert code after call
-    olua_addref(L, 1, "notificationNode", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "notificationnode", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -3509,12 +3509,12 @@ static int _cocos2d_Director_getOpenGLView(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // @addref(openGLView ^) cocos2d::GLView *getOpenGLView()
+    // @addref(^) cocos2d::GLView *getOpenGLView()
     cocos2d::GLView *ret = self->getOpenGLView();
     int num_ret = olua_push_cppobj(L, ret, "cc.GLView");
 
     // insert code after call
-    olua_addref(L, 1, "openGLView", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "openglview", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -3546,7 +3546,7 @@ static int _cocos2d_Director_getRenderer(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // @addref(renderer ^) cocos2d::Renderer *getRenderer()
+    // @addref(^) cocos2d::Renderer *getRenderer()
     cocos2d::Renderer *ret = self->getRenderer();
     int num_ret = olua_push_cppobj(L, ret, "cc.Renderer");
 
@@ -3603,7 +3603,7 @@ static int _cocos2d_Director_getScheduler(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // @addref(scheduler ^) cocos2d::Scheduler *getScheduler()
+    // @addref(^) cocos2d::Scheduler *getScheduler()
     cocos2d::Scheduler *ret = self->getScheduler();
     int num_ret = olua_push_cppobj(L, ret, "cc.Scheduler");
 
@@ -3640,12 +3640,12 @@ static int _cocos2d_Director_getTextureCache(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // @addref(textureCache ^) cocos2d::TextureCache *getTextureCache()
+    // @addref(^) cocos2d::TextureCache *getTextureCache()
     cocos2d::TextureCache *ret = self->getTextureCache();
     int num_ret = olua_push_cppobj(L, ret, "cc.TextureCache");
 
     // insert code after call
-    olua_addref(L, 1, "textureCache", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "texturecache", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4244,11 +4244,11 @@ static int _cocos2d_Director_setActionManager(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionManager");
 
-    // void setActionManager(@addref(actionManager ^) cocos2d::ActionManager *actionManager)
+    // void setActionManager(@addref(^) cocos2d::ActionManager *actionManager)
     self->setActionManager(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "actionManager", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "actionmanager", 2, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4353,11 +4353,11 @@ static int _cocos2d_Director_setEventDispatcher(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.EventDispatcher");
 
-    // void setEventDispatcher(@addref(eventDispatcher ^) cocos2d::EventDispatcher *dispatcher)
+    // void setEventDispatcher(@addref(^) cocos2d::EventDispatcher *dispatcher)
     self->setEventDispatcher(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "eventDispatcher", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "eventdispatcher", 2, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4408,11 +4408,11 @@ static int _cocos2d_Director_setNotificationNode(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
 
-    // void setNotificationNode(@addref(notificationNode ^) cocos2d::Node *node)
+    // void setNotificationNode(@addref(^) cocos2d::Node *node)
     self->setNotificationNode(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "notificationNode", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "notificationnode", 2, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4429,11 +4429,11 @@ static int _cocos2d_Director_setOpenGLView(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.GLView");
 
-    // void setOpenGLView(@addref(openGLView ^) cocos2d::GLView *openGLView)
+    // void setOpenGLView(@addref(^) cocos2d::GLView *openGLView)
     self->setOpenGLView(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "openGLView", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "openglview", 2, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -4468,7 +4468,7 @@ static int _cocos2d_Director_setScheduler(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Scheduler");
 
-    // void setScheduler(@addref(scheduler ^) cocos2d::Scheduler *scheduler)
+    // void setScheduler(@addref(^) cocos2d::Scheduler *scheduler)
     self->setScheduler(arg1);
 
     // insert code after call
@@ -12035,18 +12035,21 @@ static int _cocos2d_FileUtils_getFileDataFromZip(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::FileUtils *self = olua_toobj<cocos2d::FileUtils>(L, 1);
-    std::string zipFilePath = olua_checkstring(L, 2);
-    std::string filename = olua_checkstring(L, 3);
-    ssize_t size = 0;
-    unsigned char *data = self->getFileDataFromZip(zipFilePath, filename, &size);
-    lua_pushlstring(L, (const char *)data, size);
-    olua_push_int(L, (lua_Integer)size);
-    free(data);
+    cocos2d::FileUtils *arg1 = nullptr;       /** obj */
+    std::string arg2;       /** zipPath */
+    std::string arg3;       /** name */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.FileUtils");
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_std_string(L, 3, &arg3);
+
+    // @extend(cocos2d::FileUtilsExtend) static cocos2d::Data getFileDataFromZip(cocos2d::FileUtils *obj, const std::string &zipPath, const std::string &name)
+    cocos2d::Data ret = cocos2d::FileUtilsExtend::getFileDataFromZip(arg1, arg2, arg3);
+    int num_ret = olua_push_cocos2d_Data(L, &ret);
 
     olua_endinvoke(L);
 
-    return 2;
+    return num_ret;
 }
 
 static int _cocos2d_FileUtils_getFileExtension(lua_State *L)
@@ -14545,13 +14548,6 @@ OLUA_LIB int luaopen_cocos2d_Image_Format(lua_State *L)
 }
 OLUA_END_DECLS
 
-NS_CC_BEGIN
-class LuaImage : public cocos2d::Image {
-public:
-    static bool getPNGPremultipliedAlphaEnabled() { return PNG_PREMULTIPLIED_ALPHA_ENABLED; };
-};
-NS_CC_END
-
 static int _cocos2d_Image___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -14687,11 +14683,13 @@ static int _cocos2d_Image_getPNGPremultipliedAlphaEnabled(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_pushboolean(L, cocos2d::LuaImage::getPNGPremultipliedAlphaEnabled());
+    // @extend(cocos2d::ImageExtend) static bool getPNGPremultipliedAlphaEnabled()
+    bool ret = cocos2d::ImageExtend::getPNGPremultipliedAlphaEnabled();
+    int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
 
-    return 1;
+    return num_ret;
 }
 
 static int _cocos2d_Image_getPixelFormat(lua_State *L)
@@ -15075,6 +15073,7 @@ OLUA_LIB int luaopen_cocos2d_Image(lua_State *L)
     oluacls_prop(L, "height", _cocos2d_Image_getHeight, nullptr);
     oluacls_prop(L, "numberOfMipmaps", _cocos2d_Image_getNumberOfMipmaps, nullptr);
     oluacls_prop(L, "pixelFormat", _cocos2d_Image_getPixelFormat, nullptr);
+    oluacls_prop(L, "pngPremultipliedAlphaEnabled", _cocos2d_Image_getPNGPremultipliedAlphaEnabled, _cocos2d_Image_setPNGPremultipliedAlphaEnabled);
     oluacls_prop(L, "width", _cocos2d_Image_getWidth, nullptr);
 
     olua_registerluatype<cocos2d::Image>(L, "cc.Image");
@@ -23407,12 +23406,12 @@ static int _cocos2d_Node_getActionManager(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
-    // @addref(actionManager ^) cocos2d::ActionManager *getActionManager()
+    // @addref(^) cocos2d::ActionManager *getActionManager()
     cocos2d::ActionManager *ret = self->getActionManager();
     int num_ret = olua_push_cppobj(L, ret, "cc.ActionManager");
 
     // insert code after call
-    olua_addref(L, 1, "actionManager", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "actionmanager", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -23776,12 +23775,12 @@ static int _cocos2d_Node_getEventDispatcher(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
-    // @addref(eventDispatcher ^) cocos2d::EventDispatcher *getEventDispatcher()
+    // @addref(^) cocos2d::EventDispatcher *getEventDispatcher()
     cocos2d::EventDispatcher *ret = self->getEventDispatcher();
     int num_ret = olua_push_cppobj(L, ret, "cc.EventDispatcher");
 
     // insert code after call
-    olua_addref(L, 1, "eventDispatcher", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "eventdispatcher", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -24217,12 +24216,12 @@ static int _cocos2d_Node_getPhysicsBody(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
-    // @addref(physicsBody ^) cocos2d::PhysicsBody *getPhysicsBody()
+    // @addref(^) cocos2d::PhysicsBody *getPhysicsBody()
     cocos2d::PhysicsBody *ret = self->getPhysicsBody();
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
 
     // insert code after call
-    olua_addref(L, 1, "physicsBody", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "physicsbody", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -24339,12 +24338,12 @@ static int _cocos2d_Node_getProgramState(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
-    // @addref(programState ^) cocos2d::backend::ProgramState *getProgramState()
+    // @addref(^) cocos2d::backend::ProgramState *getProgramState()
     cocos2d::backend::ProgramState *ret = self->getProgramState();
     int num_ret = olua_push_cppobj(L, ret, "ccb.ProgramState");
 
     // insert code after call
-    olua_addref(L, 1, "programState", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "programstate", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -24529,7 +24528,7 @@ static int _cocos2d_Node_getScheduler(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
-    // @addref(scheduler ^) cocos2d::Scheduler *getScheduler()
+    // @addref(^) cocos2d::Scheduler *getScheduler()
     cocos2d::Scheduler *ret = self->getScheduler();
     int num_ret = olua_push_cppobj(L, ret, "cc.Scheduler");
 
@@ -25718,11 +25717,11 @@ static int _cocos2d_Node_setActionManager(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionManager");
 
-    // void setActionManager(@addref(actionManager ^) cocos2d::ActionManager *actionManager)
+    // void setActionManager(@addref(^) cocos2d::ActionManager *actionManager)
     self->setActionManager(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "actionManager", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "actionmanager", 2, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -26024,11 +26023,11 @@ static int _cocos2d_Node_setEventDispatcher(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.EventDispatcher");
 
-    // void setEventDispatcher(@addref(eventDispatcher ^) cocos2d::EventDispatcher *dispatcher)
+    // void setEventDispatcher(@addref(^) cocos2d::EventDispatcher *dispatcher)
     self->setEventDispatcher(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "eventDispatcher", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "eventdispatcher", 2, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -26397,11 +26396,11 @@ static int _cocos2d_Node_setPhysicsBody(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.PhysicsBody");
 
-    // void setPhysicsBody(@addref(physicsBody ^) cocos2d::PhysicsBody *physicsBody)
+    // void setPhysicsBody(@addref(^) cocos2d::PhysicsBody *physicsBody)
     self->setPhysicsBody(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "physicsBody", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "physicsbody", 2, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -26569,11 +26568,11 @@ static int _cocos2d_Node_setProgramState(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccb.ProgramState");
 
-    // void setProgramState(@addref(programState ^) cocos2d::backend::ProgramState *programState)
+    // void setProgramState(@addref(^) cocos2d::backend::ProgramState *programState)
     self->setProgramState(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "programState", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "programstate", 2, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -26795,7 +26794,7 @@ static int _cocos2d_Node_setScheduler(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Scheduler");
 
-    // void setScheduler(@addref(scheduler ^) cocos2d::Scheduler *scheduler)
+    // void setScheduler(@addref(^) cocos2d::Scheduler *scheduler)
     self->setScheduler(arg1);
 
     // insert code after call
@@ -39760,12 +39759,12 @@ static int _cocos2d_Scene_getPhysicsWorld(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Scene");
 
-    // @addref(physicsWorld ^) cocos2d::PhysicsWorld *getPhysicsWorld()
+    // @addref(^) cocos2d::PhysicsWorld *getPhysicsWorld()
     cocos2d::PhysicsWorld *ret = self->getPhysicsWorld();
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsWorld");
 
     // insert code after call
-    olua_addref(L, 1, "physicsWorld", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "physicsworld", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 

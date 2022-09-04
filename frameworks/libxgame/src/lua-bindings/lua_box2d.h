@@ -6,9 +6,8 @@
 
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "cocos2d.h"
 #include "box2d/box2d.h"
-#include "box2d/Box2DAdapter.h"
+#include "box2d/box2d-2dx.h"
 
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_box2d(lua_State *L);

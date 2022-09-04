@@ -55,10 +55,6 @@ typeconf 'cocos2d::Mat4'
     .exclude 'm'
     .exclude 'ZERO'
     .exclude 'IDENTITY'
-    .func 'transform' .arg2 '@pack'
-    .func '__add' .ret '@postnew'
-    .func '__sub' .ret '@postnew'
-    .func '__mul' .ret '@postnew'
 
 typeconf 'cocos2d::RenderTargetFlag'
 typeconf 'cocos2d::ClearFlag'
@@ -91,20 +87,20 @@ typeconf 'cocos2d::Director'
     .func 'popScene' .ret '@delref(scenes ~)'
     .func 'popToRootScene' .ret '@delref(scenes ~)'
     .func 'popToSceneStackLevel' .ret '@delref(scenes ~)'
-    .func 'getOpenGLView' .ret '@addref(openGLView ^)'
-    .func 'setOpenGLView' .arg1 '@addref(openGLView ^)'
-    .func 'getTextureCache' .ret '@addref(textureCache ^)'
-    .func 'getNotificationNode' .ret '@addref(notificationNode ^)'
-    .func 'setNotificationNode' .arg1 '@addref(notificationNode ^)'
+    .func 'getOpenGLView' .ret '@addref(^)'
+    .func 'setOpenGLView' .arg1 '@addref(^)'
+    .func 'getTextureCache' .ret '@addref(^)'
+    .func 'getNotificationNode' .ret '@addref(^)'
+    .func 'setNotificationNode' .arg1 '@addref(^)'
     .func 'convertToGL' .arg1 '@pack'
     .func 'convertToUI' .arg1 '@pack'
-    .func 'getEventDispatcher' .ret '@addref(eventDispatcher ^)'
-    .func 'setEventDispatcher' .arg1 '@addref(eventDispatcher ^)'
-    .func 'getScheduler' .ret '@addref(scheduler ^)'
-    .func 'setScheduler' .arg1 '@addref(scheduler ^)'
-    .func 'getActionManager' .ret '@addref(actionManager ^)'
-    .func 'setActionManager' .arg1 '@addref(actionManager ^)'
-    .func 'getRenderer' .ret '@addref(renderer ^)'
+    .func 'getEventDispatcher' .ret '@addref(^)'
+    .func 'setEventDispatcher' .arg1 '@addref(^)'
+    .func 'getScheduler' .ret '@addref(^)'
+    .func 'setScheduler' .arg1 '@addref(^)'
+    .func 'getActionManager' .ret '@addref(^)'
+    .func 'setActionManager' .arg1 '@addref(^)'
+    .func 'getRenderer' .ret '@addref(^)'
 
 typeconf 'cocos2d::ccSchedulerFunc'
 
@@ -318,6 +314,7 @@ typeconf 'cocos2d::ResizableBuffer'
 typeconf 'cocos2d::FileUtils::Status'
 
 typeconf 'cocos2d::FileUtils'
+    .extend 'cocos2d::FileUtilsExtend'
     .func 'listFilesRecursively' .arg2 '@ret'
     .callback "getStringFromFile" .tag_scope 'once' .tag_mode 'new'
     .callback "getDataFromFile" .tag_scope 'once' .tag_mode 'new'
@@ -334,20 +331,6 @@ typeconf 'cocos2d::FileUtils'
     .callback "getFileSize" .tag_scope 'once' .tag_mode 'new'
     .callback "listFilesAsync" .tag_scope 'once' .tag_mode 'new'
     .callback "listFilesRecursivelyAsync" .tag_scope 'once' .tag_mode 'new'
-    .func 'getFileDataFromZip'
-        .snippet [[
-        {
-            cocos2d::FileUtils *self = olua_toobj<cocos2d::FileUtils>(L, 1);
-            std::string zipFilePath = olua_checkstring(L, 2);
-            std::string filename = olua_checkstring(L, 3);
-            ssize_t size = 0;
-            unsigned char *data = self->getFileDataFromZip(zipFilePath, filename, &size);
-            lua_pushlstring(L, (const char *)data, size);
-            olua_push_int(L, (lua_Integer)size);
-            free(data);
-
-            return 2;
-        }]]
 
 typeconf 'ResolutionPolicy'
 typeconf 'cocos2d::GLView'
@@ -360,21 +343,7 @@ typeconf 'cocos2d::GLViewImpl'
 typeconf 'cocos2d::Image::Format'
 
 typeconf 'cocos2d::Image'
-    .chunk [[
-        NS_CC_BEGIN
-        class LuaImage : public cocos2d::Image {
-        public:
-            static bool getPNGPremultipliedAlphaEnabled() { return PNG_PREMULTIPLIED_ALPHA_ENABLED; };
-        };
-        NS_CC_END
-    ]]
-    .func 'getPNGPremultipliedAlphaEnabled'
-        .snippet [[
-        {
-            lua_pushboolean(L, cocos2d::LuaImage::getPNGPremultipliedAlphaEnabled());
-            return 1;
-        }
-    ]]
+    .extend 'cocos2d::ImageExtend'
 
 typeconf 'cocos2d::Properties::Type'
 typeconf 'cocos2d::Properties'
@@ -491,12 +460,12 @@ typeconf 'cocos2d::Node'
     .func 'removeChildByName' .ret '@delref(children ~)'
     .func 'removeAllChildren' .ret '@delref(children *)'
     .func 'removeAllChildrenWithCleanup' .ret '@delref(children *)'
-    .func 'getProgramState' .ret '@addref(programState ^)'
-    .func 'setProgramState' .arg1 '@addref(programState ^)'
-    .func 'getEventDispatcher' .ret '@addref(eventDispatcher ^)'
-    .func 'setEventDispatcher' .arg1 '@addref(eventDispatcher ^)'
-    .func 'getActionManager' .ret '@addref(actionManager ^)'
-    .func 'setActionManager' .arg1 '@addref(actionManager ^)'
+    .func 'getProgramState' .ret '@addref(^)'
+    .func 'setProgramState' .arg1 '@addref(^)'
+    .func 'getEventDispatcher' .ret '@addref(^)'
+    .func 'setEventDispatcher' .arg1 '@addref(^)'
+    .func 'getActionManager' .ret '@addref(^)'
+    .func 'setActionManager' .arg1 '@addref(^)'
     .func 'runAction' .ret '@delref(actions ~)' .arg1 '@addref(actions |)'
     .func 'stopAllActions' .ret '@delref(actions ~)'
     .func 'stopAction' .ret '@delref(actions ~)'
@@ -504,8 +473,8 @@ typeconf 'cocos2d::Node'
     .func 'stopAllActionsByTag' .ret '@delref(actions ~)'
     .func 'stopActionsByFlags' .ret '@delref(actions ~)'
     .func 'getActionByTag' .ret '@addref(actions |)'
-    .func 'setScheduler' .arg1 '@addref(scheduler ^)'
-    .func 'getScheduler' .ret '@addref(scheduler ^)'
+    .func 'setScheduler' .arg1 '@addref(^)'
+    .func 'getScheduler' .ret '@addref(^)'
     .func 'convertToNodeSpace' .arg1 '@pack'
     .func 'convertToWorldSpace' .arg1 '@pack'
     .func 'convertToNodeSpaceAR' .arg1 '@pack'
@@ -514,8 +483,8 @@ typeconf 'cocos2d::Node'
     .func 'addComponent' .arg1 '@addref(components |)'
     .func 'removeComponent' .ret '@delref(components ~)'
     .func 'removeAllComponents' .ret '@delref(components *)'
-    .func 'setPhysicsBody' .arg1 '@addref(physicsBody ^)'
-    .func 'getPhysicsBody' .ret '@addref(physicsBody ^)'
+    .func 'setPhysicsBody' .arg1 '@addref(^)'
+    .func 'getPhysicsBody' .ret '@addref(^)'
     .func 'onEnter' .insert_before(check_node_parent)
     .func 'onExit' .insert_before(check_node_parent)
     .func 'getBounds' .ret '@unpack'
@@ -613,8 +582,8 @@ typeconf 'cocos2d::SpriteFrameCache'
 typeconf 'cocos2d::AnimationCache'
 
 typeconf 'cocos2d::Scene'
-    .func 'getPhysicsWorld' .ret '@addref(physicsWorld ^)'
-    .func 'getPhysics3DWorld' .ret '@addref(physics3DWorld ^)'
+    .func 'getPhysicsWorld' .ret '@addref(^)'
+    .func 'getPhysics3DWorld' .ret '@addref(^)'
 
 typeconf 'cocos2d::Layer'
 typeconf 'cocos2d::LayerColor'

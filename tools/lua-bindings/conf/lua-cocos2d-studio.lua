@@ -149,10 +149,10 @@ typeconf "cocostudio::Tween"
 typeconf "cocostudio::timeline::InnerActionType"
 
 typeconf "cocostudio::timeline::Frame"
-    .func 'setNode' .arg1 '@addref(node ^)'
-    .func 'getNode' .ret '@addref(node ^)'
-    .func 'setTimeline' .arg1 '@addref(timeline ^)'
-    .func 'getTimeline' .ret '@addref(timeline ^)'
+    .func 'setNode' .arg1 '@addref(^)'
+    .func 'getNode' .ret '@addref(^)'
+    .func 'setTimeline' .arg1 '@addref(^)'
+    .func 'getTimeline' .ret '@addref(^)'
 
 typeconf "cocostudio::timeline::AlphaFrame"
 typeconf "cocostudio::timeline::AnchorPointFrame"
@@ -174,10 +174,10 @@ typeconf "cocostudio::timeline::ActionTimelineCache"
 typeconf "cocostudio::timeline::ActionTimelineData"
 
 typeconf "cocostudio::timeline::ActionTimelineNode"
-    .func 'setRoot' .arg1 '@addref(root ^)'
-    .func 'getRoot' .ret '@addref(root ^)'
-    .func 'setActionTimeline' .arg1 '@addref(actionTimeline ^)'
-    .func 'getActionTimeline' .ret '@addref(actionTimeline ^)'
+    .func 'setRoot' .arg1 '@addref(^)'
+    .func 'getRoot' .ret '@addref(^)'
+    .func 'setActionTimeline' .arg1 '@addref(^)'
+    .func 'getActionTimeline' .ret '@addref(^)'
 
 typeconf "cocostudio::timeline::BoneNode"
     .func 'getChildBones' .ret '@addref(bones |)'
@@ -199,10 +199,10 @@ typeconf "cocostudio::timeline::Timeline"
     .func 'addFrame' .arg1 '@addref(frames |)'
     .func 'insertFrame' .arg1 '@addref(frames |)'
     .func 'removeFrame' .arg1 '@delref(frames |)'
-    .func 'setNode' .arg1 '@addref(node ^)'
-    .func 'getNode' .ret '@addref(node ^)'
-    .func 'setActionTimeline' .arg1 '@addref(actionTimeline ^)'
-    .func 'getActionTimeline' .ret '@addref(actionTimeline ^)'
+    .func 'setNode' .arg1 '@addref(^)'
+    .func 'getNode' .ret '@addref(^)'
+    .func 'setActionTimeline' .arg1 '@addref(^)'
+    .func 'getActionTimeline' .ret '@addref(^)'
 
 typeconf "cocostudio::timeline::ActionTimeline"
     .func 'addTimeline' .arg1 "@addref(timelines |)"

@@ -88,6 +88,9 @@ private:
     Box2dNode();
     
     virtual bool init(b2World *world);
+    
+    cocos2d::Color4F toColor4f(const b2Color& value);
+    cocos2d::Vec2 toVec2(const b2Vec2& value);
 private:
     b2World *_world;
 };

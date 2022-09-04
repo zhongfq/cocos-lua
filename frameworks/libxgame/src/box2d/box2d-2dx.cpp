@@ -100,37 +100,56 @@ void Box2dNode::visit(Renderer *renderer, const Mat4& parentTransform, uint32_t 
     DrawNode::visit(renderer, parentTransform, parentFlags);
 }
 
+Color4F Box2dNode::toColor4f(const b2Color& value)
+{
+    return Color4F(value.r, value.g, value.b, value.r);
+}
+
+Vec2 Box2dNode::toVec2(const b2Vec2& value)
+{
+    return Vec2(value.x, value.y);
+}
+
 void Box2dNode::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
 {
-    
+    drawPoly((Vec2 *)vertices, vertexCount, false, toColor4f(color));
 }
 
 void Box2dNode::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
 {
-    
+    drawPolygon((Vec2 *)vertices, vertexCount, toColor4f(color), 0, toColor4f(color));
 }
 
 void Box2dNode::DrawCircle(const b2Vec2& center, float radius, const b2Color& color)
 {
-    
+    drawCircle(toVec2(center), radius, 0, 20, false, toColor4f(color));
 }
 
 void Box2dNode::DrawSolidCircle(const b2Vec2& center, float radius, const b2Vec2& axis, const b2Color& color)
 {
-    
+    drawSolidCircle(toVec2(center), radius, 0, 20, toColor4f(color));
 }
 
 void Box2dNode::DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& color)
 {
-    
+    drawLine(toVec2(p1), toVec2(p2), toColor4f(color));
 }
 
 void Box2dNode::DrawTransform(const b2Transform& xf)
 {
+    const float k_axisScale = 0.4f;
+    Color4F red(1.0f, 0.0f, 0.0f, 1.0f);
+    Color4F green(0.0f, 1.0f, 0.0f, 1.0f);
+    Vec2 p1 = toVec2(xf.p);
+    Vec2 p2 = p1 + toVec2(xf.q.GetXAxis()) * k_axisScale;
     
+    drawLine(p1, p2, red);
+
+    p2 = p1 + toVec2(xf.q.GetYAxis()) * k_axisScale;
+    drawLine(p1, p2, green);
 }
 
 void Box2dNode::DrawPoint(const b2Vec2& p, float size, const b2Color& color)
 {
-    
+    drawPoint(toVec2(p), size, toColor4f(color));
 }

@@ -30,6 +30,22 @@ end)
 
 exclude 'b2BlockAllocator *'
 
+local _typeconf = typeconf
+local function typeconf(...)
+    local cls = _typeconf(...)
+    cls.luaname(function (name, kind)
+        name = name:gsub('^e_', '')
+        name = name:gsub('^b2_', '')
+        name = name:gsub('^m_', '')
+        local v = name:match('^%u+')
+        if v and kind == 'func' then
+            name = name:gsub('^' .. v, string.lower(v))
+        end
+        return name
+    end)
+    return cls
+end
+
 typedef 'int8;int16;int32'
     .decltype 'lua_Integer'
 typedef 'uint8;uint16;uint32'
@@ -57,7 +73,8 @@ typeconf 'box2d::ContactFilter'
 typeconf 'box2d::ContactListener'
 typeconf 'box2d::QueryCallback'
 typeconf 'box2d::RayCastCallback'
-typeconf 'box2d::Box2dNode'
+typeconf 'box2d::DebugNode::Flags'
+typeconf 'box2d::DebugNode'
 
 typeconf 'b2MassData'
 typeconf 'b2Transform'
@@ -65,7 +82,6 @@ typeconf 'b2RayCastInput'
 typeconf 'b2RayCastOutput'
 
 typeconf 'b2Shape::Type'
-    .luaname(function (value) return value:gsub('^e_', '') end)
 typeconf 'b2Shape'
 typeconf 'b2PolygonShape'
 typeconf 'b2EdgeShape'
@@ -74,14 +90,12 @@ typeconf 'b2ChainShape'
 
 typeconf 'b2BodyDef'
 typeconf 'b2BodyType'
-    .luaname(function (value) return value:gsub('^b2_', '') end)
 typeconf 'b2Body'
 typeconf 'b2BodyUserData'
 typeconf 'b2FixtureDef'
 typeconf 'b2Fixture'
 typeconf 'b2JointDef'
 typeconf 'b2JointType'
-    .luaname(function (value) return value:gsub('^e_', '') end)
 typeconf 'b2Joint'
 typeconf 'b2DistanceJointDef'
 typeconf 'b2DistanceJoint'
@@ -115,7 +129,6 @@ typeconf 'b2Contact'
 typeconf 'b2ContactImpulse'
 typeconf 'b2Manifold'
 typeconf 'b2Manifold::Type'
-    .luaname(function (value) return value:gsub('^e_', '') end)
 typeconf 'b2World'
     .func 'SetDestructionListener' .arg1 '@addref(^)'
     .func 'SetContactFilter' .arg1 '@addref(^)'

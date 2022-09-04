@@ -68,12 +68,25 @@ public:
     std::function<float(b2Fixture *, const b2Vec2 &, const b2Vec2 &, float)> reportFixture;
 };
 
-class Box2dNode : public cocos2d::DrawNode, public b2Draw
+class DebugNode : public cocos2d::DrawNode, public b2Draw
 {
 public:
-    static Box2dNode* create(OLUA_ADDREF(world ^) b2World *world);
+    enum class Flags {
+        SHAPE           = b2Draw::e_shapeBit,
+        JOINT           = b2Draw::e_jointBit,
+        AABB            = b2Draw::e_aabbBit,
+        PAIRE           = b2Draw::e_pairBit,
+        CENTER_OF_MASS  = b2Draw::e_centerOfMassBit
+    };
+public:
+    static DebugNode* create(OLUA_ADDREF(world ^) b2World *world);
     
-    virtual ~Box2dNode();
+    virtual ~DebugNode();
+    
+    void setFlags(uint32 flags);
+    uint32 getFlags() const;
+    void appendFlags(uint32 flags);
+    void clearFlags(uint32 flags);
     
     virtual void visit(cocos2d::Renderer *renderer, const cocos2d::Mat4& parentTransform, uint32_t parentFlags) override;
 
@@ -85,7 +98,7 @@ public:
     virtual void DrawTransform(const b2Transform& xf) override OLUA_EXCLUDE;
     virtual void DrawPoint(const b2Vec2& p, float size, const b2Color& color) override OLUA_EXCLUDE;
 private:
-    Box2dNode();
+    DebugNode();
     
     virtual bool init(b2World *world);
     

@@ -1377,6 +1377,26 @@ static int l_topointer(lua_State *L)
     return 1;
 }
 
+static int l_objpool(lua_State *L)
+{
+    const char *action = olua_checkstring(L, 1);
+    if (strequal(action, "enable")) {
+        olua_enable_objpool(L);
+    } else if strequal(action, "disable") {
+        olua_disable_objpool(L);
+    } else if strequal(action, "push") {
+        size_t position = olua_push_objpool(L);
+        lua_pushnumber(L, (lua_Integer)position);
+        return 1;
+    } else if strequal(action, "pop") {
+        size_t position = (size_t)olua_checkinteger(L, 2);
+        olua_pop_objpool(L, position);
+    } else {
+        luaL_error(L, "unknown action '%s'", action);
+    }
+    return 0;
+}
+
 OLUA_API int luaopen_olua(lua_State *L)
 {
     static const luaL_Reg lib[] = {
@@ -1390,6 +1410,7 @@ OLUA_API int luaopen_olua(lua_State *L)
         {"setmetatable", l_setmetatable},
         {"getmetatable", l_getmetatable},
         {"topointer", l_topointer},
+        {"objpool", l_objpool},
         {NULL, NULL}
     };
     

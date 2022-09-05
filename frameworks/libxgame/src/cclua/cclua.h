@@ -1,6 +1,7 @@
 #ifndef __CCLUA_CCLUA_H__
 #define __CCLUA_CCLUA_H__
 
+#include "cclua-extend.h"
 #include "downloader.h"
 #include "filesystem.h"
 #include "Lame.h"

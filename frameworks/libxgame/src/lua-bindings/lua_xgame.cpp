@@ -3,22 +3,6 @@
 //
 #include "lua_xgame.h"
 
-int olua_unpack_cclua_window_Bounds(lua_State *L, const cclua::window::Bounds *value)
-{
-    if (value) {
-        lua_pushnumber(L, (lua_Number)value->getMinX());
-        lua_pushnumber(L, (lua_Number)value->getMaxX());
-        lua_pushnumber(L, (lua_Number)value->getMaxY());
-        lua_pushnumber(L, (lua_Number)value->getMinY());
-    } else {
-        lua_pushnumber(L, 0);
-        lua_pushnumber(L, 0);
-        lua_pushnumber(L, 0);
-        lua_pushnumber(L, 0);
-    }
-    return 4;
-}
-
 static int _cclua_Callback___call(lua_State *L)
 {
     olua_startinvoke(L);
@@ -278,6 +262,7 @@ static int _cclua_SceneNoCamera_create(lua_State *L)
     return num_ret;
 }
 
+#if (CC_USE_PHYSICS || (CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION))
 static int _cclua_SceneNoCamera_createWithPhysics(lua_State *L)
 {
     olua_startinvoke(L);
@@ -290,6 +275,7 @@ static int _cclua_SceneNoCamera_createWithPhysics(lua_State *L)
 
     return num_ret;
 }
+#endif
 
 static int _cclua_SceneNoCamera_createWithSize(lua_State *L)
 {
@@ -328,7 +314,9 @@ OLUA_LIB int luaopen_cclua_SceneNoCamera(lua_State *L)
     oluacls_class(L, "cclua.SceneNoCamera", "cc.Scene");
     oluacls_func(L, "__olua_move", _cclua_SceneNoCamera___olua_move);
     oluacls_func(L, "create", _cclua_SceneNoCamera_create);
+#if (CC_USE_PHYSICS || (CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION))
     oluacls_func(L, "createWithPhysics", _cclua_SceneNoCamera_createWithPhysics);
+#endif
     oluacls_func(L, "createWithSize", _cclua_SceneNoCamera_createWithSize);
     oluacls_func(L, "new", _cclua_SceneNoCamera_new);
 
@@ -612,22 +600,6 @@ OLUA_LIB int luaopen_cclua_permission(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _cclua_runtime_load_index_func(lua_State *L)
-{
-    if (olua_isstring(L, lua_upvalueindex(2))) {
-        const char *name = olua_tostring(L, lua_upvalueindex(1));
-        const char *func = olua_tostring(L, lua_upvalueindex(2));
-        cclua::runtime::log("function '%s.%s' not supported", name, func);
-        return 0;
-    } else {
-        const char *func = olua_tostring(L, 2);
-        lua_pushvalue(L, lua_upvalueindex(1));
-        lua_pushstring(L, func);
-        lua_pushcclosure(L, _cclua_runtime_load_index_func, 2);
-        return 1;
-    }
-}
-
 static int _cclua_runtime___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -887,15 +859,14 @@ static int _cclua_runtime_getActionManager(lua_State *L)
     olua_startinvoke(L);
 
     // insert code before call
-    olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
-    int director = lua_gettop(L);
+    int ref_store = cclua::runtime::pushdirector(L);
 
-    // @addref(actionManager ^ director) static cocos2d::ActionManager *getActionManager()
+    // @addref(^ ::pushdirector) static cocos2d::ActionManager *getActionManager()
     cocos2d::ActionManager *ret = cclua::runtime::getActionManager();
     int num_ret = olua_push_cppobj(L, ret, "cc.ActionManager");
 
     // insert code after call
-    olua_addref(L, director, "actionManager", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, ref_store, "actionmanager", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -1015,15 +986,14 @@ static int _cclua_runtime_getEventDispatcher(lua_State *L)
     olua_startinvoke(L);
 
     // insert code before call
-    olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
-    int director = lua_gettop(L);
+    int ref_store = cclua::runtime::pushdirector(L);
 
-    // @addref(eventDispatcher ^ director) static cocos2d::EventDispatcher *getEventDispatcher()
+    // @addref(^ ::pushdirector) static cocos2d::EventDispatcher *getEventDispatcher()
     cocos2d::EventDispatcher *ret = cclua::runtime::getEventDispatcher();
     int num_ret = olua_push_cppobj(L, ret, "cc.EventDispatcher");
 
     // insert code after call
-    olua_addref(L, director, "eventDispatcher", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, ref_store, "eventdispatcher", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -1035,15 +1005,14 @@ static int _cclua_runtime_getFileUtils(lua_State *L)
     olua_startinvoke(L);
 
     // insert code before call
-    olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
-    int director = lua_gettop(L);
+    int ref_store = cclua::runtime::pushdirector(L);
 
-    // @addref(fileUtils ^ director) static cocos2d::FileUtils *getFileUtils()
+    // @addref(^ ::pushdirector) static cocos2d::FileUtils *getFileUtils()
     cocos2d::FileUtils *ret = cclua::runtime::getFileUtils();
     int num_ret = olua_push_cppobj(L, ret, "cc.FileUtils");
 
     // insert code after call
-    olua_addref(L, director, "fileUtils", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, ref_store, "fileutils", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -1189,15 +1158,14 @@ static int _cclua_runtime_getProgramCache(lua_State *L)
     olua_startinvoke(L);
 
     // insert code before call
-    olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
-    int director = lua_gettop(L);
+    int ref_store = cclua::runtime::pushdirector(L);
 
-    // @addref(programCache ^ director) static cocos2d::GLProgramCache *getProgramCache()
+    // @addref(^ ::pushdirector) static cocos2d::GLProgramCache *getProgramCache()
     cocos2d::GLProgramCache *ret = cclua::runtime::getProgramCache();
     int num_ret = olua_push_cppobj(L, ret, "cc.GLProgramCache");
 
     // insert code after call
-    olua_addref(L, director, "programCache", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, ref_store, "programcache", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -1209,15 +1177,14 @@ static int _cclua_runtime_getRunningScene(lua_State *L)
     olua_startinvoke(L);
 
     // insert code before call
-    olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
-    int director = lua_gettop(L);
+    int ref_store = cclua::runtime::pushdirector(L);
 
-    // @addref(scenes | director) static cocos2d::Scene *getRunningScene()
+    // @addref(scenes | ::pushdirector) static cocos2d::Scene *getRunningScene()
     cocos2d::Scene *ret = cclua::runtime::getRunningScene();
     int num_ret = olua_push_cppobj(L, ret, "cc.Scene");
 
     // insert code after call
-    olua_addref(L, director, "scenes", -1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, ref_store, "scenes", -1, OLUA_FLAG_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -1242,15 +1209,14 @@ static int _cclua_runtime_getScheduler(lua_State *L)
     olua_startinvoke(L);
 
     // insert code before call
-    olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
-    int director = lua_gettop(L);
+    int ref_store = cclua::runtime::pushdirector(L);
 
-    // @addref(scheduler ^ director) static cocos2d::Scheduler *getScheduler()
+    // @addref(^ ::pushdirector) static cocos2d::Scheduler *getScheduler()
     cocos2d::Scheduler *ret = cclua::runtime::getScheduler();
     int num_ret = olua_push_cppobj(L, ret, "cc.Scheduler");
 
     // insert code after call
-    olua_addref(L, director, "scheduler", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, ref_store, "scheduler", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -1262,15 +1228,14 @@ static int _cclua_runtime_getSpriteFrameCache(lua_State *L)
     olua_startinvoke(L);
 
     // insert code before call
-    olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
-    int director = lua_gettop(L);
+    int ref_store = cclua::runtime::pushdirector(L);
 
-    // @addref(spriteFrameCache ^ director) static cocos2d::SpriteFrameCache *getSpriteFrameCache()
+    // @addref(^ ::pushdirector) static cocos2d::SpriteFrameCache *getSpriteFrameCache()
     cocos2d::SpriteFrameCache *ret = cclua::runtime::getSpriteFrameCache();
     int num_ret = olua_push_cppobj(L, ret, "cc.SpriteFrameCache");
 
     // insert code after call
-    olua_addref(L, director, "spriteFrameCache", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, ref_store, "spriteframecache", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -1282,15 +1247,14 @@ static int _cclua_runtime_getTextureCache(lua_State *L)
     olua_startinvoke(L);
 
     // insert code before call
-    olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
-    int director = lua_gettop(L);
+    int ref_store = cclua::runtime::pushdirector(L);
 
-    // @addref(textureCache ^ director) static cocos2d::TextureCache *getTextureCache()
+    // @addref(^ ::pushdirector) static cocos2d::TextureCache *getTextureCache()
     cocos2d::TextureCache *ret = cclua::runtime::getTextureCache();
     int num_ret = olua_push_cppobj(L, ret, "cc.TextureCache");
 
     // insert code after call
-    olua_addref(L, director, "textureCache", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, ref_store, "texturecache", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -1412,37 +1376,61 @@ static int _cclua_runtime_launch(lua_State *L)
     return num_ret;
 }
 
-static int _cclua_runtime_load(lua_State *L)
+static int _cclua_runtime_load1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    const char *name = olua_checkstring(L, 1);
-    const char *feature = olua_optstring(L, 2, name);
-    if (cclua::runtime::hasFeature(feature)) {
-        lua_getfield(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
-        if (olua_rawgetf(L, -1, name) == LUA_TTABLE) {
-            olua_endinvoke(L);
+    std::string arg2;       /** name */
 
-            return 1;
-        }
-    }
+    olua_check_std_string(L, 1, &arg2);
 
-    cclua::runtime::log("module '%s' is not available", name);
-    lua_newtable(L);
-    lua_newtable(L);
-    lua_pushvalue(L, 1);
-    lua_pushcclosure(L, _cclua_runtime_load_index_func, 1);
-    olua_rawsetf(L, -2, "__index");
-    lua_setmetatable(L, -2);
-    lua_getfield(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
-    lua_pushvalue(L, 1);
-    lua_pushvalue(L, -3);
-    lua_rawset(L, -3);
-    lua_pop(L, 1);
+    // static oluaret_t load(lua_State *L, const std::string &name)
+    oluaret_t ret = cclua::runtime::load(L, arg2);
 
     olua_endinvoke(L);
 
-    return 1;
+    return (int)ret;
+}
+
+static int _cclua_runtime_load2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::string arg2;       /** name */
+    std::string arg3;       /** feature */
+
+    olua_check_std_string(L, 1, &arg2);
+    olua_check_std_string(L, 2, &arg3);
+
+    // static oluaret_t load(lua_State *L, const std::string &name, const std::string &feature)
+    oluaret_t ret = cclua::runtime::load(L, arg2, arg3);
+
+    olua_endinvoke(L);
+
+    return (int)ret;
+}
+
+static int _cclua_runtime_load(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 1))) {
+            // static oluaret_t load(lua_State *L, const std::string &name)
+            return _cclua_runtime_load1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
+            // static oluaret_t load(lua_State *L, const std::string &name, const std::string &feature)
+            return _cclua_runtime_load2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cclua::runtime::load' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cclua_runtime_openURL1(lua_State *L)
@@ -1532,15 +1520,14 @@ static int _cclua_runtime_popScene(lua_State *L)
     olua_startinvoke(L);
 
     // insert code before call
-    olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
-    int director = lua_gettop(L);
-    olua_startcmpref(L, director, "scenes");
+    int ref_store = cclua::runtime::pushdirector(L);
+    olua_startcmpref(L, ref_store, "scenes");
 
-    // @delref(scenes ~ director) static void popScene()
+    // @delref(scenes ~ ::pushdirector) static void popScene()
     cclua::runtime::popScene();
 
     // insert code after call
-    olua_endcmpref(L, director, "scenes");
+    olua_endcmpref(L, ref_store, "scenes");
 
     olua_endinvoke(L);
 
@@ -1552,15 +1539,14 @@ static int _cclua_runtime_popToRootScene(lua_State *L)
     olua_startinvoke(L);
 
     // insert code before call
-    olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
-    int director = lua_gettop(L);
-    olua_startcmpref(L, director, "scenes");
+    int ref_store = cclua::runtime::pushdirector(L);
+    olua_startcmpref(L, ref_store, "scenes");
 
-    // @delref(scenes ~ director) static void popToRootScene()
+    // @delref(scenes ~ ::pushdirector) static void popToRootScene()
     cclua::runtime::popToRootScene();
 
     // insert code after call
-    olua_endcmpref(L, director, "scenes");
+    olua_endcmpref(L, ref_store, "scenes");
 
     olua_endinvoke(L);
 
@@ -1600,14 +1586,13 @@ static int _cclua_runtime_pushScene(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Scene");
 
     // insert code before call
-    olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
-    int director = lua_gettop(L);
+    int ref_store = cclua::runtime::pushdirector(L);
 
-    // static void pushScene(@addref(scenes | director) cocos2d::Scene *scene)
+    // static void pushScene(@addref(scenes | ::pushdirector) cocos2d::Scene *scene)
     cclua::runtime::pushScene(arg1);
 
     // insert code after call
-    olua_addref(L, director, "scenes", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, ref_store, "scenes", 1, OLUA_FLAG_MULTIPLE);
 
     olua_endinvoke(L);
 
@@ -1623,16 +1608,15 @@ static int _cclua_runtime_replaceScene(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Scene");
 
     // insert code before call
-    olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
-    int director = lua_gettop(L);
-    olua_startcmpref(L, director, "scenes");
+    int ref_store = cclua::runtime::pushdirector(L);
+    olua_startcmpref(L, ref_store, "scenes");
 
-    // @delref(scenes ~ director) static void replaceScene(@addref(scenes | director) cocos2d::Scene *scene)
+    // @delref(scenes ~ ::pushdirector) static void replaceScene(@addref(scenes | ::pushdirector) cocos2d::Scene *scene)
     cclua::runtime::replaceScene(arg1);
 
     // insert code after call
-    olua_addref(L, director, "scenes", 1, OLUA_FLAG_MULTIPLE);
-    olua_endcmpref(L, director, "scenes");
+    olua_addref(L, ref_store, "scenes", 1, OLUA_FLAG_MULTIPLE);
+    olua_endcmpref(L, ref_store, "scenes");
 
     olua_endinvoke(L);
 
@@ -1919,9 +1903,8 @@ static int _cclua_runtime_testCrash(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cclua::runtime::log("test native crash!!!!");
-    char *prt = NULL;
-    *prt = 0;
+    // static void testCrash()
+    cclua::runtime::testCrash();
 
     olua_endinvoke(L);
 
@@ -3305,9 +3288,9 @@ static int _cclua_window_getVisibleBounds(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // @unpack static cclua::window::Bounds getVisibleBounds()
-    cclua::window::Bounds ret = cclua::window::getVisibleBounds();
-    int num_ret = olua_unpack_cclua_window_Bounds(L, &ret);
+    // @unpack static cocos2d::Bounds getVisibleBounds()
+    cocos2d::Bounds ret = cclua::window::getVisibleBounds();
+    int num_ret = olua_unpack_cocos2d_Bounds(L, &ret);
 
     olua_endinvoke(L);
 
@@ -3706,7 +3689,7 @@ static int _cclua_Container_getFilter(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cclua.Container");
 
-    // @addref(filter ^) cocos2d::Node *getFilter()
+    // @addref(^) cocos2d::Node *getFilter()
     cocos2d::Node *ret = self->getFilter();
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
@@ -3744,7 +3727,7 @@ static int _cclua_Container_setFilter(lua_State *L)
         olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
     }
 
-    // void setFilter(@nullable@addref(filter ^) cocos2d::Node *value)
+    // void setFilter(@nullable @addref(^) cocos2d::Node *value)
     self->setFilter(arg1);
 
     // insert code after call
@@ -6808,14 +6791,8 @@ OLUA_LIB int luaopen_xgame(lua_State *L)
     olua_require(L, "cclua.Container", luaopen_cclua_Container);
 #if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
     olua_require(L, "cclua.Lame.VBRMode", luaopen_cclua_Lame_VBRMode);
-#endif
-#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
     olua_require(L, "cclua.Lame", luaopen_cclua_Lame);
-#endif
-#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
     olua_require(L, "cclua.microphone", luaopen_cclua_microphone);
-#endif
-#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
     olua_require(L, "cclua.photo", luaopen_cclua_photo);
 #endif
 

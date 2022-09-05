@@ -3,15 +3,14 @@ new_globals = {
     "autoconf",
     "chunk",
     "clang",
-    "endif",
     "exclude",
     "export",
     "headers",
-    "ifdef",
     "include",
     "ipairs",
     "luacls",
     "luaopen",
+    "macro",
     "olua",
     "pairs",
     "path",
@@ -20,3 +19,4 @@ new_globals = {
     "typedef",
     "typeonly",
 }
+ignore = {"212", "611", "631"}

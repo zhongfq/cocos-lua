@@ -9,6 +9,8 @@
 #include "renderer/backend/Backend.h"
 #endif
 
+int olua_unpack_cocos2d_Bounds(lua_State *L, const cocos2d::Bounds *value);
+
 int olua_push_cocos2d_network_WebSocket_Data(lua_State *L, const cocos2d::network::WebSocket::Data *value);
 void olua_check_cocos2d_network_WebSocket_Data(lua_State *L, int idx, cocos2d::network::WebSocket::Data *value);
 bool olua_is_cocos2d_network_WebSocket_Data(lua_State *L, int idx);
@@ -73,5 +75,32 @@ int olua_push_cocos2d_backend_UniformLocation(lua_State *L, const cocos2d::backe
 void olua_check_cocos2d_backend_UniformLocation(lua_State *L, int idx, cocos2d::backend::UniformLocation *value);
 #endif
 
+#ifdef CCLUA_BUILD_SPINE
+template <class T>
+void olua_insert_array(spine::Vector<T> *array, T value)
+{
+    array->add(value);
+}
 
+template <class T>
+void olua_foreach_array(const spine::Vector<T> *array, const std::function<void(T)> &callback)
+{
+    spine::Vector<T> *vararray = const_cast<spine::Vector<T> *>(array);
+    for (int i = 0, n = (int)vararray->size(); i < n; i++) {
+        callback((*vararray)[i]);
+    }
+}
+
+bool olua_is_spine_String(lua_State *L, int idx);
+int olua_push_spine_String(lua_State *L, const spine::String *value);
+void olua_check_spine_String(lua_State *L, int idx, spine::String *value);
+
+bool olua_is_spine_Color(lua_State *L, int idx);
+void olua_check_spine_Color(lua_State *L, int idx, spine::Color *value);
+int olua_push_spine_Color(lua_State *L, const spine::Color *value);
+
+int olua_push_spine_EventData(lua_State *L, const spine::EventData *value);
 #endif
+
+
+#endif //__LUA_CONV_MANUAL_H__

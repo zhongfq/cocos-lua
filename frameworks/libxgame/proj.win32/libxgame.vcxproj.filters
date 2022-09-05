@@ -255,7 +255,7 @@
     <ClInclude Include="..\src\lua-bindings\lua_xml_http_request.h">
       <Filter>src\lua-bindings</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua-bindings\LuaCocosAdapter.h">
+    <ClInclude Include="..\src\cclua\cclua-extend.h">
       <Filter>src\lua-bindings</Filter>
     </ClInclude>
     <ClInclude Include="..\src\lua-bindings\lua_bindings.h">
@@ -638,7 +638,7 @@
     <ClCompile Include="..\src\lua-bindings\lua_xml_http_request.cpp">
       <Filter>src\lua-bindings</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\lua-bindings\LuaCocosAdapter.cpp">
+    <ClCompile Include="..\src\cclua\cclua-extend.cpp">
       <Filter>src\lua-bindings</Filter>
     </ClCompile>
     <ClCompile Include="..\src\lua-bindings\lua_bindings.cpp">

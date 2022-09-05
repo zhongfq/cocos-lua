@@ -2,6 +2,7 @@ set(CCLUA_HEADER
     src/cclua/AssetsBundle.h
     src/cclua/ByteArray.h
     src/cclua/cclua.h
+    src/cclua/cclua-extend.h
     src/cclua/downloader.h
     src/cclua/FileFinder.h
     src/cclua/filesystem-private.h
@@ -27,6 +28,7 @@ set(CCLUA_HEADER
 set(CCLUA_SRC
     src/cclua/AssetsBundle.cpp
     src/cclua/ByteArray.cpp
+    src/cclua/cclua-extend.cpp
     src/cclua/downloader.cpp
     src/cclua/FileFinder.cpp
     src/cclua/filesystem-private.cpp

@@ -5,7 +5,6 @@ path '../../frameworks/libxgame/src/lua-bindings'
 headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "lua-bindings/LuaCocosAdapter.h"
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "ui/UIScrollViewBar.h"
@@ -65,7 +64,7 @@ typeconf 'cocos2d::ui::HBox'
 typeconf 'cocos2d::ui::VBox'
 typeconf 'cocos2d::ui::RelativeBox'
 
-ifdef 'defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)'
+macro '#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)'
 typeconf 'cocos2d::experimental::ui::WebView::ccWebViewCallback'
 typeconf 'cocos2d::experimental::ui::WebView'
     .callback 'setOnShouldStartLoading' .arg1 '@nullable' .localvar 'false'
@@ -80,7 +79,7 @@ typeconf 'cocos2d::experimental::ui::VideoPlayer'
         .tag_maker 'videoPlayerCallback'
         .tag_mode 'replace'
         .localvar 'false'
-endif ''
+macro ''
 
 typeconf 'cocos2d::ui::AbstractCheckButton'
     .func 'getRendererBackground' .ret '@addref(protectedChildren |)'

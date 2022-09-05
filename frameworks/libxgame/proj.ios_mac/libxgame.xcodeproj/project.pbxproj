@@ -303,8 +303,6 @@
 		3D6EEC0F28B4D851008F1847 /* lua_cocos2d_studio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EEA3428B4D84F008F1847 /* lua_cocos2d_studio.cpp */; };
 		3D6EEC1028B4D851008F1847 /* lua_conv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EEA3528B4D84F008F1847 /* lua_conv.cpp */; };
 		3D6EEC1128B4D851008F1847 /* lua_conv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EEA3528B4D84F008F1847 /* lua_conv.cpp */; };
-		3D6EEC1228B4D851008F1847 /* LuaCocosAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EEA3628B4D84F008F1847 /* LuaCocosAdapter.cpp */; };
-		3D6EEC1328B4D851008F1847 /* LuaCocosAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EEA3628B4D84F008F1847 /* LuaCocosAdapter.cpp */; };
 		3D6EEC1428B4D851008F1847 /* lua_crypto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EEA3828B4D84F008F1847 /* lua_crypto.cpp */; };
 		3D6EEC1528B4D851008F1847 /* lua_crypto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EEA3828B4D84F008F1847 /* lua_crypto.cpp */; };
 		3D6EEC1628B4D851008F1847 /* lua_cocos2d_physics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EEA3A28B4D84F008F1847 /* lua_cocos2d_physics.cpp */; };
@@ -412,6 +410,8 @@
 		3D6EECB528B4D852008F1847 /* lua_xxtea.c in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EEAF828B4D84F008F1847 /* lua_xxtea.c */; };
 		3D6EECB628B4D852008F1847 /* xxtea.c in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EEAF928B4D84F008F1847 /* xxtea.c */; };
 		3D6EECB728B4D852008F1847 /* xxtea.c in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EEAF928B4D84F008F1847 /* xxtea.c */; };
+		3DB47E2F28C5B59F001BC181 /* cclua-extend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DB47E2D28C5B59F001BC181 /* cclua-extend.cpp */; };
+		3DB47E3028C5B59F001BC181 /* cclua-extend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DB47E2D28C5B59F001BC181 /* cclua-extend.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -634,7 +634,7 @@
 		3D6EE96A28B4D84E008F1847 /* ByteArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ByteArray.h; sourceTree = "<group>"; };
 		3D6EE96B28B4D84E008F1847 /* photo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = photo.mm; sourceTree = "<group>"; };
 		3D6EE96D28B4D84E008F1847 /* plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plugin.h; sourceTree = "<group>"; };
-		3D6EE96E28B4D84E008F1847 /* olua-2dx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = olua-2dx.h; sourceTree = "<group>"; };
+		3D6EE96E28B4D84E008F1847 /* olua-2dx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "olua-2dx.h"; sourceTree = "<group>"; };
 		3D6EE96F28B4D84E008F1847 /* Lame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Lame.cpp; sourceTree = "<group>"; };
 		3D6EE97028B4D84E008F1847 /* filesystem-private-ios-mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "filesystem-private-ios-mac.mm"; sourceTree = "<group>"; };
 		3D6EE97128B4D84E008F1847 /* permission.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = permission.cpp; sourceTree = "<group>"; };
@@ -661,7 +661,7 @@
 		3D6EE98828B4D84E008F1847 /* XMLHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLHttpRequest.h; sourceTree = "<group>"; };
 		3D6EE98928B4D84E008F1847 /* runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = runtime.h; sourceTree = "<group>"; };
 		3D6EE98A28B4D84E008F1847 /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timer.h; sourceTree = "<group>"; };
-		3D6EE98B28B4D84E008F1847 /* olua-2dx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = olua-2dx.cpp; sourceTree = "<group>"; };
+		3D6EE98B28B4D84E008F1847 /* olua-2dx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "olua-2dx.cpp"; sourceTree = "<group>"; };
 		3D6EE98C28B4D84F008F1847 /* plugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plugin.cpp; sourceTree = "<group>"; };
 		3D6EE98D28B4D84F008F1847 /* microphone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = microphone.cpp; sourceTree = "<group>"; };
 		3D6EE98E28B4D84F008F1847 /* filesystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = filesystem.cpp; sourceTree = "<group>"; };
@@ -683,7 +683,6 @@
 		3D6EE99E28B4D84F008F1847 /* QRCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QRCode.cpp; sourceTree = "<group>"; };
 		3D6EE99F28B4D84F008F1847 /* AssetsBundle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AssetsBundle.cpp; sourceTree = "<group>"; };
 		3D6EE9A028B4D84F008F1847 /* FileFinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileFinder.cpp; sourceTree = "<group>"; };
-		3D6EEA1C28B4D84F008F1847 /* LuaCocosAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaCocosAdapter.h; sourceTree = "<group>"; };
 		3D6EEA1E28B4D84F008F1847 /* lua_xml_http_request.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_xml_http_request.cpp; sourceTree = "<group>"; };
 		3D6EEA1F28B4D84F008F1847 /* lua_spine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_spine.h; sourceTree = "<group>"; };
 		3D6EEA2028B4D84F008F1847 /* lua_manual.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_manual.cpp; sourceTree = "<group>"; };
@@ -702,7 +701,6 @@
 		3D6EEA3328B4D84F008F1847 /* lua_ocbridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_ocbridge.h; sourceTree = "<group>"; };
 		3D6EEA3428B4D84F008F1847 /* lua_cocos2d_studio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_cocos2d_studio.cpp; sourceTree = "<group>"; };
 		3D6EEA3528B4D84F008F1847 /* lua_conv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_conv.cpp; sourceTree = "<group>"; };
-		3D6EEA3628B4D84F008F1847 /* LuaCocosAdapter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaCocosAdapter.cpp; sourceTree = "<group>"; };
 		3D6EEA3728B4D84F008F1847 /* lua_manual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_manual.h; sourceTree = "<group>"; };
 		3D6EEA3828B4D84F008F1847 /* lua_crypto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_crypto.cpp; sourceTree = "<group>"; };
 		3D6EEA3A28B4D84F008F1847 /* lua_cocos2d_physics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_cocos2d_physics.cpp; sourceTree = "<group>"; };
@@ -808,6 +806,8 @@
 		3D6EEAF928B4D84F008F1847 /* xxtea.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxtea.c; sourceTree = "<group>"; };
 		3D6EEAFA28B4D84F008F1847 /* lua_xxtea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_xxtea.h; sourceTree = "<group>"; };
 		3D6EEAFB28B4D84F008F1847 /* xxtea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxtea.h; sourceTree = "<group>"; };
+		3DB47E2D28C5B59F001BC181 /* cclua-extend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "cclua-extend.cpp"; sourceTree = "<group>"; };
+		3DB47E2E28C5B59F001BC181 /* cclua-extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cclua-extend.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1242,6 +1242,8 @@
 				3D6EE97228B4D84E008F1847 /* AssetsBundle.h */,
 				3D6EE99428B4D84F008F1847 /* ByteArray.cpp */,
 				3D6EE96A28B4D84E008F1847 /* ByteArray.h */,
+				3DB47E2D28C5B59F001BC181 /* cclua-extend.cpp */,
+				3DB47E2E28C5B59F001BC181 /* cclua-extend.h */,
 				3D6EE97628B4D84E008F1847 /* cclua.h */,
 				3D6EE97A28B4D84E008F1847 /* downloader.cpp */,
 				3D6EE99528B4D84F008F1847 /* downloader.h */,
@@ -1330,8 +1332,6 @@
 				3D6EEA3128B4D84F008F1847 /* lua_xgame.h */,
 				3D6EEA1E28B4D84F008F1847 /* lua_xml_http_request.cpp */,
 				3D6EEA2A28B4D84F008F1847 /* lua_xml_http_request.h */,
-				3D6EEA3628B4D84F008F1847 /* LuaCocosAdapter.cpp */,
-				3D6EEA1C28B4D84F008F1847 /* LuaCocosAdapter.h */,
 			);
 			path = "lua-bindings";
 			sourceTree = "<group>";
@@ -1598,7 +1598,6 @@
 				3D6EEB2A28B4D850008F1847 /* mpglib_interface.c in Sources */,
 				3D6EEB6028B4D850008F1847 /* filesystem-private.cpp in Sources */,
 				3D6BE08128B5AE2E005C8879 /* stringpool.c in Sources */,
-				3D6EEC1228B4D851008F1847 /* LuaCocosAdapter.cpp in Sources */,
 				3D6EEB8228B4D850008F1847 /* FileFinder.cpp in Sources */,
 				3D6EEC2228B4D851008F1847 /* lauxlib.c in Sources */,
 				3D6EEB7C28B4D850008F1847 /* runtime-private-ios-mac.mm in Sources */,
@@ -1654,6 +1653,7 @@
 				3D6EEC0228B4D851008F1847 /* lua_cocos2d_ui.cpp in Sources */,
 				3D6BE09128B5AE2E005C8879 /* pattern.c in Sources */,
 				3D6BE05128B5AE2D005C8879 /* bio.c in Sources */,
+				3DB47E2F28C5B59F001BC181 /* cclua-extend.cpp in Sources */,
 				3D6BE08528B5AE2E005C8879 /* varint.c in Sources */,
 				3D6BE04128B5AE2D005C8879 /* xattrs.c in Sources */,
 				3D6EECA628B4D852008F1847 /* qrspec.c in Sources */,
@@ -1773,6 +1773,7 @@
 				3D6EEB6728B4D850008F1847 /* microphone.mm in Sources */,
 				3D6EEC9D28B4D852008F1847 /* QRSprite.cpp in Sources */,
 				3D6EEB3328B4D850008F1847 /* olua.c in Sources */,
+				3DB47E3028C5B59F001BC181 /* cclua-extend.cpp in Sources */,
 				3D6BE0AA28B5AE2E005C8879 /* select.c in Sources */,
 				3D6EECB528B4D852008F1847 /* lua_xxtea.c in Sources */,
 				3D6EEC6528B4D852008F1847 /* ldo.c in Sources */,
@@ -1795,7 +1796,6 @@
 				3D6EEB2B28B4D850008F1847 /* mpglib_interface.c in Sources */,
 				3D6BE08428B5AE2E005C8879 /* alloc.c in Sources */,
 				3D6EEB6128B4D850008F1847 /* filesystem-private.cpp in Sources */,
-				3D6EEC1328B4D851008F1847 /* LuaCocosAdapter.cpp in Sources */,
 				3D6BE07E28B5AE2D005C8879 /* register.c in Sources */,
 				3D6BE0C628B5AE2E005C8879 /* options.c in Sources */,
 				3D6EEB8328B4D850008F1847 /* FileFinder.cpp in Sources */,

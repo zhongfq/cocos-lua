@@ -1856,6 +1856,24 @@ public:
      * @param applyChildren A boolean value to determine whether the mask bit should apply to its children or not.
      */
     virtual void setCameraMask(unsigned short mask, bool applyChildren = true);
+    
+    void setScrollable(bool value);
+    bool getScrollable() const;
+    
+    void setScrollX(float value);
+    float getScrollX() const;
+    
+    void setScrollY(float value);
+    float getScrollY() const;
+    
+    void setScrollScaleX(float value);
+    float getScrollScaleX() const;
+    
+    void setScrollScaleY(float value);
+    float getScrollScaleY() const;
+    
+    void setScrollRotation(float value);
+    float getScrollRotation() const;
 
 CC_CONSTRUCTOR_ACCESS:
     // Nodes should be created using create();
@@ -1899,6 +1917,8 @@ protected:
     
 private:
     void addChildHelper(Node* child, int localZOrder, int tag, const std::string &name, bool setTag);
+    
+    void checkCalcScrollMatrix();
     
 protected:
 
@@ -2015,6 +2035,9 @@ protected:
     std::function<void()> _onExitCallback;
     std::function<void()> _onEnterTransitionDidFinishCallback;
     std::function<void()> _onExitTransitionDidStartCallback;
+    
+    bool _scrollable = false;
+    Node *_calcScrollMatrix = nullptr;
 
 //Physics:remaining backwardly compatible  
 #if CC_USE_PHYSICS

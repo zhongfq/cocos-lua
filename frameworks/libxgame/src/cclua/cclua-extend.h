@@ -1,14 +1,17 @@
-#ifndef __LUACOCOSADAPTER_H__
-#define __LUACOCOSADAPTER_H__
+#ifndef __CCLUA_EXTEND_H__
+#define __CCLUA_EXTEND_H__
 
 #include "2d/CCComponent.h"
 #include "2d/CCActionTween.h"
 #include "ui/CocosGUI.h"
 #include "network/WebSocket.h"
+#include "cclua/olua-2dx.h"
 
 #include <functional>
 
 NS_CC_BEGIN
+
+typedef cocos2d::Rect Bounds;
 
 class LuaComponent : public Component
 {
@@ -205,6 +208,62 @@ private:
     CC_DISALLOW_COPY_AND_ASSIGN(RotateFrom);
 };
 
+class ImageExtend : private cocos2d::Image {
+public:
+    static bool getPNGPremultipliedAlphaEnabled() { return PNG_PREMULTIPLIED_ALPHA_ENABLED; }
+};
+
+class FileUtilsExtend {
+public:
+    static cocos2d::Data getFileDataFromZip(cocos2d::FileUtils *obj, const std::string &zipPath, const std::string &name);
+};
+
+class NodeExtend {
+public:
+    static float getAnchorX(cocos2d::Node *obj);
+    static void setAnchorX(cocos2d::Node *obj, float value);
+    
+    static float getAnchorY(cocos2d::Node *obj);
+    static void setAnchorY(cocos2d::Node *obj, float value);
+    
+    static float getWidth(cocos2d::Node *obj);
+    static void setWidth(cocos2d::Node *obj, float value);
+    
+    static float getHeight(cocos2d::Node *obj);
+    static void setHeight(cocos2d::Node *obj, float value);
+    
+    static float getAlpha(cocos2d::Node *obj);
+    static void setAlpha(cocos2d::Node *obj, float value);
+    
+    static oluaret_t __index(lua_State *L);
+    
+    static cocos2d::Bounds getBounds(cocos2d::Node *obj, cocos2d::Node *target, float left, float right, float top, float bottom);
+};
+
+class Mat4Extend {
+public:
+    static cocos2d::Vec4 transform(cocos2d::Mat4 *mat, OLUA_PACK const cocos2d::Vec4 &p);
+    static cocos2d::Vec3 transform(cocos2d::Mat4 *mat, OLUA_PACK const cocos2d::Vec3 &p);
+    static cocos2d::Vec2 transform(cocos2d::Mat4 *mat, OLUA_PACK const cocos2d::Vec2 &p);
+    static OLUA_POSTNEW cocos2d::Mat4 *__add(cocos2d::Mat4 *mat1, cocos2d::Mat4 *mat2);
+    static OLUA_POSTNEW cocos2d::Mat4 *__sub(cocos2d::Mat4 *mat1, cocos2d::Mat4 *mat2);
+    static OLUA_POSTNEW cocos2d::Mat4 *__mul(cocos2d::Mat4 *mat1, cocos2d::Mat4 *mat2);
+};
+
 NS_CC_END
+
+#ifdef CCLUA_BUILD_SPINE
+#include "spine/spine-cocos2dx.h"
+
+namespace spine {
+
+class SkeletonDataExtend {
+public:
+    static oluaret_t __gc(lua_State *L);
+    static oluaret_t create(lua_State *L, const char *skelPath, const char *atlasPath, float scale = 1.0f);
+};
+
+}
+#endif // CCLUA_BUILD_SPINE
 
 #endif

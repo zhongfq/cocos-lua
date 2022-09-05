@@ -2,6 +2,22 @@
 #include "lua_conv.h"
 #include "cclua/cclua.h"
 
+int olua_unpack_cocos2d_Bounds(lua_State *L, const cocos2d::Bounds *value)
+{
+    if (value) {
+        lua_pushnumber(L, (lua_Number)value->getMinX());
+        lua_pushnumber(L, (lua_Number)value->getMaxX());
+        lua_pushnumber(L, (lua_Number)value->getMaxY());
+        lua_pushnumber(L, (lua_Number)value->getMinY());
+    } else {
+        lua_pushnumber(L, 0);
+        lua_pushnumber(L, 0);
+        lua_pushnumber(L, 0);
+        lua_pushnumber(L, 0);
+    }
+    return 4;
+}
+
 int olua_push_cocos2d_network_WebSocket_Data(lua_State *L, const cocos2d::network::WebSocket::Data *value)
 {
     if (value) {
@@ -582,4 +598,75 @@ void olua_check_cocos2d_backend_UniformLocation(lua_State *L, int idx, cocos2d::
     lua_settop(L, top);
 }
 
+#endif
+
+#ifdef CCLUA_BUILD_SPINE
+bool olua_is_spine_String(lua_State *L, int idx)
+{
+    return olua_isstring(L, idx);
+}
+
+int olua_push_spine_String(lua_State *L, const spine::String *value)
+{
+    if (value && value->buffer()) {
+        lua_pushlstring(L, value->buffer(), value->length());
+    } else {
+        lua_pushnil(L);
+    }
+    return 1;
+}
+
+void olua_check_spine_String(lua_State *L, int idx, spine::String *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    *value = olua_checkstring(L, idx);
+}
+
+bool olua_is_spine_Color(lua_State *L, int idx)
+{
+    return olua_isinteger(L, idx);
+}
+
+void olua_check_spine_Color(lua_State *L, int idx, spine::Color *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    uint32_t color = (uint32_t)olua_checkinteger(L, idx);
+    value->r = ((uint8_t)(color >> 24 & 0xFF)) / 255.0f;
+    value->g = ((uint8_t)(color >> 16 & 0xFF)) / 255.0f;
+    value->b = ((uint8_t)(color >> 8 & 0xFF)) / 255.0f;
+    value->a = ((uint8_t)(color & 0xFF)) / 255.0f;
+}
+
+int olua_push_spine_Color(lua_State *L, const spine::Color *value)
+{
+    uint32_t color = 0;
+    if (value) {
+        color |= (uint32_t)((uint8_t)(value->r * 255)) << 24;
+        color |= (uint32_t)((uint8_t)(value->g * 255)) << 16;
+        color |= (uint32_t)((uint8_t)(value->b * 255)) << 8;
+        color |= (uint32_t)((uint8_t)(value->a * 255));
+    }
+    lua_pushinteger(L, color);
+    return 1;
+}
+
+int olua_push_spine_EventData(lua_State *L, const spine::EventData *value)
+{
+    spine::EventData *data = const_cast<spine::EventData *>(value);
+    lua_createtable(L, 0, 8);
+    olua_setfieldinteger(L, -1, "intValue", data->getIntValue());
+    olua_setfieldnumber(L, -1, "getVolume", data->getVolume());
+    olua_setfieldnumber(L, -1, "getBalance", data->getBalance());
+    olua_push_spine_String(L, &data->getName());
+    olua_rawsetf(L, -2, "name");
+    olua_push_spine_String(L, &data->getStringValue());
+    olua_rawsetf(L, -2, "stringValue");
+    olua_push_spine_String(L, &data->getAudioPath());
+    olua_rawsetf(L, -2, "audioPath");
+    return 1;
+}
 #endif

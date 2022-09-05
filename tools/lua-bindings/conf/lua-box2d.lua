@@ -5,28 +5,48 @@ path '../../frameworks/libxgame/src/lua-bindings'
 headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "cocos2d.h"
 #include "box2d/box2d.h"
-#include "box2d/Box2DAdapter.h"
+#include "box2d/box2d-2dx.h"
 ]]
 
 local namemap = {
-    ['b2Draw'] = 'box2d.interface.Draw',
-    ['b2DestructionListener'] = 'box2d.interface.DestructionListener',
-    ['b2ContactFilter'] = 'box2d.interface.ContactFilter',
-    ['b2ContactListener'] = 'box2d.interface.ContactListener',
-    ['b2QueryCallback'] = 'box2d.interface.QueryCallback',
-    ['b2RayCastCallback'] = 'box2d.interface.RayCastCallback',
+    ['b2Draw'] = 'b2.interface.Draw',
+    ['b2DestructionListener'] = 'b2.interface.DestructionListener',
+    ['b2ContactFilter'] = 'b2.interface.ContactFilter',
+    ['b2ContactListener'] = 'b2.interface.ContactListener',
+    ['b2QueryCallback'] = 'b2.interface.QueryCallback',
+    ['b2RayCastCallback'] = 'b2.interface.RayCastCallback',
 }
 
+luaopen [[cclua::runtime::registerFeature("box2d", true);]]
+
 luacls(function (cppname)
-    cppname = namemap[cppname] or cppname
-    cppname = string.gsub(cppname, '^b2(.+)', 'box2d.%1')
+    if namemap[cppname] then
+        return namemap[cppname]
+    end
+    cppname = string.gsub(cppname, '^b2(.+)', 'b2.%1')
+    cppname = string.gsub(cppname, 'box2d::', 'b2.')
     cppname = string.gsub(cppname, '::', '.')
     return cppname
 end)
 
 exclude 'b2BlockAllocator *'
+
+local _typeconf = typeconf
+local function typeconf(...)
+    local cls = _typeconf(...)
+    cls.luaname(function (name, kind)
+        name = name:gsub('^e_', '')
+        name = name:gsub('^b2_', '')
+        name = name:gsub('^m_', '')
+        local v = name:match('^%u+')
+        if v and kind == 'func' then
+            name = name:gsub('^' .. v, string.lower(v))
+        end
+        return name
+    end)
+    return cls
+end
 
 typedef 'int8;int16;int32'
     .decltype 'lua_Integer'
@@ -43,20 +63,20 @@ typeconv 'b2Filter'
 typeconv 'b2ManifoldPoint'
 typeconv 'b2Rot'
 typeconv 'b2MassData'
--- typeconv 'b2MassData'
 
 typeconf 'b2Draw'
-typeconf 'b2DestructionListener'
-typeconf 'b2ContactFilter'
-typeconf 'b2ContactListener'
-typeconf 'b2QueryCallback'
-typeconf 'b2RayCastCallback'
+typeonly 'b2DestructionListener'
+typeonly 'b2ContactFilter'
+typeonly 'b2ContactListener'
+typeonly 'b2QueryCallback'
+typeonly 'b2RayCastCallback'
 typeconf 'box2d::DestructionListener'
 typeconf 'box2d::ContactFilter'
 typeconf 'box2d::ContactListener'
 typeconf 'box2d::QueryCallback'
 typeconf 'box2d::RayCastCallback'
-typeconf 'box2d::Draw'
+typeconf 'box2d::DebugNode::Flags'
+typeconf 'box2d::DebugNode'
 
 typeconf 'b2MassData'
 typeconf 'b2Transform'
@@ -64,7 +84,6 @@ typeconf 'b2RayCastInput'
 typeconf 'b2RayCastOutput'
 
 typeconf 'b2Shape::Type'
-    .luaname(function (value) return value:gsub('^e_', '') end)
 typeconf 'b2Shape'
 typeconf 'b2PolygonShape'
 typeconf 'b2EdgeShape'
@@ -73,14 +92,12 @@ typeconf 'b2ChainShape'
 
 typeconf 'b2BodyDef'
 typeconf 'b2BodyType'
-    .luaname(function (value) return value:gsub('^b2_', '') end)
 typeconf 'b2Body'
 typeconf 'b2BodyUserData'
 typeconf 'b2FixtureDef'
 typeconf 'b2Fixture'
 typeconf 'b2JointDef'
 typeconf 'b2JointType'
-    .luaname(function (value) return value:gsub('^e_', '') end)
 typeconf 'b2Joint'
 typeconf 'b2DistanceJointDef'
 typeconf 'b2DistanceJoint'
@@ -114,10 +131,9 @@ typeconf 'b2Contact'
 typeconf 'b2ContactImpulse'
 typeconf 'b2Manifold'
 typeconf 'b2Manifold::Type'
-    .luaname(function (value) return value:gsub('^e_', '') end)
 typeconf 'b2World'
-    .func 'SetDestructionListener' .arg1 '@addref(destructionListener ^)'
-    .func 'SetContactFilter' .arg1 '@addref(contactFilter ^)'
-    .func 'SetContactListener' .arg1 '@addref(contactListener ^)'
-    .func 'SetDebugDraw' .arg1 '@addref(debugDraw ^)'
+    .func 'SetDestructionListener' .arg1 '@addref(^)'
+    .func 'SetContactFilter' .arg1 '@addref(^)'
+    .func 'SetContactListener' .arg1 '@addref(^)'
+    .func 'SetDebugDraw' .arg1 '@addref(^)'
 typeconf 'b2WorldManifold'

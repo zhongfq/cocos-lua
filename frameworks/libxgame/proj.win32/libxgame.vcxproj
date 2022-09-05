@@ -83,7 +83,7 @@
     <ClInclude Include="..\src\cjson\lua_cjson.h" />
     <ClInclude Include="..\src\cjson\strbuf.h" />
     <ClInclude Include="..\src\lfs\lfs.h" />
-    <ClInclude Include="..\src\lua-bindings\LuaCocosAdapter.h" />
+    <ClInclude Include="..\src\cclua\cclua-extend.h" />
     <ClInclude Include="..\src\lua-bindings\lua_bindings.h" />
     <ClInclude Include="..\src\lua-bindings\lua_cocos2d.h" />
     <ClInclude Include="..\src\lua-bindings\lua_cocos2d_physics.h" />
@@ -209,7 +209,7 @@
     <ClCompile Include="..\src\cjson\lua_cjson.c" />
     <ClCompile Include="..\src\cjson\strbuf.c" />
     <ClCompile Include="..\src\lfs\lfs.c" />
-    <ClCompile Include="..\src\lua-bindings\LuaCocosAdapter.cpp" />
+    <ClCompile Include="..\src\cclua\cclua-extend.cpp" />
     <ClCompile Include="..\src\lua-bindings\lua_bindings.cpp" />
     <ClCompile Include="..\src\lua-bindings\lua_cocos2d.cpp" />
     <ClCompile Include="..\src\lua-bindings\lua_cocos2d_physics.cpp" />

@@ -796,8 +796,6 @@ OLUA_LIB int luaopen_jiguang(lua_State *L)
 #endif
 #ifdef CCLUA_BUILD_JANALYTICS
     olua_require(L, "cclua.plugin.janalytics.EventType", luaopen_cclua_plugin_janalytics_EventType);
-#endif
-#ifdef CCLUA_BUILD_JANALYTICS
     olua_require(L, "cclua.plugin.janalytics", luaopen_cclua_plugin_janalytics);
 #endif
 

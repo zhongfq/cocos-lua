@@ -5,7 +5,6 @@ path "../../frameworks/libxgame/src/lua-bindings"
 headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "lua-bindings/LuaCocosAdapter.h"
 #include "cocos2d.h"
 ]]
 
@@ -14,6 +13,10 @@ luacls(function (cppname)
     cppname = string.gsub(cppname, "::", ".")
     return cppname
 end)
+
+luaopen [[cclua::runtime::registerFeature("physics", true);]]
+
+macro '#if CC_USE_PHYSICS'
 
 typeconv 'cocos2d::PhysicsMaterial'
 
@@ -55,3 +58,5 @@ typeconf 'cocos2d::PhysicsRayCastInfo'
 typeconf 'cocos2d::PhysicsWorld'
     .callback 'setPreUpdateCallback' .arg1 '@nullable'
     .callback 'setPostUpdateCallback' .arg1 '@nullable'
+
+macro '' -- CC_USE_PHYSICS

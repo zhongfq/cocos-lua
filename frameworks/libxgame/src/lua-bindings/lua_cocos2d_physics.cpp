@@ -3,7 +3,8 @@
 //
 #include "lua_cocos2d_physics.h"
 
-int olua_push_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMaterial *value)
+#if CC_USE_PHYSICS
+OLUA_LIB int olua_push_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMaterial *value)
 {
     if (value) {
         lua_createtable(L, 0, 3);
@@ -23,7 +24,7 @@ int olua_push_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMateri
     return 1;
 }
 
-void olua_check_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::PhysicsMaterial *value)
+OLUA_LIB void olua_check_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::PhysicsMaterial *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -51,12 +52,12 @@ void olua_check_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::PhysicsM
     lua_pop(L, 1);
 }
 
-bool olua_is_cocos2d_PhysicsMaterial(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocos2d_PhysicsMaterial(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "friction") && olua_hasfield(L, idx, "restitution") && olua_hasfield(L, idx, "density");
 }
 
-void olua_pack_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::PhysicsMaterial *value)
+OLUA_LIB void olua_pack_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::PhysicsMaterial *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -77,7 +78,7 @@ void olua_pack_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::PhysicsMa
     value->friction = (float)arg3;
 }
 
-int olua_unpack_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMaterial *value)
+OLUA_LIB int olua_unpack_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMaterial *value)
 {
     if (value) {
         olua_push_number(L, (lua_Number)value->density);
@@ -92,11 +93,13 @@ int olua_unpack_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMate
     return 3;
 }
 
-bool olua_canpack_cocos2d_PhysicsMaterial(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocos2d_PhysicsMaterial(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2);
 }
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsRayCastCallbackFunc___call(lua_State *L)
 {
     olua_startinvoke(L);
@@ -120,7 +123,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsRayCastCallbackFunc(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsQueryRectCallbackFunc___call(lua_State *L)
 {
     olua_startinvoke(L);
@@ -144,7 +149,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsQueryRectCallbackFunc(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsQueryPointCallbackFunc___call(lua_State *L)
 {
     olua_startinvoke(L);
@@ -168,7 +175,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsQueryPointCallbackFunc(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_EventListenerPhysicsContact___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -502,7 +511,9 @@ OLUA_LIB int luaopen_cocos2d_EventListenerPhysicsContact(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_EventListenerPhysicsContactWithGroup___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -566,7 +577,9 @@ OLUA_LIB int luaopen_cocos2d_EventListenerPhysicsContactWithGroup(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_EventListenerPhysicsContactWithBodies___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -632,7 +645,9 @@ OLUA_LIB int luaopen_cocos2d_EventListenerPhysicsContactWithBodies(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_EventListenerPhysicsContactWithShapes___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -698,7 +713,9 @@ OLUA_LIB int luaopen_cocos2d_EventListenerPhysicsContactWithShapes(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsBody___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -2593,7 +2610,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsBody(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_PhysicsContact_EventCode(lua_State *L)
 {
@@ -2611,7 +2630,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsContact_EventCode(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsContact___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -2730,7 +2751,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsContact(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsContactPostSolve___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -2811,7 +2834,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsContactPostSolve(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsContactPreSolve___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -2966,7 +2991,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsContactPreSolve(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsJoint___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -3216,7 +3243,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsJoint(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsJointDistance___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -3320,7 +3349,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsJointDistance(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsJointFixed___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -3384,7 +3415,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsJointFixed(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsJointGear___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -3526,7 +3559,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsJointGear(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsJointGroove___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -3708,7 +3743,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsJointGroove(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsJointLimit___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -3976,7 +4013,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsJointLimit(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsJointMotor___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -4078,7 +4117,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsJointMotor(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsJointPin___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -4188,7 +4229,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsJointPin(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsJointRatchet___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -4368,7 +4411,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsJointRatchet(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsJointRotaryLimit___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -4552,7 +4597,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsJointRotaryLimit(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsJointRotarySpring___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -4732,7 +4779,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsJointRotarySpring(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsJointSpring___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -4992,7 +5041,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsJointSpring(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_PhysicsShape_Type(lua_State *L)
 {
@@ -5015,7 +5066,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsShape_Type(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsShape___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -5628,7 +5681,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsShape(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsShapePolygon___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -5691,7 +5746,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsShapePolygon(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsShapeEdgePolygon___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -5734,7 +5791,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsShapeEdgePolygon(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsShapeBox___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -5895,7 +5954,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsShapeBox(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsShapeCircle___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -6108,7 +6169,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsShapeCircle(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsShapeEdgeBox___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -6250,7 +6313,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsShapeEdgeBox(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsShapeEdgeChain___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -6293,7 +6358,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsShapeEdgeChain(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsShapeEdgeSegment___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -6449,7 +6516,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsShapeEdgeSegment(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsRayCastInfo___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -6725,7 +6794,9 @@ OLUA_LIB int luaopen_cocos2d_PhysicsRayCastInfo(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_PHYSICS
 static int _cocos2d_PhysicsWorld___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -7621,10 +7692,12 @@ OLUA_LIB int luaopen_cocos2d_PhysicsWorld(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_physics(lua_State *L)
 {
+#if CC_USE_PHYSICS
     olua_require(L, "cc.PhysicsRayCastCallbackFunc", luaopen_cocos2d_PhysicsRayCastCallbackFunc);
     olua_require(L, "cc.PhysicsQueryRectCallbackFunc", luaopen_cocos2d_PhysicsQueryRectCallbackFunc);
     olua_require(L, "cc.PhysicsQueryPointCallbackFunc", luaopen_cocos2d_PhysicsQueryPointCallbackFunc);
@@ -7660,6 +7733,9 @@ OLUA_LIB int luaopen_cocos2d_physics(lua_State *L)
     olua_require(L, "cc.PhysicsShapeEdgeSegment", luaopen_cocos2d_PhysicsShapeEdgeSegment);
     olua_require(L, "cc.PhysicsRayCastInfo", luaopen_cocos2d_PhysicsRayCastInfo);
     olua_require(L, "cc.PhysicsWorld", luaopen_cocos2d_PhysicsWorld);
+#endif
+
+    cclua::runtime::registerFeature("physics", true);
 
     return 0;
 }

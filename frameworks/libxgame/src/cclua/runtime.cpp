@@ -251,6 +251,58 @@ void runtime::luaOpen(lua_CFunction libfunc)
     }
 }
 
+void runtime::testCrash()
+{
+    runtime::log("test native crash!!!!");
+    char *prt = NULL;
+    *prt = 0;
+}
+
+static int index_func(lua_State *L)
+{
+    if (olua_isstring(L, lua_upvalueindex(2))) {
+        const char *name = olua_tostring(L, lua_upvalueindex(1));
+        const char *func = olua_tostring(L, lua_upvalueindex(2));
+        cclua::runtime::log("function '%s.%s' not supported", name, func);
+        return 0;
+    } else {
+        const char *func = olua_tostring(L, 2);
+        lua_pushvalue(L, lua_upvalueindex(1));
+        lua_pushstring(L, func);
+        lua_pushcclosure(L, index_func, 2);
+        return 1;
+    }
+}
+
+oluaret_t runtime::load(lua_State *L, const std::string &name)
+{
+    return runtime::load(L, name, name);
+}
+
+oluaret_t runtime::load(lua_State *L, const std::string &name, const std::string &feature)
+{
+    if (cclua::runtime::hasFeature(feature)) {
+        lua_getfield(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
+        if (olua_rawgetf(L, -1, name.c_str()) == LUA_TTABLE) {
+            return 1;
+        }
+    }
+
+    cclua::runtime::log("module '%s' is not available", name.c_str());
+    lua_newtable(L);
+    lua_newtable(L);
+    lua_pushvalue(L, 1);
+    lua_pushcclosure(L, index_func, 1);
+    olua_rawsetf(L, -2, "__index");
+    lua_setmetatable(L, -2);
+    lua_getfield(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
+    lua_pushvalue(L, 1);
+    lua_pushvalue(L, -3);
+    lua_rawset(L, -3);
+    lua_pop(L, 1);
+    return 1;
+}
+
 //
 // app info
 //
@@ -863,6 +915,12 @@ void runtime::reportError(const char *err, const char *traceback)
         }
     }
 #endif
+}
+
+int runtime::pushdirector(lua_State *L)
+{
+    olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
+    return lua_gettop(L);
 }
 
 #if COCOS2D_VERSION >= 0x00040000

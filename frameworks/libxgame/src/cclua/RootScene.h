@@ -35,7 +35,10 @@ class SceneNoCamera : public cocos2d::Scene
 public:
     static SceneNoCamera *create();
     static SceneNoCamera *createWithSize(const cocos2d::Size& size);
+    
+#if (CC_USE_PHYSICS || (CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION))
     static SceneNoCamera *createWithPhysics();
+#endif
     
     SceneNoCamera();
     virtual ~SceneNoCamera();
@@ -56,8 +59,8 @@ public:
     virtual void onEnter() override;
     virtual void onExit() override;
     
-    void setFilter(cocos2d::Node *value);
-    cocos2d::Node *getFilter();
+    void setFilter(OLUA_NULLABLE OLUA_ADDREF(^) cocos2d::Node *value);
+    OLUA_ADDREF(^) cocos2d::Node *getFilter();
 private:
     cocos2d::Node *_filter = nullptr;
 };

@@ -32068,6 +32068,108 @@ static int _cocos2d_Node_getScheduler(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Node_getScrollRotation(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+
+    // float getScrollRotation()
+    float ret = self->getScrollRotation();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Node_getScrollScaleX(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+
+    // float getScrollScaleX()
+    float ret = self->getScrollScaleX();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Node_getScrollScaleY(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+
+    // float getScrollScaleY()
+    float ret = self->getScrollScaleY();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Node_getScrollX(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+
+    // float getScrollX()
+    float ret = self->getScrollX();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Node_getScrollY(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+
+    // float getScrollY()
+    float ret = self->getScrollY();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Node_getScrollable(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+
+    // bool getScrollable()
+    bool ret = self->getScrollable();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Node_getSkewX(lua_State *L)
 {
     olua_startinvoke(L);
@@ -34130,6 +34232,114 @@ static int _cocos2d_Node_setScheduler(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_Node_setScrollRotation(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *self = nullptr;
+    lua_Number arg1 = 0;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+    olua_check_number(L, 2, &arg1);
+
+    // void setScrollRotation(float value)
+    self->setScrollRotation((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Node_setScrollScaleX(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *self = nullptr;
+    lua_Number arg1 = 0;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+    olua_check_number(L, 2, &arg1);
+
+    // void setScrollScaleX(float value)
+    self->setScrollScaleX((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Node_setScrollScaleY(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *self = nullptr;
+    lua_Number arg1 = 0;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+    olua_check_number(L, 2, &arg1);
+
+    // void setScrollScaleY(float value)
+    self->setScrollScaleY((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Node_setScrollX(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *self = nullptr;
+    lua_Number arg1 = 0;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+    olua_check_number(L, 2, &arg1);
+
+    // void setScrollX(float value)
+    self->setScrollX((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Node_setScrollY(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *self = nullptr;
+    lua_Number arg1 = 0;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+    olua_check_number(L, 2, &arg1);
+
+    // void setScrollY(float value)
+    self->setScrollY((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Node_setScrollable(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Node *self = nullptr;
+    bool arg1 = false;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setScrollable(bool value)
+    self->setScrollable(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cocos2d_Node_setSkewX(lua_State *L)
 {
     olua_startinvoke(L);
@@ -34776,6 +34986,12 @@ OLUA_LIB int luaopen_cocos2d_Node(lua_State *L)
     oluacls_func(L, "getScaleZ", _cocos2d_Node_getScaleZ);
     oluacls_func(L, "getScene", _cocos2d_Node_getScene);
     oluacls_func(L, "getScheduler", _cocos2d_Node_getScheduler);
+    oluacls_func(L, "getScrollRotation", _cocos2d_Node_getScrollRotation);
+    oluacls_func(L, "getScrollScaleX", _cocos2d_Node_getScrollScaleX);
+    oluacls_func(L, "getScrollScaleY", _cocos2d_Node_getScrollScaleY);
+    oluacls_func(L, "getScrollX", _cocos2d_Node_getScrollX);
+    oluacls_func(L, "getScrollY", _cocos2d_Node_getScrollY);
+    oluacls_func(L, "getScrollable", _cocos2d_Node_getScrollable);
     oluacls_func(L, "getSkewX", _cocos2d_Node_getSkewX);
     oluacls_func(L, "getSkewY", _cocos2d_Node_getSkewY);
     oluacls_func(L, "getTag", _cocos2d_Node_getTag);
@@ -34854,6 +35070,12 @@ OLUA_LIB int luaopen_cocos2d_Node(lua_State *L)
     oluacls_func(L, "setScaleY", _cocos2d_Node_setScaleY);
     oluacls_func(L, "setScaleZ", _cocos2d_Node_setScaleZ);
     oluacls_func(L, "setScheduler", _cocos2d_Node_setScheduler);
+    oluacls_func(L, "setScrollRotation", _cocos2d_Node_setScrollRotation);
+    oluacls_func(L, "setScrollScaleX", _cocos2d_Node_setScrollScaleX);
+    oluacls_func(L, "setScrollScaleY", _cocos2d_Node_setScrollScaleY);
+    oluacls_func(L, "setScrollX", _cocos2d_Node_setScrollX);
+    oluacls_func(L, "setScrollY", _cocos2d_Node_setScrollY);
+    oluacls_func(L, "setScrollable", _cocos2d_Node_setScrollable);
     oluacls_func(L, "setSkewX", _cocos2d_Node_setSkewX);
     oluacls_func(L, "setSkewY", _cocos2d_Node_setSkewY);
     oluacls_func(L, "setTag", _cocos2d_Node_setTag);
@@ -34933,6 +35155,12 @@ OLUA_LIB int luaopen_cocos2d_Node(lua_State *L)
     oluacls_prop(L, "scaleZ", _cocos2d_Node_getScaleZ, _cocos2d_Node_setScaleZ);
     oluacls_prop(L, "scene", _cocos2d_Node_getScene, nullptr);
     oluacls_prop(L, "scheduler", _cocos2d_Node_getScheduler, _cocos2d_Node_setScheduler);
+    oluacls_prop(L, "scrollRotation", _cocos2d_Node_getScrollRotation, _cocos2d_Node_setScrollRotation);
+    oluacls_prop(L, "scrollScaleX", _cocos2d_Node_getScrollScaleX, _cocos2d_Node_setScrollScaleX);
+    oluacls_prop(L, "scrollScaleY", _cocos2d_Node_getScrollScaleY, _cocos2d_Node_setScrollScaleY);
+    oluacls_prop(L, "scrollX", _cocos2d_Node_getScrollX, _cocos2d_Node_setScrollX);
+    oluacls_prop(L, "scrollY", _cocos2d_Node_getScrollY, _cocos2d_Node_setScrollY);
+    oluacls_prop(L, "scrollable", _cocos2d_Node_getScrollable, _cocos2d_Node_setScrollable);
     oluacls_prop(L, "skewX", _cocos2d_Node_getSkewX, _cocos2d_Node_setSkewX);
     oluacls_prop(L, "skewY", _cocos2d_Node_getSkewY, _cocos2d_Node_setSkewY);
     oluacls_prop(L, "tag", _cocos2d_Node_getTag, _cocos2d_Node_setTag);

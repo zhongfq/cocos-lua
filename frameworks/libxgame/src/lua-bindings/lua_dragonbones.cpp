@@ -3,7 +3,7 @@
 //
 #include "lua_dragonbones.h"
 
-int olua_push_dragonBones_Rectangle(lua_State *L, const dragonBones::Rectangle *value)
+OLUA_LIB int olua_push_dragonBones_Rectangle(lua_State *L, const dragonBones::Rectangle *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
@@ -26,7 +26,7 @@ int olua_push_dragonBones_Rectangle(lua_State *L, const dragonBones::Rectangle *
     return 1;
 }
 
-void olua_check_dragonBones_Rectangle(lua_State *L, int idx, dragonBones::Rectangle *value)
+OLUA_LIB void olua_check_dragonBones_Rectangle(lua_State *L, int idx, dragonBones::Rectangle *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -60,12 +60,12 @@ void olua_check_dragonBones_Rectangle(lua_State *L, int idx, dragonBones::Rectan
     lua_pop(L, 1);
 }
 
-bool olua_is_dragonBones_Rectangle(lua_State *L, int idx)
+OLUA_LIB bool olua_is_dragonBones_Rectangle(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "height") && olua_hasfield(L, idx, "width") && olua_hasfield(L, idx, "y") && olua_hasfield(L, idx, "x");
 }
 
-void olua_pack_dragonBones_Rectangle(lua_State *L, int idx, dragonBones::Rectangle *value)
+OLUA_LIB void olua_pack_dragonBones_Rectangle(lua_State *L, int idx, dragonBones::Rectangle *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -90,7 +90,7 @@ void olua_pack_dragonBones_Rectangle(lua_State *L, int idx, dragonBones::Rectang
     value->height = (float)arg4;
 }
 
-int olua_unpack_dragonBones_Rectangle(lua_State *L, const dragonBones::Rectangle *value)
+OLUA_LIB int olua_unpack_dragonBones_Rectangle(lua_State *L, const dragonBones::Rectangle *value)
 {
     if (value) {
         olua_push_number(L, (lua_Number)value->x);
@@ -106,7 +106,7 @@ int olua_unpack_dragonBones_Rectangle(lua_State *L, const dragonBones::Rectangle
     return 4;
 }
 
-bool olua_canpack_dragonBones_Rectangle(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_dragonBones_Rectangle(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_number(L, idx + 3);
 }

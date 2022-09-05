@@ -7,7 +7,6 @@ local tracecount = 0
 local tracebacks = setmetatable({}, {__mode = "k"})
 
 local function cppclass(classname, super)
-    local olua = require "olua"
     local cls = olua.class(classname, super)
 
     cls.Get = cls.class['.get']

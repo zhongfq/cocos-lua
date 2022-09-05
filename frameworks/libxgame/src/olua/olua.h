@@ -70,6 +70,31 @@ OLUA_BEGIN_DECLS
 #else
 #define OLUA_LIB extern
 #endif
+
+// olua config file
+#ifdef OLUA_AUTOCONF
+#define OLUA_EXCLUDE        __attribute__((annotate("exclude")))
+#define OLUA_ADDREF(...)    __attribute__((annotate("@addref("#__VA_ARGS__")")))
+#define OLUA_DEFREF(...)    __attribute__((annotate("@delref("#__VA_ARGS__")")))
+#define OLUA_PACK           __attribute__((annotate("@pack")))
+#define OLUA_UNPACK         __attribute__((annotate("@unpack")))
+#define OLUA_NULLABLE       __attribute__((annotate("@nullable")))
+#define OLUA_POSTNEW        __attribute__((annotate("@postnew")))
+#define OLUA_READONLY       __attribute__((annotate("@readonly")))
+#define OLUA_OPTIONAL       __attribute__((annotate("@optional")))
+#define OLUA_RET            __attribute__((annotate("@ret")))
+#else
+#define OLUA_EXCLUDE
+#define OLUA_ADDREF(...)
+#define OLUA_DEFREF(...)
+#define OLUA_PACK
+#define OLUA_UNPACK
+#define OLUA_NULLABLE
+#define OLUA_POSTNEW
+#define OLUA_READONLY
+#define OLUA_OPTIONAL
+#define OLUA_RET
+#endif
     
 // object status
 #define OLUA_OBJ_EXIST  0   // object exist
@@ -88,6 +113,8 @@ OLUA_BEGIN_DECLS
 #define olua_unlikely(x)    (x)
 #endif
 #endif // luai_likely
+
+typedef int oluaret_t;
 
 // stat api
 OLUA_API size_t olua_objcount(lua_State *L);

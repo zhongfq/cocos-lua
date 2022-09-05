@@ -8,7 +8,7 @@ headers [[
 #include "oppo/oppo.h"
 ]]
 
-ifdef 'CCLUA_BUILD_OPPO'
+macro '#ifdef CCLUA_BUILD_OPPO'
 typeconf "cclua::plugin::oppo"
-endif ''
+macro ''
 

@@ -5,7 +5,6 @@ path "../../frameworks/libxgame/src/lua-bindings"
 headers [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "lua-bindings/LuaCocosAdapter.h"
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "audio/include/AudioEngine.h"
@@ -53,6 +52,7 @@ typedef 'cocos2d::ValueVector'
 typedef 'cocos2d::Map'
     .conv 'olua_$$_map'
 typedef 'cocos2d::network::WebSocket::Data'
+typedef 'cocos2d::Bounds'
     
 typeconf 'cocos2d::UserDefault'
     .exclude 'setDelegate'

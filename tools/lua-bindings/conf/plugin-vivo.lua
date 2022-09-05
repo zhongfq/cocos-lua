@@ -8,7 +8,7 @@ headers [[
 #include "vivo/vivo.h"
 ]]
 
-ifdef 'CCLUA_BUILD_VIVO'
+macro '#ifdef CCLUA_BUILD_VIVO'
 typeconf "cclua::plugin::vivo"
-endif ''
+macro ''
 

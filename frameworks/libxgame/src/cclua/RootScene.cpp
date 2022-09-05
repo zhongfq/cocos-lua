@@ -57,6 +57,7 @@ SceneNoCamera* SceneNoCamera::createWithSize(const Size& size)
     return ret;
 }
 
+#if (CC_USE_PHYSICS || (CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION))
 SceneNoCamera* SceneNoCamera::createWithPhysics()
 {
     SceneNoCamera *ret = new (std::nothrow) SceneNoCamera();
@@ -64,6 +65,7 @@ SceneNoCamera* SceneNoCamera::createWithPhysics()
     ret->initWithPhysics();
     return ret;
 }
+#endif
 
 SceneNoCamera::SceneNoCamera()
 {

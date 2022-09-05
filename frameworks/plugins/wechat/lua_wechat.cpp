@@ -383,11 +383,7 @@ OLUA_LIB int luaopen_wechat(lua_State *L)
 {
 #ifdef CCLUA_BUILD_WECHAT
     olua_require(L, "cclua.plugin.wechat.ShareType", luaopen_cclua_plugin_wechat_ShareType);
-#endif
-#ifdef CCLUA_BUILD_WECHAT
     olua_require(L, "cclua.plugin.wechat.ProgramType", luaopen_cclua_plugin_wechat_ProgramType);
-#endif
-#ifdef CCLUA_BUILD_WECHAT
     olua_require(L, "cclua.plugin.wechat", luaopen_cclua_plugin_wechat);
 #endif
 

@@ -8,7 +8,7 @@ headers [[
 #include "talkingdata/talkingdata.h"
 ]]
 
-ifdef 'CCLUA_BUILD_TALKINGDATA'
+macro '#ifdef CCLUA_BUILD_TALKINGDATA'
 typeconf "cclua::plugin::talkingdata"
     .luaopen 'cclua::runtime::registerFeature("cclua.plugin.talkingdata.ios", true);'
-endif ''
+macro ''

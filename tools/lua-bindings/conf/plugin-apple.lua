@@ -8,8 +8,8 @@ headers [[
 #include "apple/apple.h"
 ]]
 
-ifdef 'CCLUA_OS_IOS'
+macro '#ifdef CCLUA_OS_IOS'
 typeconf "cclua::plugin::apple"
     .luaopen 'cclua::runtime::registerFeature("cclua.plugin.apple.ios", true);'
-endif ''
+macro ''
 

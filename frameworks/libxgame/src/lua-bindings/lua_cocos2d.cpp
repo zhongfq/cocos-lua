@@ -24208,6 +24208,7 @@ static int _cocos2d_Node_getParentToNodeTransform(lua_State *L)
     return num_ret;
 }
 
+#if CC_USE_PHYSICS
 static int _cocos2d_Node_getPhysicsBody(lua_State *L)
 {
     olua_startinvoke(L);
@@ -24227,6 +24228,7 @@ static int _cocos2d_Node_getPhysicsBody(lua_State *L)
 
     return num_ret;
 }
+#endif
 
 static int _cocos2d_Node_getPosition(lua_State *L)
 {
@@ -26386,6 +26388,7 @@ static int _cocos2d_Node_setParent(lua_State *L)
     return 0;
 }
 
+#if CC_USE_PHYSICS
 static int _cocos2d_Node_setPhysicsBody(lua_State *L)
 {
     olua_startinvoke(L);
@@ -26406,6 +26409,7 @@ static int _cocos2d_Node_setPhysicsBody(lua_State *L)
 
     return 0;
 }
+#endif
 
 static int _cocos2d_Node_setPosition1(lua_State *L)
 {
@@ -27436,7 +27440,9 @@ OLUA_LIB int luaopen_cocos2d_Node(lua_State *L)
     oluacls_func(L, "getParent", _cocos2d_Node_getParent);
     oluacls_func(L, "getParentToNodeAffineTransform", _cocos2d_Node_getParentToNodeAffineTransform);
     oluacls_func(L, "getParentToNodeTransform", _cocos2d_Node_getParentToNodeTransform);
+#if CC_USE_PHYSICS
     oluacls_func(L, "getPhysicsBody", _cocos2d_Node_getPhysicsBody);
+#endif
     oluacls_func(L, "getPosition", _cocos2d_Node_getPosition);
     oluacls_func(L, "getPosition3D", _cocos2d_Node_getPosition3D);
     oluacls_func(L, "getPositionNormalized", _cocos2d_Node_getPositionNormalized);
@@ -27525,7 +27531,9 @@ OLUA_LIB int luaopen_cocos2d_Node(lua_State *L)
     oluacls_func(L, "setOpacity", _cocos2d_Node_setOpacity);
     oluacls_func(L, "setOpacityModifyRGB", _cocos2d_Node_setOpacityModifyRGB);
     oluacls_func(L, "setParent", _cocos2d_Node_setParent);
+#if CC_USE_PHYSICS
     oluacls_func(L, "setPhysicsBody", _cocos2d_Node_setPhysicsBody);
+#endif
     oluacls_func(L, "setPosition", _cocos2d_Node_setPosition);
     oluacls_func(L, "setPosition3D", _cocos2d_Node_setPosition3D);
     oluacls_func(L, "setPositionNormalized", _cocos2d_Node_setPositionNormalized);
@@ -27608,7 +27616,9 @@ OLUA_LIB int luaopen_cocos2d_Node(lua_State *L)
     oluacls_prop(L, "parent", _cocos2d_Node_getParent, _cocos2d_Node_setParent);
     oluacls_prop(L, "parentToNodeAffineTransform", _cocos2d_Node_getParentToNodeAffineTransform, nullptr);
     oluacls_prop(L, "parentToNodeTransform", _cocos2d_Node_getParentToNodeTransform, nullptr);
+#if CC_USE_PHYSICS
     oluacls_prop(L, "physicsBody", _cocos2d_Node_getPhysicsBody, _cocos2d_Node_setPhysicsBody);
+#endif
     oluacls_prop(L, "position", _cocos2d_Node_getPosition, _cocos2d_Node_setPosition);
     oluacls_prop(L, "position3D", _cocos2d_Node_getPosition3D, _cocos2d_Node_setPosition3D);
     oluacls_prop(L, "positionNormalized", _cocos2d_Node_getPositionNormalized, _cocos2d_Node_setPositionNormalized);
@@ -39666,6 +39676,7 @@ static int _cocos2d_Scene_create(lua_State *L)
     return num_ret;
 }
 
+#if (CC_USE_PHYSICS || (CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION))
 static int _cocos2d_Scene_createWithPhysics(lua_State *L)
 {
     olua_startinvoke(L);
@@ -39678,6 +39689,7 @@ static int _cocos2d_Scene_createWithPhysics(lua_State *L)
 
     return num_ret;
 }
+#endif
 
 static int _cocos2d_Scene_createWithSize(lua_State *L)
 {
@@ -39751,6 +39763,7 @@ static int _cocos2d_Scene_getLights(lua_State *L)
     return num_ret;
 }
 
+#if CC_USE_PHYSICS
 static int _cocos2d_Scene_getPhysicsWorld(lua_State *L)
 {
     olua_startinvoke(L);
@@ -39770,23 +39783,7 @@ static int _cocos2d_Scene_getPhysicsWorld(lua_State *L)
 
     return num_ret;
 }
-
-static int _cocos2d_Scene_initWithPhysics(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    cocos2d::Scene *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Scene");
-
-    // bool initWithPhysics()
-    bool ret = self->initWithPhysics();
-    int num_ret = olua_push_bool(L, ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
+#endif
 
 static int _cocos2d_Scene_initWithSize(lua_State *L)
 {
@@ -39920,6 +39917,7 @@ static int _cocos2d_Scene_setCameraOrderDirty(lua_State *L)
     return 0;
 }
 
+#if CC_USE_NAVMESH
 static int _cocos2d_Scene_setNavMeshDebugCamera(lua_State *L)
 {
     olua_startinvoke(L);
@@ -39937,7 +39935,9 @@ static int _cocos2d_Scene_setNavMeshDebugCamera(lua_State *L)
 
     return 0;
 }
+#endif
 
+#if CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION
 static int _cocos2d_Scene_setPhysics3DDebugCamera(lua_State *L)
 {
     olua_startinvoke(L);
@@ -39955,7 +39955,9 @@ static int _cocos2d_Scene_setPhysics3DDebugCamera(lua_State *L)
 
     return 0;
 }
+#endif
 
+#if (CC_USE_PHYSICS || (CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION) || CC_USE_NAVMESH)
 static int _cocos2d_Scene_stepPhysicsAndNavigation(lua_State *L)
 {
     olua_startinvoke(L);
@@ -39973,6 +39975,7 @@ static int _cocos2d_Scene_stepPhysicsAndNavigation(lua_State *L)
 
     return 0;
 }
+#endif
 
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_Scene(lua_State *L)
@@ -39980,25 +39983,36 @@ OLUA_LIB int luaopen_cocos2d_Scene(lua_State *L)
     oluacls_class(L, "cc.Scene", "cc.Node");
     oluacls_func(L, "__olua_move", _cocos2d_Scene___olua_move);
     oluacls_func(L, "create", _cocos2d_Scene_create);
+#if (CC_USE_PHYSICS || (CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION))
     oluacls_func(L, "createWithPhysics", _cocos2d_Scene_createWithPhysics);
+#endif
     oluacls_func(L, "createWithSize", _cocos2d_Scene_createWithSize);
     oluacls_func(L, "getCameras", _cocos2d_Scene_getCameras);
     oluacls_func(L, "getDefaultCamera", _cocos2d_Scene_getDefaultCamera);
     oluacls_func(L, "getLights", _cocos2d_Scene_getLights);
+#if CC_USE_PHYSICS
     oluacls_func(L, "getPhysicsWorld", _cocos2d_Scene_getPhysicsWorld);
-    oluacls_func(L, "initWithPhysics", _cocos2d_Scene_initWithPhysics);
+#endif
     oluacls_func(L, "initWithSize", _cocos2d_Scene_initWithSize);
     oluacls_func(L, "new", _cocos2d_Scene_new);
     oluacls_func(L, "onProjectionChanged", _cocos2d_Scene_onProjectionChanged);
     oluacls_func(L, "render", _cocos2d_Scene_render);
     oluacls_func(L, "setCameraOrderDirty", _cocos2d_Scene_setCameraOrderDirty);
+#if CC_USE_NAVMESH
     oluacls_func(L, "setNavMeshDebugCamera", _cocos2d_Scene_setNavMeshDebugCamera);
+#endif
+#if CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION
     oluacls_func(L, "setPhysics3DDebugCamera", _cocos2d_Scene_setPhysics3DDebugCamera);
+#endif
+#if (CC_USE_PHYSICS || (CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION) || CC_USE_NAVMESH)
     oluacls_func(L, "stepPhysicsAndNavigation", _cocos2d_Scene_stepPhysicsAndNavigation);
+#endif
     oluacls_prop(L, "cameras", _cocos2d_Scene_getCameras, nullptr);
     oluacls_prop(L, "defaultCamera", _cocos2d_Scene_getDefaultCamera, nullptr);
     oluacls_prop(L, "lights", _cocos2d_Scene_getLights, nullptr);
+#if CC_USE_PHYSICS
     oluacls_prop(L, "physicsWorld", _cocos2d_Scene_getPhysicsWorld, nullptr);
+#endif
 
     olua_registerluatype<cocos2d::Scene>(L, "cc.Scene");
 
@@ -54051,6 +54065,7 @@ OLUA_LIB int luaopen_cocos2d_FastTMXLayer(lua_State *L)
 }
 OLUA_END_DECLS
 
+#if CC_USE_NAVMESH
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_NavMeshAgent_NavMeshAgentSyncFlag(lua_State *L)
 {
@@ -54067,7 +54082,9 @@ OLUA_LIB int luaopen_cocos2d_NavMeshAgent_NavMeshAgentSyncFlag(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_NAVMESH
 static int _cocos2d_NavMeshAgent___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -54770,7 +54787,9 @@ OLUA_LIB int luaopen_cocos2d_NavMeshAgent(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_NAVMESH
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_NavMeshObstacle_NavMeshObstacleSyncFlag(lua_State *L)
 {
@@ -54787,7 +54806,9 @@ OLUA_LIB int luaopen_cocos2d_NavMeshObstacle_NavMeshObstacleSyncFlag(lua_State *
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_NAVMESH
 static int _cocos2d_NavMeshObstacle___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -55031,7 +55052,9 @@ OLUA_LIB int luaopen_cocos2d_NavMeshObstacle(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
+#if CC_USE_NAVMESH
 static int _cocos2d_NavMesh___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -55247,6 +55270,7 @@ OLUA_LIB int luaopen_cocos2d_NavMesh(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+#endif
 
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d(lua_State *L)
@@ -55451,11 +55475,13 @@ OLUA_LIB int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.TMXTiledMap", luaopen_cocos2d_TMXTiledMap);
     olua_require(L, "cc.FastTMXTiledMap", luaopen_cocos2d_FastTMXTiledMap);
     olua_require(L, "cc.FastTMXLayer", luaopen_cocos2d_FastTMXLayer);
+#if CC_USE_NAVMESH
     olua_require(L, "cc.NavMeshAgent.NavMeshAgentSyncFlag", luaopen_cocos2d_NavMeshAgent_NavMeshAgentSyncFlag);
     olua_require(L, "cc.NavMeshAgent", luaopen_cocos2d_NavMeshAgent);
     olua_require(L, "cc.NavMeshObstacle.NavMeshObstacleSyncFlag", luaopen_cocos2d_NavMeshObstacle_NavMeshObstacleSyncFlag);
     olua_require(L, "cc.NavMeshObstacle", luaopen_cocos2d_NavMeshObstacle);
     olua_require(L, "cc.NavMesh", luaopen_cocos2d_NavMesh);
+#endif
 
     return 0;
 }

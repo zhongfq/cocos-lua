@@ -8,7 +8,7 @@ headers [[
 #include "alipay/alipay.h"
 ]]
 
-ifdef 'CCLUA_BUILD_ALIPAY'
+macro '#ifdef CCLUA_BUILD_ALIPAY'
 typeconf "cclua::plugin::alipay"
-endif ''
+macro ''
 

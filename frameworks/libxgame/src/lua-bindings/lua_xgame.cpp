@@ -2994,6 +2994,7 @@ static int _cclua_SceneNoCamera_create(lua_State *L)
     return num_ret;
 }
 
+#if (CC_USE_PHYSICS || (CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION))
 static int _cclua_SceneNoCamera_createWithPhysics(lua_State *L)
 {
     olua_startinvoke(L);
@@ -3006,6 +3007,7 @@ static int _cclua_SceneNoCamera_createWithPhysics(lua_State *L)
 
     return num_ret;
 }
+#endif
 
 static int _cclua_SceneNoCamera_createWithSize(lua_State *L)
 {
@@ -3044,7 +3046,9 @@ OLUA_LIB int luaopen_cclua_SceneNoCamera(lua_State *L)
     oluacls_class(L, "cclua.SceneNoCamera", "cc.Scene");
     oluacls_func(L, "__olua_move", _cclua_SceneNoCamera___olua_move);
     oluacls_func(L, "create", _cclua_SceneNoCamera_create);
+#if (CC_USE_PHYSICS || (CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION))
     oluacls_func(L, "createWithPhysics", _cclua_SceneNoCamera_createWithPhysics);
+#endif
     oluacls_func(L, "createWithSize", _cclua_SceneNoCamera_createWithSize);
     oluacls_func(L, "new", _cclua_SceneNoCamera_new);
 
@@ -6785,8 +6789,6 @@ OLUA_LIB int luaopen_xgame(lua_State *L)
     olua_require(L, "cclua.Container", luaopen_cclua_Container);
 #if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
     olua_require(L, "cclua.microphone", luaopen_cclua_microphone);
-#endif
-#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
     olua_require(L, "cclua.photo", luaopen_cclua_photo);
 #endif
 

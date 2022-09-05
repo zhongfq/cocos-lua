@@ -18,6 +18,8 @@ local namemap = {
     ['b2RayCastCallback'] = 'b2.interface.RayCastCallback',
 }
 
+luaopen [[cclua::runtime::registerFeature("box2d", true);]]
+
 luacls(function (cppname)
     if namemap[cppname] then
         return namemap[cppname]

@@ -15754,6 +15754,8 @@ OLUA_LIB int luaopen_box2d(lua_State *L)
     olua_require(L, "b2.World", luaopen_b2World);
     olua_require(L, "b2.WorldManifold", luaopen_b2WorldManifold);
 
+    cclua::runtime::registerFeature("box2d", true);
+
     return 0;
 }
 OLUA_END_DECLS

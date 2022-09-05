@@ -8,8 +8,8 @@ headers [[
 #include "bugly/CrashReport.h"
 ]]
 
-ifdef 'CCLUA_BUILD_BUGLY'
+macro '#ifdef CCLUA_BUILD_BUGLY'
 typeconf "cclua::bugly::LogLevel"
 typeconf "cclua::bugly"
     .luaopen 'cclua::runtime::registerFeature("cclua.bugly", true);'
-endif ''
+macro ''

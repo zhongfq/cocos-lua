@@ -2067,6 +2067,7 @@ OLUA_LIB bool olua_canpack_cocos2d_Controller_KeyStatus(lua_State *L, int idx)
     return olua_is_bool(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_bool(L, idx + 2);
 }
 
+#if CC_USE_NAVMESH
 OLUA_LIB int olua_push_cocos2d_NavMeshAgentParam(lua_State *L, const cocos2d::NavMeshAgentParam *value)
 {
     if (value) {
@@ -2258,7 +2259,9 @@ OLUA_LIB bool olua_canpack_cocos2d_NavMeshAgentParam(lua_State *L, int idx)
 {
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_number(L, idx + 3) && olua_is_number(L, idx + 4) && olua_is_number(L, idx + 5) && olua_is_number(L, idx + 6) && olua_is_uint(L, idx + 7) && olua_is_uint(L, idx + 8) && olua_is_uint(L, idx + 9);
 }
+#endif
 
+#if CC_USE_NAVMESH
 OLUA_LIB int olua_push_cocos2d_OffMeshLinkData(lua_State *L, const cocos2d::OffMeshLinkData *value)
 {
     if (value) {
@@ -2338,6 +2341,7 @@ OLUA_LIB bool olua_canpack_cocos2d_OffMeshLinkData(lua_State *L, int idx)
 {
     return olua_is_cocos2d_Vec3(L, idx + 0) && olua_is_cocos2d_Vec3(L, idx + 1);
 }
+#endif
 
 OLUA_LIB int olua_push_cocos2d_backend_BlendDescriptor(lua_State *L, const cocos2d::backend::BlendDescriptor *value)
 {

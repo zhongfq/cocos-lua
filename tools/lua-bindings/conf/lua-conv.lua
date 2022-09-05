@@ -7,7 +7,9 @@ headers [[
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "network/WebSocket.h"
+#if CC_USE_NAVMESH
 #include "navmesh/CCNavMesh.h"
+#endif
 ]]
 
 typeconv 'cocos2d::Vec2'
@@ -34,8 +36,10 @@ typeconv 'cocos2d::ResourceData'
 typeconv 'cocos2d::Quad3'
 typeconv 'cocos2d::Texture2D::PixelFormatInfo'
 typeconv 'cocos2d::Controller::KeyStatus'
+macro '#if CC_USE_NAVMESH'
 typeconv 'cocos2d::NavMeshAgentParam'
 typeconv 'cocos2d::OffMeshLinkData'
+macro ''
 typeconv 'cocos2d::backend::BlendDescriptor'
 typeconv 'cocos2d::backend::SamplerDescriptor'
 

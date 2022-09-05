@@ -8,7 +8,7 @@ headers [[
 #include "huawei/huawei.h"
 ]]
 
-ifdef 'CCLUA_BUILD_HUAWEI'
+macro '#ifdef CCLUA_BUILD_HUAWEI'
 typeconf "cclua::plugin::huawei"
-endif ''
+macro ''
 

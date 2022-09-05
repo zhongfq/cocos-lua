@@ -8,7 +8,9 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "network/WebSocket.h"
+#if CC_USE_NAVMESH
 #include "navmesh/CCNavMesh.h"
+#endif
 
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_conv(lua_State *L);
@@ -166,6 +168,7 @@ OLUA_LIB void olua_pack_cocos2d_Controller_KeyStatus(lua_State *L, int idx, coco
 OLUA_LIB int olua_unpack_cocos2d_Controller_KeyStatus(lua_State *L, const cocos2d::Controller::KeyStatus *value);
 OLUA_LIB bool olua_canpack_cocos2d_Controller_KeyStatus(lua_State *L, int idx);
 
+#if CC_USE_NAVMESH
 // cocos2d::NavMeshAgentParam
 OLUA_LIB int olua_push_cocos2d_NavMeshAgentParam(lua_State *L, const cocos2d::NavMeshAgentParam *value);
 OLUA_LIB void olua_check_cocos2d_NavMeshAgentParam(lua_State *L, int idx, cocos2d::NavMeshAgentParam *value);
@@ -173,7 +176,9 @@ OLUA_LIB bool olua_is_cocos2d_NavMeshAgentParam(lua_State *L, int idx);
 OLUA_LIB void olua_pack_cocos2d_NavMeshAgentParam(lua_State *L, int idx, cocos2d::NavMeshAgentParam *value);
 OLUA_LIB int olua_unpack_cocos2d_NavMeshAgentParam(lua_State *L, const cocos2d::NavMeshAgentParam *value);
 OLUA_LIB bool olua_canpack_cocos2d_NavMeshAgentParam(lua_State *L, int idx);
+#endif
 
+#if CC_USE_NAVMESH
 // cocos2d::OffMeshLinkData
 OLUA_LIB int olua_push_cocos2d_OffMeshLinkData(lua_State *L, const cocos2d::OffMeshLinkData *value);
 OLUA_LIB void olua_check_cocos2d_OffMeshLinkData(lua_State *L, int idx, cocos2d::OffMeshLinkData *value);
@@ -181,6 +186,7 @@ OLUA_LIB bool olua_is_cocos2d_OffMeshLinkData(lua_State *L, int idx);
 OLUA_LIB void olua_pack_cocos2d_OffMeshLinkData(lua_State *L, int idx, cocos2d::OffMeshLinkData *value);
 OLUA_LIB int olua_unpack_cocos2d_OffMeshLinkData(lua_State *L, const cocos2d::OffMeshLinkData *value);
 OLUA_LIB bool olua_canpack_cocos2d_OffMeshLinkData(lua_State *L, int idx);
+#endif
 
 // cocos2d::backend::BlendDescriptor
 OLUA_LIB int olua_push_cocos2d_backend_BlendDescriptor(lua_State *L, const cocos2d::backend::BlendDescriptor *value);

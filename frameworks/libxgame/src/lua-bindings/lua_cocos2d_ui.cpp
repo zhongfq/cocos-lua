@@ -24968,20 +24968,10 @@ OLUA_LIB int luaopen_cocos2d_ui(lua_State *L)
     olua_require(L, "ccui.RelativeBox", luaopen_cocos2d_ui_RelativeBox);
 #if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
     olua_require(L, "ccui.WebView.ccWebViewCallback", luaopen_cocos2d_ui_WebView_ccWebViewCallback);
-#endif
-#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
     olua_require(L, "ccui.WebView", luaopen_cocos2d_ui_WebView);
-#endif
-#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
     olua_require(L, "ccui.VideoPlayer.EventType", luaopen_cocos2d_ui_VideoPlayer_EventType);
-#endif
-#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
     olua_require(L, "ccui.VideoPlayer.ccVideoPlayerCallback", luaopen_cocos2d_ui_VideoPlayer_ccVideoPlayerCallback);
-#endif
-#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
     olua_require(L, "ccui.VideoPlayer.StyleType", luaopen_cocos2d_ui_VideoPlayer_StyleType);
-#endif
-#if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
     olua_require(L, "ccui.VideoPlayer", luaopen_cocos2d_ui_VideoPlayer);
 #endif
     olua_require(L, "ccui.AbstractCheckButton", luaopen_cocos2d_ui_AbstractCheckButton);

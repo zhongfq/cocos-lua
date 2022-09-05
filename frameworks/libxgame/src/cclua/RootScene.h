@@ -35,7 +35,10 @@ class SceneNoCamera : public cocos2d::Scene
 public:
     static SceneNoCamera *create();
     static SceneNoCamera *createWithSize(const cocos2d::Size& size);
+    
+#if (CC_USE_PHYSICS || (CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION))
     static SceneNoCamera *createWithPhysics();
+#endif
     
     SceneNoCamera();
     virtual ~SceneNoCamera();

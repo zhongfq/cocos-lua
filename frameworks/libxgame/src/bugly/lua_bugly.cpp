@@ -198,8 +198,6 @@ OLUA_LIB int luaopen_bugly(lua_State *L)
 {
 #ifdef CCLUA_BUILD_BUGLY
     olua_require(L, "cclua.bugly.LogLevel", luaopen_cclua_bugly_LogLevel);
-#endif
-#ifdef CCLUA_BUILD_BUGLY
     olua_require(L, "cclua.bugly", luaopen_cclua_bugly);
 #endif
 

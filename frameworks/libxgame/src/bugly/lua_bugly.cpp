@@ -2,6 +2,9 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_bugly.h"
+#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_conv_manual.h"
+#include "bugly/CrashReport.h"
 
 #ifdef CCLUA_BUILD_BUGLY
 OLUA_BEGIN_DECLS

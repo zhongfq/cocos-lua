@@ -2,6 +2,18 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_cocos2d_3d.h"
+#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_conv_manual.h"
+#include "cocos2d.h"
+#include "3d/CC3DProgramInfo.h"
+
+// cocos2d::MeshVertexAttrib
+OLUA_LIB int olua_push_cocos2d_MeshVertexAttrib(lua_State *L, const cocos2d::MeshVertexAttrib *value);
+OLUA_LIB void olua_check_cocos2d_MeshVertexAttrib(lua_State *L, int idx, cocos2d::MeshVertexAttrib *value);
+OLUA_LIB bool olua_is_cocos2d_MeshVertexAttrib(lua_State *L, int idx);
+OLUA_LIB void olua_pack_cocos2d_MeshVertexAttrib(lua_State *L, int idx, cocos2d::MeshVertexAttrib *value);
+OLUA_LIB int olua_unpack_cocos2d_MeshVertexAttrib(lua_State *L, const cocos2d::MeshVertexAttrib *value);
+OLUA_LIB bool olua_canpack_cocos2d_MeshVertexAttrib(lua_State *L, int idx);
 
 OLUA_LIB int olua_push_cocos2d_MeshVertexAttrib(lua_State *L, const cocos2d::MeshVertexAttrib *value)
 {

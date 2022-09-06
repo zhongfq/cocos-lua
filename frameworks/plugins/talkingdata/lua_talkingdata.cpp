@@ -2,6 +2,9 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_talkingdata.h"
+#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_conv_manual.h"
+#include "talkingdata/talkingdata.h"
 
 #ifdef CCLUA_BUILD_TALKINGDATA
 static int _cclua_plugin_talkingdata___olua_move(lua_State *L)

@@ -2,6 +2,18 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_cocos2d_studio.h"
+#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_conv_manual.h"
+#include "cocos2d.h"
+#include "editor-support/cocostudio/CocoStudio.h"
+
+// cocostudio::timeline::AnimationInfo
+OLUA_LIB int olua_push_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio::timeline::AnimationInfo *value);
+OLUA_LIB void olua_check_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostudio::timeline::AnimationInfo *value);
+OLUA_LIB bool olua_is_cocostudio_timeline_AnimationInfo(lua_State *L, int idx);
+OLUA_LIB void olua_pack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostudio::timeline::AnimationInfo *value);
+OLUA_LIB int olua_unpack_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio::timeline::AnimationInfo *value);
+OLUA_LIB bool olua_canpack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx);
 
 static std::string makeFrameEndCallbackTag(lua_Integer index, const std::string &key)
 {

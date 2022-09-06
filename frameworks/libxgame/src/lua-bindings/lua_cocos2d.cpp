@@ -2,6 +2,13 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_cocos2d.h"
+#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_conv_manual.h"
+#include "audio/include/AudioEngine.h"
+#include "cocos2d.h"
+#include "base/TGAlib.h"
+#include "ui/CocosGUI.h"
+#include "navmesh/CCNavMesh.h"
 
 static const std::string makeScheduleCallbackTag(const std::string &key)
 {

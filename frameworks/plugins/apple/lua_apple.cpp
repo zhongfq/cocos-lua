@@ -2,6 +2,9 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_apple.h"
+#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_conv_manual.h"
+#include "apple/apple.h"
 
 #ifdef CCLUA_OS_IOS
 static int _cclua_plugin_apple___olua_move(lua_State *L)

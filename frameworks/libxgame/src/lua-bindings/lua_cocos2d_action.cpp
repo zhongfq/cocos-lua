@@ -2,6 +2,9 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_cocos2d_action.h"
+#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_conv_manual.h"
+#include "cocos2d.h"
 
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_tweenfunc_TweenType(lua_State *L)

@@ -2,6 +2,9 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_huawei.h"
+#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_conv_manual.h"
+#include "huawei/huawei.h"
 
 #ifdef CCLUA_BUILD_HUAWEI
 static int _cclua_plugin_huawei___olua_move(lua_State *L)

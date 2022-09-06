@@ -2,6 +2,11 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_cocos2d_ui.h"
+#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_conv_manual.h"
+#include "cocos2d.h"
+#include "ui/CocosGUI.h"
+#include "ui/UIScrollViewBar.h"
 
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_Widget_FocusDirection(lua_State *L)

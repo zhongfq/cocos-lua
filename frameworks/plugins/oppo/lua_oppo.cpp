@@ -2,6 +2,9 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_oppo.h"
+#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_conv_manual.h"
+#include "oppo/oppo.h"
 
 #ifdef CCLUA_BUILD_OPPO
 static int _cclua_plugin_oppo___olua_move(lua_State *L)

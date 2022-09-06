@@ -2,6 +2,18 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_dragonbones.h"
+#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_conv_manual.h"
+#include "cocos2d.h"
+#include "CCDragonBonesHeaders.h"
+
+// dragonBones::Rectangle
+OLUA_LIB int olua_push_dragonBones_Rectangle(lua_State *L, const dragonBones::Rectangle *value);
+OLUA_LIB void olua_check_dragonBones_Rectangle(lua_State *L, int idx, dragonBones::Rectangle *value);
+OLUA_LIB bool olua_is_dragonBones_Rectangle(lua_State *L, int idx);
+OLUA_LIB void olua_pack_dragonBones_Rectangle(lua_State *L, int idx, dragonBones::Rectangle *value);
+OLUA_LIB int olua_unpack_dragonBones_Rectangle(lua_State *L, const dragonBones::Rectangle *value);
+OLUA_LIB bool olua_canpack_dragonBones_Rectangle(lua_State *L, int idx);
 
 OLUA_LIB int olua_push_dragonBones_Rectangle(lua_State *L, const dragonBones::Rectangle *value)
 {

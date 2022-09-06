@@ -3,6 +3,7 @@
 //
 #include "lua_conv.h"
 
+
 OLUA_LIB int olua_push_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value)
 {
     if (value) {

@@ -2,6 +2,9 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_alipay.h"
+#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_conv_manual.h"
+#include "alipay/alipay.h"
 
 #ifdef CCLUA_BUILD_ALIPAY
 static int _cclua_plugin_alipay___olua_move(lua_State *L)

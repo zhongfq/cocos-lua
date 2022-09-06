@@ -2,6 +2,9 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_vivo.h"
+#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_conv_manual.h"
+#include "vivo/vivo.h"
 
 #ifdef CCLUA_BUILD_VIVO
 static int _cclua_plugin_vivo___olua_move(lua_State *L)

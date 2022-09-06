@@ -2,6 +2,9 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_wechat.h"
+#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_conv_manual.h"
+#include "wechat/wechat.h"
 
 #ifdef CCLUA_BUILD_WECHAT
 OLUA_BEGIN_DECLS

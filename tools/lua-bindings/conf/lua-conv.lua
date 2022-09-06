@@ -9,6 +9,13 @@ headers [[
 #include "network/WebSocket.h"
 ]]
 
+local _typeconv = typeconv
+local function typeconv(...)
+    local cls = _typeconv(...)
+    cls.export 'true'
+    return cls
+end
+
 typeconv 'cocos2d::Vec2'
     .var '*' .optional 'false'
     

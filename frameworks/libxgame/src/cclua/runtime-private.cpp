@@ -87,7 +87,7 @@ bool __runtime_canOpenURL(const std::string &uri)
 void __runtime_alert(const std::string &title, const std::string &message, const std::string &ok,
                      const std::string &no, const std::function<void (bool)> &callback)
 {
-    callback_t func = runtime::ref([=] (const std::string &status, const cocos2d::Value &data) {
+    olua_ref_t func = runtime::ref([=] (const std::string &status, const cocos2d::Value &data) {
         callback(status == "true");
     });
     Jni::callStaticVoidMethod(JAVA_APPCONTEXT_CLASS, "alert", title, message, ok, no, func);
@@ -110,7 +110,7 @@ std::string __runtime_getPermission(const std::string &permission)
 
 void __runtime_requestPermission(const std::string &permission, const std::function<void (const std::string &)> &callback)
 {
-    callback_t func = runtime::ref([=] (const std::string &status, const cocos2d::Value &data) {
+    olua_ref_t func = runtime::ref([=] (const std::string &status, const cocos2d::Value &data) {
         callback(status);
     });
     Jni::callStaticVoidMethod(JAVA_APPCONTEXT_CLASS, "requestPermission", permission, func);

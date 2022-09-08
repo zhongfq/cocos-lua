@@ -1025,6 +1025,8 @@ typeconf 'cocos2d::Camera'
     .exclude 'isVisibleInFrustum'
     .exclude 'setFrameBufferObject'
 
+typeconf 'cocos2d::tweenfunc::TweenType'
+
 typeconf 'cocos2d::CameraBackgroundBrush::BrushType'
 typeconf 'cocos2d::CameraBackgroundBrush'
 typeconf 'cocos2d::CameraBackgroundDepthBrush'

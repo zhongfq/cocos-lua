@@ -2,6 +2,18 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_cocos2d_studio.h"
+#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_conv_manual.h"
+#include "cocos2d.h"
+#include "editor-support/cocostudio/CocoStudio.h"
+
+// cocostudio::timeline::AnimationInfo
+OLUA_LIB int olua_push_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio::timeline::AnimationInfo *value);
+OLUA_LIB void olua_check_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostudio::timeline::AnimationInfo *value);
+OLUA_LIB bool olua_is_cocostudio_timeline_AnimationInfo(lua_State *L, int idx);
+OLUA_LIB void olua_pack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostudio::timeline::AnimationInfo *value);
+OLUA_LIB int olua_unpack_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio::timeline::AnimationInfo *value);
+OLUA_LIB bool olua_canpack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx);
 
 static std::string makeFrameEndCallbackTag(lua_Integer index, const std::string &key)
 {
@@ -18,7 +30,7 @@ static std::string makeFrameEndCallbackTag(cocostudio::timeline::ActionTimeline 
     return makeFrameEndCallbackTag((lua_Integer)info.endIndex, animationName);
 }
 
-int olua_push_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio::timeline::AnimationInfo *value)
+OLUA_LIB int olua_push_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio::timeline::AnimationInfo *value)
 {
     if (value) {
         lua_createtable(L, 0, 3);
@@ -38,7 +50,7 @@ int olua_push_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio::
     return 1;
 }
 
-void olua_check_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostudio::timeline::AnimationInfo *value)
+OLUA_LIB void olua_check_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostudio::timeline::AnimationInfo *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -66,12 +78,12 @@ void olua_check_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostu
     lua_pop(L, 1);
 }
 
-bool olua_is_cocostudio_timeline_AnimationInfo(lua_State *L, int idx)
+OLUA_LIB bool olua_is_cocostudio_timeline_AnimationInfo(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "endIndex") && olua_hasfield(L, idx, "startIndex") && olua_hasfield(L, idx, "name");
 }
 
-void olua_pack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostudio::timeline::AnimationInfo *value)
+OLUA_LIB void olua_pack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostudio::timeline::AnimationInfo *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -92,7 +104,7 @@ void olua_pack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx, cocostud
     value->endIndex = (int)arg3;
 }
 
-int olua_unpack_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio::timeline::AnimationInfo *value)
+OLUA_LIB int olua_unpack_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio::timeline::AnimationInfo *value)
 {
     if (value) {
         olua_push_std_string(L, value->name);
@@ -107,7 +119,7 @@ int olua_unpack_cocostudio_timeline_AnimationInfo(lua_State *L, const cocostudio
     return 3;
 }
 
-bool olua_canpack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx)
+OLUA_LIB bool olua_canpack_cocostudio_timeline_AnimationInfo(lua_State *L, int idx)
 {
     return olua_is_std_string(L, idx + 0) && olua_is_int(L, idx + 1) && olua_is_int(L, idx + 2);
 }
@@ -190,12 +202,12 @@ static int _cocos2d_CSLoader_createNode2(lua_State *L)
     void *cb_store = (void *)olua_pushclassobj(L, "cc.CSLoader");
     std::string cb_tag = "createNode";
     std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_NEW);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](cocos2d::Ref *arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
@@ -251,12 +263,12 @@ static int _cocos2d_CSLoader_createNode4(lua_State *L)
     void *cb_store = (void *)olua_pushclassobj(L, "cc.CSLoader");
     std::string cb_tag = "createNode";
     std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_NEW);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](cocos2d::Ref *arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
@@ -402,12 +414,12 @@ static int _cocos2d_CSLoader_createNodeWithVisibleSize2(lua_State *L)
     void *cb_store = (void *)olua_pushclassobj(L, "cc.CSLoader");
     std::string cb_tag = "createNodeWithVisibleSize";
     std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_NEW);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](cocos2d::Ref *arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
@@ -4312,12 +4324,12 @@ static int _cocostudio_ArmatureAnimation_setFrameEventCallFunc(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        lua_Integer cb_ctx = olua_context(L);
+        olua_context_t cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocostudio::Bone *arg1, const std::string &arg2, int arg3, int arg4) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
 
-            if (L != NULL && olua_context(L) == cb_ctx) {
+            if (olua_contextequal(L, cb_ctx)) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -4339,7 +4351,7 @@ static int _cocostudio_ArmatureAnimation_setFrameEventCallFunc(lua_State *L)
         arg1 = nullptr;
     }
 
-    // void setFrameEventCallFunc(@localvar @nullable std::function<void (cocostudio::Bone *, const std::string &, int, int)> listener)
+    // void setFrameEventCallFunc(@localvar @nullable const std::function<void (Bone *, const std::string &, int, int)> &listener)
     self->setFrameEventCallFunc(arg1);
 
     olua_endinvoke(L);
@@ -4364,12 +4376,12 @@ static int _cocostudio_ArmatureAnimation_setMovementEventCallFunc(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        lua_Integer cb_ctx = olua_context(L);
+        olua_context_t cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocostudio::Armature *arg1, cocostudio::MovementEventType arg2, const std::string &arg3) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
 
-            if (L != NULL && olua_context(L) == cb_ctx) {
+            if (olua_contextequal(L, cb_ctx)) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -4390,7 +4402,7 @@ static int _cocostudio_ArmatureAnimation_setMovementEventCallFunc(lua_State *L)
         arg1 = nullptr;
     }
 
-    // void setMovementEventCallFunc(@localvar @nullable std::function<void (cocostudio::Armature *, cocostudio::MovementEventType, const std::string &)> listener)
+    // void setMovementEventCallFunc(@localvar @nullable const std::function<void (Armature *, MovementEventType, const std::string &)> &listener)
     self->setMovementEventCallFunc(arg1);
 
     olua_endinvoke(L);
@@ -12803,12 +12815,12 @@ static int _cocostudio_SceneReader_setTarget(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        lua_Integer cb_ctx = olua_context(L);
+        olua_context_t cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::Ref *arg1, void *arg2) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
 
-            if (L != NULL && olua_context(L) == cb_ctx) {
+            if (olua_contextequal(L, cb_ctx)) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -13982,7 +13994,7 @@ static int _cocostudio_timeline_Frame_getNode(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.Frame");
 
-    // @addref(node ^) cocos2d::Node *getNode()
+    // @addref(^) cocos2d::Node *getNode()
     cocos2d::Node *ret = self->getNode();
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
@@ -14002,7 +14014,7 @@ static int _cocostudio_timeline_Frame_getTimeline(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.Frame");
 
-    // @addref(timeline ^) cocostudio::timeline::Timeline *getTimeline()
+    // @addref(^) cocostudio::timeline::Timeline *getTimeline()
     cocostudio::timeline::Timeline *ret = self->getTimeline();
     int num_ret = olua_push_cppobj(L, ret, "ccs.timeline.Timeline");
 
@@ -14135,7 +14147,7 @@ static int _cocostudio_timeline_Frame_setNode(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.Frame");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
 
-    // void setNode(@addref(node ^) cocos2d::Node *node)
+    // void setNode(@addref(^) cocos2d::Node *node)
     self->setNode(arg1);
 
     // insert code after call
@@ -14156,7 +14168,7 @@ static int _cocostudio_timeline_Frame_setTimeline(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.Frame");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccs.timeline.Timeline");
 
-    // void setTimeline(@addref(timeline ^) cocostudio::timeline::Timeline *timeline)
+    // void setTimeline(@addref(^) cocostudio::timeline::Timeline *timeline)
     self->setTimeline(arg1);
 
     // insert code after call
@@ -14271,8 +14283,8 @@ static int _cocostudio_timeline_AlphaFrame_getAlpha(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.AlphaFrame");
 
-    // uint8_t getAlpha()
-    uint8_t ret = self->getAlpha();
+    // GLubyte getAlpha()
+    GLubyte ret = self->getAlpha();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -14304,8 +14316,8 @@ static int _cocostudio_timeline_AlphaFrame_setAlpha(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.AlphaFrame");
     olua_check_uint(L, 2, &arg1);
 
-    // void setAlpha(uint8_t alpha)
-    self->setAlpha((uint8_t)arg1);
+    // void setAlpha(GLubyte alpha)
+    self->setAlpha((GLubyte)arg1);
 
     olua_endinvoke(L);
 
@@ -15988,7 +16000,7 @@ static int _cocostudio_timeline_ActionTimelineCache_createActionWithDataBuffer(l
     olua_check_cocos2d_Data(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
 
-    // cocostudio::timeline::ActionTimeline *createActionWithDataBuffer(cocos2d::Data data, const std::string &fileName)
+    // cocostudio::timeline::ActionTimeline *createActionWithDataBuffer(const cocos2d::Data &data, const std::string &fileName)
     cocostudio::timeline::ActionTimeline *ret = self->createActionWithDataBuffer(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "ccs.timeline.ActionTimeline");
 
@@ -16372,12 +16384,12 @@ static int _cocostudio_timeline_ActionTimelineNode_getActionTimeline(lua_State *
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.ActionTimelineNode");
 
-    // @addref(actionTimeline ^) cocostudio::timeline::ActionTimeline *getActionTimeline()
+    // @addref(^) cocostudio::timeline::ActionTimeline *getActionTimeline()
     cocostudio::timeline::ActionTimeline *ret = self->getActionTimeline();
     int num_ret = olua_push_cppobj(L, ret, "ccs.timeline.ActionTimeline");
 
     // insert code after call
-    olua_addref(L, 1, "actionTimeline", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "actiontimeline", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -16392,7 +16404,7 @@ static int _cocostudio_timeline_ActionTimelineNode_getRoot(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.ActionTimelineNode");
 
-    // @addref(root ^) cocos2d::Node *getRoot()
+    // @addref(^) cocos2d::Node *getRoot()
     cocos2d::Node *ret = self->getRoot();
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
@@ -16487,11 +16499,11 @@ static int _cocostudio_timeline_ActionTimelineNode_setActionTimeline(lua_State *
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.ActionTimelineNode");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccs.timeline.ActionTimeline");
 
-    // void setActionTimeline(@addref(actionTimeline ^) cocostudio::timeline::ActionTimeline *action)
+    // void setActionTimeline(@addref(^) cocostudio::timeline::ActionTimeline *action)
     self->setActionTimeline(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "actionTimeline", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "actiontimeline", 2, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -16508,7 +16520,7 @@ static int _cocostudio_timeline_ActionTimelineNode_setRoot(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.ActionTimelineNode");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
 
-    // void setRoot(@addref(root ^) cocos2d::Node *root)
+    // void setRoot(@addref(^) cocos2d::Node *root)
     self->setRoot(arg1);
 
     // insert code after call
@@ -17162,7 +17174,7 @@ static int _cocostudio_timeline_SkeletonNode_addSkinGroup(lua_State *L)
         olua_check_std_string(L, -2, arg2);
     });
 
-    // void addSkinGroup(std::string groupName, std::map<std::string, std::string> boneSkinNameMap)
+    // void addSkinGroup(const std::string &groupName, const std::map<std::string, std::string> &boneSkinNameMap)
     self->addSkinGroup(arg1, arg2);
 
     olua_endinvoke(L);
@@ -17409,12 +17421,12 @@ static int _cocostudio_timeline_Timeline_getActionTimeline(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.Timeline");
 
-    // @addref(actionTimeline ^) cocostudio::timeline::ActionTimeline *getActionTimeline()
+    // @addref(^) cocostudio::timeline::ActionTimeline *getActionTimeline()
     cocostudio::timeline::ActionTimeline *ret = self->getActionTimeline();
     int num_ret = olua_push_cppobj(L, ret, "ccs.timeline.ActionTimeline");
 
     // insert code after call
-    olua_addref(L, 1, "actionTimeline", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "actiontimeline", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -17451,7 +17463,7 @@ static int _cocostudio_timeline_Timeline_getNode(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.Timeline");
 
-    // @addref(node ^) cocos2d::Node *getNode()
+    // @addref(^) cocos2d::Node *getNode()
     cocos2d::Node *ret = self->getNode();
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
@@ -17567,11 +17579,11 @@ static int _cocostudio_timeline_Timeline_setActionTimeline(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.Timeline");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccs.timeline.ActionTimeline");
 
-    // void setActionTimeline(@addref(actionTimeline ^) cocostudio::timeline::ActionTimeline *action)
+    // void setActionTimeline(@addref(^) cocostudio::timeline::ActionTimeline *action)
     self->setActionTimeline(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "actionTimeline", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "actiontimeline", 2, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
 
@@ -17588,7 +17600,7 @@ static int _cocostudio_timeline_Timeline_setNode(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.Timeline");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
 
-    // void setNode(@addref(node ^) cocos2d::Node *node)
+    // void setNode(@addref(^) cocos2d::Node *node)
     self->setNode(arg1);
 
     // insert code after call
@@ -17694,12 +17706,12 @@ static int _cocostudio_timeline_ActionTimeline_addAnimationInfo(lua_State *L)
         void *cb_store = (void *)self;
         std::string cb_tag = makeFrameEndCallbackTag(arg1.endIndex, arg1.name);
         std::string cb_name = olua_setcallback(L, cb_store, -1, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        lua_Integer cb_ctx = olua_context(L);
+        olua_context_t cb_ctx = olua_context(L);
         arg1.clipEndCallBack = [cb_store, cb_name, cb_ctx]() {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
 
-            if (L != NULL && olua_context(L) == cb_ctx) {
+            if (olua_contextequal(L, cb_ctx)) {
                 int top = lua_gettop(L);
 
                 olua_callback(L, cb_store, cb_name.c_str(), 0);
@@ -17734,12 +17746,12 @@ static int _cocostudio_timeline_ActionTimeline_addFrameEndCallFunc(lua_State *L)
     void *cb_store = (void *)self;
     std::string cb_tag = makeFrameEndCallbackTag(arg1, arg2);
     std::string cb_name = olua_setcallback(L, cb_store,  4, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg3 = [cb_store, cb_name, cb_ctx]() {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
 
             olua_callback(L, cb_store, cb_name.c_str(), 0);
@@ -17748,7 +17760,7 @@ static int _cocostudio_timeline_ActionTimeline_addFrameEndCallFunc(lua_State *L)
         }
     };
 
-    // void addFrameEndCallFunc(int frameIndex, const std::string &funcKey, @localvar std::function<void ()> func)
+    // void addFrameEndCallFunc(int frameIndex, const std::string &funcKey, @localvar const std::function<void ()> &func)
     self->addFrameEndCallFunc((int)arg1, arg2, arg3);
 
     olua_endinvoke(L);
@@ -18174,7 +18186,7 @@ static int _cocostudio_timeline_ActionTimeline_play(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
     olua_check_bool(L, 3, &arg2);
 
-    // void play(std::string animationName, bool loop)
+    // void play(const std::string &animationName, bool loop)
     self->play(arg1, arg2);
 
     olua_endinvoke(L);
@@ -18198,7 +18210,7 @@ static int _cocostudio_timeline_ActionTimeline_removeAnimationInfo(lua_State *L)
     void *cb_store = (void *)self;
     olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBSTARTWITH);
 
-    // void removeAnimationInfo(std::string animationName)
+    // void removeAnimationInfo(const std::string &animationName)
     self->removeAnimationInfo(arg1);
 
     olua_endinvoke(L);
@@ -18304,12 +18316,12 @@ static int _cocostudio_timeline_ActionTimeline_setAnimationEndCallFunc(lua_State
     void *cb_store = (void *)self;
     std::string cb_tag = makeFrameEndCallbackTag(self, arg1);
     std::string cb_name = olua_setcallback(L, cb_store,  3, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx]() {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
 
             olua_callback(L, cb_store, cb_name.c_str(), 0);
@@ -18318,7 +18330,7 @@ static int _cocostudio_timeline_ActionTimeline_setAnimationEndCallFunc(lua_State
         }
     };
 
-    // void setAnimationEndCallFunc(const std::string animationName, @localvar std::function<void ()> func)
+    // void setAnimationEndCallFunc(const std::string &animationName, @localvar const std::function<void ()> &func)
     self->setAnimationEndCallFunc(arg1, arg2);
 
     olua_endinvoke(L);
@@ -18379,12 +18391,12 @@ static int _cocostudio_timeline_ActionTimeline_setFrameEventCallFunc(lua_State *
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        lua_Integer cb_ctx = olua_context(L);
+        olua_context_t cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocostudio::timeline::Frame *arg1) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
 
-            if (L != NULL && olua_context(L) == cb_ctx) {
+            if (olua_contextequal(L, cb_ctx)) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -18413,7 +18425,7 @@ static int _cocostudio_timeline_ActionTimeline_setFrameEventCallFunc(lua_State *
         arg1 = nullptr;
     }
 
-    // void setFrameEventCallFunc(@localvar @nullable std::function<void (cocostudio::timeline::Frame *)> listener)
+    // void setFrameEventCallFunc(@localvar @nullable const std::function<void (Frame *)> &listener)
     self->setFrameEventCallFunc(arg1);
 
     olua_endinvoke(L);
@@ -18438,12 +18450,12 @@ static int _cocostudio_timeline_ActionTimeline_setLastFrameCallFunc(lua_State *L
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        lua_Integer cb_ctx = olua_context(L);
+        olua_context_t cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx]() {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
 
-            if (L != NULL && olua_context(L) == cb_ctx) {
+            if (olua_contextequal(L, cb_ctx)) {
                 int top = lua_gettop(L);
 
                 olua_callback(L, cb_store, cb_name.c_str(), 0);
@@ -18456,7 +18468,7 @@ static int _cocostudio_timeline_ActionTimeline_setLastFrameCallFunc(lua_State *L
         arg1 = nullptr;
     }
 
-    // void setLastFrameCallFunc(@localvar @nullable std::function<void ()> listener)
+    // void setLastFrameCallFunc(@localvar @nullable const std::function<void ()> &listener)
     self->setLastFrameCallFunc(arg1);
 
     olua_endinvoke(L);

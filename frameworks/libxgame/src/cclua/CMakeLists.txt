@@ -7,9 +7,10 @@ set(CCLUA_HEADER
     src/cclua/FileFinder.h
     src/cclua/filesystem-private.h
     src/cclua/filesystem.h
-    src/cclua/Lame.h
     src/cclua/luauser.h
     src/cclua/microphone.h
+    src/cclua/MP3Encoder.h
+    src/cclua/olua-2dx.h
     src/cclua/permission.h
     src/cclua/photo.h
     src/cclua/plugin.h
@@ -21,7 +22,6 @@ set(CCLUA_HEADER
     src/cclua/Socket.h
     src/cclua/timer.h
     src/cclua/window.h
-    src/cclua/olua-2dx.h
     src/cclua/XMLHttpRequest.h
 )
 
@@ -33,8 +33,9 @@ set(CCLUA_SRC
     src/cclua/FileFinder.cpp
     src/cclua/filesystem-private.cpp
     src/cclua/filesystem.cpp
-    src/cclua/Lame.cpp
     src/cclua/microphone.cpp
+    src/cclua/MP3Encoder.cpp
+    src/cclua/olua-2dx.cpp
     src/cclua/permission.cpp
     src/cclua/photo.cpp
     src/cclua/plugin.cpp
@@ -46,7 +47,6 @@ set(CCLUA_SRC
     src/cclua/Socket.cpp
     src/cclua/timer.cpp
     src/cclua/window.cpp
-    src/cclua/olua-2dx.cpp
     src/cclua/XMLHttpRequest.cpp
 )
 

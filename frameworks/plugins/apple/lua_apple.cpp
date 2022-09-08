@@ -239,12 +239,12 @@ static int _cclua_plugin_apple_setDispatcher(lua_State *L)
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.plugin.apple");
     std::string cb_tag = "Dispatcher";
     std::string cb_name = olua_setcallback(L, cb_store,  1, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](const std::string &arg1, const cocos2d::Value &arg2) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);

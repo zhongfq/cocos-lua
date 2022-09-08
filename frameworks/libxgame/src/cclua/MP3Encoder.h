@@ -1,5 +1,5 @@
-#ifndef __CCLUA_LAME_H__
-#define __CCLUA_LAME_H__
+#ifndef __CCLUA_MP3ENCODER_H__
+#define __CCLUA_MP3ENCODER_H__
 
 #include "runtime.h"
 #include "lame/lame.h"
@@ -9,18 +9,33 @@
 
 NS_CCLUA_BEGIN
 
-class Lame : public cocos2d::Ref {
+class MP3Encoder : public cocos2d::Ref {
 public:
-    using VBRMode = vbr_mode_e;
-    using MPEGMode = MPEG_mode;
+    enum class VBRMode {
+        OFF = vbr_off,
+        MT = vbr_mt,
+        RH = vbr_rh,
+        ABR = vbr_abr,
+        MTRH = vbr_mtrh,
+        MAX_INDICATOR = vbr_max_indicator,
+        DEFAULT = vbr_mtrh
+    };
+
+    enum class MPEGMode {
+        STEREO = STEREO,
+        JOINT_STEREO = JOINT_STEREO,
+        DUAL_CHANNEL = DUAL_CHANNEL,
+        MONO = MONO,
+        NOT_SET = NOT_SET,
+        MAX_INDICATOR = MAX_INDICATOR,
+    };
     
 public:
-    Lame();
-    virtual ~Lame();
+    MP3Encoder();
+    virtual ~MP3Encoder();
     
     void start(const std::string &pcmPath, const std::string &mp3Path);
     void stop();
-    void cancel();
     
     void initParams();
     
@@ -57,8 +72,8 @@ public:
     void setQuality(int value) { lame_set_quality(_lame, value); }
     int getQuality() { return lame_get_quality(_lame); }
 
-    void setMode(MPEGMode value) { lame_set_mode(_lame, value); }
-    MPEGMode getMode() { return lame_get_mode(_lame); }
+    void setMode(MPEGMode value) { lame_set_mode(_lame, (MPEG_mode)value); }
+    MPEGMode getMode() { return (MPEGMode)lame_get_mode(_lame); }
     
     void setForceMs(int value) { lame_set_force_ms(_lame, value); }
     int getForceMs() { return lame_get_force_ms(_lame); }
@@ -127,8 +142,8 @@ public:
     void setMsfix(double value) { lame_set_msfix(_lame, value); }
     float getMsfix() { return lame_get_msfix(_lame); }
 
-    void setVBR(VBRMode value) { lame_set_VBR(_lame, value); }
-    VBRMode getVBR() { return lame_get_VBR(_lame); }
+    void setVBR(VBRMode value) { lame_set_VBR(_lame, (vbr_mode)value); }
+    VBRMode getVBR() { return (VBRMode)lame_get_VBR(_lame); }
 
     void setVBRQ(int value) { lame_set_VBR_q(_lame, value); }
     int getVBRQ() { return lame_get_VBR_q(_lame); }
@@ -244,8 +259,7 @@ private:
     void doConvert();
     
 private:
-    std::atomic<bool> _needQuit;
-    std::atomic<bool> _done;
+    std::atomic<bool> _stopped;
     std::string _pcmPath;
     std::string _mp3Path;
     std::thread *_workThread = nullptr;

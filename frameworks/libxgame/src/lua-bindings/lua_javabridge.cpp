@@ -127,15 +127,15 @@ static int luaj_invoke(lua_State *L)
                     break;
                 }
                 case TYPE_INT: {
-                    if (lua_isfunction(L, 4 + i)) {
-                        args[i].i = (jint)olua_funcref(L, 4 + i);
-                    } else {
-                        args[i].i = (jint)luaL_checkinteger(L, 4 + i);
-                    }
+                    args[i].i = (jint)luaL_checkinteger(L, 4 + i);
                     break;
                 }
                 case TYPE_LONG: {
-                    args[i].j = (jlong)luaL_checkinteger(L, 4 + i);
+                    if (lua_isfunction(L, 4 + i)) {
+                        args[i].i = (jlong)olua_ref(L, 4 + i, LUA_TFUNCTION);
+                    } else {
+                        args[i].i = (jlong)luaL_checkinteger(L, 4 + i);
+                    }
                     break;
                 }
                 case TYPE_FLOAT: {

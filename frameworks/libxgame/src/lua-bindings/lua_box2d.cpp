@@ -2,6 +2,90 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_box2d.h"
+#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_conv_manual.h"
+#include "box2d/box2d.h"
+#include "box2d/box2d-2dx.h"
+
+// b2Vec2
+OLUA_LIB int olua_push_b2Vec2(lua_State *L, const b2Vec2 *value);
+OLUA_LIB void olua_check_b2Vec2(lua_State *L, int idx, b2Vec2 *value);
+OLUA_LIB bool olua_is_b2Vec2(lua_State *L, int idx);
+OLUA_LIB void olua_pack_b2Vec2(lua_State *L, int idx, b2Vec2 *value);
+OLUA_LIB int olua_unpack_b2Vec2(lua_State *L, const b2Vec2 *value);
+OLUA_LIB bool olua_canpack_b2Vec2(lua_State *L, int idx);
+
+// b2Vec3
+OLUA_LIB int olua_push_b2Vec3(lua_State *L, const b2Vec3 *value);
+OLUA_LIB void olua_check_b2Vec3(lua_State *L, int idx, b2Vec3 *value);
+OLUA_LIB bool olua_is_b2Vec3(lua_State *L, int idx);
+OLUA_LIB void olua_pack_b2Vec3(lua_State *L, int idx, b2Vec3 *value);
+OLUA_LIB int olua_unpack_b2Vec3(lua_State *L, const b2Vec3 *value);
+OLUA_LIB bool olua_canpack_b2Vec3(lua_State *L, int idx);
+
+// b2ContactID
+OLUA_LIB int olua_push_b2ContactID(lua_State *L, const b2ContactID *value);
+OLUA_LIB void olua_check_b2ContactID(lua_State *L, int idx, b2ContactID *value);
+OLUA_LIB bool olua_is_b2ContactID(lua_State *L, int idx);
+OLUA_LIB void olua_pack_b2ContactID(lua_State *L, int idx, b2ContactID *value);
+OLUA_LIB int olua_unpack_b2ContactID(lua_State *L, const b2ContactID *value);
+OLUA_LIB bool olua_canpack_b2ContactID(lua_State *L, int idx);
+
+// b2ContactFeature
+OLUA_LIB int olua_push_b2ContactFeature(lua_State *L, const b2ContactFeature *value);
+OLUA_LIB void olua_check_b2ContactFeature(lua_State *L, int idx, b2ContactFeature *value);
+OLUA_LIB bool olua_is_b2ContactFeature(lua_State *L, int idx);
+OLUA_LIB void olua_pack_b2ContactFeature(lua_State *L, int idx, b2ContactFeature *value);
+OLUA_LIB int olua_unpack_b2ContactFeature(lua_State *L, const b2ContactFeature *value);
+OLUA_LIB bool olua_canpack_b2ContactFeature(lua_State *L, int idx);
+
+// b2Color
+OLUA_LIB int olua_push_b2Color(lua_State *L, const b2Color *value);
+OLUA_LIB void olua_check_b2Color(lua_State *L, int idx, b2Color *value);
+OLUA_LIB bool olua_is_b2Color(lua_State *L, int idx);
+OLUA_LIB void olua_pack_b2Color(lua_State *L, int idx, b2Color *value);
+OLUA_LIB int olua_unpack_b2Color(lua_State *L, const b2Color *value);
+OLUA_LIB bool olua_canpack_b2Color(lua_State *L, int idx);
+
+// b2FixtureUserData
+OLUA_LIB int olua_push_b2FixtureUserData(lua_State *L, const b2FixtureUserData *value);
+OLUA_LIB void olua_check_b2FixtureUserData(lua_State *L, int idx, b2FixtureUserData *value);
+OLUA_LIB bool olua_is_b2FixtureUserData(lua_State *L, int idx);
+OLUA_LIB void olua_pack_b2FixtureUserData(lua_State *L, int idx, b2FixtureUserData *value);
+OLUA_LIB int olua_unpack_b2FixtureUserData(lua_State *L, const b2FixtureUserData *value);
+OLUA_LIB bool olua_canpack_b2FixtureUserData(lua_State *L, int idx);
+
+// b2Filter
+OLUA_LIB int olua_push_b2Filter(lua_State *L, const b2Filter *value);
+OLUA_LIB void olua_check_b2Filter(lua_State *L, int idx, b2Filter *value);
+OLUA_LIB bool olua_is_b2Filter(lua_State *L, int idx);
+OLUA_LIB void olua_pack_b2Filter(lua_State *L, int idx, b2Filter *value);
+OLUA_LIB int olua_unpack_b2Filter(lua_State *L, const b2Filter *value);
+OLUA_LIB bool olua_canpack_b2Filter(lua_State *L, int idx);
+
+// b2ManifoldPoint
+OLUA_LIB int olua_push_b2ManifoldPoint(lua_State *L, const b2ManifoldPoint *value);
+OLUA_LIB void olua_check_b2ManifoldPoint(lua_State *L, int idx, b2ManifoldPoint *value);
+OLUA_LIB bool olua_is_b2ManifoldPoint(lua_State *L, int idx);
+OLUA_LIB void olua_pack_b2ManifoldPoint(lua_State *L, int idx, b2ManifoldPoint *value);
+OLUA_LIB int olua_unpack_b2ManifoldPoint(lua_State *L, const b2ManifoldPoint *value);
+OLUA_LIB bool olua_canpack_b2ManifoldPoint(lua_State *L, int idx);
+
+// b2Rot
+OLUA_LIB int olua_push_b2Rot(lua_State *L, const b2Rot *value);
+OLUA_LIB void olua_check_b2Rot(lua_State *L, int idx, b2Rot *value);
+OLUA_LIB bool olua_is_b2Rot(lua_State *L, int idx);
+OLUA_LIB void olua_pack_b2Rot(lua_State *L, int idx, b2Rot *value);
+OLUA_LIB int olua_unpack_b2Rot(lua_State *L, const b2Rot *value);
+OLUA_LIB bool olua_canpack_b2Rot(lua_State *L, int idx);
+
+// b2MassData
+OLUA_LIB int olua_push_b2MassData(lua_State *L, const b2MassData *value);
+OLUA_LIB void olua_check_b2MassData(lua_State *L, int idx, b2MassData *value);
+OLUA_LIB bool olua_is_b2MassData(lua_State *L, int idx);
+OLUA_LIB void olua_pack_b2MassData(lua_State *L, int idx, b2MassData *value);
+OLUA_LIB int olua_unpack_b2MassData(lua_State *L, const b2MassData *value);
+OLUA_LIB bool olua_canpack_b2MassData(lua_State *L, int idx);
 
 OLUA_LIB int olua_push_b2Vec2(lua_State *L, const b2Vec2 *value)
 {
@@ -1369,12 +1453,12 @@ static int _box2d_DestructionListener_set_sayGoodbyeToFixture(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        lua_Integer cb_ctx = olua_context(L);
+        olua_context_t cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](b2Fixture *arg1) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
 
-            if (L != NULL && olua_context(L) == cb_ctx) {
+            if (olua_contextequal(L, cb_ctx)) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -1439,12 +1523,12 @@ static int _box2d_DestructionListener_set_sayGoodbyeToJoint(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        lua_Integer cb_ctx = olua_context(L);
+        olua_context_t cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](b2Joint *arg1) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
 
-            if (L != NULL && olua_context(L) == cb_ctx) {
+            if (olua_contextequal(L, cb_ctx)) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -1562,12 +1646,12 @@ static int _box2d_ContactFilter_set_shouldCollide(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        lua_Integer cb_ctx = olua_context(L);
+        olua_context_t cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](b2Fixture *arg1, b2Fixture *arg2) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
             bool ret = false;       
-            if (L != NULL && olua_context(L) == cb_ctx) {
+            if (olua_contextequal(L, cb_ctx)) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -1690,12 +1774,12 @@ static int _box2d_ContactListener_set_beginContact(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        lua_Integer cb_ctx = olua_context(L);
+        olua_context_t cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](b2Contact *arg1) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
 
-            if (L != NULL && olua_context(L) == cb_ctx) {
+            if (olua_contextequal(L, cb_ctx)) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -1760,12 +1844,12 @@ static int _box2d_ContactListener_set_endContact(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        lua_Integer cb_ctx = olua_context(L);
+        olua_context_t cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](b2Contact *arg1) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
 
-            if (L != NULL && olua_context(L) == cb_ctx) {
+            if (olua_contextequal(L, cb_ctx)) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -1830,12 +1914,12 @@ static int _box2d_ContactListener_set_postSolve(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        lua_Integer cb_ctx = olua_context(L);
+        olua_context_t cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](b2Contact *arg1, const b2ContactImpulse *arg2) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
 
-            if (L != NULL && olua_context(L) == cb_ctx) {
+            if (olua_contextequal(L, cb_ctx)) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -1901,12 +1985,12 @@ static int _box2d_ContactListener_set_preSolve(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        lua_Integer cb_ctx = olua_context(L);
+        olua_context_t cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](b2Contact *arg1, const b2Manifold *arg2) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
 
-            if (L != NULL && olua_context(L) == cb_ctx) {
+            if (olua_contextequal(L, cb_ctx)) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -2027,12 +2111,12 @@ static int _box2d_QueryCallback_set_reportFixture(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        lua_Integer cb_ctx = olua_context(L);
+        olua_context_t cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](b2Fixture *arg1) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
             bool ret = false;       
-            if (L != NULL && olua_context(L) == cb_ctx) {
+            if (olua_contextequal(L, cb_ctx)) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
@@ -2154,12 +2238,12 @@ static int _box2d_RayCastCallback_set_reportFixture(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        lua_Integer cb_ctx = olua_context(L);
+        olua_context_t cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](b2Fixture *arg1, const b2Vec2 &arg2, const b2Vec2 &arg3, float arg4) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
             lua_Number ret = 0;       
-            if (L != NULL && olua_context(L) == cb_ctx) {
+            if (olua_contextequal(L, cb_ctx)) {
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);

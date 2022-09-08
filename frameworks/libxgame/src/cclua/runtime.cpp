@@ -40,8 +40,8 @@ static std::map<std::string, bool> _supportedFeatures;
 static std::unordered_map<std::string, bool> _tracebackCaches;
 static std::unordered_map<std::string, std::string> _envs;
 static int _sampleCount = 1;
-static std::unordered_map<callback_t, Callback> _refCallbacks;
-static callback_t _refCount = -1;
+static std::unordered_map<olua_ref_t, Callback> _refCallbacks;
+static olua_ref_t _refCount = -2;
 
 static float _time = 0;
 static FILE *_logFile = NULL;
@@ -102,7 +102,7 @@ void runtime::init()
     preferences::setString(CONF_APP_BUILD, runtime::getAppBuild().c_str());
     preferences::flush();
     
-    timer::schedule(0, [](float dt){ _time += dt; });
+    timer::schedule(0, timer::createTag(), [](float dt){ _time += dt; });
     
 #if COCOS2D_VERSION >= 0x00040000
     Texture2D::setDefaultAlphaPixelFormat(backend::PixelFormat::AUTO);
@@ -274,12 +274,12 @@ static int index_func(lua_State *L)
     }
 }
 
-oluaret_t runtime::load(lua_State *L, const std::string &name)
+olua_return runtime::load(lua_State *L, const std::string &name)
 {
     return runtime::load(L, name, name);
 }
 
-oluaret_t runtime::load(lua_State *L, const std::string &name, const std::string &feature)
+olua_return runtime::load(lua_State *L, const std::string &name, const std::string &feature)
 {
     if (cclua::runtime::hasFeature(feature)) {
         lua_getfield(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
@@ -585,7 +585,7 @@ void runtime::installAPK(const std::string &path)
 #endif
 }
 
-void runtime::callref(callback_t func, const std::string &status, const std::string &data, bool once)
+void runtime::callref(olua_ref_t func, const std::string &status, const std::string &data, bool once)
 {
     if (!cclua::runtime::isRestarting()) {
         runtime::runLater([=]() {
@@ -620,14 +620,14 @@ void runtime::callref(callback_t func, const std::string &status, const std::str
     }
 }
 
-callback_t runtime::ref(const Callback &callback)
+olua_ref_t runtime::ref(const Callback &callback)
 {
     _refCount--;
     _refCallbacks[_refCount] = callback;
     return _refCount;
 }
 
-void runtime::unref(callback_t func)
+void runtime::unref(olua_ref_t func)
 {
     _refCallbacks.erase(func);
 }
@@ -1077,7 +1077,7 @@ void RuntimeContext::applicationWillTerminate()
     auto director = Director::getInstance();
     director->retain();
     
-#ifndef CCLUA_OS_MAC
+#if !defined(CCLUA_OS_MAC) && !defined(CCLUA_OS_WIN32)
     director->popToRootScene();
     director->mainLoop();
     if (director->getRunningScene()) {
@@ -1097,7 +1097,7 @@ void RuntimeContext::applicationWillTerminate()
     CC_SAFE_RELEASE(_scheduler);
     
     director->release();
-#ifndef CCLUA_OS_MAC
+#if !defined(CCLUA_OS_MAC) && !defined(CCLUA_OS_WIN32)
     director->end();
     director->mainLoop();
 #endif

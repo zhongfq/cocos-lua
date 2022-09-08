@@ -193,12 +193,7 @@ static void _set_argument(lua_State *L, NSMethodSignature *methodSig, NSInvocati
     }
     else if (is(int))
     {
-        int value;
-        if (olua_isfunction(L, idx)) {
-            value = olua_funcref(L, idx);
-        } else {
-            value = (int)olua_checkinteger(L, idx);
-        }
+        int value = (int)olua_checkinteger(L, idx);
         [invocation setArgument:&value atIndex:arg];
     }
     else if (is(unsigned int))
@@ -219,6 +214,11 @@ static void _set_argument(lua_State *L, NSMethodSignature *methodSig, NSInvocati
     else if (is(long long))
     {
         long long value = (long long)olua_checkinteger(L, idx);
+        if (olua_isfunction(L, idx)) {
+            value = (long long)olua_ref(L, idx, LUA_TFUNCTION);
+        } else {
+            value = (long long)olua_checkinteger(L, idx);
+        }
         [invocation setArgument:&value atIndex:arg];
     }
     else if (is(unsigned long long))

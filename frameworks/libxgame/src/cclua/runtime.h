@@ -83,7 +83,6 @@ inline bool strendwith(const char *src, const char *suffix)
 
 NS_CCLUA_BEGIN
 
-typedef int64_t callback_t;
 typedef std::function<void(const std::string &event, const cocos2d::Value &data)> Callback;
 
 class runtime
@@ -157,9 +156,9 @@ public:
     
     // for java and objc bridge
     static void installAPK(const std::string &path);
-    static void callref(callback_t func, const std::string &status, const std::string &data, bool once) OLUA_EXCLUDE;
-    static callback_t ref(const Callback &callback) OLUA_EXCLUDE;
-    static void unref(callback_t func) OLUA_EXCLUDE;
+    static void callref(olua_ref_t func, const std::string &status, const std::string &data, bool once) OLUA_EXCLUDE;
+    static olua_ref_t ref(const Callback &callback) OLUA_EXCLUDE;
+    static void unref(olua_ref_t func) OLUA_EXCLUDE;
     
     // log
     static void setLogPath(const std::string &path);
@@ -175,8 +174,8 @@ public:
     static bool hasFeature(const std::string &api);
     static void registerFeature(const std::string &api, bool enabled) OLUA_EXCLUDE;
     static void printFeatures();
-    static oluaret_t load(lua_State *L, const std::string &name);
-    static oluaret_t load(lua_State *L, const std::string &name, const std::string &feature);
+    static olua_return load(lua_State *L, const std::string &name);
+    static olua_return load(lua_State *L, const std::string &name, const std::string &feature);
     
     // error
     static void initBugly(const char* appid) OLUA_EXCLUDE;

@@ -234,8 +234,8 @@
 		3D6EEB4D28B4D850008F1847 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE96928B4D84E008F1847 /* Reachability.m */; };
 		3D6EEB4E28B4D850008F1847 /* photo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE96B28B4D84E008F1847 /* photo.mm */; };
 		3D6EEB4F28B4D850008F1847 /* photo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE96B28B4D84E008F1847 /* photo.mm */; };
-		3D6EEB5028B4D850008F1847 /* Lame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE96F28B4D84E008F1847 /* Lame.cpp */; };
-		3D6EEB5128B4D850008F1847 /* Lame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE96F28B4D84E008F1847 /* Lame.cpp */; };
+		3D6EEB5028B4D850008F1847 /* MP3Encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE96F28B4D84E008F1847 /* MP3Encoder.cpp */; };
+		3D6EEB5128B4D850008F1847 /* MP3Encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE96F28B4D84E008F1847 /* MP3Encoder.cpp */; };
 		3D6EEB5228B4D850008F1847 /* filesystem-private-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE97028B4D84E008F1847 /* filesystem-private-ios-mac.mm */; };
 		3D6EEB5328B4D850008F1847 /* filesystem-private-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE97028B4D84E008F1847 /* filesystem-private-ios-mac.mm */; };
 		3D6EEB5428B4D850008F1847 /* permission.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE97128B4D84E008F1847 /* permission.cpp */; };
@@ -635,7 +635,7 @@
 		3D6EE96B28B4D84E008F1847 /* photo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = photo.mm; sourceTree = "<group>"; };
 		3D6EE96D28B4D84E008F1847 /* plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plugin.h; sourceTree = "<group>"; };
 		3D6EE96E28B4D84E008F1847 /* olua-2dx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "olua-2dx.h"; sourceTree = "<group>"; };
-		3D6EE96F28B4D84E008F1847 /* Lame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Lame.cpp; sourceTree = "<group>"; };
+		3D6EE96F28B4D84E008F1847 /* MP3Encoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MP3Encoder.cpp; sourceTree = "<group>"; };
 		3D6EE97028B4D84E008F1847 /* filesystem-private-ios-mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "filesystem-private-ios-mac.mm"; sourceTree = "<group>"; };
 		3D6EE97128B4D84E008F1847 /* permission.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = permission.cpp; sourceTree = "<group>"; };
 		3D6EE97228B4D84E008F1847 /* AssetsBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetsBundle.h; sourceTree = "<group>"; };
@@ -678,7 +678,7 @@
 		3D6EE99928B4D84F008F1847 /* runtime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = runtime.cpp; sourceTree = "<group>"; };
 		3D6EE99A28B4D84F008F1847 /* luauser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luauser.h; sourceTree = "<group>"; };
 		3D6EE99B28B4D84F008F1847 /* Socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socket.h; sourceTree = "<group>"; };
-		3D6EE99C28B4D84F008F1847 /* Lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lame.h; sourceTree = "<group>"; };
+		3D6EE99C28B4D84F008F1847 /* MP3Encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MP3Encoder.h; sourceTree = "<group>"; };
 		3D6EE99D28B4D84F008F1847 /* runtime-private-ios-mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "runtime-private-ios-mac.mm"; sourceTree = "<group>"; };
 		3D6EE99E28B4D84F008F1847 /* QRCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QRCode.cpp; sourceTree = "<group>"; };
 		3D6EE99F28B4D84F008F1847 /* AssetsBundle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AssetsBundle.cpp; sourceTree = "<group>"; };
@@ -1254,8 +1254,8 @@
 				3D6EE99128B4D84F008F1847 /* filesystem-private.h */,
 				3D6EE98E28B4D84F008F1847 /* filesystem.cpp */,
 				3D6EE96828B4D84E008F1847 /* filesystem.h */,
-				3D6EE96F28B4D84E008F1847 /* Lame.cpp */,
-				3D6EE99C28B4D84F008F1847 /* Lame.h */,
+				3D6EE96F28B4D84E008F1847 /* MP3Encoder.cpp */,
+				3D6EE99C28B4D84F008F1847 /* MP3Encoder.h */,
 				3D6EE99A28B4D84F008F1847 /* luauser.h */,
 				3D6EE98D28B4D84F008F1847 /* microphone.cpp */,
 				3D6EE97828B4D84E008F1847 /* microphone.h */,
@@ -1668,7 +1668,7 @@
 				3D6BE02528B5AE2D005C8879 /* hmac.c in Sources */,
 				3D6EEB7828B4D850008F1847 /* ByteArray.cpp in Sources */,
 				3D6EECAA28B4D852008F1847 /* lua_bugly.cpp in Sources */,
-				3D6EEB5028B4D850008F1847 /* Lame.cpp in Sources */,
+				3D6EEB5028B4D850008F1847 /* MP3Encoder.cpp in Sources */,
 				3D6EEC4A28B4D851008F1847 /* lzio.c in Sources */,
 				3D6EEC3C28B4D851008F1847 /* lundump.c in Sources */,
 				3D6EEC2E28B4D851008F1847 /* loadlib.c in Sources */,
@@ -1873,7 +1873,7 @@
 				3D6BE09628B5AE2E005C8879 /* sqlite3.c in Sources */,
 				3D6EEB7928B4D850008F1847 /* ByteArray.cpp in Sources */,
 				3D6EECAB28B4D852008F1847 /* lua_bugly.cpp in Sources */,
-				3D6EEB5128B4D850008F1847 /* Lame.cpp in Sources */,
+				3D6EEB5128B4D850008F1847 /* MP3Encoder.cpp in Sources */,
 				3D6EEC4B28B4D851008F1847 /* lzio.c in Sources */,
 				3D6EEC3D28B4D851008F1847 /* lundump.c in Sources */,
 				3D6EEC2F28B4D851008F1847 /* loadlib.c in Sources */,

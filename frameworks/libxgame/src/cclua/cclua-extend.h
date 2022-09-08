@@ -235,7 +235,7 @@ public:
     static float getAlpha(cocos2d::Node *obj);
     static void setAlpha(cocos2d::Node *obj, float value);
     
-    static oluaret_t __index(lua_State *L);
+    static olua_return __index(lua_State *L);
     
     static cocos2d::Bounds getBounds(cocos2d::Node *obj, cocos2d::Node *target, float left, float right, float top, float bottom);
 };
@@ -259,8 +259,8 @@ namespace spine {
 
 class SkeletonDataExtend {
 public:
-    static oluaret_t __gc(lua_State *L);
-    static oluaret_t create(lua_State *L, const char *skelPath, const char *atlasPath, float scale = 1.0f);
+    static olua_return __gc(lua_State *L);
+    static olua_return create(lua_State *L, const char *skelPath, const char *atlasPath, float scale = 1.0f);
 };
 
 }

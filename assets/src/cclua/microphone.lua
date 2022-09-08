@@ -1,8 +1,6 @@
 local util          = require "cclua.util"
 local filesystem    = require "cclua.filesystem"
 local runtime       = require "cclua.runtime"
-local Lame          = require "cclua.Lame"
-local VBRMode       = require "cclua.Lame.VBRMode"
 local permission    = require "cclua.permission"
 
 local microphone = runtime.load("cclua.microphone")
@@ -15,6 +13,8 @@ local mp3Path = nil
 local pcmPath = nil
 local startCallback = nil
 
+microphone.DEFAULT_PATH = filesystem.dir.cache .. '/cclua_microphone.mp3'
+
 microphone.setDispatcher(function (event, data)
     print("microphone", event, util.dump(data))
     if event == "start" then
@@ -23,10 +23,12 @@ microphone.setDispatcher(function (event, data)
             return
         end
         if data.status == "started" then
-            mp3Encoder = Lame.new()
+            local MP3Encoder = require "cclua.MP3Encoder"
+            local VBRMode = require "cclua.MP3Encoder.VBRMode"
+            mp3Encoder = MP3Encoder.new()
             mp3Encoder.inSamplerate = 44100
             mp3Encoder.numChannels = 2
-            mp3Encoder.vbr = VBRMode.vbr_off
+            mp3Encoder.vbr = VBRMode.OFF
             mp3Encoder.brate = 32
             mp3Encoder:initParams()
             mp3Encoder:start(pcmPath, mp3Path)

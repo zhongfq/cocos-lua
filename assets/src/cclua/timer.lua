@@ -5,6 +5,14 @@ local xpcall, pairs = xpcall, pairs
 
 assert(not timer.new)
 
+local timer_schedule = timer.schedule
+
+function timer.schedule(interval, func)
+    local tag = timer.createTag()
+    timer_schedule(interval, tag, func)
+    return tag
+end
+
 local function createDelay()
     local timestamp = 0
     local head = false

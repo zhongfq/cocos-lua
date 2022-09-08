@@ -61,6 +61,16 @@ OLUA_BEGIN_DECLS
 
 #define olua_noapi(api) static_assert(false, #api" is not defined")
 
+#if !defined(olua_likely)
+#if defined(__GNUC__) || defined(__clang__)
+#define olua_likely(x)      (__builtin_expect(!!(x), 1))
+#define olua_unlikely(x)    (__builtin_expect(!!(x), 0))
+#else
+#define olua_likely(x)      (x)
+#define olua_unlikely(x)    (x)
+#endif
+#endif // luai_likely
+
 #ifndef OLUA_API
 #define OLUA_API extern
 #endif
@@ -71,7 +81,7 @@ OLUA_BEGIN_DECLS
 #define OLUA_LIB extern
 #endif
 
-// olua config file
+// olua config file: https://codetypes.com/posts/c505b168/
 #ifdef OLUA_AUTOCONF
 #define OLUA_EXCLUDE        __attribute__((annotate("exclude")))
 #define OLUA_ADDREF(...)    __attribute__((annotate("@addref("#__VA_ARGS__")")))
@@ -104,28 +114,20 @@ OLUA_BEGIN_DECLS
 // default super class of object
 #define OLUA_VOIDCLS "void *"
 
-#if !defined(olua_likely)
-#if defined(__GNUC__) || defined(__clang__)
-#define olua_likely(x)      (__builtin_expect(!!(x), 1))
-#define olua_unlikely(x)    (__builtin_expect(!!(x), 0))
-#else
-#define olua_likely(x)      (x)
-#define olua_unlikely(x)    (x)
-#endif
-#endif // luai_likely
+// any type
+#define LUA_TANY (LUA_TNONE - 1000)
 
-typedef int oluaret_t;
+/** In 'gen-func.lua', when generate function binding, if function return
+ *  type is 'olua_return', it will pass 'L' as first arg.
+ */
+typedef int olua_return;
+
+// type for ref object
+typedef int64_t olua_ref_t;
 
 // stat api
 OLUA_API size_t olua_objcount(lua_State *L);
 OLUA_API bool olua_isdebug(lua_State *L);
-
-/**
- * New and close lua_State for several times, sometimes may got same
- * memory address for lua_State, this because the malloc reuse memory.
- * olua_context can return different id for each main lua_State.
- */
-OLUA_API lua_Integer olua_context(lua_State *L);
     
 // compare raw type of value
 #define olua_isfunction(L,n)        (lua_type(L, (n)) == LUA_TFUNCTION)
@@ -167,7 +169,7 @@ OLUA_API void olua_require(lua_State *L, const char *name, lua_CFunction func);
 #define olua_callfunc(L, fn) (lua_pushcfunction(L, (fn)), lua_call(L, 0, 0))
 OLUA_API void olua_pusherrorfunc(lua_State *L);
 OLUA_API int olua_pcall(lua_State *L, int nargs, int nresults);
-OLUA_API int olua_pcallref(lua_State *L, int funcref, int nargs, int nresults);
+OLUA_API int olua_pcallref(lua_State *L, olua_ref_t func, int nargs, int nresults);
     
 // new, get or set raw user data
 #define olua_newrawobj(L, o)    (*(void **)lua_newuserdata(L, sizeof(void *)) = (o))
@@ -230,10 +232,9 @@ OLUA_API int olua_getvariable(lua_State *L, int idx);
 OLUA_API void olua_setvariable(lua_State *L, int idx);
     
 // lua style ref
-#define olua_funcref(L, i) (luaL_checktype(L, i, LUA_TFUNCTION), olua_ref(L, i))
-OLUA_API int olua_ref(lua_State *L, int idx);
-OLUA_API void olua_unref(lua_State *L, int ref);
-OLUA_API void olua_getref(lua_State *L, int ref);
+OLUA_API olua_ref_t olua_ref(lua_State *L, int idx, int type);
+OLUA_API void olua_unref(lua_State *L, olua_ref_t ref);
+OLUA_API void olua_getref(lua_State *L, olua_ref_t ref);
     
 /**
  * ref chain, callback stored in the uservalue
@@ -251,6 +252,7 @@ OLUA_API void olua_getref(lua_State *L, int ref);
 #define OLUA_FLAG_MULTIPLE  (1 << 2) // add & remove: can ref one or more
 #define OLUA_FLAG_TABLE     (1 << 3) // obj is table
 #define OLUA_FLAG_REMOVE    (1 << 4) // internal use
+#define OLUA_NOREFSTORE     INT_MIN
 typedef bool (*olua_DelRefVisitor)(lua_State *L, int idx);
 OLUA_API void olua_getreftable(lua_State *L, int idx, const char *name);
 OLUA_API void olua_addref(lua_State *L, int idx, const char *name, int obj, int flags);
@@ -383,9 +385,22 @@ OLUA_END_DECLS
 #endif
 
 /**
+ * New and close lua_State for several times, sometimes may got same
+ * memory address for lua_State, this because the malloc reuse memory.
+ * olua_context can return different id for each main lua_State.
+ * Define OLUA_HAVE_CONTEXT when you has implemention
+ */
+#ifndef OLUA_HAVE_CONTEXT
+typedef int64_t olua_context_t;
+#endif
+OLUA_BEGIN_DECLS
+OLUA_API olua_context_t olua_context(lua_State *L);
+OLUA_API bool olua_contextequal(lua_State *L, olua_context_t ctx);
+OLUA_END_DECLS
+
+/**
  * Got lua main thread.
  * Define OLUA_HAVE_MAINTHREAD when you has implemention
- *
  */
 OLUA_BEGIN_DECLS
 OLUA_API lua_State *olua_mainthread(lua_State *L);

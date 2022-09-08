@@ -865,12 +865,12 @@ static int _cocos2d_backend_CommandBuffer_captureScreen(lua_State *L)
     void *cb_store = (void *)self;
     std::string cb_tag = "captureScreen";
     std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_NEW);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](const unsigned char *arg1, int arg2, int arg3) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             olua_push_string(L, (const char *)arg1);
             olua_push_int(L, (lua_Integer)arg2);
@@ -2977,12 +2977,12 @@ static int _cocos2d_backend_TextureBackend_getBytes(lua_State *L)
     void *cb_store = (void *)self;
     std::string cb_tag = "Bytes";
     std::string cb_name = olua_setcallback(L, cb_store,  7, cb_tag.c_str(), OLUA_TAG_NEW);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg6 = [cb_store, cb_name, cb_ctx](const unsigned char *arg1, std::size_t arg2, std::size_t arg3) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             olua_push_string(L, (const char *)arg1);
             olua_push_uint(L, (lua_Unsigned)arg2);

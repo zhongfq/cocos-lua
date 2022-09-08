@@ -1219,12 +1219,12 @@ static int _spine_AnimationState_setListener(lua_State *L)
     void *cb_store = (void *)self;
     std::string cb_tag = "Listener";
     std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](spine::AnimationState *arg1, spine::EventType arg2, spine::TrackEntry *arg3, spine::Event *arg4) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             olua_push_cppobj(L, arg1, "sp.AnimationState");
             olua_push_uint(L, (lua_Unsigned)arg2);
@@ -12070,12 +12070,12 @@ static int _spine_TrackEntry_setListener(lua_State *L)
     void *cb_store = (void *)self;
     std::string cb_tag = "Listener";
     std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](spine::AnimationState *arg1, spine::EventType arg2, spine::TrackEntry *arg3, spine::Event *arg4) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             olua_push_cppobj(L, arg1, "sp.AnimationState");
             olua_push_uint(L, (lua_Unsigned)arg2);
@@ -12350,8 +12350,8 @@ static int _spine_SkeletonData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // @extend(spine::SkeletonDataExtend) static oluaret_t __gc(lua_State *L)
-    oluaret_t ret = spine::SkeletonDataExtend::__gc(L);
+    // @extend(spine::SkeletonDataExtend) static olua_return __gc(lua_State *L)
+    olua_return ret = spine::SkeletonDataExtend::__gc(L);
 
     olua_endinvoke(L);
 
@@ -12382,8 +12382,8 @@ static int _spine_SkeletonData_create1(lua_State *L)
     olua_check_string(L, 2, &arg3);
     olua_check_number(L, 3, &arg4);
 
-    // @extend(spine::SkeletonDataExtend) static oluaret_t create(lua_State *L, const char *skelPath, const char *atlasPath, @optional float scale)
-    oluaret_t ret = spine::SkeletonDataExtend::create(L, arg2, arg3, (float)arg4);
+    // @extend(spine::SkeletonDataExtend) static olua_return create(lua_State *L, const char *skelPath, const char *atlasPath, @optional float scale)
+    olua_return ret = spine::SkeletonDataExtend::create(L, arg2, arg3, (float)arg4);
 
     olua_endinvoke(L);
 
@@ -12400,8 +12400,8 @@ static int _spine_SkeletonData_create2(lua_State *L)
     olua_check_string(L, 1, &arg2);
     olua_check_string(L, 2, &arg3);
 
-    // @extend(spine::SkeletonDataExtend) static oluaret_t create(lua_State *L, const char *skelPath, const char *atlasPath, @optional float scale)
-    oluaret_t ret = spine::SkeletonDataExtend::create(L, arg2, arg3);
+    // @extend(spine::SkeletonDataExtend) static olua_return create(lua_State *L, const char *skelPath, const char *atlasPath, @optional float scale)
+    olua_return ret = spine::SkeletonDataExtend::create(L, arg2, arg3);
 
     olua_endinvoke(L);
 
@@ -12414,14 +12414,14 @@ static int _spine_SkeletonData_create(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 1)) && (olua_is_string(L, 2))) {
-            // @extend(spine::SkeletonDataExtend) static oluaret_t create(lua_State *L, const char *skelPath, const char *atlasPath, @optional float scale)
+            // @extend(spine::SkeletonDataExtend) static olua_return create(lua_State *L, const char *skelPath, const char *atlasPath, @optional float scale)
             return _spine_SkeletonData_create2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_string(L, 1)) && (olua_is_string(L, 2)) && (olua_is_number(L, 3))) {
-            // @extend(spine::SkeletonDataExtend) static oluaret_t create(lua_State *L, const char *skelPath, const char *atlasPath, @optional float scale)
+            // @extend(spine::SkeletonDataExtend) static olua_return create(lua_State *L, const char *skelPath, const char *atlasPath, @optional float scale)
             return _spine_SkeletonData_create1(L);
         // }
     }
@@ -16544,12 +16544,12 @@ static int _spine_SkeletonAnimation_setCompleteListener(lua_State *L)
     void *cb_store = (void *)self;
     std::string cb_tag = "CompleteListener";
     std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             olua_push_cppobj(L, arg1, "sp.TrackEntry");
 
@@ -16580,12 +16580,12 @@ static int _spine_SkeletonAnimation_setDisposeListener(lua_State *L)
     void *cb_store = (void *)self;
     std::string cb_tag = "DisposeListener";
     std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             olua_push_cppobj(L, arg1, "sp.TrackEntry");
 
@@ -16658,12 +16658,12 @@ static int _spine_SkeletonAnimation_setEndListener(lua_State *L)
     void *cb_store = (void *)self;
     std::string cb_tag = "EndListener";
     std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             olua_push_cppobj(L, arg1, "sp.TrackEntry");
 
@@ -16694,12 +16694,12 @@ static int _spine_SkeletonAnimation_setEventListener(lua_State *L)
     void *cb_store = (void *)self;
     std::string cb_tag = "EventListener";
     std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1, spine::Event *arg2) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             olua_push_cppobj(L, arg1, "sp.TrackEntry");
             olua_push_cppobj(L, arg2, "sp.Event");
@@ -16731,12 +16731,12 @@ static int _spine_SkeletonAnimation_setInterruptListener(lua_State *L)
     void *cb_store = (void *)self;
     std::string cb_tag = "InterruptListener";
     std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             olua_push_cppobj(L, arg1, "sp.TrackEntry");
 
@@ -16789,12 +16789,12 @@ static int _spine_SkeletonAnimation_setPostUpdateWorldTransformsListener(lua_Sta
     void *cb_store = (void *)self;
     std::string cb_tag = "PostUpdateWorldTransformsListener";
     std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](spine::SkeletonAnimation *arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
@@ -16830,12 +16830,12 @@ static int _spine_SkeletonAnimation_setPreUpdateWorldTransformsListener(lua_Stat
     void *cb_store = (void *)self;
     std::string cb_tag = "PreUpdateWorldTransformsListener";
     std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](spine::SkeletonAnimation *arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
@@ -16871,12 +16871,12 @@ static int _spine_SkeletonAnimation_setStartListener(lua_State *L)
     void *cb_store = (void *)self;
     std::string cb_tag = "StartListener";
     std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             olua_push_cppobj(L, arg1, "sp.TrackEntry");
 
@@ -16909,12 +16909,12 @@ static int _spine_SkeletonAnimation_setTrackCompleteListener(lua_State *L)
     void *cb_store = (void *)self;
     std::string cb_tag = "TrackCompleteListener";
     std::string cb_name = olua_setcallback(L, cb_store,  3, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             olua_push_cppobj(L, arg1, "sp.TrackEntry");
 
@@ -16947,12 +16947,12 @@ static int _spine_SkeletonAnimation_setTrackDisposeListener(lua_State *L)
     void *cb_store = (void *)self;
     std::string cb_tag = "TrackDisposeListener";
     std::string cb_name = olua_setcallback(L, cb_store,  3, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             olua_push_cppobj(L, arg1, "sp.TrackEntry");
 
@@ -16985,12 +16985,12 @@ static int _spine_SkeletonAnimation_setTrackEndListener(lua_State *L)
     void *cb_store = (void *)self;
     std::string cb_tag = "TrackEndListener";
     std::string cb_name = olua_setcallback(L, cb_store,  3, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             olua_push_cppobj(L, arg1, "sp.TrackEntry");
 
@@ -17023,12 +17023,12 @@ static int _spine_SkeletonAnimation_setTrackEventListener(lua_State *L)
     void *cb_store = (void *)self;
     std::string cb_tag = "TrackEventListener";
     std::string cb_name = olua_setcallback(L, cb_store,  3, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1, spine::Event *arg2) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             olua_push_cppobj(L, arg1, "sp.TrackEntry");
             olua_push_cppobj(L, arg2, "sp.Event");
@@ -17062,12 +17062,12 @@ static int _spine_SkeletonAnimation_setTrackInterruptListener(lua_State *L)
     void *cb_store = (void *)self;
     std::string cb_tag = "TrackInterruptListener";
     std::string cb_name = olua_setcallback(L, cb_store,  3, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             olua_push_cppobj(L, arg1, "sp.TrackEntry");
 
@@ -17100,12 +17100,12 @@ static int _spine_SkeletonAnimation_setTrackStartListener(lua_State *L)
     void *cb_store = (void *)self;
     std::string cb_tag = "TrackStartListener";
     std::string cb_name = olua_setcallback(L, cb_store,  3, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    lua_Integer cb_ctx = olua_context(L);
+    olua_context_t cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](spine::TrackEntry *arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
-        if (L != NULL && olua_context(L) == cb_ctx) {
+        if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
             olua_push_cppobj(L, arg1, "sp.TrackEntry");
 

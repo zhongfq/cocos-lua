@@ -10,30 +10,20 @@ void timer::schedule(float interval, unsigned int repeat, const std::string &tag
     scheduler->schedule(callback, scheduler, interval, repeat, 0, false, tag);
 }
 
-void timer::unschedule(const std::string &tag)
-{
-    auto scheduler = Director::getInstance()->getScheduler();
-    scheduler->unschedule(tag, scheduler);
-}
-
-const std::string timer::createScheduleTag(unsigned int handler)
-{
-    char buf[128];
-    snprintf(buf, sizeof(buf), "timer::schedule::%d", handler);
-    return std::string(buf);
-}
-
-unsigned int timer::createScheduleHandler()
-{
-    static unsigned int ref = 0;
-    return ++ref;
-}
-
 std::string timer::createTag()
 {
+    static unsigned int s_count = 0;
     char buf[128];
-    snprintf(buf, sizeof(buf), "timer::delay::%d", createScheduleHandler());
-    return std::string(buf);
+    std::string tag;
+    auto scheduler = Director::getInstance()->getScheduler();
+    while (true) {
+        snprintf(buf, sizeof(buf), "timer.tag%d", ++s_count);
+        tag = std::string(buf);
+        if (!scheduler->isScheduled(tag, scheduler)) {
+            break;
+        }
+    }
+    return tag;
 }
 
 void timer::delayWithTag(float time, const std::string &tag, std::function<void ()> callback)
@@ -51,24 +41,21 @@ void timer::killDelay(const std::string &tag)
 
 void timer::delay(float time, const std::function<void ()> callback)
 {
-    unsigned int handler = timer::createScheduleHandler();
-    const std::string tag = timer::createScheduleTag(handler);
+    const std::string tag = timer::createTag();
     timer::schedule(time, 0, tag, [=](float delta) {
         callback();
     });
 }
 
-unsigned int timer::schedule(float interval, const std::function<void (float)> callback)
+void timer::schedule(float interval, const std::string &tag, const std::function<void (float)> callback)
 {
-    unsigned int handler = timer::createScheduleHandler();
-    const std::string tag = timer::createScheduleTag(handler);
     timer::schedule(fmax(0.0f, interval), CC_REPEAT_FOREVER, tag, callback);
-    return handler;
 }
 
-void timer::unschedule(unsigned int handler)
+void timer::unschedule(const std::string &tag)
 {
-    timer::unschedule(timer::createScheduleTag(handler));
+    auto scheduler = Director::getInstance()->getScheduler();
+    scheduler->unschedule(tag, scheduler);
 }
 
 NS_CCLUA_END

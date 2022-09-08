@@ -15,7 +15,7 @@ public:
     static void setDispatcher(const cclua::Callback &dispatcher)
     {
 #ifdef CCLUA_OS_ANDROID
-        callback_t func = runtime::ref(dispatcher);
+        olua_ref_t func = runtime::ref(dispatcher);
         Jni::callStaticVoidMethod(JAVA_CLASS, "setDispatcher", func);
 #else
         _dispatcher = dispatcher;

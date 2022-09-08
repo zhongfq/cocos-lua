@@ -1,52 +1,43 @@
-#include "Lame.h"
+#include "MP3Encoder.h"
 
 #include <chrono>
 
 USING_NS_CCLUA;
 
-Lame::Lame()
-:_needQuit(false)
-,_done(false)
+MP3Encoder::MP3Encoder()
+:_stopped(false)
 ,_workThread(nullptr)
 ,_lame(nullptr)
 {
     _lame = lame_init();
 }
 
-Lame::~Lame()
+MP3Encoder::~MP3Encoder()
 {
     stop();
     lame_close(_lame);
 }
 
-void Lame::start(const std::string &pcmPath, const std::string &mp3Path)
+void MP3Encoder::start(const std::string &pcmPath, const std::string &mp3Path)
 {
-    if (!_workThread && !_done) {
+    if (!_workThread && !_stopped) {
         _pcmPath = pcmPath;
         _mp3Path = mp3Path;
-        _workThread = new std::thread(&Lame::doConvert, this);
+        _workThread = new std::thread(&MP3Encoder::doConvert, this);
     }
 }
 
-void Lame::stop()
+void MP3Encoder::stop()
 {
     if (_workThread) {
-        _done = true;
+        _stopped = true;
         _workThread->join();
         delete _workThread;
         _workThread = nullptr;
     }
 }
 
-void Lame::cancel()
-{
-    if (!_needQuit) {
-        _needQuit = true;
-        stop();
-    }
-}
-
-void Lame::doConvert()
+void MP3Encoder::doConvert()
 {
     FILE *pcmFile = NULL;
     FILE *mp3File = NULL;
@@ -61,7 +52,7 @@ void Lame::doConvert()
     
     bool skippedHeader = false;
     
-    while (!_needQuit) {
+    while (true) {
         // may be not create, try again
         if (!pcmFile) {
             pcmFile = fopen(_pcmPath.c_str(), "rb");
@@ -71,7 +62,7 @@ void Lame::doConvert()
             mp3File = fopen(_mp3Path.c_str(), "wb");
         }
         
-        if ((!pcmFile || !mp3File) && _done) {
+        if ((!pcmFile || !mp3File) && _stopped) {
             break;
         }
         
@@ -80,11 +71,10 @@ void Lame::doConvert()
             continue;
         }
         
-        long curPos = ftell(pcmFile);
         long startPos = ftell(pcmFile);
         fseek(pcmFile, 0, SEEK_END);
         long endPos = ftell(pcmFile);
-        fseek(pcmFile, curPos, SEEK_SET);
+        fseek(pcmFile, startPos, SEEK_SET);
         long len = endPos - startPos;
         
         if (!skippedHeader) {
@@ -92,19 +82,21 @@ void Lame::doConvert()
             if (len > 44 + numChannels * 20 * 1024) {
                 skippedHeader = true;
                 fseek(pcmFile, 44 + numChannels * 20 * 1024, SEEK_SET);
+            } else if (_stopped) {
+                break;
             } else {
                 std::this_thread::sleep_for(std::chrono::milliseconds(100));
             }
             continue;
         }
         
-        if (len > (sizeof(short) * inbufSize) || (_done && len > 0)) {
+        if (len > (sizeof(short) * inbufSize) || (_stopped && len > 0)) {
             size_t numRead = fread(inbuf, sizeof(short) * numChannels, inbufSize / numChannels, pcmFile);
             if (numRead > 0) {
                 size_t numWrite = lame_encode_buffer_interleaved(_lame, inbuf, (int)numRead, outbuf, outbufSize);
                 fwrite(outbuf, sizeof(unsigned char), numWrite, mp3File);
             }
-        } else if (len == 0 && _done) {
+        } else if (len == 0 && _stopped) {
             size_t numWrite = lame_encode_flush(_lame, outbuf, outbufSize);
             fwrite(outbuf, sizeof(unsigned char), numWrite, mp3File);
             break;
@@ -127,7 +119,7 @@ void Lame::doConvert()
 }
 
 
-void Lame::initParams()
+void MP3Encoder::initParams()
 {
     lame_init_params(_lame);
 }

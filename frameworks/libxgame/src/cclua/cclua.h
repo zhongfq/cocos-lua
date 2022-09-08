@@ -4,7 +4,7 @@
 #include "cclua-extend.h"
 #include "downloader.h"
 #include "filesystem.h"
-#include "Lame.h"
+#include "MP3Encoder.h"
 #include "microphone.h"
 #include "olua-2dx.h"
 #include "permission.h"

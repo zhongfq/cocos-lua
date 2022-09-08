@@ -17711,7 +17711,7 @@ static int _cocostudio_timeline_ActionTimeline_addAnimationInfo(lua_State *L)
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
 
-            if (olua_contextequal(L, cb_ctx) {
+            if (olua_contextequal(L, cb_ctx)) {
                 int top = lua_gettop(L);
 
                 olua_callback(L, cb_store, cb_name.c_str(), 0);

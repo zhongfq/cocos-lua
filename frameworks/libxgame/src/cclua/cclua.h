@@ -14,6 +14,7 @@
 #include "RootScene.h"
 #include "runtime.h"
 #include "timer.h"
+#include "XMLHttpRequest.h"
 #include "window.h"
 
 #endif

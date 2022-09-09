@@ -1,8 +1,6 @@
-local M = {}
+local lfs = require "lfs"
 
-function __TRACEBACK__(message)
-    print(debug.traceback(message))
-end
+local pattern = {}
 
 local dummy_str = '<dummy str>'
 
@@ -23,24 +21,18 @@ local function func ()
 end
 
 local function REG(classname, impl)
-    package.preload[classname] = impl or func
+    if classname:find('^[%^]') then
+        pattern[classname] = true
+    else
+        package.preload[classname] = impl or func
+    end
 end
 
 REG 'base64'
 REG 'openssl'
 
-REG 'cclua.luaj'
-REG 'cclua.luaoc'
-REG 'cclua.bugly'
-REG 'cclua.Lame.VBRMode'
-REG 'cclua.Lame.MPEGMode'
-REG 'cclua.Lame'
 REG 'cclua.photo'
 REG 'cclua.downloader'
-REG 'cclua.QRCode.ECLevel'
-REG 'cclua.QRCode.EncodeMode'
-REG 'cclua.QRCode'
-REG 'cclua.permission'
 REG 'cclua.preferences'
 REG 'cclua.microphone'
 REG('cclua.window', function ()
@@ -87,34 +79,48 @@ REG('cclua.filesystem', function ()
     }, {__index = func})
 end)
 
-REG 'cclua.Container'
-REG 'cclua.SceneNoCamera'
-
-REG 'cclua.plugin.alipay'
-REG 'cclua.plugin.apple'
-REG 'cclua.plugin.huawei'
-REG 'cclua.plugin.janalytics'
-REG 'cclua.plugin.jauth'
-REG 'cclua.plugin.jpush'
-REG 'cclua.plugin.oppo'
-REG 'cclua.plugin.talkingdata'
-REG 'cclua.plugin.vivo'
-REG 'cclua.plugin.wechat'
-
 local _require = require
 
-function require(path)
-    if not package.preload[path] and (
-        string.find(path, 'cc.', 1, true) == 1 or
-        string.find(path, 'ccb.', 1, true) == 1 or
-        string.find(path, 'ccui.', 1, true) == 1 or
-        string.find(path, 'fgui.', 1, true) == 1 or
-        string.find(path, 'swf.', 1, true) == 1)
-    then
-        return setmetatable({}, getmetatable(func()))
-    else
-        return _require(path)
+local function has_file(path)
+    path = path:gsub('%.', '/')
+    for v in string.gmatch(package.path, '[^;]+') do
+        local f = v:gsub('%?', path)
+        local attr = lfs.attributes(f)
+        if attr and attr.mode == 'file' then
+            return true
+        end
     end
+    return false
 end
 
-return M
+function require(path)
+    if package.loaded[path] then
+        return package.loaded[path]
+    end
+
+    if has_file(path) then
+        return _require(path)
+    end
+
+    if not package.preload[path] then
+        for v in pairs(pattern) do
+            if string.find(path, v) then
+                package.loaded[path] = setmetatable({}, getmetatable(func()))
+                return require(path)
+            end
+        end
+    end
+
+    return _require(path)
+end
+
+REG '^cc%.'
+REG '^ccb%.'
+REG '^ccui%.'
+REG '^fgui%.'
+REG '^cclua%.'
+REG '^swf%.'
+
+return {
+    REG = REG
+}

@@ -3775,6 +3775,580 @@ OLUA_LIB int luaopen_cclua_Container(lua_State *L)
 }
 OLUA_END_DECLS
 
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_XMLHttpRequest_ResponseType(lua_State *L)
+{
+    oluacls_class(L, "cclua.XMLHttpRequest.ResponseType", nullptr);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
+    oluacls_const_integer(L, "ARRAY_BUFFER", (lua_Integer)cclua::XMLHttpRequest::ResponseType::ARRAY_BUFFER);
+    oluacls_const_integer(L, "BLOB", (lua_Integer)cclua::XMLHttpRequest::ResponseType::BLOB);
+    oluacls_const_integer(L, "DOCUMENT", (lua_Integer)cclua::XMLHttpRequest::ResponseType::DOCUMENT);
+    oluacls_const_integer(L, "JSON", (lua_Integer)cclua::XMLHttpRequest::ResponseType::JSON);
+    oluacls_const_integer(L, "STRING", (lua_Integer)cclua::XMLHttpRequest::ResponseType::STRING);
+
+    olua_registerluatype<cclua::XMLHttpRequest::ResponseType>(L, "cclua.XMLHttpRequest.ResponseType");
+
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _cclua_XMLHttpRequest___olua_move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cclua::XMLHttpRequest *)olua_toobj(L, 1, "cclua.XMLHttpRequest");
+    olua_push_cppobj(L, self, "cclua.XMLHttpRequest");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cclua_XMLHttpRequest_abort(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+
+    // void abort()
+    self->abort();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cclua_XMLHttpRequest_getAllResponseHeaders(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+
+    // const std::unordered_map<std::string, std::string> &getAllResponseHeaders()
+    const std::unordered_map<std::string, std::string> &ret = self->getAllResponseHeaders();
+    int num_ret = olua_push_map<std::string, std::string>(L, &ret, [L](std::string arg1, std::string arg2) {
+        olua_push_std_string(L, (std::string)arg1);
+        olua_push_std_string(L, (std::string)arg2);
+    });
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cclua_XMLHttpRequest_getDataSize(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+
+    // size_t getDataSize()
+    size_t ret = self->getDataSize();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cclua_XMLHttpRequest_getDataStr(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+
+    // const std::string &getDataStr()
+    const std::string &ret = self->getDataStr();
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cclua_XMLHttpRequest_getErrorFlag(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+
+    // bool getErrorFlag()
+    bool ret = self->getErrorFlag();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cclua_XMLHttpRequest_getReadyState(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+
+    // int getReadyState()
+    int ret = self->getReadyState();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cclua_XMLHttpRequest_getResponse(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @extend(cclua::XMLHttpRequest::Extend) static olua_return getResponse(lua_State *L)
+    olua_return ret = cclua::XMLHttpRequest::Extend::getResponse(L);
+
+    olua_endinvoke(L);
+
+    return (int)ret;
+}
+
+static int _cclua_XMLHttpRequest_getResponseHeader(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_check_std_string(L, 2, &arg1);
+
+    // const char *getResponseHeader(const std::string &name)
+    const char *ret = self->getResponseHeader(arg1);
+    int num_ret = olua_push_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cclua_XMLHttpRequest_getResponseType(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+
+    // cclua::XMLHttpRequest::ResponseType getResponseType()
+    cclua::XMLHttpRequest::ResponseType ret = self->getResponseType();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cclua_XMLHttpRequest_getResponseURL(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+
+    // const std::string &getResponseURL()
+    const std::string &ret = self->getResponseURL();
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cclua_XMLHttpRequest_getStatus(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+
+    // int getStatus()
+    int ret = self->getStatus();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cclua_XMLHttpRequest_getStatusText(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+
+    // const std::string &getStatusText()
+    const std::string &ret = self->getStatusText();
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cclua_XMLHttpRequest_getTimeout(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+
+    // unsigned int getTimeout()
+    unsigned int ret = self->getTimeout();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cclua_XMLHttpRequest_getURL(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+
+    // const std::string &getURL()
+    const std::string &ret = self->getURL();
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cclua_XMLHttpRequest_getWithCredentials(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+
+    // bool getWithCredentials()
+    bool ret = self->getWithCredentials();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cclua_XMLHttpRequest_isAborted(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+
+    // bool isAborted()
+    bool ret = self->isAborted();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cclua_XMLHttpRequest_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // XMLHttpRequest()
+    cclua::XMLHttpRequest *ret = new cclua::XMLHttpRequest();
+    int num_ret = olua_push_cppobj(L, ret, "cclua.XMLHttpRequest");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cclua_XMLHttpRequest_open(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+    std::string arg1;       /** method */
+    std::string arg2;       /** url */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // void open(const std::string &method, const std::string &url)
+    self->open(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cclua_XMLHttpRequest_send1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+    cocos2d::Data arg1;       /** data */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_check_cocos2d_Data(L, 2, &arg1);
+
+    // void send(const cocos2d::Data &data)
+    self->send(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cclua_XMLHttpRequest_send2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+
+    // void send()
+    self->send();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cclua_XMLHttpRequest_send(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        // void send()
+        return _cclua_XMLHttpRequest_send2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_cocos2d_Data(L, 2))) {
+            // void send(const cocos2d::Data &data)
+            return _cclua_XMLHttpRequest_send1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cclua::XMLHttpRequest::send' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cclua_XMLHttpRequest_setErrorFlag(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+    bool arg1 = false;       /** errorFlag */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setErrorFlag(bool errorFlag)
+    self->setErrorFlag(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cclua_XMLHttpRequest_setRequestHeader(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+    std::string arg1;       /** name */
+    std::string arg2;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // void setRequestHeader(const std::string &name, const std::string &value)
+    self->setRequestHeader(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cclua_XMLHttpRequest_setResponseCallback(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+    std::function<void(int)> arg1;       /** handler */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_check_callback(L, 2, &arg1, "std.function");
+
+    void *cb_store = (void *)self;
+    std::string cb_tag = "ResponseCallback";
+    std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
+    olua_context_t cb_ctx = olua_context(L);
+    arg1 = [cb_store, cb_name, cb_ctx](int arg1) {
+        lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
+
+        if (olua_contextequal(L, cb_ctx)) {
+            int top = lua_gettop(L);
+            olua_push_int(L, (lua_Integer)arg1);
+
+            olua_callback(L, cb_store, cb_name.c_str(), 1);
+
+            lua_settop(L, top);
+        }
+    };
+
+    // void setResponseCallback(@localvar std::function<void (int)> handler)
+    self->setResponseCallback(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cclua_XMLHttpRequest_setResponseType(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setResponseType(cclua::XMLHttpRequest::ResponseType value)
+    self->setResponseType((cclua::XMLHttpRequest::ResponseType)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cclua_XMLHttpRequest_setTimeout(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setTimeout(unsigned int value)
+    self->setTimeout((unsigned int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cclua_XMLHttpRequest_setWithCredentials(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cclua::XMLHttpRequest *self = nullptr;
+    bool arg1 = false;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setWithCredentials(bool value)
+    self->setWithCredentials(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_XMLHttpRequest(lua_State *L)
+{
+    oluacls_class(L, "cclua.XMLHttpRequest", "cc.Ref");
+    oluacls_func(L, "__olua_move", _cclua_XMLHttpRequest___olua_move);
+    oluacls_func(L, "abort", _cclua_XMLHttpRequest_abort);
+    oluacls_func(L, "getAllResponseHeaders", _cclua_XMLHttpRequest_getAllResponseHeaders);
+    oluacls_func(L, "getDataSize", _cclua_XMLHttpRequest_getDataSize);
+    oluacls_func(L, "getDataStr", _cclua_XMLHttpRequest_getDataStr);
+    oluacls_func(L, "getErrorFlag", _cclua_XMLHttpRequest_getErrorFlag);
+    oluacls_func(L, "getReadyState", _cclua_XMLHttpRequest_getReadyState);
+    oluacls_func(L, "getResponse", _cclua_XMLHttpRequest_getResponse);
+    oluacls_func(L, "getResponseHeader", _cclua_XMLHttpRequest_getResponseHeader);
+    oluacls_func(L, "getResponseType", _cclua_XMLHttpRequest_getResponseType);
+    oluacls_func(L, "getResponseURL", _cclua_XMLHttpRequest_getResponseURL);
+    oluacls_func(L, "getStatus", _cclua_XMLHttpRequest_getStatus);
+    oluacls_func(L, "getStatusText", _cclua_XMLHttpRequest_getStatusText);
+    oluacls_func(L, "getTimeout", _cclua_XMLHttpRequest_getTimeout);
+    oluacls_func(L, "getURL", _cclua_XMLHttpRequest_getURL);
+    oluacls_func(L, "getWithCredentials", _cclua_XMLHttpRequest_getWithCredentials);
+    oluacls_func(L, "isAborted", _cclua_XMLHttpRequest_isAborted);
+    oluacls_func(L, "new", _cclua_XMLHttpRequest_new);
+    oluacls_func(L, "open", _cclua_XMLHttpRequest_open);
+    oluacls_func(L, "send", _cclua_XMLHttpRequest_send);
+    oluacls_func(L, "setErrorFlag", _cclua_XMLHttpRequest_setErrorFlag);
+    oluacls_func(L, "setRequestHeader", _cclua_XMLHttpRequest_setRequestHeader);
+    oluacls_func(L, "setResponseCallback", _cclua_XMLHttpRequest_setResponseCallback);
+    oluacls_func(L, "setResponseType", _cclua_XMLHttpRequest_setResponseType);
+    oluacls_func(L, "setTimeout", _cclua_XMLHttpRequest_setTimeout);
+    oluacls_func(L, "setWithCredentials", _cclua_XMLHttpRequest_setWithCredentials);
+    oluacls_prop(L, "aborted", _cclua_XMLHttpRequest_isAborted, nullptr);
+    oluacls_prop(L, "allResponseHeaders", _cclua_XMLHttpRequest_getAllResponseHeaders, nullptr);
+    oluacls_prop(L, "dataSize", _cclua_XMLHttpRequest_getDataSize, nullptr);
+    oluacls_prop(L, "dataStr", _cclua_XMLHttpRequest_getDataStr, nullptr);
+    oluacls_prop(L, "errorFlag", _cclua_XMLHttpRequest_getErrorFlag, _cclua_XMLHttpRequest_setErrorFlag);
+    oluacls_prop(L, "readyState", _cclua_XMLHttpRequest_getReadyState, nullptr);
+    oluacls_prop(L, "response", _cclua_XMLHttpRequest_getResponse, nullptr);
+    oluacls_prop(L, "responseType", _cclua_XMLHttpRequest_getResponseType, _cclua_XMLHttpRequest_setResponseType);
+    oluacls_prop(L, "responseURL", _cclua_XMLHttpRequest_getResponseURL, nullptr);
+    oluacls_prop(L, "status", _cclua_XMLHttpRequest_getStatus, nullptr);
+    oluacls_prop(L, "statusText", _cclua_XMLHttpRequest_getStatusText, nullptr);
+    oluacls_prop(L, "timeout", _cclua_XMLHttpRequest_getTimeout, _cclua_XMLHttpRequest_setTimeout);
+    oluacls_prop(L, "url", _cclua_XMLHttpRequest_getURL, nullptr);
+    oluacls_prop(L, "withCredentials", _cclua_XMLHttpRequest_getWithCredentials, _cclua_XMLHttpRequest_setWithCredentials);
+    oluacls_const_integer(L, "DONE", (lua_Unsigned)cclua::XMLHttpRequest::DONE);
+    oluacls_const_integer(L, "HEADERS_RECEIVED", (lua_Unsigned)cclua::XMLHttpRequest::HEADERS_RECEIVED);
+    oluacls_const_integer(L, "LOADING", (lua_Unsigned)cclua::XMLHttpRequest::LOADING);
+    oluacls_const_integer(L, "OPENED", (lua_Unsigned)cclua::XMLHttpRequest::OPENED);
+    oluacls_const_integer(L, "UNSENT", (lua_Unsigned)cclua::XMLHttpRequest::UNSENT);
+
+    olua_registerluatype<cclua::XMLHttpRequest>(L, "cclua.XMLHttpRequest");
+
+    return 1;
+}
+OLUA_END_DECLS
+
 #if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_MP3Encoder_VBRMode(lua_State *L)
@@ -6811,6 +7385,8 @@ OLUA_LIB int luaopen_xgame(lua_State *L)
     olua_require(L, "cclua.window", luaopen_cclua_window);
     olua_require(L, "cclua.downloader", luaopen_cclua_downloader);
     olua_require(L, "cclua.Container", luaopen_cclua_Container);
+    olua_require(L, "cclua.XMLHttpRequest.ResponseType", luaopen_cclua_XMLHttpRequest_ResponseType);
+    olua_require(L, "cclua.XMLHttpRequest", luaopen_cclua_XMLHttpRequest);
 #if defined(CCLUA_OS_IOS) || defined(CCLUA_OS_ANDROID)
     olua_require(L, "cclua.MP3Encoder.VBRMode", luaopen_cclua_MP3Encoder_VBRMode);
     olua_require(L, "cclua.MP3Encoder.MPEGMode", luaopen_cclua_MP3Encoder_MPEGMode);

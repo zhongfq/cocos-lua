@@ -1,7 +1,9 @@
 #include "cclua/XMLHttpRequest.h"
 #include "cclua/runtime.h"
 #include "cclua/timer.h"
+#include "cjson/lua_cjson.h"
 
+USING_NS_CCLUA;
 USING_NS_CC;
 
 XMLHttpRequest::XMLHttpRequest()
@@ -65,14 +67,14 @@ void XMLHttpRequest::setTimeout(unsigned int value)
     _timeout = value;
 }
 
-void XMLHttpRequest::send(const char *data, size_t len)
+void XMLHttpRequest::send(const cocos2d::Data &data)
 {
     if (_httpRequest->getCallback()) {
         return;
     }
     
-    if (data) {
-        _httpRequest->setRequestData(data, len);
+    if (data.getSize() > 0) {
+        _httpRequest->setRequestData((const char *)data.getBytes(), (size_t)data.getSize());
     }
     
     _responseHeaders.clear();
@@ -97,11 +99,17 @@ void XMLHttpRequest::send(const char *data, size_t len)
             _aborted = true;
             _status = 408; // timeout
             if (_callback) {
-                _callback(this);
+                _callback(_status);
             }
             release();
         }, this, (float)_timeout, false, "timeout");
     }
+}
+
+void XMLHttpRequest::send()
+{
+    Data data;
+    send(data);
 }
 
 void XMLHttpRequest::abort()
@@ -109,18 +117,18 @@ void XMLHttpRequest::abort()
     _aborted = true;
 }
 
-const std::string XMLHttpRequest::getResponseURL()
+const std::string &XMLHttpRequest::getResponseURL()
 {
     return _url;
 }
 
-const std::string XMLHttpRequest::getResponseHeader(const std::string &name) const
+const char *XMLHttpRequest::getResponseHeader(const std::string &name) const
 {
     auto it = _responseHeaders.find(name);
     if (it != _responseHeaders.end()) {
-        return it->second;
+        return it->second.c_str();
     } else {
-        return "";
+        return nullptr;
     }
 }
 
@@ -132,7 +140,7 @@ void XMLHttpRequest::doSendRequest()
         
         if (_aborted) {
             if (_callback) {
-                _callback(this);
+                _callback(_status);
             }
             release();
             return;
@@ -148,7 +156,7 @@ void XMLHttpRequest::doSendRequest()
             }
             
             if (_callback) {
-                _callback(this);
+                _callback(_status);
             }
             release();
             return;
@@ -176,7 +184,7 @@ void XMLHttpRequest::doSendRequest()
         }
         
         if (_callback) {
-            _callback(this);
+            _callback(_status);
         }
         
         release();
@@ -205,4 +213,27 @@ void XMLHttpRequest::parseResponseHeader(const std::string& header)
             }
         }
     }
+}
+
+olua_return XMLHttpRequest::Extend::getResponse(lua_State *L)
+{
+    XMLHttpRequest *request = olua_toobj<XMLHttpRequest>(L, 1);
+    if (request->getResponseType() == XMLHttpRequest::ResponseType::JSON) {
+        luaL_requiref(L, "__private_cjson_safe", luaopen_cjson_safe, false);
+        lua_getfield(L, -1, "decode");
+        luaL_checktype(L, -1, LUA_TFUNCTION);
+        lua_pushlstring(L, request->getDataStr().c_str(), request->getDataSize());
+        lua_pcall(L, 1, 1, 0);
+    } else if (request->getResponseType() == XMLHttpRequest::ResponseType::ARRAY_BUFFER) {
+        int len = (int)request->getDataSize();
+        lua_createtable(L, 0, len);
+        const char *str = request->getDataStr().c_str();
+        for (int i = 0; i < len; i++) {
+            lua_pushinteger(L, str[i]);
+            lua_rawseti(L, -2, i + 1);
+        }
+    } else {
+        lua_pushlstring(L, request->getDataStr().c_str(), request->getDataSize());
+    }
+    return 1;
 }

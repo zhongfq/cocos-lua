@@ -7,7 +7,6 @@
 #include "lua_cocos2d_physics.h"
 #include "lua_cocos2d_ui.h"
 #include "lua_manual.h"
-#include "lua_xml_http_request.h"
 #include "lua_socket.h"
 #include "cjson/lua_cjson.h"
 #include "md5/lua_md5.h"
@@ -33,7 +32,6 @@ int luaopen_bindings(lua_State *L)
     olua_callfunc(L, luaopen_cocos2d_physics);
     olua_callfunc(L, luaopen_cocos2d_ui);
     olua_callfunc(L, luaopen_xgame);
-    olua_callfunc(L, luaopen_xml_http_request);
     olua_callfunc(L, luaopen_manual);
     
     olua_require(L, "lfs", luaopen_lfs);

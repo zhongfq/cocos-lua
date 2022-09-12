@@ -202,7 +202,7 @@ static int _cocos2d_CSLoader_createNode2(lua_State *L)
     void *cb_store = (void *)olua_pushclassobj(L, "cc.CSLoader");
     std::string cb_tag = "createNode";
     std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_NEW);
-    olua_context_t cb_ctx = olua_context(L);
+    olua_Context cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](cocos2d::Ref *arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
@@ -263,7 +263,7 @@ static int _cocos2d_CSLoader_createNode4(lua_State *L)
     void *cb_store = (void *)olua_pushclassobj(L, "cc.CSLoader");
     std::string cb_tag = "createNode";
     std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_NEW);
-    olua_context_t cb_ctx = olua_context(L);
+    olua_Context cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](cocos2d::Ref *arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
@@ -414,7 +414,7 @@ static int _cocos2d_CSLoader_createNodeWithVisibleSize2(lua_State *L)
     void *cb_store = (void *)olua_pushclassobj(L, "cc.CSLoader");
     std::string cb_tag = "createNodeWithVisibleSize";
     std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_NEW);
-    olua_context_t cb_ctx = olua_context(L);
+    olua_Context cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](cocos2d::Ref *arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
@@ -4324,7 +4324,7 @@ static int _cocostudio_ArmatureAnimation_setFrameEventCallFunc(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        olua_context_t cb_ctx = olua_context(L);
+        olua_Context cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocostudio::Bone *arg1, const std::string &arg2, int arg3, int arg4) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
@@ -4347,7 +4347,7 @@ static int _cocostudio_ArmatureAnimation_setFrameEventCallFunc(lua_State *L)
             }
         };
     } else {
-        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -4376,7 +4376,7 @@ static int _cocostudio_ArmatureAnimation_setMovementEventCallFunc(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        olua_context_t cb_ctx = olua_context(L);
+        olua_Context cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocostudio::Armature *arg1, cocostudio::MovementEventType arg2, const std::string &arg3) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
@@ -4398,7 +4398,7 @@ static int _cocostudio_ArmatureAnimation_setMovementEventCallFunc(lua_State *L)
             }
         };
     } else {
-        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -12815,7 +12815,7 @@ static int _cocostudio_SceneReader_setTarget(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        olua_context_t cb_ctx = olua_context(L);
+        olua_Context cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocos2d::Ref *arg1, void *arg2) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
@@ -12836,7 +12836,7 @@ static int _cocostudio_SceneReader_setTarget(lua_State *L)
             }
         };
     } else {
-        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -17706,7 +17706,7 @@ static int _cocostudio_timeline_ActionTimeline_addAnimationInfo(lua_State *L)
         void *cb_store = (void *)self;
         std::string cb_tag = makeFrameEndCallbackTag(arg1.endIndex, arg1.name);
         std::string cb_name = olua_setcallback(L, cb_store, -1, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        olua_context_t cb_ctx = olua_context(L);
+        olua_Context cb_ctx = olua_context(L);
         arg1.clipEndCallBack = [cb_store, cb_name, cb_ctx]() {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
@@ -17746,7 +17746,7 @@ static int _cocostudio_timeline_ActionTimeline_addFrameEndCallFunc(lua_State *L)
     void *cb_store = (void *)self;
     std::string cb_tag = makeFrameEndCallbackTag(arg1, arg2);
     std::string cb_name = olua_setcallback(L, cb_store,  4, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    olua_context_t cb_ctx = olua_context(L);
+    olua_Context cb_ctx = olua_context(L);
     arg3 = [cb_store, cb_name, cb_ctx]() {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
@@ -17797,10 +17797,6 @@ static int _cocostudio_timeline_ActionTimeline_clearFrameEndCallFuncs(lua_State 
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.ActionTimeline");
 
-    std::string cb_tag = makeFrameEndCallbackTag(-1, "");
-    void *cb_store = (void *)self;
-    olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBSTARTWITH);
-
     // void clearFrameEndCallFuncs()
     self->clearFrameEndCallFuncs();
 
@@ -17817,10 +17813,6 @@ static int _cocostudio_timeline_ActionTimeline_clearFrameEventCallFunc(lua_State
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.ActionTimeline");
 
-    std::string cb_tag = "frameEventCallFunc";
-    void *cb_store = (void *)self;
-    olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBSTARTWITH);
-
     // void clearFrameEventCallFunc()
     self->clearFrameEventCallFunc();
 
@@ -17836,10 +17828,6 @@ static int _cocostudio_timeline_ActionTimeline_clearLastFrameCallFunc(lua_State 
     cocostudio::timeline::ActionTimeline *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.ActionTimeline");
-
-    std::string cb_tag = "lastFrameCallFunc";
-    void *cb_store = (void *)self;
-    olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBSTARTWITH);
 
     // void clearLastFrameCallFunc()
     self->clearLastFrameCallFunc();
@@ -18208,7 +18196,7 @@ static int _cocostudio_timeline_ActionTimeline_removeAnimationInfo(lua_State *L)
     auto info = self->getAnimationInfo(arg1);
     std::string cb_tag = makeFrameEndCallbackTag(info.endIndex, arg1);
     void *cb_store = (void *)self;
-    olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBSTARTWITH);
+    olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_STARTWITH);
 
     // void removeAnimationInfo(const std::string &animationName)
     self->removeAnimationInfo(arg1);
@@ -18230,10 +18218,6 @@ static int _cocostudio_timeline_ActionTimeline_removeFrameEndCallFunc(lua_State 
     olua_check_int(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
 
-    std::string cb_tag = makeFrameEndCallbackTag(arg1, arg2);
-    void *cb_store = (void *)self;
-    olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBSTARTWITH);
-
     // void removeFrameEndCallFunc(int frameIndex, const std::string &funcKey)
     self->removeFrameEndCallFunc((int)arg1, arg2);
 
@@ -18251,10 +18235,6 @@ static int _cocostudio_timeline_ActionTimeline_removeFrameEndCallFuncs(lua_State
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.ActionTimeline");
     olua_check_int(L, 2, &arg1);
-
-    std::string cb_tag = makeFrameEndCallbackTag(arg1, "");
-    void *cb_store = (void *)self;
-    olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBSTARTWITH);
 
     // void removeFrameEndCallFuncs(int frameIndex)
     self->removeFrameEndCallFuncs((int)arg1);
@@ -18316,7 +18296,7 @@ static int _cocostudio_timeline_ActionTimeline_setAnimationEndCallFunc(lua_State
     void *cb_store = (void *)self;
     std::string cb_tag = makeFrameEndCallbackTag(self, arg1);
     std::string cb_name = olua_setcallback(L, cb_store,  3, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    olua_context_t cb_ctx = olua_context(L);
+    olua_Context cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx]() {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
@@ -18391,7 +18371,7 @@ static int _cocostudio_timeline_ActionTimeline_setFrameEventCallFunc(lua_State *
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        olua_context_t cb_ctx = olua_context(L);
+        olua_Context cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](cocostudio::timeline::Frame *arg1) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
@@ -18421,7 +18401,7 @@ static int _cocostudio_timeline_ActionTimeline_setFrameEventCallFunc(lua_State *
             }
         };
     } else {
-        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -18450,7 +18430,7 @@ static int _cocostudio_timeline_ActionTimeline_setLastFrameCallFunc(lua_State *L
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        olua_context_t cb_ctx = olua_context(L);
+        olua_Context cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx]() {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
@@ -18464,7 +18444,7 @@ static int _cocostudio_timeline_ActionTimeline_setLastFrameCallFunc(lua_State *L
             }
         };
     } else {
-        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 

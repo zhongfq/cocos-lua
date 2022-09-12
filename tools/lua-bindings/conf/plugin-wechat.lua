@@ -18,6 +18,6 @@ typeconf "cclua::plugin::wechat"
     .luaopen 'cclua::runtime::registerFeature("cclua.plugin.wechat.ios", true);'
     .callback 'auth' .tag_maker 'auth' .tag_mode 'replace' .tag_scope 'once'
     .callback 'authQRCode' .tag_maker 'authQRCode' .tag_mode 'replace'
-    .callback 'stopAuth' .tag_maker 'authQRCode' .tag_mode 'subequal'
+    .callback 'stopAuth' .tag_maker 'authQRCode' .tag_mode 'equal'
     .callback 'share' .tag_scope 'once'
 macro ''

@@ -281,8 +281,6 @@
 		3D6EEB8128B4D850008F1847 /* AssetsBundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE99F28B4D84F008F1847 /* AssetsBundle.cpp */; };
 		3D6EEB8228B4D850008F1847 /* FileFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE9A028B4D84F008F1847 /* FileFinder.cpp */; };
 		3D6EEB8328B4D850008F1847 /* FileFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE9A028B4D84F008F1847 /* FileFinder.cpp */; };
-		3D6EEBF828B4D851008F1847 /* lua_xml_http_request.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EEA1E28B4D84F008F1847 /* lua_xml_http_request.cpp */; };
-		3D6EEBF928B4D851008F1847 /* lua_xml_http_request.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EEA1E28B4D84F008F1847 /* lua_xml_http_request.cpp */; };
 		3D6EEBFA28B4D851008F1847 /* lua_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EEA2028B4D84F008F1847 /* lua_manual.cpp */; };
 		3D6EEBFB28B4D851008F1847 /* lua_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EEA2028B4D84F008F1847 /* lua_manual.cpp */; };
 		3D6EEBFC28B4D851008F1847 /* lua_socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EEA2128B4D84F008F1847 /* lua_socket.cpp */; };
@@ -683,7 +681,6 @@
 		3D6EE99E28B4D84F008F1847 /* QRCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QRCode.cpp; sourceTree = "<group>"; };
 		3D6EE99F28B4D84F008F1847 /* AssetsBundle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AssetsBundle.cpp; sourceTree = "<group>"; };
 		3D6EE9A028B4D84F008F1847 /* FileFinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileFinder.cpp; sourceTree = "<group>"; };
-		3D6EEA1E28B4D84F008F1847 /* lua_xml_http_request.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_xml_http_request.cpp; sourceTree = "<group>"; };
 		3D6EEA1F28B4D84F008F1847 /* lua_spine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_spine.h; sourceTree = "<group>"; };
 		3D6EEA2028B4D84F008F1847 /* lua_manual.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_manual.cpp; sourceTree = "<group>"; };
 		3D6EEA2128B4D84F008F1847 /* lua_socket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_socket.cpp; sourceTree = "<group>"; };
@@ -691,7 +688,6 @@
 		3D6EEA2628B4D84F008F1847 /* lua_ocbridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = lua_ocbridge.mm; sourceTree = "<group>"; };
 		3D6EEA2728B4D84F008F1847 /* lua_cocos2d_ui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_cocos2d_ui.cpp; sourceTree = "<group>"; };
 		3D6EEA2928B4D84F008F1847 /* lua_crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_crypto.h; sourceTree = "<group>"; };
-		3D6EEA2A28B4D84F008F1847 /* lua_xml_http_request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_xml_http_request.h; sourceTree = "<group>"; };
 		3D6EEA2B28B4D84F008F1847 /* lua_conv_manual.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_conv_manual.cpp; sourceTree = "<group>"; };
 		3D6EEA2C28B4D84F008F1847 /* lua_cocos2d_studio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_cocos2d_studio.h; sourceTree = "<group>"; };
 		3D6EEA2D28B4D84F008F1847 /* lua_javabridge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_javabridge.cpp; sourceTree = "<group>"; };
@@ -1330,8 +1326,6 @@
 				3D6EEA1F28B4D84F008F1847 /* lua_spine.h */,
 				3D6EEA2328B4D84F008F1847 /* lua_xgame.cpp */,
 				3D6EEA3128B4D84F008F1847 /* lua_xgame.h */,
-				3D6EEA1E28B4D84F008F1847 /* lua_xml_http_request.cpp */,
-				3D6EEA2A28B4D84F008F1847 /* lua_xml_http_request.h */,
 			);
 			path = "lua-bindings";
 			sourceTree = "<group>";
@@ -1623,7 +1617,6 @@
 				3D6EEC1628B4D851008F1847 /* lua_cocos2d_physics.cpp in Sources */,
 				3D6EEB5228B4D850008F1847 /* filesystem-private-ios-mac.mm in Sources */,
 				3D6EECA428B4D852008F1847 /* mask.c in Sources */,
-				3D6EEBF828B4D851008F1847 /* lua_xml_http_request.cpp in Sources */,
 				3D6EEB6228B4D850008F1847 /* RootScene.cpp in Sources */,
 				3D6EEC4828B4D851008F1847 /* lgc.c in Sources */,
 				3D6EEB1828B4D850008F1847 /* takehiro.c in Sources */,
@@ -1823,7 +1816,6 @@
 				3D6BE02628B5AE2D005C8879 /* hmac.c in Sources */,
 				3D6EEB5328B4D850008F1847 /* filesystem-private-ios-mac.mm in Sources */,
 				3D6EECA528B4D852008F1847 /* mask.c in Sources */,
-				3D6EEBF928B4D851008F1847 /* lua_xml_http_request.cpp in Sources */,
 				3D6EEB6328B4D850008F1847 /* RootScene.cpp in Sources */,
 				3D6EEC4928B4D851008F1847 /* lgc.c in Sources */,
 				3D6EEB1928B4D850008F1847 /* takehiro.c in Sources */,

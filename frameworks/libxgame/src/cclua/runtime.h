@@ -156,9 +156,9 @@ public:
     
     // for java and objc bridge
     static void installAPK(const std::string &path);
-    static void callref(olua_ref_t func, const std::string &status, const std::string &data, bool once) OLUA_EXCLUDE;
-    static olua_ref_t ref(const Callback &callback) OLUA_EXCLUDE;
-    static void unref(olua_ref_t func) OLUA_EXCLUDE;
+    static void callref(olua_Ref func, const std::string &status, const std::string &data, bool once) OLUA_EXCLUDE;
+    static olua_Ref ref(const Callback &callback) OLUA_EXCLUDE;
+    static void unref(olua_Ref func) OLUA_EXCLUDE;
     
     // log
     static void setLogPath(const std::string &path);
@@ -174,8 +174,8 @@ public:
     static bool hasFeature(const std::string &api);
     static void registerFeature(const std::string &api, bool enabled) OLUA_EXCLUDE;
     static void printFeatures();
-    static olua_return load(lua_State *L, const std::string &name);
-    static olua_return load(lua_State *L, const std::string &name, const std::string &feature);
+    static olua_Return load(lua_State *L, const std::string &name);
+    static olua_Return load(lua_State *L, const std::string &name, const std::string &feature);
     
     // error
     static void initBugly(const char* appid) OLUA_EXCLUDE;

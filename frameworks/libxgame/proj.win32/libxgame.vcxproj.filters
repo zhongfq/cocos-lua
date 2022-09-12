@@ -252,9 +252,6 @@
     <ClInclude Include="..\src\lua-bindings\lua_xgame.h">
       <Filter>src\lua-bindings</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\lua-bindings\lua_xml_http_request.h">
-      <Filter>src\lua-bindings</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\cclua\cclua-extend.h">
       <Filter>src\lua-bindings</Filter>
     </ClInclude>
@@ -633,9 +630,6 @@
       <Filter>src\lua-bindings</Filter>
     </ClCompile>
     <ClCompile Include="..\src\lua-bindings\lua_xgame.cpp">
-      <Filter>src\lua-bindings</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lua-bindings\lua_xml_http_request.cpp">
       <Filter>src\lua-bindings</Filter>
     </ClCompile>
     <ClCompile Include="..\src\cclua\cclua-extend.cpp">

@@ -85,10 +85,10 @@ typeconf 'fairygui::UIEventDispatcher'
         .tag_mode 'new'
     .callback 'removeEventListener'
         .tag_maker {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 3)'}
-        .tag_mode {'substartwith', 'subequal'}
+        .tag_mode {'startwith', 'equal'}
     .callback 'removeEventListeners'
         .tag_maker 'makeListenerTag(L, -1, 0)'
-        .tag_mode 'substartwith'
+        .tag_mode 'startwith'
 
 typeconf 'fairygui::EventContext'
 typeconf 'fairygui::IHitTest'
@@ -213,7 +213,7 @@ typeconf 'fairygui::GObject'
         .tag_mode 'new'
     .callback 'removeClickListener'
         .tag_maker 'makeListenerTag(L, fairygui::UIEventType::Click, 2)'
-        .tag_mode 'subequal'
+        .tag_mode 'equal'
 
 typeconf 'fairygui::GComponent'
     .chunk [[
@@ -517,7 +517,7 @@ typeconf 'fairygui::Transition'
         .arg2 '@nullable'
     .callback 'clearHooks'
         .tag_maker '("hook.")'
-        .tag_mode 'substartwith'
+        .tag_mode 'startwith'
 
 typeconf 'fairygui::UIConfig'
     .func 'getRealFontName' .arg2 '@ret'

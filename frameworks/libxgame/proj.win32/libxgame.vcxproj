@@ -100,7 +100,6 @@
     <ClInclude Include="..\src\lua-bindings\lua_socket.h" />
     <ClInclude Include="..\src\lua-bindings\lua_spine.h" />
     <ClInclude Include="..\src\lua-bindings\lua_xgame.h" />
-    <ClInclude Include="..\src\lua-bindings\lua_xml_http_request.h" />
     <ClInclude Include="..\src\lua\lapi.h" />
     <ClInclude Include="..\src\lua\lauxlib.h" />
     <ClInclude Include="..\src\lua\lcode.h" />
@@ -225,7 +224,6 @@
     <ClCompile Include="..\src\lua-bindings\lua_socket.cpp" />
     <ClCompile Include="..\src\lua-bindings\lua_spine.cpp" />
     <ClCompile Include="..\src\lua-bindings\lua_xgame.cpp" />
-    <ClCompile Include="..\src\lua-bindings\lua_xml_http_request.cpp" />
     <ClCompile Include="..\src\lua\lapi.c" />
     <ClCompile Include="..\src\lua\lauxlib.c" />
     <ClCompile Include="..\src\lua\lbaselib.c" />

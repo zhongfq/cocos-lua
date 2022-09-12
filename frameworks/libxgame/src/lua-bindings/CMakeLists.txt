@@ -11,7 +11,6 @@ set(LUA_BINDINGS_HEADER
     src/lua-bindings/lua_ocbridge.h
     src/lua-bindings/lua_socket.h
     src/lua-bindings/lua_xgame.h
-    src/lua-bindings/lua_xml_http_request.h
 )
 
 set(LUA_BINDINGS_SRC
@@ -26,7 +25,6 @@ set(LUA_BINDINGS_SRC
     src/lua-bindings/lua_manual.cpp
     src/lua-bindings/lua_socket.cpp
     src/lua-bindings/lua_xgame.cpp
-    src/lua-bindings/lua_xml_http_request.cpp
 )
 
 if(CCLUA_BUILD_COCOSSTUDIO)

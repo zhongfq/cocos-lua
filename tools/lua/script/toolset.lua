@@ -1,12 +1,16 @@
 local lfs = require "lfs"
 local cjson = require "cjson.safe"
-local xxtea = require "xxtea"
+
+require "simulator"
 
 local toolset = {}
 local dir_stack = {}
 local lualoadfile = loadfile
 
-require "simulator"
+
+function __TRACEBACK__(message)
+    print(debug.traceback(message))
+end
 
 toolset.os = package.cpath:find('?.dll') and 'windows' or
     ((io.popen('uname'):read("*l"):find('Darwin')) and 'macos' or 'linux')

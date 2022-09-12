@@ -125,14 +125,14 @@ typeconf 'cocos2d::Scheduler'
     .callback 'unschedule'
         .tag_maker 'makeScheduleCallbackTag(#1)'
         .tag_store '2' -- 2th void *targe
-        .tag_mode 'subequal'
+        .tag_mode 'equal'
     .callback 'unscheduleAllForTarget'
         .tag_maker 'makeScheduleCallbackTag("")'
-        .tag_mode 'substartwith'
+        .tag_mode 'substart'
         .tag_store '1' -- 1th void *target
     .callback 'unscheduleAll'
         .tag_maker 'makeScheduleCallbackTag("")'
-        .tag_mode 'substartwith'
+        .tag_mode 'substart'
     .func 'scheduleUpdate'
         .snippet [[
         {
@@ -281,18 +281,18 @@ typeconf 'cocos2d::AudioEngine'
             void *callback_store_obj = (void *)olua_pushclassobj(L, cls);
             for (auto id : ids) {
                 std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
-                olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
+                olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
             }
         ]]
     .callback 'stop'
         .tag_maker 'makeAudioEngineFinishCallbackTag(#1)'
-        .tag_mode 'subequal'
+        .tag_mode 'equal'
     .callback 'stopAll'
         .tag_maker 'makeAudioEngineFinishCallbackTag(-1)'
-        .tag_mode "substartwith"
+        .tag_mode "substart"
     .callback 'uncacheAll'
         .tag_maker 'makeAudioEngineFinishCallbackTag(-1)'
-        .tag_mode "substartwith"
+        .tag_mode "substart"
     .callback 'setFinishCallback'
         .tag_maker 'makeAudioEngineFinishCallbackTag(#1)'
         .tag_mode "replace"
@@ -415,10 +415,10 @@ typeconf 'cocos2d::TextureCache'
         .tag_scope 'once'
     .callback 'unbindImageAsync'
         .tag_maker  'makeTextureCacheCallbackTag(#1)'
-        .tag_mode  'subequal'
+        .tag_mode  'equal'
     .callback 'unbindAllImageAsync'
         .tag_maker  'makeTextureCacheCallbackTag("")'
-        .tag_mode  'substartwith'
+        .tag_mode  'substart'
 
 typeconf 'cocos2d::Texture2D::PixelFormat'
 typeconf 'cocos2d::Texture2D'
@@ -889,10 +889,10 @@ typeconf 'cocos2d::Node'
         .tag_mode 'replace'
     .callback 'unschedule'
         .tag_maker "makeScheduleCallbackTag(#1)"
-        .tag_mode 'subequal'
+        .tag_mode 'equal'
     .callback 'unscheduleAllCallbacks'
         .tag_maker 'makeScheduleCallbackTag("")'
-        .tag_mode "substartwith"
+        .tag_mode "substart"
     .callback 'setOnEnterCallback' .arg1 '@nullable'
     .callback 'getOnEnterCallback' .ret '@nullable'
     .callback 'setOnExitCallback' .arg1 '@nullable'

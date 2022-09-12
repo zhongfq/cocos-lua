@@ -397,7 +397,7 @@ void NodeExtend::setAlpha(cocos2d::Node *obj, float value)
     obj->setOpacity((uint8_t)(value * 255.0f));
 }
 
-olua_return NodeExtend::__index(lua_State *L)
+olua_Return NodeExtend::__index(lua_State *L)
 {
     if(!olua_isuserdata(L, 1)) {
         return 0;
@@ -507,7 +507,7 @@ cocos2d::Mat4 *Mat4Extend::__mul(cocos2d::Mat4 *mat1, cocos2d::Mat4 *mat2)
 #ifdef CCLUA_BUILD_SPINE
 using namespace spine;
 
-olua_return SkeletonDataExtend::__gc(lua_State *L)
+olua_Return SkeletonDataExtend::__gc(lua_State *L)
 {
     auto self = olua_toobj<spine::SkeletonData>(L, 1);
     lua_pushstring(L, ".ownership");
@@ -535,7 +535,7 @@ olua_return SkeletonDataExtend::__gc(lua_State *L)
     return 0;
 }
 
-olua_return SkeletonDataExtend::create(lua_State *L, const char *skel_path, const char *atlas_path, float scale)
+olua_Return SkeletonDataExtend::create(lua_State *L, const char *skel_path, const char *atlas_path, float scale)
 {
     auto texture_loader = new spine::Cocos2dTextureLoader();
     auto atlas = new spine::Atlas(atlas_path, texture_loader);

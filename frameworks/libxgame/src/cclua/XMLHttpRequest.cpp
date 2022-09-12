@@ -215,7 +215,7 @@ void XMLHttpRequest::parseResponseHeader(const std::string& header)
     }
 }
 
-olua_return XMLHttpRequest::Extend::getResponse(lua_State *L)
+olua_Return XMLHttpRequest::Extend::getResponse(lua_State *L)
 {
     XMLHttpRequest *request = olua_toobj<XMLHttpRequest>(L, 1);
     if (request->getResponseType() == XMLHttpRequest::ResponseType::JSON) {

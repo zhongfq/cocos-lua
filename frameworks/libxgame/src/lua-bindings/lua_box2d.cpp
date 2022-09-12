@@ -1425,7 +1425,7 @@ static int _box2d_DestructionListener_get_sayGoodbyeToFixture(lua_State *L)
 
     void *cb_store = (void *)self;
     std::string cb_tag = "sayGoodbyeToFixture";
-    olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+    olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
     // @nullable @localvar std::function<void (b2Fixture *)> sayGoodbyeToFixture
     std::function<void(b2Fixture *)> ret = self->sayGoodbyeToFixture;
@@ -1453,7 +1453,7 @@ static int _box2d_DestructionListener_set_sayGoodbyeToFixture(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        olua_context_t cb_ctx = olua_context(L);
+        olua_Context cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](b2Fixture *arg1) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
@@ -1473,7 +1473,7 @@ static int _box2d_DestructionListener_set_sayGoodbyeToFixture(lua_State *L)
             }
         };
     } else {
-        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -1495,7 +1495,7 @@ static int _box2d_DestructionListener_get_sayGoodbyeToJoint(lua_State *L)
 
     void *cb_store = (void *)self;
     std::string cb_tag = "sayGoodbyeToJoint";
-    olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+    olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
     // @nullable @localvar std::function<void (b2Joint *)> sayGoodbyeToJoint
     std::function<void(b2Joint *)> ret = self->sayGoodbyeToJoint;
@@ -1523,7 +1523,7 @@ static int _box2d_DestructionListener_set_sayGoodbyeToJoint(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        olua_context_t cb_ctx = olua_context(L);
+        olua_Context cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](b2Joint *arg1) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
@@ -1543,7 +1543,7 @@ static int _box2d_DestructionListener_set_sayGoodbyeToJoint(lua_State *L)
             }
         };
     } else {
-        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -1618,7 +1618,7 @@ static int _box2d_ContactFilter_get_shouldCollide(lua_State *L)
 
     void *cb_store = (void *)self;
     std::string cb_tag = "shouldCollide";
-    olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+    olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
     // @nullable @localvar std::function<bool (b2Fixture *, b2Fixture *)> shouldCollide
     std::function<bool(b2Fixture *, b2Fixture *)> ret = self->shouldCollide;
@@ -1646,7 +1646,7 @@ static int _box2d_ContactFilter_set_shouldCollide(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        olua_context_t cb_ctx = olua_context(L);
+        olua_Context cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](b2Fixture *arg1, b2Fixture *arg2) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
@@ -1672,7 +1672,7 @@ static int _box2d_ContactFilter_set_shouldCollide(lua_State *L)
             return (bool)ret;
         };
     } else {
-        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -1746,7 +1746,7 @@ static int _box2d_ContactListener_get_beginContact(lua_State *L)
 
     void *cb_store = (void *)self;
     std::string cb_tag = "beginContact";
-    olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+    olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
     // @nullable @localvar std::function<void (b2Contact *)> beginContact
     std::function<void(b2Contact *)> ret = self->beginContact;
@@ -1774,7 +1774,7 @@ static int _box2d_ContactListener_set_beginContact(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        olua_context_t cb_ctx = olua_context(L);
+        olua_Context cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](b2Contact *arg1) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
@@ -1794,7 +1794,7 @@ static int _box2d_ContactListener_set_beginContact(lua_State *L)
             }
         };
     } else {
-        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -1816,7 +1816,7 @@ static int _box2d_ContactListener_get_endContact(lua_State *L)
 
     void *cb_store = (void *)self;
     std::string cb_tag = "endContact";
-    olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+    olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
     // @nullable @localvar std::function<void (b2Contact *)> endContact
     std::function<void(b2Contact *)> ret = self->endContact;
@@ -1844,7 +1844,7 @@ static int _box2d_ContactListener_set_endContact(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        olua_context_t cb_ctx = olua_context(L);
+        olua_Context cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](b2Contact *arg1) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
@@ -1864,7 +1864,7 @@ static int _box2d_ContactListener_set_endContact(lua_State *L)
             }
         };
     } else {
-        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -1886,7 +1886,7 @@ static int _box2d_ContactListener_get_postSolve(lua_State *L)
 
     void *cb_store = (void *)self;
     std::string cb_tag = "postSolve";
-    olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+    olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
     // @nullable @localvar std::function<void (b2Contact *, const b2ContactImpulse *)> postSolve
     std::function<void(b2Contact *, const b2ContactImpulse *)> ret = self->postSolve;
@@ -1914,7 +1914,7 @@ static int _box2d_ContactListener_set_postSolve(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        olua_context_t cb_ctx = olua_context(L);
+        olua_Context cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](b2Contact *arg1, const b2ContactImpulse *arg2) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
@@ -1935,7 +1935,7 @@ static int _box2d_ContactListener_set_postSolve(lua_State *L)
             }
         };
     } else {
-        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -1957,7 +1957,7 @@ static int _box2d_ContactListener_get_preSolve(lua_State *L)
 
     void *cb_store = (void *)self;
     std::string cb_tag = "preSolve";
-    olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+    olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
     // @nullable @localvar std::function<void (b2Contact *, const b2Manifold *)> preSolve
     std::function<void(b2Contact *, const b2Manifold *)> ret = self->preSolve;
@@ -1985,7 +1985,7 @@ static int _box2d_ContactListener_set_preSolve(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        olua_context_t cb_ctx = olua_context(L);
+        olua_Context cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](b2Contact *arg1, const b2Manifold *arg2) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
@@ -2006,7 +2006,7 @@ static int _box2d_ContactListener_set_preSolve(lua_State *L)
             }
         };
     } else {
-        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -2083,7 +2083,7 @@ static int _box2d_QueryCallback_get_reportFixture(lua_State *L)
 
     void *cb_store = (void *)self;
     std::string cb_tag = "reportFixture";
-    olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+    olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
     // @nullable @localvar std::function<bool (b2Fixture *)> reportFixture
     std::function<bool(b2Fixture *)> ret = self->reportFixture;
@@ -2111,7 +2111,7 @@ static int _box2d_QueryCallback_set_reportFixture(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        olua_context_t cb_ctx = olua_context(L);
+        olua_Context cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](b2Fixture *arg1) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
@@ -2136,7 +2136,7 @@ static int _box2d_QueryCallback_set_reportFixture(lua_State *L)
             return (bool)ret;
         };
     } else {
-        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -2210,7 +2210,7 @@ static int _box2d_RayCastCallback_get_reportFixture(lua_State *L)
 
     void *cb_store = (void *)self;
     std::string cb_tag = "reportFixture";
-    olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+    olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
     // @nullable @localvar std::function<float (b2Fixture *, const b2Vec2 &, const b2Vec2 &, float)> reportFixture
     std::function<float(b2Fixture *, const b2Vec2 &, const b2Vec2 &, float)> ret = self->reportFixture;
@@ -2238,7 +2238,7 @@ static int _box2d_RayCastCallback_set_reportFixture(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-        olua_context_t cb_ctx = olua_context(L);
+        olua_Context cb_ctx = olua_context(L);
         arg1 = [cb_store, cb_name, cb_ctx](b2Fixture *arg1, const b2Vec2 &arg2, const b2Vec2 &arg3, float arg4) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
@@ -2266,7 +2266,7 @@ static int _box2d_RayCastCallback_set_reportFixture(lua_State *L)
             return (float)ret;
         };
     } else {
-        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+        olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 

@@ -86,7 +86,7 @@ static int _cclua_plugin_oppo_setDispatcher(lua_State *L)
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.plugin.oppo");
     std::string cb_tag = "Dispatcher";
     std::string cb_name = olua_setcallback(L, cb_store,  1, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    olua_context_t cb_ctx = olua_context(L);
+    olua_Context cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](const std::string &arg1, const cocos2d::Value &arg2) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();

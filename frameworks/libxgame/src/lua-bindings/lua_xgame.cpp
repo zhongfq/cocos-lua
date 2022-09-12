@@ -634,7 +634,7 @@ static int _cclua_runtime_alert(lua_State *L)
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.runtime");
     std::string cb_tag = "alert";
     std::string cb_name = olua_setcallback(L, cb_store,  5, cb_tag.c_str(), OLUA_TAG_NEW);
-    olua_context_t cb_ctx = olua_context(L);
+    olua_Context cb_ctx = olua_context(L);
     arg5 = [cb_store, cb_name, cb_ctx](bool arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
@@ -1387,8 +1387,8 @@ static int _cclua_runtime_load1(lua_State *L)
 
     olua_check_std_string(L, 1, &arg2);
 
-    // static olua_return load(lua_State *L, const std::string &name)
-    olua_return ret = cclua::runtime::load(L, arg2);
+    // static olua_Return load(lua_State *L, const std::string &name)
+    olua_Return ret = cclua::runtime::load(L, arg2);
 
     olua_endinvoke(L);
 
@@ -1405,8 +1405,8 @@ static int _cclua_runtime_load2(lua_State *L)
     olua_check_std_string(L, 1, &arg2);
     olua_check_std_string(L, 2, &arg3);
 
-    // static olua_return load(lua_State *L, const std::string &name, const std::string &feature)
-    olua_return ret = cclua::runtime::load(L, arg2, arg3);
+    // static olua_Return load(lua_State *L, const std::string &name, const std::string &feature)
+    olua_Return ret = cclua::runtime::load(L, arg2, arg3);
 
     olua_endinvoke(L);
 
@@ -1419,14 +1419,14 @@ static int _cclua_runtime_load(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
-            // static olua_return load(lua_State *L, const std::string &name)
+            // static olua_Return load(lua_State *L, const std::string &name)
             return _cclua_runtime_load1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
-            // static olua_return load(lua_State *L, const std::string &name, const std::string &feature)
+            // static olua_Return load(lua_State *L, const std::string &name, const std::string &feature)
             return _cclua_runtime_load2(L);
         // }
     }
@@ -1451,7 +1451,7 @@ static int _cclua_runtime_openURL1(lua_State *L)
     std::string cb_name;
     if (olua_is_callback(L, 2, "std.function")) {
         cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_NEW);
-        olua_context_t cb_ctx = olua_context(L);
+        olua_Context cb_ctx = olua_context(L);
         arg2 = [cb_store, cb_name, cb_ctx](bool arg1) {
             lua_State *L = olua_mainthread(NULL);
             olua_checkhostthread();
@@ -1639,7 +1639,7 @@ static int _cclua_runtime_requestPermission(lua_State *L)
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.runtime");
     std::string cb_tag = "requestPermission";
     std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_NEW);
-    olua_context_t cb_ctx = olua_context(L);
+    olua_Context cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx](const std::string &arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
@@ -1704,7 +1704,7 @@ static int _cclua_runtime_setDispatcher(lua_State *L)
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.runtime");
     std::string cb_tag = "Dispatcher";
     std::string cb_name = olua_setcallback(L, cb_store,  1, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    olua_context_t cb_ctx = olua_context(L);
+    olua_Context cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](const std::string &arg1, const cocos2d::Value &arg2) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
@@ -3048,7 +3048,7 @@ static int _cclua_timer_delay(lua_State *L)
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.timer");
     std::string cb_tag = "delay";
     std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_NEW);
-    olua_context_t cb_ctx = olua_context(L);
+    olua_Context cb_ctx = olua_context(L);
     arg2 = [cb_store, cb_name, cb_ctx]() {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
@@ -3087,7 +3087,7 @@ static int _cclua_timer_delayWithTag(lua_State *L)
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.timer");
     std::string cb_tag = (arg2);
     std::string cb_name = olua_setcallback(L, cb_store,  3, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    olua_context_t cb_ctx = olua_context(L);
+    olua_Context cb_ctx = olua_context(L);
     arg3 = [cb_store, cb_name, cb_ctx]() {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
@@ -3121,7 +3121,7 @@ static int _cclua_timer_killDelay(lua_State *L)
 
     std::string cb_tag = (arg1);
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.timer");
-    olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+    olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
     // static void killDelay(const std::string &tag)
     cclua::timer::killDelay(arg1);
@@ -3146,7 +3146,7 @@ static int _cclua_timer_schedule(lua_State *L)
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.timer");
     std::string cb_tag = (arg2);
     std::string cb_name = olua_setcallback(L, cb_store,  3, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    olua_context_t cb_ctx = olua_context(L);
+    olua_Context cb_ctx = olua_context(L);
     arg3 = [cb_store, cb_name, cb_ctx](float arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
@@ -3179,7 +3179,7 @@ static int _cclua_timer_unschedule(lua_State *L)
 
     std::string cb_tag = (arg1);
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.timer");
-    olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBEQUAL);
+    olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
     // static void unschedule(const std::string &tag)
     cclua::timer::unschedule(arg1);
@@ -3572,7 +3572,7 @@ static int _cclua_downloader_setDispatcher(lua_State *L)
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.downloader");
     std::string cb_tag = "Dispatcher";
     std::string cb_name = olua_setcallback(L, cb_store,  1, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    olua_context_t cb_ctx = olua_context(L);
+    olua_Context cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](const std::string &arg1, const cocos2d::Value &arg2) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
@@ -3612,7 +3612,7 @@ static int _cclua_downloader_setURIResolver(lua_State *L)
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.downloader");
     std::string cb_tag = "URIResolver";
     std::string cb_name = olua_setcallback(L, cb_store,  1, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    olua_context_t cb_ctx = olua_context(L);
+    olua_Context cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](const std::string &arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
@@ -3913,8 +3913,8 @@ static int _cclua_XMLHttpRequest_getResponse(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // @extend(cclua::XMLHttpRequest::Extend) static olua_return getResponse(lua_State *L)
-    olua_return ret = cclua::XMLHttpRequest::Extend::getResponse(L);
+    // @extend(cclua::XMLHttpRequest::Extend) static olua_Return getResponse(lua_State *L)
+    olua_Return ret = cclua::XMLHttpRequest::Extend::getResponse(L);
 
     olua_endinvoke(L);
 
@@ -4216,7 +4216,7 @@ static int _cclua_XMLHttpRequest_setResponseCallback(lua_State *L)
     void *cb_store = (void *)self;
     std::string cb_tag = "ResponseCallback";
     std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    olua_context_t cb_ctx = olua_context(L);
+    olua_Context cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](int arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
@@ -7144,7 +7144,7 @@ static int _cclua_microphone_setDispatcher(lua_State *L)
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.microphone");
     std::string cb_tag = "Dispatcher";
     std::string cb_name = olua_setcallback(L, cb_store,  1, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    olua_context_t cb_ctx = olua_context(L);
+    olua_Context cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](const std::string &arg1, const cocos2d::Value &arg2) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
@@ -7299,7 +7299,7 @@ static int _cclua_photo_setDispatcher(lua_State *L)
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.photo");
     std::string cb_tag = "Dispatcher";
     std::string cb_name = olua_setcallback(L, cb_store,  1, cb_tag.c_str(), OLUA_TAG_REPLACE);
-    olua_context_t cb_ctx = olua_context(L);
+    olua_Context cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx](const std::string &arg1, const cocos2d::Value &arg2) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();

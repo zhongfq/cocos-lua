@@ -227,25 +227,25 @@ typeconf "cocostudio::timeline::ActionTimeline"
         ]]
     .callback 'clearFrameEventCallFunc'
         .tag_maker "frameEventCallFunc"
-        .tag_mode 'substartwith'
+        .tag_mode 'startwith'
     .callback 'setLastFrameCallFunc'
         .tag_maker 'lastFrameCallFunc'
         .tag_mode 'replace'
         .arg1 '@nullable'
     .callback 'clearLastFrameCallFunc'
         .tag_maker "lastFrameCallFunc"
-        .tag_mode 'substartwith'
+        .tag_mode 'startwith'
     .callback 'addFrameEndCallFunc'
         .tag_mode 'replace'
         .tag_maker "makeFrameEndCallbackTag(#1, #2)"
     .callback 'removeFrameEndCallFunc'
-        .tag_mode 'substartwith'
+        .tag_mode 'startwith'
         .tag_maker "makeFrameEndCallbackTag(#1, #2)"
     .callback 'removeFrameEndCallFuncs'
-        .tag_mode 'substartwith'
+        .tag_mode 'startwith'
         .tag_maker 'makeFrameEndCallbackTag(#1, "")'
     .callback 'clearFrameEndCallFuncs'
-        .tag_mode 'substartwith'
+        .tag_mode 'startwith'
         .tag_maker 'makeFrameEndCallbackTag(-1, "")'
     .func 'addAnimationInfo'
         .insert_before [[
@@ -253,7 +253,7 @@ typeconf "cocostudio::timeline::ActionTimeline"
                 void *cb_store = (void *)self;
                 std::string cb_tag = makeFrameEndCallbackTag(arg1.endIndex, arg1.name);
                 std::string cb_name = olua_setcallback(L, cb_store, -1, cb_tag.c_str(), OLUA_TAG_REPLACE);
-                olua_context_t cb_ctx = olua_context(L);
+                olua_Context cb_ctx = olua_context(L);
                 arg1.clipEndCallBack = [cb_store, cb_name, cb_ctx]() {
                     lua_State *L = olua_mainthread(NULL);
                     olua_checkhostthread();
@@ -273,5 +273,5 @@ typeconf "cocostudio::timeline::ActionTimeline"
             auto info = self->getAnimationInfo(arg1);
             std::string cb_tag = makeFrameEndCallbackTag(info.endIndex, arg1);
             void *cb_store = (void *)self;
-            olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_SUBSTARTWITH);
+            olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_STARTWITH);
         ]]

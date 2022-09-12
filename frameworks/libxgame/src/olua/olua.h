@@ -118,12 +118,9 @@ OLUA_BEGIN_DECLS
 #define LUA_TANY (LUA_TNONE - 1000)
 
 /** In 'gen-func.lua', when generate function binding, if function return
- *  type is 'olua_return', it will pass 'L' as first arg.
+ *  type is 'olua_Return', it will pass 'L' as first arg.
  */
-typedef int olua_return;
-
-// type for ref object
-typedef int64_t olua_ref_t;
+typedef int olua_Return;
 
 // stat api
 OLUA_API size_t olua_objcount(lua_State *L);
@@ -169,7 +166,6 @@ OLUA_API void olua_require(lua_State *L, const char *name, lua_CFunction func);
 #define olua_callfunc(L, fn) (lua_pushcfunction(L, (fn)), lua_call(L, 0, 0))
 OLUA_API void olua_pusherrorfunc(lua_State *L);
 OLUA_API int olua_pcall(lua_State *L, int nargs, int nresults);
-OLUA_API int olua_pcallref(lua_State *L, olua_ref_t func, int nargs, int nresults);
     
 // new, get or set raw user data
 #define olua_newrawobj(L, o)    (*(void **)lua_newuserdata(L, sizeof(void *)) = (o))
@@ -217,9 +213,9 @@ OLUA_API void olua_pop_objpool(lua_State *L, size_t position);
 #define OLUA_TAG_REPLACE      1 // compare substring after '@'
 // for olua_removecallback
 #define OLUA_TAG_WHOLE        2 // compare whole tag string
-#define OLUA_TAG_SUBEQUAL     3 // compare substring after '@'
-#define OLUA_TAG_SUBSTARTWITH 4 // compare substring after '@'
-OLUA_API const char *olua_setcallback(lua_State *L, void *obj, int fidx, const char *tag, int tagmode);
+#define OLUA_TAG_EQUAL     3 // compare substring after '@'
+#define OLUA_TAG_STARTWITH 4 // compare substring after '@'
+OLUA_API const char *olua_setcallback(lua_State *L, void *obj, int func, const char *tag, int tagmode);
 OLUA_API int olua_getcallback(lua_State *L, void *obj, const char *tag, int tagmode);
 OLUA_API void olua_removecallback(lua_State *L, void *obj, const char *tag, int tagmode);
 OLUA_API int olua_callback(lua_State *L, void *obj, const char *func, int argc);
@@ -232,9 +228,10 @@ OLUA_API int olua_getvariable(lua_State *L, int idx);
 OLUA_API void olua_setvariable(lua_State *L, int idx);
     
 // lua style ref
-OLUA_API olua_ref_t olua_ref(lua_State *L, int idx, int type);
-OLUA_API void olua_unref(lua_State *L, olua_ref_t ref);
-OLUA_API void olua_getref(lua_State *L, olua_ref_t ref);
+typedef int64_t olua_Ref;
+OLUA_API olua_Ref olua_ref(lua_State *L, int idx, int type);
+OLUA_API void olua_unref(lua_State *L, olua_Ref ref);
+OLUA_API void olua_getref(lua_State *L, olua_Ref ref);
     
 /**
  * ref chain, callback stored in the uservalue
@@ -253,12 +250,12 @@ OLUA_API void olua_getref(lua_State *L, olua_ref_t ref);
 #define OLUA_FLAG_TABLE     (1 << 3) // obj is table
 #define OLUA_FLAG_REMOVE    (1 << 4) // internal use
 #define OLUA_NOREFSTORE     INT_MIN
-typedef bool (*olua_DelRefVisitor)(lua_State *L, int idx);
+typedef bool (*olua_RefVisitor)(lua_State *L, int idx);
 OLUA_API void olua_getreftable(lua_State *L, int idx, const char *name);
 OLUA_API void olua_addref(lua_State *L, int idx, const char *name, int obj, int flags);
 OLUA_API void olua_delref(lua_State *L, int idx, const char *name, int obj, int flags);
 OLUA_API void olua_delallrefs(lua_State *L, int idx, const char *name);
-OLUA_API void olua_visitrefs(lua_State *L, int idx, const char *name, olua_DelRefVisitor walk);
+OLUA_API void olua_visitrefs(lua_State *L, int idx, const char *name, olua_RefVisitor walk);
 
 /**
  * lua class model
@@ -391,11 +388,11 @@ OLUA_END_DECLS
  * Define OLUA_HAVE_CONTEXT when you has implemention
  */
 #ifndef OLUA_HAVE_CONTEXT
-typedef int64_t olua_context_t;
+typedef int64_t olua_Context;
 #endif
 OLUA_BEGIN_DECLS
-OLUA_API olua_context_t olua_context(lua_State *L);
-OLUA_API bool olua_contextequal(lua_State *L, olua_context_t ctx);
+OLUA_API olua_Context olua_context(lua_State *L);
+OLUA_API bool olua_contextequal(lua_State *L, olua_Context ctx);
 OLUA_END_DECLS
 
 /**

@@ -126,16 +126,16 @@ typeconf 'cocos2d::Scheduler'
         .tag_maker 'makeScheduleCallbackTag(#-1)'
         .tag_store '2' -- 2th void *target
     .callback 'unschedule'
-        .tag_mode 'subequal'
+        .tag_mode 'equal'
         .tag_maker 'makeScheduleCallbackTag(#1)'
         .tag_store '2' -- 2th void *target
     .callback 'unscheduleAllForTarget'
-        .tag_mode 'substartwith'
+        .tag_mode 'startwith'
         .tag_maker 'makeScheduleCallbackTag("")'
         .tag_store '1' -- 1th void *target
     .callback 'unscheduleAll'
         .tag_maker 'makeScheduleCallbackTag("")'
-        .tag_mode 'substartwith'
+        .tag_mode 'startwith'
     .func 'scheduleUpdate'
         .snippet [[
         {
@@ -287,12 +287,12 @@ typeconf 'cocos2d::AudioEngine'
             void *cb_store = olua_pushclassobj<cocos2d::AudioEngine>(L);
             for (auto id : ids) {
                 std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
-                olua_removecallback(L, cb_store, tag.c_str(), OLUA_TAG_SUBEQUAL);
+                olua_removecallback(L, cb_store, tag.c_str(), OLUA_TAG_EQUAL);
             }
         ]]
-    .callback 'stop' .tag_mode 'subequal' .tag_maker 'makeAudioEngineFinishCallbackTag(#1)'
-    .callback 'stopAll' .tag_mode "substartwith" .tag_maker 'makeAudioEngineFinishCallbackTag(-1)'
-    .callback 'uncacheAll' .tag_mode "substartwith" .tag_maker 'makeAudioEngineFinishCallbackTag(-1)'
+    .callback 'stop' .tag_mode 'equal' .tag_maker 'makeAudioEngineFinishCallbackTag(#1)'
+    .callback 'stopAll' .tag_mode "startwith" .tag_maker 'makeAudioEngineFinishCallbackTag(-1)'
+    .callback 'uncacheAll' .tag_mode "startwith" .tag_maker 'makeAudioEngineFinishCallbackTag(-1)'
     .callback 'setFinishCallback'
         .tag_maker 'makeAudioEngineFinishCallbackTag(#1)'
         .tag_scope 'once'
@@ -377,10 +377,10 @@ typeconf 'cocos2d::TextureCache'
         .localvar 'false'
     .callback 'unbindImageAsync'
         .tag_maker 'makeTextureCacheCallbackTag(#1)'
-        .tag_mode 'subequal'
+        .tag_mode 'equal'
     .callback 'unbindAllImageAsync'
         .tag_maker 'makeTextureCacheCallbackTag("")'
-        .tag_mode 'substartwith'
+        .tag_mode 'startwith'
 
 typeconf 'cocos2d::Texture2D'
 typeconf 'cocos2d::TextureCube'
@@ -510,10 +510,10 @@ typeconf 'cocos2d::Node'
         .tag_mode 'replace'
     .callback 'unschedule'
         .tag_maker "makeScheduleCallbackTag(#1)"
-        .tag_mode 'subequal'
+        .tag_mode 'equal'
     .callback 'unscheduleAllCallbacks'
         .tag_maker 'makeScheduleCallbackTag("")'
-        .tag_mode "substartwith"
+        .tag_mode "startwith"
     .callback 'enumerateChildren'
         .tag_mode 'new'
         .tag_scope 'function'

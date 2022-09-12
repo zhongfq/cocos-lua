@@ -82,7 +82,7 @@ private:
 public:
     class Extend {
     public:
-        static olua_return getResponse(lua_State *L);
+        static olua_Return getResponse(lua_State *L);
     };
 };
 

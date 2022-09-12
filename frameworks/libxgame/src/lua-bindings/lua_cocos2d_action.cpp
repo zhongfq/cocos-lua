@@ -4501,7 +4501,7 @@ static int _cocos2d_ActionFloat_create(lua_State *L)
     void *cb_store = (void *)olua_newobjstub(L, "cc.ActionFloat");
     std::string cb_tag = "ActionFloat";
     std::string cb_name = olua_setcallback(L, cb_store,  4, cb_tag.c_str(), OLUA_TAG_NEW);
-    olua_context_t cb_ctx = olua_context(L);
+    olua_Context cb_ctx = olua_context(L);
     arg4 = [cb_store, cb_name, cb_ctx](float arg1) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
@@ -7398,7 +7398,7 @@ static int _cocos2d_CallFunc_create(lua_State *L)
     void *cb_store = (void *)olua_newobjstub(L, "cc.CallFunc");
     std::string cb_tag = "CallFunc";
     std::string cb_name = olua_setcallback(L, cb_store,  1, cb_tag.c_str(), OLUA_TAG_NEW);
-    olua_context_t cb_ctx = olua_context(L);
+    olua_Context cb_ctx = olua_context(L);
     arg1 = [cb_store, cb_name, cb_ctx]() {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();

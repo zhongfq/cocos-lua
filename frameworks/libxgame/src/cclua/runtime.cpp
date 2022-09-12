@@ -40,8 +40,8 @@ static std::map<std::string, bool> _supportedFeatures;
 static std::unordered_map<std::string, bool> _tracebackCaches;
 static std::unordered_map<std::string, std::string> _envs;
 static int _sampleCount = 1;
-static std::unordered_map<olua_ref_t, Callback> _refCallbacks;
-static olua_ref_t _refCount = -2;
+static std::unordered_map<olua_Ref, Callback> _refCallbacks;
+static olua_Ref _refCount = -2;
 
 static float _time = 0;
 static FILE *_logFile = NULL;
@@ -274,12 +274,12 @@ static int index_func(lua_State *L)
     }
 }
 
-olua_return runtime::load(lua_State *L, const std::string &name)
+olua_Return runtime::load(lua_State *L, const std::string &name)
 {
     return runtime::load(L, name, name);
 }
 
-olua_return runtime::load(lua_State *L, const std::string &name, const std::string &feature)
+olua_Return runtime::load(lua_State *L, const std::string &name, const std::string &feature)
 {
     if (cclua::runtime::hasFeature(feature)) {
         lua_getfield(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
@@ -585,7 +585,7 @@ void runtime::installAPK(const std::string &path)
 #endif
 }
 
-void runtime::callref(olua_ref_t func, const std::string &status, const std::string &data, bool once)
+void runtime::callref(olua_Ref func, const std::string &status, const std::string &data, bool once)
 {
     if (!cclua::runtime::isRestarting()) {
         runtime::runLater([=]() {
@@ -620,14 +620,14 @@ void runtime::callref(olua_ref_t func, const std::string &status, const std::str
     }
 }
 
-olua_ref_t runtime::ref(const Callback &callback)
+olua_Ref runtime::ref(const Callback &callback)
 {
     _refCount--;
     _refCallbacks[_refCount] = callback;
     return _refCount;
 }
 
-void runtime::unref(olua_ref_t func)
+void runtime::unref(olua_Ref func)
 {
     _refCallbacks.erase(func);
 }

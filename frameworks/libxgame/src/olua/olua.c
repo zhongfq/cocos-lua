@@ -537,7 +537,7 @@ OLUA_API const char *olua_setcallback(lua_State *L, void *obj, int func, const c
         while (true) {
             char refstr[64];
             int64_t ref = obtainref(env);
-            sprintf(refstr, "%lld", ref); // lua5.1 not support %I
+            snprintf(refstr, sizeof(refstr), "%"PRId64, ref); // lua5.1 not support %I
             cb = aux_pushcbkey(L, refstr, cls, tag);
             lua_pushvalue(L, -1);               // L: obj ut k k
             if (olua_rawget(L, -3) == LUA_TNIL) {

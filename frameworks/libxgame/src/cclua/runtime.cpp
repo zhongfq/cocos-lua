@@ -424,6 +424,12 @@ Sprite *runtime::capture(Node *node, float width, float height, float scale, Tex
     rt->retain();
     node->retain();
     
+    // TODO: when texture has alpha, maybe render incorrect
+#ifdef CCLUA_OS_IOS
+    image->setBlendFunc(BlendFunc::ALPHA_NON_PREMULTIPLIED);
+    image->setOpacityModifyRGB(false);
+#endif
+    
 #if COCOS2D_VERSION >= 0x00040000
     runtime::once(Director::EVENT_BEFORE_DRAW, [=]() {
 #endif

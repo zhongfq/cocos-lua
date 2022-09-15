@@ -50,6 +50,7 @@ OLUA_BEGIN_DECLS
 #include <string.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <inttypes.h>
 #include <assert.h>
 #include <math.h>
 
@@ -209,12 +210,12 @@ OLUA_API void olua_pop_objpool(lua_State *L, size_t position);
  * }
  */
 // for olua_setcallback
-#define OLUA_TAG_NEW          0
-#define OLUA_TAG_REPLACE      1 // compare substring after '@'
+#define OLUA_TAG_NEW        0
+#define OLUA_TAG_REPLACE    1 // compare substring after '@'
 // for olua_removecallback
-#define OLUA_TAG_WHOLE        2 // compare whole tag string
-#define OLUA_TAG_EQUAL     3 // compare substring after '@'
-#define OLUA_TAG_STARTWITH 4 // compare substring after '@'
+#define OLUA_TAG_WHOLE      2 // compare whole tag string
+#define OLUA_TAG_EQUAL      3 // compare substring after '@'
+#define OLUA_TAG_STARTWITH  4 // compare substring after '@'
 OLUA_API const char *olua_setcallback(lua_State *L, void *obj, int func, const char *tag, int tagmode);
 OLUA_API int olua_getcallback(lua_State *L, void *obj, const char *tag, int tagmode);
 OLUA_API void olua_removecallback(lua_State *L, void *obj, const char *tag, int tagmode);

@@ -26,6 +26,7 @@ return {
     RUNTIME_RESUME      = "runtimeResume",
     RUNTIME_UPDATE      = "runtimeUpdate",
     RUNTIME_RESIZE      = "runtimeResize",
+    RUNTIME_TRACEBACK   = "runtimeTraceback",
 
     -- download on-demand assets
     LOADER_START        = "loaderStart",

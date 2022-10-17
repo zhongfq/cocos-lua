@@ -316,9 +316,9 @@ baseLoaders["UIList"] = UIList
 baseLoaders["UIGrid"] = UIGrid
 
 local function fill(target, data)
-    local loader = loaders[target.class]
+    local loader = loaders[target.class] or baseLoaders[target.classname]
     if not loader then
-        local super = target.class
+        local super = target.super
         while super do
             loader = baseLoaders[super.classname]
             if loader then

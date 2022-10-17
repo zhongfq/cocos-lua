@@ -380,7 +380,12 @@ OLUA_END_DECLS
 #include <vector>
 #include <map>
 #include <unordered_map>
+
+#if __cplusplus >= 201703L
+#include <string_view>
 #endif
+
+#endif //__cplusplus
 
 /**
  * New and close lua_State for several times, sometimes may got same
@@ -709,6 +714,18 @@ static inline void olua_check_std_string(lua_State *L, int idx, std::string *val
     const char *str = olua_checklstring(L, idx, &len);
     *value = std::string(str, len);
 }
+
+#if __cplusplus >= 201703L
+#define olua_is_std_string_view(L, i)    (olua_isstring(L, (i)))
+#define olua_push_std_string_view(L, v)  (lua_pushlstring(L, (v).data(), (v).size()), 1)
+
+static inline void olua_check_std_string_view(lua_State *L, int idx, std::string_view *value)
+{
+    size_t len;
+    const char *str = olua_checklstring(L, idx, &len);
+    *value = std::string_view(str, len);
+}
+#endif
 
 // map
 #define olua_is_map(L, i)   (olua_istable(L, (i)))

@@ -57,6 +57,7 @@ local function luaclass(classname, super)
 
     do -- const value
         local function const(k, v)
+            cls[k] = v
             gets[k] = function ()
                 return v
             end

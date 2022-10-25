@@ -232,7 +232,7 @@ bool RenderTexture::initWithWidthAndHeight(int w, int h, backend::PixelFormat fo
                  texture->release();
                  break;
              }
-             _textureMsaaTarget->initWithBackendTexture(texture);
+             _textureMsaaTarget->initWithBackendTexture(texture, CC_ENABLE_PREMULTIPLIED_ALPHA != 0);
              _textureMsaaTarget->setRenderTarget(true);
              texture->release();
         }

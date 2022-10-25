@@ -261,11 +261,13 @@ OLUA_API void olua_visitrefs(lua_State *L, int idx, const char *name, olua_RefVi
 /**
  * lua class model
  * class A = {
- *     __name = 'A'
- *     .class = class A
- *     .classagent = class A agent -- set funcs, props and consts
+ *     class = class A
+ *     classname = A
+ *     classtype = native
+ *     super = class B
+ *     ...__gc = cls_metamethod    -- .func[..._gc]
+ *     
  *     .classobj = userdata        -- store static callback
- *     .super = class B agent
  *     .isa = {
  *         copy(B['.isa'])
  *         A = true
@@ -273,11 +275,10 @@ OLUA_API void olua_visitrefs(lua_State *L, int idx, const char *name, olua_RefVi
  *     .func = {
  *         __index = B['.func']    -- cache after access
  *         dosomething = func
+ *         ...
  *     }
  *     .get = {
  *         __index = B['.get']     -- cache after access
- *         classname = const_get(obj, "A")
- *         super = const_get(obj, B['.classagent'])
  *         name = get_name(obj, name)
  *         ...
  *     }
@@ -286,7 +287,6 @@ OLUA_API void olua_visitrefs(lua_State *L, int idx, const char *name, olua_RefVi
  *          name = set_name(obj, name, value)
  *          ...
  *      }
- *     ...__gc = cls_metamethod    -- .func[..._gc]
  * }
  */
 OLUA_API void oluacls_class(lua_State *L, const char *cls, const char *supercls);

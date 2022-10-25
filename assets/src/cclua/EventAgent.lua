@@ -23,7 +23,7 @@ function EventAgent:wrap(target, priority)
 end
 
 function EventAgent:on(type, listener, owner, priority)
-    assert(self.class == EventAgent.class, self)
+    assert(self.class == EventAgent, self)
     priority = priority or self._priority
     self._target:addListener(type, listener, owner, priority)
 

@@ -170,14 +170,14 @@ namespace spine {
 
 		String &append(int other) {
 			char str[100];
-			sprintf(str, "%i", other);
+			snprintf(str, sizeof(str), "%i", other);
 			append(str);
 			return *this;
 		}
 
 		String &append(float other) {
 			char str[100];
-			sprintf(str, "%f", other);
+			snprintf(str, sizeof(str), "%f", other);
 			append(str);
 			return *this;
 		}

@@ -1,4 +1,3 @@
-local type = type
 local rawset = rawset
 local setmetatable = setmetatable
 local assert = assert
@@ -9,8 +8,8 @@ local tracebacks = setmetatable({}, {__mode = "k"})
 local function cppclass(classname, super)
     local cls = olua.class(classname, super)
 
-    cls.Get = cls.class['.get']
-    cls.Set = cls.class['.set']
+    cls.Get = cls['.get']
+    cls.Set = cls['.set']
     cls.ctor = false
 
     function cls.new(...)
@@ -48,16 +47,24 @@ local metamethod = {
     __concat = true, __call = true, __close = true
 }
 
+local classmap = setmetatable({}, {__mode = 'k'})
+
 local function luaclass(classname, super)
-    local classagent = {}
     local cls = {}
+    local metaclass = {}
     local sets = {}
     local gets = {}
     local funcs = {ctor = false}
 
+    classmap[cls] = {
+        sets = sets,
+        gets = gets,
+        funcs = funcs,
+        metaclass = metaclass,
+    }
+
     do -- const value
         local function const(k, v)
-            cls[k] = v
             gets[k] = function ()
                 return v
             end
@@ -69,13 +76,14 @@ local function luaclass(classname, super)
         const('classtype', 'lua')
         const('class', cls)
         const('classname', classname)
-        const('classagent', classagent)
         const('super', super)
+        const('Get', gets)
+        const('Set', sets)
     end
 
     if super then
         for k in pairs(metamethod) do
-            cls[k] = super.class[k]
+            metaclass[k] = classmap[super].metaclass[k]
         end
 
         local function index_super(t, st)
@@ -87,19 +95,23 @@ local function luaclass(classname, super)
                 end
             end})
         end
-        index_super(gets, super.Get)
-        index_super(sets, super.Set)
-        index_super(funcs, super.Func)
+        index_super(gets, classmap[super].gets)
+        index_super(sets, classmap[super].sets)
+        index_super(funcs, classmap[super].funcs)
     end
 
-    function cls:__tostring()
-        setmetatable(self, nil)
-        local s = tostring(self):gsub('^table', classname)
-        setmetatable(self, cls)
-        return s
+    function metaclass:__tostring()
+        if self == cls then
+            return 'class ' .. classname
+        else
+            setmetatable(self, nil)
+            local s = tostring(self):gsub('^table', classname)
+            setmetatable(self, metaclass)
+            return s
+        end
     end
 
-    function cls:__index(k)
+    function metaclass:__index(k)
         local func = funcs[k]
         if func then
             return func
@@ -110,78 +122,65 @@ local function luaclass(classname, super)
             return getter(self)
         end
 
-        local index = funcs.__index
-        if index then
-            return index(self, k)
+        if self ~= cls then
+            local index = funcs.__index
+            if index then
+                return index(self, k)
+            end
         end
     end
 
-    function cls:__newindex(k, v)
+    function metaclass:__newindex(k, v)
         local setter = sets[k]
         if setter then
             setter(self, v)
             return
         end
 
-        local newindex = funcs.__newindex or rawset
-        newindex(self, k, v)
+        if self ~= cls then
+            local newindex = funcs.__newindex or rawset
+            newindex(self, k, v)
+        elseif metamethod[k] then
+            metaclass[k] = v
+        else
+            funcs[k] = v
+        end
     end
 
-    function funcs.new(...)
-        local self = setmetatable({}, cls)
+    function funcs.construct(obj, ...)
+        setmetatable(obj, metaclass)
         local function create(c, ...)
             if c.super then
                 create(c.super, ...)
             end
             if c.ctor then
-                c.ctor(self, ...)
+                c.ctor(obj, ...)
             end
         end
-        create(classagent, ...)
+        create(cls, ...)
+        return obj
+    end
 
+    function funcs.new(...)
+        local self = funcs.construct({}, ...)
         -- debug
         if DEBUG then
             tracecount = tracecount + 1
             tracebacks[self] = tracecount
         end
-
         return self
     end
 
-    local default = {Get = gets, Set = sets, Func = funcs}
-
-    return setmetatable(classagent, {
-        __index = function (t, k)
-            local func = funcs[k]
-            if func then
-                return func
-            end
-
-            local getter = gets[k]
-            if getter then
-                return getter(t)
-            end
-
-            return default[k]
-        end,
-        __newindex = function (t, k, v)
-            local setter = sets[k]
-            if setter then
-                setter(t, v)
-                return
-            end
-
-            if metamethod[k] then
-                cls[k] = v
-            else
-                funcs[k] = v
-            end
-        end,
-    })
+    return setmetatable(cls, metaclass)
 end
 
 local function class(classname, super)
-    if type(super) == 'table' and super.classtype == 'native' then
+    local classtype
+    if super then
+        classtype = super.classtype
+        assert(classtype == 'native' or classtype == 'lua', classtype)
+    end
+    if classtype == 'native' then
         return cppclass(classname, super)
     else
         return luaclass(classname, super)

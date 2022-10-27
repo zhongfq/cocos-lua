@@ -1,7 +1,10 @@
 package cclua.plugin.talkingdata;
 
-import com.tendcloud.tenddata.TCAgent;
-import com.tendcloud.tenddata.TDProfile;
+import com.tendcloud.tenddata.TalkingDataGender;
+import com.tendcloud.tenddata.TalkingDataProfile;
+import com.tendcloud.tenddata.TalkingDataProfileType;
+import com.tendcloud.tenddata.TalkingDataSDK;
+import com.tendcloud.tenddata.TalkingDataSearch;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,151 +43,168 @@ public class TalkingData {
         }
     }
 
-    private static JSONObject toJson(String jsonstr) {
+    public static String getDeviceId() {
+        AppContext context = AppContext.getContext();
+        return TalkingDataSDK.getDeviceId(context);
+    }
+
+    public static void setVerboseLogDisable() {
+        TalkingDataSDK.setVerboseLogDisable();
+    }
+
+    public static void setConfigurationDisable(long options) {
+        TalkingDataSDK.setConfigurationDisable((int) options);
+    }
+
+    public static void backgroundSessionEnabled() {
+    }
+
+    public static void init(String appkey, String channel, String custom) {
+        AppContext context = AppContext.getContext();
+        TalkingDataSDK.init(context, appkey, channel, custom);
+    }
+
+    public static void setVendorId(String vendorId, int type) {
+    }
+
+    public static void setLocation(double latitude, double longitude) {
+    }
+
+    public static void setExceptionReportEnabled(boolean value) {
+        TalkingDataSDK.setReportUncaughtExceptions(value);
+    }
+
+    public static void setSignalReportEnabled(boolean value) {
+    }
+
+    public static void onPageBegin(String name) {
+        AppContext context = AppContext.getContext();
+        TalkingDataSDK.onPageBegin(context, name);
+    }
+
+    public static void onPageEnd(String name) {
+        AppContext context = AppContext.getContext();
+        TalkingDataSDK.onPageEnd(context, name);
+    }
+
+    public static void onReceiveDeepLink(String link) {
+        TalkingDataSDK.onReceiveDeepLink(link);
+    }
+
+    private static TalkingDataProfile toProfile(String json) {
+        TalkingDataProfile profile = TalkingDataProfile.createProfile();
         try {
-            return new JSONObject(jsonstr);
+            JSONObject data = new JSONObject(json);
+            if (data.has("name")) {
+                profile.setName(data.getString("name"));
+            }
+            if (data.has("age")) {
+                profile.setAge(data.getInt("age"));
+            }
+            if (data.has("type")) {
+                profile.setType(TalkingDataProfileType.valueOf(data.getString("type")));
+            }
+            if (data.has("gender")) {
+                profile.setGender(TalkingDataGender.valueOf(data.getString("gender")));
+            }
+            if (data.has("property1")) {
+                profile.setProperty1(data.get("property1"));
+            }
+            if (data.has("property2")) {
+                profile.setProperty2(data.get("property2"));
+            }
+            if (data.has("property3")) {
+                profile.setProperty3(data.get("property3"));
+            }
+            if (data.has("property4")) {
+                profile.setProperty4(data.get("property4"));
+            }
+            if (data.has("property5")) {
+                profile.setProperty5(data.get("property5"));
+            }
+            if (data.has("property6")) {
+                profile.setProperty6(data.get("property6"));
+            }
+            if (data.has("property7")) {
+                profile.setProperty7(data.get("property7"));
+            }
+            if (data.has("property8")) {
+                profile.setProperty8(data.get("property8"));
+            }
+            if (data.has("property9")) {
+                profile.setProperty9(data.get("property9"));
+            }
+            if (data.has("property10")) {
+                profile.setProperty10(data.get("property10"));
+            }
         } catch (JSONException e) {
-            return null;
+            e.printStackTrace();
+        }
+        return profile;
+    }
+
+    public static void onRegister(String uid, String data, String invitationCode) {
+        TalkingDataSDK.onRegister(uid, toProfile(data), invitationCode);
+    }
+
+    public static void onLogin(String uid, String data) {
+        TalkingDataSDK.onLogin(uid, toProfile(data));
+    }
+
+    public static void onProfileUpdate(String data) {
+        TalkingDataSDK.onProfileUpdate(toProfile(data));
+    }
+
+    public static void onCreateCard(String uid, String method, String content) {
+        TalkingDataSDK.onCreateCard(uid, method, content);
+    }
+
+    public static void onFavorite(String category, String content) {
+        TalkingDataSDK.onFavorite(category, content);
+    }
+
+    public static void onShare(String uid, String content) {
+        TalkingDataSDK.onShare(uid, content);
+    }
+
+    public static void onPunch(String uid, String punchid) {
+        TalkingDataSDK.onPunch(uid, punchid);
+    }
+
+    public static void onSearch(String json) {
+        try {
+            TalkingDataSearch search = TalkingDataSearch.createSearch();
+            JSONObject data = new JSONObject(json);
+            if (data.has("content")) {
+                search.setCategory(data.getString("content"));
+            }
+            if (data.has("category")) {
+                search.setContent(data.getString("category"));
+            }
+            TalkingDataSDK.onSearch(search);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
-    public static void setLogEnabled(boolean value) {
+    public static void onEvent(String event, double value, String json) {
         AppContext context = AppContext.getContext();
-        context.runOnUiThread(() -> TCAgent.LOG_ON = value);
-    }
-
-    private static TDProfile.ProfileType getType(int type) {
-        if (type == 0)
-            return TDProfile.ProfileType.ANONYMOUS;
-        else if (type == 1)
-            return TDProfile.ProfileType.REGISTERED;
-        else if (type == 2)
-            return TDProfile.ProfileType.SINA_WEIBO;
-        else if (type == 3)
-            return TDProfile.ProfileType.QQ;
-        else if (type == 4)
-            return TDProfile.ProfileType.QQ_WEIBO;
-        else if (type == 5)
-            return TDProfile.ProfileType.ND91;
-        else if (type == 6)
-            return TDProfile.ProfileType.WEIXIN;
-        else if (type == 11)
-            return TDProfile.ProfileType.TYPE1;
-        else if (type == 12)
-            return TDProfile.ProfileType.TYPE2;
-        else if (type == 13)
-            return TDProfile.ProfileType.TYPE3;
-        else if (type == 14)
-            return TDProfile.ProfileType.TYPE4;
-        else if (type == 15)
-            return TDProfile.ProfileType.TYPE5;
-        else if (type == 16)
-            return TDProfile.ProfileType.TYPE6;
-        else if (type == 17)
-            return TDProfile.ProfileType.TYPE7;
-        else if (type == 18)
-            return TDProfile.ProfileType.TYPE8;
-        else if (type == 19)
-            return TDProfile.ProfileType.TYPE9;
-        else if (type == 20)
-            return TDProfile.ProfileType.TYPE10;
-
-        return TDProfile.ProfileType.ANONYMOUS;
-    }
-
-    public static void init(String appkey, String channel) {
-        AppContext context = AppContext.getContext();
-        context.runOnUiThread(() -> TCAgent.init(context.getApplicationContext(), appkey, channel));
-    }
-
-    public static void onRegister(String profileID, int type, String name) {
-        AppContext context = AppContext.getContext();
-        context.runOnUiThread(() -> TCAgent.onRegister(profileID, getType(type), name));
-    }
-
-    public static void onLogin(String profileID, int type, String name) {
-        AppContext context = AppContext.getContext();
-        context.runOnUiThread(() -> TCAgent.onLogin(profileID, getType(type), name));
-    }
-
-    public static void setReportUncaughtExceptions(boolean value) {
-        AppContext context = AppContext.getContext();
-        context.runOnUiThread(() -> TCAgent.setReportUncaughtExceptions(value));
-    }
-
-    public static void trackPageBegin(String name) {
-        AppContext context = AppContext.getContext();
-        context.runOnUiThread(() -> TCAgent.onPageStart(context, name));
-    }
-
-    public static void trackPageEnd(String name) {
-        AppContext context = AppContext.getContext();
-        context.runOnUiThread(() -> TCAgent.onPageEnd(context, name));
-    }
-
-    public static void trackEvent(String event) {
-        AppContext context = AppContext.getContext();
-        context.runOnUiThread(() -> TCAgent.onEvent(context, event));
-    }
-
-    public static void trackEvent(String event, String label) {
-        AppContext context = AppContext.getContext();
-        context.runOnUiThread(() -> TCAgent.onEvent(context, event, label));
-    }
-
-    public static void trackEvent(String event, String label, String kvstr) {
-        AppContext context = AppContext.getContext();
-        context.runOnUiThread(() -> TCAgent.onEvent(context, event, label, toMap(kvstr)));
-    }
-
-    public static void trackEvent(String event, String label, String kvstr, double value) {
-        AppContext context = AppContext.getContext();
-        context.runOnUiThread(() -> TCAgent.onEvent(context, event, label, toMap(kvstr), value));
-    }
-
-    public static void setGlobalKV(String key, boolean value) {
-        AppContext context = AppContext.getContext();
-        context.runOnUiThread(() -> TCAgent.setGlobalKV(key, value));
+        TalkingDataSDK.onEvent(context, event, value, toMap(json));
     }
 
     public static void setGlobalKV(String key, String value) {
-        AppContext context = AppContext.getContext();
-        context.runOnUiThread(() -> TCAgent.setGlobalKV(key, value));
+        TalkingDataSDK.setGlobalKV(key, value);
     }
 
     public static void setGlobalKV(String key, long value) {
-        AppContext context = AppContext.getContext();
-        context.runOnUiThread(() -> TCAgent.setGlobalKV(key, value));
+        TalkingDataSDK.setGlobalKV(key, value);
     }
 
     public static void setGlobalKV(String key, double value) {
-        AppContext context = AppContext.getContext();
-        context.runOnUiThread(() -> TCAgent.setGlobalKV(key, value));
+        TalkingDataSDK.setGlobalKV(key, value);
     }
 
     public static void removeGlobalKV(String key) {
-        AppContext context = AppContext.getContext();
-        context.runOnUiThread(() -> TCAgent.removeGlobalKV(key));
-    }
-
-    // order
-    public static void placeOrder(String orderId, int amount, String currencyType) {
-        AppContext context = AppContext.getContext();
-        context.runOnUiThread(() -> TCAgent.onPlaceOrder(orderId, amount, currencyType));
-    }
-
-    public static void payOrder(String orderId, int amount, String currencyType, String paymentType) {
-        AppContext context = AppContext.getContext();
-        context.runOnUiThread(() -> TCAgent.onOrderPaySucc(orderId, amount, currencyType, paymentType));
-    }
-
-    public static void cancelOrder(String orderId, int amount, String currencyType) {
-        AppContext context = AppContext.getContext();
-        context.runOnUiThread(() -> TCAgent.onCancelOrder(orderId, amount, currencyType));
-    }
-
-    public static void viewItem(String itemId, String category, String name, int unitPrice) {
-        AppContext context = AppContext.getContext();
-        context.runOnUiThread(() -> TCAgent.onViewItem(itemId, category, name, unitPrice));
+        TalkingDataSDK.removeGlobalKV(key);
     }
 }

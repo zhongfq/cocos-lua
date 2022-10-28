@@ -14,11 +14,10 @@ public:
 public:
     static void setDispatcher(const cclua::Callback &dispatcher)
     {
+        _dispatcher = dispatcher;
 #ifdef CCLUA_OS_ANDROID
         olua_Ref func = runtime::ref(dispatcher);
         Jni::callStaticVoidMethod(JAVA_CLASS, "setDispatcher", func);
-#else
-        _dispatcher = dispatcher;
 #endif
     }
     

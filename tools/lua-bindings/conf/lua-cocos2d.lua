@@ -57,6 +57,7 @@ typedef 'cocos2d::Bounds'
 typeconf 'cocos2d::UserDefault'
     .exclude 'setDelegate'
 
+typeconf 'cocos2d::Clonable'
 typeconf 'cocos2d::Ref'
     .exclude 'retain'
     .exclude 'release'
@@ -426,6 +427,8 @@ typeconf 'cocos2d::Texture2D'
 
 typeconf 'cocos2d::TextureCube'
 
+typeconf 'cocos2d::BlendProtocol'
+typeconf 'cocos2d::TextureProtocol'
 typeconf 'cocos2d::TextureAtlas'
 typeconf 'cocos2d::VRIHeadTracker'
 typeconf 'cocos2d::VRIRenderer'
@@ -919,6 +922,7 @@ typeconf 'cocos2d::GlyphCollection'
 typeconf 'cocos2d::LabelEffect'
 typeconf 'cocos2d::Label::LabelType'
 typeconf 'cocos2d::Label::Overflow'
+typeconf 'cocos2d::LabelProtocol'
 typeconf 'cocos2d::Label'
 typeconf 'cocos2d::LabelAtlas'
 
@@ -972,6 +976,7 @@ end
 typeconfTransition 'cocos2d::TransitionScene'
     .exclude 'initWithDuration'
 
+typeconfTransition 'cocos2d::TransitionEaseScene'
 typeconfTransition 'cocos2d::TransitionSceneOriented'
 typeconfTransition 'cocos2d::TransitionRotoZoom'
 typeconfTransition 'cocos2d::TransitionJumpZoom'
@@ -1008,6 +1013,7 @@ typeconfTransition 'cocos2d::TransitionProgressVertical'
 typeconfTransition 'cocos2d::TransitionProgressInOut'
 typeconfTransition 'cocos2d::TransitionProgressOutIn'
 
+typeconf 'cocos2d::IMEDelegate'
 typeconf 'cocos2d::TextFieldDelegate'
 typeconf 'cocos2d::TextFieldTTF'
 
@@ -1083,6 +1089,7 @@ typeconf 'cocos2d::JumpTiles3D'
 typeconf 'cocos2d::SplitRows'
 typeconf 'cocos2d::SplitCols'
 
+typeconf 'cocos2d::PlayableProtocol'
 typeconf 'cocos2d::ParticleBatchNode'
 typeconf 'cocos2d::ParticleSystem::Mode'
 typeconf 'cocos2d::ParticleSystem::PositionType'

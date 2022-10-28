@@ -4,7 +4,6 @@ local audio         = require "cclua.audio"
 local Array         = require "cclua.Array"
 local Event         = require "cclua.Event"
 local UILayer       = require "cclua.ui.UILayer"
-local PixelFormat   = require "cc.Texture2D.PixelFormat"
 
 local SceneStack = class("SceneStack")
 
@@ -62,6 +61,17 @@ function SceneStack:topScene()
     return self:_getScene(-1)
 end
 
+function SceneStack:findScene(cls)
+    if type(cls) == 'string' then
+        cls = require(cls)
+    end
+    for _, entry in ipairs(self._sceneStack) do
+        if entry.scene.class == cls.class then
+            return entry.scene
+        end
+    end
+end
+
 function SceneStack:_doCaptureScene(entry)
     if not entry then
         return
@@ -69,7 +79,7 @@ function SceneStack:_doCaptureScene(entry)
     if not entry.snapshot then
         local node = entry.scene.cobj
         local scale = entry.scene.renderOption.snapshotScale or 1
-        entry.snapshot = runtime.capture(node, node.width, node.height, scale, PixelFormat.RGB565)
+        entry.snapshot = runtime.capture(node, node.width, node.height, scale)
     end
     return entry.snapshot
 end

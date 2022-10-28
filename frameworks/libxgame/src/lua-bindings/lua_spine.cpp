@@ -14040,6 +14040,37 @@ static int _spine_SkeletonRenderer___olua_move(lua_State *L)
     return 1;
 }
 
+static int _spine_SkeletonRenderer_as(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::SkeletonRenderer *self = nullptr;
+    const char *arg1 = nullptr;       /** cls */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_check_string(L, 2, &arg1);
+
+    do {
+        if (olua_isa(L, 1, arg1)) {
+            lua_pushvalue(L, 1);
+            break;
+        }
+        if (olua_strequal(arg1, "cc.BlendProtocol")) {
+            cocos2d::BlendProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::BlendProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.BlendProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+
+        luaL_error(L, "'spine::SkeletonRenderer' can't cast to '%s'", arg1);
+    } while (0);
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _spine_SkeletonRenderer_create(lua_State *L)
 {
     olua_startinvoke(L);
@@ -15572,6 +15603,7 @@ OLUA_LIB int luaopen_spine_SkeletonRenderer(lua_State *L)
 {
     oluacls_class(L, "sp.SkeletonRenderer", "cc.Node");
     oluacls_func(L, "__olua_move", _spine_SkeletonRenderer___olua_move);
+    oluacls_func(L, "as", _spine_SkeletonRenderer_as);
     oluacls_func(L, "create", _spine_SkeletonRenderer_create);
     oluacls_func(L, "createWithData", _spine_SkeletonRenderer_createWithData);
     oluacls_func(L, "createWithFile", _spine_SkeletonRenderer_createWithFile);

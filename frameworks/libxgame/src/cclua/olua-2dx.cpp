@@ -296,6 +296,8 @@ static int _errorfunc(lua_State *L)
     
     free((void *)errstack);
     
+    runtime::dispatch("runtimeTraceback");
+    
     return 0;
 }
 

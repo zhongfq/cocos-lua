@@ -227,25 +227,25 @@ typeconf "cocostudio::timeline::ActionTimeline"
         ]]
     .callback 'clearFrameEventCallFunc'
         .tag_maker "frameEventCallFunc"
-        .tag_mode 'substart'
+        .tag_mode 'startwith'
     .callback 'setLastFrameCallFunc'
         .tag_maker 'lastFrameCallFunc'
         .tag_mode 'replace'
         .arg1 '@nullable'
     .callback 'clearLastFrameCallFunc'
         .tag_maker "lastFrameCallFunc"
-        .tag_mode 'substart'
+        .tag_mode 'startwith'
     .callback 'addFrameEndCallFunc'
         .tag_mode 'replace'
         .tag_maker "makeFrameEndCallbackTag(#1, #2)"
     .callback 'removeFrameEndCallFunc'
-        .tag_mode 'substart'
+        .tag_mode 'startwith'
         .tag_maker "makeFrameEndCallbackTag(#1, #2)"
     .callback 'removeFrameEndCallFuncs'
-        .tag_mode 'substart'
+        .tag_mode 'startwith'
         .tag_maker 'makeFrameEndCallbackTag(#1, "")'
     .callback 'clearFrameEndCallFuncs'
-        .tag_mode 'substart'
+        .tag_mode 'startwith'
         .tag_maker 'makeFrameEndCallbackTag(-1, "")'
     .func 'addAnimationInfo'
         .insert_before [[

@@ -585,7 +585,7 @@
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 2566X92242;
+						DevelopmentTeam = GFJDX458W5;
 					};
 					5087E73D17EB910900C73F5D = {
 						DevelopmentTeam = 2566X92242;
@@ -794,7 +794,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
-				DEVELOPMENT_TEAM = 2566X92242;
+				DEVELOPMENT_TEAM = GFJDX458W5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../frameworks/libxgame/src/bugly/";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -811,7 +811,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../frameworks/plugins/wechat/ios";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.codetypes.hellolua;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codetypes.cclua;
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -826,7 +826,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
-				DEVELOPMENT_TEAM = 2566X92242;
+				DEVELOPMENT_TEAM = GFJDX458W5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../frameworks/libxgame/src/bugly/";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -842,7 +842,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../frameworks/plugins/wechat/ios";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.codetypes.hellolua;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codetypes.cclua;
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -50,6 +50,7 @@ OLUA_BEGIN_DECLS
 #include <string.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <inttypes.h>
 #include <assert.h>
 #include <math.h>
 
@@ -138,6 +139,8 @@ OLUA_API bool olua_isdebug(lua_State *L);
 #define olua_isnumber(L,n)          (lua_type(L, (n)) == LUA_TNUMBER)
 #define olua_isthread(L,n)          (lua_type(L, (n)) == LUA_TTHREAD)
 OLUA_API bool olua_isinteger(lua_State *L, int idx);
+
+#define olua_strequal(s1, s2)       (strcmp((s1), (s2)) == 0)
     
 // check or get raw value
 #define olua_tonumber(L, i)         (lua_tonumber(L, (i)))
@@ -209,12 +212,12 @@ OLUA_API void olua_pop_objpool(lua_State *L, size_t position);
  * }
  */
 // for olua_setcallback
-#define OLUA_TAG_NEW          0
-#define OLUA_TAG_REPLACE      1 // compare substring after '@'
+#define OLUA_TAG_NEW        0
+#define OLUA_TAG_REPLACE    1 // compare substring after '@'
 // for olua_removecallback
-#define OLUA_TAG_WHOLE        2 // compare whole tag string
-#define OLUA_TAG_EQUAL     3 // compare substring after '@'
-#define OLUA_TAG_STARTWITH 4 // compare substring after '@'
+#define OLUA_TAG_WHOLE      2 // compare whole tag string
+#define OLUA_TAG_EQUAL      3 // compare substring after '@'
+#define OLUA_TAG_STARTWITH  4 // compare substring after '@'
 OLUA_API const char *olua_setcallback(lua_State *L, void *obj, int func, const char *tag, int tagmode);
 OLUA_API int olua_getcallback(lua_State *L, void *obj, const char *tag, int tagmode);
 OLUA_API void olua_removecallback(lua_State *L, void *obj, const char *tag, int tagmode);
@@ -260,11 +263,13 @@ OLUA_API void olua_visitrefs(lua_State *L, int idx, const char *name, olua_RefVi
 /**
  * lua class model
  * class A = {
- *     __name = 'A'
- *     .class = class A
- *     .classagent = class A agent -- set funcs, props and consts
+ *     class = class A
+ *     classname = A
+ *     classtype = native
+ *     super = class B
+ *     ...__gc = cls_metamethod    -- .func[..._gc]
+ *     
  *     .classobj = userdata        -- store static callback
- *     .super = class B agent
  *     .isa = {
  *         copy(B['.isa'])
  *         A = true
@@ -272,11 +277,10 @@ OLUA_API void olua_visitrefs(lua_State *L, int idx, const char *name, olua_RefVi
  *     .func = {
  *         __index = B['.func']    -- cache after access
  *         dosomething = func
+ *         ...
  *     }
  *     .get = {
  *         __index = B['.get']     -- cache after access
- *         classname = const_get(obj, "A")
- *         super = const_get(obj, B['.classagent'])
  *         name = get_name(obj, name)
  *         ...
  *     }
@@ -285,7 +289,6 @@ OLUA_API void olua_visitrefs(lua_State *L, int idx, const char *name, olua_RefVi
  *          name = set_name(obj, name, value)
  *          ...
  *      }
- *     ...__gc = cls_metamethod    -- .func[..._gc]
  * }
  */
 OLUA_API void oluacls_class(lua_State *L, const char *cls, const char *supercls);
@@ -379,7 +382,12 @@ OLUA_END_DECLS
 #include <vector>
 #include <map>
 #include <unordered_map>
+
+#if __cplusplus >= 201703L
+#include <string_view>
 #endif
+
+#endif //__cplusplus
 
 /**
  * New and close lua_State for several times, sometimes may got same
@@ -632,6 +640,14 @@ inline int olua_pushobj(lua_State *L, const T *value)
 }
 
 template <typename T>
+inline int olua_pushobj_as(lua_State *L, const T *value)
+{
+    const char *cls = olua_getluatype<T>(L);
+    olua_postpush(L, (T *)value, olua_pushobj(L, (void *)value, cls));
+    return 1;
+}
+
+template <typename T>
 inline void *olua_newobjstub(lua_State *L)
 {
     return olua_newobjstub(L, olua_getluatype<T>(L));
@@ -708,6 +724,18 @@ static inline void olua_check_std_string(lua_State *L, int idx, std::string *val
     const char *str = olua_checklstring(L, idx, &len);
     *value = std::string(str, len);
 }
+
+#if __cplusplus >= 201703L
+#define olua_is_std_string_view(L, i)    (olua_isstring(L, (i)))
+#define olua_push_std_string_view(L, v)  (lua_pushlstring(L, (v).data(), (v).size()), 1)
+
+static inline void olua_check_std_string_view(lua_State *L, int idx, std::string_view *value)
+{
+    size_t len;
+    const char *str = olua_checklstring(L, idx, &len);
+    *value = std::string_view(str, len);
+}
+#endif
 
 // map
 #define olua_is_map(L, i)   (olua_istable(L, (i)))

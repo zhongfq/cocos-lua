@@ -115,6 +115,10 @@ function cclua.replaceScene(cls, ...)
     loadSceneAssets(cclua._sceneStack.replaceScene, cls, ...)
 end
 
+function cclua.findScene(cls)
+    return cclua._sceneStack:findScene(cls)
+end
+
 function cclua.popScene()
     cclua._sceneStack:popScene()
 end

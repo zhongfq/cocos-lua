@@ -14,7 +14,7 @@ set(HEADER
 
 if(IOS)
     list(APPEND HEADER
-        ios/talkingdata.h
+        ios/TalkingDataSDK.h
     )
     list(APPEND SOURCE
         talkingdata.mm
@@ -33,7 +33,7 @@ target_include_directories(${LIBNAME}
 target_link_libraries(${LIBNAME} PRIVATE xgame)
 
 if(IOS)
-    target_link_libraries(${LIBNAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/ios/libTalkingData.a)
+    target_link_libraries(${LIBNAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/ios/libTalkingDataSDK.a)
 endif()
 
 if(APPLE)

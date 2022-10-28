@@ -65,6 +65,7 @@ typeconv 'b2Rot'
 typeconv 'b2MassData'
 
 typeconf 'b2Draw'
+    .exclude '*'
 typeonly 'b2DestructionListener'
 typeonly 'b2ContactFilter'
 typeonly 'b2ContactListener'

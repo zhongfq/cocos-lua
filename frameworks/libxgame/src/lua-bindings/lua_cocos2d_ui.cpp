@@ -7,6 +7,7 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "ui/UIScrollViewBar.h"
+#include "ui/UILayoutManager.h"
 
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ui_Widget_FocusDirection(lua_State *L)
@@ -175,6 +176,191 @@ OLUA_LIB int luaopen_cocos2d_ui_Widget_ccWidgetEventCallback(lua_State *L)
 }
 OLUA_END_DECLS
 
+static int _cocos2d_ui_LayoutManager___olua_move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::ui::LayoutManager *)olua_toobj(L, 1, "ccui.LayoutManager");
+    olua_push_cppobj(L, self, "ccui.LayoutManager");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_ui_LayoutManager_doLayout(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::LayoutManager *self = nullptr;
+    cocos2d::ui::LayoutProtocol *arg1 = nullptr;       /** layout */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutManager");
+    olua_check_cppobj(L, 2, (void **)&arg1, "ccui.LayoutProtocol");
+
+    // void doLayout(cocos2d::ui::LayoutProtocol *layout)
+    self->doLayout(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_LayoutManager(lua_State *L)
+{
+    oluacls_class(L, "ccui.LayoutManager", "cc.Ref");
+    oluacls_func(L, "__olua_move", _cocos2d_ui_LayoutManager___olua_move);
+    oluacls_func(L, "doLayout", _cocos2d_ui_LayoutManager_doLayout);
+
+    olua_registerluatype<cocos2d::ui::LayoutManager>(L, "ccui.LayoutManager");
+
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _cocos2d_ui_LayoutParameterProtocol___olua_move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::ui::LayoutParameterProtocol *)olua_toobj(L, 1, "ccui.LayoutParameterProtocol");
+    olua_push_cppobj(L, self, "ccui.LayoutParameterProtocol");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_ui_LayoutParameterProtocol_getLayoutParameter(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::LayoutParameterProtocol *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutParameterProtocol");
+
+    // cocos2d::ui::LayoutParameter *getLayoutParameter()
+    cocos2d::ui::LayoutParameter *ret = self->getLayoutParameter();
+    int num_ret = olua_push_cppobj(L, ret, "ccui.LayoutParameter");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_LayoutParameterProtocol(lua_State *L)
+{
+    oluacls_class(L, "ccui.LayoutParameterProtocol", nullptr);
+    oluacls_func(L, "__olua_move", _cocos2d_ui_LayoutParameterProtocol___olua_move);
+    oluacls_func(L, "getLayoutParameter", _cocos2d_ui_LayoutParameterProtocol_getLayoutParameter);
+    oluacls_prop(L, "layoutParameter", _cocos2d_ui_LayoutParameterProtocol_getLayoutParameter, nullptr);
+
+    olua_registerluatype<cocos2d::ui::LayoutParameterProtocol>(L, "ccui.LayoutParameterProtocol");
+
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _cocos2d_ui_LayoutProtocol___olua_move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::ui::LayoutProtocol *)olua_toobj(L, 1, "ccui.LayoutProtocol");
+    olua_push_cppobj(L, self, "ccui.LayoutProtocol");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_ui_LayoutProtocol_createLayoutManager(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::LayoutProtocol *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutProtocol");
+
+    // cocos2d::ui::LayoutManager *createLayoutManager()
+    cocos2d::ui::LayoutManager *ret = self->createLayoutManager();
+    int num_ret = olua_push_cppobj(L, ret, "ccui.LayoutManager");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_LayoutProtocol_doLayout(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::LayoutProtocol *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutProtocol");
+
+    // void doLayout()
+    self->doLayout();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_LayoutProtocol_getLayoutContentSize(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::LayoutProtocol *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutProtocol");
+
+    // cocos2d::Size getLayoutContentSize()
+    cocos2d::Size ret = self->getLayoutContentSize();
+    int num_ret = olua_push_cocos2d_Size(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_LayoutProtocol_getLayoutElements(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::LayoutProtocol *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutProtocol");
+
+    // const Vector<cocos2d::Node *> &getLayoutElements()
+    const cocos2d::Vector<cocos2d::Node *> &ret = self->getLayoutElements();
+    int num_ret = olua_push_array<cocos2d::Node *>(L, &ret, [L](cocos2d::Node *value) {
+        olua_push_cppobj(L, value, "cc.Node");
+    });
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ui_LayoutProtocol(lua_State *L)
+{
+    oluacls_class(L, "ccui.LayoutProtocol", nullptr);
+    oluacls_func(L, "__olua_move", _cocos2d_ui_LayoutProtocol___olua_move);
+    oluacls_func(L, "createLayoutManager", _cocos2d_ui_LayoutProtocol_createLayoutManager);
+    oluacls_func(L, "doLayout", _cocos2d_ui_LayoutProtocol_doLayout);
+    oluacls_func(L, "getLayoutContentSize", _cocos2d_ui_LayoutProtocol_getLayoutContentSize);
+    oluacls_func(L, "getLayoutElements", _cocos2d_ui_LayoutProtocol_getLayoutElements);
+    oluacls_prop(L, "layoutContentSize", _cocos2d_ui_LayoutProtocol_getLayoutContentSize, nullptr);
+    oluacls_prop(L, "layoutElements", _cocos2d_ui_LayoutProtocol_getLayoutElements, nullptr);
+
+    olua_registerluatype<cocos2d::ui::LayoutProtocol>(L, "ccui.LayoutProtocol");
+
+    return 1;
+}
+OLUA_END_DECLS
+
 static int _cocos2d_ui_Widget___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -319,6 +505,37 @@ static int _cocos2d_ui_Widget_addTouchEventListener(lua_State *L)
     olua_endinvoke(L);
 
     return 0;
+}
+
+static int _cocos2d_ui_Widget_as(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::Widget *self = nullptr;
+    const char *arg1 = nullptr;       /** cls */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
+    olua_check_string(L, 2, &arg1);
+
+    do {
+        if (olua_isa(L, 1, arg1)) {
+            lua_pushvalue(L, 1);
+            break;
+        }
+        if (olua_strequal(arg1, "ccui.LayoutParameterProtocol")) {
+            cocos2d::ui::LayoutParameterProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::ui::LayoutParameterProtocol>(L, asobj);
+            olua_addref(L, 1, "as.ccui.LayoutParameterProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+
+        luaL_error(L, "'cocos2d::ui::Widget' can't cast to '%s'", arg1);
+    } while (0);
+
+    olua_endinvoke(L);
+
+    return 1;
 }
 
 static int _cocos2d_ui_Widget_clone(lua_State *L)
@@ -1784,6 +2001,7 @@ OLUA_LIB int luaopen_cocos2d_ui_Widget(lua_State *L)
     oluacls_func(L, "addCCSEventListener", _cocos2d_ui_Widget_addCCSEventListener);
     oluacls_func(L, "addClickEventListener", _cocos2d_ui_Widget_addClickEventListener);
     oluacls_func(L, "addTouchEventListener", _cocos2d_ui_Widget_addTouchEventListener);
+    oluacls_func(L, "as", _cocos2d_ui_Widget_as);
     oluacls_func(L, "clone", _cocos2d_ui_Widget_clone);
     oluacls_func(L, "create", _cocos2d_ui_Widget_create);
     oluacls_func(L, "dispatchFocusEvent", _cocos2d_ui_Widget_dispatchFocusEvent);
@@ -4961,6 +5179,44 @@ static int _cocos2d_ui_Layout___olua_move(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_ui_Layout_as(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::Layout *self = nullptr;
+    const char *arg1 = nullptr;       /** cls */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+    olua_check_string(L, 2, &arg1);
+
+    do {
+        if (olua_isa(L, 1, arg1)) {
+            lua_pushvalue(L, 1);
+            break;
+        }
+        if (olua_strequal(arg1, "ccui.LayoutParameterProtocol")) {
+            cocos2d::ui::LayoutParameterProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::ui::LayoutParameterProtocol>(L, asobj);
+            olua_addref(L, 1, "as.ccui.LayoutParameterProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+        if (olua_strequal(arg1, "ccui.LayoutProtocol")) {
+            cocos2d::ui::LayoutProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::ui::LayoutProtocol>(L, asobj);
+            olua_addref(L, 1, "as.ccui.LayoutProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+
+        luaL_error(L, "'cocos2d::ui::Layout' can't cast to '%s'", arg1);
+    } while (0);
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _cocos2d_ui_Layout_create(lua_State *L)
 {
     olua_startinvoke(L);
@@ -5752,6 +6008,7 @@ OLUA_LIB int luaopen_cocos2d_ui_Layout(lua_State *L)
 {
     oluacls_class(L, "ccui.Layout", "ccui.Widget");
     oluacls_func(L, "__olua_move", _cocos2d_ui_Layout___olua_move);
+    oluacls_func(L, "as", _cocos2d_ui_Layout_as);
     oluacls_func(L, "create", _cocos2d_ui_Layout_create);
     oluacls_func(L, "createInstance", _cocos2d_ui_Layout_createInstance);
     oluacls_func(L, "forceDoLayout", _cocos2d_ui_Layout_forceDoLayout);
@@ -17082,6 +17339,44 @@ static int _cocos2d_ui_Text___olua_move(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_ui_Text_as(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::Text *self = nullptr;
+    const char *arg1 = nullptr;       /** cls */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
+    olua_check_string(L, 2, &arg1);
+
+    do {
+        if (olua_isa(L, 1, arg1)) {
+            lua_pushvalue(L, 1);
+            break;
+        }
+        if (olua_strequal(arg1, "cc.BlendProtocol")) {
+            cocos2d::BlendProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::BlendProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.BlendProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+        if (olua_strequal(arg1, "ccui.LayoutParameterProtocol")) {
+            cocos2d::ui::LayoutParameterProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::ui::LayoutParameterProtocol>(L, asobj);
+            olua_addref(L, 1, "as.ccui.LayoutParameterProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+
+        luaL_error(L, "'cocos2d::ui::Text' can't cast to '%s'", arg1);
+    } while (0);
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _cocos2d_ui_Text_create1(lua_State *L)
 {
     olua_startinvoke(L);
@@ -17979,6 +18274,7 @@ OLUA_LIB int luaopen_cocos2d_ui_Text(lua_State *L)
 {
     oluacls_class(L, "ccui.Text", "ccui.Widget");
     oluacls_func(L, "__olua_move", _cocos2d_ui_Text___olua_move);
+    oluacls_func(L, "as", _cocos2d_ui_Text_as);
     oluacls_func(L, "create", _cocos2d_ui_Text_create);
     oluacls_func(L, "createInstance", _cocos2d_ui_Text_createInstance);
     oluacls_func(L, "disableEffect", _cocos2d_ui_Text_disableEffect);
@@ -18506,6 +18802,58 @@ static int _cocos2d_ui_UICCTextField___olua_move(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_ui_UICCTextField_as(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::UICCTextField *self = nullptr;
+    const char *arg1 = nullptr;       /** cls */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.UICCTextField");
+    olua_check_string(L, 2, &arg1);
+
+    do {
+        if (olua_isa(L, 1, arg1)) {
+            lua_pushvalue(L, 1);
+            break;
+        }
+        if (olua_strequal(arg1, "cc.BlendProtocol")) {
+            cocos2d::BlendProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::BlendProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.BlendProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+        if (olua_strequal(arg1, "cc.IMEDelegate")) {
+            cocos2d::IMEDelegate *asobj = self;
+            olua_pushobj_as<cocos2d::IMEDelegate>(L, asobj);
+            olua_addref(L, 1, "as.cc.IMEDelegate", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+        if (olua_strequal(arg1, "cc.LabelProtocol")) {
+            cocos2d::LabelProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::LabelProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.LabelProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+        if (olua_strequal(arg1, "cc.TextFieldDelegate")) {
+            cocos2d::TextFieldDelegate *asobj = self;
+            olua_pushobj_as<cocos2d::TextFieldDelegate>(L, asobj);
+            olua_addref(L, 1, "as.cc.TextFieldDelegate", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+
+        luaL_error(L, "'cocos2d::ui::UICCTextField' can't cast to '%s'", arg1);
+    } while (0);
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _cocos2d_ui_UICCTextField_closeIME(lua_State *L)
 {
     olua_startinvoke(L);
@@ -18814,6 +19162,31 @@ static int _cocos2d_ui_UICCTextField_onTextFieldInsertText(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ui_UICCTextField_onVisit(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::UICCTextField *self = nullptr;
+    cocos2d::TextFieldTTF *arg1 = nullptr;       /** sender */
+    cocos2d::Renderer *arg2 = nullptr;       /** renderer */
+    cocos2d::Mat4 arg3;       /** transform */
+    lua_Unsigned arg4 = 0;       /** flags */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.UICCTextField");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.TextFieldTTF");
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Renderer");
+    olua_check_cocos2d_Mat4(L, 4, &arg3);
+    olua_check_uint(L, 5, &arg4);
+
+    // @copyfrom(cocos2d::TextFieldDelegate) bool onVisit(cocos2d::TextFieldTTF *sender, cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
+    bool ret = self->onVisit(arg1, arg2, arg3, (uint32_t)arg4);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_ui_UICCTextField_openIME(lua_State *L)
 {
     olua_startinvoke(L);
@@ -18997,6 +19370,7 @@ OLUA_LIB int luaopen_cocos2d_ui_UICCTextField(lua_State *L)
 {
     oluacls_class(L, "ccui.UICCTextField", "cc.TextFieldTTF");
     oluacls_func(L, "__olua_move", _cocos2d_ui_UICCTextField___olua_move);
+    oluacls_func(L, "as", _cocos2d_ui_UICCTextField_as);
     oluacls_func(L, "closeIME", _cocos2d_ui_UICCTextField_closeIME);
     oluacls_func(L, "create", _cocos2d_ui_UICCTextField_create);
     oluacls_func(L, "getAttachWithIME", _cocos2d_ui_UICCTextField_getAttachWithIME);
@@ -19012,6 +19386,7 @@ OLUA_LIB int luaopen_cocos2d_ui_UICCTextField(lua_State *L)
     oluacls_func(L, "onTextFieldDeleteBackward", _cocos2d_ui_UICCTextField_onTextFieldDeleteBackward);
     oluacls_func(L, "onTextFieldDetachWithIME", _cocos2d_ui_UICCTextField_onTextFieldDetachWithIME);
     oluacls_func(L, "onTextFieldInsertText", _cocos2d_ui_UICCTextField_onTextFieldInsertText);
+    oluacls_func(L, "onVisit", _cocos2d_ui_UICCTextField_onVisit);
     oluacls_func(L, "openIME", _cocos2d_ui_UICCTextField_openIME);
     oluacls_func(L, "setAttachWithIME", _cocos2d_ui_UICCTextField_setAttachWithIME);
     oluacls_func(L, "setDeleteBackward", _cocos2d_ui_UICCTextField_setDeleteBackward);
@@ -22383,6 +22758,44 @@ static int _cocos2d_ui_ImageView___olua_move(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_ui_ImageView_as(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::ImageView *self = nullptr;
+    const char *arg1 = nullptr;       /** cls */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ImageView");
+    olua_check_string(L, 2, &arg1);
+
+    do {
+        if (olua_isa(L, 1, arg1)) {
+            lua_pushvalue(L, 1);
+            break;
+        }
+        if (olua_strequal(arg1, "cc.BlendProtocol")) {
+            cocos2d::BlendProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::BlendProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.BlendProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+        if (olua_strequal(arg1, "ccui.LayoutParameterProtocol")) {
+            cocos2d::ui::LayoutParameterProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::ui::LayoutParameterProtocol>(L, asobj);
+            olua_addref(L, 1, "as.ccui.LayoutParameterProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+
+        luaL_error(L, "'cocos2d::ui::ImageView' can't cast to '%s'", arg1);
+    } while (0);
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _cocos2d_ui_ImageView_create1(lua_State *L)
 {
     olua_startinvoke(L);
@@ -22778,6 +23191,7 @@ OLUA_LIB int luaopen_cocos2d_ui_ImageView(lua_State *L)
 {
     oluacls_class(L, "ccui.ImageView", "ccui.Widget");
     oluacls_func(L, "__olua_move", _cocos2d_ui_ImageView___olua_move);
+    oluacls_func(L, "as", _cocos2d_ui_ImageView_as);
     oluacls_func(L, "create", _cocos2d_ui_ImageView_create);
     oluacls_func(L, "createInstance", _cocos2d_ui_ImageView_createInstance);
     oluacls_func(L, "getBlendFunc", _cocos2d_ui_ImageView_getBlendFunc);
@@ -23330,6 +23744,61 @@ static int _cocos2d_ui_EditBox___olua_move(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_ui_EditBox_as(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    const char *arg1 = nullptr;       /** cls */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_string(L, 2, &arg1);
+
+    do {
+        if (olua_isa(L, 1, arg1)) {
+            lua_pushvalue(L, 1);
+            break;
+        }
+        if (olua_strequal(arg1, "cc.IMEDelegate")) {
+            cocos2d::IMEDelegate *asobj = self;
+            olua_pushobj_as<cocos2d::IMEDelegate>(L, asobj);
+            olua_addref(L, 1, "as.cc.IMEDelegate", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+        if (olua_strequal(arg1, "ccui.LayoutParameterProtocol")) {
+            cocos2d::ui::LayoutParameterProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::ui::LayoutParameterProtocol>(L, asobj);
+            olua_addref(L, 1, "as.ccui.LayoutParameterProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+
+        luaL_error(L, "'cocos2d::ui::EditBox' can't cast to '%s'", arg1);
+    } while (0);
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_ui_EditBox_attachWithIME(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::EditBox *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+
+    // @copyfrom(cocos2d::IMEDelegate) bool attachWithIME()
+    bool ret = self->attachWithIME();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_ui_EditBox_create1(lua_State *L)
 {
     olua_startinvoke(L);
@@ -23557,6 +24026,23 @@ static int _cocos2d_ui_EditBox_create(lua_State *L)
     luaL_error(L, "method 'cocos2d::ui::EditBox::create' not support '%d' arguments", num_args);
 
     return 0;
+}
+
+static int _cocos2d_ui_EditBox_detachWithIME(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ui::EditBox *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+
+    // @copyfrom(cocos2d::IMEDelegate) bool detachWithIME()
+    bool ret = self->detachWithIME();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
 }
 
 static int _cocos2d_ui_EditBox_getCapInsetsDisabledRenderer(lua_State *L)
@@ -24868,7 +25354,10 @@ OLUA_LIB int luaopen_cocos2d_ui_EditBox(lua_State *L)
 {
     oluacls_class(L, "ccui.EditBox", "ccui.Widget");
     oluacls_func(L, "__olua_move", _cocos2d_ui_EditBox___olua_move);
+    oluacls_func(L, "as", _cocos2d_ui_EditBox_as);
+    oluacls_func(L, "attachWithIME", _cocos2d_ui_EditBox_attachWithIME);
     oluacls_func(L, "create", _cocos2d_ui_EditBox_create);
+    oluacls_func(L, "detachWithIME", _cocos2d_ui_EditBox_detachWithIME);
     oluacls_func(L, "getCapInsetsDisabledRenderer", _cocos2d_ui_EditBox_getCapInsetsDisabledRenderer);
     oluacls_func(L, "getCapInsetsNormalRenderer", _cocos2d_ui_EditBox_getCapInsetsNormalRenderer);
     oluacls_func(L, "getCapInsetsPressedRenderer", _cocos2d_ui_EditBox_getCapInsetsPressedRenderer);
@@ -24950,6 +25439,9 @@ OLUA_LIB int luaopen_cocos2d_ui(lua_State *L)
     olua_require(L, "ccui.Widget.ccWidgetTouchCallback", luaopen_cocos2d_ui_Widget_ccWidgetTouchCallback);
     olua_require(L, "ccui.Widget.ccWidgetClickCallback", luaopen_cocos2d_ui_Widget_ccWidgetClickCallback);
     olua_require(L, "ccui.Widget.ccWidgetEventCallback", luaopen_cocos2d_ui_Widget_ccWidgetEventCallback);
+    olua_require(L, "ccui.LayoutManager", luaopen_cocos2d_ui_LayoutManager);
+    olua_require(L, "ccui.LayoutParameterProtocol", luaopen_cocos2d_ui_LayoutParameterProtocol);
+    olua_require(L, "ccui.LayoutProtocol", luaopen_cocos2d_ui_LayoutProtocol);
     olua_require(L, "ccui.Widget", luaopen_cocos2d_ui_Widget);
     olua_require(L, "ccui.Helper", luaopen_cocos2d_ui_Helper);
     olua_require(L, "ccui.Scale9Sprite.State", luaopen_cocos2d_ui_Scale9Sprite_State);

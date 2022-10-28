@@ -36,6 +36,7 @@ typeconf 'cocos2d::Action'
     .exclude 'initWithTwoActions'
     .exclude 'setReverseAction'
 
+typeconf 'cocos2d::ActionTweenDelegate'
 typeconf 'cocos2d::FiniteTimeAction'
 
 typeconf 'cocos2d::Speed'
@@ -254,3 +255,9 @@ typeconf 'cocos2d::WavesTiles3D'
 typeconf 'cocos2d::JumpTiles3D'
 typeconf 'cocos2d::SplitRows'
 typeconf 'cocos2d::SplitCols'
+
+typeconf 'cocos2d::LuaTweenNode'
+    .callback 'create'
+        .tag_maker 'ActionTween'
+        .tag_mode 'new'
+        .tag_store '-1'

@@ -139,6 +139,8 @@ OLUA_API bool olua_isdebug(lua_State *L);
 #define olua_isnumber(L,n)          (lua_type(L, (n)) == LUA_TNUMBER)
 #define olua_isthread(L,n)          (lua_type(L, (n)) == LUA_TTHREAD)
 OLUA_API bool olua_isinteger(lua_State *L, int idx);
+
+#define olua_strequal(s1, s2)       (strcmp((s1), (s2)) == 0)
     
 // check or get raw value
 #define olua_tonumber(L, i)         (lua_tonumber(L, (i)))
@@ -635,6 +637,14 @@ template <typename T>
 inline int olua_pushobj(lua_State *L, const T *value)
 {
     return olua_pushobj<T>(L, value, nullptr);
+}
+
+template <typename T>
+inline int olua_pushobj_as(lua_State *L, const T *value)
+{
+    const char *cls = olua_getluatype<T>(L);
+    olua_postpush(L, (T *)value, olua_pushobj(L, (void *)value, cls));
+    return 1;
 }
 
 template <typename T>

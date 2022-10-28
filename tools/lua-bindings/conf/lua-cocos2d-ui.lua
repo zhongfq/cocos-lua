@@ -8,6 +8,7 @@ headers [[
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "ui/UIScrollViewBar.h"
+#include "ui/UILayoutManager.h"
 ]]
 
 luacls(function (cppname)
@@ -28,6 +29,9 @@ typeconf 'cocos2d::ui::Widget::ccWidgetTouchCallback'
 typeconf 'cocos2d::ui::Widget::ccWidgetClickCallback'
 typeconf 'cocos2d::ui::Widget::ccWidgetEventCallback'
 
+typeconf 'cocos2d::ui::LayoutManager'
+typeconf 'cocos2d::ui::LayoutParameterProtocol'
+typeconf 'cocos2d::ui::LayoutProtocol'
 typeconf 'cocos2d::ui::Widget'
     .exclude 'createInstance'
     .func 'getVirtualRenderer' .ret '@addref(protectedChildren |)'

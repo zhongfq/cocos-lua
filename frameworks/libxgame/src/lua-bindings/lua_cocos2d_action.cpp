@@ -64,6 +64,37 @@ static int _cocos2d_Action___olua_move(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_Action_as(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Action *self = nullptr;
+    const char *arg1 = nullptr;       /** cls */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Action");
+    olua_check_string(L, 2, &arg1);
+
+    do {
+        if (olua_isa(L, 1, arg1)) {
+            lua_pushvalue(L, 1);
+            break;
+        }
+        if (olua_strequal(arg1, "cc.Clonable")) {
+            cocos2d::Clonable *asobj = self;
+            olua_pushobj_as<cocos2d::Clonable>(L, asobj);
+            olua_addref(L, 1, "as.cc.Clonable", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+
+        luaL_error(L, "'cocos2d::Action' can't cast to '%s'", arg1);
+    } while (0);
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _cocos2d_Action_clone(lua_State *L)
 {
     olua_startinvoke(L);
@@ -347,6 +378,7 @@ OLUA_LIB int luaopen_cocos2d_Action(lua_State *L)
 {
     oluacls_class(L, "cc.Action", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocos2d_Action___olua_move);
+    oluacls_func(L, "as", _cocos2d_Action_as);
     oluacls_func(L, "clone", _cocos2d_Action_clone);
     oluacls_func(L, "description", _cocos2d_Action_description);
     oluacls_func(L, "getFlags", _cocos2d_Action_getFlags);
@@ -371,6 +403,51 @@ OLUA_LIB int luaopen_cocos2d_Action(lua_State *L)
     oluacls_const_integer(L, "INVALID_TAG", (lua_Integer)cocos2d::Action::INVALID_TAG);
 
     olua_registerluatype<cocos2d::Action>(L, "cc.Action");
+
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _cocos2d_ActionTweenDelegate___olua_move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::ActionTweenDelegate *)olua_toobj(L, 1, "cc.ActionTweenDelegate");
+    olua_push_cppobj(L, self, "cc.ActionTweenDelegate");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_ActionTweenDelegate_updateTweenAction(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ActionTweenDelegate *self = nullptr;
+    lua_Number arg1 = 0;       /** value */
+    std::string arg2;       /** key */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ActionTweenDelegate");
+    olua_check_number(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // void updateTweenAction(float value, const std::string &key)
+    self->updateTweenAction((float)arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_ActionTweenDelegate(lua_State *L)
+{
+    oluacls_class(L, "cc.ActionTweenDelegate", nullptr);
+    oluacls_func(L, "__olua_move", _cocos2d_ActionTweenDelegate___olua_move);
+    oluacls_func(L, "updateTweenAction", _cocos2d_ActionTweenDelegate_updateTweenAction);
+
+    olua_registerluatype<cocos2d::ActionTweenDelegate>(L, "cc.ActionTweenDelegate");
 
     return 1;
 }
@@ -6553,6 +6630,37 @@ static int _cocos2d_PointArray_addControlPoint(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_PointArray_as(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PointArray *self = nullptr;
+    const char *arg1 = nullptr;       /** cls */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PointArray");
+    olua_check_string(L, 2, &arg1);
+
+    do {
+        if (olua_isa(L, 1, arg1)) {
+            lua_pushvalue(L, 1);
+            break;
+        }
+        if (olua_strequal(arg1, "cc.Clonable")) {
+            cocos2d::Clonable *asobj = self;
+            olua_pushobj_as<cocos2d::Clonable>(L, asobj);
+            olua_addref(L, 1, "as.cc.Clonable", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+
+        luaL_error(L, "'cocos2d::PointArray' can't cast to '%s'", arg1);
+    } while (0);
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _cocos2d_PointArray_clone(lua_State *L)
 {
     olua_startinvoke(L);
@@ -6778,6 +6886,7 @@ OLUA_LIB int luaopen_cocos2d_PointArray(lua_State *L)
     oluacls_class(L, "cc.PointArray", "cc.Ref");
     oluacls_func(L, "__olua_move", _cocos2d_PointArray___olua_move);
     oluacls_func(L, "addControlPoint", _cocos2d_PointArray_addControlPoint);
+    oluacls_func(L, "as", _cocos2d_PointArray_as);
     oluacls_func(L, "clone", _cocos2d_PointArray_clone);
     oluacls_func(L, "count", _cocos2d_PointArray_count);
     oluacls_func(L, "create", _cocos2d_PointArray_create);
@@ -11085,11 +11194,132 @@ OLUA_LIB int luaopen_cocos2d_SplitCols(lua_State *L)
 }
 OLUA_END_DECLS
 
+static int _cocos2d_LuaTweenNode___olua_move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::LuaTweenNode *)olua_toobj(L, 1, "cc.LuaTweenNode");
+    olua_push_cppobj(L, self, "cc.LuaTweenNode");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_LuaTweenNode_as(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::LuaTweenNode *self = nullptr;
+    const char *arg1 = nullptr;       /** cls */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LuaTweenNode");
+    olua_check_string(L, 2, &arg1);
+
+    do {
+        if (olua_isa(L, 1, arg1)) {
+            lua_pushvalue(L, 1);
+            break;
+        }
+        if (olua_strequal(arg1, "cc.ActionTweenDelegate")) {
+            cocos2d::ActionTweenDelegate *asobj = self;
+            olua_pushobj_as<cocos2d::ActionTweenDelegate>(L, asobj);
+            olua_addref(L, 1, "as.cc.ActionTweenDelegate", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+
+        luaL_error(L, "'cocos2d::LuaTweenNode' can't cast to '%s'", arg1);
+    } while (0);
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_LuaTweenNode_create(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::function<void(float, const std::string &)> arg1;       /** callback */
+
+    olua_check_callback(L, 1, &arg1, "std.function");
+
+    void *cb_store = (void *)olua_newobjstub(L, "cc.LuaTweenNode");
+    std::string cb_tag = "ActionTween";
+    std::string cb_name = olua_setcallback(L, cb_store,  1, cb_tag.c_str(), OLUA_TAG_NEW);
+    olua_Context cb_ctx = olua_context(L);
+    arg1 = [cb_store, cb_name, cb_ctx](float arg1, const std::string &arg2) {
+        lua_State *L = olua_mainthread(NULL);
+        olua_checkhostthread();
+
+        if (olua_contextequal(L, cb_ctx)) {
+            int top = lua_gettop(L);
+            olua_push_number(L, (lua_Number)arg1);
+            olua_push_std_string(L, arg2);
+
+            olua_callback(L, cb_store, cb_name.c_str(), 2);
+
+            lua_settop(L, top);
+        }
+    };
+
+    // static cocos2d::LuaTweenNode *create(@localvar const std::function<void (float, const std::string &)> &callback)
+    cocos2d::LuaTweenNode *ret = cocos2d::LuaTweenNode::create(arg1);
+    if (olua_pushobjstub(L, ret, cb_store, "cc.LuaTweenNode") == OLUA_OBJ_EXIST) {
+        lua_pushstring(L, cb_name.c_str());
+        lua_pushvalue(L, 1);
+        olua_setvariable(L, -3);
+    } else {
+        olua_postpush(L, ret, OLUA_OBJ_NEW);
+    };
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_LuaTweenNode_updateTweenAction(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::LuaTweenNode *self = nullptr;
+    lua_Number arg1 = 0;       /** value */
+    std::string arg2;       /** key */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LuaTweenNode");
+    olua_check_number(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // void updateTweenAction(float value, const std::string &key)
+    self->updateTweenAction((float)arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_LuaTweenNode(lua_State *L)
+{
+    oluacls_class(L, "cc.LuaTweenNode", "cc.Node");
+    oluacls_func(L, "__olua_move", _cocos2d_LuaTweenNode___olua_move);
+    oluacls_func(L, "as", _cocos2d_LuaTweenNode_as);
+    oluacls_func(L, "create", _cocos2d_LuaTweenNode_create);
+    oluacls_func(L, "updateTweenAction", _cocos2d_LuaTweenNode_updateTweenAction);
+
+    olua_registerluatype<cocos2d::LuaTweenNode>(L, "cc.LuaTweenNode");
+
+    return 1;
+}
+OLUA_END_DECLS
+
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_action(lua_State *L)
 {
     olua_require(L, "cc.tweenfunc.TweenType", luaopen_cocos2d_tweenfunc_TweenType);
     olua_require(L, "cc.Action", luaopen_cocos2d_Action);
+    olua_require(L, "cc.ActionTweenDelegate", luaopen_cocos2d_ActionTweenDelegate);
     olua_require(L, "cc.FiniteTimeAction", luaopen_cocos2d_FiniteTimeAction);
     olua_require(L, "cc.Speed", luaopen_cocos2d_Speed);
     olua_require(L, "cc.Follow", luaopen_cocos2d_Follow);
@@ -11219,6 +11449,7 @@ OLUA_LIB int luaopen_cocos2d_action(lua_State *L)
     olua_require(L, "cc.JumpTiles3D", luaopen_cocos2d_JumpTiles3D);
     olua_require(L, "cc.SplitRows", luaopen_cocos2d_SplitRows);
     olua_require(L, "cc.SplitCols", luaopen_cocos2d_SplitCols);
+    olua_require(L, "cc.LuaTweenNode", luaopen_cocos2d_LuaTweenNode);
 
     return 0;
 }

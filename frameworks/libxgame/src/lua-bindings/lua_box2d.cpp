@@ -1011,246 +1011,11 @@ static int _b2Draw___olua_move(lua_State *L)
     return 1;
 }
 
-static int _b2Draw_AppendFlags(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2Draw *self = nullptr;
-    lua_Unsigned arg1 = 0;       /** flags */
-
-    olua_to_cppobj(L, 1, (void **)&self, "b2.interface.Draw");
-    olua_check_uint(L, 2, &arg1);
-
-    // void AppendFlags(uint32 flags)
-    self->AppendFlags((uint32)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2Draw_ClearFlags(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2Draw *self = nullptr;
-    lua_Unsigned arg1 = 0;       /** flags */
-
-    olua_to_cppobj(L, 1, (void **)&self, "b2.interface.Draw");
-    olua_check_uint(L, 2, &arg1);
-
-    // void ClearFlags(uint32 flags)
-    self->ClearFlags((uint32)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2Draw_DrawCircle(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2Draw *self = nullptr;
-    b2Vec2 arg1;       /** center */
-    lua_Number arg2 = 0;       /** radius */
-    b2Color arg3;       /** color */
-
-    olua_to_cppobj(L, 1, (void **)&self, "b2.interface.Draw");
-    olua_check_b2Vec2(L, 2, &arg1);
-    olua_check_number(L, 3, &arg2);
-    olua_check_b2Color(L, 4, &arg3);
-
-    // void DrawCircle(const b2Vec2 &center, float radius, const b2Color &color)
-    self->DrawCircle(arg1, (float)arg2, arg3);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2Draw_DrawPoint(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2Draw *self = nullptr;
-    b2Vec2 arg1;       /** p */
-    lua_Number arg2 = 0;       /** size */
-    b2Color arg3;       /** color */
-
-    olua_to_cppobj(L, 1, (void **)&self, "b2.interface.Draw");
-    olua_check_b2Vec2(L, 2, &arg1);
-    olua_check_number(L, 3, &arg2);
-    olua_check_b2Color(L, 4, &arg3);
-
-    // void DrawPoint(const b2Vec2 &p, float size, const b2Color &color)
-    self->DrawPoint(arg1, (float)arg2, arg3);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2Draw_DrawPolygon(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2Draw *self = nullptr;
-    b2Vec2 arg1;       /** vertices */
-    lua_Integer arg2 = 0;       /** vertexCount */
-    b2Color arg3;       /** color */
-
-    olua_to_cppobj(L, 1, (void **)&self, "b2.interface.Draw");
-    olua_check_b2Vec2(L, 2, &arg1);
-    olua_check_int(L, 3, &arg2);
-    olua_check_b2Color(L, 4, &arg3);
-
-    // void DrawPolygon(const b2Vec2 *vertices, int32 vertexCount, const b2Color &color)
-    self->DrawPolygon(&arg1, (int32)arg2, arg3);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2Draw_DrawSegment(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2Draw *self = nullptr;
-    b2Vec2 arg1;       /** p1 */
-    b2Vec2 arg2;       /** p2 */
-    b2Color arg3;       /** color */
-
-    olua_to_cppobj(L, 1, (void **)&self, "b2.interface.Draw");
-    olua_check_b2Vec2(L, 2, &arg1);
-    olua_check_b2Vec2(L, 3, &arg2);
-    olua_check_b2Color(L, 4, &arg3);
-
-    // void DrawSegment(const b2Vec2 &p1, const b2Vec2 &p2, const b2Color &color)
-    self->DrawSegment(arg1, arg2, arg3);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2Draw_DrawSolidCircle(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2Draw *self = nullptr;
-    b2Vec2 arg1;       /** center */
-    lua_Number arg2 = 0;       /** radius */
-    b2Vec2 arg3;       /** axis */
-    b2Color arg4;       /** color */
-
-    olua_to_cppobj(L, 1, (void **)&self, "b2.interface.Draw");
-    olua_check_b2Vec2(L, 2, &arg1);
-    olua_check_number(L, 3, &arg2);
-    olua_check_b2Vec2(L, 4, &arg3);
-    olua_check_b2Color(L, 5, &arg4);
-
-    // void DrawSolidCircle(const b2Vec2 &center, float radius, const b2Vec2 &axis, const b2Color &color)
-    self->DrawSolidCircle(arg1, (float)arg2, arg3, arg4);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2Draw_DrawSolidPolygon(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2Draw *self = nullptr;
-    b2Vec2 arg1;       /** vertices */
-    lua_Integer arg2 = 0;       /** vertexCount */
-    b2Color arg3;       /** color */
-
-    olua_to_cppobj(L, 1, (void **)&self, "b2.interface.Draw");
-    olua_check_b2Vec2(L, 2, &arg1);
-    olua_check_int(L, 3, &arg2);
-    olua_check_b2Color(L, 4, &arg3);
-
-    // void DrawSolidPolygon(const b2Vec2 *vertices, int32 vertexCount, const b2Color &color)
-    self->DrawSolidPolygon(&arg1, (int32)arg2, arg3);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2Draw_DrawTransform(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2Draw *self = nullptr;
-    b2Transform *arg1 = nullptr;       /** xf */
-
-    olua_to_cppobj(L, 1, (void **)&self, "b2.interface.Draw");
-    olua_check_cppobj(L, 2, (void **)&arg1, "b2.Transform");
-
-    // void DrawTransform(const b2Transform &xf)
-    self->DrawTransform(*arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2Draw_GetFlags(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2Draw *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "b2.interface.Draw");
-
-    // uint32 GetFlags()
-    uint32 ret = self->GetFlags();
-    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _b2Draw_SetFlags(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2Draw *self = nullptr;
-    lua_Unsigned arg1 = 0;       /** flags */
-
-    olua_to_cppobj(L, 1, (void **)&self, "b2.interface.Draw");
-    olua_check_uint(L, 2, &arg1);
-
-    // void SetFlags(uint32 flags)
-    self->SetFlags((uint32)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_b2Draw(lua_State *L)
 {
     oluacls_class(L, "b2.interface.Draw", nullptr);
     oluacls_func(L, "__olua_move", _b2Draw___olua_move);
-    oluacls_func(L, "appendFlags", _b2Draw_AppendFlags);
-    oluacls_func(L, "clearFlags", _b2Draw_ClearFlags);
-    oluacls_func(L, "drawCircle", _b2Draw_DrawCircle);
-    oluacls_func(L, "drawPoint", _b2Draw_DrawPoint);
-    oluacls_func(L, "drawPolygon", _b2Draw_DrawPolygon);
-    oluacls_func(L, "drawSegment", _b2Draw_DrawSegment);
-    oluacls_func(L, "drawSolidCircle", _b2Draw_DrawSolidCircle);
-    oluacls_func(L, "drawSolidPolygon", _b2Draw_DrawSolidPolygon);
-    oluacls_func(L, "drawTransform", _b2Draw_DrawTransform);
-    oluacls_func(L, "getFlags", _b2Draw_GetFlags);
-    oluacls_func(L, "setFlags", _b2Draw_SetFlags);
-    oluacls_prop(L, "flags", _b2Draw_GetFlags, _b2Draw_SetFlags);
 
     olua_registerluatype<b2Draw>(L, "b2.interface.Draw");
 
@@ -2341,6 +2106,37 @@ static int _box2d_DebugNode_appendFlags(lua_State *L)
     return 0;
 }
 
+static int _box2d_DebugNode_as(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::DebugNode *self = nullptr;
+    const char *arg1 = nullptr;       /** cls */
+
+    olua_to_cppobj(L, 1, (void **)&self, "b2.DebugNode");
+    olua_check_string(L, 2, &arg1);
+
+    do {
+        if (olua_isa(L, 1, arg1)) {
+            lua_pushvalue(L, 1);
+            break;
+        }
+        if (olua_strequal(arg1, "b2.interface.Draw")) {
+            b2Draw *asobj = self;
+            olua_pushobj_as<b2Draw>(L, asobj);
+            olua_addref(L, 1, "as.b2.interface.Draw", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+
+        luaL_error(L, "'box2d::DebugNode' can't cast to '%s'", arg1);
+    } while (0);
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _box2d_DebugNode_clearFlags(lua_State *L)
 {
     olua_startinvoke(L);
@@ -2420,6 +2216,7 @@ OLUA_LIB int luaopen_box2d_DebugNode(lua_State *L)
     oluacls_class(L, "b2.DebugNode", "cc.DrawNode");
     oluacls_func(L, "__olua_move", _box2d_DebugNode___olua_move);
     oluacls_func(L, "appendFlags", _box2d_DebugNode_appendFlags);
+    oluacls_func(L, "as", _box2d_DebugNode_as);
     oluacls_func(L, "clearFlags", _box2d_DebugNode_clearFlags);
     oluacls_func(L, "create", _box2d_DebugNode_create);
     oluacls_func(L, "getFlags", _box2d_DebugNode_getFlags);

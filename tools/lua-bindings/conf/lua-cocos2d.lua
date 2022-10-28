@@ -74,6 +74,7 @@ typeconf 'cocos2d::Ref'
             return cclua_ccobjgc(L);
         }]]
 
+typeconf 'cocos2d::Clonable'
 typeconf 'cocos2d::Console'
 typeconf 'cocos2d::Acceleration'
 
@@ -518,12 +519,8 @@ typeconf 'cocos2d::Node'
         .tag_mode 'new'
         .tag_scope 'function'
 
-typeconf 'cocos2d::LuaTweenNode'
-    .callback 'create'
-        .tag_maker 'ActionTween'
-        .tag_mode 'new'
-        .tag_store '-1'
-
+typeconf 'cocos2d::BlendProtocol'
+typeconf 'cocos2d::TextureProtocol'
 typeconf 'cocos2d::AtlasNode'
 typeconf 'cocos2d::sImageTGA'
 typeconf 'cocos2d::TileMapAtlas'
@@ -549,6 +546,7 @@ typeconf 'cocos2d::GlyphCollection'
 typeconf 'cocos2d::LabelEffect'
 typeconf 'cocos2d::Label::LabelType'
 typeconf 'cocos2d::Label::Overflow'
+typeconf 'cocos2d::LabelProtocol'
 typeconf 'cocos2d::Label'
 typeconf 'cocos2d::LabelAtlas'
 
@@ -622,6 +620,7 @@ end
 typeconfTransition 'cocos2d::TransitionScene'
     .exclude 'initWithDuration'
 
+typeconfTransition 'cocos2d::TransitionEaseScene'
 typeconfTransition 'cocos2d::TransitionSceneOriented'
 typeconfTransition 'cocos2d::TransitionRotoZoom'
 typeconfTransition 'cocos2d::TransitionJumpZoom'
@@ -658,6 +657,7 @@ typeconfTransition 'cocos2d::TransitionProgressVertical'
 typeconfTransition 'cocos2d::TransitionProgressInOut'
 typeconfTransition 'cocos2d::TransitionProgressOutIn'
 
+typeconf 'cocos2d::IMEDelegate'
 typeconf 'cocos2d::TextFieldDelegate'
 typeconf 'cocos2d::TextFieldTTF'
 
@@ -681,6 +681,7 @@ typeconf 'cocos2d::CameraBackgroundDepthBrush'
 typeconf 'cocos2d::CameraBackgroundColorBrush'
 typeconf 'cocos2d::CameraBackgroundSkyBoxBrush'
 
+typeconf 'cocos2d::PlayableProtocol'
 typeconf 'cocos2d::ParticleBatchNode'
 typeconf 'cocos2d::ParticleSystem::Mode'
 typeconf 'cocos2d::ParticleSystem::PositionType'
@@ -698,6 +699,7 @@ typeconf 'cocos2d::ParticleSnow'
 typeconf 'cocos2d::ParticleSpiral'
 typeconf 'cocos2d::ParticleSun'
 
+typeconf 'cocos2d::SAXDelegator'
 typeconf 'cocos2d::TMXTileFlags'
 typeconf 'cocos2d::TMXObjectGroup'
 

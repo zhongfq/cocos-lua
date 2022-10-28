@@ -115,6 +115,8 @@ typeconf 'dragonBones::Armature'
 typeconf 'dragonBones::Animation'
 typeconf 'dragonBones::CCFactory'
 
+typeconf 'dragonBones::IEventDispatcher'
+typeconf 'dragonBones::IArmatureProxy'
 typeconf 'dragonBones::CCArmatureDisplay'
     .callback 'addDBEventListener'
         .tag_maker '(#1)'

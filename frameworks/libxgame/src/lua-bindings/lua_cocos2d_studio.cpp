@@ -1823,6 +1823,37 @@ static int _cocostudio_Armature_addBone(lua_State *L)
     return 0;
 }
 
+static int _cocostudio_Armature_as(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::Armature *self = nullptr;
+    const char *arg1 = nullptr;       /** cls */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.Armature");
+    olua_check_string(L, 2, &arg1);
+
+    do {
+        if (olua_isa(L, 1, arg1)) {
+            lua_pushvalue(L, 1);
+            break;
+        }
+        if (olua_strequal(arg1, "cc.BlendProtocol")) {
+            cocos2d::BlendProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::BlendProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.BlendProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+
+        luaL_error(L, "'cocostudio::Armature' can't cast to '%s'", arg1);
+    } while (0);
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _cocostudio_Armature_changeBoneParent(lua_State *L)
 {
     olua_startinvoke(L);
@@ -2365,6 +2396,7 @@ OLUA_LIB int luaopen_cocostudio_Armature(lua_State *L)
     oluacls_class(L, "ccs.Armature", "cc.Node");
     oluacls_func(L, "__olua_move", _cocostudio_Armature___olua_move);
     oluacls_func(L, "addBone", _cocostudio_Armature_addBone);
+    oluacls_func(L, "as", _cocostudio_Armature_as);
     oluacls_func(L, "changeBoneParent", _cocostudio_Armature_changeBoneParent);
     oluacls_func(L, "create", _cocostudio_Armature_create);
     oluacls_func(L, "getAnimation", _cocostudio_Armature_getAnimation);
@@ -8438,6 +8470,37 @@ static int _cocostudio_ComAudio___olua_move(lua_State *L)
     return 1;
 }
 
+static int _cocostudio_ComAudio_as(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComAudio *self = nullptr;
+    const char *arg1 = nullptr;       /** cls */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComAudio");
+    olua_check_string(L, 2, &arg1);
+
+    do {
+        if (olua_isa(L, 1, arg1)) {
+            lua_pushvalue(L, 1);
+            break;
+        }
+        if (olua_strequal(arg1, "cc.PlayableProtocol")) {
+            cocos2d::PlayableProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::PlayableProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.PlayableProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+
+        luaL_error(L, "'cocostudio::ComAudio' can't cast to '%s'", arg1);
+    } while (0);
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _cocostudio_ComAudio_create(lua_State *L)
 {
     olua_startinvoke(L);
@@ -9131,6 +9194,7 @@ OLUA_LIB int luaopen_cocostudio_ComAudio(lua_State *L)
 {
     oluacls_class(L, "ccs.ComAudio", "cc.Component");
     oluacls_func(L, "__olua_move", _cocostudio_ComAudio___olua_move);
+    oluacls_func(L, "as", _cocostudio_ComAudio_as);
     oluacls_func(L, "create", _cocostudio_ComAudio_create);
     oluacls_func(L, "createInstance", _cocostudio_ComAudio_createInstance);
     oluacls_func(L, "end", _cocostudio_ComAudio_end);
@@ -9187,6 +9251,37 @@ static int _cocostudio_ComController___olua_move(lua_State *L)
     return 1;
 }
 
+static int _cocostudio_ComController_as(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+    const char *arg1 = nullptr;       /** cls */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+    olua_check_string(L, 2, &arg1);
+
+    do {
+        if (olua_isa(L, 1, arg1)) {
+            lua_pushvalue(L, 1);
+            break;
+        }
+        if (olua_strequal(arg1, "ccs.InputDelegate")) {
+            cocostudio::InputDelegate *asobj = self;
+            olua_pushobj_as<cocostudio::InputDelegate>(L, asobj);
+            olua_addref(L, 1, "as.ccs.InputDelegate", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+
+        luaL_error(L, "'cocostudio::ComController' can't cast to '%s'", arg1);
+    } while (0);
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _cocostudio_ComController_create(lua_State *L)
 {
     olua_startinvoke(L);
@@ -9213,6 +9308,91 @@ static int _cocostudio_ComController_createInstance(lua_State *L)
     return num_ret;
 }
 
+static int _cocostudio_ComController_getTouchMode(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+
+    // @copyfrom(cocostudio::InputDelegate) cocos2d::Touch::DispatchMode getTouchMode()
+    cocos2d::Touch::DispatchMode ret = self->getTouchMode();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocostudio_ComController_getTouchPriority(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+
+    // @copyfrom(cocostudio::InputDelegate) int getTouchPriority()
+    int ret = self->getTouchPriority();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocostudio_ComController_isAccelerometerEnabled(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+
+    // @copyfrom(cocostudio::InputDelegate) bool isAccelerometerEnabled()
+    bool ret = self->isAccelerometerEnabled();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocostudio_ComController_isKeypadEnabled(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+
+    // @copyfrom(cocostudio::InputDelegate) bool isKeypadEnabled()
+    bool ret = self->isKeypadEnabled();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocostudio_ComController_isTouchEnabled(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+
+    // @copyfrom(cocostudio::InputDelegate) bool isTouchEnabled()
+    bool ret = self->isTouchEnabled();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocostudio_ComController_new(lua_State *L)
 {
     olua_startinvoke(L);
@@ -9227,14 +9407,360 @@ static int _cocostudio_ComController_new(lua_State *L)
     return num_ret;
 }
 
+static int _cocostudio_ComController_onAcceleration(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+    cocos2d::Acceleration *arg1 = nullptr;       /** acc */
+    cocos2d::Event *arg2 = nullptr;       /** event */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Acceleration");
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Event");
+
+    // @copyfrom(cocostudio::InputDelegate) void onAcceleration(cocos2d::Acceleration *acc, cocos2d::Event *event)
+    self->onAcceleration(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocostudio_ComController_onKeyPressed(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** keyCode */
+    cocos2d::Event *arg2 = nullptr;       /** event */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+    olua_check_uint(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Event");
+
+    // @copyfrom(cocostudio::InputDelegate) void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
+    self->onKeyPressed((cocos2d::EventKeyboard::KeyCode)arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocostudio_ComController_onKeyReleased(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** keyCode */
+    cocos2d::Event *arg2 = nullptr;       /** event */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+    olua_check_uint(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Event");
+
+    // @copyfrom(cocostudio::InputDelegate) void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
+    self->onKeyReleased((cocos2d::EventKeyboard::KeyCode)arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocostudio_ComController_onTouchBegan(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+    cocos2d::Touch *arg1 = nullptr;       /** touch */
+    cocos2d::Event *arg2 = nullptr;       /** event */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Touch");
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Event");
+
+    // @copyfrom(cocostudio::InputDelegate) bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
+    bool ret = self->onTouchBegan(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocostudio_ComController_onTouchCancelled(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+    cocos2d::Touch *arg1 = nullptr;       /** touch */
+    cocos2d::Event *arg2 = nullptr;       /** event */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Touch");
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Event");
+
+    // @copyfrom(cocostudio::InputDelegate) void onTouchCancelled(cocos2d::Touch *touch, cocos2d::Event *event)
+    self->onTouchCancelled(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocostudio_ComController_onTouchEnded(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+    cocos2d::Touch *arg1 = nullptr;       /** touch */
+    cocos2d::Event *arg2 = nullptr;       /** event */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Touch");
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Event");
+
+    // @copyfrom(cocostudio::InputDelegate) void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event)
+    self->onTouchEnded(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocostudio_ComController_onTouchMoved(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+    cocos2d::Touch *arg1 = nullptr;       /** touch */
+    cocos2d::Event *arg2 = nullptr;       /** event */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Touch");
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Event");
+
+    // @copyfrom(cocostudio::InputDelegate) void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event)
+    self->onTouchMoved(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocostudio_ComController_onTouchesBegan(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+    std::vector<cocos2d::Touch *> arg1;       /** touches */
+    cocos2d::Event *arg2 = nullptr;       /** event */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+    olua_check_array<cocos2d::Touch *>(L, 2, &arg1, [L](cocos2d::Touch **value) {
+        olua_check_cppobj(L, -1, (void **)value, "cc.Touch");
+    });
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Event");
+
+    // @copyfrom(cocostudio::InputDelegate) void onTouchesBegan(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event)
+    self->onTouchesBegan(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocostudio_ComController_onTouchesCancelled(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+    std::vector<cocos2d::Touch *> arg1;       /** touches */
+    cocos2d::Event *arg2 = nullptr;       /** event */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+    olua_check_array<cocos2d::Touch *>(L, 2, &arg1, [L](cocos2d::Touch **value) {
+        olua_check_cppobj(L, -1, (void **)value, "cc.Touch");
+    });
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Event");
+
+    // @copyfrom(cocostudio::InputDelegate) void onTouchesCancelled(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event)
+    self->onTouchesCancelled(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocostudio_ComController_onTouchesEnded(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+    std::vector<cocos2d::Touch *> arg1;       /** touches */
+    cocos2d::Event *arg2 = nullptr;       /** event */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+    olua_check_array<cocos2d::Touch *>(L, 2, &arg1, [L](cocos2d::Touch **value) {
+        olua_check_cppobj(L, -1, (void **)value, "cc.Touch");
+    });
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Event");
+
+    // @copyfrom(cocostudio::InputDelegate) void onTouchesEnded(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event)
+    self->onTouchesEnded(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocostudio_ComController_onTouchesMoved(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+    std::vector<cocos2d::Touch *> arg1;       /** touches */
+    cocos2d::Event *arg2 = nullptr;       /** event */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+    olua_check_array<cocos2d::Touch *>(L, 2, &arg1, [L](cocos2d::Touch **value) {
+        olua_check_cppobj(L, -1, (void **)value, "cc.Touch");
+    });
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Event");
+
+    // @copyfrom(cocostudio::InputDelegate) void onTouchesMoved(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event)
+    self->onTouchesMoved(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocostudio_ComController_setAccelerometerEnabled(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+    bool arg1 = false;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+    olua_check_bool(L, 2, &arg1);
+
+    // @copyfrom(cocostudio::InputDelegate) void setAccelerometerEnabled(bool value)
+    self->setAccelerometerEnabled(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocostudio_ComController_setKeypadEnabled(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+    bool arg1 = false;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+    olua_check_bool(L, 2, &arg1);
+
+    // @copyfrom(cocostudio::InputDelegate) void setKeypadEnabled(bool value)
+    self->setKeypadEnabled(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocostudio_ComController_setTouchEnabled(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+    bool arg1 = false;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+    olua_check_bool(L, 2, &arg1);
+
+    // @copyfrom(cocostudio::InputDelegate) void setTouchEnabled(bool value)
+    self->setTouchEnabled(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocostudio_ComController_setTouchMode(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** mode */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+    olua_check_uint(L, 2, &arg1);
+
+    // @copyfrom(cocostudio::InputDelegate) void setTouchMode(cocos2d::Touch::DispatchMode mode)
+    self->setTouchMode((cocos2d::Touch::DispatchMode)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocostudio_ComController_setTouchPriority(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::ComController *self = nullptr;
+    lua_Integer arg1 = 0;       /** priority */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.ComController");
+    olua_check_int(L, 2, &arg1);
+
+    // @copyfrom(cocostudio::InputDelegate) void setTouchPriority(int priority)
+    self->setTouchPriority((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocostudio_ComController(lua_State *L)
 {
     oluacls_class(L, "ccs.ComController", "cc.Component");
     oluacls_func(L, "__olua_move", _cocostudio_ComController___olua_move);
+    oluacls_func(L, "as", _cocostudio_ComController_as);
     oluacls_func(L, "create", _cocostudio_ComController_create);
     oluacls_func(L, "createInstance", _cocostudio_ComController_createInstance);
+    oluacls_func(L, "getTouchMode", _cocostudio_ComController_getTouchMode);
+    oluacls_func(L, "getTouchPriority", _cocostudio_ComController_getTouchPriority);
+    oluacls_func(L, "isAccelerometerEnabled", _cocostudio_ComController_isAccelerometerEnabled);
+    oluacls_func(L, "isKeypadEnabled", _cocostudio_ComController_isKeypadEnabled);
+    oluacls_func(L, "isTouchEnabled", _cocostudio_ComController_isTouchEnabled);
     oluacls_func(L, "new", _cocostudio_ComController_new);
+    oluacls_func(L, "onAcceleration", _cocostudio_ComController_onAcceleration);
+    oluacls_func(L, "onKeyPressed", _cocostudio_ComController_onKeyPressed);
+    oluacls_func(L, "onKeyReleased", _cocostudio_ComController_onKeyReleased);
+    oluacls_func(L, "onTouchBegan", _cocostudio_ComController_onTouchBegan);
+    oluacls_func(L, "onTouchCancelled", _cocostudio_ComController_onTouchCancelled);
+    oluacls_func(L, "onTouchEnded", _cocostudio_ComController_onTouchEnded);
+    oluacls_func(L, "onTouchMoved", _cocostudio_ComController_onTouchMoved);
+    oluacls_func(L, "onTouchesBegan", _cocostudio_ComController_onTouchesBegan);
+    oluacls_func(L, "onTouchesCancelled", _cocostudio_ComController_onTouchesCancelled);
+    oluacls_func(L, "onTouchesEnded", _cocostudio_ComController_onTouchesEnded);
+    oluacls_func(L, "onTouchesMoved", _cocostudio_ComController_onTouchesMoved);
+    oluacls_func(L, "setAccelerometerEnabled", _cocostudio_ComController_setAccelerometerEnabled);
+    oluacls_func(L, "setKeypadEnabled", _cocostudio_ComController_setKeypadEnabled);
+    oluacls_func(L, "setTouchEnabled", _cocostudio_ComController_setTouchEnabled);
+    oluacls_func(L, "setTouchMode", _cocostudio_ComController_setTouchMode);
+    oluacls_func(L, "setTouchPriority", _cocostudio_ComController_setTouchPriority);
+    oluacls_prop(L, "accelerometerEnabled", _cocostudio_ComController_isAccelerometerEnabled, _cocostudio_ComController_setAccelerometerEnabled);
+    oluacls_prop(L, "keypadEnabled", _cocostudio_ComController_isKeypadEnabled, _cocostudio_ComController_setKeypadEnabled);
+    oluacls_prop(L, "touchEnabled", _cocostudio_ComController_isTouchEnabled, _cocostudio_ComController_setTouchEnabled);
+    oluacls_prop(L, "touchMode", _cocostudio_ComController_getTouchMode, _cocostudio_ComController_setTouchMode);
+    oluacls_prop(L, "touchPriority", _cocostudio_ComController_getTouchPriority, _cocostudio_ComController_setTouchPriority);
     oluacls_const_string(L, "COMPONENT_NAME", (const char *)cocostudio::ComController::COMPONENT_NAME.c_str());
 
     olua_registerluatype<cocostudio::ComController>(L, "ccs.ComController");
@@ -16635,6 +17161,37 @@ static int _cocostudio_timeline_BoneNode_addSkin(lua_State *L)
     return 0;
 }
 
+static int _cocostudio_timeline_BoneNode_as(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::timeline::BoneNode *self = nullptr;
+    const char *arg1 = nullptr;       /** cls */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.BoneNode");
+    olua_check_string(L, 2, &arg1);
+
+    do {
+        if (olua_isa(L, 1, arg1)) {
+            lua_pushvalue(L, 1);
+            break;
+        }
+        if (olua_strequal(arg1, "cc.BlendProtocol")) {
+            cocos2d::BlendProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::BlendProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.BlendProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+
+        luaL_error(L, "'cocostudio::timeline::BoneNode' can't cast to '%s'", arg1);
+    } while (0);
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _cocostudio_timeline_BoneNode_create1(lua_State *L)
 {
     olua_startinvoke(L);
@@ -17107,6 +17664,7 @@ OLUA_LIB int luaopen_cocostudio_timeline_BoneNode(lua_State *L)
     oluacls_class(L, "ccs.timeline.BoneNode", "cc.Node");
     oluacls_func(L, "__olua_move", _cocostudio_timeline_BoneNode___olua_move);
     oluacls_func(L, "addSkin", _cocostudio_timeline_BoneNode_addSkin);
+    oluacls_func(L, "as", _cocostudio_timeline_BoneNode_as);
     oluacls_func(L, "create", _cocostudio_timeline_BoneNode_create);
     oluacls_func(L, "displaySkin", _cocostudio_timeline_BoneNode_displaySkin);
     oluacls_func(L, "getAllSubBones", _cocostudio_timeline_BoneNode_getAllSubBones);
@@ -17787,6 +18345,44 @@ static int _cocostudio_timeline_ActionTimeline_addTimeline(lua_State *L)
     olua_endinvoke(L);
 
     return 0;
+}
+
+static int _cocostudio_timeline_ActionTimeline_as(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::timeline::ActionTimeline *self = nullptr;
+    const char *arg1 = nullptr;       /** cls */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.ActionTimeline");
+    olua_check_string(L, 2, &arg1);
+
+    do {
+        if (olua_isa(L, 1, arg1)) {
+            lua_pushvalue(L, 1);
+            break;
+        }
+        if (olua_strequal(arg1, "cc.Clonable")) {
+            cocos2d::Clonable *asobj = self;
+            olua_pushobj_as<cocos2d::Clonable>(L, asobj);
+            olua_addref(L, 1, "as.cc.Clonable", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+        if (olua_strequal(arg1, "cc.PlayableProtocol")) {
+            cocos2d::PlayableProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::PlayableProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.PlayableProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
+
+        luaL_error(L, "'cocostudio::timeline::ActionTimeline' can't cast to '%s'", arg1);
+    } while (0);
+
+    olua_endinvoke(L);
+
+    return 1;
 }
 
 static int _cocostudio_timeline_ActionTimeline_clearFrameEndCallFuncs(lua_State *L)
@@ -18519,6 +19115,7 @@ OLUA_LIB int luaopen_cocostudio_timeline_ActionTimeline(lua_State *L)
     oluacls_func(L, "addAnimationInfo", _cocostudio_timeline_ActionTimeline_addAnimationInfo);
     oluacls_func(L, "addFrameEndCallFunc", _cocostudio_timeline_ActionTimeline_addFrameEndCallFunc);
     oluacls_func(L, "addTimeline", _cocostudio_timeline_ActionTimeline_addTimeline);
+    oluacls_func(L, "as", _cocostudio_timeline_ActionTimeline_as);
     oluacls_func(L, "clearFrameEndCallFuncs", _cocostudio_timeline_ActionTimeline_clearFrameEndCallFuncs);
     oluacls_func(L, "clearFrameEventCallFunc", _cocostudio_timeline_ActionTimeline_clearFrameEventCallFunc);
     oluacls_func(L, "clearLastFrameCallFunc", _cocostudio_timeline_ActionTimeline_clearLastFrameCallFunc);

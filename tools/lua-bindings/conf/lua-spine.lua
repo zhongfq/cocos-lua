@@ -28,6 +28,8 @@ typedef 'spine::Vector'
 
 
 exclude 'Unexposed *'
+exclude 'spine::HasRendererObject'
+exclude 'spine::HasRendererObject *'
 exclude 'spine::Bone'
 exclude 'spine::Slot'
 exclude 'spine::BoneData'

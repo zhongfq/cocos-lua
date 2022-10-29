@@ -1834,7 +1834,7 @@ static int _cocos2d_Sequence_create1(lua_State *L)
         olua_check_cppobj(L, -1, (void **)value, "cc.FiniteTimeAction");
     });
 
-    // static cocos2d::Sequence *create(@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+    // static cocos2d::Sequence *create(@addref(actions |) const cocos2d::Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
     cocos2d::Sequence *ret = cocos2d::Sequence::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.Sequence");
 
@@ -1856,7 +1856,7 @@ static int _cocos2d_Sequence_create2(lua_State *L)
         olua_check_cppobj(L, -1, (void **)value, "cc.FiniteTimeAction");
     });
 
-    // static cocos2d::Sequence *create(@pack@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+    // static cocos2d::Sequence *create(@pack@addref(actions |) const cocos2d::Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
     cocos2d::Sequence *ret = cocos2d::Sequence::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.Sequence");
 
@@ -1879,18 +1879,18 @@ static int _cocos2d_Sequence_create(lua_State *L)
 
     if (num_args == 1) {
         if ((olua_is_array(L, 1))) {
-            // static cocos2d::Sequence *create(@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+            // static cocos2d::Sequence *create(@addref(actions |) const cocos2d::Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
             return _cocos2d_Sequence_create1(L);
         }
 
         // if ((olua_canpack_array(L, 1))) {
-            // static cocos2d::Sequence *create(@pack@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+            // static cocos2d::Sequence *create(@pack@addref(actions |) const cocos2d::Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
             return _cocos2d_Sequence_create2(L);
         // }
     }
 
     if (num_args > 0) {
-        // static cocos2d::Sequence *create(@pack@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+        // static cocos2d::Sequence *create(@pack@addref(actions |) const cocos2d::Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
         return _cocos2d_Sequence_create2(L);
     }
 
@@ -2138,7 +2138,7 @@ static int _cocos2d_Spawn_create1(lua_State *L)
         olua_check_cppobj(L, -1, (void **)value, "cc.FiniteTimeAction");
     });
 
-    // static cocos2d::Spawn *create(@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+    // static cocos2d::Spawn *create(@addref(actions |) const cocos2d::Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
     cocos2d::Spawn *ret = cocos2d::Spawn::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.Spawn");
 
@@ -2160,7 +2160,7 @@ static int _cocos2d_Spawn_create2(lua_State *L)
         olua_check_cppobj(L, -1, (void **)value, "cc.FiniteTimeAction");
     });
 
-    // static cocos2d::Spawn *create(@pack@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+    // static cocos2d::Spawn *create(@pack@addref(actions |) const cocos2d::Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
     cocos2d::Spawn *ret = cocos2d::Spawn::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.Spawn");
 
@@ -2183,18 +2183,18 @@ static int _cocos2d_Spawn_create(lua_State *L)
 
     if (num_args == 1) {
         if ((olua_is_array(L, 1))) {
-            // static cocos2d::Spawn *create(@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+            // static cocos2d::Spawn *create(@addref(actions |) const cocos2d::Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
             return _cocos2d_Spawn_create1(L);
         }
 
         // if ((olua_canpack_array(L, 1))) {
-            // static cocos2d::Spawn *create(@pack@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+            // static cocos2d::Spawn *create(@pack@addref(actions |) const cocos2d::Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
             return _cocos2d_Spawn_create2(L);
         // }
     }
 
     if (num_args > 0) {
-        // static cocos2d::Spawn *create(@pack@addref(actions |) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+        // static cocos2d::Spawn *create(@pack@addref(actions |) const cocos2d::Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
         return _cocos2d_Spawn_create2(L);
     }
 
@@ -6739,7 +6739,7 @@ static int _cocos2d_PointArray_getControlPoints(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PointArray");
 
-    // const std::vector<Vec2> &getControlPoints()
+    // const std::vector<cocos2d::Vec2> &getControlPoints()
     const std::vector<cocos2d::Vec2> &ret = self->getControlPoints();
     int num_ret = olua_push_array<cocos2d::Vec2>(L, &ret, [L](cocos2d::Vec2 value) {
         olua_push_cocos2d_Vec2(L, &value);
@@ -6872,7 +6872,7 @@ static int _cocos2d_PointArray_setControlPoints(lua_State *L)
         olua_check_cocos2d_Vec2(L, -1, value);
     });
 
-    // void setControlPoints(std::vector<Vec2> controlPoints)
+    // void setControlPoints(std::vector<cocos2d::Vec2> controlPoints)
     self->setControlPoints(arg1);
 
     olua_endinvoke(L);

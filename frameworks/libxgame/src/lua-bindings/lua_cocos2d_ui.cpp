@@ -332,7 +332,7 @@ static int _cocos2d_ui_LayoutProtocol_getLayoutElements(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutProtocol");
 
-    // const Vector<cocos2d::Node *> &getLayoutElements()
+    // const cocos2d::Vector<cocos2d::Node *> &getLayoutElements()
     const cocos2d::Vector<cocos2d::Node *> &ret = self->getLayoutElements();
     int num_ret = olua_push_array<cocos2d::Node *>(L, &ret, [L](cocos2d::Node *value) {
         olua_push_cppobj(L, value, "cc.Node");
@@ -11096,7 +11096,7 @@ static int _cocos2d_ui_ListView_getItems(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
 
-    // @addref(children |) Vector<cocos2d::ui::Widget *> &getItems()
+    // @addref(children |) cocos2d::Vector<cocos2d::ui::Widget *> &getItems()
     cocos2d::Vector<cocos2d::ui::Widget *> &ret = self->getItems();
     int num_ret = olua_push_array<cocos2d::ui::Widget *>(L, &ret, [L](cocos2d::ui::Widget *value) {
         olua_push_cppobj(L, value, "ccui.Widget");

@@ -470,7 +470,7 @@ static int _cocos2d_Mesh_create2(lua_State *L)
         olua_check_cocos2d_MeshVertexAttrib(L, -1, value);
     });
 
-    // static cocos2d::Mesh *create(const std::vector<float> &vertices, int perVertexSizeInFloat, const std::vector<unsigned short> &indices, const std::vector<MeshVertexAttrib> &attribs)
+    // static cocos2d::Mesh *create(const std::vector<float> &vertices, int perVertexSizeInFloat, const std::vector<unsigned short> &indices, const std::vector<cocos2d::MeshVertexAttrib> &attribs)
     cocos2d::Mesh *ret = cocos2d::Mesh::create(arg1, (int)arg2, arg3, arg4);
     int num_ret = olua_push_cppobj(L, ret, "cc.Mesh");
 
@@ -490,7 +490,7 @@ static int _cocos2d_Mesh_create(lua_State *L)
         }
 
         // if ((olua_is_array(L, 1)) && (olua_is_int(L, 2)) && (olua_is_array(L, 3)) && (olua_is_array(L, 4))) {
-            // static cocos2d::Mesh *create(const std::vector<float> &vertices, int perVertexSizeInFloat, const std::vector<unsigned short> &indices, const std::vector<MeshVertexAttrib> &attribs)
+            // static cocos2d::Mesh *create(const std::vector<float> &vertices, int perVertexSizeInFloat, const std::vector<unsigned short> &indices, const std::vector<cocos2d::MeshVertexAttrib> &attribs)
             return _cocos2d_Mesh_create2(L);
         // }
     }
@@ -2122,7 +2122,7 @@ static int _cocos2d_Sprite3D_createAsync1(lua_State *L)
         }
     };
 
-    // static void createAsync(const std::string &modelPath, @localvar const std::function<void (Sprite3D *, void *)> &callback, void *callbackparam)
+    // static void createAsync(const std::string &modelPath, @localvar const std::function<void (cocos2d::Sprite3D *, void *)> &callback, void *callbackparam)
     cocos2d::Sprite3D::createAsync(arg1, arg2, arg3);
 
     olua_endinvoke(L);
@@ -2168,7 +2168,7 @@ static int _cocos2d_Sprite3D_createAsync2(lua_State *L)
         }
     };
 
-    // static void createAsync(const std::string &modelPath, const std::string &texturePath, @localvar const std::function<void (Sprite3D *, void *)> &callback, void *callbackparam)
+    // static void createAsync(const std::string &modelPath, const std::string &texturePath, @localvar const std::function<void (cocos2d::Sprite3D *, void *)> &callback, void *callbackparam)
     cocos2d::Sprite3D::createAsync(arg1, arg2, arg3, arg4);
 
     olua_endinvoke(L);
@@ -2182,14 +2182,14 @@ static int _cocos2d_Sprite3D_createAsync(lua_State *L)
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_callback(L, 2, "std.function")) && (olua_is_obj(L, 3, "void *"))) {
-            // static void createAsync(const std::string &modelPath, @localvar const std::function<void (Sprite3D *, void *)> &callback, void *callbackparam)
+            // static void createAsync(const std::string &modelPath, @localvar const std::function<void (cocos2d::Sprite3D *, void *)> &callback, void *callbackparam)
             return _cocos2d_Sprite3D_createAsync1(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_callback(L, 3, "std.function")) && (olua_is_obj(L, 4, "void *"))) {
-            // static void createAsync(const std::string &modelPath, const std::string &texturePath, @localvar const std::function<void (Sprite3D *, void *)> &callback, void *callbackparam)
+            // static void createAsync(const std::string &modelPath, const std::string &texturePath, @localvar const std::function<void (cocos2d::Sprite3D *, void *)> &callback, void *callbackparam)
             return _cocos2d_Sprite3D_createAsync2(L);
         // }
     }
@@ -2353,7 +2353,7 @@ static int _cocos2d_Sprite3D_getMeshArrayByName(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite3D");
     olua_check_std_string(L, 2, &arg1);
 
-    // std::vector<Mesh *> getMeshArrayByName(const std::string &name)
+    // std::vector<cocos2d::Mesh *> getMeshArrayByName(const std::string &name)
     std::vector<cocos2d::Mesh *> ret = self->getMeshArrayByName(arg1);
     int num_ret = olua_push_array<cocos2d::Mesh *>(L, &ret, [L](cocos2d::Mesh *value) {
         olua_push_cppobj(L, value, "cc.Mesh");
@@ -2427,7 +2427,7 @@ static int _cocos2d_Sprite3D_getMeshes(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite3D");
 
-    // const Vector<cocos2d::Mesh *> &getMeshes()
+    // const cocos2d::Vector<cocos2d::Mesh *> &getMeshes()
     const cocos2d::Vector<cocos2d::Mesh *> &ret = self->getMeshes();
     int num_ret = olua_push_array<cocos2d::Mesh *>(L, &ret, [L](cocos2d::Mesh *value) {
         olua_push_cppobj(L, value, "cc.Mesh");

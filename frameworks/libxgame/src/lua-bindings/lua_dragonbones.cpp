@@ -5982,7 +5982,7 @@ static int _dragonBones_ArmatureData_getActions(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
-    // const std::vector<ActionData *> &getActions()
+    // const std::vector<dragonBones::ActionData *> &getActions()
     const std::vector<dragonBones::ActionData *> &ret = self->getActions();
     int num_ret = olua_push_array<dragonBones::ActionData *>(L, &ret, [L](dragonBones::ActionData *value) {
         olua_push_cppobj(L, value, "db.ActionData");
@@ -6077,7 +6077,7 @@ static int _dragonBones_ArmatureData_getDefaultActions(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
-    // const std::vector<ActionData *> &getDefaultActions()
+    // const std::vector<dragonBones::ActionData *> &getDefaultActions()
     const std::vector<dragonBones::ActionData *> &ret = self->getDefaultActions();
     int num_ret = olua_push_array<dragonBones::ActionData *>(L, &ret, [L](dragonBones::ActionData *value) {
         olua_push_cppobj(L, value, "db.ActionData");
@@ -6185,7 +6185,7 @@ static int _dragonBones_ArmatureData_getSortedBones(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
-    // const std::vector<BoneData *> &getSortedBones()
+    // const std::vector<dragonBones::BoneData *> &getSortedBones()
     const std::vector<dragonBones::BoneData *> &ret = self->getSortedBones();
     int num_ret = olua_push_array<dragonBones::BoneData *>(L, &ret, [L](dragonBones::BoneData *value) {
         olua_push_cppobj(L, value, "db.BoneData");
@@ -6204,7 +6204,7 @@ static int _dragonBones_ArmatureData_getSortedSlots(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
-    // const std::vector<SlotData *> &getSortedSlots()
+    // const std::vector<dragonBones::SlotData *> &getSortedSlots()
     const std::vector<dragonBones::SlotData *> &ret = self->getSortedSlots();
     int num_ret = olua_push_array<dragonBones::SlotData *>(L, &ret, [L](dragonBones::SlotData *value) {
         olua_push_cppobj(L, value, "db.SlotData");
@@ -6425,7 +6425,7 @@ static int _dragonBones_ArmatureData_get_actions(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
-    // std::vector<ActionData *> actions
+    // std::vector<dragonBones::ActionData *> actions
     std::vector<dragonBones::ActionData *> ret = self->actions;
     int num_ret = olua_push_array<dragonBones::ActionData *>(L, &ret, [L](dragonBones::ActionData *value) {
         olua_push_cppobj(L, value, "db.ActionData");
@@ -6448,7 +6448,7 @@ static int _dragonBones_ArmatureData_set_actions(lua_State *L)
         olua_check_cppobj(L, -1, (void **)value, "db.ActionData");
     });
 
-    // std::vector<ActionData *> actions
+    // std::vector<dragonBones::ActionData *> actions
     self->actions = arg1;
 
     olua_endinvoke(L);
@@ -6661,7 +6661,7 @@ static int _dragonBones_ArmatureData_get_defaultActions(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
-    // std::vector<ActionData *> defaultActions
+    // std::vector<dragonBones::ActionData *> defaultActions
     std::vector<dragonBones::ActionData *> ret = self->defaultActions;
     int num_ret = olua_push_array<dragonBones::ActionData *>(L, &ret, [L](dragonBones::ActionData *value) {
         olua_push_cppobj(L, value, "db.ActionData");
@@ -6684,7 +6684,7 @@ static int _dragonBones_ArmatureData_set_defaultActions(lua_State *L)
         olua_check_cppobj(L, -1, (void **)value, "db.ActionData");
     });
 
-    // std::vector<ActionData *> defaultActions
+    // std::vector<dragonBones::ActionData *> defaultActions
     self->defaultActions = arg1;
 
     olua_endinvoke(L);
@@ -6992,7 +6992,7 @@ static int _dragonBones_ArmatureData_get_sortedBones(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
-    // std::vector<BoneData *> sortedBones
+    // std::vector<dragonBones::BoneData *> sortedBones
     std::vector<dragonBones::BoneData *> ret = self->sortedBones;
     int num_ret = olua_push_array<dragonBones::BoneData *>(L, &ret, [L](dragonBones::BoneData *value) {
         olua_push_cppobj(L, value, "db.BoneData");
@@ -7015,7 +7015,7 @@ static int _dragonBones_ArmatureData_set_sortedBones(lua_State *L)
         olua_check_cppobj(L, -1, (void **)value, "db.BoneData");
     });
 
-    // std::vector<BoneData *> sortedBones
+    // std::vector<dragonBones::BoneData *> sortedBones
     self->sortedBones = arg1;
 
     olua_endinvoke(L);
@@ -7031,7 +7031,7 @@ static int _dragonBones_ArmatureData_get_sortedSlots(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
-    // std::vector<SlotData *> sortedSlots
+    // std::vector<dragonBones::SlotData *> sortedSlots
     std::vector<dragonBones::SlotData *> ret = self->sortedSlots;
     int num_ret = olua_push_array<dragonBones::SlotData *>(L, &ret, [L](dragonBones::SlotData *value) {
         olua_push_cppobj(L, value, "db.SlotData");
@@ -7054,7 +7054,7 @@ static int _dragonBones_ArmatureData_set_sortedSlots(lua_State *L)
         olua_check_cppobj(L, -1, (void **)value, "db.SlotData");
     });
 
-    // std::vector<SlotData *> sortedSlots
+    // std::vector<dragonBones::SlotData *> sortedSlots
     self->sortedSlots = arg1;
 
     olua_endinvoke(L);
@@ -12827,7 +12827,7 @@ static int _dragonBones_Armature_getBones(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
 
-    // const std::vector<Bone *> &getBones()
+    // const std::vector<dragonBones::Bone *> &getBones()
     const std::vector<dragonBones::Bone *> &ret = self->getBones();
     int num_ret = olua_push_array<dragonBones::Bone *>(L, &ret, [L](dragonBones::Bone *value) {
         olua_push_cppobj(L, value, "db.Bone");
@@ -13020,7 +13020,7 @@ static int _dragonBones_Armature_getSlots(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
 
-    // const std::vector<Slot *> &getSlots()
+    // const std::vector<dragonBones::Slot *> &getSlots()
     const std::vector<dragonBones::Slot *> &ret = self->getSlots();
     int num_ret = olua_push_array<dragonBones::Slot *>(L, &ret, [L](dragonBones::Slot *value) {
         olua_push_cppobj(L, value, "db.Slot");
@@ -13861,7 +13861,7 @@ static int _dragonBones_Animation_getStates(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
 
-    // const std::vector<AnimationState *> &getStates()
+    // const std::vector<dragonBones::AnimationState *> &getStates()
     const std::vector<dragonBones::AnimationState *> &ret = self->getStates();
     int num_ret = olua_push_array<dragonBones::AnimationState *>(L, &ret, [L](dragonBones::AnimationState *value) {
         olua_push_cppobj(L, value, "db.AnimationState");
@@ -15206,7 +15206,7 @@ static int _dragonBones_IEventDispatcher_addDBEventListener(lua_State *L)
         }
     };
 
-    // void addDBEventListener(const std::string &type, @localvar const std::function<void (EventObject *)> &listener)
+    // void addDBEventListener(const std::string &type, @localvar const std::function<void (dragonBones::EventObject *)> &listener)
     self->addDBEventListener(arg1, arg2);
 
     olua_endinvoke(L);
@@ -15288,7 +15288,7 @@ static int _dragonBones_IEventDispatcher_removeDBEventListener(lua_State *L)
         }
     };
 
-    // void removeDBEventListener(const std::string &type, @localvar const std::function<void (EventObject *)> &listener)
+    // void removeDBEventListener(const std::string &type, @localvar const std::function<void (dragonBones::EventObject *)> &listener)
     self->removeDBEventListener(arg1, arg2);
 
     olua_endinvoke(L);
@@ -15493,7 +15493,7 @@ static int _dragonBones_CCArmatureDisplay_addDBEventListener(lua_State *L)
         }
     };
 
-    // void addDBEventListener(const std::string &type, @localvar const std::function<void (EventObject *)> &listener)
+    // void addDBEventListener(const std::string &type, @localvar const std::function<void (dragonBones::EventObject *)> &listener)
     self->addDBEventListener(arg1, arg2);
 
     olua_endinvoke(L);
@@ -15724,7 +15724,7 @@ static int _dragonBones_CCArmatureDisplay_removeDBEventListener(lua_State *L)
     void *cb_store = (void *)self;
     olua_removecallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
-    // void removeDBEventListener(const std::string &type, @localvar @nullable const std::function<void (EventObject *)> &listener)
+    // void removeDBEventListener(const std::string &type, @localvar @nullable const std::function<void (dragonBones::EventObject *)> &listener)
     self->removeDBEventListener(arg1, arg2);
 
     olua_endinvoke(L);

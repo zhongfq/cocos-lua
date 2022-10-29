@@ -7436,7 +7436,7 @@ static int _cocostudio_BoneData_get_displayDataList(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.BoneData");
 
-    // cocos2d::Vector<DisplayData *> displayDataList
+    // cocos2d::Vector<cocostudio::DisplayData *> displayDataList
     cocos2d::Vector<cocostudio::DisplayData *> ret = self->displayDataList;
     int num_ret = olua_push_array<cocostudio::DisplayData *>(L, &ret, [L](cocostudio::DisplayData *value) {
         olua_push_cppobj(L, value, "ccs.DisplayData");
@@ -7459,7 +7459,7 @@ static int _cocostudio_BoneData_set_displayDataList(lua_State *L)
         olua_check_cppobj(L, -1, (void **)value, "ccs.DisplayData");
     });
 
-    // cocos2d::Vector<DisplayData *> displayDataList
+    // cocos2d::Vector<cocostudio::DisplayData *> displayDataList
     self->displayDataList = arg1;
 
     olua_endinvoke(L);
@@ -7707,7 +7707,7 @@ static int _cocostudio_ColliderDetector_addContourDataList(lua_State *L)
         olua_check_cppobj(L, -1, (void **)value, "ccs.ContourData");
     });
 
-    // void addContourDataList(cocos2d::Vector<ContourData *> &contourDataList)
+    // void addContourDataList(cocos2d::Vector<cocostudio::ContourData *> &contourDataList)
     self->addContourDataList(arg1);
 
     olua_endinvoke(L);
@@ -7808,7 +7808,7 @@ static int _cocostudio_ColliderDetector_getColliderBodyList(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.ColliderDetector");
 
-    // const cocos2d::Vector<ColliderBody *> &getColliderBodyList()
+    // const cocos2d::Vector<cocostudio::ColliderBody *> &getColliderBodyList()
     const cocos2d::Vector<cocostudio::ColliderBody *> &ret = self->getColliderBodyList();
     int num_ret = olua_push_array<cocostudio::ColliderBody *>(L, &ret, [L](cocostudio::ColliderBody *value) {
         olua_push_cppobj(L, value, "ccs.ColliderBody");
@@ -11031,7 +11031,7 @@ static int _cocostudio_DisplayManager_getDecorativeDisplayList(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.DisplayManager");
 
-    // const cocos2d::Vector<DecorativeDisplay *> &getDecorativeDisplayList()
+    // const cocos2d::Vector<cocostudio::DecorativeDisplay *> &getDecorativeDisplayList()
     const cocos2d::Vector<cocostudio::DecorativeDisplay *> &ret = self->getDecorativeDisplayList();
     int num_ret = olua_push_array<cocostudio::DecorativeDisplay *>(L, &ret, [L](cocostudio::DecorativeDisplay *value) {
         olua_push_cppobj(L, value, "ccs.DecorativeDisplay");
@@ -12572,7 +12572,7 @@ static int _cocostudio_MovementBoneData_get_frameList(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.MovementBoneData");
 
-    // cocos2d::Vector<FrameData *> frameList
+    // cocos2d::Vector<cocostudio::FrameData *> frameList
     cocos2d::Vector<cocostudio::FrameData *> ret = self->frameList;
     int num_ret = olua_push_array<cocostudio::FrameData *>(L, &ret, [L](cocostudio::FrameData *value) {
         olua_push_cppobj(L, value, "ccs.FrameData");
@@ -12595,7 +12595,7 @@ static int _cocostudio_MovementBoneData_set_frameList(lua_State *L)
         olua_check_cppobj(L, -1, (void **)value, "ccs.FrameData");
     });
 
-    // cocos2d::Vector<FrameData *> frameList
+    // cocos2d::Vector<cocostudio::FrameData *> frameList
     self->frameList = arg1;
 
     olua_endinvoke(L);
@@ -13919,7 +13919,7 @@ static int _cocostudio_TextureData_get_contourDataList(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.TextureData");
 
-    // cocos2d::Vector<ContourData *> contourDataList
+    // cocos2d::Vector<cocostudio::ContourData *> contourDataList
     cocos2d::Vector<cocostudio::ContourData *> ret = self->contourDataList;
     int num_ret = olua_push_array<cocostudio::ContourData *>(L, &ret, [L](cocostudio::ContourData *value) {
         olua_push_cppobj(L, value, "ccs.ContourData");
@@ -13942,7 +13942,7 @@ static int _cocostudio_TextureData_set_contourDataList(lua_State *L)
         olua_check_cppobj(L, -1, (void **)value, "ccs.ContourData");
     });
 
-    // cocos2d::Vector<ContourData *> contourDataList
+    // cocos2d::Vector<cocostudio::ContourData *> contourDataList
     self->contourDataList = arg1;
 
     olua_endinvoke(L);
@@ -17312,7 +17312,7 @@ static int _cocostudio_timeline_BoneNode_getAllSubBones(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.BoneNode");
 
-    // @addref(subBones |) cocos2d::Vector<BoneNode *> getAllSubBones()
+    // @addref(subBones |) cocos2d::Vector<cocostudio::timeline::BoneNode *> getAllSubBones()
     cocos2d::Vector<cocostudio::timeline::BoneNode *> ret = self->getAllSubBones();
     int num_ret = olua_push_array<cocostudio::timeline::BoneNode *>(L, &ret, [L](cocostudio::timeline::BoneNode *value) {
         olua_push_cppobj(L, value, "ccs.timeline.BoneNode");
@@ -17373,7 +17373,7 @@ static int _cocostudio_timeline_BoneNode_getChildBones(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.BoneNode");
 
-    // @addref(bones |) const cocos2d::Vector<BoneNode *> &getChildBones()
+    // @addref(bones |) const cocos2d::Vector<cocostudio::timeline::BoneNode *> &getChildBones()
     const cocos2d::Vector<cocostudio::timeline::BoneNode *> &ret = self->getChildBones();
     int num_ret = olua_push_array<cocostudio::timeline::BoneNode *>(L, &ret, [L](cocostudio::timeline::BoneNode *value) {
         olua_push_cppobj(L, value, "ccs.timeline.BoneNode");
@@ -17999,7 +17999,7 @@ static int _cocostudio_timeline_Timeline_getFrames(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.Timeline");
 
-    // @addref(frames |) const cocos2d::Vector<Frame *> &getFrames()
+    // @addref(frames |) const cocos2d::Vector<cocostudio::timeline::Frame *> &getFrames()
     const cocos2d::Vector<cocostudio::timeline::Frame *> &ret = self->getFrames();
     int num_ret = olua_push_array<cocostudio::timeline::Frame *>(L, &ret, [L](cocostudio::timeline::Frame *value) {
         olua_push_cppobj(L, value, "ccs.timeline.Frame");
@@ -18570,7 +18570,7 @@ static int _cocostudio_timeline_ActionTimeline_getTimelines(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.ActionTimeline");
 
-    // @addref(timelines |) const cocos2d::Vector<Timeline *> &getTimelines()
+    // @addref(timelines |) const cocos2d::Vector<cocostudio::timeline::Timeline *> &getTimelines()
     const cocos2d::Vector<cocostudio::timeline::Timeline *> &ret = self->getTimelines();
     int num_ret = olua_push_array<cocostudio::timeline::Timeline *>(L, &ret, [L](cocostudio::timeline::Timeline *value) {
         olua_push_cppobj(L, value, "ccs.timeline.Timeline");

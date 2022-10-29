@@ -1585,7 +1585,7 @@ static int _cocos2d_PhysicsBody_getJoints(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
 
-    // const std::vector<PhysicsJoint *> &getJoints()
+    // const std::vector<cocos2d::PhysicsJoint *> &getJoints()
     const std::vector<cocos2d::PhysicsJoint *> &ret = self->getJoints();
     int num_ret = olua_push_array<cocos2d::PhysicsJoint *>(L, &ret, [L](cocos2d::PhysicsJoint *value) {
         olua_push_cppobj(L, value, "cc.PhysicsJoint");
@@ -1759,7 +1759,7 @@ static int _cocos2d_PhysicsBody_getShapes(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
 
-    // const Vector<cocos2d::PhysicsShape *> &getShapes()
+    // const cocos2d::Vector<cocos2d::PhysicsShape *> &getShapes()
     const cocos2d::Vector<cocos2d::PhysicsShape *> &ret = self->getShapes();
     int num_ret = olua_push_array<cocos2d::PhysicsShape *>(L, &ret, [L](cocos2d::PhysicsShape *value) {
         olua_push_cppobj(L, value, "cc.PhysicsShape");
@@ -6848,7 +6848,7 @@ static int _cocos2d_PhysicsWorld_getAllBodies(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
 
-    // const Vector<cocos2d::PhysicsBody *> &getAllBodies()
+    // const cocos2d::Vector<cocos2d::PhysicsBody *> &getAllBodies()
     const cocos2d::Vector<cocos2d::PhysicsBody *> &ret = self->getAllBodies();
     int num_ret = olua_push_array<cocos2d::PhysicsBody *>(L, &ret, [L](cocos2d::PhysicsBody *value) {
         olua_push_cppobj(L, value, "cc.PhysicsBody");
@@ -6975,7 +6975,7 @@ static int _cocos2d_PhysicsWorld_getShapes(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
     olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // Vector<cocos2d::PhysicsShape *> getShapes(const cocos2d::Vec2 &point)
+    // cocos2d::Vector<cocos2d::PhysicsShape *> getShapes(const cocos2d::Vec2 &point)
     cocos2d::Vector<cocos2d::PhysicsShape *> ret = self->getShapes(arg1);
     int num_ret = olua_push_array<cocos2d::PhysicsShape *>(L, &ret, [L](cocos2d::PhysicsShape *value) {
         olua_push_cppobj(L, value, "cc.PhysicsShape");

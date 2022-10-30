@@ -22836,24 +22836,6 @@ static int _cocos2d_Node___olua_move(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_Node__setLocalZOrder(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    cocos2d::Node *self = nullptr;
-    lua_Integer arg1 = 0;       /** z */
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
-    olua_check_int(L, 2, &arg1);
-
-    // void _setLocalZOrder(std::int32_t z)
-    self->_setLocalZOrder((std::int32_t)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 static int _cocos2d_Node_addChild1(lua_State *L)
 {
     olua_startinvoke(L);
@@ -27435,7 +27417,6 @@ OLUA_LIB int luaopen_cocos2d_Node(lua_State *L)
     oluacls_class(L, "cc.Node", "cc.Ref");
     oluacls_func(L, "__index", _cocos2d_Node___index);
     oluacls_func(L, "__olua_move", _cocos2d_Node___olua_move);
-    oluacls_func(L, "_setLocalZOrder", _cocos2d_Node__setLocalZOrder);
     oluacls_func(L, "addChild", _cocos2d_Node_addChild);
     oluacls_func(L, "addComponent", _cocos2d_Node_addComponent);
     oluacls_func(L, "cleanup", _cocos2d_Node_cleanup);

@@ -23456,7 +23456,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_get_onEditingDidEndWithAction(lua_Stat
     std::string cb_tag = "onEditingDidEndWithAction";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
-    // @nullable @localvar std::function<void (cocos2d::ui::EditBox *, EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction
+    // @nullable @localvar std::function<void (cocos2d::ui::EditBox *, cocos2d::ui::EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction
     std::function<void(cocos2d::ui::EditBox *, cocos2d::ui::EditBoxDelegate::EditBoxEndAction)> ret = self->onEditingDidEndWithAction;
     int num_ret = olua_push_callback(L, &ret, "std.function");
 
@@ -23507,7 +23507,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onEditingDidEndWithAction(lua_Stat
         arg1 = nullptr;
     }
 
-    // @nullable @localvar std::function<void (cocos2d::ui::EditBox *, EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction
+    // @nullable @localvar std::function<void (cocos2d::ui::EditBox *, cocos2d::ui::EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction
     self->onEditingDidEndWithAction = arg1;
 
     olua_endinvoke(L);

@@ -7197,7 +7197,7 @@ static int _cocos2d_EventListenerKeyboard_get_onKeyPressed(lua_State *L)
     std::string cb_tag = "onKeyPressed";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
-    // @nullable @localvar std::function<void (EventKeyboard::KeyCode, cocos2d::Event *)> onKeyPressed
+    // @nullable @localvar std::function<void (cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)> onKeyPressed
     std::function<void(cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)> ret = self->onKeyPressed;
     int num_ret = olua_push_callback(L, &ret, "std.function");
 
@@ -7248,7 +7248,7 @@ static int _cocos2d_EventListenerKeyboard_set_onKeyPressed(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @localvar std::function<void (EventKeyboard::KeyCode, cocos2d::Event *)> onKeyPressed
+    // @nullable @localvar std::function<void (cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)> onKeyPressed
     self->onKeyPressed = arg1;
 
     olua_endinvoke(L);
@@ -7268,7 +7268,7 @@ static int _cocos2d_EventListenerKeyboard_get_onKeyReleased(lua_State *L)
     std::string cb_tag = "onKeyReleased";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
-    // @nullable @localvar std::function<void (EventKeyboard::KeyCode, cocos2d::Event *)> onKeyReleased
+    // @nullable @localvar std::function<void (cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)> onKeyReleased
     std::function<void(cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)> ret = self->onKeyReleased;
     int num_ret = olua_push_callback(L, &ret, "std.function");
 
@@ -7319,7 +7319,7 @@ static int _cocos2d_EventListenerKeyboard_set_onKeyReleased(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @localvar std::function<void (EventKeyboard::KeyCode, cocos2d::Event *)> onKeyReleased
+    // @nullable @localvar std::function<void (cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)> onKeyReleased
     self->onKeyReleased = arg1;
 
     olua_endinvoke(L);
@@ -7484,7 +7484,7 @@ static int _cocos2d_EventListenerFocus_get_onFocusChanged(lua_State *L)
     std::string cb_tag = "onFocusChanged";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
-    // @nullable @localvar std::function<void (ui::Widget *, ui::Widget *)> onFocusChanged
+    // @nullable @localvar std::function<void (cocos2d::ui::Widget *, cocos2d::ui::Widget *)> onFocusChanged
     std::function<void(cocos2d::ui::Widget *, cocos2d::ui::Widget *)> ret = self->onFocusChanged;
     int num_ret = olua_push_callback(L, &ret, "std.function");
 
@@ -7535,7 +7535,7 @@ static int _cocos2d_EventListenerFocus_set_onFocusChanged(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @localvar std::function<void (ui::Widget *, ui::Widget *)> onFocusChanged
+    // @nullable @localvar std::function<void (cocos2d::ui::Widget *, cocos2d::ui::Widget *)> onFocusChanged
     self->onFocusChanged = arg1;
 
     olua_endinvoke(L);
@@ -21492,7 +21492,7 @@ static int _cocos2d_LuaWebSocketDelegate_get_onCloseCallback(lua_State *L)
     std::string cb_tag = "onClose";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
-    // @nullable @localvar std::function<void (network::WebSocket *)> onCloseCallback
+    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *)> onCloseCallback
     std::function<void(cocos2d::network::WebSocket *)> ret = self->onCloseCallback;
     int num_ret = olua_push_callback(L, &ret, "std.function");
 
@@ -21542,7 +21542,7 @@ static int _cocos2d_LuaWebSocketDelegate_set_onCloseCallback(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @localvar std::function<void (network::WebSocket *)> onCloseCallback
+    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *)> onCloseCallback
     self->onCloseCallback = arg1;
 
     olua_endinvoke(L);
@@ -21562,7 +21562,7 @@ static int _cocos2d_LuaWebSocketDelegate_get_onErrorCallback(lua_State *L)
     std::string cb_tag = "onError";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
-    // @nullable @localvar std::function<void (network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback
+    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback
     std::function<void(cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::ErrorCode &)> ret = self->onErrorCallback;
     int num_ret = olua_push_callback(L, &ret, "std.function");
 
@@ -21613,7 +21613,7 @@ static int _cocos2d_LuaWebSocketDelegate_set_onErrorCallback(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @localvar std::function<void (network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback
+    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback
     self->onErrorCallback = arg1;
 
     olua_endinvoke(L);
@@ -21633,7 +21633,7 @@ static int _cocos2d_LuaWebSocketDelegate_get_onMessageCallback(lua_State *L)
     std::string cb_tag = "onMessage";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
-    // @nullable @localvar std::function<void (network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback
+    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback
     std::function<void(cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::Data &)> ret = self->onMessageCallback;
     int num_ret = olua_push_callback(L, &ret, "std.function");
 
@@ -21684,7 +21684,7 @@ static int _cocos2d_LuaWebSocketDelegate_set_onMessageCallback(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @localvar std::function<void (network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback
+    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback
     self->onMessageCallback = arg1;
 
     olua_endinvoke(L);
@@ -21704,7 +21704,7 @@ static int _cocos2d_LuaWebSocketDelegate_get_onOpenCallback(lua_State *L)
     std::string cb_tag = "onOpen";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
-    // @nullable @localvar std::function<void (network::WebSocket *)> onOpenCallback
+    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *)> onOpenCallback
     std::function<void(cocos2d::network::WebSocket *)> ret = self->onOpenCallback;
     int num_ret = olua_push_callback(L, &ret, "std.function");
 
@@ -21754,7 +21754,7 @@ static int _cocos2d_LuaWebSocketDelegate_set_onOpenCallback(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @localvar std::function<void (network::WebSocket *)> onOpenCallback
+    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *)> onOpenCallback
     self->onOpenCallback = arg1;
 
     olua_endinvoke(L);

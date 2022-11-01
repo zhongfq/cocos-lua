@@ -332,7 +332,7 @@ static int _cocos2d_ui_LayoutProtocol_getLayoutElements(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutProtocol");
 
-    // const Vector<cocos2d::Node *> &getLayoutElements()
+    // const cocos2d::Vector<cocos2d::Node *> &getLayoutElements()
     const cocos2d::Vector<cocos2d::Node *> &ret = self->getLayoutElements();
     int num_ret = olua_push_array<cocos2d::Node *>(L, &ret, [L](cocos2d::Node *value) {
         olua_push_cppobj(L, value, "cc.Node");
@@ -1935,7 +1935,7 @@ static int _cocos2d_ui_Widget_get_onNextFocusedWidget(lua_State *L)
     std::string cb_tag = "onNextFocusedWidget";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
-    // @nullable @localvar std::function<cocos2d::ui::Widget * (cocos2d::ui::Widget::FocusDirection)> onNextFocusedWidget
+    // @nullable @localvar std::function<cocos2d::ui::Widget *(cocos2d::ui::Widget::FocusDirection)> onNextFocusedWidget
     std::function<cocos2d::ui::Widget *(cocos2d::ui::Widget::FocusDirection)> ret = self->onNextFocusedWidget;
     int num_ret = olua_push_callback(L, &ret, "std.function");
 
@@ -1985,7 +1985,7 @@ static int _cocos2d_ui_Widget_set_onNextFocusedWidget(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @localvar std::function<cocos2d::ui::Widget * (cocos2d::ui::Widget::FocusDirection)> onNextFocusedWidget
+    // @nullable @localvar std::function<cocos2d::ui::Widget *(cocos2d::ui::Widget::FocusDirection)> onNextFocusedWidget
     self->onNextFocusedWidget = arg1;
 
     olua_endinvoke(L);
@@ -7064,7 +7064,7 @@ static int _cocos2d_experimental_ui_WebView_setOnShouldStartLoading(lua_State *L
         arg1 = nullptr;
     }
 
-    // void setOnShouldStartLoading(@nullable const std::function<bool (WebView *, const std::string &)> &callback)
+    // void setOnShouldStartLoading(@nullable const std::function<bool (cocos2d::experimental::ui::WebView *, const std::string &)> &callback)
     self->setOnShouldStartLoading(arg1);
 
     olua_endinvoke(L);
@@ -11096,7 +11096,7 @@ static int _cocos2d_ui_ListView_getItems(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
 
-    // @addref(children |) Vector<cocos2d::ui::Widget *> &getItems()
+    // @addref(children |) cocos2d::Vector<cocos2d::ui::Widget *> &getItems()
     cocos2d::Vector<cocos2d::ui::Widget *> &ret = self->getItems();
     int num_ret = olua_push_array<cocos2d::ui::Widget *>(L, &ret, [L](cocos2d::ui::Widget *value) {
         olua_push_cppobj(L, value, "ccui.Widget");
@@ -23456,7 +23456,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_get_onEditingDidEndWithAction(lua_Stat
     std::string cb_tag = "onEditingDidEndWithAction";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
-    // @nullable @localvar std::function<void (cocos2d::ui::EditBox *, EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction
+    // @nullable @localvar std::function<void (cocos2d::ui::EditBox *, cocos2d::ui::EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction
     std::function<void(cocos2d::ui::EditBox *, cocos2d::ui::EditBoxDelegate::EditBoxEndAction)> ret = self->onEditingDidEndWithAction;
     int num_ret = olua_push_callback(L, &ret, "std.function");
 
@@ -23507,7 +23507,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onEditingDidEndWithAction(lua_Stat
         arg1 = nullptr;
     }
 
-    // @nullable @localvar std::function<void (cocos2d::ui::EditBox *, EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction
+    // @nullable @localvar std::function<void (cocos2d::ui::EditBox *, cocos2d::ui::EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction
     self->onEditingDidEndWithAction = arg1;
 
     olua_endinvoke(L);

@@ -84,7 +84,7 @@ OLUA_BEGIN_DECLS
 
 // olua config file: https://codetypes.com/posts/c505b168/
 #ifdef OLUA_AUTOCONF
-#define OLUA_EXCLUDE        __attribute__((annotate("exclude")))
+#define OLUA_EXCLUDE        __attribute__((annotate("@exclude")))
 #define OLUA_ADDREF(...)    __attribute__((annotate("@addref("#__VA_ARGS__")")))
 #define OLUA_DEFREF(...)    __attribute__((annotate("@delref("#__VA_ARGS__")")))
 #define OLUA_PACK           __attribute__((annotate("@pack")))

@@ -9945,7 +9945,7 @@ static int _fairygui_GComponent_getChildren(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
 
-    // @addref(children |) const cocos2d::Vector<GObject *> &getChildren()
+    // @addref(children |) const cocos2d::Vector<fairygui::GObject *> &getChildren()
     const cocos2d::Vector<fairygui::GObject *> &ret = self->getChildren();
     int num_ret = olua_push_array<fairygui::GObject *>(L, &ret, [L](fairygui::GObject *value) {
         olua_push_cppobj(L, value, "fgui.GObject");
@@ -10028,7 +10028,7 @@ static int _fairygui_GComponent_getControllers(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
 
-    // @addref(controllers |) const cocos2d::Vector<GController *> &getControllers()
+    // @addref(controllers |) const cocos2d::Vector<fairygui::GController *> &getControllers()
     const cocos2d::Vector<fairygui::GController *> &ret = self->getControllers();
     int num_ret = olua_push_array<fairygui::GController *>(L, &ret, [L](fairygui::GController *value) {
         olua_push_cppobj(L, value, "fgui.GController");
@@ -10218,7 +10218,7 @@ static int _fairygui_GComponent_getTransitions(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
 
-    // @addref(transitions |) const cocos2d::Vector<Transition *> &getTransitions()
+    // @addref(transitions |) const cocos2d::Vector<fairygui::Transition *> &getTransitions()
     const cocos2d::Vector<fairygui::Transition *> &ret = self->getTransitions();
     int num_ret = olua_push_array<fairygui::Transition *>(L, &ret, [L](fairygui::Transition *value) {
         olua_push_cppobj(L, value, "fgui.Transition");
@@ -25246,7 +25246,7 @@ static int _fairygui_GTree_getSelectedNodes(lua_State *L)
         });
     }
 
-    // void getSelectedNodes(@addref(nodes |)@ret std::vector<GTreeNode *> &result)
+    // void getSelectedNodes(@addref(nodes |)@ret std::vector<fairygui::GTreeNode *> &result)
     self->getSelectedNodes(arg1);
 
     olua_push_array<fairygui::GTreeNode *>(L, &arg1, [L](fairygui::GTreeNode *value) {
@@ -26553,7 +26553,7 @@ static int _fairygui_FUIRichText_getControls(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIRichText");
 
-    // const std::vector<HtmlObject *> &getControls()
+    // const std::vector<fairygui::HtmlObject *> &getControls()
     const std::vector<fairygui::HtmlObject *> &ret = self->getControls();
     int num_ret = olua_push_array<fairygui::HtmlObject *>(L, &ret, [L](fairygui::HtmlObject *value) {
         olua_push_cppobj(L, value, "fgui.HtmlObject");
@@ -26776,7 +26776,7 @@ static int _fairygui_FUIRichText_setObjectFactory(lua_State *L)
         return (fairygui::HtmlObject *)ret;
     };
 
-    // void setObjectFactory(@localvar const std::function<HtmlObject *(HtmlElement *)> &value)
+    // void setObjectFactory(@localvar const std::function<fairygui::HtmlObject *(fairygui::HtmlElement *)> &value)
     self->setObjectFactory(arg1);
 
     olua_endinvoke(L);
@@ -27320,7 +27320,7 @@ static int _fairygui_HtmlObject_get_loaderPool(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // static cocos2d::Vector<GObject *> loaderPool
+    // static cocos2d::Vector<fairygui::GObject *> loaderPool
     cocos2d::Vector<fairygui::GObject *> ret = fairygui::HtmlObject::loaderPool;
     int num_ret = olua_push_array<fairygui::GObject *>(L, &ret, [L](fairygui::GObject *value) {
         olua_push_cppobj(L, value, "fgui.GObject");
@@ -27341,7 +27341,7 @@ static int _fairygui_HtmlObject_set_loaderPool(lua_State *L)
         olua_check_cppobj(L, -1, (void **)value, "fgui.GObject");
     });
 
-    // static cocos2d::Vector<GObject *> loaderPool
+    // static cocos2d::Vector<fairygui::GObject *> loaderPool
     fairygui::HtmlObject::loaderPool = arg1;
 
     olua_endinvoke(L);

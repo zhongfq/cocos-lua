@@ -3495,7 +3495,7 @@ static int _cocos2d_EventDispatcher_addCustomEventListener(lua_State *L)
         }
     };
 
-    // @addref(listeners |) cocos2d::EventListenerCustom *addCustomEventListener(const std::string &eventName, @localvar const std::function<void (EventCustom *)> &callback)
+    // @addref(listeners |) cocos2d::EventListenerCustom *addCustomEventListener(const std::string &eventName, @localvar const std::function<void (cocos2d::EventCustom *)> &callback)
     cocos2d::EventListenerCustom *ret = self->addCustomEventListener(arg1, arg2);
     if (olua_pushobjstub(L, ret, cb_store, "cc.EventListenerCustom") == OLUA_OBJ_EXIST) {
         lua_pushstring(L, cb_name.c_str());
@@ -5022,7 +5022,7 @@ static int _cocos2d_EventListenerCustom_create(lua_State *L)
         }
     };
 
-    // static cocos2d::EventListenerCustom *create(const std::string &eventName, @localvar const std::function<void (EventCustom *)> &callback)
+    // static cocos2d::EventListenerCustom *create(const std::string &eventName, @localvar const std::function<void (cocos2d::EventCustom *)> &callback)
     cocos2d::EventListenerCustom *ret = cocos2d::EventListenerCustom::create(arg1, arg2);
     if (olua_pushobjstub(L, ret, cb_store, "cc.EventListenerCustom") == OLUA_OBJ_EXIST) {
         lua_pushstring(L, cb_name.c_str());
@@ -5116,7 +5116,7 @@ static int _cocos2d_EventListenerKeyboard_get_onKeyPressed(lua_State *L)
     std::string cb_tag = "onKeyPressed";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
-    // @nullable @localvar std::function<void (EventKeyboard::KeyCode, cocos2d::Event *)> onKeyPressed
+    // @nullable @localvar std::function<void (cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)> onKeyPressed
     std::function<void(cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)> ret = self->onKeyPressed;
     int num_ret = olua_push_callback(L, &ret, "std.function");
 
@@ -5167,7 +5167,7 @@ static int _cocos2d_EventListenerKeyboard_set_onKeyPressed(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @localvar std::function<void (EventKeyboard::KeyCode, cocos2d::Event *)> onKeyPressed
+    // @nullable @localvar std::function<void (cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)> onKeyPressed
     self->onKeyPressed = arg1;
 
     olua_endinvoke(L);
@@ -5187,7 +5187,7 @@ static int _cocos2d_EventListenerKeyboard_get_onKeyReleased(lua_State *L)
     std::string cb_tag = "onKeyReleased";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
-    // @nullable @localvar std::function<void (EventKeyboard::KeyCode, cocos2d::Event *)> onKeyReleased
+    // @nullable @localvar std::function<void (cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)> onKeyReleased
     std::function<void(cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)> ret = self->onKeyReleased;
     int num_ret = olua_push_callback(L, &ret, "std.function");
 
@@ -5238,7 +5238,7 @@ static int _cocos2d_EventListenerKeyboard_set_onKeyReleased(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @localvar std::function<void (EventKeyboard::KeyCode, cocos2d::Event *)> onKeyReleased
+    // @nullable @localvar std::function<void (cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)> onKeyReleased
     self->onKeyReleased = arg1;
 
     olua_endinvoke(L);
@@ -5307,7 +5307,7 @@ static int _cocos2d_EventListenerAcceleration_create(lua_State *L)
         }
     };
 
-    // static cocos2d::EventListenerAcceleration *create(@localvar const std::function<void (Acceleration *, Event *)> &callback)
+    // static cocos2d::EventListenerAcceleration *create(@localvar const std::function<void (cocos2d::Acceleration *, cocos2d::Event *)> &callback)
     cocos2d::EventListenerAcceleration *ret = cocos2d::EventListenerAcceleration::create(arg1);
     if (olua_pushobjstub(L, ret, cb_store, "cc.EventListenerAcceleration") == OLUA_OBJ_EXIST) {
         lua_pushstring(L, cb_name.c_str());
@@ -5402,7 +5402,7 @@ static int _cocos2d_EventListenerFocus_get_onFocusChanged(lua_State *L)
     std::string cb_tag = "onFocusChanged";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
-    // @nullable @localvar std::function<void (ui::Widget *, ui::Widget *)> onFocusChanged
+    // @nullable @localvar std::function<void (cocos2d::ui::Widget *, cocos2d::ui::Widget *)> onFocusChanged
     std::function<void(cocos2d::ui::Widget *, cocos2d::ui::Widget *)> ret = self->onFocusChanged;
     int num_ret = olua_push_callback(L, &ret, "std.function");
 
@@ -5453,7 +5453,7 @@ static int _cocos2d_EventListenerFocus_set_onFocusChanged(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @localvar std::function<void (ui::Widget *, ui::Widget *)> onFocusChanged
+    // @nullable @localvar std::function<void (cocos2d::ui::Widget *, cocos2d::ui::Widget *)> onFocusChanged
     self->onFocusChanged = arg1;
 
     olua_endinvoke(L);
@@ -6581,7 +6581,7 @@ static int _cocos2d_EventTouch_getTouches(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventTouch");
 
-    // const std::vector<Touch *> &getTouches()
+    // const std::vector<cocos2d::Touch *> &getTouches()
     const std::vector<cocos2d::Touch *> &ret = self->getTouches();
     int num_ret = olua_push_array<cocos2d::Touch *>(L, &ret, [L](cocos2d::Touch *value) {
         olua_push_cppobj(L, value, "cc.Touch");
@@ -6636,7 +6636,7 @@ static int _cocos2d_EventTouch_setTouches(lua_State *L)
         olua_check_cppobj(L, -1, (void **)value, "cc.Touch");
     });
 
-    // void setTouches(const std::vector<Touch *> &touches)
+    // void setTouches(const std::vector<cocos2d::Touch *> &touches)
     self->setTouches(arg1);
 
     olua_endinvoke(L);
@@ -7924,7 +7924,7 @@ static int _cocos2d_Controller_getAllController(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // static const std::vector<Controller *> &getAllController()
+    // static const std::vector<cocos2d::Controller *> &getAllController()
     const std::vector<cocos2d::Controller *> &ret = cocos2d::Controller::getAllController();
     int num_ret = olua_push_array<cocos2d::Controller *>(L, &ret, [L](cocos2d::Controller *value) {
         olua_push_cppobj(L, value, "cc.Controller");
@@ -11693,7 +11693,7 @@ static int _cocos2d_GLView_getAllTouches(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
 
-    // std::vector<Touch *> getAllTouches()
+    // std::vector<cocos2d::Touch *> getAllTouches()
     std::vector<cocos2d::Touch *> ret = self->getAllTouches();
     int num_ret = olua_push_array<cocos2d::Touch *>(L, &ret, [L](cocos2d::Touch *value) {
         olua_push_cppobj(L, value, "cc.Touch");
@@ -17889,7 +17889,7 @@ static int _cocos2d_TextureCache_addImageAsync1(lua_State *L)
         }
     };
 
-    // void addImageAsync(const std::string &filepath, @localvar const std::function<void (Texture2D *)> &callback)
+    // void addImageAsync(const std::string &filepath, @localvar const std::function<void (cocos2d::Texture2D *)> &callback)
     self->addImageAsync(arg1, arg2);
 
     olua_endinvoke(L);
@@ -17936,7 +17936,7 @@ static int _cocos2d_TextureCache_addImageAsync2(lua_State *L)
         }
     };
 
-    // void addImageAsync(const std::string &path, @localvar const std::function<void (Texture2D *)> &callback, const std::string &callbackKey)
+    // void addImageAsync(const std::string &path, @localvar const std::function<void (cocos2d::Texture2D *)> &callback, const std::string &callbackKey)
     self->addImageAsync(arg1, arg2, arg3);
 
     olua_endinvoke(L);
@@ -17950,14 +17950,14 @@ static int _cocos2d_TextureCache_addImageAsync(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_callback(L, 3, "std.function"))) {
-            // void addImageAsync(const std::string &filepath, @localvar const std::function<void (Texture2D *)> &callback)
+            // void addImageAsync(const std::string &filepath, @localvar const std::function<void (cocos2d::Texture2D *)> &callback)
             return _cocos2d_TextureCache_addImageAsync1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_callback(L, 3, "std.function")) && (olua_is_std_string(L, 4))) {
-            // void addImageAsync(const std::string &path, @localvar const std::function<void (Texture2D *)> &callback, const std::string &callbackKey)
+            // void addImageAsync(const std::string &path, @localvar const std::function<void (cocos2d::Texture2D *)> &callback, const std::string &callbackKey)
             return _cocos2d_TextureCache_addImageAsync2(L);
         // }
     }
@@ -20805,7 +20805,7 @@ static int _cocos2d_LuaWebSocketDelegate_get_onCloseCallback(lua_State *L)
     std::string cb_tag = "onClose";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
-    // @nullable @localvar std::function<void (network::WebSocket *)> onCloseCallback
+    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *)> onCloseCallback
     std::function<void(cocos2d::network::WebSocket *)> ret = self->onCloseCallback;
     int num_ret = olua_push_callback(L, &ret, "std.function");
 
@@ -20855,7 +20855,7 @@ static int _cocos2d_LuaWebSocketDelegate_set_onCloseCallback(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @localvar std::function<void (network::WebSocket *)> onCloseCallback
+    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *)> onCloseCallback
     self->onCloseCallback = arg1;
 
     olua_endinvoke(L);
@@ -20875,7 +20875,7 @@ static int _cocos2d_LuaWebSocketDelegate_get_onErrorCallback(lua_State *L)
     std::string cb_tag = "onError";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
-    // @nullable @localvar std::function<void (network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback
+    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::ErrorCode &)> onErrorCallback
     std::function<void(cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::ErrorCode &)> ret = self->onErrorCallback;
     int num_ret = olua_push_callback(L, &ret, "std.function");
 
@@ -20926,7 +20926,7 @@ static int _cocos2d_LuaWebSocketDelegate_set_onErrorCallback(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @localvar std::function<void (network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback
+    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::ErrorCode &)> onErrorCallback
     self->onErrorCallback = arg1;
 
     olua_endinvoke(L);
@@ -20946,7 +20946,7 @@ static int _cocos2d_LuaWebSocketDelegate_get_onMessageCallback(lua_State *L)
     std::string cb_tag = "onMessage";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
-    // @nullable @localvar std::function<void (network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback
+    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::Data &)> onMessageCallback
     std::function<void(cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::Data &)> ret = self->onMessageCallback;
     int num_ret = olua_push_callback(L, &ret, "std.function");
 
@@ -20997,7 +20997,7 @@ static int _cocos2d_LuaWebSocketDelegate_set_onMessageCallback(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @localvar std::function<void (network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback
+    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::Data &)> onMessageCallback
     self->onMessageCallback = arg1;
 
     olua_endinvoke(L);
@@ -21017,7 +21017,7 @@ static int _cocos2d_LuaWebSocketDelegate_get_onOpenCallback(lua_State *L)
     std::string cb_tag = "onOpen";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
-    // @nullable @localvar std::function<void (network::WebSocket *)> onOpenCallback
+    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *)> onOpenCallback
     std::function<void(cocos2d::network::WebSocket *)> ret = self->onOpenCallback;
     int num_ret = olua_push_callback(L, &ret, "std.function");
 
@@ -21067,7 +21067,7 @@ static int _cocos2d_LuaWebSocketDelegate_set_onOpenCallback(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @localvar std::function<void (network::WebSocket *)> onOpenCallback
+    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *)> onOpenCallback
     self->onOpenCallback = arg1;
 
     olua_endinvoke(L);
@@ -21227,7 +21227,7 @@ static int _cocos2d_ActionManager_pauseAllRunningActions(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.ActionManager");
 
-    // Vector<cocos2d::Node *> pauseAllRunningActions()
+    // cocos2d::Vector<cocos2d::Node *> pauseAllRunningActions()
     cocos2d::Vector<cocos2d::Node *> ret = self->pauseAllRunningActions();
     int num_ret = olua_push_array<cocos2d::Node *>(L, &ret, [L](cocos2d::Node *value) {
         olua_push_cppobj(L, value, "cc.Node");
@@ -21398,7 +21398,7 @@ static int _cocos2d_ActionManager_resumeTargets(lua_State *L)
         olua_check_cppobj(L, -1, (void **)value, "cc.Node");
     });
 
-    // void resumeTargets(const Vector<cocos2d::Node *> &targetsToResume)
+    // void resumeTargets(const cocos2d::Vector<cocos2d::Node *> &targetsToResume)
     self->resumeTargets(arg1);
 
     olua_endinvoke(L);
@@ -31371,7 +31371,7 @@ static int _cocos2d_Node_getChildren(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
-    // @addref(children |) Vector<cocos2d::Node *> &getChildren()
+    // @addref(children |) cocos2d::Vector<cocos2d::Node *> &getChildren()
     cocos2d::Vector<cocos2d::Node *> &ret = self->getChildren();
     int num_ret = olua_push_array<cocos2d::Node *>(L, &ret, [L](cocos2d::Node *value) {
         olua_push_cppobj(L, value, "cc.Node");
@@ -35419,6 +35419,13 @@ static int _cocos2d_AtlasNode_as(lua_State *L)
     do {
         if (olua_isa(L, 1, arg1)) {
             lua_pushvalue(L, 1);
+            break;
+        }
+        if (olua_strequal(arg1, "cc.BlendProtocol")) {
+            cocos2d::BlendProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::BlendProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.BlendProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
             break;
         }
         if (olua_strequal(arg1, "cc.TextureProtocol")) {
@@ -39848,6 +39855,13 @@ static int _cocos2d_LabelAtlas_as(lua_State *L)
             lua_pushvalue(L, 1);
             break;
         }
+        if (olua_strequal(arg1, "cc.BlendProtocol")) {
+            cocos2d::BlendProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::BlendProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.BlendProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
         if (olua_strequal(arg1, "cc.LabelProtocol")) {
             cocos2d::LabelProtocol *asobj = self;
             olua_pushobj_as<cocos2d::LabelProtocol>(L, asobj);
@@ -41164,7 +41178,7 @@ static int _cocos2d_RenderTexture_saveToFile1(lua_State *L)
         arg3 = nullptr;
     }
 
-    // bool saveToFile(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (RenderTexture *, const std::string &)> &callback)
+    // bool saveToFile(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (cocos2d::RenderTexture *, const std::string &)> &callback)
     bool ret = self->saveToFile(arg1, arg2, arg3);
     int num_ret = olua_push_bool(L, ret);
 
@@ -41221,7 +41235,7 @@ static int _cocos2d_RenderTexture_saveToFile2(lua_State *L)
         arg4 = nullptr;
     }
 
-    // bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @localvar @optional const std::function<void (RenderTexture *, const std::string &)> &callback)
+    // bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @localvar @optional const std::function<void (cocos2d::RenderTexture *, const std::string &)> &callback)
     bool ret = self->saveToFile(arg1, (cocos2d::Image::Format)arg2, arg3, arg4);
     int num_ret = olua_push_bool(L, ret);
 
@@ -41240,7 +41254,7 @@ static int _cocos2d_RenderTexture_saveToFile3(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
     olua_check_std_string(L, 2, &arg1);
 
-    // bool saveToFile(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (RenderTexture *, const std::string &)> &callback)
+    // bool saveToFile(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (cocos2d::RenderTexture *, const std::string &)> &callback)
     bool ret = self->saveToFile(arg1);
     int num_ret = olua_push_bool(L, ret);
 
@@ -41261,7 +41275,7 @@ static int _cocos2d_RenderTexture_saveToFile4(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
     olua_check_bool(L, 3, &arg2);
 
-    // bool saveToFile(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (RenderTexture *, const std::string &)> &callback)
+    // bool saveToFile(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (cocos2d::RenderTexture *, const std::string &)> &callback)
     bool ret = self->saveToFile(arg1, arg2);
     int num_ret = olua_push_bool(L, ret);
 
@@ -41282,7 +41296,7 @@ static int _cocos2d_RenderTexture_saveToFile5(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
     olua_check_uint(L, 3, &arg2);
 
-    // bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @localvar @optional const std::function<void (RenderTexture *, const std::string &)> &callback)
+    // bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @localvar @optional const std::function<void (cocos2d::RenderTexture *, const std::string &)> &callback)
     bool ret = self->saveToFile(arg1, (cocos2d::Image::Format)arg2);
     int num_ret = olua_push_bool(L, ret);
 
@@ -41305,7 +41319,7 @@ static int _cocos2d_RenderTexture_saveToFile6(lua_State *L)
     olua_check_uint(L, 3, &arg2);
     olua_check_bool(L, 4, &arg3);
 
-    // bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @localvar @optional const std::function<void (RenderTexture *, const std::string &)> &callback)
+    // bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @localvar @optional const std::function<void (cocos2d::RenderTexture *, const std::string &)> &callback)
     bool ret = self->saveToFile(arg1, (cocos2d::Image::Format)arg2, arg3);
     int num_ret = olua_push_bool(L, ret);
 
@@ -41320,38 +41334,38 @@ static int _cocos2d_RenderTexture_saveToFile(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
-            // bool saveToFile(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (RenderTexture *, const std::string &)> &callback)
+            // bool saveToFile(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (cocos2d::RenderTexture *, const std::string &)> &callback)
             return _cocos2d_RenderTexture_saveToFile3(L);
         // }
     }
 
     if (num_args == 2) {
         if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
-            // bool saveToFile(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (RenderTexture *, const std::string &)> &callback)
+            // bool saveToFile(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (cocos2d::RenderTexture *, const std::string &)> &callback)
             return _cocos2d_RenderTexture_saveToFile4(L);
         }
 
         // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
-            // bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @localvar @optional const std::function<void (RenderTexture *, const std::string &)> &callback)
+            // bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @localvar @optional const std::function<void (cocos2d::RenderTexture *, const std::string &)> &callback)
             return _cocos2d_RenderTexture_saveToFile5(L);
         // }
     }
 
     if (num_args == 3) {
         if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3)) && (olua_is_callback(L, 4, "std.function"))) {
-            // bool saveToFile(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (RenderTexture *, const std::string &)> &callback)
+            // bool saveToFile(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (cocos2d::RenderTexture *, const std::string &)> &callback)
             return _cocos2d_RenderTexture_saveToFile1(L);
         }
 
         // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_bool(L, 4))) {
-            // bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @localvar @optional const std::function<void (RenderTexture *, const std::string &)> &callback)
+            // bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @localvar @optional const std::function<void (cocos2d::RenderTexture *, const std::string &)> &callback)
             return _cocos2d_RenderTexture_saveToFile6(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_bool(L, 4)) && (olua_is_callback(L, 5, "std.function"))) {
-            // bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @localvar @optional const std::function<void (RenderTexture *, const std::string &)> &callback)
+            // bool saveToFile(const std::string &filename, cocos2d::Image::Format format, @optional bool isRGBA, @localvar @optional const std::function<void (cocos2d::RenderTexture *, const std::string &)> &callback)
             return _cocos2d_RenderTexture_saveToFile2(L);
         // }
     }
@@ -41407,7 +41421,7 @@ static int _cocos2d_RenderTexture_saveToFileAsNonPMA1(lua_State *L)
         arg3 = nullptr;
     }
 
-    // bool saveToFileAsNonPMA(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (RenderTexture *, const std::string &)> &callback)
+    // bool saveToFileAsNonPMA(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (cocos2d::RenderTexture *, const std::string &)> &callback)
     bool ret = self->saveToFileAsNonPMA(arg1, arg2, arg3);
     int num_ret = olua_push_bool(L, ret);
 
@@ -41458,7 +41472,7 @@ static int _cocos2d_RenderTexture_saveToFileAsNonPMA2(lua_State *L)
         }
     };
 
-    // bool saveToFileAsNonPMA(const std::string &fileName, cocos2d::Image::Format format, bool isRGBA, @localvar const std::function<void (RenderTexture *, const std::string &)> &callback)
+    // bool saveToFileAsNonPMA(const std::string &fileName, cocos2d::Image::Format format, bool isRGBA, @localvar const std::function<void (cocos2d::RenderTexture *, const std::string &)> &callback)
     bool ret = self->saveToFileAsNonPMA(arg1, (cocos2d::Image::Format)arg2, arg3, arg4);
     int num_ret = olua_push_bool(L, ret);
 
@@ -41477,7 +41491,7 @@ static int _cocos2d_RenderTexture_saveToFileAsNonPMA3(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
     olua_check_std_string(L, 2, &arg1);
 
-    // bool saveToFileAsNonPMA(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (RenderTexture *, const std::string &)> &callback)
+    // bool saveToFileAsNonPMA(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (cocos2d::RenderTexture *, const std::string &)> &callback)
     bool ret = self->saveToFileAsNonPMA(arg1);
     int num_ret = olua_push_bool(L, ret);
 
@@ -41498,7 +41512,7 @@ static int _cocos2d_RenderTexture_saveToFileAsNonPMA4(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
     olua_check_bool(L, 3, &arg2);
 
-    // bool saveToFileAsNonPMA(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (RenderTexture *, const std::string &)> &callback)
+    // bool saveToFileAsNonPMA(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (cocos2d::RenderTexture *, const std::string &)> &callback)
     bool ret = self->saveToFileAsNonPMA(arg1, arg2);
     int num_ret = olua_push_bool(L, ret);
 
@@ -41513,28 +41527,28 @@ static int _cocos2d_RenderTexture_saveToFileAsNonPMA(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
-            // bool saveToFileAsNonPMA(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (RenderTexture *, const std::string &)> &callback)
+            // bool saveToFileAsNonPMA(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (cocos2d::RenderTexture *, const std::string &)> &callback)
             return _cocos2d_RenderTexture_saveToFileAsNonPMA3(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
-            // bool saveToFileAsNonPMA(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (RenderTexture *, const std::string &)> &callback)
+            // bool saveToFileAsNonPMA(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (cocos2d::RenderTexture *, const std::string &)> &callback)
             return _cocos2d_RenderTexture_saveToFileAsNonPMA4(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3)) && (olua_is_callback(L, 4, "std.function"))) {
-            // bool saveToFileAsNonPMA(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (RenderTexture *, const std::string &)> &callback)
+            // bool saveToFileAsNonPMA(const std::string &filename, @optional bool isRGBA, @localvar @optional const std::function<void (cocos2d::RenderTexture *, const std::string &)> &callback)
             return _cocos2d_RenderTexture_saveToFileAsNonPMA1(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_bool(L, 4)) && (olua_is_callback(L, 5, "std.function"))) {
-            // bool saveToFileAsNonPMA(const std::string &fileName, cocos2d::Image::Format format, bool isRGBA, @localvar const std::function<void (RenderTexture *, const std::string &)> &callback)
+            // bool saveToFileAsNonPMA(const std::string &fileName, cocos2d::Image::Format format, bool isRGBA, @localvar const std::function<void (cocos2d::RenderTexture *, const std::string &)> &callback)
             return _cocos2d_RenderTexture_saveToFileAsNonPMA2(L);
         // }
     }
@@ -42452,7 +42466,7 @@ static int _cocos2d_Animation_create2(lua_State *L)
     olua_check_number(L, 2, &arg2);
     olua_check_uint(L, 3, &arg3);
 
-    // static cocos2d::Animation *create(const Vector<cocos2d::AnimationFrame *> &arrayOfAnimationFrameNames, float delayPerUnit, @optional unsigned int loops)
+    // static cocos2d::Animation *create(const cocos2d::Vector<cocos2d::AnimationFrame *> &arrayOfAnimationFrameNames, float delayPerUnit, @optional unsigned int loops)
     cocos2d::Animation *ret = cocos2d::Animation::create(arg1, (float)arg2, (unsigned int)arg3);
     int num_ret = olua_push_cppobj(L, ret, "cc.Animation");
 
@@ -42473,7 +42487,7 @@ static int _cocos2d_Animation_create3(lua_State *L)
     });
     olua_check_number(L, 2, &arg2);
 
-    // static cocos2d::Animation *create(const Vector<cocos2d::AnimationFrame *> &arrayOfAnimationFrameNames, float delayPerUnit, @optional unsigned int loops)
+    // static cocos2d::Animation *create(const cocos2d::Vector<cocos2d::AnimationFrame *> &arrayOfAnimationFrameNames, float delayPerUnit, @optional unsigned int loops)
     cocos2d::Animation *ret = cocos2d::Animation::create(arg1, (float)arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.Animation");
 
@@ -42493,14 +42507,14 @@ static int _cocos2d_Animation_create(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_array(L, 1)) && (olua_is_number(L, 2))) {
-            // static cocos2d::Animation *create(const Vector<cocos2d::AnimationFrame *> &arrayOfAnimationFrameNames, float delayPerUnit, @optional unsigned int loops)
+            // static cocos2d::Animation *create(const cocos2d::Vector<cocos2d::AnimationFrame *> &arrayOfAnimationFrameNames, float delayPerUnit, @optional unsigned int loops)
             return _cocos2d_Animation_create3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_array(L, 1)) && (olua_is_number(L, 2)) && (olua_is_uint(L, 3))) {
-            // static cocos2d::Animation *create(const Vector<cocos2d::AnimationFrame *> &arrayOfAnimationFrameNames, float delayPerUnit, @optional unsigned int loops)
+            // static cocos2d::Animation *create(const cocos2d::Vector<cocos2d::AnimationFrame *> &arrayOfAnimationFrameNames, float delayPerUnit, @optional unsigned int loops)
             return _cocos2d_Animation_create2(L);
         // }
     }
@@ -42524,7 +42538,7 @@ static int _cocos2d_Animation_createWithSpriteFrames1(lua_State *L)
     olua_check_number(L, 2, &arg2);
     olua_check_uint(L, 3, &arg3);
 
-    // static cocos2d::Animation *createWithSpriteFrames(const Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
+    // static cocos2d::Animation *createWithSpriteFrames(const cocos2d::Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
     cocos2d::Animation *ret = cocos2d::Animation::createWithSpriteFrames(arg1, (float)arg2, (unsigned int)arg3);
     int num_ret = olua_push_cppobj(L, ret, "cc.Animation");
 
@@ -42543,7 +42557,7 @@ static int _cocos2d_Animation_createWithSpriteFrames2(lua_State *L)
         olua_check_cppobj(L, -1, (void **)value, "cc.SpriteFrame");
     });
 
-    // static cocos2d::Animation *createWithSpriteFrames(const Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
+    // static cocos2d::Animation *createWithSpriteFrames(const cocos2d::Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
     cocos2d::Animation *ret = cocos2d::Animation::createWithSpriteFrames(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.Animation");
 
@@ -42564,7 +42578,7 @@ static int _cocos2d_Animation_createWithSpriteFrames3(lua_State *L)
     });
     olua_check_number(L, 2, &arg2);
 
-    // static cocos2d::Animation *createWithSpriteFrames(const Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
+    // static cocos2d::Animation *createWithSpriteFrames(const cocos2d::Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
     cocos2d::Animation *ret = cocos2d::Animation::createWithSpriteFrames(arg1, (float)arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.Animation");
 
@@ -42579,21 +42593,21 @@ static int _cocos2d_Animation_createWithSpriteFrames(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_array(L, 1))) {
-            // static cocos2d::Animation *createWithSpriteFrames(const Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
+            // static cocos2d::Animation *createWithSpriteFrames(const cocos2d::Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
             return _cocos2d_Animation_createWithSpriteFrames2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_array(L, 1)) && (olua_is_number(L, 2))) {
-            // static cocos2d::Animation *createWithSpriteFrames(const Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
+            // static cocos2d::Animation *createWithSpriteFrames(const cocos2d::Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
             return _cocos2d_Animation_createWithSpriteFrames3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_array(L, 1)) && (olua_is_number(L, 2)) && (olua_is_uint(L, 3))) {
-            // static cocos2d::Animation *createWithSpriteFrames(const Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
+            // static cocos2d::Animation *createWithSpriteFrames(const cocos2d::Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
             return _cocos2d_Animation_createWithSpriteFrames1(L);
         // }
     }
@@ -42645,7 +42659,7 @@ static int _cocos2d_Animation_getFrames(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Animation");
 
-    // const Vector<cocos2d::AnimationFrame *> &getFrames()
+    // const cocos2d::Vector<cocos2d::AnimationFrame *> &getFrames()
     const cocos2d::Vector<cocos2d::AnimationFrame *> &ret = self->getFrames();
     int num_ret = olua_push_array<cocos2d::AnimationFrame *>(L, &ret, [L](cocos2d::AnimationFrame *value) {
         olua_push_cppobj(L, value, "cc.AnimationFrame");
@@ -42740,7 +42754,7 @@ static int _cocos2d_Animation_initWithAnimationFrames(lua_State *L)
     olua_check_number(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
 
-    // bool initWithAnimationFrames(const Vector<cocos2d::AnimationFrame *> &arrayOfAnimationFrameNames, float delayPerUnit, unsigned int loops)
+    // bool initWithAnimationFrames(const cocos2d::Vector<cocos2d::AnimationFrame *> &arrayOfAnimationFrameNames, float delayPerUnit, unsigned int loops)
     bool ret = self->initWithAnimationFrames(arg1, (float)arg2, (unsigned int)arg3);
     int num_ret = olua_push_bool(L, ret);
 
@@ -42765,7 +42779,7 @@ static int _cocos2d_Animation_initWithSpriteFrames1(lua_State *L)
     olua_check_number(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
 
-    // bool initWithSpriteFrames(const Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
+    // bool initWithSpriteFrames(const cocos2d::Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
     bool ret = self->initWithSpriteFrames(arg1, (float)arg2, (unsigned int)arg3);
     int num_ret = olua_push_bool(L, ret);
 
@@ -42786,7 +42800,7 @@ static int _cocos2d_Animation_initWithSpriteFrames2(lua_State *L)
         olua_check_cppobj(L, -1, (void **)value, "cc.SpriteFrame");
     });
 
-    // bool initWithSpriteFrames(const Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
+    // bool initWithSpriteFrames(const cocos2d::Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
     bool ret = self->initWithSpriteFrames(arg1);
     int num_ret = olua_push_bool(L, ret);
 
@@ -42809,7 +42823,7 @@ static int _cocos2d_Animation_initWithSpriteFrames3(lua_State *L)
     });
     olua_check_number(L, 3, &arg2);
 
-    // bool initWithSpriteFrames(const Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
+    // bool initWithSpriteFrames(const cocos2d::Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
     bool ret = self->initWithSpriteFrames(arg1, (float)arg2);
     int num_ret = olua_push_bool(L, ret);
 
@@ -42824,21 +42838,21 @@ static int _cocos2d_Animation_initWithSpriteFrames(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_array(L, 2))) {
-            // bool initWithSpriteFrames(const Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
+            // bool initWithSpriteFrames(const cocos2d::Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
             return _cocos2d_Animation_initWithSpriteFrames2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_array(L, 2)) && (olua_is_number(L, 3))) {
-            // bool initWithSpriteFrames(const Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
+            // bool initWithSpriteFrames(const cocos2d::Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
             return _cocos2d_Animation_initWithSpriteFrames3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_array(L, 2)) && (olua_is_number(L, 3)) && (olua_is_uint(L, 4))) {
-            // bool initWithSpriteFrames(const Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
+            // bool initWithSpriteFrames(const cocos2d::Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
             return _cocos2d_Animation_initWithSpriteFrames1(L);
         // }
     }
@@ -42892,7 +42906,7 @@ static int _cocos2d_Animation_setFrames(lua_State *L)
         olua_check_cppobj(L, -1, (void **)value, "cc.AnimationFrame");
     });
 
-    // void setFrames(const Vector<cocos2d::AnimationFrame *> &frames)
+    // void setFrames(const cocos2d::Vector<cocos2d::AnimationFrame *> &frames)
     self->setFrames(arg1);
 
     olua_endinvoke(L);
@@ -43803,6 +43817,13 @@ static int _cocos2d_Sprite_as(lua_State *L)
     do {
         if (olua_isa(L, 1, arg1)) {
             lua_pushvalue(L, 1);
+            break;
+        }
+        if (olua_strequal(arg1, "cc.BlendProtocol")) {
+            cocos2d::BlendProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::BlendProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.BlendProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
             break;
         }
         if (olua_strequal(arg1, "cc.TextureProtocol")) {
@@ -45071,6 +45092,13 @@ static int _cocos2d_SpriteBatchNode_as(lua_State *L)
             lua_pushvalue(L, 1);
             break;
         }
+        if (olua_strequal(arg1, "cc.BlendProtocol")) {
+            cocos2d::BlendProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::BlendProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.BlendProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
         if (olua_strequal(arg1, "cc.TextureProtocol")) {
             cocos2d::TextureProtocol *asobj = self;
             olua_pushobj_as<cocos2d::TextureProtocol>(L, asobj);
@@ -45251,7 +45279,7 @@ static int _cocos2d_SpriteBatchNode_getDescendants(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
 
-    // const std::vector<Sprite *> &getDescendants()
+    // const std::vector<cocos2d::Sprite *> &getDescendants()
     const std::vector<cocos2d::Sprite *> &ret = self->getDescendants();
     int num_ret = olua_push_array<cocos2d::Sprite *>(L, &ret, [L](cocos2d::Sprite *value) {
         olua_push_cppobj(L, value, "cc.Sprite");
@@ -46317,7 +46345,7 @@ static int _cocos2d_Scene_getCameras(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Scene");
 
-    // const std::vector<Camera *> &getCameras()
+    // const std::vector<cocos2d::Camera *> &getCameras()
     const std::vector<cocos2d::Camera *> &ret = self->getCameras();
     int num_ret = olua_push_array<cocos2d::Camera *>(L, &ret, [L](cocos2d::Camera *value) {
         olua_push_cppobj(L, value, "cc.Camera");
@@ -46353,7 +46381,7 @@ static int _cocos2d_Scene_getLights(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Scene");
 
-    // const std::vector<BaseLight *> &getLights()
+    // const std::vector<cocos2d::BaseLight *> &getLights()
     const std::vector<cocos2d::BaseLight *> &ret = self->getLights();
     int num_ret = olua_push_array<cocos2d::BaseLight *>(L, &ret, [L](cocos2d::BaseLight *value) {
         olua_push_cppobj(L, value, "cc.BaseLight");
@@ -46747,7 +46775,7 @@ static int _cocos2d_Layer_onTouchesBegan(lua_State *L)
     });
     olua_check_cppobj(L, 3, (void **)&arg2, "cc.Event");
 
-    // void onTouchesBegan(const std::vector<Touch *> &touches, cocos2d::Event *unused_event)
+    // void onTouchesBegan(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *unused_event)
     self->onTouchesBegan(arg1, arg2);
 
     olua_endinvoke(L);
@@ -46769,7 +46797,7 @@ static int _cocos2d_Layer_onTouchesCancelled(lua_State *L)
     });
     olua_check_cppobj(L, 3, (void **)&arg2, "cc.Event");
 
-    // void onTouchesCancelled(const std::vector<Touch *> &touches, cocos2d::Event *unused_event)
+    // void onTouchesCancelled(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *unused_event)
     self->onTouchesCancelled(arg1, arg2);
 
     olua_endinvoke(L);
@@ -46791,7 +46819,7 @@ static int _cocos2d_Layer_onTouchesEnded(lua_State *L)
     });
     olua_check_cppobj(L, 3, (void **)&arg2, "cc.Event");
 
-    // void onTouchesEnded(const std::vector<Touch *> &touches, cocos2d::Event *unused_event)
+    // void onTouchesEnded(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *unused_event)
     self->onTouchesEnded(arg1, arg2);
 
     olua_endinvoke(L);
@@ -46813,7 +46841,7 @@ static int _cocos2d_Layer_onTouchesMoved(lua_State *L)
     });
     olua_check_cppobj(L, 3, (void **)&arg2, "cc.Event");
 
-    // void onTouchesMoved(const std::vector<Touch *> &touches, cocos2d::Event *unused_event)
+    // void onTouchesMoved(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *unused_event)
     self->onTouchesMoved(arg1, arg2);
 
     olua_endinvoke(L);
@@ -58588,6 +58616,13 @@ static int _cocos2d_ParticleBatchNode_as(lua_State *L)
             lua_pushvalue(L, 1);
             break;
         }
+        if (olua_strequal(arg1, "cc.BlendProtocol")) {
+            cocos2d::BlendProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::BlendProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.BlendProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
         if (olua_strequal(arg1, "cc.TextureProtocol")) {
             cocos2d::TextureProtocol *asobj = self;
             olua_pushobj_as<cocos2d::TextureProtocol>(L, asobj);
@@ -59047,6 +59082,13 @@ static int _cocos2d_ParticleSystem_as(lua_State *L)
             lua_pushvalue(L, 1);
             break;
         }
+        if (olua_strequal(arg1, "cc.BlendProtocol")) {
+            cocos2d::BlendProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::BlendProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.BlendProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
         if (olua_strequal(arg1, "cc.PlayableProtocol")) {
             cocos2d::PlayableProtocol *asobj = self;
             olua_pushobj_as<cocos2d::PlayableProtocol>(L, asobj);
@@ -59108,7 +59150,7 @@ static int _cocos2d_ParticleSystem_getAllParticleSystems(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // static Vector<cocos2d::ParticleSystem *> &getAllParticleSystems()
+    // static cocos2d::Vector<cocos2d::ParticleSystem *> &getAllParticleSystems()
     cocos2d::Vector<cocos2d::ParticleSystem *> &ret = cocos2d::ParticleSystem::getAllParticleSystems();
     int num_ret = olua_push_array<cocos2d::ParticleSystem *>(L, &ret, [L](cocos2d::ParticleSystem *value) {
         olua_push_cppobj(L, value, "cc.ParticleSystem");

@@ -1621,7 +1621,7 @@ static int _spine_Animation_hasTimeline(lua_State *L)
         *value = (spine::PropertyId)obj;
     });
 
-    // bool hasTimeline(Vector<spine::PropertyId> ids)
+    // bool hasTimeline(spine::Vector<spine::PropertyId> ids)
     bool ret = self->hasTimeline(arg1);
     int num_ret = olua_push_bool(L, ret);
 
@@ -5636,7 +5636,7 @@ static int _spine_Timeline_getPropertyIds(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.Timeline");
 
-    // Vector<spine::PropertyId> &getPropertyIds()
+    // spine::Vector<spine::PropertyId> &getPropertyIds()
     spine::Vector<spine::PropertyId> &ret = self->getPropertyIds();
     int num_ret = olua_push_array<spine::PropertyId>(L, &ret, [L](spine::PropertyId value) {
         olua_push_int(L, (lua_Integer)value);
@@ -9415,7 +9415,7 @@ static int _spine_VertexAttachment_getBones(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.VertexAttachment");
 
-    // Vector<size_t> &getBones()
+    // spine::Vector<size_t> &getBones()
     spine::Vector<size_t> &ret = self->getBones();
     int num_ret = olua_push_array<size_t>(L, &ret, [L](size_t value) {
         olua_push_uint(L, (lua_Unsigned)value);

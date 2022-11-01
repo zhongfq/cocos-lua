@@ -344,13 +344,16 @@ OLUA_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
             status = OLUA_OBJ_NEW;
             env->objcount++;
         }
+        // L: metaclass objtable obj
+        lua_pushvalue(L, -3);
+        lua_setmetatable(L, -2); // obj.metatable = metaclass
     } else if (olua_unlikely(!strequal(cls, OLUA_VOIDCLS)
             && luaL_testudata(L, -1, OLUA_VOIDCLS))) {
+        // L: metaclass objtable obj
+        lua_pushvalue(L, -3);
+        lua_setmetatable(L, -2); // obj.metatable = metaclass
         status = OLUA_OBJ_UPDATE;
     }
-    // L: metaclass objtable obj
-    lua_pushvalue(L, -3);
-    lua_setmetatable(L, -2); // obj.metatable = metaclass
     lua_copy(L, -1, -3);
     // L: obj objtable obj
     lua_pop(L, 2);

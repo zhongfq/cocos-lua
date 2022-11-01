@@ -1663,7 +1663,7 @@ static int _cocostudio_AnimationData_get_movementDataDic(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.AnimationData");
 
-    // cocos2d::Map<std::string, MovementData *> movementDataDic
+    // cocos2d::Map<std::string, cocostudio::MovementData *> movementDataDic
     cocos2d::Map<std::string, cocostudio::MovementData *> ret = self->movementDataDic;
     int num_ret = olua_push_map<std::string, cocostudio::MovementData *>(L, &ret, [L](std::string arg1, cocostudio::MovementData *arg2) {
         olua_push_std_string(L, (std::string)arg1);
@@ -1688,7 +1688,7 @@ static int _cocostudio_AnimationData_set_movementDataDic(lua_State *L)
         olua_check_cppobj(L, -2, (void **)arg2, "ccs.MovementData");
     });
 
-    // cocos2d::Map<std::string, MovementData *> movementDataDic
+    // cocos2d::Map<std::string, cocostudio::MovementData *> movementDataDic
     self->movementDataDic = arg1;
 
     olua_endinvoke(L);
@@ -2084,7 +2084,7 @@ static int _cocostudio_Armature_getBoneDic(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.Armature");
 
-    // const cocos2d::Map<std::string, Bone *> &getBoneDic()
+    // const cocos2d::Map<std::string, cocostudio::Bone *> &getBoneDic()
     const cocos2d::Map<std::string, cocostudio::Bone *> &ret = self->getBoneDic();
     int num_ret = olua_push_map<std::string, cocostudio::Bone *>(L, &ret, [L](std::string arg1, cocostudio::Bone *arg2) {
         olua_push_std_string(L, (std::string)arg1);
@@ -4615,7 +4615,7 @@ static int _cocostudio_ArmatureData_get_boneDataDic(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.ArmatureData");
 
-    // cocos2d::Map<std::string, BoneData *> boneDataDic
+    // cocos2d::Map<std::string, cocostudio::BoneData *> boneDataDic
     cocos2d::Map<std::string, cocostudio::BoneData *> ret = self->boneDataDic;
     int num_ret = olua_push_map<std::string, cocostudio::BoneData *>(L, &ret, [L](std::string arg1, cocostudio::BoneData *arg2) {
         olua_push_std_string(L, (std::string)arg1);
@@ -4640,7 +4640,7 @@ static int _cocostudio_ArmatureData_set_boneDataDic(lua_State *L)
         olua_check_cppobj(L, -2, (void **)arg2, "ccs.BoneData");
     });
 
-    // cocos2d::Map<std::string, BoneData *> boneDataDic
+    // cocos2d::Map<std::string, cocostudio::BoneData *> boneDataDic
     self->boneDataDic = arg1;
 
     olua_endinvoke(L);
@@ -5112,7 +5112,7 @@ static int _cocostudio_ArmatureDataManager_getAnimationDatas(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.ArmatureDataManager");
 
-    // const cocos2d::Map<std::string, AnimationData *> &getAnimationDatas()
+    // const cocos2d::Map<std::string, cocostudio::AnimationData *> &getAnimationDatas()
     const cocos2d::Map<std::string, cocostudio::AnimationData *> &ret = self->getAnimationDatas();
     int num_ret = olua_push_map<std::string, cocostudio::AnimationData *>(L, &ret, [L](std::string arg1, cocostudio::AnimationData *arg2) {
         olua_push_std_string(L, (std::string)arg1);
@@ -5151,7 +5151,7 @@ static int _cocostudio_ArmatureDataManager_getArmatureDatas(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.ArmatureDataManager");
 
-    // const cocos2d::Map<std::string, ArmatureData *> &getArmatureDatas()
+    // const cocos2d::Map<std::string, cocostudio::ArmatureData *> &getArmatureDatas()
     const cocos2d::Map<std::string, cocostudio::ArmatureData *> &ret = self->getArmatureDatas();
     int num_ret = olua_push_map<std::string, cocostudio::ArmatureData *>(L, &ret, [L](std::string arg1, cocostudio::ArmatureData *arg2) {
         olua_push_std_string(L, (std::string)arg1);
@@ -5203,7 +5203,7 @@ static int _cocostudio_ArmatureDataManager_getTextureDatas(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.ArmatureDataManager");
 
-    // const cocos2d::Map<std::string, TextureData *> &getTextureDatas()
+    // const cocos2d::Map<std::string, cocostudio::TextureData *> &getTextureDatas()
     const cocos2d::Map<std::string, cocostudio::TextureData *> &ret = self->getTextureDatas();
     int num_ret = olua_push_map<std::string, cocostudio::TextureData *>(L, &ret, [L](std::string arg1, cocostudio::TextureData *arg2) {
         olua_push_std_string(L, (std::string)arg1);
@@ -12919,7 +12919,7 @@ static int _cocostudio_MovementData_get_movBoneDataDic(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.MovementData");
 
-    // cocos2d::Map<std::string, MovementBoneData *> movBoneDataDic
+    // cocos2d::Map<std::string, cocostudio::MovementBoneData *> movBoneDataDic
     cocos2d::Map<std::string, cocostudio::MovementBoneData *> ret = self->movBoneDataDic;
     int num_ret = olua_push_map<std::string, cocostudio::MovementBoneData *>(L, &ret, [L](std::string arg1, cocostudio::MovementBoneData *arg2) {
         olua_push_std_string(L, (std::string)arg1);
@@ -12944,7 +12944,7 @@ static int _cocostudio_MovementData_set_movBoneDataDic(lua_State *L)
         olua_check_cppobj(L, -2, (void **)arg2, "ccs.MovementBoneData");
     });
 
-    // cocos2d::Map<std::string, MovementBoneData *> movBoneDataDic
+    // cocos2d::Map<std::string, cocostudio::MovementBoneData *> movBoneDataDic
     self->movBoneDataDic = arg1;
 
     olua_endinvoke(L);
@@ -17334,7 +17334,7 @@ static int _cocostudio_timeline_BoneNode_getAllSubSkins(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.BoneNode");
 
-    // @addref(subSkins |) cocos2d::Vector<SkinNode *> getAllSubSkins()
+    // @addref(subSkins |) cocos2d::Vector<cocostudio::timeline::SkinNode *> getAllSubSkins()
     cocos2d::Vector<cocostudio::timeline::SkinNode *> ret = self->getAllSubSkins();
     int num_ret = olua_push_array<cocostudio::timeline::SkinNode *>(L, &ret, [L](cocostudio::timeline::SkinNode *value) {
         olua_push_cppobj(L, value, "cc.Node");
@@ -17466,7 +17466,7 @@ static int _cocostudio_timeline_BoneNode_getSkins(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.BoneNode");
 
-    // @addref(skins |) const cocos2d::Vector<SkinNode *> &getSkins()
+    // @addref(skins |) const cocos2d::Vector<cocostudio::timeline::SkinNode *> &getSkins()
     const cocos2d::Vector<cocostudio::timeline::SkinNode *> &ret = self->getSkins();
     int num_ret = olua_push_array<cocostudio::timeline::SkinNode *>(L, &ret, [L](cocostudio::timeline::SkinNode *value) {
         olua_push_cppobj(L, value, "cc.Node");
@@ -17488,7 +17488,7 @@ static int _cocostudio_timeline_BoneNode_getVisibleSkins(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.BoneNode");
 
-    // @addref(skins |) cocos2d::Vector<SkinNode *> getVisibleSkins()
+    // @addref(skins |) cocos2d::Vector<cocostudio::timeline::SkinNode *> getVisibleSkins()
     cocos2d::Vector<cocostudio::timeline::SkinNode *> ret = self->getVisibleSkins();
     int num_ret = olua_push_array<cocostudio::timeline::SkinNode *>(L, &ret, [L](cocostudio::timeline::SkinNode *value) {
         olua_push_cppobj(L, value, "cc.Node");
@@ -17821,7 +17821,7 @@ static int _cocostudio_timeline_SkeletonNode_getAllSubBonesMap(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccs.timeline.SkeletonNode");
 
-    // @addref(boneNodes |) const cocos2d::Map<std::string, BoneNode *> &getAllSubBonesMap()
+    // @addref(boneNodes |) const cocos2d::Map<std::string, cocostudio::timeline::BoneNode *> &getAllSubBonesMap()
     const cocos2d::Map<std::string, cocostudio::timeline::BoneNode *> &ret = self->getAllSubBonesMap();
     int num_ret = olua_push_map<std::string, cocostudio::timeline::BoneNode *>(L, &ret, [L](std::string arg1, cocostudio::timeline::BoneNode *arg2) {
         olua_push_std_string(L, (std::string)arg1);

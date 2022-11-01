@@ -679,7 +679,7 @@ static int _cocos2d_backend_VertexLayout_getAttributes(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccb.VertexLayout");
 
-    // const std::unordered_map<std::string, Attribute> &getAttributes()
+    // const std::unordered_map<std::string, cocos2d::backend::VertexLayout::Attribute> &getAttributes()
     const std::unordered_map<std::string, cocos2d::backend::VertexLayout::Attribute> &ret = self->getAttributes();
     int num_ret = olua_push_map<std::string, cocos2d::backend::VertexLayout::Attribute>(L, &ret, [L](std::string arg1, cocos2d::backend::VertexLayout::Attribute arg2) {
         olua_push_std_string(L, (std::string)arg1);
@@ -2602,7 +2602,7 @@ static int _cocos2d_backend_Program_getActiveAttributes(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccb.Program");
 
-    // const std::unordered_map<std::string, AttributeBindInfo> getActiveAttributes()
+    // const std::unordered_map<std::string, cocos2d::backend::AttributeBindInfo> getActiveAttributes()
     const std::unordered_map<std::string, cocos2d::backend::AttributeBindInfo> ret = self->getActiveAttributes();
     int num_ret = olua_push_map<std::string, cocos2d::backend::AttributeBindInfo>(L, &ret, [L](std::string arg1, cocos2d::backend::AttributeBindInfo arg2) {
         olua_push_std_string(L, (std::string)arg1);
@@ -2645,7 +2645,7 @@ static int _cocos2d_backend_Program_getAllActiveUniformInfo(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccb.Program");
     olua_check_uint(L, 2, &arg1);
 
-    // const std::unordered_map<std::string, UniformInfo> &getAllActiveUniformInfo(cocos2d::backend::ShaderStage stage)
+    // const std::unordered_map<std::string, cocos2d::backend::UniformInfo> &getAllActiveUniformInfo(cocos2d::backend::ShaderStage stage)
     const std::unordered_map<std::string, cocos2d::backend::UniformInfo> &ret = self->getAllActiveUniformInfo((cocos2d::backend::ShaderStage)arg1);
     int num_ret = olua_push_map<std::string, cocos2d::backend::UniformInfo>(L, &ret, [L](std::string arg1, cocos2d::backend::UniformInfo arg2) {
         olua_push_std_string(L, (std::string)arg1);

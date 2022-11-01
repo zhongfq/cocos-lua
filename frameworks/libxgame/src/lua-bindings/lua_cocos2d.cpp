@@ -21562,7 +21562,7 @@ static int _cocos2d_LuaWebSocketDelegate_get_onErrorCallback(lua_State *L)
     std::string cb_tag = "onError";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
-    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback
+    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::ErrorCode &)> onErrorCallback
     std::function<void(cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::ErrorCode &)> ret = self->onErrorCallback;
     int num_ret = olua_push_callback(L, &ret, "std.function");
 
@@ -21613,7 +21613,7 @@ static int _cocos2d_LuaWebSocketDelegate_set_onErrorCallback(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback
+    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::ErrorCode &)> onErrorCallback
     self->onErrorCallback = arg1;
 
     olua_endinvoke(L);
@@ -21633,7 +21633,7 @@ static int _cocos2d_LuaWebSocketDelegate_get_onMessageCallback(lua_State *L)
     std::string cb_tag = "onMessage";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
-    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback
+    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::Data &)> onMessageCallback
     std::function<void(cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::Data &)> ret = self->onMessageCallback;
     int num_ret = olua_push_callback(L, &ret, "std.function");
 
@@ -21684,7 +21684,7 @@ static int _cocos2d_LuaWebSocketDelegate_set_onMessageCallback(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback
+    // @nullable @localvar std::function<void (cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::Data &)> onMessageCallback
     self->onMessageCallback = arg1;
 
     olua_endinvoke(L);
@@ -27845,6 +27845,13 @@ static int _cocos2d_AtlasNode_as(lua_State *L)
             lua_pushvalue(L, 1);
             break;
         }
+        if (olua_strequal(arg1, "cc.BlendProtocol")) {
+            cocos2d::BlendProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::BlendProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.BlendProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
         if (olua_strequal(arg1, "cc.TextureProtocol")) {
             cocos2d::TextureProtocol *asobj = self;
             olua_pushobj_as<cocos2d::TextureProtocol>(L, asobj);
@@ -28901,6 +28908,13 @@ static int _cocos2d_MotionStreak_as(lua_State *L)
     do {
         if (olua_isa(L, 1, arg1)) {
             lua_pushvalue(L, 1);
+            break;
+        }
+        if (olua_strequal(arg1, "cc.BlendProtocol")) {
+            cocos2d::BlendProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::BlendProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.BlendProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
             break;
         }
         if (olua_strequal(arg1, "cc.TextureProtocol")) {
@@ -33613,6 +33627,13 @@ static int _cocos2d_LabelAtlas_as(lua_State *L)
             lua_pushvalue(L, 1);
             break;
         }
+        if (olua_strequal(arg1, "cc.BlendProtocol")) {
+            cocos2d::BlendProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::BlendProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.BlendProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
         if (olua_strequal(arg1, "cc.LabelProtocol")) {
             cocos2d::LabelProtocol *asobj = self;
             olua_pushobj_as<cocos2d::LabelProtocol>(L, asobj);
@@ -37594,6 +37615,13 @@ static int _cocos2d_Sprite_as(lua_State *L)
             lua_pushvalue(L, 1);
             break;
         }
+        if (olua_strequal(arg1, "cc.BlendProtocol")) {
+            cocos2d::BlendProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::BlendProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.BlendProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
         if (olua_strequal(arg1, "cc.TextureProtocol")) {
             cocos2d::TextureProtocol *asobj = self;
             olua_pushobj_as<cocos2d::TextureProtocol>(L, asobj);
@@ -38896,6 +38924,13 @@ static int _cocos2d_SpriteBatchNode_as(lua_State *L)
     do {
         if (olua_isa(L, 1, arg1)) {
             lua_pushvalue(L, 1);
+            break;
+        }
+        if (olua_strequal(arg1, "cc.BlendProtocol")) {
+            cocos2d::BlendProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::BlendProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.BlendProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
             break;
         }
         if (olua_strequal(arg1, "cc.TextureProtocol")) {
@@ -48385,6 +48420,13 @@ static int _cocos2d_ParticleBatchNode_as(lua_State *L)
             lua_pushvalue(L, 1);
             break;
         }
+        if (olua_strequal(arg1, "cc.BlendProtocol")) {
+            cocos2d::BlendProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::BlendProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.BlendProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            break;
+        }
         if (olua_strequal(arg1, "cc.TextureProtocol")) {
             cocos2d::TextureProtocol *asobj = self;
             olua_pushobj_as<cocos2d::TextureProtocol>(L, asobj);
@@ -48842,6 +48884,13 @@ static int _cocos2d_ParticleSystem_as(lua_State *L)
     do {
         if (olua_isa(L, 1, arg1)) {
             lua_pushvalue(L, 1);
+            break;
+        }
+        if (olua_strequal(arg1, "cc.BlendProtocol")) {
+            cocos2d::BlendProtocol *asobj = self;
+            olua_pushobj_as<cocos2d::BlendProtocol>(L, asobj);
+            olua_addref(L, 1, "as.cc.BlendProtocol", -1, OLUA_FLAG_SINGLE);
+            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
             break;
         }
         if (olua_strequal(arg1, "cc.PlayableProtocol")) {

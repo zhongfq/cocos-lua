@@ -1935,7 +1935,7 @@ static int _cocos2d_ui_Widget_get_onNextFocusedWidget(lua_State *L)
     std::string cb_tag = "onNextFocusedWidget";
     olua_getcallback(L, cb_store, cb_tag.c_str(), OLUA_TAG_EQUAL);
 
-    // @nullable @localvar std::function<cocos2d::ui::Widget * (cocos2d::ui::Widget::FocusDirection)> onNextFocusedWidget
+    // @nullable @localvar std::function<cocos2d::ui::Widget *(cocos2d::ui::Widget::FocusDirection)> onNextFocusedWidget
     std::function<cocos2d::ui::Widget *(cocos2d::ui::Widget::FocusDirection)> ret = self->onNextFocusedWidget;
     int num_ret = olua_push_callback(L, &ret, "std.function");
 
@@ -1985,7 +1985,7 @@ static int _cocos2d_ui_Widget_set_onNextFocusedWidget(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @localvar std::function<cocos2d::ui::Widget * (cocos2d::ui::Widget::FocusDirection)> onNextFocusedWidget
+    // @nullable @localvar std::function<cocos2d::ui::Widget *(cocos2d::ui::Widget::FocusDirection)> onNextFocusedWidget
     self->onNextFocusedWidget = arg1;
 
     olua_endinvoke(L);
@@ -7064,7 +7064,7 @@ static int _cocos2d_ui_WebView_setOnShouldStartLoading(lua_State *L)
         arg1 = nullptr;
     }
 
-    // void setOnShouldStartLoading(@nullable const std::function<bool (WebView *, const std::string &)> &callback)
+    // void setOnShouldStartLoading(@nullable const std::function<bool (cocos2d::ui::WebView *, const std::string &)> &callback)
     self->setOnShouldStartLoading(arg1);
 
     olua_endinvoke(L);

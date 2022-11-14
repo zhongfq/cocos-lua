@@ -499,7 +499,7 @@ static int _cocos2d_backend_Buffer___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cocos2d::backend::Buffer *)olua_toobj(L, 1, "ccb.Buffer");
-    olua_push_cppobj(L, self, "ccb.Buffer");
+    olua_push_obj(L, self, "ccb.Buffer");
 
     olua_endinvoke(L);
 
@@ -512,7 +512,7 @@ static int _cocos2d_backend_Buffer_getSize(lua_State *L)
 
     cocos2d::backend::Buffer *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Buffer");
+    olua_to_obj(L, 1, &self, "ccb.Buffer");
 
     // std::size_t getSize()
     std::size_t ret = self->getSize();
@@ -531,8 +531,8 @@ static int _cocos2d_backend_Buffer_updateData(lua_State *L)
     void *arg1 = nullptr;       /** data */
     lua_Unsigned arg2 = 0;       /** size */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Buffer");
-    olua_check_obj(L, 2, (void **)&arg1, "void *");
+    olua_to_obj(L, 1, &self, "ccb.Buffer");
+    olua_check_obj(L, 2, &arg1, "void *");
     olua_check_uint(L, 3, &arg2);
 
     // void updateData(void *data, std::size_t size)
@@ -552,8 +552,8 @@ static int _cocos2d_backend_Buffer_updateSubData(lua_State *L)
     lua_Unsigned arg2 = 0;       /** offset */
     lua_Unsigned arg3 = 0;       /** size */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Buffer");
-    olua_check_obj(L, 2, (void **)&arg1, "void *");
+    olua_to_obj(L, 1, &self, "ccb.Buffer");
+    olua_check_obj(L, 2, &arg1, "void *");
     olua_check_uint(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
 
@@ -572,7 +572,7 @@ static int _cocos2d_backend_Buffer_usingDefaultStoredData(lua_State *L)
     cocos2d::backend::Buffer *self = nullptr;
     bool arg1 = false;       /** needDefaultStoredData */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Buffer");
+    olua_to_obj(L, 1, &self, "ccb.Buffer");
     olua_check_bool(L, 2, &arg1);
 
     // void usingDefaultStoredData(bool needDefaultStoredData)
@@ -605,7 +605,7 @@ static int _cocos2d_backend_RenderPipeline___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cocos2d::backend::RenderPipeline *)olua_toobj(L, 1, "ccb.RenderPipeline");
-    olua_push_cppobj(L, self, "ccb.RenderPipeline");
+    olua_push_obj(L, self, "ccb.RenderPipeline");
 
     olua_endinvoke(L);
 
@@ -629,7 +629,7 @@ static int _cocos2d_backend_DepthStencilState___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cocos2d::backend::DepthStencilState *)olua_toobj(L, 1, "ccb.DepthStencilState");
-    olua_push_cppobj(L, self, "ccb.DepthStencilState");
+    olua_push_obj(L, self, "ccb.DepthStencilState");
 
     olua_endinvoke(L);
 
@@ -664,7 +664,7 @@ static int _cocos2d_backend_VertexLayout___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cocos2d::backend::VertexLayout *)olua_toobj(L, 1, "ccb.VertexLayout");
-    olua_push_cppobj(L, self, "ccb.VertexLayout");
+    olua_push_obj(L, self, "ccb.VertexLayout");
 
     olua_endinvoke(L);
 
@@ -677,11 +677,11 @@ static int _cocos2d_backend_VertexLayout_getAttributes(lua_State *L)
 
     cocos2d::backend::VertexLayout *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.VertexLayout");
+    olua_to_obj(L, 1, &self, "ccb.VertexLayout");
 
     // const std::unordered_map<std::string, cocos2d::backend::VertexLayout::Attribute> &getAttributes()
     const std::unordered_map<std::string, cocos2d::backend::VertexLayout::Attribute> &ret = self->getAttributes();
-    int num_ret = olua_push_map<std::string, cocos2d::backend::VertexLayout::Attribute>(L, &ret, [L](std::string arg1, cocos2d::backend::VertexLayout::Attribute arg2) {
+    int num_ret = olua_push_map<std::string, cocos2d::backend::VertexLayout::Attribute>(L, &ret, [L](std::string &arg1, cocos2d::backend::VertexLayout::Attribute &arg2) {
         olua_push_std_string(L, (std::string)arg1);
         olua_push_cocos2d_backend_VertexLayout_Attribute(L, &arg2);
     });
@@ -697,7 +697,7 @@ static int _cocos2d_backend_VertexLayout_getStride(lua_State *L)
 
     cocos2d::backend::VertexLayout *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.VertexLayout");
+    olua_to_obj(L, 1, &self, "ccb.VertexLayout");
 
     // std::size_t getStride()
     std::size_t ret = self->getStride();
@@ -714,7 +714,7 @@ static int _cocos2d_backend_VertexLayout_getVertexStepMode(lua_State *L)
 
     cocos2d::backend::VertexLayout *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.VertexLayout");
+    olua_to_obj(L, 1, &self, "ccb.VertexLayout");
 
     // cocos2d::backend::VertexStepMode getVertexStepMode()
     cocos2d::backend::VertexStepMode ret = self->getVertexStepMode();
@@ -731,7 +731,7 @@ static int _cocos2d_backend_VertexLayout_isValid(lua_State *L)
 
     cocos2d::backend::VertexLayout *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.VertexLayout");
+    olua_to_obj(L, 1, &self, "ccb.VertexLayout");
 
     // bool isValid()
     bool ret = self->isValid();
@@ -748,7 +748,7 @@ static int _cocos2d_backend_VertexLayout_new(lua_State *L)
 
     // VertexLayout()
     cocos2d::backend::VertexLayout *ret = new cocos2d::backend::VertexLayout();
-    int num_ret = olua_push_cppobj(L, ret, "ccb.VertexLayout");
+    int num_ret = olua_push_obj(L, ret, "ccb.VertexLayout");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -767,7 +767,7 @@ static int _cocos2d_backend_VertexLayout_setAttribute(lua_State *L)
     lua_Unsigned arg4 = 0;       /** offset */
     bool arg5 = false;       /** needToBeNormallized */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.VertexLayout");
+    olua_to_obj(L, 1, &self, "ccb.VertexLayout");
     olua_check_std_string(L, 2, &arg1);
     olua_check_uint(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
@@ -789,7 +789,7 @@ static int _cocos2d_backend_VertexLayout_setLayout(lua_State *L)
     cocos2d::backend::VertexLayout *self = nullptr;
     lua_Unsigned arg1 = 0;       /** stride */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.VertexLayout");
+    olua_to_obj(L, 1, &self, "ccb.VertexLayout");
     olua_check_uint(L, 2, &arg1);
 
     // void setLayout(std::size_t stride)
@@ -829,7 +829,7 @@ static int _cocos2d_backend_CommandBuffer___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cocos2d::backend::CommandBuffer *)olua_toobj(L, 1, "ccb.CommandBuffer");
-    olua_push_cppobj(L, self, "ccb.CommandBuffer");
+    olua_push_obj(L, self, "ccb.CommandBuffer");
 
     olua_endinvoke(L);
 
@@ -842,7 +842,7 @@ static int _cocos2d_backend_CommandBuffer_beginFrame(lua_State *L)
 
     cocos2d::backend::CommandBuffer *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.CommandBuffer");
+    olua_to_obj(L, 1, &self, "ccb.CommandBuffer");
 
     // void beginFrame()
     self->beginFrame();
@@ -859,7 +859,7 @@ static int _cocos2d_backend_CommandBuffer_captureScreen(lua_State *L)
     cocos2d::backend::CommandBuffer *self = nullptr;
     std::function<void(const unsigned char *, int, int)> arg1;       /** callback */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.CommandBuffer");
+    olua_to_obj(L, 1, &self, "ccb.CommandBuffer");
     olua_check_callback(L, 2, &arg1, "std.function");
 
     void *cb_store = (void *)self;
@@ -901,7 +901,7 @@ static int _cocos2d_backend_CommandBuffer_drawArrays(lua_State *L)
     lua_Unsigned arg2 = 0;       /** start */
     lua_Unsigned arg3 = 0;       /** count */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.CommandBuffer");
+    olua_to_obj(L, 1, &self, "ccb.CommandBuffer");
     olua_check_uint(L, 2, &arg1);
     olua_check_uint(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
@@ -924,7 +924,7 @@ static int _cocos2d_backend_CommandBuffer_drawElements(lua_State *L)
     lua_Unsigned arg3 = 0;       /** count */
     lua_Unsigned arg4 = 0;       /** offset */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.CommandBuffer");
+    olua_to_obj(L, 1, &self, "ccb.CommandBuffer");
     olua_check_uint(L, 2, &arg1);
     olua_check_uint(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
@@ -944,7 +944,7 @@ static int _cocos2d_backend_CommandBuffer_endFrame(lua_State *L)
 
     cocos2d::backend::CommandBuffer *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.CommandBuffer");
+    olua_to_obj(L, 1, &self, "ccb.CommandBuffer");
 
     // void endFrame()
     self->endFrame();
@@ -960,7 +960,7 @@ static int _cocos2d_backend_CommandBuffer_endRenderPass(lua_State *L)
 
     cocos2d::backend::CommandBuffer *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.CommandBuffer");
+    olua_to_obj(L, 1, &self, "ccb.CommandBuffer");
 
     // void endRenderPass()
     self->endRenderPass();
@@ -977,7 +977,7 @@ static int _cocos2d_backend_CommandBuffer_setCullMode(lua_State *L)
     cocos2d::backend::CommandBuffer *self = nullptr;
     lua_Unsigned arg1 = 0;       /** mode */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.CommandBuffer");
+    olua_to_obj(L, 1, &self, "ccb.CommandBuffer");
     olua_check_uint(L, 2, &arg1);
 
     // void setCullMode(cocos2d::backend::CullMode mode)
@@ -995,8 +995,8 @@ static int _cocos2d_backend_CommandBuffer_setDepthStencilState(lua_State *L)
     cocos2d::backend::CommandBuffer *self = nullptr;
     cocos2d::backend::DepthStencilState *arg1 = nullptr;       /** depthStencilState */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.CommandBuffer");
-    olua_check_cppobj(L, 2, (void **)&arg1, "ccb.DepthStencilState");
+    olua_to_obj(L, 1, &self, "ccb.CommandBuffer");
+    olua_check_obj(L, 2, &arg1, "ccb.DepthStencilState");
 
     // void setDepthStencilState(cocos2d::backend::DepthStencilState *depthStencilState)
     self->setDepthStencilState(arg1);
@@ -1013,8 +1013,8 @@ static int _cocos2d_backend_CommandBuffer_setIndexBuffer(lua_State *L)
     cocos2d::backend::CommandBuffer *self = nullptr;
     cocos2d::backend::Buffer *arg1 = nullptr;       /** buffer */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.CommandBuffer");
-    olua_check_cppobj(L, 2, (void **)&arg1, "ccb.Buffer");
+    olua_to_obj(L, 1, &self, "ccb.CommandBuffer");
+    olua_check_obj(L, 2, &arg1, "ccb.Buffer");
 
     // void setIndexBuffer(cocos2d::backend::Buffer *buffer)
     self->setIndexBuffer(arg1);
@@ -1031,7 +1031,7 @@ static int _cocos2d_backend_CommandBuffer_setLineWidth(lua_State *L)
     cocos2d::backend::CommandBuffer *self = nullptr;
     lua_Number arg1 = 0;       /** lineWidth */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.CommandBuffer");
+    olua_to_obj(L, 1, &self, "ccb.CommandBuffer");
     olua_check_number(L, 2, &arg1);
 
     // void setLineWidth(float lineWidth)
@@ -1049,8 +1049,8 @@ static int _cocos2d_backend_CommandBuffer_setProgramState(lua_State *L)
     cocos2d::backend::CommandBuffer *self = nullptr;
     cocos2d::backend::ProgramState *arg1 = nullptr;       /** programState */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.CommandBuffer");
-    olua_check_cppobj(L, 2, (void **)&arg1, "ccb.ProgramState");
+    olua_to_obj(L, 1, &self, "ccb.CommandBuffer");
+    olua_check_obj(L, 2, &arg1, "ccb.ProgramState");
 
     // void setProgramState(cocos2d::backend::ProgramState *programState)
     self->setProgramState(arg1);
@@ -1067,8 +1067,8 @@ static int _cocos2d_backend_CommandBuffer_setRenderPipeline(lua_State *L)
     cocos2d::backend::CommandBuffer *self = nullptr;
     cocos2d::backend::RenderPipeline *arg1 = nullptr;       /** renderPipeline */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.CommandBuffer");
-    olua_check_cppobj(L, 2, (void **)&arg1, "ccb.RenderPipeline");
+    olua_to_obj(L, 1, &self, "ccb.CommandBuffer");
+    olua_check_obj(L, 2, &arg1, "ccb.RenderPipeline");
 
     // void setRenderPipeline(cocos2d::backend::RenderPipeline *renderPipeline)
     self->setRenderPipeline(arg1);
@@ -1089,7 +1089,7 @@ static int _cocos2d_backend_CommandBuffer_setScissorRect(lua_State *L)
     lua_Number arg4 = 0;       /** width */
     lua_Number arg5 = 0;       /** height */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.CommandBuffer");
+    olua_to_obj(L, 1, &self, "ccb.CommandBuffer");
     olua_check_bool(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
     olua_check_number(L, 4, &arg3);
@@ -1111,7 +1111,7 @@ static int _cocos2d_backend_CommandBuffer_setStencilReferenceValue1(lua_State *L
     cocos2d::backend::CommandBuffer *self = nullptr;
     lua_Unsigned arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.CommandBuffer");
+    olua_to_obj(L, 1, &self, "ccb.CommandBuffer");
     olua_check_uint(L, 2, &arg1);
 
     // void setStencilReferenceValue(unsigned int value)
@@ -1130,7 +1130,7 @@ static int _cocos2d_backend_CommandBuffer_setStencilReferenceValue2(lua_State *L
     lua_Unsigned arg1 = 0;       /** frontRef */
     lua_Unsigned arg2 = 0;       /** backRef */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.CommandBuffer");
+    olua_to_obj(L, 1, &self, "ccb.CommandBuffer");
     olua_check_uint(L, 2, &arg1);
     olua_check_uint(L, 3, &arg2);
 
@@ -1172,8 +1172,8 @@ static int _cocos2d_backend_CommandBuffer_setVertexBuffer(lua_State *L)
     cocos2d::backend::CommandBuffer *self = nullptr;
     cocos2d::backend::Buffer *arg1 = nullptr;       /** buffer */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.CommandBuffer");
-    olua_check_cppobj(L, 2, (void **)&arg1, "ccb.Buffer");
+    olua_to_obj(L, 1, &self, "ccb.CommandBuffer");
+    olua_check_obj(L, 2, &arg1, "ccb.Buffer");
 
     // void setVertexBuffer(cocos2d::backend::Buffer *buffer)
     self->setVertexBuffer(arg1);
@@ -1193,7 +1193,7 @@ static int _cocos2d_backend_CommandBuffer_setViewport(lua_State *L)
     lua_Unsigned arg3 = 0;       /** w */
     lua_Unsigned arg4 = 0;       /** h */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.CommandBuffer");
+    olua_to_obj(L, 1, &self, "ccb.CommandBuffer");
     olua_check_int(L, 2, &arg1);
     olua_check_int(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
@@ -1214,7 +1214,7 @@ static int _cocos2d_backend_CommandBuffer_setWinding(lua_State *L)
     cocos2d::backend::CommandBuffer *self = nullptr;
     lua_Unsigned arg1 = 0;       /** winding */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.CommandBuffer");
+    olua_to_obj(L, 1, &self, "ccb.CommandBuffer");
     olua_check_uint(L, 2, &arg1);
 
     // void setWinding(cocos2d::backend::Winding winding)
@@ -1259,7 +1259,7 @@ static int _cocos2d_backend_Device___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cocos2d::backend::Device *)olua_toobj(L, 1, "ccb.Device");
-    olua_push_cppobj(L, self, "ccb.Device");
+    olua_push_obj(L, self, "ccb.Device");
 
     olua_endinvoke(L);
 
@@ -1273,12 +1273,12 @@ static int _cocos2d_backend_Device_createDepthStencilState(lua_State *L)
     cocos2d::backend::Device *self = nullptr;
     cocos2d::backend::DepthStencilDescriptor arg1;       /** descriptor */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Device");
+    olua_to_obj(L, 1, &self, "ccb.Device");
     olua_check_cocos2d_backend_DepthStencilDescriptor(L, 2, &arg1);
 
     // cocos2d::backend::DepthStencilState *createDepthStencilState(const cocos2d::backend::DepthStencilDescriptor &descriptor)
     cocos2d::backend::DepthStencilState *ret = self->createDepthStencilState(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "ccb.DepthStencilState");
+    int num_ret = olua_push_obj(L, ret, "ccb.DepthStencilState");
 
     olua_endinvoke(L);
 
@@ -1291,11 +1291,11 @@ static int _cocos2d_backend_Device_getDeviceInfo(lua_State *L)
 
     cocos2d::backend::Device *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Device");
+    olua_to_obj(L, 1, &self, "ccb.Device");
 
     // cocos2d::backend::DeviceInfo *getDeviceInfo()
     cocos2d::backend::DeviceInfo *ret = self->getDeviceInfo();
-    int num_ret = olua_push_cppobj(L, ret, "ccb.DeviceInfo");
+    int num_ret = olua_push_obj(L, ret, "ccb.DeviceInfo");
 
     olua_endinvoke(L);
 
@@ -1308,7 +1308,7 @@ static int _cocos2d_backend_Device_getInstance(lua_State *L)
 
     // static cocos2d::backend::Device *getInstance()
     cocos2d::backend::Device *ret = cocos2d::backend::Device::getInstance();
-    int num_ret = olua_push_cppobj(L, ret, "ccb.Device");
+    int num_ret = olua_push_obj(L, ret, "ccb.Device");
 
     olua_endinvoke(L);
 
@@ -1324,14 +1324,14 @@ static int _cocos2d_backend_Device_newBuffer(lua_State *L)
     lua_Unsigned arg2 = 0;       /** type */
     lua_Unsigned arg3 = 0;       /** usage */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Device");
+    olua_to_obj(L, 1, &self, "ccb.Device");
     olua_check_uint(L, 2, &arg1);
     olua_check_uint(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
 
     // @postnew cocos2d::backend::Buffer *newBuffer(size_t size, cocos2d::backend::BufferType type, cocos2d::backend::BufferUsage usage)
     cocos2d::backend::Buffer *ret = self->newBuffer((size_t)arg1, (cocos2d::backend::BufferType)arg2, (cocos2d::backend::BufferUsage)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "ccb.Buffer");
+    int num_ret = olua_push_obj(L, ret, "ccb.Buffer");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -1347,11 +1347,11 @@ static int _cocos2d_backend_Device_newCommandBuffer(lua_State *L)
 
     cocos2d::backend::Device *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Device");
+    olua_to_obj(L, 1, &self, "ccb.Device");
 
     // @postnew cocos2d::backend::CommandBuffer *newCommandBuffer()
     cocos2d::backend::CommandBuffer *ret = self->newCommandBuffer();
-    int num_ret = olua_push_cppobj(L, ret, "ccb.CommandBuffer");
+    int num_ret = olua_push_obj(L, ret, "ccb.CommandBuffer");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -1369,13 +1369,13 @@ static int _cocos2d_backend_Device_newProgram(lua_State *L)
     std::string arg1;       /** vertexShader */
     std::string arg2;       /** fragmentShader */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Device");
+    olua_to_obj(L, 1, &self, "ccb.Device");
     olua_check_std_string(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
 
     // @postnew cocos2d::backend::Program *newProgram(const std::string &vertexShader, const std::string &fragmentShader)
     cocos2d::backend::Program *ret = self->newProgram(arg1, arg2);
-    int num_ret = olua_push_cppobj(L, ret, "ccb.Program");
+    int num_ret = olua_push_obj(L, ret, "ccb.Program");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -1391,11 +1391,11 @@ static int _cocos2d_backend_Device_newRenderPipeline(lua_State *L)
 
     cocos2d::backend::Device *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Device");
+    olua_to_obj(L, 1, &self, "ccb.Device");
 
     // @postnew cocos2d::backend::RenderPipeline *newRenderPipeline()
     cocos2d::backend::RenderPipeline *ret = self->newRenderPipeline();
-    int num_ret = olua_push_cppobj(L, ret, "ccb.RenderPipeline");
+    int num_ret = olua_push_obj(L, ret, "ccb.RenderPipeline");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -1412,12 +1412,12 @@ static int _cocos2d_backend_Device_newTexture(lua_State *L)
     cocos2d::backend::Device *self = nullptr;
     cocos2d::backend::TextureDescriptor arg1;       /** descriptor */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Device");
+    olua_to_obj(L, 1, &self, "ccb.Device");
     olua_check_cocos2d_backend_TextureDescriptor(L, 2, &arg1);
 
     // @postnew cocos2d::backend::TextureBackend *newTexture(const cocos2d::backend::TextureDescriptor &descriptor)
     cocos2d::backend::TextureBackend *ret = self->newTexture(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "ccb.TextureBackend");
+    int num_ret = olua_push_obj(L, ret, "ccb.TextureBackend");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -1434,7 +1434,7 @@ static int _cocos2d_backend_Device_setFrameBufferOnly(lua_State *L)
     cocos2d::backend::Device *self = nullptr;
     bool arg1 = false;       /** frameBufferOnly */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Device");
+    olua_to_obj(L, 1, &self, "ccb.Device");
     olua_check_bool(L, 2, &arg1);
 
     // void setFrameBufferOnly(bool frameBufferOnly)
@@ -1473,7 +1473,7 @@ static int _cocos2d_backend_DeviceInfo___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cocos2d::backend::DeviceInfo *)olua_toobj(L, 1, "ccb.DeviceInfo");
-    olua_push_cppobj(L, self, "ccb.DeviceInfo");
+    olua_push_obj(L, self, "ccb.DeviceInfo");
 
     olua_endinvoke(L);
 
@@ -1487,7 +1487,7 @@ static int _cocos2d_backend_DeviceInfo_checkForFeatureSupported(lua_State *L)
     cocos2d::backend::DeviceInfo *self = nullptr;
     lua_Unsigned arg1 = 0;       /** feature */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.DeviceInfo");
+    olua_to_obj(L, 1, &self, "ccb.DeviceInfo");
     olua_check_uint(L, 2, &arg1);
 
     // bool checkForFeatureSupported(cocos2d::backend::FeatureType feature)
@@ -1505,7 +1505,7 @@ static int _cocos2d_backend_DeviceInfo_getExtension(lua_State *L)
 
     cocos2d::backend::DeviceInfo *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.DeviceInfo");
+    olua_to_obj(L, 1, &self, "ccb.DeviceInfo");
 
     // const char *getExtension()
     const char *ret = self->getExtension();
@@ -1522,7 +1522,7 @@ static int _cocos2d_backend_DeviceInfo_getMaxAttributes(lua_State *L)
 
     cocos2d::backend::DeviceInfo *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.DeviceInfo");
+    olua_to_obj(L, 1, &self, "ccb.DeviceInfo");
 
     // int getMaxAttributes()
     int ret = self->getMaxAttributes();
@@ -1539,7 +1539,7 @@ static int _cocos2d_backend_DeviceInfo_getMaxSamplesAllowed(lua_State *L)
 
     cocos2d::backend::DeviceInfo *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.DeviceInfo");
+    olua_to_obj(L, 1, &self, "ccb.DeviceInfo");
 
     // int getMaxSamplesAllowed()
     int ret = self->getMaxSamplesAllowed();
@@ -1556,7 +1556,7 @@ static int _cocos2d_backend_DeviceInfo_getMaxTextureSize(lua_State *L)
 
     cocos2d::backend::DeviceInfo *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.DeviceInfo");
+    olua_to_obj(L, 1, &self, "ccb.DeviceInfo");
 
     // int getMaxTextureSize()
     int ret = self->getMaxTextureSize();
@@ -1573,7 +1573,7 @@ static int _cocos2d_backend_DeviceInfo_getMaxTextureUnits(lua_State *L)
 
     cocos2d::backend::DeviceInfo *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.DeviceInfo");
+    olua_to_obj(L, 1, &self, "ccb.DeviceInfo");
 
     // int getMaxTextureUnits()
     int ret = self->getMaxTextureUnits();
@@ -1590,7 +1590,7 @@ static int _cocos2d_backend_DeviceInfo_getRenderer(lua_State *L)
 
     cocos2d::backend::DeviceInfo *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.DeviceInfo");
+    olua_to_obj(L, 1, &self, "ccb.DeviceInfo");
 
     // const char *getRenderer()
     const char *ret = self->getRenderer();
@@ -1607,7 +1607,7 @@ static int _cocos2d_backend_DeviceInfo_getVendor(lua_State *L)
 
     cocos2d::backend::DeviceInfo *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.DeviceInfo");
+    olua_to_obj(L, 1, &self, "ccb.DeviceInfo");
 
     // const char *getVendor()
     const char *ret = self->getVendor();
@@ -1624,7 +1624,7 @@ static int _cocos2d_backend_DeviceInfo_getVersion(lua_State *L)
 
     cocos2d::backend::DeviceInfo *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.DeviceInfo");
+    olua_to_obj(L, 1, &self, "ccb.DeviceInfo");
 
     // const char *getVersion()
     const char *ret = self->getVersion();
@@ -1641,7 +1641,7 @@ static int _cocos2d_backend_DeviceInfo_init(lua_State *L)
 
     cocos2d::backend::DeviceInfo *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.DeviceInfo");
+    olua_to_obj(L, 1, &self, "ccb.DeviceInfo");
 
     // bool init()
     bool ret = self->init();
@@ -1687,7 +1687,7 @@ static int _cocos2d_backend_ShaderCache___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cocos2d::backend::ShaderCache *)olua_toobj(L, 1, "ccb.ShaderCache");
-    olua_push_cppobj(L, self, "ccb.ShaderCache");
+    olua_push_obj(L, self, "ccb.ShaderCache");
 
     olua_endinvoke(L);
 
@@ -1712,7 +1712,7 @@ static int _cocos2d_backend_ShaderCache_getInstance(lua_State *L)
 
     // static cocos2d::backend::ShaderCache *getInstance()
     cocos2d::backend::ShaderCache *ret = cocos2d::backend::ShaderCache::getInstance();
-    int num_ret = olua_push_cppobj(L, ret, "ccb.ShaderCache");
+    int num_ret = olua_push_obj(L, ret, "ccb.ShaderCache");
 
     olua_endinvoke(L);
 
@@ -1729,7 +1729,7 @@ static int _cocos2d_backend_ShaderCache_newFragmentShaderModule(lua_State *L)
 
     // static cocos2d::backend::ShaderModule *newFragmentShaderModule(const std::string &shaderSource)
     cocos2d::backend::ShaderModule *ret = cocos2d::backend::ShaderCache::newFragmentShaderModule(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "ccb.ShaderModule");
+    int num_ret = olua_push_obj(L, ret, "ccb.ShaderModule");
 
     olua_endinvoke(L);
 
@@ -1746,7 +1746,7 @@ static int _cocos2d_backend_ShaderCache_newVertexShaderModule(lua_State *L)
 
     // static cocos2d::backend::ShaderModule *newVertexShaderModule(const std::string &shaderSource)
     cocos2d::backend::ShaderModule *ret = cocos2d::backend::ShaderCache::newVertexShaderModule(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "ccb.ShaderModule");
+    int num_ret = olua_push_obj(L, ret, "ccb.ShaderModule");
 
     olua_endinvoke(L);
 
@@ -1759,7 +1759,7 @@ static int _cocos2d_backend_ShaderCache_removeUnusedShader(lua_State *L)
 
     cocos2d::backend::ShaderCache *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.ShaderCache");
+    olua_to_obj(L, 1, &self, "ccb.ShaderCache");
 
     // void removeUnusedShader()
     self->removeUnusedShader();
@@ -1792,7 +1792,7 @@ static int _cocos2d_backend_ShaderModule___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cocos2d::backend::ShaderModule *)olua_toobj(L, 1, "ccb.ShaderModule");
-    olua_push_cppobj(L, self, "ccb.ShaderModule");
+    olua_push_obj(L, self, "ccb.ShaderModule");
 
     olua_endinvoke(L);
 
@@ -1805,7 +1805,7 @@ static int _cocos2d_backend_ShaderModule_getHashValue(lua_State *L)
 
     cocos2d::backend::ShaderModule *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.ShaderModule");
+    olua_to_obj(L, 1, &self, "ccb.ShaderModule");
 
     // std::size_t getHashValue()
     std::size_t ret = self->getHashValue();
@@ -1822,7 +1822,7 @@ static int _cocos2d_backend_ShaderModule_getShaderStage(lua_State *L)
 
     cocos2d::backend::ShaderModule *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.ShaderModule");
+    olua_to_obj(L, 1, &self, "ccb.ShaderModule");
 
     // cocos2d::backend::ShaderStage getShaderStage()
     cocos2d::backend::ShaderStage ret = self->getShaderStage();
@@ -1854,7 +1854,7 @@ static int _cocos2d_backend_ProgramCache___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cocos2d::backend::ProgramCache *)olua_toobj(L, 1, "ccb.ProgramCache");
-    olua_push_cppobj(L, self, "ccb.ProgramCache");
+    olua_push_obj(L, self, "ccb.ProgramCache");
 
     olua_endinvoke(L);
 
@@ -1869,9 +1869,9 @@ static int _cocos2d_backend_ProgramCache_addCustomProgram(lua_State *L)
     std::string arg1;       /** key */
     cocos2d::backend::Program *arg2 = nullptr;       /** program */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramCache");
+    olua_to_obj(L, 1, &self, "ccb.ProgramCache");
     olua_check_std_string(L, 2, &arg1);
-    olua_check_cppobj(L, 3, (void **)&arg2, "ccb.Program");
+    olua_check_obj(L, 3, &arg2, "ccb.Program");
 
     // void addCustomProgram(const std::string &key, cocos2d::backend::Program *program)
     self->addCustomProgram(arg1, arg2);
@@ -1900,12 +1900,12 @@ static int _cocos2d_backend_ProgramCache_getBuiltinProgram(lua_State *L)
     cocos2d::backend::ProgramCache *self = nullptr;
     lua_Unsigned arg1 = 0;       /** type */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramCache");
+    olua_to_obj(L, 1, &self, "ccb.ProgramCache");
     olua_check_uint(L, 2, &arg1);
 
     // cocos2d::backend::Program *getBuiltinProgram(cocos2d::backend::ProgramType type)
     cocos2d::backend::Program *ret = self->getBuiltinProgram((cocos2d::backend::ProgramType)arg1);
-    int num_ret = olua_push_cppobj(L, ret, "ccb.Program");
+    int num_ret = olua_push_obj(L, ret, "ccb.Program");
 
     olua_endinvoke(L);
 
@@ -1919,12 +1919,12 @@ static int _cocos2d_backend_ProgramCache_getCustomProgram(lua_State *L)
     cocos2d::backend::ProgramCache *self = nullptr;
     std::string arg1;       /** key */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramCache");
+    olua_to_obj(L, 1, &self, "ccb.ProgramCache");
     olua_check_std_string(L, 2, &arg1);
 
     // cocos2d::backend::Program *getCustomProgram(const std::string &key)
     cocos2d::backend::Program *ret = self->getCustomProgram(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "ccb.Program");
+    int num_ret = olua_push_obj(L, ret, "ccb.Program");
 
     olua_endinvoke(L);
 
@@ -1937,7 +1937,7 @@ static int _cocos2d_backend_ProgramCache_getInstance(lua_State *L)
 
     // static cocos2d::backend::ProgramCache *getInstance()
     cocos2d::backend::ProgramCache *ret = cocos2d::backend::ProgramCache::getInstance();
-    int num_ret = olua_push_cppobj(L, ret, "ccb.ProgramCache");
+    int num_ret = olua_push_obj(L, ret, "ccb.ProgramCache");
 
     olua_endinvoke(L);
 
@@ -1950,7 +1950,7 @@ static int _cocos2d_backend_ProgramCache_removeAllPrograms(lua_State *L)
 
     cocos2d::backend::ProgramCache *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramCache");
+    olua_to_obj(L, 1, &self, "ccb.ProgramCache");
 
     // void removeAllPrograms()
     self->removeAllPrograms();
@@ -1967,8 +1967,8 @@ static int _cocos2d_backend_ProgramCache_removeProgram(lua_State *L)
     cocos2d::backend::ProgramCache *self = nullptr;
     cocos2d::backend::Program *arg1 = nullptr;       /** program */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramCache");
-    olua_check_cppobj(L, 2, (void **)&arg1, "ccb.Program");
+    olua_to_obj(L, 1, &self, "ccb.ProgramCache");
+    olua_check_obj(L, 2, &arg1, "ccb.Program");
 
     // void removeProgram(cocos2d::backend::Program *program)
     self->removeProgram(arg1);
@@ -1984,7 +1984,7 @@ static int _cocos2d_backend_ProgramCache_removeUnusedProgram(lua_State *L)
 
     cocos2d::backend::ProgramCache *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramCache");
+    olua_to_obj(L, 1, &self, "ccb.ProgramCache");
 
     // void removeUnusedProgram()
     self->removeUnusedProgram();
@@ -2089,7 +2089,7 @@ static int _cocos2d_backend_ProgramState___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cocos2d::backend::ProgramState *)olua_toobj(L, 1, "ccb.ProgramState");
-    olua_push_cppobj(L, self, "ccb.ProgramState");
+    olua_push_obj(L, self, "ccb.ProgramState");
 
     olua_endinvoke(L);
 
@@ -2102,11 +2102,11 @@ static int _cocos2d_backend_ProgramState_clone(lua_State *L)
 
     cocos2d::backend::ProgramState *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramState");
+    olua_to_obj(L, 1, &self, "ccb.ProgramState");
 
     // cocos2d::backend::ProgramState *clone()
     cocos2d::backend::ProgramState *ret = self->clone();
-    int num_ret = olua_push_cppobj(L, ret, "ccb.ProgramState");
+    int num_ret = olua_push_obj(L, ret, "ccb.ProgramState");
 
     olua_endinvoke(L);
 
@@ -2120,7 +2120,7 @@ static int _cocos2d_backend_ProgramState_getAttributeLocation1(lua_State *L)
     cocos2d::backend::ProgramState *self = nullptr;
     std::string arg1;       /** name */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramState");
+    olua_to_obj(L, 1, &self, "ccb.ProgramState");
     olua_check_std_string(L, 2, &arg1);
 
     // int getAttributeLocation(const std::string &name)
@@ -2139,7 +2139,7 @@ static int _cocos2d_backend_ProgramState_getAttributeLocation2(lua_State *L)
     cocos2d::backend::ProgramState *self = nullptr;
     lua_Unsigned arg1 = 0;       /** name */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramState");
+    olua_to_obj(L, 1, &self, "ccb.ProgramState");
     olua_check_uint(L, 2, &arg1);
 
     // int getAttributeLocation(cocos2d::backend::Attribute name)
@@ -2178,11 +2178,11 @@ static int _cocos2d_backend_ProgramState_getFragmentTextureInfos(lua_State *L)
 
     cocos2d::backend::ProgramState *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramState");
+    olua_to_obj(L, 1, &self, "ccb.ProgramState");
 
     // const std::unordered_map<int, cocos2d::backend::TextureInfo> &getFragmentTextureInfos()
     const std::unordered_map<int, cocos2d::backend::TextureInfo> &ret = self->getFragmentTextureInfos();
-    int num_ret = olua_push_map<int, cocos2d::backend::TextureInfo>(L, &ret, [L](int arg1, cocos2d::backend::TextureInfo arg2) {
+    int num_ret = olua_push_map<int, cocos2d::backend::TextureInfo>(L, &ret, [L](int &arg1, cocos2d::backend::TextureInfo &arg2) {
         olua_push_int(L, (lua_Integer)arg1);
         olua_push_cocos2d_backend_TextureInfo(L, &arg2);
     });
@@ -2198,11 +2198,11 @@ static int _cocos2d_backend_ProgramState_getProgram(lua_State *L)
 
     cocos2d::backend::ProgramState *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramState");
+    olua_to_obj(L, 1, &self, "ccb.ProgramState");
 
     // cocos2d::backend::Program *getProgram()
     cocos2d::backend::Program *ret = self->getProgram();
-    int num_ret = olua_push_cppobj(L, ret, "ccb.Program");
+    int num_ret = olua_push_obj(L, ret, "ccb.Program");
 
     olua_endinvoke(L);
 
@@ -2216,7 +2216,7 @@ static int _cocos2d_backend_ProgramState_getUniformLocation1(lua_State *L)
     cocos2d::backend::ProgramState *self = nullptr;
     std::string arg1;       /** uniform */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramState");
+    olua_to_obj(L, 1, &self, "ccb.ProgramState");
     olua_check_std_string(L, 2, &arg1);
 
     // cocos2d::backend::UniformLocation getUniformLocation(const std::string &uniform)
@@ -2235,7 +2235,7 @@ static int _cocos2d_backend_ProgramState_getUniformLocation2(lua_State *L)
     cocos2d::backend::ProgramState *self = nullptr;
     lua_Unsigned arg1 = 0;       /** name */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramState");
+    olua_to_obj(L, 1, &self, "ccb.ProgramState");
     olua_check_uint(L, 2, &arg1);
 
     // cocos2d::backend::UniformLocation getUniformLocation(cocos2d::backend::Uniform name)
@@ -2273,7 +2273,7 @@ static int _cocos2d_backend_ProgramState_getVertexLayout(lua_State *L)
     olua_startinvoke(L);
 
     auto self = olua_toobj<cocos2d::backend::ProgramState>(L, 1);
-    olua_push_cppobj<cocos2d::backend::VertexLayout>(L, self->getVertexLayout().get());
+    olua_pushobj<cocos2d::backend::VertexLayout>(L, self->getVertexLayout().get());
     olua_addref(L, 1, "vertexLayout", -1, OLUA_FLAG_SINGLE);
 
     olua_endinvoke(L);
@@ -2287,11 +2287,11 @@ static int _cocos2d_backend_ProgramState_getVertexTextureInfos(lua_State *L)
 
     cocos2d::backend::ProgramState *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramState");
+    olua_to_obj(L, 1, &self, "ccb.ProgramState");
 
     // const std::unordered_map<int, cocos2d::backend::TextureInfo> &getVertexTextureInfos()
     const std::unordered_map<int, cocos2d::backend::TextureInfo> &ret = self->getVertexTextureInfos();
-    int num_ret = olua_push_map<int, cocos2d::backend::TextureInfo>(L, &ret, [L](int arg1, cocos2d::backend::TextureInfo arg2) {
+    int num_ret = olua_push_map<int, cocos2d::backend::TextureInfo>(L, &ret, [L](int &arg1, cocos2d::backend::TextureInfo &arg2) {
         olua_push_int(L, (lua_Integer)arg1);
         olua_push_cocos2d_backend_TextureInfo(L, &arg2);
     });
@@ -2307,11 +2307,11 @@ static int _cocos2d_backend_ProgramState_new(lua_State *L)
 
     cocos2d::backend::Program *arg1 = nullptr;       /** program */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "ccb.Program");
+    olua_check_obj(L, 1, &arg1, "ccb.Program");
 
     // ProgramState(cocos2d::backend::Program *program)
     cocos2d::backend::ProgramState *ret = new cocos2d::backend::ProgramState(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "ccb.ProgramState");
+    int num_ret = olua_push_obj(L, ret, "ccb.ProgramState");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -2327,7 +2327,7 @@ static int _cocos2d_backend_ProgramState_setParameterAutoBinding(lua_State *L)
     std::string arg1;       /** uniformName */
     std::string arg2;       /** autoBinding */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramState");
+    olua_to_obj(L, 1, &self, "ccb.ProgramState");
     olua_check_std_string(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
 
@@ -2348,10 +2348,10 @@ static int _cocos2d_backend_ProgramState_setTexture(lua_State *L)
     lua_Unsigned arg2 = 0;       /** slot */
     cocos2d::backend::TextureBackend *arg3 = nullptr;       /** texture */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramState");
+    olua_to_obj(L, 1, &self, "ccb.ProgramState");
     olua_check_cocos2d_backend_UniformLocation(L, 2, &arg1);
     olua_check_uint(L, 3, &arg2);
-    olua_check_cppobj(L, 4, (void **)&arg3, "ccb.TextureBackend");
+    olua_check_obj(L, 4, &arg3, "ccb.TextureBackend");
 
     // void setTexture(const cocos2d::backend::UniformLocation &uniformLocation, uint32_t slot, cocos2d::backend::TextureBackend *texture)
     self->setTexture(arg1, (uint32_t)arg2, arg3);
@@ -2370,7 +2370,7 @@ static int _cocos2d_backend_ProgramState_setTextureArray(lua_State *L)
     std::vector<uint32_t> arg2;       /** slots */
     std::vector<cocos2d::backend::TextureBackend *> arg3;       /** textures */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramState");
+    olua_to_obj(L, 1, &self, "ccb.ProgramState");
     olua_check_cocos2d_backend_UniformLocation(L, 2, &arg1);
     olua_check_array<uint32_t>(L, 3, &arg2, [L](uint32_t *value) {
         lua_Unsigned obj;
@@ -2378,7 +2378,7 @@ static int _cocos2d_backend_ProgramState_setTextureArray(lua_State *L)
         *value = (uint32_t)obj;
     });
     olua_check_array<cocos2d::backend::TextureBackend *>(L, 4, &arg3, [L](cocos2d::backend::TextureBackend **value) {
-        olua_check_cppobj(L, -1, (void **)value, "ccb.TextureBackend");
+        olua_check_obj(L, -1, value, "ccb.TextureBackend");
     });
 
     // void setTextureArray(const cocos2d::backend::UniformLocation &uniformLocation, const std::vector<uint32_t> &slots, const std::vector<cocos2d::backend::TextureBackend *> textures)
@@ -2398,9 +2398,9 @@ static int _cocos2d_backend_ProgramState_setUniform(lua_State *L)
     void *arg2 = nullptr;       /** data */
     lua_Unsigned arg3 = 0;       /** size */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.ProgramState");
+    olua_to_obj(L, 1, &self, "ccb.ProgramState");
     olua_check_cocos2d_backend_UniformLocation(L, 2, &arg1);
-    olua_check_obj(L, 3, (void **)&arg2, "void *");
+    olua_check_obj(L, 3, &arg2, "void *");
     olua_check_uint(L, 4, &arg3);
 
     // void setUniform(const cocos2d::backend::UniformLocation &uniformLocation, const void *data, std::size_t size)
@@ -2587,7 +2587,7 @@ static int _cocos2d_backend_Program___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cocos2d::backend::Program *)olua_toobj(L, 1, "ccb.Program");
-    olua_push_cppobj(L, self, "ccb.Program");
+    olua_push_obj(L, self, "ccb.Program");
 
     olua_endinvoke(L);
 
@@ -2600,11 +2600,11 @@ static int _cocos2d_backend_Program_getActiveAttributes(lua_State *L)
 
     cocos2d::backend::Program *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Program");
+    olua_to_obj(L, 1, &self, "ccb.Program");
 
     // const std::unordered_map<std::string, cocos2d::backend::AttributeBindInfo> getActiveAttributes()
     const std::unordered_map<std::string, cocos2d::backend::AttributeBindInfo> ret = self->getActiveAttributes();
-    int num_ret = olua_push_map<std::string, cocos2d::backend::AttributeBindInfo>(L, &ret, [L](std::string arg1, cocos2d::backend::AttributeBindInfo arg2) {
+    int num_ret = olua_push_map<std::string, cocos2d::backend::AttributeBindInfo>(L, &ret, [L](std::string &arg1, cocos2d::backend::AttributeBindInfo &arg2) {
         olua_push_std_string(L, (std::string)arg1);
         olua_push_cocos2d_backend_AttributeBindInfo(L, &arg2);
     });
@@ -2622,7 +2622,7 @@ static int _cocos2d_backend_Program_getActiveUniformInfo(lua_State *L)
     lua_Unsigned arg1 = 0;       /** stage */
     lua_Integer arg2 = 0;       /** location */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Program");
+    olua_to_obj(L, 1, &self, "ccb.Program");
     olua_check_uint(L, 2, &arg1);
     olua_check_int(L, 3, &arg2);
 
@@ -2642,12 +2642,12 @@ static int _cocos2d_backend_Program_getAllActiveUniformInfo(lua_State *L)
     cocos2d::backend::Program *self = nullptr;
     lua_Unsigned arg1 = 0;       /** stage */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Program");
+    olua_to_obj(L, 1, &self, "ccb.Program");
     olua_check_uint(L, 2, &arg1);
 
     // const std::unordered_map<std::string, cocos2d::backend::UniformInfo> &getAllActiveUniformInfo(cocos2d::backend::ShaderStage stage)
     const std::unordered_map<std::string, cocos2d::backend::UniformInfo> &ret = self->getAllActiveUniformInfo((cocos2d::backend::ShaderStage)arg1);
-    int num_ret = olua_push_map<std::string, cocos2d::backend::UniformInfo>(L, &ret, [L](std::string arg1, cocos2d::backend::UniformInfo arg2) {
+    int num_ret = olua_push_map<std::string, cocos2d::backend::UniformInfo>(L, &ret, [L](std::string &arg1, cocos2d::backend::UniformInfo &arg2) {
         olua_push_std_string(L, (std::string)arg1);
         olua_push_cocos2d_backend_UniformInfo(L, &arg2);
     });
@@ -2664,7 +2664,7 @@ static int _cocos2d_backend_Program_getAttributeLocation1(lua_State *L)
     cocos2d::backend::Program *self = nullptr;
     std::string arg1;       /** name */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Program");
+    olua_to_obj(L, 1, &self, "ccb.Program");
     olua_check_std_string(L, 2, &arg1);
 
     // int getAttributeLocation(const std::string &name)
@@ -2683,7 +2683,7 @@ static int _cocos2d_backend_Program_getAttributeLocation2(lua_State *L)
     cocos2d::backend::Program *self = nullptr;
     lua_Unsigned arg1 = 0;       /** name */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Program");
+    olua_to_obj(L, 1, &self, "ccb.Program");
     olua_check_uint(L, 2, &arg1);
 
     // int getAttributeLocation(cocos2d::backend::Attribute name)
@@ -2726,7 +2726,7 @@ static int _cocos2d_backend_Program_getBuiltinProgram(lua_State *L)
 
     // static cocos2d::backend::Program *getBuiltinProgram(cocos2d::backend::ProgramType type)
     cocos2d::backend::Program *ret = cocos2d::backend::Program::getBuiltinProgram((cocos2d::backend::ProgramType)arg1);
-    int num_ret = olua_push_cppobj(L, ret, "ccb.Program");
+    int num_ret = olua_push_obj(L, ret, "ccb.Program");
 
     olua_endinvoke(L);
 
@@ -2739,7 +2739,7 @@ static int _cocos2d_backend_Program_getFragmentShader(lua_State *L)
 
     cocos2d::backend::Program *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Program");
+    olua_to_obj(L, 1, &self, "ccb.Program");
 
     // const std::string &getFragmentShader()
     const std::string &ret = self->getFragmentShader();
@@ -2756,7 +2756,7 @@ static int _cocos2d_backend_Program_getMaxFragmentLocation(lua_State *L)
 
     cocos2d::backend::Program *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Program");
+    olua_to_obj(L, 1, &self, "ccb.Program");
 
     // int getMaxFragmentLocation()
     int ret = self->getMaxFragmentLocation();
@@ -2773,7 +2773,7 @@ static int _cocos2d_backend_Program_getMaxVertexLocation(lua_State *L)
 
     cocos2d::backend::Program *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Program");
+    olua_to_obj(L, 1, &self, "ccb.Program");
 
     // int getMaxVertexLocation()
     int ret = self->getMaxVertexLocation();
@@ -2790,7 +2790,7 @@ static int _cocos2d_backend_Program_getProgramType(lua_State *L)
 
     cocos2d::backend::Program *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Program");
+    olua_to_obj(L, 1, &self, "ccb.Program");
 
     // cocos2d::backend::ProgramType getProgramType()
     cocos2d::backend::ProgramType ret = self->getProgramType();
@@ -2808,7 +2808,7 @@ static int _cocos2d_backend_Program_getUniformBufferSize(lua_State *L)
     cocos2d::backend::Program *self = nullptr;
     lua_Unsigned arg1 = 0;       /** stage */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Program");
+    olua_to_obj(L, 1, &self, "ccb.Program");
     olua_check_uint(L, 2, &arg1);
 
     // std::size_t getUniformBufferSize(cocos2d::backend::ShaderStage stage)
@@ -2827,7 +2827,7 @@ static int _cocos2d_backend_Program_getUniformLocation1(lua_State *L)
     cocos2d::backend::Program *self = nullptr;
     std::string arg1;       /** uniform */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Program");
+    olua_to_obj(L, 1, &self, "ccb.Program");
     olua_check_std_string(L, 2, &arg1);
 
     // cocos2d::backend::UniformLocation getUniformLocation(const std::string &uniform)
@@ -2846,7 +2846,7 @@ static int _cocos2d_backend_Program_getUniformLocation2(lua_State *L)
     cocos2d::backend::Program *self = nullptr;
     lua_Unsigned arg1 = 0;       /** name */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Program");
+    olua_to_obj(L, 1, &self, "ccb.Program");
     olua_check_uint(L, 2, &arg1);
 
     // cocos2d::backend::UniformLocation getUniformLocation(cocos2d::backend::Uniform name)
@@ -2885,7 +2885,7 @@ static int _cocos2d_backend_Program_getVertexShader(lua_State *L)
 
     cocos2d::backend::Program *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Program");
+    olua_to_obj(L, 1, &self, "ccb.Program");
 
     // const std::string &getVertexShader()
     const std::string &ret = self->getVertexShader();
@@ -2931,7 +2931,7 @@ static int _cocos2d_backend_TextureBackend___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cocos2d::backend::TextureBackend *)olua_toobj(L, 1, "ccb.TextureBackend");
-    olua_push_cppobj(L, self, "ccb.TextureBackend");
+    olua_push_obj(L, self, "ccb.TextureBackend");
 
     olua_endinvoke(L);
 
@@ -2944,7 +2944,7 @@ static int _cocos2d_backend_TextureBackend_generateMipmaps(lua_State *L)
 
     cocos2d::backend::TextureBackend *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.TextureBackend");
+    olua_to_obj(L, 1, &self, "ccb.TextureBackend");
 
     // void generateMipmaps()
     self->generateMipmaps();
@@ -2966,7 +2966,7 @@ static int _cocos2d_backend_TextureBackend_getBytes(lua_State *L)
     bool arg5 = false;       /** flipImage */
     std::function<void(const unsigned char *, std::size_t, std::size_t)> arg6;       /** callback */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.TextureBackend");
+    olua_to_obj(L, 1, &self, "ccb.TextureBackend");
     olua_check_uint(L, 2, &arg1);
     olua_check_uint(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
@@ -3010,7 +3010,7 @@ static int _cocos2d_backend_TextureBackend_getTextureFormat(lua_State *L)
 
     cocos2d::backend::TextureBackend *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.TextureBackend");
+    olua_to_obj(L, 1, &self, "ccb.TextureBackend");
 
     // cocos2d::backend::PixelFormat getTextureFormat()
     cocos2d::backend::PixelFormat ret = self->getTextureFormat();
@@ -3027,7 +3027,7 @@ static int _cocos2d_backend_TextureBackend_getTextureType(lua_State *L)
 
     cocos2d::backend::TextureBackend *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.TextureBackend");
+    olua_to_obj(L, 1, &self, "ccb.TextureBackend");
 
     // cocos2d::backend::TextureType getTextureType()
     cocos2d::backend::TextureType ret = self->getTextureType();
@@ -3044,7 +3044,7 @@ static int _cocos2d_backend_TextureBackend_getTextureUsage(lua_State *L)
 
     cocos2d::backend::TextureBackend *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.TextureBackend");
+    olua_to_obj(L, 1, &self, "ccb.TextureBackend");
 
     // cocos2d::backend::TextureUsage getTextureUsage()
     cocos2d::backend::TextureUsage ret = self->getTextureUsage();
@@ -3061,7 +3061,7 @@ static int _cocos2d_backend_TextureBackend_hasMipmaps(lua_State *L)
 
     cocos2d::backend::TextureBackend *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.TextureBackend");
+    olua_to_obj(L, 1, &self, "ccb.TextureBackend");
 
     // bool hasMipmaps()
     bool ret = self->hasMipmaps();
@@ -3079,7 +3079,7 @@ static int _cocos2d_backend_TextureBackend_updateSamplerDescriptor(lua_State *L)
     cocos2d::backend::TextureBackend *self = nullptr;
     cocos2d::backend::SamplerDescriptor arg1;       /** sampler */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.TextureBackend");
+    olua_to_obj(L, 1, &self, "ccb.TextureBackend");
     olua_check_cocos2d_backend_SamplerDescriptor(L, 2, &arg1);
 
     // void updateSamplerDescriptor(const cocos2d::backend::SamplerDescriptor &sampler)
@@ -3097,7 +3097,7 @@ static int _cocos2d_backend_TextureBackend_updateTextureDescriptor(lua_State *L)
     cocos2d::backend::TextureBackend *self = nullptr;
     cocos2d::backend::TextureDescriptor arg1;       /** descriptor */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.TextureBackend");
+    olua_to_obj(L, 1, &self, "ccb.TextureBackend");
     olua_check_cocos2d_backend_TextureDescriptor(L, 2, &arg1);
 
     // void updateTextureDescriptor(const cocos2d::backend::TextureDescriptor &descriptor)
@@ -3136,7 +3136,7 @@ static int _cocos2d_backend_Texture2DBackend___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cocos2d::backend::Texture2DBackend *)olua_toobj(L, 1, "ccb.Texture2DBackend");
-    olua_push_cppobj(L, self, "ccb.Texture2DBackend");
+    olua_push_obj(L, self, "ccb.Texture2DBackend");
 
     olua_endinvoke(L);
 
@@ -3149,7 +3149,7 @@ static int _cocos2d_backend_Texture2DBackend_getHeight(lua_State *L)
 
     cocos2d::backend::Texture2DBackend *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Texture2DBackend");
+    olua_to_obj(L, 1, &self, "ccb.Texture2DBackend");
 
     // std::size_t getHeight()
     std::size_t ret = self->getHeight();
@@ -3166,7 +3166,7 @@ static int _cocos2d_backend_Texture2DBackend_getWidth(lua_State *L)
 
     cocos2d::backend::Texture2DBackend *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Texture2DBackend");
+    olua_to_obj(L, 1, &self, "ccb.Texture2DBackend");
 
     // std::size_t getWidth()
     std::size_t ret = self->getWidth();
@@ -3188,7 +3188,7 @@ static int _cocos2d_backend_Texture2DBackend_updateCompressedData(lua_State *L)
     lua_Unsigned arg4 = 0;       /** dataLen */
     lua_Unsigned arg5 = 0;       /** level */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Texture2DBackend");
+    olua_to_obj(L, 1, &self, "ccb.Texture2DBackend");
     olua_check_string(L, 2, &arg1);
     olua_check_uint(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
@@ -3216,7 +3216,7 @@ static int _cocos2d_backend_Texture2DBackend_updateCompressedSubData(lua_State *
     lua_Unsigned arg6 = 0;       /** level */
     const char *arg7 = nullptr;       /** data */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Texture2DBackend");
+    olua_to_obj(L, 1, &self, "ccb.Texture2DBackend");
     olua_check_uint(L, 2, &arg1);
     olua_check_uint(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
@@ -3243,7 +3243,7 @@ static int _cocos2d_backend_Texture2DBackend_updateData(lua_State *L)
     lua_Unsigned arg3 = 0;       /** height */
     lua_Unsigned arg4 = 0;       /** level */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Texture2DBackend");
+    olua_to_obj(L, 1, &self, "ccb.Texture2DBackend");
     olua_check_string(L, 2, &arg1);
     olua_check_uint(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
@@ -3269,7 +3269,7 @@ static int _cocos2d_backend_Texture2DBackend_updateSubData(lua_State *L)
     lua_Unsigned arg5 = 0;       /** level */
     const char *arg6 = nullptr;       /** data */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.Texture2DBackend");
+    olua_to_obj(L, 1, &self, "ccb.Texture2DBackend");
     olua_check_uint(L, 2, &arg1);
     olua_check_uint(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
@@ -3310,7 +3310,7 @@ static int _cocos2d_backend_TextureCubemapBackend___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cocos2d::backend::TextureCubemapBackend *)olua_toobj(L, 1, "ccb.TextureCubemapBackend");
-    olua_push_cppobj(L, self, "ccb.TextureCubemapBackend");
+    olua_push_obj(L, self, "ccb.TextureCubemapBackend");
 
     olua_endinvoke(L);
 
@@ -3325,9 +3325,9 @@ static int _cocos2d_backend_TextureCubemapBackend_updateFaceData(lua_State *L)
     lua_Unsigned arg1 = 0;       /** side */
     void *arg2 = nullptr;       /** data */
 
-    olua_to_cppobj(L, 1, (void **)&self, "ccb.TextureCubemapBackend");
+    olua_to_obj(L, 1, &self, "ccb.TextureCubemapBackend");
     olua_check_uint(L, 2, &arg1);
-    olua_check_obj(L, 3, (void **)&arg2, "void *");
+    olua_check_obj(L, 3, &arg2, "void *");
 
     // void updateFaceData(cocos2d::backend::TextureCubeFace side, void *data)
     self->updateFaceData((cocos2d::backend::TextureCubeFace)arg1, arg2);

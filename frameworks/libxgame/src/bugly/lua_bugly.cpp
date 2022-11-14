@@ -33,7 +33,7 @@ static int _cclua_bugly___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cclua::bugly *)olua_toobj(L, 1, "cclua.bugly");
-    olua_push_cppobj(L, self, "cclua.bugly");
+    olua_push_obj(L, self, "cclua.bugly");
 
     olua_endinvoke(L);
 

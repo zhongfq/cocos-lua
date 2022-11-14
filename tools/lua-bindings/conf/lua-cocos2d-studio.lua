@@ -101,7 +101,7 @@ typeconf "cocostudio::Bone"
             if (!self->getParent()) {
                 return 0;
             }
-            olua_push_cppobj<cocos2d::Node>(L, self->getParent());
+            olua_pushobj<cocos2d::Node>(L, self->getParent());
             int parent = lua_gettop(L);
         ]]
 
@@ -217,9 +217,9 @@ typeconf "cocostudio::timeline::ActionTimeline"
         .arg1 '@nullable'
         .insert_cbefore [[
             if (arg1->getTimeline() && arg1->getTimeline()->getActionTimeline()) {
-                olua_push_cppobj<cocostudio::timeline::ActionTimeline>(L, arg1->getTimeline()->getActionTimeline());
-                olua_push_cppobj<cocostudio::timeline::Timeline>(L, arg1->getTimeline());
-                olua_push_cppobj<cocostudio::timeline::Frame>(L, arg1);
+                olua_pushobj<cocostudio::timeline::ActionTimeline>(L, arg1->getTimeline()->getActionTimeline());
+                olua_pushobj<cocostudio::timeline::Timeline>(L, arg1->getTimeline());
+                olua_pushobj<cocostudio::timeline::Frame>(L, arg1);
                 olua_addref(L, -3, "timelines", -2, OLUA_FLAG_MULTIPLE);
                 olua_addref(L, -2, "frames", -1, OLUA_FLAG_MULTIPLE);
                 lua_pop(L, 3);

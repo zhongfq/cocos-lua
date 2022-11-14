@@ -437,7 +437,7 @@ local push_node_parent = [[
     if (!self->getParent()) {
         return 0;
     }
-    olua_push_cppobj<cocos2d::Node>(L, self->getParent());
+    olua_pushobj<cocos2d::Node>(L, self->getParent());
     int parent = lua_gettop(L);
 ]]
 

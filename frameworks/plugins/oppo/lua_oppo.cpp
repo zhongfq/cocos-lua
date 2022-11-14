@@ -12,7 +12,7 @@ static int _cclua_plugin_oppo___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cclua::plugin::oppo *)olua_toobj(L, 1, "cclua.plugin.oppo");
-    olua_push_cppobj(L, self, "cclua.plugin.oppo");
+    olua_push_obj(L, self, "cclua.plugin.oppo");
 
     olua_endinvoke(L);
 

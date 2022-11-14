@@ -266,4 +266,47 @@ public:
 }
 #endif // CCLUA_BUILD_SPINE
 
+#ifdef CCLUA_BUILD_FAIRYGUI
+#include "FairyGUI.h"
+
+NS_FGUI_BEGIN
+
+class UISource : public IUISource {
+public:
+    CREATE_FUNC(UISource);
+
+    virtual const std::string& getFileName() { return _name; }
+    virtual void setFileName(const std::string& value) { _name = value; }
+    virtual bool isLoaded() { return _loaded; }
+    virtual void load(std::function<void()> callback) { _complete = callback; }
+
+    void loadComplete()
+    {
+        _loaded = true;
+        if (_complete) {
+            _complete();
+        }
+    }
+private:
+    UISource()
+        :_loaded(false)
+        ,_complete(nullptr)
+    {
+    }
+
+    bool init()
+    {
+        return true;
+    }
+
+    bool _loaded;
+    std::function<void()> _complete;
+    std::string _name;
+};
+
+NS_FGUI_END
+
+#endif // CCLUA_BUILD_FAIRYGUI
+
+
 #endif

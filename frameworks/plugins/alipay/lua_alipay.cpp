@@ -12,7 +12,7 @@ static int _cclua_plugin_alipay___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cclua::plugin::alipay *)olua_toobj(L, 1, "cclua.plugin.alipay");
-    olua_push_cppobj(L, self, "cclua.plugin.alipay");
+    olua_push_obj(L, self, "cclua.plugin.alipay");
 
     olua_endinvoke(L);
 

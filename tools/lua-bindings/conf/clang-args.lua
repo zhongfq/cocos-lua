@@ -8,6 +8,7 @@ clang {
     '-DCCLUA_BUILD_TALKINGDATA',
     '-DCCLUA_BUILD_WECHAT',
     '-DCCLUA_BUILD_SPINE',
+    '-DCCLUA_BUILD_FAIRYGUI',
     '-I../../frameworks/cocos2d-x/cocos',
     '-I../../frameworks/cocos2d-x/cocos/editor-support',
     '-I../../frameworks/cocos2d-x/cocos/platform',

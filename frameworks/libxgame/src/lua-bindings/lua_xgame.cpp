@@ -71,7 +71,7 @@ static int _cclua_QRCode___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cclua::QRCode *)olua_toobj(L, 1, "cclua.QRCode");
-    olua_push_cppobj(L, self, "cclua.QRCode");
+    olua_push_obj(L, self, "cclua.QRCode");
 
     olua_endinvoke(L);
 
@@ -96,7 +96,7 @@ static int _cclua_QRCode_create1(lua_State *L)
 
     // static cclua::QRCode *create(const std::string &code, @optional int version, @optional cclua::QRCode::ECLevel level, @optional cclua::QRCode::EncodeMode hint, @optional bool casesensitive)
     cclua::QRCode *ret = cclua::QRCode::create(arg1, (int)arg2, (cclua::QRCode::ECLevel)arg3, (cclua::QRCode::EncodeMode)arg4, arg5);
-    int num_ret = olua_push_cppobj(L, ret, "cclua.QRCode");
+    int num_ret = olua_push_obj(L, ret, "cclua.QRCode");
 
     olua_endinvoke(L);
 
@@ -113,7 +113,7 @@ static int _cclua_QRCode_create2(lua_State *L)
 
     // static cclua::QRCode *create(const std::string &code, @optional int version, @optional cclua::QRCode::ECLevel level, @optional cclua::QRCode::EncodeMode hint, @optional bool casesensitive)
     cclua::QRCode *ret = cclua::QRCode::create(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "cclua.QRCode");
+    int num_ret = olua_push_obj(L, ret, "cclua.QRCode");
 
     olua_endinvoke(L);
 
@@ -132,7 +132,7 @@ static int _cclua_QRCode_create3(lua_State *L)
 
     // static cclua::QRCode *create(const std::string &code, @optional int version, @optional cclua::QRCode::ECLevel level, @optional cclua::QRCode::EncodeMode hint, @optional bool casesensitive)
     cclua::QRCode *ret = cclua::QRCode::create(arg1, (int)arg2);
-    int num_ret = olua_push_cppobj(L, ret, "cclua.QRCode");
+    int num_ret = olua_push_obj(L, ret, "cclua.QRCode");
 
     olua_endinvoke(L);
 
@@ -153,7 +153,7 @@ static int _cclua_QRCode_create4(lua_State *L)
 
     // static cclua::QRCode *create(const std::string &code, @optional int version, @optional cclua::QRCode::ECLevel level, @optional cclua::QRCode::EncodeMode hint, @optional bool casesensitive)
     cclua::QRCode *ret = cclua::QRCode::create(arg1, (int)arg2, (cclua::QRCode::ECLevel)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "cclua.QRCode");
+    int num_ret = olua_push_obj(L, ret, "cclua.QRCode");
 
     olua_endinvoke(L);
 
@@ -176,7 +176,7 @@ static int _cclua_QRCode_create5(lua_State *L)
 
     // static cclua::QRCode *create(const std::string &code, @optional int version, @optional cclua::QRCode::ECLevel level, @optional cclua::QRCode::EncodeMode hint, @optional bool casesensitive)
     cclua::QRCode *ret = cclua::QRCode::create(arg1, (int)arg2, (cclua::QRCode::ECLevel)arg3, (cclua::QRCode::EncodeMode)arg4);
-    int num_ret = olua_push_cppobj(L, ret, "cclua.QRCode");
+    int num_ret = olua_push_obj(L, ret, "cclua.QRCode");
 
     olua_endinvoke(L);
 
@@ -245,7 +245,7 @@ static int _cclua_SceneNoCamera___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cclua::SceneNoCamera *)olua_toobj(L, 1, "cclua.SceneNoCamera");
-    olua_push_cppobj(L, self, "cclua.SceneNoCamera");
+    olua_push_obj(L, self, "cclua.SceneNoCamera");
 
     olua_endinvoke(L);
 
@@ -258,7 +258,7 @@ static int _cclua_SceneNoCamera_create(lua_State *L)
 
     // static cclua::SceneNoCamera *create()
     cclua::SceneNoCamera *ret = cclua::SceneNoCamera::create();
-    int num_ret = olua_push_cppobj(L, ret, "cclua.SceneNoCamera");
+    int num_ret = olua_push_obj(L, ret, "cclua.SceneNoCamera");
 
     olua_endinvoke(L);
 
@@ -272,7 +272,7 @@ static int _cclua_SceneNoCamera_createWithPhysics(lua_State *L)
 
     // static cclua::SceneNoCamera *createWithPhysics()
     cclua::SceneNoCamera *ret = cclua::SceneNoCamera::createWithPhysics();
-    int num_ret = olua_push_cppobj(L, ret, "cclua.SceneNoCamera");
+    int num_ret = olua_push_obj(L, ret, "cclua.SceneNoCamera");
 
     olua_endinvoke(L);
 
@@ -290,7 +290,7 @@ static int _cclua_SceneNoCamera_createWithSize(lua_State *L)
 
     // static cclua::SceneNoCamera *createWithSize(const cocos2d::Size &size)
     cclua::SceneNoCamera *ret = cclua::SceneNoCamera::createWithSize(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "cclua.SceneNoCamera");
+    int num_ret = olua_push_obj(L, ret, "cclua.SceneNoCamera");
 
     olua_endinvoke(L);
 
@@ -303,7 +303,7 @@ static int _cclua_SceneNoCamera_new(lua_State *L)
 
     // SceneNoCamera()
     cclua::SceneNoCamera *ret = new cclua::SceneNoCamera();
-    int num_ret = olua_push_cppobj(L, ret, "cclua.SceneNoCamera");
+    int num_ret = olua_push_obj(L, ret, "cclua.SceneNoCamera");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -334,7 +334,7 @@ static int _cclua_permission_status___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cclua::permission::status *)olua_toobj(L, 1, "cclua.permission.status");
-    olua_push_cppobj(L, self, "cclua.permission.status");
+    olua_push_obj(L, self, "cclua.permission.status");
 
     olua_endinvoke(L);
 
@@ -368,7 +368,7 @@ static int _cclua_permission_android___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cclua::permission::android *)olua_toobj(L, 1, "cclua.permission.android");
-    olua_push_cppobj(L, self, "cclua.permission.android");
+    olua_push_obj(L, self, "cclua.permission.android");
 
     olua_endinvoke(L);
 
@@ -545,7 +545,7 @@ static int _cclua_permission___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cclua::permission *)olua_toobj(L, 1, "cclua.permission");
-    olua_push_cppobj(L, self, "cclua.permission");
+    olua_push_obj(L, self, "cclua.permission");
 
     olua_endinvoke(L);
 
@@ -608,7 +608,7 @@ static int _cclua_runtime___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cclua::runtime *)olua_toobj(L, 1, "cclua.runtime");
-    olua_push_cppobj(L, self, "cclua.runtime");
+    olua_push_obj(L, self, "cclua.runtime");
 
     olua_endinvoke(L);
 
@@ -687,7 +687,7 @@ static int _cclua_runtime_capture1(lua_State *L)
     lua_Unsigned arg5 = 0;       /** format */
     lua_Unsigned arg6 = 0;       /** depthStencilFormat */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
+    olua_check_obj(L, 1, &arg1, "cc.Node");
     olua_check_number(L, 2, &arg2);
     olua_check_number(L, 3, &arg3);
     olua_check_number(L, 4, &arg4);
@@ -696,7 +696,7 @@ static int _cclua_runtime_capture1(lua_State *L)
 
     // static cocos2d::Sprite *capture(cocos2d::Node *node, float width, float height, @optional float scale, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
     cocos2d::Sprite *ret = cclua::runtime::capture(arg1, (float)arg2, (float)arg3, (float)arg4, (cocos2d::backend::PixelFormat)arg5, (cocos2d::backend::PixelFormat)arg6);
-    int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
+    int num_ret = olua_push_obj(L, ret, "cc.Sprite");
 
     olua_endinvoke(L);
 
@@ -711,13 +711,13 @@ static int _cclua_runtime_capture2(lua_State *L)
     lua_Number arg2 = 0;       /** width */
     lua_Number arg3 = 0;       /** height */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
+    olua_check_obj(L, 1, &arg1, "cc.Node");
     olua_check_number(L, 2, &arg2);
     olua_check_number(L, 3, &arg3);
 
     // static cocos2d::Sprite *capture(cocos2d::Node *node, float width, float height, @optional float scale, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
     cocos2d::Sprite *ret = cclua::runtime::capture(arg1, (float)arg2, (float)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
+    int num_ret = olua_push_obj(L, ret, "cc.Sprite");
 
     olua_endinvoke(L);
 
@@ -733,14 +733,14 @@ static int _cclua_runtime_capture3(lua_State *L)
     lua_Number arg3 = 0;       /** height */
     lua_Number arg4 = 0;       /** scale */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
+    olua_check_obj(L, 1, &arg1, "cc.Node");
     olua_check_number(L, 2, &arg2);
     olua_check_number(L, 3, &arg3);
     olua_check_number(L, 4, &arg4);
 
     // static cocos2d::Sprite *capture(cocos2d::Node *node, float width, float height, @optional float scale, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
     cocos2d::Sprite *ret = cclua::runtime::capture(arg1, (float)arg2, (float)arg3, (float)arg4);
-    int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
+    int num_ret = olua_push_obj(L, ret, "cc.Sprite");
 
     olua_endinvoke(L);
 
@@ -757,7 +757,7 @@ static int _cclua_runtime_capture4(lua_State *L)
     lua_Number arg4 = 0;       /** scale */
     lua_Unsigned arg5 = 0;       /** format */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
+    olua_check_obj(L, 1, &arg1, "cc.Node");
     olua_check_number(L, 2, &arg2);
     olua_check_number(L, 3, &arg3);
     olua_check_number(L, 4, &arg4);
@@ -765,7 +765,7 @@ static int _cclua_runtime_capture4(lua_State *L)
 
     // static cocos2d::Sprite *capture(cocos2d::Node *node, float width, float height, @optional float scale, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
     cocos2d::Sprite *ret = cclua::runtime::capture(arg1, (float)arg2, (float)arg3, (float)arg4, (cocos2d::backend::PixelFormat)arg5);
-    int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
+    int num_ret = olua_push_obj(L, ret, "cc.Sprite");
 
     olua_endinvoke(L);
 
@@ -777,28 +777,28 @@ static int _cclua_runtime_capture(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 3) {
-        // if ((olua_is_cppobj(L, 1, "cc.Node")) && (olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
+        // if ((olua_is_obj(L, 1, "cc.Node")) && (olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
             // static cocos2d::Sprite *capture(cocos2d::Node *node, float width, float height, @optional float scale, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
             return _cclua_runtime_capture2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if ((olua_is_cppobj(L, 1, "cc.Node")) && (olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
+        // if ((olua_is_obj(L, 1, "cc.Node")) && (olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
             // static cocos2d::Sprite *capture(cocos2d::Node *node, float width, float height, @optional float scale, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
             return _cclua_runtime_capture3(L);
         // }
     }
 
     if (num_args == 5) {
-        // if ((olua_is_cppobj(L, 1, "cc.Node")) && (olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_uint(L, 5))) {
+        // if ((olua_is_obj(L, 1, "cc.Node")) && (olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_uint(L, 5))) {
             // static cocos2d::Sprite *capture(cocos2d::Node *node, float width, float height, @optional float scale, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
             return _cclua_runtime_capture4(L);
         // }
     }
 
     if (num_args == 6) {
-        // if ((olua_is_cppobj(L, 1, "cc.Node")) && (olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_uint(L, 5)) && (olua_is_uint(L, 6))) {
+        // if ((olua_is_obj(L, 1, "cc.Node")) && (olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_uint(L, 5)) && (olua_is_uint(L, 6))) {
             // static cocos2d::Sprite *capture(cocos2d::Node *node, float width, float height, @optional float scale, @optional cocos2d::backend::PixelFormat format, @optional cocos2d::backend::PixelFormat depthStencilFormat)
             return _cclua_runtime_capture1(L);
         // }
@@ -866,7 +866,7 @@ static int _cclua_runtime_getActionManager(lua_State *L)
 
     // @addref(^ ::pushdirector) static cocos2d::ActionManager *getActionManager()
     cocos2d::ActionManager *ret = cclua::runtime::getActionManager();
-    int num_ret = olua_push_cppobj(L, ret, "cc.ActionManager");
+    int num_ret = olua_push_obj(L, ret, "cc.ActionManager");
 
     // insert code after call
     olua_addref(L, ref_store, "actionmanager", -1, OLUA_FLAG_SINGLE);
@@ -993,7 +993,7 @@ static int _cclua_runtime_getEventDispatcher(lua_State *L)
 
     // @addref(^ ::pushdirector) static cocos2d::EventDispatcher *getEventDispatcher()
     cocos2d::EventDispatcher *ret = cclua::runtime::getEventDispatcher();
-    int num_ret = olua_push_cppobj(L, ret, "cc.EventDispatcher");
+    int num_ret = olua_push_obj(L, ret, "cc.EventDispatcher");
 
     // insert code after call
     olua_addref(L, ref_store, "eventdispatcher", -1, OLUA_FLAG_SINGLE);
@@ -1012,7 +1012,7 @@ static int _cclua_runtime_getFileUtils(lua_State *L)
 
     // @addref(^ ::pushdirector) static cocos2d::FileUtils *getFileUtils()
     cocos2d::FileUtils *ret = cclua::runtime::getFileUtils();
-    int num_ret = olua_push_cppobj(L, ret, "cc.FileUtils");
+    int num_ret = olua_push_obj(L, ret, "cc.FileUtils");
 
     // insert code after call
     olua_addref(L, ref_store, "fileutils", -1, OLUA_FLAG_SINGLE);
@@ -1165,7 +1165,7 @@ static int _cclua_runtime_getProgramCache(lua_State *L)
 
     // @addref(^ ::pushdirector) static cocos2d::backend::ProgramCache *getProgramCache()
     cocos2d::backend::ProgramCache *ret = cclua::runtime::getProgramCache();
-    int num_ret = olua_push_cppobj(L, ret, "ccb.ProgramCache");
+    int num_ret = olua_push_obj(L, ret, "ccb.ProgramCache");
 
     // insert code after call
     olua_addref(L, ref_store, "programcache", -1, OLUA_FLAG_SINGLE);
@@ -1184,7 +1184,7 @@ static int _cclua_runtime_getRunningScene(lua_State *L)
 
     // @addref(scenes | ::pushdirector) static cocos2d::Scene *getRunningScene()
     cocos2d::Scene *ret = cclua::runtime::getRunningScene();
-    int num_ret = olua_push_cppobj(L, ret, "cc.Scene");
+    int num_ret = olua_push_obj(L, ret, "cc.Scene");
 
     // insert code after call
     olua_addref(L, ref_store, "scenes", -1, OLUA_FLAG_MULTIPLE);
@@ -1216,7 +1216,7 @@ static int _cclua_runtime_getScheduler(lua_State *L)
 
     // @addref(^ ::pushdirector) static cocos2d::Scheduler *getScheduler()
     cocos2d::Scheduler *ret = cclua::runtime::getScheduler();
-    int num_ret = olua_push_cppobj(L, ret, "cc.Scheduler");
+    int num_ret = olua_push_obj(L, ret, "cc.Scheduler");
 
     // insert code after call
     olua_addref(L, ref_store, "scheduler", -1, OLUA_FLAG_SINGLE);
@@ -1235,7 +1235,7 @@ static int _cclua_runtime_getSpriteFrameCache(lua_State *L)
 
     // @addref(^ ::pushdirector) static cocos2d::SpriteFrameCache *getSpriteFrameCache()
     cocos2d::SpriteFrameCache *ret = cclua::runtime::getSpriteFrameCache();
-    int num_ret = olua_push_cppobj(L, ret, "cc.SpriteFrameCache");
+    int num_ret = olua_push_obj(L, ret, "cc.SpriteFrameCache");
 
     // insert code after call
     olua_addref(L, ref_store, "spriteframecache", -1, OLUA_FLAG_SINGLE);
@@ -1254,7 +1254,7 @@ static int _cclua_runtime_getTextureCache(lua_State *L)
 
     // @addref(^ ::pushdirector) static cocos2d::TextureCache *getTextureCache()
     cocos2d::TextureCache *ret = cclua::runtime::getTextureCache();
-    int num_ret = olua_push_cppobj(L, ret, "cc.TextureCache");
+    int num_ret = olua_push_obj(L, ret, "cc.TextureCache");
 
     // insert code after call
     olua_addref(L, ref_store, "texturecache", -1, OLUA_FLAG_SINGLE);
@@ -1586,7 +1586,7 @@ static int _cclua_runtime_pushScene(lua_State *L)
 
     cocos2d::Scene *arg1 = nullptr;       /** scene */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Scene");
+    olua_check_obj(L, 1, &arg1, "cc.Scene");
 
     // insert code before call
     int ref_store = cclua::runtime::pushdirector(L);
@@ -1608,7 +1608,7 @@ static int _cclua_runtime_replaceScene(lua_State *L)
 
     cocos2d::Scene *arg1 = nullptr;       /** scene */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Scene");
+    olua_check_obj(L, 1, &arg1, "cc.Scene");
 
     // insert code before call
     int ref_store = cclua::runtime::pushdirector(L);
@@ -2024,7 +2024,7 @@ static int _cclua_filesystem___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cclua::filesystem *)olua_toobj(L, 1, "cclua.filesystem");
-    olua_push_cppobj(L, self, "cclua.filesystem");
+    olua_push_obj(L, self, "cclua.filesystem");
 
     olua_endinvoke(L);
 
@@ -2566,7 +2566,7 @@ static int _cclua_preferences___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cclua::preferences *)olua_toobj(L, 1, "cclua.preferences");
-    olua_push_cppobj(L, self, "cclua.preferences");
+    olua_push_obj(L, self, "cclua.preferences");
 
     olua_endinvoke(L);
 
@@ -3015,7 +3015,7 @@ static int _cclua_timer___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cclua::timer *)olua_toobj(L, 1, "cclua.timer");
-    olua_push_cppobj(L, self, "cclua.timer");
+    olua_push_obj(L, self, "cclua.timer");
 
     olua_endinvoke(L);
 
@@ -3212,7 +3212,7 @@ static int _cclua_window___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cclua::window *)olua_toobj(L, 1, "cclua.window");
-    olua_push_cppobj(L, self, "cclua.window");
+    olua_push_obj(L, self, "cclua.window");
 
     olua_endinvoke(L);
 
@@ -3469,7 +3469,7 @@ static int _cclua_downloader___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cclua::downloader *)olua_toobj(L, 1, "cclua.downloader");
-    olua_push_cppobj(L, self, "cclua.downloader");
+    olua_push_obj(L, self, "cclua.downloader");
 
     olua_endinvoke(L);
 
@@ -3662,7 +3662,7 @@ static int _cclua_Container___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cclua::Container *)olua_toobj(L, 1, "cclua.Container");
-    olua_push_cppobj(L, self, "cclua.Container");
+    olua_push_obj(L, self, "cclua.Container");
 
     olua_endinvoke(L);
 
@@ -3675,7 +3675,7 @@ static int _cclua_Container_create(lua_State *L)
 
     // static cclua::Container *create()
     cclua::Container *ret = cclua::Container::create();
-    int num_ret = olua_push_cppobj(L, ret, "cclua.Container");
+    int num_ret = olua_push_obj(L, ret, "cclua.Container");
 
     olua_endinvoke(L);
 
@@ -3688,11 +3688,11 @@ static int _cclua_Container_getClippingNode(lua_State *L)
 
     cclua::Container *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.Container");
+    olua_to_obj(L, 1, &self, "cclua.Container");
 
     // cocos2d::DrawNode *getClippingNode()
     cocos2d::DrawNode *ret = self->getClippingNode();
-    int num_ret = olua_push_cppobj(L, ret, "cc.DrawNode");
+    int num_ret = olua_push_obj(L, ret, "cc.DrawNode");
 
     olua_endinvoke(L);
 
@@ -3705,11 +3705,11 @@ static int _cclua_Container_getFilter(lua_State *L)
 
     cclua::Container *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.Container");
+    olua_to_obj(L, 1, &self, "cclua.Container");
 
     // @addref(^) cocos2d::Node *getFilter()
     cocos2d::Node *ret = self->getFilter();
-    int num_ret = olua_push_cppobj(L, ret, "cc.Node");
+    int num_ret = olua_push_obj(L, ret, "cc.Node");
 
     // insert code after call
     olua_addref(L, 1, "filter", -1, OLUA_FLAG_SINGLE);
@@ -3725,7 +3725,7 @@ static int _cclua_Container_new(lua_State *L)
 
     // Container()
     cclua::Container *ret = new cclua::Container();
-    int num_ret = olua_push_cppobj(L, ret, "cclua.Container");
+    int num_ret = olua_push_obj(L, ret, "cclua.Container");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -3740,9 +3740,9 @@ static int _cclua_Container_setFilter(lua_State *L)
     cclua::Container *self = nullptr;
     cocos2d::Node *arg1 = nullptr;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.Container");
+    olua_to_obj(L, 1, &self, "cclua.Container");
     if (!olua_isnoneornil(L, 2)) {
-        olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
+        olua_check_obj(L, 2, &arg1, "cc.Node");
     }
 
     // void setFilter(@nullable @addref(^) cocos2d::Node *value)
@@ -3798,7 +3798,7 @@ static int _cclua_XMLHttpRequest___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cclua::XMLHttpRequest *)olua_toobj(L, 1, "cclua.XMLHttpRequest");
-    olua_push_cppobj(L, self, "cclua.XMLHttpRequest");
+    olua_push_obj(L, self, "cclua.XMLHttpRequest");
 
     olua_endinvoke(L);
 
@@ -3811,7 +3811,7 @@ static int _cclua_XMLHttpRequest_abort(lua_State *L)
 
     cclua::XMLHttpRequest *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
 
     // void abort()
     self->abort();
@@ -3827,11 +3827,11 @@ static int _cclua_XMLHttpRequest_getAllResponseHeaders(lua_State *L)
 
     cclua::XMLHttpRequest *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
 
     // const std::unordered_map<std::string, std::string> &getAllResponseHeaders()
     const std::unordered_map<std::string, std::string> &ret = self->getAllResponseHeaders();
-    int num_ret = olua_push_map<std::string, std::string>(L, &ret, [L](std::string arg1, std::string arg2) {
+    int num_ret = olua_push_map<std::string, std::string>(L, &ret, [L](std::string &arg1, std::string &arg2) {
         olua_push_std_string(L, (std::string)arg1);
         olua_push_std_string(L, (std::string)arg2);
     });
@@ -3847,7 +3847,7 @@ static int _cclua_XMLHttpRequest_getDataSize(lua_State *L)
 
     cclua::XMLHttpRequest *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
 
     // size_t getDataSize()
     size_t ret = self->getDataSize();
@@ -3864,7 +3864,7 @@ static int _cclua_XMLHttpRequest_getDataStr(lua_State *L)
 
     cclua::XMLHttpRequest *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
 
     // const std::string &getDataStr()
     const std::string &ret = self->getDataStr();
@@ -3881,7 +3881,7 @@ static int _cclua_XMLHttpRequest_getErrorFlag(lua_State *L)
 
     cclua::XMLHttpRequest *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
 
     // bool getErrorFlag()
     bool ret = self->getErrorFlag();
@@ -3898,7 +3898,7 @@ static int _cclua_XMLHttpRequest_getReadyState(lua_State *L)
 
     cclua::XMLHttpRequest *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
 
     // int getReadyState()
     int ret = self->getReadyState();
@@ -3928,7 +3928,7 @@ static int _cclua_XMLHttpRequest_getResponseHeader(lua_State *L)
     cclua::XMLHttpRequest *self = nullptr;
     std::string arg1;       /** name */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
     olua_check_std_string(L, 2, &arg1);
 
     // const char *getResponseHeader(const std::string &name)
@@ -3946,7 +3946,7 @@ static int _cclua_XMLHttpRequest_getResponseType(lua_State *L)
 
     cclua::XMLHttpRequest *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
 
     // cclua::XMLHttpRequest::ResponseType getResponseType()
     cclua::XMLHttpRequest::ResponseType ret = self->getResponseType();
@@ -3963,7 +3963,7 @@ static int _cclua_XMLHttpRequest_getResponseURL(lua_State *L)
 
     cclua::XMLHttpRequest *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
 
     // const std::string &getResponseURL()
     const std::string &ret = self->getResponseURL();
@@ -3980,7 +3980,7 @@ static int _cclua_XMLHttpRequest_getStatus(lua_State *L)
 
     cclua::XMLHttpRequest *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
 
     // int getStatus()
     int ret = self->getStatus();
@@ -3997,7 +3997,7 @@ static int _cclua_XMLHttpRequest_getStatusText(lua_State *L)
 
     cclua::XMLHttpRequest *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
 
     // const std::string &getStatusText()
     const std::string &ret = self->getStatusText();
@@ -4014,7 +4014,7 @@ static int _cclua_XMLHttpRequest_getTimeout(lua_State *L)
 
     cclua::XMLHttpRequest *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
 
     // unsigned int getTimeout()
     unsigned int ret = self->getTimeout();
@@ -4031,7 +4031,7 @@ static int _cclua_XMLHttpRequest_getURL(lua_State *L)
 
     cclua::XMLHttpRequest *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
 
     // const std::string &getURL()
     const std::string &ret = self->getURL();
@@ -4048,7 +4048,7 @@ static int _cclua_XMLHttpRequest_getWithCredentials(lua_State *L)
 
     cclua::XMLHttpRequest *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
 
     // bool getWithCredentials()
     bool ret = self->getWithCredentials();
@@ -4065,7 +4065,7 @@ static int _cclua_XMLHttpRequest_isAborted(lua_State *L)
 
     cclua::XMLHttpRequest *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
 
     // bool isAborted()
     bool ret = self->isAborted();
@@ -4082,7 +4082,7 @@ static int _cclua_XMLHttpRequest_new(lua_State *L)
 
     // XMLHttpRequest()
     cclua::XMLHttpRequest *ret = new cclua::XMLHttpRequest();
-    int num_ret = olua_push_cppobj(L, ret, "cclua.XMLHttpRequest");
+    int num_ret = olua_push_obj(L, ret, "cclua.XMLHttpRequest");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -4098,7 +4098,7 @@ static int _cclua_XMLHttpRequest_open(lua_State *L)
     std::string arg1;       /** method */
     std::string arg2;       /** url */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
     olua_check_std_string(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
 
@@ -4117,7 +4117,7 @@ static int _cclua_XMLHttpRequest_send1(lua_State *L)
     cclua::XMLHttpRequest *self = nullptr;
     cocos2d::Data arg1;       /** data */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
     olua_check_cocos2d_Data(L, 2, &arg1);
 
     // void send(const cocos2d::Data &data)
@@ -4134,7 +4134,7 @@ static int _cclua_XMLHttpRequest_send2(lua_State *L)
 
     cclua::XMLHttpRequest *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
 
     // void send()
     self->send();
@@ -4172,7 +4172,7 @@ static int _cclua_XMLHttpRequest_setErrorFlag(lua_State *L)
     cclua::XMLHttpRequest *self = nullptr;
     bool arg1 = false;       /** errorFlag */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
     olua_check_bool(L, 2, &arg1);
 
     // void setErrorFlag(bool errorFlag)
@@ -4191,7 +4191,7 @@ static int _cclua_XMLHttpRequest_setRequestHeader(lua_State *L)
     std::string arg1;       /** name */
     std::string arg2;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
     olua_check_std_string(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
 
@@ -4210,7 +4210,7 @@ static int _cclua_XMLHttpRequest_setResponseCallback(lua_State *L)
     cclua::XMLHttpRequest *self = nullptr;
     std::function<void(int)> arg1;       /** handler */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
     olua_check_callback(L, 2, &arg1, "std.function");
 
     void *cb_store = (void *)self;
@@ -4246,7 +4246,7 @@ static int _cclua_XMLHttpRequest_setResponseType(lua_State *L)
     cclua::XMLHttpRequest *self = nullptr;
     lua_Unsigned arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
     olua_check_uint(L, 2, &arg1);
 
     // void setResponseType(cclua::XMLHttpRequest::ResponseType value)
@@ -4264,7 +4264,7 @@ static int _cclua_XMLHttpRequest_setTimeout(lua_State *L)
     cclua::XMLHttpRequest *self = nullptr;
     lua_Unsigned arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
     olua_check_uint(L, 2, &arg1);
 
     // void setTimeout(unsigned int value)
@@ -4282,7 +4282,7 @@ static int _cclua_XMLHttpRequest_setWithCredentials(lua_State *L)
     cclua::XMLHttpRequest *self = nullptr;
     bool arg1 = false;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.XMLHttpRequest");
+    olua_to_obj(L, 1, &self, "cclua.XMLHttpRequest");
     olua_check_bool(L, 2, &arg1);
 
     // void setWithCredentials(bool value)
@@ -4398,7 +4398,7 @@ static int _cclua_MP3Encoder___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cclua::MP3Encoder *)olua_toobj(L, 1, "cclua.MP3Encoder");
-    olua_push_cppobj(L, self, "cclua.MP3Encoder");
+    olua_push_obj(L, self, "cclua.MP3Encoder");
 
     olua_endinvoke(L);
 
@@ -4411,7 +4411,7 @@ static int _cclua_MP3Encoder_getATHlower(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // float getATHlower()
     float ret = self->getATHlower();
@@ -4428,7 +4428,7 @@ static int _cclua_MP3Encoder_getATHonly(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getATHonly()
     int ret = self->getATHonly();
@@ -4445,7 +4445,7 @@ static int _cclua_MP3Encoder_getATHshort(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getATHshort()
     int ret = self->getATHshort();
@@ -4462,7 +4462,7 @@ static int _cclua_MP3Encoder_getATHtype(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getATHtype()
     int ret = self->getATHtype();
@@ -4479,7 +4479,7 @@ static int _cclua_MP3Encoder_getAllowDiffShort(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getAllowDiffShort()
     int ret = self->getAllowDiffShort();
@@ -4496,7 +4496,7 @@ static int _cclua_MP3Encoder_getAnalysis(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getAnalysis()
     int ret = self->getAnalysis();
@@ -4513,7 +4513,7 @@ static int _cclua_MP3Encoder_getAthaaSensitivity(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // float getAthaaSensitivity()
     float ret = self->getAthaaSensitivity();
@@ -4530,7 +4530,7 @@ static int _cclua_MP3Encoder_getAthaaType(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getAthaaType()
     int ret = self->getAthaaType();
@@ -4547,7 +4547,7 @@ static int _cclua_MP3Encoder_getAudiophileGain(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getAudiophileGain()
     int ret = self->getAudiophileGain();
@@ -4564,7 +4564,7 @@ static int _cclua_MP3Encoder_getBWriteVbrTag(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getBWriteVbrTag()
     int ret = self->getBWriteVbrTag();
@@ -4581,7 +4581,7 @@ static int _cclua_MP3Encoder_getBrate(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getBrate()
     int ret = self->getBrate();
@@ -4598,7 +4598,7 @@ static int _cclua_MP3Encoder_getCompressionRatio(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // float getCompressionRatio()
     float ret = self->getCompressionRatio();
@@ -4615,7 +4615,7 @@ static int _cclua_MP3Encoder_getCopyright(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getCopyright()
     int ret = self->getCopyright();
@@ -4632,7 +4632,7 @@ static int _cclua_MP3Encoder_getDecodeOnTheFly(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getDecodeOnTheFly()
     int ret = self->getDecodeOnTheFly();
@@ -4649,7 +4649,7 @@ static int _cclua_MP3Encoder_getDecodeOnly(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getDecodeOnly()
     int ret = self->getDecodeOnly();
@@ -4666,7 +4666,7 @@ static int _cclua_MP3Encoder_getDisableReservoir(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getDisableReservoir()
     int ret = self->getDisableReservoir();
@@ -4683,7 +4683,7 @@ static int _cclua_MP3Encoder_getEmphasis(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getEmphasis()
     int ret = self->getEmphasis();
@@ -4700,7 +4700,7 @@ static int _cclua_MP3Encoder_getEncoderDelay(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getEncoderDelay()
     int ret = self->getEncoderDelay();
@@ -4717,7 +4717,7 @@ static int _cclua_MP3Encoder_getEncoderPadding(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getEncoderPadding()
     int ret = self->getEncoderPadding();
@@ -4734,7 +4734,7 @@ static int _cclua_MP3Encoder_getErrorProtection(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getErrorProtection()
     int ret = self->getErrorProtection();
@@ -4751,7 +4751,7 @@ static int _cclua_MP3Encoder_getExpNspsytune(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getExpNspsytune()
     int ret = self->getExpNspsytune();
@@ -4768,7 +4768,7 @@ static int _cclua_MP3Encoder_getExperimentalX(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getExperimentalX()
     int ret = self->getExperimentalX();
@@ -4785,7 +4785,7 @@ static int _cclua_MP3Encoder_getExperimentalY(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getExperimentalY()
     int ret = self->getExperimentalY();
@@ -4802,7 +4802,7 @@ static int _cclua_MP3Encoder_getExperimentalZ(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getExperimentalZ()
     int ret = self->getExperimentalZ();
@@ -4819,7 +4819,7 @@ static int _cclua_MP3Encoder_getExtension(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getExtension()
     int ret = self->getExtension();
@@ -4836,7 +4836,7 @@ static int _cclua_MP3Encoder_getFindReplayGain(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getFindReplayGain()
     int ret = self->getFindReplayGain();
@@ -4853,7 +4853,7 @@ static int _cclua_MP3Encoder_getForceMs(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getForceMs()
     int ret = self->getForceMs();
@@ -4870,7 +4870,7 @@ static int _cclua_MP3Encoder_getForceShortBlocks(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getForceShortBlocks()
     int ret = self->getForceShortBlocks();
@@ -4887,7 +4887,7 @@ static int _cclua_MP3Encoder_getFrameNum(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getFrameNum()
     int ret = self->getFrameNum();
@@ -4904,7 +4904,7 @@ static int _cclua_MP3Encoder_getFramesize(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getFramesize()
     int ret = self->getFramesize();
@@ -4921,7 +4921,7 @@ static int _cclua_MP3Encoder_getFreeFormat(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getFreeFormat()
     int ret = self->getFreeFormat();
@@ -4938,7 +4938,7 @@ static int _cclua_MP3Encoder_getHighpassfreq(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getHighpassfreq()
     int ret = self->getHighpassfreq();
@@ -4955,7 +4955,7 @@ static int _cclua_MP3Encoder_getHighpasswidth(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getHighpasswidth()
     int ret = self->getHighpasswidth();
@@ -4972,7 +4972,7 @@ static int _cclua_MP3Encoder_getInSamplerate(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getInSamplerate()
     int ret = self->getInSamplerate();
@@ -4989,7 +4989,7 @@ static int _cclua_MP3Encoder_getInterChRatio(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // float getInterChRatio()
     float ret = self->getInterChRatio();
@@ -5006,7 +5006,7 @@ static int _cclua_MP3Encoder_getLameOsBitness(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // const char *getLameOsBitness()
     const char *ret = self->getLameOsBitness();
@@ -5023,7 +5023,7 @@ static int _cclua_MP3Encoder_getLameShortVersion(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // const char *getLameShortVersion()
     const char *ret = self->getLameShortVersion();
@@ -5040,7 +5040,7 @@ static int _cclua_MP3Encoder_getLameUrl(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // const char *getLameUrl()
     const char *ret = self->getLameUrl();
@@ -5057,7 +5057,7 @@ static int _cclua_MP3Encoder_getLameVersion(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // const char *getLameVersion()
     const char *ret = self->getLameVersion();
@@ -5074,7 +5074,7 @@ static int _cclua_MP3Encoder_getLameVeryShortVersion(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // const char *getLameVeryShortVersion()
     const char *ret = self->getLameVeryShortVersion();
@@ -5091,7 +5091,7 @@ static int _cclua_MP3Encoder_getLowpassfreq(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getLowpassfreq()
     int ret = self->getLowpassfreq();
@@ -5108,7 +5108,7 @@ static int _cclua_MP3Encoder_getLowpasswidth(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getLowpasswidth()
     int ret = self->getLowpasswidth();
@@ -5125,7 +5125,7 @@ static int _cclua_MP3Encoder_getMfSamplesToEncode(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getMfSamplesToEncode()
     int ret = self->getMfSamplesToEncode();
@@ -5142,7 +5142,7 @@ static int _cclua_MP3Encoder_getMode(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // cclua::MP3Encoder::MPEGMode getMode()
     cclua::MP3Encoder::MPEGMode ret = self->getMode();
@@ -5159,7 +5159,7 @@ static int _cclua_MP3Encoder_getMsfix(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // float getMsfix()
     float ret = self->getMsfix();
@@ -5176,7 +5176,7 @@ static int _cclua_MP3Encoder_getNoATH(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getNoATH()
     int ret = self->getNoATH();
@@ -5193,7 +5193,7 @@ static int _cclua_MP3Encoder_getNoShortBlocks(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getNoShortBlocks()
     int ret = self->getNoShortBlocks();
@@ -5210,7 +5210,7 @@ static int _cclua_MP3Encoder_getNoclipGainChange(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getNoclipGainChange()
     int ret = self->getNoclipGainChange();
@@ -5227,7 +5227,7 @@ static int _cclua_MP3Encoder_getNoclipScale(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // float getNoclipScale()
     float ret = self->getNoclipScale();
@@ -5244,7 +5244,7 @@ static int _cclua_MP3Encoder_getNogapCurrentindex(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getNogapCurrentindex()
     int ret = self->getNogapCurrentindex();
@@ -5261,7 +5261,7 @@ static int _cclua_MP3Encoder_getNogapTotal(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getNogapTotal()
     int ret = self->getNogapTotal();
@@ -5278,7 +5278,7 @@ static int _cclua_MP3Encoder_getNumChannels(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getNumChannels()
     int ret = self->getNumChannels();
@@ -5295,7 +5295,7 @@ static int _cclua_MP3Encoder_getNumSamples(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // unsigned long getNumSamples()
     unsigned long ret = self->getNumSamples();
@@ -5312,7 +5312,7 @@ static int _cclua_MP3Encoder_getOriginal(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getOriginal()
     int ret = self->getOriginal();
@@ -5329,7 +5329,7 @@ static int _cclua_MP3Encoder_getOutSamplerate(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getOutSamplerate()
     int ret = self->getOutSamplerate();
@@ -5346,7 +5346,7 @@ static int _cclua_MP3Encoder_getPeakSample(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // float getPeakSample()
     float ret = self->getPeakSample();
@@ -5363,7 +5363,7 @@ static int _cclua_MP3Encoder_getPsyVersion(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // const char *getPsyVersion()
     const char *ret = self->getPsyVersion();
@@ -5380,7 +5380,7 @@ static int _cclua_MP3Encoder_getQuality(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getQuality()
     int ret = self->getQuality();
@@ -5397,7 +5397,7 @@ static int _cclua_MP3Encoder_getQuantComp(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getQuantComp()
     int ret = self->getQuantComp();
@@ -5414,7 +5414,7 @@ static int _cclua_MP3Encoder_getQuantCompShort(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getQuantCompShort()
     int ret = self->getQuantCompShort();
@@ -5431,7 +5431,7 @@ static int _cclua_MP3Encoder_getRadioGain(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getRadioGain()
     int ret = self->getRadioGain();
@@ -5448,7 +5448,7 @@ static int _cclua_MP3Encoder_getScale(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // float getScale()
     float ret = self->getScale();
@@ -5465,7 +5465,7 @@ static int _cclua_MP3Encoder_getScaleLeft(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // float getScaleLeft()
     float ret = self->getScaleLeft();
@@ -5482,7 +5482,7 @@ static int _cclua_MP3Encoder_getScaleRight(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // float getScaleRight()
     float ret = self->getScaleRight();
@@ -5499,7 +5499,7 @@ static int _cclua_MP3Encoder_getSizeMp3buffer(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getSizeMp3buffer()
     int ret = self->getSizeMp3buffer();
@@ -5516,7 +5516,7 @@ static int _cclua_MP3Encoder_getStrictISO(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getStrictISO()
     int ret = self->getStrictISO();
@@ -5533,7 +5533,7 @@ static int _cclua_MP3Encoder_getTotalframes(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getTotalframes()
     int ret = self->getTotalframes();
@@ -5550,7 +5550,7 @@ static int _cclua_MP3Encoder_getUseTemporal(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getUseTemporal()
     int ret = self->getUseTemporal();
@@ -5567,7 +5567,7 @@ static int _cclua_MP3Encoder_getVBR(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // cclua::MP3Encoder::VBRMode getVBR()
     cclua::MP3Encoder::VBRMode ret = self->getVBR();
@@ -5584,7 +5584,7 @@ static int _cclua_MP3Encoder_getVBRHardMin(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getVBRHardMin()
     int ret = self->getVBRHardMin();
@@ -5601,7 +5601,7 @@ static int _cclua_MP3Encoder_getVBRMaxBitrateKbps(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getVBRMaxBitrateKbps()
     int ret = self->getVBRMaxBitrateKbps();
@@ -5618,7 +5618,7 @@ static int _cclua_MP3Encoder_getVBRMeanBitrateKbps(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getVBRMeanBitrateKbps()
     int ret = self->getVBRMeanBitrateKbps();
@@ -5635,7 +5635,7 @@ static int _cclua_MP3Encoder_getVBRMinBitrateKbps(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getVBRMinBitrateKbps()
     int ret = self->getVBRMinBitrateKbps();
@@ -5652,7 +5652,7 @@ static int _cclua_MP3Encoder_getVBRQ(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getVBRQ()
     int ret = self->getVBRQ();
@@ -5669,7 +5669,7 @@ static int _cclua_MP3Encoder_getVBRQuality(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // float getVBRQuality()
     float ret = self->getVBRQuality();
@@ -5686,7 +5686,7 @@ static int _cclua_MP3Encoder_getVersion(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // int getVersion()
     int ret = self->getVersion();
@@ -5703,7 +5703,7 @@ static int _cclua_MP3Encoder_initParams(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // void initParams()
     self->initParams();
@@ -5719,7 +5719,7 @@ static int _cclua_MP3Encoder_new(lua_State *L)
 
     // MP3Encoder()
     cclua::MP3Encoder *ret = new cclua::MP3Encoder();
-    int num_ret = olua_push_cppobj(L, ret, "cclua.MP3Encoder");
+    int num_ret = olua_push_obj(L, ret, "cclua.MP3Encoder");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -5733,7 +5733,7 @@ static int _cclua_MP3Encoder_printConfig(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // void printConfig()
     self->printConfig();
@@ -5749,7 +5749,7 @@ static int _cclua_MP3Encoder_printInternals(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // void printInternals()
     self->printInternals();
@@ -5766,7 +5766,7 @@ static int _cclua_MP3Encoder_setATHlower(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Number arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_number(L, 2, &arg1);
 
     // void setATHlower(float value)
@@ -5784,7 +5784,7 @@ static int _cclua_MP3Encoder_setATHonly(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setATHonly(int value)
@@ -5802,7 +5802,7 @@ static int _cclua_MP3Encoder_setATHshort(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setATHshort(int value)
@@ -5820,7 +5820,7 @@ static int _cclua_MP3Encoder_setATHtype(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setATHtype(int value)
@@ -5838,7 +5838,7 @@ static int _cclua_MP3Encoder_setAllowDiffShort(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setAllowDiffShort(int value)
@@ -5856,7 +5856,7 @@ static int _cclua_MP3Encoder_setAnalysis(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setAnalysis(int value)
@@ -5875,7 +5875,7 @@ static int _cclua_MP3Encoder_setAsmOptimizations(lua_State *L)
     lua_Integer arg1 = 0;       /** optim */
     lua_Integer arg2 = 0;       /** mode */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
     olua_check_int(L, 3, &arg2);
 
@@ -5894,7 +5894,7 @@ static int _cclua_MP3Encoder_setAthaaSensitivity(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Number arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_number(L, 2, &arg1);
 
     // void setAthaaSensitivity(float value)
@@ -5912,7 +5912,7 @@ static int _cclua_MP3Encoder_setAthaaType(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setAthaaType(int value)
@@ -5930,7 +5930,7 @@ static int _cclua_MP3Encoder_setBWriteVbrTag(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setBWriteVbrTag(int value)
@@ -5948,7 +5948,7 @@ static int _cclua_MP3Encoder_setBrate(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setBrate(int value)
@@ -5966,7 +5966,7 @@ static int _cclua_MP3Encoder_setCompressionRatio(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Number arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_number(L, 2, &arg1);
 
     // void setCompressionRatio(float value)
@@ -5984,7 +5984,7 @@ static int _cclua_MP3Encoder_setCopyright(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setCopyright(int value)
@@ -6002,7 +6002,7 @@ static int _cclua_MP3Encoder_setDecodeOnTheFly(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setDecodeOnTheFly(int value)
@@ -6020,7 +6020,7 @@ static int _cclua_MP3Encoder_setDecodeOnly(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setDecodeOnly(int value)
@@ -6038,7 +6038,7 @@ static int _cclua_MP3Encoder_setDisableReservoir(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setDisableReservoir(int value)
@@ -6056,7 +6056,7 @@ static int _cclua_MP3Encoder_setEmphasis(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setEmphasis(int value)
@@ -6074,7 +6074,7 @@ static int _cclua_MP3Encoder_setErrorProtection(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setErrorProtection(int value)
@@ -6092,7 +6092,7 @@ static int _cclua_MP3Encoder_setExpNspsytune(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setExpNspsytune(int value)
@@ -6110,7 +6110,7 @@ static int _cclua_MP3Encoder_setExperimentalX(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setExperimentalX(int value)
@@ -6128,7 +6128,7 @@ static int _cclua_MP3Encoder_setExperimentalY(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setExperimentalY(int value)
@@ -6146,7 +6146,7 @@ static int _cclua_MP3Encoder_setExperimentalZ(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setExperimentalZ(int value)
@@ -6164,7 +6164,7 @@ static int _cclua_MP3Encoder_setExtension(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setExtension(int value)
@@ -6182,7 +6182,7 @@ static int _cclua_MP3Encoder_setFindReplayGain(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setFindReplayGain(int value)
@@ -6200,7 +6200,7 @@ static int _cclua_MP3Encoder_setForceMs(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setForceMs(int value)
@@ -6218,7 +6218,7 @@ static int _cclua_MP3Encoder_setForceShortBlocks(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setForceShortBlocks(int value)
@@ -6236,7 +6236,7 @@ static int _cclua_MP3Encoder_setFreeFormat(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setFreeFormat(int value)
@@ -6254,7 +6254,7 @@ static int _cclua_MP3Encoder_setHighpassfreq(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setHighpassfreq(int value)
@@ -6272,7 +6272,7 @@ static int _cclua_MP3Encoder_setHighpasswidth(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setHighpasswidth(int value)
@@ -6290,7 +6290,7 @@ static int _cclua_MP3Encoder_setInSamplerate(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setInSamplerate(int value)
@@ -6308,7 +6308,7 @@ static int _cclua_MP3Encoder_setInterChRatio(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Number arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_number(L, 2, &arg1);
 
     // void setInterChRatio(float value)
@@ -6326,7 +6326,7 @@ static int _cclua_MP3Encoder_setLowpassfreq(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setLowpassfreq(int value)
@@ -6344,7 +6344,7 @@ static int _cclua_MP3Encoder_setLowpasswidth(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setLowpasswidth(int value)
@@ -6362,7 +6362,7 @@ static int _cclua_MP3Encoder_setMode(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Unsigned arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_uint(L, 2, &arg1);
 
     // void setMode(cclua::MP3Encoder::MPEGMode value)
@@ -6380,7 +6380,7 @@ static int _cclua_MP3Encoder_setMsfix(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Number arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_number(L, 2, &arg1);
 
     // void setMsfix(double value)
@@ -6398,7 +6398,7 @@ static int _cclua_MP3Encoder_setNoATH(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setNoATH(int value)
@@ -6416,7 +6416,7 @@ static int _cclua_MP3Encoder_setNoShortBlocks(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setNoShortBlocks(int value)
@@ -6434,7 +6434,7 @@ static int _cclua_MP3Encoder_setNogapCurrentindex(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setNogapCurrentindex(int value)
@@ -6452,7 +6452,7 @@ static int _cclua_MP3Encoder_setNogapTotal(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setNogapTotal(int value)
@@ -6470,7 +6470,7 @@ static int _cclua_MP3Encoder_setNumChannels(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setNumChannels(int value)
@@ -6488,7 +6488,7 @@ static int _cclua_MP3Encoder_setNumSamples(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Unsigned arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_uint(L, 2, &arg1);
 
     // void setNumSamples(unsigned long value)
@@ -6506,7 +6506,7 @@ static int _cclua_MP3Encoder_setOriginal(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setOriginal(int value)
@@ -6524,7 +6524,7 @@ static int _cclua_MP3Encoder_setOutSamplerate(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setOutSamplerate(int value)
@@ -6542,7 +6542,7 @@ static int _cclua_MP3Encoder_setPreset(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** preset */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setPreset(int preset)
@@ -6560,7 +6560,7 @@ static int _cclua_MP3Encoder_setQuality(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setQuality(int value)
@@ -6578,7 +6578,7 @@ static int _cclua_MP3Encoder_setQuantComp(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setQuantComp(int value)
@@ -6596,7 +6596,7 @@ static int _cclua_MP3Encoder_setQuantCompShort(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setQuantCompShort(int value)
@@ -6614,7 +6614,7 @@ static int _cclua_MP3Encoder_setScale(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Number arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_number(L, 2, &arg1);
 
     // void setScale(float value)
@@ -6632,7 +6632,7 @@ static int _cclua_MP3Encoder_setScaleLeft(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Number arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_number(L, 2, &arg1);
 
     // void setScaleLeft(float value)
@@ -6650,7 +6650,7 @@ static int _cclua_MP3Encoder_setScaleRight(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Number arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_number(L, 2, &arg1);
 
     // void setScaleRight(float value)
@@ -6668,7 +6668,7 @@ static int _cclua_MP3Encoder_setStrictISO(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setStrictISO(int value)
@@ -6686,7 +6686,7 @@ static int _cclua_MP3Encoder_setUseTemporal(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setUseTemporal(int value)
@@ -6704,7 +6704,7 @@ static int _cclua_MP3Encoder_setVBR(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Unsigned arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_uint(L, 2, &arg1);
 
     // void setVBR(cclua::MP3Encoder::VBRMode value)
@@ -6722,7 +6722,7 @@ static int _cclua_MP3Encoder_setVBRHardMin(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setVBRHardMin(int value)
@@ -6740,7 +6740,7 @@ static int _cclua_MP3Encoder_setVBRMaxBitrateKbps(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setVBRMaxBitrateKbps(int value)
@@ -6758,7 +6758,7 @@ static int _cclua_MP3Encoder_setVBRMeanBitrateKbps(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setVBRMeanBitrateKbps(int value)
@@ -6776,7 +6776,7 @@ static int _cclua_MP3Encoder_setVBRMinBitrateKbps(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setVBRMinBitrateKbps(int value)
@@ -6794,7 +6794,7 @@ static int _cclua_MP3Encoder_setVBRQ(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_int(L, 2, &arg1);
 
     // void setVBRQ(int value)
@@ -6812,7 +6812,7 @@ static int _cclua_MP3Encoder_setVBRQuality(lua_State *L)
     cclua::MP3Encoder *self = nullptr;
     lua_Number arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_number(L, 2, &arg1);
 
     // void setVBRQuality(float value)
@@ -6831,7 +6831,7 @@ static int _cclua_MP3Encoder_start(lua_State *L)
     std::string arg1;       /** pcmPath */
     std::string arg2;       /** mp3Path */
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
     olua_check_std_string(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
 
@@ -6849,7 +6849,7 @@ static int _cclua_MP3Encoder_stop(lua_State *L)
 
     cclua::MP3Encoder *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "cclua.MP3Encoder");
+    olua_to_obj(L, 1, &self, "cclua.MP3Encoder");
 
     // void stop()
     self->stop();
@@ -7095,7 +7095,7 @@ static int _cclua_microphone___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cclua::microphone *)olua_toobj(L, 1, "cclua.microphone");
-    olua_push_cppobj(L, self, "cclua.microphone");
+    olua_push_obj(L, self, "cclua.microphone");
 
     olua_endinvoke(L);
 
@@ -7227,7 +7227,7 @@ static int _cclua_photo___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cclua::photo *)olua_toobj(L, 1, "cclua.photo");
-    olua_push_cppobj(L, self, "cclua.photo");
+    olua_push_obj(L, self, "cclua.photo");
 
     olua_endinvoke(L);
 

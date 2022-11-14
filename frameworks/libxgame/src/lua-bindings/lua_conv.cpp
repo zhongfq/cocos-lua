@@ -2645,13 +2645,13 @@ OLUA_LIB int olua_push_cocos2d_backend_TextureInfo(lua_State *L, const cocos2d::
     if (value) {
         lua_createtable(L, 0, 2);
 
-        olua_push_array<uint32_t>(L, &value->slot, [L](uint32_t value) {
+        olua_push_array<uint32_t>(L, &value->slot, [L](uint32_t &value) {
             olua_push_uint(L, (lua_Unsigned)value);
         });
         olua_setfield(L, -2, "slot");
 
         olua_push_array<cocos2d::backend::TextureBackend *>(L, &value->textures, [L](cocos2d::backend::TextureBackend *value) {
-            olua_push_cppobj(L, value, "ccb.TextureBackend");
+            olua_push_obj(L, value, "ccb.TextureBackend");
         });
         olua_setfield(L, -2, "textures");
     } else {
@@ -2683,7 +2683,7 @@ OLUA_LIB void olua_check_cocos2d_backend_TextureInfo(lua_State *L, int idx, coco
 
     olua_getfield(L, idx, "textures");
     olua_check_array<cocos2d::backend::TextureBackend *>(L, -1, &arg2, [L](cocos2d::backend::TextureBackend **value) {
-        olua_check_cppobj(L, -1, (void **)value, "ccb.TextureBackend");
+        olua_check_obj(L, -1, value, "ccb.TextureBackend");
     });
     value->textures = (std::vector<cocos2d::backend::TextureBackend *>)arg2;
     lua_pop(L, 1);
@@ -2712,7 +2712,7 @@ OLUA_LIB void olua_pack_cocos2d_backend_TextureInfo(lua_State *L, int idx, cocos
     value->slot = (std::vector<uint32_t>)arg1;
 
     olua_check_array<cocos2d::backend::TextureBackend *>(L, idx + 1, &arg2, [L](cocos2d::backend::TextureBackend **value) {
-        olua_check_cppobj(L, -1, (void **)value, "ccb.TextureBackend");
+        olua_check_obj(L, -1, value, "ccb.TextureBackend");
     });
     value->textures = (std::vector<cocos2d::backend::TextureBackend *>)arg2;
 }
@@ -2720,11 +2720,11 @@ OLUA_LIB void olua_pack_cocos2d_backend_TextureInfo(lua_State *L, int idx, cocos
 OLUA_LIB int olua_unpack_cocos2d_backend_TextureInfo(lua_State *L, const cocos2d::backend::TextureInfo *value)
 {
     if (value) {
-        olua_push_array<uint32_t>(L, &value->slot, [L](uint32_t value) {
+        olua_push_array<uint32_t>(L, &value->slot, [L](uint32_t &value) {
             olua_push_uint(L, (lua_Unsigned)value);
         });
         olua_push_array<cocos2d::backend::TextureBackend *>(L, &value->textures, [L](cocos2d::backend::TextureBackend *value) {
-            olua_push_cppobj(L, value, "ccb.TextureBackend");
+            olua_push_obj(L, value, "ccb.TextureBackend");
         });
     } else {
         for (int i = 0; i < 2; i++) {

@@ -12,7 +12,7 @@ static int _cclua_plugin_vivo___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cclua::plugin::vivo *)olua_toobj(L, 1, "cclua.plugin.vivo");
-    olua_push_cppobj(L, self, "cclua.plugin.vivo");
+    olua_push_obj(L, self, "cclua.plugin.vivo");
 
     olua_endinvoke(L);
 

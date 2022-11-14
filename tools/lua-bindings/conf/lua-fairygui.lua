@@ -287,7 +287,7 @@ typeconf 'fairygui::GComponent'
                 } else {
                     lua_pushcfunction(L, _fairygui_GComponent_getChild);
                 }
-                olua_push_cppobj<fairygui::GComponent>(L, self);
+                olua_pushobj<fairygui::GComponent>(L, self);
                 lua_pushlstring(L, name, sep - name);
                 lua_call(L, 2, 1);
 
@@ -306,7 +306,7 @@ typeconf 'fairygui::GComponent'
 local push_groot_parent = [[
     int parent = 1;
     if (arg1->getParent()) {
-        olua_push_cppobj<fairygui::GComponent>(L, arg1->getParent());
+        olua_pushobj<fairygui::GComponent>(L, arg1->getParent());
         parent = lua_gettop(L);
     }
 ]]
@@ -326,7 +326,7 @@ typeconf 'fairygui::GRoot'
     .func 'rootToWorld' .arg1 '@pack'
     .func 'create'
         .insert_after [[
-            olua_push_cppobj<cocos2d::Node>(L, ret->displayObject());
+            olua_pushobj<cocos2d::Node>(L, ret->displayObject());
             olua_addref(L, -1, "fgui.root", -2, OLUA_FLAG_SINGLE);
             olua_addref(L, 1, "children", -1, OLUA_FLAG_MULTIPLE);
             lua_pop(L, 1);
@@ -429,7 +429,7 @@ typeconf 'fairygui::GList'
     .func 'getSelection' .arg1 '@ret'
     .callback 'itemRenderer' .localvar 'false'
         .insert_cbefore [[
-            olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
+            olua_pushobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
             olua_addref(L, -1, "children", top + 2, OLUA_FLAG_MULTIPLE);
             lua_pop(L, 1);
         ]]
@@ -448,7 +448,7 @@ typeconf 'fairygui::GSlider'
 typeconf 'fairygui::GTextInput'
 
 local push_popup_menu_parent = [[
-    olua_push_cppobj<fairygui::GList>(L, self->getList());
+    olua_pushobj<fairygui::GList>(L, self->getList());
     int parent = lua_gettop(L);
 ]]
 
@@ -468,7 +468,7 @@ typeconf 'fairygui::PopupMenu'
             if (!root) {
                 luaL_error(L, "no root to add 'PopupMenu'");
             }
-            olua_push_cppobj<fairygui::GRoot>(L, root);
+            olua_pushobj<fairygui::GRoot>(L, root);
             int parent = lua_gettop(L);
         ]]
     .callback 'addItem'
@@ -524,54 +524,14 @@ typeconf 'fairygui::UIConfig'
 
 typeconf 'fairygui::IUISource'
     .callback 'load' .arg1 '@nullable'
-
 typeconf 'fairygui::UISource'
-    .supercls 'fairygui::IUISource'
-    .chunk [[
-        NS_FGUI_BEGIN
-        class UISource : public IUISource {
-        public:
-            CREATE_FUNC(UISource);
-
-            virtual const std::string& getFileName() { return _name; }
-            virtual void setFileName(const std::string& value) { _name = value; }
-            virtual bool isLoaded() { return _loaded; }
-            virtual void load(std::function<void()> callback) { _complete = callback; }
-
-            void loadComplete()
-            {
-                _loaded = true;
-                if (_complete) {
-                    _complete();
-                }
-            }
-        private:
-            UISource()
-                :_loaded(false)
-                ,_complete(nullptr)
-            {
-            }
-
-            bool init()
-            {
-                return true;
-            }
-
-            bool _loaded;
-            std::function<void()> _complete;
-            std::string _name;
-        };
-        NS_FGUI_END
-    ]]
-    .func 'create' .snippet 'static UISource *create()'
-    .func 'loadComplete' .snippet 'void loadComplete()'
 
 local push_uiroot = [[
     fairygui::GComponent *root = self->getParent() ? self->getParent() : fairygui::UIRoot;
     if (!root) {
         return 0;
     }
-    olua_push_cppobj<fairygui::GComponent>(L, root);
+    olua_pushobj<fairygui::GComponent>(L, root);
     int parent = lua_gettop(L);
 ]]
 
@@ -583,7 +543,7 @@ typeconf 'fairygui::Window'
             if (!root) {
                 luaL_error(L, "no root to add 'Window'");
             }
-            olua_push_cppobj<fairygui::GComponent>(L, root);
+            olua_pushobj<fairygui::GComponent>(L, root);
             int parent = lua_gettop(L);
         ]]
     .func 'hide' .ret '@delref(children ~ parent)' .insert_before(push_uiroot)
@@ -636,14 +596,14 @@ typeconf 'fairygui::GTree'
     .callback 'treeNodeRender'
         .localvar 'false'
         .insert_cbefore [[
-            olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
+            olua_pushobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
             olua_addref(L, -1, "nodes", top + 1, OLUA_FLAG_MULTIPLE);
             olua_addref(L, -1, "children",top + 2, OLUA_FLAG_MULTIPLE);
             lua_pop(L, 1);
         ]]
     .callback 'treeNodeWillExpand' .localvar 'false'
         .insert_cbefore [[
-            olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
+            olua_pushobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
             olua_addref(L, -1, "nodes", top + 1, OLUA_FLAG_MULTIPLE);
             lua_pop(L, 1);
         ]]

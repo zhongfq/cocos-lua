@@ -93,6 +93,7 @@ OLUA_BEGIN_DECLS
 #define OLUA_POSTNEW        __attribute__((annotate("@postnew")))
 #define OLUA_READONLY       __attribute__((annotate("@readonly")))
 #define OLUA_OPTIONAL       __attribute__((annotate("@optional")))
+#define OLUA_GETTER         __attribute__((annotate("@getter")))
 #define OLUA_RET            __attribute__((annotate("@ret")))
 #else
 #define OLUA_EXCLUDE
@@ -104,7 +105,13 @@ OLUA_BEGIN_DECLS
 #define OLUA_POSTNEW
 #define OLUA_READONLY
 #define OLUA_OPTIONAL
+#define OLUA_GETTER
 #define OLUA_RET
+#endif
+
+// max cpp type size
+#ifndef OLUA_MAX_CPPTYPE
+#define OLUA_MAX_CPPTYPE 256
 #endif
     
 // object status
@@ -189,8 +196,9 @@ OLUA_API int olua_indexerror(lua_State *L);
 OLUA_API int olua_newindexerror(lua_State *L);
 
 // ownership
-#define OLUA_OWNERSHIP_NONE 0
-#define OLUA_OWNERSHIP_VM   1
+#define OLUA_OWNERSHIP_NONE     0
+#define OLUA_OWNERSHIP_VM       1
+#define OLUA_OWNERSHIP_ALIAS    2
 OLUA_API void olua_setownership(lua_State *L, int idx, int owner);
 OLUA_API int olua_getownership(lua_State *L, int idx);
     
@@ -225,6 +233,7 @@ OLUA_API int olua_callback(lua_State *L, void *obj, const char *func, int argc);
     
 // class store, store static callback or other
 OLUA_API void *olua_pushclassobj(lua_State *L, const char *cls);
+OLUA_API bool olua_getclass(lua_State *L, const char *cls);
 
 // get or set variable in userdata
 OLUA_API int olua_getvariable(lua_State *L, int idx);
@@ -254,7 +263,7 @@ OLUA_API void olua_getref(lua_State *L, olua_Ref ref);
 #define OLUA_FLAG_REMOVE    (1 << 4) // internal use
 #define OLUA_NOREFSTORE     INT_MIN
 typedef bool (*olua_RefVisitor)(lua_State *L, int idx);
-OLUA_API void olua_getreftable(lua_State *L, int idx, const char *name);
+OLUA_API int olua_loadref(lua_State *L, int idx, const char *name);
 OLUA_API void olua_addref(lua_State *L, int idx, const char *name, int obj, int flags);
 OLUA_API void olua_delref(lua_State *L, int idx, const char *name, int obj, int flags);
 OLUA_API void olua_delallrefs(lua_State *L, int idx, const char *name);
@@ -268,7 +277,7 @@ OLUA_API void olua_visitrefs(lua_State *L, int idx, const char *name, olua_RefVi
  *     classtype = native
  *     super = class B
  *     ...__gc = cls_metamethod    -- .func[..._gc]
- *     
+ *
  *     .classobj = userdata        -- store static callback
  *     .isa = {
  *         copy(B['.isa'])
@@ -381,6 +390,7 @@ OLUA_END_DECLS
 #include <set>
 #include <vector>
 #include <map>
+#include <memory>
 #include <unordered_map>
 
 #if __cplusplus >= 201703L
@@ -471,7 +481,8 @@ OLUA_END_DECLS
 #endif
 
 #ifdef __cplusplus
-template <typename T> inline T *olua_toobj(lua_State *L, int idx);
+
+template <class T> inline T *olua_toobj(lua_State *L, int idx);
 
 /**
  * Handle the status of object after push, you can do some jobs
@@ -479,7 +490,7 @@ template <typename T> inline T *olua_toobj(lua_State *L, int idx);
  * release object in __gc method.
  *
  *  #define OLUA_HAVE_POSTPUSH
- *  template <typename T> void olua_postpush(lua_State *L, T* obj, int status)
+ *  template <class T> void olua_postpush(lua_State *L, T* obj, int status)
  *  {
  *      if (std::is_base_of<Object, T>::value && (status == OLUA_OBJ_NEW
  *          || status == OLUA_OBJ_UPDATE)) {
@@ -487,10 +498,10 @@ template <typename T> inline T *olua_toobj(lua_State *L, int idx);
  *      }
  *  }
  */
-template <typename T>
+template <class T>
 void olua_postpush(lua_State *L, T* obj, int status);
 #ifndef OLUA_HAVE_POSTPUSH
-template <typename T>
+template <class T>
 void olua_postpush(lua_State *L, T* obj, int status) {}
 #endif
 
@@ -502,14 +513,14 @@ void olua_postpush(lua_State *L, T* obj, int status) {}
  *  {
  *      olua_startinvoke(L);
  *      Object *obj = new Object();
- *      olua_push_cppobj(L, obj, "Object");
+ *      olua_push_obj(L, obj, "Object");
  *      olua_postnew(L, obj);
  *      olua_endinvoke(L);
  *      return 1;
  *  }
  *
  *  #define OLUA_HAVE_POSTNEW
- *  template <typename T> void olua_postnew(lua_State *L, T *obj)
+ *  template <class T> void olua_postnew(lua_State *L, T *obj)
  *  {
  *      if (std::is_base_of<Object, T>::value) {
  *          ((Object *)obj)->autorelease();
@@ -520,10 +531,10 @@ void olua_postpush(lua_State *L, T* obj, int status) {}
  *  }
  *
  */
-template <typename T>
+template <class T>
 void olua_postnew(lua_State *L, T *obj);
 #ifndef OLUA_HAVE_POSTNEW
-template <typename T>
+template <class T>
 void olua_postnew(lua_State *L, T *obj)
 {
     olua_assert(obj == olua_toobj<T>(L, -1), "must be same object");
@@ -534,10 +545,10 @@ void olua_postnew(lua_State *L, T *obj)
 /**
  * delete object which belong to lua vm.
  */
-template <typename T>
+template <class T>
 void olua_postgc(lua_State *L, int idx);
 #ifndef OLUA_HAVE_POSTGC
-template <typename T>
+template <class T>
 void olua_postgc(lua_State *L, int idx)
 {
     if (olua_getownership(L, idx) == OLUA_OWNERSHIP_VM) {
@@ -557,17 +568,17 @@ void olua_postgc(lua_State *L, int idx)
  * Define OLUA_HAVE_LUATYPE when you has implemention
  */
 OLUA_BEGIN_DECLS
-OLUA_API void olua_registerluatype(lua_State *L, const char *type, const char *cls);
-OLUA_API const char *olua_getluatype(lua_State *L, const char *cls);
+OLUA_API void olua_registerluatype(lua_State *L, const char *cpptype, const char *cls);
+OLUA_API const char *olua_getluatype(lua_State *L, const char *cpptype);
 OLUA_END_DECLS
 
-template <typename T>
+template <class T>
 inline void olua_registerluatype(lua_State *L, const char *cls)
 {
     olua_registerluatype(L, typeid(T).name(), cls);
 }
 
-template <typename T>
+template <class T>
 const char *olua_getluatype(lua_State *L, const T *obj, const char *cls)
 {
     const char *preferred;
@@ -595,75 +606,83 @@ inline const char *olua_getluatype<void>(lua_State *L, const void *obj, const ch
     return cls == NULL ? OLUA_VOIDCLS : cls;
 }
 
-template <typename T>
+template <class T>
 inline const char *olua_getluatype(lua_State *L)
 {
     return olua_getluatype<T>(L, nullptr, nullptr);
 }
 
-template <typename T>
+template <class T>
 inline bool olua_isa(lua_State *L, int idx)
 {
     return olua_isa(L, idx, olua_getluatype<T>(L));
 }
 
-template <typename T>
+template <class T>
 inline void *olua_pushclassobj(lua_State *L)
 {
     return olua_pushclassobj(L, olua_getluatype<T>(L));
 }
 
-template <typename T>
+template <class T>
 inline T *olua_toobj(lua_State *L, int idx)
 {
     return (T *)olua_toobj(L, idx, olua_getluatype<T>(L));
 }
 
-template <typename T>
+template <class T>
 inline T *olua_checkobj(lua_State *L, int idx)
 {
     return (T *)olua_checkobj(L, idx, olua_getluatype<T>(L));
 }
 
-template <typename T>
+template <class T>
 int olua_pushobj(lua_State *L, const T *value, const char *cls)
 {
     cls = olua_getluatype(L, value, cls);
+    if (!cls) {
+        luaL_error(L, "lua class not found: %s", typeid(T).name());
+    }
     olua_postpush(L, (T *)value, olua_pushobj(L, (void *)value, cls));
     return 1;
 }
 
-template <typename T>
+template <class T>
 inline int olua_pushobj(lua_State *L, const T *value)
 {
     return olua_pushobj<T>(L, value, nullptr);
 }
 
-template <typename T>
-inline int olua_pushobj_as(lua_State *L, const T *value)
+template <class T>
+int olua_pushobj_as(lua_State *L, int idx, const T *value, const char *ref)
 {
-    const char *cls = olua_getluatype<T>(L);
-    olua_postpush(L, (T *)value, olua_pushobj(L, (void *)value, cls));
+    idx = lua_absindex(L, idx);
+    if (olua_loadref(L, idx, ref) != LUA_TUSERDATA) {
+        const char *cls = olua_getluatype<T>(L);
+        if (olua_unlikely(!cls || olua_getmetatable(L, cls) != LUA_TTABLE)) {
+            luaL_error(L, "class metatable '%s' not found", cls ? cls : "NULL");
+        }
+        olua_newrawobj(L, (void *)value);
+        lua_insert(L, -2);
+        lua_setmetatable(L, -2);
+        olua_setownership(L, -1, OLUA_OWNERSHIP_ALIAS);
+        olua_addref(L, idx, ref, -1, OLUA_FLAG_SINGLE);
+        olua_addref(L, -1, "as.self", idx, OLUA_FLAG_SINGLE);
+    }
     return 1;
 }
 
-template <typename T>
+template <class T>
 inline void *olua_newobjstub(lua_State *L)
 {
     return olua_newobjstub(L, olua_getluatype<T>(L));
 }
 
-template <typename T>
-inline int olua_pushobjstub(lua_State *L, T *value, void *stub, const char *cls)
-{
-    cls = olua_getluatype(L, value, cls);
-    return olua_pushobjstub(L, (void *)value, stub, cls);
-}
-
-template <typename T>
+template <class T>
 inline int olua_pushobjstub(lua_State *L, T *value, void *stub)
 {
-    return olua_pushobjstub<T>(L, value, stub, nullptr);
+    const char *cls = olua_getluatype<T>(L, value, NULL);
+    return olua_pushobjstub(L, (void *)value, stub, cls);
 }
 #endif // __cplusplus
 
@@ -689,29 +708,107 @@ inline int olua_pushobjstub(lua_State *L, T *value, void *stub)
 #define olua_check_uint(L, i, v)    (*(v) = (lua_Unsigned)olua_checkinteger(L, (i)))
 #define olua_is_uint(L, i)          (olua_isinteger(L, (i)))
 
-#define olua_push_obj(L, o, c)      (olua_pushobj(L, (o), (c)), 1)
-#define olua_check_obj(L, i, v, c)  (*(v) = olua_checkobj(L, (i), (c)))
-#define olua_to_obj(L, i, v, c)     (*(v) = olua_toobj(L, (i), (c)))
-#define olua_is_obj(L, i, c)        (olua_isa(L, (i), (c)))
+OLUA_BEGIN_DECLS
+OLUA_API int olua_push_obj(lua_State *L, void *obj, const char *cls);
+OLUA_API void olua_check_obj(lua_State *L, int idx, void **obj, const char *cls);
+OLUA_API void olua_to_obj(lua_State *L, int idx, void **obj, const char *cls);
+OLUA_API bool olua_is_obj(lua_State *L, int idx, const char *cls);
+OLUA_END_DECLS
 
 // convertor between c++ and lua, use for code generation
 #ifdef __cplusplus
 
-// c++ object
-#define olua_to_cppobj(L, i, v, c)      (olua_to_obj(L, (i), (v), (c)))
-#define olua_check_cppobj(L, i, v, c)   (olua_check_obj(L, (i), (v), (c)))
-#define olua_is_cppobj(L, i, c)         (olua_is_obj(L, (i), (c)))
+template <class T>
+inline void olua_check_obj(lua_State *L, int idx, T **value, const char *cls)
+{
+    *value = (T *)olua_checkobj(L, idx, cls);
+}
 
-template <typename T> inline
-int olua_push_cppobj(lua_State *L, const T *value, const char *cls)
+template <class T>
+inline void olua_to_obj(lua_State *L, int idx, T **value, const char *cls)
+{
+    *value = (T *)olua_toobj(L, idx, cls);
+}
+
+template <class T>
+inline int olua_push_obj(lua_State *L, const T *value, const char *cls)
 {
     return olua_pushobj<T>(L, value, cls);
 }
 
-template <typename T> inline
-int olua_push_cppobj(lua_State *L, const T *value)
+// std::shared_prt & std::weak_ptr
+#define OLUA_SMART_PRT "smart_ptr"
+
+template <template<class> class SmartPtr, class T>
+int olua_smartptr_gc(lua_State *L)
 {
-    return olua_pushobj<T>(L, value, nullptr);
+    SmartPtr<T> *obj = olua_checkobj<SmartPtr<T>>(L, -1);
+    olua_setrawobj(L, -1, nullptr);
+    delete obj;
+    return 0;
+}
+
+template <template<class> class SmartPtr, class T>
+void oluacls_class_smartptr(lua_State *L)
+{
+    const char *smartptr_cls = olua_getluatype<SmartPtr<T>>(L);
+    if (!smartptr_cls) {
+        smartptr_cls = typeid(SmartPtr<T>).name();
+        oluacls_class(L, smartptr_cls, nullptr);
+        oluacls_func(L, "__gc", olua_smartptr_gc<SmartPtr, T>);
+        olua_registerluatype<SmartPtr<T>>(L, smartptr_cls);
+        lua_pop(L, 1);
+    }
+}
+
+template <class T>
+void olua_check_obj(lua_State *L, int idx, std::shared_ptr<T> *value, const char *cls)
+{
+    idx = lua_absindex(L, idx);
+    olua_loadref(L, idx, OLUA_SMART_PRT);
+    *value = *olua_checkobj<std::shared_ptr<T>>(L, -1);
+    lua_pop(L, 1);
+}
+
+template <class T>
+int olua_push_obj(lua_State *L, const std::shared_ptr<T> *value, const char *cls)
+{
+    if (!value->get()) {
+        lua_pushnil(L);
+        return 1;
+    }
+    
+    oluacls_class_smartptr<std::shared_ptr, T>(L);
+    
+    std::shared_ptr<T> *newvalue = new std::shared_ptr<T>();
+    *newvalue = *value;
+    olua_pushobj<T>(L, newvalue->get(), cls);
+    olua_setownership(L, -1, OLUA_OWNERSHIP_ALIAS); // skip gc, managed by smart ptr
+    olua_pushobj<std::shared_ptr<T>>(L, newvalue);
+    olua_addref(L, -2, OLUA_SMART_PRT, -1, OLUA_FLAG_SINGLE);
+    lua_pop(L, 1);
+    return 1;
+}
+
+template <class T>
+void olua_check_obj(lua_State *L, int idx, std::weak_ptr<T> *value, const char *cls)
+{
+    idx = lua_absindex(L, idx);
+    olua_loadref(L, idx, OLUA_SMART_PRT);
+    *value = *olua_checkobj<std::shared_ptr<T>>(L, -1);
+    lua_pop(L, 1);
+}
+
+template <class T>
+int olua_push_obj(lua_State *L, const std::weak_ptr<T> *value, const char *cls)
+{
+    if (!value->lock().get()) {
+        lua_pushnil(L);
+        return 1;
+    } else {
+        std::shared_ptr<T> sp = value->lock();
+        return olua_push_obj(L, &sp, cls);
+    }
 }
 
 // std::string
@@ -740,33 +837,33 @@ static inline void olua_check_std_string_view(lua_State *L, int idx, std::string
 // map
 #define olua_is_map(L, i)   (olua_istable(L, (i)))
 
-template <class K, class V, class Map>
-void olua_insert_map(Map *map, K key, V value)
+template <class K, class V, template<class ...> class Map, class ...Ts>
+void olua_insert_map(Map<K, V, Ts...> *map, const K &key, const V &value)
 {
     map->insert(std::make_pair(key, value));
 }
 
-template <class K, class V, class Map>
-void olua_foreach_map(const Map *map, const std::function<void(K, V)> &callback)
+template <class K, class V, template<class ...> class Map, class ...Ts>
+void olua_foreach_map(const Map<K, V, Ts...> *map, const std::function<void(K &, V &)> &callback)
 {
     for (auto itor : (*map)) {
-        callback(itor.first, itor.second);
+        callback(const_cast<K &>(itor.first), itor.second);
     }
 }
 
-template <class K,  class V, class Map>
-int olua_push_map(lua_State *L, const Map *map, const std::function<void(K, V)> &push)
+template <class K, class V, template<class ...> class Map, class ...Ts>
+int olua_push_map(lua_State *L, const Map<K, V, Ts...> *map, const std::function<void(K &, V &)> &push)
 {
     lua_newtable(L);
-    olua_foreach_map<K, V>(map, [=](K key, V value) {
+    olua_foreach_map<K, V>(map, [=](K &key, V &value) {
         push(key, value);
         lua_rawset(L, -3);
     });
     return 1;
 }
 
-template <class K,  class V, class Map>
-void olua_check_map(lua_State *L, int idx, Map *map, const std::function<void(K *, V *)> &check)
+template <class K, class V, template<class ...> class Map, class ...Ts>
+void olua_check_map(lua_State *L, int idx, Map<K, V, Ts...> *map, const std::function<void(K *, V *)> &check)
 {
     idx = lua_absindex(L, idx);
     luaL_checktype(L, idx, LUA_TTABLE);
@@ -782,41 +879,41 @@ void olua_check_map(lua_State *L, int idx, Map *map, const std::function<void(K 
 
 // array
 template <class T>
-void olua_insert_array(std::vector<T> *array, T value)
+void olua_insert_array(std::vector<T> *array, const T &value)
 {
     array->push_back(value);
 }
 
 template <class T>
-void olua_insert_array(std::set<T> *array, T value)
+void olua_insert_array(std::set<T> *array, const T &value)
 {
     array->insert(value);
 }
 
-template <class T, class Array>
-void olua_foreach_array(const Array *array, const std::function<void(T)> &callback)
+template <class T, template<class ...> class Array, class ...Ts>
+void olua_foreach_array(const Array<T, Ts...> *array, const std::function<void(T &)> &callback)
 {
-    for (auto itor : (*array)) {
-        callback(itor);
+    for (auto &itor : (*array)) {
+        callback(const_cast<T &>(itor));
     }
 }
 
 #define olua_is_array(L, i)     (olua_istable(L, (i)))
 
-template <class T, class Array>
-int olua_push_array(lua_State *L, const Array *array, const std::function<void(T)> &push)
+template <class T, template<class ...> class Array, class ...Ts>
+int olua_push_array(lua_State *L, const Array<T, Ts...> *array, const std::function<void(T &)> &push)
 {
     int idx = 0;
     lua_newtable(L);
-    olua_foreach_array<T>(array, [=](T value) mutable {
+    olua_foreach_array<T>(array, [=](T &value) mutable {
         push(value);
         lua_rawseti(L, -2, ++idx);
     });
     return 1;
 }
 
-template <class T, class Array>
-void olua_check_array(lua_State *L, int idx, Array *array, const std::function<void(T *)> &check)
+template <class T, template<class ...> class Array, class ...Ts>
+void olua_check_array(lua_State *L, int idx, Array<T, Ts...> *array, const std::function<void(T *)> &check)
 {
     idx = lua_absindex(L, idx);
     luaL_checktype(L, idx, LUA_TTABLE);
@@ -830,8 +927,8 @@ void olua_check_array(lua_State *L, int idx, Array *array, const std::function<v
     }
 }
 
-template <typename T, class Array>
-void olua_pack_array(lua_State *L, int idx, Array *array, const std::function<void(T *)> &check)
+template <class T, template<class ...> class Array, class ...Ts>
+void olua_pack_array(lua_State *L, int idx, Array<T, Ts...> *array, const std::function<void(T *)> &check)
 {
     idx = lua_absindex(L, idx);
     int total = (int)(lua_gettop(L) - (idx - 1));
@@ -851,14 +948,14 @@ OLUA_API bool olua_is_callback(lua_State *L, int idx, const char *cls);
 OLUA_API int olua_push_callback(lua_State *L, const char *cls);
 OLUA_END_DECLS
 
-template <typename T>
+template <class T>
 int olua_push_callback(lua_State *L, const T *value, const char *cls)
 {
     return olua_push_callback(L, olua_getluatype(L, value, cls));
 }
 
-template <typename T> inline
-void olua_check_callback(lua_State *L, int idx, T *value, const char *cls)
+template <class T>
+inline void olua_check_callback(lua_State *L, int idx, T *value, const char *cls)
 {
     luaL_checktype(L, idx, LUA_TFUNCTION);
 }

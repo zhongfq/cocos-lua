@@ -151,7 +151,7 @@ static int _spine_SpineObject___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::SpineObject *)olua_toobj(L, 1, "sp.SpineObject");
-    olua_push_cppobj(L, self, "sp.SpineObject");
+    olua_push_obj(L, self, "sp.SpineObject");
 
     olua_endinvoke(L);
 
@@ -175,7 +175,7 @@ static int _spine_Event___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::Event *)olua_toobj(L, 1, "sp.Event");
-    olua_push_cppobj(L, self, "sp.Event");
+    olua_push_obj(L, self, "sp.Event");
 
     olua_endinvoke(L);
 
@@ -188,7 +188,7 @@ static int _spine_Event_getBalance(lua_State *L)
 
     spine::Event *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Event");
+    olua_to_obj(L, 1, &self, "sp.Event");
 
     // float getBalance()
     float ret = self->getBalance();
@@ -205,7 +205,7 @@ static int _spine_Event_getData(lua_State *L)
 
     spine::Event *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Event");
+    olua_to_obj(L, 1, &self, "sp.Event");
 
     // const spine::EventData &getData()
     const spine::EventData &ret = self->getData();
@@ -222,7 +222,7 @@ static int _spine_Event_getFloatValue(lua_State *L)
 
     spine::Event *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Event");
+    olua_to_obj(L, 1, &self, "sp.Event");
 
     // float getFloatValue()
     float ret = self->getFloatValue();
@@ -239,7 +239,7 @@ static int _spine_Event_getIntValue(lua_State *L)
 
     spine::Event *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Event");
+    olua_to_obj(L, 1, &self, "sp.Event");
 
     // int getIntValue()
     int ret = self->getIntValue();
@@ -256,7 +256,7 @@ static int _spine_Event_getStringValue(lua_State *L)
 
     spine::Event *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Event");
+    olua_to_obj(L, 1, &self, "sp.Event");
 
     // const spine::String &getStringValue()
     const spine::String &ret = self->getStringValue();
@@ -273,7 +273,7 @@ static int _spine_Event_getTime(lua_State *L)
 
     spine::Event *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Event");
+    olua_to_obj(L, 1, &self, "sp.Event");
 
     // float getTime()
     float ret = self->getTime();
@@ -290,7 +290,7 @@ static int _spine_Event_getVolume(lua_State *L)
 
     spine::Event *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Event");
+    olua_to_obj(L, 1, &self, "sp.Event");
 
     // float getVolume()
     float ret = self->getVolume();
@@ -308,7 +308,7 @@ static int _spine_Event_setBalance(lua_State *L)
     spine::Event *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Event");
+    olua_to_obj(L, 1, &self, "sp.Event");
     olua_check_number(L, 2, &arg1);
 
     // void setBalance(float inValue)
@@ -326,7 +326,7 @@ static int _spine_Event_setFloatValue(lua_State *L)
     spine::Event *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Event");
+    olua_to_obj(L, 1, &self, "sp.Event");
     olua_check_number(L, 2, &arg1);
 
     // void setFloatValue(float inValue)
@@ -344,7 +344,7 @@ static int _spine_Event_setIntValue(lua_State *L)
     spine::Event *self = nullptr;
     lua_Integer arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Event");
+    olua_to_obj(L, 1, &self, "sp.Event");
     olua_check_int(L, 2, &arg1);
 
     // void setIntValue(int inValue)
@@ -362,7 +362,7 @@ static int _spine_Event_setStringValue(lua_State *L)
     spine::Event *self = nullptr;
     spine::String arg1;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Event");
+    olua_to_obj(L, 1, &self, "sp.Event");
     olua_check_spine_String(L, 2, &arg1);
 
     // void setStringValue(const spine::String &inValue)
@@ -380,7 +380,7 @@ static int _spine_Event_setVolume(lua_State *L)
     spine::Event *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Event");
+    olua_to_obj(L, 1, &self, "sp.Event");
     olua_check_number(L, 2, &arg1);
 
     // void setVolume(float inValue)
@@ -438,7 +438,7 @@ static int _spine_EventData___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::EventData *)olua_toobj(L, 1, "sp.EventData");
-    olua_push_cppobj(L, self, "sp.EventData");
+    olua_push_obj(L, self, "sp.EventData");
 
     olua_endinvoke(L);
 
@@ -451,7 +451,7 @@ static int _spine_EventData_getAudioPath(lua_State *L)
 
     spine::EventData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.EventData");
+    olua_to_obj(L, 1, &self, "sp.EventData");
 
     // const spine::String &getAudioPath()
     const spine::String &ret = self->getAudioPath();
@@ -468,7 +468,7 @@ static int _spine_EventData_getBalance(lua_State *L)
 
     spine::EventData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.EventData");
+    olua_to_obj(L, 1, &self, "sp.EventData");
 
     // float getBalance()
     float ret = self->getBalance();
@@ -485,7 +485,7 @@ static int _spine_EventData_getFloatValue(lua_State *L)
 
     spine::EventData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.EventData");
+    olua_to_obj(L, 1, &self, "sp.EventData");
 
     // float getFloatValue()
     float ret = self->getFloatValue();
@@ -502,7 +502,7 @@ static int _spine_EventData_getIntValue(lua_State *L)
 
     spine::EventData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.EventData");
+    olua_to_obj(L, 1, &self, "sp.EventData");
 
     // int getIntValue()
     int ret = self->getIntValue();
@@ -519,7 +519,7 @@ static int _spine_EventData_getName(lua_State *L)
 
     spine::EventData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.EventData");
+    olua_to_obj(L, 1, &self, "sp.EventData");
 
     // const spine::String &getName()
     const spine::String &ret = self->getName();
@@ -536,7 +536,7 @@ static int _spine_EventData_getStringValue(lua_State *L)
 
     spine::EventData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.EventData");
+    olua_to_obj(L, 1, &self, "sp.EventData");
 
     // const spine::String &getStringValue()
     const spine::String &ret = self->getStringValue();
@@ -553,7 +553,7 @@ static int _spine_EventData_getVolume(lua_State *L)
 
     spine::EventData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.EventData");
+    olua_to_obj(L, 1, &self, "sp.EventData");
 
     // float getVolume()
     float ret = self->getVolume();
@@ -574,7 +574,7 @@ static int _spine_EventData_new(lua_State *L)
 
     // EventData(const spine::String &name)
     spine::EventData *ret = new spine::EventData(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.EventData");
+    int num_ret = olua_push_obj(L, ret, "sp.EventData");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -589,7 +589,7 @@ static int _spine_EventData_setAudioPath(lua_State *L)
     spine::EventData *self = nullptr;
     spine::String arg1;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.EventData");
+    olua_to_obj(L, 1, &self, "sp.EventData");
     olua_check_spine_String(L, 2, &arg1);
 
     // void setAudioPath(const spine::String &inValue)
@@ -607,7 +607,7 @@ static int _spine_EventData_setBalance(lua_State *L)
     spine::EventData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.EventData");
+    olua_to_obj(L, 1, &self, "sp.EventData");
     olua_check_number(L, 2, &arg1);
 
     // void setBalance(float inValue)
@@ -625,7 +625,7 @@ static int _spine_EventData_setFloatValue(lua_State *L)
     spine::EventData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.EventData");
+    olua_to_obj(L, 1, &self, "sp.EventData");
     olua_check_number(L, 2, &arg1);
 
     // void setFloatValue(float inValue)
@@ -643,7 +643,7 @@ static int _spine_EventData_setIntValue(lua_State *L)
     spine::EventData *self = nullptr;
     lua_Integer arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.EventData");
+    olua_to_obj(L, 1, &self, "sp.EventData");
     olua_check_int(L, 2, &arg1);
 
     // void setIntValue(int inValue)
@@ -661,7 +661,7 @@ static int _spine_EventData_setStringValue(lua_State *L)
     spine::EventData *self = nullptr;
     spine::String arg1;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.EventData");
+    olua_to_obj(L, 1, &self, "sp.EventData");
     olua_check_spine_String(L, 2, &arg1);
 
     // void setStringValue(const spine::String &inValue)
@@ -679,7 +679,7 @@ static int _spine_EventData_setVolume(lua_State *L)
     spine::EventData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.EventData");
+    olua_to_obj(L, 1, &self, "sp.EventData");
     olua_check_number(L, 2, &arg1);
 
     // void setVolume(float inValue)
@@ -729,7 +729,7 @@ static int _spine_Updatable___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::Updatable *)olua_toobj(L, 1, "sp.Updatable");
-    olua_push_cppobj(L, self, "sp.Updatable");
+    olua_push_obj(L, self, "sp.Updatable");
 
     olua_endinvoke(L);
 
@@ -742,7 +742,7 @@ static int _spine_Updatable_isActive(lua_State *L)
 
     spine::Updatable *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Updatable");
+    olua_to_obj(L, 1, &self, "sp.Updatable");
 
     // bool isActive()
     bool ret = self->isActive();
@@ -760,7 +760,7 @@ static int _spine_Updatable_setActive(lua_State *L)
     spine::Updatable *self = nullptr;
     bool arg1 = false;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Updatable");
+    olua_to_obj(L, 1, &self, "sp.Updatable");
     olua_check_bool(L, 2, &arg1);
 
     // void setActive(bool inValue)
@@ -777,7 +777,7 @@ static int _spine_Updatable_update(lua_State *L)
 
     spine::Updatable *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Updatable");
+    olua_to_obj(L, 1, &self, "sp.Updatable");
 
     // void update()
     self->update();
@@ -843,7 +843,7 @@ static int _spine_AnimationState___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::AnimationState *)olua_toobj(L, 1, "sp.AnimationState");
-    olua_push_cppobj(L, self, "sp.AnimationState");
+    olua_push_obj(L, self, "sp.AnimationState");
 
     olua_endinvoke(L);
 
@@ -860,7 +860,7 @@ static int _spine_AnimationState_addAnimation1(lua_State *L)
     bool arg3 = false;       /** loop */
     lua_Number arg4 = 0;       /** delay */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
+    olua_to_obj(L, 1, &self, "sp.AnimationState");
     olua_check_uint(L, 2, &arg1);
     olua_check_spine_String(L, 3, &arg2);
     olua_check_bool(L, 4, &arg3);
@@ -868,7 +868,7 @@ static int _spine_AnimationState_addAnimation1(lua_State *L)
 
     // spine::TrackEntry *addAnimation(size_t trackIndex, const spine::String &animationName, bool loop, float delay)
     spine::TrackEntry *ret = self->addAnimation((size_t)arg1, arg2, arg3, (float)arg4);
-    int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
 
     olua_endinvoke(L);
 
@@ -885,15 +885,15 @@ static int _spine_AnimationState_addAnimation2(lua_State *L)
     bool arg3 = false;       /** loop */
     lua_Number arg4 = 0;       /** delay */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
+    olua_to_obj(L, 1, &self, "sp.AnimationState");
     olua_check_uint(L, 2, &arg1);
-    olua_check_cppobj(L, 3, (void **)&arg2, "sp.Animation");
+    olua_check_obj(L, 3, &arg2, "sp.Animation");
     olua_check_bool(L, 4, &arg3);
     olua_check_number(L, 5, &arg4);
 
     // spine::TrackEntry *addAnimation(size_t trackIndex, spine::Animation *animation, bool loop, float delay)
     spine::TrackEntry *ret = self->addAnimation((size_t)arg1, arg2, arg3, (float)arg4);
-    int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
 
     olua_endinvoke(L);
 
@@ -910,7 +910,7 @@ static int _spine_AnimationState_addAnimation(lua_State *L)
             return _spine_AnimationState_addAnimation1(L);
         }
 
-        // if ((olua_is_uint(L, 2)) && (olua_is_cppobj(L, 3, "sp.Animation")) && (olua_is_bool(L, 4)) && (olua_is_number(L, 5))) {
+        // if ((olua_is_uint(L, 2)) && (olua_is_obj(L, 3, "sp.Animation")) && (olua_is_bool(L, 4)) && (olua_is_number(L, 5))) {
             // spine::TrackEntry *addAnimation(size_t trackIndex, spine::Animation *animation, bool loop, float delay)
             return _spine_AnimationState_addAnimation2(L);
         // }
@@ -930,14 +930,14 @@ static int _spine_AnimationState_addEmptyAnimation(lua_State *L)
     lua_Number arg2 = 0;       /** mixDuration */
     lua_Number arg3 = 0;       /** delay */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
+    olua_to_obj(L, 1, &self, "sp.AnimationState");
     olua_check_uint(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
     olua_check_number(L, 4, &arg3);
 
     // spine::TrackEntry *addEmptyAnimation(size_t trackIndex, float mixDuration, float delay)
     spine::TrackEntry *ret = self->addEmptyAnimation((size_t)arg1, (float)arg2, (float)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
 
     olua_endinvoke(L);
 
@@ -951,7 +951,7 @@ static int _spine_AnimationState_clearTrack(lua_State *L)
     spine::AnimationState *self = nullptr;
     lua_Unsigned arg1 = 0;       /** trackIndex */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
+    olua_to_obj(L, 1, &self, "sp.AnimationState");
     olua_check_uint(L, 2, &arg1);
 
     // void clearTrack(size_t trackIndex)
@@ -968,7 +968,7 @@ static int _spine_AnimationState_clearTracks(lua_State *L)
 
     spine::AnimationState *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
+    olua_to_obj(L, 1, &self, "sp.AnimationState");
 
     // void clearTracks()
     self->clearTracks();
@@ -984,7 +984,7 @@ static int _spine_AnimationState_disableQueue(lua_State *L)
 
     spine::AnimationState *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
+    olua_to_obj(L, 1, &self, "sp.AnimationState");
 
     // void disableQueue()
     self->disableQueue();
@@ -1000,7 +1000,7 @@ static int _spine_AnimationState_enableQueue(lua_State *L)
 
     spine::AnimationState *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
+    olua_to_obj(L, 1, &self, "sp.AnimationState");
 
     // void enableQueue()
     self->enableQueue();
@@ -1017,12 +1017,12 @@ static int _spine_AnimationState_getCurrent(lua_State *L)
     spine::AnimationState *self = nullptr;
     lua_Unsigned arg1 = 0;       /** trackIndex */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
+    olua_to_obj(L, 1, &self, "sp.AnimationState");
     olua_check_uint(L, 2, &arg1);
 
     // spine::TrackEntry *getCurrent(size_t trackIndex)
     spine::TrackEntry *ret = self->getCurrent((size_t)arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
 
     olua_endinvoke(L);
 
@@ -1035,11 +1035,11 @@ static int _spine_AnimationState_getData(lua_State *L)
 
     spine::AnimationState *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
+    olua_to_obj(L, 1, &self, "sp.AnimationState");
 
     // spine::AnimationStateData *getData()
     spine::AnimationStateData *ret = self->getData();
-    int num_ret = olua_push_cppobj(L, ret, "sp.AnimationStateData");
+    int num_ret = olua_push_obj(L, ret, "sp.AnimationStateData");
 
     olua_endinvoke(L);
 
@@ -1052,7 +1052,7 @@ static int _spine_AnimationState_getTimeScale(lua_State *L)
 
     spine::AnimationState *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
+    olua_to_obj(L, 1, &self, "sp.AnimationState");
 
     // float getTimeScale()
     float ret = self->getTimeScale();
@@ -1069,12 +1069,12 @@ static int _spine_AnimationState_getTracks(lua_State *L)
 
     spine::AnimationState *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
+    olua_to_obj(L, 1, &self, "sp.AnimationState");
 
     // spine::Vector<spine::TrackEntry *> &getTracks()
     spine::Vector<spine::TrackEntry *> &ret = self->getTracks();
     int num_ret = olua_push_array<spine::TrackEntry *>(L, &ret, [L](spine::TrackEntry *value) {
-        olua_push_cppobj(L, value, "sp.TrackEntry");
+        olua_push_obj(L, value, "sp.TrackEntry");
     });
 
     olua_endinvoke(L);
@@ -1088,11 +1088,11 @@ static int _spine_AnimationState_new(lua_State *L)
 
     spine::AnimationStateData *arg1 = nullptr;       /** data */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "sp.AnimationStateData");
+    olua_check_obj(L, 1, &arg1, "sp.AnimationStateData");
 
     // AnimationState(spine::AnimationStateData *data)
     spine::AnimationState *ret = new spine::AnimationState(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.AnimationState");
+    int num_ret = olua_push_obj(L, ret, "sp.AnimationState");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -1109,14 +1109,14 @@ static int _spine_AnimationState_setAnimation1(lua_State *L)
     spine::String arg2;       /** animationName */
     bool arg3 = false;       /** loop */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
+    olua_to_obj(L, 1, &self, "sp.AnimationState");
     olua_check_uint(L, 2, &arg1);
     olua_check_spine_String(L, 3, &arg2);
     olua_check_bool(L, 4, &arg3);
 
     // spine::TrackEntry *setAnimation(size_t trackIndex, const spine::String &animationName, bool loop)
     spine::TrackEntry *ret = self->setAnimation((size_t)arg1, arg2, arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
 
     olua_endinvoke(L);
 
@@ -1132,14 +1132,14 @@ static int _spine_AnimationState_setAnimation2(lua_State *L)
     spine::Animation *arg2 = nullptr;       /** animation */
     bool arg3 = false;       /** loop */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
+    olua_to_obj(L, 1, &self, "sp.AnimationState");
     olua_check_uint(L, 2, &arg1);
-    olua_check_cppobj(L, 3, (void **)&arg2, "sp.Animation");
+    olua_check_obj(L, 3, &arg2, "sp.Animation");
     olua_check_bool(L, 4, &arg3);
 
     // spine::TrackEntry *setAnimation(size_t trackIndex, spine::Animation *animation, bool loop)
     spine::TrackEntry *ret = self->setAnimation((size_t)arg1, arg2, arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
 
     olua_endinvoke(L);
 
@@ -1156,7 +1156,7 @@ static int _spine_AnimationState_setAnimation(lua_State *L)
             return _spine_AnimationState_setAnimation1(L);
         }
 
-        // if ((olua_is_uint(L, 2)) && (olua_is_cppobj(L, 3, "sp.Animation")) && (olua_is_bool(L, 4))) {
+        // if ((olua_is_uint(L, 2)) && (olua_is_obj(L, 3, "sp.Animation")) && (olua_is_bool(L, 4))) {
             // spine::TrackEntry *setAnimation(size_t trackIndex, spine::Animation *animation, bool loop)
             return _spine_AnimationState_setAnimation2(L);
         // }
@@ -1175,13 +1175,13 @@ static int _spine_AnimationState_setEmptyAnimation(lua_State *L)
     lua_Unsigned arg1 = 0;       /** trackIndex */
     lua_Number arg2 = 0;       /** mixDuration */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
+    olua_to_obj(L, 1, &self, "sp.AnimationState");
     olua_check_uint(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
 
     // spine::TrackEntry *setEmptyAnimation(size_t trackIndex, float mixDuration)
     spine::TrackEntry *ret = self->setEmptyAnimation((size_t)arg1, (float)arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
 
     olua_endinvoke(L);
 
@@ -1195,7 +1195,7 @@ static int _spine_AnimationState_setEmptyAnimations(lua_State *L)
     spine::AnimationState *self = nullptr;
     lua_Number arg1 = 0;       /** mixDuration */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
+    olua_to_obj(L, 1, &self, "sp.AnimationState");
     olua_check_number(L, 2, &arg1);
 
     // void setEmptyAnimations(float mixDuration)
@@ -1213,7 +1213,7 @@ static int _spine_AnimationState_setListener(lua_State *L)
     spine::AnimationState *self = nullptr;
     spine::AnimationStateListener arg1;       /** listener */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
+    olua_to_obj(L, 1, &self, "sp.AnimationState");
     olua_check_callback(L, 2, &arg1, "sp.AnimationStateListener");
 
     void *cb_store = (void *)self;
@@ -1226,10 +1226,10 @@ static int _spine_AnimationState_setListener(lua_State *L)
 
         if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
-            olua_push_cppobj(L, arg1, "sp.AnimationState");
+            olua_push_obj(L, arg1, "sp.AnimationState");
             olua_push_uint(L, (lua_Unsigned)arg2);
-            olua_push_cppobj(L, arg3, "sp.TrackEntry");
-            olua_push_cppobj(L, arg4, "sp.Event");
+            olua_push_obj(L, arg3, "sp.TrackEntry");
+            olua_push_obj(L, arg4, "sp.Event");
 
             olua_callback(L, cb_store, cb_name.c_str(), 4);
 
@@ -1252,7 +1252,7 @@ static int _spine_AnimationState_setTimeScale(lua_State *L)
     spine::AnimationState *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
+    olua_to_obj(L, 1, &self, "sp.AnimationState");
     olua_check_number(L, 2, &arg1);
 
     // void setTimeScale(float inValue)
@@ -1270,7 +1270,7 @@ static int _spine_AnimationState_update(lua_State *L)
     spine::AnimationState *self = nullptr;
     lua_Number arg1 = 0;       /** delta */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
+    olua_to_obj(L, 1, &self, "sp.AnimationState");
     olua_check_number(L, 2, &arg1);
 
     // void update(float delta)
@@ -1330,7 +1330,7 @@ static int _spine_AnimationStateData___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::AnimationStateData *)olua_toobj(L, 1, "sp.AnimationStateData");
-    olua_push_cppobj(L, self, "sp.AnimationStateData");
+    olua_push_obj(L, self, "sp.AnimationStateData");
 
     olua_endinvoke(L);
 
@@ -1343,7 +1343,7 @@ static int _spine_AnimationStateData_clear(lua_State *L)
 
     spine::AnimationStateData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationStateData");
+    olua_to_obj(L, 1, &self, "sp.AnimationStateData");
 
     // void clear()
     self->clear();
@@ -1359,7 +1359,7 @@ static int _spine_AnimationStateData_getDefaultMix(lua_State *L)
 
     spine::AnimationStateData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationStateData");
+    olua_to_obj(L, 1, &self, "sp.AnimationStateData");
 
     // float getDefaultMix()
     float ret = self->getDefaultMix();
@@ -1378,9 +1378,9 @@ static int _spine_AnimationStateData_getMix(lua_State *L)
     spine::Animation *arg1 = nullptr;       /** from */
     spine::Animation *arg2 = nullptr;       /** to */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationStateData");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Animation");
-    olua_check_cppobj(L, 3, (void **)&arg2, "sp.Animation");
+    olua_to_obj(L, 1, &self, "sp.AnimationStateData");
+    olua_check_obj(L, 2, &arg1, "sp.Animation");
+    olua_check_obj(L, 3, &arg2, "sp.Animation");
 
     // float getMix(spine::Animation *from, spine::Animation *to)
     float ret = self->getMix(arg1, arg2);
@@ -1397,11 +1397,11 @@ static int _spine_AnimationStateData_getSkeletonData(lua_State *L)
 
     spine::AnimationStateData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationStateData");
+    olua_to_obj(L, 1, &self, "sp.AnimationStateData");
 
     // spine::SkeletonData *getSkeletonData()
     spine::SkeletonData *ret = self->getSkeletonData();
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonData");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonData");
 
     olua_endinvoke(L);
 
@@ -1414,11 +1414,11 @@ static int _spine_AnimationStateData_new(lua_State *L)
 
     spine::SkeletonData *arg1 = nullptr;       /** skeletonData */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "sp.SkeletonData");
+    olua_check_obj(L, 1, &arg1, "sp.SkeletonData");
 
     // AnimationStateData(spine::SkeletonData *skeletonData)
     spine::AnimationStateData *ret = new spine::AnimationStateData(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.AnimationStateData");
+    int num_ret = olua_push_obj(L, ret, "sp.AnimationStateData");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -1433,7 +1433,7 @@ static int _spine_AnimationStateData_setDefaultMix(lua_State *L)
     spine::AnimationStateData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationStateData");
+    olua_to_obj(L, 1, &self, "sp.AnimationStateData");
     olua_check_number(L, 2, &arg1);
 
     // void setDefaultMix(float inValue)
@@ -1453,7 +1453,7 @@ static int _spine_AnimationStateData_setMix1(lua_State *L)
     spine::String arg2;       /** toName */
     lua_Number arg3 = 0;       /** duration */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationStateData");
+    olua_to_obj(L, 1, &self, "sp.AnimationStateData");
     olua_check_spine_String(L, 2, &arg1);
     olua_check_spine_String(L, 3, &arg2);
     olua_check_number(L, 4, &arg3);
@@ -1475,9 +1475,9 @@ static int _spine_AnimationStateData_setMix2(lua_State *L)
     spine::Animation *arg2 = nullptr;       /** to */
     lua_Number arg3 = 0;       /** duration */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationStateData");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Animation");
-    olua_check_cppobj(L, 3, (void **)&arg2, "sp.Animation");
+    olua_to_obj(L, 1, &self, "sp.AnimationStateData");
+    olua_check_obj(L, 2, &arg1, "sp.Animation");
+    olua_check_obj(L, 3, &arg2, "sp.Animation");
     olua_check_number(L, 4, &arg3);
 
     // void setMix(spine::Animation *from, spine::Animation *to, float duration)
@@ -1498,7 +1498,7 @@ static int _spine_AnimationStateData_setMix(lua_State *L)
             return _spine_AnimationStateData_setMix1(L);
         }
 
-        // if ((olua_is_cppobj(L, 2, "sp.Animation")) && (olua_is_cppobj(L, 3, "sp.Animation")) && (olua_is_number(L, 4))) {
+        // if ((olua_is_obj(L, 2, "sp.Animation")) && (olua_is_obj(L, 3, "sp.Animation")) && (olua_is_number(L, 4))) {
             // void setMix(spine::Animation *from, spine::Animation *to, float duration)
             return _spine_AnimationStateData_setMix2(L);
         // }
@@ -1547,7 +1547,7 @@ static int _spine_Animation___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::Animation *)olua_toobj(L, 1, "sp.Animation");
-    olua_push_cppobj(L, self, "sp.Animation");
+    olua_push_obj(L, self, "sp.Animation");
 
     olua_endinvoke(L);
 
@@ -1560,7 +1560,7 @@ static int _spine_Animation_getDuration(lua_State *L)
 
     spine::Animation *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Animation");
+    olua_to_obj(L, 1, &self, "sp.Animation");
 
     // float getDuration()
     float ret = self->getDuration();
@@ -1577,7 +1577,7 @@ static int _spine_Animation_getName(lua_State *L)
 
     spine::Animation *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Animation");
+    olua_to_obj(L, 1, &self, "sp.Animation");
 
     // const spine::String &getName()
     const spine::String &ret = self->getName();
@@ -1594,12 +1594,12 @@ static int _spine_Animation_getTimelines(lua_State *L)
 
     spine::Animation *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Animation");
+    olua_to_obj(L, 1, &self, "sp.Animation");
 
     // spine::Vector<spine::Timeline *> &getTimelines()
     spine::Vector<spine::Timeline *> &ret = self->getTimelines();
     int num_ret = olua_push_array<spine::Timeline *>(L, &ret, [L](spine::Timeline *value) {
-        olua_push_cppobj(L, value, "sp.Timeline");
+        olua_push_obj(L, value, "sp.Timeline");
     });
 
     olua_endinvoke(L);
@@ -1614,7 +1614,7 @@ static int _spine_Animation_hasTimeline(lua_State *L)
     spine::Animation *self = nullptr;
     spine::Vector<spine::PropertyId> arg1;       /** ids */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Animation");
+    olua_to_obj(L, 1, &self, "sp.Animation");
     olua_check_array<spine::PropertyId>(L, 2, &arg1, [L](spine::PropertyId *value) {
         lua_Integer obj;
         olua_check_int(L, -1, &obj);
@@ -1640,13 +1640,13 @@ static int _spine_Animation_new(lua_State *L)
 
     olua_check_spine_String(L, 1, &arg1);
     olua_check_array<spine::Timeline *>(L, 2, &arg2, [L](spine::Timeline **value) {
-        olua_check_cppobj(L, -1, (void **)value, "sp.Timeline");
+        olua_check_obj(L, -1, value, "sp.Timeline");
     });
     olua_check_number(L, 3, &arg3);
 
     // Animation(const spine::String &name, spine::Vector<spine::Timeline *> &timelines, float duration)
     spine::Animation *ret = new spine::Animation(arg1, arg2, (float)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.Animation");
+    int num_ret = olua_push_obj(L, ret, "sp.Animation");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -1732,7 +1732,7 @@ static int _spine_Animation_setDuration(lua_State *L)
     spine::Animation *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Animation");
+    olua_to_obj(L, 1, &self, "sp.Animation");
     olua_check_number(L, 2, &arg1);
 
     // void setDuration(float inValue)
@@ -1782,7 +1782,7 @@ static int _spine_Sequence___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::Sequence *)olua_toobj(L, 1, "sp.Sequence");
-    olua_push_cppobj(L, self, "sp.Sequence");
+    olua_push_obj(L, self, "sp.Sequence");
 
     olua_endinvoke(L);
 
@@ -1797,9 +1797,9 @@ static int _spine_Sequence_apply(lua_State *L)
     spine::Slot *arg1 = nullptr;       /** slot */
     spine::Attachment *arg2 = nullptr;       /** attachment */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Slot");
-    olua_check_cppobj(L, 3, (void **)&arg2, "sp.Attachment");
+    olua_to_obj(L, 1, &self, "sp.Sequence");
+    olua_check_obj(L, 2, &arg1, "sp.Slot");
+    olua_check_obj(L, 3, &arg2, "sp.Attachment");
 
     // void apply(spine::Slot *slot, spine::Attachment *attachment)
     self->apply(arg1, arg2);
@@ -1815,11 +1815,11 @@ static int _spine_Sequence_copy(lua_State *L)
 
     spine::Sequence *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+    olua_to_obj(L, 1, &self, "sp.Sequence");
 
     // spine::Sequence *copy()
     spine::Sequence *ret = self->copy();
-    int num_ret = olua_push_cppobj(L, ret, "sp.Sequence");
+    int num_ret = olua_push_obj(L, ret, "sp.Sequence");
 
     olua_endinvoke(L);
 
@@ -1832,7 +1832,7 @@ static int _spine_Sequence_getDigits(lua_State *L)
 
     spine::Sequence *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+    olua_to_obj(L, 1, &self, "sp.Sequence");
 
     // int getDigits()
     int ret = self->getDigits();
@@ -1849,7 +1849,7 @@ static int _spine_Sequence_getId(lua_State *L)
 
     spine::Sequence *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+    olua_to_obj(L, 1, &self, "sp.Sequence");
 
     // int getId()
     int ret = self->getId();
@@ -1868,7 +1868,7 @@ static int _spine_Sequence_getPath(lua_State *L)
     spine::String arg1;       /** basePath */
     lua_Integer arg2 = 0;       /** index */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+    olua_to_obj(L, 1, &self, "sp.Sequence");
     olua_check_spine_String(L, 2, &arg1);
     olua_check_int(L, 3, &arg2);
 
@@ -1887,12 +1887,12 @@ static int _spine_Sequence_getRegions(lua_State *L)
 
     spine::Sequence *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+    olua_to_obj(L, 1, &self, "sp.Sequence");
 
     // spine::Vector<spine::TextureRegion *> &getRegions()
     spine::Vector<spine::TextureRegion *> &ret = self->getRegions();
     int num_ret = olua_push_array<spine::TextureRegion *>(L, &ret, [L](spine::TextureRegion *value) {
-        olua_push_cppobj(L, value, "sp.TextureRegion");
+        olua_push_obj(L, value, "sp.TextureRegion");
     });
 
     olua_endinvoke(L);
@@ -1906,7 +1906,7 @@ static int _spine_Sequence_getSetupIndex(lua_State *L)
 
     spine::Sequence *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+    olua_to_obj(L, 1, &self, "sp.Sequence");
 
     // int getSetupIndex()
     int ret = self->getSetupIndex();
@@ -1923,7 +1923,7 @@ static int _spine_Sequence_getStart(lua_State *L)
 
     spine::Sequence *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+    olua_to_obj(L, 1, &self, "sp.Sequence");
 
     // int getStart()
     int ret = self->getStart();
@@ -1944,7 +1944,7 @@ static int _spine_Sequence_new(lua_State *L)
 
     // Sequence(int count)
     spine::Sequence *ret = new spine::Sequence((int)arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.Sequence");
+    int num_ret = olua_push_obj(L, ret, "sp.Sequence");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -1959,7 +1959,7 @@ static int _spine_Sequence_setDigits(lua_State *L)
     spine::Sequence *self = nullptr;
     lua_Integer arg1 = 0;       /** digits */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+    olua_to_obj(L, 1, &self, "sp.Sequence");
     olua_check_int(L, 2, &arg1);
 
     // void setDigits(int digits)
@@ -1977,7 +1977,7 @@ static int _spine_Sequence_setId(lua_State *L)
     spine::Sequence *self = nullptr;
     lua_Integer arg1 = 0;       /** id */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+    olua_to_obj(L, 1, &self, "sp.Sequence");
     olua_check_int(L, 2, &arg1);
 
     // void setId(int id)
@@ -1995,7 +1995,7 @@ static int _spine_Sequence_setSetupIndex(lua_State *L)
     spine::Sequence *self = nullptr;
     lua_Integer arg1 = 0;       /** setupIndex */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+    olua_to_obj(L, 1, &self, "sp.Sequence");
     olua_check_int(L, 2, &arg1);
 
     // void setSetupIndex(int setupIndex)
@@ -2013,7 +2013,7 @@ static int _spine_Sequence_setStart(lua_State *L)
     spine::Sequence *self = nullptr;
     lua_Integer arg1 = 0;       /** start */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Sequence");
+    olua_to_obj(L, 1, &self, "sp.Sequence");
     olua_check_int(L, 2, &arg1);
 
     // void setStart(int start)
@@ -2071,7 +2071,7 @@ static int _spine_TextureRegion___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::TextureRegion *)olua_toobj(L, 1, "sp.TextureRegion");
-    olua_push_cppobj(L, self, "sp.TextureRegion");
+    olua_push_obj(L, self, "sp.TextureRegion");
 
     olua_endinvoke(L);
 
@@ -2084,7 +2084,7 @@ static int _spine_TextureRegion_new(lua_State *L)
 
     // TextureRegion()
     spine::TextureRegion *ret = new spine::TextureRegion();
-    int num_ret = olua_push_cppobj(L, ret, "sp.TextureRegion");
+    int num_ret = olua_push_obj(L, ret, "sp.TextureRegion");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -2098,7 +2098,7 @@ static int _spine_TextureRegion_get_degrees(lua_State *L)
 
     spine::TextureRegion *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
 
     // int degrees
     int ret = self->degrees;
@@ -2116,7 +2116,7 @@ static int _spine_TextureRegion_set_degrees(lua_State *L)
     spine::TextureRegion *self = nullptr;
     lua_Integer arg1 = 0;       /** degrees */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
     olua_check_int(L, 2, &arg1);
 
     // int degrees
@@ -2133,7 +2133,7 @@ static int _spine_TextureRegion_get_height(lua_State *L)
 
     spine::TextureRegion *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
 
     // int height
     int ret = self->height;
@@ -2151,7 +2151,7 @@ static int _spine_TextureRegion_set_height(lua_State *L)
     spine::TextureRegion *self = nullptr;
     lua_Integer arg1 = 0;       /** height */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
     olua_check_int(L, 2, &arg1);
 
     // int height
@@ -2168,7 +2168,7 @@ static int _spine_TextureRegion_get_offsetX(lua_State *L)
 
     spine::TextureRegion *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
 
     // float offsetX
     float ret = self->offsetX;
@@ -2186,7 +2186,7 @@ static int _spine_TextureRegion_set_offsetX(lua_State *L)
     spine::TextureRegion *self = nullptr;
     lua_Number arg1 = 0;       /** offsetX */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
     olua_check_number(L, 2, &arg1);
 
     // float offsetX
@@ -2203,7 +2203,7 @@ static int _spine_TextureRegion_get_offsetY(lua_State *L)
 
     spine::TextureRegion *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
 
     // float offsetY
     float ret = self->offsetY;
@@ -2221,7 +2221,7 @@ static int _spine_TextureRegion_set_offsetY(lua_State *L)
     spine::TextureRegion *self = nullptr;
     lua_Number arg1 = 0;       /** offsetY */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
     olua_check_number(L, 2, &arg1);
 
     // float offsetY
@@ -2238,7 +2238,7 @@ static int _spine_TextureRegion_get_originalHeight(lua_State *L)
 
     spine::TextureRegion *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
 
     // int originalHeight
     int ret = self->originalHeight;
@@ -2256,7 +2256,7 @@ static int _spine_TextureRegion_set_originalHeight(lua_State *L)
     spine::TextureRegion *self = nullptr;
     lua_Integer arg1 = 0;       /** originalHeight */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
     olua_check_int(L, 2, &arg1);
 
     // int originalHeight
@@ -2273,7 +2273,7 @@ static int _spine_TextureRegion_get_originalWidth(lua_State *L)
 
     spine::TextureRegion *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
 
     // int originalWidth
     int ret = self->originalWidth;
@@ -2291,7 +2291,7 @@ static int _spine_TextureRegion_set_originalWidth(lua_State *L)
     spine::TextureRegion *self = nullptr;
     lua_Integer arg1 = 0;       /** originalWidth */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
     olua_check_int(L, 2, &arg1);
 
     // int originalWidth
@@ -2308,7 +2308,7 @@ static int _spine_TextureRegion_get_rendererObject(lua_State *L)
 
     spine::TextureRegion *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
 
     // void *rendererObject
     void *ret = self->rendererObject;
@@ -2326,8 +2326,8 @@ static int _spine_TextureRegion_set_rendererObject(lua_State *L)
     spine::TextureRegion *self = nullptr;
     void *arg1 = nullptr;       /** rendererObject */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
-    olua_check_obj(L, 2, (void **)&arg1, "void *");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
+    olua_check_obj(L, 2, &arg1, "void *");
 
     // void *rendererObject
     self->rendererObject = arg1;
@@ -2343,7 +2343,7 @@ static int _spine_TextureRegion_get_u(lua_State *L)
 
     spine::TextureRegion *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
 
     // float u
     float ret = self->u;
@@ -2361,7 +2361,7 @@ static int _spine_TextureRegion_set_u(lua_State *L)
     spine::TextureRegion *self = nullptr;
     lua_Number arg1 = 0;       /** u */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
     olua_check_number(L, 2, &arg1);
 
     // float u
@@ -2378,7 +2378,7 @@ static int _spine_TextureRegion_get_u2(lua_State *L)
 
     spine::TextureRegion *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
 
     // float u2
     float ret = self->u2;
@@ -2396,7 +2396,7 @@ static int _spine_TextureRegion_set_u2(lua_State *L)
     spine::TextureRegion *self = nullptr;
     lua_Number arg1 = 0;       /** u2 */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
     olua_check_number(L, 2, &arg1);
 
     // float u2
@@ -2413,7 +2413,7 @@ static int _spine_TextureRegion_get_v(lua_State *L)
 
     spine::TextureRegion *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
 
     // float v
     float ret = self->v;
@@ -2431,7 +2431,7 @@ static int _spine_TextureRegion_set_v(lua_State *L)
     spine::TextureRegion *self = nullptr;
     lua_Number arg1 = 0;       /** v */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
     olua_check_number(L, 2, &arg1);
 
     // float v
@@ -2448,7 +2448,7 @@ static int _spine_TextureRegion_get_v2(lua_State *L)
 
     spine::TextureRegion *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
 
     // float v2
     float ret = self->v2;
@@ -2466,7 +2466,7 @@ static int _spine_TextureRegion_set_v2(lua_State *L)
     spine::TextureRegion *self = nullptr;
     lua_Number arg1 = 0;       /** v2 */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
     olua_check_number(L, 2, &arg1);
 
     // float v2
@@ -2483,7 +2483,7 @@ static int _spine_TextureRegion_get_width(lua_State *L)
 
     spine::TextureRegion *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
 
     // int width
     int ret = self->width;
@@ -2501,7 +2501,7 @@ static int _spine_TextureRegion_set_width(lua_State *L)
     spine::TextureRegion *self = nullptr;
     lua_Integer arg1 = 0;       /** width */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.TextureRegion");
     olua_check_int(L, 2, &arg1);
 
     // int width
@@ -2554,7 +2554,7 @@ static int _spine_ConstraintData___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::ConstraintData *)olua_toobj(L, 1, "sp.ConstraintData");
-    olua_push_cppobj(L, self, "sp.ConstraintData");
+    olua_push_obj(L, self, "sp.ConstraintData");
 
     olua_endinvoke(L);
 
@@ -2567,7 +2567,7 @@ static int _spine_ConstraintData_getName(lua_State *L)
 
     spine::ConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.ConstraintData");
+    olua_to_obj(L, 1, &self, "sp.ConstraintData");
 
     // const spine::String &getName()
     const spine::String &ret = self->getName();
@@ -2584,7 +2584,7 @@ static int _spine_ConstraintData_getOrder(lua_State *L)
 
     spine::ConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.ConstraintData");
+    olua_to_obj(L, 1, &self, "sp.ConstraintData");
 
     // size_t getOrder()
     size_t ret = self->getOrder();
@@ -2601,7 +2601,7 @@ static int _spine_ConstraintData_isSkinRequired(lua_State *L)
 
     spine::ConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.ConstraintData");
+    olua_to_obj(L, 1, &self, "sp.ConstraintData");
 
     // bool isSkinRequired()
     bool ret = self->isSkinRequired();
@@ -2622,7 +2622,7 @@ static int _spine_ConstraintData_new(lua_State *L)
 
     // ConstraintData(const spine::String &name)
     spine::ConstraintData *ret = new spine::ConstraintData(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.ConstraintData");
+    int num_ret = olua_push_obj(L, ret, "sp.ConstraintData");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -2637,7 +2637,7 @@ static int _spine_ConstraintData_setOrder(lua_State *L)
     spine::ConstraintData *self = nullptr;
     lua_Unsigned arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.ConstraintData");
+    olua_to_obj(L, 1, &self, "sp.ConstraintData");
     olua_check_uint(L, 2, &arg1);
 
     // void setOrder(size_t inValue)
@@ -2655,7 +2655,7 @@ static int _spine_ConstraintData_setSkinRequired(lua_State *L)
     spine::ConstraintData *self = nullptr;
     bool arg1 = false;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.ConstraintData");
+    olua_to_obj(L, 1, &self, "sp.ConstraintData");
     olua_check_bool(L, 2, &arg1);
 
     // void setSkinRequired(bool inValue)
@@ -2693,7 +2693,7 @@ static int _spine_IkConstraintData___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::IkConstraintData *)olua_toobj(L, 1, "sp.IkConstraintData");
-    olua_push_cppobj(L, self, "sp.IkConstraintData");
+    olua_push_obj(L, self, "sp.IkConstraintData");
 
     olua_endinvoke(L);
 
@@ -2706,7 +2706,7 @@ static int _spine_IkConstraintData_getBendDirection(lua_State *L)
 
     spine::IkConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraintData");
+    olua_to_obj(L, 1, &self, "sp.IkConstraintData");
 
     // int getBendDirection()
     int ret = self->getBendDirection();
@@ -2723,12 +2723,12 @@ static int _spine_IkConstraintData_getBones(lua_State *L)
 
     spine::IkConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraintData");
+    olua_to_obj(L, 1, &self, "sp.IkConstraintData");
 
     // spine::Vector<spine::BoneData *> &getBones()
     spine::Vector<spine::BoneData *> &ret = self->getBones();
     int num_ret = olua_push_array<spine::BoneData *>(L, &ret, [L](spine::BoneData *value) {
-        olua_push_cppobj(L, value, "sp.BoneData");
+        olua_push_obj(L, value, "sp.BoneData");
     });
 
     olua_endinvoke(L);
@@ -2742,7 +2742,7 @@ static int _spine_IkConstraintData_getCompress(lua_State *L)
 
     spine::IkConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraintData");
+    olua_to_obj(L, 1, &self, "sp.IkConstraintData");
 
     // bool getCompress()
     bool ret = self->getCompress();
@@ -2759,7 +2759,7 @@ static int _spine_IkConstraintData_getMix(lua_State *L)
 
     spine::IkConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraintData");
+    olua_to_obj(L, 1, &self, "sp.IkConstraintData");
 
     // float getMix()
     float ret = self->getMix();
@@ -2776,7 +2776,7 @@ static int _spine_IkConstraintData_getSoftness(lua_State *L)
 
     spine::IkConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraintData");
+    olua_to_obj(L, 1, &self, "sp.IkConstraintData");
 
     // float getSoftness()
     float ret = self->getSoftness();
@@ -2793,7 +2793,7 @@ static int _spine_IkConstraintData_getStretch(lua_State *L)
 
     spine::IkConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraintData");
+    olua_to_obj(L, 1, &self, "sp.IkConstraintData");
 
     // bool getStretch()
     bool ret = self->getStretch();
@@ -2810,11 +2810,11 @@ static int _spine_IkConstraintData_getTarget(lua_State *L)
 
     spine::IkConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraintData");
+    olua_to_obj(L, 1, &self, "sp.IkConstraintData");
 
     // spine::BoneData *getTarget()
     spine::BoneData *ret = self->getTarget();
-    int num_ret = olua_push_cppobj(L, ret, "sp.BoneData");
+    int num_ret = olua_push_obj(L, ret, "sp.BoneData");
 
     olua_endinvoke(L);
 
@@ -2827,7 +2827,7 @@ static int _spine_IkConstraintData_getUniform(lua_State *L)
 
     spine::IkConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraintData");
+    olua_to_obj(L, 1, &self, "sp.IkConstraintData");
 
     // bool getUniform()
     bool ret = self->getUniform();
@@ -2848,7 +2848,7 @@ static int _spine_IkConstraintData_new(lua_State *L)
 
     // IkConstraintData(const spine::String &name)
     spine::IkConstraintData *ret = new spine::IkConstraintData(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.IkConstraintData");
+    int num_ret = olua_push_obj(L, ret, "sp.IkConstraintData");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -2863,7 +2863,7 @@ static int _spine_IkConstraintData_setBendDirection(lua_State *L)
     spine::IkConstraintData *self = nullptr;
     lua_Integer arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraintData");
+    olua_to_obj(L, 1, &self, "sp.IkConstraintData");
     olua_check_int(L, 2, &arg1);
 
     // void setBendDirection(int inValue)
@@ -2881,7 +2881,7 @@ static int _spine_IkConstraintData_setCompress(lua_State *L)
     spine::IkConstraintData *self = nullptr;
     bool arg1 = false;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraintData");
+    olua_to_obj(L, 1, &self, "sp.IkConstraintData");
     olua_check_bool(L, 2, &arg1);
 
     // void setCompress(bool inValue)
@@ -2899,7 +2899,7 @@ static int _spine_IkConstraintData_setMix(lua_State *L)
     spine::IkConstraintData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraintData");
+    olua_to_obj(L, 1, &self, "sp.IkConstraintData");
     olua_check_number(L, 2, &arg1);
 
     // void setMix(float inValue)
@@ -2917,7 +2917,7 @@ static int _spine_IkConstraintData_setSoftness(lua_State *L)
     spine::IkConstraintData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraintData");
+    olua_to_obj(L, 1, &self, "sp.IkConstraintData");
     olua_check_number(L, 2, &arg1);
 
     // void setSoftness(float inValue)
@@ -2935,7 +2935,7 @@ static int _spine_IkConstraintData_setStretch(lua_State *L)
     spine::IkConstraintData *self = nullptr;
     bool arg1 = false;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraintData");
+    olua_to_obj(L, 1, &self, "sp.IkConstraintData");
     olua_check_bool(L, 2, &arg1);
 
     // void setStretch(bool inValue)
@@ -2953,8 +2953,8 @@ static int _spine_IkConstraintData_setTarget(lua_State *L)
     spine::IkConstraintData *self = nullptr;
     spine::BoneData *arg1 = nullptr;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraintData");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.IkConstraintData");
+    olua_check_obj(L, 2, &arg1, "sp.BoneData");
 
     // void setTarget(spine::BoneData *inValue)
     self->setTarget(arg1);
@@ -2971,7 +2971,7 @@ static int _spine_IkConstraintData_setUniform(lua_State *L)
     spine::IkConstraintData *self = nullptr;
     bool arg1 = false;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraintData");
+    olua_to_obj(L, 1, &self, "sp.IkConstraintData");
     olua_check_bool(L, 2, &arg1);
 
     // void setUniform(bool inValue)
@@ -3034,7 +3034,7 @@ static int _spine_BoneData___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::BoneData *)olua_toobj(L, 1, "sp.BoneData");
-    olua_push_cppobj(L, self, "sp.BoneData");
+    olua_push_obj(L, self, "sp.BoneData");
 
     olua_endinvoke(L);
 
@@ -3047,7 +3047,7 @@ static int _spine_BoneData_getColor(lua_State *L)
 
     spine::BoneData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
 
     // spine::Color &getColor()
     spine::Color &ret = self->getColor();
@@ -3064,7 +3064,7 @@ static int _spine_BoneData_getIndex(lua_State *L)
 
     spine::BoneData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
 
     // int getIndex()
     int ret = self->getIndex();
@@ -3081,7 +3081,7 @@ static int _spine_BoneData_getLength(lua_State *L)
 
     spine::BoneData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
 
     // float getLength()
     float ret = self->getLength();
@@ -3098,7 +3098,7 @@ static int _spine_BoneData_getName(lua_State *L)
 
     spine::BoneData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
 
     // const spine::String &getName()
     const spine::String &ret = self->getName();
@@ -3115,11 +3115,11 @@ static int _spine_BoneData_getParent(lua_State *L)
 
     spine::BoneData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
 
     // spine::BoneData *getParent()
     spine::BoneData *ret = self->getParent();
-    int num_ret = olua_push_cppobj(L, ret, "sp.BoneData");
+    int num_ret = olua_push_obj(L, ret, "sp.BoneData");
 
     olua_endinvoke(L);
 
@@ -3132,7 +3132,7 @@ static int _spine_BoneData_getRotation(lua_State *L)
 
     spine::BoneData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
 
     // float getRotation()
     float ret = self->getRotation();
@@ -3149,7 +3149,7 @@ static int _spine_BoneData_getScaleX(lua_State *L)
 
     spine::BoneData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
 
     // float getScaleX()
     float ret = self->getScaleX();
@@ -3166,7 +3166,7 @@ static int _spine_BoneData_getScaleY(lua_State *L)
 
     spine::BoneData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
 
     // float getScaleY()
     float ret = self->getScaleY();
@@ -3183,7 +3183,7 @@ static int _spine_BoneData_getShearX(lua_State *L)
 
     spine::BoneData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
 
     // float getShearX()
     float ret = self->getShearX();
@@ -3200,7 +3200,7 @@ static int _spine_BoneData_getShearY(lua_State *L)
 
     spine::BoneData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
 
     // float getShearY()
     float ret = self->getShearY();
@@ -3217,7 +3217,7 @@ static int _spine_BoneData_getTransformMode(lua_State *L)
 
     spine::BoneData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
 
     // spine::TransformMode getTransformMode()
     spine::TransformMode ret = self->getTransformMode();
@@ -3234,7 +3234,7 @@ static int _spine_BoneData_getX(lua_State *L)
 
     spine::BoneData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
 
     // float getX()
     float ret = self->getX();
@@ -3251,7 +3251,7 @@ static int _spine_BoneData_getY(lua_State *L)
 
     spine::BoneData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
 
     // float getY()
     float ret = self->getY();
@@ -3268,7 +3268,7 @@ static int _spine_BoneData_isSkinRequired(lua_State *L)
 
     spine::BoneData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
 
     // bool isSkinRequired()
     bool ret = self->isSkinRequired();
@@ -3289,11 +3289,11 @@ static int _spine_BoneData_new1(lua_State *L)
 
     olua_check_int(L, 1, &arg1);
     olua_check_spine_String(L, 2, &arg2);
-    olua_check_cppobj(L, 3, (void **)&arg3, "sp.BoneData");
+    olua_check_obj(L, 3, &arg3, "sp.BoneData");
 
     // BoneData(int index, const spine::String &name, @optional spine::BoneData *parent)
     spine::BoneData *ret = new spine::BoneData((int)arg1, arg2, arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.BoneData");
+    int num_ret = olua_push_obj(L, ret, "sp.BoneData");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -3313,7 +3313,7 @@ static int _spine_BoneData_new2(lua_State *L)
 
     // BoneData(int index, const spine::String &name, @optional spine::BoneData *parent)
     spine::BoneData *ret = new spine::BoneData((int)arg1, arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.BoneData");
+    int num_ret = olua_push_obj(L, ret, "sp.BoneData");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -3333,7 +3333,7 @@ static int _spine_BoneData_new(lua_State *L)
     }
 
     if (num_args == 3) {
-        // if ((olua_is_int(L, 1)) && (olua_is_spine_String(L, 2)) && (olua_is_cppobj(L, 3, "sp.BoneData"))) {
+        // if ((olua_is_int(L, 1)) && (olua_is_spine_String(L, 2)) && (olua_is_obj(L, 3, "sp.BoneData"))) {
             // BoneData(int index, const spine::String &name, @optional spine::BoneData *parent)
             return _spine_BoneData_new1(L);
         // }
@@ -3351,7 +3351,7 @@ static int _spine_BoneData_setLength(lua_State *L)
     spine::BoneData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
     olua_check_number(L, 2, &arg1);
 
     // void setLength(float inValue)
@@ -3369,7 +3369,7 @@ static int _spine_BoneData_setRotation(lua_State *L)
     spine::BoneData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
     olua_check_number(L, 2, &arg1);
 
     // void setRotation(float inValue)
@@ -3387,7 +3387,7 @@ static int _spine_BoneData_setScaleX(lua_State *L)
     spine::BoneData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
     olua_check_number(L, 2, &arg1);
 
     // void setScaleX(float inValue)
@@ -3405,7 +3405,7 @@ static int _spine_BoneData_setScaleY(lua_State *L)
     spine::BoneData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
     olua_check_number(L, 2, &arg1);
 
     // void setScaleY(float inValue)
@@ -3423,7 +3423,7 @@ static int _spine_BoneData_setShearX(lua_State *L)
     spine::BoneData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
     olua_check_number(L, 2, &arg1);
 
     // void setShearX(float inValue)
@@ -3441,7 +3441,7 @@ static int _spine_BoneData_setShearY(lua_State *L)
     spine::BoneData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
     olua_check_number(L, 2, &arg1);
 
     // void setShearY(float inValue)
@@ -3459,7 +3459,7 @@ static int _spine_BoneData_setSkinRequired(lua_State *L)
     spine::BoneData *self = nullptr;
     bool arg1 = false;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
     olua_check_bool(L, 2, &arg1);
 
     // void setSkinRequired(bool inValue)
@@ -3477,7 +3477,7 @@ static int _spine_BoneData_setTransformMode(lua_State *L)
     spine::BoneData *self = nullptr;
     lua_Unsigned arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
     olua_check_uint(L, 2, &arg1);
 
     // void setTransformMode(spine::TransformMode inValue)
@@ -3495,7 +3495,7 @@ static int _spine_BoneData_setX(lua_State *L)
     spine::BoneData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
     olua_check_number(L, 2, &arg1);
 
     // void setX(float inValue)
@@ -3513,7 +3513,7 @@ static int _spine_BoneData_setY(lua_State *L)
     spine::BoneData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoneData");
+    olua_to_obj(L, 1, &self, "sp.BoneData");
     olua_check_number(L, 2, &arg1);
 
     // void setY(float inValue)
@@ -3581,7 +3581,7 @@ static int _spine_SlotData___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::SlotData *)olua_toobj(L, 1, "sp.SlotData");
-    olua_push_cppobj(L, self, "sp.SlotData");
+    olua_push_obj(L, self, "sp.SlotData");
 
     olua_endinvoke(L);
 
@@ -3594,7 +3594,7 @@ static int _spine_SlotData_getAttachmentName(lua_State *L)
 
     spine::SlotData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SlotData");
+    olua_to_obj(L, 1, &self, "sp.SlotData");
 
     // const spine::String &getAttachmentName()
     const spine::String &ret = self->getAttachmentName();
@@ -3611,7 +3611,7 @@ static int _spine_SlotData_getBlendMode(lua_State *L)
 
     spine::SlotData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SlotData");
+    olua_to_obj(L, 1, &self, "sp.SlotData");
 
     // spine::BlendMode getBlendMode()
     spine::BlendMode ret = self->getBlendMode();
@@ -3628,7 +3628,7 @@ static int _spine_SlotData_getColor(lua_State *L)
 
     spine::SlotData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SlotData");
+    olua_to_obj(L, 1, &self, "sp.SlotData");
 
     // spine::Color &getColor()
     spine::Color &ret = self->getColor();
@@ -3645,7 +3645,7 @@ static int _spine_SlotData_getDarkColor(lua_State *L)
 
     spine::SlotData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SlotData");
+    olua_to_obj(L, 1, &self, "sp.SlotData");
 
     // spine::Color &getDarkColor()
     spine::Color &ret = self->getDarkColor();
@@ -3662,7 +3662,7 @@ static int _spine_SlotData_getIndex(lua_State *L)
 
     spine::SlotData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SlotData");
+    olua_to_obj(L, 1, &self, "sp.SlotData");
 
     // int getIndex()
     int ret = self->getIndex();
@@ -3679,7 +3679,7 @@ static int _spine_SlotData_getName(lua_State *L)
 
     spine::SlotData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SlotData");
+    olua_to_obj(L, 1, &self, "sp.SlotData");
 
     // const spine::String &getName()
     const spine::String &ret = self->getName();
@@ -3696,7 +3696,7 @@ static int _spine_SlotData_hasDarkColor(lua_State *L)
 
     spine::SlotData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SlotData");
+    olua_to_obj(L, 1, &self, "sp.SlotData");
 
     // bool hasDarkColor()
     bool ret = self->hasDarkColor();
@@ -3714,7 +3714,7 @@ static int _spine_SlotData_setAttachmentName(lua_State *L)
     spine::SlotData *self = nullptr;
     spine::String arg1;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SlotData");
+    olua_to_obj(L, 1, &self, "sp.SlotData");
     olua_check_spine_String(L, 2, &arg1);
 
     // void setAttachmentName(const spine::String &inValue)
@@ -3732,7 +3732,7 @@ static int _spine_SlotData_setBlendMode(lua_State *L)
     spine::SlotData *self = nullptr;
     lua_Unsigned arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SlotData");
+    olua_to_obj(L, 1, &self, "sp.SlotData");
     olua_check_uint(L, 2, &arg1);
 
     // void setBlendMode(spine::BlendMode inValue)
@@ -3750,7 +3750,7 @@ static int _spine_SlotData_setHasDarkColor(lua_State *L)
     spine::SlotData *self = nullptr;
     bool arg1 = false;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SlotData");
+    olua_to_obj(L, 1, &self, "sp.SlotData");
     olua_check_bool(L, 2, &arg1);
 
     // void setHasDarkColor(bool inValue)
@@ -3794,7 +3794,7 @@ static int _spine_IkConstraint___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::IkConstraint *)olua_toobj(L, 1, "sp.IkConstraint");
-    olua_push_cppobj(L, self, "sp.IkConstraint");
+    olua_push_obj(L, self, "sp.IkConstraint");
 
     olua_endinvoke(L);
 
@@ -3807,7 +3807,7 @@ static int _spine_IkConstraint_apply(lua_State *L)
 
     spine::IkConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraint");
+    olua_to_obj(L, 1, &self, "sp.IkConstraint");
 
     // void apply()
     self->apply();
@@ -3823,7 +3823,7 @@ static int _spine_IkConstraint_getBendDirection(lua_State *L)
 
     spine::IkConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraint");
+    olua_to_obj(L, 1, &self, "sp.IkConstraint");
 
     // int getBendDirection()
     int ret = self->getBendDirection();
@@ -3840,12 +3840,12 @@ static int _spine_IkConstraint_getBones(lua_State *L)
 
     spine::IkConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraint");
+    olua_to_obj(L, 1, &self, "sp.IkConstraint");
 
     // spine::Vector<spine::Bone *> &getBones()
     spine::Vector<spine::Bone *> &ret = self->getBones();
     int num_ret = olua_push_array<spine::Bone *>(L, &ret, [L](spine::Bone *value) {
-        olua_push_cppobj(L, value, "sp.Bone");
+        olua_push_obj(L, value, "sp.Bone");
     });
 
     olua_endinvoke(L);
@@ -3859,7 +3859,7 @@ static int _spine_IkConstraint_getCompress(lua_State *L)
 
     spine::IkConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraint");
+    olua_to_obj(L, 1, &self, "sp.IkConstraint");
 
     // bool getCompress()
     bool ret = self->getCompress();
@@ -3876,7 +3876,7 @@ static int _spine_IkConstraint_getMix(lua_State *L)
 
     spine::IkConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraint");
+    olua_to_obj(L, 1, &self, "sp.IkConstraint");
 
     // float getMix()
     float ret = self->getMix();
@@ -3893,7 +3893,7 @@ static int _spine_IkConstraint_getOrder(lua_State *L)
 
     spine::IkConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraint");
+    olua_to_obj(L, 1, &self, "sp.IkConstraint");
 
     // int getOrder()
     int ret = self->getOrder();
@@ -3910,7 +3910,7 @@ static int _spine_IkConstraint_getSoftness(lua_State *L)
 
     spine::IkConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraint");
+    olua_to_obj(L, 1, &self, "sp.IkConstraint");
 
     // float getSoftness()
     float ret = self->getSoftness();
@@ -3927,7 +3927,7 @@ static int _spine_IkConstraint_getStretch(lua_State *L)
 
     spine::IkConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraint");
+    olua_to_obj(L, 1, &self, "sp.IkConstraint");
 
     // bool getStretch()
     bool ret = self->getStretch();
@@ -3944,11 +3944,11 @@ static int _spine_IkConstraint_getTarget(lua_State *L)
 
     spine::IkConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraint");
+    olua_to_obj(L, 1, &self, "sp.IkConstraint");
 
     // spine::Bone *getTarget()
     spine::Bone *ret = self->getTarget();
-    int num_ret = olua_push_cppobj(L, ret, "sp.Bone");
+    int num_ret = olua_push_obj(L, ret, "sp.Bone");
 
     olua_endinvoke(L);
 
@@ -3962,7 +3962,7 @@ static int _spine_IkConstraint_setBendDirection(lua_State *L)
     spine::IkConstraint *self = nullptr;
     lua_Integer arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraint");
+    olua_to_obj(L, 1, &self, "sp.IkConstraint");
     olua_check_int(L, 2, &arg1);
 
     // void setBendDirection(int inValue)
@@ -3980,7 +3980,7 @@ static int _spine_IkConstraint_setCompress(lua_State *L)
     spine::IkConstraint *self = nullptr;
     bool arg1 = false;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraint");
+    olua_to_obj(L, 1, &self, "sp.IkConstraint");
     olua_check_bool(L, 2, &arg1);
 
     // void setCompress(bool inValue)
@@ -3998,7 +3998,7 @@ static int _spine_IkConstraint_setMix(lua_State *L)
     spine::IkConstraint *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraint");
+    olua_to_obj(L, 1, &self, "sp.IkConstraint");
     olua_check_number(L, 2, &arg1);
 
     // void setMix(float inValue)
@@ -4016,7 +4016,7 @@ static int _spine_IkConstraint_setSoftness(lua_State *L)
     spine::IkConstraint *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraint");
+    olua_to_obj(L, 1, &self, "sp.IkConstraint");
     olua_check_number(L, 2, &arg1);
 
     // void setSoftness(float inValue)
@@ -4034,7 +4034,7 @@ static int _spine_IkConstraint_setStretch(lua_State *L)
     spine::IkConstraint *self = nullptr;
     bool arg1 = false;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraint");
+    olua_to_obj(L, 1, &self, "sp.IkConstraint");
     olua_check_bool(L, 2, &arg1);
 
     // void setStretch(bool inValue)
@@ -4052,8 +4052,8 @@ static int _spine_IkConstraint_setTarget(lua_State *L)
     spine::IkConstraint *self = nullptr;
     spine::Bone *arg1 = nullptr;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraint");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.IkConstraint");
+    olua_check_obj(L, 2, &arg1, "sp.Bone");
 
     // void setTarget(spine::Bone *inValue)
     self->setTarget(arg1);
@@ -4103,7 +4103,7 @@ static int _spine_TransformConstraint___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::TransformConstraint *)olua_toobj(L, 1, "sp.TransformConstraint");
-    olua_push_cppobj(L, self, "sp.TransformConstraint");
+    olua_push_obj(L, self, "sp.TransformConstraint");
 
     olua_endinvoke(L);
 
@@ -4116,12 +4116,12 @@ static int _spine_TransformConstraint_getBones(lua_State *L)
 
     spine::TransformConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraint");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraint");
 
     // spine::Vector<spine::Bone *> &getBones()
     spine::Vector<spine::Bone *> &ret = self->getBones();
     int num_ret = olua_push_array<spine::Bone *>(L, &ret, [L](spine::Bone *value) {
-        olua_push_cppobj(L, value, "sp.Bone");
+        olua_push_obj(L, value, "sp.Bone");
     });
 
     olua_endinvoke(L);
@@ -4135,7 +4135,7 @@ static int _spine_TransformConstraint_getMixRotate(lua_State *L)
 
     spine::TransformConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraint");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraint");
 
     // float getMixRotate()
     float ret = self->getMixRotate();
@@ -4152,7 +4152,7 @@ static int _spine_TransformConstraint_getMixScaleX(lua_State *L)
 
     spine::TransformConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraint");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraint");
 
     // float getMixScaleX()
     float ret = self->getMixScaleX();
@@ -4169,7 +4169,7 @@ static int _spine_TransformConstraint_getMixScaleY(lua_State *L)
 
     spine::TransformConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraint");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraint");
 
     // float getMixScaleY()
     float ret = self->getMixScaleY();
@@ -4186,7 +4186,7 @@ static int _spine_TransformConstraint_getMixShearY(lua_State *L)
 
     spine::TransformConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraint");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraint");
 
     // float getMixShearY()
     float ret = self->getMixShearY();
@@ -4203,7 +4203,7 @@ static int _spine_TransformConstraint_getMixX(lua_State *L)
 
     spine::TransformConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraint");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraint");
 
     // float getMixX()
     float ret = self->getMixX();
@@ -4220,7 +4220,7 @@ static int _spine_TransformConstraint_getMixY(lua_State *L)
 
     spine::TransformConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraint");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraint");
 
     // float getMixY()
     float ret = self->getMixY();
@@ -4237,7 +4237,7 @@ static int _spine_TransformConstraint_getOrder(lua_State *L)
 
     spine::TransformConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraint");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraint");
 
     // int getOrder()
     int ret = self->getOrder();
@@ -4254,11 +4254,11 @@ static int _spine_TransformConstraint_getTarget(lua_State *L)
 
     spine::TransformConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraint");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraint");
 
     // spine::Bone *getTarget()
     spine::Bone *ret = self->getTarget();
-    int num_ret = olua_push_cppobj(L, ret, "sp.Bone");
+    int num_ret = olua_push_obj(L, ret, "sp.Bone");
 
     olua_endinvoke(L);
 
@@ -4272,7 +4272,7 @@ static int _spine_TransformConstraint_setMixRotate(lua_State *L)
     spine::TransformConstraint *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraint");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraint");
     olua_check_number(L, 2, &arg1);
 
     // void setMixRotate(float inValue)
@@ -4290,7 +4290,7 @@ static int _spine_TransformConstraint_setMixScaleX(lua_State *L)
     spine::TransformConstraint *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraint");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraint");
     olua_check_number(L, 2, &arg1);
 
     // void setMixScaleX(float inValue)
@@ -4308,7 +4308,7 @@ static int _spine_TransformConstraint_setMixScaleY(lua_State *L)
     spine::TransformConstraint *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraint");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraint");
     olua_check_number(L, 2, &arg1);
 
     // void setMixScaleY(float inValue)
@@ -4326,7 +4326,7 @@ static int _spine_TransformConstraint_setMixShearY(lua_State *L)
     spine::TransformConstraint *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraint");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraint");
     olua_check_number(L, 2, &arg1);
 
     // void setMixShearY(float inValue)
@@ -4344,7 +4344,7 @@ static int _spine_TransformConstraint_setMixX(lua_State *L)
     spine::TransformConstraint *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraint");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraint");
     olua_check_number(L, 2, &arg1);
 
     // void setMixX(float inValue)
@@ -4362,7 +4362,7 @@ static int _spine_TransformConstraint_setMixY(lua_State *L)
     spine::TransformConstraint *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraint");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraint");
     olua_check_number(L, 2, &arg1);
 
     // void setMixY(float inValue)
@@ -4380,8 +4380,8 @@ static int _spine_TransformConstraint_setTarget(lua_State *L)
     spine::TransformConstraint *self = nullptr;
     spine::Bone *arg1 = nullptr;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraint");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraint");
+    olua_check_obj(L, 2, &arg1, "sp.Bone");
 
     // void setTarget(spine::Bone *inValue)
     self->setTarget(arg1);
@@ -4433,7 +4433,7 @@ static int _spine_TransformConstraintData___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::TransformConstraintData *)olua_toobj(L, 1, "sp.TransformConstraintData");
-    olua_push_cppobj(L, self, "sp.TransformConstraintData");
+    olua_push_obj(L, self, "sp.TransformConstraintData");
 
     olua_endinvoke(L);
 
@@ -4446,12 +4446,12 @@ static int _spine_TransformConstraintData_getBones(lua_State *L)
 
     spine::TransformConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraintData");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraintData");
 
     // spine::Vector<spine::BoneData *> &getBones()
     spine::Vector<spine::BoneData *> &ret = self->getBones();
     int num_ret = olua_push_array<spine::BoneData *>(L, &ret, [L](spine::BoneData *value) {
-        olua_push_cppobj(L, value, "sp.BoneData");
+        olua_push_obj(L, value, "sp.BoneData");
     });
 
     olua_endinvoke(L);
@@ -4465,7 +4465,7 @@ static int _spine_TransformConstraintData_getMixRotate(lua_State *L)
 
     spine::TransformConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraintData");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraintData");
 
     // float getMixRotate()
     float ret = self->getMixRotate();
@@ -4482,7 +4482,7 @@ static int _spine_TransformConstraintData_getMixScaleX(lua_State *L)
 
     spine::TransformConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraintData");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraintData");
 
     // float getMixScaleX()
     float ret = self->getMixScaleX();
@@ -4499,7 +4499,7 @@ static int _spine_TransformConstraintData_getMixScaleY(lua_State *L)
 
     spine::TransformConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraintData");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraintData");
 
     // float getMixScaleY()
     float ret = self->getMixScaleY();
@@ -4516,7 +4516,7 @@ static int _spine_TransformConstraintData_getMixShearY(lua_State *L)
 
     spine::TransformConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraintData");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraintData");
 
     // float getMixShearY()
     float ret = self->getMixShearY();
@@ -4533,7 +4533,7 @@ static int _spine_TransformConstraintData_getMixX(lua_State *L)
 
     spine::TransformConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraintData");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraintData");
 
     // float getMixX()
     float ret = self->getMixX();
@@ -4550,7 +4550,7 @@ static int _spine_TransformConstraintData_getMixY(lua_State *L)
 
     spine::TransformConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraintData");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraintData");
 
     // float getMixY()
     float ret = self->getMixY();
@@ -4567,7 +4567,7 @@ static int _spine_TransformConstraintData_getOffsetRotation(lua_State *L)
 
     spine::TransformConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraintData");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraintData");
 
     // float getOffsetRotation()
     float ret = self->getOffsetRotation();
@@ -4584,7 +4584,7 @@ static int _spine_TransformConstraintData_getOffsetScaleX(lua_State *L)
 
     spine::TransformConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraintData");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraintData");
 
     // float getOffsetScaleX()
     float ret = self->getOffsetScaleX();
@@ -4601,7 +4601,7 @@ static int _spine_TransformConstraintData_getOffsetScaleY(lua_State *L)
 
     spine::TransformConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraintData");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraintData");
 
     // float getOffsetScaleY()
     float ret = self->getOffsetScaleY();
@@ -4618,7 +4618,7 @@ static int _spine_TransformConstraintData_getOffsetShearY(lua_State *L)
 
     spine::TransformConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraintData");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraintData");
 
     // float getOffsetShearY()
     float ret = self->getOffsetShearY();
@@ -4635,7 +4635,7 @@ static int _spine_TransformConstraintData_getOffsetX(lua_State *L)
 
     spine::TransformConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraintData");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraintData");
 
     // float getOffsetX()
     float ret = self->getOffsetX();
@@ -4652,7 +4652,7 @@ static int _spine_TransformConstraintData_getOffsetY(lua_State *L)
 
     spine::TransformConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraintData");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraintData");
 
     // float getOffsetY()
     float ret = self->getOffsetY();
@@ -4669,11 +4669,11 @@ static int _spine_TransformConstraintData_getTarget(lua_State *L)
 
     spine::TransformConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraintData");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraintData");
 
     // spine::BoneData *getTarget()
     spine::BoneData *ret = self->getTarget();
-    int num_ret = olua_push_cppobj(L, ret, "sp.BoneData");
+    int num_ret = olua_push_obj(L, ret, "sp.BoneData");
 
     olua_endinvoke(L);
 
@@ -4686,7 +4686,7 @@ static int _spine_TransformConstraintData_isLocal(lua_State *L)
 
     spine::TransformConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraintData");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraintData");
 
     // bool isLocal()
     bool ret = self->isLocal();
@@ -4703,7 +4703,7 @@ static int _spine_TransformConstraintData_isRelative(lua_State *L)
 
     spine::TransformConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraintData");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraintData");
 
     // bool isRelative()
     bool ret = self->isRelative();
@@ -4724,7 +4724,7 @@ static int _spine_TransformConstraintData_new(lua_State *L)
 
     // TransformConstraintData(const spine::String &name)
     spine::TransformConstraintData *ret = new spine::TransformConstraintData(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.TransformConstraintData");
+    int num_ret = olua_push_obj(L, ret, "sp.TransformConstraintData");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -4782,7 +4782,7 @@ static int _spine_PathConstraintData___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::PathConstraintData *)olua_toobj(L, 1, "sp.PathConstraintData");
-    olua_push_cppobj(L, self, "sp.PathConstraintData");
+    olua_push_obj(L, self, "sp.PathConstraintData");
 
     olua_endinvoke(L);
 
@@ -4795,12 +4795,12 @@ static int _spine_PathConstraintData_getBones(lua_State *L)
 
     spine::PathConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintData");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintData");
 
     // spine::Vector<spine::BoneData *> &getBones()
     spine::Vector<spine::BoneData *> &ret = self->getBones();
     int num_ret = olua_push_array<spine::BoneData *>(L, &ret, [L](spine::BoneData *value) {
-        olua_push_cppobj(L, value, "sp.BoneData");
+        olua_push_obj(L, value, "sp.BoneData");
     });
 
     olua_endinvoke(L);
@@ -4814,7 +4814,7 @@ static int _spine_PathConstraintData_getMixRotate(lua_State *L)
 
     spine::PathConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintData");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintData");
 
     // float getMixRotate()
     float ret = self->getMixRotate();
@@ -4831,7 +4831,7 @@ static int _spine_PathConstraintData_getMixX(lua_State *L)
 
     spine::PathConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintData");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintData");
 
     // float getMixX()
     float ret = self->getMixX();
@@ -4848,7 +4848,7 @@ static int _spine_PathConstraintData_getMixY(lua_State *L)
 
     spine::PathConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintData");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintData");
 
     // float getMixY()
     float ret = self->getMixY();
@@ -4865,7 +4865,7 @@ static int _spine_PathConstraintData_getOffsetRotation(lua_State *L)
 
     spine::PathConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintData");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintData");
 
     // float getOffsetRotation()
     float ret = self->getOffsetRotation();
@@ -4882,7 +4882,7 @@ static int _spine_PathConstraintData_getPosition(lua_State *L)
 
     spine::PathConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintData");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintData");
 
     // float getPosition()
     float ret = self->getPosition();
@@ -4899,7 +4899,7 @@ static int _spine_PathConstraintData_getPositionMode(lua_State *L)
 
     spine::PathConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintData");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintData");
 
     // spine::PositionMode getPositionMode()
     spine::PositionMode ret = self->getPositionMode();
@@ -4916,7 +4916,7 @@ static int _spine_PathConstraintData_getRotateMode(lua_State *L)
 
     spine::PathConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintData");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintData");
 
     // spine::RotateMode getRotateMode()
     spine::RotateMode ret = self->getRotateMode();
@@ -4933,7 +4933,7 @@ static int _spine_PathConstraintData_getSpacing(lua_State *L)
 
     spine::PathConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintData");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintData");
 
     // float getSpacing()
     float ret = self->getSpacing();
@@ -4950,7 +4950,7 @@ static int _spine_PathConstraintData_getSpacingMode(lua_State *L)
 
     spine::PathConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintData");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintData");
 
     // spine::SpacingMode getSpacingMode()
     spine::SpacingMode ret = self->getSpacingMode();
@@ -4967,11 +4967,11 @@ static int _spine_PathConstraintData_getTarget(lua_State *L)
 
     spine::PathConstraintData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintData");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintData");
 
     // spine::SlotData *getTarget()
     spine::SlotData *ret = self->getTarget();
-    int num_ret = olua_push_cppobj(L, ret, "sp.SlotData");
+    int num_ret = olua_push_obj(L, ret, "sp.SlotData");
 
     olua_endinvoke(L);
 
@@ -4988,7 +4988,7 @@ static int _spine_PathConstraintData_new(lua_State *L)
 
     // PathConstraintData(const spine::String &name)
     spine::PathConstraintData *ret = new spine::PathConstraintData(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.PathConstraintData");
+    int num_ret = olua_push_obj(L, ret, "sp.PathConstraintData");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -5003,7 +5003,7 @@ static int _spine_PathConstraintData_setMixRotate(lua_State *L)
     spine::PathConstraintData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintData");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintData");
     olua_check_number(L, 2, &arg1);
 
     // void setMixRotate(float inValue)
@@ -5021,7 +5021,7 @@ static int _spine_PathConstraintData_setMixX(lua_State *L)
     spine::PathConstraintData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintData");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintData");
     olua_check_number(L, 2, &arg1);
 
     // void setMixX(float inValue)
@@ -5039,7 +5039,7 @@ static int _spine_PathConstraintData_setMixY(lua_State *L)
     spine::PathConstraintData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintData");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintData");
     olua_check_number(L, 2, &arg1);
 
     // void setMixY(float inValue)
@@ -5057,7 +5057,7 @@ static int _spine_PathConstraintData_setOffsetRotation(lua_State *L)
     spine::PathConstraintData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintData");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintData");
     olua_check_number(L, 2, &arg1);
 
     // void setOffsetRotation(float inValue)
@@ -5075,7 +5075,7 @@ static int _spine_PathConstraintData_setPosition(lua_State *L)
     spine::PathConstraintData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintData");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintData");
     olua_check_number(L, 2, &arg1);
 
     // void setPosition(float inValue)
@@ -5093,7 +5093,7 @@ static int _spine_PathConstraintData_setPositionMode(lua_State *L)
     spine::PathConstraintData *self = nullptr;
     lua_Unsigned arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintData");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintData");
     olua_check_uint(L, 2, &arg1);
 
     // void setPositionMode(spine::PositionMode inValue)
@@ -5111,7 +5111,7 @@ static int _spine_PathConstraintData_setRotateMode(lua_State *L)
     spine::PathConstraintData *self = nullptr;
     lua_Unsigned arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintData");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintData");
     olua_check_uint(L, 2, &arg1);
 
     // void setRotateMode(spine::RotateMode inValue)
@@ -5129,7 +5129,7 @@ static int _spine_PathConstraintData_setSpacing(lua_State *L)
     spine::PathConstraintData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintData");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintData");
     olua_check_number(L, 2, &arg1);
 
     // void setSpacing(float inValue)
@@ -5147,7 +5147,7 @@ static int _spine_PathConstraintData_setSpacingMode(lua_State *L)
     spine::PathConstraintData *self = nullptr;
     lua_Unsigned arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintData");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintData");
     olua_check_uint(L, 2, &arg1);
 
     // void setSpacingMode(spine::SpacingMode inValue)
@@ -5165,8 +5165,8 @@ static int _spine_PathConstraintData_setTarget(lua_State *L)
     spine::PathConstraintData *self = nullptr;
     spine::SlotData *arg1 = nullptr;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintData");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.SlotData");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintData");
+    olua_check_obj(L, 2, &arg1, "sp.SlotData");
 
     // void setTarget(spine::SlotData *inValue)
     self->setTarget(arg1);
@@ -5237,7 +5237,7 @@ static int _spine_SkeletonBounds___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::SkeletonBounds *)olua_toobj(L, 1, "sp.SkeletonBounds");
-    olua_push_cppobj(L, self, "sp.SkeletonBounds");
+    olua_push_obj(L, self, "sp.SkeletonBounds");
 
     olua_endinvoke(L);
 
@@ -5252,7 +5252,7 @@ static int _spine_SkeletonBounds_aabbcontainsPoint(lua_State *L)
     lua_Number arg1 = 0;       /** x */
     lua_Number arg2 = 0;       /** y */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonBounds");
+    olua_to_obj(L, 1, &self, "sp.SkeletonBounds");
     olua_check_number(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
 
@@ -5275,7 +5275,7 @@ static int _spine_SkeletonBounds_aabbintersectsSegment(lua_State *L)
     lua_Number arg3 = 0;       /** x2 */
     lua_Number arg4 = 0;       /** y2 */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonBounds");
+    olua_to_obj(L, 1, &self, "sp.SkeletonBounds");
     olua_check_number(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
     olua_check_number(L, 4, &arg3);
@@ -5299,8 +5299,8 @@ static int _spine_SkeletonBounds_containsPoint1(lua_State *L)
     lua_Number arg2 = 0;       /** x */
     lua_Number arg3 = 0;       /** y */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonBounds");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Polygon");
+    olua_to_obj(L, 1, &self, "sp.SkeletonBounds");
+    olua_check_obj(L, 2, &arg1, "sp.Polygon");
     olua_check_number(L, 3, &arg2);
     olua_check_number(L, 4, &arg3);
 
@@ -5321,13 +5321,13 @@ static int _spine_SkeletonBounds_containsPoint2(lua_State *L)
     lua_Number arg1 = 0;       /** x */
     lua_Number arg2 = 0;       /** y */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonBounds");
+    olua_to_obj(L, 1, &self, "sp.SkeletonBounds");
     olua_check_number(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
 
     // spine::BoundingBoxAttachment *containsPoint(float x, float y)
     spine::BoundingBoxAttachment *ret = self->containsPoint((float)arg1, (float)arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.BoundingBoxAttachment");
+    int num_ret = olua_push_obj(L, ret, "sp.BoundingBoxAttachment");
 
     olua_endinvoke(L);
 
@@ -5346,7 +5346,7 @@ static int _spine_SkeletonBounds_containsPoint(lua_State *L)
     }
 
     if (num_args == 3) {
-        // if ((olua_is_cppobj(L, 2, "sp.Polygon")) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
+        // if ((olua_is_obj(L, 2, "sp.Polygon")) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
             // bool containsPoint(spine::Polygon *polygon, float x, float y)
             return _spine_SkeletonBounds_containsPoint1(L);
         // }
@@ -5363,7 +5363,7 @@ static int _spine_SkeletonBounds_getHeight(lua_State *L)
 
     spine::SkeletonBounds *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonBounds");
+    olua_to_obj(L, 1, &self, "sp.SkeletonBounds");
 
     // float getHeight()
     float ret = self->getHeight();
@@ -5381,12 +5381,12 @@ static int _spine_SkeletonBounds_getPolygon(lua_State *L)
     spine::SkeletonBounds *self = nullptr;
     spine::BoundingBoxAttachment *arg1 = nullptr;       /** attachment */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonBounds");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.BoundingBoxAttachment");
+    olua_to_obj(L, 1, &self, "sp.SkeletonBounds");
+    olua_check_obj(L, 2, &arg1, "sp.BoundingBoxAttachment");
 
     // spine::Polygon *getPolygon(spine::BoundingBoxAttachment *attachment)
     spine::Polygon *ret = self->getPolygon(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.Polygon");
+    int num_ret = olua_push_obj(L, ret, "sp.Polygon");
 
     olua_endinvoke(L);
 
@@ -5399,7 +5399,7 @@ static int _spine_SkeletonBounds_getWidth(lua_State *L)
 
     spine::SkeletonBounds *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonBounds");
+    olua_to_obj(L, 1, &self, "sp.SkeletonBounds");
 
     // float getWidth()
     float ret = self->getWidth();
@@ -5420,7 +5420,7 @@ static int _spine_SkeletonBounds_intersectsSegment1(lua_State *L)
     lua_Number arg3 = 0;       /** x2 */
     lua_Number arg4 = 0;       /** y2 */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonBounds");
+    olua_to_obj(L, 1, &self, "sp.SkeletonBounds");
     olua_check_number(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
     olua_check_number(L, 4, &arg3);
@@ -5428,7 +5428,7 @@ static int _spine_SkeletonBounds_intersectsSegment1(lua_State *L)
 
     // spine::BoundingBoxAttachment *intersectsSegment(float x1, float y1, float x2, float y2)
     spine::BoundingBoxAttachment *ret = self->intersectsSegment((float)arg1, (float)arg2, (float)arg3, (float)arg4);
-    int num_ret = olua_push_cppobj(L, ret, "sp.BoundingBoxAttachment");
+    int num_ret = olua_push_obj(L, ret, "sp.BoundingBoxAttachment");
 
     olua_endinvoke(L);
 
@@ -5446,8 +5446,8 @@ static int _spine_SkeletonBounds_intersectsSegment2(lua_State *L)
     lua_Number arg4 = 0;       /** x2 */
     lua_Number arg5 = 0;       /** y2 */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonBounds");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Polygon");
+    olua_to_obj(L, 1, &self, "sp.SkeletonBounds");
+    olua_check_obj(L, 2, &arg1, "sp.Polygon");
     olua_check_number(L, 3, &arg2);
     olua_check_number(L, 4, &arg3);
     olua_check_number(L, 5, &arg4);
@@ -5474,7 +5474,7 @@ static int _spine_SkeletonBounds_intersectsSegment(lua_State *L)
     }
 
     if (num_args == 5) {
-        // if ((olua_is_cppobj(L, 2, "sp.Polygon")) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_number(L, 6))) {
+        // if ((olua_is_obj(L, 2, "sp.Polygon")) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_number(L, 6))) {
             // bool intersectsSegment(spine::Polygon *polygon, float x1, float y1, float x2, float y2)
             return _spine_SkeletonBounds_intersectsSegment2(L);
         // }
@@ -5491,7 +5491,7 @@ static int _spine_SkeletonBounds_new(lua_State *L)
 
     // SkeletonBounds()
     spine::SkeletonBounds *ret = new spine::SkeletonBounds();
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonBounds");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonBounds");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -5527,7 +5527,7 @@ static int _spine_SkeletonClipping___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::SkeletonClipping *)olua_toobj(L, 1, "sp.SkeletonClipping");
-    olua_push_cppobj(L, self, "sp.SkeletonClipping");
+    olua_push_obj(L, self, "sp.SkeletonClipping");
 
     olua_endinvoke(L);
 
@@ -5551,7 +5551,7 @@ static int _spine_Timeline___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::Timeline *)olua_toobj(L, 1, "sp.Timeline");
-    olua_push_cppobj(L, self, "sp.Timeline");
+    olua_push_obj(L, self, "sp.Timeline");
 
     olua_endinvoke(L);
 
@@ -5564,7 +5564,7 @@ static int _spine_Timeline_getDuration(lua_State *L)
 
     spine::Timeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Timeline");
+    olua_to_obj(L, 1, &self, "sp.Timeline");
 
     // float getDuration()
     float ret = self->getDuration();
@@ -5581,7 +5581,7 @@ static int _spine_Timeline_getFrameCount(lua_State *L)
 
     spine::Timeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Timeline");
+    olua_to_obj(L, 1, &self, "sp.Timeline");
 
     // size_t getFrameCount()
     size_t ret = self->getFrameCount();
@@ -5598,7 +5598,7 @@ static int _spine_Timeline_getFrameEntries(lua_State *L)
 
     spine::Timeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Timeline");
+    olua_to_obj(L, 1, &self, "sp.Timeline");
 
     // size_t getFrameEntries()
     size_t ret = self->getFrameEntries();
@@ -5615,11 +5615,11 @@ static int _spine_Timeline_getFrames(lua_State *L)
 
     spine::Timeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Timeline");
+    olua_to_obj(L, 1, &self, "sp.Timeline");
 
     // spine::Vector<float> &getFrames()
     spine::Vector<float> &ret = self->getFrames();
-    int num_ret = olua_push_array<float>(L, &ret, [L](float value) {
+    int num_ret = olua_push_array<float>(L, &ret, [L](float &value) {
         olua_push_number(L, (lua_Number)value);
     });
 
@@ -5634,11 +5634,11 @@ static int _spine_Timeline_getPropertyIds(lua_State *L)
 
     spine::Timeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Timeline");
+    olua_to_obj(L, 1, &self, "sp.Timeline");
 
     // spine::Vector<spine::PropertyId> &getPropertyIds()
     spine::Vector<spine::PropertyId> &ret = self->getPropertyIds();
-    int num_ret = olua_push_array<spine::PropertyId>(L, &ret, [L](spine::PropertyId value) {
+    int num_ret = olua_push_array<spine::PropertyId>(L, &ret, [L](spine::PropertyId &value) {
         olua_push_int(L, (lua_Integer)value);
     });
 
@@ -5674,7 +5674,7 @@ static int _spine_CurveTimeline___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::CurveTimeline *)olua_toobj(L, 1, "sp.CurveTimeline");
-    olua_push_cppobj(L, self, "sp.CurveTimeline");
+    olua_push_obj(L, self, "sp.CurveTimeline");
 
     olua_endinvoke(L);
 
@@ -5691,7 +5691,7 @@ static int _spine_CurveTimeline_getBezierValue(lua_State *L)
     lua_Unsigned arg3 = 0;       /** valueOffset */
     lua_Unsigned arg4 = 0;       /** i */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.CurveTimeline");
+    olua_to_obj(L, 1, &self, "sp.CurveTimeline");
     olua_check_number(L, 2, &arg1);
     olua_check_uint(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
@@ -5712,11 +5712,11 @@ static int _spine_CurveTimeline_getCurves(lua_State *L)
 
     spine::CurveTimeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.CurveTimeline");
+    olua_to_obj(L, 1, &self, "sp.CurveTimeline");
 
     // spine::Vector<float> &getCurves()
     spine::Vector<float> &ret = self->getCurves();
-    int num_ret = olua_push_array<float>(L, &ret, [L](float value) {
+    int num_ret = olua_push_array<float>(L, &ret, [L](float &value) {
         olua_push_number(L, (lua_Number)value);
     });
 
@@ -5742,7 +5742,7 @@ static int _spine_CurveTimeline_setBezier(lua_State *L)
     lua_Number arg10 = 0;       /** time2 */
     lua_Number arg11 = 0;       /** value2 */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.CurveTimeline");
+    olua_to_obj(L, 1, &self, "sp.CurveTimeline");
     olua_check_uint(L, 2, &arg1);
     olua_check_uint(L, 3, &arg2);
     olua_check_number(L, 4, &arg3);
@@ -5770,7 +5770,7 @@ static int _spine_CurveTimeline_setLinear(lua_State *L)
     spine::CurveTimeline *self = nullptr;
     lua_Unsigned arg1 = 0;       /** frame */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.CurveTimeline");
+    olua_to_obj(L, 1, &self, "sp.CurveTimeline");
     olua_check_uint(L, 2, &arg1);
 
     // void setLinear(size_t frame)
@@ -5788,7 +5788,7 @@ static int _spine_CurveTimeline_setStepped(lua_State *L)
     spine::CurveTimeline *self = nullptr;
     lua_Unsigned arg1 = 0;       /** frame */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.CurveTimeline");
+    olua_to_obj(L, 1, &self, "sp.CurveTimeline");
     olua_check_uint(L, 2, &arg1);
 
     // void setStepped(size_t frame)
@@ -5822,7 +5822,7 @@ static int _spine_CurveTimeline1___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::CurveTimeline1 *)olua_toobj(L, 1, "sp.CurveTimeline1");
-    olua_push_cppobj(L, self, "sp.CurveTimeline1");
+    olua_push_obj(L, self, "sp.CurveTimeline1");
 
     olua_endinvoke(L);
 
@@ -5836,7 +5836,7 @@ static int _spine_CurveTimeline1_getCurveValue(lua_State *L)
     spine::CurveTimeline1 *self = nullptr;
     lua_Number arg1 = 0;       /** time */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.CurveTimeline1");
+    olua_to_obj(L, 1, &self, "sp.CurveTimeline1");
     olua_check_number(L, 2, &arg1);
 
     // float getCurveValue(float time)
@@ -5866,7 +5866,7 @@ static int _spine_CurveTimeline2___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::CurveTimeline2 *)olua_toobj(L, 1, "sp.CurveTimeline2");
-    olua_push_cppobj(L, self, "sp.CurveTimeline2");
+    olua_push_obj(L, self, "sp.CurveTimeline2");
 
     olua_endinvoke(L);
 
@@ -5880,7 +5880,7 @@ static int _spine_CurveTimeline2_getCurveValue(lua_State *L)
     spine::CurveTimeline2 *self = nullptr;
     lua_Number arg1 = 0;       /** time */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.CurveTimeline2");
+    olua_to_obj(L, 1, &self, "sp.CurveTimeline2");
     olua_check_number(L, 2, &arg1);
 
     // float getCurveValue(float time)
@@ -5921,7 +5921,7 @@ static int _spine_AttachmentTimeline___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::AttachmentTimeline *)olua_toobj(L, 1, "sp.AttachmentTimeline");
-    olua_push_cppobj(L, self, "sp.AttachmentTimeline");
+    olua_push_obj(L, self, "sp.AttachmentTimeline");
 
     olua_endinvoke(L);
 
@@ -5934,11 +5934,11 @@ static int _spine_AttachmentTimeline_getAttachmentNames(lua_State *L)
 
     spine::AttachmentTimeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AttachmentTimeline");
+    olua_to_obj(L, 1, &self, "sp.AttachmentTimeline");
 
     // spine::Vector<spine::String> &getAttachmentNames()
     spine::Vector<spine::String> &ret = self->getAttachmentNames();
-    int num_ret = olua_push_array<spine::String>(L, &ret, [L](spine::String value) {
+    int num_ret = olua_push_array<spine::String>(L, &ret, [L](spine::String &value) {
         olua_push_spine_String(L, &value);
     });
 
@@ -5953,7 +5953,7 @@ static int _spine_AttachmentTimeline_getSlotIndex(lua_State *L)
 
     spine::AttachmentTimeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AttachmentTimeline");
+    olua_to_obj(L, 1, &self, "sp.AttachmentTimeline");
 
     // int getSlotIndex()
     int ret = self->getSlotIndex();
@@ -5976,7 +5976,7 @@ static int _spine_AttachmentTimeline_new(lua_State *L)
 
     // AttachmentTimeline(size_t frameCount, int slotIndex)
     spine::AttachmentTimeline *ret = new spine::AttachmentTimeline((size_t)arg1, (int)arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.AttachmentTimeline");
+    int num_ret = olua_push_obj(L, ret, "sp.AttachmentTimeline");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -5991,7 +5991,7 @@ static int _spine_AttachmentTimeline_setSlotIndex(lua_State *L)
     spine::AttachmentTimeline *self = nullptr;
     lua_Integer arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AttachmentTimeline");
+    olua_to_obj(L, 1, &self, "sp.AttachmentTimeline");
     olua_check_int(L, 2, &arg1);
 
     // void setSlotIndex(int inValue)
@@ -6037,7 +6037,7 @@ static int _spine_RGBATimeline___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::RGBATimeline *)olua_toobj(L, 1, "sp.RGBATimeline");
-    olua_push_cppobj(L, self, "sp.RGBATimeline");
+    olua_push_obj(L, self, "sp.RGBATimeline");
 
     olua_endinvoke(L);
 
@@ -6050,7 +6050,7 @@ static int _spine_RGBATimeline_getSlotIndex(lua_State *L)
 
     spine::RGBATimeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RGBATimeline");
+    olua_to_obj(L, 1, &self, "sp.RGBATimeline");
 
     // int getSlotIndex()
     int ret = self->getSlotIndex();
@@ -6075,7 +6075,7 @@ static int _spine_RGBATimeline_new(lua_State *L)
 
     // RGBATimeline(size_t frameCount, size_t bezierCount, int slotIndex)
     spine::RGBATimeline *ret = new spine::RGBATimeline((size_t)arg1, (size_t)arg2, (int)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.RGBATimeline");
+    int num_ret = olua_push_obj(L, ret, "sp.RGBATimeline");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -6090,7 +6090,7 @@ static int _spine_RGBATimeline_setSlotIndex(lua_State *L)
     spine::RGBATimeline *self = nullptr;
     lua_Integer arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RGBATimeline");
+    olua_to_obj(L, 1, &self, "sp.RGBATimeline");
     olua_check_int(L, 2, &arg1);
 
     // void setSlotIndex(int inValue)
@@ -6134,7 +6134,7 @@ static int _spine_RGBTimeline___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::RGBTimeline *)olua_toobj(L, 1, "sp.RGBTimeline");
-    olua_push_cppobj(L, self, "sp.RGBTimeline");
+    olua_push_obj(L, self, "sp.RGBTimeline");
 
     olua_endinvoke(L);
 
@@ -6147,7 +6147,7 @@ static int _spine_RGBTimeline_getSlotIndex(lua_State *L)
 
     spine::RGBTimeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RGBTimeline");
+    olua_to_obj(L, 1, &self, "sp.RGBTimeline");
 
     // int getSlotIndex()
     int ret = self->getSlotIndex();
@@ -6172,7 +6172,7 @@ static int _spine_RGBTimeline_new(lua_State *L)
 
     // RGBTimeline(size_t frameCount, size_t bezierCount, int slotIndex)
     spine::RGBTimeline *ret = new spine::RGBTimeline((size_t)arg1, (size_t)arg2, (int)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.RGBTimeline");
+    int num_ret = olua_push_obj(L, ret, "sp.RGBTimeline");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -6187,7 +6187,7 @@ static int _spine_RGBTimeline_setSlotIndex(lua_State *L)
     spine::RGBTimeline *self = nullptr;
     lua_Integer arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RGBTimeline");
+    olua_to_obj(L, 1, &self, "sp.RGBTimeline");
     olua_check_int(L, 2, &arg1);
 
     // void setSlotIndex(int inValue)
@@ -6231,7 +6231,7 @@ static int _spine_AlphaTimeline___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::AlphaTimeline *)olua_toobj(L, 1, "sp.AlphaTimeline");
-    olua_push_cppobj(L, self, "sp.AlphaTimeline");
+    olua_push_obj(L, self, "sp.AlphaTimeline");
 
     olua_endinvoke(L);
 
@@ -6244,7 +6244,7 @@ static int _spine_AlphaTimeline_getSlotIndex(lua_State *L)
 
     spine::AlphaTimeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AlphaTimeline");
+    olua_to_obj(L, 1, &self, "sp.AlphaTimeline");
 
     // int getSlotIndex()
     int ret = self->getSlotIndex();
@@ -6269,7 +6269,7 @@ static int _spine_AlphaTimeline_new(lua_State *L)
 
     // AlphaTimeline(size_t frameCount, size_t bezierCount, int slotIndex)
     spine::AlphaTimeline *ret = new spine::AlphaTimeline((size_t)arg1, (size_t)arg2, (int)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.AlphaTimeline");
+    int num_ret = olua_push_obj(L, ret, "sp.AlphaTimeline");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -6284,7 +6284,7 @@ static int _spine_AlphaTimeline_setSlotIndex(lua_State *L)
     spine::AlphaTimeline *self = nullptr;
     lua_Integer arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.AlphaTimeline");
+    olua_to_obj(L, 1, &self, "sp.AlphaTimeline");
     olua_check_int(L, 2, &arg1);
 
     // void setSlotIndex(int inValue)
@@ -6328,7 +6328,7 @@ static int _spine_RGBA2Timeline___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::RGBA2Timeline *)olua_toobj(L, 1, "sp.RGBA2Timeline");
-    olua_push_cppobj(L, self, "sp.RGBA2Timeline");
+    olua_push_obj(L, self, "sp.RGBA2Timeline");
 
     olua_endinvoke(L);
 
@@ -6341,7 +6341,7 @@ static int _spine_RGBA2Timeline_getSlotIndex(lua_State *L)
 
     spine::RGBA2Timeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RGBA2Timeline");
+    olua_to_obj(L, 1, &self, "sp.RGBA2Timeline");
 
     // int getSlotIndex()
     int ret = self->getSlotIndex();
@@ -6366,7 +6366,7 @@ static int _spine_RGBA2Timeline_new(lua_State *L)
 
     // RGBA2Timeline(size_t frameCount, size_t bezierCount, int slotIndex)
     spine::RGBA2Timeline *ret = new spine::RGBA2Timeline((size_t)arg1, (size_t)arg2, (int)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.RGBA2Timeline");
+    int num_ret = olua_push_obj(L, ret, "sp.RGBA2Timeline");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -6381,7 +6381,7 @@ static int _spine_RGBA2Timeline_setSlotIndex(lua_State *L)
     spine::RGBA2Timeline *self = nullptr;
     lua_Integer arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RGBA2Timeline");
+    olua_to_obj(L, 1, &self, "sp.RGBA2Timeline");
     olua_check_int(L, 2, &arg1);
 
     // void setSlotIndex(int inValue)
@@ -6425,7 +6425,7 @@ static int _spine_RGB2Timeline___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::RGB2Timeline *)olua_toobj(L, 1, "sp.RGB2Timeline");
-    olua_push_cppobj(L, self, "sp.RGB2Timeline");
+    olua_push_obj(L, self, "sp.RGB2Timeline");
 
     olua_endinvoke(L);
 
@@ -6438,7 +6438,7 @@ static int _spine_RGB2Timeline_getSlotIndex(lua_State *L)
 
     spine::RGB2Timeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RGB2Timeline");
+    olua_to_obj(L, 1, &self, "sp.RGB2Timeline");
 
     // int getSlotIndex()
     int ret = self->getSlotIndex();
@@ -6463,7 +6463,7 @@ static int _spine_RGB2Timeline_new(lua_State *L)
 
     // RGB2Timeline(size_t frameCount, size_t bezierCount, int slotIndex)
     spine::RGB2Timeline *ret = new spine::RGB2Timeline((size_t)arg1, (size_t)arg2, (int)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.RGB2Timeline");
+    int num_ret = olua_push_obj(L, ret, "sp.RGB2Timeline");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -6478,7 +6478,7 @@ static int _spine_RGB2Timeline_setSlotIndex(lua_State *L)
     spine::RGB2Timeline *self = nullptr;
     lua_Integer arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RGB2Timeline");
+    olua_to_obj(L, 1, &self, "sp.RGB2Timeline");
     olua_check_int(L, 2, &arg1);
 
     // void setSlotIndex(int inValue)
@@ -6522,7 +6522,7 @@ static int _spine_DeformTimeline___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::DeformTimeline *)olua_toobj(L, 1, "sp.DeformTimeline");
-    olua_push_cppobj(L, self, "sp.DeformTimeline");
+    olua_push_obj(L, self, "sp.DeformTimeline");
 
     olua_endinvoke(L);
 
@@ -6535,11 +6535,11 @@ static int _spine_DeformTimeline_getAttachment(lua_State *L)
 
     spine::DeformTimeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.DeformTimeline");
+    olua_to_obj(L, 1, &self, "sp.DeformTimeline");
 
     // spine::VertexAttachment *getAttachment()
     spine::VertexAttachment *ret = self->getAttachment();
-    int num_ret = olua_push_cppobj(L, ret, "sp.VertexAttachment");
+    int num_ret = olua_push_obj(L, ret, "sp.VertexAttachment");
 
     olua_endinvoke(L);
 
@@ -6554,7 +6554,7 @@ static int _spine_DeformTimeline_getCurvePercent(lua_State *L)
     lua_Number arg1 = 0;       /** time */
     lua_Integer arg2 = 0;       /** frame */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.DeformTimeline");
+    olua_to_obj(L, 1, &self, "sp.DeformTimeline");
     olua_check_number(L, 2, &arg1);
     olua_check_int(L, 3, &arg2);
 
@@ -6573,7 +6573,7 @@ static int _spine_DeformTimeline_getSlotIndex(lua_State *L)
 
     spine::DeformTimeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.DeformTimeline");
+    olua_to_obj(L, 1, &self, "sp.DeformTimeline");
 
     // int getSlotIndex()
     int ret = self->getSlotIndex();
@@ -6596,11 +6596,11 @@ static int _spine_DeformTimeline_new(lua_State *L)
     olua_check_uint(L, 1, &arg1);
     olua_check_uint(L, 2, &arg2);
     olua_check_int(L, 3, &arg3);
-    olua_check_cppobj(L, 4, (void **)&arg4, "sp.VertexAttachment");
+    olua_check_obj(L, 4, &arg4, "sp.VertexAttachment");
 
     // DeformTimeline(size_t frameCount, size_t bezierCount, int slotIndex, spine::VertexAttachment *attachment)
     spine::DeformTimeline *ret = new spine::DeformTimeline((size_t)arg1, (size_t)arg2, (int)arg3, arg4);
-    int num_ret = olua_push_cppobj(L, ret, "sp.DeformTimeline");
+    int num_ret = olua_push_obj(L, ret, "sp.DeformTimeline");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -6615,8 +6615,8 @@ static int _spine_DeformTimeline_setAttachment(lua_State *L)
     spine::DeformTimeline *self = nullptr;
     spine::VertexAttachment *arg1 = nullptr;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.DeformTimeline");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.VertexAttachment");
+    olua_to_obj(L, 1, &self, "sp.DeformTimeline");
+    olua_check_obj(L, 2, &arg1, "sp.VertexAttachment");
 
     // void setAttachment(spine::VertexAttachment *inValue)
     self->setAttachment(arg1);
@@ -6633,7 +6633,7 @@ static int _spine_DeformTimeline_setSlotIndex(lua_State *L)
     spine::DeformTimeline *self = nullptr;
     lua_Integer arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.DeformTimeline");
+    olua_to_obj(L, 1, &self, "sp.DeformTimeline");
     olua_check_int(L, 2, &arg1);
 
     // void setSlotIndex(int inValue)
@@ -6681,7 +6681,7 @@ static int _spine_DrawOrderTimeline___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::DrawOrderTimeline *)olua_toobj(L, 1, "sp.DrawOrderTimeline");
-    olua_push_cppobj(L, self, "sp.DrawOrderTimeline");
+    olua_push_obj(L, self, "sp.DrawOrderTimeline");
 
     olua_endinvoke(L);
 
@@ -6698,7 +6698,7 @@ static int _spine_DrawOrderTimeline_new(lua_State *L)
 
     // DrawOrderTimeline(size_t frameCount)
     spine::DrawOrderTimeline *ret = new spine::DrawOrderTimeline((size_t)arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.DrawOrderTimeline");
+    int num_ret = olua_push_obj(L, ret, "sp.DrawOrderTimeline");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -6736,7 +6736,7 @@ static int _spine_EventTimeline___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::EventTimeline *)olua_toobj(L, 1, "sp.EventTimeline");
-    olua_push_cppobj(L, self, "sp.EventTimeline");
+    olua_push_obj(L, self, "sp.EventTimeline");
 
     olua_endinvoke(L);
 
@@ -6753,7 +6753,7 @@ static int _spine_EventTimeline_new(lua_State *L)
 
     // EventTimeline(size_t frameCount)
     spine::EventTimeline *ret = new spine::EventTimeline((size_t)arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.EventTimeline");
+    int num_ret = olua_push_obj(L, ret, "sp.EventTimeline");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -6791,7 +6791,7 @@ static int _spine_IkConstraintTimeline___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::IkConstraintTimeline *)olua_toobj(L, 1, "sp.IkConstraintTimeline");
-    olua_push_cppobj(L, self, "sp.IkConstraintTimeline");
+    olua_push_obj(L, self, "sp.IkConstraintTimeline");
 
     olua_endinvoke(L);
 
@@ -6804,7 +6804,7 @@ static int _spine_IkConstraintTimeline_getIkConstraintIndex(lua_State *L)
 
     spine::IkConstraintTimeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraintTimeline");
+    olua_to_obj(L, 1, &self, "sp.IkConstraintTimeline");
 
     // int getIkConstraintIndex()
     int ret = self->getIkConstraintIndex();
@@ -6829,7 +6829,7 @@ static int _spine_IkConstraintTimeline_new(lua_State *L)
 
     // IkConstraintTimeline(size_t frameCount, size_t bezierCount, int ikConstraintIndex)
     spine::IkConstraintTimeline *ret = new spine::IkConstraintTimeline((size_t)arg1, (size_t)arg2, (int)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.IkConstraintTimeline");
+    int num_ret = olua_push_obj(L, ret, "sp.IkConstraintTimeline");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -6844,7 +6844,7 @@ static int _spine_IkConstraintTimeline_setIkConstraintIndex(lua_State *L)
     spine::IkConstraintTimeline *self = nullptr;
     lua_Integer arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.IkConstraintTimeline");
+    olua_to_obj(L, 1, &self, "sp.IkConstraintTimeline");
     olua_check_int(L, 2, &arg1);
 
     // void setIkConstraintIndex(int inValue)
@@ -6888,7 +6888,7 @@ static int _spine_PathConstraintMixTimeline___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::PathConstraintMixTimeline *)olua_toobj(L, 1, "sp.PathConstraintMixTimeline");
-    olua_push_cppobj(L, self, "sp.PathConstraintMixTimeline");
+    olua_push_obj(L, self, "sp.PathConstraintMixTimeline");
 
     olua_endinvoke(L);
 
@@ -6901,7 +6901,7 @@ static int _spine_PathConstraintMixTimeline_getPathConstraintIndex(lua_State *L)
 
     spine::PathConstraintMixTimeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintMixTimeline");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintMixTimeline");
 
     // int getPathConstraintIndex()
     int ret = self->getPathConstraintIndex();
@@ -6926,7 +6926,7 @@ static int _spine_PathConstraintMixTimeline_new(lua_State *L)
 
     // PathConstraintMixTimeline(size_t frameCount, size_t bezierCount, int pathConstraintIndex)
     spine::PathConstraintMixTimeline *ret = new spine::PathConstraintMixTimeline((size_t)arg1, (size_t)arg2, (int)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.PathConstraintMixTimeline");
+    int num_ret = olua_push_obj(L, ret, "sp.PathConstraintMixTimeline");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -6941,7 +6941,7 @@ static int _spine_PathConstraintMixTimeline_setPathConstraintIndex(lua_State *L)
     spine::PathConstraintMixTimeline *self = nullptr;
     lua_Integer arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintMixTimeline");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintMixTimeline");
     olua_check_int(L, 2, &arg1);
 
     // void setPathConstraintIndex(int inValue)
@@ -6985,7 +6985,7 @@ static int _spine_PathConstraintPositionTimeline___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::PathConstraintPositionTimeline *)olua_toobj(L, 1, "sp.PathConstraintPositionTimeline");
-    olua_push_cppobj(L, self, "sp.PathConstraintPositionTimeline");
+    olua_push_obj(L, self, "sp.PathConstraintPositionTimeline");
 
     olua_endinvoke(L);
 
@@ -6998,7 +6998,7 @@ static int _spine_PathConstraintPositionTimeline_getPathConstraintIndex(lua_Stat
 
     spine::PathConstraintPositionTimeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintPositionTimeline");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintPositionTimeline");
 
     // int getPathConstraintIndex()
     int ret = self->getPathConstraintIndex();
@@ -7023,7 +7023,7 @@ static int _spine_PathConstraintPositionTimeline_new(lua_State *L)
 
     // PathConstraintPositionTimeline(size_t frameCount, size_t bezierCount, int pathConstraintIndex)
     spine::PathConstraintPositionTimeline *ret = new spine::PathConstraintPositionTimeline((size_t)arg1, (size_t)arg2, (int)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.PathConstraintPositionTimeline");
+    int num_ret = olua_push_obj(L, ret, "sp.PathConstraintPositionTimeline");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -7038,7 +7038,7 @@ static int _spine_PathConstraintPositionTimeline_setPathConstraintIndex(lua_Stat
     spine::PathConstraintPositionTimeline *self = nullptr;
     lua_Integer arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintPositionTimeline");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintPositionTimeline");
     olua_check_int(L, 2, &arg1);
 
     // void setPathConstraintIndex(int inValue)
@@ -7083,7 +7083,7 @@ static int _spine_PathConstraintSpacingTimeline___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::PathConstraintSpacingTimeline *)olua_toobj(L, 1, "sp.PathConstraintSpacingTimeline");
-    olua_push_cppobj(L, self, "sp.PathConstraintSpacingTimeline");
+    olua_push_obj(L, self, "sp.PathConstraintSpacingTimeline");
 
     olua_endinvoke(L);
 
@@ -7096,7 +7096,7 @@ static int _spine_PathConstraintSpacingTimeline_getPathConstraintIndex(lua_State
 
     spine::PathConstraintSpacingTimeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintSpacingTimeline");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintSpacingTimeline");
 
     // int getPathConstraintIndex()
     int ret = self->getPathConstraintIndex();
@@ -7121,7 +7121,7 @@ static int _spine_PathConstraintSpacingTimeline_new(lua_State *L)
 
     // PathConstraintSpacingTimeline(size_t frameCount, size_t bezierCount, int pathConstraintIndex)
     spine::PathConstraintSpacingTimeline *ret = new spine::PathConstraintSpacingTimeline((size_t)arg1, (size_t)arg2, (int)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.PathConstraintSpacingTimeline");
+    int num_ret = olua_push_obj(L, ret, "sp.PathConstraintSpacingTimeline");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -7136,7 +7136,7 @@ static int _spine_PathConstraintSpacingTimeline_setPathConstraintIndex(lua_State
     spine::PathConstraintSpacingTimeline *self = nullptr;
     lua_Integer arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraintSpacingTimeline");
+    olua_to_obj(L, 1, &self, "sp.PathConstraintSpacingTimeline");
     olua_check_int(L, 2, &arg1);
 
     // void setPathConstraintIndex(int inValue)
@@ -7180,7 +7180,7 @@ static int _spine_TranslateTimeline___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::TranslateTimeline *)olua_toobj(L, 1, "sp.TranslateTimeline");
-    olua_push_cppobj(L, self, "sp.TranslateTimeline");
+    olua_push_obj(L, self, "sp.TranslateTimeline");
 
     olua_endinvoke(L);
 
@@ -7193,7 +7193,7 @@ static int _spine_TranslateTimeline_getBoneIndex(lua_State *L)
 
     spine::TranslateTimeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TranslateTimeline");
+    olua_to_obj(L, 1, &self, "sp.TranslateTimeline");
 
     // int getBoneIndex()
     int ret = self->getBoneIndex();
@@ -7218,7 +7218,7 @@ static int _spine_TranslateTimeline_new(lua_State *L)
 
     // TranslateTimeline(size_t frameCount, size_t bezierCount, int boneIndex)
     spine::TranslateTimeline *ret = new spine::TranslateTimeline((size_t)arg1, (size_t)arg2, (int)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.TranslateTimeline");
+    int num_ret = olua_push_obj(L, ret, "sp.TranslateTimeline");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -7233,7 +7233,7 @@ static int _spine_TranslateTimeline_setBoneIndex(lua_State *L)
     spine::TranslateTimeline *self = nullptr;
     lua_Integer arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TranslateTimeline");
+    olua_to_obj(L, 1, &self, "sp.TranslateTimeline");
     olua_check_int(L, 2, &arg1);
 
     // void setBoneIndex(int inValue)
@@ -7277,7 +7277,7 @@ static int _spine_ShearTimeline___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::ShearTimeline *)olua_toobj(L, 1, "sp.ShearTimeline");
-    olua_push_cppobj(L, self, "sp.ShearTimeline");
+    olua_push_obj(L, self, "sp.ShearTimeline");
 
     olua_endinvoke(L);
 
@@ -7290,7 +7290,7 @@ static int _spine_ShearTimeline_getBoneIndex(lua_State *L)
 
     spine::ShearTimeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.ShearTimeline");
+    olua_to_obj(L, 1, &self, "sp.ShearTimeline");
 
     // int getBoneIndex()
     int ret = self->getBoneIndex();
@@ -7315,7 +7315,7 @@ static int _spine_ShearTimeline_new(lua_State *L)
 
     // ShearTimeline(size_t frameCount, size_t bezierCount, int boneIndex)
     spine::ShearTimeline *ret = new spine::ShearTimeline((size_t)arg1, (size_t)arg2, (int)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.ShearTimeline");
+    int num_ret = olua_push_obj(L, ret, "sp.ShearTimeline");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -7330,7 +7330,7 @@ static int _spine_ShearTimeline_setBoneIndex(lua_State *L)
     spine::ShearTimeline *self = nullptr;
     lua_Integer arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.ShearTimeline");
+    olua_to_obj(L, 1, &self, "sp.ShearTimeline");
     olua_check_int(L, 2, &arg1);
 
     // void setBoneIndex(int inValue)
@@ -7374,7 +7374,7 @@ static int _spine_TransformConstraintTimeline___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::TransformConstraintTimeline *)olua_toobj(L, 1, "sp.TransformConstraintTimeline");
-    olua_push_cppobj(L, self, "sp.TransformConstraintTimeline");
+    olua_push_obj(L, self, "sp.TransformConstraintTimeline");
 
     olua_endinvoke(L);
 
@@ -7387,7 +7387,7 @@ static int _spine_TransformConstraintTimeline_getTransformConstraintIndex(lua_St
 
     spine::TransformConstraintTimeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraintTimeline");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraintTimeline");
 
     // int getTransformConstraintIndex()
     int ret = self->getTransformConstraintIndex();
@@ -7412,7 +7412,7 @@ static int _spine_TransformConstraintTimeline_new(lua_State *L)
 
     // TransformConstraintTimeline(size_t frameCount, size_t bezierCount, int transformConstraintIndex)
     spine::TransformConstraintTimeline *ret = new spine::TransformConstraintTimeline((size_t)arg1, (size_t)arg2, (int)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.TransformConstraintTimeline");
+    int num_ret = olua_push_obj(L, ret, "sp.TransformConstraintTimeline");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -7427,7 +7427,7 @@ static int _spine_TransformConstraintTimeline_setTransformConstraintIndex(lua_St
     spine::TransformConstraintTimeline *self = nullptr;
     lua_Integer arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TransformConstraintTimeline");
+    olua_to_obj(L, 1, &self, "sp.TransformConstraintTimeline");
     olua_check_int(L, 2, &arg1);
 
     // void setTransformConstraintIndex(int inValue)
@@ -7471,7 +7471,7 @@ static int _spine_ScaleTimeline___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::ScaleTimeline *)olua_toobj(L, 1, "sp.ScaleTimeline");
-    olua_push_cppobj(L, self, "sp.ScaleTimeline");
+    olua_push_obj(L, self, "sp.ScaleTimeline");
 
     olua_endinvoke(L);
 
@@ -7484,7 +7484,7 @@ static int _spine_ScaleTimeline_getBoneIndex(lua_State *L)
 
     spine::ScaleTimeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.ScaleTimeline");
+    olua_to_obj(L, 1, &self, "sp.ScaleTimeline");
 
     // int getBoneIndex()
     int ret = self->getBoneIndex();
@@ -7509,7 +7509,7 @@ static int _spine_ScaleTimeline_new(lua_State *L)
 
     // ScaleTimeline(size_t frameCount, size_t bezierCount, int boneIndex)
     spine::ScaleTimeline *ret = new spine::ScaleTimeline((size_t)arg1, (size_t)arg2, (int)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.ScaleTimeline");
+    int num_ret = olua_push_obj(L, ret, "sp.ScaleTimeline");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -7524,7 +7524,7 @@ static int _spine_ScaleTimeline_setBoneIndex(lua_State *L)
     spine::ScaleTimeline *self = nullptr;
     lua_Integer arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.ScaleTimeline");
+    olua_to_obj(L, 1, &self, "sp.ScaleTimeline");
     olua_check_int(L, 2, &arg1);
 
     // void setBoneIndex(int inValue)
@@ -7568,7 +7568,7 @@ static int _spine_RotateTimeline___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::RotateTimeline *)olua_toobj(L, 1, "sp.RotateTimeline");
-    olua_push_cppobj(L, self, "sp.RotateTimeline");
+    olua_push_obj(L, self, "sp.RotateTimeline");
 
     olua_endinvoke(L);
 
@@ -7581,7 +7581,7 @@ static int _spine_RotateTimeline_getBoneIndex(lua_State *L)
 
     spine::RotateTimeline *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RotateTimeline");
+    olua_to_obj(L, 1, &self, "sp.RotateTimeline");
 
     // int getBoneIndex()
     int ret = self->getBoneIndex();
@@ -7606,7 +7606,7 @@ static int _spine_RotateTimeline_new(lua_State *L)
 
     // RotateTimeline(size_t frameCount, size_t bezierCount, int boneIndex)
     spine::RotateTimeline *ret = new spine::RotateTimeline((size_t)arg1, (size_t)arg2, (int)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.RotateTimeline");
+    int num_ret = olua_push_obj(L, ret, "sp.RotateTimeline");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -7621,7 +7621,7 @@ static int _spine_RotateTimeline_setBoneIndex(lua_State *L)
     spine::RotateTimeline *self = nullptr;
     lua_Integer arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RotateTimeline");
+    olua_to_obj(L, 1, &self, "sp.RotateTimeline");
     olua_check_int(L, 2, &arg1);
 
     // void setBoneIndex(int inValue)
@@ -7654,7 +7654,7 @@ static int _spine_Polygon___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::Polygon *)olua_toobj(L, 1, "sp.Polygon");
-    olua_push_cppobj(L, self, "sp.Polygon");
+    olua_push_obj(L, self, "sp.Polygon");
 
     olua_endinvoke(L);
 
@@ -7689,7 +7689,7 @@ static int _spine_Skin___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::Skin *)olua_toobj(L, 1, "sp.Skin");
-    olua_push_cppobj(L, self, "sp.Skin");
+    olua_push_obj(L, self, "sp.Skin");
 
     olua_endinvoke(L);
 
@@ -7703,8 +7703,8 @@ static int _spine_Skin_addSkin(lua_State *L)
     spine::Skin *self = nullptr;
     spine::Skin *arg1 = nullptr;       /** other */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skin");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Skin");
+    olua_to_obj(L, 1, &self, "sp.Skin");
+    olua_check_obj(L, 2, &arg1, "sp.Skin");
 
     // void addSkin(spine::Skin *other)
     self->addSkin(arg1);
@@ -7721,8 +7721,8 @@ static int _spine_Skin_copySkin(lua_State *L)
     spine::Skin *self = nullptr;
     spine::Skin *arg1 = nullptr;       /** other */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skin");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Skin");
+    olua_to_obj(L, 1, &self, "sp.Skin");
+    olua_check_obj(L, 2, &arg1, "sp.Skin");
 
     // void copySkin(spine::Skin *other)
     self->copySkin(arg1);
@@ -7740,13 +7740,13 @@ static int _spine_Skin_getAttachment(lua_State *L)
     lua_Unsigned arg1 = 0;       /** slotIndex */
     spine::String arg2;       /** name */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skin");
+    olua_to_obj(L, 1, &self, "sp.Skin");
     olua_check_uint(L, 2, &arg1);
     olua_check_spine_String(L, 3, &arg2);
 
     // spine::Attachment *getAttachment(size_t slotIndex, const spine::String &name)
     spine::Attachment *ret = self->getAttachment((size_t)arg1, arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.Attachment");
+    int num_ret = olua_push_obj(L, ret, "sp.Attachment");
 
     olua_endinvoke(L);
 
@@ -7759,12 +7759,12 @@ static int _spine_Skin_getBones(lua_State *L)
 
     spine::Skin *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skin");
+    olua_to_obj(L, 1, &self, "sp.Skin");
 
     // spine::Vector<spine::BoneData *> &getBones()
     spine::Vector<spine::BoneData *> &ret = self->getBones();
     int num_ret = olua_push_array<spine::BoneData *>(L, &ret, [L](spine::BoneData *value) {
-        olua_push_cppobj(L, value, "sp.BoneData");
+        olua_push_obj(L, value, "sp.BoneData");
     });
 
     olua_endinvoke(L);
@@ -7778,12 +7778,12 @@ static int _spine_Skin_getConstraints(lua_State *L)
 
     spine::Skin *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skin");
+    olua_to_obj(L, 1, &self, "sp.Skin");
 
     // spine::Vector<spine::ConstraintData *> &getConstraints()
     spine::Vector<spine::ConstraintData *> &ret = self->getConstraints();
     int num_ret = olua_push_array<spine::ConstraintData *>(L, &ret, [L](spine::ConstraintData *value) {
-        olua_push_cppobj(L, value, "sp.ConstraintData");
+        olua_push_obj(L, value, "sp.ConstraintData");
     });
 
     olua_endinvoke(L);
@@ -7797,7 +7797,7 @@ static int _spine_Skin_getName(lua_State *L)
 
     spine::Skin *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skin");
+    olua_to_obj(L, 1, &self, "sp.Skin");
 
     // const spine::String &getName()
     const spine::String &ret = self->getName();
@@ -7818,7 +7818,7 @@ static int _spine_Skin_new(lua_State *L)
 
     // Skin(const spine::String &name)
     spine::Skin *ret = new spine::Skin(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.Skin");
+    int num_ret = olua_push_obj(L, ret, "sp.Skin");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -7834,7 +7834,7 @@ static int _spine_Skin_removeAttachment(lua_State *L)
     lua_Unsigned arg1 = 0;       /** slotIndex */
     spine::String arg2;       /** name */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skin");
+    olua_to_obj(L, 1, &self, "sp.Skin");
     olua_check_uint(L, 2, &arg1);
     olua_check_spine_String(L, 3, &arg2);
 
@@ -7855,10 +7855,10 @@ static int _spine_Skin_setAttachment(lua_State *L)
     spine::String arg2;       /** name */
     spine::Attachment *arg3 = nullptr;       /** attachment */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skin");
+    olua_to_obj(L, 1, &self, "sp.Skin");
     olua_check_uint(L, 2, &arg1);
     olua_check_spine_String(L, 3, &arg2);
-    olua_check_cppobj(L, 4, (void **)&arg3, "sp.Attachment");
+    olua_check_obj(L, 4, &arg3, "sp.Attachment");
 
     // void setAttachment(size_t slotIndex, const spine::String &name, spine::Attachment *attachment)
     self->setAttachment((size_t)arg1, arg2, arg3);
@@ -7898,7 +7898,7 @@ static int _spine_Atlas___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::Atlas *)olua_toobj(L, 1, "sp.Atlas");
-    olua_push_cppobj(L, self, "sp.Atlas");
+    olua_push_obj(L, self, "sp.Atlas");
 
     olua_endinvoke(L);
 
@@ -7922,7 +7922,7 @@ static int _spine_Bone___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::Bone *)olua_toobj(L, 1, "sp.Bone");
-    olua_push_cppobj(L, self, "sp.Bone");
+    olua_push_obj(L, self, "sp.Bone");
 
     olua_endinvoke(L);
 
@@ -7935,7 +7935,7 @@ static int _spine_Bone_getA(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getA()
     float ret = self->getA();
@@ -7952,7 +7952,7 @@ static int _spine_Bone_getAScaleX(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getAScaleX()
     float ret = self->getAScaleX();
@@ -7969,7 +7969,7 @@ static int _spine_Bone_getAScaleY(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getAScaleY()
     float ret = self->getAScaleY();
@@ -7986,7 +7986,7 @@ static int _spine_Bone_getAShearX(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getAShearX()
     float ret = self->getAShearX();
@@ -8003,7 +8003,7 @@ static int _spine_Bone_getAShearY(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getAShearY()
     float ret = self->getAShearY();
@@ -8020,7 +8020,7 @@ static int _spine_Bone_getAX(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getAX()
     float ret = self->getAX();
@@ -8037,7 +8037,7 @@ static int _spine_Bone_getAY(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getAY()
     float ret = self->getAY();
@@ -8054,7 +8054,7 @@ static int _spine_Bone_getAppliedRotation(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getAppliedRotation()
     float ret = self->getAppliedRotation();
@@ -8071,7 +8071,7 @@ static int _spine_Bone_getB(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getB()
     float ret = self->getB();
@@ -8088,7 +8088,7 @@ static int _spine_Bone_getC(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getC()
     float ret = self->getC();
@@ -8105,12 +8105,12 @@ static int _spine_Bone_getChildren(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // spine::Vector<spine::Bone *> &getChildren()
     spine::Vector<spine::Bone *> &ret = self->getChildren();
     int num_ret = olua_push_array<spine::Bone *>(L, &ret, [L](spine::Bone *value) {
-        olua_push_cppobj(L, value, "sp.Bone");
+        olua_push_obj(L, value, "sp.Bone");
     });
 
     olua_endinvoke(L);
@@ -8124,7 +8124,7 @@ static int _spine_Bone_getD(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getD()
     float ret = self->getD();
@@ -8141,11 +8141,11 @@ static int _spine_Bone_getParent(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // spine::Bone *getParent()
     spine::Bone *ret = self->getParent();
-    int num_ret = olua_push_cppobj(L, ret, "sp.Bone");
+    int num_ret = olua_push_obj(L, ret, "sp.Bone");
 
     olua_endinvoke(L);
 
@@ -8158,7 +8158,7 @@ static int _spine_Bone_getRotation(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getRotation()
     float ret = self->getRotation();
@@ -8175,7 +8175,7 @@ static int _spine_Bone_getScaleX(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getScaleX()
     float ret = self->getScaleX();
@@ -8192,7 +8192,7 @@ static int _spine_Bone_getScaleY(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getScaleY()
     float ret = self->getScaleY();
@@ -8209,7 +8209,7 @@ static int _spine_Bone_getShearX(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getShearX()
     float ret = self->getShearX();
@@ -8226,7 +8226,7 @@ static int _spine_Bone_getShearY(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getShearY()
     float ret = self->getShearY();
@@ -8243,7 +8243,7 @@ static int _spine_Bone_getWorldRotationX(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getWorldRotationX()
     float ret = self->getWorldRotationX();
@@ -8260,7 +8260,7 @@ static int _spine_Bone_getWorldRotationY(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getWorldRotationY()
     float ret = self->getWorldRotationY();
@@ -8277,7 +8277,7 @@ static int _spine_Bone_getWorldScaleX(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getWorldScaleX()
     float ret = self->getWorldScaleX();
@@ -8294,7 +8294,7 @@ static int _spine_Bone_getWorldScaleY(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getWorldScaleY()
     float ret = self->getWorldScaleY();
@@ -8311,7 +8311,7 @@ static int _spine_Bone_getWorldToLocalRotationX(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getWorldToLocalRotationX()
     float ret = self->getWorldToLocalRotationX();
@@ -8328,7 +8328,7 @@ static int _spine_Bone_getWorldToLocalRotationY(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getWorldToLocalRotationY()
     float ret = self->getWorldToLocalRotationY();
@@ -8345,7 +8345,7 @@ static int _spine_Bone_getWorldX(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getWorldX()
     float ret = self->getWorldX();
@@ -8362,7 +8362,7 @@ static int _spine_Bone_getWorldY(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getWorldY()
     float ret = self->getWorldY();
@@ -8379,7 +8379,7 @@ static int _spine_Bone_getX(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getX()
     float ret = self->getX();
@@ -8396,7 +8396,7 @@ static int _spine_Bone_getY(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // float getY()
     float ret = self->getY();
@@ -8427,7 +8427,7 @@ static int _spine_Bone_localToWorldRotation(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** localRotation */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // float localToWorldRotation(float localRotation)
@@ -8446,7 +8446,7 @@ static int _spine_Bone_rotateWorld(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** degrees */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // void rotateWorld(float degrees)
@@ -8464,7 +8464,7 @@ static int _spine_Bone_setA(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // void setA(float inValue)
@@ -8482,7 +8482,7 @@ static int _spine_Bone_setAScaleX(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // void setAScaleX(float inValue)
@@ -8500,7 +8500,7 @@ static int _spine_Bone_setAScaleY(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // void setAScaleY(float inValue)
@@ -8518,7 +8518,7 @@ static int _spine_Bone_setAShearX(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // void setAShearX(float inValue)
@@ -8536,7 +8536,7 @@ static int _spine_Bone_setAShearY(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // void setAShearY(float inValue)
@@ -8554,7 +8554,7 @@ static int _spine_Bone_setAX(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // void setAX(float inValue)
@@ -8572,7 +8572,7 @@ static int _spine_Bone_setAY(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // void setAY(float inValue)
@@ -8590,7 +8590,7 @@ static int _spine_Bone_setAppliedRotation(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // void setAppliedRotation(float inValue)
@@ -8608,7 +8608,7 @@ static int _spine_Bone_setB(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // void setB(float inValue)
@@ -8626,7 +8626,7 @@ static int _spine_Bone_setC(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // void setC(float inValue)
@@ -8644,7 +8644,7 @@ static int _spine_Bone_setD(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // void setD(float inValue)
@@ -8662,7 +8662,7 @@ static int _spine_Bone_setRotation(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // void setRotation(float inValue)
@@ -8680,7 +8680,7 @@ static int _spine_Bone_setScaleX(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // void setScaleX(float inValue)
@@ -8698,7 +8698,7 @@ static int _spine_Bone_setScaleY(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // void setScaleY(float inValue)
@@ -8716,7 +8716,7 @@ static int _spine_Bone_setShearX(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // void setShearX(float inValue)
@@ -8734,7 +8734,7 @@ static int _spine_Bone_setShearY(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // void setShearY(float inValue)
@@ -8751,7 +8751,7 @@ static int _spine_Bone_setToSetupPose(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // void setToSetupPose()
     self->setToSetupPose();
@@ -8768,7 +8768,7 @@ static int _spine_Bone_setWorldX(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // void setWorldX(float inValue)
@@ -8786,7 +8786,7 @@ static int _spine_Bone_setWorldY(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // void setWorldY(float inValue)
@@ -8804,7 +8804,7 @@ static int _spine_Bone_setX(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // void setX(float inValue)
@@ -8822,7 +8822,7 @@ static int _spine_Bone_setY(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // void setY(float inValue)
@@ -8855,7 +8855,7 @@ static int _spine_Bone_updateWorldTransform1(lua_State *L)
 
     spine::Bone *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
 
     // void updateWorldTransform()
     self->updateWorldTransform();
@@ -8878,7 +8878,7 @@ static int _spine_Bone_updateWorldTransform2(lua_State *L)
     lua_Number arg6 = 0;       /** shearX */
     lua_Number arg7 = 0;       /** shearY */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
     olua_check_number(L, 4, &arg3);
@@ -8923,7 +8923,7 @@ static int _spine_Bone_worldToLocalRotation(lua_State *L)
     spine::Bone *self = nullptr;
     lua_Number arg1 = 0;       /** worldRotation */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Bone");
     olua_check_number(L, 2, &arg1);
 
     // float worldToLocalRotation(float worldRotation)
@@ -9036,7 +9036,7 @@ static int _spine_Slot___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::Slot *)olua_toobj(L, 1, "sp.Slot");
-    olua_push_cppobj(L, self, "sp.Slot");
+    olua_push_obj(L, self, "sp.Slot");
 
     olua_endinvoke(L);
 
@@ -9049,11 +9049,11 @@ static int _spine_Slot_getAttachment(lua_State *L)
 
     spine::Slot *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Slot");
+    olua_to_obj(L, 1, &self, "sp.Slot");
 
     // spine::Attachment *getAttachment()
     spine::Attachment *ret = self->getAttachment();
-    int num_ret = olua_push_cppobj(L, ret, "sp.Attachment");
+    int num_ret = olua_push_obj(L, ret, "sp.Attachment");
 
     olua_endinvoke(L);
 
@@ -9066,7 +9066,7 @@ static int _spine_Slot_getAttachmentState(lua_State *L)
 
     spine::Slot *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Slot");
+    olua_to_obj(L, 1, &self, "sp.Slot");
 
     // int getAttachmentState()
     int ret = self->getAttachmentState();
@@ -9083,7 +9083,7 @@ static int _spine_Slot_getColor(lua_State *L)
 
     spine::Slot *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Slot");
+    olua_to_obj(L, 1, &self, "sp.Slot");
 
     // spine::Color &getColor()
     spine::Color &ret = self->getColor();
@@ -9100,7 +9100,7 @@ static int _spine_Slot_getDarkColor(lua_State *L)
 
     spine::Slot *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Slot");
+    olua_to_obj(L, 1, &self, "sp.Slot");
 
     // spine::Color &getDarkColor()
     spine::Color &ret = self->getDarkColor();
@@ -9117,11 +9117,11 @@ static int _spine_Slot_getDeform(lua_State *L)
 
     spine::Slot *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Slot");
+    olua_to_obj(L, 1, &self, "sp.Slot");
 
     // spine::Vector<float> &getDeform()
     spine::Vector<float> &ret = self->getDeform();
-    int num_ret = olua_push_array<float>(L, &ret, [L](float value) {
+    int num_ret = olua_push_array<float>(L, &ret, [L](float &value) {
         olua_push_number(L, (lua_Number)value);
     });
 
@@ -9136,7 +9136,7 @@ static int _spine_Slot_getSequenceIndex(lua_State *L)
 
     spine::Slot *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Slot");
+    olua_to_obj(L, 1, &self, "sp.Slot");
 
     // int getSequenceIndex()
     int ret = self->getSequenceIndex();
@@ -9153,7 +9153,7 @@ static int _spine_Slot_hasDarkColor(lua_State *L)
 
     spine::Slot *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Slot");
+    olua_to_obj(L, 1, &self, "sp.Slot");
 
     // bool hasDarkColor()
     bool ret = self->hasDarkColor();
@@ -9171,8 +9171,8 @@ static int _spine_Slot_setAttachment(lua_State *L)
     spine::Slot *self = nullptr;
     spine::Attachment *arg1 = nullptr;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Slot");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Attachment");
+    olua_to_obj(L, 1, &self, "sp.Slot");
+    olua_check_obj(L, 2, &arg1, "sp.Attachment");
 
     // void setAttachment(spine::Attachment *inValue)
     self->setAttachment(arg1);
@@ -9189,7 +9189,7 @@ static int _spine_Slot_setAttachmentState(lua_State *L)
     spine::Slot *self = nullptr;
     lua_Integer arg1 = 0;       /** state */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Slot");
+    olua_to_obj(L, 1, &self, "sp.Slot");
     olua_check_int(L, 2, &arg1);
 
     // void setAttachmentState(int state)
@@ -9207,7 +9207,7 @@ static int _spine_Slot_setSequenceIndex(lua_State *L)
     spine::Slot *self = nullptr;
     lua_Integer arg1 = 0;       /** index */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Slot");
+    olua_to_obj(L, 1, &self, "sp.Slot");
     olua_check_int(L, 2, &arg1);
 
     // void setSequenceIndex(int index)
@@ -9224,7 +9224,7 @@ static int _spine_Slot_setToSetupPose(lua_State *L)
 
     spine::Slot *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Slot");
+    olua_to_obj(L, 1, &self, "sp.Slot");
 
     // void setToSetupPose()
     self->setToSetupPose();
@@ -9268,7 +9268,7 @@ static int _spine_Attachment___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::Attachment *)olua_toobj(L, 1, "sp.Attachment");
-    olua_push_cppobj(L, self, "sp.Attachment");
+    olua_push_obj(L, self, "sp.Attachment");
 
     olua_endinvoke(L);
 
@@ -9281,11 +9281,11 @@ static int _spine_Attachment_copy(lua_State *L)
 
     spine::Attachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Attachment");
+    olua_to_obj(L, 1, &self, "sp.Attachment");
 
     // spine::Attachment *copy()
     spine::Attachment *ret = self->copy();
-    int num_ret = olua_push_cppobj(L, ret, "sp.Attachment");
+    int num_ret = olua_push_obj(L, ret, "sp.Attachment");
 
     olua_endinvoke(L);
 
@@ -9298,7 +9298,7 @@ static int _spine_Attachment_dereference(lua_State *L)
 
     spine::Attachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Attachment");
+    olua_to_obj(L, 1, &self, "sp.Attachment");
 
     // void dereference()
     self->dereference();
@@ -9314,7 +9314,7 @@ static int _spine_Attachment_getName(lua_State *L)
 
     spine::Attachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Attachment");
+    olua_to_obj(L, 1, &self, "sp.Attachment");
 
     // const spine::String &getName()
     const spine::String &ret = self->getName();
@@ -9331,7 +9331,7 @@ static int _spine_Attachment_getRefCount(lua_State *L)
 
     spine::Attachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Attachment");
+    olua_to_obj(L, 1, &self, "sp.Attachment");
 
     // int getRefCount()
     int ret = self->getRefCount();
@@ -9348,7 +9348,7 @@ static int _spine_Attachment_reference(lua_State *L)
 
     spine::Attachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Attachment");
+    olua_to_obj(L, 1, &self, "sp.Attachment");
 
     // void reference()
     self->reference();
@@ -9382,7 +9382,7 @@ static int _spine_VertexAttachment___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::VertexAttachment *)olua_toobj(L, 1, "sp.VertexAttachment");
-    olua_push_cppobj(L, self, "sp.VertexAttachment");
+    olua_push_obj(L, self, "sp.VertexAttachment");
 
     olua_endinvoke(L);
 
@@ -9396,8 +9396,8 @@ static int _spine_VertexAttachment_copyTo(lua_State *L)
     spine::VertexAttachment *self = nullptr;
     spine::VertexAttachment *arg1 = nullptr;       /** other */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.VertexAttachment");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.VertexAttachment");
+    olua_to_obj(L, 1, &self, "sp.VertexAttachment");
+    olua_check_obj(L, 2, &arg1, "sp.VertexAttachment");
 
     // void copyTo(spine::VertexAttachment *other)
     self->copyTo(arg1);
@@ -9413,11 +9413,11 @@ static int _spine_VertexAttachment_getBones(lua_State *L)
 
     spine::VertexAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.VertexAttachment");
+    olua_to_obj(L, 1, &self, "sp.VertexAttachment");
 
     // spine::Vector<size_t> &getBones()
     spine::Vector<size_t> &ret = self->getBones();
-    int num_ret = olua_push_array<size_t>(L, &ret, [L](size_t value) {
+    int num_ret = olua_push_array<size_t>(L, &ret, [L](size_t &value) {
         olua_push_uint(L, (lua_Unsigned)value);
     });
 
@@ -9432,7 +9432,7 @@ static int _spine_VertexAttachment_getId(lua_State *L)
 
     spine::VertexAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.VertexAttachment");
+    olua_to_obj(L, 1, &self, "sp.VertexAttachment");
 
     // int getId()
     int ret = self->getId();
@@ -9449,11 +9449,11 @@ static int _spine_VertexAttachment_getTimelineAttachment(lua_State *L)
 
     spine::VertexAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.VertexAttachment");
+    olua_to_obj(L, 1, &self, "sp.VertexAttachment");
 
     // spine::Attachment *getTimelineAttachment()
     spine::Attachment *ret = self->getTimelineAttachment();
-    int num_ret = olua_push_cppobj(L, ret, "sp.Attachment");
+    int num_ret = olua_push_obj(L, ret, "sp.Attachment");
 
     olua_endinvoke(L);
 
@@ -9466,11 +9466,11 @@ static int _spine_VertexAttachment_getVertices(lua_State *L)
 
     spine::VertexAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.VertexAttachment");
+    olua_to_obj(L, 1, &self, "sp.VertexAttachment");
 
     // spine::Vector<float> &getVertices()
     spine::Vector<float> &ret = self->getVertices();
-    int num_ret = olua_push_array<float>(L, &ret, [L](float value) {
+    int num_ret = olua_push_array<float>(L, &ret, [L](float &value) {
         olua_push_number(L, (lua_Number)value);
     });
 
@@ -9485,7 +9485,7 @@ static int _spine_VertexAttachment_getWorldVerticesLength(lua_State *L)
 
     spine::VertexAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.VertexAttachment");
+    olua_to_obj(L, 1, &self, "sp.VertexAttachment");
 
     // size_t getWorldVerticesLength()
     size_t ret = self->getWorldVerticesLength();
@@ -9503,8 +9503,8 @@ static int _spine_VertexAttachment_setTimelineAttachment(lua_State *L)
     spine::VertexAttachment *self = nullptr;
     spine::Attachment *arg1 = nullptr;       /** attachment */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.VertexAttachment");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Attachment");
+    olua_to_obj(L, 1, &self, "sp.VertexAttachment");
+    olua_check_obj(L, 2, &arg1, "sp.Attachment");
 
     // void setTimelineAttachment(spine::Attachment *attachment)
     self->setTimelineAttachment(arg1);
@@ -9521,7 +9521,7 @@ static int _spine_VertexAttachment_setWorldVerticesLength(lua_State *L)
     spine::VertexAttachment *self = nullptr;
     lua_Unsigned arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.VertexAttachment");
+    olua_to_obj(L, 1, &self, "sp.VertexAttachment");
     olua_check_uint(L, 2, &arg1);
 
     // void setWorldVerticesLength(size_t inValue)
@@ -9573,7 +9573,7 @@ static int _spine_ClippingAttachment___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::ClippingAttachment *)olua_toobj(L, 1, "sp.ClippingAttachment");
-    olua_push_cppobj(L, self, "sp.ClippingAttachment");
+    olua_push_obj(L, self, "sp.ClippingAttachment");
 
     olua_endinvoke(L);
 
@@ -9586,7 +9586,7 @@ static int _spine_ClippingAttachment_getColor(lua_State *L)
 
     spine::ClippingAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.ClippingAttachment");
+    olua_to_obj(L, 1, &self, "sp.ClippingAttachment");
 
     // spine::Color &getColor()
     spine::Color &ret = self->getColor();
@@ -9603,11 +9603,11 @@ static int _spine_ClippingAttachment_getEndSlot(lua_State *L)
 
     spine::ClippingAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.ClippingAttachment");
+    olua_to_obj(L, 1, &self, "sp.ClippingAttachment");
 
     // spine::SlotData *getEndSlot()
     spine::SlotData *ret = self->getEndSlot();
-    int num_ret = olua_push_cppobj(L, ret, "sp.SlotData");
+    int num_ret = olua_push_obj(L, ret, "sp.SlotData");
 
     olua_endinvoke(L);
 
@@ -9624,7 +9624,7 @@ static int _spine_ClippingAttachment_new(lua_State *L)
 
     // ClippingAttachment(const spine::String &name)
     spine::ClippingAttachment *ret = new spine::ClippingAttachment(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.ClippingAttachment");
+    int num_ret = olua_push_obj(L, ret, "sp.ClippingAttachment");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -9639,8 +9639,8 @@ static int _spine_ClippingAttachment_setEndSlot(lua_State *L)
     spine::ClippingAttachment *self = nullptr;
     spine::SlotData *arg1 = nullptr;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.ClippingAttachment");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.SlotData");
+    olua_to_obj(L, 1, &self, "sp.ClippingAttachment");
+    olua_check_obj(L, 2, &arg1, "sp.SlotData");
 
     // void setEndSlot(spine::SlotData *inValue)
     self->setEndSlot(arg1);
@@ -9685,7 +9685,7 @@ static int _spine_BoundingBoxAttachment___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::BoundingBoxAttachment *)olua_toobj(L, 1, "sp.BoundingBoxAttachment");
-    olua_push_cppobj(L, self, "sp.BoundingBoxAttachment");
+    olua_push_obj(L, self, "sp.BoundingBoxAttachment");
 
     olua_endinvoke(L);
 
@@ -9698,7 +9698,7 @@ static int _spine_BoundingBoxAttachment_getColor(lua_State *L)
 
     spine::BoundingBoxAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.BoundingBoxAttachment");
+    olua_to_obj(L, 1, &self, "sp.BoundingBoxAttachment");
 
     // spine::Color &getColor()
     spine::Color &ret = self->getColor();
@@ -9719,7 +9719,7 @@ static int _spine_BoundingBoxAttachment_new(lua_State *L)
 
     // BoundingBoxAttachment(const spine::String &name)
     spine::BoundingBoxAttachment *ret = new spine::BoundingBoxAttachment(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.BoundingBoxAttachment");
+    int num_ret = olua_push_obj(L, ret, "sp.BoundingBoxAttachment");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -9759,7 +9759,7 @@ static int _spine_MeshAttachment___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::MeshAttachment *)olua_toobj(L, 1, "sp.MeshAttachment");
-    olua_push_cppobj(L, self, "sp.MeshAttachment");
+    olua_push_obj(L, self, "sp.MeshAttachment");
 
     olua_endinvoke(L);
 
@@ -9772,7 +9772,7 @@ static int _spine_MeshAttachment_getColor(lua_State *L)
 
     spine::MeshAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
+    olua_to_obj(L, 1, &self, "sp.MeshAttachment");
 
     // spine::Color &getColor()
     spine::Color &ret = self->getColor();
@@ -9789,11 +9789,11 @@ static int _spine_MeshAttachment_getEdges(lua_State *L)
 
     spine::MeshAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
+    olua_to_obj(L, 1, &self, "sp.MeshAttachment");
 
     // spine::Vector<unsigned short> &getEdges()
     spine::Vector<unsigned short> &ret = self->getEdges();
-    int num_ret = olua_push_array<unsigned short>(L, &ret, [L](unsigned short value) {
+    int num_ret = olua_push_array<unsigned short>(L, &ret, [L](unsigned short &value) {
         olua_push_uint(L, (lua_Unsigned)value);
     });
 
@@ -9808,7 +9808,7 @@ static int _spine_MeshAttachment_getHeight(lua_State *L)
 
     spine::MeshAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
+    olua_to_obj(L, 1, &self, "sp.MeshAttachment");
 
     // float getHeight()
     float ret = self->getHeight();
@@ -9825,7 +9825,7 @@ static int _spine_MeshAttachment_getHullLength(lua_State *L)
 
     spine::MeshAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
+    olua_to_obj(L, 1, &self, "sp.MeshAttachment");
 
     // int getHullLength()
     int ret = self->getHullLength();
@@ -9842,11 +9842,11 @@ static int _spine_MeshAttachment_getParentMesh(lua_State *L)
 
     spine::MeshAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
+    olua_to_obj(L, 1, &self, "sp.MeshAttachment");
 
     // spine::MeshAttachment *getParentMesh()
     spine::MeshAttachment *ret = self->getParentMesh();
-    int num_ret = olua_push_cppobj(L, ret, "sp.MeshAttachment");
+    int num_ret = olua_push_obj(L, ret, "sp.MeshAttachment");
 
     olua_endinvoke(L);
 
@@ -9859,7 +9859,7 @@ static int _spine_MeshAttachment_getPath(lua_State *L)
 
     spine::MeshAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
+    olua_to_obj(L, 1, &self, "sp.MeshAttachment");
 
     // const spine::String &getPath()
     const spine::String &ret = self->getPath();
@@ -9876,11 +9876,11 @@ static int _spine_MeshAttachment_getRegion(lua_State *L)
 
     spine::MeshAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
+    olua_to_obj(L, 1, &self, "sp.MeshAttachment");
 
     // spine::TextureRegion *getRegion()
     spine::TextureRegion *ret = self->getRegion();
-    int num_ret = olua_push_cppobj(L, ret, "sp.TextureRegion");
+    int num_ret = olua_push_obj(L, ret, "sp.TextureRegion");
 
     olua_endinvoke(L);
 
@@ -9893,11 +9893,11 @@ static int _spine_MeshAttachment_getRegionUVs(lua_State *L)
 
     spine::MeshAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
+    olua_to_obj(L, 1, &self, "sp.MeshAttachment");
 
     // spine::Vector<float> &getRegionUVs()
     spine::Vector<float> &ret = self->getRegionUVs();
-    int num_ret = olua_push_array<float>(L, &ret, [L](float value) {
+    int num_ret = olua_push_array<float>(L, &ret, [L](float &value) {
         olua_push_number(L, (lua_Number)value);
     });
 
@@ -9912,11 +9912,11 @@ static int _spine_MeshAttachment_getSequence(lua_State *L)
 
     spine::MeshAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
+    olua_to_obj(L, 1, &self, "sp.MeshAttachment");
 
     // spine::Sequence *getSequence()
     spine::Sequence *ret = self->getSequence();
-    int num_ret = olua_push_cppobj(L, ret, "sp.Sequence");
+    int num_ret = olua_push_obj(L, ret, "sp.Sequence");
 
     olua_endinvoke(L);
 
@@ -9929,11 +9929,11 @@ static int _spine_MeshAttachment_getTriangles(lua_State *L)
 
     spine::MeshAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
+    olua_to_obj(L, 1, &self, "sp.MeshAttachment");
 
     // spine::Vector<unsigned short> &getTriangles()
     spine::Vector<unsigned short> &ret = self->getTriangles();
-    int num_ret = olua_push_array<unsigned short>(L, &ret, [L](unsigned short value) {
+    int num_ret = olua_push_array<unsigned short>(L, &ret, [L](unsigned short &value) {
         olua_push_uint(L, (lua_Unsigned)value);
     });
 
@@ -9948,11 +9948,11 @@ static int _spine_MeshAttachment_getUVs(lua_State *L)
 
     spine::MeshAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
+    olua_to_obj(L, 1, &self, "sp.MeshAttachment");
 
     // spine::Vector<float> &getUVs()
     spine::Vector<float> &ret = self->getUVs();
-    int num_ret = olua_push_array<float>(L, &ret, [L](float value) {
+    int num_ret = olua_push_array<float>(L, &ret, [L](float &value) {
         olua_push_number(L, (lua_Number)value);
     });
 
@@ -9967,7 +9967,7 @@ static int _spine_MeshAttachment_getWidth(lua_State *L)
 
     spine::MeshAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
+    olua_to_obj(L, 1, &self, "sp.MeshAttachment");
 
     // float getWidth()
     float ret = self->getWidth();
@@ -9988,7 +9988,7 @@ static int _spine_MeshAttachment_new(lua_State *L)
 
     // MeshAttachment(const spine::String &name)
     spine::MeshAttachment *ret = new spine::MeshAttachment(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.MeshAttachment");
+    int num_ret = olua_push_obj(L, ret, "sp.MeshAttachment");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -10002,11 +10002,11 @@ static int _spine_MeshAttachment_newLinkedMesh(lua_State *L)
 
     spine::MeshAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
+    olua_to_obj(L, 1, &self, "sp.MeshAttachment");
 
     // spine::MeshAttachment *newLinkedMesh()
     spine::MeshAttachment *ret = self->newLinkedMesh();
-    int num_ret = olua_push_cppobj(L, ret, "sp.MeshAttachment");
+    int num_ret = olua_push_obj(L, ret, "sp.MeshAttachment");
 
     olua_endinvoke(L);
 
@@ -10020,7 +10020,7 @@ static int _spine_MeshAttachment_setHeight(lua_State *L)
     spine::MeshAttachment *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
+    olua_to_obj(L, 1, &self, "sp.MeshAttachment");
     olua_check_number(L, 2, &arg1);
 
     // void setHeight(float inValue)
@@ -10038,7 +10038,7 @@ static int _spine_MeshAttachment_setHullLength(lua_State *L)
     spine::MeshAttachment *self = nullptr;
     lua_Integer arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
+    olua_to_obj(L, 1, &self, "sp.MeshAttachment");
     olua_check_int(L, 2, &arg1);
 
     // void setHullLength(int inValue)
@@ -10056,8 +10056,8 @@ static int _spine_MeshAttachment_setParentMesh(lua_State *L)
     spine::MeshAttachment *self = nullptr;
     spine::MeshAttachment *arg1 = nullptr;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.MeshAttachment");
+    olua_to_obj(L, 1, &self, "sp.MeshAttachment");
+    olua_check_obj(L, 2, &arg1, "sp.MeshAttachment");
 
     // void setParentMesh(spine::MeshAttachment *inValue)
     self->setParentMesh(arg1);
@@ -10074,7 +10074,7 @@ static int _spine_MeshAttachment_setPath(lua_State *L)
     spine::MeshAttachment *self = nullptr;
     spine::String arg1;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
+    olua_to_obj(L, 1, &self, "sp.MeshAttachment");
     olua_check_spine_String(L, 2, &arg1);
 
     // void setPath(const spine::String &inValue)
@@ -10092,8 +10092,8 @@ static int _spine_MeshAttachment_setRegion(lua_State *L)
     spine::MeshAttachment *self = nullptr;
     spine::TextureRegion *arg1 = nullptr;       /** region */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.MeshAttachment");
+    olua_check_obj(L, 2, &arg1, "sp.TextureRegion");
 
     // void setRegion(spine::TextureRegion *region)
     self->setRegion(arg1);
@@ -10110,8 +10110,8 @@ static int _spine_MeshAttachment_setSequence(lua_State *L)
     spine::MeshAttachment *self = nullptr;
     spine::Sequence *arg1 = nullptr;       /** sequence */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Sequence");
+    olua_to_obj(L, 1, &self, "sp.MeshAttachment");
+    olua_check_obj(L, 2, &arg1, "sp.Sequence");
 
     // void setSequence(spine::Sequence *sequence)
     self->setSequence(arg1);
@@ -10128,7 +10128,7 @@ static int _spine_MeshAttachment_setWidth(lua_State *L)
     spine::MeshAttachment *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
+    olua_to_obj(L, 1, &self, "sp.MeshAttachment");
     olua_check_number(L, 2, &arg1);
 
     // void setWidth(float inValue)
@@ -10145,7 +10145,7 @@ static int _spine_MeshAttachment_updateRegion(lua_State *L)
 
     spine::MeshAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
+    olua_to_obj(L, 1, &self, "sp.MeshAttachment");
 
     // void updateRegion()
     self->updateRegion();
@@ -10218,7 +10218,7 @@ static int _spine_PathAttachment___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::PathAttachment *)olua_toobj(L, 1, "sp.PathAttachment");
-    olua_push_cppobj(L, self, "sp.PathAttachment");
+    olua_push_obj(L, self, "sp.PathAttachment");
 
     olua_endinvoke(L);
 
@@ -10231,7 +10231,7 @@ static int _spine_PathAttachment_getColor(lua_State *L)
 
     spine::PathAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathAttachment");
+    olua_to_obj(L, 1, &self, "sp.PathAttachment");
 
     // spine::Color &getColor()
     spine::Color &ret = self->getColor();
@@ -10248,11 +10248,11 @@ static int _spine_PathAttachment_getLengths(lua_State *L)
 
     spine::PathAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathAttachment");
+    olua_to_obj(L, 1, &self, "sp.PathAttachment");
 
     // spine::Vector<float> &getLengths()
     spine::Vector<float> &ret = self->getLengths();
-    int num_ret = olua_push_array<float>(L, &ret, [L](float value) {
+    int num_ret = olua_push_array<float>(L, &ret, [L](float &value) {
         olua_push_number(L, (lua_Number)value);
     });
 
@@ -10267,7 +10267,7 @@ static int _spine_PathAttachment_isClosed(lua_State *L)
 
     spine::PathAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathAttachment");
+    olua_to_obj(L, 1, &self, "sp.PathAttachment");
 
     // bool isClosed()
     bool ret = self->isClosed();
@@ -10284,7 +10284,7 @@ static int _spine_PathAttachment_isConstantSpeed(lua_State *L)
 
     spine::PathAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathAttachment");
+    olua_to_obj(L, 1, &self, "sp.PathAttachment");
 
     // bool isConstantSpeed()
     bool ret = self->isConstantSpeed();
@@ -10305,7 +10305,7 @@ static int _spine_PathAttachment_new(lua_State *L)
 
     // PathAttachment(const spine::String &name)
     spine::PathAttachment *ret = new spine::PathAttachment(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.PathAttachment");
+    int num_ret = olua_push_obj(L, ret, "sp.PathAttachment");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -10320,7 +10320,7 @@ static int _spine_PathAttachment_setClosed(lua_State *L)
     spine::PathAttachment *self = nullptr;
     bool arg1 = false;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathAttachment");
+    olua_to_obj(L, 1, &self, "sp.PathAttachment");
     olua_check_bool(L, 2, &arg1);
 
     // void setClosed(bool inValue)
@@ -10338,7 +10338,7 @@ static int _spine_PathAttachment_setConstantSpeed(lua_State *L)
     spine::PathAttachment *self = nullptr;
     bool arg1 = false;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathAttachment");
+    olua_to_obj(L, 1, &self, "sp.PathAttachment");
     olua_check_bool(L, 2, &arg1);
 
     // void setConstantSpeed(bool inValue)
@@ -10378,7 +10378,7 @@ static int _spine_PathConstraint___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::PathConstraint *)olua_toobj(L, 1, "sp.PathConstraint");
-    olua_push_cppobj(L, self, "sp.PathConstraint");
+    olua_push_obj(L, self, "sp.PathConstraint");
 
     olua_endinvoke(L);
 
@@ -10391,7 +10391,7 @@ static int _spine_PathConstraint_apply(lua_State *L)
 
     spine::PathConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraint");
+    olua_to_obj(L, 1, &self, "sp.PathConstraint");
 
     // void apply()
     self->apply();
@@ -10407,12 +10407,12 @@ static int _spine_PathConstraint_getBones(lua_State *L)
 
     spine::PathConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraint");
+    olua_to_obj(L, 1, &self, "sp.PathConstraint");
 
     // spine::Vector<spine::Bone *> &getBones()
     spine::Vector<spine::Bone *> &ret = self->getBones();
     int num_ret = olua_push_array<spine::Bone *>(L, &ret, [L](spine::Bone *value) {
-        olua_push_cppobj(L, value, "sp.Bone");
+        olua_push_obj(L, value, "sp.Bone");
     });
 
     olua_endinvoke(L);
@@ -10426,7 +10426,7 @@ static int _spine_PathConstraint_getMixRotate(lua_State *L)
 
     spine::PathConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraint");
+    olua_to_obj(L, 1, &self, "sp.PathConstraint");
 
     // float getMixRotate()
     float ret = self->getMixRotate();
@@ -10443,7 +10443,7 @@ static int _spine_PathConstraint_getMixX(lua_State *L)
 
     spine::PathConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraint");
+    olua_to_obj(L, 1, &self, "sp.PathConstraint");
 
     // float getMixX()
     float ret = self->getMixX();
@@ -10460,7 +10460,7 @@ static int _spine_PathConstraint_getMixY(lua_State *L)
 
     spine::PathConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraint");
+    olua_to_obj(L, 1, &self, "sp.PathConstraint");
 
     // float getMixY()
     float ret = self->getMixY();
@@ -10477,7 +10477,7 @@ static int _spine_PathConstraint_getOrder(lua_State *L)
 
     spine::PathConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraint");
+    olua_to_obj(L, 1, &self, "sp.PathConstraint");
 
     // int getOrder()
     int ret = self->getOrder();
@@ -10494,7 +10494,7 @@ static int _spine_PathConstraint_getPosition(lua_State *L)
 
     spine::PathConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraint");
+    olua_to_obj(L, 1, &self, "sp.PathConstraint");
 
     // float getPosition()
     float ret = self->getPosition();
@@ -10511,7 +10511,7 @@ static int _spine_PathConstraint_getSpacing(lua_State *L)
 
     spine::PathConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraint");
+    olua_to_obj(L, 1, &self, "sp.PathConstraint");
 
     // float getSpacing()
     float ret = self->getSpacing();
@@ -10528,11 +10528,11 @@ static int _spine_PathConstraint_getTarget(lua_State *L)
 
     spine::PathConstraint *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraint");
+    olua_to_obj(L, 1, &self, "sp.PathConstraint");
 
     // spine::Slot *getTarget()
     spine::Slot *ret = self->getTarget();
-    int num_ret = olua_push_cppobj(L, ret, "sp.Slot");
+    int num_ret = olua_push_obj(L, ret, "sp.Slot");
 
     olua_endinvoke(L);
 
@@ -10546,7 +10546,7 @@ static int _spine_PathConstraint_setMixRotate(lua_State *L)
     spine::PathConstraint *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraint");
+    olua_to_obj(L, 1, &self, "sp.PathConstraint");
     olua_check_number(L, 2, &arg1);
 
     // void setMixRotate(float inValue)
@@ -10564,7 +10564,7 @@ static int _spine_PathConstraint_setMixX(lua_State *L)
     spine::PathConstraint *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraint");
+    olua_to_obj(L, 1, &self, "sp.PathConstraint");
     olua_check_number(L, 2, &arg1);
 
     // void setMixX(float inValue)
@@ -10582,7 +10582,7 @@ static int _spine_PathConstraint_setMixY(lua_State *L)
     spine::PathConstraint *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraint");
+    olua_to_obj(L, 1, &self, "sp.PathConstraint");
     olua_check_number(L, 2, &arg1);
 
     // void setMixY(float inValue)
@@ -10600,7 +10600,7 @@ static int _spine_PathConstraint_setPosition(lua_State *L)
     spine::PathConstraint *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraint");
+    olua_to_obj(L, 1, &self, "sp.PathConstraint");
     olua_check_number(L, 2, &arg1);
 
     // void setPosition(float inValue)
@@ -10618,7 +10618,7 @@ static int _spine_PathConstraint_setSpacing(lua_State *L)
     spine::PathConstraint *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraint");
+    olua_to_obj(L, 1, &self, "sp.PathConstraint");
     olua_check_number(L, 2, &arg1);
 
     // void setSpacing(float inValue)
@@ -10636,8 +10636,8 @@ static int _spine_PathConstraint_setTarget(lua_State *L)
     spine::PathConstraint *self = nullptr;
     spine::Slot *arg1 = nullptr;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PathConstraint");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Slot");
+    olua_to_obj(L, 1, &self, "sp.PathConstraint");
+    olua_check_obj(L, 2, &arg1, "sp.Slot");
 
     // void setTarget(spine::Slot *inValue)
     self->setTarget(arg1);
@@ -10698,7 +10698,7 @@ static int _spine_PointAttachment___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::PointAttachment *)olua_toobj(L, 1, "sp.PointAttachment");
-    olua_push_cppobj(L, self, "sp.PointAttachment");
+    olua_push_obj(L, self, "sp.PointAttachment");
 
     olua_endinvoke(L);
 
@@ -10711,7 +10711,7 @@ static int _spine_PointAttachment_getColor(lua_State *L)
 
     spine::PointAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PointAttachment");
+    olua_to_obj(L, 1, &self, "sp.PointAttachment");
 
     // spine::Color &getColor()
     spine::Color &ret = self->getColor();
@@ -10728,7 +10728,7 @@ static int _spine_PointAttachment_getRotation(lua_State *L)
 
     spine::PointAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PointAttachment");
+    olua_to_obj(L, 1, &self, "sp.PointAttachment");
 
     // float getRotation()
     float ret = self->getRotation();
@@ -10745,7 +10745,7 @@ static int _spine_PointAttachment_getX(lua_State *L)
 
     spine::PointAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PointAttachment");
+    olua_to_obj(L, 1, &self, "sp.PointAttachment");
 
     // float getX()
     float ret = self->getX();
@@ -10762,7 +10762,7 @@ static int _spine_PointAttachment_getY(lua_State *L)
 
     spine::PointAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PointAttachment");
+    olua_to_obj(L, 1, &self, "sp.PointAttachment");
 
     // float getY()
     float ret = self->getY();
@@ -10783,7 +10783,7 @@ static int _spine_PointAttachment_new(lua_State *L)
 
     // PointAttachment(const spine::String &name)
     spine::PointAttachment *ret = new spine::PointAttachment(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.PointAttachment");
+    int num_ret = olua_push_obj(L, ret, "sp.PointAttachment");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -10798,7 +10798,7 @@ static int _spine_PointAttachment_setRotation(lua_State *L)
     spine::PointAttachment *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PointAttachment");
+    olua_to_obj(L, 1, &self, "sp.PointAttachment");
     olua_check_number(L, 2, &arg1);
 
     // void setRotation(float inValue)
@@ -10816,7 +10816,7 @@ static int _spine_PointAttachment_setX(lua_State *L)
     spine::PointAttachment *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PointAttachment");
+    olua_to_obj(L, 1, &self, "sp.PointAttachment");
     olua_check_number(L, 2, &arg1);
 
     // void setX(float inValue)
@@ -10834,7 +10834,7 @@ static int _spine_PointAttachment_setY(lua_State *L)
     spine::PointAttachment *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.PointAttachment");
+    olua_to_obj(L, 1, &self, "sp.PointAttachment");
     olua_check_number(L, 2, &arg1);
 
     // void setY(float inValue)
@@ -10886,7 +10886,7 @@ static int _spine_RegionAttachment___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::RegionAttachment *)olua_toobj(L, 1, "sp.RegionAttachment");
-    olua_push_cppobj(L, self, "sp.RegionAttachment");
+    olua_push_obj(L, self, "sp.RegionAttachment");
 
     olua_endinvoke(L);
 
@@ -10899,7 +10899,7 @@ static int _spine_RegionAttachment_getColor(lua_State *L)
 
     spine::RegionAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
 
     // spine::Color &getColor()
     spine::Color &ret = self->getColor();
@@ -10916,7 +10916,7 @@ static int _spine_RegionAttachment_getHeight(lua_State *L)
 
     spine::RegionAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
 
     // float getHeight()
     float ret = self->getHeight();
@@ -10933,11 +10933,11 @@ static int _spine_RegionAttachment_getOffset(lua_State *L)
 
     spine::RegionAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
 
     // spine::Vector<float> &getOffset()
     spine::Vector<float> &ret = self->getOffset();
-    int num_ret = olua_push_array<float>(L, &ret, [L](float value) {
+    int num_ret = olua_push_array<float>(L, &ret, [L](float &value) {
         olua_push_number(L, (lua_Number)value);
     });
 
@@ -10952,7 +10952,7 @@ static int _spine_RegionAttachment_getPath(lua_State *L)
 
     spine::RegionAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
 
     // const spine::String &getPath()
     const spine::String &ret = self->getPath();
@@ -10969,11 +10969,11 @@ static int _spine_RegionAttachment_getRegion(lua_State *L)
 
     spine::RegionAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
 
     // spine::TextureRegion *getRegion()
     spine::TextureRegion *ret = self->getRegion();
-    int num_ret = olua_push_cppobj(L, ret, "sp.TextureRegion");
+    int num_ret = olua_push_obj(L, ret, "sp.TextureRegion");
 
     olua_endinvoke(L);
 
@@ -10986,7 +10986,7 @@ static int _spine_RegionAttachment_getRotation(lua_State *L)
 
     spine::RegionAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
 
     // float getRotation()
     float ret = self->getRotation();
@@ -11003,7 +11003,7 @@ static int _spine_RegionAttachment_getScaleX(lua_State *L)
 
     spine::RegionAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
 
     // float getScaleX()
     float ret = self->getScaleX();
@@ -11020,7 +11020,7 @@ static int _spine_RegionAttachment_getScaleY(lua_State *L)
 
     spine::RegionAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
 
     // float getScaleY()
     float ret = self->getScaleY();
@@ -11037,11 +11037,11 @@ static int _spine_RegionAttachment_getSequence(lua_State *L)
 
     spine::RegionAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
 
     // spine::Sequence *getSequence()
     spine::Sequence *ret = self->getSequence();
-    int num_ret = olua_push_cppobj(L, ret, "sp.Sequence");
+    int num_ret = olua_push_obj(L, ret, "sp.Sequence");
 
     olua_endinvoke(L);
 
@@ -11054,11 +11054,11 @@ static int _spine_RegionAttachment_getUVs(lua_State *L)
 
     spine::RegionAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
 
     // spine::Vector<float> &getUVs()
     spine::Vector<float> &ret = self->getUVs();
-    int num_ret = olua_push_array<float>(L, &ret, [L](float value) {
+    int num_ret = olua_push_array<float>(L, &ret, [L](float &value) {
         olua_push_number(L, (lua_Number)value);
     });
 
@@ -11073,7 +11073,7 @@ static int _spine_RegionAttachment_getWidth(lua_State *L)
 
     spine::RegionAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
 
     // float getWidth()
     float ret = self->getWidth();
@@ -11090,7 +11090,7 @@ static int _spine_RegionAttachment_getX(lua_State *L)
 
     spine::RegionAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
 
     // float getX()
     float ret = self->getX();
@@ -11107,7 +11107,7 @@ static int _spine_RegionAttachment_getY(lua_State *L)
 
     spine::RegionAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
 
     // float getY()
     float ret = self->getY();
@@ -11128,7 +11128,7 @@ static int _spine_RegionAttachment_new(lua_State *L)
 
     // RegionAttachment(const spine::String &name)
     spine::RegionAttachment *ret = new spine::RegionAttachment(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.RegionAttachment");
+    int num_ret = olua_push_obj(L, ret, "sp.RegionAttachment");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -11143,7 +11143,7 @@ static int _spine_RegionAttachment_setHeight(lua_State *L)
     spine::RegionAttachment *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
     olua_check_number(L, 2, &arg1);
 
     // void setHeight(float inValue)
@@ -11161,7 +11161,7 @@ static int _spine_RegionAttachment_setPath(lua_State *L)
     spine::RegionAttachment *self = nullptr;
     spine::String arg1;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
     olua_check_spine_String(L, 2, &arg1);
 
     // void setPath(const spine::String &inValue)
@@ -11179,8 +11179,8 @@ static int _spine_RegionAttachment_setRegion(lua_State *L)
     spine::RegionAttachment *self = nullptr;
     spine::TextureRegion *arg1 = nullptr;       /** region */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.TextureRegion");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
+    olua_check_obj(L, 2, &arg1, "sp.TextureRegion");
 
     // void setRegion(spine::TextureRegion *region)
     self->setRegion(arg1);
@@ -11197,7 +11197,7 @@ static int _spine_RegionAttachment_setRotation(lua_State *L)
     spine::RegionAttachment *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
     olua_check_number(L, 2, &arg1);
 
     // void setRotation(float inValue)
@@ -11215,7 +11215,7 @@ static int _spine_RegionAttachment_setScaleX(lua_State *L)
     spine::RegionAttachment *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
     olua_check_number(L, 2, &arg1);
 
     // void setScaleX(float inValue)
@@ -11233,7 +11233,7 @@ static int _spine_RegionAttachment_setScaleY(lua_State *L)
     spine::RegionAttachment *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
     olua_check_number(L, 2, &arg1);
 
     // void setScaleY(float inValue)
@@ -11251,8 +11251,8 @@ static int _spine_RegionAttachment_setSequence(lua_State *L)
     spine::RegionAttachment *self = nullptr;
     spine::Sequence *arg1 = nullptr;       /** sequence */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Sequence");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
+    olua_check_obj(L, 2, &arg1, "sp.Sequence");
 
     // void setSequence(spine::Sequence *sequence)
     self->setSequence(arg1);
@@ -11269,7 +11269,7 @@ static int _spine_RegionAttachment_setWidth(lua_State *L)
     spine::RegionAttachment *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
     olua_check_number(L, 2, &arg1);
 
     // void setWidth(float inValue)
@@ -11287,7 +11287,7 @@ static int _spine_RegionAttachment_setX(lua_State *L)
     spine::RegionAttachment *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
     olua_check_number(L, 2, &arg1);
 
     // void setX(float inValue)
@@ -11305,7 +11305,7 @@ static int _spine_RegionAttachment_setY(lua_State *L)
     spine::RegionAttachment *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
     olua_check_number(L, 2, &arg1);
 
     // void setY(float inValue)
@@ -11322,7 +11322,7 @@ static int _spine_RegionAttachment_updateRegion(lua_State *L)
 
     spine::RegionAttachment *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
+    olua_to_obj(L, 1, &self, "sp.RegionAttachment");
 
     // void updateRegion()
     self->updateRegion();
@@ -11399,7 +11399,7 @@ static int _spine_TrackEntry___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::TrackEntry *)olua_toobj(L, 1, "sp.TrackEntry");
-    olua_push_cppobj(L, self, "sp.TrackEntry");
+    olua_push_obj(L, self, "sp.TrackEntry");
 
     olua_endinvoke(L);
 
@@ -11412,7 +11412,7 @@ static int _spine_TrackEntry_getAlpha(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // float getAlpha()
     float ret = self->getAlpha();
@@ -11429,11 +11429,11 @@ static int _spine_TrackEntry_getAnimation(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // spine::Animation *getAnimation()
     spine::Animation *ret = self->getAnimation();
-    int num_ret = olua_push_cppobj(L, ret, "sp.Animation");
+    int num_ret = olua_push_obj(L, ret, "sp.Animation");
 
     olua_endinvoke(L);
 
@@ -11446,7 +11446,7 @@ static int _spine_TrackEntry_getAnimationEnd(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // float getAnimationEnd()
     float ret = self->getAnimationEnd();
@@ -11463,7 +11463,7 @@ static int _spine_TrackEntry_getAnimationLast(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // float getAnimationLast()
     float ret = self->getAnimationLast();
@@ -11480,7 +11480,7 @@ static int _spine_TrackEntry_getAnimationStart(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // float getAnimationStart()
     float ret = self->getAnimationStart();
@@ -11497,7 +11497,7 @@ static int _spine_TrackEntry_getAnimationTime(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // float getAnimationTime()
     float ret = self->getAnimationTime();
@@ -11514,7 +11514,7 @@ static int _spine_TrackEntry_getAttachmentThreshold(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // float getAttachmentThreshold()
     float ret = self->getAttachmentThreshold();
@@ -11531,7 +11531,7 @@ static int _spine_TrackEntry_getDelay(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // float getDelay()
     float ret = self->getDelay();
@@ -11548,7 +11548,7 @@ static int _spine_TrackEntry_getDrawOrderThreshold(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // float getDrawOrderThreshold()
     float ret = self->getDrawOrderThreshold();
@@ -11565,7 +11565,7 @@ static int _spine_TrackEntry_getEventThreshold(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // float getEventThreshold()
     float ret = self->getEventThreshold();
@@ -11582,7 +11582,7 @@ static int _spine_TrackEntry_getHoldPrevious(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // bool getHoldPrevious()
     bool ret = self->getHoldPrevious();
@@ -11599,7 +11599,7 @@ static int _spine_TrackEntry_getLoop(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // bool getLoop()
     bool ret = self->getLoop();
@@ -11616,7 +11616,7 @@ static int _spine_TrackEntry_getMixBlend(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // spine::MixBlend getMixBlend()
     spine::MixBlend ret = self->getMixBlend();
@@ -11633,7 +11633,7 @@ static int _spine_TrackEntry_getMixDuration(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // float getMixDuration()
     float ret = self->getMixDuration();
@@ -11650,7 +11650,7 @@ static int _spine_TrackEntry_getMixTime(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // float getMixTime()
     float ret = self->getMixTime();
@@ -11667,11 +11667,11 @@ static int _spine_TrackEntry_getMixingFrom(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // spine::TrackEntry *getMixingFrom()
     spine::TrackEntry *ret = self->getMixingFrom();
-    int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
 
     olua_endinvoke(L);
 
@@ -11684,11 +11684,11 @@ static int _spine_TrackEntry_getMixingTo(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // spine::TrackEntry *getMixingTo()
     spine::TrackEntry *ret = self->getMixingTo();
-    int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
 
     olua_endinvoke(L);
 
@@ -11701,11 +11701,11 @@ static int _spine_TrackEntry_getNext(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // spine::TrackEntry *getNext()
     spine::TrackEntry *ret = self->getNext();
-    int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
 
     olua_endinvoke(L);
 
@@ -11718,11 +11718,11 @@ static int _spine_TrackEntry_getPrevious(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // spine::TrackEntry *getPrevious()
     spine::TrackEntry *ret = self->getPrevious();
-    int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
 
     olua_endinvoke(L);
 
@@ -11735,7 +11735,7 @@ static int _spine_TrackEntry_getReverse(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // bool getReverse()
     bool ret = self->getReverse();
@@ -11752,7 +11752,7 @@ static int _spine_TrackEntry_getShortestRotation(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // bool getShortestRotation()
     bool ret = self->getShortestRotation();
@@ -11769,7 +11769,7 @@ static int _spine_TrackEntry_getTimeScale(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // float getTimeScale()
     float ret = self->getTimeScale();
@@ -11786,7 +11786,7 @@ static int _spine_TrackEntry_getTrackComplete(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // float getTrackComplete()
     float ret = self->getTrackComplete();
@@ -11803,7 +11803,7 @@ static int _spine_TrackEntry_getTrackEnd(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // float getTrackEnd()
     float ret = self->getTrackEnd();
@@ -11820,7 +11820,7 @@ static int _spine_TrackEntry_getTrackIndex(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // int getTrackIndex()
     int ret = self->getTrackIndex();
@@ -11837,7 +11837,7 @@ static int _spine_TrackEntry_getTrackTime(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // float getTrackTime()
     float ret = self->getTrackTime();
@@ -11854,7 +11854,7 @@ static int _spine_TrackEntry_isComplete(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // bool isComplete()
     bool ret = self->isComplete();
@@ -11871,7 +11871,7 @@ static int _spine_TrackEntry_new(lua_State *L)
 
     // TrackEntry()
     spine::TrackEntry *ret = new spine::TrackEntry();
-    int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -11885,7 +11885,7 @@ static int _spine_TrackEntry_resetRotationDirections(lua_State *L)
 
     spine::TrackEntry *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
 
     // void resetRotationDirections()
     self->resetRotationDirections();
@@ -11902,7 +11902,7 @@ static int _spine_TrackEntry_setAlpha(lua_State *L)
     spine::TrackEntry *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
     olua_check_number(L, 2, &arg1);
 
     // void setAlpha(float inValue)
@@ -11920,7 +11920,7 @@ static int _spine_TrackEntry_setAnimationEnd(lua_State *L)
     spine::TrackEntry *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
     olua_check_number(L, 2, &arg1);
 
     // void setAnimationEnd(float inValue)
@@ -11938,7 +11938,7 @@ static int _spine_TrackEntry_setAnimationLast(lua_State *L)
     spine::TrackEntry *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
     olua_check_number(L, 2, &arg1);
 
     // void setAnimationLast(float inValue)
@@ -11956,7 +11956,7 @@ static int _spine_TrackEntry_setAnimationStart(lua_State *L)
     spine::TrackEntry *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
     olua_check_number(L, 2, &arg1);
 
     // void setAnimationStart(float inValue)
@@ -11974,7 +11974,7 @@ static int _spine_TrackEntry_setAttachmentThreshold(lua_State *L)
     spine::TrackEntry *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
     olua_check_number(L, 2, &arg1);
 
     // void setAttachmentThreshold(float inValue)
@@ -11992,7 +11992,7 @@ static int _spine_TrackEntry_setDelay(lua_State *L)
     spine::TrackEntry *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
     olua_check_number(L, 2, &arg1);
 
     // void setDelay(float inValue)
@@ -12010,7 +12010,7 @@ static int _spine_TrackEntry_setDrawOrderThreshold(lua_State *L)
     spine::TrackEntry *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
     olua_check_number(L, 2, &arg1);
 
     // void setDrawOrderThreshold(float inValue)
@@ -12028,7 +12028,7 @@ static int _spine_TrackEntry_setEventThreshold(lua_State *L)
     spine::TrackEntry *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
     olua_check_number(L, 2, &arg1);
 
     // void setEventThreshold(float inValue)
@@ -12046,7 +12046,7 @@ static int _spine_TrackEntry_setHoldPrevious(lua_State *L)
     spine::TrackEntry *self = nullptr;
     bool arg1 = false;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
     olua_check_bool(L, 2, &arg1);
 
     // void setHoldPrevious(bool inValue)
@@ -12064,7 +12064,7 @@ static int _spine_TrackEntry_setListener(lua_State *L)
     spine::TrackEntry *self = nullptr;
     spine::AnimationStateListener arg1;       /** listener */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
     olua_check_callback(L, 2, &arg1, "sp.AnimationStateListener");
 
     void *cb_store = (void *)self;
@@ -12077,10 +12077,10 @@ static int _spine_TrackEntry_setListener(lua_State *L)
 
         if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
-            olua_push_cppobj(L, arg1, "sp.AnimationState");
+            olua_push_obj(L, arg1, "sp.AnimationState");
             olua_push_uint(L, (lua_Unsigned)arg2);
-            olua_push_cppobj(L, arg3, "sp.TrackEntry");
-            olua_push_cppobj(L, arg4, "sp.Event");
+            olua_push_obj(L, arg3, "sp.TrackEntry");
+            olua_push_obj(L, arg4, "sp.Event");
 
             olua_callback(L, cb_store, cb_name.c_str(), 4);
 
@@ -12103,7 +12103,7 @@ static int _spine_TrackEntry_setLoop(lua_State *L)
     spine::TrackEntry *self = nullptr;
     bool arg1 = false;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
     olua_check_bool(L, 2, &arg1);
 
     // void setLoop(bool inValue)
@@ -12121,7 +12121,7 @@ static int _spine_TrackEntry_setMixBlend(lua_State *L)
     spine::TrackEntry *self = nullptr;
     lua_Unsigned arg1 = 0;       /** blend */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
     olua_check_uint(L, 2, &arg1);
 
     // void setMixBlend(spine::MixBlend blend)
@@ -12139,7 +12139,7 @@ static int _spine_TrackEntry_setMixDuration(lua_State *L)
     spine::TrackEntry *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
     olua_check_number(L, 2, &arg1);
 
     // void setMixDuration(float inValue)
@@ -12157,7 +12157,7 @@ static int _spine_TrackEntry_setMixTime(lua_State *L)
     spine::TrackEntry *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
     olua_check_number(L, 2, &arg1);
 
     // void setMixTime(float inValue)
@@ -12175,7 +12175,7 @@ static int _spine_TrackEntry_setReverse(lua_State *L)
     spine::TrackEntry *self = nullptr;
     bool arg1 = false;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
     olua_check_bool(L, 2, &arg1);
 
     // void setReverse(bool inValue)
@@ -12193,7 +12193,7 @@ static int _spine_TrackEntry_setShortestRotation(lua_State *L)
     spine::TrackEntry *self = nullptr;
     bool arg1 = false;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
     olua_check_bool(L, 2, &arg1);
 
     // void setShortestRotation(bool inValue)
@@ -12211,7 +12211,7 @@ static int _spine_TrackEntry_setTimeScale(lua_State *L)
     spine::TrackEntry *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
     olua_check_number(L, 2, &arg1);
 
     // void setTimeScale(float inValue)
@@ -12229,7 +12229,7 @@ static int _spine_TrackEntry_setTrackEnd(lua_State *L)
     spine::TrackEntry *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
     olua_check_number(L, 2, &arg1);
 
     // void setTrackEnd(float inValue)
@@ -12247,7 +12247,7 @@ static int _spine_TrackEntry_setTrackTime(lua_State *L)
     spine::TrackEntry *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.TrackEntry");
     olua_check_number(L, 2, &arg1);
 
     // void setTrackTime(float inValue)
@@ -12363,7 +12363,7 @@ static int _spine_SkeletonData___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::SkeletonData *)olua_toobj(L, 1, "sp.SkeletonData");
-    olua_push_cppobj(L, self, "sp.SkeletonData");
+    olua_push_obj(L, self, "sp.SkeletonData");
 
     olua_endinvoke(L);
 
@@ -12438,12 +12438,12 @@ static int _spine_SkeletonData_findAnimation(lua_State *L)
     spine::SkeletonData *self = nullptr;
     spine::String arg1;       /** animationName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
     olua_check_spine_String(L, 2, &arg1);
 
     // spine::Animation *findAnimation(const spine::String &animationName)
     spine::Animation *ret = self->findAnimation(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.Animation");
+    int num_ret = olua_push_obj(L, ret, "sp.Animation");
 
     olua_endinvoke(L);
 
@@ -12457,12 +12457,12 @@ static int _spine_SkeletonData_findBone(lua_State *L)
     spine::SkeletonData *self = nullptr;
     spine::String arg1;       /** boneName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
     olua_check_spine_String(L, 2, &arg1);
 
     // spine::BoneData *findBone(const spine::String &boneName)
     spine::BoneData *ret = self->findBone(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.BoneData");
+    int num_ret = olua_push_obj(L, ret, "sp.BoneData");
 
     olua_endinvoke(L);
 
@@ -12476,12 +12476,12 @@ static int _spine_SkeletonData_findEvent(lua_State *L)
     spine::SkeletonData *self = nullptr;
     spine::String arg1;       /** eventDataName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
     olua_check_spine_String(L, 2, &arg1);
 
     // spine::EventData *findEvent(const spine::String &eventDataName)
     spine::EventData *ret = self->findEvent(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.EventData");
+    int num_ret = olua_push_obj(L, ret, "sp.EventData");
 
     olua_endinvoke(L);
 
@@ -12495,12 +12495,12 @@ static int _spine_SkeletonData_findIkConstraint(lua_State *L)
     spine::SkeletonData *self = nullptr;
     spine::String arg1;       /** constraintName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
     olua_check_spine_String(L, 2, &arg1);
 
     // spine::IkConstraintData *findIkConstraint(const spine::String &constraintName)
     spine::IkConstraintData *ret = self->findIkConstraint(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.IkConstraintData");
+    int num_ret = olua_push_obj(L, ret, "sp.IkConstraintData");
 
     olua_endinvoke(L);
 
@@ -12514,12 +12514,12 @@ static int _spine_SkeletonData_findPathConstraint(lua_State *L)
     spine::SkeletonData *self = nullptr;
     spine::String arg1;       /** constraintName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
     olua_check_spine_String(L, 2, &arg1);
 
     // spine::PathConstraintData *findPathConstraint(const spine::String &constraintName)
     spine::PathConstraintData *ret = self->findPathConstraint(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.PathConstraintData");
+    int num_ret = olua_push_obj(L, ret, "sp.PathConstraintData");
 
     olua_endinvoke(L);
 
@@ -12533,12 +12533,12 @@ static int _spine_SkeletonData_findSkin(lua_State *L)
     spine::SkeletonData *self = nullptr;
     spine::String arg1;       /** skinName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
     olua_check_spine_String(L, 2, &arg1);
 
     // spine::Skin *findSkin(const spine::String &skinName)
     spine::Skin *ret = self->findSkin(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.Skin");
+    int num_ret = olua_push_obj(L, ret, "sp.Skin");
 
     olua_endinvoke(L);
 
@@ -12552,12 +12552,12 @@ static int _spine_SkeletonData_findSlot(lua_State *L)
     spine::SkeletonData *self = nullptr;
     spine::String arg1;       /** slotName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
     olua_check_spine_String(L, 2, &arg1);
 
     // spine::SlotData *findSlot(const spine::String &slotName)
     spine::SlotData *ret = self->findSlot(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SlotData");
+    int num_ret = olua_push_obj(L, ret, "sp.SlotData");
 
     olua_endinvoke(L);
 
@@ -12571,12 +12571,12 @@ static int _spine_SkeletonData_findTransformConstraint(lua_State *L)
     spine::SkeletonData *self = nullptr;
     spine::String arg1;       /** constraintName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
     olua_check_spine_String(L, 2, &arg1);
 
     // spine::TransformConstraintData *findTransformConstraint(const spine::String &constraintName)
     spine::TransformConstraintData *ret = self->findTransformConstraint(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.TransformConstraintData");
+    int num_ret = olua_push_obj(L, ret, "sp.TransformConstraintData");
 
     olua_endinvoke(L);
 
@@ -12589,12 +12589,12 @@ static int _spine_SkeletonData_getAnimations(lua_State *L)
 
     spine::SkeletonData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
 
     // spine::Vector<spine::Animation *> &getAnimations()
     spine::Vector<spine::Animation *> &ret = self->getAnimations();
     int num_ret = olua_push_array<spine::Animation *>(L, &ret, [L](spine::Animation *value) {
-        olua_push_cppobj(L, value, "sp.Animation");
+        olua_push_obj(L, value, "sp.Animation");
     });
 
     olua_endinvoke(L);
@@ -12608,7 +12608,7 @@ static int _spine_SkeletonData_getAudioPath(lua_State *L)
 
     spine::SkeletonData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
 
     // const spine::String &getAudioPath()
     const spine::String &ret = self->getAudioPath();
@@ -12625,12 +12625,12 @@ static int _spine_SkeletonData_getBones(lua_State *L)
 
     spine::SkeletonData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
 
     // spine::Vector<spine::BoneData *> &getBones()
     spine::Vector<spine::BoneData *> &ret = self->getBones();
     int num_ret = olua_push_array<spine::BoneData *>(L, &ret, [L](spine::BoneData *value) {
-        olua_push_cppobj(L, value, "sp.BoneData");
+        olua_push_obj(L, value, "sp.BoneData");
     });
 
     olua_endinvoke(L);
@@ -12644,11 +12644,11 @@ static int _spine_SkeletonData_getDefaultSkin(lua_State *L)
 
     spine::SkeletonData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
 
     // spine::Skin *getDefaultSkin()
     spine::Skin *ret = self->getDefaultSkin();
-    int num_ret = olua_push_cppobj(L, ret, "sp.Skin");
+    int num_ret = olua_push_obj(L, ret, "sp.Skin");
 
     olua_endinvoke(L);
 
@@ -12661,12 +12661,12 @@ static int _spine_SkeletonData_getEvents(lua_State *L)
 
     spine::SkeletonData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
 
     // spine::Vector<spine::EventData *> &getEvents()
     spine::Vector<spine::EventData *> &ret = self->getEvents();
     int num_ret = olua_push_array<spine::EventData *>(L, &ret, [L](spine::EventData *value) {
-        olua_push_cppobj(L, value, "sp.EventData");
+        olua_push_obj(L, value, "sp.EventData");
     });
 
     olua_endinvoke(L);
@@ -12680,7 +12680,7 @@ static int _spine_SkeletonData_getFps(lua_State *L)
 
     spine::SkeletonData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
 
     // float getFps()
     float ret = self->getFps();
@@ -12697,7 +12697,7 @@ static int _spine_SkeletonData_getHash(lua_State *L)
 
     spine::SkeletonData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
 
     // const spine::String &getHash()
     const spine::String &ret = self->getHash();
@@ -12714,7 +12714,7 @@ static int _spine_SkeletonData_getHeight(lua_State *L)
 
     spine::SkeletonData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
 
     // float getHeight()
     float ret = self->getHeight();
@@ -12731,12 +12731,12 @@ static int _spine_SkeletonData_getIkConstraints(lua_State *L)
 
     spine::SkeletonData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
 
     // spine::Vector<spine::IkConstraintData *> &getIkConstraints()
     spine::Vector<spine::IkConstraintData *> &ret = self->getIkConstraints();
     int num_ret = olua_push_array<spine::IkConstraintData *>(L, &ret, [L](spine::IkConstraintData *value) {
-        olua_push_cppobj(L, value, "sp.IkConstraintData");
+        olua_push_obj(L, value, "sp.IkConstraintData");
     });
 
     olua_endinvoke(L);
@@ -12750,7 +12750,7 @@ static int _spine_SkeletonData_getImagesPath(lua_State *L)
 
     spine::SkeletonData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
 
     // const spine::String &getImagesPath()
     const spine::String &ret = self->getImagesPath();
@@ -12767,7 +12767,7 @@ static int _spine_SkeletonData_getName(lua_State *L)
 
     spine::SkeletonData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
 
     // const spine::String &getName()
     const spine::String &ret = self->getName();
@@ -12784,12 +12784,12 @@ static int _spine_SkeletonData_getPathConstraints(lua_State *L)
 
     spine::SkeletonData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
 
     // spine::Vector<spine::PathConstraintData *> &getPathConstraints()
     spine::Vector<spine::PathConstraintData *> &ret = self->getPathConstraints();
     int num_ret = olua_push_array<spine::PathConstraintData *>(L, &ret, [L](spine::PathConstraintData *value) {
-        olua_push_cppobj(L, value, "sp.PathConstraintData");
+        olua_push_obj(L, value, "sp.PathConstraintData");
     });
 
     olua_endinvoke(L);
@@ -12803,12 +12803,12 @@ static int _spine_SkeletonData_getSkins(lua_State *L)
 
     spine::SkeletonData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
 
     // spine::Vector<spine::Skin *> &getSkins()
     spine::Vector<spine::Skin *> &ret = self->getSkins();
     int num_ret = olua_push_array<spine::Skin *>(L, &ret, [L](spine::Skin *value) {
-        olua_push_cppobj(L, value, "sp.Skin");
+        olua_push_obj(L, value, "sp.Skin");
     });
 
     olua_endinvoke(L);
@@ -12822,12 +12822,12 @@ static int _spine_SkeletonData_getSlots(lua_State *L)
 
     spine::SkeletonData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
 
     // spine::Vector<spine::SlotData *> &getSlots()
     spine::Vector<spine::SlotData *> &ret = self->getSlots();
     int num_ret = olua_push_array<spine::SlotData *>(L, &ret, [L](spine::SlotData *value) {
-        olua_push_cppobj(L, value, "sp.SlotData");
+        olua_push_obj(L, value, "sp.SlotData");
     });
 
     olua_endinvoke(L);
@@ -12841,12 +12841,12 @@ static int _spine_SkeletonData_getTransformConstraints(lua_State *L)
 
     spine::SkeletonData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
 
     // spine::Vector<spine::TransformConstraintData *> &getTransformConstraints()
     spine::Vector<spine::TransformConstraintData *> &ret = self->getTransformConstraints();
     int num_ret = olua_push_array<spine::TransformConstraintData *>(L, &ret, [L](spine::TransformConstraintData *value) {
-        olua_push_cppobj(L, value, "sp.TransformConstraintData");
+        olua_push_obj(L, value, "sp.TransformConstraintData");
     });
 
     olua_endinvoke(L);
@@ -12860,7 +12860,7 @@ static int _spine_SkeletonData_getVersion(lua_State *L)
 
     spine::SkeletonData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
 
     // const spine::String &getVersion()
     const spine::String &ret = self->getVersion();
@@ -12877,7 +12877,7 @@ static int _spine_SkeletonData_getWidth(lua_State *L)
 
     spine::SkeletonData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
 
     // float getWidth()
     float ret = self->getWidth();
@@ -12894,7 +12894,7 @@ static int _spine_SkeletonData_getX(lua_State *L)
 
     spine::SkeletonData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
 
     // float getX()
     float ret = self->getX();
@@ -12911,7 +12911,7 @@ static int _spine_SkeletonData_getY(lua_State *L)
 
     spine::SkeletonData *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
 
     // float getY()
     float ret = self->getY();
@@ -12929,7 +12929,7 @@ static int _spine_SkeletonData_setAudioPath(lua_State *L)
     spine::SkeletonData *self = nullptr;
     spine::String arg1;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
     olua_check_spine_String(L, 2, &arg1);
 
     // void setAudioPath(const spine::String &inValue)
@@ -12947,8 +12947,8 @@ static int _spine_SkeletonData_setDefaultSkin(lua_State *L)
     spine::SkeletonData *self = nullptr;
     spine::Skin *arg1 = nullptr;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Skin");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
+    olua_check_obj(L, 2, &arg1, "sp.Skin");
 
     // void setDefaultSkin(spine::Skin *inValue)
     self->setDefaultSkin(arg1);
@@ -12965,7 +12965,7 @@ static int _spine_SkeletonData_setFps(lua_State *L)
     spine::SkeletonData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
     olua_check_number(L, 2, &arg1);
 
     // void setFps(float inValue)
@@ -12983,7 +12983,7 @@ static int _spine_SkeletonData_setHash(lua_State *L)
     spine::SkeletonData *self = nullptr;
     spine::String arg1;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
     olua_check_spine_String(L, 2, &arg1);
 
     // void setHash(const spine::String &inValue)
@@ -13001,7 +13001,7 @@ static int _spine_SkeletonData_setHeight(lua_State *L)
     spine::SkeletonData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
     olua_check_number(L, 2, &arg1);
 
     // void setHeight(float inValue)
@@ -13019,7 +13019,7 @@ static int _spine_SkeletonData_setImagesPath(lua_State *L)
     spine::SkeletonData *self = nullptr;
     spine::String arg1;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
     olua_check_spine_String(L, 2, &arg1);
 
     // void setImagesPath(const spine::String &inValue)
@@ -13037,7 +13037,7 @@ static int _spine_SkeletonData_setName(lua_State *L)
     spine::SkeletonData *self = nullptr;
     spine::String arg1;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
     olua_check_spine_String(L, 2, &arg1);
 
     // void setName(const spine::String &inValue)
@@ -13055,7 +13055,7 @@ static int _spine_SkeletonData_setVersion(lua_State *L)
     spine::SkeletonData *self = nullptr;
     spine::String arg1;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
     olua_check_spine_String(L, 2, &arg1);
 
     // void setVersion(const spine::String &inValue)
@@ -13073,7 +13073,7 @@ static int _spine_SkeletonData_setWidth(lua_State *L)
     spine::SkeletonData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
     olua_check_number(L, 2, &arg1);
 
     // void setWidth(float inValue)
@@ -13091,7 +13091,7 @@ static int _spine_SkeletonData_setX(lua_State *L)
     spine::SkeletonData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
     olua_check_number(L, 2, &arg1);
 
     // void setX(float inValue)
@@ -13109,7 +13109,7 @@ static int _spine_SkeletonData_setY(lua_State *L)
     spine::SkeletonData *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonData");
     olua_check_number(L, 2, &arg1);
 
     // void setY(float inValue)
@@ -13209,7 +13209,7 @@ static int _spine_Skeleton___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::Skeleton *)olua_toobj(L, 1, "sp.Skeleton");
-    olua_push_cppobj(L, self, "sp.Skeleton");
+    olua_push_obj(L, self, "sp.Skeleton");
 
     olua_endinvoke(L);
 
@@ -13223,12 +13223,12 @@ static int _spine_Skeleton_findBone(lua_State *L)
     spine::Skeleton *self = nullptr;
     spine::String arg1;       /** boneName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
     olua_check_spine_String(L, 2, &arg1);
 
     // spine::Bone *findBone(const spine::String &boneName)
     spine::Bone *ret = self->findBone(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.Bone");
+    int num_ret = olua_push_obj(L, ret, "sp.Bone");
 
     olua_endinvoke(L);
 
@@ -13242,12 +13242,12 @@ static int _spine_Skeleton_findIkConstraint(lua_State *L)
     spine::Skeleton *self = nullptr;
     spine::String arg1;       /** constraintName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
     olua_check_spine_String(L, 2, &arg1);
 
     // spine::IkConstraint *findIkConstraint(const spine::String &constraintName)
     spine::IkConstraint *ret = self->findIkConstraint(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.IkConstraint");
+    int num_ret = olua_push_obj(L, ret, "sp.IkConstraint");
 
     olua_endinvoke(L);
 
@@ -13261,12 +13261,12 @@ static int _spine_Skeleton_findPathConstraint(lua_State *L)
     spine::Skeleton *self = nullptr;
     spine::String arg1;       /** constraintName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
     olua_check_spine_String(L, 2, &arg1);
 
     // spine::PathConstraint *findPathConstraint(const spine::String &constraintName)
     spine::PathConstraint *ret = self->findPathConstraint(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.PathConstraint");
+    int num_ret = olua_push_obj(L, ret, "sp.PathConstraint");
 
     olua_endinvoke(L);
 
@@ -13280,12 +13280,12 @@ static int _spine_Skeleton_findSlot(lua_State *L)
     spine::Skeleton *self = nullptr;
     spine::String arg1;       /** slotName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
     olua_check_spine_String(L, 2, &arg1);
 
     // spine::Slot *findSlot(const spine::String &slotName)
     spine::Slot *ret = self->findSlot(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.Slot");
+    int num_ret = olua_push_obj(L, ret, "sp.Slot");
 
     olua_endinvoke(L);
 
@@ -13299,12 +13299,12 @@ static int _spine_Skeleton_findTransformConstraint(lua_State *L)
     spine::Skeleton *self = nullptr;
     spine::String arg1;       /** constraintName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
     olua_check_spine_String(L, 2, &arg1);
 
     // spine::TransformConstraint *findTransformConstraint(const spine::String &constraintName)
     spine::TransformConstraint *ret = self->findTransformConstraint(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.TransformConstraint");
+    int num_ret = olua_push_obj(L, ret, "sp.TransformConstraint");
 
     olua_endinvoke(L);
 
@@ -13319,13 +13319,13 @@ static int _spine_Skeleton_getAttachment1(lua_State *L)
     spine::String arg1;       /** slotName */
     spine::String arg2;       /** attachmentName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
     olua_check_spine_String(L, 2, &arg1);
     olua_check_spine_String(L, 3, &arg2);
 
     // spine::Attachment *getAttachment(const spine::String &slotName, const spine::String &attachmentName)
     spine::Attachment *ret = self->getAttachment(arg1, arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.Attachment");
+    int num_ret = olua_push_obj(L, ret, "sp.Attachment");
 
     olua_endinvoke(L);
 
@@ -13340,13 +13340,13 @@ static int _spine_Skeleton_getAttachment2(lua_State *L)
     lua_Integer arg1 = 0;       /** slotIndex */
     spine::String arg2;       /** attachmentName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
     olua_check_int(L, 2, &arg1);
     olua_check_spine_String(L, 3, &arg2);
 
     // spine::Attachment *getAttachment(int slotIndex, const spine::String &attachmentName)
     spine::Attachment *ret = self->getAttachment((int)arg1, arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.Attachment");
+    int num_ret = olua_push_obj(L, ret, "sp.Attachment");
 
     olua_endinvoke(L);
 
@@ -13380,12 +13380,12 @@ static int _spine_Skeleton_getBones(lua_State *L)
 
     spine::Skeleton *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
 
     // spine::Vector<spine::Bone *> &getBones()
     spine::Vector<spine::Bone *> &ret = self->getBones();
     int num_ret = olua_push_array<spine::Bone *>(L, &ret, [L](spine::Bone *value) {
-        olua_push_cppobj(L, value, "sp.Bone");
+        olua_push_obj(L, value, "sp.Bone");
     });
 
     olua_endinvoke(L);
@@ -13399,7 +13399,7 @@ static int _spine_Skeleton_getColor(lua_State *L)
 
     spine::Skeleton *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
 
     // spine::Color &getColor()
     spine::Color &ret = self->getColor();
@@ -13416,11 +13416,11 @@ static int _spine_Skeleton_getData(lua_State *L)
 
     spine::Skeleton *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
 
     // spine::SkeletonData *getData()
     spine::SkeletonData *ret = self->getData();
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonData");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonData");
 
     olua_endinvoke(L);
 
@@ -13433,12 +13433,12 @@ static int _spine_Skeleton_getDrawOrder(lua_State *L)
 
     spine::Skeleton *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
 
     // spine::Vector<spine::Slot *> &getDrawOrder()
     spine::Vector<spine::Slot *> &ret = self->getDrawOrder();
     int num_ret = olua_push_array<spine::Slot *>(L, &ret, [L](spine::Slot *value) {
-        olua_push_cppobj(L, value, "sp.Slot");
+        olua_push_obj(L, value, "sp.Slot");
     });
 
     olua_endinvoke(L);
@@ -13452,12 +13452,12 @@ static int _spine_Skeleton_getIkConstraints(lua_State *L)
 
     spine::Skeleton *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
 
     // spine::Vector<spine::IkConstraint *> &getIkConstraints()
     spine::Vector<spine::IkConstraint *> &ret = self->getIkConstraints();
     int num_ret = olua_push_array<spine::IkConstraint *>(L, &ret, [L](spine::IkConstraint *value) {
-        olua_push_cppobj(L, value, "sp.IkConstraint");
+        olua_push_obj(L, value, "sp.IkConstraint");
     });
 
     olua_endinvoke(L);
@@ -13471,12 +13471,12 @@ static int _spine_Skeleton_getPathConstraints(lua_State *L)
 
     spine::Skeleton *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
 
     // spine::Vector<spine::PathConstraint *> &getPathConstraints()
     spine::Vector<spine::PathConstraint *> &ret = self->getPathConstraints();
     int num_ret = olua_push_array<spine::PathConstraint *>(L, &ret, [L](spine::PathConstraint *value) {
-        olua_push_cppobj(L, value, "sp.PathConstraint");
+        olua_push_obj(L, value, "sp.PathConstraint");
     });
 
     olua_endinvoke(L);
@@ -13490,11 +13490,11 @@ static int _spine_Skeleton_getRootBone(lua_State *L)
 
     spine::Skeleton *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
 
     // spine::Bone *getRootBone()
     spine::Bone *ret = self->getRootBone();
-    int num_ret = olua_push_cppobj(L, ret, "sp.Bone");
+    int num_ret = olua_push_obj(L, ret, "sp.Bone");
 
     olua_endinvoke(L);
 
@@ -13507,7 +13507,7 @@ static int _spine_Skeleton_getScaleX(lua_State *L)
 
     spine::Skeleton *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
 
     // float getScaleX()
     float ret = self->getScaleX();
@@ -13524,7 +13524,7 @@ static int _spine_Skeleton_getScaleY(lua_State *L)
 
     spine::Skeleton *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
 
     // float getScaleY()
     float ret = self->getScaleY();
@@ -13541,11 +13541,11 @@ static int _spine_Skeleton_getSkin(lua_State *L)
 
     spine::Skeleton *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
 
     // spine::Skin *getSkin()
     spine::Skin *ret = self->getSkin();
-    int num_ret = olua_push_cppobj(L, ret, "sp.Skin");
+    int num_ret = olua_push_obj(L, ret, "sp.Skin");
 
     olua_endinvoke(L);
 
@@ -13558,12 +13558,12 @@ static int _spine_Skeleton_getSlots(lua_State *L)
 
     spine::Skeleton *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
 
     // spine::Vector<spine::Slot *> &getSlots()
     spine::Vector<spine::Slot *> &ret = self->getSlots();
     int num_ret = olua_push_array<spine::Slot *>(L, &ret, [L](spine::Slot *value) {
-        olua_push_cppobj(L, value, "sp.Slot");
+        olua_push_obj(L, value, "sp.Slot");
     });
 
     olua_endinvoke(L);
@@ -13577,12 +13577,12 @@ static int _spine_Skeleton_getTransformConstraints(lua_State *L)
 
     spine::Skeleton *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
 
     // spine::Vector<spine::TransformConstraint *> &getTransformConstraints()
     spine::Vector<spine::TransformConstraint *> &ret = self->getTransformConstraints();
     int num_ret = olua_push_array<spine::TransformConstraint *>(L, &ret, [L](spine::TransformConstraint *value) {
-        olua_push_cppobj(L, value, "sp.TransformConstraint");
+        olua_push_obj(L, value, "sp.TransformConstraint");
     });
 
     olua_endinvoke(L);
@@ -13596,12 +13596,12 @@ static int _spine_Skeleton_getUpdateCacheList(lua_State *L)
 
     spine::Skeleton *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
 
     // spine::Vector<spine::Updatable *> &getUpdateCacheList()
     spine::Vector<spine::Updatable *> &ret = self->getUpdateCacheList();
     int num_ret = olua_push_array<spine::Updatable *>(L, &ret, [L](spine::Updatable *value) {
-        olua_push_cppobj(L, value, "sp.Updatable");
+        olua_push_obj(L, value, "sp.Updatable");
     });
 
     olua_endinvoke(L);
@@ -13615,7 +13615,7 @@ static int _spine_Skeleton_getX(lua_State *L)
 
     spine::Skeleton *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
 
     // float getX()
     float ret = self->getX();
@@ -13632,7 +13632,7 @@ static int _spine_Skeleton_getY(lua_State *L)
 
     spine::Skeleton *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
 
     // float getY()
     float ret = self->getY();
@@ -13649,11 +13649,11 @@ static int _spine_Skeleton_new(lua_State *L)
 
     spine::SkeletonData *arg1 = nullptr;       /** skeletonData */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "sp.SkeletonData");
+    olua_check_obj(L, 1, &arg1, "sp.SkeletonData");
 
     // Skeleton(spine::SkeletonData *skeletonData)
     spine::Skeleton *ret = new spine::Skeleton(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.Skeleton");
+    int num_ret = olua_push_obj(L, ret, "sp.Skeleton");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -13667,7 +13667,7 @@ static int _spine_Skeleton_printUpdateCache(lua_State *L)
 
     spine::Skeleton *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
 
     // void printUpdateCache()
     self->printUpdateCache();
@@ -13685,7 +13685,7 @@ static int _spine_Skeleton_setAttachment(lua_State *L)
     spine::String arg1;       /** slotName */
     spine::String arg2;       /** attachmentName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
     olua_check_spine_String(L, 2, &arg1);
     olua_check_spine_String(L, 3, &arg2);
 
@@ -13703,7 +13703,7 @@ static int _spine_Skeleton_setBonesToSetupPose(lua_State *L)
 
     spine::Skeleton *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
 
     // void setBonesToSetupPose()
     self->setBonesToSetupPose();
@@ -13721,7 +13721,7 @@ static int _spine_Skeleton_setPosition(lua_State *L)
     lua_Number arg1 = 0;       /** x */
     lua_Number arg2 = 0;       /** y */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
     olua_check_number(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
 
@@ -13740,7 +13740,7 @@ static int _spine_Skeleton_setScaleX(lua_State *L)
     spine::Skeleton *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
     olua_check_number(L, 2, &arg1);
 
     // void setScaleX(float inValue)
@@ -13758,7 +13758,7 @@ static int _spine_Skeleton_setScaleY(lua_State *L)
     spine::Skeleton *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
     olua_check_number(L, 2, &arg1);
 
     // void setScaleY(float inValue)
@@ -13776,7 +13776,7 @@ static int _spine_Skeleton_setSkin1(lua_State *L)
     spine::Skeleton *self = nullptr;
     spine::String arg1;       /** skinName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
     olua_check_spine_String(L, 2, &arg1);
 
     // void setSkin(const spine::String &skinName)
@@ -13794,8 +13794,8 @@ static int _spine_Skeleton_setSkin2(lua_State *L)
     spine::Skeleton *self = nullptr;
     spine::Skin *arg1 = nullptr;       /** newSkin */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Skin");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
+    olua_check_obj(L, 2, &arg1, "sp.Skin");
 
     // void setSkin(spine::Skin *newSkin)
     self->setSkin(arg1);
@@ -13815,7 +13815,7 @@ static int _spine_Skeleton_setSkin(lua_State *L)
             return _spine_Skeleton_setSkin1(L);
         }
 
-        // if ((olua_is_cppobj(L, 2, "sp.Skin"))) {
+        // if ((olua_is_obj(L, 2, "sp.Skin"))) {
             // void setSkin(spine::Skin *newSkin)
             return _spine_Skeleton_setSkin2(L);
         // }
@@ -13832,7 +13832,7 @@ static int _spine_Skeleton_setSlotsToSetupPose(lua_State *L)
 
     spine::Skeleton *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
 
     // void setSlotsToSetupPose()
     self->setSlotsToSetupPose();
@@ -13848,7 +13848,7 @@ static int _spine_Skeleton_setToSetupPose(lua_State *L)
 
     spine::Skeleton *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
 
     // void setToSetupPose()
     self->setToSetupPose();
@@ -13865,7 +13865,7 @@ static int _spine_Skeleton_setX(lua_State *L)
     spine::Skeleton *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
     olua_check_number(L, 2, &arg1);
 
     // void setX(float inValue)
@@ -13883,7 +13883,7 @@ static int _spine_Skeleton_setY(lua_State *L)
     spine::Skeleton *self = nullptr;
     lua_Number arg1 = 0;       /** inValue */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
     olua_check_number(L, 2, &arg1);
 
     // void setY(float inValue)
@@ -13900,7 +13900,7 @@ static int _spine_Skeleton_updateCache(lua_State *L)
 
     spine::Skeleton *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
 
     // void updateCache()
     self->updateCache();
@@ -13916,7 +13916,7 @@ static int _spine_Skeleton_updateWorldTransform1(lua_State *L)
 
     spine::Skeleton *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
 
     // void updateWorldTransform()
     self->updateWorldTransform();
@@ -13933,8 +13933,8 @@ static int _spine_Skeleton_updateWorldTransform2(lua_State *L)
     spine::Skeleton *self = nullptr;
     spine::Bone *arg1 = nullptr;       /** parent */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.Skeleton");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Bone");
+    olua_to_obj(L, 1, &self, "sp.Skeleton");
+    olua_check_obj(L, 2, &arg1, "sp.Bone");
 
     // void updateWorldTransform(spine::Bone *parent)
     self->updateWorldTransform(arg1);
@@ -13954,7 +13954,7 @@ static int _spine_Skeleton_updateWorldTransform(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if ((olua_is_cppobj(L, 2, "sp.Bone"))) {
+        // if ((olua_is_obj(L, 2, "sp.Bone"))) {
             // void updateWorldTransform(spine::Bone *parent)
             return _spine_Skeleton_updateWorldTransform2(L);
         // }
@@ -14033,7 +14033,7 @@ static int _spine_SkeletonRenderer___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::SkeletonRenderer *)olua_toobj(L, 1, "sp.SkeletonRenderer");
-    olua_push_cppobj(L, self, "sp.SkeletonRenderer");
+    olua_push_obj(L, self, "sp.SkeletonRenderer");
 
     olua_endinvoke(L);
 
@@ -14047,7 +14047,7 @@ static int _spine_SkeletonRenderer_as(lua_State *L)
     spine::SkeletonRenderer *self = nullptr;
     const char *arg1 = nullptr;       /** cls */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_string(L, 2, &arg1);
 
     do {
@@ -14056,10 +14056,7 @@ static int _spine_SkeletonRenderer_as(lua_State *L)
             break;
         }
         if (olua_strequal(arg1, "cc.BlendProtocol")) {
-            cocos2d::BlendProtocol *asobj = self;
-            olua_pushobj_as<cocos2d::BlendProtocol>(L, asobj);
-            olua_addref(L, 1, "as.cc.BlendProtocol", -1, OLUA_FLAG_SINGLE);
-            olua_addref(L, -1, "as.self", 1, OLUA_FLAG_SINGLE);
+            olua_pushobj_as<cocos2d::BlendProtocol>(L, 1, self, "as.cc.BlendProtocol");
             break;
         }
 
@@ -14077,7 +14074,7 @@ static int _spine_SkeletonRenderer_create(lua_State *L)
 
     // static spine::SkeletonRenderer *create()
     spine::SkeletonRenderer *ret = spine::SkeletonRenderer::create();
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonRenderer");
 
     olua_endinvoke(L);
 
@@ -14091,12 +14088,12 @@ static int _spine_SkeletonRenderer_createWithData1(lua_State *L)
     spine::SkeletonData *arg1 = nullptr;       /** skeletonData */
     bool arg2 = false;       /** ownsSkeletonData */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "sp.SkeletonData");
+    olua_check_obj(L, 1, &arg1, "sp.SkeletonData");
     olua_check_bool(L, 2, &arg2);
 
     // static spine::SkeletonRenderer *createWithData(@addref(skeletonData ^) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
     spine::SkeletonRenderer *ret = spine::SkeletonRenderer::createWithData(arg1, arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonRenderer");
 
     // insert code after call
     olua_addref(L, -1, "skeletonData", 1, OLUA_FLAG_SINGLE);
@@ -14112,11 +14109,11 @@ static int _spine_SkeletonRenderer_createWithData2(lua_State *L)
 
     spine::SkeletonData *arg1 = nullptr;       /** skeletonData */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "sp.SkeletonData");
+    olua_check_obj(L, 1, &arg1, "sp.SkeletonData");
 
     // static spine::SkeletonRenderer *createWithData(@addref(skeletonData ^) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
     spine::SkeletonRenderer *ret = spine::SkeletonRenderer::createWithData(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonRenderer");
 
     // insert code after call
     olua_addref(L, -1, "skeletonData", 1, OLUA_FLAG_SINGLE);
@@ -14131,14 +14128,14 @@ static int _spine_SkeletonRenderer_createWithData(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if ((olua_is_cppobj(L, 1, "sp.SkeletonData"))) {
+        // if ((olua_is_obj(L, 1, "sp.SkeletonData"))) {
             // static spine::SkeletonRenderer *createWithData(@addref(skeletonData ^) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
             return _spine_SkeletonRenderer_createWithData2(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((olua_is_cppobj(L, 1, "sp.SkeletonData")) && (olua_is_bool(L, 2))) {
+        // if ((olua_is_obj(L, 1, "sp.SkeletonData")) && (olua_is_bool(L, 2))) {
             // static spine::SkeletonRenderer *createWithData(@addref(skeletonData ^) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
             return _spine_SkeletonRenderer_createWithData1(L);
         // }
@@ -14158,12 +14155,12 @@ static int _spine_SkeletonRenderer_createWithFile1(lua_State *L)
     lua_Number arg3 = 0;       /** scale */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_check_cppobj(L, 2, (void **)&arg2, "sp.Atlas");
+    olua_check_obj(L, 2, &arg2, "sp.Atlas");
     olua_check_number(L, 3, &arg3);
 
     // static spine::SkeletonRenderer *createWithFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
     spine::SkeletonRenderer *ret = spine::SkeletonRenderer::createWithFile(arg1, arg2, (float)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonRenderer");
 
     olua_endinvoke(L);
 
@@ -14184,7 +14181,7 @@ static int _spine_SkeletonRenderer_createWithFile2(lua_State *L)
 
     // static spine::SkeletonRenderer *createWithFile(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
     spine::SkeletonRenderer *ret = spine::SkeletonRenderer::createWithFile(arg1, arg2, (float)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonRenderer");
 
     olua_endinvoke(L);
 
@@ -14199,11 +14196,11 @@ static int _spine_SkeletonRenderer_createWithFile3(lua_State *L)
     spine::Atlas *arg2 = nullptr;       /** atlas */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_check_cppobj(L, 2, (void **)&arg2, "sp.Atlas");
+    olua_check_obj(L, 2, &arg2, "sp.Atlas");
 
     // static spine::SkeletonRenderer *createWithFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
     spine::SkeletonRenderer *ret = spine::SkeletonRenderer::createWithFile(arg1, arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonRenderer");
 
     olua_endinvoke(L);
 
@@ -14222,7 +14219,7 @@ static int _spine_SkeletonRenderer_createWithFile4(lua_State *L)
 
     // static spine::SkeletonRenderer *createWithFile(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
     spine::SkeletonRenderer *ret = spine::SkeletonRenderer::createWithFile(arg1, arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonRenderer");
 
     olua_endinvoke(L);
 
@@ -14234,7 +14231,7 @@ static int _spine_SkeletonRenderer_createWithFile(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas"))) {
+        if ((olua_is_std_string(L, 1)) && (olua_is_obj(L, 2, "sp.Atlas"))) {
             // static spine::SkeletonRenderer *createWithFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
             return _spine_SkeletonRenderer_createWithFile3(L);
         }
@@ -14246,7 +14243,7 @@ static int _spine_SkeletonRenderer_createWithFile(lua_State *L)
     }
 
     if (num_args == 3) {
-        if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas")) && (olua_is_number(L, 3))) {
+        if ((olua_is_std_string(L, 1)) && (olua_is_obj(L, 2, "sp.Atlas")) && (olua_is_number(L, 3))) {
             // static spine::SkeletonRenderer *createWithFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
             return _spine_SkeletonRenderer_createWithFile1(L);
         }
@@ -14270,13 +14267,13 @@ static int _spine_SkeletonRenderer_createWithSkeleton1(lua_State *L)
     bool arg2 = false;       /** ownsSkeleton */
     bool arg3 = false;       /** ownsSkeletonData */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "sp.Skeleton");
+    olua_check_obj(L, 1, &arg1, "sp.Skeleton");
     olua_check_bool(L, 2, &arg2);
     olua_check_bool(L, 3, &arg3);
 
     // static spine::SkeletonRenderer *createWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData)
     spine::SkeletonRenderer *ret = spine::SkeletonRenderer::createWithSkeleton(arg1, arg2, arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonRenderer");
 
     olua_endinvoke(L);
 
@@ -14289,11 +14286,11 @@ static int _spine_SkeletonRenderer_createWithSkeleton2(lua_State *L)
 
     spine::Skeleton *arg1 = nullptr;       /** skeleton */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "sp.Skeleton");
+    olua_check_obj(L, 1, &arg1, "sp.Skeleton");
 
     // static spine::SkeletonRenderer *createWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData)
     spine::SkeletonRenderer *ret = spine::SkeletonRenderer::createWithSkeleton(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonRenderer");
 
     olua_endinvoke(L);
 
@@ -14307,12 +14304,12 @@ static int _spine_SkeletonRenderer_createWithSkeleton3(lua_State *L)
     spine::Skeleton *arg1 = nullptr;       /** skeleton */
     bool arg2 = false;       /** ownsSkeleton */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "sp.Skeleton");
+    olua_check_obj(L, 1, &arg1, "sp.Skeleton");
     olua_check_bool(L, 2, &arg2);
 
     // static spine::SkeletonRenderer *createWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData)
     spine::SkeletonRenderer *ret = spine::SkeletonRenderer::createWithSkeleton(arg1, arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonRenderer");
 
     olua_endinvoke(L);
 
@@ -14324,21 +14321,21 @@ static int _spine_SkeletonRenderer_createWithSkeleton(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if ((olua_is_cppobj(L, 1, "sp.Skeleton"))) {
+        // if ((olua_is_obj(L, 1, "sp.Skeleton"))) {
             // static spine::SkeletonRenderer *createWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData)
             return _spine_SkeletonRenderer_createWithSkeleton2(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((olua_is_cppobj(L, 1, "sp.Skeleton")) && (olua_is_bool(L, 2))) {
+        // if ((olua_is_obj(L, 1, "sp.Skeleton")) && (olua_is_bool(L, 2))) {
             // static spine::SkeletonRenderer *createWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData)
             return _spine_SkeletonRenderer_createWithSkeleton3(L);
         // }
     }
 
     if (num_args == 3) {
-        // if ((olua_is_cppobj(L, 1, "sp.Skeleton")) && (olua_is_bool(L, 2)) && (olua_is_bool(L, 3))) {
+        // if ((olua_is_obj(L, 1, "sp.Skeleton")) && (olua_is_bool(L, 2)) && (olua_is_bool(L, 3))) {
             // static spine::SkeletonRenderer *createWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData)
             return _spine_SkeletonRenderer_createWithSkeleton1(L);
         // }
@@ -14356,12 +14353,12 @@ static int _spine_SkeletonRenderer_findBone(lua_State *L)
     spine::SkeletonRenderer *self = nullptr;
     std::string arg1;       /** boneName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_std_string(L, 2, &arg1);
 
     // spine::Bone *findBone(const std::string &boneName)
     spine::Bone *ret = self->findBone(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.Bone");
+    int num_ret = olua_push_obj(L, ret, "sp.Bone");
 
     olua_endinvoke(L);
 
@@ -14375,12 +14372,12 @@ static int _spine_SkeletonRenderer_findSlot(lua_State *L)
     spine::SkeletonRenderer *self = nullptr;
     std::string arg1;       /** slotName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_std_string(L, 2, &arg1);
 
     // spine::Slot *findSlot(const std::string &slotName)
     spine::Slot *ret = self->findSlot(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.Slot");
+    int num_ret = olua_push_obj(L, ret, "sp.Slot");
 
     olua_endinvoke(L);
 
@@ -14395,13 +14392,13 @@ static int _spine_SkeletonRenderer_getAttachment(lua_State *L)
     std::string arg1;       /** slotName */
     std::string arg2;       /** attachmentName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_std_string(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
 
     // spine::Attachment *getAttachment(const std::string &slotName, const std::string &attachmentName)
     spine::Attachment *ret = self->getAttachment(arg1, arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.Attachment");
+    int num_ret = olua_push_obj(L, ret, "sp.Attachment");
 
     olua_endinvoke(L);
 
@@ -14414,7 +14411,7 @@ static int _spine_SkeletonRenderer_getBlendFunc(lua_State *L)
 
     spine::SkeletonRenderer *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
 
     // const cocos2d::BlendFunc &getBlendFunc()
     const cocos2d::BlendFunc &ret = self->getBlendFunc();
@@ -14431,7 +14428,7 @@ static int _spine_SkeletonRenderer_getDebugBonesEnabled(lua_State *L)
 
     spine::SkeletonRenderer *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
 
     // bool getDebugBonesEnabled()
     bool ret = self->getDebugBonesEnabled();
@@ -14448,7 +14445,7 @@ static int _spine_SkeletonRenderer_getDebugBoundingRectEnabled(lua_State *L)
 
     spine::SkeletonRenderer *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
 
     // bool getDebugBoundingRectEnabled()
     bool ret = self->getDebugBoundingRectEnabled();
@@ -14465,7 +14462,7 @@ static int _spine_SkeletonRenderer_getDebugMeshesEnabled(lua_State *L)
 
     spine::SkeletonRenderer *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
 
     // bool getDebugMeshesEnabled()
     bool ret = self->getDebugMeshesEnabled();
@@ -14482,7 +14479,7 @@ static int _spine_SkeletonRenderer_getDebugSlotsEnabled(lua_State *L)
 
     spine::SkeletonRenderer *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
 
     // bool getDebugSlotsEnabled()
     bool ret = self->getDebugSlotsEnabled();
@@ -14499,11 +14496,11 @@ static int _spine_SkeletonRenderer_getSkeleton(lua_State *L)
 
     spine::SkeletonRenderer *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
 
     // spine::Skeleton *getSkeleton()
     spine::Skeleton *ret = self->getSkeleton();
-    int num_ret = olua_push_cppobj(L, ret, "sp.Skeleton");
+    int num_ret = olua_push_obj(L, ret, "sp.Skeleton");
 
     olua_endinvoke(L);
 
@@ -14516,7 +14513,7 @@ static int _spine_SkeletonRenderer_getTimeScale(lua_State *L)
 
     spine::SkeletonRenderer *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
 
     // float getTimeScale()
     float ret = self->getTimeScale();
@@ -14536,9 +14533,9 @@ static int _spine_SkeletonRenderer_initWithBinaryFile1(lua_State *L)
     spine::Atlas *arg2 = nullptr;       /** atlas */
     lua_Number arg3 = 0;       /** scale */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_std_string(L, 2, &arg1);
-    olua_check_cppobj(L, 3, (void **)&arg2, "sp.Atlas");
+    olua_check_obj(L, 3, &arg2, "sp.Atlas");
     olua_check_number(L, 4, &arg3);
 
     // void initWithBinaryFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
@@ -14558,7 +14555,7 @@ static int _spine_SkeletonRenderer_initWithBinaryFile2(lua_State *L)
     std::string arg2;       /** atlasFile */
     lua_Number arg3 = 0;       /** scale */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_std_string(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
     olua_check_number(L, 4, &arg3);
@@ -14579,9 +14576,9 @@ static int _spine_SkeletonRenderer_initWithBinaryFile3(lua_State *L)
     std::string arg1;       /** skeletonDataFile */
     spine::Atlas *arg2 = nullptr;       /** atlas */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_std_string(L, 2, &arg1);
-    olua_check_cppobj(L, 3, (void **)&arg2, "sp.Atlas");
+    olua_check_obj(L, 3, &arg2, "sp.Atlas");
 
     // void initWithBinaryFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
     self->initWithBinaryFile(arg1, arg2);
@@ -14599,7 +14596,7 @@ static int _spine_SkeletonRenderer_initWithBinaryFile4(lua_State *L)
     std::string arg1;       /** skeletonDataFile */
     std::string arg2;       /** atlasFile */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_std_string(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
 
@@ -14616,7 +14613,7 @@ static int _spine_SkeletonRenderer_initWithBinaryFile(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        if ((olua_is_std_string(L, 2)) && (olua_is_cppobj(L, 3, "sp.Atlas"))) {
+        if ((olua_is_std_string(L, 2)) && (olua_is_obj(L, 3, "sp.Atlas"))) {
             // void initWithBinaryFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
             return _spine_SkeletonRenderer_initWithBinaryFile3(L);
         }
@@ -14628,7 +14625,7 @@ static int _spine_SkeletonRenderer_initWithBinaryFile(lua_State *L)
     }
 
     if (num_args == 3) {
-        if ((olua_is_std_string(L, 2)) && (olua_is_cppobj(L, 3, "sp.Atlas")) && (olua_is_number(L, 4))) {
+        if ((olua_is_std_string(L, 2)) && (olua_is_obj(L, 3, "sp.Atlas")) && (olua_is_number(L, 4))) {
             // void initWithBinaryFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
             return _spine_SkeletonRenderer_initWithBinaryFile1(L);
         }
@@ -14652,8 +14649,8 @@ static int _spine_SkeletonRenderer_initWithData1(lua_State *L)
     spine::SkeletonData *arg1 = nullptr;       /** skeletonData */
     bool arg2 = false;       /** ownsSkeletonData */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
+    olua_check_obj(L, 2, &arg1, "sp.SkeletonData");
     olua_check_bool(L, 3, &arg2);
 
     // void initWithData(spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
@@ -14671,8 +14668,8 @@ static int _spine_SkeletonRenderer_initWithData2(lua_State *L)
     spine::SkeletonRenderer *self = nullptr;
     spine::SkeletonData *arg1 = nullptr;       /** skeletonData */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.SkeletonData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
+    olua_check_obj(L, 2, &arg1, "sp.SkeletonData");
 
     // void initWithData(spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
     self->initWithData(arg1);
@@ -14687,14 +14684,14 @@ static int _spine_SkeletonRenderer_initWithData(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if ((olua_is_cppobj(L, 2, "sp.SkeletonData"))) {
+        // if ((olua_is_obj(L, 2, "sp.SkeletonData"))) {
             // void initWithData(spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
             return _spine_SkeletonRenderer_initWithData2(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((olua_is_cppobj(L, 2, "sp.SkeletonData")) && (olua_is_bool(L, 3))) {
+        // if ((olua_is_obj(L, 2, "sp.SkeletonData")) && (olua_is_bool(L, 3))) {
             // void initWithData(spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
             return _spine_SkeletonRenderer_initWithData1(L);
         // }
@@ -14714,9 +14711,9 @@ static int _spine_SkeletonRenderer_initWithJsonFile1(lua_State *L)
     spine::Atlas *arg2 = nullptr;       /** atlas */
     lua_Number arg3 = 0;       /** scale */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_std_string(L, 2, &arg1);
-    olua_check_cppobj(L, 3, (void **)&arg2, "sp.Atlas");
+    olua_check_obj(L, 3, &arg2, "sp.Atlas");
     olua_check_number(L, 4, &arg3);
 
     // void initWithJsonFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
@@ -14736,7 +14733,7 @@ static int _spine_SkeletonRenderer_initWithJsonFile2(lua_State *L)
     std::string arg2;       /** atlasFile */
     lua_Number arg3 = 0;       /** scale */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_std_string(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
     olua_check_number(L, 4, &arg3);
@@ -14757,9 +14754,9 @@ static int _spine_SkeletonRenderer_initWithJsonFile3(lua_State *L)
     std::string arg1;       /** skeletonDataFile */
     spine::Atlas *arg2 = nullptr;       /** atlas */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_std_string(L, 2, &arg1);
-    olua_check_cppobj(L, 3, (void **)&arg2, "sp.Atlas");
+    olua_check_obj(L, 3, &arg2, "sp.Atlas");
 
     // void initWithJsonFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
     self->initWithJsonFile(arg1, arg2);
@@ -14777,7 +14774,7 @@ static int _spine_SkeletonRenderer_initWithJsonFile4(lua_State *L)
     std::string arg1;       /** skeletonDataFile */
     std::string arg2;       /** atlasFile */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_std_string(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
 
@@ -14794,7 +14791,7 @@ static int _spine_SkeletonRenderer_initWithJsonFile(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        if ((olua_is_std_string(L, 2)) && (olua_is_cppobj(L, 3, "sp.Atlas"))) {
+        if ((olua_is_std_string(L, 2)) && (olua_is_obj(L, 3, "sp.Atlas"))) {
             // void initWithJsonFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
             return _spine_SkeletonRenderer_initWithJsonFile3(L);
         }
@@ -14806,7 +14803,7 @@ static int _spine_SkeletonRenderer_initWithJsonFile(lua_State *L)
     }
 
     if (num_args == 3) {
-        if ((olua_is_std_string(L, 2)) && (olua_is_cppobj(L, 3, "sp.Atlas")) && (olua_is_number(L, 4))) {
+        if ((olua_is_std_string(L, 2)) && (olua_is_obj(L, 3, "sp.Atlas")) && (olua_is_number(L, 4))) {
             // void initWithJsonFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
             return _spine_SkeletonRenderer_initWithJsonFile1(L);
         }
@@ -14832,8 +14829,8 @@ static int _spine_SkeletonRenderer_initWithSkeleton1(lua_State *L)
     bool arg3 = false;       /** ownsSkeletonData */
     bool arg4 = false;       /** ownsAtlas */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
+    olua_check_obj(L, 2, &arg1, "sp.Skeleton");
     olua_check_bool(L, 3, &arg2);
     olua_check_bool(L, 4, &arg3);
     olua_check_bool(L, 5, &arg4);
@@ -14853,8 +14850,8 @@ static int _spine_SkeletonRenderer_initWithSkeleton2(lua_State *L)
     spine::SkeletonRenderer *self = nullptr;
     spine::Skeleton *arg1 = nullptr;       /** skeleton */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
+    olua_check_obj(L, 2, &arg1, "sp.Skeleton");
 
     // void initWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
     self->initWithSkeleton(arg1);
@@ -14872,8 +14869,8 @@ static int _spine_SkeletonRenderer_initWithSkeleton3(lua_State *L)
     spine::Skeleton *arg1 = nullptr;       /** skeleton */
     bool arg2 = false;       /** ownsSkeleton */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
+    olua_check_obj(L, 2, &arg1, "sp.Skeleton");
     olua_check_bool(L, 3, &arg2);
 
     // void initWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
@@ -14893,8 +14890,8 @@ static int _spine_SkeletonRenderer_initWithSkeleton4(lua_State *L)
     bool arg2 = false;       /** ownsSkeleton */
     bool arg3 = false;       /** ownsSkeletonData */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.Skeleton");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
+    olua_check_obj(L, 2, &arg1, "sp.Skeleton");
     olua_check_bool(L, 3, &arg2);
     olua_check_bool(L, 4, &arg3);
 
@@ -14911,28 +14908,28 @@ static int _spine_SkeletonRenderer_initWithSkeleton(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if ((olua_is_cppobj(L, 2, "sp.Skeleton"))) {
+        // if ((olua_is_obj(L, 2, "sp.Skeleton"))) {
             // void initWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
             return _spine_SkeletonRenderer_initWithSkeleton2(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((olua_is_cppobj(L, 2, "sp.Skeleton")) && (olua_is_bool(L, 3))) {
+        // if ((olua_is_obj(L, 2, "sp.Skeleton")) && (olua_is_bool(L, 3))) {
             // void initWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
             return _spine_SkeletonRenderer_initWithSkeleton3(L);
         // }
     }
 
     if (num_args == 3) {
-        // if ((olua_is_cppobj(L, 2, "sp.Skeleton")) && (olua_is_bool(L, 3)) && (olua_is_bool(L, 4))) {
+        // if ((olua_is_obj(L, 2, "sp.Skeleton")) && (olua_is_bool(L, 3)) && (olua_is_bool(L, 4))) {
             // void initWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
             return _spine_SkeletonRenderer_initWithSkeleton4(L);
         // }
     }
 
     if (num_args == 4) {
-        // if ((olua_is_cppobj(L, 2, "sp.Skeleton")) && (olua_is_bool(L, 3)) && (olua_is_bool(L, 4)) && (olua_is_bool(L, 5))) {
+        // if ((olua_is_obj(L, 2, "sp.Skeleton")) && (olua_is_bool(L, 3)) && (olua_is_bool(L, 4)) && (olua_is_bool(L, 5))) {
             // void initWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
             return _spine_SkeletonRenderer_initWithSkeleton1(L);
         // }
@@ -14949,7 +14946,7 @@ static int _spine_SkeletonRenderer_initialize(lua_State *L)
 
     spine::SkeletonRenderer *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
 
     // void initialize()
     self->initialize();
@@ -14965,7 +14962,7 @@ static int _spine_SkeletonRenderer_isTwoColorTint(lua_State *L)
 
     spine::SkeletonRenderer *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
 
     // bool isTwoColorTint()
     bool ret = self->isTwoColorTint();
@@ -14982,7 +14979,7 @@ static int _spine_SkeletonRenderer_new1(lua_State *L)
 
     // SkeletonRenderer()
     spine::SkeletonRenderer *ret = new spine::SkeletonRenderer();
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonRenderer");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -14999,14 +14996,14 @@ static int _spine_SkeletonRenderer_new2(lua_State *L)
     bool arg3 = false;       /** ownsSkeletonData */
     bool arg4 = false;       /** ownsAtlas */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "sp.Skeleton");
+    olua_check_obj(L, 1, &arg1, "sp.Skeleton");
     olua_check_bool(L, 2, &arg2);
     olua_check_bool(L, 3, &arg3);
     olua_check_bool(L, 4, &arg4);
 
     // SkeletonRenderer(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
     spine::SkeletonRenderer *ret = new spine::SkeletonRenderer(arg1, arg2, arg3, arg4);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonRenderer");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -15021,12 +15018,12 @@ static int _spine_SkeletonRenderer_new3(lua_State *L)
     spine::SkeletonData *arg1 = nullptr;       /** skeletonData */
     bool arg2 = false;       /** ownsSkeletonData */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "sp.SkeletonData");
+    olua_check_obj(L, 1, &arg1, "sp.SkeletonData");
     olua_check_bool(L, 2, &arg2);
 
     // SkeletonRenderer(spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
     spine::SkeletonRenderer *ret = new spine::SkeletonRenderer(arg1, arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonRenderer");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -15043,12 +15040,12 @@ static int _spine_SkeletonRenderer_new4(lua_State *L)
     lua_Number arg3 = 0;       /** scale */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_check_cppobj(L, 2, (void **)&arg2, "sp.Atlas");
+    olua_check_obj(L, 2, &arg2, "sp.Atlas");
     olua_check_number(L, 3, &arg3);
 
     // SkeletonRenderer(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
     spine::SkeletonRenderer *ret = new spine::SkeletonRenderer(arg1, arg2, (float)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonRenderer");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -15070,7 +15067,7 @@ static int _spine_SkeletonRenderer_new5(lua_State *L)
 
     // SkeletonRenderer(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
     spine::SkeletonRenderer *ret = new spine::SkeletonRenderer(arg1, arg2, (float)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonRenderer");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -15084,11 +15081,11 @@ static int _spine_SkeletonRenderer_new6(lua_State *L)
 
     spine::Skeleton *arg1 = nullptr;       /** skeleton */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "sp.Skeleton");
+    olua_check_obj(L, 1, &arg1, "sp.Skeleton");
 
     // SkeletonRenderer(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
     spine::SkeletonRenderer *ret = new spine::SkeletonRenderer(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonRenderer");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -15103,12 +15100,12 @@ static int _spine_SkeletonRenderer_new7(lua_State *L)
     spine::Skeleton *arg1 = nullptr;       /** skeleton */
     bool arg2 = false;       /** ownsSkeleton */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "sp.Skeleton");
+    olua_check_obj(L, 1, &arg1, "sp.Skeleton");
     olua_check_bool(L, 2, &arg2);
 
     // SkeletonRenderer(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
     spine::SkeletonRenderer *ret = new spine::SkeletonRenderer(arg1, arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonRenderer");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -15124,13 +15121,13 @@ static int _spine_SkeletonRenderer_new8(lua_State *L)
     bool arg2 = false;       /** ownsSkeleton */
     bool arg3 = false;       /** ownsSkeletonData */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "sp.Skeleton");
+    olua_check_obj(L, 1, &arg1, "sp.Skeleton");
     olua_check_bool(L, 2, &arg2);
     olua_check_bool(L, 3, &arg3);
 
     // SkeletonRenderer(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
     spine::SkeletonRenderer *ret = new spine::SkeletonRenderer(arg1, arg2, arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonRenderer");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -15144,11 +15141,11 @@ static int _spine_SkeletonRenderer_new9(lua_State *L)
 
     spine::SkeletonData *arg1 = nullptr;       /** skeletonData */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "sp.SkeletonData");
+    olua_check_obj(L, 1, &arg1, "sp.SkeletonData");
 
     // SkeletonRenderer(spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
     spine::SkeletonRenderer *ret = new spine::SkeletonRenderer(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonRenderer");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -15164,11 +15161,11 @@ static int _spine_SkeletonRenderer_new10(lua_State *L)
     spine::Atlas *arg2 = nullptr;       /** atlas */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_check_cppobj(L, 2, (void **)&arg2, "sp.Atlas");
+    olua_check_obj(L, 2, &arg2, "sp.Atlas");
 
     // SkeletonRenderer(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
     spine::SkeletonRenderer *ret = new spine::SkeletonRenderer(arg1, arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonRenderer");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -15188,7 +15185,7 @@ static int _spine_SkeletonRenderer_new11(lua_State *L)
 
     // SkeletonRenderer(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
     spine::SkeletonRenderer *ret = new spine::SkeletonRenderer(arg1, arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonRenderer");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonRenderer");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -15206,29 +15203,29 @@ static int _spine_SkeletonRenderer_new(lua_State *L)
     }
 
     if (num_args == 1) {
-        if ((olua_is_cppobj(L, 1, "sp.Skeleton"))) {
+        if ((olua_is_obj(L, 1, "sp.Skeleton"))) {
             // SkeletonRenderer(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
             return _spine_SkeletonRenderer_new6(L);
         }
 
-        // if ((olua_is_cppobj(L, 1, "sp.SkeletonData"))) {
+        // if ((olua_is_obj(L, 1, "sp.SkeletonData"))) {
             // SkeletonRenderer(spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
             return _spine_SkeletonRenderer_new9(L);
         // }
     }
 
     if (num_args == 2) {
-        if ((olua_is_cppobj(L, 1, "sp.SkeletonData")) && (olua_is_bool(L, 2))) {
+        if ((olua_is_obj(L, 1, "sp.SkeletonData")) && (olua_is_bool(L, 2))) {
             // SkeletonRenderer(spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
             return _spine_SkeletonRenderer_new3(L);
         }
 
-        if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas"))) {
+        if ((olua_is_std_string(L, 1)) && (olua_is_obj(L, 2, "sp.Atlas"))) {
             // SkeletonRenderer(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
             return _spine_SkeletonRenderer_new10(L);
         }
 
-        if ((olua_is_cppobj(L, 1, "sp.Skeleton")) && (olua_is_bool(L, 2))) {
+        if ((olua_is_obj(L, 1, "sp.Skeleton")) && (olua_is_bool(L, 2))) {
             // SkeletonRenderer(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
             return _spine_SkeletonRenderer_new7(L);
         }
@@ -15240,7 +15237,7 @@ static int _spine_SkeletonRenderer_new(lua_State *L)
     }
 
     if (num_args == 3) {
-        if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas")) && (olua_is_number(L, 3))) {
+        if ((olua_is_std_string(L, 1)) && (olua_is_obj(L, 2, "sp.Atlas")) && (olua_is_number(L, 3))) {
             // SkeletonRenderer(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
             return _spine_SkeletonRenderer_new4(L);
         }
@@ -15250,14 +15247,14 @@ static int _spine_SkeletonRenderer_new(lua_State *L)
             return _spine_SkeletonRenderer_new5(L);
         }
 
-        // if ((olua_is_cppobj(L, 1, "sp.Skeleton")) && (olua_is_bool(L, 2)) && (olua_is_bool(L, 3))) {
+        // if ((olua_is_obj(L, 1, "sp.Skeleton")) && (olua_is_bool(L, 2)) && (olua_is_bool(L, 3))) {
             // SkeletonRenderer(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
             return _spine_SkeletonRenderer_new8(L);
         // }
     }
 
     if (num_args == 4) {
-        // if ((olua_is_cppobj(L, 1, "sp.Skeleton")) && (olua_is_bool(L, 2)) && (olua_is_bool(L, 3)) && (olua_is_bool(L, 4))) {
+        // if ((olua_is_obj(L, 1, "sp.Skeleton")) && (olua_is_bool(L, 2)) && (olua_is_bool(L, 3)) && (olua_is_bool(L, 4))) {
             // SkeletonRenderer(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData, @optional bool ownsAtlas)
             return _spine_SkeletonRenderer_new2(L);
         // }
@@ -15276,7 +15273,7 @@ static int _spine_SkeletonRenderer_setAttachment1(lua_State *L)
     std::string arg1;       /** slotName */
     std::string arg2;       /** attachmentName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_std_string(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
 
@@ -15297,7 +15294,7 @@ static int _spine_SkeletonRenderer_setAttachment2(lua_State *L)
     std::string arg1;       /** slotName */
     const char *arg2 = nullptr;       /** attachmentName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_std_string(L, 2, &arg1);
     olua_check_string(L, 3, &arg2);
 
@@ -15338,7 +15335,7 @@ static int _spine_SkeletonRenderer_setBlendFunc(lua_State *L)
     spine::SkeletonRenderer *self = nullptr;
     cocos2d::BlendFunc arg1;       /** blendFunc */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_cocos2d_BlendFunc(L, 2, &arg1);
 
     // void setBlendFunc(const cocos2d::BlendFunc &blendFunc)
@@ -15355,7 +15352,7 @@ static int _spine_SkeletonRenderer_setBonesToSetupPose(lua_State *L)
 
     spine::SkeletonRenderer *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
 
     // void setBonesToSetupPose()
     self->setBonesToSetupPose();
@@ -15372,7 +15369,7 @@ static int _spine_SkeletonRenderer_setDebugBonesEnabled(lua_State *L)
     spine::SkeletonRenderer *self = nullptr;
     bool arg1 = false;       /** enabled */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_bool(L, 2, &arg1);
 
     // void setDebugBonesEnabled(bool enabled)
@@ -15390,7 +15387,7 @@ static int _spine_SkeletonRenderer_setDebugBoundingRectEnabled(lua_State *L)
     spine::SkeletonRenderer *self = nullptr;
     bool arg1 = false;       /** enabled */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_bool(L, 2, &arg1);
 
     // void setDebugBoundingRectEnabled(bool enabled)
@@ -15408,7 +15405,7 @@ static int _spine_SkeletonRenderer_setDebugMeshesEnabled(lua_State *L)
     spine::SkeletonRenderer *self = nullptr;
     bool arg1 = false;       /** enabled */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_bool(L, 2, &arg1);
 
     // void setDebugMeshesEnabled(bool enabled)
@@ -15426,7 +15423,7 @@ static int _spine_SkeletonRenderer_setDebugSlotsEnabled(lua_State *L)
     spine::SkeletonRenderer *self = nullptr;
     bool arg1 = false;       /** enabled */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_bool(L, 2, &arg1);
 
     // void setDebugSlotsEnabled(bool enabled)
@@ -15444,7 +15441,7 @@ static int _spine_SkeletonRenderer_setSkin1(lua_State *L)
     spine::SkeletonRenderer *self = nullptr;
     std::string arg1;       /** skinName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_std_string(L, 2, &arg1);
 
     // void setSkin(const std::string &skinName)
@@ -15462,7 +15459,7 @@ static int _spine_SkeletonRenderer_setSkin2(lua_State *L)
     spine::SkeletonRenderer *self = nullptr;
     const char *arg1 = nullptr;       /** skinName */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_string(L, 2, &arg1);
 
     // void setSkin(const char *skinName)
@@ -15502,7 +15499,7 @@ static int _spine_SkeletonRenderer_setSlotsRange(lua_State *L)
     lua_Integer arg1 = 0;       /** startSlotIndex */
     lua_Integer arg2 = 0;       /** endSlotIndex */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_int(L, 2, &arg1);
     olua_check_int(L, 3, &arg2);
 
@@ -15520,7 +15517,7 @@ static int _spine_SkeletonRenderer_setSlotsToSetupPose(lua_State *L)
 
     spine::SkeletonRenderer *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
 
     // void setSlotsToSetupPose()
     self->setSlotsToSetupPose();
@@ -15537,7 +15534,7 @@ static int _spine_SkeletonRenderer_setTimeScale(lua_State *L)
     spine::SkeletonRenderer *self = nullptr;
     lua_Number arg1 = 0;       /** scale */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_number(L, 2, &arg1);
 
     // void setTimeScale(float scale)
@@ -15554,7 +15551,7 @@ static int _spine_SkeletonRenderer_setToSetupPose(lua_State *L)
 
     spine::SkeletonRenderer *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
 
     // void setToSetupPose()
     self->setToSetupPose();
@@ -15571,7 +15568,7 @@ static int _spine_SkeletonRenderer_setTwoColorTint(lua_State *L)
     spine::SkeletonRenderer *self = nullptr;
     bool arg1 = false;       /** enabled */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
     olua_check_bool(L, 2, &arg1);
 
     // void setTwoColorTint(bool enabled)
@@ -15588,7 +15585,7 @@ static int _spine_SkeletonRenderer_updateWorldTransform(lua_State *L)
 
     spine::SkeletonRenderer *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_to_obj(L, 1, &self, "sp.SkeletonRenderer");
 
     // void updateWorldTransform()
     self->updateWorldTransform();
@@ -15827,7 +15824,7 @@ static int _spine_SkeletonAnimation___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (spine::SkeletonAnimation *)olua_toobj(L, 1, "sp.SkeletonAnimation");
-    olua_push_cppobj(L, self, "sp.SkeletonAnimation");
+    olua_push_obj(L, self, "sp.SkeletonAnimation");
 
     olua_endinvoke(L);
 
@@ -15844,7 +15841,7 @@ static int _spine_SkeletonAnimation_addAnimation1(lua_State *L)
     bool arg3 = false;       /** loop */
     lua_Number arg4 = 0;       /** delay */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
     olua_check_int(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
     olua_check_bool(L, 4, &arg3);
@@ -15852,7 +15849,7 @@ static int _spine_SkeletonAnimation_addAnimation1(lua_State *L)
 
     // @addref(trackEntries |) spine::TrackEntry *addAnimation(int trackIndex, const std::string &name, bool loop, @optional float delay)
     spine::TrackEntry *ret = self->addAnimation((int)arg1, arg2, arg3, (float)arg4);
-    int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
 
     // insert code after call
     olua_addref(L, 1, "trackEntries", -1, OLUA_FLAG_MULTIPLE);
@@ -15871,14 +15868,14 @@ static int _spine_SkeletonAnimation_addAnimation2(lua_State *L)
     std::string arg2;       /** name */
     bool arg3 = false;       /** loop */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
     olua_check_int(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
     olua_check_bool(L, 4, &arg3);
 
     // @addref(trackEntries |) spine::TrackEntry *addAnimation(int trackIndex, const std::string &name, bool loop, @optional float delay)
     spine::TrackEntry *ret = self->addAnimation((int)arg1, arg2, arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
 
     // insert code after call
     olua_addref(L, 1, "trackEntries", -1, OLUA_FLAG_MULTIPLE);
@@ -15920,14 +15917,14 @@ static int _spine_SkeletonAnimation_addEmptyAnimation1(lua_State *L)
     lua_Number arg2 = 0;       /** mixDuration */
     lua_Number arg3 = 0;       /** delay */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
     olua_check_int(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
     olua_check_number(L, 4, &arg3);
 
     // @addref(trackEntries |) spine::TrackEntry *addEmptyAnimation(int trackIndex, float mixDuration, @optional float delay)
     spine::TrackEntry *ret = self->addEmptyAnimation((int)arg1, (float)arg2, (float)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
 
     // insert code after call
     olua_addref(L, 1, "trackEntries", -1, OLUA_FLAG_MULTIPLE);
@@ -15945,13 +15942,13 @@ static int _spine_SkeletonAnimation_addEmptyAnimation2(lua_State *L)
     lua_Integer arg1 = 0;       /** trackIndex */
     lua_Number arg2 = 0;       /** mixDuration */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
     olua_check_int(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
 
     // @addref(trackEntries |) spine::TrackEntry *addEmptyAnimation(int trackIndex, float mixDuration, @optional float delay)
     spine::TrackEntry *ret = self->addEmptyAnimation((int)arg1, (float)arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
 
     // insert code after call
     olua_addref(L, 1, "trackEntries", -1, OLUA_FLAG_MULTIPLE);
@@ -15991,7 +15988,7 @@ static int _spine_SkeletonAnimation_clearTrack1(lua_State *L)
     spine::SkeletonAnimation *self = nullptr;
     lua_Integer arg1 = 0;       /** trackIndex */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
     olua_check_int(L, 2, &arg1);
 
     // void clearTrack(@optional int trackIndex)
@@ -16008,7 +16005,7 @@ static int _spine_SkeletonAnimation_clearTrack2(lua_State *L)
 
     spine::SkeletonAnimation *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
 
     // void clearTrack(@optional int trackIndex)
     self->clearTrack();
@@ -16045,7 +16042,7 @@ static int _spine_SkeletonAnimation_clearTracks(lua_State *L)
 
     spine::SkeletonAnimation *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
 
     // void clearTracks()
     self->clearTracks();
@@ -16061,7 +16058,7 @@ static int _spine_SkeletonAnimation_create(lua_State *L)
 
     // static spine::SkeletonAnimation *create()
     spine::SkeletonAnimation *ret = spine::SkeletonAnimation::create();
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonAnimation");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonAnimation");
 
     olua_endinvoke(L);
 
@@ -16077,12 +16074,12 @@ static int _spine_SkeletonAnimation_createWithBinaryFile1(lua_State *L)
     lua_Number arg3 = 0;       /** scale */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_check_cppobj(L, 2, (void **)&arg2, "sp.Atlas");
+    olua_check_obj(L, 2, &arg2, "sp.Atlas");
     olua_check_number(L, 3, &arg3);
 
     // static spine::SkeletonAnimation *createWithBinaryFile(const std::string &skeletonBinaryFile, spine::Atlas *atlas, @optional float scale)
     spine::SkeletonAnimation *ret = spine::SkeletonAnimation::createWithBinaryFile(arg1, arg2, (float)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonAnimation");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonAnimation");
 
     olua_endinvoke(L);
 
@@ -16103,7 +16100,7 @@ static int _spine_SkeletonAnimation_createWithBinaryFile2(lua_State *L)
 
     // static spine::SkeletonAnimation *createWithBinaryFile(const std::string &skeletonBinaryFile, const std::string &atlasFile, @optional float scale)
     spine::SkeletonAnimation *ret = spine::SkeletonAnimation::createWithBinaryFile(arg1, arg2, (float)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonAnimation");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonAnimation");
 
     olua_endinvoke(L);
 
@@ -16118,11 +16115,11 @@ static int _spine_SkeletonAnimation_createWithBinaryFile3(lua_State *L)
     spine::Atlas *arg2 = nullptr;       /** atlas */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_check_cppobj(L, 2, (void **)&arg2, "sp.Atlas");
+    olua_check_obj(L, 2, &arg2, "sp.Atlas");
 
     // static spine::SkeletonAnimation *createWithBinaryFile(const std::string &skeletonBinaryFile, spine::Atlas *atlas, @optional float scale)
     spine::SkeletonAnimation *ret = spine::SkeletonAnimation::createWithBinaryFile(arg1, arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonAnimation");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonAnimation");
 
     olua_endinvoke(L);
 
@@ -16141,7 +16138,7 @@ static int _spine_SkeletonAnimation_createWithBinaryFile4(lua_State *L)
 
     // static spine::SkeletonAnimation *createWithBinaryFile(const std::string &skeletonBinaryFile, const std::string &atlasFile, @optional float scale)
     spine::SkeletonAnimation *ret = spine::SkeletonAnimation::createWithBinaryFile(arg1, arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonAnimation");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonAnimation");
 
     olua_endinvoke(L);
 
@@ -16153,7 +16150,7 @@ static int _spine_SkeletonAnimation_createWithBinaryFile(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas"))) {
+        if ((olua_is_std_string(L, 1)) && (olua_is_obj(L, 2, "sp.Atlas"))) {
             // static spine::SkeletonAnimation *createWithBinaryFile(const std::string &skeletonBinaryFile, spine::Atlas *atlas, @optional float scale)
             return _spine_SkeletonAnimation_createWithBinaryFile3(L);
         }
@@ -16165,7 +16162,7 @@ static int _spine_SkeletonAnimation_createWithBinaryFile(lua_State *L)
     }
 
     if (num_args == 3) {
-        if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas")) && (olua_is_number(L, 3))) {
+        if ((olua_is_std_string(L, 1)) && (olua_is_obj(L, 2, "sp.Atlas")) && (olua_is_number(L, 3))) {
             // static spine::SkeletonAnimation *createWithBinaryFile(const std::string &skeletonBinaryFile, spine::Atlas *atlas, @optional float scale)
             return _spine_SkeletonAnimation_createWithBinaryFile1(L);
         }
@@ -16188,12 +16185,12 @@ static int _spine_SkeletonAnimation_createWithData1(lua_State *L)
     spine::SkeletonData *arg1 = nullptr;       /** skeletonData */
     bool arg2 = false;       /** ownsSkeletonData */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "sp.SkeletonData");
+    olua_check_obj(L, 1, &arg1, "sp.SkeletonData");
     olua_check_bool(L, 2, &arg2);
 
     // static spine::SkeletonAnimation *createWithData(@addref(skeletonData ^) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
     spine::SkeletonAnimation *ret = spine::SkeletonAnimation::createWithData(arg1, arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonAnimation");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonAnimation");
 
     // insert code after call
     olua_addref(L, -1, "skeletonData", 1, OLUA_FLAG_SINGLE);
@@ -16209,11 +16206,11 @@ static int _spine_SkeletonAnimation_createWithData2(lua_State *L)
 
     spine::SkeletonData *arg1 = nullptr;       /** skeletonData */
 
-    olua_check_cppobj(L, 1, (void **)&arg1, "sp.SkeletonData");
+    olua_check_obj(L, 1, &arg1, "sp.SkeletonData");
 
     // static spine::SkeletonAnimation *createWithData(@addref(skeletonData ^) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
     spine::SkeletonAnimation *ret = spine::SkeletonAnimation::createWithData(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonAnimation");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonAnimation");
 
     // insert code after call
     olua_addref(L, -1, "skeletonData", 1, OLUA_FLAG_SINGLE);
@@ -16228,14 +16225,14 @@ static int _spine_SkeletonAnimation_createWithData(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if ((olua_is_cppobj(L, 1, "sp.SkeletonData"))) {
+        // if ((olua_is_obj(L, 1, "sp.SkeletonData"))) {
             // static spine::SkeletonAnimation *createWithData(@addref(skeletonData ^) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
             return _spine_SkeletonAnimation_createWithData2(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((olua_is_cppobj(L, 1, "sp.SkeletonData")) && (olua_is_bool(L, 2))) {
+        // if ((olua_is_obj(L, 1, "sp.SkeletonData")) && (olua_is_bool(L, 2))) {
             // static spine::SkeletonAnimation *createWithData(@addref(skeletonData ^) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
             return _spine_SkeletonAnimation_createWithData1(L);
         // }
@@ -16255,12 +16252,12 @@ static int _spine_SkeletonAnimation_createWithJsonFile1(lua_State *L)
     lua_Number arg3 = 0;       /** scale */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_check_cppobj(L, 2, (void **)&arg2, "sp.Atlas");
+    olua_check_obj(L, 2, &arg2, "sp.Atlas");
     olua_check_number(L, 3, &arg3);
 
     // static spine::SkeletonAnimation *createWithJsonFile(const std::string &skeletonJsonFile, spine::Atlas *atlas, @optional float scale)
     spine::SkeletonAnimation *ret = spine::SkeletonAnimation::createWithJsonFile(arg1, arg2, (float)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonAnimation");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonAnimation");
 
     olua_endinvoke(L);
 
@@ -16281,7 +16278,7 @@ static int _spine_SkeletonAnimation_createWithJsonFile2(lua_State *L)
 
     // static spine::SkeletonAnimation *createWithJsonFile(const std::string &skeletonJsonFile, const std::string &atlasFile, @optional float scale)
     spine::SkeletonAnimation *ret = spine::SkeletonAnimation::createWithJsonFile(arg1, arg2, (float)arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonAnimation");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonAnimation");
 
     olua_endinvoke(L);
 
@@ -16296,11 +16293,11 @@ static int _spine_SkeletonAnimation_createWithJsonFile3(lua_State *L)
     spine::Atlas *arg2 = nullptr;       /** atlas */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_check_cppobj(L, 2, (void **)&arg2, "sp.Atlas");
+    olua_check_obj(L, 2, &arg2, "sp.Atlas");
 
     // static spine::SkeletonAnimation *createWithJsonFile(const std::string &skeletonJsonFile, spine::Atlas *atlas, @optional float scale)
     spine::SkeletonAnimation *ret = spine::SkeletonAnimation::createWithJsonFile(arg1, arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonAnimation");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonAnimation");
 
     olua_endinvoke(L);
 
@@ -16319,7 +16316,7 @@ static int _spine_SkeletonAnimation_createWithJsonFile4(lua_State *L)
 
     // static spine::SkeletonAnimation *createWithJsonFile(const std::string &skeletonJsonFile, const std::string &atlasFile, @optional float scale)
     spine::SkeletonAnimation *ret = spine::SkeletonAnimation::createWithJsonFile(arg1, arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonAnimation");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonAnimation");
 
     olua_endinvoke(L);
 
@@ -16331,7 +16328,7 @@ static int _spine_SkeletonAnimation_createWithJsonFile(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas"))) {
+        if ((olua_is_std_string(L, 1)) && (olua_is_obj(L, 2, "sp.Atlas"))) {
             // static spine::SkeletonAnimation *createWithJsonFile(const std::string &skeletonJsonFile, spine::Atlas *atlas, @optional float scale)
             return _spine_SkeletonAnimation_createWithJsonFile3(L);
         }
@@ -16343,7 +16340,7 @@ static int _spine_SkeletonAnimation_createWithJsonFile(lua_State *L)
     }
 
     if (num_args == 3) {
-        if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas")) && (olua_is_number(L, 3))) {
+        if ((olua_is_std_string(L, 1)) && (olua_is_obj(L, 2, "sp.Atlas")) && (olua_is_number(L, 3))) {
             // static spine::SkeletonAnimation *createWithJsonFile(const std::string &skeletonJsonFile, spine::Atlas *atlas, @optional float scale)
             return _spine_SkeletonAnimation_createWithJsonFile1(L);
         }
@@ -16366,12 +16363,12 @@ static int _spine_SkeletonAnimation_findAnimation(lua_State *L)
     spine::SkeletonAnimation *self = nullptr;
     std::string arg1;       /** name */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
     olua_check_std_string(L, 2, &arg1);
 
     // spine::Animation *findAnimation(const std::string &name)
     spine::Animation *ret = self->findAnimation(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.Animation");
+    int num_ret = olua_push_obj(L, ret, "sp.Animation");
 
     olua_endinvoke(L);
 
@@ -16385,12 +16382,12 @@ static int _spine_SkeletonAnimation_getCurrent1(lua_State *L)
     spine::SkeletonAnimation *self = nullptr;
     lua_Integer arg1 = 0;       /** trackIndex */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
     olua_check_int(L, 2, &arg1);
 
     // @addref(trackEntries |) spine::TrackEntry *getCurrent(@optional int trackIndex)
     spine::TrackEntry *ret = self->getCurrent((int)arg1);
-    int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
 
     // insert code after call
     olua_addref(L, 1, "trackEntries", -1, OLUA_FLAG_MULTIPLE);
@@ -16406,11 +16403,11 @@ static int _spine_SkeletonAnimation_getCurrent2(lua_State *L)
 
     spine::SkeletonAnimation *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
 
     // @addref(trackEntries |) spine::TrackEntry *getCurrent(@optional int trackIndex)
     spine::TrackEntry *ret = self->getCurrent();
-    int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
 
     // insert code after call
     olua_addref(L, 1, "trackEntries", -1, OLUA_FLAG_MULTIPLE);
@@ -16447,11 +16444,11 @@ static int _spine_SkeletonAnimation_getState(lua_State *L)
 
     spine::SkeletonAnimation *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
 
     // @addref(state ^) spine::AnimationState *getState()
     spine::AnimationState *ret = self->getState();
-    int num_ret = olua_push_cppobj(L, ret, "sp.AnimationState");
+    int num_ret = olua_push_obj(L, ret, "sp.AnimationState");
 
     // insert code after call
     olua_addref(L, 1, "state", -1, OLUA_FLAG_SINGLE);
@@ -16467,7 +16464,7 @@ static int _spine_SkeletonAnimation_new(lua_State *L)
 
     // SkeletonAnimation()
     spine::SkeletonAnimation *ret = new spine::SkeletonAnimation();
-    int num_ret = olua_push_cppobj(L, ret, "sp.SkeletonAnimation");
+    int num_ret = olua_push_obj(L, ret, "sp.SkeletonAnimation");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -16484,10 +16481,10 @@ static int _spine_SkeletonAnimation_onAnimationStateEvent(lua_State *L)
     lua_Unsigned arg2 = 0;       /** type */
     spine::Event *arg3 = nullptr;       /** event */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
+    olua_check_obj(L, 2, &arg1, "sp.TrackEntry");
     olua_check_uint(L, 3, &arg2);
-    olua_check_cppobj(L, 4, (void **)&arg3, "sp.Event");
+    olua_check_obj(L, 4, &arg3, "sp.Event");
 
     // void onAnimationStateEvent(spine::TrackEntry *entry, spine::EventType type, spine::Event *event)
     self->onAnimationStateEvent(arg1, (spine::EventType)arg2, arg3);
@@ -16506,10 +16503,10 @@ static int _spine_SkeletonAnimation_onTrackEntryEvent(lua_State *L)
     lua_Unsigned arg2 = 0;       /** type */
     spine::Event *arg3 = nullptr;       /** event */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
+    olua_check_obj(L, 2, &arg1, "sp.TrackEntry");
     olua_check_uint(L, 3, &arg2);
-    olua_check_cppobj(L, 4, (void **)&arg3, "sp.Event");
+    olua_check_obj(L, 4, &arg3, "sp.Event");
 
     // void onTrackEntryEvent(spine::TrackEntry *entry, spine::EventType type, spine::Event *event)
     self->onTrackEntryEvent(arg1, (spine::EventType)arg2, arg3);
@@ -16528,14 +16525,14 @@ static int _spine_SkeletonAnimation_setAnimation(lua_State *L)
     std::string arg2;       /** name */
     bool arg3 = false;       /** loop */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
     olua_check_int(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
     olua_check_bool(L, 4, &arg3);
 
     // @addref(trackEntries |) spine::TrackEntry *setAnimation(int trackIndex, const std::string &name, bool loop)
     spine::TrackEntry *ret = self->setAnimation((int)arg1, arg2, arg3);
-    int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
 
     // insert code after call
     olua_addref(L, 1, "trackEntries", -1, OLUA_FLAG_MULTIPLE);
@@ -16552,8 +16549,8 @@ static int _spine_SkeletonAnimation_setAnimationStateData(lua_State *L)
     spine::SkeletonAnimation *self = nullptr;
     spine::AnimationStateData *arg1 = nullptr;       /** stateData */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.AnimationStateData");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
+    olua_check_obj(L, 2, &arg1, "sp.AnimationStateData");
 
     // void setAnimationStateData(spine::AnimationStateData *stateData)
     self->setAnimationStateData(arg1);
@@ -16570,7 +16567,7 @@ static int _spine_SkeletonAnimation_setCompleteListener(lua_State *L)
     spine::SkeletonAnimation *self = nullptr;
     spine::CompleteListener arg1;       /** listener */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
     olua_check_callback(L, 2, &arg1, "sp.CompleteListener");
 
     void *cb_store = (void *)self;
@@ -16583,7 +16580,7 @@ static int _spine_SkeletonAnimation_setCompleteListener(lua_State *L)
 
         if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
-            olua_push_cppobj(L, arg1, "sp.TrackEntry");
+            olua_push_obj(L, arg1, "sp.TrackEntry");
 
             olua_callback(L, cb_store, cb_name.c_str(), 1);
 
@@ -16606,7 +16603,7 @@ static int _spine_SkeletonAnimation_setDisposeListener(lua_State *L)
     spine::SkeletonAnimation *self = nullptr;
     spine::DisposeListener arg1;       /** listener */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
     olua_check_callback(L, 2, &arg1, "sp.DisposeListener");
 
     void *cb_store = (void *)self;
@@ -16619,7 +16616,7 @@ static int _spine_SkeletonAnimation_setDisposeListener(lua_State *L)
 
         if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
-            olua_push_cppobj(L, arg1, "sp.TrackEntry");
+            olua_push_obj(L, arg1, "sp.TrackEntry");
 
             olua_callback(L, cb_store, cb_name.c_str(), 1);
 
@@ -16643,13 +16640,13 @@ static int _spine_SkeletonAnimation_setEmptyAnimation(lua_State *L)
     lua_Integer arg1 = 0;       /** trackIndex */
     lua_Number arg2 = 0;       /** mixDuration */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
     olua_check_int(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
 
     // @addref(trackEntries |) spine::TrackEntry *setEmptyAnimation(int trackIndex, float mixDuration)
     spine::TrackEntry *ret = self->setEmptyAnimation((int)arg1, (float)arg2);
-    int num_ret = olua_push_cppobj(L, ret, "sp.TrackEntry");
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
 
     // insert code after call
     olua_addref(L, 1, "trackEntries", -1, OLUA_FLAG_MULTIPLE);
@@ -16666,7 +16663,7 @@ static int _spine_SkeletonAnimation_setEmptyAnimations(lua_State *L)
     spine::SkeletonAnimation *self = nullptr;
     lua_Number arg1 = 0;       /** mixDuration */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
     olua_check_number(L, 2, &arg1);
 
     // void setEmptyAnimations(float mixDuration)
@@ -16684,7 +16681,7 @@ static int _spine_SkeletonAnimation_setEndListener(lua_State *L)
     spine::SkeletonAnimation *self = nullptr;
     spine::EndListener arg1;       /** listener */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
     olua_check_callback(L, 2, &arg1, "sp.EndListener");
 
     void *cb_store = (void *)self;
@@ -16697,7 +16694,7 @@ static int _spine_SkeletonAnimation_setEndListener(lua_State *L)
 
         if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
-            olua_push_cppobj(L, arg1, "sp.TrackEntry");
+            olua_push_obj(L, arg1, "sp.TrackEntry");
 
             olua_callback(L, cb_store, cb_name.c_str(), 1);
 
@@ -16720,7 +16717,7 @@ static int _spine_SkeletonAnimation_setEventListener(lua_State *L)
     spine::SkeletonAnimation *self = nullptr;
     spine::EventListener arg1;       /** listener */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
     olua_check_callback(L, 2, &arg1, "sp.EventListener");
 
     void *cb_store = (void *)self;
@@ -16733,8 +16730,8 @@ static int _spine_SkeletonAnimation_setEventListener(lua_State *L)
 
         if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
-            olua_push_cppobj(L, arg1, "sp.TrackEntry");
-            olua_push_cppobj(L, arg2, "sp.Event");
+            olua_push_obj(L, arg1, "sp.TrackEntry");
+            olua_push_obj(L, arg2, "sp.Event");
 
             olua_callback(L, cb_store, cb_name.c_str(), 2);
 
@@ -16757,7 +16754,7 @@ static int _spine_SkeletonAnimation_setInterruptListener(lua_State *L)
     spine::SkeletonAnimation *self = nullptr;
     spine::InterruptListener arg1;       /** listener */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
     olua_check_callback(L, 2, &arg1, "sp.InterruptListener");
 
     void *cb_store = (void *)self;
@@ -16770,7 +16767,7 @@ static int _spine_SkeletonAnimation_setInterruptListener(lua_State *L)
 
         if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
-            olua_push_cppobj(L, arg1, "sp.TrackEntry");
+            olua_push_obj(L, arg1, "sp.TrackEntry");
 
             olua_callback(L, cb_store, cb_name.c_str(), 1);
 
@@ -16795,7 +16792,7 @@ static int _spine_SkeletonAnimation_setMix(lua_State *L)
     std::string arg2;       /** toAnimation */
     lua_Number arg3 = 0;       /** duration */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
     olua_check_std_string(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
     olua_check_number(L, 4, &arg3);
@@ -16815,7 +16812,7 @@ static int _spine_SkeletonAnimation_setPostUpdateWorldTransformsListener(lua_Sta
     spine::SkeletonAnimation *self = nullptr;
     spine::UpdateWorldTransformsListener arg1;       /** listener */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
     olua_check_callback(L, 2, &arg1, "sp.UpdateWorldTransformsListener");
 
     void *cb_store = (void *)self;
@@ -16830,7 +16827,7 @@ static int _spine_SkeletonAnimation_setPostUpdateWorldTransformsListener(lua_Sta
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cppobj(L, arg1, "sp.SkeletonAnimation");
+            olua_push_obj(L, arg1, "sp.SkeletonAnimation");
             olua_disable_objpool(L);
 
             olua_callback(L, cb_store, cb_name.c_str(), 1);
@@ -16856,7 +16853,7 @@ static int _spine_SkeletonAnimation_setPreUpdateWorldTransformsListener(lua_Stat
     spine::SkeletonAnimation *self = nullptr;
     spine::UpdateWorldTransformsListener arg1;       /** listener */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
     olua_check_callback(L, 2, &arg1, "sp.UpdateWorldTransformsListener");
 
     void *cb_store = (void *)self;
@@ -16871,7 +16868,7 @@ static int _spine_SkeletonAnimation_setPreUpdateWorldTransformsListener(lua_Stat
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cppobj(L, arg1, "sp.SkeletonAnimation");
+            olua_push_obj(L, arg1, "sp.SkeletonAnimation");
             olua_disable_objpool(L);
 
             olua_callback(L, cb_store, cb_name.c_str(), 1);
@@ -16897,7 +16894,7 @@ static int _spine_SkeletonAnimation_setStartListener(lua_State *L)
     spine::SkeletonAnimation *self = nullptr;
     spine::StartListener arg1;       /** listener */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
     olua_check_callback(L, 2, &arg1, "sp.StartListener");
 
     void *cb_store = (void *)self;
@@ -16910,7 +16907,7 @@ static int _spine_SkeletonAnimation_setStartListener(lua_State *L)
 
         if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
-            olua_push_cppobj(L, arg1, "sp.TrackEntry");
+            olua_push_obj(L, arg1, "sp.TrackEntry");
 
             olua_callback(L, cb_store, cb_name.c_str(), 1);
 
@@ -16934,8 +16931,8 @@ static int _spine_SkeletonAnimation_setTrackCompleteListener(lua_State *L)
     spine::TrackEntry *arg1 = nullptr;       /** entry */
     spine::CompleteListener arg2;       /** listener */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
+    olua_check_obj(L, 2, &arg1, "sp.TrackEntry");
     olua_check_callback(L, 3, &arg2, "sp.CompleteListener");
 
     void *cb_store = (void *)self;
@@ -16948,7 +16945,7 @@ static int _spine_SkeletonAnimation_setTrackCompleteListener(lua_State *L)
 
         if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
-            olua_push_cppobj(L, arg1, "sp.TrackEntry");
+            olua_push_obj(L, arg1, "sp.TrackEntry");
 
             olua_callback(L, cb_store, cb_name.c_str(), 1);
 
@@ -16972,8 +16969,8 @@ static int _spine_SkeletonAnimation_setTrackDisposeListener(lua_State *L)
     spine::TrackEntry *arg1 = nullptr;       /** entry */
     spine::DisposeListener arg2;       /** listener */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
+    olua_check_obj(L, 2, &arg1, "sp.TrackEntry");
     olua_check_callback(L, 3, &arg2, "sp.DisposeListener");
 
     void *cb_store = (void *)self;
@@ -16986,7 +16983,7 @@ static int _spine_SkeletonAnimation_setTrackDisposeListener(lua_State *L)
 
         if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
-            olua_push_cppobj(L, arg1, "sp.TrackEntry");
+            olua_push_obj(L, arg1, "sp.TrackEntry");
 
             olua_callback(L, cb_store, cb_name.c_str(), 1);
 
@@ -17010,8 +17007,8 @@ static int _spine_SkeletonAnimation_setTrackEndListener(lua_State *L)
     spine::TrackEntry *arg1 = nullptr;       /** entry */
     spine::EndListener arg2;       /** listener */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
+    olua_check_obj(L, 2, &arg1, "sp.TrackEntry");
     olua_check_callback(L, 3, &arg2, "sp.EndListener");
 
     void *cb_store = (void *)self;
@@ -17024,7 +17021,7 @@ static int _spine_SkeletonAnimation_setTrackEndListener(lua_State *L)
 
         if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
-            olua_push_cppobj(L, arg1, "sp.TrackEntry");
+            olua_push_obj(L, arg1, "sp.TrackEntry");
 
             olua_callback(L, cb_store, cb_name.c_str(), 1);
 
@@ -17048,8 +17045,8 @@ static int _spine_SkeletonAnimation_setTrackEventListener(lua_State *L)
     spine::TrackEntry *arg1 = nullptr;       /** entry */
     spine::EventListener arg2;       /** listener */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
+    olua_check_obj(L, 2, &arg1, "sp.TrackEntry");
     olua_check_callback(L, 3, &arg2, "sp.EventListener");
 
     void *cb_store = (void *)self;
@@ -17062,8 +17059,8 @@ static int _spine_SkeletonAnimation_setTrackEventListener(lua_State *L)
 
         if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
-            olua_push_cppobj(L, arg1, "sp.TrackEntry");
-            olua_push_cppobj(L, arg2, "sp.Event");
+            olua_push_obj(L, arg1, "sp.TrackEntry");
+            olua_push_obj(L, arg2, "sp.Event");
 
             olua_callback(L, cb_store, cb_name.c_str(), 2);
 
@@ -17087,8 +17084,8 @@ static int _spine_SkeletonAnimation_setTrackInterruptListener(lua_State *L)
     spine::TrackEntry *arg1 = nullptr;       /** entry */
     spine::InterruptListener arg2;       /** listener */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
+    olua_check_obj(L, 2, &arg1, "sp.TrackEntry");
     olua_check_callback(L, 3, &arg2, "sp.InterruptListener");
 
     void *cb_store = (void *)self;
@@ -17101,7 +17098,7 @@ static int _spine_SkeletonAnimation_setTrackInterruptListener(lua_State *L)
 
         if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
-            olua_push_cppobj(L, arg1, "sp.TrackEntry");
+            olua_push_obj(L, arg1, "sp.TrackEntry");
 
             olua_callback(L, cb_store, cb_name.c_str(), 1);
 
@@ -17125,8 +17122,8 @@ static int _spine_SkeletonAnimation_setTrackStartListener(lua_State *L)
     spine::TrackEntry *arg1 = nullptr;       /** entry */
     spine::StartListener arg2;       /** listener */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
-    olua_check_cppobj(L, 2, (void **)&arg1, "sp.TrackEntry");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
+    olua_check_obj(L, 2, &arg1, "sp.TrackEntry");
     olua_check_callback(L, 3, &arg2, "sp.StartListener");
 
     void *cb_store = (void *)self;
@@ -17139,7 +17136,7 @@ static int _spine_SkeletonAnimation_setTrackStartListener(lua_State *L)
 
         if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
-            olua_push_cppobj(L, arg1, "sp.TrackEntry");
+            olua_push_obj(L, arg1, "sp.TrackEntry");
 
             olua_callback(L, cb_store, cb_name.c_str(), 1);
 
@@ -17162,7 +17159,7 @@ static int _spine_SkeletonAnimation_setUpdateOnlyIfVisible(lua_State *L)
     spine::SkeletonAnimation *self = nullptr;
     bool arg1 = false;       /** status */
 
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_to_obj(L, 1, &self, "sp.SkeletonAnimation");
     olua_check_bool(L, 2, &arg1);
 
     // void setUpdateOnlyIfVisible(bool status)

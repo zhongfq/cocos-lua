@@ -415,17 +415,18 @@ OLUA_API void olua_checkhostthread()
 #ifdef OLUA_HAVE_CMPREF
 OLUA_API void olua_startcmpref(lua_State *L, int idx, const char *refname)
 {
-    olua_getreftable(L, idx, refname);                      // L: t
-    lua_pushnil(L);                                         // L: t k
-    while (lua_next(L, -2)) {                               // L: t k v
-        if (olua_isa<cocos2d::Ref>(L, -2)) {
-            auto obj = olua_toobj<cocos2d::Ref>(L, -2);
-            lua_pushvalue(L, -2);                           // L: t k v k
-            lua_pushinteger(L, obj->getReferenceCount());   // L: t k v k refcount
-            lua_rawset(L, -5);                              // L: t k v
+    if (olua_loadref(L, idx, refname) == LUA_TTABLE) {
+        lua_pushnil(L);
+        while (lua_next(L, -2)) {
+            if (olua_isa<cocos2d::Ref>(L, -2)) {
+                auto obj = olua_toobj<cocos2d::Ref>(L, -2);
+                lua_pushvalue(L, -2);
+                lua_pushinteger(L, obj->getReferenceCount());
+                lua_rawset(L, -5);
+            }
+            lua_pop(L, 1);
         }
-        lua_pop(L, 1);                                      // L: t k
-    }                                                       // L: t
+    }
     lua_pop(L, 1);
 }
 

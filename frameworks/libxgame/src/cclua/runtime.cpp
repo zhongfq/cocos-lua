@@ -925,7 +925,7 @@ void runtime::reportError(const char *err, const char *traceback)
 
 int runtime::pushdirector(lua_State *L)
 {
-    olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
+    olua_pushobj<cocos2d::Director>(L, cocos2d::Director::getInstance());
     return lua_gettop(L);
 }
 

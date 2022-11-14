@@ -97,6 +97,7 @@ typeconf 'dragonBones::AnimationData'
     .exclude 'constraintTimelines'
     .exclude 'boneCachedFrameIndices'
     .exclude 'slotCachedFrameIndices'
+    .exclude 'cachedFrames'
 
 typeconf 'dragonBones::AnimationConfig'
 typeconf 'dragonBones::DragonBonesData'

@@ -51,7 +51,7 @@ static int _cclua_plugin_wechat___olua_move(lua_State *L)
     olua_startinvoke(L);
 
     auto self = (cclua::plugin::wechat *)olua_toobj(L, 1, "cclua.plugin.wechat");
-    olua_push_cppobj(L, self, "cclua.plugin.wechat");
+    olua_push_obj(L, self, "cclua.plugin.wechat");
 
     olua_endinvoke(L);
 

@@ -40,14 +40,14 @@ bool olua_is_cocos2d_Color4F(lua_State *L, int idx);
 
 // Vector
 template <class T>
-void olua_insert_array(cocos2d::Vector<T> *array, T value)
+void olua_insert_array(cocos2d::Vector<T> *array, const T &value)
 {
     array->pushBack(value);
 }
 
 // cocos2d::Map
 template <class K, class V>
-void olua_insert_map(cocos2d::Map<K, V> *map, K key, V value)
+void olua_insert_map(cocos2d::Map<K, V> *map, const K &key, const V &value)
 {
     map->insert(key, value);
 }
@@ -77,13 +77,13 @@ void olua_check_cocos2d_backend_UniformLocation(lua_State *L, int idx, cocos2d::
 
 #ifdef CCLUA_BUILD_SPINE
 template <class T>
-void olua_insert_array(spine::Vector<T> *array, T value)
+void olua_insert_array(spine::Vector<T> *array, const T &value)
 {
     array->add(value);
 }
 
 template <class T>
-void olua_foreach_array(const spine::Vector<T> *array, const std::function<void(T)> &callback)
+void olua_foreach_array(const spine::Vector<T> *array, const std::function<void(T &)> &callback)
 {
     spine::Vector<T> *vararray = const_cast<spine::Vector<T> *>(array);
     for (int i = 0, n = (int)vararray->size(); i < n; i++) {

@@ -108,7 +108,7 @@ typeconf 'cocos2d::Scheduler'
     template <typename T> bool doScheduleUpdate(lua_State *L)
     {
         const char *cls = olua_getluatype<T>(L);
-        if (olua_is_cppobj(L, 2, cls)) {
+        if (olua_is_obj(L, 2, cls)) {
             auto self = olua_checkobj<cocos2d::Scheduler>(L, 1);
             auto target = olua_checkobj<T>(L, 2);
             lua_Integer priority = olua_checkinteger(L, 3);
@@ -270,7 +270,7 @@ typeconf 'cocos2d::AudioEngine'
             return "finishCallback.";
         } else {
             char buf[64];
-            sprintf(buf, "finishCallback.%d", (int)id);
+            snprintf(buf, sizeof(buf), "finishCallback.%d", (int)id);
             return std::string(buf);
         }
     }]]
@@ -510,7 +510,7 @@ typeconf 'cocos2d::Sequence'
 
             auto ret = new cocos2d::Sequence();
             ret->autorelease();
-            olua_push_cppobj<cocos2d::Sequence>(L, ret);
+            olua_pushobj<cocos2d::Sequence>(L, ret);
 
             for (int i = 1; i <= n; i++) {
                 auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
@@ -544,7 +544,7 @@ typeconf 'cocos2d::Spawn'
 
             auto ret = new cocos2d::Spawn();
             ret->autorelease();
-            olua_push_cppobj<cocos2d::Spawn>(L, ret);
+            olua_pushobj<cocos2d::Spawn>(L, ret);
 
             for (int i = 1; i <= n; i++) {
                 auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
@@ -703,7 +703,7 @@ local push_node_parent = [[
     if (!self->getParent()) {
         return 0;
     }
-    olua_push_cppobj<cocos2d::Node>(L, self->getParent());
+    olua_pushobj<cocos2d::Node>(L, self->getParent());
     int parent = lua_gettop(L);
 ]]
 typeconf 'cocos2d::Node'

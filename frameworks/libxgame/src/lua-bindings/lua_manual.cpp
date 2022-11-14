@@ -4,7 +4,7 @@
 
 static int _cocos2d_Value_get_Null(lua_State *L)
 {
-    olua_push_cppobj<cocos2d::Value>(L, &cocos2d::Value::Null);
+    olua_pushobj<cocos2d::Value>(L, &cocos2d::Value::Null);
     return 1;
 }
 

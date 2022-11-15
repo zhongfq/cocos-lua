@@ -42179,7 +42179,7 @@ static int _cocos2d_LayerMultiplex_addLayer(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_LayerMultiplex_create(lua_State *L)
+static int _cocos2d_LayerMultiplex_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -42190,6 +42190,700 @@ static int _cocos2d_LayerMultiplex_create(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_LayerMultiplex_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Layer *arg1 = nullptr;       /** layer */
+    cocos2d::Layer *arg2 = nullptr;       /** layer_variadic_1 */
+    cocos2d::Layer *arg3 = nullptr;       /** layer_variadic_2 */
+    cocos2d::Layer *arg4 = nullptr;       /** layer_variadic_3 */
+    cocos2d::Layer *arg5 = nullptr;       /** layer_variadic_4 */
+    cocos2d::Layer *arg6 = nullptr;       /** layer_variadic_5 */
+    cocos2d::Layer *arg7 = nullptr;       /** layer_variadic_6 */
+    cocos2d::Layer *arg8 = nullptr;       /** layer_variadic_7 */
+    cocos2d::Layer *arg9 = nullptr;       /** layer_variadic_8 */
+    cocos2d::Layer *arg10 = nullptr;       /** layer_variadic_9 */
+    cocos2d::Layer *arg11 = nullptr;       /** layer_variadic_10 */
+    cocos2d::Layer *arg12 = nullptr;       /** layer_variadic_11 */
+    cocos2d::Layer *arg13 = nullptr;       /** layer_variadic_12 */
+    cocos2d::Layer *arg14 = nullptr;       /** layer_variadic_13 */
+    cocos2d::Layer *arg15 = nullptr;       /** layer_variadic_14 */
+    cocos2d::Layer *arg16 = nullptr;       /** layer_variadic_15 */
+    cocos2d::Layer *arg17 = nullptr;       /** layer_variadic_16 */
+
+    olua_check_obj(L, 1, &arg1, "cc.Layer");
+    olua_check_obj(L, 2, &arg2, "cc.Layer");
+    olua_check_obj(L, 3, &arg3, "cc.Layer");
+    olua_check_obj(L, 4, &arg4, "cc.Layer");
+    olua_check_obj(L, 5, &arg5, "cc.Layer");
+    olua_check_obj(L, 6, &arg6, "cc.Layer");
+    olua_check_obj(L, 7, &arg7, "cc.Layer");
+    olua_check_obj(L, 8, &arg8, "cc.Layer");
+    olua_check_obj(L, 9, &arg9, "cc.Layer");
+    olua_check_obj(L, 10, &arg10, "cc.Layer");
+    olua_check_obj(L, 11, &arg11, "cc.Layer");
+    olua_check_obj(L, 12, &arg12, "cc.Layer");
+    olua_check_obj(L, 13, &arg13, "cc.Layer");
+    olua_check_obj(L, 14, &arg14, "cc.Layer");
+    olua_check_obj(L, 15, &arg15, "cc.Layer");
+    olua_check_obj(L, 16, &arg16, "cc.Layer");
+    olua_check_obj(L, 17, &arg17, "cc.Layer");
+
+    // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+    cocos2d::LayerMultiplex *ret = cocos2d::LayerMultiplex::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.LayerMultiplex");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_LayerMultiplex_create3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Layer *arg1 = nullptr;       /** layer */
+
+    olua_check_obj(L, 1, &arg1, "cc.Layer");
+
+    // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+    cocos2d::LayerMultiplex *ret = cocos2d::LayerMultiplex::create(arg1, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.LayerMultiplex");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_LayerMultiplex_create4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Layer *arg1 = nullptr;       /** layer */
+    cocos2d::Layer *arg2 = nullptr;       /** layer_variadic_1 */
+
+    olua_check_obj(L, 1, &arg1, "cc.Layer");
+    olua_check_obj(L, 2, &arg2, "cc.Layer");
+
+    // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+    cocos2d::LayerMultiplex *ret = cocos2d::LayerMultiplex::create(arg1, arg2, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.LayerMultiplex");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_LayerMultiplex_create5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Layer *arg1 = nullptr;       /** layer */
+    cocos2d::Layer *arg2 = nullptr;       /** layer_variadic_1 */
+    cocos2d::Layer *arg3 = nullptr;       /** layer_variadic_2 */
+
+    olua_check_obj(L, 1, &arg1, "cc.Layer");
+    olua_check_obj(L, 2, &arg2, "cc.Layer");
+    olua_check_obj(L, 3, &arg3, "cc.Layer");
+
+    // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+    cocos2d::LayerMultiplex *ret = cocos2d::LayerMultiplex::create(arg1, arg2, arg3, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.LayerMultiplex");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_LayerMultiplex_create6(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Layer *arg1 = nullptr;       /** layer */
+    cocos2d::Layer *arg2 = nullptr;       /** layer_variadic_1 */
+    cocos2d::Layer *arg3 = nullptr;       /** layer_variadic_2 */
+    cocos2d::Layer *arg4 = nullptr;       /** layer_variadic_3 */
+
+    olua_check_obj(L, 1, &arg1, "cc.Layer");
+    olua_check_obj(L, 2, &arg2, "cc.Layer");
+    olua_check_obj(L, 3, &arg3, "cc.Layer");
+    olua_check_obj(L, 4, &arg4, "cc.Layer");
+
+    // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+    cocos2d::LayerMultiplex *ret = cocos2d::LayerMultiplex::create(arg1, arg2, arg3, arg4, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.LayerMultiplex");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_LayerMultiplex_create7(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Layer *arg1 = nullptr;       /** layer */
+    cocos2d::Layer *arg2 = nullptr;       /** layer_variadic_1 */
+    cocos2d::Layer *arg3 = nullptr;       /** layer_variadic_2 */
+    cocos2d::Layer *arg4 = nullptr;       /** layer_variadic_3 */
+    cocos2d::Layer *arg5 = nullptr;       /** layer_variadic_4 */
+
+    olua_check_obj(L, 1, &arg1, "cc.Layer");
+    olua_check_obj(L, 2, &arg2, "cc.Layer");
+    olua_check_obj(L, 3, &arg3, "cc.Layer");
+    olua_check_obj(L, 4, &arg4, "cc.Layer");
+    olua_check_obj(L, 5, &arg5, "cc.Layer");
+
+    // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+    cocos2d::LayerMultiplex *ret = cocos2d::LayerMultiplex::create(arg1, arg2, arg3, arg4, arg5, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.LayerMultiplex");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_LayerMultiplex_create8(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Layer *arg1 = nullptr;       /** layer */
+    cocos2d::Layer *arg2 = nullptr;       /** layer_variadic_1 */
+    cocos2d::Layer *arg3 = nullptr;       /** layer_variadic_2 */
+    cocos2d::Layer *arg4 = nullptr;       /** layer_variadic_3 */
+    cocos2d::Layer *arg5 = nullptr;       /** layer_variadic_4 */
+    cocos2d::Layer *arg6 = nullptr;       /** layer_variadic_5 */
+
+    olua_check_obj(L, 1, &arg1, "cc.Layer");
+    olua_check_obj(L, 2, &arg2, "cc.Layer");
+    olua_check_obj(L, 3, &arg3, "cc.Layer");
+    olua_check_obj(L, 4, &arg4, "cc.Layer");
+    olua_check_obj(L, 5, &arg5, "cc.Layer");
+    olua_check_obj(L, 6, &arg6, "cc.Layer");
+
+    // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+    cocos2d::LayerMultiplex *ret = cocos2d::LayerMultiplex::create(arg1, arg2, arg3, arg4, arg5, arg6, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.LayerMultiplex");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_LayerMultiplex_create9(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Layer *arg1 = nullptr;       /** layer */
+    cocos2d::Layer *arg2 = nullptr;       /** layer_variadic_1 */
+    cocos2d::Layer *arg3 = nullptr;       /** layer_variadic_2 */
+    cocos2d::Layer *arg4 = nullptr;       /** layer_variadic_3 */
+    cocos2d::Layer *arg5 = nullptr;       /** layer_variadic_4 */
+    cocos2d::Layer *arg6 = nullptr;       /** layer_variadic_5 */
+    cocos2d::Layer *arg7 = nullptr;       /** layer_variadic_6 */
+
+    olua_check_obj(L, 1, &arg1, "cc.Layer");
+    olua_check_obj(L, 2, &arg2, "cc.Layer");
+    olua_check_obj(L, 3, &arg3, "cc.Layer");
+    olua_check_obj(L, 4, &arg4, "cc.Layer");
+    olua_check_obj(L, 5, &arg5, "cc.Layer");
+    olua_check_obj(L, 6, &arg6, "cc.Layer");
+    olua_check_obj(L, 7, &arg7, "cc.Layer");
+
+    // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+    cocos2d::LayerMultiplex *ret = cocos2d::LayerMultiplex::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.LayerMultiplex");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_LayerMultiplex_create10(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Layer *arg1 = nullptr;       /** layer */
+    cocos2d::Layer *arg2 = nullptr;       /** layer_variadic_1 */
+    cocos2d::Layer *arg3 = nullptr;       /** layer_variadic_2 */
+    cocos2d::Layer *arg4 = nullptr;       /** layer_variadic_3 */
+    cocos2d::Layer *arg5 = nullptr;       /** layer_variadic_4 */
+    cocos2d::Layer *arg6 = nullptr;       /** layer_variadic_5 */
+    cocos2d::Layer *arg7 = nullptr;       /** layer_variadic_6 */
+    cocos2d::Layer *arg8 = nullptr;       /** layer_variadic_7 */
+
+    olua_check_obj(L, 1, &arg1, "cc.Layer");
+    olua_check_obj(L, 2, &arg2, "cc.Layer");
+    olua_check_obj(L, 3, &arg3, "cc.Layer");
+    olua_check_obj(L, 4, &arg4, "cc.Layer");
+    olua_check_obj(L, 5, &arg5, "cc.Layer");
+    olua_check_obj(L, 6, &arg6, "cc.Layer");
+    olua_check_obj(L, 7, &arg7, "cc.Layer");
+    olua_check_obj(L, 8, &arg8, "cc.Layer");
+
+    // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+    cocos2d::LayerMultiplex *ret = cocos2d::LayerMultiplex::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.LayerMultiplex");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_LayerMultiplex_create11(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Layer *arg1 = nullptr;       /** layer */
+    cocos2d::Layer *arg2 = nullptr;       /** layer_variadic_1 */
+    cocos2d::Layer *arg3 = nullptr;       /** layer_variadic_2 */
+    cocos2d::Layer *arg4 = nullptr;       /** layer_variadic_3 */
+    cocos2d::Layer *arg5 = nullptr;       /** layer_variadic_4 */
+    cocos2d::Layer *arg6 = nullptr;       /** layer_variadic_5 */
+    cocos2d::Layer *arg7 = nullptr;       /** layer_variadic_6 */
+    cocos2d::Layer *arg8 = nullptr;       /** layer_variadic_7 */
+    cocos2d::Layer *arg9 = nullptr;       /** layer_variadic_8 */
+
+    olua_check_obj(L, 1, &arg1, "cc.Layer");
+    olua_check_obj(L, 2, &arg2, "cc.Layer");
+    olua_check_obj(L, 3, &arg3, "cc.Layer");
+    olua_check_obj(L, 4, &arg4, "cc.Layer");
+    olua_check_obj(L, 5, &arg5, "cc.Layer");
+    olua_check_obj(L, 6, &arg6, "cc.Layer");
+    olua_check_obj(L, 7, &arg7, "cc.Layer");
+    olua_check_obj(L, 8, &arg8, "cc.Layer");
+    olua_check_obj(L, 9, &arg9, "cc.Layer");
+
+    // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+    cocos2d::LayerMultiplex *ret = cocos2d::LayerMultiplex::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.LayerMultiplex");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_LayerMultiplex_create12(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Layer *arg1 = nullptr;       /** layer */
+    cocos2d::Layer *arg2 = nullptr;       /** layer_variadic_1 */
+    cocos2d::Layer *arg3 = nullptr;       /** layer_variadic_2 */
+    cocos2d::Layer *arg4 = nullptr;       /** layer_variadic_3 */
+    cocos2d::Layer *arg5 = nullptr;       /** layer_variadic_4 */
+    cocos2d::Layer *arg6 = nullptr;       /** layer_variadic_5 */
+    cocos2d::Layer *arg7 = nullptr;       /** layer_variadic_6 */
+    cocos2d::Layer *arg8 = nullptr;       /** layer_variadic_7 */
+    cocos2d::Layer *arg9 = nullptr;       /** layer_variadic_8 */
+    cocos2d::Layer *arg10 = nullptr;       /** layer_variadic_9 */
+
+    olua_check_obj(L, 1, &arg1, "cc.Layer");
+    olua_check_obj(L, 2, &arg2, "cc.Layer");
+    olua_check_obj(L, 3, &arg3, "cc.Layer");
+    olua_check_obj(L, 4, &arg4, "cc.Layer");
+    olua_check_obj(L, 5, &arg5, "cc.Layer");
+    olua_check_obj(L, 6, &arg6, "cc.Layer");
+    olua_check_obj(L, 7, &arg7, "cc.Layer");
+    olua_check_obj(L, 8, &arg8, "cc.Layer");
+    olua_check_obj(L, 9, &arg9, "cc.Layer");
+    olua_check_obj(L, 10, &arg10, "cc.Layer");
+
+    // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+    cocos2d::LayerMultiplex *ret = cocos2d::LayerMultiplex::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.LayerMultiplex");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_LayerMultiplex_create13(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Layer *arg1 = nullptr;       /** layer */
+    cocos2d::Layer *arg2 = nullptr;       /** layer_variadic_1 */
+    cocos2d::Layer *arg3 = nullptr;       /** layer_variadic_2 */
+    cocos2d::Layer *arg4 = nullptr;       /** layer_variadic_3 */
+    cocos2d::Layer *arg5 = nullptr;       /** layer_variadic_4 */
+    cocos2d::Layer *arg6 = nullptr;       /** layer_variadic_5 */
+    cocos2d::Layer *arg7 = nullptr;       /** layer_variadic_6 */
+    cocos2d::Layer *arg8 = nullptr;       /** layer_variadic_7 */
+    cocos2d::Layer *arg9 = nullptr;       /** layer_variadic_8 */
+    cocos2d::Layer *arg10 = nullptr;       /** layer_variadic_9 */
+    cocos2d::Layer *arg11 = nullptr;       /** layer_variadic_10 */
+
+    olua_check_obj(L, 1, &arg1, "cc.Layer");
+    olua_check_obj(L, 2, &arg2, "cc.Layer");
+    olua_check_obj(L, 3, &arg3, "cc.Layer");
+    olua_check_obj(L, 4, &arg4, "cc.Layer");
+    olua_check_obj(L, 5, &arg5, "cc.Layer");
+    olua_check_obj(L, 6, &arg6, "cc.Layer");
+    olua_check_obj(L, 7, &arg7, "cc.Layer");
+    olua_check_obj(L, 8, &arg8, "cc.Layer");
+    olua_check_obj(L, 9, &arg9, "cc.Layer");
+    olua_check_obj(L, 10, &arg10, "cc.Layer");
+    olua_check_obj(L, 11, &arg11, "cc.Layer");
+
+    // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+    cocos2d::LayerMultiplex *ret = cocos2d::LayerMultiplex::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.LayerMultiplex");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_LayerMultiplex_create14(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Layer *arg1 = nullptr;       /** layer */
+    cocos2d::Layer *arg2 = nullptr;       /** layer_variadic_1 */
+    cocos2d::Layer *arg3 = nullptr;       /** layer_variadic_2 */
+    cocos2d::Layer *arg4 = nullptr;       /** layer_variadic_3 */
+    cocos2d::Layer *arg5 = nullptr;       /** layer_variadic_4 */
+    cocos2d::Layer *arg6 = nullptr;       /** layer_variadic_5 */
+    cocos2d::Layer *arg7 = nullptr;       /** layer_variadic_6 */
+    cocos2d::Layer *arg8 = nullptr;       /** layer_variadic_7 */
+    cocos2d::Layer *arg9 = nullptr;       /** layer_variadic_8 */
+    cocos2d::Layer *arg10 = nullptr;       /** layer_variadic_9 */
+    cocos2d::Layer *arg11 = nullptr;       /** layer_variadic_10 */
+    cocos2d::Layer *arg12 = nullptr;       /** layer_variadic_11 */
+
+    olua_check_obj(L, 1, &arg1, "cc.Layer");
+    olua_check_obj(L, 2, &arg2, "cc.Layer");
+    olua_check_obj(L, 3, &arg3, "cc.Layer");
+    olua_check_obj(L, 4, &arg4, "cc.Layer");
+    olua_check_obj(L, 5, &arg5, "cc.Layer");
+    olua_check_obj(L, 6, &arg6, "cc.Layer");
+    olua_check_obj(L, 7, &arg7, "cc.Layer");
+    olua_check_obj(L, 8, &arg8, "cc.Layer");
+    olua_check_obj(L, 9, &arg9, "cc.Layer");
+    olua_check_obj(L, 10, &arg10, "cc.Layer");
+    olua_check_obj(L, 11, &arg11, "cc.Layer");
+    olua_check_obj(L, 12, &arg12, "cc.Layer");
+
+    // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+    cocos2d::LayerMultiplex *ret = cocos2d::LayerMultiplex::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.LayerMultiplex");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_LayerMultiplex_create15(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Layer *arg1 = nullptr;       /** layer */
+    cocos2d::Layer *arg2 = nullptr;       /** layer_variadic_1 */
+    cocos2d::Layer *arg3 = nullptr;       /** layer_variadic_2 */
+    cocos2d::Layer *arg4 = nullptr;       /** layer_variadic_3 */
+    cocos2d::Layer *arg5 = nullptr;       /** layer_variadic_4 */
+    cocos2d::Layer *arg6 = nullptr;       /** layer_variadic_5 */
+    cocos2d::Layer *arg7 = nullptr;       /** layer_variadic_6 */
+    cocos2d::Layer *arg8 = nullptr;       /** layer_variadic_7 */
+    cocos2d::Layer *arg9 = nullptr;       /** layer_variadic_8 */
+    cocos2d::Layer *arg10 = nullptr;       /** layer_variadic_9 */
+    cocos2d::Layer *arg11 = nullptr;       /** layer_variadic_10 */
+    cocos2d::Layer *arg12 = nullptr;       /** layer_variadic_11 */
+    cocos2d::Layer *arg13 = nullptr;       /** layer_variadic_12 */
+
+    olua_check_obj(L, 1, &arg1, "cc.Layer");
+    olua_check_obj(L, 2, &arg2, "cc.Layer");
+    olua_check_obj(L, 3, &arg3, "cc.Layer");
+    olua_check_obj(L, 4, &arg4, "cc.Layer");
+    olua_check_obj(L, 5, &arg5, "cc.Layer");
+    olua_check_obj(L, 6, &arg6, "cc.Layer");
+    olua_check_obj(L, 7, &arg7, "cc.Layer");
+    olua_check_obj(L, 8, &arg8, "cc.Layer");
+    olua_check_obj(L, 9, &arg9, "cc.Layer");
+    olua_check_obj(L, 10, &arg10, "cc.Layer");
+    olua_check_obj(L, 11, &arg11, "cc.Layer");
+    olua_check_obj(L, 12, &arg12, "cc.Layer");
+    olua_check_obj(L, 13, &arg13, "cc.Layer");
+
+    // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+    cocos2d::LayerMultiplex *ret = cocos2d::LayerMultiplex::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.LayerMultiplex");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_LayerMultiplex_create16(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Layer *arg1 = nullptr;       /** layer */
+    cocos2d::Layer *arg2 = nullptr;       /** layer_variadic_1 */
+    cocos2d::Layer *arg3 = nullptr;       /** layer_variadic_2 */
+    cocos2d::Layer *arg4 = nullptr;       /** layer_variadic_3 */
+    cocos2d::Layer *arg5 = nullptr;       /** layer_variadic_4 */
+    cocos2d::Layer *arg6 = nullptr;       /** layer_variadic_5 */
+    cocos2d::Layer *arg7 = nullptr;       /** layer_variadic_6 */
+    cocos2d::Layer *arg8 = nullptr;       /** layer_variadic_7 */
+    cocos2d::Layer *arg9 = nullptr;       /** layer_variadic_8 */
+    cocos2d::Layer *arg10 = nullptr;       /** layer_variadic_9 */
+    cocos2d::Layer *arg11 = nullptr;       /** layer_variadic_10 */
+    cocos2d::Layer *arg12 = nullptr;       /** layer_variadic_11 */
+    cocos2d::Layer *arg13 = nullptr;       /** layer_variadic_12 */
+    cocos2d::Layer *arg14 = nullptr;       /** layer_variadic_13 */
+
+    olua_check_obj(L, 1, &arg1, "cc.Layer");
+    olua_check_obj(L, 2, &arg2, "cc.Layer");
+    olua_check_obj(L, 3, &arg3, "cc.Layer");
+    olua_check_obj(L, 4, &arg4, "cc.Layer");
+    olua_check_obj(L, 5, &arg5, "cc.Layer");
+    olua_check_obj(L, 6, &arg6, "cc.Layer");
+    olua_check_obj(L, 7, &arg7, "cc.Layer");
+    olua_check_obj(L, 8, &arg8, "cc.Layer");
+    olua_check_obj(L, 9, &arg9, "cc.Layer");
+    olua_check_obj(L, 10, &arg10, "cc.Layer");
+    olua_check_obj(L, 11, &arg11, "cc.Layer");
+    olua_check_obj(L, 12, &arg12, "cc.Layer");
+    olua_check_obj(L, 13, &arg13, "cc.Layer");
+    olua_check_obj(L, 14, &arg14, "cc.Layer");
+
+    // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+    cocos2d::LayerMultiplex *ret = cocos2d::LayerMultiplex::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.LayerMultiplex");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_LayerMultiplex_create17(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Layer *arg1 = nullptr;       /** layer */
+    cocos2d::Layer *arg2 = nullptr;       /** layer_variadic_1 */
+    cocos2d::Layer *arg3 = nullptr;       /** layer_variadic_2 */
+    cocos2d::Layer *arg4 = nullptr;       /** layer_variadic_3 */
+    cocos2d::Layer *arg5 = nullptr;       /** layer_variadic_4 */
+    cocos2d::Layer *arg6 = nullptr;       /** layer_variadic_5 */
+    cocos2d::Layer *arg7 = nullptr;       /** layer_variadic_6 */
+    cocos2d::Layer *arg8 = nullptr;       /** layer_variadic_7 */
+    cocos2d::Layer *arg9 = nullptr;       /** layer_variadic_8 */
+    cocos2d::Layer *arg10 = nullptr;       /** layer_variadic_9 */
+    cocos2d::Layer *arg11 = nullptr;       /** layer_variadic_10 */
+    cocos2d::Layer *arg12 = nullptr;       /** layer_variadic_11 */
+    cocos2d::Layer *arg13 = nullptr;       /** layer_variadic_12 */
+    cocos2d::Layer *arg14 = nullptr;       /** layer_variadic_13 */
+    cocos2d::Layer *arg15 = nullptr;       /** layer_variadic_14 */
+
+    olua_check_obj(L, 1, &arg1, "cc.Layer");
+    olua_check_obj(L, 2, &arg2, "cc.Layer");
+    olua_check_obj(L, 3, &arg3, "cc.Layer");
+    olua_check_obj(L, 4, &arg4, "cc.Layer");
+    olua_check_obj(L, 5, &arg5, "cc.Layer");
+    olua_check_obj(L, 6, &arg6, "cc.Layer");
+    olua_check_obj(L, 7, &arg7, "cc.Layer");
+    olua_check_obj(L, 8, &arg8, "cc.Layer");
+    olua_check_obj(L, 9, &arg9, "cc.Layer");
+    olua_check_obj(L, 10, &arg10, "cc.Layer");
+    olua_check_obj(L, 11, &arg11, "cc.Layer");
+    olua_check_obj(L, 12, &arg12, "cc.Layer");
+    olua_check_obj(L, 13, &arg13, "cc.Layer");
+    olua_check_obj(L, 14, &arg14, "cc.Layer");
+    olua_check_obj(L, 15, &arg15, "cc.Layer");
+
+    // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+    cocos2d::LayerMultiplex *ret = cocos2d::LayerMultiplex::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.LayerMultiplex");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_LayerMultiplex_create18(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Layer *arg1 = nullptr;       /** layer */
+    cocos2d::Layer *arg2 = nullptr;       /** layer_variadic_1 */
+    cocos2d::Layer *arg3 = nullptr;       /** layer_variadic_2 */
+    cocos2d::Layer *arg4 = nullptr;       /** layer_variadic_3 */
+    cocos2d::Layer *arg5 = nullptr;       /** layer_variadic_4 */
+    cocos2d::Layer *arg6 = nullptr;       /** layer_variadic_5 */
+    cocos2d::Layer *arg7 = nullptr;       /** layer_variadic_6 */
+    cocos2d::Layer *arg8 = nullptr;       /** layer_variadic_7 */
+    cocos2d::Layer *arg9 = nullptr;       /** layer_variadic_8 */
+    cocos2d::Layer *arg10 = nullptr;       /** layer_variadic_9 */
+    cocos2d::Layer *arg11 = nullptr;       /** layer_variadic_10 */
+    cocos2d::Layer *arg12 = nullptr;       /** layer_variadic_11 */
+    cocos2d::Layer *arg13 = nullptr;       /** layer_variadic_12 */
+    cocos2d::Layer *arg14 = nullptr;       /** layer_variadic_13 */
+    cocos2d::Layer *arg15 = nullptr;       /** layer_variadic_14 */
+    cocos2d::Layer *arg16 = nullptr;       /** layer_variadic_15 */
+
+    olua_check_obj(L, 1, &arg1, "cc.Layer");
+    olua_check_obj(L, 2, &arg2, "cc.Layer");
+    olua_check_obj(L, 3, &arg3, "cc.Layer");
+    olua_check_obj(L, 4, &arg4, "cc.Layer");
+    olua_check_obj(L, 5, &arg5, "cc.Layer");
+    olua_check_obj(L, 6, &arg6, "cc.Layer");
+    olua_check_obj(L, 7, &arg7, "cc.Layer");
+    olua_check_obj(L, 8, &arg8, "cc.Layer");
+    olua_check_obj(L, 9, &arg9, "cc.Layer");
+    olua_check_obj(L, 10, &arg10, "cc.Layer");
+    olua_check_obj(L, 11, &arg11, "cc.Layer");
+    olua_check_obj(L, 12, &arg12, "cc.Layer");
+    olua_check_obj(L, 13, &arg13, "cc.Layer");
+    olua_check_obj(L, 14, &arg14, "cc.Layer");
+    olua_check_obj(L, 15, &arg15, "cc.Layer");
+    olua_check_obj(L, 16, &arg16, "cc.Layer");
+
+    // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+    cocos2d::LayerMultiplex *ret = cocos2d::LayerMultiplex::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.LayerMultiplex");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_LayerMultiplex_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // static cocos2d::LayerMultiplex *create()
+        return _cocos2d_LayerMultiplex_create1(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_obj(L, 1, "cc.Layer"))) {
+            // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+            return _cocos2d_LayerMultiplex_create3(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_obj(L, 1, "cc.Layer")) && (olua_is_obj(L, 2, "cc.Layer"))) {
+            // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+            return _cocos2d_LayerMultiplex_create4(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_obj(L, 1, "cc.Layer")) && (olua_is_obj(L, 2, "cc.Layer")) && (olua_is_obj(L, 3, "cc.Layer"))) {
+            // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+            return _cocos2d_LayerMultiplex_create5(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_obj(L, 1, "cc.Layer")) && (olua_is_obj(L, 2, "cc.Layer")) && (olua_is_obj(L, 3, "cc.Layer")) && (olua_is_obj(L, 4, "cc.Layer"))) {
+            // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+            return _cocos2d_LayerMultiplex_create6(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if ((olua_is_obj(L, 1, "cc.Layer")) && (olua_is_obj(L, 2, "cc.Layer")) && (olua_is_obj(L, 3, "cc.Layer")) && (olua_is_obj(L, 4, "cc.Layer")) && (olua_is_obj(L, 5, "cc.Layer"))) {
+            // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+            return _cocos2d_LayerMultiplex_create7(L);
+        // }
+    }
+
+    if (num_args == 6) {
+        // if ((olua_is_obj(L, 1, "cc.Layer")) && (olua_is_obj(L, 2, "cc.Layer")) && (olua_is_obj(L, 3, "cc.Layer")) && (olua_is_obj(L, 4, "cc.Layer")) && (olua_is_obj(L, 5, "cc.Layer")) && (olua_is_obj(L, 6, "cc.Layer"))) {
+            // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+            return _cocos2d_LayerMultiplex_create8(L);
+        // }
+    }
+
+    if (num_args == 7) {
+        // if ((olua_is_obj(L, 1, "cc.Layer")) && (olua_is_obj(L, 2, "cc.Layer")) && (olua_is_obj(L, 3, "cc.Layer")) && (olua_is_obj(L, 4, "cc.Layer")) && (olua_is_obj(L, 5, "cc.Layer")) && (olua_is_obj(L, 6, "cc.Layer")) && (olua_is_obj(L, 7, "cc.Layer"))) {
+            // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+            return _cocos2d_LayerMultiplex_create9(L);
+        // }
+    }
+
+    if (num_args == 8) {
+        // if ((olua_is_obj(L, 1, "cc.Layer")) && (olua_is_obj(L, 2, "cc.Layer")) && (olua_is_obj(L, 3, "cc.Layer")) && (olua_is_obj(L, 4, "cc.Layer")) && (olua_is_obj(L, 5, "cc.Layer")) && (olua_is_obj(L, 6, "cc.Layer")) && (olua_is_obj(L, 7, "cc.Layer")) && (olua_is_obj(L, 8, "cc.Layer"))) {
+            // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+            return _cocos2d_LayerMultiplex_create10(L);
+        // }
+    }
+
+    if (num_args == 9) {
+        // if ((olua_is_obj(L, 1, "cc.Layer")) && (olua_is_obj(L, 2, "cc.Layer")) && (olua_is_obj(L, 3, "cc.Layer")) && (olua_is_obj(L, 4, "cc.Layer")) && (olua_is_obj(L, 5, "cc.Layer")) && (olua_is_obj(L, 6, "cc.Layer")) && (olua_is_obj(L, 7, "cc.Layer")) && (olua_is_obj(L, 8, "cc.Layer")) && (olua_is_obj(L, 9, "cc.Layer"))) {
+            // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+            return _cocos2d_LayerMultiplex_create11(L);
+        // }
+    }
+
+    if (num_args == 10) {
+        // if ((olua_is_obj(L, 1, "cc.Layer")) && (olua_is_obj(L, 2, "cc.Layer")) && (olua_is_obj(L, 3, "cc.Layer")) && (olua_is_obj(L, 4, "cc.Layer")) && (olua_is_obj(L, 5, "cc.Layer")) && (olua_is_obj(L, 6, "cc.Layer")) && (olua_is_obj(L, 7, "cc.Layer")) && (olua_is_obj(L, 8, "cc.Layer")) && (olua_is_obj(L, 9, "cc.Layer")) && (olua_is_obj(L, 10, "cc.Layer"))) {
+            // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+            return _cocos2d_LayerMultiplex_create12(L);
+        // }
+    }
+
+    if (num_args == 11) {
+        // if ((olua_is_obj(L, 1, "cc.Layer")) && (olua_is_obj(L, 2, "cc.Layer")) && (olua_is_obj(L, 3, "cc.Layer")) && (olua_is_obj(L, 4, "cc.Layer")) && (olua_is_obj(L, 5, "cc.Layer")) && (olua_is_obj(L, 6, "cc.Layer")) && (olua_is_obj(L, 7, "cc.Layer")) && (olua_is_obj(L, 8, "cc.Layer")) && (olua_is_obj(L, 9, "cc.Layer")) && (olua_is_obj(L, 10, "cc.Layer")) && (olua_is_obj(L, 11, "cc.Layer"))) {
+            // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+            return _cocos2d_LayerMultiplex_create13(L);
+        // }
+    }
+
+    if (num_args == 12) {
+        // if ((olua_is_obj(L, 1, "cc.Layer")) && (olua_is_obj(L, 2, "cc.Layer")) && (olua_is_obj(L, 3, "cc.Layer")) && (olua_is_obj(L, 4, "cc.Layer")) && (olua_is_obj(L, 5, "cc.Layer")) && (olua_is_obj(L, 6, "cc.Layer")) && (olua_is_obj(L, 7, "cc.Layer")) && (olua_is_obj(L, 8, "cc.Layer")) && (olua_is_obj(L, 9, "cc.Layer")) && (olua_is_obj(L, 10, "cc.Layer")) && (olua_is_obj(L, 11, "cc.Layer")) && (olua_is_obj(L, 12, "cc.Layer"))) {
+            // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+            return _cocos2d_LayerMultiplex_create14(L);
+        // }
+    }
+
+    if (num_args == 13) {
+        // if ((olua_is_obj(L, 1, "cc.Layer")) && (olua_is_obj(L, 2, "cc.Layer")) && (olua_is_obj(L, 3, "cc.Layer")) && (olua_is_obj(L, 4, "cc.Layer")) && (olua_is_obj(L, 5, "cc.Layer")) && (olua_is_obj(L, 6, "cc.Layer")) && (olua_is_obj(L, 7, "cc.Layer")) && (olua_is_obj(L, 8, "cc.Layer")) && (olua_is_obj(L, 9, "cc.Layer")) && (olua_is_obj(L, 10, "cc.Layer")) && (olua_is_obj(L, 11, "cc.Layer")) && (olua_is_obj(L, 12, "cc.Layer")) && (olua_is_obj(L, 13, "cc.Layer"))) {
+            // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+            return _cocos2d_LayerMultiplex_create15(L);
+        // }
+    }
+
+    if (num_args == 14) {
+        // if ((olua_is_obj(L, 1, "cc.Layer")) && (olua_is_obj(L, 2, "cc.Layer")) && (olua_is_obj(L, 3, "cc.Layer")) && (olua_is_obj(L, 4, "cc.Layer")) && (olua_is_obj(L, 5, "cc.Layer")) && (olua_is_obj(L, 6, "cc.Layer")) && (olua_is_obj(L, 7, "cc.Layer")) && (olua_is_obj(L, 8, "cc.Layer")) && (olua_is_obj(L, 9, "cc.Layer")) && (olua_is_obj(L, 10, "cc.Layer")) && (olua_is_obj(L, 11, "cc.Layer")) && (olua_is_obj(L, 12, "cc.Layer")) && (olua_is_obj(L, 13, "cc.Layer")) && (olua_is_obj(L, 14, "cc.Layer"))) {
+            // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+            return _cocos2d_LayerMultiplex_create16(L);
+        // }
+    }
+
+    if (num_args == 15) {
+        // if ((olua_is_obj(L, 1, "cc.Layer")) && (olua_is_obj(L, 2, "cc.Layer")) && (olua_is_obj(L, 3, "cc.Layer")) && (olua_is_obj(L, 4, "cc.Layer")) && (olua_is_obj(L, 5, "cc.Layer")) && (olua_is_obj(L, 6, "cc.Layer")) && (olua_is_obj(L, 7, "cc.Layer")) && (olua_is_obj(L, 8, "cc.Layer")) && (olua_is_obj(L, 9, "cc.Layer")) && (olua_is_obj(L, 10, "cc.Layer")) && (olua_is_obj(L, 11, "cc.Layer")) && (olua_is_obj(L, 12, "cc.Layer")) && (olua_is_obj(L, 13, "cc.Layer")) && (olua_is_obj(L, 14, "cc.Layer")) && (olua_is_obj(L, 15, "cc.Layer"))) {
+            // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+            return _cocos2d_LayerMultiplex_create17(L);
+        // }
+    }
+
+    if (num_args == 16) {
+        // if ((olua_is_obj(L, 1, "cc.Layer")) && (olua_is_obj(L, 2, "cc.Layer")) && (olua_is_obj(L, 3, "cc.Layer")) && (olua_is_obj(L, 4, "cc.Layer")) && (olua_is_obj(L, 5, "cc.Layer")) && (olua_is_obj(L, 6, "cc.Layer")) && (olua_is_obj(L, 7, "cc.Layer")) && (olua_is_obj(L, 8, "cc.Layer")) && (olua_is_obj(L, 9, "cc.Layer")) && (olua_is_obj(L, 10, "cc.Layer")) && (olua_is_obj(L, 11, "cc.Layer")) && (olua_is_obj(L, 12, "cc.Layer")) && (olua_is_obj(L, 13, "cc.Layer")) && (olua_is_obj(L, 14, "cc.Layer")) && (olua_is_obj(L, 15, "cc.Layer")) && (olua_is_obj(L, 16, "cc.Layer"))) {
+            // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+            return _cocos2d_LayerMultiplex_create18(L);
+        // }
+    }
+
+    if (num_args == 17) {
+        // if ((olua_is_obj(L, 1, "cc.Layer")) && (olua_is_obj(L, 2, "cc.Layer")) && (olua_is_obj(L, 3, "cc.Layer")) && (olua_is_obj(L, 4, "cc.Layer")) && (olua_is_obj(L, 5, "cc.Layer")) && (olua_is_obj(L, 6, "cc.Layer")) && (olua_is_obj(L, 7, "cc.Layer")) && (olua_is_obj(L, 8, "cc.Layer")) && (olua_is_obj(L, 9, "cc.Layer")) && (olua_is_obj(L, 10, "cc.Layer")) && (olua_is_obj(L, 11, "cc.Layer")) && (olua_is_obj(L, 12, "cc.Layer")) && (olua_is_obj(L, 13, "cc.Layer")) && (olua_is_obj(L, 14, "cc.Layer")) && (olua_is_obj(L, 15, "cc.Layer")) && (olua_is_obj(L, 16, "cc.Layer")) && (olua_is_obj(L, 17, "cc.Layer"))) {
+            // @variadic static cocos2d::LayerMultiplex *create(cocos2d::Layer *layer, @optional cocos2d::Layer *layer_variadic_1, @optional cocos2d::Layer *layer_variadic_2, @optional cocos2d::Layer *layer_variadic_3, @optional cocos2d::Layer *layer_variadic_4, @optional cocos2d::Layer *layer_variadic_5, @optional cocos2d::Layer *layer_variadic_6, @optional cocos2d::Layer *layer_variadic_7, @optional cocos2d::Layer *layer_variadic_8, @optional cocos2d::Layer *layer_variadic_9, @optional cocos2d::Layer *layer_variadic_10, @optional cocos2d::Layer *layer_variadic_11, @optional cocos2d::Layer *layer_variadic_12, @optional cocos2d::Layer *layer_variadic_13, @optional cocos2d::Layer *layer_variadic_14, @optional cocos2d::Layer *layer_variadic_15, @optional cocos2d::Layer *layer_variadic_16)
+            return _cocos2d_LayerMultiplex_create2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::LayerMultiplex::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_LayerMultiplex_createWithArray(lua_State *L)

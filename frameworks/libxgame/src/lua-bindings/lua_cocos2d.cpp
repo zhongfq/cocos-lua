@@ -23495,29 +23495,907 @@ static int _cocos2d_Sequence_clone(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Sequence_create(lua_State *L)
+static int _cocos2d_Sequence_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
-    int n = lua_gettop(L);
-    actions.reserve(n);
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+    cocos2d::FiniteTimeAction *arg8 = nullptr;       /** action1_variadic_7 */
+    cocos2d::FiniteTimeAction *arg9 = nullptr;       /** action1_variadic_8 */
+    cocos2d::FiniteTimeAction *arg10 = nullptr;       /** action1_variadic_9 */
+    cocos2d::FiniteTimeAction *arg11 = nullptr;       /** action1_variadic_10 */
+    cocos2d::FiniteTimeAction *arg12 = nullptr;       /** action1_variadic_11 */
+    cocos2d::FiniteTimeAction *arg13 = nullptr;       /** action1_variadic_12 */
+    cocos2d::FiniteTimeAction *arg14 = nullptr;       /** action1_variadic_13 */
+    cocos2d::FiniteTimeAction *arg15 = nullptr;       /** action1_variadic_14 */
+    cocos2d::FiniteTimeAction *arg16 = nullptr;       /** action1_variadic_15 */
+    cocos2d::FiniteTimeAction *arg17 = nullptr;       /** action1_variadic_16 */
 
-    auto ret = new cocos2d::Sequence();
-    ret->autorelease();
-    olua_pushobj<cocos2d::Sequence>(L, ret);
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+    olua_check_obj(L, 8, &arg8, "cc.FiniteTimeAction");
+    olua_check_obj(L, 9, &arg9, "cc.FiniteTimeAction");
+    olua_check_obj(L, 10, &arg10, "cc.FiniteTimeAction");
+    olua_check_obj(L, 11, &arg11, "cc.FiniteTimeAction");
+    olua_check_obj(L, 12, &arg12, "cc.FiniteTimeAction");
+    olua_check_obj(L, 13, &arg13, "cc.FiniteTimeAction");
+    olua_check_obj(L, 14, &arg14, "cc.FiniteTimeAction");
+    olua_check_obj(L, 15, &arg15, "cc.FiniteTimeAction");
+    olua_check_obj(L, 16, &arg16, "cc.FiniteTimeAction");
+    olua_check_obj(L, 17, &arg17, "cc.FiniteTimeAction");
 
-    for (int i = 1; i <= n; i++) {
-        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
-        actions.pushBack(obj);
-        olua_addref(L, -1, ".autoref", i, OLUA_FLAG_MULTIPLE);
-    }
+    // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Sequence *ret = cocos2d::Sequence::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Sequence");
 
-    ret->init(actions);
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 8, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 9, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 10, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 11, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 12, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 13, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 14, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 15, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 16, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 17, OLUA_FLAG_MULTIPLE);
 
     olua_endinvoke(L);
 
-    return 1;
+    return num_ret;
+}
+
+static int _cocos2d_Sequence_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Vector<cocos2d::FiniteTimeAction *> arg1;       /** arrayOfActions */
+
+    olua_check_array<cocos2d::FiniteTimeAction *>(L, 1, &arg1, [L](cocos2d::FiniteTimeAction **value) {
+        olua_check_obj(L, -1, value, "cc.FiniteTimeAction");
+    });
+
+    // static cocos2d::Sequence *create(@addref(actions |) const cocos2d::Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+    cocos2d::Sequence *ret = cocos2d::Sequence::create(arg1);
+    int num_ret = olua_push_obj(L, ret, "cc.Sequence");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE | OLUA_FLAG_TABLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sequence_create3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Sequence *ret = cocos2d::Sequence::create(arg1, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Sequence");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sequence_create4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Sequence *ret = cocos2d::Sequence::create(arg1, arg2, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Sequence");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sequence_create5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Sequence *ret = cocos2d::Sequence::create(arg1, arg2, arg3, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Sequence");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sequence_create6(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Sequence *ret = cocos2d::Sequence::create(arg1, arg2, arg3, arg4, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Sequence");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sequence_create7(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Sequence *ret = cocos2d::Sequence::create(arg1, arg2, arg3, arg4, arg5, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Sequence");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sequence_create8(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Sequence *ret = cocos2d::Sequence::create(arg1, arg2, arg3, arg4, arg5, arg6, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Sequence");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sequence_create9(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Sequence *ret = cocos2d::Sequence::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Sequence");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sequence_create10(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+    cocos2d::FiniteTimeAction *arg8 = nullptr;       /** action1_variadic_7 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+    olua_check_obj(L, 8, &arg8, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Sequence *ret = cocos2d::Sequence::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Sequence");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 8, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sequence_create11(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+    cocos2d::FiniteTimeAction *arg8 = nullptr;       /** action1_variadic_7 */
+    cocos2d::FiniteTimeAction *arg9 = nullptr;       /** action1_variadic_8 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+    olua_check_obj(L, 8, &arg8, "cc.FiniteTimeAction");
+    olua_check_obj(L, 9, &arg9, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Sequence *ret = cocos2d::Sequence::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Sequence");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 8, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 9, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sequence_create12(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+    cocos2d::FiniteTimeAction *arg8 = nullptr;       /** action1_variadic_7 */
+    cocos2d::FiniteTimeAction *arg9 = nullptr;       /** action1_variadic_8 */
+    cocos2d::FiniteTimeAction *arg10 = nullptr;       /** action1_variadic_9 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+    olua_check_obj(L, 8, &arg8, "cc.FiniteTimeAction");
+    olua_check_obj(L, 9, &arg9, "cc.FiniteTimeAction");
+    olua_check_obj(L, 10, &arg10, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Sequence *ret = cocos2d::Sequence::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Sequence");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 8, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 9, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 10, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sequence_create13(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+    cocos2d::FiniteTimeAction *arg8 = nullptr;       /** action1_variadic_7 */
+    cocos2d::FiniteTimeAction *arg9 = nullptr;       /** action1_variadic_8 */
+    cocos2d::FiniteTimeAction *arg10 = nullptr;       /** action1_variadic_9 */
+    cocos2d::FiniteTimeAction *arg11 = nullptr;       /** action1_variadic_10 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+    olua_check_obj(L, 8, &arg8, "cc.FiniteTimeAction");
+    olua_check_obj(L, 9, &arg9, "cc.FiniteTimeAction");
+    olua_check_obj(L, 10, &arg10, "cc.FiniteTimeAction");
+    olua_check_obj(L, 11, &arg11, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Sequence *ret = cocos2d::Sequence::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Sequence");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 8, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 9, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 10, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 11, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sequence_create14(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+    cocos2d::FiniteTimeAction *arg8 = nullptr;       /** action1_variadic_7 */
+    cocos2d::FiniteTimeAction *arg9 = nullptr;       /** action1_variadic_8 */
+    cocos2d::FiniteTimeAction *arg10 = nullptr;       /** action1_variadic_9 */
+    cocos2d::FiniteTimeAction *arg11 = nullptr;       /** action1_variadic_10 */
+    cocos2d::FiniteTimeAction *arg12 = nullptr;       /** action1_variadic_11 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+    olua_check_obj(L, 8, &arg8, "cc.FiniteTimeAction");
+    olua_check_obj(L, 9, &arg9, "cc.FiniteTimeAction");
+    olua_check_obj(L, 10, &arg10, "cc.FiniteTimeAction");
+    olua_check_obj(L, 11, &arg11, "cc.FiniteTimeAction");
+    olua_check_obj(L, 12, &arg12, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Sequence *ret = cocos2d::Sequence::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Sequence");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 8, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 9, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 10, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 11, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 12, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sequence_create15(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+    cocos2d::FiniteTimeAction *arg8 = nullptr;       /** action1_variadic_7 */
+    cocos2d::FiniteTimeAction *arg9 = nullptr;       /** action1_variadic_8 */
+    cocos2d::FiniteTimeAction *arg10 = nullptr;       /** action1_variadic_9 */
+    cocos2d::FiniteTimeAction *arg11 = nullptr;       /** action1_variadic_10 */
+    cocos2d::FiniteTimeAction *arg12 = nullptr;       /** action1_variadic_11 */
+    cocos2d::FiniteTimeAction *arg13 = nullptr;       /** action1_variadic_12 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+    olua_check_obj(L, 8, &arg8, "cc.FiniteTimeAction");
+    olua_check_obj(L, 9, &arg9, "cc.FiniteTimeAction");
+    olua_check_obj(L, 10, &arg10, "cc.FiniteTimeAction");
+    olua_check_obj(L, 11, &arg11, "cc.FiniteTimeAction");
+    olua_check_obj(L, 12, &arg12, "cc.FiniteTimeAction");
+    olua_check_obj(L, 13, &arg13, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Sequence *ret = cocos2d::Sequence::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Sequence");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 8, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 9, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 10, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 11, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 12, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 13, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sequence_create16(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+    cocos2d::FiniteTimeAction *arg8 = nullptr;       /** action1_variadic_7 */
+    cocos2d::FiniteTimeAction *arg9 = nullptr;       /** action1_variadic_8 */
+    cocos2d::FiniteTimeAction *arg10 = nullptr;       /** action1_variadic_9 */
+    cocos2d::FiniteTimeAction *arg11 = nullptr;       /** action1_variadic_10 */
+    cocos2d::FiniteTimeAction *arg12 = nullptr;       /** action1_variadic_11 */
+    cocos2d::FiniteTimeAction *arg13 = nullptr;       /** action1_variadic_12 */
+    cocos2d::FiniteTimeAction *arg14 = nullptr;       /** action1_variadic_13 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+    olua_check_obj(L, 8, &arg8, "cc.FiniteTimeAction");
+    olua_check_obj(L, 9, &arg9, "cc.FiniteTimeAction");
+    olua_check_obj(L, 10, &arg10, "cc.FiniteTimeAction");
+    olua_check_obj(L, 11, &arg11, "cc.FiniteTimeAction");
+    olua_check_obj(L, 12, &arg12, "cc.FiniteTimeAction");
+    olua_check_obj(L, 13, &arg13, "cc.FiniteTimeAction");
+    olua_check_obj(L, 14, &arg14, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Sequence *ret = cocos2d::Sequence::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Sequence");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 8, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 9, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 10, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 11, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 12, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 13, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 14, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sequence_create17(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+    cocos2d::FiniteTimeAction *arg8 = nullptr;       /** action1_variadic_7 */
+    cocos2d::FiniteTimeAction *arg9 = nullptr;       /** action1_variadic_8 */
+    cocos2d::FiniteTimeAction *arg10 = nullptr;       /** action1_variadic_9 */
+    cocos2d::FiniteTimeAction *arg11 = nullptr;       /** action1_variadic_10 */
+    cocos2d::FiniteTimeAction *arg12 = nullptr;       /** action1_variadic_11 */
+    cocos2d::FiniteTimeAction *arg13 = nullptr;       /** action1_variadic_12 */
+    cocos2d::FiniteTimeAction *arg14 = nullptr;       /** action1_variadic_13 */
+    cocos2d::FiniteTimeAction *arg15 = nullptr;       /** action1_variadic_14 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+    olua_check_obj(L, 8, &arg8, "cc.FiniteTimeAction");
+    olua_check_obj(L, 9, &arg9, "cc.FiniteTimeAction");
+    olua_check_obj(L, 10, &arg10, "cc.FiniteTimeAction");
+    olua_check_obj(L, 11, &arg11, "cc.FiniteTimeAction");
+    olua_check_obj(L, 12, &arg12, "cc.FiniteTimeAction");
+    olua_check_obj(L, 13, &arg13, "cc.FiniteTimeAction");
+    olua_check_obj(L, 14, &arg14, "cc.FiniteTimeAction");
+    olua_check_obj(L, 15, &arg15, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Sequence *ret = cocos2d::Sequence::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Sequence");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 8, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 9, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 10, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 11, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 12, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 13, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 14, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 15, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sequence_create18(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+    cocos2d::FiniteTimeAction *arg8 = nullptr;       /** action1_variadic_7 */
+    cocos2d::FiniteTimeAction *arg9 = nullptr;       /** action1_variadic_8 */
+    cocos2d::FiniteTimeAction *arg10 = nullptr;       /** action1_variadic_9 */
+    cocos2d::FiniteTimeAction *arg11 = nullptr;       /** action1_variadic_10 */
+    cocos2d::FiniteTimeAction *arg12 = nullptr;       /** action1_variadic_11 */
+    cocos2d::FiniteTimeAction *arg13 = nullptr;       /** action1_variadic_12 */
+    cocos2d::FiniteTimeAction *arg14 = nullptr;       /** action1_variadic_13 */
+    cocos2d::FiniteTimeAction *arg15 = nullptr;       /** action1_variadic_14 */
+    cocos2d::FiniteTimeAction *arg16 = nullptr;       /** action1_variadic_15 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+    olua_check_obj(L, 8, &arg8, "cc.FiniteTimeAction");
+    olua_check_obj(L, 9, &arg9, "cc.FiniteTimeAction");
+    olua_check_obj(L, 10, &arg10, "cc.FiniteTimeAction");
+    olua_check_obj(L, 11, &arg11, "cc.FiniteTimeAction");
+    olua_check_obj(L, 12, &arg12, "cc.FiniteTimeAction");
+    olua_check_obj(L, 13, &arg13, "cc.FiniteTimeAction");
+    olua_check_obj(L, 14, &arg14, "cc.FiniteTimeAction");
+    olua_check_obj(L, 15, &arg15, "cc.FiniteTimeAction");
+    olua_check_obj(L, 16, &arg16, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Sequence *ret = cocos2d::Sequence::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Sequence");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 8, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 9, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 10, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 11, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 12, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 13, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 14, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 15, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 16, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sequence_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        if ((olua_is_array(L, 1))) {
+            // static cocos2d::Sequence *create(@addref(actions |) const cocos2d::Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+            return _cocos2d_Sequence_create2(L);
+        }
+
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Sequence_create3(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Sequence_create4(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Sequence_create5(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Sequence_create6(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Sequence_create7(L);
+        // }
+    }
+
+    if (num_args == 6) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Sequence_create8(L);
+        // }
+    }
+
+    if (num_args == 7) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Sequence_create9(L);
+        // }
+    }
+
+    if (num_args == 8) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction")) && (olua_is_obj(L, 8, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Sequence_create10(L);
+        // }
+    }
+
+    if (num_args == 9) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction")) && (olua_is_obj(L, 8, "cc.FiniteTimeAction")) && (olua_is_obj(L, 9, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Sequence_create11(L);
+        // }
+    }
+
+    if (num_args == 10) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction")) && (olua_is_obj(L, 8, "cc.FiniteTimeAction")) && (olua_is_obj(L, 9, "cc.FiniteTimeAction")) && (olua_is_obj(L, 10, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Sequence_create12(L);
+        // }
+    }
+
+    if (num_args == 11) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction")) && (olua_is_obj(L, 8, "cc.FiniteTimeAction")) && (olua_is_obj(L, 9, "cc.FiniteTimeAction")) && (olua_is_obj(L, 10, "cc.FiniteTimeAction")) && (olua_is_obj(L, 11, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Sequence_create13(L);
+        // }
+    }
+
+    if (num_args == 12) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction")) && (olua_is_obj(L, 8, "cc.FiniteTimeAction")) && (olua_is_obj(L, 9, "cc.FiniteTimeAction")) && (olua_is_obj(L, 10, "cc.FiniteTimeAction")) && (olua_is_obj(L, 11, "cc.FiniteTimeAction")) && (olua_is_obj(L, 12, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Sequence_create14(L);
+        // }
+    }
+
+    if (num_args == 13) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction")) && (olua_is_obj(L, 8, "cc.FiniteTimeAction")) && (olua_is_obj(L, 9, "cc.FiniteTimeAction")) && (olua_is_obj(L, 10, "cc.FiniteTimeAction")) && (olua_is_obj(L, 11, "cc.FiniteTimeAction")) && (olua_is_obj(L, 12, "cc.FiniteTimeAction")) && (olua_is_obj(L, 13, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Sequence_create15(L);
+        // }
+    }
+
+    if (num_args == 14) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction")) && (olua_is_obj(L, 8, "cc.FiniteTimeAction")) && (olua_is_obj(L, 9, "cc.FiniteTimeAction")) && (olua_is_obj(L, 10, "cc.FiniteTimeAction")) && (olua_is_obj(L, 11, "cc.FiniteTimeAction")) && (olua_is_obj(L, 12, "cc.FiniteTimeAction")) && (olua_is_obj(L, 13, "cc.FiniteTimeAction")) && (olua_is_obj(L, 14, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Sequence_create16(L);
+        // }
+    }
+
+    if (num_args == 15) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction")) && (olua_is_obj(L, 8, "cc.FiniteTimeAction")) && (olua_is_obj(L, 9, "cc.FiniteTimeAction")) && (olua_is_obj(L, 10, "cc.FiniteTimeAction")) && (olua_is_obj(L, 11, "cc.FiniteTimeAction")) && (olua_is_obj(L, 12, "cc.FiniteTimeAction")) && (olua_is_obj(L, 13, "cc.FiniteTimeAction")) && (olua_is_obj(L, 14, "cc.FiniteTimeAction")) && (olua_is_obj(L, 15, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Sequence_create17(L);
+        // }
+    }
+
+    if (num_args == 16) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction")) && (olua_is_obj(L, 8, "cc.FiniteTimeAction")) && (olua_is_obj(L, 9, "cc.FiniteTimeAction")) && (olua_is_obj(L, 10, "cc.FiniteTimeAction")) && (olua_is_obj(L, 11, "cc.FiniteTimeAction")) && (olua_is_obj(L, 12, "cc.FiniteTimeAction")) && (olua_is_obj(L, 13, "cc.FiniteTimeAction")) && (olua_is_obj(L, 14, "cc.FiniteTimeAction")) && (olua_is_obj(L, 15, "cc.FiniteTimeAction")) && (olua_is_obj(L, 16, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Sequence_create18(L);
+        // }
+    }
+
+    if (num_args == 17) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction")) && (olua_is_obj(L, 8, "cc.FiniteTimeAction")) && (olua_is_obj(L, 9, "cc.FiniteTimeAction")) && (olua_is_obj(L, 10, "cc.FiniteTimeAction")) && (olua_is_obj(L, 11, "cc.FiniteTimeAction")) && (olua_is_obj(L, 12, "cc.FiniteTimeAction")) && (olua_is_obj(L, 13, "cc.FiniteTimeAction")) && (olua_is_obj(L, 14, "cc.FiniteTimeAction")) && (olua_is_obj(L, 15, "cc.FiniteTimeAction")) && (olua_is_obj(L, 16, "cc.FiniteTimeAction")) && (olua_is_obj(L, 17, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Sequence *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Sequence_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Sequence::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_Sequence_createWithTwoActions(lua_State *L)
@@ -23902,29 +24780,907 @@ static int _cocos2d_Spawn_clone(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Spawn_create(lua_State *L)
+static int _cocos2d_Spawn_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
-    int n = lua_gettop(L);
-    actions.reserve(n);
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+    cocos2d::FiniteTimeAction *arg8 = nullptr;       /** action1_variadic_7 */
+    cocos2d::FiniteTimeAction *arg9 = nullptr;       /** action1_variadic_8 */
+    cocos2d::FiniteTimeAction *arg10 = nullptr;       /** action1_variadic_9 */
+    cocos2d::FiniteTimeAction *arg11 = nullptr;       /** action1_variadic_10 */
+    cocos2d::FiniteTimeAction *arg12 = nullptr;       /** action1_variadic_11 */
+    cocos2d::FiniteTimeAction *arg13 = nullptr;       /** action1_variadic_12 */
+    cocos2d::FiniteTimeAction *arg14 = nullptr;       /** action1_variadic_13 */
+    cocos2d::FiniteTimeAction *arg15 = nullptr;       /** action1_variadic_14 */
+    cocos2d::FiniteTimeAction *arg16 = nullptr;       /** action1_variadic_15 */
+    cocos2d::FiniteTimeAction *arg17 = nullptr;       /** action1_variadic_16 */
 
-    auto ret = new cocos2d::Spawn();
-    ret->autorelease();
-    olua_pushobj<cocos2d::Spawn>(L, ret);
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+    olua_check_obj(L, 8, &arg8, "cc.FiniteTimeAction");
+    olua_check_obj(L, 9, &arg9, "cc.FiniteTimeAction");
+    olua_check_obj(L, 10, &arg10, "cc.FiniteTimeAction");
+    olua_check_obj(L, 11, &arg11, "cc.FiniteTimeAction");
+    olua_check_obj(L, 12, &arg12, "cc.FiniteTimeAction");
+    olua_check_obj(L, 13, &arg13, "cc.FiniteTimeAction");
+    olua_check_obj(L, 14, &arg14, "cc.FiniteTimeAction");
+    olua_check_obj(L, 15, &arg15, "cc.FiniteTimeAction");
+    olua_check_obj(L, 16, &arg16, "cc.FiniteTimeAction");
+    olua_check_obj(L, 17, &arg17, "cc.FiniteTimeAction");
 
-    for (int i = 1; i <= n; i++) {
-        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
-        actions.pushBack(obj);
-        olua_addref(L, -1, ".autoref", i, OLUA_FLAG_MULTIPLE);
-    }
+    // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Spawn *ret = cocos2d::Spawn::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Spawn");
 
-    ret->init(actions);
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 8, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 9, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 10, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 11, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 12, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 13, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 14, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 15, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 16, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 17, OLUA_FLAG_MULTIPLE);
 
     olua_endinvoke(L);
 
-    return 1;
+    return num_ret;
+}
+
+static int _cocos2d_Spawn_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Vector<cocos2d::FiniteTimeAction *> arg1;       /** arrayOfActions */
+
+    olua_check_array<cocos2d::FiniteTimeAction *>(L, 1, &arg1, [L](cocos2d::FiniteTimeAction **value) {
+        olua_check_obj(L, -1, value, "cc.FiniteTimeAction");
+    });
+
+    // static cocos2d::Spawn *create(@addref(actions |) const cocos2d::Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+    cocos2d::Spawn *ret = cocos2d::Spawn::create(arg1);
+    int num_ret = olua_push_obj(L, ret, "cc.Spawn");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE | OLUA_FLAG_TABLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Spawn_create3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Spawn *ret = cocos2d::Spawn::create(arg1, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Spawn");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Spawn_create4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Spawn *ret = cocos2d::Spawn::create(arg1, arg2, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Spawn");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Spawn_create5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Spawn *ret = cocos2d::Spawn::create(arg1, arg2, arg3, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Spawn");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Spawn_create6(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Spawn *ret = cocos2d::Spawn::create(arg1, arg2, arg3, arg4, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Spawn");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Spawn_create7(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Spawn *ret = cocos2d::Spawn::create(arg1, arg2, arg3, arg4, arg5, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Spawn");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Spawn_create8(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Spawn *ret = cocos2d::Spawn::create(arg1, arg2, arg3, arg4, arg5, arg6, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Spawn");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Spawn_create9(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Spawn *ret = cocos2d::Spawn::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Spawn");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Spawn_create10(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+    cocos2d::FiniteTimeAction *arg8 = nullptr;       /** action1_variadic_7 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+    olua_check_obj(L, 8, &arg8, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Spawn *ret = cocos2d::Spawn::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Spawn");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 8, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Spawn_create11(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+    cocos2d::FiniteTimeAction *arg8 = nullptr;       /** action1_variadic_7 */
+    cocos2d::FiniteTimeAction *arg9 = nullptr;       /** action1_variadic_8 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+    olua_check_obj(L, 8, &arg8, "cc.FiniteTimeAction");
+    olua_check_obj(L, 9, &arg9, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Spawn *ret = cocos2d::Spawn::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Spawn");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 8, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 9, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Spawn_create12(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+    cocos2d::FiniteTimeAction *arg8 = nullptr;       /** action1_variadic_7 */
+    cocos2d::FiniteTimeAction *arg9 = nullptr;       /** action1_variadic_8 */
+    cocos2d::FiniteTimeAction *arg10 = nullptr;       /** action1_variadic_9 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+    olua_check_obj(L, 8, &arg8, "cc.FiniteTimeAction");
+    olua_check_obj(L, 9, &arg9, "cc.FiniteTimeAction");
+    olua_check_obj(L, 10, &arg10, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Spawn *ret = cocos2d::Spawn::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Spawn");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 8, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 9, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 10, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Spawn_create13(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+    cocos2d::FiniteTimeAction *arg8 = nullptr;       /** action1_variadic_7 */
+    cocos2d::FiniteTimeAction *arg9 = nullptr;       /** action1_variadic_8 */
+    cocos2d::FiniteTimeAction *arg10 = nullptr;       /** action1_variadic_9 */
+    cocos2d::FiniteTimeAction *arg11 = nullptr;       /** action1_variadic_10 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+    olua_check_obj(L, 8, &arg8, "cc.FiniteTimeAction");
+    olua_check_obj(L, 9, &arg9, "cc.FiniteTimeAction");
+    olua_check_obj(L, 10, &arg10, "cc.FiniteTimeAction");
+    olua_check_obj(L, 11, &arg11, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Spawn *ret = cocos2d::Spawn::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Spawn");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 8, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 9, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 10, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 11, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Spawn_create14(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+    cocos2d::FiniteTimeAction *arg8 = nullptr;       /** action1_variadic_7 */
+    cocos2d::FiniteTimeAction *arg9 = nullptr;       /** action1_variadic_8 */
+    cocos2d::FiniteTimeAction *arg10 = nullptr;       /** action1_variadic_9 */
+    cocos2d::FiniteTimeAction *arg11 = nullptr;       /** action1_variadic_10 */
+    cocos2d::FiniteTimeAction *arg12 = nullptr;       /** action1_variadic_11 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+    olua_check_obj(L, 8, &arg8, "cc.FiniteTimeAction");
+    olua_check_obj(L, 9, &arg9, "cc.FiniteTimeAction");
+    olua_check_obj(L, 10, &arg10, "cc.FiniteTimeAction");
+    olua_check_obj(L, 11, &arg11, "cc.FiniteTimeAction");
+    olua_check_obj(L, 12, &arg12, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Spawn *ret = cocos2d::Spawn::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Spawn");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 8, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 9, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 10, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 11, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 12, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Spawn_create15(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+    cocos2d::FiniteTimeAction *arg8 = nullptr;       /** action1_variadic_7 */
+    cocos2d::FiniteTimeAction *arg9 = nullptr;       /** action1_variadic_8 */
+    cocos2d::FiniteTimeAction *arg10 = nullptr;       /** action1_variadic_9 */
+    cocos2d::FiniteTimeAction *arg11 = nullptr;       /** action1_variadic_10 */
+    cocos2d::FiniteTimeAction *arg12 = nullptr;       /** action1_variadic_11 */
+    cocos2d::FiniteTimeAction *arg13 = nullptr;       /** action1_variadic_12 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+    olua_check_obj(L, 8, &arg8, "cc.FiniteTimeAction");
+    olua_check_obj(L, 9, &arg9, "cc.FiniteTimeAction");
+    olua_check_obj(L, 10, &arg10, "cc.FiniteTimeAction");
+    olua_check_obj(L, 11, &arg11, "cc.FiniteTimeAction");
+    olua_check_obj(L, 12, &arg12, "cc.FiniteTimeAction");
+    olua_check_obj(L, 13, &arg13, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Spawn *ret = cocos2d::Spawn::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Spawn");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 8, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 9, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 10, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 11, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 12, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 13, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Spawn_create16(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+    cocos2d::FiniteTimeAction *arg8 = nullptr;       /** action1_variadic_7 */
+    cocos2d::FiniteTimeAction *arg9 = nullptr;       /** action1_variadic_8 */
+    cocos2d::FiniteTimeAction *arg10 = nullptr;       /** action1_variadic_9 */
+    cocos2d::FiniteTimeAction *arg11 = nullptr;       /** action1_variadic_10 */
+    cocos2d::FiniteTimeAction *arg12 = nullptr;       /** action1_variadic_11 */
+    cocos2d::FiniteTimeAction *arg13 = nullptr;       /** action1_variadic_12 */
+    cocos2d::FiniteTimeAction *arg14 = nullptr;       /** action1_variadic_13 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+    olua_check_obj(L, 8, &arg8, "cc.FiniteTimeAction");
+    olua_check_obj(L, 9, &arg9, "cc.FiniteTimeAction");
+    olua_check_obj(L, 10, &arg10, "cc.FiniteTimeAction");
+    olua_check_obj(L, 11, &arg11, "cc.FiniteTimeAction");
+    olua_check_obj(L, 12, &arg12, "cc.FiniteTimeAction");
+    olua_check_obj(L, 13, &arg13, "cc.FiniteTimeAction");
+    olua_check_obj(L, 14, &arg14, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Spawn *ret = cocos2d::Spawn::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Spawn");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 8, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 9, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 10, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 11, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 12, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 13, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 14, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Spawn_create17(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+    cocos2d::FiniteTimeAction *arg8 = nullptr;       /** action1_variadic_7 */
+    cocos2d::FiniteTimeAction *arg9 = nullptr;       /** action1_variadic_8 */
+    cocos2d::FiniteTimeAction *arg10 = nullptr;       /** action1_variadic_9 */
+    cocos2d::FiniteTimeAction *arg11 = nullptr;       /** action1_variadic_10 */
+    cocos2d::FiniteTimeAction *arg12 = nullptr;       /** action1_variadic_11 */
+    cocos2d::FiniteTimeAction *arg13 = nullptr;       /** action1_variadic_12 */
+    cocos2d::FiniteTimeAction *arg14 = nullptr;       /** action1_variadic_13 */
+    cocos2d::FiniteTimeAction *arg15 = nullptr;       /** action1_variadic_14 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+    olua_check_obj(L, 8, &arg8, "cc.FiniteTimeAction");
+    olua_check_obj(L, 9, &arg9, "cc.FiniteTimeAction");
+    olua_check_obj(L, 10, &arg10, "cc.FiniteTimeAction");
+    olua_check_obj(L, 11, &arg11, "cc.FiniteTimeAction");
+    olua_check_obj(L, 12, &arg12, "cc.FiniteTimeAction");
+    olua_check_obj(L, 13, &arg13, "cc.FiniteTimeAction");
+    olua_check_obj(L, 14, &arg14, "cc.FiniteTimeAction");
+    olua_check_obj(L, 15, &arg15, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Spawn *ret = cocos2d::Spawn::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Spawn");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 8, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 9, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 10, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 11, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 12, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 13, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 14, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 15, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Spawn_create18(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::FiniteTimeAction *arg1 = nullptr;       /** action1 */
+    cocos2d::FiniteTimeAction *arg2 = nullptr;       /** action1_variadic_1 */
+    cocos2d::FiniteTimeAction *arg3 = nullptr;       /** action1_variadic_2 */
+    cocos2d::FiniteTimeAction *arg4 = nullptr;       /** action1_variadic_3 */
+    cocos2d::FiniteTimeAction *arg5 = nullptr;       /** action1_variadic_4 */
+    cocos2d::FiniteTimeAction *arg6 = nullptr;       /** action1_variadic_5 */
+    cocos2d::FiniteTimeAction *arg7 = nullptr;       /** action1_variadic_6 */
+    cocos2d::FiniteTimeAction *arg8 = nullptr;       /** action1_variadic_7 */
+    cocos2d::FiniteTimeAction *arg9 = nullptr;       /** action1_variadic_8 */
+    cocos2d::FiniteTimeAction *arg10 = nullptr;       /** action1_variadic_9 */
+    cocos2d::FiniteTimeAction *arg11 = nullptr;       /** action1_variadic_10 */
+    cocos2d::FiniteTimeAction *arg12 = nullptr;       /** action1_variadic_11 */
+    cocos2d::FiniteTimeAction *arg13 = nullptr;       /** action1_variadic_12 */
+    cocos2d::FiniteTimeAction *arg14 = nullptr;       /** action1_variadic_13 */
+    cocos2d::FiniteTimeAction *arg15 = nullptr;       /** action1_variadic_14 */
+    cocos2d::FiniteTimeAction *arg16 = nullptr;       /** action1_variadic_15 */
+
+    olua_check_obj(L, 1, &arg1, "cc.FiniteTimeAction");
+    olua_check_obj(L, 2, &arg2, "cc.FiniteTimeAction");
+    olua_check_obj(L, 3, &arg3, "cc.FiniteTimeAction");
+    olua_check_obj(L, 4, &arg4, "cc.FiniteTimeAction");
+    olua_check_obj(L, 5, &arg5, "cc.FiniteTimeAction");
+    olua_check_obj(L, 6, &arg6, "cc.FiniteTimeAction");
+    olua_check_obj(L, 7, &arg7, "cc.FiniteTimeAction");
+    olua_check_obj(L, 8, &arg8, "cc.FiniteTimeAction");
+    olua_check_obj(L, 9, &arg9, "cc.FiniteTimeAction");
+    olua_check_obj(L, 10, &arg10, "cc.FiniteTimeAction");
+    olua_check_obj(L, 11, &arg11, "cc.FiniteTimeAction");
+    olua_check_obj(L, 12, &arg12, "cc.FiniteTimeAction");
+    olua_check_obj(L, 13, &arg13, "cc.FiniteTimeAction");
+    olua_check_obj(L, 14, &arg14, "cc.FiniteTimeAction");
+    olua_check_obj(L, 15, &arg15, "cc.FiniteTimeAction");
+    olua_check_obj(L, 16, &arg16, "cc.FiniteTimeAction");
+
+    // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+    cocos2d::Spawn *ret = cocos2d::Spawn::create(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, nullptr);
+    int num_ret = olua_push_obj(L, ret, "cc.Spawn");
+
+    // insert code after call
+    olua_addref(L, -1, "actions", 1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 3, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 4, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 5, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 6, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 7, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 8, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 9, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 10, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 11, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 12, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 13, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 14, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 15, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "actions", 16, OLUA_FLAG_MULTIPLE);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Spawn_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        if ((olua_is_array(L, 1))) {
+            // static cocos2d::Spawn *create(@addref(actions |) const cocos2d::Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
+            return _cocos2d_Spawn_create2(L);
+        }
+
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Spawn_create3(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Spawn_create4(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Spawn_create5(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Spawn_create6(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Spawn_create7(L);
+        // }
+    }
+
+    if (num_args == 6) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Spawn_create8(L);
+        // }
+    }
+
+    if (num_args == 7) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Spawn_create9(L);
+        // }
+    }
+
+    if (num_args == 8) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction")) && (olua_is_obj(L, 8, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Spawn_create10(L);
+        // }
+    }
+
+    if (num_args == 9) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction")) && (olua_is_obj(L, 8, "cc.FiniteTimeAction")) && (olua_is_obj(L, 9, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Spawn_create11(L);
+        // }
+    }
+
+    if (num_args == 10) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction")) && (olua_is_obj(L, 8, "cc.FiniteTimeAction")) && (olua_is_obj(L, 9, "cc.FiniteTimeAction")) && (olua_is_obj(L, 10, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Spawn_create12(L);
+        // }
+    }
+
+    if (num_args == 11) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction")) && (olua_is_obj(L, 8, "cc.FiniteTimeAction")) && (olua_is_obj(L, 9, "cc.FiniteTimeAction")) && (olua_is_obj(L, 10, "cc.FiniteTimeAction")) && (olua_is_obj(L, 11, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Spawn_create13(L);
+        // }
+    }
+
+    if (num_args == 12) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction")) && (olua_is_obj(L, 8, "cc.FiniteTimeAction")) && (olua_is_obj(L, 9, "cc.FiniteTimeAction")) && (olua_is_obj(L, 10, "cc.FiniteTimeAction")) && (olua_is_obj(L, 11, "cc.FiniteTimeAction")) && (olua_is_obj(L, 12, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Spawn_create14(L);
+        // }
+    }
+
+    if (num_args == 13) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction")) && (olua_is_obj(L, 8, "cc.FiniteTimeAction")) && (olua_is_obj(L, 9, "cc.FiniteTimeAction")) && (olua_is_obj(L, 10, "cc.FiniteTimeAction")) && (olua_is_obj(L, 11, "cc.FiniteTimeAction")) && (olua_is_obj(L, 12, "cc.FiniteTimeAction")) && (olua_is_obj(L, 13, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Spawn_create15(L);
+        // }
+    }
+
+    if (num_args == 14) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction")) && (olua_is_obj(L, 8, "cc.FiniteTimeAction")) && (olua_is_obj(L, 9, "cc.FiniteTimeAction")) && (olua_is_obj(L, 10, "cc.FiniteTimeAction")) && (olua_is_obj(L, 11, "cc.FiniteTimeAction")) && (olua_is_obj(L, 12, "cc.FiniteTimeAction")) && (olua_is_obj(L, 13, "cc.FiniteTimeAction")) && (olua_is_obj(L, 14, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Spawn_create16(L);
+        // }
+    }
+
+    if (num_args == 15) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction")) && (olua_is_obj(L, 8, "cc.FiniteTimeAction")) && (olua_is_obj(L, 9, "cc.FiniteTimeAction")) && (olua_is_obj(L, 10, "cc.FiniteTimeAction")) && (olua_is_obj(L, 11, "cc.FiniteTimeAction")) && (olua_is_obj(L, 12, "cc.FiniteTimeAction")) && (olua_is_obj(L, 13, "cc.FiniteTimeAction")) && (olua_is_obj(L, 14, "cc.FiniteTimeAction")) && (olua_is_obj(L, 15, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Spawn_create17(L);
+        // }
+    }
+
+    if (num_args == 16) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction")) && (olua_is_obj(L, 8, "cc.FiniteTimeAction")) && (olua_is_obj(L, 9, "cc.FiniteTimeAction")) && (olua_is_obj(L, 10, "cc.FiniteTimeAction")) && (olua_is_obj(L, 11, "cc.FiniteTimeAction")) && (olua_is_obj(L, 12, "cc.FiniteTimeAction")) && (olua_is_obj(L, 13, "cc.FiniteTimeAction")) && (olua_is_obj(L, 14, "cc.FiniteTimeAction")) && (olua_is_obj(L, 15, "cc.FiniteTimeAction")) && (olua_is_obj(L, 16, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Spawn_create18(L);
+        // }
+    }
+
+    if (num_args == 17) {
+        // if ((olua_is_obj(L, 1, "cc.FiniteTimeAction")) && (olua_is_obj(L, 2, "cc.FiniteTimeAction")) && (olua_is_obj(L, 3, "cc.FiniteTimeAction")) && (olua_is_obj(L, 4, "cc.FiniteTimeAction")) && (olua_is_obj(L, 5, "cc.FiniteTimeAction")) && (olua_is_obj(L, 6, "cc.FiniteTimeAction")) && (olua_is_obj(L, 7, "cc.FiniteTimeAction")) && (olua_is_obj(L, 8, "cc.FiniteTimeAction")) && (olua_is_obj(L, 9, "cc.FiniteTimeAction")) && (olua_is_obj(L, 10, "cc.FiniteTimeAction")) && (olua_is_obj(L, 11, "cc.FiniteTimeAction")) && (olua_is_obj(L, 12, "cc.FiniteTimeAction")) && (olua_is_obj(L, 13, "cc.FiniteTimeAction")) && (olua_is_obj(L, 14, "cc.FiniteTimeAction")) && (olua_is_obj(L, 15, "cc.FiniteTimeAction")) && (olua_is_obj(L, 16, "cc.FiniteTimeAction")) && (olua_is_obj(L, 17, "cc.FiniteTimeAction"))) {
+            // @variadic static cocos2d::Spawn *create(@addref(actions |) cocos2d::FiniteTimeAction *action1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_1, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_2, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_3, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_4, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_5, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_6, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_7, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_8, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_9, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_10, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_11, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_12, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_13, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_14, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_15, @optional @addref(actions |) cocos2d::FiniteTimeAction *action1_variadic_16)
+            return _cocos2d_Spawn_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Spawn::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_Spawn_createWithTwoActions(lua_State *L)

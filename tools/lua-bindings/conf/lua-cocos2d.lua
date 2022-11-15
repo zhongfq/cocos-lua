@@ -501,27 +501,7 @@ typeconf 'cocos2d::ActionInterval'
 
 typeconf 'cocos2d::Sequence'
     .func 'createWithTwoActions' .arg1 '@addref(autoref |)' .arg2 '@addref(autoref |)'
-    .func 'create'
-        .snippet [[
-        {
-            cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
-            int n = lua_gettop(L);
-            actions.reserve(n);
-
-            auto ret = new cocos2d::Sequence();
-            ret->autorelease();
-            olua_pushobj<cocos2d::Sequence>(L, ret);
-
-            for (int i = 1; i <= n; i++) {
-                auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
-                actions.pushBack(obj);
-                olua_addref(L, -1, ".autoref", i, OLUA_FLAG_MULTIPLE);
-            }
-
-            ret->init(actions);
-            
-            return 1;
-        }]]
+    .func 'create' .arg1 '@addref(actions |)'
 
 typeconf 'cocos2d::Repeat'
     .func 'create' .arg1 '@addref(innerAction ^)'
@@ -535,27 +515,7 @@ typeconf 'cocos2d::RepeatForever'
 
 typeconf 'cocos2d::Spawn'
     .func 'createWithTwoActions' .arg1 '@addref(autoref |)' .arg2 '@addref(autoref |)'
-    .func 'create'
-        .snippet [[
-        {
-            cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
-            int n = lua_gettop(L);
-            actions.reserve(n);
-
-            auto ret = new cocos2d::Spawn();
-            ret->autorelease();
-            olua_pushobj<cocos2d::Spawn>(L, ret);
-
-            for (int i = 1; i <= n; i++) {
-                auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
-                actions.pushBack(obj);
-                olua_addref(L, -1, ".autoref", i, OLUA_FLAG_MULTIPLE);
-            }
-            
-            ret->init(actions);
-
-            return 1;
-        }]]
+    .func 'create' .arg1 '@addref(actions |)'
 
 typeconf 'cocos2d::RotateTo'
 typeconf 'cocos2d::RotateFrom'

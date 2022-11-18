@@ -12,6 +12,8 @@
 		0EA420F623A0C51800D36A59 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EA420F523A0C51800D36A59 /* AuthenticationServices.framework */; };
 		0EFCA02623A3248100958F15 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EFCA02523A3248100958F15 /* AdSupport.framework */; };
 		3D1BCB7028B518D500C9AF35 /* AppRootViewController-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EE98128B4D84E008F1847 /* AppRootViewController-ios.mm */; };
+		3D6097B92927D6D7005D93A0 /* lua_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6097B72927D6D6005D93A0 /* lua_types.cpp */; };
+		3D6097BA2927D6D7005D93A0 /* lua_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6097B72927D6D6005D93A0 /* lua_types.cpp */; };
 		3D6BE01928B5AE2D005C8879 /* lpprint.c in Sources */ = {isa = PBXBuildFile; fileRef = 3D6BDF4728B5AE2C005C8879 /* lpprint.c */; };
 		3D6BE01A28B5AE2D005C8879 /* lpprint.c in Sources */ = {isa = PBXBuildFile; fileRef = 3D6BDF4728B5AE2C005C8879 /* lpprint.c */; };
 		3D6BE01B28B5AE2D005C8879 /* lpvm.c in Sources */ = {isa = PBXBuildFile; fileRef = 3D6BDF4928B5AE2C005C8879 /* lpvm.c */; };
@@ -424,6 +426,9 @@
 		0EC904E7213175B300F8A09E /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/PhotosUI.framework; sourceTree = DEVELOPER_DIR; };
 		0EC904E9213175C100F8A09E /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/Photos.framework; sourceTree = DEVELOPER_DIR; };
 		0EFCA02523A3248100958F15 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		3D6097B62927D6C6005D93A0 /* olua-types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "olua-types.h"; sourceTree = "<group>"; };
+		3D6097B72927D6D6005D93A0 /* lua_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_types.cpp; sourceTree = "<group>"; };
+		3D6097B82927D6D7005D93A0 /* lua_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_types.h; sourceTree = "<group>"; };
 		3D6BDF4728B5AE2C005C8879 /* lpprint.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lpprint.c; sourceTree = "<group>"; };
 		3D6BDF4928B5AE2C005C8879 /* lpvm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lpvm.c; sourceTree = "<group>"; };
 		3D6BDF4A28B5AE2C005C8879 /* lptypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lptypes.h; sourceTree = "<group>"; };
@@ -1208,6 +1213,7 @@
 		3D6EE94528B4D84E008F1847 /* olua */ = {
 			isa = PBXGroup;
 			children = (
+				3D6097B62927D6C6005D93A0 /* olua-types.h */,
 				3D6EE94728B4D84E008F1847 /* olua.c */,
 				3D6EE94828B4D84E008F1847 /* olua.h */,
 			);
@@ -1324,6 +1330,8 @@
 				3D6EEA3E28B4D84F008F1847 /* lua_socket.h */,
 				3D6EEA4028B4D84F008F1847 /* lua_spine.cpp */,
 				3D6EEA1F28B4D84F008F1847 /* lua_spine.h */,
+				3D6097B72927D6D6005D93A0 /* lua_types.cpp */,
+				3D6097B82927D6D7005D93A0 /* lua_types.h */,
 				3D6EEA2328B4D84F008F1847 /* lua_xgame.cpp */,
 				3D6EEA3128B4D84F008F1847 /* lua_xgame.h */,
 			);
@@ -1645,6 +1653,7 @@
 				3D6EEC4228B4D851008F1847 /* ltable.c in Sources */,
 				3D6EEC0228B4D851008F1847 /* lua_cocos2d_ui.cpp in Sources */,
 				3D6BE09128B5AE2E005C8879 /* pattern.c in Sources */,
+				3D6097B92927D6D7005D93A0 /* lua_types.cpp in Sources */,
 				3D6BE05128B5AE2D005C8879 /* bio.c in Sources */,
 				3DB47E2F28C5B59F001BC181 /* cclua-extend.cpp in Sources */,
 				3D6BE08528B5AE2E005C8879 /* varint.c in Sources */,
@@ -1839,6 +1848,7 @@
 				3D6BE03628B5AE2D005C8879 /* util.c in Sources */,
 				3D6EEC1928B4D851008F1847 /* lua_cocos2d.cpp in Sources */,
 				3D6BE06828B5AE2D005C8879 /* pkey.c in Sources */,
+				3D6097BA2927D6D7005D93A0 /* lua_types.cpp in Sources */,
 				3D6EEC5328B4D851008F1847 /* lcorolib.c in Sources */,
 				3D6BE08028B5AE2E005C8879 /* decode.c in Sources */,
 				3D6BE06A28B5AE2D005C8879 /* openssl.c in Sources */,

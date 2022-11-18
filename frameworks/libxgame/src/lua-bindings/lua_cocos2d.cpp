@@ -63105,6 +63105,26 @@ static int _cocos2d_ShuffleTiles_new(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ShuffleTiles_shuffle(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ShuffleTiles *self = nullptr;
+    unsigned int *arg1 = nullptr;       /** array */
+    lua_Unsigned arg2 = 0;       /** len */
+
+    olua_to_obj(L, 1, &self, "cc.ShuffleTiles");
+    olua_check_pointer(L, 2, &arg1, "olua.uint");
+    olua_check_uint(L, 3, &arg2);
+
+    // void shuffle(unsigned int *array, unsigned int len)
+    self->shuffle(arg1, (unsigned int)arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ShuffleTiles(lua_State *L)
 {
@@ -63114,6 +63134,7 @@ OLUA_LIB int luaopen_cocos2d_ShuffleTiles(lua_State *L)
     oluacls_func(L, "create", _cocos2d_ShuffleTiles_create);
     oluacls_func(L, "getDelta", _cocos2d_ShuffleTiles_getDelta);
     oluacls_func(L, "new", _cocos2d_ShuffleTiles_new);
+    oluacls_func(L, "shuffle", _cocos2d_ShuffleTiles_shuffle);
 
     olua_registerluatype<cocos2d::ShuffleTiles>(L, "cc.ShuffleTiles");
 
@@ -63616,6 +63637,26 @@ static int _cocos2d_TurnOffTiles_new(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TurnOffTiles_shuffle(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::TurnOffTiles *self = nullptr;
+    unsigned int *arg1 = nullptr;       /** array */
+    lua_Unsigned arg2 = 0;       /** len */
+
+    olua_to_obj(L, 1, &self, "cc.TurnOffTiles");
+    olua_check_pointer(L, 2, &arg1, "olua.uint");
+    olua_check_uint(L, 3, &arg2);
+
+    // void shuffle(unsigned int *array, unsigned int len)
+    self->shuffle(arg1, (unsigned int)arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cocos2d_TurnOffTiles_turnOffTile(lua_State *L)
 {
     olua_startinvoke(L);
@@ -63660,6 +63701,7 @@ OLUA_LIB int luaopen_cocos2d_TurnOffTiles(lua_State *L)
     oluacls_func(L, "clone", _cocos2d_TurnOffTiles_clone);
     oluacls_func(L, "create", _cocos2d_TurnOffTiles_create);
     oluacls_func(L, "new", _cocos2d_TurnOffTiles_new);
+    oluacls_func(L, "shuffle", _cocos2d_TurnOffTiles_shuffle);
     oluacls_func(L, "turnOffTile", _cocos2d_TurnOffTiles_turnOffTile);
     oluacls_func(L, "turnOnTile", _cocos2d_TurnOffTiles_turnOnTile);
 

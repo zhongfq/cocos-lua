@@ -22260,27 +22260,63 @@ static int _fairygui_UIConfig___olua_move(lua_State *L)
     return 1;
 }
 
-static int _fairygui_UIConfig_getRealFontName(lua_State *L)
+static int _fairygui_UIConfig_getRealFontName1(lua_State *L)
 {
     olua_startinvoke(L);
 
     std::string arg1;       /** aliasName */
-    bool arg2 = false;       /** isTTF */
+    bool *arg2 = nullptr;       /** isTTF */
 
     olua_check_std_string(L, 1, &arg1);
-    if (!olua_isnoneornil(L, 2)) {
-        //'arg2' with mark '@ret'
-        olua_check_bool(L, 2, &arg2);
-    }
+    olua_check_pointer(L, 2, &arg2, "olua.bool");
 
-    // static const std::string &getRealFontName(const std::string &aliasName, @ret bool *isTTF)
-    const std::string &ret = fairygui::UIConfig::getRealFontName(arg1, &arg2);
+    // static const std::string &getRealFontName(const std::string &aliasName, @optional bool *isTTF)
+    const std::string &ret = fairygui::UIConfig::getRealFontName(arg1, arg2);
     int num_ret = olua_push_std_string(L, ret);
-    olua_push_bool(L, arg2);
 
     olua_endinvoke(L);
 
-    return num_ret + 1;
+    return num_ret;
+}
+
+static int _fairygui_UIConfig_getRealFontName2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::string arg1;       /** aliasName */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static const std::string &getRealFontName(const std::string &aliasName, @optional bool *isTTF)
+    const std::string &ret = fairygui::UIConfig::getRealFontName(arg1);
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_UIConfig_getRealFontName(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 1))) {
+            // static const std::string &getRealFontName(const std::string &aliasName, @optional bool *isTTF)
+            return _fairygui_UIConfig_getRealFontName2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_pointer(L, 2, "olua.bool"))) {
+            // static const std::string &getRealFontName(const std::string &aliasName, @optional bool *isTTF)
+            return _fairygui_UIConfig_getRealFontName1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::UIConfig::getRealFontName' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _fairygui_UIConfig_registerFont(lua_State *L)
@@ -27667,7 +27703,7 @@ static int _fairygui_HtmlElement_get_format(lua_State *L)
     olua_to_obj(L, 1, &self, "fgui.HtmlElement");
 
     // fairygui::TextFormat format
-    fairygui::TextFormat &ret = (fairygui::TextFormat &)self->format;
+    fairygui::TextFormat &ret = self->format;
     int num_ret = olua_push_obj(L, &ret, "fgui.TextFormat");
 
     olua_endinvoke(L);

@@ -2055,6 +2055,26 @@ OLUA_LIB int luaopen_spine_Sequence(lua_State *L)
 }
 OLUA_END_DECLS
 
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_spine_SequenceMode(lua_State *L)
+{
+    oluacls_class(L, "sp.SequenceMode", nullptr);
+    oluacls_func(L, "__index", olua_indexerror);
+    oluacls_func(L, "__newindex", olua_newindexerror);
+    oluacls_const_integer(L, "hold", (lua_Integer)spine::SequenceMode::hold);
+    oluacls_const_integer(L, "loop", (lua_Integer)spine::SequenceMode::loop);
+    oluacls_const_integer(L, "loopReverse", (lua_Integer)spine::SequenceMode::loopReverse);
+    oluacls_const_integer(L, "once", (lua_Integer)spine::SequenceMode::once);
+    oluacls_const_integer(L, "onceReverse", (lua_Integer)spine::SequenceMode::onceReverse);
+    oluacls_const_integer(L, "pingpong", (lua_Integer)spine::SequenceMode::pingpong);
+    oluacls_const_integer(L, "pingpongReverse", (lua_Integer)spine::SequenceMode::pingpongReverse);
+
+    olua_registerluatype<spine::SequenceMode>(L, "sp.SequenceMode");
+
+    return 1;
+}
+OLUA_END_DECLS
+
 static int _spine_TextureRegion___gc(lua_State *L)
 {
     olua_startinvoke(L);
@@ -6770,6 +6790,588 @@ OLUA_LIB int luaopen_spine_EventTimeline(lua_State *L)
     oluacls_func(L, "new", _spine_EventTimeline_new);
 
     olua_registerluatype<spine::EventTimeline>(L, "sp.EventTimeline");
+
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _spine_ScaleXTimeline___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_postgc<spine::ScaleXTimeline>(L, 1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_ScaleXTimeline___olua_move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (spine::ScaleXTimeline *)olua_toobj(L, 1, "sp.ScaleXTimeline");
+    olua_push_obj(L, self, "sp.ScaleXTimeline");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _spine_ScaleXTimeline_getBoneIndex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::ScaleXTimeline *self = nullptr;
+
+    olua_to_obj(L, 1, &self, "sp.ScaleXTimeline");
+
+    // int getBoneIndex()
+    int ret = self->getBoneIndex();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_ScaleXTimeline_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Unsigned arg1 = 0;       /** frameCount */
+    lua_Unsigned arg2 = 0;       /** bezierCount */
+    lua_Integer arg3 = 0;       /** boneIndex */
+
+    olua_check_uint(L, 1, &arg1);
+    olua_check_uint(L, 2, &arg2);
+    olua_check_int(L, 3, &arg3);
+
+    // ScaleXTimeline(size_t frameCount, size_t bezierCount, int boneIndex)
+    spine::ScaleXTimeline *ret = new spine::ScaleXTimeline((size_t)arg1, (size_t)arg2, (int)arg3);
+    int num_ret = olua_push_obj(L, ret, "sp.ScaleXTimeline");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_ScaleXTimeline_setBoneIndex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::ScaleXTimeline *self = nullptr;
+    lua_Integer arg1 = 0;       /** inValue */
+
+    olua_to_obj(L, 1, &self, "sp.ScaleXTimeline");
+    olua_check_int(L, 2, &arg1);
+
+    // void setBoneIndex(int inValue)
+    self->setBoneIndex((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_spine_ScaleXTimeline(lua_State *L)
+{
+    oluacls_class(L, "sp.ScaleXTimeline", "sp.CurveTimeline1");
+    oluacls_func(L, "__gc", _spine_ScaleXTimeline___gc);
+    oluacls_func(L, "__olua_move", _spine_ScaleXTimeline___olua_move);
+    oluacls_func(L, "getBoneIndex", _spine_ScaleXTimeline_getBoneIndex);
+    oluacls_func(L, "new", _spine_ScaleXTimeline_new);
+    oluacls_func(L, "setBoneIndex", _spine_ScaleXTimeline_setBoneIndex);
+    oluacls_prop(L, "boneIndex", _spine_ScaleXTimeline_getBoneIndex, _spine_ScaleXTimeline_setBoneIndex);
+
+    olua_registerluatype<spine::ScaleXTimeline>(L, "sp.ScaleXTimeline");
+
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _spine_ScaleYTimeline___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_postgc<spine::ScaleYTimeline>(L, 1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_ScaleYTimeline___olua_move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (spine::ScaleYTimeline *)olua_toobj(L, 1, "sp.ScaleYTimeline");
+    olua_push_obj(L, self, "sp.ScaleYTimeline");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _spine_ScaleYTimeline_getBoneIndex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::ScaleYTimeline *self = nullptr;
+
+    olua_to_obj(L, 1, &self, "sp.ScaleYTimeline");
+
+    // int getBoneIndex()
+    int ret = self->getBoneIndex();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_ScaleYTimeline_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Unsigned arg1 = 0;       /** frameCount */
+    lua_Unsigned arg2 = 0;       /** bezierCount */
+    lua_Integer arg3 = 0;       /** boneIndex */
+
+    olua_check_uint(L, 1, &arg1);
+    olua_check_uint(L, 2, &arg2);
+    olua_check_int(L, 3, &arg3);
+
+    // ScaleYTimeline(size_t frameCount, size_t bezierCount, int boneIndex)
+    spine::ScaleYTimeline *ret = new spine::ScaleYTimeline((size_t)arg1, (size_t)arg2, (int)arg3);
+    int num_ret = olua_push_obj(L, ret, "sp.ScaleYTimeline");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_ScaleYTimeline_setBoneIndex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::ScaleYTimeline *self = nullptr;
+    lua_Integer arg1 = 0;       /** inValue */
+
+    olua_to_obj(L, 1, &self, "sp.ScaleYTimeline");
+    olua_check_int(L, 2, &arg1);
+
+    // void setBoneIndex(int inValue)
+    self->setBoneIndex((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_spine_ScaleYTimeline(lua_State *L)
+{
+    oluacls_class(L, "sp.ScaleYTimeline", "sp.CurveTimeline1");
+    oluacls_func(L, "__gc", _spine_ScaleYTimeline___gc);
+    oluacls_func(L, "__olua_move", _spine_ScaleYTimeline___olua_move);
+    oluacls_func(L, "getBoneIndex", _spine_ScaleYTimeline_getBoneIndex);
+    oluacls_func(L, "new", _spine_ScaleYTimeline_new);
+    oluacls_func(L, "setBoneIndex", _spine_ScaleYTimeline_setBoneIndex);
+    oluacls_prop(L, "boneIndex", _spine_ScaleYTimeline_getBoneIndex, _spine_ScaleYTimeline_setBoneIndex);
+
+    olua_registerluatype<spine::ScaleYTimeline>(L, "sp.ScaleYTimeline");
+
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _spine_ShearXTimeline___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_postgc<spine::ShearXTimeline>(L, 1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_ShearXTimeline___olua_move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (spine::ShearXTimeline *)olua_toobj(L, 1, "sp.ShearXTimeline");
+    olua_push_obj(L, self, "sp.ShearXTimeline");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _spine_ShearXTimeline_getBoneIndex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::ShearXTimeline *self = nullptr;
+
+    olua_to_obj(L, 1, &self, "sp.ShearXTimeline");
+
+    // int getBoneIndex()
+    int ret = self->getBoneIndex();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_ShearXTimeline_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Unsigned arg1 = 0;       /** frameCount */
+    lua_Unsigned arg2 = 0;       /** bezierCount */
+    lua_Integer arg3 = 0;       /** boneIndex */
+
+    olua_check_uint(L, 1, &arg1);
+    olua_check_uint(L, 2, &arg2);
+    olua_check_int(L, 3, &arg3);
+
+    // ShearXTimeline(size_t frameCount, size_t bezierCount, int boneIndex)
+    spine::ShearXTimeline *ret = new spine::ShearXTimeline((size_t)arg1, (size_t)arg2, (int)arg3);
+    int num_ret = olua_push_obj(L, ret, "sp.ShearXTimeline");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_ShearXTimeline_setBoneIndex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::ShearXTimeline *self = nullptr;
+    lua_Integer arg1 = 0;       /** inValue */
+
+    olua_to_obj(L, 1, &self, "sp.ShearXTimeline");
+    olua_check_int(L, 2, &arg1);
+
+    // void setBoneIndex(int inValue)
+    self->setBoneIndex((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_spine_ShearXTimeline(lua_State *L)
+{
+    oluacls_class(L, "sp.ShearXTimeline", "sp.CurveTimeline1");
+    oluacls_func(L, "__gc", _spine_ShearXTimeline___gc);
+    oluacls_func(L, "__olua_move", _spine_ShearXTimeline___olua_move);
+    oluacls_func(L, "getBoneIndex", _spine_ShearXTimeline_getBoneIndex);
+    oluacls_func(L, "new", _spine_ShearXTimeline_new);
+    oluacls_func(L, "setBoneIndex", _spine_ShearXTimeline_setBoneIndex);
+    oluacls_prop(L, "boneIndex", _spine_ShearXTimeline_getBoneIndex, _spine_ShearXTimeline_setBoneIndex);
+
+    olua_registerluatype<spine::ShearXTimeline>(L, "sp.ShearXTimeline");
+
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _spine_ShearYTimeline___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_postgc<spine::ShearYTimeline>(L, 1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_ShearYTimeline___olua_move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (spine::ShearYTimeline *)olua_toobj(L, 1, "sp.ShearYTimeline");
+    olua_push_obj(L, self, "sp.ShearYTimeline");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _spine_ShearYTimeline_getBoneIndex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::ShearYTimeline *self = nullptr;
+
+    olua_to_obj(L, 1, &self, "sp.ShearYTimeline");
+
+    // int getBoneIndex()
+    int ret = self->getBoneIndex();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_ShearYTimeline_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Unsigned arg1 = 0;       /** frameCount */
+    lua_Unsigned arg2 = 0;       /** bezierCount */
+    lua_Integer arg3 = 0;       /** boneIndex */
+
+    olua_check_uint(L, 1, &arg1);
+    olua_check_uint(L, 2, &arg2);
+    olua_check_int(L, 3, &arg3);
+
+    // ShearYTimeline(size_t frameCount, size_t bezierCount, int boneIndex)
+    spine::ShearYTimeline *ret = new spine::ShearYTimeline((size_t)arg1, (size_t)arg2, (int)arg3);
+    int num_ret = olua_push_obj(L, ret, "sp.ShearYTimeline");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_ShearYTimeline_setBoneIndex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::ShearYTimeline *self = nullptr;
+    lua_Integer arg1 = 0;       /** inValue */
+
+    olua_to_obj(L, 1, &self, "sp.ShearYTimeline");
+    olua_check_int(L, 2, &arg1);
+
+    // void setBoneIndex(int inValue)
+    self->setBoneIndex((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_spine_ShearYTimeline(lua_State *L)
+{
+    oluacls_class(L, "sp.ShearYTimeline", "sp.CurveTimeline1");
+    oluacls_func(L, "__gc", _spine_ShearYTimeline___gc);
+    oluacls_func(L, "__olua_move", _spine_ShearYTimeline___olua_move);
+    oluacls_func(L, "getBoneIndex", _spine_ShearYTimeline_getBoneIndex);
+    oluacls_func(L, "new", _spine_ShearYTimeline_new);
+    oluacls_func(L, "setBoneIndex", _spine_ShearYTimeline_setBoneIndex);
+    oluacls_prop(L, "boneIndex", _spine_ShearYTimeline_getBoneIndex, _spine_ShearYTimeline_setBoneIndex);
+
+    olua_registerluatype<spine::ShearYTimeline>(L, "sp.ShearYTimeline");
+
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _spine_TranslateXTimeline___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_postgc<spine::TranslateXTimeline>(L, 1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_TranslateXTimeline___olua_move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (spine::TranslateXTimeline *)olua_toobj(L, 1, "sp.TranslateXTimeline");
+    olua_push_obj(L, self, "sp.TranslateXTimeline");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _spine_TranslateXTimeline_getBoneIndex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TranslateXTimeline *self = nullptr;
+
+    olua_to_obj(L, 1, &self, "sp.TranslateXTimeline");
+
+    // int getBoneIndex()
+    int ret = self->getBoneIndex();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_TranslateXTimeline_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Unsigned arg1 = 0;       /** frameCount */
+    lua_Unsigned arg2 = 0;       /** bezierCount */
+    lua_Integer arg3 = 0;       /** boneIndex */
+
+    olua_check_uint(L, 1, &arg1);
+    olua_check_uint(L, 2, &arg2);
+    olua_check_int(L, 3, &arg3);
+
+    // TranslateXTimeline(size_t frameCount, size_t bezierCount, int boneIndex)
+    spine::TranslateXTimeline *ret = new spine::TranslateXTimeline((size_t)arg1, (size_t)arg2, (int)arg3);
+    int num_ret = olua_push_obj(L, ret, "sp.TranslateXTimeline");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_TranslateXTimeline_setBoneIndex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TranslateXTimeline *self = nullptr;
+    lua_Integer arg1 = 0;       /** inValue */
+
+    olua_to_obj(L, 1, &self, "sp.TranslateXTimeline");
+    olua_check_int(L, 2, &arg1);
+
+    // void setBoneIndex(int inValue)
+    self->setBoneIndex((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_spine_TranslateXTimeline(lua_State *L)
+{
+    oluacls_class(L, "sp.TranslateXTimeline", "sp.CurveTimeline1");
+    oluacls_func(L, "__gc", _spine_TranslateXTimeline___gc);
+    oluacls_func(L, "__olua_move", _spine_TranslateXTimeline___olua_move);
+    oluacls_func(L, "getBoneIndex", _spine_TranslateXTimeline_getBoneIndex);
+    oluacls_func(L, "new", _spine_TranslateXTimeline_new);
+    oluacls_func(L, "setBoneIndex", _spine_TranslateXTimeline_setBoneIndex);
+    oluacls_prop(L, "boneIndex", _spine_TranslateXTimeline_getBoneIndex, _spine_TranslateXTimeline_setBoneIndex);
+
+    olua_registerluatype<spine::TranslateXTimeline>(L, "sp.TranslateXTimeline");
+
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _spine_TranslateYTimeline___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_postgc<spine::TranslateYTimeline>(L, 1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_TranslateYTimeline___olua_move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (spine::TranslateYTimeline *)olua_toobj(L, 1, "sp.TranslateYTimeline");
+    olua_push_obj(L, self, "sp.TranslateYTimeline");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _spine_TranslateYTimeline_getBoneIndex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TranslateYTimeline *self = nullptr;
+
+    olua_to_obj(L, 1, &self, "sp.TranslateYTimeline");
+
+    // int getBoneIndex()
+    int ret = self->getBoneIndex();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_TranslateYTimeline_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Unsigned arg1 = 0;       /** frameCount */
+    lua_Unsigned arg2 = 0;       /** bezierCount */
+    lua_Integer arg3 = 0;       /** boneIndex */
+
+    olua_check_uint(L, 1, &arg1);
+    olua_check_uint(L, 2, &arg2);
+    olua_check_int(L, 3, &arg3);
+
+    // TranslateYTimeline(size_t frameCount, size_t bezierCount, int boneIndex)
+    spine::TranslateYTimeline *ret = new spine::TranslateYTimeline((size_t)arg1, (size_t)arg2, (int)arg3);
+    int num_ret = olua_push_obj(L, ret, "sp.TranslateYTimeline");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _spine_TranslateYTimeline_setBoneIndex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::TranslateYTimeline *self = nullptr;
+    lua_Integer arg1 = 0;       /** inValue */
+
+    olua_to_obj(L, 1, &self, "sp.TranslateYTimeline");
+    olua_check_int(L, 2, &arg1);
+
+    // void setBoneIndex(int inValue)
+    self->setBoneIndex((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_spine_TranslateYTimeline(lua_State *L)
+{
+    oluacls_class(L, "sp.TranslateYTimeline", "sp.CurveTimeline1");
+    oluacls_func(L, "__gc", _spine_TranslateYTimeline___gc);
+    oluacls_func(L, "__olua_move", _spine_TranslateYTimeline___olua_move);
+    oluacls_func(L, "getBoneIndex", _spine_TranslateYTimeline_getBoneIndex);
+    oluacls_func(L, "new", _spine_TranslateYTimeline_new);
+    oluacls_func(L, "setBoneIndex", _spine_TranslateYTimeline_setBoneIndex);
+    oluacls_prop(L, "boneIndex", _spine_TranslateYTimeline_getBoneIndex, _spine_TranslateYTimeline_setBoneIndex);
+
+    olua_registerluatype<spine::TranslateYTimeline>(L, "sp.TranslateYTimeline");
 
     return 1;
 }
@@ -17237,6 +17839,7 @@ OLUA_LIB int luaopen_spine(lua_State *L)
     olua_require(L, "sp.AnimationStateData", luaopen_spine_AnimationStateData);
     olua_require(L, "sp.Animation", luaopen_spine_Animation);
     olua_require(L, "sp.Sequence", luaopen_spine_Sequence);
+    olua_require(L, "sp.SequenceMode", luaopen_spine_SequenceMode);
     olua_require(L, "sp.TextureRegion", luaopen_spine_TextureRegion);
     olua_require(L, "sp.ConstraintData", luaopen_spine_ConstraintData);
     olua_require(L, "sp.IkConstraintData", luaopen_spine_IkConstraintData);
@@ -17261,6 +17864,12 @@ OLUA_LIB int luaopen_spine(lua_State *L)
     olua_require(L, "sp.DeformTimeline", luaopen_spine_DeformTimeline);
     olua_require(L, "sp.DrawOrderTimeline", luaopen_spine_DrawOrderTimeline);
     olua_require(L, "sp.EventTimeline", luaopen_spine_EventTimeline);
+    olua_require(L, "sp.ScaleXTimeline", luaopen_spine_ScaleXTimeline);
+    olua_require(L, "sp.ScaleYTimeline", luaopen_spine_ScaleYTimeline);
+    olua_require(L, "sp.ShearXTimeline", luaopen_spine_ShearXTimeline);
+    olua_require(L, "sp.ShearYTimeline", luaopen_spine_ShearYTimeline);
+    olua_require(L, "sp.TranslateXTimeline", luaopen_spine_TranslateXTimeline);
+    olua_require(L, "sp.TranslateYTimeline", luaopen_spine_TranslateYTimeline);
     olua_require(L, "sp.IkConstraintTimeline", luaopen_spine_IkConstraintTimeline);
     olua_require(L, "sp.PathConstraintMixTimeline", luaopen_spine_PathConstraintMixTimeline);
     olua_require(L, "sp.PathConstraintPositionTimeline", luaopen_spine_PathConstraintPositionTimeline);

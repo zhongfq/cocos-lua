@@ -13676,7 +13676,7 @@ static int _cocostudio_SpriteDisplayData_get_skinData(lua_State *L)
     olua_to_obj(L, 1, &self, "ccs.SpriteDisplayData");
 
     // cocostudio::BaseData skinData
-    cocostudio::BaseData &ret = (cocostudio::BaseData &)self->skinData;
+    cocostudio::BaseData &ret = self->skinData;
     int num_ret = olua_push_obj(L, &ret, "ccs.BaseData");
 
     olua_endinvoke(L);

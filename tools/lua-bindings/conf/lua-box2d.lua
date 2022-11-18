@@ -30,15 +30,15 @@ luacls(function (cppname)
     return cppname
 end)
 
-exclude 'b2BlockAllocator *'
+excludeany 'b2BlockAllocator'
 
 local _typeconf = typeconf
 local function typeconf(...)
     local cls = _typeconf(...)
+    cls.exclude '^m_.*'
     cls.luaname(function (name, kind)
         name = name:gsub('^e_', '')
         name = name:gsub('^b2_', '')
-        name = name:gsub('^m_', '')
         local v = name:match('^%u+')
         if v and kind == 'func' then
             name = name:gsub('^' .. v, string.lower(v))
@@ -47,11 +47,6 @@ local function typeconf(...)
     end)
     return cls
 end
-
-typedef 'int8;int16;int32'
-    .decltype 'lua_Integer'
-typedef 'uint8;uint16;uint32'
-    .decltype 'lua_Unsigned'
 
 typeconv 'b2Vec2'
 typeconv 'b2Vec3'
@@ -71,6 +66,7 @@ typeonly 'b2ContactFilter'
 typeonly 'b2ContactListener'
 typeonly 'b2QueryCallback'
 typeonly 'b2RayCastCallback'
+typeconf 'box2d::Vec2'
 typeconf 'box2d::DestructionListener'
 typeconf 'box2d::ContactFilter'
 typeconf 'box2d::ContactListener'

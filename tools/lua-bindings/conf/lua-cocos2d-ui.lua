@@ -18,7 +18,7 @@ luacls(function (cppname)
     return cppname
 end)
 
-exclude 'cocos2d::ui::PageViewIndicator'
+excludeany 'cocos2d::ui::PageViewIndicator'
 
 typeconf 'cocos2d::ui::Widget::FocusDirection'
 typeconf 'cocos2d::ui::Widget::PositionType'

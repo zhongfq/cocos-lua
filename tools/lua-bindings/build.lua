@@ -2,6 +2,7 @@ require "olua.tools"
 
 autoconf 'conf/clang-args.lua'
 
+autoconf 'conf/lua-types.lua'
 autoconf 'conf/lua-conv.lua'
 autoconf 'conf/lua-cocos2d.lua'
 autoconf 'conf/lua-cocos2d-physics.lua'

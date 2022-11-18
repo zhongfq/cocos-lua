@@ -9,6 +9,8 @@ new_globals = {
     "chunk",
     "clang",
     "exclude",
+    "excludeany",
+    "excludetype",
     "export",
     "headers",
     "include",

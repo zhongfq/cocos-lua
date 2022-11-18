@@ -32,6 +32,13 @@ end)
 
 include "conf/exclude-type.lua"
 
+typedef "const GLchar *"
+    .decltype "const char *"
+
+typedef 'GLvoid *'
+    .luacls 'void *'
+    .conv 'olua_$$_obj'
+
 typedef 'cocos2d::Data'
 typedef 'cocos2d::Rect'
     .vars '4'

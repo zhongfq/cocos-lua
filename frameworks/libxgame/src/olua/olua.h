@@ -54,10 +54,12 @@ OLUA_BEGIN_DECLS
 #include <assert.h>
 #include <math.h>
 
+#ifndef olua_assert
 #ifdef OLUA_DEBUG
 #define olua_assert(e, msg) assert((e) && (msg))
 #else
 #define olua_assert(e, msg) ((void)0)
+#endif
 #endif
 
 #define olua_noapi(api) static_assert(false, #api" is not defined")
@@ -85,6 +87,7 @@ OLUA_BEGIN_DECLS
 // olua config file: https://codetypes.com/posts/c505b168/
 #ifdef OLUA_AUTOCONF
 #define OLUA_EXCLUDE        __attribute__((annotate("@exclude")))
+#define OLUA_NAME(name)     __attribute__((annotate("@name("#name")")))
 #define OLUA_ADDREF(...)    __attribute__((annotate("@addref("#__VA_ARGS__")")))
 #define OLUA_DEFREF(...)    __attribute__((annotate("@delref("#__VA_ARGS__")")))
 #define OLUA_PACK           __attribute__((annotate("@pack")))
@@ -94,9 +97,11 @@ OLUA_BEGIN_DECLS
 #define OLUA_READONLY       __attribute__((annotate("@readonly")))
 #define OLUA_OPTIONAL       __attribute__((annotate("@optional")))
 #define OLUA_GETTER         __attribute__((annotate("@getter")))
+#define OLUA_SETTER         __attribute__((annotate("@setter")))
 #define OLUA_RET            __attribute__((annotate("@ret")))
 #else
 #define OLUA_EXCLUDE
+#define OLUA_NAME(name)
 #define OLUA_ADDREF(...)
 #define OLUA_DEFREF(...)
 #define OLUA_PACK
@@ -106,6 +111,7 @@ OLUA_BEGIN_DECLS
 #define OLUA_READONLY
 #define OLUA_OPTIONAL
 #define OLUA_GETTER
+#define OLUA_SETTER
 #define OLUA_RET
 #endif
 
@@ -813,7 +819,12 @@ int olua_push_obj(lua_State *L, const std::weak_ptr<T> *value, const char *cls)
 
 // std::string
 #define olua_is_std_string(L, i)    (olua_isstring(L, (i)))
-#define olua_push_std_string(L, v)  (lua_pushlstring(L, (v).c_str(), (v).length()), 1)
+
+static inline int olua_push_std_string(lua_State *L, const std::string &v)
+{
+    lua_pushlstring(L, v.data(), v.size());
+    return 1;
+}
 
 static inline void olua_check_std_string(lua_State *L, int idx, std::string *value)
 {
@@ -824,7 +835,12 @@ static inline void olua_check_std_string(lua_State *L, int idx, std::string *val
 
 #if __cplusplus >= 201703L
 #define olua_is_std_string_view(L, i)    (olua_isstring(L, (i)))
-#define olua_push_std_string_view(L, v)  (lua_pushlstring(L, (v).data(), (v).size()), 1)
+
+static inline int olua_push_std_string_view(lua_State *L, const std::string_view &v)
+{
+    lua_pushlstring(L, v.data(), v.size());
+    return 1;
+}
 
 static inline void olua_check_std_string_view(lua_State *L, int idx, std::string_view *value)
 {
@@ -895,6 +911,15 @@ void olua_foreach_array(const Array<T, Ts...> *array, const std::function<void(T
 {
     for (auto &itor : (*array)) {
         callback(const_cast<T &>(itor));
+    }
+}
+
+template <> inline
+void olua_foreach_array<bool>(const std::vector<bool> *array, const std::function<void(bool &)> &callback)
+{
+    for (auto itor : (*array)) {
+        bool v = itor;
+        callback(v);
     }
 }
 

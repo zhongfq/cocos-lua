@@ -1,6 +1,8 @@
 #ifndef __LUAUSER_H__
 #define __LUAUSER_H__
 
+#include <stdbool.h>
+
 #define OLUA_HAVE_MAINTHREAD
 #define OLUA_HAVE_CHECKHOSTTHREAD
 #define OLUA_HAVE_CMPREF
@@ -9,6 +11,22 @@
 #define OLUA_HAVE_POSTNEW
 //#define OLUA_HAVE_POSTGC
 #define OLUA_HAVE_LUATYPE
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+    extern bool olua_throw_error(const char* msg);
+#ifdef __cplusplus
+}
+#endif
+
+#define olua_assert(cond, msg) do {                         \
+if (!(cond)) {                                              \
+    if (!olua_throw_error(msg) && strlen(msg))              \
+      printf("assert failed: %s", msg);                     \
+    assert((cond) && (msg));                                \
+  }                                                         \
+} while (0)
 
 #ifdef __cplusplus
 

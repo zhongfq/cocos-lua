@@ -12,6 +12,8 @@
 
 NS_BOX2D_BEGIN
 
+typedef olua::pointer<b2Vec2> Vec2;
+
 class DestructionListener : public b2DestructionListener
 {
 public:

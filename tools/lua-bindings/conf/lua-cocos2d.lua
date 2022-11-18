@@ -348,8 +348,6 @@ typeconf 'cocos2d::Image'
 
 typeconf 'cocos2d::Properties::Type'
 typeconf 'cocos2d::Properties'
-    .func 'getPath'
-        .arg2 '@ret'
 
 typeconf 'cocos2d::Material'
 typeconf 'cocos2d::Renderer'

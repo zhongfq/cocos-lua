@@ -1304,6 +1304,25 @@ static int _cocos2d_tweenfunc_cubicEaseOut(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_tweenfunc_customEase(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** time */
+    float *arg2 = nullptr;       /** easingParam */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_pointer(L, 2, &arg2, "olua.float");
+
+    // static float customEase(float time, float *easingParam)
+    float ret = cocos2d::tweenfunc::customEase((float)arg1, arg2);
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_tweenfunc_easeIn(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1741,6 +1760,27 @@ static int _cocos2d_tweenfunc_sineEaseOut(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_tweenfunc_tweenTo(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** time */
+    lua_Unsigned arg2 = 0;       /** type */
+    float *arg3 = nullptr;       /** easingParam */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_uint(L, 2, &arg2);
+    olua_check_pointer(L, 3, &arg3, "olua.float");
+
+    // static float tweenTo(float time, cocos2d::tweenfunc::TweenType type, float *easingParam)
+    float ret = cocos2d::tweenfunc::tweenTo((float)arg1, (cocos2d::tweenfunc::TweenType)arg2, arg3);
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_tweenfunc(lua_State *L)
 {
@@ -1758,6 +1798,7 @@ OLUA_LIB int luaopen_cocos2d_tweenfunc(lua_State *L)
     oluacls_func(L, "cubicEaseIn", _cocos2d_tweenfunc_cubicEaseIn);
     oluacls_func(L, "cubicEaseInOut", _cocos2d_tweenfunc_cubicEaseInOut);
     oluacls_func(L, "cubicEaseOut", _cocos2d_tweenfunc_cubicEaseOut);
+    oluacls_func(L, "customEase", _cocos2d_tweenfunc_customEase);
     oluacls_func(L, "easeIn", _cocos2d_tweenfunc_easeIn);
     oluacls_func(L, "easeInOut", _cocos2d_tweenfunc_easeInOut);
     oluacls_func(L, "easeOut", _cocos2d_tweenfunc_easeOut);
@@ -1783,6 +1824,7 @@ OLUA_LIB int luaopen_cocos2d_tweenfunc(lua_State *L)
     oluacls_func(L, "sineEaseIn", _cocos2d_tweenfunc_sineEaseIn);
     oluacls_func(L, "sineEaseInOut", _cocos2d_tweenfunc_sineEaseInOut);
     oluacls_func(L, "sineEaseOut", _cocos2d_tweenfunc_sineEaseOut);
+    oluacls_func(L, "tweenTo", _cocos2d_tweenfunc_tweenTo);
 
     return 1;
 }
@@ -12535,6 +12577,28 @@ static int _cocos2d_OrbitCamera_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_OrbitCamera_sphericalRadius(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::OrbitCamera *self = nullptr;
+    float *arg1 = nullptr;       /** r */
+    float *arg2 = nullptr;       /** zenith */
+    float *arg3 = nullptr;       /** azimuth */
+
+    olua_to_obj(L, 1, &self, "cc.OrbitCamera");
+    olua_check_pointer(L, 2, &arg1, "olua.float");
+    olua_check_pointer(L, 3, &arg2, "olua.float");
+    olua_check_pointer(L, 4, &arg3, "olua.float");
+
+    // void sphericalRadius(float *r, float *zenith, float *azimuth)
+    self->sphericalRadius(arg1, arg2, arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_OrbitCamera(lua_State *L)
 {
@@ -12542,6 +12606,7 @@ OLUA_LIB int luaopen_cocos2d_OrbitCamera(lua_State *L)
     oluacls_func(L, "__olua_move", _cocos2d_OrbitCamera___olua_move);
     oluacls_func(L, "clone", _cocos2d_OrbitCamera_clone);
     oluacls_func(L, "create", _cocos2d_OrbitCamera_create);
+    oluacls_func(L, "sphericalRadius", _cocos2d_OrbitCamera_sphericalRadius);
 
     olua_registerluatype<cocos2d::OrbitCamera>(L, "cc.OrbitCamera");
 
@@ -15768,6 +15833,26 @@ static int _cocos2d_ShuffleTiles_getDelta(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ShuffleTiles_shuffle(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::ShuffleTiles *self = nullptr;
+    unsigned int *arg1 = nullptr;       /** array */
+    lua_Unsigned arg2 = 0;       /** len */
+
+    olua_to_obj(L, 1, &self, "cc.ShuffleTiles");
+    olua_check_pointer(L, 2, &arg1, "olua.uint");
+    olua_check_uint(L, 3, &arg2);
+
+    // void shuffle(unsigned int *array, unsigned int len)
+    self->shuffle(arg1, (unsigned int)arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_ShuffleTiles(lua_State *L)
 {
@@ -15776,6 +15861,7 @@ OLUA_LIB int luaopen_cocos2d_ShuffleTiles(lua_State *L)
     oluacls_func(L, "clone", _cocos2d_ShuffleTiles_clone);
     oluacls_func(L, "create", _cocos2d_ShuffleTiles_create);
     oluacls_func(L, "getDelta", _cocos2d_ShuffleTiles_getDelta);
+    oluacls_func(L, "shuffle", _cocos2d_ShuffleTiles_shuffle);
 
     olua_registerluatype<cocos2d::ShuffleTiles>(L, "cc.ShuffleTiles");
 
@@ -16204,6 +16290,26 @@ static int _cocos2d_TurnOffTiles_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_TurnOffTiles_shuffle(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::TurnOffTiles *self = nullptr;
+    unsigned int *arg1 = nullptr;       /** array */
+    lua_Unsigned arg2 = 0;       /** len */
+
+    olua_to_obj(L, 1, &self, "cc.TurnOffTiles");
+    olua_check_pointer(L, 2, &arg1, "olua.uint");
+    olua_check_uint(L, 3, &arg2);
+
+    // void shuffle(unsigned int *array, unsigned int len)
+    self->shuffle(arg1, (unsigned int)arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cocos2d_TurnOffTiles_turnOffTile(lua_State *L)
 {
     olua_startinvoke(L);
@@ -16247,6 +16353,7 @@ OLUA_LIB int luaopen_cocos2d_TurnOffTiles(lua_State *L)
     oluacls_func(L, "__olua_move", _cocos2d_TurnOffTiles___olua_move);
     oluacls_func(L, "clone", _cocos2d_TurnOffTiles_clone);
     oluacls_func(L, "create", _cocos2d_TurnOffTiles_create);
+    oluacls_func(L, "shuffle", _cocos2d_TurnOffTiles_shuffle);
     oluacls_func(L, "turnOffTile", _cocos2d_TurnOffTiles_turnOffTile);
     oluacls_func(L, "turnOnTile", _cocos2d_TurnOffTiles_turnOnTile);
 

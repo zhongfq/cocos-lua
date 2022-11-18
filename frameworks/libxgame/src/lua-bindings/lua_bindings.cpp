@@ -8,6 +8,7 @@
 #include "lua_cocos2d_ui.h"
 #include "lua_manual.h"
 #include "lua_socket.h"
+#include "lua_types.h"
 #include "cjson/lua_cjson.h"
 #include "md5/lua_md5.h"
 #include "lfs/lfs.h"
@@ -24,6 +25,7 @@
 
 int luaopen_bindings(lua_State *L)
 {
+    olua_callfunc(L, luaopen_types);
     olua_callfunc(L, luaopen_cocos2d);
 #if COCOS2D_VERSION >= 0x00040000
     olua_callfunc(L, luaopen_cocos2d_action);

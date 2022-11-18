@@ -3,6 +3,7 @@ require "olua.tools"
 autoconf 'conf/clang-args.lua'
 autoconf 'conf/exclude-type.lua'
 
+autoconf 'conf/lua-types.lua'
 autoconf 'conf/lua-conv.lua'
 autoconf 'conf/lua-cocos2d.lua'
 autoconf 'conf/lua-cocos2d-action.lua'

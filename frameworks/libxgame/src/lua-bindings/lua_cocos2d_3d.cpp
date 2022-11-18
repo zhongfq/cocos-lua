@@ -3140,6 +3140,108 @@ static int _cocos2d_Bone3D_resetPose(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_Bone3D_setAnimationValue1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Bone3D *self = nullptr;
+    float *arg1 = nullptr;       /** trans */
+    float *arg2 = nullptr;       /** rot */
+    float *arg3 = nullptr;       /** scale */
+    void *arg4 = nullptr;       /** tag */
+    lua_Number arg5 = 0;       /** weight */
+
+    olua_to_obj(L, 1, &self, "cc.Bone3D");
+    olua_check_pointer(L, 2, &arg1, "olua.float");
+    olua_check_pointer(L, 3, &arg2, "olua.float");
+    olua_check_pointer(L, 4, &arg3, "olua.float");
+    olua_check_obj(L, 5, &arg4, "void *");
+    olua_check_number(L, 6, &arg5);
+
+    // void setAnimationValue(float *trans, float *rot, float *scale, @optional void *tag, @optional float weight)
+    self->setAnimationValue(arg1, arg2, arg3, arg4, (float)arg5);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Bone3D_setAnimationValue2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Bone3D *self = nullptr;
+    float *arg1 = nullptr;       /** trans */
+    float *arg2 = nullptr;       /** rot */
+    float *arg3 = nullptr;       /** scale */
+
+    olua_to_obj(L, 1, &self, "cc.Bone3D");
+    olua_check_pointer(L, 2, &arg1, "olua.float");
+    olua_check_pointer(L, 3, &arg2, "olua.float");
+    olua_check_pointer(L, 4, &arg3, "olua.float");
+
+    // void setAnimationValue(float *trans, float *rot, float *scale, @optional void *tag, @optional float weight)
+    self->setAnimationValue(arg1, arg2, arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Bone3D_setAnimationValue3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Bone3D *self = nullptr;
+    float *arg1 = nullptr;       /** trans */
+    float *arg2 = nullptr;       /** rot */
+    float *arg3 = nullptr;       /** scale */
+    void *arg4 = nullptr;       /** tag */
+
+    olua_to_obj(L, 1, &self, "cc.Bone3D");
+    olua_check_pointer(L, 2, &arg1, "olua.float");
+    olua_check_pointer(L, 3, &arg2, "olua.float");
+    olua_check_pointer(L, 4, &arg3, "olua.float");
+    olua_check_obj(L, 5, &arg4, "void *");
+
+    // void setAnimationValue(float *trans, float *rot, float *scale, @optional void *tag, @optional float weight)
+    self->setAnimationValue(arg1, arg2, arg3, arg4);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Bone3D_setAnimationValue(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 3) {
+        // if ((olua_is_pointer(L, 2, "olua.float")) && (olua_is_pointer(L, 3, "olua.float")) && (olua_is_pointer(L, 4, "olua.float"))) {
+            // void setAnimationValue(float *trans, float *rot, float *scale, @optional void *tag, @optional float weight)
+            return _cocos2d_Bone3D_setAnimationValue2(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_pointer(L, 2, "olua.float")) && (olua_is_pointer(L, 3, "olua.float")) && (olua_is_pointer(L, 4, "olua.float")) && (olua_is_obj(L, 5, "void *"))) {
+            // void setAnimationValue(float *trans, float *rot, float *scale, @optional void *tag, @optional float weight)
+            return _cocos2d_Bone3D_setAnimationValue3(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if ((olua_is_pointer(L, 2, "olua.float")) && (olua_is_pointer(L, 3, "olua.float")) && (olua_is_pointer(L, 4, "olua.float")) && (olua_is_obj(L, 5, "void *")) && (olua_is_number(L, 6))) {
+            // void setAnimationValue(float *trans, float *rot, float *scale, @optional void *tag, @optional float weight)
+            return _cocos2d_Bone3D_setAnimationValue1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Bone3D::setAnimationValue' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
 static int _cocos2d_Bone3D_setInverseBindPose(lua_State *L)
 {
     olua_startinvoke(L);
@@ -3210,6 +3312,7 @@ OLUA_LIB int luaopen_cocos2d_Bone3D(lua_State *L)
     oluacls_func(L, "removeChildBone", _cocos2d_Bone3D_removeChildBone);
     oluacls_func(L, "removeChildBoneByIndex", _cocos2d_Bone3D_removeChildBoneByIndex);
     oluacls_func(L, "resetPose", _cocos2d_Bone3D_resetPose);
+    oluacls_func(L, "setAnimationValue", _cocos2d_Bone3D_setAnimationValue);
     oluacls_func(L, "setInverseBindPose", _cocos2d_Bone3D_setInverseBindPose);
     oluacls_func(L, "setOriPose", _cocos2d_Bone3D_setOriPose);
     oluacls_func(L, "updateWorldMat", _cocos2d_Bone3D_updateWorldMat);

@@ -37,14 +37,13 @@ end)
 
 include 'conf/exclude-type.lua'
 
-exclude 'cocos2d::ObjectFactory::TInfo'
-exclude 'cocos2d::ObjectFactory::Instance *'
-exclude 'cocos2d::ObjectFactory::Instance'
-exclude 'cocostudio::DataReaderHelper::DataInfo *'
-exclude 'cocostudio::stExpCocoNode *'
-exclude 'flatbuffers::NodeTree *'
-exclude 'rapidjson::Value'
-exclude 'cocostudio::SEL_ParseEvent'
+excludeany 'cocos2d::ObjectFactory::TInfo'
+excludeany 'cocos2d::ObjectFactory::Instance'
+excludeany 'cocostudio::DataReaderHelper::DataInfo'
+excludeany 'cocostudio::stExpCocoNode'
+excludeany 'flatbuffers::NodeTree'
+excludeany 'rapidjson::Value'
+excludeany 'cocostudio::SEL_ParseEvent'
 
 typeconv 'cocostudio::timeline::AnimationInfo'
     .exclude 'clipEndCallBack'

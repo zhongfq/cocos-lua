@@ -18,18 +18,15 @@ luacls(function (cppname)
     return cppname
 end)
 
-exclude 'dragonBones::Matrix *'
-exclude 'dragonBones::Matrix'
-exclude 'dragonBones::WorldClock'
-exclude 'dragonBones::Transform *'
-exclude 'dragonBones::Transform'
-exclude 'dragonBones::Point'
-exclude 'dragonBones::ColorTransform'
-exclude 'dragonBones::ColorTransform *'
-exclude 'dragonBones::Rectangle *'
-exclude 'dragonBones::MeshDisplayData *'
-exclude 'dragonBones::CanvasData *'
-exclude 'std::vector *'
+excludetype 'dragonBones::WorldClock'
+excludetype 'dragonBones::Point'
+excludetype 'dragonBones::Rectangle *'
+excludetype 'dragonBones::CanvasData'
+
+excludeany 'dragonBones::Matrix'
+excludeany 'dragonBones::Transform'
+excludeany 'dragonBones::ColorTransform'
+excludeany 'dragonBones::MeshDisplayData'
 
 typeconv 'dragonBones::Rectangle'
 

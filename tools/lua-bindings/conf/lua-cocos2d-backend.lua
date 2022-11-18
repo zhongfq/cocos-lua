@@ -14,7 +14,7 @@ luacls(function (cppname)
     return cppname
 end)
 
-exclude 'cocos2d::backend::RenderPassDescriptor'
+excludeany 'cocos2d::backend::RenderPassDescriptor'
 
 typedef 'cocos2d::backend::UniformLocation'
 

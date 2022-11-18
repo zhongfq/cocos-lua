@@ -3182,21 +3182,21 @@ static int _cocos2d_backend_Texture2DBackend_updateCompressedData(lua_State *L)
     olua_startinvoke(L);
 
     cocos2d::backend::Texture2DBackend *self = nullptr;
-    const char *arg1 = nullptr;       /** data */
+    uint8_t *arg1 = nullptr;       /** data */
     lua_Unsigned arg2 = 0;       /** width */
     lua_Unsigned arg3 = 0;       /** height */
     lua_Unsigned arg4 = 0;       /** dataLen */
     lua_Unsigned arg5 = 0;       /** level */
 
     olua_to_obj(L, 1, &self, "ccb.Texture2DBackend");
-    olua_check_string(L, 2, &arg1);
+    olua_check_pointer(L, 2, &arg1, "olua.uint8");
     olua_check_uint(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
     olua_check_uint(L, 5, &arg4);
     olua_check_uint(L, 6, &arg5);
 
     // void updateCompressedData(uint8_t *data, std::size_t width, std::size_t height, std::size_t dataLen, std::size_t level)
-    self->updateCompressedData((uint8_t *)arg1, (std::size_t)arg2, (std::size_t)arg3, (std::size_t)arg4, (std::size_t)arg5);
+    self->updateCompressedData(arg1, (std::size_t)arg2, (std::size_t)arg3, (std::size_t)arg4, (std::size_t)arg5);
 
     olua_endinvoke(L);
 
@@ -3214,7 +3214,7 @@ static int _cocos2d_backend_Texture2DBackend_updateCompressedSubData(lua_State *
     lua_Unsigned arg4 = 0;       /** height */
     lua_Unsigned arg5 = 0;       /** dataLen */
     lua_Unsigned arg6 = 0;       /** level */
-    const char *arg7 = nullptr;       /** data */
+    uint8_t *arg7 = nullptr;       /** data */
 
     olua_to_obj(L, 1, &self, "ccb.Texture2DBackend");
     olua_check_uint(L, 2, &arg1);
@@ -3223,10 +3223,10 @@ static int _cocos2d_backend_Texture2DBackend_updateCompressedSubData(lua_State *
     olua_check_uint(L, 5, &arg4);
     olua_check_uint(L, 6, &arg5);
     olua_check_uint(L, 7, &arg6);
-    olua_check_string(L, 8, &arg7);
+    olua_check_pointer(L, 8, &arg7, "olua.uint8");
 
     // void updateCompressedSubData(std::size_t xoffset, std::size_t yoffset, std::size_t width, std::size_t height, std::size_t dataLen, std::size_t level, uint8_t *data)
-    self->updateCompressedSubData((std::size_t)arg1, (std::size_t)arg2, (std::size_t)arg3, (std::size_t)arg4, (std::size_t)arg5, (std::size_t)arg6, (uint8_t *)arg7);
+    self->updateCompressedSubData((std::size_t)arg1, (std::size_t)arg2, (std::size_t)arg3, (std::size_t)arg4, (std::size_t)arg5, (std::size_t)arg6, arg7);
 
     olua_endinvoke(L);
 
@@ -3238,19 +3238,19 @@ static int _cocos2d_backend_Texture2DBackend_updateData(lua_State *L)
     olua_startinvoke(L);
 
     cocos2d::backend::Texture2DBackend *self = nullptr;
-    const char *arg1 = nullptr;       /** data */
+    uint8_t *arg1 = nullptr;       /** data */
     lua_Unsigned arg2 = 0;       /** width */
     lua_Unsigned arg3 = 0;       /** height */
     lua_Unsigned arg4 = 0;       /** level */
 
     olua_to_obj(L, 1, &self, "ccb.Texture2DBackend");
-    olua_check_string(L, 2, &arg1);
+    olua_check_pointer(L, 2, &arg1, "olua.uint8");
     olua_check_uint(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
     olua_check_uint(L, 5, &arg4);
 
     // void updateData(uint8_t *data, std::size_t width, std::size_t height, std::size_t level)
-    self->updateData((uint8_t *)arg1, (std::size_t)arg2, (std::size_t)arg3, (std::size_t)arg4);
+    self->updateData(arg1, (std::size_t)arg2, (std::size_t)arg3, (std::size_t)arg4);
 
     olua_endinvoke(L);
 
@@ -3267,7 +3267,7 @@ static int _cocos2d_backend_Texture2DBackend_updateSubData(lua_State *L)
     lua_Unsigned arg3 = 0;       /** width */
     lua_Unsigned arg4 = 0;       /** height */
     lua_Unsigned arg5 = 0;       /** level */
-    const char *arg6 = nullptr;       /** data */
+    uint8_t *arg6 = nullptr;       /** data */
 
     olua_to_obj(L, 1, &self, "ccb.Texture2DBackend");
     olua_check_uint(L, 2, &arg1);
@@ -3275,10 +3275,10 @@ static int _cocos2d_backend_Texture2DBackend_updateSubData(lua_State *L)
     olua_check_uint(L, 4, &arg3);
     olua_check_uint(L, 5, &arg4);
     olua_check_uint(L, 6, &arg5);
-    olua_check_string(L, 7, &arg6);
+    olua_check_pointer(L, 7, &arg6, "olua.uint8");
 
     // void updateSubData(std::size_t xoffset, std::size_t yoffset, std::size_t width, std::size_t height, std::size_t level, uint8_t *data)
-    self->updateSubData((std::size_t)arg1, (std::size_t)arg2, (std::size_t)arg3, (std::size_t)arg4, (std::size_t)arg5, (uint8_t *)arg6);
+    self->updateSubData((std::size_t)arg1, (std::size_t)arg2, (std::size_t)arg3, (std::size_t)arg4, (std::size_t)arg5, arg6);
 
     olua_endinvoke(L);
 

@@ -12,7 +12,8 @@ USING_NS_CCLUA;
 lua_State *cclua_invokingstate = NULL;
 static std::unordered_map<std::string, std::string> cclua_typemap;
 
-static bool inline throw_lua_error(const char *msg)
+OLUA_BEGIN_DECLS
+bool inline olua_throw_error(const char *msg)
 {
     if (cclua_invokingstate) {
         lua_State *L = cclua_invokingstate;
@@ -21,6 +22,7 @@ static bool inline throw_lua_error(const char *msg)
     }
     return false;
 }
+OLUA_END_DECLS
 
 #if COCOS2D_VERSION < 0x00040000 && defined(CCLUA_OS_WIN32)
 #include "base/CCScriptSupport.h"
@@ -40,7 +42,7 @@ public:
 #else
 extern bool cc_assert_script_compatible(const char *msg)
 {
-    return throw_lua_error(msg);
+    return olua_throw_error(msg);
 }
 #endif
 

@@ -11450,6 +11450,41 @@ static int _cocostudio_FrameData_set_easingParamNumber(lua_State *L)
     return 0;
 }
 
+static int _cocostudio_FrameData_get_easingParams(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::FrameData *self = nullptr;
+
+    olua_to_obj(L, 1, &self, "ccs.FrameData");
+
+    // float *easingParams
+    float *ret = self->easingParams;
+    int num_ret = olua_push_pointer(L, ret, "olua.float");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocostudio_FrameData_set_easingParams(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::FrameData *self = nullptr;
+    float *arg1 = nullptr;       /** easingParams */
+
+    olua_to_obj(L, 1, &self, "ccs.FrameData");
+    olua_check_pointer(L, 2, &arg1, "olua.float");
+
+    // float *easingParams
+    self->easingParams = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cocostudio_FrameData_get_frameID(lua_State *L)
 {
     olua_startinvoke(L);
@@ -11706,6 +11741,7 @@ OLUA_LIB int luaopen_cocostudio_FrameData(lua_State *L)
     oluacls_prop(L, "displayIndex", _cocostudio_FrameData_get_displayIndex, _cocostudio_FrameData_set_displayIndex);
     oluacls_prop(L, "duration", _cocostudio_FrameData_get_duration, _cocostudio_FrameData_set_duration);
     oluacls_prop(L, "easingParamNumber", _cocostudio_FrameData_get_easingParamNumber, _cocostudio_FrameData_set_easingParamNumber);
+    oluacls_prop(L, "easingParams", _cocostudio_FrameData_get_easingParams, _cocostudio_FrameData_set_easingParams);
     oluacls_prop(L, "frameID", _cocostudio_FrameData_get_frameID, _cocostudio_FrameData_set_frameID);
     oluacls_prop(L, "isTween", _cocostudio_FrameData_get_isTween, _cocostudio_FrameData_set_isTween);
     oluacls_prop(L, "strEvent", _cocostudio_FrameData_get_strEvent, _cocostudio_FrameData_set_strEvent);
@@ -13676,7 +13712,7 @@ static int _cocostudio_SpriteDisplayData_get_skinData(lua_State *L)
     olua_to_obj(L, 1, &self, "ccs.SpriteDisplayData");
 
     // cocostudio::BaseData skinData
-    cocostudio::BaseData &ret = (cocostudio::BaseData &)self->skinData;
+    cocostudio::BaseData &ret = self->skinData;
     int num_ret = olua_push_obj(L, &ret, "ccs.BaseData");
 
     olua_endinvoke(L);

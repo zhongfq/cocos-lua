@@ -40,10 +40,8 @@ luacls(function (cppname)
     return cppname
 end)
 
-exclude 'fairygui::ByteBuffer *'
-exclude 'fairygui::GObjectPool *'
-exclude 'fairygui::GObjectPool'
-exclude 'std::vector *'
+excludeany 'fairygui::ByteBuffer'
+excludeany 'fairygui::GObjectPool'
 
 typedef 'fairygui::EventTag'
 
@@ -520,7 +518,6 @@ typeconf 'fairygui::Transition'
         .tag_mode 'startwith'
 
 typeconf 'fairygui::UIConfig'
-    .func 'getRealFontName' .arg2 '@ret'
 
 typeconf 'fairygui::IUISource'
     .callback 'load' .arg1 '@nullable'

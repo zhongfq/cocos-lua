@@ -8,7 +8,7 @@ headers [[
 #include "cclua/cclua.h"
 ]]
 
-exclude 'cclua::BufferReader *'
+excludeany 'cclua::BufferReader'
 
 typeconf 'cclua::Callback'
 typeconf 'cclua::QRCode::ECLevel'

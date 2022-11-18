@@ -1,7 +1,6 @@
 #include "box2d-2dx.h"
 
 USING_NS_BOX2D;
-USING_NS_CC;
 
 void DestructionListener::SayGoodbye(b2Joint *joint)
 {
@@ -114,31 +113,31 @@ void DebugNode::clearFlags(uint32 flags)
     m_drawFlags &= ~flags;
 }
 
-void DebugNode::visit(Renderer *renderer, const Mat4& parentTransform, uint32_t parentFlags)
+void DebugNode::visit(cocos2d::Renderer *renderer, const cocos2d::Mat4& parentTransform, uint32_t parentFlags)
 {
     clear();
     _world->DebugDraw();
     DrawNode::visit(renderer, parentTransform, parentFlags);
 }
 
-Color4F DebugNode::toColor4f(const b2Color& value)
+cocos2d::Color4F DebugNode::toColor4f(const b2Color& value)
 {
-    return Color4F(value.r, value.g, value.b, value.r);
+    return cocos2d::Color4F(value.r, value.g, value.b, value.r);
 }
 
-Vec2 DebugNode::toVec2(const b2Vec2& value)
+cocos2d::Vec2 DebugNode::toVec2(const b2Vec2& value)
 {
-    return Vec2(value.x, value.y);
+    return cocos2d::Vec2(value.x, value.y);
 }
 
 void DebugNode::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
 {
-    drawPoly((Vec2 *)vertices, vertexCount, false, toColor4f(color));
+    drawPoly((cocos2d::Vec2 *)vertices, vertexCount, false, toColor4f(color));
 }
 
 void DebugNode::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
 {
-    drawPolygon((Vec2 *)vertices, vertexCount, toColor4f(color), 0, toColor4f(color));
+    drawPolygon((cocos2d::Vec2 *)vertices, vertexCount, toColor4f(color), 0, toColor4f(color));
 }
 
 void DebugNode::DrawCircle(const b2Vec2& center, float radius, const b2Color& color)
@@ -159,10 +158,10 @@ void DebugNode::DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& c
 void DebugNode::DrawTransform(const b2Transform& xf)
 {
     const float k_axisScale = 0.4f;
-    Color4F red(1.0f, 0.0f, 0.0f, 1.0f);
-    Color4F green(0.0f, 1.0f, 0.0f, 1.0f);
-    Vec2 p1 = toVec2(xf.p);
-    Vec2 p2 = p1 + toVec2(xf.q.GetXAxis()) * k_axisScale;
+    cocos2d::Color4F red(1.0f, 0.0f, 0.0f, 1.0f);
+    cocos2d::Color4F green(0.0f, 1.0f, 0.0f, 1.0f);
+    cocos2d::Vec2 p1 = toVec2(xf.p);
+    cocos2d::Vec2 p2 = p1 + toVec2(xf.q.GetXAxis()) * k_axisScale;
     
     drawLine(p1, p2, red);
 

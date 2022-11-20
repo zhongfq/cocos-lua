@@ -20,6 +20,17 @@ local namemap = {
 
 luaopen [[cclua::runtime::registerFeature("box2d", true);]]
 
+chunk [[
+int olua_push_b2MassData(lua_State *L, const b2MassData *value)
+{
+    b2MassData *ret = new b2MassData();
+    *ret = *value;
+    olua_pushobj<b2MassData>(L, ret);
+    olua_postnew(L, ret);
+    return 1;
+}
+]]
+
 luacls(function (cppname)
     if namemap[cppname] then
         return namemap[cppname]
@@ -48,6 +59,9 @@ local function typeconf(...)
     return cls
 end
 
+typedef 'b2MassData'
+    .conv 'olua_$$_b2MassData'
+
 typeconv 'b2Vec2'
 typeconv 'b2Vec3'
 typeconv 'b2ContactID'
@@ -57,7 +71,6 @@ typeconv 'b2FixtureUserData'
 typeconv 'b2Filter'
 typeconv 'b2ManifoldPoint'
 typeconv 'b2Rot'
-typeconv 'b2MassData'
 
 typeconf 'b2Draw'
     .exclude '*'
@@ -76,6 +89,7 @@ typeconf 'box2d::DebugNode::Flags'
 typeconf 'box2d::DebugNode'
 
 typeconf 'b2MassData'
+    .extend 'box2d::b2MassDataExtend'
 typeconf 'b2Transform'
 typeconf 'b2RayCastInput'
 typeconf 'b2RayCastOutput'

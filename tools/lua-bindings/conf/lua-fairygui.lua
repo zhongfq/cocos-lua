@@ -220,7 +220,7 @@ typeconf 'fairygui::GComponent'
         static int _fairygui_GComponent_getChild(lua_State *L);
     ]]
     .exclude 'getChildByPath'
-    .alias 'resolve -> getChildByPath'
+    .alias 'resolve' .to 'getChildByPath'
     .func 'addChild' .arg1 '@addref(children |)'
     .func 'addChildAt' .arg1 '@addref(children |)'
     .func 'removeChild' .arg1 '@delref(children |)'

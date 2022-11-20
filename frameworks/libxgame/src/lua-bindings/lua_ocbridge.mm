@@ -134,8 +134,8 @@ static void _push_value(lua_State *L, void *val)
 }
 
 static void _table_to_dictionary(lua_State *L, NSMutableDictionary *dict, int idx){
-    lua_pushnil(L);
     idx = lua_absindex(L, idx);
+    lua_pushnil(L);
     while(lua_next(L, idx))
     {
         NSString *key2 = [NSString stringWithUTF8String:olua_tostring(L, -2)];

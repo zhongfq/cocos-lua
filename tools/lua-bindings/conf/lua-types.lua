@@ -6,4 +6,4 @@ headers [[
 #include "cclua/olua-2dx.h"
 ]]
 
-include "olua/lua-types.lua"
+import "olua/lua-types.lua"

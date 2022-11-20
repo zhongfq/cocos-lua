@@ -35,8 +35,6 @@ luacls(function (cppname)
     return cppname
 end)
 
-include 'conf/exclude-type.lua'
-
 excludeany 'cocos2d::ObjectFactory::TInfo'
 excludeany 'cocos2d::ObjectFactory::Instance'
 excludeany 'cocostudio::DataReaderHelper::DataInfo'

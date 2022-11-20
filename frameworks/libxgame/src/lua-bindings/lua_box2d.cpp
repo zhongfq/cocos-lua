@@ -79,13 +79,14 @@ OLUA_LIB void olua_pack_b2Rot(lua_State *L, int idx, b2Rot *value);
 OLUA_LIB int olua_unpack_b2Rot(lua_State *L, const b2Rot *value);
 OLUA_LIB bool olua_canpack_b2Rot(lua_State *L, int idx);
 
-// b2MassData
-OLUA_LIB int olua_push_b2MassData(lua_State *L, const b2MassData *value);
-OLUA_LIB void olua_check_b2MassData(lua_State *L, int idx, b2MassData *value);
-OLUA_LIB bool olua_is_b2MassData(lua_State *L, int idx);
-OLUA_LIB void olua_pack_b2MassData(lua_State *L, int idx, b2MassData *value);
-OLUA_LIB int olua_unpack_b2MassData(lua_State *L, const b2MassData *value);
-OLUA_LIB bool olua_canpack_b2MassData(lua_State *L, int idx);
+int olua_push_b2MassData(lua_State *L, const b2MassData *value)
+{
+    b2MassData *ret = new b2MassData();
+    *ret = *value;
+    olua_pushobj<b2MassData>(L, ret);
+    olua_postnew(L, ret);
+    return 1;
+}
 
 OLUA_LIB int olua_push_b2Vec2(lua_State *L, const b2Vec2 *value)
 {
@@ -905,100 +906,6 @@ OLUA_LIB bool olua_canpack_b2Rot(lua_State *L, int idx)
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1);
 }
 
-OLUA_LIB int olua_push_b2MassData(lua_State *L, const b2MassData *value)
-{
-    if (value) {
-        lua_createtable(L, 0, 3);
-
-        olua_push_number(L, (lua_Number)value->mass);
-        olua_setfield(L, -2, "mass");
-
-        olua_push_b2Vec2(L, &value->center);
-        olua_setfield(L, -2, "center");
-
-        olua_push_number(L, (lua_Number)value->I);
-        olua_setfield(L, -2, "I");
-    } else {
-        lua_pushnil(L);
-    }
-
-    return 1;
-}
-
-OLUA_LIB void olua_check_b2MassData(lua_State *L, int idx, b2MassData *value)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
-    }
-    idx = lua_absindex(L, idx);
-    luaL_checktype(L, idx, LUA_TTABLE);
-
-    lua_Number arg1 = 0;       /** mass */
-    b2Vec2 arg2;       /** center */
-    lua_Number arg3 = 0;       /** I */
-
-    olua_getfield(L, idx, "mass");
-    olua_check_number(L, -1, &arg1);
-    value->mass = (float)arg1;
-    lua_pop(L, 1);
-
-    olua_getfield(L, idx, "center");
-    olua_check_b2Vec2(L, -1, &arg2);
-    value->center = (b2Vec2)arg2;
-    lua_pop(L, 1);
-
-    olua_getfield(L, idx, "I");
-    olua_check_number(L, -1, &arg3);
-    value->I = (float)arg3;
-    lua_pop(L, 1);
-}
-
-OLUA_LIB bool olua_is_b2MassData(lua_State *L, int idx)
-{
-    return olua_istable(L, idx) && olua_hasfield(L, idx, "I") && olua_hasfield(L, idx, "center") && olua_hasfield(L, idx, "mass");
-}
-
-OLUA_LIB void olua_pack_b2MassData(lua_State *L, int idx, b2MassData *value)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
-    }
-    idx = lua_absindex(L, idx);
-
-    lua_Number arg1 = 0;       /** mass */
-    b2Vec2 arg2;       /** center */
-    lua_Number arg3 = 0;       /** I */
-
-    olua_check_number(L, idx + 0, &arg1);
-    value->mass = (float)arg1;
-
-    olua_check_b2Vec2(L, idx + 1, &arg2);
-    value->center = (b2Vec2)arg2;
-
-    olua_check_number(L, idx + 2, &arg3);
-    value->I = (float)arg3;
-}
-
-OLUA_LIB int olua_unpack_b2MassData(lua_State *L, const b2MassData *value)
-{
-    if (value) {
-        olua_push_number(L, (lua_Number)value->mass);
-        olua_push_b2Vec2(L, &value->center);
-        olua_push_number(L, (lua_Number)value->I);
-    } else {
-        for (int i = 0; i < 3; i++) {
-            lua_pushnil(L);
-        }
-    }
-
-    return 3;
-}
-
-OLUA_LIB bool olua_canpack_b2MassData(lua_State *L, int idx)
-{
-    return olua_is_number(L, idx + 0) && olua_is_b2Vec2(L, idx + 1) && olua_is_number(L, idx + 2);
-}
-
 static int _b2Draw___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1210,23 +1117,6 @@ static int _box2d_Vec2___olua_move(lua_State *L)
     return 1;
 }
 
-static int _box2d_Vec2_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<b2Vec2> *array(size_t len)
-    olua::pointer<b2Vec2> *ret = box2d::Vec2::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "b2.Vec2");
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
 static int _box2d_Vec2_copyfrom1(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1368,21 +1258,55 @@ static int _box2d_Vec2_fill(lua_State *L)
     return 0;
 }
 
-static int _box2d_Vec2_create(lua_State *L)
+static int _box2d_Vec2_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    b2Vec2 arg1;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
-    olua_check_b2Vec2(L, 1, &arg1);
+    olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<b2Vec2> *create(const b2Vec2 &v)
-    olua::pointer<b2Vec2> *ret = box2d::Vec2::create(arg1);
+    // @name(new) static olua::pointer<b2Vec2> *create(@optional size_t len)
+    olua::pointer<b2Vec2> *ret = box2d::Vec2::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "b2.Vec2");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _box2d_Vec2_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<b2Vec2> *create(@optional size_t len)
+    olua::pointer<b2Vec2> *ret = box2d::Vec2::create();
+    int num_ret = olua_push_obj(L, ret, "b2.Vec2");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _box2d_Vec2_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<b2Vec2> *create(@optional size_t len)
+        return _box2d_Vec2_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<b2Vec2> *create(@optional size_t len)
+            return _box2d_Vec2_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'box2d::Vec2::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _box2d_Vec2_sub1(lua_State *L)
@@ -1556,7 +1480,7 @@ static int _box2d_Vec2_setLength(lua_State *L)
     return 0;
 }
 
-static int _box2d_Vec2_value(lua_State *L)
+static int _box2d_Vec2_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1564,13 +1488,31 @@ static int _box2d_Vec2_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "b2.Vec2");
 
-    // @getter const b2Vec2 &value()
-    const b2Vec2 &ret = self->value();
+    // @getter @name(value) const b2Vec2 &getValue()
+    const b2Vec2 &ret = self->getValue();
     int num_ret = olua_push_b2Vec2(L, &ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _box2d_Vec2_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::Vec2 *self = nullptr;
+    b2Vec2 arg1;       /** v */
+
+    olua_to_obj(L, 1, &self, "b2.Vec2");
+    olua_check_b2Vec2(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const b2Vec2 &v)
+    self->setValue(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -1581,7 +1523,6 @@ OLUA_LIB int luaopen_box2d_Vec2(lua_State *L)
     oluacls_func(L, "__index", _box2d_Vec2___index);
     oluacls_func(L, "__newindex", _box2d_Vec2___newindex);
     oluacls_func(L, "__olua_move", _box2d_Vec2___olua_move);
-    oluacls_func(L, "array", _box2d_Vec2_array);
     oluacls_func(L, "copyfrom", _box2d_Vec2_copyfrom);
     oluacls_func(L, "fill", _box2d_Vec2_fill);
     oluacls_func(L, "new", _box2d_Vec2_create);
@@ -1589,7 +1530,7 @@ OLUA_LIB int luaopen_box2d_Vec2(lua_State *L)
     oluacls_func(L, "take", _box2d_Vec2_take);
     oluacls_func(L, "tostring", _box2d_Vec2_tostring);
     oluacls_prop(L, "length", _box2d_Vec2_getLength, _box2d_Vec2_setLength);
-    oluacls_prop(L, "value", _box2d_Vec2_value, nullptr);
+    oluacls_prop(L, "value", _box2d_Vec2_getValue, _box2d_Vec2_setValue);
 
     olua_registerluatype<box2d::Vec2>(L, "b2.Vec2");
 
@@ -2680,6 +2621,18 @@ OLUA_LIB int luaopen_box2d_DebugNode(lua_State *L)
 }
 OLUA_END_DECLS
 
+static int _b2MassData___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @extend(box2d::b2MassDataExtend) static olua_Return __gc(lua_State *L)
+    olua_Return ret = box2d::b2MassDataExtend::__gc(L);
+
+    olua_endinvoke(L);
+
+    return (int)ret;
+}
+
 static int _b2MassData___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -2801,6 +2754,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_b2MassData(lua_State *L)
 {
     oluacls_class(L, "b2.MassData", nullptr);
+    oluacls_func(L, "__gc", _b2MassData___gc);
     oluacls_func(L, "__olua_move", _b2MassData___olua_move);
     oluacls_prop(L, "I", _b2MassData_get_I, _b2MassData_set_I);
     oluacls_prop(L, "center", _b2MassData_get_center, _b2MassData_set_center);

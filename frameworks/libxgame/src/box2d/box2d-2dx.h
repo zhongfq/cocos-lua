@@ -14,6 +14,14 @@ NS_BOX2D_BEGIN
 
 typedef olua::pointer<b2Vec2> Vec2;
 
+class b2MassDataExtend {
+public:
+    static olua_Return __gc(lua_State *L) {
+        olua_postgc<b2MassData>(L, 1);
+        return 0;
+    }
+};
+
 class DestructionListener : public b2DestructionListener
 {
 public:

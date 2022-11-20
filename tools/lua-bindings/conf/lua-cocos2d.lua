@@ -30,8 +30,6 @@ luacls(function (cppname)
     end
 end)
 
-include "conf/exclude-type.lua"
-
 typedef "const GLchar *"
     .decltype "const char *"
 
@@ -908,8 +906,8 @@ typeconf 'cocos2d::RenderTexture'
         .tag_maker 'saveToFile'
         .tag_mode "replace"
         .tag_scope'once'
-    .alias 'begin -> beginVisit'
-    .alias 'end -> endVisit'
+    .alias 'begin' .to 'beginVisit'
+    .alias 'end' .to 'endVisit'
 
 typeconf 'cocos2d::ProgressTimer::Type'
 typeconf 'cocos2d::ProgressTimer'

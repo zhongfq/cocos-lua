@@ -13,7 +13,7 @@ lua_State *cclua_invokingstate = NULL;
 static std::unordered_map<std::string, std::string> cclua_typemap;
 
 OLUA_BEGIN_DECLS
-bool olua_throw_error(const char *msg)
+extern bool olua_throw_error(const char *msg)
 {
     if (cclua_invokingstate) {
         lua_State *L = cclua_invokingstate;

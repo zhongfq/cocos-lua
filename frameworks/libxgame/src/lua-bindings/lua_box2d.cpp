@@ -79,13 +79,14 @@ OLUA_LIB void olua_pack_b2Rot(lua_State *L, int idx, b2Rot *value);
 OLUA_LIB int olua_unpack_b2Rot(lua_State *L, const b2Rot *value);
 OLUA_LIB bool olua_canpack_b2Rot(lua_State *L, int idx);
 
-// b2MassData
-OLUA_LIB int olua_push_b2MassData(lua_State *L, const b2MassData *value);
-OLUA_LIB void olua_check_b2MassData(lua_State *L, int idx, b2MassData *value);
-OLUA_LIB bool olua_is_b2MassData(lua_State *L, int idx);
-OLUA_LIB void olua_pack_b2MassData(lua_State *L, int idx, b2MassData *value);
-OLUA_LIB int olua_unpack_b2MassData(lua_State *L, const b2MassData *value);
-OLUA_LIB bool olua_canpack_b2MassData(lua_State *L, int idx);
+int olua_push_b2MassData(lua_State *L, const b2MassData *value)
+{
+    b2MassData *ret = new b2MassData();
+    *ret = *value;
+    olua_pushobj<b2MassData>(L, ret);
+    olua_postnew(L, ret);
+    return 1;
+}
 
 OLUA_LIB int olua_push_b2Vec2(lua_State *L, const b2Vec2 *value)
 {
@@ -905,100 +906,6 @@ OLUA_LIB bool olua_canpack_b2Rot(lua_State *L, int idx)
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1);
 }
 
-OLUA_LIB int olua_push_b2MassData(lua_State *L, const b2MassData *value)
-{
-    if (value) {
-        lua_createtable(L, 0, 3);
-
-        olua_push_number(L, (lua_Number)value->mass);
-        olua_setfield(L, -2, "mass");
-
-        olua_push_b2Vec2(L, &value->center);
-        olua_setfield(L, -2, "center");
-
-        olua_push_number(L, (lua_Number)value->I);
-        olua_setfield(L, -2, "I");
-    } else {
-        lua_pushnil(L);
-    }
-
-    return 1;
-}
-
-OLUA_LIB void olua_check_b2MassData(lua_State *L, int idx, b2MassData *value)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
-    }
-    idx = lua_absindex(L, idx);
-    luaL_checktype(L, idx, LUA_TTABLE);
-
-    lua_Number arg1 = 0;       /** mass */
-    b2Vec2 arg2;       /** center */
-    lua_Number arg3 = 0;       /** I */
-
-    olua_getfield(L, idx, "mass");
-    olua_check_number(L, -1, &arg1);
-    value->mass = (float)arg1;
-    lua_pop(L, 1);
-
-    olua_getfield(L, idx, "center");
-    olua_check_b2Vec2(L, -1, &arg2);
-    value->center = (b2Vec2)arg2;
-    lua_pop(L, 1);
-
-    olua_getfield(L, idx, "I");
-    olua_check_number(L, -1, &arg3);
-    value->I = (float)arg3;
-    lua_pop(L, 1);
-}
-
-OLUA_LIB bool olua_is_b2MassData(lua_State *L, int idx)
-{
-    return olua_istable(L, idx) && olua_hasfield(L, idx, "I") && olua_hasfield(L, idx, "center") && olua_hasfield(L, idx, "mass");
-}
-
-OLUA_LIB void olua_pack_b2MassData(lua_State *L, int idx, b2MassData *value)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
-    }
-    idx = lua_absindex(L, idx);
-
-    lua_Number arg1 = 0;       /** mass */
-    b2Vec2 arg2;       /** center */
-    lua_Number arg3 = 0;       /** I */
-
-    olua_check_number(L, idx + 0, &arg1);
-    value->mass = (float)arg1;
-
-    olua_check_b2Vec2(L, idx + 1, &arg2);
-    value->center = (b2Vec2)arg2;
-
-    olua_check_number(L, idx + 2, &arg3);
-    value->I = (float)arg3;
-}
-
-OLUA_LIB int olua_unpack_b2MassData(lua_State *L, const b2MassData *value)
-{
-    if (value) {
-        olua_push_number(L, (lua_Number)value->mass);
-        olua_push_b2Vec2(L, &value->center);
-        olua_push_number(L, (lua_Number)value->I);
-    } else {
-        for (int i = 0; i < 3; i++) {
-            lua_pushnil(L);
-        }
-    }
-
-    return 3;
-}
-
-OLUA_LIB bool olua_canpack_b2MassData(lua_State *L, int idx)
-{
-    return olua_is_number(L, idx + 0) && olua_is_b2Vec2(L, idx + 1) && olua_is_number(L, idx + 2);
-}
-
 static int _b2Draw___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1138,6 +1045,494 @@ OLUA_LIB int luaopen_b2RayCastCallback(lua_State *L)
     oluacls_func(L, "__olua_move", _b2RayCastCallback___olua_move);
 
     olua_registerluatype<b2RayCastCallback>(L, "b2.interface.RayCastCallback");
+
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _box2d_Vec2___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::Vec2 *self = nullptr;
+
+    olua_to_obj(L, 1, &self, "b2.Vec2");
+
+    // olua_Return __gc(lua_State *L)
+    olua_Return ret = self->__gc(L);
+
+    olua_endinvoke(L);
+
+    return (int)ret;
+}
+
+static int _box2d_Vec2___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::Vec2 *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** idx */
+
+    olua_to_obj(L, 1, &self, "b2.Vec2");
+    olua_check_uint(L, 2, &arg1);
+
+    // b2Vec2 __index(unsigned int idx)
+    b2Vec2 ret = self->__index((unsigned int)arg1);
+    int num_ret = olua_push_b2Vec2(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _box2d_Vec2___newindex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::Vec2 *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** idx */
+    b2Vec2 arg2;       /** v */
+
+    olua_to_obj(L, 1, &self, "b2.Vec2");
+    olua_check_uint(L, 2, &arg1);
+    olua_check_b2Vec2(L, 3, &arg2);
+
+    // void __newindex(unsigned int idx, const b2Vec2 &v)
+    self->__newindex((unsigned int)arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _box2d_Vec2___olua_move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (box2d::Vec2 *)olua_toobj(L, 1, "b2.Vec2");
+    olua_push_obj(L, self, "b2.Vec2");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _box2d_Vec2_copyfrom1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::Vec2 *self = nullptr;
+    box2d::Vec2 *arg1 = nullptr;       /** obj */
+    lua_Unsigned arg2 = 0;       /** from */
+    lua_Unsigned arg3 = 0;       /** len */
+    lua_Unsigned arg4 = 0;       /** to */
+
+    olua_to_obj(L, 1, &self, "b2.Vec2");
+    olua_check_obj(L, 2, &arg1, "b2.Vec2");
+    olua_check_uint(L, 3, &arg2);
+    olua_check_uint(L, 4, &arg3);
+    olua_check_uint(L, 5, &arg4);
+
+    // void copyfrom(olua::pointer<b2Vec2> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
+    self->copyfrom((olua::pointer<b2Vec2> *)arg1, (size_t)arg2, (size_t)arg3, (size_t)arg4);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _box2d_Vec2_copyfrom2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::Vec2 *self = nullptr;
+    box2d::Vec2 *arg1 = nullptr;       /** obj */
+
+    olua_to_obj(L, 1, &self, "b2.Vec2");
+    olua_check_obj(L, 2, &arg1, "b2.Vec2");
+
+    // void copyfrom(olua::pointer<b2Vec2> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
+    self->copyfrom((olua::pointer<b2Vec2> *)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _box2d_Vec2_copyfrom3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::Vec2 *self = nullptr;
+    box2d::Vec2 *arg1 = nullptr;       /** obj */
+    lua_Unsigned arg2 = 0;       /** from */
+
+    olua_to_obj(L, 1, &self, "b2.Vec2");
+    olua_check_obj(L, 2, &arg1, "b2.Vec2");
+    olua_check_uint(L, 3, &arg2);
+
+    // void copyfrom(olua::pointer<b2Vec2> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
+    self->copyfrom((olua::pointer<b2Vec2> *)arg1, (size_t)arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _box2d_Vec2_copyfrom4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::Vec2 *self = nullptr;
+    box2d::Vec2 *arg1 = nullptr;       /** obj */
+    lua_Unsigned arg2 = 0;       /** from */
+    lua_Unsigned arg3 = 0;       /** len */
+
+    olua_to_obj(L, 1, &self, "b2.Vec2");
+    olua_check_obj(L, 2, &arg1, "b2.Vec2");
+    olua_check_uint(L, 3, &arg2);
+    olua_check_uint(L, 4, &arg3);
+
+    // void copyfrom(olua::pointer<b2Vec2> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
+    self->copyfrom((olua::pointer<b2Vec2> *)arg1, (size_t)arg2, (size_t)arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _box2d_Vec2_copyfrom(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_obj(L, 2, "b2.Vec2"))) {
+            // void copyfrom(olua::pointer<b2Vec2> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
+            return _box2d_Vec2_copyfrom2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_obj(L, 2, "b2.Vec2")) && (olua_is_uint(L, 3))) {
+            // void copyfrom(olua::pointer<b2Vec2> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
+            return _box2d_Vec2_copyfrom3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_obj(L, 2, "b2.Vec2")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
+            // void copyfrom(olua::pointer<b2Vec2> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
+            return _box2d_Vec2_copyfrom4(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_obj(L, 2, "b2.Vec2")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
+            // void copyfrom(olua::pointer<b2Vec2> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
+            return _box2d_Vec2_copyfrom1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'box2d::Vec2::copyfrom' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _box2d_Vec2_fill(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::Vec2 *self = nullptr;
+    const char *arg1 = nullptr;       /** data */
+    lua_Unsigned arg2 = 0;       /** len */
+
+    olua_to_obj(L, 1, &self, "b2.Vec2");
+    olua_check_string(L, 2, &arg1);
+    olua_check_uint(L, 3, &arg2);
+
+    // void fill(const char *data, size_t len)
+    self->fill(arg1, (size_t)arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _box2d_Vec2_create1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Unsigned arg1 = 0;       /** len */
+
+    olua_check_uint(L, 1, &arg1);
+
+    // @name(new) static olua::pointer<b2Vec2> *create(@optional size_t len)
+    olua::pointer<b2Vec2> *ret = box2d::Vec2::create((size_t)arg1);
+    int num_ret = olua_push_obj(L, ret, "b2.Vec2");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _box2d_Vec2_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<b2Vec2> *create(@optional size_t len)
+    olua::pointer<b2Vec2> *ret = box2d::Vec2::create();
+    int num_ret = olua_push_obj(L, ret, "b2.Vec2");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _box2d_Vec2_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<b2Vec2> *create(@optional size_t len)
+        return _box2d_Vec2_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<b2Vec2> *create(@optional size_t len)
+            return _box2d_Vec2_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'box2d::Vec2::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _box2d_Vec2_sub1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::Vec2 *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** from */
+    lua_Unsigned arg2 = 0;       /** to */
+
+    olua_to_obj(L, 1, &self, "b2.Vec2");
+    olua_check_uint(L, 2, &arg1);
+    olua_check_uint(L, 3, &arg2);
+
+    // olua::pointer<b2Vec2> *sub(size_t from, @optional size_t to)
+    olua::pointer<b2Vec2> *ret = self->sub((size_t)arg1, (size_t)arg2);
+    int num_ret = olua_push_obj(L, ret, "b2.Vec2");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _box2d_Vec2_sub2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::Vec2 *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** from */
+
+    olua_to_obj(L, 1, &self, "b2.Vec2");
+    olua_check_uint(L, 2, &arg1);
+
+    // olua::pointer<b2Vec2> *sub(size_t from, @optional size_t to)
+    olua::pointer<b2Vec2> *ret = self->sub((size_t)arg1);
+    int num_ret = olua_push_obj(L, ret, "b2.Vec2");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _box2d_Vec2_sub(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 2))) {
+            // olua::pointer<b2Vec2> *sub(size_t from, @optional size_t to)
+            return _box2d_Vec2_sub2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
+            // olua::pointer<b2Vec2> *sub(size_t from, @optional size_t to)
+            return _box2d_Vec2_sub1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'box2d::Vec2::sub' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _box2d_Vec2_take(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::Vec2 *self = nullptr;
+
+    olua_to_obj(L, 1, &self, "b2.Vec2");
+
+    // void take()
+    self->take();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _box2d_Vec2_tostring1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::Vec2 *self = nullptr;
+    lua_Unsigned arg2 = 0;       /** len */
+
+    olua_to_obj(L, 1, &self, "b2.Vec2");
+    olua_check_uint(L, 2, &arg2);
+
+    // olua_Return tostring(lua_State *L, @optional size_t len)
+    olua_Return ret = self->tostring(L, (size_t)arg2);
+
+    olua_endinvoke(L);
+
+    return (int)ret;
+}
+
+static int _box2d_Vec2_tostring2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::Vec2 *self = nullptr;
+
+    olua_to_obj(L, 1, &self, "b2.Vec2");
+
+    // olua_Return tostring(lua_State *L, @optional size_t len)
+    olua_Return ret = self->tostring(L);
+
+    olua_endinvoke(L);
+
+    return (int)ret;
+}
+
+static int _box2d_Vec2_tostring(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        // if () {
+            // olua_Return tostring(lua_State *L, @optional size_t len)
+            return _box2d_Vec2_tostring2(L);
+        // }
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 2))) {
+            // olua_Return tostring(lua_State *L, @optional size_t len)
+            return _box2d_Vec2_tostring1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'box2d::Vec2::tostring' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _box2d_Vec2_getLength(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::Vec2 *self = nullptr;
+
+    olua_to_obj(L, 1, &self, "b2.Vec2");
+
+    // @getter @name(length) size_t getLength()
+    size_t ret = self->getLength();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _box2d_Vec2_setLength(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::Vec2 *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** len */
+
+    olua_to_obj(L, 1, &self, "b2.Vec2");
+    olua_check_uint(L, 2, &arg1);
+
+    // @setter @name(length) void setLength(size_t len)
+    self->setLength((size_t)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _box2d_Vec2_getValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::Vec2 *self = nullptr;
+
+    olua_to_obj(L, 1, &self, "b2.Vec2");
+
+    // @getter @name(value) const b2Vec2 &getValue()
+    const b2Vec2 &ret = self->getValue();
+    int num_ret = olua_push_b2Vec2(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _box2d_Vec2_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::Vec2 *self = nullptr;
+    b2Vec2 arg1;       /** v */
+
+    olua_to_obj(L, 1, &self, "b2.Vec2");
+    olua_check_b2Vec2(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const b2Vec2 &v)
+    self->setValue(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_box2d_Vec2(lua_State *L)
+{
+    oluacls_class(L, "b2.Vec2", nullptr);
+    oluacls_func(L, "__gc", _box2d_Vec2___gc);
+    oluacls_func(L, "__index", _box2d_Vec2___index);
+    oluacls_func(L, "__newindex", _box2d_Vec2___newindex);
+    oluacls_func(L, "__olua_move", _box2d_Vec2___olua_move);
+    oluacls_func(L, "copyfrom", _box2d_Vec2_copyfrom);
+    oluacls_func(L, "fill", _box2d_Vec2_fill);
+    oluacls_func(L, "new", _box2d_Vec2_create);
+    oluacls_func(L, "sub", _box2d_Vec2_sub);
+    oluacls_func(L, "take", _box2d_Vec2_take);
+    oluacls_func(L, "tostring", _box2d_Vec2_tostring);
+    oluacls_prop(L, "length", _box2d_Vec2_getLength, _box2d_Vec2_setLength);
+    oluacls_prop(L, "value", _box2d_Vec2_getValue, _box2d_Vec2_setValue);
+
+    olua_registerluatype<box2d::Vec2>(L, "b2.Vec2");
 
     return 1;
 }
@@ -2226,6 +2621,18 @@ OLUA_LIB int luaopen_box2d_DebugNode(lua_State *L)
 }
 OLUA_END_DECLS
 
+static int _b2MassData___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @extend(box2d::b2MassDataExtend) static olua_Return __gc(lua_State *L)
+    olua_Return ret = box2d::b2MassDataExtend::__gc(L);
+
+    olua_endinvoke(L);
+
+    return (int)ret;
+}
+
 static int _b2MassData___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -2347,6 +2754,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_b2MassData(lua_State *L)
 {
     oluacls_class(L, "b2.MassData", nullptr);
+    oluacls_func(L, "__gc", _b2MassData___gc);
     oluacls_func(L, "__olua_move", _b2MassData___olua_move);
     oluacls_prop(L, "I", _b2MassData_get_I, _b2MassData_set_I);
     oluacls_prop(L, "center", _b2MassData_get_center, _b2MassData_set_center);
@@ -2940,76 +3348,6 @@ static int _b2Shape_TestPoint(lua_State *L)
     return num_ret;
 }
 
-static int _b2Shape_get_m_radius(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2Shape *self = nullptr;
-
-    olua_to_obj(L, 1, &self, "b2.Shape");
-
-    // float m_radius
-    float ret = self->m_radius;
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _b2Shape_set_m_radius(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2Shape *self = nullptr;
-    lua_Number arg1 = 0;       /** m_radius */
-
-    olua_to_obj(L, 1, &self, "b2.Shape");
-    olua_check_number(L, 2, &arg1);
-
-    // float m_radius
-    self->m_radius = (float)arg1;
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2Shape_get_m_type(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2Shape *self = nullptr;
-
-    olua_to_obj(L, 1, &self, "b2.Shape");
-
-    // b2Shape::Type m_type
-    b2Shape::Type ret = self->m_type;
-    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _b2Shape_set_m_type(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2Shape *self = nullptr;
-    lua_Unsigned arg1 = 0;       /** m_type */
-
-    olua_to_obj(L, 1, &self, "b2.Shape");
-    olua_check_uint(L, 2, &arg1);
-
-    // b2Shape::Type m_type
-    self->m_type = (b2Shape::Type)arg1;
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_b2Shape(lua_State *L)
 {
@@ -3023,8 +3361,6 @@ OLUA_LIB int luaopen_b2Shape(lua_State *L)
     oluacls_func(L, "testPoint", _b2Shape_TestPoint);
     oluacls_prop(L, "childCount", _b2Shape_GetChildCount, nullptr);
     oluacls_prop(L, "type", _b2Shape_GetType, nullptr);
-    oluacls_prop(L, "radius", _b2Shape_get_m_radius, _b2Shape_set_m_radius);
-    oluacls_prop(L, "type", _b2Shape_get_m_type, _b2Shape_set_m_type);
 
     olua_registerluatype<b2Shape>(L, "b2.Shape");
 
@@ -3074,15 +3410,15 @@ static int _b2PolygonShape_Set(lua_State *L)
     olua_startinvoke(L);
 
     b2PolygonShape *self = nullptr;
-    b2Vec2 arg1;       /** points */
+    b2Vec2 *arg1 = nullptr;       /** points */
     lua_Integer arg2 = 0;       /** count */
 
     olua_to_obj(L, 1, &self, "b2.PolygonShape");
-    olua_check_b2Vec2(L, 2, &arg1);
+    olua_check_pointer(L, 2, &arg1, "b2.Vec2");
     olua_check_int(L, 3, &arg2);
 
     // void Set(const b2Vec2 *points, int32 count)
-    self->Set(&arg1, (int32)arg2);
+    self->Set(arg1, (int32)arg2);
 
     olua_endinvoke(L);
 
@@ -3173,76 +3509,6 @@ static int _b2PolygonShape_Validate(lua_State *L)
     return num_ret;
 }
 
-static int _b2PolygonShape_get_m_centroid(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2PolygonShape *self = nullptr;
-
-    olua_to_obj(L, 1, &self, "b2.PolygonShape");
-
-    // b2Vec2 m_centroid
-    b2Vec2 ret = self->m_centroid;
-    int num_ret = olua_push_b2Vec2(L, &ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _b2PolygonShape_set_m_centroid(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2PolygonShape *self = nullptr;
-    b2Vec2 arg1;       /** m_centroid */
-
-    olua_to_obj(L, 1, &self, "b2.PolygonShape");
-    olua_check_b2Vec2(L, 2, &arg1);
-
-    // b2Vec2 m_centroid
-    self->m_centroid = arg1;
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2PolygonShape_get_m_count(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2PolygonShape *self = nullptr;
-
-    olua_to_obj(L, 1, &self, "b2.PolygonShape");
-
-    // int32 m_count
-    int32 ret = self->m_count;
-    int num_ret = olua_push_int(L, (lua_Integer)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _b2PolygonShape_set_m_count(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2PolygonShape *self = nullptr;
-    lua_Integer arg1 = 0;       /** m_count */
-
-    olua_to_obj(L, 1, &self, "b2.PolygonShape");
-    olua_check_int(L, 2, &arg1);
-
-    // int32 m_count
-    self->m_count = (int32)arg1;
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_b2PolygonShape(lua_State *L)
 {
@@ -3253,8 +3519,6 @@ OLUA_LIB int luaopen_b2PolygonShape(lua_State *L)
     oluacls_func(L, "set", _b2PolygonShape_Set);
     oluacls_func(L, "setAsBox", _b2PolygonShape_SetAsBox);
     oluacls_func(L, "validate", _b2PolygonShape_Validate);
-    oluacls_prop(L, "centroid", _b2PolygonShape_get_m_centroid, _b2PolygonShape_set_m_centroid);
-    oluacls_prop(L, "count", _b2PolygonShape_get_m_count, _b2PolygonShape_set_m_count);
 
     olua_registerluatype<b2PolygonShape>(L, "b2.PolygonShape");
 
@@ -3343,181 +3607,6 @@ static int _b2EdgeShape_SetTwoSided(lua_State *L)
     return 0;
 }
 
-static int _b2EdgeShape_get_m_oneSided(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2EdgeShape *self = nullptr;
-
-    olua_to_obj(L, 1, &self, "b2.EdgeShape");
-
-    // bool m_oneSided
-    bool ret = self->m_oneSided;
-    int num_ret = olua_push_bool(L, ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _b2EdgeShape_set_m_oneSided(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2EdgeShape *self = nullptr;
-    bool arg1 = false;       /** m_oneSided */
-
-    olua_to_obj(L, 1, &self, "b2.EdgeShape");
-    olua_check_bool(L, 2, &arg1);
-
-    // bool m_oneSided
-    self->m_oneSided = arg1;
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2EdgeShape_get_m_vertex0(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2EdgeShape *self = nullptr;
-
-    olua_to_obj(L, 1, &self, "b2.EdgeShape");
-
-    // b2Vec2 m_vertex0
-    b2Vec2 ret = self->m_vertex0;
-    int num_ret = olua_push_b2Vec2(L, &ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _b2EdgeShape_set_m_vertex0(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2EdgeShape *self = nullptr;
-    b2Vec2 arg1;       /** m_vertex0 */
-
-    olua_to_obj(L, 1, &self, "b2.EdgeShape");
-    olua_check_b2Vec2(L, 2, &arg1);
-
-    // b2Vec2 m_vertex0
-    self->m_vertex0 = arg1;
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2EdgeShape_get_m_vertex1(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2EdgeShape *self = nullptr;
-
-    olua_to_obj(L, 1, &self, "b2.EdgeShape");
-
-    // b2Vec2 m_vertex1
-    b2Vec2 ret = self->m_vertex1;
-    int num_ret = olua_push_b2Vec2(L, &ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _b2EdgeShape_set_m_vertex1(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2EdgeShape *self = nullptr;
-    b2Vec2 arg1;       /** m_vertex1 */
-
-    olua_to_obj(L, 1, &self, "b2.EdgeShape");
-    olua_check_b2Vec2(L, 2, &arg1);
-
-    // b2Vec2 m_vertex1
-    self->m_vertex1 = arg1;
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2EdgeShape_get_m_vertex2(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2EdgeShape *self = nullptr;
-
-    olua_to_obj(L, 1, &self, "b2.EdgeShape");
-
-    // b2Vec2 m_vertex2
-    b2Vec2 ret = self->m_vertex2;
-    int num_ret = olua_push_b2Vec2(L, &ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _b2EdgeShape_set_m_vertex2(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2EdgeShape *self = nullptr;
-    b2Vec2 arg1;       /** m_vertex2 */
-
-    olua_to_obj(L, 1, &self, "b2.EdgeShape");
-    olua_check_b2Vec2(L, 2, &arg1);
-
-    // b2Vec2 m_vertex2
-    self->m_vertex2 = arg1;
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2EdgeShape_get_m_vertex3(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2EdgeShape *self = nullptr;
-
-    olua_to_obj(L, 1, &self, "b2.EdgeShape");
-
-    // b2Vec2 m_vertex3
-    b2Vec2 ret = self->m_vertex3;
-    int num_ret = olua_push_b2Vec2(L, &ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _b2EdgeShape_set_m_vertex3(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2EdgeShape *self = nullptr;
-    b2Vec2 arg1;       /** m_vertex3 */
-
-    olua_to_obj(L, 1, &self, "b2.EdgeShape");
-    olua_check_b2Vec2(L, 2, &arg1);
-
-    // b2Vec2 m_vertex3
-    self->m_vertex3 = arg1;
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_b2EdgeShape(lua_State *L)
 {
@@ -3527,11 +3616,6 @@ OLUA_LIB int luaopen_b2EdgeShape(lua_State *L)
     oluacls_func(L, "new", _b2EdgeShape_new);
     oluacls_func(L, "setOneSided", _b2EdgeShape_SetOneSided);
     oluacls_func(L, "setTwoSided", _b2EdgeShape_SetTwoSided);
-    oluacls_prop(L, "oneSided", _b2EdgeShape_get_m_oneSided, _b2EdgeShape_set_m_oneSided);
-    oluacls_prop(L, "vertex0", _b2EdgeShape_get_m_vertex0, _b2EdgeShape_set_m_vertex0);
-    oluacls_prop(L, "vertex1", _b2EdgeShape_get_m_vertex1, _b2EdgeShape_set_m_vertex1);
-    oluacls_prop(L, "vertex2", _b2EdgeShape_get_m_vertex2, _b2EdgeShape_set_m_vertex2);
-    oluacls_prop(L, "vertex3", _b2EdgeShape_get_m_vertex3, _b2EdgeShape_set_m_vertex3);
 
     olua_registerluatype<b2EdgeShape>(L, "b2.EdgeShape");
 
@@ -3576,41 +3660,6 @@ static int _b2CircleShape_new(lua_State *L)
     return num_ret;
 }
 
-static int _b2CircleShape_get_m_p(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2CircleShape *self = nullptr;
-
-    olua_to_obj(L, 1, &self, "b2.CircleShape");
-
-    // b2Vec2 m_p
-    b2Vec2 ret = self->m_p;
-    int num_ret = olua_push_b2Vec2(L, &ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _b2CircleShape_set_m_p(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2CircleShape *self = nullptr;
-    b2Vec2 arg1;       /** m_p */
-
-    olua_to_obj(L, 1, &self, "b2.CircleShape");
-    olua_check_b2Vec2(L, 2, &arg1);
-
-    // b2Vec2 m_p
-    self->m_p = arg1;
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_b2CircleShape(lua_State *L)
 {
@@ -3618,7 +3667,6 @@ OLUA_LIB int luaopen_b2CircleShape(lua_State *L)
     oluacls_func(L, "__gc", _b2CircleShape___gc);
     oluacls_func(L, "__olua_move", _b2CircleShape___olua_move);
     oluacls_func(L, "new", _b2CircleShape_new);
-    oluacls_prop(L, "p", _b2CircleShape_get_m_p, _b2CircleShape_set_m_p);
 
     olua_registerluatype<b2CircleShape>(L, "b2.CircleShape");
 
@@ -3670,19 +3718,19 @@ static int _b2ChainShape_CreateChain(lua_State *L)
     olua_startinvoke(L);
 
     b2ChainShape *self = nullptr;
-    b2Vec2 arg1;       /** vertices */
+    b2Vec2 *arg1 = nullptr;       /** vertices */
     lua_Integer arg2 = 0;       /** count */
     b2Vec2 arg3;       /** prevVertex */
     b2Vec2 arg4;       /** nextVertex */
 
     olua_to_obj(L, 1, &self, "b2.ChainShape");
-    olua_check_b2Vec2(L, 2, &arg1);
+    olua_check_pointer(L, 2, &arg1, "b2.Vec2");
     olua_check_int(L, 3, &arg2);
     olua_check_b2Vec2(L, 4, &arg3);
     olua_check_b2Vec2(L, 5, &arg4);
 
     // void CreateChain(const b2Vec2 *vertices, int32 count, const b2Vec2 &prevVertex, const b2Vec2 &nextVertex)
-    self->CreateChain(&arg1, (int32)arg2, arg3, arg4);
+    self->CreateChain(arg1, (int32)arg2, arg3, arg4);
 
     olua_endinvoke(L);
 
@@ -3694,15 +3742,15 @@ static int _b2ChainShape_CreateLoop(lua_State *L)
     olua_startinvoke(L);
 
     b2ChainShape *self = nullptr;
-    b2Vec2 arg1;       /** vertices */
+    b2Vec2 *arg1 = nullptr;       /** vertices */
     lua_Integer arg2 = 0;       /** count */
 
     olua_to_obj(L, 1, &self, "b2.ChainShape");
-    olua_check_b2Vec2(L, 2, &arg1);
+    olua_check_pointer(L, 2, &arg1, "b2.Vec2");
     olua_check_int(L, 3, &arg2);
 
     // void CreateLoop(const b2Vec2 *vertices, int32 count)
-    self->CreateLoop(&arg1, (int32)arg2);
+    self->CreateLoop(arg1, (int32)arg2);
 
     olua_endinvoke(L);
 
@@ -3743,146 +3791,6 @@ static int _b2ChainShape_new(lua_State *L)
     return num_ret;
 }
 
-static int _b2ChainShape_get_m_count(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2ChainShape *self = nullptr;
-
-    olua_to_obj(L, 1, &self, "b2.ChainShape");
-
-    // int32 m_count
-    int32 ret = self->m_count;
-    int num_ret = olua_push_int(L, (lua_Integer)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _b2ChainShape_set_m_count(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2ChainShape *self = nullptr;
-    lua_Integer arg1 = 0;       /** m_count */
-
-    olua_to_obj(L, 1, &self, "b2.ChainShape");
-    olua_check_int(L, 2, &arg1);
-
-    // int32 m_count
-    self->m_count = (int32)arg1;
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2ChainShape_get_m_nextVertex(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2ChainShape *self = nullptr;
-
-    olua_to_obj(L, 1, &self, "b2.ChainShape");
-
-    // b2Vec2 m_nextVertex
-    b2Vec2 ret = self->m_nextVertex;
-    int num_ret = olua_push_b2Vec2(L, &ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _b2ChainShape_set_m_nextVertex(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2ChainShape *self = nullptr;
-    b2Vec2 arg1;       /** m_nextVertex */
-
-    olua_to_obj(L, 1, &self, "b2.ChainShape");
-    olua_check_b2Vec2(L, 2, &arg1);
-
-    // b2Vec2 m_nextVertex
-    self->m_nextVertex = arg1;
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2ChainShape_get_m_prevVertex(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2ChainShape *self = nullptr;
-
-    olua_to_obj(L, 1, &self, "b2.ChainShape");
-
-    // b2Vec2 m_prevVertex
-    b2Vec2 ret = self->m_prevVertex;
-    int num_ret = olua_push_b2Vec2(L, &ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _b2ChainShape_set_m_prevVertex(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2ChainShape *self = nullptr;
-    b2Vec2 arg1;       /** m_prevVertex */
-
-    olua_to_obj(L, 1, &self, "b2.ChainShape");
-    olua_check_b2Vec2(L, 2, &arg1);
-
-    // b2Vec2 m_prevVertex
-    self->m_prevVertex = arg1;
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2ChainShape_get_m_vertices(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2ChainShape *self = nullptr;
-
-    olua_to_obj(L, 1, &self, "b2.ChainShape");
-
-    // b2Vec2 *m_vertices
-    b2Vec2 *ret = self->m_vertices;
-    int num_ret = olua_push_b2Vec2(L, ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _b2ChainShape_set_m_vertices(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2ChainShape *self = nullptr;
-    b2Vec2 arg1;       /** m_vertices */
-
-    olua_to_obj(L, 1, &self, "b2.ChainShape");
-    olua_check_b2Vec2(L, 2, &arg1);
-
-    // b2Vec2 *m_vertices
-    self->m_vertices = &arg1;
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_b2ChainShape(lua_State *L)
 {
@@ -3894,10 +3802,6 @@ OLUA_LIB int luaopen_b2ChainShape(lua_State *L)
     oluacls_func(L, "createLoop", _b2ChainShape_CreateLoop);
     oluacls_func(L, "getChildEdge", _b2ChainShape_GetChildEdge);
     oluacls_func(L, "new", _b2ChainShape_new);
-    oluacls_prop(L, "count", _b2ChainShape_get_m_count, _b2ChainShape_set_m_count);
-    oluacls_prop(L, "nextVertex", _b2ChainShape_get_m_nextVertex, _b2ChainShape_set_m_nextVertex);
-    oluacls_prop(L, "prevVertex", _b2ChainShape_get_m_prevVertex, _b2ChainShape_set_m_prevVertex);
-    oluacls_prop(L, "vertices", _b2ChainShape_get_m_vertices, _b2ChainShape_set_m_vertices);
 
     olua_registerluatype<b2ChainShape>(L, "b2.ChainShape");
 
@@ -4406,7 +4310,7 @@ static int _b2BodyDef_get_userData(lua_State *L)
     olua_to_obj(L, 1, &self, "b2.BodyDef");
 
     // b2BodyUserData userData
-    b2BodyUserData &ret = (b2BodyUserData &)self->userData;
+    b2BodyUserData &ret = self->userData;
     int num_ret = olua_push_obj(L, &ret, "b2.BodyUserData");
 
     olua_endinvoke(L);
@@ -6668,7 +6572,7 @@ static int _b2JointDef_get_userData(lua_State *L)
     olua_to_obj(L, 1, &self, "b2.JointDef");
 
     // b2JointUserData userData
-    b2JointUserData &ret = (b2JointUserData &)self->userData;
+    b2JointUserData &ret = self->userData;
     int num_ret = olua_push_obj(L, &ret, "b2.JointUserData");
 
     olua_endinvoke(L);
@@ -12882,181 +12786,6 @@ static int _b2ContactManager_new(lua_State *L)
     return num_ret;
 }
 
-static int _b2ContactManager_get_m_broadPhase(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2ContactManager *self = nullptr;
-
-    olua_to_obj(L, 1, &self, "b2.ContactManager");
-
-    // b2BroadPhase m_broadPhase
-    b2BroadPhase &ret = (b2BroadPhase &)self->m_broadPhase;
-    int num_ret = olua_push_obj(L, &ret, "b2.BroadPhase");
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _b2ContactManager_set_m_broadPhase(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2ContactManager *self = nullptr;
-    b2BroadPhase *arg1 = nullptr;       /** m_broadPhase */
-
-    olua_to_obj(L, 1, &self, "b2.ContactManager");
-    olua_check_obj(L, 2, &arg1, "b2.BroadPhase");
-
-    // b2BroadPhase m_broadPhase
-    self->m_broadPhase = *arg1;
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2ContactManager_get_m_contactCount(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2ContactManager *self = nullptr;
-
-    olua_to_obj(L, 1, &self, "b2.ContactManager");
-
-    // int32 m_contactCount
-    int32 ret = self->m_contactCount;
-    int num_ret = olua_push_int(L, (lua_Integer)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _b2ContactManager_set_m_contactCount(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2ContactManager *self = nullptr;
-    lua_Integer arg1 = 0;       /** m_contactCount */
-
-    olua_to_obj(L, 1, &self, "b2.ContactManager");
-    olua_check_int(L, 2, &arg1);
-
-    // int32 m_contactCount
-    self->m_contactCount = (int32)arg1;
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2ContactManager_get_m_contactFilter(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2ContactManager *self = nullptr;
-
-    olua_to_obj(L, 1, &self, "b2.ContactManager");
-
-    // b2ContactFilter *m_contactFilter
-    b2ContactFilter *ret = self->m_contactFilter;
-    int num_ret = olua_push_obj(L, ret, "b2.interface.ContactFilter");
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _b2ContactManager_set_m_contactFilter(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2ContactManager *self = nullptr;
-    b2ContactFilter *arg1 = nullptr;       /** m_contactFilter */
-
-    olua_to_obj(L, 1, &self, "b2.ContactManager");
-    olua_check_obj(L, 2, &arg1, "b2.interface.ContactFilter");
-
-    // b2ContactFilter *m_contactFilter
-    self->m_contactFilter = arg1;
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2ContactManager_get_m_contactList(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2ContactManager *self = nullptr;
-
-    olua_to_obj(L, 1, &self, "b2.ContactManager");
-
-    // b2Contact *m_contactList
-    b2Contact *ret = self->m_contactList;
-    int num_ret = olua_push_obj(L, ret, "b2.Contact");
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _b2ContactManager_set_m_contactList(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2ContactManager *self = nullptr;
-    b2Contact *arg1 = nullptr;       /** m_contactList */
-
-    olua_to_obj(L, 1, &self, "b2.ContactManager");
-    olua_check_obj(L, 2, &arg1, "b2.Contact");
-
-    // b2Contact *m_contactList
-    self->m_contactList = arg1;
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _b2ContactManager_get_m_contactListener(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2ContactManager *self = nullptr;
-
-    olua_to_obj(L, 1, &self, "b2.ContactManager");
-
-    // b2ContactListener *m_contactListener
-    b2ContactListener *ret = self->m_contactListener;
-    int num_ret = olua_push_obj(L, ret, "b2.interface.ContactListener");
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _b2ContactManager_set_m_contactListener(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    b2ContactManager *self = nullptr;
-    b2ContactListener *arg1 = nullptr;       /** m_contactListener */
-
-    olua_to_obj(L, 1, &self, "b2.ContactManager");
-    olua_check_obj(L, 2, &arg1, "b2.interface.ContactListener");
-
-    // b2ContactListener *m_contactListener
-    self->m_contactListener = arg1;
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_b2ContactManager(lua_State *L)
 {
@@ -13068,11 +12797,6 @@ OLUA_LIB int luaopen_b2ContactManager(lua_State *L)
     oluacls_func(L, "destroy", _b2ContactManager_Destroy);
     oluacls_func(L, "findNewContacts", _b2ContactManager_FindNewContacts);
     oluacls_func(L, "new", _b2ContactManager_new);
-    oluacls_prop(L, "broadPhase", _b2ContactManager_get_m_broadPhase, _b2ContactManager_set_m_broadPhase);
-    oluacls_prop(L, "contactCount", _b2ContactManager_get_m_contactCount, _b2ContactManager_set_m_contactCount);
-    oluacls_prop(L, "contactFilter", _b2ContactManager_get_m_contactFilter, _b2ContactManager_set_m_contactFilter);
-    oluacls_prop(L, "contactList", _b2ContactManager_get_m_contactList, _b2ContactManager_set_m_contactList);
-    oluacls_prop(L, "contactListener", _b2ContactManager_get_m_contactListener, _b2ContactManager_set_m_contactListener);
 
     olua_registerluatype<b2ContactManager>(L, "b2.ContactManager");
 
@@ -15572,6 +15296,7 @@ OLUA_LIB int luaopen_box2d(lua_State *L)
     olua_require(L, "b2.interface.ContactListener", luaopen_b2ContactListener);
     olua_require(L, "b2.interface.QueryCallback", luaopen_b2QueryCallback);
     olua_require(L, "b2.interface.RayCastCallback", luaopen_b2RayCastCallback);
+    olua_require(L, "b2.Vec2", luaopen_box2d_Vec2);
     olua_require(L, "b2.DestructionListener", luaopen_box2d_DestructionListener);
     olua_require(L, "b2.ContactFilter", luaopen_box2d_ContactFilter);
     olua_require(L, "b2.ContactListener", luaopen_box2d_ContactListener);

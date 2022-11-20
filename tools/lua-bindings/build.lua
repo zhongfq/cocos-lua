@@ -1,6 +1,9 @@
 require "olua.tools"
 
+OLUA_VERBOSE = true
+
 autoconf 'conf/clang-args.lua'
+autoconf 'conf/exclude-type.lua'
 
 autoconf 'conf/lua-types.lua'
 autoconf 'conf/lua-conv.lua'

@@ -56,21 +56,12 @@ public:
     ,_owner(false)
     ,_data(v)
     {}
-    
-    static pointer<T> *array(size_t len)
+
+    OLUA_NAME(new) static pointer<T> *create(size_t len = 1)
     {
         pointer<T> *ret = new pointer<T>();
         ret->_len = len;
         ret->_data = new T[len]();
-        return ret;
-    }
-
-    OLUA_NAME(new) static pointer<T> *create(const T &v)
-    {
-        pointer<T> *ret = new pointer<T>();
-        ret->_len = 1;
-        ret->_data = new T[1]();
-        ret->_data[0] = v;
         return ret;
     }
     
@@ -113,6 +104,9 @@ public:
         _len = len;
     }
 
+    OLUA_GETTER OLUA_NAME(value) const T &getValue() {return *_data;}
+    OLUA_SETTER OLUA_NAME(value) void setValue(const T &v) {*_data = v;}
+
     void copyfrom(pointer<T> *obj, size_t from = 1, size_t len = -1, size_t to = 1)
     {
         from--;
@@ -145,14 +139,13 @@ public:
         olua_assert(from < _len, "invalid 'from' position");
         olua_assert(to < _len, "invalid 'to' position");
         olua_assert(from <= to, "invalid 'from' position");
-        pointer<T> *ret = array(to - from + 1);
+        pointer<T> *ret = create(to - from + 1);
         for (size_t i = 0; i < ret->_len; i++) {
             ret->_data[i] = _data[from + i];
         }
         return ret;
     }
     
-    OLUA_GETTER const T &value() {return *_data;}
     OLUA_EXCLUDE T *data() {return _data;}
     OLUA_EXCLUDE size_t length() {return _len;}
 private:

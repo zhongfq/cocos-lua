@@ -153,8 +153,8 @@ typeconf 'spine::TrackEntry'
 typeconf 'spine::SkeletonData'
     .exclude 'new'
     .extend 'spine::SkeletonDataExtend'
-    .alias "__gc -> dispose"
-    .alias "create -> new"
+    .alias '__gc' .to 'dispose'
+    .alias 'create' .to 'new'
 
 typeconf 'spine::Skeleton'
     .exclude 'getBounds'

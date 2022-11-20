@@ -17779,71 +17779,6 @@ static int _cocos2d_GLProgramState_setUniformVec4(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_GLProgramState_setUniformVec4v1(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    cocos2d::GLProgramState *self = nullptr;
-    std::string arg1;       /** uniformName */
-    lua_Integer arg2 = 0;       /** size */
-    cocos2d::Vec4 arg3;       /** pointer */
-
-    olua_to_obj(L, 1, &self, "cc.GLProgramState");
-    olua_check_std_string(L, 2, &arg1);
-    olua_check_int(L, 3, &arg2);
-    olua_check_cocos2d_Vec4(L, 4, &arg3);
-
-    // void setUniformVec4v(const std::string &uniformName, ssize_t size, const cocos2d::Vec4 *pointer)
-    self->setUniformVec4v(arg1, (ssize_t)arg2, &arg3);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _cocos2d_GLProgramState_setUniformVec4v2(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    cocos2d::GLProgramState *self = nullptr;
-    lua_Integer arg1 = 0;       /** uniformLocation */
-    lua_Integer arg2 = 0;       /** size */
-    cocos2d::Vec4 arg3;       /** pointer */
-
-    olua_to_obj(L, 1, &self, "cc.GLProgramState");
-    olua_check_int(L, 2, &arg1);
-    olua_check_int(L, 3, &arg2);
-    olua_check_cocos2d_Vec4(L, 4, &arg3);
-
-    // void setUniformVec4v(GLint uniformLocation, ssize_t size, const cocos2d::Vec4 *pointer)
-    self->setUniformVec4v((GLint)arg1, (ssize_t)arg2, &arg3);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _cocos2d_GLProgramState_setUniformVec4v(lua_State *L)
-{
-    int num_args = lua_gettop(L) - 1;
-
-    if (num_args == 3) {
-        if ((olua_is_std_string(L, 2)) && (olua_is_int(L, 3)) && (olua_is_cocos2d_Vec4(L, 4))) {
-            // void setUniformVec4v(const std::string &uniformName, ssize_t size, const cocos2d::Vec4 *pointer)
-            return _cocos2d_GLProgramState_setUniformVec4v1(L);
-        }
-
-        // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_cocos2d_Vec4(L, 4))) {
-            // void setUniformVec4v(GLint uniformLocation, ssize_t size, const cocos2d::Vec4 *pointer)
-            return _cocos2d_GLProgramState_setUniformVec4v2(L);
-        // }
-    }
-
-    luaL_error(L, "method 'cocos2d::GLProgramState::setUniformVec4v' not support '%d' arguments", num_args);
-
-    return 0;
-}
-
 static int _cocos2d_GLProgramState_setVertexAttribPointer(lua_State *L)
 {
     olua_startinvoke(L);
@@ -17902,7 +17837,6 @@ OLUA_LIB int luaopen_cocos2d_GLProgramState(lua_State *L)
     oluacls_func(L, "setUniformVec2", _cocos2d_GLProgramState_setUniformVec2);
     oluacls_func(L, "setUniformVec3", _cocos2d_GLProgramState_setUniformVec3);
     oluacls_func(L, "setUniformVec4", _cocos2d_GLProgramState_setUniformVec4);
-    oluacls_func(L, "setUniformVec4v", _cocos2d_GLProgramState_setUniformVec4v);
     oluacls_func(L, "setVertexAttribPointer", _cocos2d_GLProgramState_setVertexAttribPointer);
     oluacls_prop(L, "glProgram", _cocos2d_GLProgramState_getGLProgram, _cocos2d_GLProgramState_setGLProgram);
     oluacls_prop(L, "nodeBinding", _cocos2d_GLProgramState_getNodeBinding, _cocos2d_GLProgramState_setNodeBinding);

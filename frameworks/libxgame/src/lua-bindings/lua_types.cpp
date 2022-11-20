@@ -71,23 +71,6 @@ static int _olua_bool___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_bool_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<bool> *array(size_t len)
-    olua::pointer<bool> *ret = olua_bool::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.bool");
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
 static int _olua_bool_copyfrom1(lua_State *L)
 {
     olua_startinvoke(L);
@@ -229,21 +212,55 @@ static int _olua_bool_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_bool_create(lua_State *L)
+static int _olua_bool_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    bool arg1 = false;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
-    olua_check_bool(L, 1, &arg1);
+    olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<bool> *create(const bool &v)
-    olua::pointer<bool> *ret = olua_bool::create(arg1);
+    // @name(new) static olua::pointer<bool> *create(@optional size_t len)
+    olua::pointer<bool> *ret = olua_bool::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.bool");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_bool_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<bool> *create(@optional size_t len)
+    olua::pointer<bool> *ret = olua_bool::create();
+    int num_ret = olua_push_obj(L, ret, "olua.bool");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_bool_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<bool> *create(@optional size_t len)
+        return _olua_bool_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<bool> *create(@optional size_t len)
+            return _olua_bool_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_bool::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_bool_sub1(lua_State *L)
@@ -417,7 +434,7 @@ static int _olua_bool_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_bool_value(lua_State *L)
+static int _olua_bool_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -425,13 +442,31 @@ static int _olua_bool_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.bool");
 
-    // @getter const bool &value()
-    const bool &ret = self->value();
+    // @getter @name(value) const bool &getValue()
+    const bool &ret = self->getValue();
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_bool_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_bool *self = nullptr;
+    bool arg1 = false;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.bool");
+    olua_check_bool(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const bool &v)
+    self->setValue(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -442,7 +477,6 @@ OLUA_LIB int luaopen_olua_bool(lua_State *L)
     oluacls_func(L, "__index", _olua_bool___index);
     oluacls_func(L, "__newindex", _olua_bool___newindex);
     oluacls_func(L, "__olua_move", _olua_bool___olua_move);
-    oluacls_func(L, "array", _olua_bool_array);
     oluacls_func(L, "copyfrom", _olua_bool_copyfrom);
     oluacls_func(L, "fill", _olua_bool_fill);
     oluacls_func(L, "new", _olua_bool_create);
@@ -450,7 +484,7 @@ OLUA_LIB int luaopen_olua_bool(lua_State *L)
     oluacls_func(L, "take", _olua_bool_take);
     oluacls_func(L, "tostring", _olua_bool_tostring);
     oluacls_prop(L, "length", _olua_bool_getLength, _olua_bool_setLength);
-    oluacls_prop(L, "value", _olua_bool_value, nullptr);
+    oluacls_prop(L, "value", _olua_bool_getValue, _olua_bool_setValue);
 
     olua_registerluatype<olua_bool>(L, "olua.bool");
 
@@ -523,23 +557,6 @@ static int _olua_string___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_string_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<std::string> *array(size_t len)
-    olua::pointer<std::string> *ret = olua_string::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.string");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_string_copyfrom1(lua_State *L)
@@ -683,21 +700,55 @@ static int _olua_string_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_string_create(lua_State *L)
+static int _olua_string_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    std::string arg1;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<std::string> *create(const std::string &v)
-    olua::pointer<std::string> *ret = olua_string::create(arg1);
+    // @name(new) static olua::pointer<std::string> *create(@optional size_t len)
+    olua::pointer<std::string> *ret = olua_string::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.string");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_string_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<std::string> *create(@optional size_t len)
+    olua::pointer<std::string> *ret = olua_string::create();
+    int num_ret = olua_push_obj(L, ret, "olua.string");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_string_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<std::string> *create(@optional size_t len)
+        return _olua_string_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<std::string> *create(@optional size_t len)
+            return _olua_string_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_string::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_string_sub1(lua_State *L)
@@ -871,7 +922,7 @@ static int _olua_string_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_string_value(lua_State *L)
+static int _olua_string_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -879,13 +930,31 @@ static int _olua_string_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.string");
 
-    // @getter const std::string &value()
-    const std::string &ret = self->value();
+    // @getter @name(value) const std::string &getValue()
+    const std::string &ret = self->getValue();
     int num_ret = olua_push_std_string(L, ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_string_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_string *self = nullptr;
+    std::string arg1;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.string");
+    olua_check_std_string(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const std::string &v)
+    self->setValue(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -896,7 +965,6 @@ OLUA_LIB int luaopen_olua_string(lua_State *L)
     oluacls_func(L, "__index", _olua_string___index);
     oluacls_func(L, "__newindex", _olua_string___newindex);
     oluacls_func(L, "__olua_move", _olua_string___olua_move);
-    oluacls_func(L, "array", _olua_string_array);
     oluacls_func(L, "copyfrom", _olua_string_copyfrom);
     oluacls_func(L, "fill", _olua_string_fill);
     oluacls_func(L, "new", _olua_string_create);
@@ -904,7 +972,7 @@ OLUA_LIB int luaopen_olua_string(lua_State *L)
     oluacls_func(L, "take", _olua_string_take);
     oluacls_func(L, "tostring", _olua_string_tostring);
     oluacls_prop(L, "length", _olua_string_getLength, _olua_string_setLength);
-    oluacls_prop(L, "value", _olua_string_value, nullptr);
+    oluacls_prop(L, "value", _olua_string_getValue, _olua_string_setValue);
 
     olua_registerluatype<olua_string>(L, "olua.string");
 
@@ -977,23 +1045,6 @@ static int _olua_int8___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_int8_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<int8_t> *array(size_t len)
-    olua::pointer<int8_t> *ret = olua_int8::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.int8");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_int8_copyfrom1(lua_State *L)
@@ -1137,21 +1188,55 @@ static int _olua_int8_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_int8_create(lua_State *L)
+static int _olua_int8_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Integer arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<int8_t> *create(const int8_t &v)
-    olua::pointer<int8_t> *ret = olua_int8::create((int8_t)arg1);
+    // @name(new) static olua::pointer<int8_t> *create(@optional size_t len)
+    olua::pointer<int8_t> *ret = olua_int8::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.int8");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_int8_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<int8_t> *create(@optional size_t len)
+    olua::pointer<int8_t> *ret = olua_int8::create();
+    int num_ret = olua_push_obj(L, ret, "olua.int8");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_int8_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<int8_t> *create(@optional size_t len)
+        return _olua_int8_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<int8_t> *create(@optional size_t len)
+            return _olua_int8_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_int8::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_int8_sub1(lua_State *L)
@@ -1325,7 +1410,7 @@ static int _olua_int8_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_int8_value(lua_State *L)
+static int _olua_int8_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1333,13 +1418,31 @@ static int _olua_int8_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.int8");
 
-    // @getter const int8_t &value()
-    const int8_t &ret = self->value();
+    // @getter @name(value) const int8_t &getValue()
+    const int8_t &ret = self->getValue();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_int8_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_int8 *self = nullptr;
+    lua_Integer arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.int8");
+    olua_check_int(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const int8_t &v)
+    self->setValue((int8_t)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -1350,7 +1453,6 @@ OLUA_LIB int luaopen_olua_int8(lua_State *L)
     oluacls_func(L, "__index", _olua_int8___index);
     oluacls_func(L, "__newindex", _olua_int8___newindex);
     oluacls_func(L, "__olua_move", _olua_int8___olua_move);
-    oluacls_func(L, "array", _olua_int8_array);
     oluacls_func(L, "copyfrom", _olua_int8_copyfrom);
     oluacls_func(L, "fill", _olua_int8_fill);
     oluacls_func(L, "new", _olua_int8_create);
@@ -1358,7 +1460,7 @@ OLUA_LIB int luaopen_olua_int8(lua_State *L)
     oluacls_func(L, "take", _olua_int8_take);
     oluacls_func(L, "tostring", _olua_int8_tostring);
     oluacls_prop(L, "length", _olua_int8_getLength, _olua_int8_setLength);
-    oluacls_prop(L, "value", _olua_int8_value, nullptr);
+    oluacls_prop(L, "value", _olua_int8_getValue, _olua_int8_setValue);
 
     olua_registerluatype<olua_int8>(L, "olua.int8");
 
@@ -1431,23 +1533,6 @@ static int _olua_uint8___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_uint8_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<uint8_t> *array(size_t len)
-    olua::pointer<uint8_t> *ret = olua_uint8::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.uint8");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_uint8_copyfrom1(lua_State *L)
@@ -1591,21 +1676,55 @@ static int _olua_uint8_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_uint8_create(lua_State *L)
+static int _olua_uint8_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Unsigned arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
     olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<uint8_t> *create(const uint8_t &v)
-    olua::pointer<uint8_t> *ret = olua_uint8::create((uint8_t)arg1);
+    // @name(new) static olua::pointer<uint8_t> *create(@optional size_t len)
+    olua::pointer<uint8_t> *ret = olua_uint8::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.uint8");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_uint8_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<uint8_t> *create(@optional size_t len)
+    olua::pointer<uint8_t> *ret = olua_uint8::create();
+    int num_ret = olua_push_obj(L, ret, "olua.uint8");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_uint8_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<uint8_t> *create(@optional size_t len)
+        return _olua_uint8_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<uint8_t> *create(@optional size_t len)
+            return _olua_uint8_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_uint8::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_uint8_sub1(lua_State *L)
@@ -1779,7 +1898,7 @@ static int _olua_uint8_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_uint8_value(lua_State *L)
+static int _olua_uint8_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1787,13 +1906,31 @@ static int _olua_uint8_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.uint8");
 
-    // @getter const uint8_t &value()
-    const uint8_t &ret = self->value();
+    // @getter @name(value) const uint8_t &getValue()
+    const uint8_t &ret = self->getValue();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_uint8_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_uint8 *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.uint8");
+    olua_check_uint(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const uint8_t &v)
+    self->setValue((uint8_t)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -1804,7 +1941,6 @@ OLUA_LIB int luaopen_olua_uint8(lua_State *L)
     oluacls_func(L, "__index", _olua_uint8___index);
     oluacls_func(L, "__newindex", _olua_uint8___newindex);
     oluacls_func(L, "__olua_move", _olua_uint8___olua_move);
-    oluacls_func(L, "array", _olua_uint8_array);
     oluacls_func(L, "copyfrom", _olua_uint8_copyfrom);
     oluacls_func(L, "fill", _olua_uint8_fill);
     oluacls_func(L, "new", _olua_uint8_create);
@@ -1812,7 +1948,7 @@ OLUA_LIB int luaopen_olua_uint8(lua_State *L)
     oluacls_func(L, "take", _olua_uint8_take);
     oluacls_func(L, "tostring", _olua_uint8_tostring);
     oluacls_prop(L, "length", _olua_uint8_getLength, _olua_uint8_setLength);
-    oluacls_prop(L, "value", _olua_uint8_value, nullptr);
+    oluacls_prop(L, "value", _olua_uint8_getValue, _olua_uint8_setValue);
 
     olua_registerluatype<olua_uint8>(L, "olua.uint8");
 
@@ -1885,23 +2021,6 @@ static int _olua_int16___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_int16_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<int16_t> *array(size_t len)
-    olua::pointer<int16_t> *ret = olua_int16::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.int16");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_int16_copyfrom1(lua_State *L)
@@ -2045,21 +2164,55 @@ static int _olua_int16_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_int16_create(lua_State *L)
+static int _olua_int16_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Integer arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<int16_t> *create(const int16_t &v)
-    olua::pointer<int16_t> *ret = olua_int16::create((int16_t)arg1);
+    // @name(new) static olua::pointer<int16_t> *create(@optional size_t len)
+    olua::pointer<int16_t> *ret = olua_int16::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.int16");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_int16_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<int16_t> *create(@optional size_t len)
+    olua::pointer<int16_t> *ret = olua_int16::create();
+    int num_ret = olua_push_obj(L, ret, "olua.int16");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_int16_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<int16_t> *create(@optional size_t len)
+        return _olua_int16_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<int16_t> *create(@optional size_t len)
+            return _olua_int16_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_int16::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_int16_sub1(lua_State *L)
@@ -2233,7 +2386,7 @@ static int _olua_int16_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_int16_value(lua_State *L)
+static int _olua_int16_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2241,13 +2394,31 @@ static int _olua_int16_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.int16");
 
-    // @getter const int16_t &value()
-    const int16_t &ret = self->value();
+    // @getter @name(value) const int16_t &getValue()
+    const int16_t &ret = self->getValue();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_int16_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_int16 *self = nullptr;
+    lua_Integer arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.int16");
+    olua_check_int(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const int16_t &v)
+    self->setValue((int16_t)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -2258,7 +2429,6 @@ OLUA_LIB int luaopen_olua_int16(lua_State *L)
     oluacls_func(L, "__index", _olua_int16___index);
     oluacls_func(L, "__newindex", _olua_int16___newindex);
     oluacls_func(L, "__olua_move", _olua_int16___olua_move);
-    oluacls_func(L, "array", _olua_int16_array);
     oluacls_func(L, "copyfrom", _olua_int16_copyfrom);
     oluacls_func(L, "fill", _olua_int16_fill);
     oluacls_func(L, "new", _olua_int16_create);
@@ -2266,7 +2436,7 @@ OLUA_LIB int luaopen_olua_int16(lua_State *L)
     oluacls_func(L, "take", _olua_int16_take);
     oluacls_func(L, "tostring", _olua_int16_tostring);
     oluacls_prop(L, "length", _olua_int16_getLength, _olua_int16_setLength);
-    oluacls_prop(L, "value", _olua_int16_value, nullptr);
+    oluacls_prop(L, "value", _olua_int16_getValue, _olua_int16_setValue);
 
     olua_registerluatype<olua_int16>(L, "olua.int16");
 
@@ -2339,23 +2509,6 @@ static int _olua_uint16___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_uint16_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<uint16_t> *array(size_t len)
-    olua::pointer<uint16_t> *ret = olua_uint16::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.uint16");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_uint16_copyfrom1(lua_State *L)
@@ -2499,21 +2652,55 @@ static int _olua_uint16_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_uint16_create(lua_State *L)
+static int _olua_uint16_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Unsigned arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
     olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<uint16_t> *create(const uint16_t &v)
-    olua::pointer<uint16_t> *ret = olua_uint16::create((uint16_t)arg1);
+    // @name(new) static olua::pointer<uint16_t> *create(@optional size_t len)
+    olua::pointer<uint16_t> *ret = olua_uint16::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.uint16");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_uint16_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<uint16_t> *create(@optional size_t len)
+    olua::pointer<uint16_t> *ret = olua_uint16::create();
+    int num_ret = olua_push_obj(L, ret, "olua.uint16");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_uint16_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<uint16_t> *create(@optional size_t len)
+        return _olua_uint16_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<uint16_t> *create(@optional size_t len)
+            return _olua_uint16_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_uint16::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_uint16_sub1(lua_State *L)
@@ -2687,7 +2874,7 @@ static int _olua_uint16_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_uint16_value(lua_State *L)
+static int _olua_uint16_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2695,13 +2882,31 @@ static int _olua_uint16_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.uint16");
 
-    // @getter const uint16_t &value()
-    const uint16_t &ret = self->value();
+    // @getter @name(value) const uint16_t &getValue()
+    const uint16_t &ret = self->getValue();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_uint16_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_uint16 *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.uint16");
+    olua_check_uint(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const uint16_t &v)
+    self->setValue((uint16_t)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -2712,7 +2917,6 @@ OLUA_LIB int luaopen_olua_uint16(lua_State *L)
     oluacls_func(L, "__index", _olua_uint16___index);
     oluacls_func(L, "__newindex", _olua_uint16___newindex);
     oluacls_func(L, "__olua_move", _olua_uint16___olua_move);
-    oluacls_func(L, "array", _olua_uint16_array);
     oluacls_func(L, "copyfrom", _olua_uint16_copyfrom);
     oluacls_func(L, "fill", _olua_uint16_fill);
     oluacls_func(L, "new", _olua_uint16_create);
@@ -2720,7 +2924,7 @@ OLUA_LIB int luaopen_olua_uint16(lua_State *L)
     oluacls_func(L, "take", _olua_uint16_take);
     oluacls_func(L, "tostring", _olua_uint16_tostring);
     oluacls_prop(L, "length", _olua_uint16_getLength, _olua_uint16_setLength);
-    oluacls_prop(L, "value", _olua_uint16_value, nullptr);
+    oluacls_prop(L, "value", _olua_uint16_getValue, _olua_uint16_setValue);
 
     olua_registerluatype<olua_uint16>(L, "olua.uint16");
 
@@ -2793,23 +2997,6 @@ static int _olua_int32___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_int32_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<int32_t> *array(size_t len)
-    olua::pointer<int32_t> *ret = olua_int32::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.int32");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_int32_copyfrom1(lua_State *L)
@@ -2953,21 +3140,55 @@ static int _olua_int32_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_int32_create(lua_State *L)
+static int _olua_int32_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Integer arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<int32_t> *create(const int32_t &v)
-    olua::pointer<int32_t> *ret = olua_int32::create((int32_t)arg1);
+    // @name(new) static olua::pointer<int32_t> *create(@optional size_t len)
+    olua::pointer<int32_t> *ret = olua_int32::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.int32");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_int32_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<int32_t> *create(@optional size_t len)
+    olua::pointer<int32_t> *ret = olua_int32::create();
+    int num_ret = olua_push_obj(L, ret, "olua.int32");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_int32_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<int32_t> *create(@optional size_t len)
+        return _olua_int32_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<int32_t> *create(@optional size_t len)
+            return _olua_int32_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_int32::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_int32_sub1(lua_State *L)
@@ -3141,7 +3362,7 @@ static int _olua_int32_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_int32_value(lua_State *L)
+static int _olua_int32_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3149,13 +3370,31 @@ static int _olua_int32_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.int32");
 
-    // @getter const int32_t &value()
-    const int32_t &ret = self->value();
+    // @getter @name(value) const int32_t &getValue()
+    const int32_t &ret = self->getValue();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_int32_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_int32 *self = nullptr;
+    lua_Integer arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.int32");
+    olua_check_int(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const int32_t &v)
+    self->setValue((int32_t)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -3166,7 +3405,6 @@ OLUA_LIB int luaopen_olua_int32(lua_State *L)
     oluacls_func(L, "__index", _olua_int32___index);
     oluacls_func(L, "__newindex", _olua_int32___newindex);
     oluacls_func(L, "__olua_move", _olua_int32___olua_move);
-    oluacls_func(L, "array", _olua_int32_array);
     oluacls_func(L, "copyfrom", _olua_int32_copyfrom);
     oluacls_func(L, "fill", _olua_int32_fill);
     oluacls_func(L, "new", _olua_int32_create);
@@ -3174,7 +3412,7 @@ OLUA_LIB int luaopen_olua_int32(lua_State *L)
     oluacls_func(L, "take", _olua_int32_take);
     oluacls_func(L, "tostring", _olua_int32_tostring);
     oluacls_prop(L, "length", _olua_int32_getLength, _olua_int32_setLength);
-    oluacls_prop(L, "value", _olua_int32_value, nullptr);
+    oluacls_prop(L, "value", _olua_int32_getValue, _olua_int32_setValue);
 
     olua_registerluatype<olua_int32>(L, "olua.int32");
 
@@ -3247,23 +3485,6 @@ static int _olua_uint32___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_uint32_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<uint32_t> *array(size_t len)
-    olua::pointer<uint32_t> *ret = olua_uint32::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.uint32");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_uint32_copyfrom1(lua_State *L)
@@ -3407,21 +3628,55 @@ static int _olua_uint32_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_uint32_create(lua_State *L)
+static int _olua_uint32_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Unsigned arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
     olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<uint32_t> *create(const uint32_t &v)
-    olua::pointer<uint32_t> *ret = olua_uint32::create((uint32_t)arg1);
+    // @name(new) static olua::pointer<uint32_t> *create(@optional size_t len)
+    olua::pointer<uint32_t> *ret = olua_uint32::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.uint32");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_uint32_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<uint32_t> *create(@optional size_t len)
+    olua::pointer<uint32_t> *ret = olua_uint32::create();
+    int num_ret = olua_push_obj(L, ret, "olua.uint32");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_uint32_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<uint32_t> *create(@optional size_t len)
+        return _olua_uint32_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<uint32_t> *create(@optional size_t len)
+            return _olua_uint32_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_uint32::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_uint32_sub1(lua_State *L)
@@ -3595,7 +3850,7 @@ static int _olua_uint32_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_uint32_value(lua_State *L)
+static int _olua_uint32_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3603,13 +3858,31 @@ static int _olua_uint32_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.uint32");
 
-    // @getter const uint32_t &value()
-    const uint32_t &ret = self->value();
+    // @getter @name(value) const uint32_t &getValue()
+    const uint32_t &ret = self->getValue();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_uint32_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_uint32 *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.uint32");
+    olua_check_uint(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const uint32_t &v)
+    self->setValue((uint32_t)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -3620,7 +3893,6 @@ OLUA_LIB int luaopen_olua_uint32(lua_State *L)
     oluacls_func(L, "__index", _olua_uint32___index);
     oluacls_func(L, "__newindex", _olua_uint32___newindex);
     oluacls_func(L, "__olua_move", _olua_uint32___olua_move);
-    oluacls_func(L, "array", _olua_uint32_array);
     oluacls_func(L, "copyfrom", _olua_uint32_copyfrom);
     oluacls_func(L, "fill", _olua_uint32_fill);
     oluacls_func(L, "new", _olua_uint32_create);
@@ -3628,7 +3900,7 @@ OLUA_LIB int luaopen_olua_uint32(lua_State *L)
     oluacls_func(L, "take", _olua_uint32_take);
     oluacls_func(L, "tostring", _olua_uint32_tostring);
     oluacls_prop(L, "length", _olua_uint32_getLength, _olua_uint32_setLength);
-    oluacls_prop(L, "value", _olua_uint32_value, nullptr);
+    oluacls_prop(L, "value", _olua_uint32_getValue, _olua_uint32_setValue);
 
     olua_registerluatype<olua_uint32>(L, "olua.uint32");
 
@@ -3701,23 +3973,6 @@ static int _olua_int64___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_int64_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<int64_t> *array(size_t len)
-    olua::pointer<int64_t> *ret = olua_int64::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.int64");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_int64_copyfrom1(lua_State *L)
@@ -3861,21 +4116,55 @@ static int _olua_int64_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_int64_create(lua_State *L)
+static int _olua_int64_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Integer arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<int64_t> *create(const int64_t &v)
-    olua::pointer<int64_t> *ret = olua_int64::create((int64_t)arg1);
+    // @name(new) static olua::pointer<int64_t> *create(@optional size_t len)
+    olua::pointer<int64_t> *ret = olua_int64::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.int64");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_int64_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<int64_t> *create(@optional size_t len)
+    olua::pointer<int64_t> *ret = olua_int64::create();
+    int num_ret = olua_push_obj(L, ret, "olua.int64");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_int64_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<int64_t> *create(@optional size_t len)
+        return _olua_int64_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<int64_t> *create(@optional size_t len)
+            return _olua_int64_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_int64::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_int64_sub1(lua_State *L)
@@ -4049,7 +4338,7 @@ static int _olua_int64_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_int64_value(lua_State *L)
+static int _olua_int64_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4057,13 +4346,31 @@ static int _olua_int64_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.int64");
 
-    // @getter const int64_t &value()
-    const int64_t &ret = self->value();
+    // @getter @name(value) const int64_t &getValue()
+    const int64_t &ret = self->getValue();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_int64_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_int64 *self = nullptr;
+    lua_Integer arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.int64");
+    olua_check_int(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const int64_t &v)
+    self->setValue((int64_t)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -4074,7 +4381,6 @@ OLUA_LIB int luaopen_olua_int64(lua_State *L)
     oluacls_func(L, "__index", _olua_int64___index);
     oluacls_func(L, "__newindex", _olua_int64___newindex);
     oluacls_func(L, "__olua_move", _olua_int64___olua_move);
-    oluacls_func(L, "array", _olua_int64_array);
     oluacls_func(L, "copyfrom", _olua_int64_copyfrom);
     oluacls_func(L, "fill", _olua_int64_fill);
     oluacls_func(L, "new", _olua_int64_create);
@@ -4082,7 +4388,7 @@ OLUA_LIB int luaopen_olua_int64(lua_State *L)
     oluacls_func(L, "take", _olua_int64_take);
     oluacls_func(L, "tostring", _olua_int64_tostring);
     oluacls_prop(L, "length", _olua_int64_getLength, _olua_int64_setLength);
-    oluacls_prop(L, "value", _olua_int64_value, nullptr);
+    oluacls_prop(L, "value", _olua_int64_getValue, _olua_int64_setValue);
 
     olua_registerluatype<olua_int64>(L, "olua.int64");
 
@@ -4155,23 +4461,6 @@ static int _olua_uint64___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_uint64_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<uint64_t> *array(size_t len)
-    olua::pointer<uint64_t> *ret = olua_uint64::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.uint64");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_uint64_copyfrom1(lua_State *L)
@@ -4315,21 +4604,55 @@ static int _olua_uint64_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_uint64_create(lua_State *L)
+static int _olua_uint64_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Unsigned arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
     olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<uint64_t> *create(const uint64_t &v)
-    olua::pointer<uint64_t> *ret = olua_uint64::create((uint64_t)arg1);
+    // @name(new) static olua::pointer<uint64_t> *create(@optional size_t len)
+    olua::pointer<uint64_t> *ret = olua_uint64::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.uint64");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_uint64_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<uint64_t> *create(@optional size_t len)
+    olua::pointer<uint64_t> *ret = olua_uint64::create();
+    int num_ret = olua_push_obj(L, ret, "olua.uint64");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_uint64_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<uint64_t> *create(@optional size_t len)
+        return _olua_uint64_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<uint64_t> *create(@optional size_t len)
+            return _olua_uint64_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_uint64::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_uint64_sub1(lua_State *L)
@@ -4503,7 +4826,7 @@ static int _olua_uint64_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_uint64_value(lua_State *L)
+static int _olua_uint64_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4511,13 +4834,31 @@ static int _olua_uint64_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.uint64");
 
-    // @getter const uint64_t &value()
-    const uint64_t &ret = self->value();
+    // @getter @name(value) const uint64_t &getValue()
+    const uint64_t &ret = self->getValue();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_uint64_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_uint64 *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.uint64");
+    olua_check_uint(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const uint64_t &v)
+    self->setValue((uint64_t)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -4528,7 +4869,6 @@ OLUA_LIB int luaopen_olua_uint64(lua_State *L)
     oluacls_func(L, "__index", _olua_uint64___index);
     oluacls_func(L, "__newindex", _olua_uint64___newindex);
     oluacls_func(L, "__olua_move", _olua_uint64___olua_move);
-    oluacls_func(L, "array", _olua_uint64_array);
     oluacls_func(L, "copyfrom", _olua_uint64_copyfrom);
     oluacls_func(L, "fill", _olua_uint64_fill);
     oluacls_func(L, "new", _olua_uint64_create);
@@ -4536,7 +4876,7 @@ OLUA_LIB int luaopen_olua_uint64(lua_State *L)
     oluacls_func(L, "take", _olua_uint64_take);
     oluacls_func(L, "tostring", _olua_uint64_tostring);
     oluacls_prop(L, "length", _olua_uint64_getLength, _olua_uint64_setLength);
-    oluacls_prop(L, "value", _olua_uint64_value, nullptr);
+    oluacls_prop(L, "value", _olua_uint64_getValue, _olua_uint64_setValue);
 
     olua_registerluatype<olua_uint64>(L, "olua.uint64");
 
@@ -4609,23 +4949,6 @@ static int _olua_short___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_short_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<short> *array(size_t len)
-    olua::pointer<short> *ret = olua_short::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.short");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_short_copyfrom1(lua_State *L)
@@ -4769,21 +5092,55 @@ static int _olua_short_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_short_create(lua_State *L)
+static int _olua_short_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Integer arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<short> *create(const short &v)
-    olua::pointer<short> *ret = olua_short::create((short)arg1);
+    // @name(new) static olua::pointer<short> *create(@optional size_t len)
+    olua::pointer<short> *ret = olua_short::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.short");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_short_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<short> *create(@optional size_t len)
+    olua::pointer<short> *ret = olua_short::create();
+    int num_ret = olua_push_obj(L, ret, "olua.short");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_short_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<short> *create(@optional size_t len)
+        return _olua_short_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<short> *create(@optional size_t len)
+            return _olua_short_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_short::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_short_sub1(lua_State *L)
@@ -4957,7 +5314,7 @@ static int _olua_short_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_short_value(lua_State *L)
+static int _olua_short_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4965,13 +5322,31 @@ static int _olua_short_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.short");
 
-    // @getter const short &value()
-    const short &ret = self->value();
+    // @getter @name(value) const short &getValue()
+    const short &ret = self->getValue();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_short_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_short *self = nullptr;
+    lua_Integer arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.short");
+    olua_check_int(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const short &v)
+    self->setValue((short)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -4982,7 +5357,6 @@ OLUA_LIB int luaopen_olua_short(lua_State *L)
     oluacls_func(L, "__index", _olua_short___index);
     oluacls_func(L, "__newindex", _olua_short___newindex);
     oluacls_func(L, "__olua_move", _olua_short___olua_move);
-    oluacls_func(L, "array", _olua_short_array);
     oluacls_func(L, "copyfrom", _olua_short_copyfrom);
     oluacls_func(L, "fill", _olua_short_fill);
     oluacls_func(L, "new", _olua_short_create);
@@ -4990,7 +5364,7 @@ OLUA_LIB int luaopen_olua_short(lua_State *L)
     oluacls_func(L, "take", _olua_short_take);
     oluacls_func(L, "tostring", _olua_short_tostring);
     oluacls_prop(L, "length", _olua_short_getLength, _olua_short_setLength);
-    oluacls_prop(L, "value", _olua_short_value, nullptr);
+    oluacls_prop(L, "value", _olua_short_getValue, _olua_short_setValue);
 
     olua_registerluatype<olua_short>(L, "olua.short");
 
@@ -5063,23 +5437,6 @@ static int _olua_ushort___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_ushort_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<unsigned short> *array(size_t len)
-    olua::pointer<unsigned short> *ret = olua_ushort::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.ushort");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_ushort_copyfrom1(lua_State *L)
@@ -5223,21 +5580,55 @@ static int _olua_ushort_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_ushort_create(lua_State *L)
+static int _olua_ushort_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Unsigned arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
     olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<unsigned short> *create(const unsigned short &v)
-    olua::pointer<unsigned short> *ret = olua_ushort::create((unsigned short)arg1);
+    // @name(new) static olua::pointer<unsigned short> *create(@optional size_t len)
+    olua::pointer<unsigned short> *ret = olua_ushort::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.ushort");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_ushort_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<unsigned short> *create(@optional size_t len)
+    olua::pointer<unsigned short> *ret = olua_ushort::create();
+    int num_ret = olua_push_obj(L, ret, "olua.ushort");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_ushort_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<unsigned short> *create(@optional size_t len)
+        return _olua_ushort_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<unsigned short> *create(@optional size_t len)
+            return _olua_ushort_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_ushort::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_ushort_sub1(lua_State *L)
@@ -5411,7 +5802,7 @@ static int _olua_ushort_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_ushort_value(lua_State *L)
+static int _olua_ushort_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5419,13 +5810,31 @@ static int _olua_ushort_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.ushort");
 
-    // @getter const unsigned short &value()
-    const unsigned short &ret = self->value();
+    // @getter @name(value) const unsigned short &getValue()
+    const unsigned short &ret = self->getValue();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_ushort_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_ushort *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.ushort");
+    olua_check_uint(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const unsigned short &v)
+    self->setValue((unsigned short)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -5436,7 +5845,6 @@ OLUA_LIB int luaopen_olua_ushort(lua_State *L)
     oluacls_func(L, "__index", _olua_ushort___index);
     oluacls_func(L, "__newindex", _olua_ushort___newindex);
     oluacls_func(L, "__olua_move", _olua_ushort___olua_move);
-    oluacls_func(L, "array", _olua_ushort_array);
     oluacls_func(L, "copyfrom", _olua_ushort_copyfrom);
     oluacls_func(L, "fill", _olua_ushort_fill);
     oluacls_func(L, "new", _olua_ushort_create);
@@ -5444,7 +5852,7 @@ OLUA_LIB int luaopen_olua_ushort(lua_State *L)
     oluacls_func(L, "take", _olua_ushort_take);
     oluacls_func(L, "tostring", _olua_ushort_tostring);
     oluacls_prop(L, "length", _olua_ushort_getLength, _olua_ushort_setLength);
-    oluacls_prop(L, "value", _olua_ushort_value, nullptr);
+    oluacls_prop(L, "value", _olua_ushort_getValue, _olua_ushort_setValue);
 
     olua_registerluatype<olua_ushort>(L, "olua.ushort");
 
@@ -5517,23 +5925,6 @@ static int _olua_int___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_int_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<int> *array(size_t len)
-    olua::pointer<int> *ret = olua_int::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.int");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_int_copyfrom1(lua_State *L)
@@ -5677,21 +6068,55 @@ static int _olua_int_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_int_create(lua_State *L)
+static int _olua_int_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Integer arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<int> *create(const int &v)
-    olua::pointer<int> *ret = olua_int::create((int)arg1);
+    // @name(new) static olua::pointer<int> *create(@optional size_t len)
+    olua::pointer<int> *ret = olua_int::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.int");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_int_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<int> *create(@optional size_t len)
+    olua::pointer<int> *ret = olua_int::create();
+    int num_ret = olua_push_obj(L, ret, "olua.int");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_int_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<int> *create(@optional size_t len)
+        return _olua_int_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<int> *create(@optional size_t len)
+            return _olua_int_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_int::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_int_sub1(lua_State *L)
@@ -5865,7 +6290,7 @@ static int _olua_int_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_int_value(lua_State *L)
+static int _olua_int_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5873,13 +6298,31 @@ static int _olua_int_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.int");
 
-    // @getter const int &value()
-    const int &ret = self->value();
+    // @getter @name(value) const int &getValue()
+    const int &ret = self->getValue();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_int_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_int *self = nullptr;
+    lua_Integer arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.int");
+    olua_check_int(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const int &v)
+    self->setValue((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -5890,7 +6333,6 @@ OLUA_LIB int luaopen_olua_int(lua_State *L)
     oluacls_func(L, "__index", _olua_int___index);
     oluacls_func(L, "__newindex", _olua_int___newindex);
     oluacls_func(L, "__olua_move", _olua_int___olua_move);
-    oluacls_func(L, "array", _olua_int_array);
     oluacls_func(L, "copyfrom", _olua_int_copyfrom);
     oluacls_func(L, "fill", _olua_int_fill);
     oluacls_func(L, "new", _olua_int_create);
@@ -5898,7 +6340,7 @@ OLUA_LIB int luaopen_olua_int(lua_State *L)
     oluacls_func(L, "take", _olua_int_take);
     oluacls_func(L, "tostring", _olua_int_tostring);
     oluacls_prop(L, "length", _olua_int_getLength, _olua_int_setLength);
-    oluacls_prop(L, "value", _olua_int_value, nullptr);
+    oluacls_prop(L, "value", _olua_int_getValue, _olua_int_setValue);
 
     olua_registerluatype<olua_int>(L, "olua.int");
 
@@ -5971,23 +6413,6 @@ static int _olua_uint___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_uint_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<unsigned int> *array(size_t len)
-    olua::pointer<unsigned int> *ret = olua_uint::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.uint");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_uint_copyfrom1(lua_State *L)
@@ -6131,21 +6556,55 @@ static int _olua_uint_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_uint_create(lua_State *L)
+static int _olua_uint_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Unsigned arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
     olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<unsigned int> *create(const unsigned int &v)
-    olua::pointer<unsigned int> *ret = olua_uint::create((unsigned int)arg1);
+    // @name(new) static olua::pointer<unsigned int> *create(@optional size_t len)
+    olua::pointer<unsigned int> *ret = olua_uint::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.uint");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_uint_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<unsigned int> *create(@optional size_t len)
+    olua::pointer<unsigned int> *ret = olua_uint::create();
+    int num_ret = olua_push_obj(L, ret, "olua.uint");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_uint_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<unsigned int> *create(@optional size_t len)
+        return _olua_uint_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<unsigned int> *create(@optional size_t len)
+            return _olua_uint_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_uint::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_uint_sub1(lua_State *L)
@@ -6319,7 +6778,7 @@ static int _olua_uint_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_uint_value(lua_State *L)
+static int _olua_uint_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6327,13 +6786,31 @@ static int _olua_uint_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.uint");
 
-    // @getter const unsigned int &value()
-    const unsigned int &ret = self->value();
+    // @getter @name(value) const unsigned int &getValue()
+    const unsigned int &ret = self->getValue();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_uint_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_uint *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.uint");
+    olua_check_uint(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const unsigned int &v)
+    self->setValue((unsigned int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -6344,7 +6821,6 @@ OLUA_LIB int luaopen_olua_uint(lua_State *L)
     oluacls_func(L, "__index", _olua_uint___index);
     oluacls_func(L, "__newindex", _olua_uint___newindex);
     oluacls_func(L, "__olua_move", _olua_uint___olua_move);
-    oluacls_func(L, "array", _olua_uint_array);
     oluacls_func(L, "copyfrom", _olua_uint_copyfrom);
     oluacls_func(L, "fill", _olua_uint_fill);
     oluacls_func(L, "new", _olua_uint_create);
@@ -6352,7 +6828,7 @@ OLUA_LIB int luaopen_olua_uint(lua_State *L)
     oluacls_func(L, "take", _olua_uint_take);
     oluacls_func(L, "tostring", _olua_uint_tostring);
     oluacls_prop(L, "length", _olua_uint_getLength, _olua_uint_setLength);
-    oluacls_prop(L, "value", _olua_uint_value, nullptr);
+    oluacls_prop(L, "value", _olua_uint_getValue, _olua_uint_setValue);
 
     olua_registerluatype<olua_uint>(L, "olua.uint");
 
@@ -6425,23 +6901,6 @@ static int _olua_long___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_long_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<long> *array(size_t len)
-    olua::pointer<long> *ret = olua_long::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.long");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_long_copyfrom1(lua_State *L)
@@ -6585,21 +7044,55 @@ static int _olua_long_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_long_create(lua_State *L)
+static int _olua_long_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Integer arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<long> *create(const long &v)
-    olua::pointer<long> *ret = olua_long::create((long)arg1);
+    // @name(new) static olua::pointer<long> *create(@optional size_t len)
+    olua::pointer<long> *ret = olua_long::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.long");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_long_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<long> *create(@optional size_t len)
+    olua::pointer<long> *ret = olua_long::create();
+    int num_ret = olua_push_obj(L, ret, "olua.long");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_long_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<long> *create(@optional size_t len)
+        return _olua_long_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<long> *create(@optional size_t len)
+            return _olua_long_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_long::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_long_sub1(lua_State *L)
@@ -6773,7 +7266,7 @@ static int _olua_long_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_long_value(lua_State *L)
+static int _olua_long_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6781,13 +7274,31 @@ static int _olua_long_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.long");
 
-    // @getter const long &value()
-    const long &ret = self->value();
+    // @getter @name(value) const long &getValue()
+    const long &ret = self->getValue();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_long_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_long *self = nullptr;
+    lua_Integer arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.long");
+    olua_check_int(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const long &v)
+    self->setValue((long)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -6798,7 +7309,6 @@ OLUA_LIB int luaopen_olua_long(lua_State *L)
     oluacls_func(L, "__index", _olua_long___index);
     oluacls_func(L, "__newindex", _olua_long___newindex);
     oluacls_func(L, "__olua_move", _olua_long___olua_move);
-    oluacls_func(L, "array", _olua_long_array);
     oluacls_func(L, "copyfrom", _olua_long_copyfrom);
     oluacls_func(L, "fill", _olua_long_fill);
     oluacls_func(L, "new", _olua_long_create);
@@ -6806,7 +7316,7 @@ OLUA_LIB int luaopen_olua_long(lua_State *L)
     oluacls_func(L, "take", _olua_long_take);
     oluacls_func(L, "tostring", _olua_long_tostring);
     oluacls_prop(L, "length", _olua_long_getLength, _olua_long_setLength);
-    oluacls_prop(L, "value", _olua_long_value, nullptr);
+    oluacls_prop(L, "value", _olua_long_getValue, _olua_long_setValue);
 
     olua_registerluatype<olua_long>(L, "olua.long");
 
@@ -6879,23 +7389,6 @@ static int _olua_ulong___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_ulong_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<unsigned long> *array(size_t len)
-    olua::pointer<unsigned long> *ret = olua_ulong::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.ulong");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_ulong_copyfrom1(lua_State *L)
@@ -7039,21 +7532,55 @@ static int _olua_ulong_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_ulong_create(lua_State *L)
+static int _olua_ulong_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Unsigned arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
     olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<unsigned long> *create(const unsigned long &v)
-    olua::pointer<unsigned long> *ret = olua_ulong::create((unsigned long)arg1);
+    // @name(new) static olua::pointer<unsigned long> *create(@optional size_t len)
+    olua::pointer<unsigned long> *ret = olua_ulong::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.ulong");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_ulong_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<unsigned long> *create(@optional size_t len)
+    olua::pointer<unsigned long> *ret = olua_ulong::create();
+    int num_ret = olua_push_obj(L, ret, "olua.ulong");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_ulong_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<unsigned long> *create(@optional size_t len)
+        return _olua_ulong_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<unsigned long> *create(@optional size_t len)
+            return _olua_ulong_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_ulong::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_ulong_sub1(lua_State *L)
@@ -7227,7 +7754,7 @@ static int _olua_ulong_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_ulong_value(lua_State *L)
+static int _olua_ulong_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7235,13 +7762,31 @@ static int _olua_ulong_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.ulong");
 
-    // @getter const unsigned long &value()
-    const unsigned long &ret = self->value();
+    // @getter @name(value) const unsigned long &getValue()
+    const unsigned long &ret = self->getValue();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_ulong_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_ulong *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.ulong");
+    olua_check_uint(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const unsigned long &v)
+    self->setValue((unsigned long)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -7252,7 +7797,6 @@ OLUA_LIB int luaopen_olua_ulong(lua_State *L)
     oluacls_func(L, "__index", _olua_ulong___index);
     oluacls_func(L, "__newindex", _olua_ulong___newindex);
     oluacls_func(L, "__olua_move", _olua_ulong___olua_move);
-    oluacls_func(L, "array", _olua_ulong_array);
     oluacls_func(L, "copyfrom", _olua_ulong_copyfrom);
     oluacls_func(L, "fill", _olua_ulong_fill);
     oluacls_func(L, "new", _olua_ulong_create);
@@ -7260,7 +7804,7 @@ OLUA_LIB int luaopen_olua_ulong(lua_State *L)
     oluacls_func(L, "take", _olua_ulong_take);
     oluacls_func(L, "tostring", _olua_ulong_tostring);
     oluacls_prop(L, "length", _olua_ulong_getLength, _olua_ulong_setLength);
-    oluacls_prop(L, "value", _olua_ulong_value, nullptr);
+    oluacls_prop(L, "value", _olua_ulong_getValue, _olua_ulong_setValue);
 
     olua_registerluatype<olua_ulong>(L, "olua.ulong");
 
@@ -7333,23 +7877,6 @@ static int _olua_llong___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_llong_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<long long> *array(size_t len)
-    olua::pointer<long long> *ret = olua_llong::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.llong");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_llong_copyfrom1(lua_State *L)
@@ -7493,21 +8020,55 @@ static int _olua_llong_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_llong_create(lua_State *L)
+static int _olua_llong_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Integer arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<long long> *create(const long long &v)
-    olua::pointer<long long> *ret = olua_llong::create((long long)arg1);
+    // @name(new) static olua::pointer<long long> *create(@optional size_t len)
+    olua::pointer<long long> *ret = olua_llong::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.llong");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_llong_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<long long> *create(@optional size_t len)
+    olua::pointer<long long> *ret = olua_llong::create();
+    int num_ret = olua_push_obj(L, ret, "olua.llong");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_llong_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<long long> *create(@optional size_t len)
+        return _olua_llong_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<long long> *create(@optional size_t len)
+            return _olua_llong_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_llong::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_llong_sub1(lua_State *L)
@@ -7681,7 +8242,7 @@ static int _olua_llong_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_llong_value(lua_State *L)
+static int _olua_llong_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7689,13 +8250,31 @@ static int _olua_llong_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.llong");
 
-    // @getter const long long &value()
-    const long long &ret = self->value();
+    // @getter @name(value) const long long &getValue()
+    const long long &ret = self->getValue();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_llong_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_llong *self = nullptr;
+    lua_Integer arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.llong");
+    olua_check_int(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const long long &v)
+    self->setValue((long long)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -7706,7 +8285,6 @@ OLUA_LIB int luaopen_olua_llong(lua_State *L)
     oluacls_func(L, "__index", _olua_llong___index);
     oluacls_func(L, "__newindex", _olua_llong___newindex);
     oluacls_func(L, "__olua_move", _olua_llong___olua_move);
-    oluacls_func(L, "array", _olua_llong_array);
     oluacls_func(L, "copyfrom", _olua_llong_copyfrom);
     oluacls_func(L, "fill", _olua_llong_fill);
     oluacls_func(L, "new", _olua_llong_create);
@@ -7714,7 +8292,7 @@ OLUA_LIB int luaopen_olua_llong(lua_State *L)
     oluacls_func(L, "take", _olua_llong_take);
     oluacls_func(L, "tostring", _olua_llong_tostring);
     oluacls_prop(L, "length", _olua_llong_getLength, _olua_llong_setLength);
-    oluacls_prop(L, "value", _olua_llong_value, nullptr);
+    oluacls_prop(L, "value", _olua_llong_getValue, _olua_llong_setValue);
 
     olua_registerluatype<olua_llong>(L, "olua.llong");
 
@@ -7787,23 +8365,6 @@ static int _olua_ullong___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_ullong_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<unsigned long long> *array(size_t len)
-    olua::pointer<unsigned long long> *ret = olua_ullong::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.ullong");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_ullong_copyfrom1(lua_State *L)
@@ -7947,21 +8508,55 @@ static int _olua_ullong_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_ullong_create(lua_State *L)
+static int _olua_ullong_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Unsigned arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
     olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<unsigned long long> *create(const unsigned long long &v)
-    olua::pointer<unsigned long long> *ret = olua_ullong::create((unsigned long long)arg1);
+    // @name(new) static olua::pointer<unsigned long long> *create(@optional size_t len)
+    olua::pointer<unsigned long long> *ret = olua_ullong::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.ullong");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_ullong_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<unsigned long long> *create(@optional size_t len)
+    olua::pointer<unsigned long long> *ret = olua_ullong::create();
+    int num_ret = olua_push_obj(L, ret, "olua.ullong");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_ullong_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<unsigned long long> *create(@optional size_t len)
+        return _olua_ullong_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<unsigned long long> *create(@optional size_t len)
+            return _olua_ullong_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_ullong::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_ullong_sub1(lua_State *L)
@@ -8135,7 +8730,7 @@ static int _olua_ullong_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_ullong_value(lua_State *L)
+static int _olua_ullong_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8143,13 +8738,31 @@ static int _olua_ullong_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.ullong");
 
-    // @getter const unsigned long long &value()
-    const unsigned long long &ret = self->value();
+    // @getter @name(value) const unsigned long long &getValue()
+    const unsigned long long &ret = self->getValue();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_ullong_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_ullong *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.ullong");
+    olua_check_uint(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const unsigned long long &v)
+    self->setValue((unsigned long long)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -8160,7 +8773,6 @@ OLUA_LIB int luaopen_olua_ullong(lua_State *L)
     oluacls_func(L, "__index", _olua_ullong___index);
     oluacls_func(L, "__newindex", _olua_ullong___newindex);
     oluacls_func(L, "__olua_move", _olua_ullong___olua_move);
-    oluacls_func(L, "array", _olua_ullong_array);
     oluacls_func(L, "copyfrom", _olua_ullong_copyfrom);
     oluacls_func(L, "fill", _olua_ullong_fill);
     oluacls_func(L, "new", _olua_ullong_create);
@@ -8168,7 +8780,7 @@ OLUA_LIB int luaopen_olua_ullong(lua_State *L)
     oluacls_func(L, "take", _olua_ullong_take);
     oluacls_func(L, "tostring", _olua_ullong_tostring);
     oluacls_prop(L, "length", _olua_ullong_getLength, _olua_ullong_setLength);
-    oluacls_prop(L, "value", _olua_ullong_value, nullptr);
+    oluacls_prop(L, "value", _olua_ullong_getValue, _olua_ullong_setValue);
 
     olua_registerluatype<olua_ullong>(L, "olua.ullong");
 
@@ -8241,23 +8853,6 @@ static int _olua_float___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_float_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<float> *array(size_t len)
-    olua::pointer<float> *ret = olua_float::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.float");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_float_copyfrom1(lua_State *L)
@@ -8401,21 +8996,55 @@ static int _olua_float_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_float_create(lua_State *L)
+static int _olua_float_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Number arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
-    olua_check_number(L, 1, &arg1);
+    olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<float> *create(const float &v)
-    olua::pointer<float> *ret = olua_float::create((float)arg1);
+    // @name(new) static olua::pointer<float> *create(@optional size_t len)
+    olua::pointer<float> *ret = olua_float::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.float");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_float_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<float> *create(@optional size_t len)
+    olua::pointer<float> *ret = olua_float::create();
+    int num_ret = olua_push_obj(L, ret, "olua.float");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_float_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<float> *create(@optional size_t len)
+        return _olua_float_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<float> *create(@optional size_t len)
+            return _olua_float_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_float::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_float_sub1(lua_State *L)
@@ -8589,7 +9218,7 @@ static int _olua_float_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_float_value(lua_State *L)
+static int _olua_float_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8597,13 +9226,31 @@ static int _olua_float_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.float");
 
-    // @getter const float &value()
-    const float &ret = self->value();
+    // @getter @name(value) const float &getValue()
+    const float &ret = self->getValue();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_float_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_float *self = nullptr;
+    lua_Number arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.float");
+    olua_check_number(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const float &v)
+    self->setValue((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -8614,7 +9261,6 @@ OLUA_LIB int luaopen_olua_float(lua_State *L)
     oluacls_func(L, "__index", _olua_float___index);
     oluacls_func(L, "__newindex", _olua_float___newindex);
     oluacls_func(L, "__olua_move", _olua_float___olua_move);
-    oluacls_func(L, "array", _olua_float_array);
     oluacls_func(L, "copyfrom", _olua_float_copyfrom);
     oluacls_func(L, "fill", _olua_float_fill);
     oluacls_func(L, "new", _olua_float_create);
@@ -8622,7 +9268,7 @@ OLUA_LIB int luaopen_olua_float(lua_State *L)
     oluacls_func(L, "take", _olua_float_take);
     oluacls_func(L, "tostring", _olua_float_tostring);
     oluacls_prop(L, "length", _olua_float_getLength, _olua_float_setLength);
-    oluacls_prop(L, "value", _olua_float_value, nullptr);
+    oluacls_prop(L, "value", _olua_float_getValue, _olua_float_setValue);
 
     olua_registerluatype<olua_float>(L, "olua.float");
 
@@ -8695,23 +9341,6 @@ static int _olua_double___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_double_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<double> *array(size_t len)
-    olua::pointer<double> *ret = olua_double::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.double");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_double_copyfrom1(lua_State *L)
@@ -8855,21 +9484,55 @@ static int _olua_double_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_double_create(lua_State *L)
+static int _olua_double_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Number arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
-    olua_check_number(L, 1, &arg1);
+    olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<double> *create(const double &v)
-    olua::pointer<double> *ret = olua_double::create((double)arg1);
+    // @name(new) static olua::pointer<double> *create(@optional size_t len)
+    olua::pointer<double> *ret = olua_double::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.double");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_double_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<double> *create(@optional size_t len)
+    olua::pointer<double> *ret = olua_double::create();
+    int num_ret = olua_push_obj(L, ret, "olua.double");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_double_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<double> *create(@optional size_t len)
+        return _olua_double_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<double> *create(@optional size_t len)
+            return _olua_double_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_double::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_double_sub1(lua_State *L)
@@ -9043,7 +9706,7 @@ static int _olua_double_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_double_value(lua_State *L)
+static int _olua_double_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9051,13 +9714,31 @@ static int _olua_double_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.double");
 
-    // @getter const double &value()
-    const double &ret = self->value();
+    // @getter @name(value) const double &getValue()
+    const double &ret = self->getValue();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_double_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_double *self = nullptr;
+    lua_Number arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.double");
+    olua_check_number(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const double &v)
+    self->setValue((double)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -9068,7 +9749,6 @@ OLUA_LIB int luaopen_olua_double(lua_State *L)
     oluacls_func(L, "__index", _olua_double___index);
     oluacls_func(L, "__newindex", _olua_double___newindex);
     oluacls_func(L, "__olua_move", _olua_double___olua_move);
-    oluacls_func(L, "array", _olua_double_array);
     oluacls_func(L, "copyfrom", _olua_double_copyfrom);
     oluacls_func(L, "fill", _olua_double_fill);
     oluacls_func(L, "new", _olua_double_create);
@@ -9076,7 +9756,7 @@ OLUA_LIB int luaopen_olua_double(lua_State *L)
     oluacls_func(L, "take", _olua_double_take);
     oluacls_func(L, "tostring", _olua_double_tostring);
     oluacls_prop(L, "length", _olua_double_getLength, _olua_double_setLength);
-    oluacls_prop(L, "value", _olua_double_value, nullptr);
+    oluacls_prop(L, "value", _olua_double_getValue, _olua_double_setValue);
 
     olua_registerluatype<olua_double>(L, "olua.double");
 
@@ -9149,23 +9829,6 @@ static int _olua_ldouble___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_ldouble_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<long double> *array(size_t len)
-    olua::pointer<long double> *ret = olua_ldouble::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.ldouble");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_ldouble_copyfrom1(lua_State *L)
@@ -9309,21 +9972,55 @@ static int _olua_ldouble_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_ldouble_create(lua_State *L)
+static int _olua_ldouble_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Number arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
-    olua_check_number(L, 1, &arg1);
+    olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<long double> *create(const long double &v)
-    olua::pointer<long double> *ret = olua_ldouble::create((long double)arg1);
+    // @name(new) static olua::pointer<long double> *create(@optional size_t len)
+    olua::pointer<long double> *ret = olua_ldouble::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.ldouble");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_ldouble_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<long double> *create(@optional size_t len)
+    olua::pointer<long double> *ret = olua_ldouble::create();
+    int num_ret = olua_push_obj(L, ret, "olua.ldouble");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_ldouble_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<long double> *create(@optional size_t len)
+        return _olua_ldouble_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<long double> *create(@optional size_t len)
+            return _olua_ldouble_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_ldouble::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_ldouble_sub1(lua_State *L)
@@ -9497,7 +10194,7 @@ static int _olua_ldouble_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_ldouble_value(lua_State *L)
+static int _olua_ldouble_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9505,13 +10202,31 @@ static int _olua_ldouble_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.ldouble");
 
-    // @getter const long double &value()
-    const long double &ret = self->value();
+    // @getter @name(value) const long double &getValue()
+    const long double &ret = self->getValue();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_ldouble_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_ldouble *self = nullptr;
+    lua_Number arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.ldouble");
+    olua_check_number(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const long double &v)
+    self->setValue((long double)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -9522,7 +10237,6 @@ OLUA_LIB int luaopen_olua_ldouble(lua_State *L)
     oluacls_func(L, "__index", _olua_ldouble___index);
     oluacls_func(L, "__newindex", _olua_ldouble___newindex);
     oluacls_func(L, "__olua_move", _olua_ldouble___olua_move);
-    oluacls_func(L, "array", _olua_ldouble_array);
     oluacls_func(L, "copyfrom", _olua_ldouble_copyfrom);
     oluacls_func(L, "fill", _olua_ldouble_fill);
     oluacls_func(L, "new", _olua_ldouble_create);
@@ -9530,7 +10244,7 @@ OLUA_LIB int luaopen_olua_ldouble(lua_State *L)
     oluacls_func(L, "take", _olua_ldouble_take);
     oluacls_func(L, "tostring", _olua_ldouble_tostring);
     oluacls_prop(L, "length", _olua_ldouble_getLength, _olua_ldouble_setLength);
-    oluacls_prop(L, "value", _olua_ldouble_value, nullptr);
+    oluacls_prop(L, "value", _olua_ldouble_getValue, _olua_ldouble_setValue);
 
     olua_registerluatype<olua_ldouble>(L, "olua.ldouble");
 
@@ -9603,23 +10317,6 @@ static int _olua_size_t___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_size_t_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<size_t> *array(size_t len)
-    olua::pointer<size_t> *ret = olua_size_t::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.size_t");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_size_t_copyfrom1(lua_State *L)
@@ -9763,21 +10460,55 @@ static int _olua_size_t_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_size_t_create(lua_State *L)
+static int _olua_size_t_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Unsigned arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
     olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<size_t> *create(const size_t &v)
+    // @name(new) static olua::pointer<size_t> *create(@optional size_t len)
     olua::pointer<size_t> *ret = olua_size_t::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.size_t");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_size_t_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<size_t> *create(@optional size_t len)
+    olua::pointer<size_t> *ret = olua_size_t::create();
+    int num_ret = olua_push_obj(L, ret, "olua.size_t");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_size_t_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<size_t> *create(@optional size_t len)
+        return _olua_size_t_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<size_t> *create(@optional size_t len)
+            return _olua_size_t_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_size_t::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_size_t_sub1(lua_State *L)
@@ -9951,7 +10682,7 @@ static int _olua_size_t_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_size_t_value(lua_State *L)
+static int _olua_size_t_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9959,13 +10690,31 @@ static int _olua_size_t_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.size_t");
 
-    // @getter const size_t &value()
-    const size_t &ret = self->value();
+    // @getter @name(value) const size_t &getValue()
+    const size_t &ret = self->getValue();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_size_t_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_size_t *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.size_t");
+    olua_check_uint(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const size_t &v)
+    self->setValue((size_t)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -9976,7 +10725,6 @@ OLUA_LIB int luaopen_olua_size_t(lua_State *L)
     oluacls_func(L, "__index", _olua_size_t___index);
     oluacls_func(L, "__newindex", _olua_size_t___newindex);
     oluacls_func(L, "__olua_move", _olua_size_t___olua_move);
-    oluacls_func(L, "array", _olua_size_t_array);
     oluacls_func(L, "copyfrom", _olua_size_t_copyfrom);
     oluacls_func(L, "fill", _olua_size_t_fill);
     oluacls_func(L, "new", _olua_size_t_create);
@@ -9984,7 +10732,7 @@ OLUA_LIB int luaopen_olua_size_t(lua_State *L)
     oluacls_func(L, "take", _olua_size_t_take);
     oluacls_func(L, "tostring", _olua_size_t_tostring);
     oluacls_prop(L, "length", _olua_size_t_getLength, _olua_size_t_setLength);
-    oluacls_prop(L, "value", _olua_size_t_value, nullptr);
+    oluacls_prop(L, "value", _olua_size_t_getValue, _olua_size_t_setValue);
 
     olua_registerluatype<olua_size_t>(L, "olua.size_t");
 
@@ -10057,23 +10805,6 @@ static int _olua_ssize_t___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_ssize_t_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<ssize_t> *array(size_t len)
-    olua::pointer<ssize_t> *ret = olua_ssize_t::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.ssize_t");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_ssize_t_copyfrom1(lua_State *L)
@@ -10217,21 +10948,55 @@ static int _olua_ssize_t_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_ssize_t_create(lua_State *L)
+static int _olua_ssize_t_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Integer arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<ssize_t> *create(const ssize_t &v)
-    olua::pointer<ssize_t> *ret = olua_ssize_t::create((ssize_t)arg1);
+    // @name(new) static olua::pointer<ssize_t> *create(@optional size_t len)
+    olua::pointer<ssize_t> *ret = olua_ssize_t::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.ssize_t");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_ssize_t_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<ssize_t> *create(@optional size_t len)
+    olua::pointer<ssize_t> *ret = olua_ssize_t::create();
+    int num_ret = olua_push_obj(L, ret, "olua.ssize_t");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_ssize_t_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<ssize_t> *create(@optional size_t len)
+        return _olua_ssize_t_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<ssize_t> *create(@optional size_t len)
+            return _olua_ssize_t_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_ssize_t::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_ssize_t_sub1(lua_State *L)
@@ -10405,7 +11170,7 @@ static int _olua_ssize_t_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_ssize_t_value(lua_State *L)
+static int _olua_ssize_t_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10413,13 +11178,31 @@ static int _olua_ssize_t_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.ssize_t");
 
-    // @getter const ssize_t &value()
-    const ssize_t &ret = self->value();
+    // @getter @name(value) const ssize_t &getValue()
+    const ssize_t &ret = self->getValue();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_ssize_t_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_ssize_t *self = nullptr;
+    lua_Integer arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.ssize_t");
+    olua_check_int(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const ssize_t &v)
+    self->setValue((ssize_t)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -10430,7 +11213,6 @@ OLUA_LIB int luaopen_olua_ssize_t(lua_State *L)
     oluacls_func(L, "__index", _olua_ssize_t___index);
     oluacls_func(L, "__newindex", _olua_ssize_t___newindex);
     oluacls_func(L, "__olua_move", _olua_ssize_t___olua_move);
-    oluacls_func(L, "array", _olua_ssize_t_array);
     oluacls_func(L, "copyfrom", _olua_ssize_t_copyfrom);
     oluacls_func(L, "fill", _olua_ssize_t_fill);
     oluacls_func(L, "new", _olua_ssize_t_create);
@@ -10438,7 +11220,7 @@ OLUA_LIB int luaopen_olua_ssize_t(lua_State *L)
     oluacls_func(L, "take", _olua_ssize_t_take);
     oluacls_func(L, "tostring", _olua_ssize_t_tostring);
     oluacls_prop(L, "length", _olua_ssize_t_getLength, _olua_ssize_t_setLength);
-    oluacls_prop(L, "value", _olua_ssize_t_value, nullptr);
+    oluacls_prop(L, "value", _olua_ssize_t_getValue, _olua_ssize_t_setValue);
 
     olua_registerluatype<olua_ssize_t>(L, "olua.ssize_t");
 
@@ -10511,23 +11293,6 @@ static int _olua_time_t___olua_move(lua_State *L)
     olua_endinvoke(L);
 
     return 1;
-}
-
-static int _olua_time_t_array(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_Unsigned arg1 = 0;       /** len */
-
-    olua_check_uint(L, 1, &arg1);
-
-    // static olua::pointer<time_t> *array(size_t len)
-    olua::pointer<time_t> *ret = olua_time_t::array((size_t)arg1);
-    int num_ret = olua_push_obj(L, ret, "olua.time_t");
-
-    olua_endinvoke(L);
-
-    return num_ret;
 }
 
 static int _olua_time_t_copyfrom1(lua_State *L)
@@ -10671,21 +11436,55 @@ static int _olua_time_t_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_time_t_create(lua_State *L)
+static int _olua_time_t_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Integer arg1 = 0;       /** v */
+    lua_Unsigned arg1 = 0;       /** len */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_uint(L, 1, &arg1);
 
-    // @name(new) static olua::pointer<time_t> *create(const time_t &v)
-    olua::pointer<time_t> *ret = olua_time_t::create((time_t)arg1);
+    // @name(new) static olua::pointer<time_t> *create(@optional size_t len)
+    olua::pointer<time_t> *ret = olua_time_t::create((size_t)arg1);
     int num_ret = olua_push_obj(L, ret, "olua.time_t");
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_time_t_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @name(new) static olua::pointer<time_t> *create(@optional size_t len)
+    olua::pointer<time_t> *ret = olua_time_t::create();
+    int num_ret = olua_push_obj(L, ret, "olua.time_t");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _olua_time_t_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @name(new) static olua::pointer<time_t> *create(@optional size_t len)
+        return _olua_time_t_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 1))) {
+            // @name(new) static olua::pointer<time_t> *create(@optional size_t len)
+            return _olua_time_t_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'olua_time_t::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _olua_time_t_sub1(lua_State *L)
@@ -10859,7 +11658,7 @@ static int _olua_time_t_setLength(lua_State *L)
     return 0;
 }
 
-static int _olua_time_t_value(lua_State *L)
+static int _olua_time_t_getValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10867,13 +11666,31 @@ static int _olua_time_t_value(lua_State *L)
 
     olua_to_obj(L, 1, &self, "olua.time_t");
 
-    // @getter const time_t &value()
-    const time_t &ret = self->value();
+    // @getter @name(value) const time_t &getValue()
+    const time_t &ret = self->getValue();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _olua_time_t_setValue(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_time_t *self = nullptr;
+    lua_Integer arg1 = 0;       /** v */
+
+    olua_to_obj(L, 1, &self, "olua.time_t");
+    olua_check_int(L, 2, &arg1);
+
+    // @setter @name(value) void setValue(const time_t &v)
+    self->setValue((time_t)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -10884,7 +11701,6 @@ OLUA_LIB int luaopen_olua_time_t(lua_State *L)
     oluacls_func(L, "__index", _olua_time_t___index);
     oluacls_func(L, "__newindex", _olua_time_t___newindex);
     oluacls_func(L, "__olua_move", _olua_time_t___olua_move);
-    oluacls_func(L, "array", _olua_time_t_array);
     oluacls_func(L, "copyfrom", _olua_time_t_copyfrom);
     oluacls_func(L, "fill", _olua_time_t_fill);
     oluacls_func(L, "new", _olua_time_t_create);
@@ -10892,7 +11708,7 @@ OLUA_LIB int luaopen_olua_time_t(lua_State *L)
     oluacls_func(L, "take", _olua_time_t_take);
     oluacls_func(L, "tostring", _olua_time_t_tostring);
     oluacls_prop(L, "length", _olua_time_t_getLength, _olua_time_t_setLength);
-    oluacls_prop(L, "value", _olua_time_t_value, nullptr);
+    oluacls_prop(L, "value", _olua_time_t_getValue, _olua_time_t_setValue);
 
     olua_registerluatype<olua_time_t>(L, "olua.time_t");
 

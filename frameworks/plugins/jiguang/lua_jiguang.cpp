@@ -280,7 +280,7 @@ static int _cclua_plugin_jauth_clearPreLoginCache(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_jauth_configUI1(lua_State *L)
+static int _cclua_plugin_jauth_configUI$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -298,7 +298,7 @@ static int _cclua_plugin_jauth_configUI1(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_jauth_configUI2(lua_State *L)
+static int _cclua_plugin_jauth_configUI$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -321,14 +321,14 @@ static int _cclua_plugin_jauth_configUI(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_cocos2d_ValueMap(L, 1))) {
             // static void configUI(cocos2d::ValueMap &value, @optional bool landscape)
-            return _cclua_plugin_jauth_configUI2(L);
+            return _cclua_plugin_jauth_configUI$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cocos2d_ValueMap(L, 1)) && (olua_is_bool(L, 2))) {
             // static void configUI(cocos2d::ValueMap &value, @optional bool landscape)
-            return _cclua_plugin_jauth_configUI1(L);
+            return _cclua_plugin_jauth_configUI$1(L);
         // }
     }
 
@@ -337,7 +337,7 @@ static int _cclua_plugin_jauth_configUI(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_jauth_dismissLoginAuth1(lua_State *L)
+static int _cclua_plugin_jauth_dismissLoginAuth$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -353,7 +353,7 @@ static int _cclua_plugin_jauth_dismissLoginAuth1(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_jauth_dismissLoginAuth2(lua_State *L)
+static int _cclua_plugin_jauth_dismissLoginAuth$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -371,13 +371,13 @@ static int _cclua_plugin_jauth_dismissLoginAuth(lua_State *L)
 
     if (num_args == 0) {
         // static void dismissLoginAuth(@optional bool needCloseAnim)
-        return _cclua_plugin_jauth_dismissLoginAuth2(L);
+        return _cclua_plugin_jauth_dismissLoginAuth$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_bool(L, 1))) {
             // static void dismissLoginAuth(@optional bool needCloseAnim)
-            return _cclua_plugin_jauth_dismissLoginAuth1(L);
+            return _cclua_plugin_jauth_dismissLoginAuth$1(L);
         // }
     }
 

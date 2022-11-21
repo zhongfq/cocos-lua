@@ -172,7 +172,7 @@ static int _cocos2d_CSLoader_bindCallback(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_CSLoader_createNode1(lua_State *L)
+static int _cocos2d_CSLoader_createNode$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -189,7 +189,7 @@ static int _cocos2d_CSLoader_createNode1(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_CSLoader_createNode2(lua_State *L)
+static int _cocos2d_CSLoader_createNode$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -233,7 +233,7 @@ static int _cocos2d_CSLoader_createNode2(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_CSLoader_createNode3(lua_State *L)
+static int _cocos2d_CSLoader_createNode$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -250,7 +250,7 @@ static int _cocos2d_CSLoader_createNode3(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_CSLoader_createNode4(lua_State *L)
+static int _cocos2d_CSLoader_createNode$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -301,24 +301,24 @@ static int _cocos2d_CSLoader_createNode(lua_State *L)
     if (num_args == 1) {
         if ((olua_is_std_string(L, 1))) {
             // static cocos2d::Node *createNode(const std::string &filename)
-            return _cocos2d_CSLoader_createNode1(L);
+            return _cocos2d_CSLoader_createNode$1(L);
         }
 
         // if ((olua_is_cocos2d_Data(L, 1))) {
             // static cocos2d::Node *createNode(const cocos2d::Data &data)
-            return _cocos2d_CSLoader_createNode3(L);
+            return _cocos2d_CSLoader_createNode$3(L);
         // }
     }
 
     if (num_args == 2) {
         if ((olua_is_std_string(L, 1)) && (olua_is_callback(L, 2, "std.function"))) {
             // static cocos2d::Node *createNode(const std::string &filename, @localvar const std::function<void (cocos2d::Ref *)> &callback)
-            return _cocos2d_CSLoader_createNode2(L);
+            return _cocos2d_CSLoader_createNode$2(L);
         }
 
         // if ((olua_is_cocos2d_Data(L, 1)) && (olua_is_callback(L, 2, "std.function"))) {
             // static cocos2d::Node *createNode(const cocos2d::Data &data, @localvar const std::function<void (cocos2d::Ref *)> &callback)
-            return _cocos2d_CSLoader_createNode4(L);
+            return _cocos2d_CSLoader_createNode$4(L);
         // }
     }
 
@@ -384,7 +384,7 @@ static int _cocos2d_CSLoader_createNodeWithFlatBuffersForSimulator(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_CSLoader_createNodeWithVisibleSize1(lua_State *L)
+static int _cocos2d_CSLoader_createNodeWithVisibleSize$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -401,7 +401,7 @@ static int _cocos2d_CSLoader_createNodeWithVisibleSize1(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_CSLoader_createNodeWithVisibleSize2(lua_State *L)
+static int _cocos2d_CSLoader_createNodeWithVisibleSize$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -452,14 +452,14 @@ static int _cocos2d_CSLoader_createNodeWithVisibleSize(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
             // static cocos2d::Node *createNodeWithVisibleSize(const std::string &filename)
-            return _cocos2d_CSLoader_createNodeWithVisibleSize1(L);
+            return _cocos2d_CSLoader_createNodeWithVisibleSize$1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_callback(L, 2, "std.function"))) {
             // static cocos2d::Node *createNodeWithVisibleSize(const std::string &filename, @localvar const std::function<void (cocos2d::Ref *)> &callback)
-            return _cocos2d_CSLoader_createNodeWithVisibleSize2(L);
+            return _cocos2d_CSLoader_createNodeWithVisibleSize$2(L);
         // }
     }
 
@@ -468,7 +468,7 @@ static int _cocos2d_CSLoader_createNodeWithVisibleSize(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_CSLoader_createTimeline1(lua_State *L)
+static int _cocos2d_CSLoader_createTimeline$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -485,7 +485,7 @@ static int _cocos2d_CSLoader_createTimeline1(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_CSLoader_createTimeline2(lua_State *L)
+static int _cocos2d_CSLoader_createTimeline$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -511,14 +511,14 @@ static int _cocos2d_CSLoader_createTimeline(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
             // static cocostudio::timeline::ActionTimeline *createTimeline(const std::string &filename)
-            return _cocos2d_CSLoader_createTimeline1(L);
+            return _cocos2d_CSLoader_createTimeline$1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cocos2d_Data(L, 1)) && (olua_is_std_string(L, 2))) {
             // static cocostudio::timeline::ActionTimeline *createTimeline(const cocos2d::Data &data, const std::string &filename)
-            return _cocos2d_CSLoader_createTimeline2(L);
+            return _cocos2d_CSLoader_createTimeline$2(L);
         // }
     }
 
@@ -788,7 +788,7 @@ static int _cocostudio_ActionFrame___olua_move(lua_State *L)
     return 1;
 }
 
-static int _cocostudio_ActionFrame_getAction1(lua_State *L)
+static int _cocostudio_ActionFrame_getAction$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -810,7 +810,7 @@ static int _cocostudio_ActionFrame_getAction1(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_ActionFrame_getAction2(lua_State *L)
+static int _cocostudio_ActionFrame_getAction$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -841,14 +841,14 @@ static int _cocostudio_ActionFrame_getAction(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_number(L, 2))) {
             // @addref(action |) cocos2d::ActionInterval *getAction(float duration)
-            return _cocostudio_ActionFrame_getAction1(L);
+            return _cocostudio_ActionFrame_getAction$1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 2)) && (olua_is_obj(L, 3, "ccs.ActionFrame"))) {
             // @addref(action |) cocos2d::ActionInterval *getAction(float duration, cocostudio::ActionFrame *srcFrame)
-            return _cocostudio_ActionFrame_getAction2(L);
+            return _cocostudio_ActionFrame_getAction$2(L);
         // }
     }
 
@@ -1871,7 +1871,7 @@ static int _cocostudio_Armature_changeBoneParent(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_Armature_create1(lua_State *L)
+static int _cocostudio_Armature_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1884,7 +1884,7 @@ static int _cocostudio_Armature_create1(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_Armature_create2(lua_State *L)
+static int _cocostudio_Armature_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1901,7 +1901,7 @@ static int _cocostudio_Armature_create2(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_Armature_create3(lua_State *L)
+static int _cocostudio_Armature_create$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1926,20 +1926,20 @@ static int _cocostudio_Armature_create(lua_State *L)
 
     if (num_args == 0) {
         // static cocostudio::Armature *create()
-        return _cocostudio_Armature_create1(L);
+        return _cocostudio_Armature_create$1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
             // static cocostudio::Armature *create(const std::string &name)
-            return _cocostudio_Armature_create2(L);
+            return _cocostudio_Armature_create$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_obj(L, 2, "ccs.Bone"))) {
             // static cocostudio::Armature *create(const std::string &name, cocostudio::Bone *parentBone)
-            return _cocostudio_Armature_create3(L);
+            return _cocostudio_Armature_create$3(L);
         // }
     }
 
@@ -2144,7 +2144,7 @@ static int _cocostudio_Armature_getVersion(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_Armature_init1(lua_State *L)
+static int _cocostudio_Armature_init$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2161,7 +2161,7 @@ static int _cocostudio_Armature_init1(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_Armature_init2(lua_State *L)
+static int _cocostudio_Armature_init$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2180,7 +2180,7 @@ static int _cocostudio_Armature_init2(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_Armature_init3(lua_State *L)
+static int _cocostudio_Armature_init$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2207,20 +2207,20 @@ static int _cocostudio_Armature_init(lua_State *L)
 
     if (num_args == 0) {
         // @using bool init()
-        return _cocostudio_Armature_init1(L);
+        return _cocostudio_Armature_init$1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
             // bool init(const std::string &name)
-            return _cocostudio_Armature_init2(L);
+            return _cocostudio_Armature_init$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_obj(L, 3, "ccs.Bone"))) {
             // bool init(const std::string &name, cocostudio::Bone *parentBone)
-            return _cocostudio_Armature_init3(L);
+            return _cocostudio_Armature_init$3(L);
         // }
     }
 
@@ -2865,7 +2865,7 @@ static int _cocostudio_ActionManagerEx_new(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_ActionManagerEx_playActionByName1(lua_State *L)
+static int _cocostudio_ActionManagerEx_playActionByName$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2886,7 +2886,7 @@ static int _cocostudio_ActionManagerEx_playActionByName1(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_ActionManagerEx_playActionByName2(lua_State *L)
+static int _cocostudio_ActionManagerEx_playActionByName$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2916,14 +2916,14 @@ static int _cocostudio_ActionManagerEx_playActionByName(lua_State *L)
     if (num_args == 2) {
         // if ((olua_is_string(L, 2)) && (olua_is_string(L, 3))) {
             // cocostudio::ActionObject *playActionByName(const char *jsonName, const char *actionName)
-            return _cocostudio_ActionManagerEx_playActionByName1(L);
+            return _cocostudio_ActionManagerEx_playActionByName$1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_string(L, 2)) && (olua_is_string(L, 3)) && (olua_is_obj(L, 4, "cc.CallFunc"))) {
             // cocostudio::ActionObject *playActionByName(const char *jsonName, const char *actionName, cocos2d::CallFunc *func)
-            return _cocostudio_ActionManagerEx_playActionByName2(L);
+            return _cocostudio_ActionManagerEx_playActionByName$2(L);
         // }
     }
 
@@ -3493,7 +3493,7 @@ static int _cocostudio_ActionObject_pause(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ActionObject_play1(lua_State *L)
+static int _cocostudio_ActionObject_play$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3509,7 +3509,7 @@ static int _cocostudio_ActionObject_play1(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ActionObject_play2(lua_State *L)
+static int _cocostudio_ActionObject_play$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3533,13 +3533,13 @@ static int _cocostudio_ActionObject_play(lua_State *L)
 
     if (num_args == 0) {
         // void play()
-        return _cocostudio_ActionObject_play1(L);
+        return _cocostudio_ActionObject_play$1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "cc.CallFunc"))) {
             // void play(cocos2d::CallFunc *func)
-            return _cocostudio_ActionObject_play2(L);
+            return _cocostudio_ActionObject_play$2(L);
         // }
     }
 
@@ -3909,7 +3909,7 @@ static int _cocostudio_ArmatureAnimation_new(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_ArmatureAnimation_play1(lua_State *L)
+static int _cocostudio_ArmatureAnimation_play$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3931,7 +3931,7 @@ static int _cocostudio_ArmatureAnimation_play1(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureAnimation_play2(lua_State *L)
+static int _cocostudio_ArmatureAnimation_play$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3955,7 +3955,7 @@ static int _cocostudio_ArmatureAnimation_play2(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureAnimation_play3(lua_State *L)
+static int _cocostudio_ArmatureAnimation_play$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3973,7 +3973,7 @@ static int _cocostudio_ArmatureAnimation_play3(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureAnimation_play4(lua_State *L)
+static int _cocostudio_ArmatureAnimation_play$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4000,28 +4000,28 @@ static int _cocostudio_ArmatureAnimation_play(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
             // void play(const std::string &animationName, @optional int durationTo, @optional int loop)
-            return _cocostudio_ArmatureAnimation_play3(L);
+            return _cocostudio_ArmatureAnimation_play$3(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_int(L, 3))) {
             // void play(const std::string &animationName, @optional int durationTo, @optional int loop)
-            return _cocostudio_ArmatureAnimation_play4(L);
+            return _cocostudio_ArmatureAnimation_play$4(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4))) {
             // void play(const std::string &animationName, @optional int durationTo, @optional int loop)
-            return _cocostudio_ArmatureAnimation_play1(L);
+            return _cocostudio_ArmatureAnimation_play$1(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5))) {
             // @using void play(int durationTo, int durationTween, int loop, int tweenEasing)
-            return _cocostudio_ArmatureAnimation_play2(L);
+            return _cocostudio_ArmatureAnimation_play$2(L);
         // }
     }
 
@@ -4030,7 +4030,7 @@ static int _cocostudio_ArmatureAnimation_play(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureAnimation_playWithIndex1(lua_State *L)
+static int _cocostudio_ArmatureAnimation_playWithIndex$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4052,7 +4052,7 @@ static int _cocostudio_ArmatureAnimation_playWithIndex1(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureAnimation_playWithIndex2(lua_State *L)
+static int _cocostudio_ArmatureAnimation_playWithIndex$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4070,7 +4070,7 @@ static int _cocostudio_ArmatureAnimation_playWithIndex2(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureAnimation_playWithIndex3(lua_State *L)
+static int _cocostudio_ArmatureAnimation_playWithIndex$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4097,21 +4097,21 @@ static int _cocostudio_ArmatureAnimation_playWithIndex(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_int(L, 2))) {
             // void playWithIndex(int animationIndex, @optional int durationTo, @optional int loop)
-            return _cocostudio_ArmatureAnimation_playWithIndex2(L);
+            return _cocostudio_ArmatureAnimation_playWithIndex$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3))) {
             // void playWithIndex(int animationIndex, @optional int durationTo, @optional int loop)
-            return _cocostudio_ArmatureAnimation_playWithIndex3(L);
+            return _cocostudio_ArmatureAnimation_playWithIndex$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4))) {
             // void playWithIndex(int animationIndex, @optional int durationTo, @optional int loop)
-            return _cocostudio_ArmatureAnimation_playWithIndex1(L);
+            return _cocostudio_ArmatureAnimation_playWithIndex$1(L);
         // }
     }
 
@@ -4120,7 +4120,7 @@ static int _cocostudio_ArmatureAnimation_playWithIndex(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureAnimation_playWithIndexes1(lua_State *L)
+static int _cocostudio_ArmatureAnimation_playWithIndexes$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4146,7 +4146,7 @@ static int _cocostudio_ArmatureAnimation_playWithIndexes1(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureAnimation_playWithIndexes2(lua_State *L)
+static int _cocostudio_ArmatureAnimation_playWithIndexes$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4168,7 +4168,7 @@ static int _cocostudio_ArmatureAnimation_playWithIndexes2(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureAnimation_playWithIndexes3(lua_State *L)
+static int _cocostudio_ArmatureAnimation_playWithIndexes$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4199,21 +4199,21 @@ static int _cocostudio_ArmatureAnimation_playWithIndexes(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_array(L, 2))) {
             // void playWithIndexes(const std::vector<int> &movementIndexes, @optional int durationTo, @optional bool loop)
-            return _cocostudio_ArmatureAnimation_playWithIndexes2(L);
+            return _cocostudio_ArmatureAnimation_playWithIndexes$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_array(L, 2)) && (olua_is_int(L, 3))) {
             // void playWithIndexes(const std::vector<int> &movementIndexes, @optional int durationTo, @optional bool loop)
-            return _cocostudio_ArmatureAnimation_playWithIndexes3(L);
+            return _cocostudio_ArmatureAnimation_playWithIndexes$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_array(L, 2)) && (olua_is_int(L, 3)) && (olua_is_bool(L, 4))) {
             // void playWithIndexes(const std::vector<int> &movementIndexes, @optional int durationTo, @optional bool loop)
-            return _cocostudio_ArmatureAnimation_playWithIndexes1(L);
+            return _cocostudio_ArmatureAnimation_playWithIndexes$1(L);
         // }
     }
 
@@ -4222,7 +4222,7 @@ static int _cocostudio_ArmatureAnimation_playWithIndexes(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureAnimation_playWithNames1(lua_State *L)
+static int _cocostudio_ArmatureAnimation_playWithNames$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4246,7 +4246,7 @@ static int _cocostudio_ArmatureAnimation_playWithNames1(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureAnimation_playWithNames2(lua_State *L)
+static int _cocostudio_ArmatureAnimation_playWithNames$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4266,7 +4266,7 @@ static int _cocostudio_ArmatureAnimation_playWithNames2(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureAnimation_playWithNames3(lua_State *L)
+static int _cocostudio_ArmatureAnimation_playWithNames$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4295,21 +4295,21 @@ static int _cocostudio_ArmatureAnimation_playWithNames(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_array(L, 2))) {
             // void playWithNames(const std::vector<std::string> &movementNames, @optional int durationTo, @optional bool loop)
-            return _cocostudio_ArmatureAnimation_playWithNames2(L);
+            return _cocostudio_ArmatureAnimation_playWithNames$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_array(L, 2)) && (olua_is_int(L, 3))) {
             // void playWithNames(const std::vector<std::string> &movementNames, @optional int durationTo, @optional bool loop)
-            return _cocostudio_ArmatureAnimation_playWithNames3(L);
+            return _cocostudio_ArmatureAnimation_playWithNames$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_array(L, 2)) && (olua_is_int(L, 3)) && (olua_is_bool(L, 4))) {
             // void playWithNames(const std::vector<std::string> &movementNames, @optional int durationTo, @optional bool loop)
-            return _cocostudio_ArmatureAnimation_playWithNames1(L);
+            return _cocostudio_ArmatureAnimation_playWithNames$1(L);
         // }
     }
 
@@ -4747,7 +4747,7 @@ static int _cocostudio_ArmatureDataManager___olua_move(lua_State *L)
     return 1;
 }
 
-static int _cocostudio_ArmatureDataManager_addAnimationData1(lua_State *L)
+static int _cocostudio_ArmatureDataManager_addAnimationData$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4769,7 +4769,7 @@ static int _cocostudio_ArmatureDataManager_addAnimationData1(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureDataManager_addAnimationData2(lua_State *L)
+static int _cocostudio_ArmatureDataManager_addAnimationData$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4796,14 +4796,14 @@ static int _cocostudio_ArmatureDataManager_addAnimationData(lua_State *L)
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_obj(L, 3, "ccs.AnimationData"))) {
             // void addAnimationData(const std::string &id, cocostudio::AnimationData *animationData, @optional const std::string &configFilePath)
-            return _cocostudio_ArmatureDataManager_addAnimationData2(L);
+            return _cocostudio_ArmatureDataManager_addAnimationData$2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_obj(L, 3, "ccs.AnimationData")) && (olua_is_std_string(L, 4))) {
             // void addAnimationData(const std::string &id, cocostudio::AnimationData *animationData, @optional const std::string &configFilePath)
-            return _cocostudio_ArmatureDataManager_addAnimationData1(L);
+            return _cocostudio_ArmatureDataManager_addAnimationData$1(L);
         // }
     }
 
@@ -4812,7 +4812,7 @@ static int _cocostudio_ArmatureDataManager_addAnimationData(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureDataManager_addArmatureData1(lua_State *L)
+static int _cocostudio_ArmatureDataManager_addArmatureData$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4834,7 +4834,7 @@ static int _cocostudio_ArmatureDataManager_addArmatureData1(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureDataManager_addArmatureData2(lua_State *L)
+static int _cocostudio_ArmatureDataManager_addArmatureData$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4861,14 +4861,14 @@ static int _cocostudio_ArmatureDataManager_addArmatureData(lua_State *L)
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_obj(L, 3, "ccs.ArmatureData"))) {
             // void addArmatureData(const std::string &id, cocostudio::ArmatureData *armatureData, @optional const std::string &configFilePath)
-            return _cocostudio_ArmatureDataManager_addArmatureData2(L);
+            return _cocostudio_ArmatureDataManager_addArmatureData$2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_obj(L, 3, "ccs.ArmatureData")) && (olua_is_std_string(L, 4))) {
             // void addArmatureData(const std::string &id, cocostudio::ArmatureData *armatureData, @optional const std::string &configFilePath)
-            return _cocostudio_ArmatureDataManager_addArmatureData1(L);
+            return _cocostudio_ArmatureDataManager_addArmatureData$1(L);
         // }
     }
 
@@ -4877,7 +4877,7 @@ static int _cocostudio_ArmatureDataManager_addArmatureData(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureDataManager_addArmatureFileInfo1(lua_State *L)
+static int _cocostudio_ArmatureDataManager_addArmatureFileInfo$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4895,7 +4895,7 @@ static int _cocostudio_ArmatureDataManager_addArmatureFileInfo1(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureDataManager_addArmatureFileInfo2(lua_State *L)
+static int _cocostudio_ArmatureDataManager_addArmatureFileInfo$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4924,14 +4924,14 @@ static int _cocostudio_ArmatureDataManager_addArmatureFileInfo(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
             // void addArmatureFileInfo(const std::string &configFilePath)
-            return _cocostudio_ArmatureDataManager_addArmatureFileInfo1(L);
+            return _cocostudio_ArmatureDataManager_addArmatureFileInfo$1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4))) {
             // void addArmatureFileInfo(const std::string &imagePath, const std::string &plistPath, const std::string &configFilePath)
-            return _cocostudio_ArmatureDataManager_addArmatureFileInfo2(L);
+            return _cocostudio_ArmatureDataManager_addArmatureFileInfo$2(L);
         // }
     }
 
@@ -4940,7 +4940,7 @@ static int _cocostudio_ArmatureDataManager_addArmatureFileInfo(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureDataManager_addSpriteFrameFromFile1(lua_State *L)
+static int _cocostudio_ArmatureDataManager_addSpriteFrameFromFile$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4962,7 +4962,7 @@ static int _cocostudio_ArmatureDataManager_addSpriteFrameFromFile1(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureDataManager_addSpriteFrameFromFile2(lua_State *L)
+static int _cocostudio_ArmatureDataManager_addSpriteFrameFromFile$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4989,14 +4989,14 @@ static int _cocostudio_ArmatureDataManager_addSpriteFrameFromFile(lua_State *L)
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
             // void addSpriteFrameFromFile(const std::string &plistPath, const std::string &imagePath, @optional const std::string &configFilePath)
-            return _cocostudio_ArmatureDataManager_addSpriteFrameFromFile2(L);
+            return _cocostudio_ArmatureDataManager_addSpriteFrameFromFile$2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4))) {
             // void addSpriteFrameFromFile(const std::string &plistPath, const std::string &imagePath, @optional const std::string &configFilePath)
-            return _cocostudio_ArmatureDataManager_addSpriteFrameFromFile1(L);
+            return _cocostudio_ArmatureDataManager_addSpriteFrameFromFile$1(L);
         // }
     }
 
@@ -5005,7 +5005,7 @@ static int _cocostudio_ArmatureDataManager_addSpriteFrameFromFile(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureDataManager_addTextureData1(lua_State *L)
+static int _cocostudio_ArmatureDataManager_addTextureData$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5027,7 +5027,7 @@ static int _cocostudio_ArmatureDataManager_addTextureData1(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ArmatureDataManager_addTextureData2(lua_State *L)
+static int _cocostudio_ArmatureDataManager_addTextureData$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5054,14 +5054,14 @@ static int _cocostudio_ArmatureDataManager_addTextureData(lua_State *L)
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_obj(L, 3, "ccs.TextureData"))) {
             // void addTextureData(const std::string &id, cocostudio::TextureData *textureData, @optional const std::string &configFilePath)
-            return _cocostudio_ArmatureDataManager_addTextureData2(L);
+            return _cocostudio_ArmatureDataManager_addTextureData$2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_obj(L, 3, "ccs.TextureData")) && (olua_is_std_string(L, 4))) {
             // void addTextureData(const std::string &id, cocostudio::TextureData *textureData, @optional const std::string &configFilePath)
-            return _cocostudio_ArmatureDataManager_addTextureData1(L);
+            return _cocostudio_ArmatureDataManager_addTextureData$1(L);
         // }
     }
 
@@ -6430,7 +6430,7 @@ static int _cocostudio_Bone_addChildBone(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_Bone_addDisplay1(lua_State *L)
+static int _cocostudio_Bone_addDisplay$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6450,7 +6450,7 @@ static int _cocostudio_Bone_addDisplay1(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_Bone_addDisplay2(lua_State *L)
+static int _cocostudio_Bone_addDisplay$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6477,12 +6477,12 @@ static int _cocostudio_Bone_addDisplay(lua_State *L)
     if (num_args == 2) {
         if ((olua_is_obj(L, 2, "ccs.DisplayData")) && (olua_is_int(L, 3))) {
             // void addDisplay(cocostudio::DisplayData *displayData, int index)
-            return _cocostudio_Bone_addDisplay1(L);
+            return _cocostudio_Bone_addDisplay$1(L);
         }
 
         // if ((olua_is_obj(L, 2, "cc.Node")) && (olua_is_int(L, 3))) {
             // void addDisplay(cocos2d::Node *display, int index)
-            return _cocostudio_Bone_addDisplay2(L);
+            return _cocostudio_Bone_addDisplay$2(L);
         // }
     }
 
@@ -6531,7 +6531,7 @@ static int _cocostudio_Bone_changeDisplayWithName(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_Bone_create1(lua_State *L)
+static int _cocostudio_Bone_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6544,7 +6544,7 @@ static int _cocostudio_Bone_create1(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_Bone_create2(lua_State *L)
+static int _cocostudio_Bone_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6567,13 +6567,13 @@ static int _cocostudio_Bone_create(lua_State *L)
 
     if (num_args == 0) {
         // static cocostudio::Bone *create()
-        return _cocostudio_Bone_create1(L);
+        return _cocostudio_Bone_create$1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
             // static cocostudio::Bone *create(const std::string &name)
-            return _cocostudio_Bone_create2(L);
+            return _cocostudio_Bone_create$2(L);
         // }
     }
 
@@ -6803,7 +6803,7 @@ static int _cocostudio_Bone_getWorldInfo(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_Bone_init1(lua_State *L)
+static int _cocostudio_Bone_init$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6820,7 +6820,7 @@ static int _cocostudio_Bone_init1(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_Bone_init2(lua_State *L)
+static int _cocostudio_Bone_init$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6845,13 +6845,13 @@ static int _cocostudio_Bone_init(lua_State *L)
 
     if (num_args == 0) {
         // @using bool init()
-        return _cocostudio_Bone_init1(L);
+        return _cocostudio_Bone_init$1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
             // bool init(const std::string &name)
-            return _cocostudio_Bone_init2(L);
+            return _cocostudio_Bone_init$2(L);
         // }
     }
 
@@ -6963,7 +6963,7 @@ static int _cocostudio_Bone_removeDisplay(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_Bone_removeFromParent1(lua_State *L)
+static int _cocostudio_Bone_removeFromParent$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6991,7 +6991,7 @@ static int _cocostudio_Bone_removeFromParent1(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_Bone_removeFromParent2(lua_State *L)
+static int _cocostudio_Bone_removeFromParent$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7023,13 +7023,13 @@ static int _cocostudio_Bone_removeFromParent(lua_State *L)
 
     if (num_args == 0) {
         // @using @delref(children | parent) void removeFromParent()
-        return _cocostudio_Bone_removeFromParent2(L);
+        return _cocostudio_Bone_removeFromParent$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_bool(L, 2))) {
             // @delref(children | parent) void removeFromParent(bool recursion)
-            return _cocostudio_Bone_removeFromParent1(L);
+            return _cocostudio_Bone_removeFromParent$1(L);
         // }
     }
 
@@ -7712,7 +7712,7 @@ static int _cocostudio_ColliderDetector_addContourDataList(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ColliderDetector_create1(lua_State *L)
+static int _cocostudio_ColliderDetector_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7725,7 +7725,7 @@ static int _cocostudio_ColliderDetector_create1(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_ColliderDetector_create2(lua_State *L)
+static int _cocostudio_ColliderDetector_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7748,13 +7748,13 @@ static int _cocostudio_ColliderDetector_create(lua_State *L)
 
     if (num_args == 0) {
         // static cocostudio::ColliderDetector *create()
-        return _cocostudio_ColliderDetector_create1(L);
+        return _cocostudio_ColliderDetector_create$1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_obj(L, 1, "ccs.Bone"))) {
             // static cocostudio::ColliderDetector *create(cocostudio::Bone *bone)
-            return _cocostudio_ColliderDetector_create2(L);
+            return _cocostudio_ColliderDetector_create$2(L);
         // }
     }
 
@@ -7816,7 +7816,7 @@ static int _cocostudio_ColliderDetector_getColliderBodyList(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_ColliderDetector_init1(lua_State *L)
+static int _cocostudio_ColliderDetector_init$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7833,7 +7833,7 @@ static int _cocostudio_ColliderDetector_init1(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_ColliderDetector_init2(lua_State *L)
+static int _cocostudio_ColliderDetector_init$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7858,13 +7858,13 @@ static int _cocostudio_ColliderDetector_init(lua_State *L)
 
     if (num_args == 0) {
         // bool init()
-        return _cocostudio_ColliderDetector_init1(L);
+        return _cocostudio_ColliderDetector_init$1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "ccs.Bone"))) {
             // bool init(cocostudio::Bone *bone)
-            return _cocostudio_ColliderDetector_init2(L);
+            return _cocostudio_ColliderDetector_init$2(L);
         // }
     }
 
@@ -8065,7 +8065,7 @@ static int _cocostudio_ComAttribute_createInstance(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_ComAttribute_getBool1(lua_State *L)
+static int _cocostudio_ComAttribute_getBool$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8086,7 +8086,7 @@ static int _cocostudio_ComAttribute_getBool1(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_ComAttribute_getBool2(lua_State *L)
+static int _cocostudio_ComAttribute_getBool$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8112,14 +8112,14 @@ static int _cocostudio_ComAttribute_getBool(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
             // bool getBool(const std::string &key, @optional bool def)
-            return _cocostudio_ComAttribute_getBool2(L);
+            return _cocostudio_ComAttribute_getBool$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
             // bool getBool(const std::string &key, @optional bool def)
-            return _cocostudio_ComAttribute_getBool1(L);
+            return _cocostudio_ComAttribute_getBool$1(L);
         // }
     }
 
@@ -8128,7 +8128,7 @@ static int _cocostudio_ComAttribute_getBool(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ComAttribute_getFloat1(lua_State *L)
+static int _cocostudio_ComAttribute_getFloat$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8149,7 +8149,7 @@ static int _cocostudio_ComAttribute_getFloat1(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_ComAttribute_getFloat2(lua_State *L)
+static int _cocostudio_ComAttribute_getFloat$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8175,14 +8175,14 @@ static int _cocostudio_ComAttribute_getFloat(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
             // float getFloat(const std::string &key, @optional float def)
-            return _cocostudio_ComAttribute_getFloat2(L);
+            return _cocostudio_ComAttribute_getFloat$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
             // float getFloat(const std::string &key, @optional float def)
-            return _cocostudio_ComAttribute_getFloat1(L);
+            return _cocostudio_ComAttribute_getFloat$1(L);
         // }
     }
 
@@ -8191,7 +8191,7 @@ static int _cocostudio_ComAttribute_getFloat(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ComAttribute_getInt1(lua_State *L)
+static int _cocostudio_ComAttribute_getInt$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8212,7 +8212,7 @@ static int _cocostudio_ComAttribute_getInt1(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_ComAttribute_getInt2(lua_State *L)
+static int _cocostudio_ComAttribute_getInt$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8238,14 +8238,14 @@ static int _cocostudio_ComAttribute_getInt(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
             // int getInt(const std::string &key, @optional int def)
-            return _cocostudio_ComAttribute_getInt2(L);
+            return _cocostudio_ComAttribute_getInt$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_int(L, 3))) {
             // int getInt(const std::string &key, @optional int def)
-            return _cocostudio_ComAttribute_getInt1(L);
+            return _cocostudio_ComAttribute_getInt$1(L);
         // }
     }
 
@@ -8254,7 +8254,7 @@ static int _cocostudio_ComAttribute_getInt(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ComAttribute_getString1(lua_State *L)
+static int _cocostudio_ComAttribute_getString$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8275,7 +8275,7 @@ static int _cocostudio_ComAttribute_getString1(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_ComAttribute_getString2(lua_State *L)
+static int _cocostudio_ComAttribute_getString$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8301,14 +8301,14 @@ static int _cocostudio_ComAttribute_getString(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
             // std::string getString(const std::string &key, @optional const std::string &def)
-            return _cocostudio_ComAttribute_getString2(L);
+            return _cocostudio_ComAttribute_getString$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
             // std::string getString(const std::string &key, @optional const std::string &def)
-            return _cocostudio_ComAttribute_getString1(L);
+            return _cocostudio_ComAttribute_getString$1(L);
         // }
     }
 
@@ -8686,7 +8686,7 @@ static int _cocostudio_ComAudio_pauseEffect(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ComAudio_playBackgroundMusic1(lua_State *L)
+static int _cocostudio_ComAudio_playBackgroundMusic$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8706,7 +8706,7 @@ static int _cocostudio_ComAudio_playBackgroundMusic1(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ComAudio_playBackgroundMusic2(lua_State *L)
+static int _cocostudio_ComAudio_playBackgroundMusic$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8724,7 +8724,7 @@ static int _cocostudio_ComAudio_playBackgroundMusic2(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ComAudio_playBackgroundMusic3(lua_State *L)
+static int _cocostudio_ComAudio_playBackgroundMusic$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8746,20 +8746,20 @@ static int _cocostudio_ComAudio_playBackgroundMusic(lua_State *L)
 
     if (num_args == 0) {
         // void playBackgroundMusic()
-        return _cocostudio_ComAudio_playBackgroundMusic3(L);
+        return _cocostudio_ComAudio_playBackgroundMusic$3(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_string(L, 2))) {
             // void playBackgroundMusic(const char *pszFilePath)
-            return _cocostudio_ComAudio_playBackgroundMusic2(L);
+            return _cocostudio_ComAudio_playBackgroundMusic$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 2)) && (olua_is_bool(L, 3))) {
             // void playBackgroundMusic(const char *pszFilePath, bool bLoop)
-            return _cocostudio_ComAudio_playBackgroundMusic1(L);
+            return _cocostudio_ComAudio_playBackgroundMusic$1(L);
         // }
     }
 
@@ -8768,7 +8768,7 @@ static int _cocostudio_ComAudio_playBackgroundMusic(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ComAudio_playEffect1(lua_State *L)
+static int _cocostudio_ComAudio_playEffect$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8789,7 +8789,7 @@ static int _cocostudio_ComAudio_playEffect1(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_ComAudio_playEffect2(lua_State *L)
+static int _cocostudio_ComAudio_playEffect$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8808,7 +8808,7 @@ static int _cocostudio_ComAudio_playEffect2(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_ComAudio_playEffect3(lua_State *L)
+static int _cocostudio_ComAudio_playEffect$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8831,20 +8831,20 @@ static int _cocostudio_ComAudio_playEffect(lua_State *L)
 
     if (num_args == 0) {
         // unsigned int playEffect()
-        return _cocostudio_ComAudio_playEffect3(L);
+        return _cocostudio_ComAudio_playEffect$3(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_string(L, 2))) {
             // unsigned int playEffect(const char *pszFilePath)
-            return _cocostudio_ComAudio_playEffect2(L);
+            return _cocostudio_ComAudio_playEffect$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 2)) && (olua_is_bool(L, 3))) {
             // unsigned int playEffect(const char *pszFilePath, bool bLoop)
-            return _cocostudio_ComAudio_playEffect1(L);
+            return _cocostudio_ComAudio_playEffect$1(L);
         // }
     }
 
@@ -9075,7 +9075,7 @@ static int _cocostudio_ComAudio_stopAllEffects(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ComAudio_stopBackgroundMusic1(lua_State *L)
+static int _cocostudio_ComAudio_stopBackgroundMusic$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9093,7 +9093,7 @@ static int _cocostudio_ComAudio_stopBackgroundMusic1(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_ComAudio_stopBackgroundMusic2(lua_State *L)
+static int _cocostudio_ComAudio_stopBackgroundMusic$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9115,13 +9115,13 @@ static int _cocostudio_ComAudio_stopBackgroundMusic(lua_State *L)
 
     if (num_args == 0) {
         // void stopBackgroundMusic()
-        return _cocostudio_ComAudio_stopBackgroundMusic2(L);
+        return _cocostudio_ComAudio_stopBackgroundMusic$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_bool(L, 2))) {
             // void stopBackgroundMusic(bool bReleaseData)
-            return _cocostudio_ComAudio_stopBackgroundMusic1(L);
+            return _cocostudio_ComAudio_stopBackgroundMusic$1(L);
         // }
     }
 
@@ -9772,7 +9772,7 @@ static int _cocostudio_ComRender___olua_move(lua_State *L)
     return 1;
 }
 
-static int _cocostudio_ComRender_create1(lua_State *L)
+static int _cocostudio_ComRender_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9785,7 +9785,7 @@ static int _cocostudio_ComRender_create1(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_ComRender_create2(lua_State *L)
+static int _cocostudio_ComRender_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9810,13 +9810,13 @@ static int _cocostudio_ComRender_create(lua_State *L)
 
     if (num_args == 0) {
         // static cocostudio::ComRender *create()
-        return _cocostudio_ComRender_create1(L);
+        return _cocostudio_ComRender_create$1(L);
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 1, "cc.Node")) && (olua_is_string(L, 2))) {
             // static cocostudio::ComRender *create(cocos2d::Node *node, const char *comName)
-            return _cocostudio_ComRender_create2(L);
+            return _cocostudio_ComRender_create$2(L);
         // }
     }
 
@@ -9855,7 +9855,7 @@ static int _cocostudio_ComRender_getNode(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_ComRender_new1(lua_State *L)
+static int _cocostudio_ComRender_new$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9869,7 +9869,7 @@ static int _cocostudio_ComRender_new1(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_ComRender_new2(lua_State *L)
+static int _cocostudio_ComRender_new$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9895,13 +9895,13 @@ static int _cocostudio_ComRender_new(lua_State *L)
 
     if (num_args == 0) {
         // ComRender()
-        return _cocostudio_ComRender_new1(L);
+        return _cocostudio_ComRender_new$1(L);
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 1, "cc.Node")) && (olua_is_string(L, 2))) {
             // ComRender(cocos2d::Node *node, const char *comName)
-            return _cocostudio_ComRender_new2(L);
+            return _cocostudio_ComRender_new$2(L);
         // }
     }
 
@@ -10712,7 +10712,7 @@ static int _cocostudio_DisplayManager___olua_move(lua_State *L)
     return 1;
 }
 
-static int _cocostudio_DisplayManager_addDisplay1(lua_State *L)
+static int _cocostudio_DisplayManager_addDisplay$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10732,7 +10732,7 @@ static int _cocostudio_DisplayManager_addDisplay1(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_DisplayManager_addDisplay2(lua_State *L)
+static int _cocostudio_DisplayManager_addDisplay$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10759,12 +10759,12 @@ static int _cocostudio_DisplayManager_addDisplay(lua_State *L)
     if (num_args == 2) {
         if ((olua_is_obj(L, 2, "ccs.DisplayData")) && (olua_is_int(L, 3))) {
             // void addDisplay(cocostudio::DisplayData *displayData, int index)
-            return _cocostudio_DisplayManager_addDisplay1(L);
+            return _cocostudio_DisplayManager_addDisplay$1(L);
         }
 
         // if ((olua_is_obj(L, 2, "cc.Node")) && (olua_is_int(L, 3))) {
             // void addDisplay(cocos2d::Node *display, int index)
-            return _cocostudio_DisplayManager_addDisplay2(L);
+            return _cocostudio_DisplayManager_addDisplay$2(L);
         // }
     }
 
@@ -10813,7 +10813,7 @@ static int _cocostudio_DisplayManager_changeDisplayWithName(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_DisplayManager_containPoint1(lua_State *L)
+static int _cocostudio_DisplayManager_containPoint$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10832,7 +10832,7 @@ static int _cocostudio_DisplayManager_containPoint1(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_DisplayManager_containPoint2(lua_State *L)
+static int _cocostudio_DisplayManager_containPoint$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10860,14 +10860,14 @@ static int _cocostudio_DisplayManager_containPoint(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_cocos2d_Vec2(L, 2))) {
             // bool containPoint(cocos2d::Vec2 &_point)
-            return _cocostudio_DisplayManager_containPoint1(L);
+            return _cocostudio_DisplayManager_containPoint$1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
             // bool containPoint(float x, float y)
-            return _cocostudio_DisplayManager_containPoint2(L);
+            return _cocostudio_DisplayManager_containPoint$2(L);
         // }
     }
 
@@ -13164,7 +13164,7 @@ static int _cocostudio_SceneReader___olua_move(lua_State *L)
     return 1;
 }
 
-static int _cocostudio_SceneReader_createNodeWithSceneFile1(lua_State *L)
+static int _cocostudio_SceneReader_createNodeWithSceneFile$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -13185,7 +13185,7 @@ static int _cocostudio_SceneReader_createNodeWithSceneFile1(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_SceneReader_createNodeWithSceneFile2(lua_State *L)
+static int _cocostudio_SceneReader_createNodeWithSceneFile$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -13211,14 +13211,14 @@ static int _cocostudio_SceneReader_createNodeWithSceneFile(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
             // cocos2d::Node *createNodeWithSceneFile(const std::string &fileName, @optional cocostudio::SceneReader::AttachComponentType attachComponent)
-            return _cocostudio_SceneReader_createNodeWithSceneFile2(L);
+            return _cocostudio_SceneReader_createNodeWithSceneFile$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
             // cocos2d::Node *createNodeWithSceneFile(const std::string &fileName, @optional cocostudio::SceneReader::AttachComponentType attachComponent)
-            return _cocostudio_SceneReader_createNodeWithSceneFile1(L);
+            return _cocostudio_SceneReader_createNodeWithSceneFile$1(L);
         // }
     }
 
@@ -13400,7 +13400,7 @@ static int _cocostudio_Skin___olua_move(lua_State *L)
     return 1;
 }
 
-static int _cocostudio_Skin_create1(lua_State *L)
+static int _cocostudio_Skin_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -13413,7 +13413,7 @@ static int _cocostudio_Skin_create1(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_Skin_create2(lua_State *L)
+static int _cocostudio_Skin_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -13436,13 +13436,13 @@ static int _cocostudio_Skin_create(lua_State *L)
 
     if (num_args == 0) {
         // static cocostudio::Skin *create()
-        return _cocostudio_Skin_create1(L);
+        return _cocostudio_Skin_create$1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
             // static cocostudio::Skin *create(const std::string &pszFileName)
-            return _cocostudio_Skin_create2(L);
+            return _cocostudio_Skin_create$2(L);
         // }
     }
 
@@ -14271,7 +14271,7 @@ static int _cocostudio_Tween_new(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_Tween_play1(lua_State *L)
+static int _cocostudio_Tween_play$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -14297,7 +14297,7 @@ static int _cocostudio_Tween_play1(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_Tween_play2(lua_State *L)
+static int _cocostudio_Tween_play$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -14328,14 +14328,14 @@ static int _cocostudio_Tween_play(lua_State *L)
     if (num_args == 4) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5))) {
             // @using void play(int durationTo, int durationTween, int loop, int tweenEasing)
-            return _cocostudio_Tween_play2(L);
+            return _cocostudio_Tween_play$2(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_obj(L, 2, "ccs.MovementBoneData")) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5)) && (olua_is_int(L, 6))) {
             // void play(cocostudio::MovementBoneData *movementBoneData, int durationTo, int durationTween, int loop, int tweenEasing)
-            return _cocostudio_Tween_play1(L);
+            return _cocostudio_Tween_play$1(L);
         // }
     }
 
@@ -16933,7 +16933,7 @@ static int _cocostudio_timeline_ActionTimelineNode_getRoot(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_timeline_ActionTimelineNode_init1(lua_State *L)
+static int _cocostudio_timeline_ActionTimelineNode_init$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -16950,7 +16950,7 @@ static int _cocostudio_timeline_ActionTimelineNode_init1(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_timeline_ActionTimelineNode_init2(lua_State *L)
+static int _cocostudio_timeline_ActionTimelineNode_init$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -16977,13 +16977,13 @@ static int _cocostudio_timeline_ActionTimelineNode_init(lua_State *L)
 
     if (num_args == 0) {
         // @using bool init()
-        return _cocostudio_timeline_ActionTimelineNode_init1(L);
+        return _cocostudio_timeline_ActionTimelineNode_init$1(L);
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "cc.Node")) && (olua_is_obj(L, 3, "ccs.timeline.ActionTimeline"))) {
             // bool init(cocos2d::Node *root, cocostudio::timeline::ActionTimeline *action)
-            return _cocostudio_timeline_ActionTimelineNode_init2(L);
+            return _cocostudio_timeline_ActionTimelineNode_init$2(L);
         // }
     }
 
@@ -17081,7 +17081,7 @@ static int _cocostudio_timeline_BoneNode___olua_move(lua_State *L)
     return 1;
 }
 
-static int _cocostudio_timeline_BoneNode_addSkin1(lua_State *L)
+static int _cocostudio_timeline_BoneNode_addSkin$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -17104,7 +17104,7 @@ static int _cocostudio_timeline_BoneNode_addSkin1(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_timeline_BoneNode_addSkin2(lua_State *L)
+static int _cocostudio_timeline_BoneNode_addSkin$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -17136,14 +17136,14 @@ static int _cocostudio_timeline_BoneNode_addSkin(lua_State *L)
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "cc.Node")) && (olua_is_bool(L, 3))) {
             // void addSkin(@addref(skins |) cocostudio::timeline::SkinNode *skin, bool display)
-            return _cocostudio_timeline_BoneNode_addSkin1(L);
+            return _cocostudio_timeline_BoneNode_addSkin$1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "cc.Node")) && (olua_is_bool(L, 3)) && (olua_is_bool(L, 4))) {
             // void addSkin(@addref(skins |) cocostudio::timeline::SkinNode *skin, bool display, bool hideOthers)
-            return _cocostudio_timeline_BoneNode_addSkin2(L);
+            return _cocostudio_timeline_BoneNode_addSkin$2(L);
         // }
     }
 
@@ -17180,7 +17180,7 @@ static int _cocostudio_timeline_BoneNode_as(lua_State *L)
     return 1;
 }
 
-static int _cocostudio_timeline_BoneNode_create1(lua_State *L)
+static int _cocostudio_timeline_BoneNode_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -17193,7 +17193,7 @@ static int _cocostudio_timeline_BoneNode_create1(lua_State *L)
     return num_ret;
 }
 
-static int _cocostudio_timeline_BoneNode_create2(lua_State *L)
+static int _cocostudio_timeline_BoneNode_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -17216,13 +17216,13 @@ static int _cocostudio_timeline_BoneNode_create(lua_State *L)
 
     if (num_args == 0) {
         // static cocostudio::timeline::BoneNode *create()
-        return _cocostudio_timeline_BoneNode_create1(L);
+        return _cocostudio_timeline_BoneNode_create$1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_int(L, 1))) {
             // static cocostudio::timeline::BoneNode *create(int length)
-            return _cocostudio_timeline_BoneNode_create2(L);
+            return _cocostudio_timeline_BoneNode_create$2(L);
         // }
     }
 
@@ -17231,7 +17231,7 @@ static int _cocostudio_timeline_BoneNode_create(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_timeline_BoneNode_displaySkin1(lua_State *L)
+static int _cocostudio_timeline_BoneNode_displaySkin$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -17251,7 +17251,7 @@ static int _cocostudio_timeline_BoneNode_displaySkin1(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_timeline_BoneNode_displaySkin2(lua_State *L)
+static int _cocostudio_timeline_BoneNode_displaySkin$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -17278,12 +17278,12 @@ static int _cocostudio_timeline_BoneNode_displaySkin(lua_State *L)
     if (num_args == 2) {
         if ((olua_is_obj(L, 2, "cc.Node")) && (olua_is_bool(L, 3))) {
             // void displaySkin(cocostudio::timeline::SkinNode *skin, bool hideOthers)
-            return _cocostudio_timeline_BoneNode_displaySkin1(L);
+            return _cocostudio_timeline_BoneNode_displaySkin$1(L);
         }
 
         // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
             // void displaySkin(const std::string &skinName, bool hideOthers)
-            return _cocostudio_timeline_BoneNode_displaySkin2(L);
+            return _cocostudio_timeline_BoneNode_displaySkin$2(L);
         // }
     }
 
@@ -17728,7 +17728,7 @@ static int _cocostudio_timeline_SkeletonNode_addSkinGroup(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_timeline_SkeletonNode_changeSkins1(lua_State *L)
+static int _cocostudio_timeline_SkeletonNode_changeSkins$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -17749,7 +17749,7 @@ static int _cocostudio_timeline_SkeletonNode_changeSkins1(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_timeline_SkeletonNode_changeSkins2(lua_State *L)
+static int _cocostudio_timeline_SkeletonNode_changeSkins$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -17774,12 +17774,12 @@ static int _cocostudio_timeline_SkeletonNode_changeSkins(lua_State *L)
     if (num_args == 1) {
         if ((olua_is_map(L, 2))) {
             // void changeSkins(const std::map<std::string, std::string> &boneSkinNameMap)
-            return _cocostudio_timeline_SkeletonNode_changeSkins1(L);
+            return _cocostudio_timeline_SkeletonNode_changeSkins$1(L);
         }
 
         // if ((olua_is_std_string(L, 2))) {
             // void changeSkins(const std::string &skinGroupName)
-            return _cocostudio_timeline_SkeletonNode_changeSkins2(L);
+            return _cocostudio_timeline_SkeletonNode_changeSkins$2(L);
         // }
     }
 
@@ -18601,7 +18601,7 @@ static int _cocostudio_timeline_ActionTimeline_gotoFrameAndPause(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_timeline_ActionTimeline_gotoFrameAndPlay1(lua_State *L)
+static int _cocostudio_timeline_ActionTimeline_gotoFrameAndPlay$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -18619,7 +18619,7 @@ static int _cocostudio_timeline_ActionTimeline_gotoFrameAndPlay1(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_timeline_ActionTimeline_gotoFrameAndPlay2(lua_State *L)
+static int _cocostudio_timeline_ActionTimeline_gotoFrameAndPlay$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -18639,7 +18639,7 @@ static int _cocostudio_timeline_ActionTimeline_gotoFrameAndPlay2(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_timeline_ActionTimeline_gotoFrameAndPlay3(lua_State *L)
+static int _cocostudio_timeline_ActionTimeline_gotoFrameAndPlay$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -18661,7 +18661,7 @@ static int _cocostudio_timeline_ActionTimeline_gotoFrameAndPlay3(lua_State *L)
     return 0;
 }
 
-static int _cocostudio_timeline_ActionTimeline_gotoFrameAndPlay4(lua_State *L)
+static int _cocostudio_timeline_ActionTimeline_gotoFrameAndPlay$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -18692,28 +18692,28 @@ static int _cocostudio_timeline_ActionTimeline_gotoFrameAndPlay(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_int(L, 2))) {
             // void gotoFrameAndPlay(int startIndex)
-            return _cocostudio_timeline_ActionTimeline_gotoFrameAndPlay1(L);
+            return _cocostudio_timeline_ActionTimeline_gotoFrameAndPlay$1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3))) {
             // void gotoFrameAndPlay(int startIndex, bool loop)
-            return _cocostudio_timeline_ActionTimeline_gotoFrameAndPlay2(L);
+            return _cocostudio_timeline_ActionTimeline_gotoFrameAndPlay$2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_bool(L, 4))) {
             // void gotoFrameAndPlay(int startIndex, int endIndex, bool loop)
-            return _cocostudio_timeline_ActionTimeline_gotoFrameAndPlay3(L);
+            return _cocostudio_timeline_ActionTimeline_gotoFrameAndPlay$3(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_bool(L, 5))) {
             // void gotoFrameAndPlay(int startIndex, int endIndex, int currentFrameIndex, bool loop)
-            return _cocostudio_timeline_ActionTimeline_gotoFrameAndPlay4(L);
+            return _cocostudio_timeline_ActionTimeline_gotoFrameAndPlay$4(L);
         // }
     }
 

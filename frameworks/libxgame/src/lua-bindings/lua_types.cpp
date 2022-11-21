@@ -71,7 +71,7 @@ static int _olua_bool___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_bool_copyfrom1(lua_State *L)
+static int _olua_bool_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -95,7 +95,7 @@ static int _olua_bool_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_bool_copyfrom2(lua_State *L)
+static int _olua_bool_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -113,7 +113,7 @@ static int _olua_bool_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_bool_copyfrom3(lua_State *L)
+static int _olua_bool_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -133,7 +133,7 @@ static int _olua_bool_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_bool_copyfrom4(lua_State *L)
+static int _olua_bool_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -162,28 +162,28 @@ static int _olua_bool_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.bool"))) {
             // void copyfrom(olua::pointer<bool> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_bool_copyfrom2(L);
+            return _olua_bool_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.bool")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<bool> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_bool_copyfrom3(L);
+            return _olua_bool_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.bool")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<bool> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_bool_copyfrom4(L);
+            return _olua_bool_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.bool")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<bool> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_bool_copyfrom1(L);
+            return _olua_bool_copyfrom$1(L);
         // }
     }
 
@@ -212,7 +212,7 @@ static int _olua_bool_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_bool_create1(lua_State *L)
+static int _olua_bool_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -229,7 +229,7 @@ static int _olua_bool_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_bool_create2(lua_State *L)
+static int _olua_bool_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -248,13 +248,13 @@ static int _olua_bool_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<bool> *create(@optional size_t len)
-        return _olua_bool_create2(L);
+        return _olua_bool_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<bool> *create(@optional size_t len)
-            return _olua_bool_create1(L);
+            return _olua_bool_create$1(L);
         // }
     }
 
@@ -263,7 +263,7 @@ static int _olua_bool_create(lua_State *L)
     return 0;
 }
 
-static int _olua_bool_sub1(lua_State *L)
+static int _olua_bool_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -284,7 +284,7 @@ static int _olua_bool_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_bool_sub2(lua_State *L)
+static int _olua_bool_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -310,14 +310,14 @@ static int _olua_bool_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<bool> *sub(size_t from, @optional size_t to)
-            return _olua_bool_sub2(L);
+            return _olua_bool_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<bool> *sub(size_t from, @optional size_t to)
-            return _olua_bool_sub1(L);
+            return _olua_bool_sub$1(L);
         // }
     }
 
@@ -342,7 +342,7 @@ static int _olua_bool_take(lua_State *L)
     return 0;
 }
 
-static int _olua_bool_tostring1(lua_State *L)
+static int _olua_bool_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -360,7 +360,7 @@ static int _olua_bool_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_bool_tostring2(lua_State *L)
+static int _olua_bool_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -383,14 +383,14 @@ static int _olua_bool_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_bool_tostring2(L);
+            return _olua_bool_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_bool_tostring1(L);
+            return _olua_bool_tostring$1(L);
         // }
     }
 
@@ -559,7 +559,7 @@ static int _olua_string___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_string_copyfrom1(lua_State *L)
+static int _olua_string_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -583,7 +583,7 @@ static int _olua_string_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_string_copyfrom2(lua_State *L)
+static int _olua_string_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -601,7 +601,7 @@ static int _olua_string_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_string_copyfrom3(lua_State *L)
+static int _olua_string_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -621,7 +621,7 @@ static int _olua_string_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_string_copyfrom4(lua_State *L)
+static int _olua_string_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -650,28 +650,28 @@ static int _olua_string_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.string"))) {
             // void copyfrom(olua::pointer<std::string> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_string_copyfrom2(L);
+            return _olua_string_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.string")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<std::string> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_string_copyfrom3(L);
+            return _olua_string_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.string")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<std::string> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_string_copyfrom4(L);
+            return _olua_string_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.string")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<std::string> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_string_copyfrom1(L);
+            return _olua_string_copyfrom$1(L);
         // }
     }
 
@@ -700,7 +700,7 @@ static int _olua_string_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_string_create1(lua_State *L)
+static int _olua_string_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -717,7 +717,7 @@ static int _olua_string_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_string_create2(lua_State *L)
+static int _olua_string_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -736,13 +736,13 @@ static int _olua_string_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<std::string> *create(@optional size_t len)
-        return _olua_string_create2(L);
+        return _olua_string_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<std::string> *create(@optional size_t len)
-            return _olua_string_create1(L);
+            return _olua_string_create$1(L);
         // }
     }
 
@@ -751,7 +751,7 @@ static int _olua_string_create(lua_State *L)
     return 0;
 }
 
-static int _olua_string_sub1(lua_State *L)
+static int _olua_string_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -772,7 +772,7 @@ static int _olua_string_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_string_sub2(lua_State *L)
+static int _olua_string_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -798,14 +798,14 @@ static int _olua_string_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<std::string> *sub(size_t from, @optional size_t to)
-            return _olua_string_sub2(L);
+            return _olua_string_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<std::string> *sub(size_t from, @optional size_t to)
-            return _olua_string_sub1(L);
+            return _olua_string_sub$1(L);
         // }
     }
 
@@ -830,7 +830,7 @@ static int _olua_string_take(lua_State *L)
     return 0;
 }
 
-static int _olua_string_tostring1(lua_State *L)
+static int _olua_string_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -848,7 +848,7 @@ static int _olua_string_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_string_tostring2(lua_State *L)
+static int _olua_string_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -871,14 +871,14 @@ static int _olua_string_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_string_tostring2(L);
+            return _olua_string_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_string_tostring1(L);
+            return _olua_string_tostring$1(L);
         // }
     }
 
@@ -1047,7 +1047,7 @@ static int _olua_int8___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_int8_copyfrom1(lua_State *L)
+static int _olua_int8_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1071,7 +1071,7 @@ static int _olua_int8_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_int8_copyfrom2(lua_State *L)
+static int _olua_int8_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1089,7 +1089,7 @@ static int _olua_int8_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_int8_copyfrom3(lua_State *L)
+static int _olua_int8_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1109,7 +1109,7 @@ static int _olua_int8_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_int8_copyfrom4(lua_State *L)
+static int _olua_int8_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1138,28 +1138,28 @@ static int _olua_int8_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.int8"))) {
             // void copyfrom(olua::pointer<int8_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_int8_copyfrom2(L);
+            return _olua_int8_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.int8")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<int8_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_int8_copyfrom3(L);
+            return _olua_int8_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.int8")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<int8_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_int8_copyfrom4(L);
+            return _olua_int8_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.int8")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<int8_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_int8_copyfrom1(L);
+            return _olua_int8_copyfrom$1(L);
         // }
     }
 
@@ -1188,7 +1188,7 @@ static int _olua_int8_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_int8_create1(lua_State *L)
+static int _olua_int8_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1205,7 +1205,7 @@ static int _olua_int8_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int8_create2(lua_State *L)
+static int _olua_int8_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1224,13 +1224,13 @@ static int _olua_int8_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<int8_t> *create(@optional size_t len)
-        return _olua_int8_create2(L);
+        return _olua_int8_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<int8_t> *create(@optional size_t len)
-            return _olua_int8_create1(L);
+            return _olua_int8_create$1(L);
         // }
     }
 
@@ -1239,7 +1239,7 @@ static int _olua_int8_create(lua_State *L)
     return 0;
 }
 
-static int _olua_int8_sub1(lua_State *L)
+static int _olua_int8_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1260,7 +1260,7 @@ static int _olua_int8_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int8_sub2(lua_State *L)
+static int _olua_int8_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1286,14 +1286,14 @@ static int _olua_int8_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<int8_t> *sub(size_t from, @optional size_t to)
-            return _olua_int8_sub2(L);
+            return _olua_int8_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<int8_t> *sub(size_t from, @optional size_t to)
-            return _olua_int8_sub1(L);
+            return _olua_int8_sub$1(L);
         // }
     }
 
@@ -1318,7 +1318,7 @@ static int _olua_int8_take(lua_State *L)
     return 0;
 }
 
-static int _olua_int8_tostring1(lua_State *L)
+static int _olua_int8_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1336,7 +1336,7 @@ static int _olua_int8_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_int8_tostring2(lua_State *L)
+static int _olua_int8_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1359,14 +1359,14 @@ static int _olua_int8_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_int8_tostring2(L);
+            return _olua_int8_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_int8_tostring1(L);
+            return _olua_int8_tostring$1(L);
         // }
     }
 
@@ -1535,7 +1535,7 @@ static int _olua_uint8___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_uint8_copyfrom1(lua_State *L)
+static int _olua_uint8_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1559,7 +1559,7 @@ static int _olua_uint8_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_uint8_copyfrom2(lua_State *L)
+static int _olua_uint8_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1577,7 +1577,7 @@ static int _olua_uint8_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_uint8_copyfrom3(lua_State *L)
+static int _olua_uint8_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1597,7 +1597,7 @@ static int _olua_uint8_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_uint8_copyfrom4(lua_State *L)
+static int _olua_uint8_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1626,28 +1626,28 @@ static int _olua_uint8_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.uint8"))) {
             // void copyfrom(olua::pointer<uint8_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_uint8_copyfrom2(L);
+            return _olua_uint8_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.uint8")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<uint8_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_uint8_copyfrom3(L);
+            return _olua_uint8_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.uint8")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<uint8_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_uint8_copyfrom4(L);
+            return _olua_uint8_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.uint8")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<uint8_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_uint8_copyfrom1(L);
+            return _olua_uint8_copyfrom$1(L);
         // }
     }
 
@@ -1676,7 +1676,7 @@ static int _olua_uint8_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_uint8_create1(lua_State *L)
+static int _olua_uint8_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1693,7 +1693,7 @@ static int _olua_uint8_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint8_create2(lua_State *L)
+static int _olua_uint8_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1712,13 +1712,13 @@ static int _olua_uint8_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<uint8_t> *create(@optional size_t len)
-        return _olua_uint8_create2(L);
+        return _olua_uint8_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<uint8_t> *create(@optional size_t len)
-            return _olua_uint8_create1(L);
+            return _olua_uint8_create$1(L);
         // }
     }
 
@@ -1727,7 +1727,7 @@ static int _olua_uint8_create(lua_State *L)
     return 0;
 }
 
-static int _olua_uint8_sub1(lua_State *L)
+static int _olua_uint8_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1748,7 +1748,7 @@ static int _olua_uint8_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint8_sub2(lua_State *L)
+static int _olua_uint8_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1774,14 +1774,14 @@ static int _olua_uint8_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<uint8_t> *sub(size_t from, @optional size_t to)
-            return _olua_uint8_sub2(L);
+            return _olua_uint8_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<uint8_t> *sub(size_t from, @optional size_t to)
-            return _olua_uint8_sub1(L);
+            return _olua_uint8_sub$1(L);
         // }
     }
 
@@ -1806,7 +1806,7 @@ static int _olua_uint8_take(lua_State *L)
     return 0;
 }
 
-static int _olua_uint8_tostring1(lua_State *L)
+static int _olua_uint8_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1824,7 +1824,7 @@ static int _olua_uint8_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_uint8_tostring2(lua_State *L)
+static int _olua_uint8_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1847,14 +1847,14 @@ static int _olua_uint8_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_uint8_tostring2(L);
+            return _olua_uint8_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_uint8_tostring1(L);
+            return _olua_uint8_tostring$1(L);
         // }
     }
 
@@ -2023,7 +2023,7 @@ static int _olua_int16___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_int16_copyfrom1(lua_State *L)
+static int _olua_int16_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2047,7 +2047,7 @@ static int _olua_int16_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_int16_copyfrom2(lua_State *L)
+static int _olua_int16_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2065,7 +2065,7 @@ static int _olua_int16_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_int16_copyfrom3(lua_State *L)
+static int _olua_int16_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2085,7 +2085,7 @@ static int _olua_int16_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_int16_copyfrom4(lua_State *L)
+static int _olua_int16_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2114,28 +2114,28 @@ static int _olua_int16_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.int16"))) {
             // void copyfrom(olua::pointer<int16_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_int16_copyfrom2(L);
+            return _olua_int16_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.int16")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<int16_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_int16_copyfrom3(L);
+            return _olua_int16_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.int16")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<int16_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_int16_copyfrom4(L);
+            return _olua_int16_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.int16")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<int16_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_int16_copyfrom1(L);
+            return _olua_int16_copyfrom$1(L);
         // }
     }
 
@@ -2164,7 +2164,7 @@ static int _olua_int16_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_int16_create1(lua_State *L)
+static int _olua_int16_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2181,7 +2181,7 @@ static int _olua_int16_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int16_create2(lua_State *L)
+static int _olua_int16_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2200,13 +2200,13 @@ static int _olua_int16_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<int16_t> *create(@optional size_t len)
-        return _olua_int16_create2(L);
+        return _olua_int16_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<int16_t> *create(@optional size_t len)
-            return _olua_int16_create1(L);
+            return _olua_int16_create$1(L);
         // }
     }
 
@@ -2215,7 +2215,7 @@ static int _olua_int16_create(lua_State *L)
     return 0;
 }
 
-static int _olua_int16_sub1(lua_State *L)
+static int _olua_int16_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2236,7 +2236,7 @@ static int _olua_int16_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int16_sub2(lua_State *L)
+static int _olua_int16_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2262,14 +2262,14 @@ static int _olua_int16_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<int16_t> *sub(size_t from, @optional size_t to)
-            return _olua_int16_sub2(L);
+            return _olua_int16_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<int16_t> *sub(size_t from, @optional size_t to)
-            return _olua_int16_sub1(L);
+            return _olua_int16_sub$1(L);
         // }
     }
 
@@ -2294,7 +2294,7 @@ static int _olua_int16_take(lua_State *L)
     return 0;
 }
 
-static int _olua_int16_tostring1(lua_State *L)
+static int _olua_int16_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2312,7 +2312,7 @@ static int _olua_int16_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_int16_tostring2(lua_State *L)
+static int _olua_int16_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2335,14 +2335,14 @@ static int _olua_int16_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_int16_tostring2(L);
+            return _olua_int16_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_int16_tostring1(L);
+            return _olua_int16_tostring$1(L);
         // }
     }
 
@@ -2511,7 +2511,7 @@ static int _olua_uint16___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_uint16_copyfrom1(lua_State *L)
+static int _olua_uint16_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2535,7 +2535,7 @@ static int _olua_uint16_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_uint16_copyfrom2(lua_State *L)
+static int _olua_uint16_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2553,7 +2553,7 @@ static int _olua_uint16_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_uint16_copyfrom3(lua_State *L)
+static int _olua_uint16_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2573,7 +2573,7 @@ static int _olua_uint16_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_uint16_copyfrom4(lua_State *L)
+static int _olua_uint16_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2602,28 +2602,28 @@ static int _olua_uint16_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.uint16"))) {
             // void copyfrom(olua::pointer<uint16_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_uint16_copyfrom2(L);
+            return _olua_uint16_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.uint16")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<uint16_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_uint16_copyfrom3(L);
+            return _olua_uint16_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.uint16")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<uint16_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_uint16_copyfrom4(L);
+            return _olua_uint16_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.uint16")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<uint16_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_uint16_copyfrom1(L);
+            return _olua_uint16_copyfrom$1(L);
         // }
     }
 
@@ -2652,7 +2652,7 @@ static int _olua_uint16_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_uint16_create1(lua_State *L)
+static int _olua_uint16_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2669,7 +2669,7 @@ static int _olua_uint16_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint16_create2(lua_State *L)
+static int _olua_uint16_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2688,13 +2688,13 @@ static int _olua_uint16_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<uint16_t> *create(@optional size_t len)
-        return _olua_uint16_create2(L);
+        return _olua_uint16_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<uint16_t> *create(@optional size_t len)
-            return _olua_uint16_create1(L);
+            return _olua_uint16_create$1(L);
         // }
     }
 
@@ -2703,7 +2703,7 @@ static int _olua_uint16_create(lua_State *L)
     return 0;
 }
 
-static int _olua_uint16_sub1(lua_State *L)
+static int _olua_uint16_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2724,7 +2724,7 @@ static int _olua_uint16_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint16_sub2(lua_State *L)
+static int _olua_uint16_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2750,14 +2750,14 @@ static int _olua_uint16_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<uint16_t> *sub(size_t from, @optional size_t to)
-            return _olua_uint16_sub2(L);
+            return _olua_uint16_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<uint16_t> *sub(size_t from, @optional size_t to)
-            return _olua_uint16_sub1(L);
+            return _olua_uint16_sub$1(L);
         // }
     }
 
@@ -2782,7 +2782,7 @@ static int _olua_uint16_take(lua_State *L)
     return 0;
 }
 
-static int _olua_uint16_tostring1(lua_State *L)
+static int _olua_uint16_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2800,7 +2800,7 @@ static int _olua_uint16_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_uint16_tostring2(lua_State *L)
+static int _olua_uint16_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2823,14 +2823,14 @@ static int _olua_uint16_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_uint16_tostring2(L);
+            return _olua_uint16_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_uint16_tostring1(L);
+            return _olua_uint16_tostring$1(L);
         // }
     }
 
@@ -2999,7 +2999,7 @@ static int _olua_int32___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_int32_copyfrom1(lua_State *L)
+static int _olua_int32_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3023,7 +3023,7 @@ static int _olua_int32_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_int32_copyfrom2(lua_State *L)
+static int _olua_int32_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3041,7 +3041,7 @@ static int _olua_int32_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_int32_copyfrom3(lua_State *L)
+static int _olua_int32_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3061,7 +3061,7 @@ static int _olua_int32_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_int32_copyfrom4(lua_State *L)
+static int _olua_int32_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3090,28 +3090,28 @@ static int _olua_int32_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.int32"))) {
             // void copyfrom(olua::pointer<int32_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_int32_copyfrom2(L);
+            return _olua_int32_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.int32")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<int32_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_int32_copyfrom3(L);
+            return _olua_int32_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.int32")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<int32_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_int32_copyfrom4(L);
+            return _olua_int32_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.int32")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<int32_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_int32_copyfrom1(L);
+            return _olua_int32_copyfrom$1(L);
         // }
     }
 
@@ -3140,7 +3140,7 @@ static int _olua_int32_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_int32_create1(lua_State *L)
+static int _olua_int32_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3157,7 +3157,7 @@ static int _olua_int32_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int32_create2(lua_State *L)
+static int _olua_int32_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3176,13 +3176,13 @@ static int _olua_int32_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<int32_t> *create(@optional size_t len)
-        return _olua_int32_create2(L);
+        return _olua_int32_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<int32_t> *create(@optional size_t len)
-            return _olua_int32_create1(L);
+            return _olua_int32_create$1(L);
         // }
     }
 
@@ -3191,7 +3191,7 @@ static int _olua_int32_create(lua_State *L)
     return 0;
 }
 
-static int _olua_int32_sub1(lua_State *L)
+static int _olua_int32_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3212,7 +3212,7 @@ static int _olua_int32_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int32_sub2(lua_State *L)
+static int _olua_int32_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3238,14 +3238,14 @@ static int _olua_int32_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<int32_t> *sub(size_t from, @optional size_t to)
-            return _olua_int32_sub2(L);
+            return _olua_int32_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<int32_t> *sub(size_t from, @optional size_t to)
-            return _olua_int32_sub1(L);
+            return _olua_int32_sub$1(L);
         // }
     }
 
@@ -3270,7 +3270,7 @@ static int _olua_int32_take(lua_State *L)
     return 0;
 }
 
-static int _olua_int32_tostring1(lua_State *L)
+static int _olua_int32_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3288,7 +3288,7 @@ static int _olua_int32_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_int32_tostring2(lua_State *L)
+static int _olua_int32_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3311,14 +3311,14 @@ static int _olua_int32_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_int32_tostring2(L);
+            return _olua_int32_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_int32_tostring1(L);
+            return _olua_int32_tostring$1(L);
         // }
     }
 
@@ -3487,7 +3487,7 @@ static int _olua_uint32___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_uint32_copyfrom1(lua_State *L)
+static int _olua_uint32_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3511,7 +3511,7 @@ static int _olua_uint32_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_uint32_copyfrom2(lua_State *L)
+static int _olua_uint32_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3529,7 +3529,7 @@ static int _olua_uint32_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_uint32_copyfrom3(lua_State *L)
+static int _olua_uint32_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3549,7 +3549,7 @@ static int _olua_uint32_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_uint32_copyfrom4(lua_State *L)
+static int _olua_uint32_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3578,28 +3578,28 @@ static int _olua_uint32_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.uint32"))) {
             // void copyfrom(olua::pointer<uint32_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_uint32_copyfrom2(L);
+            return _olua_uint32_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.uint32")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<uint32_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_uint32_copyfrom3(L);
+            return _olua_uint32_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.uint32")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<uint32_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_uint32_copyfrom4(L);
+            return _olua_uint32_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.uint32")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<uint32_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_uint32_copyfrom1(L);
+            return _olua_uint32_copyfrom$1(L);
         // }
     }
 
@@ -3628,7 +3628,7 @@ static int _olua_uint32_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_uint32_create1(lua_State *L)
+static int _olua_uint32_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3645,7 +3645,7 @@ static int _olua_uint32_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint32_create2(lua_State *L)
+static int _olua_uint32_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3664,13 +3664,13 @@ static int _olua_uint32_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<uint32_t> *create(@optional size_t len)
-        return _olua_uint32_create2(L);
+        return _olua_uint32_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<uint32_t> *create(@optional size_t len)
-            return _olua_uint32_create1(L);
+            return _olua_uint32_create$1(L);
         // }
     }
 
@@ -3679,7 +3679,7 @@ static int _olua_uint32_create(lua_State *L)
     return 0;
 }
 
-static int _olua_uint32_sub1(lua_State *L)
+static int _olua_uint32_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3700,7 +3700,7 @@ static int _olua_uint32_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint32_sub2(lua_State *L)
+static int _olua_uint32_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3726,14 +3726,14 @@ static int _olua_uint32_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<uint32_t> *sub(size_t from, @optional size_t to)
-            return _olua_uint32_sub2(L);
+            return _olua_uint32_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<uint32_t> *sub(size_t from, @optional size_t to)
-            return _olua_uint32_sub1(L);
+            return _olua_uint32_sub$1(L);
         // }
     }
 
@@ -3758,7 +3758,7 @@ static int _olua_uint32_take(lua_State *L)
     return 0;
 }
 
-static int _olua_uint32_tostring1(lua_State *L)
+static int _olua_uint32_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3776,7 +3776,7 @@ static int _olua_uint32_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_uint32_tostring2(lua_State *L)
+static int _olua_uint32_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3799,14 +3799,14 @@ static int _olua_uint32_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_uint32_tostring2(L);
+            return _olua_uint32_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_uint32_tostring1(L);
+            return _olua_uint32_tostring$1(L);
         // }
     }
 
@@ -3975,7 +3975,7 @@ static int _olua_int64___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_int64_copyfrom1(lua_State *L)
+static int _olua_int64_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3999,7 +3999,7 @@ static int _olua_int64_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_int64_copyfrom2(lua_State *L)
+static int _olua_int64_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4017,7 +4017,7 @@ static int _olua_int64_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_int64_copyfrom3(lua_State *L)
+static int _olua_int64_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4037,7 +4037,7 @@ static int _olua_int64_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_int64_copyfrom4(lua_State *L)
+static int _olua_int64_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4066,28 +4066,28 @@ static int _olua_int64_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.int64"))) {
             // void copyfrom(olua::pointer<int64_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_int64_copyfrom2(L);
+            return _olua_int64_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.int64")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<int64_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_int64_copyfrom3(L);
+            return _olua_int64_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.int64")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<int64_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_int64_copyfrom4(L);
+            return _olua_int64_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.int64")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<int64_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_int64_copyfrom1(L);
+            return _olua_int64_copyfrom$1(L);
         // }
     }
 
@@ -4116,7 +4116,7 @@ static int _olua_int64_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_int64_create1(lua_State *L)
+static int _olua_int64_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4133,7 +4133,7 @@ static int _olua_int64_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int64_create2(lua_State *L)
+static int _olua_int64_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4152,13 +4152,13 @@ static int _olua_int64_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<int64_t> *create(@optional size_t len)
-        return _olua_int64_create2(L);
+        return _olua_int64_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<int64_t> *create(@optional size_t len)
-            return _olua_int64_create1(L);
+            return _olua_int64_create$1(L);
         // }
     }
 
@@ -4167,7 +4167,7 @@ static int _olua_int64_create(lua_State *L)
     return 0;
 }
 
-static int _olua_int64_sub1(lua_State *L)
+static int _olua_int64_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4188,7 +4188,7 @@ static int _olua_int64_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int64_sub2(lua_State *L)
+static int _olua_int64_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4214,14 +4214,14 @@ static int _olua_int64_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<int64_t> *sub(size_t from, @optional size_t to)
-            return _olua_int64_sub2(L);
+            return _olua_int64_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<int64_t> *sub(size_t from, @optional size_t to)
-            return _olua_int64_sub1(L);
+            return _olua_int64_sub$1(L);
         // }
     }
 
@@ -4246,7 +4246,7 @@ static int _olua_int64_take(lua_State *L)
     return 0;
 }
 
-static int _olua_int64_tostring1(lua_State *L)
+static int _olua_int64_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4264,7 +4264,7 @@ static int _olua_int64_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_int64_tostring2(lua_State *L)
+static int _olua_int64_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4287,14 +4287,14 @@ static int _olua_int64_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_int64_tostring2(L);
+            return _olua_int64_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_int64_tostring1(L);
+            return _olua_int64_tostring$1(L);
         // }
     }
 
@@ -4463,7 +4463,7 @@ static int _olua_uint64___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_uint64_copyfrom1(lua_State *L)
+static int _olua_uint64_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4487,7 +4487,7 @@ static int _olua_uint64_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_uint64_copyfrom2(lua_State *L)
+static int _olua_uint64_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4505,7 +4505,7 @@ static int _olua_uint64_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_uint64_copyfrom3(lua_State *L)
+static int _olua_uint64_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4525,7 +4525,7 @@ static int _olua_uint64_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_uint64_copyfrom4(lua_State *L)
+static int _olua_uint64_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4554,28 +4554,28 @@ static int _olua_uint64_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.uint64"))) {
             // void copyfrom(olua::pointer<uint64_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_uint64_copyfrom2(L);
+            return _olua_uint64_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.uint64")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<uint64_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_uint64_copyfrom3(L);
+            return _olua_uint64_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.uint64")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<uint64_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_uint64_copyfrom4(L);
+            return _olua_uint64_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.uint64")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<uint64_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_uint64_copyfrom1(L);
+            return _olua_uint64_copyfrom$1(L);
         // }
     }
 
@@ -4604,7 +4604,7 @@ static int _olua_uint64_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_uint64_create1(lua_State *L)
+static int _olua_uint64_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4621,7 +4621,7 @@ static int _olua_uint64_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint64_create2(lua_State *L)
+static int _olua_uint64_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4640,13 +4640,13 @@ static int _olua_uint64_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<uint64_t> *create(@optional size_t len)
-        return _olua_uint64_create2(L);
+        return _olua_uint64_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<uint64_t> *create(@optional size_t len)
-            return _olua_uint64_create1(L);
+            return _olua_uint64_create$1(L);
         // }
     }
 
@@ -4655,7 +4655,7 @@ static int _olua_uint64_create(lua_State *L)
     return 0;
 }
 
-static int _olua_uint64_sub1(lua_State *L)
+static int _olua_uint64_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4676,7 +4676,7 @@ static int _olua_uint64_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint64_sub2(lua_State *L)
+static int _olua_uint64_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4702,14 +4702,14 @@ static int _olua_uint64_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<uint64_t> *sub(size_t from, @optional size_t to)
-            return _olua_uint64_sub2(L);
+            return _olua_uint64_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<uint64_t> *sub(size_t from, @optional size_t to)
-            return _olua_uint64_sub1(L);
+            return _olua_uint64_sub$1(L);
         // }
     }
 
@@ -4734,7 +4734,7 @@ static int _olua_uint64_take(lua_State *L)
     return 0;
 }
 
-static int _olua_uint64_tostring1(lua_State *L)
+static int _olua_uint64_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4752,7 +4752,7 @@ static int _olua_uint64_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_uint64_tostring2(lua_State *L)
+static int _olua_uint64_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4775,14 +4775,14 @@ static int _olua_uint64_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_uint64_tostring2(L);
+            return _olua_uint64_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_uint64_tostring1(L);
+            return _olua_uint64_tostring$1(L);
         // }
     }
 
@@ -4951,7 +4951,7 @@ static int _olua_short___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_short_copyfrom1(lua_State *L)
+static int _olua_short_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4975,7 +4975,7 @@ static int _olua_short_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_short_copyfrom2(lua_State *L)
+static int _olua_short_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4993,7 +4993,7 @@ static int _olua_short_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_short_copyfrom3(lua_State *L)
+static int _olua_short_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5013,7 +5013,7 @@ static int _olua_short_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_short_copyfrom4(lua_State *L)
+static int _olua_short_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5042,28 +5042,28 @@ static int _olua_short_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.short"))) {
             // void copyfrom(olua::pointer<short> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_short_copyfrom2(L);
+            return _olua_short_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.short")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<short> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_short_copyfrom3(L);
+            return _olua_short_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.short")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<short> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_short_copyfrom4(L);
+            return _olua_short_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.short")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<short> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_short_copyfrom1(L);
+            return _olua_short_copyfrom$1(L);
         // }
     }
 
@@ -5092,7 +5092,7 @@ static int _olua_short_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_short_create1(lua_State *L)
+static int _olua_short_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5109,7 +5109,7 @@ static int _olua_short_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_short_create2(lua_State *L)
+static int _olua_short_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5128,13 +5128,13 @@ static int _olua_short_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<short> *create(@optional size_t len)
-        return _olua_short_create2(L);
+        return _olua_short_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<short> *create(@optional size_t len)
-            return _olua_short_create1(L);
+            return _olua_short_create$1(L);
         // }
     }
 
@@ -5143,7 +5143,7 @@ static int _olua_short_create(lua_State *L)
     return 0;
 }
 
-static int _olua_short_sub1(lua_State *L)
+static int _olua_short_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5164,7 +5164,7 @@ static int _olua_short_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_short_sub2(lua_State *L)
+static int _olua_short_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5190,14 +5190,14 @@ static int _olua_short_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<short> *sub(size_t from, @optional size_t to)
-            return _olua_short_sub2(L);
+            return _olua_short_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<short> *sub(size_t from, @optional size_t to)
-            return _olua_short_sub1(L);
+            return _olua_short_sub$1(L);
         // }
     }
 
@@ -5222,7 +5222,7 @@ static int _olua_short_take(lua_State *L)
     return 0;
 }
 
-static int _olua_short_tostring1(lua_State *L)
+static int _olua_short_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5240,7 +5240,7 @@ static int _olua_short_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_short_tostring2(lua_State *L)
+static int _olua_short_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5263,14 +5263,14 @@ static int _olua_short_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_short_tostring2(L);
+            return _olua_short_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_short_tostring1(L);
+            return _olua_short_tostring$1(L);
         // }
     }
 
@@ -5439,7 +5439,7 @@ static int _olua_ushort___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_ushort_copyfrom1(lua_State *L)
+static int _olua_ushort_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5463,7 +5463,7 @@ static int _olua_ushort_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_ushort_copyfrom2(lua_State *L)
+static int _olua_ushort_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5481,7 +5481,7 @@ static int _olua_ushort_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_ushort_copyfrom3(lua_State *L)
+static int _olua_ushort_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5501,7 +5501,7 @@ static int _olua_ushort_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_ushort_copyfrom4(lua_State *L)
+static int _olua_ushort_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5530,28 +5530,28 @@ static int _olua_ushort_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.ushort"))) {
             // void copyfrom(olua::pointer<unsigned short> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_ushort_copyfrom2(L);
+            return _olua_ushort_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.ushort")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<unsigned short> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_ushort_copyfrom3(L);
+            return _olua_ushort_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.ushort")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<unsigned short> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_ushort_copyfrom4(L);
+            return _olua_ushort_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.ushort")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<unsigned short> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_ushort_copyfrom1(L);
+            return _olua_ushort_copyfrom$1(L);
         // }
     }
 
@@ -5580,7 +5580,7 @@ static int _olua_ushort_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_ushort_create1(lua_State *L)
+static int _olua_ushort_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5597,7 +5597,7 @@ static int _olua_ushort_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_ushort_create2(lua_State *L)
+static int _olua_ushort_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5616,13 +5616,13 @@ static int _olua_ushort_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<unsigned short> *create(@optional size_t len)
-        return _olua_ushort_create2(L);
+        return _olua_ushort_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<unsigned short> *create(@optional size_t len)
-            return _olua_ushort_create1(L);
+            return _olua_ushort_create$1(L);
         // }
     }
 
@@ -5631,7 +5631,7 @@ static int _olua_ushort_create(lua_State *L)
     return 0;
 }
 
-static int _olua_ushort_sub1(lua_State *L)
+static int _olua_ushort_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5652,7 +5652,7 @@ static int _olua_ushort_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_ushort_sub2(lua_State *L)
+static int _olua_ushort_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5678,14 +5678,14 @@ static int _olua_ushort_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<unsigned short> *sub(size_t from, @optional size_t to)
-            return _olua_ushort_sub2(L);
+            return _olua_ushort_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<unsigned short> *sub(size_t from, @optional size_t to)
-            return _olua_ushort_sub1(L);
+            return _olua_ushort_sub$1(L);
         // }
     }
 
@@ -5710,7 +5710,7 @@ static int _olua_ushort_take(lua_State *L)
     return 0;
 }
 
-static int _olua_ushort_tostring1(lua_State *L)
+static int _olua_ushort_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5728,7 +5728,7 @@ static int _olua_ushort_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_ushort_tostring2(lua_State *L)
+static int _olua_ushort_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5751,14 +5751,14 @@ static int _olua_ushort_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_ushort_tostring2(L);
+            return _olua_ushort_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_ushort_tostring1(L);
+            return _olua_ushort_tostring$1(L);
         // }
     }
 
@@ -5927,7 +5927,7 @@ static int _olua_int___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_int_copyfrom1(lua_State *L)
+static int _olua_int_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5951,7 +5951,7 @@ static int _olua_int_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_int_copyfrom2(lua_State *L)
+static int _olua_int_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5969,7 +5969,7 @@ static int _olua_int_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_int_copyfrom3(lua_State *L)
+static int _olua_int_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5989,7 +5989,7 @@ static int _olua_int_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_int_copyfrom4(lua_State *L)
+static int _olua_int_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6018,28 +6018,28 @@ static int _olua_int_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.int"))) {
             // void copyfrom(olua::pointer<int> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_int_copyfrom2(L);
+            return _olua_int_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.int")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<int> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_int_copyfrom3(L);
+            return _olua_int_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.int")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<int> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_int_copyfrom4(L);
+            return _olua_int_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.int")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<int> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_int_copyfrom1(L);
+            return _olua_int_copyfrom$1(L);
         // }
     }
 
@@ -6068,7 +6068,7 @@ static int _olua_int_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_int_create1(lua_State *L)
+static int _olua_int_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6085,7 +6085,7 @@ static int _olua_int_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int_create2(lua_State *L)
+static int _olua_int_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6104,13 +6104,13 @@ static int _olua_int_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<int> *create(@optional size_t len)
-        return _olua_int_create2(L);
+        return _olua_int_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<int> *create(@optional size_t len)
-            return _olua_int_create1(L);
+            return _olua_int_create$1(L);
         // }
     }
 
@@ -6119,7 +6119,7 @@ static int _olua_int_create(lua_State *L)
     return 0;
 }
 
-static int _olua_int_sub1(lua_State *L)
+static int _olua_int_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6140,7 +6140,7 @@ static int _olua_int_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int_sub2(lua_State *L)
+static int _olua_int_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6166,14 +6166,14 @@ static int _olua_int_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<int> *sub(size_t from, @optional size_t to)
-            return _olua_int_sub2(L);
+            return _olua_int_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<int> *sub(size_t from, @optional size_t to)
-            return _olua_int_sub1(L);
+            return _olua_int_sub$1(L);
         // }
     }
 
@@ -6198,7 +6198,7 @@ static int _olua_int_take(lua_State *L)
     return 0;
 }
 
-static int _olua_int_tostring1(lua_State *L)
+static int _olua_int_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6216,7 +6216,7 @@ static int _olua_int_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_int_tostring2(lua_State *L)
+static int _olua_int_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6239,14 +6239,14 @@ static int _olua_int_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_int_tostring2(L);
+            return _olua_int_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_int_tostring1(L);
+            return _olua_int_tostring$1(L);
         // }
     }
 
@@ -6415,7 +6415,7 @@ static int _olua_uint___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_uint_copyfrom1(lua_State *L)
+static int _olua_uint_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6439,7 +6439,7 @@ static int _olua_uint_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_uint_copyfrom2(lua_State *L)
+static int _olua_uint_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6457,7 +6457,7 @@ static int _olua_uint_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_uint_copyfrom3(lua_State *L)
+static int _olua_uint_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6477,7 +6477,7 @@ static int _olua_uint_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_uint_copyfrom4(lua_State *L)
+static int _olua_uint_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6506,28 +6506,28 @@ static int _olua_uint_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.uint"))) {
             // void copyfrom(olua::pointer<unsigned int> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_uint_copyfrom2(L);
+            return _olua_uint_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.uint")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<unsigned int> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_uint_copyfrom3(L);
+            return _olua_uint_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.uint")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<unsigned int> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_uint_copyfrom4(L);
+            return _olua_uint_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.uint")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<unsigned int> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_uint_copyfrom1(L);
+            return _olua_uint_copyfrom$1(L);
         // }
     }
 
@@ -6556,7 +6556,7 @@ static int _olua_uint_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_uint_create1(lua_State *L)
+static int _olua_uint_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6573,7 +6573,7 @@ static int _olua_uint_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint_create2(lua_State *L)
+static int _olua_uint_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6592,13 +6592,13 @@ static int _olua_uint_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<unsigned int> *create(@optional size_t len)
-        return _olua_uint_create2(L);
+        return _olua_uint_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<unsigned int> *create(@optional size_t len)
-            return _olua_uint_create1(L);
+            return _olua_uint_create$1(L);
         // }
     }
 
@@ -6607,7 +6607,7 @@ static int _olua_uint_create(lua_State *L)
     return 0;
 }
 
-static int _olua_uint_sub1(lua_State *L)
+static int _olua_uint_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6628,7 +6628,7 @@ static int _olua_uint_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint_sub2(lua_State *L)
+static int _olua_uint_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6654,14 +6654,14 @@ static int _olua_uint_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<unsigned int> *sub(size_t from, @optional size_t to)
-            return _olua_uint_sub2(L);
+            return _olua_uint_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<unsigned int> *sub(size_t from, @optional size_t to)
-            return _olua_uint_sub1(L);
+            return _olua_uint_sub$1(L);
         // }
     }
 
@@ -6686,7 +6686,7 @@ static int _olua_uint_take(lua_State *L)
     return 0;
 }
 
-static int _olua_uint_tostring1(lua_State *L)
+static int _olua_uint_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6704,7 +6704,7 @@ static int _olua_uint_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_uint_tostring2(lua_State *L)
+static int _olua_uint_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6727,14 +6727,14 @@ static int _olua_uint_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_uint_tostring2(L);
+            return _olua_uint_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_uint_tostring1(L);
+            return _olua_uint_tostring$1(L);
         // }
     }
 
@@ -6903,7 +6903,7 @@ static int _olua_long___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_long_copyfrom1(lua_State *L)
+static int _olua_long_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6927,7 +6927,7 @@ static int _olua_long_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_long_copyfrom2(lua_State *L)
+static int _olua_long_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6945,7 +6945,7 @@ static int _olua_long_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_long_copyfrom3(lua_State *L)
+static int _olua_long_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6965,7 +6965,7 @@ static int _olua_long_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_long_copyfrom4(lua_State *L)
+static int _olua_long_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6994,28 +6994,28 @@ static int _olua_long_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.long"))) {
             // void copyfrom(olua::pointer<long> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_long_copyfrom2(L);
+            return _olua_long_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.long")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<long> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_long_copyfrom3(L);
+            return _olua_long_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.long")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<long> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_long_copyfrom4(L);
+            return _olua_long_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.long")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<long> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_long_copyfrom1(L);
+            return _olua_long_copyfrom$1(L);
         // }
     }
 
@@ -7044,7 +7044,7 @@ static int _olua_long_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_long_create1(lua_State *L)
+static int _olua_long_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7061,7 +7061,7 @@ static int _olua_long_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_long_create2(lua_State *L)
+static int _olua_long_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7080,13 +7080,13 @@ static int _olua_long_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<long> *create(@optional size_t len)
-        return _olua_long_create2(L);
+        return _olua_long_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<long> *create(@optional size_t len)
-            return _olua_long_create1(L);
+            return _olua_long_create$1(L);
         // }
     }
 
@@ -7095,7 +7095,7 @@ static int _olua_long_create(lua_State *L)
     return 0;
 }
 
-static int _olua_long_sub1(lua_State *L)
+static int _olua_long_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7116,7 +7116,7 @@ static int _olua_long_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_long_sub2(lua_State *L)
+static int _olua_long_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7142,14 +7142,14 @@ static int _olua_long_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<long> *sub(size_t from, @optional size_t to)
-            return _olua_long_sub2(L);
+            return _olua_long_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<long> *sub(size_t from, @optional size_t to)
-            return _olua_long_sub1(L);
+            return _olua_long_sub$1(L);
         // }
     }
 
@@ -7174,7 +7174,7 @@ static int _olua_long_take(lua_State *L)
     return 0;
 }
 
-static int _olua_long_tostring1(lua_State *L)
+static int _olua_long_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7192,7 +7192,7 @@ static int _olua_long_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_long_tostring2(lua_State *L)
+static int _olua_long_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7215,14 +7215,14 @@ static int _olua_long_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_long_tostring2(L);
+            return _olua_long_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_long_tostring1(L);
+            return _olua_long_tostring$1(L);
         // }
     }
 
@@ -7391,7 +7391,7 @@ static int _olua_ulong___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_ulong_copyfrom1(lua_State *L)
+static int _olua_ulong_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7415,7 +7415,7 @@ static int _olua_ulong_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_ulong_copyfrom2(lua_State *L)
+static int _olua_ulong_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7433,7 +7433,7 @@ static int _olua_ulong_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_ulong_copyfrom3(lua_State *L)
+static int _olua_ulong_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7453,7 +7453,7 @@ static int _olua_ulong_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_ulong_copyfrom4(lua_State *L)
+static int _olua_ulong_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7482,28 +7482,28 @@ static int _olua_ulong_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.ulong"))) {
             // void copyfrom(olua::pointer<unsigned long> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_ulong_copyfrom2(L);
+            return _olua_ulong_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.ulong")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<unsigned long> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_ulong_copyfrom3(L);
+            return _olua_ulong_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.ulong")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<unsigned long> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_ulong_copyfrom4(L);
+            return _olua_ulong_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.ulong")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<unsigned long> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_ulong_copyfrom1(L);
+            return _olua_ulong_copyfrom$1(L);
         // }
     }
 
@@ -7532,7 +7532,7 @@ static int _olua_ulong_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_ulong_create1(lua_State *L)
+static int _olua_ulong_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7549,7 +7549,7 @@ static int _olua_ulong_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_ulong_create2(lua_State *L)
+static int _olua_ulong_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7568,13 +7568,13 @@ static int _olua_ulong_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<unsigned long> *create(@optional size_t len)
-        return _olua_ulong_create2(L);
+        return _olua_ulong_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<unsigned long> *create(@optional size_t len)
-            return _olua_ulong_create1(L);
+            return _olua_ulong_create$1(L);
         // }
     }
 
@@ -7583,7 +7583,7 @@ static int _olua_ulong_create(lua_State *L)
     return 0;
 }
 
-static int _olua_ulong_sub1(lua_State *L)
+static int _olua_ulong_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7604,7 +7604,7 @@ static int _olua_ulong_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_ulong_sub2(lua_State *L)
+static int _olua_ulong_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7630,14 +7630,14 @@ static int _olua_ulong_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<unsigned long> *sub(size_t from, @optional size_t to)
-            return _olua_ulong_sub2(L);
+            return _olua_ulong_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<unsigned long> *sub(size_t from, @optional size_t to)
-            return _olua_ulong_sub1(L);
+            return _olua_ulong_sub$1(L);
         // }
     }
 
@@ -7662,7 +7662,7 @@ static int _olua_ulong_take(lua_State *L)
     return 0;
 }
 
-static int _olua_ulong_tostring1(lua_State *L)
+static int _olua_ulong_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7680,7 +7680,7 @@ static int _olua_ulong_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_ulong_tostring2(lua_State *L)
+static int _olua_ulong_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7703,14 +7703,14 @@ static int _olua_ulong_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_ulong_tostring2(L);
+            return _olua_ulong_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_ulong_tostring1(L);
+            return _olua_ulong_tostring$1(L);
         // }
     }
 
@@ -7879,7 +7879,7 @@ static int _olua_llong___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_llong_copyfrom1(lua_State *L)
+static int _olua_llong_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7903,7 +7903,7 @@ static int _olua_llong_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_llong_copyfrom2(lua_State *L)
+static int _olua_llong_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7921,7 +7921,7 @@ static int _olua_llong_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_llong_copyfrom3(lua_State *L)
+static int _olua_llong_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7941,7 +7941,7 @@ static int _olua_llong_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_llong_copyfrom4(lua_State *L)
+static int _olua_llong_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7970,28 +7970,28 @@ static int _olua_llong_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.llong"))) {
             // void copyfrom(olua::pointer<long long> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_llong_copyfrom2(L);
+            return _olua_llong_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.llong")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<long long> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_llong_copyfrom3(L);
+            return _olua_llong_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.llong")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<long long> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_llong_copyfrom4(L);
+            return _olua_llong_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.llong")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<long long> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_llong_copyfrom1(L);
+            return _olua_llong_copyfrom$1(L);
         // }
     }
 
@@ -8020,7 +8020,7 @@ static int _olua_llong_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_llong_create1(lua_State *L)
+static int _olua_llong_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8037,7 +8037,7 @@ static int _olua_llong_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_llong_create2(lua_State *L)
+static int _olua_llong_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8056,13 +8056,13 @@ static int _olua_llong_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<long long> *create(@optional size_t len)
-        return _olua_llong_create2(L);
+        return _olua_llong_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<long long> *create(@optional size_t len)
-            return _olua_llong_create1(L);
+            return _olua_llong_create$1(L);
         // }
     }
 
@@ -8071,7 +8071,7 @@ static int _olua_llong_create(lua_State *L)
     return 0;
 }
 
-static int _olua_llong_sub1(lua_State *L)
+static int _olua_llong_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8092,7 +8092,7 @@ static int _olua_llong_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_llong_sub2(lua_State *L)
+static int _olua_llong_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8118,14 +8118,14 @@ static int _olua_llong_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<long long> *sub(size_t from, @optional size_t to)
-            return _olua_llong_sub2(L);
+            return _olua_llong_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<long long> *sub(size_t from, @optional size_t to)
-            return _olua_llong_sub1(L);
+            return _olua_llong_sub$1(L);
         // }
     }
 
@@ -8150,7 +8150,7 @@ static int _olua_llong_take(lua_State *L)
     return 0;
 }
 
-static int _olua_llong_tostring1(lua_State *L)
+static int _olua_llong_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8168,7 +8168,7 @@ static int _olua_llong_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_llong_tostring2(lua_State *L)
+static int _olua_llong_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8191,14 +8191,14 @@ static int _olua_llong_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_llong_tostring2(L);
+            return _olua_llong_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_llong_tostring1(L);
+            return _olua_llong_tostring$1(L);
         // }
     }
 
@@ -8367,7 +8367,7 @@ static int _olua_ullong___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_ullong_copyfrom1(lua_State *L)
+static int _olua_ullong_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8391,7 +8391,7 @@ static int _olua_ullong_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_ullong_copyfrom2(lua_State *L)
+static int _olua_ullong_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8409,7 +8409,7 @@ static int _olua_ullong_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_ullong_copyfrom3(lua_State *L)
+static int _olua_ullong_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8429,7 +8429,7 @@ static int _olua_ullong_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_ullong_copyfrom4(lua_State *L)
+static int _olua_ullong_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8458,28 +8458,28 @@ static int _olua_ullong_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.ullong"))) {
             // void copyfrom(olua::pointer<unsigned long long> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_ullong_copyfrom2(L);
+            return _olua_ullong_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.ullong")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<unsigned long long> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_ullong_copyfrom3(L);
+            return _olua_ullong_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.ullong")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<unsigned long long> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_ullong_copyfrom4(L);
+            return _olua_ullong_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.ullong")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<unsigned long long> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_ullong_copyfrom1(L);
+            return _olua_ullong_copyfrom$1(L);
         // }
     }
 
@@ -8508,7 +8508,7 @@ static int _olua_ullong_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_ullong_create1(lua_State *L)
+static int _olua_ullong_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8525,7 +8525,7 @@ static int _olua_ullong_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_ullong_create2(lua_State *L)
+static int _olua_ullong_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8544,13 +8544,13 @@ static int _olua_ullong_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<unsigned long long> *create(@optional size_t len)
-        return _olua_ullong_create2(L);
+        return _olua_ullong_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<unsigned long long> *create(@optional size_t len)
-            return _olua_ullong_create1(L);
+            return _olua_ullong_create$1(L);
         // }
     }
 
@@ -8559,7 +8559,7 @@ static int _olua_ullong_create(lua_State *L)
     return 0;
 }
 
-static int _olua_ullong_sub1(lua_State *L)
+static int _olua_ullong_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8580,7 +8580,7 @@ static int _olua_ullong_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_ullong_sub2(lua_State *L)
+static int _olua_ullong_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8606,14 +8606,14 @@ static int _olua_ullong_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<unsigned long long> *sub(size_t from, @optional size_t to)
-            return _olua_ullong_sub2(L);
+            return _olua_ullong_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<unsigned long long> *sub(size_t from, @optional size_t to)
-            return _olua_ullong_sub1(L);
+            return _olua_ullong_sub$1(L);
         // }
     }
 
@@ -8638,7 +8638,7 @@ static int _olua_ullong_take(lua_State *L)
     return 0;
 }
 
-static int _olua_ullong_tostring1(lua_State *L)
+static int _olua_ullong_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8656,7 +8656,7 @@ static int _olua_ullong_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_ullong_tostring2(lua_State *L)
+static int _olua_ullong_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8679,14 +8679,14 @@ static int _olua_ullong_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_ullong_tostring2(L);
+            return _olua_ullong_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_ullong_tostring1(L);
+            return _olua_ullong_tostring$1(L);
         // }
     }
 
@@ -8855,7 +8855,7 @@ static int _olua_float___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_float_copyfrom1(lua_State *L)
+static int _olua_float_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8879,7 +8879,7 @@ static int _olua_float_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_float_copyfrom2(lua_State *L)
+static int _olua_float_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8897,7 +8897,7 @@ static int _olua_float_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_float_copyfrom3(lua_State *L)
+static int _olua_float_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8917,7 +8917,7 @@ static int _olua_float_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_float_copyfrom4(lua_State *L)
+static int _olua_float_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8946,28 +8946,28 @@ static int _olua_float_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.float"))) {
             // void copyfrom(olua::pointer<float> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_float_copyfrom2(L);
+            return _olua_float_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.float")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<float> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_float_copyfrom3(L);
+            return _olua_float_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.float")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<float> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_float_copyfrom4(L);
+            return _olua_float_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.float")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<float> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_float_copyfrom1(L);
+            return _olua_float_copyfrom$1(L);
         // }
     }
 
@@ -8996,7 +8996,7 @@ static int _olua_float_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_float_create1(lua_State *L)
+static int _olua_float_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9013,7 +9013,7 @@ static int _olua_float_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_float_create2(lua_State *L)
+static int _olua_float_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9032,13 +9032,13 @@ static int _olua_float_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<float> *create(@optional size_t len)
-        return _olua_float_create2(L);
+        return _olua_float_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<float> *create(@optional size_t len)
-            return _olua_float_create1(L);
+            return _olua_float_create$1(L);
         // }
     }
 
@@ -9047,7 +9047,7 @@ static int _olua_float_create(lua_State *L)
     return 0;
 }
 
-static int _olua_float_sub1(lua_State *L)
+static int _olua_float_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9068,7 +9068,7 @@ static int _olua_float_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_float_sub2(lua_State *L)
+static int _olua_float_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9094,14 +9094,14 @@ static int _olua_float_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<float> *sub(size_t from, @optional size_t to)
-            return _olua_float_sub2(L);
+            return _olua_float_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<float> *sub(size_t from, @optional size_t to)
-            return _olua_float_sub1(L);
+            return _olua_float_sub$1(L);
         // }
     }
 
@@ -9126,7 +9126,7 @@ static int _olua_float_take(lua_State *L)
     return 0;
 }
 
-static int _olua_float_tostring1(lua_State *L)
+static int _olua_float_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9144,7 +9144,7 @@ static int _olua_float_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_float_tostring2(lua_State *L)
+static int _olua_float_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9167,14 +9167,14 @@ static int _olua_float_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_float_tostring2(L);
+            return _olua_float_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_float_tostring1(L);
+            return _olua_float_tostring$1(L);
         // }
     }
 
@@ -9343,7 +9343,7 @@ static int _olua_double___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_double_copyfrom1(lua_State *L)
+static int _olua_double_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9367,7 +9367,7 @@ static int _olua_double_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_double_copyfrom2(lua_State *L)
+static int _olua_double_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9385,7 +9385,7 @@ static int _olua_double_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_double_copyfrom3(lua_State *L)
+static int _olua_double_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9405,7 +9405,7 @@ static int _olua_double_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_double_copyfrom4(lua_State *L)
+static int _olua_double_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9434,28 +9434,28 @@ static int _olua_double_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.double"))) {
             // void copyfrom(olua::pointer<double> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_double_copyfrom2(L);
+            return _olua_double_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.double")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<double> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_double_copyfrom3(L);
+            return _olua_double_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.double")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<double> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_double_copyfrom4(L);
+            return _olua_double_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.double")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<double> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_double_copyfrom1(L);
+            return _olua_double_copyfrom$1(L);
         // }
     }
 
@@ -9484,7 +9484,7 @@ static int _olua_double_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_double_create1(lua_State *L)
+static int _olua_double_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9501,7 +9501,7 @@ static int _olua_double_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_double_create2(lua_State *L)
+static int _olua_double_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9520,13 +9520,13 @@ static int _olua_double_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<double> *create(@optional size_t len)
-        return _olua_double_create2(L);
+        return _olua_double_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<double> *create(@optional size_t len)
-            return _olua_double_create1(L);
+            return _olua_double_create$1(L);
         // }
     }
 
@@ -9535,7 +9535,7 @@ static int _olua_double_create(lua_State *L)
     return 0;
 }
 
-static int _olua_double_sub1(lua_State *L)
+static int _olua_double_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9556,7 +9556,7 @@ static int _olua_double_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_double_sub2(lua_State *L)
+static int _olua_double_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9582,14 +9582,14 @@ static int _olua_double_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<double> *sub(size_t from, @optional size_t to)
-            return _olua_double_sub2(L);
+            return _olua_double_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<double> *sub(size_t from, @optional size_t to)
-            return _olua_double_sub1(L);
+            return _olua_double_sub$1(L);
         // }
     }
 
@@ -9614,7 +9614,7 @@ static int _olua_double_take(lua_State *L)
     return 0;
 }
 
-static int _olua_double_tostring1(lua_State *L)
+static int _olua_double_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9632,7 +9632,7 @@ static int _olua_double_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_double_tostring2(lua_State *L)
+static int _olua_double_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9655,14 +9655,14 @@ static int _olua_double_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_double_tostring2(L);
+            return _olua_double_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_double_tostring1(L);
+            return _olua_double_tostring$1(L);
         // }
     }
 
@@ -9831,7 +9831,7 @@ static int _olua_ldouble___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_ldouble_copyfrom1(lua_State *L)
+static int _olua_ldouble_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9855,7 +9855,7 @@ static int _olua_ldouble_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_ldouble_copyfrom2(lua_State *L)
+static int _olua_ldouble_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9873,7 +9873,7 @@ static int _olua_ldouble_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_ldouble_copyfrom3(lua_State *L)
+static int _olua_ldouble_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9893,7 +9893,7 @@ static int _olua_ldouble_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_ldouble_copyfrom4(lua_State *L)
+static int _olua_ldouble_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9922,28 +9922,28 @@ static int _olua_ldouble_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.ldouble"))) {
             // void copyfrom(olua::pointer<long double> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_ldouble_copyfrom2(L);
+            return _olua_ldouble_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.ldouble")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<long double> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_ldouble_copyfrom3(L);
+            return _olua_ldouble_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.ldouble")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<long double> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_ldouble_copyfrom4(L);
+            return _olua_ldouble_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.ldouble")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<long double> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_ldouble_copyfrom1(L);
+            return _olua_ldouble_copyfrom$1(L);
         // }
     }
 
@@ -9972,7 +9972,7 @@ static int _olua_ldouble_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_ldouble_create1(lua_State *L)
+static int _olua_ldouble_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9989,7 +9989,7 @@ static int _olua_ldouble_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_ldouble_create2(lua_State *L)
+static int _olua_ldouble_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10008,13 +10008,13 @@ static int _olua_ldouble_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<long double> *create(@optional size_t len)
-        return _olua_ldouble_create2(L);
+        return _olua_ldouble_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<long double> *create(@optional size_t len)
-            return _olua_ldouble_create1(L);
+            return _olua_ldouble_create$1(L);
         // }
     }
 
@@ -10023,7 +10023,7 @@ static int _olua_ldouble_create(lua_State *L)
     return 0;
 }
 
-static int _olua_ldouble_sub1(lua_State *L)
+static int _olua_ldouble_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10044,7 +10044,7 @@ static int _olua_ldouble_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_ldouble_sub2(lua_State *L)
+static int _olua_ldouble_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10070,14 +10070,14 @@ static int _olua_ldouble_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<long double> *sub(size_t from, @optional size_t to)
-            return _olua_ldouble_sub2(L);
+            return _olua_ldouble_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<long double> *sub(size_t from, @optional size_t to)
-            return _olua_ldouble_sub1(L);
+            return _olua_ldouble_sub$1(L);
         // }
     }
 
@@ -10102,7 +10102,7 @@ static int _olua_ldouble_take(lua_State *L)
     return 0;
 }
 
-static int _olua_ldouble_tostring1(lua_State *L)
+static int _olua_ldouble_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10120,7 +10120,7 @@ static int _olua_ldouble_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_ldouble_tostring2(lua_State *L)
+static int _olua_ldouble_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10143,14 +10143,14 @@ static int _olua_ldouble_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_ldouble_tostring2(L);
+            return _olua_ldouble_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_ldouble_tostring1(L);
+            return _olua_ldouble_tostring$1(L);
         // }
     }
 
@@ -10319,7 +10319,7 @@ static int _olua_size_t___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_size_t_copyfrom1(lua_State *L)
+static int _olua_size_t_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10343,7 +10343,7 @@ static int _olua_size_t_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_size_t_copyfrom2(lua_State *L)
+static int _olua_size_t_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10361,7 +10361,7 @@ static int _olua_size_t_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_size_t_copyfrom3(lua_State *L)
+static int _olua_size_t_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10381,7 +10381,7 @@ static int _olua_size_t_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_size_t_copyfrom4(lua_State *L)
+static int _olua_size_t_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10410,28 +10410,28 @@ static int _olua_size_t_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.size_t"))) {
             // void copyfrom(olua::pointer<size_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_size_t_copyfrom2(L);
+            return _olua_size_t_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.size_t")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<size_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_size_t_copyfrom3(L);
+            return _olua_size_t_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.size_t")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<size_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_size_t_copyfrom4(L);
+            return _olua_size_t_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.size_t")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<size_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_size_t_copyfrom1(L);
+            return _olua_size_t_copyfrom$1(L);
         // }
     }
 
@@ -10460,7 +10460,7 @@ static int _olua_size_t_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_size_t_create1(lua_State *L)
+static int _olua_size_t_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10477,7 +10477,7 @@ static int _olua_size_t_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_size_t_create2(lua_State *L)
+static int _olua_size_t_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10496,13 +10496,13 @@ static int _olua_size_t_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<size_t> *create(@optional size_t len)
-        return _olua_size_t_create2(L);
+        return _olua_size_t_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<size_t> *create(@optional size_t len)
-            return _olua_size_t_create1(L);
+            return _olua_size_t_create$1(L);
         // }
     }
 
@@ -10511,7 +10511,7 @@ static int _olua_size_t_create(lua_State *L)
     return 0;
 }
 
-static int _olua_size_t_sub1(lua_State *L)
+static int _olua_size_t_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10532,7 +10532,7 @@ static int _olua_size_t_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_size_t_sub2(lua_State *L)
+static int _olua_size_t_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10558,14 +10558,14 @@ static int _olua_size_t_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<size_t> *sub(size_t from, @optional size_t to)
-            return _olua_size_t_sub2(L);
+            return _olua_size_t_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<size_t> *sub(size_t from, @optional size_t to)
-            return _olua_size_t_sub1(L);
+            return _olua_size_t_sub$1(L);
         // }
     }
 
@@ -10590,7 +10590,7 @@ static int _olua_size_t_take(lua_State *L)
     return 0;
 }
 
-static int _olua_size_t_tostring1(lua_State *L)
+static int _olua_size_t_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10608,7 +10608,7 @@ static int _olua_size_t_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_size_t_tostring2(lua_State *L)
+static int _olua_size_t_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10631,14 +10631,14 @@ static int _olua_size_t_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_size_t_tostring2(L);
+            return _olua_size_t_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_size_t_tostring1(L);
+            return _olua_size_t_tostring$1(L);
         // }
     }
 
@@ -10807,7 +10807,7 @@ static int _olua_ssize_t___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_ssize_t_copyfrom1(lua_State *L)
+static int _olua_ssize_t_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10831,7 +10831,7 @@ static int _olua_ssize_t_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_ssize_t_copyfrom2(lua_State *L)
+static int _olua_ssize_t_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10849,7 +10849,7 @@ static int _olua_ssize_t_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_ssize_t_copyfrom3(lua_State *L)
+static int _olua_ssize_t_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10869,7 +10869,7 @@ static int _olua_ssize_t_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_ssize_t_copyfrom4(lua_State *L)
+static int _olua_ssize_t_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10898,28 +10898,28 @@ static int _olua_ssize_t_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.ssize_t"))) {
             // void copyfrom(olua::pointer<ssize_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_ssize_t_copyfrom2(L);
+            return _olua_ssize_t_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.ssize_t")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<ssize_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_ssize_t_copyfrom3(L);
+            return _olua_ssize_t_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.ssize_t")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<ssize_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_ssize_t_copyfrom4(L);
+            return _olua_ssize_t_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.ssize_t")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<ssize_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_ssize_t_copyfrom1(L);
+            return _olua_ssize_t_copyfrom$1(L);
         // }
     }
 
@@ -10948,7 +10948,7 @@ static int _olua_ssize_t_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_ssize_t_create1(lua_State *L)
+static int _olua_ssize_t_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10965,7 +10965,7 @@ static int _olua_ssize_t_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_ssize_t_create2(lua_State *L)
+static int _olua_ssize_t_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10984,13 +10984,13 @@ static int _olua_ssize_t_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<ssize_t> *create(@optional size_t len)
-        return _olua_ssize_t_create2(L);
+        return _olua_ssize_t_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<ssize_t> *create(@optional size_t len)
-            return _olua_ssize_t_create1(L);
+            return _olua_ssize_t_create$1(L);
         // }
     }
 
@@ -10999,7 +10999,7 @@ static int _olua_ssize_t_create(lua_State *L)
     return 0;
 }
 
-static int _olua_ssize_t_sub1(lua_State *L)
+static int _olua_ssize_t_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11020,7 +11020,7 @@ static int _olua_ssize_t_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_ssize_t_sub2(lua_State *L)
+static int _olua_ssize_t_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11046,14 +11046,14 @@ static int _olua_ssize_t_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<ssize_t> *sub(size_t from, @optional size_t to)
-            return _olua_ssize_t_sub2(L);
+            return _olua_ssize_t_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<ssize_t> *sub(size_t from, @optional size_t to)
-            return _olua_ssize_t_sub1(L);
+            return _olua_ssize_t_sub$1(L);
         // }
     }
 
@@ -11078,7 +11078,7 @@ static int _olua_ssize_t_take(lua_State *L)
     return 0;
 }
 
-static int _olua_ssize_t_tostring1(lua_State *L)
+static int _olua_ssize_t_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11096,7 +11096,7 @@ static int _olua_ssize_t_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_ssize_t_tostring2(lua_State *L)
+static int _olua_ssize_t_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11119,14 +11119,14 @@ static int _olua_ssize_t_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_ssize_t_tostring2(L);
+            return _olua_ssize_t_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_ssize_t_tostring1(L);
+            return _olua_ssize_t_tostring$1(L);
         // }
     }
 
@@ -11295,7 +11295,7 @@ static int _olua_time_t___olua_move(lua_State *L)
     return 1;
 }
 
-static int _olua_time_t_copyfrom1(lua_State *L)
+static int _olua_time_t_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11319,7 +11319,7 @@ static int _olua_time_t_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _olua_time_t_copyfrom2(lua_State *L)
+static int _olua_time_t_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11337,7 +11337,7 @@ static int _olua_time_t_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _olua_time_t_copyfrom3(lua_State *L)
+static int _olua_time_t_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11357,7 +11357,7 @@ static int _olua_time_t_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _olua_time_t_copyfrom4(lua_State *L)
+static int _olua_time_t_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11386,28 +11386,28 @@ static int _olua_time_t_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "olua.time_t"))) {
             // void copyfrom(olua::pointer<time_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_time_t_copyfrom2(L);
+            return _olua_time_t_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "olua.time_t")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<time_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_time_t_copyfrom3(L);
+            return _olua_time_t_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "olua.time_t")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<time_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_time_t_copyfrom4(L);
+            return _olua_time_t_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "olua.time_t")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<time_t> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _olua_time_t_copyfrom1(L);
+            return _olua_time_t_copyfrom$1(L);
         // }
     }
 
@@ -11436,7 +11436,7 @@ static int _olua_time_t_fill(lua_State *L)
     return 0;
 }
 
-static int _olua_time_t_create1(lua_State *L)
+static int _olua_time_t_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11453,7 +11453,7 @@ static int _olua_time_t_create1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_time_t_create2(lua_State *L)
+static int _olua_time_t_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11472,13 +11472,13 @@ static int _olua_time_t_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<time_t> *create(@optional size_t len)
-        return _olua_time_t_create2(L);
+        return _olua_time_t_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<time_t> *create(@optional size_t len)
-            return _olua_time_t_create1(L);
+            return _olua_time_t_create$1(L);
         // }
     }
 
@@ -11487,7 +11487,7 @@ static int _olua_time_t_create(lua_State *L)
     return 0;
 }
 
-static int _olua_time_t_sub1(lua_State *L)
+static int _olua_time_t_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11508,7 +11508,7 @@ static int _olua_time_t_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_time_t_sub2(lua_State *L)
+static int _olua_time_t_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11534,14 +11534,14 @@ static int _olua_time_t_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<time_t> *sub(size_t from, @optional size_t to)
-            return _olua_time_t_sub2(L);
+            return _olua_time_t_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<time_t> *sub(size_t from, @optional size_t to)
-            return _olua_time_t_sub1(L);
+            return _olua_time_t_sub$1(L);
         // }
     }
 
@@ -11566,7 +11566,7 @@ static int _olua_time_t_take(lua_State *L)
     return 0;
 }
 
-static int _olua_time_t_tostring1(lua_State *L)
+static int _olua_time_t_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11584,7 +11584,7 @@ static int _olua_time_t_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_time_t_tostring2(lua_State *L)
+static int _olua_time_t_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11607,14 +11607,14 @@ static int _olua_time_t_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_time_t_tostring2(L);
+            return _olua_time_t_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _olua_time_t_tostring1(L);
+            return _olua_time_t_tostring$1(L);
         // }
     }
 

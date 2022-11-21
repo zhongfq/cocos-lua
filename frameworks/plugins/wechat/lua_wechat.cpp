@@ -149,7 +149,7 @@ static int _cclua_plugin_wechat_isInstalled(lua_State *L)
     return num_ret;
 }
 
-static int _cclua_plugin_wechat_open1(lua_State *L)
+static int _cclua_plugin_wechat_open$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -169,7 +169,7 @@ static int _cclua_plugin_wechat_open1(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_wechat_open2(lua_State *L)
+static int _cclua_plugin_wechat_open$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -185,7 +185,7 @@ static int _cclua_plugin_wechat_open2(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_wechat_open3(lua_State *L)
+static int _cclua_plugin_wechat_open$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -210,21 +210,21 @@ static int _cclua_plugin_wechat_open(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
             // static void open(const std::string &username, @optional const std::string &path, @optional cclua::plugin::wechat::ProgramType type)
-            return _cclua_plugin_wechat_open2(L);
+            return _cclua_plugin_wechat_open$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
             // static void open(const std::string &username, @optional const std::string &path, @optional cclua::plugin::wechat::ProgramType type)
-            return _cclua_plugin_wechat_open3(L);
+            return _cclua_plugin_wechat_open$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
             // static void open(const std::string &username, @optional const std::string &path, @optional cclua::plugin::wechat::ProgramType type)
-            return _cclua_plugin_wechat_open1(L);
+            return _cclua_plugin_wechat_open$1(L);
         // }
     }
 

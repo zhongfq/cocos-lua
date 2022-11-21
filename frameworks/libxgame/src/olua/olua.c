@@ -406,6 +406,14 @@ OLUA_API void *olua_toobj(lua_State *L, int idx, const char *cls)
 #endif
 }
 
+OLUA_API void olua_delobj(lua_State *L, void *obj)
+{
+    if (olua_getrawobj(L, obj)) {
+        olua_setrawobj(L, -1, NULL);
+        lua_pop(L, 1);
+    }
+}
+
 OLUA_API const char *olua_objstring(lua_State *L, int idx)
 {
     const void *ud = lua_topointer(L, idx);
@@ -1185,6 +1193,8 @@ OLUA_API void oluacls_class(lua_State *L, const char *cls, const char *supercls)
             oluacls_const(L, "super"); // class.super = super
         }
         olua_rawsetf(L, metaclass, OLUA_CKEY_CLASS); // metaclass.class = class
+    } else {
+        luaL_error(L, "class '%s' already created", cls);
     }
     olua_rawgetf(L, -1, OLUA_CKEY_CLASS);
     lua_replace(L, super);

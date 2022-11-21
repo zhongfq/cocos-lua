@@ -1117,7 +1117,7 @@ static int _box2d_Vec2___olua_move(lua_State *L)
     return 1;
 }
 
-static int _box2d_Vec2_copyfrom1(lua_State *L)
+static int _box2d_Vec2_copyfrom$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1141,7 +1141,7 @@ static int _box2d_Vec2_copyfrom1(lua_State *L)
     return 0;
 }
 
-static int _box2d_Vec2_copyfrom2(lua_State *L)
+static int _box2d_Vec2_copyfrom$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1159,7 +1159,7 @@ static int _box2d_Vec2_copyfrom2(lua_State *L)
     return 0;
 }
 
-static int _box2d_Vec2_copyfrom3(lua_State *L)
+static int _box2d_Vec2_copyfrom$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1179,7 +1179,7 @@ static int _box2d_Vec2_copyfrom3(lua_State *L)
     return 0;
 }
 
-static int _box2d_Vec2_copyfrom4(lua_State *L)
+static int _box2d_Vec2_copyfrom$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1208,28 +1208,28 @@ static int _box2d_Vec2_copyfrom(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "b2.Vec2"))) {
             // void copyfrom(olua::pointer<b2Vec2> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _box2d_Vec2_copyfrom2(L);
+            return _box2d_Vec2_copyfrom$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "b2.Vec2")) && (olua_is_uint(L, 3))) {
             // void copyfrom(olua::pointer<b2Vec2> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _box2d_Vec2_copyfrom3(L);
+            return _box2d_Vec2_copyfrom$3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "b2.Vec2")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             // void copyfrom(olua::pointer<b2Vec2> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _box2d_Vec2_copyfrom4(L);
+            return _box2d_Vec2_copyfrom$4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_obj(L, 2, "b2.Vec2")) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             // void copyfrom(olua::pointer<b2Vec2> *obj, @optional size_t from, @optional size_t len, @optional size_t to)
-            return _box2d_Vec2_copyfrom1(L);
+            return _box2d_Vec2_copyfrom$1(L);
         // }
     }
 
@@ -1258,7 +1258,7 @@ static int _box2d_Vec2_fill(lua_State *L)
     return 0;
 }
 
-static int _box2d_Vec2_create1(lua_State *L)
+static int _box2d_Vec2_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1275,7 +1275,7 @@ static int _box2d_Vec2_create1(lua_State *L)
     return num_ret;
 }
 
-static int _box2d_Vec2_create2(lua_State *L)
+static int _box2d_Vec2_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1294,13 +1294,13 @@ static int _box2d_Vec2_create(lua_State *L)
 
     if (num_args == 0) {
         // @name(new) static olua::pointer<b2Vec2> *create(@optional size_t len)
-        return _box2d_Vec2_create2(L);
+        return _box2d_Vec2_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
             // @name(new) static olua::pointer<b2Vec2> *create(@optional size_t len)
-            return _box2d_Vec2_create1(L);
+            return _box2d_Vec2_create$1(L);
         // }
     }
 
@@ -1309,7 +1309,7 @@ static int _box2d_Vec2_create(lua_State *L)
     return 0;
 }
 
-static int _box2d_Vec2_sub1(lua_State *L)
+static int _box2d_Vec2_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1330,7 +1330,7 @@ static int _box2d_Vec2_sub1(lua_State *L)
     return num_ret;
 }
 
-static int _box2d_Vec2_sub2(lua_State *L)
+static int _box2d_Vec2_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1356,14 +1356,14 @@ static int _box2d_Vec2_sub(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua::pointer<b2Vec2> *sub(size_t from, @optional size_t to)
-            return _box2d_Vec2_sub2(L);
+            return _box2d_Vec2_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // olua::pointer<b2Vec2> *sub(size_t from, @optional size_t to)
-            return _box2d_Vec2_sub1(L);
+            return _box2d_Vec2_sub$1(L);
         // }
     }
 
@@ -1388,7 +1388,7 @@ static int _box2d_Vec2_take(lua_State *L)
     return 0;
 }
 
-static int _box2d_Vec2_tostring1(lua_State *L)
+static int _box2d_Vec2_tostring$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1406,7 +1406,7 @@ static int _box2d_Vec2_tostring1(lua_State *L)
     return (int)ret;
 }
 
-static int _box2d_Vec2_tostring2(lua_State *L)
+static int _box2d_Vec2_tostring$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1429,14 +1429,14 @@ static int _box2d_Vec2_tostring(lua_State *L)
     if (num_args == 0) {
         // if () {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _box2d_Vec2_tostring2(L);
+            return _box2d_Vec2_tostring$2(L);
         // }
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // olua_Return tostring(lua_State *L, @optional size_t len)
-            return _box2d_Vec2_tostring1(L);
+            return _box2d_Vec2_tostring$1(L);
         // }
     }
 
@@ -2789,7 +2789,7 @@ static int _b2Transform___olua_move(lua_State *L)
     return 1;
 }
 
-static int _b2Transform_new1(lua_State *L)
+static int _b2Transform_new$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2803,7 +2803,7 @@ static int _b2Transform_new1(lua_State *L)
     return num_ret;
 }
 
-static int _b2Transform_new2(lua_State *L)
+static int _b2Transform_new$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2829,13 +2829,13 @@ static int _b2Transform_new(lua_State *L)
 
     if (num_args == 0) {
         // b2Transform()
-        return _b2Transform_new1(L);
+        return _b2Transform_new$1(L);
     }
 
     if (num_args == 2) {
         // if ((olua_is_b2Vec2(L, 1)) && (olua_is_b2Rot(L, 2))) {
             // b2Transform(const b2Vec2 &position, const b2Rot &rotation)
-            return _b2Transform_new2(L);
+            return _b2Transform_new$2(L);
         // }
     }
 
@@ -3425,7 +3425,7 @@ static int _b2PolygonShape_Set(lua_State *L)
     return 0;
 }
 
-static int _b2PolygonShape_SetAsBox1(lua_State *L)
+static int _b2PolygonShape_SetAsBox$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3445,7 +3445,7 @@ static int _b2PolygonShape_SetAsBox1(lua_State *L)
     return 0;
 }
 
-static int _b2PolygonShape_SetAsBox2(lua_State *L)
+static int _b2PolygonShape_SetAsBox$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3476,14 +3476,14 @@ static int _b2PolygonShape_SetAsBox(lua_State *L)
     if (num_args == 2) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
             // void SetAsBox(float hx, float hy)
-            return _b2PolygonShape_SetAsBox1(L);
+            return _b2PolygonShape_SetAsBox$1(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_b2Vec2(L, 4)) && (olua_is_number(L, 5))) {
             // void SetAsBox(float hx, float hy, const b2Vec2 &center, float angle)
-            return _b2PolygonShape_SetAsBox2(L);
+            return _b2PolygonShape_SetAsBox$2(L);
         // }
     }
 
@@ -4516,7 +4516,7 @@ static int _b2Body_ApplyTorque(lua_State *L)
     return 0;
 }
 
-static int _b2Body_CreateFixture1(lua_State *L)
+static int _b2Body_CreateFixture$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4535,7 +4535,7 @@ static int _b2Body_CreateFixture1(lua_State *L)
     return num_ret;
 }
 
-static int _b2Body_CreateFixture2(lua_State *L)
+static int _b2Body_CreateFixture$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4563,14 +4563,14 @@ static int _b2Body_CreateFixture(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "b2.FixtureDef"))) {
             // b2Fixture *CreateFixture(const b2FixtureDef *def)
-            return _b2Body_CreateFixture1(L);
+            return _b2Body_CreateFixture$1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "b2.Shape")) && (olua_is_number(L, 3))) {
             // b2Fixture *CreateFixture(const b2Shape *shape, float density)
-            return _b2Body_CreateFixture2(L);
+            return _b2Body_CreateFixture$2(L);
         // }
     }
 
@@ -13419,7 +13419,7 @@ static int _b2AABB___olua_move(lua_State *L)
     return 1;
 }
 
-static int _b2AABB_Combine1(lua_State *L)
+static int _b2AABB_Combine$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -13437,7 +13437,7 @@ static int _b2AABB_Combine1(lua_State *L)
     return 0;
 }
 
-static int _b2AABB_Combine2(lua_State *L)
+static int _b2AABB_Combine$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -13464,14 +13464,14 @@ static int _b2AABB_Combine(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "b2.AABB"))) {
             // void Combine(const b2AABB &aabb)
-            return _b2AABB_Combine1(L);
+            return _b2AABB_Combine$1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "b2.AABB")) && (olua_is_obj(L, 3, "b2.AABB"))) {
             // void Combine(const b2AABB &aabb1, const b2AABB &aabb2)
-            return _b2AABB_Combine2(L);
+            return _b2AABB_Combine$2(L);
         // }
     }
 

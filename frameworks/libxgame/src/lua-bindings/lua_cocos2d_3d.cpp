@@ -407,7 +407,7 @@ static int _cocos2d_Mesh_calculateAABB(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Mesh_create1(lua_State *L)
+static int _cocos2d_Mesh_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -446,7 +446,7 @@ static int _cocos2d_Mesh_create1(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Mesh_create2(lua_State *L)
+static int _cocos2d_Mesh_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -486,12 +486,12 @@ static int _cocos2d_Mesh_create(lua_State *L)
     if (num_args == 4) {
         if ((olua_is_array(L, 1)) && (olua_is_array(L, 2)) && (olua_is_array(L, 3)) && (olua_is_array(L, 4))) {
             // static cocos2d::Mesh *create(const std::vector<float> &positions, const std::vector<float> &normals, const std::vector<float> &texs, const std::vector<unsigned short> &indices)
-            return _cocos2d_Mesh_create1(L);
+            return _cocos2d_Mesh_create$1(L);
         }
 
         // if ((olua_is_array(L, 1)) && (olua_is_int(L, 2)) && (olua_is_array(L, 3)) && (olua_is_array(L, 4))) {
             // static cocos2d::Mesh *create(const std::vector<float> &vertices, int perVertexSizeInFloat, const std::vector<unsigned short> &indices, const std::vector<cocos2d::MeshVertexAttrib> &attribs)
-            return _cocos2d_Mesh_create2(L);
+            return _cocos2d_Mesh_create$2(L);
         // }
     }
 
@@ -719,7 +719,7 @@ static int _cocos2d_Mesh_getSkin(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Mesh_getTexture1(lua_State *L)
+static int _cocos2d_Mesh_getTexture$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -736,7 +736,7 @@ static int _cocos2d_Mesh_getTexture1(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Mesh_getTexture2(lua_State *L)
+static int _cocos2d_Mesh_getTexture$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -761,13 +761,13 @@ static int _cocos2d_Mesh_getTexture(lua_State *L)
 
     if (num_args == 0) {
         // cocos2d::Texture2D *getTexture()
-        return _cocos2d_Mesh_getTexture1(L);
+        return _cocos2d_Mesh_getTexture$1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // cocos2d::Texture2D *getTexture(cocos2d::NTextureData::Usage usage)
-            return _cocos2d_Mesh_getTexture2(L);
+            return _cocos2d_Mesh_getTexture$2(L);
         // }
     }
 
@@ -985,7 +985,7 @@ static int _cocos2d_Mesh_setSkin(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Mesh_setTexture1(lua_State *L)
+static int _cocos2d_Mesh_setTexture$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1003,7 +1003,7 @@ static int _cocos2d_Mesh_setTexture1(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Mesh_setTexture2(lua_State *L)
+static int _cocos2d_Mesh_setTexture$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1021,7 +1021,7 @@ static int _cocos2d_Mesh_setTexture2(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Mesh_setTexture3(lua_State *L)
+static int _cocos2d_Mesh_setTexture$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1043,7 +1043,7 @@ static int _cocos2d_Mesh_setTexture3(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Mesh_setTexture4(lua_State *L)
+static int _cocos2d_Mesh_setTexture$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1063,7 +1063,7 @@ static int _cocos2d_Mesh_setTexture4(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Mesh_setTexture5(lua_State *L)
+static int _cocos2d_Mesh_setTexture$5(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1090,31 +1090,31 @@ static int _cocos2d_Mesh_setTexture(lua_State *L)
     if (num_args == 1) {
         if ((olua_is_std_string(L, 2))) {
             // void setTexture(const std::string &texPath)
-            return _cocos2d_Mesh_setTexture1(L);
+            return _cocos2d_Mesh_setTexture$1(L);
         }
 
         // if ((olua_is_obj(L, 2, "cc.Texture2D"))) {
             // void setTexture(cocos2d::Texture2D *tex)
-            return _cocos2d_Mesh_setTexture2(L);
+            return _cocos2d_Mesh_setTexture$2(L);
         // }
     }
 
     if (num_args == 2) {
         if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
             // void setTexture(const std::string &texPath, cocos2d::NTextureData::Usage usage)
-            return _cocos2d_Mesh_setTexture4(L);
+            return _cocos2d_Mesh_setTexture$4(L);
         }
 
         // if ((olua_is_obj(L, 2, "cc.Texture2D")) && (olua_is_uint(L, 3))) {
             // void setTexture(cocos2d::Texture2D *tex, cocos2d::NTextureData::Usage usage, @optional bool cacheFileName)
-            return _cocos2d_Mesh_setTexture5(L);
+            return _cocos2d_Mesh_setTexture$5(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_obj(L, 2, "cc.Texture2D")) && (olua_is_uint(L, 3)) && (olua_is_bool(L, 4))) {
             // void setTexture(cocos2d::Texture2D *tex, cocos2d::NTextureData::Usage usage, @optional bool cacheFileName)
-            return _cocos2d_Mesh_setTexture3(L);
+            return _cocos2d_Mesh_setTexture$3(L);
         // }
     }
 
@@ -1454,7 +1454,7 @@ static int _cocos2d_BillBoard___olua_move(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_BillBoard_create1(lua_State *L)
+static int _cocos2d_BillBoard_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1471,7 +1471,7 @@ static int _cocos2d_BillBoard_create1(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_BillBoard_create2(lua_State *L)
+static int _cocos2d_BillBoard_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1490,7 +1490,7 @@ static int _cocos2d_BillBoard_create2(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_BillBoard_create3(lua_State *L)
+static int _cocos2d_BillBoard_create$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1511,7 +1511,7 @@ static int _cocos2d_BillBoard_create3(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_BillBoard_create4(lua_State *L)
+static int _cocos2d_BillBoard_create$4(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1524,7 +1524,7 @@ static int _cocos2d_BillBoard_create4(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_BillBoard_create5(lua_State *L)
+static int _cocos2d_BillBoard_create$5(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1541,7 +1541,7 @@ static int _cocos2d_BillBoard_create5(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_BillBoard_create6(lua_State *L)
+static int _cocos2d_BillBoard_create$6(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1566,37 +1566,37 @@ static int _cocos2d_BillBoard_create(lua_State *L)
 
     if (num_args == 0) {
         // static cocos2d::BillBoard *create(@optional cocos2d::BillBoard::Mode mode)
-        return _cocos2d_BillBoard_create4(L);
+        return _cocos2d_BillBoard_create$4(L);
     }
 
     if (num_args == 1) {
         if ((olua_is_uint(L, 1))) {
             // static cocos2d::BillBoard *create(@optional cocos2d::BillBoard::Mode mode)
-            return _cocos2d_BillBoard_create1(L);
+            return _cocos2d_BillBoard_create$1(L);
         }
 
         // if ((olua_is_std_string(L, 1))) {
             // static cocos2d::BillBoard *create(const std::string &filename, @optional cocos2d::BillBoard::Mode mode)
-            return _cocos2d_BillBoard_create5(L);
+            return _cocos2d_BillBoard_create$5(L);
         // }
     }
 
     if (num_args == 2) {
         if ((olua_is_std_string(L, 1)) && (olua_is_cocos2d_Rect(L, 2))) {
             // static cocos2d::BillBoard *create(const std::string &filename, const cocos2d::Rect &rect, @optional cocos2d::BillBoard::Mode mode)
-            return _cocos2d_BillBoard_create6(L);
+            return _cocos2d_BillBoard_create$6(L);
         }
 
         // if ((olua_is_std_string(L, 1)) && (olua_is_uint(L, 2))) {
             // static cocos2d::BillBoard *create(const std::string &filename, @optional cocos2d::BillBoard::Mode mode)
-            return _cocos2d_BillBoard_create2(L);
+            return _cocos2d_BillBoard_create$2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_cocos2d_Rect(L, 2)) && (olua_is_uint(L, 3))) {
             // static cocos2d::BillBoard *create(const std::string &filename, const cocos2d::Rect &rect, @optional cocos2d::BillBoard::Mode mode)
-            return _cocos2d_BillBoard_create3(L);
+            return _cocos2d_BillBoard_create$3(L);
         // }
     }
 
@@ -1605,7 +1605,7 @@ static int _cocos2d_BillBoard_create(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_BillBoard_createWithTexture1(lua_State *L)
+static int _cocos2d_BillBoard_createWithTexture$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1624,7 +1624,7 @@ static int _cocos2d_BillBoard_createWithTexture1(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_BillBoard_createWithTexture2(lua_State *L)
+static int _cocos2d_BillBoard_createWithTexture$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1648,14 +1648,14 @@ static int _cocos2d_BillBoard_createWithTexture(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 1, "cc.Texture2D"))) {
             // static cocos2d::BillBoard *createWithTexture(cocos2d::Texture2D *texture, @optional cocos2d::BillBoard::Mode mode)
-            return _cocos2d_BillBoard_createWithTexture2(L);
+            return _cocos2d_BillBoard_createWithTexture$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 1, "cc.Texture2D")) && (olua_is_uint(L, 2))) {
             // static cocos2d::BillBoard *createWithTexture(cocos2d::Texture2D *texture, @optional cocos2d::BillBoard::Mode mode)
-            return _cocos2d_BillBoard_createWithTexture1(L);
+            return _cocos2d_BillBoard_createWithTexture$1(L);
         // }
     }
 
@@ -1763,7 +1763,7 @@ static int _cocos2d_Sprite3DMaterial___olua_move(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_Sprite3DMaterial_createBuiltInMaterial1(lua_State *L)
+static int _cocos2d_Sprite3DMaterial_createBuiltInMaterial$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1782,7 +1782,7 @@ static int _cocos2d_Sprite3DMaterial_createBuiltInMaterial1(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Sprite3DMaterial_createBuiltInMaterial2(lua_State *L)
+static int _cocos2d_Sprite3DMaterial_createBuiltInMaterial$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1800,13 +1800,13 @@ static int _cocos2d_Sprite3DMaterial_createBuiltInMaterial(lua_State *L)
 
     if (num_args == 0) {
         // static void createBuiltInMaterial()
-        return _cocos2d_Sprite3DMaterial_createBuiltInMaterial2(L);
+        return _cocos2d_Sprite3DMaterial_createBuiltInMaterial$2(L);
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 1)) && (olua_is_bool(L, 2))) {
             // static cocos2d::Sprite3DMaterial *createBuiltInMaterial(cocos2d::Sprite3DMaterial::MaterialType type, bool skinned)
-            return _cocos2d_Sprite3DMaterial_createBuiltInMaterial1(L);
+            return _cocos2d_Sprite3DMaterial_createBuiltInMaterial$1(L);
         // }
     }
 
@@ -2006,7 +2006,7 @@ static int _cocos2d_Sprite3D_as(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_Sprite3D_create1(lua_State *L)
+static int _cocos2d_Sprite3D_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2019,7 +2019,7 @@ static int _cocos2d_Sprite3D_create1(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Sprite3D_create2(lua_State *L)
+static int _cocos2d_Sprite3D_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2036,7 +2036,7 @@ static int _cocos2d_Sprite3D_create2(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Sprite3D_create3(lua_State *L)
+static int _cocos2d_Sprite3D_create$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2061,20 +2061,20 @@ static int _cocos2d_Sprite3D_create(lua_State *L)
 
     if (num_args == 0) {
         // static cocos2d::Sprite3D *create()
-        return _cocos2d_Sprite3D_create1(L);
+        return _cocos2d_Sprite3D_create$1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
             // static cocos2d::Sprite3D *create(const std::string &modelPath)
-            return _cocos2d_Sprite3D_create2(L);
+            return _cocos2d_Sprite3D_create$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
             // static cocos2d::Sprite3D *create(const std::string &modelPath, const std::string &texturePath)
-            return _cocos2d_Sprite3D_create3(L);
+            return _cocos2d_Sprite3D_create$3(L);
         // }
     }
 
@@ -2083,7 +2083,7 @@ static int _cocos2d_Sprite3D_create(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Sprite3D_createAsync1(lua_State *L)
+static int _cocos2d_Sprite3D_createAsync$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2127,7 +2127,7 @@ static int _cocos2d_Sprite3D_createAsync1(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Sprite3D_createAsync2(lua_State *L)
+static int _cocos2d_Sprite3D_createAsync$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2180,14 +2180,14 @@ static int _cocos2d_Sprite3D_createAsync(lua_State *L)
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_callback(L, 2, "std.function")) && (olua_is_obj(L, 3, "void *"))) {
             // static void createAsync(const std::string &modelPath, @localvar const std::function<void (cocos2d::Sprite3D *, void *)> &callback, void *callbackparam)
-            return _cocos2d_Sprite3D_createAsync1(L);
+            return _cocos2d_Sprite3D_createAsync$1(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_callback(L, 3, "std.function")) && (olua_is_obj(L, 4, "void *"))) {
             // static void createAsync(const std::string &modelPath, const std::string &texturePath, @localvar const std::function<void (cocos2d::Sprite3D *, void *)> &callback, void *callbackparam)
-            return _cocos2d_Sprite3D_createAsync2(L);
+            return _cocos2d_Sprite3D_createAsync$2(L);
         // }
     }
 
@@ -2196,7 +2196,7 @@ static int _cocos2d_Sprite3D_createAsync(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Sprite3D_genMaterial1(lua_State *L)
+static int _cocos2d_Sprite3D_genMaterial$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2214,7 +2214,7 @@ static int _cocos2d_Sprite3D_genMaterial1(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Sprite3D_genMaterial2(lua_State *L)
+static int _cocos2d_Sprite3D_genMaterial$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2236,13 +2236,13 @@ static int _cocos2d_Sprite3D_genMaterial(lua_State *L)
 
     if (num_args == 0) {
         // void genMaterial(@optional bool useLight)
-        return _cocos2d_Sprite3D_genMaterial2(L);
+        return _cocos2d_Sprite3D_genMaterial$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_bool(L, 2))) {
             // void genMaterial(@optional bool useLight)
-            return _cocos2d_Sprite3D_genMaterial1(L);
+            return _cocos2d_Sprite3D_genMaterial$1(L);
         // }
     }
 
@@ -2679,7 +2679,7 @@ static int _cocos2d_Sprite3D_setLightMask(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Sprite3D_setMaterial1(lua_State *L)
+static int _cocos2d_Sprite3D_setMaterial$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2697,7 +2697,7 @@ static int _cocos2d_Sprite3D_setMaterial1(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Sprite3D_setMaterial2(lua_State *L)
+static int _cocos2d_Sprite3D_setMaterial$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2724,14 +2724,14 @@ static int _cocos2d_Sprite3D_setMaterial(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_obj(L, 2, "cc.Material"))) {
             // void setMaterial(cocos2d::Material *material)
-            return _cocos2d_Sprite3D_setMaterial1(L);
+            return _cocos2d_Sprite3D_setMaterial$1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_obj(L, 2, "cc.Material")) && (olua_is_int(L, 3))) {
             // void setMaterial(cocos2d::Material *material, int meshIndex)
-            return _cocos2d_Sprite3D_setMaterial2(L);
+            return _cocos2d_Sprite3D_setMaterial$2(L);
         // }
     }
 
@@ -2740,7 +2740,7 @@ static int _cocos2d_Sprite3D_setMaterial(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Sprite3D_setTexture1(lua_State *L)
+static int _cocos2d_Sprite3D_setTexture$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2758,7 +2758,7 @@ static int _cocos2d_Sprite3D_setTexture1(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Sprite3D_setTexture2(lua_State *L)
+static int _cocos2d_Sprite3D_setTexture$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2783,12 +2783,12 @@ static int _cocos2d_Sprite3D_setTexture(lua_State *L)
     if (num_args == 1) {
         if ((olua_is_std_string(L, 2))) {
             // void setTexture(const std::string &texFile)
-            return _cocos2d_Sprite3D_setTexture1(L);
+            return _cocos2d_Sprite3D_setTexture$1(L);
         }
 
         // if ((olua_is_obj(L, 2, "cc.Texture2D"))) {
             // void setTexture(cocos2d::Texture2D *texture)
-            return _cocos2d_Sprite3D_setTexture2(L);
+            return _cocos2d_Sprite3D_setTexture$2(L);
         // }
     }
 
@@ -3140,7 +3140,7 @@ static int _cocos2d_Bone3D_resetPose(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Bone3D_setAnimationValue1(lua_State *L)
+static int _cocos2d_Bone3D_setAnimationValue$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3166,7 +3166,7 @@ static int _cocos2d_Bone3D_setAnimationValue1(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Bone3D_setAnimationValue2(lua_State *L)
+static int _cocos2d_Bone3D_setAnimationValue$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3188,7 +3188,7 @@ static int _cocos2d_Bone3D_setAnimationValue2(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Bone3D_setAnimationValue3(lua_State *L)
+static int _cocos2d_Bone3D_setAnimationValue$3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3219,21 +3219,21 @@ static int _cocos2d_Bone3D_setAnimationValue(lua_State *L)
     if (num_args == 3) {
         // if ((olua_is_pointer(L, 2, "olua.float")) && (olua_is_pointer(L, 3, "olua.float")) && (olua_is_pointer(L, 4, "olua.float"))) {
             // void setAnimationValue(float *trans, float *rot, float *scale, @optional void *tag, @optional float weight)
-            return _cocos2d_Bone3D_setAnimationValue2(L);
+            return _cocos2d_Bone3D_setAnimationValue$2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_pointer(L, 2, "olua.float")) && (olua_is_pointer(L, 3, "olua.float")) && (olua_is_pointer(L, 4, "olua.float")) && (olua_is_obj(L, 5, "void *"))) {
             // void setAnimationValue(float *trans, float *rot, float *scale, @optional void *tag, @optional float weight)
-            return _cocos2d_Bone3D_setAnimationValue3(L);
+            return _cocos2d_Bone3D_setAnimationValue$3(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_pointer(L, 2, "olua.float")) && (olua_is_pointer(L, 3, "olua.float")) && (olua_is_pointer(L, 4, "olua.float")) && (olua_is_obj(L, 5, "void *")) && (olua_is_number(L, 6))) {
             // void setAnimationValue(float *trans, float *rot, float *scale, @optional void *tag, @optional float weight)
-            return _cocos2d_Bone3D_setAnimationValue1(L);
+            return _cocos2d_Bone3D_setAnimationValue$1(L);
         // }
     }
 

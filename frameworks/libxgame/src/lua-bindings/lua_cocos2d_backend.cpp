@@ -1104,7 +1104,7 @@ static int _cocos2d_backend_CommandBuffer_setScissorRect(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_CommandBuffer_setStencilReferenceValue1(lua_State *L)
+static int _cocos2d_backend_CommandBuffer_setStencilReferenceValue$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1122,7 +1122,7 @@ static int _cocos2d_backend_CommandBuffer_setStencilReferenceValue1(lua_State *L
     return 0;
 }
 
-static int _cocos2d_backend_CommandBuffer_setStencilReferenceValue2(lua_State *L)
+static int _cocos2d_backend_CommandBuffer_setStencilReferenceValue$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1149,14 +1149,14 @@ static int _cocos2d_backend_CommandBuffer_setStencilReferenceValue(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
             // void setStencilReferenceValue(unsigned int value)
-            return _cocos2d_backend_CommandBuffer_setStencilReferenceValue1(L);
+            return _cocos2d_backend_CommandBuffer_setStencilReferenceValue$1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             // void setStencilReferenceValue(unsigned int frontRef, unsigned int backRef)
-            return _cocos2d_backend_CommandBuffer_setStencilReferenceValue2(L);
+            return _cocos2d_backend_CommandBuffer_setStencilReferenceValue$2(L);
         // }
     }
 
@@ -2113,7 +2113,7 @@ static int _cocos2d_backend_ProgramState_clone(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_ProgramState_getAttributeLocation1(lua_State *L)
+static int _cocos2d_backend_ProgramState_getAttributeLocation$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2132,7 +2132,7 @@ static int _cocos2d_backend_ProgramState_getAttributeLocation1(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_ProgramState_getAttributeLocation2(lua_State *L)
+static int _cocos2d_backend_ProgramState_getAttributeLocation$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2158,12 +2158,12 @@ static int _cocos2d_backend_ProgramState_getAttributeLocation(lua_State *L)
     if (num_args == 1) {
         if ((olua_is_std_string(L, 2))) {
             // int getAttributeLocation(const std::string &name)
-            return _cocos2d_backend_ProgramState_getAttributeLocation1(L);
+            return _cocos2d_backend_ProgramState_getAttributeLocation$1(L);
         }
 
         // if ((olua_is_uint(L, 2))) {
             // int getAttributeLocation(cocos2d::backend::Attribute name)
-            return _cocos2d_backend_ProgramState_getAttributeLocation2(L);
+            return _cocos2d_backend_ProgramState_getAttributeLocation$2(L);
         // }
     }
 
@@ -2209,7 +2209,7 @@ static int _cocos2d_backend_ProgramState_getProgram(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_ProgramState_getUniformLocation1(lua_State *L)
+static int _cocos2d_backend_ProgramState_getUniformLocation$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2228,7 +2228,7 @@ static int _cocos2d_backend_ProgramState_getUniformLocation1(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_ProgramState_getUniformLocation2(lua_State *L)
+static int _cocos2d_backend_ProgramState_getUniformLocation$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2254,12 +2254,12 @@ static int _cocos2d_backend_ProgramState_getUniformLocation(lua_State *L)
     if (num_args == 1) {
         if ((olua_is_std_string(L, 2))) {
             // cocos2d::backend::UniformLocation getUniformLocation(const std::string &uniform)
-            return _cocos2d_backend_ProgramState_getUniformLocation1(L);
+            return _cocos2d_backend_ProgramState_getUniformLocation$1(L);
         }
 
         // if ((olua_is_uint(L, 2))) {
             // cocos2d::backend::UniformLocation getUniformLocation(cocos2d::backend::Uniform name)
-            return _cocos2d_backend_ProgramState_getUniformLocation2(L);
+            return _cocos2d_backend_ProgramState_getUniformLocation$2(L);
         // }
     }
 
@@ -2657,7 +2657,7 @@ static int _cocos2d_backend_Program_getAllActiveUniformInfo(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Program_getAttributeLocation1(lua_State *L)
+static int _cocos2d_backend_Program_getAttributeLocation$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2676,7 +2676,7 @@ static int _cocos2d_backend_Program_getAttributeLocation1(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Program_getAttributeLocation2(lua_State *L)
+static int _cocos2d_backend_Program_getAttributeLocation$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2702,12 +2702,12 @@ static int _cocos2d_backend_Program_getAttributeLocation(lua_State *L)
     if (num_args == 1) {
         if ((olua_is_std_string(L, 2))) {
             // int getAttributeLocation(const std::string &name)
-            return _cocos2d_backend_Program_getAttributeLocation1(L);
+            return _cocos2d_backend_Program_getAttributeLocation$1(L);
         }
 
         // if ((olua_is_uint(L, 2))) {
             // int getAttributeLocation(cocos2d::backend::Attribute name)
-            return _cocos2d_backend_Program_getAttributeLocation2(L);
+            return _cocos2d_backend_Program_getAttributeLocation$2(L);
         // }
     }
 
@@ -2820,7 +2820,7 @@ static int _cocos2d_backend_Program_getUniformBufferSize(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Program_getUniformLocation1(lua_State *L)
+static int _cocos2d_backend_Program_getUniformLocation$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2839,7 +2839,7 @@ static int _cocos2d_backend_Program_getUniformLocation1(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Program_getUniformLocation2(lua_State *L)
+static int _cocos2d_backend_Program_getUniformLocation$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2865,12 +2865,12 @@ static int _cocos2d_backend_Program_getUniformLocation(lua_State *L)
     if (num_args == 1) {
         if ((olua_is_std_string(L, 2))) {
             // cocos2d::backend::UniformLocation getUniformLocation(const std::string &uniform)
-            return _cocos2d_backend_Program_getUniformLocation1(L);
+            return _cocos2d_backend_Program_getUniformLocation$1(L);
         }
 
         // if ((olua_is_uint(L, 2))) {
             // cocos2d::backend::UniformLocation getUniformLocation(cocos2d::backend::Uniform name)
-            return _cocos2d_backend_Program_getUniformLocation2(L);
+            return _cocos2d_backend_Program_getUniformLocation$2(L);
         // }
     }
 

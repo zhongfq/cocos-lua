@@ -44,7 +44,7 @@ static int _cclua_plugin_talkingdata_getDeviceId(lua_State *L)
     return num_ret;
 }
 
-static int _cclua_plugin_talkingdata_init1(lua_State *L)
+static int _cclua_plugin_talkingdata_init$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -64,7 +64,7 @@ static int _cclua_plugin_talkingdata_init1(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_init2(lua_State *L)
+static int _cclua_plugin_talkingdata_init$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -89,14 +89,14 @@ static int _cclua_plugin_talkingdata_init(lua_State *L)
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
             // static void init(const std::string &appkey, const std::string &channel, @optional const std::string &custom)
-            return _cclua_plugin_talkingdata_init2(L);
+            return _cclua_plugin_talkingdata_init$2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
             // static void init(const std::string &appkey, const std::string &channel, @optional const std::string &custom)
-            return _cclua_plugin_talkingdata_init1(L);
+            return _cclua_plugin_talkingdata_init$1(L);
         // }
     }
 

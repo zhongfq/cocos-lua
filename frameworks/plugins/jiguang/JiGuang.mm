@@ -729,9 +729,10 @@ static JVUIConfig *getDialogPortraitConfig(cocos2d::ValueMap &value)
     return config;
 }
 
-void jauth::configUI(cocos2d::ValueMap &value, bool landscape)
+void jauth::configUI(const cocos2d::ValueMap &data, bool landscape)
 {
     @autoreleasepool {
+        cocos2d::ValueMap &value = *const_cast<cocos2d::ValueMap *>(&data);
         JVUIConfig *config = landscape ? getFullScreenLandscapeConfig(value) : getDialogPortraitConfig(value);
         setValue(authPageBackgroundImage, toUIImage);
         setValue(authPageGifImagePath, toNSString);
@@ -887,8 +888,9 @@ static NSDictionary<NSString *, NSString *>* toExtra(cocos2d::Value &value)
     return extra;
 }
 
-void janalytics::trackEvent(EventType type, cocos2d::ValueMap &value)
+void janalytics::trackEvent(EventType type, const cocos2d::ValueMap &data)
 {
+    cocos2d::ValueMap &value = *const_cast<cocos2d::ValueMap *>(&data);
     @autoreleasepool {
         switch (type) {
             case EventType::LOGIN:
@@ -955,9 +957,10 @@ void janalytics::trackEvent(EventType type, cocos2d::ValueMap &value)
     }
 }
 
-void janalytics::identifyAccount(cocos2d::ValueMap &value)
+void janalytics::identifyAccount(const cocos2d::ValueMap &data)
 {
     @autoreleasepool {
+        cocos2d::ValueMap &value = *const_cast<cocos2d::ValueMap *>(&data);
         JANALYTICSUserInfo *userInfo = [[JANALYTICSUserInfo alloc] init];
         userInfo.accountID = toNSString(value["account"].asString());
         if (value.find("creationTime") != value.end()) {

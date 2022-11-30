@@ -3,7 +3,7 @@ module 'dragonbones'
 path "../../frameworks/libxgame/src/lua-bindings"
 
 headers [[
-#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cocos2d.h"
 #include "CCDragonBonesHeaders.h"
@@ -18,17 +18,12 @@ luacls(function (cppname)
     return cppname
 end)
 
-excludetype 'dragonBones::WorldClock'
-excludetype 'dragonBones::Point'
-excludetype 'dragonBones::Rectangle *'
-excludetype 'dragonBones::CanvasData'
+excludetype 'dragonBones::Matrix'
+excludetype 'dragonBones::Transform'
+excludetype 'dragonBones::ColorTransform'
+excludetype 'dragonBones::MeshDisplayData'
 
-excludeany 'dragonBones::Matrix'
-excludeany 'dragonBones::Transform'
-excludeany 'dragonBones::ColorTransform'
-excludeany 'dragonBones::MeshDisplayData'
-
-typeconv 'dragonBones::Rectangle'
+typeconf 'dragonBones::Rectangle'
 
 typeconf 'dragonBones::BinaryOffset'
 typeconf 'dragonBones::ArmatureType'
@@ -53,6 +48,13 @@ typeconf 'dragonBones::TimelineData'
 
 typeconf 'dragonBones::IAnimatable'
 typeconf 'dragonBones::WorldClock'
+    .exclude 'clock'
+    .prop 'clock'
+        .get [[
+        {
+            olua_pushobj(L, &dragonBones::WorldClock::clock);
+            return 1;
+        }]]
 
 typeconf 'dragonBones::Slot'
     .exclude 'getDisplayList'
@@ -63,6 +65,8 @@ typeconf 'dragonBones::Slot'
     .exclude '_setDisplayIndex'
     .exclude '_setZorder'
     .exclude '_setDisplayList'
+    .exclude 'getRawDisplayDatas'
+    .exclude 'setRawDisplayDatas'
 
 typeconf 'dragonBones::Bone'
 typeconf 'dragonBones::DisplayData'
@@ -81,31 +85,39 @@ typeconf 'dragonBones::TextureData'
 typeconf 'dragonBones::ArmatureData'
 
 typeconf 'dragonBones::SkinData'
-    .exclude 'getSlotDisplays'
     .exclude 'displays'
+    .exclude 'getDisplays'
+    .exclude 'getSlotDisplays'
 
 typeconf 'dragonBones::BoneData'
 typeconf 'dragonBones::SlotData'
 typeconf 'dragonBones::AnimationState'
 
 typeconf 'dragonBones::AnimationData'
-    .exclude 'boneTimelines'
-    .exclude 'slotTimelines'
-    .exclude 'constraintTimelines'
     .exclude 'boneCachedFrameIndices'
+    .exclude 'boneTimelines'
+    .exclude 'constraintTimelines'
+    .exclude 'getBoneTimelines'
+    .exclude 'getConstraintTimelines'
+    .exclude 'getBoneCachedFrameIndices'
+    .exclude 'getSlotCachedFrameIndices'
+    .exclude 'getSlotTimelines'
     .exclude 'slotCachedFrameIndices'
+    .exclude 'slotTimelines'
 
 typeconf 'dragonBones::AnimationConfig'
 typeconf 'dragonBones::DragonBonesData'
+    .exclude 'getFrameIndices'
 
 typeconf 'dragonBones::BaseFactory'
     .exclude 'getAllTextureAtlasData'
+    .exclude 'getTextureAtlasData'
 
 typeconf 'dragonBones::Armature'
     .supercls 'dragonBones::BaseObject'
     .exclude '_addBone'
-    .exclude '_addSlot'
     .exclude '_addConstraint'
+    .exclude '_addSlot'
     .exclude '_bufferAction'
 
 typeconf 'dragonBones::Animation'

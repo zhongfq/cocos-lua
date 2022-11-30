@@ -2,17 +2,28 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_jiguang.h"
-#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "jiguang/jiguang.h"
 
 #ifdef CCLUA_BUILD_JPUSH
+static int _cclua_plugin_jpush___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_postgc<cclua::plugin::jpush>(L, 1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cclua_plugin_jpush___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
     auto self = (cclua::plugin::jpush *)olua_toobj(L, 1, "cclua.plugin.jpush");
-    olua_push_obj(L, self, "cclua.plugin.jpush");
+    olua_push_object(L, self, "cclua.plugin.jpush");
 
     olua_endinvoke(L);
 
@@ -25,8 +36,8 @@ static int _cclua_plugin_jpush_addTags(lua_State *L)
 
     std::set<std::string> arg1;       /** tags */
 
-    olua_check_array<std::string>(L, 1, &arg1, [L](std::string *value) {
-        olua_check_std_string(L, -1, value);
+    olua_check_array<std::string>(L, 1, arg1, [L](std::string *arg1) {
+        olua_check_string(L, -1, arg1);
     });
 
     // static void addTags(const std::set<std::string> &tags)
@@ -67,8 +78,8 @@ static int _cclua_plugin_jpush_deleteTags(lua_State *L)
 
     std::set<std::string> arg1;       /** tags */
 
-    olua_check_array<std::string>(L, 1, &arg1, [L](std::string *value) {
-        olua_check_std_string(L, -1, value);
+    olua_check_array<std::string>(L, 1, arg1, [L](std::string *arg1) {
+        olua_check_string(L, -1, arg1);
     });
 
     // static void deleteTags(const std::set<std::string> &tags)
@@ -85,7 +96,7 @@ static int _cclua_plugin_jpush_getRegistrationID(lua_State *L)
 
     // static std::string getRegistrationID()
     std::string ret = cclua::plugin::jpush::getRegistrationID();
-    int num_ret = olua_push_std_string(L, ret);
+    int num_ret = olua_push_string(L, ret);
 
     olua_endinvoke(L);
 
@@ -99,8 +110,8 @@ static int _cclua_plugin_jpush_init(lua_State *L)
     std::string arg1;       /** appKey */
     std::string arg2;       /** channel */
 
-    olua_check_std_string(L, 1, &arg1);
-    olua_check_std_string(L, 2, &arg2);
+    olua_check_string(L, 1, &arg1);
+    olua_check_string(L, 2, &arg2);
 
     // static void init(const std::string &appKey, const std::string &channel)
     cclua::plugin::jpush::init(arg1, arg2);
@@ -141,7 +152,7 @@ static int _cclua_plugin_jpush_setAlias(lua_State *L)
 
     std::string arg1;       /** alias */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_string(L, 1, &arg1);
 
     // static void setAlias(const std::string &alias)
     cclua::plugin::jpush::setAlias(arg1);
@@ -155,12 +166,12 @@ static int _cclua_plugin_jpush_setBadge(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Integer arg1 = 0;       /** value */
+    int arg1 = 0;       /** value */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_integer(L, 1, &arg1);
 
     // static void setBadge(int value)
-    cclua::plugin::jpush::setBadge((int)arg1);
+    cclua::plugin::jpush::setBadge(arg1);
 
     olua_endinvoke(L);
 
@@ -201,8 +212,8 @@ static int _cclua_plugin_jpush_setTags(lua_State *L)
 
     std::set<std::string> arg1;       /** tags */
 
-    olua_check_array<std::string>(L, 1, &arg1, [L](std::string *value) {
-        olua_check_std_string(L, -1, value);
+    olua_check_array<std::string>(L, 1, arg1, [L](std::string *arg1) {
+        olua_check_string(L, -1, arg1);
     });
 
     // static void setTags(const std::set<std::string> &tags)
@@ -217,6 +228,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_plugin_jpush(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.jpush", nullptr);
+    oluacls_func(L, "__gc", _cclua_plugin_jpush___gc);
     oluacls_func(L, "__olua_move", _cclua_plugin_jpush___olua_move);
     oluacls_func(L, "addTags", _cclua_plugin_jpush_addTags);
     oluacls_func(L, "cleanTags", _cclua_plugin_jpush_cleanTags);
@@ -243,12 +255,23 @@ OLUA_END_DECLS
 #endif
 
 #ifdef CCLUA_BUILD_JAUTH
+static int _cclua_plugin_jauth___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_postgc<cclua::plugin::jauth>(L, 1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cclua_plugin_jauth___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
     auto self = (cclua::plugin::jauth *)olua_toobj(L, 1, "cclua.plugin.jauth");
-    olua_push_obj(L, self, "cclua.plugin.jauth");
+    olua_push_object(L, self, "cclua.plugin.jauth");
 
     olua_endinvoke(L);
 
@@ -290,7 +313,7 @@ static int _cclua_plugin_jauth_configUI$1(lua_State *L)
     olua_check_cocos2d_ValueMap(L, 1, &arg1);
     olua_check_bool(L, 2, &arg2);
 
-    // static void configUI(cocos2d::ValueMap &value, @optional bool landscape)
+    // static void configUI(const cocos2d::ValueMap &value, @optional bool landscape)
     cclua::plugin::jauth::configUI(arg1, arg2);
 
     olua_endinvoke(L);
@@ -306,7 +329,7 @@ static int _cclua_plugin_jauth_configUI$2(lua_State *L)
 
     olua_check_cocos2d_ValueMap(L, 1, &arg1);
 
-    // static void configUI(cocos2d::ValueMap &value, @optional bool landscape)
+    // static void configUI(const cocos2d::ValueMap &value, @optional bool landscape)
     cclua::plugin::jauth::configUI(arg1);
 
     olua_endinvoke(L);
@@ -320,14 +343,14 @@ static int _cclua_plugin_jauth_configUI(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cocos2d_ValueMap(L, 1))) {
-            // static void configUI(cocos2d::ValueMap &value, @optional bool landscape)
+            // static void configUI(const cocos2d::ValueMap &value, @optional bool landscape)
             return _cclua_plugin_jauth_configUI$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cocos2d_ValueMap(L, 1)) && (olua_is_bool(L, 2))) {
-            // static void configUI(cocos2d::ValueMap &value, @optional bool landscape)
+            // static void configUI(const cocos2d::ValueMap &value, @optional bool landscape)
             return _cclua_plugin_jauth_configUI$1(L);
         // }
     }
@@ -393,7 +416,7 @@ static int _cclua_plugin_jauth_dispatch(lua_State *L)
     std::string arg1;       /** event */
     cocos2d::ValueMap arg2;       /** data */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_string(L, 1, &arg1);
     olua_check_cocos2d_ValueMap(L, 2, &arg2);
 
     // static void dispatch(const std::string &event, const cocos2d::ValueMap &data)
@@ -412,9 +435,9 @@ static int _cclua_plugin_jauth_getSmsCode(lua_State *L)
     std::string arg2;       /** signid */
     std::string arg3;       /** tempid */
 
-    olua_check_std_string(L, 1, &arg1);
-    olua_check_std_string(L, 2, &arg2);
-    olua_check_std_string(L, 3, &arg3);
+    olua_check_string(L, 1, &arg1);
+    olua_check_string(L, 2, &arg2);
+    olua_check_string(L, 3, &arg3);
 
     // static void getSmsCode(const std::string &phonenum, const std::string &signid, const std::string &tempid)
     cclua::plugin::jauth::getSmsCode(arg1, arg2, arg3);
@@ -428,12 +451,12 @@ static int _cclua_plugin_jauth_getToken(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Integer arg1 = 0;       /** timeout */
+    int arg1 = 0;       /** timeout */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_integer(L, 1, &arg1);
 
     // static void getToken(int timeout)
-    cclua::plugin::jauth::getToken((int)arg1);
+    cclua::plugin::jauth::getToken(arg1);
 
     olua_endinvoke(L);
 
@@ -447,8 +470,8 @@ static int _cclua_plugin_jauth_init(lua_State *L)
     std::string arg1;       /** appKey */
     std::string arg2;       /** channel */
 
-    olua_check_std_string(L, 1, &arg1);
-    olua_check_std_string(L, 2, &arg2);
+    olua_check_string(L, 1, &arg1);
+    olua_check_string(L, 2, &arg2);
 
     // static void init(const std::string &appKey, const std::string &channel)
     cclua::plugin::jauth::init(arg1, arg2);
@@ -475,12 +498,12 @@ static int _cclua_plugin_jauth_loginAuth(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Integer arg1 = 0;       /** timeout */
+    int arg1 = 0;       /** timeout */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_integer(L, 1, &arg1);
 
     // static void loginAuth(int timeout)
-    cclua::plugin::jauth::loginAuth((int)arg1);
+    cclua::plugin::jauth::loginAuth(arg1);
 
     olua_endinvoke(L);
 
@@ -491,12 +514,12 @@ static int _cclua_plugin_jauth_preLogin(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Integer arg1 = 0;       /** timeout */
+    int arg1 = 0;       /** timeout */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_integer(L, 1, &arg1);
 
     // static void preLogin(int timeout)
-    cclua::plugin::jauth::preLogin((int)arg1);
+    cclua::plugin::jauth::preLogin(arg1);
 
     olua_endinvoke(L);
 
@@ -539,8 +562,8 @@ static int _cclua_plugin_jauth_setDispatcher(lua_State *L)
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_std_string(L, arg1);
-            olua_push_cocos2d_Value(L, &arg2);
+            olua_push_string(L, arg1);
+            olua_push_cocos2d_Value(L, arg2);
             olua_disable_objpool(L);
 
             olua_callback(L, cb_store, cb_name.c_str(), 2);
@@ -563,12 +586,12 @@ static int _cclua_plugin_jauth_setSmsIntervalTime(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Integer arg1 = 0;       /** intervalTime */
+    int64_t arg1 = 0;       /** intervalTime */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_integer(L, 1, &arg1);
 
     // static void setSmsIntervalTime(int64_t intervalTime)
-    cclua::plugin::jauth::setSmsIntervalTime((int64_t)arg1);
+    cclua::plugin::jauth::setSmsIntervalTime(arg1);
 
     olua_endinvoke(L);
 
@@ -579,6 +602,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_plugin_jauth(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.jauth", nullptr);
+    oluacls_func(L, "__gc", _cclua_plugin_jauth___gc);
     oluacls_func(L, "__olua_move", _cclua_plugin_jauth___olua_move);
     oluacls_func(L, "checkVerifyEnable", _cclua_plugin_jauth_checkVerifyEnable);
     oluacls_func(L, "clearPreLoginCache", _cclua_plugin_jauth_clearPreLoginCache);
@@ -611,12 +635,12 @@ OLUA_LIB int luaopen_cclua_plugin_janalytics_EventType(lua_State *L)
     oluacls_class(L, "cclua.plugin.janalytics.EventType", nullptr);
     oluacls_func(L, "__index", olua_indexerror);
     oluacls_func(L, "__newindex", olua_newindexerror);
-    oluacls_const_integer(L, "BROWSE", (lua_Integer)cclua::plugin::janalytics::EventType::BROWSE);
-    oluacls_const_integer(L, "CALCULATE", (lua_Integer)cclua::plugin::janalytics::EventType::CALCULATE);
-    oluacls_const_integer(L, "COUNT", (lua_Integer)cclua::plugin::janalytics::EventType::COUNT);
-    oluacls_const_integer(L, "LOGIN", (lua_Integer)cclua::plugin::janalytics::EventType::LOGIN);
-    oluacls_const_integer(L, "PURCHASE", (lua_Integer)cclua::plugin::janalytics::EventType::PURCHASE);
-    oluacls_const_integer(L, "REGISTER", (lua_Integer)cclua::plugin::janalytics::EventType::REGISTER);
+    oluacls_enum(L, "BROWSE", (lua_Integer)cclua::plugin::janalytics::EventType::BROWSE);
+    oluacls_enum(L, "CALCULATE", (lua_Integer)cclua::plugin::janalytics::EventType::CALCULATE);
+    oluacls_enum(L, "COUNT", (lua_Integer)cclua::plugin::janalytics::EventType::COUNT);
+    oluacls_enum(L, "LOGIN", (lua_Integer)cclua::plugin::janalytics::EventType::LOGIN);
+    oluacls_enum(L, "PURCHASE", (lua_Integer)cclua::plugin::janalytics::EventType::PURCHASE);
+    oluacls_enum(L, "REGISTER", (lua_Integer)cclua::plugin::janalytics::EventType::REGISTER);
 
     olua_registerluatype<cclua::plugin::janalytics::EventType>(L, "cclua.plugin.janalytics.EventType");
 
@@ -626,12 +650,23 @@ OLUA_END_DECLS
 #endif
 
 #ifdef CCLUA_BUILD_JANALYTICS
+static int _cclua_plugin_janalytics___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_postgc<cclua::plugin::janalytics>(L, 1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cclua_plugin_janalytics___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
     auto self = (cclua::plugin::janalytics *)olua_toobj(L, 1, "cclua.plugin.janalytics");
-    olua_push_obj(L, self, "cclua.plugin.janalytics");
+    olua_push_object(L, self, "cclua.plugin.janalytics");
 
     olua_endinvoke(L);
 
@@ -658,7 +693,7 @@ static int _cclua_plugin_janalytics_identifyAccount(lua_State *L)
 
     olua_check_cocos2d_ValueMap(L, 1, &arg1);
 
-    // static void identifyAccount(cocos2d::ValueMap &value)
+    // static void identifyAccount(const cocos2d::ValueMap &value)
     cclua::plugin::janalytics::identifyAccount(arg1);
 
     olua_endinvoke(L);
@@ -673,8 +708,8 @@ static int _cclua_plugin_janalytics_init(lua_State *L)
     std::string arg1;       /** appKey */
     std::string arg2;       /** channel */
 
-    olua_check_std_string(L, 1, &arg1);
-    olua_check_std_string(L, 2, &arg2);
+    olua_check_string(L, 1, &arg1);
+    olua_check_string(L, 2, &arg2);
 
     // static void init(const std::string &appKey, const std::string &channel)
     cclua::plugin::janalytics::init(arg1, arg2);
@@ -704,12 +739,12 @@ static int _cclua_plugin_janalytics_setFrequency(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Integer arg1 = 0;       /** frequency */
+    int arg1 = 0;       /** frequency */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_integer(L, 1, &arg1);
 
     // static void setFrequency(int frequency)
-    cclua::plugin::janalytics::setFrequency((int)arg1);
+    cclua::plugin::janalytics::setFrequency(arg1);
 
     olua_endinvoke(L);
 
@@ -722,7 +757,7 @@ static int _cclua_plugin_janalytics_startTrackPage(lua_State *L)
 
     std::string arg1;       /** pageName */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_string(L, 1, &arg1);
 
     // static void startTrackPage(const std::string &pageName)
     cclua::plugin::janalytics::startTrackPage(arg1);
@@ -738,7 +773,7 @@ static int _cclua_plugin_janalytics_stopTrackPage(lua_State *L)
 
     std::string arg1;       /** pageName */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_string(L, 1, &arg1);
 
     // static void stopTrackPage(const std::string &pageName)
     cclua::plugin::janalytics::stopTrackPage(arg1);
@@ -752,14 +787,14 @@ static int _cclua_plugin_janalytics_trackEvent(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Unsigned arg1 = 0;       /** type */
+    cclua::plugin::janalytics::EventType arg1 = (cclua::plugin::janalytics::EventType)0;       /** type */
     cocos2d::ValueMap arg2;       /** value */
 
-    olua_check_uint(L, 1, &arg1);
+    olua_check_enum(L, 1, &arg1);
     olua_check_cocos2d_ValueMap(L, 2, &arg2);
 
-    // static void trackEvent(cclua::plugin::janalytics::EventType type, cocos2d::ValueMap &value)
-    cclua::plugin::janalytics::trackEvent((cclua::plugin::janalytics::EventType)arg1, arg2);
+    // static void trackEvent(cclua::plugin::janalytics::EventType type, const cocos2d::ValueMap &value)
+    cclua::plugin::janalytics::trackEvent(arg1, arg2);
 
     olua_endinvoke(L);
 
@@ -770,6 +805,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_plugin_janalytics(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.janalytics", nullptr);
+    oluacls_func(L, "__gc", _cclua_plugin_janalytics___gc);
     oluacls_func(L, "__olua_move", _cclua_plugin_janalytics___olua_move);
     oluacls_func(L, "detachAccount", _cclua_plugin_janalytics_detachAccount);
     oluacls_func(L, "identifyAccount", _cclua_plugin_janalytics_identifyAccount);

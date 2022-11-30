@@ -11,7 +11,33 @@
 
 NS_CC_BEGIN
 
-typedef cocos2d::Rect Bounds;
+namespace types {
+typedef olua::pointer<std::vector<std::string>> VectorString;
+typedef olua::pointer<std::vector<int>> VectorInt;
+typedef olua::pointer<cocos2d::ValueMap> ValueMap;
+typedef olua::pointer<cocos2d::TMXTileFlags> TMXTileFlags;
+}
+
+struct Bounds {
+    OLUA_EXCLUDE Bounds(const cocos2d::Rect &v)
+        :left(v.getMinX())
+        ,right(v.getMaxX())
+        ,top(v.getMaxY())
+        ,bottom(v.getMinY())
+    {}
+    
+    Bounds()
+        :left(0)
+        ,right(0)
+        ,top(0)
+        ,bottom(0)
+    {}
+    
+    float left;
+    float right;
+    float top;
+    float bottom;
+};
 
 class LuaComponent : public Component
 {
@@ -250,6 +276,11 @@ public:
     static OLUA_POSTNEW cocos2d::Mat4 *__mul(cocos2d::Mat4 *mat1, cocos2d::Mat4 *mat2);
 };
 
+class RectExtend {
+public:
+    static olua_Return __call(lua_State *L);
+};
+
 NS_CC_END
 
 #ifdef CCLUA_BUILD_SPINE
@@ -270,6 +301,8 @@ public:
 #include "FairyGUI.h"
 
 NS_FGUI_BEGIN
+
+typedef olua::pointer<std::vector<fairygui::GTreeNode *>> VectorTreeNode;
 
 class UISource : public IUISource {
 public:

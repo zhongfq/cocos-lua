@@ -39,7 +39,7 @@ public:
     static void dismissLoginAuth(bool needCloseAnim = true);
     static void getSmsCode(const std::string &phonenum, const std::string &signid, const std::string &tempid);
     static void setSmsIntervalTime(int64_t intervalTime);
-    static void configUI(cocos2d::ValueMap &value, bool landscape = true);
+    static void configUI(const cocos2d::ValueMap &value, bool landscape = true);
     
 public:
     static void setDispatcher(const cclua::Callback &dispatcher)
@@ -76,8 +76,8 @@ public:
     static void init(const std::string &appKey, const std::string &channel);
     static void startTrackPage(const std::string &pageName);
     static void stopTrackPage(const std::string &pageName);
-    static void trackEvent(EventType type, cocos2d::ValueMap &value);
-    static void identifyAccount(cocos2d::ValueMap &value);
+    static void trackEvent(EventType type, const cocos2d::ValueMap &value);
+    static void identifyAccount(const cocos2d::ValueMap &value);
     static void detachAccount();
     static void setFrequency(int frequency);
     static void setDebug(bool enable);

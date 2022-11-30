@@ -137,7 +137,7 @@ void jauth::setSmsIntervalTime(int64_t intervalTime)
     Jni::callStaticVoidMethod(JAVA_CLASS, "setSmsIntervalTime", intervalTime);
 }
 
-void jauth::configUI(cocos2d::ValueMap &value, bool landscape)
+void jauth::configUI(const cocos2d::ValueMap &value, bool landscape)
 {
     Jni::callStaticVoidMethod(JAVA_CLASS, "configUI", toJSONString(value), landscape);
 }
@@ -165,12 +165,12 @@ void janalytics::stopTrackPage(const std::string &pageName)
     Jni::callStaticVoidMethod(JAVA_CLASS, "stopTrackPage", pageName);
 }
 
-void janalytics::trackEvent(EventType type, cocos2d::ValueMap &value)
+void janalytics::trackEvent(EventType type, const cocos2d::ValueMap &value)
 {
     Jni::callStaticVoidMethod(JAVA_CLASS, "trackEvent", (int)type, toJSONString(value));
 }
 
-void janalytics::identifyAccount(cocos2d::ValueMap &value)
+void janalytics::identifyAccount(const cocos2d::ValueMap &value)
 {
     Jni::callStaticVoidMethod(JAVA_CLASS, "identifyAccount", toJSONString(value));
 }

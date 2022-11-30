@@ -12,7 +12,7 @@
 
 NS_BOX2D_BEGIN
 
-typedef olua::pointer<b2Vec2> Vec2;
+typedef olua::span<b2Vec2> Vec2;
 
 class b2MassDataExtend {
 public:

@@ -23,6 +23,7 @@ runtime.frameRate = 60
 runtime.displayStats = DEBUG
 
 -- init design size
+local ResolutionPolicy = require "cc.ResolutionPolicy"
 local DESIGN_WIDTH = 1334
 local DESIGN_HEIGHT = 750
 local RESOLUTION_POLICY = {
@@ -32,7 +33,7 @@ local RESOLUTION_POLICY = {
     FIXED_HEIGHT = 3,
     FIXED_WIDTH = 4,
 }
-window.setDesignSize(DESIGN_WIDTH, DESIGN_HEIGHT, RESOLUTION_POLICY.NO_BORDER)
+window.setDesignSize(DESIGN_WIDTH, DESIGN_HEIGHT, ResolutionPolicy.NO_BORDER)
 
 -- ios audio session
 runtime.audioSessionCatalog = 'AVAudioSessionCategoryPlayback'

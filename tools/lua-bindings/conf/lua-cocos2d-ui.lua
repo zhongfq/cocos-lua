@@ -3,7 +3,7 @@ module 'cocos2d_ui'
 path '../../frameworks/libxgame/src/lua-bindings'
 
 headers [[
-#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
@@ -18,7 +18,7 @@ luacls(function (cppname)
     return cppname
 end)
 
-excludeany 'cocos2d::ui::PageViewIndicator'
+excludetype 'cocos2d::ui::PageViewIndicator'
 
 typeconf 'cocos2d::ui::Widget::FocusDirection'
 typeconf 'cocos2d::ui::Widget::PositionType'

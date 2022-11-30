@@ -3,12 +3,12 @@ module 'xgame'
 path '../../frameworks/libxgame/src/lua-bindings'
 
 headers [[
-#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cclua/cclua.h"
 ]]
 
-excludeany 'cclua::BufferReader'
+excludetype 'cclua::BufferReader'
 
 typeconf 'cclua::Callback'
 typeconf 'cclua::QRCode::ECLevel'

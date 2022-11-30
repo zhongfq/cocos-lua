@@ -3,7 +3,7 @@ module 'cocos2d_physics'
 path "../../frameworks/libxgame/src/lua-bindings"
 
 headers [[
-#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cocos2d.h"
 ]]
@@ -18,8 +18,7 @@ luaopen [[cclua::runtime::registerFeature("physics", true);]]
 
 macro '#if CC_USE_PHYSICS'
 
-typeconv 'cocos2d::PhysicsMaterial'
-
+typeconf 'cocos2d::PhysicsMaterial'
 typeconf 'cocos2d::PhysicsRayCastCallbackFunc'
 typeconf 'cocos2d::PhysicsQueryRectCallbackFunc'
 typeconf 'cocos2d::PhysicsQueryPointCallbackFunc'

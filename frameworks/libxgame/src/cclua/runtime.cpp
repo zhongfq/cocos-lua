@@ -229,7 +229,7 @@ lua_State *runtime::luaVM()
         _luaVM = cclua_new();
         luaopen_bindings(_luaVM);
         for (auto func : _luaLibs) {
-            olua_callfunc(_luaVM, func);
+            olua_import(_luaVM, func);
         }
         olua_pushobj<cocos2d::Director>(_luaVM, cocos2d::Director::getInstance());
         lua_setfield(_luaVM, LUA_REGISTRYINDEX, "__cocos2d_ref_chain__");
@@ -612,7 +612,7 @@ void runtime::callref(olua_Ref func, const std::string &status, const std::strin
                 olua_getref(L, (int)func);
                 if (!lua_isnil(L, -1)) {
                     lua_pushstring(L, status.c_str());
-                    olua_push_cocos2d_ValueMap(L, &args);
+                    olua_push_cocos2d_ValueMap(L, args);
                     lua_pcall(L, 2, 0, top + 1);
                 } else {
                     cclua::runtime::log("attempt to call nil: %d %s", (int)func, data.c_str());
@@ -810,7 +810,7 @@ void runtime::showLog()
     Size frameSize = window::getFrameSize();
     window::setDesignSize(Size(750 * frameSize.width / frameSize.height, 750), ResolutionPolicy::NO_BORDER);
     
-    Rect rect = window::getVisibleBounds();
+    Bounds bounds = window::getVisibleBounds();
     Size size = window::getVisibleSize();
     Scene *scene = Scene::create();
     scene->setIgnoreAnchorPointForPosition(true);
@@ -820,7 +820,7 @@ void runtime::showLog()
     view->setBackGroundColor(Color3B::BLACK);
     view->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
     view->setContentSize(size);
-    view->setPosition(rect.origin);
+    view->setPosition(Vec2(bounds.left, bounds.bottom));
     
     cocos2d::Data log = filesystem::read(runtime::getLogPath());
     ui::Text *label = ui::Text::create();

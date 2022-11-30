@@ -2,6 +2,7 @@ local class     = require "cclua.class"
 local UILayer   = require "cclua.ui.UILayer"
 local window    = require "cclua.window"
 local Scene     = require "cclua.SceneNoCamera"
+local Size      = require "cc.Size"
 
 local UIScene = class("UIScene", UILayer)
 
@@ -16,7 +17,7 @@ end
 
 function UIScene.Get:cobj()
     local width, height = window.getVisibleSize()
-    local cobj = Scene.createWithSize({width = width, height = height})
+    local cobj = Scene.createWithSize(Size{width = width, height = height})
     rawset(self, 'cobj', cobj)
     return cobj
 end

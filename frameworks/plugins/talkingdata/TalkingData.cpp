@@ -67,17 +67,17 @@ void talkingdata::onReceiveDeepLink(const std::string &link)
     Jni::callStaticVoidMethod(JAVA_CLASS, "onReceiveDeepLink", link);
 }
 
-void talkingdata::onRegister(const std::string &uid, cocos2d::ValueMap &data, const std::string &invitationCode)
+void talkingdata::onRegister(const std::string &uid, const cocos2d::ValueMap &data, const std::string &invitationCode)
 {
     Jni::callStaticVoidMethod(JAVA_CLASS, "onRegister", uid, toJSONString(data), invitationCode);
 }
 
-void talkingdata::onLogin(const std::string &uid, cocos2d::ValueMap &data)
+void talkingdata::onLogin(const std::string &uid, const cocos2d::ValueMap &data)
 {
     Jni::callStaticVoidMethod(JAVA_CLASS, "onLogin", uid, toJSONString(data));
 }
 
-void talkingdata::onProfileUpdate(cocos2d::ValueMap &data)
+void talkingdata::onProfileUpdate(const cocos2d::ValueMap &data)
 {
     Jni::callStaticVoidMethod(JAVA_CLASS, "onProfileUpdate", toJSONString(data));
 }
@@ -102,7 +102,7 @@ void talkingdata::onPunch(const std::string &uid, const std::string &punchid)
     Jni::callStaticVoidMethod(JAVA_CLASS, "onPunch", uid, punchid);
 }
 
-void talkingdata::onSearch(cocos2d::ValueMap &data)
+void talkingdata::onSearch(const cocos2d::ValueMap &data)
 {
     Jni::callStaticVoidMethod(JAVA_CLASS, "onSearch", toJSONString(data));
 }
@@ -112,7 +112,7 @@ void talkingdata::onEvent(const std::string &event, double value, const cocos2d:
     Jni::callStaticVoidMethod(JAVA_CLASS, "onEvent", event, value, toJSONString(data));
 }
 
-void talkingdata::setGlobalKV(const std::string &key, cocos2d::Value &value)
+void talkingdata::setGlobalKV(const std::string &key, const cocos2d::Value &value)
 {
     auto type = value.getType();
     if (type == cocos2d::Value::Type::STRING) {

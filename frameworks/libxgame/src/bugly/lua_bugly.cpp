@@ -2,7 +2,7 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_bugly.h"
-#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "bugly/CrashReport.h"
 
@@ -13,12 +13,12 @@ OLUA_LIB int luaopen_cclua_bugly_LogLevel(lua_State *L)
     oluacls_class(L, "cclua.bugly.LogLevel", nullptr);
     oluacls_func(L, "__index", olua_indexerror);
     oluacls_func(L, "__newindex", olua_newindexerror);
-    oluacls_const_integer(L, "Debug", (lua_Integer)cclua::bugly::LogLevel::Debug);
-    oluacls_const_integer(L, "Error", (lua_Integer)cclua::bugly::LogLevel::Error);
-    oluacls_const_integer(L, "Info", (lua_Integer)cclua::bugly::LogLevel::Info);
-    oluacls_const_integer(L, "Off", (lua_Integer)cclua::bugly::LogLevel::Off);
-    oluacls_const_integer(L, "Verbose", (lua_Integer)cclua::bugly::LogLevel::Verbose);
-    oluacls_const_integer(L, "Warning", (lua_Integer)cclua::bugly::LogLevel::Warning);
+    oluacls_enum(L, "Debug", (lua_Integer)cclua::bugly::LogLevel::Debug);
+    oluacls_enum(L, "Error", (lua_Integer)cclua::bugly::LogLevel::Error);
+    oluacls_enum(L, "Info", (lua_Integer)cclua::bugly::LogLevel::Info);
+    oluacls_enum(L, "Off", (lua_Integer)cclua::bugly::LogLevel::Off);
+    oluacls_enum(L, "Verbose", (lua_Integer)cclua::bugly::LogLevel::Verbose);
+    oluacls_enum(L, "Warning", (lua_Integer)cclua::bugly::LogLevel::Warning);
 
     olua_registerluatype<cclua::bugly::LogLevel>(L, "cclua.bugly.LogLevel");
 
@@ -28,12 +28,23 @@ OLUA_END_DECLS
 #endif
 
 #ifdef CCLUA_BUILD_BUGLY
+static int _cclua_bugly___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_postgc<cclua::bugly>(L, 1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cclua_bugly___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
     auto self = (cclua::bugly *)olua_toobj(L, 1, "cclua.bugly");
-    olua_push_obj(L, self, "cclua.bugly");
+    olua_push_object(L, self, "cclua.bugly");
 
     olua_endinvoke(L);
 
@@ -60,14 +71,14 @@ static int _cclua_bugly_log(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Unsigned arg1 = 0;       /** level */
+    cclua::bugly::LogLevel arg1 = (cclua::bugly::LogLevel)0;       /** level */
     const char *arg2 = nullptr;       /** message */
 
-    olua_check_uint(L, 1, &arg1);
+    olua_check_enum(L, 1, &arg1);
     olua_check_string(L, 2, &arg2);
 
     // static void log(cclua::bugly::LogLevel level, const char *message)
-    cclua::bugly::log((cclua::bugly::LogLevel)arg1, arg2);
+    cclua::bugly::log(arg1, arg2);
 
     olua_endinvoke(L);
 
@@ -112,12 +123,12 @@ static int _cclua_bugly_setTag(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Integer arg1 = 0;       /** tag */
+    int arg1 = 0;       /** tag */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_integer(L, 1, &arg1);
 
     // static void setTag(int tag)
-    cclua::bugly::setTag((int)arg1);
+    cclua::bugly::setTag(arg1);
 
     olua_endinvoke(L);
 
@@ -178,6 +189,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_bugly(lua_State *L)
 {
     oluacls_class(L, "cclua.bugly", nullptr);
+    oluacls_func(L, "__gc", _cclua_bugly___gc);
     oluacls_func(L, "__olua_move", _cclua_bugly___olua_move);
     oluacls_func(L, "init", _cclua_bugly_init);
     oluacls_func(L, "log", _cclua_bugly_log);

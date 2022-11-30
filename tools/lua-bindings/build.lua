@@ -1,12 +1,10 @@
 require "olua.tools"
 
-OLUA_VERBOSE = true
-
 autoconf 'conf/clang-args.lua'
 autoconf 'conf/exclude-type.lua'
 
 autoconf 'conf/lua-types.lua'
-autoconf 'conf/lua-conv.lua'
+autoconf 'conf/lua-cocos2d-types.lua'
 autoconf 'conf/lua-cocos2d.lua'
 autoconf 'conf/lua-cocos2d-physics.lua'
 autoconf 'conf/lua-cocos2d-ui.lua'

@@ -3,7 +3,7 @@ module 'spine'
 path "../../frameworks/libxgame/src/lua-bindings"
 
 headers [[
-#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cocos2d.h"
 #include "spine/spine-cocos2dx.h"
@@ -11,36 +11,11 @@ headers [[
 
 luaopen [[cclua::runtime::registerFeature("spine", true);]]
 
-luacls(function (cppname)
-    cppname = string.gsub(cppname, "^spine::", "sp.")
-    cppname = string.gsub(cppname, "::", ".")
-    return cppname
-end)
-
-typedef 'spine::PropertyId'
-    .decltype 'lua_Integer'
-
-typedef 'spine::String'
-typedef 'spine::EventData'
-typedef 'spine::Color'
-typedef 'spine::Vector'
-    .conv 'olua_$$_array'
-
-excludeany 'spine::HasRendererObject'
-excludeany 'spine::RTTI'
-excludeany 'spine::Interpolation'
-excludeany 'spine::AnimationStateListenerObject'
-
-excludetype 'spine::Bone'
-excludetype 'spine::BoneData'
-excludetype 'spine::Slot'
-excludetype 'spine::SlotData'
-excludetype 'spine::Skeleton'
-excludetype 'spine::SkeletonBounds'
-excludetype 'spine::IkConstraintData'
-excludetype 'spine::TransformConstraintData'
-excludetype 'spine::PathConstraintData'
-
+excludetype 'spine::HasRendererObject'
+excludetype 'spine::RTTI'
+excludetype 'spine::Interpolation'
+excludetype 'spine::Vector *'
+excludetype 'spine::AnimationStateListenerObject'
 
 local function typeenum(classname)
     local cls = typeconf(classname)
@@ -51,6 +26,12 @@ local function typeenum(classname)
     return cls
 end
 
+typedef 'spine::String'
+    .conv 'olua_$$_string'
+typedef 'spine::Color'
+typedef 'spine::Vector'
+    .conv 'olua_$$_array'
+
 typeenum 'spine::EventType'
 typeenum 'spine::AttachmentType'
 typeenum 'spine::TransformMode'
@@ -59,6 +40,7 @@ typeenum 'spine::PositionMode'
 typeenum 'spine::SpacingMode'
 typeenum 'spine::RotateMode'
 typeenum 'spine::MixBlend'
+typeenum 'spine::MixDirection'
 
 typeconf 'spine::SpineObject'
 

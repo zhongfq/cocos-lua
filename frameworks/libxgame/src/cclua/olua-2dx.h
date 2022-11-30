@@ -4,7 +4,6 @@
 #include "cocos2d.h"
 #include "cclua/luauser.h"
 #include "olua/olua.h"
-#include "olua/olua-types.h"
 
 extern lua_State *cclua_invokingstate;
 
@@ -40,7 +39,7 @@ OLUA_API const char *olua_getluatype(lua_State *L, const char *type);
 
 #ifdef OLUA_HAVE_POSTPUSH
 template <typename T>
-void olua_postpush(lua_State *L, T* obj, int status)
+void olua_postpush(lua_State *L, T *obj, int status)
 {
     if (std::is_base_of<cocos2d::Ref, T>::value &&
             (status == OLUA_OBJ_NEW || status == OLUA_OBJ_UPDATE)) {
@@ -60,9 +59,9 @@ void olua_postnew(lua_State *L, T *obj)
 {
     if (std::is_base_of<cocos2d::Ref, T>::value) {
         ((cocos2d::Ref *)obj)->autorelease();
-    } else {
-        olua_assert(obj == olua_toobj<T>(L, -1), "must be same object");
+    } else if (olua_getrawobj(L, obj)) {
         olua_setownership(L, -1, OLUA_OWNERSHIP_VM);
+        lua_pop(L, 1);
     }
 }
 #endif

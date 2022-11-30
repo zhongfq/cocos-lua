@@ -3,5 +3,4 @@ set(OLUA_SRC
 )
 set(OLUA_HEADER
     src/olua/olua.h
-    src/olua/olua-types.h
 )

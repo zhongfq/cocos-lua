@@ -2,17 +2,28 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_alipay.h"
-#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "alipay/alipay.h"
 
 #ifdef CCLUA_BUILD_ALIPAY
+static int _cclua_plugin_alipay___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_postgc<cclua::plugin::alipay>(L, 1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cclua_plugin_alipay___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
     auto self = (cclua::plugin::alipay *)olua_toobj(L, 1, "cclua.plugin.alipay");
-    olua_push_obj(L, self, "cclua.plugin.alipay");
+    olua_push_object(L, self, "cclua.plugin.alipay");
 
     olua_endinvoke(L);
 
@@ -26,7 +37,7 @@ static int _cclua_plugin_alipay_dispatch(lua_State *L)
     std::string arg1;       /** event */
     cocos2d::ValueMap arg2;       /** data */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_string(L, 1, &arg1);
     olua_check_cocos2d_ValueMap(L, 2, &arg2);
 
     // static void dispatch(const std::string &event, const cocos2d::ValueMap &data)
@@ -43,7 +54,7 @@ static int _cclua_plugin_alipay_pay(lua_State *L)
 
     std::string arg1;       /** order */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_string(L, 1, &arg1);
 
     // static void pay(const std::string &order)
     cclua::plugin::alipay::pay(arg1);
@@ -73,8 +84,8 @@ static int _cclua_plugin_alipay_setDispatcher(lua_State *L)
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_std_string(L, arg1);
-            olua_push_cocos2d_Value(L, &arg2);
+            olua_push_string(L, arg1);
+            olua_push_cocos2d_Value(L, arg2);
             olua_disable_objpool(L);
 
             olua_callback(L, cb_store, cb_name.c_str(), 2);
@@ -97,6 +108,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_plugin_alipay(lua_State *L)
 {
     oluacls_class(L, "cclua.plugin.alipay", nullptr);
+    oluacls_func(L, "__gc", _cclua_plugin_alipay___gc);
     oluacls_func(L, "__olua_move", _cclua_plugin_alipay___olua_move);
     oluacls_func(L, "dispatch", _cclua_plugin_alipay_dispatch);
     oluacls_func(L, "pay", _cclua_plugin_alipay_pay);

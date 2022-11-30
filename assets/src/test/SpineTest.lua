@@ -3,8 +3,8 @@ local UIScene   = require "cclua.ui.UIScene"
 
 local SpineTest = class('SpineTest', UIScene)
 
-local SkeletonAnimation = require "sp.SkeletonAnimation"
-local SkeletonData = require "sp.SkeletonData"
+local SkeletonAnimation = require "spine.SkeletonAnimation"
+local SkeletonData = require "spine.SkeletonData"
 
 function SpineTest:ctor()
     local data = SkeletonData.new("res/spine/raptor-pro.skel", "res/spine/raptor-pro.atlas", 0.4)

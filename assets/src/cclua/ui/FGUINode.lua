@@ -3,6 +3,7 @@ local window    = require "cclua.window"
 local UIView    = require "cclua.ui.UIView"
 local Scene     = require "cclua.SceneNoCamera"
 local GRoot     = require "fgui.GRoot"
+local Size      = require "cc.Size"
 
 local FGUINode = class('FGUINode', UIView)
 
@@ -16,7 +17,7 @@ end
 
 function FGUINode.Get:cobj()
     local width, height = window.getVisibleSize()
-    local cobj = Scene.createWithSize({width = width, height = height})
+    local cobj = Scene.createWithSize(Size{width = width, height = height})
     rawset(self, 'cobj', cobj)
     return cobj
 end

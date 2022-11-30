@@ -3,7 +3,7 @@ module 'cocos2d'
 path "../../frameworks/libxgame/src/lua-bindings"
 
 headers [[
-#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
@@ -29,35 +29,6 @@ luacls(function (cppname)
         return cppname
     end
 end)
-
-typedef "const GLchar *"
-    .decltype "const char *"
-
-typedef 'GLvoid *'
-    .luacls 'void *'
-    .conv 'olua_$$_obj'
-
-typedef 'cocos2d::Data'
-typedef 'cocos2d::Rect'
-    .vars '4'
-typedef 'cocos2d::ccBezierConfig'
-    .vars '3'
-typedef 'cocos2d::Mat4'
-typedef 'cocos2d::Vector'
-    .conv 'olua_$$_array'
-typedef 'cocos2d::EventListener::ListenerID'
-    .conv 'olua_$$_std_string'
-    .decltype 'std::string'
-typedef 'cocos2d::Color3B'
-typedef 'cocos2d::Color4B'
-typedef 'cocos2d::Color4F'
-typedef 'cocos2d::Value'
-typedef 'cocos2d::ValueMap'
-typedef 'cocos2d::ValueVector'
-typedef 'cocos2d::Map'
-    .conv 'olua_$$_map'
-typedef 'cocos2d::network::WebSocket::Data'
-typedef 'cocos2d::Bounds'
     
 typeconf 'cocos2d::UserDefault'
     .exclude 'setDelegate'
@@ -113,11 +84,11 @@ typeconf 'cocos2d::Scheduler'
     template <typename T> bool doScheduleUpdate(lua_State *L)
     {
         const char *cls = olua_getluatype<T>(L);
-        if (olua_is_obj(L, 2, cls)) {
+        if (olua_is_object(L, 2, cls)) {
             auto self = olua_checkobj<cocos2d::Scheduler>(L, 1);
             auto target = olua_checkobj<T>(L, 2);
             lua_Integer priority = olua_checkinteger(L, 3);
-            bool paused = olua_checkboolean(L, 4);
+            bool paused = olua_checkbool(L, 4);
             self->scheduleUpdate(target, (int)priority, paused);
             return true;
         }
@@ -191,7 +162,7 @@ typeconf 'cocos2d::EventDispatcher'
             bool recursive = false;
             auto node = olua_checkobj<cocos2d::Node>(L, 2);
             if (lua_gettop(L) >= 3) {
-                recursive = olua_toboolean(L, 3);
+                recursive = olua_tobool(L, 3);
             }
             doRemoveEventListenersForTarget(L, node, recursive, "listeners");
         ]]
@@ -324,7 +295,6 @@ typeconf 'cocos2d::ResizableBuffer'
 typeconf 'cocos2d::FileUtils::Status'
 
 typeconf 'cocos2d::FileUtils'
-    .func 'listFilesRecursively' .arg2 '@ret'
     .callback "getStringFromFile" .tag_scope 'once' .tag_mode 'new'
     .callback "getDataFromFile" .tag_scope 'once' .tag_mode 'new'
     .callback "writeStringToFile" .tag_scope 'once' .tag_mode 'new'
@@ -340,19 +310,6 @@ typeconf 'cocos2d::FileUtils'
     .callback "getFileSize" .tag_scope 'once' .tag_mode 'new'
     .callback "listFilesAsync" .tag_scope 'once' .tag_mode 'new'
     .callback "listFilesRecursivelyAsync" .tag_scope'once' .tag_mode 'new'
-    .func 'getFileDataFromZip'
-        .snippet [[
-        {
-            cocos2d::FileUtils *self = olua_toobj<cocos2d::FileUtils>(L, 1);
-            std::string zipFilePath = olua_checkstring(L, 2);
-            std::string filename = olua_checkstring(L, 3);
-            ssize_t size = 0;
-            unsigned char *data = self->getFileDataFromZip(zipFilePath, filename, &size);
-            lua_pushlstring(L, (const char *)data, size);
-            olua_push_int(L, (lua_Integer)size);
-
-            return 2;
-        }]]
 
 typeconf 'ResolutionPolicy'
 
@@ -1053,6 +1010,8 @@ typeconf 'cocos2d::WavesTiles3D'
 typeconf 'cocos2d::JumpTiles3D'
 typeconf 'cocos2d::SplitRows'
 typeconf 'cocos2d::SplitCols'
+
+typeconf 'cocos2d::TMXTileFlags'
 
 typeconf 'cocos2d::PlayableProtocol'
 typeconf 'cocos2d::ParticleBatchNode'

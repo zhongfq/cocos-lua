@@ -34,8 +34,9 @@ USING_NS_CCLUA_PLUGIN;
     }                                                   \
 } while (0)
 
-static TalkingDataProfile *toProfile(cocos2d::ValueMap &data)
+static TalkingDataProfile *toProfile(const cocos2d::ValueMap &value)
 {
+    cocos2d::ValueMap &data = *const_cast<cocos2d::ValueMap *>(&value);
     TalkingDataProfile *profile = [TalkingDataProfile createProfile];
     setValue(profile, name, data, toNSString);
     setEnum(profile, type, data, TalkingDataProfileType);
@@ -195,21 +196,21 @@ void talkingdata::onReceiveDeepLink(const std::string &link)
     }
 }
 
-void talkingdata::onRegister(const std::string &uid, cocos2d::ValueMap &data, const std::string &invitationCode)
+void talkingdata::onRegister(const std::string &uid, const cocos2d::ValueMap &data, const std::string &invitationCode)
 {
     @autoreleasepool {
         [TalkingDataSDK onRegister:toNSString(uid) profile:toProfile(data) invitationCode:toNSString(invitationCode)];
     }
 }
 
-void talkingdata::onLogin(const std::string &uid, cocos2d::ValueMap &data)
+void talkingdata::onLogin(const std::string &uid, const cocos2d::ValueMap &data)
 {
     @autoreleasepool {
         [TalkingDataSDK onLogin:toNSString(uid) profile:toProfile(data)];
     }
 }
 
-void talkingdata::onProfileUpdate(cocos2d::ValueMap &data)
+void talkingdata::onProfileUpdate(const cocos2d::ValueMap &data)
 {
     @autoreleasepool {
         [TalkingDataSDK onProfileUpdate:toProfile(data)];
@@ -244,10 +245,11 @@ void talkingdata::onPunch(const std::string &uid, const std::string &punchid)
     }
 }
 
-void talkingdata::onSearch(cocos2d::ValueMap &data)
+void talkingdata::onSearch(const cocos2d::ValueMap &value)
 {
     @autoreleasepool {
         TalkingDataSearch *search = [TalkingDataSearch createSearch];
+        cocos2d::ValueMap &data = *const_cast<cocos2d::ValueMap *>(&value);
         setValue(search, content, data, toNSString);
         setValue(search, category, data, toNSString);
         [TalkingDataSDK onSearch:search];
@@ -261,7 +263,7 @@ void talkingdata::onEvent(const std::string &event, double value, const cocos2d:
     }
 }
 
-void talkingdata::setGlobalKV(const std::string &key, cocos2d::Value &value)
+void talkingdata::setGlobalKV(const std::string &key, const cocos2d::Value &value)
 {
     @autoreleasepool {
         [TalkingDataSDK setGlobalKV:toNSString(key) value:toNSObject(value)];

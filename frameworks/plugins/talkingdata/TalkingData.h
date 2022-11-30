@@ -19,16 +19,16 @@ public:
     static void onPageBegin(const std::string &name);
     static void onPageEnd(const std::string &name);
     static void onReceiveDeepLink(const std::string &link);
-    static void onRegister(const std::string &uid, cocos2d::ValueMap &data, const std::string &invitationCode);
-    static void onLogin(const std::string &uid, cocos2d::ValueMap &data);
-    static void onProfileUpdate(cocos2d::ValueMap &data);
+    static void onRegister(const std::string &uid, const cocos2d::ValueMap &data, const std::string &invitationCode);
+    static void onLogin(const std::string &uid, const cocos2d::ValueMap &data);
+    static void onProfileUpdate(const cocos2d::ValueMap &data);
     static void onCreateCard(const std::string &uid, const std::string &method, const std::string &content);
     static void onFavorite(const std::string &category, const std::string &content);
     static void onShare(const std::string &uid, const std::string &content);
     static void onPunch(const std::string &uid, const std::string &punchid);
-    static void onSearch(cocos2d::ValueMap &data);
+    static void onSearch(const cocos2d::ValueMap &data);
     static void onEvent(const std::string &event, double value, const cocos2d::ValueMap &data);
-    static void setGlobalKV(const std::string &key, cocos2d::Value &value);    
+    static void setGlobalKV(const std::string &key, const cocos2d::Value &value);    
     static void removeGlobalKV(const std::string &key);
 private:
 #ifdef CCLUA_OS_ANDROID

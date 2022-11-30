@@ -134,7 +134,7 @@ static int _fairygui_VectorTreeNode_take(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_VectorTreeNode_get_rawdata(lua_State *L)
+static int _fairygui_VectorTreeNode_data(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -142,8 +142,25 @@ static int _fairygui_VectorTreeNode_get_rawdata(lua_State *L)
 
     olua_to_object(L, 1, &self, "fgui.VectorTreeNode");
 
-    // @getter @name(rawdata) void *get_rawdata()
-    void *ret = self->get_rawdata();
+    // @getter @name(data) std::vector<fairygui::GTreeNode *> *data()
+    std::vector<fairygui::GTreeNode *> *ret = self->data();
+    int num_ret = olua_push_pointer(L, ret, "fgui.VectorTreeNode");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_VectorTreeNode_rawdata(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::VectorTreeNode *self = nullptr;
+
+    olua_to_object(L, 1, &self, "fgui.VectorTreeNode");
+
+    // @getter @name(rawdata) void *rawdata()
+    void *ret = self->rawdata();
     int num_ret = olua_push_object(L, ret, "void *");
 
     olua_endinvoke(L);
@@ -151,7 +168,7 @@ static int _fairygui_VectorTreeNode_get_rawdata(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_VectorTreeNode_get_sizeof(lua_State *L)
+static int _fairygui_VectorTreeNode_size(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -159,8 +176,8 @@ static int _fairygui_VectorTreeNode_get_sizeof(lua_State *L)
 
     olua_to_object(L, 1, &self, "fgui.VectorTreeNode");
 
-    // @getter @name(sizeof) size_t get_sizeof()
-    size_t ret = self->get_sizeof();
+    // @getter @name(sizeof) size_t size()
+    size_t ret = self->size();
     int num_ret = olua_push_integer(L, ret);
 
     olua_endinvoke(L);
@@ -168,7 +185,7 @@ static int _fairygui_VectorTreeNode_get_sizeof(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_VectorTreeNode_get_value(lua_State *L)
+static int _fairygui_VectorTreeNode_value(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -176,8 +193,8 @@ static int _fairygui_VectorTreeNode_get_value(lua_State *L)
 
     olua_to_object(L, 1, &self, "fgui.VectorTreeNode");
 
-    // @getter @name(value) const std::vector<fairygui::GTreeNode *> &get_value()
-    const std::vector<fairygui::GTreeNode *> &ret = self->get_value();
+    // @getter @name(value) const std::vector<fairygui::GTreeNode *> &value()
+    const std::vector<fairygui::GTreeNode *> &ret = self->value();
     int num_ret = olua_push_array<fairygui::GTreeNode *>(L, ret, [L](fairygui::GTreeNode *arg1) {
         olua_push_object(L, arg1, "fgui.GTreeNode");
     });
@@ -185,26 +202,6 @@ static int _fairygui_VectorTreeNode_get_value(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
-}
-
-static int _fairygui_VectorTreeNode_set_value(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    fairygui::VectorTreeNode *self = nullptr;
-    std::vector<fairygui::GTreeNode *> arg1;       /** v */
-
-    olua_to_object(L, 1, &self, "fgui.VectorTreeNode");
-    olua_check_array<fairygui::GTreeNode *>(L, 2, arg1, [L](fairygui::GTreeNode **arg1) {
-        olua_check_object(L, -1, arg1, "fgui.GTreeNode");
-    });
-
-    // @setter @name(value) void set_value(const std::vector<fairygui::GTreeNode *> &v)
-    self->set_value(arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -215,9 +212,10 @@ OLUA_LIB int luaopen_fairygui_VectorTreeNode(lua_State *L)
     oluacls_func(L, "__olua_move", _fairygui_VectorTreeNode___olua_move);
     oluacls_func(L, "new", _fairygui_VectorTreeNode_create);
     oluacls_func(L, "take", _fairygui_VectorTreeNode_take);
-    oluacls_prop(L, "rawdata", _fairygui_VectorTreeNode_get_rawdata, nullptr);
-    oluacls_prop(L, "sizeof", _fairygui_VectorTreeNode_get_sizeof, nullptr);
-    oluacls_prop(L, "value", _fairygui_VectorTreeNode_get_value, _fairygui_VectorTreeNode_set_value);
+    oluacls_prop(L, "data", _fairygui_VectorTreeNode_data, nullptr);
+    oluacls_prop(L, "rawdata", _fairygui_VectorTreeNode_rawdata, nullptr);
+    oluacls_prop(L, "sizeof", _fairygui_VectorTreeNode_size, nullptr);
+    oluacls_prop(L, "value", _fairygui_VectorTreeNode_value, _fairygui_VectorTreeNode_value);
 
     olua_registerluatype<fairygui::VectorTreeNode>(L, "fgui.VectorTreeNode");
 

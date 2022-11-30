@@ -11119,7 +11119,7 @@ static int _cocos2d_types_VectorString_take(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_types_VectorString_get_rawdata(lua_State *L)
+static int _cocos2d_types_VectorString_data(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11127,8 +11127,25 @@ static int _cocos2d_types_VectorString_get_rawdata(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.VectorString");
 
-    // @getter @name(rawdata) void *get_rawdata()
-    void *ret = self->get_rawdata();
+    // @getter @name(data) std::vector<std::string> *data()
+    std::vector<std::string> *ret = self->data();
+    int num_ret = olua_push_pointer(L, ret, "cc.VectorString");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_VectorString_rawdata(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::VectorString *self = nullptr;
+
+    olua_to_object(L, 1, &self, "cc.VectorString");
+
+    // @getter @name(rawdata) void *rawdata()
+    void *ret = self->rawdata();
     int num_ret = olua_push_object(L, ret, "void *");
 
     olua_endinvoke(L);
@@ -11136,7 +11153,7 @@ static int _cocos2d_types_VectorString_get_rawdata(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_types_VectorString_get_sizeof(lua_State *L)
+static int _cocos2d_types_VectorString_size(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11144,8 +11161,8 @@ static int _cocos2d_types_VectorString_get_sizeof(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.VectorString");
 
-    // @getter @name(sizeof) size_t get_sizeof()
-    size_t ret = self->get_sizeof();
+    // @getter @name(sizeof) size_t size()
+    size_t ret = self->size();
     int num_ret = olua_push_integer(L, ret);
 
     olua_endinvoke(L);
@@ -11153,7 +11170,7 @@ static int _cocos2d_types_VectorString_get_sizeof(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_types_VectorString_get_value(lua_State *L)
+static int _cocos2d_types_VectorString_value(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11161,8 +11178,8 @@ static int _cocos2d_types_VectorString_get_value(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.VectorString");
 
-    // @getter @name(value) const std::vector<std::string> &get_value()
-    const std::vector<std::string> &ret = self->get_value();
+    // @getter @name(value) const std::vector<std::string> &value()
+    const std::vector<std::string> &ret = self->value();
     int num_ret = olua_push_array<std::string>(L, ret, [L](std::string &arg1) {
         olua_push_string(L, arg1);
     });
@@ -11170,26 +11187,6 @@ static int _cocos2d_types_VectorString_get_value(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
-}
-
-static int _cocos2d_types_VectorString_set_value(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    cocos2d::types::VectorString *self = nullptr;
-    std::vector<std::string> arg1;       /** v */
-
-    olua_to_object(L, 1, &self, "cc.VectorString");
-    olua_check_array<std::string>(L, 2, arg1, [L](std::string *arg1) {
-        olua_check_string(L, -1, arg1);
-    });
-
-    // @setter @name(value) void set_value(const std::vector<std::string> &v)
-    self->set_value(arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -11200,9 +11197,10 @@ OLUA_LIB int luaopen_cocos2d_types_VectorString(lua_State *L)
     oluacls_func(L, "__olua_move", _cocos2d_types_VectorString___olua_move);
     oluacls_func(L, "new", _cocos2d_types_VectorString_create);
     oluacls_func(L, "take", _cocos2d_types_VectorString_take);
-    oluacls_prop(L, "rawdata", _cocos2d_types_VectorString_get_rawdata, nullptr);
-    oluacls_prop(L, "sizeof", _cocos2d_types_VectorString_get_sizeof, nullptr);
-    oluacls_prop(L, "value", _cocos2d_types_VectorString_get_value, _cocos2d_types_VectorString_set_value);
+    oluacls_prop(L, "data", _cocos2d_types_VectorString_data, nullptr);
+    oluacls_prop(L, "rawdata", _cocos2d_types_VectorString_rawdata, nullptr);
+    oluacls_prop(L, "sizeof", _cocos2d_types_VectorString_size, nullptr);
+    oluacls_prop(L, "value", _cocos2d_types_VectorString_value, _cocos2d_types_VectorString_value);
 
     olua_registerluatype<cocos2d::types::VectorString>(L, "cc.VectorString");
 
@@ -11314,7 +11312,7 @@ static int _cocos2d_types_VectorInt_take(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_types_VectorInt_get_rawdata(lua_State *L)
+static int _cocos2d_types_VectorInt_data(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11322,8 +11320,25 @@ static int _cocos2d_types_VectorInt_get_rawdata(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.VectorInt");
 
-    // @getter @name(rawdata) void *get_rawdata()
-    void *ret = self->get_rawdata();
+    // @getter @name(data) std::vector<int> *data()
+    std::vector<int> *ret = self->data();
+    int num_ret = olua_push_pointer(L, ret, "cc.VectorInt");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_VectorInt_rawdata(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::VectorInt *self = nullptr;
+
+    olua_to_object(L, 1, &self, "cc.VectorInt");
+
+    // @getter @name(rawdata) void *rawdata()
+    void *ret = self->rawdata();
     int num_ret = olua_push_object(L, ret, "void *");
 
     olua_endinvoke(L);
@@ -11331,7 +11346,7 @@ static int _cocos2d_types_VectorInt_get_rawdata(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_types_VectorInt_get_sizeof(lua_State *L)
+static int _cocos2d_types_VectorInt_size(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11339,8 +11354,8 @@ static int _cocos2d_types_VectorInt_get_sizeof(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.VectorInt");
 
-    // @getter @name(sizeof) size_t get_sizeof()
-    size_t ret = self->get_sizeof();
+    // @getter @name(sizeof) size_t size()
+    size_t ret = self->size();
     int num_ret = olua_push_integer(L, ret);
 
     olua_endinvoke(L);
@@ -11348,7 +11363,7 @@ static int _cocos2d_types_VectorInt_get_sizeof(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_types_VectorInt_get_value(lua_State *L)
+static int _cocos2d_types_VectorInt_value(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11356,8 +11371,8 @@ static int _cocos2d_types_VectorInt_get_value(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.VectorInt");
 
-    // @getter @name(value) const std::vector<int> &get_value()
-    const std::vector<int> &ret = self->get_value();
+    // @getter @name(value) const std::vector<int> &value()
+    const std::vector<int> &ret = self->value();
     int num_ret = olua_push_array<int>(L, ret, [L](int &arg1) {
         olua_push_integer(L, arg1);
     });
@@ -11365,26 +11380,6 @@ static int _cocos2d_types_VectorInt_get_value(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
-}
-
-static int _cocos2d_types_VectorInt_set_value(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    cocos2d::types::VectorInt *self = nullptr;
-    std::vector<int> arg1;       /** v */
-
-    olua_to_object(L, 1, &self, "cc.VectorInt");
-    olua_check_array<int>(L, 2, arg1, [L](int *arg1) {
-        olua_check_integer(L, -1, arg1);
-    });
-
-    // @setter @name(value) void set_value(const std::vector<int> &v)
-    self->set_value(arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -11395,9 +11390,10 @@ OLUA_LIB int luaopen_cocos2d_types_VectorInt(lua_State *L)
     oluacls_func(L, "__olua_move", _cocos2d_types_VectorInt___olua_move);
     oluacls_func(L, "new", _cocos2d_types_VectorInt_create);
     oluacls_func(L, "take", _cocos2d_types_VectorInt_take);
-    oluacls_prop(L, "rawdata", _cocos2d_types_VectorInt_get_rawdata, nullptr);
-    oluacls_prop(L, "sizeof", _cocos2d_types_VectorInt_get_sizeof, nullptr);
-    oluacls_prop(L, "value", _cocos2d_types_VectorInt_get_value, _cocos2d_types_VectorInt_set_value);
+    oluacls_prop(L, "data", _cocos2d_types_VectorInt_data, nullptr);
+    oluacls_prop(L, "rawdata", _cocos2d_types_VectorInt_rawdata, nullptr);
+    oluacls_prop(L, "sizeof", _cocos2d_types_VectorInt_size, nullptr);
+    oluacls_prop(L, "value", _cocos2d_types_VectorInt_value, _cocos2d_types_VectorInt_value);
 
     olua_registerluatype<cocos2d::types::VectorInt>(L, "cc.VectorInt");
 
@@ -11507,7 +11503,7 @@ static int _cocos2d_types_ValueMap_take(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_types_ValueMap_get_rawdata(lua_State *L)
+static int _cocos2d_types_ValueMap_data(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11515,8 +11511,25 @@ static int _cocos2d_types_ValueMap_get_rawdata(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.ValueMap");
 
-    // @getter @name(rawdata) void *get_rawdata()
-    void *ret = self->get_rawdata();
+    // @getter @name(data) cocos2d::ValueMap *data()
+    cocos2d::ValueMap *ret = self->data();
+    int num_ret = olua_push_pointer(L, ret, "cc.ValueMap");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_ValueMap_rawdata(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::ValueMap *self = nullptr;
+
+    olua_to_object(L, 1, &self, "cc.ValueMap");
+
+    // @getter @name(rawdata) void *rawdata()
+    void *ret = self->rawdata();
     int num_ret = olua_push_object(L, ret, "void *");
 
     olua_endinvoke(L);
@@ -11524,7 +11537,7 @@ static int _cocos2d_types_ValueMap_get_rawdata(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_types_ValueMap_get_sizeof(lua_State *L)
+static int _cocos2d_types_ValueMap_size(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11532,8 +11545,8 @@ static int _cocos2d_types_ValueMap_get_sizeof(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.ValueMap");
 
-    // @getter @name(sizeof) size_t get_sizeof()
-    size_t ret = self->get_sizeof();
+    // @getter @name(sizeof) size_t size()
+    size_t ret = self->size();
     int num_ret = olua_push_integer(L, ret);
 
     olua_endinvoke(L);
@@ -11541,7 +11554,7 @@ static int _cocos2d_types_ValueMap_get_sizeof(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_types_ValueMap_get_value(lua_State *L)
+static int _cocos2d_types_ValueMap_value(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11549,31 +11562,13 @@ static int _cocos2d_types_ValueMap_get_value(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.ValueMap");
 
-    // @getter @name(value) const cocos2d::ValueMap &get_value()
-    const cocos2d::ValueMap &ret = self->get_value();
+    // @getter @name(value) const cocos2d::ValueMap &value()
+    const cocos2d::ValueMap &ret = self->value();
     int num_ret = olua_push_cocos2d_ValueMap(L, ret);
 
     olua_endinvoke(L);
 
     return num_ret;
-}
-
-static int _cocos2d_types_ValueMap_set_value(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    cocos2d::types::ValueMap *self = nullptr;
-    cocos2d::ValueMap arg1;       /** v */
-
-    olua_to_object(L, 1, &self, "cc.ValueMap");
-    olua_check_cocos2d_ValueMap(L, 2, &arg1);
-
-    // @setter @name(value) void set_value(const cocos2d::ValueMap &v)
-    self->set_value(arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -11584,9 +11579,10 @@ OLUA_LIB int luaopen_cocos2d_types_ValueMap(lua_State *L)
     oluacls_func(L, "__olua_move", _cocos2d_types_ValueMap___olua_move);
     oluacls_func(L, "new", _cocos2d_types_ValueMap_create);
     oluacls_func(L, "take", _cocos2d_types_ValueMap_take);
-    oluacls_prop(L, "rawdata", _cocos2d_types_ValueMap_get_rawdata, nullptr);
-    oluacls_prop(L, "sizeof", _cocos2d_types_ValueMap_get_sizeof, nullptr);
-    oluacls_prop(L, "value", _cocos2d_types_ValueMap_get_value, _cocos2d_types_ValueMap_set_value);
+    oluacls_prop(L, "data", _cocos2d_types_ValueMap_data, nullptr);
+    oluacls_prop(L, "rawdata", _cocos2d_types_ValueMap_rawdata, nullptr);
+    oluacls_prop(L, "sizeof", _cocos2d_types_ValueMap_size, nullptr);
+    oluacls_prop(L, "value", _cocos2d_types_ValueMap_value, _cocos2d_types_ValueMap_value);
 
     olua_registerluatype<cocos2d::types::ValueMap>(L, "cc.ValueMap");
 
@@ -11696,7 +11692,7 @@ static int _cocos2d_types_TMXTileFlags_take(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_types_TMXTileFlags_get_rawdata(lua_State *L)
+static int _cocos2d_types_TMXTileFlags_data(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11704,8 +11700,25 @@ static int _cocos2d_types_TMXTileFlags_get_rawdata(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.TMXTileFlags");
 
-    // @getter @name(rawdata) void *get_rawdata()
-    void *ret = self->get_rawdata();
+    // @getter @name(data) cocos2d::TMXTileFlags *data()
+    cocos2d::TMXTileFlags *ret = self->data();
+    int num_ret = olua_push_pointer(L, ret, "cc.TMXTileFlags");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_TMXTileFlags_rawdata(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::TMXTileFlags *self = nullptr;
+
+    olua_to_object(L, 1, &self, "cc.TMXTileFlags");
+
+    // @getter @name(rawdata) void *rawdata()
+    void *ret = self->rawdata();
     int num_ret = olua_push_object(L, ret, "void *");
 
     olua_endinvoke(L);
@@ -11713,7 +11726,7 @@ static int _cocos2d_types_TMXTileFlags_get_rawdata(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_types_TMXTileFlags_get_sizeof(lua_State *L)
+static int _cocos2d_types_TMXTileFlags_size(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11721,8 +11734,8 @@ static int _cocos2d_types_TMXTileFlags_get_sizeof(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.TMXTileFlags");
 
-    // @getter @name(sizeof) size_t get_sizeof()
-    size_t ret = self->get_sizeof();
+    // @getter @name(sizeof) size_t size()
+    size_t ret = self->size();
     int num_ret = olua_push_integer(L, ret);
 
     olua_endinvoke(L);
@@ -11730,7 +11743,7 @@ static int _cocos2d_types_TMXTileFlags_get_sizeof(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_types_TMXTileFlags_get_value(lua_State *L)
+static int _cocos2d_types_TMXTileFlags_value(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11738,31 +11751,13 @@ static int _cocos2d_types_TMXTileFlags_get_value(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.TMXTileFlags");
 
-    // @getter @name(value) const cocos2d::TMXTileFlags &get_value()
-    const cocos2d::TMXTileFlags &ret = self->get_value();
+    // @getter @name(value) const cocos2d::TMXTileFlags &value()
+    const cocos2d::TMXTileFlags &ret = self->value();
     int num_ret = olua_push_enum(L, ret);
 
     olua_endinvoke(L);
 
     return num_ret;
-}
-
-static int _cocos2d_types_TMXTileFlags_set_value(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    cocos2d::types::TMXTileFlags *self = nullptr;
-    cocos2d::TMXTileFlags arg1 = (cocos2d::TMXTileFlags)0;       /** v */
-
-    olua_to_object(L, 1, &self, "cc.TMXTileFlags");
-    olua_check_enum(L, 2, &arg1);
-
-    // @setter @name(value) void set_value(const cocos2d::TMXTileFlags &v)
-    self->set_value(arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
 }
 
 OLUA_BEGIN_DECLS
@@ -11773,9 +11768,10 @@ OLUA_LIB int luaopen_cocos2d_types_TMXTileFlags(lua_State *L)
     oluacls_func(L, "__olua_move", _cocos2d_types_TMXTileFlags___olua_move);
     oluacls_func(L, "new", _cocos2d_types_TMXTileFlags_create);
     oluacls_func(L, "take", _cocos2d_types_TMXTileFlags_take);
-    oluacls_prop(L, "rawdata", _cocos2d_types_TMXTileFlags_get_rawdata, nullptr);
-    oluacls_prop(L, "sizeof", _cocos2d_types_TMXTileFlags_get_sizeof, nullptr);
-    oluacls_prop(L, "value", _cocos2d_types_TMXTileFlags_get_value, _cocos2d_types_TMXTileFlags_set_value);
+    oluacls_prop(L, "data", _cocos2d_types_TMXTileFlags_data, nullptr);
+    oluacls_prop(L, "rawdata", _cocos2d_types_TMXTileFlags_rawdata, nullptr);
+    oluacls_prop(L, "sizeof", _cocos2d_types_TMXTileFlags_size, nullptr);
+    oluacls_prop(L, "value", _cocos2d_types_TMXTileFlags_value, _cocos2d_types_TMXTileFlags_value);
 
     olua_registerluatype<cocos2d::types::TMXTileFlags>(L, "cc.TMXTileFlags");
 

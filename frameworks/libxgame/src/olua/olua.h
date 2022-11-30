@@ -1293,21 +1293,17 @@ public:
         return ret;
     }
     
-    OLUA_GETTER OLUA_NAME(rawdata) void *get_rawdata() {return _data;}
-    OLUA_GETTER OLUA_NAME(sizeof) size_t get_sizeof() {return sizeof(T);}
-
-    OLUA_GETTER OLUA_NAME(length) size_t get_length() {return _len;}
-    OLUA_SETTER OLUA_NAME(length) void set_length(size_t len)
+    OLUA_GETTER OLUA_NAME(data) T *data() {return _data;}
+    OLUA_GETTER OLUA_NAME(rawdata) void *rawdata() {return _data;}
+    OLUA_GETTER OLUA_NAME(sizeof) size_t size() {return sizeof(T);}
+    OLUA_GETTER OLUA_NAME(value) const T &value() {return *_data;}
+    OLUA_SETTER OLUA_NAME(value) void value(const T &v) {*_data = v;}
+    OLUA_GETTER OLUA_NAME(length) size_t length() {return _len;}
+    OLUA_SETTER OLUA_NAME(length) void length(size_t len)
     {
         olua_assert(!_owner, "not allow set length when own the data");
         _len = len;
     }
-
-    OLUA_GETTER OLUA_NAME(value) const T &get_value() {return *_data;}
-    OLUA_SETTER OLUA_NAME(value) void set_value(const T &v) {*_data = v;}
-    
-    OLUA_EXCLUDE T *data() {return _data;}
-    OLUA_EXCLUDE size_t length() {return _len;}
 private:
     T *_data = nullptr;
     size_t _len = 0;
@@ -1361,13 +1357,11 @@ public:
         return this;
     }
     
-    OLUA_GETTER OLUA_NAME(rawdata) void *get_rawdata() {return _data;}
-    OLUA_GETTER OLUA_NAME(sizeof) size_t get_sizeof() {return sizeof(T);}
-   
-    OLUA_GETTER OLUA_NAME(value) const T &get_value() {return *_data;}
-    OLUA_SETTER OLUA_NAME(value) void set_value(const T &v) {*_data = v;}
-    
-    OLUA_EXCLUDE T *data() {return _data;}
+    OLUA_GETTER OLUA_NAME(data) T *data() {return _data;}
+    OLUA_GETTER OLUA_NAME(rawdata) void *rawdata() {return _data;}
+    OLUA_GETTER OLUA_NAME(sizeof) size_t size() {return sizeof(T);}
+    OLUA_GETTER OLUA_NAME(value) const T &value() {return *_data;}
+    OLUA_SETTER OLUA_NAME(value) void value(const T &v) {*_data = v;}
 private:
     T *_data = nullptr;
     bool _owner = true;

@@ -34,7 +34,7 @@ bool olua_is_cocos2d_Color4F(lua_State *L, int idx);
 
 // Vector
 template <class T>
-void olua_insert_array(cocos2d::Vector<T> &array, const T &value)
+void olua_insert_vector(cocos2d::Vector<T> &array, const T &value)
 {
     array.pushBack(value);
 }
@@ -64,13 +64,13 @@ void olua_check_cocos2d_ValueMap(lua_State *L, int idx, cocos2d::ValueMap *value
 
 #ifdef CCLUA_BUILD_SPINE
 template <class T>
-void olua_insert_array(spine::Vector<T> &array, const T &value)
+void olua_insert_vector(spine::Vector<T> &array, const T &value)
 {
     array.add(value);
 }
 
 template <class T>
-void olua_foreach_array(const spine::Vector<T> &array, const std::function<void(T &)> &callback)
+void olua_foreach_vector(const spine::Vector<T> &array, const std::function<void(T &)> &callback)
 {
     spine::Vector<T> &arr = *const_cast<spine::Vector<T> *>(&array);
     for (int i = 0, n = (int)array.size(); i < n; i++) {

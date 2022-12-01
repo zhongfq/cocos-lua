@@ -21,10 +21,8 @@ static int _cclua_Callback___call(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_Callback(lua_State *L)
 {
-    oluacls_class(L, "cclua.Callback", nullptr);
+    oluacls_class<cclua::Callback>(L, "cclua.Callback");
     oluacls_func(L, "__call", _cclua_Callback___call);
-
-    olua_registerluatype<cclua::Callback>(L, "cclua.Callback");
 
     return 1;
 }
@@ -33,15 +31,13 @@ OLUA_END_DECLS
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_QRCode_ECLevel(lua_State *L)
 {
-    oluacls_class(L, "cclua.QRCode.ECLevel", nullptr);
+    oluacls_class<cclua::QRCode::ECLevel>(L, "cclua.QRCode.ECLevel");
     oluacls_func(L, "__index", olua_indexerror);
     oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_enum(L, "QR_ECLEVEL_H", (lua_Integer)cclua::QRCode::ECLevel::QR_ECLEVEL_H);
     oluacls_enum(L, "QR_ECLEVEL_L", (lua_Integer)cclua::QRCode::ECLevel::QR_ECLEVEL_L);
     oluacls_enum(L, "QR_ECLEVEL_M", (lua_Integer)cclua::QRCode::ECLevel::QR_ECLEVEL_M);
     oluacls_enum(L, "QR_ECLEVEL_Q", (lua_Integer)cclua::QRCode::ECLevel::QR_ECLEVEL_Q);
-
-    olua_registerluatype<cclua::QRCode::ECLevel>(L, "cclua.QRCode.ECLevel");
 
     return 1;
 }
@@ -50,7 +46,7 @@ OLUA_END_DECLS
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_QRCode_EncodeMode(lua_State *L)
 {
-    oluacls_class(L, "cclua.QRCode.EncodeMode", nullptr);
+    oluacls_class<cclua::QRCode::EncodeMode>(L, "cclua.QRCode.EncodeMode");
     oluacls_func(L, "__index", olua_indexerror);
     oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_enum(L, "QR_MODE_8", (lua_Integer)cclua::QRCode::EncodeMode::QR_MODE_8);
@@ -59,8 +55,6 @@ OLUA_LIB int luaopen_cclua_QRCode_EncodeMode(lua_State *L)
     oluacls_enum(L, "QR_MODE_NUL", (lua_Integer)cclua::QRCode::EncodeMode::QR_MODE_NUL);
     oluacls_enum(L, "QR_MODE_NUM", (lua_Integer)cclua::QRCode::EncodeMode::QR_MODE_NUM);
     oluacls_enum(L, "QR_MODE_STRUCTURE", (lua_Integer)cclua::QRCode::EncodeMode::QR_MODE_STRUCTURE);
-
-    olua_registerluatype<cclua::QRCode::EncodeMode>(L, "cclua.QRCode.EncodeMode");
 
     return 1;
 }
@@ -218,10 +212,8 @@ static int _cclua_QRCode_create(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_QRCode(lua_State *L)
 {
-    oluacls_class(L, "cclua.QRCode", "cc.Sprite");
+    oluacls_class<cclua::QRCode, cocos2d::Sprite>(L, "cclua.QRCode");
     oluacls_func(L, "create", _cclua_QRCode_create);
-
-    olua_registerluatype<cclua::QRCode>(L, "cclua.QRCode");
 
     return 1;
 }
@@ -289,15 +281,13 @@ static int _cclua_SceneNoCamera_new(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_SceneNoCamera(lua_State *L)
 {
-    oluacls_class(L, "cclua.SceneNoCamera", "cc.Scene");
+    oluacls_class<cclua::SceneNoCamera, cocos2d::Scene>(L, "cclua.SceneNoCamera");
     oluacls_func(L, "create", _cclua_SceneNoCamera_create);
 #if (CC_USE_PHYSICS || (CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION))
     oluacls_func(L, "createWithPhysics", _cclua_SceneNoCamera_createWithPhysics);
 #endif
     oluacls_func(L, "createWithSize", _cclua_SceneNoCamera_createWithSize);
     oluacls_func(L, "new", _cclua_SceneNoCamera_new);
-
-    olua_registerluatype<cclua::SceneNoCamera>(L, "cclua.SceneNoCamera");
 
     return 1;
 }
@@ -329,7 +319,7 @@ static int _cclua_permission_status___olua_move(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_permission_status(lua_State *L)
 {
-    oluacls_class(L, "cclua.permission.status", nullptr);
+    oluacls_class<cclua::permission::status>(L, "cclua.permission.status");
     oluacls_func(L, "__index", olua_indexerror);
     oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_func(L, "__gc", _cclua_permission_status___gc);
@@ -342,8 +332,6 @@ OLUA_LIB int luaopen_cclua_permission_status(lua_State *L)
     oluacls_const(L, "RESTRICTED", cclua::permission::status::RESTRICTED);
     oluacls_const(L, "UNKNOWN", cclua::permission::status::UNKNOWN);
     oluacls_const(L, "WHEN_IN_USE", cclua::permission::status::WHEN_IN_USE);
-
-    olua_registerluatype<cclua::permission::status>(L, "cclua.permission.status");
 
     return 1;
 }
@@ -375,7 +363,7 @@ static int _cclua_permission_android___olua_move(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_permission_android(lua_State *L)
 {
-    oluacls_class(L, "cclua.permission.android", nullptr);
+    oluacls_class<cclua::permission::android>(L, "cclua.permission.android");
     oluacls_func(L, "__index", olua_indexerror);
     oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_func(L, "__gc", _cclua_permission_android___gc);
@@ -532,8 +520,6 @@ OLUA_LIB int luaopen_cclua_permission_android(lua_State *L)
     oluacls_const(L, "WRITE_SYNC_SETTINGS", cclua::permission::android::WRITE_SYNC_SETTINGS);
     oluacls_const(L, "WRITE_VOICEMAIL", cclua::permission::android::WRITE_VOICEMAIL);
 
-    olua_registerluatype<cclua::permission::android>(L, "cclua.permission.android");
-
     return 1;
 }
 OLUA_END_DECLS
@@ -588,7 +574,7 @@ static int _cclua_permission_get_status(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_permission(lua_State *L)
 {
-    oluacls_class(L, "cclua.permission", nullptr);
+    oluacls_class<cclua::permission>(L, "cclua.permission");
     oluacls_func(L, "__index", olua_indexerror);
     oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_func(L, "__gc", _cclua_permission___gc);
@@ -606,8 +592,6 @@ OLUA_LIB int luaopen_cclua_permission(lua_State *L)
     oluacls_const(L, "SMS", cclua::permission::SMS);
     oluacls_const(L, "STORAGE", cclua::permission::STORAGE);
     oluacls_const(L, "TRACKING", cclua::permission::TRACKING);
-
-    olua_registerluatype<cclua::permission>(L, "cclua.permission");
 
     return 1;
 }
@@ -1938,7 +1922,7 @@ static int _cclua_runtime_testCrash(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_runtime(lua_State *L)
 {
-    oluacls_class(L, "cclua.runtime", nullptr);
+    oluacls_class<cclua::runtime>(L, "cclua.runtime");
     oluacls_func(L, "__gc", _cclua_runtime___gc);
     oluacls_func(L, "__olua_move", _cclua_runtime___olua_move);
     oluacls_func(L, "alert", _cclua_runtime_alert);
@@ -2034,8 +2018,6 @@ OLUA_LIB int luaopen_cclua_runtime(lua_State *L)
     oluacls_prop(L, "textureCache", _cclua_runtime_getTextureCache, nullptr);
     oluacls_prop(L, "time", _cclua_runtime_getTime, nullptr);
     oluacls_prop(L, "version", _cclua_runtime_getVersion, nullptr);
-
-    olua_registerluatype<cclua::runtime>(L, "cclua.runtime");
 
     return 1;
 }
@@ -2559,7 +2541,7 @@ static int _cclua_filesystem_write(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_filesystem(lua_State *L)
 {
-    oluacls_class(L, "cclua.filesystem", nullptr);
+    oluacls_class<cclua::filesystem>(L, "cclua.filesystem");
     oluacls_func(L, "__gc", _cclua_filesystem___gc);
     oluacls_func(L, "__olua_move", _cclua_filesystem___olua_move);
     oluacls_func(L, "addSearchPath", _cclua_filesystem_addSearchPath);
@@ -2588,8 +2570,6 @@ OLUA_LIB int luaopen_cclua_filesystem(lua_State *L)
     oluacls_prop(L, "sdCardDirectory", _cclua_filesystem_getSDCardDirectory, nullptr);
     oluacls_prop(L, "tmpDirectory", _cclua_filesystem_getTmpDirectory, nullptr);
     oluacls_prop(L, "writablePath", _cclua_filesystem_getWritablePath, nullptr);
-
-    olua_registerluatype<cclua::filesystem>(L, "cclua.filesystem");
 
     return 1;
 }
@@ -3034,7 +3014,7 @@ static int _cclua_preferences_setString(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_preferences(lua_State *L)
 {
-    oluacls_class(L, "cclua.preferences", nullptr);
+    oluacls_class<cclua::preferences>(L, "cclua.preferences");
     oluacls_func(L, "__gc", _cclua_preferences___gc);
     oluacls_func(L, "__olua_move", _cclua_preferences___olua_move);
     oluacls_func(L, "deleteKey", _cclua_preferences_deleteKey);
@@ -3049,8 +3029,6 @@ OLUA_LIB int luaopen_cclua_preferences(lua_State *L)
     oluacls_func(L, "setFloat", _cclua_preferences_setFloat);
     oluacls_func(L, "setInteger", _cclua_preferences_setInteger);
     oluacls_func(L, "setString", _cclua_preferences_setString);
-
-    olua_registerluatype<cclua::preferences>(L, "cclua.preferences");
 
     return 1;
 }
@@ -3249,7 +3227,7 @@ static int _cclua_timer_unschedule(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_timer(lua_State *L)
 {
-    oluacls_class(L, "cclua.timer", nullptr);
+    oluacls_class<cclua::timer>(L, "cclua.timer");
     oluacls_func(L, "__gc", _cclua_timer___gc);
     oluacls_func(L, "__olua_move", _cclua_timer___olua_move);
     oluacls_func(L, "createTag", _cclua_timer_createTag);
@@ -3258,8 +3236,6 @@ OLUA_LIB int luaopen_cclua_timer(lua_State *L)
     oluacls_func(L, "killDelay", _cclua_timer_killDelay);
     oluacls_func(L, "schedule", _cclua_timer_schedule);
     oluacls_func(L, "unschedule", _cclua_timer_unschedule);
-
-    olua_registerluatype<cclua::timer>(L, "cclua.timer");
 
     return 1;
 }
@@ -3514,7 +3490,7 @@ static int _cclua_window_setFrameSize(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_window(lua_State *L)
 {
-    oluacls_class(L, "cclua.window", nullptr);
+    oluacls_class<cclua::window>(L, "cclua.window");
     oluacls_func(L, "__gc", _cclua_window___gc);
     oluacls_func(L, "__olua_move", _cclua_window___olua_move);
     oluacls_func(L, "convertToCameraSpace", _cclua_window_convertToCameraSpace);
@@ -3527,8 +3503,6 @@ OLUA_LIB int luaopen_cclua_window(lua_State *L)
     oluacls_prop(L, "frameSize", _cclua_window_getFrameSize, _cclua_window_setFrameSize);
     oluacls_prop(L, "visibleBounds", _cclua_window_getVisibleBounds, nullptr);
     oluacls_prop(L, "visibleSize", _cclua_window_getVisibleSize, nullptr);
-
-    olua_registerluatype<cclua::window>(L, "cclua.window");
 
     return 1;
 }
@@ -3724,7 +3698,7 @@ static int _cclua_downloader_setURIResolver(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_downloader(lua_State *L)
 {
-    oluacls_class(L, "cclua.downloader", nullptr);
+    oluacls_class<cclua::downloader>(L, "cclua.downloader");
     oluacls_func(L, "__gc", _cclua_downloader___gc);
     oluacls_func(L, "__olua_move", _cclua_downloader___olua_move);
     oluacls_func(L, "end", _cclua_downloader_end);
@@ -3732,8 +3706,6 @@ OLUA_LIB int luaopen_cclua_downloader(lua_State *L)
     oluacls_func(L, "load", _cclua_downloader_load);
     oluacls_func(L, "setDispatcher", _cclua_downloader_setDispatcher);
     oluacls_func(L, "setURIResolver", _cclua_downloader_setURIResolver);
-
-    olua_registerluatype<cclua::downloader>(L, "cclua.downloader");
 
     return 1;
 }
@@ -3829,7 +3801,7 @@ static int _cclua_Container_setFilter(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_Container(lua_State *L)
 {
-    oluacls_class(L, "cclua.Container", "ccui.Layout");
+    oluacls_class<cclua::Container, cocos2d::ui::Layout>(L, "cclua.Container");
     oluacls_func(L, "create", _cclua_Container_create);
     oluacls_func(L, "getClippingNode", _cclua_Container_getClippingNode);
     oluacls_func(L, "getFilter", _cclua_Container_getFilter);
@@ -3838,8 +3810,6 @@ OLUA_LIB int luaopen_cclua_Container(lua_State *L)
     oluacls_prop(L, "clippingNode", _cclua_Container_getClippingNode, nullptr);
     oluacls_prop(L, "filter", _cclua_Container_getFilter, _cclua_Container_setFilter);
 
-    olua_registerluatype<cclua::Container>(L, "cclua.Container");
-
     return 1;
 }
 OLUA_END_DECLS
@@ -3847,7 +3817,7 @@ OLUA_END_DECLS
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_XMLHttpRequest_ResponseType(lua_State *L)
 {
-    oluacls_class(L, "cclua.XMLHttpRequest.ResponseType", nullptr);
+    oluacls_class<cclua::XMLHttpRequest::ResponseType>(L, "cclua.XMLHttpRequest.ResponseType");
     oluacls_func(L, "__index", olua_indexerror);
     oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_enum(L, "ARRAY_BUFFER", (lua_Integer)cclua::XMLHttpRequest::ResponseType::ARRAY_BUFFER);
@@ -3855,8 +3825,6 @@ OLUA_LIB int luaopen_cclua_XMLHttpRequest_ResponseType(lua_State *L)
     oluacls_enum(L, "DOCUMENT", (lua_Integer)cclua::XMLHttpRequest::ResponseType::DOCUMENT);
     oluacls_enum(L, "JSON", (lua_Integer)cclua::XMLHttpRequest::ResponseType::JSON);
     oluacls_enum(L, "STRING", (lua_Integer)cclua::XMLHttpRequest::ResponseType::STRING);
-
-    olua_registerluatype<cclua::XMLHttpRequest::ResponseType>(L, "cclua.XMLHttpRequest.ResponseType");
 
     return 1;
 }
@@ -4353,7 +4321,7 @@ static int _cclua_XMLHttpRequest_setWithCredentials(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_XMLHttpRequest(lua_State *L)
 {
-    oluacls_class(L, "cclua.XMLHttpRequest", "cc.Ref");
+    oluacls_class<cclua::XMLHttpRequest, cocos2d::Ref>(L, "cclua.XMLHttpRequest");
     oluacls_func(L, "abort", _cclua_XMLHttpRequest_abort);
     oluacls_func(L, "getAllResponseHeaders", _cclua_XMLHttpRequest_getAllResponseHeaders);
     oluacls_func(L, "getDataSize", _cclua_XMLHttpRequest_getDataSize);
@@ -4399,8 +4367,6 @@ OLUA_LIB int luaopen_cclua_XMLHttpRequest(lua_State *L)
     oluacls_const(L, "OPENED", cclua::XMLHttpRequest::OPENED);
     oluacls_const(L, "UNSENT", cclua::XMLHttpRequest::UNSENT);
 
-    olua_registerluatype<cclua::XMLHttpRequest>(L, "cclua.XMLHttpRequest");
-
     return 1;
 }
 OLUA_END_DECLS
@@ -4409,7 +4375,7 @@ OLUA_END_DECLS
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_MP3Encoder_VBRMode(lua_State *L)
 {
-    oluacls_class(L, "cclua.MP3Encoder.VBRMode", nullptr);
+    oluacls_class<cclua::MP3Encoder::VBRMode>(L, "cclua.MP3Encoder.VBRMode");
     oluacls_func(L, "__index", olua_indexerror);
     oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_enum(L, "ABR", (lua_Integer)cclua::MP3Encoder::VBRMode::ABR);
@@ -4420,8 +4386,6 @@ OLUA_LIB int luaopen_cclua_MP3Encoder_VBRMode(lua_State *L)
     oluacls_enum(L, "OFF", (lua_Integer)cclua::MP3Encoder::VBRMode::OFF);
     oluacls_enum(L, "RH", (lua_Integer)cclua::MP3Encoder::VBRMode::RH);
 
-    olua_registerluatype<cclua::MP3Encoder::VBRMode>(L, "cclua.MP3Encoder.VBRMode");
-
     return 1;
 }
 OLUA_END_DECLS
@@ -4431,7 +4395,7 @@ OLUA_END_DECLS
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_MP3Encoder_MPEGMode(lua_State *L)
 {
-    oluacls_class(L, "cclua.MP3Encoder.MPEGMode", nullptr);
+    oluacls_class<cclua::MP3Encoder::MPEGMode>(L, "cclua.MP3Encoder.MPEGMode");
     oluacls_func(L, "__index", olua_indexerror);
     oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_enum(L, "DUAL_CHANNEL", (lua_Integer)cclua::MP3Encoder::MPEGMode::DUAL_CHANNEL);
@@ -4440,8 +4404,6 @@ OLUA_LIB int luaopen_cclua_MP3Encoder_MPEGMode(lua_State *L)
     oluacls_enum(L, "MONO", (lua_Integer)cclua::MP3Encoder::MPEGMode::MONO);
     oluacls_enum(L, "NOT_SET", (lua_Integer)cclua::MP3Encoder::MPEGMode::NOT_SET);
     oluacls_enum(L, "STEREO", (lua_Integer)cclua::MP3Encoder::MPEGMode::STEREO);
-
-    olua_registerluatype<cclua::MP3Encoder::MPEGMode>(L, "cclua.MP3Encoder.MPEGMode");
 
     return 1;
 }
@@ -6906,7 +6868,7 @@ static int _cclua_MP3Encoder_stop(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_MP3Encoder(lua_State *L)
 {
-    oluacls_class(L, "cclua.MP3Encoder", "cc.Ref");
+    oluacls_class<cclua::MP3Encoder, cocos2d::Ref>(L, "cclua.MP3Encoder");
     oluacls_func(L, "getATHlower", _cclua_MP3Encoder_getATHlower);
     oluacls_func(L, "getATHonly", _cclua_MP3Encoder_getATHonly);
     oluacls_func(L, "getATHshort", _cclua_MP3Encoder_getATHshort);
@@ -7125,8 +7087,6 @@ OLUA_LIB int luaopen_cclua_MP3Encoder(lua_State *L)
     oluacls_prop(L, "vbrq", _cclua_MP3Encoder_getVBRQ, _cclua_MP3Encoder_setVBRQ);
     oluacls_prop(L, "version", _cclua_MP3Encoder_getVersion, nullptr);
 
-    olua_registerluatype<cclua::MP3Encoder>(L, "cclua.MP3Encoder");
-
     return 1;
 }
 OLUA_END_DECLS
@@ -7258,7 +7218,7 @@ static int _cclua_microphone_stop(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_microphone(lua_State *L)
 {
-    oluacls_class(L, "cclua.microphone", nullptr);
+    oluacls_class<cclua::microphone>(L, "cclua.microphone");
     oluacls_func(L, "__gc", _cclua_microphone___gc);
     oluacls_func(L, "__olua_move", _cclua_microphone___olua_move);
     oluacls_func(L, "dispatch", _cclua_microphone_dispatch);
@@ -7268,7 +7228,6 @@ OLUA_LIB int luaopen_cclua_microphone(lua_State *L)
     oluacls_func(L, "stop", _cclua_microphone_stop);
     oluacls_prop(L, "running", _cclua_microphone_isRunning, nullptr);
 
-    olua_registerluatype<cclua::microphone>(L, "cclua.microphone");
     cclua::runtime::registerFeature("cclua.microphone", true);
 
     return 1;
@@ -7417,7 +7376,7 @@ static int _cclua_photo_takeAvatar(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_photo(lua_State *L)
 {
-    oluacls_class(L, "cclua.photo", nullptr);
+    oluacls_class<cclua::photo>(L, "cclua.photo");
     oluacls_func(L, "__gc", _cclua_photo___gc);
     oluacls_func(L, "__olua_move", _cclua_photo___olua_move);
     oluacls_func(L, "dispatch", _cclua_photo_dispatch);
@@ -7426,7 +7385,6 @@ OLUA_LIB int luaopen_cclua_photo(lua_State *L)
     oluacls_func(L, "setDispatcher", _cclua_photo_setDispatcher);
     oluacls_func(L, "takeAvatar", _cclua_photo_takeAvatar);
 
-    olua_registerluatype<cclua::photo>(L, "cclua.photo");
     cclua::runtime::registerFeature("cclua.photo", true);
 
     return 1;

@@ -10,7 +10,7 @@
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_plugin_wechat_ShareType(lua_State *L)
 {
-    oluacls_class(L, "cclua.plugin.wechat.ShareType", nullptr);
+    oluacls_class<cclua::plugin::wechat::ShareType>(L, "cclua.plugin.wechat.ShareType");
     oluacls_func(L, "__index", olua_indexerror);
     oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_enum(L, "IMAGE", (lua_Integer)cclua::plugin::wechat::ShareType::IMAGE);
@@ -19,8 +19,6 @@ OLUA_LIB int luaopen_cclua_plugin_wechat_ShareType(lua_State *L)
     oluacls_enum(L, "TEXT", (lua_Integer)cclua::plugin::wechat::ShareType::TEXT);
     oluacls_enum(L, "VIDEO", (lua_Integer)cclua::plugin::wechat::ShareType::VIDEO);
     oluacls_enum(L, "WEB", (lua_Integer)cclua::plugin::wechat::ShareType::WEB);
-
-    olua_registerluatype<cclua::plugin::wechat::ShareType>(L, "cclua.plugin.wechat.ShareType");
 
     return 1;
 }
@@ -31,14 +29,12 @@ OLUA_END_DECLS
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_plugin_wechat_ProgramType(lua_State *L)
 {
-    oluacls_class(L, "cclua.plugin.wechat.ProgramType", nullptr);
+    oluacls_class<cclua::plugin::wechat::ProgramType>(L, "cclua.plugin.wechat.ProgramType");
     oluacls_func(L, "__index", olua_indexerror);
     oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_enum(L, "PREVIEW", (lua_Integer)cclua::plugin::wechat::ProgramType::PREVIEW);
     oluacls_enum(L, "RELEASE", (lua_Integer)cclua::plugin::wechat::ProgramType::RELEASE);
     oluacls_enum(L, "TEST", (lua_Integer)cclua::plugin::wechat::ProgramType::TEST);
-
-    olua_registerluatype<cclua::plugin::wechat::ProgramType>(L, "cclua.plugin.wechat.ProgramType");
 
     return 1;
 }
@@ -367,7 +363,7 @@ static int _cclua_plugin_wechat_stopAuth(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_plugin_wechat(lua_State *L)
 {
-    oluacls_class(L, "cclua.plugin.wechat", nullptr);
+    oluacls_class<cclua::plugin::wechat>(L, "cclua.plugin.wechat");
     oluacls_func(L, "__gc", _cclua_plugin_wechat___gc);
     oluacls_func(L, "__olua_move", _cclua_plugin_wechat___olua_move);
     oluacls_func(L, "auth", _cclua_plugin_wechat_auth);
@@ -385,7 +381,6 @@ OLUA_LIB int luaopen_cclua_plugin_wechat(lua_State *L)
     oluacls_func(L, "stopAuth", _cclua_plugin_wechat_stopAuth);
     oluacls_prop(L, "installed", _cclua_plugin_wechat_isInstalled, nullptr);
 
-    olua_registerluatype<cclua::plugin::wechat>(L, "cclua.plugin.wechat");
     cclua::runtime::registerFeature("cclua.plugin.wechat.ios", true);
 
     return 1;

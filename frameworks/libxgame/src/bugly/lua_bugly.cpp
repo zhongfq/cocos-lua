@@ -10,7 +10,7 @@
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_bugly_LogLevel(lua_State *L)
 {
-    oluacls_class(L, "cclua.bugly.LogLevel", nullptr);
+    oluacls_class<cclua::bugly::LogLevel>(L, "cclua.bugly.LogLevel");
     oluacls_func(L, "__index", olua_indexerror);
     oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_enum(L, "Debug", (lua_Integer)cclua::bugly::LogLevel::Debug);
@@ -19,8 +19,6 @@ OLUA_LIB int luaopen_cclua_bugly_LogLevel(lua_State *L)
     oluacls_enum(L, "Off", (lua_Integer)cclua::bugly::LogLevel::Off);
     oluacls_enum(L, "Verbose", (lua_Integer)cclua::bugly::LogLevel::Verbose);
     oluacls_enum(L, "Warning", (lua_Integer)cclua::bugly::LogLevel::Warning);
-
-    olua_registerluatype<cclua::bugly::LogLevel>(L, "cclua.bugly.LogLevel");
 
     return 1;
 }
@@ -188,7 +186,7 @@ static int _cclua_bugly_setVersion(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_bugly(lua_State *L)
 {
-    oluacls_class(L, "cclua.bugly", nullptr);
+    oluacls_class<cclua::bugly>(L, "cclua.bugly");
     oluacls_func(L, "__gc", _cclua_bugly___gc);
     oluacls_func(L, "__olua_move", _cclua_bugly___olua_move);
     oluacls_func(L, "init", _cclua_bugly_init);
@@ -200,7 +198,6 @@ OLUA_LIB int luaopen_cclua_bugly(lua_State *L)
     oluacls_func(L, "setUserValue", _cclua_bugly_setUserValue);
     oluacls_func(L, "setVersion", _cclua_bugly_setVersion);
 
-    olua_registerluatype<cclua::bugly>(L, "cclua.bugly");
     cclua::runtime::registerFeature("cclua.bugly", true);
 
     return 1;

@@ -38,16 +38,16 @@ template <class K, class V>
 void olua_insert_map(cocos2d::Map<K, V> &map, const K &key, const V &value);
 
 template <class T>
-void olua_insert_array(cocos2d::Vector<T> &array, const T &value);
+void olua_insert_vector(cocos2d::Vector<T> &array, const T &value);
 
 // spine
 #ifdef CCLUA_BUILD_SPINE
 #include "spine/Vector.h"
 template <class T>
-void olua_insert_array(spine::Vector<T> &array, const T &value);
+void olua_insert_vector(spine::Vector<T> &array, const T &value);
 
 template <class T>
-void olua_foreach_array(const spine::Vector<T> &array, const std::function<void(T &)> &callback);
+void olua_foreach_vector(const spine::Vector<T> &array, const std::function<void(T &)> &callback);
 #endif // CCLUA_BUILD_SPINE
 
 #endif // __cplusplus

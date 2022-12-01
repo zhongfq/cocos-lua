@@ -36,7 +36,7 @@ static int _cclua_plugin_jpush_addTags(lua_State *L)
 
     std::set<std::string> arg1;       /** tags */
 
-    olua_check_array<std::string>(L, 1, arg1, [L](std::string *arg1) {
+    olua_check_vector<std::string>(L, 1, arg1, [L](std::string *arg1) {
         olua_check_string(L, -1, arg1);
     });
 
@@ -78,7 +78,7 @@ static int _cclua_plugin_jpush_deleteTags(lua_State *L)
 
     std::set<std::string> arg1;       /** tags */
 
-    olua_check_array<std::string>(L, 1, arg1, [L](std::string *arg1) {
+    olua_check_vector<std::string>(L, 1, arg1, [L](std::string *arg1) {
         olua_check_string(L, -1, arg1);
     });
 
@@ -212,7 +212,7 @@ static int _cclua_plugin_jpush_setTags(lua_State *L)
 
     std::set<std::string> arg1;       /** tags */
 
-    olua_check_array<std::string>(L, 1, arg1, [L](std::string *arg1) {
+    olua_check_vector<std::string>(L, 1, arg1, [L](std::string *arg1) {
         olua_check_string(L, -1, arg1);
     });
 
@@ -227,7 +227,7 @@ static int _cclua_plugin_jpush_setTags(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_plugin_jpush(lua_State *L)
 {
-    oluacls_class(L, "cclua.plugin.jpush", nullptr);
+    oluacls_class<cclua::plugin::jpush>(L, "cclua.plugin.jpush");
     oluacls_func(L, "__gc", _cclua_plugin_jpush___gc);
     oluacls_func(L, "__olua_move", _cclua_plugin_jpush___olua_move);
     oluacls_func(L, "addTags", _cclua_plugin_jpush_addTags);
@@ -246,7 +246,6 @@ OLUA_LIB int luaopen_cclua_plugin_jpush(lua_State *L)
     oluacls_prop(L, "enabled", _cclua_plugin_jpush_isEnabled, nullptr);
     oluacls_prop(L, "registrationID", _cclua_plugin_jpush_getRegistrationID, nullptr);
 
-    olua_registerluatype<cclua::plugin::jpush>(L, "cclua.plugin.jpush");
     cclua::runtime::registerFeature("cclua.plugin.jpush.ios", true);
 
     return 1;
@@ -601,7 +600,7 @@ static int _cclua_plugin_jauth_setSmsIntervalTime(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_plugin_jauth(lua_State *L)
 {
-    oluacls_class(L, "cclua.plugin.jauth", nullptr);
+    oluacls_class<cclua::plugin::jauth>(L, "cclua.plugin.jauth");
     oluacls_func(L, "__gc", _cclua_plugin_jauth___gc);
     oluacls_func(L, "__olua_move", _cclua_plugin_jauth___olua_move);
     oluacls_func(L, "checkVerifyEnable", _cclua_plugin_jauth_checkVerifyEnable);
@@ -620,7 +619,6 @@ OLUA_LIB int luaopen_cclua_plugin_jauth(lua_State *L)
     oluacls_func(L, "setSmsIntervalTime", _cclua_plugin_jauth_setSmsIntervalTime);
     oluacls_prop(L, "initSuccess", _cclua_plugin_jauth_isInitSuccess, nullptr);
 
-    olua_registerluatype<cclua::plugin::jauth>(L, "cclua.plugin.jauth");
     cclua::runtime::registerFeature("cclua.plugin.jauth.ios", true);
 
     return 1;
@@ -632,7 +630,7 @@ OLUA_END_DECLS
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_plugin_janalytics_EventType(lua_State *L)
 {
-    oluacls_class(L, "cclua.plugin.janalytics.EventType", nullptr);
+    oluacls_class<cclua::plugin::janalytics::EventType>(L, "cclua.plugin.janalytics.EventType");
     oluacls_func(L, "__index", olua_indexerror);
     oluacls_func(L, "__newindex", olua_newindexerror);
     oluacls_enum(L, "BROWSE", (lua_Integer)cclua::plugin::janalytics::EventType::BROWSE);
@@ -641,8 +639,6 @@ OLUA_LIB int luaopen_cclua_plugin_janalytics_EventType(lua_State *L)
     oluacls_enum(L, "LOGIN", (lua_Integer)cclua::plugin::janalytics::EventType::LOGIN);
     oluacls_enum(L, "PURCHASE", (lua_Integer)cclua::plugin::janalytics::EventType::PURCHASE);
     oluacls_enum(L, "REGISTER", (lua_Integer)cclua::plugin::janalytics::EventType::REGISTER);
-
-    olua_registerluatype<cclua::plugin::janalytics::EventType>(L, "cclua.plugin.janalytics.EventType");
 
     return 1;
 }
@@ -804,7 +800,7 @@ static int _cclua_plugin_janalytics_trackEvent(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_plugin_janalytics(lua_State *L)
 {
-    oluacls_class(L, "cclua.plugin.janalytics", nullptr);
+    oluacls_class<cclua::plugin::janalytics>(L, "cclua.plugin.janalytics");
     oluacls_func(L, "__gc", _cclua_plugin_janalytics___gc);
     oluacls_func(L, "__olua_move", _cclua_plugin_janalytics___olua_move);
     oluacls_func(L, "detachAccount", _cclua_plugin_janalytics_detachAccount);
@@ -816,7 +812,6 @@ OLUA_LIB int luaopen_cclua_plugin_janalytics(lua_State *L)
     oluacls_func(L, "stopTrackPage", _cclua_plugin_janalytics_stopTrackPage);
     oluacls_func(L, "trackEvent", _cclua_plugin_janalytics_trackEvent);
 
-    olua_registerluatype<cclua::plugin::janalytics>(L, "cclua.plugin.janalytics");
     cclua::runtime::registerFeature("cclua.plugin.janalytics.ios", true);
 
     return 1;

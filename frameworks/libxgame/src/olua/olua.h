@@ -742,6 +742,14 @@ template <class T>
 using is_reference = std::bool_constant<std::is_reference<std::remove_cv_t<T>>::value>;
 }
 
+// class
+template <class T, class S = void>
+void oluacls_class(lua_State *L, const char *cls)
+{
+    oluacls_class(L, cls, olua_getluatype<S>(L));
+    olua_registerluatype<T>(L, cls);
+}
+
 // const value
 template <class T, std::enable_if_t<olua::is_integral<T>::value, bool> = true> inline
 void oluacls_const(lua_State *L, const char *name, const T value)
@@ -1112,19 +1120,19 @@ void olua_check_map(lua_State *L, int idx, Map<K, V, Ts...> &map, const std::fun
 
 // array
 template <class T>
-void olua_insert_array(std::vector<T> &array, const T &value)
+void olua_insert_vector(std::vector<T> &array, const T &value)
 {
     array.push_back(value);
 }
 
 template <class T>
-void olua_insert_array(std::set<T> &array, const T &value)
+void olua_insert_vector(std::set<T> &array, const T &value)
 {
     array.insert(value);
 }
 
-template <class T, template<class ...> class Array, class ...Ts>
-void olua_foreach_array(const Array<T, Ts...> &array, const std::function<void(T &)> &callback)
+template <class T, template<class ...> class Vector, class ...Ts>
+void olua_foreach_vector(const Vector<T, Ts...> &array, const std::function<void(T &)> &callback)
 {
     for (auto &itor : array) {
         callback(const_cast<T &>(itor));
@@ -1132,7 +1140,7 @@ void olua_foreach_array(const Array<T, Ts...> &array, const std::function<void(T
 }
 
 template <> inline
-void olua_foreach_array<bool>(const std::vector<bool> &array, const std::function<void(bool &)> &callback)
+void olua_foreach_vector<bool>(const std::vector<bool> &array, const std::function<void(bool &)> &callback)
 {
     for (auto itor : array) {
         bool v = itor;
@@ -1141,25 +1149,25 @@ void olua_foreach_array<bool>(const std::vector<bool> &array, const std::functio
 }
 
 static inline
-bool olua_is_array(lua_State *L, int idx)
+bool olua_is_vector(lua_State *L, int idx)
 {
     return olua_istable(L, idx);
 }
 
-template <class T, template<class ...> class Array, class ...Ts>
-int olua_push_array(lua_State *L, const Array<T, Ts...> &array, const std::function<void(T &)> &push)
+template <class T, template<class ...> class Vector, class ...Ts>
+int olua_push_vector(lua_State *L, const Vector<T, Ts...> &array, const std::function<void(T &)> &push)
 {
     int idx = 0;
     lua_newtable(L);
-    olua_foreach_array<T>(array, [=](T &value) mutable {
+    olua_foreach_vector<T>(array, [=](T &value) mutable {
         push(value);
         lua_rawseti(L, -2, ++idx);
     });
     return 1;
 }
 
-template <class T, template<class ...> class Array, class ...Ts>
-void olua_check_array(lua_State *L, int idx, Array<T, Ts...> &array, const std::function<void(T *)> &check)
+template <class T, template<class ...> class Vector, class ...Ts>
+void olua_check_vector(lua_State *L, int idx, Vector<T, Ts...> &array, const std::function<void(T *)> &check)
 {
     idx = lua_absindex(L, idx);
     luaL_checktype(L, idx, LUA_TTABLE);
@@ -1168,13 +1176,13 @@ void olua_check_array(lua_State *L, int idx, Array<T, Ts...> &array, const std::
         T obj;
         lua_rawgeti(L, idx, i);
         check(&obj);
-        olua_insert_array<T>(array, obj);
+        olua_insert_vector<T>(array, obj);
         lua_pop(L, 1);
     }
 }
 
-template <class T, template<class ...> class Array, class ...Ts>
-void olua_pack_array(lua_State *L, int idx, Array<T, Ts...> &array, const std::function<void(T *)> &check)
+template <class T, template<class ...> class Vector, class ...Ts>
+void olua_pack_vector(lua_State *L, int idx, Vector<T, Ts...> &array, const std::function<void(T *)> &check)
 {
     idx = lua_absindex(L, idx);
     int total = (int)(lua_gettop(L) - (idx - 1));
@@ -1182,7 +1190,7 @@ void olua_pack_array(lua_State *L, int idx, Array<T, Ts...> &array, const std::f
         T obj;
         lua_pushvalue(L, idx + i);
         check(&obj);
-        olua_insert_array<T>(array, obj);
+        olua_insert_vector<T>(array, obj);
         lua_pop(L, 1);
     }
 }
@@ -1214,28 +1222,28 @@ typedef SSIZE_T ssize_t;
 
 namespace olua {
 template<class T>
-class span {
+class array {
 public:
-    span(const span &) = delete;
-    span &operator=(const span &) = delete;
+    array(const array &) = delete;
+    array &operator=(const array &) = delete;
     
-    span() {}
-    ~span()
+    array() {}
+    ~array()
     {
         if (_owner) {
             delete[] _data;
         }
     }
     
-    span(T *v)
+    array(T *v)
     :_len(0)
     ,_owner(false)
     ,_data(v)
     {}
 
-    OLUA_POSTNEW OLUA_NAME(new) static span<T> *create(size_t len = 1)
+    OLUA_POSTNEW OLUA_NAME(new) static array<T> *create(size_t len = 1)
     {
-        span<T> *ret = new span<T>();
+        array<T> *ret = new array<T>();
         ret->_len = len;
         ret->_data = new T[len]();
         return ret;
@@ -1255,7 +1263,7 @@ public:
 
     olua_Return __gc(lua_State *L)
     {
-        olua_postgc<span<T>>(L, 1);
+        olua_postgc<array<T>>(L, 1);
         return 0;
     }
 
@@ -1273,20 +1281,20 @@ public:
         strncpy((char *)_data, data, len);
     }
 
-    span<T> *take()
+    array<T> *take()
     {
         _owner = false;
         return this;
     }
    
-    span<T> *sub(size_t from, size_t to = -1)
+    array<T> *sub(size_t from, size_t to = -1)
     {
         if (to == -1) {
             to = _len;
         }
         olua_assert(from <= _len && from <= to, "invalid 'from' position");
         olua_assert(to <= _len, "invalid 'to' position");
-        span<T> *ret = create(to - from + 1);
+        array<T> *ret = create(to - from + 1);
         for (size_t i = 0; i < ret->_len; i++) {
             ret->_data[i] = _data[from + i - 1];
         }
@@ -1382,72 +1390,72 @@ typedef float olua_float_t;
 typedef double olua_double_t;
 typedef long double olua_ldouble_t;
 
-typedef olua::span<bool> olua_bool;
-typedef olua::span<std::string> olua_string;
-typedef olua::span<int8_t> olua_int8_t;
-typedef olua::span<uint8_t> olua_uint8_t;
-typedef olua::span<int16_t> olua_int16_t;
-typedef olua::span<uint16_t> olua_uint16_t;
-typedef olua::span<int32_t> olua_int32_t;
-typedef olua::span<uint32_t> olua_uint32_t;
-typedef olua::span<int64_t> olua_int64_t;
-typedef olua::span<uint64_t> olua_uint64_t;
-typedef olua::span<olua_char_t> olua_char;
-typedef olua::span<olua_short_t> olua_short;
-typedef olua::span<olua_int_t> olua_int;
-typedef olua::span<olua_long_t> olua_long;
-typedef olua::span<olua_llong_t> olua_llong;
-typedef olua::span<olua_uchar_t> olua_uchar;
-typedef olua::span<olua_ushort_t> olua_ushort;
-typedef olua::span<olua_uint_t> olua_uint;
-typedef olua::span<olua_ulong_t> olua_ulong;
-typedef olua::span<olua_ullong_t> olua_ullong;
-typedef olua::span<olua_float_t> olua_float;
-typedef olua::span<olua_double_t> olua_double;
-typedef olua::span<olua_ldouble_t> olua_ldouble;
-typedef olua::span<size_t> olua_size_t;
-typedef olua::span<ssize_t> olua_ssize_t;
+typedef olua::array<bool> olua_bool;
+typedef olua::array<std::string> olua_string;
+typedef olua::array<int8_t> olua_int8_t;
+typedef olua::array<uint8_t> olua_uint8_t;
+typedef olua::array<int16_t> olua_int16_t;
+typedef olua::array<uint16_t> olua_uint16_t;
+typedef olua::array<int32_t> olua_int32_t;
+typedef olua::array<uint32_t> olua_uint32_t;
+typedef olua::array<int64_t> olua_int64_t;
+typedef olua::array<uint64_t> olua_uint64_t;
+typedef olua::array<olua_char_t> olua_char;
+typedef olua::array<olua_short_t> olua_short;
+typedef olua::array<olua_int_t> olua_int;
+typedef olua::array<olua_long_t> olua_long;
+typedef olua::array<olua_llong_t> olua_llong;
+typedef olua::array<olua_uchar_t> olua_uchar;
+typedef olua::array<olua_ushort_t> olua_ushort;
+typedef olua::array<olua_uint_t> olua_uint;
+typedef olua::array<olua_ulong_t> olua_ulong;
+typedef olua::array<olua_ullong_t> olua_ullong;
+typedef olua::array<olua_float_t> olua_float;
+typedef olua::array<olua_double_t> olua_double;
+typedef olua::array<olua_ldouble_t> olua_ldouble;
+typedef olua::array<size_t> olua_size_t;
+typedef olua::array<ssize_t> olua_ssize_t;
 
 template <class T> inline
-int olua_pushobj(lua_State *L, const olua::span<T> *value, const char *cls)
+int olua_pushobj(lua_State *L, const olua::array<T> *value, const char *cls)
 {
-    olua_postpush(L, (olua::span<T> *)value, olua_pushobj(L, (void *)value, cls));
+    olua_postpush(L, (olua::array<T> *)value, olua_pushobj(L, (void *)value, cls));
     return 1;
 }
 
 template <class T> inline
-int olua_pushobj(lua_State *L, const olua::span<T> *value)
+int olua_pushobj(lua_State *L, const olua::array<T> *value)
 {
-    static_assert(sizeof(T) == 0, "push olua::span object must specify the lua class");
+    static_assert(sizeof(T) == 0, "push olua::array object must specify the lua class");
     return 0;
 }
 
 template <class T> inline
-int olua_push_object(lua_State *L, const olua::span<T> *value, const char *cls)
+int olua_push_object(lua_State *L, const olua::array<T> *value, const char *cls)
 {
     return olua_pushobj<T>(L, value, cls);
 }
 
-// span
+// array
 static inline 
-int olua_is_span(lua_State *L, int idx, const char *cls)
+int olua_is_array(lua_State *L, int idx, const char *cls)
 {
     return olua_isa(L, idx, cls);
 }
 
 template <class T> inline
-void olua_check_span(lua_State *L, int idx, T **value, const char *cls)
+void olua_check_array(lua_State *L, int idx, T **value, const char *cls)
 {
-    olua::span<T> *obj = (olua::span<T> *)olua_checkobj(L, idx, cls);
+    olua::array<T> *obj = (olua::array<T> *)olua_checkobj(L, idx, cls);
     *value = obj->data();
 }
 
 template <class T>
-int olua_push_span(lua_State *L, T *value, const char *cls)
+int olua_push_array(lua_State *L, T *value, const char *cls)
 {
     if (value) {
-        olua::span<T> *obj = new olua::span<T>(value);
-        olua_pushobj<olua::span<T>>(L, obj, cls);
+        olua::array<T> *obj = new olua::array<T>(value);
+        olua_pushobj<olua::array<T>>(L, obj, cls);
         olua_postnew(L, obj);
     } else {
         lua_pushnil(L);

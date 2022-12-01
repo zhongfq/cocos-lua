@@ -19,7 +19,7 @@ end)
 
 typedef 'cocos2d::Data'
 typedef 'cocos2d::Vector'
-    .conv 'olua_$$_array'
+    .conv 'olua_$$_vector'
 typedef 'cocos2d::Color3B'
 typedef 'cocos2d::Color4B'
 typedef 'cocos2d::Color4F'

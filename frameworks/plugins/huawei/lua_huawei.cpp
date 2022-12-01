@@ -171,7 +171,7 @@ static int _cclua_plugin_huawei_setDispatcher(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_plugin_huawei(lua_State *L)
 {
-    oluacls_class(L, "cclua.plugin.huawei", nullptr);
+    oluacls_class<cclua::plugin::huawei>(L, "cclua.plugin.huawei");
     oluacls_func(L, "__gc", _cclua_plugin_huawei___gc);
     oluacls_func(L, "__olua_move", _cclua_plugin_huawei___olua_move);
     oluacls_func(L, "dispatch", _cclua_plugin_huawei_dispatch);
@@ -181,8 +181,6 @@ OLUA_LIB int luaopen_cclua_plugin_huawei(lua_State *L)
     oluacls_func(L, "pay", _cclua_plugin_huawei_pay);
     oluacls_func(L, "revokeAccess", _cclua_plugin_huawei_revokeAccess);
     oluacls_func(L, "setDispatcher", _cclua_plugin_huawei_setDispatcher);
-
-    olua_registerluatype<cclua::plugin::huawei>(L, "cclua.plugin.huawei");
 
     return 1;
 }

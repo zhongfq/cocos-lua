@@ -131,15 +131,13 @@ static int _cclua_plugin_vivo_setDispatcher(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_plugin_vivo(lua_State *L)
 {
-    oluacls_class(L, "cclua.plugin.vivo", nullptr);
+    oluacls_class<cclua::plugin::vivo>(L, "cclua.plugin.vivo");
     oluacls_func(L, "__gc", _cclua_plugin_vivo___gc);
     oluacls_func(L, "__olua_move", _cclua_plugin_vivo___olua_move);
     oluacls_func(L, "dispatch", _cclua_plugin_vivo_dispatch);
     oluacls_func(L, "init", _cclua_plugin_vivo_init);
     oluacls_func(L, "pay", _cclua_plugin_vivo_pay);
     oluacls_func(L, "setDispatcher", _cclua_plugin_vivo_setDispatcher);
-
-    olua_registerluatype<cclua::plugin::vivo>(L, "cclua.plugin.vivo");
 
     return 1;
 }

@@ -178,7 +178,7 @@ static int _cclua_plugin_apple_requestProducts(lua_State *L)
 
     std::set<std::string> arg1;       /** products */
 
-    olua_check_array<std::string>(L, 1, arg1, [L](std::string *arg1) {
+    olua_check_vector<std::string>(L, 1, arg1, [L](std::string *arg1) {
         olua_check_string(L, -1, arg1);
     });
 
@@ -282,7 +282,7 @@ static int _cclua_plugin_apple_setDispatcher(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_plugin_apple(lua_State *L)
 {
-    oluacls_class(L, "cclua.plugin.apple", nullptr);
+    oluacls_class<cclua::plugin::apple>(L, "cclua.plugin.apple");
     oluacls_func(L, "__gc", _cclua_plugin_apple___gc);
     oluacls_func(L, "__olua_move", _cclua_plugin_apple___olua_move);
     oluacls_func(L, "auth", _cclua_plugin_apple_auth);
@@ -297,7 +297,6 @@ OLUA_LIB int luaopen_cclua_plugin_apple(lua_State *L)
     oluacls_func(L, "setDispatcher", _cclua_plugin_apple_setDispatcher);
     oluacls_prop(L, "pendingTransactions", _cclua_plugin_apple_getPendingTransactions, nullptr);
 
-    olua_registerluatype<cclua::plugin::apple>(L, "cclua.plugin.apple");
     cclua::runtime::registerFeature("cclua.plugin.apple.ios", true);
 
     return 1;

@@ -30,7 +30,7 @@ typedef 'spine::String'
     .conv 'olua_$$_string'
 typedef 'spine::Color'
 typedef 'spine::Vector'
-    .conv 'olua_$$_array'
+    .conv 'olua_$$_vector'
 
 typeenum 'spine::EventType'
 typeenum 'spine::AttachmentType'

@@ -107,14 +107,12 @@ static int _cclua_plugin_alipay_setDispatcher(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_plugin_alipay(lua_State *L)
 {
-    oluacls_class(L, "cclua.plugin.alipay", nullptr);
+    oluacls_class<cclua::plugin::alipay>(L, "cclua.plugin.alipay");
     oluacls_func(L, "__gc", _cclua_plugin_alipay___gc);
     oluacls_func(L, "__olua_move", _cclua_plugin_alipay___olua_move);
     oluacls_func(L, "dispatch", _cclua_plugin_alipay_dispatch);
     oluacls_func(L, "pay", _cclua_plugin_alipay_pay);
     oluacls_func(L, "setDispatcher", _cclua_plugin_alipay_setDispatcher);
-
-    olua_registerluatype<cclua::plugin::alipay>(L, "cclua.plugin.alipay");
 
     return 1;
 }

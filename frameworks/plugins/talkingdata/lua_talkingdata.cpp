@@ -461,7 +461,7 @@ static int _cclua_plugin_talkingdata_setVerboseLogDisable(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_plugin_talkingdata(lua_State *L)
 {
-    oluacls_class(L, "cclua.plugin.talkingdata", nullptr);
+    oluacls_class<cclua::plugin::talkingdata>(L, "cclua.plugin.talkingdata");
     oluacls_func(L, "__gc", _cclua_plugin_talkingdata___gc);
     oluacls_func(L, "__olua_move", _cclua_plugin_talkingdata___olua_move);
     oluacls_func(L, "backgroundSessionEnabled", _cclua_plugin_talkingdata_backgroundSessionEnabled);
@@ -489,7 +489,6 @@ OLUA_LIB int luaopen_cclua_plugin_talkingdata(lua_State *L)
     oluacls_func(L, "setVerboseLogDisable", _cclua_plugin_talkingdata_setVerboseLogDisable);
     oluacls_prop(L, "deviceId", _cclua_plugin_talkingdata_getDeviceId, nullptr);
 
-    olua_registerluatype<cclua::plugin::talkingdata>(L, "cclua.plugin.talkingdata");
     cclua::runtime::registerFeature("cclua.plugin.talkingdata.ios", true);
 
     return 1;

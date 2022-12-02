@@ -370,45 +370,6 @@ static int _olua_string___gc(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_string___index(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    olua_string *self = nullptr;
-    unsigned int arg1 = 0;       /** idx */
-
-    olua_to_object(L, 1, &self, "olua.string");
-    olua_check_integer(L, 2, &arg1);
-
-    // std::string __index(unsigned int idx)
-    std::string ret = self->__index(arg1);
-    int num_ret = olua_push_string(L, ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _olua_string___newindex(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    olua_string *self = nullptr;
-    unsigned int arg1 = 0;       /** idx */
-    std::string arg2;       /** v */
-
-    olua_to_object(L, 1, &self, "olua.string");
-    olua_check_integer(L, 2, &arg1);
-    olua_check_string(L, 3, &arg2);
-
-    // void __newindex(unsigned int idx, const std::string &v)
-    self->__newindex(arg1, arg2);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 static int _olua_string___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -425,12 +386,8 @@ static int _olua_string_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    size_t arg1 = 0;       /** len */
-
-    olua_check_integer(L, 1, &arg1);
-
-    // @postnew @name(new) static olua_string *create(@optional size_t len)
-    olua_string *ret = olua_string::create(arg1);
+    // @postnew @name(new) static olua_string *create()
+    olua_string *ret = olua_string::create();
     int num_ret = olua_push_object(L, ret, "olua.string");
 
     // insert code after call
@@ -445,8 +402,12 @@ static int _olua_string_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // @postnew @name(new) static olua_string *create(@optional size_t len)
-    olua_string *ret = olua_string::create();
+    std::string arg1;       /** v */
+
+    olua_check_string(L, 1, &arg1);
+
+    // @postnew @name(new) static olua_string *create(const std::string &v)
+    olua_string *ret = olua_string::create(arg1);
     int num_ret = olua_push_object(L, ret, "olua.string");
 
     // insert code after call
@@ -462,101 +423,18 @@ static int _olua_string_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
-        // @postnew @name(new) static olua_string *create(@optional size_t len)
-        return _olua_string_create$2(L);
+        // @postnew @name(new) static olua_string *create()
+        return _olua_string_create$1(L);
     }
 
     if (num_args == 1) {
-        // if ((olua_is_integer(L, 1))) {
-            // @postnew @name(new) static olua_string *create(@optional size_t len)
-            return _olua_string_create$1(L);
+        // if ((olua_is_string(L, 1))) {
+            // @postnew @name(new) static olua_string *create(const std::string &v)
+            return _olua_string_create$2(L);
         // }
     }
 
     luaL_error(L, "method 'olua_string::create' not support '%d' arguments", num_args);
-
-    return 0;
-}
-
-static int _olua_string_setstring(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    olua_string *self = nullptr;
-    const char *arg1 = nullptr;       /** data */
-    size_t arg2 = 0;       /** len */
-
-    olua_to_object(L, 1, &self, "olua.string");
-    olua_check_string(L, 2, &arg1);
-    olua_check_integer(L, 3, &arg2);
-
-    // void setstring(const char *data, size_t len)
-    self->setstring(arg1, arg2);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _olua_string_sub$1(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    olua_string *self = nullptr;
-    size_t arg1 = 0;       /** from */
-    size_t arg2 = 0;       /** to */
-
-    olua_to_object(L, 1, &self, "olua.string");
-    olua_check_integer(L, 2, &arg1);
-    olua_check_integer(L, 3, &arg2);
-
-    // olua_string *sub(size_t from, @optional size_t to)
-    olua_string *ret = self->sub(arg1, arg2);
-    int num_ret = olua_push_object(L, ret, "olua.string");
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _olua_string_sub$2(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    olua_string *self = nullptr;
-    size_t arg1 = 0;       /** from */
-
-    olua_to_object(L, 1, &self, "olua.string");
-    olua_check_integer(L, 2, &arg1);
-
-    // olua_string *sub(size_t from, @optional size_t to)
-    olua_string *ret = self->sub(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.string");
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _olua_string_sub(lua_State *L)
-{
-    int num_args = lua_gettop(L) - 1;
-
-    if (num_args == 1) {
-        // if ((olua_is_integer(L, 2))) {
-            // olua_string *sub(size_t from, @optional size_t to)
-            return _olua_string_sub$2(L);
-        // }
-    }
-
-    if (num_args == 2) {
-        // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_string *sub(size_t from, @optional size_t to)
-            return _olua_string_sub$1(L);
-        // }
-    }
-
-    luaL_error(L, "method 'olua_string::sub' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -578,24 +456,6 @@ static int _olua_string_take(lua_State *L)
     return num_ret;
 }
 
-static int _olua_string_tostring(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    olua_string *self = nullptr;
-    size_t arg2 = 0;       /** len */
-
-    olua_to_object(L, 1, &self, "olua.string");
-    olua_check_integer(L, 2, &arg2);
-
-    // olua_Return tostring(lua_State *L, size_t len)
-    olua_Return ret = self->tostring(L, arg2);
-
-    olua_endinvoke(L);
-
-    return (int)ret;
-}
-
 static int _olua_string_data(lua_State *L)
 {
     olua_startinvoke(L);
@@ -606,24 +466,7 @@ static int _olua_string_data(lua_State *L)
 
     // @getter @name(data) std::string *data()
     std::string *ret = self->data();
-    int num_ret = olua_push_array(L, ret, "olua.string");
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _olua_string_length(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    olua_string *self = nullptr;
-
-    olua_to_object(L, 1, &self, "olua.string");
-
-    // @getter @name(length) size_t length()
-    size_t ret = self->length();
-    int num_ret = olua_push_integer(L, ret);
+    int num_ret = olua_push_pointer(L, ret, "olua.string");
 
     olua_endinvoke(L);
 
@@ -686,16 +529,10 @@ OLUA_LIB int luaopen_olua_string(lua_State *L)
 {
     oluacls_class<olua_string>(L, "olua.string");
     oluacls_func(L, "__gc", _olua_string___gc);
-    oluacls_func(L, "__index", _olua_string___index);
-    oluacls_func(L, "__newindex", _olua_string___newindex);
     oluacls_func(L, "__olua_move", _olua_string___olua_move);
     oluacls_func(L, "new", _olua_string_create);
-    oluacls_func(L, "setstring", _olua_string_setstring);
-    oluacls_func(L, "sub", _olua_string_sub);
     oluacls_func(L, "take", _olua_string_take);
-    oluacls_func(L, "tostring", _olua_string_tostring);
     oluacls_prop(L, "data", _olua_string_data, nullptr);
-    oluacls_prop(L, "length", _olua_string_length, _olua_string_length);
     oluacls_prop(L, "rawdata", _olua_string_rawdata, nullptr);
     oluacls_prop(L, "sizeof", _olua_string_size, nullptr);
     oluacls_prop(L, "value", _olua_string_value, _olua_string_value);

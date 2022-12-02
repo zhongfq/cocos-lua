@@ -1054,6 +1054,29 @@ static int cls_const(lua_State *L)
     return 1;
 }
 
+static intptr_t aux_toenum(lua_State *L, int idx) {
+    switch(lua_type(L, idx)) {
+        case LUA_TLIGHTUSERDATA:
+            return (intptr_t)lua_touserdata(L, idx);
+        case LUA_TNUMBER:
+            return olua_checkinteger(L, idx);
+        default:
+            luaL_checktype(L, idx, LUA_TLIGHTUSERDATA);
+            break;
+    }
+    return 0;
+}
+
+static int enum_lt(lua_State *L)
+{
+    return aux_toenum(L, 1) < aux_toenum(L, 2);
+}
+
+static int enum_le(lua_State *L)
+{
+    return aux_toenum(L, 1) <= aux_toenum(L, 2);
+}
+
 static void index_super(lua_State *L, int metaclass, const char *field, int super)
 {
     olua_assert(metaclass > 0 && super > 0, "invalid index");
@@ -1100,6 +1123,15 @@ OLUA_API void oluacls_class(lua_State *L, const char *cls, const char *supercls)
             lua_insert(L, -4);
             // L: voidmeta, nil olua voidclass
             lua_pop(L, 3); // pop nil, olua and class
+
+            lua_pushlightuserdata(L, NULL);
+            luaL_newmetatable(L, "olua.enum *");
+            lua_pushcfunction(L, enum_lt);
+            olua_setfield(L, -2, "__lt");
+            lua_pushcfunction(L, enum_le);
+            olua_setfield(L, -2, "__le");
+            lua_setmetatable(L, -2);
+            lua_pop(L, 1);
         } else {
             luaL_error(L, "super class not found: %s => %s", cls, supercls);
         }

@@ -1391,7 +1391,6 @@ typedef double olua_double_t;
 typedef long double olua_ldouble_t;
 
 typedef olua::array<bool> olua_bool;
-typedef olua::array<std::string> olua_string;
 typedef olua::array<int8_t> olua_int8_t;
 typedef olua::array<uint8_t> olua_uint8_t;
 typedef olua::array<int16_t> olua_int16_t;
@@ -1415,6 +1414,7 @@ typedef olua::array<olua_double_t> olua_double;
 typedef olua::array<olua_ldouble_t> olua_ldouble;
 typedef olua::array<size_t> olua_size_t;
 typedef olua::array<ssize_t> olua_ssize_t;
+typedef olua::pointer<std::string> olua_string;
 
 template <class T> inline
 int olua_pushobj(lua_State *L, const olua::array<T> *value, const char *cls)

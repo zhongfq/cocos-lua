@@ -504,6 +504,22 @@ cocos2d::Mat4 *Mat4Extend::__mul(cocos2d::Mat4 *mat1, cocos2d::Mat4 *mat2)
     return mat;
 }
 
+olua_Return cocos2d::RectExtend::__call(lua_State *L)
+{
+    cocos2d::Rect rect;
+    
+    luaL_checktype(L, 2, LUA_TTABLE);
+
+    rect.origin.x = (float)olua_checkfieldnumber(L, 2, "x");
+    rect.origin.y = (float)olua_checkfieldnumber(L, 2, "y");
+    rect.size.width = (float)olua_checkfieldnumber(L, 2, "width");
+    rect.size.height = (float)olua_checkfieldnumber(L, 2, "height");
+    
+    olua_pushcopy_object(L, rect, olua_getluatype<cocos2d::Rect>(L));
+    
+    return 1;
+}
+
 #ifdef CCLUA_BUILD_SPINE
 using namespace spine;
 

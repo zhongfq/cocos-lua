@@ -2,17 +2,28 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_apple.h"
-#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "apple/apple.h"
 
 #ifdef CCLUA_OS_IOS
+static int _cclua_plugin_apple___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_postgc<cclua::plugin::apple>(L, 1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cclua_plugin_apple___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
     auto self = (cclua::plugin::apple *)olua_toobj(L, 1, "cclua.plugin.apple");
-    olua_push_obj(L, self, "cclua.plugin.apple");
+    olua_push_object(L, self, "cclua.plugin.apple");
 
     olua_endinvoke(L);
 
@@ -64,7 +75,7 @@ static int _cclua_plugin_apple_dispatch(lua_State *L)
     std::string arg1;       /** event */
     cocos2d::ValueMap arg2;       /** data */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_string(L, 1, &arg1);
     olua_check_cocos2d_ValueMap(L, 2, &arg2);
 
     // static void dispatch(const std::string &event, const cocos2d::ValueMap &data)
@@ -81,7 +92,7 @@ static int _cclua_plugin_apple_finishTransaction(lua_State *L)
 
     std::string arg1;       /** tid */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_string(L, 1, &arg1);
 
     // static void finishTransaction(const std::string &tid)
     cclua::plugin::apple::finishTransaction(arg1);
@@ -97,7 +108,7 @@ static int _cclua_plugin_apple_getPendingTransactions(lua_State *L)
 
     // static cocos2d::ValueVector getPendingTransactions()
     cocos2d::ValueVector ret = cclua::plugin::apple::getPendingTransactions();
-    int num_ret = olua_push_cocos2d_ValueVector(L, &ret);
+    int num_ret = olua_push_cocos2d_ValueVector(L, ret);
 
     olua_endinvoke(L);
 
@@ -109,13 +120,13 @@ static int _cclua_plugin_apple_purchase$1(lua_State *L)
     olua_startinvoke(L);
 
     std::string arg1;       /** product */
-    lua_Unsigned arg2 = 0;       /** quantify */
+    uint32_t arg2 = 0;       /** quantify */
 
-    olua_check_std_string(L, 1, &arg1);
-    olua_check_uint(L, 2, &arg2);
+    olua_check_string(L, 1, &arg1);
+    olua_check_integer(L, 2, &arg2);
 
     // static void purchase(const std::string &product, @optional uint32_t quantify)
-    cclua::plugin::apple::purchase(arg1, (uint32_t)arg2);
+    cclua::plugin::apple::purchase(arg1, arg2);
 
     olua_endinvoke(L);
 
@@ -128,7 +139,7 @@ static int _cclua_plugin_apple_purchase$2(lua_State *L)
 
     std::string arg1;       /** product */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_string(L, 1, &arg1);
 
     // static void purchase(const std::string &product, @optional uint32_t quantify)
     cclua::plugin::apple::purchase(arg1);
@@ -143,14 +154,14 @@ static int _cclua_plugin_apple_purchase(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if ((olua_is_std_string(L, 1))) {
+        // if ((olua_is_string(L, 1))) {
             // static void purchase(const std::string &product, @optional uint32_t quantify)
             return _cclua_plugin_apple_purchase$2(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_uint(L, 2))) {
+        // if ((olua_is_string(L, 1)) && (olua_is_integer(L, 2))) {
             // static void purchase(const std::string &product, @optional uint32_t quantify)
             return _cclua_plugin_apple_purchase$1(L);
         // }
@@ -167,8 +178,8 @@ static int _cclua_plugin_apple_requestProducts(lua_State *L)
 
     std::set<std::string> arg1;       /** products */
 
-    olua_check_array<std::string>(L, 1, &arg1, [L](std::string *value) {
-        olua_check_std_string(L, -1, value);
+    olua_check_vector<std::string>(L, 1, arg1, [L](std::string *arg1) {
+        olua_check_string(L, -1, arg1);
     });
 
     // static void requestProducts(const std::set<std::string> &products)
@@ -185,7 +196,7 @@ static int _cclua_plugin_apple_restoreTransactions$1(lua_State *L)
 
     std::string arg1;       /** appUsername */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_string(L, 1, &arg1);
 
     // static void restoreTransactions(@optional const std::string &appUsername)
     cclua::plugin::apple::restoreTransactions(arg1);
@@ -217,7 +228,7 @@ static int _cclua_plugin_apple_restoreTransactions(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if ((olua_is_std_string(L, 1))) {
+        // if ((olua_is_string(L, 1))) {
             // static void restoreTransactions(@optional const std::string &appUsername)
             return _cclua_plugin_apple_restoreTransactions$1(L);
         // }
@@ -248,8 +259,8 @@ static int _cclua_plugin_apple_setDispatcher(lua_State *L)
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_std_string(L, arg1);
-            olua_push_cocos2d_Value(L, &arg2);
+            olua_push_string(L, arg1);
+            olua_push_cocos2d_Value(L, arg2);
             olua_disable_objpool(L);
 
             olua_callback(L, cb_store, cb_name.c_str(), 2);
@@ -271,7 +282,8 @@ static int _cclua_plugin_apple_setDispatcher(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_plugin_apple(lua_State *L)
 {
-    oluacls_class(L, "cclua.plugin.apple", nullptr);
+    oluacls_class<cclua::plugin::apple>(L, "cclua.plugin.apple");
+    oluacls_func(L, "__gc", _cclua_plugin_apple___gc);
     oluacls_func(L, "__olua_move", _cclua_plugin_apple___olua_move);
     oluacls_func(L, "auth", _cclua_plugin_apple_auth);
     oluacls_func(L, "canMakeAuth", _cclua_plugin_apple_canMakeAuth);
@@ -285,7 +297,6 @@ OLUA_LIB int luaopen_cclua_plugin_apple(lua_State *L)
     oluacls_func(L, "setDispatcher", _cclua_plugin_apple_setDispatcher);
     oluacls_prop(L, "pendingTransactions", _cclua_plugin_apple_getPendingTransactions, nullptr);
 
-    olua_registerluatype<cclua::plugin::apple>(L, "cclua.plugin.apple");
     cclua::runtime::registerFeature("cclua.plugin.apple.ios", true);
 
     return 1;

@@ -1,6 +1,6 @@
-local font          = require "cclua.font"
-local Align         = require "cclua.ui.Align"
-local TouchStyle    = require "cclua.ui.TouchStyle"
+local font                  = require "cclua.font"
+local Align                 = require "cclua.ui.Align"
+local TouchStyle            = require "cclua.ui.TouchStyle"
 
 local assert = assert
 
@@ -213,7 +213,7 @@ local function UILayer(self, data)
     end
 
     if self.cobj.setBackGroundColorType then
-        self.cobj:setBackGroundColorType(data.colorType or 0)
+        self.cobj:setBackGroundColorType(olua.enum(data.colorType or 0))
         self.cobj:setBackGroundColorOpacity((data.colorAlpha or 1) * 255)
         self.cobj:setBackGroundColor(self.color)
     end

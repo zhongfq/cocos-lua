@@ -2,7 +2,7 @@
 // AUTO BUILD, DON'T MODIFY!
 //
 #include "lua_wechat.h"
-#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "wechat/wechat.h"
 
@@ -10,17 +10,15 @@
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_plugin_wechat_ShareType(lua_State *L)
 {
-    oluacls_class(L, "cclua.plugin.wechat.ShareType", nullptr);
+    oluacls_class<cclua::plugin::wechat::ShareType>(L, "cclua.plugin.wechat.ShareType");
     oluacls_func(L, "__index", olua_indexerror);
     oluacls_func(L, "__newindex", olua_newindexerror);
-    oluacls_const_integer(L, "IMAGE", (lua_Integer)cclua::plugin::wechat::ShareType::IMAGE);
-    oluacls_const_integer(L, "MUSIC", (lua_Integer)cclua::plugin::wechat::ShareType::MUSIC);
-    oluacls_const_integer(L, "NONE", (lua_Integer)cclua::plugin::wechat::ShareType::NONE);
-    oluacls_const_integer(L, "TEXT", (lua_Integer)cclua::plugin::wechat::ShareType::TEXT);
-    oluacls_const_integer(L, "VIDEO", (lua_Integer)cclua::plugin::wechat::ShareType::VIDEO);
-    oluacls_const_integer(L, "WEB", (lua_Integer)cclua::plugin::wechat::ShareType::WEB);
-
-    olua_registerluatype<cclua::plugin::wechat::ShareType>(L, "cclua.plugin.wechat.ShareType");
+    oluacls_enum(L, "IMAGE", (lua_Integer)cclua::plugin::wechat::ShareType::IMAGE);
+    oluacls_enum(L, "MUSIC", (lua_Integer)cclua::plugin::wechat::ShareType::MUSIC);
+    oluacls_enum(L, "NONE", (lua_Integer)cclua::plugin::wechat::ShareType::NONE);
+    oluacls_enum(L, "TEXT", (lua_Integer)cclua::plugin::wechat::ShareType::TEXT);
+    oluacls_enum(L, "VIDEO", (lua_Integer)cclua::plugin::wechat::ShareType::VIDEO);
+    oluacls_enum(L, "WEB", (lua_Integer)cclua::plugin::wechat::ShareType::WEB);
 
     return 1;
 }
@@ -31,14 +29,12 @@ OLUA_END_DECLS
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_plugin_wechat_ProgramType(lua_State *L)
 {
-    oluacls_class(L, "cclua.plugin.wechat.ProgramType", nullptr);
+    oluacls_class<cclua::plugin::wechat::ProgramType>(L, "cclua.plugin.wechat.ProgramType");
     oluacls_func(L, "__index", olua_indexerror);
     oluacls_func(L, "__newindex", olua_newindexerror);
-    oluacls_const_integer(L, "PREVIEW", (lua_Integer)cclua::plugin::wechat::ProgramType::PREVIEW);
-    oluacls_const_integer(L, "RELEASE", (lua_Integer)cclua::plugin::wechat::ProgramType::RELEASE);
-    oluacls_const_integer(L, "TEST", (lua_Integer)cclua::plugin::wechat::ProgramType::TEST);
-
-    olua_registerluatype<cclua::plugin::wechat::ProgramType>(L, "cclua.plugin.wechat.ProgramType");
+    oluacls_enum(L, "PREVIEW", (lua_Integer)cclua::plugin::wechat::ProgramType::PREVIEW);
+    oluacls_enum(L, "RELEASE", (lua_Integer)cclua::plugin::wechat::ProgramType::RELEASE);
+    oluacls_enum(L, "TEST", (lua_Integer)cclua::plugin::wechat::ProgramType::TEST);
 
     return 1;
 }
@@ -46,12 +42,23 @@ OLUA_END_DECLS
 #endif
 
 #ifdef CCLUA_BUILD_WECHAT
+static int _cclua_plugin_wechat___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    olua_postgc<cclua::plugin::wechat>(L, 1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cclua_plugin_wechat___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
     auto self = (cclua::plugin::wechat *)olua_toobj(L, 1, "cclua.plugin.wechat");
-    olua_push_obj(L, self, "cclua.plugin.wechat");
+    olua_push_object(L, self, "cclua.plugin.wechat");
 
     olua_endinvoke(L);
 
@@ -65,8 +72,8 @@ static int _cclua_plugin_wechat_auth(lua_State *L)
     std::string arg1;       /** scope */
     std::string arg2;       /** state */
 
-    olua_check_std_string(L, 1, &arg1);
-    olua_check_std_string(L, 2, &arg2);
+    olua_check_string(L, 1, &arg1);
+    olua_check_string(L, 2, &arg2);
 
     // static void auth(const std::string &scope, const std::string &state)
     cclua::plugin::wechat::auth(arg1, arg2);
@@ -86,11 +93,11 @@ static int _cclua_plugin_wechat_authQRCode(lua_State *L)
     std::string arg4;       /** scope */
     std::string arg5;       /** signature */
 
-    olua_check_std_string(L, 1, &arg1);
-    olua_check_std_string(L, 2, &arg2);
-    olua_check_std_string(L, 3, &arg3);
-    olua_check_std_string(L, 4, &arg4);
-    olua_check_std_string(L, 5, &arg5);
+    olua_check_string(L, 1, &arg1);
+    olua_check_string(L, 2, &arg2);
+    olua_check_string(L, 3, &arg3);
+    olua_check_string(L, 4, &arg4);
+    olua_check_string(L, 5, &arg5);
 
     // static void authQRCode(const std::string &appid, const std::string &nonceStr, const std::string &timestamp, const std::string &scope, const std::string &signature)
     cclua::plugin::wechat::authQRCode(arg1, arg2, arg3, arg4, arg5);
@@ -107,7 +114,7 @@ static int _cclua_plugin_wechat_dispatch(lua_State *L)
     std::string arg1;       /** event */
     cocos2d::ValueMap arg2;       /** data */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_string(L, 1, &arg1);
     olua_check_cocos2d_ValueMap(L, 2, &arg2);
 
     // static void dispatch(const std::string &event, const cocos2d::ValueMap &data)
@@ -125,8 +132,8 @@ static int _cclua_plugin_wechat_init(lua_State *L)
     std::string arg1;       /** appid */
     std::string arg2;       /** universalLink */
 
-    olua_check_std_string(L, 1, &arg1);
-    olua_check_std_string(L, 2, &arg2);
+    olua_check_string(L, 1, &arg1);
+    olua_check_string(L, 2, &arg2);
 
     // static void init(const std::string &appid, const std::string &universalLink)
     cclua::plugin::wechat::init(arg1, arg2);
@@ -155,14 +162,14 @@ static int _cclua_plugin_wechat_open$1(lua_State *L)
 
     std::string arg1;       /** username */
     std::string arg2;       /** path */
-    lua_Unsigned arg3 = 0;       /** type */
+    cclua::plugin::wechat::ProgramType arg3 = (cclua::plugin::wechat::ProgramType)0;       /** type */
 
-    olua_check_std_string(L, 1, &arg1);
-    olua_check_std_string(L, 2, &arg2);
-    olua_check_uint(L, 3, &arg3);
+    olua_check_string(L, 1, &arg1);
+    olua_check_string(L, 2, &arg2);
+    olua_check_enum(L, 3, &arg3);
 
     // static void open(const std::string &username, @optional const std::string &path, @optional cclua::plugin::wechat::ProgramType type)
-    cclua::plugin::wechat::open(arg1, arg2, (cclua::plugin::wechat::ProgramType)arg3);
+    cclua::plugin::wechat::open(arg1, arg2, arg3);
 
     olua_endinvoke(L);
 
@@ -175,7 +182,7 @@ static int _cclua_plugin_wechat_open$2(lua_State *L)
 
     std::string arg1;       /** username */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_string(L, 1, &arg1);
 
     // static void open(const std::string &username, @optional const std::string &path, @optional cclua::plugin::wechat::ProgramType type)
     cclua::plugin::wechat::open(arg1);
@@ -192,8 +199,8 @@ static int _cclua_plugin_wechat_open$3(lua_State *L)
     std::string arg1;       /** username */
     std::string arg2;       /** path */
 
-    olua_check_std_string(L, 1, &arg1);
-    olua_check_std_string(L, 2, &arg2);
+    olua_check_string(L, 1, &arg1);
+    olua_check_string(L, 2, &arg2);
 
     // static void open(const std::string &username, @optional const std::string &path, @optional cclua::plugin::wechat::ProgramType type)
     cclua::plugin::wechat::open(arg1, arg2);
@@ -208,21 +215,21 @@ static int _cclua_plugin_wechat_open(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if ((olua_is_std_string(L, 1))) {
+        // if ((olua_is_string(L, 1))) {
             // static void open(const std::string &username, @optional const std::string &path, @optional cclua::plugin::wechat::ProgramType type)
             return _cclua_plugin_wechat_open$2(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
+        // if ((olua_is_string(L, 1)) && (olua_is_string(L, 2))) {
             // static void open(const std::string &username, @optional const std::string &path, @optional cclua::plugin::wechat::ProgramType type)
             return _cclua_plugin_wechat_open$3(L);
         // }
     }
 
     if (num_args == 3) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+        // if ((olua_is_string(L, 1)) && (olua_is_string(L, 2)) && (olua_is_enum(L, 3))) {
             // static void open(const std::string &username, @optional const std::string &path, @optional cclua::plugin::wechat::ProgramType type)
             return _cclua_plugin_wechat_open$1(L);
         // }
@@ -240,8 +247,8 @@ static int _cclua_plugin_wechat_openCustomerService(lua_State *L)
     std::string arg1;       /** corpid */
     std::string arg2;       /** url */
 
-    olua_check_std_string(L, 1, &arg1);
-    olua_check_std_string(L, 2, &arg2);
+    olua_check_string(L, 1, &arg1);
+    olua_check_string(L, 2, &arg2);
 
     // static void openCustomerService(const std::string &corpid, const std::string &url)
     cclua::plugin::wechat::openCustomerService(arg1, arg2);
@@ -263,12 +270,12 @@ static int _cclua_plugin_wechat_pay(lua_State *L)
     std::string arg5;       /** packageValue */
     std::string arg6;       /** sign */
 
-    olua_check_std_string(L, 1, &arg1);
-    olua_check_std_string(L, 2, &arg2);
-    olua_check_std_string(L, 3, &arg3);
-    olua_check_std_string(L, 4, &arg4);
-    olua_check_std_string(L, 5, &arg5);
-    olua_check_std_string(L, 6, &arg6);
+    olua_check_string(L, 1, &arg1);
+    olua_check_string(L, 2, &arg2);
+    olua_check_string(L, 3, &arg3);
+    olua_check_string(L, 4, &arg4);
+    olua_check_string(L, 5, &arg5);
+    olua_check_string(L, 6, &arg6);
 
     // static void pay(const std::string &partnerId, const std::string &prepayId, const std::string &noncestr, const std::string &timestamp, const std::string &packageValue, const std::string &sign)
     cclua::plugin::wechat::pay(arg1, arg2, arg3, arg4, arg5, arg6);
@@ -299,8 +306,8 @@ static int _cclua_plugin_wechat_setDispatcher(lua_State *L)
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_std_string(L, arg1);
-            olua_push_cocos2d_Value(L, &arg2);
+            olua_push_string(L, arg1);
+            olua_push_cocos2d_Value(L, arg2);
             olua_disable_objpool(L);
 
             olua_callback(L, cb_store, cb_name.c_str(), 2);
@@ -323,14 +330,14 @@ static int _cclua_plugin_wechat_share(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_Unsigned arg1 = 0;       /** type */
-    cocos2d::ValueMap arg2;       /** value */
+    cclua::plugin::wechat::ShareType arg1 = (cclua::plugin::wechat::ShareType)0;       /** type */
+    cocos2d::ValueMap *arg2 = nullptr;       /** value */
 
-    olua_check_uint(L, 1, &arg1);
-    olua_check_cocos2d_ValueMap(L, 2, &arg2);
+    olua_check_enum(L, 1, &arg1);
+    olua_check_pointer(L, 2, &arg2, "cc.ValueMap");
 
     // static void share(cclua::plugin::wechat::ShareType type, cocos2d::ValueMap &value)
-    cclua::plugin::wechat::share((cclua::plugin::wechat::ShareType)arg1, arg2);
+    cclua::plugin::wechat::share(arg1, *arg2);
 
     olua_endinvoke(L);
 
@@ -356,7 +363,8 @@ static int _cclua_plugin_wechat_stopAuth(lua_State *L)
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_plugin_wechat(lua_State *L)
 {
-    oluacls_class(L, "cclua.plugin.wechat", nullptr);
+    oluacls_class<cclua::plugin::wechat>(L, "cclua.plugin.wechat");
+    oluacls_func(L, "__gc", _cclua_plugin_wechat___gc);
     oluacls_func(L, "__olua_move", _cclua_plugin_wechat___olua_move);
     oluacls_func(L, "auth", _cclua_plugin_wechat_auth);
     oluacls_func(L, "authQRCode", _cclua_plugin_wechat_authQRCode);
@@ -373,7 +381,6 @@ OLUA_LIB int luaopen_cclua_plugin_wechat(lua_State *L)
     oluacls_func(L, "stopAuth", _cclua_plugin_wechat_stopAuth);
     oluacls_prop(L, "installed", _cclua_plugin_wechat_isInstalled, nullptr);
 
-    olua_registerluatype<cclua::plugin::wechat>(L, "cclua.plugin.wechat");
     cclua::runtime::registerFeature("cclua.plugin.wechat.ios", true);
 
     return 1;

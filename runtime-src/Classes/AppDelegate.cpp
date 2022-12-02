@@ -128,31 +128,31 @@ USING_NS_CCLUA;
 static int _open_plugins(lua_State *L)
 {
 #if COCOS2D_VERSION >= 0x00040000
-    olua_callfunc(L, luaopen_cocos2d_3d);
+    olua_import(L, luaopen_cocos2d_3d);
 #endif
     
 #ifdef CCLUA_BUILD_COCOSSTUDIO
-    olua_callfunc(L, luaopen_cocos2d_studio);
+    olua_import(L, luaopen_cocos2d_studio);
 #endif
     
 #ifdef CCLUA_BUILD_DRAGONBONES
-    olua_callfunc(L, luaopen_dragonbones);
+    olua_import(L, luaopen_dragonbones);
 #endif
 
 #ifdef CCLUA_BUILD_FAIRYGUI
-    olua_callfunc(L, luaopen_fairygui);
+    olua_import(L, luaopen_fairygui);
 #endif
 
 #ifdef CCLUA_BUILD_SPINE
-	olua_callfunc(L, luaopen_spine);
+    olua_import(L, luaopen_spine);
 #endif
     
 #ifdef CCLUA_BUILD_BOX2D
-    olua_callfunc(L, luaopen_box2d);
+    olua_import(L, luaopen_box2d);
 #endif
     
 #ifdef CCLUA_BUILD_SWF
-    olua_callfunc(L, luaopen_swf);
+    olua_import(L, luaopen_swf);
 #endif
     
     olua_require(L, "openssl", luaopen_openssl);
@@ -164,7 +164,7 @@ static int _open_plugins(lua_State *L)
 #ifdef CCLUA_BUILD_LUASOCKET
     olua_require(L, "socket.core", luaopen_socket_core);
     olua_require(L, "mime.core", luaopen_mime_core);
-    olua_callfunc(L, luaopen_luasocket_scripts);
+    olua_import(L, luaopen_luasocket_scripts);
 #endif // CCLUA_BUILD_LUASOCKET
 
 #ifdef CCLUA_BUILD_SPROTO
@@ -180,35 +180,35 @@ static int _open_plugins(lua_State *L)
 #endif // CCLUA_BUILD_PBC
     
 #if defined(CCLUA_BUILD_JPUSH) || defined(CCLUA_BUILD_JANALYTICS) || defined(CCLUA_BUILD_JAUTH)
-    olua_callfunc(L, luaopen_jiguang);
+    olua_import(L, luaopen_jiguang);
 #endif
     
 #ifdef CCLUA_BUILD_TALKINGDATA
-    olua_callfunc(L, luaopen_talkingdata);
+    olua_import(L, luaopen_talkingdata);
 #endif
     
 #ifdef CCLUA_BUILD_WECHAT
-    olua_callfunc(L, luaopen_wechat);
+    olua_import(L, luaopen_wechat);
 #endif
     
 #ifdef CCLUA_BUILD_ALIPAY
-    olua_callfunc(L, luaopen_alipay);
+    olua_import(L, luaopen_alipay);
 #endif
     
 #ifdef CCLUA_BUILD_HUAWEI
-    olua_callfunc(L, luaopen_huawei);
+    olua_import(L, luaopen_huawei);
 #endif
 
 #ifdef CCLUA_BUILD_OPPO
-    olua_callfunc(L, luaopen_oppo);
+    olua_import(L, luaopen_oppo);
 #endif
 
 #ifdef CCLUA_BUILD_VIVO
-    olua_callfunc(L, luaopen_vivo);
+    olua_import(L, luaopen_vivo);
 #endif
     
 #ifdef CCLUA_OS_IOS
-    olua_callfunc(L, luaopen_apple);
+    olua_import(L, luaopen_apple);
 #endif
     return 0;
 }

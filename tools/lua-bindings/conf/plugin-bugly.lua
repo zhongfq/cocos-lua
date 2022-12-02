@@ -3,7 +3,7 @@ module 'bugly'
 path "../../frameworks/libxgame/src/bugly"
 
 headers [[
-#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "bugly/CrashReport.h"
 ]]

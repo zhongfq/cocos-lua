@@ -149,7 +149,7 @@ static void _table_to_dictionary(lua_State *L, NSMutableDictionary *dict, int id
                 }
                 break;
             case LUA_TBOOLEAN:
-                [dict setObject:[NSNumber numberWithBool:olua_toboolean(L, -1)] forKey:key2];
+                [dict setObject:[NSNumber numberWithBool:olua_tobool(L, -1)] forKey:key2];
                 break;
             case LUA_TSTRING:
                 [dict setObject:[NSString stringWithUTF8String:olua_tostring(L, -1)] forKey:key2];
@@ -168,7 +168,7 @@ static void _set_argument(lua_State *L, NSMethodSignature *methodSig, NSInvocati
     const char *type = [methodSig getArgumentTypeAtIndex:arg];
     if (is(BOOL))
     {
-        BOOL value = (BOOL)olua_checkboolean(L, idx);
+        BOOL value = (BOOL)olua_checkbool(L, idx);
         [invocation setArgument:&value atIndex:arg];
     }
     else if (is(char))

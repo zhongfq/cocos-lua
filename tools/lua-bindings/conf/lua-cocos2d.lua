@@ -3,7 +3,7 @@ module 'cocos2d'
 path '../../frameworks/libxgame/src/lua-bindings'
 
 headers [[
-#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "audio/include/AudioEngine.h"
 #include "cocos2d.h"
@@ -29,32 +29,11 @@ luacls(function (cppname)
     end
 end)
 
-typedef 'cocos2d::Data'
-typedef 'cocos2d::Mat4'
-typedef 'cocos2d::Vector'
-    .conv 'olua_$$_array'
-typedef 'cocos2d::Color3B'
-typedef 'cocos2d::Color4B'
-typedef 'cocos2d::Color4F'
-typedef 'cocos2d::Value'
-typedef 'cocos2d::ValueMap'
-typedef 'cocos2d::ValueMapIntKey'
-typedef 'cocos2d::ValueVector'
-typedef 'cocos2d::Map'
-    .conv 'olua_$$_map'
-typedef 'cocos2d::network::WebSocket::Data'
-typedef 'cocos2d::Bounds'
-typedef 'cocos2d::Rect'
-    .vars '4'
-
-typedef 'cocos2d::EventListener::ListenerID'
-    .decltype 'std::string'
-
-typeconf 'cocos2d::Mat4'
-    .extend 'cocos2d::Mat4Extend'
-    .exclude 'm'
-    .exclude 'ZERO'
-    .exclude 'IDENTITY'
+-- typedef 'cocos2d::Bounds'
+--     .packable 'true'
+--     .conv 'olua_$$_object'
+--     .vars '4'
+--     .luacls ''
 
 typeconf 'cocos2d::RenderTargetFlag'
 typeconf 'cocos2d::ClearFlag'
@@ -114,7 +93,7 @@ typeconf 'cocos2d::Scheduler'
                 auto self = olua_checkobj<cocos2d::Scheduler>(L, 1);
                 auto target = olua_checkobj<T>(L, 2);
                 lua_Integer priority = olua_checkinteger(L, 3);
-                bool paused = olua_checkboolean(L, 4);
+                bool paused = olua_checkbool(L, 4);
                 self->scheduleUpdate(target, (int)priority, paused);
                 return true;
             }
@@ -187,7 +166,7 @@ typeconf 'cocos2d::EventDispatcher'
             bool recursive = false;
             auto node = olua_checkobj<cocos2d::Node>(L, 2);
             if (lua_gettop(L) >= 3) {
-                recursive = olua_toboolean(L, 3);
+                recursive = olua_tobool(L, 3);
             }
             doRemoveEventListenersForTarget(L, node, recursive, "listeners");
         ]]
@@ -195,7 +174,7 @@ typeconf 'cocos2d::EventDispatcher'
         .snippet [[
         {
             lua_settop(L, 2);
-            olua_push_int(L, 1);
+            olua_pushinteger(L, 1);
             return _cocos2d_EventDispatcher_addEventListenerWithFixedPriority(L);
         }]]
     .callback 'addCustomEventListener'
@@ -316,7 +295,6 @@ typeconf 'cocos2d::FileUtils::Status'
 
 typeconf 'cocos2d::FileUtils'
     .extend 'cocos2d::FileUtilsExtend'
-    .func 'listFilesRecursively' .arg2 '@ret'
     .callback "getStringFromFile" .tag_scope 'once' .tag_mode 'new'
     .callback "getDataFromFile" .tag_scope 'once' .tag_mode 'new'
     .callback "writeStringToFile" .tag_scope 'once' .tag_mode 'new'
@@ -702,7 +680,6 @@ typeconf 'cocos2d::TMXTileFlags'
 typeconf 'cocos2d::TMXObjectGroup'
 
 typeconf 'cocos2d::TMXLayer'
-    .func 'getTileGIDAt' .arg2 '@ret'
 
 typeconf 'cocos2d::TMXLayerInfo'
 typeconf 'cocos2d::TMXMapInfo'
@@ -711,7 +688,6 @@ typeconf 'cocos2d::TMXTiledMap'
 typeconf 'cocos2d::FastTMXTiledMap'
 
 typeconf 'cocos2d::FastTMXLayer'
-    .func 'getTileGIDAt' .arg2 '@ret'
 
 macro '#if CC_USE_NAVMESH'
 typeconf 'cocos2d::NavMeshAgent::NavMeshAgentSyncFlag'

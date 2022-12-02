@@ -3,7 +3,7 @@ module 'cocos2d_studio'
 path '../../frameworks/libxgame/src/lua-bindings'
 
 headers [[
-#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cocos2d.h"
 #include "editor-support/cocostudio/CocoStudio.h"
@@ -35,16 +35,15 @@ luacls(function (cppname)
     return cppname
 end)
 
-excludeany 'cocos2d::ObjectFactory::TInfo'
-excludeany 'cocos2d::ObjectFactory::Instance'
-excludeany 'cocostudio::DataReaderHelper::DataInfo'
-excludeany 'cocostudio::stExpCocoNode'
-excludeany 'flatbuffers::NodeTree'
-excludeany 'rapidjson::Value'
-excludeany 'cocostudio::SEL_ParseEvent'
+excludetype 'cocos2d::ObjectFactory::TInfo'
+excludetype 'cocos2d::ObjectFactory::Instance'
+excludetype 'cocostudio::DataReaderHelper::DataInfo'
+excludetype 'cocostudio::stExpCocoNode'
+excludetype 'flatbuffers::NodeTree'
+excludetype 'rapidjson::Value'
+excludetype 'cocostudio::SEL_ParseEvent'
 
-typeconv 'cocostudio::timeline::AnimationInfo'
-    .exclude 'clipEndCallBack'
+typeconf 'cocostudio::timeline::AnimationInfo'
 
 typeconf "cocos2d::CSLoader"
     .callback 'createNode'

@@ -3,7 +3,7 @@ module 'cocos2d_action'
 path '../../frameworks/libxgame/src/lua-bindings'
 
 headers [[
-#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cocos2d.h"
 ]]

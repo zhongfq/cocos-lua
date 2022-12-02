@@ -3,7 +3,7 @@ module 'box2d'
 path '../../frameworks/libxgame/src/lua-bindings'
 
 headers [[
-#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "box2d/box2d.h"
 #include "box2d/box2d-2dx.h"
@@ -20,17 +20,6 @@ local namemap = {
 
 luaopen [[cclua::runtime::registerFeature("box2d", true);]]
 
-chunk [[
-int olua_push_b2MassData(lua_State *L, const b2MassData *value)
-{
-    b2MassData *ret = new b2MassData();
-    *ret = *value;
-    olua_pushobj<b2MassData>(L, ret);
-    olua_postnew(L, ret);
-    return 1;
-}
-]]
-
 luacls(function (cppname)
     if namemap[cppname] then
         return namemap[cppname]
@@ -41,7 +30,7 @@ luacls(function (cppname)
     return cppname
 end)
 
-excludeany 'b2BlockAllocator'
+excludetype 'b2BlockAllocator'
 
 local _typeconf = typeconf
 local function typeconf(...)
@@ -59,18 +48,15 @@ local function typeconf(...)
     return cls
 end
 
-typedef 'b2MassData'
-    .conv 'olua_$$_b2MassData'
-
-typeconv 'b2Vec2'
-typeconv 'b2Vec3'
-typeconv 'b2ContactID'
-typeconv 'b2ContactFeature'
-typeconv 'b2Color'
-typeconv 'b2FixtureUserData'
-typeconv 'b2Filter'
-typeconv 'b2ManifoldPoint'
-typeconv 'b2Rot'
+typeconf 'b2Vec2'
+typeconf 'b2Vec3'
+typeconf 'b2ContactID'
+typeconf 'b2ContactFeature'
+typeconf 'b2Color'
+typeconf 'b2FixtureUserData'
+typeconf 'b2Filter'
+typeconf 'b2ManifoldPoint'
+typeconf 'b2Rot'
 
 typeconf 'b2Draw'
     .exclude '*'
@@ -79,7 +65,7 @@ typeonly 'b2ContactFilter'
 typeonly 'b2ContactListener'
 typeonly 'b2QueryCallback'
 typeonly 'b2RayCastCallback'
-typeconf 'box2d::Vec2'
+typeconf 'box2d::Vec2Array'
 typeconf 'box2d::DestructionListener'
 typeconf 'box2d::ContactFilter'
 typeconf 'box2d::ContactListener'

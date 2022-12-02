@@ -3,7 +3,7 @@ module 'fairygui'
 path "../../frameworks/libxgame/src/lua-bindings"
 
 headers [[
-#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "FairyGUI.h"
 #include "GLoader3D.h"
@@ -40,15 +40,16 @@ luacls(function (cppname)
     return cppname
 end)
 
-excludeany 'fairygui::ByteBuffer'
-excludeany 'fairygui::GObjectPool'
+excludetype 'fairygui::ByteBuffer'
+excludetype 'fairygui::GObjectPool'
 
 typedef 'fairygui::EventTag'
 
-typeconv 'fairygui::Margin'
-typeconv 'fairygui::HtmlParseOptions'
+typeconf 'fairygui::VectorTreeNode'
+typeconf 'fairygui::Margin'
+typeconf 'fairygui::HtmlParseOptions'
 
-typeconv 'fairygui::TweenValue'
+typeconf 'fairygui::TweenValue'
     .var '*' .optional 'true'
 
 typeconf 'fairygui::UIEventType'
@@ -220,6 +221,7 @@ typeconf 'fairygui::GComponent'
         static int _fairygui_GComponent_getChild(lua_State *L);
     ]]
     .exclude 'getChildByPath'
+    .exclude 'constructFromResource'
     .alias 'resolve' .to 'getChildByPath'
     .func 'addChild' .arg1 '@addref(children |)'
     .func 'addChildAt' .arg1 '@addref(children |)'
@@ -355,11 +357,11 @@ typeconf 'fairygui::GGraph'
             std::vector<cocos2d::Vec2> points;
 
             self = olua_toobj<fairygui::GGraph>(L, 1);
-            olua_check_int(L, 2, &lineSize);
+            olua_check_integer(L, 2, &lineSize);
             olua_check_cocos2d_Color4F(L, 3, &lineColor);
             olua_check_cocos2d_Color4F(L, 4, &fillColor);
-            olua_check_array<cocos2d::Vec2>(L, 5, &points, [L](cocos2d::Vec2 *value) {
-                olua_check_cocos2d_Vec2(L, -1, value);
+            olua_check_vector<cocos2d::Vec2>(L, 5, points, [L](cocos2d::Vec2 *value) {
+                olua_check_object(L, -1, value, olua_getluatype<cocos2d::Vec2>(L));
             });
 
             self->drawPolygon((int)lineSize, lineColor, fillColor, points.size() ? &points[0] : nullptr, (int)points.size());
@@ -379,10 +381,10 @@ typeconf 'fairygui::GGraph'
             std::vector<float> distances;
 
             self = olua_toobj<fairygui::GGraph>(L, 1);
-            olua_check_int(L, 2, &lineSize);
+            olua_check_integer(L, 2, &lineSize);
             olua_check_cocos2d_Color4F(L, 3, &lineColor);
             olua_check_cocos2d_Color4F(L, 4, &fillColor);
-            olua_check_int(L, 5, &sides);
+            olua_check_integer(L, 5, &sides);
 
             if (num_args == 4) {
                 self->drawRegularPolygon((int)lineSize, lineColor, fillColor, (int)sides);
@@ -391,7 +393,7 @@ typeconf 'fairygui::GGraph'
                 self->drawRegularPolygon((int)lineSize, lineColor, fillColor, (int)sides, (float)startAngle);
             } else {
                 olua_check_number(L, 6, &startAngle);
-                olua_check_array<float>(L, 7, &distances, [L](float *value) {
+                olua_check_vector<float>(L, 7, distances, [L](float *value) {
                     *value = (float)olua_checknumber(L, -1);
                 });
                 self->drawRegularPolygon((int)lineSize, lineColor, fillColor, (int)sides, (float)startAngle, distances.size() ? &distances[0] : nullptr, (int)distances.size());
@@ -424,7 +426,6 @@ typeconf 'fairygui::GList'
     .func 'setVirtual' .ret '@delref(children ~)'
     .func 'setVirtualAndLoop' .ret '@delref(children ~)'
     .func 'setNumItems' .ret '@delref(children ~)'
-    .func 'getSelection' .arg1 '@ret'
     .callback 'itemRenderer' .localvar 'false'
         .insert_cbefore [[
             olua_pushobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
@@ -483,11 +484,27 @@ typeconf 'fairygui::PopupMenu'
         .insert_before(push_popup_menu_parent)
 
 typeconf 'fairygui::Relations'
+    .func 'copyFrom'
+        .snippet [[
+        {
+            fairygui::Relations *self = olua_toobj<fairygui::Relations>(L, 1);
+            fairygui::Relations &source = *olua_checkobj<fairygui::Relations>(L, 2);
+            self->copyFrom(source);
+            return 0;
+        }]]
 typeconf 'fairygui::RelationType'
 
 typeconf 'fairygui::RelationItem'
     .func 'getTarget' .ret '@addref(^)'
     .func 'setTarget' .arg1 '@addref(^)'
+    .func 'copyFrom'
+        .snippet [[
+        {
+            fairygui::RelationItem *self = olua_toobj<fairygui::RelationItem>(L, 1);
+            fairygui::RelationItem &source = *olua_checkobj<fairygui::RelationItem>(L, 2);
+            self->copyFrom(source);
+            return 0;
+        }]]
 
 typeconf 'fairygui::ScrollPane'
     .func 'getOwner' .ret '@addref(^)'
@@ -589,7 +606,7 @@ typeconf 'fairygui::GTree'
     .func 'getList' .ret '@addref(^)'
     .func 'getRootNode' .ret '@addref(^)'
     .func 'getSelectedNode' .ret '@addref(nodes |)'
-    .func 'getSelectedNodes' .arg1 '@addref(nodes |)@ret'
+    .func 'getSelectedNodes' .arg1 '@addref(nodes |)'
     .callback 'treeNodeRender'
         .localvar 'false'
         .insert_cbefore [[

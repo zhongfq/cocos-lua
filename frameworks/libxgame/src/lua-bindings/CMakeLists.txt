@@ -4,10 +4,10 @@ set(LUA_BINDINGS_HEADER
     src/lua-bindings/lua_cocos2d_action.h
     src/lua-bindings/lua_cocos2d_backend.h
     src/lua-bindings/lua_cocos2d_physics.h
+    src/lua-bindings/lua_cocos2d_types.h
     src/lua-bindings/lua_cocos2d_ui.h
     src/lua-bindings/lua_cocos2d.h
     src/lua-bindings/lua_conv_manual.h
-    src/lua-bindings/lua_conv.h
     src/lua-bindings/lua_crypto.h
     src/lua-bindings/lua_javabridge.h
     src/lua-bindings/lua_manual.h
@@ -23,10 +23,10 @@ set(LUA_BINDINGS_SRC
     src/lua-bindings/lua_cocos2d_action.cpp
     src/lua-bindings/lua_cocos2d_backend.cpp
     src/lua-bindings/lua_cocos2d_physics.cpp
+    src/lua-bindings/lua_cocos2d_types.cpp
     src/lua-bindings/lua_cocos2d_ui.cpp
     src/lua-bindings/lua_cocos2d.cpp
     src/lua-bindings/lua_conv_manual.cpp
-    src/lua-bindings/lua_conv.cpp
     src/lua-bindings/lua_crypto.cpp
     src/lua-bindings/lua_javabridge.cpp
     src/lua-bindings/lua_manual.cpp

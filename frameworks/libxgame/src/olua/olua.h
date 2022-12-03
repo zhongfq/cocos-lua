@@ -219,7 +219,7 @@ OLUA_API int olua_newindexerror(lua_State *L);
 #define OLUA_OWNERSHIP_NONE     0
 #define OLUA_OWNERSHIP_VM       1   // gc: delete or free
 #define OLUA_OWNERSHIP_USERDATA 2   // gc: obj->~T()
-#define OLUA_OWNERSHIP_ALIAS    3   // skip gc
+#define OLUA_OWNERSHIP_SLAVE    3   // skip gc
 OLUA_API void olua_setownership(lua_State *L, int idx, int owner);
 OLUA_API int olua_getownership(lua_State *L, int idx);
     
@@ -341,8 +341,6 @@ OLUA_API lua_Number olua_optfieldnumber(lua_State *L, int idx, const char *field
 OLUA_API lua_Integer olua_optfieldinteger(lua_State *L, int idx, const char *field, lua_Integer def);
 OLUA_API bool olua_optfieldbool(lua_State *L, int idx, const char *field, bool def);
 OLUA_API bool olua_hasfield(lua_State *L, int idx, const char *field);
-    
-OLUA_API int luaopen_olua(lua_State *L);
     
 #if LUA_VERSION_NUM == 501
 typedef unsigned long lua_Unsigned;
@@ -687,7 +685,7 @@ int olua_pushobj_as(lua_State *L, int idx, const T *value, const char *ref)
         olua_newrawobj(L, (void *)value);
         lua_insert(L, -2);
         lua_setmetatable(L, -2);
-        olua_setownership(L, -1, OLUA_OWNERSHIP_ALIAS);
+        olua_setownership(L, -1, OLUA_OWNERSHIP_SLAVE);
         olua_addref(L, idx, ref, -1, OLUA_FLAG_SINGLE);
         olua_addref(L, -1, "as.self", idx, OLUA_FLAG_SINGLE);
     }
@@ -1043,7 +1041,7 @@ int olua_push_object(lua_State *L, const std::shared_ptr<T> *value, const char *
     std::shared_ptr<T> *newvalue = new std::shared_ptr<T>();
     *newvalue = *value;
     olua_pushobj<T>(L, newvalue->get(), cls);
-    olua_setownership(L, -1, OLUA_OWNERSHIP_ALIAS); // skip gc, managed by smart ptr
+    olua_setownership(L, -1, OLUA_OWNERSHIP_SLAVE); // skip gc, managed by smart ptr
     olua_pushobj<std::shared_ptr<T>>(L, newvalue);
     olua_addref(L, -2, OLUA_SMART_PRT, -1, OLUA_FLAG_SINGLE);
     lua_pop(L, 1);

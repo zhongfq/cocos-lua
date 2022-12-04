@@ -46,7 +46,8 @@ static int _cclua_plugin_wechat___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cclua::plugin::wechat>(L, 1);
+    auto self = (cclua::plugin::wechat *)olua_toobj(L, 1, "cclua.plugin.wechat");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 

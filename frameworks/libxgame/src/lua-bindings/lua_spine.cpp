@@ -147,7 +147,8 @@ static int _spine_SpineObject___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<spine::SpineObject>(L, 1);
+    auto self = (spine::SpineObject *)olua_toobj(L, 1, "spine.SpineObject");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 

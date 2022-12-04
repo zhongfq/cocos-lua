@@ -75,7 +75,6 @@ typeconf 'box2d::DebugNode::Flags'
 typeconf 'box2d::DebugNode'
 
 typeconf 'b2MassData'
-    .extend 'box2d::b2MassDataExtend'
 typeconf 'b2Transform'
 typeconf 'b2RayCastInput'
 typeconf 'b2RayCastOutput'

@@ -11,7 +11,8 @@ static int _cclua_plugin_oppo___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cclua::plugin::oppo>(L, 1);
+    auto self = (cclua::plugin::oppo *)olua_toobj(L, 1, "cclua.plugin.oppo");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 

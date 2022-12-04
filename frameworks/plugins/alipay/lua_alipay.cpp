@@ -11,7 +11,8 @@ static int _cclua_plugin_alipay___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cclua::plugin::alipay>(L, 1);
+    auto self = (cclua::plugin::alipay *)olua_toobj(L, 1, "cclua.plugin.alipay");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 

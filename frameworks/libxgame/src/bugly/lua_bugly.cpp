@@ -30,7 +30,8 @@ static int _cclua_bugly___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cclua::bugly>(L, 1);
+    auto self = (cclua::bugly *)olua_toobj(L, 1, "cclua.bugly");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 

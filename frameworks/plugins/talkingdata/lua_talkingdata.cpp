@@ -11,7 +11,8 @@ static int _cclua_plugin_talkingdata___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cclua::plugin::talkingdata>(L, 1);
+    auto self = (cclua::plugin::talkingdata *)olua_toobj(L, 1, "cclua.plugin.talkingdata");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 

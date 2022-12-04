@@ -190,7 +190,8 @@ static int _cocos2d_ui_LayoutParameterProtocol___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::ui::LayoutParameterProtocol>(L, 1);
+    auto self = (cocos2d::ui::LayoutParameterProtocol *)olua_toobj(L, 1, "ccui.LayoutParameterProtocol");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -243,7 +244,8 @@ static int _cocos2d_ui_LayoutProtocol___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::ui::LayoutProtocol>(L, 1);
+    auto self = (cocos2d::ui::LayoutProtocol *)olua_toobj(L, 1, "ccui.LayoutProtocol");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -2114,7 +2116,8 @@ static int _cocos2d_ui_Helper___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::ui::Helper>(L, 1);
+    auto self = (cocos2d::ui::Helper *)olua_toobj(L, 1, "ccui.Helper");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -22580,7 +22583,8 @@ static int _cocos2d_ui_EditBoxDelegate___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::ui::EditBoxDelegate>(L, 1);
+    auto self = (cocos2d::ui::EditBoxDelegate *)olua_toobj(L, 1, "ccui.EditBoxDelegate");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 

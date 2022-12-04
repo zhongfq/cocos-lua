@@ -563,23 +563,25 @@ void olua_postnew(lua_State *L, T *obj)
  * delete object which belong to lua vm.
  */
 template <class T>
-void olua_postgc(lua_State *L, int idx);
+void olua_postgc(lua_State *L, T *obj);
 #ifndef OLUA_HAVE_POSTGC
 template <class T>
-void olua_postgc(lua_State *L, int idx)
+void olua_postgc(lua_State *L, T *obj)
 {
-    int ownership = olua_getownership(L, idx);
-    T *obj = olua_toobj<T>(L, idx);
-    if (ownership == OLUA_OWNERSHIP_VM) {
-        if (std::is_void<T>()) {
-            free((void *)obj);
-        } else {
-            delete obj;
+    if (olua_getrawobj(L, obj)) {
+        int ownership = olua_getownership(L, -1);
+        if (ownership == OLUA_OWNERSHIP_VM) {
+            if (std::is_void<T>()) {
+                free((void *)obj);
+            } else {
+                delete obj;
+            }
+        } else if (ownership == OLUA_OWNERSHIP_USERDATA) {
+            obj->~T();
         }
-    } else if (ownership == OLUA_OWNERSHIP_USERDATA) {
-        obj->~T();
+        olua_setrawobj(L, -1, nullptr);
+        lua_pop(L, 1);
     }
-    olua_setrawobj(L, idx, nullptr);
 }
 #endif
 
@@ -1261,7 +1263,7 @@ public:
 
     olua_Return __gc(lua_State *L)
     {
-        olua_postgc<array<T>>(L, 1);
+        olua_postgc<array<T>>(L, this);
         return 0;
     }
 
@@ -1285,7 +1287,7 @@ public:
         return this;
     }
    
-    array<T> *sub(size_t from, size_t to = -1)
+    OLUA_POSTNEW array<T> *sub(size_t from, size_t to = -1)
     {
         if (to == -1) {
             to = _len;
@@ -1353,7 +1355,7 @@ public:
 
     olua_Return __gc(lua_State *L)
     {
-        olua_postgc<pointer<T>>(L, 1);
+        olua_postgc<pointer<T>>(L, this);
         return 0;
     }
     

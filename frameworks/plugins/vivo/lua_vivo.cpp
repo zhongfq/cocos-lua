@@ -11,7 +11,8 @@ static int _cclua_plugin_vivo___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cclua::plugin::vivo>(L, 1);
+    auto self = (cclua::plugin::vivo *)olua_toobj(L, 1, "cclua.plugin.vivo");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 

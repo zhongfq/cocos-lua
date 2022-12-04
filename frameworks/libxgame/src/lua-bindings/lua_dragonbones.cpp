@@ -11,7 +11,8 @@ static int _dragonBones_Rectangle___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<dragonBones::Rectangle>(L, 1);
+    auto self = (dragonBones::Rectangle *)olua_toobj(L, 1, "db.Rectangle");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -466,7 +467,8 @@ static int _dragonBones_DragonBones___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<dragonBones::DragonBones>(L, 1);
+    auto self = (dragonBones::DragonBones *)olua_toobj(L, 1, "db.DragonBones");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -735,7 +737,8 @@ static int _dragonBones_BaseObject___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<dragonBones::BaseObject>(L, 1);
+    auto self = (dragonBones::BaseObject *)olua_toobj(L, 1, "db.BaseObject");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -1722,7 +1725,8 @@ static int _dragonBones_Point___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<dragonBones::Point>(L, 1);
+    auto self = (dragonBones::Point *)olua_toobj(L, 1, "db.Point");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -2714,7 +2718,8 @@ static int _dragonBones_IAnimatable___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<dragonBones::IAnimatable>(L, 1);
+    auto self = (dragonBones::IAnimatable *)olua_toobj(L, 1, "db.IAnimatable");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -12012,7 +12017,8 @@ static int _dragonBones_BaseFactory___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<dragonBones::BaseFactory>(L, 1);
+    auto self = (dragonBones::BaseFactory *)olua_toobj(L, 1, "db.BaseFactory");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -15713,7 +15719,8 @@ static int _dragonBones_IEventDispatcher___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<dragonBones::IEventDispatcher>(L, 1);
+    auto self = (dragonBones::IEventDispatcher *)olua_toobj(L, 1, "db.IEventDispatcher");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 

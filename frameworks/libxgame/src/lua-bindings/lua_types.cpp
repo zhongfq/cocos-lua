@@ -160,9 +160,12 @@ static int _olua_bool_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_bool *sub(size_t from, @optional size_t to)
+    // @postnew olua_bool *sub(size_t from, @optional size_t to)
     olua_bool *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.bool");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -179,9 +182,12 @@ static int _olua_bool_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.bool");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_bool *sub(size_t from, @optional size_t to)
+    // @postnew olua_bool *sub(size_t from, @optional size_t to)
     olua_bool *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.bool");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -194,14 +200,14 @@ static int _olua_bool_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_bool *sub(size_t from, @optional size_t to)
+            // @postnew olua_bool *sub(size_t from, @optional size_t to)
             return _olua_bool_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_bool *sub(size_t from, @optional size_t to)
+            // @postnew olua_bool *sub(size_t from, @optional size_t to)
             return _olua_bool_sub$1(L);
         // }
     }
@@ -697,9 +703,12 @@ static int _olua_int8_t_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_int8_t *sub(size_t from, @optional size_t to)
+    // @postnew olua_int8_t *sub(size_t from, @optional size_t to)
     olua_int8_t *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.int8_t");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -716,9 +725,12 @@ static int _olua_int8_t_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.int8_t");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_int8_t *sub(size_t from, @optional size_t to)
+    // @postnew olua_int8_t *sub(size_t from, @optional size_t to)
     olua_int8_t *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.int8_t");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -731,14 +743,14 @@ static int _olua_int8_t_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_int8_t *sub(size_t from, @optional size_t to)
+            // @postnew olua_int8_t *sub(size_t from, @optional size_t to)
             return _olua_int8_t_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_int8_t *sub(size_t from, @optional size_t to)
+            // @postnew olua_int8_t *sub(size_t from, @optional size_t to)
             return _olua_int8_t_sub$1(L);
         // }
     }
@@ -1047,9 +1059,12 @@ static int _olua_int16_t_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_int16_t *sub(size_t from, @optional size_t to)
+    // @postnew olua_int16_t *sub(size_t from, @optional size_t to)
     olua_int16_t *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.int16_t");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -1066,9 +1081,12 @@ static int _olua_int16_t_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.int16_t");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_int16_t *sub(size_t from, @optional size_t to)
+    // @postnew olua_int16_t *sub(size_t from, @optional size_t to)
     olua_int16_t *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.int16_t");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -1081,14 +1099,14 @@ static int _olua_int16_t_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_int16_t *sub(size_t from, @optional size_t to)
+            // @postnew olua_int16_t *sub(size_t from, @optional size_t to)
             return _olua_int16_t_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_int16_t *sub(size_t from, @optional size_t to)
+            // @postnew olua_int16_t *sub(size_t from, @optional size_t to)
             return _olua_int16_t_sub$1(L);
         // }
     }
@@ -1397,9 +1415,12 @@ static int _olua_int32_t_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_int32_t *sub(size_t from, @optional size_t to)
+    // @postnew olua_int32_t *sub(size_t from, @optional size_t to)
     olua_int32_t *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.int32_t");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -1416,9 +1437,12 @@ static int _olua_int32_t_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.int32_t");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_int32_t *sub(size_t from, @optional size_t to)
+    // @postnew olua_int32_t *sub(size_t from, @optional size_t to)
     olua_int32_t *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.int32_t");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -1431,14 +1455,14 @@ static int _olua_int32_t_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_int32_t *sub(size_t from, @optional size_t to)
+            // @postnew olua_int32_t *sub(size_t from, @optional size_t to)
             return _olua_int32_t_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_int32_t *sub(size_t from, @optional size_t to)
+            // @postnew olua_int32_t *sub(size_t from, @optional size_t to)
             return _olua_int32_t_sub$1(L);
         // }
     }
@@ -1747,9 +1771,12 @@ static int _olua_int64_t_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_int64_t *sub(size_t from, @optional size_t to)
+    // @postnew olua_int64_t *sub(size_t from, @optional size_t to)
     olua_int64_t *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.int64_t");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -1766,9 +1793,12 @@ static int _olua_int64_t_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.int64_t");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_int64_t *sub(size_t from, @optional size_t to)
+    // @postnew olua_int64_t *sub(size_t from, @optional size_t to)
     olua_int64_t *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.int64_t");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -1781,14 +1811,14 @@ static int _olua_int64_t_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_int64_t *sub(size_t from, @optional size_t to)
+            // @postnew olua_int64_t *sub(size_t from, @optional size_t to)
             return _olua_int64_t_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_int64_t *sub(size_t from, @optional size_t to)
+            // @postnew olua_int64_t *sub(size_t from, @optional size_t to)
             return _olua_int64_t_sub$1(L);
         // }
     }
@@ -2097,9 +2127,12 @@ static int _olua_uint8_t_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_uint8_t *sub(size_t from, @optional size_t to)
+    // @postnew olua_uint8_t *sub(size_t from, @optional size_t to)
     olua_uint8_t *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.uint8_t");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -2116,9 +2149,12 @@ static int _olua_uint8_t_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.uint8_t");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_uint8_t *sub(size_t from, @optional size_t to)
+    // @postnew olua_uint8_t *sub(size_t from, @optional size_t to)
     olua_uint8_t *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.uint8_t");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -2131,14 +2167,14 @@ static int _olua_uint8_t_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_uint8_t *sub(size_t from, @optional size_t to)
+            // @postnew olua_uint8_t *sub(size_t from, @optional size_t to)
             return _olua_uint8_t_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_uint8_t *sub(size_t from, @optional size_t to)
+            // @postnew olua_uint8_t *sub(size_t from, @optional size_t to)
             return _olua_uint8_t_sub$1(L);
         // }
     }
@@ -2447,9 +2483,12 @@ static int _olua_uint16_t_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_uint16_t *sub(size_t from, @optional size_t to)
+    // @postnew olua_uint16_t *sub(size_t from, @optional size_t to)
     olua_uint16_t *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.uint16_t");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -2466,9 +2505,12 @@ static int _olua_uint16_t_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.uint16_t");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_uint16_t *sub(size_t from, @optional size_t to)
+    // @postnew olua_uint16_t *sub(size_t from, @optional size_t to)
     olua_uint16_t *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.uint16_t");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -2481,14 +2523,14 @@ static int _olua_uint16_t_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_uint16_t *sub(size_t from, @optional size_t to)
+            // @postnew olua_uint16_t *sub(size_t from, @optional size_t to)
             return _olua_uint16_t_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_uint16_t *sub(size_t from, @optional size_t to)
+            // @postnew olua_uint16_t *sub(size_t from, @optional size_t to)
             return _olua_uint16_t_sub$1(L);
         // }
     }
@@ -2797,9 +2839,12 @@ static int _olua_uint32_t_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_uint32_t *sub(size_t from, @optional size_t to)
+    // @postnew olua_uint32_t *sub(size_t from, @optional size_t to)
     olua_uint32_t *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.uint32_t");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -2816,9 +2861,12 @@ static int _olua_uint32_t_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.uint32_t");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_uint32_t *sub(size_t from, @optional size_t to)
+    // @postnew olua_uint32_t *sub(size_t from, @optional size_t to)
     olua_uint32_t *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.uint32_t");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -2831,14 +2879,14 @@ static int _olua_uint32_t_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_uint32_t *sub(size_t from, @optional size_t to)
+            // @postnew olua_uint32_t *sub(size_t from, @optional size_t to)
             return _olua_uint32_t_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_uint32_t *sub(size_t from, @optional size_t to)
+            // @postnew olua_uint32_t *sub(size_t from, @optional size_t to)
             return _olua_uint32_t_sub$1(L);
         // }
     }
@@ -3147,9 +3195,12 @@ static int _olua_uint64_t_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_uint64_t *sub(size_t from, @optional size_t to)
+    // @postnew olua_uint64_t *sub(size_t from, @optional size_t to)
     olua_uint64_t *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.uint64_t");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -3166,9 +3217,12 @@ static int _olua_uint64_t_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.uint64_t");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_uint64_t *sub(size_t from, @optional size_t to)
+    // @postnew olua_uint64_t *sub(size_t from, @optional size_t to)
     olua_uint64_t *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.uint64_t");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -3181,14 +3235,14 @@ static int _olua_uint64_t_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_uint64_t *sub(size_t from, @optional size_t to)
+            // @postnew olua_uint64_t *sub(size_t from, @optional size_t to)
             return _olua_uint64_t_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_uint64_t *sub(size_t from, @optional size_t to)
+            // @postnew olua_uint64_t *sub(size_t from, @optional size_t to)
             return _olua_uint64_t_sub$1(L);
         // }
     }
@@ -3497,9 +3551,12 @@ static int _olua_char_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_char *sub(size_t from, @optional size_t to)
+    // @postnew olua_char *sub(size_t from, @optional size_t to)
     olua_char *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.char");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -3516,9 +3573,12 @@ static int _olua_char_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.char");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_char *sub(size_t from, @optional size_t to)
+    // @postnew olua_char *sub(size_t from, @optional size_t to)
     olua_char *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.char");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -3531,14 +3591,14 @@ static int _olua_char_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_char *sub(size_t from, @optional size_t to)
+            // @postnew olua_char *sub(size_t from, @optional size_t to)
             return _olua_char_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_char *sub(size_t from, @optional size_t to)
+            // @postnew olua_char *sub(size_t from, @optional size_t to)
             return _olua_char_sub$1(L);
         // }
     }
@@ -3847,9 +3907,12 @@ static int _olua_short_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_short *sub(size_t from, @optional size_t to)
+    // @postnew olua_short *sub(size_t from, @optional size_t to)
     olua_short *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.short");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -3866,9 +3929,12 @@ static int _olua_short_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.short");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_short *sub(size_t from, @optional size_t to)
+    // @postnew olua_short *sub(size_t from, @optional size_t to)
     olua_short *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.short");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -3881,14 +3947,14 @@ static int _olua_short_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_short *sub(size_t from, @optional size_t to)
+            // @postnew olua_short *sub(size_t from, @optional size_t to)
             return _olua_short_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_short *sub(size_t from, @optional size_t to)
+            // @postnew olua_short *sub(size_t from, @optional size_t to)
             return _olua_short_sub$1(L);
         // }
     }
@@ -4197,9 +4263,12 @@ static int _olua_int_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_int *sub(size_t from, @optional size_t to)
+    // @postnew olua_int *sub(size_t from, @optional size_t to)
     olua_int *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.int");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -4216,9 +4285,12 @@ static int _olua_int_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.int");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_int *sub(size_t from, @optional size_t to)
+    // @postnew olua_int *sub(size_t from, @optional size_t to)
     olua_int *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.int");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -4231,14 +4303,14 @@ static int _olua_int_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_int *sub(size_t from, @optional size_t to)
+            // @postnew olua_int *sub(size_t from, @optional size_t to)
             return _olua_int_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_int *sub(size_t from, @optional size_t to)
+            // @postnew olua_int *sub(size_t from, @optional size_t to)
             return _olua_int_sub$1(L);
         // }
     }
@@ -4547,9 +4619,12 @@ static int _olua_long_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_long *sub(size_t from, @optional size_t to)
+    // @postnew olua_long *sub(size_t from, @optional size_t to)
     olua_long *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.long");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -4566,9 +4641,12 @@ static int _olua_long_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.long");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_long *sub(size_t from, @optional size_t to)
+    // @postnew olua_long *sub(size_t from, @optional size_t to)
     olua_long *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.long");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -4581,14 +4659,14 @@ static int _olua_long_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_long *sub(size_t from, @optional size_t to)
+            // @postnew olua_long *sub(size_t from, @optional size_t to)
             return _olua_long_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_long *sub(size_t from, @optional size_t to)
+            // @postnew olua_long *sub(size_t from, @optional size_t to)
             return _olua_long_sub$1(L);
         // }
     }
@@ -4897,9 +4975,12 @@ static int _olua_llong_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_llong *sub(size_t from, @optional size_t to)
+    // @postnew olua_llong *sub(size_t from, @optional size_t to)
     olua_llong *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.llong");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -4916,9 +4997,12 @@ static int _olua_llong_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.llong");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_llong *sub(size_t from, @optional size_t to)
+    // @postnew olua_llong *sub(size_t from, @optional size_t to)
     olua_llong *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.llong");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -4931,14 +5015,14 @@ static int _olua_llong_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_llong *sub(size_t from, @optional size_t to)
+            // @postnew olua_llong *sub(size_t from, @optional size_t to)
             return _olua_llong_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_llong *sub(size_t from, @optional size_t to)
+            // @postnew olua_llong *sub(size_t from, @optional size_t to)
             return _olua_llong_sub$1(L);
         // }
     }
@@ -5247,9 +5331,12 @@ static int _olua_uchar_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_uchar *sub(size_t from, @optional size_t to)
+    // @postnew olua_uchar *sub(size_t from, @optional size_t to)
     olua_uchar *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.uchar");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -5266,9 +5353,12 @@ static int _olua_uchar_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.uchar");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_uchar *sub(size_t from, @optional size_t to)
+    // @postnew olua_uchar *sub(size_t from, @optional size_t to)
     olua_uchar *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.uchar");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -5281,14 +5371,14 @@ static int _olua_uchar_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_uchar *sub(size_t from, @optional size_t to)
+            // @postnew olua_uchar *sub(size_t from, @optional size_t to)
             return _olua_uchar_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_uchar *sub(size_t from, @optional size_t to)
+            // @postnew olua_uchar *sub(size_t from, @optional size_t to)
             return _olua_uchar_sub$1(L);
         // }
     }
@@ -5597,9 +5687,12 @@ static int _olua_ushort_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_ushort *sub(size_t from, @optional size_t to)
+    // @postnew olua_ushort *sub(size_t from, @optional size_t to)
     olua_ushort *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.ushort");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -5616,9 +5709,12 @@ static int _olua_ushort_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.ushort");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_ushort *sub(size_t from, @optional size_t to)
+    // @postnew olua_ushort *sub(size_t from, @optional size_t to)
     olua_ushort *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.ushort");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -5631,14 +5727,14 @@ static int _olua_ushort_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_ushort *sub(size_t from, @optional size_t to)
+            // @postnew olua_ushort *sub(size_t from, @optional size_t to)
             return _olua_ushort_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_ushort *sub(size_t from, @optional size_t to)
+            // @postnew olua_ushort *sub(size_t from, @optional size_t to)
             return _olua_ushort_sub$1(L);
         // }
     }
@@ -5947,9 +6043,12 @@ static int _olua_uint_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_uint *sub(size_t from, @optional size_t to)
+    // @postnew olua_uint *sub(size_t from, @optional size_t to)
     olua_uint *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.uint");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -5966,9 +6065,12 @@ static int _olua_uint_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.uint");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_uint *sub(size_t from, @optional size_t to)
+    // @postnew olua_uint *sub(size_t from, @optional size_t to)
     olua_uint *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.uint");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -5981,14 +6083,14 @@ static int _olua_uint_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_uint *sub(size_t from, @optional size_t to)
+            // @postnew olua_uint *sub(size_t from, @optional size_t to)
             return _olua_uint_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_uint *sub(size_t from, @optional size_t to)
+            // @postnew olua_uint *sub(size_t from, @optional size_t to)
             return _olua_uint_sub$1(L);
         // }
     }
@@ -6297,9 +6399,12 @@ static int _olua_ulong_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_ulong *sub(size_t from, @optional size_t to)
+    // @postnew olua_ulong *sub(size_t from, @optional size_t to)
     olua_ulong *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.ulong");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -6316,9 +6421,12 @@ static int _olua_ulong_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.ulong");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_ulong *sub(size_t from, @optional size_t to)
+    // @postnew olua_ulong *sub(size_t from, @optional size_t to)
     olua_ulong *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.ulong");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -6331,14 +6439,14 @@ static int _olua_ulong_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_ulong *sub(size_t from, @optional size_t to)
+            // @postnew olua_ulong *sub(size_t from, @optional size_t to)
             return _olua_ulong_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_ulong *sub(size_t from, @optional size_t to)
+            // @postnew olua_ulong *sub(size_t from, @optional size_t to)
             return _olua_ulong_sub$1(L);
         // }
     }
@@ -6647,9 +6755,12 @@ static int _olua_ullong_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_ullong *sub(size_t from, @optional size_t to)
+    // @postnew olua_ullong *sub(size_t from, @optional size_t to)
     olua_ullong *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.ullong");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -6666,9 +6777,12 @@ static int _olua_ullong_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.ullong");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_ullong *sub(size_t from, @optional size_t to)
+    // @postnew olua_ullong *sub(size_t from, @optional size_t to)
     olua_ullong *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.ullong");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -6681,14 +6795,14 @@ static int _olua_ullong_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_ullong *sub(size_t from, @optional size_t to)
+            // @postnew olua_ullong *sub(size_t from, @optional size_t to)
             return _olua_ullong_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_ullong *sub(size_t from, @optional size_t to)
+            // @postnew olua_ullong *sub(size_t from, @optional size_t to)
             return _olua_ullong_sub$1(L);
         // }
     }
@@ -6997,9 +7111,12 @@ static int _olua_float_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_float *sub(size_t from, @optional size_t to)
+    // @postnew olua_float *sub(size_t from, @optional size_t to)
     olua_float *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.float");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -7016,9 +7133,12 @@ static int _olua_float_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.float");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_float *sub(size_t from, @optional size_t to)
+    // @postnew olua_float *sub(size_t from, @optional size_t to)
     olua_float *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.float");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -7031,14 +7151,14 @@ static int _olua_float_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_float *sub(size_t from, @optional size_t to)
+            // @postnew olua_float *sub(size_t from, @optional size_t to)
             return _olua_float_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_float *sub(size_t from, @optional size_t to)
+            // @postnew olua_float *sub(size_t from, @optional size_t to)
             return _olua_float_sub$1(L);
         // }
     }
@@ -7347,9 +7467,12 @@ static int _olua_double_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_double *sub(size_t from, @optional size_t to)
+    // @postnew olua_double *sub(size_t from, @optional size_t to)
     olua_double *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.double");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -7366,9 +7489,12 @@ static int _olua_double_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.double");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_double *sub(size_t from, @optional size_t to)
+    // @postnew olua_double *sub(size_t from, @optional size_t to)
     olua_double *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.double");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -7381,14 +7507,14 @@ static int _olua_double_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_double *sub(size_t from, @optional size_t to)
+            // @postnew olua_double *sub(size_t from, @optional size_t to)
             return _olua_double_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_double *sub(size_t from, @optional size_t to)
+            // @postnew olua_double *sub(size_t from, @optional size_t to)
             return _olua_double_sub$1(L);
         // }
     }
@@ -7697,9 +7823,12 @@ static int _olua_ldouble_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_ldouble *sub(size_t from, @optional size_t to)
+    // @postnew olua_ldouble *sub(size_t from, @optional size_t to)
     olua_ldouble *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.ldouble");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -7716,9 +7845,12 @@ static int _olua_ldouble_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.ldouble");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_ldouble *sub(size_t from, @optional size_t to)
+    // @postnew olua_ldouble *sub(size_t from, @optional size_t to)
     olua_ldouble *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.ldouble");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -7731,14 +7863,14 @@ static int _olua_ldouble_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_ldouble *sub(size_t from, @optional size_t to)
+            // @postnew olua_ldouble *sub(size_t from, @optional size_t to)
             return _olua_ldouble_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_ldouble *sub(size_t from, @optional size_t to)
+            // @postnew olua_ldouble *sub(size_t from, @optional size_t to)
             return _olua_ldouble_sub$1(L);
         // }
     }
@@ -8047,9 +8179,12 @@ static int _olua_size_t_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_size_t *sub(size_t from, @optional size_t to)
+    // @postnew olua_size_t *sub(size_t from, @optional size_t to)
     olua_size_t *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.size_t");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -8066,9 +8201,12 @@ static int _olua_size_t_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.size_t");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_size_t *sub(size_t from, @optional size_t to)
+    // @postnew olua_size_t *sub(size_t from, @optional size_t to)
     olua_size_t *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.size_t");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -8081,14 +8219,14 @@ static int _olua_size_t_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_size_t *sub(size_t from, @optional size_t to)
+            // @postnew olua_size_t *sub(size_t from, @optional size_t to)
             return _olua_size_t_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_size_t *sub(size_t from, @optional size_t to)
+            // @postnew olua_size_t *sub(size_t from, @optional size_t to)
             return _olua_size_t_sub$1(L);
         // }
     }
@@ -8397,9 +8535,12 @@ static int _olua_ssize_t_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // olua_ssize_t *sub(size_t from, @optional size_t to)
+    // @postnew olua_ssize_t *sub(size_t from, @optional size_t to)
     olua_ssize_t *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "olua.ssize_t");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -8416,9 +8557,12 @@ static int _olua_ssize_t_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "olua.ssize_t");
     olua_check_integer(L, 2, &arg1);
 
-    // olua_ssize_t *sub(size_t from, @optional size_t to)
+    // @postnew olua_ssize_t *sub(size_t from, @optional size_t to)
     olua_ssize_t *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "olua.ssize_t");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -8431,14 +8575,14 @@ static int _olua_ssize_t_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // olua_ssize_t *sub(size_t from, @optional size_t to)
+            // @postnew olua_ssize_t *sub(size_t from, @optional size_t to)
             return _olua_ssize_t_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // olua_ssize_t *sub(size_t from, @optional size_t to)
+            // @postnew olua_ssize_t *sub(size_t from, @optional size_t to)
             return _olua_ssize_t_sub$1(L);
         // }
     }

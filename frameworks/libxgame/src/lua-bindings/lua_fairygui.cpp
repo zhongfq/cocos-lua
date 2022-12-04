@@ -225,7 +225,8 @@ static int _fairygui_Margin___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<fairygui::Margin>(L, 1);
+    auto self = (fairygui::Margin *)olua_toobj(L, 1, "fgui.Margin");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -534,7 +535,8 @@ static int _fairygui_HtmlParseOptions___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<fairygui::HtmlParseOptions>(L, 1);
+    auto self = (fairygui::HtmlParseOptions *)olua_toobj(L, 1, "fgui.HtmlParseOptions");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -715,7 +717,8 @@ static int _fairygui_TweenValue___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<fairygui::TweenValue>(L, 1);
+    auto self = (fairygui::TweenValue *)olua_toobj(L, 1, "fgui.TweenValue");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -1113,7 +1116,8 @@ static int _fairygui_UIEventType___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<fairygui::UIEventType>(L, 1);
+    auto self = (fairygui::UIEventType *)olua_toobj(L, 1, "fgui.UIEventType");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -1720,7 +1724,8 @@ static int _fairygui_EventContext___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<fairygui::EventContext>(L, 1);
+    auto self = (fairygui::EventContext *)olua_toobj(L, 1, "fgui.EventContext");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -1951,7 +1956,8 @@ static int _fairygui_IHitTest___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<fairygui::IHitTest>(L, 1);
+    auto self = (fairygui::IHitTest *)olua_toobj(L, 1, "fgui.IHitTest");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -2183,7 +2189,8 @@ static int _fairygui_PixelHitTestData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<fairygui::PixelHitTestData>(L, 1);
+    auto self = (fairygui::PixelHitTestData *)olua_toobj(L, 1, "fgui.PixelHitTestData");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -2398,7 +2405,8 @@ static int _fairygui_InputProcessor___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<fairygui::InputProcessor>(L, 1);
+    auto self = (fairygui::InputProcessor *)olua_toobj(L, 1, "fgui.InputProcessor");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -2752,7 +2760,8 @@ static int _fairygui_InputEvent___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<fairygui::InputEvent>(L, 1);
+    auto self = (fairygui::InputEvent *)olua_toobj(L, 1, "fgui.InputEvent");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -3067,7 +3076,8 @@ static int _fairygui_TextFormat___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<fairygui::TextFormat>(L, 1);
+    auto self = (fairygui::TextFormat *)olua_toobj(L, 1, "fgui.TextFormat");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -3890,7 +3900,8 @@ static int _fairygui_EaseManager___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<fairygui::EaseManager>(L, 1);
+    auto self = (fairygui::EaseManager *)olua_toobj(L, 1, "fgui.EaseManager");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -3974,7 +3985,8 @@ static int _fairygui_GPath___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<fairygui::GPath>(L, 1);
+    auto self = (fairygui::GPath *)olua_toobj(L, 1, "fgui.GPath");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -4976,7 +4988,8 @@ static int _fairygui_GTween___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<fairygui::GTween>(L, 1);
+    auto self = (fairygui::GTween *)olua_toobj(L, 1, "fgui.GTween");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -19387,7 +19400,8 @@ static int _fairygui_Relations___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<fairygui::Relations>(L, 1);
+    auto self = (fairygui::Relations *)olua_toobj(L, 1, "fgui.Relations");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -19711,7 +19725,8 @@ static int _fairygui_RelationItem___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<fairygui::RelationItem>(L, 1);
+    auto self = (fairygui::RelationItem *)olua_toobj(L, 1, "fgui.RelationItem");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -22627,7 +22642,8 @@ static int _fairygui_UIConfig___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<fairygui::UIConfig>(L, 1);
+    auto self = (fairygui::UIConfig *)olua_toobj(L, 1, "fgui.UIConfig");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -24164,7 +24180,8 @@ static int _fairygui_DragDropManager___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<fairygui::DragDropManager>(L, 1);
+    auto self = (fairygui::DragDropManager *)olua_toobj(L, 1, "fgui.DragDropManager");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -24418,7 +24435,8 @@ static int _fairygui_UIObjectFactory___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<fairygui::UIObjectFactory>(L, 1);
+    auto self = (fairygui::UIObjectFactory *)olua_toobj(L, 1, "fgui.UIObjectFactory");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -24588,7 +24606,8 @@ static int _fairygui_GearBase___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<fairygui::GearBase>(L, 1);
+    auto self = (fairygui::GearBase *)olua_toobj(L, 1, "fgui.GearBase");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -27400,7 +27419,8 @@ static int _fairygui_HtmlObject___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<fairygui::HtmlObject>(L, 1);
+    auto self = (fairygui::HtmlObject *)olua_toobj(L, 1, "fgui.HtmlObject");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -27715,7 +27735,8 @@ static int _fairygui_HtmlElement___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<fairygui::HtmlElement>(L, 1);
+    auto self = (fairygui::HtmlElement *)olua_toobj(L, 1, "fgui.HtmlElement");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 

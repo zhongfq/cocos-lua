@@ -756,7 +756,8 @@ static int _cocos2d_Clonable___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::Clonable>(L, 1);
+    auto self = (cocos2d::Clonable *)olua_toobj(L, 1, "cc.Clonable");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -7999,7 +8000,8 @@ static int _cocos2d_AudioProfile___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::AudioProfile>(L, 1);
+    auto self = (cocos2d::AudioProfile *)olua_toobj(L, 1, "cc.AudioProfile");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -8198,7 +8200,8 @@ static int _cocos2d_AudioEngine___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::AudioEngine>(L, 1);
+    auto self = (cocos2d::AudioEngine *)olua_toobj(L, 1, "cc.AudioEngine");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -9025,7 +9028,8 @@ static int _cocos2d_ApplicationProtocol___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::ApplicationProtocol>(L, 1);
+    auto self = (cocos2d::ApplicationProtocol *)olua_toobj(L, 1, "cc.ApplicationProtocol");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -9285,7 +9289,8 @@ static int _cocos2d_Device___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::Device>(L, 1);
+    auto self = (cocos2d::Device *)olua_toobj(L, 1, "cc.Device");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -9402,7 +9407,8 @@ static int _cocos2d_ResizableBuffer___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::ResizableBuffer>(L, 1);
+    auto self = (cocos2d::ResizableBuffer *)olua_toobj(L, 1, "cc.ResizableBuffer");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -9492,7 +9498,8 @@ static int _cocos2d_FileUtils___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::FileUtils>(L, 1);
+    auto self = (cocos2d::FileUtils *)olua_toobj(L, 1, "cc.FileUtils");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -12950,7 +12957,8 @@ static int _cocos2d_Properties___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::Properties>(L, 1);
+    auto self = (cocos2d::Properties *)olua_toobj(L, 1, "cc.Properties");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -14367,7 +14375,8 @@ static int _cocos2d_Renderer___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::Renderer>(L, 1);
+    auto self = (cocos2d::Renderer *)olua_toobj(L, 1, "cc.Renderer");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -15506,7 +15515,8 @@ static int _cocos2d_PipelineDescriptor___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::PipelineDescriptor>(L, 1);
+    auto self = (cocos2d::PipelineDescriptor *)olua_toobj(L, 1, "cc.PipelineDescriptor");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -15893,7 +15903,8 @@ static int _cocos2d_CustomCommand___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::CustomCommand>(L, 1);
+    auto self = (cocos2d::CustomCommand *)olua_toobj(L, 1, "cc.CustomCommand");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -19095,7 +19106,8 @@ static int _cocos2d_network_WebSocket_Delegate___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::network::WebSocket::Delegate>(L, 1);
+    auto self = (cocos2d::network::WebSocket::Delegate *)olua_toobj(L, 1, "cc.WebSocket.Delegate");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -19209,7 +19221,8 @@ static int _cocos2d_network_WebSocket___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::network::WebSocket>(L, 1);
+    auto self = (cocos2d::network::WebSocket *)olua_toobj(L, 1, "cc.WebSocket");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -25658,7 +25671,8 @@ static int _cocos2d_BlendProtocol___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::BlendProtocol>(L, 1);
+    auto self = (cocos2d::BlendProtocol *)olua_toobj(L, 1, "cc.BlendProtocol");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -26079,7 +26093,8 @@ static int _cocos2d_sImageTGA___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::sImageTGA>(L, 1);
+    auto self = (cocos2d::sImageTGA *)olua_toobj(L, 1, "cc.sImageTGA");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -28817,7 +28832,8 @@ static int _cocos2d_LabelProtocol___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::LabelProtocol>(L, 1);
+    auto self = (cocos2d::LabelProtocol *)olua_toobj(L, 1, "cc.LabelProtocol");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -40814,7 +40830,8 @@ static int _cocos2d_TransitionEaseScene___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::TransitionEaseScene>(L, 1);
+    auto self = (cocos2d::TransitionEaseScene *)olua_toobj(L, 1, "cc.TransitionEaseScene");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -43255,7 +43272,8 @@ static int _cocos2d_IMEDelegate___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::IMEDelegate>(L, 1);
+    auto self = (cocos2d::IMEDelegate *)olua_toobj(L, 1, "cc.IMEDelegate");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -43325,7 +43343,8 @@ static int _cocos2d_TextFieldDelegate___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::TextFieldDelegate>(L, 1);
+    auto self = (cocos2d::TextFieldDelegate *)olua_toobj(L, 1, "cc.TextFieldDelegate");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -46122,7 +46141,8 @@ static int _cocos2d_PlayableProtocol___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::PlayableProtocol>(L, 1);
+    auto self = (cocos2d::PlayableProtocol *)olua_toobj(L, 1, "cc.PlayableProtocol");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -49561,7 +49581,8 @@ static int _cocos2d_SAXDelegator___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::SAXDelegator>(L, 1);
+    auto self = (cocos2d::SAXDelegator *)olua_toobj(L, 1, "cc.SAXDelegator");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 

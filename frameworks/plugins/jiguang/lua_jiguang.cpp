@@ -11,7 +11,8 @@ static int _cclua_plugin_jpush___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cclua::plugin::jpush>(L, 1);
+    auto self = (cclua::plugin::jpush *)olua_toobj(L, 1, "cclua.plugin.jpush");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -258,7 +259,8 @@ static int _cclua_plugin_jauth___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cclua::plugin::jauth>(L, 1);
+    auto self = (cclua::plugin::jauth *)olua_toobj(L, 1, "cclua.plugin.jauth");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -650,7 +652,8 @@ static int _cclua_plugin_janalytics___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cclua::plugin::janalytics>(L, 1);
+    auto self = (cclua::plugin::janalytics *)olua_toobj(L, 1, "cclua.plugin.janalytics");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 

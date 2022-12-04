@@ -11,7 +11,8 @@ static int _b2Vec2___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2Vec2>(L, 1);
+    auto self = (b2Vec2 *)olua_toobj(L, 1, "b2.Vec2");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -302,7 +303,8 @@ static int _b2Vec3___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2Vec3>(L, 1);
+    auto self = (b2Vec3 *)olua_toobj(L, 1, "b2.Vec3");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -542,7 +544,8 @@ static int _b2ContactID___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2ContactID>(L, 1);
+    auto self = (b2ContactID *)olua_toobj(L, 1, "b2.ContactID");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -648,7 +651,8 @@ static int _b2ContactFeature___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2ContactFeature>(L, 1);
+    auto self = (b2ContactFeature *)olua_toobj(L, 1, "b2.ContactFeature");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -826,7 +830,8 @@ static int _b2Color___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2Color>(L, 1);
+    auto self = (b2Color *)olua_toobj(L, 1, "b2.Color");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -1163,7 +1168,8 @@ static int _b2FixtureUserData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2FixtureUserData>(L, 1);
+    auto self = (b2FixtureUserData *)olua_toobj(L, 1, "b2.FixtureUserData");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -1248,7 +1254,8 @@ static int _b2Filter___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2Filter>(L, 1);
+    auto self = (b2Filter *)olua_toobj(L, 1, "b2.Filter");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -1405,7 +1412,8 @@ static int _b2ManifoldPoint___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2ManifoldPoint>(L, 1);
+    auto self = (b2ManifoldPoint *)olua_toobj(L, 1, "b2.ManifoldPoint");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -1583,7 +1591,8 @@ static int _b2Rot___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2Rot>(L, 1);
+    auto self = (b2Rot *)olua_toobj(L, 1, "b2.Rot");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -1836,7 +1845,8 @@ static int _b2Draw___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2Draw>(L, 1);
+    auto self = (b2Draw *)olua_toobj(L, 1, "b2.interface.Draw");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -1870,7 +1880,8 @@ static int _b2DestructionListener___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2DestructionListener>(L, 1);
+    auto self = (b2DestructionListener *)olua_toobj(L, 1, "b2.interface.DestructionListener");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -1904,7 +1915,8 @@ static int _b2ContactFilter___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2ContactFilter>(L, 1);
+    auto self = (b2ContactFilter *)olua_toobj(L, 1, "b2.interface.ContactFilter");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -1938,7 +1950,8 @@ static int _b2ContactListener___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2ContactListener>(L, 1);
+    auto self = (b2ContactListener *)olua_toobj(L, 1, "b2.interface.ContactListener");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -1972,7 +1985,8 @@ static int _b2QueryCallback___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2QueryCallback>(L, 1);
+    auto self = (b2QueryCallback *)olua_toobj(L, 1, "b2.interface.QueryCallback");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -2006,7 +2020,8 @@ static int _b2RayCastCallback___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2RayCastCallback>(L, 1);
+    auto self = (b2RayCastCallback *)olua_toobj(L, 1, "b2.interface.RayCastCallback");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -2192,9 +2207,12 @@ static int _box2d_Vec2Array_sub$1(lua_State *L)
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // box2d::Vec2Array *sub(size_t from, @optional size_t to)
+    // @postnew box2d::Vec2Array *sub(size_t from, @optional size_t to)
     box2d::Vec2Array *ret = self->sub(arg1, arg2);
     int num_ret = olua_push_object(L, ret, "b2.Vec2Array");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -2211,9 +2229,12 @@ static int _box2d_Vec2Array_sub$2(lua_State *L)
     olua_to_object(L, 1, &self, "b2.Vec2Array");
     olua_check_integer(L, 2, &arg1);
 
-    // box2d::Vec2Array *sub(size_t from, @optional size_t to)
+    // @postnew box2d::Vec2Array *sub(size_t from, @optional size_t to)
     box2d::Vec2Array *ret = self->sub(arg1);
     int num_ret = olua_push_object(L, ret, "b2.Vec2Array");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -2226,14 +2247,14 @@ static int _box2d_Vec2Array_sub(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // box2d::Vec2Array *sub(size_t from, @optional size_t to)
+            // @postnew box2d::Vec2Array *sub(size_t from, @optional size_t to)
             return _box2d_Vec2Array_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // box2d::Vec2Array *sub(size_t from, @optional size_t to)
+            // @postnew box2d::Vec2Array *sub(size_t from, @optional size_t to)
             return _box2d_Vec2Array_sub$1(L);
         // }
     }
@@ -3321,12 +3342,12 @@ static int _b2MassData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // @extend(box2d::b2MassDataExtend) static olua_Return __gc(lua_State *L)
-    olua_Return ret = box2d::b2MassDataExtend::__gc(L);
+    auto self = (b2MassData *)olua_toobj(L, 1, "b2.MassData");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
-    return (int)ret;
+    return 0;
 }
 
 static int _b2MassData___olua_move(lua_State *L)
@@ -3464,7 +3485,8 @@ static int _b2Transform___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2Transform>(L, 1);
+    auto self = (b2Transform *)olua_toobj(L, 1, "b2.Transform");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -3664,7 +3686,8 @@ static int _b2RayCastInput___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2RayCastInput>(L, 1);
+    auto self = (b2RayCastInput *)olua_toobj(L, 1, "b2.RayCastInput");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -3806,7 +3829,8 @@ static int _b2RayCastOutput___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2RayCastOutput>(L, 1);
+    auto self = (b2RayCastOutput *)olua_toobj(L, 1, "b2.RayCastOutput");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -3928,7 +3952,8 @@ static int _b2Shape___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2Shape>(L, 1);
+    auto self = (b2Shape *)olua_toobj(L, 1, "b2.Shape");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -4425,7 +4450,8 @@ static int _b2BodyDef___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2BodyDef>(L, 1);
+    auto self = (b2BodyDef *)olua_toobj(L, 1, "b2.BodyDef");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -6104,7 +6130,8 @@ static int _b2BodyUserData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2BodyUserData>(L, 1);
+    auto self = (b2BodyUserData *)olua_toobj(L, 1, "b2.BodyUserData");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -6189,7 +6216,8 @@ static int _b2FixtureDef___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2FixtureDef>(L, 1);
+    auto self = (b2FixtureDef *)olua_toobj(L, 1, "b2.FixtureDef");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -6526,7 +6554,8 @@ static int _b2Fixture___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2Fixture>(L, 1);
+    auto self = (b2Fixture *)olua_toobj(L, 1, "b2.Fixture");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -7002,7 +7031,8 @@ static int _b2JointDef___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2JointDef>(L, 1);
+    auto self = (b2JointDef *)olua_toobj(L, 1, "b2.JointDef");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -7842,7 +7872,8 @@ static int _b2DistanceJoint___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2DistanceJoint>(L, 1);
+    auto self = (b2DistanceJoint *)olua_toobj(L, 1, "b2.DistanceJoint");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -8304,7 +8335,8 @@ static int _b2FrictionJoint___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2FrictionJoint>(L, 1);
+    auto self = (b2FrictionJoint *)olua_toobj(L, 1, "b2.FrictionJoint");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -8571,7 +8603,8 @@ static int _b2GearJoint___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2GearJoint>(L, 1);
+    auto self = (b2GearJoint *)olua_toobj(L, 1, "b2.GearJoint");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -8893,7 +8926,8 @@ static int _b2MotorJoint___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2MotorJoint>(L, 1);
+    auto self = (b2MotorJoint *)olua_toobj(L, 1, "b2.MotorJoint");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -9272,7 +9306,8 @@ static int _b2MouseJoint___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2MouseJoint>(L, 1);
+    auto self = (b2MouseJoint *)olua_toobj(L, 1, "b2.MouseJoint");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -9854,7 +9889,8 @@ static int _b2PrismaticJoint___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2PrismaticJoint>(L, 1);
+    auto self = (b2PrismaticJoint *)olua_toobj(L, 1, "b2.PrismaticJoint");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -10527,7 +10563,8 @@ static int _b2PulleyJoint___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2PulleyJoint>(L, 1);
+    auto self = (b2PulleyJoint *)olua_toobj(L, 1, "b2.PulleyJoint");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -11052,7 +11089,8 @@ static int _b2RevoluteJoint___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2RevoluteJoint>(L, 1);
+    auto self = (b2RevoluteJoint *)olua_toobj(L, 1, "b2.RevoluteJoint");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -11626,7 +11664,8 @@ static int _b2WeldJoint___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2WeldJoint>(L, 1);
+    auto self = (b2WeldJoint *)olua_toobj(L, 1, "b2.WeldJoint");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -12225,7 +12264,8 @@ static int _b2WheelJoint___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2WheelJoint>(L, 1);
+    auto self = (b2WheelJoint *)olua_toobj(L, 1, "b2.WheelJoint");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -12686,7 +12726,8 @@ static int _b2JointEdge___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2JointEdge>(L, 1);
+    auto self = (b2JointEdge *)olua_toobj(L, 1, "b2.JointEdge");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -12864,7 +12905,8 @@ static int _b2JointUserData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2JointUserData>(L, 1);
+    auto self = (b2JointUserData *)olua_toobj(L, 1, "b2.JointUserData");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -12949,7 +12991,8 @@ static int _b2ContactEdge___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2ContactEdge>(L, 1);
+    auto self = (b2ContactEdge *)olua_toobj(L, 1, "b2.ContactEdge");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -13127,7 +13170,8 @@ static int _b2ContactManager___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2ContactManager>(L, 1);
+    auto self = (b2ContactManager *)olua_toobj(L, 1, "b2.ContactManager");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -13250,7 +13294,8 @@ static int _b2Profile___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2Profile>(L, 1);
+    auto self = (b2Profile *)olua_toobj(L, 1, "b2.Profile");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -13572,7 +13617,8 @@ static int _b2BroadPhase___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2BroadPhase>(L, 1);
+    auto self = (b2BroadPhase *)olua_toobj(L, 1, "b2.BroadPhase");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -13861,7 +13907,8 @@ static int _b2AABB___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2AABB>(L, 1);
+    auto self = (b2AABB *)olua_toobj(L, 1, "b2.AABB");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -14585,7 +14632,8 @@ static int _b2ContactImpulse___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2ContactImpulse>(L, 1);
+    auto self = (b2ContactImpulse *)olua_toobj(L, 1, "b2.ContactImpulse");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -14655,7 +14703,8 @@ static int _b2Manifold___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2Manifold>(L, 1);
+    auto self = (b2Manifold *)olua_toobj(L, 1, "b2.Manifold");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -14847,7 +14896,8 @@ static int _b2World___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2World>(L, 1);
+    auto self = (b2World *)olua_toobj(L, 1, "b2.World");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -15678,7 +15728,8 @@ static int _b2WorldManifold___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<b2WorldManifold>(L, 1);
+    auto self = (b2WorldManifold *)olua_toobj(L, 1, "b2.WorldManifold");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 

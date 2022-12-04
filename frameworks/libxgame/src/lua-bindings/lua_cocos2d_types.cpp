@@ -228,7 +228,8 @@ static int _cocos2d_Vec2___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::Vec2>(L, 1);
+    auto self = (cocos2d::Vec2 *)olua_toobj(L, 1, "cc.Vec2");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -1950,7 +1951,8 @@ static int _cocos2d_Vec3___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::Vec3>(L, 1);
+    auto self = (cocos2d::Vec3 *)olua_toobj(L, 1, "cc.Vec3");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -2989,7 +2991,8 @@ static int _cocos2d_Vec4___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::Vec4>(L, 1);
+    auto self = (cocos2d::Vec4 *)olua_toobj(L, 1, "cc.Vec4");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -3929,7 +3932,8 @@ static int _cocos2d_Size___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::Size>(L, 1);
+    auto self = (cocos2d::Size *)olua_toobj(L, 1, "cc.Size");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -4194,7 +4198,8 @@ static int _cocos2d_Rect___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::Rect>(L, 1);
+    auto self = (cocos2d::Rect *)olua_toobj(L, 1, "cc.Rect");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -4714,7 +4719,8 @@ static int _cocos2d_Bounds___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::Bounds>(L, 1);
+    auto self = (cocos2d::Bounds *)olua_toobj(L, 1, "cc.Bounds");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -4930,7 +4936,8 @@ static int _cocos2d_Mat4___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::Mat4>(L, 1);
+    auto self = (cocos2d::Mat4 *)olua_toobj(L, 1, "cc.Mat4");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -7382,7 +7389,8 @@ static int _cocos2d_Viewport___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::Viewport>(L, 1);
+    auto self = (cocos2d::Viewport *)olua_toobj(L, 1, "cc.Viewport");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -7560,7 +7568,8 @@ static int _cocos2d_ScissorRect___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::ScissorRect>(L, 1);
+    auto self = (cocos2d::ScissorRect *)olua_toobj(L, 1, "cc.ScissorRect");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -7738,7 +7747,8 @@ static int _cocos2d_Quaternion___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::Quaternion>(L, 1);
+    auto self = (cocos2d::Quaternion *)olua_toobj(L, 1, "cc.Quaternion");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -8578,7 +8588,8 @@ static int _cocos2d_AffineTransform___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::AffineTransform>(L, 1);
+    auto self = (cocos2d::AffineTransform *)olua_toobj(L, 1, "cc.AffineTransform");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -8829,7 +8840,8 @@ static int _GLContextAttrs___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<GLContextAttrs>(L, 1);
+    auto self = (GLContextAttrs *)olua_toobj(L, 1, "cc.GLContextAttrs");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -9115,7 +9127,8 @@ static int _cocos2d_Tex2F___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::Tex2F>(L, 1);
+    auto self = (cocos2d::Tex2F *)olua_toobj(L, 1, "cc.Tex2F");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -9277,7 +9290,8 @@ static int _cocos2d_T2F_Quad___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::T2F_Quad>(L, 1);
+    auto self = (cocos2d::T2F_Quad *)olua_toobj(L, 1, "cc.T2F_Quad");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -9489,7 +9503,8 @@ static int _cocos2d_ccBezierConfig___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::ccBezierConfig>(L, 1);
+    auto self = (cocos2d::ccBezierConfig *)olua_toobj(L, 1, "cc.ccBezierConfig");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -9632,7 +9647,8 @@ static int _cocos2d_TTFConfig___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::TTFConfig>(L, 1);
+    auto self = (cocos2d::TTFConfig *)olua_toobj(L, 1, "cc.TTFConfig");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -10026,7 +10042,8 @@ static int _cocos2d_BlendFunc___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::BlendFunc>(L, 1);
+    auto self = (cocos2d::BlendFunc *)olua_toobj(L, 1, "cc.BlendFunc");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -10136,7 +10153,8 @@ static int _cocos2d_ui_Margin___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::ui::Margin>(L, 1);
+    auto self = (cocos2d::ui::Margin *)olua_toobj(L, 1, "cc.ui.Margin");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -10445,7 +10463,8 @@ static int _cocos2d_ResourceData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::ResourceData>(L, 1);
+    auto self = (cocos2d::ResourceData *)olua_toobj(L, 1, "cc.ResourceData");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -10645,7 +10664,8 @@ static int _cocos2d_Quad3___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::Quad3>(L, 1);
+    auto self = (cocos2d::Quad3 *)olua_toobj(L, 1, "cc.Quad3");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -10823,7 +10843,8 @@ static int _cocos2d_Texture2D_PixelFormatInfo___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::Texture2D::PixelFormatInfo>(L, 1);
+    auto self = (cocos2d::Texture2D::PixelFormatInfo *)olua_toobj(L, 1, "cc.Texture2D.PixelFormatInfo");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -10988,7 +11009,8 @@ static int _cocos2d_Controller_KeyStatus___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::Controller::KeyStatus>(L, 1);
+    auto self = (cocos2d::Controller::KeyStatus *)olua_toobj(L, 1, "cc.Controller.KeyStatus");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -11131,7 +11153,8 @@ static int _cocos2d_NavMeshAgentParam___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::NavMeshAgentParam>(L, 1);
+    auto self = (cocos2d::NavMeshAgentParam *)olua_toobj(L, 1, "cc.NavMeshAgentParam");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -11542,7 +11565,8 @@ static int _cocos2d_OffMeshLinkData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::OffMeshLinkData>(L, 1);
+    auto self = (cocos2d::OffMeshLinkData *)olua_toobj(L, 1, "cc.OffMeshLinkData");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -11649,7 +11673,8 @@ static int _cocos2d_backend_BlendDescriptor___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::backend::BlendDescriptor>(L, 1);
+    auto self = (cocos2d::backend::BlendDescriptor *)olua_toobj(L, 1, "ccb.BlendDescriptor");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -11971,7 +11996,8 @@ static int _cocos2d_backend_SamplerDescriptor___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::backend::SamplerDescriptor>(L, 1);
+    auto self = (cocos2d::backend::SamplerDescriptor *)olua_toobj(L, 1, "ccb.SamplerDescriptor");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -12209,7 +12235,8 @@ static int _cocos2d_backend_TextureInfo___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::backend::TextureInfo>(L, 1);
+    auto self = (cocos2d::backend::TextureInfo *)olua_toobj(L, 1, "ccb.TextureInfo");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -12442,7 +12469,8 @@ static int _cocos2d_backend_AttributeBindInfo___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::backend::AttributeBindInfo>(L, 1);
+    auto self = (cocos2d::backend::AttributeBindInfo *)olua_toobj(L, 1, "ccb.AttributeBindInfo");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -12620,7 +12648,8 @@ static int _cocos2d_backend_UniformInfo___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::backend::UniformInfo>(L, 1);
+    auto self = (cocos2d::backend::UniformInfo *)olua_toobj(L, 1, "ccb.UniformInfo");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -12942,7 +12971,8 @@ static int _cocos2d_backend_TextureDescriptor___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::backend::TextureDescriptor>(L, 1);
+    auto self = (cocos2d::backend::TextureDescriptor *)olua_toobj(L, 1, "ccb.TextureDescriptor");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -13264,7 +13294,8 @@ static int _cocos2d_backend_StencilDescriptor___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::backend::StencilDescriptor>(L, 1);
+    auto self = (cocos2d::backend::StencilDescriptor *)olua_toobj(L, 1, "ccb.StencilDescriptor");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -13514,7 +13545,8 @@ static int _cocos2d_backend_DepthStencilDescriptor___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::backend::DepthStencilDescriptor>(L, 1);
+    auto self = (cocos2d::backend::DepthStencilDescriptor *)olua_toobj(L, 1, "ccb.DepthStencilDescriptor");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -13764,7 +13796,8 @@ static int _cocos2d_backend_VertexLayout_Attribute___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::backend::VertexLayout::Attribute>(L, 1);
+    auto self = (cocos2d::backend::VertexLayout::Attribute *)olua_toobj(L, 1, "ccb.VertexLayout.Attribute");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 

@@ -26,7 +26,8 @@ static int _cocostudio_timeline_AnimationInfo___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocostudio::timeline::AnimationInfo>(L, 1);
+    auto self = (cocostudio::timeline::AnimationInfo *)olua_toobj(L, 1, "ccs.timeline.AnimationInfo");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -291,7 +292,8 @@ static int _cocos2d_CSLoader___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::CSLoader>(L, 1);
+    auto self = (cocos2d::CSLoader *)olua_toobj(L, 1, "cc.CSLoader");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -7333,7 +7335,8 @@ static int _cocostudio_CocoLoader___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocostudio::CocoLoader>(L, 1);
+    auto self = (cocostudio::CocoLoader *)olua_toobj(L, 1, "ccs.CocoLoader");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -7761,7 +7764,8 @@ static int _cocostudio_ColliderFilter___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocostudio::ColliderFilter>(L, 1);
+    auto self = (cocostudio::ColliderFilter *)olua_toobj(L, 1, "ccs.ColliderFilter");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -9770,7 +9774,8 @@ static int _cocostudio_DataReaderHelper___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocostudio::DataReaderHelper>(L, 1);
+    auto self = (cocostudio::DataReaderHelper *)olua_toobj(L, 1, "ccs.DataReaderHelper");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -10106,7 +10111,8 @@ static int _cocostudio_DisplayFactory___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocostudio::DisplayFactory>(L, 1);
+    auto self = (cocostudio::DisplayFactory *)olua_toobj(L, 1, "ccs.DisplayFactory");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -11588,7 +11594,8 @@ static int _cocostudio_InputDelegate___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocostudio::InputDelegate>(L, 1);
+    auto self = (cocostudio::InputDelegate *)olua_toobj(L, 1, "ccs.InputDelegate");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -12769,7 +12776,8 @@ static int _cocostudio_SceneReader___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocostudio::SceneReader>(L, 1);
+    auto self = (cocostudio::SceneReader *)olua_toobj(L, 1, "ccs.SceneReader");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -15756,7 +15764,8 @@ static int _cocostudio_timeline_ActionTimelineCache___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocostudio::timeline::ActionTimelineCache>(L, 1);
+    auto self = (cocostudio::timeline::ActionTimelineCache *)olua_toobj(L, 1, "ccs.timeline.ActionTimelineCache");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 

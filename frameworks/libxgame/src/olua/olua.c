@@ -1531,8 +1531,9 @@ int luaopen_olua(lua_State *L)
     oluacls_func(L, "objpool", l_olua_objpool);
     oluacls_func(L, "ref", l_olua_ref);
     oluacls_func(L, "uservalue", l_olua_uservalue);
+    lua_pushvalue(L, -1);
     olua_setglobal(L, "olua");
-    return 0;
+    return 1;
 }
 
 static int l_voidp_tostring(lua_State *L)
@@ -1551,7 +1552,7 @@ int luaopen_voidp(lua_State *L)
     oluacls_class(L, OLUA_VOIDCLS, NULL);
     oluacls_func(L, "__eq", l_voidp_eq);
     oluacls_func(L, "__tostring", l_voidp_tostring);
-    return 0;
+    return 1;
 }
 
 static intptr_t aux_toenum(lua_State *L, int idx) {
@@ -1585,8 +1586,9 @@ int luaopen_enum(lua_State *L)
     olua_setfield(L, -2, "__lt");
     lua_pushcfunction(L, l_enum_le);
     olua_setfield(L, -2, "__le");
-    lua_setmetatable(L, -2);
-    return 0;
+    lua_pushvalue(L, -1);
+    lua_setmetatable(L, -3);
+    return 1;
 }
 
 #if LUA_VERSION_NUM == 501

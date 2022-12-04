@@ -392,7 +392,8 @@ static int _cocos2d_ActionTweenDelegate___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::ActionTweenDelegate>(L, 1);
+    auto self = (cocos2d::ActionTweenDelegate *)olua_toobj(L, 1, "cc.ActionTweenDelegate");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 

@@ -11,7 +11,8 @@ static int _cocos2d_MeshVertexAttrib___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::MeshVertexAttrib>(L, 1);
+    auto self = (cocos2d::MeshVertexAttrib *)olua_toobj(L, 1, "cc.MeshVertexAttrib");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -210,7 +211,8 @@ static int _cocos2d_NTextureData___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::NTextureData>(L, 1);
+    auto self = (cocos2d::NTextureData *)olua_toobj(L, 1, "cc.NTextureData");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 

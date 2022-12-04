@@ -11,7 +11,8 @@ static int _cocos2d_PhysicsMaterial___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::PhysicsMaterial>(L, 1);
+    auto self = (cocos2d::PhysicsMaterial *)olua_toobj(L, 1, "cc.PhysicsMaterial");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -7168,7 +7169,8 @@ static int _cocos2d_PhysicsRayCastInfo___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::PhysicsRayCastInfo>(L, 1);
+    auto self = (cocos2d::PhysicsRayCastInfo *)olua_toobj(L, 1, "cc.PhysicsRayCastInfo");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 

@@ -10,7 +10,8 @@ static int _cocos2d_backend_UniformLocation___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::backend::UniformLocation>(L, 1);
+    auto self = (cocos2d::backend::UniformLocation *)olua_toobj(L, 1, "ccb.UniformLocation");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -661,7 +662,8 @@ static int _cocos2d_backend_VertexLayout___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::backend::VertexLayout>(L, 1);
+    auto self = (cocos2d::backend::VertexLayout *)olua_toobj(L, 1, "ccb.VertexLayout");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -1449,7 +1451,8 @@ static int _cocos2d_backend_DeviceInfo___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cocos2d::backend::DeviceInfo>(L, 1);
+    auto self = (cocos2d::backend::DeviceInfo *)olua_toobj(L, 1, "ccb.DeviceInfo");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 

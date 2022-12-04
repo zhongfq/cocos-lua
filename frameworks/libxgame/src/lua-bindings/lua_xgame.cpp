@@ -297,7 +297,8 @@ static int _cclua_permission_status___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cclua::permission::status>(L, 1);
+    auto self = (cclua::permission::status *)olua_toobj(L, 1, "cclua.permission.status");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -341,7 +342,8 @@ static int _cclua_permission_android___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cclua::permission::android>(L, 1);
+    auto self = (cclua::permission::android *)olua_toobj(L, 1, "cclua.permission.android");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -528,7 +530,8 @@ static int _cclua_permission___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cclua::permission>(L, 1);
+    auto self = (cclua::permission *)olua_toobj(L, 1, "cclua.permission");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -601,7 +604,8 @@ static int _cclua_runtime___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cclua::runtime>(L, 1);
+    auto self = (cclua::runtime *)olua_toobj(L, 1, "cclua.runtime");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -2027,7 +2031,8 @@ static int _cclua_filesystem___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cclua::filesystem>(L, 1);
+    auto self = (cclua::filesystem *)olua_toobj(L, 1, "cclua.filesystem");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -2579,7 +2584,8 @@ static int _cclua_preferences___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cclua::preferences>(L, 1);
+    auto self = (cclua::preferences *)olua_toobj(L, 1, "cclua.preferences");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -3038,7 +3044,8 @@ static int _cclua_timer___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cclua::timer>(L, 1);
+    auto self = (cclua::timer *)olua_toobj(L, 1, "cclua.timer");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -3245,7 +3252,8 @@ static int _cclua_window___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cclua::window>(L, 1);
+    auto self = (cclua::window *)olua_toobj(L, 1, "cclua.window");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -3512,7 +3520,8 @@ static int _cclua_downloader___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cclua::downloader>(L, 1);
+    auto self = (cclua::downloader *)olua_toobj(L, 1, "cclua.downloader");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -7097,7 +7106,8 @@ static int _cclua_microphone___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cclua::microphone>(L, 1);
+    auto self = (cclua::microphone *)olua_toobj(L, 1, "cclua.microphone");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 
@@ -7240,7 +7250,8 @@ static int _cclua_photo___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_postgc<cclua::photo>(L, 1);
+    auto self = (cclua::photo *)olua_toobj(L, 1, "cclua.photo");
+    olua_postgc(L, self);
 
     olua_endinvoke(L);
 

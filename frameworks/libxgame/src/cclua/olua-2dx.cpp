@@ -303,16 +303,22 @@ static int _errorfunc(lua_State *L)
     return 0;
 }
 
+static void cclua_callfunc(lua_State *L, lua_CFunction fn)
+{
+    lua_pushcfunction(L, fn);
+    lua_call(L, 0, 0);
+}
+
 lua_State *cclua_new()
 {
     lua_State *L = luaL_newstate();
     
     luaL_openlibs(L);
-    olua_callfunc(L, _fixcoresume);
-    olua_callfunc(L, _fixprint);
-    olua_callfunc(L, _fixloadfile);
-    olua_callfunc(L, _addsearchpath);
-    olua_callfunc(L, _addlualoader);
+    cclua_callfunc(L, _fixcoresume);
+    cclua_callfunc(L, _fixprint);
+    cclua_callfunc(L, _fixloadfile);
+    cclua_callfunc(L, _addsearchpath);
+    cclua_callfunc(L, _addlualoader);
     
     lua_pushcfunction(L, _errorfunc);
     lua_setglobal(L, "__TRACEBACK__");
@@ -382,17 +388,6 @@ int cclua_ccobjgc(lua_State *L)
         lua_settop(L, top);
     }
 #endif
-    if (olua_isdebug(L)) {
-        int top = lua_gettop(L);
-        lua_getfield(L, 1, "name");
-        const char *name = lua_tostring(L, -1);
-        const char *str = olua_objstring(L, 1);
-        cclua::runtime::log("lua gc: %s(NAME=%s, RC=%d)", str,
-            name && strlen(name) > 0 ? name : "''",
-            (int)obj->getReferenceCount() - 1);
-        lua_settop(L, top);
-    }
-    
     obj->release();
     olua_setrawobj(L, 1, nullptr);
     lua_pushnil(L);

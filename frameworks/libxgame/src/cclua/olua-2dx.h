@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 #include "cclua/luauser.h"
-#include "olua/olua.h"
+#include "olua/olua.hpp"
 
 extern lua_State *cclua_invokingstate;
 

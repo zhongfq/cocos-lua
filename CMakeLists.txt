@@ -23,7 +23,7 @@
 # THE SOFTWARE.
 # ****************************************************************************/
 
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.16)
 
 set(APP_NAME cocos-lua)
 
@@ -179,116 +179,143 @@ target_compile_definitions(${APP_NAME} PUBLIC APP_PACKAGE_NAME="${APP_PACKAGE_NA
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libxgame)
 target_link_libraries(${APP_NAME} xgame)
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/luaopenssl)
-target_link_libraries(${APP_NAME} luaopenssl)
-
 if(CCLUA_BUILD_FAIRYGUI)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libfairygui)
-    target_link_libraries(${APP_NAME} fairygui)
-    set_target_properties(fairygui PROPERTIES
-        ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-        FOLDER "cclua"
-    )
-    if(XCODE OR VS)
-        cocos_mark_code_files("fairygui" GROUPBASE "${CMAKE_CURRENT_SOURCE_DIR}/Classes")
-    endif()
-endif()
-
-if(CCLUA_BUILD_DRAGONBONES)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libdragonbones)
-    target_link_libraries(${APP_NAME} dragonbones)
-endif()
-
-if(CCLUA_BUILD_BOX2D)
-    set(BOX2D_BUILD_UNIT_TESTS OFF)
-    set(BOX2D_BUILD_TESTBED OFF)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/box2d)
-    target_link_libraries(${APP_NAME} box2d)
-    set_target_properties(box2d PROPERTIES
-        ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-        FOLDER "cclua"
-    )
-    if(XCODE OR VS)
-        cocos_mark_code_files("box2d" GROUPBASE "${CMAKE_CURRENT_SOURCE_DIR}/box2d")
-    endif()
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/fairygui)
+    target_compile_definitions(fairygui PUBLIC CCLUA_BUILD_FAIRYGUI)
+    set_target_properties(fairygui PROPERTIES FOLDER "3rd")
+    target_link_libraries(xgame fairygui)
 endif()
 
 if(CCLUA_BUILD_SWF)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libswf)
+    target_compile_definitions(swf PUBLIC CCLUA_BUILD_SWF)
+    set_target_properties(swf PROPERTIES FOLDER "3rd")
     target_link_libraries(${APP_NAME} swf)
-    target_compile_definitions(${APP_NAME} PUBLIC CCLUA_BUILD_SWF)
 endif()
 
+if(CCLUA_BUILD_DRAGONBONES)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/dragonbones)
+    target_compile_definitions(dragonbones PUBLIC CCLUA_BUILD_DRAGONBONES)
+    set_target_properties(dragonbones PROPERTIES FOLDER "3rd")
+    target_link_libraries(xgame dragonbones)
+endif()
+
+if(CCLUA_BUILD_BOX2D)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/box2d)
+    target_compile_definitions(box2d PUBLIC CCLUA_BUILD_BOX2D)
+    set_target_properties(box2d PROPERTIES FOLDER "3rd")
+    target_link_libraries(xgame box2d)
+endif()
+
+add_subdirectory(frameworks/3rd/lua)
+target_link_libraries(${APP_NAME} lua)
+set_target_properties(lua PROPERTIES FOLDER "3rd")
+
+add_subdirectory(frameworks/3rd/openssl)
+target_link_libraries(${APP_NAME} openssl)
+set_target_properties(openssl PROPERTIES FOLDER "3rd")
+
+add_subdirectory(frameworks/3rd/luaopenssl)
+set_target_properties(luaopenssl PROPERTIES FOLDER "3rd")
+target_link_libraries(${APP_NAME} luaopenssl)
+
+add_subdirectory(frameworks/3rd/cjson)
+set_target_properties(cjson PROPERTIES FOLDER "3rd")
+target_link_libraries(${APP_NAME} cjson)
+
+add_subdirectory(frameworks/3rd/md5)
+set_target_properties(md5 PROPERTIES FOLDER "3rd")
+target_link_libraries(${APP_NAME} md5)
+
+add_subdirectory(frameworks/3rd/xxtea)
+set_target_properties(xxtea PROPERTIES FOLDER "3rd")
+target_link_libraries(${APP_NAME} xxtea)
+
+add_subdirectory(frameworks/3rd/lfs)
+set_target_properties(lfs PROPERTIES FOLDER "3rd")
+target_link_libraries(${APP_NAME} lfs)
+
 if(CCLUA_BUILD_SQLITE3)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/sqlite3)
+    add_subdirectory(frameworks/3rd/sqlite3)
+    target_compile_definitions(sqlite3 PUBLIC CCLUA_BUILD_SQLITE3)
+    set_target_properties(sqlite3 PROPERTIES FOLDER "3rd")
     target_link_libraries(${APP_NAME} sqlite3)
-    target_compile_definitions(${APP_NAME} PUBLIC CCLUA_BUILD_SQLITE3)
 endif()
 
 if(CCLUA_BUILD_LUASOCKET)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/luasocket)
+    add_subdirectory(frameworks/3rd/luasocket)
+    target_compile_definitions(luasocket PUBLIC CCLUA_BUILD_LUASOCKET)
+    set_target_properties(luasocket PROPERTIES FOLDER "3rd")
     target_link_libraries(${APP_NAME} luasocket)
-    target_compile_definitions(xgame PUBLIC CCLUA_BUILD_LUASOCKET)
 endif()
 
 if(CCLUA_BUILD_PBC)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/pbc)
+    add_subdirectory(frameworks/3rd/pbc)
+    target_compile_definitions(pbc PUBLIC CCLUA_BUILD_PBC)
+    set_target_properties(pbc PROPERTIES FOLDER "3rd")
     target_link_libraries(${APP_NAME} pbc)
-    target_compile_definitions(xgame PUBLIC CCLUA_BUILD_PBC)
 endif()
 
 if(CCLUA_BUILD_SPROTO)
     set(CCLUA_BUILD_LPEG ON)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/sproto)
+    add_subdirectory(frameworks/3rd/sproto)
+    target_compile_definitions(sproto PUBLIC CCLUA_BUILD_SPROTO)
+    set_target_properties(sproto PROPERTIES FOLDER "3rd")
     target_link_libraries(${APP_NAME} sproto)
-    target_compile_definitions(xgame PUBLIC CCLUA_BUILD_SPROTO)
 endif()
 
 if(CCLUA_BUILD_LPEG)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/lpeg)
-    target_link_libraries(${APP_NAME} lpeg)
+    add_subdirectory(frameworks/3rd/lpeg)
     target_compile_definitions(xgame PUBLIC CCLUA_BUILD_LPEG)
+    set_target_properties(lpeg PROPERTIES FOLDER "3rd")
+    target_link_libraries(${APP_NAME} lpeg)
 endif()
 
 if(CCLUA_BUILD_JPUSH OR CCLUA_BUILD_JANALYTICS OR CCLUA_BUILD_JAUTH)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/plugins/jiguang)
+    add_subdirectory(frameworks/plugins/jiguang)
+    set_target_properties(plugin_jiguang PROPERTIES FOLDER "plugins")
     target_link_libraries(${APP_NAME} plugin_jiguang)
 endif()
 
 if(CCLUA_BUILD_ALIPAY)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/plugins/alipay)
+    add_subdirectory(frameworks/plugins/alipay)
+    set_target_properties(plugin_alipay PROPERTIES FOLDER "plugins")
     target_link_libraries(${APP_NAME} plugin_alipay)
 endif()
 
 if(CCLUA_BUILD_HUAWEI)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/plugins/huawei)
+    add_subdirectory(frameworks/plugins/huawei)
+    set_target_properties(plugin_huawei PROPERTIES FOLDER "plugins")
     target_link_libraries(${APP_NAME} plugin_huawei)
 endif()
 
 if(CCLUA_BUILD_OPPO)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/plugins/oppo)
+    add_subdirectory(frameworks/plugins/oppo)
+    set_target_properties(plugin_oppo PROPERTIES FOLDER "plugins")
     target_link_libraries(${APP_NAME} plugin_oppo)
 endif()
 
 if(CCLUA_BUILD_VIVO)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/plugins/vivo)
+    add_subdirectory(frameworks/plugins/vivo)
+    set_target_properties(plugin_vivo PROPERTIES FOLDER "plugins")
     target_link_libraries(${APP_NAME} plugin_vivo)
 endif()
 
 if(CCLUA_BUILD_WECHAT)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/plugins/wechat)
+    add_subdirectory(frameworks/plugins/wechat)
+    set_target_properties(plugin_wechat PROPERTIES FOLDER "plugins")
     target_link_libraries(${APP_NAME} plugin_wechat)
 endif()
 
 if(CCLUA_BUILD_TALKINGDATA)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/plugins/talkingdata)
+    add_subdirectory(frameworks/plugins/talkingdata)
+    set_target_properties(plugin_talkingdata PROPERTIES FOLDER "plugins")
     target_link_libraries(${APP_NAME} plugin_talkingdata)
 endif()
 
-if(IOS)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/plugins/apple)
+if(APPLE)
+    add_subdirectory(frameworks/plugins/apple)
+    set_target_properties(plugin_apple PROPERTIES FOLDER "plugins")
     target_link_libraries(${APP_NAME} plugin_apple)
 endif()
 
@@ -330,7 +357,7 @@ endif()
 
 # link other flags
 if(IOS)
-    SET_TARGET_PROPERTIES(${APP_NAME} PROPERTIES LINK_FLAGS -ObjC)
+    set_target_properties(${APP_NAME} PROPERTIES LINK_FLAGS -ObjC)
 endif()
 
 # mark app resources

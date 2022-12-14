@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.16)
 
 set(SQLITE3_HEADER
     lsqlite3.h
@@ -13,10 +13,7 @@ list(APPEND SQLITE3_SRC ${SQLITE3_HEADER})
 
 add_library(sqlite3 ${SQLITE3_SRC})
 
-target_link_libraries(sqlite3 
-	PRIVATE xgame
-	PRIVATE cocos2d
-)
+target_link_libraries(sqlite3 PUBLIC lua)
 
 if(APPLE)
     target_compile_options(sqlite3 PRIVATE -Wno-shorten-64-to-32)
@@ -26,15 +23,7 @@ if(APPLE)
 endif()
 
 target_include_directories(sqlite3
-	PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..
 )
 
-set_target_properties(sqlite3 PROPERTIES
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-    FOLDER "cclua/3rd"
-)
-
-if(XCODE OR VS)
-    cocos_mark_code_files("sqlite3" GROUPBASE "${CMAKE_CURRENT_SOURCE_DIR}")
-endif()
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} PREFIX "" FILES ${SQLITE3_SRC})

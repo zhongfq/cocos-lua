@@ -1,0 +1,794 @@
+set(CRYPTO_HEADERS
+    crypto/aes/aes_local.h
+    crypto/arm_arch.h
+    crypto/asn1/asn1_item_list.h
+    crypto/asn1/asn1_local.h
+    crypto/asn1/charmap.h
+    crypto/asn1/standard_methods.h
+    crypto/asn1/tbl_standard.h
+    crypto/async/arch/async_null.h
+    crypto/async/arch/async_posix.h
+    crypto/async/arch/async_win.h
+    crypto/async/async_local.h
+    crypto/bf/bf_local.h
+    crypto/bf/bf_pi.h
+    crypto/bio/bio_local.h
+    crypto/blake2/blake2_impl.h
+    crypto/blake2/blake2_local.h
+    crypto/bn/bn_local.h
+    crypto/bn/bn_prime.h
+    crypto/bn/rsaz_exp.h
+    crypto/camellia/cmll_local.h
+    crypto/cast/cast_local.h
+    crypto/cast/cast_s.h
+    crypto/cms/cms_local.h
+    crypto/comp/comp_local.h
+    crypto/conf/conf_def.h
+    crypto/conf/conf_local.h
+    crypto/ct/ct_local.h
+    crypto/des/des_local.h
+    crypto/des/spr.h
+    crypto/dh/dh_local.h
+    crypto/dsa/dsa_local.h
+    crypto/dso/dso_local.h
+    crypto/ec/curve448/arch_32/arch_intrinsics.h
+    crypto/ec/curve448/arch_32/f_impl.h
+    crypto/ec/curve448/curve448_local.h
+    crypto/ec/curve448/curve448utils.h
+    crypto/ec/curve448/ed448.h
+    crypto/ec/curve448/field.h
+    crypto/ec/curve448/point_448.h
+    crypto/ec/curve448/word.h
+    crypto/ec/ec_local.h
+    crypto/engine/eng_local.h
+    crypto/evp/evp_local.h
+    crypto/hmac/hmac_local.h
+    crypto/idea/idea_local.h
+    crypto/lhash/lhash_local.h
+    crypto/md4/md4_local.h
+    crypto/md5/md5_local.h
+    crypto/mips_arch.h
+    crypto/modes/modes_local.h
+    crypto/objects/obj_dat.h
+    crypto/objects/obj_local.h
+    crypto/objects/obj_xref.h
+    crypto/ocsp/ocsp_local.h
+    crypto/pkcs12/p12_local.h
+    crypto/poly1305/poly1305_local.h
+    crypto/ppc_arch.h
+    crypto/rand/rand_local.h
+    crypto/rc2/rc2_local.h
+    crypto/rc4/rc4_local.h
+    crypto/rc5/rc5_local.h
+    crypto/ripemd/rmd_local.h
+    crypto/ripemd/rmdconst.h
+    crypto/rsa/rsa_local.h
+    crypto/s390x_arch.h
+    crypto/seed/seed_local.h
+    crypto/sha/sha_local.h
+    crypto/siphash/siphash_local.h
+    crypto/sm3/sm3_local.h
+    crypto/sparc_arch.h
+    crypto/store/store_local.h
+    crypto/ts/ts_local.h
+    crypto/ui/ui_local.h
+    crypto/vms_rms.h
+    crypto/whrlpool/wp_local.h
+    crypto/x509/x509_local.h
+    crypto/x509v3/ext_dat.h
+    crypto/x509v3/pcy_local.h
+    crypto/x509v3/standard_exts.h
+    crypto/x509v3/v3_admis.h
+)
+
+set(CRYPTO_SOURCES
+    crypto/cpt_err.c
+    crypto/cryptlib.c
+    crypto/ctype.c
+    crypto/cversion.c
+    crypto/ebcdic.c
+    crypto/ex_data.c
+    crypto/init.c
+    crypto/mem.c
+    crypto/mem_clr.c
+    crypto/mem_dbg.c
+    crypto/mem_sec.c
+    crypto/o_dir.c
+    crypto/o_fips.c
+    crypto/o_fopen.c
+    crypto/o_init.c
+    crypto/o_str.c
+    crypto/o_time.c
+    crypto/uid.c
+    crypto/getenv.c
+    # aes
+    crypto/aes/aes_cbc.c
+    crypto/aes/aes_cfb.c
+    crypto/aes/aes_core.c
+    crypto/aes/aes_ecb.c
+    crypto/aes/aes_ige.c
+    crypto/aes/aes_misc.c
+    crypto/aes/aes_ofb.c
+    crypto/aes/aes_wrap.c
+    # aria
+    crypto/aria/aria.c
+    # asn1
+    crypto/asn1/a_bitstr.c
+    crypto/asn1/a_d2i_fp.c
+    crypto/asn1/a_digest.c
+    crypto/asn1/a_dup.c
+    crypto/asn1/a_gentm.c
+    crypto/asn1/a_i2d_fp.c
+    crypto/asn1/a_int.c
+    crypto/asn1/a_mbstr.c
+    crypto/asn1/a_object.c
+    crypto/asn1/a_octet.c
+    crypto/asn1/a_print.c
+    crypto/asn1/a_sign.c
+    crypto/asn1/a_strex.c
+    crypto/asn1/a_strnid.c
+    crypto/asn1/a_time.c
+    crypto/asn1/a_type.c
+    crypto/asn1/a_utctm.c
+    crypto/asn1/a_utf8.c
+    crypto/asn1/a_verify.c
+    crypto/asn1/ameth_lib.c
+    crypto/asn1/asn1_err.c
+    crypto/asn1/asn1_gen.c
+    crypto/asn1/asn1_item_list.c
+    crypto/asn1/asn1_lib.c
+    crypto/asn1/asn1_par.c
+    crypto/asn1/asn_mime.c
+    crypto/asn1/asn_moid.c
+    crypto/asn1/asn_mstbl.c
+    crypto/asn1/asn_pack.c
+    crypto/asn1/bio_asn1.c
+    crypto/asn1/bio_ndef.c
+    crypto/asn1/d2i_pr.c
+    crypto/asn1/d2i_pu.c
+    crypto/asn1/evp_asn1.c
+    crypto/asn1/f_int.c
+    crypto/asn1/f_string.c
+    crypto/asn1/i2d_pr.c
+    crypto/asn1/i2d_pu.c
+    crypto/asn1/n_pkey.c
+    crypto/asn1/nsseq.c
+    crypto/asn1/p5_pbe.c
+    crypto/asn1/p5_pbev2.c
+    crypto/asn1/p5_scrypt.c
+    crypto/asn1/p8_pkey.c
+    crypto/asn1/t_bitst.c
+    crypto/asn1/t_pkey.c
+    crypto/asn1/t_spki.c
+    crypto/asn1/tasn_dec.c
+    crypto/asn1/tasn_enc.c
+    crypto/asn1/tasn_fre.c
+    crypto/asn1/tasn_new.c
+    crypto/asn1/tasn_prn.c
+    crypto/asn1/tasn_scn.c
+    crypto/asn1/tasn_typ.c
+    crypto/asn1/tasn_utl.c
+    crypto/asn1/x_algor.c
+    crypto/asn1/x_bignum.c
+    crypto/asn1/x_info.c
+    crypto/asn1/x_int64.c
+    crypto/asn1/x_long.c
+    crypto/asn1/x_pkey.c
+    crypto/asn1/x_sig.c
+    crypto/asn1/x_spki.c
+    crypto/asn1/x_val.c
+    # async
+    crypto/async/async.c
+    crypto/async/async_err.c
+    crypto/async/async_wait.c
+    crypto/async/arch/async_null.c
+    crypto/async/arch/async_posix.c
+    crypto/async/arch/async_win.c
+    # bf
+    crypto/bf/bf_cfb64.c
+    crypto/bf/bf_ecb.c
+    crypto/bf/bf_enc.c
+    crypto/bf/bf_ofb64.c
+    crypto/bf/bf_skey.c
+    # bio
+    crypto/bio/b_addr.c
+    crypto/bio/b_dump.c
+    crypto/bio/b_print.c
+    crypto/bio/b_sock.c
+    crypto/bio/b_sock2.c
+    crypto/bio/bf_buff.c
+    crypto/bio/bf_nbio.c
+    crypto/bio/bf_null.c
+    crypto/bio/bio_cb.c
+    crypto/bio/bio_err.c
+    crypto/bio/bio_lib.c
+    crypto/bio/bio_meth.c
+    crypto/bio/bss_acpt.c
+    crypto/bio/bss_bio.c
+    crypto/bio/bss_conn.c
+    crypto/bio/bss_dgram.c
+    crypto/bio/bss_fd.c
+    crypto/bio/bss_file.c
+    crypto/bio/bss_log.c
+    crypto/bio/bss_mem.c
+    crypto/bio/bss_null.c
+    crypto/bio/bss_sock.c
+    # blake2
+    crypto/blake2/blake2b.c
+    crypto/blake2/blake2s.c
+    crypto/blake2/m_blake2b.c
+    crypto/blake2/m_blake2s.c
+    # bn
+    crypto/bn/bn_add.c
+    crypto/bn/bn_asm.c
+    crypto/bn/bn_blind.c
+    crypto/bn/bn_const.c
+    crypto/bn/bn_ctx.c
+    crypto/bn/bn_depr.c
+    crypto/bn/bn_dh.c
+    crypto/bn/bn_div.c
+    crypto/bn/bn_err.c
+    crypto/bn/bn_exp.c
+    crypto/bn/bn_exp2.c
+    crypto/bn/bn_gcd.c
+    crypto/bn/bn_gf2m.c
+    crypto/bn/bn_intern.c
+    crypto/bn/bn_kron.c
+    crypto/bn/bn_lib.c
+    crypto/bn/bn_mod.c
+    crypto/bn/bn_mont.c
+    crypto/bn/bn_mpi.c
+    crypto/bn/bn_mul.c
+    crypto/bn/bn_nist.c
+    crypto/bn/bn_prime.c
+    crypto/bn/bn_print.c
+    crypto/bn/bn_rand.c
+    crypto/bn/bn_recp.c
+    crypto/bn/bn_shift.c
+    crypto/bn/bn_sqr.c
+    crypto/bn/bn_sqrt.c
+    crypto/bn/bn_srp.c
+    crypto/bn/bn_word.c
+    crypto/bn/bn_x931p.c
+    crypto/bn/rsaz_exp.c
+    # buffer
+    crypto/buffer/buf_err.c
+    crypto/buffer/buffer.c
+    # camellia
+    crypto/camellia/camellia.c
+    crypto/camellia/cmll_cbc.c
+    crypto/camellia/cmll_cfb.c
+    crypto/camellia/cmll_ctr.c
+    crypto/camellia/cmll_ecb.c
+    crypto/camellia/cmll_misc.c
+    crypto/camellia/cmll_ofb.c
+    # cast
+    crypto/cast/c_cfb64.c
+    crypto/cast/c_ecb.c
+    crypto/cast/c_enc.c
+    crypto/cast/c_ofb64.c
+    crypto/cast/c_skey.c
+    # chacha
+    crypto/chacha/chacha_enc.c
+    # cmac
+    crypto/cmac/cm_ameth.c
+    crypto/cmac/cm_pmeth.c
+    crypto/cmac/cmac.c
+    # cms
+    crypto/cms/cms_asn1.c
+    crypto/cms/cms_att.c
+    crypto/cms/cms_cd.c
+    crypto/cms/cms_dd.c
+    crypto/cms/cms_enc.c
+    crypto/cms/cms_env.c
+    crypto/cms/cms_err.c
+    crypto/cms/cms_ess.c
+    crypto/cms/cms_io.c
+    crypto/cms/cms_kari.c
+    crypto/cms/cms_lib.c
+    crypto/cms/cms_pwri.c
+    crypto/cms/cms_sd.c
+    crypto/cms/cms_smime.c
+    # comp
+    crypto/comp/c_zlib.c
+    crypto/comp/comp_err.c
+    crypto/comp/comp_lib.c
+    # conf
+    crypto/conf/conf_api.c
+    crypto/conf/conf_def.c
+    crypto/conf/conf_err.c
+    crypto/conf/conf_lib.c
+    crypto/conf/conf_mall.c
+    crypto/conf/conf_mod.c
+    crypto/conf/conf_sap.c
+    crypto/conf/conf_ssl.c
+    # ct
+    crypto/ct/ct_b64.c
+    crypto/ct/ct_err.c
+    crypto/ct/ct_log.c
+    crypto/ct/ct_oct.c
+    crypto/ct/ct_policy.c
+    crypto/ct/ct_prn.c
+    crypto/ct/ct_sct.c
+    crypto/ct/ct_sct_ctx.c
+    crypto/ct/ct_vfy.c
+    crypto/ct/ct_x509v3.c
+    # des
+    crypto/des/cbc_cksm.c
+    crypto/des/cbc_enc.c
+    crypto/des/cfb64ede.c
+    crypto/des/cfb64enc.c
+    crypto/des/cfb_enc.c
+    crypto/des/des_enc.c
+    crypto/des/ecb3_enc.c
+    crypto/des/ecb_enc.c
+    crypto/des/fcrypt.c
+    crypto/des/fcrypt_b.c
+    crypto/des/ofb64ede.c
+    crypto/des/ofb64enc.c
+    crypto/des/ofb_enc.c
+    crypto/des/pcbc_enc.c
+    crypto/des/qud_cksm.c
+    crypto/des/rand_key.c
+    crypto/des/set_key.c
+    crypto/des/str2key.c
+    crypto/des/xcbc_enc.c
+    # dh
+    crypto/dh/dh_ameth.c
+    crypto/dh/dh_asn1.c
+    crypto/dh/dh_check.c
+    crypto/dh/dh_depr.c
+    crypto/dh/dh_err.c
+    crypto/dh/dh_gen.c
+    crypto/dh/dh_kdf.c
+    crypto/dh/dh_key.c
+    crypto/dh/dh_lib.c
+    crypto/dh/dh_meth.c
+    crypto/dh/dh_pmeth.c
+    crypto/dh/dh_prn.c
+    crypto/dh/dh_rfc5114.c
+    crypto/dh/dh_rfc7919.c
+    # dsa
+    crypto/dsa/dsa_ameth.c
+    crypto/dsa/dsa_asn1.c
+    crypto/dsa/dsa_depr.c
+    crypto/dsa/dsa_err.c
+    crypto/dsa/dsa_gen.c
+    crypto/dsa/dsa_key.c
+    crypto/dsa/dsa_lib.c
+    crypto/dsa/dsa_meth.c
+    crypto/dsa/dsa_ossl.c
+    crypto/dsa/dsa_pmeth.c
+    crypto/dsa/dsa_prn.c
+    crypto/dsa/dsa_sign.c
+    crypto/dsa/dsa_vrf.c
+    # dso
+    crypto/dso/dso_dl.c
+    crypto/dso/dso_dlfcn.c
+    crypto/dso/dso_err.c
+    crypto/dso/dso_lib.c
+    crypto/dso/dso_openssl.c
+    crypto/dso/dso_vms.c
+    crypto/dso/dso_win32.c
+    # ec
+    crypto/ec/curve25519.c
+    crypto/ec/ec2_oct.c
+    crypto/ec/ec2_smpl.c
+    crypto/ec/ec_ameth.c
+    crypto/ec/ec_asn1.c
+    crypto/ec/ec_check.c
+    crypto/ec/ec_curve.c
+    crypto/ec/ec_cvt.c
+    crypto/ec/ec_err.c
+    crypto/ec/ec_key.c
+    crypto/ec/ec_kmeth.c
+    crypto/ec/ec_lib.c
+    crypto/ec/ec_mult.c
+    crypto/ec/ec_oct.c
+    crypto/ec/ec_pmeth.c
+    crypto/ec/ec_print.c
+    crypto/ec/ecdh_kdf.c
+    crypto/ec/ecdh_ossl.c
+    crypto/ec/ecdsa_ossl.c
+    crypto/ec/ecdsa_sign.c
+    crypto/ec/ecdsa_vrf.c
+    crypto/ec/eck_prn.c
+    crypto/ec/ecp_mont.c
+    crypto/ec/ecp_nist.c
+    crypto/ec/ecp_nistp224.c
+    crypto/ec/ecp_nistp256.c
+    crypto/ec/ecp_nistp521.c
+    crypto/ec/ecp_nistputil.c
+    crypto/ec/ecp_oct.c
+    crypto/ec/ecp_smpl.c
+    crypto/ec/ecx_meth.c
+    crypto/ec/curve448/curve448.c
+    crypto/ec/curve448/curve448_tables.c
+    crypto/ec/curve448/eddsa.c
+    crypto/ec/curve448/f_generic.c
+    crypto/ec/curve448/scalar.c
+    crypto/ec/curve448/arch_32/f_impl.c
+    # engine
+    crypto/engine/eng_all.c
+    crypto/engine/eng_cnf.c
+    crypto/engine/eng_ctrl.c
+    crypto/engine/eng_dyn.c
+    crypto/engine/eng_err.c
+    crypto/engine/eng_fat.c
+    crypto/engine/eng_init.c
+    crypto/engine/eng_lib.c
+    crypto/engine/eng_list.c
+    crypto/engine/eng_openssl.c
+    crypto/engine/eng_pkey.c
+    crypto/engine/eng_rdrand.c
+    crypto/engine/eng_table.c
+    crypto/engine/tb_asnmth.c
+    crypto/engine/tb_cipher.c
+    crypto/engine/tb_dh.c
+    crypto/engine/tb_digest.c
+    crypto/engine/tb_dsa.c
+    crypto/engine/tb_eckey.c
+    crypto/engine/tb_pkmeth.c
+    crypto/engine/tb_rand.c
+    crypto/engine/tb_rsa.c
+    # err
+    crypto/err/err.c
+    crypto/err/err_all.c
+    crypto/err/err_prn.c
+    # evp
+    crypto/evp/bio_b64.c
+    crypto/evp/bio_enc.c
+    crypto/evp/bio_md.c
+    crypto/evp/bio_ok.c
+    crypto/evp/c_allc.c
+    crypto/evp/c_alld.c
+    crypto/evp/cmeth_lib.c
+    crypto/evp/digest.c
+    crypto/evp/e_aes.c
+    crypto/evp/e_aes_cbc_hmac_sha1.c
+    crypto/evp/e_aes_cbc_hmac_sha256.c
+    crypto/evp/e_aria.c
+    crypto/evp/e_bf.c
+    crypto/evp/e_camellia.c
+    crypto/evp/e_cast.c
+    crypto/evp/e_chacha20_poly1305.c
+    crypto/evp/e_des.c
+    crypto/evp/e_des3.c
+    crypto/evp/e_idea.c
+    crypto/evp/e_null.c
+    crypto/evp/e_old.c
+    crypto/evp/e_rc2.c
+    crypto/evp/e_rc4.c
+    crypto/evp/e_rc4_hmac_md5.c
+    crypto/evp/e_rc5.c
+    crypto/evp/e_sm4.c
+    crypto/evp/e_seed.c
+    crypto/evp/e_xcbc_d.c
+    crypto/evp/encode.c
+    crypto/evp/evp_cnf.c
+    crypto/evp/evp_enc.c
+    crypto/evp/evp_err.c
+    crypto/evp/evp_key.c
+    crypto/evp/evp_lib.c
+    crypto/evp/evp_pbe.c
+    crypto/evp/evp_pkey.c
+    crypto/evp/m_md2.c
+    crypto/evp/m_md4.c
+    crypto/evp/m_md5.c
+    crypto/evp/m_md5_sha1.c
+    crypto/evp/m_sha3.c
+    crypto/evp/m_mdc2.c
+    crypto/evp/m_null.c
+    crypto/evp/m_ripemd.c
+    crypto/evp/m_sha1.c
+    crypto/evp/m_sigver.c
+    crypto/evp/m_wp.c
+    crypto/evp/names.c
+    crypto/evp/p5_crpt.c
+    crypto/evp/p5_crpt2.c
+    crypto/evp/p_dec.c
+    crypto/evp/p_enc.c
+    crypto/evp/p_lib.c
+    crypto/evp/p_open.c
+    crypto/evp/p_seal.c
+    crypto/evp/p_sign.c
+    crypto/evp/p_verify.c
+    crypto/evp/pbe_scrypt.c
+    crypto/evp/pmeth_fn.c
+    crypto/evp/pmeth_gn.c
+    crypto/evp/pmeth_lib.c
+    # hmac
+    crypto/hmac/hm_ameth.c
+    crypto/hmac/hm_pmeth.c
+    crypto/hmac/hmac.c
+    # idea
+    crypto/idea/i_cbc.c
+    crypto/idea/i_cfb64.c
+    crypto/idea/i_ecb.c
+    crypto/idea/i_ofb64.c
+    crypto/idea/i_skey.c
+    # kdf
+    crypto/kdf/hkdf.c
+    crypto/kdf/kdf_err.c
+    crypto/kdf/scrypt.c
+    crypto/kdf/tls1_prf.c
+    # lhash
+    crypto/lhash/lh_stats.c
+    crypto/lhash/lhash.c
+    # md4
+    crypto/md4/md4_dgst.c
+    crypto/md4/md4_one.c
+    # md5
+    crypto/md5/md5_dgst.c
+    crypto/md5/md5_one.c
+    # mdc2
+    crypto/mdc2/mdc2_one.c
+    crypto/mdc2/mdc2dgst.c
+    # modes
+    crypto/modes/cbc128.c
+    crypto/modes/ccm128.c
+    crypto/modes/cfb128.c
+    crypto/modes/ctr128.c
+    crypto/modes/cts128.c
+    crypto/modes/gcm128.c
+    crypto/modes/ocb128.c
+    crypto/modes/ofb128.c
+    crypto/modes/wrap128.c
+    crypto/modes/xts128.c
+    # objects
+    crypto/objects/o_names.c
+    crypto/objects/obj_dat.c
+    crypto/objects/obj_err.c
+    crypto/objects/obj_lib.c
+    crypto/objects/obj_xref.c
+    # ocsp
+    crypto/ocsp/ocsp_asn.c
+    crypto/ocsp/ocsp_cl.c
+    crypto/ocsp/ocsp_err.c
+    crypto/ocsp/ocsp_ext.c
+    crypto/ocsp/ocsp_ht.c
+    crypto/ocsp/ocsp_lib.c
+    crypto/ocsp/ocsp_prn.c
+    crypto/ocsp/ocsp_srv.c
+    crypto/ocsp/ocsp_vfy.c
+    crypto/ocsp/v3_ocsp.c
+    # pem
+    crypto/pem/pem_all.c
+    crypto/pem/pem_err.c
+    crypto/pem/pem_info.c
+    crypto/pem/pem_lib.c
+    crypto/pem/pem_oth.c
+    crypto/pem/pem_pk8.c
+    crypto/pem/pem_pkey.c
+    crypto/pem/pem_sign.c
+    crypto/pem/pem_x509.c
+    crypto/pem/pem_xaux.c
+    crypto/pem/pvkfmt.c
+    # pkcs12
+    crypto/pkcs12/p12_add.c
+    crypto/pkcs12/p12_asn.c
+    crypto/pkcs12/p12_attr.c
+    crypto/pkcs12/p12_crpt.c
+    crypto/pkcs12/p12_crt.c
+    crypto/pkcs12/p12_decr.c
+    crypto/pkcs12/p12_init.c
+    crypto/pkcs12/p12_key.c
+    crypto/pkcs12/p12_kiss.c
+    crypto/pkcs12/p12_mutl.c
+    crypto/pkcs12/p12_npas.c
+    crypto/pkcs12/p12_p8d.c
+    crypto/pkcs12/p12_p8e.c
+    crypto/pkcs12/p12_sbag.c
+    crypto/pkcs12/p12_utl.c
+    crypto/pkcs12/pk12err.c
+    # pkcs7
+    crypto/pkcs7/bio_pk7.c
+    crypto/pkcs7/pk7_asn1.c
+    crypto/pkcs7/pk7_attr.c
+    crypto/pkcs7/pk7_doit.c
+    crypto/pkcs7/pk7_lib.c
+    crypto/pkcs7/pk7_mime.c
+    crypto/pkcs7/pk7_smime.c
+    crypto/pkcs7/pkcs7err.c
+    # poly1305
+    crypto/poly1305/poly1305.c
+    crypto/poly1305/poly1305_ameth.c
+    crypto/poly1305/poly1305_pmeth.c
+    # rand
+    crypto/rand/drbg_ctr.c
+    crypto/rand/drbg_lib.c
+    crypto/rand/rand_egd.c
+    crypto/rand/rand_err.c
+    crypto/rand/rand_lib.c
+    crypto/rand/rand_unix.c
+    crypto/rand/rand_vms.c
+    crypto/rand/rand_win.c
+    crypto/rand/randfile.c
+    # rc2
+    crypto/rc2/rc2_cbc.c
+    crypto/rc2/rc2_ecb.c
+    crypto/rc2/rc2_skey.c
+    crypto/rc2/rc2cfb64.c
+    crypto/rc2/rc2ofb64.c
+    # rc4
+    crypto/rc4/rc4_enc.c
+    crypto/rc4/rc4_skey.c
+    # rc5
+    # crypto/rc5/rc5_ecb.c
+    # crypto/rc5/rc5_enc.c
+    # crypto/rc5/rc5_skey.c
+    # crypto/rc5/rc5cfb64.c
+    # crypto/rc5/rc5ofb64.c
+    # ripemd
+    crypto/ripemd/rmd_dgst.c
+    crypto/ripemd/rmd_one.c
+    # rsa
+    crypto/rsa/rsa_ameth.c
+    crypto/rsa/rsa_asn1.c
+    crypto/rsa/rsa_chk.c
+    crypto/rsa/rsa_crpt.c
+    crypto/rsa/rsa_depr.c
+    crypto/rsa/rsa_err.c
+    crypto/rsa/rsa_gen.c
+    crypto/rsa/rsa_lib.c
+    crypto/rsa/rsa_meth.c
+    crypto/rsa/rsa_mp.c
+    crypto/rsa/rsa_none.c
+    crypto/rsa/rsa_oaep.c
+    crypto/rsa/rsa_ossl.c
+    crypto/rsa/rsa_pk1.c
+    crypto/rsa/rsa_pmeth.c
+    crypto/rsa/rsa_prn.c
+    crypto/rsa/rsa_pss.c
+    crypto/rsa/rsa_saos.c
+    crypto/rsa/rsa_sign.c
+    crypto/rsa/rsa_ssl.c
+    crypto/rsa/rsa_x931.c
+    crypto/rsa/rsa_x931g.c
+    # seed
+    crypto/seed/seed.c
+    crypto/seed/seed_cbc.c
+    crypto/seed/seed_cfb.c
+    crypto/seed/seed_ecb.c
+    crypto/seed/seed_ofb.c
+    # sha
+    crypto/sha/keccak1600.c
+    crypto/sha/sha1_one.c
+    crypto/sha/sha1dgst.c
+    crypto/sha/sha256.c
+    crypto/sha/sha512.c
+    # siphash
+    crypto/siphash/siphash.c
+    crypto/siphash/siphash_ameth.c
+    crypto/siphash/siphash_pmeth.c
+    # sm2
+    crypto/sm2/sm2_crypt.c
+    crypto/sm2/sm2_err.c
+    crypto/sm2/sm2_pmeth.c
+    crypto/sm2/sm2_sign.c
+    # sm3
+    crypto/sm3/m_sm3.c
+    crypto/sm3/sm3.c
+    # sm4
+    crypto/sm4/sm4.c
+    # srp
+    crypto/srp/srp_lib.c
+    crypto/srp/srp_vfy.c
+    # stack
+    crypto/stack/stack.c
+    # store
+    crypto/store/loader_file.c
+    crypto/store/store_err.c
+    crypto/store/store_init.c
+    crypto/store/store_lib.c
+    crypto/store/store_register.c
+    crypto/store/store_strings.c
+    # ts
+    crypto/ts/ts_asn1.c
+    crypto/ts/ts_conf.c
+    crypto/ts/ts_err.c
+    crypto/ts/ts_lib.c
+    crypto/ts/ts_req_print.c
+    crypto/ts/ts_req_utils.c
+    crypto/ts/ts_rsp_print.c
+    crypto/ts/ts_rsp_sign.c
+    crypto/ts/ts_rsp_utils.c
+    crypto/ts/ts_rsp_verify.c
+    crypto/ts/ts_verify_ctx.c
+    # txt_db
+    crypto/txt_db/txt_db.c
+    # ui
+    crypto/ui/ui_err.c
+    crypto/ui/ui_lib.c
+    crypto/ui/ui_null.c
+    crypto/ui/ui_openssl.c
+    crypto/ui/ui_util.c
+    # whrlpool
+    crypto/whrlpool/wp_block.c
+    crypto/whrlpool/wp_dgst.c
+    # x509
+    crypto/x509/by_dir.c
+    crypto/x509/by_file.c
+    crypto/x509/t_crl.c
+    crypto/x509/t_req.c
+    crypto/x509/t_x509.c
+    crypto/x509/x509_att.c
+    crypto/x509/x509_cmp.c
+    crypto/x509/x509_d2.c
+    crypto/x509/x509_def.c
+    crypto/x509/x509_err.c
+    crypto/x509/x509_ext.c
+    crypto/x509/x509_lu.c
+    crypto/x509/x509_meth.c
+    crypto/x509/x509_obj.c
+    crypto/x509/x509_r2x.c
+    crypto/x509/x509_req.c
+    crypto/x509/x509_set.c
+    crypto/x509/x509_trs.c
+    crypto/x509/x509_txt.c
+    crypto/x509/x509_v3.c
+    crypto/x509/x509_vfy.c
+    crypto/x509/x509_vpm.c
+    crypto/x509/x509cset.c
+    crypto/x509/x509name.c
+    crypto/x509/x509rset.c
+    crypto/x509/x509spki.c
+    crypto/x509/x509type.c
+    crypto/x509/x_all.c
+    crypto/x509/x_attrib.c
+    crypto/x509/x_crl.c
+    crypto/x509/x_exten.c
+    crypto/x509/x_name.c
+    crypto/x509/x_pubkey.c
+    crypto/x509/x_req.c
+    crypto/x509/x_x509.c
+    crypto/x509/x_x509a.c
+    # x509v3
+    crypto/x509v3/pcy_cache.c
+    crypto/x509v3/pcy_data.c
+    crypto/x509v3/pcy_lib.c
+    crypto/x509v3/pcy_map.c
+    crypto/x509v3/pcy_node.c
+    crypto/x509v3/pcy_tree.c
+    crypto/x509v3/v3_addr.c
+    crypto/x509v3/v3_admis.c
+    crypto/x509v3/v3_akey.c
+    crypto/x509v3/v3_akeya.c
+    crypto/x509v3/v3_alt.c
+    crypto/x509v3/v3_asid.c
+    crypto/x509v3/v3_bcons.c
+    crypto/x509v3/v3_bitst.c
+    crypto/x509v3/v3_conf.c
+    crypto/x509v3/v3_cpols.c
+    crypto/x509v3/v3_crld.c
+    crypto/x509v3/v3_enum.c
+    crypto/x509v3/v3_extku.c
+    crypto/x509v3/v3_genn.c
+    crypto/x509v3/v3_ia5.c
+    crypto/x509v3/v3_info.c
+    crypto/x509v3/v3_int.c
+    crypto/x509v3/v3_lib.c
+    crypto/x509v3/v3_ncons.c
+    crypto/x509v3/v3_pci.c
+    crypto/x509v3/v3_pcia.c
+    crypto/x509v3/v3_pcons.c
+    crypto/x509v3/v3_pku.c
+    crypto/x509v3/v3_pmaps.c
+    crypto/x509v3/v3_prn.c
+    crypto/x509v3/v3_purp.c
+    crypto/x509v3/v3_skey.c
+    crypto/x509v3/v3_sxnet.c
+    crypto/x509v3/v3_tlsf.c
+    crypto/x509v3/v3_utl.c
+    crypto/x509v3/v3err.c
+)
+
+set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
+find_package(Threads)
+if(NOT Threads_FOUND)
+    list(APPEND CRYPTO_SOURCES crypto/threads_none.c)
+elseif(WIN32)
+    list(APPEND CRYPTO_SOURCES crypto/threads_win.c)
+else()
+    list(APPEND CRYPTO_SOURCES crypto/threads_pthread.c)
+endif()

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.16)
 
 set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
 set(THREADS_PREFER_PTHREAD_FLAG TRUE)
@@ -69,11 +69,12 @@ if(APPLE)
     target_compile_options(luaopenssl PRIVATE -Wno-incompatible-pointer-types)
 endif()
 
-target_link_libraries(luaopenssl 
-	PRIVATE xgame
-	PRIVATE cocos2d
-    PUBLIC ${EXTRA_LIBS}
-    PUBLIC Threads::Threads
+target_link_libraries(luaopenssl
+  PUBLIC
+    lua
+    openssl
+    ${EXTRA_LIBS}
+    Threads::Threads
 )
 
 target_include_directories(luaopenssl
@@ -83,12 +84,4 @@ target_include_directories(luaopenssl
     deps/auxiliar
 )
 
-set_target_properties(luaopenssl PROPERTIES
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-    FOLDER "cclua/3rd"
-)
-
-if(XCODE OR VS)
-    cocos_mark_code_files("luaopenssl" GROUPBASE "${CMAKE_CURRENT_SOURCE_DIR}")
-endif()
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} PREFIX "" FILES ${OPENSSL_SOURCE})

@@ -924,6 +924,21 @@ static int _cclua_runtime_getAppVersion(lua_State *L)
     return num_ret;
 }
 
+static int _cclua_runtime_getArgs(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static const std::vector<std::string> &getArgs()
+    const std::vector<std::string> &ret = cclua::runtime::getArgs();
+    int num_ret = olua_push_vector<std::string>(L, ret, [L](std::string &arg1) {
+        olua_push_string(L, arg1);
+    });
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cclua_runtime_getAudioSessionCatalog(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1940,6 +1955,7 @@ OLUA_LIB int luaopen_cclua_runtime(lua_State *L)
     oluacls_func(L, "getAppBuild", _cclua_runtime_getAppBuild);
     oluacls_func(L, "getAppName", _cclua_runtime_getAppName);
     oluacls_func(L, "getAppVersion", _cclua_runtime_getAppVersion);
+    oluacls_func(L, "getArgs", _cclua_runtime_getArgs);
     oluacls_func(L, "getAudioSessionCatalog", _cclua_runtime_getAudioSessionCatalog);
     oluacls_func(L, "getChannel", _cclua_runtime_getChannel);
     oluacls_func(L, "getCocosVersion", _cclua_runtime_getCocosVersion);
@@ -1996,6 +2012,7 @@ OLUA_LIB int luaopen_cclua_runtime(lua_State *L)
     oluacls_prop(L, "appBuild", _cclua_runtime_getAppBuild, nullptr);
     oluacls_prop(L, "appName", _cclua_runtime_getAppName, nullptr);
     oluacls_prop(L, "appVersion", _cclua_runtime_getAppVersion, nullptr);
+    oluacls_prop(L, "args", _cclua_runtime_getArgs, nullptr);
     oluacls_prop(L, "audioSessionCatalog", _cclua_runtime_getAudioSessionCatalog, _cclua_runtime_setAudioSessionCatalog);
     oluacls_prop(L, "channel", _cclua_runtime_getChannel, nullptr);
     oluacls_prop(L, "cocosVersion", _cclua_runtime_getCocosVersion, nullptr);

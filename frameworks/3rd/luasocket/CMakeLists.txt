@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.16)
 
 set(LUASOCKET_HEADER
     auxiliar.h
@@ -62,10 +62,7 @@ list(APPEND LUASOCKET_SRC ${LUASOCKET_HEADER})
 
 add_library(luasocket ${LUASOCKET_SRC})
 
-target_link_libraries(luasocket 
-	PRIVATE xgame
-	PRIVATE cocos2d
-)
+target_link_libraries(luasocket PUBLIC lua)
 
 if(APPLE)
     target_compile_options(luasocket PRIVATE -Wno-shorten-64-to-32)
@@ -75,12 +72,4 @@ target_include_directories(luasocket
 	PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..
 )
 
-set_target_properties(luasocket PROPERTIES
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-    FOLDER "cclua/3rd"
-)
-
-if(XCODE OR VS)
-    cocos_mark_code_files("luasocket" GROUPBASE "${CMAKE_CURRENT_SOURCE_DIR}")
-endif()
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} PREFIX "" FILES ${LUASOCKET_SRC})

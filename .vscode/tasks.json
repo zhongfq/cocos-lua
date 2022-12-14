@@ -4,28 +4,31 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "run-app",
+            "label": "luadebug",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceFolder}"
+                "cwd": "${workspaceFolder}/assets"
             },
-            "args": ["-workdir", "${workspaceFolder}/assets"],
+            "args": ["--workdir", "${workspaceFolder}/assets", "--lua-debug", "luadebug"],
             "windows": {
-                "command": "./runtime-src/proj.win32/Debug.win32/cocos-lua.exe",
+                "command": "${workspaceFolder}/build/vs-build/bin/cclua/Debug/cclua.exe",
             },
             "osx": {
-                "command": "./runtime/mac/cocos-lua-desktop.app/Contents/MacOS/cocos-lua-desktop",
+                "command": "${workspaceFolder}/build/mac-build/bin/cclua/Debug/cclua.app/Contents/MacOS/cclua",
             }
         },
         {
-            "label": "kill-app",
+            "label": "luapanda",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceFolder}"
+                "cwd": "${workspaceFolder}/assets"
             },
-            "command":"killall cocos-lua-desktop",
+            "args": ["--workdir", "${workspaceFolder}/assets", "--lua-debug", "luapanda"],
             "windows": {
-                "command": ""
+                "command": "${workspaceFolder}/build/vs-build/bin/cclua/Debug/cclua.exe",
+            },
+            "osx": {
+                "command": "${workspaceFolder}/build/mac-build/bin/cclua/Debug/cclua.app/Contents/MacOS/cclua",
             }
         },
         {

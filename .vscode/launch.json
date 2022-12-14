@@ -5,15 +5,37 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "cocos-lua",
+            "address": "127.0.0.1:12306",
+            "name": "cclua",
+            "request": "attach",
+            "stopOnEntry": true,
             "type": "lua",
+            "windows": {
+                "preLaunchTask": "luadebug",
+            },
+            "osx": {
+                "preLaunchTask": "luadebug",
+            },
+            "sourceMaps": [
+                [
+                    "*",
+                    "${workspaceFolder}/assets/*"
+                ]
+            ]
+        },
+        {
+            "type": "LuaHelper-Debug",
             "request": "launch",
-            "runtimeType": "Cocos2",
-            "localRoot": "${workspaceRoot}/assets",
-            "commandLine": "-workdir ${workspaceRoot}/assets",
-            "port": 7003,
-            "exePath": "${workspaceRoot}/build/mac-build/bin/cocos-lua/Debug/cocoslua.app/Contents/MacOS/cocoslua",
-            "printType": 1
+            "name": "LuaPanda",
+            "description": "通用模式,通常调试项目请选择此模式",
+            "cwd": "${workspaceFolder}/assets",
+            "luaFileExtension": "",
+            "connectionPort": 8818,
+            "stopOnEntry": true,
+            "useCHook": true,
+            // "preLaunchTask": "luapanda",
+            "program": "${workspaceFolder}/tools/bin/luapanda.sh",
+            "autoPathMode": true
         }
     ]
 }

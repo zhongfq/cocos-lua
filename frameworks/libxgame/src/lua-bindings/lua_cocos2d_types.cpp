@@ -14825,6 +14825,362 @@ OLUA_LIB int luaopen_cocos2d_types_TMXTileFlags(lua_State *L)
 }
 OLUA_END_DECLS
 
+static int _cocos2d_types_Vec2Array___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::Vec2Array *self = nullptr;
+
+    olua_to_object(L, 1, &self, "cc.Vec2Array");
+
+    // olua_Return __gc(lua_State *L)
+    olua_Return ret = self->__gc(L);
+
+    olua_endinvoke(L);
+
+    return (int)ret;
+}
+
+static int _cocos2d_types_Vec2Array___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::Vec2Array *self = nullptr;
+    unsigned int arg1 = 0;       /** idx */
+
+    olua_to_object(L, 1, &self, "cc.Vec2Array");
+    olua_check_integer(L, 2, &arg1);
+
+    // cocos2d::Vec2 __index(unsigned int idx)
+    cocos2d::Vec2 ret = self->__index(arg1);
+    int num_ret = olua_pushcopy_object(L, ret, "cc.Vec2");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_Vec2Array___newindex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::Vec2Array *self = nullptr;
+    unsigned int arg1 = 0;       /** idx */
+    cocos2d::Vec2 arg2;       /** v */
+
+    olua_to_object(L, 1, &self, "cc.Vec2Array");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_object(L, 3, &arg2, "cc.Vec2");
+
+    // void __newindex(unsigned int idx, const cocos2d::Vec2 &v)
+    self->__newindex(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_types_Vec2Array___olua_move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::types::Vec2Array *)olua_toobj(L, 1, "cc.Vec2Array");
+    olua_push_object(L, self, "cc.Vec2Array");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_types_Vec2Array_create$1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    size_t arg1 = 0;       /** len */
+
+    olua_check_integer(L, 1, &arg1);
+
+    // @postnew @name(new) static cocos2d::types::Vec2Array *create(@optional size_t len)
+    cocos2d::types::Vec2Array *ret = cocos2d::types::Vec2Array::create(arg1);
+    int num_ret = olua_push_object(L, ret, "cc.Vec2Array");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_Vec2Array_create$2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @postnew @name(new) static cocos2d::types::Vec2Array *create(@optional size_t len)
+    cocos2d::types::Vec2Array *ret = cocos2d::types::Vec2Array::create();
+    int num_ret = olua_push_object(L, ret, "cc.Vec2Array");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_Vec2Array_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        // @postnew @name(new) static cocos2d::types::Vec2Array *create(@optional size_t len)
+        return _cocos2d_types_Vec2Array_create$2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_integer(L, 1))) {
+            // @postnew @name(new) static cocos2d::types::Vec2Array *create(@optional size_t len)
+            return _cocos2d_types_Vec2Array_create$1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::types::Vec2Array::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_types_Vec2Array_setstring(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::Vec2Array *self = nullptr;
+    const char *arg1 = nullptr;       /** data */
+    size_t arg2 = 0;       /** len */
+
+    olua_to_object(L, 1, &self, "cc.Vec2Array");
+    olua_check_string(L, 2, &arg1);
+    olua_check_integer(L, 3, &arg2);
+
+    // void setstring(const char *data, size_t len)
+    self->setstring(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_types_Vec2Array_sub$1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::Vec2Array *self = nullptr;
+    size_t arg1 = 0;       /** from */
+    size_t arg2 = 0;       /** to */
+
+    olua_to_object(L, 1, &self, "cc.Vec2Array");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_integer(L, 3, &arg2);
+
+    // @postnew cocos2d::types::Vec2Array *sub(size_t from, @optional size_t to)
+    cocos2d::types::Vec2Array *ret = self->sub(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "cc.Vec2Array");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_Vec2Array_sub$2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::Vec2Array *self = nullptr;
+    size_t arg1 = 0;       /** from */
+
+    olua_to_object(L, 1, &self, "cc.Vec2Array");
+    olua_check_integer(L, 2, &arg1);
+
+    // @postnew cocos2d::types::Vec2Array *sub(size_t from, @optional size_t to)
+    cocos2d::types::Vec2Array *ret = self->sub(arg1);
+    int num_ret = olua_push_object(L, ret, "cc.Vec2Array");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_Vec2Array_sub(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_integer(L, 2))) {
+            // @postnew cocos2d::types::Vec2Array *sub(size_t from, @optional size_t to)
+            return _cocos2d_types_Vec2Array_sub$2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
+            // @postnew cocos2d::types::Vec2Array *sub(size_t from, @optional size_t to)
+            return _cocos2d_types_Vec2Array_sub$1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::types::Vec2Array::sub' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_types_Vec2Array_take(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::Vec2Array *self = nullptr;
+
+    olua_to_object(L, 1, &self, "cc.Vec2Array");
+
+    // cocos2d::types::Vec2Array *take()
+    cocos2d::types::Vec2Array *ret = self->take();
+    int num_ret = olua_push_object(L, ret, "cc.Vec2Array");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_Vec2Array_tostring(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::Vec2Array *self = nullptr;
+    size_t arg2 = 0;       /** len */
+
+    olua_to_object(L, 1, &self, "cc.Vec2Array");
+    olua_check_integer(L, 2, &arg2);
+
+    // olua_Return tostring(lua_State *L, size_t len)
+    olua_Return ret = self->tostring(L, arg2);
+
+    olua_endinvoke(L);
+
+    return (int)ret;
+}
+
+static int _cocos2d_types_Vec2Array_data(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::Vec2Array *self = nullptr;
+
+    olua_to_object(L, 1, &self, "cc.Vec2Array");
+
+    // @getter @name(data) cocos2d::Vec2 *data()
+    cocos2d::Vec2 *ret = self->data();
+    int num_ret = olua_push_object(L, ret, "cc.Vec2");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_Vec2Array_length(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::Vec2Array *self = nullptr;
+
+    olua_to_object(L, 1, &self, "cc.Vec2Array");
+
+    // @getter @name(length) size_t length()
+    size_t ret = self->length();
+    int num_ret = olua_push_integer(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_Vec2Array_rawdata(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::Vec2Array *self = nullptr;
+
+    olua_to_object(L, 1, &self, "cc.Vec2Array");
+
+    // @getter @name(rawdata) void *rawdata()
+    void *ret = self->rawdata();
+    int num_ret = olua_push_object(L, ret, "void *");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_Vec2Array_size(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::Vec2Array *self = nullptr;
+
+    olua_to_object(L, 1, &self, "cc.Vec2Array");
+
+    // @getter @name(sizeof) size_t size()
+    size_t ret = self->size();
+    int num_ret = olua_push_integer(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_Vec2Array_value(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::Vec2Array *self = nullptr;
+
+    olua_to_object(L, 1, &self, "cc.Vec2Array");
+
+    // @getter @name(value) const cocos2d::Vec2 &value()
+    const cocos2d::Vec2 &ret = self->value();
+    int num_ret = olua_push_object(L, ret, "cc.Vec2");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cocos2d_types_Vec2Array(lua_State *L)
+{
+    oluacls_class<cocos2d::types::Vec2Array>(L, "cc.Vec2Array");
+    oluacls_func(L, "__gc", _cocos2d_types_Vec2Array___gc);
+    oluacls_func(L, "__index", _cocos2d_types_Vec2Array___index);
+    oluacls_func(L, "__newindex", _cocos2d_types_Vec2Array___newindex);
+    oluacls_func(L, "__olua_move", _cocos2d_types_Vec2Array___olua_move);
+    oluacls_func(L, "new", _cocos2d_types_Vec2Array_create);
+    oluacls_func(L, "setstring", _cocos2d_types_Vec2Array_setstring);
+    oluacls_func(L, "sub", _cocos2d_types_Vec2Array_sub);
+    oluacls_func(L, "take", _cocos2d_types_Vec2Array_take);
+    oluacls_func(L, "tostring", _cocos2d_types_Vec2Array_tostring);
+    oluacls_prop(L, "data", _cocos2d_types_Vec2Array_data, nullptr);
+    oluacls_prop(L, "length", _cocos2d_types_Vec2Array_length, _cocos2d_types_Vec2Array_length);
+    oluacls_prop(L, "rawdata", _cocos2d_types_Vec2Array_rawdata, nullptr);
+    oluacls_prop(L, "sizeof", _cocos2d_types_Vec2Array_size, nullptr);
+    oluacls_prop(L, "value", _cocos2d_types_Vec2Array_value, _cocos2d_types_Vec2Array_value);
+
+    return 1;
+}
+OLUA_END_DECLS
+
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_types(lua_State *L)
 {
@@ -14867,6 +15223,7 @@ OLUA_LIB int luaopen_cocos2d_types(lua_State *L)
     olua_require(L, "cc.VectorInt", luaopen_cocos2d_types_VectorInt);
     olua_require(L, "cc.ValueMap", luaopen_cocos2d_types_ValueMap);
     olua_require(L, "cc.TMXTileFlags", luaopen_cocos2d_types_TMXTileFlags);
+    olua_require(L, "cc.Vec2Array", luaopen_cocos2d_types_Vec2Array);
 
     return 0;
 }

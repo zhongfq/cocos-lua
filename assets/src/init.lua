@@ -7,10 +7,26 @@ local olua          = require "olua"
 olua.debug(DEBUG)
 
 -- enable lua debug
-if DEBUG then
-    -- require("LuaPanda").start("127.0.0.1", 8818)
-    -- local hanlder = require("LuaDebug")("localhost", 7003)
-    -- timer.schedule(0, hanlder)
+for i, v in ipairs(runtime.args) do
+    if v == '--lua-debug' then
+        local kind = runtime.args[i + 1]
+        if kind == 'luadebug' then
+            require "debugger":start "127.0.0.1:12306":event "wait"
+        elseif kind == 'luapanda' then
+            -- local socket = require "socket.core"
+            -- socket.sleep(2)
+            local pdebug = _G.luapanda_chook
+            local lua_set_hookstate = pdebug.lua_set_hookstate
+            pdebug.lua_set_hookstate = function (state, ...)
+                if state == 0 then
+                    runtime.exit()
+                end
+                lua_set_hookstate(state, ...)
+            end
+            require("LuaPanda").start("127.0.0.1", 8818)
+        end
+        break
+    end
 end
 
 -- set window size on mac or win

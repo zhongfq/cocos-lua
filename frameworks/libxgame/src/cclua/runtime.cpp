@@ -39,6 +39,7 @@ static std::string _openURI;
 static std::map<std::string, bool> _supportedFeatures;
 static std::unordered_map<std::string, bool> _tracebackCaches;
 static std::unordered_map<std::string, std::string> _envs;
+static std::vector<std::string> _args;
 static int _sampleCount = 1;
 static std::unordered_map<olua_Ref, Callback> _refCallbacks;
 static olua_Ref _refCount = -2;
@@ -54,6 +55,7 @@ void runtime::parseLaunchArgs(int argc, char *argv[])
 {
     for (int i = 0; i < argc; i++) {
         runtime::log("launch args: %s", argv[i]);
+        _args.push_back(argv[i]);
     }
     for (int i = 0; i < argc; i++) {
         if (strequal(argv[i], "--workdir") && i < argc - 1) {
@@ -210,6 +212,11 @@ bool runtime::isDebug()
 #else
     return false;
 #endif
+}
+
+const std::vector<std::string> &runtime::getArgs()
+{
+    return _args;
 }
 
 bool runtime::restart()

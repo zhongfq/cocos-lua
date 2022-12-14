@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.16)
 
 set(LIBNAME plugin_apple)
 
@@ -10,7 +10,7 @@ set(HEADER
     lua_apple.h
 )
 
-if(IOS)
+if(APPLE)
     list(APPEND SRC apple.mm)
     list(APPEND HEADER apple.h)
 endif()
@@ -37,12 +37,4 @@ if(APPLE)
     set_xcode_property(${LIBNAME} CLANG_ENABLE_OBJC_ARC "YES")
 endif()
 
-set_target_properties(${LIBNAME} PROPERTIES
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-    FOLDER "cclua/plugins"
-)
-
-if(XCODE OR VS)
-    cocos_mark_code_files(${LIBNAME} GROUPBASE "${CMAKE_CURRENT_SOURCE_DIR}")
-endif()
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} PREFIX "" FILES ${SRC})

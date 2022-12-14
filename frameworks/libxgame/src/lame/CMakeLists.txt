@@ -43,6 +43,5 @@ set(LAME_SRC
     src/lame/util.c
     src/lame/vbrquantize.c
     src/lame/VbrTag.c
-    src/lame/vector
     src/lame/version.c
 )

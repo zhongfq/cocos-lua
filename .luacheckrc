@@ -1,6 +1,7 @@
 new_globals = {
     "__TRACEBACK__",
     "DEBUG",
+    "LuaPanda",
     "cclua",
     "olua",
     "errorf",

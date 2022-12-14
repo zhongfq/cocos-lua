@@ -98,6 +98,7 @@ public:
     static bool restart();
     static bool isRestarting();
     static bool isDebug();
+    static const std::vector<std::string> &getArgs();
     static bool isCocosThread() OLUA_EXCLUDE;
     static float getTime();
     static void gc();

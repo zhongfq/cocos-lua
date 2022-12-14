@@ -347,60 +347,6 @@ typeconf 'fairygui::GTextField'
 typeconf 'fairygui::GBasicTextField'
 
 typeconf 'fairygui::GGraph'
-    .func 'drawPolygon'
-        .snippet[[
-        {
-            fairygui::GGraph *self = nullptr;
-            lua_Integer lineSize = 0;
-            cocos2d::Color4F lineColor;
-            cocos2d::Color4F fillColor;
-            std::vector<cocos2d::Vec2> points;
-
-            self = olua_toobj<fairygui::GGraph>(L, 1);
-            olua_check_integer(L, 2, &lineSize);
-            olua_check_cocos2d_Color4F(L, 3, &lineColor);
-            olua_check_cocos2d_Color4F(L, 4, &fillColor);
-            olua_check_vector<cocos2d::Vec2>(L, 5, points, [L](cocos2d::Vec2 *value) {
-                olua_check_object(L, -1, value, olua_getluatype<cocos2d::Vec2>(L));
-            });
-
-            self->drawPolygon((int)lineSize, lineColor, fillColor, points.size() ? &points[0] : nullptr, (int)points.size());
-
-            return 0;
-        }]]
-    .func 'drawRegularPolygon'
-        .snippet[[
-        {
-            int num_args = lua_gettop(L) - 1;
-            fairygui::GGraph *self = nullptr;
-            lua_Integer lineSize = 0;
-            cocos2d::Color4F lineColor;
-            cocos2d::Color4F fillColor;
-            lua_Integer sides = 0;
-            lua_Number startAngle = 0;
-            std::vector<float> distances;
-
-            self = olua_toobj<fairygui::GGraph>(L, 1);
-            olua_check_integer(L, 2, &lineSize);
-            olua_check_cocos2d_Color4F(L, 3, &lineColor);
-            olua_check_cocos2d_Color4F(L, 4, &fillColor);
-            olua_check_integer(L, 5, &sides);
-
-            if (num_args == 4) {
-                self->drawRegularPolygon((int)lineSize, lineColor, fillColor, (int)sides);
-            } else if (num_args == 5) {
-                olua_check_number(L, 6, &startAngle);
-                self->drawRegularPolygon((int)lineSize, lineColor, fillColor, (int)sides, (float)startAngle);
-            } else {
-                olua_check_number(L, 6, &startAngle);
-                olua_check_vector<float>(L, 7, distances, [L](float *value) {
-                    *value = (float)olua_checknumber(L, -1);
-                });
-                self->drawRegularPolygon((int)lineSize, lineColor, fillColor, (int)sides, (float)startAngle, distances.size() ? &distances[0] : nullptr, (int)distances.size());
-            }
-
-            return 0;
-        }]]
 
 typeconf 'fairygui::GButton'
     .func 'getRelatedController' .ret '@addref(^)'

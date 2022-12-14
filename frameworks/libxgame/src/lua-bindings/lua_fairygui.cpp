@@ -14748,20 +14748,21 @@ static int _fairygui_GGraph_drawPolygon(lua_State *L)
     olua_startinvoke(L);
 
     fairygui::GGraph *self = nullptr;
-    lua_Integer lineSize = 0;
-    cocos2d::Color4F lineColor;
-    cocos2d::Color4F fillColor;
-    std::vector<cocos2d::Vec2> points;
+    int arg1 = 0;       /** lineSize */
+    cocos2d::Color4F arg2;       /** lineColor */
+    cocos2d::Color4F arg3;       /** fillColor */
+    cocos2d::Vec2 *arg4 = nullptr;       /** points */
+    int arg5 = 0;       /** count */
 
-    self = olua_toobj<fairygui::GGraph>(L, 1);
-    olua_check_integer(L, 2, &lineSize);
-    olua_check_cocos2d_Color4F(L, 3, &lineColor);
-    olua_check_cocos2d_Color4F(L, 4, &fillColor);
-    olua_check_vector<cocos2d::Vec2>(L, 5, points, [L](cocos2d::Vec2 *value) {
-        olua_check_object(L, -1, value, olua_getluatype<cocos2d::Vec2>(L));
-    });
+    olua_to_object(L, 1, &self, "fgui.GGraph");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_cocos2d_Color4F(L, 3, &arg2);
+    olua_check_cocos2d_Color4F(L, 4, &arg3);
+    olua_check_object(L, 5, &arg4, "cc.Vec2");
+    olua_check_integer(L, 6, &arg5);
 
-    self->drawPolygon((int)lineSize, lineColor, fillColor, points.size() ? &points[0] : nullptr, (int)points.size());
+    // void drawPolygon(int lineSize, const cocos2d::Color4F &lineColor, const cocos2d::Color4F &fillColor, const cocos2d::Vec2 *points, int count)
+    self->drawPolygon(arg1, arg2, arg3, arg4, arg5);
 
     olua_endinvoke(L);
 
@@ -14794,39 +14795,147 @@ static int _fairygui_GGraph_drawRect(lua_State *L)
     return 0;
 }
 
-static int _fairygui_GGraph_drawRegularPolygon(lua_State *L)
+static int _fairygui_GGraph_drawRegularPolygon$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    int num_args = lua_gettop(L) - 1;
     fairygui::GGraph *self = nullptr;
-    lua_Integer lineSize = 0;
-    cocos2d::Color4F lineColor;
-    cocos2d::Color4F fillColor;
-    lua_Integer sides = 0;
-    lua_Number startAngle = 0;
-    std::vector<float> distances;
+    int arg1 = 0;       /** lineSize */
+    cocos2d::Color4F arg2;       /** lineColor */
+    cocos2d::Color4F arg3;       /** fillColor */
+    int arg4 = 0;       /** sides */
+    float arg5 = 0;       /** startAngle */
+    float *arg6 = nullptr;       /** distances */
+    int arg7 = 0;       /** distanceCount */
 
-    self = olua_toobj<fairygui::GGraph>(L, 1);
-    olua_check_integer(L, 2, &lineSize);
-    olua_check_cocos2d_Color4F(L, 3, &lineColor);
-    olua_check_cocos2d_Color4F(L, 4, &fillColor);
-    olua_check_integer(L, 5, &sides);
+    olua_to_object(L, 1, &self, "fgui.GGraph");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_cocos2d_Color4F(L, 3, &arg2);
+    olua_check_cocos2d_Color4F(L, 4, &arg3);
+    olua_check_integer(L, 5, &arg4);
+    olua_check_number(L, 6, &arg5);
+    olua_check_array(L, 7, &arg6, "olua.float");
+    olua_check_integer(L, 8, &arg7);
 
-    if (num_args == 4) {
-        self->drawRegularPolygon((int)lineSize, lineColor, fillColor, (int)sides);
-    } else if (num_args == 5) {
-        olua_check_number(L, 6, &startAngle);
-        self->drawRegularPolygon((int)lineSize, lineColor, fillColor, (int)sides, (float)startAngle);
-    } else {
-        olua_check_number(L, 6, &startAngle);
-        olua_check_vector<float>(L, 7, distances, [L](float *value) {
-            *value = (float)olua_checknumber(L, -1);
-        });
-        self->drawRegularPolygon((int)lineSize, lineColor, fillColor, (int)sides, (float)startAngle, distances.size() ? &distances[0] : nullptr, (int)distances.size());
-    }
+    // void drawRegularPolygon(int lineSize, const cocos2d::Color4F &lineColor, const cocos2d::Color4F &fillColor, int sides, @optional float startAngle, @optional const float *distances, @optional int distanceCount)
+    self->drawRegularPolygon(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GGraph_drawRegularPolygon$2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GGraph *self = nullptr;
+    int arg1 = 0;       /** lineSize */
+    cocos2d::Color4F arg2;       /** lineColor */
+    cocos2d::Color4F arg3;       /** fillColor */
+    int arg4 = 0;       /** sides */
+
+    olua_to_object(L, 1, &self, "fgui.GGraph");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_cocos2d_Color4F(L, 3, &arg2);
+    olua_check_cocos2d_Color4F(L, 4, &arg3);
+    olua_check_integer(L, 5, &arg4);
+
+    // void drawRegularPolygon(int lineSize, const cocos2d::Color4F &lineColor, const cocos2d::Color4F &fillColor, int sides, @optional float startAngle, @optional const float *distances, @optional int distanceCount)
+    self->drawRegularPolygon(arg1, arg2, arg3, arg4);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GGraph_drawRegularPolygon$3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GGraph *self = nullptr;
+    int arg1 = 0;       /** lineSize */
+    cocos2d::Color4F arg2;       /** lineColor */
+    cocos2d::Color4F arg3;       /** fillColor */
+    int arg4 = 0;       /** sides */
+    float arg5 = 0;       /** startAngle */
+
+    olua_to_object(L, 1, &self, "fgui.GGraph");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_cocos2d_Color4F(L, 3, &arg2);
+    olua_check_cocos2d_Color4F(L, 4, &arg3);
+    olua_check_integer(L, 5, &arg4);
+    olua_check_number(L, 6, &arg5);
+
+    // void drawRegularPolygon(int lineSize, const cocos2d::Color4F &lineColor, const cocos2d::Color4F &fillColor, int sides, @optional float startAngle, @optional const float *distances, @optional int distanceCount)
+    self->drawRegularPolygon(arg1, arg2, arg3, arg4, arg5);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GGraph_drawRegularPolygon$4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GGraph *self = nullptr;
+    int arg1 = 0;       /** lineSize */
+    cocos2d::Color4F arg2;       /** lineColor */
+    cocos2d::Color4F arg3;       /** fillColor */
+    int arg4 = 0;       /** sides */
+    float arg5 = 0;       /** startAngle */
+    float *arg6 = nullptr;       /** distances */
+
+    olua_to_object(L, 1, &self, "fgui.GGraph");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_cocos2d_Color4F(L, 3, &arg2);
+    olua_check_cocos2d_Color4F(L, 4, &arg3);
+    olua_check_integer(L, 5, &arg4);
+    olua_check_number(L, 6, &arg5);
+    olua_check_array(L, 7, &arg6, "olua.float");
+
+    // void drawRegularPolygon(int lineSize, const cocos2d::Color4F &lineColor, const cocos2d::Color4F &fillColor, int sides, @optional float startAngle, @optional const float *distances, @optional int distanceCount)
+    self->drawRegularPolygon(arg1, arg2, arg3, arg4, arg5, arg6);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GGraph_drawRegularPolygon(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 4) {
+        // if ((olua_is_integer(L, 2)) && (olua_is_cocos2d_Color4F(L, 3)) && (olua_is_cocos2d_Color4F(L, 4)) && (olua_is_integer(L, 5))) {
+            // void drawRegularPolygon(int lineSize, const cocos2d::Color4F &lineColor, const cocos2d::Color4F &fillColor, int sides, @optional float startAngle, @optional const float *distances, @optional int distanceCount)
+            return _fairygui_GGraph_drawRegularPolygon$2(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if ((olua_is_integer(L, 2)) && (olua_is_cocos2d_Color4F(L, 3)) && (olua_is_cocos2d_Color4F(L, 4)) && (olua_is_integer(L, 5)) && (olua_is_number(L, 6))) {
+            // void drawRegularPolygon(int lineSize, const cocos2d::Color4F &lineColor, const cocos2d::Color4F &fillColor, int sides, @optional float startAngle, @optional const float *distances, @optional int distanceCount)
+            return _fairygui_GGraph_drawRegularPolygon$3(L);
+        // }
+    }
+
+    if (num_args == 6) {
+        // if ((olua_is_integer(L, 2)) && (olua_is_cocos2d_Color4F(L, 3)) && (olua_is_cocos2d_Color4F(L, 4)) && (olua_is_integer(L, 5)) && (olua_is_number(L, 6)) && (olua_is_array(L, 7, "olua.float"))) {
+            // void drawRegularPolygon(int lineSize, const cocos2d::Color4F &lineColor, const cocos2d::Color4F &fillColor, int sides, @optional float startAngle, @optional const float *distances, @optional int distanceCount)
+            return _fairygui_GGraph_drawRegularPolygon$4(L);
+        // }
+    }
+
+    if (num_args == 7) {
+        // if ((olua_is_integer(L, 2)) && (olua_is_cocos2d_Color4F(L, 3)) && (olua_is_cocos2d_Color4F(L, 4)) && (olua_is_integer(L, 5)) && (olua_is_number(L, 6)) && (olua_is_array(L, 7, "olua.float")) && (olua_is_integer(L, 8))) {
+            // void drawRegularPolygon(int lineSize, const cocos2d::Color4F &lineColor, const cocos2d::Color4F &fillColor, int sides, @optional float startAngle, @optional const float *distances, @optional int distanceCount)
+            return _fairygui_GGraph_drawRegularPolygon$1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GGraph::drawRegularPolygon' not support '%d' arguments", num_args);
 
     return 0;
 }

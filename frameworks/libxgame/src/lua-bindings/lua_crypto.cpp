@@ -1,7 +1,6 @@
 #include "lua_crypto.h"
 #include "platform/CCFileUtils.h"
 #include "base/base64.h"
-#include "openssl/sha.h"
 
 using namespace cocos2d;
 

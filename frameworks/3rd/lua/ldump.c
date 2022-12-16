@@ -84,16 +84,6 @@ static void dumpInteger (DumpState *D, lua_Integer x) {
   dumpVar(D, x);
 }
 
-#ifndef LUA_DEBUG
-static void flip(char *str, size_t size) {
-  size_t i;
-  for (i = 0; i < size; i++) {
-    str[i] = str[i] ^ 'e';
-  }
-}
-#else
-#define flip(s, n)
-#endif
 
 static void dumpString (DumpState *D, const TString *s) {
   if (s == NULL)
@@ -102,9 +92,7 @@ static void dumpString (DumpState *D, const TString *s) {
     size_t size = tsslen(s);
     const char *str = getstr(s);
     dumpSize(D, size + 1);
-    flip((char *)str, size);
     dumpVector(D, str, size);
-    flip((char *)str, size);
   }
 }
 
@@ -193,25 +181,16 @@ static void dumpFunction (DumpState *D, const Proto *f, TString *psource) {
     dumpString(D, NULL);  /* no debug info or same source as its parent */
   else
     dumpString(D, f->source);
-#ifndef LUA_DEBUG
-  dumpCode(D, f);
-  dumpConstants(D, f);
-  dumpUpvalues(D, f);
-  dumpProtos(D, f);
-  dumpDebug(D, f);
-#endif
   dumpInt(D, f->linedefined);
   dumpInt(D, f->lastlinedefined);
   dumpByte(D, f->numparams);
   dumpByte(D, f->is_vararg);
   dumpByte(D, f->maxstacksize);
-#ifdef LUA_DEBUG
   dumpCode(D, f);
   dumpConstants(D, f);
   dumpUpvalues(D, f);
   dumpProtos(D, f);
   dumpDebug(D, f);
-#endif
 }
 
 

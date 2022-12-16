@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2020 The OpenSSL Project Authors. All Rights Reserved.
+ * Copyright 2016-2018 The OpenSSL Project Authors. All Rights Reserved.
  *
  * Licensed under the OpenSSL license (the "License").  You may not use
  * this file except in compliance with the License.  You can obtain a copy
@@ -29,9 +29,6 @@ extern "C" {
 #endif
 #ifndef OPENSSL_THREADS
 # define OPENSSL_THREADS
-#endif
-#ifndef OPENSSL_RAND_SEED_OS
-# define OPENSSL_RAND_SEED_OS
 #endif
 #ifndef OPENSSL_NO_ASAN
 # define OPENSSL_NO_ASAN
@@ -113,11 +110,6 @@ extern "C" {
 # define DECLARE_DEPRECATED(f)   f;
 # ifdef __GNUC__
 #  if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ > 0)
-#   undef DECLARE_DEPRECATED
-#   define DECLARE_DEPRECATED(f)    f __attribute__ ((deprecated));
-#  endif
-# elif defined(__SUNPRO_C)
-#  if (__SUNPRO_C >= 0x5130)
 #   undef DECLARE_DEPRECATED
 #   define DECLARE_DEPRECATED(f)    f __attribute__ ((deprecated));
 #  endif

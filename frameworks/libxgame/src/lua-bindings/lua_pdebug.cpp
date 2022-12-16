@@ -288,7 +288,7 @@ static int set_bp_twice_check_res(lua_State *L) {
 //lua 获取版本号
 static int sync_getLibVersion(lua_State *L) {
     lua_pushstring(L, HOOK_LIB_VERSION);
-	lua_pushnumber(L, LUA_VERSION_NUM);
+    lua_pushnumber(L, LUA_VERSION_NUM);
     return 2;
 }
 
@@ -302,14 +302,14 @@ static int sync_file_ext(lua_State *L) {
 //debugger路径
 static int sync_debugger_path(lua_State *L) {
     debug_file_path = luaL_checkstring(L, 1);
-	debug_file_path_len = (int)strlen(debug_file_path);
+    debug_file_path_len = (int)strlen(debug_file_path);
     return 0;
 }
 
 //tools路径
 static int sync_tools_path(lua_State *L) {
     tools_file_path = luaL_checkstring(L, 1);
-	tools_file_path_len = (int)strlen(tools_file_path);
+    tools_file_path_len = (int)strlen(tools_file_path);
     return 0;
 }
 
@@ -764,9 +764,9 @@ int hook_process_code_section(lua_State *L, lua_Debug *ar){
 int checkHasBreakpoint(lua_State *L, const char * src1, int current_line, int sline , int eline){
     debug_auto_stack tt(L);
 
-	const char *src = getPath(L, src1);
+    const char *src = getPath(L, src1);
     if(!strcmp(src,"")){
-		// 路径完全一致
+        // 路径完全一致
         return ALL_HOOK;
     }
 
@@ -822,21 +822,21 @@ void debug_hook_c(lua_State *L, lua_Debug *ar) {
         //if in c function , return
         if(!hook_process_cfunction(L, ar)) return;
         //if in debugger , return	
-		int source_len = (int)strlen(ar->source);
-		if (debug_file_path_len == source_len) {
-			if (!strcmp(debug_file_path, ar->source))	return;
-		}
-		if (tools_file_path_len == source_len) {
-			if (!strcmp(tools_file_path, ar->source))	return;
-		}
-		//slua "temp buffer"
-		if (11 == source_len) {
-			if (!strcmp("temp buffer", ar->source))	return;
-		}
-		//xlua "chunk"
-		if (5 == source_len) {
-			if (!strcmp("chunk", ar->source))	return;
-		}
+        int source_len = (int)strlen(ar->source);
+        if (debug_file_path_len == source_len) {
+            if (!strcmp(debug_file_path, ar->source))	return;
+        }
+        if (tools_file_path_len == source_len) {
+            if (!strcmp(tools_file_path, ar->source))	return;
+        }
+        //slua "temp buffer"
+        if (11 == source_len) {
+            if (!strcmp("temp buffer", ar->source))	return;
+        }
+        //xlua "chunk"
+        if (5 == source_len) {
+            if (!strcmp("chunk", ar->source))	return;
+        }
 
         //code section
         if(!hook_process_code_section(L, ar)) return;

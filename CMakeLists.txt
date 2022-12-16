@@ -212,8 +212,8 @@ target_link_libraries(${APP_NAME} lua)
 set_target_properties(lua PROPERTIES FOLDER "3rd")
 
 add_subdirectory(frameworks/3rd/openssl)
-target_link_libraries(${APP_NAME} openssl)
-set_target_properties(openssl PROPERTIES FOLDER "3rd")
+target_link_libraries(${APP_NAME} ssl)
+set_target_properties(ssl crypto PROPERTIES FOLDER "3rd")
 
 add_subdirectory(frameworks/3rd/luaopenssl)
 set_target_properties(luaopenssl PROPERTIES FOLDER "3rd")
@@ -273,49 +273,49 @@ endif()
 
 if(CCLUA_BUILD_JPUSH OR CCLUA_BUILD_JANALYTICS OR CCLUA_BUILD_JAUTH)
     add_subdirectory(frameworks/plugins/jiguang)
-    set_target_properties(plugin_jiguang PROPERTIES FOLDER "plugins")
+    set_target_properties(plugin_jiguang PROPERTIES FOLDER "Plugins")
     target_link_libraries(${APP_NAME} plugin_jiguang)
 endif()
 
 if(CCLUA_BUILD_ALIPAY)
     add_subdirectory(frameworks/plugins/alipay)
-    set_target_properties(plugin_alipay PROPERTIES FOLDER "plugins")
+    set_target_properties(plugin_alipay PROPERTIES FOLDER "Plugins")
     target_link_libraries(${APP_NAME} plugin_alipay)
 endif()
 
 if(CCLUA_BUILD_HUAWEI)
     add_subdirectory(frameworks/plugins/huawei)
-    set_target_properties(plugin_huawei PROPERTIES FOLDER "plugins")
+    set_target_properties(plugin_huawei PROPERTIES FOLDER "Plugins")
     target_link_libraries(${APP_NAME} plugin_huawei)
 endif()
 
 if(CCLUA_BUILD_OPPO)
     add_subdirectory(frameworks/plugins/oppo)
-    set_target_properties(plugin_oppo PROPERTIES FOLDER "plugins")
+    set_target_properties(plugin_oppo PROPERTIES FOLDER "Plugins")
     target_link_libraries(${APP_NAME} plugin_oppo)
 endif()
 
 if(CCLUA_BUILD_VIVO)
     add_subdirectory(frameworks/plugins/vivo)
-    set_target_properties(plugin_vivo PROPERTIES FOLDER "plugins")
+    set_target_properties(plugin_vivo PROPERTIES FOLDER "Plugins")
     target_link_libraries(${APP_NAME} plugin_vivo)
 endif()
 
 if(CCLUA_BUILD_WECHAT)
     add_subdirectory(frameworks/plugins/wechat)
-    set_target_properties(plugin_wechat PROPERTIES FOLDER "plugins")
+    set_target_properties(plugin_wechat PROPERTIES FOLDER "Plugins")
     target_link_libraries(${APP_NAME} plugin_wechat)
 endif()
 
 if(CCLUA_BUILD_TALKINGDATA)
     add_subdirectory(frameworks/plugins/talkingdata)
-    set_target_properties(plugin_talkingdata PROPERTIES FOLDER "plugins")
+    set_target_properties(plugin_talkingdata PROPERTIES FOLDER "Plugins")
     target_link_libraries(${APP_NAME} plugin_talkingdata)
 endif()
 
 if(APPLE)
     add_subdirectory(frameworks/plugins/apple)
-    set_target_properties(plugin_apple PROPERTIES FOLDER "plugins")
+    set_target_properties(plugin_apple PROPERTIES FOLDER "Plugins")
     target_link_libraries(${APP_NAME} plugin_apple)
 endif()
 
@@ -414,4 +414,17 @@ endif()
 if(LINUX OR WINDOWS)
     cocos_get_resource_path(APP_RES_DIR ${APP_NAME})
     cocos_copy_target_res(${APP_NAME} LINK_TO ${APP_RES_DIR} FOLDERS ${GAME_RES_FOLDER})
+endif()
+
+# TODO: remove
+if(WINDOWS)
+    get_target_property(rt_output ${APP_NAME} RUNTIME_OUTPUT_DIRECTORY)
+    add_custom_command(TARGET ${APP_NAME} 
+      POST_BUILD 
+      COMMAND ${CMAKE_COMMAND} -E 
+        copy_if_different  
+            "${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/openssl/prebuilt/win32/libcrypto-1_1.dll"
+            "${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/openssl/prebuilt/win32/libssl-1_1.dll"
+            "${rt_output}/${CMAKE_CFG_INTDIR}"
+        ) 
 endif()

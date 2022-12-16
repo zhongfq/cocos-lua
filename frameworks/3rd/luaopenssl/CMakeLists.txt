@@ -72,7 +72,7 @@ endif()
 target_link_libraries(luaopenssl
   PUBLIC
     lua
-    openssl
+    ssl
     ${EXTRA_LIBS}
     Threads::Threads
 )

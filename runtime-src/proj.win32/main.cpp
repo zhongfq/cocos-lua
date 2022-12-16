@@ -77,5 +77,7 @@ int WINAPI _tWinMain(HINSTANCE hInstance,
 	}
 	free(argv);
 
-	return Application::getInstance()->run();
+	int status = Application::getInstance()->run();
+	app.applicationWillTerminate();
+	return status;
 }

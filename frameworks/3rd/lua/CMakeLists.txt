@@ -79,7 +79,7 @@ target_include_directories(lua
 target_compile_definitions(lua PUBLIC $<$<CONFIG:Debug>:LUA_DEBUG>)
 
 if(WINDOWS)
-    target_compile_definitions(lua PUBLIC LUA_BUILD_AS_DLL LUA_LIB)
+    target_compile_definitions(lua PRIVATE LUA_BUILD_AS_DLL)
 elseif(MACOSX)
     target_compile_definitions(lua PUBLIC LUA_USE_MACOSX)
 endif()

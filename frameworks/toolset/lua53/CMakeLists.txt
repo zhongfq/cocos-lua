@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 project(lua)
 
-set(source ${CMAKE_CURRENT_SOURCE_DIR}/../../libxgame/src/lua53)
+set(source ${CMAKE_CURRENT_SOURCE_DIR}/../../3rd/lua53)
 
 set(LUASRC
     ${source}/lapi.c

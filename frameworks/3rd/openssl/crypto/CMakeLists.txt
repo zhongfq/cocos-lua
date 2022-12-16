@@ -1,794 +1,886 @@
-set(CRYPTO_HEADERS
-    crypto/aes/aes_local.h
-    crypto/arm_arch.h
-    crypto/asn1/asn1_item_list.h
-    crypto/asn1/asn1_local.h
-    crypto/asn1/charmap.h
-    crypto/asn1/standard_methods.h
-    crypto/asn1/tbl_standard.h
-    crypto/async/arch/async_null.h
-    crypto/async/arch/async_posix.h
-    crypto/async/arch/async_win.h
-    crypto/async/async_local.h
-    crypto/bf/bf_local.h
-    crypto/bf/bf_pi.h
-    crypto/bio/bio_local.h
-    crypto/blake2/blake2_impl.h
-    crypto/blake2/blake2_local.h
-    crypto/bn/bn_local.h
-    crypto/bn/bn_prime.h
-    crypto/bn/rsaz_exp.h
-    crypto/camellia/cmll_local.h
-    crypto/cast/cast_local.h
-    crypto/cast/cast_s.h
-    crypto/cms/cms_local.h
-    crypto/comp/comp_local.h
-    crypto/conf/conf_def.h
-    crypto/conf/conf_local.h
-    crypto/ct/ct_local.h
-    crypto/des/des_local.h
-    crypto/des/spr.h
-    crypto/dh/dh_local.h
-    crypto/dsa/dsa_local.h
-    crypto/dso/dso_local.h
-    crypto/ec/curve448/arch_32/arch_intrinsics.h
-    crypto/ec/curve448/arch_32/f_impl.h
-    crypto/ec/curve448/curve448_local.h
-    crypto/ec/curve448/curve448utils.h
-    crypto/ec/curve448/ed448.h
-    crypto/ec/curve448/field.h
-    crypto/ec/curve448/point_448.h
-    crypto/ec/curve448/word.h
-    crypto/ec/ec_local.h
-    crypto/engine/eng_local.h
-    crypto/evp/evp_local.h
-    crypto/hmac/hmac_local.h
-    crypto/idea/idea_local.h
-    crypto/lhash/lhash_local.h
-    crypto/md4/md4_local.h
-    crypto/md5/md5_local.h
-    crypto/mips_arch.h
-    crypto/modes/modes_local.h
-    crypto/objects/obj_dat.h
-    crypto/objects/obj_local.h
-    crypto/objects/obj_xref.h
-    crypto/ocsp/ocsp_local.h
-    crypto/pkcs12/p12_local.h
-    crypto/poly1305/poly1305_local.h
-    crypto/ppc_arch.h
-    crypto/rand/rand_local.h
-    crypto/rc2/rc2_local.h
-    crypto/rc4/rc4_local.h
-    crypto/rc5/rc5_local.h
-    crypto/ripemd/rmd_local.h
-    crypto/ripemd/rmdconst.h
-    crypto/rsa/rsa_local.h
-    crypto/s390x_arch.h
-    crypto/seed/seed_local.h
-    crypto/sha/sha_local.h
-    crypto/siphash/siphash_local.h
-    crypto/sm3/sm3_local.h
-    crypto/sparc_arch.h
-    crypto/store/store_local.h
-    crypto/ts/ts_local.h
-    crypto/ui/ui_local.h
-    crypto/vms_rms.h
-    crypto/whrlpool/wp_local.h
-    crypto/x509/x509_local.h
-    crypto/x509v3/ext_dat.h
-    crypto/x509v3/pcy_local.h
-    crypto/x509v3/standard_exts.h
-    crypto/x509v3/v3_admis.h
-)
+# Based on original work by David Manura
+# Copyright (C) 2007-2012 LuaDist.
+# Copyright (C) 2013 Brian Sidebotham
 
-set(CRYPTO_SOURCES
-    crypto/cpt_err.c
-    crypto/cryptlib.c
-    crypto/ctype.c
-    crypto/cversion.c
-    crypto/ebcdic.c
-    crypto/ex_data.c
-    crypto/init.c
-    crypto/mem.c
-    crypto/mem_clr.c
-    crypto/mem_dbg.c
-    crypto/mem_sec.c
-    crypto/o_dir.c
-    crypto/o_fips.c
-    crypto/o_fopen.c
-    crypto/o_init.c
-    crypto/o_str.c
-    crypto/o_time.c
-    crypto/uid.c
-    crypto/getenv.c
-    # aes
-    crypto/aes/aes_cbc.c
-    crypto/aes/aes_cfb.c
-    crypto/aes/aes_core.c
-    crypto/aes/aes_ecb.c
-    crypto/aes/aes_ige.c
-    crypto/aes/aes_misc.c
-    crypto/aes/aes_ofb.c
-    crypto/aes/aes_wrap.c
-    # aria
-    crypto/aria/aria.c
-    # asn1
-    crypto/asn1/a_bitstr.c
-    crypto/asn1/a_d2i_fp.c
-    crypto/asn1/a_digest.c
-    crypto/asn1/a_dup.c
-    crypto/asn1/a_gentm.c
-    crypto/asn1/a_i2d_fp.c
-    crypto/asn1/a_int.c
-    crypto/asn1/a_mbstr.c
-    crypto/asn1/a_object.c
-    crypto/asn1/a_octet.c
-    crypto/asn1/a_print.c
-    crypto/asn1/a_sign.c
-    crypto/asn1/a_strex.c
-    crypto/asn1/a_strnid.c
-    crypto/asn1/a_time.c
-    crypto/asn1/a_type.c
-    crypto/asn1/a_utctm.c
-    crypto/asn1/a_utf8.c
-    crypto/asn1/a_verify.c
-    crypto/asn1/ameth_lib.c
-    crypto/asn1/asn1_err.c
-    crypto/asn1/asn1_gen.c
-    crypto/asn1/asn1_item_list.c
-    crypto/asn1/asn1_lib.c
-    crypto/asn1/asn1_par.c
-    crypto/asn1/asn_mime.c
-    crypto/asn1/asn_moid.c
-    crypto/asn1/asn_mstbl.c
-    crypto/asn1/asn_pack.c
-    crypto/asn1/bio_asn1.c
-    crypto/asn1/bio_ndef.c
-    crypto/asn1/d2i_pr.c
-    crypto/asn1/d2i_pu.c
-    crypto/asn1/evp_asn1.c
-    crypto/asn1/f_int.c
-    crypto/asn1/f_string.c
-    crypto/asn1/i2d_pr.c
-    crypto/asn1/i2d_pu.c
-    crypto/asn1/n_pkey.c
-    crypto/asn1/nsseq.c
-    crypto/asn1/p5_pbe.c
-    crypto/asn1/p5_pbev2.c
-    crypto/asn1/p5_scrypt.c
-    crypto/asn1/p8_pkey.c
-    crypto/asn1/t_bitst.c
-    crypto/asn1/t_pkey.c
-    crypto/asn1/t_spki.c
-    crypto/asn1/tasn_dec.c
-    crypto/asn1/tasn_enc.c
-    crypto/asn1/tasn_fre.c
-    crypto/asn1/tasn_new.c
-    crypto/asn1/tasn_prn.c
-    crypto/asn1/tasn_scn.c
-    crypto/asn1/tasn_typ.c
-    crypto/asn1/tasn_utl.c
-    crypto/asn1/x_algor.c
-    crypto/asn1/x_bignum.c
-    crypto/asn1/x_info.c
-    crypto/asn1/x_int64.c
-    crypto/asn1/x_long.c
-    crypto/asn1/x_pkey.c
-    crypto/asn1/x_sig.c
-    crypto/asn1/x_spki.c
-    crypto/asn1/x_val.c
-    # async
-    crypto/async/async.c
-    crypto/async/async_err.c
-    crypto/async/async_wait.c
-    crypto/async/arch/async_null.c
-    crypto/async/arch/async_posix.c
-    crypto/async/arch/async_win.c
-    # bf
-    crypto/bf/bf_cfb64.c
-    crypto/bf/bf_ecb.c
-    crypto/bf/bf_enc.c
-    crypto/bf/bf_ofb64.c
-    crypto/bf/bf_skey.c
-    # bio
-    crypto/bio/b_addr.c
-    crypto/bio/b_dump.c
-    crypto/bio/b_print.c
-    crypto/bio/b_sock.c
-    crypto/bio/b_sock2.c
-    crypto/bio/bf_buff.c
-    crypto/bio/bf_nbio.c
-    crypto/bio/bf_null.c
-    crypto/bio/bio_cb.c
-    crypto/bio/bio_err.c
-    crypto/bio/bio_lib.c
-    crypto/bio/bio_meth.c
-    crypto/bio/bss_acpt.c
-    crypto/bio/bss_bio.c
-    crypto/bio/bss_conn.c
-    crypto/bio/bss_dgram.c
-    crypto/bio/bss_fd.c
-    crypto/bio/bss_file.c
-    crypto/bio/bss_log.c
-    crypto/bio/bss_mem.c
-    crypto/bio/bss_null.c
-    crypto/bio/bss_sock.c
-    # blake2
-    crypto/blake2/blake2b.c
-    crypto/blake2/blake2s.c
-    crypto/blake2/m_blake2b.c
-    crypto/blake2/m_blake2s.c
-    # bn
-    crypto/bn/bn_add.c
-    crypto/bn/bn_asm.c
-    crypto/bn/bn_blind.c
-    crypto/bn/bn_const.c
-    crypto/bn/bn_ctx.c
-    crypto/bn/bn_depr.c
-    crypto/bn/bn_dh.c
-    crypto/bn/bn_div.c
-    crypto/bn/bn_err.c
-    crypto/bn/bn_exp.c
-    crypto/bn/bn_exp2.c
-    crypto/bn/bn_gcd.c
-    crypto/bn/bn_gf2m.c
-    crypto/bn/bn_intern.c
-    crypto/bn/bn_kron.c
-    crypto/bn/bn_lib.c
-    crypto/bn/bn_mod.c
-    crypto/bn/bn_mont.c
-    crypto/bn/bn_mpi.c
-    crypto/bn/bn_mul.c
-    crypto/bn/bn_nist.c
-    crypto/bn/bn_prime.c
-    crypto/bn/bn_print.c
-    crypto/bn/bn_rand.c
-    crypto/bn/bn_recp.c
-    crypto/bn/bn_shift.c
-    crypto/bn/bn_sqr.c
-    crypto/bn/bn_sqrt.c
-    crypto/bn/bn_srp.c
-    crypto/bn/bn_word.c
-    crypto/bn/bn_x931p.c
-    crypto/bn/rsaz_exp.c
-    # buffer
-    crypto/buffer/buf_err.c
-    crypto/buffer/buffer.c
-    # camellia
-    crypto/camellia/camellia.c
-    crypto/camellia/cmll_cbc.c
-    crypto/camellia/cmll_cfb.c
-    crypto/camellia/cmll_ctr.c
-    crypto/camellia/cmll_ecb.c
-    crypto/camellia/cmll_misc.c
-    crypto/camellia/cmll_ofb.c
-    # cast
-    crypto/cast/c_cfb64.c
-    crypto/cast/c_ecb.c
-    crypto/cast/c_enc.c
-    crypto/cast/c_ofb64.c
-    crypto/cast/c_skey.c
-    # chacha
-    crypto/chacha/chacha_enc.c
-    # cmac
-    crypto/cmac/cm_ameth.c
-    crypto/cmac/cm_pmeth.c
-    crypto/cmac/cmac.c
-    # cms
-    crypto/cms/cms_asn1.c
-    crypto/cms/cms_att.c
-    crypto/cms/cms_cd.c
-    crypto/cms/cms_dd.c
-    crypto/cms/cms_enc.c
-    crypto/cms/cms_env.c
-    crypto/cms/cms_err.c
-    crypto/cms/cms_ess.c
-    crypto/cms/cms_io.c
-    crypto/cms/cms_kari.c
-    crypto/cms/cms_lib.c
-    crypto/cms/cms_pwri.c
-    crypto/cms/cms_sd.c
-    crypto/cms/cms_smime.c
-    # comp
-    crypto/comp/c_zlib.c
-    crypto/comp/comp_err.c
-    crypto/comp/comp_lib.c
-    # conf
-    crypto/conf/conf_api.c
-    crypto/conf/conf_def.c
-    crypto/conf/conf_err.c
-    crypto/conf/conf_lib.c
-    crypto/conf/conf_mall.c
-    crypto/conf/conf_mod.c
-    crypto/conf/conf_sap.c
-    crypto/conf/conf_ssl.c
-    # ct
-    crypto/ct/ct_b64.c
-    crypto/ct/ct_err.c
-    crypto/ct/ct_log.c
-    crypto/ct/ct_oct.c
-    crypto/ct/ct_policy.c
-    crypto/ct/ct_prn.c
-    crypto/ct/ct_sct.c
-    crypto/ct/ct_sct_ctx.c
-    crypto/ct/ct_vfy.c
-    crypto/ct/ct_x509v3.c
-    # des
-    crypto/des/cbc_cksm.c
-    crypto/des/cbc_enc.c
-    crypto/des/cfb64ede.c
-    crypto/des/cfb64enc.c
-    crypto/des/cfb_enc.c
-    crypto/des/des_enc.c
-    crypto/des/ecb3_enc.c
-    crypto/des/ecb_enc.c
-    crypto/des/fcrypt.c
-    crypto/des/fcrypt_b.c
-    crypto/des/ofb64ede.c
-    crypto/des/ofb64enc.c
-    crypto/des/ofb_enc.c
-    crypto/des/pcbc_enc.c
-    crypto/des/qud_cksm.c
-    crypto/des/rand_key.c
-    crypto/des/set_key.c
-    crypto/des/str2key.c
-    crypto/des/xcbc_enc.c
-    # dh
-    crypto/dh/dh_ameth.c
-    crypto/dh/dh_asn1.c
-    crypto/dh/dh_check.c
-    crypto/dh/dh_depr.c
-    crypto/dh/dh_err.c
-    crypto/dh/dh_gen.c
-    crypto/dh/dh_kdf.c
-    crypto/dh/dh_key.c
-    crypto/dh/dh_lib.c
-    crypto/dh/dh_meth.c
-    crypto/dh/dh_pmeth.c
-    crypto/dh/dh_prn.c
-    crypto/dh/dh_rfc5114.c
-    crypto/dh/dh_rfc7919.c
-    # dsa
-    crypto/dsa/dsa_ameth.c
-    crypto/dsa/dsa_asn1.c
-    crypto/dsa/dsa_depr.c
-    crypto/dsa/dsa_err.c
-    crypto/dsa/dsa_gen.c
-    crypto/dsa/dsa_key.c
-    crypto/dsa/dsa_lib.c
-    crypto/dsa/dsa_meth.c
-    crypto/dsa/dsa_ossl.c
-    crypto/dsa/dsa_pmeth.c
-    crypto/dsa/dsa_prn.c
-    crypto/dsa/dsa_sign.c
-    crypto/dsa/dsa_vrf.c
-    # dso
-    crypto/dso/dso_dl.c
-    crypto/dso/dso_dlfcn.c
-    crypto/dso/dso_err.c
-    crypto/dso/dso_lib.c
-    crypto/dso/dso_openssl.c
-    crypto/dso/dso_vms.c
-    crypto/dso/dso_win32.c
-    # ec
-    crypto/ec/curve25519.c
-    crypto/ec/ec2_oct.c
-    crypto/ec/ec2_smpl.c
-    crypto/ec/ec_ameth.c
-    crypto/ec/ec_asn1.c
-    crypto/ec/ec_check.c
-    crypto/ec/ec_curve.c
-    crypto/ec/ec_cvt.c
-    crypto/ec/ec_err.c
-    crypto/ec/ec_key.c
-    crypto/ec/ec_kmeth.c
-    crypto/ec/ec_lib.c
-    crypto/ec/ec_mult.c
-    crypto/ec/ec_oct.c
-    crypto/ec/ec_pmeth.c
-    crypto/ec/ec_print.c
-    crypto/ec/ecdh_kdf.c
-    crypto/ec/ecdh_ossl.c
-    crypto/ec/ecdsa_ossl.c
-    crypto/ec/ecdsa_sign.c
-    crypto/ec/ecdsa_vrf.c
-    crypto/ec/eck_prn.c
-    crypto/ec/ecp_mont.c
-    crypto/ec/ecp_nist.c
-    crypto/ec/ecp_nistp224.c
-    crypto/ec/ecp_nistp256.c
-    crypto/ec/ecp_nistp521.c
-    crypto/ec/ecp_nistputil.c
-    crypto/ec/ecp_oct.c
-    crypto/ec/ecp_smpl.c
-    crypto/ec/ecx_meth.c
-    crypto/ec/curve448/curve448.c
-    crypto/ec/curve448/curve448_tables.c
-    crypto/ec/curve448/eddsa.c
-    crypto/ec/curve448/f_generic.c
-    crypto/ec/curve448/scalar.c
-    crypto/ec/curve448/arch_32/f_impl.c
-    # engine
-    crypto/engine/eng_all.c
-    crypto/engine/eng_cnf.c
-    crypto/engine/eng_ctrl.c
-    crypto/engine/eng_dyn.c
-    crypto/engine/eng_err.c
-    crypto/engine/eng_fat.c
-    crypto/engine/eng_init.c
-    crypto/engine/eng_lib.c
-    crypto/engine/eng_list.c
-    crypto/engine/eng_openssl.c
-    crypto/engine/eng_pkey.c
-    crypto/engine/eng_rdrand.c
-    crypto/engine/eng_table.c
-    crypto/engine/tb_asnmth.c
-    crypto/engine/tb_cipher.c
-    crypto/engine/tb_dh.c
-    crypto/engine/tb_digest.c
-    crypto/engine/tb_dsa.c
-    crypto/engine/tb_eckey.c
-    crypto/engine/tb_pkmeth.c
-    crypto/engine/tb_rand.c
-    crypto/engine/tb_rsa.c
-    # err
-    crypto/err/err.c
-    crypto/err/err_all.c
-    crypto/err/err_prn.c
-    # evp
-    crypto/evp/bio_b64.c
-    crypto/evp/bio_enc.c
-    crypto/evp/bio_md.c
-    crypto/evp/bio_ok.c
-    crypto/evp/c_allc.c
-    crypto/evp/c_alld.c
-    crypto/evp/cmeth_lib.c
-    crypto/evp/digest.c
-    crypto/evp/e_aes.c
-    crypto/evp/e_aes_cbc_hmac_sha1.c
-    crypto/evp/e_aes_cbc_hmac_sha256.c
-    crypto/evp/e_aria.c
-    crypto/evp/e_bf.c
-    crypto/evp/e_camellia.c
-    crypto/evp/e_cast.c
-    crypto/evp/e_chacha20_poly1305.c
-    crypto/evp/e_des.c
-    crypto/evp/e_des3.c
-    crypto/evp/e_idea.c
-    crypto/evp/e_null.c
-    crypto/evp/e_old.c
-    crypto/evp/e_rc2.c
-    crypto/evp/e_rc4.c
-    crypto/evp/e_rc4_hmac_md5.c
-    crypto/evp/e_rc5.c
-    crypto/evp/e_sm4.c
-    crypto/evp/e_seed.c
-    crypto/evp/e_xcbc_d.c
-    crypto/evp/encode.c
-    crypto/evp/evp_cnf.c
-    crypto/evp/evp_enc.c
-    crypto/evp/evp_err.c
-    crypto/evp/evp_key.c
-    crypto/evp/evp_lib.c
-    crypto/evp/evp_pbe.c
-    crypto/evp/evp_pkey.c
-    crypto/evp/m_md2.c
-    crypto/evp/m_md4.c
-    crypto/evp/m_md5.c
-    crypto/evp/m_md5_sha1.c
-    crypto/evp/m_sha3.c
-    crypto/evp/m_mdc2.c
-    crypto/evp/m_null.c
-    crypto/evp/m_ripemd.c
-    crypto/evp/m_sha1.c
-    crypto/evp/m_sigver.c
-    crypto/evp/m_wp.c
-    crypto/evp/names.c
-    crypto/evp/p5_crpt.c
-    crypto/evp/p5_crpt2.c
-    crypto/evp/p_dec.c
-    crypto/evp/p_enc.c
-    crypto/evp/p_lib.c
-    crypto/evp/p_open.c
-    crypto/evp/p_seal.c
-    crypto/evp/p_sign.c
-    crypto/evp/p_verify.c
-    crypto/evp/pbe_scrypt.c
-    crypto/evp/pmeth_fn.c
-    crypto/evp/pmeth_gn.c
-    crypto/evp/pmeth_lib.c
-    # hmac
-    crypto/hmac/hm_ameth.c
-    crypto/hmac/hm_pmeth.c
-    crypto/hmac/hmac.c
-    # idea
-    crypto/idea/i_cbc.c
-    crypto/idea/i_cfb64.c
-    crypto/idea/i_ecb.c
-    crypto/idea/i_ofb64.c
-    crypto/idea/i_skey.c
-    # kdf
-    crypto/kdf/hkdf.c
-    crypto/kdf/kdf_err.c
-    crypto/kdf/scrypt.c
-    crypto/kdf/tls1_prf.c
-    # lhash
-    crypto/lhash/lh_stats.c
-    crypto/lhash/lhash.c
-    # md4
-    crypto/md4/md4_dgst.c
-    crypto/md4/md4_one.c
-    # md5
-    crypto/md5/md5_dgst.c
-    crypto/md5/md5_one.c
-    # mdc2
-    crypto/mdc2/mdc2_one.c
-    crypto/mdc2/mdc2dgst.c
-    # modes
-    crypto/modes/cbc128.c
-    crypto/modes/ccm128.c
-    crypto/modes/cfb128.c
-    crypto/modes/ctr128.c
-    crypto/modes/cts128.c
-    crypto/modes/gcm128.c
-    crypto/modes/ocb128.c
-    crypto/modes/ofb128.c
-    crypto/modes/wrap128.c
-    crypto/modes/xts128.c
-    # objects
-    crypto/objects/o_names.c
-    crypto/objects/obj_dat.c
-    crypto/objects/obj_err.c
-    crypto/objects/obj_lib.c
-    crypto/objects/obj_xref.c
-    # ocsp
-    crypto/ocsp/ocsp_asn.c
-    crypto/ocsp/ocsp_cl.c
-    crypto/ocsp/ocsp_err.c
-    crypto/ocsp/ocsp_ext.c
-    crypto/ocsp/ocsp_ht.c
-    crypto/ocsp/ocsp_lib.c
-    crypto/ocsp/ocsp_prn.c
-    crypto/ocsp/ocsp_srv.c
-    crypto/ocsp/ocsp_vfy.c
-    crypto/ocsp/v3_ocsp.c
-    # pem
-    crypto/pem/pem_all.c
-    crypto/pem/pem_err.c
-    crypto/pem/pem_info.c
-    crypto/pem/pem_lib.c
-    crypto/pem/pem_oth.c
-    crypto/pem/pem_pk8.c
-    crypto/pem/pem_pkey.c
-    crypto/pem/pem_sign.c
-    crypto/pem/pem_x509.c
-    crypto/pem/pem_xaux.c
-    crypto/pem/pvkfmt.c
-    # pkcs12
-    crypto/pkcs12/p12_add.c
-    crypto/pkcs12/p12_asn.c
-    crypto/pkcs12/p12_attr.c
-    crypto/pkcs12/p12_crpt.c
-    crypto/pkcs12/p12_crt.c
-    crypto/pkcs12/p12_decr.c
-    crypto/pkcs12/p12_init.c
-    crypto/pkcs12/p12_key.c
-    crypto/pkcs12/p12_kiss.c
-    crypto/pkcs12/p12_mutl.c
-    crypto/pkcs12/p12_npas.c
-    crypto/pkcs12/p12_p8d.c
-    crypto/pkcs12/p12_p8e.c
-    crypto/pkcs12/p12_sbag.c
-    crypto/pkcs12/p12_utl.c
-    crypto/pkcs12/pk12err.c
-    # pkcs7
-    crypto/pkcs7/bio_pk7.c
-    crypto/pkcs7/pk7_asn1.c
-    crypto/pkcs7/pk7_attr.c
-    crypto/pkcs7/pk7_doit.c
-    crypto/pkcs7/pk7_lib.c
-    crypto/pkcs7/pk7_mime.c
-    crypto/pkcs7/pk7_smime.c
-    crypto/pkcs7/pkcs7err.c
-    # poly1305
-    crypto/poly1305/poly1305.c
-    crypto/poly1305/poly1305_ameth.c
-    crypto/poly1305/poly1305_pmeth.c
-    # rand
-    crypto/rand/drbg_ctr.c
-    crypto/rand/drbg_lib.c
-    crypto/rand/rand_egd.c
-    crypto/rand/rand_err.c
-    crypto/rand/rand_lib.c
-    crypto/rand/rand_unix.c
-    crypto/rand/rand_vms.c
-    crypto/rand/rand_win.c
-    crypto/rand/randfile.c
-    # rc2
-    crypto/rc2/rc2_cbc.c
-    crypto/rc2/rc2_ecb.c
-    crypto/rc2/rc2_skey.c
-    crypto/rc2/rc2cfb64.c
-    crypto/rc2/rc2ofb64.c
-    # rc4
-    crypto/rc4/rc4_enc.c
-    crypto/rc4/rc4_skey.c
-    # rc5
-    # crypto/rc5/rc5_ecb.c
-    # crypto/rc5/rc5_enc.c
-    # crypto/rc5/rc5_skey.c
-    # crypto/rc5/rc5cfb64.c
-    # crypto/rc5/rc5ofb64.c
-    # ripemd
-    crypto/ripemd/rmd_dgst.c
-    crypto/ripemd/rmd_one.c
-    # rsa
-    crypto/rsa/rsa_ameth.c
-    crypto/rsa/rsa_asn1.c
-    crypto/rsa/rsa_chk.c
-    crypto/rsa/rsa_crpt.c
-    crypto/rsa/rsa_depr.c
-    crypto/rsa/rsa_err.c
-    crypto/rsa/rsa_gen.c
-    crypto/rsa/rsa_lib.c
-    crypto/rsa/rsa_meth.c
-    crypto/rsa/rsa_mp.c
-    crypto/rsa/rsa_none.c
-    crypto/rsa/rsa_oaep.c
-    crypto/rsa/rsa_ossl.c
-    crypto/rsa/rsa_pk1.c
-    crypto/rsa/rsa_pmeth.c
-    crypto/rsa/rsa_prn.c
-    crypto/rsa/rsa_pss.c
-    crypto/rsa/rsa_saos.c
-    crypto/rsa/rsa_sign.c
-    crypto/rsa/rsa_ssl.c
-    crypto/rsa/rsa_x931.c
-    crypto/rsa/rsa_x931g.c
-    # seed
-    crypto/seed/seed.c
-    crypto/seed/seed_cbc.c
-    crypto/seed/seed_cfb.c
-    crypto/seed/seed_ecb.c
-    crypto/seed/seed_ofb.c
-    # sha
-    crypto/sha/keccak1600.c
-    crypto/sha/sha1_one.c
-    crypto/sha/sha1dgst.c
-    crypto/sha/sha256.c
-    crypto/sha/sha512.c
-    # siphash
-    crypto/siphash/siphash.c
-    crypto/siphash/siphash_ameth.c
-    crypto/siphash/siphash_pmeth.c
-    # sm2
-    crypto/sm2/sm2_crypt.c
-    crypto/sm2/sm2_err.c
-    crypto/sm2/sm2_pmeth.c
-    crypto/sm2/sm2_sign.c
-    # sm3
-    crypto/sm3/m_sm3.c
-    crypto/sm3/sm3.c
-    # sm4
-    crypto/sm4/sm4.c
-    # srp
-    crypto/srp/srp_lib.c
-    crypto/srp/srp_vfy.c
-    # stack
-    crypto/stack/stack.c
-    # store
-    crypto/store/loader_file.c
-    crypto/store/store_err.c
-    crypto/store/store_init.c
-    crypto/store/store_lib.c
-    crypto/store/store_register.c
-    crypto/store/store_strings.c
-    # ts
-    crypto/ts/ts_asn1.c
-    crypto/ts/ts_conf.c
-    crypto/ts/ts_err.c
-    crypto/ts/ts_lib.c
-    crypto/ts/ts_req_print.c
-    crypto/ts/ts_req_utils.c
-    crypto/ts/ts_rsp_print.c
-    crypto/ts/ts_rsp_sign.c
-    crypto/ts/ts_rsp_utils.c
-    crypto/ts/ts_rsp_verify.c
-    crypto/ts/ts_verify_ctx.c
-    # txt_db
-    crypto/txt_db/txt_db.c
-    # ui
-    crypto/ui/ui_err.c
-    crypto/ui/ui_lib.c
-    crypto/ui/ui_null.c
-    crypto/ui/ui_openssl.c
-    crypto/ui/ui_util.c
-    # whrlpool
-    crypto/whrlpool/wp_block.c
-    crypto/whrlpool/wp_dgst.c
-    # x509
-    crypto/x509/by_dir.c
-    crypto/x509/by_file.c
-    crypto/x509/t_crl.c
-    crypto/x509/t_req.c
-    crypto/x509/t_x509.c
-    crypto/x509/x509_att.c
-    crypto/x509/x509_cmp.c
-    crypto/x509/x509_d2.c
-    crypto/x509/x509_def.c
-    crypto/x509/x509_err.c
-    crypto/x509/x509_ext.c
-    crypto/x509/x509_lu.c
-    crypto/x509/x509_meth.c
-    crypto/x509/x509_obj.c
-    crypto/x509/x509_r2x.c
-    crypto/x509/x509_req.c
-    crypto/x509/x509_set.c
-    crypto/x509/x509_trs.c
-    crypto/x509/x509_txt.c
-    crypto/x509/x509_v3.c
-    crypto/x509/x509_vfy.c
-    crypto/x509/x509_vpm.c
-    crypto/x509/x509cset.c
-    crypto/x509/x509name.c
-    crypto/x509/x509rset.c
-    crypto/x509/x509spki.c
-    crypto/x509/x509type.c
-    crypto/x509/x_all.c
-    crypto/x509/x_attrib.c
-    crypto/x509/x_crl.c
-    crypto/x509/x_exten.c
-    crypto/x509/x_name.c
-    crypto/x509/x_pubkey.c
-    crypto/x509/x_req.c
-    crypto/x509/x_x509.c
-    crypto/x509/x_x509a.c
-    # x509v3
-    crypto/x509v3/pcy_cache.c
-    crypto/x509v3/pcy_data.c
-    crypto/x509v3/pcy_lib.c
-    crypto/x509v3/pcy_map.c
-    crypto/x509v3/pcy_node.c
-    crypto/x509v3/pcy_tree.c
-    crypto/x509v3/v3_addr.c
-    crypto/x509v3/v3_admis.c
-    crypto/x509v3/v3_akey.c
-    crypto/x509v3/v3_akeya.c
-    crypto/x509v3/v3_alt.c
-    crypto/x509v3/v3_asid.c
-    crypto/x509v3/v3_bcons.c
-    crypto/x509v3/v3_bitst.c
-    crypto/x509v3/v3_conf.c
-    crypto/x509v3/v3_cpols.c
-    crypto/x509v3/v3_crld.c
-    crypto/x509v3/v3_enum.c
-    crypto/x509v3/v3_extku.c
-    crypto/x509v3/v3_genn.c
-    crypto/x509v3/v3_ia5.c
-    crypto/x509v3/v3_info.c
-    crypto/x509v3/v3_int.c
-    crypto/x509v3/v3_lib.c
-    crypto/x509v3/v3_ncons.c
-    crypto/x509v3/v3_pci.c
-    crypto/x509v3/v3_pcia.c
-    crypto/x509v3/v3_pcons.c
-    crypto/x509v3/v3_pku.c
-    crypto/x509v3/v3_pmaps.c
-    crypto/x509v3/v3_prn.c
-    crypto/x509v3/v3_purp.c
-    crypto/x509v3/v3_skey.c
-    crypto/x509v3/v3_sxnet.c
-    crypto/x509v3/v3_tlsf.c
-    crypto/x509v3/v3_utl.c
-    crypto/x509v3/v3err.c
-)
+# Redistribution and use of this file is allowed according to the terms of the
+# MIT license.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+include(CMakeParseArguments)
+
+set(OPENSSL_CRYPTO_SRC_DIR "${OPENSSL_SRC_DIR}/crypto")
+set(OPENSSL_CRYPTO_BIN_DIR "${OPENSSL_BIN_DIR}/crypto")
+
+file(READ "${OPENSSL_SRC_DIR}/opensslconf.h.cmake" CONF)
+set(CONF "
+#define OPENSSL_NO_MD2
+#define OPENSSL_NO_RC5
+#define OPENSSL_NO_RFC3779
+#define OPENSSL_NO_EC_NISTP_64_GCC_128
+${CONF}")
+file(WRITE "${OPENSSL_CRYPTO_BIN_DIR}/opensslconf.h.cmake" "${CONF}")
+
+#~2DO: set BUILDINF_DATE to `date LC_ALL=C LC_TIME=C`
+configure_file("${OPENSSL_SRC_DIR}/crypto/buildinf.h.cmake"
+    "${OPENSSL_CRYPTO_BIN_DIR}/buildinf.h")
+
+if(APPLE)
+    set(DSO_EXTENSION ".dylib")
+elseif(WIN32)
+    set(DSO_EXTENSION ".dll")
+else()
+    set(DSO_EXTENSION ".so")
+endif()
+
+configure_file("${OPENSSL_CRYPTO_BIN_DIR}/opensslconf.h.cmake"
+    "${OPENSSL_CRYPTO_BIN_DIR}/openssl/opensslconf.h")
+
+if(EXISTS "${OPENSSL_SRC_DIR}/include/crypto")
+    set(OPENSSL_CRYPTO_CONF_BIN_DIR "${OPENSSL_BIN_DIR}/include/crypto")
+else()
+    set(OPENSSL_CRYPTO_CONF_BIN_DIR "${OPENSSL_BIN_DIR}/crypto/internal")
+endif()
+
+configure_file("${OPENSSL_SRC_DIR}/crypto/bn_conf.h.cmake"
+    "${OPENSSL_CRYPTO_CONF_BIN_DIR}/bn_conf.h")
+configure_file("${OPENSSL_SRC_DIR}/crypto/dso_conf.h.cmake"
+    "${OPENSSL_CRYPTO_CONF_BIN_DIR}/dso_conf.h")
+
+set(LIBSRC
+    "${OPENSSL_CRYPTO_SRC_DIR}/cpt_err.c"
+    "${OPENSSL_CRYPTO_SRC_DIR}/cryptlib.c"
+    "${OPENSSL_CRYPTO_SRC_DIR}/ctype.c"
+    "${OPENSSL_CRYPTO_SRC_DIR}/cversion.c"
+    "${OPENSSL_CRYPTO_SRC_DIR}/ebcdic.c"
+    "${OPENSSL_CRYPTO_SRC_DIR}/ex_data.c"
+    "${OPENSSL_CRYPTO_SRC_DIR}/init.c"
+    "${OPENSSL_CRYPTO_SRC_DIR}/mem.c"
+    "${OPENSSL_CRYPTO_SRC_DIR}/mem_clr.c"
+    "${OPENSSL_CRYPTO_SRC_DIR}/mem_dbg.c"
+    "${OPENSSL_CRYPTO_SRC_DIR}/mem_sec.c"
+    "${OPENSSL_CRYPTO_SRC_DIR}/o_dir.c"
+    "${OPENSSL_CRYPTO_SRC_DIR}/o_fips.c"
+    "${OPENSSL_CRYPTO_SRC_DIR}/o_fopen.c"
+    "${OPENSSL_CRYPTO_SRC_DIR}/o_init.c"
+    "${OPENSSL_CRYPTO_SRC_DIR}/o_str.c"
+    "${OPENSSL_CRYPTO_SRC_DIR}/o_time.c"
+    "${OPENSSL_CRYPTO_SRC_DIR}/uid.c")
+
+if(EXISTS "${OPENSSL_CRYPTO_SRC_DIR}/getenv.c")
+    list(APPEND LIBSRC "${OPENSSL_CRYPTO_SRC_DIR}/getenv.c")
+endif()
+
+include_directories(
+    "${OPENSSL_CRYPTO_SRC_DIR}/include"
+    "${OPENSSL_CRYPTO_SRC_DIR}/modes"
+    "${OPENSSL_CRYPTO_SRC_DIR}/ec/curve448"
+    "${OPENSSL_CRYPTO_SRC_DIR}/ec/curve448/arch_32")
+
+if(BUILD_SHARED_LIBS)
+    add_definitions(-DOPENSSL_BUILD_SHLIBCRYPTO)
+endif()
+
+macro(add_submodule dir)
+    foreach(name ${ARGN})
+        list(APPEND LIBSRC "${OPENSSL_CRYPTO_SRC_DIR}/${dir}/${name}")
+    endforeach(name)
+endmacro()
+
+add_submodule(aes
+    aes_cbc.c
+    aes_cfb.c
+    aes_core.c
+    aes_ecb.c
+    aes_ige.c
+    aes_misc.c
+    aes_ofb.c
+    aes_wrap.c)
+
+add_submodule(aria
+    aria.c)
+
+add_submodule(asn1
+    a_bitstr.c
+    a_d2i_fp.c
+    a_digest.c
+    a_dup.c
+    a_gentm.c
+    a_i2d_fp.c
+    a_int.c
+    a_mbstr.c
+    a_object.c
+    a_octet.c
+    a_print.c
+    a_sign.c
+    a_strex.c
+    a_strnid.c
+    a_time.c
+    a_type.c
+    a_utctm.c
+    a_utf8.c
+    a_verify.c
+    ameth_lib.c
+    asn1_err.c
+    asn1_gen.c
+    asn1_item_list.c
+    asn1_lib.c
+    asn1_par.c
+    asn_mime.c
+    asn_moid.c
+    asn_mstbl.c
+    asn_pack.c
+    bio_asn1.c
+    bio_ndef.c
+    d2i_pr.c
+    d2i_pu.c
+    evp_asn1.c
+    f_int.c
+    f_string.c
+    i2d_pr.c
+    i2d_pu.c
+    n_pkey.c
+    nsseq.c
+    p5_pbe.c
+    p5_pbev2.c
+    p5_scrypt.c
+    p8_pkey.c
+    t_bitst.c
+    t_pkey.c
+    t_spki.c
+    tasn_dec.c
+    tasn_enc.c
+    tasn_fre.c
+    tasn_new.c
+    tasn_prn.c
+    tasn_scn.c
+    tasn_typ.c
+    tasn_utl.c
+    x_algor.c
+    x_bignum.c
+    x_info.c
+    x_int64.c
+    x_long.c
+    x_pkey.c
+    x_sig.c
+    x_spki.c
+    x_val.c)
+
+add_submodule(async
+    async.c
+    async_err.c
+    async_wait.c
+    arch/async_null.c
+    arch/async_posix.c
+    arch/async_win.c)
+
+add_submodule(bf
+    bf_cfb64.c
+    bf_ecb.c
+    bf_enc.c
+    bf_ofb64.c
+    bf_skey.c)
+
+add_submodule(bio
+    b_addr.c
+    b_dump.c
+    b_print.c
+    b_sock.c
+    b_sock2.c
+    bf_buff.c
+    bf_nbio.c
+    bf_null.c
+    bio_cb.c
+    bio_err.c
+    bio_lib.c
+    bio_meth.c
+    bss_acpt.c
+    bss_bio.c
+    bss_conn.c
+    bss_dgram.c
+    bss_fd.c
+    bss_file.c
+    bss_log.c
+    bss_mem.c
+    bss_null.c
+    bss_sock.c)
+
+add_submodule(blake2
+    blake2b.c
+    blake2s.c
+    m_blake2b.c
+    m_blake2s.c)
+
+add_submodule(bn
+    bn_add.c
+    bn_asm.c
+    bn_blind.c
+    bn_const.c
+    bn_ctx.c
+    bn_depr.c
+    bn_dh.c
+    bn_div.c
+    bn_err.c
+    bn_exp.c
+    bn_exp2.c
+    bn_gcd.c
+    bn_gf2m.c
+    bn_intern.c
+    bn_kron.c
+    bn_lib.c
+    bn_mod.c
+    bn_mont.c
+    bn_mpi.c
+    bn_mul.c
+    bn_nist.c
+    bn_prime.c
+    bn_print.c
+    bn_rand.c
+    bn_recp.c
+    bn_shift.c
+    bn_sqr.c
+    bn_sqrt.c
+    bn_srp.c
+    bn_word.c
+    bn_x931p.c
+    rsaz_exp.c)
+
+add_submodule(buffer
+    buf_err.c
+    buffer.c)
+
+add_submodule(camellia
+    camellia.c
+    cmll_cbc.c
+    cmll_cfb.c
+    cmll_ctr.c
+    cmll_ecb.c
+    cmll_misc.c
+    cmll_ofb.c)
+
+add_submodule(cast
+    c_cfb64.c
+    c_ecb.c
+    c_enc.c
+    c_ofb64.c
+    c_skey.c)
+
+add_submodule(chacha
+    chacha_enc.c)
+
+add_submodule(cmac
+    cm_ameth.c
+    cm_pmeth.c
+    cmac.c)
+
+add_submodule(cms
+    cms_asn1.c
+    cms_att.c
+    cms_cd.c
+    cms_dd.c
+    cms_enc.c
+    cms_env.c
+    cms_err.c
+    cms_ess.c
+    cms_io.c
+    cms_kari.c
+    cms_lib.c
+    cms_pwri.c
+    cms_sd.c
+    cms_smime.c)
+
+add_submodule(comp
+    c_zlib.c
+    comp_err.c
+    comp_lib.c)
+
+add_submodule(conf
+    conf_api.c
+    conf_def.c
+    conf_err.c
+    conf_lib.c
+    conf_mall.c
+    conf_mod.c
+    conf_sap.c
+    conf_ssl.c)
+
+add_submodule(ct
+    ct_b64.c
+    ct_err.c
+    ct_log.c
+    ct_oct.c
+    ct_policy.c
+    ct_prn.c
+    ct_sct.c
+    ct_sct_ctx.c
+    ct_vfy.c
+    ct_x509v3.c)
+
+add_submodule(des
+    cbc_cksm.c
+    cbc_enc.c
+    cfb64ede.c
+    cfb64enc.c
+    cfb_enc.c
+    des_enc.c
+    ecb3_enc.c
+    ecb_enc.c
+    fcrypt.c
+    fcrypt_b.c
+    ofb64ede.c
+    ofb64enc.c
+    ofb_enc.c
+    pcbc_enc.c
+    qud_cksm.c
+    rand_key.c
+    set_key.c
+    str2key.c
+    xcbc_enc.c)
+
+add_submodule(dh
+    dh_ameth.c
+    dh_asn1.c
+    dh_check.c
+    dh_depr.c
+    dh_err.c
+    dh_gen.c
+    dh_kdf.c
+    dh_key.c
+    dh_lib.c
+    dh_meth.c
+    dh_pmeth.c
+    dh_prn.c
+    dh_rfc5114.c
+    dh_rfc7919.c)
+
+add_submodule(dsa
+    dsa_ameth.c
+    dsa_asn1.c
+    dsa_depr.c
+    dsa_err.c
+    dsa_gen.c
+    dsa_key.c
+    dsa_lib.c
+    dsa_meth.c
+    dsa_ossl.c
+    dsa_pmeth.c
+    dsa_prn.c
+    dsa_sign.c
+    dsa_vrf.c)
+
+add_submodule(dso
+    dso_dl.c
+    dso_dlfcn.c
+    dso_err.c
+    dso_lib.c
+    dso_openssl.c
+    dso_vms.c
+    dso_win32.c)
+
+add_submodule(ec
+    curve25519.c
+    ec2_oct.c
+    ec2_smpl.c
+    ec_ameth.c
+    ec_asn1.c
+    ec_check.c
+    ec_curve.c
+    ec_cvt.c
+    ec_err.c
+    ec_key.c
+    ec_kmeth.c
+    ec_lib.c
+    ec_mult.c
+    ec_oct.c
+    ec_pmeth.c
+    ec_print.c
+    ecdh_kdf.c
+    ecdh_ossl.c
+    ecdsa_ossl.c
+    ecdsa_sign.c
+    ecdsa_vrf.c
+    eck_prn.c
+    ecp_mont.c
+    ecp_nist.c
+    ecp_nistp224.c
+    ecp_nistp256.c
+    ecp_nistp521.c
+    ecp_nistputil.c
+    ecp_oct.c
+    ecp_smpl.c
+    ecx_meth.c
+    curve448/curve448.c
+    curve448/curve448_tables.c
+    curve448/eddsa.c
+    curve448/f_generic.c
+    curve448/scalar.c
+    curve448/arch_32/f_impl.c)
+
+if(NOT OPENSSL_NO_ENGINE)
+    add_submodule(engine
+        eng_all.c
+        eng_cnf.c
+        eng_ctrl.c
+        eng_dyn.c
+        eng_err.c
+        eng_fat.c
+        eng_init.c
+        eng_lib.c
+        eng_list.c
+        eng_openssl.c
+        eng_pkey.c
+        eng_rdrand.c
+        eng_table.c
+        tb_asnmth.c
+        tb_cipher.c
+        tb_dh.c
+        tb_digest.c
+        tb_dsa.c
+        tb_eckey.c
+        tb_pkmeth.c
+        tb_rand.c
+        tb_rsa.c)
+endif()
+
+add_submodule(err
+    err.c
+    err_all.c
+    err_prn.c)
+
+add_submodule(evp
+    bio_b64.c
+    bio_enc.c
+    bio_md.c
+    bio_ok.c
+    c_allc.c
+    c_alld.c
+    cmeth_lib.c
+    digest.c
+    e_aes.c
+    e_aes_cbc_hmac_sha1.c
+    e_aes_cbc_hmac_sha256.c
+    e_aria.c
+    e_bf.c
+    e_camellia.c
+    e_cast.c
+    e_chacha20_poly1305.c
+    e_des.c
+    e_des3.c
+    e_idea.c
+    e_null.c
+    e_old.c
+    e_rc2.c
+    e_rc4.c
+    e_rc4_hmac_md5.c
+    e_rc5.c
+    e_sm4.c
+    e_seed.c
+    e_xcbc_d.c
+    encode.c
+    evp_cnf.c
+    evp_enc.c
+    evp_err.c
+    evp_key.c
+    evp_lib.c
+    evp_pbe.c
+    evp_pkey.c
+    m_md2.c
+    m_md4.c
+    m_md5.c
+    m_md5_sha1.c
+    m_sha3.c
+    m_mdc2.c
+    m_null.c
+    m_ripemd.c
+    m_sha1.c
+    m_sigver.c
+    m_wp.c
+    names.c
+    p5_crpt.c
+    p5_crpt2.c
+    p_dec.c
+    p_enc.c
+    p_lib.c
+    p_open.c
+    p_seal.c
+    p_sign.c
+    p_verify.c
+    pbe_scrypt.c
+    pmeth_fn.c
+    pmeth_gn.c
+    pmeth_lib.c)
+
+add_submodule(hmac
+    hm_ameth.c
+    hm_pmeth.c
+    hmac.c)
+
+add_submodule(idea
+    i_cbc.c
+    i_cfb64.c
+    i_ecb.c
+    i_ofb64.c
+    i_skey.c)
+
+add_submodule(kdf
+    hkdf.c
+    kdf_err.c
+    scrypt.c
+    tls1_prf.c)
+
+add_submodule(lhash
+    lh_stats.c
+    lhash.c)
+
+add_submodule(md4
+    md4_dgst.c
+    md4_one.c)
+
+add_submodule(md5
+    md5_dgst.c
+    md5_one.c)
+
+add_submodule(mdc2
+    mdc2_one.c
+    mdc2dgst.c)
+
+add_submodule(modes
+    cbc128.c
+    ccm128.c
+    cfb128.c
+    ctr128.c
+    cts128.c
+    gcm128.c
+    ocb128.c
+    ofb128.c
+    wrap128.c
+    xts128.c)
+
+add_submodule(objects
+    o_names.c
+    obj_dat.c
+    obj_err.c
+    obj_lib.c
+    obj_xref.c)
+
+add_submodule(ocsp
+    ocsp_asn.c
+    ocsp_cl.c
+    ocsp_err.c
+    ocsp_ext.c
+    ocsp_ht.c
+    ocsp_lib.c
+    ocsp_prn.c
+    ocsp_srv.c
+    ocsp_vfy.c
+    v3_ocsp.c)
+
+add_submodule(pem
+    pem_all.c
+    pem_err.c
+    pem_info.c
+    pem_lib.c
+    pem_oth.c
+    pem_pk8.c
+    pem_pkey.c
+    pem_sign.c
+    pem_x509.c
+    pem_xaux.c
+    pvkfmt.c)
+
+add_submodule(pkcs12
+    p12_add.c
+    p12_asn.c
+    p12_attr.c
+    p12_crpt.c
+    p12_crt.c
+    p12_decr.c
+    p12_init.c
+    p12_key.c
+    p12_kiss.c
+    p12_mutl.c
+    p12_npas.c
+    p12_p8d.c
+    p12_p8e.c
+    p12_sbag.c
+    p12_utl.c
+    pk12err.c)
+
+add_submodule(pkcs7
+    bio_pk7.c
+    pk7_asn1.c
+    pk7_attr.c
+    pk7_doit.c
+    pk7_lib.c
+    pk7_mime.c
+    pk7_smime.c
+    pkcs7err.c)
+
+add_submodule(poly1305
+    poly1305.c
+    poly1305_ameth.c
+    poly1305_pmeth.c)
+
+add_submodule(rand
+    drbg_ctr.c
+    drbg_lib.c
+    rand_egd.c
+    rand_err.c
+    rand_lib.c
+    rand_unix.c
+    rand_vms.c
+    rand_win.c
+    randfile.c)
+
+add_submodule(rc2
+    rc2_cbc.c
+    rc2_ecb.c
+    rc2_skey.c
+    rc2cfb64.c
+    rc2ofb64.c)
+
+add_submodule(rc4
+    rc4_enc.c
+    rc4_skey.c)
+
+if(OPENSSL_RC5)
+    add_submodule(rc5
+        rc5_ecb.c
+        rc5_enc.c
+        rc5_skey.c
+        rc5cfb64.c
+        rc5ofb64.c)
+endif()
+
+add_submodule(ripemd
+    rmd_dgst.c
+    rmd_one.c)
+
+add_submodule(rsa
+    rsa_ameth.c
+    rsa_asn1.c
+    rsa_chk.c
+    rsa_crpt.c
+    rsa_depr.c
+    rsa_err.c
+    rsa_gen.c
+    rsa_lib.c
+    rsa_meth.c
+    rsa_mp.c
+    rsa_none.c
+    rsa_oaep.c
+    rsa_ossl.c
+    rsa_pk1.c
+    rsa_pmeth.c
+    rsa_prn.c
+    rsa_pss.c
+    rsa_saos.c
+    rsa_sign.c
+    rsa_ssl.c
+    rsa_x931.c
+    rsa_x931g.c)
+
+add_submodule(seed
+    seed.c
+    seed_cbc.c
+    seed_cfb.c
+    seed_ecb.c
+    seed_ofb.c)
+
+add_submodule(sha
+    keccak1600.c
+    sha1_one.c
+    sha1dgst.c
+    sha256.c
+    sha512.c)
+ 
+add_submodule(siphash
+    siphash.c
+    siphash_ameth.c
+    siphash_pmeth.c)
+
+add_submodule(sm2
+    sm2_crypt.c
+    sm2_err.c
+    sm2_pmeth.c
+    sm2_sign.c)
+
+add_submodule(sm3
+    m_sm3.c
+    sm3.c)
+
+add_submodule(sm4
+    sm4.c)
+
+add_submodule(srp
+    srp_lib.c
+    srp_vfy.c)
+
+add_submodule(stack
+    stack.c)
+
+add_submodule(store
+    loader_file.c
+    store_err.c
+    store_init.c
+    store_lib.c
+    store_register.c
+    store_strings.c)
+
+add_submodule(ts
+    ts_asn1.c
+    ts_conf.c
+    ts_err.c
+    ts_lib.c
+    ts_req_print.c
+    ts_req_utils.c
+    ts_rsp_print.c
+    ts_rsp_sign.c
+    ts_rsp_utils.c
+    ts_rsp_verify.c
+    ts_verify_ctx.c)
+
+add_submodule(txt_db
+    txt_db.c)
+
+add_submodule(ui
+    ui_err.c
+    ui_lib.c
+    ui_null.c
+    ui_openssl.c
+    ui_util.c)
+
+add_submodule(whrlpool
+    wp_block.c
+    wp_dgst.c)
+
+add_submodule(x509
+    by_dir.c
+    by_file.c
+    t_crl.c
+    t_req.c
+    t_x509.c
+    x509_att.c
+    x509_cmp.c
+    x509_d2.c
+    x509_def.c
+    x509_err.c
+    x509_ext.c
+    x509_lu.c
+    x509_meth.c
+    x509_obj.c
+    x509_r2x.c
+    x509_req.c
+    x509_set.c
+    x509_trs.c
+    x509_txt.c
+    x509_v3.c
+    x509_vfy.c
+    x509_vpm.c
+    x509cset.c
+    x509name.c
+    x509rset.c
+    x509spki.c
+    x509type.c
+    x_all.c
+    x_attrib.c
+    x_crl.c
+    x_exten.c
+    x_name.c
+    x_pubkey.c
+    x_req.c
+    x_x509.c
+    x_x509a.c)
+
+add_submodule(x509v3
+    pcy_cache.c
+    pcy_data.c
+    pcy_lib.c
+    pcy_map.c
+    pcy_node.c
+    pcy_tree.c
+    v3_addr.c
+    v3_admis.c
+    v3_akey.c
+    v3_akeya.c
+    v3_alt.c
+    v3_asid.c
+    v3_bcons.c
+    v3_bitst.c
+    v3_conf.c
+    v3_cpols.c
+    v3_crld.c
+    v3_enum.c
+    v3_extku.c
+    v3_genn.c
+    v3_ia5.c
+    v3_info.c
+    v3_int.c
+    v3_lib.c
+    v3_ncons.c
+    v3_pci.c
+    v3_pcia.c
+    v3_pcons.c
+    v3_pku.c
+    v3_pmaps.c
+    v3_prn.c
+    v3_purp.c
+    v3_skey.c
+    v3_sxnet.c
+    v3_tlsf.c
+    v3_utl.c
+    v3err.c)
 
 set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
 find_package(Threads)
+
 if(NOT Threads_FOUND)
-    list(APPEND CRYPTO_SOURCES crypto/threads_none.c)
+    add_submodule(. threads_none.c)
 elseif(WIN32)
-    list(APPEND CRYPTO_SOURCES crypto/threads_win.c)
+    add_submodule(. threads_win.c)
 else()
-    list(APPEND CRYPTO_SOURCES crypto/threads_pthread.c)
+    add_submodule(. threads_pthread.c)
 endif()
+
+add_library(crypto ${LIBSRC} ${OBJECTS_SRC})
+
+source_group(TREE ${OPENSSL_CRYPTO_SRC_DIR} PREFIX "" FILES ${LIBSRC} ${OBJECTS_SRC})
+
+if(APPLE)
+    target_compile_options(crypto
+      PRIVATE
+        -Wno-shorten-64-to-32
+        -Wno-comma
+        -Wno-unreachable-code
+    )
+endif()
+
+if(WIN32 AND NOT CYGWIN)
+    target_link_libraries(crypto ws2_32 crypt32)
+elseif(Threads_FOUND)
+    target_link_libraries(crypto ${CMAKE_THREAD_LIBS_INIT} dl)
+endif()
+
+set_target_properties(crypto PROPERTIES
+    VERSION "${LIB_VERSION}" SOVERSION "${LIB_SOVERSION}")
+
+install(TARGETS crypto
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib)

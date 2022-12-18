@@ -18,6 +18,6 @@ clang {
     '-I../../frameworks/3rd/fairygui/Classes',
     '-I../../frameworks/3rd/dragonbones/src',
     '-I../../frameworks/3rd/lua',
-    '-I../../frameworks/libxgame/src',
+    '-I../../frameworks/cclua/src',
     '-I../../frameworks/plugins',
 }

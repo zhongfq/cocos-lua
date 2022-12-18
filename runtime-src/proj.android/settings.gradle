@@ -1,10 +1,27 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+        maven {url 'https://developer.huawei.com/repo/'}
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven {url 'https://developer.huawei.com/repo/'}
+    }
+}
+
 def load(name, path) {
     include(":${name}")
     project(":${name}").projectDir = new File(settingsDir, "${path}")
 }
 
 load('libcocos2dx', '../../frameworks/cocos2d-x/cocos/platform/android/libcocos2dx')
-load('libxgame', '../../frameworks/libxgame/android')
+load('libcclua', '../../frameworks/cclua/android')
 load('plugin-alipay', '../../frameworks/plugins/alipay/android')
 load('plugin-huawei', '../../frameworks/plugins/huawei/android')
 load('plugin-jiguang', '../../frameworks/plugins/jiguang/android')

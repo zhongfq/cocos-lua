@@ -21,7 +21,7 @@ target_include_directories(${LIBNAME}
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..
 )
 
-target_link_libraries(${LIBNAME} PRIVATE xgame)
+target_link_libraries(${LIBNAME} PRIVATE cclua)
 
 if(ANDROID)
     target_compile_definitions(${LIBNAME} PUBLIC CCLUA_BUILD_ALIPAY)

@@ -19,7 +19,7 @@ end
 local toolset = require "toolset"
 
 -- upload command
-local UPLOAD = toolset.fullpath('../../frameworks/libxgame/src/bugly/dsymtool/buglyqq-upload-symbol.jar')
+local UPLOAD = toolset.fullpath('../../frameworks/cclua/src/bugly/dsymtool/buglyqq-upload-symbol.jar')
 
 if ARG_PLATFORM == 'android' then
     local INPUT_SYMBOL_PATH = toolset.fullpath('../../runtime-src/proj.android/app/build/intermediates/cmake/release/obj')

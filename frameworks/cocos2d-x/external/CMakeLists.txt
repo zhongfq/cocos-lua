@@ -5,7 +5,6 @@ option(BUILD_EXT_CHIPMUNK "Build with internal chipmunk support" ON)
 option(BUILD_EXT_FREETYPE2 "Build with internal freetype2 support" ON)
 option(BUILD_EXT_RECAST "Build with internal recast support" ON)
 option(BUILD_EXT_BULLET "Build with internal bullet support" ON)
-option(BUILD_EXT_JPEG "Build with internal jpeg support" ON)
 option(BUILD_EXT_UV "Build with internal uv support" ON)
 option(BUILD_EXT_WEBP "Build with internal webp support" ON)
 option(BUILD_EXT_WEBSOCKETS "Build with internal websockets support" ON)
@@ -17,9 +16,7 @@ option(BUILD_EXT_EDTAA3FUNC "Build with internal edtaa3func support" ON)
 option(BUILD_EXT_CONVERTUTF "Build with internal ConvertUTF support" ON)
 option(BUILD_EXT_POLY2TRI "Build with internal poly2tri support" ON)
 option(BUILD_EXT_MD5 "Build with internal md5 support" ON)
-option(BUILD_EXT_ZLIB "Build with internal zlib support" ON)
 option(BUILD_EXT_CURL "Build with internal curl support" ON)
-option(BUILD_EXT_UNZIP "Build with internal unzip support" ON)
 
 add_library(external empty.cpp)
 
@@ -39,10 +36,6 @@ if(BUILD_EXT_BULLET)
     add_subdirectory(bullet)
     target_link_libraries(external ext_bullet)
 endif(BUILD_EXT_BULLET)
-if(BUILD_EXT_JPEG)
-    add_subdirectory(jpeg)
-    target_link_libraries(external ext_jpeg)
-endif(BUILD_EXT_JPEG)
 if(BUILD_EXT_UV)
     add_subdirectory(uv)
     target_link_libraries(external ext_uv)
@@ -105,10 +98,6 @@ if(NOT LINUX)
         add_subdirectory(curl)
         target_link_libraries(external ext_curl)
     endif(BUILD_EXT_CURL)
-    add_subdirectory(png)
-    target_link_libraries(external 
-        ext_png
-    )
 endif(NOT LINUX)
     
 if(LINUX)
@@ -151,21 +140,6 @@ if(WINDOWS OR MACOSX OR LINUX)
     )
 endif()
 
-if(MACOSX OR ANDROID OR WINDOWS)
-    if(BUILD_EXT_ZLIB)
-        add_subdirectory(zlib)
-        target_link_libraries(external 
-            ext_zlib
-        )
-    endif(BUILD_EXT_ZLIB)
-endif()
-
-# unzip depend on zlib
-if(BUILD_EXT_UNZIP)
-    add_subdirectory(unzip)
-    target_link_libraries(external ext_unzip)
-endif(BUILD_EXT_UNZIP)
-
 # put "external" into External folder, too
 set_target_properties(external
     PROPERTIES
@@ -173,13 +147,3 @@ set_target_properties(external
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
     FOLDER "External"
 )
-
-
-if(MACOSX OR IOS)
-    add_subdirectory(glsl-optimizer)
-    target_link_libraries(external 
-    ext_glcpp_library
-    ext_glsl_optimizer
-    ext_libmesa
-    )
-endif()

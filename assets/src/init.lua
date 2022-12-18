@@ -13,8 +13,8 @@ for i, v in ipairs(runtime.args) do
         if kind == 'luadebug' then
             require "debugger":start "127.0.0.1:12306":event "wait"
         elseif kind == 'luapanda' then
-            -- local socket = require "socket.core"
-            -- socket.sleep(2)
+            local socket = require "socket.core"
+            socket.sleep(2)
             local pdebug = _G.luapanda_chook
             local lua_set_hookstate = pdebug.lua_set_hookstate
             pdebug.lua_set_hookstate = function (state, ...)

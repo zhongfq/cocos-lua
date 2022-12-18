@@ -1,6 +1,6 @@
 module 'cocos2d_types'
 
-path "../../frameworks/libxgame/src/lua-bindings"
+path "../../frameworks/cclua/src/lua-bindings"
 
 headers [[
 #include "cclua/cclua.h"

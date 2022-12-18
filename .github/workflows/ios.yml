@@ -35,4 +35,4 @@ jobs:
     - name: Build
       working-directory: build
       shell: bash
-      run: cmake --build . --target cocos-lua --config $BUILD_TYPE
+      run: cmake --build . --target cocoslua --config $BUILD_TYPE

@@ -48,8 +48,14 @@ enum OpMode {iABC, iABx, iAsBx, iAx, isJ};  /* basic instruction formats */
 
 #define POS_A		(POS_OP + SIZE_OP)
 #define POS_k		(POS_A + SIZE_A)
+#ifndef LUA_DEBUG
+#define POS_C		(POS_k + 1)
+#define POS_B		(POS_C + SIZE_C)
+#else
 #define POS_B		(POS_k + 1)
 #define POS_C		(POS_B + SIZE_B)
+#endif
+
 
 #define POS_Bx		POS_k
 

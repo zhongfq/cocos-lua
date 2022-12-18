@@ -33,8 +33,8 @@
             "connectionPort": 8818,
             "stopOnEntry": true,
             "useCHook": true,
-            // "preLaunchTask": "luapanda",
-            "program": "${workspaceFolder}/tools/bin/luapanda.sh",
+            "windows": {"preLaunchTask": "luapanda"},
+            "osx": {"program": "${workspaceFolder}/tools/bin/luapanda.sh"},
             "autoPathMode": true
         }
     ]

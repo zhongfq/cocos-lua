@@ -24,7 +24,7 @@ target_include_directories(${LIBNAME}
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..
 )
 
-target_link_libraries(${LIBNAME} xgame cocos2d)
+target_link_libraries(${LIBNAME} cclua cocos2d)
 
 if(IOS)
     find_library(AUTHENTICATION_SERVICES AuthenticationServices)

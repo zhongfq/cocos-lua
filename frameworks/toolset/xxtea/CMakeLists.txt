@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 project(lua-xxtea C)
 
-set(source ${CMAKE_CURRENT_SOURCE_DIR}/../../libxgame/src/xxtea)
+set(source ${CMAKE_CURRENT_SOURCE_DIR}/../../3rd/xxtea)
 
 set(SRC
     ${source}/xxtea.c

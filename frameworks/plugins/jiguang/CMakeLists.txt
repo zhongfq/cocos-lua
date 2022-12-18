@@ -44,7 +44,7 @@ target_include_directories(${LIBNAME}
 	PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..
 )
 
-target_link_libraries(${LIBNAME} PRIVATE xgame cocos2d)
+target_link_libraries(${LIBNAME} PRIVATE cclua cocos2d)
 
 if(APPLE)
     set_xcode_property(${LIBNAME} CLANG_ENABLE_OBJC_ARC "YES")

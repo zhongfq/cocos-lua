@@ -1,28 +1,30 @@
-import org.gradle.internal.os.OperatingSystem
-apply plugin: 'com.android.application'
-//apply plugin: 'com.huawei.agconnect' @huawei
+import org.gradle.internal.os.OperatingSystem;
+
+plugins {
+    id 'com.android.application'
+    // id 'com.huawei.agconnect' @huawei
+}
 
 android {
-    compileSdkVersion PROP_COMPILE_SDK_VERSION.toInteger()
-
+    namespace "com.codetypes.hellolua"
+    compileSdk rootProject.ext.compileSdk
+    
     defaultConfig {
         applicationId "com.codetypes.hellolua"
-        minSdkVersion PROP_MIN_SDK_VERSION
-        targetSdkVersion PROP_TARGET_SDK_VERSION
-        versionCode 100
-        versionName "1.1.0"
+        minSdk rootProject.ext.minSdk
+        targetSdk rootProject.ext.targetSdk
+        versionCode 100   
+        versionName "1.0.0"
 
         externalNativeBuild {
             cmake {
-                targets 'cclua'
-                arguments "-DCMAKE_FIND_ROOT_PATH=", "-DANDROID_STL=c++_static", "-DANDROID_TOOLCHAIN=clang", "-DANDROID_ARM_NEON=TRUE"
-                cppFlags "-frtti -fexceptions -fsigned-char"
+                targets 'cocoslua'
+                arguments "-DCMAKE_FIND_ROOT_PATH=", "-DANDROID_CPP_FEATURES=exceptions rtti", "-DANDROID_STL=c++_static", "-DANDROID_TOOLCHAIN=clang", "-DANDROID_ARM_NEON=TRUE"
             }
         }
 
         ndk {
-            abiFilters = []
-            abiFilters.addAll(PROP_APP_ABI.split(':').collect{it as String})
+            abiFilters = rootProject.ext.abis
         }
 
         manifestPlaceholders = [
@@ -54,6 +56,7 @@ android {
     externalNativeBuild {
         cmake {
             path "../../../CMakeLists.txt"
+            version "3.22.1"
         }
     }
 
@@ -135,7 +138,7 @@ android.applicationVariants.all { variant ->
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':libcocos2dx')
-    implementation project(':libxgame')
+    implementation project(':libcclua')
 
     implementation project(':plugin-wechat')
 

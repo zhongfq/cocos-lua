@@ -86,8 +86,16 @@ extern "C" {
 #include "bugly/CrashReport.h"
 #endif
 
-#if defined(CCLUA_BUILD_JPUSH) || defined(CCLUA_BUILD_JANALYTICS) || defined(CCLUA_BUILD_JAUTH)
-#include "jiguang/lua_jiguang.h"
+#ifdef CCLUA_BUILD_JANALYTICS
+#include "janalytics/lua_janalytics.h"
+#endif
+
+#ifdef CCLUA_BUILD_JAUTH
+#include "jauth/lua_jauth.h"
+#endif
+
+#ifdef CCLUA_BUILD_JPUSH
+#include "jpush/lua_jpush.h"
 #endif
 
 #ifdef CCLUA_BUILD_TALKINGDATA
@@ -179,8 +187,16 @@ static int _open_plugins(lua_State *L)
     olua_require(L, "protobuf.c", luaopen_protobuf_c);
 #endif // CCLUA_BUILD_PBC
     
-#if defined(CCLUA_BUILD_JPUSH) || defined(CCLUA_BUILD_JANALYTICS) || defined(CCLUA_BUILD_JAUTH)
-    olua_import(L, luaopen_jiguang);
+#ifdef CCLUA_BUILD_JANALYTICS
+    olua_import(L, luaopen_janalytics);
+#endif
+    
+#ifdef CCLUA_BUILD_JAUTH
+    olua_import(L, luaopen_jauth);
+#endif
+    
+#ifdef CCLUA_BUILD_JPUSH
+    olua_import(L, luaopen_jpush);
 #endif
     
 #ifdef CCLUA_BUILD_TALKINGDATA

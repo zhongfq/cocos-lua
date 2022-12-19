@@ -1,16 +1,16 @@
 cmake_minimum_required(VERSION 3.6)
 
 set(HEADER
-    ioapi.h
-    unzip.h
-    ioapi_mem.h
-    crypt.h
+  ioapi.h
+  unzip.h
+  ioapi_mem.h
+  crypt.h
 )
 
 set(SRC
-    ioapi.cpp
-    unzip.cpp
-    ioapi_mem.cpp
+  ioapi.cpp
+  unzip.cpp
+  ioapi_mem.cpp
 )
 
 add_library(unzip ${HEADER} ${SRC})

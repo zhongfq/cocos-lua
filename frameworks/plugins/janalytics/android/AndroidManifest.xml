@@ -1,0 +1,6 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cclua.plugin.janalytics">
+    <application>
+        <meta-data android:name="cclua.plugin.janalytics.JAnalytics" android:value="true" />
+    </application>
+</manifest>

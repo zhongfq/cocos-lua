@@ -1,6 +1,6 @@
 #include "cclua/downloader.h"
 #include "cclua/filesystem.h"
-#include "md5/md5util.h"
+#include "lmd5/md5util.h"
 
 #include "platform/CCFileUtils.h"
 #include "network/CCDownloader.h"

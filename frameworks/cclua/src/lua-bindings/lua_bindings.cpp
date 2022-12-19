@@ -12,7 +12,7 @@
 #include "lua_types.h"
 #include "lua_pdebug.h"
 #include "cjson/lua_cjson.h"
-#include "md5/lua_md5.h"
+#include "lmd5/lua_md5.h"
 #include "lfs/lfs.h"
 #include "xxtea/lua_xxtea.h"
 

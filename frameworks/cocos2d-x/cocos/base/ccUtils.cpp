@@ -417,20 +417,18 @@ std::string getFileMD5Hash(const std::string &filename)
 
 std::string getDataMD5Hash(const Data &data)
 {
-    static const unsigned int MD5_DIGEST_LENGTH = 16;
-
     if (data.isNull())
     {
         return std::string();
     }
 
-    md5_state_t state;
-    md5_byte_t digest[MD5_DIGEST_LENGTH];
+    MD5_CTX ctx;
+    unsigned char digest[MD5_DIGEST_LENGTH];
     char hexOutput[(MD5_DIGEST_LENGTH << 1) + 1] = { 0 };
 
-    md5_init(&state);
-    md5_append(&state, (const md5_byte_t *)data.getBytes(), (int)data.getSize());
-    md5_finish(&state, digest);
+    MD5Init(&ctx);
+    MD5Update(&ctx, (const unsigned char *)data.getBytes(), (int)data.getSize());
+    MD5Final(digest, &ctx);
 
     for (int di = 0; di < 16; ++di)
         sprintf(hexOutput + di * 2, "%02x", digest[di]);

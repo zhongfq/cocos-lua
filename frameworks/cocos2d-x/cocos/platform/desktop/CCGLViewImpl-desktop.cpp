@@ -43,6 +43,10 @@ THE SOFTWARE.
 #include "platform/CCImage.h"
 #endif /* CC_ICON_SET_SUPPORT */
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#include "GLFW/glfw3native.h"
+#endif /* (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) */
+
 #include "renderer/CCRenderer.h"
 
 NS_CC_BEGIN
@@ -464,6 +468,12 @@ void GLViewImpl::enableRetina(bool enabled)
 // #endif
 }
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+HWND GLViewImpl::getWin32Window() 
+{
+    return glfwGetWin32Window(_mainWindow);
+}
+#endif /* (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) */
 
 void GLViewImpl::setIMEKeyboardState(bool /*bOpen*/)
 {

@@ -208,6 +208,7 @@ add_module(frameworks/3rd/dragonbones TARGETS dragonbones LINK_TO cclua FOLDER "
 add_module(frameworks/3rd/fairygui TARGETS fairygui LINK_TO cclua FOLDER "3rd" ENABLEIF CCLUA_BUILD_FAIRYGUI DEFINITIONS CCLUA_BUILD_FAIRYGUI)
 add_module(frameworks/3rd/glsl-optimizer TARGETS glsl_optimizer LINK_TO cocos2d FOLDER "3rd" ENABLEIF APPLE)
 add_module(frameworks/3rd/freetype TARGETS freetype LINK_TO cocos2d FOLDER "3rd")
+add_module(frameworks/3rd/glfw TARGETS glfw LINK_TO cocos2d FOLDER "3rd")
 add_module(frameworks/3rd/jpeg TARGETS jpeg LINK_TO cocos2d FOLDER "3rd")
 add_module(frameworks/3rd/lfs TARGETS lfs LINK_TO ${APP_NAME} FOLDER "3rd")
 add_module(frameworks/3rd/lmd5 TARGETS lmd5 LINK_TO ${APP_NAME} FOLDER "3rd")

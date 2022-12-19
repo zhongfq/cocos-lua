@@ -130,7 +130,7 @@
 - (NSWindow *)window
 {
     auto glview = cocos2d::Director::getInstance()->getOpenGLView();
-    return glview->getCocoaWindow();
+    return (id)glview->getCocoaWindow();
 }
 
 - (void)openKeyboard

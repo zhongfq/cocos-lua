@@ -33,7 +33,7 @@ THE SOFTWARE.
 #include "base/CCDirector.h"
 #include "base/CCScheduler.h"
 #include "base/CCEventController.h"
-#include "glfw3.h"
+#include "GLFW/glfw3.h"
 
 NS_CC_BEGIN
 

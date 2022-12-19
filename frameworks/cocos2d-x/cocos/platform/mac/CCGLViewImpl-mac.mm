@@ -46,6 +46,10 @@ THE SOFTWARE.
 #include "renderer/CCRenderer.h"
 #include "renderer/backend/metal/Utils.h"
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+#include "GLFW/glfw3native.h"
+#endif // #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+
 NS_CC_BEGIN
 
 GLViewImpl* GLFWEventHandler::_view = nullptr;
@@ -335,7 +339,7 @@ bool GLViewImpl::initWithRect(const std::string& viewName, Rect rect, float fram
         return false;
     }
 
-    NSView* contentView = [getCocoaWindow() contentView];
+    NSView* contentView = [(id)getCocoaWindow() contentView];
     [contentView setWantsLayer: YES];
     CAMetalLayer* layer = [CAMetalLayer layer];
     [layer setDevice:device];
@@ -457,6 +461,10 @@ void GLViewImpl::enableRetina(bool enabled)
    updateFrameSize();
 }
 
+void *GLViewImpl::getCocoaWindow()
+{
+    return glfwGetCocoaWindow(_mainWindow);
+}
 
 void GLViewImpl::setIMEKeyboardState(bool /*bOpen*/)
 {

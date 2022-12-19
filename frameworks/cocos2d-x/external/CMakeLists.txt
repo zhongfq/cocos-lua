@@ -116,13 +116,6 @@ if(WINDOWS)
     )
 endif()
 
-if(WINDOWS OR MACOSX OR LINUX)
-    add_subdirectory(glfw3)
-    target_link_libraries(external 
-        ext_glfw3
-    )
-endif()
-
 # put "external" into External folder, too
 set_target_properties(external
     PROPERTIES

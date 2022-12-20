@@ -10,9 +10,7 @@ olua.debug(DEBUG)
 for i, v in ipairs(runtime.args) do
     if v == '--lua-debug' then
         local kind = runtime.args[i + 1]
-        if kind == 'luadebug' then
-            require "debugger":start "127.0.0.1:12306":event "wait"
-        elseif kind == 'luapanda' then
+        if kind == 'luapanda' then
             local socket = require "socket.core"
             socket.sleep(2)
             local pdebug = _G.luapanda_chook

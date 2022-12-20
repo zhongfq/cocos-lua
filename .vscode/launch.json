@@ -4,18 +4,17 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
-            "address": "127.0.0.1:12306",
-            "name": "cclua",
-            "request": "attach",
-            "stopOnEntry": true,
+            "name": "LuaDebug",
+            "program": "",
+            "request": "launch",
             "type": "lua",
-            "windows": {
-                "preLaunchTask": "luadebug",
-            },
-            "osx": {
-                "preLaunchTask": "luadebug",
-            },
+            "stopOnEntry": false,
+            "cwd": "${workspaceFolder}/assets",
+            "arg": ["--workdir", "${workspaceFolder}/assets"],
+            "windows": {"luaexe": "${workspaceFolder}/build/vs-build/bin/cocoslua/Debug/cocoslua.exe"},
+            "osx": {"luaexe": "${workspaceFolder}/build/mac-build/bin/cocoslua/Debug/cocoslua.app/Contents/MacOS/cocoslua"},
             "sourceMaps": [
                 [
                     "*",
@@ -33,8 +32,9 @@
             "connectionPort": 8818,
             "stopOnEntry": true,
             "useCHook": true,
-            "windows": {"preLaunchTask": "luapanda"},
-            "osx": {"program": "${workspaceFolder}/tools/bin/luapanda.sh"},
+            "args": ["--workdir", "${workspaceFolder}/assets", "--lua-debug", "luapanda"],
+            "windows": {"program": "${workspaceFolder}/build/vs-build/bin/cocoslua/Debug/cocoslua.exe"},
+            "osx": {"program": "${workspaceFolder}/build/mac-build/bin/cocoslua/Debug/cocoslua.app/Contents/MacOS/cocoslua"},
             "autoPathMode": true
         }
     ]

@@ -52,9 +52,11 @@ option(CCLUA_FEATURE_INTCOLOR "Support integer color" ON)
 
 include(config.cmake)
 
-set(APP_NAME cocoslua)
-
 project(${APP_PROJECT_NAME})
+
+if(ANDROID)
+  set(APP_NAME ${APP_ANDROID_NAME})
+endif()
 
 add_definitions(-DCC_FILEUTILS_APPLE_ENABLE_OBJC=0)
 add_definitions(-DCC_ENABLE_SCRIPT_BINDING=0)
@@ -188,6 +190,11 @@ function(add_module path)
         set_target_properties(${name} PROPERTIES FOLDER ${ARG_FOLDER})
       endif()
       target_link_libraries(${ARG_LINK_TO} ${name})
+      set_target_properties(${name}
+        PROPERTIES
+          ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+          LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+      )
     endforeach()
   endif()
 endfunction()
@@ -284,7 +291,7 @@ if(APPLE)
   set_xcode_property(${APP_NAME} INSTALL_PATH "$(LOCAL_APPS_DIR)")
   set_xcode_property(${APP_NAME} DEVELOPMENT_TEAM "${APPLE_DEVELOPMENT_TEAM}")
   set_xcode_property(${APP_NAME} PRODUCT_BUNDLE_IDENTIFIER "${APP_PACKAGE_NAME}")
-  set_xcode_property(${APP_NAME} PRODUCT_NAME "${APP_PRODUCT_NAME}")
+  set_xcode_property(${APP_NAME} PRODUCT_NAME "${APP_NAME}")
   set_xcode_property(${APP_NAME} CURRENT_PROJECT_VERSION "${APP_BUILD}")
   set_xcode_property(${APP_NAME} MARKETING_VERSION "${APP_VERSION}")
   set_xcode_property(${APP_NAME} TARGETED_DEVICE_FAMILY "1,2")

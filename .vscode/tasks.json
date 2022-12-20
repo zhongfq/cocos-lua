@@ -4,34 +4,6 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "luadebug",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/assets"
-            },
-            "args": ["--workdir", "${workspaceFolder}/assets", "--lua-debug", "luadebug"],
-            "windows": {
-                "command": "${workspaceFolder}/build/vs-build/bin/cocoslua/Debug/cocoslua.exe",
-            },
-            "osx": {
-                "command": "${workspaceFolder}/build/mac-build/bin/cocoslua/Debug/cocoslua.app/Contents/MacOS/cocoslua",
-            }
-        },
-        {
-            "label": "luapanda",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/assets"
-            },
-            "args": ["--workdir", "${workspaceFolder}/assets", "--lua-debug", "luapanda"],
-            "windows": {
-                "command": "${workspaceFolder}/build/vs-build/bin/cocoslua/Debug/cocoslua.exe",
-            },
-            "osx": {
-                "command": "${workspaceFolder}/build/mac-build/bin/cocoslua/Debug/cocoslua.app/Contents/MacOS/cocoslua",
-            }
-        },
-        {
             "label": "build-builtin-manifest",
             "type": "shell",
             "options": {

@@ -314,6 +314,15 @@ lua_State *cclua_new()
     lua_State *L = luaL_newstate();
     
     luaL_openlibs(L);
+    
+    auto args = runtime::getArgs();
+    for (int i = 0; i < (int)args.size(); i++) {
+        if (args[i] == "-e") {
+            luaL_dostring(L, args[i + 1].c_str());
+            break;
+        }
+    }
+    
     cclua_callfunc(L, _fixcoresume);
     cclua_callfunc(L, _fixprint);
     cclua_callfunc(L, _fixloadfile);

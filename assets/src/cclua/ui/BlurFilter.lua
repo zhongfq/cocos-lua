@@ -6,6 +6,7 @@ local Director              = require "cc.Director"
 local Sprite                = require "cc.Sprite"
 local PixelFormat           = require "ccb.PixelFormat"
 local ProgramState          = require "ccb.ProgramState"
+local float                 = require "olua.float"
 
 local director = Director.instance
 
@@ -111,11 +112,21 @@ function BlurFilter:_createRenderTexture(name, width, height)
     return node
 end
 
+local function setUniform(state, name, ...)
+    local args = {...}
+    local buf = float.new(#args)
+    for i, v in ipairs(args) do
+        buf[i] = v
+    end
+    state:setUniform(state:getUniformLocation(name), buf.rawdata, buf.sizeof * #args)
+end
+
+
 function BlurFilter:_createBlurShader(x, y, width, height)
     local state = ProgramState.new(shader.BlurFilter)
-    state:setUniformVec2('resolution', {x = width, y = height})
-    state:setUniformFloat('sampleCount', self.sampleCount)
-    state:setUniformFloat('blurRadius', self.blurRadius)
+    setUniform(state, 'resolution', width, height)
+    setUniform(state, 'sampleCount', self.sampleCount)
+    setUniform(state, 'blurRadius', self.blurRadius)
     return state
 end
 

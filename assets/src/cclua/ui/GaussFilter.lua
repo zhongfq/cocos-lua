@@ -6,6 +6,7 @@ local Director              = require "cc.Director"
 local Sprite                = require "cc.Sprite"
 local PixelFormat           = require "ccb.PixelFormat"
 local ProgramState          = require "ccb.ProgramState"
+local float                 = require "olua.float"
 
 local director = Director.instance
 
@@ -110,11 +111,20 @@ function GaussFilter:_createRenderTexture(name, width, height)
     return node
 end
 
+local function setUniform(state, name, ...)
+    local args = {...}
+    local buf = float.new(#args)
+    for i, v in ipairs(args) do
+        buf[i] = v
+    end
+    state:setUniform(state:getUniformLocation(name), buf.rawdata, buf.sizeof * #args)
+end
+
 function GaussFilter:_createBlurShader(x, y, width, height)
     local state = ProgramState.new(shader.GaussFilter)
-    state:setUniformVec2('resolution', {x = width, y = height})
-    state:setUniformVec2('direction', {x = x, y = y})
-    state:setUniformFloat('radius', self.radius)
+    setUniform(state, "resolution", width, height)
+    setUniform(state, "direction", x, y)
+    setUniform(state, "radius", self.radius)
     return state
 end
 

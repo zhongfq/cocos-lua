@@ -1,6 +1,7 @@
 local class     = require "cclua.class"
 local UIView    = require "cclua.ui.UIView"
 local Sprite    = require "cc.Sprite"
+local Rect      = require "cc.Rect"
 
 local KEY_UPDATE = "'RenderFilter::onUpdate'"
 
@@ -35,10 +36,13 @@ end
 function RenderFilter.Set:texture(value)
     self.cobj.texture = value
     if value then
-        local rect = value:getContentSize()
-        rect.x = 0
-        rect.y = 0
-        self.cobj:setTextureRect(rect)
+        local size = value:getContentSize()
+        self.cobj:setTextureRect(Rect {
+            x = 0,
+            y = 0,
+            width = size.width,
+            height = size.height,
+        })
     end
 end
 

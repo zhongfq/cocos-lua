@@ -22,7 +22,7 @@ local wechat_init = assert(wechat.init, "init")
 local wechat_authQRCode = assert(wechat.authQRCode, "authQRCode")
 local wechat_stopAuth = assert(wechat.stopAuth, "stopAuth")
 local wechat_share = assert(wechat.share, "share")
-local wechat_pay
+local wechat_pay = wechat.pay
 
 local authCallback = nil
 local authQRCodeCallback = nil
@@ -146,9 +146,7 @@ function wechat.share(type, value, callback)
     wechat_share(type, value)
 end
 
-if runtime.os == 'android' then
-    wechat_pay = assert(wechat.pay, "pay")
-elseif runtime.os == 'ios' then
+if runtime.os == 'ios' then
     wechat_pay = function (partnerid, prepayid, noncestr, timestamp, _, sign)
         local URL_PAY = "weixin://app/%s/pay/?nonceStr=%s&package=Sign%%3DWXPay" ..
             "&partnerId=%s&prepayId=%s&timeStamp=%d&sign=%s&signType=SHA1"

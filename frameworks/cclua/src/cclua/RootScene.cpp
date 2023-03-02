@@ -30,7 +30,7 @@ void RootScene::execute()
     if (cclua_dofile(L, _scriptPath.c_str()) == LUA_OK &&
         olua_getglobal(L, "main") == LUA_TFUNCTION) {
         olua_pcall(L, 0, 0);
-    } else if (runtime::getEnv("cclua.debug") == "true") {
+    } else if (runtime::getEnv("cclua.debug") == "ON") {
         runtime::log("launch error, see the console!!!");
         runtime::clearStorage();
         runtime::showLog();

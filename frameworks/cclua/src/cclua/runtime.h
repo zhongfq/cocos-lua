@@ -179,7 +179,6 @@ public:
     static olua_Return load(lua_State *L, const std::string &name, const std::string &feature);
     
     // error
-    static void initBugly(const char* appid) OLUA_EXCLUDE;
     static void disableReport();
     static void reportError(const char *err, const char *traceback) OLUA_EXCLUDE;
     

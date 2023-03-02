@@ -257,7 +257,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     bugly::setVersion(runtime::getVersion().c_str());
     bugly::setChannel(runtime::getChannel().c_str());
 #else
-    runtime::setEnv("cclua.debug", "true", true);
+    runtime::setEnv("cclua.debug", "ON", true);
 #endif
     
     initGLView(APP_NAME);

@@ -899,17 +899,6 @@ void runtime::registerFeature(const std::string &api, bool enabled)
 //
 // error
 //
-void runtime::initBugly(const char* appid)
-{
-#ifdef CCLUA_BUILD_BUGLY
-    runtime::log("init bugly: appid=%s", appid);
-    bugly::init(appid);
-#endif //CCLUA_BUILD_BUGLY
-
-#ifdef COCOS2D_DEBUG
-    runtime::disableReport();
-#endif
-}
 
 void runtime::disableReport()
 {
@@ -918,12 +907,13 @@ void runtime::disableReport()
 
 void runtime::reportError(const char *err, const char *traceback)
 {
-#if CCLUA_BUILD_BUGLY
+#ifdef CCLUA_BUILD_BUGLY
     if (_reportError) {
         std::string errmsg;
         errmsg.append(err).append(traceback);
         if (_tracebackCaches.find(errmsg) == _tracebackCaches.end()) {
             _tracebackCaches[errmsg] = true;
+            runtime::log("report exception to bulgy: %s", err);
             bugly::reportException(err, traceback);
         }
     }

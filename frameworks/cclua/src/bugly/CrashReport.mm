@@ -21,7 +21,7 @@ void bugly::init(const char *appid)
 {
     @autoreleasepool {
         if (!s_initialized) {
-            runtime::log("init bugly");
+            runtime::log("init bugly: appid=%s", appid);
             BuglyConfig *config = [[BuglyConfig alloc] init];
             config.channel = NSStringMake(s_channel.c_str());
             config.version = NSStringMake(s_version.c_str());

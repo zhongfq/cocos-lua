@@ -29,6 +29,7 @@ USING_NS_CC;
 USING_NS_CCLUA;
 
 #define CCLUA_ENV_PREFIX "cclua-env."
+#define CCLUA_EXIT "cclua://exit"
 
 static bool _restarting = false;
 static lua_State *_luaVM = nullptr;
@@ -166,8 +167,16 @@ public:
             _restarting = false;
             _refCallbacks.clear();
             AudioEngine::end();
-            runtime::init();
-            runtime::launch(scriptPath);
+            if (scriptPath == CCLUA_EXIT) {
+#ifdef CCLUA_OS_IOS
+                exit(0);
+#else
+                Director::getInstance()->end();
+#endif
+            } else {
+                runtime::init();
+                runtime::launch(scriptPath);
+            }
         });
     };
 private:
@@ -1010,7 +1019,7 @@ void runtime::purgeCachedData()
 
 void runtime::exit()
 {
-    Director::getInstance()->end();
+    runtime::launch(CCLUA_EXIT);
 }
 
 //
@@ -1089,8 +1098,11 @@ void RuntimeContext::applicationWillTerminate()
 #endif
     
     _scheduler->unscheduleAll();
-    lua_close(_luaVM);
-    _luaVM = nullptr;
+    
+    if (_luaVM) {
+        lua_close(_luaVM);
+        _luaVM = nullptr;
+    }
     
     downloader::end();
     AudioEngine::uncacheAll();

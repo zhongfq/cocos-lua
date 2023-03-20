@@ -114,6 +114,7 @@ function require(path)
     return _require(path)
 end
 
+REG '^olua%.'
 REG '^cc%.'
 REG '^ccb%.'
 REG '^ccui%.'

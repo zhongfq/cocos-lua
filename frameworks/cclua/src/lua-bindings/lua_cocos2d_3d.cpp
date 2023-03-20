@@ -7,6 +7,34 @@
 #include "cocos2d.h"
 #include "3d/CC3DProgramInfo.h"
 
+static int _cocos2d_MeshVertexAttrib___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::MeshVertexAttrib ret;
+
+    luaL_checktype(L, 2, LUA_TTABLE);
+
+    cocos2d::backend::VertexFormat arg1 = (cocos2d::backend::VertexFormat)0;       /** type */
+    cocos2d::shaderinfos::VertexKey arg2 = (cocos2d::shaderinfos::VertexKey)0;       /** vertexAttrib */
+
+    olua_getfield(L, 2, "type");
+    olua_check_enum(L, -1, &arg1);
+    ret.type = arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "vertexAttrib");
+    olua_check_enum(L, -1, &arg2);
+    ret.vertexAttrib = arg2;
+    lua_pop(L, 1);
+
+    olua_pushcopy_object(L, ret, "cc.MeshVertexAttrib");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _cocos2d_MeshVertexAttrib___gc(lua_State *L)
 {
     olua_startinvoke(L);
@@ -122,6 +150,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_MeshVertexAttrib(lua_State *L)
 {
     oluacls_class<cocos2d::MeshVertexAttrib>(L, "cc.MeshVertexAttrib");
+    oluacls_func(L, "__call", _cocos2d_MeshVertexAttrib___call);
     oluacls_func(L, "__gc", _cocos2d_MeshVertexAttrib___gc);
     oluacls_func(L, "__olua_move", _cocos2d_MeshVertexAttrib___olua_move);
     oluacls_func(L, "getAttribSizeBytes", _cocos2d_MeshVertexAttrib_getAttribSizeBytes);
@@ -206,6 +235,52 @@ OLUA_LIB int luaopen_cocos2d_shaderinfos_Uniformkey(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+
+static int _cocos2d_NTextureData___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::NTextureData ret;
+
+    luaL_checktype(L, 2, LUA_TTABLE);
+
+    std::string arg1;       /** id */
+    std::string arg2;       /** filename */
+    cocos2d::NTextureData::Usage arg3 = (cocos2d::NTextureData::Usage)0;       /** type */
+    cocos2d::backend::SamplerAddressMode arg4 = (cocos2d::backend::SamplerAddressMode)0;       /** wrapS */
+    cocos2d::backend::SamplerAddressMode arg5 = (cocos2d::backend::SamplerAddressMode)0;       /** wrapT */
+
+    olua_getfield(L, 2, "id");
+    olua_check_string(L, -1, &arg1);
+    ret.id = arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "filename");
+    olua_check_string(L, -1, &arg2);
+    ret.filename = arg2;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "type");
+    olua_check_enum(L, -1, &arg3);
+    ret.type = arg3;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "wrapS");
+    olua_check_enum(L, -1, &arg4);
+    ret.wrapS = arg4;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "wrapT");
+    olua_check_enum(L, -1, &arg5);
+    ret.wrapT = arg5;
+    lua_pop(L, 1);
+
+    olua_pushcopy_object(L, ret, "cc.NTextureData");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
 
 static int _cocos2d_NTextureData___gc(lua_State *L)
 {
@@ -410,6 +485,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_NTextureData(lua_State *L)
 {
     oluacls_class<cocos2d::NTextureData>(L, "cc.NTextureData");
+    oluacls_func(L, "__call", _cocos2d_NTextureData___call);
     oluacls_func(L, "__gc", _cocos2d_NTextureData___gc);
     oluacls_func(L, "__olua_move", _cocos2d_NTextureData___olua_move);
     oluacls_prop(L, "filename", _cocos2d_NTextureData_get_filename, _cocos2d_NTextureData_set_filename);

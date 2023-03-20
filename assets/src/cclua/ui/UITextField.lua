@@ -1,8 +1,10 @@
-local class     = require "cclua.class"
-local font      = require "cclua.font"
-local Align     = require "cclua.ui.Align"
-local UIView    = require "cclua.ui.UIView"
-local Label     = require "cc.Label"
+local class             = require "cclua.class"
+local font              = require "cclua.font"
+local Align             = require "cclua.ui.Align"
+local UIView            = require "cclua.ui.UIView"
+local Label             = require "cc.Label"
+local TTFConfig         = require "cc.TTFConfig"
+local GlyphCollection   = require "cc.GlyphCollection"
 
 local ALIGNMENT = {
     [Align.LEFT] = 0,
@@ -15,10 +17,10 @@ local ALIGNMENT = {
 local UITextField = class("UITextField", UIView)
 
 function UITextField:ctor()
-    self._ttfConfig = {
+    self._ttfConfig = TTFConfig {
         fontFilePath = font.resolve(nil).path,
         fontSize = 20,
-        glyphs = 0,
+        glyphs = GlyphCollection.DYNAMIC,
     }
 end
 

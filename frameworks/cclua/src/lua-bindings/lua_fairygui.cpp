@@ -221,6 +221,46 @@ OLUA_LIB int luaopen_fairygui_VectorTreeNode(lua_State *L)
 }
 OLUA_END_DECLS
 
+static int _fairygui_Margin___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::Margin ret;
+
+    luaL_checktype(L, 2, LUA_TTABLE);
+
+    float arg1 = 0;       /** left */
+    float arg2 = 0;       /** top */
+    float arg3 = 0;       /** right */
+    float arg4 = 0;       /** bottom */
+
+    olua_getfield(L, 2, "left");
+    olua_check_number(L, -1, &arg1);
+    ret.left = arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "top");
+    olua_check_number(L, -1, &arg2);
+    ret.top = arg2;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "right");
+    olua_check_number(L, -1, &arg3);
+    ret.right = arg3;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "bottom");
+    olua_check_number(L, -1, &arg4);
+    ret.bottom = arg4;
+    lua_pop(L, 1);
+
+    olua_pushcopy_object(L, ret, "fgui.Margin");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _fairygui_Margin___gc(lua_State *L)
 {
     olua_startinvoke(L);
@@ -516,6 +556,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_Margin(lua_State *L)
 {
     oluacls_class<fairygui::Margin>(L, "fgui.Margin");
+    oluacls_func(L, "__call", _fairygui_Margin___call);
     oluacls_func(L, "__gc", _fairygui_Margin___gc);
     oluacls_func(L, "__olua_move", _fairygui_Margin___olua_move);
     oluacls_func(L, "equals", _fairygui_Margin_equals);
@@ -530,6 +571,46 @@ OLUA_LIB int luaopen_fairygui_Margin(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+
+static int _fairygui_HtmlParseOptions___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::HtmlParseOptions ret;
+
+    luaL_checktype(L, 2, LUA_TTABLE);
+
+    bool arg1 = false;       /** defaultLinkUnderline */
+    cocos2d::Color3B arg2;       /** defaultLinkColor */
+    bool arg3 = false;       /** linkUnderline */
+    cocos2d::Color3B arg4;       /** linkColor */
+
+    olua_getfield(L, 2, "defaultLinkUnderline");
+    olua_check_bool(L, -1, &arg1);
+    ret.defaultLinkUnderline = arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "defaultLinkColor");
+    olua_check_cocos2d_Color3B(L, -1, &arg2);
+    ret.defaultLinkColor = arg2;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "linkUnderline");
+    olua_check_bool(L, -1, &arg3);
+    ret.linkUnderline = arg3;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "linkColor");
+    olua_check_cocos2d_Color3B(L, -1, &arg4);
+    ret.linkColor = arg4;
+    lua_pop(L, 1);
+
+    olua_pushcopy_object(L, ret, "fgui.HtmlParseOptions");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
 
 static int _fairygui_HtmlParseOptions___gc(lua_State *L)
 {
@@ -701,6 +782,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_HtmlParseOptions(lua_State *L)
 {
     oluacls_class<fairygui::HtmlParseOptions>(L, "fgui.HtmlParseOptions");
+    oluacls_func(L, "__call", _fairygui_HtmlParseOptions___call);
     oluacls_func(L, "__gc", _fairygui_HtmlParseOptions___gc);
     oluacls_func(L, "__olua_move", _fairygui_HtmlParseOptions___olua_move);
     oluacls_func(L, "new", _fairygui_HtmlParseOptions_new);
@@ -712,6 +794,62 @@ OLUA_LIB int luaopen_fairygui_HtmlParseOptions(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+
+static int _fairygui_TweenValue___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::TweenValue ret;
+
+    luaL_checktype(L, 2, LUA_TTABLE);
+
+    float arg1 = 0;       /** x */
+    float arg2 = 0;       /** y */
+    float arg3 = 0;       /** z */
+    float arg4 = 0;       /** w */
+    double arg5 = 0;       /** d */
+
+    olua_getfield(L, 2, "x");
+    if (!olua_isnoneornil(L, -1)) {
+        olua_check_number(L, -1, &arg1);
+        ret.x = arg1;
+    }
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "y");
+    if (!olua_isnoneornil(L, -1)) {
+        olua_check_number(L, -1, &arg2);
+        ret.y = arg2;
+    }
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "z");
+    if (!olua_isnoneornil(L, -1)) {
+        olua_check_number(L, -1, &arg3);
+        ret.z = arg3;
+    }
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "w");
+    if (!olua_isnoneornil(L, -1)) {
+        olua_check_number(L, -1, &arg4);
+        ret.w = arg4;
+    }
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "d");
+    if (!olua_isnoneornil(L, -1)) {
+        olua_check_number(L, -1, &arg5);
+        ret.d = arg5;
+    }
+    lua_pop(L, 1);
+
+    olua_pushcopy_object(L, ret, "fgui.TweenValue");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
 
 static int _fairygui_TweenValue___gc(lua_State *L)
 {
@@ -1086,6 +1224,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_TweenValue(lua_State *L)
 {
     oluacls_class<fairygui::TweenValue>(L, "fgui.TweenValue");
+    oluacls_func(L, "__call", _fairygui_TweenValue___call);
     oluacls_func(L, "__gc", _fairygui_TweenValue___gc);
     oluacls_func(L, "__olua_move", _fairygui_TweenValue___olua_move);
     oluacls_func(L, "getColor", _fairygui_TweenValue_getColor);
@@ -2185,6 +2324,46 @@ OLUA_LIB int luaopen_fairygui_PixelHitTest(lua_State *L)
 }
 OLUA_END_DECLS
 
+static int _fairygui_PixelHitTestData___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::PixelHitTestData ret;
+
+    luaL_checktype(L, 2, LUA_TTABLE);
+
+    int arg1 = 0;       /** pixelWidth */
+    float arg2 = 0;       /** scale */
+    unsigned char *arg3 = nullptr;       /** pixels */
+    size_t arg4 = 0;       /** pixelsLength */
+
+    olua_getfield(L, 2, "pixelWidth");
+    olua_check_integer(L, -1, &arg1);
+    ret.pixelWidth = arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "scale");
+    olua_check_number(L, -1, &arg2);
+    ret.scale = arg2;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "pixels");
+    olua_check_string(L, -1, &arg3);
+    ret.pixels = arg3;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "pixelsLength");
+    olua_check_integer(L, -1, &arg4);
+    ret.pixelsLength = arg4;
+    lua_pop(L, 1);
+
+    olua_pushcopy_object(L, ret, "fgui.PixelHitTestData");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _fairygui_PixelHitTestData___gc(lua_State *L)
 {
     olua_startinvoke(L);
@@ -2367,6 +2546,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_PixelHitTestData(lua_State *L)
 {
     oluacls_class<fairygui::PixelHitTestData>(L, "fgui.PixelHitTestData");
+    oluacls_func(L, "__call", _fairygui_PixelHitTestData___call);
     oluacls_func(L, "__gc", _fairygui_PixelHitTestData___gc);
     oluacls_func(L, "__olua_move", _fairygui_PixelHitTestData___olua_move);
     oluacls_func(L, "new", _fairygui_PixelHitTestData_new);
@@ -3071,6 +3251,124 @@ OLUA_LIB int luaopen_fairygui_InputEvent(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+
+static int _fairygui_TextFormat___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::TextFormat ret;
+
+    luaL_checktype(L, 2, LUA_TTABLE);
+
+    std::string arg1;       /** face */
+    float arg2 = 0;       /** fontSize */
+    cocos2d::Color3B arg3;       /** color */
+    bool arg4 = false;       /** bold */
+    bool arg5 = false;       /** italics */
+    bool arg6 = false;       /** underline */
+    int arg7 = 0;       /** lineSpacing */
+    int arg8 = 0;       /** letterSpacing */
+    cocos2d::TextHAlignment arg9 = (cocos2d::TextHAlignment)0;       /** align */
+    cocos2d::TextVAlignment arg10 = (cocos2d::TextVAlignment)0;       /** verticalAlign */
+    int arg11 = 0;       /** effect */
+    cocos2d::Color3B arg12;       /** outlineColor */
+    int arg13 = 0;       /** outlineSize */
+    cocos2d::Color3B arg14;       /** shadowColor */
+    cocos2d::Size arg15;       /** shadowOffset */
+    int arg16 = 0;       /** shadowBlurRadius */
+    cocos2d::Color3B arg17;       /** glowColor */
+
+    olua_getfield(L, 2, "face");
+    olua_check_string(L, -1, &arg1);
+    ret.face = arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "fontSize");
+    olua_check_number(L, -1, &arg2);
+    ret.fontSize = arg2;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "color");
+    olua_check_cocos2d_Color3B(L, -1, &arg3);
+    ret.color = arg3;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "bold");
+    olua_check_bool(L, -1, &arg4);
+    ret.bold = arg4;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "italics");
+    olua_check_bool(L, -1, &arg5);
+    ret.italics = arg5;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "underline");
+    olua_check_bool(L, -1, &arg6);
+    ret.underline = arg6;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "lineSpacing");
+    olua_check_integer(L, -1, &arg7);
+    ret.lineSpacing = arg7;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "letterSpacing");
+    olua_check_integer(L, -1, &arg8);
+    ret.letterSpacing = arg8;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "align");
+    olua_check_enum(L, -1, &arg9);
+    ret.align = arg9;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "verticalAlign");
+    olua_check_enum(L, -1, &arg10);
+    ret.verticalAlign = arg10;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "effect");
+    olua_check_integer(L, -1, &arg11);
+    ret.effect = arg11;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "outlineColor");
+    olua_check_cocos2d_Color3B(L, -1, &arg12);
+    ret.outlineColor = arg12;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "outlineSize");
+    olua_check_integer(L, -1, &arg13);
+    ret.outlineSize = arg13;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "shadowColor");
+    olua_check_cocos2d_Color3B(L, -1, &arg14);
+    ret.shadowColor = arg14;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "shadowOffset");
+    olua_check_object(L, -1, &arg15, "cc.Size");
+    ret.shadowOffset = arg15;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "shadowBlurRadius");
+    olua_check_integer(L, -1, &arg16);
+    ret.shadowBlurRadius = arg16;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "glowColor");
+    olua_check_cocos2d_Color3B(L, -1, &arg17);
+    ret.glowColor = arg17;
+    lua_pop(L, 1);
+
+    olua_pushcopy_object(L, ret, "fgui.TextFormat");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
 
 static int _fairygui_TextFormat___gc(lua_State *L)
 {
@@ -3821,6 +4119,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_fairygui_TextFormat(lua_State *L)
 {
     oluacls_class<fairygui::TextFormat>(L, "fgui.TextFormat");
+    oluacls_func(L, "__call", _fairygui_TextFormat___call);
     oluacls_func(L, "__gc", _fairygui_TextFormat___gc);
     oluacls_func(L, "__olua_move", _fairygui_TextFormat___olua_move);
     oluacls_func(L, "disableEffect", _fairygui_TextFormat_disableEffect);

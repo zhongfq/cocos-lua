@@ -72,7 +72,7 @@
 
 -(UIRectEdge)preferredScreenEdgesDeferringSystemGestures
 {
-    return UIRectEdgeBottom; 
+    return UIRectEdgeNone; 
 }
 
 - (void)didReceiveMemoryWarning

@@ -6,6 +6,30 @@
 #include "lua-bindings/lua_conv_manual.h"
 #include "cocos2d.h"
 
+static int _cocos2d_backend_UniformLocation___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::backend::UniformLocation ret;
+
+    luaL_checktype(L, 2, LUA_TTABLE);
+
+    cocos2d::backend::ShaderStage arg1 = (cocos2d::backend::ShaderStage)0;       /** shaderStage */
+
+    olua_getfield(L, 2, "shaderStage");
+    if (!olua_isnoneornil(L, -1)) {
+        olua_check_enum(L, -1, &arg1);
+        ret.shaderStage = arg1;
+    }
+    lua_pop(L, 1);
+
+    olua_pushcopy_object(L, ret, "ccb.UniformLocation");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _cocos2d_backend_UniformLocation___gc(lua_State *L)
 {
     olua_startinvoke(L);
@@ -99,6 +123,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_backend_UniformLocation(lua_State *L)
 {
     oluacls_class<cocos2d::backend::UniformLocation>(L, "ccb.UniformLocation");
+    oluacls_func(L, "__call", _cocos2d_backend_UniformLocation___call);
     oluacls_func(L, "__gc", _cocos2d_backend_UniformLocation___gc);
     oluacls_func(L, "__olua_move", _cocos2d_backend_UniformLocation___olua_move);
     oluacls_func(L, "new", _cocos2d_backend_UniformLocation_new);

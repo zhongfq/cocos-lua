@@ -29,12 +29,6 @@ luacls(function (cppname)
     end
 end)
 
--- typedef 'cocos2d::Bounds'
---     .packable 'true'
---     .conv 'olua_$$_object'
---     .vars '4'
---     .luacls ''
-
 typeconf 'cocos2d::RenderTargetFlag'
 typeconf 'cocos2d::ClearFlag'
 typeconf 'cocos2d::MATRIX_STACK_TYPE'

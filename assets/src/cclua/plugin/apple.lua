@@ -104,14 +104,16 @@ function apple.purchase(identifier, quantity, callback)
     if products[identifier] then
         apple_purchase(identifier, quantity)
     else
-        apple.requestProducts(identifier, function ()
-            if products[identifier] then
-                apple_purchase(identifier, quantity)
-            else
-                apple.dispatch("purchase", {
-                    state = "failed",
-                    transactions = {{identifier = identifier, state = "failed"}}
-                })
+        apple.requestProducts(identifier, function (event)
+            if event == "finished" or event == "failed" then
+                if products[identifier] then
+                    apple_purchase(identifier, quantity)
+                else
+                    apple.dispatch("purchase", {
+                        state = "failed",
+                        transactions = {{identifier = identifier, state = "failed"}}
+                    })
+                end
             end
         end)
     end

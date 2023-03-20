@@ -22,6 +22,48 @@ static std::string makeFrameEndCallbackTag(cocostudio::timeline::ActionTimeline 
     return makeFrameEndCallbackTag((lua_Integer)info.endIndex, animationName);
 }
 
+static int _cocostudio_timeline_AnimationInfo___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocostudio::timeline::AnimationInfo ret;
+
+    luaL_checktype(L, 2, LUA_TTABLE);
+
+    std::string arg1;       /** name */
+    int arg2 = 0;       /** startIndex */
+    int arg3 = 0;       /** endIndex */
+    std::function<void ()> arg4;       /** clipEndCallBack */
+
+    olua_getfield(L, 2, "name");
+    olua_check_string(L, -1, &arg1);
+    ret.name = arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "startIndex");
+    olua_check_integer(L, -1, &arg2);
+    ret.startIndex = arg2;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "endIndex");
+    olua_check_integer(L, -1, &arg3);
+    ret.endIndex = arg3;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "clipEndCallBack");
+    if (!olua_isnoneornil(L, -1)) {
+        olua_check_callback(L, -1, &arg4, "std.function");
+    }
+    ret.clipEndCallBack = arg4;
+    lua_pop(L, 1);
+
+    olua_pushcopy_object(L, ret, "ccs.timeline.AnimationInfo");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _cocostudio_timeline_AnimationInfo___gc(lua_State *L)
 {
     olua_startinvoke(L);
@@ -276,6 +318,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocostudio_timeline_AnimationInfo(lua_State *L)
 {
     oluacls_class<cocostudio::timeline::AnimationInfo>(L, "ccs.timeline.AnimationInfo");
+    oluacls_func(L, "__call", _cocostudio_timeline_AnimationInfo___call);
     oluacls_func(L, "__gc", _cocostudio_timeline_AnimationInfo___gc);
     oluacls_func(L, "__olua_move", _cocostudio_timeline_AnimationInfo___olua_move);
     oluacls_func(L, "new", _cocostudio_timeline_AnimationInfo_new);

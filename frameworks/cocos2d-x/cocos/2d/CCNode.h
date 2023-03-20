@@ -1769,24 +1769,6 @@ public:
     
     virtual void setProgramState(backend::ProgramState* programState);
     virtual backend::ProgramState* getProgramState() const;
-    
-    void setScrollable(bool value);
-    bool getScrollable() const;
-    
-    void setScrollX(float value);
-    float getScrollX() const;
-    
-    void setScrollY(float value);
-    float getScrollY() const;
-    
-    void setScrollScaleX(float value);
-    float getScrollScaleX() const;
-    
-    void setScrollScaleY(float value);
-    float getScrollScaleY() const;
-    
-    void setScrollRotation(float value);
-    float getScrollRotation() const;
 
 CC_CONSTRUCTOR_ACCESS:
     // Nodes should be created using create();
@@ -1830,8 +1812,6 @@ protected:
     
 private:
     void addChildHelper(Node* child, int localZOrder, int tag, const std::string &name, bool setTag);
-    
-    void checkCalcScrollMatrix();
     
 protected:
 
@@ -1948,9 +1928,6 @@ protected:
     std::function<void()> _onExitTransitionDidStartCallback;
     
     backend::ProgramState* _programState = nullptr;
-    
-    bool _scrollable = false;
-    Node *_calcScrollMatrix = nullptr;
 
 //Physics:remaining backwardly compatible  
 #if CC_USE_PHYSICS

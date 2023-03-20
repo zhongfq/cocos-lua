@@ -4,7 +4,7 @@ function __TRACEBACK__(...)
     __TRACEBACK__ = _traceback
     _traceback(...)
     local runtime = require "cclua.runtime"
-    if runtime.getEnv("cclua.debug") == "true" then
+    if runtime.getEnv("cclua.debug") == "ON" then
         print("launch error, see the console!!!")
         runtime.clearStorage()
         runtime.showLog()

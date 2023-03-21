@@ -29,6 +29,7 @@ USING_NS_CC;
 USING_NS_CCLUA;
 
 #define CCLUA_ENV_PREFIX "cclua-env."
+#define CCLUA_EXIT "cclua://exit"
 
 static bool _restarting = false;
 static lua_State *_luaVM = nullptr;
@@ -39,6 +40,7 @@ static std::string _openURI;
 static std::map<std::string, bool> _supportedFeatures;
 static std::unordered_map<std::string, bool> _tracebackCaches;
 static std::unordered_map<std::string, std::string> _envs;
+static std::vector<std::string> _args;
 static int _sampleCount = 1;
 static std::unordered_map<olua_Ref, Callback> _refCallbacks;
 static olua_Ref _refCount = -2;
@@ -54,6 +56,7 @@ void runtime::parseLaunchArgs(int argc, char *argv[])
 {
     for (int i = 0; i < argc; i++) {
         runtime::log("launch args: %s", argv[i]);
+        _args.push_back(argv[i]);
     }
     for (int i = 0; i < argc; i++) {
         if (strequal(argv[i], "--workdir") && i < argc - 1) {
@@ -164,8 +167,16 @@ public:
             _restarting = false;
             _refCallbacks.clear();
             AudioEngine::end();
-            runtime::init();
-            runtime::launch(scriptPath);
+            if (scriptPath == CCLUA_EXIT) {
+#ifdef CCLUA_OS_IOS
+                exit(0);
+#else
+                Director::getInstance()->end();
+#endif
+            } else {
+                runtime::init();
+                runtime::launch(scriptPath);
+            }
         });
     };
 private:
@@ -210,6 +221,11 @@ bool runtime::isDebug()
 #else
     return false;
 #endif
+}
+
+const std::vector<std::string> &runtime::getArgs()
+{
+    return _args;
 }
 
 bool runtime::restart()
@@ -892,17 +908,6 @@ void runtime::registerFeature(const std::string &api, bool enabled)
 //
 // error
 //
-void runtime::initBugly(const char* appid)
-{
-#ifdef CCLUA_BUILD_BUGLY
-    runtime::log("init bugly: appid=%s", appid);
-    bugly::init(appid);
-#endif //CCLUA_BUILD_BUGLY
-
-#ifdef COCOS2D_DEBUG
-    runtime::disableReport();
-#endif
-}
 
 void runtime::disableReport()
 {
@@ -911,12 +916,13 @@ void runtime::disableReport()
 
 void runtime::reportError(const char *err, const char *traceback)
 {
-#if CCLUA_BUILD_BUGLY
+#ifdef CCLUA_BUILD_BUGLY
     if (_reportError) {
         std::string errmsg;
         errmsg.append(err).append(traceback);
         if (_tracebackCaches.find(errmsg) == _tracebackCaches.end()) {
             _tracebackCaches[errmsg] = true;
+            runtime::log("report exception to bulgy: %s", err);
             bugly::reportException(err, traceback);
         }
     }
@@ -1013,7 +1019,7 @@ void runtime::purgeCachedData()
 
 void runtime::exit()
 {
-    Director::getInstance()->end();
+    runtime::launch(CCLUA_EXIT);
 }
 
 //
@@ -1092,8 +1098,11 @@ void RuntimeContext::applicationWillTerminate()
 #endif
     
     _scheduler->unscheduleAll();
-    lua_close(_luaVM);
-    _luaVM = nullptr;
+    
+    if (_luaVM) {
+        lua_close(_luaVM);
+        _luaVM = nullptr;
+    }
     
     downloader::end();
     AudioEngine::uncacheAll();

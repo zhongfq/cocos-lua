@@ -11,7 +11,7 @@ static bool s_initialized = false;
 void bugly::init(const char *appid)
 {
 	if (!s_initialized) {
-        runtime::log("init bugly");
+        runtime::log("init bugly: appid=%s", appid);
         Jni::callStaticVoidMethod(JAVA_CLASS, "init", appid, false);
         s_initialized = true;
     }

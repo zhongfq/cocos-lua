@@ -7,6 +7,40 @@
 #include "cocos2d.h"
 
 #if CC_USE_PHYSICS
+static int _cocos2d_PhysicsMaterial___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsMaterial ret;
+
+    luaL_checktype(L, 2, LUA_TTABLE);
+
+    float arg1 = 0;       /** density */
+    float arg2 = 0;       /** restitution */
+    float arg3 = 0;       /** friction */
+
+    olua_getfield(L, 2, "density");
+    olua_check_number(L, -1, &arg1);
+    ret.density = arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "restitution");
+    olua_check_number(L, -1, &arg2);
+    ret.restitution = arg2;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "friction");
+    olua_check_number(L, -1, &arg3);
+    ret.friction = arg3;
+    lua_pop(L, 1);
+
+    olua_pushcopy_object(L, ret, "cc.PhysicsMaterial");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _cocos2d_PhysicsMaterial___gc(lua_State *L)
 {
     olua_startinvoke(L);
@@ -197,6 +231,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_PhysicsMaterial(lua_State *L)
 {
     oluacls_class<cocos2d::PhysicsMaterial>(L, "cc.PhysicsMaterial");
+    oluacls_func(L, "__call", _cocos2d_PhysicsMaterial___call);
     oluacls_func(L, "__gc", _cocos2d_PhysicsMaterial___gc);
     oluacls_func(L, "__olua_move", _cocos2d_PhysicsMaterial___olua_move);
     oluacls_func(L, "new", _cocos2d_PhysicsMaterial_new);
@@ -7165,6 +7200,64 @@ OLUA_END_DECLS
 #endif
 
 #if CC_USE_PHYSICS
+static int _cocos2d_PhysicsRayCastInfo___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsRayCastInfo ret;
+
+    luaL_checktype(L, 2, LUA_TTABLE);
+
+    cocos2d::PhysicsShape *arg1 = nullptr;       /** shape */
+    cocos2d::Vec2 arg2;       /** start */
+    cocos2d::Vec2 arg3;       /** end */
+    cocos2d::Vec2 arg4;       /** contact */
+    cocos2d::Vec2 arg5;       /** normal */
+    float arg6 = 0;       /** fraction */
+    void *arg7 = nullptr;       /** data */
+
+    olua_getfield(L, 2, "shape");
+    olua_check_object(L, -1, &arg1, "cc.PhysicsShape");
+    ret.shape = arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "start");
+    olua_check_object(L, -1, &arg2, "cc.Vec2");
+    ret.start = arg2;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "end");
+    olua_check_object(L, -1, &arg3, "cc.Vec2");
+    ret.end = arg3;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "contact");
+    olua_check_object(L, -1, &arg4, "cc.Vec2");
+    ret.contact = arg4;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "normal");
+    olua_check_object(L, -1, &arg5, "cc.Vec2");
+    ret.normal = arg5;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "fraction");
+    olua_check_number(L, -1, &arg6);
+    ret.fraction = arg6;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "data");
+    olua_check_object(L, -1, &arg7, "void *");
+    ret.data = arg7;
+    lua_pop(L, 1);
+
+    olua_pushcopy_object(L, ret, "cc.PhysicsRayCastInfo");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _cocos2d_PhysicsRayCastInfo___gc(lua_State *L)
 {
     olua_startinvoke(L);
@@ -7438,6 +7531,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_PhysicsRayCastInfo(lua_State *L)
 {
     oluacls_class<cocos2d::PhysicsRayCastInfo>(L, "cc.PhysicsRayCastInfo");
+    oluacls_func(L, "__call", _cocos2d_PhysicsRayCastInfo___call);
     oluacls_func(L, "__gc", _cocos2d_PhysicsRayCastInfo___gc);
     oluacls_func(L, "__olua_move", _cocos2d_PhysicsRayCastInfo___olua_move);
     oluacls_prop(L, "contact", _cocos2d_PhysicsRayCastInfo_get_contact, _cocos2d_PhysicsRayCastInfo_set_contact);

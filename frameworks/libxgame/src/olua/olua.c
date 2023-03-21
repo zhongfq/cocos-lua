@@ -1612,7 +1612,7 @@ static intptr_t aux_toenum(lua_State *L, int idx) {
         case LUA_TLIGHTUSERDATA:
             return (intptr_t)lua_touserdata(L, idx);
         case LUA_TNUMBER:
-            return olua_checkinteger(L, idx);
+            return (intptr_t)olua_checkinteger(L, idx);
         default:
             luaL_checktype(L, idx, LUA_TLIGHTUSERDATA);
             break;

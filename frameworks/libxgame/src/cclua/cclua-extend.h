@@ -16,6 +16,7 @@ typedef olua::pointer<std::vector<std::string>> VectorString;
 typedef olua::pointer<std::vector<int>> VectorInt;
 typedef olua::pointer<cocos2d::ValueMap> ValueMap;
 typedef olua::pointer<cocos2d::TMXTileFlags> TMXTileFlags;
+typedef olua::array<cocos2d::Vec2> Vec2Array;
 }
 
 struct Bounds {

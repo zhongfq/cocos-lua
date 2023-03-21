@@ -7,6 +7,46 @@
 #include "cocos2d.h"
 #include "CCDragonBonesHeaders.h"
 
+static int _dragonBones_Rectangle___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    dragonBones::Rectangle ret;
+
+    luaL_checktype(L, 2, LUA_TTABLE);
+
+    float arg1 = 0;       /** x */
+    float arg2 = 0;       /** y */
+    float arg3 = 0;       /** width */
+    float arg4 = 0;       /** height */
+
+    olua_getfield(L, 2, "x");
+    olua_check_number(L, -1, &arg1);
+    ret.x = arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "y");
+    olua_check_number(L, -1, &arg2);
+    ret.y = arg2;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "width");
+    olua_check_number(L, -1, &arg3);
+    ret.width = arg3;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "height");
+    olua_check_number(L, -1, &arg4);
+    ret.height = arg4;
+    lua_pop(L, 1);
+
+    olua_pushcopy_object(L, ret, "db.Rectangle");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _dragonBones_Rectangle___gc(lua_State *L)
 {
     olua_startinvoke(L);
@@ -244,6 +284,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_dragonBones_Rectangle(lua_State *L)
 {
     oluacls_class<dragonBones::Rectangle>(L, "db.Rectangle");
+    oluacls_func(L, "__call", _dragonBones_Rectangle___call);
     oluacls_func(L, "__gc", _dragonBones_Rectangle___gc);
     oluacls_func(L, "__olua_move", _dragonBones_Rectangle___olua_move);
     oluacls_func(L, "clear", _dragonBones_Rectangle_clear);
@@ -733,6 +774,28 @@ OLUA_LIB int luaopen_dragonBones_DragonBones(lua_State *L)
 }
 OLUA_END_DECLS
 
+static int _dragonBones_BaseObject___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    dragonBones::BaseObject ret;
+
+    luaL_checktype(L, 2, LUA_TTABLE);
+
+    unsigned int arg1 = 0;       /** hashCode */
+
+    olua_getfield(L, 2, "hashCode");
+    olua_check_integer(L, -1, &arg1);
+    ret.hashCode = arg1;
+    lua_pop(L, 1);
+
+    olua_pushcopy_object(L, ret, "db.BaseObject");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _dragonBones_BaseObject___gc(lua_State *L)
 {
     olua_startinvoke(L);
@@ -878,6 +941,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_dragonBones_BaseObject(lua_State *L)
 {
     oluacls_class<dragonBones::BaseObject>(L, "db.BaseObject");
+    oluacls_func(L, "__call", _dragonBones_BaseObject___call);
     oluacls_func(L, "__gc", _dragonBones_BaseObject___gc);
     oluacls_func(L, "__olua_move", _dragonBones_BaseObject___olua_move);
     oluacls_func(L, "clearPool", _dragonBones_BaseObject_clearPool);
@@ -1721,6 +1785,58 @@ OLUA_LIB int luaopen_dragonBones_TransformObject(lua_State *L)
 }
 OLUA_END_DECLS
 
+static int _dragonBones_Point___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    dragonBones::Point ret;
+
+    luaL_checktype(L, 2, LUA_TTABLE);
+
+    dragonBones::Point arg1;       /** helpPointA */
+    dragonBones::Point arg2;       /** helpPointB */
+    dragonBones::Point arg3;       /** helpPointC */
+    dragonBones::Point arg4;       /** helpPointD */
+    float arg5 = 0;       /** x */
+    float arg6 = 0;       /** y */
+
+    olua_getfield(L, 2, "helpPointA");
+    olua_check_object(L, -1, &arg1, "db.Point");
+    ret.helpPointA = arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "helpPointB");
+    olua_check_object(L, -1, &arg2, "db.Point");
+    ret.helpPointB = arg2;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "helpPointC");
+    olua_check_object(L, -1, &arg3, "db.Point");
+    ret.helpPointC = arg3;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "helpPointD");
+    olua_check_object(L, -1, &arg4, "db.Point");
+    ret.helpPointD = arg4;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "x");
+    olua_check_number(L, -1, &arg5);
+    ret.x = arg5;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "y");
+    olua_check_number(L, -1, &arg6);
+    ret.y = arg6;
+    lua_pop(L, 1);
+
+    olua_pushcopy_object(L, ret, "db.Point");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _dragonBones_Point___gc(lua_State *L)
 {
     olua_startinvoke(L);
@@ -2056,6 +2172,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_dragonBones_Point(lua_State *L)
 {
     oluacls_class<dragonBones::Point>(L, "db.Point");
+    oluacls_func(L, "__call", _dragonBones_Point___call);
     oluacls_func(L, "__gc", _dragonBones_Point___gc);
     oluacls_func(L, "__olua_move", _dragonBones_Point___olua_move);
     oluacls_func(L, "clear", _dragonBones_Point_clear);
@@ -12013,6 +12130,28 @@ OLUA_LIB int luaopen_dragonBones_DragonBonesData(lua_State *L)
 }
 OLUA_END_DECLS
 
+static int _dragonBones_BaseFactory___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    dragonBones::BaseFactory ret;
+
+    luaL_checktype(L, 2, LUA_TTABLE);
+
+    bool arg1 = false;       /** autoSearch */
+
+    olua_getfield(L, 2, "autoSearch");
+    olua_check_bool(L, -1, &arg1);
+    ret.autoSearch = arg1;
+    lua_pop(L, 1);
+
+    olua_pushcopy_object(L, ret, "db.BaseFactory");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _dragonBones_BaseFactory___gc(lua_State *L)
 {
     olua_startinvoke(L);
@@ -13170,6 +13309,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_dragonBones_BaseFactory(lua_State *L)
 {
     oluacls_class<dragonBones::BaseFactory>(L, "db.BaseFactory");
+    oluacls_func(L, "__call", _dragonBones_BaseFactory___call);
     oluacls_func(L, "__gc", _dragonBones_BaseFactory___gc);
     oluacls_func(L, "__olua_move", _dragonBones_BaseFactory___olua_move);
     oluacls_func(L, "addDragonBonesData", _dragonBones_BaseFactory_addDragonBonesData);

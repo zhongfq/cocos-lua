@@ -7935,6 +7935,40 @@ OLUA_LIB int luaopen_cocos2d_Controller(lua_State *L)
 }
 OLUA_END_DECLS
 
+static int _cocos2d_AudioProfile___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::AudioProfile ret;
+
+    luaL_checktype(L, 2, LUA_TTABLE);
+
+    std::string arg1;       /** name */
+    unsigned int arg2 = 0;       /** maxInstances */
+    double arg3 = 0;       /** minDelay */
+
+    olua_getfield(L, 2, "name");
+    olua_check_string(L, -1, &arg1);
+    ret.name = arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "maxInstances");
+    olua_check_integer(L, -1, &arg2);
+    ret.maxInstances = arg2;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "minDelay");
+    olua_check_number(L, -1, &arg3);
+    ret.minDelay = arg3;
+    lua_pop(L, 1);
+
+    olua_pushcopy_object(L, ret, "cc.AudioProfile");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _cocos2d_AudioProfile___gc(lua_State *L)
 {
     olua_startinvoke(L);
@@ -8082,6 +8116,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_AudioProfile(lua_State *L)
 {
     oluacls_class<cocos2d::AudioProfile>(L, "cc.AudioProfile");
+    oluacls_func(L, "__call", _cocos2d_AudioProfile___call);
     oluacls_func(L, "__gc", _cocos2d_AudioProfile___gc);
     oluacls_func(L, "__olua_move", _cocos2d_AudioProfile___olua_move);
     oluacls_func(L, "new", _cocos2d_AudioProfile_new);
@@ -13275,6 +13310,46 @@ OLUA_LIB int luaopen_cocos2d_Renderer(lua_State *L)
 }
 OLUA_END_DECLS
 
+static int _cocos2d_VertexAttrib___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::VertexAttrib ret;
+
+    luaL_checktype(L, 2, LUA_TTABLE);
+
+    GLuint arg1 = 0;       /** index */
+    GLint arg2 = 0;       /** size */
+    GLenum arg3 = 0;       /** type */
+    std::string arg4;       /** name */
+
+    olua_getfield(L, 2, "index");
+    olua_check_integer(L, -1, &arg1);
+    ret.index = arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "size");
+    olua_check_integer(L, -1, &arg2);
+    ret.size = arg2;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "type");
+    olua_check_integer(L, -1, &arg3);
+    ret.type = arg3;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "name");
+    olua_check_string(L, -1, &arg4);
+    ret.name = arg4;
+    lua_pop(L, 1);
+
+    olua_pushcopy_object(L, ret, "cc.VertexAttrib");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _cocos2d_VertexAttrib___gc(lua_State *L)
 {
     olua_startinvoke(L);
@@ -13443,6 +13518,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_VertexAttrib(lua_State *L)
 {
     oluacls_class<cocos2d::VertexAttrib>(L, "cc.VertexAttrib");
+    oluacls_func(L, "__call", _cocos2d_VertexAttrib___call);
     oluacls_func(L, "__gc", _cocos2d_VertexAttrib___gc);
     oluacls_func(L, "__olua_move", _cocos2d_VertexAttrib___olua_move);
     oluacls_prop(L, "index", _cocos2d_VertexAttrib_get_index, _cocos2d_VertexAttrib_set_index);
@@ -13453,6 +13529,46 @@ OLUA_LIB int luaopen_cocos2d_VertexAttrib(lua_State *L)
     return 1;
 }
 OLUA_END_DECLS
+
+static int _cocos2d_Uniform___call(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Uniform ret;
+
+    luaL_checktype(L, 2, LUA_TTABLE);
+
+    GLint arg1 = 0;       /** location */
+    GLint arg2 = 0;       /** size */
+    GLenum arg3 = 0;       /** type */
+    std::string arg4;       /** name */
+
+    olua_getfield(L, 2, "location");
+    olua_check_integer(L, -1, &arg1);
+    ret.location = arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "size");
+    olua_check_integer(L, -1, &arg2);
+    ret.size = arg2;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "type");
+    olua_check_integer(L, -1, &arg3);
+    ret.type = arg3;
+    lua_pop(L, 1);
+
+    olua_getfield(L, 2, "name");
+    olua_check_string(L, -1, &arg4);
+    ret.name = arg4;
+    lua_pop(L, 1);
+
+    olua_pushcopy_object(L, ret, "cc.Uniform");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
 
 static int _cocos2d_Uniform___gc(lua_State *L)
 {
@@ -13622,6 +13738,7 @@ OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_Uniform(lua_State *L)
 {
     oluacls_class<cocos2d::Uniform>(L, "cc.Uniform");
+    oluacls_func(L, "__call", _cocos2d_Uniform___call);
     oluacls_func(L, "__gc", _cocos2d_Uniform___gc);
     oluacls_func(L, "__olua_move", _cocos2d_Uniform___olua_move);
     oluacls_prop(L, "location", _cocos2d_Uniform_get_location, _cocos2d_Uniform_set_location);

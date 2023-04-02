@@ -6,7 +6,7 @@ assert(not runtime.on)
 assert(not runtime.once)
 assert(not runtime.off)
 assert(not runtime.dispatch)
-assert(not runtime.useMaxFrameRate)
+assert(not runtime.useHighFPS)
 
 local xpcall = xpcall
 local ANONYMOUS = {}
@@ -81,8 +81,8 @@ end
 runtime.setDispatcher(runtime.dispatch)
 runtime.setDispatcher = false -- avoid used by others
 
-function runtime.useMaxFrameRate(use, owner)
-    local TAG = '__runtime_useMaxFrameRate__'
+function runtime.useHighFPS(use, owner, duration)
+    local TAG = '__runtime_useHighFPS__'
     if not frameRate then
         frameRate = runtime.frameRate
     end
@@ -90,13 +90,17 @@ function runtime.useMaxFrameRate(use, owner)
     if use then
         usedBy = owner
         runtime.frameRate = runtime.maxFrameRate
+        if duration then
+            timer.delayWithTag(duration, TAG, function ()
+                runtime.useHighFPS(false, owner)
+            end)
+        end
     else
-        timer.delayWithTag(1, TAG, function ()
-            if usedBy == owner then
-                usedBy = nil
-                runtime.frameRate = frameRate
-            end
-        end)
+        if usedBy == owner then
+            usedBy = nil
+            runtime.frameRate = frameRate
+        end
+        
     end
 end
 

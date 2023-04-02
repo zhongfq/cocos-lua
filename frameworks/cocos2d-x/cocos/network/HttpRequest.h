@@ -67,6 +67,7 @@ public:
         GET,
         POST,
         PUT,
+        PATCH,
         DELETE,
         UNKNOWN,
     };

@@ -48,7 +48,7 @@ REG('cclua.runtime', function ()
         once = false,
         off = false,
         dispatch = false,
-        useMaxFrameRate = false,
+        useHighFPS = false,
         load = function (name)
             printf("module '%s' is not available", name)
             local module = setmetatable({}, {__index = function (_, f)

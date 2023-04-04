@@ -1551,21 +1551,24 @@ static int l_olua_uservalue(lua_State *L)
 
 int luaopen_olua(lua_State *L)
 {
-    oluacls_class(L, "olua", NULL);
-    oluacls_func(L, "with", l_olua_with);
-    oluacls_func(L, "isa", l_olua_isa);
-    oluacls_func(L, "take", l_olua_take);
-    oluacls_func(L, "move", l_olua_move);
-    oluacls_func(L, "debug", l_olua_debug);
-    oluacls_func(L, "class", l_olua_class);
-    oluacls_func(L, "enum", l_olua_enum);
-    oluacls_func(L, "iscfunc", l_olua_iscfunc);
-    oluacls_func(L, "setmetatable", l_olua_setmetatable);
-    oluacls_func(L, "getmetatable", l_lua_getmetatable);
-    oluacls_func(L, "topointer", l_olua_topointer);
-    oluacls_func(L, "objpool", l_olua_objpool);
-    oluacls_func(L, "ref", l_olua_ref);
-    oluacls_func(L, "uservalue", l_olua_uservalue);
+    static luaL_Reg lib[] = {
+        {"with", l_olua_with},
+        {"isa", l_olua_isa},
+        {"take", l_olua_take},
+        {"move", l_olua_move},
+        {"debug", l_olua_debug},
+        {"class", l_olua_class},
+        {"enum", l_olua_enum},
+        {"iscfunc", l_olua_iscfunc},
+        {"setmetatable", l_olua_setmetatable},
+        {"getmetatable", l_lua_getmetatable},
+        {"topointer", l_olua_topointer},
+        {"objpool", l_olua_objpool},
+        {"ref", l_olua_ref},
+        {"uservalue", l_olua_uservalue},
+        {NULL, NULL}
+    };
+    luaL_newlib(L, lib);
     lua_pushvalue(L, -1);
     olua_setglobal(L, "olua");
     return 1;

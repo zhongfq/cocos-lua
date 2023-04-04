@@ -1,5 +1,4 @@
-
-file(GLOB_RECURSE COCOS_SPINE_SRC 
+set(COCOS_SPINE_SRC 
     editor-support/spine/Animation.cpp
     editor-support/spine/AnimationState.cpp
     editor-support/spine/AnimationStateData.cpp
@@ -8,7 +7,6 @@ file(GLOB_RECURSE COCOS_SPINE_SRC
     editor-support/spine/Attachment.cpp
     editor-support/spine/AttachmentLoader.cpp
     editor-support/spine/AttachmentTimeline.cpp
-    editor-support/spine/AttachmentVertices.cpp
     editor-support/spine/Bone.cpp
     editor-support/spine/BoneData.cpp
     editor-support/spine/BoundingBoxAttachment.cpp
@@ -70,10 +68,9 @@ file(GLOB_RECURSE COCOS_SPINE_SRC
     editor-support/spine/v4/SkeletonBatch.cpp
     editor-support/spine/v4/SkeletonTwoColorBatch.cpp
     editor-support/spine/VertexAttachment.cpp
-    editor-support/spine/VertexEffect.cpp
 )
 
-file(GLOB_RECURSE COCOS_SPINE_HEADER 
+set(COCOS_SPINE_HEADER 
     editor-support/spine/Animation.h
     editor-support/spine/AnimationState.h
     editor-support/spine/AnimationStateData.h
@@ -83,7 +80,6 @@ file(GLOB_RECURSE COCOS_SPINE_HEADER
     editor-support/spine/AttachmentLoader.h
     editor-support/spine/AttachmentTimeline.h
     editor-support/spine/AttachmentType.h
-    editor-support/spine/AttachmentVertices.h
     editor-support/spine/BlendMode.h
     editor-support/spine/Bone.h
     editor-support/spine/BoneData.h
@@ -151,7 +147,6 @@ file(GLOB_RECURSE COCOS_SPINE_HEADER
     editor-support/spine/TextureLoader.h
     editor-support/spine/TextureRegion.h
     editor-support/spine/Timeline.h
-    editor-support/spine/TimelineType.h
     editor-support/spine/TransformConstraint.h
     editor-support/spine/TransformConstraintData.h
     editor-support/spine/TransformConstraintTimeline.h
@@ -166,6 +161,5 @@ file(GLOB_RECURSE COCOS_SPINE_HEADER
     editor-support/spine/Vector.h
     editor-support/spine/Version.h
     editor-support/spine/VertexAttachment.h
-    editor-support/spine/VertexEffect.h
     editor-support/spine/Vertices.h
 )

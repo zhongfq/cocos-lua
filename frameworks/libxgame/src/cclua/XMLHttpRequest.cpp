@@ -45,6 +45,8 @@ void XMLHttpRequest::open(const std::string &method, const std::string &url)
         _httpRequest->setRequestType(network::HttpRequest::Type::GET);
     } else if (strcaseequal(method.c_str(), "put")) {
         _httpRequest->setRequestType(network::HttpRequest::Type::PUT);
+    } else if (strcaseequal(method.c_str(), "patch")) {
+        _httpRequest->setRequestType(network::HttpRequest::Type::PATCH);
     } else if (strcaseequal(method.c_str(), "delete")) {
         _httpRequest->setRequestType(network::HttpRequest::Type::DELETE);
     }

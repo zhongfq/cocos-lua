@@ -328,6 +328,18 @@ static int processPutTask(HttpClient* client, HttpRequest* request, write_callba
     return ok ? 0 : 1;
 }
 
+//Process PATCH Request
+static int processPatchTask(HttpClient* client, HttpRequest* request, write_callback callback, void* stream, long* responseCode, write_callback headerCallback, void* headerStream, char* errorBuffer)
+{
+    CURLRaii curl;
+    bool ok = curl.init(client, request, callback, stream, headerCallback, headerStream, errorBuffer)
+            && curl.setOption(CURLOPT_CUSTOMREQUEST, "PATCH")
+            && curl.setOption(CURLOPT_POSTFIELDS, request->getRequestData())
+            && curl.setOption(CURLOPT_POSTFIELDSIZE, request->getRequestDataSize())
+            && curl.perform(responseCode);
+    return ok ? 0 : 1;
+}
+
 //Process DELETE Request
 static int processDeleteTask(HttpClient* client, HttpRequest* request, write_callback callback, void* stream, long* responseCode, write_callback headerCallback, void* headerStream, char* errorBuffer)
 {
@@ -542,6 +554,16 @@ void HttpClient::processResponse(HttpResponse* response, char* responseMessage)
 
     case HttpRequest::Type::PUT:
         retValue = processPutTask(this, request,
+            writeData,
+            response->getResponseData(),
+            &responseCode,
+            writeHeaderData,
+            response->getResponseHeader(),
+            responseMessage);
+        break;
+            
+    case HttpRequest::Type::PATCH:
+        retValue = processPatchTask(this, request,
             writeData,
             response->getResponseData(),
             &responseCode,

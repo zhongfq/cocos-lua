@@ -1,9 +1,9 @@
 # Cocos-lua
 
-[![iOS Build Status](https://github.com/zhongfq/cocos-lua/workflows/ios/badge.svg)](https://github.com/zhongfq/cocos-lua/actions?query=workflow:ios)
-[![Android Build Status](https://github.com/zhongfq/cocos-lua/workflows/android/badge.svg)](https://github.com/zhongfq/cocos-lua/actions?query=workflow:android)
-[![Mac Build Status](https://github.com/zhongfq/cocos-lua/workflows/macos/badge.svg)](https://github.com/zhongfq/cocos-lua/actions?query=workflow:macos)
-[![Window Build Status](https://github.com/zhongfq/cocos-lua/workflows/windows/badge.svg)](https://github.com/zhongfq/cocos-lua/actions?query=workflow:windows)
+[![iOS Build Status](https://github.com/zhongfq/cocos-lua/workflows/ios-build/badge.svg)](https://github.com/zhongfq/cocos-lua/actions?query=workflow:ios-build)
+[![Android Build Status](https://github.com/zhongfq/cocos-lua/workflows/android-build/badge.svg)](https://github.com/zhongfq/cocos-lua/actions?query=workflow:android-build)
+[![Mac Build Status](https://github.com/zhongfq/cocos-lua/workflows/mac-build/badge.svg)](https://github.com/zhongfq/cocos-lua/actions?query=workflow:mac-build)
+[![Window Build Status](https://github.com/zhongfq/cocos-lua/workflows/vs-build/badge.svg)](https://github.com/zhongfq/cocos-lua/actions?query=workflow:vs-build)
 
 cocos-lua以cocos2d-x v4的c++项目为基础，采用基于lua gc来管理c++对象的生命周期，提供更丰富cocos2d-x lua api，包括几乎除模版以外的所有lambda（schedule、scheduleOnce...）函数回调，能够极大减少在lua层使用c++对象的负担。
 

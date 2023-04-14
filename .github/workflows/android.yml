@@ -1,0 +1,19 @@
+name: android-build
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+    steps:
+    - uses: actions/checkout@v3
+    - name: set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+    - name: set up lua
+      uses: xpol/setup-lua@v0.2
+      with:
+        lua-version: "5.3.5"
+    - name: Build with Gradle
+      run: cd runtime-src/proj.android && ./gradlew assembleRelease

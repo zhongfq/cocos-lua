@@ -336,6 +336,7 @@ if(WINDOWS)
         copy_if_different 
           "${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/openssl/prebuilt/win32/libcrypto-1_1.dll"
           "${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/openssl/prebuilt/win32/libssl-1_1.dll"
+          "${CMAKE_CURRENT_SOURCE_DIR}/frameworks/cocos2d-x/external/win32-specific/zlib/prebuilt/zlib1.dll"
           "${rt_output}/${CMAKE_CFG_INTDIR}"
         )
 endif()

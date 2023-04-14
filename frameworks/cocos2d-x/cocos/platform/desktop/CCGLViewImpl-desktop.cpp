@@ -458,6 +458,13 @@ void GLViewImpl::enableRetina(bool enabled)
 #endif
 }
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+HWND GLViewImpl::getWin32Window() 
+{
+    return glfwGetWin32Window(_mainWindow);
+}
+#endif /* (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) */
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 void *GLViewImpl::getNSGLContext()
 {

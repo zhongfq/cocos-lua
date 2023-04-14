@@ -1,4 +1,4 @@
-build/xcode
+build/
 wwwroot/*
 .vs/
 runtime/

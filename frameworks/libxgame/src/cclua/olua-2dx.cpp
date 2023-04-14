@@ -24,27 +24,10 @@ extern bool olua_throw_error(const char *msg)
 }
 OLUA_END_DECLS
 
-#if COCOS2D_VERSION < 0x00040000 && defined(CCLUA_OS_WIN32)
-#include "base/CCScriptSupport.h"
-class AssertEngine : public ScriptEngineProtocol {
-public:
-    virtual int executeString(const char* codes) { return 0; }
-    virtual int executeScriptFile(const char* filename) { return 0; }
-    virtual int executeGlobalFunction(const char* functionName) { return 0; }
-    virtual int sendEvent(ScriptEvent* evt) { return 0; }
-    virtual bool parseConfig(ConfigType type, const std::string& str) { return true; }
-
-    virtual bool handleAssert(const char *msg)
-    {
-        return throw_lua_error(msg);
-    }
-};
-#else
 extern bool cc_assert_script_compatible(const char *msg)
 {
     return olua_throw_error(msg);
 }
-#endif
 
 static int _coroutine_resume(lua_State *L)
 {
@@ -335,12 +318,6 @@ lua_State *cclua_new()
     lua_pushboolean(L, runtime::isDebug());
     lua_setglobal(L, "DEBUG");
 
-#if COCOS2D_VERSION < 0x00040000
-#ifdef CCLUA_OS_WIN32
-	ScriptEngineManager::getInstance()->setScriptEngine(new AssertEngine());
-#endif
-#endif
-    
     return L;
 }
 

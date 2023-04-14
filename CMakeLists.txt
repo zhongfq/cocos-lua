@@ -83,25 +83,21 @@ set(GAME_HEADER)
 set(GAME_RES_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/assets")
 
 if(APPLE)
-    file(GLOB folder_files "${GAME_RES_FOLDER}/*")
-    foreach(file ${folder_files})
-        if(NOT ${file} MATCHES ".DS_Store$")
-            list(APPEND common_res_files ${file})
-            set_source_files_properties(${file} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
-            source_group("Resources" FILES ${file})
-        endif()
-    endforeach()
+  file(GLOB folder_files "${GAME_RES_FOLDER}/*")
+  foreach(file ${folder_files})
+    if(NOT ${file} MATCHES ".DS_Store$")
+      list(APPEND common_res_files ${file})
+      set_source_files_properties(${file} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+      source_group("Resources" FILES ${file})
+    endif()
+  endforeach()
 elseif(WINDOWS)
-    cocos_mark_multi_resources(common_res_files RES_TO "Resources" FOLDERS ${GAME_RES_FOLDER})
+  cocos_mark_multi_resources(common_res_files RES_TO "Resources" FOLDERS ${GAME_RES_FOLDER})
 endif()
 
 # add cross-platforms source files and header files
-list(APPEND GAME_SOURCE
-     ${RUNTIME_SRC_ROOT}/Classes/AppDelegate.cpp
-     )
-list(APPEND GAME_HEADER
-     ${RUNTIME_SRC_ROOT}/Classes/AppDelegate.h
-     )
+list(APPEND GAME_SOURCE ${RUNTIME_SRC_ROOT}/Classes/AppDelegate.cpp)
+list(APPEND GAME_HEADER ${RUNTIME_SRC_ROOT}/Classes/AppDelegate.h)
 
 if(ANDROID)
     # change APP_NAME to the share library name for Android, it's value depend on AndroidManifest.xml
@@ -114,61 +110,59 @@ elseif(LINUX)
          ${RUNTIME_SRC_ROOT}/proj.linux/main.cpp
          )
 elseif(WINDOWS)
-    list(APPEND GAME_HEADER
-         ${RUNTIME_SRC_ROOT}/proj.win32/main.h
-         ${RUNTIME_SRC_ROOT}/proj.win32/resource.h
-         )
-    list(APPEND GAME_SOURCE
-         ${RUNTIME_SRC_ROOT}/proj.win32/main.cpp
-         ${RUNTIME_SRC_ROOT}/proj.win32/game.rc
-         ${common_res_files}
-         )
+  list(APPEND GAME_HEADER
+    ${RUNTIME_SRC_ROOT}/proj.win32/main.h
+    ${RUNTIME_SRC_ROOT}/proj.win32/resource.h
+  )
+  list(APPEND GAME_SOURCE
+    ${RUNTIME_SRC_ROOT}/proj.win32/main.cpp
+    ${RUNTIME_SRC_ROOT}/proj.win32/game.rc
+    ${common_res_files}
+  )
 elseif(APPLE)
-    if(IOS)
-        list(APPEND GAME_HEADER
-             ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/AppController.h
-             ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/RootViewController.h
-             )
-        set(APP_UI_RES
-             ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/LaunchScreen.storyboard
-             ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/LaunchScreenBackground.png
-             ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Images.xcassets
-            )
-        list(APPEND GAME_SOURCE
-             ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/main.m
-             ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/AppController.mm
-             ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/RootViewController.mm
-             ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Prefix.pch
-             ${APP_UI_RES}
-             )
-    elseif(MACOSX)
-        set(APP_UI_RES
-             ${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/Icon.icns
-            )
-        list(APPEND GAME_SOURCE
-             ${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/main.cpp
-             ${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/Prefix.pch
-             ${APP_UI_RES}
-             )
-    endif()
-    list(APPEND GAME_SOURCE ${common_res_files})
+  if(IOS)
+    list(APPEND GAME_HEADER
+      ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/AppController.h
+      ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/RootViewController.h
+    )
+    set(APP_UI_RES
+      ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/LaunchScreen.storyboard
+      ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/LaunchScreenBackground.png
+      ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Images.xcassets
+    )
+    list(APPEND GAME_SOURCE
+      ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/main.m
+      ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/AppController.mm
+      ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/RootViewController.mm
+      ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Prefix.pch
+      ${APP_UI_RES}
+    )
+  elseif(MACOSX)
+    set(APP_UI_RES ${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/Icon.icns)
+    list(APPEND GAME_SOURCE
+      ${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/main.cpp
+      ${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/Prefix.pch
+      ${APP_UI_RES}
+    )
+  endif()
+  list(APPEND GAME_SOURCE ${common_res_files})
 endif()
 
 # mark app complie info and libs info
 set(all_code_files
-    ${GAME_HEADER}
-    ${GAME_SOURCE}
-    )
+  ${GAME_HEADER}
+  ${GAME_SOURCE}
+)
 if(NOT ANDROID)
-    add_executable(${APP_NAME} ${all_code_files})
+  add_executable(${APP_NAME} ${all_code_files})
 else()
-    add_library(${APP_NAME} SHARED ${all_code_files})
-    add_subdirectory(${COCOS2DX_ROOT_PATH}/cocos/platform/android ${ENGINE_BINARY_PATH}/cocos/platform)
-    target_link_libraries(${APP_NAME} -Wl,--whole-archive cpp_android_spec -Wl,--no-whole-archive)
+  add_library(${APP_NAME} SHARED ${all_code_files})
+  add_subdirectory(${COCOS2DX_ROOT_PATH}/cocos/platform/android ${ENGINE_BINARY_PATH}/cocos/platform)
+  target_link_libraries(${APP_NAME} -Wl,--whole-archive cpp_android_spec -Wl,--no-whole-archive)
 endif()
 
 if(XCODE OR VS)
-    cocos_mark_code_files(${APP_NAME} GROUPBASE ${RUNTIME_SRC_ROOT})
+  cocos_mark_code_files(${APP_NAME} GROUPBASE ${RUNTIME_SRC_ROOT})
 endif()
 
 target_compile_definitions(${APP_NAME} PUBLIC APP_NAME="${APP_NAME}")
@@ -298,91 +292,91 @@ target_include_directories(${APP_NAME}
 
 # suspend warnings
 if(APPLE)
-    target_compile_options(cocos2d
+  target_compile_options(cocos2d
+    PRIVATE
+      -Wno-reorder
+      -Wno-deprecated-declarations
+      -Wno-shorten-64-to-32
+      -Wno-comma
+  )
+  if(CCLUA_BUILD_FAIRYGUI)
+    target_compile_options(fairygui
       PRIVATE
         -Wno-reorder
-        -Wno-deprecated-declarations
         -Wno-shorten-64-to-32
-        -Wno-comma
     )
-    if(CCLUA_BUILD_FAIRYGUI)
-        target_compile_options(fairygui
-          PRIVATE
-            -Wno-reorder
-            -Wno-shorten-64-to-32
-        )
-    endif()
-    if(CCLUA_BUILD_DRAGONBONES)
-        target_compile_options(dragonbones
-          PRIVATE
-            -Wno-shorten-64-to-32
-        )
-    endif()
-    if(CCLUA_BUILD_BOX2D)
-        target_compile_options(box2d
-          PRIVATE
-            -Wno-shorten-64-to-32
-        )
-    endif()
+  endif()
+  if(CCLUA_BUILD_DRAGONBONES)
+    target_compile_options(dragonbones
+      PRIVATE
+        -Wno-shorten-64-to-32
+    )
+  endif()
+  if(CCLUA_BUILD_BOX2D)
+    target_compile_options(box2d
+      PRIVATE
+        -Wno-shorten-64-to-32
+    )
+  endif()
 endif()
 
 # link other flags
 if(IOS)
-    SET_TARGET_PROPERTIES(${APP_NAME} PROPERTIES LINK_FLAGS -ObjC)
+  set_target_properties(${APP_NAME} PROPERTIES LINK_FLAGS -ObjC)
 endif()
 
 # mark app resources
 setup_cocos_app_config(${APP_NAME})
 if(APPLE)
-    set_target_properties(${APP_NAME} PROPERTIES RESOURCE "${APP_UI_RES}")
+  set_target_properties(${APP_NAME} PROPERTIES RESOURCE "${APP_UI_RES}")
 
-    if(MACOSX)
-        set_xcode_property(${APP_NAME} INFOPLIST_FILE "${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/Info.plist")
-    elseif(IOS)
-        set_xcode_property(${APP_NAME} INFOPLIST_FILE "${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Info.plist")
-        set_xcode_property(${APP_NAME} ASSETCATALOG_COMPILER_APPICON_NAME "AppIcon")
-        set_xcode_property(${APP_NAME} CODE_SIGN_ENTITLEMENTS "${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/app.entitlements")
-        set(CMAKE_XCODE_ATTRIBUTE_ARCHS "arm64")
-    endif()
+  if(MACOSX)
+    set_xcode_property(${APP_NAME} INFOPLIST_FILE "${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/Info.plist")
+  elseif(IOS)
+    set_xcode_property(${APP_NAME} INFOPLIST_FILE "${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Info.plist")
+    set_xcode_property(${APP_NAME} ASSETCATALOG_COMPILER_APPICON_NAME "AppIcon")
+    set_xcode_property(${APP_NAME} CODE_SIGN_ENTITLEMENTS "${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/app.entitlements")
+    set(CMAKE_XCODE_ATTRIBUTE_ARCHS "arm64")
+  endif()
 
-    # For code-signing, set the DEVELOPMENT_TEAM:
-    set_xcode_property(${APP_NAME} CLANG_ENABLE_OBJC_ARC "YES")
-    set_xcode_property(${APP_NAME} SKIP_INSTALL "NO")
-    set_xcode_property(${APP_NAME} INSTALL_PATH "$(LOCAL_APPS_DIR)")
-    set_xcode_property(${APP_NAME} DEVELOPMENT_TEAM "${APPLE_DEVELOPMENT_TEAM}")
-    set_xcode_property(${APP_NAME} PRODUCT_BUNDLE_IDENTIFIER "${APP_PACKAGE_NAME}")
+  # For code-signing, set the DEVELOPMENT_TEAM:
+  set_xcode_property(${APP_NAME} CLANG_ENABLE_OBJC_ARC "YES")
+  set_xcode_property(${APP_NAME} SKIP_INSTALL "NO")
+  set_xcode_property(${APP_NAME} INSTALL_PATH "$(LOCAL_APPS_DIR)")
+  set_xcode_property(${APP_NAME} DEVELOPMENT_TEAM "${APPLE_DEVELOPMENT_TEAM}")
+  set_xcode_property(${APP_NAME} PRODUCT_BUNDLE_IDENTIFIER "${APP_PACKAGE_NAME}")
     set_xcode_property(${APP_NAME} PRODUCT_NAME "${APP_PRODUCT_NAME}")
-    set_xcode_property(${APP_NAME} CURRENT_PROJECT_VERSION "${APP_BUILD}")
-    set_xcode_property(${APP_NAME} MARKETING_VERSION "${APP_VERSION}")
-    set_xcode_property(${APP_NAME} TARGETED_DEVICE_FAMILY "1,2")
-    # set_xcode_property(${APP_NAME} GCC_GENERATE_DEBUGGING_SYMBOLS "YES")
-    # set_xcode_property(${APP_NAME} DEBUG_INFORMATION_FORMAT "DWARF")
+  set_xcode_property(${APP_NAME} CURRENT_PROJECT_VERSION "${APP_BUILD}")
+  set_xcode_property(${APP_NAME} MARKETING_VERSION "${APP_VERSION}")
+  set_xcode_property(${APP_NAME} TARGETED_DEVICE_FAMILY "1,2")
+  # set_xcode_property(${APP_NAME} GCC_GENERATE_DEBUGGING_SYMBOLS "YES")
+  # set_xcode_property(${APP_NAME} DEBUG_INFORMATION_FORMAT "DWARF")
 
-    if(NOT DEFINED CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET)
-        SET (CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET 11.0)
-    endif()
+  if(NOT DEFINED CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET)
+    SET (CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET 11.0)
+  endif()
 
-    # warnings
-    set(CMAKE_XCODE_ATTRIBUTE_CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING "YES")
-    set(CMAKE_XCODE_ATTRIBUTE_CLANG_WARN_BOOL_CONVERSION "YES")
-    set(CMAKE_XCODE_ATTRIBUTE_CLANG_WARN_COMMA "YES")
-    set(CMAKE_XCODE_ATTRIBUTE_CLANG_WARN_CONSTANT_CONVERSION "YES")
-    set(CMAKE_XCODE_ATTRIBUTE_CLANG_WARN_ENUM_CONVERSION "YES")
-    set(CMAKE_XCODE_ATTRIBUTE_CLANG_WARN_INFINITE_RECURSION "YES")
-    set(CMAKE_XCODE_ATTRIBUTE_CLANG_WARN_INT_CONVERSION "YES")
-    set(CMAKE_XCODE_ATTRIBUTE_CLANG_WARN_NON_LITERAL_NULL_CONVERSION "YES")
-    set(CMAKE_XCODE_ATTRIBUTE_CLANG_WARN_STRICT_PROTOTYPES "YES")
-    set(CMAKE_XCODE_ATTRIBUTE_CLANG_WARN_UNREACHABLE_CODE "YES")
-    set(CMAKE_XCODE_ATTRIBUTE_GCC_CLANG_WARN_EMPTY_BODY "YES")
-    set(CMAKE_XCODE_ATTRIBUTE_GCC_WARN_64_TO_32_BIT_CONVERSION "YES")
-    set(CMAKE_XCODE_ATTRIBUTE_GCC_WARN_ABOUT_RETURN_TYPE "YES_ERROR")
-    set(CMAKE_XCODE_ATTRIBUTE_GCC_WARN_MISSING_PARENTHESES "YES")
-    set(CMAKE_XCODE_ATTRIBUTE_GCC_WARN_UNINITIALIZED_AUTOS "YES")
+  # warnings
+  set(CMAKE_XCODE_ATTRIBUTE_CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING "YES")
+  set(CMAKE_XCODE_ATTRIBUTE_CLANG_WARN_BOOL_CONVERSION "YES")
+  set(CMAKE_XCODE_ATTRIBUTE_CLANG_WARN_COMMA "YES")
+  set(CMAKE_XCODE_ATTRIBUTE_CLANG_WARN_CONSTANT_CONVERSION "YES")
+  set(CMAKE_XCODE_ATTRIBUTE_CLANG_WARN_ENUM_CONVERSION "YES")
+  set(CMAKE_XCODE_ATTRIBUTE_CLANG_WARN_INFINITE_RECURSION "YES")
+  set(CMAKE_XCODE_ATTRIBUTE_CLANG_WARN_INT_CONVERSION "YES")
+  set(CMAKE_XCODE_ATTRIBUTE_CLANG_WARN_NON_LITERAL_NULL_CONVERSION "YES")
+  set(CMAKE_XCODE_ATTRIBUTE_CLANG_WARN_STRICT_PROTOTYPES "YES")
+  set(CMAKE_XCODE_ATTRIBUTE_CLANG_WARN_UNREACHABLE_CODE "YES")
+  set(CMAKE_XCODE_ATTRIBUTE_GCC_CLANG_WARN_EMPTY_BODY "YES")
+  set(CMAKE_XCODE_ATTRIBUTE_GCC_WARN_64_TO_32_BIT_CONVERSION "YES")
+  set(CMAKE_XCODE_ATTRIBUTE_GCC_WARN_ABOUT_RETURN_TYPE "YES_ERROR")
+  set(CMAKE_XCODE_ATTRIBUTE_GCC_WARN_MISSING_PARENTHESES "YES")
+  set(CMAKE_XCODE_ATTRIBUTE_GCC_WARN_UNINITIALIZED_AUTOS "YES")
 elseif(WINDOWS)
-    cocos_copy_target_dll(${APP_NAME})
+  cocos_copy_target_dll(${APP_NAME})
 endif()
 
 if(LINUX OR WINDOWS)
-    cocos_get_resource_path(APP_RES_DIR ${APP_NAME})
-    cocos_copy_target_res(${APP_NAME} LINK_TO ${APP_RES_DIR} FOLDERS ${GAME_RES_FOLDER})
+  cocos_get_resource_path(APP_RES_DIR ${APP_NAME})
+  cocos_copy_target_res(${APP_NAME} LINK_TO ${APP_RES_DIR} FOLDERS ${GAME_RES_FOLDER})
 endif()

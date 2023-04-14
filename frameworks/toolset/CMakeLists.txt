@@ -14,11 +14,11 @@ endif()
 
 if(LUA STREQUAL "lua54")
     add_subdirectory(lua)
-    get_filename_component(LUA_INCLUDE "../libxgame/src/lua"
+    get_filename_component(LUA_INCLUDE "../3rd/lua"
         REALPATH BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
 elseif(LUA STREQUAL "lua53")
     add_subdirectory(lua53)
-    get_filename_component(LUA_INCLUDE "../libxgame/src/lua53"
+    get_filename_component(LUA_INCLUDE "../3rd/lua53"
         REALPATH BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
 else()
     message(FATAL_ERROR "only support lua53 or lua54")

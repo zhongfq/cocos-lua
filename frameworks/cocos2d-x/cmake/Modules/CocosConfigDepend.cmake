@@ -24,7 +24,6 @@ macro(cocos2dx_depend)
     elseif(APPLE)
 
         include_directories(/System/Library/Frameworks)
-        find_library(ICONV_LIBRARY iconv)
         find_library(AUDIOTOOLBOX_LIBRARY AudioToolbox)
         find_library(FOUNDATION_LIBRARY Foundation)
         find_library(OPENAL_LIBRARY OpenAL)
@@ -35,14 +34,8 @@ macro(cocos2dx_depend)
             ${AUDIOTOOLBOX_LIBRARY}
             ${QUARTZCORE_LIBRARY}
             ${FOUNDATION_LIBRARY}
-            ${ICONV_LIBRARY}
             ${GAMECONTROLLER_LIBRARY}
             )
-
-        if(BUILD_JS_LIBS)
-            find_library(SQLITE3_LIBRARY SQLite3)
-            list(APPEND COCOS_APPLE_LIBS ${SQLITE3_LIBRARY})
-        endif()
             
         if(MACOSX)
             list(APPEND PREBUILT_SPECIFIC_LIBS GLFW3)
@@ -52,6 +45,7 @@ macro(cocos2dx_depend)
             find_library(APPLICATIONSERVICES_LIBRARY ApplicationServices)
             find_library(IOKIT_LIBRARY IOKit)
             find_library(APPKIT_LIBRARY AppKit)
+            find_library(ICONV_LIBRARY iconv)
             list(APPEND PLATFORM_SPECIFIC_LIBS
                  ${COCOA_LIBRARY}
                  ${OPENGL_LIBRARY}
@@ -59,6 +53,7 @@ macro(cocos2dx_depend)
                  ${IOKIT_LIBRARY}
                  ${COCOS_APPLE_LIBS}
                  ${APPKIT_LIBRARY}
+                 ${ICONV_LIBRARY}
                  )
         elseif(IOS)
             # Locate system libraries on iOS
@@ -71,8 +66,9 @@ macro(cocos2dx_depend)
             find_library(SECURITY_LIBRARY Security)
             find_library(CORE_GRAPHICS_LIBRARY CoreGraphics)
             find_library(AV_FOUNDATION_LIBRARY AVFoundation)
-            find_library(Z_LIBRARY z)
             find_library(WEBKIT_LIBRARY WebKit)
+            find_library(ICONV_LIBRARY iconv)
+            find_library(Z_LIBRARY z)
             list(APPEND PLATFORM_SPECIFIC_LIBS
                  ${UIKIT_LIBRARY}
                  ${OPENGLES_LIBRARY}
@@ -83,9 +79,10 @@ macro(cocos2dx_depend)
                  ${SECURITY_LIBRARY}
                  ${CORE_GRAPHICS_LIBRARY}
                  ${AV_FOUNDATION_LIBRARY}
-                 ${Z_LIBRARY}
                  ${WEBKIT_LIBRARY}
                  ${COCOS_APPLE_LIBS}
+                 ${ICONV_LIBRARY}
+                 ${Z_LIBRARY}
                  )
         endif()
     endif()

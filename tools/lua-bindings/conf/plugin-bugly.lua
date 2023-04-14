@@ -1,6 +1,6 @@
 module 'bugly'
 
-path "../../frameworks/libxgame/src/bugly"
+path "../../frameworks/cclua/src/bugly"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"

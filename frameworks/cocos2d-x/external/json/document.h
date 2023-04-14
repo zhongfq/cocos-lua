@@ -45,7 +45,7 @@ RAPIDJSON_DIAG_OFF(terminate) // ignore throwing RAPIDJSON_ASSERT in RAPIDJSON_N
 #endif // __GNUC__
 
 #ifndef RAPIDJSON_NOMEMBERITERATORCLASS
-#include <iterator> // std::random_access_iterator_tag
+#include <iterator> // std::iterator, std::random_access_iterator_tag
 #endif
 
 #if RAPIDJSON_HAS_CXX11_RVALUE_REFS
@@ -98,13 +98,16 @@ struct GenericMember {
     \see GenericMember, GenericValue::MemberIterator, GenericValue::ConstMemberIterator
  */
 template <bool Const, typename Encoding, typename Allocator>
-class GenericMemberIterator {
+class GenericMemberIterator
+    : public std::iterator<std::random_access_iterator_tag
+        , typename internal::MaybeAddConst<Const,GenericMember<Encoding,Allocator> >::Type> {
 
     friend class GenericValue<Encoding,Allocator>;
     template <bool, typename, typename> friend class GenericMemberIterator;
 
     typedef GenericMember<Encoding,Allocator> PlainType;
     typedef typename internal::MaybeAddConst<Const,PlainType>::Type ValueType;
+    typedef std::iterator<std::random_access_iterator_tag,ValueType> BaseType;
 
 public:
     //! Iterator type itself
@@ -114,21 +117,12 @@ public:
     //! Non-constant iterator type
     typedef GenericMemberIterator<false,Encoding,Allocator> NonConstIterator;
 
-    /** \name std::iterator_traits support */
-    //@{
-    typedef ValueType      value_type;
-    typedef ValueType *    pointer;
-    typedef ValueType &    reference;
-    typedef std::ptrdiff_t difference_type;
-    typedef std::random_access_iterator_tag iterator_category;
-    //@}
-    
     //! Pointer to (const) GenericMember
-    typedef pointer         Pointer;
+    typedef typename BaseType::pointer         Pointer;
     //! Reference to (const) GenericMember
-    typedef reference       Reference;
+    typedef typename BaseType::reference       Reference;
     //! Signed integer type (e.g. \c ptrdiff_t)
-    typedef difference_type DifferenceType;
+    typedef typename BaseType::difference_type DifferenceType;
 
     //! Default constructor (singular value)
     /*! Creates an iterator pointing to no element.

@@ -1,9 +1,9 @@
-.gradle
-.idea
-app/.cxx
-app/assets
-app/bugly
-app/build
+.cxx/
+.DS_Store
+.gradle/
+.idea/
 *.iml
-build
+app/bugly/
+app/assets/
+build/
 local.properties

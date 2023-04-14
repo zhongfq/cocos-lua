@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 project(lua-lfs C)
 
-set(source ${CMAKE_CURRENT_SOURCE_DIR}/../../libxgame/src/lfs)
+set(source ${CMAKE_CURRENT_SOURCE_DIR}/../../3rd/lfs)
 
 set(SRC
     ${source}/lfs.c

@@ -23,11 +23,7 @@
 # THE SOFTWARE.
 # ****************************************************************************/
 
-cmake_minimum_required(VERSION 3.10)
-
-set(APP_NAME cocos-lua)
-
-project(${APP_NAME})
+cmake_minimum_required(VERSION 3.16)
 
 option(CCLUA_BUILD_SPINE "Build with spine support" ON)
 option(CCLUA_BUILD_COCOSSTUDIO "Build with cocos studio support" OFF)
@@ -54,24 +50,32 @@ option(CCLUA_FEATURE_MSAA "Support MSAA" OFF)
 option(CCLUA_FEATURE_TRACKING "Support TRACKING" OFF)
 option(CCLUA_FEATURE_INTCOLOR "Support integer color" ON)
 
-set(RUNTIME_SRC_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/runtime-src)
-set(FRAMEWORK_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/frameworks)
-set(COCOS2DX_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/frameworks/cocos2d-x)
-set(CMAKE_MODULE_PATH ${COCOS2DX_ROOT_PATH}/cmake/Modules/)
+include(config.cmake)
+
+project(${APP_PROJECT_NAME})
+
+if(ANDROID)
+  set(APP_NAME ${APP_ANDROID_NAME})
+endif()
 
 add_definitions(-DCC_FILEUTILS_APPLE_ENABLE_OBJC=0)
 add_definitions(-DCC_ENABLE_SCRIPT_BINDING=0)
 add_definitions(-DCC_CONSTRUCTOR_ACCESS=public)
 
 if(CCLUA_BUILD_SPINE)
-    set(BUILD_EDITOR_SPINE ON)
-    add_definitions(-DSPINE_USE_STD_FUNCTION)
+  set(BUILD_EDITOR_SPINE ON)
+  add_definitions(-DSPINE_USE_STD_FUNCTION)
 else()
-    set(BUILD_EDITOR_SPINE OFF)
+  set(BUILD_EDITOR_SPINE OFF)
 endif()
 
-include(CocosBuildSet)
-add_subdirectory(${COCOS2DX_ROOT_PATH}/cocos ${ENGINE_BINARY_PATH}/cocos/core)
+if(NOT DEFINED BUILD_ENGINE_DONE)
+  set(COCOS2DX_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/frameworks/cocos2d-x)
+  set(CMAKE_MODULE_PATH ${COCOS2DX_ROOT_PATH}/cmake/Modules/)
+
+  include(CocosBuildSet)
+  add_subdirectory(${COCOS2DX_ROOT_PATH}/cocos ${ENGINE_BINARY_PATH}/cocos/core)
+endif()
 
 # runtime-src
 set(RUNTIME_SRC_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/runtime-src)
@@ -100,15 +104,10 @@ list(APPEND GAME_SOURCE ${RUNTIME_SRC_ROOT}/Classes/AppDelegate.cpp)
 list(APPEND GAME_HEADER ${RUNTIME_SRC_ROOT}/Classes/AppDelegate.h)
 
 if(ANDROID)
-    # change APP_NAME to the share library name for Android, it's value depend on AndroidManifest.xml
-    set(APP_NAME cclua)
-    list(APPEND GAME_SOURCE
-         ${RUNTIME_SRC_ROOT}/proj.android/app/jni/hellocpp/main.cpp
-         )
+  # change APP_NAME to the share library name for Android, it's value depend on AndroidManifest.xml
+  list(APPEND GAME_SOURCE ${RUNTIME_SRC_ROOT}/proj.android/app/jni/hellocpp/main.cpp)
 elseif(LINUX)
-    list(APPEND GAME_SOURCE
-         ${RUNTIME_SRC_ROOT}/proj.linux/main.cpp
-         )
+  list(APPEND GAME_SOURCE ${RUNTIME_SRC_ROOT}/proj.linux/main.cpp)
 elseif(WINDOWS)
   list(APPEND GAME_HEADER
     ${RUNTIME_SRC_ROOT}/proj.win32/main.h
@@ -168,127 +167,74 @@ endif()
 target_compile_definitions(${APP_NAME} PUBLIC APP_NAME="${APP_NAME}")
 target_compile_definitions(${APP_NAME} PUBLIC APP_PACKAGE_NAME="${APP_PACKAGE_NAME}")
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libxgame)
-target_link_libraries(${APP_NAME} xgame)
-
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/luaopenssl)
-target_link_libraries(${APP_NAME} luaopenssl)
-
-if(CCLUA_BUILD_FAIRYGUI)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libfairygui)
-    target_link_libraries(${APP_NAME} fairygui)
-    set_target_properties(fairygui PROPERTIES
-        ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-        FOLDER "cclua"
-    )
-    if(XCODE OR VS)
-        cocos_mark_code_files("fairygui" GROUPBASE "${CMAKE_CURRENT_SOURCE_DIR}/Classes")
-    endif()
-endif()
-
-if(CCLUA_BUILD_DRAGONBONES)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libdragonbones)
-    target_link_libraries(${APP_NAME} dragonbones)
-endif()
-
-if(CCLUA_BUILD_BOX2D)
-    set(BOX2D_BUILD_UNIT_TESTS OFF)
-    set(BOX2D_BUILD_TESTBED OFF)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/box2d)
-    target_link_libraries(${APP_NAME} box2d)
-    set_target_properties(box2d PROPERTIES
-        ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-        FOLDER "cclua"
-    )
-    if(XCODE OR VS)
-        cocos_mark_code_files("box2d" GROUPBASE "${CMAKE_CURRENT_SOURCE_DIR}/box2d")
-    endif()
-endif()
-
-if(CCLUA_BUILD_SWF)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libswf)
-    target_link_libraries(${APP_NAME} swf)
-    target_compile_definitions(${APP_NAME} PUBLIC CCLUA_BUILD_SWF)
-endif()
-
-if(CCLUA_BUILD_SQLITE3)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/sqlite3)
-    target_link_libraries(${APP_NAME} sqlite3)
-    target_compile_definitions(${APP_NAME} PUBLIC CCLUA_BUILD_SQLITE3)
-endif()
-
-if(CCLUA_BUILD_LUASOCKET)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/luasocket)
-    target_link_libraries(${APP_NAME} luasocket)
-    target_compile_definitions(xgame PUBLIC CCLUA_BUILD_LUASOCKET)
-endif()
-
-if(CCLUA_BUILD_PBC)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/pbc)
-    target_link_libraries(${APP_NAME} pbc)
-    target_compile_definitions(xgame PUBLIC CCLUA_BUILD_PBC)
-endif()
-
-if(CCLUA_BUILD_SPROTO)
-    set(CCLUA_BUILD_LPEG ON)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/sproto)
-    target_link_libraries(${APP_NAME} sproto)
-    target_compile_definitions(xgame PUBLIC CCLUA_BUILD_SPROTO)
-endif()
-
-if(CCLUA_BUILD_LPEG)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/lpeg)
-    target_link_libraries(${APP_NAME} lpeg)
-    target_compile_definitions(xgame PUBLIC CCLUA_BUILD_LPEG)
-endif()
-
-if(CCLUA_BUILD_JPUSH OR CCLUA_BUILD_JANALYTICS OR CCLUA_BUILD_JAUTH)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/plugins/jiguang)
-    target_link_libraries(${APP_NAME} plugin_jiguang)
-endif()
-
-if(CCLUA_BUILD_ALIPAY)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/plugins/alipay)
-    target_link_libraries(${APP_NAME} plugin_alipay)
-endif()
-
-if(CCLUA_BUILD_HUAWEI)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/plugins/huawei)
-    target_link_libraries(${APP_NAME} plugin_huawei)
-endif()
-
-if(CCLUA_BUILD_OPPO)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/plugins/oppo)
-    target_link_libraries(${APP_NAME} plugin_oppo)
-endif()
-
-if(CCLUA_BUILD_VIVO)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/plugins/vivo)
-    target_link_libraries(${APP_NAME} plugin_vivo)
-endif()
-
-if(CCLUA_BUILD_WECHAT)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/plugins/wechat)
-    target_link_libraries(${APP_NAME} plugin_wechat)
-endif()
-
-if(CCLUA_BUILD_TALKINGDATA)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/plugins/talkingdata)
-    target_link_libraries(${APP_NAME} plugin_talkingdata)
-endif()
-
-if(IOS)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/plugins/apple)
-    target_link_libraries(${APP_NAME} plugin_apple)
-endif()
-
 target_link_libraries(${APP_NAME} cocos2d)
 target_include_directories(${APP_NAME}
-    PRIVATE ${RUNTIME_SRC_ROOT}/Classes
-    PRIVATE ${COCOS2DX_ROOT_PATH}/cocos/audio/include/
+  PRIVATE
+    ${RUNTIME_SRC_ROOT}/Classes
+    ${COCOS2DX_ROOT_PATH}/cocos/audio/include/
 )
+
+function(add_module path)
+  set(oneValue LINK_TO FOLDER)
+  set(multiValue TARGETS ENABLEIF DEFINITIONS)
+  cmake_parse_arguments("ARG" "" "${oneValue}" "${multiValue}" ${ARGN})
+  if(NOT DEFINED ARG_ENABLEIF OR (${ARG_ENABLEIF}))
+    add_subdirectory(${path})
+    message(STATUS "add module: ${path}")
+    string(REPLACE ";" " " ARG_DEFINITIONS "${ARG_DEFINITIONS}")
+    foreach(name ${ARG_TARGETS})
+      if(DEFINED ARG_DEFINITIONS)
+        target_compile_definitions(${name} PUBLIC ${ARG_DEFINITIONS})
+      endif()
+      if(DEFINED ARG_FOLDER)
+        set_target_properties(${name} PROPERTIES FOLDER ${ARG_FOLDER})
+      endif()
+      target_link_libraries(${ARG_LINK_TO} ${name})
+      set_target_properties(${name}
+        PROPERTIES
+          ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+          LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+      )
+    endforeach()
+  endif()
+endfunction()
+
+add_module(frameworks/cclua TARGETS cclua LINK_TO ${APP_NAME})
+add_module(frameworks/libswf TARGETS swf LINK_TO ${APP_NAME} ENABLEIF CCLUA_BUILD_SWF DEFINITIONS CCLUA_BUILD_SWF)
+add_module(frameworks/3rd/box2d TARGETS box2d LINK_TO cclua FOLDER "3rd" ENABLEIF CCLUA_BUILD_BOX2D DEFINITIONS CCLUA_BUILD_BOX2D)
+add_module(frameworks/3rd/bzip2 TARGETS bz2 LINK_TO cclua FOLDER "3rd")
+add_module(frameworks/3rd/cjson TARGETS cjson LINK_TO ${APP_NAME} FOLDER "3rd")
+add_module(frameworks/3rd/dragonbones TARGETS dragonbones LINK_TO cclua FOLDER "3rd" ENABLEIF CCLUA_BUILD_DRAGONBONES DEFINITIONS CCLUA_BUILD_DRAGONBONES)
+add_module(frameworks/3rd/fairygui TARGETS fairygui LINK_TO cclua FOLDER "3rd" ENABLEIF CCLUA_BUILD_FAIRYGUI DEFINITIONS CCLUA_BUILD_FAIRYGUI)
+add_module(frameworks/3rd/glsl-optimizer TARGETS glsl_optimizer LINK_TO cocos2d FOLDER "3rd" ENABLEIF APPLE)
+add_module(frameworks/3rd/freetype TARGETS freetype LINK_TO cocos2d FOLDER "3rd")
+add_module(frameworks/3rd/glfw TARGETS glfw LINK_TO cocos2d FOLDER "3rd" ENABLEIF WINDOWS OR MACOSX OR LINUX)
+add_module(frameworks/3rd/jpeg TARGETS jpeg LINK_TO cocos2d FOLDER "3rd")
+add_module(frameworks/3rd/lfs TARGETS lfs LINK_TO ${APP_NAME} FOLDER "3rd")
+add_module(frameworks/3rd/lmd5 TARGETS lmd5 LINK_TO ${APP_NAME} FOLDER "3rd")
+add_module(frameworks/3rd/lpeg TARGETS lpeg LINK_TO ${APP_NAME} FOLDER "3rd" ENABLEIF CCLUA_BUILD_LPEG DEFINITIONS CCLUA_BUILD_LPEG)
+add_module(frameworks/3rd/lua TARGETS lua LINK_TO cclua FOLDER "3rd")
+add_module(frameworks/3rd/luaopenssl TARGETS luaopenssl LINK_TO ${APP_NAME} FOLDER "3rd")
+add_module(frameworks/3rd/luasocket TARGETS luasocket LINK_TO ${APP_NAME} FOLDER "3rd" ENABLEIF CCLUA_BUILD_LUASOCKET DEFINITIONS CCLUA_BUILD_LUASOCKET)
+add_module(frameworks/3rd/md5 TARGETS md5 LINK_TO cocos2d FOLDER "3rd")
+add_module(frameworks/3rd/pbc TARGETS pbc LINK_TO ${APP_NAME} FOLDER "3rd" ENABLEIF CCLUA_BUILD_PBC DEFINITIONS CCLUA_BUILD_PBC)
+add_module(frameworks/3rd/png TARGETS png LINK_TO cocos2d FOLDER "3rd")
+add_module(frameworks/3rd/sproto TARGETS sproto LINK_TO ${APP_NAME} FOLDER "3rd" ENABLEIF CCLUA_BUILD_SPROTO DEFINITIONS CCLUA_BUILD_SPROTO)
+add_module(frameworks/3rd/sqlite3 TARGETS sqlite3 LINK_TO ${APP_NAME} FOLDER "3rd" ENABLEIF CCLUA_BUILD_SQLITE3 DEFINITIONS CCLUA_BUILD_SQLITE3)
+add_module(frameworks/3rd/openssl TARGETS ssl crypto LINK_TO cocos2d FOLDER "3rd")
+add_module(frameworks/3rd/unzip TARGETS unzip LINK_TO cocos2d FOLDER "3rd")
+add_module(frameworks/3rd/xxtea TARGETS xxtea LINK_TO cocos2d FOLDER "3rd")
+add_module(frameworks/3rd/zlib TARGETS zlib LINK_TO cocos2d FOLDER "3rd")
+add_module(frameworks/plugins/alipay TARGETS plugin_alipay LINK_TO ${APP_NAME} FOLDER "Plugins" ENABLEIF CCLUA_BUILD_ALIPAY)
+add_module(frameworks/plugins/apple TARGETS plugin_apple LINK_TO ${APP_NAME} FOLDER "Plugins" ENABLEIF APPLE)
+add_module(frameworks/plugins/huawei TARGETS plugin_huawei LINK_TO ${APP_NAME} FOLDER "Plugins" ENABLEIF CCLUA_BUILD_HUAWEI)
+add_module(frameworks/plugins/janalytics TARGETS plugin_janalytics LINK_TO ${APP_NAME} FOLDER "Plugins" ENABLEIF CCLUA_BUILD_JANALYTICS)
+add_module(frameworks/plugins/jauth TARGETS plugin_jauth LINK_TO ${APP_NAME} FOLDER "Plugins" ENABLEIF CCLUA_BUILD_JAUTH)
+add_module(frameworks/plugins/jpush TARGETS plugin_jpush LINK_TO ${APP_NAME} FOLDER "Plugins" ENABLEIF CCLUA_BUILD_JPUSH)
+add_module(frameworks/plugins/oppo TARGETS plugin_oppo LINK_TO ${APP_NAME} FOLDER "Plugins" ENABLEIF CCLUA_BUILD_OPPO)
+add_module(frameworks/plugins/talkingdata TARGETS plugin_talkingdata LINK_TO ${APP_NAME} FOLDER "Plugins" ENABLEIF CCLUA_BUILD_TALKINGDATA)
+add_module(frameworks/plugins/vivo TARGETS plugin_vivo LINK_TO ${APP_NAME} FOLDER "Plugins" ENABLEIF CCLUA_BUILD_VIVO)
+add_module(frameworks/plugins/wechat TARGETS plugin_wechat LINK_TO ${APP_NAME} FOLDER "Plugins" ENABLEIF CCLUA_BUILD_WECHAT)
 
 # suspend warnings
 if(APPLE)
@@ -345,7 +291,7 @@ if(APPLE)
   set_xcode_property(${APP_NAME} INSTALL_PATH "$(LOCAL_APPS_DIR)")
   set_xcode_property(${APP_NAME} DEVELOPMENT_TEAM "${APPLE_DEVELOPMENT_TEAM}")
   set_xcode_property(${APP_NAME} PRODUCT_BUNDLE_IDENTIFIER "${APP_PACKAGE_NAME}")
-    set_xcode_property(${APP_NAME} PRODUCT_NAME "${APP_PRODUCT_NAME}")
+  set_xcode_property(${APP_NAME} PRODUCT_NAME "${APP_NAME}")
   set_xcode_property(${APP_NAME} CURRENT_PROJECT_VERSION "${APP_BUILD}")
   set_xcode_property(${APP_NAME} MARKETING_VERSION "${APP_VERSION}")
   set_xcode_property(${APP_NAME} TARGETED_DEVICE_FAMILY "1,2")
@@ -379,4 +325,17 @@ endif()
 if(LINUX OR WINDOWS)
   cocos_get_resource_path(APP_RES_DIR ${APP_NAME})
   cocos_copy_target_res(${APP_NAME} LINK_TO ${APP_RES_DIR} FOLDERS ${GAME_RES_FOLDER})
+endif()
+
+# TODO: remove
+if(WINDOWS)
+  get_target_property(rt_output ${APP_NAME} RUNTIME_OUTPUT_DIRECTORY)
+  add_custom_command(TARGET ${APP_NAME} 
+    POST_BUILD 
+      COMMAND ${CMAKE_COMMAND} -E 
+        copy_if_different 
+          "${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/openssl/prebuilt/win32/libcrypto-1_1.dll"
+          "${CMAKE_CURRENT_SOURCE_DIR}/frameworks/3rd/openssl/prebuilt/win32/libssl-1_1.dll"
+          "${rt_output}/${CMAKE_CFG_INTDIR}"
+        )
 endif()

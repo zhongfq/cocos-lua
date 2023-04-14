@@ -1,0 +1,6 @@
+framework module GTCaptcha4 {
+  umbrella header "GTCaptcha4.h"
+
+  export *
+  module * { export * }
+}

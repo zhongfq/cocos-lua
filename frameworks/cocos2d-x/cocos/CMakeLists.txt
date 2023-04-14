@@ -27,7 +27,6 @@
 # this CMakeLists is to generate Cocos2d-x Engine Library
 # build libcocos2d
 # build luacocos2d if BUILD_LUA_LIBS=ON
-# build jscocos2d if BUILD_JS_LIBS=ON
 
 # The version number
 set(COCOS2D_X_VERSION 3.17.2)
@@ -154,10 +153,6 @@ set_target_properties(cocos2d
 if(BUILD_LUA_LIBS)
     add_subdirectory(${COCOS2DX_ROOT_PATH}/cocos/scripting/lua-bindings ${ENGINE_BINARY_PATH}/cocos/lua-bindings)
 endif()
-## JS bindings lib
-if(BUILD_JS_LIBS)
-    add_subdirectory(${COCOS2DX_ROOT_PATH}/cocos/scripting/js-bindings ${ENGINE_BINARY_PATH}/cocos/js-bindings)
-endif()
 
 if(XCODE OR VS)
     cocos_mark_code_files("cocos2d")
@@ -165,7 +160,7 @@ endif()
 
 if(WINDOWS)
     # precompiled header. Compilation time speedup ~4x.
-    target_sources(cocos2d PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/precheader.cpp")
+    target_sources(cocos2d PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/precheader.cpp")
     set_target_properties(cocos2d PROPERTIES COMPILE_FLAGS "/Yuprecheader.h /FIprecheader.h")
     set_source_files_properties("${CMAKE_CURRENT_SOURCE_DIR}/precheader.cpp" PROPERTIES COMPILE_FLAGS "/Ycprecheader.h")
     # compile c as c++. needed for precompiled header

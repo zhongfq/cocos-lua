@@ -1,6 +1,6 @@
 module 'cocos2d'
 
-path "../../frameworks/libxgame/src/lua-bindings"
+path '../../frameworks/cclua/src/lua-bindings'
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
@@ -8,8 +8,6 @@ headers [[
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "audio/include/AudioEngine.h"
-#include "vr/CCVRGenericRenderer.h"
-#include "vr/CCVRGenericHeadTracker.h"
 ]]
 
 chunk [[
@@ -392,10 +390,6 @@ typeconf 'cocos2d::TextureCube'
 typeconf 'cocos2d::BlendProtocol'
 typeconf 'cocos2d::TextureProtocol'
 typeconf 'cocos2d::TextureAtlas'
-typeconf 'cocos2d::VRIHeadTracker'
-typeconf 'cocos2d::VRIRenderer'
-typeconf 'cocos2d::VRGenericRenderer'
-typeconf 'cocos2d::VRGenericHeadTracker'
 
 typeconf 'cocos2d::network::WebSocket::ErrorCode'
 typeconf 'cocos2d::network::WebSocket::State'

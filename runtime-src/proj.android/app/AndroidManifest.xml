@@ -36,7 +36,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         
         <!-- Tell Cocos2dxActivity the name of our .so -->
-        <meta-data android:name="android.app.lib_name" android:value="cclua" />
+        <meta-data android:name="android.app.lib_name" android:value="cocoslua" />
 
         <meta-data android:name="cclua.channel" android:value="dev" />
 

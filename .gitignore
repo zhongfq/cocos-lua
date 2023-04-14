@@ -1,6 +1,7 @@
-build/
 wwwroot/*
-.vs/
-runtime/
-Debug/
-Debug.win32/
+build/
+assets/builtin.manifest
+assets/assets.bundle
+.DS_Store
+._*
+Icon*

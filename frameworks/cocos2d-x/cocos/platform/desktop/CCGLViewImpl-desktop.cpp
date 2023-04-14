@@ -40,7 +40,12 @@ THE SOFTWARE.
 #include "base/ccUTF8.h"
 #include "2d/CCCamera.h"
 #include "platform/CCImage.h"
-
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#include "GLFW/glfw3native.h"
+#endif /* (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) */
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+#include "GLFW/glfw3native.h"
+#endif // #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 NS_CC_BEGIN
 
 GLViewImpl* GLFWEventHandler::_view = nullptr;
@@ -452,6 +457,18 @@ void GLViewImpl::enableRetina(bool enabled)
     updateFrameSize();
 #endif
 }
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+void *GLViewImpl::getNSGLContext()
+{
+    return glfwGetNSGLContext(_mainWindow);
+}
+
+void *GLViewImpl::getCocoaWindow()
+{
+    return glfwGetCocoaWindow(_mainWindow);
+}
+#endif // #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 
 
 void GLViewImpl::setIMEKeyboardState(bool /*bOpen*/)

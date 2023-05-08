@@ -82,6 +82,8 @@ if(WINDOWS)
   target_compile_definitions(lua PRIVATE LUA_BUILD_AS_DLL)
 elseif(MACOSX)
   target_compile_definitions(lua PUBLIC LUA_USE_MACOSX)
+elseif(IOS)
+  target_compile_definitions(lua PUBLIC LUA_USE_IOS)
 endif()
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${LUA_SRC})

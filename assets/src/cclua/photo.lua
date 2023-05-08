@@ -23,7 +23,7 @@ photo.setDispatcher(function (event, data)
     print("photo", event, util.dump(data))
     local function exec(callback)
         if data.status == 'complete' then
-            callback('successful', data)
+            callback('successful', photo.cachePath)
         elseif data.status == 'cancel' then
             callback('canceled', data)
         else

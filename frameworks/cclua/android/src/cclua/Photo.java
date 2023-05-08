@@ -2,9 +2,11 @@ package cclua;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,7 +17,9 @@ import androidx.core.content.FileProvider;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.List;
 
 @SuppressWarnings("unused")
 public class Photo extends Activity {
@@ -41,6 +45,7 @@ public class Photo extends Activity {
     private static long sCallback = 0;
 
     private File mOutput;
+    private File mOutputTmp;
     private int mWidth;
     private int mHeight;
     private int mMode;
@@ -51,6 +56,7 @@ public class Photo extends Activity {
         super.onCreate(savedInstanceState);
 
         mOutput = new File(getIntent().getStringExtra("output"));
+        mOutputTmp = new File(mOutput.getAbsolutePath() + ".tmp");
         mWidth = getIntent().getIntExtra("width", 200);
         mHeight = getIntent().getIntExtra("height", 200);
         mMode = getIntent().getIntExtra("mode", PhotoMode.AVATAR);
@@ -74,6 +80,17 @@ public class Photo extends Activity {
         return FileProvider.getUriForFile(this, authority, path);
     }
 
+    private Bitmap loadFromUri(Uri photoUri) {
+        Bitmap image = null;
+        try {
+            ImageDecoder.Source source = ImageDecoder.createSource(getContentResolver(), photoUri);
+            image = ImageDecoder.decodeBitmap(source);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -87,15 +104,32 @@ public class Photo extends Activity {
             return;
         }
         if (requestCode == REQUEST_PICTURE) {
-            if (mMode == PhotoMode.AVATAR) {
-                Intent intent = new Intent("com.android.camera.action.CROP");
-                if (mSource == PhotoSource.PHOTO_LIBRARY) {
-                    intent.setDataAndType(data.getData(), "image/*");
-                } else {
-                    intent.setDataAndType(getContentURI(mOutput), "image/*");
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            if (mSource == PhotoSource.PHOTO_LIBRARY) {
+                try {
+                    ImageDecoder.Source source = ImageDecoder.createSource(getContentResolver(), data.getData());
+                    Bitmap bitmap = ImageDecoder.decodeBitmap(source);
+                    OutputStream out = new FileOutputStream(mOutput);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                    out.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+            }
+            if (mMode == PhotoMode.AVATAR) {
+                Uri inUri = getContentURI(mOutput);
+                Uri outUri = getContentURI(mOutputTmp);
+                Intent intent = new Intent("com.android.camera.action.CROP");
+                intent.setDataAndType(inUri, "image/*");
+
+                List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, 0);
+                for (ResolveInfo info : list) {
+                    int permission = Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION;
+                    grantUriPermission(info.activityInfo.packageName, outUri, permission);
+                    grantUriPermission(info.activityInfo.packageName, inUri, permission);
+                }
+
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 intent.putExtra("crop", "true");
                 intent.putExtra("aspectX", 1);
                 intent.putExtra("aspectY", 1);
@@ -103,7 +137,7 @@ public class Photo extends Activity {
                 intent.putExtra("outputY", mHeight);
                 intent.putExtra("scale", true);
                 intent.putExtra("return-data", false);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mOutput));
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, outUri);
                 startActivityForResult(intent, REQUEST_CROP_PICTURE);
             } else {
                 notifyResult.onResult("complete", null);
@@ -111,7 +145,7 @@ public class Photo extends Activity {
             }
         } else if (requestCode == REQUEST_CROP_PICTURE) {
             try {
-                Bitmap bitmap = BitmapFactory.decodeFile(mOutput.getAbsolutePath());
+                Bitmap bitmap = BitmapFactory.decodeFile(mOutputTmp.getAbsolutePath());
                 if (bitmap != null) {
                     BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(mOutput));
                     Matrix matrix = new Matrix();
@@ -129,8 +163,10 @@ public class Photo extends Activity {
                 } else {
                     notifyResult.onResult("ioerror", "read image file error");
                 }
+                mOutputTmp.delete();
                 finish();
             } catch (Throwable e) {
+                e.printStackTrace();
                 notifyResult.onResult("ioerror", "write image file error");
                 finish();
             }

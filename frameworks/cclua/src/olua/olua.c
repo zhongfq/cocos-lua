@@ -415,10 +415,16 @@ OLUA_API void *olua_toobj(lua_State *L, int idx, const char *cls)
 
 OLUA_API void olua_delobj(lua_State *L, void *obj)
 {
-    if (olua_getrawobj(L, obj)) {
-        olua_setrawobj(L, -1, NULL);
-        lua_pop(L, 1);
+    if (!obj) {
+        return;
     }
+    olua_pushobjtable(L);
+    if (olua_rawgetp(L, -1, obj) == LUA_TUSERDATA) {
+        olua_setrawobj(L, -1, NULL);
+    }
+    lua_pushnil(L); // L: objtable ud nil
+    olua_rawsetp(L, -3, obj);
+    lua_pop(L, 2);
 }
 
 OLUA_API const char *olua_objstring(lua_State *L, int idx)

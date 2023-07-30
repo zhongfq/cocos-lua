@@ -12,6 +12,10 @@ else()
     set(OS "linux")
 endif()
 
+if(APPLE)
+    set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64")
+endif()
+
 if(LUA STREQUAL "lua54")
     add_subdirectory(lua)
     get_filename_component(LUA_INCLUDE "../3rd/lua"

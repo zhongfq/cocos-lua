@@ -103,16 +103,6 @@ static lua_Integer loadInteger (LoadState *S) {
   return x;
 }
 
-#ifndef LUA_DEBUG
-static void flip(char *str, size_t size) {
-  size_t i;
-  for (i = 0; i < size; i++) {
-    str[i] = str[i] ^ 'e';
-  }
-}
-#else
-#define flip(s, n)
-#endif
 
 /*
 ** Load a nullable string into prototype 'p'.
@@ -126,7 +116,6 @@ static TString *loadStringN (LoadState *S, Proto *p) {
   else if (--size <= LUAI_MAXSHORTLEN) {  /* short string? */
     char buff[LUAI_MAXSHORTLEN];
     loadVector(S, buff, size);  /* load string into buffer */
-    flip(buff, size);
     ts = luaS_newlstr(L, buff, size);  /* create string */
   }
   else {  /* long string */
@@ -134,7 +123,6 @@ static TString *loadStringN (LoadState *S, Proto *p) {
     setsvalue2s(L, L->top.p, ts);  /* anchor it ('loadVector' can GC) */
     luaD_inctop(L);
     loadVector(S, getstr(ts), size);  /* load directly in final place */
-    flip(getstr(ts), size);
     L->top.p--;  /* pop string */
   }
   luaC_objbarrier(L, p, ts);
@@ -271,25 +259,16 @@ static void loadFunction (LoadState *S, Proto *f, TString *psource) {
   f->source = loadStringN(S, f);
   if (f->source == NULL)  /* no source in dump? */
     f->source = psource;  /* reuse parent's source */
-#ifndef LUA_DEBUG
-  loadCode(S, f);
-  loadConstants(S, f);
-  loadUpvalues(S, f);
-  loadProtos(S, f);
-  loadDebug(S, f);
-#endif
   f->linedefined = loadInt(S);
   f->lastlinedefined = loadInt(S);
   f->numparams = loadByte(S);
   f->is_vararg = loadByte(S);
   f->maxstacksize = loadByte(S);
-#ifdef LUA_DEBUG
   loadCode(S, f);
   loadConstants(S, f);
   loadUpvalues(S, f);
   loadProtos(S, f);
   loadDebug(S, f);
-#endif
 }
 
 

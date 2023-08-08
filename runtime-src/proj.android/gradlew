@@ -48,7 +48,7 @@ if $cygwin ; then
 fi
 
 if $darwin ; then
-    JAVA_HOME="/Applications/Android Studio.app/Contents/jre/Contents/Home"
+    JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 fi
 
 # Attempt to set APP_HOME

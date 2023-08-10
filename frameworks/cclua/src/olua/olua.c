@@ -389,7 +389,9 @@ static void *aux_toobj(lua_State *L, int idx, const char *cls, bool checked)
     if (olua_likely(checked ? olua_isa(L, idx, cls) : olua_isuserdata(L, idx))) {
         void *obj = olua_torawobj(L, idx);
         if (olua_unlikely(!obj)) {
-            luaL_error(L, "object '%s' survive from gc", olua_typename(L, idx));
+            idx = lua_absindex(L, idx);
+            luaL_error(L, "object '%s %p' survive from gc",
+                olua_typename(L, idx), lua_topointer(L, idx));
         }
         return obj;
     } else {

@@ -211,6 +211,7 @@ OLUA_API void *olua_checkobj(lua_State *L, int idx, const char *cls);
 OLUA_API void *olua_toobj(lua_State *L, int idx, const char *cls);
 OLUA_API void olua_delobj(lua_State *L, void *obj);
 OLUA_API const char *olua_objstring(lua_State *L, int idx);
+OLUA_API void olua_printobj(lua_State *L, const char *tag, int idx);
 OLUA_API int olua_indexerror(lua_State *L);
 OLUA_API int olua_newindexerror(lua_State *L);
 

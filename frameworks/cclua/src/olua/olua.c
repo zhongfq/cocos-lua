@@ -55,6 +55,8 @@
 #define const_string(L, k, v)   (olua_pushstring(L, (v)), oluacls_const(L, (k)))
 #define const_from(L, k, mt)    (olua_rawgetf(L, (mt), (k)), oluacls_const(L, k))
 
+#define OLUA_VMBUFF_SIZE 128
+
 typedef struct {
     int64_t ctxid;
     size_t poolsize;
@@ -62,6 +64,7 @@ typedef struct {
     int64_t objcount;
     bool poolenabled;
     bool debug;
+    char buff[OLUA_VMBUFF_SIZE];
 } olua_VMEnv;
 
 static int luaopen_olua(lua_State *L);
@@ -294,15 +297,20 @@ OLUA_API int olua_pushobjstub(lua_State *L, void *obj, void *stub, const char *c
     return status;
 }
 
-static void olua_pushlocalobj(lua_State *L, void *obj)
+static void olua_pushpooltable(lua_State *L)
 {
-    olua_VMEnv *mt = olua_getvmenv(L);
     if (olua_unlikely(registry_rawgetf(L, OLUA_POOLTABLE) != LUA_TTABLE)) {
         lua_pop(L, 1);
         lua_createtable(L, 16, 0);
         lua_pushvalue(L, -1);
         registry_rawsetf(L, OLUA_POOLTABLE);
     }
+}
+
+static void olua_pushpoolobj(lua_State *L, void *obj)
+{
+    olua_VMEnv *mt = olua_getvmenv(L);
+    olua_pushpooltable(L);
     
     if (olua_unlikely(olua_rawgeti(L, -1, ++mt->poolsize) != LUA_TUSERDATA)) {
         lua_pop(L, 1);
@@ -339,7 +347,7 @@ OLUA_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
             // L: obj metaclass objtable obj
             lua_remove(L, -4);
         } else if (olua_unlikely(env->poolenabled)) {
-            olua_pushlocalobj(L, obj);
+            olua_pushpoolobj(L, obj);
             olua_setownership(L, -1, OLUA_OWNERSHIP_SLAVE);
             status = OLUA_OBJ_EXIST;
         } else {
@@ -390,6 +398,7 @@ static void *aux_toobj(lua_State *L, int idx, const char *cls, bool checked)
         void *obj = olua_torawobj(L, idx);
         if (olua_unlikely(!obj)) {
             idx = lua_absindex(L, idx);
+
             luaL_error(L, "object '%s %p' survive from gc",
                 olua_typename(L, idx), lua_topointer(L, idx));
         }
@@ -431,12 +440,26 @@ OLUA_API void olua_delobj(lua_State *L, void *obj)
 
 OLUA_API const char *olua_objstring(lua_State *L, int idx)
 {
+    olua_VMEnv *env = olua_getvmenv(L);
     const void *ud = lua_topointer(L, idx);
     const void *obj = ud;
     if (olua_isuserdata(L, idx)) {
         obj = olua_torawobj(L, idx);
     }
-    return lua_pushfstring(L, "%s: %p", olua_typename(L, idx), obj);
+    snprintf(env->buff, OLUA_VMBUFF_SIZE, "%s: %p", olua_typename(L, idx), obj);
+    return env->buff;
+}
+
+OLUA_API void olua_printobj(lua_State *L, const char *tag, int idx)
+{
+    char buf[256];
+    olua_VMEnv *env = olua_getvmenv(L);
+    snprintf(buf, sizeof(buf), "%s:%05"PRId64": %s {userdata=%p, name=%s}",
+        tag, env->objcount, olua_objstring(L, 2), lua_topointer(L, 2),
+        olua_optfieldstring(L, 2, "name", ""));
+    olua_getglobal(L, "print");
+    olua_pushstring(L, buf);
+    lua_pcall(L, 1, 0, 1);
 }
 
 OLUA_API int olua_indexerror(lua_State *L)
@@ -968,14 +991,7 @@ static int cls_metamethod(lua_State *L)
         return 0;
     } else {
         if (env->debug) {
-            char buf[256];
-            snprintf(buf, sizeof(buf), "lua gc:%05"PRId64": %s {userdata=%p, name=%s}",
-                env->objcount, olua_objstring(L, 2), lua_topointer(L, 2),
-                olua_optfieldstring(L, 2, "name", ""));
-            olua_getglobal(L, "print");
-            olua_pushstring(L, buf);
-            lua_pcall(L, 1, 0, 1);
-            lua_pop(L, 1); // pop objstring
+            olua_printobj(L, "lua gc", 2);
         }
         olua_pusherrorfunc(L);
         lua_insert(L, 1);
@@ -1589,7 +1605,7 @@ static int l_voidp_stub(lua_State *L)
 
 static int l_voidp_tostring(lua_State *L)
 {
-    olua_objstring(L, 1);
+    olua_pushstring(L, olua_objstring(L, 1));
     return 1;
 }
 

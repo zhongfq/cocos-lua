@@ -15,5 +15,24 @@ jobs:
       uses: xpol/setup-lua@v0.2
       with:
         lua-version: "5.3.5"
+
+    - name: Create Build Environment
+      run: cmake -E make_directory build
+
+    - name: Configure Toolset
+      shell: bash
+      working-directory: build
+      run: cmake $GITHUB_WORKSPACE/frameworks/toolset -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLUA=lua54
+
+    - name: Build Toolset
+      working-directory: build
+      shell: bash
+      run: cmake --build .
+
+    - name: Install Toolset
+      working-directory: build
+      shell: bash
+      run: cmake --install .
+
     - name: Build with Gradle
       run: cd runtime-src/proj.android && ./gradlew assembleRelease

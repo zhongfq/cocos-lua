@@ -191,7 +191,8 @@ void olua_postgc(lua_State *L, T *obj);
 template <class T>
 void olua_postgc(lua_State *L, T *obj)
 {
-    if (olua_getrawobj(L, obj)) {
+    T *self = olua_checkobj<T>(L, -1);
+    if (self == obj) {
         int ownership = olua_getownership(L, -1);
         if (ownership == OLUA_OWNERSHIP_VM) {
             if (std::is_void<T>()) {
@@ -203,7 +204,8 @@ void olua_postgc(lua_State *L, T *obj)
             obj->~T();
         }
         olua_setrawobj(L, -1, nullptr);
-        lua_pop(L, 1);
+    } else {
+        luaL_error(L, "object error");
     }
 }
 #endif

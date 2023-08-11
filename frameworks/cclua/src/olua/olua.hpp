@@ -120,7 +120,11 @@ OLUA_END_DECLS
 #define olua_endinvoke(L)   ((void)L)
 #endif
 
-template <class T> inline T *olua_toobj(lua_State *L, int idx);
+template <class T> inline
+T *olua_toobj(lua_State *L, int idx);
+
+template <class T> inline
+T *olua_checkobj(lua_State *L, int idx);
 
 /**
  * Handle the status of object after push, you can do some jobs

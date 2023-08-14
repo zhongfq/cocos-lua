@@ -7,7 +7,7 @@ local UIPackage     = require "fgui.UIPackage"
 local GRoot         = require "fgui.GRoot"
 local Window        = require "fgui.Window"
 local GTween        = require "fgui.GTween"
-
+local UIEventType = require "fgui.UIEventType"
 local FGUITest = class("GUITest", UIScene)
 
 function FGUITest:ctor()
@@ -93,9 +93,26 @@ function FGUITest:ctor()
 
     root:addChild(view)
 
-    util.dumpUserValue(self.cobj, 'scene')
-    util.dumpUserValue(root.displayObject, 'displayObject')
-    util.dumpUserValue(root, 'root')
+    -- util.dumpUserValue(self.cobj, 'scene')
+    -- util.dumpUserValue(root.displayObject, 'displayObject')
+    -- util.dumpUserValue(root, 'root')
+    root:addEventListener(UIEventType.TouchBegin, handler(self, self.onTouch))
+    root:addEventListener(UIEventType.TouchMove, handler(self, self.onTouch))
+    root:addEventListener(UIEventType.TouchEnd, handler(self, self.onTouch))
 end
-    
+
+function FGUITest:onTouch(event)
+    local type = event:getType()
+    local input = event:getInput()
+    local sender = input:getTarget()
+    local touch = input:getTouch()
+    util.dumpUserValue(touch, 'touch')
+end
+
+function handler(obj, method)
+    return function(...)
+        return method(obj, ...)
+    end
+end
+
 return FGUITest

@@ -383,7 +383,7 @@ typeconf 'cocos2d::network::WebSocket'
             }
 
             self->init(*delegate, url, protocols.size() > 0 ? &protocols : nullptr, cafile);
-            olua_addref(L, 1, "delegate", 2, OLUA_FLAG_SINGLE);
+            olua_addref(L, 1, "delegate", 2, OLUA_REF_ALONE);
 
             return 0;
         }

@@ -60,7 +60,7 @@ void olua_postnew(lua_State *L, T *obj)
     if (std::is_base_of<cocos2d::Ref, T>::value) {
         ((cocos2d::Ref *)obj)->autorelease();
     } else if (olua_getrawobj(L, obj)) {
-        olua_setownership(L, -1, OLUA_OWNERSHIP_VM);
+        olua_setobjflag(L, -1, OLUA_FLAG_COBJ);
         lua_pop(L, 1);
     }
 }

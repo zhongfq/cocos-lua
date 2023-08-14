@@ -993,7 +993,7 @@ static int _cocostudio_ActionFrame_getAction$1(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.ActionInterval");
 
     // insert code after call
-    olua_addref(L, 1, "action", -1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "action", -1, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -1017,7 +1017,7 @@ static int _cocostudio_ActionFrame_getAction$2(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.ActionInterval");
 
     // insert code after call
-    olua_addref(L, 1, "action", -1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "action", -1, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -6821,7 +6821,7 @@ static int _cocostudio_Bone_removeFromParent$1(lua_State *L)
     self->removeFromParent(arg1);
 
     // insert code after call
-    olua_delref(L, parent, "children", 1, OLUA_FLAG_MULTIPLE);
+    olua_delref(L, parent, "children", 1, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -6847,7 +6847,7 @@ static int _cocostudio_Bone_removeFromParent$2(lua_State *L)
     self->removeFromParent();
 
     // insert code after call
-    olua_delref(L, parent, "children", 1, OLUA_FLAG_MULTIPLE);
+    olua_delref(L, parent, "children", 1, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -14113,7 +14113,7 @@ static int _cocostudio_timeline_Frame_getNode(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.Node");
 
     // insert code after call
-    olua_addref(L, 1, "node", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "node", -1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -14133,7 +14133,7 @@ static int _cocostudio_timeline_Frame_getTimeline(lua_State *L)
     int num_ret = olua_push_object(L, ret, "ccs.timeline.Timeline");
 
     // insert code after call
-    olua_addref(L, 1, "timeline", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "timeline", -1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -14263,7 +14263,7 @@ static int _cocostudio_timeline_Frame_setNode(lua_State *L)
     self->setNode(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "node", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "node", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -14284,7 +14284,7 @@ static int _cocostudio_timeline_Frame_setTimeline(lua_State *L)
     self->setTimeline(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "timeline", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "timeline", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -16257,7 +16257,7 @@ static int _cocostudio_timeline_ActionTimelineNode_getActionTimeline(lua_State *
     int num_ret = olua_push_object(L, ret, "ccs.timeline.ActionTimeline");
 
     // insert code after call
-    olua_addref(L, 1, "actiontimeline", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "actiontimeline", -1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -16277,7 +16277,7 @@ static int _cocostudio_timeline_ActionTimelineNode_getRoot(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.Node");
 
     // insert code after call
-    olua_addref(L, 1, "root", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "root", -1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -16371,7 +16371,7 @@ static int _cocostudio_timeline_ActionTimelineNode_setActionTimeline(lua_State *
     self->setActionTimeline(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "actiontimeline", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "actiontimeline", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -16392,7 +16392,7 @@ static int _cocostudio_timeline_ActionTimelineNode_setRoot(lua_State *L)
     self->setRoot(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "root", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "root", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -16433,7 +16433,7 @@ static int _cocostudio_timeline_BoneNode_addSkin$1(lua_State *L)
     self->addSkin(arg1, arg2);
 
     // insert code after call
-    olua_addref(L, 1, "skins", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "skins", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -16458,7 +16458,7 @@ static int _cocostudio_timeline_BoneNode_addSkin$2(lua_State *L)
     self->addSkin(arg1, arg2, arg3);
 
     // insert code after call
-    olua_addref(L, 1, "skins", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "skins", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -16643,7 +16643,7 @@ static int _cocostudio_timeline_BoneNode_getAllSubBones(lua_State *L)
     });
 
     // insert code after call
-    olua_addref(L, 1, "subBones", -1, OLUA_FLAG_MULTIPLE | OLUA_FLAG_TABLE);
+    olua_addref(L, 1, "subBones", -1, OLUA_REF_MULTI | OLUA_REF_TABLE);
 
     olua_endinvoke(L);
 
@@ -16665,7 +16665,7 @@ static int _cocostudio_timeline_BoneNode_getAllSubSkins(lua_State *L)
     });
 
     // insert code after call
-    olua_addref(L, 1, "subSkins", -1, OLUA_FLAG_MULTIPLE | OLUA_FLAG_TABLE);
+    olua_addref(L, 1, "subSkins", -1, OLUA_REF_MULTI | OLUA_REF_TABLE);
 
     olua_endinvoke(L);
 
@@ -16704,7 +16704,7 @@ static int _cocostudio_timeline_BoneNode_getChildBones(lua_State *L)
     });
 
     // insert code after call
-    olua_addref(L, 1, "bones", -1, OLUA_FLAG_MULTIPLE | OLUA_FLAG_TABLE);
+    olua_addref(L, 1, "bones", -1, OLUA_REF_MULTI | OLUA_REF_TABLE);
 
     olua_endinvoke(L);
 
@@ -16775,7 +16775,7 @@ static int _cocostudio_timeline_BoneNode_getRootSkeletonNode(lua_State *L)
     int num_ret = olua_push_object(L, ret, "ccs.timeline.SkeletonNode");
 
     // insert code after call
-    olua_addref(L, 1, "rootSkeletonNode", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "rootSkeletonNode", -1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -16797,7 +16797,7 @@ static int _cocostudio_timeline_BoneNode_getSkins(lua_State *L)
     });
 
     // insert code after call
-    olua_addref(L, 1, "skins", -1, OLUA_FLAG_MULTIPLE | OLUA_FLAG_TABLE);
+    olua_addref(L, 1, "skins", -1, OLUA_REF_MULTI | OLUA_REF_TABLE);
 
     olua_endinvoke(L);
 
@@ -16819,7 +16819,7 @@ static int _cocostudio_timeline_BoneNode_getVisibleSkins(lua_State *L)
     });
 
     // insert code after call
-    olua_addref(L, 1, "skins", -1, OLUA_FLAG_MULTIPLE | OLUA_FLAG_TABLE);
+    olua_addref(L, 1, "skins", -1, OLUA_REF_MULTI | OLUA_REF_TABLE);
 
     olua_endinvoke(L);
 
@@ -17138,7 +17138,7 @@ static int _cocostudio_timeline_SkeletonNode_getAllSubBonesMap(lua_State *L)
     });
 
     // insert code after call
-    olua_addref(L, 1, "boneNodes", -1, OLUA_FLAG_MULTIPLE | OLUA_FLAG_TABLE);
+    olua_addref(L, 1, "boneNodes", -1, OLUA_REF_MULTI | OLUA_REF_TABLE);
 
     olua_endinvoke(L);
 
@@ -17160,7 +17160,7 @@ static int _cocostudio_timeline_SkeletonNode_getBoneNode(lua_State *L)
     int num_ret = olua_push_object(L, ret, "ccs.timeline.BoneNode");
 
     // insert code after call
-    olua_addref(L, 1, "boneNodes", -1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "boneNodes", -1, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -17211,7 +17211,7 @@ static int _cocostudio_timeline_Timeline_addFrame(lua_State *L)
     self->addFrame(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "frames", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "frames", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -17278,7 +17278,7 @@ static int _cocostudio_timeline_Timeline_getActionTimeline(lua_State *L)
     int num_ret = olua_push_object(L, ret, "ccs.timeline.ActionTimeline");
 
     // insert code after call
-    olua_addref(L, 1, "actiontimeline", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "actiontimeline", -1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -17300,7 +17300,7 @@ static int _cocostudio_timeline_Timeline_getFrames(lua_State *L)
     });
 
     // insert code after call
-    olua_addref(L, 1, "frames", -1, OLUA_FLAG_MULTIPLE | OLUA_FLAG_TABLE);
+    olua_addref(L, 1, "frames", -1, OLUA_REF_MULTI | OLUA_REF_TABLE);
 
     olua_endinvoke(L);
 
@@ -17320,7 +17320,7 @@ static int _cocostudio_timeline_Timeline_getNode(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.Node");
 
     // insert code after call
-    olua_addref(L, 1, "node", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "node", -1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -17361,7 +17361,7 @@ static int _cocostudio_timeline_Timeline_insertFrame(lua_State *L)
     self->insertFrame(arg1, arg2);
 
     // insert code after call
-    olua_addref(L, 1, "frames", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "frames", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -17396,7 +17396,7 @@ static int _cocostudio_timeline_Timeline_removeFrame(lua_State *L)
     self->removeFrame(arg1);
 
     // insert code after call
-    olua_delref(L, 1, "frames", 2, OLUA_FLAG_MULTIPLE);
+    olua_delref(L, 1, "frames", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -17435,7 +17435,7 @@ static int _cocostudio_timeline_Timeline_setActionTimeline(lua_State *L)
     self->setActionTimeline(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "actiontimeline", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "actiontimeline", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -17456,7 +17456,7 @@ static int _cocostudio_timeline_Timeline_setNode(lua_State *L)
     self->setNode(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "node", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "node", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -17619,7 +17619,7 @@ static int _cocostudio_timeline_ActionTimeline_addTimeline(lua_State *L)
     self->addTimeline(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "timelines", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "timelines", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -17867,7 +17867,7 @@ static int _cocostudio_timeline_ActionTimeline_getTimelines(lua_State *L)
     });
 
     // insert code after call
-    olua_addref(L, 1, "timelines", -1, OLUA_FLAG_MULTIPLE | OLUA_FLAG_TABLE);
+    olua_addref(L, 1, "timelines", -1, OLUA_REF_MULTI | OLUA_REF_TABLE);
 
     olua_endinvoke(L);
 
@@ -18164,7 +18164,7 @@ static int _cocostudio_timeline_ActionTimeline_removeTimeline(lua_State *L)
     self->removeTimeline(arg1);
 
     // insert code after call
-    olua_delref(L, 1, "timelines", 2, OLUA_FLAG_MULTIPLE);
+    olua_delref(L, 1, "timelines", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -18311,8 +18311,8 @@ static int _cocostudio_timeline_ActionTimeline_setFrameEventCallFunc(lua_State *
                     olua_pushobj<cocostudio::timeline::ActionTimeline>(L, arg1->getTimeline()->getActionTimeline());
                     olua_pushobj<cocostudio::timeline::Timeline>(L, arg1->getTimeline());
                     olua_pushobj<cocostudio::timeline::Frame>(L, arg1);
-                    olua_addref(L, -3, "timelines", -2, OLUA_FLAG_MULTIPLE);
-                    olua_addref(L, -2, "frames", -1, OLUA_FLAG_MULTIPLE);
+                    olua_addref(L, -3, "timelines", -2, OLUA_REF_MULTI);
+                    olua_addref(L, -2, "frames", -1, OLUA_REF_MULTI);
                     lua_pop(L, 3);
                 }
 

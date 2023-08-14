@@ -2163,7 +2163,7 @@ static int _cocos2d_backend_ProgramState_getVertexLayout(lua_State *L)
 
     auto self = olua_toobj<cocos2d::backend::ProgramState>(L, 1);
     olua_pushobj<cocos2d::backend::VertexLayout>(L, self->getVertexLayout().get());
-    olua_addref(L, 1, "vertexLayout", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "vertexLayout", -1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 

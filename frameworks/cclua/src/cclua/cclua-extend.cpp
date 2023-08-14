@@ -408,7 +408,7 @@ olua_Return NodeExtend::__index(lua_State *L)
         cocos2d::Node *child = self->getChildByName(olua_tostring(L, 2));
         if (child) {
             olua_pushobj<cocos2d::Node>(L, child);
-            olua_addref(L, 1, "children", -1, OLUA_FLAG_MULTIPLE);
+            olua_addref(L, 1, "children", -1, OLUA_REF_MULTI);
             return 1;
         }
     }
@@ -587,15 +587,15 @@ olua_Return SkeletonDataExtend::create(lua_State *L, const char *skel_path, cons
     olua_setvariable(L, -3);
 
     lua_pushstring(L, ".skel.texture_loader");
-    olua_newrawobj(L, texture_loader);
+    olua_newrawobj(L, texture_loader, 0);
     olua_setvariable(L, -3);
 
     lua_pushstring(L, ".skel.attachment_loader");
-    olua_newrawobj(L, attachment_loader);
+    olua_newrawobj(L, attachment_loader, 0);
     olua_setvariable(L, -3);
 
     lua_pushstring(L, ".skel.atlas");
-    olua_newrawobj(L, atlas);
+    olua_newrawobj(L, atlas, 0);
     olua_setvariable(L, -3);
 
     return 1;

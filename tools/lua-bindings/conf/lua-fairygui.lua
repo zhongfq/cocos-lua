@@ -117,7 +117,7 @@ typeconf 'fairygui::GTweener'
 
 local def_gtween_ref = [[
     olua_pushclassobj<fairygui::GTween>(L);
-    olua_addref(L, -1, "tweeners", -2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "tweeners", -2, OLUA_REF_MULTI);
     olua_visitrefs(L, -1, "tweeners", should_del_tweener_ref);
     lua_pop(L, 1);
 ]]
@@ -253,7 +253,7 @@ typeconf 'fairygui::GComponent'
                     fairygui::GObject *child = self->getChild(olua_tostring(L, 2));
                     if (child) {
                         olua_pushobj<fairygui::GObject>(L, child);
-                        olua_addref(L, 1, "children", -1, OLUA_FLAG_MULTIPLE);
+                        olua_addref(L, 1, "children", -1, OLUA_REF_MULTI);
                         return 1;
                     }
                 }
@@ -327,8 +327,8 @@ typeconf 'fairygui::GRoot'
     .func 'create'
         .insert_after [[
             olua_pushobj<cocos2d::Node>(L, ret->displayObject());
-            olua_addref(L, -1, "fgui.root", -2, OLUA_FLAG_SINGLE);
-            olua_addref(L, 1, "children", -1, OLUA_FLAG_MULTIPLE);
+            olua_addref(L, -1, "fgui.root", -2, OLUA_REF_ALONE);
+            olua_addref(L, 1, "children", -1, OLUA_REF_MULTI);
             lua_pop(L, 1);
         ]]
     .prop 'UIRoot' .get 'static GRoot* getInstance()'
@@ -375,7 +375,7 @@ typeconf 'fairygui::GList'
     .callback 'itemRenderer' .localvar 'false'
         .insert_cbefore [[
             olua_pushobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
-            olua_addref(L, -1, "children", top + 2, OLUA_FLAG_MULTIPLE);
+            olua_addref(L, -1, "children", top + 2, OLUA_REF_MULTI);
             lua_pop(L, 1);
         ]]
 
@@ -557,14 +557,14 @@ typeconf 'fairygui::GTree'
         .localvar 'false'
         .insert_cbefore [[
             olua_pushobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
-            olua_addref(L, -1, "nodes", top + 1, OLUA_FLAG_MULTIPLE);
-            olua_addref(L, -1, "children",top + 2, OLUA_FLAG_MULTIPLE);
+            olua_addref(L, -1, "nodes", top + 1, OLUA_REF_MULTI);
+            olua_addref(L, -1, "children",top + 2, OLUA_REF_MULTI);
             lua_pop(L, 1);
         ]]
     .callback 'treeNodeWillExpand' .localvar 'false'
         .insert_cbefore [[
             olua_pushobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
-            olua_addref(L, -1, "nodes", top + 1, OLUA_FLAG_MULTIPLE);
+            olua_addref(L, -1, "nodes", top + 1, OLUA_REF_MULTI);
             lua_pop(L, 1);
         ]]
 

@@ -197,14 +197,13 @@ void olua_postgc(lua_State *L, T *obj)
 {
     T *self = olua_checkobj<T>(L, -1);
     if (self == obj) {
-        int ownership = olua_getownership(L, -1);
-        if (ownership == OLUA_OWNERSHIP_VM) {
+        if (olua_hasobjflag(L, -1, OLUA_FLAG_IN_HEAP)) {
             if (std::is_void<T>()) {
                 free((void *)obj);
             } else {
                 delete obj;
             }
-        } else if (ownership == OLUA_OWNERSHIP_USERDATA) {
+        } else if (olua_hasobjflag(L, -1, OLUA_FLAG_IN_USERDATA)) {
             obj->~T();
         }
         olua_setrawobj(L, -1, nullptr);
@@ -311,9 +310,9 @@ int olua_pushobj_as(lua_State *L, int idx, const T *value, const char *ref)
     if (olua_loadref(L, idx, ref) != LUA_TUSERDATA) {
         lua_pop(L, 1);
         olua_pushobj(L, (void *)value, olua_getluatype<T>(L));
-        olua_setownership(L, -1, OLUA_OWNERSHIP_SLAVE);
-        olua_addref(L, idx, ref, -1, OLUA_FLAG_SINGLE);
-        olua_addref(L, -1, "as.self", idx, OLUA_FLAG_SINGLE);
+        olua_setobjflag(L, -1, OLUA_FLAG_SKIP_GC);
+        olua_addref(L, idx, ref, -1, OLUA_REF_ALONE);
+        olua_addref(L, -1, "as.self", idx, OLUA_REF_ALONE);
     }
     return 1;
 }
@@ -612,11 +611,10 @@ int olua_pushcopy_object(lua_State *L, T &value, const char *cls)
 {
     using Type = typename std::remove_const<T>::type;
     olua_debug_assert(cls, "cls is null");
-    void *ptr = lua_newuserdata(L, sizeof(void *) + sizeof(T));
-    Type *obj = new ((char *)ptr + sizeof(void *)) Type(value);
-    *(void **)ptr = obj;
+    void *ptr = olua_newrawobj(L, nullptr, sizeof(T));
+    Type *obj = new (ptr) Type(value);
+    olua_setobjflag(L, -1, OLUA_FLAG_IN_USERDATA);
     olua_pushobj(L, (void *)obj, olua_getluatype<T>(L, nullptr, cls));
-    olua_setownership(L, -1, OLUA_OWNERSHIP_USERDATA);
     return 1;
 }
 
@@ -687,9 +685,9 @@ int olua_push_object(lua_State *L, const std::shared_ptr<T> *value, const char *
         return 1;
     }
     
-    olua_setownership(L, -2, OLUA_OWNERSHIP_SLAVE); // skip gc, managed by smart ptr
+    olua_setobjflag(L, -2, OLUA_FLAG_SKIP_GC);  // skip gc, managed by smart ptr
     olua_pushobj<std::shared_ptr<T>>(L, new std::shared_ptr<T>(*value));
-    olua_addref(L, -3, OLUA_SMART_PRT, -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, -3, OLUA_SMART_PRT, -1, OLUA_REF_ALONE);
     lua_pop(L, 2); // pop nil and smartptr
     return 1;
 }

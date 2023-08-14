@@ -1341,7 +1341,7 @@ static int _cocos2d_Director_getActionManager(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.ActionManager");
 
     // insert code after call
-    olua_addref(L, 1, "actionmanager", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "actionmanager", -1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -1429,7 +1429,7 @@ static int _cocos2d_Director_getEventDispatcher(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.EventDispatcher");
 
     // insert code after call
-    olua_addref(L, 1, "eventdispatcher", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "eventdispatcher", -1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -1498,7 +1498,7 @@ static int _cocos2d_Director_getNotificationNode(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.Node");
 
     // insert code after call
-    olua_addref(L, 1, "notificationnode", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "notificationnode", -1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -1518,7 +1518,7 @@ static int _cocos2d_Director_getOpenGLView(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.GLView");
 
     // insert code after call
-    olua_addref(L, 1, "openglview", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "openglview", -1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -1555,7 +1555,7 @@ static int _cocos2d_Director_getRenderer(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.Renderer");
 
     // insert code after call
-    olua_addref(L, 1, "renderer", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "renderer", -1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -1575,7 +1575,7 @@ static int _cocos2d_Director_getRunningScene(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.Scene");
 
     // insert code after call
-    olua_addref(L, 1, "scenes", -1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "scenes", -1, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -1612,7 +1612,7 @@ static int _cocos2d_Director_getScheduler(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.Scheduler");
 
     // insert code after call
-    olua_addref(L, 1, "scheduler", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "scheduler", -1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -1649,7 +1649,7 @@ static int _cocos2d_Director_getTextureCache(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TextureCache");
 
     // insert code after call
-    olua_addref(L, 1, "texturecache", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "texturecache", -1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -2137,7 +2137,7 @@ static int _cocos2d_Director_pushScene(lua_State *L)
     self->pushScene(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -2161,7 +2161,7 @@ static int _cocos2d_Director_replaceScene(lua_State *L)
     self->replaceScene(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "scenes", 2, OLUA_REF_MULTI);
     olua_endcmpref(L, 1, "scenes");
 
     olua_endinvoke(L);
@@ -2231,7 +2231,7 @@ static int _cocos2d_Director_runWithScene(lua_State *L)
     self->runWithScene(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -2252,7 +2252,7 @@ static int _cocos2d_Director_setActionManager(lua_State *L)
     self->setActionManager(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "actionmanager", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "actionmanager", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -2361,7 +2361,7 @@ static int _cocos2d_Director_setEventDispatcher(lua_State *L)
     self->setEventDispatcher(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "eventdispatcher", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "eventdispatcher", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -2416,7 +2416,7 @@ static int _cocos2d_Director_setNotificationNode(lua_State *L)
     self->setNotificationNode(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "notificationnode", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "notificationnode", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -2437,7 +2437,7 @@ static int _cocos2d_Director_setOpenGLView(lua_State *L)
     self->setOpenGLView(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "openglview", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "openglview", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -2476,7 +2476,7 @@ static int _cocos2d_Director_setScheduler(lua_State *L)
     self->setScheduler(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "scheduler", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "scheduler", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -3495,7 +3495,7 @@ static int _cocos2d_EventDispatcher_addCustomEventListener(lua_State *L)
     };
 
     // insert code after call
-    olua_addref(L, 1, "listeners", -1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "listeners", -1, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -3530,7 +3530,7 @@ static int _cocos2d_EventDispatcher_addEventListenerWithFixedPriority(lua_State 
     self->addEventListenerWithFixedPriority(arg1, arg2);
 
     // insert code after call
-    olua_addref(L, 1, "listeners", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "listeners", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -3553,7 +3553,7 @@ static int _cocos2d_EventDispatcher_addEventListenerWithSceneGraphPriority(lua_S
     self->addEventListenerWithSceneGraphPriority(arg1, arg2);
 
     // insert code after call
-    olua_addref(L, 3, "listeners", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 3, "listeners", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -3813,7 +3813,7 @@ static int _cocos2d_EventDispatcher_removeEventListener(lua_State *L)
     self->removeEventListener(arg1);
 
     // insert code after call
-    olua_delref(L, 1, "listeners", 2, OLUA_FLAG_MULTIPLE);
+    olua_delref(L, 1, "listeners", 2, OLUA_REF_MULTI);
     olua_endcmpref(L, 1, "listeners");
 
     olua_endinvoke(L);
@@ -19424,7 +19424,7 @@ static int _cocos2d_network_WebSocket_init(lua_State *L)
     }
 
     self->init(*delegate, url, protocols.size() > 0 ? &protocols : nullptr, cafile);
-    olua_addref(L, 1, "delegate", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "delegate", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -20852,7 +20852,7 @@ static int _cocos2d_Node_addChild$1(lua_State *L)
     self->addChild(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "children", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "children", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -20875,7 +20875,7 @@ static int _cocos2d_Node_addChild$2(lua_State *L)
     self->addChild(arg1, arg2);
 
     // insert code after call
-    olua_addref(L, 1, "children", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "children", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -20900,7 +20900,7 @@ static int _cocos2d_Node_addChild$3(lua_State *L)
     self->addChild(arg1, arg2, arg3);
 
     // insert code after call
-    olua_addref(L, 1, "children", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "children", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -20925,7 +20925,7 @@ static int _cocos2d_Node_addChild$4(lua_State *L)
     self->addChild(arg1, arg2, arg3);
 
     // insert code after call
-    olua_addref(L, 1, "children", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "children", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -20982,7 +20982,7 @@ static int _cocos2d_Node_addComponent(lua_State *L)
     int num_ret = olua_push_bool(L, ret);
 
     // insert code after call
-    olua_addref(L, 1, "components", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "components", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -21424,7 +21424,7 @@ static int _cocos2d_Node_getActionByTag(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.Action");
 
     // insert code after call
-    olua_addref(L, 1, "actions", -1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "actions", -1, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -21444,7 +21444,7 @@ static int _cocos2d_Node_getActionManager(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.ActionManager");
 
     // insert code after call
-    olua_addref(L, 1, "actionmanager", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "actionmanager", -1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -21625,7 +21625,7 @@ static int _cocos2d_Node_getChildByName(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.Node");
 
     // insert code after call
-    olua_addref(L, 1, "children", -1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "children", -1, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -21647,7 +21647,7 @@ static int _cocos2d_Node_getChildByTag(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.Node");
 
     // insert code after call
-    olua_addref(L, 1, "children", -1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "children", -1, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -21669,7 +21669,7 @@ static int _cocos2d_Node_getChildren(lua_State *L)
     });
 
     // insert code after call
-    olua_addref(L, 1, "children", -1, OLUA_FLAG_MULTIPLE | OLUA_FLAG_TABLE);
+    olua_addref(L, 1, "children", -1, OLUA_REF_MULTI | OLUA_REF_TABLE);
 
     olua_endinvoke(L);
 
@@ -21725,7 +21725,7 @@ static int _cocos2d_Node_getComponent(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.Component");
 
     // insert code after call
-    olua_addref(L, 1, "components", -1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "components", -1, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -21813,7 +21813,7 @@ static int _cocos2d_Node_getEventDispatcher(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.EventDispatcher");
 
     // insert code after call
-    olua_addref(L, 1, "eventdispatcher", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "eventdispatcher", -1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -22255,7 +22255,7 @@ static int _cocos2d_Node_getPhysicsBody(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.PhysicsBody");
 
     // insert code after call
-    olua_addref(L, 1, "physicsbody", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "physicsbody", -1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -22419,7 +22419,7 @@ static int _cocos2d_Node_getProgramState(lua_State *L)
     int num_ret = olua_push_object(L, ret, "ccb.ProgramState");
 
     // insert code after call
-    olua_addref(L, 1, "programstate", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "programstate", -1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -22609,7 +22609,7 @@ static int _cocos2d_Node_getScheduler(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.Scheduler");
 
     // insert code after call
-    olua_addref(L, 1, "scheduler", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "scheduler", -1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -23069,7 +23069,7 @@ static int _cocos2d_Node_removeChild$1(lua_State *L)
     self->removeChild(arg1, arg2);
 
     // insert code after call
-    olua_delref(L, 1, "children", 2, OLUA_FLAG_MULTIPLE);
+    olua_delref(L, 1, "children", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -23090,7 +23090,7 @@ static int _cocos2d_Node_removeChild$2(lua_State *L)
     self->removeChild(arg1);
 
     // insert code after call
-    olua_delref(L, 1, "children", 2, OLUA_FLAG_MULTIPLE);
+    olua_delref(L, 1, "children", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -23356,7 +23356,7 @@ static int _cocos2d_Node_removeFromParent(lua_State *L)
     self->removeFromParent();
 
     // insert code after call
-    olua_delref(L, parent, "children", 1, OLUA_FLAG_MULTIPLE);
+    olua_delref(L, parent, "children", 1, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -23384,7 +23384,7 @@ static int _cocos2d_Node_removeFromParentAndCleanup(lua_State *L)
     self->removeFromParentAndCleanup(arg1);
 
     // insert code after call
-    olua_delref(L, parent, "children", 1, OLUA_FLAG_MULTIPLE);
+    olua_delref(L, parent, "children", 1, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -23445,7 +23445,7 @@ static int _cocos2d_Node_runAction(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.Action");
 
     // insert code after call
-    olua_addref(L, 1, "actions", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "actions", 2, OLUA_REF_MULTI);
     olua_endcmpref(L, 1, "actions");
 
     olua_endinvoke(L);
@@ -23695,7 +23695,7 @@ static int _cocos2d_Node_setActionManager(lua_State *L)
     self->setActionManager(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "actionmanager", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "actionmanager", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -24001,7 +24001,7 @@ static int _cocos2d_Node_setEventDispatcher(lua_State *L)
     self->setEventDispatcher(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "eventdispatcher", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "eventdispatcher", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -24375,7 +24375,7 @@ static int _cocos2d_Node_setPhysicsBody(lua_State *L)
     self->setPhysicsBody(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "physicsbody", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "physicsbody", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -24548,7 +24548,7 @@ static int _cocos2d_Node_setProgramState(lua_State *L)
     self->setProgramState(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "programstate", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "programstate", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -24774,7 +24774,7 @@ static int _cocos2d_Node_setScheduler(lua_State *L)
     self->setScheduler(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "scheduler", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "scheduler", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -27154,7 +27154,7 @@ static int _cocos2d_ProtectedNode_addProtectedChild$1(lua_State *L)
     self->addProtectedChild(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "protectedChildren", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "protectedChildren", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -27177,7 +27177,7 @@ static int _cocos2d_ProtectedNode_addProtectedChild$2(lua_State *L)
     self->addProtectedChild(arg1, arg2);
 
     // insert code after call
-    olua_addref(L, 1, "protectedChildren", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "protectedChildren", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -27202,7 +27202,7 @@ static int _cocos2d_ProtectedNode_addProtectedChild$3(lua_State *L)
     self->addProtectedChild(arg1, arg2, arg3);
 
     // insert code after call
-    olua_addref(L, 1, "protectedChildren", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "protectedChildren", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -27299,7 +27299,7 @@ static int _cocos2d_ProtectedNode_getProtectedChildByTag(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.Node");
 
     // insert code after call
-    olua_addref(L, 1, "protectedChildren", -1, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "protectedChildren", -1, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -27376,7 +27376,7 @@ static int _cocos2d_ProtectedNode_removeProtectedChild$1(lua_State *L)
     self->removeProtectedChild(arg1, arg2);
 
     // insert code after call
-    olua_delref(L, 1, "protectedChildren", 2, OLUA_FLAG_MULTIPLE);
+    olua_delref(L, 1, "protectedChildren", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -27397,7 +27397,7 @@ static int _cocos2d_ProtectedNode_removeProtectedChild$2(lua_State *L)
     self->removeProtectedChild(arg1);
 
     // insert code after call
-    olua_delref(L, 1, "protectedChildren", 2, OLUA_FLAG_MULTIPLE);
+    olua_delref(L, 1, "protectedChildren", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -28450,7 +28450,7 @@ static int _cocos2d_ParallaxNode_addChild$1(lua_State *L)
     self->addChild(arg1, arg2, arg3, arg4);
 
     // insert code after call
-    olua_addref(L, 1, "chilren", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "chilren", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -28475,7 +28475,7 @@ static int _cocos2d_ParallaxNode_addChild$2(lua_State *L)
     self->addChild(arg1, arg2, arg3);
 
     // insert code after call
-    olua_addref(L, 1, "chilren", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "chilren", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -28500,7 +28500,7 @@ static int _cocos2d_ParallaxNode_addChild$3(lua_State *L)
     self->addChild(arg1, arg2, arg3);
 
     // insert code after call
-    olua_addref(L, 1, "chilren", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "chilren", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -28521,7 +28521,7 @@ static int _cocos2d_ParallaxNode_addChild$4(lua_State *L)
     self->addChild(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "children", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "children", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -28544,7 +28544,7 @@ static int _cocos2d_ParallaxNode_addChild$5(lua_State *L)
     self->addChild(arg1, arg2);
 
     // insert code after call
-    olua_addref(L, 1, "children", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, 1, "children", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -37920,7 +37920,7 @@ static int _cocos2d_Scene_getPhysicsWorld(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.PhysicsWorld");
 
     // insert code after call
-    olua_addref(L, 1, "physicsworld", -1, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "physicsworld", -1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -40619,7 +40619,7 @@ static int _cocos2d_TransitionScene_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionScene");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -40762,7 +40762,7 @@ static int _cocos2d_TransitionEaseScene_easeActionWithAction(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.ActionInterval");
 
     // insert code after call
-    olua_addref(L, 1, "action", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "action", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -40798,7 +40798,7 @@ static int _cocos2d_TransitionSceneOriented_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionSceneOriented");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -40845,7 +40845,7 @@ static int _cocos2d_TransitionRotoZoom_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionRotoZoom");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -40892,7 +40892,7 @@ static int _cocos2d_TransitionJumpZoom_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionJumpZoom");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -40984,7 +40984,7 @@ static int _cocos2d_TransitionMoveInL_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionMoveInL");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -41006,7 +41006,7 @@ static int _cocos2d_TransitionMoveInL_easeActionWithAction(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.ActionInterval");
 
     // insert code after call
-    olua_addref(L, 1, "action", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "action", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -41056,7 +41056,7 @@ static int _cocos2d_TransitionMoveInR_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionMoveInR");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -41103,7 +41103,7 @@ static int _cocos2d_TransitionMoveInT_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionMoveInT");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -41150,7 +41150,7 @@ static int _cocos2d_TransitionMoveInB_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionMoveInB");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -41242,7 +41242,7 @@ static int _cocos2d_TransitionSlideInL_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionSlideInL");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -41264,7 +41264,7 @@ static int _cocos2d_TransitionSlideInL_easeActionWithAction(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.ActionInterval");
 
     // insert code after call
-    olua_addref(L, 1, "action", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "action", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -41314,7 +41314,7 @@ static int _cocos2d_TransitionSlideInR_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionSlideInR");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -41361,7 +41361,7 @@ static int _cocos2d_TransitionSlideInB_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionSlideInB");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -41408,7 +41408,7 @@ static int _cocos2d_TransitionSlideInT_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionSlideInT");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -41483,7 +41483,7 @@ static int _cocos2d_TransitionShrinkGrow_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionShrinkGrow");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -41505,7 +41505,7 @@ static int _cocos2d_TransitionShrinkGrow_easeActionWithAction(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.ActionInterval");
 
     // insert code after call
-    olua_addref(L, 1, "action", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "action", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -41556,7 +41556,7 @@ static int _cocos2d_TransitionFlipX_create$1(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionFlipX");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -41578,7 +41578,7 @@ static int _cocos2d_TransitionFlipX_create$2(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionFlipX");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -41650,7 +41650,7 @@ static int _cocos2d_TransitionFlipY_create$1(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionFlipY");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -41672,7 +41672,7 @@ static int _cocos2d_TransitionFlipY_create$2(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionFlipY");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -41744,7 +41744,7 @@ static int _cocos2d_TransitionFlipAngular_create$1(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionFlipAngular");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -41766,7 +41766,7 @@ static int _cocos2d_TransitionFlipAngular_create$2(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionFlipAngular");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -41838,7 +41838,7 @@ static int _cocos2d_TransitionZoomFlipX_create$1(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionZoomFlipX");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -41860,7 +41860,7 @@ static int _cocos2d_TransitionZoomFlipX_create$2(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionZoomFlipX");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -41932,7 +41932,7 @@ static int _cocos2d_TransitionZoomFlipY_create$1(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionZoomFlipY");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -41954,7 +41954,7 @@ static int _cocos2d_TransitionZoomFlipY_create$2(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionZoomFlipY");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -42026,7 +42026,7 @@ static int _cocos2d_TransitionZoomFlipAngular_create$1(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionZoomFlipAngular");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -42048,7 +42048,7 @@ static int _cocos2d_TransitionZoomFlipAngular_create$2(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionZoomFlipAngular");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -42120,7 +42120,7 @@ static int _cocos2d_TransitionFade_create$1(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionFade");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -42142,7 +42142,7 @@ static int _cocos2d_TransitionFade_create$2(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionFade");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -42212,7 +42212,7 @@ static int _cocos2d_TransitionCrossFade_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionCrossFade");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -42287,7 +42287,7 @@ static int _cocos2d_TransitionTurnOffTiles_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionTurnOffTiles");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -42309,7 +42309,7 @@ static int _cocos2d_TransitionTurnOffTiles_easeActionWithAction(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.ActionInterval");
 
     // insert code after call
-    olua_addref(L, 1, "action", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "action", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -42403,7 +42403,7 @@ static int _cocos2d_TransitionSplitCols_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionSplitCols");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -42425,7 +42425,7 @@ static int _cocos2d_TransitionSplitCols_easeActionWithAction(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.ActionInterval");
 
     // insert code after call
-    olua_addref(L, 1, "action", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "action", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -42475,7 +42475,7 @@ static int _cocos2d_TransitionSplitRows_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionSplitRows");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -42569,7 +42569,7 @@ static int _cocos2d_TransitionFadeTR_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionFadeTR");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -42591,7 +42591,7 @@ static int _cocos2d_TransitionFadeTR_easeActionWithAction(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.ActionInterval");
 
     // insert code after call
-    olua_addref(L, 1, "action", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "action", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -42641,7 +42641,7 @@ static int _cocos2d_TransitionFadeBL_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionFadeBL");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -42688,7 +42688,7 @@ static int _cocos2d_TransitionFadeUp_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionFadeUp");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -42735,7 +42735,7 @@ static int _cocos2d_TransitionFadeDown_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionFadeDown");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -42803,7 +42803,7 @@ static int _cocos2d_TransitionPageTurn_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionPageTurn");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -42851,7 +42851,7 @@ static int _cocos2d_TransitionProgress_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionProgress");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -42898,7 +42898,7 @@ static int _cocos2d_TransitionProgressRadialCCW_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionProgressRadialCCW");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -42945,7 +42945,7 @@ static int _cocos2d_TransitionProgressRadialCW_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionProgressRadialCW");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -42992,7 +42992,7 @@ static int _cocos2d_TransitionProgressHorizontal_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionProgressHorizontal");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -43039,7 +43039,7 @@ static int _cocos2d_TransitionProgressVertical_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionProgressVertical");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -43086,7 +43086,7 @@ static int _cocos2d_TransitionProgressInOut_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionProgressInOut");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -43133,7 +43133,7 @@ static int _cocos2d_TransitionProgressOutIn_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "cc.TransitionProgressOutIn");
 
     // insert code after call
-    olua_addref(L, -1, "scenes", 2, OLUA_FLAG_MULTIPLE);
+    olua_addref(L, -1, "scenes", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 

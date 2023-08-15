@@ -468,7 +468,7 @@ static void *aux_toobj(lua_State *L, int idx, const char *cls, bool checked)
         void *obj = olua_torawobj(L, idx);
         if (olua_unlikely(!obj)) {
             idx = lua_absindex(L, idx);
-
+            olua_printobj(L, "access dead object", idx);
             luaL_error(L, "object '%s %p' survive from gc",
                 olua_typename(L, idx), lua_topointer(L, idx));
         }
@@ -521,13 +521,10 @@ OLUA_API const char *olua_objstring(lua_State *L, int idx)
     return env->buff;
 }
 
-OLUA_API void olua_print(lua_State *L, const char *fmt, ...)
+OLUA_API void olua_print(lua_State *L, const char *str)
 {
-    va_list ap;
-    va_start(ap, fmt);
     olua_getglobal(L, "print");
-    lua_pushvfstring(L, fmt, ap);
-    va_end(ap);
+    olua_pushstring(L, str);
     lua_pcall(L, 1, 0, 0);
 }
 
@@ -540,10 +537,10 @@ OLUA_API void olua_printobj(lua_State *L, const char *tag, int idx)
     snprintf(buf, sizeof(buf), "%s:%05"PRId64": %s {luaobj=%p,%s,%s}",
         tag,
         env->objcount,
-        olua_objstring(L, 2),
+        olua_objstring(L, idx),
         luaobj,
-        tobitstr(luaobj->flags, bitstr),
-        luaobj->self ? olua_optfieldstring(L, 2, "name", "") : "0x0");
+        luaobj->self ? olua_optfieldstring(L, idx, "name", "") : "",
+        tobitstr(luaobj->flags, bitstr));
     olua_print(L, buf);
 }
 
@@ -1036,15 +1033,12 @@ static int cls_metamethod(lua_State *L)
         }
         return 0;
     }
-    
     lua_replace(L, -2); // remove name
-    lua_insert(L, 1); // L: metamethod obj args...
-    
+    lua_insert(L, 1);
     if (!isgc) {
         lua_call(L, lua_gettop(L) - 1, LUA_MULTRET);
         return lua_gettop(L);
     }
-    
     if (!olua_isuserdata(L, 2)) {
         // unnecessary call __gc on class table
         return 0;
@@ -1054,9 +1048,9 @@ static int cls_metamethod(lua_State *L)
     env->objcount--;
     luaobj = olua_toluaobj(L, 2);
 
-    if (luaobj->flags & OLUA_FLAG_SKIP_GC) {
+    if (luaobj->flags & (OLUA_FLAG_SKIP_GC | OLUA_FLAG_DEL)) {
         if (env->debug) {
-            olua_print(L, "skip gc for object: %s\n", olua_objstring(L, 2));
+            olua_printobj(L, "skip gc", 2);
         }
         return 0;
     } else {
@@ -1064,7 +1058,7 @@ static int cls_metamethod(lua_State *L)
         char bitstr[OLUA_FLAGBITS];
         size_t max_len = sizeof(buf);
         size_t len = 0;
-        
+        olua_setobjflag(L, 2, OLUA_FLAG_GC);
         if (env->debug) {
             const char *fmt = "lua gc:%05"PRId64": %s {luaobj=%p";
             len = snprintf(buf, max_len, fmt,
@@ -1078,23 +1072,12 @@ static int cls_metamethod(lua_State *L)
                 len = strlen(buf);
             }
         }
-        
-        if (luaobj->self) {
-            olua_pushobjtable(L);
-            lua_pushnil(L); // L: objtable nil
-            olua_rawsetp(L, -2, luaobj->self);
-            lua_pop(L, 1); // pop obj table
-        }
-        
-        olua_setobjflag(L, 2, OLUA_FLAG_GC);
         olua_pusherrorfunc(L);
         lua_insert(L, 1);
         lua_pcall(L, lua_gettop(L) - 2, LUA_MULTRET, 1);
-        
         if (!luaobj->self) {
             luaobj->flags |= OLUA_FLAG_GC_DONE;
         }
-        
         if (env->debug) {
             if (len < max_len) {
                 snprintf(buf + len, max_len - len, ",%s}",
@@ -1103,7 +1086,6 @@ static int cls_metamethod(lua_State *L)
             }
             olua_print(L, buf);
         }
-        
         return lua_gettop(L) - 1;
     }
     return 0;

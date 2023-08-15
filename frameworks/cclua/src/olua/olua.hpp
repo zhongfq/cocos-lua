@@ -686,6 +686,7 @@ int olua_push_object(lua_State *L, const std::shared_ptr<T> *value, const char *
     }
     
     olua_setobjflag(L, -2, OLUA_FLAG_SKIP_GC);  // skip gc, managed by smart ptr
+    olua_setobjflag(L, -2, OLUA_FLAG_IN_SMARTPRT);
     olua_pushobj<std::shared_ptr<T>>(L, new std::shared_ptr<T>(*value));
     olua_addref(L, -3, OLUA_SMART_PRT, -1, OLUA_REF_ALONE);
     lua_pop(L, 2); // pop nil and smartptr

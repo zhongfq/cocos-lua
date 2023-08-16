@@ -21371,7 +21371,7 @@ static int _cocos2d_Node_enumerateChildren(lua_State *L)
     olua_check_string(L, 2, &arg1);
     olua_check_callback(L, 3, &arg2, "std.function");
 
-    void *cb_store = (void *)olua_pushclassobj(L, "cc.Node");
+    void *cb_store = (void *)self;
     std::string cb_tag = "enumerateChildren";
     std::string cb_name = olua_setcallback(L, cb_store,  3, cb_tag.c_str(), OLUA_TAG_NEW);
     olua_Context cb_ctx = olua_context(L);

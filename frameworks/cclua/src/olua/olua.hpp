@@ -198,15 +198,16 @@ void olua_postgc(lua_State *L, T *obj)
     T *self = olua_checkobj<T>(L, -1);
     if (self == obj) {
         if (olua_hasobjflag(L, -1, OLUA_FLAG_IN_HEAP)) {
+            olua_setrawobj(L, -1, nullptr);
             if (std::is_void<T>()) {
                 free((void *)obj);
             } else {
                 delete obj;
             }
         } else if (olua_hasobjflag(L, -1, OLUA_FLAG_IN_USERDATA)) {
+            olua_setrawobj(L, -1, nullptr);
             obj->~T();
         }
-        olua_setrawobj(L, -1, nullptr);
     } else {
         luaL_error(L, "object error");
     }

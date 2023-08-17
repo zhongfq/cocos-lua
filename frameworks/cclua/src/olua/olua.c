@@ -1534,7 +1534,7 @@ static int l_olua_isa(lua_State *L)
 static int l_olua_take(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TUSERDATA);
-    olua_setobjflag(L, 1, OLUA_FLAG_SKIP_GC);
+    olua_setobjflag(L, 1, OLUA_FLAG_SKIP_GC | OLUA_FLAG_TAKE);
     return 0;
 }
 
@@ -1656,6 +1656,19 @@ static int l_olua_ref(lua_State *L)
     return 0;
 }
 
+static int l_olua_printobj(lua_State *L) 
+{
+    const char *tag = "luaobj";
+    int idx = 1;
+    if (olua_isstring(L, 1)) {
+        tag = olua_checkstring(L, 1);
+        idx = 2;
+    }
+    olua_checkobj(L, idx, OLUA_VOIDCLS);
+    olua_printobj(L, tag, idx);
+    return 0;
+}
+
 static int l_olua_uservalue(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TUSERDATA);
@@ -1679,6 +1692,7 @@ int luaopen_olua(lua_State *L)
         {"topointer", l_olua_topointer},
         {"objpool", l_olua_objpool},
         {"ref", l_olua_ref},
+        {"printobj", l_olua_printobj},
         {"uservalue", l_olua_uservalue},
         {NULL, NULL}
     };

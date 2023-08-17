@@ -203,13 +203,15 @@ OLUA_API bool olua_getrawobj(lua_State *L, void *obj);
 
 // object status flag
 #define OLUA_FLAG_DEL           1 << 0 // delete by user
-#define OLUA_FLAG_GC            1 << 1 // gc
-#define OLUA_FLAG_GC_DONE       1 << 2 // gc done
-#define OLUA_FLAG_SKIP_GC       1 << 3 // skip gc
-#define OLUA_FLAG_IN_HEAP       1 << 4 // object in heap, gc: delete or free
-#define OLUA_FLAG_IN_USERDATA   1 << 5 // object in userdata, gc: obj->~T()
-#define OLUA_FLAG_IN_POOL       1 << 6 // object in pool
-#define OLUA_FLAG_IN_SMARTPRT   1 << 7 // object in smartptr
+#define OLUA_FLAG_TAKE          1 << 1 // take object, object will skip gc
+#define OLUA_FLAG_GC            1 << 2 // gc
+#define OLUA_FLAG_GC_DONE       1 << 3 // gc done
+#define OLUA_FLAG_SKIP_GC       1 << 4 // skip gc
+#define OLUA_FLAG_IN_HEAP       1 << 8 // object in heap, gc: delete or free
+#define OLUA_FLAG_IN_USERDATA   1 << 9 // object in userdata, gc: obj->~T()
+#define OLUA_FLAG_IN_POOL       1 << 10 // object in pool
+#define OLUA_FLAG_IN_SMARTPRT   1 << 11 // object in smartptr
+
 OLUA_API void olua_setobjflag(lua_State *L, int idx, int flag);
 OLUA_API bool olua_hasobjflag(lua_State *L, int idx, int flag);
 

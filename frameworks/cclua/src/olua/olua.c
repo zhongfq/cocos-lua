@@ -1534,7 +1534,12 @@ static int l_olua_isa(lua_State *L)
 static int l_olua_take(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TUSERDATA);
-    olua_setobjflag(L, 1, OLUA_FLAG_SKIP_GC | OLUA_FLAG_TAKE);
+    if (olua_hasobjflag(L, 1, OLUA_FLAG_IN_HEAP)) {
+        olua_setobjflag(L, 1, OLUA_FLAG_SKIP_GC | OLUA_FLAG_TAKE);
+    } else {
+        olua_printobj(L, "take error", 1);
+        luaL_error(L, "'%s' is not created from heap", olua_objstring(L, 1));
+    }
     return 0;
 }
 

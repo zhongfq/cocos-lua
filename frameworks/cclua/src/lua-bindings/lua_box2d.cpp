@@ -3583,7 +3583,7 @@ static int _box2d_DebugNode_create(lua_State *L)
     int num_ret = olua_push_object(L, ret, "b2.DebugNode");
 
     // insert code after call
-    olua_addref(L, -1, "world", 1, OLUA_FLAG_SINGLE);
+    olua_addref(L, -1, "world", 1, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -16401,7 +16401,7 @@ static int _b2World_SetContactFilter(lua_State *L)
     self->SetContactFilter(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "contactfilter", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "contactfilter", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -16422,7 +16422,7 @@ static int _b2World_SetContactListener(lua_State *L)
     self->SetContactListener(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "contactlistener", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "contactlistener", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -16461,7 +16461,7 @@ static int _b2World_SetDebugDraw(lua_State *L)
     self->SetDebugDraw(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "debugdraw", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "debugdraw", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 
@@ -16482,7 +16482,7 @@ static int _b2World_SetDestructionListener(lua_State *L)
     self->SetDestructionListener(arg1);
 
     // insert code after call
-    olua_addref(L, 1, "destructionlistener", 2, OLUA_FLAG_SINGLE);
+    olua_addref(L, 1, "destructionlistener", 2, OLUA_REF_ALONE);
 
     olua_endinvoke(L);
 

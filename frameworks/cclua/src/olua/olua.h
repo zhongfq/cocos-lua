@@ -196,10 +196,24 @@ OLUA_API void olua_pusherrorfunc(lua_State *L);
 OLUA_API int olua_pcall(lua_State *L, int nargs, int nresults);
     
 // new, get or set raw user data
-#define olua_newrawobj(L, o)    (*(void **)lua_newuserdata(L, sizeof(void *)) = (o))
-#define olua_torawobj(L, i)     (*(void **)lua_touserdata(L, (i)))
-#define olua_setrawobj(L, i, o) (*(void **)lua_touserdata(L, (i)) = (o))
+OLUA_API void *olua_newrawobj(lua_State *L, void *obj, size_t extra);
+OLUA_API void olua_setrawobj(lua_State *L, int idx, void *obj);
+OLUA_API void *olua_torawobj(lua_State *L, int idx);
 OLUA_API bool olua_getrawobj(lua_State *L, void *obj);
+
+// object status flag
+#define OLUA_FLAG_DEL           1 << 0 // delete by user
+#define OLUA_FLAG_TAKE          1 << 1 // take object, object will skip gc
+#define OLUA_FLAG_GC            1 << 2 // gc
+#define OLUA_FLAG_GC_DONE       1 << 3 // gc done
+#define OLUA_FLAG_SKIP_GC       1 << 4 // skip gc
+#define OLUA_FLAG_IN_HEAP       1 << 8 // object in heap, gc: delete or free
+#define OLUA_FLAG_IN_USERDATA   1 << 9 // object in userdata, gc: obj->~T()
+#define OLUA_FLAG_IN_POOL       1 << 10 // object in pool
+#define OLUA_FLAG_IN_SMARTPRT   1 << 11 // object in smartptr
+
+OLUA_API void olua_setobjflag(lua_State *L, int idx, int flag);
+OLUA_API bool olua_hasobjflag(lua_State *L, int idx, int flag);
 
 // manipulate userdata api
 OLUA_API const char *olua_typename(lua_State *L, int idx);
@@ -211,16 +225,10 @@ OLUA_API void *olua_checkobj(lua_State *L, int idx, const char *cls);
 OLUA_API void *olua_toobj(lua_State *L, int idx, const char *cls);
 OLUA_API void olua_delobj(lua_State *L, void *obj);
 OLUA_API const char *olua_objstring(lua_State *L, int idx);
+OLUA_API void olua_print(lua_State *L, const char *str);
+OLUA_API void olua_printobj(lua_State *L, const char *tag, int idx);
 OLUA_API int olua_indexerror(lua_State *L);
 OLUA_API int olua_newindexerror(lua_State *L);
-
-// ownership
-#define OLUA_OWNERSHIP_NONE     0
-#define OLUA_OWNERSHIP_VM       1   // gc: delete or free
-#define OLUA_OWNERSHIP_USERDATA 2   // gc: obj->~T()
-#define OLUA_OWNERSHIP_SLAVE    3   // skip gc
-OLUA_API void olua_setownership(lua_State *L, int idx, int owner);
-OLUA_API int olua_getownership(lua_State *L, int idx);
     
 // optimize temporary userdata, used in push stack obj to lua inside the callback
 OLUA_API void olua_enable_objpool(lua_State *L);
@@ -269,19 +277,19 @@ OLUA_API void olua_getref(lua_State *L, olua_Ref ref);
  * ref chain, callback stored in the uservalue
  * ref layout:
  * obj.uservalue {
- *     .olua.ref.component = obj_component  -- OLUA_FLAG_SINGLE
- *     .olua.ref.children = {               -- OLUA_FLAG_MULTIPLE
+ *     .olua.ref.component = obj_component  -- OLUA_REF_ALONE
+ *     .olua.ref.children = {               -- OLUA_REF_MULTI
  *         obj_child1 = true
  *         obj_child2 = true
  *         ...
  *     }
  * }
  */
-#define OLUA_FLAG_SINGLE    (1 << 1) // add & remove: only ref one
-#define OLUA_FLAG_MULTIPLE  (1 << 2) // add & remove: can ref one or more
-#define OLUA_FLAG_TABLE     (1 << 3) // obj is table
-#define OLUA_FLAG_REMOVE    (1 << 4) // internal use
-#define OLUA_NOREFSTORE     INT_MIN
+#define OLUA_REF_ALONE  (1 << 1) // add & remove: only ref one
+#define OLUA_REF_MULTI  (1 << 2) // add & remove: can ref one or more
+#define OLUA_REF_TABLE  (1 << 3) // obj is table
+#define OLUA_REF_REMOVE (1 << 4) // internal use
+#define OLUA_NOREFSTORE INT_MIN
 typedef bool (*olua_RefVisitor)(lua_State *L, int idx);
 OLUA_API int olua_loadref(lua_State *L, int idx, const char *name);
 OLUA_API void olua_addref(lua_State *L, int idx, const char *name, int obj, int flags);

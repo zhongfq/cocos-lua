@@ -37,7 +37,7 @@ typeconf 'cocos2d::Ref'
     .exclude 'release'
     .exclude 'autorelease'
     .func '__gc'
-        .snippet [[
+        .body [[
         {
             return cclua_ccobjgc(L);
         }]]
@@ -109,7 +109,7 @@ typeconf 'cocos2d::Scheduler'
         .tag_maker 'makeScheduleCallbackTag("")'
         .tag_mode 'substart'
     .func 'scheduleUpdate'
-        .snippet [[
+        .body [[
         {
             if (doScheduleUpdate<cocos2d::Scheduler>(L) ||
                 doScheduleUpdate<cocos2d::ActionManager>(L) ||
@@ -341,7 +341,7 @@ typeconf 'cocos2d::Image'
     NS_CC_END
     ]]
     .func 'getPNGPremultipliedAlphaEnabled'
-        .snippet [[
+        .body [[
         {
             lua_pushboolean(L, cocos2d::LuaImage::getPNGPremultipliedAlphaEnabled());
             return 1;
@@ -397,7 +397,7 @@ typeconf 'cocos2d::network::WebSocket::Delegate'
 
 typeconf 'cocos2d::network::WebSocket'
     .func 'init'
-        .snippet [[
+        .body [[
         {
             std::vector<std::string> protocols;
             auto self = olua_toobj<cocos2d::network::WebSocket>(L, 1);
@@ -678,7 +678,7 @@ typeconf 'cocos2d::Node'
         }
     ]]
     .func 'getBounds'
-        .snippet [[
+        .body [[
         {
             auto self = olua_checkobj<cocos2d::Node>(L, 1);
             auto target = olua_checkobj<cocos2d::Node>(L, 2);

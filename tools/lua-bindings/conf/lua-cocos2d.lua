@@ -42,7 +42,7 @@ typeconf 'cocos2d::Ref'
     .exclude 'release'
     .exclude 'autorelease'
     .func '__gc'
-        .snippet [[
+        .body [[
         {
             return cclua_ccobjgc(L);
         }]]
@@ -111,7 +111,7 @@ typeconf 'cocos2d::Scheduler'
         .tag_maker 'makeScheduleCallbackTag("")'
         .tag_mode 'startwith'
     .func 'scheduleUpdate'
-        .snippet [[
+        .body [[
         {
             if (doScheduleUpdate<cocos2d::Scheduler>(L) ||
                 doScheduleUpdate<cocos2d::ActionManager>(L) ||
@@ -165,7 +165,7 @@ typeconf 'cocos2d::EventDispatcher'
             doRemoveEventListenersForTarget(L, node, recursive, "listeners");
         ]]
     .func 'addEventListener'
-        .snippet [[
+        .body [[
         {
             lua_settop(L, 2);
             olua_pushinteger(L, 1);
@@ -363,7 +363,7 @@ typeconf 'cocos2d::network::WebSocket::Delegate'
 
 typeconf 'cocos2d::network::WebSocket'
     .func 'init'
-        .snippet [[
+        .body [[
         {
             std::vector<std::string> protocols;
             auto self =  olua_toobj<cocos2d::network::WebSocket>(L, 1);

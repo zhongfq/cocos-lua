@@ -69,7 +69,7 @@ typeconf 'cocos2d::backend::ProgramState'
     .exclude 'getVertexUniformBuffer'
     .exclude 'getFragmentUniformBuffer'
     .func 'getVertexLayout'
-        .snippet [[
+        .body [[
         {
             auto self = olua_toobj<cocos2d::backend::ProgramState>(L, 1);
             olua_pushobj<cocos2d::backend::VertexLayout>(L, self->getVertexLayout().get());

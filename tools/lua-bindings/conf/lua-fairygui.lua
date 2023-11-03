@@ -245,7 +245,7 @@ typeconf 'fairygui::GComponent'
     .func 'setMask' .arg1 '@addref(^)'
     .prop 'numChildren' .get 'int numChildren()'
     .func '__index'
-        .snippet [[
+        .body [[
         {
             if(olua_isuserdata(L, 1)) {
                 if (olua_isstring(L, 2)) {
@@ -265,7 +265,7 @@ typeconf 'fairygui::GComponent'
             }
         }]]
     .func 'resolve'
-        .snippet [[
+        .body [[
         {
             auto self = olua_toobj<fairygui::GComponent>(L, 1);
             const char *name = olua_checkstring(L, 2);
@@ -431,7 +431,7 @@ typeconf 'fairygui::PopupMenu'
 
 typeconf 'fairygui::Relations'
     .func 'copyFrom'
-        .snippet [[
+        .body [[
         {
             fairygui::Relations *self = olua_toobj<fairygui::Relations>(L, 1);
             fairygui::Relations &source = *olua_checkobj<fairygui::Relations>(L, 2);
@@ -444,7 +444,7 @@ typeconf 'fairygui::RelationItem'
     .func 'getTarget' .ret '@addref(^)'
     .func 'setTarget' .arg1 '@addref(^)'
     .func 'copyFrom'
-        .snippet [[
+        .body [[
         {
             fairygui::RelationItem *self = olua_toobj<fairygui::RelationItem>(L, 1);
             fairygui::RelationItem &source = *olua_checkobj<fairygui::RelationItem>(L, 2);

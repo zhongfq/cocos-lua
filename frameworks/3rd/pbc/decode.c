@@ -298,6 +298,25 @@ call_array(pbc_decoder pd, void * ud, struct _field *f, uint8_t * buffer , int s
 	}
 }
 
+static int
+is_numeric_array(struct _field * f) {
+    return f->label == LABEL_REPEATED && (
+            f->type == PTYPE_DOUBLE ||
+            f->type == PTYPE_FLOAT ||
+            f->type == PTYPE_FIXED32 ||
+            f->type == PTYPE_SFIXED32 ||
+            f->type == PTYPE_FIXED64 ||
+            f->type == PTYPE_SFIXED64 ||
+            f->type == PTYPE_INT64 ||
+            f->type == PTYPE_UINT64 ||
+            f->type == PTYPE_INT32 ||
+            f->type == PTYPE_UINT32 ||
+            f->type == PTYPE_BOOL ||
+            f->type == PTYPE_ENUM ||
+            f->type == PTYPE_SINT32 ||
+            f->type == PTYPE_SINT64);
+}
+
 int
 pbc_decode(struct pbc_env * env, const char * type_name , struct pbc_slice * slice, pbc_decoder pd, void *ud) {
 	struct _message * msg = _pbcP_get_message(env, type_name);
@@ -328,7 +347,7 @@ pbc_decode(struct pbc_env * env, const char * type_name , struct pbc_slice * sli
 				_pbcC_close(_ctx);
 				return -i-1;
 			}
-		} else if (f->label == LABEL_PACKED) {
+		} else if (f->label == LABEL_PACKED || (f->label == LABEL_REPEATED && is_numeric_array(f))) {
 			struct atom * a = &ctx->a[i];
 			int n = call_array(pd, ud, f , start + a->v.s.start , a->v.s.end - a->v.s.start);
 			if (n < 0) {

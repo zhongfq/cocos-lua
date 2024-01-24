@@ -339,7 +339,9 @@ pbc_decode(struct pbc_env * env, const char * type_name , struct pbc_slice * sli
 
 	int i;
 	for (i=0;i<ctx->number;i++) {
-		int id = ctx->a[i].wire_id >> 3;
+        int wire_id = ctx->a[i].wire_id;
+		int id = wire_id >> 3;
+        int wire = wire_id & 7;
 		struct _field * f = (struct _field *)_pbcM_ip_query(msg->id , id);
 		if (f==NULL) {
 			int err = call_unknown(pd,ud,id,&ctx->a[i],start);
@@ -347,7 +349,7 @@ pbc_decode(struct pbc_env * env, const char * type_name , struct pbc_slice * sli
 				_pbcC_close(_ctx);
 				return -i-1;
 			}
-		} else if (f->label == LABEL_PACKED || (f->label == LABEL_REPEATED && is_numeric_array(f))) {
+		} else if (f->label == LABEL_PACKED || (wire == WT_LEND && f->label == LABEL_REPEATED && is_numeric_array(f))) {
 			struct atom * a = &ctx->a[i];
 			int n = call_array(pd, ud, f , start + a->v.s.start , a->v.s.end - a->v.s.start);
 			if (n < 0) {

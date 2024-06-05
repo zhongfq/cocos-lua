@@ -179,7 +179,7 @@ static int _cclua_plugin_apple_requestProducts(lua_State *L)
 
     std::set<std::string> arg1;       /** products */
 
-    olua_check_vector<std::string>(L, 1, arg1, [L](std::string *arg1) {
+    olua_check_array<std::string>(L, 1, arg1, [L](std::string *arg1) {
         olua_check_string(L, -1, arg1);
     });
 

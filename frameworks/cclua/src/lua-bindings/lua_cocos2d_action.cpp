@@ -1261,7 +1261,7 @@ static int _cocos2d_tweenfunc_customEase(lua_State *L)
     float *arg2 = nullptr;       /** easingParam */
 
     olua_check_number(L, 1, &arg1);
-    olua_check_array(L, 2, &arg2, "olua.float");
+    olua_check_pointer(L, 2, &arg2, "olua.float");
 
     // static float customEase(float time, float *easingParam)
     float ret = cocos2d::tweenfunc::customEase(arg1, arg2);
@@ -1719,7 +1719,7 @@ static int _cocos2d_tweenfunc_tweenTo(lua_State *L)
 
     olua_check_number(L, 1, &arg1);
     olua_check_enum(L, 2, &arg2);
-    olua_check_array(L, 3, &arg3, "olua.float");
+    olua_check_pointer(L, 3, &arg3, "olua.float");
 
     // static float tweenTo(float time, cocos2d::tweenfunc::TweenType type, float *easingParam)
     float ret = cocos2d::tweenfunc::tweenTo(arg1, arg2, arg3);
@@ -2041,7 +2041,7 @@ static int _cocos2d_Sequence_create$2(lua_State *L)
 
     cocos2d::Vector<cocos2d::FiniteTimeAction *> arg1;       /** arrayOfActions */
 
-    olua_check_vector<cocos2d::FiniteTimeAction *>(L, 1, arg1, [L](cocos2d::FiniteTimeAction **arg1) {
+    olua_check_array<cocos2d::FiniteTimeAction *>(L, 1, arg1, [L](cocos2d::FiniteTimeAction **arg1) {
         olua_check_object(L, -1, arg1, "cc.FiniteTimeAction");
     });
 
@@ -2742,7 +2742,7 @@ static int _cocos2d_Sequence_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        if ((olua_is_vector(L, 1))) {
+        if ((olua_is_array(L, 1))) {
             // static cocos2d::Sequence *create(@addref(actions |) const cocos2d::Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
             return _cocos2d_Sequence_create$2(L);
         }
@@ -3236,7 +3236,7 @@ static int _cocos2d_Spawn_create$2(lua_State *L)
 
     cocos2d::Vector<cocos2d::FiniteTimeAction *> arg1;       /** arrayOfActions */
 
-    olua_check_vector<cocos2d::FiniteTimeAction *>(L, 1, arg1, [L](cocos2d::FiniteTimeAction **arg1) {
+    olua_check_array<cocos2d::FiniteTimeAction *>(L, 1, arg1, [L](cocos2d::FiniteTimeAction **arg1) {
         olua_check_object(L, -1, arg1, "cc.FiniteTimeAction");
     });
 
@@ -3937,7 +3937,7 @@ static int _cocos2d_Spawn_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        if ((olua_is_vector(L, 1))) {
+        if ((olua_is_array(L, 1))) {
             // static cocos2d::Spawn *create(@addref(actions |) const cocos2d::Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
             return _cocos2d_Spawn_create$2(L);
         }
@@ -9868,7 +9868,7 @@ static int _cocos2d_PointArray_getControlPoints(lua_State *L)
 
     // const std::vector<cocos2d::Vec2> &getControlPoints()
     const std::vector<cocos2d::Vec2> &ret = self->getControlPoints();
-    int num_ret = olua_push_vector<cocos2d::Vec2>(L, ret, [L](cocos2d::Vec2 &arg1) {
+    int num_ret = olua_push_array<cocos2d::Vec2>(L, ret, [L](cocos2d::Vec2 &arg1) {
         olua_pushcopy_object(L, arg1, "cc.Vec2");
     });
 
@@ -9995,7 +9995,7 @@ static int _cocos2d_PointArray_setControlPoints(lua_State *L)
     std::vector<cocos2d::Vec2> arg1;       /** controlPoints */
 
     olua_to_object(L, 1, &self, "cc.PointArray");
-    olua_check_vector<cocos2d::Vec2>(L, 2, arg1, [L](cocos2d::Vec2 *arg1) {
+    olua_check_array<cocos2d::Vec2>(L, 2, arg1, [L](cocos2d::Vec2 *arg1) {
         olua_check_object(L, -1, arg1, "cc.Vec2");
     });
 
@@ -11187,9 +11187,9 @@ static int _cocos2d_OrbitCamera_sphericalRadius(lua_State *L)
     float *arg3 = nullptr;       /** azimuth */
 
     olua_to_object(L, 1, &self, "cc.OrbitCamera");
-    olua_check_array(L, 2, &arg1, "olua.float");
-    olua_check_array(L, 3, &arg2, "olua.float");
-    olua_check_array(L, 4, &arg3, "olua.float");
+    olua_check_pointer(L, 2, &arg1, "olua.float");
+    olua_check_pointer(L, 3, &arg2, "olua.float");
+    olua_check_pointer(L, 4, &arg3, "olua.float");
 
     // void sphericalRadius(float *r, float *zenith, float *azimuth)
     self->sphericalRadius(arg1, arg2, arg3);
@@ -14067,7 +14067,7 @@ static int _cocos2d_ShuffleTiles_shuffle(lua_State *L)
     unsigned int arg2 = 0;       /** len */
 
     olua_to_object(L, 1, &self, "cc.ShuffleTiles");
-    olua_check_array(L, 2, &arg1, "olua.uint");
+    olua_check_pointer(L, 2, &arg1, "olua.uint");
     olua_check_integer(L, 3, &arg2);
 
     // void shuffle(unsigned int *array, unsigned int len)
@@ -14449,7 +14449,7 @@ static int _cocos2d_TurnOffTiles_shuffle(lua_State *L)
     unsigned int arg2 = 0;       /** len */
 
     olua_to_object(L, 1, &self, "cc.TurnOffTiles");
-    olua_check_array(L, 2, &arg1, "olua.uint");
+    olua_check_pointer(L, 2, &arg1, "olua.uint");
     olua_check_integer(L, 3, &arg2);
 
     // void shuffle(unsigned int *array, unsigned int len)

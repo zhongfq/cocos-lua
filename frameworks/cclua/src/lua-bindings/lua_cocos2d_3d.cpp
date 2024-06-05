@@ -523,16 +523,16 @@ static int _cocos2d_Mesh_create$1(lua_State *L)
     std::vector<float> arg3;       /** texs */
     std::vector<unsigned short> arg4;       /** indices */
 
-    olua_check_vector<float>(L, 1, arg1, [L](float *arg1) {
+    olua_check_array<float>(L, 1, arg1, [L](float *arg1) {
         olua_check_number(L, -1, arg1);
     });
-    olua_check_vector<float>(L, 2, arg2, [L](float *arg1) {
+    olua_check_array<float>(L, 2, arg2, [L](float *arg1) {
         olua_check_number(L, -1, arg1);
     });
-    olua_check_vector<float>(L, 3, arg3, [L](float *arg1) {
+    olua_check_array<float>(L, 3, arg3, [L](float *arg1) {
         olua_check_number(L, -1, arg1);
     });
-    olua_check_vector<unsigned short>(L, 4, arg4, [L](unsigned short *arg1) {
+    olua_check_array<unsigned short>(L, 4, arg4, [L](unsigned short *arg1) {
         olua_check_integer(L, -1, arg1);
     });
 
@@ -554,14 +554,14 @@ static int _cocos2d_Mesh_create$2(lua_State *L)
     std::vector<unsigned short> arg3;       /** indices */
     std::vector<cocos2d::MeshVertexAttrib> arg4;       /** attribs */
 
-    olua_check_vector<float>(L, 1, arg1, [L](float *arg1) {
+    olua_check_array<float>(L, 1, arg1, [L](float *arg1) {
         olua_check_number(L, -1, arg1);
     });
     olua_check_integer(L, 2, &arg2);
-    olua_check_vector<unsigned short>(L, 3, arg3, [L](unsigned short *arg1) {
+    olua_check_array<unsigned short>(L, 3, arg3, [L](unsigned short *arg1) {
         olua_check_integer(L, -1, arg1);
     });
-    olua_check_vector<cocos2d::MeshVertexAttrib>(L, 4, arg4, [L](cocos2d::MeshVertexAttrib *arg1) {
+    olua_check_array<cocos2d::MeshVertexAttrib>(L, 4, arg4, [L](cocos2d::MeshVertexAttrib *arg1) {
         olua_check_object(L, -1, arg1, "cc.MeshVertexAttrib");
     });
 
@@ -579,12 +579,12 @@ static int _cocos2d_Mesh_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 4) {
-        if ((olua_is_vector(L, 1)) && (olua_is_vector(L, 2)) && (olua_is_vector(L, 3)) && (olua_is_vector(L, 4))) {
+        if ((olua_is_array(L, 1)) && (olua_is_array(L, 2)) && (olua_is_array(L, 3)) && (olua_is_array(L, 4))) {
             // static cocos2d::Mesh *create(const std::vector<float> &positions, const std::vector<float> &normals, const std::vector<float> &texs, const std::vector<unsigned short> &indices)
             return _cocos2d_Mesh_create$1(L);
         }
 
-        // if ((olua_is_vector(L, 1)) && (olua_is_integer(L, 2)) && (olua_is_vector(L, 3)) && (olua_is_vector(L, 4))) {
+        // if ((olua_is_array(L, 1)) && (olua_is_integer(L, 2)) && (olua_is_array(L, 3)) && (olua_is_array(L, 4))) {
             // static cocos2d::Mesh *create(const std::vector<float> &vertices, int perVertexSizeInFloat, const std::vector<unsigned short> &indices, const std::vector<cocos2d::MeshVertexAttrib> &attribs)
             return _cocos2d_Mesh_create$2(L);
         // }
@@ -2402,7 +2402,7 @@ static int _cocos2d_Sprite3D_getMeshArrayByName(lua_State *L)
 
     // std::vector<cocos2d::Mesh *> getMeshArrayByName(const std::string &name)
     std::vector<cocos2d::Mesh *> ret = self->getMeshArrayByName(arg1);
-    int num_ret = olua_push_vector<cocos2d::Mesh *>(L, ret, [L](cocos2d::Mesh *arg1) {
+    int num_ret = olua_push_array<cocos2d::Mesh *>(L, ret, [L](cocos2d::Mesh *arg1) {
         olua_push_object(L, arg1, "cc.Mesh");
     });
 
@@ -2476,7 +2476,7 @@ static int _cocos2d_Sprite3D_getMeshes(lua_State *L)
 
     // const cocos2d::Vector<cocos2d::Mesh *> &getMeshes()
     const cocos2d::Vector<cocos2d::Mesh *> &ret = self->getMeshes();
-    int num_ret = olua_push_vector<cocos2d::Mesh *>(L, ret, [L](cocos2d::Mesh *arg1) {
+    int num_ret = olua_push_array<cocos2d::Mesh *>(L, ret, [L](cocos2d::Mesh *arg1) {
         olua_push_object(L, arg1, "cc.Mesh");
     });
 
@@ -3172,9 +3172,9 @@ static int _cocos2d_Bone3D_setAnimationValue$1(lua_State *L)
     float arg5 = 0;       /** weight */
 
     olua_to_object(L, 1, &self, "cc.Bone3D");
-    olua_check_array(L, 2, &arg1, "olua.float");
-    olua_check_array(L, 3, &arg2, "olua.float");
-    olua_check_array(L, 4, &arg3, "olua.float");
+    olua_check_pointer(L, 2, &arg1, "olua.float");
+    olua_check_pointer(L, 3, &arg2, "olua.float");
+    olua_check_pointer(L, 4, &arg3, "olua.float");
     olua_check_object(L, 5, &arg4, "void *");
     olua_check_number(L, 6, &arg5);
 
@@ -3196,9 +3196,9 @@ static int _cocos2d_Bone3D_setAnimationValue$2(lua_State *L)
     float *arg3 = nullptr;       /** scale */
 
     olua_to_object(L, 1, &self, "cc.Bone3D");
-    olua_check_array(L, 2, &arg1, "olua.float");
-    olua_check_array(L, 3, &arg2, "olua.float");
-    olua_check_array(L, 4, &arg3, "olua.float");
+    olua_check_pointer(L, 2, &arg1, "olua.float");
+    olua_check_pointer(L, 3, &arg2, "olua.float");
+    olua_check_pointer(L, 4, &arg3, "olua.float");
 
     // void setAnimationValue(float *trans, float *rot, float *scale, @optional void *tag, @optional float weight)
     self->setAnimationValue(arg1, arg2, arg3);
@@ -3219,9 +3219,9 @@ static int _cocos2d_Bone3D_setAnimationValue$3(lua_State *L)
     void *arg4 = nullptr;       /** tag */
 
     olua_to_object(L, 1, &self, "cc.Bone3D");
-    olua_check_array(L, 2, &arg1, "olua.float");
-    olua_check_array(L, 3, &arg2, "olua.float");
-    olua_check_array(L, 4, &arg3, "olua.float");
+    olua_check_pointer(L, 2, &arg1, "olua.float");
+    olua_check_pointer(L, 3, &arg2, "olua.float");
+    olua_check_pointer(L, 4, &arg3, "olua.float");
     olua_check_object(L, 5, &arg4, "void *");
 
     // void setAnimationValue(float *trans, float *rot, float *scale, @optional void *tag, @optional float weight)
@@ -3237,21 +3237,21 @@ static int _cocos2d_Bone3D_setAnimationValue(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 3) {
-        // if ((olua_is_array(L, 2, "olua.float")) && (olua_is_array(L, 3, "olua.float")) && (olua_is_array(L, 4, "olua.float"))) {
+        // if ((olua_is_pointer(L, 2, "olua.float")) && (olua_is_pointer(L, 3, "olua.float")) && (olua_is_pointer(L, 4, "olua.float"))) {
             // void setAnimationValue(float *trans, float *rot, float *scale, @optional void *tag, @optional float weight)
             return _cocos2d_Bone3D_setAnimationValue$2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if ((olua_is_array(L, 2, "olua.float")) && (olua_is_array(L, 3, "olua.float")) && (olua_is_array(L, 4, "olua.float")) && (olua_is_object(L, 5, "void *"))) {
+        // if ((olua_is_pointer(L, 2, "olua.float")) && (olua_is_pointer(L, 3, "olua.float")) && (olua_is_pointer(L, 4, "olua.float")) && (olua_is_object(L, 5, "void *"))) {
             // void setAnimationValue(float *trans, float *rot, float *scale, @optional void *tag, @optional float weight)
             return _cocos2d_Bone3D_setAnimationValue$3(L);
         // }
     }
 
     if (num_args == 5) {
-        // if ((olua_is_array(L, 2, "olua.float")) && (olua_is_array(L, 3, "olua.float")) && (olua_is_array(L, 4, "olua.float")) && (olua_is_object(L, 5, "void *")) && (olua_is_number(L, 6))) {
+        // if ((olua_is_pointer(L, 2, "olua.float")) && (olua_is_pointer(L, 3, "olua.float")) && (olua_is_pointer(L, 4, "olua.float")) && (olua_is_object(L, 5, "void *")) && (olua_is_number(L, 6))) {
             // void setAnimationValue(float *trans, float *rot, float *scale, @optional void *tag, @optional float weight)
             return _cocos2d_Bone3D_setAnimationValue$1(L);
         // }

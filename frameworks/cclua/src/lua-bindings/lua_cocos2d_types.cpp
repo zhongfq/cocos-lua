@@ -868,8 +868,8 @@ static int _cocos2d_Vec2_isLineIntersect$1(lua_State *L)
     olua_check_object(L, 2, &arg2, "cc.Vec2");
     olua_check_object(L, 3, &arg3, "cc.Vec2");
     olua_check_object(L, 4, &arg4, "cc.Vec2");
-    olua_check_array(L, 5, &arg5, "olua.float");
-    olua_check_array(L, 6, &arg6, "olua.float");
+    olua_check_pointer(L, 5, &arg5, "olua.float");
+    olua_check_pointer(L, 6, &arg6, "olua.float");
 
     // static bool isLineIntersect(const cocos2d::Vec2 &A, const cocos2d::Vec2 &B, const cocos2d::Vec2 &C, const cocos2d::Vec2 &D, @optional float *S, @optional float *T)
     bool ret = cocos2d::Vec2::isLineIntersect(arg1, arg2, arg3, arg4, arg5, arg6);
@@ -917,7 +917,7 @@ static int _cocos2d_Vec2_isLineIntersect$3(lua_State *L)
     olua_check_object(L, 2, &arg2, "cc.Vec2");
     olua_check_object(L, 3, &arg3, "cc.Vec2");
     olua_check_object(L, 4, &arg4, "cc.Vec2");
-    olua_check_array(L, 5, &arg5, "olua.float");
+    olua_check_pointer(L, 5, &arg5, "olua.float");
 
     // static bool isLineIntersect(const cocos2d::Vec2 &A, const cocos2d::Vec2 &B, const cocos2d::Vec2 &C, const cocos2d::Vec2 &D, @optional float *S, @optional float *T)
     bool ret = cocos2d::Vec2::isLineIntersect(arg1, arg2, arg3, arg4, arg5);
@@ -940,14 +940,14 @@ static int _cocos2d_Vec2_isLineIntersect(lua_State *L)
     }
 
     if (num_args == 5) {
-        // if ((olua_is_object(L, 1, "cc.Vec2")) && (olua_is_object(L, 2, "cc.Vec2")) && (olua_is_object(L, 3, "cc.Vec2")) && (olua_is_object(L, 4, "cc.Vec2")) && (olua_is_array(L, 5, "olua.float"))) {
+        // if ((olua_is_object(L, 1, "cc.Vec2")) && (olua_is_object(L, 2, "cc.Vec2")) && (olua_is_object(L, 3, "cc.Vec2")) && (olua_is_object(L, 4, "cc.Vec2")) && (olua_is_pointer(L, 5, "olua.float"))) {
             // static bool isLineIntersect(const cocos2d::Vec2 &A, const cocos2d::Vec2 &B, const cocos2d::Vec2 &C, const cocos2d::Vec2 &D, @optional float *S, @optional float *T)
             return _cocos2d_Vec2_isLineIntersect$3(L);
         // }
     }
 
     if (num_args == 6) {
-        // if ((olua_is_object(L, 1, "cc.Vec2")) && (olua_is_object(L, 2, "cc.Vec2")) && (olua_is_object(L, 3, "cc.Vec2")) && (olua_is_object(L, 4, "cc.Vec2")) && (olua_is_array(L, 5, "olua.float")) && (olua_is_array(L, 6, "olua.float"))) {
+        // if ((olua_is_object(L, 1, "cc.Vec2")) && (olua_is_object(L, 2, "cc.Vec2")) && (olua_is_object(L, 3, "cc.Vec2")) && (olua_is_object(L, 4, "cc.Vec2")) && (olua_is_pointer(L, 5, "olua.float")) && (olua_is_pointer(L, 6, "olua.float"))) {
             // static bool isLineIntersect(const cocos2d::Vec2 &A, const cocos2d::Vec2 &B, const cocos2d::Vec2 &C, const cocos2d::Vec2 &D, @optional float *S, @optional float *T)
             return _cocos2d_Vec2_isLineIntersect$1(L);
         // }
@@ -1277,7 +1277,7 @@ static int _cocos2d_Vec2_new$3(lua_State *L)
 
     float *arg1 = nullptr;       /** array */
 
-    olua_check_array(L, 1, &arg1, "olua.float");
+    olua_check_pointer(L, 1, &arg1, "olua.float");
 
     // Vec2(const float *array)
     cocos2d::Vec2 *ret = new cocos2d::Vec2(arg1);
@@ -1319,7 +1319,7 @@ static int _cocos2d_Vec2_new(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if ((olua_is_array(L, 1, "olua.float"))) {
+        // if ((olua_is_pointer(L, 1, "olua.float"))) {
             // Vec2(const float *array)
             return _cocos2d_Vec2_new$3(L);
         // }
@@ -1545,7 +1545,7 @@ static int _cocos2d_Vec2_set$2(lua_State *L)
     float *arg1 = nullptr;       /** array */
 
     olua_to_object(L, 1, &self, "cc.Vec2");
-    olua_check_array(L, 2, &arg1, "olua.float");
+    olua_check_pointer(L, 2, &arg1, "olua.float");
 
     // void set(const float *array)
     self->set(arg1);
@@ -1603,7 +1603,7 @@ static int _cocos2d_Vec2_set(lua_State *L)
             return _cocos2d_Vec2_set$3(L);
         }
 
-        // if ((olua_is_array(L, 2, "olua.float"))) {
+        // if ((olua_is_pointer(L, 2, "olua.float"))) {
             // void set(const float *array)
             return _cocos2d_Vec2_set$2(L);
         // }
@@ -2484,7 +2484,7 @@ static int _cocos2d_Vec3_new$3(lua_State *L)
 
     float *arg1 = nullptr;       /** array */
 
-    olua_check_array(L, 1, &arg1, "olua.float");
+    olua_check_pointer(L, 1, &arg1, "olua.float");
 
     // Vec3(const float *array)
     cocos2d::Vec3 *ret = new cocos2d::Vec3(arg1);
@@ -2526,7 +2526,7 @@ static int _cocos2d_Vec3_new(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if ((olua_is_array(L, 1, "olua.float"))) {
+        // if ((olua_is_pointer(L, 1, "olua.float"))) {
             // Vec3(const float *array)
             return _cocos2d_Vec3_new$3(L);
         // }
@@ -2615,7 +2615,7 @@ static int _cocos2d_Vec3_set$2(lua_State *L)
     float *arg1 = nullptr;       /** array */
 
     olua_to_object(L, 1, &self, "cc.Vec3");
-    olua_check_array(L, 2, &arg1, "olua.float");
+    olua_check_pointer(L, 2, &arg1, "olua.float");
 
     // void set(const float *array)
     self->set(arg1);
@@ -2673,7 +2673,7 @@ static int _cocos2d_Vec3_set(lua_State *L)
             return _cocos2d_Vec3_set$3(L);
         }
 
-        // if ((olua_is_array(L, 2, "olua.float"))) {
+        // if ((olua_is_pointer(L, 2, "olua.float"))) {
             // void set(const float *array)
             return _cocos2d_Vec3_set$2(L);
         // }
@@ -3417,7 +3417,7 @@ static int _cocos2d_Vec4_new$3(lua_State *L)
 
     float *arg1 = nullptr;       /** array */
 
-    olua_check_array(L, 1, &arg1, "olua.float");
+    olua_check_pointer(L, 1, &arg1, "olua.float");
 
     // Vec4(const float *array)
     cocos2d::Vec4 *ret = new cocos2d::Vec4(arg1);
@@ -3482,7 +3482,7 @@ static int _cocos2d_Vec4_new(lua_State *L)
             return _cocos2d_Vec4_new$5(L);
         }
 
-        // if ((olua_is_array(L, 1, "olua.float"))) {
+        // if ((olua_is_pointer(L, 1, "olua.float"))) {
             // Vec4(const float *array)
             return _cocos2d_Vec4_new$3(L);
         // }
@@ -3573,7 +3573,7 @@ static int _cocos2d_Vec4_set$2(lua_State *L)
     float *arg1 = nullptr;       /** array */
 
     olua_to_object(L, 1, &self, "cc.Vec4");
-    olua_check_array(L, 2, &arg1, "olua.float");
+    olua_check_pointer(L, 2, &arg1, "olua.float");
 
     // void set(const float *array)
     self->set(arg1);
@@ -3631,7 +3631,7 @@ static int _cocos2d_Vec4_set(lua_State *L)
             return _cocos2d_Vec4_set$3(L);
         }
 
-        // if ((olua_is_array(L, 2, "olua.float"))) {
+        // if ((olua_is_pointer(L, 2, "olua.float"))) {
             // void set(const float *array)
             return _cocos2d_Vec4_set$2(L);
         // }
@@ -6084,7 +6084,7 @@ static int _cocos2d_Mat4_new$3(lua_State *L)
 
     float *arg1 = nullptr;       /** mat */
 
-    olua_check_array(L, 1, &arg1, "olua.float");
+    olua_check_pointer(L, 1, &arg1, "olua.float");
 
     // Mat4(const float *mat)
     cocos2d::Mat4 *ret = new cocos2d::Mat4(arg1);
@@ -6124,7 +6124,7 @@ static int _cocos2d_Mat4_new(lua_State *L)
     }
 
     if (num_args == 1) {
-        if ((olua_is_array(L, 1, "olua.float"))) {
+        if ((olua_is_pointer(L, 1, "olua.float"))) {
             // Mat4(const float *mat)
             return _cocos2d_Mat4_new$3(L);
         }
@@ -6670,7 +6670,7 @@ static int _cocos2d_Mat4_set$2(lua_State *L)
     float *arg1 = nullptr;       /** mat */
 
     olua_to_object(L, 1, &self, "cc.Mat4");
-    olua_check_array(L, 2, &arg1, "olua.float");
+    olua_check_pointer(L, 2, &arg1, "olua.float");
 
     // void set(const float *mat)
     self->set(arg1);
@@ -6703,7 +6703,7 @@ static int _cocos2d_Mat4_set(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if ((olua_is_array(L, 2, "olua.float"))) {
+        if ((olua_is_pointer(L, 2, "olua.float"))) {
             // void set(const float *mat)
             return _cocos2d_Mat4_set$2(L);
         }
@@ -8201,7 +8201,7 @@ static int _cocos2d_Quaternion_new$3(lua_State *L)
 
     float *arg1 = nullptr;       /** array */
 
-    olua_check_array(L, 1, &arg1, "olua.float");
+    olua_check_pointer(L, 1, &arg1, "olua.float");
 
     // Quaternion(float *array)
     cocos2d::Quaternion *ret = new cocos2d::Quaternion(arg1);
@@ -8261,7 +8261,7 @@ static int _cocos2d_Quaternion_new(lua_State *L)
     }
 
     if (num_args == 1) {
-        if ((olua_is_array(L, 1, "olua.float"))) {
+        if ((olua_is_pointer(L, 1, "olua.float"))) {
             // Quaternion(float *array)
             return _cocos2d_Quaternion_new$3(L);
         }
@@ -8339,7 +8339,7 @@ static int _cocos2d_Quaternion_set$2(lua_State *L)
     float *arg1 = nullptr;       /** array */
 
     olua_to_object(L, 1, &self, "cc.Quaternion");
-    olua_check_array(L, 2, &arg1, "olua.float");
+    olua_check_pointer(L, 2, &arg1, "olua.float");
 
     // void set(float *array)
     self->set(arg1);
@@ -8410,7 +8410,7 @@ static int _cocos2d_Quaternion_set(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if ((olua_is_array(L, 2, "olua.float"))) {
+        if ((olua_is_pointer(L, 2, "olua.float"))) {
             // void set(float *array)
             return _cocos2d_Quaternion_set$2(L);
         }
@@ -13082,14 +13082,14 @@ static int _cocos2d_backend_TextureInfo___call(lua_State *L)
     std::vector<cocos2d::backend::TextureBackend *> arg2;       /** textures */
 
     olua_getfield(L, 2, "slot");
-    olua_check_vector<uint32_t>(L, -1, arg1, [L](uint32_t *arg1) {
+    olua_check_array<uint32_t>(L, -1, arg1, [L](uint32_t *arg1) {
         olua_check_integer(L, -1, arg1);
     });
     ret.slot = arg1;
     lua_pop(L, 1);
 
     olua_getfield(L, 2, "textures");
-    olua_check_vector<cocos2d::backend::TextureBackend *>(L, -1, arg2, [L](cocos2d::backend::TextureBackend **arg1) {
+    olua_check_array<cocos2d::backend::TextureBackend *>(L, -1, arg2, [L](cocos2d::backend::TextureBackend **arg1) {
         olua_check_object(L, -1, arg1, "ccb.TextureBackend");
     });
     ret.textures = arg2;
@@ -13133,10 +13133,10 @@ static int _cocos2d_backend_TextureInfo_new$1(lua_State *L)
     std::vector<uint32_t> arg1;       /** _slots */
     std::vector<cocos2d::backend::TextureBackend *> arg2;       /** _textures */
 
-    olua_check_vector<uint32_t>(L, 1, arg1, [L](uint32_t *arg1) {
+    olua_check_array<uint32_t>(L, 1, arg1, [L](uint32_t *arg1) {
         olua_check_integer(L, -1, arg1);
     });
-    olua_check_vector<cocos2d::backend::TextureBackend *>(L, 2, arg2, [L](cocos2d::backend::TextureBackend **arg1) {
+    olua_check_array<cocos2d::backend::TextureBackend *>(L, 2, arg2, [L](cocos2d::backend::TextureBackend **arg1) {
         olua_check_object(L, -1, arg1, "ccb.TextureBackend");
     });
 
@@ -13199,7 +13199,7 @@ static int _cocos2d_backend_TextureInfo_new(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if ((olua_is_vector(L, 1)) && (olua_is_vector(L, 2))) {
+        // if ((olua_is_array(L, 1)) && (olua_is_array(L, 2))) {
             // TextureInfo(const std::vector<uint32_t> &_slots, const std::vector<cocos2d::backend::TextureBackend *> _textures)
             return _cocos2d_backend_TextureInfo_new$1(L);
         // }
@@ -13252,7 +13252,7 @@ static int _cocos2d_backend_TextureInfo_get_slot(lua_State *L)
 
     // std::vector<uint32_t> slot
     std::vector<uint32_t> &ret = self->slot;
-    int num_ret = olua_push_vector<uint32_t>(L, ret, [L](uint32_t &arg1) {
+    int num_ret = olua_push_array<uint32_t>(L, ret, [L](uint32_t &arg1) {
         olua_push_integer(L, arg1);
     });
 
@@ -13269,7 +13269,7 @@ static int _cocos2d_backend_TextureInfo_set_slot(lua_State *L)
     std::vector<uint32_t> arg1;       /** slot */
 
     olua_to_object(L, 1, &self, "ccb.TextureInfo");
-    olua_check_vector<uint32_t>(L, 2, arg1, [L](uint32_t *arg1) {
+    olua_check_array<uint32_t>(L, 2, arg1, [L](uint32_t *arg1) {
         olua_check_integer(L, -1, arg1);
     });
 
@@ -13291,7 +13291,7 @@ static int _cocos2d_backend_TextureInfo_get_textures(lua_State *L)
 
     // std::vector<cocos2d::backend::TextureBackend *> textures
     std::vector<cocos2d::backend::TextureBackend *> &ret = self->textures;
-    int num_ret = olua_push_vector<cocos2d::backend::TextureBackend *>(L, ret, [L](cocos2d::backend::TextureBackend *arg1) {
+    int num_ret = olua_push_array<cocos2d::backend::TextureBackend *>(L, ret, [L](cocos2d::backend::TextureBackend *arg1) {
         olua_push_object(L, arg1, "ccb.TextureBackend");
     });
 
@@ -13308,7 +13308,7 @@ static int _cocos2d_backend_TextureInfo_set_textures(lua_State *L)
     std::vector<cocos2d::backend::TextureBackend *> arg1;       /** textures */
 
     olua_to_object(L, 1, &self, "ccb.TextureInfo");
-    olua_check_vector<cocos2d::backend::TextureBackend *>(L, 2, arg1, [L](cocos2d::backend::TextureBackend **arg1) {
+    olua_check_array<cocos2d::backend::TextureBackend *>(L, 2, arg1, [L](cocos2d::backend::TextureBackend **arg1) {
         olua_check_object(L, -1, arg1, "ccb.TextureBackend");
     });
 
@@ -15345,6 +15345,49 @@ static int _cocos2d_types_VectorString___gc(lua_State *L)
     return (int)ret;
 }
 
+static int _cocos2d_types_VectorString___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::VectorString *self = nullptr;
+    unsigned int arg1 = 0;       /** idx */
+
+    olua_to_object(L, 1, &self, "cc.VectorString");
+    olua_check_integer(L, 2, &arg1);
+
+    // std::vector<std::string> __index(unsigned int idx)
+    std::vector<std::string> ret = self->__index(arg1);
+    int num_ret = olua_push_array<std::string>(L, ret, [L](std::string &arg1) {
+        olua_push_string(L, arg1);
+    });
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_VectorString___newindex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::VectorString *self = nullptr;
+    unsigned int arg1 = 0;       /** idx */
+    std::vector<std::string> arg2;       /** v */
+
+    olua_to_object(L, 1, &self, "cc.VectorString");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_array<std::string>(L, 3, arg2, [L](std::string *arg1) {
+        olua_check_string(L, -1, arg1);
+    });
+
+    // void __newindex(unsigned int idx, const std::vector<std::string> &v)
+    self->__newindex(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cocos2d_types_VectorString___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -15357,12 +15400,36 @@ static int _cocos2d_types_VectorString___olua_move(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_types_VectorString_assign(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::VectorString *self = nullptr;
+    const char *arg1 = nullptr;       /** data */
+    size_t arg2 = 0;       /** len */
+
+    olua_to_object(L, 1, &self, "cc.VectorString");
+    olua_check_string(L, 2, &arg1);
+    olua_check_integer(L, 3, &arg2);
+
+    // void assign(const char *data, size_t len)
+    self->assign(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cocos2d_types_VectorString_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // @postnew @name(new) static cocos2d::types::VectorString *create()
-    cocos2d::types::VectorString *ret = cocos2d::types::VectorString::create();
+    size_t arg1 = 0;       /** len */
+
+    olua_check_integer(L, 1, &arg1);
+
+    // @postnew @name(new) static cocos2d::types::VectorString *create(@optional size_t len)
+    cocos2d::types::VectorString *ret = cocos2d::types::VectorString::create(arg1);
     int num_ret = olua_push_object(L, ret, "cc.VectorString");
 
     // insert code after call
@@ -15377,14 +15444,8 @@ static int _cocos2d_types_VectorString_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    std::vector<std::string> arg1;       /** v */
-
-    olua_check_vector<std::string>(L, 1, arg1, [L](std::string *arg1) {
-        olua_check_string(L, -1, arg1);
-    });
-
-    // @postnew @name(new) static cocos2d::types::VectorString *create(const std::vector<std::string> &v)
-    cocos2d::types::VectorString *ret = cocos2d::types::VectorString::create(arg1);
+    // @postnew @name(new) static cocos2d::types::VectorString *create(@optional size_t len)
+    cocos2d::types::VectorString *ret = cocos2d::types::VectorString::create();
     int num_ret = olua_push_object(L, ret, "cc.VectorString");
 
     // insert code after call
@@ -15400,18 +15461,156 @@ static int _cocos2d_types_VectorString_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
-        // @postnew @name(new) static cocos2d::types::VectorString *create()
-        return _cocos2d_types_VectorString_create$1(L);
+        // @postnew @name(new) static cocos2d::types::VectorString *create(@optional size_t len)
+        return _cocos2d_types_VectorString_create$2(L);
     }
 
     if (num_args == 1) {
-        // if ((olua_is_vector(L, 1))) {
-            // @postnew @name(new) static cocos2d::types::VectorString *create(const std::vector<std::string> &v)
-            return _cocos2d_types_VectorString_create$2(L);
+        // if ((olua_is_integer(L, 1))) {
+            // @postnew @name(new) static cocos2d::types::VectorString *create(@optional size_t len)
+            return _cocos2d_types_VectorString_create$1(L);
         // }
     }
 
     luaL_error(L, "method 'cocos2d::types::VectorString::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_types_VectorString_slice$1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::VectorString *self = nullptr;
+    size_t arg1 = 0;       /** from */
+    size_t arg2 = 0;       /** to */
+
+    olua_to_object(L, 1, &self, "cc.VectorString");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_integer(L, 3, &arg2);
+
+    // @postnew cocos2d::types::VectorString *slice(size_t from, @optional size_t to)
+    cocos2d::types::VectorString *ret = self->slice(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "cc.VectorString");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_VectorString_slice$2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::VectorString *self = nullptr;
+    size_t arg1 = 0;       /** from */
+
+    olua_to_object(L, 1, &self, "cc.VectorString");
+    olua_check_integer(L, 2, &arg1);
+
+    // @postnew cocos2d::types::VectorString *slice(size_t from, @optional size_t to)
+    cocos2d::types::VectorString *ret = self->slice(arg1);
+    int num_ret = olua_push_object(L, ret, "cc.VectorString");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_VectorString_slice(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_integer(L, 2))) {
+            // @postnew cocos2d::types::VectorString *slice(size_t from, @optional size_t to)
+            return _cocos2d_types_VectorString_slice$2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
+            // @postnew cocos2d::types::VectorString *slice(size_t from, @optional size_t to)
+            return _cocos2d_types_VectorString_slice$1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::types::VectorString::slice' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_types_VectorString_sub$1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::VectorString *self = nullptr;
+    size_t arg1 = 0;       /** from */
+    size_t arg2 = 0;       /** to */
+
+    olua_to_object(L, 1, &self, "cc.VectorString");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_integer(L, 3, &arg2);
+
+    // @postnew cocos2d::types::VectorString *sub(size_t from, @optional size_t to)
+    cocos2d::types::VectorString *ret = self->sub(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "cc.VectorString");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_VectorString_sub$2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::VectorString *self = nullptr;
+    size_t arg1 = 0;       /** from */
+
+    olua_to_object(L, 1, &self, "cc.VectorString");
+    olua_check_integer(L, 2, &arg1);
+
+    // @postnew cocos2d::types::VectorString *sub(size_t from, @optional size_t to)
+    cocos2d::types::VectorString *ret = self->sub(arg1);
+    int num_ret = olua_push_object(L, ret, "cc.VectorString");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_VectorString_sub(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_integer(L, 2))) {
+            // @postnew cocos2d::types::VectorString *sub(size_t from, @optional size_t to)
+            return _cocos2d_types_VectorString_sub$2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
+            // @postnew cocos2d::types::VectorString *sub(size_t from, @optional size_t to)
+            return _cocos2d_types_VectorString_sub$1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::types::VectorString::sub' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -15433,7 +15632,25 @@ static int _cocos2d_types_VectorString_take(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_types_VectorString_data(lua_State *L)
+static int _cocos2d_types_VectorString_tostring(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::VectorString *self = nullptr;
+    size_t arg2 = 0;       /** len */
+
+    olua_to_object(L, 1, &self, "cc.VectorString");
+    olua_check_integer(L, 2, &arg2);
+
+    // olua_Return tostring(lua_State *L, size_t len)
+    olua_Return ret = self->tostring(L, arg2);
+
+    olua_endinvoke(L);
+
+    return (int)ret;
+}
+
+static int _cocos2d_types_VectorString_length(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -15441,9 +15658,9 @@ static int _cocos2d_types_VectorString_data(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.VectorString");
 
-    // @getter @name(data) std::vector<std::string> *data()
-    std::vector<std::string> *ret = self->data();
-    int num_ret = olua_push_pointer(L, ret, "cc.VectorString");
+    // @getter @name(length) size_t length()
+    size_t ret = self->length();
+    int num_ret = olua_push_integer(L, ret);
 
     olua_endinvoke(L);
 
@@ -15494,7 +15711,7 @@ static int _cocos2d_types_VectorString_value(lua_State *L)
 
     // @getter @name(value) const std::vector<std::string> &value()
     const std::vector<std::string> &ret = self->value();
-    int num_ret = olua_push_vector<std::string>(L, ret, [L](std::string &arg1) {
+    int num_ret = olua_push_array<std::string>(L, ret, [L](std::string &arg1) {
         olua_push_string(L, arg1);
     });
 
@@ -15508,10 +15725,16 @@ OLUA_LIB int luaopen_cocos2d_types_VectorString(lua_State *L)
 {
     oluacls_class<cocos2d::types::VectorString>(L, "cc.VectorString");
     oluacls_func(L, "__gc", _cocos2d_types_VectorString___gc);
+    oluacls_func(L, "__index", _cocos2d_types_VectorString___index);
+    oluacls_func(L, "__newindex", _cocos2d_types_VectorString___newindex);
     oluacls_func(L, "__olua_move", _cocos2d_types_VectorString___olua_move);
+    oluacls_func(L, "assign", _cocos2d_types_VectorString_assign);
     oluacls_func(L, "new", _cocos2d_types_VectorString_create);
+    oluacls_func(L, "slice", _cocos2d_types_VectorString_slice);
+    oluacls_func(L, "sub", _cocos2d_types_VectorString_sub);
     oluacls_func(L, "take", _cocos2d_types_VectorString_take);
-    oluacls_prop(L, "data", _cocos2d_types_VectorString_data, nullptr);
+    oluacls_func(L, "tostring", _cocos2d_types_VectorString_tostring);
+    oluacls_prop(L, "length", _cocos2d_types_VectorString_length, _cocos2d_types_VectorString_length);
     oluacls_prop(L, "rawdata", _cocos2d_types_VectorString_rawdata, nullptr);
     oluacls_prop(L, "sizeof", _cocos2d_types_VectorString_size, nullptr);
     oluacls_prop(L, "value", _cocos2d_types_VectorString_value, _cocos2d_types_VectorString_value);
@@ -15536,6 +15759,49 @@ static int _cocos2d_types_VectorInt___gc(lua_State *L)
     return (int)ret;
 }
 
+static int _cocos2d_types_VectorInt___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::VectorInt *self = nullptr;
+    unsigned int arg1 = 0;       /** idx */
+
+    olua_to_object(L, 1, &self, "cc.VectorInt");
+    olua_check_integer(L, 2, &arg1);
+
+    // std::vector<int> __index(unsigned int idx)
+    std::vector<int> ret = self->__index(arg1);
+    int num_ret = olua_push_array<int>(L, ret, [L](int &arg1) {
+        olua_push_integer(L, arg1);
+    });
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_VectorInt___newindex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::VectorInt *self = nullptr;
+    unsigned int arg1 = 0;       /** idx */
+    std::vector<int> arg2;       /** v */
+
+    olua_to_object(L, 1, &self, "cc.VectorInt");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_array<int>(L, 3, arg2, [L](int *arg1) {
+        olua_check_integer(L, -1, arg1);
+    });
+
+    // void __newindex(unsigned int idx, const std::vector<int> &v)
+    self->__newindex(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cocos2d_types_VectorInt___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -15548,12 +15814,36 @@ static int _cocos2d_types_VectorInt___olua_move(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_types_VectorInt_assign(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::VectorInt *self = nullptr;
+    const char *arg1 = nullptr;       /** data */
+    size_t arg2 = 0;       /** len */
+
+    olua_to_object(L, 1, &self, "cc.VectorInt");
+    olua_check_string(L, 2, &arg1);
+    olua_check_integer(L, 3, &arg2);
+
+    // void assign(const char *data, size_t len)
+    self->assign(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cocos2d_types_VectorInt_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // @postnew @name(new) static cocos2d::types::VectorInt *create()
-    cocos2d::types::VectorInt *ret = cocos2d::types::VectorInt::create();
+    size_t arg1 = 0;       /** len */
+
+    olua_check_integer(L, 1, &arg1);
+
+    // @postnew @name(new) static cocos2d::types::VectorInt *create(@optional size_t len)
+    cocos2d::types::VectorInt *ret = cocos2d::types::VectorInt::create(arg1);
     int num_ret = olua_push_object(L, ret, "cc.VectorInt");
 
     // insert code after call
@@ -15568,14 +15858,8 @@ static int _cocos2d_types_VectorInt_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    std::vector<int> arg1;       /** v */
-
-    olua_check_vector<int>(L, 1, arg1, [L](int *arg1) {
-        olua_check_integer(L, -1, arg1);
-    });
-
-    // @postnew @name(new) static cocos2d::types::VectorInt *create(const std::vector<int> &v)
-    cocos2d::types::VectorInt *ret = cocos2d::types::VectorInt::create(arg1);
+    // @postnew @name(new) static cocos2d::types::VectorInt *create(@optional size_t len)
+    cocos2d::types::VectorInt *ret = cocos2d::types::VectorInt::create();
     int num_ret = olua_push_object(L, ret, "cc.VectorInt");
 
     // insert code after call
@@ -15591,18 +15875,156 @@ static int _cocos2d_types_VectorInt_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
-        // @postnew @name(new) static cocos2d::types::VectorInt *create()
-        return _cocos2d_types_VectorInt_create$1(L);
+        // @postnew @name(new) static cocos2d::types::VectorInt *create(@optional size_t len)
+        return _cocos2d_types_VectorInt_create$2(L);
     }
 
     if (num_args == 1) {
-        // if ((olua_is_vector(L, 1))) {
-            // @postnew @name(new) static cocos2d::types::VectorInt *create(const std::vector<int> &v)
-            return _cocos2d_types_VectorInt_create$2(L);
+        // if ((olua_is_integer(L, 1))) {
+            // @postnew @name(new) static cocos2d::types::VectorInt *create(@optional size_t len)
+            return _cocos2d_types_VectorInt_create$1(L);
         // }
     }
 
     luaL_error(L, "method 'cocos2d::types::VectorInt::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_types_VectorInt_slice$1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::VectorInt *self = nullptr;
+    size_t arg1 = 0;       /** from */
+    size_t arg2 = 0;       /** to */
+
+    olua_to_object(L, 1, &self, "cc.VectorInt");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_integer(L, 3, &arg2);
+
+    // @postnew cocos2d::types::VectorInt *slice(size_t from, @optional size_t to)
+    cocos2d::types::VectorInt *ret = self->slice(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "cc.VectorInt");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_VectorInt_slice$2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::VectorInt *self = nullptr;
+    size_t arg1 = 0;       /** from */
+
+    olua_to_object(L, 1, &self, "cc.VectorInt");
+    olua_check_integer(L, 2, &arg1);
+
+    // @postnew cocos2d::types::VectorInt *slice(size_t from, @optional size_t to)
+    cocos2d::types::VectorInt *ret = self->slice(arg1);
+    int num_ret = olua_push_object(L, ret, "cc.VectorInt");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_VectorInt_slice(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_integer(L, 2))) {
+            // @postnew cocos2d::types::VectorInt *slice(size_t from, @optional size_t to)
+            return _cocos2d_types_VectorInt_slice$2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
+            // @postnew cocos2d::types::VectorInt *slice(size_t from, @optional size_t to)
+            return _cocos2d_types_VectorInt_slice$1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::types::VectorInt::slice' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_types_VectorInt_sub$1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::VectorInt *self = nullptr;
+    size_t arg1 = 0;       /** from */
+    size_t arg2 = 0;       /** to */
+
+    olua_to_object(L, 1, &self, "cc.VectorInt");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_integer(L, 3, &arg2);
+
+    // @postnew cocos2d::types::VectorInt *sub(size_t from, @optional size_t to)
+    cocos2d::types::VectorInt *ret = self->sub(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "cc.VectorInt");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_VectorInt_sub$2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::VectorInt *self = nullptr;
+    size_t arg1 = 0;       /** from */
+
+    olua_to_object(L, 1, &self, "cc.VectorInt");
+    olua_check_integer(L, 2, &arg1);
+
+    // @postnew cocos2d::types::VectorInt *sub(size_t from, @optional size_t to)
+    cocos2d::types::VectorInt *ret = self->sub(arg1);
+    int num_ret = olua_push_object(L, ret, "cc.VectorInt");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_VectorInt_sub(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_integer(L, 2))) {
+            // @postnew cocos2d::types::VectorInt *sub(size_t from, @optional size_t to)
+            return _cocos2d_types_VectorInt_sub$2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
+            // @postnew cocos2d::types::VectorInt *sub(size_t from, @optional size_t to)
+            return _cocos2d_types_VectorInt_sub$1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::types::VectorInt::sub' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -15624,7 +16046,25 @@ static int _cocos2d_types_VectorInt_take(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_types_VectorInt_data(lua_State *L)
+static int _cocos2d_types_VectorInt_tostring(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::VectorInt *self = nullptr;
+    size_t arg2 = 0;       /** len */
+
+    olua_to_object(L, 1, &self, "cc.VectorInt");
+    olua_check_integer(L, 2, &arg2);
+
+    // olua_Return tostring(lua_State *L, size_t len)
+    olua_Return ret = self->tostring(L, arg2);
+
+    olua_endinvoke(L);
+
+    return (int)ret;
+}
+
+static int _cocos2d_types_VectorInt_length(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -15632,9 +16072,9 @@ static int _cocos2d_types_VectorInt_data(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.VectorInt");
 
-    // @getter @name(data) std::vector<int> *data()
-    std::vector<int> *ret = self->data();
-    int num_ret = olua_push_pointer(L, ret, "cc.VectorInt");
+    // @getter @name(length) size_t length()
+    size_t ret = self->length();
+    int num_ret = olua_push_integer(L, ret);
 
     olua_endinvoke(L);
 
@@ -15685,7 +16125,7 @@ static int _cocos2d_types_VectorInt_value(lua_State *L)
 
     // @getter @name(value) const std::vector<int> &value()
     const std::vector<int> &ret = self->value();
-    int num_ret = olua_push_vector<int>(L, ret, [L](int &arg1) {
+    int num_ret = olua_push_array<int>(L, ret, [L](int &arg1) {
         olua_push_integer(L, arg1);
     });
 
@@ -15699,10 +16139,16 @@ OLUA_LIB int luaopen_cocos2d_types_VectorInt(lua_State *L)
 {
     oluacls_class<cocos2d::types::VectorInt>(L, "cc.VectorInt");
     oluacls_func(L, "__gc", _cocos2d_types_VectorInt___gc);
+    oluacls_func(L, "__index", _cocos2d_types_VectorInt___index);
+    oluacls_func(L, "__newindex", _cocos2d_types_VectorInt___newindex);
     oluacls_func(L, "__olua_move", _cocos2d_types_VectorInt___olua_move);
+    oluacls_func(L, "assign", _cocos2d_types_VectorInt_assign);
     oluacls_func(L, "new", _cocos2d_types_VectorInt_create);
+    oluacls_func(L, "slice", _cocos2d_types_VectorInt_slice);
+    oluacls_func(L, "sub", _cocos2d_types_VectorInt_sub);
     oluacls_func(L, "take", _cocos2d_types_VectorInt_take);
-    oluacls_prop(L, "data", _cocos2d_types_VectorInt_data, nullptr);
+    oluacls_func(L, "tostring", _cocos2d_types_VectorInt_tostring);
+    oluacls_prop(L, "length", _cocos2d_types_VectorInt_length, _cocos2d_types_VectorInt_length);
     oluacls_prop(L, "rawdata", _cocos2d_types_VectorInt_rawdata, nullptr);
     oluacls_prop(L, "sizeof", _cocos2d_types_VectorInt_size, nullptr);
     oluacls_prop(L, "value", _cocos2d_types_VectorInt_value, _cocos2d_types_VectorInt_value);
@@ -15727,6 +16173,45 @@ static int _cocos2d_types_ValueMap___gc(lua_State *L)
     return (int)ret;
 }
 
+static int _cocos2d_types_ValueMap___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::ValueMap *self = nullptr;
+    unsigned int arg1 = 0;       /** idx */
+
+    olua_to_object(L, 1, &self, "cc.ValueMap");
+    olua_check_integer(L, 2, &arg1);
+
+    // cocos2d::ValueMap __index(unsigned int idx)
+    cocos2d::ValueMap ret = self->__index(arg1);
+    int num_ret = olua_push_cocos2d_ValueMap(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_ValueMap___newindex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::ValueMap *self = nullptr;
+    unsigned int arg1 = 0;       /** idx */
+    cocos2d::ValueMap arg2;       /** v */
+
+    olua_to_object(L, 1, &self, "cc.ValueMap");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_cocos2d_ValueMap(L, 3, &arg2);
+
+    // void __newindex(unsigned int idx, const cocos2d::ValueMap &v)
+    self->__newindex(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cocos2d_types_ValueMap___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -15739,12 +16224,36 @@ static int _cocos2d_types_ValueMap___olua_move(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_types_ValueMap_assign(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::ValueMap *self = nullptr;
+    const char *arg1 = nullptr;       /** data */
+    size_t arg2 = 0;       /** len */
+
+    olua_to_object(L, 1, &self, "cc.ValueMap");
+    olua_check_string(L, 2, &arg1);
+    olua_check_integer(L, 3, &arg2);
+
+    // void assign(const char *data, size_t len)
+    self->assign(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cocos2d_types_ValueMap_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // @postnew @name(new) static cocos2d::types::ValueMap *create()
-    cocos2d::types::ValueMap *ret = cocos2d::types::ValueMap::create();
+    size_t arg1 = 0;       /** len */
+
+    olua_check_integer(L, 1, &arg1);
+
+    // @postnew @name(new) static cocos2d::types::ValueMap *create(@optional size_t len)
+    cocos2d::types::ValueMap *ret = cocos2d::types::ValueMap::create(arg1);
     int num_ret = olua_push_object(L, ret, "cc.ValueMap");
 
     // insert code after call
@@ -15759,12 +16268,8 @@ static int _cocos2d_types_ValueMap_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::ValueMap arg1;       /** v */
-
-    olua_check_cocos2d_ValueMap(L, 1, &arg1);
-
-    // @postnew @name(new) static cocos2d::types::ValueMap *create(const cocos2d::ValueMap &v)
-    cocos2d::types::ValueMap *ret = cocos2d::types::ValueMap::create(arg1);
+    // @postnew @name(new) static cocos2d::types::ValueMap *create(@optional size_t len)
+    cocos2d::types::ValueMap *ret = cocos2d::types::ValueMap::create();
     int num_ret = olua_push_object(L, ret, "cc.ValueMap");
 
     // insert code after call
@@ -15780,18 +16285,156 @@ static int _cocos2d_types_ValueMap_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
-        // @postnew @name(new) static cocos2d::types::ValueMap *create()
-        return _cocos2d_types_ValueMap_create$1(L);
+        // @postnew @name(new) static cocos2d::types::ValueMap *create(@optional size_t len)
+        return _cocos2d_types_ValueMap_create$2(L);
     }
 
     if (num_args == 1) {
-        // if ((olua_is_cocos2d_ValueMap(L, 1))) {
-            // @postnew @name(new) static cocos2d::types::ValueMap *create(const cocos2d::ValueMap &v)
-            return _cocos2d_types_ValueMap_create$2(L);
+        // if ((olua_is_integer(L, 1))) {
+            // @postnew @name(new) static cocos2d::types::ValueMap *create(@optional size_t len)
+            return _cocos2d_types_ValueMap_create$1(L);
         // }
     }
 
     luaL_error(L, "method 'cocos2d::types::ValueMap::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_types_ValueMap_slice$1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::ValueMap *self = nullptr;
+    size_t arg1 = 0;       /** from */
+    size_t arg2 = 0;       /** to */
+
+    olua_to_object(L, 1, &self, "cc.ValueMap");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_integer(L, 3, &arg2);
+
+    // @postnew cocos2d::types::ValueMap *slice(size_t from, @optional size_t to)
+    cocos2d::types::ValueMap *ret = self->slice(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "cc.ValueMap");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_ValueMap_slice$2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::ValueMap *self = nullptr;
+    size_t arg1 = 0;       /** from */
+
+    olua_to_object(L, 1, &self, "cc.ValueMap");
+    olua_check_integer(L, 2, &arg1);
+
+    // @postnew cocos2d::types::ValueMap *slice(size_t from, @optional size_t to)
+    cocos2d::types::ValueMap *ret = self->slice(arg1);
+    int num_ret = olua_push_object(L, ret, "cc.ValueMap");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_ValueMap_slice(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_integer(L, 2))) {
+            // @postnew cocos2d::types::ValueMap *slice(size_t from, @optional size_t to)
+            return _cocos2d_types_ValueMap_slice$2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
+            // @postnew cocos2d::types::ValueMap *slice(size_t from, @optional size_t to)
+            return _cocos2d_types_ValueMap_slice$1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::types::ValueMap::slice' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_types_ValueMap_sub$1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::ValueMap *self = nullptr;
+    size_t arg1 = 0;       /** from */
+    size_t arg2 = 0;       /** to */
+
+    olua_to_object(L, 1, &self, "cc.ValueMap");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_integer(L, 3, &arg2);
+
+    // @postnew cocos2d::types::ValueMap *sub(size_t from, @optional size_t to)
+    cocos2d::types::ValueMap *ret = self->sub(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "cc.ValueMap");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_ValueMap_sub$2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::ValueMap *self = nullptr;
+    size_t arg1 = 0;       /** from */
+
+    olua_to_object(L, 1, &self, "cc.ValueMap");
+    olua_check_integer(L, 2, &arg1);
+
+    // @postnew cocos2d::types::ValueMap *sub(size_t from, @optional size_t to)
+    cocos2d::types::ValueMap *ret = self->sub(arg1);
+    int num_ret = olua_push_object(L, ret, "cc.ValueMap");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_ValueMap_sub(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_integer(L, 2))) {
+            // @postnew cocos2d::types::ValueMap *sub(size_t from, @optional size_t to)
+            return _cocos2d_types_ValueMap_sub$2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
+            // @postnew cocos2d::types::ValueMap *sub(size_t from, @optional size_t to)
+            return _cocos2d_types_ValueMap_sub$1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::types::ValueMap::sub' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -15813,7 +16456,25 @@ static int _cocos2d_types_ValueMap_take(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_types_ValueMap_data(lua_State *L)
+static int _cocos2d_types_ValueMap_tostring(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::ValueMap *self = nullptr;
+    size_t arg2 = 0;       /** len */
+
+    olua_to_object(L, 1, &self, "cc.ValueMap");
+    olua_check_integer(L, 2, &arg2);
+
+    // olua_Return tostring(lua_State *L, size_t len)
+    olua_Return ret = self->tostring(L, arg2);
+
+    olua_endinvoke(L);
+
+    return (int)ret;
+}
+
+static int _cocos2d_types_ValueMap_length(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -15821,9 +16482,9 @@ static int _cocos2d_types_ValueMap_data(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.ValueMap");
 
-    // @getter @name(data) cocos2d::ValueMap *data()
-    cocos2d::ValueMap *ret = self->data();
-    int num_ret = olua_push_pointer(L, ret, "cc.ValueMap");
+    // @getter @name(length) size_t length()
+    size_t ret = self->length();
+    int num_ret = olua_push_integer(L, ret);
 
     olua_endinvoke(L);
 
@@ -15886,10 +16547,16 @@ OLUA_LIB int luaopen_cocos2d_types_ValueMap(lua_State *L)
 {
     oluacls_class<cocos2d::types::ValueMap>(L, "cc.ValueMap");
     oluacls_func(L, "__gc", _cocos2d_types_ValueMap___gc);
+    oluacls_func(L, "__index", _cocos2d_types_ValueMap___index);
+    oluacls_func(L, "__newindex", _cocos2d_types_ValueMap___newindex);
     oluacls_func(L, "__olua_move", _cocos2d_types_ValueMap___olua_move);
+    oluacls_func(L, "assign", _cocos2d_types_ValueMap_assign);
     oluacls_func(L, "new", _cocos2d_types_ValueMap_create);
+    oluacls_func(L, "slice", _cocos2d_types_ValueMap_slice);
+    oluacls_func(L, "sub", _cocos2d_types_ValueMap_sub);
     oluacls_func(L, "take", _cocos2d_types_ValueMap_take);
-    oluacls_prop(L, "data", _cocos2d_types_ValueMap_data, nullptr);
+    oluacls_func(L, "tostring", _cocos2d_types_ValueMap_tostring);
+    oluacls_prop(L, "length", _cocos2d_types_ValueMap_length, _cocos2d_types_ValueMap_length);
     oluacls_prop(L, "rawdata", _cocos2d_types_ValueMap_rawdata, nullptr);
     oluacls_prop(L, "sizeof", _cocos2d_types_ValueMap_size, nullptr);
     oluacls_prop(L, "value", _cocos2d_types_ValueMap_value, _cocos2d_types_ValueMap_value);
@@ -15914,6 +16581,45 @@ static int _cocos2d_types_TMXTileFlags___gc(lua_State *L)
     return (int)ret;
 }
 
+static int _cocos2d_types_TMXTileFlags___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::TMXTileFlags *self = nullptr;
+    unsigned int arg1 = 0;       /** idx */
+
+    olua_to_object(L, 1, &self, "cc.TMXTileFlags");
+    olua_check_integer(L, 2, &arg1);
+
+    // cocos2d::TMXTileFlags __index(unsigned int idx)
+    cocos2d::TMXTileFlags ret = self->__index(arg1);
+    int num_ret = olua_push_enum(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_TMXTileFlags___newindex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::TMXTileFlags *self = nullptr;
+    unsigned int arg1 = 0;       /** idx */
+    cocos2d::TMXTileFlags arg2 = (cocos2d::TMXTileFlags)0;       /** v */
+
+    olua_to_object(L, 1, &self, "cc.TMXTileFlags");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_enum(L, 3, &arg2);
+
+    // void __newindex(unsigned int idx, const cocos2d::TMXTileFlags &v)
+    self->__newindex(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cocos2d_types_TMXTileFlags___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -15926,12 +16632,36 @@ static int _cocos2d_types_TMXTileFlags___olua_move(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_types_TMXTileFlags_assign(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::TMXTileFlags *self = nullptr;
+    const char *arg1 = nullptr;       /** data */
+    size_t arg2 = 0;       /** len */
+
+    olua_to_object(L, 1, &self, "cc.TMXTileFlags");
+    olua_check_string(L, 2, &arg1);
+    olua_check_integer(L, 3, &arg2);
+
+    // void assign(const char *data, size_t len)
+    self->assign(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cocos2d_types_TMXTileFlags_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // @postnew @name(new) static cocos2d::types::TMXTileFlags *create()
-    cocos2d::types::TMXTileFlags *ret = cocos2d::types::TMXTileFlags::create();
+    size_t arg1 = 0;       /** len */
+
+    olua_check_integer(L, 1, &arg1);
+
+    // @postnew @name(new) static cocos2d::types::TMXTileFlags *create(@optional size_t len)
+    cocos2d::types::TMXTileFlags *ret = cocos2d::types::TMXTileFlags::create(arg1);
     int num_ret = olua_push_object(L, ret, "cc.TMXTileFlags");
 
     // insert code after call
@@ -15946,12 +16676,8 @@ static int _cocos2d_types_TMXTileFlags_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::TMXTileFlags arg1 = (cocos2d::TMXTileFlags)0;       /** v */
-
-    olua_check_enum(L, 1, &arg1);
-
-    // @postnew @name(new) static cocos2d::types::TMXTileFlags *create(const cocos2d::TMXTileFlags &v)
-    cocos2d::types::TMXTileFlags *ret = cocos2d::types::TMXTileFlags::create(arg1);
+    // @postnew @name(new) static cocos2d::types::TMXTileFlags *create(@optional size_t len)
+    cocos2d::types::TMXTileFlags *ret = cocos2d::types::TMXTileFlags::create();
     int num_ret = olua_push_object(L, ret, "cc.TMXTileFlags");
 
     // insert code after call
@@ -15967,18 +16693,156 @@ static int _cocos2d_types_TMXTileFlags_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
-        // @postnew @name(new) static cocos2d::types::TMXTileFlags *create()
-        return _cocos2d_types_TMXTileFlags_create$1(L);
+        // @postnew @name(new) static cocos2d::types::TMXTileFlags *create(@optional size_t len)
+        return _cocos2d_types_TMXTileFlags_create$2(L);
     }
 
     if (num_args == 1) {
-        // if ((olua_is_enum(L, 1))) {
-            // @postnew @name(new) static cocos2d::types::TMXTileFlags *create(const cocos2d::TMXTileFlags &v)
-            return _cocos2d_types_TMXTileFlags_create$2(L);
+        // if ((olua_is_integer(L, 1))) {
+            // @postnew @name(new) static cocos2d::types::TMXTileFlags *create(@optional size_t len)
+            return _cocos2d_types_TMXTileFlags_create$1(L);
         // }
     }
 
     luaL_error(L, "method 'cocos2d::types::TMXTileFlags::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_types_TMXTileFlags_slice$1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::TMXTileFlags *self = nullptr;
+    size_t arg1 = 0;       /** from */
+    size_t arg2 = 0;       /** to */
+
+    olua_to_object(L, 1, &self, "cc.TMXTileFlags");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_integer(L, 3, &arg2);
+
+    // @postnew cocos2d::types::TMXTileFlags *slice(size_t from, @optional size_t to)
+    cocos2d::types::TMXTileFlags *ret = self->slice(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "cc.TMXTileFlags");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_TMXTileFlags_slice$2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::TMXTileFlags *self = nullptr;
+    size_t arg1 = 0;       /** from */
+
+    olua_to_object(L, 1, &self, "cc.TMXTileFlags");
+    olua_check_integer(L, 2, &arg1);
+
+    // @postnew cocos2d::types::TMXTileFlags *slice(size_t from, @optional size_t to)
+    cocos2d::types::TMXTileFlags *ret = self->slice(arg1);
+    int num_ret = olua_push_object(L, ret, "cc.TMXTileFlags");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_TMXTileFlags_slice(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_integer(L, 2))) {
+            // @postnew cocos2d::types::TMXTileFlags *slice(size_t from, @optional size_t to)
+            return _cocos2d_types_TMXTileFlags_slice$2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
+            // @postnew cocos2d::types::TMXTileFlags *slice(size_t from, @optional size_t to)
+            return _cocos2d_types_TMXTileFlags_slice$1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::types::TMXTileFlags::slice' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_types_TMXTileFlags_sub$1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::TMXTileFlags *self = nullptr;
+    size_t arg1 = 0;       /** from */
+    size_t arg2 = 0;       /** to */
+
+    olua_to_object(L, 1, &self, "cc.TMXTileFlags");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_integer(L, 3, &arg2);
+
+    // @postnew cocos2d::types::TMXTileFlags *sub(size_t from, @optional size_t to)
+    cocos2d::types::TMXTileFlags *ret = self->sub(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "cc.TMXTileFlags");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_TMXTileFlags_sub$2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::TMXTileFlags *self = nullptr;
+    size_t arg1 = 0;       /** from */
+
+    olua_to_object(L, 1, &self, "cc.TMXTileFlags");
+    olua_check_integer(L, 2, &arg1);
+
+    // @postnew cocos2d::types::TMXTileFlags *sub(size_t from, @optional size_t to)
+    cocos2d::types::TMXTileFlags *ret = self->sub(arg1);
+    int num_ret = olua_push_object(L, ret, "cc.TMXTileFlags");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_TMXTileFlags_sub(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_integer(L, 2))) {
+            // @postnew cocos2d::types::TMXTileFlags *sub(size_t from, @optional size_t to)
+            return _cocos2d_types_TMXTileFlags_sub$2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
+            // @postnew cocos2d::types::TMXTileFlags *sub(size_t from, @optional size_t to)
+            return _cocos2d_types_TMXTileFlags_sub$1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::types::TMXTileFlags::sub' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -16000,7 +16864,25 @@ static int _cocos2d_types_TMXTileFlags_take(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_types_TMXTileFlags_data(lua_State *L)
+static int _cocos2d_types_TMXTileFlags_tostring(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::TMXTileFlags *self = nullptr;
+    size_t arg2 = 0;       /** len */
+
+    olua_to_object(L, 1, &self, "cc.TMXTileFlags");
+    olua_check_integer(L, 2, &arg2);
+
+    // olua_Return tostring(lua_State *L, size_t len)
+    olua_Return ret = self->tostring(L, arg2);
+
+    olua_endinvoke(L);
+
+    return (int)ret;
+}
+
+static int _cocos2d_types_TMXTileFlags_length(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -16008,9 +16890,9 @@ static int _cocos2d_types_TMXTileFlags_data(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.TMXTileFlags");
 
-    // @getter @name(data) cocos2d::TMXTileFlags *data()
-    cocos2d::TMXTileFlags *ret = self->data();
-    int num_ret = olua_push_pointer(L, ret, "cc.TMXTileFlags");
+    // @getter @name(length) size_t length()
+    size_t ret = self->length();
+    int num_ret = olua_push_integer(L, ret);
 
     olua_endinvoke(L);
 
@@ -16073,10 +16955,16 @@ OLUA_LIB int luaopen_cocos2d_types_TMXTileFlags(lua_State *L)
 {
     oluacls_class<cocos2d::types::TMXTileFlags>(L, "cc.TMXTileFlags");
     oluacls_func(L, "__gc", _cocos2d_types_TMXTileFlags___gc);
+    oluacls_func(L, "__index", _cocos2d_types_TMXTileFlags___index);
+    oluacls_func(L, "__newindex", _cocos2d_types_TMXTileFlags___newindex);
     oluacls_func(L, "__olua_move", _cocos2d_types_TMXTileFlags___olua_move);
+    oluacls_func(L, "assign", _cocos2d_types_TMXTileFlags_assign);
     oluacls_func(L, "new", _cocos2d_types_TMXTileFlags_create);
+    oluacls_func(L, "slice", _cocos2d_types_TMXTileFlags_slice);
+    oluacls_func(L, "sub", _cocos2d_types_TMXTileFlags_sub);
     oluacls_func(L, "take", _cocos2d_types_TMXTileFlags_take);
-    oluacls_prop(L, "data", _cocos2d_types_TMXTileFlags_data, nullptr);
+    oluacls_func(L, "tostring", _cocos2d_types_TMXTileFlags_tostring);
+    oluacls_prop(L, "length", _cocos2d_types_TMXTileFlags_length, _cocos2d_types_TMXTileFlags_length);
     oluacls_prop(L, "rawdata", _cocos2d_types_TMXTileFlags_rawdata, nullptr);
     oluacls_prop(L, "sizeof", _cocos2d_types_TMXTileFlags_size, nullptr);
     oluacls_prop(L, "value", _cocos2d_types_TMXTileFlags_value, _cocos2d_types_TMXTileFlags_value);
@@ -16152,6 +17040,26 @@ static int _cocos2d_types_Vec2Array___olua_move(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_types_Vec2Array_assign(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::Vec2Array *self = nullptr;
+    const char *arg1 = nullptr;       /** data */
+    size_t arg2 = 0;       /** len */
+
+    olua_to_object(L, 1, &self, "cc.Vec2Array");
+    olua_check_string(L, 2, &arg1);
+    olua_check_integer(L, 3, &arg2);
+
+    // void assign(const char *data, size_t len)
+    self->assign(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cocos2d_types_Vec2Array_create$1(lua_State *L)
 {
     olua_startinvoke(L);
@@ -16209,22 +17117,71 @@ static int _cocos2d_types_Vec2Array_create(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_types_Vec2Array_setstring(lua_State *L)
+static int _cocos2d_types_Vec2Array_slice$1(lua_State *L)
 {
     olua_startinvoke(L);
 
     cocos2d::types::Vec2Array *self = nullptr;
-    const char *arg1 = nullptr;       /** data */
-    size_t arg2 = 0;       /** len */
+    size_t arg1 = 0;       /** from */
+    size_t arg2 = 0;       /** to */
 
     olua_to_object(L, 1, &self, "cc.Vec2Array");
-    olua_check_string(L, 2, &arg1);
+    olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // void setstring(const char *data, size_t len)
-    self->setstring(arg1, arg2);
+    // @postnew cocos2d::types::Vec2Array *slice(size_t from, @optional size_t to)
+    cocos2d::types::Vec2Array *ret = self->slice(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "cc.Vec2Array");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_Vec2Array_slice$2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::types::Vec2Array *self = nullptr;
+    size_t arg1 = 0;       /** from */
+
+    olua_to_object(L, 1, &self, "cc.Vec2Array");
+    olua_check_integer(L, 2, &arg1);
+
+    // @postnew cocos2d::types::Vec2Array *slice(size_t from, @optional size_t to)
+    cocos2d::types::Vec2Array *ret = self->slice(arg1);
+    int num_ret = olua_push_object(L, ret, "cc.Vec2Array");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_types_Vec2Array_slice(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_integer(L, 2))) {
+            // @postnew cocos2d::types::Vec2Array *slice(size_t from, @optional size_t to)
+            return _cocos2d_types_Vec2Array_slice$2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
+            // @postnew cocos2d::types::Vec2Array *slice(size_t from, @optional size_t to)
+            return _cocos2d_types_Vec2Array_slice$1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::types::Vec2Array::slice' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -16333,23 +17290,6 @@ static int _cocos2d_types_Vec2Array_tostring(lua_State *L)
     return (int)ret;
 }
 
-static int _cocos2d_types_Vec2Array_data(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    cocos2d::types::Vec2Array *self = nullptr;
-
-    olua_to_object(L, 1, &self, "cc.Vec2Array");
-
-    // @getter @name(data) cocos2d::Vec2 *data()
-    cocos2d::Vec2 *ret = self->data();
-    int num_ret = olua_push_object(L, ret, "cc.Vec2");
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
 static int _cocos2d_types_Vec2Array_length(lua_State *L)
 {
     olua_startinvoke(L);
@@ -16426,12 +17366,12 @@ OLUA_LIB int luaopen_cocos2d_types_Vec2Array(lua_State *L)
     oluacls_func(L, "__index", _cocos2d_types_Vec2Array___index);
     oluacls_func(L, "__newindex", _cocos2d_types_Vec2Array___newindex);
     oluacls_func(L, "__olua_move", _cocos2d_types_Vec2Array___olua_move);
+    oluacls_func(L, "assign", _cocos2d_types_Vec2Array_assign);
     oluacls_func(L, "new", _cocos2d_types_Vec2Array_create);
-    oluacls_func(L, "setstring", _cocos2d_types_Vec2Array_setstring);
+    oluacls_func(L, "slice", _cocos2d_types_Vec2Array_slice);
     oluacls_func(L, "sub", _cocos2d_types_Vec2Array_sub);
     oluacls_func(L, "take", _cocos2d_types_Vec2Array_take);
     oluacls_func(L, "tostring", _cocos2d_types_Vec2Array_tostring);
-    oluacls_prop(L, "data", _cocos2d_types_Vec2Array_data, nullptr);
     oluacls_prop(L, "length", _cocos2d_types_Vec2Array_length, _cocos2d_types_Vec2Array_length);
     oluacls_prop(L, "rawdata", _cocos2d_types_Vec2Array_rawdata, nullptr);
     oluacls_prop(L, "sizeof", _cocos2d_types_Vec2Array_size, nullptr);

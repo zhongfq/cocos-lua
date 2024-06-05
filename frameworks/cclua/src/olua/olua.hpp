@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2019-2022 codetypes@gmail.com
+ * Copyright (c) 2019-2023 codetypes@gmail.com
  *
  * https://github.com/zhongfq/olua
  *
@@ -167,7 +167,7 @@ void olua_postpush(lua_State *L, T* obj, int status) {}
  *      if (std::is_base_of<Object, T>::value) {
  *          ((Object *)obj)->autorelease();
  *      } else if (olua_getrawobj(L, obj)) {
- *          olua_setownership(L, -1, OLUA_OWNERSHIP_VM);
+ *          olua_setobjflag(L, -1, OLUA_FLAG_IN_HEAP);
  *          lua_pop(L, 1);
  *      }
  *  }
@@ -180,7 +180,7 @@ template <class T>
 void olua_postnew(lua_State *L, T *obj)
 {
     if (olua_getrawobj(L, obj)) {
-        olua_setownership(L, -1, OLUA_OWNERSHIP_VM);
+        olua_setobjflag(L, -1, OLUA_FLAG_IN_HEAP);
         lua_pop(L, 1);
     }
 }
@@ -626,8 +626,12 @@ template <template<class> class SmartPtr, class T>
 int olua_smartptr_gc(lua_State *L)
 {
     SmartPtr<T> *obj = olua_checkobj<SmartPtr<T>>(L, 1);
+    if (olua_hasobjflag(L, -1, OLUA_FLAG_IN_USERDATA)) {
+        obj->~SmartPtr<T>();
+    } else {
+        delete obj;
+    }
     olua_setrawobj(L, 1, nullptr);
-    delete obj;
     return 0;
 }
 
@@ -688,7 +692,11 @@ int olua_push_object(lua_State *L, const std::shared_ptr<T> *value, const char *
     
     olua_setobjflag(L, -2, OLUA_FLAG_SKIP_GC);  // skip gc, managed by smart ptr
     olua_setobjflag(L, -2, OLUA_FLAG_IN_SMARTPRT);
-    olua_pushobj<std::shared_ptr<T>>(L, new std::shared_ptr<T>(*value));
+    
+    void *ptr = olua_newrawobj(L, nullptr, sizeof(*value));
+    std::shared_ptr<T> *obj = new (ptr) std::shared_ptr<T>(*value);
+    olua_pushobj<std::shared_ptr<T>>(L, obj);
+    olua_setobjflag(L, -1, OLUA_FLAG_IN_USERDATA);
     olua_addref(L, -3, OLUA_SMART_PRT, -1, OLUA_REF_ALONE);
     lua_pop(L, 2); // pop nil and smartptr
     return 1;
@@ -707,7 +715,7 @@ template <class T>
 int olua_push_object(lua_State *L, const std::weak_ptr<T> *value, const char *cls)
 {
     std::shared_ptr<T> sp = value->lock();
-    return olua_push_obj(L, &sp, cls);
+    return olua_push_object(L, &sp, cls);
 }
 
 // map
@@ -759,19 +767,19 @@ void olua_check_map(lua_State *L, int idx, Map<K, V, Ts...> &map, const std::fun
 
 // array
 template <class T>
-void olua_insert_vector(std::vector<T> &array, const T &value)
+void olua_insert_array(std::vector<T> &array, const T &value)
 {
     array.push_back(value);
 }
 
 template <class T>
-void olua_insert_vector(std::set<T> &array, const T &value)
+void olua_insert_array(std::set<T> &array, const T &value)
 {
     array.insert(value);
 }
 
 template <class T, template<class ...> class Vector, class ...Ts>
-void olua_foreach_vector(const Vector<T, Ts...> &array, const std::function<void(T &)> &callback)
+void olua_foreach_array(const Vector<T, Ts...> &array, const std::function<void(T &)> &callback)
 {
     for (auto &itor : array) {
         callback(const_cast<T &>(itor));
@@ -779,7 +787,7 @@ void olua_foreach_vector(const Vector<T, Ts...> &array, const std::function<void
 }
 
 template <> inline
-void olua_foreach_vector<bool>(const std::vector<bool> &array, const std::function<void(bool &)> &callback)
+void olua_foreach_array<bool>(const std::vector<bool> &array, const std::function<void(bool &)> &callback)
 {
     for (auto itor : array) {
         bool v = itor;
@@ -788,17 +796,17 @@ void olua_foreach_vector<bool>(const std::vector<bool> &array, const std::functi
 }
 
 static inline
-bool olua_is_vector(lua_State *L, int idx)
+bool olua_is_array(lua_State *L, int idx)
 {
     return olua_istable(L, idx);
 }
 
 template <class T, template<class ...> class Vector, class ...Ts>
-int olua_push_vector(lua_State *L, const Vector<T, Ts...> &array, const std::function<void(T &)> &push)
+int olua_push_array(lua_State *L, const Vector<T, Ts...> &array, const std::function<void(T &)> &push)
 {
     int idx = 0;
     lua_newtable(L);
-    olua_foreach_vector<T>(array, [=](T &value) mutable {
+    olua_foreach_array<T>(array, [=](T &value) mutable {
         push(value);
         lua_rawseti(L, -2, ++idx);
     });
@@ -806,7 +814,7 @@ int olua_push_vector(lua_State *L, const Vector<T, Ts...> &array, const std::fun
 }
 
 template <class T, template<class ...> class Vector, class ...Ts>
-void olua_check_vector(lua_State *L, int idx, Vector<T, Ts...> &array, const std::function<void(T *)> &check)
+void olua_check_array(lua_State *L, int idx, Vector<T, Ts...> &array, const std::function<void(T *)> &check)
 {
     idx = lua_absindex(L, idx);
     luaL_checktype(L, idx, LUA_TTABLE);
@@ -815,13 +823,13 @@ void olua_check_vector(lua_State *L, int idx, Vector<T, Ts...> &array, const std
         T obj;
         lua_rawgeti(L, idx, i);
         check(&obj);
-        olua_insert_vector<T>(array, obj);
+        olua_insert_array<T>(array, obj);
         lua_pop(L, 1);
     }
 }
 
 template <class T, template<class ...> class Vector, class ...Ts>
-void olua_pack_vector(lua_State *L, int idx, Vector<T, Ts...> &array, const std::function<void(T *)> &check)
+void olua_pack_array(lua_State *L, int idx, Vector<T, Ts...> &array, const std::function<void(T *)> &check)
 {
     idx = lua_absindex(L, idx);
     int total = (int)(lua_gettop(L) - (idx - 1));
@@ -829,7 +837,7 @@ void olua_pack_vector(lua_State *L, int idx, Vector<T, Ts...> &array, const std:
         T obj;
         lua_pushvalue(L, idx + i);
         check(&obj);
-        olua_insert_vector<T>(array, obj);
+        olua_insert_array<T>(array, obj);
         lua_pop(L, 1);
     }
 }
@@ -861,28 +869,28 @@ typedef SSIZE_T ssize_t;
 
 namespace olua {
 template<class T>
-class array {
+class pointer {
 public:
-    array(const array &) = delete;
-    array &operator=(const array &) = delete;
+    pointer(const pointer &) = delete;
+    pointer &operator=(const pointer &) = delete;
     
-    array() {}
-    ~array()
+    pointer() {}
+    ~pointer()
     {
         if (_owner) {
             delete[] _data;
         }
     }
     
-    array(T *v)
+    pointer(T *v)
     :_len(0)
     ,_owner(false)
     ,_data(v)
     {}
-
-    OLUA_POSTNEW OLUA_NAME(new) static array<T> *create(size_t len = 1)
+    
+    OLUA_POSTNEW OLUA_NAME(new) static pointer<T> *create(size_t len = 1)
     {
-        array<T> *ret = new array<T>();
+        pointer<T> *ret = new pointer<T>();
         ret->_len = len;
         ret->_data = new T[len]();
         return ret;
@@ -890,8 +898,8 @@ public:
     
     T __index(unsigned idx)
     {
-         olua_assert(idx >= 1 && idx <= _len, "index out of range");
-         return _data[idx - 1];
+        olua_assert(idx >= 1 && idx <= _len, "index out of range");
+        return _data[idx - 1];
     }
     
     void __newindex(unsigned idx, const T &v)
@@ -899,48 +907,64 @@ public:
         olua_assert(idx >= 1 && idx <= _len, "newindex out of range");
         _data[idx - 1] = v;
     }
-
+    
     olua_Return __gc(lua_State *L)
     {
-        olua_postgc<array<T>>(L, this);
+        pointer<T> *self = (pointer<T> *)olua_toobj(L, 1, OLUA_VOIDCLS);
+        if (self) {
+            olua_setrawobj(L, 1, nullptr);
+            delete self;
+        }
         return 0;
     }
-
+    
     olua_Return tostring(lua_State *L, size_t len)
     {
         olua_assert(_len > 0 && len <= _len, "invalid length");
         lua_pushlstring(L, (const char*)_data, len * sizeof(T));
         return 1;
     }
-
-    void setstring(const char *data, size_t len)
+    
+    void assign(const char *data, size_t len)
     {
         olua_assert(sizeof(T) == sizeof(char), "expect char type");
         olua_assert(len <= _len, "data too long");
         strncpy((char *)_data, data, len);
     }
-
-    array<T> *take()
+    
+    pointer<T> *take()
     {
+        olua_assert(_owner, "take only allow when owner is true ");
         _owner = false;
         return this;
     }
-   
-    OLUA_POSTNEW array<T> *sub(size_t from, size_t to = -1)
+    
+    OLUA_POSTNEW pointer<T> *sub(size_t from, size_t to = -1)
     {
         if (to == -1) {
             to = _len;
         }
         olua_assert(from <= _len && from <= to, "invalid 'from' position");
         olua_assert(to <= _len, "invalid 'to' position");
-        array<T> *ret = create(to - from + 1);
+        pointer<T> *ret = create(to - from + 1);
         for (size_t i = 0; i < ret->_len; i++) {
             ret->_data[i] = _data[from + i - 1];
         }
         return ret;
     }
     
-    OLUA_GETTER OLUA_NAME(data) T *data() {return _data;}
+    OLUA_POSTNEW pointer<T> *slice(size_t from, size_t to = -1)
+    {
+        if (to == -1) {
+            to = _len;
+        }
+        pointer<T> *ret = new pointer<T>(&_data[from - 1]);
+        ret->_len = to - from + 1;
+        ret->_owner = false;
+        return ret;
+    }
+    
+    OLUA_EXCLUDE T *data() {return _data;}
     OLUA_GETTER OLUA_NAME(rawdata) void *rawdata() {return _data;}
     OLUA_GETTER OLUA_NAME(sizeof) size_t size() {return sizeof(T);}
     OLUA_GETTER OLUA_NAME(value) const T &value() {return *_data;}
@@ -954,63 +978,6 @@ public:
 private:
     T *_data = nullptr;
     size_t _len = 0;
-    bool _owner = true;
-};
-
-template<class T>
-class pointer {
-public:
-    pointer(const pointer &) = delete;
-    pointer &operator=(const pointer &) = delete;
-    
-    pointer() {}
-    
-    pointer(T *v)
-    :_owner(false)
-    ,_data(v)
-    {}
-    
-    ~pointer()
-    {
-        if (_owner) {
-            delete _data;
-        }
-    }
-
-    OLUA_POSTNEW OLUA_NAME(new) static pointer<T> *create()
-    {
-        pointer<T> *ret = new pointer<T>();
-        ret->_owner = true;
-        ret->_data = new T();
-        return ret;
-    }
-    
-    OLUA_POSTNEW OLUA_NAME(new) static pointer<T> *create(const T &v)
-    {
-        pointer<T> *ret = create();
-        *ret->_data = v;
-        return ret;
-    }
-
-    olua_Return __gc(lua_State *L)
-    {
-        olua_postgc<pointer<T>>(L, this);
-        return 0;
-    }
-    
-    pointer<T> *take()
-    {
-        _owner = false;
-        return this;
-    }
-    
-    OLUA_GETTER OLUA_NAME(data) T *data() {return _data;}
-    OLUA_GETTER OLUA_NAME(rawdata) void *rawdata() {return _data;}
-    OLUA_GETTER OLUA_NAME(sizeof) size_t size() {return sizeof(T);}
-    OLUA_GETTER OLUA_NAME(value) const T &value() {return *_data;}
-    OLUA_SETTER OLUA_NAME(value) void value(const T &v) {*_data = v;}
-private:
-    T *_data = nullptr;
     bool _owner = true;
 };
 }
@@ -1029,80 +996,32 @@ typedef float olua_float_t;
 typedef double olua_double_t;
 typedef long double olua_ldouble_t;
 
-typedef olua::array<bool> olua_bool;
-typedef olua::array<int8_t> olua_int8_t;
-typedef olua::array<uint8_t> olua_uint8_t;
-typedef olua::array<int16_t> olua_int16_t;
-typedef olua::array<uint16_t> olua_uint16_t;
-typedef olua::array<int32_t> olua_int32_t;
-typedef olua::array<uint32_t> olua_uint32_t;
-typedef olua::array<int64_t> olua_int64_t;
-typedef olua::array<uint64_t> olua_uint64_t;
-typedef olua::array<olua_char_t> olua_char;
-typedef olua::array<olua_short_t> olua_short;
-typedef olua::array<olua_int_t> olua_int;
-typedef olua::array<olua_long_t> olua_long;
-typedef olua::array<olua_llong_t> olua_llong;
-typedef olua::array<olua_uchar_t> olua_uchar;
-typedef olua::array<olua_ushort_t> olua_ushort;
-typedef olua::array<olua_uint_t> olua_uint;
-typedef olua::array<olua_ulong_t> olua_ulong;
-typedef olua::array<olua_ullong_t> olua_ullong;
-typedef olua::array<olua_float_t> olua_float;
-typedef olua::array<olua_double_t> olua_double;
-typedef olua::array<olua_ldouble_t> olua_ldouble;
-typedef olua::array<size_t> olua_size_t;
-typedef olua::array<ssize_t> olua_ssize_t;
+typedef olua::pointer<bool> olua_bool;
+typedef olua::pointer<int8_t> olua_int8_t;
+typedef olua::pointer<uint8_t> olua_uint8_t;
+typedef olua::pointer<int16_t> olua_int16_t;
+typedef olua::pointer<uint16_t> olua_uint16_t;
+typedef olua::pointer<int32_t> olua_int32_t;
+typedef olua::pointer<uint32_t> olua_uint32_t;
+typedef olua::pointer<int64_t> olua_int64_t;
+typedef olua::pointer<uint64_t> olua_uint64_t;
+typedef olua::pointer<olua_char_t> olua_char;
+typedef olua::pointer<olua_short_t> olua_short;
+typedef olua::pointer<olua_int_t> olua_int;
+typedef olua::pointer<olua_long_t> olua_long;
+typedef olua::pointer<olua_llong_t> olua_llong;
+typedef olua::pointer<olua_uchar_t> olua_uchar;
+typedef olua::pointer<olua_ushort_t> olua_ushort;
+typedef olua::pointer<olua_uint_t> olua_uint;
+typedef olua::pointer<olua_ulong_t> olua_ulong;
+typedef olua::pointer<olua_ullong_t> olua_ullong;
+typedef olua::pointer<olua_float_t> olua_float;
+typedef olua::pointer<olua_double_t> olua_double;
+typedef olua::pointer<olua_ldouble_t> olua_ldouble;
+typedef olua::pointer<size_t> olua_size_t;
+typedef olua::pointer<ssize_t> olua_ssize_t;
 typedef olua::pointer<std::string> olua_string;
 
-template <class T> inline
-int olua_pushobj(lua_State *L, const olua::array<T> *value, const char *cls)
-{
-    olua_postpush(L, (olua::array<T> *)value, olua_pushobj(L, (void *)value, cls));
-    return 1;
-}
-
-template <class T> inline
-int olua_pushobj(lua_State *L, const olua::array<T> *value)
-{
-    static_assert(sizeof(T) == 0, "push olua::array object must specify the lua class");
-    return 0;
-}
-
-template <class T> inline
-int olua_push_object(lua_State *L, const olua::array<T> *value, const char *cls)
-{
-    return olua_pushobj<T>(L, value, cls);
-}
-
-// array
-static inline 
-int olua_is_array(lua_State *L, int idx, const char *cls)
-{
-    return olua_isa(L, idx, cls);
-}
-
-template <class T> inline
-void olua_check_array(lua_State *L, int idx, T **value, const char *cls)
-{
-    olua::array<T> *obj = (olua::array<T> *)olua_checkobj(L, idx, cls);
-    *value = obj->data();
-}
-
-template <class T>
-int olua_push_array(lua_State *L, T *value, const char *cls)
-{
-    if (value) {
-        olua::array<T> *obj = new olua::array<T>(value);
-        olua_pushobj<olua::array<T>>(L, obj, cls);
-        olua_postnew(L, obj);
-    } else {
-        lua_pushnil(L);
-    }
-    return 1;
-}
-
-// pointer
 template <class T> inline
 int olua_pushobj(lua_State *L, const olua::pointer<T> *value, const char *cls)
 {
@@ -1123,6 +1042,7 @@ int olua_push_object(lua_State *L, const olua::pointer<T> *value, const char *cl
     return olua_pushobj<T>(L, value, cls);
 }
 
+// pointer
 static inline
 int olua_is_pointer(lua_State *L, int idx, const char *cls)
 {

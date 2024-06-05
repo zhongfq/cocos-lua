@@ -2421,6 +2421,26 @@ static int _box2d_Vec2Array___olua_move(lua_State *L)
     return 1;
 }
 
+static int _box2d_Vec2Array_assign(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::Vec2Array *self = nullptr;
+    const char *arg1 = nullptr;       /** data */
+    size_t arg2 = 0;       /** len */
+
+    olua_to_object(L, 1, &self, "b2.Vec2Array");
+    olua_check_string(L, 2, &arg1);
+    olua_check_integer(L, 3, &arg2);
+
+    // void assign(const char *data, size_t len)
+    self->assign(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _box2d_Vec2Array_create$1(lua_State *L)
 {
     olua_startinvoke(L);
@@ -2478,22 +2498,71 @@ static int _box2d_Vec2Array_create(lua_State *L)
     return 0;
 }
 
-static int _box2d_Vec2Array_setstring(lua_State *L)
+static int _box2d_Vec2Array_slice$1(lua_State *L)
 {
     olua_startinvoke(L);
 
     box2d::Vec2Array *self = nullptr;
-    const char *arg1 = nullptr;       /** data */
-    size_t arg2 = 0;       /** len */
+    size_t arg1 = 0;       /** from */
+    size_t arg2 = 0;       /** to */
 
     olua_to_object(L, 1, &self, "b2.Vec2Array");
-    olua_check_string(L, 2, &arg1);
+    olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // void setstring(const char *data, size_t len)
-    self->setstring(arg1, arg2);
+    // @postnew box2d::Vec2Array *slice(size_t from, @optional size_t to)
+    box2d::Vec2Array *ret = self->slice(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "b2.Vec2Array");
+
+    // insert code after call
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _box2d_Vec2Array_slice$2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    box2d::Vec2Array *self = nullptr;
+    size_t arg1 = 0;       /** from */
+
+    olua_to_object(L, 1, &self, "b2.Vec2Array");
+    olua_check_integer(L, 2, &arg1);
+
+    // @postnew box2d::Vec2Array *slice(size_t from, @optional size_t to)
+    box2d::Vec2Array *ret = self->slice(arg1);
+    int num_ret = olua_push_object(L, ret, "b2.Vec2Array");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _box2d_Vec2Array_slice(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_integer(L, 2))) {
+            // @postnew box2d::Vec2Array *slice(size_t from, @optional size_t to)
+            return _box2d_Vec2Array_slice$2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
+            // @postnew box2d::Vec2Array *slice(size_t from, @optional size_t to)
+            return _box2d_Vec2Array_slice$1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'box2d::Vec2Array::slice' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -2602,23 +2671,6 @@ static int _box2d_Vec2Array_tostring(lua_State *L)
     return (int)ret;
 }
 
-static int _box2d_Vec2Array_data(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    box2d::Vec2Array *self = nullptr;
-
-    olua_to_object(L, 1, &self, "b2.Vec2Array");
-
-    // @getter @name(data) b2Vec2 *data()
-    b2Vec2 *ret = self->data();
-    int num_ret = olua_push_object(L, ret, "b2.Vec2");
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
 static int _box2d_Vec2Array_length(lua_State *L)
 {
     olua_startinvoke(L);
@@ -2695,12 +2747,12 @@ OLUA_LIB int luaopen_box2d_Vec2Array(lua_State *L)
     oluacls_func(L, "__index", _box2d_Vec2Array___index);
     oluacls_func(L, "__newindex", _box2d_Vec2Array___newindex);
     oluacls_func(L, "__olua_move", _box2d_Vec2Array___olua_move);
+    oluacls_func(L, "assign", _box2d_Vec2Array_assign);
     oluacls_func(L, "new", _box2d_Vec2Array_create);
-    oluacls_func(L, "setstring", _box2d_Vec2Array_setstring);
+    oluacls_func(L, "slice", _box2d_Vec2Array_slice);
     oluacls_func(L, "sub", _box2d_Vec2Array_sub);
     oluacls_func(L, "take", _box2d_Vec2Array_take);
     oluacls_func(L, "tostring", _box2d_Vec2Array_tostring);
-    oluacls_prop(L, "data", _box2d_Vec2Array_data, nullptr);
     oluacls_prop(L, "length", _box2d_Vec2Array_length, _box2d_Vec2Array_length);
     oluacls_prop(L, "rawdata", _box2d_Vec2Array_rawdata, nullptr);
     oluacls_prop(L, "sizeof", _box2d_Vec2Array_size, nullptr);

@@ -2261,10 +2261,10 @@ static int _cocos2d_backend_ProgramState_setTextureArray(lua_State *L)
 
     olua_to_object(L, 1, &self, "ccb.ProgramState");
     olua_check_object(L, 2, &arg1, "ccb.UniformLocation");
-    olua_check_vector<uint32_t>(L, 3, arg2, [L](uint32_t *arg1) {
+    olua_check_array<uint32_t>(L, 3, arg2, [L](uint32_t *arg1) {
         olua_check_integer(L, -1, arg1);
     });
-    olua_check_vector<cocos2d::backend::TextureBackend *>(L, 4, arg3, [L](cocos2d::backend::TextureBackend **arg1) {
+    olua_check_array<cocos2d::backend::TextureBackend *>(L, 4, arg3, [L](cocos2d::backend::TextureBackend **arg1) {
         olua_check_object(L, -1, arg1, "ccb.TextureBackend");
     });
 
@@ -2887,7 +2887,7 @@ static int _cocos2d_backend_Texture2DBackend_updateCompressedData(lua_State *L)
     std::size_t arg5 = 0;       /** level */
 
     olua_to_object(L, 1, &self, "ccb.Texture2DBackend");
-    olua_check_array(L, 2, &arg1, "olua.uint8_t");
+    olua_check_pointer(L, 2, &arg1, "olua.uint8_t");
     olua_check_integer(L, 3, &arg2);
     olua_check_integer(L, 4, &arg3);
     olua_check_integer(L, 5, &arg4);
@@ -2921,7 +2921,7 @@ static int _cocos2d_backend_Texture2DBackend_updateCompressedSubData(lua_State *
     olua_check_integer(L, 5, &arg4);
     olua_check_integer(L, 6, &arg5);
     olua_check_integer(L, 7, &arg6);
-    olua_check_array(L, 8, &arg7, "olua.uint8_t");
+    olua_check_pointer(L, 8, &arg7, "olua.uint8_t");
 
     // void updateCompressedSubData(std::size_t xoffset, std::size_t yoffset, std::size_t width, std::size_t height, std::size_t dataLen, std::size_t level, uint8_t *data)
     self->updateCompressedSubData(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
@@ -2942,7 +2942,7 @@ static int _cocos2d_backend_Texture2DBackend_updateData(lua_State *L)
     std::size_t arg4 = 0;       /** level */
 
     olua_to_object(L, 1, &self, "ccb.Texture2DBackend");
-    olua_check_array(L, 2, &arg1, "olua.uint8_t");
+    olua_check_pointer(L, 2, &arg1, "olua.uint8_t");
     olua_check_integer(L, 3, &arg2);
     olua_check_integer(L, 4, &arg3);
     olua_check_integer(L, 5, &arg4);
@@ -2973,7 +2973,7 @@ static int _cocos2d_backend_Texture2DBackend_updateSubData(lua_State *L)
     olua_check_integer(L, 4, &arg3);
     olua_check_integer(L, 5, &arg4);
     olua_check_integer(L, 6, &arg5);
-    olua_check_array(L, 7, &arg6, "olua.uint8_t");
+    olua_check_pointer(L, 7, &arg6, "olua.uint8_t");
 
     // void updateSubData(std::size_t xoffset, std::size_t yoffset, std::size_t width, std::size_t height, std::size_t level, uint8_t *data)
     self->updateSubData(arg1, arg2, arg3, arg4, arg5, arg6);

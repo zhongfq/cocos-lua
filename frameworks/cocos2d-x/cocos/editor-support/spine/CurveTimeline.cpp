@@ -1,16 +1,16 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated July 28, 2023. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2023, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
  * conditions of Section 2 of the Spine Editor License Agreement:
  * http://esotericsoftware.com/spine-editor-license
  *
- * Otherwise, it is permitted to integrate the Spine Runtimes into software
- * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software or
+ * otherwise create derivative works of the Spine Runtimes (collectively,
  * "Products"), provided that each user of the Products must obtain their own
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
@@ -23,8 +23,8 @@
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
  * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE
+ * SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 #include <spine/CurveTimeline.h>
@@ -131,6 +131,108 @@ float CurveTimeline1::getCurveValue(float time) {
 	}
 	return getBezierValue(time, i, CurveTimeline1::VALUE, curveType - CurveTimeline1::BEZIER);
 }
+
+float CurveTimeline1::getRelativeValue(float time, float alpha, MixBlend blend, float current, float setup) {
+	if (time < _frames[0]) {
+		switch (blend) {
+			case MixBlend_Setup:
+				return setup;
+			case MixBlend_First:
+				return current + (setup - current) * alpha;
+			default:
+				return current;
+		}
+	}
+	float value = getCurveValue(time);
+	switch (blend) {
+		case MixBlend_Setup:
+			return setup + value * alpha;
+		case MixBlend_First:
+		case MixBlend_Replace:
+			value += setup - current;
+			break;
+		case MixBlend_Add:
+			break;
+	}
+	return current + value * alpha;
+}
+
+float CurveTimeline1::getAbsoluteValue(float time, float alpha, MixBlend blend, float current, float setup) {
+	if (time < _frames[0]) {
+		switch (blend) {
+			case MixBlend_Setup:
+				return setup;
+			case MixBlend_First:
+				return current + (setup - current) * alpha;
+			default:
+				return current;
+		}
+	}
+	float value = getCurveValue(time);
+	if (blend == MixBlend_Setup) return setup + (value - setup) * alpha;
+	return current + (value - current) * alpha;
+}
+
+float CurveTimeline1::getAbsoluteValue(float time, float alpha, MixBlend blend, float current, float setup, float value) {
+	if (time < _frames[0]) {
+		switch (blend) {
+			case MixBlend_Setup:
+				return setup;
+			case MixBlend_First:
+				return current + (setup - current) * alpha;
+			default:
+				return current;
+		}
+	}
+	if (blend == MixBlend_Setup) return setup + (value - setup) * alpha;
+	return current + (value - current) * alpha;
+}
+
+float CurveTimeline1::getScaleValue(float time, float alpha, MixBlend blend, MixDirection direction, float current,
+									float setup) {
+	if (time < _frames[0]) {
+		switch (blend) {
+			case MixBlend_Setup:
+				return setup;
+			case MixBlend_First:
+				return current + (setup - current) * alpha;
+			default:
+				return current;
+		}
+	}
+	float value = getCurveValue(time) * setup;
+	if (alpha == 1) {
+		if (blend == MixBlend_Add) return current + value - setup;
+		return value;
+	}
+	// Mixing out uses sign of setup or current pose, else use sign of key.
+	if (direction == MixDirection_Out) {
+		switch (blend) {
+			case MixBlend_Setup:
+				return setup + (MathUtil::abs(value) * MathUtil::sign(setup) - setup) * alpha;
+			case MixBlend_First:
+			case MixBlend_Replace:
+				return current + (MathUtil::abs(value) * MathUtil::sign(current) - current) * alpha;
+			default:
+				break;
+		}
+	} else {
+		float s;
+		switch (blend) {
+			case MixBlend_Setup:
+				s = MathUtil::abs(setup) * MathUtil::sign(value);
+				return s + (value - s) * alpha;
+			case MixBlend_First:
+			case MixBlend_Replace:
+				s = MathUtil::abs(current) * MathUtil::sign(value);
+				return s + (value - s) * alpha;
+			default:
+				break;
+		}
+	}
+	return current + (value - setup) * alpha;
+}
+
 
 RTTI_IMPL(CurveTimeline2, CurveTimeline)
 

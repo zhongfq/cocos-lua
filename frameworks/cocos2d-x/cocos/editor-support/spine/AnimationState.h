@@ -1,16 +1,16 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated July 28, 2023. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2023, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
  * conditions of Section 2 of the Spine Editor License Agreement:
  * http://esotericsoftware.com/spine-editor-license
  *
- * Otherwise, it is permitted to integrate the Spine Runtimes into software
- * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software or
+ * otherwise create derivative works of the Spine Runtimes (collectively,
  * "Products"), provided that each user of the Products must obtain their own
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
@@ -23,8 +23,8 @@
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
  * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE
+ * SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 #ifndef Spine_AnimationState_h
@@ -209,16 +209,22 @@ namespace spine {
 		/// When the mix percentage (mix time / mix duration) is less than the attachment threshold, attachment timelines for the
 		/// animation being mixed out will be applied. Defaults to 0, so attachment timelines are not applied for an animation being
 		/// mixed out.
-		float getAttachmentThreshold();
+		float getMixAttachmentThreshold();
 
-		void setAttachmentThreshold(float inValue);
+		void setMixAttachmentThreshold(float inValue);
+
+        /// When getAlpha() is greater than alphaAttachmentThreshold, attachment timelines are applied.
+	    /// Defaults to 0, so attachment timelines are always applied. */
+        float getAlphaAttachmentThreshold();
+
+        void setAlphaAttachmentThreshold(float inValue);
 
 		/// When the mix percentage (mix time / mix duration) is less than the draw order threshold, draw order timelines for the
 		/// animation being mixed out will be applied. Defaults to 0, so draw order timelines are not applied for an animation being
 		/// mixed out.
-		float getDrawOrderThreshold();
+		float getMixDrawOrderThreshold();
 
-		void setDrawOrderThreshold(float inValue);
+		void setMixDrawOrderThreshold(float inValue);
 
 		/// The animation queued to start after this animation, or NULL.
 		TrackEntry *getNext();
@@ -243,6 +249,8 @@ namespace spine {
 		float getMixDuration();
 
 		void setMixDuration(float inValue);
+
+        void setMixDuration(float mixDuration, float delay);
 
 		MixBlend getMixBlend();
 
@@ -271,6 +279,11 @@ namespace spine {
 
 		void setListener(AnimationStateListenerObject *listener);
 
+        /// Returns true if this track entry has been applied at least once.
+        ///
+        /// See AnimationState::apply(Skeleton).
+        bool wasApplied();
+
 	private:
 		Animation *_animation;
 		TrackEntry *_previous;
@@ -280,7 +293,7 @@ namespace spine {
 		int _trackIndex;
 
 		bool _loop, _holdPrevious, _reverse, _shortestRotation;
-		float _eventThreshold, _attachmentThreshold, _drawOrderThreshold;
+		float _eventThreshold, _mixAttachmentThreshold, _alphaAttachmentThreshold, _mixDrawOrderThreshold;
 		float _animationStart, _animationEnd, _animationLast, _nextAnimationLast;
 		float _delay, _trackTime, _trackLast, _nextTrackLast, _trackEnd, _timeScale;
 		float _alpha, _mixTime, _mixDuration, _interruptAlpha, _totalAlpha;

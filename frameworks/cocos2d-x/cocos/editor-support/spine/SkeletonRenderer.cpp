@@ -1,16 +1,16 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated July 28, 2023. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2023, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
  * conditions of Section 2 of the Spine Editor License Agreement:
  * http://esotericsoftware.com/spine-editor-license
  *
- * Otherwise, it is permitted to integrate the Spine Runtimes into software
- * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software or
+ * otherwise create derivative works of the Spine Runtimes (collectively,
  * "Products"), provided that each user of the Products must obtain their own
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
@@ -23,8 +23,8 @@
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
  * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE
+ * SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 #include <algorithm>
@@ -95,7 +95,7 @@ namespace spine {
 		setTwoColorTint(false);
 
 		_skeleton->setToSetupPose();
-		_skeleton->updateWorldTransform();
+		_skeleton->updateWorldTransform(Physics_Update);
 	}
 
 	void SkeletonRenderer::setupGLProgramState(bool twoColorTintEnabled) {
@@ -460,17 +460,11 @@ namespace spine {
 					trianglesTwoColor.indices = twoColorBatch->allocateIndices(trianglesTwoColor.indexCount);
 					memcpy(trianglesTwoColor.indices, _clipper->getClippedTriangles().buffer(), sizeof(unsigned short) * _clipper->getClippedTriangles().size());
 
-#if COCOS2D_VERSION < 0x00040000
-					TwoColorTrianglesCommand *batchedTriangles = lastTwoColorTrianglesCommand = twoColorBatch->addCommand(renderer, _globalZOrder, texture->getName(), _glProgramState, blendFunc, trianglesTwoColor, transform, transformFlags);
-#else
-					TwoColorTrianglesCommand *batchedTriangles = lastTwoColorTrianglesCommand = twoColorBatch->addCommand(renderer, _globalZOrder, texture, _programState, blendFunc, trianglesTwoColor, transform, transformFlags);
-#endif
-
 					const float *verts = _clipper->getClippedVertices().buffer();
 					const float *uvs = _clipper->getClippedUVs().buffer();
 
-                    V3F_C4B_C4B_T2F *vertex = batchedTriangles->getTriangles().verts;
-                    for (int v = 0, vn = batchedTriangles->getTriangles().vertCount, vv = 0; v < vn; ++v, vv += 2, ++vertex) {
+                    V3F_C4B_C4B_T2F *vertex = trianglesTwoColor.verts;
+                    for (int v = 0, vn = trianglesTwoColor.vertCount, vv = 0; v < vn; ++v, vv += 2, ++vertex) {
                         vertex->position.x = verts[vv];
                         vertex->position.y = verts[vv + 1];
                         vertex->texCoords.u = uvs[vv];
@@ -478,19 +472,24 @@ namespace spine {
                         vertex->color = color4B;
                         vertex->color2 = darkColor4B;
                     }
-				} else {
 
 #if COCOS2D_VERSION < 0x00040000
-					TwoColorTrianglesCommand *batchedTriangles = lastTwoColorTrianglesCommand = twoColorBatch->addCommand(renderer, _globalZOrder, texture->getName(), _glProgramState, blendFunc, trianglesTwoColor, transform, transformFlags);
+                    TwoColorTrianglesCommand *batchedTriangles = lastTwoColorTrianglesCommand = twoColorBatch->addCommand(renderer, _globalZOrder, texture->getName(), _glProgramState, blendFunc, trianglesTwoColor, transform, transformFlags);
 #else
-					TwoColorTrianglesCommand *batchedTriangles = lastTwoColorTrianglesCommand = twoColorBatch->addCommand(renderer, _globalZOrder, texture, _programState, blendFunc, trianglesTwoColor, transform, transformFlags);
+                    lastTwoColorTrianglesCommand = twoColorBatch->addCommand(renderer, _globalZOrder, texture, _programState, blendFunc, trianglesTwoColor, transform, transformFlags);
 #endif
-
-                    V3F_C4B_C4B_T2F *vertex = batchedTriangles->getTriangles().verts;
-                    for (int v = 0, vn = batchedTriangles->getTriangles().vertCount; v < vn; ++v, ++vertex) {
-                        vertex->color = color4B;
+				} else {
+                    V3F_C4B_C4B_T2F* vertex = trianglesTwoColor.verts;
+                    for (int v = 0, vn = trianglesTwoColor.vertCount; v < vn; ++v, ++vertex)
+                    {
+                        vertex->color  = color4B;
                         vertex->color2 = darkColor4B;
                     }
+#if COCOS2D_VERSION < 0x00040000
+                    lastTwoColorTrianglesCommand = twoColorBatch->addCommand(renderer, _globalZOrder, texture->getName(), _glProgramState, blendFunc, trianglesTwoColor, transform, transformFlags);
+#else
+                    lastTwoColorTrianglesCommand = twoColorBatch->addCommand(renderer, _globalZOrder, texture, _programState, blendFunc, trianglesTwoColor, transform, transformFlags);
+#endif
 				}
 			}
 			_clipper->clipEnd(*slot);
@@ -671,8 +670,8 @@ namespace spine {
 
 	// --- Convenience methods for Skeleton_* functions.
 
-	void SkeletonRenderer::updateWorldTransform() {
-		_skeleton->updateWorldTransform();
+	void SkeletonRenderer::updateWorldTransform(Physics physics) {
+		_skeleton->updateWorldTransform(physics);
 	}
 
 	void SkeletonRenderer::setToSetupPose() {

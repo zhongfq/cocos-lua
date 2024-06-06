@@ -1,16 +1,16 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated July 28, 2023. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2023, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
  * conditions of Section 2 of the Spine Editor License Agreement:
  * http://esotericsoftware.com/spine-editor-license
  *
- * Otherwise, it is permitted to integrate the Spine Runtimes into software
- * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software or
+ * otherwise create derivative works of the Spine Runtimes (collectively,
  * "Products"), provided that each user of the Products must obtain their own
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
@@ -23,8 +23,8 @@
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
  * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE
+ * SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 #ifndef Spine_Bone_h
@@ -33,6 +33,7 @@
 #include <spine/Updatable.h>
 #include <spine/SpineObject.h>
 #include <spine/Vector.h>
+#include <spine/Inherit.h>
 
 namespace spine {
 	class BoneData;
@@ -56,6 +57,8 @@ namespace spine {
 		friend class VertexAttachment;
 
 		friend class PathConstraint;
+
+        friend class PhysicsConstraint;
 
 		friend class Skeleton;
 
@@ -93,6 +96,8 @@ namespace spine {
 
 		friend class TranslateYTimeline;
 
+        friend class InheritTimeline;
+
 	RTTI_DECL
 
 	public:
@@ -104,7 +109,7 @@ namespace spine {
 		Bone(BoneData &data, Skeleton &skeleton, Bone *parent = NULL);
 
 		/// Same as updateWorldTransform. This method exists for Bone to implement Spine::Updatable.
-		virtual void update();
+		virtual void update(Physics physics);
 
 		/// Computes the world transform using the parent bone and this bone's local transform.
 		void updateWorldTransform();
@@ -123,7 +128,11 @@ namespace spine {
 
 		void worldToLocal(float worldX, float worldY, float &outLocalX, float &outLocalY);
 
+        void worldToParent(float worldX, float worldY, float &outParentX, float &outParentY);
+
 		void localToWorld(float localX, float localY, float &outWorldX, float &outWorldY);
+
+        void parentToWorld(float worldX, float worldY, float &outX, float &outY);
 
 		float worldToLocalRotation(float worldRotation);
 
@@ -253,6 +262,10 @@ namespace spine {
 
 		void setActive(bool inValue);
 
+        Inherit getInherit() { return _inherit; }
+
+        void setInherit(Inherit inValue) { _inherit = inValue; }
+
 	private:
 		static bool yDown;
 
@@ -266,6 +279,7 @@ namespace spine {
 		float _c, _d, _worldY;
 		bool _sorted;
 		bool _active;
+        Inherit _inherit;
 	};
 }
 

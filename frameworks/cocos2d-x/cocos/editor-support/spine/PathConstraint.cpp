@@ -1,16 +1,16 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated July 28, 2023. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2023, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
  * conditions of Section 2 of the Spine Editor License Agreement:
  * http://esotericsoftware.com/spine-editor-license
  *
- * Otherwise, it is permitted to integrate the Spine Runtimes into software
- * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software or
+ * otherwise create derivative works of the Spine Runtimes (collectively,
  * "Products"), provided that each user of the Products must obtain their own
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
@@ -23,8 +23,8 @@
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
  * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE
+ * SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 #include <spine/PathConstraint.h>
@@ -66,7 +66,7 @@ PathConstraint::PathConstraint(PathConstraintData &data, Skeleton &skeleton) : U
 	_segments.setSize(10, 0);
 }
 
-void PathConstraint::update() {
+void PathConstraint::update(Physics) {
 	Attachment *baseAttachment = _target->getAttachment();
 	if (baseAttachment == NULL || !baseAttachment->getRTTI().instanceOf(PathAttachment::rtti)) {
 		return;
@@ -91,12 +91,9 @@ void PathConstraint::update() {
 					Bone *boneP = _bones[i];
 					Bone &bone = *boneP;
 					float setupLength = bone._data.getLength();
-					if (setupLength < PathConstraint::EPSILON) {
-						_lengths[i] = 0;
-					} else {
-						float x = setupLength * bone._a, y = setupLength * bone._c;
-						_lengths[i] = MathUtil::sqrt(x * x + y * y);
-					}
+					float x = setupLength * bone._a;
+					float y = setupLength * bone._c;
+					_lengths[i] = MathUtil::sqrt(x * x + y * y);
 				}
 			}
 			for (size_t i = 1; i < spacesCount; ++i) {
@@ -579,4 +576,13 @@ bool PathConstraint::isActive() {
 
 void PathConstraint::setActive(bool inValue) {
 	_active = inValue;
+}
+
+void PathConstraint::setToSetupPose() {
+	PathConstraintData &data = this->_data;
+	this->_position = data._position;
+	this->_spacing = data._spacing;
+	this->_mixRotate = data._mixRotate;
+	this->_mixX = data._mixX;
+	this->_mixY = data._mixY;
 }

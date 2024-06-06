@@ -1,16 +1,16 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated July 28, 2023. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2023, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
  * conditions of Section 2 of the Spine Editor License Agreement:
  * http://esotericsoftware.com/spine-editor-license
  *
- * Otherwise, it is permitted to integrate the Spine Runtimes into software
- * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software or
+ * otherwise create derivative works of the Spine Runtimes (collectively,
  * "Products"), provided that each user of the Products must obtain their own
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
@@ -23,8 +23,8 @@
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
  * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE
+ * SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 #include <spine/SkeletonClipping.h>
@@ -80,6 +80,79 @@ void SkeletonClipping::clipEnd() {
 	_clippedUVs.clear();
 	_clippedTriangles.clear();
 	_clippingPolygon.clear();
+}
+
+void SkeletonClipping::clipTriangles(float *vertices, unsigned short *triangles,
+									 size_t trianglesLength) {
+	Vector<float> &clipOutput = _clipOutput;
+	Vector<float> &clippedVertices = _clippedVertices;
+	Vector<unsigned short> &clippedTriangles = _clippedTriangles;
+	Vector<Vector<float> *> &polygons = *_clippingPolygons;
+	size_t polygonsCount = (*_clippingPolygons).size();
+
+	size_t index = 0;
+	clippedVertices.clear();
+	_clippedUVs.clear();
+	clippedTriangles.clear();
+
+	int stride = 2;
+	size_t i = 0;
+continue_outer:
+	for (; i < trianglesLength; i += 3) {
+		int vertexOffset = triangles[i] * stride;
+		float x1 = vertices[vertexOffset], y1 = vertices[vertexOffset + 1];
+
+		vertexOffset = triangles[i + 1] * stride;
+		float x2 = vertices[vertexOffset], y2 = vertices[vertexOffset + 1];
+
+		vertexOffset = triangles[i + 2] * stride;
+		float x3 = vertices[vertexOffset], y3 = vertices[vertexOffset + 1];
+
+		for (size_t p = 0; p < polygonsCount; p++) {
+			size_t s = clippedVertices.size();
+			if (clip(x1, y1, x2, y2, x3, y3, &(*polygons[p]), &clipOutput)) {
+				size_t clipOutputLength = clipOutput.size();
+				if (clipOutputLength == 0) continue;
+
+				size_t clipOutputCount = clipOutputLength >> 1;
+				clippedVertices.setSize(s + clipOutputCount * 2, 0);
+				for (size_t ii = 0; ii < clipOutputLength; ii += 2) {
+					float x = clipOutput[ii], y = clipOutput[ii + 1];
+					clippedVertices[s] = x;
+					clippedVertices[s + 1] = y;
+					s += 2;
+				}
+
+				s = clippedTriangles.size();
+				clippedTriangles.setSize(s + 3 * (clipOutputCount - 2), 0);
+				clipOutputCount--;
+				for (size_t ii = 1; ii < clipOutputCount; ii++) {
+					clippedTriangles[s] = (unsigned short) (index);
+					clippedTriangles[s + 1] = (unsigned short) (index + ii);
+					clippedTriangles[s + 2] = (unsigned short) (index + ii + 1);
+					s += 3;
+				}
+				index += clipOutputCount + 1;
+			} else {
+				clippedVertices.setSize(s + 3 * 2, 0);
+				clippedVertices[s] = x1;
+				clippedVertices[s + 1] = y1;
+				clippedVertices[s + 2] = x2;
+				clippedVertices[s + 3] = y2;
+				clippedVertices[s + 4] = x3;
+				clippedVertices[s + 5] = y3;
+
+				s = clippedTriangles.size();
+				clippedTriangles.setSize(s + 3, 0);
+				clippedTriangles[s] = (unsigned short) index;
+				clippedTriangles[s + 1] = (unsigned short) (index + 1);
+				clippedTriangles[s + 2] = (unsigned short) (index + 2);
+				index += 3;
+				i += 3;
+				goto continue_outer;
+			}
+		}
+	}
 }
 
 void SkeletonClipping::clipTriangles(Vector<float> &vertices, Vector<unsigned short> &triangles, Vector<float> &uvs,

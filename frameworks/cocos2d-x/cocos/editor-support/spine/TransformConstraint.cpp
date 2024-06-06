@@ -1,16 +1,16 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated July 28, 2023. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2023, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
  * conditions of Section 2 of the Spine Editor License Agreement:
  * http://esotericsoftware.com/spine-editor-license
  *
- * Otherwise, it is permitted to integrate the Spine Runtimes into software
- * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software or
+ * otherwise create derivative works of the Spine Runtimes (collectively,
  * "Products"), provided that each user of the Products must obtain their own
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
@@ -23,8 +23,8 @@
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
  * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE
+ * SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 #include <spine/TransformConstraint.h>
@@ -61,7 +61,7 @@ TransformConstraint::TransformConstraint(TransformConstraintData &data, Skeleton
 	}
 }
 
-void TransformConstraint::update() {
+void TransformConstraint::update(Physics) {
 	if (_mixRotate == 0 && _mixX == 0 && _mixY == 0 && _mixScaleX == 0 && _mixScaleY == 0 && _mixShearY == 0) return;
 
 	if (_data.isLocal()) {
@@ -287,7 +287,7 @@ void TransformConstraint::applyAbsoluteLocal() {
 		float rotation = bone._arotation;
 		if (mixRotate != 0) {
 			float r = target._arotation - rotation + _data._offsetRotation;
-			r -= (16384 - (int) (16384.499999999996 - r / 360)) * 360;
+			r -= MathUtil::ceil(r / 360 - 0.5) * 360;
 			rotation += r * mixRotate;
 		}
 
@@ -304,7 +304,7 @@ void TransformConstraint::applyAbsoluteLocal() {
 		float shearY = bone._ashearY;
 		if (mixShearY != 0) {
 			float r = target._ashearY - shearY + _data._offsetShearY;
-			r -= (16384 - (int) (16384.499999999996 - r / 360)) * 360;
+			r -= MathUtil::ceil(r / 360 - 0.5) * 360;
 			bone._shearY += r * mixShearY;
 		}
 
@@ -337,4 +337,14 @@ bool TransformConstraint::isActive() {
 
 void TransformConstraint::setActive(bool inValue) {
 	_active = inValue;
+}
+
+void TransformConstraint::setToSetupPose() {
+	TransformConstraintData &data = this->_data;
+	this->_mixRotate = data._mixRotate;
+	this->_mixX = data._mixX;
+	this->_mixY = data._mixY;
+	this->_mixScaleX = data._mixScaleX;
+	this->_mixScaleY = data._mixScaleY;
+	this->_mixShearY = data._mixShearY;
 }

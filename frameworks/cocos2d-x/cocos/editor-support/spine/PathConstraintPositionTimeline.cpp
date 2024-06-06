@@ -1,16 +1,16 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated July 28, 2023. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2023, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
  * conditions of Section 2 of the Spine Editor License Agreement:
  * http://esotericsoftware.com/spine-editor-license
  *
- * Otherwise, it is permitted to integrate the Spine Runtimes into software
- * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software or
+ * otherwise create derivative works of the Spine Runtimes (collectively,
  * "Products"), provided that each user of the Products must obtain their own
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
@@ -23,8 +23,8 @@
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
  * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE
+ * SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 #include <spine/PathConstraintPositionTimeline.h>
@@ -46,7 +46,7 @@ RTTI_IMPL(PathConstraintPositionTimeline, CurveTimeline1)
 PathConstraintPositionTimeline::PathConstraintPositionTimeline(size_t frameCount, size_t bezierCount,
 															   int pathConstraintIndex) : CurveTimeline1(frameCount,
 																										 bezierCount),
-																						  _pathConstraintIndex(
+																						  _constraintIndex(
 																								  pathConstraintIndex) {
 	PropertyId ids[] = {((PropertyId) Property_PathConstraintPosition << 32) | pathConstraintIndex};
 	setPropertyIds(ids, 1);
@@ -61,27 +61,6 @@ void PathConstraintPositionTimeline::apply(Skeleton &skeleton, float lastTime, f
 	SP_UNUSED(pEvents);
 	SP_UNUSED(direction);
 
-	PathConstraint *constraintP = skeleton._pathConstraints[_pathConstraintIndex];
-	PathConstraint &constraint = *constraintP;
-	if (!constraint.isActive()) return;
-
-	if (time < _frames[0]) {
-		switch (blend) {
-			case MixBlend_Setup:
-				constraint._position = constraint._data._position;
-				return;
-			case MixBlend_First:
-				constraint._position += (constraint._data._position - constraint._position) * alpha;
-				return;
-			default:
-				return;
-		}
-	}
-
-	float position = getCurveValue(time);
-
-	if (blend == MixBlend_Setup)
-		constraint._position = constraint._data._position + (position - constraint._data._position) * alpha;
-	else
-		constraint._position += (position - constraint._position) * alpha;
+	PathConstraint *constraint = skeleton._pathConstraints[_constraintIndex];
+	if (constraint->_active) constraint->_position = getAbsoluteValue(time, alpha, blend, constraint->_position, constraint->_data._position);
 }

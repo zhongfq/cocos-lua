@@ -1,16 +1,16 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated July 28, 2023. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2023, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
  * conditions of Section 2 of the Spine Editor License Agreement:
  * http://esotericsoftware.com/spine-editor-license
  *
- * Otherwise, it is permitted to integrate the Spine Runtimes into software
- * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software or
+ * otherwise create derivative works of the Spine Runtimes (collectively,
  * "Products"), provided that each user of the Products must obtain their own
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
@@ -23,8 +23,8 @@
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
  * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE
+ * SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 #include <spine/RotateTimeline.h>
@@ -55,30 +55,5 @@ void RotateTimeline::apply(Skeleton &skeleton, float lastTime, float time, Vecto
 	SP_UNUSED(direction);
 
 	Bone *bone = skeleton._bones[_boneIndex];
-	if (!bone->_active) return;
-
-	if (time < _frames[0]) {
-		switch (blend) {
-			case MixBlend_Setup:
-				bone->_rotation = bone->_data._rotation;
-				return;
-			case MixBlend_First:
-				bone->_rotation += (bone->_data._rotation - bone->_rotation) * alpha;
-			default: {
-			}
-		}
-		return;
-	}
-
-	float r = getCurveValue(time);
-	switch (blend) {
-		case MixBlend_Setup:
-			bone->_rotation = bone->_data._rotation + r * alpha;
-			break;
-		case MixBlend_First:
-		case MixBlend_Replace:
-			r += bone->_data._rotation - bone->_rotation;
-		case MixBlend_Add:
-			bone->_rotation += r * alpha;
-	}
+	if (bone->isActive()) bone->_rotation = getRelativeValue(time, alpha, blend, bone->_rotation, bone->getData()._rotation);
 }

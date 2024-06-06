@@ -23,6 +23,7 @@ set(COCOS_SPINE_SRC
     editor-support/spine/IkConstraint.cpp
     editor-support/spine/IkConstraintData.cpp
     editor-support/spine/IkConstraintTimeline.cpp
+    editor-support/spine/InheritTimeline.cpp
     editor-support/spine/Json.cpp
     editor-support/spine/LinkedMesh.cpp
     editor-support/spine/Log.cpp
@@ -34,6 +35,9 @@ set(COCOS_SPINE_SRC
     editor-support/spine/PathConstraintMixTimeline.cpp
     editor-support/spine/PathConstraintPositionTimeline.cpp
     editor-support/spine/PathConstraintSpacingTimeline.cpp
+    editor-support/spine/PhysicsConstraint.cpp
+    editor-support/spine/PhysicsConstraintData.cpp
+    editor-support/spine/PhysicsConstraintTimeline.cpp
     editor-support/spine/PointAttachment.cpp
     editor-support/spine/RegionAttachment.cpp
     editor-support/spine/RotateTimeline.cpp
@@ -103,6 +107,8 @@ set(COCOS_SPINE_HEADER
     editor-support/spine/IkConstraint.h
     editor-support/spine/IkConstraintData.h
     editor-support/spine/IkConstraintTimeline.h
+    editor-support/spine/Inherit.h
+    editor-support/spine/InheritTimeline.h
     editor-support/spine/Json.h
     editor-support/spine/LinkedMesh.h
     editor-support/spine/Log.h
@@ -116,6 +122,10 @@ set(COCOS_SPINE_HEADER
     editor-support/spine/PathConstraintMixTimeline.h
     editor-support/spine/PathConstraintPositionTimeline.h
     editor-support/spine/PathConstraintSpacingTimeline.h
+    editor-support/spine/Physics.h
+    editor-support/spine/PhysicsConstraint.h
+    editor-support/spine/PhysicsConstraintData.h
+    editor-support/spine/PhysicsConstraintTimeline.h
     editor-support/spine/PointAttachment.h
     editor-support/spine/Pool.h
     editor-support/spine/PositionMode.h
@@ -150,7 +160,6 @@ set(COCOS_SPINE_HEADER
     editor-support/spine/TransformConstraint.h
     editor-support/spine/TransformConstraintData.h
     editor-support/spine/TransformConstraintTimeline.h
-    editor-support/spine/TransformMode.h
     editor-support/spine/TranslateTimeline.h
     editor-support/spine/Triangulator.h
     editor-support/spine/Updatable.h

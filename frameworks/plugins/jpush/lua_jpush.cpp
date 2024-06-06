@@ -37,7 +37,7 @@ static int _cclua_plugin_jpush_addTags(lua_State *L)
 
     std::set<std::string> arg1;       /** tags */
 
-    olua_check_vector<std::string>(L, 1, arg1, [L](std::string *arg1) {
+    olua_check_array<std::string>(L, 1, arg1, [L](std::string *arg1) {
         olua_check_string(L, -1, arg1);
     });
 
@@ -79,7 +79,7 @@ static int _cclua_plugin_jpush_deleteTags(lua_State *L)
 
     std::set<std::string> arg1;       /** tags */
 
-    olua_check_vector<std::string>(L, 1, arg1, [L](std::string *arg1) {
+    olua_check_array<std::string>(L, 1, arg1, [L](std::string *arg1) {
         olua_check_string(L, -1, arg1);
     });
 
@@ -213,7 +213,7 @@ static int _cclua_plugin_jpush_setTags(lua_State *L)
 
     std::set<std::string> arg1;       /** tags */
 
-    olua_check_vector<std::string>(L, 1, arg1, [L](std::string *arg1) {
+    olua_check_array<std::string>(L, 1, arg1, [L](std::string *arg1) {
         olua_check_string(L, -1, arg1);
     });
 

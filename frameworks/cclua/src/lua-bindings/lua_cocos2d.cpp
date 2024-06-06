@@ -2985,7 +2985,7 @@ static int _cocos2d_Scheduler_pauseAllTargets(lua_State *L)
 
     // std::set<void *> pauseAllTargets()
     std::set<void *> ret = self->pauseAllTargets();
-    int num_ret = olua_push_vector<void *>(L, ret, [L](void *arg1) {
+    int num_ret = olua_push_array<void *>(L, ret, [L](void *arg1) {
         olua_push_object(L, arg1, "void *");
     });
 
@@ -3006,7 +3006,7 @@ static int _cocos2d_Scheduler_pauseAllTargetsWithMinPriority(lua_State *L)
 
     // std::set<void *> pauseAllTargetsWithMinPriority(int minPriority)
     std::set<void *> ret = self->pauseAllTargetsWithMinPriority(arg1);
-    int num_ret = olua_push_vector<void *>(L, ret, [L](void *arg1) {
+    int num_ret = olua_push_array<void *>(L, ret, [L](void *arg1) {
         olua_push_object(L, arg1, "void *");
     });
 
@@ -3075,7 +3075,7 @@ static int _cocos2d_Scheduler_resumeTargets(lua_State *L)
     std::set<void *> arg1;       /** targetsToResume */
 
     olua_to_object(L, 1, &self, "cc.Scheduler");
-    olua_check_vector<void *>(L, 2, arg1, [L](void **arg1) {
+    olua_check_array<void *>(L, 2, arg1, [L](void **arg1) {
         olua_check_object(L, -1, arg1, "void *");
     });
 
@@ -4637,7 +4637,7 @@ static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesBegan(lua_State *L)
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
-                olua_push_vector<cocos2d::Touch *>(L, arg1, [L](cocos2d::Touch *arg1) {
+                olua_push_array<cocos2d::Touch *>(L, arg1, [L](cocos2d::Touch *arg1) {
                     olua_push_object(L, arg1, "cc.Touch");
                 });
                 olua_push_object(L, arg2, "cc.Event");
@@ -4710,7 +4710,7 @@ static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesCancelled(lua_State
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
-                olua_push_vector<cocos2d::Touch *>(L, arg1, [L](cocos2d::Touch *arg1) {
+                olua_push_array<cocos2d::Touch *>(L, arg1, [L](cocos2d::Touch *arg1) {
                     olua_push_object(L, arg1, "cc.Touch");
                 });
                 olua_push_object(L, arg2, "cc.Event");
@@ -4783,7 +4783,7 @@ static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesEnded(lua_State *L)
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
-                olua_push_vector<cocos2d::Touch *>(L, arg1, [L](cocos2d::Touch *arg1) {
+                olua_push_array<cocos2d::Touch *>(L, arg1, [L](cocos2d::Touch *arg1) {
                     olua_push_object(L, arg1, "cc.Touch");
                 });
                 olua_push_object(L, arg2, "cc.Event");
@@ -4856,7 +4856,7 @@ static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesMoved(lua_State *L)
                 int top = lua_gettop(L);
                 size_t last = olua_push_objpool(L);
                 olua_enable_objpool(L);
-                olua_push_vector<cocos2d::Touch *>(L, arg1, [L](cocos2d::Touch *arg1) {
+                olua_push_array<cocos2d::Touch *>(L, arg1, [L](cocos2d::Touch *arg1) {
                     olua_push_object(L, arg1, "cc.Touch");
                 });
                 olua_push_object(L, arg2, "cc.Event");
@@ -6477,7 +6477,7 @@ static int _cocos2d_EventTouch_getTouches(lua_State *L)
 
     // const std::vector<cocos2d::Touch *> &getTouches()
     const std::vector<cocos2d::Touch *> &ret = self->getTouches();
-    int num_ret = olua_push_vector<cocos2d::Touch *>(L, ret, [L](cocos2d::Touch *arg1) {
+    int num_ret = olua_push_array<cocos2d::Touch *>(L, ret, [L](cocos2d::Touch *arg1) {
         olua_push_object(L, arg1, "cc.Touch");
     });
 
@@ -6526,7 +6526,7 @@ static int _cocos2d_EventTouch_setTouches(lua_State *L)
     std::vector<cocos2d::Touch *> arg1;       /** touches */
 
     olua_to_object(L, 1, &self, "cc.EventTouch");
-    olua_check_vector<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
+    olua_check_array<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
         olua_check_object(L, -1, arg1, "cc.Touch");
     });
 
@@ -7734,7 +7734,7 @@ static int _cocos2d_Controller_getAllController(lua_State *L)
 
     // static const std::vector<cocos2d::Controller *> &getAllController()
     const std::vector<cocos2d::Controller *> &ret = cocos2d::Controller::getAllController();
-    int num_ret = olua_push_vector<cocos2d::Controller *>(L, ret, [L](cocos2d::Controller *arg1) {
+    int num_ret = olua_push_array<cocos2d::Controller *>(L, ret, [L](cocos2d::Controller *arg1) {
         olua_push_object(L, arg1, "cc.Controller");
     });
 
@@ -9850,7 +9850,7 @@ static int _cocos2d_FileUtils_getFileDataFromZip(lua_State *L)
     olua_to_object(L, 1, &self, "cc.FileUtils");
     olua_check_string(L, 2, &arg1);
     olua_check_string(L, 3, &arg2);
-    olua_check_array(L, 4, &arg3, "olua.ssize_t");
+    olua_check_pointer(L, 4, &arg3, "olua.ssize_t");
 
     // unsigned char *getFileDataFromZip(const std::string &zipFilePath, const std::string &filename, ssize_t *size)
     unsigned char *ret = self->getFileDataFromZip(arg1, arg2, arg3);
@@ -10024,7 +10024,7 @@ static int _cocos2d_FileUtils_getOriginalSearchPaths(lua_State *L)
 
     // const std::vector<std::string> getOriginalSearchPaths()
     const std::vector<std::string> ret = self->getOriginalSearchPaths();
-    int num_ret = olua_push_vector<std::string>(L, ret, [L](std::string &arg1) {
+    int num_ret = olua_push_array<std::string>(L, ret, [L](std::string &arg1) {
         olua_push_string(L, arg1);
     });
 
@@ -10043,7 +10043,7 @@ static int _cocos2d_FileUtils_getSearchPaths(lua_State *L)
 
     // const std::vector<std::string> getSearchPaths()
     const std::vector<std::string> ret = self->getSearchPaths();
-    int num_ret = olua_push_vector<std::string>(L, ret, [L](std::string &arg1) {
+    int num_ret = olua_push_array<std::string>(L, ret, [L](std::string &arg1) {
         olua_push_string(L, arg1);
     });
 
@@ -10062,7 +10062,7 @@ static int _cocos2d_FileUtils_getSearchResolutionsOrder(lua_State *L)
 
     // const std::vector<std::string> getSearchResolutionsOrder()
     const std::vector<std::string> ret = self->getSearchResolutionsOrder();
-    int num_ret = olua_push_vector<std::string>(L, ret, [L](std::string &arg1) {
+    int num_ret = olua_push_array<std::string>(L, ret, [L](std::string &arg1) {
         olua_push_string(L, arg1);
     });
 
@@ -10460,7 +10460,7 @@ static int _cocos2d_FileUtils_listFiles(lua_State *L)
 
     // std::vector<std::string> listFiles(const std::string &dirPath)
     std::vector<std::string> ret = self->listFiles(arg1);
-    int num_ret = olua_push_vector<std::string>(L, ret, [L](std::string &arg1) {
+    int num_ret = olua_push_array<std::string>(L, ret, [L](std::string &arg1) {
         olua_push_string(L, arg1);
     });
 
@@ -10493,7 +10493,7 @@ static int _cocos2d_FileUtils_listFilesAsync(lua_State *L)
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_vector<std::string>(L, arg1, [L](std::string &arg1) {
+            olua_push_array<std::string>(L, arg1, [L](std::string &arg1) {
                 olua_push_string(L, arg1);
             });
             olua_disable_objpool(L);
@@ -10560,7 +10560,7 @@ static int _cocos2d_FileUtils_listFilesRecursivelyAsync(lua_State *L)
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_vector<std::string>(L, arg1, [L](std::string &arg1) {
+            olua_push_array<std::string>(L, arg1, [L](std::string &arg1) {
                 olua_push_string(L, arg1);
             });
             olua_disable_objpool(L);
@@ -11024,7 +11024,7 @@ static int _cocos2d_FileUtils_setSearchPaths(lua_State *L)
     std::vector<std::string> arg1;       /** searchPaths */
 
     olua_to_object(L, 1, &self, "cc.FileUtils");
-    olua_check_vector<std::string>(L, 2, arg1, [L](std::string *arg1) {
+    olua_check_array<std::string>(L, 2, arg1, [L](std::string *arg1) {
         olua_check_string(L, -1, arg1);
     });
 
@@ -11044,7 +11044,7 @@ static int _cocos2d_FileUtils_setSearchResolutionsOrder(lua_State *L)
     std::vector<std::string> arg1;       /** searchResolutionsOrder */
 
     olua_to_object(L, 1, &self, "cc.FileUtils");
-    olua_check_vector<std::string>(L, 2, arg1, [L](std::string *arg1) {
+    olua_check_array<std::string>(L, 2, arg1, [L](std::string *arg1) {
         olua_check_string(L, -1, arg1);
     });
 
@@ -11550,7 +11550,7 @@ static int _cocos2d_GLView_getAllTouches(lua_State *L)
 
     // std::vector<cocos2d::Touch *> getAllTouches()
     std::vector<cocos2d::Touch *> ret = self->getAllTouches();
-    int num_ret = olua_push_vector<cocos2d::Touch *>(L, ret, [L](cocos2d::Touch *arg1) {
+    int num_ret = olua_push_array<cocos2d::Touch *>(L, ret, [L](cocos2d::Touch *arg1) {
         olua_push_object(L, arg1, "cc.Touch");
     });
 
@@ -12164,7 +12164,7 @@ static int _cocos2d_GLView_setIcon$2(lua_State *L)
     std::vector<std::string> arg1;       /** filelist */
 
     olua_to_object(L, 1, &self, "cc.GLView");
-    olua_check_vector<std::string>(L, 2, arg1, [L](std::string *arg1) {
+    olua_check_array<std::string>(L, 2, arg1, [L](std::string *arg1) {
         olua_check_string(L, -1, arg1);
     });
 
@@ -12186,7 +12186,7 @@ static int _cocos2d_GLView_setIcon(lua_State *L)
             return _cocos2d_GLView_setIcon$1(L);
         }
 
-        // if ((olua_is_vector(L, 2))) {
+        // if ((olua_is_array(L, 2))) {
             // void setIcon(const std::vector<std::string> &filelist)
             return _cocos2d_GLView_setIcon$2(L);
         // }
@@ -14349,7 +14349,7 @@ static int _cocos2d_GLProgram_setUniformLocationWith1fv(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.GLProgram");
     olua_check_integer(L, 2, &arg1);
-    olua_check_array(L, 3, &arg2, "olua.float");
+    olua_check_pointer(L, 3, &arg2, "olua.float");
     olua_check_integer(L, 4, &arg3);
 
     // void setUniformLocationWith1fv(GLint location, const GLfloat *floats, unsigned int numberOfArrays)
@@ -14413,7 +14413,7 @@ static int _cocos2d_GLProgram_setUniformLocationWith2fv(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.GLProgram");
     olua_check_integer(L, 2, &arg1);
-    olua_check_array(L, 3, &arg2, "olua.float");
+    olua_check_pointer(L, 3, &arg2, "olua.float");
     olua_check_integer(L, 4, &arg3);
 
     // void setUniformLocationWith2fv(GLint location, const GLfloat *floats, unsigned int numberOfArrays)
@@ -14457,7 +14457,7 @@ static int _cocos2d_GLProgram_setUniformLocationWith2iv(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.GLProgram");
     olua_check_integer(L, 2, &arg1);
-    olua_check_array(L, 3, &arg2, "olua.int");
+    olua_check_pointer(L, 3, &arg2, "olua.int");
     olua_check_integer(L, 4, &arg3);
 
     // void setUniformLocationWith2iv(GLint location, GLint *ints, unsigned int numberOfArrays)
@@ -14503,7 +14503,7 @@ static int _cocos2d_GLProgram_setUniformLocationWith3fv(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.GLProgram");
     olua_check_integer(L, 2, &arg1);
-    olua_check_array(L, 3, &arg2, "olua.float");
+    olua_check_pointer(L, 3, &arg2, "olua.float");
     olua_check_integer(L, 4, &arg3);
 
     // void setUniformLocationWith3fv(GLint location, const GLfloat *floats, unsigned int numberOfArrays)
@@ -14549,7 +14549,7 @@ static int _cocos2d_GLProgram_setUniformLocationWith3iv(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.GLProgram");
     olua_check_integer(L, 2, &arg1);
-    olua_check_array(L, 3, &arg2, "olua.int");
+    olua_check_pointer(L, 3, &arg2, "olua.int");
     olua_check_integer(L, 4, &arg3);
 
     // void setUniformLocationWith3iv(GLint location, GLint *ints, unsigned int numberOfArrays)
@@ -14597,7 +14597,7 @@ static int _cocos2d_GLProgram_setUniformLocationWith4fv(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.GLProgram");
     olua_check_integer(L, 2, &arg1);
-    olua_check_array(L, 3, &arg2, "olua.float");
+    olua_check_pointer(L, 3, &arg2, "olua.float");
     olua_check_integer(L, 4, &arg3);
 
     // void setUniformLocationWith4fv(GLint location, const GLfloat *floats, unsigned int numberOfArrays)
@@ -14645,7 +14645,7 @@ static int _cocos2d_GLProgram_setUniformLocationWith4iv(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.GLProgram");
     olua_check_integer(L, 2, &arg1);
-    olua_check_array(L, 3, &arg2, "olua.int");
+    olua_check_pointer(L, 3, &arg2, "olua.int");
     olua_check_integer(L, 4, &arg3);
 
     // void setUniformLocationWith4iv(GLint location, GLint *ints, unsigned int numberOfArrays)
@@ -14667,7 +14667,7 @@ static int _cocos2d_GLProgram_setUniformLocationWithMatrix2fv(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.GLProgram");
     olua_check_integer(L, 2, &arg1);
-    olua_check_array(L, 3, &arg2, "olua.float");
+    olua_check_pointer(L, 3, &arg2, "olua.float");
     olua_check_integer(L, 4, &arg3);
 
     // void setUniformLocationWithMatrix2fv(GLint location, const GLfloat *matrixArray, unsigned int numberOfMatrices)
@@ -14689,7 +14689,7 @@ static int _cocos2d_GLProgram_setUniformLocationWithMatrix3fv(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.GLProgram");
     olua_check_integer(L, 2, &arg1);
-    olua_check_array(L, 3, &arg2, "olua.float");
+    olua_check_pointer(L, 3, &arg2, "olua.float");
     olua_check_integer(L, 4, &arg3);
 
     // void setUniformLocationWithMatrix3fv(GLint location, const GLfloat *matrixArray, unsigned int numberOfMatrices)
@@ -14711,7 +14711,7 @@ static int _cocos2d_GLProgram_setUniformLocationWithMatrix4fv(lua_State *L)
 
     olua_to_object(L, 1, &self, "cc.GLProgram");
     olua_check_integer(L, 2, &arg1);
-    olua_check_array(L, 3, &arg2, "olua.float");
+    olua_check_pointer(L, 3, &arg2, "olua.float");
     olua_check_integer(L, 4, &arg3);
 
     // void setUniformLocationWithMatrix4fv(GLint location, const GLfloat *matrixArray, unsigned int numberOfMatrices)
@@ -17348,7 +17348,7 @@ static int _cocos2d_GLProgramState_setUniformFloatv$1(lua_State *L)
     olua_to_object(L, 1, &self, "cc.GLProgramState");
     olua_check_string(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
-    olua_check_array(L, 4, &arg3, "olua.float");
+    olua_check_pointer(L, 4, &arg3, "olua.float");
 
     // void setUniformFloatv(const std::string &uniformName, ssize_t size, const float *pointer)
     self->setUniformFloatv(arg1, arg2, arg3);
@@ -17370,7 +17370,7 @@ static int _cocos2d_GLProgramState_setUniformFloatv$2(lua_State *L)
     olua_to_object(L, 1, &self, "cc.GLProgramState");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
-    olua_check_array(L, 4, &arg3, "olua.float");
+    olua_check_pointer(L, 4, &arg3, "olua.float");
 
     // void setUniformFloatv(GLint uniformLocation, ssize_t size, const float *pointer)
     self->setUniformFloatv(arg1, arg2, arg3);
@@ -17385,12 +17385,12 @@ static int _cocos2d_GLProgramState_setUniformFloatv(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 3) {
-        if ((olua_is_string(L, 2)) && (olua_is_integer(L, 3)) && (olua_is_array(L, 4, "olua.float"))) {
+        if ((olua_is_string(L, 2)) && (olua_is_integer(L, 3)) && (olua_is_pointer(L, 4, "olua.float"))) {
             // void setUniformFloatv(const std::string &uniformName, ssize_t size, const float *pointer)
             return _cocos2d_GLProgramState_setUniformFloatv$1(L);
         }
 
-        // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3)) && (olua_is_array(L, 4, "olua.float"))) {
+        // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3)) && (olua_is_pointer(L, 4, "olua.float"))) {
             // void setUniformFloatv(GLint uniformLocation, ssize_t size, const float *pointer)
             return _cocos2d_GLProgramState_setUniformFloatv$2(L);
         // }
@@ -21128,7 +21128,7 @@ static int _cocos2d_ActionManager_pauseAllRunningActions(lua_State *L)
 
     // cocos2d::Vector<cocos2d::Node *> pauseAllRunningActions()
     cocos2d::Vector<cocos2d::Node *> ret = self->pauseAllRunningActions();
-    int num_ret = olua_push_vector<cocos2d::Node *>(L, ret, [L](cocos2d::Node *arg1) {
+    int num_ret = olua_push_array<cocos2d::Node *>(L, ret, [L](cocos2d::Node *arg1) {
         olua_push_object(L, arg1, "cc.Node");
     });
 
@@ -21293,7 +21293,7 @@ static int _cocos2d_ActionManager_resumeTargets(lua_State *L)
     cocos2d::Vector<cocos2d::Node *> arg1;       /** targetsToResume */
 
     olua_to_object(L, 1, &self, "cc.ActionManager");
-    olua_check_vector<cocos2d::Node *>(L, 2, arg1, [L](cocos2d::Node **arg1) {
+    olua_check_array<cocos2d::Node *>(L, 2, arg1, [L](cocos2d::Node **arg1) {
         olua_check_object(L, -1, arg1, "cc.Node");
     });
 
@@ -22565,7 +22565,7 @@ static int _cocos2d_tweenfunc_customEase(lua_State *L)
     float *arg2 = nullptr;       /** easingParam */
 
     olua_check_number(L, 1, &arg1);
-    olua_check_array(L, 2, &arg2, "olua.float");
+    olua_check_pointer(L, 2, &arg2, "olua.float");
 
     // static float customEase(float time, float *easingParam)
     float ret = cocos2d::tweenfunc::customEase(arg1, arg2);
@@ -23023,7 +23023,7 @@ static int _cocos2d_tweenfunc_tweenTo(lua_State *L)
 
     olua_check_number(L, 1, &arg1);
     olua_check_enum(L, 2, &arg2);
-    olua_check_array(L, 3, &arg3, "olua.float");
+    olua_check_pointer(L, 3, &arg3, "olua.float");
 
     // static float tweenTo(float time, cocos2d::tweenfunc::TweenType type, float *easingParam)
     float ret = cocos2d::tweenfunc::tweenTo(arg1, arg2, arg3);
@@ -23276,7 +23276,7 @@ static int _cocos2d_Sequence_create$2(lua_State *L)
 
     cocos2d::Vector<cocos2d::FiniteTimeAction *> arg1;       /** arrayOfActions */
 
-    olua_check_vector<cocos2d::FiniteTimeAction *>(L, 1, arg1, [L](cocos2d::FiniteTimeAction **arg1) {
+    olua_check_array<cocos2d::FiniteTimeAction *>(L, 1, arg1, [L](cocos2d::FiniteTimeAction **arg1) {
         olua_check_object(L, -1, arg1, "cc.FiniteTimeAction");
     });
 
@@ -23977,7 +23977,7 @@ static int _cocos2d_Sequence_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        if ((olua_is_vector(L, 1))) {
+        if ((olua_is_array(L, 1))) {
             // static cocos2d::Sequence *create(@addref(actions |) const cocos2d::Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
             return _cocos2d_Sequence_create$2(L);
         }
@@ -24516,7 +24516,7 @@ static int _cocos2d_Spawn_create$2(lua_State *L)
 
     cocos2d::Vector<cocos2d::FiniteTimeAction *> arg1;       /** arrayOfActions */
 
-    olua_check_vector<cocos2d::FiniteTimeAction *>(L, 1, arg1, [L](cocos2d::FiniteTimeAction **arg1) {
+    olua_check_array<cocos2d::FiniteTimeAction *>(L, 1, arg1, [L](cocos2d::FiniteTimeAction **arg1) {
         olua_check_object(L, -1, arg1, "cc.FiniteTimeAction");
     });
 
@@ -25217,7 +25217,7 @@ static int _cocos2d_Spawn_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        if ((olua_is_vector(L, 1))) {
+        if ((olua_is_array(L, 1))) {
             // static cocos2d::Spawn *create(@addref(actions |) const cocos2d::Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
             return _cocos2d_Spawn_create$2(L);
         }
@@ -34660,7 +34660,7 @@ static int _cocos2d_Node_getChildren(lua_State *L)
 
     // @addref(children |) cocos2d::Vector<cocos2d::Node *> &getChildren()
     cocos2d::Vector<cocos2d::Node *> &ret = self->getChildren();
-    int num_ret = olua_push_vector<cocos2d::Node *>(L, ret, [L](cocos2d::Node *arg1) {
+    int num_ret = olua_push_array<cocos2d::Node *>(L, ret, [L](cocos2d::Node *arg1) {
         olua_push_object(L, arg1, "cc.Node");
     });
 
@@ -35306,8 +35306,8 @@ static int _cocos2d_Node_getPosition$2(lua_State *L)
     float *arg2 = nullptr;       /** y */
 
     olua_to_object(L, 1, &self, "cc.Node");
-    olua_check_array(L, 2, &arg1, "olua.float");
-    olua_check_array(L, 3, &arg2, "olua.float");
+    olua_check_pointer(L, 2, &arg1, "olua.float");
+    olua_check_pointer(L, 3, &arg2, "olua.float");
 
     // void getPosition(float *x, float *y)
     self->getPosition(arg1, arg2);
@@ -35327,7 +35327,7 @@ static int _cocos2d_Node_getPosition(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if ((olua_is_array(L, 2, "olua.float")) && (olua_is_array(L, 3, "olua.float"))) {
+        // if ((olua_is_pointer(L, 2, "olua.float")) && (olua_is_pointer(L, 3, "olua.float"))) {
             // void getPosition(float *x, float *y)
             return _cocos2d_Node_getPosition$2(L);
         // }
@@ -45760,7 +45760,7 @@ static int _cocos2d_Animation_create$2(lua_State *L)
     float arg2 = 0;       /** delayPerUnit */
     unsigned int arg3 = 0;       /** loops */
 
-    olua_check_vector<cocos2d::AnimationFrame *>(L, 1, arg1, [L](cocos2d::AnimationFrame **arg1) {
+    olua_check_array<cocos2d::AnimationFrame *>(L, 1, arg1, [L](cocos2d::AnimationFrame **arg1) {
         olua_check_object(L, -1, arg1, "cc.AnimationFrame");
     });
     olua_check_number(L, 2, &arg2);
@@ -45782,7 +45782,7 @@ static int _cocos2d_Animation_create$3(lua_State *L)
     cocos2d::Vector<cocos2d::AnimationFrame *> arg1;       /** arrayOfAnimationFrameNames */
     float arg2 = 0;       /** delayPerUnit */
 
-    olua_check_vector<cocos2d::AnimationFrame *>(L, 1, arg1, [L](cocos2d::AnimationFrame **arg1) {
+    olua_check_array<cocos2d::AnimationFrame *>(L, 1, arg1, [L](cocos2d::AnimationFrame **arg1) {
         olua_check_object(L, -1, arg1, "cc.AnimationFrame");
     });
     olua_check_number(L, 2, &arg2);
@@ -45806,14 +45806,14 @@ static int _cocos2d_Animation_create(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if ((olua_is_vector(L, 1)) && (olua_is_number(L, 2))) {
+        // if ((olua_is_array(L, 1)) && (olua_is_number(L, 2))) {
             // static cocos2d::Animation *create(const cocos2d::Vector<cocos2d::AnimationFrame *> &arrayOfAnimationFrameNames, float delayPerUnit, @optional unsigned int loops)
             return _cocos2d_Animation_create$3(L);
         // }
     }
 
     if (num_args == 3) {
-        // if ((olua_is_vector(L, 1)) && (olua_is_number(L, 2)) && (olua_is_integer(L, 3))) {
+        // if ((olua_is_array(L, 1)) && (olua_is_number(L, 2)) && (olua_is_integer(L, 3))) {
             // static cocos2d::Animation *create(const cocos2d::Vector<cocos2d::AnimationFrame *> &arrayOfAnimationFrameNames, float delayPerUnit, @optional unsigned int loops)
             return _cocos2d_Animation_create$2(L);
         // }
@@ -45832,7 +45832,7 @@ static int _cocos2d_Animation_createWithSpriteFrames$1(lua_State *L)
     float arg2 = 0;       /** delay */
     unsigned int arg3 = 0;       /** loops */
 
-    olua_check_vector<cocos2d::SpriteFrame *>(L, 1, arg1, [L](cocos2d::SpriteFrame **arg1) {
+    olua_check_array<cocos2d::SpriteFrame *>(L, 1, arg1, [L](cocos2d::SpriteFrame **arg1) {
         olua_check_object(L, -1, arg1, "cc.SpriteFrame");
     });
     olua_check_number(L, 2, &arg2);
@@ -45853,7 +45853,7 @@ static int _cocos2d_Animation_createWithSpriteFrames$2(lua_State *L)
 
     cocos2d::Vector<cocos2d::SpriteFrame *> arg1;       /** arrayOfSpriteFrameNames */
 
-    olua_check_vector<cocos2d::SpriteFrame *>(L, 1, arg1, [L](cocos2d::SpriteFrame **arg1) {
+    olua_check_array<cocos2d::SpriteFrame *>(L, 1, arg1, [L](cocos2d::SpriteFrame **arg1) {
         olua_check_object(L, -1, arg1, "cc.SpriteFrame");
     });
 
@@ -45873,7 +45873,7 @@ static int _cocos2d_Animation_createWithSpriteFrames$3(lua_State *L)
     cocos2d::Vector<cocos2d::SpriteFrame *> arg1;       /** arrayOfSpriteFrameNames */
     float arg2 = 0;       /** delay */
 
-    olua_check_vector<cocos2d::SpriteFrame *>(L, 1, arg1, [L](cocos2d::SpriteFrame **arg1) {
+    olua_check_array<cocos2d::SpriteFrame *>(L, 1, arg1, [L](cocos2d::SpriteFrame **arg1) {
         olua_check_object(L, -1, arg1, "cc.SpriteFrame");
     });
     olua_check_number(L, 2, &arg2);
@@ -45892,21 +45892,21 @@ static int _cocos2d_Animation_createWithSpriteFrames(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if ((olua_is_vector(L, 1))) {
+        // if ((olua_is_array(L, 1))) {
             // static cocos2d::Animation *createWithSpriteFrames(const cocos2d::Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
             return _cocos2d_Animation_createWithSpriteFrames$2(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((olua_is_vector(L, 1)) && (olua_is_number(L, 2))) {
+        // if ((olua_is_array(L, 1)) && (olua_is_number(L, 2))) {
             // static cocos2d::Animation *createWithSpriteFrames(const cocos2d::Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
             return _cocos2d_Animation_createWithSpriteFrames$3(L);
         // }
     }
 
     if (num_args == 3) {
-        // if ((olua_is_vector(L, 1)) && (olua_is_number(L, 2)) && (olua_is_integer(L, 3))) {
+        // if ((olua_is_array(L, 1)) && (olua_is_number(L, 2)) && (olua_is_integer(L, 3))) {
             // static cocos2d::Animation *createWithSpriteFrames(const cocos2d::Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
             return _cocos2d_Animation_createWithSpriteFrames$1(L);
         // }
@@ -45961,7 +45961,7 @@ static int _cocos2d_Animation_getFrames(lua_State *L)
 
     // const cocos2d::Vector<cocos2d::AnimationFrame *> &getFrames()
     const cocos2d::Vector<cocos2d::AnimationFrame *> &ret = self->getFrames();
-    int num_ret = olua_push_vector<cocos2d::AnimationFrame *>(L, ret, [L](cocos2d::AnimationFrame *arg1) {
+    int num_ret = olua_push_array<cocos2d::AnimationFrame *>(L, ret, [L](cocos2d::AnimationFrame *arg1) {
         olua_push_object(L, arg1, "cc.AnimationFrame");
     });
 
@@ -46048,7 +46048,7 @@ static int _cocos2d_Animation_initWithAnimationFrames(lua_State *L)
     unsigned int arg3 = 0;       /** loops */
 
     olua_to_object(L, 1, &self, "cc.Animation");
-    olua_check_vector<cocos2d::AnimationFrame *>(L, 2, arg1, [L](cocos2d::AnimationFrame **arg1) {
+    olua_check_array<cocos2d::AnimationFrame *>(L, 2, arg1, [L](cocos2d::AnimationFrame **arg1) {
         olua_check_object(L, -1, arg1, "cc.AnimationFrame");
     });
     olua_check_number(L, 3, &arg2);
@@ -46073,7 +46073,7 @@ static int _cocos2d_Animation_initWithSpriteFrames$1(lua_State *L)
     unsigned int arg3 = 0;       /** loops */
 
     olua_to_object(L, 1, &self, "cc.Animation");
-    olua_check_vector<cocos2d::SpriteFrame *>(L, 2, arg1, [L](cocos2d::SpriteFrame **arg1) {
+    olua_check_array<cocos2d::SpriteFrame *>(L, 2, arg1, [L](cocos2d::SpriteFrame **arg1) {
         olua_check_object(L, -1, arg1, "cc.SpriteFrame");
     });
     olua_check_number(L, 3, &arg2);
@@ -46096,7 +46096,7 @@ static int _cocos2d_Animation_initWithSpriteFrames$2(lua_State *L)
     cocos2d::Vector<cocos2d::SpriteFrame *> arg1;       /** arrayOfSpriteFrameNames */
 
     olua_to_object(L, 1, &self, "cc.Animation");
-    olua_check_vector<cocos2d::SpriteFrame *>(L, 2, arg1, [L](cocos2d::SpriteFrame **arg1) {
+    olua_check_array<cocos2d::SpriteFrame *>(L, 2, arg1, [L](cocos2d::SpriteFrame **arg1) {
         olua_check_object(L, -1, arg1, "cc.SpriteFrame");
     });
 
@@ -46118,7 +46118,7 @@ static int _cocos2d_Animation_initWithSpriteFrames$3(lua_State *L)
     float arg2 = 0;       /** delay */
 
     olua_to_object(L, 1, &self, "cc.Animation");
-    olua_check_vector<cocos2d::SpriteFrame *>(L, 2, arg1, [L](cocos2d::SpriteFrame **arg1) {
+    olua_check_array<cocos2d::SpriteFrame *>(L, 2, arg1, [L](cocos2d::SpriteFrame **arg1) {
         olua_check_object(L, -1, arg1, "cc.SpriteFrame");
     });
     olua_check_number(L, 3, &arg2);
@@ -46137,21 +46137,21 @@ static int _cocos2d_Animation_initWithSpriteFrames(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if ((olua_is_vector(L, 2))) {
+        // if ((olua_is_array(L, 2))) {
             // bool initWithSpriteFrames(const cocos2d::Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
             return _cocos2d_Animation_initWithSpriteFrames$2(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((olua_is_vector(L, 2)) && (olua_is_number(L, 3))) {
+        // if ((olua_is_array(L, 2)) && (olua_is_number(L, 3))) {
             // bool initWithSpriteFrames(const cocos2d::Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
             return _cocos2d_Animation_initWithSpriteFrames$3(L);
         // }
     }
 
     if (num_args == 3) {
-        // if ((olua_is_vector(L, 2)) && (olua_is_number(L, 3)) && (olua_is_integer(L, 4))) {
+        // if ((olua_is_array(L, 2)) && (olua_is_number(L, 3)) && (olua_is_integer(L, 4))) {
             // bool initWithSpriteFrames(const cocos2d::Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
             return _cocos2d_Animation_initWithSpriteFrames$1(L);
         // }
@@ -46202,7 +46202,7 @@ static int _cocos2d_Animation_setFrames(lua_State *L)
     cocos2d::Vector<cocos2d::AnimationFrame *> arg1;       /** frames */
 
     olua_to_object(L, 1, &self, "cc.Animation");
-    olua_check_vector<cocos2d::AnimationFrame *>(L, 2, arg1, [L](cocos2d::AnimationFrame **arg1) {
+    olua_check_array<cocos2d::AnimationFrame *>(L, 2, arg1, [L](cocos2d::AnimationFrame **arg1) {
         olua_check_object(L, -1, arg1, "cc.AnimationFrame");
     });
 
@@ -48521,7 +48521,7 @@ static int _cocos2d_SpriteBatchNode_getDescendants(lua_State *L)
 
     // const std::vector<cocos2d::Sprite *> &getDescendants()
     const std::vector<cocos2d::Sprite *> &ret = self->getDescendants();
-    int num_ret = olua_push_vector<cocos2d::Sprite *>(L, ret, [L](cocos2d::Sprite *arg1) {
+    int num_ret = olua_push_array<cocos2d::Sprite *>(L, ret, [L](cocos2d::Sprite *arg1) {
         olua_push_object(L, arg1, "cc.Sprite");
     });
 
@@ -49542,7 +49542,7 @@ static int _cocos2d_Scene_getCameras(lua_State *L)
 
     // const std::vector<cocos2d::Camera *> &getCameras()
     const std::vector<cocos2d::Camera *> &ret = self->getCameras();
-    int num_ret = olua_push_vector<cocos2d::Camera *>(L, ret, [L](cocos2d::Camera *arg1) {
+    int num_ret = olua_push_array<cocos2d::Camera *>(L, ret, [L](cocos2d::Camera *arg1) {
         olua_push_object(L, arg1, "cc.Camera");
     });
 
@@ -49578,7 +49578,7 @@ static int _cocos2d_Scene_getLights(lua_State *L)
 
     // const std::vector<cocos2d::BaseLight *> &getLights()
     const std::vector<cocos2d::BaseLight *> &ret = self->getLights();
-    int num_ret = olua_push_vector<cocos2d::BaseLight *>(L, ret, [L](cocos2d::BaseLight *arg1) {
+    int num_ret = olua_push_array<cocos2d::BaseLight *>(L, ret, [L](cocos2d::BaseLight *arg1) {
         olua_push_object(L, arg1, "cc.BaseLight");
     });
 
@@ -50047,7 +50047,7 @@ static int _cocos2d_Layer_onTouchesBegan(lua_State *L)
     cocos2d::Event *arg2 = nullptr;       /** unused_event */
 
     olua_to_object(L, 1, &self, "cc.Layer");
-    olua_check_vector<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
+    olua_check_array<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
         olua_check_object(L, -1, arg1, "cc.Touch");
     });
     olua_check_object(L, 3, &arg2, "cc.Event");
@@ -50069,7 +50069,7 @@ static int _cocos2d_Layer_onTouchesCancelled(lua_State *L)
     cocos2d::Event *arg2 = nullptr;       /** unused_event */
 
     olua_to_object(L, 1, &self, "cc.Layer");
-    olua_check_vector<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
+    olua_check_array<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
         olua_check_object(L, -1, arg1, "cc.Touch");
     });
     olua_check_object(L, 3, &arg2, "cc.Event");
@@ -50091,7 +50091,7 @@ static int _cocos2d_Layer_onTouchesEnded(lua_State *L)
     cocos2d::Event *arg2 = nullptr;       /** unused_event */
 
     olua_to_object(L, 1, &self, "cc.Layer");
-    olua_check_vector<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
+    olua_check_array<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
         olua_check_object(L, -1, arg1, "cc.Touch");
     });
     olua_check_object(L, 3, &arg2, "cc.Event");
@@ -50113,7 +50113,7 @@ static int _cocos2d_Layer_onTouchesMoved(lua_State *L)
     cocos2d::Event *arg2 = nullptr;       /** unused_event */
 
     olua_to_object(L, 1, &self, "cc.Layer");
-    olua_check_vector<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
+    olua_check_array<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
         olua_check_object(L, -1, arg1, "cc.Touch");
     });
     olua_check_object(L, 3, &arg2, "cc.Event");
@@ -57243,9 +57243,9 @@ static int _cocos2d_OrbitCamera_sphericalRadius(lua_State *L)
     float *arg3 = nullptr;       /** azimuth */
 
     olua_to_object(L, 1, &self, "cc.OrbitCamera");
-    olua_check_array(L, 2, &arg1, "olua.float");
-    olua_check_array(L, 3, &arg2, "olua.float");
-    olua_check_array(L, 4, &arg3, "olua.float");
+    olua_check_pointer(L, 2, &arg1, "olua.float");
+    olua_check_pointer(L, 3, &arg2, "olua.float");
+    olua_check_pointer(L, 4, &arg3, "olua.float");
 
     // void sphericalRadius(float *r, float *zenith, float *azimuth)
     self->sphericalRadius(arg1, arg2, arg3);
@@ -60510,7 +60510,7 @@ static int _cocos2d_ShuffleTiles_shuffle(lua_State *L)
     unsigned int arg2 = 0;       /** len */
 
     olua_to_object(L, 1, &self, "cc.ShuffleTiles");
-    olua_check_array(L, 2, &arg1, "olua.uint");
+    olua_check_pointer(L, 2, &arg1, "olua.uint");
     olua_check_integer(L, 3, &arg2);
 
     // void shuffle(unsigned int *array, unsigned int len)
@@ -60967,7 +60967,7 @@ static int _cocos2d_TurnOffTiles_shuffle(lua_State *L)
     unsigned int arg2 = 0;       /** len */
 
     olua_to_object(L, 1, &self, "cc.TurnOffTiles");
-    olua_check_array(L, 2, &arg1, "olua.uint");
+    olua_check_pointer(L, 2, &arg1, "olua.uint");
     olua_check_integer(L, 3, &arg2);
 
     // void shuffle(unsigned int *array, unsigned int len)
@@ -61963,7 +61963,7 @@ static int _cocos2d_ParticleSystem_getAllParticleSystems(lua_State *L)
 
     // static cocos2d::Vector<cocos2d::ParticleSystem *> &getAllParticleSystems()
     cocos2d::Vector<cocos2d::ParticleSystem *> &ret = cocos2d::ParticleSystem::getAllParticleSystems();
-    int num_ret = olua_push_vector<cocos2d::ParticleSystem *>(L, ret, [L](cocos2d::ParticleSystem *arg1) {
+    int num_ret = olua_push_array<cocos2d::ParticleSystem *>(L, ret, [L](cocos2d::ParticleSystem *arg1) {
         olua_push_object(L, arg1, "cc.ParticleSystem");
     });
 

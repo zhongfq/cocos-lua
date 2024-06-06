@@ -1053,7 +1053,7 @@ static int _spine_AnimationState_getTracks(lua_State *L)
 
     // spine::Vector<spine::TrackEntry *> &getTracks()
     spine::Vector<spine::TrackEntry *> &ret = self->getTracks();
-    int num_ret = olua_push_vector<spine::TrackEntry *>(L, ret, [L](spine::TrackEntry *arg1) {
+    int num_ret = olua_push_array<spine::TrackEntry *>(L, ret, [L](spine::TrackEntry *arg1) {
         olua_push_object(L, arg1, "spine.TrackEntry");
     });
 
@@ -1547,7 +1547,7 @@ static int _spine_Animation_getTimelines(lua_State *L)
 
     // spine::Vector<spine::Timeline *> &getTimelines()
     spine::Vector<spine::Timeline *> &ret = self->getTimelines();
-    int num_ret = olua_push_vector<spine::Timeline *>(L, ret, [L](spine::Timeline *arg1) {
+    int num_ret = olua_push_array<spine::Timeline *>(L, ret, [L](spine::Timeline *arg1) {
         olua_push_object(L, arg1, "spine.Timeline");
     });
 
@@ -1564,7 +1564,7 @@ static int _spine_Animation_hasTimeline(lua_State *L)
     spine::Vector<spine::PropertyId> arg1;       /** ids */
 
     olua_to_object(L, 1, &self, "spine.Animation");
-    olua_check_vector<spine::PropertyId>(L, 2, arg1, [L](spine::PropertyId *arg1) {
+    olua_check_array<spine::PropertyId>(L, 2, arg1, [L](spine::PropertyId *arg1) {
         olua_check_integer(L, -1, arg1);
     });
 
@@ -1586,7 +1586,7 @@ static int _spine_Animation_new(lua_State *L)
     float arg3 = 0;       /** duration */
 
     olua_check_string(L, 1, &arg1);
-    olua_check_vector<spine::Timeline *>(L, 2, arg2, [L](spine::Timeline **arg1) {
+    olua_check_array<spine::Timeline *>(L, 2, arg2, [L](spine::Timeline **arg1) {
         olua_check_object(L, -1, arg1, "spine.Timeline");
     });
     olua_check_number(L, 3, &arg3);
@@ -1608,7 +1608,7 @@ static int _spine_Animation_search$1(lua_State *L)
     spine::Vector<float> arg1;       /** values */
     float arg2 = 0;       /** target */
 
-    olua_check_vector<float>(L, 1, arg1, [L](float *arg1) {
+    olua_check_array<float>(L, 1, arg1, [L](float *arg1) {
         olua_check_number(L, -1, arg1);
     });
     olua_check_number(L, 2, &arg2);
@@ -1630,7 +1630,7 @@ static int _spine_Animation_search$2(lua_State *L)
     float arg2 = 0;       /** target */
     int arg3 = 0;       /** step */
 
-    olua_check_vector<float>(L, 1, arg1, [L](float *arg1) {
+    olua_check_array<float>(L, 1, arg1, [L](float *arg1) {
         olua_check_number(L, -1, arg1);
     });
     olua_check_number(L, 2, &arg2);
@@ -1650,14 +1650,14 @@ static int _spine_Animation_search(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if ((olua_is_vector(L, 1)) && (olua_is_number(L, 2))) {
+        // if ((olua_is_array(L, 1)) && (olua_is_number(L, 2))) {
             // static int search(spine::Vector<float> &values, float target)
             return _spine_Animation_search$1(L);
         // }
     }
 
     if (num_args == 3) {
-        // if ((olua_is_vector(L, 1)) && (olua_is_number(L, 2)) && (olua_is_integer(L, 3))) {
+        // if ((olua_is_array(L, 1)) && (olua_is_number(L, 2)) && (olua_is_integer(L, 3))) {
             // static int search(spine::Vector<float> &values, float target, int step)
             return _spine_Animation_search$2(L);
         // }
@@ -1807,7 +1807,7 @@ static int _spine_Sequence_getRegions(lua_State *L)
 
     // spine::Vector<spine::TextureRegion *> &getRegions()
     spine::Vector<spine::TextureRegion *> &ret = self->getRegions();
-    int num_ret = olua_push_vector<spine::TextureRegion *>(L, ret, [L](spine::TextureRegion *arg1) {
+    int num_ret = olua_push_array<spine::TextureRegion *>(L, ret, [L](spine::TextureRegion *arg1) {
         olua_push_object(L, arg1, "spine.TextureRegion");
     });
 
@@ -2591,7 +2591,7 @@ static int _spine_IkConstraintData_getBones(lua_State *L)
 
     // spine::Vector<spine::BoneData *> &getBones()
     spine::Vector<spine::BoneData *> &ret = self->getBones();
-    int num_ret = olua_push_vector<spine::BoneData *>(L, ret, [L](spine::BoneData *arg1) {
+    int num_ret = olua_push_array<spine::BoneData *>(L, ret, [L](spine::BoneData *arg1) {
         olua_push_object(L, arg1, "spine.BoneData");
     });
 
@@ -3760,7 +3760,7 @@ static int _spine_IkConstraint_getBones(lua_State *L)
 
     // spine::Vector<spine::Bone *> &getBones()
     spine::Vector<spine::Bone *> &ret = self->getBones();
-    int num_ret = olua_push_vector<spine::Bone *>(L, ret, [L](spine::Bone *arg1) {
+    int num_ret = olua_push_array<spine::Bone *>(L, ret, [L](spine::Bone *arg1) {
         olua_push_object(L, arg1, "spine.Bone");
     });
 
@@ -4061,7 +4061,7 @@ static int _spine_TransformConstraint_getBones(lua_State *L)
 
     // spine::Vector<spine::Bone *> &getBones()
     spine::Vector<spine::Bone *> &ret = self->getBones();
-    int num_ret = olua_push_vector<spine::Bone *>(L, ret, [L](spine::Bone *arg1) {
+    int num_ret = olua_push_array<spine::Bone *>(L, ret, [L](spine::Bone *arg1) {
         olua_push_object(L, arg1, "spine.Bone");
     });
 
@@ -4416,7 +4416,7 @@ static int _spine_TransformConstraintData_getBones(lua_State *L)
 
     // spine::Vector<spine::BoneData *> &getBones()
     spine::Vector<spine::BoneData *> &ret = self->getBones();
-    int num_ret = olua_push_vector<spine::BoneData *>(L, ret, [L](spine::BoneData *arg1) {
+    int num_ret = olua_push_array<spine::BoneData *>(L, ret, [L](spine::BoneData *arg1) {
         olua_push_object(L, arg1, "spine.BoneData");
     });
 
@@ -5035,7 +5035,7 @@ static int _spine_PathConstraintData_getBones(lua_State *L)
 
     // spine::Vector<spine::BoneData *> &getBones()
     spine::Vector<spine::BoneData *> &ret = self->getBones();
-    int num_ret = olua_push_vector<spine::BoneData *>(L, ret, [L](spine::BoneData *arg1) {
+    int num_ret = olua_push_array<spine::BoneData *>(L, ret, [L](spine::BoneData *arg1) {
         olua_push_object(L, arg1, "spine.BoneData");
     });
 
@@ -5615,7 +5615,7 @@ static int _spine_SkeletonBounds_getBoundingBoxes(lua_State *L)
 
     // spine::Vector<spine::BoundingBoxAttachment *> &getBoundingBoxes()
     spine::Vector<spine::BoundingBoxAttachment *> &ret = self->getBoundingBoxes();
-    int num_ret = olua_push_vector<spine::BoundingBoxAttachment *>(L, ret, [L](spine::BoundingBoxAttachment *arg1) {
+    int num_ret = olua_push_array<spine::BoundingBoxAttachment *>(L, ret, [L](spine::BoundingBoxAttachment *arg1) {
         olua_push_object(L, arg1, "spine.BoundingBoxAttachment");
     });
 
@@ -5670,7 +5670,7 @@ static int _spine_SkeletonBounds_getPolygons(lua_State *L)
 
     // spine::Vector<spine::Polygon *> &getPolygons()
     spine::Vector<spine::Polygon *> &ret = self->getPolygons();
-    int num_ret = olua_push_vector<spine::Polygon *>(L, ret, [L](spine::Polygon *arg1) {
+    int num_ret = olua_push_array<spine::Polygon *>(L, ret, [L](spine::Polygon *arg1) {
         olua_push_object(L, arg1, "spine.Polygon");
     });
 
@@ -5901,7 +5901,7 @@ static int _spine_Timeline_getFrames(lua_State *L)
 
     // spine::Vector<float> &getFrames()
     spine::Vector<float> &ret = self->getFrames();
-    int num_ret = olua_push_vector<float>(L, ret, [L](float &arg1) {
+    int num_ret = olua_push_array<float>(L, ret, [L](float &arg1) {
         olua_push_number(L, arg1);
     });
 
@@ -5920,7 +5920,7 @@ static int _spine_Timeline_getPropertyIds(lua_State *L)
 
     // spine::Vector<spine::PropertyId> &getPropertyIds()
     spine::Vector<spine::PropertyId> &ret = self->getPropertyIds();
-    int num_ret = olua_push_vector<spine::PropertyId>(L, ret, [L](spine::PropertyId &arg1) {
+    int num_ret = olua_push_array<spine::PropertyId>(L, ret, [L](spine::PropertyId &arg1) {
         olua_push_integer(L, arg1);
     });
 
@@ -5983,7 +5983,7 @@ static int _spine_CurveTimeline_getCurves(lua_State *L)
 
     // spine::Vector<float> &getCurves()
     spine::Vector<float> &ret = self->getCurves();
-    int num_ret = olua_push_vector<float>(L, ret, [L](float &arg1) {
+    int num_ret = olua_push_array<float>(L, ret, [L](float &arg1) {
         olua_push_number(L, arg1);
     });
 
@@ -6149,7 +6149,7 @@ static int _spine_AttachmentTimeline_getAttachmentNames(lua_State *L)
 
     // spine::Vector<spine::String> &getAttachmentNames()
     spine::Vector<spine::String> &ret = self->getAttachmentNames();
-    int num_ret = olua_push_vector<spine::String>(L, ret, [L](spine::String &arg1) {
+    int num_ret = olua_push_array<spine::String>(L, ret, [L](spine::String &arg1) {
         olua_push_string(L, arg1);
     });
 
@@ -7893,7 +7893,7 @@ static int _spine_Skin_getBones(lua_State *L)
 
     // spine::Vector<spine::BoneData *> &getBones()
     spine::Vector<spine::BoneData *> &ret = self->getBones();
-    int num_ret = olua_push_vector<spine::BoneData *>(L, ret, [L](spine::BoneData *arg1) {
+    int num_ret = olua_push_array<spine::BoneData *>(L, ret, [L](spine::BoneData *arg1) {
         olua_push_object(L, arg1, "spine.BoneData");
     });
 
@@ -7912,7 +7912,7 @@ static int _spine_Skin_getConstraints(lua_State *L)
 
     // spine::Vector<spine::ConstraintData *> &getConstraints()
     spine::Vector<spine::ConstraintData *> &ret = self->getConstraints();
-    int num_ret = olua_push_vector<spine::ConstraintData *>(L, ret, [L](spine::ConstraintData *arg1) {
+    int num_ret = olua_push_array<spine::ConstraintData *>(L, ret, [L](spine::ConstraintData *arg1) {
         olua_push_object(L, arg1, "spine.ConstraintData");
     });
 
@@ -8208,7 +8208,7 @@ static int _spine_Bone_getChildren(lua_State *L)
 
     // spine::Vector<spine::Bone *> &getChildren()
     spine::Vector<spine::Bone *> &ret = self->getChildren();
-    int num_ret = olua_push_vector<spine::Bone *>(L, ret, [L](spine::Bone *arg1) {
+    int num_ret = olua_push_array<spine::Bone *>(L, ret, [L](spine::Bone *arg1) {
         olua_push_object(L, arg1, "spine.Bone");
     });
 
@@ -9360,7 +9360,7 @@ static int _spine_Slot_getDeform(lua_State *L)
 
     // spine::Vector<float> &getDeform()
     spine::Vector<float> &ret = self->getDeform();
-    int num_ret = olua_push_vector<float>(L, ret, [L](float &arg1) {
+    int num_ret = olua_push_array<float>(L, ret, [L](float &arg1) {
         olua_push_number(L, arg1);
     });
 
@@ -9652,7 +9652,7 @@ static int _spine_VertexAttachment_computeWorldVertices$1(lua_State *L)
 
     olua_to_object(L, 1, &self, "spine.VertexAttachment");
     olua_check_object(L, 2, &arg1, "spine.Slot");
-    olua_check_array(L, 3, &arg2, "olua.float");
+    olua_check_pointer(L, 3, &arg2, "olua.float");
 
     // void computeWorldVertices(spine::Slot &slot, float *worldVertices)
     self->computeWorldVertices(*arg1, arg2);
@@ -9672,7 +9672,7 @@ static int _spine_VertexAttachment_computeWorldVertices$2(lua_State *L)
 
     olua_to_object(L, 1, &self, "spine.VertexAttachment");
     olua_check_object(L, 2, &arg1, "spine.Slot");
-    olua_check_vector<float>(L, 3, arg2, [L](float *arg1) {
+    olua_check_array<float>(L, 3, arg2, [L](float *arg1) {
         olua_check_number(L, -1, arg1);
     });
 
@@ -9700,7 +9700,7 @@ static int _spine_VertexAttachment_computeWorldVertices$3(lua_State *L)
     olua_check_object(L, 2, &arg1, "spine.Slot");
     olua_check_integer(L, 3, &arg2);
     olua_check_integer(L, 4, &arg3);
-    olua_check_array(L, 5, &arg4, "olua.float");
+    olua_check_pointer(L, 5, &arg4, "olua.float");
     olua_check_integer(L, 6, &arg5);
     olua_check_integer(L, 7, &arg6);
 
@@ -9728,7 +9728,7 @@ static int _spine_VertexAttachment_computeWorldVertices$4(lua_State *L)
     olua_check_object(L, 2, &arg1, "spine.Slot");
     olua_check_integer(L, 3, &arg2);
     olua_check_integer(L, 4, &arg3);
-    olua_check_vector<float>(L, 5, arg4, [L](float *arg1) {
+    olua_check_array<float>(L, 5, arg4, [L](float *arg1) {
         olua_check_number(L, -1, arg1);
     });
     olua_check_integer(L, 6, &arg5);
@@ -9757,7 +9757,7 @@ static int _spine_VertexAttachment_computeWorldVertices$5(lua_State *L)
     olua_check_object(L, 2, &arg1, "spine.Slot");
     olua_check_integer(L, 3, &arg2);
     olua_check_integer(L, 4, &arg3);
-    olua_check_array(L, 5, &arg4, "olua.float");
+    olua_check_pointer(L, 5, &arg4, "olua.float");
     olua_check_integer(L, 6, &arg5);
 
     // void computeWorldVertices(spine::Slot &slot, size_t start, size_t count, float *worldVertices, size_t offset, @optional size_t stride)
@@ -9783,7 +9783,7 @@ static int _spine_VertexAttachment_computeWorldVertices$6(lua_State *L)
     olua_check_object(L, 2, &arg1, "spine.Slot");
     olua_check_integer(L, 3, &arg2);
     olua_check_integer(L, 4, &arg3);
-    olua_check_vector<float>(L, 5, arg4, [L](float *arg1) {
+    olua_check_array<float>(L, 5, arg4, [L](float *arg1) {
         olua_check_number(L, -1, arg1);
     });
     olua_check_integer(L, 6, &arg5);
@@ -9801,36 +9801,36 @@ static int _spine_VertexAttachment_computeWorldVertices(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        if ((olua_is_object(L, 2, "spine.Slot")) && (olua_is_array(L, 3, "olua.float"))) {
+        if ((olua_is_object(L, 2, "spine.Slot")) && (olua_is_pointer(L, 3, "olua.float"))) {
             // void computeWorldVertices(spine::Slot &slot, float *worldVertices)
             return _spine_VertexAttachment_computeWorldVertices$1(L);
         }
 
-        // if ((olua_is_object(L, 2, "spine.Slot")) && (olua_is_vector(L, 3))) {
+        // if ((olua_is_object(L, 2, "spine.Slot")) && (olua_is_array(L, 3))) {
             // void computeWorldVertices(spine::Slot &slot, spine::Vector<float> &worldVertices)
             return _spine_VertexAttachment_computeWorldVertices$2(L);
         // }
     }
 
     if (num_args == 5) {
-        if ((olua_is_object(L, 2, "spine.Slot")) && (olua_is_integer(L, 3)) && (olua_is_integer(L, 4)) && (olua_is_array(L, 5, "olua.float")) && (olua_is_integer(L, 6))) {
+        if ((olua_is_object(L, 2, "spine.Slot")) && (olua_is_integer(L, 3)) && (olua_is_integer(L, 4)) && (olua_is_pointer(L, 5, "olua.float")) && (olua_is_integer(L, 6))) {
             // void computeWorldVertices(spine::Slot &slot, size_t start, size_t count, float *worldVertices, size_t offset, @optional size_t stride)
             return _spine_VertexAttachment_computeWorldVertices$5(L);
         }
 
-        // if ((olua_is_object(L, 2, "spine.Slot")) && (olua_is_integer(L, 3)) && (olua_is_integer(L, 4)) && (olua_is_vector(L, 5)) && (olua_is_integer(L, 6))) {
+        // if ((olua_is_object(L, 2, "spine.Slot")) && (olua_is_integer(L, 3)) && (olua_is_integer(L, 4)) && (olua_is_array(L, 5)) && (olua_is_integer(L, 6))) {
             // void computeWorldVertices(spine::Slot &slot, size_t start, size_t count, spine::Vector<float> &worldVertices, size_t offset, @optional size_t stride)
             return _spine_VertexAttachment_computeWorldVertices$6(L);
         // }
     }
 
     if (num_args == 6) {
-        if ((olua_is_object(L, 2, "spine.Slot")) && (olua_is_integer(L, 3)) && (olua_is_integer(L, 4)) && (olua_is_array(L, 5, "olua.float")) && (olua_is_integer(L, 6)) && (olua_is_integer(L, 7))) {
+        if ((olua_is_object(L, 2, "spine.Slot")) && (olua_is_integer(L, 3)) && (olua_is_integer(L, 4)) && (olua_is_pointer(L, 5, "olua.float")) && (olua_is_integer(L, 6)) && (olua_is_integer(L, 7))) {
             // void computeWorldVertices(spine::Slot &slot, size_t start, size_t count, float *worldVertices, size_t offset, @optional size_t stride)
             return _spine_VertexAttachment_computeWorldVertices$3(L);
         }
 
-        // if ((olua_is_object(L, 2, "spine.Slot")) && (olua_is_integer(L, 3)) && (olua_is_integer(L, 4)) && (olua_is_vector(L, 5)) && (olua_is_integer(L, 6)) && (olua_is_integer(L, 7))) {
+        // if ((olua_is_object(L, 2, "spine.Slot")) && (olua_is_integer(L, 3)) && (olua_is_integer(L, 4)) && (olua_is_array(L, 5)) && (olua_is_integer(L, 6)) && (olua_is_integer(L, 7))) {
             // void computeWorldVertices(spine::Slot &slot, size_t start, size_t count, spine::Vector<float> &worldVertices, size_t offset, @optional size_t stride)
             return _spine_VertexAttachment_computeWorldVertices$4(L);
         // }
@@ -9869,7 +9869,7 @@ static int _spine_VertexAttachment_getBones(lua_State *L)
 
     // spine::Vector<int> &getBones()
     spine::Vector<int> &ret = self->getBones();
-    int num_ret = olua_push_vector<int>(L, ret, [L](int &arg1) {
+    int num_ret = olua_push_array<int>(L, ret, [L](int &arg1) {
         olua_push_integer(L, arg1);
     });
 
@@ -9922,7 +9922,7 @@ static int _spine_VertexAttachment_getVertices(lua_State *L)
 
     // spine::Vector<float> &getVertices()
     spine::Vector<float> &ret = self->getVertices();
-    int num_ret = olua_push_vector<float>(L, ret, [L](float &arg1) {
+    int num_ret = olua_push_array<float>(L, ret, [L](float &arg1) {
         olua_push_number(L, arg1);
     });
 
@@ -10166,7 +10166,7 @@ static int _spine_MeshAttachment_getEdges(lua_State *L)
 
     // spine::Vector<unsigned short> &getEdges()
     spine::Vector<unsigned short> &ret = self->getEdges();
-    int num_ret = olua_push_vector<unsigned short>(L, ret, [L](unsigned short &arg1) {
+    int num_ret = olua_push_array<unsigned short>(L, ret, [L](unsigned short &arg1) {
         olua_push_integer(L, arg1);
     });
 
@@ -10270,7 +10270,7 @@ static int _spine_MeshAttachment_getRegionUVs(lua_State *L)
 
     // spine::Vector<float> &getRegionUVs()
     spine::Vector<float> &ret = self->getRegionUVs();
-    int num_ret = olua_push_vector<float>(L, ret, [L](float &arg1) {
+    int num_ret = olua_push_array<float>(L, ret, [L](float &arg1) {
         olua_push_number(L, arg1);
     });
 
@@ -10306,7 +10306,7 @@ static int _spine_MeshAttachment_getTriangles(lua_State *L)
 
     // spine::Vector<unsigned short> &getTriangles()
     spine::Vector<unsigned short> &ret = self->getTriangles();
-    int num_ret = olua_push_vector<unsigned short>(L, ret, [L](unsigned short &arg1) {
+    int num_ret = olua_push_array<unsigned short>(L, ret, [L](unsigned short &arg1) {
         olua_push_integer(L, arg1);
     });
 
@@ -10325,7 +10325,7 @@ static int _spine_MeshAttachment_getUVs(lua_State *L)
 
     // spine::Vector<float> &getUVs()
     spine::Vector<float> &ret = self->getUVs();
-    int num_ret = olua_push_vector<float>(L, ret, [L](float &arg1) {
+    int num_ret = olua_push_array<float>(L, ret, [L](float &arg1) {
         olua_push_number(L, arg1);
     });
 
@@ -10598,7 +10598,7 @@ static int _spine_PathAttachment_getLengths(lua_State *L)
 
     // spine::Vector<float> &getLengths()
     spine::Vector<float> &ret = self->getLengths();
-    int num_ret = olua_push_vector<float>(L, ret, [L](float &arg1) {
+    int num_ret = olua_push_array<float>(L, ret, [L](float &arg1) {
         olua_push_number(L, arg1);
     });
 
@@ -10725,7 +10725,7 @@ static int _spine_PathConstraint_getBones(lua_State *L)
 
     // spine::Vector<spine::Bone *> &getBones()
     spine::Vector<spine::Bone *> &ret = self->getBones();
-    int num_ret = olua_push_vector<spine::Bone *>(L, ret, [L](spine::Bone *arg1) {
+    int num_ret = olua_push_array<spine::Bone *>(L, ret, [L](spine::Bone *arg1) {
         olua_push_object(L, arg1, "spine.Bone");
     });
 
@@ -11043,8 +11043,8 @@ static int _spine_PointAttachment_computeWorldPosition(lua_State *L)
 
     olua_to_object(L, 1, &self, "spine.PointAttachment");
     olua_check_object(L, 2, &arg1, "spine.Bone");
-    olua_check_array(L, 3, &arg2, "olua.float");
-    olua_check_array(L, 4, &arg3, "olua.float");
+    olua_check_pointer(L, 3, &arg2, "olua.float");
+    olua_check_pointer(L, 4, &arg3, "olua.float");
 
     // void computeWorldPosition(spine::Bone &bone, float &ox, float &oy)
     self->computeWorldPosition(*arg1, *arg2, *arg3);
@@ -11248,7 +11248,7 @@ static int _spine_RegionAttachment_computeWorldVertices$1(lua_State *L)
 
     olua_to_object(L, 1, &self, "spine.RegionAttachment");
     olua_check_object(L, 2, &arg1, "spine.Slot");
-    olua_check_array(L, 3, &arg2, "olua.float");
+    olua_check_pointer(L, 3, &arg2, "olua.float");
     olua_check_integer(L, 4, &arg3);
     olua_check_integer(L, 5, &arg4);
 
@@ -11272,7 +11272,7 @@ static int _spine_RegionAttachment_computeWorldVertices$2(lua_State *L)
 
     olua_to_object(L, 1, &self, "spine.RegionAttachment");
     olua_check_object(L, 2, &arg1, "spine.Slot");
-    olua_check_vector<float>(L, 3, arg2, [L](float *arg1) {
+    olua_check_array<float>(L, 3, arg2, [L](float *arg1) {
         olua_check_number(L, -1, arg1);
     });
     olua_check_integer(L, 4, &arg3);
@@ -11297,7 +11297,7 @@ static int _spine_RegionAttachment_computeWorldVertices$3(lua_State *L)
 
     olua_to_object(L, 1, &self, "spine.RegionAttachment");
     olua_check_object(L, 2, &arg1, "spine.Slot");
-    olua_check_array(L, 3, &arg2, "olua.float");
+    olua_check_pointer(L, 3, &arg2, "olua.float");
     olua_check_integer(L, 4, &arg3);
 
     // void computeWorldVertices(spine::Slot &slot, float *worldVertices, size_t offset, @optional size_t stride)
@@ -11319,7 +11319,7 @@ static int _spine_RegionAttachment_computeWorldVertices$4(lua_State *L)
 
     olua_to_object(L, 1, &self, "spine.RegionAttachment");
     olua_check_object(L, 2, &arg1, "spine.Slot");
-    olua_check_vector<float>(L, 3, arg2, [L](float *arg1) {
+    olua_check_array<float>(L, 3, arg2, [L](float *arg1) {
         olua_check_number(L, -1, arg1);
     });
     olua_check_integer(L, 4, &arg3);
@@ -11337,24 +11337,24 @@ static int _spine_RegionAttachment_computeWorldVertices(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 3) {
-        if ((olua_is_object(L, 2, "spine.Slot")) && (olua_is_array(L, 3, "olua.float")) && (olua_is_integer(L, 4))) {
+        if ((olua_is_object(L, 2, "spine.Slot")) && (olua_is_pointer(L, 3, "olua.float")) && (olua_is_integer(L, 4))) {
             // void computeWorldVertices(spine::Slot &slot, float *worldVertices, size_t offset, @optional size_t stride)
             return _spine_RegionAttachment_computeWorldVertices$3(L);
         }
 
-        // if ((olua_is_object(L, 2, "spine.Slot")) && (olua_is_vector(L, 3)) && (olua_is_integer(L, 4))) {
+        // if ((olua_is_object(L, 2, "spine.Slot")) && (olua_is_array(L, 3)) && (olua_is_integer(L, 4))) {
             // void computeWorldVertices(spine::Slot &slot, spine::Vector<float> &worldVertices, size_t offset, @optional size_t stride)
             return _spine_RegionAttachment_computeWorldVertices$4(L);
         // }
     }
 
     if (num_args == 4) {
-        if ((olua_is_object(L, 2, "spine.Slot")) && (olua_is_array(L, 3, "olua.float")) && (olua_is_integer(L, 4)) && (olua_is_integer(L, 5))) {
+        if ((olua_is_object(L, 2, "spine.Slot")) && (olua_is_pointer(L, 3, "olua.float")) && (olua_is_integer(L, 4)) && (olua_is_integer(L, 5))) {
             // void computeWorldVertices(spine::Slot &slot, float *worldVertices, size_t offset, @optional size_t stride)
             return _spine_RegionAttachment_computeWorldVertices$1(L);
         }
 
-        // if ((olua_is_object(L, 2, "spine.Slot")) && (olua_is_vector(L, 3)) && (olua_is_integer(L, 4)) && (olua_is_integer(L, 5))) {
+        // if ((olua_is_object(L, 2, "spine.Slot")) && (olua_is_array(L, 3)) && (olua_is_integer(L, 4)) && (olua_is_integer(L, 5))) {
             // void computeWorldVertices(spine::Slot &slot, spine::Vector<float> &worldVertices, size_t offset, @optional size_t stride)
             return _spine_RegionAttachment_computeWorldVertices$2(L);
         // }
@@ -11409,7 +11409,7 @@ static int _spine_RegionAttachment_getOffset(lua_State *L)
 
     // spine::Vector<float> &getOffset()
     spine::Vector<float> &ret = self->getOffset();
-    int num_ret = olua_push_vector<float>(L, ret, [L](float &arg1) {
+    int num_ret = olua_push_array<float>(L, ret, [L](float &arg1) {
         olua_push_number(L, arg1);
     });
 
@@ -11530,7 +11530,7 @@ static int _spine_RegionAttachment_getUVs(lua_State *L)
 
     // spine::Vector<float> &getUVs()
     spine::Vector<float> &ret = self->getUVs();
-    int num_ret = olua_push_vector<float>(L, ret, [L](float &arg1) {
+    int num_ret = olua_push_array<float>(L, ret, [L](float &arg1) {
         olua_push_number(L, arg1);
     });
 
@@ -13023,7 +13023,7 @@ static int _spine_SkeletonData_getAnimations(lua_State *L)
 
     // spine::Vector<spine::Animation *> &getAnimations()
     spine::Vector<spine::Animation *> &ret = self->getAnimations();
-    int num_ret = olua_push_vector<spine::Animation *>(L, ret, [L](spine::Animation *arg1) {
+    int num_ret = olua_push_array<spine::Animation *>(L, ret, [L](spine::Animation *arg1) {
         olua_push_object(L, arg1, "spine.Animation");
     });
 
@@ -13059,7 +13059,7 @@ static int _spine_SkeletonData_getBones(lua_State *L)
 
     // spine::Vector<spine::BoneData *> &getBones()
     spine::Vector<spine::BoneData *> &ret = self->getBones();
-    int num_ret = olua_push_vector<spine::BoneData *>(L, ret, [L](spine::BoneData *arg1) {
+    int num_ret = olua_push_array<spine::BoneData *>(L, ret, [L](spine::BoneData *arg1) {
         olua_push_object(L, arg1, "spine.BoneData");
     });
 
@@ -13095,7 +13095,7 @@ static int _spine_SkeletonData_getEvents(lua_State *L)
 
     // spine::Vector<spine::EventData *> &getEvents()
     spine::Vector<spine::EventData *> &ret = self->getEvents();
-    int num_ret = olua_push_vector<spine::EventData *>(L, ret, [L](spine::EventData *arg1) {
+    int num_ret = olua_push_array<spine::EventData *>(L, ret, [L](spine::EventData *arg1) {
         olua_push_object(L, arg1, "spine.EventData");
     });
 
@@ -13165,7 +13165,7 @@ static int _spine_SkeletonData_getIkConstraints(lua_State *L)
 
     // spine::Vector<spine::IkConstraintData *> &getIkConstraints()
     spine::Vector<spine::IkConstraintData *> &ret = self->getIkConstraints();
-    int num_ret = olua_push_vector<spine::IkConstraintData *>(L, ret, [L](spine::IkConstraintData *arg1) {
+    int num_ret = olua_push_array<spine::IkConstraintData *>(L, ret, [L](spine::IkConstraintData *arg1) {
         olua_push_object(L, arg1, "spine.IkConstraintData");
     });
 
@@ -13218,7 +13218,7 @@ static int _spine_SkeletonData_getPathConstraints(lua_State *L)
 
     // spine::Vector<spine::PathConstraintData *> &getPathConstraints()
     spine::Vector<spine::PathConstraintData *> &ret = self->getPathConstraints();
-    int num_ret = olua_push_vector<spine::PathConstraintData *>(L, ret, [L](spine::PathConstraintData *arg1) {
+    int num_ret = olua_push_array<spine::PathConstraintData *>(L, ret, [L](spine::PathConstraintData *arg1) {
         olua_push_object(L, arg1, "spine.PathConstraintData");
     });
 
@@ -13237,7 +13237,7 @@ static int _spine_SkeletonData_getSkins(lua_State *L)
 
     // spine::Vector<spine::Skin *> &getSkins()
     spine::Vector<spine::Skin *> &ret = self->getSkins();
-    int num_ret = olua_push_vector<spine::Skin *>(L, ret, [L](spine::Skin *arg1) {
+    int num_ret = olua_push_array<spine::Skin *>(L, ret, [L](spine::Skin *arg1) {
         olua_push_object(L, arg1, "spine.Skin");
     });
 
@@ -13256,7 +13256,7 @@ static int _spine_SkeletonData_getSlots(lua_State *L)
 
     // spine::Vector<spine::SlotData *> &getSlots()
     spine::Vector<spine::SlotData *> &ret = self->getSlots();
-    int num_ret = olua_push_vector<spine::SlotData *>(L, ret, [L](spine::SlotData *arg1) {
+    int num_ret = olua_push_array<spine::SlotData *>(L, ret, [L](spine::SlotData *arg1) {
         olua_push_object(L, arg1, "spine.SlotData");
     });
 
@@ -13275,7 +13275,7 @@ static int _spine_SkeletonData_getTransformConstraints(lua_State *L)
 
     // spine::Vector<spine::TransformConstraintData *> &getTransformConstraints()
     spine::Vector<spine::TransformConstraintData *> &ret = self->getTransformConstraints();
-    int num_ret = olua_push_vector<spine::TransformConstraintData *>(L, ret, [L](spine::TransformConstraintData *arg1) {
+    int num_ret = olua_push_array<spine::TransformConstraintData *>(L, ret, [L](spine::TransformConstraintData *arg1) {
         olua_push_object(L, arg1, "spine.TransformConstraintData");
     });
 
@@ -13788,7 +13788,7 @@ static int _spine_Skeleton_getBones(lua_State *L)
 
     // spine::Vector<spine::Bone *> &getBones()
     spine::Vector<spine::Bone *> &ret = self->getBones();
-    int num_ret = olua_push_vector<spine::Bone *>(L, ret, [L](spine::Bone *arg1) {
+    int num_ret = olua_push_array<spine::Bone *>(L, ret, [L](spine::Bone *arg1) {
         olua_push_object(L, arg1, "spine.Bone");
     });
 
@@ -13841,7 +13841,7 @@ static int _spine_Skeleton_getDrawOrder(lua_State *L)
 
     // spine::Vector<spine::Slot *> &getDrawOrder()
     spine::Vector<spine::Slot *> &ret = self->getDrawOrder();
-    int num_ret = olua_push_vector<spine::Slot *>(L, ret, [L](spine::Slot *arg1) {
+    int num_ret = olua_push_array<spine::Slot *>(L, ret, [L](spine::Slot *arg1) {
         olua_push_object(L, arg1, "spine.Slot");
     });
 
@@ -13860,7 +13860,7 @@ static int _spine_Skeleton_getIkConstraints(lua_State *L)
 
     // spine::Vector<spine::IkConstraint *> &getIkConstraints()
     spine::Vector<spine::IkConstraint *> &ret = self->getIkConstraints();
-    int num_ret = olua_push_vector<spine::IkConstraint *>(L, ret, [L](spine::IkConstraint *arg1) {
+    int num_ret = olua_push_array<spine::IkConstraint *>(L, ret, [L](spine::IkConstraint *arg1) {
         olua_push_object(L, arg1, "spine.IkConstraint");
     });
 
@@ -13879,7 +13879,7 @@ static int _spine_Skeleton_getPathConstraints(lua_State *L)
 
     // spine::Vector<spine::PathConstraint *> &getPathConstraints()
     spine::Vector<spine::PathConstraint *> &ret = self->getPathConstraints();
-    int num_ret = olua_push_vector<spine::PathConstraint *>(L, ret, [L](spine::PathConstraint *arg1) {
+    int num_ret = olua_push_array<spine::PathConstraint *>(L, ret, [L](spine::PathConstraint *arg1) {
         olua_push_object(L, arg1, "spine.PathConstraint");
     });
 
@@ -13966,7 +13966,7 @@ static int _spine_Skeleton_getSlots(lua_State *L)
 
     // spine::Vector<spine::Slot *> &getSlots()
     spine::Vector<spine::Slot *> &ret = self->getSlots();
-    int num_ret = olua_push_vector<spine::Slot *>(L, ret, [L](spine::Slot *arg1) {
+    int num_ret = olua_push_array<spine::Slot *>(L, ret, [L](spine::Slot *arg1) {
         olua_push_object(L, arg1, "spine.Slot");
     });
 
@@ -13985,7 +13985,7 @@ static int _spine_Skeleton_getTransformConstraints(lua_State *L)
 
     // spine::Vector<spine::TransformConstraint *> &getTransformConstraints()
     spine::Vector<spine::TransformConstraint *> &ret = self->getTransformConstraints();
-    int num_ret = olua_push_vector<spine::TransformConstraint *>(L, ret, [L](spine::TransformConstraint *arg1) {
+    int num_ret = olua_push_array<spine::TransformConstraint *>(L, ret, [L](spine::TransformConstraint *arg1) {
         olua_push_object(L, arg1, "spine.TransformConstraint");
     });
 
@@ -14004,7 +14004,7 @@ static int _spine_Skeleton_getUpdateCacheList(lua_State *L)
 
     // spine::Vector<spine::Updatable *> &getUpdateCacheList()
     spine::Vector<spine::Updatable *> &ret = self->getUpdateCacheList();
-    int num_ret = olua_push_vector<spine::Updatable *>(L, ret, [L](spine::Updatable *arg1) {
+    int num_ret = olua_push_array<spine::Updatable *>(L, ret, [L](spine::Updatable *arg1) {
         olua_push_object(L, arg1, "spine.Updatable");
     });
 

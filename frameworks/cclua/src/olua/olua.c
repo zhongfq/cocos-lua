@@ -280,9 +280,11 @@ static void olua_pushobjtable(lua_State *L)
 OLUA_API void *olua_newobjstub(lua_State *L, const char *cls)
 {
     void *ptr;
+    olua_VMEnv *env = olua_getvmenv(L);
     olua_pushobjtable(L);
     olua_newrawobj(L, NULL, 0); // create obj stub
     ptr = (void *)lua_topointer(L, -1);
+    env->objcount++;
     lua_pushvalue(L, -1);
     olua_rawsetp(L, -3, ptr); // objtable[ptr] = stub
     lua_replace(L, -2); // pop objtable
@@ -459,7 +461,7 @@ OLUA_API void olua_setobjflag(lua_State *L, int idx, int flag)
 OLUA_API bool olua_hasobjflag(lua_State *L, int idx, int flag)
 {
     olua_Object *luaobj = olua_toluaobj(L, idx);
-    return luaobj->flags & flag;
+    return (luaobj->flags & flag) == flag;
 }
 
 static void *aux_toobj(lua_State *L, int idx, const char *cls, bool checked)

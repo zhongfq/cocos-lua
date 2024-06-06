@@ -1992,7 +1992,7 @@ static int _cocos2d_PhysicsBody_getJoints(lua_State *L)
 
     // const std::vector<cocos2d::PhysicsJoint *> &getJoints()
     const std::vector<cocos2d::PhysicsJoint *> &ret = self->getJoints();
-    int num_ret = olua_push_vector<cocos2d::PhysicsJoint *>(L, ret, [L](cocos2d::PhysicsJoint *arg1) {
+    int num_ret = olua_push_array<cocos2d::PhysicsJoint *>(L, ret, [L](cocos2d::PhysicsJoint *arg1) {
         olua_push_object(L, arg1, "cc.PhysicsJoint");
     });
 
@@ -2166,7 +2166,7 @@ static int _cocos2d_PhysicsBody_getShapes(lua_State *L)
 
     // const cocos2d::Vector<cocos2d::PhysicsShape *> &getShapes()
     const cocos2d::Vector<cocos2d::PhysicsShape *> &ret = self->getShapes();
-    int num_ret = olua_push_vector<cocos2d::PhysicsShape *>(L, ret, [L](cocos2d::PhysicsShape *arg1) {
+    int num_ret = olua_push_array<cocos2d::PhysicsShape *>(L, ret, [L](cocos2d::PhysicsShape *arg1) {
         olua_push_object(L, arg1, "cc.PhysicsShape");
     });
 
@@ -7588,7 +7588,7 @@ static int _cocos2d_PhysicsWorld_getAllBodies(lua_State *L)
 
     // const cocos2d::Vector<cocos2d::PhysicsBody *> &getAllBodies()
     const cocos2d::Vector<cocos2d::PhysicsBody *> &ret = self->getAllBodies();
-    int num_ret = olua_push_vector<cocos2d::PhysicsBody *>(L, ret, [L](cocos2d::PhysicsBody *arg1) {
+    int num_ret = olua_push_array<cocos2d::PhysicsBody *>(L, ret, [L](cocos2d::PhysicsBody *arg1) {
         olua_push_object(L, arg1, "cc.PhysicsBody");
     });
 
@@ -7715,7 +7715,7 @@ static int _cocos2d_PhysicsWorld_getShapes(lua_State *L)
 
     // cocos2d::Vector<cocos2d::PhysicsShape *> getShapes(const cocos2d::Vec2 &point)
     cocos2d::Vector<cocos2d::PhysicsShape *> ret = self->getShapes(arg1);
-    int num_ret = olua_push_vector<cocos2d::PhysicsShape *>(L, ret, [L](cocos2d::PhysicsShape *arg1) {
+    int num_ret = olua_push_array<cocos2d::PhysicsShape *>(L, ret, [L](cocos2d::PhysicsShape *arg1) {
         olua_push_object(L, arg1, "cc.PhysicsShape");
     });
 

@@ -930,7 +930,7 @@ static int _cclua_runtime_getArgs(lua_State *L)
 
     // static const std::vector<std::string> &getArgs()
     const std::vector<std::string> &ret = cclua::runtime::getArgs();
-    int num_ret = olua_push_vector<std::string>(L, ret, [L](std::string &arg1) {
+    int num_ret = olua_push_array<std::string>(L, ret, [L](std::string &arg1) {
         olua_push_string(L, arg1);
     });
 

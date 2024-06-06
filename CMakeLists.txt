@@ -61,6 +61,7 @@ endif()
 add_definitions(-DCC_FILEUTILS_APPLE_ENABLE_OBJC=0)
 add_definitions(-DCC_ENABLE_SCRIPT_BINDING=0)
 add_definitions(-DCC_CONSTRUCTOR_ACCESS=public)
+add_definitions(-DGL_SILENCE_DEPRECATION)
 
 if(CCLUA_BUILD_SPINE)
   set(BUILD_EDITOR_SPINE ON)

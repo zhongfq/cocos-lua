@@ -1137,7 +1137,7 @@ static int _cocostudio_ActionFrame_setEasingParameter(lua_State *L)
     std::vector<float> arg1;       /** parameter */
 
     olua_to_object(L, 1, &self, "ccs.ActionFrame");
-    olua_check_vector<float>(L, 2, arg1, [L](float *arg1) {
+    olua_check_array<float>(L, 2, arg1, [L](float *arg1) {
         olua_check_number(L, -1, arg1);
     });
 
@@ -1789,7 +1789,7 @@ static int _cocostudio_AnimationData_get_movementNames(lua_State *L)
 
     // std::vector<std::string> movementNames
     std::vector<std::string> &ret = self->movementNames;
-    int num_ret = olua_push_vector<std::string>(L, ret, [L](std::string &arg1) {
+    int num_ret = olua_push_array<std::string>(L, ret, [L](std::string &arg1) {
         olua_push_string(L, arg1);
     });
 
@@ -1806,7 +1806,7 @@ static int _cocostudio_AnimationData_set_movementNames(lua_State *L)
     std::vector<std::string> arg1;       /** movementNames */
 
     olua_to_object(L, 1, &self, "ccs.AnimationData");
-    olua_check_vector<std::string>(L, 2, arg1, [L](std::string *arg1) {
+    olua_check_array<std::string>(L, 2, arg1, [L](std::string *arg1) {
         olua_check_string(L, -1, arg1);
     });
 
@@ -4123,7 +4123,7 @@ static int _cocostudio_ArmatureAnimation_playWithIndexes$1(lua_State *L)
     bool arg3 = false;       /** loop */
 
     olua_to_object(L, 1, &self, "ccs.ArmatureAnimation");
-    olua_check_vector<int>(L, 2, arg1, [L](int *arg1) {
+    olua_check_array<int>(L, 2, arg1, [L](int *arg1) {
         olua_check_integer(L, -1, arg1);
     });
     olua_check_integer(L, 3, &arg2);
@@ -4145,7 +4145,7 @@ static int _cocostudio_ArmatureAnimation_playWithIndexes$2(lua_State *L)
     std::vector<int> arg1;       /** movementIndexes */
 
     olua_to_object(L, 1, &self, "ccs.ArmatureAnimation");
-    olua_check_vector<int>(L, 2, arg1, [L](int *arg1) {
+    olua_check_array<int>(L, 2, arg1, [L](int *arg1) {
         olua_check_integer(L, -1, arg1);
     });
 
@@ -4166,7 +4166,7 @@ static int _cocostudio_ArmatureAnimation_playWithIndexes$3(lua_State *L)
     int arg2 = 0;       /** durationTo */
 
     olua_to_object(L, 1, &self, "ccs.ArmatureAnimation");
-    olua_check_vector<int>(L, 2, arg1, [L](int *arg1) {
+    olua_check_array<int>(L, 2, arg1, [L](int *arg1) {
         olua_check_integer(L, -1, arg1);
     });
     olua_check_integer(L, 3, &arg2);
@@ -4184,21 +4184,21 @@ static int _cocostudio_ArmatureAnimation_playWithIndexes(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if ((olua_is_vector(L, 2))) {
+        // if ((olua_is_array(L, 2))) {
             // void playWithIndexes(const std::vector<int> &movementIndexes, @optional int durationTo, @optional bool loop)
             return _cocostudio_ArmatureAnimation_playWithIndexes$2(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((olua_is_vector(L, 2)) && (olua_is_integer(L, 3))) {
+        // if ((olua_is_array(L, 2)) && (olua_is_integer(L, 3))) {
             // void playWithIndexes(const std::vector<int> &movementIndexes, @optional int durationTo, @optional bool loop)
             return _cocostudio_ArmatureAnimation_playWithIndexes$3(L);
         // }
     }
 
     if (num_args == 3) {
-        // if ((olua_is_vector(L, 2)) && (olua_is_integer(L, 3)) && (olua_is_bool(L, 4))) {
+        // if ((olua_is_array(L, 2)) && (olua_is_integer(L, 3)) && (olua_is_bool(L, 4))) {
             // void playWithIndexes(const std::vector<int> &movementIndexes, @optional int durationTo, @optional bool loop)
             return _cocostudio_ArmatureAnimation_playWithIndexes$1(L);
         // }
@@ -4219,7 +4219,7 @@ static int _cocostudio_ArmatureAnimation_playWithNames$1(lua_State *L)
     bool arg3 = false;       /** loop */
 
     olua_to_object(L, 1, &self, "ccs.ArmatureAnimation");
-    olua_check_vector<std::string>(L, 2, arg1, [L](std::string *arg1) {
+    olua_check_array<std::string>(L, 2, arg1, [L](std::string *arg1) {
         olua_check_string(L, -1, arg1);
     });
     olua_check_integer(L, 3, &arg2);
@@ -4241,7 +4241,7 @@ static int _cocostudio_ArmatureAnimation_playWithNames$2(lua_State *L)
     std::vector<std::string> arg1;       /** movementNames */
 
     olua_to_object(L, 1, &self, "ccs.ArmatureAnimation");
-    olua_check_vector<std::string>(L, 2, arg1, [L](std::string *arg1) {
+    olua_check_array<std::string>(L, 2, arg1, [L](std::string *arg1) {
         olua_check_string(L, -1, arg1);
     });
 
@@ -4262,7 +4262,7 @@ static int _cocostudio_ArmatureAnimation_playWithNames$3(lua_State *L)
     int arg2 = 0;       /** durationTo */
 
     olua_to_object(L, 1, &self, "ccs.ArmatureAnimation");
-    olua_check_vector<std::string>(L, 2, arg1, [L](std::string *arg1) {
+    olua_check_array<std::string>(L, 2, arg1, [L](std::string *arg1) {
         olua_check_string(L, -1, arg1);
     });
     olua_check_integer(L, 3, &arg2);
@@ -4280,21 +4280,21 @@ static int _cocostudio_ArmatureAnimation_playWithNames(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if ((olua_is_vector(L, 2))) {
+        // if ((olua_is_array(L, 2))) {
             // void playWithNames(const std::vector<std::string> &movementNames, @optional int durationTo, @optional bool loop)
             return _cocostudio_ArmatureAnimation_playWithNames$2(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((olua_is_vector(L, 2)) && (olua_is_integer(L, 3))) {
+        // if ((olua_is_array(L, 2)) && (olua_is_integer(L, 3))) {
             // void playWithNames(const std::vector<std::string> &movementNames, @optional int durationTo, @optional bool loop)
             return _cocostudio_ArmatureAnimation_playWithNames$3(L);
         // }
     }
 
     if (num_args == 3) {
-        // if ((olua_is_vector(L, 2)) && (olua_is_integer(L, 3)) && (olua_is_bool(L, 4))) {
+        // if ((olua_is_array(L, 2)) && (olua_is_integer(L, 3)) && (olua_is_bool(L, 4))) {
             // void playWithNames(const std::vector<std::string> &movementNames, @optional int durationTo, @optional bool loop)
             return _cocostudio_ArmatureAnimation_playWithNames$1(L);
         // }
@@ -7257,7 +7257,7 @@ static int _cocostudio_BoneData_get_displayDataList(lua_State *L)
 
     // cocos2d::Vector<cocostudio::DisplayData *> displayDataList
     cocos2d::Vector<cocostudio::DisplayData *> &ret = self->displayDataList;
-    int num_ret = olua_push_vector<cocostudio::DisplayData *>(L, ret, [L](cocostudio::DisplayData *arg1) {
+    int num_ret = olua_push_array<cocostudio::DisplayData *>(L, ret, [L](cocostudio::DisplayData *arg1) {
         olua_push_object(L, arg1, "ccs.DisplayData");
     });
 
@@ -7274,7 +7274,7 @@ static int _cocostudio_BoneData_set_displayDataList(lua_State *L)
     cocos2d::Vector<cocostudio::DisplayData *> arg1;       /** displayDataList */
 
     olua_to_object(L, 1, &self, "ccs.BoneData");
-    olua_check_vector<cocostudio::DisplayData *>(L, 2, arg1, [L](cocostudio::DisplayData **arg1) {
+    olua_check_array<cocostudio::DisplayData *>(L, 2, arg1, [L](cocostudio::DisplayData **arg1) {
         olua_check_object(L, -1, arg1, "ccs.DisplayData");
     });
 
@@ -7419,7 +7419,7 @@ static int _cocostudio_ColliderBody_getCalculatedVertexList(lua_State *L)
 
     // const std::vector<cocos2d::Vec2> &getCalculatedVertexList()
     const std::vector<cocos2d::Vec2> &ret = self->getCalculatedVertexList();
-    int num_ret = olua_push_vector<cocos2d::Vec2>(L, ret, [L](cocos2d::Vec2 &arg1) {
+    int num_ret = olua_push_array<cocos2d::Vec2>(L, ret, [L](cocos2d::Vec2 &arg1) {
         olua_pushcopy_object(L, arg1, "cc.Vec2");
     });
 
@@ -7503,7 +7503,7 @@ static int _cocostudio_ColliderDetector_addContourDataList(lua_State *L)
     cocos2d::Vector<cocostudio::ContourData *> arg1;       /** contourDataList */
 
     olua_to_object(L, 1, &self, "ccs.ColliderDetector");
-    olua_check_vector<cocostudio::ContourData *>(L, 2, arg1, [L](cocostudio::ContourData **arg1) {
+    olua_check_array<cocostudio::ContourData *>(L, 2, arg1, [L](cocostudio::ContourData **arg1) {
         olua_check_object(L, -1, arg1, "ccs.ContourData");
     });
 
@@ -7610,7 +7610,7 @@ static int _cocostudio_ColliderDetector_getColliderBodyList(lua_State *L)
 
     // const cocos2d::Vector<cocostudio::ColliderBody *> &getColliderBodyList()
     const cocos2d::Vector<cocostudio::ColliderBody *> &ret = self->getColliderBodyList();
-    int num_ret = olua_push_vector<cocostudio::ColliderBody *>(L, ret, [L](cocostudio::ColliderBody *arg1) {
+    int num_ret = olua_push_array<cocostudio::ColliderBody *>(L, ret, [L](cocostudio::ColliderBody *arg1) {
         olua_push_object(L, arg1, "ccs.ColliderBody");
     });
 
@@ -9317,7 +9317,7 @@ static int _cocostudio_ComController_onTouchesBegan(lua_State *L)
     cocos2d::Event *arg2 = nullptr;       /** event */
 
     olua_to_object(L, 1, &self, "ccs.ComController");
-    olua_check_vector<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
+    olua_check_array<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
         olua_check_object(L, -1, arg1, "cc.Touch");
     });
     olua_check_object(L, 3, &arg2, "cc.Event");
@@ -9339,7 +9339,7 @@ static int _cocostudio_ComController_onTouchesCancelled(lua_State *L)
     cocos2d::Event *arg2 = nullptr;       /** event */
 
     olua_to_object(L, 1, &self, "ccs.ComController");
-    olua_check_vector<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
+    olua_check_array<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
         olua_check_object(L, -1, arg1, "cc.Touch");
     });
     olua_check_object(L, 3, &arg2, "cc.Event");
@@ -9361,7 +9361,7 @@ static int _cocostudio_ComController_onTouchesEnded(lua_State *L)
     cocos2d::Event *arg2 = nullptr;       /** event */
 
     olua_to_object(L, 1, &self, "ccs.ComController");
-    olua_check_vector<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
+    olua_check_array<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
         olua_check_object(L, -1, arg1, "cc.Touch");
     });
     olua_check_object(L, 3, &arg2, "cc.Event");
@@ -9383,7 +9383,7 @@ static int _cocostudio_ComController_onTouchesMoved(lua_State *L)
     cocos2d::Event *arg2 = nullptr;       /** event */
 
     olua_to_object(L, 1, &self, "ccs.ComController");
-    olua_check_vector<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
+    olua_check_array<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
         olua_check_object(L, -1, arg1, "cc.Touch");
     });
     olua_check_object(L, 3, &arg2, "cc.Event");
@@ -9770,7 +9770,7 @@ static int _cocostudio_ContourData_get_vertexList(lua_State *L)
 
     // std::vector<cocos2d::Vec2> vertexList
     std::vector<cocos2d::Vec2> &ret = self->vertexList;
-    int num_ret = olua_push_vector<cocos2d::Vec2>(L, ret, [L](cocos2d::Vec2 &arg1) {
+    int num_ret = olua_push_array<cocos2d::Vec2>(L, ret, [L](cocos2d::Vec2 &arg1) {
         olua_pushcopy_object(L, arg1, "cc.Vec2");
     });
 
@@ -9787,7 +9787,7 @@ static int _cocostudio_ContourData_set_vertexList(lua_State *L)
     std::vector<cocos2d::Vec2> arg1;       /** vertexList */
 
     olua_to_object(L, 1, &self, "ccs.ContourData");
-    olua_check_vector<cocos2d::Vec2>(L, 2, arg1, [L](cocos2d::Vec2 *arg1) {
+    olua_check_array<cocos2d::Vec2>(L, 2, arg1, [L](cocos2d::Vec2 *arg1) {
         olua_check_object(L, -1, arg1, "cc.Vec2");
     });
 
@@ -10743,7 +10743,7 @@ static int _cocostudio_DisplayManager_getDecorativeDisplayList(lua_State *L)
 
     // const cocos2d::Vector<cocostudio::DecorativeDisplay *> &getDecorativeDisplayList()
     const cocos2d::Vector<cocostudio::DecorativeDisplay *> &ret = self->getDecorativeDisplayList();
-    int num_ret = olua_push_vector<cocostudio::DecorativeDisplay *>(L, ret, [L](cocostudio::DecorativeDisplay *arg1) {
+    int num_ret = olua_push_array<cocostudio::DecorativeDisplay *>(L, ret, [L](cocostudio::DecorativeDisplay *arg1) {
         olua_push_object(L, arg1, "ccs.DecorativeDisplay");
     });
 
@@ -11164,7 +11164,7 @@ static int _cocostudio_FrameData_get_easingParams(lua_State *L)
 
     // float *easingParams
     float *ret = self->easingParams;
-    int num_ret = olua_push_array(L, ret, "olua.float");
+    int num_ret = olua_push_pointer(L, ret, "olua.float");
 
     olua_endinvoke(L);
 
@@ -11179,7 +11179,7 @@ static int _cocostudio_FrameData_set_easingParams(lua_State *L)
     float *arg1 = nullptr;       /** easingParams */
 
     olua_to_object(L, 1, &self, "ccs.FrameData");
-    olua_check_array(L, 2, &arg1, "olua.float");
+    olua_check_pointer(L, 2, &arg1, "olua.float");
 
     // float *easingParams
     self->easingParams = arg1;
@@ -11906,7 +11906,7 @@ static int _cocostudio_InputDelegate_onTouchesBegan(lua_State *L)
     cocos2d::Event *arg2 = nullptr;       /** event */
 
     olua_to_object(L, 1, &self, "ccs.InputDelegate");
-    olua_check_vector<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
+    olua_check_array<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
         olua_check_object(L, -1, arg1, "cc.Touch");
     });
     olua_check_object(L, 3, &arg2, "cc.Event");
@@ -11928,7 +11928,7 @@ static int _cocostudio_InputDelegate_onTouchesCancelled(lua_State *L)
     cocos2d::Event *arg2 = nullptr;       /** event */
 
     olua_to_object(L, 1, &self, "ccs.InputDelegate");
-    olua_check_vector<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
+    olua_check_array<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
         olua_check_object(L, -1, arg1, "cc.Touch");
     });
     olua_check_object(L, 3, &arg2, "cc.Event");
@@ -11950,7 +11950,7 @@ static int _cocostudio_InputDelegate_onTouchesEnded(lua_State *L)
     cocos2d::Event *arg2 = nullptr;       /** event */
 
     olua_to_object(L, 1, &self, "ccs.InputDelegate");
-    olua_check_vector<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
+    olua_check_array<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
         olua_check_object(L, -1, arg1, "cc.Touch");
     });
     olua_check_object(L, 3, &arg2, "cc.Event");
@@ -11972,7 +11972,7 @@ static int _cocostudio_InputDelegate_onTouchesMoved(lua_State *L)
     cocos2d::Event *arg2 = nullptr;       /** event */
 
     olua_to_object(L, 1, &self, "ccs.InputDelegate");
-    olua_check_vector<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
+    olua_check_array<cocos2d::Touch *>(L, 2, arg1, [L](cocos2d::Touch **arg1) {
         olua_check_object(L, -1, arg1, "cc.Touch");
     });
     olua_check_object(L, 3, &arg2, "cc.Event");
@@ -12274,7 +12274,7 @@ static int _cocostudio_MovementBoneData_get_frameList(lua_State *L)
 
     // cocos2d::Vector<cocostudio::FrameData *> frameList
     cocos2d::Vector<cocostudio::FrameData *> &ret = self->frameList;
-    int num_ret = olua_push_vector<cocostudio::FrameData *>(L, ret, [L](cocostudio::FrameData *arg1) {
+    int num_ret = olua_push_array<cocostudio::FrameData *>(L, ret, [L](cocostudio::FrameData *arg1) {
         olua_push_object(L, arg1, "ccs.FrameData");
     });
 
@@ -12291,7 +12291,7 @@ static int _cocostudio_MovementBoneData_set_frameList(lua_State *L)
     cocos2d::Vector<cocostudio::FrameData *> arg1;       /** frameList */
 
     olua_to_object(L, 1, &self, "ccs.MovementBoneData");
-    olua_check_vector<cocostudio::FrameData *>(L, 2, arg1, [L](cocostudio::FrameData **arg1) {
+    olua_check_array<cocostudio::FrameData *>(L, 2, arg1, [L](cocostudio::FrameData **arg1) {
         olua_check_object(L, -1, arg1, "ccs.FrameData");
     });
 
@@ -13541,7 +13541,7 @@ static int _cocostudio_TextureData_get_contourDataList(lua_State *L)
 
     // cocos2d::Vector<cocostudio::ContourData *> contourDataList
     cocos2d::Vector<cocostudio::ContourData *> &ret = self->contourDataList;
-    int num_ret = olua_push_vector<cocostudio::ContourData *>(L, ret, [L](cocostudio::ContourData *arg1) {
+    int num_ret = olua_push_array<cocostudio::ContourData *>(L, ret, [L](cocostudio::ContourData *arg1) {
         olua_push_object(L, arg1, "ccs.ContourData");
     });
 
@@ -13558,7 +13558,7 @@ static int _cocostudio_TextureData_set_contourDataList(lua_State *L)
     cocos2d::Vector<cocostudio::ContourData *> arg1;       /** contourDataList */
 
     olua_to_object(L, 1, &self, "ccs.TextureData");
-    olua_check_vector<cocostudio::ContourData *>(L, 2, arg1, [L](cocostudio::ContourData **arg1) {
+    olua_check_array<cocostudio::ContourData *>(L, 2, arg1, [L](cocostudio::ContourData **arg1) {
         olua_check_object(L, -1, arg1, "ccs.ContourData");
     });
 
@@ -14074,7 +14074,7 @@ static int _cocostudio_timeline_Frame_getEasingParams(lua_State *L)
 
     // const std::vector<float> &getEasingParams()
     const std::vector<float> &ret = self->getEasingParams();
-    int num_ret = olua_push_vector<float>(L, ret, [L](float &arg1) {
+    int num_ret = olua_push_array<float>(L, ret, [L](float &arg1) {
         olua_push_number(L, arg1);
     });
 
@@ -14219,7 +14219,7 @@ static int _cocostudio_timeline_Frame_setEasingParams(lua_State *L)
     std::vector<float> arg1;       /** easingParams */
 
     olua_to_object(L, 1, &self, "ccs.timeline.Frame");
-    olua_check_vector<float>(L, 2, arg1, [L](float *arg1) {
+    olua_check_array<float>(L, 2, arg1, [L](float *arg1) {
         olua_check_number(L, -1, arg1);
     });
 
@@ -16638,7 +16638,7 @@ static int _cocostudio_timeline_BoneNode_getAllSubBones(lua_State *L)
 
     // @addref(subBones |) cocos2d::Vector<cocostudio::timeline::BoneNode *> getAllSubBones()
     cocos2d::Vector<cocostudio::timeline::BoneNode *> ret = self->getAllSubBones();
-    int num_ret = olua_push_vector<cocostudio::timeline::BoneNode *>(L, ret, [L](cocostudio::timeline::BoneNode *arg1) {
+    int num_ret = olua_push_array<cocostudio::timeline::BoneNode *>(L, ret, [L](cocostudio::timeline::BoneNode *arg1) {
         olua_push_object(L, arg1, "ccs.timeline.BoneNode");
     });
 
@@ -16660,7 +16660,7 @@ static int _cocostudio_timeline_BoneNode_getAllSubSkins(lua_State *L)
 
     // @addref(subSkins |) cocos2d::Vector<cocostudio::timeline::SkinNode *> getAllSubSkins()
     cocos2d::Vector<cocostudio::timeline::SkinNode *> ret = self->getAllSubSkins();
-    int num_ret = olua_push_vector<cocostudio::timeline::SkinNode *>(L, ret, [L](cocostudio::timeline::SkinNode *arg1) {
+    int num_ret = olua_push_array<cocostudio::timeline::SkinNode *>(L, ret, [L](cocostudio::timeline::SkinNode *arg1) {
         olua_push_object(L, arg1, "cc.Node");
     });
 
@@ -16699,7 +16699,7 @@ static int _cocostudio_timeline_BoneNode_getChildBones(lua_State *L)
 
     // @addref(bones |) const cocos2d::Vector<cocostudio::timeline::BoneNode *> &getChildBones()
     const cocos2d::Vector<cocostudio::timeline::BoneNode *> &ret = self->getChildBones();
-    int num_ret = olua_push_vector<cocostudio::timeline::BoneNode *>(L, ret, [L](cocostudio::timeline::BoneNode *arg1) {
+    int num_ret = olua_push_array<cocostudio::timeline::BoneNode *>(L, ret, [L](cocostudio::timeline::BoneNode *arg1) {
         olua_push_object(L, arg1, "ccs.timeline.BoneNode");
     });
 
@@ -16792,7 +16792,7 @@ static int _cocostudio_timeline_BoneNode_getSkins(lua_State *L)
 
     // @addref(skins |) const cocos2d::Vector<cocostudio::timeline::SkinNode *> &getSkins()
     const cocos2d::Vector<cocostudio::timeline::SkinNode *> &ret = self->getSkins();
-    int num_ret = olua_push_vector<cocostudio::timeline::SkinNode *>(L, ret, [L](cocostudio::timeline::SkinNode *arg1) {
+    int num_ret = olua_push_array<cocostudio::timeline::SkinNode *>(L, ret, [L](cocostudio::timeline::SkinNode *arg1) {
         olua_push_object(L, arg1, "cc.Node");
     });
 
@@ -16814,7 +16814,7 @@ static int _cocostudio_timeline_BoneNode_getVisibleSkins(lua_State *L)
 
     // @addref(skins |) cocos2d::Vector<cocostudio::timeline::SkinNode *> getVisibleSkins()
     cocos2d::Vector<cocostudio::timeline::SkinNode *> ret = self->getVisibleSkins();
-    int num_ret = olua_push_vector<cocostudio::timeline::SkinNode *>(L, ret, [L](cocostudio::timeline::SkinNode *arg1) {
+    int num_ret = olua_push_array<cocostudio::timeline::SkinNode *>(L, ret, [L](cocostudio::timeline::SkinNode *arg1) {
         olua_push_object(L, arg1, "cc.Node");
     });
 
@@ -17295,7 +17295,7 @@ static int _cocostudio_timeline_Timeline_getFrames(lua_State *L)
 
     // @addref(frames |) const cocos2d::Vector<cocostudio::timeline::Frame *> &getFrames()
     const cocos2d::Vector<cocostudio::timeline::Frame *> &ret = self->getFrames();
-    int num_ret = olua_push_vector<cocostudio::timeline::Frame *>(L, ret, [L](cocostudio::timeline::Frame *arg1) {
+    int num_ret = olua_push_array<cocostudio::timeline::Frame *>(L, ret, [L](cocostudio::timeline::Frame *arg1) {
         olua_push_object(L, arg1, "ccs.timeline.Frame");
     });
 
@@ -17862,7 +17862,7 @@ static int _cocostudio_timeline_ActionTimeline_getTimelines(lua_State *L)
 
     // @addref(timelines |) const cocos2d::Vector<cocostudio::timeline::Timeline *> &getTimelines()
     const cocos2d::Vector<cocostudio::timeline::Timeline *> &ret = self->getTimelines();
-    int num_ret = olua_push_vector<cocostudio::timeline::Timeline *>(L, ret, [L](cocostudio::timeline::Timeline *arg1) {
+    int num_ret = olua_push_array<cocostudio::timeline::Timeline *>(L, ret, [L](cocostudio::timeline::Timeline *arg1) {
         olua_push_object(L, arg1, "ccs.timeline.Timeline");
     });
 

@@ -46,6 +46,49 @@ static int _fairygui_VectorTreeNode___gc(lua_State *L)
     return (int)ret;
 }
 
+static int _fairygui_VectorTreeNode___index(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::VectorTreeNode *self = nullptr;
+    unsigned int arg1 = 0;       /** idx */
+
+    olua_to_object(L, 1, &self, "fgui.VectorTreeNode");
+    olua_check_integer(L, 2, &arg1);
+
+    // std::vector<fairygui::GTreeNode *> __index(unsigned int idx)
+    std::vector<fairygui::GTreeNode *> ret = self->__index(arg1);
+    int num_ret = olua_push_array<fairygui::GTreeNode *>(L, ret, [L](fairygui::GTreeNode *arg1) {
+        olua_push_object(L, arg1, "fgui.GTreeNode");
+    });
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_VectorTreeNode___newindex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::VectorTreeNode *self = nullptr;
+    unsigned int arg1 = 0;       /** idx */
+    std::vector<fairygui::GTreeNode *> arg2;       /** v */
+
+    olua_to_object(L, 1, &self, "fgui.VectorTreeNode");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_array<fairygui::GTreeNode *>(L, 3, arg2, [L](fairygui::GTreeNode **arg1) {
+        olua_check_object(L, -1, arg1, "fgui.GTreeNode");
+    });
+
+    // void __newindex(unsigned int idx, const std::vector<fairygui::GTreeNode *> &v)
+    self->__newindex(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _fairygui_VectorTreeNode___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -58,12 +101,36 @@ static int _fairygui_VectorTreeNode___olua_move(lua_State *L)
     return 1;
 }
 
+static int _fairygui_VectorTreeNode_assign(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::VectorTreeNode *self = nullptr;
+    const char *arg1 = nullptr;       /** data */
+    size_t arg2 = 0;       /** len */
+
+    olua_to_object(L, 1, &self, "fgui.VectorTreeNode");
+    olua_check_string(L, 2, &arg1);
+    olua_check_integer(L, 3, &arg2);
+
+    // void assign(const char *data, size_t len)
+    self->assign(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _fairygui_VectorTreeNode_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // @postnew @name(new) static fairygui::VectorTreeNode *create()
-    fairygui::VectorTreeNode *ret = fairygui::VectorTreeNode::create();
+    size_t arg1 = 0;       /** len */
+
+    olua_check_integer(L, 1, &arg1);
+
+    // @postnew @name(new) static fairygui::VectorTreeNode *create(@optional size_t len)
+    fairygui::VectorTreeNode *ret = fairygui::VectorTreeNode::create(arg1);
     int num_ret = olua_push_object(L, ret, "fgui.VectorTreeNode");
 
     // insert code after call
@@ -78,14 +145,8 @@ static int _fairygui_VectorTreeNode_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    std::vector<fairygui::GTreeNode *> arg1;       /** v */
-
-    olua_check_vector<fairygui::GTreeNode *>(L, 1, arg1, [L](fairygui::GTreeNode **arg1) {
-        olua_check_object(L, -1, arg1, "fgui.GTreeNode");
-    });
-
-    // @postnew @name(new) static fairygui::VectorTreeNode *create(const std::vector<fairygui::GTreeNode *> &v)
-    fairygui::VectorTreeNode *ret = fairygui::VectorTreeNode::create(arg1);
+    // @postnew @name(new) static fairygui::VectorTreeNode *create(@optional size_t len)
+    fairygui::VectorTreeNode *ret = fairygui::VectorTreeNode::create();
     int num_ret = olua_push_object(L, ret, "fgui.VectorTreeNode");
 
     // insert code after call
@@ -101,18 +162,156 @@ static int _fairygui_VectorTreeNode_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
-        // @postnew @name(new) static fairygui::VectorTreeNode *create()
-        return _fairygui_VectorTreeNode_create$1(L);
+        // @postnew @name(new) static fairygui::VectorTreeNode *create(@optional size_t len)
+        return _fairygui_VectorTreeNode_create$2(L);
     }
 
     if (num_args == 1) {
-        // if ((olua_is_vector(L, 1))) {
-            // @postnew @name(new) static fairygui::VectorTreeNode *create(const std::vector<fairygui::GTreeNode *> &v)
-            return _fairygui_VectorTreeNode_create$2(L);
+        // if ((olua_is_integer(L, 1))) {
+            // @postnew @name(new) static fairygui::VectorTreeNode *create(@optional size_t len)
+            return _fairygui_VectorTreeNode_create$1(L);
         // }
     }
 
     luaL_error(L, "method 'fairygui::VectorTreeNode::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_VectorTreeNode_slice$1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::VectorTreeNode *self = nullptr;
+    size_t arg1 = 0;       /** from */
+    size_t arg2 = 0;       /** to */
+
+    olua_to_object(L, 1, &self, "fgui.VectorTreeNode");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_integer(L, 3, &arg2);
+
+    // @postnew fairygui::VectorTreeNode *slice(size_t from, @optional size_t to)
+    fairygui::VectorTreeNode *ret = self->slice(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "fgui.VectorTreeNode");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_VectorTreeNode_slice$2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::VectorTreeNode *self = nullptr;
+    size_t arg1 = 0;       /** from */
+
+    olua_to_object(L, 1, &self, "fgui.VectorTreeNode");
+    olua_check_integer(L, 2, &arg1);
+
+    // @postnew fairygui::VectorTreeNode *slice(size_t from, @optional size_t to)
+    fairygui::VectorTreeNode *ret = self->slice(arg1);
+    int num_ret = olua_push_object(L, ret, "fgui.VectorTreeNode");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_VectorTreeNode_slice(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_integer(L, 2))) {
+            // @postnew fairygui::VectorTreeNode *slice(size_t from, @optional size_t to)
+            return _fairygui_VectorTreeNode_slice$2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
+            // @postnew fairygui::VectorTreeNode *slice(size_t from, @optional size_t to)
+            return _fairygui_VectorTreeNode_slice$1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::VectorTreeNode::slice' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_VectorTreeNode_sub$1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::VectorTreeNode *self = nullptr;
+    size_t arg1 = 0;       /** from */
+    size_t arg2 = 0;       /** to */
+
+    olua_to_object(L, 1, &self, "fgui.VectorTreeNode");
+    olua_check_integer(L, 2, &arg1);
+    olua_check_integer(L, 3, &arg2);
+
+    // @postnew fairygui::VectorTreeNode *sub(size_t from, @optional size_t to)
+    fairygui::VectorTreeNode *ret = self->sub(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "fgui.VectorTreeNode");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_VectorTreeNode_sub$2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::VectorTreeNode *self = nullptr;
+    size_t arg1 = 0;       /** from */
+
+    olua_to_object(L, 1, &self, "fgui.VectorTreeNode");
+    olua_check_integer(L, 2, &arg1);
+
+    // @postnew fairygui::VectorTreeNode *sub(size_t from, @optional size_t to)
+    fairygui::VectorTreeNode *ret = self->sub(arg1);
+    int num_ret = olua_push_object(L, ret, "fgui.VectorTreeNode");
+
+    // insert code after call
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_VectorTreeNode_sub(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_integer(L, 2))) {
+            // @postnew fairygui::VectorTreeNode *sub(size_t from, @optional size_t to)
+            return _fairygui_VectorTreeNode_sub$2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
+            // @postnew fairygui::VectorTreeNode *sub(size_t from, @optional size_t to)
+            return _fairygui_VectorTreeNode_sub$1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::VectorTreeNode::sub' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -134,7 +333,25 @@ static int _fairygui_VectorTreeNode_take(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_VectorTreeNode_data(lua_State *L)
+static int _fairygui_VectorTreeNode_tostring(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::VectorTreeNode *self = nullptr;
+    size_t arg2 = 0;       /** len */
+
+    olua_to_object(L, 1, &self, "fgui.VectorTreeNode");
+    olua_check_integer(L, 2, &arg2);
+
+    // olua_Return tostring(lua_State *L, size_t len)
+    olua_Return ret = self->tostring(L, arg2);
+
+    olua_endinvoke(L);
+
+    return (int)ret;
+}
+
+static int _fairygui_VectorTreeNode_length(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -142,9 +359,9 @@ static int _fairygui_VectorTreeNode_data(lua_State *L)
 
     olua_to_object(L, 1, &self, "fgui.VectorTreeNode");
 
-    // @getter @name(data) std::vector<fairygui::GTreeNode *> *data()
-    std::vector<fairygui::GTreeNode *> *ret = self->data();
-    int num_ret = olua_push_pointer(L, ret, "fgui.VectorTreeNode");
+    // @getter @name(length) size_t length()
+    size_t ret = self->length();
+    int num_ret = olua_push_integer(L, ret);
 
     olua_endinvoke(L);
 
@@ -195,7 +412,7 @@ static int _fairygui_VectorTreeNode_value(lua_State *L)
 
     // @getter @name(value) const std::vector<fairygui::GTreeNode *> &value()
     const std::vector<fairygui::GTreeNode *> &ret = self->value();
-    int num_ret = olua_push_vector<fairygui::GTreeNode *>(L, ret, [L](fairygui::GTreeNode *arg1) {
+    int num_ret = olua_push_array<fairygui::GTreeNode *>(L, ret, [L](fairygui::GTreeNode *arg1) {
         olua_push_object(L, arg1, "fgui.GTreeNode");
     });
 
@@ -209,10 +426,16 @@ OLUA_LIB int luaopen_fairygui_VectorTreeNode(lua_State *L)
 {
     oluacls_class<fairygui::VectorTreeNode>(L, "fgui.VectorTreeNode");
     oluacls_func(L, "__gc", _fairygui_VectorTreeNode___gc);
+    oluacls_func(L, "__index", _fairygui_VectorTreeNode___index);
+    oluacls_func(L, "__newindex", _fairygui_VectorTreeNode___newindex);
     oluacls_func(L, "__olua_move", _fairygui_VectorTreeNode___olua_move);
+    oluacls_func(L, "assign", _fairygui_VectorTreeNode_assign);
     oluacls_func(L, "new", _fairygui_VectorTreeNode_create);
+    oluacls_func(L, "slice", _fairygui_VectorTreeNode_slice);
+    oluacls_func(L, "sub", _fairygui_VectorTreeNode_sub);
     oluacls_func(L, "take", _fairygui_VectorTreeNode_take);
-    oluacls_prop(L, "data", _fairygui_VectorTreeNode_data, nullptr);
+    oluacls_func(L, "tostring", _fairygui_VectorTreeNode_tostring);
+    oluacls_prop(L, "length", _fairygui_VectorTreeNode_length, _fairygui_VectorTreeNode_length);
     oluacls_prop(L, "rawdata", _fairygui_VectorTreeNode_rawdata, nullptr);
     oluacls_prop(L, "sizeof", _fairygui_VectorTreeNode_size, nullptr);
     oluacls_prop(L, "value", _fairygui_VectorTreeNode_value, _fairygui_VectorTreeNode_value);
@@ -10993,7 +11216,7 @@ static int _fairygui_GComponent_getChildren(lua_State *L)
 
     // @addref(children |) const cocos2d::Vector<fairygui::GObject *> &getChildren()
     const cocos2d::Vector<fairygui::GObject *> &ret = self->getChildren();
-    int num_ret = olua_push_vector<fairygui::GObject *>(L, ret, [L](fairygui::GObject *arg1) {
+    int num_ret = olua_push_array<fairygui::GObject *>(L, ret, [L](fairygui::GObject *arg1) {
         olua_push_object(L, arg1, "fgui.GObject");
     });
 
@@ -11076,7 +11299,7 @@ static int _fairygui_GComponent_getControllers(lua_State *L)
 
     // @addref(controllers |) const cocos2d::Vector<fairygui::GController *> &getControllers()
     const cocos2d::Vector<fairygui::GController *> &ret = self->getControllers();
-    int num_ret = olua_push_vector<fairygui::GController *>(L, ret, [L](fairygui::GController *arg1) {
+    int num_ret = olua_push_array<fairygui::GController *>(L, ret, [L](fairygui::GController *arg1) {
         olua_push_object(L, arg1, "fgui.GController");
     });
 
@@ -11266,7 +11489,7 @@ static int _fairygui_GComponent_getTransitions(lua_State *L)
 
     // @addref(transitions |) const cocos2d::Vector<fairygui::Transition *> &getTransitions()
     const cocos2d::Vector<fairygui::Transition *> &ret = self->getTransitions();
-    int num_ret = olua_push_vector<fairygui::Transition *>(L, ret, [L](fairygui::Transition *arg1) {
+    int num_ret = olua_push_array<fairygui::Transition *>(L, ret, [L](fairygui::Transition *arg1) {
         olua_push_object(L, arg1, "fgui.Transition");
     });
 
@@ -15113,7 +15336,7 @@ static int _fairygui_GGraph_drawRegularPolygon$1(lua_State *L)
     olua_check_cocos2d_Color4F(L, 4, &arg3);
     olua_check_integer(L, 5, &arg4);
     olua_check_number(L, 6, &arg5);
-    olua_check_array(L, 7, &arg6, "olua.float");
+    olua_check_pointer(L, 7, &arg6, "olua.float");
     olua_check_integer(L, 8, &arg7);
 
     // void drawRegularPolygon(int lineSize, const cocos2d::Color4F &lineColor, const cocos2d::Color4F &fillColor, int sides, @optional float startAngle, @optional const float *distances, @optional int distanceCount)
@@ -15192,7 +15415,7 @@ static int _fairygui_GGraph_drawRegularPolygon$4(lua_State *L)
     olua_check_cocos2d_Color4F(L, 4, &arg3);
     olua_check_integer(L, 5, &arg4);
     olua_check_number(L, 6, &arg5);
-    olua_check_array(L, 7, &arg6, "olua.float");
+    olua_check_pointer(L, 7, &arg6, "olua.float");
 
     // void drawRegularPolygon(int lineSize, const cocos2d::Color4F &lineColor, const cocos2d::Color4F &fillColor, int sides, @optional float startAngle, @optional const float *distances, @optional int distanceCount)
     self->drawRegularPolygon(arg1, arg2, arg3, arg4, arg5, arg6);
@@ -15221,14 +15444,14 @@ static int _fairygui_GGraph_drawRegularPolygon(lua_State *L)
     }
 
     if (num_args == 6) {
-        // if ((olua_is_integer(L, 2)) && (olua_is_cocos2d_Color4F(L, 3)) && (olua_is_cocos2d_Color4F(L, 4)) && (olua_is_integer(L, 5)) && (olua_is_number(L, 6)) && (olua_is_array(L, 7, "olua.float"))) {
+        // if ((olua_is_integer(L, 2)) && (olua_is_cocos2d_Color4F(L, 3)) && (olua_is_cocos2d_Color4F(L, 4)) && (olua_is_integer(L, 5)) && (olua_is_number(L, 6)) && (olua_is_pointer(L, 7, "olua.float"))) {
             // void drawRegularPolygon(int lineSize, const cocos2d::Color4F &lineColor, const cocos2d::Color4F &fillColor, int sides, @optional float startAngle, @optional const float *distances, @optional int distanceCount)
             return _fairygui_GGraph_drawRegularPolygon$4(L);
         // }
     }
 
     if (num_args == 7) {
-        // if ((olua_is_integer(L, 2)) && (olua_is_cocos2d_Color4F(L, 3)) && (olua_is_cocos2d_Color4F(L, 4)) && (olua_is_integer(L, 5)) && (olua_is_number(L, 6)) && (olua_is_array(L, 7, "olua.float")) && (olua_is_integer(L, 8))) {
+        // if ((olua_is_integer(L, 2)) && (olua_is_cocos2d_Color4F(L, 3)) && (olua_is_cocos2d_Color4F(L, 4)) && (olua_is_integer(L, 5)) && (olua_is_number(L, 6)) && (olua_is_pointer(L, 7, "olua.float")) && (olua_is_integer(L, 8))) {
             // void drawRegularPolygon(int lineSize, const cocos2d::Color4F &lineColor, const cocos2d::Color4F &fillColor, int sides, @optional float startAngle, @optional const float *distances, @optional int distanceCount)
             return _fairygui_GGraph_drawRegularPolygon$1(L);
         // }
@@ -23078,7 +23301,7 @@ static int _fairygui_UIConfig_getRealFontName$1(lua_State *L)
     bool *arg2 = nullptr;       /** isTTF */
 
     olua_check_string(L, 1, &arg1);
-    olua_check_array(L, 2, &arg2, "olua.bool");
+    olua_check_pointer(L, 2, &arg2, "olua.bool");
 
     // static const std::string &getRealFontName(const std::string &aliasName, @optional bool *isTTF)
     const std::string &ret = fairygui::UIConfig::getRealFontName(arg1, arg2);
@@ -23118,7 +23341,7 @@ static int _fairygui_UIConfig_getRealFontName(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if ((olua_is_string(L, 1)) && (olua_is_array(L, 2, "olua.bool"))) {
+        // if ((olua_is_string(L, 1)) && (olua_is_pointer(L, 2, "olua.bool"))) {
             // static const std::string &getRealFontName(const std::string &aliasName, @optional bool *isTTF)
             return _fairygui_UIConfig_getRealFontName$1(L);
         // }
@@ -27243,7 +27466,7 @@ static int _fairygui_FUIRichText_getControls(lua_State *L)
 
     // const std::vector<fairygui::HtmlObject *> &getControls()
     const std::vector<fairygui::HtmlObject *> &ret = self->getControls();
-    int num_ret = olua_push_vector<fairygui::HtmlObject *>(L, ret, [L](fairygui::HtmlObject *arg1) {
+    int num_ret = olua_push_array<fairygui::HtmlObject *>(L, ret, [L](fairygui::HtmlObject *arg1) {
         olua_push_object(L, arg1, "fgui.HtmlObject");
     });
 
@@ -28012,7 +28235,7 @@ static int _fairygui_HtmlObject_get_loaderPool(lua_State *L)
 
     // static cocos2d::Vector<fairygui::GObject *> loaderPool
     cocos2d::Vector<fairygui::GObject *> &ret = fairygui::HtmlObject::loaderPool;
-    int num_ret = olua_push_vector<fairygui::GObject *>(L, ret, [L](fairygui::GObject *arg1) {
+    int num_ret = olua_push_array<fairygui::GObject *>(L, ret, [L](fairygui::GObject *arg1) {
         olua_push_object(L, arg1, "fgui.GObject");
     });
 
@@ -28027,7 +28250,7 @@ static int _fairygui_HtmlObject_set_loaderPool(lua_State *L)
 
     cocos2d::Vector<fairygui::GObject *> arg1;       /** loaderPool */
 
-    olua_check_vector<fairygui::GObject *>(L, 1, arg1, [L](fairygui::GObject **arg1) {
+    olua_check_array<fairygui::GObject *>(L, 1, arg1, [L](fairygui::GObject **arg1) {
         olua_check_object(L, -1, arg1, "fgui.GObject");
     });
 

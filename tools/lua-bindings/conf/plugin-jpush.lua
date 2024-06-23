@@ -2,6 +2,8 @@ module 'jpush'
 
 path "../../frameworks/plugins/jpush"
 
+-- metapath "../../addons/cclua/plugin/jpush"
+
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"

@@ -2,6 +2,8 @@ module 'huawei'
 
 path "../../frameworks/plugins/huawei"
 
+-- metapath "../../addons/cclua/plugin/huawei"
+
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"

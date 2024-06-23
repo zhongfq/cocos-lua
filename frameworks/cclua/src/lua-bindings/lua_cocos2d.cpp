@@ -28446,11 +28446,11 @@ static int _cocos2d_ParallaxNode_addChild$1(lua_State *L)
     olua_check_object(L, 4, &arg3, "cc.Vec2");
     olua_check_object(L, 5, &arg4, "cc.Vec2");
 
-    // void addChild(@addref(chilren |) cocos2d::Node *child, int z, const cocos2d::Vec2 &parallaxRatio, const cocos2d::Vec2 &positionOffset)
+    // void addChild(@addref(children |) cocos2d::Node *child, int z, const cocos2d::Vec2 &parallaxRatio, const cocos2d::Vec2 &positionOffset)
     self->addChild(arg1, arg2, arg3, arg4);
 
     // insert code after call
-    olua_addref(L, 1, "chilren", 2, OLUA_REF_MULTI);
+    olua_addref(L, 1, "children", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -28471,11 +28471,11 @@ static int _cocos2d_ParallaxNode_addChild$2(lua_State *L)
     olua_check_integer(L, 3, &arg2);
     olua_check_integer(L, 4, &arg3);
 
-    // @using void addChild(@addref(chilren |) cocos2d::Node *child, int zOrder, int tag)
+    // @using void addChild(@addref(children |) cocos2d::Node *child, int zOrder, int tag)
     self->addChild(arg1, arg2, arg3);
 
     // insert code after call
-    olua_addref(L, 1, "chilren", 2, OLUA_REF_MULTI);
+    olua_addref(L, 1, "children", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -28496,11 +28496,11 @@ static int _cocos2d_ParallaxNode_addChild$3(lua_State *L)
     olua_check_integer(L, 3, &arg2);
     olua_check_string(L, 4, &arg3);
 
-    // @using void addChild(@addref(chilren |) cocos2d::Node *child, int zOrder, const std::string &name)
+    // @using void addChild(@addref(children |) cocos2d::Node *child, int zOrder, const std::string &name)
     self->addChild(arg1, arg2, arg3);
 
     // insert code after call
-    olua_addref(L, 1, "chilren", 2, OLUA_REF_MULTI);
+    olua_addref(L, 1, "children", 2, OLUA_REF_MULTI);
 
     olua_endinvoke(L);
 
@@ -28571,19 +28571,19 @@ static int _cocos2d_ParallaxNode_addChild(lua_State *L)
 
     if (num_args == 3) {
         if ((olua_is_object(L, 2, "cc.Node")) && (olua_is_integer(L, 3)) && (olua_is_integer(L, 4))) {
-            // @using void addChild(@addref(chilren |) cocos2d::Node *child, int zOrder, int tag)
+            // @using void addChild(@addref(children |) cocos2d::Node *child, int zOrder, int tag)
             return _cocos2d_ParallaxNode_addChild$2(L);
         }
 
         // if ((olua_is_object(L, 2, "cc.Node")) && (olua_is_integer(L, 3)) && (olua_is_string(L, 4))) {
-            // @using void addChild(@addref(chilren |) cocos2d::Node *child, int zOrder, const std::string &name)
+            // @using void addChild(@addref(children |) cocos2d::Node *child, int zOrder, const std::string &name)
             return _cocos2d_ParallaxNode_addChild$3(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_object(L, 2, "cc.Node")) && (olua_is_integer(L, 3)) && (olua_is_object(L, 4, "cc.Vec2")) && (olua_is_object(L, 5, "cc.Vec2"))) {
-            // void addChild(@addref(chilren |) cocos2d::Node *child, int z, const cocos2d::Vec2 &parallaxRatio, const cocos2d::Vec2 &positionOffset)
+            // void addChild(@addref(children |) cocos2d::Node *child, int z, const cocos2d::Vec2 &parallaxRatio, const cocos2d::Vec2 &positionOffset)
             return _cocos2d_ParallaxNode_addChild$1(L);
         // }
     }
@@ -50038,7 +50038,7 @@ static int _cocos2d_TMXLayer_getTiles(lua_State *L)
 
     // uint32_t *getTiles()
     uint32_t *ret = self->getTiles();
-    int num_ret = olua_push_pointer(L, ret, "olua.uint32_t");
+    int num_ret = olua_push_pointer(L, ret, "olua.uint32");
 
     olua_endinvoke(L);
 
@@ -50297,7 +50297,7 @@ static int _cocos2d_TMXLayer_setTiles(lua_State *L)
     uint32_t *arg1 = nullptr;       /** tiles */
 
     olua_to_object(L, 1, &self, "cc.TMXLayer");
-    olua_check_pointer(L, 2, &arg1, "olua.uint32_t");
+    olua_check_pointer(L, 2, &arg1, "olua.uint32");
 
     // void setTiles(uint32_t *tiles)
     self->setTiles(arg1);
@@ -52354,7 +52354,7 @@ static int _cocos2d_FastTMXLayer_getTiles(lua_State *L)
 
     // const uint32_t *getTiles()
     const uint32_t *ret = self->getTiles();
-    int num_ret = olua_push_pointer(L, ret, "olua.uint32_t");
+    int num_ret = olua_push_pointer(L, ret, "olua.uint32");
 
     olua_endinvoke(L);
 
@@ -52574,7 +52574,7 @@ static int _cocos2d_FastTMXLayer_setTiles(lua_State *L)
     uint32_t *arg1 = nullptr;       /** tiles */
 
     olua_to_object(L, 1, &self, "cc.FastTMXLayer");
-    olua_check_pointer(L, 2, &arg1, "olua.uint32_t");
+    olua_check_pointer(L, 2, &arg1, "olua.uint32");
 
     // void setTiles(uint32_t *tiles)
     self->setTiles(arg1);

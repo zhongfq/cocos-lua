@@ -2,6 +2,8 @@ module 'cocos2d'
 
 path '../../frameworks/cclua/src/lua-bindings'
 
+-- metapath "../../addons/cclua/cocos2d"
+
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
@@ -508,7 +510,7 @@ typeconf 'cocos2d::ProtectedNode'
 typeconf 'cocos2d::DrawNode'
 
 typeconf 'cocos2d::ParallaxNode'
-    .func 'addChild' .arg1 '@addref(chilren |)'
+    .func 'addChild' .arg1 '@addref(children |)'
 
 typeconf 'cocos2d::TextHAlignment'
 typeconf 'cocos2d::TextVAlignment'

@@ -908,9 +908,9 @@ static void aux_changeref(lua_State *L, int idx, const char *name, int obj, int 
             lua_settop(L, top);
             return;
         }
+        olua_getreftable(L, idx, name);
         if (flags & OLUA_REF_TABLE) {
             olua_assert(olua_istable(L, obj), "expect table");
-            olua_getreftable(L, idx, name);
             lua_pushnil(L);
             while (lua_next(L, obj)) {
                 if (olua_isuserdata(L, -2)) {
@@ -929,7 +929,6 @@ static void aux_changeref(lua_State *L, int idx, const char *name, int obj, int 
             }
         } else {
             olua_assert(olua_isuserdata(L, obj), "expect userdata");
-            olua_getreftable(L, idx, name);
             lua_pushvalue(L, obj);
             lua_pushvalue(L, top + 1);
             // L: reftable obj obj|nil
@@ -1226,7 +1225,7 @@ OLUA_API void oluacls_class(lua_State *L, const char *cls, const char *supercls)
         if (olua_strequal(supercls, OLUA_VOIDCLS)) {
             olua_require(L, "void *", luaopen_voidp);
             olua_require(L, "enum *", luaopen_enum);
-            olua_require(L, "olua", luaopen_olua);
+            olua_require(L, "olua.c", luaopen_olua);
             olua_getmetatable(L, OLUA_VOIDCLS);
             lua_replace(L, -2);
             olua_debug_assert(lua_istable(L, -1), "class 'void *' not found");
@@ -1705,7 +1704,6 @@ int luaopen_olua(lua_State *L)
     };
     luaL_newlib(L, lib);
     lua_pushvalue(L, -1);
-    olua_setglobal(L, "olua");
     return 1;
 }
 

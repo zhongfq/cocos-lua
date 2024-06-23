@@ -11751,7 +11751,7 @@ static int _dragonBones_DragonBonesData_get_frameArray(lua_State *L)
 
     // const int16_t *frameArray
     const int16_t *ret = self->frameArray;
-    int num_ret = olua_push_pointer(L, ret, "olua.int16_t");
+    int num_ret = olua_push_pointer(L, ret, "olua.int16");
 
     olua_endinvoke(L);
 
@@ -11766,7 +11766,7 @@ static int _dragonBones_DragonBonesData_set_frameArray(lua_State *L)
     int16_t *arg1 = nullptr;       /** frameArray */
 
     olua_to_object(L, 1, &self, "db.DragonBonesData");
-    olua_check_pointer(L, 2, &arg1, "olua.int16_t");
+    olua_check_pointer(L, 2, &arg1, "olua.int16");
 
     // const int16_t *frameArray
     self->frameArray = arg1;
@@ -11860,7 +11860,7 @@ static int _dragonBones_DragonBonesData_get_frameIntArray(lua_State *L)
 
     // const int16_t *frameIntArray
     const int16_t *ret = self->frameIntArray;
-    int num_ret = olua_push_pointer(L, ret, "olua.int16_t");
+    int num_ret = olua_push_pointer(L, ret, "olua.int16");
 
     olua_endinvoke(L);
 
@@ -11875,7 +11875,7 @@ static int _dragonBones_DragonBonesData_set_frameIntArray(lua_State *L)
     int16_t *arg1 = nullptr;       /** frameIntArray */
 
     olua_to_object(L, 1, &self, "db.DragonBonesData");
-    olua_check_pointer(L, 2, &arg1, "olua.int16_t");
+    olua_check_pointer(L, 2, &arg1, "olua.int16");
 
     // const int16_t *frameIntArray
     self->frameIntArray = arg1;
@@ -11930,7 +11930,7 @@ static int _dragonBones_DragonBonesData_get_intArray(lua_State *L)
 
     // const int16_t *intArray
     const int16_t *ret = self->intArray;
-    int num_ret = olua_push_pointer(L, ret, "olua.int16_t");
+    int num_ret = olua_push_pointer(L, ret, "olua.int16");
 
     olua_endinvoke(L);
 
@@ -11945,7 +11945,7 @@ static int _dragonBones_DragonBonesData_set_intArray(lua_State *L)
     int16_t *arg1 = nullptr;       /** intArray */
 
     olua_to_object(L, 1, &self, "db.DragonBonesData");
-    olua_check_pointer(L, 2, &arg1, "olua.int16_t");
+    olua_check_pointer(L, 2, &arg1, "olua.int16");
 
     // const int16_t *intArray
     self->intArray = arg1;
@@ -12000,7 +12000,7 @@ static int _dragonBones_DragonBonesData_get_timelineArray(lua_State *L)
 
     // const uint16_t *timelineArray
     const uint16_t *ret = self->timelineArray;
-    int num_ret = olua_push_pointer(L, ret, "olua.uint16_t");
+    int num_ret = olua_push_pointer(L, ret, "olua.uint16");
 
     olua_endinvoke(L);
 
@@ -12015,7 +12015,7 @@ static int _dragonBones_DragonBonesData_set_timelineArray(lua_State *L)
     uint16_t *arg1 = nullptr;       /** timelineArray */
 
     olua_to_object(L, 1, &self, "db.DragonBonesData");
-    olua_check_pointer(L, 2, &arg1, "olua.uint16_t");
+    olua_check_pointer(L, 2, &arg1, "olua.uint16");
 
     // const uint16_t *timelineArray
     self->timelineArray = arg1;

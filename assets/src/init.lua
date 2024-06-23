@@ -2,7 +2,7 @@ local window        = require "cclua.window"
 local runtime       = require "cclua.runtime"
 local timer         = require "cclua.timer"
 local Director      = require "cc.Director"
-local olua          = require "olua"
+local olua          = require "olua.c"
 
 olua.debug(DEBUG)
 

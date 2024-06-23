@@ -2,6 +2,8 @@ module 'fairygui'
 
 path "../../frameworks/cclua/src/lua-bindings"
 
+-- metapath "../../addons/cclua/fairygui"
+
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"

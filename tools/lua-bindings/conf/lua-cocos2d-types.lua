@@ -2,6 +2,8 @@ module 'cocos2d_types'
 
 path "../../frameworks/cclua/src/lua-bindings"
 
+-- metapath "../../addons/cclua/cocos2d"
+
 headers [[
 #include "cclua/cclua.h"
 #include "cocos2d.h"
@@ -12,6 +14,8 @@ headers [[
 #include "navmesh/CCNavMesh.h"
 #endif
 ]]
+
+-- metapath "../../addons/cclua/cocos2d"
 
 luacls(function (cppname)
     return cppname:gsub("^cocos2d::backend::", "ccb.")

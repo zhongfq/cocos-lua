@@ -1,4 +1,4 @@
-require "olua.tools"
+require "olua"
 
 autoconf 'conf/clang-args.lua'
 autoconf 'conf/exclude-type.lua'

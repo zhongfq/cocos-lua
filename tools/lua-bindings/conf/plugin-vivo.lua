@@ -2,6 +2,8 @@ module 'vivo'
 
 path "../../frameworks/plugins/vivo"
 
+-- metapath "../../addons/cclua/plugin/vivo"
+
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"

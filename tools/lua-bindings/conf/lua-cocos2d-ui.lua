@@ -2,6 +2,8 @@ module 'cocos2d_ui'
 
 path '../../frameworks/cclua/src/lua-bindings'
 
+-- metapath "../../addons/cclua/cocos2d"
+
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"

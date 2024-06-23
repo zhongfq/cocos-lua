@@ -2,6 +2,8 @@ module 'alipay'
 
 path "../../frameworks/plugins/alipay"
 
+-- metapath "../../addons/cclua/plugin/alipay"
+
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"

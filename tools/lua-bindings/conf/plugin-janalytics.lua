@@ -2,6 +2,8 @@ module 'janalytics'
 
 path "../../frameworks/plugins/janalytics"
 
+-- metapath "../../addons/cclua/plugin/janalytics"
+
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"

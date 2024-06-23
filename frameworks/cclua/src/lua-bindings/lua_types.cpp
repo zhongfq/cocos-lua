@@ -820,13 +820,13 @@ OLUA_LIB int luaopen_olua_string(lua_State *L)
 }
 OLUA_END_DECLS
 
-static int _olua_int8_t___gc(lua_State *L)
+static int _olua_int8___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int8_t *self = nullptr;
+    olua_int8 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int8_t");
+    olua_to_object(L, 1, &self, "olua.int8");
 
     // olua_Return __gc(lua_State *L)
     olua_Return ret = self->__gc(L);
@@ -836,14 +836,14 @@ static int _olua_int8_t___gc(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_int8_t___index(lua_State *L)
+static int _olua_int8___index(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int8_t *self = nullptr;
+    olua_int8 *self = nullptr;
     unsigned int arg1 = 0;       /** idx */
 
-    olua_to_object(L, 1, &self, "olua.int8_t");
+    olua_to_object(L, 1, &self, "olua.int8");
     olua_check_integer(L, 2, &arg1);
 
     // int8_t __index(unsigned int idx)
@@ -855,15 +855,15 @@ static int _olua_int8_t___index(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int8_t___newindex(lua_State *L)
+static int _olua_int8___newindex(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int8_t *self = nullptr;
+    olua_int8 *self = nullptr;
     unsigned int arg1 = 0;       /** idx */
     int8_t arg2 = 0;       /** v */
 
-    olua_to_object(L, 1, &self, "olua.int8_t");
+    olua_to_object(L, 1, &self, "olua.int8");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
@@ -875,27 +875,27 @@ static int _olua_int8_t___newindex(lua_State *L)
     return 0;
 }
 
-static int _olua_int8_t___olua_move(lua_State *L)
+static int _olua_int8___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (olua_int8_t *)olua_toobj(L, 1, "olua.int8_t");
-    olua_push_object(L, self, "olua.int8_t");
+    auto self = (olua_int8 *)olua_toobj(L, 1, "olua.int8");
+    olua_push_object(L, self, "olua.int8");
 
     olua_endinvoke(L);
 
     return 1;
 }
 
-static int _olua_int8_t_assign(lua_State *L)
+static int _olua_int8_assign(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int8_t *self = nullptr;
+    olua_int8 *self = nullptr;
     const char *arg1 = nullptr;       /** data */
     size_t arg2 = 0;       /** len */
 
-    olua_to_object(L, 1, &self, "olua.int8_t");
+    olua_to_object(L, 1, &self, "olua.int8");
     olua_check_string(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
@@ -907,7 +907,7 @@ static int _olua_int8_t_assign(lua_State *L)
     return 0;
 }
 
-static int _olua_int8_t_create$1(lua_State *L)
+static int _olua_int8_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -915,9 +915,9 @@ static int _olua_int8_t_create$1(lua_State *L)
 
     olua_check_integer(L, 1, &arg1);
 
-    // @postnew @name(new) static olua_int8_t *create(@optional size_t len)
-    olua_int8_t *ret = olua_int8_t::create(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.int8_t");
+    // @postnew @name(new) static olua_int8 *create(@optional size_t len)
+    olua_int8 *ret = olua_int8::create(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.int8");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -927,13 +927,13 @@ static int _olua_int8_t_create$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int8_t_create$2(lua_State *L)
+static int _olua_int8_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // @postnew @name(new) static olua_int8_t *create(@optional size_t len)
-    olua_int8_t *ret = olua_int8_t::create();
-    int num_ret = olua_push_object(L, ret, "olua.int8_t");
+    // @postnew @name(new) static olua_int8 *create(@optional size_t len)
+    olua_int8 *ret = olua_int8::create();
+    int num_ret = olua_push_object(L, ret, "olua.int8");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -943,42 +943,42 @@ static int _olua_int8_t_create$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int8_t_create(lua_State *L)
+static int _olua_int8_create(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
-        // @postnew @name(new) static olua_int8_t *create(@optional size_t len)
-        return _olua_int8_t_create$2(L);
+        // @postnew @name(new) static olua_int8 *create(@optional size_t len)
+        return _olua_int8_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 1))) {
-            // @postnew @name(new) static olua_int8_t *create(@optional size_t len)
-            return _olua_int8_t_create$1(L);
+            // @postnew @name(new) static olua_int8 *create(@optional size_t len)
+            return _olua_int8_create$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_int8_t::create' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_int8::create' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_int8_t_slice$1(lua_State *L)
+static int _olua_int8_slice$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int8_t *self = nullptr;
+    olua_int8 *self = nullptr;
     size_t arg1 = 0;       /** from */
     size_t arg2 = 0;       /** to */
 
-    olua_to_object(L, 1, &self, "olua.int8_t");
+    olua_to_object(L, 1, &self, "olua.int8");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // @postnew olua_int8_t *slice(size_t from, @optional size_t to)
-    olua_int8_t *ret = self->slice(arg1, arg2);
-    int num_ret = olua_push_object(L, ret, "olua.int8_t");
+    // @postnew olua_int8 *slice(size_t from, @optional size_t to)
+    olua_int8 *ret = self->slice(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "olua.int8");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -988,19 +988,19 @@ static int _olua_int8_t_slice$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int8_t_slice$2(lua_State *L)
+static int _olua_int8_slice$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int8_t *self = nullptr;
+    olua_int8 *self = nullptr;
     size_t arg1 = 0;       /** from */
 
-    olua_to_object(L, 1, &self, "olua.int8_t");
+    olua_to_object(L, 1, &self, "olua.int8");
     olua_check_integer(L, 2, &arg1);
 
-    // @postnew olua_int8_t *slice(size_t from, @optional size_t to)
-    olua_int8_t *ret = self->slice(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.int8_t");
+    // @postnew olua_int8 *slice(size_t from, @optional size_t to)
+    olua_int8 *ret = self->slice(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.int8");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -1010,44 +1010,44 @@ static int _olua_int8_t_slice$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int8_t_slice(lua_State *L)
+static int _olua_int8_slice(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // @postnew olua_int8_t *slice(size_t from, @optional size_t to)
-            return _olua_int8_t_slice$2(L);
+            // @postnew olua_int8 *slice(size_t from, @optional size_t to)
+            return _olua_int8_slice$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // @postnew olua_int8_t *slice(size_t from, @optional size_t to)
-            return _olua_int8_t_slice$1(L);
+            // @postnew olua_int8 *slice(size_t from, @optional size_t to)
+            return _olua_int8_slice$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_int8_t::slice' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_int8::slice' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_int8_t_sub$1(lua_State *L)
+static int _olua_int8_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int8_t *self = nullptr;
+    olua_int8 *self = nullptr;
     size_t arg1 = 0;       /** from */
     size_t arg2 = 0;       /** to */
 
-    olua_to_object(L, 1, &self, "olua.int8_t");
+    olua_to_object(L, 1, &self, "olua.int8");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // @postnew olua_int8_t *sub(size_t from, @optional size_t to)
-    olua_int8_t *ret = self->sub(arg1, arg2);
-    int num_ret = olua_push_object(L, ret, "olua.int8_t");
+    // @postnew olua_int8 *sub(size_t from, @optional size_t to)
+    olua_int8 *ret = self->sub(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "olua.int8");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -1057,19 +1057,19 @@ static int _olua_int8_t_sub$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int8_t_sub$2(lua_State *L)
+static int _olua_int8_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int8_t *self = nullptr;
+    olua_int8 *self = nullptr;
     size_t arg1 = 0;       /** from */
 
-    olua_to_object(L, 1, &self, "olua.int8_t");
+    olua_to_object(L, 1, &self, "olua.int8");
     olua_check_integer(L, 2, &arg1);
 
-    // @postnew olua_int8_t *sub(size_t from, @optional size_t to)
-    olua_int8_t *ret = self->sub(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.int8_t");
+    // @postnew olua_int8 *sub(size_t from, @optional size_t to)
+    olua_int8 *ret = self->sub(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.int8");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -1079,54 +1079,54 @@ static int _olua_int8_t_sub$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int8_t_sub(lua_State *L)
+static int _olua_int8_sub(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // @postnew olua_int8_t *sub(size_t from, @optional size_t to)
-            return _olua_int8_t_sub$2(L);
+            // @postnew olua_int8 *sub(size_t from, @optional size_t to)
+            return _olua_int8_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // @postnew olua_int8_t *sub(size_t from, @optional size_t to)
-            return _olua_int8_t_sub$1(L);
+            // @postnew olua_int8 *sub(size_t from, @optional size_t to)
+            return _olua_int8_sub$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_int8_t::sub' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_int8::sub' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_int8_t_take(lua_State *L)
+static int _olua_int8_take(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int8_t *self = nullptr;
+    olua_int8 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int8_t");
+    olua_to_object(L, 1, &self, "olua.int8");
 
-    // olua_int8_t *take()
-    olua_int8_t *ret = self->take();
-    int num_ret = olua_push_object(L, ret, "olua.int8_t");
+    // olua_int8 *take()
+    olua_int8 *ret = self->take();
+    int num_ret = olua_push_object(L, ret, "olua.int8");
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _olua_int8_t_tostring(lua_State *L)
+static int _olua_int8_tostring(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int8_t *self = nullptr;
+    olua_int8 *self = nullptr;
     size_t arg2 = 0;       /** len */
 
-    olua_to_object(L, 1, &self, "olua.int8_t");
+    olua_to_object(L, 1, &self, "olua.int8");
     olua_check_integer(L, 2, &arg2);
 
     // olua_Return tostring(lua_State *L, size_t len)
@@ -1137,13 +1137,13 @@ static int _olua_int8_t_tostring(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_int8_t_length(lua_State *L)
+static int _olua_int8_length(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int8_t *self = nullptr;
+    olua_int8 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int8_t");
+    olua_to_object(L, 1, &self, "olua.int8");
 
     // @getter @name(length) size_t length()
     size_t ret = self->length();
@@ -1154,13 +1154,13 @@ static int _olua_int8_t_length(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int8_t_rawdata(lua_State *L)
+static int _olua_int8_rawdata(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int8_t *self = nullptr;
+    olua_int8 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int8_t");
+    olua_to_object(L, 1, &self, "olua.int8");
 
     // @getter @name(rawdata) void *rawdata()
     void *ret = self->rawdata();
@@ -1171,13 +1171,13 @@ static int _olua_int8_t_rawdata(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int8_t_size(lua_State *L)
+static int _olua_int8_size(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int8_t *self = nullptr;
+    olua_int8 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int8_t");
+    olua_to_object(L, 1, &self, "olua.int8");
 
     // @getter @name(sizeof) size_t size()
     size_t ret = self->size();
@@ -1188,13 +1188,13 @@ static int _olua_int8_t_size(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int8_t_value(lua_State *L)
+static int _olua_int8_value(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int8_t *self = nullptr;
+    olua_int8 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int8_t");
+    olua_to_object(L, 1, &self, "olua.int8");
 
     // @getter @name(value) const int8_t &value()
     const int8_t &ret = self->value();
@@ -1206,35 +1206,35 @@ static int _olua_int8_t_value(lua_State *L)
 }
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_olua_int8_t(lua_State *L)
+OLUA_LIB int luaopen_olua_int8(lua_State *L)
 {
-    oluacls_class<olua_int8_t>(L, "olua.int8_t");
-    oluacls_func(L, "__gc", _olua_int8_t___gc);
-    oluacls_func(L, "__index", _olua_int8_t___index);
-    oluacls_func(L, "__newindex", _olua_int8_t___newindex);
-    oluacls_func(L, "__olua_move", _olua_int8_t___olua_move);
-    oluacls_func(L, "assign", _olua_int8_t_assign);
-    oluacls_func(L, "new", _olua_int8_t_create);
-    oluacls_func(L, "slice", _olua_int8_t_slice);
-    oluacls_func(L, "sub", _olua_int8_t_sub);
-    oluacls_func(L, "take", _olua_int8_t_take);
-    oluacls_func(L, "tostring", _olua_int8_t_tostring);
-    oluacls_prop(L, "length", _olua_int8_t_length, _olua_int8_t_length);
-    oluacls_prop(L, "rawdata", _olua_int8_t_rawdata, nullptr);
-    oluacls_prop(L, "sizeof", _olua_int8_t_size, nullptr);
-    oluacls_prop(L, "value", _olua_int8_t_value, _olua_int8_t_value);
+    oluacls_class<olua_int8>(L, "olua.int8");
+    oluacls_func(L, "__gc", _olua_int8___gc);
+    oluacls_func(L, "__index", _olua_int8___index);
+    oluacls_func(L, "__newindex", _olua_int8___newindex);
+    oluacls_func(L, "__olua_move", _olua_int8___olua_move);
+    oluacls_func(L, "assign", _olua_int8_assign);
+    oluacls_func(L, "new", _olua_int8_create);
+    oluacls_func(L, "slice", _olua_int8_slice);
+    oluacls_func(L, "sub", _olua_int8_sub);
+    oluacls_func(L, "take", _olua_int8_take);
+    oluacls_func(L, "tostring", _olua_int8_tostring);
+    oluacls_prop(L, "length", _olua_int8_length, _olua_int8_length);
+    oluacls_prop(L, "rawdata", _olua_int8_rawdata, nullptr);
+    oluacls_prop(L, "sizeof", _olua_int8_size, nullptr);
+    oluacls_prop(L, "value", _olua_int8_value, _olua_int8_value);
 
     return 1;
 }
 OLUA_END_DECLS
 
-static int _olua_int16_t___gc(lua_State *L)
+static int _olua_int16___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int16_t *self = nullptr;
+    olua_int16 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int16_t");
+    olua_to_object(L, 1, &self, "olua.int16");
 
     // olua_Return __gc(lua_State *L)
     olua_Return ret = self->__gc(L);
@@ -1244,14 +1244,14 @@ static int _olua_int16_t___gc(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_int16_t___index(lua_State *L)
+static int _olua_int16___index(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int16_t *self = nullptr;
+    olua_int16 *self = nullptr;
     unsigned int arg1 = 0;       /** idx */
 
-    olua_to_object(L, 1, &self, "olua.int16_t");
+    olua_to_object(L, 1, &self, "olua.int16");
     olua_check_integer(L, 2, &arg1);
 
     // int16_t __index(unsigned int idx)
@@ -1263,15 +1263,15 @@ static int _olua_int16_t___index(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int16_t___newindex(lua_State *L)
+static int _olua_int16___newindex(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int16_t *self = nullptr;
+    olua_int16 *self = nullptr;
     unsigned int arg1 = 0;       /** idx */
     int16_t arg2 = 0;       /** v */
 
-    olua_to_object(L, 1, &self, "olua.int16_t");
+    olua_to_object(L, 1, &self, "olua.int16");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
@@ -1283,27 +1283,27 @@ static int _olua_int16_t___newindex(lua_State *L)
     return 0;
 }
 
-static int _olua_int16_t___olua_move(lua_State *L)
+static int _olua_int16___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (olua_int16_t *)olua_toobj(L, 1, "olua.int16_t");
-    olua_push_object(L, self, "olua.int16_t");
+    auto self = (olua_int16 *)olua_toobj(L, 1, "olua.int16");
+    olua_push_object(L, self, "olua.int16");
 
     olua_endinvoke(L);
 
     return 1;
 }
 
-static int _olua_int16_t_assign(lua_State *L)
+static int _olua_int16_assign(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int16_t *self = nullptr;
+    olua_int16 *self = nullptr;
     const char *arg1 = nullptr;       /** data */
     size_t arg2 = 0;       /** len */
 
-    olua_to_object(L, 1, &self, "olua.int16_t");
+    olua_to_object(L, 1, &self, "olua.int16");
     olua_check_string(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
@@ -1315,7 +1315,7 @@ static int _olua_int16_t_assign(lua_State *L)
     return 0;
 }
 
-static int _olua_int16_t_create$1(lua_State *L)
+static int _olua_int16_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1323,9 +1323,9 @@ static int _olua_int16_t_create$1(lua_State *L)
 
     olua_check_integer(L, 1, &arg1);
 
-    // @postnew @name(new) static olua_int16_t *create(@optional size_t len)
-    olua_int16_t *ret = olua_int16_t::create(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.int16_t");
+    // @postnew @name(new) static olua_int16 *create(@optional size_t len)
+    olua_int16 *ret = olua_int16::create(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.int16");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -1335,13 +1335,13 @@ static int _olua_int16_t_create$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int16_t_create$2(lua_State *L)
+static int _olua_int16_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // @postnew @name(new) static olua_int16_t *create(@optional size_t len)
-    olua_int16_t *ret = olua_int16_t::create();
-    int num_ret = olua_push_object(L, ret, "olua.int16_t");
+    // @postnew @name(new) static olua_int16 *create(@optional size_t len)
+    olua_int16 *ret = olua_int16::create();
+    int num_ret = olua_push_object(L, ret, "olua.int16");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -1351,42 +1351,42 @@ static int _olua_int16_t_create$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int16_t_create(lua_State *L)
+static int _olua_int16_create(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
-        // @postnew @name(new) static olua_int16_t *create(@optional size_t len)
-        return _olua_int16_t_create$2(L);
+        // @postnew @name(new) static olua_int16 *create(@optional size_t len)
+        return _olua_int16_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 1))) {
-            // @postnew @name(new) static olua_int16_t *create(@optional size_t len)
-            return _olua_int16_t_create$1(L);
+            // @postnew @name(new) static olua_int16 *create(@optional size_t len)
+            return _olua_int16_create$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_int16_t::create' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_int16::create' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_int16_t_slice$1(lua_State *L)
+static int _olua_int16_slice$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int16_t *self = nullptr;
+    olua_int16 *self = nullptr;
     size_t arg1 = 0;       /** from */
     size_t arg2 = 0;       /** to */
 
-    olua_to_object(L, 1, &self, "olua.int16_t");
+    olua_to_object(L, 1, &self, "olua.int16");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // @postnew olua_int16_t *slice(size_t from, @optional size_t to)
-    olua_int16_t *ret = self->slice(arg1, arg2);
-    int num_ret = olua_push_object(L, ret, "olua.int16_t");
+    // @postnew olua_int16 *slice(size_t from, @optional size_t to)
+    olua_int16 *ret = self->slice(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "olua.int16");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -1396,19 +1396,19 @@ static int _olua_int16_t_slice$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int16_t_slice$2(lua_State *L)
+static int _olua_int16_slice$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int16_t *self = nullptr;
+    olua_int16 *self = nullptr;
     size_t arg1 = 0;       /** from */
 
-    olua_to_object(L, 1, &self, "olua.int16_t");
+    olua_to_object(L, 1, &self, "olua.int16");
     olua_check_integer(L, 2, &arg1);
 
-    // @postnew olua_int16_t *slice(size_t from, @optional size_t to)
-    olua_int16_t *ret = self->slice(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.int16_t");
+    // @postnew olua_int16 *slice(size_t from, @optional size_t to)
+    olua_int16 *ret = self->slice(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.int16");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -1418,44 +1418,44 @@ static int _olua_int16_t_slice$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int16_t_slice(lua_State *L)
+static int _olua_int16_slice(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // @postnew olua_int16_t *slice(size_t from, @optional size_t to)
-            return _olua_int16_t_slice$2(L);
+            // @postnew olua_int16 *slice(size_t from, @optional size_t to)
+            return _olua_int16_slice$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // @postnew olua_int16_t *slice(size_t from, @optional size_t to)
-            return _olua_int16_t_slice$1(L);
+            // @postnew olua_int16 *slice(size_t from, @optional size_t to)
+            return _olua_int16_slice$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_int16_t::slice' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_int16::slice' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_int16_t_sub$1(lua_State *L)
+static int _olua_int16_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int16_t *self = nullptr;
+    olua_int16 *self = nullptr;
     size_t arg1 = 0;       /** from */
     size_t arg2 = 0;       /** to */
 
-    olua_to_object(L, 1, &self, "olua.int16_t");
+    olua_to_object(L, 1, &self, "olua.int16");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // @postnew olua_int16_t *sub(size_t from, @optional size_t to)
-    olua_int16_t *ret = self->sub(arg1, arg2);
-    int num_ret = olua_push_object(L, ret, "olua.int16_t");
+    // @postnew olua_int16 *sub(size_t from, @optional size_t to)
+    olua_int16 *ret = self->sub(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "olua.int16");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -1465,19 +1465,19 @@ static int _olua_int16_t_sub$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int16_t_sub$2(lua_State *L)
+static int _olua_int16_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int16_t *self = nullptr;
+    olua_int16 *self = nullptr;
     size_t arg1 = 0;       /** from */
 
-    olua_to_object(L, 1, &self, "olua.int16_t");
+    olua_to_object(L, 1, &self, "olua.int16");
     olua_check_integer(L, 2, &arg1);
 
-    // @postnew olua_int16_t *sub(size_t from, @optional size_t to)
-    olua_int16_t *ret = self->sub(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.int16_t");
+    // @postnew olua_int16 *sub(size_t from, @optional size_t to)
+    olua_int16 *ret = self->sub(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.int16");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -1487,54 +1487,54 @@ static int _olua_int16_t_sub$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int16_t_sub(lua_State *L)
+static int _olua_int16_sub(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // @postnew olua_int16_t *sub(size_t from, @optional size_t to)
-            return _olua_int16_t_sub$2(L);
+            // @postnew olua_int16 *sub(size_t from, @optional size_t to)
+            return _olua_int16_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // @postnew olua_int16_t *sub(size_t from, @optional size_t to)
-            return _olua_int16_t_sub$1(L);
+            // @postnew olua_int16 *sub(size_t from, @optional size_t to)
+            return _olua_int16_sub$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_int16_t::sub' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_int16::sub' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_int16_t_take(lua_State *L)
+static int _olua_int16_take(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int16_t *self = nullptr;
+    olua_int16 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int16_t");
+    olua_to_object(L, 1, &self, "olua.int16");
 
-    // olua_int16_t *take()
-    olua_int16_t *ret = self->take();
-    int num_ret = olua_push_object(L, ret, "olua.int16_t");
+    // olua_int16 *take()
+    olua_int16 *ret = self->take();
+    int num_ret = olua_push_object(L, ret, "olua.int16");
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _olua_int16_t_tostring(lua_State *L)
+static int _olua_int16_tostring(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int16_t *self = nullptr;
+    olua_int16 *self = nullptr;
     size_t arg2 = 0;       /** len */
 
-    olua_to_object(L, 1, &self, "olua.int16_t");
+    olua_to_object(L, 1, &self, "olua.int16");
     olua_check_integer(L, 2, &arg2);
 
     // olua_Return tostring(lua_State *L, size_t len)
@@ -1545,13 +1545,13 @@ static int _olua_int16_t_tostring(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_int16_t_length(lua_State *L)
+static int _olua_int16_length(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int16_t *self = nullptr;
+    olua_int16 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int16_t");
+    olua_to_object(L, 1, &self, "olua.int16");
 
     // @getter @name(length) size_t length()
     size_t ret = self->length();
@@ -1562,13 +1562,13 @@ static int _olua_int16_t_length(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int16_t_rawdata(lua_State *L)
+static int _olua_int16_rawdata(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int16_t *self = nullptr;
+    olua_int16 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int16_t");
+    olua_to_object(L, 1, &self, "olua.int16");
 
     // @getter @name(rawdata) void *rawdata()
     void *ret = self->rawdata();
@@ -1579,13 +1579,13 @@ static int _olua_int16_t_rawdata(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int16_t_size(lua_State *L)
+static int _olua_int16_size(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int16_t *self = nullptr;
+    olua_int16 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int16_t");
+    olua_to_object(L, 1, &self, "olua.int16");
 
     // @getter @name(sizeof) size_t size()
     size_t ret = self->size();
@@ -1596,13 +1596,13 @@ static int _olua_int16_t_size(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int16_t_value(lua_State *L)
+static int _olua_int16_value(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int16_t *self = nullptr;
+    olua_int16 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int16_t");
+    olua_to_object(L, 1, &self, "olua.int16");
 
     // @getter @name(value) const int16_t &value()
     const int16_t &ret = self->value();
@@ -1614,35 +1614,35 @@ static int _olua_int16_t_value(lua_State *L)
 }
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_olua_int16_t(lua_State *L)
+OLUA_LIB int luaopen_olua_int16(lua_State *L)
 {
-    oluacls_class<olua_int16_t>(L, "olua.int16_t");
-    oluacls_func(L, "__gc", _olua_int16_t___gc);
-    oluacls_func(L, "__index", _olua_int16_t___index);
-    oluacls_func(L, "__newindex", _olua_int16_t___newindex);
-    oluacls_func(L, "__olua_move", _olua_int16_t___olua_move);
-    oluacls_func(L, "assign", _olua_int16_t_assign);
-    oluacls_func(L, "new", _olua_int16_t_create);
-    oluacls_func(L, "slice", _olua_int16_t_slice);
-    oluacls_func(L, "sub", _olua_int16_t_sub);
-    oluacls_func(L, "take", _olua_int16_t_take);
-    oluacls_func(L, "tostring", _olua_int16_t_tostring);
-    oluacls_prop(L, "length", _olua_int16_t_length, _olua_int16_t_length);
-    oluacls_prop(L, "rawdata", _olua_int16_t_rawdata, nullptr);
-    oluacls_prop(L, "sizeof", _olua_int16_t_size, nullptr);
-    oluacls_prop(L, "value", _olua_int16_t_value, _olua_int16_t_value);
+    oluacls_class<olua_int16>(L, "olua.int16");
+    oluacls_func(L, "__gc", _olua_int16___gc);
+    oluacls_func(L, "__index", _olua_int16___index);
+    oluacls_func(L, "__newindex", _olua_int16___newindex);
+    oluacls_func(L, "__olua_move", _olua_int16___olua_move);
+    oluacls_func(L, "assign", _olua_int16_assign);
+    oluacls_func(L, "new", _olua_int16_create);
+    oluacls_func(L, "slice", _olua_int16_slice);
+    oluacls_func(L, "sub", _olua_int16_sub);
+    oluacls_func(L, "take", _olua_int16_take);
+    oluacls_func(L, "tostring", _olua_int16_tostring);
+    oluacls_prop(L, "length", _olua_int16_length, _olua_int16_length);
+    oluacls_prop(L, "rawdata", _olua_int16_rawdata, nullptr);
+    oluacls_prop(L, "sizeof", _olua_int16_size, nullptr);
+    oluacls_prop(L, "value", _olua_int16_value, _olua_int16_value);
 
     return 1;
 }
 OLUA_END_DECLS
 
-static int _olua_int32_t___gc(lua_State *L)
+static int _olua_int32___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int32_t *self = nullptr;
+    olua_int32 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int32_t");
+    olua_to_object(L, 1, &self, "olua.int32");
 
     // olua_Return __gc(lua_State *L)
     olua_Return ret = self->__gc(L);
@@ -1652,14 +1652,14 @@ static int _olua_int32_t___gc(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_int32_t___index(lua_State *L)
+static int _olua_int32___index(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int32_t *self = nullptr;
+    olua_int32 *self = nullptr;
     unsigned int arg1 = 0;       /** idx */
 
-    olua_to_object(L, 1, &self, "olua.int32_t");
+    olua_to_object(L, 1, &self, "olua.int32");
     olua_check_integer(L, 2, &arg1);
 
     // int32_t __index(unsigned int idx)
@@ -1671,15 +1671,15 @@ static int _olua_int32_t___index(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int32_t___newindex(lua_State *L)
+static int _olua_int32___newindex(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int32_t *self = nullptr;
+    olua_int32 *self = nullptr;
     unsigned int arg1 = 0;       /** idx */
     int32_t arg2 = 0;       /** v */
 
-    olua_to_object(L, 1, &self, "olua.int32_t");
+    olua_to_object(L, 1, &self, "olua.int32");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
@@ -1691,27 +1691,27 @@ static int _olua_int32_t___newindex(lua_State *L)
     return 0;
 }
 
-static int _olua_int32_t___olua_move(lua_State *L)
+static int _olua_int32___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (olua_int32_t *)olua_toobj(L, 1, "olua.int32_t");
-    olua_push_object(L, self, "olua.int32_t");
+    auto self = (olua_int32 *)olua_toobj(L, 1, "olua.int32");
+    olua_push_object(L, self, "olua.int32");
 
     olua_endinvoke(L);
 
     return 1;
 }
 
-static int _olua_int32_t_assign(lua_State *L)
+static int _olua_int32_assign(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int32_t *self = nullptr;
+    olua_int32 *self = nullptr;
     const char *arg1 = nullptr;       /** data */
     size_t arg2 = 0;       /** len */
 
-    olua_to_object(L, 1, &self, "olua.int32_t");
+    olua_to_object(L, 1, &self, "olua.int32");
     olua_check_string(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
@@ -1723,7 +1723,7 @@ static int _olua_int32_t_assign(lua_State *L)
     return 0;
 }
 
-static int _olua_int32_t_create$1(lua_State *L)
+static int _olua_int32_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1731,9 +1731,9 @@ static int _olua_int32_t_create$1(lua_State *L)
 
     olua_check_integer(L, 1, &arg1);
 
-    // @postnew @name(new) static olua_int32_t *create(@optional size_t len)
-    olua_int32_t *ret = olua_int32_t::create(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.int32_t");
+    // @postnew @name(new) static olua_int32 *create(@optional size_t len)
+    olua_int32 *ret = olua_int32::create(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.int32");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -1743,13 +1743,13 @@ static int _olua_int32_t_create$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int32_t_create$2(lua_State *L)
+static int _olua_int32_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // @postnew @name(new) static olua_int32_t *create(@optional size_t len)
-    olua_int32_t *ret = olua_int32_t::create();
-    int num_ret = olua_push_object(L, ret, "olua.int32_t");
+    // @postnew @name(new) static olua_int32 *create(@optional size_t len)
+    olua_int32 *ret = olua_int32::create();
+    int num_ret = olua_push_object(L, ret, "olua.int32");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -1759,42 +1759,42 @@ static int _olua_int32_t_create$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int32_t_create(lua_State *L)
+static int _olua_int32_create(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
-        // @postnew @name(new) static olua_int32_t *create(@optional size_t len)
-        return _olua_int32_t_create$2(L);
+        // @postnew @name(new) static olua_int32 *create(@optional size_t len)
+        return _olua_int32_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 1))) {
-            // @postnew @name(new) static olua_int32_t *create(@optional size_t len)
-            return _olua_int32_t_create$1(L);
+            // @postnew @name(new) static olua_int32 *create(@optional size_t len)
+            return _olua_int32_create$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_int32_t::create' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_int32::create' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_int32_t_slice$1(lua_State *L)
+static int _olua_int32_slice$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int32_t *self = nullptr;
+    olua_int32 *self = nullptr;
     size_t arg1 = 0;       /** from */
     size_t arg2 = 0;       /** to */
 
-    olua_to_object(L, 1, &self, "olua.int32_t");
+    olua_to_object(L, 1, &self, "olua.int32");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // @postnew olua_int32_t *slice(size_t from, @optional size_t to)
-    olua_int32_t *ret = self->slice(arg1, arg2);
-    int num_ret = olua_push_object(L, ret, "olua.int32_t");
+    // @postnew olua_int32 *slice(size_t from, @optional size_t to)
+    olua_int32 *ret = self->slice(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "olua.int32");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -1804,19 +1804,19 @@ static int _olua_int32_t_slice$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int32_t_slice$2(lua_State *L)
+static int _olua_int32_slice$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int32_t *self = nullptr;
+    olua_int32 *self = nullptr;
     size_t arg1 = 0;       /** from */
 
-    olua_to_object(L, 1, &self, "olua.int32_t");
+    olua_to_object(L, 1, &self, "olua.int32");
     olua_check_integer(L, 2, &arg1);
 
-    // @postnew olua_int32_t *slice(size_t from, @optional size_t to)
-    olua_int32_t *ret = self->slice(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.int32_t");
+    // @postnew olua_int32 *slice(size_t from, @optional size_t to)
+    olua_int32 *ret = self->slice(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.int32");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -1826,44 +1826,44 @@ static int _olua_int32_t_slice$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int32_t_slice(lua_State *L)
+static int _olua_int32_slice(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // @postnew olua_int32_t *slice(size_t from, @optional size_t to)
-            return _olua_int32_t_slice$2(L);
+            // @postnew olua_int32 *slice(size_t from, @optional size_t to)
+            return _olua_int32_slice$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // @postnew olua_int32_t *slice(size_t from, @optional size_t to)
-            return _olua_int32_t_slice$1(L);
+            // @postnew olua_int32 *slice(size_t from, @optional size_t to)
+            return _olua_int32_slice$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_int32_t::slice' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_int32::slice' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_int32_t_sub$1(lua_State *L)
+static int _olua_int32_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int32_t *self = nullptr;
+    olua_int32 *self = nullptr;
     size_t arg1 = 0;       /** from */
     size_t arg2 = 0;       /** to */
 
-    olua_to_object(L, 1, &self, "olua.int32_t");
+    olua_to_object(L, 1, &self, "olua.int32");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // @postnew olua_int32_t *sub(size_t from, @optional size_t to)
-    olua_int32_t *ret = self->sub(arg1, arg2);
-    int num_ret = olua_push_object(L, ret, "olua.int32_t");
+    // @postnew olua_int32 *sub(size_t from, @optional size_t to)
+    olua_int32 *ret = self->sub(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "olua.int32");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -1873,19 +1873,19 @@ static int _olua_int32_t_sub$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int32_t_sub$2(lua_State *L)
+static int _olua_int32_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int32_t *self = nullptr;
+    olua_int32 *self = nullptr;
     size_t arg1 = 0;       /** from */
 
-    olua_to_object(L, 1, &self, "olua.int32_t");
+    olua_to_object(L, 1, &self, "olua.int32");
     olua_check_integer(L, 2, &arg1);
 
-    // @postnew olua_int32_t *sub(size_t from, @optional size_t to)
-    olua_int32_t *ret = self->sub(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.int32_t");
+    // @postnew olua_int32 *sub(size_t from, @optional size_t to)
+    olua_int32 *ret = self->sub(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.int32");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -1895,54 +1895,54 @@ static int _olua_int32_t_sub$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int32_t_sub(lua_State *L)
+static int _olua_int32_sub(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // @postnew olua_int32_t *sub(size_t from, @optional size_t to)
-            return _olua_int32_t_sub$2(L);
+            // @postnew olua_int32 *sub(size_t from, @optional size_t to)
+            return _olua_int32_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // @postnew olua_int32_t *sub(size_t from, @optional size_t to)
-            return _olua_int32_t_sub$1(L);
+            // @postnew olua_int32 *sub(size_t from, @optional size_t to)
+            return _olua_int32_sub$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_int32_t::sub' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_int32::sub' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_int32_t_take(lua_State *L)
+static int _olua_int32_take(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int32_t *self = nullptr;
+    olua_int32 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int32_t");
+    olua_to_object(L, 1, &self, "olua.int32");
 
-    // olua_int32_t *take()
-    olua_int32_t *ret = self->take();
-    int num_ret = olua_push_object(L, ret, "olua.int32_t");
+    // olua_int32 *take()
+    olua_int32 *ret = self->take();
+    int num_ret = olua_push_object(L, ret, "olua.int32");
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _olua_int32_t_tostring(lua_State *L)
+static int _olua_int32_tostring(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int32_t *self = nullptr;
+    olua_int32 *self = nullptr;
     size_t arg2 = 0;       /** len */
 
-    olua_to_object(L, 1, &self, "olua.int32_t");
+    olua_to_object(L, 1, &self, "olua.int32");
     olua_check_integer(L, 2, &arg2);
 
     // olua_Return tostring(lua_State *L, size_t len)
@@ -1953,13 +1953,13 @@ static int _olua_int32_t_tostring(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_int32_t_length(lua_State *L)
+static int _olua_int32_length(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int32_t *self = nullptr;
+    olua_int32 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int32_t");
+    olua_to_object(L, 1, &self, "olua.int32");
 
     // @getter @name(length) size_t length()
     size_t ret = self->length();
@@ -1970,13 +1970,13 @@ static int _olua_int32_t_length(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int32_t_rawdata(lua_State *L)
+static int _olua_int32_rawdata(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int32_t *self = nullptr;
+    olua_int32 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int32_t");
+    olua_to_object(L, 1, &self, "olua.int32");
 
     // @getter @name(rawdata) void *rawdata()
     void *ret = self->rawdata();
@@ -1987,13 +1987,13 @@ static int _olua_int32_t_rawdata(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int32_t_size(lua_State *L)
+static int _olua_int32_size(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int32_t *self = nullptr;
+    olua_int32 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int32_t");
+    olua_to_object(L, 1, &self, "olua.int32");
 
     // @getter @name(sizeof) size_t size()
     size_t ret = self->size();
@@ -2004,13 +2004,13 @@ static int _olua_int32_t_size(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int32_t_value(lua_State *L)
+static int _olua_int32_value(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int32_t *self = nullptr;
+    olua_int32 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int32_t");
+    olua_to_object(L, 1, &self, "olua.int32");
 
     // @getter @name(value) const int32_t &value()
     const int32_t &ret = self->value();
@@ -2022,35 +2022,35 @@ static int _olua_int32_t_value(lua_State *L)
 }
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_olua_int32_t(lua_State *L)
+OLUA_LIB int luaopen_olua_int32(lua_State *L)
 {
-    oluacls_class<olua_int32_t>(L, "olua.int32_t");
-    oluacls_func(L, "__gc", _olua_int32_t___gc);
-    oluacls_func(L, "__index", _olua_int32_t___index);
-    oluacls_func(L, "__newindex", _olua_int32_t___newindex);
-    oluacls_func(L, "__olua_move", _olua_int32_t___olua_move);
-    oluacls_func(L, "assign", _olua_int32_t_assign);
-    oluacls_func(L, "new", _olua_int32_t_create);
-    oluacls_func(L, "slice", _olua_int32_t_slice);
-    oluacls_func(L, "sub", _olua_int32_t_sub);
-    oluacls_func(L, "take", _olua_int32_t_take);
-    oluacls_func(L, "tostring", _olua_int32_t_tostring);
-    oluacls_prop(L, "length", _olua_int32_t_length, _olua_int32_t_length);
-    oluacls_prop(L, "rawdata", _olua_int32_t_rawdata, nullptr);
-    oluacls_prop(L, "sizeof", _olua_int32_t_size, nullptr);
-    oluacls_prop(L, "value", _olua_int32_t_value, _olua_int32_t_value);
+    oluacls_class<olua_int32>(L, "olua.int32");
+    oluacls_func(L, "__gc", _olua_int32___gc);
+    oluacls_func(L, "__index", _olua_int32___index);
+    oluacls_func(L, "__newindex", _olua_int32___newindex);
+    oluacls_func(L, "__olua_move", _olua_int32___olua_move);
+    oluacls_func(L, "assign", _olua_int32_assign);
+    oluacls_func(L, "new", _olua_int32_create);
+    oluacls_func(L, "slice", _olua_int32_slice);
+    oluacls_func(L, "sub", _olua_int32_sub);
+    oluacls_func(L, "take", _olua_int32_take);
+    oluacls_func(L, "tostring", _olua_int32_tostring);
+    oluacls_prop(L, "length", _olua_int32_length, _olua_int32_length);
+    oluacls_prop(L, "rawdata", _olua_int32_rawdata, nullptr);
+    oluacls_prop(L, "sizeof", _olua_int32_size, nullptr);
+    oluacls_prop(L, "value", _olua_int32_value, _olua_int32_value);
 
     return 1;
 }
 OLUA_END_DECLS
 
-static int _olua_int64_t___gc(lua_State *L)
+static int _olua_int64___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int64_t *self = nullptr;
+    olua_int64 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int64_t");
+    olua_to_object(L, 1, &self, "olua.int64");
 
     // olua_Return __gc(lua_State *L)
     olua_Return ret = self->__gc(L);
@@ -2060,14 +2060,14 @@ static int _olua_int64_t___gc(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_int64_t___index(lua_State *L)
+static int _olua_int64___index(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int64_t *self = nullptr;
+    olua_int64 *self = nullptr;
     unsigned int arg1 = 0;       /** idx */
 
-    olua_to_object(L, 1, &self, "olua.int64_t");
+    olua_to_object(L, 1, &self, "olua.int64");
     olua_check_integer(L, 2, &arg1);
 
     // int64_t __index(unsigned int idx)
@@ -2079,15 +2079,15 @@ static int _olua_int64_t___index(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int64_t___newindex(lua_State *L)
+static int _olua_int64___newindex(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int64_t *self = nullptr;
+    olua_int64 *self = nullptr;
     unsigned int arg1 = 0;       /** idx */
     int64_t arg2 = 0;       /** v */
 
-    olua_to_object(L, 1, &self, "olua.int64_t");
+    olua_to_object(L, 1, &self, "olua.int64");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
@@ -2099,27 +2099,27 @@ static int _olua_int64_t___newindex(lua_State *L)
     return 0;
 }
 
-static int _olua_int64_t___olua_move(lua_State *L)
+static int _olua_int64___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (olua_int64_t *)olua_toobj(L, 1, "olua.int64_t");
-    olua_push_object(L, self, "olua.int64_t");
+    auto self = (olua_int64 *)olua_toobj(L, 1, "olua.int64");
+    olua_push_object(L, self, "olua.int64");
 
     olua_endinvoke(L);
 
     return 1;
 }
 
-static int _olua_int64_t_assign(lua_State *L)
+static int _olua_int64_assign(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int64_t *self = nullptr;
+    olua_int64 *self = nullptr;
     const char *arg1 = nullptr;       /** data */
     size_t arg2 = 0;       /** len */
 
-    olua_to_object(L, 1, &self, "olua.int64_t");
+    olua_to_object(L, 1, &self, "olua.int64");
     olua_check_string(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
@@ -2131,7 +2131,7 @@ static int _olua_int64_t_assign(lua_State *L)
     return 0;
 }
 
-static int _olua_int64_t_create$1(lua_State *L)
+static int _olua_int64_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2139,9 +2139,9 @@ static int _olua_int64_t_create$1(lua_State *L)
 
     olua_check_integer(L, 1, &arg1);
 
-    // @postnew @name(new) static olua_int64_t *create(@optional size_t len)
-    olua_int64_t *ret = olua_int64_t::create(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.int64_t");
+    // @postnew @name(new) static olua_int64 *create(@optional size_t len)
+    olua_int64 *ret = olua_int64::create(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.int64");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -2151,13 +2151,13 @@ static int _olua_int64_t_create$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int64_t_create$2(lua_State *L)
+static int _olua_int64_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // @postnew @name(new) static olua_int64_t *create(@optional size_t len)
-    olua_int64_t *ret = olua_int64_t::create();
-    int num_ret = olua_push_object(L, ret, "olua.int64_t");
+    // @postnew @name(new) static olua_int64 *create(@optional size_t len)
+    olua_int64 *ret = olua_int64::create();
+    int num_ret = olua_push_object(L, ret, "olua.int64");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -2167,42 +2167,42 @@ static int _olua_int64_t_create$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int64_t_create(lua_State *L)
+static int _olua_int64_create(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
-        // @postnew @name(new) static olua_int64_t *create(@optional size_t len)
-        return _olua_int64_t_create$2(L);
+        // @postnew @name(new) static olua_int64 *create(@optional size_t len)
+        return _olua_int64_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 1))) {
-            // @postnew @name(new) static olua_int64_t *create(@optional size_t len)
-            return _olua_int64_t_create$1(L);
+            // @postnew @name(new) static olua_int64 *create(@optional size_t len)
+            return _olua_int64_create$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_int64_t::create' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_int64::create' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_int64_t_slice$1(lua_State *L)
+static int _olua_int64_slice$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int64_t *self = nullptr;
+    olua_int64 *self = nullptr;
     size_t arg1 = 0;       /** from */
     size_t arg2 = 0;       /** to */
 
-    olua_to_object(L, 1, &self, "olua.int64_t");
+    olua_to_object(L, 1, &self, "olua.int64");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // @postnew olua_int64_t *slice(size_t from, @optional size_t to)
-    olua_int64_t *ret = self->slice(arg1, arg2);
-    int num_ret = olua_push_object(L, ret, "olua.int64_t");
+    // @postnew olua_int64 *slice(size_t from, @optional size_t to)
+    olua_int64 *ret = self->slice(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "olua.int64");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -2212,19 +2212,19 @@ static int _olua_int64_t_slice$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int64_t_slice$2(lua_State *L)
+static int _olua_int64_slice$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int64_t *self = nullptr;
+    olua_int64 *self = nullptr;
     size_t arg1 = 0;       /** from */
 
-    olua_to_object(L, 1, &self, "olua.int64_t");
+    olua_to_object(L, 1, &self, "olua.int64");
     olua_check_integer(L, 2, &arg1);
 
-    // @postnew olua_int64_t *slice(size_t from, @optional size_t to)
-    olua_int64_t *ret = self->slice(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.int64_t");
+    // @postnew olua_int64 *slice(size_t from, @optional size_t to)
+    olua_int64 *ret = self->slice(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.int64");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -2234,44 +2234,44 @@ static int _olua_int64_t_slice$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int64_t_slice(lua_State *L)
+static int _olua_int64_slice(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // @postnew olua_int64_t *slice(size_t from, @optional size_t to)
-            return _olua_int64_t_slice$2(L);
+            // @postnew olua_int64 *slice(size_t from, @optional size_t to)
+            return _olua_int64_slice$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // @postnew olua_int64_t *slice(size_t from, @optional size_t to)
-            return _olua_int64_t_slice$1(L);
+            // @postnew olua_int64 *slice(size_t from, @optional size_t to)
+            return _olua_int64_slice$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_int64_t::slice' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_int64::slice' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_int64_t_sub$1(lua_State *L)
+static int _olua_int64_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int64_t *self = nullptr;
+    olua_int64 *self = nullptr;
     size_t arg1 = 0;       /** from */
     size_t arg2 = 0;       /** to */
 
-    olua_to_object(L, 1, &self, "olua.int64_t");
+    olua_to_object(L, 1, &self, "olua.int64");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // @postnew olua_int64_t *sub(size_t from, @optional size_t to)
-    olua_int64_t *ret = self->sub(arg1, arg2);
-    int num_ret = olua_push_object(L, ret, "olua.int64_t");
+    // @postnew olua_int64 *sub(size_t from, @optional size_t to)
+    olua_int64 *ret = self->sub(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "olua.int64");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -2281,19 +2281,19 @@ static int _olua_int64_t_sub$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int64_t_sub$2(lua_State *L)
+static int _olua_int64_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int64_t *self = nullptr;
+    olua_int64 *self = nullptr;
     size_t arg1 = 0;       /** from */
 
-    olua_to_object(L, 1, &self, "olua.int64_t");
+    olua_to_object(L, 1, &self, "olua.int64");
     olua_check_integer(L, 2, &arg1);
 
-    // @postnew olua_int64_t *sub(size_t from, @optional size_t to)
-    olua_int64_t *ret = self->sub(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.int64_t");
+    // @postnew olua_int64 *sub(size_t from, @optional size_t to)
+    olua_int64 *ret = self->sub(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.int64");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -2303,54 +2303,54 @@ static int _olua_int64_t_sub$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int64_t_sub(lua_State *L)
+static int _olua_int64_sub(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // @postnew olua_int64_t *sub(size_t from, @optional size_t to)
-            return _olua_int64_t_sub$2(L);
+            // @postnew olua_int64 *sub(size_t from, @optional size_t to)
+            return _olua_int64_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // @postnew olua_int64_t *sub(size_t from, @optional size_t to)
-            return _olua_int64_t_sub$1(L);
+            // @postnew olua_int64 *sub(size_t from, @optional size_t to)
+            return _olua_int64_sub$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_int64_t::sub' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_int64::sub' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_int64_t_take(lua_State *L)
+static int _olua_int64_take(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int64_t *self = nullptr;
+    olua_int64 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int64_t");
+    olua_to_object(L, 1, &self, "olua.int64");
 
-    // olua_int64_t *take()
-    olua_int64_t *ret = self->take();
-    int num_ret = olua_push_object(L, ret, "olua.int64_t");
+    // olua_int64 *take()
+    olua_int64 *ret = self->take();
+    int num_ret = olua_push_object(L, ret, "olua.int64");
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _olua_int64_t_tostring(lua_State *L)
+static int _olua_int64_tostring(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int64_t *self = nullptr;
+    olua_int64 *self = nullptr;
     size_t arg2 = 0;       /** len */
 
-    olua_to_object(L, 1, &self, "olua.int64_t");
+    olua_to_object(L, 1, &self, "olua.int64");
     olua_check_integer(L, 2, &arg2);
 
     // olua_Return tostring(lua_State *L, size_t len)
@@ -2361,13 +2361,13 @@ static int _olua_int64_t_tostring(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_int64_t_length(lua_State *L)
+static int _olua_int64_length(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int64_t *self = nullptr;
+    olua_int64 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int64_t");
+    olua_to_object(L, 1, &self, "olua.int64");
 
     // @getter @name(length) size_t length()
     size_t ret = self->length();
@@ -2378,13 +2378,13 @@ static int _olua_int64_t_length(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int64_t_rawdata(lua_State *L)
+static int _olua_int64_rawdata(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int64_t *self = nullptr;
+    olua_int64 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int64_t");
+    olua_to_object(L, 1, &self, "olua.int64");
 
     // @getter @name(rawdata) void *rawdata()
     void *ret = self->rawdata();
@@ -2395,13 +2395,13 @@ static int _olua_int64_t_rawdata(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int64_t_size(lua_State *L)
+static int _olua_int64_size(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int64_t *self = nullptr;
+    olua_int64 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int64_t");
+    olua_to_object(L, 1, &self, "olua.int64");
 
     // @getter @name(sizeof) size_t size()
     size_t ret = self->size();
@@ -2412,13 +2412,13 @@ static int _olua_int64_t_size(lua_State *L)
     return num_ret;
 }
 
-static int _olua_int64_t_value(lua_State *L)
+static int _olua_int64_value(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_int64_t *self = nullptr;
+    olua_int64 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.int64_t");
+    olua_to_object(L, 1, &self, "olua.int64");
 
     // @getter @name(value) const int64_t &value()
     const int64_t &ret = self->value();
@@ -2430,35 +2430,35 @@ static int _olua_int64_t_value(lua_State *L)
 }
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_olua_int64_t(lua_State *L)
+OLUA_LIB int luaopen_olua_int64(lua_State *L)
 {
-    oluacls_class<olua_int64_t>(L, "olua.int64_t");
-    oluacls_func(L, "__gc", _olua_int64_t___gc);
-    oluacls_func(L, "__index", _olua_int64_t___index);
-    oluacls_func(L, "__newindex", _olua_int64_t___newindex);
-    oluacls_func(L, "__olua_move", _olua_int64_t___olua_move);
-    oluacls_func(L, "assign", _olua_int64_t_assign);
-    oluacls_func(L, "new", _olua_int64_t_create);
-    oluacls_func(L, "slice", _olua_int64_t_slice);
-    oluacls_func(L, "sub", _olua_int64_t_sub);
-    oluacls_func(L, "take", _olua_int64_t_take);
-    oluacls_func(L, "tostring", _olua_int64_t_tostring);
-    oluacls_prop(L, "length", _olua_int64_t_length, _olua_int64_t_length);
-    oluacls_prop(L, "rawdata", _olua_int64_t_rawdata, nullptr);
-    oluacls_prop(L, "sizeof", _olua_int64_t_size, nullptr);
-    oluacls_prop(L, "value", _olua_int64_t_value, _olua_int64_t_value);
+    oluacls_class<olua_int64>(L, "olua.int64");
+    oluacls_func(L, "__gc", _olua_int64___gc);
+    oluacls_func(L, "__index", _olua_int64___index);
+    oluacls_func(L, "__newindex", _olua_int64___newindex);
+    oluacls_func(L, "__olua_move", _olua_int64___olua_move);
+    oluacls_func(L, "assign", _olua_int64_assign);
+    oluacls_func(L, "new", _olua_int64_create);
+    oluacls_func(L, "slice", _olua_int64_slice);
+    oluacls_func(L, "sub", _olua_int64_sub);
+    oluacls_func(L, "take", _olua_int64_take);
+    oluacls_func(L, "tostring", _olua_int64_tostring);
+    oluacls_prop(L, "length", _olua_int64_length, _olua_int64_length);
+    oluacls_prop(L, "rawdata", _olua_int64_rawdata, nullptr);
+    oluacls_prop(L, "sizeof", _olua_int64_size, nullptr);
+    oluacls_prop(L, "value", _olua_int64_value, _olua_int64_value);
 
     return 1;
 }
 OLUA_END_DECLS
 
-static int _olua_uint8_t___gc(lua_State *L)
+static int _olua_uint8___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint8_t *self = nullptr;
+    olua_uint8 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint8_t");
+    olua_to_object(L, 1, &self, "olua.uint8");
 
     // olua_Return __gc(lua_State *L)
     olua_Return ret = self->__gc(L);
@@ -2468,14 +2468,14 @@ static int _olua_uint8_t___gc(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_uint8_t___index(lua_State *L)
+static int _olua_uint8___index(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint8_t *self = nullptr;
+    olua_uint8 *self = nullptr;
     unsigned int arg1 = 0;       /** idx */
 
-    olua_to_object(L, 1, &self, "olua.uint8_t");
+    olua_to_object(L, 1, &self, "olua.uint8");
     olua_check_integer(L, 2, &arg1);
 
     // uint8_t __index(unsigned int idx)
@@ -2487,15 +2487,15 @@ static int _olua_uint8_t___index(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint8_t___newindex(lua_State *L)
+static int _olua_uint8___newindex(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint8_t *self = nullptr;
+    olua_uint8 *self = nullptr;
     unsigned int arg1 = 0;       /** idx */
     uint8_t arg2 = 0;       /** v */
 
-    olua_to_object(L, 1, &self, "olua.uint8_t");
+    olua_to_object(L, 1, &self, "olua.uint8");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
@@ -2507,27 +2507,27 @@ static int _olua_uint8_t___newindex(lua_State *L)
     return 0;
 }
 
-static int _olua_uint8_t___olua_move(lua_State *L)
+static int _olua_uint8___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (olua_uint8_t *)olua_toobj(L, 1, "olua.uint8_t");
-    olua_push_object(L, self, "olua.uint8_t");
+    auto self = (olua_uint8 *)olua_toobj(L, 1, "olua.uint8");
+    olua_push_object(L, self, "olua.uint8");
 
     olua_endinvoke(L);
 
     return 1;
 }
 
-static int _olua_uint8_t_assign(lua_State *L)
+static int _olua_uint8_assign(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint8_t *self = nullptr;
+    olua_uint8 *self = nullptr;
     const char *arg1 = nullptr;       /** data */
     size_t arg2 = 0;       /** len */
 
-    olua_to_object(L, 1, &self, "olua.uint8_t");
+    olua_to_object(L, 1, &self, "olua.uint8");
     olua_check_string(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
@@ -2539,7 +2539,7 @@ static int _olua_uint8_t_assign(lua_State *L)
     return 0;
 }
 
-static int _olua_uint8_t_create$1(lua_State *L)
+static int _olua_uint8_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2547,9 +2547,9 @@ static int _olua_uint8_t_create$1(lua_State *L)
 
     olua_check_integer(L, 1, &arg1);
 
-    // @postnew @name(new) static olua_uint8_t *create(@optional size_t len)
-    olua_uint8_t *ret = olua_uint8_t::create(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.uint8_t");
+    // @postnew @name(new) static olua_uint8 *create(@optional size_t len)
+    olua_uint8 *ret = olua_uint8::create(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.uint8");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -2559,13 +2559,13 @@ static int _olua_uint8_t_create$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint8_t_create$2(lua_State *L)
+static int _olua_uint8_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // @postnew @name(new) static olua_uint8_t *create(@optional size_t len)
-    olua_uint8_t *ret = olua_uint8_t::create();
-    int num_ret = olua_push_object(L, ret, "olua.uint8_t");
+    // @postnew @name(new) static olua_uint8 *create(@optional size_t len)
+    olua_uint8 *ret = olua_uint8::create();
+    int num_ret = olua_push_object(L, ret, "olua.uint8");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -2575,42 +2575,42 @@ static int _olua_uint8_t_create$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint8_t_create(lua_State *L)
+static int _olua_uint8_create(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
-        // @postnew @name(new) static olua_uint8_t *create(@optional size_t len)
-        return _olua_uint8_t_create$2(L);
+        // @postnew @name(new) static olua_uint8 *create(@optional size_t len)
+        return _olua_uint8_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 1))) {
-            // @postnew @name(new) static olua_uint8_t *create(@optional size_t len)
-            return _olua_uint8_t_create$1(L);
+            // @postnew @name(new) static olua_uint8 *create(@optional size_t len)
+            return _olua_uint8_create$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_uint8_t::create' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_uint8::create' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_uint8_t_slice$1(lua_State *L)
+static int _olua_uint8_slice$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint8_t *self = nullptr;
+    olua_uint8 *self = nullptr;
     size_t arg1 = 0;       /** from */
     size_t arg2 = 0;       /** to */
 
-    olua_to_object(L, 1, &self, "olua.uint8_t");
+    olua_to_object(L, 1, &self, "olua.uint8");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // @postnew olua_uint8_t *slice(size_t from, @optional size_t to)
-    olua_uint8_t *ret = self->slice(arg1, arg2);
-    int num_ret = olua_push_object(L, ret, "olua.uint8_t");
+    // @postnew olua_uint8 *slice(size_t from, @optional size_t to)
+    olua_uint8 *ret = self->slice(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "olua.uint8");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -2620,19 +2620,19 @@ static int _olua_uint8_t_slice$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint8_t_slice$2(lua_State *L)
+static int _olua_uint8_slice$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint8_t *self = nullptr;
+    olua_uint8 *self = nullptr;
     size_t arg1 = 0;       /** from */
 
-    olua_to_object(L, 1, &self, "olua.uint8_t");
+    olua_to_object(L, 1, &self, "olua.uint8");
     olua_check_integer(L, 2, &arg1);
 
-    // @postnew olua_uint8_t *slice(size_t from, @optional size_t to)
-    olua_uint8_t *ret = self->slice(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.uint8_t");
+    // @postnew olua_uint8 *slice(size_t from, @optional size_t to)
+    olua_uint8 *ret = self->slice(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.uint8");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -2642,44 +2642,44 @@ static int _olua_uint8_t_slice$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint8_t_slice(lua_State *L)
+static int _olua_uint8_slice(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // @postnew olua_uint8_t *slice(size_t from, @optional size_t to)
-            return _olua_uint8_t_slice$2(L);
+            // @postnew olua_uint8 *slice(size_t from, @optional size_t to)
+            return _olua_uint8_slice$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // @postnew olua_uint8_t *slice(size_t from, @optional size_t to)
-            return _olua_uint8_t_slice$1(L);
+            // @postnew olua_uint8 *slice(size_t from, @optional size_t to)
+            return _olua_uint8_slice$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_uint8_t::slice' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_uint8::slice' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_uint8_t_sub$1(lua_State *L)
+static int _olua_uint8_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint8_t *self = nullptr;
+    olua_uint8 *self = nullptr;
     size_t arg1 = 0;       /** from */
     size_t arg2 = 0;       /** to */
 
-    olua_to_object(L, 1, &self, "olua.uint8_t");
+    olua_to_object(L, 1, &self, "olua.uint8");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // @postnew olua_uint8_t *sub(size_t from, @optional size_t to)
-    olua_uint8_t *ret = self->sub(arg1, arg2);
-    int num_ret = olua_push_object(L, ret, "olua.uint8_t");
+    // @postnew olua_uint8 *sub(size_t from, @optional size_t to)
+    olua_uint8 *ret = self->sub(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "olua.uint8");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -2689,19 +2689,19 @@ static int _olua_uint8_t_sub$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint8_t_sub$2(lua_State *L)
+static int _olua_uint8_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint8_t *self = nullptr;
+    olua_uint8 *self = nullptr;
     size_t arg1 = 0;       /** from */
 
-    olua_to_object(L, 1, &self, "olua.uint8_t");
+    olua_to_object(L, 1, &self, "olua.uint8");
     olua_check_integer(L, 2, &arg1);
 
-    // @postnew olua_uint8_t *sub(size_t from, @optional size_t to)
-    olua_uint8_t *ret = self->sub(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.uint8_t");
+    // @postnew olua_uint8 *sub(size_t from, @optional size_t to)
+    olua_uint8 *ret = self->sub(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.uint8");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -2711,54 +2711,54 @@ static int _olua_uint8_t_sub$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint8_t_sub(lua_State *L)
+static int _olua_uint8_sub(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // @postnew olua_uint8_t *sub(size_t from, @optional size_t to)
-            return _olua_uint8_t_sub$2(L);
+            // @postnew olua_uint8 *sub(size_t from, @optional size_t to)
+            return _olua_uint8_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // @postnew olua_uint8_t *sub(size_t from, @optional size_t to)
-            return _olua_uint8_t_sub$1(L);
+            // @postnew olua_uint8 *sub(size_t from, @optional size_t to)
+            return _olua_uint8_sub$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_uint8_t::sub' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_uint8::sub' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_uint8_t_take(lua_State *L)
+static int _olua_uint8_take(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint8_t *self = nullptr;
+    olua_uint8 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint8_t");
+    olua_to_object(L, 1, &self, "olua.uint8");
 
-    // olua_uint8_t *take()
-    olua_uint8_t *ret = self->take();
-    int num_ret = olua_push_object(L, ret, "olua.uint8_t");
+    // olua_uint8 *take()
+    olua_uint8 *ret = self->take();
+    int num_ret = olua_push_object(L, ret, "olua.uint8");
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _olua_uint8_t_tostring(lua_State *L)
+static int _olua_uint8_tostring(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint8_t *self = nullptr;
+    olua_uint8 *self = nullptr;
     size_t arg2 = 0;       /** len */
 
-    olua_to_object(L, 1, &self, "olua.uint8_t");
+    olua_to_object(L, 1, &self, "olua.uint8");
     olua_check_integer(L, 2, &arg2);
 
     // olua_Return tostring(lua_State *L, size_t len)
@@ -2769,13 +2769,13 @@ static int _olua_uint8_t_tostring(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_uint8_t_length(lua_State *L)
+static int _olua_uint8_length(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint8_t *self = nullptr;
+    olua_uint8 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint8_t");
+    olua_to_object(L, 1, &self, "olua.uint8");
 
     // @getter @name(length) size_t length()
     size_t ret = self->length();
@@ -2786,13 +2786,13 @@ static int _olua_uint8_t_length(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint8_t_rawdata(lua_State *L)
+static int _olua_uint8_rawdata(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint8_t *self = nullptr;
+    olua_uint8 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint8_t");
+    olua_to_object(L, 1, &self, "olua.uint8");
 
     // @getter @name(rawdata) void *rawdata()
     void *ret = self->rawdata();
@@ -2803,13 +2803,13 @@ static int _olua_uint8_t_rawdata(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint8_t_size(lua_State *L)
+static int _olua_uint8_size(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint8_t *self = nullptr;
+    olua_uint8 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint8_t");
+    olua_to_object(L, 1, &self, "olua.uint8");
 
     // @getter @name(sizeof) size_t size()
     size_t ret = self->size();
@@ -2820,13 +2820,13 @@ static int _olua_uint8_t_size(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint8_t_value(lua_State *L)
+static int _olua_uint8_value(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint8_t *self = nullptr;
+    olua_uint8 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint8_t");
+    olua_to_object(L, 1, &self, "olua.uint8");
 
     // @getter @name(value) const uint8_t &value()
     const uint8_t &ret = self->value();
@@ -2838,35 +2838,35 @@ static int _olua_uint8_t_value(lua_State *L)
 }
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_olua_uint8_t(lua_State *L)
+OLUA_LIB int luaopen_olua_uint8(lua_State *L)
 {
-    oluacls_class<olua_uint8_t>(L, "olua.uint8_t");
-    oluacls_func(L, "__gc", _olua_uint8_t___gc);
-    oluacls_func(L, "__index", _olua_uint8_t___index);
-    oluacls_func(L, "__newindex", _olua_uint8_t___newindex);
-    oluacls_func(L, "__olua_move", _olua_uint8_t___olua_move);
-    oluacls_func(L, "assign", _olua_uint8_t_assign);
-    oluacls_func(L, "new", _olua_uint8_t_create);
-    oluacls_func(L, "slice", _olua_uint8_t_slice);
-    oluacls_func(L, "sub", _olua_uint8_t_sub);
-    oluacls_func(L, "take", _olua_uint8_t_take);
-    oluacls_func(L, "tostring", _olua_uint8_t_tostring);
-    oluacls_prop(L, "length", _olua_uint8_t_length, _olua_uint8_t_length);
-    oluacls_prop(L, "rawdata", _olua_uint8_t_rawdata, nullptr);
-    oluacls_prop(L, "sizeof", _olua_uint8_t_size, nullptr);
-    oluacls_prop(L, "value", _olua_uint8_t_value, _olua_uint8_t_value);
+    oluacls_class<olua_uint8>(L, "olua.uint8");
+    oluacls_func(L, "__gc", _olua_uint8___gc);
+    oluacls_func(L, "__index", _olua_uint8___index);
+    oluacls_func(L, "__newindex", _olua_uint8___newindex);
+    oluacls_func(L, "__olua_move", _olua_uint8___olua_move);
+    oluacls_func(L, "assign", _olua_uint8_assign);
+    oluacls_func(L, "new", _olua_uint8_create);
+    oluacls_func(L, "slice", _olua_uint8_slice);
+    oluacls_func(L, "sub", _olua_uint8_sub);
+    oluacls_func(L, "take", _olua_uint8_take);
+    oluacls_func(L, "tostring", _olua_uint8_tostring);
+    oluacls_prop(L, "length", _olua_uint8_length, _olua_uint8_length);
+    oluacls_prop(L, "rawdata", _olua_uint8_rawdata, nullptr);
+    oluacls_prop(L, "sizeof", _olua_uint8_size, nullptr);
+    oluacls_prop(L, "value", _olua_uint8_value, _olua_uint8_value);
 
     return 1;
 }
 OLUA_END_DECLS
 
-static int _olua_uint16_t___gc(lua_State *L)
+static int _olua_uint16___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint16_t *self = nullptr;
+    olua_uint16 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint16_t");
+    olua_to_object(L, 1, &self, "olua.uint16");
 
     // olua_Return __gc(lua_State *L)
     olua_Return ret = self->__gc(L);
@@ -2876,14 +2876,14 @@ static int _olua_uint16_t___gc(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_uint16_t___index(lua_State *L)
+static int _olua_uint16___index(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint16_t *self = nullptr;
+    olua_uint16 *self = nullptr;
     unsigned int arg1 = 0;       /** idx */
 
-    olua_to_object(L, 1, &self, "olua.uint16_t");
+    olua_to_object(L, 1, &self, "olua.uint16");
     olua_check_integer(L, 2, &arg1);
 
     // uint16_t __index(unsigned int idx)
@@ -2895,15 +2895,15 @@ static int _olua_uint16_t___index(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint16_t___newindex(lua_State *L)
+static int _olua_uint16___newindex(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint16_t *self = nullptr;
+    olua_uint16 *self = nullptr;
     unsigned int arg1 = 0;       /** idx */
     uint16_t arg2 = 0;       /** v */
 
-    olua_to_object(L, 1, &self, "olua.uint16_t");
+    olua_to_object(L, 1, &self, "olua.uint16");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
@@ -2915,27 +2915,27 @@ static int _olua_uint16_t___newindex(lua_State *L)
     return 0;
 }
 
-static int _olua_uint16_t___olua_move(lua_State *L)
+static int _olua_uint16___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (olua_uint16_t *)olua_toobj(L, 1, "olua.uint16_t");
-    olua_push_object(L, self, "olua.uint16_t");
+    auto self = (olua_uint16 *)olua_toobj(L, 1, "olua.uint16");
+    olua_push_object(L, self, "olua.uint16");
 
     olua_endinvoke(L);
 
     return 1;
 }
 
-static int _olua_uint16_t_assign(lua_State *L)
+static int _olua_uint16_assign(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint16_t *self = nullptr;
+    olua_uint16 *self = nullptr;
     const char *arg1 = nullptr;       /** data */
     size_t arg2 = 0;       /** len */
 
-    olua_to_object(L, 1, &self, "olua.uint16_t");
+    olua_to_object(L, 1, &self, "olua.uint16");
     olua_check_string(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
@@ -2947,7 +2947,7 @@ static int _olua_uint16_t_assign(lua_State *L)
     return 0;
 }
 
-static int _olua_uint16_t_create$1(lua_State *L)
+static int _olua_uint16_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2955,9 +2955,9 @@ static int _olua_uint16_t_create$1(lua_State *L)
 
     olua_check_integer(L, 1, &arg1);
 
-    // @postnew @name(new) static olua_uint16_t *create(@optional size_t len)
-    olua_uint16_t *ret = olua_uint16_t::create(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.uint16_t");
+    // @postnew @name(new) static olua_uint16 *create(@optional size_t len)
+    olua_uint16 *ret = olua_uint16::create(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.uint16");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -2967,13 +2967,13 @@ static int _olua_uint16_t_create$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint16_t_create$2(lua_State *L)
+static int _olua_uint16_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // @postnew @name(new) static olua_uint16_t *create(@optional size_t len)
-    olua_uint16_t *ret = olua_uint16_t::create();
-    int num_ret = olua_push_object(L, ret, "olua.uint16_t");
+    // @postnew @name(new) static olua_uint16 *create(@optional size_t len)
+    olua_uint16 *ret = olua_uint16::create();
+    int num_ret = olua_push_object(L, ret, "olua.uint16");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -2983,42 +2983,42 @@ static int _olua_uint16_t_create$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint16_t_create(lua_State *L)
+static int _olua_uint16_create(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
-        // @postnew @name(new) static olua_uint16_t *create(@optional size_t len)
-        return _olua_uint16_t_create$2(L);
+        // @postnew @name(new) static olua_uint16 *create(@optional size_t len)
+        return _olua_uint16_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 1))) {
-            // @postnew @name(new) static olua_uint16_t *create(@optional size_t len)
-            return _olua_uint16_t_create$1(L);
+            // @postnew @name(new) static olua_uint16 *create(@optional size_t len)
+            return _olua_uint16_create$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_uint16_t::create' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_uint16::create' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_uint16_t_slice$1(lua_State *L)
+static int _olua_uint16_slice$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint16_t *self = nullptr;
+    olua_uint16 *self = nullptr;
     size_t arg1 = 0;       /** from */
     size_t arg2 = 0;       /** to */
 
-    olua_to_object(L, 1, &self, "olua.uint16_t");
+    olua_to_object(L, 1, &self, "olua.uint16");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // @postnew olua_uint16_t *slice(size_t from, @optional size_t to)
-    olua_uint16_t *ret = self->slice(arg1, arg2);
-    int num_ret = olua_push_object(L, ret, "olua.uint16_t");
+    // @postnew olua_uint16 *slice(size_t from, @optional size_t to)
+    olua_uint16 *ret = self->slice(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "olua.uint16");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -3028,19 +3028,19 @@ static int _olua_uint16_t_slice$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint16_t_slice$2(lua_State *L)
+static int _olua_uint16_slice$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint16_t *self = nullptr;
+    olua_uint16 *self = nullptr;
     size_t arg1 = 0;       /** from */
 
-    olua_to_object(L, 1, &self, "olua.uint16_t");
+    olua_to_object(L, 1, &self, "olua.uint16");
     olua_check_integer(L, 2, &arg1);
 
-    // @postnew olua_uint16_t *slice(size_t from, @optional size_t to)
-    olua_uint16_t *ret = self->slice(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.uint16_t");
+    // @postnew olua_uint16 *slice(size_t from, @optional size_t to)
+    olua_uint16 *ret = self->slice(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.uint16");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -3050,44 +3050,44 @@ static int _olua_uint16_t_slice$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint16_t_slice(lua_State *L)
+static int _olua_uint16_slice(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // @postnew olua_uint16_t *slice(size_t from, @optional size_t to)
-            return _olua_uint16_t_slice$2(L);
+            // @postnew olua_uint16 *slice(size_t from, @optional size_t to)
+            return _olua_uint16_slice$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // @postnew olua_uint16_t *slice(size_t from, @optional size_t to)
-            return _olua_uint16_t_slice$1(L);
+            // @postnew olua_uint16 *slice(size_t from, @optional size_t to)
+            return _olua_uint16_slice$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_uint16_t::slice' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_uint16::slice' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_uint16_t_sub$1(lua_State *L)
+static int _olua_uint16_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint16_t *self = nullptr;
+    olua_uint16 *self = nullptr;
     size_t arg1 = 0;       /** from */
     size_t arg2 = 0;       /** to */
 
-    olua_to_object(L, 1, &self, "olua.uint16_t");
+    olua_to_object(L, 1, &self, "olua.uint16");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // @postnew olua_uint16_t *sub(size_t from, @optional size_t to)
-    olua_uint16_t *ret = self->sub(arg1, arg2);
-    int num_ret = olua_push_object(L, ret, "olua.uint16_t");
+    // @postnew olua_uint16 *sub(size_t from, @optional size_t to)
+    olua_uint16 *ret = self->sub(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "olua.uint16");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -3097,19 +3097,19 @@ static int _olua_uint16_t_sub$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint16_t_sub$2(lua_State *L)
+static int _olua_uint16_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint16_t *self = nullptr;
+    olua_uint16 *self = nullptr;
     size_t arg1 = 0;       /** from */
 
-    olua_to_object(L, 1, &self, "olua.uint16_t");
+    olua_to_object(L, 1, &self, "olua.uint16");
     olua_check_integer(L, 2, &arg1);
 
-    // @postnew olua_uint16_t *sub(size_t from, @optional size_t to)
-    olua_uint16_t *ret = self->sub(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.uint16_t");
+    // @postnew olua_uint16 *sub(size_t from, @optional size_t to)
+    olua_uint16 *ret = self->sub(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.uint16");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -3119,54 +3119,54 @@ static int _olua_uint16_t_sub$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint16_t_sub(lua_State *L)
+static int _olua_uint16_sub(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // @postnew olua_uint16_t *sub(size_t from, @optional size_t to)
-            return _olua_uint16_t_sub$2(L);
+            // @postnew olua_uint16 *sub(size_t from, @optional size_t to)
+            return _olua_uint16_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // @postnew olua_uint16_t *sub(size_t from, @optional size_t to)
-            return _olua_uint16_t_sub$1(L);
+            // @postnew olua_uint16 *sub(size_t from, @optional size_t to)
+            return _olua_uint16_sub$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_uint16_t::sub' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_uint16::sub' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_uint16_t_take(lua_State *L)
+static int _olua_uint16_take(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint16_t *self = nullptr;
+    olua_uint16 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint16_t");
+    olua_to_object(L, 1, &self, "olua.uint16");
 
-    // olua_uint16_t *take()
-    olua_uint16_t *ret = self->take();
-    int num_ret = olua_push_object(L, ret, "olua.uint16_t");
+    // olua_uint16 *take()
+    olua_uint16 *ret = self->take();
+    int num_ret = olua_push_object(L, ret, "olua.uint16");
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _olua_uint16_t_tostring(lua_State *L)
+static int _olua_uint16_tostring(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint16_t *self = nullptr;
+    olua_uint16 *self = nullptr;
     size_t arg2 = 0;       /** len */
 
-    olua_to_object(L, 1, &self, "olua.uint16_t");
+    olua_to_object(L, 1, &self, "olua.uint16");
     olua_check_integer(L, 2, &arg2);
 
     // olua_Return tostring(lua_State *L, size_t len)
@@ -3177,13 +3177,13 @@ static int _olua_uint16_t_tostring(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_uint16_t_length(lua_State *L)
+static int _olua_uint16_length(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint16_t *self = nullptr;
+    olua_uint16 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint16_t");
+    olua_to_object(L, 1, &self, "olua.uint16");
 
     // @getter @name(length) size_t length()
     size_t ret = self->length();
@@ -3194,13 +3194,13 @@ static int _olua_uint16_t_length(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint16_t_rawdata(lua_State *L)
+static int _olua_uint16_rawdata(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint16_t *self = nullptr;
+    olua_uint16 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint16_t");
+    olua_to_object(L, 1, &self, "olua.uint16");
 
     // @getter @name(rawdata) void *rawdata()
     void *ret = self->rawdata();
@@ -3211,13 +3211,13 @@ static int _olua_uint16_t_rawdata(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint16_t_size(lua_State *L)
+static int _olua_uint16_size(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint16_t *self = nullptr;
+    olua_uint16 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint16_t");
+    olua_to_object(L, 1, &self, "olua.uint16");
 
     // @getter @name(sizeof) size_t size()
     size_t ret = self->size();
@@ -3228,13 +3228,13 @@ static int _olua_uint16_t_size(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint16_t_value(lua_State *L)
+static int _olua_uint16_value(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint16_t *self = nullptr;
+    olua_uint16 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint16_t");
+    olua_to_object(L, 1, &self, "olua.uint16");
 
     // @getter @name(value) const uint16_t &value()
     const uint16_t &ret = self->value();
@@ -3246,35 +3246,35 @@ static int _olua_uint16_t_value(lua_State *L)
 }
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_olua_uint16_t(lua_State *L)
+OLUA_LIB int luaopen_olua_uint16(lua_State *L)
 {
-    oluacls_class<olua_uint16_t>(L, "olua.uint16_t");
-    oluacls_func(L, "__gc", _olua_uint16_t___gc);
-    oluacls_func(L, "__index", _olua_uint16_t___index);
-    oluacls_func(L, "__newindex", _olua_uint16_t___newindex);
-    oluacls_func(L, "__olua_move", _olua_uint16_t___olua_move);
-    oluacls_func(L, "assign", _olua_uint16_t_assign);
-    oluacls_func(L, "new", _olua_uint16_t_create);
-    oluacls_func(L, "slice", _olua_uint16_t_slice);
-    oluacls_func(L, "sub", _olua_uint16_t_sub);
-    oluacls_func(L, "take", _olua_uint16_t_take);
-    oluacls_func(L, "tostring", _olua_uint16_t_tostring);
-    oluacls_prop(L, "length", _olua_uint16_t_length, _olua_uint16_t_length);
-    oluacls_prop(L, "rawdata", _olua_uint16_t_rawdata, nullptr);
-    oluacls_prop(L, "sizeof", _olua_uint16_t_size, nullptr);
-    oluacls_prop(L, "value", _olua_uint16_t_value, _olua_uint16_t_value);
+    oluacls_class<olua_uint16>(L, "olua.uint16");
+    oluacls_func(L, "__gc", _olua_uint16___gc);
+    oluacls_func(L, "__index", _olua_uint16___index);
+    oluacls_func(L, "__newindex", _olua_uint16___newindex);
+    oluacls_func(L, "__olua_move", _olua_uint16___olua_move);
+    oluacls_func(L, "assign", _olua_uint16_assign);
+    oluacls_func(L, "new", _olua_uint16_create);
+    oluacls_func(L, "slice", _olua_uint16_slice);
+    oluacls_func(L, "sub", _olua_uint16_sub);
+    oluacls_func(L, "take", _olua_uint16_take);
+    oluacls_func(L, "tostring", _olua_uint16_tostring);
+    oluacls_prop(L, "length", _olua_uint16_length, _olua_uint16_length);
+    oluacls_prop(L, "rawdata", _olua_uint16_rawdata, nullptr);
+    oluacls_prop(L, "sizeof", _olua_uint16_size, nullptr);
+    oluacls_prop(L, "value", _olua_uint16_value, _olua_uint16_value);
 
     return 1;
 }
 OLUA_END_DECLS
 
-static int _olua_uint32_t___gc(lua_State *L)
+static int _olua_uint32___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint32_t *self = nullptr;
+    olua_uint32 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint32_t");
+    olua_to_object(L, 1, &self, "olua.uint32");
 
     // olua_Return __gc(lua_State *L)
     olua_Return ret = self->__gc(L);
@@ -3284,14 +3284,14 @@ static int _olua_uint32_t___gc(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_uint32_t___index(lua_State *L)
+static int _olua_uint32___index(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint32_t *self = nullptr;
+    olua_uint32 *self = nullptr;
     unsigned int arg1 = 0;       /** idx */
 
-    olua_to_object(L, 1, &self, "olua.uint32_t");
+    olua_to_object(L, 1, &self, "olua.uint32");
     olua_check_integer(L, 2, &arg1);
 
     // uint32_t __index(unsigned int idx)
@@ -3303,15 +3303,15 @@ static int _olua_uint32_t___index(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint32_t___newindex(lua_State *L)
+static int _olua_uint32___newindex(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint32_t *self = nullptr;
+    olua_uint32 *self = nullptr;
     unsigned int arg1 = 0;       /** idx */
     uint32_t arg2 = 0;       /** v */
 
-    olua_to_object(L, 1, &self, "olua.uint32_t");
+    olua_to_object(L, 1, &self, "olua.uint32");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
@@ -3323,27 +3323,27 @@ static int _olua_uint32_t___newindex(lua_State *L)
     return 0;
 }
 
-static int _olua_uint32_t___olua_move(lua_State *L)
+static int _olua_uint32___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (olua_uint32_t *)olua_toobj(L, 1, "olua.uint32_t");
-    olua_push_object(L, self, "olua.uint32_t");
+    auto self = (olua_uint32 *)olua_toobj(L, 1, "olua.uint32");
+    olua_push_object(L, self, "olua.uint32");
 
     olua_endinvoke(L);
 
     return 1;
 }
 
-static int _olua_uint32_t_assign(lua_State *L)
+static int _olua_uint32_assign(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint32_t *self = nullptr;
+    olua_uint32 *self = nullptr;
     const char *arg1 = nullptr;       /** data */
     size_t arg2 = 0;       /** len */
 
-    olua_to_object(L, 1, &self, "olua.uint32_t");
+    olua_to_object(L, 1, &self, "olua.uint32");
     olua_check_string(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
@@ -3355,7 +3355,7 @@ static int _olua_uint32_t_assign(lua_State *L)
     return 0;
 }
 
-static int _olua_uint32_t_create$1(lua_State *L)
+static int _olua_uint32_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3363,9 +3363,9 @@ static int _olua_uint32_t_create$1(lua_State *L)
 
     olua_check_integer(L, 1, &arg1);
 
-    // @postnew @name(new) static olua_uint32_t *create(@optional size_t len)
-    olua_uint32_t *ret = olua_uint32_t::create(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.uint32_t");
+    // @postnew @name(new) static olua_uint32 *create(@optional size_t len)
+    olua_uint32 *ret = olua_uint32::create(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.uint32");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -3375,13 +3375,13 @@ static int _olua_uint32_t_create$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint32_t_create$2(lua_State *L)
+static int _olua_uint32_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // @postnew @name(new) static olua_uint32_t *create(@optional size_t len)
-    olua_uint32_t *ret = olua_uint32_t::create();
-    int num_ret = olua_push_object(L, ret, "olua.uint32_t");
+    // @postnew @name(new) static olua_uint32 *create(@optional size_t len)
+    olua_uint32 *ret = olua_uint32::create();
+    int num_ret = olua_push_object(L, ret, "olua.uint32");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -3391,42 +3391,42 @@ static int _olua_uint32_t_create$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint32_t_create(lua_State *L)
+static int _olua_uint32_create(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
-        // @postnew @name(new) static olua_uint32_t *create(@optional size_t len)
-        return _olua_uint32_t_create$2(L);
+        // @postnew @name(new) static olua_uint32 *create(@optional size_t len)
+        return _olua_uint32_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 1))) {
-            // @postnew @name(new) static olua_uint32_t *create(@optional size_t len)
-            return _olua_uint32_t_create$1(L);
+            // @postnew @name(new) static olua_uint32 *create(@optional size_t len)
+            return _olua_uint32_create$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_uint32_t::create' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_uint32::create' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_uint32_t_slice$1(lua_State *L)
+static int _olua_uint32_slice$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint32_t *self = nullptr;
+    olua_uint32 *self = nullptr;
     size_t arg1 = 0;       /** from */
     size_t arg2 = 0;       /** to */
 
-    olua_to_object(L, 1, &self, "olua.uint32_t");
+    olua_to_object(L, 1, &self, "olua.uint32");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // @postnew olua_uint32_t *slice(size_t from, @optional size_t to)
-    olua_uint32_t *ret = self->slice(arg1, arg2);
-    int num_ret = olua_push_object(L, ret, "olua.uint32_t");
+    // @postnew olua_uint32 *slice(size_t from, @optional size_t to)
+    olua_uint32 *ret = self->slice(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "olua.uint32");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -3436,19 +3436,19 @@ static int _olua_uint32_t_slice$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint32_t_slice$2(lua_State *L)
+static int _olua_uint32_slice$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint32_t *self = nullptr;
+    olua_uint32 *self = nullptr;
     size_t arg1 = 0;       /** from */
 
-    olua_to_object(L, 1, &self, "olua.uint32_t");
+    olua_to_object(L, 1, &self, "olua.uint32");
     olua_check_integer(L, 2, &arg1);
 
-    // @postnew olua_uint32_t *slice(size_t from, @optional size_t to)
-    olua_uint32_t *ret = self->slice(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.uint32_t");
+    // @postnew olua_uint32 *slice(size_t from, @optional size_t to)
+    olua_uint32 *ret = self->slice(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.uint32");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -3458,44 +3458,44 @@ static int _olua_uint32_t_slice$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint32_t_slice(lua_State *L)
+static int _olua_uint32_slice(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // @postnew olua_uint32_t *slice(size_t from, @optional size_t to)
-            return _olua_uint32_t_slice$2(L);
+            // @postnew olua_uint32 *slice(size_t from, @optional size_t to)
+            return _olua_uint32_slice$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // @postnew olua_uint32_t *slice(size_t from, @optional size_t to)
-            return _olua_uint32_t_slice$1(L);
+            // @postnew olua_uint32 *slice(size_t from, @optional size_t to)
+            return _olua_uint32_slice$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_uint32_t::slice' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_uint32::slice' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_uint32_t_sub$1(lua_State *L)
+static int _olua_uint32_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint32_t *self = nullptr;
+    olua_uint32 *self = nullptr;
     size_t arg1 = 0;       /** from */
     size_t arg2 = 0;       /** to */
 
-    olua_to_object(L, 1, &self, "olua.uint32_t");
+    olua_to_object(L, 1, &self, "olua.uint32");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // @postnew olua_uint32_t *sub(size_t from, @optional size_t to)
-    olua_uint32_t *ret = self->sub(arg1, arg2);
-    int num_ret = olua_push_object(L, ret, "olua.uint32_t");
+    // @postnew olua_uint32 *sub(size_t from, @optional size_t to)
+    olua_uint32 *ret = self->sub(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "olua.uint32");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -3505,19 +3505,19 @@ static int _olua_uint32_t_sub$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint32_t_sub$2(lua_State *L)
+static int _olua_uint32_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint32_t *self = nullptr;
+    olua_uint32 *self = nullptr;
     size_t arg1 = 0;       /** from */
 
-    olua_to_object(L, 1, &self, "olua.uint32_t");
+    olua_to_object(L, 1, &self, "olua.uint32");
     olua_check_integer(L, 2, &arg1);
 
-    // @postnew olua_uint32_t *sub(size_t from, @optional size_t to)
-    olua_uint32_t *ret = self->sub(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.uint32_t");
+    // @postnew olua_uint32 *sub(size_t from, @optional size_t to)
+    olua_uint32 *ret = self->sub(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.uint32");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -3527,54 +3527,54 @@ static int _olua_uint32_t_sub$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint32_t_sub(lua_State *L)
+static int _olua_uint32_sub(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // @postnew olua_uint32_t *sub(size_t from, @optional size_t to)
-            return _olua_uint32_t_sub$2(L);
+            // @postnew olua_uint32 *sub(size_t from, @optional size_t to)
+            return _olua_uint32_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // @postnew olua_uint32_t *sub(size_t from, @optional size_t to)
-            return _olua_uint32_t_sub$1(L);
+            // @postnew olua_uint32 *sub(size_t from, @optional size_t to)
+            return _olua_uint32_sub$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_uint32_t::sub' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_uint32::sub' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_uint32_t_take(lua_State *L)
+static int _olua_uint32_take(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint32_t *self = nullptr;
+    olua_uint32 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint32_t");
+    olua_to_object(L, 1, &self, "olua.uint32");
 
-    // olua_uint32_t *take()
-    olua_uint32_t *ret = self->take();
-    int num_ret = olua_push_object(L, ret, "olua.uint32_t");
+    // olua_uint32 *take()
+    olua_uint32 *ret = self->take();
+    int num_ret = olua_push_object(L, ret, "olua.uint32");
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _olua_uint32_t_tostring(lua_State *L)
+static int _olua_uint32_tostring(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint32_t *self = nullptr;
+    olua_uint32 *self = nullptr;
     size_t arg2 = 0;       /** len */
 
-    olua_to_object(L, 1, &self, "olua.uint32_t");
+    olua_to_object(L, 1, &self, "olua.uint32");
     olua_check_integer(L, 2, &arg2);
 
     // olua_Return tostring(lua_State *L, size_t len)
@@ -3585,13 +3585,13 @@ static int _olua_uint32_t_tostring(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_uint32_t_length(lua_State *L)
+static int _olua_uint32_length(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint32_t *self = nullptr;
+    olua_uint32 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint32_t");
+    olua_to_object(L, 1, &self, "olua.uint32");
 
     // @getter @name(length) size_t length()
     size_t ret = self->length();
@@ -3602,13 +3602,13 @@ static int _olua_uint32_t_length(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint32_t_rawdata(lua_State *L)
+static int _olua_uint32_rawdata(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint32_t *self = nullptr;
+    olua_uint32 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint32_t");
+    olua_to_object(L, 1, &self, "olua.uint32");
 
     // @getter @name(rawdata) void *rawdata()
     void *ret = self->rawdata();
@@ -3619,13 +3619,13 @@ static int _olua_uint32_t_rawdata(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint32_t_size(lua_State *L)
+static int _olua_uint32_size(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint32_t *self = nullptr;
+    olua_uint32 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint32_t");
+    olua_to_object(L, 1, &self, "olua.uint32");
 
     // @getter @name(sizeof) size_t size()
     size_t ret = self->size();
@@ -3636,13 +3636,13 @@ static int _olua_uint32_t_size(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint32_t_value(lua_State *L)
+static int _olua_uint32_value(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint32_t *self = nullptr;
+    olua_uint32 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint32_t");
+    olua_to_object(L, 1, &self, "olua.uint32");
 
     // @getter @name(value) const uint32_t &value()
     const uint32_t &ret = self->value();
@@ -3654,35 +3654,35 @@ static int _olua_uint32_t_value(lua_State *L)
 }
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_olua_uint32_t(lua_State *L)
+OLUA_LIB int luaopen_olua_uint32(lua_State *L)
 {
-    oluacls_class<olua_uint32_t>(L, "olua.uint32_t");
-    oluacls_func(L, "__gc", _olua_uint32_t___gc);
-    oluacls_func(L, "__index", _olua_uint32_t___index);
-    oluacls_func(L, "__newindex", _olua_uint32_t___newindex);
-    oluacls_func(L, "__olua_move", _olua_uint32_t___olua_move);
-    oluacls_func(L, "assign", _olua_uint32_t_assign);
-    oluacls_func(L, "new", _olua_uint32_t_create);
-    oluacls_func(L, "slice", _olua_uint32_t_slice);
-    oluacls_func(L, "sub", _olua_uint32_t_sub);
-    oluacls_func(L, "take", _olua_uint32_t_take);
-    oluacls_func(L, "tostring", _olua_uint32_t_tostring);
-    oluacls_prop(L, "length", _olua_uint32_t_length, _olua_uint32_t_length);
-    oluacls_prop(L, "rawdata", _olua_uint32_t_rawdata, nullptr);
-    oluacls_prop(L, "sizeof", _olua_uint32_t_size, nullptr);
-    oluacls_prop(L, "value", _olua_uint32_t_value, _olua_uint32_t_value);
+    oluacls_class<olua_uint32>(L, "olua.uint32");
+    oluacls_func(L, "__gc", _olua_uint32___gc);
+    oluacls_func(L, "__index", _olua_uint32___index);
+    oluacls_func(L, "__newindex", _olua_uint32___newindex);
+    oluacls_func(L, "__olua_move", _olua_uint32___olua_move);
+    oluacls_func(L, "assign", _olua_uint32_assign);
+    oluacls_func(L, "new", _olua_uint32_create);
+    oluacls_func(L, "slice", _olua_uint32_slice);
+    oluacls_func(L, "sub", _olua_uint32_sub);
+    oluacls_func(L, "take", _olua_uint32_take);
+    oluacls_func(L, "tostring", _olua_uint32_tostring);
+    oluacls_prop(L, "length", _olua_uint32_length, _olua_uint32_length);
+    oluacls_prop(L, "rawdata", _olua_uint32_rawdata, nullptr);
+    oluacls_prop(L, "sizeof", _olua_uint32_size, nullptr);
+    oluacls_prop(L, "value", _olua_uint32_value, _olua_uint32_value);
 
     return 1;
 }
 OLUA_END_DECLS
 
-static int _olua_uint64_t___gc(lua_State *L)
+static int _olua_uint64___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint64_t *self = nullptr;
+    olua_uint64 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint64_t");
+    olua_to_object(L, 1, &self, "olua.uint64");
 
     // olua_Return __gc(lua_State *L)
     olua_Return ret = self->__gc(L);
@@ -3692,14 +3692,14 @@ static int _olua_uint64_t___gc(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_uint64_t___index(lua_State *L)
+static int _olua_uint64___index(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint64_t *self = nullptr;
+    olua_uint64 *self = nullptr;
     unsigned int arg1 = 0;       /** idx */
 
-    olua_to_object(L, 1, &self, "olua.uint64_t");
+    olua_to_object(L, 1, &self, "olua.uint64");
     olua_check_integer(L, 2, &arg1);
 
     // uint64_t __index(unsigned int idx)
@@ -3711,15 +3711,15 @@ static int _olua_uint64_t___index(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint64_t___newindex(lua_State *L)
+static int _olua_uint64___newindex(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint64_t *self = nullptr;
+    olua_uint64 *self = nullptr;
     unsigned int arg1 = 0;       /** idx */
     uint64_t arg2 = 0;       /** v */
 
-    olua_to_object(L, 1, &self, "olua.uint64_t");
+    olua_to_object(L, 1, &self, "olua.uint64");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
@@ -3731,27 +3731,27 @@ static int _olua_uint64_t___newindex(lua_State *L)
     return 0;
 }
 
-static int _olua_uint64_t___olua_move(lua_State *L)
+static int _olua_uint64___olua_move(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (olua_uint64_t *)olua_toobj(L, 1, "olua.uint64_t");
-    olua_push_object(L, self, "olua.uint64_t");
+    auto self = (olua_uint64 *)olua_toobj(L, 1, "olua.uint64");
+    olua_push_object(L, self, "olua.uint64");
 
     olua_endinvoke(L);
 
     return 1;
 }
 
-static int _olua_uint64_t_assign(lua_State *L)
+static int _olua_uint64_assign(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint64_t *self = nullptr;
+    olua_uint64 *self = nullptr;
     const char *arg1 = nullptr;       /** data */
     size_t arg2 = 0;       /** len */
 
-    olua_to_object(L, 1, &self, "olua.uint64_t");
+    olua_to_object(L, 1, &self, "olua.uint64");
     olua_check_string(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
@@ -3763,7 +3763,7 @@ static int _olua_uint64_t_assign(lua_State *L)
     return 0;
 }
 
-static int _olua_uint64_t_create$1(lua_State *L)
+static int _olua_uint64_create$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3771,9 +3771,9 @@ static int _olua_uint64_t_create$1(lua_State *L)
 
     olua_check_integer(L, 1, &arg1);
 
-    // @postnew @name(new) static olua_uint64_t *create(@optional size_t len)
-    olua_uint64_t *ret = olua_uint64_t::create(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.uint64_t");
+    // @postnew @name(new) static olua_uint64 *create(@optional size_t len)
+    olua_uint64 *ret = olua_uint64::create(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.uint64");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -3783,13 +3783,13 @@ static int _olua_uint64_t_create$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint64_t_create$2(lua_State *L)
+static int _olua_uint64_create$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // @postnew @name(new) static olua_uint64_t *create(@optional size_t len)
-    olua_uint64_t *ret = olua_uint64_t::create();
-    int num_ret = olua_push_object(L, ret, "olua.uint64_t");
+    // @postnew @name(new) static olua_uint64 *create(@optional size_t len)
+    olua_uint64 *ret = olua_uint64::create();
+    int num_ret = olua_push_object(L, ret, "olua.uint64");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -3799,42 +3799,42 @@ static int _olua_uint64_t_create$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint64_t_create(lua_State *L)
+static int _olua_uint64_create(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
-        // @postnew @name(new) static olua_uint64_t *create(@optional size_t len)
-        return _olua_uint64_t_create$2(L);
+        // @postnew @name(new) static olua_uint64 *create(@optional size_t len)
+        return _olua_uint64_create$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 1))) {
-            // @postnew @name(new) static olua_uint64_t *create(@optional size_t len)
-            return _olua_uint64_t_create$1(L);
+            // @postnew @name(new) static olua_uint64 *create(@optional size_t len)
+            return _olua_uint64_create$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_uint64_t::create' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_uint64::create' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_uint64_t_slice$1(lua_State *L)
+static int _olua_uint64_slice$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint64_t *self = nullptr;
+    olua_uint64 *self = nullptr;
     size_t arg1 = 0;       /** from */
     size_t arg2 = 0;       /** to */
 
-    olua_to_object(L, 1, &self, "olua.uint64_t");
+    olua_to_object(L, 1, &self, "olua.uint64");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // @postnew olua_uint64_t *slice(size_t from, @optional size_t to)
-    olua_uint64_t *ret = self->slice(arg1, arg2);
-    int num_ret = olua_push_object(L, ret, "olua.uint64_t");
+    // @postnew olua_uint64 *slice(size_t from, @optional size_t to)
+    olua_uint64 *ret = self->slice(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "olua.uint64");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -3844,19 +3844,19 @@ static int _olua_uint64_t_slice$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint64_t_slice$2(lua_State *L)
+static int _olua_uint64_slice$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint64_t *self = nullptr;
+    olua_uint64 *self = nullptr;
     size_t arg1 = 0;       /** from */
 
-    olua_to_object(L, 1, &self, "olua.uint64_t");
+    olua_to_object(L, 1, &self, "olua.uint64");
     olua_check_integer(L, 2, &arg1);
 
-    // @postnew olua_uint64_t *slice(size_t from, @optional size_t to)
-    olua_uint64_t *ret = self->slice(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.uint64_t");
+    // @postnew olua_uint64 *slice(size_t from, @optional size_t to)
+    olua_uint64 *ret = self->slice(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.uint64");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -3866,44 +3866,44 @@ static int _olua_uint64_t_slice$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint64_t_slice(lua_State *L)
+static int _olua_uint64_slice(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // @postnew olua_uint64_t *slice(size_t from, @optional size_t to)
-            return _olua_uint64_t_slice$2(L);
+            // @postnew olua_uint64 *slice(size_t from, @optional size_t to)
+            return _olua_uint64_slice$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // @postnew olua_uint64_t *slice(size_t from, @optional size_t to)
-            return _olua_uint64_t_slice$1(L);
+            // @postnew olua_uint64 *slice(size_t from, @optional size_t to)
+            return _olua_uint64_slice$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_uint64_t::slice' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_uint64::slice' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_uint64_t_sub$1(lua_State *L)
+static int _olua_uint64_sub$1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint64_t *self = nullptr;
+    olua_uint64 *self = nullptr;
     size_t arg1 = 0;       /** from */
     size_t arg2 = 0;       /** to */
 
-    olua_to_object(L, 1, &self, "olua.uint64_t");
+    olua_to_object(L, 1, &self, "olua.uint64");
     olua_check_integer(L, 2, &arg1);
     olua_check_integer(L, 3, &arg2);
 
-    // @postnew olua_uint64_t *sub(size_t from, @optional size_t to)
-    olua_uint64_t *ret = self->sub(arg1, arg2);
-    int num_ret = olua_push_object(L, ret, "olua.uint64_t");
+    // @postnew olua_uint64 *sub(size_t from, @optional size_t to)
+    olua_uint64 *ret = self->sub(arg1, arg2);
+    int num_ret = olua_push_object(L, ret, "olua.uint64");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -3913,19 +3913,19 @@ static int _olua_uint64_t_sub$1(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint64_t_sub$2(lua_State *L)
+static int _olua_uint64_sub$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint64_t *self = nullptr;
+    olua_uint64 *self = nullptr;
     size_t arg1 = 0;       /** from */
 
-    olua_to_object(L, 1, &self, "olua.uint64_t");
+    olua_to_object(L, 1, &self, "olua.uint64");
     olua_check_integer(L, 2, &arg1);
 
-    // @postnew olua_uint64_t *sub(size_t from, @optional size_t to)
-    olua_uint64_t *ret = self->sub(arg1);
-    int num_ret = olua_push_object(L, ret, "olua.uint64_t");
+    // @postnew olua_uint64 *sub(size_t from, @optional size_t to)
+    olua_uint64 *ret = self->sub(arg1);
+    int num_ret = olua_push_object(L, ret, "olua.uint64");
 
     // insert code after call
     olua_postnew(L, ret);
@@ -3935,54 +3935,54 @@ static int _olua_uint64_t_sub$2(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint64_t_sub(lua_State *L)
+static int _olua_uint64_sub(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
         // if ((olua_is_integer(L, 2))) {
-            // @postnew olua_uint64_t *sub(size_t from, @optional size_t to)
-            return _olua_uint64_t_sub$2(L);
+            // @postnew olua_uint64 *sub(size_t from, @optional size_t to)
+            return _olua_uint64_sub$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
-            // @postnew olua_uint64_t *sub(size_t from, @optional size_t to)
-            return _olua_uint64_t_sub$1(L);
+            // @postnew olua_uint64 *sub(size_t from, @optional size_t to)
+            return _olua_uint64_sub$1(L);
         // }
     }
 
-    luaL_error(L, "method 'olua_uint64_t::sub' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'olua_uint64::sub' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _olua_uint64_t_take(lua_State *L)
+static int _olua_uint64_take(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint64_t *self = nullptr;
+    olua_uint64 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint64_t");
+    olua_to_object(L, 1, &self, "olua.uint64");
 
-    // olua_uint64_t *take()
-    olua_uint64_t *ret = self->take();
-    int num_ret = olua_push_object(L, ret, "olua.uint64_t");
+    // olua_uint64 *take()
+    olua_uint64 *ret = self->take();
+    int num_ret = olua_push_object(L, ret, "olua.uint64");
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _olua_uint64_t_tostring(lua_State *L)
+static int _olua_uint64_tostring(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint64_t *self = nullptr;
+    olua_uint64 *self = nullptr;
     size_t arg2 = 0;       /** len */
 
-    olua_to_object(L, 1, &self, "olua.uint64_t");
+    olua_to_object(L, 1, &self, "olua.uint64");
     olua_check_integer(L, 2, &arg2);
 
     // olua_Return tostring(lua_State *L, size_t len)
@@ -3993,13 +3993,13 @@ static int _olua_uint64_t_tostring(lua_State *L)
     return (int)ret;
 }
 
-static int _olua_uint64_t_length(lua_State *L)
+static int _olua_uint64_length(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint64_t *self = nullptr;
+    olua_uint64 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint64_t");
+    olua_to_object(L, 1, &self, "olua.uint64");
 
     // @getter @name(length) size_t length()
     size_t ret = self->length();
@@ -4010,13 +4010,13 @@ static int _olua_uint64_t_length(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint64_t_rawdata(lua_State *L)
+static int _olua_uint64_rawdata(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint64_t *self = nullptr;
+    olua_uint64 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint64_t");
+    olua_to_object(L, 1, &self, "olua.uint64");
 
     // @getter @name(rawdata) void *rawdata()
     void *ret = self->rawdata();
@@ -4027,13 +4027,13 @@ static int _olua_uint64_t_rawdata(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint64_t_size(lua_State *L)
+static int _olua_uint64_size(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint64_t *self = nullptr;
+    olua_uint64 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint64_t");
+    olua_to_object(L, 1, &self, "olua.uint64");
 
     // @getter @name(sizeof) size_t size()
     size_t ret = self->size();
@@ -4044,13 +4044,13 @@ static int _olua_uint64_t_size(lua_State *L)
     return num_ret;
 }
 
-static int _olua_uint64_t_value(lua_State *L)
+static int _olua_uint64_value(lua_State *L)
 {
     olua_startinvoke(L);
 
-    olua_uint64_t *self = nullptr;
+    olua_uint64 *self = nullptr;
 
-    olua_to_object(L, 1, &self, "olua.uint64_t");
+    olua_to_object(L, 1, &self, "olua.uint64");
 
     // @getter @name(value) const uint64_t &value()
     const uint64_t &ret = self->value();
@@ -4062,23 +4062,23 @@ static int _olua_uint64_t_value(lua_State *L)
 }
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_olua_uint64_t(lua_State *L)
+OLUA_LIB int luaopen_olua_uint64(lua_State *L)
 {
-    oluacls_class<olua_uint64_t>(L, "olua.uint64_t");
-    oluacls_func(L, "__gc", _olua_uint64_t___gc);
-    oluacls_func(L, "__index", _olua_uint64_t___index);
-    oluacls_func(L, "__newindex", _olua_uint64_t___newindex);
-    oluacls_func(L, "__olua_move", _olua_uint64_t___olua_move);
-    oluacls_func(L, "assign", _olua_uint64_t_assign);
-    oluacls_func(L, "new", _olua_uint64_t_create);
-    oluacls_func(L, "slice", _olua_uint64_t_slice);
-    oluacls_func(L, "sub", _olua_uint64_t_sub);
-    oluacls_func(L, "take", _olua_uint64_t_take);
-    oluacls_func(L, "tostring", _olua_uint64_t_tostring);
-    oluacls_prop(L, "length", _olua_uint64_t_length, _olua_uint64_t_length);
-    oluacls_prop(L, "rawdata", _olua_uint64_t_rawdata, nullptr);
-    oluacls_prop(L, "sizeof", _olua_uint64_t_size, nullptr);
-    oluacls_prop(L, "value", _olua_uint64_t_value, _olua_uint64_t_value);
+    oluacls_class<olua_uint64>(L, "olua.uint64");
+    oluacls_func(L, "__gc", _olua_uint64___gc);
+    oluacls_func(L, "__index", _olua_uint64___index);
+    oluacls_func(L, "__newindex", _olua_uint64___newindex);
+    oluacls_func(L, "__olua_move", _olua_uint64___olua_move);
+    oluacls_func(L, "assign", _olua_uint64_assign);
+    oluacls_func(L, "new", _olua_uint64_create);
+    oluacls_func(L, "slice", _olua_uint64_slice);
+    oluacls_func(L, "sub", _olua_uint64_sub);
+    oluacls_func(L, "take", _olua_uint64_take);
+    oluacls_func(L, "tostring", _olua_uint64_tostring);
+    oluacls_prop(L, "length", _olua_uint64_length, _olua_uint64_length);
+    oluacls_prop(L, "rawdata", _olua_uint64_rawdata, nullptr);
+    oluacls_prop(L, "sizeof", _olua_uint64_size, nullptr);
+    oluacls_prop(L, "value", _olua_uint64_value, _olua_uint64_value);
 
     return 1;
 }
@@ -10209,14 +10209,14 @@ OLUA_LIB int luaopen_types(lua_State *L)
 {
     olua_require(L, "olua.bool", luaopen_olua_bool);
     olua_require(L, "olua.string", luaopen_olua_string);
-    olua_require(L, "olua.int8_t", luaopen_olua_int8_t);
-    olua_require(L, "olua.int16_t", luaopen_olua_int16_t);
-    olua_require(L, "olua.int32_t", luaopen_olua_int32_t);
-    olua_require(L, "olua.int64_t", luaopen_olua_int64_t);
-    olua_require(L, "olua.uint8_t", luaopen_olua_uint8_t);
-    olua_require(L, "olua.uint16_t", luaopen_olua_uint16_t);
-    olua_require(L, "olua.uint32_t", luaopen_olua_uint32_t);
-    olua_require(L, "olua.uint64_t", luaopen_olua_uint64_t);
+    olua_require(L, "olua.int8", luaopen_olua_int8);
+    olua_require(L, "olua.int16", luaopen_olua_int16);
+    olua_require(L, "olua.int32", luaopen_olua_int32);
+    olua_require(L, "olua.int64", luaopen_olua_int64);
+    olua_require(L, "olua.uint8", luaopen_olua_uint8);
+    olua_require(L, "olua.uint16", luaopen_olua_uint16);
+    olua_require(L, "olua.uint32", luaopen_olua_uint32);
+    olua_require(L, "olua.uint64", luaopen_olua_uint64);
     olua_require(L, "olua.char", luaopen_olua_char);
     olua_require(L, "olua.short", luaopen_olua_short);
     olua_require(L, "olua.int", luaopen_olua_int);

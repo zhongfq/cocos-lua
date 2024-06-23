@@ -2,6 +2,7 @@ local class     = require "cclua.class"
 local Event     = require "cclua.Event"
 local layouter  = require "cclua.ui.layouter"
 
+---@class LayoutBase
 local LayoutBase = class("LayoutBase")
 
 function LayoutBase:ctor()

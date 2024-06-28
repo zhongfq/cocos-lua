@@ -2800,7 +2800,6 @@ OLUA_LIB int luaopen_cocos2d_Director(lua_State *L)
     oluacls_func(L, "convertToUI", _cocos2d_Director_convertToUI);
     oluacls_func(L, "drawScene", _cocos2d_Director_drawScene);
     oluacls_func(L, "end", _cocos2d_Director_end);
-    oluacls_func(L, "exit", _cocos2d_Director_end);
     oluacls_func(L, "getActionManager", _cocos2d_Director_getActionManager);
     oluacls_func(L, "getAnimationInterval", _cocos2d_Director_getAnimationInterval);
     oluacls_func(L, "getConsole", _cocos2d_Director_getConsole);
@@ -32164,6 +32163,22 @@ static int _cocos2d_RenderTexture_begin(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_RenderTexture_beginVisit(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::RenderTexture *arg1 = nullptr;       /** rt */
+
+    olua_check_object(L, 1, &arg1, "cc.RenderTexture");
+
+    // @extend(cocos2d::RenderTextureExtend) static void beginVisit(cocos2d::RenderTexture *rt)
+    cocos2d::RenderTextureExtend::beginVisit(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cocos2d_RenderTexture_beginWithClear$1(lua_State *L)
 {
     olua_startinvoke(L);
@@ -32435,6 +32450,22 @@ static int _cocos2d_RenderTexture_end(lua_State *L)
 
     // void end()
     self->end();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_RenderTexture_endVisit(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::RenderTexture *arg1 = nullptr;       /** rt */
+
+    olua_check_object(L, 1, &arg1, "cc.RenderTexture");
+
+    // @extend(cocos2d::RenderTextureExtend) static void endVisit(cocos2d::RenderTexture *rt)
+    cocos2d::RenderTextureExtend::endVisit(arg1);
 
     olua_endinvoke(L);
 
@@ -33324,14 +33355,14 @@ OLUA_LIB int luaopen_cocos2d_RenderTexture(lua_State *L)
 {
     oluacls_class<cocos2d::RenderTexture, cocos2d::Node>(L, "cc.RenderTexture");
     oluacls_func(L, "begin", _cocos2d_RenderTexture_begin);
-    oluacls_func(L, "beginVisit", _cocos2d_RenderTexture_begin);
+    oluacls_func(L, "beginVisit", _cocos2d_RenderTexture_beginVisit);
     oluacls_func(L, "beginWithClear", _cocos2d_RenderTexture_beginWithClear);
     oluacls_func(L, "clear", _cocos2d_RenderTexture_clear);
     oluacls_func(L, "clearDepth", _cocos2d_RenderTexture_clearDepth);
     oluacls_func(L, "clearStencil", _cocos2d_RenderTexture_clearStencil);
     oluacls_func(L, "create", _cocos2d_RenderTexture_create);
     oluacls_func(L, "end", _cocos2d_RenderTexture_end);
-    oluacls_func(L, "endVisit", _cocos2d_RenderTexture_end);
+    oluacls_func(L, "endVisit", _cocos2d_RenderTexture_endVisit);
     oluacls_func(L, "getClearColor", _cocos2d_RenderTexture_getClearColor);
     oluacls_func(L, "getClearDepth", _cocos2d_RenderTexture_getClearDepth);
     oluacls_func(L, "getClearFlags", _cocos2d_RenderTexture_getClearFlags);

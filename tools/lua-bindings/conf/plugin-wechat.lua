@@ -1,8 +1,8 @@
 module 'wechat'
 
-path "../../frameworks/plugins/wechat"
+output_dir "../../frameworks/plugins/wechat"
 
--- metapath "../../addons/cclua/plugin/wechat"
+-- api_dir"../../addons/cclua/plugin/wechat"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"

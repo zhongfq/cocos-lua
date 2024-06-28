@@ -13405,6 +13405,18 @@ static int _spine_SkeletonData_create(lua_State *L)
     return 0;
 }
 
+static int _spine_SkeletonData_dispose(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // @extend(spine::SkeletonDataExtend) static olua_Return dispose(lua_State *L)
+    olua_Return ret = spine::SkeletonDataExtend::dispose(L);
+
+    olua_endinvoke(L);
+
+    return (int)ret;
+}
+
 static int _spine_SkeletonData_findAnimation(lua_State *L)
 {
     olua_startinvoke(L);
@@ -14173,7 +14185,7 @@ OLUA_LIB int luaopen_spine_SkeletonData(lua_State *L)
     oluacls_class<spine::SkeletonData, spine::SpineObject>(L, "spine.SkeletonData");
     oluacls_func(L, "__gc", _spine_SkeletonData___gc);
     oluacls_func(L, "create", _spine_SkeletonData_create);
-    oluacls_func(L, "dispose", _spine_SkeletonData___gc);
+    oluacls_func(L, "dispose", _spine_SkeletonData_dispose);
     oluacls_func(L, "findAnimation", _spine_SkeletonData_findAnimation);
     oluacls_func(L, "findBone", _spine_SkeletonData_findBone);
     oluacls_func(L, "findEvent", _spine_SkeletonData_findEvent);
@@ -14204,7 +14216,6 @@ OLUA_LIB int luaopen_spine_SkeletonData(lua_State *L)
     oluacls_func(L, "getWidth", _spine_SkeletonData_getWidth);
     oluacls_func(L, "getX", _spine_SkeletonData_getX);
     oluacls_func(L, "getY", _spine_SkeletonData_getY);
-    oluacls_func(L, "new", _spine_SkeletonData_create);
     oluacls_func(L, "setAudioPath", _spine_SkeletonData_setAudioPath);
     oluacls_func(L, "setDefaultSkin", _spine_SkeletonData_setDefaultSkin);
     oluacls_func(L, "setFps", _spine_SkeletonData_setFps);

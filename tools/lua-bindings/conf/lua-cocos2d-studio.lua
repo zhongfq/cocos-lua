@@ -1,8 +1,8 @@
 module 'cocos2d_studio'
 
-path '../../frameworks/cclua/src/lua-bindings'
+output_dir '../../frameworks/cclua/src/lua-bindings'
 
--- metapath "../../addons/cclua/cocos2d"
+-- api_dir"../../addons/cclua/cocos2d"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
@@ -11,7 +11,7 @@ headers [[
 #include "editor-support/cocostudio/CocoStudio.h"
 ]]
 
-chunk [[
+codeblock[[
 static std::string makeFrameEndCallbackTag(lua_Integer index, const std::string &key)
 {
     if (index < 0) {

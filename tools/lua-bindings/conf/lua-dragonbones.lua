@@ -1,6 +1,6 @@
 module 'dragonbones'
 
-path "../../frameworks/cclua/src/lua-bindings"
+output_dir "../../frameworks/cclua/src/lua-bindings"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
@@ -114,7 +114,6 @@ typeconf 'dragonBones::BaseFactory'
     .exclude 'getTextureAtlasData'
 
 typeconf 'dragonBones::Armature'
-    .supercls 'dragonBones::BaseObject'
     .exclude '_addBone'
     .exclude '_addConstraint'
     .exclude '_addSlot'

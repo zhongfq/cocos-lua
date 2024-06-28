@@ -1,8 +1,8 @@
 module 'cclua'
 
-path '../../frameworks/cclua/src/lua-bindings'
+output_dir '../../frameworks/cclua/src/lua-bindings'
 
--- metapath "../../addons/cclua/cclua"
+-- api_dir"../../addons/cclua/cclua"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"

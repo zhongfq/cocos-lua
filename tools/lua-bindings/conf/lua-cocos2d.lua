@@ -1,8 +1,8 @@
 module 'cocos2d'
 
-path '../../frameworks/cclua/src/lua-bindings'
+output_dir '../../frameworks/cclua/src/lua-bindings'
 
--- metapath "../../addons/cclua/cocos2d"
+-- api_dir"../../addons/cclua/cocos2d"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
@@ -14,7 +14,7 @@ headers [[
 #include "navmesh/CCNavMesh.h"
 ]]
 
-chunk [[
+codeblock[[
 static const std::string makeScheduleCallbackTag(const std::string &key)
 {
     return "schedule." + key;
@@ -55,7 +55,6 @@ typeconf 'cocos2d::Acceleration'
 
 typeconf 'cocos2d::Director'
     .exclude 'getCocos2dThreadId'
-    .alias 'end' .to 'exit'
     .func 'getRunningScene' .ret '@addref(scenes |)'
     .func 'runWithScene' .arg1 '@addref(scenes |)'
     .func 'pushScene' .arg1 '@addref(scenes |)'
@@ -82,7 +81,7 @@ typeconf 'cocos2d::ccSchedulerFunc'
 
 typeconf 'cocos2d::Scheduler'
     .exclude 'performFunctionInCocosThread'
-    .chunk [[
+    .codeblock[[
         template <typename T> bool doScheduleUpdate(lua_State *L)
         {
             if (olua_isa<T>(L, 2)) {
@@ -133,7 +132,7 @@ typeconf 'cocos2d::Scheduler'
 -- event & event listener
 --
 typeconf 'cocos2d::EventDispatcher'
-    .chunk [[
+    .codeblock[[
         static int _cocos2d_EventDispatcher_addEventListenerWithFixedPriority(lua_State *L);
 
         static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
@@ -228,7 +227,7 @@ typeconf 'cocos2d::AudioProfile'
 typeconf 'cocos2d::AudioEngine::AudioState'
 
 typeconf 'cocos2d::AudioEngine'
-    .chunk [[
+    .codeblock[[
         NS_CC_BEGIN
         class LuaAudioEngine : public cocos2d::AudioEngine
         {
@@ -337,7 +336,7 @@ typeconf 'cocos2d::MeshCommand'
     .exclude 'listenRendererRecreated'
 
 typeconf 'cocos2d::TextureCache'
-    .chunk [[
+    .codeblock[[
         static const std::string makeTextureCacheCallbackTag(const std::string &key)
         {
             return "addImageAsync." + key;
@@ -529,6 +528,7 @@ typeconf 'cocos2d::FontAtlas'
 typeconf 'cocos2d::ClippingRectangleNode'
 
 typeconf 'cocos2d::RenderTexture'
+    .extend 'cocos2d::RenderTextureExtend'
     .callback 'saveToFile'
         .localvar 'false'
         .tag_scope 'once'
@@ -540,8 +540,6 @@ typeconf 'cocos2d::RenderTexture'
         .tag_mode 'new'
         .localvar 'false'
         .tag_scope 'once'
-    .alias 'begin' .to 'beginVisit'
-    .alias 'end' .to 'endVisit'
 
 typeconf 'cocos2d::ProgressTimer::Type'
 typeconf 'cocos2d::ProgressTimer'

@@ -1,8 +1,8 @@
 module 'cocos2d_types'
 
-path "../../frameworks/cclua/src/lua-bindings"
+output_dir "../../frameworks/cclua/src/lua-bindings"
 
--- metapath "../../addons/cclua/cocos2d"
+-- api_dir"../../addons/cclua/cocos2d"
 
 headers [[
 #include "cclua/cclua.h"
@@ -15,7 +15,7 @@ headers [[
 #endif
 ]]
 
--- metapath "../../addons/cclua/cocos2d"
+-- api_dir"../../addons/cclua/cocos2d"
 
 luacls(function (cppname)
     return cppname:gsub("^cocos2d::backend::", "ccb.")

@@ -1,6 +1,7 @@
-local font                  = require "cclua.font"
-local Align                 = require "cclua.ui.Align"
-local TouchStyle            = require "cclua.ui.TouchStyle"
+local olua          = require "olua.c"
+local font          = require "cclua.font"
+local Align         = require "cclua.ui.Align"
+local TouchStyle    = require "cclua.ui.TouchStyle"
 
 local assert = assert
 

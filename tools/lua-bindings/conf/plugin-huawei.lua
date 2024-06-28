@@ -1,8 +1,8 @@
 module 'huawei'
 
-path "../../frameworks/plugins/huawei"
+output_dir "../../frameworks/plugins/huawei"
 
--- metapath "../../addons/cclua/plugin/huawei"
+-- api_dir"../../addons/cclua/plugin/huawei"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"

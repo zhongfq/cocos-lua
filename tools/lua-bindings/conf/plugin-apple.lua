@@ -1,8 +1,8 @@
 module 'apple'
 
-path "../../frameworks/plugins/apple"
+output_dir "../../frameworks/plugins/apple"
 
--- metapath "../../addons/cclua/plugin/apple"
+-- api_dir"../../addons/cclua/plugin/apple"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"

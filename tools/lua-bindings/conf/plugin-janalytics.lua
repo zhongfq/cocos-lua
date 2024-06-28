@@ -1,8 +1,8 @@
 module 'janalytics'
 
-path "../../frameworks/plugins/janalytics"
+output_dir "../../frameworks/plugins/janalytics"
 
--- metapath "../../addons/cclua/plugin/janalytics"
+-- api_dir"../../addons/cclua/plugin/janalytics"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"

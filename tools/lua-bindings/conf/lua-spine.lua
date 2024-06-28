@@ -1,8 +1,8 @@
 module 'spine'
 
-path "../../frameworks/cclua/src/lua-bindings"
+output_dir "../../frameworks/cclua/src/lua-bindings"
 
--- metapath "../../addons/cclua/spine"
+-- api_dir"../../addons/cclua/spine"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
@@ -140,8 +140,6 @@ typeconf 'spine::TrackEntry'
 typeconf 'spine::SkeletonData'
     .exclude 'new'
     .extend 'spine::SkeletonDataExtend'
-    .alias '__gc' .to 'dispose'
-    .alias 'create' .to 'new'
 
 typeconf 'spine::Skeleton'
     .exclude 'getBounds'

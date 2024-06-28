@@ -1,8 +1,8 @@
 module 'bugly'
 
-path "../../frameworks/cclua/src/bugly"
+output_dir "../../frameworks/cclua/src/bugly"
 
--- metapath "../../addons/cclua/plugin/bugly"
+-- api_dir"../../addons/cclua/plugin/bugly"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"

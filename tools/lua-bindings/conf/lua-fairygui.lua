@@ -1,8 +1,8 @@
 module 'fairygui'
 
-path "../../frameworks/cclua/src/lua-bindings"
+output_dir "../../frameworks/cclua/src/lua-bindings"
 
--- metapath "../../addons/cclua/fairygui"
+-- api_dir"../../addons/cclua/fairygui"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
@@ -17,7 +17,7 @@ headers [[
 #include "utils/html/HtmlParser.h"
 ]]
 
-chunk [[
+codeblock[[
 bool olua_is_fairygui_EventTag(lua_State *L, int idx)
 {
     return olua_isinteger(L, idx) || olua_isa<void>(L, idx);
@@ -59,7 +59,7 @@ typeconf 'fairygui::UIEventType'
 typeconf 'fairygui::EventCallback'
 
 typeconf 'fairygui::UIEventDispatcher'
-    .chunk [[
+    .codeblock[[
         static std::string makeListenerTag(lua_State *L, lua_Integer type, int tagidx)
         {
             char buf[64];
@@ -125,7 +125,7 @@ local def_gtween_ref = [[
 ]]
 
 typeconf 'fairygui::GTween'
-    .chunk [[
+    .codeblock[[
         static bool should_del_tweener_ref(lua_State *L, int idx)
         {
             if (olua_isa<fairygui::GTweener>(L, idx)) {
@@ -217,14 +217,12 @@ typeconf 'fairygui::GObject'
         .tag_mode 'equal'
 
 typeconf 'fairygui::GComponent'
-    .chunk [[
+    .codeblock[[
         static int _fairygui_GComponent_getController(lua_State *L);
         static int _fairygui_GComponent_getTransition(lua_State *L);
         static int _fairygui_GComponent_getChild(lua_State *L);
     ]]
-    .exclude 'getChildByPath'
     .exclude 'constructFromResource'
-    .alias 'resolve' .to 'getChildByPath'
     .func 'addChild' .arg1 '@addref(children |)'
     .func 'addChildAt' .arg1 '@addref(children |)'
     .func 'removeChild' .arg1 '@delref(children |)'

@@ -22,20 +22,5 @@
                 ]
             ]
         },
-        {
-            "type": "LuaHelper-Debug",
-            "request": "launch",
-            "name": "LuaPanda",
-            "description": "通用模式,通常调试项目请选择此模式",
-            "cwd": "${workspaceFolder}/assets",
-            "luaFileExtension": "",
-            "connectionPort": 8818,
-            "stopOnEntry": true,
-            "useCHook": true,
-            "args": ["--workdir", "${workspaceFolder}/assets", "--lua-debug", "luapanda"],
-            "windows": {"program": "${workspaceFolder}/build/vs-build/bin/cocoslua/Debug/cocoslua.exe"},
-            "osx": {"program": "${workspaceFolder}/build/mac-build/bin/cocoslua/Debug/cocoslua.app/Contents/MacOS/cocoslua"},
-            "autoPathMode": true
-        }
     ]
 }

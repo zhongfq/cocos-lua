@@ -1,8 +1,8 @@
 module 'jauth'
 
-path "../../frameworks/plugins/jauth"
+output_dir "../../frameworks/plugins/jauth"
 
--- metapath "../../addons/cclua/plugin/jauth"
+-- api_dir"../../addons/cclua/plugin/jauth"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"

@@ -1,8 +1,8 @@
 module 'jpush'
 
-path "../../frameworks/plugins/jpush"
+output_dir "../../frameworks/plugins/jpush"
 
--- metapath "../../addons/cclua/plugin/jpush"
+-- api_dir"../../addons/cclua/plugin/jpush"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"

@@ -1,8 +1,8 @@
 module 'talkingdata'
 
-path "../../frameworks/plugins/talkingdata"
+output_dir "../../frameworks/plugins/talkingdata"
 
--- metapath "../../addons/cclua/plugin/talkingdata"
+-- api_dir"../../addons/cclua/plugin/talkingdata"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"

@@ -1,4 +1,5 @@
 {
   "diagnostics.disable": ["redundant-return-value", "lowercase-global"],
-  "workspace.library": ["addons"]
+  "workspace.library": ["addons"],
+  "workspace.ignoreSubmodules": false
 }

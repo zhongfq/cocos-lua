@@ -1,8 +1,8 @@
 module 'oppo'
 
-path "../../frameworks/plugins/oppo"
+output_dir "../../frameworks/plugins/oppo"
 
--- metapath "../../addons/cclua/plugin/oppo"
+-- api_dir"../../addons/cclua/plugin/oppo"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"

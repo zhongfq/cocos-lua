@@ -1,8 +1,8 @@
 module 'vivo'
 
-path "../../frameworks/plugins/vivo"
+output_dir "../../frameworks/plugins/vivo"
 
--- metapath "../../addons/cclua/plugin/vivo"
+-- api_dir"../../addons/cclua/plugin/vivo"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"

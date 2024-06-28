@@ -1,8 +1,8 @@
 module 'cocos2d_action'
 
-path '../../frameworks/cclua/src/lua-bindings'
+output_dir '../../frameworks/cclua/src/lua-bindings'
 
--- metapath "../../addons/cclua/cocos2d"
+-- api_dir"../../addons/cclua/cocos2d"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"

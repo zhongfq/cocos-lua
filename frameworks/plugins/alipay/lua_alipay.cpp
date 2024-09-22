@@ -1,13 +1,15 @@
 //
-// AUTO BUILD, DON'T MODIFY!
+// AUTO GENERATED, DO NOT MODIFY!
 //
 #include "lua_alipay.h"
 #include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "alipay/alipay.h"
 
+static int _olua_module_alipay(lua_State *L);
+
 #ifdef CCLUA_BUILD_ALIPAY
-static int _cclua_plugin_alipay___gc(lua_State *L)
+static int _olua_fun_cclua_plugin_alipay___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -19,19 +21,7 @@ static int _cclua_plugin_alipay___gc(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_alipay___olua_move(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    auto self = (cclua::plugin::alipay *)olua_toobj(L, 1, "cclua.plugin.alipay");
-    olua_push_object(L, self, "cclua.plugin.alipay");
-
-    olua_endinvoke(L);
-
-    return 1;
-}
-
-static int _cclua_plugin_alipay_dispatch(lua_State *L)
+static int _olua_fun_cclua_plugin_alipay_dispatch(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -49,7 +39,7 @@ static int _cclua_plugin_alipay_dispatch(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_alipay_pay(lua_State *L)
+static int _olua_fun_cclua_plugin_alipay_pay(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -65,7 +55,7 @@ static int _cclua_plugin_alipay_pay(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_alipay_setDispatcher(lua_State *L)
+static int _olua_fun_cclua_plugin_alipay_setDispatcher(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -75,9 +65,10 @@ static int _cclua_plugin_alipay_setDispatcher(lua_State *L)
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.plugin.alipay");
     std::string cb_tag = "Dispatcher";
-    std::string cb_name = olua_setcallback(L, cb_store,  1, cb_tag.c_str(), OLUA_TAG_REPLACE);
+    std::string cb_name = olua_setcallback(L, cb_store, 1, cb_tag.c_str(), OLUA_TAG_REPLACE);
     olua_Context cb_ctx = olua_context(L);
-    arg1 = [cb_store, cb_name, cb_ctx](const std::string &arg1, const cocos2d::Value &arg2) {
+    // lua_State *ML = olua_mainthread(L);
+    arg1 = [cb_store, cb_name, cb_ctx /*, ML */](const std::string &cb_arg1, const cocos2d::Value &cb_arg2) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
@@ -85,8 +76,8 @@ static int _cclua_plugin_alipay_setDispatcher(lua_State *L)
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_string(L, arg1);
-            olua_push_cocos2d_Value(L, arg2);
+            olua_push_string(L, cb_arg1);
+            olua_push_cocos2d_Value(L, cb_arg2);
             olua_disable_objpool(L);
 
             olua_callback(L, cb_store, cb_name.c_str(), 2);
@@ -97,7 +88,7 @@ static int _cclua_plugin_alipay_setDispatcher(lua_State *L)
         }
     };
 
-    // static void setDispatcher(@localvar const cclua::Callback &dispatcher)
+    // static void setDispatcher(const cclua::Callback &dispatcher)
     cclua::plugin::alipay::setDispatcher(arg1);
 
     olua_endinvoke(L);
@@ -105,27 +96,42 @@ static int _cclua_plugin_alipay_setDispatcher(lua_State *L)
     return 0;
 }
 
+static int _olua_cls_cclua_plugin_alipay(lua_State *L)
+{
+    oluacls_class<cclua::plugin::alipay>(L, "cclua.plugin.alipay");
+    oluacls_func(L, "__gc", _olua_fun_cclua_plugin_alipay___gc);
+    oluacls_func(L, "dispatch", _olua_fun_cclua_plugin_alipay_dispatch);
+    oluacls_func(L, "pay", _olua_fun_cclua_plugin_alipay_pay);
+    oluacls_func(L, "setDispatcher", _olua_fun_cclua_plugin_alipay_setDispatcher);
+
+    return 1;
+}
+
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cclua_plugin_alipay(lua_State *L)
 {
-    oluacls_class<cclua::plugin::alipay>(L, "cclua.plugin.alipay");
-    oluacls_func(L, "__gc", _cclua_plugin_alipay___gc);
-    oluacls_func(L, "__olua_move", _cclua_plugin_alipay___olua_move);
-    oluacls_func(L, "dispatch", _cclua_plugin_alipay_dispatch);
-    oluacls_func(L, "pay", _cclua_plugin_alipay_pay);
-    oluacls_func(L, "setDispatcher", _cclua_plugin_alipay_setDispatcher);
-
+    olua_require(L, "alipay",  _olua_module_alipay);
+    if (!olua_getclass(L, "cclua.plugin.alipay")) {
+        luaL_error(L, "class not found: cclua::plugin::alipay");
+    }
     return 1;
 }
 OLUA_END_DECLS
 #endif
 
+int _olua_module_alipay(lua_State *L)
+{
+#ifdef CCLUA_BUILD_ALIPAY
+    olua_require(L, "cclua.plugin.alipay", _olua_cls_cclua_plugin_alipay);
+#endif
+
+    return 0;
+}
+
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_alipay(lua_State *L)
 {
-#ifdef CCLUA_BUILD_ALIPAY
-    olua_require(L, "cclua.plugin.alipay", luaopen_cclua_plugin_alipay);
-#endif
+    olua_require(L, "alipay",  _olua_module_alipay);
 
     return 0;
 }

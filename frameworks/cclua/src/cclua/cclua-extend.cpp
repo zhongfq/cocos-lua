@@ -515,9 +515,17 @@ olua_Return cocos2d::RectExtend::__call(lua_State *L)
     rect.size.width = (float)olua_checkfieldnumber(L, 2, "width");
     rect.size.height = (float)olua_checkfieldnumber(L, 2, "height");
     
-    olua_pushcopy_object(L, rect, olua_getluatype<cocos2d::Rect>(L));
+    olua_copy_object(L, rect, olua_getluatype<cocos2d::Rect>(L));
     
     return 1;
+}
+
+void cocos2d::RenderTextureExtend::beginVisit(cocos2d::RenderTexture *rt) {
+    rt->begin();
+}
+
+void cocos2d::RenderTextureExtend::endVisit(cocos2d::RenderTexture *rt) {
+    rt->end();
 }
 
 #ifdef CCLUA_BUILD_SPINE
@@ -549,6 +557,11 @@ olua_Return SkeletonDataExtend::__gc(lua_State *L)
         delete self;
     }
     return 0;
+}
+
+olua_Return SkeletonDataExtend::dispose(lua_State *L)
+{
+    return SkeletonDataExtend::__gc(L);
 }
 
 olua_Return SkeletonDataExtend::create(lua_State *L, const char *skel_path, const char *atlas_path, float scale)

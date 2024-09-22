@@ -1,6 +1,8 @@
 module 'spine'
 
-path "../../frameworks/cclua/src/lua-bindings"
+output_dir "../../frameworks/cclua/src/lua-bindings"
+
+api_dir"../../addons/cclua/spine"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
@@ -11,11 +13,11 @@ headers [[
 
 luaopen [[cclua::runtime::registerFeature("spine", true);]]
 
-excludetype 'spine::HasRendererObject'
-excludetype 'spine::RTTI'
-excludetype 'spine::Interpolation'
-excludetype 'spine::Vector *'
-excludetype 'spine::AnimationStateListenerObject'
+exclude_type 'spine::HasRendererObject'
+exclude_type 'spine::RTTI'
+exclude_type 'spine::Interpolation'
+exclude_type 'spine::Vector *'
+exclude_type 'spine::AnimationStateListenerObject'
 
 local function typeenum(classname)
     local cls = typeconf(classname)
@@ -53,7 +55,7 @@ typeconf 'spine::Updatable'
 typeconf 'spine::AnimationStateListener'
 
 typeconf 'spine::AnimationState'
-    .callback 'setListener' .localvar 'false'
+    .func 'setListener' .tag_usepool 'false'
 
 typeconf 'spine::AnimationStateData'
 typeconf 'spine::Animation'
@@ -133,13 +135,11 @@ typeconf 'spine::PointAttachment'
 typeconf 'spine::RegionAttachment'
 
 typeconf 'spine::TrackEntry'
-    .callback 'setListener' .localvar 'false'
+    .func 'setListener' .tag_usepool 'false'
 
 typeconf 'spine::SkeletonData'
     .exclude 'new'
     .extend 'spine::SkeletonDataExtend'
-    .alias '__gc' .to 'dispose'
-    .alias 'create' .to 'new'
 
 typeconf 'spine::Skeleton'
     .exclude 'getBounds'
@@ -163,15 +163,15 @@ typeconf 'spine::SkeletonAnimation'
     .func 'setEmptyAnimation' .ret '@addref(trackEntries |)'
     .func 'addEmptyAnimation' .ret '@addref(trackEntries |)'
     .func 'getCurrent' .ret '@addref(trackEntries |)'
-    .callback 'setStartListener' .localvar 'false'
-    .callback 'setInterruptListener' .localvar 'false'
-    .callback 'setEndListener' .localvar 'false'
-    .callback 'setDisposeListener' .localvar 'false'
-    .callback 'setCompleteListener' .localvar 'false'
-    .callback 'setEventListener' .localvar 'false'
-    .callback 'setTrackStartListener' .localvar 'false'
-    .callback 'setTrackInterruptListener' .localvar 'false'
-    .callback 'setTrackEndListener' .localvar 'false'
-    .callback 'setTrackDisposeListener' .localvar 'false'
-    .callback 'setTrackCompleteListener' .localvar 'false'
-    .callback 'setTrackEventListener' .localvar 'false'
+    .func 'setStartListener' .tag_usepool 'false'
+    .func 'setInterruptListener' .tag_usepool 'false'
+    .func 'setEndListener' .tag_usepool 'false'
+    .func 'setDisposeListener' .tag_usepool 'false'
+    .func 'setCompleteListener' .tag_usepool 'false'
+    .func 'setEventListener' .tag_usepool 'false'
+    .func 'setTrackStartListener' .tag_usepool 'false'
+    .func 'setTrackInterruptListener' .tag_usepool 'false'
+    .func 'setTrackEndListener' .tag_usepool 'false'
+    .func 'setTrackDisposeListener' .tag_usepool 'false'
+    .func 'setTrackCompleteListener' .tag_usepool 'false'
+    .func 'setTrackEventListener' .tag_usepool 'false'

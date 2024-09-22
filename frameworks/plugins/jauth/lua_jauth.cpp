@@ -1,13 +1,15 @@
 //
-// AUTO BUILD, DON'T MODIFY!
+// AUTO GENERATED, DO NOT MODIFY!
 //
 #include "lua_jauth.h"
 #include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "jauth/jauth.h"
 
+static int _olua_module_jauth(lua_State *L);
+
 #ifdef CCLUA_BUILD_JAUTH
-static int _cclua_plugin_jauth___gc(lua_State *L)
+static int _olua_fun_cclua_plugin_jauth___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -19,19 +21,7 @@ static int _cclua_plugin_jauth___gc(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_jauth___olua_move(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    auto self = (cclua::plugin::jauth *)olua_toobj(L, 1, "cclua.plugin.jauth");
-    olua_push_object(L, self, "cclua.plugin.jauth");
-
-    olua_endinvoke(L);
-
-    return 1;
-}
-
-static int _cclua_plugin_jauth_checkVerifyEnable(lua_State *L)
+static int _olua_fun_cclua_plugin_jauth_checkVerifyEnable(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -44,7 +34,7 @@ static int _cclua_plugin_jauth_checkVerifyEnable(lua_State *L)
     return num_ret;
 }
 
-static int _cclua_plugin_jauth_clearPreLoginCache(lua_State *L)
+static int _olua_fun_cclua_plugin_jauth_clearPreLoginCache(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -56,7 +46,7 @@ static int _cclua_plugin_jauth_clearPreLoginCache(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_jauth_configUI$1(lua_State *L)
+static int _olua_fun_cclua_plugin_jauth_configUI$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -74,7 +64,7 @@ static int _cclua_plugin_jauth_configUI$1(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_jauth_configUI$2(lua_State *L)
+static int _olua_fun_cclua_plugin_jauth_configUI$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -82,7 +72,7 @@ static int _cclua_plugin_jauth_configUI$2(lua_State *L)
 
     olua_check_cocos2d_ValueMap(L, 1, &arg1);
 
-    // static void configUI(const cocos2d::ValueMap &value, @optional bool landscape)
+    // static void configUI(const cocos2d::ValueMap &value)
     cclua::plugin::jauth::configUI(arg1);
 
     olua_endinvoke(L);
@@ -90,21 +80,21 @@ static int _cclua_plugin_jauth_configUI$2(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_jauth_configUI(lua_State *L)
+static int _olua_fun_cclua_plugin_jauth_configUI(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
         // if ((olua_is_cocos2d_ValueMap(L, 1))) {
-            // static void configUI(const cocos2d::ValueMap &value, @optional bool landscape)
-            return _cclua_plugin_jauth_configUI$2(L);
+            // static void configUI(const cocos2d::ValueMap &value)
+            return _olua_fun_cclua_plugin_jauth_configUI$2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cocos2d_ValueMap(L, 1)) && (olua_is_bool(L, 2))) {
             // static void configUI(const cocos2d::ValueMap &value, @optional bool landscape)
-            return _cclua_plugin_jauth_configUI$1(L);
+            return _olua_fun_cclua_plugin_jauth_configUI$1(L);
         // }
     }
 
@@ -113,7 +103,7 @@ static int _cclua_plugin_jauth_configUI(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_jauth_dismissLoginAuth$1(lua_State *L)
+static int _olua_fun_cclua_plugin_jauth_dismissLoginAuth$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -129,11 +119,11 @@ static int _cclua_plugin_jauth_dismissLoginAuth$1(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_jauth_dismissLoginAuth$2(lua_State *L)
+static int _olua_fun_cclua_plugin_jauth_dismissLoginAuth$2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // static void dismissLoginAuth(@optional bool needCloseAnim)
+    // static void dismissLoginAuth()
     cclua::plugin::jauth::dismissLoginAuth();
 
     olua_endinvoke(L);
@@ -141,19 +131,19 @@ static int _cclua_plugin_jauth_dismissLoginAuth$2(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_jauth_dismissLoginAuth(lua_State *L)
+static int _olua_fun_cclua_plugin_jauth_dismissLoginAuth(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
-        // static void dismissLoginAuth(@optional bool needCloseAnim)
-        return _cclua_plugin_jauth_dismissLoginAuth$2(L);
+        // static void dismissLoginAuth()
+        return _olua_fun_cclua_plugin_jauth_dismissLoginAuth$2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_bool(L, 1))) {
             // static void dismissLoginAuth(@optional bool needCloseAnim)
-            return _cclua_plugin_jauth_dismissLoginAuth$1(L);
+            return _olua_fun_cclua_plugin_jauth_dismissLoginAuth$1(L);
         // }
     }
 
@@ -162,7 +152,7 @@ static int _cclua_plugin_jauth_dismissLoginAuth(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_jauth_dispatch(lua_State *L)
+static int _olua_fun_cclua_plugin_jauth_dispatch(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -180,7 +170,7 @@ static int _cclua_plugin_jauth_dispatch(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_jauth_getSmsCode(lua_State *L)
+static int _olua_fun_cclua_plugin_jauth_getSmsCode(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -200,7 +190,7 @@ static int _cclua_plugin_jauth_getSmsCode(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_jauth_getToken(lua_State *L)
+static int _olua_fun_cclua_plugin_jauth_getToken(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -216,7 +206,7 @@ static int _cclua_plugin_jauth_getToken(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_jauth_init(lua_State *L)
+static int _olua_fun_cclua_plugin_jauth_init(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -234,7 +224,7 @@ static int _cclua_plugin_jauth_init(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_jauth_isInitSuccess(lua_State *L)
+static int _olua_fun_cclua_plugin_jauth_isInitSuccess(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -247,7 +237,7 @@ static int _cclua_plugin_jauth_isInitSuccess(lua_State *L)
     return num_ret;
 }
 
-static int _cclua_plugin_jauth_loginAuth(lua_State *L)
+static int _olua_fun_cclua_plugin_jauth_loginAuth(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -263,7 +253,7 @@ static int _cclua_plugin_jauth_loginAuth(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_jauth_preLogin(lua_State *L)
+static int _olua_fun_cclua_plugin_jauth_preLogin(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -279,7 +269,7 @@ static int _cclua_plugin_jauth_preLogin(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_jauth_setDebug(lua_State *L)
+static int _olua_fun_cclua_plugin_jauth_setDebug(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -295,7 +285,7 @@ static int _cclua_plugin_jauth_setDebug(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_jauth_setDispatcher(lua_State *L)
+static int _olua_fun_cclua_plugin_jauth_setDispatcher(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -305,9 +295,10 @@ static int _cclua_plugin_jauth_setDispatcher(lua_State *L)
 
     void *cb_store = (void *)olua_pushclassobj(L, "cclua.plugin.jauth");
     std::string cb_tag = "Dispatcher";
-    std::string cb_name = olua_setcallback(L, cb_store,  1, cb_tag.c_str(), OLUA_TAG_REPLACE);
+    std::string cb_name = olua_setcallback(L, cb_store, 1, cb_tag.c_str(), OLUA_TAG_REPLACE);
     olua_Context cb_ctx = olua_context(L);
-    arg1 = [cb_store, cb_name, cb_ctx](const std::string &arg1, const cocos2d::Value &arg2) {
+    // lua_State *ML = olua_mainthread(L);
+    arg1 = [cb_store, cb_name, cb_ctx /*, ML */](const std::string &cb_arg1, const cocos2d::Value &cb_arg2) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
@@ -315,8 +306,8 @@ static int _cclua_plugin_jauth_setDispatcher(lua_State *L)
             int top = lua_gettop(L);
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_string(L, arg1);
-            olua_push_cocos2d_Value(L, arg2);
+            olua_push_string(L, cb_arg1);
+            olua_push_cocos2d_Value(L, cb_arg2);
             olua_disable_objpool(L);
 
             olua_callback(L, cb_store, cb_name.c_str(), 2);
@@ -327,7 +318,7 @@ static int _cclua_plugin_jauth_setDispatcher(lua_State *L)
         }
     };
 
-    // static void setDispatcher(@localvar const cclua::Callback &dispatcher)
+    // static void setDispatcher(const cclua::Callback &dispatcher)
     cclua::plugin::jauth::setDispatcher(arg1);
 
     olua_endinvoke(L);
@@ -335,7 +326,7 @@ static int _cclua_plugin_jauth_setDispatcher(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_jauth_setSmsIntervalTime(lua_State *L)
+static int _olua_fun_cclua_plugin_jauth_setSmsIntervalTime(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -351,41 +342,56 @@ static int _cclua_plugin_jauth_setSmsIntervalTime(lua_State *L)
     return 0;
 }
 
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cclua_plugin_jauth(lua_State *L)
+static int _olua_cls_cclua_plugin_jauth(lua_State *L)
 {
     oluacls_class<cclua::plugin::jauth>(L, "cclua.plugin.jauth");
-    oluacls_func(L, "__gc", _cclua_plugin_jauth___gc);
-    oluacls_func(L, "__olua_move", _cclua_plugin_jauth___olua_move);
-    oluacls_func(L, "checkVerifyEnable", _cclua_plugin_jauth_checkVerifyEnable);
-    oluacls_func(L, "clearPreLoginCache", _cclua_plugin_jauth_clearPreLoginCache);
-    oluacls_func(L, "configUI", _cclua_plugin_jauth_configUI);
-    oluacls_func(L, "dismissLoginAuth", _cclua_plugin_jauth_dismissLoginAuth);
-    oluacls_func(L, "dispatch", _cclua_plugin_jauth_dispatch);
-    oluacls_func(L, "getSmsCode", _cclua_plugin_jauth_getSmsCode);
-    oluacls_func(L, "getToken", _cclua_plugin_jauth_getToken);
-    oluacls_func(L, "init", _cclua_plugin_jauth_init);
-    oluacls_func(L, "isInitSuccess", _cclua_plugin_jauth_isInitSuccess);
-    oluacls_func(L, "loginAuth", _cclua_plugin_jauth_loginAuth);
-    oluacls_func(L, "preLogin", _cclua_plugin_jauth_preLogin);
-    oluacls_func(L, "setDebug", _cclua_plugin_jauth_setDebug);
-    oluacls_func(L, "setDispatcher", _cclua_plugin_jauth_setDispatcher);
-    oluacls_func(L, "setSmsIntervalTime", _cclua_plugin_jauth_setSmsIntervalTime);
-    oluacls_prop(L, "initSuccess", _cclua_plugin_jauth_isInitSuccess, nullptr);
+    oluacls_func(L, "__gc", _olua_fun_cclua_plugin_jauth___gc);
+    oluacls_func(L, "checkVerifyEnable", _olua_fun_cclua_plugin_jauth_checkVerifyEnable);
+    oluacls_func(L, "clearPreLoginCache", _olua_fun_cclua_plugin_jauth_clearPreLoginCache);
+    oluacls_func(L, "configUI", _olua_fun_cclua_plugin_jauth_configUI);
+    oluacls_func(L, "dismissLoginAuth", _olua_fun_cclua_plugin_jauth_dismissLoginAuth);
+    oluacls_func(L, "dispatch", _olua_fun_cclua_plugin_jauth_dispatch);
+    oluacls_func(L, "getSmsCode", _olua_fun_cclua_plugin_jauth_getSmsCode);
+    oluacls_func(L, "getToken", _olua_fun_cclua_plugin_jauth_getToken);
+    oluacls_func(L, "init", _olua_fun_cclua_plugin_jauth_init);
+    oluacls_func(L, "isInitSuccess", _olua_fun_cclua_plugin_jauth_isInitSuccess);
+    oluacls_func(L, "loginAuth", _olua_fun_cclua_plugin_jauth_loginAuth);
+    oluacls_func(L, "preLogin", _olua_fun_cclua_plugin_jauth_preLogin);
+    oluacls_func(L, "setDebug", _olua_fun_cclua_plugin_jauth_setDebug);
+    oluacls_func(L, "setDispatcher", _olua_fun_cclua_plugin_jauth_setDispatcher);
+    oluacls_func(L, "setSmsIntervalTime", _olua_fun_cclua_plugin_jauth_setSmsIntervalTime);
+    oluacls_prop(L, "initSuccess", _olua_fun_cclua_plugin_jauth_isInitSuccess, nullptr);
 
     cclua::runtime::registerFeature("cclua.plugin.jauth.ios", true);
 
     return 1;
 }
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_plugin_jauth(lua_State *L)
+{
+    olua_require(L, "jauth",  _olua_module_jauth);
+    if (!olua_getclass(L, "cclua.plugin.jauth")) {
+        luaL_error(L, "class not found: cclua::plugin::jauth");
+    }
+    return 1;
+}
 OLUA_END_DECLS
 #endif
+
+int _olua_module_jauth(lua_State *L)
+{
+#ifdef CCLUA_BUILD_JAUTH
+    olua_require(L, "cclua.plugin.jauth", _olua_cls_cclua_plugin_jauth);
+#endif
+
+    return 0;
+}
 
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_jauth(lua_State *L)
 {
-#ifdef CCLUA_BUILD_JAUTH
-    olua_require(L, "cclua.plugin.jauth", luaopen_cclua_plugin_jauth);
-#endif
+    olua_require(L, "jauth",  _olua_module_jauth);
 
     return 0;
 }

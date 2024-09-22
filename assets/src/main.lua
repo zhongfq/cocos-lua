@@ -6,6 +6,6 @@ function main()
     local Console = require('system.console.Console')
     cclua.stage:addChild(Console.new())
 
-    cclua.startScene('test.SpineTest')
-    -- cclua.startScene('test.FGUITest')
+    -- cclua.startScene('test.SpineTest')
+    cclua.startScene('test.FGUITest')
 end

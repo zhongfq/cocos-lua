@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2019-2022 codetypes@gmail.com
+ * Copyright (c) 2019-2024 codetypes@gmail.com
  *
  * https://github.com/zhongfq/olua
  *
@@ -62,14 +62,6 @@ OLUA_BEGIN_DECLS
 #endif
 #endif // olua_assert
 
-#ifndef olua_debug_assert
-#ifdef OLUA_DEBUG
-#define olua_debug_assert(e, msg) assert((e) && (msg))
-#else
-#define olua_debug_assert(e, msg) ((void)0)
-#endif
-#endif // olua_debug_assert
-
 #define olua_noapi(api) static_assert(false, #api" is not defined")
 
 #if !defined(olua_likely)
@@ -86,11 +78,15 @@ OLUA_BEGIN_DECLS
 #define OLUA_API extern
 #endif
 
+#ifndef OLUA_LIB
 #ifdef _WIN32
 #define OLUA_LIB __declspec(dllexport)
+#elif defined(__cplusplus)
+#define OLUA_LIB __attribute__((visibility ("default")))
 #else
 #define OLUA_LIB extern
-#endif
+#endif // _WIN32
+#endif // OLUA_LIB
 
 // olua config file: https://codetypes.com/posts/c505b168/
 #ifdef OLUA_AUTOCONF
@@ -125,7 +121,7 @@ OLUA_BEGIN_DECLS
 
 // max cpp type size
 #ifndef OLUA_MAX_CPPTYPE
-#define OLUA_MAX_CPPTYPE 256
+#define OLUA_MAX_CPPTYPE 512
 #endif
     
 // object status
@@ -135,6 +131,7 @@ OLUA_BEGIN_DECLS
 
 // default super class of object
 #define OLUA_VOIDCLS "void *"
+#define OLUA_OLUALIB "olua.c"
 
 // any type
 #define LUA_TANY (LUA_TNONE - 1000)
@@ -212,14 +209,15 @@ OLUA_API bool olua_getrawobj(lua_State *L, void *obj);
 #define OLUA_FLAG_IN_POOL       1 << 10 // object in pool
 #define OLUA_FLAG_IN_SMARTPRT   1 << 11 // object in smartptr
 
-OLUA_API void olua_setobjflag(lua_State *L, int idx, int flag);
-OLUA_API bool olua_hasobjflag(lua_State *L, int idx, int flag);
+OLUA_API void olua_setobjflag(lua_State *L, int idx, unsigned flag);
+OLUA_API bool olua_hasobjflag(lua_State *L, int idx, unsigned flag);
 
 // manipulate userdata api
 OLUA_API const char *olua_typename(lua_State *L, int idx);
 OLUA_API bool olua_isa(lua_State *L, int idx, const char *cls);
 OLUA_API void *olua_newobjstub(lua_State *L, const char *cls);
 OLUA_API int olua_pushobjstub(lua_State *L, void *obj, void *stub, const char *cls);
+OLUA_API void olua_emplaceobj(lua_State *L, int idx, void *obj, const char *cls);
 OLUA_API int olua_pushobj(lua_State *L, void *obj, const char *cls);
 OLUA_API void *olua_checkobj(lua_State *L, int idx, const char *cls);
 OLUA_API void *olua_toobj(lua_State *L, int idx, const char *cls);
@@ -370,7 +368,6 @@ OLUA_API int lua_absindex(lua_State *L, int idx);
 OLUA_API int luaL_getsubtable (lua_State *L, int idx, const char *fname);
 OLUA_API void luaL_setfuncs(lua_State *L, const luaL_Reg *l, int nup);
 OLUA_API void luaL_traceback(lua_State *L, lua_State *L1, const char *msg, int level);
-OLUA_API void luaL_requiref(lua_State *L, const char *modname, lua_CFunction openf, int glb);
 OLUA_API void *luaL_testudata(lua_State *L, int ud, const char *tname);
 
 OLUA_API void olua_initcompat(lua_State *L);

@@ -1,6 +1,6 @@
 module 'dragonbones'
 
-path "../../frameworks/cclua/src/lua-bindings"
+output_dir "../../frameworks/cclua/src/lua-bindings"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
@@ -18,10 +18,10 @@ luacls(function (cppname)
     return cppname
 end)
 
-excludetype 'dragonBones::Matrix'
-excludetype 'dragonBones::Transform'
-excludetype 'dragonBones::ColorTransform'
-excludetype 'dragonBones::MeshDisplayData'
+exclude_type 'dragonBones::Matrix'
+exclude_type 'dragonBones::Transform'
+exclude_type 'dragonBones::ColorTransform'
+exclude_type 'dragonBones::MeshDisplayData'
 
 typeconf 'dragonBones::Rectangle'
 
@@ -48,13 +48,6 @@ typeconf 'dragonBones::TimelineData'
 
 typeconf 'dragonBones::IAnimatable'
 typeconf 'dragonBones::WorldClock'
-    .exclude 'clock'
-    .prop 'clock'
-        .get [[
-        {
-            olua_pushobj(L, &dragonBones::WorldClock::clock);
-            return 1;
-        }]]
 
 typeconf 'dragonBones::Slot'
     .exclude 'getDisplayList'
@@ -114,7 +107,6 @@ typeconf 'dragonBones::BaseFactory'
     .exclude 'getTextureAtlasData'
 
 typeconf 'dragonBones::Armature'
-    .supercls 'dragonBones::BaseObject'
     .exclude '_addBone'
     .exclude '_addConstraint'
     .exclude '_addSlot'
@@ -126,10 +118,10 @@ typeconf 'dragonBones::CCFactory'
 typeconf 'dragonBones::IEventDispatcher'
 typeconf 'dragonBones::IArmatureProxy'
 typeconf 'dragonBones::CCArmatureDisplay'
-    .callback 'addDBEventListener'
+    .func 'addDBEventListener'
         .tag_maker '(#1)'
         .tag_mode 'new'
-    .callback 'removeDBEventListener'
+    .func 'removeDBEventListener'
+        .arg2 '@nullable'
         .tag_maker '(#1)'
         .tag_mode 'equal'
-        .arg2 '@nullable'

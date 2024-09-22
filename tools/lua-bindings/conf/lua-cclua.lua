@@ -1,6 +1,8 @@
 module 'cclua'
 
-path '../../frameworks/cclua/src/lua-bindings'
+output_dir '../../frameworks/cclua/src/lua-bindings'
+
+api_dir"../../addons/cclua/cclua"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
@@ -8,7 +10,7 @@ headers [[
 #include "cclua/cclua.h"
 ]]
 
-excludetype 'cclua::BufferReader'
+exclude_type 'cclua::BufferReader'
 
 typeconf 'cclua::Callback'
 typeconf 'cclua::QRCode::ECLevel'
@@ -17,7 +19,7 @@ typeconf 'cclua::QRCode'
 typeconf 'cclua::SceneNoCamera'
     .macro '#if (CC_USE_PHYSICS || (CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION))'
     .func 'createWithPhysics'
-    .macro ''
+    .macro '#endif'
 typeconf 'cclua::permission::status'
     .indexerror 'rw'
 typeconf 'cclua::permission::android'
@@ -40,30 +42,30 @@ typeconf 'cclua::permission'
         }]]
 
 typeconf 'cclua::runtime'
-    .callback 'setDispatcher' .tag_mode 'replace'
-    .callback 'openURL' .tag_mode 'new' .tag_scope 'once'
-    .callback 'requestPermission' .tag_mode 'new' .tag_scope 'once'
-    .callback 'alert' .tag_mode 'new' .tag_scope 'once'
+    .func 'setDispatcher' .tag_mode 'replace'
+    .func 'openURL' .tag_mode 'new' .tag_scope 'once'
+    .func 'requestPermission' .tag_mode 'new' .tag_scope 'once'
+    .func 'alert' .tag_mode 'new' .tag_scope 'once'
 
 typeconf 'cclua::filesystem'
 typeconf 'cclua::preferences'
 
 typeconf 'cclua::timer'
-    .callback 'delayWithTag'
+    .func 'delayWithTag'
         .tag_mode 'replace'
         .tag_maker '(#2)'
         .tag_scope 'once'
-    .callback 'killDelay'
+    .func 'killDelay'
         .tag_maker '(#1)'
         .tag_mode 'equal'
-    .callback 'delay'
+    .func 'delay'
         .tag_mode 'new'
         .tag_maker 'delay'
         .tag_scope 'once'
-    .callback 'schedule'
+    .func 'schedule'
         .tag_mode 'replace'
         .tag_maker '(#2)'
-    .callback 'unschedule'
+    .func 'unschedule'
         .tag_mode 'equal'
         .tag_maker '(#1)'
 
@@ -82,7 +84,7 @@ typeconf 'cclua::microphone'
     .luaopen 'cclua::runtime::registerFeature("cclua.microphone", true);'
 typeconf 'cclua::photo'
     .luaopen 'cclua::runtime::registerFeature("cclua.photo", true);'
-    .callback 'selectAvatar' .tag_mode 'replace' .tag_maker 'select' .tag_scope 'once'
-    .callback 'takeAvatar' .tag_mode 'replace' .tag_maker 'select' .tag_scope 'once'
-    .callback 'select' .tag_mode 'replace' .tag_maker 'select' .tag_scope 'once'
-macro ''
+    .func 'selectAvatar' .tag_mode 'replace' .tag_maker 'select' .tag_scope 'once'
+    .func 'takeAvatar' .tag_mode 'replace' .tag_maker 'select' .tag_scope 'once'
+    .func 'select' .tag_mode 'replace' .tag_maker 'select' .tag_scope 'once'
+macro '#endif'

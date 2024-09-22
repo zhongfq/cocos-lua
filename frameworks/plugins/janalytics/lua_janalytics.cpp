@@ -1,14 +1,15 @@
 //
-// AUTO BUILD, DON'T MODIFY!
+// AUTO GENERATED, DO NOT MODIFY!
 //
 #include "lua_janalytics.h"
 #include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "janalytics/janalytics.h"
 
+static int _olua_module_janalytics(lua_State *L);
+
 #ifdef CCLUA_BUILD_JANALYTICS
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cclua_plugin_janalytics_EventType(lua_State *L)
+static int _olua_cls_cclua_plugin_janalytics_EventType(lua_State *L)
 {
     oluacls_class<cclua::plugin::janalytics::EventType>(L, "cclua.plugin.janalytics.EventType");
     oluacls_func(L, "__index", olua_indexerror);
@@ -22,11 +23,21 @@ OLUA_LIB int luaopen_cclua_plugin_janalytics_EventType(lua_State *L)
 
     return 1;
 }
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_plugin_janalytics_EventType(lua_State *L)
+{
+    olua_require(L, "janalytics",  _olua_module_janalytics);
+    if (!olua_getclass(L, "cclua.plugin.janalytics.EventType")) {
+        luaL_error(L, "class not found: cclua::plugin::janalytics::EventType");
+    }
+    return 1;
+}
 OLUA_END_DECLS
 #endif
 
 #ifdef CCLUA_BUILD_JANALYTICS
-static int _cclua_plugin_janalytics___gc(lua_State *L)
+static int _olua_fun_cclua_plugin_janalytics___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -38,19 +49,7 @@ static int _cclua_plugin_janalytics___gc(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_janalytics___olua_move(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    auto self = (cclua::plugin::janalytics *)olua_toobj(L, 1, "cclua.plugin.janalytics");
-    olua_push_object(L, self, "cclua.plugin.janalytics");
-
-    olua_endinvoke(L);
-
-    return 1;
-}
-
-static int _cclua_plugin_janalytics_detachAccount(lua_State *L)
+static int _olua_fun_cclua_plugin_janalytics_detachAccount(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -62,7 +61,7 @@ static int _cclua_plugin_janalytics_detachAccount(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_janalytics_identifyAccount(lua_State *L)
+static int _olua_fun_cclua_plugin_janalytics_identifyAccount(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -78,7 +77,7 @@ static int _cclua_plugin_janalytics_identifyAccount(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_janalytics_init(lua_State *L)
+static int _olua_fun_cclua_plugin_janalytics_init(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -96,7 +95,7 @@ static int _cclua_plugin_janalytics_init(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_janalytics_setDebug(lua_State *L)
+static int _olua_fun_cclua_plugin_janalytics_setDebug(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -112,7 +111,7 @@ static int _cclua_plugin_janalytics_setDebug(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_janalytics_setFrequency(lua_State *L)
+static int _olua_fun_cclua_plugin_janalytics_setFrequency(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -128,7 +127,7 @@ static int _cclua_plugin_janalytics_setFrequency(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_janalytics_startTrackPage(lua_State *L)
+static int _olua_fun_cclua_plugin_janalytics_startTrackPage(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -144,7 +143,7 @@ static int _cclua_plugin_janalytics_startTrackPage(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_janalytics_stopTrackPage(lua_State *L)
+static int _olua_fun_cclua_plugin_janalytics_stopTrackPage(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -160,7 +159,7 @@ static int _cclua_plugin_janalytics_stopTrackPage(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_janalytics_trackEvent(lua_State *L)
+static int _olua_fun_cclua_plugin_janalytics_trackEvent(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -178,35 +177,50 @@ static int _cclua_plugin_janalytics_trackEvent(lua_State *L)
     return 0;
 }
 
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cclua_plugin_janalytics(lua_State *L)
+static int _olua_cls_cclua_plugin_janalytics(lua_State *L)
 {
     oluacls_class<cclua::plugin::janalytics>(L, "cclua.plugin.janalytics");
-    oluacls_func(L, "__gc", _cclua_plugin_janalytics___gc);
-    oluacls_func(L, "__olua_move", _cclua_plugin_janalytics___olua_move);
-    oluacls_func(L, "detachAccount", _cclua_plugin_janalytics_detachAccount);
-    oluacls_func(L, "identifyAccount", _cclua_plugin_janalytics_identifyAccount);
-    oluacls_func(L, "init", _cclua_plugin_janalytics_init);
-    oluacls_func(L, "setDebug", _cclua_plugin_janalytics_setDebug);
-    oluacls_func(L, "setFrequency", _cclua_plugin_janalytics_setFrequency);
-    oluacls_func(L, "startTrackPage", _cclua_plugin_janalytics_startTrackPage);
-    oluacls_func(L, "stopTrackPage", _cclua_plugin_janalytics_stopTrackPage);
-    oluacls_func(L, "trackEvent", _cclua_plugin_janalytics_trackEvent);
+    oluacls_func(L, "__gc", _olua_fun_cclua_plugin_janalytics___gc);
+    oluacls_func(L, "detachAccount", _olua_fun_cclua_plugin_janalytics_detachAccount);
+    oluacls_func(L, "identifyAccount", _olua_fun_cclua_plugin_janalytics_identifyAccount);
+    oluacls_func(L, "init", _olua_fun_cclua_plugin_janalytics_init);
+    oluacls_func(L, "setDebug", _olua_fun_cclua_plugin_janalytics_setDebug);
+    oluacls_func(L, "setFrequency", _olua_fun_cclua_plugin_janalytics_setFrequency);
+    oluacls_func(L, "startTrackPage", _olua_fun_cclua_plugin_janalytics_startTrackPage);
+    oluacls_func(L, "stopTrackPage", _olua_fun_cclua_plugin_janalytics_stopTrackPage);
+    oluacls_func(L, "trackEvent", _olua_fun_cclua_plugin_janalytics_trackEvent);
 
     cclua::runtime::registerFeature("cclua.plugin.janalytics.ios", true);
 
     return 1;
 }
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_plugin_janalytics(lua_State *L)
+{
+    olua_require(L, "janalytics",  _olua_module_janalytics);
+    if (!olua_getclass(L, "cclua.plugin.janalytics")) {
+        luaL_error(L, "class not found: cclua::plugin::janalytics");
+    }
+    return 1;
+}
 OLUA_END_DECLS
 #endif
+
+int _olua_module_janalytics(lua_State *L)
+{
+#ifdef CCLUA_BUILD_JANALYTICS
+    olua_require(L, "cclua.plugin.janalytics.EventType", _olua_cls_cclua_plugin_janalytics_EventType);
+    olua_require(L, "cclua.plugin.janalytics", _olua_cls_cclua_plugin_janalytics);
+#endif
+
+    return 0;
+}
 
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_janalytics(lua_State *L)
 {
-#ifdef CCLUA_BUILD_JANALYTICS
-    olua_require(L, "cclua.plugin.janalytics.EventType", luaopen_cclua_plugin_janalytics_EventType);
-    olua_require(L, "cclua.plugin.janalytics", luaopen_cclua_plugin_janalytics);
-#endif
+    olua_require(L, "janalytics",  _olua_module_janalytics);
 
     return 0;
 }

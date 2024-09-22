@@ -1,6 +1,8 @@
 module 'cocos2d_studio'
 
-path '../../frameworks/cclua/src/lua-bindings'
+output_dir '../../frameworks/cclua/src/lua-bindings'
+
+api_dir"../../addons/cclua/cocos2d"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
@@ -9,7 +11,7 @@ headers [[
 #include "editor-support/cocostudio/CocoStudio.h"
 ]]
 
-chunk [[
+codeblock[[
 static std::string makeFrameEndCallbackTag(lua_Integer index, const std::string &key)
 {
     if (index < 0) {
@@ -35,23 +37,24 @@ luacls(function (cppname)
     return cppname
 end)
 
-excludetype 'cocos2d::ObjectFactory::TInfo'
-excludetype 'cocos2d::ObjectFactory::Instance'
-excludetype 'cocostudio::DataReaderHelper::DataInfo'
-excludetype 'cocostudio::stExpCocoNode'
-excludetype 'flatbuffers::NodeTree'
-excludetype 'rapidjson::Value'
-excludetype 'cocostudio::SEL_ParseEvent'
+exclude_type 'cocos2d::ObjectFactory::TInfo'
+exclude_type 'cocos2d::ObjectFactory::Instance'
+exclude_type 'cocostudio::DataReaderHelper::DataInfo'
+exclude_type 'cocostudio::DataReaderHelper::_DataInfo'
+exclude_type 'cocostudio::stExpCocoNode'
+exclude_type 'flatbuffers::NodeTree'
+exclude_type 'rapidjson::Value'
+exclude_type 'cocostudio::SEL_ParseEvent'
 
 typeconf 'cocostudio::timeline::AnimationInfo'
 
 typeconf "cocos2d::CSLoader"
-    .callback 'createNode'
+    .func 'createNode'
         .tag_mode 'new'
-        .tag_scope 'function'
-    .callback 'createNodeWithVisibleSize'
+        .tag_scope 'invoker'
+    .func 'createNodeWithVisibleSize'
         .tag_mode 'new'
-        .tag_scope 'function'
+        .tag_scope 'invoker'
 
 typeconf "cocostudio::MovementEventType"
 typeconf "cocostudio::DisplayType"
@@ -75,8 +78,8 @@ typeconf "cocostudio::ActionNode"
 typeconf "cocostudio::ActionObject"
 
 typeconf "cocostudio::ArmatureAnimation"
-    .callback 'setMovementEventCallFunc' .arg1 '@nullable'
-    .callback 'setFrameEventCallFunc' .arg1 '@nullable'
+    .func 'setMovementEventCallFunc' .arg1 '@nullable'
+    .func 'setFrameEventCallFunc' .arg1 '@nullable'
 
 typeconf "cocostudio::ArmatureData"
 typeconf "cocostudio::ArmatureDataManager"
@@ -133,7 +136,7 @@ typeconf "cocostudio::ParticleDisplayData"
 typeconf "cocostudio::SceneReader::AttachComponentType"
 
 typeconf "cocostudio::SceneReader"
-    .callback 'setTarget' .arg1 '@nullable'
+    .func 'setTarget' .arg1 '@nullable'
 
 typeconf "cocostudio::Skin"
 typeconf "cocostudio::SpriteDisplayData"
@@ -204,10 +207,10 @@ typeconf "cocostudio::timeline::ActionTimeline"
     .func 'addTimeline' .arg1 "@addref(timelines |)"
     .func 'removeTimeline' .arg1 "@delref(timelines |)"
     .func 'getTimelines' .ret "@addref(timelines |)"
-    .callback 'setAnimationEndCallFunc'
+    .func 'setAnimationEndCallFunc'
         .tag_mode 'replace'
         .tag_maker "makeFrameEndCallbackTag(#0, #1)"
-    .callback 'setFrameEventCallFunc'
+    .func 'setFrameEventCallFunc'
         .tag_maker "frameEventCallFunc"
         .tag_mode 'replace'
         .arg1 '@nullable'
@@ -221,26 +224,26 @@ typeconf "cocostudio::timeline::ActionTimeline"
                 lua_pop(L, 3);
             }
         ]]
-    .callback 'clearFrameEventCallFunc'
+    .func 'clearFrameEventCallFunc'
         .tag_maker "frameEventCallFunc"
         .tag_mode 'startwith'
-    .callback 'setLastFrameCallFunc'
+    .func 'setLastFrameCallFunc'
         .tag_maker 'lastFrameCallFunc'
         .tag_mode 'replace'
         .arg1 '@nullable'
-    .callback 'clearLastFrameCallFunc'
+    .func 'clearLastFrameCallFunc'
         .tag_maker "lastFrameCallFunc"
         .tag_mode 'startwith'
-    .callback 'addFrameEndCallFunc'
+    .func 'addFrameEndCallFunc'
         .tag_mode 'replace'
         .tag_maker "makeFrameEndCallbackTag(#1, #2)"
-    .callback 'removeFrameEndCallFunc'
+    .func 'removeFrameEndCallFunc'
         .tag_mode 'startwith'
         .tag_maker "makeFrameEndCallbackTag(#1, #2)"
-    .callback 'removeFrameEndCallFuncs'
+    .func 'removeFrameEndCallFuncs'
         .tag_mode 'startwith'
         .tag_maker 'makeFrameEndCallbackTag(#1, "")'
-    .callback 'clearFrameEndCallFuncs'
+    .func 'clearFrameEndCallFuncs'
         .tag_mode 'startwith'
         .tag_maker 'makeFrameEndCallbackTag(-1, "")'
     .func 'addAnimationInfo'

@@ -1,4 +1,6 @@
-require "olua.tools"
+package.path = "./?/init.lua;" .. package.path
+
+require "olua"
 
 autoconf 'conf/clang-args.lua'
 autoconf 'conf/exclude-type.lua'

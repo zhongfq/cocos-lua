@@ -1,6 +1,8 @@
 module 'cocos2d_action'
 
-path '../../frameworks/cclua/src/lua-bindings'
+output_dir '../../frameworks/cclua/src/lua-bindings'
+
+api_dir"../../addons/cclua/cocos2d"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
@@ -144,7 +146,7 @@ typeconf 'cocos2d::TargetedAction'
 typeconf 'cocos2d::ActionFloat::ActionFloatCallback'
 
 typeconf 'cocos2d::ActionFloat'
-    .callback 'create'
+    .func 'create'
         .tag_maker 'ActionFloat'
         .tag_mode 'new'
         .tag_store '-1'
@@ -214,7 +216,7 @@ typeconf "cocos2d::FlipY"
 typeconf "cocos2d::Place"
 
 typeconf "cocos2d::CallFunc"
-    .callback 'create'
+    .func 'create'
         .tag_maker 'CallFunc'
         .tag_mode 'new'
         .tag_store '-1'
@@ -257,7 +259,7 @@ typeconf 'cocos2d::SplitRows'
 typeconf 'cocos2d::SplitCols'
 
 typeconf 'cocos2d::LuaTweenNode'
-    .callback 'create'
+    .func 'create'
         .tag_maker 'ActionTween'
         .tag_mode 'new'
         .tag_store '-1'

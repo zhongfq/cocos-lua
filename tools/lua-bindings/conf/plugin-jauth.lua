@@ -1,6 +1,8 @@
 module 'jauth'
 
-path "../../frameworks/plugins/jauth"
+output_dir "../../frameworks/plugins/jauth"
+
+api_dir"../../addons/cclua/plugin/jauth"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
@@ -11,8 +13,8 @@ headers [[
 macro '#ifdef CCLUA_BUILD_JAUTH'
 typeconf "cclua::plugin::jauth"
     .luaopen 'cclua::runtime::registerFeature("cclua.plugin.jauth.ios", true);'
-    .callback "getToken" .tag_mode 'new' .tag_scope 'once'
-    .callback "preLogin" .tag_mode 'new' .tag_scope 'once'
-    .callback "loginAuth" .tag_mode 'new' .tag_scope 'once'
-    .callback "getSmsCode" .tag_mode 'new' .tag_scope 'once'
-macro ''
+    .func "getToken" .tag_mode 'new' .tag_scope 'once'
+    .func "preLogin" .tag_mode 'new' .tag_scope 'once'
+    .func "loginAuth" .tag_mode 'new' .tag_scope 'once'
+    .func "getSmsCode" .tag_mode 'new' .tag_scope 'once'
+macro '#endif'

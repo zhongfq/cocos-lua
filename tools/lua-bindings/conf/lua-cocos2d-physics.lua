@@ -1,6 +1,8 @@
 module 'cocos2d_physics'
 
-path "../../frameworks/cclua/src/lua-bindings"
+output_dir "../../frameworks/cclua/src/lua-bindings"
+
+api_dir"../../addons/cclua/cocos2d"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
@@ -55,7 +57,7 @@ typeconf 'cocos2d::PhysicsShapeEdgeSegment'
 typeconf 'cocos2d::PhysicsRayCastInfo'
 
 typeconf 'cocos2d::PhysicsWorld'
-    .callback 'setPreUpdateCallback' .arg1 '@nullable'
-    .callback 'setPostUpdateCallback' .arg1 '@nullable'
+    .func 'setPreUpdateCallback' .arg1 '@nullable'
+    .func 'setPostUpdateCallback' .arg1 '@nullable'
 
-macro '' -- CC_USE_PHYSICS
+macro '#endif' -- CC_USE_PHYSICS

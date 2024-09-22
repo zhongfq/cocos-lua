@@ -1,0 +1,30 @@
+{
+  "diagnostics.disable": ["redundant-return-value"],
+  "workspace.library": ["addons"],
+  "workspace.ignoreDir": [
+    "tools/lua-bindings/olua/examples/lua",
+    "frameworks/3rd/",
+    "src/cclua/3rd"
+  ],
+  "workspace.ignoreSubmodules": false,
+  "diagnostics.globals": [
+    "DEBUG",
+    "main",
+    "api_dir",
+    "autoconf",
+    "clang",
+    "codeblock",
+    "entry",
+    "exclude_type",
+    "headers",
+    "import",
+    "luacls",
+    "luaopen",
+    "macro",
+    "olua",
+    "output_dir",
+    "typeconf",
+    "typedef",
+    "typeonly"
+  ]
+}

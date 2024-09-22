@@ -282,6 +282,12 @@ public:
     static olua_Return __call(lua_State *L);
 };
 
+class RenderTextureExtend {
+public:
+    static void beginVisit(cocos2d::RenderTexture *rt);
+    static void endVisit(cocos2d::RenderTexture *rt);
+};
+
 NS_CC_END
 
 #ifdef CCLUA_BUILD_SPINE
@@ -292,6 +298,7 @@ namespace spine {
 class SkeletonDataExtend {
 public:
     static olua_Return __gc(lua_State *L);
+    static olua_Return dispose(lua_State *L);
     static olua_Return create(lua_State *L, const char *skelPath, const char *atlasPath, float scale = 1.0f);
 };
 

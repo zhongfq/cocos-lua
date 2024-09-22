@@ -17,7 +17,7 @@ end
 
 function UIScene.Get:cobj()
     local width, height = window.getVisibleSize()
-    local cobj = Scene.createWithSize(Size{width = width, height = height})
+    local cobj = Scene.createWithSize(Size.new(width, height))
     rawset(self, 'cobj', cobj)
     return cobj
 end

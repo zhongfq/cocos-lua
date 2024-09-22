@@ -1,0 +1,6 @@
+{
+    "$schema": "https://raw.githubusercontent.com/LuaLS/LLS-Addons/main/schemas/addon_config.schema.json",
+    "words": ["%s+-wechat"],
+    "files": ["wechat"],
+    "settings": {}
+}

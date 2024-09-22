@@ -1,6 +1,8 @@
 module 'fairygui'
 
-path "../../frameworks/cclua/src/lua-bindings"
+output_dir "../../frameworks/cclua/src/lua-bindings"
+
+api_dir "../../addons/cclua/fairygui"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
@@ -15,7 +17,7 @@ headers [[
 #include "utils/html/HtmlParser.h"
 ]]
 
-chunk [[
+codeblock[[
 bool olua_is_fairygui_EventTag(lua_State *L, int idx)
 {
     return olua_isinteger(L, idx) || olua_isa<void>(L, idx);
@@ -37,11 +39,12 @@ luaopen [[cclua::runtime::registerFeature("fairygui", true);]]
 
 luacls(function (cppname)
     cppname = string.gsub(cppname, '^fairygui::', 'fgui.')
+    cppname = string.gsub(cppname, '::', '.')
     return cppname
 end)
 
-excludetype 'fairygui::ByteBuffer'
-excludetype 'fairygui::GObjectPool'
+exclude_type 'fairygui::ByteBuffer'
+exclude_type 'fairygui::GObjectPool'
 
 typedef 'fairygui::EventTag'
 
@@ -50,14 +53,14 @@ typeconf 'fairygui::Margin'
 typeconf 'fairygui::HtmlParseOptions'
 
 typeconf 'fairygui::TweenValue'
-    .var '*' .optional 'true'
+    -- .var '*' .optional 'true'
 
 typeconf 'fairygui::UIEventType'
     .indexerror 'r'
 typeconf 'fairygui::EventCallback'
 
 typeconf 'fairygui::UIEventDispatcher'
-    .chunk [[
+    .codeblock[[
         static std::string makeListenerTag(lua_State *L, lua_Integer type, int tagidx)
         {
             char buf[64];
@@ -79,13 +82,19 @@ typeconf 'fairygui::UIEventDispatcher'
             return std::string(buf);
         }
     ]]
-    .callback 'addEventListener'
-        .tag_maker {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 4)'}
+    .func 'addEventListener'
+        .tag_maker "makeListenerTag(L, #1, 0)"
         .tag_mode 'new'
-    .callback 'removeEventListener'
-        .tag_maker {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 3)'}
-        .tag_mode {'startwith', 'equal'}
-    .callback 'removeEventListeners'
+    .func 'addEventListener(int, const fairygui::EventCallback &, const fairygui::EventTag &)'
+        .tag_maker 'makeListenerTag(L, #1, 4)'
+        .tag_mode 'new'
+    .func 'removeEventListener'
+        .tag_maker "makeListenerTag(L, #1, 0)"
+        .tag_mode 'startwith'
+    .func 'removeEventListener(int, const fairygui::EventTag &)'
+        .tag_maker "makeListenerTag(L, #1, 3)"
+        .tag_mode "equal"
+    .func 'removeEventListeners'
         .tag_maker 'makeListenerTag(L, -1, 0)'
         .tag_mode 'startwith'
 
@@ -97,7 +106,7 @@ typeconf 'fairygui::PixelHitTestData'
 typeconf 'fairygui::InputProcessor::CaptureEventCallback'
 
 typeconf 'fairygui::InputProcessor'
-    .callback 'setCaptureCallback' .arg1 '@nullable'
+    .func 'setCaptureCallback' .arg1 '@nullable'
 
 typeconf 'fairygui::InputEvent'
 typeconf 'fairygui::TextFormat'
@@ -110,10 +119,10 @@ typeconf 'fairygui::GTweener::GTweenCallback'
 typeconf 'fairygui::GTweener::GTweenCallback0'
 
 typeconf 'fairygui::GTweener'
-    .callback 'onUpdate' .localvar 'false'
-    .callback 'onStart' .localvar 'false'
-    .callback 'onComplete' .localvar 'false'
-    .callback 'onComplete1' .localvar 'false'
+    .func 'onUpdate' .tag_usepool 'false'
+    .func 'onStart' .tag_usepool 'false'
+    .func 'onComplete' .tag_usepool 'false'
+    .func 'onComplete1' .tag_usepool 'false'
 
 local def_gtween_ref = [[
     olua_pushclassobj<fairygui::GTween>(L);
@@ -123,7 +132,7 @@ local def_gtween_ref = [[
 ]]
 
 typeconf 'fairygui::GTween'
-    .chunk [[
+    .codeblock[[
         static bool should_del_tweener_ref(lua_State *L, int idx)
         {
             if (olua_isa<fairygui::GTweener>(L, idx)) {
@@ -160,6 +169,7 @@ typeconf 'fairygui::PackageItem'
     .exclude 'extensionCreator'
     .exclude 'bitmapFont'
     .exclude 'scale9Grid'
+    .exclude 'highResolution'
 
 typeconf 'fairygui::PackageItemType'
 typeconf 'fairygui::ObjectType'
@@ -202,27 +212,25 @@ typeconf 'fairygui::GObject'
                 luaL_error(L, "UIRoot is nullptr");
             }
         ]]
-    .prop 'relations' .get 'Relations* relations()'
-    .prop 'displayObject' .get 'cocos2d::Node* displayObject()'
-    .callback 'addClickListener'
-        .tag_maker {
-            'makeListenerTag(L, fairygui::UIEventType::Click, 0)', -- no tag
-            'makeListenerTag(L, fairygui::UIEventType::Click, 3)', -- tag stack idx
-        }
+    .prop 'relations' .get 'fairygui::Relations *relations()'
+    .prop 'displayObject' .get 'cocos2d::Node *displayObject()'
+    .func 'addClickListener'
+        .tag_maker 'makeListenerTag(L, fairygui::UIEventType::Click, 0)'
         .tag_mode 'new'
-    .callback 'removeClickListener'
+    .func 'addClickListener(int, const fairygui::EventCallback &, const fairygui::EventTag &)'
+        .tag_maker 'makeListenerTag(L, fairygui::UIEventType::Click, 3)'
+        .tag_mode 'new'
+    .func 'removeClickListener'
         .tag_maker 'makeListenerTag(L, fairygui::UIEventType::Click, 2)'
         .tag_mode 'equal'
 
 typeconf 'fairygui::GComponent'
-    .chunk [[
-        static int _fairygui_GComponent_getController(lua_State *L);
-        static int _fairygui_GComponent_getTransition(lua_State *L);
-        static int _fairygui_GComponent_getChild(lua_State *L);
+    .codeblock[[
+        static int _olua_fun_fairygui_GComponent_getController(lua_State *L);
+        static int _olua_fun_fairygui_GComponent_getTransition(lua_State *L);
+        static int _olua_fun_fairygui_GComponent_getChild(lua_State *L);
     ]]
-    .exclude 'getChildByPath'
     .exclude 'constructFromResource'
-    .alias 'resolve' .to 'getChildByPath'
     .func 'addChild' .arg1 '@addref(children |)'
     .func 'addChildAt' .arg1 '@addref(children |)'
     .func 'removeChild' .arg1 '@delref(children |)'
@@ -265,6 +273,10 @@ typeconf 'fairygui::GComponent'
             }
         }]]
     .func 'resolve'
+        .luacats [[
+            ---@param name string
+            ---@return unknown
+        ]]
         .body [[
         {
             auto self = olua_toobj<fairygui::GComponent>(L, 1);
@@ -281,11 +293,11 @@ typeconf 'fairygui::GComponent'
                     sep = name + strlen(name);
                 }
                 if (type == '#') {
-                    lua_pushcfunction(L, _fairygui_GComponent_getController);
+                    lua_pushcfunction(L, _olua_fun_fairygui_GComponent_getController);
                 } else if (type == '~') {
-                    lua_pushcfunction(L, _fairygui_GComponent_getTransition);
+                    lua_pushcfunction(L, _olua_fun_fairygui_GComponent_getTransition);
                 } else {
-                    lua_pushcfunction(L, _fairygui_GComponent_getChild);
+                    lua_pushcfunction(L, _olua_fun_fairygui_GComponent_getChild);
                 }
                 olua_pushobj<fairygui::GComponent>(L, self);
                 lua_pushlstring(L, name, sep - name);
@@ -331,7 +343,7 @@ typeconf 'fairygui::GRoot'
             olua_addref(L, 1, "children", -1, OLUA_REF_MULTI);
             lua_pop(L, 1);
         ]]
-    .prop 'UIRoot' .get 'static GRoot* getInstance()'
+    .prop 'UIRoot' .get 'static fairygui::GRoot *getInstance()'
 
 typeconf 'fairygui::GGroup'
 typeconf 'fairygui::GScrollBar'
@@ -372,7 +384,7 @@ typeconf 'fairygui::GList'
     .func 'setVirtual' .ret '@delref(children ~)'
     .func 'setVirtualAndLoop' .ret '@delref(children ~)'
     .func 'setNumItems' .ret '@delref(children ~)'
-    .callback 'itemRenderer' .localvar 'false'
+    .func 'itemRenderer' .tag_usepool 'false'
         .insert_cbefore [[
             olua_pushobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
             olua_addref(L, -1, "children", top + 2, OLUA_REF_MULTI);
@@ -416,13 +428,13 @@ typeconf 'fairygui::PopupMenu'
             olua_pushobj<fairygui::GRoot>(L, root);
             int parent = lua_gettop(L);
         ]]
-    .callback 'addItem'
+    .func 'addItem'
         .ret '@addref(children | parent)'
         .tag_maker 'makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0)'
         .tag_mode 'replace'
         .tag_store '-1'
         .insert_before(push_popup_menu_parent)
-    .callback 'addItemAt'
+    .func 'addItemAt'
         .ret '@addref(children | parent)'
         .tag_maker 'makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0)'
         .tag_mode 'replace'
@@ -466,24 +478,24 @@ typeconf 'fairygui::Transition::TransitionHook'
 
 typeconf 'fairygui::Transition'
     .func 'getOwner' .ret '@addref(^)'
-    .callback 'play'
+    .func 'play'
         .tag_maker 'play'
         .tag_mode 'replace'
-    .callback 'playReverse'
+    .func 'playReverse'
         .tag_maker 'playReverse'
         .tag_mode 'replace'
-    .callback 'setHook'
+    .func 'setHook'
+        .arg2 '@nullable'
         .tag_maker '("hook." + #1)'
         .tag_mode 'replace'
-        .arg2 '@nullable'
-    .callback 'clearHooks'
+    .func 'clearHooks'
         .tag_maker '("hook.")'
         .tag_mode 'startwith'
 
 typeconf 'fairygui::UIConfig'
 
 typeconf 'fairygui::IUISource'
-    .callback 'load' .arg1 '@nullable'
+    .func 'load' .arg1 '@nullable'
 typeconf 'fairygui::UISource'
 
 local push_uiroot = [[
@@ -553,15 +565,15 @@ typeconf 'fairygui::GTree'
     .func 'getRootNode' .ret '@addref(^)'
     .func 'getSelectedNode' .ret '@addref(nodes |)'
     .func 'getSelectedNodes' .arg1 '@addref(nodes |)'
-    .callback 'treeNodeRender'
-        .localvar 'false'
+    .func 'treeNodeRender'
+        .tag_usepool 'false'
         .insert_cbefore [[
             olua_pushobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
             olua_addref(L, -1, "nodes", top + 1, OLUA_REF_MULTI);
             olua_addref(L, -1, "children",top + 2, OLUA_REF_MULTI);
             lua_pop(L, 1);
         ]]
-    .callback 'treeNodeWillExpand' .localvar 'false'
+    .func 'treeNodeWillExpand' .tag_usepool 'false'
         .insert_cbefore [[
             olua_pushobj<fairygui::GComponent>(L, (fairygui::GComponent *)cb_store);
             olua_addref(L, -1, "nodes", top + 1, OLUA_REF_MULTI);

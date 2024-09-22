@@ -6,6 +6,7 @@ local Layout            = require "ccui.Layout"
 local EditBox           = require "ccui.EditBox"
 local Scale9Sprite      = require "ccui.Scale9Sprite"
 local EditBoxDelegate   = require "ccui.LuaEditBoxDelegate"
+local Size              = require "cc.Size"
 
 local UITextInput = class("UITextInput", UIView)
 
@@ -30,8 +31,7 @@ function UITextInput.Get:cobj()
     cobj.touchEnabled = false
     rawset(self, "cobj", cobj)
 
-    local label = EditBox.create({width = 10, height = 10},
-        Scale9Sprite.create(), nil, nil)
+    local label = EditBox.create(Size.new(10, 10), Scale9Sprite.create(), nil, nil)
     label.touchEnabled = false
     label.ignoreAnchorPointForPosition = true
     cobj:addChild(label, 0)

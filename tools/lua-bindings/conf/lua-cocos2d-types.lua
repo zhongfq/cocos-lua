@@ -1,6 +1,8 @@
 module 'cocos2d_types'
 
-path "../../frameworks/cclua/src/lua-bindings"
+output_dir "../../frameworks/cclua/src/lua-bindings"
+
+api_dir"../../addons/cclua/cocos2d"
 
 headers [[
 #include "cclua/cclua.h"
@@ -13,12 +15,14 @@ headers [[
 #endif
 ]]
 
+-- api_dir"../../addons/cclua/cocos2d"
+
 luacls(function (cppname)
     return cppname:gsub("^cocos2d::backend::", "ccb.")
-            :gsub("^cocos2d::types::", "cc.")
-            :gsub("^cocos2d::", "cc.")
-            :gsub("::", ".")
-            :gsub("GLContextAttrs", "cc.GLContextAttrs")
+        :gsub("^cocos2d::types::", "cc.types.")
+        :gsub("^cocos2d::", "cc.")
+        :gsub("::", ".")
+        :gsub("GLContextAttrs", "cc.GLContextAttrs")
 end)
 
 typedef 'cocos2d::Data'
@@ -37,7 +41,7 @@ typedef 'cocos2d::network::WebSocket::Data'
 
 typeconf 'cocos2d::Vec2'
     .packable 'true'
-    .var '*' .optional 'false'
+    -- .var '*' .optional 'false'
 typeconf 'cocos2d::Vec3'
     .packable 'true'
 typeconf 'cocos2d::Vec4'
@@ -65,7 +69,6 @@ typeconf 'cocos2d::ccBezierConfig'
     .packable 'true'
 
 typeconf 'cocos2d::TTFConfig'
-    .var '*' .optional 'true'
 
 typeconf 'cocos2d::BlendFunc'
 typeconf 'cocos2d::ui::Margin'
@@ -77,7 +80,7 @@ typeconf 'cocos2d::Controller::KeyStatus'
 macro '#if CC_USE_NAVMESH'
 typeconf 'cocos2d::NavMeshAgentParam'
 typeconf 'cocos2d::OffMeshLinkData'
-macro ''
+macro '#endif'
 
 typeconf 'cocos2d::backend::BlendDescriptor'
 typeconf 'cocos2d::backend::SamplerDescriptor'

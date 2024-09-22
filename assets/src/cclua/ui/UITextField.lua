@@ -3,6 +3,7 @@ local font              = require "cclua.font"
 local Align             = require "cclua.ui.Align"
 local UIView            = require "cclua.ui.UIView"
 local Label             = require "cc.Label"
+local Size              = require "cc.Size"
 local TTFConfig         = require "cc.TTFConfig"
 local GlyphCollection   = require "cc.GlyphCollection"
 
@@ -53,7 +54,7 @@ function UITextField:enableShadow(color, offsetX, offsetY, blurRadius)
     offsetX = offsetX or 2
     offsetY = offsetY or -2
     blurRadius = blurRadius or 0
-    self.cobj:enableShadow(color, {width = offsetX, height = offsetY}, blurRadius)
+    self.cobj:enableShadow(color, Size.new(offsetX, offsetY), blurRadius)
 end
 
 function UITextField.Get:width(value)

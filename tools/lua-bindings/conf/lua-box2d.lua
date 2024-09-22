@@ -1,6 +1,8 @@
 module 'box2d'
 
-path '../../frameworks/cclua/src/lua-bindings'
+output_dir '../../frameworks/cclua/src/lua-bindings'
+
+api_dir"../../addons/cclua/box2d"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
@@ -30,7 +32,7 @@ luacls(function (cppname)
     return cppname
 end)
 
-excludetype 'b2BlockAllocator'
+exclude_type 'b2BlockAllocator'
 
 local _typeconf = typeconf
 local function typeconf(...)

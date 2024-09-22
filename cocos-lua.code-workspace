@@ -22,6 +22,7 @@
 			"631", // Line is too long
 		],
 		"editor.snippetSuggestions": "bottom",
+		"Lua.workspace.library": ["tools/lua-bindings/olua/addons"],
 		"files.associations": {
 			"*.manifest": "json",
 			"*.jsfl": "javascript",

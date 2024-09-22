@@ -1,6 +1,8 @@
 module 'cocos2d_backend'
 
-path '../../frameworks/cclua/src/lua-bindings'
+output_dir '../../frameworks/cclua/src/lua-bindings'
+
+api_dir"../../addons/cclua/cocos2d"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
@@ -14,7 +16,7 @@ luacls(function (cppname)
     return cppname
 end)
 
-excludetype 'cocos2d::backend::RenderPassDescriptor'
+exclude_type 'cocos2d::backend::RenderPassDescriptor'
 
 typeconf 'cocos2d::backend::UniformLocation'
 typeconf 'cocos2d::backend::BufferUsage'
@@ -47,7 +49,7 @@ typeconf 'cocos2d::backend::DepthStencilState'
 typeconf 'cocos2d::backend::VertexLayout'
 
 typeconf 'cocos2d::backend::CommandBuffer'
-    .callback 'captureScreen'
+    .func 'captureScreen'
         .tag_scope 'once'
         .tag_mode 'new'
 
@@ -80,7 +82,7 @@ typeconf 'cocos2d::backend::ProgramState'
 typeconf 'cocos2d::backend::Program'
 
 typeconf 'cocos2d::backend::TextureBackend'
-    .callback 'getBytes'
+    .func 'getBytes'
         .tag_mode 'new'
         .tag_scope 'once'
 

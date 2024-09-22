@@ -1,6 +1,8 @@
 module 'alipay'
 
-path "../../frameworks/plugins/alipay"
+output_dir "../../frameworks/plugins/alipay"
+
+api_dir"../../addons/cclua/plugin/alipay"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
@@ -10,5 +12,5 @@ headers [[
 
 macro '#ifdef CCLUA_BUILD_ALIPAY'
 typeconf "cclua::plugin::alipay"
-macro ''
+macro '#endif'
 

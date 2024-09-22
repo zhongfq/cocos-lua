@@ -1,6 +1,8 @@
 module 'apple'
 
-path "../../frameworks/plugins/apple"
+output_dir "../../frameworks/plugins/apple"
+
+api_dir"../../addons/cclua/plugin/apple"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
@@ -11,5 +13,5 @@ headers [[
 macro '#ifdef CCLUA_OS_IOS'
 typeconf "cclua::plugin::apple"
     .luaopen 'cclua::runtime::registerFeature("cclua.plugin.apple.ios", true);'
-macro ''
+macro '#endif'
 

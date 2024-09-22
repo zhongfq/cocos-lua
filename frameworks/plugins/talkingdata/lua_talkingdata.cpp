@@ -1,13 +1,15 @@
 //
-// AUTO BUILD, DON'T MODIFY!
+// AUTO GENERATED, DO NOT MODIFY!
 //
 #include "lua_talkingdata.h"
 #include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "talkingdata/talkingdata.h"
 
+static int _olua_module_talkingdata(lua_State *L);
+
 #ifdef CCLUA_BUILD_TALKINGDATA
-static int _cclua_plugin_talkingdata___gc(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -19,19 +21,7 @@ static int _cclua_plugin_talkingdata___gc(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata___olua_move(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    auto self = (cclua::plugin::talkingdata *)olua_toobj(L, 1, "cclua.plugin.talkingdata");
-    olua_push_object(L, self, "cclua.plugin.talkingdata");
-
-    olua_endinvoke(L);
-
-    return 1;
-}
-
-static int _cclua_plugin_talkingdata_backgroundSessionEnabled(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_backgroundSessionEnabled(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -43,7 +33,7 @@ static int _cclua_plugin_talkingdata_backgroundSessionEnabled(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_getDeviceId(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_getDeviceId(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -56,7 +46,7 @@ static int _cclua_plugin_talkingdata_getDeviceId(lua_State *L)
     return num_ret;
 }
 
-static int _cclua_plugin_talkingdata_init$1(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_init$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -76,7 +66,7 @@ static int _cclua_plugin_talkingdata_init$1(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_init$2(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_init$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -86,7 +76,7 @@ static int _cclua_plugin_talkingdata_init$2(lua_State *L)
     olua_check_string(L, 1, &arg1);
     olua_check_string(L, 2, &arg2);
 
-    // static void init(const std::string &appkey, const std::string &channel, @optional const std::string &custom)
+    // static void init(const std::string &appkey, const std::string &channel)
     cclua::plugin::talkingdata::init(arg1, arg2);
 
     olua_endinvoke(L);
@@ -94,21 +84,21 @@ static int _cclua_plugin_talkingdata_init$2(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_init(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_init(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 1)) && (olua_is_string(L, 2))) {
-            // static void init(const std::string &appkey, const std::string &channel, @optional const std::string &custom)
-            return _cclua_plugin_talkingdata_init$2(L);
+            // static void init(const std::string &appkey, const std::string &channel)
+            return _olua_fun_cclua_plugin_talkingdata_init$2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_string(L, 1)) && (olua_is_string(L, 2)) && (olua_is_string(L, 3))) {
             // static void init(const std::string &appkey, const std::string &channel, @optional const std::string &custom)
-            return _cclua_plugin_talkingdata_init$1(L);
+            return _olua_fun_cclua_plugin_talkingdata_init$1(L);
         // }
     }
 
@@ -117,7 +107,7 @@ static int _cclua_plugin_talkingdata_init(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_onCreateCard(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_onCreateCard(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -137,7 +127,7 @@ static int _cclua_plugin_talkingdata_onCreateCard(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_onEvent(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_onEvent(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -157,7 +147,7 @@ static int _cclua_plugin_talkingdata_onEvent(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_onFavorite(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_onFavorite(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -175,7 +165,7 @@ static int _cclua_plugin_talkingdata_onFavorite(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_onLogin(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_onLogin(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -193,7 +183,7 @@ static int _cclua_plugin_talkingdata_onLogin(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_onPageBegin(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_onPageBegin(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -209,7 +199,7 @@ static int _cclua_plugin_talkingdata_onPageBegin(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_onPageEnd(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_onPageEnd(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -225,7 +215,7 @@ static int _cclua_plugin_talkingdata_onPageEnd(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_onProfileUpdate(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_onProfileUpdate(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -241,7 +231,7 @@ static int _cclua_plugin_talkingdata_onProfileUpdate(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_onPunch(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_onPunch(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -259,7 +249,7 @@ static int _cclua_plugin_talkingdata_onPunch(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_onReceiveDeepLink(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_onReceiveDeepLink(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -275,7 +265,7 @@ static int _cclua_plugin_talkingdata_onReceiveDeepLink(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_onRegister(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_onRegister(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -295,7 +285,7 @@ static int _cclua_plugin_talkingdata_onRegister(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_onSearch(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_onSearch(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -311,7 +301,7 @@ static int _cclua_plugin_talkingdata_onSearch(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_onShare(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_onShare(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -329,7 +319,7 @@ static int _cclua_plugin_talkingdata_onShare(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_removeGlobalKV(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_removeGlobalKV(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -345,7 +335,7 @@ static int _cclua_plugin_talkingdata_removeGlobalKV(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_setConfigurationDisable(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_setConfigurationDisable(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -361,7 +351,7 @@ static int _cclua_plugin_talkingdata_setConfigurationDisable(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_setExceptionReportEnabled(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_setExceptionReportEnabled(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -377,7 +367,7 @@ static int _cclua_plugin_talkingdata_setExceptionReportEnabled(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_setGlobalKV(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_setGlobalKV(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -395,7 +385,7 @@ static int _cclua_plugin_talkingdata_setGlobalKV(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_setLocation(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_setLocation(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -413,7 +403,7 @@ static int _cclua_plugin_talkingdata_setLocation(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_setSignalReportEnabled(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_setSignalReportEnabled(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -429,7 +419,7 @@ static int _cclua_plugin_talkingdata_setSignalReportEnabled(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_setVendorId(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_setVendorId(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -447,7 +437,7 @@ static int _cclua_plugin_talkingdata_setVendorId(lua_State *L)
     return 0;
 }
 
-static int _cclua_plugin_talkingdata_setVerboseLogDisable(lua_State *L)
+static int _olua_fun_cclua_plugin_talkingdata_setVerboseLogDisable(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -459,50 +449,65 @@ static int _cclua_plugin_talkingdata_setVerboseLogDisable(lua_State *L)
     return 0;
 }
 
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cclua_plugin_talkingdata(lua_State *L)
+static int _olua_cls_cclua_plugin_talkingdata(lua_State *L)
 {
     oluacls_class<cclua::plugin::talkingdata>(L, "cclua.plugin.talkingdata");
-    oluacls_func(L, "__gc", _cclua_plugin_talkingdata___gc);
-    oluacls_func(L, "__olua_move", _cclua_plugin_talkingdata___olua_move);
-    oluacls_func(L, "backgroundSessionEnabled", _cclua_plugin_talkingdata_backgroundSessionEnabled);
-    oluacls_func(L, "getDeviceId", _cclua_plugin_talkingdata_getDeviceId);
-    oluacls_func(L, "init", _cclua_plugin_talkingdata_init);
-    oluacls_func(L, "onCreateCard", _cclua_plugin_talkingdata_onCreateCard);
-    oluacls_func(L, "onEvent", _cclua_plugin_talkingdata_onEvent);
-    oluacls_func(L, "onFavorite", _cclua_plugin_talkingdata_onFavorite);
-    oluacls_func(L, "onLogin", _cclua_plugin_talkingdata_onLogin);
-    oluacls_func(L, "onPageBegin", _cclua_plugin_talkingdata_onPageBegin);
-    oluacls_func(L, "onPageEnd", _cclua_plugin_talkingdata_onPageEnd);
-    oluacls_func(L, "onProfileUpdate", _cclua_plugin_talkingdata_onProfileUpdate);
-    oluacls_func(L, "onPunch", _cclua_plugin_talkingdata_onPunch);
-    oluacls_func(L, "onReceiveDeepLink", _cclua_plugin_talkingdata_onReceiveDeepLink);
-    oluacls_func(L, "onRegister", _cclua_plugin_talkingdata_onRegister);
-    oluacls_func(L, "onSearch", _cclua_plugin_talkingdata_onSearch);
-    oluacls_func(L, "onShare", _cclua_plugin_talkingdata_onShare);
-    oluacls_func(L, "removeGlobalKV", _cclua_plugin_talkingdata_removeGlobalKV);
-    oluacls_func(L, "setConfigurationDisable", _cclua_plugin_talkingdata_setConfigurationDisable);
-    oluacls_func(L, "setExceptionReportEnabled", _cclua_plugin_talkingdata_setExceptionReportEnabled);
-    oluacls_func(L, "setGlobalKV", _cclua_plugin_talkingdata_setGlobalKV);
-    oluacls_func(L, "setLocation", _cclua_plugin_talkingdata_setLocation);
-    oluacls_func(L, "setSignalReportEnabled", _cclua_plugin_talkingdata_setSignalReportEnabled);
-    oluacls_func(L, "setVendorId", _cclua_plugin_talkingdata_setVendorId);
-    oluacls_func(L, "setVerboseLogDisable", _cclua_plugin_talkingdata_setVerboseLogDisable);
-    oluacls_prop(L, "deviceId", _cclua_plugin_talkingdata_getDeviceId, nullptr);
+    oluacls_func(L, "__gc", _olua_fun_cclua_plugin_talkingdata___gc);
+    oluacls_func(L, "backgroundSessionEnabled", _olua_fun_cclua_plugin_talkingdata_backgroundSessionEnabled);
+    oluacls_func(L, "getDeviceId", _olua_fun_cclua_plugin_talkingdata_getDeviceId);
+    oluacls_func(L, "init", _olua_fun_cclua_plugin_talkingdata_init);
+    oluacls_func(L, "onCreateCard", _olua_fun_cclua_plugin_talkingdata_onCreateCard);
+    oluacls_func(L, "onEvent", _olua_fun_cclua_plugin_talkingdata_onEvent);
+    oluacls_func(L, "onFavorite", _olua_fun_cclua_plugin_talkingdata_onFavorite);
+    oluacls_func(L, "onLogin", _olua_fun_cclua_plugin_talkingdata_onLogin);
+    oluacls_func(L, "onPageBegin", _olua_fun_cclua_plugin_talkingdata_onPageBegin);
+    oluacls_func(L, "onPageEnd", _olua_fun_cclua_plugin_talkingdata_onPageEnd);
+    oluacls_func(L, "onProfileUpdate", _olua_fun_cclua_plugin_talkingdata_onProfileUpdate);
+    oluacls_func(L, "onPunch", _olua_fun_cclua_plugin_talkingdata_onPunch);
+    oluacls_func(L, "onReceiveDeepLink", _olua_fun_cclua_plugin_talkingdata_onReceiveDeepLink);
+    oluacls_func(L, "onRegister", _olua_fun_cclua_plugin_talkingdata_onRegister);
+    oluacls_func(L, "onSearch", _olua_fun_cclua_plugin_talkingdata_onSearch);
+    oluacls_func(L, "onShare", _olua_fun_cclua_plugin_talkingdata_onShare);
+    oluacls_func(L, "removeGlobalKV", _olua_fun_cclua_plugin_talkingdata_removeGlobalKV);
+    oluacls_func(L, "setConfigurationDisable", _olua_fun_cclua_plugin_talkingdata_setConfigurationDisable);
+    oluacls_func(L, "setExceptionReportEnabled", _olua_fun_cclua_plugin_talkingdata_setExceptionReportEnabled);
+    oluacls_func(L, "setGlobalKV", _olua_fun_cclua_plugin_talkingdata_setGlobalKV);
+    oluacls_func(L, "setLocation", _olua_fun_cclua_plugin_talkingdata_setLocation);
+    oluacls_func(L, "setSignalReportEnabled", _olua_fun_cclua_plugin_talkingdata_setSignalReportEnabled);
+    oluacls_func(L, "setVendorId", _olua_fun_cclua_plugin_talkingdata_setVendorId);
+    oluacls_func(L, "setVerboseLogDisable", _olua_fun_cclua_plugin_talkingdata_setVerboseLogDisable);
+    oluacls_prop(L, "deviceId", _olua_fun_cclua_plugin_talkingdata_getDeviceId, nullptr);
 
     cclua::runtime::registerFeature("cclua.plugin.talkingdata.ios", true);
 
     return 1;
 }
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_cclua_plugin_talkingdata(lua_State *L)
+{
+    olua_require(L, "talkingdata",  _olua_module_talkingdata);
+    if (!olua_getclass(L, "cclua.plugin.talkingdata")) {
+        luaL_error(L, "class not found: cclua::plugin::talkingdata");
+    }
+    return 1;
+}
 OLUA_END_DECLS
 #endif
+
+int _olua_module_talkingdata(lua_State *L)
+{
+#ifdef CCLUA_BUILD_TALKINGDATA
+    olua_require(L, "cclua.plugin.talkingdata", _olua_cls_cclua_plugin_talkingdata);
+#endif
+
+    return 0;
+}
 
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_talkingdata(lua_State *L)
 {
-#ifdef CCLUA_BUILD_TALKINGDATA
-    olua_require(L, "cclua.plugin.talkingdata", luaopen_cclua_plugin_talkingdata);
-#endif
+    olua_require(L, "talkingdata",  _olua_module_talkingdata);
 
     return 0;
 }

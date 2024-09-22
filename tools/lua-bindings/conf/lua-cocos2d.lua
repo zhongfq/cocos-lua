@@ -1,6 +1,8 @@
 module 'cocos2d'
 
-path '../../frameworks/cclua/src/lua-bindings'
+output_dir '../../frameworks/cclua/src/lua-bindings'
+
+api_dir"../../addons/cclua/cocos2d"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
@@ -12,7 +14,7 @@ headers [[
 #include "navmesh/CCNavMesh.h"
 ]]
 
-chunk [[
+codeblock[[
 static const std::string makeScheduleCallbackTag(const std::string &key)
 {
     return "schedule." + key;
@@ -53,7 +55,6 @@ typeconf 'cocos2d::Acceleration'
 
 typeconf 'cocos2d::Director'
     .exclude 'getCocos2dThreadId'
-    .alias 'end' .to 'exit'
     .func 'getRunningScene' .ret '@addref(scenes |)'
     .func 'runWithScene' .arg1 '@addref(scenes |)'
     .func 'pushScene' .arg1 '@addref(scenes |)'
@@ -80,7 +81,7 @@ typeconf 'cocos2d::ccSchedulerFunc'
 
 typeconf 'cocos2d::Scheduler'
     .exclude 'performFunctionInCocosThread'
-    .chunk [[
+    .codeblock[[
         template <typename T> bool doScheduleUpdate(lua_State *L)
         {
             if (olua_isa<T>(L, 2)) {
@@ -95,19 +96,19 @@ typeconf 'cocos2d::Scheduler'
             return false;
         }
     ]]
-    .callback 'schedule'
+    .func 'schedule'
         .tag_mode 'replace'
         .tag_maker 'makeScheduleCallbackTag(#-1)'
         .tag_store '2' -- 2th void *target
-    .callback 'unschedule'
+    .func 'unschedule'
         .tag_mode 'equal'
         .tag_maker 'makeScheduleCallbackTag(#1)'
         .tag_store '2' -- 2th void *target
-    .callback 'unscheduleAllForTarget'
+    .func 'unscheduleAllForTarget'
         .tag_mode 'startwith'
         .tag_maker 'makeScheduleCallbackTag("")'
         .tag_store '1' -- 1th void *target
-    .callback 'unscheduleAll'
+    .func 'unscheduleAll'
         .tag_maker 'makeScheduleCallbackTag("")'
         .tag_mode 'startwith'
     .func 'scheduleUpdate'
@@ -131,8 +132,8 @@ typeconf 'cocos2d::Scheduler'
 -- event & event listener
 --
 typeconf 'cocos2d::EventDispatcher'
-    .chunk [[
-        static int _cocos2d_EventDispatcher_addEventListenerWithFixedPriority(lua_State *L);
+    .codeblock[[
+        static int _olua_fun_cocos2d_EventDispatcher_addEventListenerWithFixedPriority(lua_State *L);
 
         static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
         {
@@ -169,9 +170,9 @@ typeconf 'cocos2d::EventDispatcher'
         {
             lua_settop(L, 2);
             olua_pushinteger(L, 1);
-            return _cocos2d_EventDispatcher_addEventListenerWithFixedPriority(L);
+            return _olua_fun_cocos2d_EventDispatcher_addEventListenerWithFixedPriority(L);
         }]]
-    .callback 'addCustomEventListener'
+    .func 'addCustomEventListener'
         .ret '@addref(listeners |)'
         .tag_maker '(#1)'
         .tag_store '-1'
@@ -190,12 +191,12 @@ typeconf 'cocos2d::EventListenerTouchAllAtOnce::ccTouchesCallback'
 typeconf 'cocos2d::EventListenerTouchAllAtOnce'
 
 typeconf 'cocos2d::EventListenerCustom'
-    .callback 'create' .tag_store '-1' .tag_maker 'listener'
+    .func 'create' .tag_store '-1' .tag_maker 'listener'
 
 typeconf 'cocos2d::EventListenerKeyboard'
 
 typeconf 'cocos2d::EventListenerAcceleration'
-    .callback 'create' .tag_store '-1' .tag_maker 'listener'
+    .func 'create' .tag_store '-1' .tag_maker 'listener'
 
 typeconf 'cocos2d::EventListenerFocus'
 typeconf 'cocos2d::EventListenerMouse'
@@ -226,7 +227,7 @@ typeconf 'cocos2d::AudioProfile'
 typeconf 'cocos2d::AudioEngine::AudioState'
 
 typeconf 'cocos2d::AudioEngine'
-    .chunk [[
+    .codeblock[[
         NS_CC_BEGIN
         class LuaAudioEngine : public cocos2d::AudioEngine
         {
@@ -264,14 +265,14 @@ typeconf 'cocos2d::AudioEngine'
                 olua_removecallback(L, cb_store, tag.c_str(), OLUA_TAG_EQUAL);
             }
         ]]
-    .callback 'stop' .tag_mode 'equal' .tag_maker 'makeAudioEngineFinishCallbackTag(#1)'
-    .callback 'stopAll' .tag_mode "startwith" .tag_maker 'makeAudioEngineFinishCallbackTag(-1)'
-    .callback 'uncacheAll' .tag_mode "startwith" .tag_maker 'makeAudioEngineFinishCallbackTag(-1)'
-    .callback 'setFinishCallback'
+    .func 'stop' .tag_mode 'equal' .tag_maker 'makeAudioEngineFinishCallbackTag(#1)'
+    .func 'stopAll' .tag_mode "startwith" .tag_maker 'makeAudioEngineFinishCallbackTag(-1)'
+    .func 'uncacheAll' .tag_mode "startwith" .tag_maker 'makeAudioEngineFinishCallbackTag(-1)'
+    .func 'setFinishCallback'
+        .arg2 '@nullable'
         .tag_maker 'makeAudioEngineFinishCallbackTag(#1)'
         .tag_scope 'once'
-        .arg2 '@nullable'
-    .callback 'preload' .tag_scope 'once'
+    .func 'preload' .tag_scope 'once'
 
 typeconf 'cocos2d::ApplicationProtocol::Platform'
 typeconf 'cocos2d::LanguageType'
@@ -289,21 +290,21 @@ typeconf 'cocos2d::FileUtils::Status'
 
 typeconf 'cocos2d::FileUtils'
     .extend 'cocos2d::FileUtilsExtend'
-    .callback "getStringFromFile" .tag_scope 'once' .tag_mode 'new'
-    .callback "getDataFromFile" .tag_scope 'once' .tag_mode 'new'
-    .callback "writeStringToFile" .tag_scope 'once' .tag_mode 'new'
-    .callback "writeDataToFile" .tag_scope 'once' .tag_mode 'new'
-    .callback "writeValueMapToFile" .tag_scope 'once' .tag_mode 'new'
-    .callback "writeValueVectorToFile" .tag_scope 'once' .tag_mode 'new'
-    .callback "isFileExist" .tag_scope 'once' .tag_mode 'new'
-    .callback "isDirectoryExist" .tag_scope 'once' .tag_mode 'new'
-    .callback "createDirectory" .tag_scope 'once' .tag_mode 'new'
-    .callback "removeDirectory" .tag_scope 'once' .tag_mode 'new'
-    .callback "removeFile" .tag_scope 'once' .tag_mode 'new'
-    .callback "renameFile" .tag_scope 'once' .tag_mode 'new'
-    .callback "getFileSize" .tag_scope 'once' .tag_mode 'new'
-    .callback "listFilesAsync" .tag_scope 'once' .tag_mode 'new'
-    .callback "listFilesRecursivelyAsync" .tag_scope 'once' .tag_mode 'new'
+    .func "getStringFromFile" .tag_scope 'once' .tag_mode 'new'
+    .func "getDataFromFile" .tag_scope 'once' .tag_mode 'new'
+    .func "writeStringToFile" .tag_scope 'once' .tag_mode 'new'
+    .func "writeDataToFile" .tag_scope 'once' .tag_mode 'new'
+    .func "writeValueMapToFile" .tag_scope 'once' .tag_mode 'new'
+    .func "writeValueVectorToFile" .tag_scope 'once' .tag_mode 'new'
+    .func "isFileExist" .tag_scope 'once' .tag_mode 'new'
+    .func "isDirectoryExist" .tag_scope 'once' .tag_mode 'new'
+    .func "createDirectory" .tag_scope 'once' .tag_mode 'new'
+    .func "removeDirectory" .tag_scope 'once' .tag_mode 'new'
+    .func "removeFile" .tag_scope 'once' .tag_mode 'new'
+    .func "renameFile" .tag_scope 'once' .tag_mode 'new'
+    .func "getFileSize" .tag_scope 'once' .tag_mode 'new'
+    .func "listFilesAsync" .tag_scope 'once' .tag_mode 'new'
+    .func "listFilesRecursivelyAsync" .tag_scope 'once' .tag_mode 'new'
 
 typeconf 'ResolutionPolicy'
 typeconf 'cocos2d::GLView'
@@ -335,21 +336,26 @@ typeconf 'cocos2d::MeshCommand'
     .exclude 'listenRendererRecreated'
 
 typeconf 'cocos2d::TextureCache'
-    .chunk [[
+    .codeblock[[
         static const std::string makeTextureCacheCallbackTag(const std::string &key)
         {
             return "addImageAsync." + key;
         }
     ]]
-    .callback 'addImageAsync'
-        .tag_maker {'makeTextureCacheCallbackTag(#1)', 'makeTextureCacheCallbackTag(#-1)'}
+    .func 'addImageAsync'
+        .tag_maker "makeTextureCacheCallbackTag(#1)"
         .tag_mode 'replace'
         .tag_scope 'once'
-        .localvar 'false'
-    .callback 'unbindImageAsync'
+        .tag_usepool 'false'
+    .func 'addImageAsync(const std::string &, const std::function<void (cocos2d::Texture2D *)> &, const std::string &)'
+        .tag_maker "makeTextureCacheCallbackTag(#-1)"
+        .tag_mode 'replace'
+        .tag_scope 'once'
+        .tag_usepool 'false'
+    .func 'unbindImageAsync'
         .tag_maker 'makeTextureCacheCallbackTag(#1)'
         .tag_mode 'equal'
-    .callback 'unbindAllImageAsync'
+    .func 'unbindAllImageAsync'
         .tag_maker 'makeTextureCacheCallbackTag("")'
         .tag_mode 'startwith'
 
@@ -457,37 +463,37 @@ typeconf 'cocos2d::Node'
     .macro '#if CC_USE_PHYSICS'
     .func 'setPhysicsBody' .arg1 '@addref(^)'
     .func 'getPhysicsBody' .ret '@addref(^)'
-    .macro ''
+    .macro '#endif'
     .func 'onEnter' .insert_before(check_node_parent)
     .func 'onExit' .insert_before(check_node_parent)
     .func 'getBounds' .ret '@unpack'
-    .prop 'x' .get 'float getPositionX()' .set 'void setPositionX(float x)'
-    .prop 'y' .get 'float getPositionY()' .set 'void setPositionY(float y)'
-    .prop 'z' .get 'float getPositionZ()' .set 'void setPositionZ(float z)'
-    .callback 'setOnEnterCallback' .arg1 '@nullable'
-    .callback 'getOnEnterCallback' .ret '@nullable'
-    .callback 'setOnExitCallback' .arg1 '@nullable'
-    .callback 'getOnExitCallback' .ret '@nullable'
-    .callback 'setOnEnterTransitionDidFinishCallback' .arg1 '@nullable'
-    .callback 'getOnEnterTransitionDidFinishCallback' .ret '@nullable'
-    .callback 'setOnExitTransitionDidStartCallback' .arg1 '@nullable'
-    .callback 'getOnExitTransitionDidStartCallback' .ret '@nullable'
-    .callback 'scheduleOnce'
+    .prop 'x' .get 'float getPositionX()' .set 'void setPositionX(float)'
+    .prop 'y' .get 'float getPositionY()' .set 'void setPositionY(float)'
+    .prop 'z' .get 'float getPositionZ()' .set 'void setPositionZ(float)'
+    .func 'setOnEnterCallback' .arg1 '@nullable'
+    .func 'getOnEnterCallback' .ret '@nullable'
+    .func 'setOnExitCallback' .arg1 '@nullable'
+    .func 'getOnExitCallback' .ret '@nullable'
+    .func 'setOnEnterTransitionDidFinishCallback' .arg1 '@nullable'
+    .func 'getOnEnterTransitionDidFinishCallback' .ret '@nullable'
+    .func 'setOnExitTransitionDidStartCallback' .arg1 '@nullable'
+    .func 'getOnExitTransitionDidStartCallback' .ret '@nullable'
+    .func 'scheduleOnce'
         .tag_maker 'makeScheduleCallbackTag(#-1)'
         .tag_mode 'replace'
         .tag_scope 'once'
-    .callback 'schedule'
+    .func 'schedule'
         .tag_maker "makeScheduleCallbackTag(#-1)"
         .tag_mode 'replace'
-    .callback 'unschedule'
+    .func 'unschedule'
         .tag_maker "makeScheduleCallbackTag(#1)"
         .tag_mode 'equal'
-    .callback 'unscheduleAllCallbacks'
+    .func 'unscheduleAllCallbacks'
         .tag_maker 'makeScheduleCallbackTag("")'
         .tag_mode "startwith"
-    .callback 'enumerateChildren'
+    .func 'enumerateChildren'
         .tag_mode 'new'
-        .tag_scope 'function'
+        .tag_scope 'invoker'
 
 typeconf 'cocos2d::BlendProtocol'
 typeconf 'cocos2d::TextureProtocol'
@@ -508,7 +514,7 @@ typeconf 'cocos2d::ProtectedNode'
 typeconf 'cocos2d::DrawNode'
 
 typeconf 'cocos2d::ParallaxNode'
-    .func 'addChild' .arg1 '@addref(chilren |)'
+    .func 'addChild' .arg1 '@addref(children |)'
 
 typeconf 'cocos2d::TextHAlignment'
 typeconf 'cocos2d::TextVAlignment'
@@ -527,19 +533,18 @@ typeconf 'cocos2d::FontAtlas'
 typeconf 'cocos2d::ClippingRectangleNode'
 
 typeconf 'cocos2d::RenderTexture'
-    .callback 'saveToFile'
-        .localvar 'false'
+    .extend 'cocos2d::RenderTextureExtend'
+    .func 'saveToFile'
+        .tag_usepool 'false'
         .tag_scope 'once'
-    .callback 'saveToFileAsNonPMA'
+    .func 'saveToFileAsNonPMA'
         .tag_maker 'saveToFile'
-        .localvar 'false'
+        .tag_usepool 'false'
         .tag_scope 'once'
-    .callback 'newImage'
+    .func 'newImage'
         .tag_mode 'new'
-        .localvar 'false'
+        .tag_usepool 'false'
         .tag_scope 'once'
-    .alias 'begin' .to 'beginVisit'
-    .alias 'end' .to 'endVisit'
 
 typeconf 'cocos2d::ProgressTimer::Type'
 typeconf 'cocos2d::ProgressTimer'
@@ -555,22 +560,22 @@ typeconf 'cocos2d::Scene'
     .exclude 'initWithPhysics'
     .macro '#if CC_USE_PHYSICS'
     .func 'getPhysicsWorld' .ret '@addref(^)'
-    .macro ''
+    .macro '#endif'
     .macro '#if CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION'
     .func 'getPhysics3DWorld' .ret '@addref(^)'
     .func 'setPhysics3DDebugCamera'
-    .macro ''
+    .macro '#endif'
     .macro '#if (CC_USE_PHYSICS || (CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION))'
     .func 'createWithPhysics'
-    .macro ''
+    .macro '#endif'
     .macro '#if CC_USE_NAVMESH'
     .func 'setNavMesh'
     .func 'getNavMesh'
     .func 'setNavMeshDebugCamera'
-    .macro ''
+    .macro '#endif'
     .macro '#if (CC_USE_PHYSICS || (CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION) || CC_USE_NAVMESH)'
     .func 'stepPhysicsAndNavigation'
-    .macro ''
+    .macro '#endif'
 
 typeconf 'cocos2d::Layer'
 typeconf 'cocos2d::LayerColor'
@@ -689,4 +694,4 @@ typeconf 'cocos2d::NavMeshAgent'
 typeconf 'cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag'
 typeconf 'cocos2d::NavMeshObstacle'
 typeconf 'cocos2d::NavMesh'
-macro ''
+macro '#endif'

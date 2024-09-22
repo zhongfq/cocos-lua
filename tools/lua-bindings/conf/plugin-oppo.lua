@@ -1,6 +1,8 @@
 module 'oppo'
 
-path "../../frameworks/plugins/oppo"
+output_dir "../../frameworks/plugins/oppo"
+
+api_dir"../../addons/cclua/plugin/oppo"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
@@ -10,5 +12,5 @@ headers [[
 
 macro '#ifdef CCLUA_BUILD_OPPO'
 typeconf "cclua::plugin::oppo"
-macro ''
+macro '#endif'
 

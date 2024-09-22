@@ -2,6 +2,7 @@ local class         = require "cclua.class"
 local Align         = require "cclua.ui.Align"
 local LayoutBase    = require "cclua.ui.LayoutBase"
 
+---@class AbsoluteLayout : LayoutBase
 local AbsoluteLayout = class("AbsoluteLayout", LayoutBase)
 
 function AbsoluteLayout:doLayout()

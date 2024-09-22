@@ -1,36 +1,33 @@
 //
-// AUTO BUILD, DON'T MODIFY!
+// AUTO GENERATED, DO NOT MODIFY!
 //
 #include "lua_cocos2d_backend.h"
 #include "lua-bindings/lua_cocos2d_types.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "cocos2d.h"
 
-static int _cocos2d_backend_UniformLocation___call(lua_State *L)
+static int _olua_module_cocos2d_backend(lua_State *L);
+
+static int _olua_fun_cocos2d_backend_UniformLocation___eq(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::backend::UniformLocation ret;
+    cocos2d::backend::UniformLocation *self = nullptr;
+    cocos2d::backend::UniformLocation *arg1;       /** other */
 
-    luaL_checktype(L, 2, LUA_TTABLE);
+    olua_to_object(L, 1, &self, "ccb.UniformLocation");
+    olua_check_object(L, 2, &arg1, "ccb.UniformLocation");
 
-    cocos2d::backend::ShaderStage arg1 = (cocos2d::backend::ShaderStage)0;       /** shaderStage */
-
-    olua_getfield(L, 2, "shaderStage");
-    if (!olua_isnoneornil(L, -1)) {
-        olua_check_enum(L, -1, &arg1);
-        ret.shaderStage = arg1;
-    }
-    lua_pop(L, 1);
-
-    olua_pushcopy_object(L, ret, "ccb.UniformLocation");
+    // @operator(operator==) bool operator==(const cocos2d::backend::UniformLocation &other)
+    bool ret = (*self) == (*arg1);
+    int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
 
-    return 1;
+    return num_ret;
 }
 
-static int _cocos2d_backend_UniformLocation___gc(lua_State *L)
+static int _olua_fun_cocos2d_backend_UniformLocation___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -42,23 +39,11 @@ static int _cocos2d_backend_UniformLocation___gc(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_UniformLocation___olua_move(lua_State *L)
+static int _olua_fun_cocos2d_backend_UniformLocation_new(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (cocos2d::backend::UniformLocation *)olua_toobj(L, 1, "ccb.UniformLocation");
-    olua_push_object(L, self, "ccb.UniformLocation");
-
-    olua_endinvoke(L);
-
-    return 1;
-}
-
-static int _cocos2d_backend_UniformLocation_new(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    // UniformLocation()
+    // cocos2d::backend::UniformLocation()
     cocos2d::backend::UniformLocation *ret = new cocos2d::backend::UniformLocation();
     int num_ret = olua_push_object(L, ret, "ccb.UniformLocation");
     olua_postnew(L, ret);
@@ -68,7 +53,7 @@ static int _cocos2d_backend_UniformLocation_new(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_UniformLocation_reset(lua_State *L)
+static int _olua_fun_cocos2d_backend_UniformLocation_reset(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -84,7 +69,7 @@ static int _cocos2d_backend_UniformLocation_reset(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_UniformLocation_get_shaderStage(lua_State *L)
+static int _olua_fun_cocos2d_backend_UniformLocation_shaderStage$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -92,7 +77,7 @@ static int _cocos2d_backend_UniformLocation_get_shaderStage(lua_State *L)
 
     olua_to_object(L, 1, &self, "ccb.UniformLocation");
 
-    // @optional cocos2d::backend::ShaderStage shaderStage
+    // cocos2d::backend::ShaderStage shaderStage
     cocos2d::backend::ShaderStage ret = self->shaderStage;
     int num_ret = olua_push_enum(L, ret);
 
@@ -101,7 +86,7 @@ static int _cocos2d_backend_UniformLocation_get_shaderStage(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_UniformLocation_set_shaderStage(lua_State *L)
+static int _olua_fun_cocos2d_backend_UniformLocation_shaderStage$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -111,7 +96,7 @@ static int _cocos2d_backend_UniformLocation_set_shaderStage(lua_State *L)
     olua_to_object(L, 1, &self, "ccb.UniformLocation");
     olua_check_enum(L, 2, &arg1);
 
-    // @optional cocos2d::backend::ShaderStage shaderStage
+    // cocos2d::backend::ShaderStage shaderStage
     self->shaderStage = arg1;
 
     olua_endinvoke(L);
@@ -119,23 +104,51 @@ static int _cocos2d_backend_UniformLocation_set_shaderStage(lua_State *L)
     return 0;
 }
 
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_UniformLocation(lua_State *L)
+static int _olua_fun_cocos2d_backend_UniformLocation_shaderStage(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // cocos2d::backend::ShaderStage shaderStage
+        return _olua_fun_cocos2d_backend_UniformLocation_shaderStage$1(L);
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_object(L, 1, "ccb.UniformLocation")) && (olua_is_enum(L, 2))) {
+            // cocos2d::backend::ShaderStage shaderStage
+            return _olua_fun_cocos2d_backend_UniformLocation_shaderStage$2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::backend::UniformLocation::shaderStage' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _olua_cls_ccb_UniformLocation(lua_State *L)
 {
     oluacls_class<cocos2d::backend::UniformLocation>(L, "ccb.UniformLocation");
-    oluacls_func(L, "__call", _cocos2d_backend_UniformLocation___call);
-    oluacls_func(L, "__gc", _cocos2d_backend_UniformLocation___gc);
-    oluacls_func(L, "__olua_move", _cocos2d_backend_UniformLocation___olua_move);
-    oluacls_func(L, "new", _cocos2d_backend_UniformLocation_new);
-    oluacls_func(L, "reset", _cocos2d_backend_UniformLocation_reset);
-    oluacls_prop(L, "shaderStage", _cocos2d_backend_UniformLocation_get_shaderStage, _cocos2d_backend_UniformLocation_set_shaderStage);
+    oluacls_func(L, "__eq", _olua_fun_cocos2d_backend_UniformLocation___eq);
+    oluacls_func(L, "__gc", _olua_fun_cocos2d_backend_UniformLocation___gc);
+    oluacls_func(L, "new", _olua_fun_cocos2d_backend_UniformLocation_new);
+    oluacls_func(L, "reset", _olua_fun_cocos2d_backend_UniformLocation_reset);
+    oluacls_prop(L, "shaderStage", _olua_fun_cocos2d_backend_UniformLocation_shaderStage, _olua_fun_cocos2d_backend_UniformLocation_shaderStage);
 
+    return 1;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_ccb_UniformLocation(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.UniformLocation")) {
+        luaL_error(L, "class not found: cocos2d::backend::UniformLocation");
+    }
     return 1;
 }
 OLUA_END_DECLS
 
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_BufferUsage(lua_State *L)
+static int _olua_cls_ccb_BufferUsage(lua_State *L)
 {
     oluacls_class<cocos2d::backend::BufferUsage>(L, "ccb.BufferUsage");
     oluacls_func(L, "__index", olua_indexerror);
@@ -145,10 +158,19 @@ OLUA_LIB int luaopen_cocos2d_backend_BufferUsage(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_BufferType(lua_State *L)
+OLUA_LIB int luaopen_ccb_BufferUsage(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.BufferUsage")) {
+        luaL_error(L, "class not found: cocos2d::backend::BufferUsage");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_BufferType(lua_State *L)
 {
     oluacls_class<cocos2d::backend::BufferType>(L, "ccb.BufferType");
     oluacls_func(L, "__index", olua_indexerror);
@@ -158,10 +180,19 @@ OLUA_LIB int luaopen_cocos2d_backend_BufferType(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_ShaderStage(lua_State *L)
+OLUA_LIB int luaopen_ccb_BufferType(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.BufferType")) {
+        luaL_error(L, "class not found: cocos2d::backend::BufferType");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_ShaderStage(lua_State *L)
 {
     oluacls_class<cocos2d::backend::ShaderStage>(L, "ccb.ShaderStage");
     oluacls_func(L, "__index", olua_indexerror);
@@ -172,10 +203,19 @@ OLUA_LIB int luaopen_cocos2d_backend_ShaderStage(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_VertexFormat(lua_State *L)
+OLUA_LIB int luaopen_ccb_ShaderStage(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.ShaderStage")) {
+        luaL_error(L, "class not found: cocos2d::backend::ShaderStage");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_VertexFormat(lua_State *L)
 {
     oluacls_class<cocos2d::backend::VertexFormat>(L, "ccb.VertexFormat");
     oluacls_func(L, "__index", olua_indexerror);
@@ -194,10 +234,19 @@ OLUA_LIB int luaopen_cocos2d_backend_VertexFormat(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_PixelFormat(lua_State *L)
+OLUA_LIB int luaopen_ccb_VertexFormat(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.VertexFormat")) {
+        luaL_error(L, "class not found: cocos2d::backend::VertexFormat");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_PixelFormat(lua_State *L)
 {
     oluacls_class<cocos2d::backend::PixelFormat>(L, "ccb.PixelFormat");
     oluacls_func(L, "__index", olua_indexerror);
@@ -232,10 +281,19 @@ OLUA_LIB int luaopen_cocos2d_backend_PixelFormat(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_TextureUsage(lua_State *L)
+OLUA_LIB int luaopen_ccb_PixelFormat(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.PixelFormat")) {
+        luaL_error(L, "class not found: cocos2d::backend::PixelFormat");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_TextureUsage(lua_State *L)
 {
     oluacls_class<cocos2d::backend::TextureUsage>(L, "ccb.TextureUsage");
     oluacls_func(L, "__index", olua_indexerror);
@@ -246,10 +304,19 @@ OLUA_LIB int luaopen_cocos2d_backend_TextureUsage(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_IndexFormat(lua_State *L)
+OLUA_LIB int luaopen_ccb_TextureUsage(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.TextureUsage")) {
+        luaL_error(L, "class not found: cocos2d::backend::TextureUsage");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_IndexFormat(lua_State *L)
 {
     oluacls_class<cocos2d::backend::IndexFormat>(L, "ccb.IndexFormat");
     oluacls_func(L, "__index", olua_indexerror);
@@ -259,10 +326,19 @@ OLUA_LIB int luaopen_cocos2d_backend_IndexFormat(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_VertexStepMode(lua_State *L)
+OLUA_LIB int luaopen_ccb_IndexFormat(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.IndexFormat")) {
+        luaL_error(L, "class not found: cocos2d::backend::IndexFormat");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_VertexStepMode(lua_State *L)
 {
     oluacls_class<cocos2d::backend::VertexStepMode>(L, "ccb.VertexStepMode");
     oluacls_func(L, "__index", olua_indexerror);
@@ -272,10 +348,19 @@ OLUA_LIB int luaopen_cocos2d_backend_VertexStepMode(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_PrimitiveType(lua_State *L)
+OLUA_LIB int luaopen_ccb_VertexStepMode(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.VertexStepMode")) {
+        luaL_error(L, "class not found: cocos2d::backend::VertexStepMode");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_PrimitiveType(lua_State *L)
 {
     oluacls_class<cocos2d::backend::PrimitiveType>(L, "ccb.PrimitiveType");
     oluacls_func(L, "__index", olua_indexerror);
@@ -288,10 +373,19 @@ OLUA_LIB int luaopen_cocos2d_backend_PrimitiveType(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_TextureType(lua_State *L)
+OLUA_LIB int luaopen_ccb_PrimitiveType(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.PrimitiveType")) {
+        luaL_error(L, "class not found: cocos2d::backend::PrimitiveType");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_TextureType(lua_State *L)
 {
     oluacls_class<cocos2d::backend::TextureType>(L, "ccb.TextureType");
     oluacls_func(L, "__index", olua_indexerror);
@@ -301,10 +395,19 @@ OLUA_LIB int luaopen_cocos2d_backend_TextureType(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_SamplerAddressMode(lua_State *L)
+OLUA_LIB int luaopen_ccb_TextureType(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.TextureType")) {
+        luaL_error(L, "class not found: cocos2d::backend::TextureType");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_SamplerAddressMode(lua_State *L)
 {
     oluacls_class<cocos2d::backend::SamplerAddressMode>(L, "ccb.SamplerAddressMode");
     oluacls_func(L, "__index", olua_indexerror);
@@ -316,10 +419,19 @@ OLUA_LIB int luaopen_cocos2d_backend_SamplerAddressMode(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_SamplerFilter(lua_State *L)
+OLUA_LIB int luaopen_ccb_SamplerAddressMode(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.SamplerAddressMode")) {
+        luaL_error(L, "class not found: cocos2d::backend::SamplerAddressMode");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_SamplerFilter(lua_State *L)
 {
     oluacls_class<cocos2d::backend::SamplerFilter>(L, "ccb.SamplerFilter");
     oluacls_func(L, "__index", olua_indexerror);
@@ -334,10 +446,19 @@ OLUA_LIB int luaopen_cocos2d_backend_SamplerFilter(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_StencilOperation(lua_State *L)
+OLUA_LIB int luaopen_ccb_SamplerFilter(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.SamplerFilter")) {
+        luaL_error(L, "class not found: cocos2d::backend::SamplerFilter");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_StencilOperation(lua_State *L)
 {
     oluacls_class<cocos2d::backend::StencilOperation>(L, "ccb.StencilOperation");
     oluacls_func(L, "__index", olua_indexerror);
@@ -351,10 +472,19 @@ OLUA_LIB int luaopen_cocos2d_backend_StencilOperation(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_CompareFunction(lua_State *L)
+OLUA_LIB int luaopen_ccb_StencilOperation(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.StencilOperation")) {
+        luaL_error(L, "class not found: cocos2d::backend::StencilOperation");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_CompareFunction(lua_State *L)
 {
     oluacls_class<cocos2d::backend::CompareFunction>(L, "ccb.CompareFunction");
     oluacls_func(L, "__index", olua_indexerror);
@@ -370,10 +500,19 @@ OLUA_LIB int luaopen_cocos2d_backend_CompareFunction(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_BlendOperation(lua_State *L)
+OLUA_LIB int luaopen_ccb_CompareFunction(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.CompareFunction")) {
+        luaL_error(L, "class not found: cocos2d::backend::CompareFunction");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_BlendOperation(lua_State *L)
 {
     oluacls_class<cocos2d::backend::BlendOperation>(L, "ccb.BlendOperation");
     oluacls_func(L, "__index", olua_indexerror);
@@ -384,10 +523,19 @@ OLUA_LIB int luaopen_cocos2d_backend_BlendOperation(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_BlendFactor(lua_State *L)
+OLUA_LIB int luaopen_ccb_BlendOperation(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.BlendOperation")) {
+        luaL_error(L, "class not found: cocos2d::backend::BlendOperation");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_BlendFactor(lua_State *L)
 {
     oluacls_class<cocos2d::backend::BlendFactor>(L, "ccb.BlendFactor");
     oluacls_func(L, "__index", olua_indexerror);
@@ -409,10 +557,19 @@ OLUA_LIB int luaopen_cocos2d_backend_BlendFactor(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_ColorWriteMask(lua_State *L)
+OLUA_LIB int luaopen_ccb_BlendFactor(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.BlendFactor")) {
+        luaL_error(L, "class not found: cocos2d::backend::BlendFactor");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_ColorWriteMask(lua_State *L)
 {
     oluacls_class<cocos2d::backend::ColorWriteMask>(L, "ccb.ColorWriteMask");
     oluacls_func(L, "__index", olua_indexerror);
@@ -426,10 +583,19 @@ OLUA_LIB int luaopen_cocos2d_backend_ColorWriteMask(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_CullMode(lua_State *L)
+OLUA_LIB int luaopen_ccb_ColorWriteMask(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.ColorWriteMask")) {
+        luaL_error(L, "class not found: cocos2d::backend::ColorWriteMask");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_CullMode(lua_State *L)
 {
     oluacls_class<cocos2d::backend::CullMode>(L, "ccb.CullMode");
     oluacls_func(L, "__index", olua_indexerror);
@@ -440,10 +606,19 @@ OLUA_LIB int luaopen_cocos2d_backend_CullMode(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_Winding(lua_State *L)
+OLUA_LIB int luaopen_ccb_CullMode(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.CullMode")) {
+        luaL_error(L, "class not found: cocos2d::backend::CullMode");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_Winding(lua_State *L)
 {
     oluacls_class<cocos2d::backend::Winding>(L, "ccb.Winding");
     oluacls_func(L, "__index", olua_indexerror);
@@ -453,10 +628,19 @@ OLUA_LIB int luaopen_cocos2d_backend_Winding(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_TextureCubeFace(lua_State *L)
+OLUA_LIB int luaopen_ccb_Winding(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.Winding")) {
+        luaL_error(L, "class not found: cocos2d::backend::Winding");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_TextureCubeFace(lua_State *L)
 {
     oluacls_class<cocos2d::backend::TextureCubeFace>(L, "ccb.TextureCubeFace");
     oluacls_func(L, "__index", olua_indexerror);
@@ -470,10 +654,19 @@ OLUA_LIB int luaopen_cocos2d_backend_TextureCubeFace(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_ProgramType(lua_State *L)
+OLUA_LIB int luaopen_ccb_TextureCubeFace(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.TextureCubeFace")) {
+        luaL_error(L, "class not found: cocos2d::backend::TextureCubeFace");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_ProgramType(lua_State *L)
 {
     oluacls_class<cocos2d::backend::ProgramType>(L, "ccb.ProgramType");
     oluacls_func(L, "__index", olua_indexerror);
@@ -512,10 +705,19 @@ OLUA_LIB int luaopen_cocos2d_backend_ProgramType(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_Uniform(lua_State *L)
+OLUA_LIB int luaopen_ccb_ProgramType(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.ProgramType")) {
+        luaL_error(L, "class not found: cocos2d::backend::ProgramType");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_Uniform(lua_State *L)
 {
     oluacls_class<cocos2d::backend::Uniform>(L, "ccb.Uniform");
     oluacls_func(L, "__index", olua_indexerror);
@@ -532,10 +734,19 @@ OLUA_LIB int luaopen_cocos2d_backend_Uniform(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_Attribute(lua_State *L)
+OLUA_LIB int luaopen_ccb_Uniform(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.Uniform")) {
+        luaL_error(L, "class not found: cocos2d::backend::Uniform");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_Attribute(lua_State *L)
 {
     oluacls_class<cocos2d::backend::Attribute>(L, "ccb.Attribute");
     oluacls_func(L, "__index", olua_indexerror);
@@ -550,10 +761,19 @@ OLUA_LIB int luaopen_cocos2d_backend_Attribute(lua_State *L)
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_FeatureType(lua_State *L)
+OLUA_LIB int luaopen_ccb_Attribute(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.Attribute")) {
+        luaL_error(L, "class not found: cocos2d::backend::Attribute");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_FeatureType(lua_State *L)
 {
     oluacls_class<cocos2d::backend::FeatureType>(L, "ccb.FeatureType");
     oluacls_func(L, "__index", olua_indexerror);
@@ -572,9 +792,19 @@ OLUA_LIB int luaopen_cocos2d_backend_FeatureType(lua_State *L)
 
     return 1;
 }
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_ccb_FeatureType(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.FeatureType")) {
+        luaL_error(L, "class not found: cocos2d::backend::FeatureType");
+    }
+    return 1;
+}
 OLUA_END_DECLS
 
-static int _cocos2d_backend_Buffer_getSize(lua_State *L)
+static int _olua_fun_cocos2d_backend_Buffer_getSize(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -591,7 +821,7 @@ static int _cocos2d_backend_Buffer_getSize(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Buffer_updateData(lua_State *L)
+static int _olua_fun_cocos2d_backend_Buffer_updateData(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -611,7 +841,7 @@ static int _cocos2d_backend_Buffer_updateData(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_Buffer_updateSubData(lua_State *L)
+static int _olua_fun_cocos2d_backend_Buffer_updateSubData(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -633,7 +863,7 @@ static int _cocos2d_backend_Buffer_updateSubData(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_Buffer_usingDefaultStoredData(lua_State *L)
+static int _olua_fun_cocos2d_backend_Buffer_usingDefaultStoredData(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -651,39 +881,66 @@ static int _cocos2d_backend_Buffer_usingDefaultStoredData(lua_State *L)
     return 0;
 }
 
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_Buffer(lua_State *L)
+static int _olua_cls_ccb_Buffer(lua_State *L)
 {
     oluacls_class<cocos2d::backend::Buffer, cocos2d::Ref>(L, "ccb.Buffer");
-    oluacls_func(L, "getSize", _cocos2d_backend_Buffer_getSize);
-    oluacls_func(L, "updateData", _cocos2d_backend_Buffer_updateData);
-    oluacls_func(L, "updateSubData", _cocos2d_backend_Buffer_updateSubData);
-    oluacls_func(L, "usingDefaultStoredData", _cocos2d_backend_Buffer_usingDefaultStoredData);
-    oluacls_prop(L, "size", _cocos2d_backend_Buffer_getSize, nullptr);
+    oluacls_func(L, "getSize", _olua_fun_cocos2d_backend_Buffer_getSize);
+    oluacls_func(L, "updateData", _olua_fun_cocos2d_backend_Buffer_updateData);
+    oluacls_func(L, "updateSubData", _olua_fun_cocos2d_backend_Buffer_updateSubData);
+    oluacls_func(L, "usingDefaultStoredData", _olua_fun_cocos2d_backend_Buffer_usingDefaultStoredData);
+    oluacls_prop(L, "size", _olua_fun_cocos2d_backend_Buffer_getSize, nullptr);
 
+    return 1;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_ccb_Buffer(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.Buffer")) {
+        luaL_error(L, "class not found: cocos2d::backend::Buffer");
+    }
     return 1;
 }
 OLUA_END_DECLS
 
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_RenderPipeline(lua_State *L)
+static int _olua_cls_ccb_RenderPipeline(lua_State *L)
 {
     oluacls_class<cocos2d::backend::RenderPipeline, cocos2d::Ref>(L, "ccb.RenderPipeline");
 
     return 1;
 }
-OLUA_END_DECLS
 
 OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_DepthStencilState(lua_State *L)
+OLUA_LIB int luaopen_ccb_RenderPipeline(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.RenderPipeline")) {
+        luaL_error(L, "class not found: cocos2d::backend::RenderPipeline");
+    }
+    return 1;
+}
+OLUA_END_DECLS
+
+static int _olua_cls_ccb_DepthStencilState(lua_State *L)
 {
     oluacls_class<cocos2d::backend::DepthStencilState, cocos2d::Ref>(L, "ccb.DepthStencilState");
 
     return 1;
 }
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_ccb_DepthStencilState(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.DepthStencilState")) {
+        luaL_error(L, "class not found: cocos2d::backend::DepthStencilState");
+    }
+    return 1;
+}
 OLUA_END_DECLS
 
-static int _cocos2d_backend_VertexLayout___gc(lua_State *L)
+static int _olua_fun_cocos2d_backend_VertexLayout___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -695,19 +952,7 @@ static int _cocos2d_backend_VertexLayout___gc(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_VertexLayout___olua_move(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    auto self = (cocos2d::backend::VertexLayout *)olua_toobj(L, 1, "ccb.VertexLayout");
-    olua_push_object(L, self, "ccb.VertexLayout");
-
-    olua_endinvoke(L);
-
-    return 1;
-}
-
-static int _cocos2d_backend_VertexLayout_getAttributes(lua_State *L)
+static int _olua_fun_cocos2d_backend_VertexLayout_getAttributes(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -719,7 +964,7 @@ static int _cocos2d_backend_VertexLayout_getAttributes(lua_State *L)
     const std::unordered_map<std::string, cocos2d::backend::VertexLayout::Attribute> &ret = self->getAttributes();
     int num_ret = olua_push_map<std::string, cocos2d::backend::VertexLayout::Attribute>(L, ret, [L](std::string &arg1, cocos2d::backend::VertexLayout::Attribute &arg2) {
         olua_push_string(L, arg1);
-        olua_pushcopy_object(L, arg2, "ccb.VertexLayout.Attribute");
+        olua_copy_object(L, arg2, "ccb.VertexLayout.Attribute");
     });
 
     olua_endinvoke(L);
@@ -727,7 +972,7 @@ static int _cocos2d_backend_VertexLayout_getAttributes(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_VertexLayout_getStride(lua_State *L)
+static int _olua_fun_cocos2d_backend_VertexLayout_getStride(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -744,7 +989,7 @@ static int _cocos2d_backend_VertexLayout_getStride(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_VertexLayout_getVertexStepMode(lua_State *L)
+static int _olua_fun_cocos2d_backend_VertexLayout_getVertexStepMode(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -761,7 +1006,7 @@ static int _cocos2d_backend_VertexLayout_getVertexStepMode(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_VertexLayout_isValid(lua_State *L)
+static int _olua_fun_cocos2d_backend_VertexLayout_isValid(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -778,11 +1023,11 @@ static int _cocos2d_backend_VertexLayout_isValid(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_VertexLayout_new(lua_State *L)
+static int _olua_fun_cocos2d_backend_VertexLayout_new(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // VertexLayout()
+    // cocos2d::backend::VertexLayout()
     cocos2d::backend::VertexLayout *ret = new cocos2d::backend::VertexLayout();
     int num_ret = olua_push_object(L, ret, "ccb.VertexLayout");
     olua_postnew(L, ret);
@@ -792,7 +1037,7 @@ static int _cocos2d_backend_VertexLayout_new(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_VertexLayout_setAttribute(lua_State *L)
+static int _olua_fun_cocos2d_backend_VertexLayout_setAttribute(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -818,7 +1063,7 @@ static int _cocos2d_backend_VertexLayout_setAttribute(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_VertexLayout_setLayout(lua_State *L)
+static int _olua_fun_cocos2d_backend_VertexLayout_setLayout(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -836,29 +1081,37 @@ static int _cocos2d_backend_VertexLayout_setLayout(lua_State *L)
     return 0;
 }
 
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_VertexLayout(lua_State *L)
+static int _olua_cls_ccb_VertexLayout(lua_State *L)
 {
     oluacls_class<cocos2d::backend::VertexLayout>(L, "ccb.VertexLayout");
-    oluacls_func(L, "__gc", _cocos2d_backend_VertexLayout___gc);
-    oluacls_func(L, "__olua_move", _cocos2d_backend_VertexLayout___olua_move);
-    oluacls_func(L, "getAttributes", _cocos2d_backend_VertexLayout_getAttributes);
-    oluacls_func(L, "getStride", _cocos2d_backend_VertexLayout_getStride);
-    oluacls_func(L, "getVertexStepMode", _cocos2d_backend_VertexLayout_getVertexStepMode);
-    oluacls_func(L, "isValid", _cocos2d_backend_VertexLayout_isValid);
-    oluacls_func(L, "new", _cocos2d_backend_VertexLayout_new);
-    oluacls_func(L, "setAttribute", _cocos2d_backend_VertexLayout_setAttribute);
-    oluacls_func(L, "setLayout", _cocos2d_backend_VertexLayout_setLayout);
-    oluacls_prop(L, "attributes", _cocos2d_backend_VertexLayout_getAttributes, nullptr);
-    oluacls_prop(L, "stride", _cocos2d_backend_VertexLayout_getStride, nullptr);
-    oluacls_prop(L, "valid", _cocos2d_backend_VertexLayout_isValid, nullptr);
-    oluacls_prop(L, "vertexStepMode", _cocos2d_backend_VertexLayout_getVertexStepMode, nullptr);
+    oluacls_func(L, "__gc", _olua_fun_cocos2d_backend_VertexLayout___gc);
+    oluacls_func(L, "getAttributes", _olua_fun_cocos2d_backend_VertexLayout_getAttributes);
+    oluacls_func(L, "getStride", _olua_fun_cocos2d_backend_VertexLayout_getStride);
+    oluacls_func(L, "getVertexStepMode", _olua_fun_cocos2d_backend_VertexLayout_getVertexStepMode);
+    oluacls_func(L, "isValid", _olua_fun_cocos2d_backend_VertexLayout_isValid);
+    oluacls_func(L, "new", _olua_fun_cocos2d_backend_VertexLayout_new);
+    oluacls_func(L, "setAttribute", _olua_fun_cocos2d_backend_VertexLayout_setAttribute);
+    oluacls_func(L, "setLayout", _olua_fun_cocos2d_backend_VertexLayout_setLayout);
+    oluacls_prop(L, "attributes", _olua_fun_cocos2d_backend_VertexLayout_getAttributes, nullptr);
+    oluacls_prop(L, "stride", _olua_fun_cocos2d_backend_VertexLayout_getStride, nullptr);
+    oluacls_prop(L, "valid", _olua_fun_cocos2d_backend_VertexLayout_isValid, nullptr);
+    oluacls_prop(L, "vertexStepMode", _olua_fun_cocos2d_backend_VertexLayout_getVertexStepMode, nullptr);
 
+    return 1;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_ccb_VertexLayout(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.VertexLayout")) {
+        luaL_error(L, "class not found: cocos2d::backend::VertexLayout");
+    }
     return 1;
 }
 OLUA_END_DECLS
 
-static int _cocos2d_backend_CommandBuffer_beginFrame(lua_State *L)
+static int _olua_fun_cocos2d_backend_CommandBuffer_beginFrame(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -874,7 +1127,7 @@ static int _cocos2d_backend_CommandBuffer_beginFrame(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_CommandBuffer_captureScreen(lua_State *L)
+static int _olua_fun_cocos2d_backend_CommandBuffer_captureScreen(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -886,17 +1139,18 @@ static int _cocos2d_backend_CommandBuffer_captureScreen(lua_State *L)
 
     void *cb_store = (void *)self;
     std::string cb_tag = "captureScreen";
-    std::string cb_name = olua_setcallback(L, cb_store,  2, cb_tag.c_str(), OLUA_TAG_NEW);
+    std::string cb_name = olua_setcallback(L, cb_store, 2, cb_tag.c_str(), OLUA_TAG_NEW);
     olua_Context cb_ctx = olua_context(L);
-    arg1 = [cb_store, cb_name, cb_ctx](const unsigned char *arg1, int arg2, int arg3) {
+    // lua_State *ML = olua_mainthread(L);
+    arg1 = [cb_store, cb_name, cb_ctx /*, ML */](const unsigned char *cb_arg1, int cb_arg2, int cb_arg3) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
         if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
-            olua_push_string(L, arg1);
-            olua_push_integer(L, arg2);
-            olua_push_integer(L, arg3);
+            olua_push_string(L, cb_arg1);
+            olua_push_integer(L, cb_arg2);
+            olua_push_integer(L, cb_arg3);
 
             olua_callback(L, cb_store, cb_name.c_str(), 3);
 
@@ -906,7 +1160,7 @@ static int _cocos2d_backend_CommandBuffer_captureScreen(lua_State *L)
         }
     };
 
-    // void captureScreen(@localvar std::function<void (const unsigned char *, int, int)> callback)
+    // void captureScreen(std::function<void (const unsigned char *, int, int)> callback)
     self->captureScreen(arg1);
 
     olua_endinvoke(L);
@@ -914,7 +1168,7 @@ static int _cocos2d_backend_CommandBuffer_captureScreen(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_CommandBuffer_drawArrays(lua_State *L)
+static int _olua_fun_cocos2d_backend_CommandBuffer_drawArrays(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -936,7 +1190,7 @@ static int _cocos2d_backend_CommandBuffer_drawArrays(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_CommandBuffer_drawElements(lua_State *L)
+static int _olua_fun_cocos2d_backend_CommandBuffer_drawElements(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -960,7 +1214,7 @@ static int _cocos2d_backend_CommandBuffer_drawElements(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_CommandBuffer_endFrame(lua_State *L)
+static int _olua_fun_cocos2d_backend_CommandBuffer_endFrame(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -976,7 +1230,7 @@ static int _cocos2d_backend_CommandBuffer_endFrame(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_CommandBuffer_endRenderPass(lua_State *L)
+static int _olua_fun_cocos2d_backend_CommandBuffer_endRenderPass(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -992,7 +1246,7 @@ static int _cocos2d_backend_CommandBuffer_endRenderPass(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_CommandBuffer_setCullMode(lua_State *L)
+static int _olua_fun_cocos2d_backend_CommandBuffer_setCullMode(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1010,7 +1264,7 @@ static int _cocos2d_backend_CommandBuffer_setCullMode(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_CommandBuffer_setDepthStencilState(lua_State *L)
+static int _olua_fun_cocos2d_backend_CommandBuffer_setDepthStencilState(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1028,7 +1282,7 @@ static int _cocos2d_backend_CommandBuffer_setDepthStencilState(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_CommandBuffer_setIndexBuffer(lua_State *L)
+static int _olua_fun_cocos2d_backend_CommandBuffer_setIndexBuffer(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1046,7 +1300,7 @@ static int _cocos2d_backend_CommandBuffer_setIndexBuffer(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_CommandBuffer_setLineWidth(lua_State *L)
+static int _olua_fun_cocos2d_backend_CommandBuffer_setLineWidth(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1064,7 +1318,7 @@ static int _cocos2d_backend_CommandBuffer_setLineWidth(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_CommandBuffer_setProgramState(lua_State *L)
+static int _olua_fun_cocos2d_backend_CommandBuffer_setProgramState(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1082,7 +1336,7 @@ static int _cocos2d_backend_CommandBuffer_setProgramState(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_CommandBuffer_setRenderPipeline(lua_State *L)
+static int _olua_fun_cocos2d_backend_CommandBuffer_setRenderPipeline(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1100,7 +1354,7 @@ static int _cocos2d_backend_CommandBuffer_setRenderPipeline(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_CommandBuffer_setScissorRect(lua_State *L)
+static int _olua_fun_cocos2d_backend_CommandBuffer_setScissorRect(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1126,7 +1380,7 @@ static int _cocos2d_backend_CommandBuffer_setScissorRect(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_CommandBuffer_setStencilReferenceValue$1(lua_State *L)
+static int _olua_fun_cocos2d_backend_CommandBuffer_setStencilReferenceValue$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1144,7 +1398,7 @@ static int _cocos2d_backend_CommandBuffer_setStencilReferenceValue$1(lua_State *
     return 0;
 }
 
-static int _cocos2d_backend_CommandBuffer_setStencilReferenceValue$2(lua_State *L)
+static int _olua_fun_cocos2d_backend_CommandBuffer_setStencilReferenceValue$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1164,21 +1418,21 @@ static int _cocos2d_backend_CommandBuffer_setStencilReferenceValue$2(lua_State *
     return 0;
 }
 
-static int _cocos2d_backend_CommandBuffer_setStencilReferenceValue(lua_State *L)
+static int _olua_fun_cocos2d_backend_CommandBuffer_setStencilReferenceValue(lua_State *L)
 {
-    int num_args = lua_gettop(L) - 1;
+    int num_args = lua_gettop(L);
 
-    if (num_args == 1) {
-        // if ((olua_is_integer(L, 2))) {
+    if (num_args == 2) {
+        // if ((olua_is_object(L, 1, "ccb.CommandBuffer")) && (olua_is_integer(L, 2))) {
             // void setStencilReferenceValue(unsigned int value)
-            return _cocos2d_backend_CommandBuffer_setStencilReferenceValue$1(L);
+            return _olua_fun_cocos2d_backend_CommandBuffer_setStencilReferenceValue$1(L);
         // }
     }
 
-    if (num_args == 2) {
-        // if ((olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
+    if (num_args == 3) {
+        // if ((olua_is_object(L, 1, "ccb.CommandBuffer")) && (olua_is_integer(L, 2)) && (olua_is_integer(L, 3))) {
             // void setStencilReferenceValue(unsigned int frontRef, unsigned int backRef)
-            return _cocos2d_backend_CommandBuffer_setStencilReferenceValue$2(L);
+            return _olua_fun_cocos2d_backend_CommandBuffer_setStencilReferenceValue$2(L);
         // }
     }
 
@@ -1187,7 +1441,7 @@ static int _cocos2d_backend_CommandBuffer_setStencilReferenceValue(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_CommandBuffer_setVertexBuffer(lua_State *L)
+static int _olua_fun_cocos2d_backend_CommandBuffer_setVertexBuffer(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1205,7 +1459,7 @@ static int _cocos2d_backend_CommandBuffer_setVertexBuffer(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_CommandBuffer_setViewport(lua_State *L)
+static int _olua_fun_cocos2d_backend_CommandBuffer_setViewport(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1229,7 +1483,7 @@ static int _cocos2d_backend_CommandBuffer_setViewport(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_CommandBuffer_setWinding(lua_State *L)
+static int _olua_fun_cocos2d_backend_CommandBuffer_setWinding(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1247,44 +1501,53 @@ static int _cocos2d_backend_CommandBuffer_setWinding(lua_State *L)
     return 0;
 }
 
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_CommandBuffer(lua_State *L)
+static int _olua_cls_ccb_CommandBuffer(lua_State *L)
 {
     oluacls_class<cocos2d::backend::CommandBuffer, cocos2d::Ref>(L, "ccb.CommandBuffer");
-    oluacls_func(L, "beginFrame", _cocos2d_backend_CommandBuffer_beginFrame);
-    oluacls_func(L, "captureScreen", _cocos2d_backend_CommandBuffer_captureScreen);
-    oluacls_func(L, "drawArrays", _cocos2d_backend_CommandBuffer_drawArrays);
-    oluacls_func(L, "drawElements", _cocos2d_backend_CommandBuffer_drawElements);
-    oluacls_func(L, "endFrame", _cocos2d_backend_CommandBuffer_endFrame);
-    oluacls_func(L, "endRenderPass", _cocos2d_backend_CommandBuffer_endRenderPass);
-    oluacls_func(L, "setCullMode", _cocos2d_backend_CommandBuffer_setCullMode);
-    oluacls_func(L, "setDepthStencilState", _cocos2d_backend_CommandBuffer_setDepthStencilState);
-    oluacls_func(L, "setIndexBuffer", _cocos2d_backend_CommandBuffer_setIndexBuffer);
-    oluacls_func(L, "setLineWidth", _cocos2d_backend_CommandBuffer_setLineWidth);
-    oluacls_func(L, "setProgramState", _cocos2d_backend_CommandBuffer_setProgramState);
-    oluacls_func(L, "setRenderPipeline", _cocos2d_backend_CommandBuffer_setRenderPipeline);
-    oluacls_func(L, "setScissorRect", _cocos2d_backend_CommandBuffer_setScissorRect);
-    oluacls_func(L, "setStencilReferenceValue", _cocos2d_backend_CommandBuffer_setStencilReferenceValue);
-    oluacls_func(L, "setVertexBuffer", _cocos2d_backend_CommandBuffer_setVertexBuffer);
-    oluacls_func(L, "setViewport", _cocos2d_backend_CommandBuffer_setViewport);
-    oluacls_func(L, "setWinding", _cocos2d_backend_CommandBuffer_setWinding);
+    oluacls_func(L, "beginFrame", _olua_fun_cocos2d_backend_CommandBuffer_beginFrame);
+    oluacls_func(L, "captureScreen", _olua_fun_cocos2d_backend_CommandBuffer_captureScreen);
+    oluacls_func(L, "drawArrays", _olua_fun_cocos2d_backend_CommandBuffer_drawArrays);
+    oluacls_func(L, "drawElements", _olua_fun_cocos2d_backend_CommandBuffer_drawElements);
+    oluacls_func(L, "endFrame", _olua_fun_cocos2d_backend_CommandBuffer_endFrame);
+    oluacls_func(L, "endRenderPass", _olua_fun_cocos2d_backend_CommandBuffer_endRenderPass);
+    oluacls_func(L, "setCullMode", _olua_fun_cocos2d_backend_CommandBuffer_setCullMode);
+    oluacls_func(L, "setDepthStencilState", _olua_fun_cocos2d_backend_CommandBuffer_setDepthStencilState);
+    oluacls_func(L, "setIndexBuffer", _olua_fun_cocos2d_backend_CommandBuffer_setIndexBuffer);
+    oluacls_func(L, "setLineWidth", _olua_fun_cocos2d_backend_CommandBuffer_setLineWidth);
+    oluacls_func(L, "setProgramState", _olua_fun_cocos2d_backend_CommandBuffer_setProgramState);
+    oluacls_func(L, "setRenderPipeline", _olua_fun_cocos2d_backend_CommandBuffer_setRenderPipeline);
+    oluacls_func(L, "setScissorRect", _olua_fun_cocos2d_backend_CommandBuffer_setScissorRect);
+    oluacls_func(L, "setStencilReferenceValue", _olua_fun_cocos2d_backend_CommandBuffer_setStencilReferenceValue);
+    oluacls_func(L, "setVertexBuffer", _olua_fun_cocos2d_backend_CommandBuffer_setVertexBuffer);
+    oluacls_func(L, "setViewport", _olua_fun_cocos2d_backend_CommandBuffer_setViewport);
+    oluacls_func(L, "setWinding", _olua_fun_cocos2d_backend_CommandBuffer_setWinding);
 
+    return 1;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_ccb_CommandBuffer(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.CommandBuffer")) {
+        luaL_error(L, "class not found: cocos2d::backend::CommandBuffer");
+    }
     return 1;
 }
 OLUA_END_DECLS
 
-static int _cocos2d_backend_Device_createDepthStencilState(lua_State *L)
+static int _olua_fun_cocos2d_backend_Device_createDepthStencilState(lua_State *L)
 {
     olua_startinvoke(L);
 
     cocos2d::backend::Device *self = nullptr;
-    cocos2d::backend::DepthStencilDescriptor arg1;       /** descriptor */
+    cocos2d::backend::DepthStencilDescriptor *arg1;       /** descriptor */
 
     olua_to_object(L, 1, &self, "ccb.Device");
     olua_check_object(L, 2, &arg1, "ccb.DepthStencilDescriptor");
 
     // cocos2d::backend::DepthStencilState *createDepthStencilState(const cocos2d::backend::DepthStencilDescriptor &descriptor)
-    cocos2d::backend::DepthStencilState *ret = self->createDepthStencilState(arg1);
+    cocos2d::backend::DepthStencilState *ret = self->createDepthStencilState(*arg1);
     int num_ret = olua_push_object(L, ret, "ccb.DepthStencilState");
 
     olua_endinvoke(L);
@@ -1292,7 +1555,7 @@ static int _cocos2d_backend_Device_createDepthStencilState(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Device_getDeviceInfo(lua_State *L)
+static int _olua_fun_cocos2d_backend_Device_getDeviceInfo(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1309,7 +1572,7 @@ static int _cocos2d_backend_Device_getDeviceInfo(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Device_getInstance(lua_State *L)
+static int _olua_fun_cocos2d_backend_Device_getInstance(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1322,7 +1585,7 @@ static int _cocos2d_backend_Device_getInstance(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Device_newBuffer(lua_State *L)
+static int _olua_fun_cocos2d_backend_Device_newBuffer(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1348,7 +1611,7 @@ static int _cocos2d_backend_Device_newBuffer(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Device_newCommandBuffer(lua_State *L)
+static int _olua_fun_cocos2d_backend_Device_newCommandBuffer(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1368,7 +1631,7 @@ static int _cocos2d_backend_Device_newCommandBuffer(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Device_newProgram(lua_State *L)
+static int _olua_fun_cocos2d_backend_Device_newProgram(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1392,7 +1655,7 @@ static int _cocos2d_backend_Device_newProgram(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Device_newRenderPipeline(lua_State *L)
+static int _olua_fun_cocos2d_backend_Device_newRenderPipeline(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1412,18 +1675,18 @@ static int _cocos2d_backend_Device_newRenderPipeline(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Device_newTexture(lua_State *L)
+static int _olua_fun_cocos2d_backend_Device_newTexture(lua_State *L)
 {
     olua_startinvoke(L);
 
     cocos2d::backend::Device *self = nullptr;
-    cocos2d::backend::TextureDescriptor arg1;       /** descriptor */
+    cocos2d::backend::TextureDescriptor *arg1;       /** descriptor */
 
     olua_to_object(L, 1, &self, "ccb.Device");
     olua_check_object(L, 2, &arg1, "ccb.TextureDescriptor");
 
     // @postnew cocos2d::backend::TextureBackend *newTexture(const cocos2d::backend::TextureDescriptor &descriptor)
-    cocos2d::backend::TextureBackend *ret = self->newTexture(arg1);
+    cocos2d::backend::TextureBackend *ret = self->newTexture(*arg1);
     int num_ret = olua_push_object(L, ret, "ccb.TextureBackend");
 
     // insert code after call
@@ -1434,7 +1697,7 @@ static int _cocos2d_backend_Device_newTexture(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Device_setFrameBufferOnly(lua_State *L)
+static int _olua_fun_cocos2d_backend_Device_setFrameBufferOnly(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1452,27 +1715,36 @@ static int _cocos2d_backend_Device_setFrameBufferOnly(lua_State *L)
     return 0;
 }
 
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_Device(lua_State *L)
+static int _olua_cls_ccb_Device(lua_State *L)
 {
     oluacls_class<cocos2d::backend::Device, cocos2d::Ref>(L, "ccb.Device");
-    oluacls_func(L, "createDepthStencilState", _cocos2d_backend_Device_createDepthStencilState);
-    oluacls_func(L, "getDeviceInfo", _cocos2d_backend_Device_getDeviceInfo);
-    oluacls_func(L, "getInstance", _cocos2d_backend_Device_getInstance);
-    oluacls_func(L, "newBuffer", _cocos2d_backend_Device_newBuffer);
-    oluacls_func(L, "newCommandBuffer", _cocos2d_backend_Device_newCommandBuffer);
-    oluacls_func(L, "newProgram", _cocos2d_backend_Device_newProgram);
-    oluacls_func(L, "newRenderPipeline", _cocos2d_backend_Device_newRenderPipeline);
-    oluacls_func(L, "newTexture", _cocos2d_backend_Device_newTexture);
-    oluacls_func(L, "setFrameBufferOnly", _cocos2d_backend_Device_setFrameBufferOnly);
-    oluacls_prop(L, "deviceInfo", _cocos2d_backend_Device_getDeviceInfo, nullptr);
-    oluacls_prop(L, "instance", _cocos2d_backend_Device_getInstance, nullptr);
+    oluacls_func(L, "createDepthStencilState", _olua_fun_cocos2d_backend_Device_createDepthStencilState);
+    oluacls_func(L, "getDeviceInfo", _olua_fun_cocos2d_backend_Device_getDeviceInfo);
+    oluacls_func(L, "getInstance", _olua_fun_cocos2d_backend_Device_getInstance);
+    oluacls_func(L, "newBuffer", _olua_fun_cocos2d_backend_Device_newBuffer);
+    oluacls_func(L, "newCommandBuffer", _olua_fun_cocos2d_backend_Device_newCommandBuffer);
+    oluacls_func(L, "newProgram", _olua_fun_cocos2d_backend_Device_newProgram);
+    oluacls_func(L, "newRenderPipeline", _olua_fun_cocos2d_backend_Device_newRenderPipeline);
+    oluacls_func(L, "newTexture", _olua_fun_cocos2d_backend_Device_newTexture);
+    oluacls_func(L, "setFrameBufferOnly", _olua_fun_cocos2d_backend_Device_setFrameBufferOnly);
+    oluacls_prop(L, "deviceInfo", _olua_fun_cocos2d_backend_Device_getDeviceInfo, nullptr);
+    oluacls_prop(L, "instance", _olua_fun_cocos2d_backend_Device_getInstance, nullptr);
 
+    return 1;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_ccb_Device(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.Device")) {
+        luaL_error(L, "class not found: cocos2d::backend::Device");
+    }
     return 1;
 }
 OLUA_END_DECLS
 
-static int _cocos2d_backend_DeviceInfo___gc(lua_State *L)
+static int _olua_fun_cocos2d_backend_DeviceInfo___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1484,19 +1756,7 @@ static int _cocos2d_backend_DeviceInfo___gc(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_DeviceInfo___olua_move(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    auto self = (cocos2d::backend::DeviceInfo *)olua_toobj(L, 1, "ccb.DeviceInfo");
-    olua_push_object(L, self, "ccb.DeviceInfo");
-
-    olua_endinvoke(L);
-
-    return 1;
-}
-
-static int _cocos2d_backend_DeviceInfo_checkForFeatureSupported(lua_State *L)
+static int _olua_fun_cocos2d_backend_DeviceInfo_checkForFeatureSupported(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1515,7 +1775,7 @@ static int _cocos2d_backend_DeviceInfo_checkForFeatureSupported(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_DeviceInfo_getExtension(lua_State *L)
+static int _olua_fun_cocos2d_backend_DeviceInfo_getExtension(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1532,7 +1792,7 @@ static int _cocos2d_backend_DeviceInfo_getExtension(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_DeviceInfo_getMaxAttributes(lua_State *L)
+static int _olua_fun_cocos2d_backend_DeviceInfo_getMaxAttributes(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1549,7 +1809,7 @@ static int _cocos2d_backend_DeviceInfo_getMaxAttributes(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_DeviceInfo_getMaxSamplesAllowed(lua_State *L)
+static int _olua_fun_cocos2d_backend_DeviceInfo_getMaxSamplesAllowed(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1566,7 +1826,7 @@ static int _cocos2d_backend_DeviceInfo_getMaxSamplesAllowed(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_DeviceInfo_getMaxTextureSize(lua_State *L)
+static int _olua_fun_cocos2d_backend_DeviceInfo_getMaxTextureSize(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1583,7 +1843,7 @@ static int _cocos2d_backend_DeviceInfo_getMaxTextureSize(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_DeviceInfo_getMaxTextureUnits(lua_State *L)
+static int _olua_fun_cocos2d_backend_DeviceInfo_getMaxTextureUnits(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1600,7 +1860,7 @@ static int _cocos2d_backend_DeviceInfo_getMaxTextureUnits(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_DeviceInfo_getRenderer(lua_State *L)
+static int _olua_fun_cocos2d_backend_DeviceInfo_getRenderer(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1617,7 +1877,7 @@ static int _cocos2d_backend_DeviceInfo_getRenderer(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_DeviceInfo_getVendor(lua_State *L)
+static int _olua_fun_cocos2d_backend_DeviceInfo_getVendor(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1634,7 +1894,7 @@ static int _cocos2d_backend_DeviceInfo_getVendor(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_DeviceInfo_getVersion(lua_State *L)
+static int _olua_fun_cocos2d_backend_DeviceInfo_getVersion(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1651,7 +1911,7 @@ static int _cocos2d_backend_DeviceInfo_getVersion(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_DeviceInfo_init(lua_State *L)
+static int _olua_fun_cocos2d_backend_DeviceInfo_init(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1668,36 +1928,44 @@ static int _cocos2d_backend_DeviceInfo_init(lua_State *L)
     return num_ret;
 }
 
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_DeviceInfo(lua_State *L)
+static int _olua_cls_ccb_DeviceInfo(lua_State *L)
 {
     oluacls_class<cocos2d::backend::DeviceInfo>(L, "ccb.DeviceInfo");
-    oluacls_func(L, "__gc", _cocos2d_backend_DeviceInfo___gc);
-    oluacls_func(L, "__olua_move", _cocos2d_backend_DeviceInfo___olua_move);
-    oluacls_func(L, "checkForFeatureSupported", _cocos2d_backend_DeviceInfo_checkForFeatureSupported);
-    oluacls_func(L, "getExtension", _cocos2d_backend_DeviceInfo_getExtension);
-    oluacls_func(L, "getMaxAttributes", _cocos2d_backend_DeviceInfo_getMaxAttributes);
-    oluacls_func(L, "getMaxSamplesAllowed", _cocos2d_backend_DeviceInfo_getMaxSamplesAllowed);
-    oluacls_func(L, "getMaxTextureSize", _cocos2d_backend_DeviceInfo_getMaxTextureSize);
-    oluacls_func(L, "getMaxTextureUnits", _cocos2d_backend_DeviceInfo_getMaxTextureUnits);
-    oluacls_func(L, "getRenderer", _cocos2d_backend_DeviceInfo_getRenderer);
-    oluacls_func(L, "getVendor", _cocos2d_backend_DeviceInfo_getVendor);
-    oluacls_func(L, "getVersion", _cocos2d_backend_DeviceInfo_getVersion);
-    oluacls_func(L, "init", _cocos2d_backend_DeviceInfo_init);
-    oluacls_prop(L, "extension", _cocos2d_backend_DeviceInfo_getExtension, nullptr);
-    oluacls_prop(L, "maxAttributes", _cocos2d_backend_DeviceInfo_getMaxAttributes, nullptr);
-    oluacls_prop(L, "maxSamplesAllowed", _cocos2d_backend_DeviceInfo_getMaxSamplesAllowed, nullptr);
-    oluacls_prop(L, "maxTextureSize", _cocos2d_backend_DeviceInfo_getMaxTextureSize, nullptr);
-    oluacls_prop(L, "maxTextureUnits", _cocos2d_backend_DeviceInfo_getMaxTextureUnits, nullptr);
-    oluacls_prop(L, "renderer", _cocos2d_backend_DeviceInfo_getRenderer, nullptr);
-    oluacls_prop(L, "vendor", _cocos2d_backend_DeviceInfo_getVendor, nullptr);
-    oluacls_prop(L, "version", _cocos2d_backend_DeviceInfo_getVersion, nullptr);
+    oluacls_func(L, "__gc", _olua_fun_cocos2d_backend_DeviceInfo___gc);
+    oluacls_func(L, "checkForFeatureSupported", _olua_fun_cocos2d_backend_DeviceInfo_checkForFeatureSupported);
+    oluacls_func(L, "getExtension", _olua_fun_cocos2d_backend_DeviceInfo_getExtension);
+    oluacls_func(L, "getMaxAttributes", _olua_fun_cocos2d_backend_DeviceInfo_getMaxAttributes);
+    oluacls_func(L, "getMaxSamplesAllowed", _olua_fun_cocos2d_backend_DeviceInfo_getMaxSamplesAllowed);
+    oluacls_func(L, "getMaxTextureSize", _olua_fun_cocos2d_backend_DeviceInfo_getMaxTextureSize);
+    oluacls_func(L, "getMaxTextureUnits", _olua_fun_cocos2d_backend_DeviceInfo_getMaxTextureUnits);
+    oluacls_func(L, "getRenderer", _olua_fun_cocos2d_backend_DeviceInfo_getRenderer);
+    oluacls_func(L, "getVendor", _olua_fun_cocos2d_backend_DeviceInfo_getVendor);
+    oluacls_func(L, "getVersion", _olua_fun_cocos2d_backend_DeviceInfo_getVersion);
+    oluacls_func(L, "init", _olua_fun_cocos2d_backend_DeviceInfo_init);
+    oluacls_prop(L, "extension", _olua_fun_cocos2d_backend_DeviceInfo_getExtension, nullptr);
+    oluacls_prop(L, "maxAttributes", _olua_fun_cocos2d_backend_DeviceInfo_getMaxAttributes, nullptr);
+    oluacls_prop(L, "maxSamplesAllowed", _olua_fun_cocos2d_backend_DeviceInfo_getMaxSamplesAllowed, nullptr);
+    oluacls_prop(L, "maxTextureSize", _olua_fun_cocos2d_backend_DeviceInfo_getMaxTextureSize, nullptr);
+    oluacls_prop(L, "maxTextureUnits", _olua_fun_cocos2d_backend_DeviceInfo_getMaxTextureUnits, nullptr);
+    oluacls_prop(L, "renderer", _olua_fun_cocos2d_backend_DeviceInfo_getRenderer, nullptr);
+    oluacls_prop(L, "vendor", _olua_fun_cocos2d_backend_DeviceInfo_getVendor, nullptr);
+    oluacls_prop(L, "version", _olua_fun_cocos2d_backend_DeviceInfo_getVersion, nullptr);
 
+    return 1;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_ccb_DeviceInfo(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.DeviceInfo")) {
+        luaL_error(L, "class not found: cocos2d::backend::DeviceInfo");
+    }
     return 1;
 }
 OLUA_END_DECLS
 
-static int _cocos2d_backend_ShaderCache_destroyInstance(lua_State *L)
+static int _olua_fun_cocos2d_backend_ShaderCache_destroyInstance(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1709,7 +1977,7 @@ static int _cocos2d_backend_ShaderCache_destroyInstance(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_ShaderCache_getInstance(lua_State *L)
+static int _olua_fun_cocos2d_backend_ShaderCache_getInstance(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1722,7 +1990,7 @@ static int _cocos2d_backend_ShaderCache_getInstance(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_ShaderCache_newFragmentShaderModule(lua_State *L)
+static int _olua_fun_cocos2d_backend_ShaderCache_newFragmentShaderModule(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1739,7 +2007,7 @@ static int _cocos2d_backend_ShaderCache_newFragmentShaderModule(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_ShaderCache_newVertexShaderModule(lua_State *L)
+static int _olua_fun_cocos2d_backend_ShaderCache_newVertexShaderModule(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1756,7 +2024,7 @@ static int _cocos2d_backend_ShaderCache_newVertexShaderModule(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_ShaderCache_removeUnusedShader(lua_State *L)
+static int _olua_fun_cocos2d_backend_ShaderCache_removeUnusedShader(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1772,22 +2040,31 @@ static int _cocos2d_backend_ShaderCache_removeUnusedShader(lua_State *L)
     return 0;
 }
 
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_ShaderCache(lua_State *L)
+static int _olua_cls_ccb_ShaderCache(lua_State *L)
 {
     oluacls_class<cocos2d::backend::ShaderCache, cocos2d::Ref>(L, "ccb.ShaderCache");
-    oluacls_func(L, "destroyInstance", _cocos2d_backend_ShaderCache_destroyInstance);
-    oluacls_func(L, "getInstance", _cocos2d_backend_ShaderCache_getInstance);
-    oluacls_func(L, "newFragmentShaderModule", _cocos2d_backend_ShaderCache_newFragmentShaderModule);
-    oluacls_func(L, "newVertexShaderModule", _cocos2d_backend_ShaderCache_newVertexShaderModule);
-    oluacls_func(L, "removeUnusedShader", _cocos2d_backend_ShaderCache_removeUnusedShader);
-    oluacls_prop(L, "instance", _cocos2d_backend_ShaderCache_getInstance, nullptr);
+    oluacls_func(L, "destroyInstance", _olua_fun_cocos2d_backend_ShaderCache_destroyInstance);
+    oluacls_func(L, "getInstance", _olua_fun_cocos2d_backend_ShaderCache_getInstance);
+    oluacls_func(L, "newFragmentShaderModule", _olua_fun_cocos2d_backend_ShaderCache_newFragmentShaderModule);
+    oluacls_func(L, "newVertexShaderModule", _olua_fun_cocos2d_backend_ShaderCache_newVertexShaderModule);
+    oluacls_func(L, "removeUnusedShader", _olua_fun_cocos2d_backend_ShaderCache_removeUnusedShader);
+    oluacls_prop(L, "instance", _olua_fun_cocos2d_backend_ShaderCache_getInstance, nullptr);
 
+    return 1;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_ccb_ShaderCache(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.ShaderCache")) {
+        luaL_error(L, "class not found: cocos2d::backend::ShaderCache");
+    }
     return 1;
 }
 OLUA_END_DECLS
 
-static int _cocos2d_backend_ShaderModule_getHashValue(lua_State *L)
+static int _olua_fun_cocos2d_backend_ShaderModule_getHashValue(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1804,7 +2081,7 @@ static int _cocos2d_backend_ShaderModule_getHashValue(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_ShaderModule_getShaderStage(lua_State *L)
+static int _olua_fun_cocos2d_backend_ShaderModule_getShaderStage(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1821,20 +2098,29 @@ static int _cocos2d_backend_ShaderModule_getShaderStage(lua_State *L)
     return num_ret;
 }
 
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_ShaderModule(lua_State *L)
+static int _olua_cls_ccb_ShaderModule(lua_State *L)
 {
     oluacls_class<cocos2d::backend::ShaderModule, cocos2d::Ref>(L, "ccb.ShaderModule");
-    oluacls_func(L, "getHashValue", _cocos2d_backend_ShaderModule_getHashValue);
-    oluacls_func(L, "getShaderStage", _cocos2d_backend_ShaderModule_getShaderStage);
-    oluacls_prop(L, "hashValue", _cocos2d_backend_ShaderModule_getHashValue, nullptr);
-    oluacls_prop(L, "shaderStage", _cocos2d_backend_ShaderModule_getShaderStage, nullptr);
+    oluacls_func(L, "getHashValue", _olua_fun_cocos2d_backend_ShaderModule_getHashValue);
+    oluacls_func(L, "getShaderStage", _olua_fun_cocos2d_backend_ShaderModule_getShaderStage);
+    oluacls_prop(L, "hashValue", _olua_fun_cocos2d_backend_ShaderModule_getHashValue, nullptr);
+    oluacls_prop(L, "shaderStage", _olua_fun_cocos2d_backend_ShaderModule_getShaderStage, nullptr);
 
+    return 1;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_ccb_ShaderModule(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.ShaderModule")) {
+        luaL_error(L, "class not found: cocos2d::backend::ShaderModule");
+    }
     return 1;
 }
 OLUA_END_DECLS
 
-static int _cocos2d_backend_ProgramCache_addCustomProgram(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramCache_addCustomProgram(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1854,7 +2140,7 @@ static int _cocos2d_backend_ProgramCache_addCustomProgram(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_ProgramCache_destroyInstance(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramCache_destroyInstance(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1866,7 +2152,7 @@ static int _cocos2d_backend_ProgramCache_destroyInstance(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_ProgramCache_getBuiltinProgram(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramCache_getBuiltinProgram(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1885,7 +2171,7 @@ static int _cocos2d_backend_ProgramCache_getBuiltinProgram(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_ProgramCache_getCustomProgram(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramCache_getCustomProgram(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1904,7 +2190,7 @@ static int _cocos2d_backend_ProgramCache_getCustomProgram(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_ProgramCache_getInstance(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramCache_getInstance(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1917,7 +2203,7 @@ static int _cocos2d_backend_ProgramCache_getInstance(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_ProgramCache_removeAllPrograms(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramCache_removeAllPrograms(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1933,7 +2219,7 @@ static int _cocos2d_backend_ProgramCache_removeAllPrograms(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_ProgramCache_removeProgram(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramCache_removeProgram(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1951,7 +2237,7 @@ static int _cocos2d_backend_ProgramCache_removeProgram(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_ProgramCache_removeUnusedProgram(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramCache_removeUnusedProgram(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1967,25 +2253,34 @@ static int _cocos2d_backend_ProgramCache_removeUnusedProgram(lua_State *L)
     return 0;
 }
 
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_ProgramCache(lua_State *L)
+static int _olua_cls_ccb_ProgramCache(lua_State *L)
 {
     oluacls_class<cocos2d::backend::ProgramCache, cocos2d::Ref>(L, "ccb.ProgramCache");
-    oluacls_func(L, "addCustomProgram", _cocos2d_backend_ProgramCache_addCustomProgram);
-    oluacls_func(L, "destroyInstance", _cocos2d_backend_ProgramCache_destroyInstance);
-    oluacls_func(L, "getBuiltinProgram", _cocos2d_backend_ProgramCache_getBuiltinProgram);
-    oluacls_func(L, "getCustomProgram", _cocos2d_backend_ProgramCache_getCustomProgram);
-    oluacls_func(L, "getInstance", _cocos2d_backend_ProgramCache_getInstance);
-    oluacls_func(L, "removeAllPrograms", _cocos2d_backend_ProgramCache_removeAllPrograms);
-    oluacls_func(L, "removeProgram", _cocos2d_backend_ProgramCache_removeProgram);
-    oluacls_func(L, "removeUnusedProgram", _cocos2d_backend_ProgramCache_removeUnusedProgram);
-    oluacls_prop(L, "instance", _cocos2d_backend_ProgramCache_getInstance, nullptr);
+    oluacls_func(L, "addCustomProgram", _olua_fun_cocos2d_backend_ProgramCache_addCustomProgram);
+    oluacls_func(L, "destroyInstance", _olua_fun_cocos2d_backend_ProgramCache_destroyInstance);
+    oluacls_func(L, "getBuiltinProgram", _olua_fun_cocos2d_backend_ProgramCache_getBuiltinProgram);
+    oluacls_func(L, "getCustomProgram", _olua_fun_cocos2d_backend_ProgramCache_getCustomProgram);
+    oluacls_func(L, "getInstance", _olua_fun_cocos2d_backend_ProgramCache_getInstance);
+    oluacls_func(L, "removeAllPrograms", _olua_fun_cocos2d_backend_ProgramCache_removeAllPrograms);
+    oluacls_func(L, "removeProgram", _olua_fun_cocos2d_backend_ProgramCache_removeProgram);
+    oluacls_func(L, "removeUnusedProgram", _olua_fun_cocos2d_backend_ProgramCache_removeUnusedProgram);
+    oluacls_prop(L, "instance", _olua_fun_cocos2d_backend_ProgramCache_getInstance, nullptr);
 
+    return 1;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_ccb_ProgramCache(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.ProgramCache")) {
+        luaL_error(L, "class not found: cocos2d::backend::ProgramCache");
+    }
     return 1;
 }
 OLUA_END_DECLS
 
-static int _cocos2d_backend_ProgramState_clone(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramState_clone(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2002,7 +2297,7 @@ static int _cocos2d_backend_ProgramState_clone(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_ProgramState_getAttributeLocation$1(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramState_getAttributeLocation$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2021,7 +2316,7 @@ static int _cocos2d_backend_ProgramState_getAttributeLocation$1(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_ProgramState_getAttributeLocation$2(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramState_getAttributeLocation$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2040,19 +2335,19 @@ static int _cocos2d_backend_ProgramState_getAttributeLocation$2(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_ProgramState_getAttributeLocation(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramState_getAttributeLocation(lua_State *L)
 {
-    int num_args = lua_gettop(L) - 1;
+    int num_args = lua_gettop(L);
 
-    if (num_args == 1) {
-        if ((olua_is_string(L, 2))) {
+    if (num_args == 2) {
+        if ((olua_is_object(L, 1, "ccb.ProgramState")) && (olua_is_string(L, 2))) {
             // int getAttributeLocation(const std::string &name)
-            return _cocos2d_backend_ProgramState_getAttributeLocation$1(L);
+            return _olua_fun_cocos2d_backend_ProgramState_getAttributeLocation$1(L);
         }
 
-        // if ((olua_is_enum(L, 2))) {
+        // if ((olua_is_object(L, 1, "ccb.ProgramState")) && (olua_is_enum(L, 2))) {
             // int getAttributeLocation(cocos2d::backend::Attribute name)
-            return _cocos2d_backend_ProgramState_getAttributeLocation$2(L);
+            return _olua_fun_cocos2d_backend_ProgramState_getAttributeLocation$2(L);
         // }
     }
 
@@ -2061,7 +2356,7 @@ static int _cocos2d_backend_ProgramState_getAttributeLocation(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_ProgramState_getFragmentTextureInfos(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramState_getFragmentTextureInfos(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2073,7 +2368,7 @@ static int _cocos2d_backend_ProgramState_getFragmentTextureInfos(lua_State *L)
     const std::unordered_map<int, cocos2d::backend::TextureInfo> &ret = self->getFragmentTextureInfos();
     int num_ret = olua_push_map<int, cocos2d::backend::TextureInfo>(L, ret, [L](int &arg1, cocos2d::backend::TextureInfo &arg2) {
         olua_push_integer(L, arg1);
-        olua_pushcopy_object(L, arg2, "ccb.TextureInfo");
+        olua_copy_object(L, arg2, "ccb.TextureInfo");
     });
 
     olua_endinvoke(L);
@@ -2081,7 +2376,7 @@ static int _cocos2d_backend_ProgramState_getFragmentTextureInfos(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_ProgramState_getProgram(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramState_getProgram(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2098,7 +2393,7 @@ static int _cocos2d_backend_ProgramState_getProgram(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_ProgramState_getUniformLocation$1(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramState_getUniformLocation$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2110,14 +2405,14 @@ static int _cocos2d_backend_ProgramState_getUniformLocation$1(lua_State *L)
 
     // cocos2d::backend::UniformLocation getUniformLocation(const std::string &uniform)
     cocos2d::backend::UniformLocation ret = self->getUniformLocation(arg1);
-    int num_ret = olua_pushcopy_object(L, ret, "ccb.UniformLocation");
+    int num_ret = olua_copy_object(L, ret, "ccb.UniformLocation");
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _cocos2d_backend_ProgramState_getUniformLocation$2(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramState_getUniformLocation$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2129,26 +2424,26 @@ static int _cocos2d_backend_ProgramState_getUniformLocation$2(lua_State *L)
 
     // cocos2d::backend::UniformLocation getUniformLocation(cocos2d::backend::Uniform name)
     cocos2d::backend::UniformLocation ret = self->getUniformLocation(arg1);
-    int num_ret = olua_pushcopy_object(L, ret, "ccb.UniformLocation");
+    int num_ret = olua_copy_object(L, ret, "ccb.UniformLocation");
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _cocos2d_backend_ProgramState_getUniformLocation(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramState_getUniformLocation(lua_State *L)
 {
-    int num_args = lua_gettop(L) - 1;
+    int num_args = lua_gettop(L);
 
-    if (num_args == 1) {
-        if ((olua_is_string(L, 2))) {
+    if (num_args == 2) {
+        if ((olua_is_object(L, 1, "ccb.ProgramState")) && (olua_is_string(L, 2))) {
             // cocos2d::backend::UniformLocation getUniformLocation(const std::string &uniform)
-            return _cocos2d_backend_ProgramState_getUniformLocation$1(L);
+            return _olua_fun_cocos2d_backend_ProgramState_getUniformLocation$1(L);
         }
 
-        // if ((olua_is_enum(L, 2))) {
+        // if ((olua_is_object(L, 1, "ccb.ProgramState")) && (olua_is_enum(L, 2))) {
             // cocos2d::backend::UniformLocation getUniformLocation(cocos2d::backend::Uniform name)
-            return _cocos2d_backend_ProgramState_getUniformLocation$2(L);
+            return _olua_fun_cocos2d_backend_ProgramState_getUniformLocation$2(L);
         // }
     }
 
@@ -2157,7 +2452,7 @@ static int _cocos2d_backend_ProgramState_getUniformLocation(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_ProgramState_getVertexLayout(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramState_getVertexLayout(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2170,7 +2465,7 @@ static int _cocos2d_backend_ProgramState_getVertexLayout(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_backend_ProgramState_getVertexTextureInfos(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramState_getVertexTextureInfos(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2182,7 +2477,7 @@ static int _cocos2d_backend_ProgramState_getVertexTextureInfos(lua_State *L)
     const std::unordered_map<int, cocos2d::backend::TextureInfo> &ret = self->getVertexTextureInfos();
     int num_ret = olua_push_map<int, cocos2d::backend::TextureInfo>(L, ret, [L](int &arg1, cocos2d::backend::TextureInfo &arg2) {
         olua_push_integer(L, arg1);
-        olua_pushcopy_object(L, arg2, "ccb.TextureInfo");
+        olua_copy_object(L, arg2, "ccb.TextureInfo");
     });
 
     olua_endinvoke(L);
@@ -2190,7 +2485,7 @@ static int _cocos2d_backend_ProgramState_getVertexTextureInfos(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_ProgramState_new(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramState_new(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2198,7 +2493,7 @@ static int _cocos2d_backend_ProgramState_new(lua_State *L)
 
     olua_check_object(L, 1, &arg1, "ccb.Program");
 
-    // ProgramState(cocos2d::backend::Program *program)
+    // cocos2d::backend::ProgramState(cocos2d::backend::Program *program)
     cocos2d::backend::ProgramState *ret = new cocos2d::backend::ProgramState(arg1);
     int num_ret = olua_push_object(L, ret, "ccb.ProgramState");
     olua_postnew(L, ret);
@@ -2208,7 +2503,7 @@ static int _cocos2d_backend_ProgramState_new(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_ProgramState_setParameterAutoBinding(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramState_setParameterAutoBinding(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2228,12 +2523,12 @@ static int _cocos2d_backend_ProgramState_setParameterAutoBinding(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_ProgramState_setTexture(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramState_setTexture(lua_State *L)
 {
     olua_startinvoke(L);
 
     cocos2d::backend::ProgramState *self = nullptr;
-    cocos2d::backend::UniformLocation arg1;       /** uniformLocation */
+    cocos2d::backend::UniformLocation *arg1;       /** uniformLocation */
     uint32_t arg2 = 0;       /** slot */
     cocos2d::backend::TextureBackend *arg3 = nullptr;       /** texture */
 
@@ -2243,19 +2538,19 @@ static int _cocos2d_backend_ProgramState_setTexture(lua_State *L)
     olua_check_object(L, 4, &arg3, "ccb.TextureBackend");
 
     // void setTexture(const cocos2d::backend::UniformLocation &uniformLocation, uint32_t slot, cocos2d::backend::TextureBackend *texture)
-    self->setTexture(arg1, arg2, arg3);
+    self->setTexture(*arg1, arg2, arg3);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _cocos2d_backend_ProgramState_setTextureArray(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramState_setTextureArray(lua_State *L)
 {
     olua_startinvoke(L);
 
     cocos2d::backend::ProgramState *self = nullptr;
-    cocos2d::backend::UniformLocation arg1;       /** uniformLocation */
+    cocos2d::backend::UniformLocation *arg1;       /** uniformLocation */
     std::vector<uint32_t> arg2;       /** slots */
     std::vector<cocos2d::backend::TextureBackend *> arg3;       /** textures */
 
@@ -2269,19 +2564,19 @@ static int _cocos2d_backend_ProgramState_setTextureArray(lua_State *L)
     });
 
     // void setTextureArray(const cocos2d::backend::UniformLocation &uniformLocation, const std::vector<uint32_t> &slots, const std::vector<cocos2d::backend::TextureBackend *> textures)
-    self->setTextureArray(arg1, arg2, arg3);
+    self->setTextureArray(*arg1, arg2, arg3);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _cocos2d_backend_ProgramState_setUniform(lua_State *L)
+static int _olua_fun_cocos2d_backend_ProgramState_setUniform(lua_State *L)
 {
     olua_startinvoke(L);
 
     cocos2d::backend::ProgramState *self = nullptr;
-    cocos2d::backend::UniformLocation arg1;       /** uniformLocation */
+    cocos2d::backend::UniformLocation *arg1;       /** uniformLocation */
     void *arg2 = nullptr;       /** data */
     std::size_t arg3 = 0;       /** size */
 
@@ -2291,38 +2586,47 @@ static int _cocos2d_backend_ProgramState_setUniform(lua_State *L)
     olua_check_integer(L, 4, &arg3);
 
     // void setUniform(const cocos2d::backend::UniformLocation &uniformLocation, const void *data, std::size_t size)
-    self->setUniform(arg1, arg2, arg3);
+    self->setUniform(*arg1, arg2, arg3);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_ProgramState(lua_State *L)
+static int _olua_cls_ccb_ProgramState(lua_State *L)
 {
     oluacls_class<cocos2d::backend::ProgramState, cocos2d::Ref>(L, "ccb.ProgramState");
-    oluacls_func(L, "clone", _cocos2d_backend_ProgramState_clone);
-    oluacls_func(L, "getAttributeLocation", _cocos2d_backend_ProgramState_getAttributeLocation);
-    oluacls_func(L, "getFragmentTextureInfos", _cocos2d_backend_ProgramState_getFragmentTextureInfos);
-    oluacls_func(L, "getProgram", _cocos2d_backend_ProgramState_getProgram);
-    oluacls_func(L, "getUniformLocation", _cocos2d_backend_ProgramState_getUniformLocation);
-    oluacls_func(L, "getVertexLayout", _cocos2d_backend_ProgramState_getVertexLayout);
-    oluacls_func(L, "getVertexTextureInfos", _cocos2d_backend_ProgramState_getVertexTextureInfos);
-    oluacls_func(L, "new", _cocos2d_backend_ProgramState_new);
-    oluacls_func(L, "setParameterAutoBinding", _cocos2d_backend_ProgramState_setParameterAutoBinding);
-    oluacls_func(L, "setTexture", _cocos2d_backend_ProgramState_setTexture);
-    oluacls_func(L, "setTextureArray", _cocos2d_backend_ProgramState_setTextureArray);
-    oluacls_func(L, "setUniform", _cocos2d_backend_ProgramState_setUniform);
-    oluacls_prop(L, "fragmentTextureInfos", _cocos2d_backend_ProgramState_getFragmentTextureInfos, nullptr);
-    oluacls_prop(L, "program", _cocos2d_backend_ProgramState_getProgram, nullptr);
-    oluacls_prop(L, "vertexTextureInfos", _cocos2d_backend_ProgramState_getVertexTextureInfos, nullptr);
+    oluacls_func(L, "clone", _olua_fun_cocos2d_backend_ProgramState_clone);
+    oluacls_func(L, "getAttributeLocation", _olua_fun_cocos2d_backend_ProgramState_getAttributeLocation);
+    oluacls_func(L, "getFragmentTextureInfos", _olua_fun_cocos2d_backend_ProgramState_getFragmentTextureInfos);
+    oluacls_func(L, "getProgram", _olua_fun_cocos2d_backend_ProgramState_getProgram);
+    oluacls_func(L, "getUniformLocation", _olua_fun_cocos2d_backend_ProgramState_getUniformLocation);
+    oluacls_func(L, "getVertexLayout", _olua_fun_cocos2d_backend_ProgramState_getVertexLayout);
+    oluacls_func(L, "getVertexTextureInfos", _olua_fun_cocos2d_backend_ProgramState_getVertexTextureInfos);
+    oluacls_func(L, "new", _olua_fun_cocos2d_backend_ProgramState_new);
+    oluacls_func(L, "setParameterAutoBinding", _olua_fun_cocos2d_backend_ProgramState_setParameterAutoBinding);
+    oluacls_func(L, "setTexture", _olua_fun_cocos2d_backend_ProgramState_setTexture);
+    oluacls_func(L, "setTextureArray", _olua_fun_cocos2d_backend_ProgramState_setTextureArray);
+    oluacls_func(L, "setUniform", _olua_fun_cocos2d_backend_ProgramState_setUniform);
+    oluacls_prop(L, "fragmentTextureInfos", _olua_fun_cocos2d_backend_ProgramState_getFragmentTextureInfos, nullptr);
+    oluacls_prop(L, "program", _olua_fun_cocos2d_backend_ProgramState_getProgram, nullptr);
+    oluacls_prop(L, "vertexTextureInfos", _olua_fun_cocos2d_backend_ProgramState_getVertexTextureInfos, nullptr);
 
+    return 1;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_ccb_ProgramState(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.ProgramState")) {
+        luaL_error(L, "class not found: cocos2d::backend::ProgramState");
+    }
     return 1;
 }
 OLUA_END_DECLS
 
-static int _cocos2d_backend_Program_getActiveAttributes(lua_State *L)
+static int _olua_fun_cocos2d_backend_Program_getActiveAttributes(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2334,7 +2638,7 @@ static int _cocos2d_backend_Program_getActiveAttributes(lua_State *L)
     const std::unordered_map<std::string, cocos2d::backend::AttributeBindInfo> ret = self->getActiveAttributes();
     int num_ret = olua_push_map<std::string, cocos2d::backend::AttributeBindInfo>(L, ret, [L](std::string &arg1, cocos2d::backend::AttributeBindInfo &arg2) {
         olua_push_string(L, arg1);
-        olua_pushcopy_object(L, arg2, "ccb.AttributeBindInfo");
+        olua_copy_object(L, arg2, "ccb.AttributeBindInfo");
     });
 
     olua_endinvoke(L);
@@ -2342,7 +2646,7 @@ static int _cocos2d_backend_Program_getActiveAttributes(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Program_getActiveUniformInfo(lua_State *L)
+static int _olua_fun_cocos2d_backend_Program_getActiveUniformInfo(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2363,7 +2667,7 @@ static int _cocos2d_backend_Program_getActiveUniformInfo(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Program_getAllActiveUniformInfo(lua_State *L)
+static int _olua_fun_cocos2d_backend_Program_getAllActiveUniformInfo(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2377,7 +2681,7 @@ static int _cocos2d_backend_Program_getAllActiveUniformInfo(lua_State *L)
     const std::unordered_map<std::string, cocos2d::backend::UniformInfo> &ret = self->getAllActiveUniformInfo(arg1);
     int num_ret = olua_push_map<std::string, cocos2d::backend::UniformInfo>(L, ret, [L](std::string &arg1, cocos2d::backend::UniformInfo &arg2) {
         olua_push_string(L, arg1);
-        olua_pushcopy_object(L, arg2, "ccb.UniformInfo");
+        olua_copy_object(L, arg2, "ccb.UniformInfo");
     });
 
     olua_endinvoke(L);
@@ -2385,7 +2689,7 @@ static int _cocos2d_backend_Program_getAllActiveUniformInfo(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Program_getAttributeLocation$1(lua_State *L)
+static int _olua_fun_cocos2d_backend_Program_getAttributeLocation$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2404,7 +2708,7 @@ static int _cocos2d_backend_Program_getAttributeLocation$1(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Program_getAttributeLocation$2(lua_State *L)
+static int _olua_fun_cocos2d_backend_Program_getAttributeLocation$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2423,19 +2727,19 @@ static int _cocos2d_backend_Program_getAttributeLocation$2(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Program_getAttributeLocation(lua_State *L)
+static int _olua_fun_cocos2d_backend_Program_getAttributeLocation(lua_State *L)
 {
-    int num_args = lua_gettop(L) - 1;
+    int num_args = lua_gettop(L);
 
-    if (num_args == 1) {
-        if ((olua_is_string(L, 2))) {
+    if (num_args == 2) {
+        if ((olua_is_object(L, 1, "ccb.Program")) && (olua_is_string(L, 2))) {
             // int getAttributeLocation(const std::string &name)
-            return _cocos2d_backend_Program_getAttributeLocation$1(L);
+            return _olua_fun_cocos2d_backend_Program_getAttributeLocation$1(L);
         }
 
-        // if ((olua_is_enum(L, 2))) {
+        // if ((olua_is_object(L, 1, "ccb.Program")) && (olua_is_enum(L, 2))) {
             // int getAttributeLocation(cocos2d::backend::Attribute name)
-            return _cocos2d_backend_Program_getAttributeLocation$2(L);
+            return _olua_fun_cocos2d_backend_Program_getAttributeLocation$2(L);
         // }
     }
 
@@ -2444,7 +2748,7 @@ static int _cocos2d_backend_Program_getAttributeLocation(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_Program_getBuiltinProgram(lua_State *L)
+static int _olua_fun_cocos2d_backend_Program_getBuiltinProgram(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2461,7 +2765,7 @@ static int _cocos2d_backend_Program_getBuiltinProgram(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Program_getFragmentShader(lua_State *L)
+static int _olua_fun_cocos2d_backend_Program_getFragmentShader(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2478,7 +2782,7 @@ static int _cocos2d_backend_Program_getFragmentShader(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Program_getMaxFragmentLocation(lua_State *L)
+static int _olua_fun_cocos2d_backend_Program_getMaxFragmentLocation(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2495,7 +2799,7 @@ static int _cocos2d_backend_Program_getMaxFragmentLocation(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Program_getMaxVertexLocation(lua_State *L)
+static int _olua_fun_cocos2d_backend_Program_getMaxVertexLocation(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2512,7 +2816,7 @@ static int _cocos2d_backend_Program_getMaxVertexLocation(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Program_getProgramType(lua_State *L)
+static int _olua_fun_cocos2d_backend_Program_getProgramType(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2529,7 +2833,7 @@ static int _cocos2d_backend_Program_getProgramType(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Program_getUniformBufferSize(lua_State *L)
+static int _olua_fun_cocos2d_backend_Program_getUniformBufferSize(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2548,7 +2852,7 @@ static int _cocos2d_backend_Program_getUniformBufferSize(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Program_getUniformLocation$1(lua_State *L)
+static int _olua_fun_cocos2d_backend_Program_getUniformLocation$1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2560,14 +2864,14 @@ static int _cocos2d_backend_Program_getUniformLocation$1(lua_State *L)
 
     // cocos2d::backend::UniformLocation getUniformLocation(const std::string &uniform)
     cocos2d::backend::UniformLocation ret = self->getUniformLocation(arg1);
-    int num_ret = olua_pushcopy_object(L, ret, "ccb.UniformLocation");
+    int num_ret = olua_copy_object(L, ret, "ccb.UniformLocation");
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _cocos2d_backend_Program_getUniformLocation$2(lua_State *L)
+static int _olua_fun_cocos2d_backend_Program_getUniformLocation$2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2579,26 +2883,26 @@ static int _cocos2d_backend_Program_getUniformLocation$2(lua_State *L)
 
     // cocos2d::backend::UniformLocation getUniformLocation(cocos2d::backend::Uniform name)
     cocos2d::backend::UniformLocation ret = self->getUniformLocation(arg1);
-    int num_ret = olua_pushcopy_object(L, ret, "ccb.UniformLocation");
+    int num_ret = olua_copy_object(L, ret, "ccb.UniformLocation");
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _cocos2d_backend_Program_getUniformLocation(lua_State *L)
+static int _olua_fun_cocos2d_backend_Program_getUniformLocation(lua_State *L)
 {
-    int num_args = lua_gettop(L) - 1;
+    int num_args = lua_gettop(L);
 
-    if (num_args == 1) {
-        if ((olua_is_string(L, 2))) {
+    if (num_args == 2) {
+        if ((olua_is_object(L, 1, "ccb.Program")) && (olua_is_string(L, 2))) {
             // cocos2d::backend::UniformLocation getUniformLocation(const std::string &uniform)
-            return _cocos2d_backend_Program_getUniformLocation$1(L);
+            return _olua_fun_cocos2d_backend_Program_getUniformLocation$1(L);
         }
 
-        // if ((olua_is_enum(L, 2))) {
+        // if ((olua_is_object(L, 1, "ccb.Program")) && (olua_is_enum(L, 2))) {
             // cocos2d::backend::UniformLocation getUniformLocation(cocos2d::backend::Uniform name)
-            return _cocos2d_backend_Program_getUniformLocation$2(L);
+            return _olua_fun_cocos2d_backend_Program_getUniformLocation$2(L);
         // }
     }
 
@@ -2607,7 +2911,7 @@ static int _cocos2d_backend_Program_getUniformLocation(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_Program_getVertexShader(lua_State *L)
+static int _olua_fun_cocos2d_backend_Program_getVertexShader(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2624,34 +2928,43 @@ static int _cocos2d_backend_Program_getVertexShader(lua_State *L)
     return num_ret;
 }
 
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_Program(lua_State *L)
+static int _olua_cls_ccb_Program(lua_State *L)
 {
     oluacls_class<cocos2d::backend::Program, cocos2d::Ref>(L, "ccb.Program");
-    oluacls_func(L, "getActiveAttributes", _cocos2d_backend_Program_getActiveAttributes);
-    oluacls_func(L, "getActiveUniformInfo", _cocos2d_backend_Program_getActiveUniformInfo);
-    oluacls_func(L, "getAllActiveUniformInfo", _cocos2d_backend_Program_getAllActiveUniformInfo);
-    oluacls_func(L, "getAttributeLocation", _cocos2d_backend_Program_getAttributeLocation);
-    oluacls_func(L, "getBuiltinProgram", _cocos2d_backend_Program_getBuiltinProgram);
-    oluacls_func(L, "getFragmentShader", _cocos2d_backend_Program_getFragmentShader);
-    oluacls_func(L, "getMaxFragmentLocation", _cocos2d_backend_Program_getMaxFragmentLocation);
-    oluacls_func(L, "getMaxVertexLocation", _cocos2d_backend_Program_getMaxVertexLocation);
-    oluacls_func(L, "getProgramType", _cocos2d_backend_Program_getProgramType);
-    oluacls_func(L, "getUniformBufferSize", _cocos2d_backend_Program_getUniformBufferSize);
-    oluacls_func(L, "getUniformLocation", _cocos2d_backend_Program_getUniformLocation);
-    oluacls_func(L, "getVertexShader", _cocos2d_backend_Program_getVertexShader);
-    oluacls_prop(L, "activeAttributes", _cocos2d_backend_Program_getActiveAttributes, nullptr);
-    oluacls_prop(L, "fragmentShader", _cocos2d_backend_Program_getFragmentShader, nullptr);
-    oluacls_prop(L, "maxFragmentLocation", _cocos2d_backend_Program_getMaxFragmentLocation, nullptr);
-    oluacls_prop(L, "maxVertexLocation", _cocos2d_backend_Program_getMaxVertexLocation, nullptr);
-    oluacls_prop(L, "programType", _cocos2d_backend_Program_getProgramType, nullptr);
-    oluacls_prop(L, "vertexShader", _cocos2d_backend_Program_getVertexShader, nullptr);
+    oluacls_func(L, "getActiveAttributes", _olua_fun_cocos2d_backend_Program_getActiveAttributes);
+    oluacls_func(L, "getActiveUniformInfo", _olua_fun_cocos2d_backend_Program_getActiveUniformInfo);
+    oluacls_func(L, "getAllActiveUniformInfo", _olua_fun_cocos2d_backend_Program_getAllActiveUniformInfo);
+    oluacls_func(L, "getAttributeLocation", _olua_fun_cocos2d_backend_Program_getAttributeLocation);
+    oluacls_func(L, "getBuiltinProgram", _olua_fun_cocos2d_backend_Program_getBuiltinProgram);
+    oluacls_func(L, "getFragmentShader", _olua_fun_cocos2d_backend_Program_getFragmentShader);
+    oluacls_func(L, "getMaxFragmentLocation", _olua_fun_cocos2d_backend_Program_getMaxFragmentLocation);
+    oluacls_func(L, "getMaxVertexLocation", _olua_fun_cocos2d_backend_Program_getMaxVertexLocation);
+    oluacls_func(L, "getProgramType", _olua_fun_cocos2d_backend_Program_getProgramType);
+    oluacls_func(L, "getUniformBufferSize", _olua_fun_cocos2d_backend_Program_getUniformBufferSize);
+    oluacls_func(L, "getUniformLocation", _olua_fun_cocos2d_backend_Program_getUniformLocation);
+    oluacls_func(L, "getVertexShader", _olua_fun_cocos2d_backend_Program_getVertexShader);
+    oluacls_prop(L, "activeAttributes", _olua_fun_cocos2d_backend_Program_getActiveAttributes, nullptr);
+    oluacls_prop(L, "fragmentShader", _olua_fun_cocos2d_backend_Program_getFragmentShader, nullptr);
+    oluacls_prop(L, "maxFragmentLocation", _olua_fun_cocos2d_backend_Program_getMaxFragmentLocation, nullptr);
+    oluacls_prop(L, "maxVertexLocation", _olua_fun_cocos2d_backend_Program_getMaxVertexLocation, nullptr);
+    oluacls_prop(L, "programType", _olua_fun_cocos2d_backend_Program_getProgramType, nullptr);
+    oluacls_prop(L, "vertexShader", _olua_fun_cocos2d_backend_Program_getVertexShader, nullptr);
 
+    return 1;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_ccb_Program(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.Program")) {
+        luaL_error(L, "class not found: cocos2d::backend::Program");
+    }
     return 1;
 }
 OLUA_END_DECLS
 
-static int _cocos2d_backend_TextureBackend_generateMipmaps(lua_State *L)
+static int _olua_fun_cocos2d_backend_TextureBackend_generateMipmaps(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2667,7 +2980,7 @@ static int _cocos2d_backend_TextureBackend_generateMipmaps(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_TextureBackend_getBytes(lua_State *L)
+static int _olua_fun_cocos2d_backend_TextureBackend_getBytes(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2689,17 +3002,18 @@ static int _cocos2d_backend_TextureBackend_getBytes(lua_State *L)
 
     void *cb_store = (void *)self;
     std::string cb_tag = "Bytes";
-    std::string cb_name = olua_setcallback(L, cb_store,  7, cb_tag.c_str(), OLUA_TAG_NEW);
+    std::string cb_name = olua_setcallback(L, cb_store, 7, cb_tag.c_str(), OLUA_TAG_NEW);
     olua_Context cb_ctx = olua_context(L);
-    arg6 = [cb_store, cb_name, cb_ctx](const unsigned char *arg1, std::size_t arg2, std::size_t arg3) {
+    // lua_State *ML = olua_mainthread(L);
+    arg6 = [cb_store, cb_name, cb_ctx /*, ML */](const unsigned char *cb_arg1, std::size_t cb_arg2, std::size_t cb_arg3) {
         lua_State *L = olua_mainthread(NULL);
         olua_checkhostthread();
 
         if (olua_contextequal(L, cb_ctx)) {
             int top = lua_gettop(L);
-            olua_push_string(L, arg1);
-            olua_push_integer(L, arg2);
-            olua_push_integer(L, arg3);
+            olua_push_string(L, cb_arg1);
+            olua_push_integer(L, cb_arg2);
+            olua_push_integer(L, cb_arg3);
 
             olua_callback(L, cb_store, cb_name.c_str(), 3);
 
@@ -2709,7 +3023,7 @@ static int _cocos2d_backend_TextureBackend_getBytes(lua_State *L)
         }
     };
 
-    // void getBytes(std::size_t x, std::size_t y, std::size_t width, std::size_t height, bool flipImage, @localvar std::function<void (const unsigned char *, std::size_t, std::size_t)> callback)
+    // void getBytes(std::size_t x, std::size_t y, std::size_t width, std::size_t height, bool flipImage, std::function<void (const unsigned char *, std::size_t, std::size_t)> callback)
     self->getBytes(arg1, arg2, arg3, arg4, arg5, arg6);
 
     olua_endinvoke(L);
@@ -2717,7 +3031,7 @@ static int _cocos2d_backend_TextureBackend_getBytes(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_TextureBackend_getTextureFormat(lua_State *L)
+static int _olua_fun_cocos2d_backend_TextureBackend_getTextureFormat(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2734,7 +3048,7 @@ static int _cocos2d_backend_TextureBackend_getTextureFormat(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_TextureBackend_getTextureType(lua_State *L)
+static int _olua_fun_cocos2d_backend_TextureBackend_getTextureType(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2751,7 +3065,7 @@ static int _cocos2d_backend_TextureBackend_getTextureType(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_TextureBackend_getTextureUsage(lua_State *L)
+static int _olua_fun_cocos2d_backend_TextureBackend_getTextureUsage(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2768,7 +3082,7 @@ static int _cocos2d_backend_TextureBackend_getTextureUsage(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_TextureBackend_hasMipmaps(lua_State *L)
+static int _olua_fun_cocos2d_backend_TextureBackend_hasMipmaps(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2785,63 +3099,72 @@ static int _cocos2d_backend_TextureBackend_hasMipmaps(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_TextureBackend_updateSamplerDescriptor(lua_State *L)
+static int _olua_fun_cocos2d_backend_TextureBackend_updateSamplerDescriptor(lua_State *L)
 {
     olua_startinvoke(L);
 
     cocos2d::backend::TextureBackend *self = nullptr;
-    cocos2d::backend::SamplerDescriptor arg1;       /** sampler */
+    cocos2d::backend::SamplerDescriptor *arg1;       /** sampler */
 
     olua_to_object(L, 1, &self, "ccb.TextureBackend");
     olua_check_object(L, 2, &arg1, "ccb.SamplerDescriptor");
 
     // void updateSamplerDescriptor(const cocos2d::backend::SamplerDescriptor &sampler)
-    self->updateSamplerDescriptor(arg1);
+    self->updateSamplerDescriptor(*arg1);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _cocos2d_backend_TextureBackend_updateTextureDescriptor(lua_State *L)
+static int _olua_fun_cocos2d_backend_TextureBackend_updateTextureDescriptor(lua_State *L)
 {
     olua_startinvoke(L);
 
     cocos2d::backend::TextureBackend *self = nullptr;
-    cocos2d::backend::TextureDescriptor arg1;       /** descriptor */
+    cocos2d::backend::TextureDescriptor *arg1;       /** descriptor */
 
     olua_to_object(L, 1, &self, "ccb.TextureBackend");
     olua_check_object(L, 2, &arg1, "ccb.TextureDescriptor");
 
     // void updateTextureDescriptor(const cocos2d::backend::TextureDescriptor &descriptor)
-    self->updateTextureDescriptor(arg1);
+    self->updateTextureDescriptor(*arg1);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_TextureBackend(lua_State *L)
+static int _olua_cls_ccb_TextureBackend(lua_State *L)
 {
     oluacls_class<cocos2d::backend::TextureBackend, cocos2d::Ref>(L, "ccb.TextureBackend");
-    oluacls_func(L, "generateMipmaps", _cocos2d_backend_TextureBackend_generateMipmaps);
-    oluacls_func(L, "getBytes", _cocos2d_backend_TextureBackend_getBytes);
-    oluacls_func(L, "getTextureFormat", _cocos2d_backend_TextureBackend_getTextureFormat);
-    oluacls_func(L, "getTextureType", _cocos2d_backend_TextureBackend_getTextureType);
-    oluacls_func(L, "getTextureUsage", _cocos2d_backend_TextureBackend_getTextureUsage);
-    oluacls_func(L, "hasMipmaps", _cocos2d_backend_TextureBackend_hasMipmaps);
-    oluacls_func(L, "updateSamplerDescriptor", _cocos2d_backend_TextureBackend_updateSamplerDescriptor);
-    oluacls_func(L, "updateTextureDescriptor", _cocos2d_backend_TextureBackend_updateTextureDescriptor);
-    oluacls_prop(L, "textureFormat", _cocos2d_backend_TextureBackend_getTextureFormat, nullptr);
-    oluacls_prop(L, "textureType", _cocos2d_backend_TextureBackend_getTextureType, nullptr);
-    oluacls_prop(L, "textureUsage", _cocos2d_backend_TextureBackend_getTextureUsage, nullptr);
+    oluacls_func(L, "generateMipmaps", _olua_fun_cocos2d_backend_TextureBackend_generateMipmaps);
+    oluacls_func(L, "getBytes", _olua_fun_cocos2d_backend_TextureBackend_getBytes);
+    oluacls_func(L, "getTextureFormat", _olua_fun_cocos2d_backend_TextureBackend_getTextureFormat);
+    oluacls_func(L, "getTextureType", _olua_fun_cocos2d_backend_TextureBackend_getTextureType);
+    oluacls_func(L, "getTextureUsage", _olua_fun_cocos2d_backend_TextureBackend_getTextureUsage);
+    oluacls_func(L, "hasMipmaps", _olua_fun_cocos2d_backend_TextureBackend_hasMipmaps);
+    oluacls_func(L, "updateSamplerDescriptor", _olua_fun_cocos2d_backend_TextureBackend_updateSamplerDescriptor);
+    oluacls_func(L, "updateTextureDescriptor", _olua_fun_cocos2d_backend_TextureBackend_updateTextureDescriptor);
+    oluacls_prop(L, "textureFormat", _olua_fun_cocos2d_backend_TextureBackend_getTextureFormat, nullptr);
+    oluacls_prop(L, "textureType", _olua_fun_cocos2d_backend_TextureBackend_getTextureType, nullptr);
+    oluacls_prop(L, "textureUsage", _olua_fun_cocos2d_backend_TextureBackend_getTextureUsage, nullptr);
 
+    return 1;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_ccb_TextureBackend(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.TextureBackend")) {
+        luaL_error(L, "class not found: cocos2d::backend::TextureBackend");
+    }
     return 1;
 }
 OLUA_END_DECLS
 
-static int _cocos2d_backend_Texture2DBackend_getHeight(lua_State *L)
+static int _olua_fun_cocos2d_backend_Texture2DBackend_getHeight(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2858,7 +3181,7 @@ static int _cocos2d_backend_Texture2DBackend_getHeight(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Texture2DBackend_getWidth(lua_State *L)
+static int _olua_fun_cocos2d_backend_Texture2DBackend_getWidth(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2875,7 +3198,7 @@ static int _cocos2d_backend_Texture2DBackend_getWidth(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_backend_Texture2DBackend_updateCompressedData(lua_State *L)
+static int _olua_fun_cocos2d_backend_Texture2DBackend_updateCompressedData(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2887,7 +3210,7 @@ static int _cocos2d_backend_Texture2DBackend_updateCompressedData(lua_State *L)
     std::size_t arg5 = 0;       /** level */
 
     olua_to_object(L, 1, &self, "ccb.Texture2DBackend");
-    olua_check_pointer(L, 2, &arg1, "olua.uint8_t");
+    olua_check_pointer(L, 2, &arg1, "olua.uint8");
     olua_check_integer(L, 3, &arg2);
     olua_check_integer(L, 4, &arg3);
     olua_check_integer(L, 5, &arg4);
@@ -2901,7 +3224,7 @@ static int _cocos2d_backend_Texture2DBackend_updateCompressedData(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_Texture2DBackend_updateCompressedSubData(lua_State *L)
+static int _olua_fun_cocos2d_backend_Texture2DBackend_updateCompressedSubData(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2921,7 +3244,7 @@ static int _cocos2d_backend_Texture2DBackend_updateCompressedSubData(lua_State *
     olua_check_integer(L, 5, &arg4);
     olua_check_integer(L, 6, &arg5);
     olua_check_integer(L, 7, &arg6);
-    olua_check_pointer(L, 8, &arg7, "olua.uint8_t");
+    olua_check_pointer(L, 8, &arg7, "olua.uint8");
 
     // void updateCompressedSubData(std::size_t xoffset, std::size_t yoffset, std::size_t width, std::size_t height, std::size_t dataLen, std::size_t level, uint8_t *data)
     self->updateCompressedSubData(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
@@ -2931,7 +3254,7 @@ static int _cocos2d_backend_Texture2DBackend_updateCompressedSubData(lua_State *
     return 0;
 }
 
-static int _cocos2d_backend_Texture2DBackend_updateData(lua_State *L)
+static int _olua_fun_cocos2d_backend_Texture2DBackend_updateData(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2942,7 +3265,7 @@ static int _cocos2d_backend_Texture2DBackend_updateData(lua_State *L)
     std::size_t arg4 = 0;       /** level */
 
     olua_to_object(L, 1, &self, "ccb.Texture2DBackend");
-    olua_check_pointer(L, 2, &arg1, "olua.uint8_t");
+    olua_check_pointer(L, 2, &arg1, "olua.uint8");
     olua_check_integer(L, 3, &arg2);
     olua_check_integer(L, 4, &arg3);
     olua_check_integer(L, 5, &arg4);
@@ -2955,7 +3278,7 @@ static int _cocos2d_backend_Texture2DBackend_updateData(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_backend_Texture2DBackend_updateSubData(lua_State *L)
+static int _olua_fun_cocos2d_backend_Texture2DBackend_updateSubData(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2973,7 +3296,7 @@ static int _cocos2d_backend_Texture2DBackend_updateSubData(lua_State *L)
     olua_check_integer(L, 4, &arg3);
     olua_check_integer(L, 5, &arg4);
     olua_check_integer(L, 6, &arg5);
-    olua_check_pointer(L, 7, &arg6, "olua.uint8_t");
+    olua_check_pointer(L, 7, &arg6, "olua.uint8");
 
     // void updateSubData(std::size_t xoffset, std::size_t yoffset, std::size_t width, std::size_t height, std::size_t level, uint8_t *data)
     self->updateSubData(arg1, arg2, arg3, arg4, arg5, arg6);
@@ -2983,24 +3306,33 @@ static int _cocos2d_backend_Texture2DBackend_updateSubData(lua_State *L)
     return 0;
 }
 
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_Texture2DBackend(lua_State *L)
+static int _olua_cls_ccb_Texture2DBackend(lua_State *L)
 {
     oluacls_class<cocos2d::backend::Texture2DBackend, cocos2d::backend::TextureBackend>(L, "ccb.Texture2DBackend");
-    oluacls_func(L, "getHeight", _cocos2d_backend_Texture2DBackend_getHeight);
-    oluacls_func(L, "getWidth", _cocos2d_backend_Texture2DBackend_getWidth);
-    oluacls_func(L, "updateCompressedData", _cocos2d_backend_Texture2DBackend_updateCompressedData);
-    oluacls_func(L, "updateCompressedSubData", _cocos2d_backend_Texture2DBackend_updateCompressedSubData);
-    oluacls_func(L, "updateData", _cocos2d_backend_Texture2DBackend_updateData);
-    oluacls_func(L, "updateSubData", _cocos2d_backend_Texture2DBackend_updateSubData);
-    oluacls_prop(L, "height", _cocos2d_backend_Texture2DBackend_getHeight, nullptr);
-    oluacls_prop(L, "width", _cocos2d_backend_Texture2DBackend_getWidth, nullptr);
+    oluacls_func(L, "getHeight", _olua_fun_cocos2d_backend_Texture2DBackend_getHeight);
+    oluacls_func(L, "getWidth", _olua_fun_cocos2d_backend_Texture2DBackend_getWidth);
+    oluacls_func(L, "updateCompressedData", _olua_fun_cocos2d_backend_Texture2DBackend_updateCompressedData);
+    oluacls_func(L, "updateCompressedSubData", _olua_fun_cocos2d_backend_Texture2DBackend_updateCompressedSubData);
+    oluacls_func(L, "updateData", _olua_fun_cocos2d_backend_Texture2DBackend_updateData);
+    oluacls_func(L, "updateSubData", _olua_fun_cocos2d_backend_Texture2DBackend_updateSubData);
+    oluacls_prop(L, "height", _olua_fun_cocos2d_backend_Texture2DBackend_getHeight, nullptr);
+    oluacls_prop(L, "width", _olua_fun_cocos2d_backend_Texture2DBackend_getWidth, nullptr);
 
+    return 1;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_ccb_Texture2DBackend(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.Texture2DBackend")) {
+        luaL_error(L, "class not found: cocos2d::backend::Texture2DBackend");
+    }
     return 1;
 }
 OLUA_END_DECLS
 
-static int _cocos2d_backend_TextureCubemapBackend_updateFaceData(lua_State *L)
+static int _olua_fun_cocos2d_backend_TextureCubemapBackend_updateFaceData(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3020,59 +3352,75 @@ static int _cocos2d_backend_TextureCubemapBackend_updateFaceData(lua_State *L)
     return 0;
 }
 
-OLUA_BEGIN_DECLS
-OLUA_LIB int luaopen_cocos2d_backend_TextureCubemapBackend(lua_State *L)
+static int _olua_cls_ccb_TextureCubemapBackend(lua_State *L)
 {
     oluacls_class<cocos2d::backend::TextureCubemapBackend, cocos2d::backend::TextureBackend>(L, "ccb.TextureCubemapBackend");
-    oluacls_func(L, "updateFaceData", _cocos2d_backend_TextureCubemapBackend_updateFaceData);
+    oluacls_func(L, "updateFaceData", _olua_fun_cocos2d_backend_TextureCubemapBackend_updateFaceData);
 
+    return 1;
+}
+
+OLUA_BEGIN_DECLS
+OLUA_LIB int luaopen_ccb_TextureCubemapBackend(lua_State *L)
+{
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
+    if (!olua_getclass(L, "ccb.TextureCubemapBackend")) {
+        luaL_error(L, "class not found: cocos2d::backend::TextureCubemapBackend");
+    }
     return 1;
 }
 OLUA_END_DECLS
 
+int _olua_module_cocos2d_backend(lua_State *L)
+{
+    olua_require(L, "ccb.UniformLocation", _olua_cls_ccb_UniformLocation);
+    olua_require(L, "ccb.BufferUsage", _olua_cls_ccb_BufferUsage);
+    olua_require(L, "ccb.BufferType", _olua_cls_ccb_BufferType);
+    olua_require(L, "ccb.ShaderStage", _olua_cls_ccb_ShaderStage);
+    olua_require(L, "ccb.VertexFormat", _olua_cls_ccb_VertexFormat);
+    olua_require(L, "ccb.PixelFormat", _olua_cls_ccb_PixelFormat);
+    olua_require(L, "ccb.TextureUsage", _olua_cls_ccb_TextureUsage);
+    olua_require(L, "ccb.IndexFormat", _olua_cls_ccb_IndexFormat);
+    olua_require(L, "ccb.VertexStepMode", _olua_cls_ccb_VertexStepMode);
+    olua_require(L, "ccb.PrimitiveType", _olua_cls_ccb_PrimitiveType);
+    olua_require(L, "ccb.TextureType", _olua_cls_ccb_TextureType);
+    olua_require(L, "ccb.SamplerAddressMode", _olua_cls_ccb_SamplerAddressMode);
+    olua_require(L, "ccb.SamplerFilter", _olua_cls_ccb_SamplerFilter);
+    olua_require(L, "ccb.StencilOperation", _olua_cls_ccb_StencilOperation);
+    olua_require(L, "ccb.CompareFunction", _olua_cls_ccb_CompareFunction);
+    olua_require(L, "ccb.BlendOperation", _olua_cls_ccb_BlendOperation);
+    olua_require(L, "ccb.BlendFactor", _olua_cls_ccb_BlendFactor);
+    olua_require(L, "ccb.ColorWriteMask", _olua_cls_ccb_ColorWriteMask);
+    olua_require(L, "ccb.CullMode", _olua_cls_ccb_CullMode);
+    olua_require(L, "ccb.Winding", _olua_cls_ccb_Winding);
+    olua_require(L, "ccb.TextureCubeFace", _olua_cls_ccb_TextureCubeFace);
+    olua_require(L, "ccb.ProgramType", _olua_cls_ccb_ProgramType);
+    olua_require(L, "ccb.Uniform", _olua_cls_ccb_Uniform);
+    olua_require(L, "ccb.Attribute", _olua_cls_ccb_Attribute);
+    olua_require(L, "ccb.FeatureType", _olua_cls_ccb_FeatureType);
+    olua_require(L, "ccb.Buffer", _olua_cls_ccb_Buffer);
+    olua_require(L, "ccb.RenderPipeline", _olua_cls_ccb_RenderPipeline);
+    olua_require(L, "ccb.DepthStencilState", _olua_cls_ccb_DepthStencilState);
+    olua_require(L, "ccb.VertexLayout", _olua_cls_ccb_VertexLayout);
+    olua_require(L, "ccb.CommandBuffer", _olua_cls_ccb_CommandBuffer);
+    olua_require(L, "ccb.Device", _olua_cls_ccb_Device);
+    olua_require(L, "ccb.DeviceInfo", _olua_cls_ccb_DeviceInfo);
+    olua_require(L, "ccb.ShaderCache", _olua_cls_ccb_ShaderCache);
+    olua_require(L, "ccb.ShaderModule", _olua_cls_ccb_ShaderModule);
+    olua_require(L, "ccb.ProgramCache", _olua_cls_ccb_ProgramCache);
+    olua_require(L, "ccb.ProgramState", _olua_cls_ccb_ProgramState);
+    olua_require(L, "ccb.Program", _olua_cls_ccb_Program);
+    olua_require(L, "ccb.TextureBackend", _olua_cls_ccb_TextureBackend);
+    olua_require(L, "ccb.Texture2DBackend", _olua_cls_ccb_Texture2DBackend);
+    olua_require(L, "ccb.TextureCubemapBackend", _olua_cls_ccb_TextureCubemapBackend);
+
+    return 0;
+}
+
 OLUA_BEGIN_DECLS
 OLUA_LIB int luaopen_cocos2d_backend(lua_State *L)
 {
-    olua_require(L, "ccb.UniformLocation", luaopen_cocos2d_backend_UniformLocation);
-    olua_require(L, "ccb.BufferUsage", luaopen_cocos2d_backend_BufferUsage);
-    olua_require(L, "ccb.BufferType", luaopen_cocos2d_backend_BufferType);
-    olua_require(L, "ccb.ShaderStage", luaopen_cocos2d_backend_ShaderStage);
-    olua_require(L, "ccb.VertexFormat", luaopen_cocos2d_backend_VertexFormat);
-    olua_require(L, "ccb.PixelFormat", luaopen_cocos2d_backend_PixelFormat);
-    olua_require(L, "ccb.TextureUsage", luaopen_cocos2d_backend_TextureUsage);
-    olua_require(L, "ccb.IndexFormat", luaopen_cocos2d_backend_IndexFormat);
-    olua_require(L, "ccb.VertexStepMode", luaopen_cocos2d_backend_VertexStepMode);
-    olua_require(L, "ccb.PrimitiveType", luaopen_cocos2d_backend_PrimitiveType);
-    olua_require(L, "ccb.TextureType", luaopen_cocos2d_backend_TextureType);
-    olua_require(L, "ccb.SamplerAddressMode", luaopen_cocos2d_backend_SamplerAddressMode);
-    olua_require(L, "ccb.SamplerFilter", luaopen_cocos2d_backend_SamplerFilter);
-    olua_require(L, "ccb.StencilOperation", luaopen_cocos2d_backend_StencilOperation);
-    olua_require(L, "ccb.CompareFunction", luaopen_cocos2d_backend_CompareFunction);
-    olua_require(L, "ccb.BlendOperation", luaopen_cocos2d_backend_BlendOperation);
-    olua_require(L, "ccb.BlendFactor", luaopen_cocos2d_backend_BlendFactor);
-    olua_require(L, "ccb.ColorWriteMask", luaopen_cocos2d_backend_ColorWriteMask);
-    olua_require(L, "ccb.CullMode", luaopen_cocos2d_backend_CullMode);
-    olua_require(L, "ccb.Winding", luaopen_cocos2d_backend_Winding);
-    olua_require(L, "ccb.TextureCubeFace", luaopen_cocos2d_backend_TextureCubeFace);
-    olua_require(L, "ccb.ProgramType", luaopen_cocos2d_backend_ProgramType);
-    olua_require(L, "ccb.Uniform", luaopen_cocos2d_backend_Uniform);
-    olua_require(L, "ccb.Attribute", luaopen_cocos2d_backend_Attribute);
-    olua_require(L, "ccb.FeatureType", luaopen_cocos2d_backend_FeatureType);
-    olua_require(L, "ccb.Buffer", luaopen_cocos2d_backend_Buffer);
-    olua_require(L, "ccb.RenderPipeline", luaopen_cocos2d_backend_RenderPipeline);
-    olua_require(L, "ccb.DepthStencilState", luaopen_cocos2d_backend_DepthStencilState);
-    olua_require(L, "ccb.VertexLayout", luaopen_cocos2d_backend_VertexLayout);
-    olua_require(L, "ccb.CommandBuffer", luaopen_cocos2d_backend_CommandBuffer);
-    olua_require(L, "ccb.Device", luaopen_cocos2d_backend_Device);
-    olua_require(L, "ccb.DeviceInfo", luaopen_cocos2d_backend_DeviceInfo);
-    olua_require(L, "ccb.ShaderCache", luaopen_cocos2d_backend_ShaderCache);
-    olua_require(L, "ccb.ShaderModule", luaopen_cocos2d_backend_ShaderModule);
-    olua_require(L, "ccb.ProgramCache", luaopen_cocos2d_backend_ProgramCache);
-    olua_require(L, "ccb.ProgramState", luaopen_cocos2d_backend_ProgramState);
-    olua_require(L, "ccb.Program", luaopen_cocos2d_backend_Program);
-    olua_require(L, "ccb.TextureBackend", luaopen_cocos2d_backend_TextureBackend);
-    olua_require(L, "ccb.Texture2DBackend", luaopen_cocos2d_backend_Texture2DBackend);
-    olua_require(L, "ccb.TextureCubemapBackend", luaopen_cocos2d_backend_TextureCubemapBackend);
+    olua_require(L, "cocos2d_backend",  _olua_module_cocos2d_backend);
 
     return 0;
 }

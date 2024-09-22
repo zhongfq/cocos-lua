@@ -1,6 +1,8 @@
 module 'huawei'
 
-path "../../frameworks/plugins/huawei"
+output_dir "../../frameworks/plugins/huawei"
+
+api_dir"../../addons/cclua/plugin/huawei"
 
 headers [[
 #include "lua-bindings/lua_cocos2d_types.h"
@@ -10,5 +12,5 @@ headers [[
 
 macro '#ifdef CCLUA_BUILD_HUAWEI'
 typeconf "cclua::plugin::huawei"
-macro ''
+macro '#endif'
 
